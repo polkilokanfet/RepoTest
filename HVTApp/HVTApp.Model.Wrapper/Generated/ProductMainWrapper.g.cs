@@ -22,21 +22,53 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public ProductsMainGroupWrapper ProductsMainGroup { get; private set; }
+	public ProductsMainGroupWrapper ProductsMainGroup
+	{
+		get { return GetComplexProperty<ProductsMainGroup, ProductsMainGroupWrapper>(nameof(ProductsMainGroup)); }
+		set { SetComplexProperty<ProductsMainGroup, ProductsMainGroupWrapper>(value, this.ProductsMainGroup, nameof(ProductsMainGroup)); }
+	}
 
-    public EquipmentWrapper Equipment { get; private set; }
+	public EquipmentWrapper Equipment
+	{
+		get { return GetComplexProperty<Equipment, EquipmentWrapper>(nameof(Equipment)); }
+		set { SetComplexProperty<Equipment, EquipmentWrapper>(value, this.Equipment, nameof(Equipment)); }
+	}
 
-    public TenderInfoWrapper TenderInfo { get; private set; }
+	public TenderInfoWrapper TenderInfo
+	{
+		get { return GetComplexProperty<TenderInfo, TenderInfoWrapper>(nameof(TenderInfo)); }
+		set { SetComplexProperty<TenderInfo, TenderInfoWrapper>(value, this.TenderInfo, nameof(TenderInfo)); }
+	}
 
-    public OrderInfoWrapper OrderInfo { get; private set; }
+	public OrderInfoWrapper OrderInfo
+	{
+		get { return GetComplexProperty<OrderInfo, OrderInfoWrapper>(nameof(OrderInfo)); }
+		set { SetComplexProperty<OrderInfo, OrderInfoWrapper>(value, this.OrderInfo, nameof(OrderInfo)); }
+	}
 
-    public DateInfoWrapper DateInfo { get; private set; }
+	public DateInfoWrapper DateInfo
+	{
+		get { return GetComplexProperty<DateInfo, DateInfoWrapper>(nameof(DateInfo)); }
+		set { SetComplexProperty<DateInfo, DateInfoWrapper>(value, this.DateInfo, nameof(DateInfo)); }
+	}
 
-    public TermsInfoWrapper TermsInfo { get; private set; }
+	public TermsInfoWrapper TermsInfo
+	{
+		get { return GetComplexProperty<TermsInfo, TermsInfoWrapper>(nameof(TermsInfo)); }
+		set { SetComplexProperty<TermsInfo, TermsInfoWrapper>(value, this.TermsInfo, nameof(TermsInfo)); }
+	}
 
-    public CostInfoWrapper CostInfo { get; private set; }
+	public CostInfoWrapper CostInfo
+	{
+		get { return GetComplexProperty<CostInfo, CostInfoWrapper>(nameof(CostInfo)); }
+		set { SetComplexProperty<CostInfo, CostInfoWrapper>(value, this.CostInfo, nameof(CostInfo)); }
+	}
 
-    public PaymentsInfoWrapper PaymentsInfo { get; private set; }
+	public PaymentsInfoWrapper PaymentsInfo
+	{
+		get { return GetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(nameof(PaymentsInfo)); }
+		set { SetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(value, this.PaymentsInfo, nameof(PaymentsInfo)); }
+	}
 
     #endregion
 
@@ -49,93 +81,117 @@ namespace HVTApp.Model.Wrapper
     
     protected override void InitializeComplexProperties(ProductMain model)
     {
-      if (model.ProductsMainGroup == null) throw new ArgumentException("ProductsMainGroup cannot be null");
-      if (ExistsWrappers.ContainsKey(model.ProductsMainGroup))
-      {
-          ProductsMainGroup = (ProductsMainGroupWrapper)ExistsWrappers[model.ProductsMainGroup];
-      }
-      else
-      {
-          ProductsMainGroup = new ProductsMainGroupWrapper(model.ProductsMainGroup, ExistsWrappers);
-          RegisterComplexProperty(ProductsMainGroup);
-      }
+		if (model.ProductsMainGroup != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.ProductsMainGroup))
+			{
+				ProductsMainGroup = (ProductsMainGroupWrapper)ExistsWrappers[model.ProductsMainGroup];
+			}
+			else
+			{
+				ProductsMainGroup = new ProductsMainGroupWrapper(model.ProductsMainGroup, ExistsWrappers);
+				//ExistsWrappers.Add(model.ProductsMainGroup, new ProductsMainGroupWrapper(model.ProductsMainGroup, ExistsWrappers));
+				RegisterComplexProperty(ProductsMainGroup);
+			}
+		}
 
-      if (model.Equipment == null) throw new ArgumentException("Equipment cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Equipment))
-      {
-          Equipment = (EquipmentWrapper)ExistsWrappers[model.Equipment];
-      }
-      else
-      {
-          Equipment = new EquipmentWrapper(model.Equipment, ExistsWrappers);
-          RegisterComplexProperty(Equipment);
-      }
+		if (model.Equipment != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Equipment))
+			{
+				Equipment = (EquipmentWrapper)ExistsWrappers[model.Equipment];
+			}
+			else
+			{
+				Equipment = new EquipmentWrapper(model.Equipment, ExistsWrappers);
+				//ExistsWrappers.Add(model.Equipment, new EquipmentWrapper(model.Equipment, ExistsWrappers));
+				RegisterComplexProperty(Equipment);
+			}
+		}
 
-      if (model.TenderInfo == null) throw new ArgumentException("TenderInfo cannot be null");
-      if (ExistsWrappers.ContainsKey(model.TenderInfo))
-      {
-          TenderInfo = (TenderInfoWrapper)ExistsWrappers[model.TenderInfo];
-      }
-      else
-      {
-          TenderInfo = new TenderInfoWrapper(model.TenderInfo, ExistsWrappers);
-          RegisterComplexProperty(TenderInfo);
-      }
+		if (model.TenderInfo != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.TenderInfo))
+			{
+				TenderInfo = (TenderInfoWrapper)ExistsWrappers[model.TenderInfo];
+			}
+			else
+			{
+				TenderInfo = new TenderInfoWrapper(model.TenderInfo, ExistsWrappers);
+				//ExistsWrappers.Add(model.TenderInfo, new TenderInfoWrapper(model.TenderInfo, ExistsWrappers));
+				RegisterComplexProperty(TenderInfo);
+			}
+		}
 
-      if (model.OrderInfo == null) throw new ArgumentException("OrderInfo cannot be null");
-      if (ExistsWrappers.ContainsKey(model.OrderInfo))
-      {
-          OrderInfo = (OrderInfoWrapper)ExistsWrappers[model.OrderInfo];
-      }
-      else
-      {
-          OrderInfo = new OrderInfoWrapper(model.OrderInfo, ExistsWrappers);
-          RegisterComplexProperty(OrderInfo);
-      }
+		if (model.OrderInfo != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.OrderInfo))
+			{
+				OrderInfo = (OrderInfoWrapper)ExistsWrappers[model.OrderInfo];
+			}
+			else
+			{
+				OrderInfo = new OrderInfoWrapper(model.OrderInfo, ExistsWrappers);
+				//ExistsWrappers.Add(model.OrderInfo, new OrderInfoWrapper(model.OrderInfo, ExistsWrappers));
+				RegisterComplexProperty(OrderInfo);
+			}
+		}
 
-      if (model.DateInfo == null) throw new ArgumentException("DateInfo cannot be null");
-      if (ExistsWrappers.ContainsKey(model.DateInfo))
-      {
-          DateInfo = (DateInfoWrapper)ExistsWrappers[model.DateInfo];
-      }
-      else
-      {
-          DateInfo = new DateInfoWrapper(model.DateInfo, ExistsWrappers);
-          RegisterComplexProperty(DateInfo);
-      }
+		if (model.DateInfo != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.DateInfo))
+			{
+				DateInfo = (DateInfoWrapper)ExistsWrappers[model.DateInfo];
+			}
+			else
+			{
+				DateInfo = new DateInfoWrapper(model.DateInfo, ExistsWrappers);
+				//ExistsWrappers.Add(model.DateInfo, new DateInfoWrapper(model.DateInfo, ExistsWrappers));
+				RegisterComplexProperty(DateInfo);
+			}
+		}
 
-      if (model.TermsInfo == null) throw new ArgumentException("TermsInfo cannot be null");
-      if (ExistsWrappers.ContainsKey(model.TermsInfo))
-      {
-          TermsInfo = (TermsInfoWrapper)ExistsWrappers[model.TermsInfo];
-      }
-      else
-      {
-          TermsInfo = new TermsInfoWrapper(model.TermsInfo, ExistsWrappers);
-          RegisterComplexProperty(TermsInfo);
-      }
+		if (model.TermsInfo != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.TermsInfo))
+			{
+				TermsInfo = (TermsInfoWrapper)ExistsWrappers[model.TermsInfo];
+			}
+			else
+			{
+				TermsInfo = new TermsInfoWrapper(model.TermsInfo, ExistsWrappers);
+				//ExistsWrappers.Add(model.TermsInfo, new TermsInfoWrapper(model.TermsInfo, ExistsWrappers));
+				RegisterComplexProperty(TermsInfo);
+			}
+		}
 
-      if (model.CostInfo == null) throw new ArgumentException("CostInfo cannot be null");
-      if (ExistsWrappers.ContainsKey(model.CostInfo))
-      {
-          CostInfo = (CostInfoWrapper)ExistsWrappers[model.CostInfo];
-      }
-      else
-      {
-          CostInfo = new CostInfoWrapper(model.CostInfo, ExistsWrappers);
-          RegisterComplexProperty(CostInfo);
-      }
+		if (model.CostInfo != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.CostInfo))
+			{
+				CostInfo = (CostInfoWrapper)ExistsWrappers[model.CostInfo];
+			}
+			else
+			{
+				CostInfo = new CostInfoWrapper(model.CostInfo, ExistsWrappers);
+				//ExistsWrappers.Add(model.CostInfo, new CostInfoWrapper(model.CostInfo, ExistsWrappers));
+				RegisterComplexProperty(CostInfo);
+			}
+		}
 
-      if (model.PaymentsInfo == null) throw new ArgumentException("PaymentsInfo cannot be null");
-      if (ExistsWrappers.ContainsKey(model.PaymentsInfo))
-      {
-          PaymentsInfo = (PaymentsInfoWrapper)ExistsWrappers[model.PaymentsInfo];
-      }
-      else
-      {
-          PaymentsInfo = new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers);
-          RegisterComplexProperty(PaymentsInfo);
-      }
+		if (model.PaymentsInfo != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.PaymentsInfo))
+			{
+				PaymentsInfo = (PaymentsInfoWrapper)ExistsWrappers[model.PaymentsInfo];
+			}
+			else
+			{
+				PaymentsInfo = new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers);
+				//ExistsWrappers.Add(model.PaymentsInfo, new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers));
+				RegisterComplexProperty(PaymentsInfo);
+			}
+		}
 
     }
   

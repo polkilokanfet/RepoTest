@@ -30,22 +30,29 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public TechParametersGroupWrapper Group { get; private set; }
+	public TechParametersGroupWrapper Group
+	{
+		get { return GetComplexProperty<TechParametersGroup, TechParametersGroupWrapper>(nameof(Group)); }
+		set { SetComplexProperty<TechParametersGroup, TechParametersGroupWrapper>(value, this.Group, nameof(Group)); }
+	}
 
     #endregion
     
     protected override void InitializeComplexProperties(TechParameter model)
     {
-      if (model.Group == null) throw new ArgumentException("Group cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Group))
-      {
-          Group = (TechParametersGroupWrapper)ExistsWrappers[model.Group];
-      }
-      else
-      {
-          Group = new TechParametersGroupWrapper(model.Group, ExistsWrappers);
-          RegisterComplexProperty(Group);
-      }
+		if (model.Group != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Group))
+			{
+				Group = (TechParametersGroupWrapper)ExistsWrappers[model.Group];
+			}
+			else
+			{
+				Group = new TechParametersGroupWrapper(model.Group, ExistsWrappers);
+				//ExistsWrappers.Add(model.Group, new TechParametersGroupWrapper(model.Group, ExistsWrappers));
+				RegisterComplexProperty(Group);
+			}
+		}
 
     }
   }

@@ -22,17 +22,41 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public DocumentWrapper RequestDocument { get; private set; }
+	public DocumentWrapper RequestDocument
+	{
+		get { return GetComplexProperty<Document, DocumentWrapper>(nameof(RequestDocument)); }
+		set { SetComplexProperty<Document, DocumentWrapper>(value, this.RequestDocument, nameof(RequestDocument)); }
+	}
 
-    public CompanyWrapper Sender { get; private set; }
+	public CompanyWrapper Sender
+	{
+		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(Sender)); }
+		set { SetComplexProperty<Company, CompanyWrapper>(value, this.Sender, nameof(Sender)); }
+	}
 
-    public EmployeeWrapper SenderEmployee { get; private set; }
+	public EmployeeWrapper SenderEmployee
+	{
+		get { return GetComplexProperty<Employee, EmployeeWrapper>(nameof(SenderEmployee)); }
+		set { SetComplexProperty<Employee, EmployeeWrapper>(value, this.SenderEmployee, nameof(SenderEmployee)); }
+	}
 
-    public EmployeeWrapper RecipientEmployee { get; private set; }
+	public EmployeeWrapper RecipientEmployee
+	{
+		get { return GetComplexProperty<Employee, EmployeeWrapper>(nameof(RecipientEmployee)); }
+		set { SetComplexProperty<Employee, EmployeeWrapper>(value, this.RecipientEmployee, nameof(RecipientEmployee)); }
+	}
 
-    public RegistrationDetailsWrapper RegistrationDetailsOfSender { get; private set; }
+	public RegistrationDetailsWrapper RegistrationDetailsOfSender
+	{
+		get { return GetComplexProperty<RegistrationDetails, RegistrationDetailsWrapper>(nameof(RegistrationDetailsOfSender)); }
+		set { SetComplexProperty<RegistrationDetails, RegistrationDetailsWrapper>(value, this.RegistrationDetailsOfSender, nameof(RegistrationDetailsOfSender)); }
+	}
 
-    public RegistrationDetailsWrapper RegistrationDetailsOfRecipient { get; private set; }
+	public RegistrationDetailsWrapper RegistrationDetailsOfRecipient
+	{
+		get { return GetComplexProperty<RegistrationDetails, RegistrationDetailsWrapper>(nameof(RegistrationDetailsOfRecipient)); }
+		set { SetComplexProperty<RegistrationDetails, RegistrationDetailsWrapper>(value, this.RegistrationDetailsOfRecipient, nameof(RegistrationDetailsOfRecipient)); }
+	}
 
     #endregion
 
@@ -48,71 +72,89 @@ namespace HVTApp.Model.Wrapper
     
     protected override void InitializeComplexProperties(Document model)
     {
-      if (model.RequestDocument == null) throw new ArgumentException("RequestDocument cannot be null");
-      if (ExistsWrappers.ContainsKey(model.RequestDocument))
-      {
-          RequestDocument = (DocumentWrapper)ExistsWrappers[model.RequestDocument];
-      }
-      else
-      {
-          RequestDocument = new DocumentWrapper(model.RequestDocument, ExistsWrappers);
-          RegisterComplexProperty(RequestDocument);
-      }
+		if (model.RequestDocument != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.RequestDocument))
+			{
+				RequestDocument = (DocumentWrapper)ExistsWrappers[model.RequestDocument];
+			}
+			else
+			{
+				RequestDocument = new DocumentWrapper(model.RequestDocument, ExistsWrappers);
+				//ExistsWrappers.Add(model.RequestDocument, new DocumentWrapper(model.RequestDocument, ExistsWrappers));
+				RegisterComplexProperty(RequestDocument);
+			}
+		}
 
-      if (model.Sender == null) throw new ArgumentException("Sender cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Sender))
-      {
-          Sender = (CompanyWrapper)ExistsWrappers[model.Sender];
-      }
-      else
-      {
-          Sender = new CompanyWrapper(model.Sender, ExistsWrappers);
-          RegisterComplexProperty(Sender);
-      }
+		if (model.Sender != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Sender))
+			{
+				Sender = (CompanyWrapper)ExistsWrappers[model.Sender];
+			}
+			else
+			{
+				Sender = new CompanyWrapper(model.Sender, ExistsWrappers);
+				//ExistsWrappers.Add(model.Sender, new CompanyWrapper(model.Sender, ExistsWrappers));
+				RegisterComplexProperty(Sender);
+			}
+		}
 
-      if (model.SenderEmployee == null) throw new ArgumentException("SenderEmployee cannot be null");
-      if (ExistsWrappers.ContainsKey(model.SenderEmployee))
-      {
-          SenderEmployee = (EmployeeWrapper)ExistsWrappers[model.SenderEmployee];
-      }
-      else
-      {
-          SenderEmployee = new EmployeeWrapper(model.SenderEmployee, ExistsWrappers);
-          RegisterComplexProperty(SenderEmployee);
-      }
+		if (model.SenderEmployee != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.SenderEmployee))
+			{
+				SenderEmployee = (EmployeeWrapper)ExistsWrappers[model.SenderEmployee];
+			}
+			else
+			{
+				SenderEmployee = new EmployeeWrapper(model.SenderEmployee, ExistsWrappers);
+				//ExistsWrappers.Add(model.SenderEmployee, new EmployeeWrapper(model.SenderEmployee, ExistsWrappers));
+				RegisterComplexProperty(SenderEmployee);
+			}
+		}
 
-      if (model.RecipientEmployee == null) throw new ArgumentException("RecipientEmployee cannot be null");
-      if (ExistsWrappers.ContainsKey(model.RecipientEmployee))
-      {
-          RecipientEmployee = (EmployeeWrapper)ExistsWrappers[model.RecipientEmployee];
-      }
-      else
-      {
-          RecipientEmployee = new EmployeeWrapper(model.RecipientEmployee, ExistsWrappers);
-          RegisterComplexProperty(RecipientEmployee);
-      }
+		if (model.RecipientEmployee != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.RecipientEmployee))
+			{
+				RecipientEmployee = (EmployeeWrapper)ExistsWrappers[model.RecipientEmployee];
+			}
+			else
+			{
+				RecipientEmployee = new EmployeeWrapper(model.RecipientEmployee, ExistsWrappers);
+				//ExistsWrappers.Add(model.RecipientEmployee, new EmployeeWrapper(model.RecipientEmployee, ExistsWrappers));
+				RegisterComplexProperty(RecipientEmployee);
+			}
+		}
 
-      if (model.RegistrationDetailsOfSender == null) throw new ArgumentException("RegistrationDetailsOfSender cannot be null");
-      if (ExistsWrappers.ContainsKey(model.RegistrationDetailsOfSender))
-      {
-          RegistrationDetailsOfSender = (RegistrationDetailsWrapper)ExistsWrappers[model.RegistrationDetailsOfSender];
-      }
-      else
-      {
-          RegistrationDetailsOfSender = new RegistrationDetailsWrapper(model.RegistrationDetailsOfSender, ExistsWrappers);
-          RegisterComplexProperty(RegistrationDetailsOfSender);
-      }
+		if (model.RegistrationDetailsOfSender != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.RegistrationDetailsOfSender))
+			{
+				RegistrationDetailsOfSender = (RegistrationDetailsWrapper)ExistsWrappers[model.RegistrationDetailsOfSender];
+			}
+			else
+			{
+				RegistrationDetailsOfSender = new RegistrationDetailsWrapper(model.RegistrationDetailsOfSender, ExistsWrappers);
+				//ExistsWrappers.Add(model.RegistrationDetailsOfSender, new RegistrationDetailsWrapper(model.RegistrationDetailsOfSender, ExistsWrappers));
+				RegisterComplexProperty(RegistrationDetailsOfSender);
+			}
+		}
 
-      if (model.RegistrationDetailsOfRecipient == null) throw new ArgumentException("RegistrationDetailsOfRecipient cannot be null");
-      if (ExistsWrappers.ContainsKey(model.RegistrationDetailsOfRecipient))
-      {
-          RegistrationDetailsOfRecipient = (RegistrationDetailsWrapper)ExistsWrappers[model.RegistrationDetailsOfRecipient];
-      }
-      else
-      {
-          RegistrationDetailsOfRecipient = new RegistrationDetailsWrapper(model.RegistrationDetailsOfRecipient, ExistsWrappers);
-          RegisterComplexProperty(RegistrationDetailsOfRecipient);
-      }
+		if (model.RegistrationDetailsOfRecipient != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.RegistrationDetailsOfRecipient))
+			{
+				RegistrationDetailsOfRecipient = (RegistrationDetailsWrapper)ExistsWrappers[model.RegistrationDetailsOfRecipient];
+			}
+			else
+			{
+				RegistrationDetailsOfRecipient = new RegistrationDetailsWrapper(model.RegistrationDetailsOfRecipient, ExistsWrappers);
+				//ExistsWrappers.Add(model.RegistrationDetailsOfRecipient, new RegistrationDetailsWrapper(model.RegistrationDetailsOfRecipient, ExistsWrappers));
+				RegisterComplexProperty(RegistrationDetailsOfRecipient);
+			}
+		}
 
     }
   

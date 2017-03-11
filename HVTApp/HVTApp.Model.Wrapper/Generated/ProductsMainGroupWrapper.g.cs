@@ -22,11 +22,23 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public ProjectWrapper Project { get; private set; }
+	public ProjectWrapper Project
+	{
+		get { return GetComplexProperty<Project, ProjectWrapper>(nameof(Project)); }
+		set { SetComplexProperty<Project, ProjectWrapper>(value, this.Project, nameof(Project)); }
+	}
 
-    public FacilityWrapper Facility { get; private set; }
+	public FacilityWrapper Facility
+	{
+		get { return GetComplexProperty<Facility, FacilityWrapper>(nameof(Facility)); }
+		set { SetComplexProperty<Facility, FacilityWrapper>(value, this.Facility, nameof(Facility)); }
+	}
 
-    public SpecificationWrapper Specification { get; private set; }
+	public SpecificationWrapper Specification
+	{
+		get { return GetComplexProperty<Specification, SpecificationWrapper>(nameof(Specification)); }
+		set { SetComplexProperty<Specification, SpecificationWrapper>(value, this.Specification, nameof(Specification)); }
+	}
 
     #endregion
 
@@ -48,38 +60,47 @@ namespace HVTApp.Model.Wrapper
     
     protected override void InitializeComplexProperties(ProductsMainGroup model)
     {
-      if (model.Project == null) throw new ArgumentException("Project cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Project))
-      {
-          Project = (ProjectWrapper)ExistsWrappers[model.Project];
-      }
-      else
-      {
-          Project = new ProjectWrapper(model.Project, ExistsWrappers);
-          RegisterComplexProperty(Project);
-      }
+		if (model.Project != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Project))
+			{
+				Project = (ProjectWrapper)ExistsWrappers[model.Project];
+			}
+			else
+			{
+				Project = new ProjectWrapper(model.Project, ExistsWrappers);
+				//ExistsWrappers.Add(model.Project, new ProjectWrapper(model.Project, ExistsWrappers));
+				RegisterComplexProperty(Project);
+			}
+		}
 
-      if (model.Facility == null) throw new ArgumentException("Facility cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Facility))
-      {
-          Facility = (FacilityWrapper)ExistsWrappers[model.Facility];
-      }
-      else
-      {
-          Facility = new FacilityWrapper(model.Facility, ExistsWrappers);
-          RegisterComplexProperty(Facility);
-      }
+		if (model.Facility != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Facility))
+			{
+				Facility = (FacilityWrapper)ExistsWrappers[model.Facility];
+			}
+			else
+			{
+				Facility = new FacilityWrapper(model.Facility, ExistsWrappers);
+				//ExistsWrappers.Add(model.Facility, new FacilityWrapper(model.Facility, ExistsWrappers));
+				RegisterComplexProperty(Facility);
+			}
+		}
 
-      if (model.Specification == null) throw new ArgumentException("Specification cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Specification))
-      {
-          Specification = (SpecificationWrapper)ExistsWrappers[model.Specification];
-      }
-      else
-      {
-          Specification = new SpecificationWrapper(model.Specification, ExistsWrappers);
-          RegisterComplexProperty(Specification);
-      }
+		if (model.Specification != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Specification))
+			{
+				Specification = (SpecificationWrapper)ExistsWrappers[model.Specification];
+			}
+			else
+			{
+				Specification = new SpecificationWrapper(model.Specification, ExistsWrappers);
+				//ExistsWrappers.Add(model.Specification, new SpecificationWrapper(model.Specification, ExistsWrappers));
+				RegisterComplexProperty(Specification);
+			}
+		}
 
     }
   

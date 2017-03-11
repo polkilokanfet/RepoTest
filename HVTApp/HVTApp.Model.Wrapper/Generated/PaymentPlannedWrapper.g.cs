@@ -46,9 +46,17 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public PaymentsConditionWrapper PaymentsCondition { get; private set; }
+	public PaymentsConditionWrapper PaymentsCondition
+	{
+		get { return GetComplexProperty<PaymentsCondition, PaymentsConditionWrapper>(nameof(PaymentsCondition)); }
+		set { SetComplexProperty<PaymentsCondition, PaymentsConditionWrapper>(value, this.PaymentsCondition, nameof(PaymentsCondition)); }
+	}
 
-    public PaymentsInfoWrapper PaymentsInfo { get; private set; }
+	public PaymentsInfoWrapper PaymentsInfo
+	{
+		get { return GetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(nameof(PaymentsInfo)); }
+		set { SetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(value, this.PaymentsInfo, nameof(PaymentsInfo)); }
+	}
 
     #endregion
 
@@ -61,27 +69,33 @@ namespace HVTApp.Model.Wrapper
     
     protected override void InitializeComplexProperties(PaymentPlanned model)
     {
-      if (model.PaymentsCondition == null) throw new ArgumentException("PaymentsCondition cannot be null");
-      if (ExistsWrappers.ContainsKey(model.PaymentsCondition))
-      {
-          PaymentsCondition = (PaymentsConditionWrapper)ExistsWrappers[model.PaymentsCondition];
-      }
-      else
-      {
-          PaymentsCondition = new PaymentsConditionWrapper(model.PaymentsCondition, ExistsWrappers);
-          RegisterComplexProperty(PaymentsCondition);
-      }
+		if (model.PaymentsCondition != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.PaymentsCondition))
+			{
+				PaymentsCondition = (PaymentsConditionWrapper)ExistsWrappers[model.PaymentsCondition];
+			}
+			else
+			{
+				PaymentsCondition = new PaymentsConditionWrapper(model.PaymentsCondition, ExistsWrappers);
+				//ExistsWrappers.Add(model.PaymentsCondition, new PaymentsConditionWrapper(model.PaymentsCondition, ExistsWrappers));
+				RegisterComplexProperty(PaymentsCondition);
+			}
+		}
 
-      if (model.PaymentsInfo == null) throw new ArgumentException("PaymentsInfo cannot be null");
-      if (ExistsWrappers.ContainsKey(model.PaymentsInfo))
-      {
-          PaymentsInfo = (PaymentsInfoWrapper)ExistsWrappers[model.PaymentsInfo];
-      }
-      else
-      {
-          PaymentsInfo = new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers);
-          RegisterComplexProperty(PaymentsInfo);
-      }
+		if (model.PaymentsInfo != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.PaymentsInfo))
+			{
+				PaymentsInfo = (PaymentsInfoWrapper)ExistsWrappers[model.PaymentsInfo];
+			}
+			else
+			{
+				PaymentsInfo = new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers);
+				//ExistsWrappers.Add(model.PaymentsInfo, new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers));
+				RegisterComplexProperty(PaymentsInfo);
+			}
+		}
 
     }
   }

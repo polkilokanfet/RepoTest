@@ -201,7 +201,11 @@ namespace HVTApp.Model.Wrapper
       var propertyType = property.PropertyType.Name;
       var propertyName = property.Name;
 #>
-    public <#= propertyType #>Wrapper <#= propertyName #> { get; private set; }
+	public <#= propertyType #>Wrapper <#= propertyName #>
+	{
+		get { return GetComplexProperty<<#= propertyType #>, <#= propertyType #>Wrapper>(nameof(<#= propertyName #>)); }
+		set { SetComplexProperty<<#= propertyType #>, <#= propertyType #>Wrapper>(value, this.<#= propertyName #>, nameof(<#= propertyName #>)); }
+	}
 
 <#+   
     }
@@ -273,16 +277,19 @@ namespace HVTApp.Model.Wrapper
 		var propertyName = complexProperty.Name;
 		var propertyType = complexProperty.PropertyType.Name;
 #>
-      if (model.<#= propertyName #> == null) throw new ArgumentException("<#= propertyName #> cannot be null");
-      if (ExistsWrappers.ContainsKey(model.<#= propertyName #>))
-      {
-          <#= propertyName #> = (<#= propertyType #>Wrapper)ExistsWrappers[model.<#= propertyName #>];
-      }
-      else
-      {
-          <#= propertyName #> = new <#= propertyType #>Wrapper(model.<#= propertyName #>, ExistsWrappers);
-          RegisterComplexProperty(<#= propertyName #>);
-      }
+		if (model.<#= propertyName #> != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.<#= propertyName #>))
+			{
+				<#= propertyName #> = (<#= propertyType #>Wrapper)ExistsWrappers[model.<#= propertyName #>];
+			}
+			else
+			{
+				<#= propertyName #> = new <#= propertyType #>Wrapper(model.<#= propertyName #>, ExistsWrappers);
+				//ExistsWrappers.Add(model.<#= propertyName #>, new <#= propertyType #>Wrapper(model.<#= propertyName #>, ExistsWrappers));
+				RegisterComplexProperty(<#= propertyName #>);
+			}
+		}
 
 <#+
       }

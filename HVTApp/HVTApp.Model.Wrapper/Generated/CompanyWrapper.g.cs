@@ -54,11 +54,23 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public CompanyFormWrapper Form { get; private set; }
+	public CompanyFormWrapper Form
+	{
+		get { return GetComplexProperty<CompanyForm, CompanyFormWrapper>(nameof(Form)); }
+		set { SetComplexProperty<CompanyForm, CompanyFormWrapper>(value, this.Form, nameof(Form)); }
+	}
 
-    public AddressWrapper Address { get; private set; }
+	public AddressWrapper Address
+	{
+		get { return GetComplexProperty<Address, AddressWrapper>(nameof(Address)); }
+		set { SetComplexProperty<Address, AddressWrapper>(value, this.Address, nameof(Address)); }
+	}
 
-    public BankDetailsWrapper BankDetails { get; private set; }
+	public BankDetailsWrapper BankDetails
+	{
+		get { return GetComplexProperty<BankDetails, BankDetailsWrapper>(nameof(BankDetails)); }
+		set { SetComplexProperty<BankDetails, BankDetailsWrapper>(value, this.BankDetails, nameof(BankDetails)); }
+	}
 
     #endregion
 
@@ -73,38 +85,47 @@ namespace HVTApp.Model.Wrapper
     
     protected override void InitializeComplexProperties(Company model)
     {
-      if (model.Form == null) throw new ArgumentException("Form cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Form))
-      {
-          Form = (CompanyFormWrapper)ExistsWrappers[model.Form];
-      }
-      else
-      {
-          Form = new CompanyFormWrapper(model.Form, ExistsWrappers);
-          RegisterComplexProperty(Form);
-      }
+		if (model.Form != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Form))
+			{
+				Form = (CompanyFormWrapper)ExistsWrappers[model.Form];
+			}
+			else
+			{
+				Form = new CompanyFormWrapper(model.Form, ExistsWrappers);
+				//ExistsWrappers.Add(model.Form, new CompanyFormWrapper(model.Form, ExistsWrappers));
+				RegisterComplexProperty(Form);
+			}
+		}
 
-      if (model.Address == null) throw new ArgumentException("Address cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Address))
-      {
-          Address = (AddressWrapper)ExistsWrappers[model.Address];
-      }
-      else
-      {
-          Address = new AddressWrapper(model.Address, ExistsWrappers);
-          RegisterComplexProperty(Address);
-      }
+		if (model.Address != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Address))
+			{
+				Address = (AddressWrapper)ExistsWrappers[model.Address];
+			}
+			else
+			{
+				Address = new AddressWrapper(model.Address, ExistsWrappers);
+				//ExistsWrappers.Add(model.Address, new AddressWrapper(model.Address, ExistsWrappers));
+				RegisterComplexProperty(Address);
+			}
+		}
 
-      if (model.BankDetails == null) throw new ArgumentException("BankDetails cannot be null");
-      if (ExistsWrappers.ContainsKey(model.BankDetails))
-      {
-          BankDetails = (BankDetailsWrapper)ExistsWrappers[model.BankDetails];
-      }
-      else
-      {
-          BankDetails = new BankDetailsWrapper(model.BankDetails, ExistsWrappers);
-          RegisterComplexProperty(BankDetails);
-      }
+		if (model.BankDetails != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.BankDetails))
+			{
+				BankDetails = (BankDetailsWrapper)ExistsWrappers[model.BankDetails];
+			}
+			else
+			{
+				BankDetails = new BankDetailsWrapper(model.BankDetails, ExistsWrappers);
+				//ExistsWrappers.Add(model.BankDetails, new BankDetailsWrapper(model.BankDetails, ExistsWrappers));
+				RegisterComplexProperty(BankDetails);
+			}
+		}
 
     }
   

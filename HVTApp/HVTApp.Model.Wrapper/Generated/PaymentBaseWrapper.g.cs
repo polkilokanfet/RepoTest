@@ -38,22 +38,29 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public PaymentsInfoWrapper PaymentsInfo { get; private set; }
+	public PaymentsInfoWrapper PaymentsInfo
+	{
+		get { return GetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(nameof(PaymentsInfo)); }
+		set { SetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(value, this.PaymentsInfo, nameof(PaymentsInfo)); }
+	}
 
     #endregion
     
     protected override void InitializeComplexProperties(PaymentBase model)
     {
-      if (model.PaymentsInfo == null) throw new ArgumentException("PaymentsInfo cannot be null");
-      if (ExistsWrappers.ContainsKey(model.PaymentsInfo))
-      {
-          PaymentsInfo = (PaymentsInfoWrapper)ExistsWrappers[model.PaymentsInfo];
-      }
-      else
-      {
-          PaymentsInfo = new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers);
-          RegisterComplexProperty(PaymentsInfo);
-      }
+		if (model.PaymentsInfo != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.PaymentsInfo))
+			{
+				PaymentsInfo = (PaymentsInfoWrapper)ExistsWrappers[model.PaymentsInfo];
+			}
+			else
+			{
+				PaymentsInfo = new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers);
+				//ExistsWrappers.Add(model.PaymentsInfo, new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers));
+				RegisterComplexProperty(PaymentsInfo);
+			}
+		}
 
     }
   }

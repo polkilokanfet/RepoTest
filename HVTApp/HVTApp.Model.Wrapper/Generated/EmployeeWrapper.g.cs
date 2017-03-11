@@ -62,35 +62,49 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public CompanyWrapper Company { get; private set; }
+	public CompanyWrapper Company
+	{
+		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(Company)); }
+		set { SetComplexProperty<Company, CompanyWrapper>(value, this.Company, nameof(Company)); }
+	}
 
-    public EmployeesPositionWrapper Position { get; private set; }
+	public EmployeesPositionWrapper Position
+	{
+		get { return GetComplexProperty<EmployeesPosition, EmployeesPositionWrapper>(nameof(Position)); }
+		set { SetComplexProperty<EmployeesPosition, EmployeesPositionWrapper>(value, this.Position, nameof(Position)); }
+	}
 
     #endregion
     
     protected override void InitializeComplexProperties(Employee model)
     {
-      if (model.Company == null) throw new ArgumentException("Company cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Company))
-      {
-          Company = (CompanyWrapper)ExistsWrappers[model.Company];
-      }
-      else
-      {
-          Company = new CompanyWrapper(model.Company, ExistsWrappers);
-          RegisterComplexProperty(Company);
-      }
+		if (model.Company != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Company))
+			{
+				Company = (CompanyWrapper)ExistsWrappers[model.Company];
+			}
+			else
+			{
+				Company = new CompanyWrapper(model.Company, ExistsWrappers);
+				//ExistsWrappers.Add(model.Company, new CompanyWrapper(model.Company, ExistsWrappers));
+				RegisterComplexProperty(Company);
+			}
+		}
 
-      if (model.Position == null) throw new ArgumentException("Position cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Position))
-      {
-          Position = (EmployeesPositionWrapper)ExistsWrappers[model.Position];
-      }
-      else
-      {
-          Position = new EmployeesPositionWrapper(model.Position, ExistsWrappers);
-          RegisterComplexProperty(Position);
-      }
+		if (model.Position != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Position))
+			{
+				Position = (EmployeesPositionWrapper)ExistsWrappers[model.Position];
+			}
+			else
+			{
+				Position = new EmployeesPositionWrapper(model.Position, ExistsWrappers);
+				//ExistsWrappers.Add(model.Position, new EmployeesPositionWrapper(model.Position, ExistsWrappers));
+				RegisterComplexProperty(Position);
+			}
+		}
 
     }
   }

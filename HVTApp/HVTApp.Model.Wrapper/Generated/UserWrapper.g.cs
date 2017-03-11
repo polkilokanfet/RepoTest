@@ -54,7 +54,11 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public EmployeeWrapper Employee { get; private set; }
+	public EmployeeWrapper Employee
+	{
+		get { return GetComplexProperty<Employee, EmployeeWrapper>(nameof(Employee)); }
+		set { SetComplexProperty<Employee, EmployeeWrapper>(value, this.Employee, nameof(Employee)); }
+	}
 
     #endregion
 
@@ -65,16 +69,19 @@ namespace HVTApp.Model.Wrapper
     
     protected override void InitializeComplexProperties(User model)
     {
-      if (model.Employee == null) throw new ArgumentException("Employee cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Employee))
-      {
-          Employee = (EmployeeWrapper)ExistsWrappers[model.Employee];
-      }
-      else
-      {
-          Employee = new EmployeeWrapper(model.Employee, ExistsWrappers);
-          RegisterComplexProperty(Employee);
-      }
+		if (model.Employee != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Employee))
+			{
+				Employee = (EmployeeWrapper)ExistsWrappers[model.Employee];
+			}
+			else
+			{
+				Employee = new EmployeeWrapper(model.Employee, ExistsWrappers);
+				//ExistsWrappers.Add(model.Employee, new EmployeeWrapper(model.Employee, ExistsWrappers));
+				RegisterComplexProperty(Employee);
+			}
+		}
 
     }
   

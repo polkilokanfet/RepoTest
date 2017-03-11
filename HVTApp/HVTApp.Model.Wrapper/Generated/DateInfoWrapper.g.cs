@@ -94,7 +94,11 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public ProductBaseWrapper Product { get; private set; }
+	public ProductBaseWrapper Product
+	{
+		get { return GetComplexProperty<ProductBase, ProductBaseWrapper>(nameof(Product)); }
+		set { SetComplexProperty<ProductBase, ProductBaseWrapper>(value, this.Product, nameof(Product)); }
+	}
 
     #endregion
 
@@ -121,16 +125,19 @@ namespace HVTApp.Model.Wrapper
     
     protected override void InitializeComplexProperties(DateInfo model)
     {
-      if (model.Product == null) throw new ArgumentException("Product cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Product))
-      {
-          Product = (ProductBaseWrapper)ExistsWrappers[model.Product];
-      }
-      else
-      {
-          Product = new ProductBaseWrapper(model.Product, ExistsWrappers);
-          RegisterComplexProperty(Product);
-      }
+		if (model.Product != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Product))
+			{
+				Product = (ProductBaseWrapper)ExistsWrappers[model.Product];
+			}
+			else
+			{
+				Product = new ProductBaseWrapper(model.Product, ExistsWrappers);
+				//ExistsWrappers.Add(model.Product, new ProductBaseWrapper(model.Product, ExistsWrappers));
+				RegisterComplexProperty(Product);
+			}
+		}
 
     }
   }

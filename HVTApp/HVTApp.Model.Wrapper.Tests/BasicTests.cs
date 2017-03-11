@@ -43,21 +43,21 @@ namespace HVTApp.Model.Wrapper.Tests
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ShouldThrowArgumentExceptionIfAddressIsNull()
-        {
-            try
-            {
-                _friendTest.FriendAddressTest = null;
-                var wrapper = new FriendTestWrapper(_friendTest);
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("FriendAddressTest cannot be null", ex.Message);
-                throw;
-            }
-        }
+        //[TestMethod]
+        //[ExpectedException(typeof(ArgumentException))]
+        //public void ShouldThrowArgumentExceptionIfAddressIsNull()
+        //{
+        //    try
+        //    {
+        //        _friendTest.FriendAddressTest = null;
+        //        var wrapper = new FriendTestWrapper(_friendTest);
+        //    }
+        //    catch (ArgumentException ex)
+        //    {
+        //        Assert.AreEqual("FriendAddressTest cannot be null", ex.Message);
+        //        throw;
+        //    }
+        //}
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]

@@ -38,35 +38,49 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public ProductBaseWrapper Product { get; private set; }
+	public ProductBaseWrapper Product
+	{
+		get { return GetComplexProperty<ProductBase, ProductBaseWrapper>(nameof(Product)); }
+		set { SetComplexProperty<ProductBase, ProductBaseWrapper>(value, this.Product, nameof(Product)); }
+	}
 
-    public OrderWrapper Order { get; private set; }
+	public OrderWrapper Order
+	{
+		get { return GetComplexProperty<Order, OrderWrapper>(nameof(Order)); }
+		set { SetComplexProperty<Order, OrderWrapper>(value, this.Order, nameof(Order)); }
+	}
 
     #endregion
     
     protected override void InitializeComplexProperties(OrderInfo model)
     {
-      if (model.Product == null) throw new ArgumentException("Product cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Product))
-      {
-          Product = (ProductBaseWrapper)ExistsWrappers[model.Product];
-      }
-      else
-      {
-          Product = new ProductBaseWrapper(model.Product, ExistsWrappers);
-          RegisterComplexProperty(Product);
-      }
+		if (model.Product != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Product))
+			{
+				Product = (ProductBaseWrapper)ExistsWrappers[model.Product];
+			}
+			else
+			{
+				Product = new ProductBaseWrapper(model.Product, ExistsWrappers);
+				//ExistsWrappers.Add(model.Product, new ProductBaseWrapper(model.Product, ExistsWrappers));
+				RegisterComplexProperty(Product);
+			}
+		}
 
-      if (model.Order == null) throw new ArgumentException("Order cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Order))
-      {
-          Order = (OrderWrapper)ExistsWrappers[model.Order];
-      }
-      else
-      {
-          Order = new OrderWrapper(model.Order, ExistsWrappers);
-          RegisterComplexProperty(Order);
-      }
+		if (model.Order != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Order))
+			{
+				Order = (OrderWrapper)ExistsWrappers[model.Order];
+			}
+			else
+			{
+				Order = new OrderWrapper(model.Order, ExistsWrappers);
+				//ExistsWrappers.Add(model.Order, new OrderWrapper(model.Order, ExistsWrappers));
+				RegisterComplexProperty(Order);
+			}
+		}
 
     }
   }

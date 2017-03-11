@@ -30,22 +30,29 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public LocalityWrapper Locality { get; private set; }
+	public LocalityWrapper Locality
+	{
+		get { return GetComplexProperty<Locality, LocalityWrapper>(nameof(Locality)); }
+		set { SetComplexProperty<Locality, LocalityWrapper>(value, this.Locality, nameof(Locality)); }
+	}
 
     #endregion
     
     protected override void InitializeComplexProperties(Address model)
     {
-      if (model.Locality == null) throw new ArgumentException("Locality cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Locality))
-      {
-          Locality = (LocalityWrapper)ExistsWrappers[model.Locality];
-      }
-      else
-      {
-          Locality = new LocalityWrapper(model.Locality, ExistsWrappers);
-          RegisterComplexProperty(Locality);
-      }
+		if (model.Locality != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Locality))
+			{
+				Locality = (LocalityWrapper)ExistsWrappers[model.Locality];
+			}
+			else
+			{
+				Locality = new LocalityWrapper(model.Locality, ExistsWrappers);
+				//ExistsWrappers.Add(model.Locality, new LocalityWrapper(model.Locality, ExistsWrappers));
+				RegisterComplexProperty(Locality);
+			}
+		}
 
     }
   }

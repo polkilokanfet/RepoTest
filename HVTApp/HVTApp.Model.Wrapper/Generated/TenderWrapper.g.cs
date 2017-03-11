@@ -54,9 +54,17 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public ProjectWrapper Project { get; private set; }
+	public ProjectWrapper Project
+	{
+		get { return GetComplexProperty<Project, ProjectWrapper>(nameof(Project)); }
+		set { SetComplexProperty<Project, ProjectWrapper>(value, this.Project, nameof(Project)); }
+	}
 
-    public CompanyWrapper Winner { get; private set; }
+	public CompanyWrapper Winner
+	{
+		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(Winner)); }
+		set { SetComplexProperty<Company, CompanyWrapper>(value, this.Winner, nameof(Winner)); }
+	}
 
     #endregion
 
@@ -69,27 +77,33 @@ namespace HVTApp.Model.Wrapper
     
     protected override void InitializeComplexProperties(Tender model)
     {
-      if (model.Project == null) throw new ArgumentException("Project cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Project))
-      {
-          Project = (ProjectWrapper)ExistsWrappers[model.Project];
-      }
-      else
-      {
-          Project = new ProjectWrapper(model.Project, ExistsWrappers);
-          RegisterComplexProperty(Project);
-      }
+		if (model.Project != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Project))
+			{
+				Project = (ProjectWrapper)ExistsWrappers[model.Project];
+			}
+			else
+			{
+				Project = new ProjectWrapper(model.Project, ExistsWrappers);
+				//ExistsWrappers.Add(model.Project, new ProjectWrapper(model.Project, ExistsWrappers));
+				RegisterComplexProperty(Project);
+			}
+		}
 
-      if (model.Winner == null) throw new ArgumentException("Winner cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Winner))
-      {
-          Winner = (CompanyWrapper)ExistsWrappers[model.Winner];
-      }
-      else
-      {
-          Winner = new CompanyWrapper(model.Winner, ExistsWrappers);
-          RegisterComplexProperty(Winner);
-      }
+		if (model.Winner != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Winner))
+			{
+				Winner = (CompanyWrapper)ExistsWrappers[model.Winner];
+			}
+			else
+			{
+				Winner = new CompanyWrapper(model.Winner, ExistsWrappers);
+				//ExistsWrappers.Add(model.Winner, new CompanyWrapper(model.Winner, ExistsWrappers));
+				RegisterComplexProperty(Winner);
+			}
+		}
 
     }
   

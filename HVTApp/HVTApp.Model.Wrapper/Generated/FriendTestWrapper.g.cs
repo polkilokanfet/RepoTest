@@ -62,9 +62,17 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public FriendAddressTestWrapper FriendAddressTest { get; private set; }
+	public FriendAddressTestWrapper FriendAddressTest
+	{
+		get { return GetComplexProperty<FriendAddressTest, FriendAddressTestWrapper>(nameof(FriendAddressTest)); }
+		set { SetComplexProperty<FriendAddressTest, FriendAddressTestWrapper>(value, this.FriendAddressTest, nameof(FriendAddressTest)); }
+	}
 
-    public FriendGroupTestWrapper FriendGroupTest { get; private set; }
+	public FriendGroupTestWrapper FriendGroupTest
+	{
+		get { return GetComplexProperty<FriendGroupTest, FriendGroupTestWrapper>(nameof(FriendGroupTest)); }
+		set { SetComplexProperty<FriendGroupTest, FriendGroupTestWrapper>(value, this.FriendGroupTest, nameof(FriendGroupTest)); }
+	}
 
     #endregion
 
@@ -89,27 +97,33 @@ namespace HVTApp.Model.Wrapper
     
     protected override void InitializeComplexProperties(FriendTest model)
     {
-      if (model.FriendAddressTest == null) throw new ArgumentException("FriendAddressTest cannot be null");
-      if (ExistsWrappers.ContainsKey(model.FriendAddressTest))
-      {
-          FriendAddressTest = (FriendAddressTestWrapper)ExistsWrappers[model.FriendAddressTest];
-      }
-      else
-      {
-          FriendAddressTest = new FriendAddressTestWrapper(model.FriendAddressTest, ExistsWrappers);
-          RegisterComplexProperty(FriendAddressTest);
-      }
+		if (model.FriendAddressTest != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.FriendAddressTest))
+			{
+				FriendAddressTest = (FriendAddressTestWrapper)ExistsWrappers[model.FriendAddressTest];
+			}
+			else
+			{
+				FriendAddressTest = new FriendAddressTestWrapper(model.FriendAddressTest, ExistsWrappers);
+				//ExistsWrappers.Add(model.FriendAddressTest, new FriendAddressTestWrapper(model.FriendAddressTest, ExistsWrappers));
+				RegisterComplexProperty(FriendAddressTest);
+			}
+		}
 
-      if (model.FriendGroupTest == null) throw new ArgumentException("FriendGroupTest cannot be null");
-      if (ExistsWrappers.ContainsKey(model.FriendGroupTest))
-      {
-          FriendGroupTest = (FriendGroupTestWrapper)ExistsWrappers[model.FriendGroupTest];
-      }
-      else
-      {
-          FriendGroupTest = new FriendGroupTestWrapper(model.FriendGroupTest, ExistsWrappers);
-          RegisterComplexProperty(FriendGroupTest);
-      }
+		if (model.FriendGroupTest != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.FriendGroupTest))
+			{
+				FriendGroupTest = (FriendGroupTestWrapper)ExistsWrappers[model.FriendGroupTest];
+			}
+			else
+			{
+				FriendGroupTest = new FriendGroupTestWrapper(model.FriendGroupTest, ExistsWrappers);
+				//ExistsWrappers.Add(model.FriendGroupTest, new FriendGroupTestWrapper(model.FriendGroupTest, ExistsWrappers));
+				RegisterComplexProperty(FriendGroupTest);
+			}
+		}
 
     }
   

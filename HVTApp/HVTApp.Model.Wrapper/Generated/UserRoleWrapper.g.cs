@@ -30,22 +30,29 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public UserWrapper User { get; private set; }
+	public UserWrapper User
+	{
+		get { return GetComplexProperty<User, UserWrapper>(nameof(User)); }
+		set { SetComplexProperty<User, UserWrapper>(value, this.User, nameof(User)); }
+	}
 
     #endregion
     
     protected override void InitializeComplexProperties(UserRole model)
     {
-      if (model.User == null) throw new ArgumentException("User cannot be null");
-      if (ExistsWrappers.ContainsKey(model.User))
-      {
-          User = (UserWrapper)ExistsWrappers[model.User];
-      }
-      else
-      {
-          User = new UserWrapper(model.User, ExistsWrappers);
-          RegisterComplexProperty(User);
-      }
+		if (model.User != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.User))
+			{
+				User = (UserWrapper)ExistsWrappers[model.User];
+			}
+			else
+			{
+				User = new UserWrapper(model.User, ExistsWrappers);
+				//ExistsWrappers.Add(model.User, new UserWrapper(model.User, ExistsWrappers));
+				RegisterComplexProperty(User);
+			}
+		}
 
     }
   }

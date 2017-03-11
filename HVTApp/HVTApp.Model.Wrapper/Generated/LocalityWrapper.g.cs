@@ -30,35 +30,49 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public LocalityTypeWrapper LocalityType { get; private set; }
+	public LocalityTypeWrapper LocalityType
+	{
+		get { return GetComplexProperty<LocalityType, LocalityTypeWrapper>(nameof(LocalityType)); }
+		set { SetComplexProperty<LocalityType, LocalityTypeWrapper>(value, this.LocalityType, nameof(LocalityType)); }
+	}
 
-    public DistrictsRegionWrapper DistrictsRegion { get; private set; }
+	public DistrictsRegionWrapper DistrictsRegion
+	{
+		get { return GetComplexProperty<DistrictsRegion, DistrictsRegionWrapper>(nameof(DistrictsRegion)); }
+		set { SetComplexProperty<DistrictsRegion, DistrictsRegionWrapper>(value, this.DistrictsRegion, nameof(DistrictsRegion)); }
+	}
 
     #endregion
     
     protected override void InitializeComplexProperties(Locality model)
     {
-      if (model.LocalityType == null) throw new ArgumentException("LocalityType cannot be null");
-      if (ExistsWrappers.ContainsKey(model.LocalityType))
-      {
-          LocalityType = (LocalityTypeWrapper)ExistsWrappers[model.LocalityType];
-      }
-      else
-      {
-          LocalityType = new LocalityTypeWrapper(model.LocalityType, ExistsWrappers);
-          RegisterComplexProperty(LocalityType);
-      }
+		if (model.LocalityType != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.LocalityType))
+			{
+				LocalityType = (LocalityTypeWrapper)ExistsWrappers[model.LocalityType];
+			}
+			else
+			{
+				LocalityType = new LocalityTypeWrapper(model.LocalityType, ExistsWrappers);
+				//ExistsWrappers.Add(model.LocalityType, new LocalityTypeWrapper(model.LocalityType, ExistsWrappers));
+				RegisterComplexProperty(LocalityType);
+			}
+		}
 
-      if (model.DistrictsRegion == null) throw new ArgumentException("DistrictsRegion cannot be null");
-      if (ExistsWrappers.ContainsKey(model.DistrictsRegion))
-      {
-          DistrictsRegion = (DistrictsRegionWrapper)ExistsWrappers[model.DistrictsRegion];
-      }
-      else
-      {
-          DistrictsRegion = new DistrictsRegionWrapper(model.DistrictsRegion, ExistsWrappers);
-          RegisterComplexProperty(DistrictsRegion);
-      }
+		if (model.DistrictsRegion != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.DistrictsRegion))
+			{
+				DistrictsRegion = (DistrictsRegionWrapper)ExistsWrappers[model.DistrictsRegion];
+			}
+			else
+			{
+				DistrictsRegion = new DistrictsRegionWrapper(model.DistrictsRegion, ExistsWrappers);
+				//ExistsWrappers.Add(model.DistrictsRegion, new DistrictsRegionWrapper(model.DistrictsRegion, ExistsWrappers));
+				RegisterComplexProperty(DistrictsRegion);
+			}
+		}
 
     }
   }

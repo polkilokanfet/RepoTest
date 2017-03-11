@@ -113,7 +113,7 @@ namespace HVTApp.Model.Wrapper
         /// <returns></returns>
         protected TValue GetValue<TValue>([CallerMemberName] string propertyName = null)
         {
-            return (TValue) Model.GetType().GetProperty(propertyName).GetValue(Model);
+            return (TValue)Model.GetType().GetProperty(propertyName).GetValue(Model);
         }
 
         /// <summary>
@@ -217,10 +217,37 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         /// <typeparam name="TModel">Тип модели.</typeparam>
         /// <param name="wrapper">Обертка.</param>
+        protected void UnRegisterComplexProperty<TModel>(WrapperBase<TModel> wrapper)
+            where TModel : BaseEntity
+        {
+            UnRegisterTrackingObject(wrapper);
+        }
+
+        /// <summary>
+        /// Регистрация сложного (не примитивного) свойства. В нем необходимо отслеживать изменения.
+        /// </summary>
+        /// <typeparam name="TModel">Тип модели.</typeparam>
+        /// <param name="wrapper">Обертка.</param>
         protected void RegisterComplexProperty<TModel>(WrapperBase<TModel> wrapper)
             where TModel : BaseEntity
         {
             RegisterTrackingObject(wrapper);
+        }
+
+        /// <summary>
+        /// Удаление трекинг-объекта из реестра отслеживания в нем изменений.
+        /// </summary>
+        /// <param name="trackingObject"></param>
+        private void UnRegisterTrackingObject(IValidatableChangeTracking trackingObject)
+        {
+            //если объект еще не заригистрирован.
+            if (_trackingObjects.Contains(trackingObject))
+            {
+                //изымаем его из списока.
+                _trackingObjects.Remove(trackingObject);
+                //отписываемся от события изменений его свойств
+                trackingObject.PropertyChanged -= TrackingObjectOnPropertyChanged;
+            }
         }
 
         /// <summary>
@@ -235,12 +262,19 @@ namespace HVTApp.Model.Wrapper
                 //добавляем его в список.
                 _trackingObjects.Add(trackingObject);
                 //подписываемся на событие изменений его свойств
-                trackingObject.PropertyChanged += (sender, e) =>
-                {
-                    if (e.PropertyName == nameof(IsChanged)) OnPropertyChanged(nameof(IsChanged));
-                    if (e.PropertyName == nameof(IsValid)) OnPropertyChanged(nameof(IsValid));
-                };
+                trackingObject.PropertyChanged += TrackingObjectOnPropertyChanged;
             }
+        }
+
+        /// <summary>
+        /// реакция на изменение в трекинг-свойстве.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="propertyChangedEventArgs"></param>
+        private void TrackingObjectOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            if (propertyChangedEventArgs.PropertyName == nameof(IsChanged)) OnPropertyChanged(nameof(IsChanged));
+            if (propertyChangedEventArgs.PropertyName == nameof(IsValid)) OnPropertyChanged(nameof(IsValid));
         }
 
         /// <summary>
@@ -302,6 +336,38 @@ namespace HVTApp.Model.Wrapper
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             yield break;
+        }
+
+
+        protected TWrap GetComplexProperty<TModelProp, TWrap>([CallerMemberName] string propertyName = null)
+            where TModelProp : BaseEntity
+            where TWrap : WrapperBase<TModelProp>
+        {
+            TModelProp modelValue = GetValue<TModelProp>(propertyName);
+            if (ExistsWrappers.ContainsKey(modelValue))
+                return (TWrap)ExistsWrappers[modelValue];
+            return null;
+        }
+
+        protected void SetComplexProperty<TModelProp, TWrap>(TWrap newProp, TWrap oldProp, [CallerMemberName] string propertyName = null)
+            where TModelProp : BaseEntity
+            where TWrap : WrapperBase<TModelProp>
+        {
+            if (oldProp == newProp)
+                return;
+
+            if (oldProp != null)
+            {
+                UnRegisterComplexProperty(oldProp);
+                ExistsWrappers.Remove(oldProp.Model);
+            }
+
+            if (newProp != null)
+            {
+                RegisterComplexProperty(newProp);
+                SetValue(newProp.Model, propertyName);
+                ExistsWrappers.Add(newProp.Model, newProp);
+            }
         }
 
 

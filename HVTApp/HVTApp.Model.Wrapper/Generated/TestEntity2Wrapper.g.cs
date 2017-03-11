@@ -22,22 +22,29 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public TestEntity1Wrapper TestEntity1 { get; private set; }
+	public TestEntity1Wrapper TestEntity1
+	{
+		get { return GetComplexProperty<TestEntity1, TestEntity1Wrapper>(nameof(TestEntity1)); }
+		set { SetComplexProperty<TestEntity1, TestEntity1Wrapper>(value, this.TestEntity1, nameof(TestEntity1)); }
+	}
 
     #endregion
     
     protected override void InitializeComplexProperties(TestEntity2 model)
     {
-      if (model.TestEntity1 == null) throw new ArgumentException("TestEntity1 cannot be null");
-      if (ExistsWrappers.ContainsKey(model.TestEntity1))
-      {
-          TestEntity1 = (TestEntity1Wrapper)ExistsWrappers[model.TestEntity1];
-      }
-      else
-      {
-          TestEntity1 = new TestEntity1Wrapper(model.TestEntity1, ExistsWrappers);
-          RegisterComplexProperty(TestEntity1);
-      }
+		if (model.TestEntity1 != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.TestEntity1))
+			{
+				TestEntity1 = (TestEntity1Wrapper)ExistsWrappers[model.TestEntity1];
+			}
+			else
+			{
+				TestEntity1 = new TestEntity1Wrapper(model.TestEntity1, ExistsWrappers);
+				//ExistsWrappers.Add(model.TestEntity1, new TestEntity1Wrapper(model.TestEntity1, ExistsWrappers));
+				RegisterComplexProperty(TestEntity1);
+			}
+		}
 
     }
   }

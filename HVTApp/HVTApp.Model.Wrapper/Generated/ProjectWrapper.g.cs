@@ -38,7 +38,11 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public UserWrapper Manager { get; private set; }
+	public UserWrapper Manager
+	{
+		get { return GetComplexProperty<User, UserWrapper>(nameof(Manager)); }
+		set { SetComplexProperty<User, UserWrapper>(value, this.Manager, nameof(Manager)); }
+	}
 
     #endregion
 
@@ -64,16 +68,19 @@ namespace HVTApp.Model.Wrapper
     
     protected override void InitializeComplexProperties(Project model)
     {
-      if (model.Manager == null) throw new ArgumentException("Manager cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Manager))
-      {
-          Manager = (UserWrapper)ExistsWrappers[model.Manager];
-      }
-      else
-      {
-          Manager = new UserWrapper(model.Manager, ExistsWrappers);
-          RegisterComplexProperty(Manager);
-      }
+		if (model.Manager != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Manager))
+			{
+				Manager = (UserWrapper)ExistsWrappers[model.Manager];
+			}
+			else
+			{
+				Manager = new UserWrapper(model.Manager, ExistsWrappers);
+				//ExistsWrappers.Add(model.Manager, new UserWrapper(model.Manager, ExistsWrappers));
+				RegisterComplexProperty(Manager);
+			}
+		}
 
     }
   

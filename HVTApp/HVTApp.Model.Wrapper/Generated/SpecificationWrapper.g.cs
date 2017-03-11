@@ -38,7 +38,11 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public ContractWrapper Contract { get; private set; }
+	public ContractWrapper Contract
+	{
+		get { return GetComplexProperty<Contract, ContractWrapper>(nameof(Contract)); }
+		set { SetComplexProperty<Contract, ContractWrapper>(value, this.Contract, nameof(Contract)); }
+	}
 
     #endregion
 
@@ -58,16 +62,19 @@ namespace HVTApp.Model.Wrapper
     
     protected override void InitializeComplexProperties(Specification model)
     {
-      if (model.Contract == null) throw new ArgumentException("Contract cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Contract))
-      {
-          Contract = (ContractWrapper)ExistsWrappers[model.Contract];
-      }
-      else
-      {
-          Contract = new ContractWrapper(model.Contract, ExistsWrappers);
-          RegisterComplexProperty(Contract);
-      }
+		if (model.Contract != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Contract))
+			{
+				Contract = (ContractWrapper)ExistsWrappers[model.Contract];
+			}
+			else
+			{
+				Contract = new ContractWrapper(model.Contract, ExistsWrappers);
+				//ExistsWrappers.Add(model.Contract, new ContractWrapper(model.Contract, ExistsWrappers));
+				RegisterComplexProperty(Contract);
+			}
+		}
 
     }
   

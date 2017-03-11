@@ -30,22 +30,29 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public CompanyWrapper Company { get; private set; }
+	public CompanyWrapper Company
+	{
+		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(Company)); }
+		set { SetComplexProperty<Company, CompanyWrapper>(value, this.Company, nameof(Company)); }
+	}
 
     #endregion
     
     protected override void InitializeComplexProperties(ActivityFild model)
     {
-      if (model.Company == null) throw new ArgumentException("Company cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Company))
-      {
-          Company = (CompanyWrapper)ExistsWrappers[model.Company];
-      }
-      else
-      {
-          Company = new CompanyWrapper(model.Company, ExistsWrappers);
-          RegisterComplexProperty(Company);
-      }
+		if (model.Company != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Company))
+			{
+				Company = (CompanyWrapper)ExistsWrappers[model.Company];
+			}
+			else
+			{
+				Company = new CompanyWrapper(model.Company, ExistsWrappers);
+				//ExistsWrappers.Add(model.Company, new CompanyWrapper(model.Company, ExistsWrappers));
+				RegisterComplexProperty(Company);
+			}
+		}
 
     }
   }

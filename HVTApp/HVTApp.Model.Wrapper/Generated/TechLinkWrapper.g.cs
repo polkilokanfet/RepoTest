@@ -22,9 +22,17 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public TechParameterWrapper Parameter { get; private set; }
+	public TechParameterWrapper Parameter
+	{
+		get { return GetComplexProperty<TechParameter, TechParameterWrapper>(nameof(Parameter)); }
+		set { SetComplexProperty<TechParameter, TechParameterWrapper>(value, this.Parameter, nameof(Parameter)); }
+	}
 
-    public TechLinkWrapper ParentLink { get; private set; }
+	public TechLinkWrapper ParentLink
+	{
+		get { return GetComplexProperty<TechLink, TechLinkWrapper>(nameof(ParentLink)); }
+		set { SetComplexProperty<TechLink, TechLinkWrapper>(value, this.ParentLink, nameof(ParentLink)); }
+	}
 
     #endregion
 
@@ -35,27 +43,33 @@ namespace HVTApp.Model.Wrapper
     
     protected override void InitializeComplexProperties(TechLink model)
     {
-      if (model.Parameter == null) throw new ArgumentException("Parameter cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Parameter))
-      {
-          Parameter = (TechParameterWrapper)ExistsWrappers[model.Parameter];
-      }
-      else
-      {
-          Parameter = new TechParameterWrapper(model.Parameter, ExistsWrappers);
-          RegisterComplexProperty(Parameter);
-      }
+		if (model.Parameter != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Parameter))
+			{
+				Parameter = (TechParameterWrapper)ExistsWrappers[model.Parameter];
+			}
+			else
+			{
+				Parameter = new TechParameterWrapper(model.Parameter, ExistsWrappers);
+				//ExistsWrappers.Add(model.Parameter, new TechParameterWrapper(model.Parameter, ExistsWrappers));
+				RegisterComplexProperty(Parameter);
+			}
+		}
 
-      if (model.ParentLink == null) throw new ArgumentException("ParentLink cannot be null");
-      if (ExistsWrappers.ContainsKey(model.ParentLink))
-      {
-          ParentLink = (TechLinkWrapper)ExistsWrappers[model.ParentLink];
-      }
-      else
-      {
-          ParentLink = new TechLinkWrapper(model.ParentLink, ExistsWrappers);
-          RegisterComplexProperty(ParentLink);
-      }
+		if (model.ParentLink != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.ParentLink))
+			{
+				ParentLink = (TechLinkWrapper)ExistsWrappers[model.ParentLink];
+			}
+			else
+			{
+				ParentLink = new TechLinkWrapper(model.ParentLink, ExistsWrappers);
+				//ExistsWrappers.Add(model.ParentLink, new TechLinkWrapper(model.ParentLink, ExistsWrappers));
+				RegisterComplexProperty(ParentLink);
+			}
+		}
 
     }
   

@@ -46,35 +46,49 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public PaymentDocumentWrapper PaymentDocument { get; private set; }
+	public PaymentDocumentWrapper PaymentDocument
+	{
+		get { return GetComplexProperty<PaymentDocument, PaymentDocumentWrapper>(nameof(PaymentDocument)); }
+		set { SetComplexProperty<PaymentDocument, PaymentDocumentWrapper>(value, this.PaymentDocument, nameof(PaymentDocument)); }
+	}
 
-    public PaymentsInfoWrapper PaymentsInfo { get; private set; }
+	public PaymentsInfoWrapper PaymentsInfo
+	{
+		get { return GetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(nameof(PaymentsInfo)); }
+		set { SetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(value, this.PaymentsInfo, nameof(PaymentsInfo)); }
+	}
 
     #endregion
     
     protected override void InitializeComplexProperties(PaymentActual model)
     {
-      if (model.PaymentDocument == null) throw new ArgumentException("PaymentDocument cannot be null");
-      if (ExistsWrappers.ContainsKey(model.PaymentDocument))
-      {
-          PaymentDocument = (PaymentDocumentWrapper)ExistsWrappers[model.PaymentDocument];
-      }
-      else
-      {
-          PaymentDocument = new PaymentDocumentWrapper(model.PaymentDocument, ExistsWrappers);
-          RegisterComplexProperty(PaymentDocument);
-      }
+		if (model.PaymentDocument != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.PaymentDocument))
+			{
+				PaymentDocument = (PaymentDocumentWrapper)ExistsWrappers[model.PaymentDocument];
+			}
+			else
+			{
+				PaymentDocument = new PaymentDocumentWrapper(model.PaymentDocument, ExistsWrappers);
+				//ExistsWrappers.Add(model.PaymentDocument, new PaymentDocumentWrapper(model.PaymentDocument, ExistsWrappers));
+				RegisterComplexProperty(PaymentDocument);
+			}
+		}
 
-      if (model.PaymentsInfo == null) throw new ArgumentException("PaymentsInfo cannot be null");
-      if (ExistsWrappers.ContainsKey(model.PaymentsInfo))
-      {
-          PaymentsInfo = (PaymentsInfoWrapper)ExistsWrappers[model.PaymentsInfo];
-      }
-      else
-      {
-          PaymentsInfo = new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers);
-          RegisterComplexProperty(PaymentsInfo);
-      }
+		if (model.PaymentsInfo != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.PaymentsInfo))
+			{
+				PaymentsInfo = (PaymentsInfoWrapper)ExistsWrappers[model.PaymentsInfo];
+			}
+			else
+			{
+				PaymentsInfo = new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers);
+				//ExistsWrappers.Add(model.PaymentsInfo, new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers));
+				RegisterComplexProperty(PaymentsInfo);
+			}
+		}
 
     }
   }

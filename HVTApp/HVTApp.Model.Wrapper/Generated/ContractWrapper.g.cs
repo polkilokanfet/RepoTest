@@ -38,7 +38,11 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public CompanyWrapper Contragent { get; private set; }
+	public CompanyWrapper Contragent
+	{
+		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(Contragent)); }
+		set { SetComplexProperty<Company, CompanyWrapper>(value, this.Contragent, nameof(Contragent)); }
+	}
 
     #endregion
 
@@ -56,16 +60,19 @@ namespace HVTApp.Model.Wrapper
     
     protected override void InitializeComplexProperties(Contract model)
     {
-      if (model.Contragent == null) throw new ArgumentException("Contragent cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Contragent))
-      {
-          Contragent = (CompanyWrapper)ExistsWrappers[model.Contragent];
-      }
-      else
-      {
-          Contragent = new CompanyWrapper(model.Contragent, ExistsWrappers);
-          RegisterComplexProperty(Contragent);
-      }
+		if (model.Contragent != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Contragent))
+			{
+				Contragent = (CompanyWrapper)ExistsWrappers[model.Contragent];
+			}
+			else
+			{
+				Contragent = new CompanyWrapper(model.Contragent, ExistsWrappers);
+				//ExistsWrappers.Add(model.Contragent, new CompanyWrapper(model.Contragent, ExistsWrappers));
+				RegisterComplexProperty(Contragent);
+			}
+		}
 
     }
   

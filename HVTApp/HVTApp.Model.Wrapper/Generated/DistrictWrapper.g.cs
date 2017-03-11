@@ -30,22 +30,29 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public CountryWrapper Country { get; private set; }
+	public CountryWrapper Country
+	{
+		get { return GetComplexProperty<Country, CountryWrapper>(nameof(Country)); }
+		set { SetComplexProperty<Country, CountryWrapper>(value, this.Country, nameof(Country)); }
+	}
 
     #endregion
     
     protected override void InitializeComplexProperties(District model)
     {
-      if (model.Country == null) throw new ArgumentException("Country cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Country))
-      {
-          Country = (CountryWrapper)ExistsWrappers[model.Country];
-      }
-      else
-      {
-          Country = new CountryWrapper(model.Country, ExistsWrappers);
-          RegisterComplexProperty(Country);
-      }
+		if (model.Country != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Country))
+			{
+				Country = (CountryWrapper)ExistsWrappers[model.Country];
+			}
+			else
+			{
+				Country = new CountryWrapper(model.Country, ExistsWrappers);
+				//ExistsWrappers.Add(model.Country, new CountryWrapper(model.Country, ExistsWrappers));
+				RegisterComplexProperty(Country);
+			}
+		}
 
     }
   }

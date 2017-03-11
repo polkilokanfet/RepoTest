@@ -22,11 +22,23 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public EquipmentWrapper Equipment { get; private set; }
+	public EquipmentWrapper Equipment
+	{
+		get { return GetComplexProperty<Equipment, EquipmentWrapper>(nameof(Equipment)); }
+		set { SetComplexProperty<Equipment, EquipmentWrapper>(value, this.Equipment, nameof(Equipment)); }
+	}
 
-    public OfferWrapper Offer { get; private set; }
+	public OfferWrapper Offer
+	{
+		get { return GetComplexProperty<Offer, OfferWrapper>(nameof(Offer)); }
+		set { SetComplexProperty<Offer, OfferWrapper>(value, this.Offer, nameof(Offer)); }
+	}
 
-    public PlannedTermProductionWrapper PlannedTermProduction { get; private set; }
+	public PlannedTermProductionWrapper PlannedTermProduction
+	{
+		get { return GetComplexProperty<PlannedTermProduction, PlannedTermProductionWrapper>(nameof(PlannedTermProduction)); }
+		set { SetComplexProperty<PlannedTermProduction, PlannedTermProductionWrapper>(value, this.PlannedTermProduction, nameof(PlannedTermProduction)); }
+	}
 
     #endregion
 
@@ -48,38 +60,47 @@ namespace HVTApp.Model.Wrapper
     
     protected override void InitializeComplexProperties(OfferUnit model)
     {
-      if (model.Equipment == null) throw new ArgumentException("Equipment cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Equipment))
-      {
-          Equipment = (EquipmentWrapper)ExistsWrappers[model.Equipment];
-      }
-      else
-      {
-          Equipment = new EquipmentWrapper(model.Equipment, ExistsWrappers);
-          RegisterComplexProperty(Equipment);
-      }
+		if (model.Equipment != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Equipment))
+			{
+				Equipment = (EquipmentWrapper)ExistsWrappers[model.Equipment];
+			}
+			else
+			{
+				Equipment = new EquipmentWrapper(model.Equipment, ExistsWrappers);
+				//ExistsWrappers.Add(model.Equipment, new EquipmentWrapper(model.Equipment, ExistsWrappers));
+				RegisterComplexProperty(Equipment);
+			}
+		}
 
-      if (model.Offer == null) throw new ArgumentException("Offer cannot be null");
-      if (ExistsWrappers.ContainsKey(model.Offer))
-      {
-          Offer = (OfferWrapper)ExistsWrappers[model.Offer];
-      }
-      else
-      {
-          Offer = new OfferWrapper(model.Offer, ExistsWrappers);
-          RegisterComplexProperty(Offer);
-      }
+		if (model.Offer != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.Offer))
+			{
+				Offer = (OfferWrapper)ExistsWrappers[model.Offer];
+			}
+			else
+			{
+				Offer = new OfferWrapper(model.Offer, ExistsWrappers);
+				//ExistsWrappers.Add(model.Offer, new OfferWrapper(model.Offer, ExistsWrappers));
+				RegisterComplexProperty(Offer);
+			}
+		}
 
-      if (model.PlannedTermProduction == null) throw new ArgumentException("PlannedTermProduction cannot be null");
-      if (ExistsWrappers.ContainsKey(model.PlannedTermProduction))
-      {
-          PlannedTermProduction = (PlannedTermProductionWrapper)ExistsWrappers[model.PlannedTermProduction];
-      }
-      else
-      {
-          PlannedTermProduction = new PlannedTermProductionWrapper(model.PlannedTermProduction, ExistsWrappers);
-          RegisterComplexProperty(PlannedTermProduction);
-      }
+		if (model.PlannedTermProduction != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.PlannedTermProduction))
+			{
+				PlannedTermProduction = (PlannedTermProductionWrapper)ExistsWrappers[model.PlannedTermProduction];
+			}
+			else
+			{
+				PlannedTermProduction = new PlannedTermProductionWrapper(model.PlannedTermProduction, ExistsWrappers);
+				//ExistsWrappers.Add(model.PlannedTermProduction, new PlannedTermProductionWrapper(model.PlannedTermProduction, ExistsWrappers));
+				RegisterComplexProperty(PlannedTermProduction);
+			}
+		}
 
     }
   

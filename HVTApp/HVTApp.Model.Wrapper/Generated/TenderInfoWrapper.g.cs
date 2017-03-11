@@ -22,48 +22,69 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
     #region ComplexProperties
-    public ProductMainWrapper ProductMain { get; private set; }
+	public ProductMainWrapper ProductMain
+	{
+		get { return GetComplexProperty<ProductMain, ProductMainWrapper>(nameof(ProductMain)); }
+		set { SetComplexProperty<ProductMain, ProductMainWrapper>(value, this.ProductMain, nameof(ProductMain)); }
+	}
 
-    public CompanyWrapper ProducerWinner { get; private set; }
+	public CompanyWrapper ProducerWinner
+	{
+		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(ProducerWinner)); }
+		set { SetComplexProperty<Company, CompanyWrapper>(value, this.ProducerWinner, nameof(ProducerWinner)); }
+	}
 
-    public CostInfoWrapper CostInfo { get; private set; }
+	public CostInfoWrapper CostInfo
+	{
+		get { return GetComplexProperty<CostInfo, CostInfoWrapper>(nameof(CostInfo)); }
+		set { SetComplexProperty<CostInfo, CostInfoWrapper>(value, this.CostInfo, nameof(CostInfo)); }
+	}
 
     #endregion
     
     protected override void InitializeComplexProperties(TenderInfo model)
     {
-      if (model.ProductMain == null) throw new ArgumentException("ProductMain cannot be null");
-      if (ExistsWrappers.ContainsKey(model.ProductMain))
-      {
-          ProductMain = (ProductMainWrapper)ExistsWrappers[model.ProductMain];
-      }
-      else
-      {
-          ProductMain = new ProductMainWrapper(model.ProductMain, ExistsWrappers);
-          RegisterComplexProperty(ProductMain);
-      }
+		if (model.ProductMain != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.ProductMain))
+			{
+				ProductMain = (ProductMainWrapper)ExistsWrappers[model.ProductMain];
+			}
+			else
+			{
+				ProductMain = new ProductMainWrapper(model.ProductMain, ExistsWrappers);
+				//ExistsWrappers.Add(model.ProductMain, new ProductMainWrapper(model.ProductMain, ExistsWrappers));
+				RegisterComplexProperty(ProductMain);
+			}
+		}
 
-      if (model.ProducerWinner == null) throw new ArgumentException("ProducerWinner cannot be null");
-      if (ExistsWrappers.ContainsKey(model.ProducerWinner))
-      {
-          ProducerWinner = (CompanyWrapper)ExistsWrappers[model.ProducerWinner];
-      }
-      else
-      {
-          ProducerWinner = new CompanyWrapper(model.ProducerWinner, ExistsWrappers);
-          RegisterComplexProperty(ProducerWinner);
-      }
+		if (model.ProducerWinner != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.ProducerWinner))
+			{
+				ProducerWinner = (CompanyWrapper)ExistsWrappers[model.ProducerWinner];
+			}
+			else
+			{
+				ProducerWinner = new CompanyWrapper(model.ProducerWinner, ExistsWrappers);
+				//ExistsWrappers.Add(model.ProducerWinner, new CompanyWrapper(model.ProducerWinner, ExistsWrappers));
+				RegisterComplexProperty(ProducerWinner);
+			}
+		}
 
-      if (model.CostInfo == null) throw new ArgumentException("CostInfo cannot be null");
-      if (ExistsWrappers.ContainsKey(model.CostInfo))
-      {
-          CostInfo = (CostInfoWrapper)ExistsWrappers[model.CostInfo];
-      }
-      else
-      {
-          CostInfo = new CostInfoWrapper(model.CostInfo, ExistsWrappers);
-          RegisterComplexProperty(CostInfo);
-      }
+		if (model.CostInfo != null)
+		{
+			if (ExistsWrappers.ContainsKey(model.CostInfo))
+			{
+				CostInfo = (CostInfoWrapper)ExistsWrappers[model.CostInfo];
+			}
+			else
+			{
+				CostInfo = new CostInfoWrapper(model.CostInfo, ExistsWrappers);
+				//ExistsWrappers.Add(model.CostInfo, new CostInfoWrapper(model.CostInfo, ExistsWrappers));
+				RegisterComplexProperty(CostInfo);
+			}
+		}
 
     }
   }
