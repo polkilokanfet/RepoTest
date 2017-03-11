@@ -103,6 +103,7 @@
     <Compile Include="Offer\OfferProduct.cs" />
     <Compile Include="Employee\User.cs" />
     <Compile Include="Employee\Role.cs" />
+    <Compile Include="TestModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Model.Services\HVTApp.Model.Services.csproj">
