@@ -1,0 +1,43 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:behaviors="clr-namespace:HVTApp.Infrastructure.Behaviors;assembly=HVTApp.Infrastructure">
+
+
+    <Style TargetType="Control" x:Key="ControlBaseStyle">
+        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource DefaultValidationErrorTemplate}"/>
+        <Setter Property="Background" Value="{StaticResource DefaultBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource DefaultForegroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DefaultBorderBrush}"/>
+        <Setter Property="Margin" Value="2"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+
+        <Setter Property="behaviors:ChangeBehavior.IsActive" Value="True"/>
+        <Style.Triggers>
+            <Trigger Property="behaviors:ChangeBehavior.IsChanged" Value="True">
+                <Setter Property="Background" Value="{StaticResource IsChangedBackgroundBrush}"/>
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, 
+                    Path=(behaviors:ChangeBehavior.OriginalValue)}"/>
+            </Trigger>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="Background" Value="{StaticResource IsNotValidBackgroundBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    
+    
+    <Style TargetType="TextBlock" x:Key="TextBlockBaseStyle">
+        <Setter Property="behaviors:ChangeBehavior.IsActive" Value="True"/>
+        <Style.Triggers>
+            <Trigger Property="behaviors:ChangeBehavior.IsChanged" Value="True">
+                <Setter Property="Background" Value="{StaticResource IsChangedBackgroundBrush}"/>
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, 
+                    Path=(behaviors:ChangeBehavior.OriginalValue)}"/>
+            </Trigger>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="Background" Value="{StaticResource IsNotValidBackgroundBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+        
+</ResourceDictionary>

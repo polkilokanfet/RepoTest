@@ -1,0 +1,42 @@
+﻿<igWPF:XamRibbonWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"
+        xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+        xmlns:ig="http://schemas.infragistics.com/xaml"
+        x:Class="HVTApp.Views.MainWindow"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        Title="{Binding Title}" Height="768" Width="1024">
+
+    <igWPF:RibbonWindowContentHost>
+
+        <igWPF:RibbonWindowContentHost.Ribbon>
+            <igWPF:XamRibbon prism:RegionManager.RegionName="{x:Static inf:RegionNames.RibbonTabRegion}">
+                
+                <igWPF:XamRibbon.ApplicationMenu>
+                    <igWPF:ApplicationMenu/>
+                </igWPF:XamRibbon.ApplicationMenu>
+                
+                <igWPF:XamRibbon.QuickAccessToolbar>
+                    <igWPF:QuickAccessToolbar/>
+                </igWPF:XamRibbon.QuickAccessToolbar>
+                
+            </igWPF:XamRibbon>
+        </igWPF:RibbonWindowContentHost.Ribbon>
+
+        <DockPanel LastChildFill="True">
+            <igWPF:XamOutlookBar 
+				prism:RegionManager.RegionName="{x:Static inf:RegionNames.OutlookBarGroupsRegion}" 
+				Width="200"
+				DockPanel.Dock="Left" 
+                SelectedGroupChanging="XamOutlookBar_OnSelectedGroupChanging"/>
+            <ContentControl 
+				prism:RegionManager.RegionName="{x:Static inf:RegionNames.ContentRegion}"
+				Margin="1,3,3,3"/>
+        </DockPanel>
+
+    </igWPF:RibbonWindowContentHost>
+
+
+</igWPF:XamRibbonWindow>

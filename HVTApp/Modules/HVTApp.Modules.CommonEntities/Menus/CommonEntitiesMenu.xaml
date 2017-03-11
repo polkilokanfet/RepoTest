@@ -1,0 +1,22 @@
+﻿<igWPF:OutlookBarGroup
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"
+             xmlns:prism="clr-namespace:HVTApp.Infrastructure.Prism;assembly=HVTApp.Infrastructure"
+             xmlns:igs="http://schemas.infragistics.com/xaml"
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             x:Class="HVTApp.Modules.CommonEntities.Menus.CommonEntitiesMenu"
+             Header="CommonEntities">
+    <igs:XamDataTree 
+        Name="_xamDataTree"
+        ItemsSource="{Binding Items}"
+        prism:XamDataTreeItemSelected.Command="{x:Static Member=inf:Commands.NavigateCommand}">
+        <igs:XamDataTree.GlobalNodeLayouts>
+            <igs:NodeLayout Key="ItemsLayout" 
+                            TargetTypeName="NavigationItem" 
+                            DisplayMemberPath="Caption" 
+                            IsExpandedMemberPath="IsExpended"/>
+        </igs:XamDataTree.GlobalNodeLayouts>
+    </igs:XamDataTree>
+
+</igWPF:OutlookBarGroup>

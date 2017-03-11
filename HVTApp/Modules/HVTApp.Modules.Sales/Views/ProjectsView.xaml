@@ -1,0 +1,19 @@
+﻿<inf:ViewBase
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             xmlns:custom="http://infragistics.com/DataPresenter" 
+             x:Class="HVTApp.Modules.Sales.Views.ProjectsView"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    
+    <custom:XamDataGrid BindToSampleData="True">
+        <custom:XamDataGrid.FieldSettings>
+            <custom:FieldSettings AllowRecordFiltering="True"/>
+        </custom:XamDataGrid.FieldSettings>
+    </custom:XamDataGrid>
+    
+</inf:ViewBase>
+
+
+

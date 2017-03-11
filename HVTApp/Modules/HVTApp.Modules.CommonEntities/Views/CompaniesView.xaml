@@ -1,0 +1,61 @@
+﻿<inf:ViewBase
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             xmlns:infg="http://infragistics.com/DataPresenter"
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             x:Class="HVTApp.Modules.CommonEntities.Views.CompaniesView"             
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    
+    <infg:XamDataGrid DataSource="{Binding Companies, Mode=OneWay}" SelectedDataItem="{Binding SelectedCompany, Mode=TwoWay}">
+        
+        <infg:XamDataGrid.FieldSettings>
+            <infg:FieldSettings AllowEdit="False" AllowRecordFiltering="True"/>
+        </infg:XamDataGrid.FieldSettings>
+
+        <infg:XamDataGrid.FieldLayoutSettings>
+            <infg:FieldLayoutSettings AutoGenerateFields ="False" AutoFitMode="Always" AllowAddNew="False" AllowDelete="False"/>
+        </infg:XamDataGrid.FieldLayoutSettings>
+
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="FullName" Label="Полное наименование"/>
+                    <infg:TextField Name="ShortName" Label="Сокращенное наименование"/>
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+    
+</inf:ViewBase>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

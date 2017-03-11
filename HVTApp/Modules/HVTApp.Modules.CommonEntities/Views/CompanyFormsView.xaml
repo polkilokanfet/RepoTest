@@ -1,0 +1,30 @@
+﻿<inf:ViewBase
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             xmlns:igDp="http://infragistics.com/DataPresenter" 
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             x:Class="HVTApp.Modules.CommonEntities.Views.CompanyFormsView"             
+             prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <igDp:XamDataGrid DataSource="{Binding CompanyForms}" SelectedDataItem="{Binding SelectedCompanyForm}">
+        <igDp:XamDataGrid.FieldSettings>
+            <igDp:FieldSettings AllowEdit="False" AllowRecordFiltering="True"/>
+        </igDp:XamDataGrid.FieldSettings>
+
+        <igDp:XamDataGrid.FieldLayoutSettings>
+            <igDp:FieldLayoutSettings AutoGenerateFields ="False" AutoFitMode="Always" AllowAddNew="False" AllowDelete="False"/>
+        </igDp:XamDataGrid.FieldLayoutSettings>
+               
+        <igDp:XamDataGrid.FieldLayouts>
+            <igDp:FieldLayout>
+                <igDp:FieldLayout.Fields>
+                    <igDp:TextField Name="FullName" Label="Полное наименование"/>
+                    <igDp:TextField Name="ShortName" Label="Сокращенное наименование"/>
+                </igDp:FieldLayout.Fields>
+            </igDp:FieldLayout>
+        </igDp:XamDataGrid.FieldLayouts>
+        
+    </igDp:XamDataGrid>
+
+</inf:ViewBase>

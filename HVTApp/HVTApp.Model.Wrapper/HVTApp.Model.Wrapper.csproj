@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EE385CDC-6790-4BA0-8B6E-31DAD1B3AE1E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HVTApp.Model.Wrapper</RootNamespace>
+    <AssemblyName>HVTApp.Model.Wrapper</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\TrackingCollections\ValidatableChangeTrackingCollection.cs" />
+    <Compile Include="Base\TrackingCollections\IValidatableChangeTracking.cs" />
+    <Compile Include="Base\NotifyDataErrorInfoBase.cs" />
+    <Compile Include="Base\Observable.cs" />
+    <Compile Include="Base\TrackingCollections\TrackingCollection.cs" />
+    <Compile Include="Base\WrapperBase.cs" />
+    <Compile Include="Base\WrappersFactory.cs" />
+    <Compile Include="Custom\CompanyFormWrapper.cs" />
+    <Compile Include="Custom\ForTests\FriendAddressTestWrapper.cs" />
+    <Compile Include="Custom\ForTests\FriendEmailTestWrapper.cs" />
+    <Compile Include="Custom\ForTests\FriendTestWrapper.cs" />
+    <Compile Include="Custom\ProductMainWrapper.cs" />
+    <Compile Include="Generated\ActivityFildWrapper.g.cs" />
+    <Compile Include="Generated\AddressWrapper.g.cs" />
+    <Compile Include="Generated\BankDetailsWrapper.g.cs" />
+    <Compile Include="Generated\CompanyFormWrapper.g.cs" />
+    <Compile Include="Generated\CompanyWrapper.g.cs" />
+    <Compile Include="Generated\ContractWrapper.g.cs" />
+    <Compile Include="Generated\CostInfoWrapper.g.cs" />
+    <Compile Include="Generated\CountryWrapper.g.cs" />
+    <Compile Include="Generated\DateInfoWrapper.g.cs" />
+    <Compile Include="Generated\DistrictsRegionWrapper.g.cs" />
+    <Compile Include="Generated\DistrictWrapper.g.cs" />
+    <Compile Include="Generated\DocumentWrapper.g.cs" />
+    <Compile Include="Generated\EmployeesPositionWrapper.g.cs" />
+    <Compile Include="Generated\EmployeeWrapper.g.cs" />
+    <Compile Include="Generated\EquipmentWrapper.g.cs" />
+    <Compile Include="Generated\FacilityTypeWrapper.g.cs" />
+    <Compile Include="Generated\FacilityWrapper.g.cs" />
+    <Compile Include="Generated\FriendAddressTestWrapper.g.cs" />
+    <Compile Include="Generated\FriendEmailTestWrapper.g.cs" />
+    <Compile Include="Generated\FriendGroupTestWrapper.g.cs" />
+    <Compile Include="Generated\FriendTestWrapper.g.cs" />
+    <Compile Include="Generated\LocalityTypeWrapper.g.cs" />
+    <Compile Include="Generated\LocalityWrapper.g.cs" />
+    <Compile Include="Generated\OfferProductWrapper.g.cs" />
+    <Compile Include="Generated\OfferUnitWrapper.g.cs" />
+    <Compile Include="Generated\OfferWrapper.g.cs" />
+    <Compile Include="Generated\OrderInfoWrapper.g.cs" />
+    <Compile Include="Generated\OrderWrapper.g.cs" />
+    <Compile Include="Generated\PaymentActualWrapper.g.cs" />
+    <Compile Include="Generated\PaymentBaseWrapper.g.cs" />
+    <Compile Include="Generated\PaymentDocumentWrapper.g.cs" />
+    <Compile Include="Generated\PaymentPlannedWrapper.g.cs" />
+    <Compile Include="Generated\PaymentsConditionWrapper.g.cs" />
+    <Compile Include="Generated\PaymentsInfoWrapper.g.cs" />
+    <Compile Include="Generated\PlannedTermProductionWrapper.g.cs" />
+    <Compile Include="Generated\ProductBaseWrapper.g.cs" />
+    <Compile Include="Generated\ProductMainWrapper.g.cs" />
+    <Compile Include="Generated\ProductOptionalWrapper.g.cs" />
+    <Compile Include="Generated\ProductsMainGroupWrapper.g.cs" />
+    <Compile Include="Generated\ProductsOptionalGroupWrapper.g.cs" />
+    <Compile Include="Generated\ProjectWrapper.g.cs" />
+    <Compile Include="Generated\RegistrationDetailsWrapper.g.cs" />
+    <Compile Include="Generated\SpecificationWrapper.g.cs" />
+    <Compile Include="Generated\StandartPaymentConditionsWrapper.g.cs" />
+    <Compile Include="Generated\TechLinksCollectionWrapper.g.cs" />
+    <Compile Include="Generated\TechLinkWrapper.g.cs" />
+    <Compile Include="Generated\TechParametersGroupWrapper.g.cs" />
+    <Compile Include="Generated\TechParameterWrapper.g.cs" />
+    <Compile Include="Generated\TenderInfoWrapper.g.cs" />
+    <Compile Include="Generated\TenderWrapper.g.cs" />
+    <Compile Include="Generated\TermsInfoWrapper.g.cs" />
+    <Compile Include="Generated\TestEntity1Wrapper.g.cs" />
+    <Compile Include="Generated\TestEntity2Wrapper.g.cs" />
+    <Compile Include="Generated\UserRoleWrapper.g.cs" />
+    <Compile Include="Generated\UserWrapper.g.cs" />
+    <Compile Include="Generated\WrappersGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WrappersGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HVTApp.Model\HVTApp.Model.csproj">
+      <Project>{350bdab0-b331-426f-a024-004c8539af17}</Project>
+      <Name>HVTApp.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Generated\WrappersGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WrappersGenerator.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

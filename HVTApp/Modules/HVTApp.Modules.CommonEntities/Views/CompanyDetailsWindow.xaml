@@ -1,0 +1,34 @@
+﻿<Window x:Class="HVTApp.Modules.CommonEntities.Views.CompanyDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HVTApp.Modules.CommonEntities.ViewModels"
+        Title="CompanyDetailsWindow" 
+        SizeToContent="WidthAndHeight">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Название полное"/>
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" Text="{Binding CompanyWrapper.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Название сокращенное"/>
+        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" Text="{Binding CompanyWrapper.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Форма"/>
+        <ComboBox Grid.Column="1" Grid.Row="2" MinWidth="200" ItemsSource="{Binding Forms, Mode=OneWay}" SelectedItem="{Binding CompanyWrapper.Form, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+    </Grid>
+</Window>

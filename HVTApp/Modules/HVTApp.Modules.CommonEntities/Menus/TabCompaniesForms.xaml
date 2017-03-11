@@ -1,0 +1,18 @@
+﻿<inf:RibbonTabItemWithViewModel
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:local="clr-namespace:HVTApp.Modules.CommonEntities.Menus" 
+             xmlns:infRib="http://infragistics.com/Ribbon" 
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             x:Class="HVTApp.Modules.CommonEntities.Menus.TabCompaniesForms"
+             Header="Companies tab">
+    <infRib:RibbonGroup Caption="Form">
+        <infRib:ButtonTool Caption="New" Command="{Binding NewCompanyFormCommand}"/>
+        <infRib:ButtonTool Caption="Edit" Command="{Binding EditCompanyFormCommand}"/>
+        <infRib:ButtonTool Caption="Delete" Command="{Binding DeleteCompanyFormCommand}"/>
+    </infRib:RibbonGroup>
+    <infRib:RibbonGroup>
+        
+    </infRib:RibbonGroup>
+</inf:RibbonTabItemWithViewModel>

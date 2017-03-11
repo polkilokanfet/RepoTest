@@ -1,0 +1,11 @@
+﻿<inf:ViewBase x:Class="HVTApp.Modules.Production.Views.ProductionPlanView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <TextBlock>Production plan</TextBlock>
+    </Grid>
+</inf:ViewBase>
+
