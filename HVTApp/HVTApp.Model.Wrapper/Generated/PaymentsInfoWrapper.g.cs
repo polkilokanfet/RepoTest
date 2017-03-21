@@ -25,7 +25,7 @@ namespace HVTApp.Model.Wrapper
 	public ProductBaseWrapper Product
 	{
 		get { return GetComplexProperty<ProductBase, ProductBaseWrapper>(nameof(Product)); }
-		set { SetComplexProperty<ProductBase, ProductBaseWrapper>(value, this.Product, nameof(Product)); }
+		set { SetComplexProperty<ProductBase, ProductBaseWrapper>(value, nameof(Product)); }
 	}
 
     #endregion
@@ -59,7 +59,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Product = new ProductBaseWrapper(model.Product, ExistsWrappers);
-				//ExistsWrappers.Add(model.Product, new ProductBaseWrapper(model.Product, ExistsWrappers));
 				RegisterComplexProperty(Product);
 			}
 		}

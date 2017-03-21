@@ -25,49 +25,49 @@ namespace HVTApp.Model.Wrapper
 	public ProductsMainGroupWrapper ProductsMainGroup
 	{
 		get { return GetComplexProperty<ProductsMainGroup, ProductsMainGroupWrapper>(nameof(ProductsMainGroup)); }
-		set { SetComplexProperty<ProductsMainGroup, ProductsMainGroupWrapper>(value, this.ProductsMainGroup, nameof(ProductsMainGroup)); }
+		set { SetComplexProperty<ProductsMainGroup, ProductsMainGroupWrapper>(value, nameof(ProductsMainGroup)); }
 	}
 
 	public EquipmentWrapper Equipment
 	{
 		get { return GetComplexProperty<Equipment, EquipmentWrapper>(nameof(Equipment)); }
-		set { SetComplexProperty<Equipment, EquipmentWrapper>(value, this.Equipment, nameof(Equipment)); }
+		set { SetComplexProperty<Equipment, EquipmentWrapper>(value, nameof(Equipment)); }
 	}
 
 	public TenderInfoWrapper TenderInfo
 	{
 		get { return GetComplexProperty<TenderInfo, TenderInfoWrapper>(nameof(TenderInfo)); }
-		set { SetComplexProperty<TenderInfo, TenderInfoWrapper>(value, this.TenderInfo, nameof(TenderInfo)); }
+		set { SetComplexProperty<TenderInfo, TenderInfoWrapper>(value, nameof(TenderInfo)); }
 	}
 
 	public OrderInfoWrapper OrderInfo
 	{
 		get { return GetComplexProperty<OrderInfo, OrderInfoWrapper>(nameof(OrderInfo)); }
-		set { SetComplexProperty<OrderInfo, OrderInfoWrapper>(value, this.OrderInfo, nameof(OrderInfo)); }
+		set { SetComplexProperty<OrderInfo, OrderInfoWrapper>(value, nameof(OrderInfo)); }
 	}
 
 	public DateInfoWrapper DateInfo
 	{
 		get { return GetComplexProperty<DateInfo, DateInfoWrapper>(nameof(DateInfo)); }
-		set { SetComplexProperty<DateInfo, DateInfoWrapper>(value, this.DateInfo, nameof(DateInfo)); }
+		set { SetComplexProperty<DateInfo, DateInfoWrapper>(value, nameof(DateInfo)); }
 	}
 
 	public TermsInfoWrapper TermsInfo
 	{
 		get { return GetComplexProperty<TermsInfo, TermsInfoWrapper>(nameof(TermsInfo)); }
-		set { SetComplexProperty<TermsInfo, TermsInfoWrapper>(value, this.TermsInfo, nameof(TermsInfo)); }
+		set { SetComplexProperty<TermsInfo, TermsInfoWrapper>(value, nameof(TermsInfo)); }
 	}
 
 	public CostInfoWrapper CostInfo
 	{
 		get { return GetComplexProperty<CostInfo, CostInfoWrapper>(nameof(CostInfo)); }
-		set { SetComplexProperty<CostInfo, CostInfoWrapper>(value, this.CostInfo, nameof(CostInfo)); }
+		set { SetComplexProperty<CostInfo, CostInfoWrapper>(value, nameof(CostInfo)); }
 	}
 
 	public PaymentsInfoWrapper PaymentsInfo
 	{
 		get { return GetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(nameof(PaymentsInfo)); }
-		set { SetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(value, this.PaymentsInfo, nameof(PaymentsInfo)); }
+		set { SetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(value, nameof(PaymentsInfo)); }
 	}
 
     #endregion
@@ -90,7 +90,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				ProductsMainGroup = new ProductsMainGroupWrapper(model.ProductsMainGroup, ExistsWrappers);
-				//ExistsWrappers.Add(model.ProductsMainGroup, new ProductsMainGroupWrapper(model.ProductsMainGroup, ExistsWrappers));
 				RegisterComplexProperty(ProductsMainGroup);
 			}
 		}
@@ -104,7 +103,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Equipment = new EquipmentWrapper(model.Equipment, ExistsWrappers);
-				//ExistsWrappers.Add(model.Equipment, new EquipmentWrapper(model.Equipment, ExistsWrappers));
 				RegisterComplexProperty(Equipment);
 			}
 		}
@@ -118,7 +116,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				TenderInfo = new TenderInfoWrapper(model.TenderInfo, ExistsWrappers);
-				//ExistsWrappers.Add(model.TenderInfo, new TenderInfoWrapper(model.TenderInfo, ExistsWrappers));
 				RegisterComplexProperty(TenderInfo);
 			}
 		}
@@ -132,7 +129,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				OrderInfo = new OrderInfoWrapper(model.OrderInfo, ExistsWrappers);
-				//ExistsWrappers.Add(model.OrderInfo, new OrderInfoWrapper(model.OrderInfo, ExistsWrappers));
 				RegisterComplexProperty(OrderInfo);
 			}
 		}
@@ -146,7 +142,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				DateInfo = new DateInfoWrapper(model.DateInfo, ExistsWrappers);
-				//ExistsWrappers.Add(model.DateInfo, new DateInfoWrapper(model.DateInfo, ExistsWrappers));
 				RegisterComplexProperty(DateInfo);
 			}
 		}
@@ -160,7 +155,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				TermsInfo = new TermsInfoWrapper(model.TermsInfo, ExistsWrappers);
-				//ExistsWrappers.Add(model.TermsInfo, new TermsInfoWrapper(model.TermsInfo, ExistsWrappers));
 				RegisterComplexProperty(TermsInfo);
 			}
 		}
@@ -174,7 +168,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				CostInfo = new CostInfoWrapper(model.CostInfo, ExistsWrappers);
-				//ExistsWrappers.Add(model.CostInfo, new CostInfoWrapper(model.CostInfo, ExistsWrappers));
 				RegisterComplexProperty(CostInfo);
 			}
 		}
@@ -188,7 +181,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				PaymentsInfo = new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers);
-				//ExistsWrappers.Add(model.PaymentsInfo, new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers));
 				RegisterComplexProperty(PaymentsInfo);
 			}
 		}

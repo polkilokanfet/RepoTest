@@ -33,7 +33,7 @@ namespace HVTApp.Model.Wrapper
 	public LocalityWrapper Locality
 	{
 		get { return GetComplexProperty<Locality, LocalityWrapper>(nameof(Locality)); }
-		set { SetComplexProperty<Locality, LocalityWrapper>(value, this.Locality, nameof(Locality)); }
+		set { SetComplexProperty<Locality, LocalityWrapper>(value, nameof(Locality)); }
 	}
 
     #endregion
@@ -49,7 +49,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Locality = new LocalityWrapper(model.Locality, ExistsWrappers);
-				//ExistsWrappers.Add(model.Locality, new LocalityWrapper(model.Locality, ExistsWrappers));
 				RegisterComplexProperty(Locality);
 			}
 		}

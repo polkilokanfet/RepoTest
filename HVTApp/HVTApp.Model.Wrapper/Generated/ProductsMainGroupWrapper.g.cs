@@ -25,19 +25,19 @@ namespace HVTApp.Model.Wrapper
 	public ProjectWrapper Project
 	{
 		get { return GetComplexProperty<Project, ProjectWrapper>(nameof(Project)); }
-		set { SetComplexProperty<Project, ProjectWrapper>(value, this.Project, nameof(Project)); }
+		set { SetComplexProperty<Project, ProjectWrapper>(value, nameof(Project)); }
 	}
 
 	public FacilityWrapper Facility
 	{
 		get { return GetComplexProperty<Facility, FacilityWrapper>(nameof(Facility)); }
-		set { SetComplexProperty<Facility, FacilityWrapper>(value, this.Facility, nameof(Facility)); }
+		set { SetComplexProperty<Facility, FacilityWrapper>(value, nameof(Facility)); }
 	}
 
 	public SpecificationWrapper Specification
 	{
 		get { return GetComplexProperty<Specification, SpecificationWrapper>(nameof(Specification)); }
-		set { SetComplexProperty<Specification, SpecificationWrapper>(value, this.Specification, nameof(Specification)); }
+		set { SetComplexProperty<Specification, SpecificationWrapper>(value, nameof(Specification)); }
 	}
 
     #endregion
@@ -69,7 +69,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Project = new ProjectWrapper(model.Project, ExistsWrappers);
-				//ExistsWrappers.Add(model.Project, new ProjectWrapper(model.Project, ExistsWrappers));
 				RegisterComplexProperty(Project);
 			}
 		}
@@ -83,7 +82,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Facility = new FacilityWrapper(model.Facility, ExistsWrappers);
-				//ExistsWrappers.Add(model.Facility, new FacilityWrapper(model.Facility, ExistsWrappers));
 				RegisterComplexProperty(Facility);
 			}
 		}
@@ -97,7 +95,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Specification = new SpecificationWrapper(model.Specification, ExistsWrappers);
-				//ExistsWrappers.Add(model.Specification, new SpecificationWrapper(model.Specification, ExistsWrappers));
 				RegisterComplexProperty(Specification);
 			}
 		}

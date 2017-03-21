@@ -41,7 +41,7 @@ namespace HVTApp.Model.Wrapper
 	public CompanyWrapper Contragent
 	{
 		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(Contragent)); }
-		set { SetComplexProperty<Company, CompanyWrapper>(value, this.Contragent, nameof(Contragent)); }
+		set { SetComplexProperty<Company, CompanyWrapper>(value, nameof(Contragent)); }
 	}
 
     #endregion
@@ -69,7 +69,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Contragent = new CompanyWrapper(model.Contragent, ExistsWrappers);
-				//ExistsWrappers.Add(model.Contragent, new CompanyWrapper(model.Contragent, ExistsWrappers));
 				RegisterComplexProperty(Contragent);
 			}
 		}

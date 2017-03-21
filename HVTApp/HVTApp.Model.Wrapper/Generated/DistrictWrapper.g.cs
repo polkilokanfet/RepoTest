@@ -33,7 +33,7 @@ namespace HVTApp.Model.Wrapper
 	public CountryWrapper Country
 	{
 		get { return GetComplexProperty<Country, CountryWrapper>(nameof(Country)); }
-		set { SetComplexProperty<Country, CountryWrapper>(value, this.Country, nameof(Country)); }
+		set { SetComplexProperty<Country, CountryWrapper>(value, nameof(Country)); }
 	}
 
     #endregion
@@ -49,7 +49,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Country = new CountryWrapper(model.Country, ExistsWrappers);
-				//ExistsWrappers.Add(model.Country, new CountryWrapper(model.Country, ExistsWrappers));
 				RegisterComplexProperty(Country);
 			}
 		}

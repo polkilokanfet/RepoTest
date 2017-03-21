@@ -33,7 +33,7 @@ namespace HVTApp.Model.Wrapper
 	public DistrictWrapper District
 	{
 		get { return GetComplexProperty<District, DistrictWrapper>(nameof(District)); }
-		set { SetComplexProperty<District, DistrictWrapper>(value, this.District, nameof(District)); }
+		set { SetComplexProperty<District, DistrictWrapper>(value, nameof(District)); }
 	}
 
     #endregion
@@ -54,7 +54,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				District = new DistrictWrapper(model.District, ExistsWrappers);
-				//ExistsWrappers.Add(model.District, new DistrictWrapper(model.District, ExistsWrappers));
 				RegisterComplexProperty(District);
 			}
 		}

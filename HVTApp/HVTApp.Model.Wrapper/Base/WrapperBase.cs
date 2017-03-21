@@ -12,6 +12,9 @@ namespace HVTApp.Model.Wrapper
     public abstract class WrapperBase<T> : NotifyDataErrorInfoBase, IValidatableChangeTracking, IValidatableObject
         where T : BaseEntity
     {
+        /// <summary>
+        /// Уже созданные обертки.
+        /// </summary>
         protected readonly Dictionary<BaseEntity, object> ExistsWrappers;
 
         /// <summary>
@@ -153,36 +156,11 @@ namespace HVTApp.Model.Wrapper
             {
                 UpdateOriginalValue(propertyName, currentValue, newValue); //обновляем список оригинальных значений.
                 propertyInfo.SetValue(Model, newValue); //устанавливаем в свойство модели новое значение.
+
                 Validate();
                 OnPropertyChanged(propertyName);
                 OnPropertyChanged(propertyName + "IsChanged");
             }
-        }
-
-        /// <summary>
-        /// Валидация всех свойств объекта.
-        /// </summary>
-        private void Validate()
-        {
-            ClearErrors();
-
-            ValidationContext context = new ValidationContext(this); //контекст поиска ошибок
-            List<ValidationResult> results = new List<ValidationResult>();
-            Validator.TryValidateObject(this, context, results, true); //класс ищущий ошибки по специальным атрибутам.
-            //если валидатор нашел ошибки.
-            if (results.Any())
-            {
-                //список имен свойств, содержащих ошибки
-                List<string> propertyNames = results.SelectMany(x => x.MemberNames).Distinct().ToList();
-
-                foreach (string propertyName in propertyNames)
-                {
-                    var errors = results.Where(x => x.MemberNames.Contains(propertyName)).Select(x => x.ErrorMessage).Distinct().ToList();
-                    Errors.Add(propertyName, errors);
-                    OnErrorsChanged(propertyName); //возбуждаем событие изменения ошибок в свойстве.
-                }
-            }
-            OnPropertyChanged(nameof(IsValid));
         }
 
         /// <summary>
@@ -213,7 +191,33 @@ namespace HVTApp.Model.Wrapper
         }
 
         /// <summary>
-        /// Регистрация сложного (не примитивного) свойства. В нем необходимо отслеживать изменения.
+        /// Валидация всех свойств объекта.
+        /// </summary>
+        private void Validate()
+        {
+            ClearErrors();
+
+            ValidationContext context = new ValidationContext(this); //контекст поиска ошибок
+            List<ValidationResult> results = new List<ValidationResult>();
+            Validator.TryValidateObject(this, context, results, true); //класс ищущий ошибки по специальным атрибутам.
+            //если валидатор нашел ошибки.
+            if (results.Any())
+            {
+                //список имен свойств, содержащих ошибки
+                List<string> propertyNames = results.SelectMany(x => x.MemberNames).Distinct().ToList();
+
+                foreach (string propertyName in propertyNames)
+                {
+                    var errors = results.Where(x => x.MemberNames.Contains(propertyName)).Select(x => x.ErrorMessage).Distinct().ToList();
+                    Errors.Add(propertyName, errors);
+                    OnErrorsChanged(propertyName); //возбуждаем событие изменения ошибок в свойстве.
+                }
+            }
+            OnPropertyChanged(nameof(IsValid));
+        }
+
+        /// <summary>
+        /// Отмена регистрации сложного (не примитивного) свойства. В нем необходимо отслеживать изменения.
         /// </summary>
         /// <typeparam name="TModel">Тип модели.</typeparam>
         /// <param name="wrapper">Обертка.</param>
@@ -221,6 +225,7 @@ namespace HVTApp.Model.Wrapper
             where TModel : BaseEntity
         {
             UnRegisterTrackingObject(wrapper);
+            wrapper.RejectChanges();
         }
 
         /// <summary>
@@ -240,7 +245,7 @@ namespace HVTApp.Model.Wrapper
         /// <param name="trackingObject"></param>
         private void UnRegisterTrackingObject(IValidatableChangeTracking trackingObject)
         {
-            //если объект еще не заригистрирован.
+            //если объект заригистрирован.
             if (_trackingObjects.Contains(trackingObject))
             {
                 //изымаем его из списока.
@@ -338,21 +343,35 @@ namespace HVTApp.Model.Wrapper
             yield break;
         }
 
-
-        protected TWrap GetComplexProperty<TModelProp, TWrap>([CallerMemberName] string propertyName = null)
+        /// <summary>
+        /// Получить сложное свойство.
+        /// </summary>
+        /// <typeparam name="TModelProp"></typeparam>
+        /// <typeparam name="TWrapProp"></typeparam>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
+        protected TWrapProp GetComplexProperty<TModelProp, TWrapProp>([CallerMemberName] string propertyName = null)
             where TModelProp : BaseEntity
-            where TWrap : WrapperBase<TModelProp>
+            where TWrapProp : WrapperBase<TModelProp>
         {
             TModelProp modelValue = GetValue<TModelProp>(propertyName);
             if (ExistsWrappers.ContainsKey(modelValue))
-                return (TWrap)ExistsWrappers[modelValue];
+                return (TWrapProp)ExistsWrappers[modelValue];
             return null;
         }
 
-        protected void SetComplexProperty<TModelProp, TWrap>(TWrap newProp, TWrap oldProp, [CallerMemberName] string propertyName = null)
+        /// <summary>
+        /// Установить сложное свойство.
+        /// </summary>
+        /// <typeparam name="TModelProp"></typeparam>
+        /// <typeparam name="TWrapProp"></typeparam>
+        /// <param name="newProp"></param>
+        /// <param name="propertyName"></param>
+        protected void SetComplexProperty<TModelProp, TWrapProp>(TWrapProp newProp, [CallerMemberName] string propertyName = null)
             where TModelProp : BaseEntity
-            where TWrap : WrapperBase<TModelProp>
+            where TWrapProp : WrapperBase<TModelProp>
         {
+            TWrapProp oldProp = GetComplexProperty<TModelProp, TWrapProp>(propertyName);
             if (oldProp == newProp)
                 return;
 
@@ -369,7 +388,6 @@ namespace HVTApp.Model.Wrapper
                 ExistsWrappers.Add(newProp.Model, newProp);
             }
         }
-
 
         /// <summary>
         /// Запустить в конструкторе.

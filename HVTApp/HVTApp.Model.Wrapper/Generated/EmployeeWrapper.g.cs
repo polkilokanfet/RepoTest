@@ -65,13 +65,13 @@ namespace HVTApp.Model.Wrapper
 	public CompanyWrapper Company
 	{
 		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(Company)); }
-		set { SetComplexProperty<Company, CompanyWrapper>(value, this.Company, nameof(Company)); }
+		set { SetComplexProperty<Company, CompanyWrapper>(value, nameof(Company)); }
 	}
 
 	public EmployeesPositionWrapper Position
 	{
 		get { return GetComplexProperty<EmployeesPosition, EmployeesPositionWrapper>(nameof(Position)); }
-		set { SetComplexProperty<EmployeesPosition, EmployeesPositionWrapper>(value, this.Position, nameof(Position)); }
+		set { SetComplexProperty<EmployeesPosition, EmployeesPositionWrapper>(value, nameof(Position)); }
 	}
 
     #endregion
@@ -87,7 +87,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Company = new CompanyWrapper(model.Company, ExistsWrappers);
-				//ExistsWrappers.Add(model.Company, new CompanyWrapper(model.Company, ExistsWrappers));
 				RegisterComplexProperty(Company);
 			}
 		}
@@ -101,7 +100,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Position = new EmployeesPositionWrapper(model.Position, ExistsWrappers);
-				//ExistsWrappers.Add(model.Position, new EmployeesPositionWrapper(model.Position, ExistsWrappers));
 				RegisterComplexProperty(Position);
 			}
 		}

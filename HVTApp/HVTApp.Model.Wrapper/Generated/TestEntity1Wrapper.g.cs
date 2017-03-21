@@ -25,7 +25,7 @@ namespace HVTApp.Model.Wrapper
 	public TestEntity2Wrapper TestEntity2
 	{
 		get { return GetComplexProperty<TestEntity2, TestEntity2Wrapper>(nameof(TestEntity2)); }
-		set { SetComplexProperty<TestEntity2, TestEntity2Wrapper>(value, this.TestEntity2, nameof(TestEntity2)); }
+		set { SetComplexProperty<TestEntity2, TestEntity2Wrapper>(value, nameof(TestEntity2)); }
 	}
 
     #endregion
@@ -41,7 +41,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				TestEntity2 = new TestEntity2Wrapper(model.TestEntity2, ExistsWrappers);
-				//ExistsWrappers.Add(model.TestEntity2, new TestEntity2Wrapper(model.TestEntity2, ExistsWrappers));
 				RegisterComplexProperty(TestEntity2);
 			}
 		}

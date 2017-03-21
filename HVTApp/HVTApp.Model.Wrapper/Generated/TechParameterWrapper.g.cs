@@ -33,7 +33,7 @@ namespace HVTApp.Model.Wrapper
 	public TechParametersGroupWrapper Group
 	{
 		get { return GetComplexProperty<TechParametersGroup, TechParametersGroupWrapper>(nameof(Group)); }
-		set { SetComplexProperty<TechParametersGroup, TechParametersGroupWrapper>(value, this.Group, nameof(Group)); }
+		set { SetComplexProperty<TechParametersGroup, TechParametersGroupWrapper>(value, nameof(Group)); }
 	}
 
     #endregion
@@ -49,7 +49,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Group = new TechParametersGroupWrapper(model.Group, ExistsWrappers);
-				//ExistsWrappers.Add(model.Group, new TechParametersGroupWrapper(model.Group, ExistsWrappers));
 				RegisterComplexProperty(Group);
 			}
 		}

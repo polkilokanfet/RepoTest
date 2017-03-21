@@ -33,19 +33,19 @@ namespace HVTApp.Model.Wrapper
 	public FacilityTypeWrapper Type
 	{
 		get { return GetComplexProperty<FacilityType, FacilityTypeWrapper>(nameof(Type)); }
-		set { SetComplexProperty<FacilityType, FacilityTypeWrapper>(value, this.Type, nameof(Type)); }
+		set { SetComplexProperty<FacilityType, FacilityTypeWrapper>(value, nameof(Type)); }
 	}
 
 	public CompanyWrapper OwnerCompany
 	{
 		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(OwnerCompany)); }
-		set { SetComplexProperty<Company, CompanyWrapper>(value, this.OwnerCompany, nameof(OwnerCompany)); }
+		set { SetComplexProperty<Company, CompanyWrapper>(value, nameof(OwnerCompany)); }
 	}
 
 	public AddressWrapper Address
 	{
 		get { return GetComplexProperty<Address, AddressWrapper>(nameof(Address)); }
-		set { SetComplexProperty<Address, AddressWrapper>(value, this.Address, nameof(Address)); }
+		set { SetComplexProperty<Address, AddressWrapper>(value, nameof(Address)); }
 	}
 
     #endregion
@@ -61,7 +61,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Type = new FacilityTypeWrapper(model.Type, ExistsWrappers);
-				//ExistsWrappers.Add(model.Type, new FacilityTypeWrapper(model.Type, ExistsWrappers));
 				RegisterComplexProperty(Type);
 			}
 		}
@@ -75,7 +74,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				OwnerCompany = new CompanyWrapper(model.OwnerCompany, ExistsWrappers);
-				//ExistsWrappers.Add(model.OwnerCompany, new CompanyWrapper(model.OwnerCompany, ExistsWrappers));
 				RegisterComplexProperty(OwnerCompany);
 			}
 		}
@@ -89,7 +87,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Address = new AddressWrapper(model.Address, ExistsWrappers);
-				//ExistsWrappers.Add(model.Address, new AddressWrapper(model.Address, ExistsWrappers));
 				RegisterComplexProperty(Address);
 			}
 		}

@@ -33,13 +33,13 @@ namespace HVTApp.Model.Wrapper
 	public LocalityTypeWrapper LocalityType
 	{
 		get { return GetComplexProperty<LocalityType, LocalityTypeWrapper>(nameof(LocalityType)); }
-		set { SetComplexProperty<LocalityType, LocalityTypeWrapper>(value, this.LocalityType, nameof(LocalityType)); }
+		set { SetComplexProperty<LocalityType, LocalityTypeWrapper>(value, nameof(LocalityType)); }
 	}
 
 	public DistrictsRegionWrapper DistrictsRegion
 	{
 		get { return GetComplexProperty<DistrictsRegion, DistrictsRegionWrapper>(nameof(DistrictsRegion)); }
-		set { SetComplexProperty<DistrictsRegion, DistrictsRegionWrapper>(value, this.DistrictsRegion, nameof(DistrictsRegion)); }
+		set { SetComplexProperty<DistrictsRegion, DistrictsRegionWrapper>(value, nameof(DistrictsRegion)); }
 	}
 
     #endregion
@@ -55,7 +55,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				LocalityType = new LocalityTypeWrapper(model.LocalityType, ExistsWrappers);
-				//ExistsWrappers.Add(model.LocalityType, new LocalityTypeWrapper(model.LocalityType, ExistsWrappers));
 				RegisterComplexProperty(LocalityType);
 			}
 		}
@@ -69,7 +68,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				DistrictsRegion = new DistrictsRegionWrapper(model.DistrictsRegion, ExistsWrappers);
-				//ExistsWrappers.Add(model.DistrictsRegion, new DistrictsRegionWrapper(model.DistrictsRegion, ExistsWrappers));
 				RegisterComplexProperty(DistrictsRegion);
 			}
 		}

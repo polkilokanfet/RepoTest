@@ -41,7 +41,7 @@ namespace HVTApp.Model.Wrapper
 	public UserWrapper Manager
 	{
 		get { return GetComplexProperty<User, UserWrapper>(nameof(Manager)); }
-		set { SetComplexProperty<User, UserWrapper>(value, this.Manager, nameof(Manager)); }
+		set { SetComplexProperty<User, UserWrapper>(value, nameof(Manager)); }
 	}
 
     #endregion
@@ -77,7 +77,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Manager = new UserWrapper(model.Manager, ExistsWrappers);
-				//ExistsWrappers.Add(model.Manager, new UserWrapper(model.Manager, ExistsWrappers));
 				RegisterComplexProperty(Manager);
 			}
 		}
