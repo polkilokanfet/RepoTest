@@ -66,7 +66,7 @@ namespace HVTApp.Model.Wrapper
 	public EmployeeWrapper Employee
 	{
 		get { return GetComplexProperty<Employee, EmployeeWrapper>(nameof(Employee)); }
-		set { SetComplexProperty<Employee, EmployeeWrapper>(value, this.Employee, nameof(Employee)); }
+		set { SetComplexProperty<Employee, EmployeeWrapper>(value, nameof(Employee)); }
 	}
 
 
@@ -93,7 +93,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Employee = new EmployeeWrapper(model.Employee, ExistsWrappers);
-				//ExistsWrappers.Add(model.Employee, new EmployeeWrapper(model.Employee, ExistsWrappers));
 				RegisterComplexProperty(Employee);
 			}
 		}

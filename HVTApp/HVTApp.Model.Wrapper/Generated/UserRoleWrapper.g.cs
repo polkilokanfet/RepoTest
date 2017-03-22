@@ -39,7 +39,7 @@ namespace HVTApp.Model.Wrapper
 	public UserWrapper User
 	{
 		get { return GetComplexProperty<User, UserWrapper>(nameof(User)); }
-		set { SetComplexProperty<User, UserWrapper>(value, this.User, nameof(User)); }
+		set { SetComplexProperty<User, UserWrapper>(value, nameof(User)); }
 	}
 
 
@@ -58,7 +58,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				User = new UserWrapper(model.User, ExistsWrappers);
-				//ExistsWrappers.Add(model.User, new UserWrapper(model.User, ExistsWrappers));
 				RegisterComplexProperty(User);
 			}
 		}

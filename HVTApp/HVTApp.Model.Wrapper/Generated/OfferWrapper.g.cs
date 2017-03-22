@@ -39,28 +39,28 @@ namespace HVTApp.Model.Wrapper
 	public DocumentWrapper Document
 	{
 		get { return GetComplexProperty<Document, DocumentWrapper>(nameof(Document)); }
-		set { SetComplexProperty<Document, DocumentWrapper>(value, this.Document, nameof(Document)); }
+		set { SetComplexProperty<Document, DocumentWrapper>(value, nameof(Document)); }
 	}
 
 
 	public ProjectWrapper Project
 	{
 		get { return GetComplexProperty<Project, ProjectWrapper>(nameof(Project)); }
-		set { SetComplexProperty<Project, ProjectWrapper>(value, this.Project, nameof(Project)); }
+		set { SetComplexProperty<Project, ProjectWrapper>(value, nameof(Project)); }
 	}
 
 
 	public TenderWrapper Tender
 	{
 		get { return GetComplexProperty<Tender, TenderWrapper>(nameof(Tender)); }
-		set { SetComplexProperty<Tender, TenderWrapper>(value, this.Tender, nameof(Tender)); }
+		set { SetComplexProperty<Tender, TenderWrapper>(value, nameof(Tender)); }
 	}
 
 
 	public PlannedTermProductionWrapper PlannedTermProduction
 	{
 		get { return GetComplexProperty<PlannedTermProduction, PlannedTermProductionWrapper>(nameof(PlannedTermProduction)); }
-		set { SetComplexProperty<PlannedTermProduction, PlannedTermProductionWrapper>(value, this.PlannedTermProduction, nameof(PlannedTermProduction)); }
+		set { SetComplexProperty<PlannedTermProduction, PlannedTermProductionWrapper>(value, nameof(PlannedTermProduction)); }
 	}
 
 
@@ -87,7 +87,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Document = new DocumentWrapper(model.Document, ExistsWrappers);
-				//ExistsWrappers.Add(model.Document, new DocumentWrapper(model.Document, ExistsWrappers));
 				RegisterComplexProperty(Document);
 			}
 		}
@@ -102,7 +101,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Project = new ProjectWrapper(model.Project, ExistsWrappers);
-				//ExistsWrappers.Add(model.Project, new ProjectWrapper(model.Project, ExistsWrappers));
 				RegisterComplexProperty(Project);
 			}
 		}
@@ -117,7 +115,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Tender = new TenderWrapper(model.Tender, ExistsWrappers);
-				//ExistsWrappers.Add(model.Tender, new TenderWrapper(model.Tender, ExistsWrappers));
 				RegisterComplexProperty(Tender);
 			}
 		}
@@ -132,7 +129,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				PlannedTermProduction = new PlannedTermProductionWrapper(model.PlannedTermProduction, ExistsWrappers);
-				//ExistsWrappers.Add(model.PlannedTermProduction, new PlannedTermProductionWrapper(model.PlannedTermProduction, ExistsWrappers));
 				RegisterComplexProperty(PlannedTermProduction);
 			}
 		}

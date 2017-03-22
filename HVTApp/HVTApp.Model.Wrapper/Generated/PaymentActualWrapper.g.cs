@@ -57,14 +57,14 @@ namespace HVTApp.Model.Wrapper
 	public PaymentDocumentWrapper PaymentDocument
 	{
 		get { return GetComplexProperty<PaymentDocument, PaymentDocumentWrapper>(nameof(PaymentDocument)); }
-		set { SetComplexProperty<PaymentDocument, PaymentDocumentWrapper>(value, this.PaymentDocument, nameof(PaymentDocument)); }
+		set { SetComplexProperty<PaymentDocument, PaymentDocumentWrapper>(value, nameof(PaymentDocument)); }
 	}
 
 
 	public PaymentsInfoWrapper PaymentsInfo
 	{
 		get { return GetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(nameof(PaymentsInfo)); }
-		set { SetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(value, this.PaymentsInfo, nameof(PaymentsInfo)); }
+		set { SetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(value, nameof(PaymentsInfo)); }
 	}
 
 
@@ -83,7 +83,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				PaymentDocument = new PaymentDocumentWrapper(model.PaymentDocument, ExistsWrappers);
-				//ExistsWrappers.Add(model.PaymentDocument, new PaymentDocumentWrapper(model.PaymentDocument, ExistsWrappers));
 				RegisterComplexProperty(PaymentDocument);
 			}
 		}
@@ -98,7 +97,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				PaymentsInfo = new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers);
-				//ExistsWrappers.Add(model.PaymentsInfo, new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers));
 				RegisterComplexProperty(PaymentsInfo);
 			}
 		}

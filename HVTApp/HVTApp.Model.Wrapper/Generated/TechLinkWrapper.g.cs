@@ -30,14 +30,14 @@ namespace HVTApp.Model.Wrapper
 	public TechParameterWrapper Parameter
 	{
 		get { return GetComplexProperty<TechParameter, TechParameterWrapper>(nameof(Parameter)); }
-		set { SetComplexProperty<TechParameter, TechParameterWrapper>(value, this.Parameter, nameof(Parameter)); }
+		set { SetComplexProperty<TechParameter, TechParameterWrapper>(value, nameof(Parameter)); }
 	}
 
 
 	public TechLinkWrapper ParentLink
 	{
 		get { return GetComplexProperty<TechLink, TechLinkWrapper>(nameof(ParentLink)); }
-		set { SetComplexProperty<TechLink, TechLinkWrapper>(value, this.ParentLink, nameof(ParentLink)); }
+		set { SetComplexProperty<TechLink, TechLinkWrapper>(value, nameof(ParentLink)); }
 	}
 
 
@@ -64,7 +64,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Parameter = new TechParameterWrapper(model.Parameter, ExistsWrappers);
-				//ExistsWrappers.Add(model.Parameter, new TechParameterWrapper(model.Parameter, ExistsWrappers));
 				RegisterComplexProperty(Parameter);
 			}
 		}
@@ -79,7 +78,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				ParentLink = new TechLinkWrapper(model.ParentLink, ExistsWrappers);
-				//ExistsWrappers.Add(model.ParentLink, new TechLinkWrapper(model.ParentLink, ExistsWrappers));
 				RegisterComplexProperty(ParentLink);
 			}
 		}

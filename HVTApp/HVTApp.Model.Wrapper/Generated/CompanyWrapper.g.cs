@@ -66,21 +66,21 @@ namespace HVTApp.Model.Wrapper
 	public CompanyFormWrapper Form
 	{
 		get { return GetComplexProperty<CompanyForm, CompanyFormWrapper>(nameof(Form)); }
-		set { SetComplexProperty<CompanyForm, CompanyFormWrapper>(value, this.Form, nameof(Form)); }
+		set { SetComplexProperty<CompanyForm, CompanyFormWrapper>(value, nameof(Form)); }
 	}
 
 
 	public AddressWrapper Address
 	{
 		get { return GetComplexProperty<Address, AddressWrapper>(nameof(Address)); }
-		set { SetComplexProperty<Address, AddressWrapper>(value, this.Address, nameof(Address)); }
+		set { SetComplexProperty<Address, AddressWrapper>(value, nameof(Address)); }
 	}
 
 
 	public BankDetailsWrapper BankDetails
 	{
 		get { return GetComplexProperty<BankDetails, BankDetailsWrapper>(nameof(BankDetails)); }
-		set { SetComplexProperty<BankDetails, BankDetailsWrapper>(value, this.BankDetails, nameof(BankDetails)); }
+		set { SetComplexProperty<BankDetails, BankDetailsWrapper>(value, nameof(BankDetails)); }
 	}
 
 
@@ -113,7 +113,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Form = new CompanyFormWrapper(model.Form, ExistsWrappers);
-				//ExistsWrappers.Add(model.Form, new CompanyFormWrapper(model.Form, ExistsWrappers));
 				RegisterComplexProperty(Form);
 			}
 		}
@@ -128,7 +127,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Address = new AddressWrapper(model.Address, ExistsWrappers);
-				//ExistsWrappers.Add(model.Address, new AddressWrapper(model.Address, ExistsWrappers));
 				RegisterComplexProperty(Address);
 			}
 		}
@@ -143,7 +141,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				BankDetails = new BankDetailsWrapper(model.BankDetails, ExistsWrappers);
-				//ExistsWrappers.Add(model.BankDetails, new BankDetailsWrapper(model.BankDetails, ExistsWrappers));
 				RegisterComplexProperty(BankDetails);
 			}
 		}

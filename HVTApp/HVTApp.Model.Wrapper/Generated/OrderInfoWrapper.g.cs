@@ -48,14 +48,14 @@ namespace HVTApp.Model.Wrapper
 	public ProductBaseWrapper Product
 	{
 		get { return GetComplexProperty<ProductBase, ProductBaseWrapper>(nameof(Product)); }
-		set { SetComplexProperty<ProductBase, ProductBaseWrapper>(value, this.Product, nameof(Product)); }
+		set { SetComplexProperty<ProductBase, ProductBaseWrapper>(value, nameof(Product)); }
 	}
 
 
 	public OrderWrapper Order
 	{
 		get { return GetComplexProperty<Order, OrderWrapper>(nameof(Order)); }
-		set { SetComplexProperty<Order, OrderWrapper>(value, this.Order, nameof(Order)); }
+		set { SetComplexProperty<Order, OrderWrapper>(value, nameof(Order)); }
 	}
 
 
@@ -74,7 +74,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Product = new ProductBaseWrapper(model.Product, ExistsWrappers);
-				//ExistsWrappers.Add(model.Product, new ProductBaseWrapper(model.Product, ExistsWrappers));
 				RegisterComplexProperty(Product);
 			}
 		}
@@ -89,7 +88,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Order = new OrderWrapper(model.Order, ExistsWrappers);
-				//ExistsWrappers.Add(model.Order, new OrderWrapper(model.Order, ExistsWrappers));
 				RegisterComplexProperty(Order);
 			}
 		}

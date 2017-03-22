@@ -30,28 +30,28 @@ namespace HVTApp.Model.Wrapper
 	public ProductMainWrapper ProductMain
 	{
 		get { return GetComplexProperty<ProductMain, ProductMainWrapper>(nameof(ProductMain)); }
-		set { SetComplexProperty<ProductMain, ProductMainWrapper>(value, this.ProductMain, nameof(ProductMain)); }
+		set { SetComplexProperty<ProductMain, ProductMainWrapper>(value, nameof(ProductMain)); }
 	}
 
 
 	public OfferUnitWrapper OfferUnit
 	{
 		get { return GetComplexProperty<OfferUnit, OfferUnitWrapper>(nameof(OfferUnit)); }
-		set { SetComplexProperty<OfferUnit, OfferUnitWrapper>(value, this.OfferUnit, nameof(OfferUnit)); }
+		set { SetComplexProperty<OfferUnit, OfferUnitWrapper>(value, nameof(OfferUnit)); }
 	}
 
 
 	public CostInfoWrapper CostInfo
 	{
 		get { return GetComplexProperty<CostInfo, CostInfoWrapper>(nameof(CostInfo)); }
-		set { SetComplexProperty<CostInfo, CostInfoWrapper>(value, this.CostInfo, nameof(CostInfo)); }
+		set { SetComplexProperty<CostInfo, CostInfoWrapper>(value, nameof(CostInfo)); }
 	}
 
 
 	public PlannedTermProductionWrapper PlannedTermProduction
 	{
 		get { return GetComplexProperty<PlannedTermProduction, PlannedTermProductionWrapper>(nameof(PlannedTermProduction)); }
-		set { SetComplexProperty<PlannedTermProduction, PlannedTermProductionWrapper>(value, this.PlannedTermProduction, nameof(PlannedTermProduction)); }
+		set { SetComplexProperty<PlannedTermProduction, PlannedTermProductionWrapper>(value, nameof(PlannedTermProduction)); }
 	}
 
 
@@ -78,7 +78,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				ProductMain = new ProductMainWrapper(model.ProductMain, ExistsWrappers);
-				//ExistsWrappers.Add(model.ProductMain, new ProductMainWrapper(model.ProductMain, ExistsWrappers));
 				RegisterComplexProperty(ProductMain);
 			}
 		}
@@ -93,7 +92,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				OfferUnit = new OfferUnitWrapper(model.OfferUnit, ExistsWrappers);
-				//ExistsWrappers.Add(model.OfferUnit, new OfferUnitWrapper(model.OfferUnit, ExistsWrappers));
 				RegisterComplexProperty(OfferUnit);
 			}
 		}
@@ -108,7 +106,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				CostInfo = new CostInfoWrapper(model.CostInfo, ExistsWrappers);
-				//ExistsWrappers.Add(model.CostInfo, new CostInfoWrapper(model.CostInfo, ExistsWrappers));
 				RegisterComplexProperty(CostInfo);
 			}
 		}
@@ -123,7 +120,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				PlannedTermProduction = new PlannedTermProductionWrapper(model.PlannedTermProduction, ExistsWrappers);
-				//ExistsWrappers.Add(model.PlannedTermProduction, new PlannedTermProductionWrapper(model.PlannedTermProduction, ExistsWrappers));
 				RegisterComplexProperty(PlannedTermProduction);
 			}
 		}

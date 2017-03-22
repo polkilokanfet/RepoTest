@@ -39,7 +39,7 @@ namespace HVTApp.Model.Wrapper
 	public CompanyWrapper Company
 	{
 		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(Company)); }
-		set { SetComplexProperty<Company, CompanyWrapper>(value, this.Company, nameof(Company)); }
+		set { SetComplexProperty<Company, CompanyWrapper>(value, nameof(Company)); }
 	}
 
 
@@ -58,7 +58,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Company = new CompanyWrapper(model.Company, ExistsWrappers);
-				//ExistsWrappers.Add(model.Company, new CompanyWrapper(model.Company, ExistsWrappers));
 				RegisterComplexProperty(Company);
 			}
 		}

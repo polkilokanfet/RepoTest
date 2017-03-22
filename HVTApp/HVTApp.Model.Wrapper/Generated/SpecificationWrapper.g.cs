@@ -48,7 +48,7 @@ namespace HVTApp.Model.Wrapper
 	public ContractWrapper Contract
 	{
 		get { return GetComplexProperty<Contract, ContractWrapper>(nameof(Contract)); }
-		set { SetComplexProperty<Contract, ContractWrapper>(value, this.Contract, nameof(Contract)); }
+		set { SetComplexProperty<Contract, ContractWrapper>(value, nameof(Contract)); }
 	}
 
 
@@ -89,7 +89,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Contract = new ContractWrapper(model.Contract, ExistsWrappers);
-				//ExistsWrappers.Add(model.Contract, new ContractWrapper(model.Contract, ExistsWrappers));
 				RegisterComplexProperty(Contract);
 			}
 		}

@@ -30,21 +30,21 @@ namespace HVTApp.Model.Wrapper
 	public EquipmentWrapper Equipment
 	{
 		get { return GetComplexProperty<Equipment, EquipmentWrapper>(nameof(Equipment)); }
-		set { SetComplexProperty<Equipment, EquipmentWrapper>(value, this.Equipment, nameof(Equipment)); }
+		set { SetComplexProperty<Equipment, EquipmentWrapper>(value, nameof(Equipment)); }
 	}
 
 
 	public OfferWrapper Offer
 	{
 		get { return GetComplexProperty<Offer, OfferWrapper>(nameof(Offer)); }
-		set { SetComplexProperty<Offer, OfferWrapper>(value, this.Offer, nameof(Offer)); }
+		set { SetComplexProperty<Offer, OfferWrapper>(value, nameof(Offer)); }
 	}
 
 
 	public PlannedTermProductionWrapper PlannedTermProduction
 	{
 		get { return GetComplexProperty<PlannedTermProduction, PlannedTermProductionWrapper>(nameof(PlannedTermProduction)); }
-		set { SetComplexProperty<PlannedTermProduction, PlannedTermProductionWrapper>(value, this.PlannedTermProduction, nameof(PlannedTermProduction)); }
+		set { SetComplexProperty<PlannedTermProduction, PlannedTermProductionWrapper>(value, nameof(PlannedTermProduction)); }
 	}
 
 
@@ -88,7 +88,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Equipment = new EquipmentWrapper(model.Equipment, ExistsWrappers);
-				//ExistsWrappers.Add(model.Equipment, new EquipmentWrapper(model.Equipment, ExistsWrappers));
 				RegisterComplexProperty(Equipment);
 			}
 		}
@@ -103,7 +102,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Offer = new OfferWrapper(model.Offer, ExistsWrappers);
-				//ExistsWrappers.Add(model.Offer, new OfferWrapper(model.Offer, ExistsWrappers));
 				RegisterComplexProperty(Offer);
 			}
 		}
@@ -118,7 +116,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				PlannedTermProduction = new PlannedTermProductionWrapper(model.PlannedTermProduction, ExistsWrappers);
-				//ExistsWrappers.Add(model.PlannedTermProduction, new PlannedTermProductionWrapper(model.PlannedTermProduction, ExistsWrappers));
 				RegisterComplexProperty(PlannedTermProduction);
 			}
 		}

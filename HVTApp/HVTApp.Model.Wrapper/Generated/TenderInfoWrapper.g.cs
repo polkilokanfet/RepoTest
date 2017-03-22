@@ -30,21 +30,21 @@ namespace HVTApp.Model.Wrapper
 	public ProductMainWrapper ProductMain
 	{
 		get { return GetComplexProperty<ProductMain, ProductMainWrapper>(nameof(ProductMain)); }
-		set { SetComplexProperty<ProductMain, ProductMainWrapper>(value, this.ProductMain, nameof(ProductMain)); }
+		set { SetComplexProperty<ProductMain, ProductMainWrapper>(value, nameof(ProductMain)); }
 	}
 
 
 	public CompanyWrapper ProducerWinner
 	{
 		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(ProducerWinner)); }
-		set { SetComplexProperty<Company, CompanyWrapper>(value, this.ProducerWinner, nameof(ProducerWinner)); }
+		set { SetComplexProperty<Company, CompanyWrapper>(value, nameof(ProducerWinner)); }
 	}
 
 
 	public CostInfoWrapper CostInfo
 	{
 		get { return GetComplexProperty<CostInfo, CostInfoWrapper>(nameof(CostInfo)); }
-		set { SetComplexProperty<CostInfo, CostInfoWrapper>(value, this.CostInfo, nameof(CostInfo)); }
+		set { SetComplexProperty<CostInfo, CostInfoWrapper>(value, nameof(CostInfo)); }
 	}
 
 
@@ -63,7 +63,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				ProductMain = new ProductMainWrapper(model.ProductMain, ExistsWrappers);
-				//ExistsWrappers.Add(model.ProductMain, new ProductMainWrapper(model.ProductMain, ExistsWrappers));
 				RegisterComplexProperty(ProductMain);
 			}
 		}
@@ -78,7 +77,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				ProducerWinner = new CompanyWrapper(model.ProducerWinner, ExistsWrappers);
-				//ExistsWrappers.Add(model.ProducerWinner, new CompanyWrapper(model.ProducerWinner, ExistsWrappers));
 				RegisterComplexProperty(ProducerWinner);
 			}
 		}
@@ -93,7 +91,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				CostInfo = new CostInfoWrapper(model.CostInfo, ExistsWrappers);
-				//ExistsWrappers.Add(model.CostInfo, new CostInfoWrapper(model.CostInfo, ExistsWrappers));
 				RegisterComplexProperty(CostInfo);
 			}
 		}

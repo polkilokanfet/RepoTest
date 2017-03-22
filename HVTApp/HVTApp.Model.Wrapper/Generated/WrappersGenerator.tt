@@ -204,7 +204,7 @@ namespace HVTApp.Model.Wrapper
 	public <#= propertyType #>Wrapper <#= propertyName #>
 	{
 		get { return GetComplexProperty<<#= propertyType #>, <#= propertyType #>Wrapper>(nameof(<#= propertyName #>)); }
-		set { SetComplexProperty<<#= propertyType #>, <#= propertyType #>Wrapper>(value, this.<#= propertyName #>, nameof(<#= propertyName #>)); }
+		set { SetComplexProperty<<#= propertyType #>, <#= propertyType #>Wrapper>(value, nameof(<#= propertyName #>)); }
 	}
 
 <#+   
@@ -286,7 +286,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				<#= propertyName #> = new <#= propertyType #>Wrapper(model.<#= propertyName #>, ExistsWrappers);
-				//ExistsWrappers.Add(model.<#= propertyName #>, new <#= propertyType #>Wrapper(model.<#= propertyName #>, ExistsWrappers));
 				RegisterComplexProperty(<#= propertyName #>);
 			}
 		}

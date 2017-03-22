@@ -66,14 +66,14 @@ namespace HVTApp.Model.Wrapper
 	public ProjectWrapper Project
 	{
 		get { return GetComplexProperty<Project, ProjectWrapper>(nameof(Project)); }
-		set { SetComplexProperty<Project, ProjectWrapper>(value, this.Project, nameof(Project)); }
+		set { SetComplexProperty<Project, ProjectWrapper>(value, nameof(Project)); }
 	}
 
 
 	public CompanyWrapper Winner
 	{
 		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(Winner)); }
-		set { SetComplexProperty<Company, CompanyWrapper>(value, this.Winner, nameof(Winner)); }
+		set { SetComplexProperty<Company, CompanyWrapper>(value, nameof(Winner)); }
 	}
 
 
@@ -103,7 +103,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Project = new ProjectWrapper(model.Project, ExistsWrappers);
-				//ExistsWrappers.Add(model.Project, new ProjectWrapper(model.Project, ExistsWrappers));
 				RegisterComplexProperty(Project);
 			}
 		}
@@ -118,7 +117,6 @@ namespace HVTApp.Model.Wrapper
 			else
 			{
 				Winner = new CompanyWrapper(model.Winner, ExistsWrappers);
-				//ExistsWrappers.Add(model.Winner, new CompanyWrapper(model.Winner, ExistsWrappers));
 				RegisterComplexProperty(Winner);
 			}
 		}
