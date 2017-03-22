@@ -10,7 +10,9 @@ namespace HVTApp.Model.Wrapper
     public DistrictsRegionWrapper(DistrictsRegion model) : base(model) { }
     public DistrictsRegionWrapper(DistrictsRegion model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
     public System.String Name
     {
       get { return GetValue<System.String>(); }
@@ -18,6 +20,7 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
+
 
     public System.Int32 Id
     {
@@ -27,24 +30,33 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public DistrictWrapper District
 	{
 		get { return GetComplexProperty<District, DistrictWrapper>(nameof(District)); }
 		set { SetComplexProperty<District, DistrictWrapper>(value, this.District, nameof(District)); }
 	}
 
+
     #endregion
+
 
     #region CollectionComplexProperties
+
     public ValidatableChangeTrackingCollection<LocalityWrapper> Localities { get; private set; }
 
+
     #endregion
+
     
     protected override void InitializeComplexProperties(DistrictsRegion model)
     {
+
 		if (model.District != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.District))
@@ -59,14 +71,19 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
     }
+
   
     protected override void InitializeCollectionComplexProperties(DistrictsRegion model)
     {
+
       if (model.Localities == null) throw new ArgumentException("Localities cannot be null");
       Localities = new ValidatableChangeTrackingCollection<LocalityWrapper>(model.Localities.Select(e => new LocalityWrapper(e, ExistsWrappers)));
       RegisterCollection(Localities, model.Localities);
 
+
     }
+
   }
 }

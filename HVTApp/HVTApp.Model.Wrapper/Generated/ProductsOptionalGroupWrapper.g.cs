@@ -10,7 +10,9 @@ namespace HVTApp.Model.Wrapper
     public ProductsOptionalGroupWrapper(ProductsOptionalGroup model) : base(model) { }
     public ProductsOptionalGroupWrapper(ProductsOptionalGroup model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -19,28 +21,41 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
+
 
     #region CollectionComplexProperties
+
     public ValidatableChangeTrackingCollection<ProductOptionalWrapper> Products { get; private set; }
+
 
     #endregion
 
+
     #region GetProperties
+
     public System.Double Sum => GetValue<System.Double>(); 
+
 
     public System.Double SumWithVat => GetValue<System.Double>(); 
 
+
     public System.DateTime OrderInTakeDate => GetValue<System.DateTime>(); 
 
+
     #endregion
+
   
     protected override void InitializeCollectionComplexProperties(ProductsOptionalGroup model)
     {
+
       if (model.Products == null) throw new ArgumentException("Products cannot be null");
       Products = new ValidatableChangeTrackingCollection<ProductOptionalWrapper>(model.Products.Select(e => new ProductOptionalWrapper(e, ExistsWrappers)));
       RegisterCollection(Products, model.Products);
 
+
     }
+
   }
 }

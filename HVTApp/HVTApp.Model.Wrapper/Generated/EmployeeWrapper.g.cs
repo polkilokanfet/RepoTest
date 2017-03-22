@@ -10,7 +10,9 @@ namespace HVTApp.Model.Wrapper
     public EmployeeWrapper(Employee model) : base(model) { }
     public EmployeeWrapper(Employee model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
     public System.String Surname
     {
       get { return GetValue<System.String>(); }
@@ -18,6 +20,7 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String SurnameOriginalValue => GetOriginalValue<System.String>(nameof(Surname));
     public bool SurnameIsChanged => GetIsChanged(nameof(Surname));
+
 
     public System.String Name
     {
@@ -27,6 +30,7 @@ namespace HVTApp.Model.Wrapper
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
 
+
     public System.String Patronymic
     {
       get { return GetValue<System.String>(); }
@@ -34,6 +38,7 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String PatronymicOriginalValue => GetOriginalValue<System.String>(nameof(Patronymic));
     public bool PatronymicIsChanged => GetIsChanged(nameof(Patronymic));
+
 
     public System.String PhoneNumber
     {
@@ -43,6 +48,7 @@ namespace HVTApp.Model.Wrapper
     public System.String PhoneNumberOriginalValue => GetOriginalValue<System.String>(nameof(PhoneNumber));
     public bool PhoneNumberIsChanged => GetIsChanged(nameof(PhoneNumber));
 
+
     public System.String Email
     {
       get { return GetValue<System.String>(); }
@@ -50,6 +56,7 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String EmailOriginalValue => GetOriginalValue<System.String>(nameof(Email));
     public bool EmailIsChanged => GetIsChanged(nameof(Email));
+
 
     public System.Int32 Id
     {
@@ -59,14 +66,18 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public CompanyWrapper Company
 	{
 		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(Company)); }
 		set { SetComplexProperty<Company, CompanyWrapper>(value, this.Company, nameof(Company)); }
 	}
+
 
 	public EmployeesPositionWrapper Position
 	{
@@ -74,10 +85,13 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<EmployeesPosition, EmployeesPositionWrapper>(value, this.Position, nameof(Position)); }
 	}
 
+
     #endregion
+
     
     protected override void InitializeComplexProperties(Employee model)
     {
+
 		if (model.Company != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.Company))
@@ -91,6 +105,7 @@ namespace HVTApp.Model.Wrapper
 				RegisterComplexProperty(Company);
 			}
 		}
+
 
 		if (model.Position != null)
 		{
@@ -106,6 +121,8 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
     }
+
   }
 }

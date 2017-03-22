@@ -10,7 +10,9 @@ namespace HVTApp.Model.Wrapper
     public ProductOptionalWrapper(ProductOptional model) : base(model) { }
     public ProductOptionalWrapper(ProductOptional model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
     public System.Boolean InCoast
     {
       get { return GetValue<System.Boolean>(); }
@@ -18,6 +20,7 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Boolean InCoastOriginalValue => GetOriginalValue<System.Boolean>(nameof(InCoast));
     public bool InCoastIsChanged => GetIsChanged(nameof(InCoast));
+
 
     public System.Int32 Id
     {
@@ -27,14 +30,18 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public ProductsMainGroupWrapper ProductsMainGroup
 	{
 		get { return GetComplexProperty<ProductsMainGroup, ProductsMainGroupWrapper>(nameof(ProductsMainGroup)); }
 		set { SetComplexProperty<ProductsMainGroup, ProductsMainGroupWrapper>(value, this.ProductsMainGroup, nameof(ProductsMainGroup)); }
 	}
+
 
 	public EquipmentWrapper Equipment
 	{
@@ -42,11 +49,13 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<Equipment, EquipmentWrapper>(value, this.Equipment, nameof(Equipment)); }
 	}
 
+
 	public TenderInfoWrapper TenderInfo
 	{
 		get { return GetComplexProperty<TenderInfo, TenderInfoWrapper>(nameof(TenderInfo)); }
 		set { SetComplexProperty<TenderInfo, TenderInfoWrapper>(value, this.TenderInfo, nameof(TenderInfo)); }
 	}
+
 
 	public OrderInfoWrapper OrderInfo
 	{
@@ -54,11 +63,13 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<OrderInfo, OrderInfoWrapper>(value, this.OrderInfo, nameof(OrderInfo)); }
 	}
 
+
 	public DateInfoWrapper DateInfo
 	{
 		get { return GetComplexProperty<DateInfo, DateInfoWrapper>(nameof(DateInfo)); }
 		set { SetComplexProperty<DateInfo, DateInfoWrapper>(value, this.DateInfo, nameof(DateInfo)); }
 	}
+
 
 	public TermsInfoWrapper TermsInfo
 	{
@@ -66,11 +77,13 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<TermsInfo, TermsInfoWrapper>(value, this.TermsInfo, nameof(TermsInfo)); }
 	}
 
+
 	public CostInfoWrapper CostInfo
 	{
 		get { return GetComplexProperty<CostInfo, CostInfoWrapper>(nameof(CostInfo)); }
 		set { SetComplexProperty<CostInfo, CostInfoWrapper>(value, this.CostInfo, nameof(CostInfo)); }
 	}
+
 
 	public PaymentsInfoWrapper PaymentsInfo
 	{
@@ -78,17 +91,24 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(value, this.PaymentsInfo, nameof(PaymentsInfo)); }
 	}
 
+
     #endregion
 
+
     #region CollectionComplexProperties
+
     public ValidatableChangeTrackingCollection<ProductsOptionalGroupWrapper> ProductsOptionalGroups { get; private set; }
+
 
     public ValidatableChangeTrackingCollection<OfferProductWrapper> OfferProducts { get; private set; }
 
+
     #endregion
+
     
     protected override void InitializeComplexProperties(ProductOptional model)
     {
+
 		if (model.ProductsMainGroup != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.ProductsMainGroup))
@@ -102,6 +122,7 @@ namespace HVTApp.Model.Wrapper
 				RegisterComplexProperty(ProductsMainGroup);
 			}
 		}
+
 
 		if (model.Equipment != null)
 		{
@@ -117,6 +138,7 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
 		if (model.TenderInfo != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.TenderInfo))
@@ -130,6 +152,7 @@ namespace HVTApp.Model.Wrapper
 				RegisterComplexProperty(TenderInfo);
 			}
 		}
+
 
 		if (model.OrderInfo != null)
 		{
@@ -145,6 +168,7 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
 		if (model.DateInfo != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.DateInfo))
@@ -158,6 +182,7 @@ namespace HVTApp.Model.Wrapper
 				RegisterComplexProperty(DateInfo);
 			}
 		}
+
 
 		if (model.TermsInfo != null)
 		{
@@ -173,6 +198,7 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
 		if (model.CostInfo != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.CostInfo))
@@ -186,6 +212,7 @@ namespace HVTApp.Model.Wrapper
 				RegisterComplexProperty(CostInfo);
 			}
 		}
+
 
 		if (model.PaymentsInfo != null)
 		{
@@ -201,18 +228,24 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
     }
+
   
     protected override void InitializeCollectionComplexProperties(ProductOptional model)
     {
+
       if (model.ProductsOptionalGroups == null) throw new ArgumentException("ProductsOptionalGroups cannot be null");
       ProductsOptionalGroups = new ValidatableChangeTrackingCollection<ProductsOptionalGroupWrapper>(model.ProductsOptionalGroups.Select(e => new ProductsOptionalGroupWrapper(e, ExistsWrappers)));
       RegisterCollection(ProductsOptionalGroups, model.ProductsOptionalGroups);
+
 
       if (model.OfferProducts == null) throw new ArgumentException("OfferProducts cannot be null");
       OfferProducts = new ValidatableChangeTrackingCollection<OfferProductWrapper>(model.OfferProducts.Select(e => new OfferProductWrapper(e, ExistsWrappers)));
       RegisterCollection(OfferProducts, model.OfferProducts);
 
+
     }
+
   }
 }

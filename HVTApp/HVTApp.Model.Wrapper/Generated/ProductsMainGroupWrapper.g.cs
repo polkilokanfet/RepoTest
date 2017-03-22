@@ -10,7 +10,9 @@ namespace HVTApp.Model.Wrapper
     public ProductsMainGroupWrapper(ProductsMainGroup model) : base(model) { }
     public ProductsMainGroupWrapper(ProductsMainGroup model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -19,14 +21,18 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public ProjectWrapper Project
 	{
 		get { return GetComplexProperty<Project, ProjectWrapper>(nameof(Project)); }
 		set { SetComplexProperty<Project, ProjectWrapper>(value, this.Project, nameof(Project)); }
 	}
+
 
 	public FacilityWrapper Facility
 	{
@@ -34,32 +40,45 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<Facility, FacilityWrapper>(value, this.Facility, nameof(Facility)); }
 	}
 
+
 	public SpecificationWrapper Specification
 	{
 		get { return GetComplexProperty<Specification, SpecificationWrapper>(nameof(Specification)); }
 		set { SetComplexProperty<Specification, SpecificationWrapper>(value, this.Specification, nameof(Specification)); }
 	}
 
+
     #endregion
 
+
     #region CollectionComplexProperties
+
     public ValidatableChangeTrackingCollection<ProductsOptionalGroupWrapper> ProductsOptionalGroups { get; private set; }
+
 
     public ValidatableChangeTrackingCollection<ProductMainWrapper> Products { get; private set; }
 
+
     #endregion
 
+
     #region GetProperties
+
     public System.Double Sum => GetValue<System.Double>(); 
+
 
     public System.Double SumWithVat => GetValue<System.Double>(); 
 
+
     public System.DateTime OrderInTakeDate => GetValue<System.DateTime>(); 
 
+
     #endregion
+
     
     protected override void InitializeComplexProperties(ProductsMainGroup model)
     {
+
 		if (model.Project != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.Project))
@@ -73,6 +92,7 @@ namespace HVTApp.Model.Wrapper
 				RegisterComplexProperty(Project);
 			}
 		}
+
 
 		if (model.Facility != null)
 		{
@@ -88,6 +108,7 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
 		if (model.Specification != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.Specification))
@@ -102,18 +123,24 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
     }
+
   
     protected override void InitializeCollectionComplexProperties(ProductsMainGroup model)
     {
+
       if (model.ProductsOptionalGroups == null) throw new ArgumentException("ProductsOptionalGroups cannot be null");
       ProductsOptionalGroups = new ValidatableChangeTrackingCollection<ProductsOptionalGroupWrapper>(model.ProductsOptionalGroups.Select(e => new ProductsOptionalGroupWrapper(e, ExistsWrappers)));
       RegisterCollection(ProductsOptionalGroups, model.ProductsOptionalGroups);
+
 
       if (model.Products == null) throw new ArgumentException("Products cannot be null");
       Products = new ValidatableChangeTrackingCollection<ProductMainWrapper>(model.Products.Select(e => new ProductMainWrapper(e, ExistsWrappers)));
       RegisterCollection(Products, model.Products);
 
+
     }
+
   }
 }

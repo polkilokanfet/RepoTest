@@ -10,7 +10,9 @@ namespace HVTApp.Model.Wrapper
     public CompanyWrapper(Company model) : base(model) { }
     public CompanyWrapper(Company model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
     public System.String FullName
     {
       get { return GetValue<System.String>(); }
@@ -18,6 +20,7 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String FullNameOriginalValue => GetOriginalValue<System.String>(nameof(FullName));
     public bool FullNameIsChanged => GetIsChanged(nameof(FullName));
+
 
     public System.String ShortName
     {
@@ -27,6 +30,7 @@ namespace HVTApp.Model.Wrapper
     public System.String ShortNameOriginalValue => GetOriginalValue<System.String>(nameof(ShortName));
     public bool ShortNameIsChanged => GetIsChanged(nameof(ShortName));
 
+
     public System.String Inn
     {
       get { return GetValue<System.String>(); }
@@ -34,6 +38,7 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String InnOriginalValue => GetOriginalValue<System.String>(nameof(Inn));
     public bool InnIsChanged => GetIsChanged(nameof(Inn));
+
 
     public System.String Kpp
     {
@@ -43,6 +48,7 @@ namespace HVTApp.Model.Wrapper
     public System.String KppOriginalValue => GetOriginalValue<System.String>(nameof(Kpp));
     public bool KppIsChanged => GetIsChanged(nameof(Kpp));
 
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -51,14 +57,18 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public CompanyFormWrapper Form
 	{
 		get { return GetComplexProperty<CompanyForm, CompanyFormWrapper>(nameof(Form)); }
 		set { SetComplexProperty<CompanyForm, CompanyFormWrapper>(value, this.Form, nameof(Form)); }
 	}
+
 
 	public AddressWrapper Address
 	{
@@ -66,25 +76,34 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<Address, AddressWrapper>(value, this.Address, nameof(Address)); }
 	}
 
+
 	public BankDetailsWrapper BankDetails
 	{
 		get { return GetComplexProperty<BankDetails, BankDetailsWrapper>(nameof(BankDetails)); }
 		set { SetComplexProperty<BankDetails, BankDetailsWrapper>(value, this.BankDetails, nameof(BankDetails)); }
 	}
 
+
     #endregion
 
+
     #region CollectionComplexProperties
+
     public ValidatableChangeTrackingCollection<CompanyWrapper> ChildCompanies { get; private set; }
+
 
     public ValidatableChangeTrackingCollection<ActivityFildWrapper> ActivityFilds { get; private set; }
 
+
     public ValidatableChangeTrackingCollection<EmployeeWrapper> Employees { get; private set; }
 
+
     #endregion
+
     
     protected override void InitializeComplexProperties(Company model)
     {
+
 		if (model.Form != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.Form))
@@ -98,6 +117,7 @@ namespace HVTApp.Model.Wrapper
 				RegisterComplexProperty(Form);
 			}
 		}
+
 
 		if (model.Address != null)
 		{
@@ -113,6 +133,7 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
 		if (model.BankDetails != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.BankDetails))
@@ -127,22 +148,29 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
     }
+
   
     protected override void InitializeCollectionComplexProperties(Company model)
     {
+
       if (model.ChildCompanies == null) throw new ArgumentException("ChildCompanies cannot be null");
       ChildCompanies = new ValidatableChangeTrackingCollection<CompanyWrapper>(model.ChildCompanies.Select(e => new CompanyWrapper(e, ExistsWrappers)));
       RegisterCollection(ChildCompanies, model.ChildCompanies);
+
 
       if (model.ActivityFilds == null) throw new ArgumentException("ActivityFilds cannot be null");
       ActivityFilds = new ValidatableChangeTrackingCollection<ActivityFildWrapper>(model.ActivityFilds.Select(e => new ActivityFildWrapper(e, ExistsWrappers)));
       RegisterCollection(ActivityFilds, model.ActivityFilds);
 
+
       if (model.Employees == null) throw new ArgumentException("Employees cannot be null");
       Employees = new ValidatableChangeTrackingCollection<EmployeeWrapper>(model.Employees.Select(e => new EmployeeWrapper(e, ExistsWrappers)));
       RegisterCollection(Employees, model.Employees);
 
+
     }
+
   }
 }

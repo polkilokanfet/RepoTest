@@ -10,7 +10,9 @@ namespace HVTApp.Model.Wrapper
     public ActivityFildWrapper(ActivityFild model) : base(model) { }
     public ActivityFildWrapper(ActivityFild model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
     public HVTApp.Model.FieldOfActivity FieldOfActivity
     {
       get { return GetValue<HVTApp.Model.FieldOfActivity>(); }
@@ -18,6 +20,7 @@ namespace HVTApp.Model.Wrapper
     }
     public HVTApp.Model.FieldOfActivity FieldOfActivityOriginalValue => GetOriginalValue<HVTApp.Model.FieldOfActivity>(nameof(FieldOfActivity));
     public bool FieldOfActivityIsChanged => GetIsChanged(nameof(FieldOfActivity));
+
 
     public System.Int32 Id
     {
@@ -27,19 +30,25 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public CompanyWrapper Company
 	{
 		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(Company)); }
 		set { SetComplexProperty<Company, CompanyWrapper>(value, this.Company, nameof(Company)); }
 	}
 
+
     #endregion
+
     
     protected override void InitializeComplexProperties(ActivityFild model)
     {
+
 		if (model.Company != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.Company))
@@ -54,6 +63,8 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
     }
+
   }
 }

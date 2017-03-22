@@ -10,7 +10,9 @@ namespace HVTApp.Model.Wrapper
     public OfferProductWrapper(OfferProduct model) : base(model) { }
     public OfferProductWrapper(OfferProduct model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -19,14 +21,18 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public ProductMainWrapper ProductMain
 	{
 		get { return GetComplexProperty<ProductMain, ProductMainWrapper>(nameof(ProductMain)); }
 		set { SetComplexProperty<ProductMain, ProductMainWrapper>(value, this.ProductMain, nameof(ProductMain)); }
 	}
+
 
 	public OfferUnitWrapper OfferUnit
 	{
@@ -34,11 +40,13 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<OfferUnit, OfferUnitWrapper>(value, this.OfferUnit, nameof(OfferUnit)); }
 	}
 
+
 	public CostInfoWrapper CostInfo
 	{
 		get { return GetComplexProperty<CostInfo, CostInfoWrapper>(nameof(CostInfo)); }
 		set { SetComplexProperty<CostInfo, CostInfoWrapper>(value, this.CostInfo, nameof(CostInfo)); }
 	}
+
 
 	public PlannedTermProductionWrapper PlannedTermProduction
 	{
@@ -46,15 +54,21 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<PlannedTermProduction, PlannedTermProductionWrapper>(value, this.PlannedTermProduction, nameof(PlannedTermProduction)); }
 	}
 
+
     #endregion
+
 
     #region CollectionComplexProperties
+
     public ValidatableChangeTrackingCollection<PaymentsConditionWrapper> PaymentsConditions { get; private set; }
 
+
     #endregion
+
     
     protected override void InitializeComplexProperties(OfferProduct model)
     {
+
 		if (model.ProductMain != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.ProductMain))
@@ -68,6 +82,7 @@ namespace HVTApp.Model.Wrapper
 				RegisterComplexProperty(ProductMain);
 			}
 		}
+
 
 		if (model.OfferUnit != null)
 		{
@@ -83,6 +98,7 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
 		if (model.CostInfo != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.CostInfo))
@@ -96,6 +112,7 @@ namespace HVTApp.Model.Wrapper
 				RegisterComplexProperty(CostInfo);
 			}
 		}
+
 
 		if (model.PlannedTermProduction != null)
 		{
@@ -111,14 +128,19 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
     }
+
   
     protected override void InitializeCollectionComplexProperties(OfferProduct model)
     {
+
       if (model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
       PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentsConditionWrapper>(model.PaymentsConditions.Select(e => new PaymentsConditionWrapper(e, ExistsWrappers)));
       RegisterCollection(PaymentsConditions, model.PaymentsConditions);
 
+
     }
+
   }
 }

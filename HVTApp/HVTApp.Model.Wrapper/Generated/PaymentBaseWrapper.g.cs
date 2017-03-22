@@ -10,7 +10,9 @@ namespace HVTApp.Model.Wrapper
     public PaymentBaseWrapper(PaymentBase model) : base(model) { }
     public PaymentBaseWrapper(PaymentBase model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
     public System.Double Sum
     {
       get { return GetValue<System.Double>(); }
@@ -18,6 +20,7 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
     public bool SumIsChanged => GetIsChanged(nameof(Sum));
+
 
     public System.String Comment
     {
@@ -27,6 +30,7 @@ namespace HVTApp.Model.Wrapper
     public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
     public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -35,19 +39,25 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public PaymentsInfoWrapper PaymentsInfo
 	{
 		get { return GetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(nameof(PaymentsInfo)); }
 		set { SetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(value, this.PaymentsInfo, nameof(PaymentsInfo)); }
 	}
 
+
     #endregion
+
     
     protected override void InitializeComplexProperties(PaymentBase model)
     {
+
 		if (model.PaymentsInfo != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.PaymentsInfo))
@@ -62,6 +72,8 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
     }
+
   }
 }

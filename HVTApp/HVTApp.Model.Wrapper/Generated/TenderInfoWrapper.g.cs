@@ -10,7 +10,9 @@ namespace HVTApp.Model.Wrapper
     public TenderInfoWrapper(TenderInfo model) : base(model) { }
     public TenderInfoWrapper(TenderInfo model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -19,14 +21,18 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public ProductMainWrapper ProductMain
 	{
 		get { return GetComplexProperty<ProductMain, ProductMainWrapper>(nameof(ProductMain)); }
 		set { SetComplexProperty<ProductMain, ProductMainWrapper>(value, this.ProductMain, nameof(ProductMain)); }
 	}
+
 
 	public CompanyWrapper ProducerWinner
 	{
@@ -34,16 +40,20 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<Company, CompanyWrapper>(value, this.ProducerWinner, nameof(ProducerWinner)); }
 	}
 
+
 	public CostInfoWrapper CostInfo
 	{
 		get { return GetComplexProperty<CostInfo, CostInfoWrapper>(nameof(CostInfo)); }
 		set { SetComplexProperty<CostInfo, CostInfoWrapper>(value, this.CostInfo, nameof(CostInfo)); }
 	}
 
+
     #endregion
+
     
     protected override void InitializeComplexProperties(TenderInfo model)
     {
+
 		if (model.ProductMain != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.ProductMain))
@@ -57,6 +67,7 @@ namespace HVTApp.Model.Wrapper
 				RegisterComplexProperty(ProductMain);
 			}
 		}
+
 
 		if (model.ProducerWinner != null)
 		{
@@ -72,6 +83,7 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
 		if (model.CostInfo != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.CostInfo))
@@ -86,6 +98,8 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
     }
+
   }
 }

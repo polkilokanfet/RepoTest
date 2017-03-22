@@ -10,7 +10,9 @@ namespace HVTApp.Model.Wrapper
     public TechLinkWrapper(TechLink model) : base(model) { }
     public TechLinkWrapper(TechLink model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -19,14 +21,18 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public TechParameterWrapper Parameter
 	{
 		get { return GetComplexProperty<TechParameter, TechParameterWrapper>(nameof(Parameter)); }
 		set { SetComplexProperty<TechParameter, TechParameterWrapper>(value, this.Parameter, nameof(Parameter)); }
 	}
+
 
 	public TechLinkWrapper ParentLink
 	{
@@ -34,15 +40,21 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<TechLink, TechLinkWrapper>(value, this.ParentLink, nameof(ParentLink)); }
 	}
 
+
     #endregion
+
 
     #region CollectionComplexProperties
+
     public ValidatableChangeTrackingCollection<TechLinkWrapper> ChildLinks { get; private set; }
 
+
     #endregion
+
     
     protected override void InitializeComplexProperties(TechLink model)
     {
+
 		if (model.Parameter != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.Parameter))
@@ -56,6 +68,7 @@ namespace HVTApp.Model.Wrapper
 				RegisterComplexProperty(Parameter);
 			}
 		}
+
 
 		if (model.ParentLink != null)
 		{
@@ -71,14 +84,19 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
     }
+
   
     protected override void InitializeCollectionComplexProperties(TechLink model)
     {
+
       if (model.ChildLinks == null) throw new ArgumentException("ChildLinks cannot be null");
       ChildLinks = new ValidatableChangeTrackingCollection<TechLinkWrapper>(model.ChildLinks.Select(e => new TechLinkWrapper(e, ExistsWrappers)));
       RegisterCollection(ChildLinks, model.ChildLinks);
 
+
     }
+
   }
 }

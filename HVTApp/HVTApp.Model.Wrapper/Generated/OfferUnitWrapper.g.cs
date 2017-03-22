@@ -10,7 +10,9 @@ namespace HVTApp.Model.Wrapper
     public OfferUnitWrapper(OfferUnit model) : base(model) { }
     public OfferUnitWrapper(OfferUnit model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -19,14 +21,18 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public EquipmentWrapper Equipment
 	{
 		get { return GetComplexProperty<Equipment, EquipmentWrapper>(nameof(Equipment)); }
 		set { SetComplexProperty<Equipment, EquipmentWrapper>(value, this.Equipment, nameof(Equipment)); }
 	}
+
 
 	public OfferWrapper Offer
 	{
@@ -34,32 +40,45 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<Offer, OfferWrapper>(value, this.Offer, nameof(Offer)); }
 	}
 
+
 	public PlannedTermProductionWrapper PlannedTermProduction
 	{
 		get { return GetComplexProperty<PlannedTermProduction, PlannedTermProductionWrapper>(nameof(PlannedTermProduction)); }
 		set { SetComplexProperty<PlannedTermProduction, PlannedTermProductionWrapper>(value, this.PlannedTermProduction, nameof(PlannedTermProduction)); }
 	}
 
+
     #endregion
 
+
     #region CollectionComplexProperties
+
     public ValidatableChangeTrackingCollection<FacilityWrapper> Facilities { get; private set; }
+
 
     public ValidatableChangeTrackingCollection<OfferProductWrapper> OfferProducts { get; private set; }
 
+
     #endregion
 
+
     #region GetProperties
+
     public System.Int32 Count => GetValue<System.Int32>(); 
+
 
     public System.Double Sum => GetValue<System.Double>(); 
 
+
     public System.Double SumWithVat => GetValue<System.Double>(); 
 
+
     #endregion
+
     
     protected override void InitializeComplexProperties(OfferUnit model)
     {
+
 		if (model.Equipment != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.Equipment))
@@ -73,6 +92,7 @@ namespace HVTApp.Model.Wrapper
 				RegisterComplexProperty(Equipment);
 			}
 		}
+
 
 		if (model.Offer != null)
 		{
@@ -88,6 +108,7 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
 		if (model.PlannedTermProduction != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.PlannedTermProduction))
@@ -102,18 +123,24 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
     }
+
   
     protected override void InitializeCollectionComplexProperties(OfferUnit model)
     {
+
       if (model.Facilities == null) throw new ArgumentException("Facilities cannot be null");
       Facilities = new ValidatableChangeTrackingCollection<FacilityWrapper>(model.Facilities.Select(e => new FacilityWrapper(e, ExistsWrappers)));
       RegisterCollection(Facilities, model.Facilities);
+
 
       if (model.OfferProducts == null) throw new ArgumentException("OfferProducts cannot be null");
       OfferProducts = new ValidatableChangeTrackingCollection<OfferProductWrapper>(model.OfferProducts.Select(e => new OfferProductWrapper(e, ExistsWrappers)));
       RegisterCollection(OfferProducts, model.OfferProducts);
 
+
     }
+
   }
 }

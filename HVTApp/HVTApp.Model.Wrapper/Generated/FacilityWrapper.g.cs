@@ -10,7 +10,9 @@ namespace HVTApp.Model.Wrapper
     public FacilityWrapper(Facility model) : base(model) { }
     public FacilityWrapper(Facility model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
     public System.String Name
     {
       get { return GetValue<System.String>(); }
@@ -18,6 +20,7 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
+
 
     public System.Int32 Id
     {
@@ -27,14 +30,18 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public FacilityTypeWrapper Type
 	{
 		get { return GetComplexProperty<FacilityType, FacilityTypeWrapper>(nameof(Type)); }
 		set { SetComplexProperty<FacilityType, FacilityTypeWrapper>(value, this.Type, nameof(Type)); }
 	}
+
 
 	public CompanyWrapper OwnerCompany
 	{
@@ -42,16 +49,20 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<Company, CompanyWrapper>(value, this.OwnerCompany, nameof(OwnerCompany)); }
 	}
 
+
 	public AddressWrapper Address
 	{
 		get { return GetComplexProperty<Address, AddressWrapper>(nameof(Address)); }
 		set { SetComplexProperty<Address, AddressWrapper>(value, this.Address, nameof(Address)); }
 	}
 
+
     #endregion
+
     
     protected override void InitializeComplexProperties(Facility model)
     {
+
 		if (model.Type != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.Type))
@@ -65,6 +76,7 @@ namespace HVTApp.Model.Wrapper
 				RegisterComplexProperty(Type);
 			}
 		}
+
 
 		if (model.OwnerCompany != null)
 		{
@@ -80,6 +92,7 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
 		if (model.Address != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.Address))
@@ -94,6 +107,8 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
     }
+
   }
 }

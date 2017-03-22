@@ -10,7 +10,9 @@ namespace HVTApp.Model.Wrapper
     public DocumentWrapper(Document model) : base(model) { }
     public DocumentWrapper(Document model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -19,14 +21,18 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public DocumentWrapper RequestDocument
 	{
 		get { return GetComplexProperty<Document, DocumentWrapper>(nameof(RequestDocument)); }
 		set { SetComplexProperty<Document, DocumentWrapper>(value, this.RequestDocument, nameof(RequestDocument)); }
 	}
+
 
 	public CompanyWrapper Sender
 	{
@@ -34,11 +40,13 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<Company, CompanyWrapper>(value, this.Sender, nameof(Sender)); }
 	}
 
+
 	public EmployeeWrapper SenderEmployee
 	{
 		get { return GetComplexProperty<Employee, EmployeeWrapper>(nameof(SenderEmployee)); }
 		set { SetComplexProperty<Employee, EmployeeWrapper>(value, this.SenderEmployee, nameof(SenderEmployee)); }
 	}
+
 
 	public EmployeeWrapper RecipientEmployee
 	{
@@ -46,11 +54,13 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<Employee, EmployeeWrapper>(value, this.RecipientEmployee, nameof(RecipientEmployee)); }
 	}
 
+
 	public RegistrationDetailsWrapper RegistrationDetailsOfSender
 	{
 		get { return GetComplexProperty<RegistrationDetails, RegistrationDetailsWrapper>(nameof(RegistrationDetailsOfSender)); }
 		set { SetComplexProperty<RegistrationDetails, RegistrationDetailsWrapper>(value, this.RegistrationDetailsOfSender, nameof(RegistrationDetailsOfSender)); }
 	}
+
 
 	public RegistrationDetailsWrapper RegistrationDetailsOfRecipient
 	{
@@ -58,20 +68,29 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<RegistrationDetails, RegistrationDetailsWrapper>(value, this.RegistrationDetailsOfRecipient, nameof(RegistrationDetailsOfRecipient)); }
 	}
 
+
     #endregion
+
 
     #region CollectionComplexProperties
+
     public ValidatableChangeTrackingCollection<EmployeeWrapper> CopyToRecipients { get; private set; }
 
+
     #endregion
+
 
     #region GetProperties
+
     public HVTApp.Model.Company RecipientCompany => GetValue<HVTApp.Model.Company>(); 
 
+
     #endregion
+
     
     protected override void InitializeComplexProperties(Document model)
     {
+
 		if (model.RequestDocument != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.RequestDocument))
@@ -85,6 +104,7 @@ namespace HVTApp.Model.Wrapper
 				RegisterComplexProperty(RequestDocument);
 			}
 		}
+
 
 		if (model.Sender != null)
 		{
@@ -100,6 +120,7 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
 		if (model.SenderEmployee != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.SenderEmployee))
@@ -113,6 +134,7 @@ namespace HVTApp.Model.Wrapper
 				RegisterComplexProperty(SenderEmployee);
 			}
 		}
+
 
 		if (model.RecipientEmployee != null)
 		{
@@ -128,6 +150,7 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
 		if (model.RegistrationDetailsOfSender != null)
 		{
 			if (ExistsWrappers.ContainsKey(model.RegistrationDetailsOfSender))
@@ -141,6 +164,7 @@ namespace HVTApp.Model.Wrapper
 				RegisterComplexProperty(RegistrationDetailsOfSender);
 			}
 		}
+
 
 		if (model.RegistrationDetailsOfRecipient != null)
 		{
@@ -156,14 +180,19 @@ namespace HVTApp.Model.Wrapper
 			}
 		}
 
+
     }
+
   
     protected override void InitializeCollectionComplexProperties(Document model)
     {
+
       if (model.CopyToRecipients == null) throw new ArgumentException("CopyToRecipients cannot be null");
       CopyToRecipients = new ValidatableChangeTrackingCollection<EmployeeWrapper>(model.CopyToRecipients.Select(e => new EmployeeWrapper(e, ExistsWrappers)));
       RegisterCollection(CopyToRecipients, model.CopyToRecipients);
 
+
     }
+
   }
 }
