@@ -279,16 +279,15 @@ namespace HVTApp.Model.Wrapper
 #>
 		if (model.<#= propertyName #> != null)
 		{
-            <#= propertyName #> = GetWrapper<<#= propertyType #>, <#= propertyType #>Wrapper>(model.<#= propertyName #>);
-			//if (ExistsWrappers.ContainsKey(model.<#= propertyName #>))
-			//{
-			//	<#= propertyName #> = (<#= propertyType #>Wrapper)ExistsWrappers[model.<#= propertyName #>];
-			//}
-			//else
-			//{
-			//	<#= propertyName #> = new <#= propertyType #>Wrapper(model.<#= propertyName #>, ExistsWrappers);
-			//	RegisterComplexProperty(<#= propertyName #>);
-			//}
+			if (ExistsWrappers.ContainsKey(model.<#= propertyName #>))
+			{
+				<#= propertyName #> = (<#= propertyType #>Wrapper)ExistsWrappers[model.<#= propertyName #>];
+			}
+			else
+			{
+				<#= propertyName #> = new <#= propertyType #>Wrapper(model.<#= propertyName #>, ExistsWrappers);
+				RegisterComplexProperty(<#= propertyName #>);
+			}
 		}
 
 <#+

@@ -237,8 +237,6 @@ namespace HVTApp.Model.Wrapper
             where TModel : BaseEntity
         {
             RegisterTrackingObject(wrapper);
-            if (!ExistsWrappers.ContainsKey(wrapper.Model))
-                ExistsWrappers.Add(wrapper.Model, wrapper);
         }
 
         /// <summary>
@@ -345,6 +343,7 @@ namespace HVTApp.Model.Wrapper
             yield break;
         }
 
+
         /// <summary>
         /// Получить сложное свойство.
         /// </summary>
@@ -387,25 +386,7 @@ namespace HVTApp.Model.Wrapper
             {
                 RegisterComplexProperty(newProp);
                 SetValue(newProp.Model, propertyName);
-                if (ExistsWrappers.ContainsKey(newProp.Model))
-                    ExistsWrappers.Remove(newProp.Model);
                 ExistsWrappers.Add(newProp.Model, newProp);
-            }
-        }
-
-        protected TWrapper GetWrapper<TModelEntity, TWrapper>(TModelEntity modelEntity)
-            where TModelEntity : BaseEntity
-            where TWrapper : WrapperBase<TModelEntity>
-        {
-            if (ExistsWrappers.ContainsKey(modelEntity) && ExistsWrappers[modelEntity] is TWrapper)
-            {
-                return (TWrapper)ExistsWrappers[modelEntity];
-            }
-            else
-            {
-                TWrapper wrapper = (TWrapper)Activator.CreateInstance(typeof(TWrapper), modelEntity, ExistsWrappers);
-                RegisterComplexProperty(wrapper);
-                return wrapper;
             }
         }
 

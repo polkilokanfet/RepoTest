@@ -10,9 +10,7 @@ namespace HVTApp.Model.Wrapper
     public EmployeesPositionWrapper(EmployeesPosition model) : base(model) { }
     public EmployeesPositionWrapper(EmployeesPosition model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
-
     #region SimpleProperties
-
     public System.String Name
     {
       get { return GetValue<System.String>(); }
@@ -20,7 +18,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
-
 
     public System.Int32 Id
     {
@@ -30,8 +27,6 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
   }
 }

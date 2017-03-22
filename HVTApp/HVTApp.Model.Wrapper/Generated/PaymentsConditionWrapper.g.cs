@@ -10,9 +10,7 @@ namespace HVTApp.Model.Wrapper
     public PaymentsConditionWrapper(PaymentsCondition model) : base(model) { }
     public PaymentsConditionWrapper(PaymentsCondition model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
-
     #region SimpleProperties
-
     public System.Double PartInPercent
     {
       get { return GetValue<System.Double>(); }
@@ -20,7 +18,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Double PartInPercentOriginalValue => GetOriginalValue<System.Double>(nameof(PartInPercent));
     public bool PartInPercentIsChanged => GetIsChanged(nameof(PartInPercent));
-
 
     public System.Int32 DaysToPoint
     {
@@ -30,7 +27,6 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 DaysToPointOriginalValue => GetOriginalValue<System.Int32>(nameof(DaysToPoint));
     public bool DaysToPointIsChanged => GetIsChanged(nameof(DaysToPoint));
 
-
     public HVTApp.Model.PaymentConditionPoint PaymentConditionPoint
     {
       get { return GetValue<HVTApp.Model.PaymentConditionPoint>(); }
@@ -38,7 +34,6 @@ namespace HVTApp.Model.Wrapper
     }
     public HVTApp.Model.PaymentConditionPoint PaymentConditionPointOriginalValue => GetOriginalValue<HVTApp.Model.PaymentConditionPoint>(nameof(PaymentConditionPoint));
     public bool PaymentConditionPointIsChanged => GetIsChanged(nameof(PaymentConditionPoint));
-
 
     public System.Int32 Id
     {
@@ -48,8 +43,6 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
   }
 }

@@ -10,9 +10,7 @@ namespace HVTApp.Model.Wrapper
     public UserWrapper(User model) : base(model) { }
     public UserWrapper(User model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
-
     #region SimpleProperties
-
     public System.String Login
     {
       get { return GetValue<System.String>(); }
@@ -20,7 +18,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String LoginOriginalValue => GetOriginalValue<System.String>(nameof(Login));
     public bool LoginIsChanged => GetIsChanged(nameof(Login));
-
 
     public System.Guid Password
     {
@@ -30,7 +27,6 @@ namespace HVTApp.Model.Wrapper
     public System.Guid PasswordOriginalValue => GetOriginalValue<System.Guid>(nameof(Password));
     public bool PasswordIsChanged => GetIsChanged(nameof(Password));
 
-
     public System.String PersonalNumber
     {
       get { return GetValue<System.String>(); }
@@ -38,7 +34,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String PersonalNumberOriginalValue => GetOriginalValue<System.String>(nameof(PersonalNumber));
     public bool PersonalNumberIsChanged => GetIsChanged(nameof(PersonalNumber));
-
 
     public HVTApp.Model.Role RoleCurrent
     {
@@ -48,7 +43,6 @@ namespace HVTApp.Model.Wrapper
     public HVTApp.Model.Role RoleCurrentOriginalValue => GetOriginalValue<HVTApp.Model.Role>(nameof(RoleCurrent));
     public bool RoleCurrentIsChanged => GetIsChanged(nameof(RoleCurrent));
 
-
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -57,60 +51,45 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	public EmployeeWrapper Employee
 	{
 		get { return GetComplexProperty<Employee, EmployeeWrapper>(nameof(Employee)); }
 		set { SetComplexProperty<Employee, EmployeeWrapper>(value, nameof(Employee)); }
 	}
 
-
     #endregion
-
 
     #region CollectionComplexProperties
-
     public ValidatableChangeTrackingCollection<UserRoleWrapper> Roles { get; private set; }
 
-
     #endregion
-
     
     protected override void InitializeComplexProperties(User model)
     {
-
 		if (model.Employee != null)
 		{
-            Employee = GetWrapper<Employee, EmployeeWrapper>(model.Employee);
-			//if (ExistsWrappers.ContainsKey(model.Employee))
-			//{
-			//	Employee = (EmployeeWrapper)ExistsWrappers[model.Employee];
-			//}
-			//else
-			//{
-			//	Employee = new EmployeeWrapper(model.Employee, ExistsWrappers);
-			//	RegisterComplexProperty(Employee);
-			//}
+			if (ExistsWrappers.ContainsKey(model.Employee))
+			{
+				Employee = (EmployeeWrapper)ExistsWrappers[model.Employee];
+			}
+			else
+			{
+				Employee = new EmployeeWrapper(model.Employee, ExistsWrappers);
+				RegisterComplexProperty(Employee);
+			}
 		}
 
-
     }
-
   
     protected override void InitializeCollectionComplexProperties(User model)
     {
-
       if (model.Roles == null) throw new ArgumentException("Roles cannot be null");
       Roles = new ValidatableChangeTrackingCollection<UserRoleWrapper>(model.Roles.Select(e => new UserRoleWrapper(e, ExistsWrappers)));
       RegisterCollection(Roles, model.Roles);
 
-
     }
-
   }
 }
