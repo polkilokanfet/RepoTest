@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class EquipmentWrapper : WrapperBase<Equipment>
   {
     public EquipmentWrapper(Equipment model) : base(model) { }
-    public EquipmentWrapper(Equipment model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public EquipmentWrapper(Equipment model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties

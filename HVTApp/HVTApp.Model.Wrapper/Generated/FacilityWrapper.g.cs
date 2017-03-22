@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class FacilityWrapper : WrapperBase<Facility>
   {
     public FacilityWrapper(Facility model) : base(model) { }
-    public FacilityWrapper(Facility model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public FacilityWrapper(Facility model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -59,54 +59,14 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(Facility model)
     {
 
-		if (model.Type != null)
-		{
-            Type = GetWrapper<FacilityType, FacilityTypeWrapper>(model.Type);
-			//if (ExistsWrappers.ContainsKey(model.Type))
-			//{
-			//	Type = (FacilityTypeWrapper)ExistsWrappers[model.Type];
-			//}
-			//else
-			//{
-			//	Type = new FacilityTypeWrapper(model.Type, ExistsWrappers);
-			//	RegisterComplexProperty(Type);
-			//}
-		}
+        Type = GetWrapper<FacilityType, FacilityTypeWrapper>(model.Type);
 
+        OwnerCompany = GetWrapper<Company, CompanyWrapper>(model.OwnerCompany);
 
-		if (model.OwnerCompany != null)
-		{
-            OwnerCompany = GetWrapper<Company, CompanyWrapper>(model.OwnerCompany);
-			//if (ExistsWrappers.ContainsKey(model.OwnerCompany))
-			//{
-			//	OwnerCompany = (CompanyWrapper)ExistsWrappers[model.OwnerCompany];
-			//}
-			//else
-			//{
-			//	OwnerCompany = new CompanyWrapper(model.OwnerCompany, ExistsWrappers);
-			//	RegisterComplexProperty(OwnerCompany);
-			//}
-		}
-
-
-		if (model.Address != null)
-		{
-            Address = GetWrapper<Address, AddressWrapper>(model.Address);
-			//if (ExistsWrappers.ContainsKey(model.Address))
-			//{
-			//	Address = (AddressWrapper)ExistsWrappers[model.Address];
-			//}
-			//else
-			//{
-			//	Address = new AddressWrapper(model.Address, ExistsWrappers);
-			//	RegisterComplexProperty(Address);
-			//}
-		}
-
+        Address = GetWrapper<Address, AddressWrapper>(model.Address);
 
     }
 

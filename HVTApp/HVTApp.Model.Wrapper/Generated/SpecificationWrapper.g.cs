@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class SpecificationWrapper : WrapperBase<Specification>
   {
     public SpecificationWrapper(Specification model) : base(model) { }
-    public SpecificationWrapper(Specification model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public SpecificationWrapper(Specification model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -76,24 +76,10 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(Specification model)
     {
 
-		if (model.Contract != null)
-		{
-            Contract = GetWrapper<Contract, ContractWrapper>(model.Contract);
-			//if (ExistsWrappers.ContainsKey(model.Contract))
-			//{
-			//	Contract = (ContractWrapper)ExistsWrappers[model.Contract];
-			//}
-			//else
-			//{
-			//	Contract = new ContractWrapper(model.Contract, ExistsWrappers);
-			//	RegisterComplexProperty(Contract);
-			//}
-		}
-
+        Contract = GetWrapper<Contract, ContractWrapper>(model.Contract);
 
     }
 

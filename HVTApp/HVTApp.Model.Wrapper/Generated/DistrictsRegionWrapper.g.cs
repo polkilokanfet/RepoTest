@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class DistrictsRegionWrapper : WrapperBase<DistrictsRegion>
   {
     public DistrictsRegionWrapper(DistrictsRegion model) : base(model) { }
-    public DistrictsRegionWrapper(DistrictsRegion model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public DistrictsRegionWrapper(DistrictsRegion model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -53,24 +53,10 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(DistrictsRegion model)
     {
 
-		if (model.District != null)
-		{
-            District = GetWrapper<District, DistrictWrapper>(model.District);
-			//if (ExistsWrappers.ContainsKey(model.District))
-			//{
-			//	District = (DistrictWrapper)ExistsWrappers[model.District];
-			//}
-			//else
-			//{
-			//	District = new DistrictWrapper(model.District, ExistsWrappers);
-			//	RegisterComplexProperty(District);
-			//}
-		}
-
+        District = GetWrapper<District, DistrictWrapper>(model.District);
 
     }
 

@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class LocalityWrapper : WrapperBase<Locality>
   {
     public LocalityWrapper(Locality model) : base(model) { }
-    public LocalityWrapper(Locality model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public LocalityWrapper(Locality model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -52,39 +52,12 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(Locality model)
     {
 
-		if (model.LocalityType != null)
-		{
-            LocalityType = GetWrapper<LocalityType, LocalityTypeWrapper>(model.LocalityType);
-			//if (ExistsWrappers.ContainsKey(model.LocalityType))
-			//{
-			//	LocalityType = (LocalityTypeWrapper)ExistsWrappers[model.LocalityType];
-			//}
-			//else
-			//{
-			//	LocalityType = new LocalityTypeWrapper(model.LocalityType, ExistsWrappers);
-			//	RegisterComplexProperty(LocalityType);
-			//}
-		}
+        LocalityType = GetWrapper<LocalityType, LocalityTypeWrapper>(model.LocalityType);
 
-
-		if (model.DistrictsRegion != null)
-		{
-            DistrictsRegion = GetWrapper<DistrictsRegion, DistrictsRegionWrapper>(model.DistrictsRegion);
-			//if (ExistsWrappers.ContainsKey(model.DistrictsRegion))
-			//{
-			//	DistrictsRegion = (DistrictsRegionWrapper)ExistsWrappers[model.DistrictsRegion];
-			//}
-			//else
-			//{
-			//	DistrictsRegion = new DistrictsRegionWrapper(model.DistrictsRegion, ExistsWrappers);
-			//	RegisterComplexProperty(DistrictsRegion);
-			//}
-		}
-
+        DistrictsRegion = GetWrapper<DistrictsRegion, DistrictsRegionWrapper>(model.DistrictsRegion);
 
     }
 

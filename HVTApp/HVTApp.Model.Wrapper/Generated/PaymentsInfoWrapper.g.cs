@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class PaymentsInfoWrapper : WrapperBase<PaymentsInfo>
   {
     public PaymentsInfoWrapper(PaymentsInfo model) : base(model) { }
-    public PaymentsInfoWrapper(PaymentsInfo model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public PaymentsInfoWrapper(PaymentsInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -64,24 +64,10 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(PaymentsInfo model)
     {
 
-		if (model.Product != null)
-		{
-            Product = GetWrapper<ProductBase, ProductBaseWrapper>(model.Product);
-			//if (ExistsWrappers.ContainsKey(model.Product))
-			//{
-			//	Product = (ProductBaseWrapper)ExistsWrappers[model.Product];
-			//}
-			//else
-			//{
-			//	Product = new ProductBaseWrapper(model.Product, ExistsWrappers);
-			//	RegisterComplexProperty(Product);
-			//}
-		}
-
+        Product = GetWrapper<ProductBase, ProductBaseWrapper>(model.Product);
 
     }
 

@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class FriendTestWrapper : WrapperBase<FriendTest>
   {
     public FriendTestWrapper(FriendTest model) : base(model) { }
-    public FriendTestWrapper(FriendTest model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public FriendTestWrapper(FriendTest model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -118,39 +118,12 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(FriendTest model)
     {
 
-		if (model.FriendAddressTest != null)
-		{
-            FriendAddressTest = GetWrapper<FriendAddressTest, FriendAddressTestWrapper>(model.FriendAddressTest);
-			//if (ExistsWrappers.ContainsKey(model.FriendAddressTest))
-			//{
-			//	FriendAddressTest = (FriendAddressTestWrapper)ExistsWrappers[model.FriendAddressTest];
-			//}
-			//else
-			//{
-			//	FriendAddressTest = new FriendAddressTestWrapper(model.FriendAddressTest, ExistsWrappers);
-			//	RegisterComplexProperty(FriendAddressTest);
-			//}
-		}
+        FriendAddressTest = GetWrapper<FriendAddressTest, FriendAddressTestWrapper>(model.FriendAddressTest);
 
-
-		if (model.FriendGroupTest != null)
-		{
-            FriendGroupTest = GetWrapper<FriendGroupTest, FriendGroupTestWrapper>(model.FriendGroupTest);
-			//if (ExistsWrappers.ContainsKey(model.FriendGroupTest))
-			//{
-			//	FriendGroupTest = (FriendGroupTestWrapper)ExistsWrappers[model.FriendGroupTest];
-			//}
-			//else
-			//{
-			//	FriendGroupTest = new FriendGroupTestWrapper(model.FriendGroupTest, ExistsWrappers);
-			//	RegisterComplexProperty(FriendGroupTest);
-			//}
-		}
-
+        FriendGroupTest = GetWrapper<FriendGroupTest, FriendGroupTestWrapper>(model.FriendGroupTest);
 
     }
 

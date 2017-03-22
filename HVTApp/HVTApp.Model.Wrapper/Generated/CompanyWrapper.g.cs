@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class CompanyWrapper : WrapperBase<Company>
   {
     public CompanyWrapper(Company model) : base(model) { }
-    public CompanyWrapper(Company model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public CompanyWrapper(Company model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -100,54 +100,14 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(Company model)
     {
 
-		if (model.Form != null)
-		{
-            Form = GetWrapper<CompanyForm, CompanyFormWrapper>(model.Form);
-			//if (ExistsWrappers.ContainsKey(model.Form))
-			//{
-			//	Form = (CompanyFormWrapper)ExistsWrappers[model.Form];
-			//}
-			//else
-			//{
-			//	Form = new CompanyFormWrapper(model.Form, ExistsWrappers);
-			//	RegisterComplexProperty(Form);
-			//}
-		}
+        Form = GetWrapper<CompanyForm, CompanyFormWrapper>(model.Form);
 
+        Address = GetWrapper<Address, AddressWrapper>(model.Address);
 
-		if (model.Address != null)
-		{
-            Address = GetWrapper<Address, AddressWrapper>(model.Address);
-			//if (ExistsWrappers.ContainsKey(model.Address))
-			//{
-			//	Address = (AddressWrapper)ExistsWrappers[model.Address];
-			//}
-			//else
-			//{
-			//	Address = new AddressWrapper(model.Address, ExistsWrappers);
-			//	RegisterComplexProperty(Address);
-			//}
-		}
-
-
-		if (model.BankDetails != null)
-		{
-            BankDetails = GetWrapper<BankDetails, BankDetailsWrapper>(model.BankDetails);
-			//if (ExistsWrappers.ContainsKey(model.BankDetails))
-			//{
-			//	BankDetails = (BankDetailsWrapper)ExistsWrappers[model.BankDetails];
-			//}
-			//else
-			//{
-			//	BankDetails = new BankDetailsWrapper(model.BankDetails, ExistsWrappers);
-			//	RegisterComplexProperty(BankDetails);
-			//}
-		}
-
+        BankDetails = GetWrapper<BankDetails, BankDetailsWrapper>(model.BankDetails);
 
     }
 

@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class TenderInfoWrapper : WrapperBase<TenderInfo>
   {
     public TenderInfoWrapper(TenderInfo model) : base(model) { }
-    public TenderInfoWrapper(TenderInfo model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public TenderInfoWrapper(TenderInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -50,54 +50,14 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(TenderInfo model)
     {
 
-		if (model.ProductMain != null)
-		{
-            ProductMain = GetWrapper<ProductMain, ProductMainWrapper>(model.ProductMain);
-			//if (ExistsWrappers.ContainsKey(model.ProductMain))
-			//{
-			//	ProductMain = (ProductMainWrapper)ExistsWrappers[model.ProductMain];
-			//}
-			//else
-			//{
-			//	ProductMain = new ProductMainWrapper(model.ProductMain, ExistsWrappers);
-			//	RegisterComplexProperty(ProductMain);
-			//}
-		}
+        ProductMain = GetWrapper<ProductMain, ProductMainWrapper>(model.ProductMain);
 
+        ProducerWinner = GetWrapper<Company, CompanyWrapper>(model.ProducerWinner);
 
-		if (model.ProducerWinner != null)
-		{
-            ProducerWinner = GetWrapper<Company, CompanyWrapper>(model.ProducerWinner);
-			//if (ExistsWrappers.ContainsKey(model.ProducerWinner))
-			//{
-			//	ProducerWinner = (CompanyWrapper)ExistsWrappers[model.ProducerWinner];
-			//}
-			//else
-			//{
-			//	ProducerWinner = new CompanyWrapper(model.ProducerWinner, ExistsWrappers);
-			//	RegisterComplexProperty(ProducerWinner);
-			//}
-		}
-
-
-		if (model.CostInfo != null)
-		{
-            CostInfo = GetWrapper<CostInfo, CostInfoWrapper>(model.CostInfo);
-			//if (ExistsWrappers.ContainsKey(model.CostInfo))
-			//{
-			//	CostInfo = (CostInfoWrapper)ExistsWrappers[model.CostInfo];
-			//}
-			//else
-			//{
-			//	CostInfo = new CostInfoWrapper(model.CostInfo, ExistsWrappers);
-			//	RegisterComplexProperty(CostInfo);
-			//}
-		}
-
+        CostInfo = GetWrapper<CostInfo, CostInfoWrapper>(model.CostInfo);
 
     }
 

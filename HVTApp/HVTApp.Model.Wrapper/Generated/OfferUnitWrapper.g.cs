@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class OfferUnitWrapper : WrapperBase<OfferUnit>
   {
     public OfferUnitWrapper(OfferUnit model) : base(model) { }
-    public OfferUnitWrapper(OfferUnit model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public OfferUnitWrapper(OfferUnit model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -75,54 +75,14 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(OfferUnit model)
     {
 
-		if (model.Equipment != null)
-		{
-            Equipment = GetWrapper<Equipment, EquipmentWrapper>(model.Equipment);
-			//if (ExistsWrappers.ContainsKey(model.Equipment))
-			//{
-			//	Equipment = (EquipmentWrapper)ExistsWrappers[model.Equipment];
-			//}
-			//else
-			//{
-			//	Equipment = new EquipmentWrapper(model.Equipment, ExistsWrappers);
-			//	RegisterComplexProperty(Equipment);
-			//}
-		}
+        Equipment = GetWrapper<Equipment, EquipmentWrapper>(model.Equipment);
 
+        Offer = GetWrapper<Offer, OfferWrapper>(model.Offer);
 
-		if (model.Offer != null)
-		{
-            Offer = GetWrapper<Offer, OfferWrapper>(model.Offer);
-			//if (ExistsWrappers.ContainsKey(model.Offer))
-			//{
-			//	Offer = (OfferWrapper)ExistsWrappers[model.Offer];
-			//}
-			//else
-			//{
-			//	Offer = new OfferWrapper(model.Offer, ExistsWrappers);
-			//	RegisterComplexProperty(Offer);
-			//}
-		}
-
-
-		if (model.PlannedTermProduction != null)
-		{
-            PlannedTermProduction = GetWrapper<PlannedTermProduction, PlannedTermProductionWrapper>(model.PlannedTermProduction);
-			//if (ExistsWrappers.ContainsKey(model.PlannedTermProduction))
-			//{
-			//	PlannedTermProduction = (PlannedTermProductionWrapper)ExistsWrappers[model.PlannedTermProduction];
-			//}
-			//else
-			//{
-			//	PlannedTermProduction = new PlannedTermProductionWrapper(model.PlannedTermProduction, ExistsWrappers);
-			//	RegisterComplexProperty(PlannedTermProduction);
-			//}
-		}
-
+        PlannedTermProduction = GetWrapper<PlannedTermProduction, PlannedTermProductionWrapper>(model.PlannedTermProduction);
 
     }
 

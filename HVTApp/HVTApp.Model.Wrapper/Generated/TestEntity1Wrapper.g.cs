@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class TestEntity1Wrapper : WrapperBase<TestEntity1>
   {
     public TestEntity1Wrapper(TestEntity1 model) : base(model) { }
-    public TestEntity1Wrapper(TestEntity1 model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public TestEntity1Wrapper(TestEntity1 model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -36,24 +36,10 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(TestEntity1 model)
     {
 
-		if (model.TestEntity2 != null)
-		{
-            TestEntity2 = GetWrapper<TestEntity2, TestEntity2Wrapper>(model.TestEntity2);
-			//if (ExistsWrappers.ContainsKey(model.TestEntity2))
-			//{
-			//	TestEntity2 = (TestEntity2Wrapper)ExistsWrappers[model.TestEntity2];
-			//}
-			//else
-			//{
-			//	TestEntity2 = new TestEntity2Wrapper(model.TestEntity2, ExistsWrappers);
-			//	RegisterComplexProperty(TestEntity2);
-			//}
-		}
-
+        TestEntity2 = GetWrapper<TestEntity2, TestEntity2Wrapper>(model.TestEntity2);
 
     }
 

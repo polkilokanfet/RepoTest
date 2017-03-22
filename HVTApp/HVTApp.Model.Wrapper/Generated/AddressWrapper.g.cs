@@ -19,7 +19,7 @@ namespace HVTApp.Model.Wrapper
   public partial class AddressWrapper : WrapperBase<Address>
   {
     public AddressWrapper(Address model) : base(model) { }
-    public AddressWrapper(Address model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public AddressWrapper(Address model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -56,24 +56,10 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(Address model)
     {
 
-		if (model.Locality != null)
-		{
-            Locality = GetWrapper<Locality, LocalityWrapper>(model.Locality);
-			//if (ExistsWrappers.ContainsKey(model.Locality))
-			//{
-			//	Locality = (LocalityWrapper)ExistsWrappers[model.Locality];
-			//}
-			//else
-			//{
-			//	Locality = new LocalityWrapper(model.Locality, ExistsWrappers);
-			//	RegisterComplexProperty(Locality);
-			//}
-		}
-
+        Locality = GetWrapper<Locality, LocalityWrapper>(model.Locality);
 
     }
 

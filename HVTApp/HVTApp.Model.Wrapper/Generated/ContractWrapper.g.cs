@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class ContractWrapper : WrapperBase<Contract>
   {
     public ContractWrapper(Contract model) : base(model) { }
-    public ContractWrapper(Contract model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public ContractWrapper(Contract model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -73,24 +73,10 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(Contract model)
     {
 
-		if (model.Contragent != null)
-		{
-            Contragent = GetWrapper<Company, CompanyWrapper>(model.Contragent);
-			//if (ExistsWrappers.ContainsKey(model.Contragent))
-			//{
-			//	Contragent = (CompanyWrapper)ExistsWrappers[model.Contragent];
-			//}
-			//else
-			//{
-			//	Contragent = new CompanyWrapper(model.Contragent, ExistsWrappers);
-			//	RegisterComplexProperty(Contragent);
-			//}
-		}
-
+        Contragent = GetWrapper<Company, CompanyWrapper>(model.Contragent);
 
     }
 

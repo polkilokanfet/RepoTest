@@ -1,6 +1,6 @@
 namespace HVTApp.Model
 {
-    public abstract class BaseEntity
+    public abstract class BaseEntity : IBaseEntity
     {
         public int Id { get; set; }
 
@@ -26,5 +26,10 @@ namespace HVTApp.Model
         {
             return base.Equals(obj);
         }
+    }
+
+    public interface IBaseEntity
+    {
+        int Id { get; set; }
     }
 }

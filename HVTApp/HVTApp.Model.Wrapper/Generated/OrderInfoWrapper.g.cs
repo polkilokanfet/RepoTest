@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class OrderInfoWrapper : WrapperBase<OrderInfo>
   {
     public OrderInfoWrapper(OrderInfo model) : base(model) { }
-    public OrderInfoWrapper(OrderInfo model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public OrderInfoWrapper(OrderInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -61,39 +61,12 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(OrderInfo model)
     {
 
-		if (model.Product != null)
-		{
-            Product = GetWrapper<ProductBase, ProductBaseWrapper>(model.Product);
-			//if (ExistsWrappers.ContainsKey(model.Product))
-			//{
-			//	Product = (ProductBaseWrapper)ExistsWrappers[model.Product];
-			//}
-			//else
-			//{
-			//	Product = new ProductBaseWrapper(model.Product, ExistsWrappers);
-			//	RegisterComplexProperty(Product);
-			//}
-		}
+        Product = GetWrapper<ProductBase, ProductBaseWrapper>(model.Product);
 
-
-		if (model.Order != null)
-		{
-            Order = GetWrapper<Order, OrderWrapper>(model.Order);
-			//if (ExistsWrappers.ContainsKey(model.Order))
-			//{
-			//	Order = (OrderWrapper)ExistsWrappers[model.Order];
-			//}
-			//else
-			//{
-			//	Order = new OrderWrapper(model.Order, ExistsWrappers);
-			//	RegisterComplexProperty(Order);
-			//}
-		}
-
+        Order = GetWrapper<Order, OrderWrapper>(model.Order);
 
     }
 

@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class PaymentActualWrapper : WrapperBase<PaymentActual>
   {
     public PaymentActualWrapper(PaymentActual model) : base(model) { }
-    public PaymentActualWrapper(PaymentActual model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public PaymentActualWrapper(PaymentActual model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -70,39 +70,12 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(PaymentActual model)
     {
 
-		if (model.PaymentDocument != null)
-		{
-            PaymentDocument = GetWrapper<PaymentDocument, PaymentDocumentWrapper>(model.PaymentDocument);
-			//if (ExistsWrappers.ContainsKey(model.PaymentDocument))
-			//{
-			//	PaymentDocument = (PaymentDocumentWrapper)ExistsWrappers[model.PaymentDocument];
-			//}
-			//else
-			//{
-			//	PaymentDocument = new PaymentDocumentWrapper(model.PaymentDocument, ExistsWrappers);
-			//	RegisterComplexProperty(PaymentDocument);
-			//}
-		}
+        PaymentDocument = GetWrapper<PaymentDocument, PaymentDocumentWrapper>(model.PaymentDocument);
 
-
-		if (model.PaymentsInfo != null)
-		{
-            PaymentsInfo = GetWrapper<PaymentsInfo, PaymentsInfoWrapper>(model.PaymentsInfo);
-			//if (ExistsWrappers.ContainsKey(model.PaymentsInfo))
-			//{
-			//	PaymentsInfo = (PaymentsInfoWrapper)ExistsWrappers[model.PaymentsInfo];
-			//}
-			//else
-			//{
-			//	PaymentsInfo = new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers);
-			//	RegisterComplexProperty(PaymentsInfo);
-			//}
-		}
-
+        PaymentsInfo = GetWrapper<PaymentsInfo, PaymentsInfoWrapper>(model.PaymentsInfo);
 
     }
 

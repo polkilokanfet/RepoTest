@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class ProductsMainGroupWrapper : WrapperBase<ProductsMainGroup>
   {
     public ProductsMainGroupWrapper(ProductsMainGroup model) : base(model) { }
-    public ProductsMainGroupWrapper(ProductsMainGroup model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public ProductsMainGroupWrapper(ProductsMainGroup model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -75,54 +75,14 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(ProductsMainGroup model)
     {
 
-		if (model.Project != null)
-		{
-            Project = GetWrapper<Project, ProjectWrapper>(model.Project);
-			//if (ExistsWrappers.ContainsKey(model.Project))
-			//{
-			//	Project = (ProjectWrapper)ExistsWrappers[model.Project];
-			//}
-			//else
-			//{
-			//	Project = new ProjectWrapper(model.Project, ExistsWrappers);
-			//	RegisterComplexProperty(Project);
-			//}
-		}
+        Project = GetWrapper<Project, ProjectWrapper>(model.Project);
 
+        Facility = GetWrapper<Facility, FacilityWrapper>(model.Facility);
 
-		if (model.Facility != null)
-		{
-            Facility = GetWrapper<Facility, FacilityWrapper>(model.Facility);
-			//if (ExistsWrappers.ContainsKey(model.Facility))
-			//{
-			//	Facility = (FacilityWrapper)ExistsWrappers[model.Facility];
-			//}
-			//else
-			//{
-			//	Facility = new FacilityWrapper(model.Facility, ExistsWrappers);
-			//	RegisterComplexProperty(Facility);
-			//}
-		}
-
-
-		if (model.Specification != null)
-		{
-            Specification = GetWrapper<Specification, SpecificationWrapper>(model.Specification);
-			//if (ExistsWrappers.ContainsKey(model.Specification))
-			//{
-			//	Specification = (SpecificationWrapper)ExistsWrappers[model.Specification];
-			//}
-			//else
-			//{
-			//	Specification = new SpecificationWrapper(model.Specification, ExistsWrappers);
-			//	RegisterComplexProperty(Specification);
-			//}
-		}
-
+        Specification = GetWrapper<Specification, SpecificationWrapper>(model.Specification);
 
     }
 

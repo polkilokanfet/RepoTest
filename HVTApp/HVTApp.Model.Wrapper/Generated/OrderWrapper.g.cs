@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class OrderWrapper : WrapperBase<Order>
   {
     public OrderWrapper(Order model) : base(model) { }
-    public OrderWrapper(Order model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public OrderWrapper(Order model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties

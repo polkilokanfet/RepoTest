@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class TechParameterWrapper : WrapperBase<TechParameter>
   {
     public TechParameterWrapper(TechParameter model) : base(model) { }
-    public TechParameterWrapper(TechParameter model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public TechParameterWrapper(TechParameter model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -45,24 +45,10 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(TechParameter model)
     {
 
-		if (model.Group != null)
-		{
-            Group = GetWrapper<TechParametersGroup, TechParametersGroupWrapper>(model.Group);
-			//if (ExistsWrappers.ContainsKey(model.Group))
-			//{
-			//	Group = (TechParametersGroupWrapper)ExistsWrappers[model.Group];
-			//}
-			//else
-			//{
-			//	Group = new TechParametersGroupWrapper(model.Group, ExistsWrappers);
-			//	RegisterComplexProperty(Group);
-			//}
-		}
-
+        Group = GetWrapper<TechParametersGroup, TechParametersGroupWrapper>(model.Group);
 
     }
 

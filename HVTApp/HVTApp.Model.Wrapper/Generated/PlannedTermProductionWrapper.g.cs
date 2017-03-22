@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class PlannedTermProductionWrapper : WrapperBase<PlannedTermProduction>
   {
     public PlannedTermProductionWrapper(PlannedTermProduction model) : base(model) { }
-    public PlannedTermProductionWrapper(PlannedTermProduction model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public PlannedTermProductionWrapper(PlannedTermProduction model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties

@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class ProductMainWrapper : WrapperBase<ProductMain>
   {
     public ProductMainWrapper(ProductMain model) : base(model) { }
-    public ProductMainWrapper(ProductMain model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public ProductMainWrapper(ProductMain model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -96,129 +96,24 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(ProductMain model)
     {
 
-		if (model.ProductsMainGroup != null)
-		{
-            ProductsMainGroup = GetWrapper<ProductsMainGroup, ProductsMainGroupWrapper>(model.ProductsMainGroup);
-			//if (ExistsWrappers.ContainsKey(model.ProductsMainGroup))
-			//{
-			//	ProductsMainGroup = (ProductsMainGroupWrapper)ExistsWrappers[model.ProductsMainGroup];
-			//}
-			//else
-			//{
-			//	ProductsMainGroup = new ProductsMainGroupWrapper(model.ProductsMainGroup, ExistsWrappers);
-			//	RegisterComplexProperty(ProductsMainGroup);
-			//}
-		}
+        ProductsMainGroup = GetWrapper<ProductsMainGroup, ProductsMainGroupWrapper>(model.ProductsMainGroup);
 
+        Equipment = GetWrapper<Equipment, EquipmentWrapper>(model.Equipment);
 
-		if (model.Equipment != null)
-		{
-            Equipment = GetWrapper<Equipment, EquipmentWrapper>(model.Equipment);
-			//if (ExistsWrappers.ContainsKey(model.Equipment))
-			//{
-			//	Equipment = (EquipmentWrapper)ExistsWrappers[model.Equipment];
-			//}
-			//else
-			//{
-			//	Equipment = new EquipmentWrapper(model.Equipment, ExistsWrappers);
-			//	RegisterComplexProperty(Equipment);
-			//}
-		}
+        TenderInfo = GetWrapper<TenderInfo, TenderInfoWrapper>(model.TenderInfo);
 
+        OrderInfo = GetWrapper<OrderInfo, OrderInfoWrapper>(model.OrderInfo);
 
-		if (model.TenderInfo != null)
-		{
-            TenderInfo = GetWrapper<TenderInfo, TenderInfoWrapper>(model.TenderInfo);
-			//if (ExistsWrappers.ContainsKey(model.TenderInfo))
-			//{
-			//	TenderInfo = (TenderInfoWrapper)ExistsWrappers[model.TenderInfo];
-			//}
-			//else
-			//{
-			//	TenderInfo = new TenderInfoWrapper(model.TenderInfo, ExistsWrappers);
-			//	RegisterComplexProperty(TenderInfo);
-			//}
-		}
+        DateInfo = GetWrapper<DateInfo, DateInfoWrapper>(model.DateInfo);
 
+        TermsInfo = GetWrapper<TermsInfo, TermsInfoWrapper>(model.TermsInfo);
 
-		if (model.OrderInfo != null)
-		{
-            OrderInfo = GetWrapper<OrderInfo, OrderInfoWrapper>(model.OrderInfo);
-			//if (ExistsWrappers.ContainsKey(model.OrderInfo))
-			//{
-			//	OrderInfo = (OrderInfoWrapper)ExistsWrappers[model.OrderInfo];
-			//}
-			//else
-			//{
-			//	OrderInfo = new OrderInfoWrapper(model.OrderInfo, ExistsWrappers);
-			//	RegisterComplexProperty(OrderInfo);
-			//}
-		}
+        CostInfo = GetWrapper<CostInfo, CostInfoWrapper>(model.CostInfo);
 
-
-		if (model.DateInfo != null)
-		{
-            DateInfo = GetWrapper<DateInfo, DateInfoWrapper>(model.DateInfo);
-			//if (ExistsWrappers.ContainsKey(model.DateInfo))
-			//{
-			//	DateInfo = (DateInfoWrapper)ExistsWrappers[model.DateInfo];
-			//}
-			//else
-			//{
-			//	DateInfo = new DateInfoWrapper(model.DateInfo, ExistsWrappers);
-			//	RegisterComplexProperty(DateInfo);
-			//}
-		}
-
-
-		if (model.TermsInfo != null)
-		{
-            TermsInfo = GetWrapper<TermsInfo, TermsInfoWrapper>(model.TermsInfo);
-			//if (ExistsWrappers.ContainsKey(model.TermsInfo))
-			//{
-			//	TermsInfo = (TermsInfoWrapper)ExistsWrappers[model.TermsInfo];
-			//}
-			//else
-			//{
-			//	TermsInfo = new TermsInfoWrapper(model.TermsInfo, ExistsWrappers);
-			//	RegisterComplexProperty(TermsInfo);
-			//}
-		}
-
-
-		if (model.CostInfo != null)
-		{
-            CostInfo = GetWrapper<CostInfo, CostInfoWrapper>(model.CostInfo);
-			//if (ExistsWrappers.ContainsKey(model.CostInfo))
-			//{
-			//	CostInfo = (CostInfoWrapper)ExistsWrappers[model.CostInfo];
-			//}
-			//else
-			//{
-			//	CostInfo = new CostInfoWrapper(model.CostInfo, ExistsWrappers);
-			//	RegisterComplexProperty(CostInfo);
-			//}
-		}
-
-
-		if (model.PaymentsInfo != null)
-		{
-            PaymentsInfo = GetWrapper<PaymentsInfo, PaymentsInfoWrapper>(model.PaymentsInfo);
-			//if (ExistsWrappers.ContainsKey(model.PaymentsInfo))
-			//{
-			//	PaymentsInfo = (PaymentsInfoWrapper)ExistsWrappers[model.PaymentsInfo];
-			//}
-			//else
-			//{
-			//	PaymentsInfo = new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers);
-			//	RegisterComplexProperty(PaymentsInfo);
-			//}
-		}
-
+        PaymentsInfo = GetWrapper<PaymentsInfo, PaymentsInfoWrapper>(model.PaymentsInfo);
 
     }
 

@@ -49,7 +49,7 @@ namespace HVTApp.Model.Wrapper
   public partial class <#=modelType.Name#>Wrapper : WrapperBase<<#=modelType.Name#>>
   {
     public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model) : base(model) { }
-    public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 <#
 	GenerateSimpleProperties(simpleSetProperties);
 	GenerateComplexProperties(complexSetProperties);
@@ -268,7 +268,6 @@ namespace HVTApp.Model.Wrapper
     if(properties.Any())
     {
 #>
-    
     protected override void InitializeComplexProperties(<#= modelTypeName #> model)
     {
 <#+
@@ -277,20 +276,7 @@ namespace HVTApp.Model.Wrapper
 		var propertyName = complexProperty.Name;
 		var propertyType = complexProperty.PropertyType.Name;
 #>
-		if (model.<#= propertyName #> != null)
-		{
-            <#= propertyName #> = GetWrapper<<#= propertyType #>, <#= propertyType #>Wrapper>(model.<#= propertyName #>);
-			//if (ExistsWrappers.ContainsKey(model.<#= propertyName #>))
-			//{
-			//	<#= propertyName #> = (<#= propertyType #>Wrapper)ExistsWrappers[model.<#= propertyName #>];
-			//}
-			//else
-			//{
-			//	<#= propertyName #> = new <#= propertyType #>Wrapper(model.<#= propertyName #>, ExistsWrappers);
-			//	RegisterComplexProperty(<#= propertyName #>);
-			//}
-		}
-
+        <#= propertyName #> = GetWrapper<<#= propertyType #>, <#= propertyType #>Wrapper>(model.<#= propertyName #>);
 <#+
       }
 #>

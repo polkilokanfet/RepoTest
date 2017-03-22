@@ -10,12 +10,12 @@ using System.Runtime.CompilerServices;
 namespace HVTApp.Model.Wrapper
 {
     public abstract class WrapperBase<T> : NotifyDataErrorInfoBase, IValidatableChangeTracking, IValidatableObject
-        where T : BaseEntity
+        where T : IBaseEntity
     {
         /// <summary>
         /// Уже созданные обертки.
         /// </summary>
-        protected readonly Dictionary<BaseEntity, object> ExistsWrappers;
+        protected readonly Dictionary<IBaseEntity, object> ExistsWrappers;
 
         /// <summary>
         /// Словарь оригинальных значений. В словарь вносятся только те оригинальные значения, которые были изменены.
@@ -31,11 +31,11 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public T Model { get; }
 
-        protected WrapperBase(T model, Dictionary<BaseEntity, object> existsWrappers = null)
+        protected WrapperBase(T model, Dictionary<IBaseEntity, object> existsWrappers = null)
         {
             if (model == null) throw new ArgumentNullException(nameof(Model));
 
-            ExistsWrappers = existsWrappers ?? new Dictionary<BaseEntity, object>();
+            ExistsWrappers = existsWrappers ?? new Dictionary<IBaseEntity, object>();
             if (!ExistsWrappers.ContainsKey(model))
                 ExistsWrappers.Add(model, this);
 
@@ -145,10 +145,10 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Установка нового значения свойства.
         /// </summary>
-        /// <typeparam name="TValie">Тип свойства.</typeparam>
+        /// <typeparam name="TValue">Тип свойства.</typeparam>
         /// <param name="newValue">Новое значение свойства.</param>
         /// <param name="propertyName">Имя свойства.</param>
-        protected void SetValue<TValie>(TValie newValue, [CallerMemberName] string propertyName = null)
+        protected void SetValue<TValue>(TValue newValue, [CallerMemberName] string propertyName = null)
         {
             PropertyInfo propertyInfo = Model.GetType().GetProperty(propertyName);
             object currentValue = propertyInfo.GetValue(Model); //текущее значение свойства
@@ -225,7 +225,6 @@ namespace HVTApp.Model.Wrapper
             where TModel : BaseEntity
         {
             UnRegisterTrackingObject(wrapper);
-            wrapper.RejectChanges();
         }
 
         /// <summary>
@@ -237,7 +236,10 @@ namespace HVTApp.Model.Wrapper
             where TModel : BaseEntity
         {
             RegisterTrackingObject(wrapper);
-            if (!ExistsWrappers.ContainsKey(wrapper.Model))
+
+            if (ExistsWrappers.ContainsKey(wrapper.Model))
+                ExistsWrappers[wrapper.Model] = wrapper;
+            else
                 ExistsWrappers.Add(wrapper.Model, wrapper);
         }
 
@@ -357,7 +359,7 @@ namespace HVTApp.Model.Wrapper
             where TWrapProp : WrapperBase<TModelProp>
         {
             TModelProp modelValue = GetValue<TModelProp>(propertyName);
-            if (ExistsWrappers.ContainsKey(modelValue))
+            if (modelValue != null && ExistsWrappers.ContainsKey(modelValue) && ExistsWrappers[modelValue] is TWrapProp)
                 return (TWrapProp)ExistsWrappers[modelValue];
             return null;
         }
@@ -380,16 +382,16 @@ namespace HVTApp.Model.Wrapper
             if (oldProp != null)
             {
                 UnRegisterComplexProperty(oldProp);
-                ExistsWrappers.Remove(oldProp.Model);
             }
 
             if (newProp != null)
             {
                 RegisterComplexProperty(newProp);
                 SetValue(newProp.Model, propertyName);
-                if (ExistsWrappers.ContainsKey(newProp.Model))
-                    ExistsWrappers.Remove(newProp.Model);
-                ExistsWrappers.Add(newProp.Model, newProp);
+            }
+            else
+            {
+                SetValue<TModelProp>(null, propertyName);
             }
         }
 
@@ -397,6 +399,9 @@ namespace HVTApp.Model.Wrapper
             where TModelEntity : BaseEntity
             where TWrapper : WrapperBase<TModelEntity>
         {
+            if (modelEntity == null)
+                return null;
+
             if (ExistsWrappers.ContainsKey(modelEntity) && ExistsWrappers[modelEntity] is TWrapper)
             {
                 return (TWrapper)ExistsWrappers[modelEntity];

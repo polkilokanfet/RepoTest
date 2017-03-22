@@ -26,8 +26,8 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void NavigationPropertiesTest()
         {
-            TestEntity1 entity1 = new TestEntity1() {Id = 1};
-            TestEntity2 entity2 = new TestEntity2() {Id = 2};
+            TestEntity1 entity1 = new TestEntity1 {Id = 1};
+            TestEntity2 entity2 = new TestEntity2 {Id = 2};
 
             entity2.TestEntity1 = entity1;
             entity1.TestEntity2 = entity2;
@@ -43,12 +43,15 @@ namespace HVTApp.Model.Wrapper.Tests
             Assert.IsTrue(entity1Wrapper.IsChanged);
             Assert.IsTrue(fired);
 
-            TestEntity2 entity22 = new TestEntity2() {Id = 22};
+            TestEntity2 entity22 = new TestEntity2 {Id = 22};
             TestEntity2Wrapper entity2Wrapper = new TestEntity2Wrapper(entity22);
             entity1Wrapper.TestEntity2 = entity2Wrapper;
             fired = false;
             te2.N = 33;
             Assert.IsFalse(fired);
+
+            entity1Wrapper.TestEntity2 = null;
+            Assert.AreEqual(entity1Wrapper.TestEntity2, null);
         }
     }
 }

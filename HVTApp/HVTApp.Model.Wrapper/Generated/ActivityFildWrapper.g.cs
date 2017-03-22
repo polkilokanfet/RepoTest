@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class ActivityFildWrapper : WrapperBase<ActivityFild>
   {
     public ActivityFildWrapper(ActivityFild model) : base(model) { }
-    public ActivityFildWrapper(ActivityFild model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public ActivityFildWrapper(ActivityFild model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -45,24 +45,10 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(ActivityFild model)
     {
 
-		if (model.Company != null)
-		{
-            Company = GetWrapper<Company, CompanyWrapper>(model.Company);
-			//if (ExistsWrappers.ContainsKey(model.Company))
-			//{
-			//	Company = (CompanyWrapper)ExistsWrappers[model.Company];
-			//}
-			//else
-			//{
-			//	Company = new CompanyWrapper(model.Company, ExistsWrappers);
-			//	RegisterComplexProperty(Company);
-			//}
-		}
-
+        Company = GetWrapper<Company, CompanyWrapper>(model.Company);
 
     }
 

@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class DocumentWrapper : WrapperBase<Document>
   {
     public DocumentWrapper(Document model) : base(model) { }
-    public DocumentWrapper(Document model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public DocumentWrapper(Document model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -87,99 +87,20 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(Document model)
     {
 
-		if (model.RequestDocument != null)
-		{
-            RequestDocument = GetWrapper<Document, DocumentWrapper>(model.RequestDocument);
-			//if (ExistsWrappers.ContainsKey(model.RequestDocument))
-			//{
-			//	RequestDocument = (DocumentWrapper)ExistsWrappers[model.RequestDocument];
-			//}
-			//else
-			//{
-			//	RequestDocument = new DocumentWrapper(model.RequestDocument, ExistsWrappers);
-			//	RegisterComplexProperty(RequestDocument);
-			//}
-		}
+        RequestDocument = GetWrapper<Document, DocumentWrapper>(model.RequestDocument);
 
+        Sender = GetWrapper<Company, CompanyWrapper>(model.Sender);
 
-		if (model.Sender != null)
-		{
-            Sender = GetWrapper<Company, CompanyWrapper>(model.Sender);
-			//if (ExistsWrappers.ContainsKey(model.Sender))
-			//{
-			//	Sender = (CompanyWrapper)ExistsWrappers[model.Sender];
-			//}
-			//else
-			//{
-			//	Sender = new CompanyWrapper(model.Sender, ExistsWrappers);
-			//	RegisterComplexProperty(Sender);
-			//}
-		}
+        SenderEmployee = GetWrapper<Employee, EmployeeWrapper>(model.SenderEmployee);
 
+        RecipientEmployee = GetWrapper<Employee, EmployeeWrapper>(model.RecipientEmployee);
 
-		if (model.SenderEmployee != null)
-		{
-            SenderEmployee = GetWrapper<Employee, EmployeeWrapper>(model.SenderEmployee);
-			//if (ExistsWrappers.ContainsKey(model.SenderEmployee))
-			//{
-			//	SenderEmployee = (EmployeeWrapper)ExistsWrappers[model.SenderEmployee];
-			//}
-			//else
-			//{
-			//	SenderEmployee = new EmployeeWrapper(model.SenderEmployee, ExistsWrappers);
-			//	RegisterComplexProperty(SenderEmployee);
-			//}
-		}
+        RegistrationDetailsOfSender = GetWrapper<RegistrationDetails, RegistrationDetailsWrapper>(model.RegistrationDetailsOfSender);
 
-
-		if (model.RecipientEmployee != null)
-		{
-            RecipientEmployee = GetWrapper<Employee, EmployeeWrapper>(model.RecipientEmployee);
-			//if (ExistsWrappers.ContainsKey(model.RecipientEmployee))
-			//{
-			//	RecipientEmployee = (EmployeeWrapper)ExistsWrappers[model.RecipientEmployee];
-			//}
-			//else
-			//{
-			//	RecipientEmployee = new EmployeeWrapper(model.RecipientEmployee, ExistsWrappers);
-			//	RegisterComplexProperty(RecipientEmployee);
-			//}
-		}
-
-
-		if (model.RegistrationDetailsOfSender != null)
-		{
-            RegistrationDetailsOfSender = GetWrapper<RegistrationDetails, RegistrationDetailsWrapper>(model.RegistrationDetailsOfSender);
-			//if (ExistsWrappers.ContainsKey(model.RegistrationDetailsOfSender))
-			//{
-			//	RegistrationDetailsOfSender = (RegistrationDetailsWrapper)ExistsWrappers[model.RegistrationDetailsOfSender];
-			//}
-			//else
-			//{
-			//	RegistrationDetailsOfSender = new RegistrationDetailsWrapper(model.RegistrationDetailsOfSender, ExistsWrappers);
-			//	RegisterComplexProperty(RegistrationDetailsOfSender);
-			//}
-		}
-
-
-		if (model.RegistrationDetailsOfRecipient != null)
-		{
-            RegistrationDetailsOfRecipient = GetWrapper<RegistrationDetails, RegistrationDetailsWrapper>(model.RegistrationDetailsOfRecipient);
-			//if (ExistsWrappers.ContainsKey(model.RegistrationDetailsOfRecipient))
-			//{
-			//	RegistrationDetailsOfRecipient = (RegistrationDetailsWrapper)ExistsWrappers[model.RegistrationDetailsOfRecipient];
-			//}
-			//else
-			//{
-			//	RegistrationDetailsOfRecipient = new RegistrationDetailsWrapper(model.RegistrationDetailsOfRecipient, ExistsWrappers);
-			//	RegisterComplexProperty(RegistrationDetailsOfRecipient);
-			//}
-		}
-
+        RegistrationDetailsOfRecipient = GetWrapper<RegistrationDetails, RegistrationDetailsWrapper>(model.RegistrationDetailsOfRecipient);
 
     }
 

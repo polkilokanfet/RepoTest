@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class TechLinkWrapper : WrapperBase<TechLink>
   {
     public TechLinkWrapper(TechLink model) : base(model) { }
-    public TechLinkWrapper(TechLink model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public TechLinkWrapper(TechLink model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -51,39 +51,12 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(TechLink model)
     {
 
-		if (model.Parameter != null)
-		{
-            Parameter = GetWrapper<TechParameter, TechParameterWrapper>(model.Parameter);
-			//if (ExistsWrappers.ContainsKey(model.Parameter))
-			//{
-			//	Parameter = (TechParameterWrapper)ExistsWrappers[model.Parameter];
-			//}
-			//else
-			//{
-			//	Parameter = new TechParameterWrapper(model.Parameter, ExistsWrappers);
-			//	RegisterComplexProperty(Parameter);
-			//}
-		}
+        Parameter = GetWrapper<TechParameter, TechParameterWrapper>(model.Parameter);
 
-
-		if (model.ParentLink != null)
-		{
-            ParentLink = GetWrapper<TechLink, TechLinkWrapper>(model.ParentLink);
-			//if (ExistsWrappers.ContainsKey(model.ParentLink))
-			//{
-			//	ParentLink = (TechLinkWrapper)ExistsWrappers[model.ParentLink];
-			//}
-			//else
-			//{
-			//	ParentLink = new TechLinkWrapper(model.ParentLink, ExistsWrappers);
-			//	RegisterComplexProperty(ParentLink);
-			//}
-		}
-
+        ParentLink = GetWrapper<TechLink, TechLinkWrapper>(model.ParentLink);
 
     }
 

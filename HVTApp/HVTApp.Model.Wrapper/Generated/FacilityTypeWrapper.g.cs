@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class FacilityTypeWrapper : WrapperBase<FacilityType>
   {
     public FacilityTypeWrapper(FacilityType model) : base(model) { }
-    public FacilityTypeWrapper(FacilityType model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public FacilityTypeWrapper(FacilityType model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties

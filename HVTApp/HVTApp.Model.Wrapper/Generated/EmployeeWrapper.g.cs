@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class EmployeeWrapper : WrapperBase<Employee>
   {
     public EmployeeWrapper(Employee model) : base(model) { }
-    public EmployeeWrapper(Employee model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public EmployeeWrapper(Employee model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -88,39 +88,12 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(Employee model)
     {
 
-		if (model.Company != null)
-		{
-            Company = GetWrapper<Company, CompanyWrapper>(model.Company);
-			//if (ExistsWrappers.ContainsKey(model.Company))
-			//{
-			//	Company = (CompanyWrapper)ExistsWrappers[model.Company];
-			//}
-			//else
-			//{
-			//	Company = new CompanyWrapper(model.Company, ExistsWrappers);
-			//	RegisterComplexProperty(Company);
-			//}
-		}
+        Company = GetWrapper<Company, CompanyWrapper>(model.Company);
 
-
-		if (model.Position != null)
-		{
-            Position = GetWrapper<EmployeesPosition, EmployeesPositionWrapper>(model.Position);
-			//if (ExistsWrappers.ContainsKey(model.Position))
-			//{
-			//	Position = (EmployeesPositionWrapper)ExistsWrappers[model.Position];
-			//}
-			//else
-			//{
-			//	Position = new EmployeesPositionWrapper(model.Position, ExistsWrappers);
-			//	RegisterComplexProperty(Position);
-			//}
-		}
-
+        Position = GetWrapper<EmployeesPosition, EmployeesPositionWrapper>(model.Position);
 
     }
 

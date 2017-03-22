@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class ProjectWrapper : WrapperBase<Project>
   {
     public ProjectWrapper(Project model) : base(model) { }
-    public ProjectWrapper(Project model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public ProjectWrapper(Project model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -85,24 +85,10 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(Project model)
     {
 
-		if (model.Manager != null)
-		{
-            Manager = GetWrapper<User, UserWrapper>(model.Manager);
-			//if (ExistsWrappers.ContainsKey(model.Manager))
-			//{
-			//	Manager = (UserWrapper)ExistsWrappers[model.Manager];
-			//}
-			//else
-			//{
-			//	Manager = new UserWrapper(model.Manager, ExistsWrappers);
-			//	RegisterComplexProperty(Manager);
-			//}
-		}
-
+        Manager = GetWrapper<User, UserWrapper>(model.Manager);
 
     }
 

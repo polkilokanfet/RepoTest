@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class DateInfoWrapper : WrapperBase<DateInfo>
   {
     public DateInfoWrapper(DateInfo model) : base(model) { }
-    public DateInfoWrapper(DateInfo model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public DateInfoWrapper(DateInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -149,24 +149,10 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    
     protected override void InitializeComplexProperties(DateInfo model)
     {
 
-		if (model.Product != null)
-		{
-            Product = GetWrapper<ProductBase, ProductBaseWrapper>(model.Product);
-			//if (ExistsWrappers.ContainsKey(model.Product))
-			//{
-			//	Product = (ProductBaseWrapper)ExistsWrappers[model.Product];
-			//}
-			//else
-			//{
-			//	Product = new ProductBaseWrapper(model.Product, ExistsWrappers);
-			//	RegisterComplexProperty(Product);
-			//}
-		}
-
+        Product = GetWrapper<ProductBase, ProductBaseWrapper>(model.Product);
 
     }
 

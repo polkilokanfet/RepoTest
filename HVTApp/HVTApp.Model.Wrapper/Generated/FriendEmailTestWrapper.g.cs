@@ -8,7 +8,7 @@ namespace HVTApp.Model.Wrapper
   public partial class FriendEmailTestWrapper : WrapperBase<FriendEmailTest>
   {
     public FriendEmailTestWrapper(FriendEmailTest model) : base(model) { }
-    public FriendEmailTestWrapper(FriendEmailTest model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public FriendEmailTestWrapper(FriendEmailTest model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
