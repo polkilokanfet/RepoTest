@@ -93,85 +93,91 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.RequestDocument != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.RequestDocument))
-			{
-				RequestDocument = (DocumentWrapper)ExistsWrappers[model.RequestDocument];
-			}
-			else
-			{
-				RequestDocument = new DocumentWrapper(model.RequestDocument, ExistsWrappers);
-				RegisterComplexProperty(RequestDocument);
-			}
+            RequestDocument = GetWrapper<Document, DocumentWrapper>(model.RequestDocument);
+			//if (ExistsWrappers.ContainsKey(model.RequestDocument))
+			//{
+			//	RequestDocument = (DocumentWrapper)ExistsWrappers[model.RequestDocument];
+			//}
+			//else
+			//{
+			//	RequestDocument = new DocumentWrapper(model.RequestDocument, ExistsWrappers);
+			//	RegisterComplexProperty(RequestDocument);
+			//}
 		}
 
 
 		if (model.Sender != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Sender))
-			{
-				Sender = (CompanyWrapper)ExistsWrappers[model.Sender];
-			}
-			else
-			{
-				Sender = new CompanyWrapper(model.Sender, ExistsWrappers);
-				RegisterComplexProperty(Sender);
-			}
+            Sender = GetWrapper<Company, CompanyWrapper>(model.Sender);
+			//if (ExistsWrappers.ContainsKey(model.Sender))
+			//{
+			//	Sender = (CompanyWrapper)ExistsWrappers[model.Sender];
+			//}
+			//else
+			//{
+			//	Sender = new CompanyWrapper(model.Sender, ExistsWrappers);
+			//	RegisterComplexProperty(Sender);
+			//}
 		}
 
 
 		if (model.SenderEmployee != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.SenderEmployee))
-			{
-				SenderEmployee = (EmployeeWrapper)ExistsWrappers[model.SenderEmployee];
-			}
-			else
-			{
-				SenderEmployee = new EmployeeWrapper(model.SenderEmployee, ExistsWrappers);
-				RegisterComplexProperty(SenderEmployee);
-			}
+            SenderEmployee = GetWrapper<Employee, EmployeeWrapper>(model.SenderEmployee);
+			//if (ExistsWrappers.ContainsKey(model.SenderEmployee))
+			//{
+			//	SenderEmployee = (EmployeeWrapper)ExistsWrappers[model.SenderEmployee];
+			//}
+			//else
+			//{
+			//	SenderEmployee = new EmployeeWrapper(model.SenderEmployee, ExistsWrappers);
+			//	RegisterComplexProperty(SenderEmployee);
+			//}
 		}
 
 
 		if (model.RecipientEmployee != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.RecipientEmployee))
-			{
-				RecipientEmployee = (EmployeeWrapper)ExistsWrappers[model.RecipientEmployee];
-			}
-			else
-			{
-				RecipientEmployee = new EmployeeWrapper(model.RecipientEmployee, ExistsWrappers);
-				RegisterComplexProperty(RecipientEmployee);
-			}
+            RecipientEmployee = GetWrapper<Employee, EmployeeWrapper>(model.RecipientEmployee);
+			//if (ExistsWrappers.ContainsKey(model.RecipientEmployee))
+			//{
+			//	RecipientEmployee = (EmployeeWrapper)ExistsWrappers[model.RecipientEmployee];
+			//}
+			//else
+			//{
+			//	RecipientEmployee = new EmployeeWrapper(model.RecipientEmployee, ExistsWrappers);
+			//	RegisterComplexProperty(RecipientEmployee);
+			//}
 		}
 
 
 		if (model.RegistrationDetailsOfSender != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.RegistrationDetailsOfSender))
-			{
-				RegistrationDetailsOfSender = (RegistrationDetailsWrapper)ExistsWrappers[model.RegistrationDetailsOfSender];
-			}
-			else
-			{
-				RegistrationDetailsOfSender = new RegistrationDetailsWrapper(model.RegistrationDetailsOfSender, ExistsWrappers);
-				RegisterComplexProperty(RegistrationDetailsOfSender);
-			}
+            RegistrationDetailsOfSender = GetWrapper<RegistrationDetails, RegistrationDetailsWrapper>(model.RegistrationDetailsOfSender);
+			//if (ExistsWrappers.ContainsKey(model.RegistrationDetailsOfSender))
+			//{
+			//	RegistrationDetailsOfSender = (RegistrationDetailsWrapper)ExistsWrappers[model.RegistrationDetailsOfSender];
+			//}
+			//else
+			//{
+			//	RegistrationDetailsOfSender = new RegistrationDetailsWrapper(model.RegistrationDetailsOfSender, ExistsWrappers);
+			//	RegisterComplexProperty(RegistrationDetailsOfSender);
+			//}
 		}
 
 
 		if (model.RegistrationDetailsOfRecipient != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.RegistrationDetailsOfRecipient))
-			{
-				RegistrationDetailsOfRecipient = (RegistrationDetailsWrapper)ExistsWrappers[model.RegistrationDetailsOfRecipient];
-			}
-			else
-			{
-				RegistrationDetailsOfRecipient = new RegistrationDetailsWrapper(model.RegistrationDetailsOfRecipient, ExistsWrappers);
-				RegisterComplexProperty(RegistrationDetailsOfRecipient);
-			}
+            RegistrationDetailsOfRecipient = GetWrapper<RegistrationDetails, RegistrationDetailsWrapper>(model.RegistrationDetailsOfRecipient);
+			//if (ExistsWrappers.ContainsKey(model.RegistrationDetailsOfRecipient))
+			//{
+			//	RegistrationDetailsOfRecipient = (RegistrationDetailsWrapper)ExistsWrappers[model.RegistrationDetailsOfRecipient];
+			//}
+			//else
+			//{
+			//	RegistrationDetailsOfRecipient = new RegistrationDetailsWrapper(model.RegistrationDetailsOfRecipient, ExistsWrappers);
+			//	RegisterComplexProperty(RegistrationDetailsOfRecipient);
+			//}
 		}
 
 

@@ -51,15 +51,16 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.Group != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Group))
-			{
-				Group = (TechParametersGroupWrapper)ExistsWrappers[model.Group];
-			}
-			else
-			{
-				Group = new TechParametersGroupWrapper(model.Group, ExistsWrappers);
-				RegisterComplexProperty(Group);
-			}
+            Group = GetWrapper<TechParametersGroup, TechParametersGroupWrapper>(model.Group);
+			//if (ExistsWrappers.ContainsKey(model.Group))
+			//{
+			//	Group = (TechParametersGroupWrapper)ExistsWrappers[model.Group];
+			//}
+			//else
+			//{
+			//	Group = new TechParametersGroupWrapper(model.Group, ExistsWrappers);
+			//	RegisterComplexProperty(Group);
+			//}
 		}
 
 

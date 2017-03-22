@@ -80,57 +80,61 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.Document != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Document))
-			{
-				Document = (DocumentWrapper)ExistsWrappers[model.Document];
-			}
-			else
-			{
-				Document = new DocumentWrapper(model.Document, ExistsWrappers);
-				RegisterComplexProperty(Document);
-			}
+            Document = GetWrapper<Document, DocumentWrapper>(model.Document);
+			//if (ExistsWrappers.ContainsKey(model.Document))
+			//{
+			//	Document = (DocumentWrapper)ExistsWrappers[model.Document];
+			//}
+			//else
+			//{
+			//	Document = new DocumentWrapper(model.Document, ExistsWrappers);
+			//	RegisterComplexProperty(Document);
+			//}
 		}
 
 
 		if (model.Project != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Project))
-			{
-				Project = (ProjectWrapper)ExistsWrappers[model.Project];
-			}
-			else
-			{
-				Project = new ProjectWrapper(model.Project, ExistsWrappers);
-				RegisterComplexProperty(Project);
-			}
+            Project = GetWrapper<Project, ProjectWrapper>(model.Project);
+			//if (ExistsWrappers.ContainsKey(model.Project))
+			//{
+			//	Project = (ProjectWrapper)ExistsWrappers[model.Project];
+			//}
+			//else
+			//{
+			//	Project = new ProjectWrapper(model.Project, ExistsWrappers);
+			//	RegisterComplexProperty(Project);
+			//}
 		}
 
 
 		if (model.Tender != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Tender))
-			{
-				Tender = (TenderWrapper)ExistsWrappers[model.Tender];
-			}
-			else
-			{
-				Tender = new TenderWrapper(model.Tender, ExistsWrappers);
-				RegisterComplexProperty(Tender);
-			}
+            Tender = GetWrapper<Tender, TenderWrapper>(model.Tender);
+			//if (ExistsWrappers.ContainsKey(model.Tender))
+			//{
+			//	Tender = (TenderWrapper)ExistsWrappers[model.Tender];
+			//}
+			//else
+			//{
+			//	Tender = new TenderWrapper(model.Tender, ExistsWrappers);
+			//	RegisterComplexProperty(Tender);
+			//}
 		}
 
 
 		if (model.PlannedTermProduction != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.PlannedTermProduction))
-			{
-				PlannedTermProduction = (PlannedTermProductionWrapper)ExistsWrappers[model.PlannedTermProduction];
-			}
-			else
-			{
-				PlannedTermProduction = new PlannedTermProductionWrapper(model.PlannedTermProduction, ExistsWrappers);
-				RegisterComplexProperty(PlannedTermProduction);
-			}
+            PlannedTermProduction = GetWrapper<PlannedTermProduction, PlannedTermProductionWrapper>(model.PlannedTermProduction);
+			//if (ExistsWrappers.ContainsKey(model.PlannedTermProduction))
+			//{
+			//	PlannedTermProduction = (PlannedTermProductionWrapper)ExistsWrappers[model.PlannedTermProduction];
+			//}
+			//else
+			//{
+			//	PlannedTermProduction = new PlannedTermProductionWrapper(model.PlannedTermProduction, ExistsWrappers);
+			//	RegisterComplexProperty(PlannedTermProduction);
+			//}
 		}
 
 

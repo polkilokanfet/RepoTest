@@ -57,29 +57,31 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.Parameter != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Parameter))
-			{
-				Parameter = (TechParameterWrapper)ExistsWrappers[model.Parameter];
-			}
-			else
-			{
-				Parameter = new TechParameterWrapper(model.Parameter, ExistsWrappers);
-				RegisterComplexProperty(Parameter);
-			}
+            Parameter = GetWrapper<TechParameter, TechParameterWrapper>(model.Parameter);
+			//if (ExistsWrappers.ContainsKey(model.Parameter))
+			//{
+			//	Parameter = (TechParameterWrapper)ExistsWrappers[model.Parameter];
+			//}
+			//else
+			//{
+			//	Parameter = new TechParameterWrapper(model.Parameter, ExistsWrappers);
+			//	RegisterComplexProperty(Parameter);
+			//}
 		}
 
 
 		if (model.ParentLink != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.ParentLink))
-			{
-				ParentLink = (TechLinkWrapper)ExistsWrappers[model.ParentLink];
-			}
-			else
-			{
-				ParentLink = new TechLinkWrapper(model.ParentLink, ExistsWrappers);
-				RegisterComplexProperty(ParentLink);
-			}
+            ParentLink = GetWrapper<TechLink, TechLinkWrapper>(model.ParentLink);
+			//if (ExistsWrappers.ContainsKey(model.ParentLink))
+			//{
+			//	ParentLink = (TechLinkWrapper)ExistsWrappers[model.ParentLink];
+			//}
+			//else
+			//{
+			//	ParentLink = new TechLinkWrapper(model.ParentLink, ExistsWrappers);
+			//	RegisterComplexProperty(ParentLink);
+			//}
 		}
 
 

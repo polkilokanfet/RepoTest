@@ -59,15 +59,16 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.District != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.District))
-			{
-				District = (DistrictWrapper)ExistsWrappers[model.District];
-			}
-			else
-			{
-				District = new DistrictWrapper(model.District, ExistsWrappers);
-				RegisterComplexProperty(District);
-			}
+            District = GetWrapper<District, DistrictWrapper>(model.District);
+			//if (ExistsWrappers.ContainsKey(model.District))
+			//{
+			//	District = (DistrictWrapper)ExistsWrappers[model.District];
+			//}
+			//else
+			//{
+			//	District = new DistrictWrapper(model.District, ExistsWrappers);
+			//	RegisterComplexProperty(District);
+			//}
 		}
 
 

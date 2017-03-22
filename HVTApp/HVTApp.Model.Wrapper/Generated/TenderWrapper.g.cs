@@ -96,29 +96,31 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.Project != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Project))
-			{
-				Project = (ProjectWrapper)ExistsWrappers[model.Project];
-			}
-			else
-			{
-				Project = new ProjectWrapper(model.Project, ExistsWrappers);
-				RegisterComplexProperty(Project);
-			}
+            Project = GetWrapper<Project, ProjectWrapper>(model.Project);
+			//if (ExistsWrappers.ContainsKey(model.Project))
+			//{
+			//	Project = (ProjectWrapper)ExistsWrappers[model.Project];
+			//}
+			//else
+			//{
+			//	Project = new ProjectWrapper(model.Project, ExistsWrappers);
+			//	RegisterComplexProperty(Project);
+			//}
 		}
 
 
 		if (model.Winner != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Winner))
-			{
-				Winner = (CompanyWrapper)ExistsWrappers[model.Winner];
-			}
-			else
-			{
-				Winner = new CompanyWrapper(model.Winner, ExistsWrappers);
-				RegisterComplexProperty(Winner);
-			}
+            Winner = GetWrapper<Company, CompanyWrapper>(model.Winner);
+			//if (ExistsWrappers.ContainsKey(model.Winner))
+			//{
+			//	Winner = (CompanyWrapper)ExistsWrappers[model.Winner];
+			//}
+			//else
+			//{
+			//	Winner = new CompanyWrapper(model.Winner, ExistsWrappers);
+			//	RegisterComplexProperty(Winner);
+			//}
 		}
 
 

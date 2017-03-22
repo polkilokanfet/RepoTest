@@ -81,43 +81,46 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.Project != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Project))
-			{
-				Project = (ProjectWrapper)ExistsWrappers[model.Project];
-			}
-			else
-			{
-				Project = new ProjectWrapper(model.Project, ExistsWrappers);
-				RegisterComplexProperty(Project);
-			}
+            Project = GetWrapper<Project, ProjectWrapper>(model.Project);
+			//if (ExistsWrappers.ContainsKey(model.Project))
+			//{
+			//	Project = (ProjectWrapper)ExistsWrappers[model.Project];
+			//}
+			//else
+			//{
+			//	Project = new ProjectWrapper(model.Project, ExistsWrappers);
+			//	RegisterComplexProperty(Project);
+			//}
 		}
 
 
 		if (model.Facility != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Facility))
-			{
-				Facility = (FacilityWrapper)ExistsWrappers[model.Facility];
-			}
-			else
-			{
-				Facility = new FacilityWrapper(model.Facility, ExistsWrappers);
-				RegisterComplexProperty(Facility);
-			}
+            Facility = GetWrapper<Facility, FacilityWrapper>(model.Facility);
+			//if (ExistsWrappers.ContainsKey(model.Facility))
+			//{
+			//	Facility = (FacilityWrapper)ExistsWrappers[model.Facility];
+			//}
+			//else
+			//{
+			//	Facility = new FacilityWrapper(model.Facility, ExistsWrappers);
+			//	RegisterComplexProperty(Facility);
+			//}
 		}
 
 
 		if (model.Specification != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Specification))
-			{
-				Specification = (SpecificationWrapper)ExistsWrappers[model.Specification];
-			}
-			else
-			{
-				Specification = new SpecificationWrapper(model.Specification, ExistsWrappers);
-				RegisterComplexProperty(Specification);
-			}
+            Specification = GetWrapper<Specification, SpecificationWrapper>(model.Specification);
+			//if (ExistsWrappers.ContainsKey(model.Specification))
+			//{
+			//	Specification = (SpecificationWrapper)ExistsWrappers[model.Specification];
+			//}
+			//else
+			//{
+			//	Specification = new SpecificationWrapper(model.Specification, ExistsWrappers);
+			//	RegisterComplexProperty(Specification);
+			//}
 		}
 
 

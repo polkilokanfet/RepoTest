@@ -71,57 +71,61 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.ProductMain != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.ProductMain))
-			{
-				ProductMain = (ProductMainWrapper)ExistsWrappers[model.ProductMain];
-			}
-			else
-			{
-				ProductMain = new ProductMainWrapper(model.ProductMain, ExistsWrappers);
-				RegisterComplexProperty(ProductMain);
-			}
+            ProductMain = GetWrapper<ProductMain, ProductMainWrapper>(model.ProductMain);
+			//if (ExistsWrappers.ContainsKey(model.ProductMain))
+			//{
+			//	ProductMain = (ProductMainWrapper)ExistsWrappers[model.ProductMain];
+			//}
+			//else
+			//{
+			//	ProductMain = new ProductMainWrapper(model.ProductMain, ExistsWrappers);
+			//	RegisterComplexProperty(ProductMain);
+			//}
 		}
 
 
 		if (model.OfferUnit != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.OfferUnit))
-			{
-				OfferUnit = (OfferUnitWrapper)ExistsWrappers[model.OfferUnit];
-			}
-			else
-			{
-				OfferUnit = new OfferUnitWrapper(model.OfferUnit, ExistsWrappers);
-				RegisterComplexProperty(OfferUnit);
-			}
+            OfferUnit = GetWrapper<OfferUnit, OfferUnitWrapper>(model.OfferUnit);
+			//if (ExistsWrappers.ContainsKey(model.OfferUnit))
+			//{
+			//	OfferUnit = (OfferUnitWrapper)ExistsWrappers[model.OfferUnit];
+			//}
+			//else
+			//{
+			//	OfferUnit = new OfferUnitWrapper(model.OfferUnit, ExistsWrappers);
+			//	RegisterComplexProperty(OfferUnit);
+			//}
 		}
 
 
 		if (model.CostInfo != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.CostInfo))
-			{
-				CostInfo = (CostInfoWrapper)ExistsWrappers[model.CostInfo];
-			}
-			else
-			{
-				CostInfo = new CostInfoWrapper(model.CostInfo, ExistsWrappers);
-				RegisterComplexProperty(CostInfo);
-			}
+            CostInfo = GetWrapper<CostInfo, CostInfoWrapper>(model.CostInfo);
+			//if (ExistsWrappers.ContainsKey(model.CostInfo))
+			//{
+			//	CostInfo = (CostInfoWrapper)ExistsWrappers[model.CostInfo];
+			//}
+			//else
+			//{
+			//	CostInfo = new CostInfoWrapper(model.CostInfo, ExistsWrappers);
+			//	RegisterComplexProperty(CostInfo);
+			//}
 		}
 
 
 		if (model.PlannedTermProduction != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.PlannedTermProduction))
-			{
-				PlannedTermProduction = (PlannedTermProductionWrapper)ExistsWrappers[model.PlannedTermProduction];
-			}
-			else
-			{
-				PlannedTermProduction = new PlannedTermProductionWrapper(model.PlannedTermProduction, ExistsWrappers);
-				RegisterComplexProperty(PlannedTermProduction);
-			}
+            PlannedTermProduction = GetWrapper<PlannedTermProduction, PlannedTermProductionWrapper>(model.PlannedTermProduction);
+			//if (ExistsWrappers.ContainsKey(model.PlannedTermProduction))
+			//{
+			//	PlannedTermProduction = (PlannedTermProductionWrapper)ExistsWrappers[model.PlannedTermProduction];
+			//}
+			//else
+			//{
+			//	PlannedTermProduction = new PlannedTermProductionWrapper(model.PlannedTermProduction, ExistsWrappers);
+			//	RegisterComplexProperty(PlannedTermProduction);
+			//}
 		}
 
 

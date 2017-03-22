@@ -42,15 +42,16 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.TestEntity2 != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.TestEntity2))
-			{
-				TestEntity2 = (TestEntity2Wrapper)ExistsWrappers[model.TestEntity2];
-			}
-			else
-			{
-				TestEntity2 = new TestEntity2Wrapper(model.TestEntity2, ExistsWrappers);
-				RegisterComplexProperty(TestEntity2);
-			}
+            TestEntity2 = GetWrapper<TestEntity2, TestEntity2Wrapper>(model.TestEntity2);
+			//if (ExistsWrappers.ContainsKey(model.TestEntity2))
+			//{
+			//	TestEntity2 = (TestEntity2Wrapper)ExistsWrappers[model.TestEntity2];
+			//}
+			//else
+			//{
+			//	TestEntity2 = new TestEntity2Wrapper(model.TestEntity2, ExistsWrappers);
+			//	RegisterComplexProperty(TestEntity2);
+			//}
 		}
 
 

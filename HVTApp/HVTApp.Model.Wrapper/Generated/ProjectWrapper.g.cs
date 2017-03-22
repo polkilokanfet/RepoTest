@@ -91,15 +91,16 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.Manager != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Manager))
-			{
-				Manager = (UserWrapper)ExistsWrappers[model.Manager];
-			}
-			else
-			{
-				Manager = new UserWrapper(model.Manager, ExistsWrappers);
-				RegisterComplexProperty(Manager);
-			}
+            Manager = GetWrapper<User, UserWrapper>(model.Manager);
+			//if (ExistsWrappers.ContainsKey(model.Manager))
+			//{
+			//	Manager = (UserWrapper)ExistsWrappers[model.Manager];
+			//}
+			//else
+			//{
+			//	Manager = new UserWrapper(model.Manager, ExistsWrappers);
+			//	RegisterComplexProperty(Manager);
+			//}
 		}
 
 

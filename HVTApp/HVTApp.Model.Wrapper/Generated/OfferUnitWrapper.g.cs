@@ -81,43 +81,46 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.Equipment != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Equipment))
-			{
-				Equipment = (EquipmentWrapper)ExistsWrappers[model.Equipment];
-			}
-			else
-			{
-				Equipment = new EquipmentWrapper(model.Equipment, ExistsWrappers);
-				RegisterComplexProperty(Equipment);
-			}
+            Equipment = GetWrapper<Equipment, EquipmentWrapper>(model.Equipment);
+			//if (ExistsWrappers.ContainsKey(model.Equipment))
+			//{
+			//	Equipment = (EquipmentWrapper)ExistsWrappers[model.Equipment];
+			//}
+			//else
+			//{
+			//	Equipment = new EquipmentWrapper(model.Equipment, ExistsWrappers);
+			//	RegisterComplexProperty(Equipment);
+			//}
 		}
 
 
 		if (model.Offer != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Offer))
-			{
-				Offer = (OfferWrapper)ExistsWrappers[model.Offer];
-			}
-			else
-			{
-				Offer = new OfferWrapper(model.Offer, ExistsWrappers);
-				RegisterComplexProperty(Offer);
-			}
+            Offer = GetWrapper<Offer, OfferWrapper>(model.Offer);
+			//if (ExistsWrappers.ContainsKey(model.Offer))
+			//{
+			//	Offer = (OfferWrapper)ExistsWrappers[model.Offer];
+			//}
+			//else
+			//{
+			//	Offer = new OfferWrapper(model.Offer, ExistsWrappers);
+			//	RegisterComplexProperty(Offer);
+			//}
 		}
 
 
 		if (model.PlannedTermProduction != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.PlannedTermProduction))
-			{
-				PlannedTermProduction = (PlannedTermProductionWrapper)ExistsWrappers[model.PlannedTermProduction];
-			}
-			else
-			{
-				PlannedTermProduction = new PlannedTermProductionWrapper(model.PlannedTermProduction, ExistsWrappers);
-				RegisterComplexProperty(PlannedTermProduction);
-			}
+            PlannedTermProduction = GetWrapper<PlannedTermProduction, PlannedTermProductionWrapper>(model.PlannedTermProduction);
+			//if (ExistsWrappers.ContainsKey(model.PlannedTermProduction))
+			//{
+			//	PlannedTermProduction = (PlannedTermProductionWrapper)ExistsWrappers[model.PlannedTermProduction];
+			//}
+			//else
+			//{
+			//	PlannedTermProduction = new PlannedTermProductionWrapper(model.PlannedTermProduction, ExistsWrappers);
+			//	RegisterComplexProperty(PlannedTermProduction);
+			//}
 		}
 
 

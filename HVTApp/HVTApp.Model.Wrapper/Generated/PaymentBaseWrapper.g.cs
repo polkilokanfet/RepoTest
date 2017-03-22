@@ -60,15 +60,16 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.PaymentsInfo != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.PaymentsInfo))
-			{
-				PaymentsInfo = (PaymentsInfoWrapper)ExistsWrappers[model.PaymentsInfo];
-			}
-			else
-			{
-				PaymentsInfo = new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers);
-				RegisterComplexProperty(PaymentsInfo);
-			}
+            PaymentsInfo = GetWrapper<PaymentsInfo, PaymentsInfoWrapper>(model.PaymentsInfo);
+			//if (ExistsWrappers.ContainsKey(model.PaymentsInfo))
+			//{
+			//	PaymentsInfo = (PaymentsInfoWrapper)ExistsWrappers[model.PaymentsInfo];
+			//}
+			//else
+			//{
+			//	PaymentsInfo = new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers);
+			//	RegisterComplexProperty(PaymentsInfo);
+			//}
 		}
 
 

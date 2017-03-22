@@ -124,29 +124,31 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.FriendAddressTest != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.FriendAddressTest))
-			{
-				FriendAddressTest = (FriendAddressTestWrapper)ExistsWrappers[model.FriendAddressTest];
-			}
-			else
-			{
-				FriendAddressTest = new FriendAddressTestWrapper(model.FriendAddressTest, ExistsWrappers);
-				RegisterComplexProperty(FriendAddressTest);
-			}
+            FriendAddressTest = GetWrapper<FriendAddressTest, FriendAddressTestWrapper>(model.FriendAddressTest);
+			//if (ExistsWrappers.ContainsKey(model.FriendAddressTest))
+			//{
+			//	FriendAddressTest = (FriendAddressTestWrapper)ExistsWrappers[model.FriendAddressTest];
+			//}
+			//else
+			//{
+			//	FriendAddressTest = new FriendAddressTestWrapper(model.FriendAddressTest, ExistsWrappers);
+			//	RegisterComplexProperty(FriendAddressTest);
+			//}
 		}
 
 
 		if (model.FriendGroupTest != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.FriendGroupTest))
-			{
-				FriendGroupTest = (FriendGroupTestWrapper)ExistsWrappers[model.FriendGroupTest];
-			}
-			else
-			{
-				FriendGroupTest = new FriendGroupTestWrapper(model.FriendGroupTest, ExistsWrappers);
-				RegisterComplexProperty(FriendGroupTest);
-			}
+            FriendGroupTest = GetWrapper<FriendGroupTest, FriendGroupTestWrapper>(model.FriendGroupTest);
+			//if (ExistsWrappers.ContainsKey(model.FriendGroupTest))
+			//{
+			//	FriendGroupTest = (FriendGroupTestWrapper)ExistsWrappers[model.FriendGroupTest];
+			//}
+			//else
+			//{
+			//	FriendGroupTest = new FriendGroupTestWrapper(model.FriendGroupTest, ExistsWrappers);
+			//	RegisterComplexProperty(FriendGroupTest);
+			//}
 		}
 
 

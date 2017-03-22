@@ -51,15 +51,16 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.User != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.User))
-			{
-				User = (UserWrapper)ExistsWrappers[model.User];
-			}
-			else
-			{
-				User = new UserWrapper(model.User, ExistsWrappers);
-				RegisterComplexProperty(User);
-			}
+            User = GetWrapper<User, UserWrapper>(model.User);
+			//if (ExistsWrappers.ContainsKey(model.User))
+			//{
+			//	User = (UserWrapper)ExistsWrappers[model.User];
+			//}
+			//else
+			//{
+			//	User = new UserWrapper(model.User, ExistsWrappers);
+			//	RegisterComplexProperty(User);
+			//}
 		}
 
 

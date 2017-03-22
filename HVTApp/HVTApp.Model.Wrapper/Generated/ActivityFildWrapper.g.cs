@@ -51,15 +51,16 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.Company != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Company))
-			{
-				Company = (CompanyWrapper)ExistsWrappers[model.Company];
-			}
-			else
-			{
-				Company = new CompanyWrapper(model.Company, ExistsWrappers);
-				RegisterComplexProperty(Company);
-			}
+            Company = GetWrapper<Company, CompanyWrapper>(model.Company);
+			//if (ExistsWrappers.ContainsKey(model.Company))
+			//{
+			//	Company = (CompanyWrapper)ExistsWrappers[model.Company];
+			//}
+			//else
+			//{
+			//	Company = new CompanyWrapper(model.Company, ExistsWrappers);
+			//	RegisterComplexProperty(Company);
+			//}
 		}
 
 

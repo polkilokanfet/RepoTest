@@ -51,15 +51,16 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.Country != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Country))
-			{
-				Country = (CountryWrapper)ExistsWrappers[model.Country];
-			}
-			else
-			{
-				Country = new CountryWrapper(model.Country, ExistsWrappers);
-				RegisterComplexProperty(Country);
-			}
+            Country = GetWrapper<Country, CountryWrapper>(model.Country);
+			//if (ExistsWrappers.ContainsKey(model.Country))
+			//{
+			//	Country = (CountryWrapper)ExistsWrappers[model.Country];
+			//}
+			//else
+			//{
+			//	Country = new CountryWrapper(model.Country, ExistsWrappers);
+			//	RegisterComplexProperty(Country);
+			//}
 		}
 
 

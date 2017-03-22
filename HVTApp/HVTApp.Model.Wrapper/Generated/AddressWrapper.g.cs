@@ -62,15 +62,16 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.Locality != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Locality))
-			{
-				Locality = (LocalityWrapper)ExistsWrappers[model.Locality];
-			}
-			else
-			{
-				Locality = new LocalityWrapper(model.Locality, ExistsWrappers);
-				RegisterComplexProperty(Locality);
-			}
+            Locality = GetWrapper<Locality, LocalityWrapper>(model.Locality);
+			//if (ExistsWrappers.ContainsKey(model.Locality))
+			//{
+			//	Locality = (LocalityWrapper)ExistsWrappers[model.Locality];
+			//}
+			//else
+			//{
+			//	Locality = new LocalityWrapper(model.Locality, ExistsWrappers);
+			//	RegisterComplexProperty(Locality);
+			//}
 		}
 
 

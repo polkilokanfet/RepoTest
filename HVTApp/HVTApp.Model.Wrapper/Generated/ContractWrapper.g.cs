@@ -79,15 +79,16 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.Contragent != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Contragent))
-			{
-				Contragent = (CompanyWrapper)ExistsWrappers[model.Contragent];
-			}
-			else
-			{
-				Contragent = new CompanyWrapper(model.Contragent, ExistsWrappers);
-				RegisterComplexProperty(Contragent);
-			}
+            Contragent = GetWrapper<Company, CompanyWrapper>(model.Contragent);
+			//if (ExistsWrappers.ContainsKey(model.Contragent))
+			//{
+			//	Contragent = (CompanyWrapper)ExistsWrappers[model.Contragent];
+			//}
+			//else
+			//{
+			//	Contragent = new CompanyWrapper(model.Contragent, ExistsWrappers);
+			//	RegisterComplexProperty(Contragent);
+			//}
 		}
 
 

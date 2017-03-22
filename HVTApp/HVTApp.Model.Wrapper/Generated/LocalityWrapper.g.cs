@@ -58,29 +58,31 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.LocalityType != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.LocalityType))
-			{
-				LocalityType = (LocalityTypeWrapper)ExistsWrappers[model.LocalityType];
-			}
-			else
-			{
-				LocalityType = new LocalityTypeWrapper(model.LocalityType, ExistsWrappers);
-				RegisterComplexProperty(LocalityType);
-			}
+            LocalityType = GetWrapper<LocalityType, LocalityTypeWrapper>(model.LocalityType);
+			//if (ExistsWrappers.ContainsKey(model.LocalityType))
+			//{
+			//	LocalityType = (LocalityTypeWrapper)ExistsWrappers[model.LocalityType];
+			//}
+			//else
+			//{
+			//	LocalityType = new LocalityTypeWrapper(model.LocalityType, ExistsWrappers);
+			//	RegisterComplexProperty(LocalityType);
+			//}
 		}
 
 
 		if (model.DistrictsRegion != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.DistrictsRegion))
-			{
-				DistrictsRegion = (DistrictsRegionWrapper)ExistsWrappers[model.DistrictsRegion];
-			}
-			else
-			{
-				DistrictsRegion = new DistrictsRegionWrapper(model.DistrictsRegion, ExistsWrappers);
-				RegisterComplexProperty(DistrictsRegion);
-			}
+            DistrictsRegion = GetWrapper<DistrictsRegion, DistrictsRegionWrapper>(model.DistrictsRegion);
+			//if (ExistsWrappers.ContainsKey(model.DistrictsRegion))
+			//{
+			//	DistrictsRegion = (DistrictsRegionWrapper)ExistsWrappers[model.DistrictsRegion];
+			//}
+			//else
+			//{
+			//	DistrictsRegion = new DistrictsRegionWrapper(model.DistrictsRegion, ExistsWrappers);
+			//	RegisterComplexProperty(DistrictsRegion);
+			//}
 		}
 
 

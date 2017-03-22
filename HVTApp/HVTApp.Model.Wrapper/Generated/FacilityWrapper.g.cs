@@ -65,43 +65,46 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.Type != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Type))
-			{
-				Type = (FacilityTypeWrapper)ExistsWrappers[model.Type];
-			}
-			else
-			{
-				Type = new FacilityTypeWrapper(model.Type, ExistsWrappers);
-				RegisterComplexProperty(Type);
-			}
+            Type = GetWrapper<FacilityType, FacilityTypeWrapper>(model.Type);
+			//if (ExistsWrappers.ContainsKey(model.Type))
+			//{
+			//	Type = (FacilityTypeWrapper)ExistsWrappers[model.Type];
+			//}
+			//else
+			//{
+			//	Type = new FacilityTypeWrapper(model.Type, ExistsWrappers);
+			//	RegisterComplexProperty(Type);
+			//}
 		}
 
 
 		if (model.OwnerCompany != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.OwnerCompany))
-			{
-				OwnerCompany = (CompanyWrapper)ExistsWrappers[model.OwnerCompany];
-			}
-			else
-			{
-				OwnerCompany = new CompanyWrapper(model.OwnerCompany, ExistsWrappers);
-				RegisterComplexProperty(OwnerCompany);
-			}
+            OwnerCompany = GetWrapper<Company, CompanyWrapper>(model.OwnerCompany);
+			//if (ExistsWrappers.ContainsKey(model.OwnerCompany))
+			//{
+			//	OwnerCompany = (CompanyWrapper)ExistsWrappers[model.OwnerCompany];
+			//}
+			//else
+			//{
+			//	OwnerCompany = new CompanyWrapper(model.OwnerCompany, ExistsWrappers);
+			//	RegisterComplexProperty(OwnerCompany);
+			//}
 		}
 
 
 		if (model.Address != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Address))
-			{
-				Address = (AddressWrapper)ExistsWrappers[model.Address];
-			}
-			else
-			{
-				Address = new AddressWrapper(model.Address, ExistsWrappers);
-				RegisterComplexProperty(Address);
-			}
+            Address = GetWrapper<Address, AddressWrapper>(model.Address);
+			//if (ExistsWrappers.ContainsKey(model.Address))
+			//{
+			//	Address = (AddressWrapper)ExistsWrappers[model.Address];
+			//}
+			//else
+			//{
+			//	Address = new AddressWrapper(model.Address, ExistsWrappers);
+			//	RegisterComplexProperty(Address);
+			//}
 		}
 
 

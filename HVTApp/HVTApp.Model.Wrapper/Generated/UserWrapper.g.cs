@@ -86,15 +86,16 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.Employee != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Employee))
-			{
-				Employee = (EmployeeWrapper)ExistsWrappers[model.Employee];
-			}
-			else
-			{
-				Employee = new EmployeeWrapper(model.Employee, ExistsWrappers);
-				RegisterComplexProperty(Employee);
-			}
+            Employee = GetWrapper<Employee, EmployeeWrapper>(model.Employee);
+			//if (ExistsWrappers.ContainsKey(model.Employee))
+			//{
+			//	Employee = (EmployeeWrapper)ExistsWrappers[model.Employee];
+			//}
+			//else
+			//{
+			//	Employee = new EmployeeWrapper(model.Employee, ExistsWrappers);
+			//	RegisterComplexProperty(Employee);
+			//}
 		}
 
 

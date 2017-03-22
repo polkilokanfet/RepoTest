@@ -67,29 +67,31 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.Product != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Product))
-			{
-				Product = (ProductBaseWrapper)ExistsWrappers[model.Product];
-			}
-			else
-			{
-				Product = new ProductBaseWrapper(model.Product, ExistsWrappers);
-				RegisterComplexProperty(Product);
-			}
+            Product = GetWrapper<ProductBase, ProductBaseWrapper>(model.Product);
+			//if (ExistsWrappers.ContainsKey(model.Product))
+			//{
+			//	Product = (ProductBaseWrapper)ExistsWrappers[model.Product];
+			//}
+			//else
+			//{
+			//	Product = new ProductBaseWrapper(model.Product, ExistsWrappers);
+			//	RegisterComplexProperty(Product);
+			//}
 		}
 
 
 		if (model.Order != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Order))
-			{
-				Order = (OrderWrapper)ExistsWrappers[model.Order];
-			}
-			else
-			{
-				Order = new OrderWrapper(model.Order, ExistsWrappers);
-				RegisterComplexProperty(Order);
-			}
+            Order = GetWrapper<Order, OrderWrapper>(model.Order);
+			//if (ExistsWrappers.ContainsKey(model.Order))
+			//{
+			//	Order = (OrderWrapper)ExistsWrappers[model.Order];
+			//}
+			//else
+			//{
+			//	Order = new OrderWrapper(model.Order, ExistsWrappers);
+			//	RegisterComplexProperty(Order);
+			//}
 		}
 
 

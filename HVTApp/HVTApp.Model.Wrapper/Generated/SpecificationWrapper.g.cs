@@ -82,15 +82,16 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.Contract != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Contract))
-			{
-				Contract = (ContractWrapper)ExistsWrappers[model.Contract];
-			}
-			else
-			{
-				Contract = new ContractWrapper(model.Contract, ExistsWrappers);
-				RegisterComplexProperty(Contract);
-			}
+            Contract = GetWrapper<Contract, ContractWrapper>(model.Contract);
+			//if (ExistsWrappers.ContainsKey(model.Contract))
+			//{
+			//	Contract = (ContractWrapper)ExistsWrappers[model.Contract];
+			//}
+			//else
+			//{
+			//	Contract = new ContractWrapper(model.Contract, ExistsWrappers);
+			//	RegisterComplexProperty(Contract);
+			//}
 		}
 
 

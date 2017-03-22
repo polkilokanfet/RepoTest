@@ -87,29 +87,31 @@ namespace HVTApp.Model.Wrapper
 
 		if (model.PaymentsCondition != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.PaymentsCondition))
-			{
-				PaymentsCondition = (PaymentsConditionWrapper)ExistsWrappers[model.PaymentsCondition];
-			}
-			else
-			{
-				PaymentsCondition = new PaymentsConditionWrapper(model.PaymentsCondition, ExistsWrappers);
-				RegisterComplexProperty(PaymentsCondition);
-			}
+            PaymentsCondition = GetWrapper<PaymentsCondition, PaymentsConditionWrapper>(model.PaymentsCondition);
+			//if (ExistsWrappers.ContainsKey(model.PaymentsCondition))
+			//{
+			//	PaymentsCondition = (PaymentsConditionWrapper)ExistsWrappers[model.PaymentsCondition];
+			//}
+			//else
+			//{
+			//	PaymentsCondition = new PaymentsConditionWrapper(model.PaymentsCondition, ExistsWrappers);
+			//	RegisterComplexProperty(PaymentsCondition);
+			//}
 		}
 
 
 		if (model.PaymentsInfo != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.PaymentsInfo))
-			{
-				PaymentsInfo = (PaymentsInfoWrapper)ExistsWrappers[model.PaymentsInfo];
-			}
-			else
-			{
-				PaymentsInfo = new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers);
-				RegisterComplexProperty(PaymentsInfo);
-			}
+            PaymentsInfo = GetWrapper<PaymentsInfo, PaymentsInfoWrapper>(model.PaymentsInfo);
+			//if (ExistsWrappers.ContainsKey(model.PaymentsInfo))
+			//{
+			//	PaymentsInfo = (PaymentsInfoWrapper)ExistsWrappers[model.PaymentsInfo];
+			//}
+			//else
+			//{
+			//	PaymentsInfo = new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers);
+			//	RegisterComplexProperty(PaymentsInfo);
+			//}
 		}
 
 
