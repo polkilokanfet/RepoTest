@@ -10,7 +10,9 @@ namespace HVTApp.Model.Wrapper
     public ProductOptionalWrapper(ProductOptional model) : base(model) { }
     public ProductOptionalWrapper(ProductOptional model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
     public System.Boolean InCoast
     {
       get { return GetValue<System.Boolean>(); }
@@ -18,6 +20,7 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Boolean InCoastOriginalValue => GetOriginalValue<System.Boolean>(nameof(InCoast));
     public bool InCoastIsChanged => GetIsChanged(nameof(InCoast));
+
 
     public System.Int32 Id
     {
@@ -27,14 +30,18 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public ProductsMainGroupWrapper ProductsMainGroup
 	{
 		get { return GetComplexProperty<ProductsMainGroup, ProductsMainGroupWrapper>(nameof(ProductsMainGroup)); }
 		set { SetComplexProperty<ProductsMainGroup, ProductsMainGroupWrapper>(value, nameof(ProductsMainGroup)); }
 	}
+
 
 	public EquipmentWrapper Equipment
 	{
@@ -42,11 +49,13 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<Equipment, EquipmentWrapper>(value, nameof(Equipment)); }
 	}
 
+
 	public TenderInfoWrapper TenderInfo
 	{
 		get { return GetComplexProperty<TenderInfo, TenderInfoWrapper>(nameof(TenderInfo)); }
 		set { SetComplexProperty<TenderInfo, TenderInfoWrapper>(value, nameof(TenderInfo)); }
 	}
+
 
 	public OrderInfoWrapper OrderInfo
 	{
@@ -54,11 +63,13 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<OrderInfo, OrderInfoWrapper>(value, nameof(OrderInfo)); }
 	}
 
+
 	public DateInfoWrapper DateInfo
 	{
 		get { return GetComplexProperty<DateInfo, DateInfoWrapper>(nameof(DateInfo)); }
 		set { SetComplexProperty<DateInfo, DateInfoWrapper>(value, nameof(DateInfo)); }
 	}
+
 
 	public TermsInfoWrapper TermsInfo
 	{
@@ -66,11 +77,13 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<TermsInfo, TermsInfoWrapper>(value, nameof(TermsInfo)); }
 	}
 
+
 	public CostInfoWrapper CostInfo
 	{
 		get { return GetComplexProperty<CostInfo, CostInfoWrapper>(nameof(CostInfo)); }
 		set { SetComplexProperty<CostInfo, CostInfoWrapper>(value, nameof(CostInfo)); }
 	}
+
 
 	public PaymentsInfoWrapper PaymentsInfo
 	{
@@ -78,133 +91,161 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(value, nameof(PaymentsInfo)); }
 	}
 
+
     #endregion
 
+
     #region CollectionComplexProperties
+
     public ValidatableChangeTrackingCollection<ProductsOptionalGroupWrapper> ProductsOptionalGroups { get; private set; }
+
 
     public ValidatableChangeTrackingCollection<OfferProductWrapper> OfferProducts { get; private set; }
 
+
     #endregion
+
     
     protected override void InitializeComplexProperties(ProductOptional model)
     {
+
 		if (model.ProductsMainGroup != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.ProductsMainGroup))
-			{
-				ProductsMainGroup = (ProductsMainGroupWrapper)ExistsWrappers[model.ProductsMainGroup];
-			}
-			else
-			{
-				ProductsMainGroup = new ProductsMainGroupWrapper(model.ProductsMainGroup, ExistsWrappers);
-				RegisterComplexProperty(ProductsMainGroup);
-			}
+            ProductsMainGroup = GetWrapper<ProductsMainGroup, ProductsMainGroupWrapper>(model.ProductsMainGroup);
+			//if (ExistsWrappers.ContainsKey(model.ProductsMainGroup))
+			//{
+			//	ProductsMainGroup = (ProductsMainGroupWrapper)ExistsWrappers[model.ProductsMainGroup];
+			//}
+			//else
+			//{
+			//	ProductsMainGroup = new ProductsMainGroupWrapper(model.ProductsMainGroup, ExistsWrappers);
+			//	RegisterComplexProperty(ProductsMainGroup);
+			//}
 		}
+
 
 		if (model.Equipment != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Equipment))
-			{
-				Equipment = (EquipmentWrapper)ExistsWrappers[model.Equipment];
-			}
-			else
-			{
-				Equipment = new EquipmentWrapper(model.Equipment, ExistsWrappers);
-				RegisterComplexProperty(Equipment);
-			}
+            Equipment = GetWrapper<Equipment, EquipmentWrapper>(model.Equipment);
+			//if (ExistsWrappers.ContainsKey(model.Equipment))
+			//{
+			//	Equipment = (EquipmentWrapper)ExistsWrappers[model.Equipment];
+			//}
+			//else
+			//{
+			//	Equipment = new EquipmentWrapper(model.Equipment, ExistsWrappers);
+			//	RegisterComplexProperty(Equipment);
+			//}
 		}
+
 
 		if (model.TenderInfo != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.TenderInfo))
-			{
-				TenderInfo = (TenderInfoWrapper)ExistsWrappers[model.TenderInfo];
-			}
-			else
-			{
-				TenderInfo = new TenderInfoWrapper(model.TenderInfo, ExistsWrappers);
-				RegisterComplexProperty(TenderInfo);
-			}
+            TenderInfo = GetWrapper<TenderInfo, TenderInfoWrapper>(model.TenderInfo);
+			//if (ExistsWrappers.ContainsKey(model.TenderInfo))
+			//{
+			//	TenderInfo = (TenderInfoWrapper)ExistsWrappers[model.TenderInfo];
+			//}
+			//else
+			//{
+			//	TenderInfo = new TenderInfoWrapper(model.TenderInfo, ExistsWrappers);
+			//	RegisterComplexProperty(TenderInfo);
+			//}
 		}
+
 
 		if (model.OrderInfo != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.OrderInfo))
-			{
-				OrderInfo = (OrderInfoWrapper)ExistsWrappers[model.OrderInfo];
-			}
-			else
-			{
-				OrderInfo = new OrderInfoWrapper(model.OrderInfo, ExistsWrappers);
-				RegisterComplexProperty(OrderInfo);
-			}
+            OrderInfo = GetWrapper<OrderInfo, OrderInfoWrapper>(model.OrderInfo);
+			//if (ExistsWrappers.ContainsKey(model.OrderInfo))
+			//{
+			//	OrderInfo = (OrderInfoWrapper)ExistsWrappers[model.OrderInfo];
+			//}
+			//else
+			//{
+			//	OrderInfo = new OrderInfoWrapper(model.OrderInfo, ExistsWrappers);
+			//	RegisterComplexProperty(OrderInfo);
+			//}
 		}
+
 
 		if (model.DateInfo != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.DateInfo))
-			{
-				DateInfo = (DateInfoWrapper)ExistsWrappers[model.DateInfo];
-			}
-			else
-			{
-				DateInfo = new DateInfoWrapper(model.DateInfo, ExistsWrappers);
-				RegisterComplexProperty(DateInfo);
-			}
+            DateInfo = GetWrapper<DateInfo, DateInfoWrapper>(model.DateInfo);
+			//if (ExistsWrappers.ContainsKey(model.DateInfo))
+			//{
+			//	DateInfo = (DateInfoWrapper)ExistsWrappers[model.DateInfo];
+			//}
+			//else
+			//{
+			//	DateInfo = new DateInfoWrapper(model.DateInfo, ExistsWrappers);
+			//	RegisterComplexProperty(DateInfo);
+			//}
 		}
+
 
 		if (model.TermsInfo != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.TermsInfo))
-			{
-				TermsInfo = (TermsInfoWrapper)ExistsWrappers[model.TermsInfo];
-			}
-			else
-			{
-				TermsInfo = new TermsInfoWrapper(model.TermsInfo, ExistsWrappers);
-				RegisterComplexProperty(TermsInfo);
-			}
+            TermsInfo = GetWrapper<TermsInfo, TermsInfoWrapper>(model.TermsInfo);
+			//if (ExistsWrappers.ContainsKey(model.TermsInfo))
+			//{
+			//	TermsInfo = (TermsInfoWrapper)ExistsWrappers[model.TermsInfo];
+			//}
+			//else
+			//{
+			//	TermsInfo = new TermsInfoWrapper(model.TermsInfo, ExistsWrappers);
+			//	RegisterComplexProperty(TermsInfo);
+			//}
 		}
+
 
 		if (model.CostInfo != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.CostInfo))
-			{
-				CostInfo = (CostInfoWrapper)ExistsWrappers[model.CostInfo];
-			}
-			else
-			{
-				CostInfo = new CostInfoWrapper(model.CostInfo, ExistsWrappers);
-				RegisterComplexProperty(CostInfo);
-			}
+            CostInfo = GetWrapper<CostInfo, CostInfoWrapper>(model.CostInfo);
+			//if (ExistsWrappers.ContainsKey(model.CostInfo))
+			//{
+			//	CostInfo = (CostInfoWrapper)ExistsWrappers[model.CostInfo];
+			//}
+			//else
+			//{
+			//	CostInfo = new CostInfoWrapper(model.CostInfo, ExistsWrappers);
+			//	RegisterComplexProperty(CostInfo);
+			//}
 		}
+
 
 		if (model.PaymentsInfo != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.PaymentsInfo))
-			{
-				PaymentsInfo = (PaymentsInfoWrapper)ExistsWrappers[model.PaymentsInfo];
-			}
-			else
-			{
-				PaymentsInfo = new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers);
-				RegisterComplexProperty(PaymentsInfo);
-			}
+            PaymentsInfo = GetWrapper<PaymentsInfo, PaymentsInfoWrapper>(model.PaymentsInfo);
+			//if (ExistsWrappers.ContainsKey(model.PaymentsInfo))
+			//{
+			//	PaymentsInfo = (PaymentsInfoWrapper)ExistsWrappers[model.PaymentsInfo];
+			//}
+			//else
+			//{
+			//	PaymentsInfo = new PaymentsInfoWrapper(model.PaymentsInfo, ExistsWrappers);
+			//	RegisterComplexProperty(PaymentsInfo);
+			//}
 		}
 
+
     }
+
   
     protected override void InitializeCollectionComplexProperties(ProductOptional model)
     {
+
       if (model.ProductsOptionalGroups == null) throw new ArgumentException("ProductsOptionalGroups cannot be null");
       ProductsOptionalGroups = new ValidatableChangeTrackingCollection<ProductsOptionalGroupWrapper>(model.ProductsOptionalGroups.Select(e => new ProductsOptionalGroupWrapper(e, ExistsWrappers)));
       RegisterCollection(ProductsOptionalGroups, model.ProductsOptionalGroups);
+
 
       if (model.OfferProducts == null) throw new ArgumentException("OfferProducts cannot be null");
       OfferProducts = new ValidatableChangeTrackingCollection<OfferProductWrapper>(model.OfferProducts.Select(e => new OfferProductWrapper(e, ExistsWrappers)));
       RegisterCollection(OfferProducts, model.OfferProducts);
 
+
     }
+
   }
 }

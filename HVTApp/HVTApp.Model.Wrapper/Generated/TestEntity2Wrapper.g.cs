@@ -10,7 +10,18 @@ namespace HVTApp.Model.Wrapper
     public TestEntity2Wrapper(TestEntity2 model) : base(model) { }
     public TestEntity2Wrapper(TestEntity2 model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
+    public System.Int32 N
+    {
+      get { return GetValue<System.Int32>(); }
+      set { SetValue(value); }
+    }
+    public System.Int32 NOriginalValue => GetOriginalValue<System.Int32>(nameof(N));
+    public bool NIsChanged => GetIsChanged(nameof(N));
+
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -19,32 +30,41 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public TestEntity1Wrapper TestEntity1
 	{
 		get { return GetComplexProperty<TestEntity1, TestEntity1Wrapper>(nameof(TestEntity1)); }
 		set { SetComplexProperty<TestEntity1, TestEntity1Wrapper>(value, nameof(TestEntity1)); }
 	}
 
+
     #endregion
+
     
     protected override void InitializeComplexProperties(TestEntity2 model)
     {
+
 		if (model.TestEntity1 != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.TestEntity1))
-			{
-				TestEntity1 = (TestEntity1Wrapper)ExistsWrappers[model.TestEntity1];
-			}
-			else
-			{
-				TestEntity1 = new TestEntity1Wrapper(model.TestEntity1, ExistsWrappers);
-				RegisterComplexProperty(TestEntity1);
-			}
+            TestEntity1 = GetWrapper<TestEntity1, TestEntity1Wrapper>(model.TestEntity1);
+			//if (ExistsWrappers.ContainsKey(model.TestEntity1))
+			//{
+			//	TestEntity1 = (TestEntity1Wrapper)ExistsWrappers[model.TestEntity1];
+			//}
+			//else
+			//{
+			//	TestEntity1 = new TestEntity1Wrapper(model.TestEntity1, ExistsWrappers);
+			//	RegisterComplexProperty(TestEntity1);
+			//}
 		}
 
+
     }
+
   }
 }

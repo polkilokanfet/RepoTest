@@ -10,7 +10,9 @@ namespace HVTApp.Model.Wrapper
     public TermsInfoWrapper(TermsInfo model) : base(model) { }
     public TermsInfoWrapper(TermsInfo model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
     public System.Int32 TermProductionPlan
     {
       get { return GetValue<System.Int32>(); }
@@ -18,6 +20,7 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Int32 TermProductionPlanOriginalValue => GetOriginalValue<System.Int32>(nameof(TermProductionPlan));
     public bool TermProductionPlanIsChanged => GetIsChanged(nameof(TermProductionPlan));
+
 
     public System.Int32 TermFromCompleteToProductionPlan
     {
@@ -27,6 +30,7 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 TermFromCompleteToProductionPlanOriginalValue => GetOriginalValue<System.Int32>(nameof(TermFromCompleteToProductionPlan));
     public bool TermFromCompleteToProductionPlanIsChanged => GetIsChanged(nameof(TermFromCompleteToProductionPlan));
 
+
     public System.Int32 TermFromShipmentToDeliveryPlan
     {
       get { return GetValue<System.Int32>(); }
@@ -34,6 +38,7 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Int32 TermFromShipmentToDeliveryPlanOriginalValue => GetOriginalValue<System.Int32>(nameof(TermFromShipmentToDeliveryPlan));
     public bool TermFromShipmentToDeliveryPlanIsChanged => GetIsChanged(nameof(TermFromShipmentToDeliveryPlan));
+
 
     public System.Int32 Id
     {
@@ -43,6 +48,8 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
+
   }
 }

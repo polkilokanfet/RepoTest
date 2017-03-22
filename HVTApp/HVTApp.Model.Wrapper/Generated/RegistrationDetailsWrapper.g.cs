@@ -10,7 +10,9 @@ namespace HVTApp.Model.Wrapper
     public RegistrationDetailsWrapper(RegistrationDetails model) : base(model) { }
     public RegistrationDetailsWrapper(RegistrationDetails model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
     public System.String RegistrationNumber
     {
       get { return GetValue<System.String>(); }
@@ -18,6 +20,7 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String RegistrationNumberOriginalValue => GetOriginalValue<System.String>(nameof(RegistrationNumber));
     public bool RegistrationNumberIsChanged => GetIsChanged(nameof(RegistrationNumber));
+
 
     public System.DateTime RegistrationDate
     {
@@ -27,6 +30,7 @@ namespace HVTApp.Model.Wrapper
     public System.DateTime RegistrationDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(RegistrationDate));
     public bool RegistrationDateIsChanged => GetIsChanged(nameof(RegistrationDate));
 
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -35,6 +39,8 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
+
   }
 }

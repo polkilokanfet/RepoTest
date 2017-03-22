@@ -7,6 +7,7 @@
 
     public class TestEntity2 : BaseEntity
     {
+        public int N { get; set; }
         public virtual TestEntity1 TestEntity1 { get; set; }
     }
 }

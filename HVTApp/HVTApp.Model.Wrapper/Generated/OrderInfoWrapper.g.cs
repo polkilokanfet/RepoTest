@@ -10,7 +10,9 @@ namespace HVTApp.Model.Wrapper
     public OrderInfoWrapper(OrderInfo model) : base(model) { }
     public OrderInfoWrapper(OrderInfo model, Dictionary<BaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+
     #region SimpleProperties
+
     public System.Int32 OrderPosition
     {
       get { return GetValue<System.Int32>(); }
@@ -18,6 +20,7 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Int32 OrderPositionOriginalValue => GetOriginalValue<System.Int32>(nameof(OrderPosition));
     public bool OrderPositionIsChanged => GetIsChanged(nameof(OrderPosition));
+
 
     public System.String SerialNumber
     {
@@ -27,6 +30,7 @@ namespace HVTApp.Model.Wrapper
     public System.String SerialNumberOriginalValue => GetOriginalValue<System.String>(nameof(SerialNumber));
     public bool SerialNumberIsChanged => GetIsChanged(nameof(SerialNumber));
 
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -35,14 +39,18 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public ProductBaseWrapper Product
 	{
 		get { return GetComplexProperty<ProductBase, ProductBaseWrapper>(nameof(Product)); }
 		set { SetComplexProperty<ProductBase, ProductBaseWrapper>(value, nameof(Product)); }
 	}
+
 
 	public OrderWrapper Order
 	{
@@ -50,36 +58,44 @@ namespace HVTApp.Model.Wrapper
 		set { SetComplexProperty<Order, OrderWrapper>(value, nameof(Order)); }
 	}
 
+
     #endregion
+
     
     protected override void InitializeComplexProperties(OrderInfo model)
     {
+
 		if (model.Product != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Product))
-			{
-				Product = (ProductBaseWrapper)ExistsWrappers[model.Product];
-			}
-			else
-			{
-				Product = new ProductBaseWrapper(model.Product, ExistsWrappers);
-				RegisterComplexProperty(Product);
-			}
+            Product = GetWrapper<ProductBase, ProductBaseWrapper>(model.Product);
+			//if (ExistsWrappers.ContainsKey(model.Product))
+			//{
+			//	Product = (ProductBaseWrapper)ExistsWrappers[model.Product];
+			//}
+			//else
+			//{
+			//	Product = new ProductBaseWrapper(model.Product, ExistsWrappers);
+			//	RegisterComplexProperty(Product);
+			//}
 		}
+
 
 		if (model.Order != null)
 		{
-			if (ExistsWrappers.ContainsKey(model.Order))
-			{
-				Order = (OrderWrapper)ExistsWrappers[model.Order];
-			}
-			else
-			{
-				Order = new OrderWrapper(model.Order, ExistsWrappers);
-				RegisterComplexProperty(Order);
-			}
+            Order = GetWrapper<Order, OrderWrapper>(model.Order);
+			//if (ExistsWrappers.ContainsKey(model.Order))
+			//{
+			//	Order = (OrderWrapper)ExistsWrappers[model.Order];
+			//}
+			//else
+			//{
+			//	Order = new OrderWrapper(model.Order, ExistsWrappers);
+			//	RegisterComplexProperty(Order);
+			//}
 		}
 
+
     }
+
   }
 }
