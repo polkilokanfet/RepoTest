@@ -21,6 +21,14 @@ namespace HVTApp.Model.Wrapper.Tests
             group.FriendTests.Add(friend);
 
             FriendTestWrapper wrapper = new FriendTestWrapper(friend);
+            Assert.IsFalse(wrapper.IsChanged);
+
+            var old = wrapper.FriendAddressTest;
+            wrapper.FriendAddressTest = new FriendAddressTestWrapper(new FriendAddressTest());
+            Assert.IsTrue(wrapper.IsChanged);
+
+            wrapper.FriendAddressTest = old;
+            Assert.IsFalse(wrapper.IsChanged);
         }
 
         [TestMethod]

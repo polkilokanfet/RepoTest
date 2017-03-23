@@ -20,7 +20,7 @@ namespace HVTApp.DataAccess
         private static readonly Locality Locality = new Locality {DistrictsRegion = DistrictsRegion, LocalityType = LocalityType, Name = "Екатеринбург"};
         private static readonly Address Address = new Address {Description = "ул.Фронтовых бригад, д.22", Locality = Locality};
         private static readonly ActivityFild ActivityFild = new ActivityFild { FieldOfActivity = FieldOfActivity.ProducerOfHighVoltageEquipment };
-        private static readonly BankDetails BankDetails = new BankDetails() {BankIdentificationCode = "1111"};
+        private static readonly BankDetails BankDetails = new BankDetails {BankIdentificationCode = "1111"};
         private static readonly Company Company = new Company { FullName = "Уралэлектротяжмаш", ShortName = "УЭТМ", Form = FormAo, Address = Address, BankDetails = BankDetails, ActivityFilds = new List<ActivityFild> { ActivityFild } };
         private static readonly EmployeesPosition EmployeesPosition = new EmployeesPosition {Name = "Директор"};
         private static readonly Employee Employee = new Employee {Surname = "Иванов",Name = "Иван", Patronymic = "Иванович", Position = EmployeesPosition, Company = Company, Email = "iii@mail.ru", PhoneNumber = "326-36-36"};

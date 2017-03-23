@@ -12,7 +12,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
     {
         public CompanyFormDetailsViewModel(CompanyFormWrapper companyFormWrapper)
         {
-            this.CompanyFormWrapper = companyFormWrapper;
+            CompanyFormWrapper = companyFormWrapper;
 
             OkCommand = new DelegateCommand(OkCommand_Execute, OkCommand_CanExecute);
 

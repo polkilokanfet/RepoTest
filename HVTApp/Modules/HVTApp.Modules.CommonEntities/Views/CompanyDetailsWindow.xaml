@@ -29,6 +29,8 @@
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Форма"/>
         <ComboBox Grid.Column="1" Grid.Row="2" MinWidth="200" ItemsSource="{Binding Forms, Mode=OneWay}" SelectedItem="{Binding CompanyWrapper.Form, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        
+        <Button Grid.Column="1" Grid.Row="3" Content="Ok" Command="{Binding OkCommand}"/>
 
     </Grid>
 </Window>

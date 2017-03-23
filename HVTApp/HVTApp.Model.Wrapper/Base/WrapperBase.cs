@@ -423,5 +423,11 @@ namespace HVTApp.Model.Wrapper
         {
             return Model.ToString();
         }
+
+        public override bool Equals(object obj)
+        {
+            WrapperBase<T> other = obj as WrapperBase<T>;
+            return other != null && Model.Equals(other.Model);
+        }
     }
 }
