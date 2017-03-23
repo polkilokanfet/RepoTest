@@ -9,6 +9,7 @@ namespace HVTApp.Model
             if (obj == null)
                 return false;
 
+            //должны совпадать типы сравниваемых сущностей.
             if (this.GetType() != obj.GetType())
                 return false;
 
@@ -22,6 +23,11 @@ namespace HVTApp.Model
             return EqualsProperties(obj);
         }
 
+        /// <summary>
+        /// ¬се свойства совпадают.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public virtual bool EqualsProperties(object obj)
         {
             return base.Equals(obj);

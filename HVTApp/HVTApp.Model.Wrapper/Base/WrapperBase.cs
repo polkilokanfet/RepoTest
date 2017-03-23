@@ -376,7 +376,7 @@ namespace HVTApp.Model.Wrapper
             where TWrapProp : WrapperBase<TModelProp>
         {
             TWrapProp oldProp = GetComplexProperty<TModelProp, TWrapProp>(propertyName);
-            if (oldProp == newProp)
+            if (Equals(oldProp, newProp))
                 return;
 
             if (oldProp != null)
@@ -403,15 +403,11 @@ namespace HVTApp.Model.Wrapper
                 return null;
 
             if (ExistsWrappers.ContainsKey(modelEntity) && ExistsWrappers[modelEntity] is TWrapper)
-            {
                 return (TWrapper)ExistsWrappers[modelEntity];
-            }
-            else
-            {
-                TWrapper wrapper = (TWrapper)Activator.CreateInstance(typeof(TWrapper), modelEntity, ExistsWrappers);
-                RegisterComplexProperty(wrapper);
-                return wrapper;
-            }
+
+            TWrapper wrapper = (TWrapper)Activator.CreateInstance(typeof(TWrapper), modelEntity, ExistsWrappers);
+            RegisterComplexProperty(wrapper);
+            return wrapper;
         }
 
         /// <summary>

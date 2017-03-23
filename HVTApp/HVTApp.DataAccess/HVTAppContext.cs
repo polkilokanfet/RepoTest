@@ -45,6 +45,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
+        public virtual DbSet<ActivityFild> ActivityFilds { get; set; }
         public virtual DbSet<CompanyForm> CompanyForms { get; set; }
         public virtual DbSet<ProductMain> ProductsMain { get; set; }
         public virtual DbSet<ProductOptional> ProductsOptional { get; set; }
