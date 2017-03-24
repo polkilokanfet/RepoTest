@@ -13,7 +13,7 @@ namespace HVTApp.Model
         public virtual Address Address { get; set; }
         public virtual BankDetails BankDetails { get; set; }
         public virtual List<Company> ChildCompanies { get; set; }
-        public virtual List<ActivityFild> ActivityFilds { get; set; }
+        public virtual List<ActivityField> ActivityFilds { get; set; }
         public virtual List<Employee> Employees { get; set; }
 
 

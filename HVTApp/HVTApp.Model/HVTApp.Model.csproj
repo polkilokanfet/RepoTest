@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address\Address.cs" />
+    <Compile Include="Address\LocalityType.cs" />
     <Compile Include="BankDetails.cs" />
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Company\Company.cs" />

@@ -5,10 +5,10 @@ using HVTApp.Model;
 
 namespace HVTApp.Model.Wrapper
 {
-  public partial class ActivityFildWrapper : WrapperBase<ActivityFild>
+  public partial class ActivityFildWrapper : WrapperBase<ActivityField>
   {
-    public ActivityFildWrapper(ActivityFild model) : base(model) { }
-    public ActivityFildWrapper(ActivityFild model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public ActivityFildWrapper(ActivityField model) : base(model) { }
+    public ActivityFildWrapper(ActivityField model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -45,10 +45,10 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    protected override void InitializeComplexProperties(ActivityFild model)
+    protected override void InitializeComplexProperties(ActivityField model)
     {
 
-        Company = GetWrapper<Company, CompanyWrapper>(model.Company);
+        Company = GetWrapper<Company, CompanyWrapper>(model.Companies);
 
     }
 

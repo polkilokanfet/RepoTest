@@ -1,4 +1,4 @@
-namespace HVTApp.Model
+﻿namespace HVTApp.Model
 {
     public class Address : BaseEntity
     {

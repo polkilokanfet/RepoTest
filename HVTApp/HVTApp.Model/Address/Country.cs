@@ -1,15 +1,15 @@
-using System.Collections.Generic;
+п»їusing System.Collections.Generic;
 
 namespace HVTApp.Model
 {
     /// <summary>
-    /// Страна.
+    /// РЎС‚СЂР°РЅР°.
     /// </summary>
     public class Country : BaseEntity
     {
         public string Name { get; set; }
         /// <summary>
-        /// Округа.
+        /// РћРєСЂСѓРіР°.
         /// </summary>
         public virtual List<District> Districts { get; set; }
     }

@@ -1,7 +1,7 @@
-namespace HVTApp.Model
+п»їnamespace HVTApp.Model
 {
     /// <summary>
-    /// Округ страны.
+    /// РћРєСЂСѓРі СЃС‚СЂР°РЅС‹.
     /// </summary>
     public class District : BaseEntity
     {
