@@ -7,8 +7,8 @@ namespace HVTApp.Model
     /// </summary>
     public class ActivityField : BaseEntity
     {
+        public string Name { get; set; }
         public FieldOfActivity FieldOfActivity { get; set; }
-        public virtual List<Company> Companies { get; set; }
     }
 
     public enum FieldOfActivity

@@ -5,10 +5,11 @@ using HVTApp.Model;
 
 namespace HVTApp.Model.Wrapper
 {
-  public partial class ProductsGroup`1Wrapper : WrapperBase<ProductsGroup`1>
+  public partial class ProductsGroupWrapper<TProduct> : WrapperBase<ProductsGroup<TProduct>>
+        where TProduct : ProductBase
   {
-    public ProductsGroup`1Wrapper(ProductsGroup`1 model) : base(model) { }
-    public ProductsGroup`1Wrapper(ProductsGroup`1 model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public ProductsGroupWrapper(ProductsGroup<ProductsGroup<TProduct>> model) : base(model) { }
+    public ProductsGroupWrapper(ProductsGroup<ProductsGroup<TProduct>> model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties

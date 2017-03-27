@@ -5,13 +5,22 @@ using HVTApp.Model;
 
 namespace HVTApp.Model.Wrapper
 {
-  public partial class ActivityFildWrapper : WrapperBase<ActivityField>
+  public partial class ActivityFieldWrapper : WrapperBase<ActivityField>
   {
-    public ActivityFildWrapper(ActivityField model) : base(model) { }
-    public ActivityFildWrapper(ActivityField model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public ActivityFieldWrapper(ActivityField model) : base(model) { }
+    public ActivityFieldWrapper(ActivityField model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
+
+    public System.String Name
+    {
+      get { return GetValue<System.String>(); }
+      set { SetValue(value); }
+    }
+    public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+    public bool NameIsChanged => GetIsChanged(nameof(Name));
+
 
     public HVTApp.Model.FieldOfActivity FieldOfActivity
     {
@@ -32,25 +41,6 @@ namespace HVTApp.Model.Wrapper
 
 
     #endregion
-
-
-    #region ComplexProperties
-
-	public CompanyWrapper Company
-	{
-		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(Company)); }
-		set { SetComplexProperty<Company, CompanyWrapper>(value, nameof(Company)); }
-	}
-
-
-    #endregion
-
-    protected override void InitializeComplexProperties(ActivityField model)
-    {
-
-        Company = GetWrapper<Company, CompanyWrapper>(model.Companies);
-
-    }
 
   }
 }

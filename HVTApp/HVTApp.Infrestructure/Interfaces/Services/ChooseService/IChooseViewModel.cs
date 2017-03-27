@@ -1,12 +1,17 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows.Input;
-using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 
 namespace HVTApp.Infrastructure.Interfaces.Services.ChooseService
 {
-    public interface IChooseViewModel : IDialogRequestClose, INotifyPropertyChanged
+    public interface IChooseViewModel<TChoosenItem> : IChooseRequest<TChoosenItem>, INotifyPropertyChanged
     {
-        object SelectedItem { get; set; }
+        TChoosenItem SelectedItem { get; set; }
         ICommand ChooseCommand { get; }
+    }
+
+    public interface IChooseRequest<TChoosenItem>
+    {
+        event EventHandler<ChooseDialogEventArgs<TChoosenItem>> ChooseRequested;
     }
 }

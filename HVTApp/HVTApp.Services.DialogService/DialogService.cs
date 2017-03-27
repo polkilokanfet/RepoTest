@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 
 namespace HVTApp.Services.DialogService
@@ -17,7 +16,9 @@ namespace HVTApp.Services.DialogService
             Mappings = new Dictionary<Type, Type>();
         }
 
-        public void Register<TViewModel, TView>() where TViewModel : IDialogRequestClose where TView : IDialog
+        public void Register<TViewModel, TView>() 
+            where TViewModel : IDialogRequestClose 
+            where TView : IDialog
         {
             if (Mappings.ContainsKey(typeof(TViewModel)))
                 throw new ArgumentException($"Type {typeof(TViewModel)} is already mapped to type {typeof(TView)}");
@@ -25,7 +26,8 @@ namespace HVTApp.Services.DialogService
             Mappings.Add(typeof(TViewModel), typeof(TView));
         }
 
-        public bool? ShowDialog<TViewModel>(TViewModel viewModel) where TViewModel : IDialogRequestClose
+        public bool? ShowDialog<TViewModel>(TViewModel viewModel) 
+            where TViewModel : IDialogRequestClose
         {
             Type viewType = Mappings[typeof(TViewModel)];
             IDialog dialog = (IDialog)Activator.CreateInstance(viewType);

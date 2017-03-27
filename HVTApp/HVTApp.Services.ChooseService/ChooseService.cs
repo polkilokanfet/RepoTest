@@ -16,7 +16,9 @@ namespace HVTApp.Services.ChooseService
             _owner = owner;
             _mappings = new Dictionary<Type, Type>();
         }
-        public void Register<TViewModel, TView>() where TViewModel : IChooseViewModel where TView : IDialog
+        public void Register<TViewModel, TView, TChoosenItem>() 
+            where TViewModel : IChooseViewModel<TChoosenItem>
+            where TView : IDialog
         {
             if (_mappings.ContainsKey(typeof(TViewModel)))
                 throw new ArgumentException($"Type {typeof(TViewModel)} is already mapped to type {typeof(TView)}");
@@ -24,15 +26,16 @@ namespace HVTApp.Services.ChooseService
             _mappings.Add(typeof(TViewModel), typeof(TView));
         }
 
-        public bool? ShowDialog<TViewModel>(TViewModel viewModel) where TViewModel : IChooseViewModel
+        public bool? ShowDialog<TViewModel, TChoosenItem>(TViewModel viewModel, out TChoosenItem choosenItem) 
+            where TViewModel : IChooseViewModel<TChoosenItem>
         {
             Type dialogType = _mappings[typeof(TViewModel)];
             IDialog dialog = (IDialog) Activator.CreateInstance(dialogType);
 
-            EventHandler<DialogRequestCloseEventArgs> handler = null;
+            EventHandler<ChooseDialogEventArgs<TChoosenItem>> handler = null;
             handler = (sender, args) =>
             {
-                viewModel.CloseRequested -= handler;
+                viewModel.ChooseRequested -= handler;
 
                 if (args.DialogResult.HasValue)
                     dialog.DialogResult = args.DialogResult.Value;
@@ -40,7 +43,7 @@ namespace HVTApp.Services.ChooseService
                     dialog.Close();
             };
 
-            viewModel.CloseRequested += handler;
+            viewModel.ChooseRequested += handler;
 
             dialog.DataContext = viewModel;
             dialog.Owner = _owner;

@@ -4,11 +4,11 @@ namespace HVTApp.Infrastructure.Interfaces.Services.ChooseService
 {
     public interface IChooseService
     {
-        void Register<TViewModel, TView>()
-            where TViewModel : IChooseViewModel 
+        void Register<TViewModel, TView, TChoosenItem>()
+            where TViewModel : IChooseViewModel<TChoosenItem>
             where TView : IDialog;
 
-        bool? ShowDialog<TViewModel>(TViewModel viewModel)
-            where TViewModel : IChooseViewModel;
+        bool? ShowDialog<TViewModel, TChoosenItem>(TViewModel viewModel, out TChoosenItem choosenItem)
+            where TViewModel : IChooseViewModel<TChoosenItem>;
     }
 }

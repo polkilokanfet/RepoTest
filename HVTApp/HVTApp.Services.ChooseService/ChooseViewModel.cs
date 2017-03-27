@@ -3,28 +3,28 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
-using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Services.ChooseService.Annotations;
 using Prism.Commands;
 
 namespace HVTApp.Services.ChooseService
 {
-    public abstract class ChooseViewModel : IChooseViewModel
+    public abstract class ChooseViewModel<TChoosenItem> : IChooseViewModel<TChoosenItem>
     {
-        private object _selectedItem;
+        private TChoosenItem _selectedItem;
 
         protected ChooseViewModel()
         {
             ChooseCommand = new DelegateCommand(ChooseCommand_Execute, ChooseCommand_CanExecute);
         }
 
-        public object SelectedItem
+        public TChoosenItem SelectedItem
         {
             get { return _selectedItem; }
             set
             {
                 _selectedItem = value;
                 OnPropertyChanged();
+                ((DelegateCommand)ChooseCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -35,12 +35,11 @@ namespace HVTApp.Services.ChooseService
 
         protected virtual void ChooseCommand_Execute()
         {
-            CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
+            ChooseRequested?.Invoke(this, new ChooseDialogEventArgs<TChoosenItem>(SelectedItem));
         }
 
+        public event EventHandler<ChooseDialogEventArgs<TChoosenItem>> ChooseRequested;
 
-
-        public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
 
         public ICommand ChooseCommand { get; }
 
@@ -54,5 +53,6 @@ namespace HVTApp.Services.ChooseService
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
     }
 }

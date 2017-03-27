@@ -70,6 +70,13 @@ namespace HVTApp.Model.Wrapper
 	}
 
 
+	public CompanyWrapper ParentCompany
+	{
+		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(ParentCompany)); }
+		set { SetComplexProperty<Company, CompanyWrapper>(value, nameof(ParentCompany)); }
+	}
+
+
 	public AddressWrapper Address
 	{
 		get { return GetComplexProperty<Address, AddressWrapper>(nameof(Address)); }
@@ -92,7 +99,7 @@ namespace HVTApp.Model.Wrapper
     public ValidatableChangeTrackingCollection<CompanyWrapper> ChildCompanies { get; private set; }
 
 
-    public ValidatableChangeTrackingCollection<ActivityFildWrapper> ActivityFilds { get; private set; }
+    public ValidatableChangeTrackingCollection<ActivityFieldWrapper> ActivityFilds { get; private set; }
 
 
     public ValidatableChangeTrackingCollection<EmployeeWrapper> Employees { get; private set; }
@@ -104,6 +111,8 @@ namespace HVTApp.Model.Wrapper
     {
 
         Form = GetWrapper<CompanyForm, CompanyFormWrapper>(model.Form);
+
+        ParentCompany = GetWrapper<Company, CompanyWrapper>(model.ParentCompany);
 
         Address = GetWrapper<Address, AddressWrapper>(model.Address);
 
@@ -121,7 +130,7 @@ namespace HVTApp.Model.Wrapper
 
 
       if (model.ActivityFilds == null) throw new ArgumentException("ActivityFilds cannot be null");
-      ActivityFilds = new ValidatableChangeTrackingCollection<ActivityFildWrapper>(model.ActivityFilds.Select(e => new ActivityFildWrapper(e, ExistsWrappers)));
+      ActivityFilds = new ValidatableChangeTrackingCollection<ActivityFieldWrapper>(model.ActivityFilds.Select(e => new ActivityFieldWrapper(e, ExistsWrappers)));
       RegisterCollection(ActivityFilds, model.ActivityFilds);
 
 
