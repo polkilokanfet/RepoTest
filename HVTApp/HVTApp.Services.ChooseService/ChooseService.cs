@@ -26,7 +26,7 @@ namespace HVTApp.Services.ChooseService
             _mappings.Add(typeof(TViewModel), typeof(TView));
         }
 
-        public bool? ShowDialog<TViewModel, TChoosenItem>(TViewModel viewModel, out TChoosenItem choosenItem) 
+        public TChoosenItem ShowDialog<TViewModel, TChoosenItem>(TViewModel viewModel) 
             where TViewModel : IChooseViewModel<TChoosenItem>
         {
             Type dialogType = _mappings[typeof(TViewModel)];
@@ -37,8 +37,8 @@ namespace HVTApp.Services.ChooseService
             {
                 viewModel.ChooseRequested -= handler;
 
-                if (args.DialogResult.HasValue)
-                    dialog.DialogResult = args.DialogResult.Value;
+                if (args.ChoosenItem != null)
+                    dialog.DialogResult = true;
                 else
                     dialog.Close();
             };
@@ -48,7 +48,9 @@ namespace HVTApp.Services.ChooseService
             dialog.DataContext = viewModel;
             dialog.Owner = _owner;
 
-            return dialog.ShowDialog();
+
+            dialog.ShowDialog();
+            return viewModel.SelectedItem;
         }
     }
 }

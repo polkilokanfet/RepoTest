@@ -1,0 +1,9 @@
+﻿<Application x:Class="HVTApp.Infrastructure.Interfaces.Services.ChooseService.Window.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:HVTApp.Infrastructure.Interfaces.Services.ChooseService.Window"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

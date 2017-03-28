@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp", "HVTApp\HVTApp.csproj", "{99C9E82C-C594-446D-AA59-8FFBC43AD226}"
 EndProject
@@ -40,6 +40,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.StringToGuidService", "HVTApp.Services.StringToGuidService\HVTApp.Services.StringToGuidService.csproj", "{80FDE398-0A33-422B-B1D3-245E25E57756}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.ChooseService", "HVTApp.Services.ChooseService\HVTApp.Services.ChooseService.csproj", "{18C8C1C1-89C2-42DD-AF2A-3F6C8E06399D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Infrastructure.Interfaces.Services.ChooseService.ChooseWindow", "HVTApp.Infrastructure.Interfaces.Services.ChooseService.ChooseWindow\HVTApp.Infrastructure.Interfaces.Services.ChooseService.ChooseWindow.csproj", "{E975D238-4B27-436F-93AC-77DEDCEB4F41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,6 +117,10 @@ Global
 		{18C8C1C1-89C2-42DD-AF2A-3F6C8E06399D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18C8C1C1-89C2-42DD-AF2A-3F6C8E06399D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18C8C1C1-89C2-42DD-AF2A-3F6C8E06399D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E975D238-4B27-436F-93AC-77DEDCEB4F41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E975D238-4B27-436F-93AC-77DEDCEB4F41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E975D238-4B27-436F-93AC-77DEDCEB4F41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E975D238-4B27-436F-93AC-77DEDCEB4F41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -127,5 +133,6 @@ Global
 		{3A8F0C30-A576-42FE-A232-C52E039276B4} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
 		{80FDE398-0A33-422B-B1D3-245E25E57756} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
 		{18C8C1C1-89C2-42DD-AF2A-3F6C8E06399D} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
+		{E975D238-4B27-436F-93AC-77DEDCEB4F41} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
 	EndGlobalSection
 EndGlobal

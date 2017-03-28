@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -12,10 +14,14 @@ namespace HVTApp.Services.ChooseService
     {
         private TChoosenItem _selectedItem;
 
-        protected ChooseViewModel()
+        protected ChooseViewModel(IEnumerable<TChoosenItem> items)
         {
+            Items = new ObservableCollection<TChoosenItem>(items);
+
             ChooseCommand = new DelegateCommand(ChooseCommand_Execute, ChooseCommand_CanExecute);
         }
+
+        public IEnumerable<TChoosenItem> Items { get; }
 
         public TChoosenItem SelectedItem
         {
@@ -42,8 +48,6 @@ namespace HVTApp.Services.ChooseService
 
 
         public ICommand ChooseCommand { get; }
-
-
 
 
         public event PropertyChangedEventHandler PropertyChanged;

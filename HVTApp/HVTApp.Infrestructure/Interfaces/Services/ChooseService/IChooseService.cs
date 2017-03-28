@@ -8,7 +8,7 @@ namespace HVTApp.Infrastructure.Interfaces.Services.ChooseService
             where TViewModel : IChooseViewModel<TChoosenItem>
             where TView : IDialog;
 
-        bool? ShowDialog<TViewModel, TChoosenItem>(TViewModel viewModel, out TChoosenItem choosenItem)
+        TChoosenItem ShowDialog<TViewModel, TChoosenItem>(TViewModel viewModel)
             where TViewModel : IChooseViewModel<TChoosenItem>;
     }
 }
