@@ -151,6 +151,10 @@
     <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Controls.ChooseControl\Controls.ChooseControl.csproj">
+      <Project>{65b6abc9-6ae2-45e6-bcca-e0956fab685c}</Project>
+      <Name>Controls.ChooseControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
       <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
       <Name>HVTApp.Infrastructure</Name>
