@@ -11,13 +11,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 
 namespace HVTApp.Infrastructure.Interfaces.Services.ChooseService.ChooseWindow
 {
     /// <summary>
     /// Interaction logic for ChooseWindow.xaml
     /// </summary>
-    public partial class ChooseWindow : Window
+    public partial class ChooseWindow : Window, IDialog
     {
         public ChooseWindow()
         {

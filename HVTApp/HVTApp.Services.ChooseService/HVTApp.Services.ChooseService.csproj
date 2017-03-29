@@ -54,10 +54,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HVTApp.Infrastructure.Interfaces.Services.ChooseService.ChooseWindow\HVTApp.Infrastructure.Interfaces.Services.ChooseService.ChooseWindow.csproj">
+      <Project>{e975d238-4b27-436f-93ac-77dedceb4f41}</Project>
+      <Name>HVTApp.Infrastructure.Interfaces.Services.ChooseService.ChooseWindow</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
       <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
       <Name>HVTApp.Infrastructure</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

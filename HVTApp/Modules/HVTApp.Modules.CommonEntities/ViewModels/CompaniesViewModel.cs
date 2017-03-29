@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces;
+using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.Wrapper;
 
@@ -15,12 +16,14 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDialogService _dialogService;
+        private readonly IChooseService _chooseService;
         private CompanyWrapper _selectedCompany;
 
-        public CompaniesViewModel(IUnitOfWork unitOfWork, IDialogService dialogService)
+        public CompaniesViewModel(IUnitOfWork unitOfWork, IDialogService dialogService, IChooseService chooseService)
         {
             _unitOfWork = unitOfWork;
             _dialogService = dialogService;
+            _chooseService = chooseService;
 
             Companies = new ObservableCollection<CompanyWrapper>(_unitOfWork.Companies.GetAll().Select(x => new CompanyWrapper(x)));
 
@@ -30,7 +33,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         private void EditCompanyCommand_Execute()
         {
-            CompanyDetailsWindowModel companyDetailsWindowModel = new CompanyDetailsWindowModel(SelectedCompany, _unitOfWork);
+            CompanyDetailsWindowModel companyDetailsWindowModel = new CompanyDetailsWindowModel(SelectedCompany, _unitOfWork, _chooseService);
             _dialogService.ShowDialog(companyDetailsWindowModel);
         }
 

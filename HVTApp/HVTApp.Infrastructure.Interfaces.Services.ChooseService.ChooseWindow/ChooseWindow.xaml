@@ -1,12 +1,18 @@
 ﻿<Window x:Class="HVTApp.Infrastructure.Interfaces.Services.ChooseService.ChooseWindow.ChooseWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:infg="http://infragistics.com/DataPresenter"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HVTApp.Infrastructure.Interfaces.Services.ChooseService.ChooseWindow"
-        mc:Ignorable="d"
-        Title="ChooseWindow" Height="300" Width="300">
+        Title="ChooseWindow" SizeToContent="WidthAndHeight">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         
+        <ListView Grid.Row="0" MinHeight="200" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" SelectionMode="Single"/>
+        <Button Grid.Row="1" Content="Select" Command="{Binding ChooseCommand}"/>
     </Grid>
 </Window>

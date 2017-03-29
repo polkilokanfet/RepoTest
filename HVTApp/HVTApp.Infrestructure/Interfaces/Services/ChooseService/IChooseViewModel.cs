@@ -5,15 +5,17 @@ using System.Windows.Input;
 
 namespace HVTApp.Infrastructure.Interfaces.Services.ChooseService
 {
-    public interface IChooseViewModel<TChoosenItem> : IChooseRequest<TChoosenItem>, INotifyPropertyChanged
+    public interface IChooseViewModel<TItem> : IChooseRequest<TItem>, INotifyPropertyChanged
     {
-        IEnumerable<TChoosenItem> Items { get; }
-        TChoosenItem SelectedItem { get; set; }
+        IEnumerable<TItem> Items { get; }
+        TItem SelectedItem { get; set; }
         ICommand ChooseCommand { get; }
+
+        string Filter { get; set; }
     }
 
-    public interface IChooseRequest<TChoosenItem>
+    public interface IChooseRequest<TItem>
     {
-        event EventHandler<ChooseDialogEventArgs<TChoosenItem>> ChooseRequested;
+        event EventHandler<ChooseDialogEventArgs<TItem>> ChooseRequested;
     }
 }

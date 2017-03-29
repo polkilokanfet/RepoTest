@@ -10,11 +10,11 @@ using Prism.Commands;
 
 namespace HVTApp.Services.ChooseService
 {
-    public abstract class ChooseViewModel<TChoosenItem> : IChooseViewModel<TChoosenItem>
+    public class ChooseViewModel<TChoosenItem> : IChooseViewModel<TChoosenItem>
     {
         private TChoosenItem _selectedItem;
 
-        protected ChooseViewModel(IEnumerable<TChoosenItem> items)
+        public ChooseViewModel(IEnumerable<TChoosenItem> items)
         {
             Items = new ObservableCollection<TChoosenItem>(items);
 
@@ -48,6 +48,7 @@ namespace HVTApp.Services.ChooseService
 
 
         public ICommand ChooseCommand { get; }
+        public string Filter { get; set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
