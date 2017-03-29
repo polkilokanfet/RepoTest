@@ -4,7 +4,7 @@
         xmlns:infg="http://infragistics.com/DataPresenter"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HVTApp.Infrastructure.Interfaces.Services.ChooseService.ChooseWindow"
-        Title="ChooseWindow" SizeToContent="WidthAndHeight">
+        Title="ChooseWindow" SizeToContent="Height" Width="300" MinWidth="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -12,7 +12,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
-        <ListView Grid.Row="0" MinHeight="200" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" SelectionMode="Single"/>
-        <Button Grid.Row="1" Content="Select" Command="{Binding ChooseCommand}"/>
+        <DockPanel Grid.Row="0">
+            <Label DockPanel.Dock="Left" Content="Search: "/>
+            <TextBox Text="{Binding FilterString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </DockPanel>
+        <ListView Grid.Row="1" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" SelectionMode="Single"/>
+        <Button Grid.Row="2" Content="Select" Command="{Binding ChooseCommand}"/>
     </Grid>
 </Window>

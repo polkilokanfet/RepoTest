@@ -7,11 +7,11 @@ namespace HVTApp.Infrastructure.Interfaces.Services.ChooseService
 {
     public interface IChooseViewModel<TItem> : IChooseRequest<TItem>, INotifyPropertyChanged
     {
-        IEnumerable<TItem> Items { get; }
+        ICollectionView Items { get; }
         TItem SelectedItem { get; set; }
         ICommand ChooseCommand { get; }
 
-        string Filter { get; set; }
+        string FilterString { get; set; }
     }
 
     public interface IChooseRequest<TItem>

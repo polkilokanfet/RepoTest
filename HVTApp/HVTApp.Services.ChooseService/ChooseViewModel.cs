@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Data;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Services.ChooseService.Annotations;
@@ -13,15 +14,29 @@ namespace HVTApp.Services.ChooseService
     public class ChooseViewModel<TChoosenItem> : IChooseViewModel<TChoosenItem>
     {
         private TChoosenItem _selectedItem;
+        private string _filterString;
 
         public ChooseViewModel(IEnumerable<TChoosenItem> items)
         {
-            Items = new ObservableCollection<TChoosenItem>(items);
+            //Items = new ObservableCollection<TChoosenItem>(items);
+            Items = CollectionViewSource.GetDefaultView(items);
+            Items.Filter = ItemsFilter;
 
             ChooseCommand = new DelegateCommand(ChooseCommand_Execute, ChooseCommand_CanExecute);
         }
 
-        public IEnumerable<TChoosenItem> Items { get; }
+        public ICollectionView Items { get; }
+        public ICommand ChooseCommand { get; }
+
+        public string FilterString
+        {
+            get { return _filterString; }
+            set
+            {
+                _filterString = value;
+                Items.Refresh();
+            }
+        }
 
         public TChoosenItem SelectedItem
         {
@@ -34,6 +49,15 @@ namespace HVTApp.Services.ChooseService
             }
         }
 
+        private bool ItemsFilter(object o)
+        {
+            if (string.IsNullOrEmpty(FilterString))
+                return true;
+            string filterString = FilterString.ToLower().Trim();
+            return o.ToString().ToLower().Contains(filterString);
+        }
+
+
         protected virtual bool ChooseCommand_CanExecute()
         {
             return SelectedItem != null;
@@ -45,11 +69,6 @@ namespace HVTApp.Services.ChooseService
         }
 
         public event EventHandler<ChooseDialogEventArgs<TChoosenItem>> ChooseRequested;
-
-
-        public ICommand ChooseCommand { get; }
-        public string Filter { get; set; }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 
