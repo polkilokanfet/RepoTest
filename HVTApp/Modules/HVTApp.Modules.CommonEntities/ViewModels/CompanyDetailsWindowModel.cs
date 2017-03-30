@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -35,7 +33,12 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         private void SelectParentCompanyCommand_Execute()
         {
-            _chooseService.ChooseDialog(_unitOfWork.Companies.GetAll(), null);
+            List<Company> companies = _unitOfWork.Companies.GetAll();
+            Company parentCompany = _chooseService.ChooseDialog(companies, CompanyWrapper.ParentCompany.Model);
+            if (parentCompany !=null && !Equals(parentCompany, CompanyWrapper.ParentCompany.Model))
+            {
+                CompanyWrapper.ParentCompany = new CompanyWrapper(parentCompany);
+            }
         }
 
         private void CompanyWrapperOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)

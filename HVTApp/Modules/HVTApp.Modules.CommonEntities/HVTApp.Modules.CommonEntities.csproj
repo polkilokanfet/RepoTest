@@ -151,10 +151,6 @@
     <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Controls.ChooseControl\Controls.ChooseControl.csproj">
-      <Project>{65b6abc9-6ae2-45e6-bcca-e0956fab685c}</Project>
-      <Name>Controls.ChooseControl</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
       <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
       <Name>HVTApp.Infrastructure</Name>
@@ -166,6 +162,10 @@
     <ProjectReference Include="..\..\HVTApp.Model\HVTApp.Model.csproj">
       <Project>{350bdab0-b331-426f-a024-004c8539af17}</Project>
       <Name>HVTApp.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TestUserControl\MyUserControls.csproj">
+      <Project>{95b60d78-bf46-4667-b474-95f911bb4a09}</Project>
+      <Name>MyUserControls</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

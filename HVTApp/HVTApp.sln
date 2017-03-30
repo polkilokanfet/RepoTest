@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp", "HVTApp\HVTApp.csproj", "{99C9E82C-C594-446D-AA59-8FFBC43AD226}"
 EndProject
@@ -45,7 +45,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Infrastructure.Inter
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controls", "Controls", "{FFBE2DD6-7521-4509-9599-35CD7EE85F30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controls.ChooseControl", "Controls.ChooseControl\Controls.ChooseControl.csproj", "{65B6ABC9-6AE2-45E6-BCCA-E0956FAB685C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyUserControls", "TestUserControl\MyUserControls.csproj", "{95B60D78-BF46-4667-B474-95F911BB4A09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -125,10 +125,10 @@ Global
 		{E975D238-4B27-436F-93AC-77DEDCEB4F41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E975D238-4B27-436F-93AC-77DEDCEB4F41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E975D238-4B27-436F-93AC-77DEDCEB4F41}.Release|Any CPU.Build.0 = Release|Any CPU
-		{65B6ABC9-6AE2-45E6-BCCA-E0956FAB685C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65B6ABC9-6AE2-45E6-BCCA-E0956FAB685C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65B6ABC9-6AE2-45E6-BCCA-E0956FAB685C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65B6ABC9-6AE2-45E6-BCCA-E0956FAB685C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95B60D78-BF46-4667-B474-95F911BB4A09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95B60D78-BF46-4667-B474-95F911BB4A09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95B60D78-BF46-4667-B474-95F911BB4A09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95B60D78-BF46-4667-B474-95F911BB4A09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -142,6 +142,6 @@ Global
 		{80FDE398-0A33-422B-B1D3-245E25E57756} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
 		{18C8C1C1-89C2-42DD-AF2A-3F6C8E06399D} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
 		{E975D238-4B27-436F-93AC-77DEDCEB4F41} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
-		{65B6ABC9-6AE2-45E6-BCCA-E0956FAB685C} = {FFBE2DD6-7521-4509-9599-35CD7EE85F30}
+		{95B60D78-BF46-4667-B474-95F911BB4A09} = {FFBE2DD6-7521-4509-9599-35CD7EE85F30}
 	EndGlobalSection
 EndGlobal

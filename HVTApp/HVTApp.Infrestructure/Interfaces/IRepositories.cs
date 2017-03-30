@@ -1,4 +1,5 @@
-﻿using HVTApp.Model;
+﻿using System.Collections.Generic;
+using HVTApp.Model;
 
 namespace HVTApp.Infrastructure.Interfaces
 {
@@ -12,6 +13,8 @@ namespace HVTApp.Infrastructure.Interfaces
 
     public interface ICompaniesRepository : IRepository<Company>
     {
+        IEnumerable<Company> GetAllParentsCompanies(Company company);
+        IEnumerable<Company> GetAllChildsCompanies(Company parentCompany);
     }
 
     public interface ICompanyFormsRepository : IRepository<CompanyForm>

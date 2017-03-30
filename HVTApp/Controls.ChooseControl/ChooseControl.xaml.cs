@@ -1,24 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace Controls.ChooseControl
+namespace MyControls
 {
     /// <summary>
     /// Interaction logic for ChooseControl.xaml
     /// </summary>
-    public partial class ChooseControl : UserControl
+    public partial class ChooseControl
     {
         public ChooseControl()
         {
@@ -34,8 +24,26 @@ namespace Controls.ChooseControl
             set { SetValue(ItemProperty, value); }
         }
 
+        public static readonly DependencyProperty AddItemProperty = DependencyProperty.Register(
+            "AddItem", typeof (ICommand), typeof (ChooseControl), new PropertyMetadata(default(ICommand)));
+
+        public ICommand AddItem
+        {
+            get { return (ICommand) GetValue(AddItemProperty); }
+            set { SetValue(AddItemProperty, value); }
+        }
+
+        public static readonly DependencyProperty RemoveItemProperty = DependencyProperty.Register(
+            "RemoveItem", typeof (ICommand), typeof (ChooseControl), new PropertyMetadata(default(ICommand)));
+
+        public ICommand RemoveItem
+        {
+            get { return (ICommand) GetValue(RemoveItemProperty); }
+            set { SetValue(RemoveItemProperty, value); }
+        }
+
         public static readonly RoutedEvent ItemChangedEvent = EventManager.RegisterRoutedEvent(
-            nameof(ItemChanged), RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<object>), typeof(ChooseControl));
+            "ItemChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<object>), typeof(ChooseControl));
 
         public event RoutedPropertyChangedEventHandler<Color> ItemChanged
         {

@@ -139,6 +139,10 @@
       <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
       <Name>HVTApp.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\TestUserControl\MyUserControls.csproj">
+      <Project>{95b60d78-bf46-4667-b474-95f911bb4a09}</Project>
+      <Name>MyUserControls</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Menus\SalesMenu.xaml">
