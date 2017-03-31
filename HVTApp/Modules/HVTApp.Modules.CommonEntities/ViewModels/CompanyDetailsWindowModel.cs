@@ -63,7 +63,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             {
                 RemoveParentCompanyCommand_Execute();
                 CompanyWrapper.ParentCompany = new CompanyWrapper(possibleParent);
-                CompanyWrapper.ParentCompany.ChildCompanies.Add(CompanyWrapper);
+                //CompanyWrapper.ParentCompany.ChildCompanies.Add(CompanyWrapper);
             }
         }
 

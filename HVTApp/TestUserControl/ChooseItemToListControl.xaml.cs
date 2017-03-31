@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MyUserControls
 {
@@ -26,11 +15,11 @@ namespace MyUserControls
         }
 
         public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register(
-            "Items", typeof (List<object>), typeof (ChooseItemToListControl), new PropertyMetadata(default(List<object>)));
+            "Items", typeof(ObservableCollection<object>), typeof(ChooseItemToListControl), new PropertyMetadata(default(ObservableCollection<object>)));
 
-        public List<object> Items
+        public ObservableCollection<object> Items
         {
-            get { return (List<object>) GetValue(ItemsProperty); }
+            get { return (ObservableCollection<object>) GetValue(ItemsProperty); }
             set { SetValue(ItemsProperty, value); }
         }
 
