@@ -27,7 +27,7 @@ namespace HVTApp.Model.Wrapper
             //фиксируем то, что мы имели изначально.
             _originalCollection = this.ToList();
 
-            AttachedItemPropertyChangedHendler(_originalCollection);
+            AttachedItemPropertyChangedHandler(_originalCollection);
 
             _addedItems = new ObservableCollection<T>();
             _modifiedItems = new ObservableCollection<T>();
@@ -46,7 +46,7 @@ namespace HVTApp.Model.Wrapper
         /// прикрепление обработчика к событию изменения свойств члена коллекции.
         /// </summary>
         /// <param name="items"></param>
-        private void AttachedItemPropertyChangedHendler(IList<T> items)
+        private void AttachedItemPropertyChangedHandler(IList<T> items)
         {
             items.ToList().ForEach(x => x.PropertyChanged += OnItemPropertyChanged);
         }
@@ -55,7 +55,7 @@ namespace HVTApp.Model.Wrapper
         /// открепление обработчика от события изменения свойств члена коллекции.
         /// </summary>
         /// <param name="items"></param>
-        private void DettachedItemPropertyChangedHendler(IList<T> items)
+        private void DettachedItemPropertyChangedHandler(IList<T> items)
         {
             items.ToList().ForEach(x => x.PropertyChanged -= OnItemPropertyChanged);
         }
@@ -113,8 +113,9 @@ namespace HVTApp.Model.Wrapper
             var removed = _originalCollection.Except(this).ToList();            //список удаленных элементов
             var changed = this.Except(added).Where(x => x.IsChanged).ToList();  //список измененных элементов
 
-            AttachedItemPropertyChangedHendler(added);
-            DettachedItemPropertyChangedHendler(removed);
+            DettachedItemPropertyChangedHandler(added);
+            AttachedItemPropertyChangedHandler(added);
+            DettachedItemPropertyChangedHandler(removed);
 
             UpdateObservableCollection(added, _addedItems);
             UpdateObservableCollection(removed, _removedItems);

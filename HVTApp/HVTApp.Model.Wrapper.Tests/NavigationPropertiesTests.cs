@@ -64,17 +64,17 @@ namespace HVTApp.Model.Wrapper.Tests
             Assert.AreEqual(parentWrapper.Child, null);
         }
 
-        [TestMethod]
-        public void CyclingDependensies()
-        {
-            Company parent = new Company { FullName = "Parent" };
-            Company child = new Company { FullName = "Child"};
+        //[TestMethod]
+        //public void CyclingDependensies()
+        //{
+        //    Company parent = new Company { FullName = "Parent" };
+        //    Company child = new Company { FullName = "Child"};
 
-            CompanyWrapper parentWrapper = new CompanyWrapper(parent);
-            CompanyWrapper childWrapper = new CompanyWrapper(child);
+        //    CompanyWrapper parentWrapper = new CompanyWrapper(parent);
+        //    CompanyWrapper childWrapper = new CompanyWrapper(child);
 
-            childWrapper.ParentCompany = parentWrapper;
-            parentWrapper.ChildCompanies.Add(childWrapper);
-        }
+        //    childWrapper.ParentCompany = parentWrapper;
+        //    parentWrapper.ChildCompanies.Add(childWrapper);
+        //}
     }
 }
