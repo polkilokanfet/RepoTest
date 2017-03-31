@@ -109,7 +109,7 @@ namespace HVTApp.Model.Wrapper
         }
 
         /// <summary>
-        /// Вернуть текущее значение свойства модели.
+        /// Текущее значение свойства модели.
         /// </summary>
         /// <typeparam name="TValue">Тип свойства.</typeparam>
         /// <param name="propertyName">Имя свойства</param>
@@ -120,7 +120,7 @@ namespace HVTApp.Model.Wrapper
         }
 
         /// <summary>
-        /// Вернуть оригинальное (начальное) значение свойства модели.
+        /// Оригинальное (начальное) значение свойства модели.
         /// </summary>
         /// <typeparam name="TValue">Тип свойства.</typeparam>
         /// <param name="propertyName">Имя свойства.</param>
