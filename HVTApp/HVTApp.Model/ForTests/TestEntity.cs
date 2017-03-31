@@ -1,13 +1,13 @@
 ﻿namespace HVTApp.Model
 {
-    public class TestEntity1 : BaseEntity
+    public class Parent : BaseEntity
     {
-        public virtual TestEntity2 TestEntity2 { get; set; }
+        public virtual Child Child { get; set; }
     }
 
-    public class TestEntity2 : BaseEntity
+    public class Child : BaseEntity
     {
         public int N { get; set; }
-        public virtual TestEntity1 TestEntity1 { get; set; }
+        public virtual Parent Parent { get; set; }
     }
 }

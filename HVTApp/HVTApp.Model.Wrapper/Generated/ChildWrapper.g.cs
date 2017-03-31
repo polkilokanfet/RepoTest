@@ -5,10 +5,10 @@ using HVTApp.Model;
 
 namespace HVTApp.Model.Wrapper
 {
-  public partial class TestEntity2Wrapper : WrapperBase<TestEntity2>
+  public partial class ChildWrapper : WrapperBase<Child>
   {
-    public TestEntity2Wrapper(TestEntity2 model) : base(model) { }
-    public TestEntity2Wrapper(TestEntity2 model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    public ChildWrapper(Child model) : base(model) { }
+    public ChildWrapper(Child model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 
     #region SimpleProperties
@@ -36,19 +36,19 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public TestEntity1Wrapper TestEntity1
+	public ParentWrapper Parent
 	{
-		get { return GetComplexProperty<TestEntity1, TestEntity1Wrapper>(nameof(TestEntity1)); }
-		set { SetComplexProperty<TestEntity1, TestEntity1Wrapper>(value, nameof(TestEntity1)); }
+		get { return GetComplexProperty<Parent, ParentWrapper>(nameof(Parent)); }
+		set { SetComplexProperty<Parent, ParentWrapper>(value, nameof(Parent)); }
 	}
 
 
     #endregion
 
-    protected override void InitializeComplexProperties(TestEntity2 model)
+    protected override void InitializeComplexProperties(Child model)
     {
 
-        TestEntity1 = GetWrapper<TestEntity1, TestEntity1Wrapper>(model.TestEntity1);
+        Parent = GetWrapper<Parent, ParentWrapper>(model.Parent);
 
     }
 

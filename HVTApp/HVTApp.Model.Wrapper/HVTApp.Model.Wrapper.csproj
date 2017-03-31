@@ -105,8 +105,8 @@
     <Compile Include="Generated\TenderInfoWrapper.g.cs" />
     <Compile Include="Generated\TenderWrapper.g.cs" />
     <Compile Include="Generated\TermsInfoWrapper.g.cs" />
-    <Compile Include="Generated\TestEntity1Wrapper.g.cs" />
-    <Compile Include="Generated\TestEntity2Wrapper.g.cs" />
+    <Compile Include="Generated\ParentWrapper.g.cs" />
+    <Compile Include="Generated\ChildWrapper.g.cs" />
     <Compile Include="Generated\UserRoleWrapper.g.cs" />
     <Compile Include="Generated\UserWrapper.g.cs" />
     <Compile Include="Generated\WrappersGenerator.cs">

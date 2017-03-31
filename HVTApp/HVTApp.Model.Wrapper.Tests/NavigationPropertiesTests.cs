@@ -34,32 +34,34 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void NavigationPropertiesTest()
         {
-            TestEntity1 entity1 = new TestEntity1 {Id = 1};
-            TestEntity2 entity2 = new TestEntity2 {Id = 2};
+            Parent parent = new Parent {Id = 1};
+            Child child = new Child {Id = 2};
 
-            entity2.TestEntity1 = entity1;
-            entity1.TestEntity2 = entity2;
+            child.Parent = parent;
+            parent.Child = child;
 
-            TestEntity1Wrapper entity1Wrapper = new TestEntity1Wrapper(entity1);
+            ParentWrapper parentWrapper = new ParentWrapper(parent);
 
             bool fired = false;
-            entity1Wrapper.PropertyChanged += (sender, args) => { fired = true; };
+            parentWrapper.PropertyChanged += (sender, args) => { fired = true; };
 
-            Assert.IsFalse(entity1Wrapper.IsChanged);
-            var te2 = entity1Wrapper.TestEntity2;
-            te2.N = 10;
-            Assert.IsTrue(entity1Wrapper.IsChanged);
+            Assert.IsFalse(parentWrapper.IsChanged);
+            var childWrapper = parentWrapper.Child;
+            childWrapper.N = 10;
+            Assert.IsTrue(parentWrapper.IsChanged);
             Assert.IsTrue(fired);
 
-            TestEntity2 entity22 = new TestEntity2 {Id = 22};
-            TestEntity2Wrapper entity2Wrapper = new TestEntity2Wrapper(entity22);
-            entity1Wrapper.TestEntity2 = entity2Wrapper;
+            Child otherChild = new Child {Id = 22};
+            ChildWrapper otherChildWrapper = new ChildWrapper(otherChild);
+            parentWrapper.Child = otherChildWrapper;
+            Assert.IsTrue(parentWrapper.IsChanged);
+
             fired = false;
-            te2.N = 33;
+            childWrapper.N = 33;
             Assert.IsFalse(fired);
 
-            entity1Wrapper.TestEntity2 = null;
-            Assert.AreEqual(entity1Wrapper.TestEntity2, null);
+            parentWrapper.Child = null;
+            Assert.AreEqual(parentWrapper.Child, null);
         }
 
         [TestMethod]
