@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -27,17 +28,42 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
             OkCommand = new DelegateCommand(OkCommand_Execute, OkCommand_CanExecute);
             SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_Execute);
+            RemoveParentCompanyCommand = new DelegateCommand(RemoveParentCompanyCommand_Execute);
+            AddActivityFieldCommand = new DelegateCommand(AddActivityFieldCommand_Execute);
 
             CompanyWrapper.PropertyChanged += CompanyWrapperOnPropertyChanged;
         }
 
+        private void AddActivityFieldCommand_Execute()
+        {
+            IEnumerable<ActivityField> fields = _unitOfWork.ActivityFields.GetAll();
+            fields = fields.Except(CompanyWrapper.ActivityFilds.Select(x => x.Model));
+            _chooseService.ChooseDialog(fields);
+        }
+
+        private void RemoveParentCompanyCommand_Execute()
+        {
+            if (CompanyWrapper.ParentCompany == null)
+                return;
+
+            CompanyWrapper.ParentCompany.ChildCompanies.Remove(CompanyWrapper);
+            CompanyWrapper.ParentCompany = null;
+        }
+
         private void SelectParentCompanyCommand_Execute()
         {
-            List<Company> companies = _unitOfWork.Companies.GetAll();
-            Company parentCompany = _chooseService.ChooseDialog(companies, CompanyWrapper.ParentCompany.Model);
-            if (parentCompany !=null && !Equals(parentCompany, CompanyWrapper.ParentCompany.Model))
+            List<Company> exceptCompanies = CompanyWrapper.Model.GetAllChilds().ToList();
+            exceptCompanies.Add(CompanyWrapper.Model);
+
+            IEnumerable<Company> possibleParents = _unitOfWork.Companies.GetAll().Except(exceptCompanies);
+
+            Company possibleParent = _chooseService.ChooseDialog(possibleParents, CompanyWrapper.ParentCompany?.Model);
+
+            if (possibleParent != null && !Equals(possibleParent, CompanyWrapper.ParentCompany?.Model))
             {
-                CompanyWrapper.ParentCompany = new CompanyWrapper(parentCompany);
+                RemoveParentCompanyCommand_Execute();
+                CompanyWrapper.ParentCompany = new CompanyWrapper(possibleParent);
+                CompanyWrapper.ParentCompany.ChildCompanies.Add(CompanyWrapper);
             }
         }
 
@@ -60,6 +86,8 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         public DelegateCommand OkCommand { get; }
         public DelegateCommand SelectParentCompanyCommand { get; }
+        public DelegateCommand RemoveParentCompanyCommand { get; }
+        public DelegateCommand AddActivityFieldCommand { get; }
 
         public CompanyWrapper CompanyWrapper { get; set; }
 

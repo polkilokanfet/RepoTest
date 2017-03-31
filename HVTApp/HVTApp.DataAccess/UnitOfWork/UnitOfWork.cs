@@ -13,6 +13,7 @@ namespace HVTApp.DataAccess
 
             FriendGroups = new FriendGroupRepository(context);
 
+            ActivityFields = new ActivityFieldsRepository(context);
             UsersRepository = new UsersRepository(context);
             Companies = new CompaniesRepository(context);
             CompanyForms = new CompanyFormsRepository(context);
@@ -27,6 +28,8 @@ namespace HVTApp.DataAccess
         {
             return _context.SaveChanges();
         }
+
+        public IActivityFieldsRepository ActivityFields { get; }
 
         public ICompanyFormsRepository CompanyForms { get; }
         public IFriendGroupRepository FriendGroups { get; }

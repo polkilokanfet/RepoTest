@@ -49,6 +49,7 @@
     <Compile Include="Base\WrapperBase.cs" />
     <Compile Include="Base\WrappersFactory.cs" />
     <Compile Include="Custom\CompanyFormWrapper.cs" />
+    <Compile Include="Custom\CompanyWrapper.cs" />
     <Compile Include="Custom\ForTests\FriendAddressTestWrapper.cs" />
     <Compile Include="Custom\ForTests\FriendEmailTestWrapper.cs" />
     <Compile Include="Custom\ForTests\FriendTestWrapper.cs" />

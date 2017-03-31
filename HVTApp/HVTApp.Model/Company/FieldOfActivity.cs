@@ -9,6 +9,11 @@ namespace HVTApp.Model
     {
         public string Name { get; set; }
         public FieldOfActivity FieldOfActivity { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
     public enum FieldOfActivity

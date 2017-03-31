@@ -17,6 +17,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -32,12 +33,27 @@
         <Label Grid.Column="0" Grid.Row ="2" Content="Форма"/>
         <ComboBox Grid.Column="1" Grid.Row="2" MinWidth="200" ItemsSource="{Binding Forms, Mode=OneWay}" SelectedItem="{Binding CompanyWrapper.Form, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row="3" Content="Головная компания"/>
-        <myUserControls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
-			Item="{Binding CompanyWrapper.ParentCompany}"
-			AddItem="{Binding SelectParentCompanyCommand}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="ИНН"/>
+        <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" Text="{Binding CompanyWrapper.Inn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Button Grid.Column="1" Grid.Row="7" Content="Ok" Command="{Binding OkCommand}"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="КПП"/>
+        <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" Text="{Binding CompanyWrapper.Kpp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Column="0" Grid.Row ="5" Content="Сфера деятельности"/>
+        <myUserControls:ChooseItemToListControl Grid.Column="1" Grid.Row="5"
+            Items="{Binding CompanyWrapper.ActivityFilds}"
+            AddItem="{Binding AddActivityFieldCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row="6" Content="Головная компания"/>
+        <myUserControls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
+			Item="{Binding CompanyWrapper.ParentCompany}"
+			AddItem="{Binding SelectParentCompanyCommand}"
+            RemoveItem="{Binding RemoveParentCompanyCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row="7" Content="Дочерние компании"/>
+        <ListView Grid.Column="1" Grid.Row="7" ItemsSource="{Binding CompanyWrapper.ChildCompanies}" IsEnabled="False"/>
+
+        <Button Grid.Column="1" Grid.Row="8" Content="Ok" Command="{Binding OkCommand}"/>
 
     </Grid>
 </Window>

@@ -6,6 +6,7 @@ namespace HVTApp.Infrastructure.Interfaces
     {
         int Complete();
 
+        IActivityFieldsRepository ActivityFields { get; }
         IFriendGroupRepository FriendGroups { get; }
         IUsersRepository UsersRepository { get; }
         ICompaniesRepository Companies { get; }

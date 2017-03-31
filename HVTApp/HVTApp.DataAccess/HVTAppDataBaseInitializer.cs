@@ -19,9 +19,10 @@ namespace HVTApp.DataAccess
         private static readonly LocalityType LocalityType = new LocalityType {FullName = "Город", ShortName = "г."};
         private static readonly Locality Locality = new Locality {DistrictsRegion = DistrictsRegion, LocalityType = LocalityType, Name = "Екатеринбург"};
         private static readonly Address Address = new Address {Description = "ул.Фронтовых бригад, д.22", Locality = Locality};
-        private static readonly ActivityField ProducerOfHvt = new ActivityField { FieldOfActivity = FieldOfActivity.ProducerOfHighVoltageEquipment };
-        private static readonly ActivityField Builder = new ActivityField { FieldOfActivity = FieldOfActivity.Builder };
-        private static readonly ActivityField ElectricityTransmission = new ActivityField { FieldOfActivity = FieldOfActivity.ElectricityTransmission };
+        private static readonly ActivityField ProducerOfHvt = new ActivityField { FieldOfActivity = FieldOfActivity.ProducerOfHighVoltageEquipment, Name = "Производитель ВВА"};
+        private static readonly ActivityField Builder = new ActivityField { FieldOfActivity = FieldOfActivity.Builder, Name = "Подрядчик"};
+        private static readonly ActivityField ElectricityTransmission = new ActivityField { FieldOfActivity = FieldOfActivity.ElectricityTransmission, Name = "Передача электроэнергии" };
+        private static readonly ActivityField ElectricityGenerator = new ActivityField { FieldOfActivity = FieldOfActivity.ElectricityGeneration, Name = "Генерация электроэнергии" };
         private static readonly BankDetails BankDetails = new BankDetails {BankIdentificationCode = "1111"};
         private static readonly Company Uetm = new Company { FullName = "Уралэлектротяжмаш", ShortName = "УЭТМ", Form = FormAo, Address = Address, BankDetails = BankDetails, ActivityFilds = new List<ActivityField> { ProducerOfHvt } };
         private static readonly Company Rosseti = new Company { FullName = "Россети", ShortName = "Россети", Form = FormPao, ActivityFilds = new List<ActivityField> { ElectricityTransmission } };
@@ -34,6 +35,7 @@ namespace HVTApp.DataAccess
 
         protected override void Seed(HVTAppContext context)
         {
+            context.ActivityFilds.AddRange(new List<ActivityField> {ProducerOfHvt, Builder, ElectricityTransmission, ElectricityGenerator});
             context.CompanyForms.AddRange(new List<CompanyForm> { FormAo, FormPao, FormOao, FormZao });
             context.Companies.AddRange(new List<Company> { Uetm, Rosseti, Fsk, Mrsk });
             context.Employees.Add(Employee);

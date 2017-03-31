@@ -9,7 +9,7 @@ namespace HVTApp.Model.Wrapper
         {
             if (string.IsNullOrWhiteSpace(FullName))
             {
-                yield return new ValidationResult("FullName is required", new []{nameof(FullName)});
+                yield return new ValidationResult("FullName is required", new[] { nameof(FullName) });
             }
         }
     }

@@ -22,6 +22,8 @@
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="FullName" Label="Полное наименование"/>
                     <infg:TextField Name="ShortName" Label="Сокращенное наименование"/>
+                    <infg:TextField Name="Form" Label="Форма"/>
+                    <infg:TextField Name="ParentCompany" Label="Головная компания"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
         </infg:XamDataGrid.FieldLayouts>

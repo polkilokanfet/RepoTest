@@ -34,12 +34,13 @@ namespace HVTApp.DataAccess
             modelBuilder.Entity<Address>().HasRequired(x => x.Locality);
             #endregion
 
-            #region Companies
+            #region Company
             modelBuilder.Entity<ActivityField>().Property(x => x.FieldOfActivity).IsRequired();
             modelBuilder.Entity<CompanyForm>().Property(x => x.FullName).IsRequired().HasMaxLength(50).IsUnicode();
             modelBuilder.Entity<CompanyForm>().Property(x => x.ShortName).IsRequired().HasMaxLength(50).IsUnicode();
             modelBuilder.Entity<Company>().Property(x => x.FullName).IsRequired().HasMaxLength(100).IsUnicode();
             modelBuilder.Entity<Company>().Property(x => x.ShortName).IsRequired().HasMaxLength(100).IsUnicode();
+            modelBuilder.Entity<Company>().HasRequired(x => x.Form);
             modelBuilder.Entity<Company>().Ignore(x => x.ChildCompanies);
             #endregion
 

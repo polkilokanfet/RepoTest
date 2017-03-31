@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HVTAppDataBaseInitializer.cs" />
+    <Compile Include="UnitOfWork\Repositories\ActivityFieldsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\CompaniesRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\FriendGroupRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\CompanyFormsRepository.cs" />

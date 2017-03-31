@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="MyUserControls.ChooseItemToListControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Name="Root">
+    <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Right">
+            <Button Command="{Binding AddItem, ElementName=Root}" Width="25">+</Button>
+            <Button Command="{Binding RemoveItem, ElementName=Root}" Width="25">-</Button>
+        </StackPanel>
+        <ListView ItemsSource="{Binding Items, ElementName=Root}"/>
+    </DockPanel>
+</UserControl>

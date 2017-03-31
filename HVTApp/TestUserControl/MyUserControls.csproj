@@ -56,8 +56,15 @@
       <DependentUpon>ChooseItemControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ChooseItemToListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChooseItemToListControl.xaml.cs">
+      <DependentUpon>ChooseItemToListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

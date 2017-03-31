@@ -3,6 +3,10 @@ using HVTApp.Model;
 
 namespace HVTApp.Infrastructure.Interfaces
 {
+    public interface IActivityFieldsRepository : IRepository<ActivityField>
+    {
+    }
+
     public interface IFriendGroupRepository : IRepository<FriendGroupTest>
     {
     }
@@ -13,8 +17,6 @@ namespace HVTApp.Infrastructure.Interfaces
 
     public interface ICompaniesRepository : IRepository<Company>
     {
-        IEnumerable<Company> GetAllParentsCompanies(Company company);
-        IEnumerable<Company> GetAllChildsCompanies(Company parentCompany);
     }
 
     public interface ICompanyFormsRepository : IRepository<CompanyForm>
