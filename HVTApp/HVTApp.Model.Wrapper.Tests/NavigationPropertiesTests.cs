@@ -61,5 +61,18 @@ namespace HVTApp.Model.Wrapper.Tests
             entity1Wrapper.TestEntity2 = null;
             Assert.AreEqual(entity1Wrapper.TestEntity2, null);
         }
+
+        [TestMethod]
+        public void CyclingDependensies()
+        {
+            Company parent = new Company { FullName = "Parent" };
+            Company child = new Company { FullName = "Child"};
+
+            CompanyWrapper parentWrapper = new CompanyWrapper(parent);
+            CompanyWrapper childWrapper = new CompanyWrapper(child);
+
+            childWrapper.ParentCompany = parentWrapper;
+            parentWrapper.ChildCompanies.Add(childWrapper);
+        }
     }
 }
