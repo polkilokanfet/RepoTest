@@ -68,9 +68,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldContragent);
 
+            _fieldContragent = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldContragent = value;
         }
     }
 

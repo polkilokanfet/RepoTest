@@ -50,9 +50,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldRequestDocument);
 
+            _fieldRequestDocument = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldRequestDocument = value;
         }
     }
 
@@ -68,9 +68,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldSender);
 
+            _fieldSender = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldSender = value;
         }
     }
 
@@ -86,9 +86,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldSenderEmployee);
 
+            _fieldSenderEmployee = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldSenderEmployee = value;
         }
     }
 
@@ -104,9 +104,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldRecipientEmployee);
 
+            _fieldRecipientEmployee = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldRecipientEmployee = value;
         }
     }
 
@@ -122,9 +122,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldRegistrationDetailsOfSender);
 
+            _fieldRegistrationDetailsOfSender = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldRegistrationDetailsOfSender = value;
         }
     }
 
@@ -140,9 +140,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldRegistrationDetailsOfRecipient);
 
+            _fieldRegistrationDetailsOfRecipient = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldRegistrationDetailsOfRecipient = value;
         }
     }
 

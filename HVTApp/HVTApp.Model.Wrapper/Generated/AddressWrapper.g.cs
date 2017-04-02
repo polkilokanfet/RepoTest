@@ -70,9 +70,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldLocality);
 
+            _fieldLocality = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldLocality = value;
         }
     }
 

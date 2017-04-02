@@ -59,9 +59,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldLocalityType);
 
+            _fieldLocalityType = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldLocalityType = value;
         }
     }
 
@@ -77,9 +77,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldDistrictsRegion);
 
+            _fieldDistrictsRegion = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldDistrictsRegion = value;
         }
     }
 

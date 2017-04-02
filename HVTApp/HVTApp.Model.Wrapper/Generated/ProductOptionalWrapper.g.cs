@@ -59,9 +59,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldProductsMainGroup);
 
+            _fieldProductsMainGroup = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldProductsMainGroup = value;
         }
     }
 
@@ -77,9 +77,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldEquipment);
 
+            _fieldEquipment = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldEquipment = value;
         }
     }
 
@@ -95,9 +95,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldTenderInfo);
 
+            _fieldTenderInfo = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldTenderInfo = value;
         }
     }
 
@@ -113,9 +113,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldOrderInfo);
 
+            _fieldOrderInfo = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldOrderInfo = value;
         }
     }
 
@@ -131,9 +131,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldDateInfo);
 
+            _fieldDateInfo = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldDateInfo = value;
         }
     }
 
@@ -149,9 +149,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldTermsInfo);
 
+            _fieldTermsInfo = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldTermsInfo = value;
         }
     }
 
@@ -167,9 +167,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldCostInfo);
 
+            _fieldCostInfo = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldCostInfo = value;
         }
     }
 
@@ -185,9 +185,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldPaymentsInfo);
 
+            _fieldPaymentsInfo = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldPaymentsInfo = value;
         }
     }
 

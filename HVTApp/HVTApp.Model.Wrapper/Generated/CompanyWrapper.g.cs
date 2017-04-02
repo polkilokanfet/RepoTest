@@ -86,9 +86,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldForm);
 
+            _fieldForm = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldForm = value;
         }
     }
 
@@ -104,9 +104,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldParentCompany);
 
+            _fieldParentCompany = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldParentCompany = value;
         }
     }
 
@@ -122,9 +122,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldAddress);
 
+            _fieldAddress = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldAddress = value;
         }
     }
 
@@ -140,9 +140,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldBankDetails);
 
+            _fieldBankDetails = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldBankDetails = value;
         }
     }
 

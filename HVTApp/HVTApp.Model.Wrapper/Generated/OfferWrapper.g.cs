@@ -59,9 +59,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldDocument);
 
+            _fieldDocument = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldDocument = value;
         }
     }
 
@@ -77,9 +77,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldProject);
 
+            _fieldProject = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldProject = value;
         }
     }
 
@@ -95,9 +95,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldTender);
 
+            _fieldTender = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldTender = value;
         }
     }
 
@@ -113,9 +113,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldPlannedTermProduction);
 
+            _fieldPlannedTermProduction = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldPlannedTermProduction = value;
         }
     }
 

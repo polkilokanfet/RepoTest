@@ -221,9 +221,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_field<#= propertyName #>);
 
+            _field<#= propertyName #> = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _field<#= propertyName #> = value;
         }
     }
 

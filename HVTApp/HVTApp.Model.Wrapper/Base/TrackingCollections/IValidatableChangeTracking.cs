@@ -5,6 +5,6 @@ namespace HVTApp.Model.Wrapper
     public interface IValidatableChangeTracking : IRevertibleChangeTracking, INotifyPropertyChanged
     {
         bool IsValid { get; }
-        bool InChecking { get; }
+        bool IsBusy { get; }
     }
 }

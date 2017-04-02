@@ -50,9 +50,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldProductMain);
 
+            _fieldProductMain = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldProductMain = value;
         }
     }
 
@@ -68,9 +68,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldOfferUnit);
 
+            _fieldOfferUnit = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldOfferUnit = value;
         }
     }
 
@@ -86,9 +86,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldCostInfo);
 
+            _fieldCostInfo = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldCostInfo = value;
         }
     }
 
@@ -104,9 +104,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldPlannedTermProduction);
 
+            _fieldPlannedTermProduction = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldPlannedTermProduction = value;
         }
     }
 

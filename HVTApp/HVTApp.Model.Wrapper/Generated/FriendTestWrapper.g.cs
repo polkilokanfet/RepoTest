@@ -95,9 +95,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldFriendAddressTest);
 
+            _fieldFriendAddressTest = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldFriendAddressTest = value;
         }
     }
 
@@ -113,9 +113,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldFriendGroupTest);
 
+            _fieldFriendGroupTest = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldFriendGroupTest = value;
         }
     }
 

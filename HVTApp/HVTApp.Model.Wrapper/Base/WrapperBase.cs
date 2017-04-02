@@ -39,7 +39,7 @@ namespace HVTApp.Model.Wrapper
             InitializeCollectionComplexProperties(model);
             InitializeCollectionSimpleProperties(model);
 
-            InChecking = false;
+            IsBusy = false;
             Validate();
 
             RunInConstructor();
@@ -64,23 +64,23 @@ namespace HVTApp.Model.Wrapper
         {
             get
             {
-                InChecking = true;
+                IsBusy = true;
 
                 if (_originalValues.Count > 0)
                 {
-                    InChecking = false;
+                    IsBusy = false;
                     return true;
                 }
 
-                bool result = _trackingObjects.Where(x => !x.InChecking).Any(x => x.IsChanged);
+                bool result = _trackingObjects.Where(x => !x.IsBusy).Any(x => x.IsChanged);
 
-                InChecking = false;
+                IsBusy = false;
                 return result;
             }
         }
 
         //public bool IsChanged => _originalValues.Count > 0 || _trackingObjects.Any(x => x.IsChanged);
-        public bool InChecking { get; private set; }
+        public bool IsBusy { get; private set; }
 
         /// <summary>
         /// Все ли свойства валидны.
@@ -89,17 +89,17 @@ namespace HVTApp.Model.Wrapper
         {
             get
             {
-                InChecking = true;
+                IsBusy = true;
 
                 if (HasErrors)
                 {
-                    InChecking = false;
+                    IsBusy = false;
                     return false;
                 }
 
-                bool result = _trackingObjects.Where(x => !x.InChecking).All(x => x.IsValid);
+                bool result = _trackingObjects.Where(x => !x.IsBusy).All(x => x.IsValid);
 
-                InChecking = false;
+                IsBusy = false;
                 return result;
             }
         }
@@ -112,12 +112,16 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public void AcceptChanges()
         {
+            IsBusy = true;
+
             //очищаем список начальных значений
             _originalValues.Clear();
             //принимаем изменения в сложных свойствах.
-            _trackingObjects.ForEach(x => x.AcceptChanges());
+            _trackingObjects.Where(x => !x.IsBusy).ToList().ForEach(x => x.AcceptChanges());
             //обновляем в WPF весь объект целиком.
             OnPropertyChanged("");
+
+            IsBusy = false;
         }
 
         /// <summary>
@@ -125,6 +129,8 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public void RejectChanges()
         {
+            IsBusy = true;
+
             //устанавливаем в каждое измененное свойство начальное значение.
             foreach (var originalValue in _originalValues)
             {
@@ -134,13 +140,15 @@ namespace HVTApp.Model.Wrapper
             _originalValues.Clear();
 
             //откатываем изменения в сложных свойствах.
-            _trackingObjects.ForEach(x => x.RejectChanges());
+            _trackingObjects.Where(x => !x.IsBusy).ToList().ForEach(x => x.RejectChanges());
 
             //проверка на валидность объекта.
             Validate();
 
             //обновляем в WPF весь объект целиком.
             OnPropertyChanged("");
+
+            IsBusy = false;
         }
 
         /// <summary>

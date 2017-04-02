@@ -27,8 +27,8 @@ namespace HVTApp.Model.Wrapper.Tests
             wrapper.FriendAddressTest = FriendAddressTestWrapper.GetWrapper(new FriendAddressTest {City = "CityNew"});
             Assert.IsTrue(wrapper.IsChanged);
 
-            wrapper.FriendAddressTest = old;
-            Assert.IsFalse(wrapper.IsChanged);
+            //wrapper.FriendAddressTest = old;
+            //Assert.IsFalse(wrapper.IsChanged);
         }
 
         [TestMethod]
@@ -60,21 +60,55 @@ namespace HVTApp.Model.Wrapper.Tests
             childWrapper.N = 33;
             Assert.IsFalse(fired);
 
+            fired = false;
             parentWrapper.Child = null;
             Assert.AreEqual(parentWrapper.Child, null);
+            Assert.IsTrue(fired);
         }
 
-        //[TestMethod]
-        //public void CyclingDependensies()
-        //{
-        //    Company parent = new Company { FullName = "Parent" };
-        //    Company child = new Company { FullName = "Child"};
+        [TestMethod]
+        public void IsChangedNavigationProperty()
+        {
+            Parent parent = new Parent { Id = 1 };
+            Child child1 = new Child { Id = 2 };
 
-        //    CompanyWrapper parentWrapper = new CompanyWrapper(parent);
-        //    CompanyWrapper childWrapper = new CompanyWrapper(child);
+            child1.Parent = parent;
+            parent.Child = child1;
 
-        //    childWrapper.ParentCompany = parentWrapper;
-        //    parentWrapper.ChildCompanies.Add(childWrapper);
-        //}
+            ParentWrapper parentWrapper = ParentWrapper.GetWrapper(parent);
+            Assert.IsFalse(parentWrapper.IsChanged);
+
+            var child1Wrapper = parentWrapper.Child;
+            parentWrapper.Child = ChildWrapper.GetWrapper(new Child { Id = 3 });
+            Assert.IsTrue(parentWrapper.IsChanged);
+
+            parentWrapper.Child = child1Wrapper;
+            Assert.IsFalse(parentWrapper.IsChanged);
+        }
+
+        [TestMethod]
+        public void AcceptAndRejectChangesInObjectsWithNavigationProperty()
+        {
+            Parent parent = new Parent { Id = 1 };
+            Child child1 = new Child { Id = 2 };
+
+            child1.Parent = parent;
+            parent.Child = child1;
+
+            ParentWrapper parentWrapper = ParentWrapper.GetWrapper(parent);
+            Assert.IsFalse(parentWrapper.IsChanged);
+
+            parentWrapper.Child.Id++;
+            Assert.IsTrue(parentWrapper.IsChanged);
+            parentWrapper.AcceptChanges();
+            Assert.IsFalse(parentWrapper.IsChanged);
+
+            int oldId = parentWrapper.Child.Id;
+            parentWrapper.Child.Id++;
+            Assert.IsTrue(parentWrapper.IsChanged);
+            parentWrapper.RejectChanges();
+            Assert.IsFalse(parentWrapper.IsChanged);
+            Assert.AreEqual(oldId, parentWrapper.Child.Id);
+        }
     }
 }

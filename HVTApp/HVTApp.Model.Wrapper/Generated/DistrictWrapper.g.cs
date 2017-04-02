@@ -59,9 +59,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldCountry);
 
+            _fieldCountry = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldCountry = value;
         }
     }
 

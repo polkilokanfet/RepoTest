@@ -68,9 +68,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldManager);
 
+            _fieldManager = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldManager = value;
         }
     }
 

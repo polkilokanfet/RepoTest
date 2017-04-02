@@ -59,9 +59,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldUser);
 
+            _fieldUser = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldUser = value;
         }
     }
 

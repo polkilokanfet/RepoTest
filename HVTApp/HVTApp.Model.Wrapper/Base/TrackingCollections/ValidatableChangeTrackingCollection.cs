@@ -9,44 +9,44 @@ namespace HVTApp.Model.Wrapper
     /// <summary>
     /// Коллекция способная отслеживать изменилось ли в ней что-то.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class ValidatableChangeTrackingCollection<T> : ObservableCollection<T>, IValidatableChangeTracking
-        where T: class, IValidatableChangeTracking
+    /// <typeparam name="TCollectionItem"></typeparam>
+    public class ValidatableChangeTrackingCollection<TCollectionItem> : ObservableCollection<TCollectionItem>, IValidatableChangeTracking
+        where TCollectionItem: class, IValidatableChangeTracking
     {
         /// <summary>
         /// Начальный (оригинальный) список членов коллекции.
         /// </summary>
-        private IList<T> _originalCollection; 
+        private IList<TCollectionItem> _originalCollection; 
 
-        private readonly ObservableCollection<T> _addedItems;
-        private readonly ObservableCollection<T> _modifiedItems;
-        private readonly ObservableCollection<T> _removedItems;
+        private readonly ObservableCollection<TCollectionItem> _addedItems;
+        private readonly ObservableCollection<TCollectionItem> _modifiedItems;
+        private readonly ObservableCollection<TCollectionItem> _removedItems;
 
-        public ValidatableChangeTrackingCollection(IEnumerable<T> items) : base(items)
+        public ValidatableChangeTrackingCollection(IEnumerable<TCollectionItem> items) : base(items)
         {
             //фиксируем то, что мы имели изначально.
             _originalCollection = this.ToList();
 
             AttachedItemPropertyChangedHandler(_originalCollection);
 
-            _addedItems = new ObservableCollection<T>();
-            _modifiedItems = new ObservableCollection<T>();
-            _removedItems = new ObservableCollection<T>();
+            _addedItems = new ObservableCollection<TCollectionItem>();
+            _modifiedItems = new ObservableCollection<TCollectionItem>();
+            _removedItems = new ObservableCollection<TCollectionItem>();
 
-            AddedItems = new ReadOnlyObservableCollection<T>(_addedItems);
-            ModifiedItems = new ReadOnlyObservableCollection<T>(_modifiedItems);
-            RemovedItems = new ReadOnlyObservableCollection<T>(_removedItems);
+            AddedItems = new ReadOnlyObservableCollection<TCollectionItem>(_addedItems);
+            ModifiedItems = new ReadOnlyObservableCollection<TCollectionItem>(_modifiedItems);
+            RemovedItems = new ReadOnlyObservableCollection<TCollectionItem>(_removedItems);
         }
 
-        public ReadOnlyObservableCollection<T> AddedItems { get; }
-        public ReadOnlyObservableCollection<T> ModifiedItems { get; }
-        public ReadOnlyObservableCollection<T> RemovedItems { get; }
+        public ReadOnlyObservableCollection<TCollectionItem> AddedItems { get; }
+        public ReadOnlyObservableCollection<TCollectionItem> ModifiedItems { get; }
+        public ReadOnlyObservableCollection<TCollectionItem> RemovedItems { get; }
 
         /// <summary>
         /// прикрепление обработчика к событию изменения свойств члена коллекции.
         /// </summary>
         /// <param name="items"></param>
-        private void AttachedItemPropertyChangedHandler(IList<T> items)
+        private void AttachedItemPropertyChangedHandler(IList<TCollectionItem> items)
         {
             items.ToList().ForEach(x => x.PropertyChanged += OnItemPropertyChanged);
         }
@@ -55,7 +55,7 @@ namespace HVTApp.Model.Wrapper
         /// открепление обработчика от события изменения свойств члена коллекции.
         /// </summary>
         /// <param name="items"></param>
-        private void DettachedItemPropertyChangedHandler(IList<T> items)
+        private void DettachedItemPropertyChangedHandler(IList<TCollectionItem> items)
         {
             items.ToList().ForEach(x => x.PropertyChanged -= OnItemPropertyChanged);
         }
@@ -76,7 +76,7 @@ namespace HVTApp.Model.Wrapper
             else
             {
                 //объект в котором изменилось свойство.
-                var item = (T) sender;
+                var item = (TCollectionItem) sender;
                 //если этот объект добавлен в этом сеансе, нет смысла реагировать на изменение его свойств.
                 if (_addedItems.Contains(item))
                 {
@@ -131,7 +131,7 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         /// <param name="items"></param>
         /// <param name="observableCollection"></param>
-        private void UpdateObservableCollection(IList<T> items, ObservableCollection<T> observableCollection)
+        private void UpdateObservableCollection(IList<TCollectionItem> items, ObservableCollection<TCollectionItem> observableCollection)
         {
             observableCollection.Clear();
             items.ToList().ForEach(observableCollection.Add);
@@ -170,7 +170,7 @@ namespace HVTApp.Model.Wrapper
         {
             this.Clear();
 
-            foreach (T item in _originalCollection)
+            foreach (TCollectionItem item in _originalCollection)
             {
                 if (item.IsChanged)
                     item.RejectChanges();
@@ -184,6 +184,6 @@ namespace HVTApp.Model.Wrapper
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
         }
 
-        public bool InChecking => false;
+        public bool IsBusy => false;
     }
 }

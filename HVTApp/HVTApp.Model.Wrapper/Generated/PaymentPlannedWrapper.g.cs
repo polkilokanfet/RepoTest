@@ -77,9 +77,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldPaymentsCondition);
 
+            _fieldPaymentsCondition = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldPaymentsCondition = value;
         }
     }
 
@@ -95,9 +95,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldPaymentsInfo);
 
+            _fieldPaymentsInfo = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldPaymentsInfo = value;
         }
     }
 

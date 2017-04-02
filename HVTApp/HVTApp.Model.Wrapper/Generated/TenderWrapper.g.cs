@@ -86,9 +86,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldProject);
 
+            _fieldProject = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldProject = value;
         }
     }
 
@@ -104,9 +104,9 @@ namespace HVTApp.Model.Wrapper
 
             UnRegisterComplexProperty(_fieldWinner);
 
+            _fieldWinner = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
-            _fieldWinner = value;
         }
     }
 
