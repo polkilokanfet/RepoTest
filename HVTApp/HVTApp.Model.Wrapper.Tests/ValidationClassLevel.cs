@@ -30,7 +30,7 @@ namespace HVTApp.Model.Wrapper.Tests
         {
             var expectedError = "A developer must have an email-address";
 
-            var wrapper = new FriendTestWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
             wrapper.Emails.Clear();
             Assert.IsFalse(wrapper.IsDeveloper);
             Assert.IsTrue(wrapper.IsValid);
@@ -50,7 +50,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldBeValidAgainWhenIsDeveloperIsSetBackToFalse()
         {
-            var wrapper = new FriendTestWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
             wrapper.Emails.Clear();
             Assert.IsFalse(wrapper.IsDeveloper);
             Assert.IsTrue(wrapper.IsValid);
@@ -72,7 +72,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldBeValidAgainWhenEmailIsAdded()
         {
-            var wrapper = new FriendTestWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
             wrapper.Emails.Clear();
             Assert.IsFalse(wrapper.IsDeveloper);
             Assert.IsTrue(wrapper.IsValid);
@@ -80,7 +80,7 @@ namespace HVTApp.Model.Wrapper.Tests
             wrapper.IsDeveloper = true;
             Assert.IsFalse(wrapper.IsValid);
 
-            wrapper.Emails.Add(new FriendEmailTestWrapper(new FriendEmailTest { Email = "thomas@thomasclaudiushuber.com" }));
+            wrapper.Emails.Add(FriendEmailTestWrapper.GetWrapper(new FriendEmailTest { Email = "thomas@thomasclaudiushuber.com" }));
             Assert.IsTrue(wrapper.IsValid);
 
             var emailsErrors = wrapper.GetErrors(nameof(wrapper.Emails)).Cast<string>().ToList();
@@ -94,7 +94,7 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldIntializeWithoutProblems()
         {
             _friendTest.IsDeveloper = true;
-            var wrapper = new FriendTestWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
             Assert.IsTrue(wrapper.IsValid);
         }
     }

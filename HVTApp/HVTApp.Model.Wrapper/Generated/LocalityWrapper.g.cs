@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class LocalityWrapper : WrapperBase<Locality>
   {
-    public LocalityWrapper(Locality model) : base(model) { }
-    public LocalityWrapper(Locality model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected LocalityWrapper(Locality model) : base(model) { }
+    //public LocalityWrapper(Locality model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static LocalityWrapper GetWrapper(Locality model)
 	{
@@ -48,18 +48,40 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public LocalityTypeWrapper LocalityType
-	{
-		get { return GetComplexProperty<LocalityType, LocalityTypeWrapper>(nameof(LocalityType)); }
-		set { SetComplexProperty<LocalityType, LocalityTypeWrapper>(value, nameof(LocalityType)); }
-	}
+	private LocalityTypeWrapper _fieldLocalityType;
+	public LocalityTypeWrapper LocalityType 
+    {
+        get { return _fieldLocalityType; }
+        set
+        {
+            if (Equals(_fieldLocalityType, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldLocalityType);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldLocalityType = value;
+        }
+    }
 
 
-	public DistrictsRegionWrapper DistrictsRegion
-	{
-		get { return GetComplexProperty<DistrictsRegion, DistrictsRegionWrapper>(nameof(DistrictsRegion)); }
-		set { SetComplexProperty<DistrictsRegion, DistrictsRegionWrapper>(value, nameof(DistrictsRegion)); }
-	}
+	private DistrictsRegionWrapper _fieldDistrictsRegion;
+	public DistrictsRegionWrapper DistrictsRegion 
+    {
+        get { return _fieldDistrictsRegion; }
+        set
+        {
+            if (Equals(_fieldDistrictsRegion, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldDistrictsRegion);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldDistrictsRegion = value;
+        }
+    }
 
 
     #endregion

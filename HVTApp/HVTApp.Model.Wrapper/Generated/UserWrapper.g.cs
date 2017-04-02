@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class UserWrapper : WrapperBase<User>
   {
-    public UserWrapper(User model) : base(model) { }
-    public UserWrapper(User model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected UserWrapper(User model) : base(model) { }
+    //public UserWrapper(User model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static UserWrapper GetWrapper(User model)
 	{
@@ -75,17 +75,28 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public EmployeeWrapper Employee
-	{
-		get { return GetComplexProperty<Employee, EmployeeWrapper>(nameof(Employee)); }
-		set { SetComplexProperty<Employee, EmployeeWrapper>(value, nameof(Employee)); }
-	}
+	private EmployeeWrapper _fieldEmployee;
+	public EmployeeWrapper Employee 
+    {
+        get { return _fieldEmployee; }
+        set
+        {
+            if (Equals(_fieldEmployee, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldEmployee);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldEmployee = value;
+        }
+    }
 
 
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<UserRoleWrapper> Roles { get; private set; }
 
@@ -104,7 +115,7 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.Roles == null) throw new ArgumentException("Roles cannot be null");
-      Roles = new ValidatableChangeTrackingCollection<UserRoleWrapper>(model.Roles.Select(e => new UserRoleWrapper(e, ExistsWrappers)));
+      Roles = new ValidatableChangeTrackingCollection<UserRoleWrapper>(model.Roles.Select(e => UserRoleWrapper.GetWrapper(e)));
       RegisterCollection(Roles, model.Roles);
 
 

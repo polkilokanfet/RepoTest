@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class StandartPaymentConditionsWrapper : WrapperBase<StandartPaymentConditions>
   {
-    public StandartPaymentConditionsWrapper(StandartPaymentConditions model) : base(model) { }
-    public StandartPaymentConditionsWrapper(StandartPaymentConditions model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected StandartPaymentConditionsWrapper(StandartPaymentConditions model) : base(model) { }
+    //public StandartPaymentConditionsWrapper(StandartPaymentConditions model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static StandartPaymentConditionsWrapper GetWrapper(StandartPaymentConditions model)
 	{
@@ -46,7 +46,7 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<PaymentsConditionWrapper> PaymentsConditionsCollection { get; private set; }
 
@@ -58,7 +58,7 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.PaymentsConditionsCollection == null) throw new ArgumentException("PaymentsConditionsCollection cannot be null");
-      PaymentsConditionsCollection = new ValidatableChangeTrackingCollection<PaymentsConditionWrapper>(model.PaymentsConditionsCollection.Select(e => new PaymentsConditionWrapper(e, ExistsWrappers)));
+      PaymentsConditionsCollection = new ValidatableChangeTrackingCollection<PaymentsConditionWrapper>(model.PaymentsConditionsCollection.Select(e => PaymentsConditionWrapper.GetWrapper(e)));
       RegisterCollection(PaymentsConditionsCollection, model.PaymentsConditionsCollection);
 
 

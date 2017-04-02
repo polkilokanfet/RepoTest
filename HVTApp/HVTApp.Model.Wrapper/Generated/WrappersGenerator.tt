@@ -27,7 +27,6 @@
           .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)));
 
     var collectionComplexProperties = allCollectionProperties.Where(x => !CollectionMemberTypeIsSimple(x.PropertyType)).ToList();
-    var collectionSimpleProperties = allCollectionProperties.Where(x => CollectionMemberTypeIsSimple(x.PropertyType)).ToList();
 
     //Сложные свойства
     //var allComplexProperties = allProperties.Except(simpleProperties)
@@ -48,8 +47,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class <#=modelType.Name#>Wrapper : WrapperBase<<#=modelType.Name#>>
   {
-    public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model) : base(model) { }
-    public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected <#=modelType.Name#>Wrapper(<#=modelType.Name#> model) : base(model) { }
+    //public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static <#=modelType.Name#>Wrapper GetWrapper(<#=modelType.Name#> model)
 	{
@@ -66,13 +65,11 @@ namespace HVTApp.Model.Wrapper
 	GenerateSimpleProperties(simpleSetProperties);
 	GenerateComplexProperties(complexSetProperties);
 	GenerateCollectionComplexProperties(collectionComplexProperties);
-    GenerateCollectionSimpleProperties(collectionSimpleProperties);
 
     GenerateGetProperties(simpleGetProperties.Union(complexGetProperties));
 
     GenerateInitializeComplexProperties(modelType.Name, complexSetProperties);
 	GenerateInitializeCollectionComplexProperties(modelType.Name, collectionComplexProperties);
-	GenerateInitializeCollectionSimpleProperties(modelType.Name, collectionSimpleProperties);
 #>
   }
 }
@@ -213,11 +210,22 @@ namespace HVTApp.Model.Wrapper
       var propertyType = property.PropertyType.Name;
       var propertyName = property.Name;
 #>
-	public <#= propertyType #>Wrapper <#= propertyName #>
-	{
-		get { return GetComplexProperty<<#= propertyType #>, <#= propertyType #>Wrapper>(nameof(<#= propertyName #>)); }
-		set { SetComplexProperty<<#= propertyType #>, <#= propertyType #>Wrapper>(value, nameof(<#= propertyName #>)); }
-	}
+	private <#= propertyType #>Wrapper _field<#= propertyName #>;
+	public <#= propertyType #>Wrapper <#= propertyName #> 
+    {
+        get { return _field<#= propertyName #>; }
+        set
+        {
+            if (Equals(_field<#= propertyName #>, value))
+                return;
+
+            UnRegisterComplexProperty(_field<#= propertyName #>);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _field<#= propertyName #> = value;
+        }
+    }
 
 <#+   
     }
@@ -226,14 +234,14 @@ namespace HVTApp.Model.Wrapper
 <#+
   }
 
-  //генерация свойств-коллекций Complex
+  //генерация свойств-коллекций.
   private void GenerateCollectionComplexProperties(IEnumerable<PropertyInfo> properties)
   {
   	if (!properties.Any())
 		return;
 #>
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 <#+ 
 
     foreach (var property in properties)
@@ -242,30 +250,6 @@ namespace HVTApp.Model.Wrapper
       var propertyName = property.Name;
 #>
     public ValidatableChangeTrackingCollection<<#= itemType #>Wrapper> <#= propertyName #> { get; private set; }
-
-<#+  
-    }
-#>
-    #endregion
-<#+
-  }
-
-  //генерация свойств-коллекций Simple
-  private void GenerateCollectionSimpleProperties(IEnumerable<PropertyInfo> properties)
-  {
-  	if (!properties.Any())
-		return;
-#>
-
-    #region CollectionSimpleProperties
-<#+ 
-
-    foreach (var property in properties)
-    {
-      var itemType = property.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
-      var propertyName = property.Name;
-#>
-    public TrackingCollection<<#= itemType #>> <#= propertyName #> { get; private set; }
 
 <#+  
     }
@@ -297,7 +281,7 @@ namespace HVTApp.Model.Wrapper
     }
   }
 
-  //инициализация свойств-коллекций
+  //инициализация коллекций
   private void GenerateInitializeCollectionComplexProperties(string modelTypeName, IEnumerable<System.Reflection.PropertyInfo> properties)
   {
     if(properties.Any())
@@ -314,7 +298,7 @@ namespace HVTApp.Model.Wrapper
 		   
 #>
       if (model.<#= propertyName #> == null) throw new ArgumentException("<#= propertyName #> cannot be null");
-      <#= propertyName #> = new ValidatableChangeTrackingCollection<<#= itemType #>Wrapper>(model.<#= propertyName #>.Select(e => new <#= itemType #>Wrapper(e, ExistsWrappers)));
+      <#= propertyName #> = new ValidatableChangeTrackingCollection<<#= itemType #>Wrapper>(model.<#= propertyName #>.Select(e => <#= itemType #>Wrapper.GetWrapper(e)));
       RegisterCollection(<#= propertyName #>, model.<#= propertyName #>);
 
 <#+
@@ -324,33 +308,4 @@ namespace HVTApp.Model.Wrapper
 <#+
     }
   }
-
-  //инициализация свойств-коллекций
-  private void GenerateInitializeCollectionSimpleProperties(string modelTypeName, IEnumerable<System.Reflection.PropertyInfo> properties)
-  {
-    if(properties.Any())
-    {
-#>
-  
-    protected override void InitializeCollectionSimpleProperties(<#= modelTypeName#> model)
-    {
-<#+
-      foreach(var property in properties)
-      {
-		var itemType = property.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
-		var propertyName = property.Name;
-		   
-#>
-      if (model.<#= propertyName #> == null) throw new ArgumentException("<#= propertyName #> cannot be null");
-      <#= propertyName #> = new TrackingCollection<<#= itemType #>>(model.<#= propertyName #>);
-      RegisterCollection(<#= propertyName #>, model.<#= propertyName #>);
-
-<#+
-     }
-#>
-    }
-<#+
-    }
-  }
-
 #>

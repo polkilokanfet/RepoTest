@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class RegistrationDetailsWrapper : WrapperBase<RegistrationDetails>
   {
-    public RegistrationDetailsWrapper(RegistrationDetails model) : base(model) { }
-    public RegistrationDetailsWrapper(RegistrationDetails model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected RegistrationDetailsWrapper(RegistrationDetails model) : base(model) { }
+    //public RegistrationDetailsWrapper(RegistrationDetails model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static RegistrationDetailsWrapper GetWrapper(RegistrationDetails model)
 	{

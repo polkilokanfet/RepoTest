@@ -26,7 +26,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             _dialogService = dialogService;
             _chooseService = chooseService;
 
-            Companies = new ObservableCollection<CompanyWrapper>(_unitOfWork.Companies.GetAll().Select(x => new CompanyWrapper(x)));
+            Companies = new ObservableCollection<CompanyWrapper>(_unitOfWork.Companies.GetAll().Select(x => CompanyWrapper.GetWrapper(x)));
 
             NewCompanyCommand = new DelegateCommand(NewCompanyCommand_Execute, NewCompanyCommand_CanExecute);
             EditCompanyCommand = new DelegateCommand(EditCompanyCommand_Execute, EditCompanyCommand_CanExecute);
@@ -51,7 +51,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         private void NewCompanyCommand_Execute()
         {
-            var companyDetailsWindowModel = new CompanyDetailsWindowModel(new CompanyWrapper(new Company()), _unitOfWork, _chooseService);
+            var companyDetailsWindowModel = new CompanyDetailsWindowModel(CompanyWrapper.GetWrapper(new Company()), _unitOfWork, _chooseService);
             var dialogResult = _dialogService.ShowDialog(companyDetailsWindowModel);
 
             if (!dialogResult.HasValue || !dialogResult.Value)

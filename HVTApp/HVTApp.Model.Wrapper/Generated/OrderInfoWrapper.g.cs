@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class OrderInfoWrapper : WrapperBase<OrderInfo>
   {
-    public OrderInfoWrapper(OrderInfo model) : base(model) { }
-    public OrderInfoWrapper(OrderInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected OrderInfoWrapper(OrderInfo model) : base(model) { }
+    //public OrderInfoWrapper(OrderInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static OrderInfoWrapper GetWrapper(OrderInfo model)
 	{
@@ -57,18 +57,40 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public ProductBaseWrapper Product
-	{
-		get { return GetComplexProperty<ProductBase, ProductBaseWrapper>(nameof(Product)); }
-		set { SetComplexProperty<ProductBase, ProductBaseWrapper>(value, nameof(Product)); }
-	}
+	private ProductBaseWrapper _fieldProduct;
+	public ProductBaseWrapper Product 
+    {
+        get { return _fieldProduct; }
+        set
+        {
+            if (Equals(_fieldProduct, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldProduct);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldProduct = value;
+        }
+    }
 
 
-	public OrderWrapper Order
-	{
-		get { return GetComplexProperty<Order, OrderWrapper>(nameof(Order)); }
-		set { SetComplexProperty<Order, OrderWrapper>(value, nameof(Order)); }
-	}
+	private OrderWrapper _fieldOrder;
+	public OrderWrapper Order 
+    {
+        get { return _fieldOrder; }
+        set
+        {
+            if (Equals(_fieldOrder, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldOrder);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldOrder = value;
+        }
+    }
 
 
     #endregion

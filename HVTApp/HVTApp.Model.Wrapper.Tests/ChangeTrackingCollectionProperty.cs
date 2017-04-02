@@ -28,7 +28,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldSetIsChangedOfFriendTestWrapper()
         {
-            var wrapper = new FriendTestWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
             var emailToModify = wrapper.Emails.First();
             emailToModify.Email = "modified@thomasclaudiushuber.com";
 
@@ -42,7 +42,7 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldRaisePropertyChangedEventForIsChangedPropertyOfFriendTestWrapper()
         {
             var fired = false;
-            var wrapper = new FriendTestWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
             wrapper.PropertyChanged += (s, e) =>
               {
                   if (e.PropertyName == nameof(wrapper.IsChanged))
@@ -58,7 +58,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldAcceptChanges()
         {
-            var wrapper = new FriendTestWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
 
             var emailToModify = wrapper.Emails.First();
             emailToModify.Email = "modified@thomasclaudiushuber.com";
@@ -75,7 +75,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldRejectChanges()
         {
-            var wrapper = new FriendTestWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
 
             var emailToModify = wrapper.Emails.First();
             emailToModify.Email = "modified@thomasclaudiushuber.com";
@@ -87,34 +87,6 @@ namespace HVTApp.Model.Wrapper.Tests
             Assert.IsFalse(wrapper.IsChanged);
             Assert.AreEqual("thomas@thomasclaudiushuber.com", emailToModify.Email);
             Assert.AreEqual("thomas@thomasclaudiushuber.com", emailToModify.EmailOriginalValue);
-        }
-
-        [TestMethod]
-        public void CollectionOfSimple()
-        {
-            var fired = false;
-            var wrapper = new FriendTestWrapper(_friendTest);
-            wrapper.PropertyChanged += (s, e) =>
-            {
-                if (e.PropertyName == nameof(wrapper.IsChanged))
-                {
-                    fired = true;
-                }
-            };
-
-            fired = false;
-            wrapper.IntList.Add(1);
-            Assert.IsTrue(fired);
-
-            fired = false;
-            wrapper.IntList.Remove(1);
-            Assert.IsTrue(fired);
-
-            wrapper.IntList.Add(1);
-            fired = false;
-            wrapper.IntList.Clear();
-            Assert.IsTrue(fired);
-
         }
 
     }

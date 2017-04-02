@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class ProductOptionalWrapper : WrapperBase<ProductOptional>
   {
-    public ProductOptionalWrapper(ProductOptional model) : base(model) { }
-    public ProductOptionalWrapper(ProductOptional model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected ProductOptionalWrapper(ProductOptional model) : base(model) { }
+    //public ProductOptionalWrapper(ProductOptional model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static ProductOptionalWrapper GetWrapper(ProductOptional model)
 	{
@@ -48,66 +48,154 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public ProductsMainGroupWrapper ProductsMainGroup
-	{
-		get { return GetComplexProperty<ProductsMainGroup, ProductsMainGroupWrapper>(nameof(ProductsMainGroup)); }
-		set { SetComplexProperty<ProductsMainGroup, ProductsMainGroupWrapper>(value, nameof(ProductsMainGroup)); }
-	}
+	private ProductsMainGroupWrapper _fieldProductsMainGroup;
+	public ProductsMainGroupWrapper ProductsMainGroup 
+    {
+        get { return _fieldProductsMainGroup; }
+        set
+        {
+            if (Equals(_fieldProductsMainGroup, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldProductsMainGroup);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldProductsMainGroup = value;
+        }
+    }
 
 
-	public EquipmentWrapper Equipment
-	{
-		get { return GetComplexProperty<Equipment, EquipmentWrapper>(nameof(Equipment)); }
-		set { SetComplexProperty<Equipment, EquipmentWrapper>(value, nameof(Equipment)); }
-	}
+	private EquipmentWrapper _fieldEquipment;
+	public EquipmentWrapper Equipment 
+    {
+        get { return _fieldEquipment; }
+        set
+        {
+            if (Equals(_fieldEquipment, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldEquipment);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldEquipment = value;
+        }
+    }
 
 
-	public TenderInfoWrapper TenderInfo
-	{
-		get { return GetComplexProperty<TenderInfo, TenderInfoWrapper>(nameof(TenderInfo)); }
-		set { SetComplexProperty<TenderInfo, TenderInfoWrapper>(value, nameof(TenderInfo)); }
-	}
+	private TenderInfoWrapper _fieldTenderInfo;
+	public TenderInfoWrapper TenderInfo 
+    {
+        get { return _fieldTenderInfo; }
+        set
+        {
+            if (Equals(_fieldTenderInfo, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldTenderInfo);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldTenderInfo = value;
+        }
+    }
 
 
-	public OrderInfoWrapper OrderInfo
-	{
-		get { return GetComplexProperty<OrderInfo, OrderInfoWrapper>(nameof(OrderInfo)); }
-		set { SetComplexProperty<OrderInfo, OrderInfoWrapper>(value, nameof(OrderInfo)); }
-	}
+	private OrderInfoWrapper _fieldOrderInfo;
+	public OrderInfoWrapper OrderInfo 
+    {
+        get { return _fieldOrderInfo; }
+        set
+        {
+            if (Equals(_fieldOrderInfo, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldOrderInfo);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldOrderInfo = value;
+        }
+    }
 
 
-	public DateInfoWrapper DateInfo
-	{
-		get { return GetComplexProperty<DateInfo, DateInfoWrapper>(nameof(DateInfo)); }
-		set { SetComplexProperty<DateInfo, DateInfoWrapper>(value, nameof(DateInfo)); }
-	}
+	private DateInfoWrapper _fieldDateInfo;
+	public DateInfoWrapper DateInfo 
+    {
+        get { return _fieldDateInfo; }
+        set
+        {
+            if (Equals(_fieldDateInfo, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldDateInfo);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldDateInfo = value;
+        }
+    }
 
 
-	public TermsInfoWrapper TermsInfo
-	{
-		get { return GetComplexProperty<TermsInfo, TermsInfoWrapper>(nameof(TermsInfo)); }
-		set { SetComplexProperty<TermsInfo, TermsInfoWrapper>(value, nameof(TermsInfo)); }
-	}
+	private TermsInfoWrapper _fieldTermsInfo;
+	public TermsInfoWrapper TermsInfo 
+    {
+        get { return _fieldTermsInfo; }
+        set
+        {
+            if (Equals(_fieldTermsInfo, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldTermsInfo);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldTermsInfo = value;
+        }
+    }
 
 
-	public CostInfoWrapper CostInfo
-	{
-		get { return GetComplexProperty<CostInfo, CostInfoWrapper>(nameof(CostInfo)); }
-		set { SetComplexProperty<CostInfo, CostInfoWrapper>(value, nameof(CostInfo)); }
-	}
+	private CostInfoWrapper _fieldCostInfo;
+	public CostInfoWrapper CostInfo 
+    {
+        get { return _fieldCostInfo; }
+        set
+        {
+            if (Equals(_fieldCostInfo, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldCostInfo);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldCostInfo = value;
+        }
+    }
 
 
-	public PaymentsInfoWrapper PaymentsInfo
-	{
-		get { return GetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(nameof(PaymentsInfo)); }
-		set { SetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(value, nameof(PaymentsInfo)); }
-	}
+	private PaymentsInfoWrapper _fieldPaymentsInfo;
+	public PaymentsInfoWrapper PaymentsInfo 
+    {
+        get { return _fieldPaymentsInfo; }
+        set
+        {
+            if (Equals(_fieldPaymentsInfo, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldPaymentsInfo);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldPaymentsInfo = value;
+        }
+    }
 
 
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<ProductsOptionalGroupWrapper> ProductsOptionalGroups { get; private set; }
 
@@ -143,12 +231,12 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.ProductsOptionalGroups == null) throw new ArgumentException("ProductsOptionalGroups cannot be null");
-      ProductsOptionalGroups = new ValidatableChangeTrackingCollection<ProductsOptionalGroupWrapper>(model.ProductsOptionalGroups.Select(e => new ProductsOptionalGroupWrapper(e, ExistsWrappers)));
+      ProductsOptionalGroups = new ValidatableChangeTrackingCollection<ProductsOptionalGroupWrapper>(model.ProductsOptionalGroups.Select(e => ProductsOptionalGroupWrapper.GetWrapper(e)));
       RegisterCollection(ProductsOptionalGroups, model.ProductsOptionalGroups);
 
 
       if (model.OfferProducts == null) throw new ArgumentException("OfferProducts cannot be null");
-      OfferProducts = new ValidatableChangeTrackingCollection<OfferProductWrapper>(model.OfferProducts.Select(e => new OfferProductWrapper(e, ExistsWrappers)));
+      OfferProducts = new ValidatableChangeTrackingCollection<OfferProductWrapper>(model.OfferProducts.Select(e => OfferProductWrapper.GetWrapper(e)));
       RegisterCollection(OfferProducts, model.OfferProducts);
 
 

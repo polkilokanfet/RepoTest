@@ -13,11 +13,6 @@ namespace HVTApp.Model.Wrapper
         where T : IBaseEntity
     {
         /// <summary>
-        /// Уже созданные обертки.
-        /// </summary>
-        protected readonly Dictionary<IBaseEntity, object> ExistsWrappers;
-
-        /// <summary>
         /// Словарь оригинальных значений. В словарь вносятся только те оригинальные значения, которые были изменены.
         /// </summary>
         private readonly Dictionary<string, object> _originalValues = new Dictionary<string, object>();
@@ -31,13 +26,9 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public T Model { get; }
 
-        protected WrapperBase(T model, Dictionary<IBaseEntity, object> existsWrappers = null)
+        protected WrapperBase(T model)
         {
             if (model == null) throw new ArgumentNullException(nameof(Model));
-
-            ExistsWrappers = existsWrappers ?? new Dictionary<IBaseEntity, object>();
-            if (!ExistsWrappers.ContainsKey(model))
-                ExistsWrappers.Add(model, this);
 
             if (!Repository.ModelWrapperDictionary.ContainsKey(model))
                 Repository.ModelWrapperDictionary.Add(model, this);
@@ -48,7 +39,7 @@ namespace HVTApp.Model.Wrapper
             InitializeCollectionComplexProperties(model);
             InitializeCollectionSimpleProperties(model);
 
-            IsInChecking = false;
+            InChecking = false;
             Validate();
 
             RunInConstructor();
@@ -73,22 +64,23 @@ namespace HVTApp.Model.Wrapper
         {
             get
             {
-                IsInChecking = true;
+                InChecking = true;
 
                 if (_originalValues.Count > 0)
                 {
-                    IsInChecking = false;
+                    InChecking = false;
                     return true;
                 }
 
-                bool result = _trackingObjects.Where(x => !x.IsInChecking).Any(x => x.IsChanged);
+                bool result = _trackingObjects.Where(x => !x.InChecking).Any(x => x.IsChanged);
 
-                IsInChecking = false;
+                InChecking = false;
                 return result;
             }
         }
 
         //public bool IsChanged => _originalValues.Count > 0 || _trackingObjects.Any(x => x.IsChanged);
+        public bool InChecking { get; private set; }
 
         /// <summary>
         /// Все ли свойства валидны.
@@ -97,19 +89,20 @@ namespace HVTApp.Model.Wrapper
         {
             get
             {
-                IsInChecking = true;
+                InChecking = true;
 
                 if (HasErrors)
+                {
+                    InChecking = false;
                     return false;
+                }
 
-                bool result = _trackingObjects.Where(x => !x.IsInChecking).All(x => x.IsValid);
+                bool result = _trackingObjects.Where(x => !x.InChecking).All(x => x.IsValid);
 
-                IsInChecking = false;
+                InChecking = false;
                 return result;
             }
         }
-
-        public bool IsInChecking { get; private set; }
 
 
         //public bool IsValid => !HasErrors && _trackingObjects.All(x => x.IsValid);
@@ -266,6 +259,8 @@ namespace HVTApp.Model.Wrapper
         protected void UnRegisterComplexProperty<TModel>(WrapperBase<TModel> wrapper)
             where TModel : BaseEntity
         {
+            if (wrapper == null)
+                return;
             UnRegisterTrackingObject(wrapper);
         }
 
@@ -277,12 +272,9 @@ namespace HVTApp.Model.Wrapper
         protected void RegisterComplexProperty<TModel>(WrapperBase<TModel> wrapper)
             where TModel : BaseEntity
         {
+            if (wrapper == null)
+                return;
             RegisterTrackingObject(wrapper);
-
-            if (ExistsWrappers.ContainsKey(wrapper.Model))
-                ExistsWrappers[wrapper.Model] = wrapper;
-            else
-                ExistsWrappers.Add(wrapper.Model, wrapper);
         }
 
         /// <summary>
@@ -291,7 +283,7 @@ namespace HVTApp.Model.Wrapper
         /// <param name="trackingObject"></param>
         private void UnRegisterTrackingObject(IValidatableChangeTracking trackingObject)
         {
-            //если объект заригистрирован.
+            //если объект зарегистрирован.
             if (_trackingObjects.Contains(trackingObject))
             {
                 //изымаем его из списока.
@@ -307,7 +299,7 @@ namespace HVTApp.Model.Wrapper
         /// <param name="trackingObject"></param>
         private void RegisterTrackingObject(IValidatableChangeTracking trackingObject)
         {
-            //если объект еще не заригистрирован.
+            //если объект еще не зарегистрирован.
             if (!_trackingObjects.Contains(trackingObject))
             {
                 //добавляем его в список.
@@ -337,7 +329,7 @@ namespace HVTApp.Model.Wrapper
         private readonly List<object> _whoRisedEventPropertyChanged = new List<object>();
 
         /// <summary>
-        /// Регистрация Complex свойства-коллекции.
+        /// Регистрация коллекции.
         /// </summary>
         /// <typeparam name="TWrapper"></typeparam>
         /// <typeparam name="TModel"></typeparam>
@@ -362,32 +354,6 @@ namespace HVTApp.Model.Wrapper
         }
 
         /// <summary>
-        /// Регистрация любого свойства-коллекции.
-        /// </summary>
-        /// <typeparam name="TCollectionsMember"></typeparam>
-        /// <param name="wrapperCollection">коллекция обертки.</param>
-        /// <param name="modelCollection">коллекция модели.</param>
-        protected void RegisterCollection<TCollectionsMember>(TrackingCollection<TCollectionsMember> wrapperCollection, ICollection<TCollectionsMember> modelCollection)
-        {
-            //синхронизируем коллекцию модели с коллекцией обертки.
-            wrapperCollection.CollectionChanged += (s, e) =>
-            {
-                //вычищаем модель
-                modelCollection.Clear();
-
-                //добавляем в коллекцию модели все элементы коллекции-обертки
-                foreach (TCollectionsMember modelItem in wrapperCollection)
-                    modelCollection.Add(modelItem);
-
-                //проверяем на валидность
-                Validate();
-            };
-
-            RegisterTrackingObject(wrapperCollection);
-        }
-
-
-        /// <summary>
         /// Для валидации не по атрибутам, а в классе.
         /// </summary>
         /// <param name="validationContext"></param>
@@ -397,68 +363,6 @@ namespace HVTApp.Model.Wrapper
             yield break;
         }
 
-        /// <summary>
-        /// Получить сложное свойство.
-        /// </summary>
-        /// <typeparam name="TModelProp"></typeparam>
-        /// <typeparam name="TWrapProp"></typeparam>
-        /// <param name="propertyName"></param>
-        /// <returns></returns>
-        protected TWrapProp GetComplexProperty<TModelProp, TWrapProp>([CallerMemberName] string propertyName = null)
-            where TModelProp : BaseEntity
-            where TWrapProp : WrapperBase<TModelProp>
-        {
-            TModelProp modelValue = GetValue<TModelProp>(propertyName);
-            if (modelValue != null && ExistsWrappers.ContainsKey(modelValue) && ExistsWrappers[modelValue] is TWrapProp)
-                return (TWrapProp)ExistsWrappers[modelValue];
-            return null;
-        }
-
-        /// <summary>
-        /// Установить сложное свойство.
-        /// </summary>
-        /// <typeparam name="TModelProp"></typeparam>
-        /// <typeparam name="TWrapProp"></typeparam>
-        /// <param name="newProp"></param>
-        /// <param name="propertyName"></param>
-        protected void SetComplexProperty<TModelProp, TWrapProp>(TWrapProp newProp, [CallerMemberName] string propertyName = null)
-            where TModelProp : BaseEntity
-            where TWrapProp : WrapperBase<TModelProp>
-        {
-            TWrapProp oldProp = GetComplexProperty<TModelProp, TWrapProp>(propertyName);
-            if (Equals(oldProp, newProp))
-                return;
-
-            if (oldProp != null)
-            {
-                UnRegisterComplexProperty(oldProp);
-            }
-
-            if (newProp != null)
-            {
-                RegisterComplexProperty(newProp);
-                SetValue(newProp.Model, propertyName);
-            }
-            else
-            {
-                SetValue<TModelProp>(null, propertyName);
-            }
-        }
-
-        protected TWrapper GetWrapper<TModelEntity, TWrapper>(TModelEntity modelEntity)
-            where TModelEntity : BaseEntity
-            where TWrapper : WrapperBase<TModelEntity>
-        {
-            if (modelEntity == null)
-                return null;
-
-            if (ExistsWrappers.ContainsKey(modelEntity) && ExistsWrappers[modelEntity] is TWrapper)
-                return (TWrapper)ExistsWrappers[modelEntity];
-
-            TWrapper wrapper = (TWrapper)Activator.CreateInstance(typeof(TWrapper), modelEntity, ExistsWrappers);
-            RegisterComplexProperty(wrapper);
-            return wrapper;
-        }
 
         /// <summary>
         /// Запустить в конструкторе.

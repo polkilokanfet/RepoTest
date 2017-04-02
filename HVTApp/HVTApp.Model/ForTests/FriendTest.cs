@@ -22,9 +22,6 @@ namespace HVTApp.Model
 
 
         public int IdGet => 5;
-        public virtual List<int> IntList { get; set; } = new List<int>();
-        public virtual List<int> IntListGet => new List<int>();
-
 
         public FriendEmailTest FriendEmailTestGet => new FriendEmailTest();
 

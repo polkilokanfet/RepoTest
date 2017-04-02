@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class TenderInfoWrapper : WrapperBase<TenderInfo>
   {
-    public TenderInfoWrapper(TenderInfo model) : base(model) { }
-    public TenderInfoWrapper(TenderInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected TenderInfoWrapper(TenderInfo model) : base(model) { }
+    //public TenderInfoWrapper(TenderInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static TenderInfoWrapper GetWrapper(TenderInfo model)
 	{
@@ -39,25 +39,58 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public ProductMainWrapper ProductMain
-	{
-		get { return GetComplexProperty<ProductMain, ProductMainWrapper>(nameof(ProductMain)); }
-		set { SetComplexProperty<ProductMain, ProductMainWrapper>(value, nameof(ProductMain)); }
-	}
+	private ProductMainWrapper _fieldProductMain;
+	public ProductMainWrapper ProductMain 
+    {
+        get { return _fieldProductMain; }
+        set
+        {
+            if (Equals(_fieldProductMain, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldProductMain);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldProductMain = value;
+        }
+    }
 
 
-	public CompanyWrapper ProducerWinner
-	{
-		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(ProducerWinner)); }
-		set { SetComplexProperty<Company, CompanyWrapper>(value, nameof(ProducerWinner)); }
-	}
+	private CompanyWrapper _fieldProducerWinner;
+	public CompanyWrapper ProducerWinner 
+    {
+        get { return _fieldProducerWinner; }
+        set
+        {
+            if (Equals(_fieldProducerWinner, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldProducerWinner);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldProducerWinner = value;
+        }
+    }
 
 
-	public CostInfoWrapper CostInfo
-	{
-		get { return GetComplexProperty<CostInfo, CostInfoWrapper>(nameof(CostInfo)); }
-		set { SetComplexProperty<CostInfo, CostInfoWrapper>(value, nameof(CostInfo)); }
-	}
+	private CostInfoWrapper _fieldCostInfo;
+	public CostInfoWrapper CostInfo 
+    {
+        get { return _fieldCostInfo; }
+        set
+        {
+            if (Equals(_fieldCostInfo, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldCostInfo);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldCostInfo = value;
+        }
+    }
 
 
     #endregion

@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class EmployeeWrapper : WrapperBase<Employee>
   {
-    public EmployeeWrapper(Employee model) : base(model) { }
-    public EmployeeWrapper(Employee model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected EmployeeWrapper(Employee model) : base(model) { }
+    //public EmployeeWrapper(Employee model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static EmployeeWrapper GetWrapper(Employee model)
 	{
@@ -84,18 +84,40 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public CompanyWrapper Company
-	{
-		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(Company)); }
-		set { SetComplexProperty<Company, CompanyWrapper>(value, nameof(Company)); }
-	}
+	private CompanyWrapper _fieldCompany;
+	public CompanyWrapper Company 
+    {
+        get { return _fieldCompany; }
+        set
+        {
+            if (Equals(_fieldCompany, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldCompany);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldCompany = value;
+        }
+    }
 
 
-	public EmployeesPositionWrapper Position
-	{
-		get { return GetComplexProperty<EmployeesPosition, EmployeesPositionWrapper>(nameof(Position)); }
-		set { SetComplexProperty<EmployeesPosition, EmployeesPositionWrapper>(value, nameof(Position)); }
-	}
+	private EmployeesPositionWrapper _fieldPosition;
+	public EmployeesPositionWrapper Position 
+    {
+        get { return _fieldPosition; }
+        set
+        {
+            if (Equals(_fieldPosition, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldPosition);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldPosition = value;
+        }
+    }
 
 
     #endregion

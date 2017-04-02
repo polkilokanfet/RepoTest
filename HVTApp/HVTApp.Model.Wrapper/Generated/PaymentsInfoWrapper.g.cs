@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class PaymentsInfoWrapper : WrapperBase<PaymentsInfo>
   {
-    public PaymentsInfoWrapper(PaymentsInfo model) : base(model) { }
-    public PaymentsInfoWrapper(PaymentsInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected PaymentsInfoWrapper(PaymentsInfo model) : base(model) { }
+    //public PaymentsInfoWrapper(PaymentsInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static PaymentsInfoWrapper GetWrapper(PaymentsInfo model)
 	{
@@ -39,17 +39,28 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public ProductBaseWrapper Product
-	{
-		get { return GetComplexProperty<ProductBase, ProductBaseWrapper>(nameof(Product)); }
-		set { SetComplexProperty<ProductBase, ProductBaseWrapper>(value, nameof(Product)); }
-	}
+	private ProductBaseWrapper _fieldProduct;
+	public ProductBaseWrapper Product 
+    {
+        get { return _fieldProduct; }
+        set
+        {
+            if (Equals(_fieldProduct, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldProduct);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldProduct = value;
+        }
+    }
 
 
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<PaymentsConditionWrapper> PaymentsConditions { get; private set; }
 
@@ -88,17 +99,17 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
-      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentsConditionWrapper>(model.PaymentsConditions.Select(e => new PaymentsConditionWrapper(e, ExistsWrappers)));
+      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentsConditionWrapper>(model.PaymentsConditions.Select(e => PaymentsConditionWrapper.GetWrapper(e)));
       RegisterCollection(PaymentsConditions, model.PaymentsConditions);
 
 
       if (model.PaymentsActual == null) throw new ArgumentException("PaymentsActual cannot be null");
-      PaymentsActual = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(model.PaymentsActual.Select(e => new PaymentActualWrapper(e, ExistsWrappers)));
+      PaymentsActual = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(model.PaymentsActual.Select(e => PaymentActualWrapper.GetWrapper(e)));
       RegisterCollection(PaymentsActual, model.PaymentsActual);
 
 
       if (model.PaymentsPlanned == null) throw new ArgumentException("PaymentsPlanned cannot be null");
-      PaymentsPlanned = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(model.PaymentsPlanned.Select(e => new PaymentPlannedWrapper(e, ExistsWrappers)));
+      PaymentsPlanned = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(model.PaymentsPlanned.Select(e => PaymentPlannedWrapper.GetWrapper(e)));
       RegisterCollection(PaymentsPlanned, model.PaymentsPlanned);
 
 

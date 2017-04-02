@@ -45,7 +45,6 @@
     <Compile Include="Base\TrackingCollections\IValidatableChangeTracking.cs" />
     <Compile Include="Base\NotifyDataErrorInfoBase.cs" />
     <Compile Include="Base\Observable.cs" />
-    <Compile Include="Base\TrackingCollections\TrackingCollection.cs" />
     <Compile Include="Base\WrapperBase.cs" />
     <Compile Include="Base\WrappersFactory.cs" />
     <Compile Include="Custom\CompanyFormWrapper.cs" />

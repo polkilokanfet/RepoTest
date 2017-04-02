@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class FacilityWrapper : WrapperBase<Facility>
   {
-    public FacilityWrapper(Facility model) : base(model) { }
-    public FacilityWrapper(Facility model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected FacilityWrapper(Facility model) : base(model) { }
+    //public FacilityWrapper(Facility model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static FacilityWrapper GetWrapper(Facility model)
 	{
@@ -48,25 +48,58 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public FacilityTypeWrapper Type
-	{
-		get { return GetComplexProperty<FacilityType, FacilityTypeWrapper>(nameof(Type)); }
-		set { SetComplexProperty<FacilityType, FacilityTypeWrapper>(value, nameof(Type)); }
-	}
+	private FacilityTypeWrapper _fieldType;
+	public FacilityTypeWrapper Type 
+    {
+        get { return _fieldType; }
+        set
+        {
+            if (Equals(_fieldType, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldType);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldType = value;
+        }
+    }
 
 
-	public CompanyWrapper OwnerCompany
-	{
-		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(OwnerCompany)); }
-		set { SetComplexProperty<Company, CompanyWrapper>(value, nameof(OwnerCompany)); }
-	}
+	private CompanyWrapper _fieldOwnerCompany;
+	public CompanyWrapper OwnerCompany 
+    {
+        get { return _fieldOwnerCompany; }
+        set
+        {
+            if (Equals(_fieldOwnerCompany, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldOwnerCompany);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldOwnerCompany = value;
+        }
+    }
 
 
-	public AddressWrapper Address
-	{
-		get { return GetComplexProperty<Address, AddressWrapper>(nameof(Address)); }
-		set { SetComplexProperty<Address, AddressWrapper>(value, nameof(Address)); }
-	}
+	private AddressWrapper _fieldAddress;
+	public AddressWrapper Address 
+    {
+        get { return _fieldAddress; }
+        set
+        {
+            if (Equals(_fieldAddress, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldAddress);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldAddress = value;
+        }
+    }
 
 
     #endregion

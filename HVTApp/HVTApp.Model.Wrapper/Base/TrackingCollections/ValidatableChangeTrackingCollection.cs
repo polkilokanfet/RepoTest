@@ -184,6 +184,6 @@ namespace HVTApp.Model.Wrapper
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
         }
 
-        public bool IsInChecking => false;
+        public bool InChecking => false;
     }
 }

@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class SpecificationWrapper : WrapperBase<Specification>
   {
-    public SpecificationWrapper(Specification model) : base(model) { }
-    public SpecificationWrapper(Specification model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected SpecificationWrapper(Specification model) : base(model) { }
+    //public SpecificationWrapper(Specification model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static SpecificationWrapper GetWrapper(Specification model)
 	{
@@ -57,17 +57,28 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public ContractWrapper Contract
-	{
-		get { return GetComplexProperty<Contract, ContractWrapper>(nameof(Contract)); }
-		set { SetComplexProperty<Contract, ContractWrapper>(value, nameof(Contract)); }
-	}
+	private ContractWrapper _fieldContract;
+	public ContractWrapper Contract 
+    {
+        get { return _fieldContract; }
+        set
+        {
+            if (Equals(_fieldContract, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldContract);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldContract = value;
+        }
+    }
 
 
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<ProductsMainGroupWrapper> SalesGroups { get; private set; }
 
@@ -100,12 +111,12 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.SalesGroups == null) throw new ArgumentException("SalesGroups cannot be null");
-      SalesGroups = new ValidatableChangeTrackingCollection<ProductsMainGroupWrapper>(model.SalesGroups.Select(e => new ProductsMainGroupWrapper(e, ExistsWrappers)));
+      SalesGroups = new ValidatableChangeTrackingCollection<ProductsMainGroupWrapper>(model.SalesGroups.Select(e => ProductsMainGroupWrapper.GetWrapper(e)));
       RegisterCollection(SalesGroups, model.SalesGroups);
 
 
       if (model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
-      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentsConditionWrapper>(model.PaymentsConditions.Select(e => new PaymentsConditionWrapper(e, ExistsWrappers)));
+      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentsConditionWrapper>(model.PaymentsConditions.Select(e => PaymentsConditionWrapper.GetWrapper(e)));
       RegisterCollection(PaymentsConditions, model.PaymentsConditions);
 
 

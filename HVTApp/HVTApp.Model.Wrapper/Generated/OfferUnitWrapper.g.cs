@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class OfferUnitWrapper : WrapperBase<OfferUnit>
   {
-    public OfferUnitWrapper(OfferUnit model) : base(model) { }
-    public OfferUnitWrapper(OfferUnit model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected OfferUnitWrapper(OfferUnit model) : base(model) { }
+    //public OfferUnitWrapper(OfferUnit model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static OfferUnitWrapper GetWrapper(OfferUnit model)
 	{
@@ -39,31 +39,64 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public EquipmentWrapper Equipment
-	{
-		get { return GetComplexProperty<Equipment, EquipmentWrapper>(nameof(Equipment)); }
-		set { SetComplexProperty<Equipment, EquipmentWrapper>(value, nameof(Equipment)); }
-	}
+	private EquipmentWrapper _fieldEquipment;
+	public EquipmentWrapper Equipment 
+    {
+        get { return _fieldEquipment; }
+        set
+        {
+            if (Equals(_fieldEquipment, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldEquipment);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldEquipment = value;
+        }
+    }
 
 
-	public OfferWrapper Offer
-	{
-		get { return GetComplexProperty<Offer, OfferWrapper>(nameof(Offer)); }
-		set { SetComplexProperty<Offer, OfferWrapper>(value, nameof(Offer)); }
-	}
+	private OfferWrapper _fieldOffer;
+	public OfferWrapper Offer 
+    {
+        get { return _fieldOffer; }
+        set
+        {
+            if (Equals(_fieldOffer, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldOffer);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldOffer = value;
+        }
+    }
 
 
-	public PlannedTermProductionWrapper PlannedTermProduction
-	{
-		get { return GetComplexProperty<PlannedTermProduction, PlannedTermProductionWrapper>(nameof(PlannedTermProduction)); }
-		set { SetComplexProperty<PlannedTermProduction, PlannedTermProductionWrapper>(value, nameof(PlannedTermProduction)); }
-	}
+	private PlannedTermProductionWrapper _fieldPlannedTermProduction;
+	public PlannedTermProductionWrapper PlannedTermProduction 
+    {
+        get { return _fieldPlannedTermProduction; }
+        set
+        {
+            if (Equals(_fieldPlannedTermProduction, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldPlannedTermProduction);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldPlannedTermProduction = value;
+        }
+    }
 
 
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<FacilityWrapper> Facilities { get; private set; }
 
@@ -103,12 +136,12 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.Facilities == null) throw new ArgumentException("Facilities cannot be null");
-      Facilities = new ValidatableChangeTrackingCollection<FacilityWrapper>(model.Facilities.Select(e => new FacilityWrapper(e, ExistsWrappers)));
+      Facilities = new ValidatableChangeTrackingCollection<FacilityWrapper>(model.Facilities.Select(e => FacilityWrapper.GetWrapper(e)));
       RegisterCollection(Facilities, model.Facilities);
 
 
       if (model.OfferProducts == null) throw new ArgumentException("OfferProducts cannot be null");
-      OfferProducts = new ValidatableChangeTrackingCollection<OfferProductWrapper>(model.OfferProducts.Select(e => new OfferProductWrapper(e, ExistsWrappers)));
+      OfferProducts = new ValidatableChangeTrackingCollection<OfferProductWrapper>(model.OfferProducts.Select(e => OfferProductWrapper.GetWrapper(e)));
       RegisterCollection(OfferProducts, model.OfferProducts);
 
 

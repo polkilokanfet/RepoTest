@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class OrderWrapper : WrapperBase<Order>
   {
-    public OrderWrapper(Order model) : base(model) { }
-    public OrderWrapper(Order model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected OrderWrapper(Order model) : base(model) { }
+    //public OrderWrapper(Order model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static OrderWrapper GetWrapper(Order model)
 	{
@@ -55,7 +55,7 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<ProductMainWrapper> Products { get; private set; }
 
@@ -67,7 +67,7 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.Products == null) throw new ArgumentException("Products cannot be null");
-      Products = new ValidatableChangeTrackingCollection<ProductMainWrapper>(model.Products.Select(e => new ProductMainWrapper(e, ExistsWrappers)));
+      Products = new ValidatableChangeTrackingCollection<ProductMainWrapper>(model.Products.Select(e => ProductMainWrapper.GetWrapper(e)));
       RegisterCollection(Products, model.Products);
 
 

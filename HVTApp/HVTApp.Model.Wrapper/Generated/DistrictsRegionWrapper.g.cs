@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class DistrictsRegionWrapper : WrapperBase<DistrictsRegion>
   {
-    public DistrictsRegionWrapper(DistrictsRegion model) : base(model) { }
-    public DistrictsRegionWrapper(DistrictsRegion model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected DistrictsRegionWrapper(DistrictsRegion model) : base(model) { }
+    //public DistrictsRegionWrapper(DistrictsRegion model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static DistrictsRegionWrapper GetWrapper(DistrictsRegion model)
 	{
@@ -48,17 +48,28 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public DistrictWrapper District
-	{
-		get { return GetComplexProperty<District, DistrictWrapper>(nameof(District)); }
-		set { SetComplexProperty<District, DistrictWrapper>(value, nameof(District)); }
-	}
+	private DistrictWrapper _fieldDistrict;
+	public DistrictWrapper District 
+    {
+        get { return _fieldDistrict; }
+        set
+        {
+            if (Equals(_fieldDistrict, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldDistrict);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldDistrict = value;
+        }
+    }
 
 
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<LocalityWrapper> Localities { get; private set; }
 
@@ -77,7 +88,7 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.Localities == null) throw new ArgumentException("Localities cannot be null");
-      Localities = new ValidatableChangeTrackingCollection<LocalityWrapper>(model.Localities.Select(e => new LocalityWrapper(e, ExistsWrappers)));
+      Localities = new ValidatableChangeTrackingCollection<LocalityWrapper>(model.Localities.Select(e => LocalityWrapper.GetWrapper(e)));
       RegisterCollection(Localities, model.Localities);
 
 

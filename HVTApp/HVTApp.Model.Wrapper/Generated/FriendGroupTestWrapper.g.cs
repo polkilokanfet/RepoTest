@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class FriendGroupTestWrapper : WrapperBase<FriendGroupTest>
   {
-    public FriendGroupTestWrapper(FriendGroupTest model) : base(model) { }
-    public FriendGroupTestWrapper(FriendGroupTest model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected FriendGroupTestWrapper(FriendGroupTest model) : base(model) { }
+    //public FriendGroupTestWrapper(FriendGroupTest model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static FriendGroupTestWrapper GetWrapper(FriendGroupTest model)
 	{
@@ -46,7 +46,7 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<FriendTestWrapper> FriendTests { get; private set; }
 
@@ -58,7 +58,7 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.FriendTests == null) throw new ArgumentException("FriendTests cannot be null");
-      FriendTests = new ValidatableChangeTrackingCollection<FriendTestWrapper>(model.FriendTests.Select(e => new FriendTestWrapper(e, ExistsWrappers)));
+      FriendTests = new ValidatableChangeTrackingCollection<FriendTestWrapper>(model.FriendTests.Select(e => FriendTestWrapper.GetWrapper(e)));
       RegisterCollection(FriendTests, model.FriendTests);
 
 

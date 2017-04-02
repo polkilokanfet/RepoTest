@@ -18,7 +18,7 @@
             this.PaymentsInfo.PaymentsPlanned.Clear();
             foreach (var payment in Model.PaymentsInfo.PaymentsPlanned)
             {
-                this.PaymentsInfo.PaymentsPlanned.Add(new PaymentPlannedWrapper(payment));
+                this.PaymentsInfo.PaymentsPlanned.Add(PaymentPlannedWrapper.GetWrapper(payment));
             }
         }
     }

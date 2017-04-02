@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class PaymentBaseWrapper : WrapperBase<PaymentBase>
   {
-    public PaymentBaseWrapper(PaymentBase model) : base(model) { }
-    public PaymentBaseWrapper(PaymentBase model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected PaymentBaseWrapper(PaymentBase model) : base(model) { }
+    //public PaymentBaseWrapper(PaymentBase model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static PaymentBaseWrapper GetWrapper(PaymentBase model)
 	{
@@ -57,11 +57,22 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public PaymentsInfoWrapper PaymentsInfo
-	{
-		get { return GetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(nameof(PaymentsInfo)); }
-		set { SetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(value, nameof(PaymentsInfo)); }
-	}
+	private PaymentsInfoWrapper _fieldPaymentsInfo;
+	public PaymentsInfoWrapper PaymentsInfo 
+    {
+        get { return _fieldPaymentsInfo; }
+        set
+        {
+            if (Equals(_fieldPaymentsInfo, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldPaymentsInfo);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldPaymentsInfo = value;
+        }
+    }
 
 
     #endregion

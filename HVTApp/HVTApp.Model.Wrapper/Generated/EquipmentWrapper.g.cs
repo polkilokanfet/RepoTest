@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class EquipmentWrapper : WrapperBase<Equipment>
   {
-    public EquipmentWrapper(Equipment model) : base(model) { }
-    public EquipmentWrapper(Equipment model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected EquipmentWrapper(Equipment model) : base(model) { }
+    //public EquipmentWrapper(Equipment model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static EquipmentWrapper GetWrapper(Equipment model)
 	{
@@ -64,7 +64,7 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<TechLinkWrapper> Links { get; private set; }
 
@@ -76,7 +76,7 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.Links == null) throw new ArgumentException("Links cannot be null");
-      Links = new ValidatableChangeTrackingCollection<TechLinkWrapper>(model.Links.Select(e => new TechLinkWrapper(e, ExistsWrappers)));
+      Links = new ValidatableChangeTrackingCollection<TechLinkWrapper>(model.Links.Select(e => TechLinkWrapper.GetWrapper(e)));
       RegisterCollection(Links, model.Links);
 
 

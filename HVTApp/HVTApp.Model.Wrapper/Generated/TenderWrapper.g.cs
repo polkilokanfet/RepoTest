@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class TenderWrapper : WrapperBase<Tender>
   {
-    public TenderWrapper(Tender model) : base(model) { }
-    public TenderWrapper(Tender model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected TenderWrapper(Tender model) : base(model) { }
+    //public TenderWrapper(Tender model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static TenderWrapper GetWrapper(Tender model)
 	{
@@ -75,24 +75,46 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public ProjectWrapper Project
-	{
-		get { return GetComplexProperty<Project, ProjectWrapper>(nameof(Project)); }
-		set { SetComplexProperty<Project, ProjectWrapper>(value, nameof(Project)); }
-	}
+	private ProjectWrapper _fieldProject;
+	public ProjectWrapper Project 
+    {
+        get { return _fieldProject; }
+        set
+        {
+            if (Equals(_fieldProject, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldProject);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldProject = value;
+        }
+    }
 
 
-	public CompanyWrapper Winner
-	{
-		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(Winner)); }
-		set { SetComplexProperty<Company, CompanyWrapper>(value, nameof(Winner)); }
-	}
+	private CompanyWrapper _fieldWinner;
+	public CompanyWrapper Winner 
+    {
+        get { return _fieldWinner; }
+        set
+        {
+            if (Equals(_fieldWinner, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldWinner);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldWinner = value;
+        }
+    }
 
 
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<CompanyWrapper> Participants { get; private set; }
 
@@ -116,12 +138,12 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.Participants == null) throw new ArgumentException("Participants cannot be null");
-      Participants = new ValidatableChangeTrackingCollection<CompanyWrapper>(model.Participants.Select(e => new CompanyWrapper(e, ExistsWrappers)));
+      Participants = new ValidatableChangeTrackingCollection<CompanyWrapper>(model.Participants.Select(e => CompanyWrapper.GetWrapper(e)));
       RegisterCollection(Participants, model.Participants);
 
 
       if (model.TenderUnits == null) throw new ArgumentException("TenderUnits cannot be null");
-      TenderUnits = new ValidatableChangeTrackingCollection<TenderInfoWrapper>(model.TenderUnits.Select(e => new TenderInfoWrapper(e, ExistsWrappers)));
+      TenderUnits = new ValidatableChangeTrackingCollection<TenderInfoWrapper>(model.TenderUnits.Select(e => TenderInfoWrapper.GetWrapper(e)));
       RegisterCollection(TenderUnits, model.TenderUnits);
 
 

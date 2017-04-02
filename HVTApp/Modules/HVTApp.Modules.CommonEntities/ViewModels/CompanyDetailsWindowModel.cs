@@ -24,7 +24,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             _unitOfWork = unitOfWork;
             _chooseService = chooseService;
 
-            Forms = new ObservableCollection<CompanyFormWrapper>(_unitOfWork.CompanyForms.GetAll().Select(x => new CompanyFormWrapper(x)));
+            Forms = new ObservableCollection<CompanyFormWrapper>(_unitOfWork.CompanyForms.GetAll().Select(x => CompanyFormWrapper.GetWrapper(x)));
 
             OkCommand = new DelegateCommand(OkCommand_Execute, OkCommand_CanExecute);
             SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_Execute);
@@ -62,7 +62,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             if (possibleParent != null && !Equals(possibleParent, CompanyWrapper.ParentCompany?.Model))
             {
                 RemoveParentCompanyCommand_Execute();
-                CompanyWrapper.ParentCompany = new CompanyWrapper(possibleParent);
+                CompanyWrapper.ParentCompany = CompanyWrapper.GetWrapper(possibleParent);
                 //CompanyWrapper.ParentCompany.ChildCompanies.Add(CompanyWrapper);
             }
         }

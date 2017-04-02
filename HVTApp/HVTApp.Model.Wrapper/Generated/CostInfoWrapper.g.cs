@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class CostInfoWrapper : WrapperBase<CostInfo>
   {
-    public CostInfoWrapper(CostInfo model) : base(model) { }
-    public CostInfoWrapper(CostInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected CostInfoWrapper(CostInfo model) : base(model) { }
+    //public CostInfoWrapper(CostInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static CostInfoWrapper GetWrapper(CostInfo model)
 	{

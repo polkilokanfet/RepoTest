@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class DistrictWrapper : WrapperBase<District>
   {
-    public DistrictWrapper(District model) : base(model) { }
-    public DistrictWrapper(District model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected DistrictWrapper(District model) : base(model) { }
+    //public DistrictWrapper(District model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static DistrictWrapper GetWrapper(District model)
 	{
@@ -48,11 +48,22 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public CountryWrapper Country
-	{
-		get { return GetComplexProperty<Country, CountryWrapper>(nameof(Country)); }
-		set { SetComplexProperty<Country, CountryWrapper>(value, nameof(Country)); }
-	}
+	private CountryWrapper _fieldCountry;
+	public CountryWrapper Country 
+    {
+        get { return _fieldCountry; }
+        set
+        {
+            if (Equals(_fieldCountry, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldCountry);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldCountry = value;
+        }
+    }
 
 
     #endregion

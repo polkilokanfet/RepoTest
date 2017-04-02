@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class ProductsMainGroupWrapper : WrapperBase<ProductsMainGroup>
   {
-    public ProductsMainGroupWrapper(ProductsMainGroup model) : base(model) { }
-    public ProductsMainGroupWrapper(ProductsMainGroup model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected ProductsMainGroupWrapper(ProductsMainGroup model) : base(model) { }
+    //public ProductsMainGroupWrapper(ProductsMainGroup model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static ProductsMainGroupWrapper GetWrapper(ProductsMainGroup model)
 	{
@@ -39,31 +39,64 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public ProjectWrapper Project
-	{
-		get { return GetComplexProperty<Project, ProjectWrapper>(nameof(Project)); }
-		set { SetComplexProperty<Project, ProjectWrapper>(value, nameof(Project)); }
-	}
+	private ProjectWrapper _fieldProject;
+	public ProjectWrapper Project 
+    {
+        get { return _fieldProject; }
+        set
+        {
+            if (Equals(_fieldProject, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldProject);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldProject = value;
+        }
+    }
 
 
-	public FacilityWrapper Facility
-	{
-		get { return GetComplexProperty<Facility, FacilityWrapper>(nameof(Facility)); }
-		set { SetComplexProperty<Facility, FacilityWrapper>(value, nameof(Facility)); }
-	}
+	private FacilityWrapper _fieldFacility;
+	public FacilityWrapper Facility 
+    {
+        get { return _fieldFacility; }
+        set
+        {
+            if (Equals(_fieldFacility, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldFacility);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldFacility = value;
+        }
+    }
 
 
-	public SpecificationWrapper Specification
-	{
-		get { return GetComplexProperty<Specification, SpecificationWrapper>(nameof(Specification)); }
-		set { SetComplexProperty<Specification, SpecificationWrapper>(value, nameof(Specification)); }
-	}
+	private SpecificationWrapper _fieldSpecification;
+	public SpecificationWrapper Specification 
+    {
+        get { return _fieldSpecification; }
+        set
+        {
+            if (Equals(_fieldSpecification, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldSpecification);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldSpecification = value;
+        }
+    }
 
 
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<ProductsOptionalGroupWrapper> ProductsOptionalGroups { get; private set; }
 
@@ -103,12 +136,12 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.ProductsOptionalGroups == null) throw new ArgumentException("ProductsOptionalGroups cannot be null");
-      ProductsOptionalGroups = new ValidatableChangeTrackingCollection<ProductsOptionalGroupWrapper>(model.ProductsOptionalGroups.Select(e => new ProductsOptionalGroupWrapper(e, ExistsWrappers)));
+      ProductsOptionalGroups = new ValidatableChangeTrackingCollection<ProductsOptionalGroupWrapper>(model.ProductsOptionalGroups.Select(e => ProductsOptionalGroupWrapper.GetWrapper(e)));
       RegisterCollection(ProductsOptionalGroups, model.ProductsOptionalGroups);
 
 
       if (model.Products == null) throw new ArgumentException("Products cannot be null");
-      Products = new ValidatableChangeTrackingCollection<ProductMainWrapper>(model.Products.Select(e => new ProductMainWrapper(e, ExistsWrappers)));
+      Products = new ValidatableChangeTrackingCollection<ProductMainWrapper>(model.Products.Select(e => ProductMainWrapper.GetWrapper(e)));
       RegisterCollection(Products, model.Products);
 
 

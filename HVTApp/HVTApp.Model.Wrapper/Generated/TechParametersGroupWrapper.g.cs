@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class TechParametersGroupWrapper : WrapperBase<TechParametersGroup>
   {
-    public TechParametersGroupWrapper(TechParametersGroup model) : base(model) { }
-    public TechParametersGroupWrapper(TechParametersGroup model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected TechParametersGroupWrapper(TechParametersGroup model) : base(model) { }
+    //public TechParametersGroupWrapper(TechParametersGroup model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static TechParametersGroupWrapper GetWrapper(TechParametersGroup model)
 	{
@@ -55,7 +55,7 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<TechParameterWrapper> TechParameters { get; private set; }
 
@@ -67,7 +67,7 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.TechParameters == null) throw new ArgumentException("TechParameters cannot be null");
-      TechParameters = new ValidatableChangeTrackingCollection<TechParameterWrapper>(model.TechParameters.Select(e => new TechParameterWrapper(e, ExistsWrappers)));
+      TechParameters = new ValidatableChangeTrackingCollection<TechParameterWrapper>(model.TechParameters.Select(e => TechParameterWrapper.GetWrapper(e)));
       RegisterCollection(TechParameters, model.TechParameters);
 
 

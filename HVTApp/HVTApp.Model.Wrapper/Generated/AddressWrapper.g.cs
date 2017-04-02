@@ -18,8 +18,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class AddressWrapper : WrapperBase<Address>
   {
-    public AddressWrapper(Address model) : base(model) { }
-    public AddressWrapper(Address model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected AddressWrapper(Address model) : base(model) { }
+    //public AddressWrapper(Address model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static AddressWrapper GetWrapper(Address model)
 	{
@@ -59,11 +59,22 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public LocalityWrapper Locality
-	{
-		get { return GetComplexProperty<Locality, LocalityWrapper>(nameof(Locality)); }
-		set { SetComplexProperty<Locality, LocalityWrapper>(value, nameof(Locality)); }
-	}
+	private LocalityWrapper _fieldLocality;
+	public LocalityWrapper Locality 
+    {
+        get { return _fieldLocality; }
+        set
+        {
+            if (Equals(_fieldLocality, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldLocality);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldLocality = value;
+        }
+    }
 
 
     #endregion

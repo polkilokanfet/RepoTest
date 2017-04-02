@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class PaymentDocumentWrapper : WrapperBase<PaymentDocument>
   {
-    public PaymentDocumentWrapper(PaymentDocument model) : base(model) { }
-    public PaymentDocumentWrapper(PaymentDocument model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected PaymentDocumentWrapper(PaymentDocument model) : base(model) { }
+    //public PaymentDocumentWrapper(PaymentDocument model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static PaymentDocumentWrapper GetWrapper(PaymentDocument model)
 	{
@@ -55,7 +55,7 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<PaymentActualWrapper> Payments { get; private set; }
 
@@ -67,7 +67,7 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.Payments == null) throw new ArgumentException("Payments cannot be null");
-      Payments = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(model.Payments.Select(e => new PaymentActualWrapper(e, ExistsWrappers)));
+      Payments = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(model.Payments.Select(e => PaymentActualWrapper.GetWrapper(e)));
       RegisterCollection(Payments, model.Payments);
 
 

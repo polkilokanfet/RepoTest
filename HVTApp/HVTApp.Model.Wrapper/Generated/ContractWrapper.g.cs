@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class ContractWrapper : WrapperBase<Contract>
   {
-    public ContractWrapper(Contract model) : base(model) { }
-    public ContractWrapper(Contract model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected ContractWrapper(Contract model) : base(model) { }
+    //public ContractWrapper(Contract model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static ContractWrapper GetWrapper(Contract model)
 	{
@@ -57,17 +57,28 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public CompanyWrapper Contragent
-	{
-		get { return GetComplexProperty<Company, CompanyWrapper>(nameof(Contragent)); }
-		set { SetComplexProperty<Company, CompanyWrapper>(value, nameof(Contragent)); }
-	}
+	private CompanyWrapper _fieldContragent;
+	public CompanyWrapper Contragent 
+    {
+        get { return _fieldContragent; }
+        set
+        {
+            if (Equals(_fieldContragent, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldContragent);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldContragent = value;
+        }
+    }
 
 
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<SpecificationWrapper> Specifications { get; private set; }
 
@@ -97,7 +108,7 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.Specifications == null) throw new ArgumentException("Specifications cannot be null");
-      Specifications = new ValidatableChangeTrackingCollection<SpecificationWrapper>(model.Specifications.Select(e => new SpecificationWrapper(e, ExistsWrappers)));
+      Specifications = new ValidatableChangeTrackingCollection<SpecificationWrapper>(model.Specifications.Select(e => SpecificationWrapper.GetWrapper(e)));
       RegisterCollection(Specifications, model.Specifications);
 
 

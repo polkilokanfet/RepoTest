@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class PlannedTermProductionWrapper : WrapperBase<PlannedTermProduction>
   {
-    public PlannedTermProductionWrapper(PlannedTermProduction model) : base(model) { }
-    public PlannedTermProductionWrapper(PlannedTermProduction model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected PlannedTermProductionWrapper(PlannedTermProduction model) : base(model) { }
+    //public PlannedTermProductionWrapper(PlannedTermProduction model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static PlannedTermProductionWrapper GetWrapper(PlannedTermProduction model)
 	{

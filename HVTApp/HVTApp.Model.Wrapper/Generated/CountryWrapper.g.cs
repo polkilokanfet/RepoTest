@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class CountryWrapper : WrapperBase<Country>
   {
-    public CountryWrapper(Country model) : base(model) { }
-    public CountryWrapper(Country model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected CountryWrapper(Country model) : base(model) { }
+    //public CountryWrapper(Country model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static CountryWrapper GetWrapper(Country model)
 	{
@@ -46,7 +46,7 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<DistrictWrapper> Districts { get; private set; }
 
@@ -58,7 +58,7 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.Districts == null) throw new ArgumentException("Districts cannot be null");
-      Districts = new ValidatableChangeTrackingCollection<DistrictWrapper>(model.Districts.Select(e => new DistrictWrapper(e, ExistsWrappers)));
+      Districts = new ValidatableChangeTrackingCollection<DistrictWrapper>(model.Districts.Select(e => DistrictWrapper.GetWrapper(e)));
       RegisterCollection(Districts, model.Districts);
 
 

@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class FriendTestWrapper : WrapperBase<FriendTest>
   {
-    public FriendTestWrapper(FriendTest model) : base(model) { }
-    public FriendTestWrapper(FriendTest model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected FriendTestWrapper(FriendTest model) : base(model) { }
+    //public FriendTestWrapper(FriendTest model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static FriendTestWrapper GetWrapper(FriendTest model)
 	{
@@ -84,37 +84,48 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public FriendAddressTestWrapper FriendAddressTest
-	{
-		get { return GetComplexProperty<FriendAddressTest, FriendAddressTestWrapper>(nameof(FriendAddressTest)); }
-		set { SetComplexProperty<FriendAddressTest, FriendAddressTestWrapper>(value, nameof(FriendAddressTest)); }
-	}
+	private FriendAddressTestWrapper _fieldFriendAddressTest;
+	public FriendAddressTestWrapper FriendAddressTest 
+    {
+        get { return _fieldFriendAddressTest; }
+        set
+        {
+            if (Equals(_fieldFriendAddressTest, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldFriendAddressTest);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldFriendAddressTest = value;
+        }
+    }
 
 
-	public FriendGroupTestWrapper FriendGroupTest
-	{
-		get { return GetComplexProperty<FriendGroupTest, FriendGroupTestWrapper>(nameof(FriendGroupTest)); }
-		set { SetComplexProperty<FriendGroupTest, FriendGroupTestWrapper>(value, nameof(FriendGroupTest)); }
-	}
+	private FriendGroupTestWrapper _fieldFriendGroupTest;
+	public FriendGroupTestWrapper FriendGroupTest 
+    {
+        get { return _fieldFriendGroupTest; }
+        set
+        {
+            if (Equals(_fieldFriendGroupTest, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldFriendGroupTest);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldFriendGroupTest = value;
+        }
+    }
 
 
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<FriendEmailTestWrapper> Emails { get; private set; }
-
-
-    #endregion
-
-
-    #region CollectionSimpleProperties
-
-    public TrackingCollection<Int32> IntList { get; private set; }
-
-
-    public TrackingCollection<Int32> IntListGet { get; private set; }
 
 
     #endregion
@@ -144,24 +155,8 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.Emails == null) throw new ArgumentException("Emails cannot be null");
-      Emails = new ValidatableChangeTrackingCollection<FriendEmailTestWrapper>(model.Emails.Select(e => new FriendEmailTestWrapper(e, ExistsWrappers)));
+      Emails = new ValidatableChangeTrackingCollection<FriendEmailTestWrapper>(model.Emails.Select(e => FriendEmailTestWrapper.GetWrapper(e)));
       RegisterCollection(Emails, model.Emails);
-
-
-    }
-
-  
-    protected override void InitializeCollectionSimpleProperties(FriendTest model)
-    {
-
-      if (model.IntList == null) throw new ArgumentException("IntList cannot be null");
-      IntList = new TrackingCollection<Int32>(model.IntList);
-      RegisterCollection(IntList, model.IntList);
-
-
-      if (model.IntListGet == null) throw new ArgumentException("IntListGet cannot be null");
-      IntListGet = new TrackingCollection<Int32>(model.IntListGet);
-      RegisterCollection(IntListGet, model.IntListGet);
 
 
     }

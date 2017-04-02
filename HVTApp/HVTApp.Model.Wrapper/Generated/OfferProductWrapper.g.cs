@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class OfferProductWrapper : WrapperBase<OfferProduct>
   {
-    public OfferProductWrapper(OfferProduct model) : base(model) { }
-    public OfferProductWrapper(OfferProduct model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected OfferProductWrapper(OfferProduct model) : base(model) { }
+    //public OfferProductWrapper(OfferProduct model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static OfferProductWrapper GetWrapper(OfferProduct model)
 	{
@@ -39,38 +39,82 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public ProductMainWrapper ProductMain
-	{
-		get { return GetComplexProperty<ProductMain, ProductMainWrapper>(nameof(ProductMain)); }
-		set { SetComplexProperty<ProductMain, ProductMainWrapper>(value, nameof(ProductMain)); }
-	}
+	private ProductMainWrapper _fieldProductMain;
+	public ProductMainWrapper ProductMain 
+    {
+        get { return _fieldProductMain; }
+        set
+        {
+            if (Equals(_fieldProductMain, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldProductMain);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldProductMain = value;
+        }
+    }
 
 
-	public OfferUnitWrapper OfferUnit
-	{
-		get { return GetComplexProperty<OfferUnit, OfferUnitWrapper>(nameof(OfferUnit)); }
-		set { SetComplexProperty<OfferUnit, OfferUnitWrapper>(value, nameof(OfferUnit)); }
-	}
+	private OfferUnitWrapper _fieldOfferUnit;
+	public OfferUnitWrapper OfferUnit 
+    {
+        get { return _fieldOfferUnit; }
+        set
+        {
+            if (Equals(_fieldOfferUnit, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldOfferUnit);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldOfferUnit = value;
+        }
+    }
 
 
-	public CostInfoWrapper CostInfo
-	{
-		get { return GetComplexProperty<CostInfo, CostInfoWrapper>(nameof(CostInfo)); }
-		set { SetComplexProperty<CostInfo, CostInfoWrapper>(value, nameof(CostInfo)); }
-	}
+	private CostInfoWrapper _fieldCostInfo;
+	public CostInfoWrapper CostInfo 
+    {
+        get { return _fieldCostInfo; }
+        set
+        {
+            if (Equals(_fieldCostInfo, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldCostInfo);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldCostInfo = value;
+        }
+    }
 
 
-	public PlannedTermProductionWrapper PlannedTermProduction
-	{
-		get { return GetComplexProperty<PlannedTermProduction, PlannedTermProductionWrapper>(nameof(PlannedTermProduction)); }
-		set { SetComplexProperty<PlannedTermProduction, PlannedTermProductionWrapper>(value, nameof(PlannedTermProduction)); }
-	}
+	private PlannedTermProductionWrapper _fieldPlannedTermProduction;
+	public PlannedTermProductionWrapper PlannedTermProduction 
+    {
+        get { return _fieldPlannedTermProduction; }
+        set
+        {
+            if (Equals(_fieldPlannedTermProduction, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldPlannedTermProduction);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldPlannedTermProduction = value;
+        }
+    }
 
 
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<PaymentsConditionWrapper> PaymentsConditions { get; private set; }
 
@@ -95,7 +139,7 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
-      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentsConditionWrapper>(model.PaymentsConditions.Select(e => new PaymentsConditionWrapper(e, ExistsWrappers)));
+      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentsConditionWrapper>(model.PaymentsConditions.Select(e => PaymentsConditionWrapper.GetWrapper(e)));
       RegisterCollection(PaymentsConditions, model.PaymentsConditions);
 
 

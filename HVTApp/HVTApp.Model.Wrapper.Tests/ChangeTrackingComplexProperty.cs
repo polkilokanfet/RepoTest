@@ -23,7 +23,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldSetIsChangedOfFriendTestWrapper()
         {
-            var wrapper = new FriendTestWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
             wrapper.FriendAddressTest.City = "Salt Lake City";
             Assert.IsTrue(wrapper.IsChanged);
 
@@ -35,7 +35,7 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldRaisePropertyChangedEventForIsChangedPropertyOfFriendTestWrapper()
         {
             var fired = false;
-            var wrapper = new FriendTestWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
             wrapper.PropertyChanged += (s, e) =>
               {
                   if (e.PropertyName == nameof(wrapper.IsChanged))
@@ -51,7 +51,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldAcceptChanges()
         {
-            var wrapper = new FriendTestWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
             wrapper.FriendAddressTest.City = "Salt Lake City";
             Assert.AreEqual("Müllheim", wrapper.FriendAddressTest.CityOriginalValue);
 
@@ -65,7 +65,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldRejectChanges()
         {
-            var wrapper = new FriendTestWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
             wrapper.FriendAddressTest.City = "Salt Lake City";
             Assert.AreEqual("Müllheim", wrapper.FriendAddressTest.CityOriginalValue);
 

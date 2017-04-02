@@ -14,17 +14,17 @@ namespace HVTApp.Model.Wrapper.Tests
             FriendTest friend = new FriendTest
             {
                 FirstName = "Thomas",
-                FriendAddressTest = new FriendAddressTest(),
+                FriendAddressTest = new FriendAddressTest { City = "CityOld"},
                 FriendGroupTest = group,
                 Emails = new List<FriendEmailTest>()
             };
             group.FriendTests.Add(friend);
 
-            FriendTestWrapper wrapper = new FriendTestWrapper(friend);
+            FriendTestWrapper wrapper = FriendTestWrapper.GetWrapper(friend);
             Assert.IsFalse(wrapper.IsChanged);
 
             var old = wrapper.FriendAddressTest;
-            wrapper.FriendAddressTest = new FriendAddressTestWrapper(new FriendAddressTest());
+            wrapper.FriendAddressTest = FriendAddressTestWrapper.GetWrapper(new FriendAddressTest {City = "CityNew"});
             Assert.IsTrue(wrapper.IsChanged);
 
             wrapper.FriendAddressTest = old;
@@ -40,7 +40,7 @@ namespace HVTApp.Model.Wrapper.Tests
             child.Parent = parent;
             parent.Child = child;
 
-            ParentWrapper parentWrapper = new ParentWrapper(parent);
+            ParentWrapper parentWrapper = ParentWrapper.GetWrapper(parent);
 
             bool fired = false;
             parentWrapper.PropertyChanged += (sender, args) => { fired = true; };
@@ -52,7 +52,7 @@ namespace HVTApp.Model.Wrapper.Tests
             Assert.IsTrue(fired);
 
             Child otherChild = new Child {Id = 22};
-            ChildWrapper otherChildWrapper = new ChildWrapper(otherChild);
+            ChildWrapper otherChildWrapper = ChildWrapper.GetWrapper(otherChild);
             parentWrapper.Child = otherChildWrapper;
             Assert.IsTrue(parentWrapper.IsChanged);
 

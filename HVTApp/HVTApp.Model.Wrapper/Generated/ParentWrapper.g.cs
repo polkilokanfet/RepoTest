@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class ParentWrapper : WrapperBase<Parent>
   {
-    public ParentWrapper(Parent model) : base(model) { }
-    public ParentWrapper(Parent model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected ParentWrapper(Parent model) : base(model) { }
+    //public ParentWrapper(Parent model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static ParentWrapper GetWrapper(Parent model)
 	{
@@ -39,11 +39,22 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public ChildWrapper Child
-	{
-		get { return GetComplexProperty<Child, ChildWrapper>(nameof(Child)); }
-		set { SetComplexProperty<Child, ChildWrapper>(value, nameof(Child)); }
-	}
+	private ChildWrapper _fieldChild;
+	public ChildWrapper Child 
+    {
+        get { return _fieldChild; }
+        set
+        {
+            if (Equals(_fieldChild, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldChild);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldChild = value;
+        }
+    }
 
 
     #endregion

@@ -15,7 +15,7 @@ namespace HVTApp.Model.Wrapper.Tests
             {
                 FirstName = "Thomas",
                 FriendAddressTest = new FriendAddressTest { City = "Müllheim" },
-                FriendGroupTest = new FriendGroupTest() { FriendTests = new List<FriendTest>() },
+                FriendGroupTest = new FriendGroupTest { FriendTests = new List<FriendTest>() },
                 Emails = new List<FriendEmailTest>()
             };
         }
@@ -23,7 +23,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldSetIsValidOfRoot()
         {
-            var wrapper = new FriendTestWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
             Assert.IsTrue(wrapper.IsValid);
 
             wrapper.FriendAddressTest.City = "";
@@ -37,7 +37,7 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldSetIsValidOfRootAfterInitialization()
         {
             _friendTest.FriendAddressTest.City = "";
-            var wrapper = new FriendTestWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
             Assert.IsFalse(wrapper.IsValid);
 
             wrapper.FriendAddressTest.City = "Salt Lake City";
@@ -48,7 +48,7 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldRaisePropertyChangedEventForIsValidOfRoot()
         {
             var fired = false;
-            var wrapper = new FriendTestWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
             wrapper.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == nameof(wrapper.IsValid))

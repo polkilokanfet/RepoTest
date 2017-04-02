@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class PaymentActualWrapper : WrapperBase<PaymentActual>
   {
-    public PaymentActualWrapper(PaymentActual model) : base(model) { }
-    public PaymentActualWrapper(PaymentActual model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected PaymentActualWrapper(PaymentActual model) : base(model) { }
+    //public PaymentActualWrapper(PaymentActual model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static PaymentActualWrapper GetWrapper(PaymentActual model)
 	{
@@ -66,18 +66,40 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public PaymentDocumentWrapper PaymentDocument
-	{
-		get { return GetComplexProperty<PaymentDocument, PaymentDocumentWrapper>(nameof(PaymentDocument)); }
-		set { SetComplexProperty<PaymentDocument, PaymentDocumentWrapper>(value, nameof(PaymentDocument)); }
-	}
+	private PaymentDocumentWrapper _fieldPaymentDocument;
+	public PaymentDocumentWrapper PaymentDocument 
+    {
+        get { return _fieldPaymentDocument; }
+        set
+        {
+            if (Equals(_fieldPaymentDocument, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldPaymentDocument);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldPaymentDocument = value;
+        }
+    }
 
 
-	public PaymentsInfoWrapper PaymentsInfo
-	{
-		get { return GetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(nameof(PaymentsInfo)); }
-		set { SetComplexProperty<PaymentsInfo, PaymentsInfoWrapper>(value, nameof(PaymentsInfo)); }
-	}
+	private PaymentsInfoWrapper _fieldPaymentsInfo;
+	public PaymentsInfoWrapper PaymentsInfo 
+    {
+        get { return _fieldPaymentsInfo; }
+        set
+        {
+            if (Equals(_fieldPaymentsInfo, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldPaymentsInfo);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldPaymentsInfo = value;
+        }
+    }
 
 
     #endregion

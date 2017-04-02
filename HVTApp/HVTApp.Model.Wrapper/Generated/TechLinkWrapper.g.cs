@@ -7,8 +7,8 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class TechLinkWrapper : WrapperBase<TechLink>
   {
-    public TechLinkWrapper(TechLink model) : base(model) { }
-    public TechLinkWrapper(TechLink model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected TechLinkWrapper(TechLink model) : base(model) { }
+    //public TechLinkWrapper(TechLink model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static TechLinkWrapper GetWrapper(TechLink model)
 	{
@@ -39,24 +39,46 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public TechParameterWrapper Parameter
-	{
-		get { return GetComplexProperty<TechParameter, TechParameterWrapper>(nameof(Parameter)); }
-		set { SetComplexProperty<TechParameter, TechParameterWrapper>(value, nameof(Parameter)); }
-	}
+	private TechParameterWrapper _fieldParameter;
+	public TechParameterWrapper Parameter 
+    {
+        get { return _fieldParameter; }
+        set
+        {
+            if (Equals(_fieldParameter, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldParameter);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldParameter = value;
+        }
+    }
 
 
-	public TechLinkWrapper ParentLink
-	{
-		get { return GetComplexProperty<TechLink, TechLinkWrapper>(nameof(ParentLink)); }
-		set { SetComplexProperty<TechLink, TechLinkWrapper>(value, nameof(ParentLink)); }
-	}
+	private TechLinkWrapper _fieldParentLink;
+	public TechLinkWrapper ParentLink 
+    {
+        get { return _fieldParentLink; }
+        set
+        {
+            if (Equals(_fieldParentLink, value))
+                return;
+
+            UnRegisterComplexProperty(_fieldParentLink);
+
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+            _fieldParentLink = value;
+        }
+    }
 
 
     #endregion
 
 
-    #region CollectionComplexProperties
+    #region CollectionProperties
 
     public ValidatableChangeTrackingCollection<TechLinkWrapper> ChildLinks { get; private set; }
 
@@ -77,7 +99,7 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.ChildLinks == null) throw new ArgumentException("ChildLinks cannot be null");
-      ChildLinks = new ValidatableChangeTrackingCollection<TechLinkWrapper>(model.ChildLinks.Select(e => new TechLinkWrapper(e, ExistsWrappers)));
+      ChildLinks = new ValidatableChangeTrackingCollection<TechLinkWrapper>(model.ChildLinks.Select(e => TechLinkWrapper.GetWrapper(e)));
       RegisterCollection(ChildLinks, model.ChildLinks);
 
 
