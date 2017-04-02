@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public CompanyWrapper(Company model) : base(model) { }
     public CompanyWrapper(Company model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static CompanyWrapper GetWrapper(Company model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (CompanyWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new CompanyWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -110,13 +122,13 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(Company model)
     {
 
-        Form = GetWrapper<CompanyForm, CompanyFormWrapper>(model.Form);
+        Form = CompanyFormWrapper.GetWrapper(model.Form);
 
-        ParentCompany = GetWrapper<Company, CompanyWrapper>(model.ParentCompany);
+        ParentCompany = CompanyWrapper.GetWrapper(model.ParentCompany);
 
-        Address = GetWrapper<Address, AddressWrapper>(model.Address);
+        Address = AddressWrapper.GetWrapper(model.Address);
 
-        BankDetails = GetWrapper<BankDetails, BankDetailsWrapper>(model.BankDetails);
+        BankDetails = BankDetailsWrapper.GetWrapper(model.BankDetails);
 
     }
 

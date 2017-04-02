@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public LocalityTypeWrapper(LocalityType model) : base(model) { }
     public LocalityTypeWrapper(LocalityType model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static LocalityTypeWrapper GetWrapper(LocalityType model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (LocalityTypeWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new LocalityTypeWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

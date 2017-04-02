@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public UserRoleWrapper(UserRole model) : base(model) { }
     public UserRoleWrapper(UserRole model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static UserRoleWrapper GetWrapper(UserRole model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (UserRoleWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new UserRoleWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -48,7 +60,7 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(UserRole model)
     {
 
-        User = GetWrapper<User, UserWrapper>(model.User);
+        User = UserWrapper.GetWrapper(model.User);
 
     }
 

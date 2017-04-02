@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public DocumentWrapper(Document model) : base(model) { }
     public DocumentWrapper(Document model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static DocumentWrapper GetWrapper(Document model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (DocumentWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new DocumentWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -90,17 +102,17 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(Document model)
     {
 
-        RequestDocument = GetWrapper<Document, DocumentWrapper>(model.RequestDocument);
+        RequestDocument = DocumentWrapper.GetWrapper(model.RequestDocument);
 
-        Sender = GetWrapper<Company, CompanyWrapper>(model.Sender);
+        Sender = CompanyWrapper.GetWrapper(model.Sender);
 
-        SenderEmployee = GetWrapper<Employee, EmployeeWrapper>(model.SenderEmployee);
+        SenderEmployee = EmployeeWrapper.GetWrapper(model.SenderEmployee);
 
-        RecipientEmployee = GetWrapper<Employee, EmployeeWrapper>(model.RecipientEmployee);
+        RecipientEmployee = EmployeeWrapper.GetWrapper(model.RecipientEmployee);
 
-        RegistrationDetailsOfSender = GetWrapper<RegistrationDetails, RegistrationDetailsWrapper>(model.RegistrationDetailsOfSender);
+        RegistrationDetailsOfSender = RegistrationDetailsWrapper.GetWrapper(model.RegistrationDetailsOfSender);
 
-        RegistrationDetailsOfRecipient = GetWrapper<RegistrationDetails, RegistrationDetailsWrapper>(model.RegistrationDetailsOfRecipient);
+        RegistrationDetailsOfRecipient = RegistrationDetailsWrapper.GetWrapper(model.RegistrationDetailsOfRecipient);
 
     }
 

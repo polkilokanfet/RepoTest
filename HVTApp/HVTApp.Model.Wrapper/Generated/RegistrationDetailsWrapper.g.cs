@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public RegistrationDetailsWrapper(RegistrationDetails model) : base(model) { }
     public RegistrationDetailsWrapper(RegistrationDetails model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static RegistrationDetailsWrapper GetWrapper(RegistrationDetails model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (RegistrationDetailsWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new RegistrationDetailsWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

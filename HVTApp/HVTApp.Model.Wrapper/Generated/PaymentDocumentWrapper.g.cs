@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public PaymentDocumentWrapper(PaymentDocument model) : base(model) { }
     public PaymentDocumentWrapper(PaymentDocument model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static PaymentDocumentWrapper GetWrapper(PaymentDocument model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (PaymentDocumentWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new PaymentDocumentWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

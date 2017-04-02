@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public TechParametersGroupWrapper(TechParametersGroup model) : base(model) { }
     public TechParametersGroupWrapper(TechParametersGroup model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static TechParametersGroupWrapper GetWrapper(TechParametersGroup model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (TechParametersGroupWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new TechParametersGroupWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

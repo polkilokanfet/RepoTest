@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public ProductMainWrapper(ProductMain model) : base(model) { }
     public ProductMainWrapper(ProductMain model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static ProductMainWrapper GetWrapper(ProductMain model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (ProductMainWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new ProductMainWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -99,21 +111,21 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(ProductMain model)
     {
 
-        ProductsMainGroup = GetWrapper<ProductsMainGroup, ProductsMainGroupWrapper>(model.ProductsMainGroup);
+        ProductsMainGroup = ProductsMainGroupWrapper.GetWrapper(model.ProductsMainGroup);
 
-        Equipment = GetWrapper<Equipment, EquipmentWrapper>(model.Equipment);
+        Equipment = EquipmentWrapper.GetWrapper(model.Equipment);
 
-        TenderInfo = GetWrapper<TenderInfo, TenderInfoWrapper>(model.TenderInfo);
+        TenderInfo = TenderInfoWrapper.GetWrapper(model.TenderInfo);
 
-        OrderInfo = GetWrapper<OrderInfo, OrderInfoWrapper>(model.OrderInfo);
+        OrderInfo = OrderInfoWrapper.GetWrapper(model.OrderInfo);
 
-        DateInfo = GetWrapper<DateInfo, DateInfoWrapper>(model.DateInfo);
+        DateInfo = DateInfoWrapper.GetWrapper(model.DateInfo);
 
-        TermsInfo = GetWrapper<TermsInfo, TermsInfoWrapper>(model.TermsInfo);
+        TermsInfo = TermsInfoWrapper.GetWrapper(model.TermsInfo);
 
-        CostInfo = GetWrapper<CostInfo, CostInfoWrapper>(model.CostInfo);
+        CostInfo = CostInfoWrapper.GetWrapper(model.CostInfo);
 
-        PaymentsInfo = GetWrapper<PaymentsInfo, PaymentsInfoWrapper>(model.PaymentsInfo);
+        PaymentsInfo = PaymentsInfoWrapper.GetWrapper(model.PaymentsInfo);
 
     }
 

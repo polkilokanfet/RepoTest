@@ -91,5 +91,7 @@ namespace HVTApp.Model.Wrapper
         }
 
         public bool IsValid => true;
+
+        public bool IsInChecking => false;
     }
 }

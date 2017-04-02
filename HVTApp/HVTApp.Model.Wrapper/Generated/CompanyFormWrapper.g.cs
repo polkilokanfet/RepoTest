@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public CompanyFormWrapper(CompanyForm model) : base(model) { }
     public CompanyFormWrapper(CompanyForm model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static CompanyFormWrapper GetWrapper(CompanyForm model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (CompanyFormWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new CompanyFormWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

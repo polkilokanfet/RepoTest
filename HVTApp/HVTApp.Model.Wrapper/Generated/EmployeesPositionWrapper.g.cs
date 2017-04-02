@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public EmployeesPositionWrapper(EmployeesPosition model) : base(model) { }
     public EmployeesPositionWrapper(EmployeesPosition model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static EmployeesPositionWrapper GetWrapper(EmployeesPosition model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (EmployeesPositionWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new EmployeesPositionWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

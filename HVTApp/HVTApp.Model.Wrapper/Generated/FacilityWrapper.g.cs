@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public FacilityWrapper(Facility model) : base(model) { }
     public FacilityWrapper(Facility model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static FacilityWrapper GetWrapper(Facility model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (FacilityWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new FacilityWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -62,11 +74,11 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(Facility model)
     {
 
-        Type = GetWrapper<FacilityType, FacilityTypeWrapper>(model.Type);
+        Type = FacilityTypeWrapper.GetWrapper(model.Type);
 
-        OwnerCompany = GetWrapper<Company, CompanyWrapper>(model.OwnerCompany);
+        OwnerCompany = CompanyWrapper.GetWrapper(model.OwnerCompany);
 
-        Address = GetWrapper<Address, AddressWrapper>(model.Address);
+        Address = AddressWrapper.GetWrapper(model.Address);
 
     }
 

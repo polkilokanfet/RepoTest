@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public TechLinkWrapper(TechLink model) : base(model) { }
     public TechLinkWrapper(TechLink model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static TechLinkWrapper GetWrapper(TechLink model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (TechLinkWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new TechLinkWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -54,9 +66,9 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(TechLink model)
     {
 
-        Parameter = GetWrapper<TechParameter, TechParameterWrapper>(model.Parameter);
+        Parameter = TechParameterWrapper.GetWrapper(model.Parameter);
 
-        ParentLink = GetWrapper<TechLink, TechLinkWrapper>(model.ParentLink);
+        ParentLink = TechLinkWrapper.GetWrapper(model.ParentLink);
 
     }
 

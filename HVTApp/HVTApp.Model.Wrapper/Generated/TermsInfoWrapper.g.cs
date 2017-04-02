@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public TermsInfoWrapper(TermsInfo model) : base(model) { }
     public TermsInfoWrapper(TermsInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static TermsInfoWrapper GetWrapper(TermsInfo model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (TermsInfoWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new TermsInfoWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

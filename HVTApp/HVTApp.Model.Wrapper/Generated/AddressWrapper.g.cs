@@ -21,6 +21,18 @@ namespace HVTApp.Model.Wrapper
     public AddressWrapper(Address model) : base(model) { }
     public AddressWrapper(Address model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static AddressWrapper GetWrapper(Address model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (AddressWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new AddressWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -59,7 +71,7 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(Address model)
     {
 
-        Locality = GetWrapper<Locality, LocalityWrapper>(model.Locality);
+        Locality = LocalityWrapper.GetWrapper(model.Locality);
 
     }
 

@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public FacilityTypeWrapper(FacilityType model) : base(model) { }
     public FacilityTypeWrapper(FacilityType model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static FacilityTypeWrapper GetWrapper(FacilityType model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (FacilityTypeWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new FacilityTypeWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

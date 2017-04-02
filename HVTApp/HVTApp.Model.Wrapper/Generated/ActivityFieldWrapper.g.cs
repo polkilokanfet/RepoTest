@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public ActivityFieldWrapper(ActivityField model) : base(model) { }
     public ActivityFieldWrapper(ActivityField model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static ActivityFieldWrapper GetWrapper(ActivityField model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (ActivityFieldWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new ActivityFieldWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

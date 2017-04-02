@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public SpecificationWrapper(Specification model) : base(model) { }
     public SpecificationWrapper(Specification model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static SpecificationWrapper GetWrapper(Specification model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (SpecificationWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new SpecificationWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -79,7 +91,7 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(Specification model)
     {
 
-        Contract = GetWrapper<Contract, ContractWrapper>(model.Contract);
+        Contract = ContractWrapper.GetWrapper(model.Contract);
 
     }
 

@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public TenderInfoWrapper(TenderInfo model) : base(model) { }
     public TenderInfoWrapper(TenderInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static TenderInfoWrapper GetWrapper(TenderInfo model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (TenderInfoWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new TenderInfoWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -53,11 +65,11 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(TenderInfo model)
     {
 
-        ProductMain = GetWrapper<ProductMain, ProductMainWrapper>(model.ProductMain);
+        ProductMain = ProductMainWrapper.GetWrapper(model.ProductMain);
 
-        ProducerWinner = GetWrapper<Company, CompanyWrapper>(model.ProducerWinner);
+        ProducerWinner = CompanyWrapper.GetWrapper(model.ProducerWinner);
 
-        CostInfo = GetWrapper<CostInfo, CostInfoWrapper>(model.CostInfo);
+        CostInfo = CostInfoWrapper.GetWrapper(model.CostInfo);
 
     }
 

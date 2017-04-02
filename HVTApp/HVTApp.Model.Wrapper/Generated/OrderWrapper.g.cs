@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public OrderWrapper(Order model) : base(model) { }
     public OrderWrapper(Order model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static OrderWrapper GetWrapper(Order model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (OrderWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new OrderWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

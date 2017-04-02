@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public FriendAddressTestWrapper(FriendAddressTest model) : base(model) { }
     public FriendAddressTestWrapper(FriendAddressTest model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static FriendAddressTestWrapper GetWrapper(FriendAddressTest model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (FriendAddressTestWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new FriendAddressTestWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

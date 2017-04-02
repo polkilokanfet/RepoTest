@@ -54,6 +54,7 @@
     <Compile Include="Custom\ForTests\FriendEmailTestWrapper.cs" />
     <Compile Include="Custom\ForTests\FriendTestWrapper.cs" />
     <Compile Include="Custom\ProductMainWrapper.cs" />
+    <Compile Include="Custom\Repository.cs" />
     <Compile Include="Generated\ActivityFieldWrapper.g.cs" />
     <Compile Include="Generated\AddressWrapper.g.cs" />
     <Compile Include="Generated\BankDetailsWrapper.g.cs" />

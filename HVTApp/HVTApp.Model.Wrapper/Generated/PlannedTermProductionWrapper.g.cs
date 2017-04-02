@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public PlannedTermProductionWrapper(PlannedTermProduction model) : base(model) { }
     public PlannedTermProductionWrapper(PlannedTermProduction model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static PlannedTermProductionWrapper GetWrapper(PlannedTermProduction model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (PlannedTermProductionWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new PlannedTermProductionWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

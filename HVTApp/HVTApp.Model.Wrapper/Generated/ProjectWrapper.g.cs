@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public ProjectWrapper(Project model) : base(model) { }
     public ProjectWrapper(Project model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static ProjectWrapper GetWrapper(Project model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (ProjectWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new ProjectWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -88,7 +100,7 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(Project model)
     {
 
-        Manager = GetWrapper<User, UserWrapper>(model.Manager);
+        Manager = UserWrapper.GetWrapper(model.Manager);
 
     }
 

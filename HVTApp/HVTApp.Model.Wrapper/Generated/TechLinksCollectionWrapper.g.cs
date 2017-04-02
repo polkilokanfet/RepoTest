@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public TechLinksCollectionWrapper(TechLinksCollection model) : base(model) { }
     public TechLinksCollectionWrapper(TechLinksCollection model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static TechLinksCollectionWrapper GetWrapper(TechLinksCollection model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (TechLinksCollectionWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new TechLinksCollectionWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

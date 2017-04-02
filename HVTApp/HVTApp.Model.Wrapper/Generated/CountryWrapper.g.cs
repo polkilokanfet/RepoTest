@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public CountryWrapper(Country model) : base(model) { }
     public CountryWrapper(Country model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static CountryWrapper GetWrapper(Country model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (CountryWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new CountryWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public PaymentBaseWrapper(PaymentBase model) : base(model) { }
     public PaymentBaseWrapper(PaymentBase model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static PaymentBaseWrapper GetWrapper(PaymentBase model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (PaymentBaseWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new PaymentBaseWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -57,7 +69,7 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(PaymentBase model)
     {
 
-        PaymentsInfo = GetWrapper<PaymentsInfo, PaymentsInfoWrapper>(model.PaymentsInfo);
+        PaymentsInfo = PaymentsInfoWrapper.GetWrapper(model.PaymentsInfo);
 
     }
 

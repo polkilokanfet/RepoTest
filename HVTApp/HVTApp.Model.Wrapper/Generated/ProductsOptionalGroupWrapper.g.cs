@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public ProductsOptionalGroupWrapper(ProductsOptionalGroup model) : base(model) { }
     public ProductsOptionalGroupWrapper(ProductsOptionalGroup model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static ProductsOptionalGroupWrapper GetWrapper(ProductsOptionalGroup model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (ProductsOptionalGroupWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new ProductsOptionalGroupWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

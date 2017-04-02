@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public CostInfoWrapper(CostInfo model) : base(model) { }
     public CostInfoWrapper(CostInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static CostInfoWrapper GetWrapper(CostInfo model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (CostInfoWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new CostInfoWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

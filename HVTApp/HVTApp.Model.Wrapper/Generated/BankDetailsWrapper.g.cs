@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public BankDetailsWrapper(BankDetails model) : base(model) { }
     public BankDetailsWrapper(BankDetails model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static BankDetailsWrapper GetWrapper(BankDetails model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (BankDetailsWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new BankDetailsWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

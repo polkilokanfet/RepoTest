@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public OfferUnitWrapper(OfferUnit model) : base(model) { }
     public OfferUnitWrapper(OfferUnit model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static OfferUnitWrapper GetWrapper(OfferUnit model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (OfferUnitWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new OfferUnitWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -78,11 +90,11 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(OfferUnit model)
     {
 
-        Equipment = GetWrapper<Equipment, EquipmentWrapper>(model.Equipment);
+        Equipment = EquipmentWrapper.GetWrapper(model.Equipment);
 
-        Offer = GetWrapper<Offer, OfferWrapper>(model.Offer);
+        Offer = OfferWrapper.GetWrapper(model.Offer);
 
-        PlannedTermProduction = GetWrapper<PlannedTermProduction, PlannedTermProductionWrapper>(model.PlannedTermProduction);
+        PlannedTermProduction = PlannedTermProductionWrapper.GetWrapper(model.PlannedTermProduction);
 
     }
 

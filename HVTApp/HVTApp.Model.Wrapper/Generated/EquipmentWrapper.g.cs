@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public EquipmentWrapper(Equipment model) : base(model) { }
     public EquipmentWrapper(Equipment model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static EquipmentWrapper GetWrapper(Equipment model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (EquipmentWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new EquipmentWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

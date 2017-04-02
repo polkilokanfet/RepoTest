@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public EmployeeWrapper(Employee model) : base(model) { }
     public EmployeeWrapper(Employee model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static EmployeeWrapper GetWrapper(Employee model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (EmployeeWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new EmployeeWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -91,9 +103,9 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(Employee model)
     {
 
-        Company = GetWrapper<Company, CompanyWrapper>(model.Company);
+        Company = CompanyWrapper.GetWrapper(model.Company);
 
-        Position = GetWrapper<EmployeesPosition, EmployeesPositionWrapper>(model.Position);
+        Position = EmployeesPositionWrapper.GetWrapper(model.Position);
 
     }
 

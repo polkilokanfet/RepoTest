@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public TenderWrapper(Tender model) : base(model) { }
     public TenderWrapper(Tender model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static TenderWrapper GetWrapper(Tender model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (TenderWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new TenderWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -93,9 +105,9 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(Tender model)
     {
 
-        Project = GetWrapper<Project, ProjectWrapper>(model.Project);
+        Project = ProjectWrapper.GetWrapper(model.Project);
 
-        Winner = GetWrapper<Company, CompanyWrapper>(model.Winner);
+        Winner = CompanyWrapper.GetWrapper(model.Winner);
 
     }
 

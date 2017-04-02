@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public ParentWrapper(Parent model) : base(model) { }
     public ParentWrapper(Parent model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static ParentWrapper GetWrapper(Parent model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (ParentWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new ParentWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -39,7 +51,7 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(Parent model)
     {
 
-        Child = GetWrapper<Child, ChildWrapper>(model.Child);
+        Child = ChildWrapper.GetWrapper(model.Child);
 
     }
 

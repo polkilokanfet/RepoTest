@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public ProductsMainGroupWrapper(ProductsMainGroup model) : base(model) { }
     public ProductsMainGroupWrapper(ProductsMainGroup model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static ProductsMainGroupWrapper GetWrapper(ProductsMainGroup model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (ProductsMainGroupWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new ProductsMainGroupWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -78,11 +90,11 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(ProductsMainGroup model)
     {
 
-        Project = GetWrapper<Project, ProjectWrapper>(model.Project);
+        Project = ProjectWrapper.GetWrapper(model.Project);
 
-        Facility = GetWrapper<Facility, FacilityWrapper>(model.Facility);
+        Facility = FacilityWrapper.GetWrapper(model.Facility);
 
-        Specification = GetWrapper<Specification, SpecificationWrapper>(model.Specification);
+        Specification = SpecificationWrapper.GetWrapper(model.Specification);
 
     }
 

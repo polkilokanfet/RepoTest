@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public StandartPaymentConditionsWrapper(StandartPaymentConditions model) : base(model) { }
     public StandartPaymentConditionsWrapper(StandartPaymentConditions model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static StandartPaymentConditionsWrapper GetWrapper(StandartPaymentConditions model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (StandartPaymentConditionsWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new StandartPaymentConditionsWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 

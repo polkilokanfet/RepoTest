@@ -50,6 +50,18 @@ namespace HVTApp.Model.Wrapper
   {
     public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model) : base(model) { }
     public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+
+	public static <#=modelType.Name#>Wrapper GetWrapper(<#=modelType.Name#> model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (<#=modelType.Name#>Wrapper)Repository.ModelWrapperDictionary[model];
+
+		return new <#=modelType.Name#>Wrapper(model);
+	}
+
 <#
 	GenerateSimpleProperties(simpleSetProperties);
 	GenerateComplexProperties(complexSetProperties);
@@ -276,7 +288,7 @@ namespace HVTApp.Model.Wrapper
 		var propertyName = complexProperty.Name;
 		var propertyType = complexProperty.PropertyType.Name;
 #>
-        <#= propertyName #> = GetWrapper<<#= propertyType #>, <#= propertyType #>Wrapper>(model.<#= propertyName #>);
+        <#= propertyName #> = <#= propertyType #>Wrapper.GetWrapper(model.<#= propertyName #>);
 <#+
       }
 #>

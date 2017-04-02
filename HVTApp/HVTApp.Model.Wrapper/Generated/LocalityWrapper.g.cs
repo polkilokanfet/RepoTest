@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public LocalityWrapper(Locality model) : base(model) { }
     public LocalityWrapper(Locality model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static LocalityWrapper GetWrapper(Locality model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (LocalityWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new LocalityWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -55,9 +67,9 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(Locality model)
     {
 
-        LocalityType = GetWrapper<LocalityType, LocalityTypeWrapper>(model.LocalityType);
+        LocalityType = LocalityTypeWrapper.GetWrapper(model.LocalityType);
 
-        DistrictsRegion = GetWrapper<DistrictsRegion, DistrictsRegionWrapper>(model.DistrictsRegion);
+        DistrictsRegion = DistrictsRegionWrapper.GetWrapper(model.DistrictsRegion);
 
     }
 

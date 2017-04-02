@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public DistrictWrapper(District model) : base(model) { }
     public DistrictWrapper(District model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static DistrictWrapper GetWrapper(District model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (DistrictWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new DistrictWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -48,7 +60,7 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(District model)
     {
 
-        Country = GetWrapper<Country, CountryWrapper>(model.Country);
+        Country = CountryWrapper.GetWrapper(model.Country);
 
     }
 

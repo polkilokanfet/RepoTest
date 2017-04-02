@@ -39,12 +39,16 @@ namespace HVTApp.Model.Wrapper
             if (!ExistsWrappers.ContainsKey(model))
                 ExistsWrappers.Add(model, this);
 
+            if (!Repository.ModelWrapperDictionary.ContainsKey(model))
+                Repository.ModelWrapperDictionary.Add(model, this);
+
             Model = model;
 
             InitializeComplexProperties(model);
             InitializeCollectionComplexProperties(model);
             InitializeCollectionSimpleProperties(model);
 
+            IsInChecking = false;
             Validate();
 
             RunInConstructor();
@@ -65,12 +69,50 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Произошли ли изменения каких-либо свойств объекта.
         /// </summary>
-        public bool IsChanged => _originalValues.Count > 0 || _trackingObjects.Any(x => x.IsChanged);
+        public bool IsChanged
+        {
+            get
+            {
+                IsInChecking = true;
+
+                if (_originalValues.Count > 0)
+                {
+                    IsInChecking = false;
+                    return true;
+                }
+
+                bool result = _trackingObjects.Where(x => !x.IsInChecking).Any(x => x.IsChanged);
+
+                IsInChecking = false;
+                return result;
+            }
+        }
+
+        //public bool IsChanged => _originalValues.Count > 0 || _trackingObjects.Any(x => x.IsChanged);
 
         /// <summary>
         /// Все ли свойства валидны.
         /// </summary>
-        public bool IsValid => !HasErrors && _trackingObjects.All(x => x.IsValid);
+        public bool IsValid
+        {
+            get
+            {
+                IsInChecking = true;
+
+                if (HasErrors)
+                    return false;
+
+                bool result = _trackingObjects.Where(x => !x.IsInChecking).All(x => x.IsValid);
+
+                IsInChecking = false;
+                return result;
+            }
+        }
+
+        public bool IsInChecking { get; private set; }
+
+
+        //public bool IsValid => !HasErrors && _trackingObjects.All(x => x.IsValid);
 
         /// <summary>
         /// Принять изменения объекта.
@@ -282,9 +324,17 @@ namespace HVTApp.Model.Wrapper
         /// <param name="propertyChangedEventArgs"></param>
         private void TrackingObjectOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            if (propertyChangedEventArgs.PropertyName == nameof(IsChanged)) OnPropertyChanged(nameof(IsChanged));
-            if (propertyChangedEventArgs.PropertyName == nameof(IsValid)) OnPropertyChanged(nameof(IsValid));
+            if (!_whoRisedEventPropertyChanged.Contains(sender))
+            {
+                _whoRisedEventPropertyChanged.Add(sender);
+                if (propertyChangedEventArgs.PropertyName == nameof(IsChanged)) OnPropertyChanged(nameof(IsChanged));
+                if (propertyChangedEventArgs.PropertyName == nameof(IsValid)) OnPropertyChanged(nameof(IsValid));
+            }
+
+            _whoRisedEventPropertyChanged.Clear();
         }
+
+        private readonly List<object> _whoRisedEventPropertyChanged = new List<object>();
 
         /// <summary>
         /// Регистрация Complex свойства-коллекции.

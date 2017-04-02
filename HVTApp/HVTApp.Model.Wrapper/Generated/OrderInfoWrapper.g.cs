@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public OrderInfoWrapper(OrderInfo model) : base(model) { }
     public OrderInfoWrapper(OrderInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static OrderInfoWrapper GetWrapper(OrderInfo model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (OrderInfoWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new OrderInfoWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -64,9 +76,9 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(OrderInfo model)
     {
 
-        Product = GetWrapper<ProductBase, ProductBaseWrapper>(model.Product);
+        Product = ProductBaseWrapper.GetWrapper(model.Product);
 
-        Order = GetWrapper<Order, OrderWrapper>(model.Order);
+        Order = OrderWrapper.GetWrapper(model.Order);
 
     }
 

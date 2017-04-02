@@ -10,6 +10,18 @@ namespace HVTApp.Model.Wrapper
     public FriendTestWrapper(FriendTest model) : base(model) { }
     public FriendTestWrapper(FriendTest model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
+	public static FriendTestWrapper GetWrapper(FriendTest model)
+	{
+	    if (model == null)
+	        return null;
+
+		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+			return (FriendTestWrapper)Repository.ModelWrapperDictionary[model];
+
+		return new FriendTestWrapper(model);
+	}
+
+
 
     #region SimpleProperties
 
@@ -121,9 +133,9 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(FriendTest model)
     {
 
-        FriendAddressTest = GetWrapper<FriendAddressTest, FriendAddressTestWrapper>(model.FriendAddressTest);
+        FriendAddressTest = FriendAddressTestWrapper.GetWrapper(model.FriendAddressTest);
 
-        FriendGroupTest = GetWrapper<FriendGroupTest, FriendGroupTestWrapper>(model.FriendGroupTest);
+        FriendGroupTest = FriendGroupTestWrapper.GetWrapper(model.FriendGroupTest);
 
     }
 
