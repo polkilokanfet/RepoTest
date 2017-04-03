@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class FriendGroupTestWrapper : WrapperBase<FriendGroupTest>
   {
     protected FriendGroupTestWrapper(FriendGroupTest model) : base(model) { }
-    //public FriendGroupTestWrapper(FriendGroupTest model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static FriendGroupTestWrapper GetWrapper(FriendGroupTest model)
 	{

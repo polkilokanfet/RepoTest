@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class LocalityWrapper : WrapperBase<Locality>
   {
     protected LocalityWrapper(Locality model) : base(model) { }
-    //public LocalityWrapper(Locality model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static LocalityWrapper GetWrapper(Locality model)
 	{

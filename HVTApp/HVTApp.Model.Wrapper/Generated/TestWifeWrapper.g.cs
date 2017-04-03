@@ -5,20 +5,19 @@ using HVTApp.Model;
 
 namespace HVTApp.Model.Wrapper
 {
-  public partial class ChildWrapper : WrapperBase<Child>
+  public partial class TestWifeWrapper : WrapperBase<TestWife>
   {
-    protected ChildWrapper(Child model) : base(model) { }
-    //public ChildWrapper(Child model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
+    protected TestWifeWrapper(TestWife model) : base(model) { }
 
-	public static ChildWrapper GetWrapper(Child model)
+	public static TestWifeWrapper GetWrapper(TestWife model)
 	{
 	    if (model == null)
 	        return null;
 
 		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-			return (ChildWrapper)Repository.ModelWrapperDictionary[model];
+			return (TestWifeWrapper)Repository.ModelWrapperDictionary[model];
 
-		return new ChildWrapper(model);
+		return new TestWifeWrapper(model);
 	}
 
 
@@ -48,18 +47,18 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private ParentWrapper _fieldParent;
-	public ParentWrapper Parent 
+	private TestHusbandWrapper _fieldHusband;
+	public TestHusbandWrapper Husband 
     {
-        get { return _fieldParent; }
+        get { return _fieldHusband; }
         set
         {
-            if (Equals(_fieldParent, value))
+            if (Equals(_fieldHusband, value))
                 return;
 
-            UnRegisterComplexProperty(_fieldParent);
+            UnRegisterComplexProperty(_fieldHusband);
 
-            _fieldParent = value;
+            _fieldHusband = value;
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
@@ -68,10 +67,10 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    protected override void InitializeComplexProperties(Child model)
+    protected override void InitializeComplexProperties(TestWife model)
     {
 
-        Parent = ParentWrapper.GetWrapper(model.Parent);
+        Husband = TestHusbandWrapper.GetWrapper(model.Husband);
 
     }
 

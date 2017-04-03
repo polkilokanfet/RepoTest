@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class PaymentsInfoWrapper : WrapperBase<PaymentsInfo>
   {
     protected PaymentsInfoWrapper(PaymentsInfo model) : base(model) { }
-    //public PaymentsInfoWrapper(PaymentsInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static PaymentsInfoWrapper GetWrapper(PaymentsInfo model)
 	{

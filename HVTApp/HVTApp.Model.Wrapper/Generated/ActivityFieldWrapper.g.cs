@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class ActivityFieldWrapper : WrapperBase<ActivityField>
   {
     protected ActivityFieldWrapper(ActivityField model) : base(model) { }
-    //public ActivityFieldWrapper(ActivityField model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static ActivityFieldWrapper GetWrapper(ActivityField model)
 	{

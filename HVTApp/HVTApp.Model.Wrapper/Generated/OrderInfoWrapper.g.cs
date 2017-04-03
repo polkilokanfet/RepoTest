@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class OrderInfoWrapper : WrapperBase<OrderInfo>
   {
     protected OrderInfoWrapper(OrderInfo model) : base(model) { }
-    //public OrderInfoWrapper(OrderInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static OrderInfoWrapper GetWrapper(OrderInfo model)
 	{

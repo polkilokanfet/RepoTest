@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class TechLinksCollectionWrapper : WrapperBase<TechLinksCollection>
   {
     protected TechLinksCollectionWrapper(TechLinksCollection model) : base(model) { }
-    //public TechLinksCollectionWrapper(TechLinksCollection model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static TechLinksCollectionWrapper GetWrapper(TechLinksCollection model)
 	{

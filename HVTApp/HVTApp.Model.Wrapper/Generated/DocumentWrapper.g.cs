@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class DocumentWrapper : WrapperBase<Document>
   {
     protected DocumentWrapper(Document model) : base(model) { }
-    //public DocumentWrapper(Document model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static DocumentWrapper GetWrapper(Document model)
 	{

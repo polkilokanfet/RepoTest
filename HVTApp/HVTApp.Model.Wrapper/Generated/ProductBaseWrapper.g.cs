@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class ProductBaseWrapper : WrapperBase<ProductBase>
   {
     protected ProductBaseWrapper(ProductBase model) : base(model) { }
-    //public ProductBaseWrapper(ProductBase model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static ProductBaseWrapper GetWrapper(ProductBase model)
 	{

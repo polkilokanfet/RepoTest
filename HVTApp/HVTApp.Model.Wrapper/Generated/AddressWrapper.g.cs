@@ -19,7 +19,6 @@ namespace HVTApp.Model.Wrapper
   public partial class AddressWrapper : WrapperBase<Address>
   {
     protected AddressWrapper(Address model) : base(model) { }
-    //public AddressWrapper(Address model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static AddressWrapper GetWrapper(Address model)
 	{

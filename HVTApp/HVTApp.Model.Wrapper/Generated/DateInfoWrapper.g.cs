@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class DateInfoWrapper : WrapperBase<DateInfo>
   {
     protected DateInfoWrapper(DateInfo model) : base(model) { }
-    //public DateInfoWrapper(DateInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static DateInfoWrapper GetWrapper(DateInfo model)
 	{

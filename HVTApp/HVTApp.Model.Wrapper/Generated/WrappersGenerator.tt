@@ -48,7 +48,6 @@ namespace HVTApp.Model.Wrapper
   public partial class <#=modelType.Name#>Wrapper : WrapperBase<<#=modelType.Name#>>
   {
     protected <#=modelType.Name#>Wrapper(<#=modelType.Name#> model) : base(model) { }
-    //public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static <#=modelType.Name#>Wrapper GetWrapper(<#=modelType.Name#> model)
 	{

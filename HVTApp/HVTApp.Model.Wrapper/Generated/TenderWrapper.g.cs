@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class TenderWrapper : WrapperBase<Tender>
   {
     protected TenderWrapper(Tender model) : base(model) { }
-    //public TenderWrapper(Tender model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static TenderWrapper GetWrapper(Tender model)
 	{

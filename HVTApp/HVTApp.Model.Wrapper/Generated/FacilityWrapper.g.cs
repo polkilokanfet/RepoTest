@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class FacilityWrapper : WrapperBase<Facility>
   {
     protected FacilityWrapper(Facility model) : base(model) { }
-    //public FacilityWrapper(Facility model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static FacilityWrapper GetWrapper(Facility model)
 	{

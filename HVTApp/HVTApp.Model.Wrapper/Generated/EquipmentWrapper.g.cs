@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class EquipmentWrapper : WrapperBase<Equipment>
   {
     protected EquipmentWrapper(Equipment model) : base(model) { }
-    //public EquipmentWrapper(Equipment model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static EquipmentWrapper GetWrapper(Equipment model)
 	{

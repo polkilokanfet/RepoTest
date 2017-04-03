@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class OfferUnitWrapper : WrapperBase<OfferUnit>
   {
     protected OfferUnitWrapper(OfferUnit model) : base(model) { }
-    //public OfferUnitWrapper(OfferUnit model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static OfferUnitWrapper GetWrapper(OfferUnit model)
 	{

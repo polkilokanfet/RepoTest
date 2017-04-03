@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class ProjectWrapper : WrapperBase<Project>
   {
     protected ProjectWrapper(Project model) : base(model) { }
-    //public ProjectWrapper(Project model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static ProjectWrapper GetWrapper(Project model)
 	{

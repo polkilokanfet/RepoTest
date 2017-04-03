@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class SpecificationWrapper : WrapperBase<Specification>
   {
     protected SpecificationWrapper(Specification model) : base(model) { }
-    //public SpecificationWrapper(Specification model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static SpecificationWrapper GetWrapper(Specification model)
 	{

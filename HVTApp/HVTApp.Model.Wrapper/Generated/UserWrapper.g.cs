@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class UserWrapper : WrapperBase<User>
   {
     protected UserWrapper(User model) : base(model) { }
-    //public UserWrapper(User model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static UserWrapper GetWrapper(User model)
 	{

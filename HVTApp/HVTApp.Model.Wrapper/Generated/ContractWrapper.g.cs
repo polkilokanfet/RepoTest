@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class ContractWrapper : WrapperBase<Contract>
   {
     protected ContractWrapper(Contract model) : base(model) { }
-    //public ContractWrapper(Contract model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static ContractWrapper GetWrapper(Contract model)
 	{

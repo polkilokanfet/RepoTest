@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class StandartPaymentConditionsWrapper : WrapperBase<StandartPaymentConditions>
   {
     protected StandartPaymentConditionsWrapper(StandartPaymentConditions model) : base(model) { }
-    //public StandartPaymentConditionsWrapper(StandartPaymentConditions model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static StandartPaymentConditionsWrapper GetWrapper(StandartPaymentConditions model)
 	{

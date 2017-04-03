@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HVTApp.Model.Wrapper.Tests
@@ -32,83 +33,98 @@ namespace HVTApp.Model.Wrapper.Tests
         }
 
         [TestMethod]
+        [SuppressMessage("ReSharper", "HeuristicUnreachableCode")]
         public void NavigationPropertiesTest()
         {
-            Parent parent = new Parent {Id = 1};
-            Child child = new Child {Id = 2};
+            TestHusband husband = new TestHusband {Id = 1};
+            TestWife wife = new TestWife {Id = 2};
 
-            child.Parent = parent;
-            parent.Child = child;
+            wife.Husband = husband;
+            husband.Wife = wife;
 
-            ParentWrapper parentWrapper = ParentWrapper.GetWrapper(parent);
+            TestHusbandWrapper husbandWrapper = TestHusbandWrapper.GetWrapper(husband);
 
             bool fired = false;
-            parentWrapper.PropertyChanged += (sender, args) => { fired = true; };
+            husbandWrapper.PropertyChanged += (sender, args) => { fired = true; };
 
-            Assert.IsFalse(parentWrapper.IsChanged);
-            var childWrapper = parentWrapper.Child;
-            childWrapper.N = 10;
-            Assert.IsTrue(parentWrapper.IsChanged);
+            Assert.IsFalse(husbandWrapper.IsChanged);
+            var wifeWrapper = husbandWrapper.Wife;
+            wifeWrapper.N = 10;
+            Assert.IsTrue(husbandWrapper.IsChanged);
             Assert.IsTrue(fired);
 
-            Child otherChild = new Child {Id = 22};
-            ChildWrapper otherChildWrapper = ChildWrapper.GetWrapper(otherChild);
-            parentWrapper.Child = otherChildWrapper;
-            Assert.IsTrue(parentWrapper.IsChanged);
+            TestWife otherTestWife = new TestWife {Id = 22};
+            TestWifeWrapper otherTestWifeWrapper = TestWifeWrapper.GetWrapper(otherTestWife);
+            husbandWrapper.Wife = otherTestWifeWrapper;
+            Assert.IsTrue(husbandWrapper.IsChanged);
 
             fired = false;
-            childWrapper.N = 33;
+            wifeWrapper.N = 33;
             Assert.IsFalse(fired);
 
             fired = false;
-            parentWrapper.Child = null;
-            Assert.AreEqual(parentWrapper.Child, null);
+            husbandWrapper.Wife = null;
+            Assert.AreEqual(husbandWrapper.Wife, null);
+            Assert.IsTrue(fired);
+
+            fired = false;
+            TestChildWrapper childWrapper = TestChildWrapper.GetWrapper(new TestChild { Husband = husband });
+            husbandWrapper.Children.Add(childWrapper);
+            Assert.IsTrue(fired);
+
+            fired = false;
+            childWrapper.Id = 1;
             Assert.IsTrue(fired);
         }
 
         [TestMethod]
         public void IsChangedNavigationProperty()
         {
-            Parent parent = new Parent { Id = 1 };
-            Child child1 = new Child { Id = 2 };
+            TestHusband husband = new TestHusband { Id = 1 };
+            TestWife wife1 = new TestWife { Id = 2 };
 
-            child1.Parent = parent;
-            parent.Child = child1;
+            wife1.Husband = husband;
+            husband.Wife = wife1;
 
-            ParentWrapper parentWrapper = ParentWrapper.GetWrapper(parent);
-            Assert.IsFalse(parentWrapper.IsChanged);
+            TestHusbandWrapper husbandWrapper = TestHusbandWrapper.GetWrapper(husband);
+            Assert.IsFalse(husbandWrapper.IsChanged);
 
-            var child1Wrapper = parentWrapper.Child;
-            parentWrapper.Child = ChildWrapper.GetWrapper(new Child { Id = 3 });
-            Assert.IsTrue(parentWrapper.IsChanged);
+            var wife1Wrapper = husbandWrapper.Wife;
+            husbandWrapper.Wife = TestWifeWrapper.GetWrapper(new TestWife { Id = 3 });
+            Assert.IsTrue(husbandWrapper.IsChanged);
 
-            parentWrapper.Child = child1Wrapper;
-            Assert.IsFalse(parentWrapper.IsChanged);
+            husbandWrapper.Wife = wife1Wrapper;
+            Assert.IsFalse(husbandWrapper.IsChanged);
         }
 
         [TestMethod]
         public void AcceptAndRejectChangesInObjectsWithNavigationProperty()
         {
-            Parent parent = new Parent { Id = 1 };
-            Child child1 = new Child { Id = 2 };
+            TestHusband husband = new TestHusband { Id = 1 };
+            TestWife wife1 = new TestWife { Id = 2 };
 
-            child1.Parent = parent;
-            parent.Child = child1;
+            wife1.Husband = husband;
+            husband.Wife = wife1;
 
-            ParentWrapper parentWrapper = ParentWrapper.GetWrapper(parent);
-            Assert.IsFalse(parentWrapper.IsChanged);
+            TestHusbandWrapper husbandWrapper = TestHusbandWrapper.GetWrapper(husband);
+            Assert.IsFalse(husbandWrapper.IsChanged);
 
-            parentWrapper.Child.Id++;
-            Assert.IsTrue(parentWrapper.IsChanged);
-            parentWrapper.AcceptChanges();
-            Assert.IsFalse(parentWrapper.IsChanged);
+            husbandWrapper.Wife.Id++;
+            Assert.IsTrue(husbandWrapper.IsChanged);
+            husbandWrapper.AcceptChanges();
+            Assert.IsFalse(husbandWrapper.IsChanged);
 
-            int oldId = parentWrapper.Child.Id;
-            parentWrapper.Child.Id++;
-            Assert.IsTrue(parentWrapper.IsChanged);
-            parentWrapper.RejectChanges();
-            Assert.IsFalse(parentWrapper.IsChanged);
-            Assert.AreEqual(oldId, parentWrapper.Child.Id);
+            int oldId = husbandWrapper.Wife.Id;
+            husbandWrapper.Wife.Id++;
+            Assert.IsTrue(husbandWrapper.IsChanged);
+            husbandWrapper.RejectChanges();
+            Assert.IsFalse(husbandWrapper.IsChanged);
+            Assert.AreEqual(oldId, husbandWrapper.Wife.Id);
+
+            TestChildWrapper childWrapper = TestChildWrapper.GetWrapper(new TestChild { Husband = husband });
+            husbandWrapper.Children.Add(childWrapper);
+            Assert.IsTrue(husbandWrapper.IsChanged);
+
         }
     }
 }

@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class TechParametersGroupWrapper : WrapperBase<TechParametersGroup>
   {
     protected TechParametersGroupWrapper(TechParametersGroup model) : base(model) { }
-    //public TechParametersGroupWrapper(TechParametersGroup model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static TechParametersGroupWrapper GetWrapper(TechParametersGroup model)
 	{

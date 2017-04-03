@@ -8,7 +8,6 @@ namespace HVTApp.Model.Wrapper
   public partial class TermsInfoWrapper : WrapperBase<TermsInfo>
   {
     protected TermsInfoWrapper(TermsInfo model) : base(model) { }
-    //public TermsInfoWrapper(TermsInfo model, Dictionary<IBaseEntity, object> existsWrappers) : base(model, existsWrappers) { }
 
 	public static TermsInfoWrapper GetWrapper(TermsInfo model)
 	{
