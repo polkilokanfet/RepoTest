@@ -125,9 +125,6 @@ namespace HVTApp.Model.Wrapper
             var removed = _originalCollection.Except(this).ToList();            //список удаленных элементов
             var changed = this.Except(added).Where(x => x.IsChanged).ToList();  //список измененных элементов
 
-            //var dettachedItems = _addedItems.Concat(_modifiedItems).Concat(_removedItems).Concat(added).Concat(removed).ToList();
-            //DettachedItemPropertyChangedHandler(dettachedItems);
-
             DettachedItemPropertyChangedHandler(added);
             AttachedItemPropertyChangedHandler(added);
             DettachedItemPropertyChangedHandler(removed);

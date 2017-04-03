@@ -45,25 +45,21 @@ namespace HVTApp.Model.Wrapper.Tests
             TestHusbandWrapper husbandWrapper = TestHusbandWrapper.GetWrapper(husband);
 
             bool fired = false;
-            husbandWrapper.PropertyChanged += (sender, args) => 
-            {
-                if (args.PropertyName == "IsChanged")
-                    fired = true;
-            };
+            husbandWrapper.PropertyChanged += (sender, args) => { fired = true; };
 
             Assert.IsFalse(husbandWrapper.IsChanged);
-            var originWifeWrapper = husbandWrapper.Wife;
-            originWifeWrapper.N = 10;
+            var wifeWrapper = husbandWrapper.Wife;
+            wifeWrapper.N = 10;
             Assert.IsTrue(husbandWrapper.IsChanged);
             Assert.IsTrue(fired);
 
-            TestWife otherWife = new TestWife {Id = 22};
-            TestWifeWrapper otherWifeWrapper = TestWifeWrapper.GetWrapper(otherWife);
-            husbandWrapper.Wife = otherWifeWrapper;
+            TestWife otherTestWife = new TestWife {Id = 22};
+            TestWifeWrapper otherTestWifeWrapper = TestWifeWrapper.GetWrapper(otherTestWife);
+            husbandWrapper.Wife = otherTestWifeWrapper;
             Assert.IsTrue(husbandWrapper.IsChanged);
 
             fired = false;
-            originWifeWrapper.N = 33;
+            wifeWrapper.N = 33;
             Assert.IsFalse(fired);
 
             fired = false;
@@ -86,6 +82,21 @@ namespace HVTApp.Model.Wrapper.Tests
             fired = false;
             childWrapper.Id++;
             Assert.IsFalse(fired);
+        }
+
+        [TestMethod]
+        public void abcd()
+        {
+            TestHusband husband = new TestHusband { Id = 1 };
+            TestWife wife = new TestWife { Id = 2 };
+            TestChild child = new TestChild() { Id = 3, Husband = husband, Wife = wife };
+
+            wife.Husband = husband;
+            husband.Wife = wife;
+            husband.Children.Add(child);
+
+            TestHusbandWrapper husbandWrapper = TestHusbandWrapper.GetWrapper(husband);
+
         }
 
         [TestMethod]
