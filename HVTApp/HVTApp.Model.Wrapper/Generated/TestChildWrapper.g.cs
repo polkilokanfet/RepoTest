@@ -24,6 +24,15 @@ namespace HVTApp.Model.Wrapper
 
     #region SimpleProperties
 
+    public System.String Name
+    {
+      get { return GetValue<System.String>(); }
+      set { SetValue(value); }
+    }
+    public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+    public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }

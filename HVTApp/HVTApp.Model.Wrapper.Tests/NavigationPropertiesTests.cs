@@ -89,11 +89,28 @@ namespace HVTApp.Model.Wrapper.Tests
         {
             TestHusband husband = new TestHusband { Id = 1 };
             TestWife wife = new TestWife { Id = 2 };
-            TestChild child = new TestChild() { Id = 3, Husband = husband, Wife = wife };
+            TestChild child = new TestChild { Id = 3, Husband = husband, Wife = wife };
 
             wife.Husband = husband;
             husband.Wife = wife;
             husband.Children.Add(child);
+
+            TestHusbandWrapper husbandWrapper = TestHusbandWrapper.GetWrapper(husband);
+
+        }
+
+        [TestMethod]
+        public void abcd2()
+        {
+            TestHusband husband = new TestHusband();
+            TestWife wife = new TestWife();
+            TestChild child1 = new TestChild { Id = 1, Husband = husband, Wife = wife };
+            TestChild child2 = new TestChild { Id = 2, Husband = husband, Wife = wife };
+
+            wife.Husband = husband;
+            husband.Wife = wife;
+            husband.Children.Add(child1);
+            husband.Children.Add(child2);
 
             TestHusbandWrapper husbandWrapper = TestHusbandWrapper.GetWrapper(husband);
 

@@ -61,6 +61,7 @@ namespace HVTApp.Model.Wrapper
         }
 
         private readonly List<object> _whoRisedEventPropertyChanged = new List<object>();
+        private readonly List<object> _itemsRisedIsValid = new List<object>();
 
         /// <summary>
         /// Обработчик изменения какого-либо свойства в члене коллекции.
@@ -76,8 +77,13 @@ namespace HVTApp.Model.Wrapper
                 //если изменился флаг валидности члена.
                 if (e.PropertyName == nameof(IsValid))
                 {
-                    //информируем о том, что коллекция изменила свою валидность.
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsValid)));
+                    if (!_itemsRisedIsValid.Contains(sender))
+                    {
+                        _itemsRisedIsValid.Add(sender);
+                        //информируем о том, что коллекция изменила свою валидность.
+                        OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsValid)));
+                    }
+                    //_itemsRisedIsValid.Remove(sender);
                 }
                 else
                 {
@@ -88,7 +94,7 @@ namespace HVTApp.Model.Wrapper
                     {
                         //информируем о том, что коллекция изменилась.
                         OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
-                        _whoRisedEventPropertyChanged.Clear();
+                        _whoRisedEventPropertyChanged.Remove(sender);
                         return;
                     }
 
@@ -115,7 +121,7 @@ namespace HVTApp.Model.Wrapper
                 }
             }
 
-            _whoRisedEventPropertyChanged.Clear();
+            _whoRisedEventPropertyChanged.Remove(sender);
         }
 
         //реакция на изменение коллекции (добавление или удаление элемента коллекции)
@@ -125,9 +131,10 @@ namespace HVTApp.Model.Wrapper
             var removed = _originalCollection.Except(this).ToList();            //список удаленных элементов
             var changed = this.Except(added).Where(x => x.IsChanged).ToList();  //список измененных элементов
 
-            DettachedItemPropertyChangedHandler(added);
+            var dettachedItems = _addedItems.Concat(_modifiedItems).Concat(_removedItems).Concat(added).Concat(removed).ToList();
+            DettachedItemPropertyChangedHandler(dettachedItems);
+
             AttachedItemPropertyChangedHandler(added);
-            DettachedItemPropertyChangedHandler(removed);
 
             UpdateObservableCollection(added, _addedItems);
             UpdateObservableCollection(removed, _removedItems);

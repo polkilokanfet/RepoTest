@@ -332,7 +332,7 @@ namespace HVTApp.Model.Wrapper
                 if (propertyChangedEventArgs.PropertyName == nameof(IsValid)) OnPropertyChanged(nameof(IsValid));
             }
 
-            _whoRisedEventPropertyChanged.Clear();
+            _whoRisedEventPropertyChanged.Remove(sender);
         }
 
         private readonly List<object> _whoRisedEventPropertyChanged = new List<object>();
