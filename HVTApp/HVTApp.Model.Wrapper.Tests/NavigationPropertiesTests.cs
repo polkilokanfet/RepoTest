@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HVTApp.Model.Wrapper.Tests
@@ -113,7 +114,21 @@ namespace HVTApp.Model.Wrapper.Tests
             husband.Children.Add(child2);
 
             TestHusbandWrapper husbandWrapper = TestHusbandWrapper.GetWrapper(husband);
+            Assert.IsFalse(husbandWrapper.IsChanged);
 
+            TestChildWrapper childWrapper1 = husbandWrapper.Children.First(x => Equals(x.Model, child1));
+            husbandWrapper.Children.Remove(childWrapper1);
+            Assert.IsTrue(husbandWrapper.IsChanged);
+
+            husbandWrapper.Children.Add(childWrapper1);
+            Assert.IsFalse(husbandWrapper.IsChanged);
+
+            string oldChildsName = childWrapper1.Name;
+            childWrapper1.Name = oldChildsName + "NEW";
+            Assert.IsTrue(husbandWrapper.IsChanged);
+
+            childWrapper1.Name = oldChildsName;
+            Assert.IsFalse(husbandWrapper.IsChanged);
         }
 
         [TestMethod]

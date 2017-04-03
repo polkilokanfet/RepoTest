@@ -44,7 +44,7 @@ namespace HVTApp
             base.ConfigureContainer();
 
             Container.RegisterType<DbContext, HVTAppContext>();
-            Container.RegisterType<IUnitOfWork, UnitOfWork>();
+            Container.RegisterType<IUnitOfWork, UnitOfWork>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
 
             DialogService dialogService = new DialogService((Window)Shell);
