@@ -76,9 +76,16 @@ namespace HVTApp.Model.Wrapper.Tests
             husbandWrapper.Children.Add(childWrapper);
             Assert.IsTrue(fired);
 
+            var husbandWrp = TestHusbandWrapper.GetWrapper(husbandWrapper.Model);
+
             fired = false;
             childWrapper.Id = 1;
             Assert.IsTrue(fired);
+
+            husbandWrapper.Children.Remove(childWrapper);
+            fired = false;
+            childWrapper.Id++;
+            Assert.IsFalse(fired);
         }
 
         [TestMethod]
