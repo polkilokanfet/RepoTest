@@ -60,9 +60,6 @@ namespace HVTApp.Model.Wrapper
             items.ToList().ForEach(x => x.PropertyChanged -= OnItemPropertyChanged);
         }
 
-        private readonly List<object> _whoRisedEventPropertyChanged = new List<object>();
-        private readonly List<object> _itemsRisedIsValid = new List<object>();
-
         /// <summary>
         /// Обработчик изменения какого-либо свойства в члене коллекции.
         /// </summary>
@@ -70,58 +67,45 @@ namespace HVTApp.Model.Wrapper
         /// <param name="e"></param>
         private void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (!_whoRisedEventPropertyChanged.Contains(sender))
+            //если изменился флаг валидности члена.
+            if (e.PropertyName == nameof(IsValid))
             {
-                _whoRisedEventPropertyChanged.Add(sender);
-
-                //если изменился флаг валидности члена.
-                if (e.PropertyName == nameof(IsValid))
+                OnPropertyChanged(sender, nameof(IsValid));
+            }
+            else
+            {
+                //объект в котором изменилось свойство.
+                var item = (TCollectionItem) sender;
+                //если этот объект добавлен в этом сеансе, нет смысла реагировать на изменение его свойств.
+                if (_addedItems.Contains(item))
                 {
-                    if (!_itemsRisedIsValid.Contains(sender))
+                    //информируем о том, что коллекция изменилась.
+                    OnPropertyChanged(sender, nameof(IsChanged));
+                    return;
+                }
+
+                //если изменился объект (флаг IsChanged об этом говорит).
+                if (item.IsChanged)
+                {
+                    //добавляем член в коллекцию измененных объектов, если он еще не в этой коллекции.
+                    if (!_modifiedItems.Contains(item))
                     {
-                        _itemsRisedIsValid.Add(sender);
-                        //информируем о том, что коллекция изменила свою валидность.
-                        OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsValid)));
+                        _modifiedItems.Add(item);
                     }
-                    //_itemsRisedIsValid.Remove(sender);
                 }
                 else
                 {
-                    //объект в котором изменилось свойство.
-                    var item = (TCollectionItem) sender;
-                    //если этот объект добавлен в этом сеансе, нет смысла реагировать на изменение его свойств.
-                    if (_addedItems.Contains(item))
+                    //если объект не изменился, удяляем его из коллекции измененных объектов (если он там есть).
+                    if (_modifiedItems.Contains(item))
                     {
-                        //информируем о том, что коллекция изменилась.
-                        OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
-                        _whoRisedEventPropertyChanged.Remove(sender);
-                        return;
+                        _modifiedItems.Remove(item);
                     }
-
-                    //если изменился объект (флаг IsChanged об этом говорит).
-                    if (item.IsChanged)
-                    {
-                        //добавляем член в коллекцию измененных объектов, если он еще не в этой коллекции.
-                        if (!_modifiedItems.Contains(item))
-                        {
-                            _modifiedItems.Add(item);
-                        }
-                    }
-                    else
-                    {
-                        //если объект не изменился, удяляем его из коллекции измененных объектов (если он там есть).
-                        if (_modifiedItems.Contains(item))
-                        {
-                            _modifiedItems.Remove(item);
-                        }
-                    }
-
-                    //информируем о том, что коллекция изменилась.
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
                 }
+
+                //информируем о том, что коллекция изменилась.
+                OnPropertyChanged(sender, nameof(IsChanged));
             }
 
-            _whoRisedEventPropertyChanged.Remove(sender);
         }
 
         //реакция на изменение коллекции (добавление или удаление элемента коллекции)
@@ -204,5 +188,19 @@ namespace HVTApp.Model.Wrapper
         }
 
         public bool IsBusy => false;
+
+        private readonly List<WhoRised> _whoRisedEventPropertyChanged = new List<WhoRised>();
+
+        protected void OnPropertyChanged(object sender, string propertyName)
+        {
+            WhoRised whoRised = new WhoRised(sender, propertyName);
+            if (!_whoRisedEventPropertyChanged.Contains(whoRised))
+            {
+                _whoRisedEventPropertyChanged.Add(whoRised);
+                OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+                _whoRisedEventPropertyChanged.Remove(whoRised);
+            }
+        }
+
     }
 }

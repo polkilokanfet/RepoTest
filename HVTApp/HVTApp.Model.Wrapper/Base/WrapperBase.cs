@@ -325,17 +325,10 @@ namespace HVTApp.Model.Wrapper
         /// <param name="propertyChangedEventArgs"></param>
         private void TrackingObjectOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            if (!_whoRisedEventPropertyChanged.Contains(sender))
-            {
-                _whoRisedEventPropertyChanged.Add(sender);
-                if (propertyChangedEventArgs.PropertyName == nameof(IsChanged)) OnPropertyChanged(nameof(IsChanged));
-                if (propertyChangedEventArgs.PropertyName == nameof(IsValid)) OnPropertyChanged(nameof(IsValid));
-            }
-
-            _whoRisedEventPropertyChanged.Remove(sender);
+            if (propertyChangedEventArgs.PropertyName == nameof(IsChanged)) OnPropertyChanged(sender, nameof(IsChanged));
+            if (propertyChangedEventArgs.PropertyName == nameof(IsValid)) OnPropertyChanged(sender, nameof(IsValid));
         }
 
-        private readonly List<object> _whoRisedEventPropertyChanged = new List<object>();
 
         /// <summary>
         /// Регистрация коллекции.
