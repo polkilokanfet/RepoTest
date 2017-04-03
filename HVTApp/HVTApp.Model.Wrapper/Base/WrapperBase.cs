@@ -203,6 +203,7 @@ namespace HVTApp.Model.Wrapper
                 Validate();
                 OnPropertyChanged(propertyName);
                 OnPropertyChanged(propertyName + "IsChanged");
+                OnPropertyChanged(nameof(IsChanged));
             }
         }
 

@@ -60,6 +60,8 @@ namespace HVTApp.Model.Wrapper
             items.ToList().ForEach(x => x.PropertyChanged -= OnItemPropertyChanged);
         }
 
+        private readonly List<object> _whoRisedEventPropertyChanged = new List<object>();
+
         /// <summary>
         /// Обработчик изменения какого-либо свойства в члене коллекции.
         /// </summary>
@@ -67,43 +69,53 @@ namespace HVTApp.Model.Wrapper
         /// <param name="e"></param>
         private void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            //если изменился флаг валидности члена.
-            if (e.PropertyName == nameof(IsValid))
+            if (!_whoRisedEventPropertyChanged.Contains(sender))
             {
-                //информируем о том, что коллекция изменила свою валидность.
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsValid)));
-            }
-            else
-            {
-                //объект в котором изменилось свойство.
-                var item = (TCollectionItem) sender;
-                //если этот объект добавлен в этом сеансе, нет смысла реагировать на изменение его свойств.
-                if (_addedItems.Contains(item))
-                {
-                    return;
-                }
+                _whoRisedEventPropertyChanged.Add(sender);
 
-                //если изменился объект (флаг IsChanged об этом говорит).
-                if (item.IsChanged)
+                //если изменился флаг валидности члена.
+                if (e.PropertyName == nameof(IsValid))
                 {
-                    //добавляем член в коллекцию измененных объектов, если он еще не в этой коллекции.
-                    if (!_modifiedItems.Contains(item))
-                    {
-                        _modifiedItems.Add(item);
-                    }
+                    //информируем о том, что коллекция изменила свою валидность.
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsValid)));
                 }
                 else
                 {
-                    //если объект не изменился, удяляем его из коллекции измененных объектов (если он там есть).
-                    if (_modifiedItems.Contains(item))
+                    //объект в котором изменилось свойство.
+                    var item = (TCollectionItem) sender;
+                    //если этот объект добавлен в этом сеансе, нет смысла реагировать на изменение его свойств.
+                    if (_addedItems.Contains(item))
                     {
-                        _modifiedItems.Remove(item);
+                        //информируем о том, что коллекция изменилась.
+                        OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
+                        _whoRisedEventPropertyChanged.Clear();
+                        return;
                     }
-                }
 
-                //информируем о том, что коллекция изменилась.
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
+                    //если изменился объект (флаг IsChanged об этом говорит).
+                    if (item.IsChanged)
+                    {
+                        //добавляем член в коллекцию измененных объектов, если он еще не в этой коллекции.
+                        if (!_modifiedItems.Contains(item))
+                        {
+                            _modifiedItems.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        //если объект не изменился, удяляем его из коллекции измененных объектов (если он там есть).
+                        if (_modifiedItems.Contains(item))
+                        {
+                            _modifiedItems.Remove(item);
+                        }
+                    }
+
+                    //информируем о том, что коллекция изменилась.
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
+                }
             }
+
+            _whoRisedEventPropertyChanged.Clear();
         }
 
         //реакция на изменение коллекции (добавление или удаление элемента коллекции)

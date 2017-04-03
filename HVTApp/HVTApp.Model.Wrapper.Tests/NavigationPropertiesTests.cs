@@ -45,21 +45,25 @@ namespace HVTApp.Model.Wrapper.Tests
             TestHusbandWrapper husbandWrapper = TestHusbandWrapper.GetWrapper(husband);
 
             bool fired = false;
-            husbandWrapper.PropertyChanged += (sender, args) => { fired = true; };
+            husbandWrapper.PropertyChanged += (sender, args) => 
+            {
+                if (args.PropertyName == "IsChanged")
+                    fired = true;
+            };
 
             Assert.IsFalse(husbandWrapper.IsChanged);
-            var wifeWrapper = husbandWrapper.Wife;
-            wifeWrapper.N = 10;
+            var originWifeWrapper = husbandWrapper.Wife;
+            originWifeWrapper.N = 10;
             Assert.IsTrue(husbandWrapper.IsChanged);
             Assert.IsTrue(fired);
 
-            TestWife otherTestWife = new TestWife {Id = 22};
-            TestWifeWrapper otherTestWifeWrapper = TestWifeWrapper.GetWrapper(otherTestWife);
-            husbandWrapper.Wife = otherTestWifeWrapper;
+            TestWife otherWife = new TestWife {Id = 22};
+            TestWifeWrapper otherWifeWrapper = TestWifeWrapper.GetWrapper(otherWife);
+            husbandWrapper.Wife = otherWifeWrapper;
             Assert.IsTrue(husbandWrapper.IsChanged);
 
             fired = false;
-            wifeWrapper.N = 33;
+            originWifeWrapper.N = 33;
             Assert.IsFalse(fired);
 
             fired = false;
