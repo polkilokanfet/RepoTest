@@ -95,7 +95,7 @@ namespace HVTApp.Model.Wrapper
                     }
 
                     //информируем о том, что коллекция изменилась.
-                    OnPropertyChanged(sender, nameof(IsChanged));
+                    OnPropertyChanged(this, nameof(IsChanged));
                 }
             }
         }
