@@ -24,7 +24,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod()]
         public void ShouldContainModelInModelProperty()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+            var wrapper = TestFriendWrapper.GetWrapper(_testFriend);
             Assert.AreEqual(_testFriend, wrapper.Model);
         }
 
@@ -34,7 +34,7 @@ namespace HVTApp.Model.Wrapper.Tests
         //{
         //    try
         //    {
-        //        var wrapper = FriendTestWrapper.GetWrapper(null);
+        //        var wrapper = TestFriendWrapper.GetWrapper(null);
         //    }
         //    catch (ArgumentNullException ex)
         //    {
@@ -50,7 +50,7 @@ namespace HVTApp.Model.Wrapper.Tests
         //    try
         //    {
         //        _testFriend.Test_FriendAddress = null;
-        //        var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+        //        var wrapper = TestFriendWrapper.GetWrapper(_testFriend);
         //    }
         //    catch (ArgumentException ex)
         //    {
@@ -66,7 +66,7 @@ namespace HVTApp.Model.Wrapper.Tests
             try
             {
                 _testFriend.Emails = null;
-                var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+                var wrapper = TestFriendWrapper.GetWrapper(_testFriend);
             }
             catch (ArgumentException ex)
             {
@@ -78,14 +78,14 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldGetValueOfUnderlyingModelProperty()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+            var wrapper = TestFriendWrapper.GetWrapper(_testFriend);
             Assert.AreEqual(_testFriend.FirstName, wrapper.FirstName);
         }
 
         [TestMethod]
         public void ShouldSetValueOfUnderlyingModelProperty()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+            var wrapper = TestFriendWrapper.GetWrapper(_testFriend);
             wrapper.FirstName = "Julia";
             Assert.AreEqual("Julia", _testFriend.FirstName);
         }

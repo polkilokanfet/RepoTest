@@ -7,24 +7,24 @@ namespace HVTApp.Model.Wrapper.Tests
   [TestClass]
   public class ChangeTrackingCollectionTests
   {
-    private List<FriendEmailTestWrapper> _emails;
+    private List<TestFriendEmailWrapper> _emails;
 
     [TestInitialize]
     public void Initialize()
     {
-      _emails = new List<FriendEmailTestWrapper>
+      _emails = new List<TestFriendEmailWrapper>
       {
-        FriendEmailTestWrapper.GetWrapper(new TestFriendEmail {Email="thomas@thomasclaudiushuber.com" }),
-        FriendEmailTestWrapper.GetWrapper(new TestFriendEmail {Email="julia@juhu-design.com" }),
+        TestFriendEmailWrapper.GetWrapper(new TestFriendEmail {Email="thomas@thomasclaudiushuber.com" }),
+        TestFriendEmailWrapper.GetWrapper(new TestFriendEmail {Email="julia@juhu-design.com" }),
        };
     }
 
     [TestMethod]
     public void ShouldTrackAddedItems()
     {
-      var emailToAdd = FriendEmailTestWrapper.GetWrapper(new TestFriendEmail());
+      var emailToAdd = TestFriendEmailWrapper.GetWrapper(new TestFriendEmail());
 
-      var c = new ValidatableChangeTrackingCollection<FriendEmailTestWrapper>(_emails);
+      var c = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(_emails);
       Assert.AreEqual(2, c.Count);
       Assert.IsFalse(c.IsChanged);
 
@@ -48,7 +48,7 @@ namespace HVTApp.Model.Wrapper.Tests
     public void ShouldTrackRemovedItems()
     {
       var emailToRemove = _emails.First();
-      var c = new ValidatableChangeTrackingCollection<FriendEmailTestWrapper>(_emails);
+      var c = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(_emails);
       Assert.AreEqual(2, c.Count);
       Assert.IsFalse(c.IsChanged);
 
@@ -72,7 +72,7 @@ namespace HVTApp.Model.Wrapper.Tests
     public void ShouldTrackModifiedItem()
     {
       var emailToModify = _emails.First();
-      var c = new ValidatableChangeTrackingCollection<FriendEmailTestWrapper>(_emails);
+      var c = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(_emails);
       Assert.AreEqual(2, c.Count);
       Assert.IsFalse(c.IsChanged);
 
@@ -92,9 +92,9 @@ namespace HVTApp.Model.Wrapper.Tests
     [TestMethod]
     public void ShouldNotTrackAddedItemAsModified()
     {
-      var emailToAdd = FriendEmailTestWrapper.GetWrapper(new TestFriendEmail());
+      var emailToAdd = TestFriendEmailWrapper.GetWrapper(new TestFriendEmail());
 
-      var c = new ValidatableChangeTrackingCollection<FriendEmailTestWrapper>(_emails);
+      var c = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(_emails);
       c.Add(emailToAdd);
       emailToAdd.Email = "modified@thomasclaudiushuber.com";
       Assert.IsTrue(emailToAdd.IsChanged);
@@ -110,7 +110,7 @@ namespace HVTApp.Model.Wrapper.Tests
     {
       var emailToModifyAndRemove = _emails.First();
 
-      var c = new ValidatableChangeTrackingCollection<FriendEmailTestWrapper>(_emails);
+      var c = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(_emails);
       emailToModifyAndRemove.Email = "modified@thomasclaudiushuber.com";
       Assert.AreEqual(2, c.Count);
       Assert.AreEqual(0, c.AddedItems.Count);
@@ -133,9 +133,9 @@ namespace HVTApp.Model.Wrapper.Tests
     {
       var emailToModify = _emails.First();
       var emailToRemove = _emails.Skip(1).First();
-      var emailToAdd = FriendEmailTestWrapper.GetWrapper(new TestFriendEmail { Email = "anotherOne@thomasclaudiushuber.com" });
+      var emailToAdd = TestFriendEmailWrapper.GetWrapper(new TestFriendEmail { Email = "anotherOne@thomasclaudiushuber.com" });
 
-      var c = new ValidatableChangeTrackingCollection<FriendEmailTestWrapper>(_emails);
+      var c = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(_emails);
 
       c.Add(emailToAdd);
       c.Remove(emailToRemove);
@@ -169,9 +169,9 @@ namespace HVTApp.Model.Wrapper.Tests
     {
       var emailToModify = _emails.First();
       var emailToRemove = _emails.Skip(1).First();
-      var emailToAdd = FriendEmailTestWrapper.GetWrapper(new TestFriendEmail { Email = "anotherOne@thomasclaudiushuber.com" });
+      var emailToAdd = TestFriendEmailWrapper.GetWrapper(new TestFriendEmail { Email = "anotherOne@thomasclaudiushuber.com" });
 
-      var c = new ValidatableChangeTrackingCollection<FriendEmailTestWrapper>(_emails);
+      var c = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(_emails);
 
       c.Add(emailToAdd);
       c.Remove(emailToRemove);
@@ -206,7 +206,7 @@ namespace HVTApp.Model.Wrapper.Tests
     {
       var email = _emails.First();
 
-      var c = new ValidatableChangeTrackingCollection<FriendEmailTestWrapper>(_emails);
+      var c = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(_emails);
 
       email.Email = "modified@thomasclaudiushuber.com";
       c.Remove(email);

@@ -30,7 +30,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldInitializeEmailsProperty()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+            var wrapper = TestFriendWrapper.GetWrapper(_testFriend);
             Assert.IsNotNull(wrapper.Emails);
             CheckIfModelEmailsCollectionIsInSync(wrapper);
         }
@@ -38,7 +38,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldBeInSyncAfterRemovingEmail()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+            var wrapper = TestFriendWrapper.GetWrapper(_testFriend);
             var emailToRemove = wrapper.Emails.Single(ew => ew.Model == _testFriendEmail);
             wrapper.Emails.Remove(emailToRemove);
             CheckIfModelEmailsCollectionIsInSync(wrapper);
@@ -48,20 +48,20 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldBeInSyncAfterAddingEmail()
         {
             _testFriend.Emails.Remove(_testFriendEmail);
-            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
-            wrapper.Emails.Add(FriendEmailTestWrapper.GetWrapper(_testFriendEmail));
+            var wrapper = TestFriendWrapper.GetWrapper(_testFriend);
+            wrapper.Emails.Add(TestFriendEmailWrapper.GetWrapper(_testFriendEmail));
             CheckIfModelEmailsCollectionIsInSync(wrapper);
         }
 
         [TestMethod]
         public void ShouldBeInSyncAfterClearingEmails()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+            var wrapper = TestFriendWrapper.GetWrapper(_testFriend);
             wrapper.Emails.Clear();
             CheckIfModelEmailsCollectionIsInSync(wrapper);
         }
 
-        private void CheckIfModelEmailsCollectionIsInSync(FriendTestWrapper wrapper)
+        private void CheckIfModelEmailsCollectionIsInSync(TestFriendWrapper wrapper)
         {
             Assert.AreEqual(_testFriend.Emails.Count, wrapper.Emails.Count);
             Assert.IsTrue(_testFriend.Emails.All(e =>

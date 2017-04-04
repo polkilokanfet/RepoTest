@@ -24,7 +24,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldReturnValidationErrorIfFirstNameIsEmpty()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+            var wrapper = TestFriendWrapper.GetWrapper(_testFriend);
             Assert.IsFalse(wrapper.HasErrors);
 
             wrapper.FirstName = "";
@@ -42,7 +42,7 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldRaiseErrorsChangedEventWhenFirstNameIsSetToEmptyAndBack()
         {
             var fired = false;
-            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+            var wrapper = TestFriendWrapper.GetWrapper(_testFriend);
 
             wrapper.ErrorsChanged += (s, e) =>
             {
@@ -63,7 +63,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldSetIsValid()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+            var wrapper = TestFriendWrapper.GetWrapper(_testFriend);
             Assert.IsTrue(wrapper.IsValid);
 
             wrapper.FirstName = "";
@@ -77,7 +77,7 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldRaisePropertyChangedEventForIsValid()
         {
             var fired = false;
-            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+            var wrapper = TestFriendWrapper.GetWrapper(_testFriend);
 
             wrapper.PropertyChanged += (s, e) =>
             {
@@ -99,7 +99,7 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldSetErrorsAndIsValidAfterInitialization()
         {
             _testFriend.FirstName = "";
-            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+            var wrapper = TestFriendWrapper.GetWrapper(_testFriend);
 
             Assert.IsFalse(wrapper.IsValid);
             Assert.IsTrue(wrapper.HasErrors);
@@ -112,7 +112,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldRefreshErrorsAndIsValidWhenRejectingChanges()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+            var wrapper = TestFriendWrapper.GetWrapper(_testFriend);
             Assert.IsTrue(wrapper.IsValid);
             Assert.IsFalse(wrapper.HasErrors);
 

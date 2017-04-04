@@ -15,8 +15,7 @@ namespace HVTApp.DataAccess
         public override List<Company> GetAll()
         {
             List<Company> companies =  base.GetAll();
-            foreach (Company company in companies)
-                company.ChildCompanies = companies.Where(x => Equals(x.ParentCompany, company)).ToList();
+            companies.ForEach(parent => parent.ChildCompanies = companies.Where(child => Equals(child.ParentCompany, parent)).ToList());
             return companies;
         }
     }

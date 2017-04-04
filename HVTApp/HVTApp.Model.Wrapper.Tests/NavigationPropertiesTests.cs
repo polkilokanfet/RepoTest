@@ -22,7 +22,7 @@ namespace HVTApp.Model.Wrapper.Tests
             };
             group.FriendTests.Add(testFriend);
 
-            FriendTestWrapper wrapper = FriendTestWrapper.GetWrapper(testFriend);
+            TestFriendWrapper wrapper = TestFriendWrapper.GetWrapper(testFriend);
             Assert.IsFalse(wrapper.IsChanged);
 
             var old = wrapper.TestFriendAddress;
