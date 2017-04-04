@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HVTApp.Model
 {
-    public class FriendTest : BaseEntity
+    public class TestFriend : BaseEntity
     {
         public int FriendGroupId { get; set; }
 
@@ -15,15 +15,15 @@ namespace HVTApp.Model
 
         public bool IsDeveloper { get; set; }
 
-        public FriendAddressTest FriendAddressTest { get; set; }
-        public virtual FriendGroupTest FriendGroupTest { get; set; }
+        public TestFriendAddress TestFriendAddress { get; set; }
+        public virtual TestFriendGroup TestFriendGroup { get; set; }
 
-        public List<FriendEmailTest> Emails { get; set; }
+        public List<TestFriendEmail> Emails { get; set; }
 
 
         public int IdGet => 5;
 
-        public FriendEmailTest FriendEmailTestGet => new FriendEmailTest();
+        public TestFriendEmail TestFriendEmailGet => new TestFriendEmail();
 
     }
 }

@@ -6,24 +6,24 @@ namespace HVTApp.Model.Wrapper.Tests
     [TestClass]
     public class ChangeTrackingSimpleProperty
     {
-        private FriendTest _friendTest;
+        private TestFriend _testFriend;
 
         [TestInitialize]
         public void Initialize()
         {
-            _friendTest = new FriendTest
+            _testFriend = new TestFriend
             {
                 FirstName = "Thomas",
-                FriendAddressTest = new FriendAddressTest(),
-                FriendGroupTest = new FriendGroupTest() { FriendTests = new List<FriendTest>()},
-                Emails = new List<FriendEmailTest>()
+                TestFriendAddress = new TestFriendAddress(),
+                TestFriendGroup = new TestFriendGroup() { FriendTests = new List<TestFriend>()},
+                Emails = new List<TestFriendEmail>()
             };
         }
 
         [TestMethod]
         public void ShouldStoreOriginalValue()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             Assert.AreEqual("Thomas", wrapper.FirstNameOriginalValue);
 
             wrapper.FirstName = "Julia";
@@ -33,7 +33,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldSetIsChanged()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             Assert.IsFalse(wrapper.FirstNameIsChanged);
             Assert.IsFalse(wrapper.IsChanged);
 
@@ -50,7 +50,7 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldRaisePropertyChangedEventForFirstNameIsChanged()
         {
             var fired = false;
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             wrapper.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == nameof(wrapper.FirstNameIsChanged))
@@ -66,7 +66,7 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldRaisePropertyChangedEventForIsChanged()
         {
             var fired = false;
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             wrapper.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == nameof(wrapper.IsChanged))
@@ -81,7 +81,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldAcceptChanges()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             wrapper.FirstName = "Julia";
             Assert.AreEqual("Julia", wrapper.FirstName);
             Assert.AreEqual("Thomas", wrapper.FirstNameOriginalValue);
@@ -99,7 +99,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldRejectChanges()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             wrapper.FirstName = "Julia";
             Assert.AreEqual("Julia", wrapper.FirstName);
             Assert.AreEqual("Thomas", wrapper.FirstNameOriginalValue);

@@ -7,24 +7,24 @@ namespace HVTApp.Model.Wrapper.Tests
     [TestClass]
     public class ValidationSimpleProperty
     {
-        private FriendTest _friendTest;
+        private TestFriend _testFriend;
 
         [TestInitialize]
         public void Initialize()
         {
-            _friendTest = new FriendTest
+            _testFriend = new TestFriend
             {
                 FirstName = "Thomas",
-                FriendAddressTest = new FriendAddressTest { City = "Müllheim" },
-                FriendGroupTest = new FriendGroupTest() { FriendTests = new List<FriendTest>() },
-                Emails = new List<FriendEmailTest>()
+                TestFriendAddress = new TestFriendAddress { City = "Müllheim" },
+                TestFriendGroup = new TestFriendGroup() { FriendTests = new List<TestFriend>() },
+                Emails = new List<TestFriendEmail>()
             };
         }
 
         [TestMethod]
         public void ShouldReturnValidationErrorIfFirstNameIsEmpty()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             Assert.IsFalse(wrapper.HasErrors);
 
             wrapper.FirstName = "";
@@ -42,7 +42,7 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldRaiseErrorsChangedEventWhenFirstNameIsSetToEmptyAndBack()
         {
             var fired = false;
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
 
             wrapper.ErrorsChanged += (s, e) =>
             {
@@ -63,7 +63,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldSetIsValid()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             Assert.IsTrue(wrapper.IsValid);
 
             wrapper.FirstName = "";
@@ -77,7 +77,7 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldRaisePropertyChangedEventForIsValid()
         {
             var fired = false;
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
 
             wrapper.PropertyChanged += (s, e) =>
             {
@@ -98,8 +98,8 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldSetErrorsAndIsValidAfterInitialization()
         {
-            _friendTest.FirstName = "";
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            _testFriend.FirstName = "";
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
 
             Assert.IsFalse(wrapper.IsValid);
             Assert.IsTrue(wrapper.HasErrors);
@@ -112,7 +112,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldRefreshErrorsAndIsValidWhenRejectingChanges()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             Assert.IsTrue(wrapper.IsValid);
             Assert.IsFalse(wrapper.HasErrors);
 

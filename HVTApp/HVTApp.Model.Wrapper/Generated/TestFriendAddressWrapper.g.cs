@@ -5,19 +5,19 @@ using HVTApp.Model;
 
 namespace HVTApp.Model.Wrapper
 {
-  public partial class FriendAddressTestWrapper : WrapperBase<FriendAddressTest>
+  public partial class TestFriendAddressWrapper : WrapperBase<TestFriendAddress>
   {
-    protected FriendAddressTestWrapper(FriendAddressTest model) : base(model) { }
+    protected TestFriendAddressWrapper(TestFriendAddress model) : base(model) { }
 
-	public static FriendAddressTestWrapper GetWrapper(FriendAddressTest model)
+	public static TestFriendAddressWrapper GetWrapper(TestFriendAddress model)
 	{
 	    if (model == null)
 	        return null;
 
 		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-			return (FriendAddressTestWrapper)Repository.ModelWrapperDictionary[model];
+			return (TestFriendAddressWrapper)Repository.ModelWrapperDictionary[model];
 
-		return new FriendAddressTestWrapper(model);
+		return new TestFriendAddressWrapper(model);
 	}
 
 

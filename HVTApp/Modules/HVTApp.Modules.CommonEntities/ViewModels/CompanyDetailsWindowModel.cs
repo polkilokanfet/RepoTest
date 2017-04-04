@@ -52,7 +52,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         private void SelectParentCompanyCommand_Execute()
         {
-            List<Company> exceptCompanies = CompanyWrapper.Model.GetAllChilds().ToList();
+            List<Company> exceptCompanies = CompanyWrapper.GetAllChilds().Select(x => x.Model).ToList();
             exceptCompanies.Add(CompanyWrapper.Model);
 
             IEnumerable<Company> possibleParents = _unitOfWork.Companies.GetAll().Except(exceptCompanies);
@@ -63,7 +63,6 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             {
                 RemoveParentCompanyCommand_Execute();
                 CompanyWrapper.ParentCompany = CompanyWrapper.GetWrapper(possibleParent);
-                //CompanyWrapper.ParentCompany.ChildCompanies.Add(CompanyWrapper);
             }
         }
 

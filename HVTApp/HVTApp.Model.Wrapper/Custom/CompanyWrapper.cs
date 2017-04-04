@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -24,6 +25,28 @@ namespace HVTApp.Model.Wrapper
             if (newParent != null && !newParent.ChildCompanies.Contains(this))
                 newParent.ChildCompanies.Add(this);
         }
+
+        public IEnumerable<CompanyWrapper> GetAllParents()
+        {
+            CompanyWrapper parentCompany = this.ParentCompany;
+            while (parentCompany != null)
+            {
+                yield return parentCompany;
+                parentCompany = parentCompany.ParentCompany;
+            }
+        }
+
+        public IEnumerable<CompanyWrapper> GetAllChilds()
+        {
+            List<CompanyWrapper> childs = this.ChildCompanies.ToList();
+            List<CompanyWrapper> result = new List<CompanyWrapper>(childs);
+
+            foreach (var child in childs)
+                result.AddRange(child.GetAllChilds());
+
+            return result;
+        }
+
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

@@ -17,26 +17,6 @@ namespace HVTApp.Model
         public virtual List<Employee> Employees { get; set; } = new List<Employee>();
 
 
-        public IEnumerable<Company> GetAllParents()
-        {
-            Company parentCompany = this.ParentCompany;
-            while (parentCompany != null)
-            {
-                yield return parentCompany;
-                parentCompany = parentCompany.ParentCompany;
-            }
-        }
-
-        public IEnumerable<Company> GetAllChilds()
-        {
-            List<Company> childs = this.ChildCompanies;
-            List<Company> result = new List<Company>(childs);
-
-            foreach (Company child in childs)
-                result.AddRange(child.GetAllChilds());
-
-            return result;
-        }
 
         public override string ToString()
         {

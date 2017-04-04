@@ -7,25 +7,25 @@ namespace HVTApp.Model.Wrapper.Tests
     [TestClass()]
     public class BasicTests
     {
-        private FriendTest _friendTest;
+        private TestFriend _testFriend;
 
         [TestInitialize]
         public void Initialize()
         {
-            _friendTest = new FriendTest
+            _testFriend = new TestFriend
             {
                 FirstName = "Thomas",
-                FriendAddressTest = new FriendAddressTest(),
-                FriendGroupTest = new FriendGroupTest() { FriendTests = new List<FriendTest>() },
-                Emails = new List<FriendEmailTest>()
+                TestFriendAddress = new TestFriendAddress(),
+                TestFriendGroup = new TestFriendGroup() { FriendTests = new List<TestFriend>() },
+                Emails = new List<TestFriendEmail>()
             };
         }
 
         [TestMethod()]
         public void ShouldContainModelInModelProperty()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
-            Assert.AreEqual(_friendTest, wrapper.Model);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+            Assert.AreEqual(_testFriend, wrapper.Model);
         }
 
         //[TestMethod]
@@ -49,12 +49,12 @@ namespace HVTApp.Model.Wrapper.Tests
         //{
         //    try
         //    {
-        //        _friendTest.FriendAddressTest = null;
-        //        var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+        //        _testFriend.Test_FriendAddress = null;
+        //        var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
         //    }
         //    catch (ArgumentException ex)
         //    {
-        //        Assert.AreEqual("FriendAddressTest cannot be null", ex.Message);
+        //        Assert.AreEqual("Test_FriendAddress cannot be null", ex.Message);
         //        throw;
         //    }
         //}
@@ -65,8 +65,8 @@ namespace HVTApp.Model.Wrapper.Tests
         {
             try
             {
-                _friendTest.Emails = null;
-                var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+                _testFriend.Emails = null;
+                var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             }
             catch (ArgumentException ex)
             {
@@ -78,16 +78,16 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldGetValueOfUnderlyingModelProperty()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
-            Assert.AreEqual(_friendTest.FirstName, wrapper.FirstName);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+            Assert.AreEqual(_testFriend.FirstName, wrapper.FirstName);
         }
 
         [TestMethod]
         public void ShouldSetValueOfUnderlyingModelProperty()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             wrapper.FirstName = "Julia";
-            Assert.AreEqual("Julia", _friendTest.FirstName);
+            Assert.AreEqual("Julia", _testFriend.FirstName);
         }
     }
 }

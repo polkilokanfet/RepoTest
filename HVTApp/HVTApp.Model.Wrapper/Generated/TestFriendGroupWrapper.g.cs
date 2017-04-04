@@ -5,19 +5,19 @@ using HVTApp.Model;
 
 namespace HVTApp.Model.Wrapper
 {
-  public partial class FriendGroupTestWrapper : WrapperBase<FriendGroupTest>
+  public partial class TestFriendGroupWrapper : WrapperBase<TestFriendGroup>
   {
-    protected FriendGroupTestWrapper(FriendGroupTest model) : base(model) { }
+    protected TestFriendGroupWrapper(TestFriendGroup model) : base(model) { }
 
-	public static FriendGroupTestWrapper GetWrapper(FriendGroupTest model)
+	public static TestFriendGroupWrapper GetWrapper(TestFriendGroup model)
 	{
 	    if (model == null)
 	        return null;
 
 		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-			return (FriendGroupTestWrapper)Repository.ModelWrapperDictionary[model];
+			return (TestFriendGroupWrapper)Repository.ModelWrapperDictionary[model];
 
-		return new FriendGroupTestWrapper(model);
+		return new TestFriendGroupWrapper(model);
 	}
 
 
@@ -47,17 +47,17 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<FriendTestWrapper> FriendTests { get; private set; }
+    public ValidatableChangeTrackingCollection<TestFriendWrapper> FriendTests { get; private set; }
 
 
     #endregion
 
   
-    protected override void InitializeCollectionComplexProperties(FriendGroupTest model)
+    protected override void InitializeCollectionComplexProperties(TestFriendGroup model)
     {
 
       if (model.FriendTests == null) throw new ArgumentException("FriendTests cannot be null");
-      FriendTests = new ValidatableChangeTrackingCollection<FriendTestWrapper>(model.FriendTests.Select(e => FriendTestWrapper.GetWrapper(e)));
+      FriendTests = new ValidatableChangeTrackingCollection<TestFriendWrapper>(model.FriendTests.Select(e => TestFriendWrapper.GetWrapper(e)));
       RegisterCollection(FriendTests, model.FriendTests);
 
 

@@ -5,19 +5,19 @@ using HVTApp.Model;
 
 namespace HVTApp.Model.Wrapper
 {
-  public partial class FriendEmailTestWrapper : WrapperBase<FriendEmailTest>
+  public partial class TestFriendEmailWrapper : WrapperBase<TestFriendEmail>
   {
-    protected FriendEmailTestWrapper(FriendEmailTest model) : base(model) { }
+    protected TestFriendEmailWrapper(TestFriendEmail model) : base(model) { }
 
-	public static FriendEmailTestWrapper GetWrapper(FriendEmailTest model)
+	public static TestFriendEmailWrapper GetWrapper(TestFriendEmail model)
 	{
 	    if (model == null)
 	        return null;
 
 		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-			return (FriendEmailTestWrapper)Repository.ModelWrapperDictionary[model];
+			return (TestFriendEmailWrapper)Repository.ModelWrapperDictionary[model];
 
-		return new FriendEmailTestWrapper(model);
+		return new TestFriendEmailWrapper(model);
 	}
 
 

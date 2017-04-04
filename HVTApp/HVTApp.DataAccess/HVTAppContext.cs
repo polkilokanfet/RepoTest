@@ -58,7 +58,7 @@ namespace HVTApp.DataAccess
             base.OnModelCreating(modelBuilder);
         }
 
-        public virtual DbSet<FriendGroupTest> FriendGroups { get; set; }
+        public virtual DbSet<TestFriendGroup> FriendGroups { get; set; }
 
 
         public virtual DbSet<EmployeesPosition> EmployeesPositions { get; set; }

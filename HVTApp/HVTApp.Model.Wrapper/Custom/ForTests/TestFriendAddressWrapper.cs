@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HVTApp.Model.Wrapper
 {
-    public partial class FriendAddressTestWrapper
+    public partial class TestFriendAddressWrapper
     {
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

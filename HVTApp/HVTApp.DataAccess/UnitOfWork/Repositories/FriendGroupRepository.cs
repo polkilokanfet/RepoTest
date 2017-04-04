@@ -4,7 +4,7 @@ using HVTApp.Model;
 
 namespace HVTApp.DataAccess
 {
-    public class FriendGroupRepository : BaseRepository<FriendGroupTest>, IFriendGroupRepository
+    public class FriendGroupRepository : BaseRepository<TestFriendGroup>, IFriendGroupRepository
     {
         public FriendGroupRepository(DbContext context) : base(context)
         {

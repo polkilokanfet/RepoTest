@@ -6,41 +6,41 @@ namespace HVTApp.Model.Wrapper.Tests
     [TestClass]
     public class ValidationComplexProperty
     {
-        private FriendTest _friendTest;
+        private TestFriend _testFriend;
 
         [TestInitialize]
         public void Initialize()
         {
-            _friendTest = new FriendTest
+            _testFriend = new TestFriend
             {
                 FirstName = "Thomas",
-                FriendAddressTest = new FriendAddressTest { City = "Müllheim" },
-                FriendGroupTest = new FriendGroupTest { FriendTests = new List<FriendTest>() },
-                Emails = new List<FriendEmailTest>()
+                TestFriendAddress = new TestFriendAddress { City = "Müllheim" },
+                TestFriendGroup = new TestFriendGroup { FriendTests = new List<TestFriend>() },
+                Emails = new List<TestFriendEmail>()
             };
         }
 
         [TestMethod]
         public void ShouldSetIsValidOfRoot()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             Assert.IsTrue(wrapper.IsValid);
 
-            wrapper.FriendAddressTest.City = "";
+            wrapper.TestFriendAddress.City = "";
             Assert.IsFalse(wrapper.IsValid);
 
-            wrapper.FriendAddressTest.City = "Salt Lake City";
+            wrapper.TestFriendAddress.City = "Salt Lake City";
             Assert.IsTrue(wrapper.IsValid);
         }
 
         [TestMethod]
         public void ShouldSetIsValidOfRootAfterInitialization()
         {
-            _friendTest.FriendAddressTest.City = "";
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            _testFriend.TestFriendAddress.City = "";
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             Assert.IsFalse(wrapper.IsValid);
 
-            wrapper.FriendAddressTest.City = "Salt Lake City";
+            wrapper.TestFriendAddress.City = "Salt Lake City";
             Assert.IsTrue(wrapper.IsValid);
         }
 
@@ -48,7 +48,7 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldRaisePropertyChangedEventForIsValidOfRoot()
         {
             var fired = false;
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             wrapper.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == nameof(wrapper.IsValid))
@@ -56,11 +56,11 @@ namespace HVTApp.Model.Wrapper.Tests
                     fired = true;
                 }
             };
-            wrapper.FriendAddressTest.City = "";
+            wrapper.TestFriendAddress.City = "";
             Assert.IsTrue(fired);
 
             fired = false;
-            wrapper.FriendAddressTest.City = "Salt Lake City";
+            wrapper.TestFriendAddress.City = "Salt Lake City";
             Assert.IsTrue(fired);
         }
     }

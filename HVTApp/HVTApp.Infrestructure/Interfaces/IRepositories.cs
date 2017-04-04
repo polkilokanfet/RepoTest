@@ -7,7 +7,7 @@ namespace HVTApp.Infrastructure.Interfaces
     {
     }
 
-    public interface IFriendGroupRepository : IRepository<FriendGroupTest>
+    public interface IFriendGroupRepository : IRepository<TestFriendGroup>
     {
     }
 

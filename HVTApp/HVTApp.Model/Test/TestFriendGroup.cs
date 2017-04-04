@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace HVTApp.Model
 {
-    public class FriendGroupTest : BaseEntity
+    public class TestFriendGroup : BaseEntity
     {
         public string Name { get; set; }
-        public virtual List<FriendTest> FriendTests { get; set; }
+        public virtual List<TestFriend> FriendTests { get; set; }
     }
 }

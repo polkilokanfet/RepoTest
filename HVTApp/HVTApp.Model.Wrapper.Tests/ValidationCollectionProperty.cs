@@ -7,20 +7,20 @@ namespace HVTApp.Model.Wrapper.Tests
     [TestClass]
     public class ValidationCollectionProperty
     {
-        private FriendTest _friendTest;
+        private TestFriend _testFriend;
 
         [TestInitialize]
         public void Initialize()
         {
-            _friendTest = new FriendTest
+            _testFriend = new TestFriend
             {
                 FirstName = "Thomas",
-                FriendAddressTest = new FriendAddressTest {City = "Müllheim"},
-                FriendGroupTest = new FriendGroupTest() { FriendTests = new List<FriendTest>() },
-                Emails = new List<FriendEmailTest>
+                TestFriendAddress = new TestFriendAddress {City = "Müllheim"},
+                TestFriendGroup = new TestFriendGroup() { FriendTests = new List<TestFriend>() },
+                Emails = new List<TestFriendEmail>
                 {
-                    new FriendEmailTest {Email = "thomas@thomasclaudiushuber.com"},
-                    new FriendEmailTest {Email = "julia@juhu-design.com"}
+                    new TestFriendEmail {Email = "thomas@thomasclaudiushuber.com"},
+                    new TestFriendEmail {Email = "julia@juhu-design.com"}
                 }
             };
         }
@@ -28,7 +28,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldSetIsValidOfRoot()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             Assert.IsTrue(wrapper.IsValid);
 
             wrapper.Emails.First().Email = "";
@@ -41,8 +41,8 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldSetIsValidOfRootWhenInitializing()
         {
-            _friendTest.Emails.First().Email = "";
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            _testFriend.Emails.First().Email = "";
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             Assert.IsFalse(wrapper.IsValid);
             Assert.IsFalse(wrapper.HasErrors);
             Assert.IsTrue(wrapper.Emails.First().HasErrors);
@@ -51,7 +51,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldSetIsValidOfRootWhenRemovingInvalidItem()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             Assert.IsTrue(wrapper.IsValid);
 
             wrapper.Emails.First().Email = "";
@@ -64,8 +64,8 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldSetIsValidOfRootWhenAddingInvalidItem()
         {
-            var emailToAdd = FriendEmailTestWrapper.GetWrapper(new FriendEmailTest());
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var emailToAdd = FriendEmailTestWrapper.GetWrapper(new TestFriendEmail());
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             Assert.IsTrue(wrapper.IsValid); ;
             wrapper.Emails.Add(emailToAdd);
             Assert.IsFalse(wrapper.IsValid);
@@ -77,7 +77,7 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldRaisePropertyChangedEventForIsValidOfRoot()
         {
             var fired = false;
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             wrapper.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == "IsValid")
@@ -97,7 +97,7 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldRaisePropertyChangedEventForIsValidOfRootWhenRemovingInvalidItem()
         {
             var fired = false;
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             wrapper.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == "IsValid")
@@ -117,7 +117,7 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldRaisePropertyChangedEventForIsValidOfRootWhenAddingInvalidItem()
         {
             var fired = false;
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             wrapper.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == "IsValid")
@@ -126,7 +126,7 @@ namespace HVTApp.Model.Wrapper.Tests
                 }
             };
 
-            var emailToAdd = FriendEmailTestWrapper.GetWrapper(new FriendEmailTest());
+            var emailToAdd = FriendEmailTestWrapper.GetWrapper(new TestFriendEmail());
             wrapper.Emails.Add(emailToAdd);
             Assert.IsTrue(fired);
 

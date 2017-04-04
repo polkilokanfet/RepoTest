@@ -51,12 +51,12 @@
     <Compile Include="Address\Country.cs" />
     <Compile Include="Address\District.cs" />
     <Compile Include="Equipment\TechLinksCollection.cs" />
-    <Compile Include="ForTests\FriendAddressTest.cs" />
-    <Compile Include="ForTests\FriendTest.cs" />
-    <Compile Include="ForTests\FriendEmailTest.cs" />
-    <Compile Include="ForTests\FriendGroupTest.cs" />
+    <Compile Include="Test\TestFriendAddress.cs" />
+    <Compile Include="Test\TestFriend.cs" />
+    <Compile Include="Test\TestFriendEmail.cs" />
+    <Compile Include="Test\TestFriendGroup.cs" />
     <Compile Include="Document\Document.cs" />
-    <Compile Include="ForTests\TestEntity.cs" />
+    <Compile Include="Test\TestEntity.cs" />
     <Compile Include="Offer\OfferUnit.cs" />
     <Compile Include="Payments\Payments\PaymentConditionPoint.cs" />
     <Compile Include="Payments\PaymentsCollections\PaymentsConditionsCollection.cs" />

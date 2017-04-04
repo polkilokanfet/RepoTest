@@ -6,28 +6,28 @@ namespace HVTApp.Model.Wrapper.Tests
     [TestClass]
     public class ChangeTrackingComplexProperty
     {
-        private FriendTest _friendTest;
+        private TestFriend _testFriend;
 
         [TestInitialize]
         public void Initialize()
         {
-            _friendTest = new FriendTest
+            _testFriend = new TestFriend
             {
                 FirstName = "Thomas",
-                FriendAddressTest = new FriendAddressTest { City = "Müllheim" },
-                FriendGroupTest = new FriendGroupTest() { FriendTests = new List<FriendTest>() },
-                Emails = new List<FriendEmailTest>()
+                TestFriendAddress = new TestFriendAddress { City = "Müllheim" },
+                TestFriendGroup = new TestFriendGroup() { FriendTests = new List<TestFriend>() },
+                Emails = new List<TestFriendEmail>()
             };
         }
 
         [TestMethod]
         public void ShouldSetIsChangedOfFriendTestWrapper()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
-            wrapper.FriendAddressTest.City = "Salt Lake City";
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+            wrapper.TestFriendAddress.City = "Salt Lake City";
             Assert.IsTrue(wrapper.IsChanged);
 
-            wrapper.FriendAddressTest.City = "Müllheim";
+            wrapper.TestFriendAddress.City = "Müllheim";
             Assert.IsFalse(wrapper.IsChanged);
         }
 
@@ -35,7 +35,7 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldRaisePropertyChangedEventForIsChangedPropertyOfFriendTestWrapper()
         {
             var fired = false;
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             wrapper.PropertyChanged += (s, e) =>
               {
                   if (e.PropertyName == nameof(wrapper.IsChanged))
@@ -44,36 +44,36 @@ namespace HVTApp.Model.Wrapper.Tests
                   }
               };
 
-            wrapper.FriendAddressTest.City = "Salt Lake City";
+            wrapper.TestFriendAddress.City = "Salt Lake City";
             Assert.IsTrue(fired);
         }
 
         [TestMethod]
         public void ShouldAcceptChanges()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
-            wrapper.FriendAddressTest.City = "Salt Lake City";
-            Assert.AreEqual("Müllheim", wrapper.FriendAddressTest.CityOriginalValue);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+            wrapper.TestFriendAddress.City = "Salt Lake City";
+            Assert.AreEqual("Müllheim", wrapper.TestFriendAddress.CityOriginalValue);
 
             wrapper.AcceptChanges();
 
             Assert.IsFalse(wrapper.IsChanged);
-            Assert.AreEqual("Salt Lake City", wrapper.FriendAddressTest.City);
-            Assert.AreEqual("Salt Lake City", wrapper.FriendAddressTest.CityOriginalValue);
+            Assert.AreEqual("Salt Lake City", wrapper.TestFriendAddress.City);
+            Assert.AreEqual("Salt Lake City", wrapper.TestFriendAddress.CityOriginalValue);
         }
 
         [TestMethod]
         public void ShouldRejectChanges()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
-            wrapper.FriendAddressTest.City = "Salt Lake City";
-            Assert.AreEqual("Müllheim", wrapper.FriendAddressTest.CityOriginalValue);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+            wrapper.TestFriendAddress.City = "Salt Lake City";
+            Assert.AreEqual("Müllheim", wrapper.TestFriendAddress.CityOriginalValue);
 
             wrapper.RejectChanges();
 
             Assert.IsFalse(wrapper.IsChanged);
-            Assert.AreEqual("Müllheim", wrapper.FriendAddressTest.City);
-            Assert.AreEqual("Müllheim", wrapper.FriendAddressTest.CityOriginalValue);
+            Assert.AreEqual("Müllheim", wrapper.TestFriendAddress.City);
+            Assert.AreEqual("Müllheim", wrapper.TestFriendAddress.CityOriginalValue);
         }
     }
 }

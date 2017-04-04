@@ -12,24 +12,24 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void NavigationCollectionPropertiesTest()
         {
-            FriendGroupTest group = new FriendGroupTest {Id = 1, Name = "group1", FriendTests = new List<FriendTest>()};
-            FriendTest friend = new FriendTest
+            TestFriendGroup group = new TestFriendGroup {Id = 1, Name = "group1", FriendTests = new List<TestFriend>()};
+            TestFriend testFriend = new TestFriend
             {
                 FirstName = "Thomas",
-                FriendAddressTest = new FriendAddressTest { City = "CityOld"},
-                FriendGroupTest = group,
-                Emails = new List<FriendEmailTest>()
+                TestFriendAddress = new TestFriendAddress { City = "CityOld"},
+                TestFriendGroup = group,
+                Emails = new List<TestFriendEmail>()
             };
-            group.FriendTests.Add(friend);
+            group.FriendTests.Add(testFriend);
 
-            FriendTestWrapper wrapper = FriendTestWrapper.GetWrapper(friend);
+            FriendTestWrapper wrapper = FriendTestWrapper.GetWrapper(testFriend);
             Assert.IsFalse(wrapper.IsChanged);
 
-            var old = wrapper.FriendAddressTest;
-            wrapper.FriendAddressTest = FriendAddressTestWrapper.GetWrapper(new FriendAddressTest {City = "CityNew"});
+            var old = wrapper.TestFriendAddress;
+            wrapper.TestFriendAddress = TestFriendAddressWrapper.GetWrapper(new TestFriendAddress {City = "CityNew"});
             Assert.IsTrue(wrapper.IsChanged);
 
-            //wrapper.FriendAddressTest = old;
+            //wrapper.Test_FriendAddress = old;
             //Assert.IsFalse(wrapper.IsChanged);
         }
 

@@ -6,26 +6,26 @@ namespace HVTApp.Model.Wrapper.Tests
     [TestClass]
     public class ChangeNotificationComplexProperty
     {
-        private FriendTest _friendTest;
+        private TestFriend _testFriend;
 
         [TestInitialize]
         public void Initialize()
         {
-            _friendTest = new FriendTest
+            _testFriend = new TestFriend
             {
                 FirstName = "Thomas",
-                FriendAddressTest = new FriendAddressTest(),
-                FriendGroupTest = new FriendGroupTest() { FriendTests = new List<FriendTest>() },
-                Emails = new List<FriendEmailTest>()
+                TestFriendAddress = new TestFriendAddress(),
+                TestFriendGroup = new TestFriendGroup() { FriendTests = new List<TestFriend>() },
+                Emails = new List<TestFriendEmail>()
             };
         }
 
         [TestMethod]
         public void ShouldInitializeAddressProperty()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
-            Assert.IsNotNull(wrapper.FriendAddressTest);
-            Assert.AreEqual(_friendTest.FriendAddressTest, wrapper.FriendAddressTest.Model);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
+            Assert.IsNotNull(wrapper.TestFriendAddress);
+            Assert.AreEqual(_testFriend.TestFriendAddress, wrapper.TestFriendAddress.Model);
         }
     }
 }

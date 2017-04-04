@@ -50,7 +50,7 @@
     <Compile Include="Base\WrappersFactory.cs" />
     <Compile Include="Custom\CompanyFormWrapper.cs" />
     <Compile Include="Custom\CompanyWrapper.cs" />
-    <Compile Include="Custom\ForTests\FriendAddressTestWrapper.cs" />
+    <Compile Include="Custom\ForTests\TestFriendAddressWrapper.cs" />
     <Compile Include="Custom\ForTests\FriendEmailTestWrapper.cs" />
     <Compile Include="Custom\ForTests\FriendTestWrapper.cs" />
     <Compile Include="Custom\ProductMainWrapper.cs" />
@@ -72,10 +72,10 @@
     <Compile Include="Generated\EquipmentWrapper.g.cs" />
     <Compile Include="Generated\FacilityTypeWrapper.g.cs" />
     <Compile Include="Generated\FacilityWrapper.g.cs" />
-    <Compile Include="Generated\FriendAddressTestWrapper.g.cs" />
-    <Compile Include="Generated\FriendEmailTestWrapper.g.cs" />
-    <Compile Include="Generated\FriendGroupTestWrapper.g.cs" />
-    <Compile Include="Generated\FriendTestWrapper.g.cs" />
+    <Compile Include="Generated\TestFriendAddressWrapper.g.cs" />
+    <Compile Include="Generated\TestFriendEmailWrapper.g.cs" />
+    <Compile Include="Generated\TestFriendGroupWrapper.g.cs" />
+    <Compile Include="Generated\TestFriendWrapper.g.cs" />
     <Compile Include="Generated\LocalityTypeWrapper.g.cs" />
     <Compile Include="Generated\LocalityWrapper.g.cs" />
     <Compile Include="Generated\OfferProductWrapper.g.cs" />

@@ -7,20 +7,20 @@ namespace HVTApp.Model.Wrapper.Tests
     [TestClass]
     public class ValidationClassLevel
     {
-        private FriendTest _friendTest;
+        private TestFriend _testFriend;
 
         [TestInitialize]
         public void Initialize()
         {
-            _friendTest = new FriendTest
+            _testFriend = new TestFriend
             {
                 FirstName = "Thomas",
-                FriendAddressTest = new FriendAddressTest { City = "Müllheim" },
-                FriendGroupTest = new FriendGroupTest() { FriendTests = new List<FriendTest>() },
-                Emails = new List<FriendEmailTest>
+                TestFriendAddress = new TestFriendAddress { City = "Müllheim" },
+                TestFriendGroup = new TestFriendGroup() { FriendTests = new List<TestFriend>() },
+                Emails = new List<TestFriendEmail>
         {
-          new FriendEmailTest { Email="thomas@thomasclaudiushuber.com" },
-          new FriendEmailTest {Email="julia@juhu-design.com" }
+          new TestFriendEmail { Email="thomas@thomasclaudiushuber.com" },
+          new TestFriendEmail {Email="julia@juhu-design.com" }
         }
             };
         }
@@ -30,7 +30,7 @@ namespace HVTApp.Model.Wrapper.Tests
         {
             var expectedError = "A developer must have an email-address";
 
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             wrapper.Emails.Clear();
             Assert.IsFalse(wrapper.IsDeveloper);
             Assert.IsTrue(wrapper.IsValid);
@@ -50,7 +50,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldBeValidAgainWhenIsDeveloperIsSetBackToFalse()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             wrapper.Emails.Clear();
             Assert.IsFalse(wrapper.IsDeveloper);
             Assert.IsTrue(wrapper.IsValid);
@@ -72,7 +72,7 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldBeValidAgainWhenEmailIsAdded()
         {
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             wrapper.Emails.Clear();
             Assert.IsFalse(wrapper.IsDeveloper);
             Assert.IsTrue(wrapper.IsValid);
@@ -80,7 +80,7 @@ namespace HVTApp.Model.Wrapper.Tests
             wrapper.IsDeveloper = true;
             Assert.IsFalse(wrapper.IsValid);
 
-            wrapper.Emails.Add(FriendEmailTestWrapper.GetWrapper(new FriendEmailTest { Email = "thomas@thomasclaudiushuber.com" }));
+            wrapper.Emails.Add(FriendEmailTestWrapper.GetWrapper(new TestFriendEmail { Email = "thomas@thomasclaudiushuber.com" }));
             Assert.IsTrue(wrapper.IsValid);
 
             var emailsErrors = wrapper.GetErrors(nameof(wrapper.Emails)).Cast<string>().ToList();
@@ -93,8 +93,8 @@ namespace HVTApp.Model.Wrapper.Tests
         [TestMethod]
         public void ShouldIntializeWithoutProblems()
         {
-            _friendTest.IsDeveloper = true;
-            var wrapper = FriendTestWrapper.GetWrapper(_friendTest);
+            _testFriend.IsDeveloper = true;
+            var wrapper = FriendTestWrapper.GetWrapper(_testFriend);
             Assert.IsTrue(wrapper.IsValid);
         }
     }

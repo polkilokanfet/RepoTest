@@ -1,6 +1,6 @@
 ﻿namespace HVTApp.Model
 {
-  public class FriendAddressTest : BaseEntity
+  public class TestFriendAddress : BaseEntity
     {
     public string City { get; set; }
     public string Street { get; set; }
