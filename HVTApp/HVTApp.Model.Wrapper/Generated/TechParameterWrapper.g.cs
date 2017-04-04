@@ -52,9 +52,11 @@ namespace HVTApp.Model.Wrapper
         get { return TechParametersGroupWrapper.GetWrapper(Model.Group); }
         set
         {
-            UnRegisterComplexProperty(Group);
+			var oldPropVal = Group;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 

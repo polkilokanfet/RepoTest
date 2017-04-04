@@ -61,9 +61,11 @@ namespace HVTApp.Model.Wrapper
         get { return PaymentsInfoWrapper.GetWrapper(Model.PaymentsInfo); }
         set
         {
-            UnRegisterComplexProperty(PaymentsInfo);
+			var oldPropVal = PaymentsInfo;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 

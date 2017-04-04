@@ -61,9 +61,11 @@ namespace HVTApp.Model.Wrapper
         get { return ProductBaseWrapper.GetWrapper(Model.Product); }
         set
         {
-            UnRegisterComplexProperty(Product);
+			var oldPropVal = Product;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -73,9 +75,11 @@ namespace HVTApp.Model.Wrapper
         get { return OrderWrapper.GetWrapper(Model.Order); }
         set
         {
-            UnRegisterComplexProperty(Order);
+			var oldPropVal = Order;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 

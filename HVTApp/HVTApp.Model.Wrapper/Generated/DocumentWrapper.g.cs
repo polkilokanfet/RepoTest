@@ -43,9 +43,11 @@ namespace HVTApp.Model.Wrapper
         get { return DocumentWrapper.GetWrapper(Model.RequestDocument); }
         set
         {
-            UnRegisterComplexProperty(RequestDocument);
+			var oldPropVal = RequestDocument;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -55,9 +57,11 @@ namespace HVTApp.Model.Wrapper
         get { return CompanyWrapper.GetWrapper(Model.Sender); }
         set
         {
-            UnRegisterComplexProperty(Sender);
+			var oldPropVal = Sender;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -67,9 +71,11 @@ namespace HVTApp.Model.Wrapper
         get { return EmployeeWrapper.GetWrapper(Model.SenderEmployee); }
         set
         {
-            UnRegisterComplexProperty(SenderEmployee);
+			var oldPropVal = SenderEmployee;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -79,9 +85,11 @@ namespace HVTApp.Model.Wrapper
         get { return EmployeeWrapper.GetWrapper(Model.RecipientEmployee); }
         set
         {
-            UnRegisterComplexProperty(RecipientEmployee);
+			var oldPropVal = RecipientEmployee;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -91,9 +99,11 @@ namespace HVTApp.Model.Wrapper
         get { return RegistrationDetailsWrapper.GetWrapper(Model.RegistrationDetailsOfSender); }
         set
         {
-            UnRegisterComplexProperty(RegistrationDetailsOfSender);
+			var oldPropVal = RegistrationDetailsOfSender;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -103,9 +113,11 @@ namespace HVTApp.Model.Wrapper
         get { return RegistrationDetailsWrapper.GetWrapper(Model.RegistrationDetailsOfRecipient); }
         set
         {
-            UnRegisterComplexProperty(RegistrationDetailsOfRecipient);
+			var oldPropVal = RegistrationDetailsOfRecipient;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 

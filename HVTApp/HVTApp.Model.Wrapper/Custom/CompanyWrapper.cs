@@ -9,13 +9,20 @@ namespace HVTApp.Model.Wrapper
     {
         protected override void RunInConstructor()
         {
-            this.PropertyChanged += OnParentCompanyChanged;
+            this.ComplexPropertyChanged += OnParentCompanyChanged;
         }
 
-        private void OnParentCompanyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        private void OnParentCompanyChanged(object oldPropVal, object newPropVal, string propertyName)
         {
-            if (propertyChangedEventArgs.PropertyName != nameof(ParentCompany))
-                return;
+            if (propertyName != nameof(ParentCompany)) return;
+
+            CompanyWrapper oldParent = oldPropVal as CompanyWrapper;
+            if (oldParent != null && oldParent.ChildCompanies.Contains(this))
+                oldParent.ChildCompanies.Remove(this);
+
+            CompanyWrapper newParent = newPropVal as CompanyWrapper;
+            if (newParent != null && !newParent.ChildCompanies.Contains(this))
+                newParent.ChildCompanies.Add(this);
         }
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

@@ -214,9 +214,11 @@ namespace HVTApp.Model.Wrapper
         get { return <#= propertyType #>Wrapper.GetWrapper(Model.<#= propertyName #>); }
         set
         {
-            UnRegisterComplexProperty(<#= propertyName #>);
+			var oldPropVal = <#= propertyName #>;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 

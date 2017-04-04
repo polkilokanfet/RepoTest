@@ -52,9 +52,11 @@ namespace HVTApp.Model.Wrapper
         get { return LocalityTypeWrapper.GetWrapper(Model.LocalityType); }
         set
         {
-            UnRegisterComplexProperty(LocalityType);
+			var oldPropVal = LocalityType;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -64,9 +66,11 @@ namespace HVTApp.Model.Wrapper
         get { return DistrictsRegionWrapper.GetWrapper(Model.DistrictsRegion); }
         set
         {
-            UnRegisterComplexProperty(DistrictsRegion);
+			var oldPropVal = DistrictsRegion;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 

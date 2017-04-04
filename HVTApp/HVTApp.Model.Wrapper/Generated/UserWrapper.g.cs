@@ -79,9 +79,11 @@ namespace HVTApp.Model.Wrapper
         get { return EmployeeWrapper.GetWrapper(Model.Employee); }
         set
         {
-            UnRegisterComplexProperty(Employee);
+			var oldPropVal = Employee;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 

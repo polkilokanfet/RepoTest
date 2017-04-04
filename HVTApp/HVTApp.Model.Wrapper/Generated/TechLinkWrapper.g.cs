@@ -43,9 +43,11 @@ namespace HVTApp.Model.Wrapper
         get { return TechParameterWrapper.GetWrapper(Model.Parameter); }
         set
         {
-            UnRegisterComplexProperty(Parameter);
+			var oldPropVal = Parameter;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -55,9 +57,11 @@ namespace HVTApp.Model.Wrapper
         get { return TechLinkWrapper.GetWrapper(Model.ParentLink); }
         set
         {
-            UnRegisterComplexProperty(ParentLink);
+			var oldPropVal = ParentLink;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 

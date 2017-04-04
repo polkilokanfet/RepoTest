@@ -79,9 +79,11 @@ namespace HVTApp.Model.Wrapper
         get { return CompanyFormWrapper.GetWrapper(Model.Form); }
         set
         {
-            UnRegisterComplexProperty(Form);
+			var oldPropVal = Form;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -91,9 +93,11 @@ namespace HVTApp.Model.Wrapper
         get { return CompanyWrapper.GetWrapper(Model.ParentCompany); }
         set
         {
-            UnRegisterComplexProperty(ParentCompany);
+			var oldPropVal = ParentCompany;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -103,9 +107,11 @@ namespace HVTApp.Model.Wrapper
         get { return AddressWrapper.GetWrapper(Model.Address); }
         set
         {
-            UnRegisterComplexProperty(Address);
+			var oldPropVal = Address;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -115,9 +121,11 @@ namespace HVTApp.Model.Wrapper
         get { return BankDetailsWrapper.GetWrapper(Model.BankDetails); }
         set
         {
-            UnRegisterComplexProperty(BankDetails);
+			var oldPropVal = BankDetails;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 

@@ -52,9 +52,11 @@ namespace HVTApp.Model.Wrapper
         get { return CountryWrapper.GetWrapper(Model.Country); }
         set
         {
-            UnRegisterComplexProperty(Country);
+			var oldPropVal = Country;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 

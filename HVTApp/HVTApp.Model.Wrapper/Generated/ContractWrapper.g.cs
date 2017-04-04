@@ -61,9 +61,11 @@ namespace HVTApp.Model.Wrapper
         get { return CompanyWrapper.GetWrapper(Model.Contragent); }
         set
         {
-            UnRegisterComplexProperty(Contragent);
+			var oldPropVal = Contragent;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 

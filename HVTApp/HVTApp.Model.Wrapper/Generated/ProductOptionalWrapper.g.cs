@@ -52,9 +52,11 @@ namespace HVTApp.Model.Wrapper
         get { return ProductsMainGroupWrapper.GetWrapper(Model.ProductsMainGroup); }
         set
         {
-            UnRegisterComplexProperty(ProductsMainGroup);
+			var oldPropVal = ProductsMainGroup;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -64,9 +66,11 @@ namespace HVTApp.Model.Wrapper
         get { return EquipmentWrapper.GetWrapper(Model.Equipment); }
         set
         {
-            UnRegisterComplexProperty(Equipment);
+			var oldPropVal = Equipment;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -76,9 +80,11 @@ namespace HVTApp.Model.Wrapper
         get { return TenderInfoWrapper.GetWrapper(Model.TenderInfo); }
         set
         {
-            UnRegisterComplexProperty(TenderInfo);
+			var oldPropVal = TenderInfo;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -88,9 +94,11 @@ namespace HVTApp.Model.Wrapper
         get { return OrderInfoWrapper.GetWrapper(Model.OrderInfo); }
         set
         {
-            UnRegisterComplexProperty(OrderInfo);
+			var oldPropVal = OrderInfo;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -100,9 +108,11 @@ namespace HVTApp.Model.Wrapper
         get { return DateInfoWrapper.GetWrapper(Model.DateInfo); }
         set
         {
-            UnRegisterComplexProperty(DateInfo);
+			var oldPropVal = DateInfo;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -112,9 +122,11 @@ namespace HVTApp.Model.Wrapper
         get { return TermsInfoWrapper.GetWrapper(Model.TermsInfo); }
         set
         {
-            UnRegisterComplexProperty(TermsInfo);
+			var oldPropVal = TermsInfo;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -124,9 +136,11 @@ namespace HVTApp.Model.Wrapper
         get { return CostInfoWrapper.GetWrapper(Model.CostInfo); }
         set
         {
-            UnRegisterComplexProperty(CostInfo);
+			var oldPropVal = CostInfo;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -136,9 +150,11 @@ namespace HVTApp.Model.Wrapper
         get { return PaymentsInfoWrapper.GetWrapper(Model.PaymentsInfo); }
         set
         {
-            UnRegisterComplexProperty(PaymentsInfo);
+			var oldPropVal = PaymentsInfo;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 

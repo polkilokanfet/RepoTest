@@ -88,9 +88,11 @@ namespace HVTApp.Model.Wrapper
         get { return FriendAddressTestWrapper.GetWrapper(Model.FriendAddressTest); }
         set
         {
-            UnRegisterComplexProperty(FriendAddressTest);
+			var oldPropVal = FriendAddressTest;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -100,9 +102,11 @@ namespace HVTApp.Model.Wrapper
         get { return FriendGroupTestWrapper.GetWrapper(Model.FriendGroupTest); }
         set
         {
-            UnRegisterComplexProperty(FriendGroupTest);
+			var oldPropVal = FriendGroupTest;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 

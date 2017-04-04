@@ -63,9 +63,11 @@ namespace HVTApp.Model.Wrapper
         get { return LocalityWrapper.GetWrapper(Model.Locality); }
         set
         {
-            UnRegisterComplexProperty(Locality);
+			var oldPropVal = Locality;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 

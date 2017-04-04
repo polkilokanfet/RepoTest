@@ -52,9 +52,11 @@ namespace HVTApp.Model.Wrapper
         get { return TestHusbandWrapper.GetWrapper(Model.Husband); }
         set
         {
-            UnRegisterComplexProperty(Husband);
+			var oldPropVal = Husband;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -64,9 +66,11 @@ namespace HVTApp.Model.Wrapper
         get { return TestWifeWrapper.GetWrapper(Model.Wife); }
         set
         {
-            UnRegisterComplexProperty(Wife);
+			var oldPropVal = Wife;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 

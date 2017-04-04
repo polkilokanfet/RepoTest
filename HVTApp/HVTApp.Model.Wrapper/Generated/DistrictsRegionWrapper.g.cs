@@ -52,9 +52,11 @@ namespace HVTApp.Model.Wrapper
         get { return DistrictWrapper.GetWrapper(Model.District); }
         set
         {
-            UnRegisterComplexProperty(District);
+			var oldPropVal = District;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 

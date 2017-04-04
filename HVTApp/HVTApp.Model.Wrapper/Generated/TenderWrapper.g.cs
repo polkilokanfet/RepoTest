@@ -79,9 +79,11 @@ namespace HVTApp.Model.Wrapper
         get { return ProjectWrapper.GetWrapper(Model.Project); }
         set
         {
-            UnRegisterComplexProperty(Project);
+			var oldPropVal = Project;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
@@ -91,9 +93,11 @@ namespace HVTApp.Model.Wrapper
         get { return CompanyWrapper.GetWrapper(Model.Winner); }
         set
         {
-            UnRegisterComplexProperty(Winner);
+			var oldPropVal = Winner;
+            UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
 
