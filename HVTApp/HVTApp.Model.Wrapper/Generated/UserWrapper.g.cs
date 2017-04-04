@@ -74,18 +74,12 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private EmployeeWrapper _fieldEmployee;
 	public EmployeeWrapper Employee 
     {
-        get { return _fieldEmployee; }
+        get { return EmployeeWrapper.GetWrapper(Model.Employee); }
         set
         {
-            if (Equals(_fieldEmployee, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldEmployee);
-
-            _fieldEmployee = value;
+            UnRegisterComplexProperty(Employee);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

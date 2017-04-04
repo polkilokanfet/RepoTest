@@ -38,54 +38,36 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private ProjectWrapper _fieldProject;
 	public ProjectWrapper Project 
     {
-        get { return _fieldProject; }
+        get { return ProjectWrapper.GetWrapper(Model.Project); }
         set
         {
-            if (Equals(_fieldProject, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldProject);
-
-            _fieldProject = value;
+            UnRegisterComplexProperty(Project);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private FacilityWrapper _fieldFacility;
 	public FacilityWrapper Facility 
     {
-        get { return _fieldFacility; }
+        get { return FacilityWrapper.GetWrapper(Model.Facility); }
         set
         {
-            if (Equals(_fieldFacility, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldFacility);
-
-            _fieldFacility = value;
+            UnRegisterComplexProperty(Facility);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private SpecificationWrapper _fieldSpecification;
 	public SpecificationWrapper Specification 
     {
-        get { return _fieldSpecification; }
+        get { return SpecificationWrapper.GetWrapper(Model.Specification); }
         set
         {
-            if (Equals(_fieldSpecification, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldSpecification);
-
-            _fieldSpecification = value;
+            UnRegisterComplexProperty(Specification);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

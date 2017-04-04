@@ -74,72 +74,48 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private CompanyFormWrapper _fieldForm;
 	public CompanyFormWrapper Form 
     {
-        get { return _fieldForm; }
+        get { return CompanyFormWrapper.GetWrapper(Model.Form); }
         set
         {
-            if (Equals(_fieldForm, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldForm);
-
-            _fieldForm = value;
+            UnRegisterComplexProperty(Form);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private CompanyWrapper _fieldParentCompany;
 	public CompanyWrapper ParentCompany 
     {
-        get { return _fieldParentCompany; }
+        get { return CompanyWrapper.GetWrapper(Model.ParentCompany); }
         set
         {
-            if (Equals(_fieldParentCompany, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldParentCompany);
-
-            _fieldParentCompany = value;
+            UnRegisterComplexProperty(ParentCompany);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private AddressWrapper _fieldAddress;
 	public AddressWrapper Address 
     {
-        get { return _fieldAddress; }
+        get { return AddressWrapper.GetWrapper(Model.Address); }
         set
         {
-            if (Equals(_fieldAddress, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldAddress);
-
-            _fieldAddress = value;
+            UnRegisterComplexProperty(Address);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private BankDetailsWrapper _fieldBankDetails;
 	public BankDetailsWrapper BankDetails 
     {
-        get { return _fieldBankDetails; }
+        get { return BankDetailsWrapper.GetWrapper(Model.BankDetails); }
         set
         {
-            if (Equals(_fieldBankDetails, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldBankDetails);
-
-            _fieldBankDetails = value;
+            UnRegisterComplexProperty(BankDetails);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

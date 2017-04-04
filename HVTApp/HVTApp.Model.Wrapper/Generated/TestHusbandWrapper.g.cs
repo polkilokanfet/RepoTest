@@ -47,18 +47,12 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private TestWifeWrapper _fieldWife;
 	public TestWifeWrapper Wife 
     {
-        get { return _fieldWife; }
+        get { return TestWifeWrapper.GetWrapper(Model.Wife); }
         set
         {
-            if (Equals(_fieldWife, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldWife);
-
-            _fieldWife = value;
+            UnRegisterComplexProperty(Wife);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

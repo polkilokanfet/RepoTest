@@ -37,8 +37,8 @@ namespace HVTApp.Model.Wrapper.Tests
         [SuppressMessage("ReSharper", "HeuristicUnreachableCode")]
         public void NavigationPropertiesTest()
         {
-            TestHusband husband = new TestHusband {Id = 1};
-            TestWife wife = new TestWife {Id = 2};
+            TestHusband husband = new TestHusband { Id = 1 };
+            TestWife wife = new TestWife { Id = 2 };
 
             wife.Husband = husband;
             husband.Wife = wife;
@@ -54,7 +54,7 @@ namespace HVTApp.Model.Wrapper.Tests
             Assert.IsTrue(husbandWrapper.IsChanged);
             Assert.IsTrue(fired);
 
-            TestWife otherTestWife = new TestWife {Id = 22};
+            TestWife otherTestWife = new TestWife { Id = 22 };
             TestWifeWrapper otherTestWifeWrapper = TestWifeWrapper.GetWrapper(otherTestWife);
             husbandWrapper.Wife = otherTestWifeWrapper;
             Assert.IsTrue(husbandWrapper.IsChanged);
@@ -86,22 +86,7 @@ namespace HVTApp.Model.Wrapper.Tests
         }
 
         [TestMethod]
-        public void abcd()
-        {
-            TestHusband husband = new TestHusband { Id = 1 };
-            TestWife wife = new TestWife { Id = 2 };
-            TestChild child = new TestChild { Id = 3, Husband = husband, Wife = wife };
-
-            wife.Husband = husband;
-            husband.Wife = wife;
-            husband.Children.Add(child);
-
-            TestHusbandWrapper husbandWrapper = TestHusbandWrapper.GetWrapper(husband);
-
-        }
-
-        [TestMethod]
-        public void abcd2()
+        public void ComplexWrapperAcceptAndReject()
         {
             TestHusband husband = new TestHusband();
             TestWife wife = new TestWife();
@@ -117,17 +102,82 @@ namespace HVTApp.Model.Wrapper.Tests
             Assert.IsFalse(husbandWrapper.IsChanged);
 
             TestChildWrapper childWrapper1 = husbandWrapper.Children.First(x => Equals(x.Model, child1));
-            husbandWrapper.Children.Remove(childWrapper1);
-            Assert.IsTrue(husbandWrapper.IsChanged);
 
-            husbandWrapper.Children.Add(childWrapper1);
+            string oldChildsName = childWrapper1.Name;
+            childWrapper1.Name = oldChildsName + "NEW";
+            husbandWrapper.RejectChanges();
+            Assert.AreEqual(childWrapper1.Name, oldChildsName);
+
+            childWrapper1.Name = oldChildsName + "NEW";
+            husbandWrapper.AcceptChanges();
+            Assert.AreEqual(childWrapper1.Name, oldChildsName + "NEW");
+            Assert.AreEqual(childWrapper1.NameOriginalValue, oldChildsName + "NEW");
+
+            TestWifeWrapper wifeWrapper = husbandWrapper.Wife;
+            husbandWrapper.Wife = null;
+            Assert.AreEqual(husbandWrapper.Wife, null);
+            husbandWrapper.RejectChanges();
+            Assert.AreEqual(husbandWrapper.Wife, wifeWrapper);
+        }
+
+        [TestMethod]
+        public void SimpleWrapperTest()
+        {
+            TestHusband husband = new TestHusband();
+            TestChild child1 = new TestChild { Id = 1, Husband = husband };
+            TestChild child2 = new TestChild { Id = 2, Husband = husband };
+
+            husband.Children.Add(child1);
+            //husband.Children.Add(child2);
+
+            TestHusbandWrapper husbandWrapper = TestHusbandWrapper.GetWrapper(husband);
             Assert.IsFalse(husbandWrapper.IsChanged);
+
+            TestChildWrapper childWrapper1 = husbandWrapper.Children.First(x => Equals(x.Model, child1));
 
             string oldChildsName = childWrapper1.Name;
             childWrapper1.Name = oldChildsName + "NEW";
             Assert.IsTrue(husbandWrapper.IsChanged);
 
             childWrapper1.Name = oldChildsName;
+            Assert.IsFalse(husbandWrapper.IsChanged);
+
+
+            husbandWrapper.Children.Remove(childWrapper1);
+            Assert.IsTrue(husbandWrapper.IsChanged);
+            husbandWrapper.Children.Add(childWrapper1);
+            Assert.IsFalse(husbandWrapper.IsChanged);
+        }
+
+        [TestMethod]
+        public void ComplexWrapperTest()
+        {
+            TestHusband husband = new TestHusband();
+            TestWife wife = new TestWife();
+            TestChild child1 = new TestChild { Id = 1, Husband = husband, Wife = wife };
+            TestChild child2 = new TestChild { Id = 2, Husband = husband, Wife = wife };
+
+            wife.Husband = husband;
+            husband.Wife = wife;
+            husband.Children.Add(child1);
+            husband.Children.Add(child2);
+
+            TestHusbandWrapper husbandWrapper = TestHusbandWrapper.GetWrapper(husband);
+            Assert.IsFalse(husbandWrapper.IsChanged);
+
+            TestChildWrapper childWrapper1 = husbandWrapper.Children.First(x => Equals(x.Model, child1));
+
+            string oldChildsName = childWrapper1.Name;
+            childWrapper1.Name = oldChildsName + "NEW";
+            Assert.IsTrue(husbandWrapper.IsChanged);
+
+            childWrapper1.Name = oldChildsName;
+            Assert.IsFalse(husbandWrapper.IsChanged);
+
+
+            husbandWrapper.Children.Remove(childWrapper1);
+            Assert.IsTrue(husbandWrapper.IsChanged);
+            husbandWrapper.Children.Add(childWrapper1);
             Assert.IsFalse(husbandWrapper.IsChanged);
         }
 

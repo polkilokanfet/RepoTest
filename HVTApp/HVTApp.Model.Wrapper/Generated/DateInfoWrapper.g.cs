@@ -119,18 +119,12 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private ProductBaseWrapper _fieldProduct;
 	public ProductBaseWrapper Product 
     {
-        get { return _fieldProduct; }
+        get { return ProductBaseWrapper.GetWrapper(Model.Product); }
         set
         {
-            if (Equals(_fieldProduct, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldProduct);
-
-            _fieldProduct = value;
+            UnRegisterComplexProperty(Product);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

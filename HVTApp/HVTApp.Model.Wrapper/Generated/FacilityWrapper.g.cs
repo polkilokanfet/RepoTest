@@ -47,54 +47,36 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private FacilityTypeWrapper _fieldType;
 	public FacilityTypeWrapper Type 
     {
-        get { return _fieldType; }
+        get { return FacilityTypeWrapper.GetWrapper(Model.Type); }
         set
         {
-            if (Equals(_fieldType, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldType);
-
-            _fieldType = value;
+            UnRegisterComplexProperty(Type);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private CompanyWrapper _fieldOwnerCompany;
 	public CompanyWrapper OwnerCompany 
     {
-        get { return _fieldOwnerCompany; }
+        get { return CompanyWrapper.GetWrapper(Model.OwnerCompany); }
         set
         {
-            if (Equals(_fieldOwnerCompany, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldOwnerCompany);
-
-            _fieldOwnerCompany = value;
+            UnRegisterComplexProperty(OwnerCompany);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private AddressWrapper _fieldAddress;
 	public AddressWrapper Address 
     {
-        get { return _fieldAddress; }
+        get { return AddressWrapper.GetWrapper(Model.Address); }
         set
         {
-            if (Equals(_fieldAddress, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldAddress);
-
-            _fieldAddress = value;
+            UnRegisterComplexProperty(Address);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

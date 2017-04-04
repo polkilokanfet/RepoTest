@@ -83,36 +83,24 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private FriendAddressTestWrapper _fieldFriendAddressTest;
 	public FriendAddressTestWrapper FriendAddressTest 
     {
-        get { return _fieldFriendAddressTest; }
+        get { return FriendAddressTestWrapper.GetWrapper(Model.FriendAddressTest); }
         set
         {
-            if (Equals(_fieldFriendAddressTest, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldFriendAddressTest);
-
-            _fieldFriendAddressTest = value;
+            UnRegisterComplexProperty(FriendAddressTest);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private FriendGroupTestWrapper _fieldFriendGroupTest;
 	public FriendGroupTestWrapper FriendGroupTest 
     {
-        get { return _fieldFriendGroupTest; }
+        get { return FriendGroupTestWrapper.GetWrapper(Model.FriendGroupTest); }
         set
         {
-            if (Equals(_fieldFriendGroupTest, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldFriendGroupTest);
-
-            _fieldFriendGroupTest = value;
+            UnRegisterComplexProperty(FriendGroupTest);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

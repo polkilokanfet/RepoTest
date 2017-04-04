@@ -76,53 +76,47 @@ namespace HVTApp.Model.Wrapper
             {
                 //объект в котором изменилось свойство.
                 var item = (TCollectionItem) sender;
+
                 //если этот объект добавлен в этом сеансе, нет смысла реагировать на изменение его свойств.
-                if (_addedItems.Contains(item))
+                if (!_addedItems.Contains(item))
                 {
+                    //если изменился объект (флаг IsChanged об этом говорит).
+                    if (item.IsChanged)
+                    {
+                        //добавляем член в коллекцию измененных объектов, если он еще не в этой коллекции.
+                        if (!_modifiedItems.Contains(item))
+                            _modifiedItems.Add(item);
+                    }
+                    else
+                    {
+                        //если объект не изменился, удяляем его из коллекции измененных объектов (если он там есть).
+                        if (_modifiedItems.Contains(item))
+                            _modifiedItems.Remove(item);
+                    }
+
                     //информируем о том, что коллекция изменилась.
                     OnPropertyChanged(sender, nameof(IsChanged));
-                    return;
                 }
-
-                //если изменился объект (флаг IsChanged об этом говорит).
-                if (item.IsChanged)
-                {
-                    //добавляем член в коллекцию измененных объектов, если он еще не в этой коллекции.
-                    if (!_modifiedItems.Contains(item))
-                    {
-                        _modifiedItems.Add(item);
-                    }
-                }
-                else
-                {
-                    //если объект не изменился, удяляем его из коллекции измененных объектов (если он там есть).
-                    if (_modifiedItems.Contains(item))
-                    {
-                        _modifiedItems.Remove(item);
-                    }
-                }
-
-                //информируем о том, что коллекция изменилась.
-                OnPropertyChanged(sender, nameof(IsChanged));
             }
-
         }
 
         //реакция на изменение коллекции (добавление или удаление элемента коллекции)
         protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
-            var added = this.Except(_originalCollection).ToList();              //список добавленных элементов
-            var removed = _originalCollection.Except(this).ToList();            //список удаленных элементов
-            var changed = this.Except(added).Where(x => x.IsChanged).ToList();  //список измененных элементов
-
-            var dettachedItems = _addedItems.Concat(_modifiedItems).Concat(_removedItems).Concat(added).Concat(removed).ToList();
+            //отписываем все члены коллекции от события изменения
+            var dettachedItems = this.Concat(_originalCollection).Concat(_addedItems).ToList();
             DettachedItemPropertyChangedHandler(dettachedItems);
 
-            AttachedItemPropertyChangedHandler(added);
+            //подписываем члены коллекции к событию
+            AttachedItemPropertyChangedHandler(this);
+
+            var added = this.Except(_originalCollection).ToList();               //список добавленных элементов
+            var removed = _originalCollection.Except(this).ToList();             //список удаленных элементов
+            var modified = this.Except(added).Where(x => x.IsChanged).ToList();  //список измененных элементов
 
             UpdateObservableCollection(added, _addedItems);
             UpdateObservableCollection(removed, _removedItems);
-            UpdateObservableCollection(changed, _modifiedItems);
+            UpdateObservableCollection(modified, _modifiedItems);
 
             base.OnCollectionChanged(e);
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
@@ -155,13 +149,20 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public void AcceptChanges()
         {
+            if (ProcessesInWork.Contains(nameof(AcceptChanges)))
+                return;
+
+            ProcessesInWork.Add(nameof(AcceptChanges));
+
             _addedItems.Clear();
             _modifiedItems.Clear();
             _removedItems.Clear();
 
-            this.ToList().ForEach(x => x.AcceptChanges());
+            this.Where(x => !x.ProcessesInWork.Contains(nameof(AcceptChanges))).ToList().ForEach(x => x.AcceptChanges());
 
             _originalCollection = this.ToList();
+
+            ProcessesInWork.Remove(nameof(AcceptChanges));
 
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
         }
@@ -187,7 +188,7 @@ namespace HVTApp.Model.Wrapper
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
         }
 
-        public bool IsBusy => false;
+        public List<string> ProcessesInWork { get; } = new List<string>();
 
         private readonly List<WhoRised> _whoRisedEventPropertyChanged = new List<WhoRised>();
 

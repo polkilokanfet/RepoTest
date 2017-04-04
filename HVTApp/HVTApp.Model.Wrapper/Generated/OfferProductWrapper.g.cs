@@ -38,72 +38,48 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private ProductMainWrapper _fieldProductMain;
 	public ProductMainWrapper ProductMain 
     {
-        get { return _fieldProductMain; }
+        get { return ProductMainWrapper.GetWrapper(Model.ProductMain); }
         set
         {
-            if (Equals(_fieldProductMain, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldProductMain);
-
-            _fieldProductMain = value;
+            UnRegisterComplexProperty(ProductMain);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private OfferUnitWrapper _fieldOfferUnit;
 	public OfferUnitWrapper OfferUnit 
     {
-        get { return _fieldOfferUnit; }
+        get { return OfferUnitWrapper.GetWrapper(Model.OfferUnit); }
         set
         {
-            if (Equals(_fieldOfferUnit, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldOfferUnit);
-
-            _fieldOfferUnit = value;
+            UnRegisterComplexProperty(OfferUnit);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private CostInfoWrapper _fieldCostInfo;
 	public CostInfoWrapper CostInfo 
     {
-        get { return _fieldCostInfo; }
+        get { return CostInfoWrapper.GetWrapper(Model.CostInfo); }
         set
         {
-            if (Equals(_fieldCostInfo, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldCostInfo);
-
-            _fieldCostInfo = value;
+            UnRegisterComplexProperty(CostInfo);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private PlannedTermProductionWrapper _fieldPlannedTermProduction;
 	public PlannedTermProductionWrapper PlannedTermProduction 
     {
-        get { return _fieldPlannedTermProduction; }
+        get { return PlannedTermProductionWrapper.GetWrapper(Model.PlannedTermProduction); }
         set
         {
-            if (Equals(_fieldPlannedTermProduction, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldPlannedTermProduction);
-
-            _fieldPlannedTermProduction = value;
+            UnRegisterComplexProperty(PlannedTermProduction);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

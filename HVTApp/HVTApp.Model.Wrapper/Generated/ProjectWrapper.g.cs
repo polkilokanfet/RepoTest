@@ -56,18 +56,12 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private UserWrapper _fieldManager;
 	public UserWrapper Manager 
     {
-        get { return _fieldManager; }
+        get { return UserWrapper.GetWrapper(Model.Manager); }
         set
         {
-            if (Equals(_fieldManager, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldManager);
-
-            _fieldManager = value;
+            UnRegisterComplexProperty(Manager);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

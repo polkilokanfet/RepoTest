@@ -9,21 +9,22 @@ namespace HVTApp.Model.Wrapper
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        //[NotifyPropertyChangedInvocator]
+        //protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //}
 
         private readonly List<WhoRised> _whoRisedEventPropertyChanged = new List<WhoRised>();
 
-        protected void OnPropertyChanged(object sender, string propertyName)
+        protected virtual void OnPropertyChanged(object sender, string propertyName)
         {
             WhoRised whoRised = new WhoRised(sender, propertyName);
             if (!_whoRisedEventPropertyChanged.Contains(whoRised))
             {
                 _whoRisedEventPropertyChanged.Add(whoRised);
-                OnPropertyChanged(propertyName);
+                //OnPropertyChanged(propertyName);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
                 _whoRisedEventPropertyChanged.Remove(whoRised);
             }
         }

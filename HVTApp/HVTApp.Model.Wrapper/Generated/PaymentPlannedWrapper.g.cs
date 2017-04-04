@@ -65,36 +65,24 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private PaymentsConditionWrapper _fieldPaymentsCondition;
 	public PaymentsConditionWrapper PaymentsCondition 
     {
-        get { return _fieldPaymentsCondition; }
+        get { return PaymentsConditionWrapper.GetWrapper(Model.PaymentsCondition); }
         set
         {
-            if (Equals(_fieldPaymentsCondition, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldPaymentsCondition);
-
-            _fieldPaymentsCondition = value;
+            UnRegisterComplexProperty(PaymentsCondition);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private PaymentsInfoWrapper _fieldPaymentsInfo;
 	public PaymentsInfoWrapper PaymentsInfo 
     {
-        get { return _fieldPaymentsInfo; }
+        get { return PaymentsInfoWrapper.GetWrapper(Model.PaymentsInfo); }
         set
         {
-            if (Equals(_fieldPaymentsInfo, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldPaymentsInfo);
-
-            _fieldPaymentsInfo = value;
+            UnRegisterComplexProperty(PaymentsInfo);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

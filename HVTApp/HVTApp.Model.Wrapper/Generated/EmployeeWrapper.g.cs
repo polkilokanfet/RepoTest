@@ -83,36 +83,24 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private CompanyWrapper _fieldCompany;
 	public CompanyWrapper Company 
     {
-        get { return _fieldCompany; }
+        get { return CompanyWrapper.GetWrapper(Model.Company); }
         set
         {
-            if (Equals(_fieldCompany, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldCompany);
-
-            _fieldCompany = value;
+            UnRegisterComplexProperty(Company);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private EmployeesPositionWrapper _fieldPosition;
 	public EmployeesPositionWrapper Position 
     {
-        get { return _fieldPosition; }
+        get { return EmployeesPositionWrapper.GetWrapper(Model.Position); }
         set
         {
-            if (Equals(_fieldPosition, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldPosition);
-
-            _fieldPosition = value;
+            UnRegisterComplexProperty(Position);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

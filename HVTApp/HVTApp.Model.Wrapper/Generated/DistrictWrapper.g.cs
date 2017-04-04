@@ -47,18 +47,12 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private CountryWrapper _fieldCountry;
 	public CountryWrapper Country 
     {
-        get { return _fieldCountry; }
+        get { return CountryWrapper.GetWrapper(Model.Country); }
         set
         {
-            if (Equals(_fieldCountry, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldCountry);
-
-            _fieldCountry = value;
+            UnRegisterComplexProperty(Country);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

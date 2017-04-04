@@ -47,18 +47,12 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private DistrictWrapper _fieldDistrict;
 	public DistrictWrapper District 
     {
-        get { return _fieldDistrict; }
+        get { return DistrictWrapper.GetWrapper(Model.District); }
         set
         {
-            if (Equals(_fieldDistrict, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldDistrict);
-
-            _fieldDistrict = value;
+            UnRegisterComplexProperty(District);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

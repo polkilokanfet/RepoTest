@@ -1,10 +1,11 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace HVTApp.Model.Wrapper
 {
     public interface IValidatableChangeTracking : IRevertibleChangeTracking, INotifyPropertyChanged
     {
         bool IsValid { get; }
-        bool IsBusy { get; }
+        List<string> ProcessesInWork { get; }
     }
 }

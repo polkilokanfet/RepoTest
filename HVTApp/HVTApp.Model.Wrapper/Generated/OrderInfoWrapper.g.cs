@@ -56,36 +56,24 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private ProductBaseWrapper _fieldProduct;
 	public ProductBaseWrapper Product 
     {
-        get { return _fieldProduct; }
+        get { return ProductBaseWrapper.GetWrapper(Model.Product); }
         set
         {
-            if (Equals(_fieldProduct, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldProduct);
-
-            _fieldProduct = value;
+            UnRegisterComplexProperty(Product);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private OrderWrapper _fieldOrder;
 	public OrderWrapper Order 
     {
-        get { return _fieldOrder; }
+        get { return OrderWrapper.GetWrapper(Model.Order); }
         set
         {
-            if (Equals(_fieldOrder, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldOrder);
-
-            _fieldOrder = value;
+            UnRegisterComplexProperty(Order);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

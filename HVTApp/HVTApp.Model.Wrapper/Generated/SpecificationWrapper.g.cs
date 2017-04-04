@@ -56,18 +56,12 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private ContractWrapper _fieldContract;
 	public ContractWrapper Contract 
     {
-        get { return _fieldContract; }
+        get { return ContractWrapper.GetWrapper(Model.Contract); }
         set
         {
-            if (Equals(_fieldContract, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldContract);
-
-            _fieldContract = value;
+            UnRegisterComplexProperty(Contract);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

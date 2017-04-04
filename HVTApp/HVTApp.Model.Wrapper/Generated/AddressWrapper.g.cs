@@ -58,18 +58,12 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private LocalityWrapper _fieldLocality;
 	public LocalityWrapper Locality 
     {
-        get { return _fieldLocality; }
+        get { return LocalityWrapper.GetWrapper(Model.Locality); }
         set
         {
-            if (Equals(_fieldLocality, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldLocality);
-
-            _fieldLocality = value;
+            UnRegisterComplexProperty(Locality);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

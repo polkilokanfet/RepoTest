@@ -38,36 +38,24 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private TechParameterWrapper _fieldParameter;
 	public TechParameterWrapper Parameter 
     {
-        get { return _fieldParameter; }
+        get { return TechParameterWrapper.GetWrapper(Model.Parameter); }
         set
         {
-            if (Equals(_fieldParameter, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldParameter);
-
-            _fieldParameter = value;
+            UnRegisterComplexProperty(Parameter);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private TechLinkWrapper _fieldParentLink;
 	public TechLinkWrapper ParentLink 
     {
-        get { return _fieldParentLink; }
+        get { return TechLinkWrapper.GetWrapper(Model.ParentLink); }
         set
         {
-            if (Equals(_fieldParentLink, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldParentLink);
-
-            _fieldParentLink = value;
+            UnRegisterComplexProperty(ParentLink);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

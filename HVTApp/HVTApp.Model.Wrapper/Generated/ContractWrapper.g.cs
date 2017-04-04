@@ -56,18 +56,12 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private CompanyWrapper _fieldContragent;
 	public CompanyWrapper Contragent 
     {
-        get { return _fieldContragent; }
+        get { return CompanyWrapper.GetWrapper(Model.Contragent); }
         set
         {
-            if (Equals(_fieldContragent, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldContragent);
-
-            _fieldContragent = value;
+            UnRegisterComplexProperty(Contragent);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

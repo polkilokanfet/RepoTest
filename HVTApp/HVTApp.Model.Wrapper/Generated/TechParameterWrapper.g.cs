@@ -47,18 +47,12 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private TechParametersGroupWrapper _fieldGroup;
 	public TechParametersGroupWrapper Group 
     {
-        get { return _fieldGroup; }
+        get { return TechParametersGroupWrapper.GetWrapper(Model.Group); }
         set
         {
-            if (Equals(_fieldGroup, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldGroup);
-
-            _fieldGroup = value;
+            UnRegisterComplexProperty(Group);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

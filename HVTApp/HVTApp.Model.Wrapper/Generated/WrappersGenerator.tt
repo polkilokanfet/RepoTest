@@ -209,18 +209,12 @@ namespace HVTApp.Model.Wrapper
       var propertyType = property.PropertyType.Name;
       var propertyName = property.Name;
 #>
-	private <#= propertyType #>Wrapper _field<#= propertyName #>;
 	public <#= propertyType #>Wrapper <#= propertyName #> 
     {
-        get { return _field<#= propertyName #>; }
+        get { return <#= propertyType #>Wrapper.GetWrapper(Model.<#= propertyName #>); }
         set
         {
-            if (Equals(_field<#= propertyName #>, value))
-                return;
-
-            UnRegisterComplexProperty(_field<#= propertyName #>);
-
-            _field<#= propertyName #> = value;
+            UnRegisterComplexProperty(<#= propertyName #>);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

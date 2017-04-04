@@ -47,144 +47,96 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private ProductsMainGroupWrapper _fieldProductsMainGroup;
 	public ProductsMainGroupWrapper ProductsMainGroup 
     {
-        get { return _fieldProductsMainGroup; }
+        get { return ProductsMainGroupWrapper.GetWrapper(Model.ProductsMainGroup); }
         set
         {
-            if (Equals(_fieldProductsMainGroup, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldProductsMainGroup);
-
-            _fieldProductsMainGroup = value;
+            UnRegisterComplexProperty(ProductsMainGroup);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private EquipmentWrapper _fieldEquipment;
 	public EquipmentWrapper Equipment 
     {
-        get { return _fieldEquipment; }
+        get { return EquipmentWrapper.GetWrapper(Model.Equipment); }
         set
         {
-            if (Equals(_fieldEquipment, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldEquipment);
-
-            _fieldEquipment = value;
+            UnRegisterComplexProperty(Equipment);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private TenderInfoWrapper _fieldTenderInfo;
 	public TenderInfoWrapper TenderInfo 
     {
-        get { return _fieldTenderInfo; }
+        get { return TenderInfoWrapper.GetWrapper(Model.TenderInfo); }
         set
         {
-            if (Equals(_fieldTenderInfo, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldTenderInfo);
-
-            _fieldTenderInfo = value;
+            UnRegisterComplexProperty(TenderInfo);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private OrderInfoWrapper _fieldOrderInfo;
 	public OrderInfoWrapper OrderInfo 
     {
-        get { return _fieldOrderInfo; }
+        get { return OrderInfoWrapper.GetWrapper(Model.OrderInfo); }
         set
         {
-            if (Equals(_fieldOrderInfo, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldOrderInfo);
-
-            _fieldOrderInfo = value;
+            UnRegisterComplexProperty(OrderInfo);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private DateInfoWrapper _fieldDateInfo;
 	public DateInfoWrapper DateInfo 
     {
-        get { return _fieldDateInfo; }
+        get { return DateInfoWrapper.GetWrapper(Model.DateInfo); }
         set
         {
-            if (Equals(_fieldDateInfo, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldDateInfo);
-
-            _fieldDateInfo = value;
+            UnRegisterComplexProperty(DateInfo);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private TermsInfoWrapper _fieldTermsInfo;
 	public TermsInfoWrapper TermsInfo 
     {
-        get { return _fieldTermsInfo; }
+        get { return TermsInfoWrapper.GetWrapper(Model.TermsInfo); }
         set
         {
-            if (Equals(_fieldTermsInfo, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldTermsInfo);
-
-            _fieldTermsInfo = value;
+            UnRegisterComplexProperty(TermsInfo);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private CostInfoWrapper _fieldCostInfo;
 	public CostInfoWrapper CostInfo 
     {
-        get { return _fieldCostInfo; }
+        get { return CostInfoWrapper.GetWrapper(Model.CostInfo); }
         set
         {
-            if (Equals(_fieldCostInfo, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldCostInfo);
-
-            _fieldCostInfo = value;
+            UnRegisterComplexProperty(CostInfo);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private PaymentsInfoWrapper _fieldPaymentsInfo;
 	public PaymentsInfoWrapper PaymentsInfo 
     {
-        get { return _fieldPaymentsInfo; }
+        get { return PaymentsInfoWrapper.GetWrapper(Model.PaymentsInfo); }
         set
         {
-            if (Equals(_fieldPaymentsInfo, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldPaymentsInfo);
-
-            _fieldPaymentsInfo = value;
+            UnRegisterComplexProperty(PaymentsInfo);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

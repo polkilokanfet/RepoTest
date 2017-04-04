@@ -47,36 +47,24 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private LocalityTypeWrapper _fieldLocalityType;
 	public LocalityTypeWrapper LocalityType 
     {
-        get { return _fieldLocalityType; }
+        get { return LocalityTypeWrapper.GetWrapper(Model.LocalityType); }
         set
         {
-            if (Equals(_fieldLocalityType, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldLocalityType);
-
-            _fieldLocalityType = value;
+            UnRegisterComplexProperty(LocalityType);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private DistrictsRegionWrapper _fieldDistrictsRegion;
 	public DistrictsRegionWrapper DistrictsRegion 
     {
-        get { return _fieldDistrictsRegion; }
+        get { return DistrictsRegionWrapper.GetWrapper(Model.DistrictsRegion); }
         set
         {
-            if (Equals(_fieldDistrictsRegion, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldDistrictsRegion);
-
-            _fieldDistrictsRegion = value;
+            UnRegisterComplexProperty(DistrictsRegion);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

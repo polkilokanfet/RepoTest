@@ -38,108 +38,72 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	private DocumentWrapper _fieldRequestDocument;
 	public DocumentWrapper RequestDocument 
     {
-        get { return _fieldRequestDocument; }
+        get { return DocumentWrapper.GetWrapper(Model.RequestDocument); }
         set
         {
-            if (Equals(_fieldRequestDocument, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldRequestDocument);
-
-            _fieldRequestDocument = value;
+            UnRegisterComplexProperty(RequestDocument);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private CompanyWrapper _fieldSender;
 	public CompanyWrapper Sender 
     {
-        get { return _fieldSender; }
+        get { return CompanyWrapper.GetWrapper(Model.Sender); }
         set
         {
-            if (Equals(_fieldSender, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldSender);
-
-            _fieldSender = value;
+            UnRegisterComplexProperty(Sender);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private EmployeeWrapper _fieldSenderEmployee;
 	public EmployeeWrapper SenderEmployee 
     {
-        get { return _fieldSenderEmployee; }
+        get { return EmployeeWrapper.GetWrapper(Model.SenderEmployee); }
         set
         {
-            if (Equals(_fieldSenderEmployee, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldSenderEmployee);
-
-            _fieldSenderEmployee = value;
+            UnRegisterComplexProperty(SenderEmployee);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private EmployeeWrapper _fieldRecipientEmployee;
 	public EmployeeWrapper RecipientEmployee 
     {
-        get { return _fieldRecipientEmployee; }
+        get { return EmployeeWrapper.GetWrapper(Model.RecipientEmployee); }
         set
         {
-            if (Equals(_fieldRecipientEmployee, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldRecipientEmployee);
-
-            _fieldRecipientEmployee = value;
+            UnRegisterComplexProperty(RecipientEmployee);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private RegistrationDetailsWrapper _fieldRegistrationDetailsOfSender;
 	public RegistrationDetailsWrapper RegistrationDetailsOfSender 
     {
-        get { return _fieldRegistrationDetailsOfSender; }
+        get { return RegistrationDetailsWrapper.GetWrapper(Model.RegistrationDetailsOfSender); }
         set
         {
-            if (Equals(_fieldRegistrationDetailsOfSender, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldRegistrationDetailsOfSender);
-
-            _fieldRegistrationDetailsOfSender = value;
+            UnRegisterComplexProperty(RegistrationDetailsOfSender);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }
     }
 
 
-	private RegistrationDetailsWrapper _fieldRegistrationDetailsOfRecipient;
 	public RegistrationDetailsWrapper RegistrationDetailsOfRecipient 
     {
-        get { return _fieldRegistrationDetailsOfRecipient; }
+        get { return RegistrationDetailsWrapper.GetWrapper(Model.RegistrationDetailsOfRecipient); }
         set
         {
-            if (Equals(_fieldRegistrationDetailsOfRecipient, value))
-                return;
-
-            UnRegisterComplexProperty(_fieldRegistrationDetailsOfRecipient);
-
-            _fieldRegistrationDetailsOfRecipient = value;
+            UnRegisterComplexProperty(RegistrationDetailsOfRecipient);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
         }

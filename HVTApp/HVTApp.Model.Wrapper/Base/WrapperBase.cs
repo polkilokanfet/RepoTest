@@ -39,7 +39,6 @@ namespace HVTApp.Model.Wrapper
             InitializeCollectionComplexProperties(model);
             InitializeCollectionSimpleProperties(model);
 
-            IsBusy = false;
             Validate();
 
             RunInConstructor();
@@ -57,6 +56,8 @@ namespace HVTApp.Model.Wrapper
         /// <param name="model"></param>
         protected virtual void InitializeComplexProperties(T model) { }
 
+        public List<string> ProcessesInWork { get; } = new List<string>(); 
+
         /// <summary>
         /// Произошли ли изменения каких-либо свойств объекта.
         /// </summary>
@@ -64,23 +65,24 @@ namespace HVTApp.Model.Wrapper
         {
             get
             {
-                IsBusy = true;
+                if (ProcessesInWork.Contains(nameof(IsChanged)))
+                    return false;
+
+                ProcessesInWork.Add(nameof(IsChanged));
 
                 if (_originalValues.Count > 0)
                 {
-                    IsBusy = false;
+                    ProcessesInWork.Remove(nameof(IsChanged));
                     return true;
                 }
 
-                bool result = _trackingObjects.Where(x => !x.IsBusy).Any(x => x.IsChanged);
+                bool result = _trackingObjects.Where(x => !x.ProcessesInWork.Contains(nameof(IsChanged))).Any(x => x.IsChanged);
 
-                IsBusy = false;
+                ProcessesInWork.Remove(nameof(IsChanged));
                 return result;
             }
         }
-
         //public bool IsChanged => _originalValues.Count > 0 || _trackingObjects.Any(x => x.IsChanged);
-        public bool IsBusy { get; private set; }
 
         /// <summary>
         /// Все ли свойства валидны.
@@ -89,22 +91,23 @@ namespace HVTApp.Model.Wrapper
         {
             get
             {
-                IsBusy = true;
+                if (ProcessesInWork.Contains(nameof(IsValid)))
+                    return true;
+
+                ProcessesInWork.Add(nameof(IsValid));
 
                 if (HasErrors)
                 {
-                    IsBusy = false;
+                    ProcessesInWork.Remove(nameof(IsValid));
                     return false;
                 }
 
-                bool result = _trackingObjects.Where(x => !x.IsBusy).All(x => x.IsValid);
+                bool result = _trackingObjects.Where(x => !x.ProcessesInWork.Contains(nameof(IsValid))).All(x => x.IsValid);
 
-                IsBusy = false;
+                ProcessesInWork.Remove(nameof(IsValid));
                 return result;
             }
         }
-
-
         //public bool IsValid => !HasErrors && _trackingObjects.All(x => x.IsValid);
 
         /// <summary>
@@ -112,16 +115,19 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public void AcceptChanges()
         {
-            IsBusy = true;
+            if (ProcessesInWork.Contains(nameof(AcceptChanges)))
+                return;
+
+            ProcessesInWork.Add(nameof(AcceptChanges));
 
             //очищаем список начальных значений
             _originalValues.Clear();
             //принимаем изменения в сложных свойствах.
-            _trackingObjects.Where(x => !x.IsBusy).ToList().ForEach(x => x.AcceptChanges());
+            _trackingObjects.Where(x => !x.ProcessesInWork.Contains(nameof(AcceptChanges))).ToList().ForEach(x => x.AcceptChanges());
             //обновляем в WPF весь объект целиком.
-            OnPropertyChanged("");
+            OnPropertyChanged(this, "");
 
-            IsBusy = false;
+            ProcessesInWork.Remove(nameof(AcceptChanges));
         }
 
         /// <summary>
@@ -129,26 +135,28 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public void RejectChanges()
         {
-            IsBusy = true;
+            if (ProcessesInWork.Contains(nameof(RejectChanges)))
+                return;
+
+            ProcessesInWork.Add(nameof(RejectChanges));
 
             //устанавливаем в каждое измененное свойство начальное значение.
             foreach (var originalValue in _originalValues)
-            {
                 typeof(T).GetProperty(originalValue.Key).SetValue(Model, originalValue.Value);
-            }
+
             //очищаем список начальных значений
             _originalValues.Clear();
 
             //откатываем изменения в сложных свойствах.
-            _trackingObjects.Where(x => !x.IsBusy).ToList().ForEach(x => x.RejectChanges());
+            _trackingObjects.Where(x => !x.ProcessesInWork.Contains(nameof(RejectChanges))).ToList().ForEach(x => x.RejectChanges());
 
             //проверка на валидность объекта.
             Validate();
 
             //обновляем в WPF весь объект целиком.
-            OnPropertyChanged("");
+            OnPropertyChanged(this, "");
 
-            IsBusy = false;
+            ProcessesInWork.Remove(nameof(RejectChanges));
         }
 
         /// <summary>
@@ -201,9 +209,9 @@ namespace HVTApp.Model.Wrapper
                 propertyInfo.SetValue(Model, newValue); //устанавливаем в свойство модели новое значение.
 
                 Validate();
-                OnPropertyChanged(propertyName);
-                OnPropertyChanged(propertyName + "IsChanged");
-                OnPropertyChanged(nameof(IsChanged));
+                OnPropertyChanged(this, propertyName);
+                OnPropertyChanged(this, propertyName + "IsChanged");
+                OnPropertyChanged(this, nameof(IsChanged));
             }
         }
 
@@ -223,14 +231,14 @@ namespace HVTApp.Model.Wrapper
                 {
                     //удаляем значение свойства из списка измененных значений.
                     _originalValues.Remove(propertyName);
-                    OnPropertyChanged(nameof(IsChanged));
+                    OnPropertyChanged(this, nameof(IsChanged));
                 }
             }
             else
             {
                 //добавляем значение свойства в список измененных значений.
                 _originalValues.Add(propertyName, originalValue);
-                OnPropertyChanged(nameof(IsChanged));
+                OnPropertyChanged(this, nameof(IsChanged));
             }
         }
 
@@ -257,7 +265,7 @@ namespace HVTApp.Model.Wrapper
                     OnErrorsChanged(propertyName); //возбуждаем событие изменения ошибок в свойстве.
                 }
             }
-            OnPropertyChanged(nameof(IsValid));
+            OnPropertyChanged(this, nameof(IsValid));
         }
 
         /// <summary>
