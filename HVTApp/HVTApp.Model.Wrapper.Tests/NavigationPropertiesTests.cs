@@ -118,6 +118,11 @@ namespace HVTApp.Model.Wrapper.Tests
             Assert.AreEqual(husbandWrapper.Wife, null);
             husbandWrapper.RejectChanges();
             Assert.AreEqual(husbandWrapper.Wife, wifeWrapper);
+
+            husbandWrapper.Children.Remove(childWrapper1);
+            husbandWrapper.RejectChanges();
+            Assert.IsTrue(husbandWrapper.Children.Contains(childWrapper1));
+            Assert.IsFalse(husbandWrapper.IsChanged);
         }
 
         [TestMethod]
