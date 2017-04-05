@@ -86,6 +86,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public CompanyFormWrapper FormOriginalValue => CompanyFormWrapper.GetWrapper(GetOriginalValue<CompanyForm>(nameof(Form)));
+    public bool FormIsChanged => GetIsChanged(nameof(Form));
 
 
 	public CompanyWrapper ParentCompany 
@@ -100,6 +102,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public CompanyWrapper ParentCompanyOriginalValue => CompanyWrapper.GetWrapper(GetOriginalValue<Company>(nameof(ParentCompany)));
+    public bool ParentCompanyIsChanged => GetIsChanged(nameof(ParentCompany));
 
 
 	public AddressWrapper Address 
@@ -114,6 +118,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public AddressWrapper AddressOriginalValue => AddressWrapper.GetWrapper(GetOriginalValue<Address>(nameof(Address)));
+    public bool AddressIsChanged => GetIsChanged(nameof(Address));
 
 
 	public BankDetailsWrapper BankDetails 
@@ -128,6 +134,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public BankDetailsWrapper BankDetailsOriginalValue => BankDetailsWrapper.GetWrapper(GetOriginalValue<BankDetails>(nameof(BankDetails)));
+    public bool BankDetailsIsChanged => GetIsChanged(nameof(BankDetails));
 
 
     #endregion

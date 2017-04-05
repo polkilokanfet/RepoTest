@@ -221,6 +221,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public <#=propertyType#>Wrapper <#=propertyName#>OriginalValue => <#=propertyType#>Wrapper.GetWrapper(GetOriginalValue<<#=propertyType#>>(nameof(<#=propertyName#>)));
+    public bool <#=propertyName#>IsChanged => GetIsChanged(nameof(<#=propertyName#>));
 
 <#+   
     }

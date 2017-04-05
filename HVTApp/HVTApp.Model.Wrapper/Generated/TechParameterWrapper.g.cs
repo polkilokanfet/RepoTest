@@ -59,6 +59,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public TechParametersGroupWrapper GroupOriginalValue => TechParametersGroupWrapper.GetWrapper(GetOriginalValue<TechParametersGroup>(nameof(Group)));
+    public bool GroupIsChanged => GetIsChanged(nameof(Group));
 
 
     #endregion

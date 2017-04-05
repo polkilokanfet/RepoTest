@@ -77,6 +77,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public PaymentsConditionWrapper PaymentsConditionOriginalValue => PaymentsConditionWrapper.GetWrapper(GetOriginalValue<PaymentsCondition>(nameof(PaymentsCondition)));
+    public bool PaymentsConditionIsChanged => GetIsChanged(nameof(PaymentsCondition));
 
 
 	public PaymentsInfoWrapper PaymentsInfo 
@@ -91,6 +93,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public PaymentsInfoWrapper PaymentsInfoOriginalValue => PaymentsInfoWrapper.GetWrapper(GetOriginalValue<PaymentsInfo>(nameof(PaymentsInfo)));
+    public bool PaymentsInfoIsChanged => GetIsChanged(nameof(PaymentsInfo));
 
 
     #endregion

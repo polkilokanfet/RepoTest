@@ -68,6 +68,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public ProductBaseWrapper ProductOriginalValue => ProductBaseWrapper.GetWrapper(GetOriginalValue<ProductBase>(nameof(Product)));
+    public bool ProductIsChanged => GetIsChanged(nameof(Product));
 
 
 	public OrderWrapper Order 
@@ -82,6 +84,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public OrderWrapper OrderOriginalValue => OrderWrapper.GetWrapper(GetOriginalValue<Order>(nameof(Order)));
+    public bool OrderIsChanged => GetIsChanged(nameof(Order));
 
 
     #endregion

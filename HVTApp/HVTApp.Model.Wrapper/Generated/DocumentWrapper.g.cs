@@ -50,6 +50,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public DocumentWrapper RequestDocumentOriginalValue => DocumentWrapper.GetWrapper(GetOriginalValue<Document>(nameof(RequestDocument)));
+    public bool RequestDocumentIsChanged => GetIsChanged(nameof(RequestDocument));
 
 
 	public CompanyWrapper Sender 
@@ -64,6 +66,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public CompanyWrapper SenderOriginalValue => CompanyWrapper.GetWrapper(GetOriginalValue<Company>(nameof(Sender)));
+    public bool SenderIsChanged => GetIsChanged(nameof(Sender));
 
 
 	public EmployeeWrapper SenderEmployee 
@@ -78,6 +82,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public EmployeeWrapper SenderEmployeeOriginalValue => EmployeeWrapper.GetWrapper(GetOriginalValue<Employee>(nameof(SenderEmployee)));
+    public bool SenderEmployeeIsChanged => GetIsChanged(nameof(SenderEmployee));
 
 
 	public EmployeeWrapper RecipientEmployee 
@@ -92,6 +98,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public EmployeeWrapper RecipientEmployeeOriginalValue => EmployeeWrapper.GetWrapper(GetOriginalValue<Employee>(nameof(RecipientEmployee)));
+    public bool RecipientEmployeeIsChanged => GetIsChanged(nameof(RecipientEmployee));
 
 
 	public RegistrationDetailsWrapper RegistrationDetailsOfSender 
@@ -106,6 +114,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public RegistrationDetailsWrapper RegistrationDetailsOfSenderOriginalValue => RegistrationDetailsWrapper.GetWrapper(GetOriginalValue<RegistrationDetails>(nameof(RegistrationDetailsOfSender)));
+    public bool RegistrationDetailsOfSenderIsChanged => GetIsChanged(nameof(RegistrationDetailsOfSender));
 
 
 	public RegistrationDetailsWrapper RegistrationDetailsOfRecipient 
@@ -120,6 +130,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public RegistrationDetailsWrapper RegistrationDetailsOfRecipientOriginalValue => RegistrationDetailsWrapper.GetWrapper(GetOriginalValue<RegistrationDetails>(nameof(RegistrationDetailsOfRecipient)));
+    public bool RegistrationDetailsOfRecipientIsChanged => GetIsChanged(nameof(RegistrationDetailsOfRecipient));
 
 
     #endregion

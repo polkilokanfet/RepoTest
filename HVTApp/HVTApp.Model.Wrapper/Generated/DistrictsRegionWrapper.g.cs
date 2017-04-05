@@ -59,6 +59,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public DistrictWrapper DistrictOriginalValue => DistrictWrapper.GetWrapper(GetOriginalValue<District>(nameof(District)));
+    public bool DistrictIsChanged => GetIsChanged(nameof(District));
 
 
     #endregion

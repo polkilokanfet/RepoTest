@@ -50,6 +50,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public ProjectWrapper ProjectOriginalValue => ProjectWrapper.GetWrapper(GetOriginalValue<Project>(nameof(Project)));
+    public bool ProjectIsChanged => GetIsChanged(nameof(Project));
 
 
 	public FacilityWrapper Facility 
@@ -64,6 +66,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public FacilityWrapper FacilityOriginalValue => FacilityWrapper.GetWrapper(GetOriginalValue<Facility>(nameof(Facility)));
+    public bool FacilityIsChanged => GetIsChanged(nameof(Facility));
 
 
 	public SpecificationWrapper Specification 
@@ -78,6 +82,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public SpecificationWrapper SpecificationOriginalValue => SpecificationWrapper.GetWrapper(GetOriginalValue<Specification>(nameof(Specification)));
+    public bool SpecificationIsChanged => GetIsChanged(nameof(Specification));
 
 
     #endregion

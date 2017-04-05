@@ -59,6 +59,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public CountryWrapper CountryOriginalValue => CountryWrapper.GetWrapper(GetOriginalValue<Country>(nameof(Country)));
+    public bool CountryIsChanged => GetIsChanged(nameof(Country));
 
 
     #endregion

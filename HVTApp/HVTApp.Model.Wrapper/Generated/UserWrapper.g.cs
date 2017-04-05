@@ -86,6 +86,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public EmployeeWrapper EmployeeOriginalValue => EmployeeWrapper.GetWrapper(GetOriginalValue<Employee>(nameof(Employee)));
+    public bool EmployeeIsChanged => GetIsChanged(nameof(Employee));
 
 
     #endregion

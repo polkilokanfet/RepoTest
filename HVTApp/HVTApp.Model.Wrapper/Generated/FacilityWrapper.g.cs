@@ -59,6 +59,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public FacilityTypeWrapper TypeOriginalValue => FacilityTypeWrapper.GetWrapper(GetOriginalValue<FacilityType>(nameof(Type)));
+    public bool TypeIsChanged => GetIsChanged(nameof(Type));
 
 
 	public CompanyWrapper OwnerCompany 
@@ -73,6 +75,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public CompanyWrapper OwnerCompanyOriginalValue => CompanyWrapper.GetWrapper(GetOriginalValue<Company>(nameof(OwnerCompany)));
+    public bool OwnerCompanyIsChanged => GetIsChanged(nameof(OwnerCompany));
 
 
 	public AddressWrapper Address 
@@ -87,6 +91,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public AddressWrapper AddressOriginalValue => AddressWrapper.GetWrapper(GetOriginalValue<Address>(nameof(Address)));
+    public bool AddressIsChanged => GetIsChanged(nameof(Address));
 
 
     #endregion

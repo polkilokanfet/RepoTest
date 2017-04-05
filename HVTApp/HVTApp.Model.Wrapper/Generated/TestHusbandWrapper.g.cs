@@ -59,6 +59,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public TestWifeWrapper WifeOriginalValue => TestWifeWrapper.GetWrapper(GetOriginalValue<TestWife>(nameof(Wife)));
+    public bool WifeIsChanged => GetIsChanged(nameof(Wife));
 
 
     #endregion

@@ -68,6 +68,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public PaymentsInfoWrapper PaymentsInfoOriginalValue => PaymentsInfoWrapper.GetWrapper(GetOriginalValue<PaymentsInfo>(nameof(PaymentsInfo)));
+    public bool PaymentsInfoIsChanged => GetIsChanged(nameof(PaymentsInfo));
 
 
     #endregion

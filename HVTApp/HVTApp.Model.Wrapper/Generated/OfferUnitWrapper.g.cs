@@ -50,6 +50,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public EquipmentWrapper EquipmentOriginalValue => EquipmentWrapper.GetWrapper(GetOriginalValue<Equipment>(nameof(Equipment)));
+    public bool EquipmentIsChanged => GetIsChanged(nameof(Equipment));
 
 
 	public OfferWrapper Offer 
@@ -64,6 +66,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public OfferWrapper OfferOriginalValue => OfferWrapper.GetWrapper(GetOriginalValue<Offer>(nameof(Offer)));
+    public bool OfferIsChanged => GetIsChanged(nameof(Offer));
 
 
 	public PlannedTermProductionWrapper PlannedTermProduction 
@@ -78,6 +82,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public PlannedTermProductionWrapper PlannedTermProductionOriginalValue => PlannedTermProductionWrapper.GetWrapper(GetOriginalValue<PlannedTermProduction>(nameof(PlannedTermProduction)));
+    public bool PlannedTermProductionIsChanged => GetIsChanged(nameof(PlannedTermProduction));
 
 
     #endregion

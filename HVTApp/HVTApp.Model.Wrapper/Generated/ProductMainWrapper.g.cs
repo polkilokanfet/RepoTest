@@ -50,6 +50,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public ProductsMainGroupWrapper ProductsMainGroupOriginalValue => ProductsMainGroupWrapper.GetWrapper(GetOriginalValue<ProductsMainGroup>(nameof(ProductsMainGroup)));
+    public bool ProductsMainGroupIsChanged => GetIsChanged(nameof(ProductsMainGroup));
 
 
 	public EquipmentWrapper Equipment 
@@ -64,6 +66,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public EquipmentWrapper EquipmentOriginalValue => EquipmentWrapper.GetWrapper(GetOriginalValue<Equipment>(nameof(Equipment)));
+    public bool EquipmentIsChanged => GetIsChanged(nameof(Equipment));
 
 
 	public TenderInfoWrapper TenderInfo 
@@ -78,6 +82,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public TenderInfoWrapper TenderInfoOriginalValue => TenderInfoWrapper.GetWrapper(GetOriginalValue<TenderInfo>(nameof(TenderInfo)));
+    public bool TenderInfoIsChanged => GetIsChanged(nameof(TenderInfo));
 
 
 	public OrderInfoWrapper OrderInfo 
@@ -92,6 +98,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public OrderInfoWrapper OrderInfoOriginalValue => OrderInfoWrapper.GetWrapper(GetOriginalValue<OrderInfo>(nameof(OrderInfo)));
+    public bool OrderInfoIsChanged => GetIsChanged(nameof(OrderInfo));
 
 
 	public DateInfoWrapper DateInfo 
@@ -106,6 +114,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public DateInfoWrapper DateInfoOriginalValue => DateInfoWrapper.GetWrapper(GetOriginalValue<DateInfo>(nameof(DateInfo)));
+    public bool DateInfoIsChanged => GetIsChanged(nameof(DateInfo));
 
 
 	public TermsInfoWrapper TermsInfo 
@@ -120,6 +130,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public TermsInfoWrapper TermsInfoOriginalValue => TermsInfoWrapper.GetWrapper(GetOriginalValue<TermsInfo>(nameof(TermsInfo)));
+    public bool TermsInfoIsChanged => GetIsChanged(nameof(TermsInfo));
 
 
 	public CostInfoWrapper CostInfo 
@@ -134,6 +146,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public CostInfoWrapper CostInfoOriginalValue => CostInfoWrapper.GetWrapper(GetOriginalValue<CostInfo>(nameof(CostInfo)));
+    public bool CostInfoIsChanged => GetIsChanged(nameof(CostInfo));
 
 
 	public PaymentsInfoWrapper PaymentsInfo 
@@ -148,6 +162,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public PaymentsInfoWrapper PaymentsInfoOriginalValue => PaymentsInfoWrapper.GetWrapper(GetOriginalValue<PaymentsInfo>(nameof(PaymentsInfo)));
+    public bool PaymentsInfoIsChanged => GetIsChanged(nameof(PaymentsInfo));
 
 
     #endregion

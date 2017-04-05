@@ -50,6 +50,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public TechParameterWrapper ParameterOriginalValue => TechParameterWrapper.GetWrapper(GetOriginalValue<TechParameter>(nameof(Parameter)));
+    public bool ParameterIsChanged => GetIsChanged(nameof(Parameter));
 
 
 	public TechLinkWrapper ParentLink 
@@ -64,6 +66,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public TechLinkWrapper ParentLinkOriginalValue => TechLinkWrapper.GetWrapper(GetOriginalValue<TechLink>(nameof(ParentLink)));
+    public bool ParentLinkIsChanged => GetIsChanged(nameof(ParentLink));
 
 
     #endregion

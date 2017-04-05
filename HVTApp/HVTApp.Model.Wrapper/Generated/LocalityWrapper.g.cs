@@ -59,6 +59,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public LocalityTypeWrapper LocalityTypeOriginalValue => LocalityTypeWrapper.GetWrapper(GetOriginalValue<LocalityType>(nameof(LocalityType)));
+    public bool LocalityTypeIsChanged => GetIsChanged(nameof(LocalityType));
 
 
 	public DistrictsRegionWrapper DistrictsRegion 
@@ -73,6 +75,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public DistrictsRegionWrapper DistrictsRegionOriginalValue => DistrictsRegionWrapper.GetWrapper(GetOriginalValue<DistrictsRegion>(nameof(DistrictsRegion)));
+    public bool DistrictsRegionIsChanged => GetIsChanged(nameof(DistrictsRegion));
 
 
     #endregion

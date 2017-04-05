@@ -95,6 +95,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public CompanyWrapper CompanyOriginalValue => CompanyWrapper.GetWrapper(GetOriginalValue<Company>(nameof(Company)));
+    public bool CompanyIsChanged => GetIsChanged(nameof(Company));
 
 
 	public EmployeesPositionWrapper Position 
@@ -109,6 +111,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public EmployeesPositionWrapper PositionOriginalValue => EmployeesPositionWrapper.GetWrapper(GetOriginalValue<EmployeesPosition>(nameof(Position)));
+    public bool PositionIsChanged => GetIsChanged(nameof(Position));
 
 
     #endregion

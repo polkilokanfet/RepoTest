@@ -56,8 +56,11 @@ namespace HVTApp.Model.Wrapper.Tests
 
             TestWife otherTestWife = new TestWife { Id = 22 };
             TestWifeWrapper otherTestWifeWrapper = TestWifeWrapper.GetWrapper(otherTestWife);
+            Assert.IsFalse(husbandWrapper.WifeIsChanged);
             husbandWrapper.Wife = otherTestWifeWrapper;
+            Assert.IsTrue(husbandWrapper.WifeIsChanged);
             Assert.IsTrue(husbandWrapper.IsChanged);
+            Assert.AreEqual(wifeWrapper, husbandWrapper.WifeOriginalValue);
 
             fired = false;
             wifeWrapper.N = 33;
@@ -67,6 +70,9 @@ namespace HVTApp.Model.Wrapper.Tests
             husbandWrapper.Wife = null;
             Assert.AreEqual(husbandWrapper.Wife, null);
             Assert.IsTrue(fired);
+            Assert.IsTrue(husbandWrapper.WifeIsChanged);
+            Assert.IsTrue(husbandWrapper.IsChanged);
+            Assert.AreEqual(wifeWrapper, husbandWrapper.WifeOriginalValue);
 
             fired = false;
             TestChildWrapper childWrapper = TestChildWrapper.GetWrapper(new TestChild { Husband = husband });

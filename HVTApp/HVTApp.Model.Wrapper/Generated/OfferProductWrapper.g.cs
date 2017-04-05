@@ -50,6 +50,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public ProductMainWrapper ProductMainOriginalValue => ProductMainWrapper.GetWrapper(GetOriginalValue<ProductMain>(nameof(ProductMain)));
+    public bool ProductMainIsChanged => GetIsChanged(nameof(ProductMain));
 
 
 	public OfferUnitWrapper OfferUnit 
@@ -64,6 +66,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public OfferUnitWrapper OfferUnitOriginalValue => OfferUnitWrapper.GetWrapper(GetOriginalValue<OfferUnit>(nameof(OfferUnit)));
+    public bool OfferUnitIsChanged => GetIsChanged(nameof(OfferUnit));
 
 
 	public CostInfoWrapper CostInfo 
@@ -78,6 +82,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public CostInfoWrapper CostInfoOriginalValue => CostInfoWrapper.GetWrapper(GetOriginalValue<CostInfo>(nameof(CostInfo)));
+    public bool CostInfoIsChanged => GetIsChanged(nameof(CostInfo));
 
 
 	public PlannedTermProductionWrapper PlannedTermProduction 
@@ -92,6 +98,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public PlannedTermProductionWrapper PlannedTermProductionOriginalValue => PlannedTermProductionWrapper.GetWrapper(GetOriginalValue<PlannedTermProduction>(nameof(PlannedTermProduction)));
+    public bool PlannedTermProductionIsChanged => GetIsChanged(nameof(PlannedTermProduction));
 
 
     #endregion

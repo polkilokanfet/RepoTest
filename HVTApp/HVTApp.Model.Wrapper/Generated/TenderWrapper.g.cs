@@ -86,6 +86,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public ProjectWrapper ProjectOriginalValue => ProjectWrapper.GetWrapper(GetOriginalValue<Project>(nameof(Project)));
+    public bool ProjectIsChanged => GetIsChanged(nameof(Project));
 
 
 	public CompanyWrapper Winner 
@@ -100,6 +102,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public CompanyWrapper WinnerOriginalValue => CompanyWrapper.GetWrapper(GetOriginalValue<Company>(nameof(Winner)));
+    public bool WinnerIsChanged => GetIsChanged(nameof(Winner));
 
 
     #endregion

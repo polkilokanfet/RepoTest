@@ -95,6 +95,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public TestFriendAddressWrapper TestFriendAddressOriginalValue => TestFriendAddressWrapper.GetWrapper(GetOriginalValue<TestFriendAddress>(nameof(TestFriendAddress)));
+    public bool TestFriendAddressIsChanged => GetIsChanged(nameof(TestFriendAddress));
 
 
 	public TestFriendGroupWrapper TestFriendGroup 
@@ -109,6 +111,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public TestFriendGroupWrapper TestFriendGroupOriginalValue => TestFriendGroupWrapper.GetWrapper(GetOriginalValue<TestFriendGroup>(nameof(TestFriendGroup)));
+    public bool TestFriendGroupIsChanged => GetIsChanged(nameof(TestFriendGroup));
 
 
     #endregion

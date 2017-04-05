@@ -59,6 +59,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public UserWrapper UserOriginalValue => UserWrapper.GetWrapper(GetOriginalValue<User>(nameof(User)));
+    public bool UserIsChanged => GetIsChanged(nameof(User));
 
 
     #endregion

@@ -131,6 +131,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public ProductBaseWrapper ProductOriginalValue => ProductBaseWrapper.GetWrapper(GetOriginalValue<ProductBase>(nameof(Product)));
+    public bool ProductIsChanged => GetIsChanged(nameof(Product));
 
 
     #endregion

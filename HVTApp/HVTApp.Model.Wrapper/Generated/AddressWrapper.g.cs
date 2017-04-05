@@ -70,6 +70,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public LocalityWrapper LocalityOriginalValue => LocalityWrapper.GetWrapper(GetOriginalValue<Locality>(nameof(Locality)));
+    public bool LocalityIsChanged => GetIsChanged(nameof(Locality));
 
 
     #endregion

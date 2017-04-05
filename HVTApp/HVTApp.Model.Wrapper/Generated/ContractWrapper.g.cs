@@ -68,6 +68,8 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
+    public CompanyWrapper ContragentOriginalValue => CompanyWrapper.GetWrapper(GetOriginalValue<Company>(nameof(Contragent)));
+    public bool ContragentIsChanged => GetIsChanged(nameof(Contragent));
 
 
     #endregion
