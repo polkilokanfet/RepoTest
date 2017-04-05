@@ -38,7 +38,7 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<TProductWrapper> Products { get; private set; }
+    public IValidatableChangeTrackingCollection<TProductWrapper> Products { get; private set; }
 
 
     #endregion

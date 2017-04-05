@@ -56,7 +56,7 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<TechParameterWrapper> TechParameters { get; private set; }
+    public IValidatableChangeTrackingCollection<TechParameterWrapper> TechParameters { get; private set; }
 
 
     #endregion

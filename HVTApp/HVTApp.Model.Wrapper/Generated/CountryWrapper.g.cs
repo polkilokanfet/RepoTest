@@ -47,7 +47,7 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<DistrictWrapper> Districts { get; private set; }
+    public IValidatableChangeTrackingCollection<DistrictWrapper> Districts { get; private set; }
 
 
     #endregion

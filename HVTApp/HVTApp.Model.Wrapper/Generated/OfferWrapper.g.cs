@@ -116,7 +116,7 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<OfferUnitWrapper> OfferUnits { get; private set; }
+    public IValidatableChangeTrackingCollection<OfferUnitWrapper> OfferUnits { get; private set; }
 
 
     #endregion

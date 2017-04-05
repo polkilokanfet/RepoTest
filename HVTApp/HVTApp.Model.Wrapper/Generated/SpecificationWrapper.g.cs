@@ -77,10 +77,10 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<ProductsMainGroupWrapper> SalesGroups { get; private set; }
+    public IValidatableChangeTrackingCollection<ProductsMainGroupWrapper> SalesGroups { get; private set; }
 
 
-    public ValidatableChangeTrackingCollection<PaymentsConditionWrapper> PaymentsConditions { get; private set; }
+    public IValidatableChangeTrackingCollection<PaymentsConditionWrapper> PaymentsConditions { get; private set; }
 
 
     #endregion

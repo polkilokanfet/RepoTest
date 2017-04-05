@@ -77,7 +77,7 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<SpecificationWrapper> Specifications { get; private set; }
+    public IValidatableChangeTrackingCollection<SpecificationWrapper> Specifications { get; private set; }
 
 
     #endregion

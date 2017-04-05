@@ -120,7 +120,7 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<TestFriendEmailWrapper> Emails { get; private set; }
+    public IValidatableChangeTrackingCollection<TestFriendEmailWrapper> Emails { get; private set; }
 
 
     #endregion

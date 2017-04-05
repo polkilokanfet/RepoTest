@@ -59,13 +59,13 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<PaymentsConditionWrapper> PaymentsConditions { get; private set; }
+    public IValidatableChangeTrackingCollection<PaymentsConditionWrapper> PaymentsConditions { get; private set; }
 
 
-    public ValidatableChangeTrackingCollection<PaymentActualWrapper> PaymentsActual { get; private set; }
+    public IValidatableChangeTrackingCollection<PaymentActualWrapper> PaymentsActual { get; private set; }
 
 
-    public ValidatableChangeTrackingCollection<PaymentPlannedWrapper> PaymentsPlanned { get; private set; }
+    public IValidatableChangeTrackingCollection<PaymentPlannedWrapper> PaymentsPlanned { get; private set; }
 
 
     #endregion

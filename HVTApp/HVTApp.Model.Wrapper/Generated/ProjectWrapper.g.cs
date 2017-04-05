@@ -77,13 +77,13 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<ProductsMainGroupWrapper> ProductsMainGroups { get; private set; }
+    public IValidatableChangeTrackingCollection<ProductsMainGroupWrapper> ProductsMainGroups { get; private set; }
 
 
-    public ValidatableChangeTrackingCollection<TenderWrapper> Tenders { get; private set; }
+    public IValidatableChangeTrackingCollection<TenderWrapper> Tenders { get; private set; }
 
 
-    public ValidatableChangeTrackingCollection<OfferWrapper> Offers { get; private set; }
+    public IValidatableChangeTrackingCollection<OfferWrapper> Offers { get; private set; }
 
 
     #endregion

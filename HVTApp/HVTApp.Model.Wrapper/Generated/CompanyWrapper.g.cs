@@ -143,13 +143,13 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<CompanyWrapper> ChildCompanies { get; private set; }
+    public IValidatableChangeTrackingCollection<CompanyWrapper> ChildCompanies { get; private set; }
 
 
-    public ValidatableChangeTrackingCollection<ActivityFieldWrapper> ActivityFilds { get; private set; }
+    public IValidatableChangeTrackingCollection<ActivityFieldWrapper> ActivityFilds { get; private set; }
 
 
-    public ValidatableChangeTrackingCollection<EmployeeWrapper> Employees { get; private set; }
+    public IValidatableChangeTrackingCollection<EmployeeWrapper> Employees { get; private set; }
 
 
     #endregion

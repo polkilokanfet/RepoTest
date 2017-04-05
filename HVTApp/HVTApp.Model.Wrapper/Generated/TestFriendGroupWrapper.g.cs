@@ -47,7 +47,7 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<TestFriendWrapper> FriendTests { get; private set; }
+    public IValidatableChangeTrackingCollection<TestFriendWrapper> FriendTests { get; private set; }
 
 
     #endregion

@@ -65,7 +65,7 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<TechLinkWrapper> Links { get; private set; }
+    public IValidatableChangeTrackingCollection<TechLinkWrapper> Links { get; private set; }
 
 
     #endregion

@@ -68,7 +68,7 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<LocalityWrapper> Localities { get; private set; }
+    public IValidatableChangeTrackingCollection<LocalityWrapper> Localities { get; private set; }
 
 
     #endregion

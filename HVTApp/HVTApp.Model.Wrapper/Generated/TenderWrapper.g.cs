@@ -111,10 +111,10 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<CompanyWrapper> Participants { get; private set; }
+    public IValidatableChangeTrackingCollection<CompanyWrapper> Participants { get; private set; }
 
 
-    public ValidatableChangeTrackingCollection<TenderInfoWrapper> TenderUnits { get; private set; }
+    public IValidatableChangeTrackingCollection<TenderInfoWrapper> TenderUnits { get; private set; }
 
 
     #endregion

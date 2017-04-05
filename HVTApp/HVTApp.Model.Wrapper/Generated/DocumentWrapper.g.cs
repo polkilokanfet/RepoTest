@@ -139,7 +139,7 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<EmployeeWrapper> CopyToRecipients { get; private set; }
+    public IValidatableChangeTrackingCollection<EmployeeWrapper> CopyToRecipients { get; private set; }
 
 
     #endregion

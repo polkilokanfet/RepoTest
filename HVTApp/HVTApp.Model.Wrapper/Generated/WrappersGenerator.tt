@@ -246,7 +246,7 @@ namespace HVTApp.Model.Wrapper
       var itemType = property.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
       var propertyName = property.Name;
 #>
-    public ValidatableChangeTrackingCollection<<#= itemType #>Wrapper> <#= propertyName #> { get; private set; }
+    public IValidatableChangeTrackingCollection<<#= itemType #>Wrapper> <#= propertyName #> { get; private set; }
 
 <#+  
     }

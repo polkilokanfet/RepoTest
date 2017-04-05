@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
+    <Compile Include="Custom\CostInfoWrapper.cs" />
+    <Compile Include="Custom\Payments\PaymentsConditionWrappersCollection.cs" />
     <Compile Include="Base\TrackingCollections\ValidatableChangeTrackingCollection.cs" />
     <Compile Include="Base\TrackingCollections\IValidatableChangeTracking.cs" />
     <Compile Include="Base\NotifyDataErrorInfoBase.cs" />
@@ -50,11 +53,14 @@
     <Compile Include="Base\WrappersFactory.cs" />
     <Compile Include="Custom\CompanyFormWrapper.cs" />
     <Compile Include="Custom\CompanyWrapper.cs" />
-    <Compile Include="Custom\ForTests\TestFriendAddressWrapper.cs" />
-    <Compile Include="Custom\ForTests\TestFriendEmailWrapper.cs" />
-    <Compile Include="Custom\ForTests\TestFriendWrapper.cs" />
+    <Compile Include="Custom\ProductWrapper.cs" />
+    <Compile Include="Custom\Test\TestFriendAddressWrapper.cs" />
+    <Compile Include="Custom\Test\TestFriendEmailWrapper.cs" />
+    <Compile Include="Custom\Test\TestFriendWrapper.cs" />
+    <Compile Include="Custom\Payments\PaymentsInfoWrapper.cs" />
     <Compile Include="Custom\ProductMainWrapper.cs" />
     <Compile Include="Custom\Repository.cs" />
+    <Compile Include="Custom\SpecificationWrapper.cs" />
     <Compile Include="Generated\ActivityFieldWrapper.g.cs" />
     <Compile Include="Generated\AddressWrapper.g.cs" />
     <Compile Include="Generated\BankDetailsWrapper.g.cs" />
@@ -72,6 +78,7 @@
     <Compile Include="Generated\EquipmentWrapper.g.cs" />
     <Compile Include="Generated\FacilityTypeWrapper.g.cs" />
     <Compile Include="Generated\FacilityWrapper.g.cs" />
+    <Compile Include="Generated\ProductWrapper.g.cs" />
     <Compile Include="Generated\TestFriendAddressWrapper.g.cs" />
     <Compile Include="Generated\TestFriendEmailWrapper.g.cs" />
     <Compile Include="Generated\TestFriendGroupWrapper.g.cs" />

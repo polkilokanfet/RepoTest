@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -60,6 +61,10 @@
     <Compile Include="BaseEntityTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HVTApp.Model.Wrapper\HVTApp.Model.Wrapper.csproj">
+      <Project>{ee385cdc-6790-4ba0-8b6e-31dad1b3ae1e}</Project>
+      <Name>HVTApp.Model.Wrapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Model\HVTApp.Model.csproj">
       <Project>{350BDAB0-B331-426F-A024-004C8539AF17}</Project>
       <Name>HVTApp.Model</Name>

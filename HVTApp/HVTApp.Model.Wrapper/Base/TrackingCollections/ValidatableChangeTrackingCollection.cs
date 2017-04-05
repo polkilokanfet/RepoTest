@@ -10,7 +10,7 @@ namespace HVTApp.Model.Wrapper
     /// Коллекция способная отслеживать изменилось ли в ней что-то.
     /// </summary>
     /// <typeparam name="TCollectionItem"></typeparam>
-    public class ValidatableChangeTrackingCollection<TCollectionItem> : ObservableCollection<TCollectionItem>, IValidatableChangeTracking
+    public class ValidatableChangeTrackingCollection<TCollectionItem> : ObservableCollection<TCollectionItem>, IValidatableChangeTrackingCollection<TCollectionItem> 
         where TCollectionItem: class, IValidatableChangeTracking
     {
         /// <summary>
@@ -142,7 +142,7 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Валидны ли все члены коллекции?
         /// </summary>
-        public bool IsValid => this.All(x => x.IsValid);
+        public virtual bool IsValid => this.All(x => x.IsValid);
 
         /// <summary>
         /// Принять все изменения в коллекции

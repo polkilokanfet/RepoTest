@@ -3,6 +3,13 @@ using System.Collections.Generic;
 
 namespace HVTApp.Model
 {
+    public class Product : BaseEntity
+    {
+        public virtual Equipment Equipment { get; set; }
+        public virtual CostInfo CostInfo { get; set; }
+        public virtual PaymentsInfo PaymentsInfo { get; set; }
+    }
+
     public class ProductBase : BaseEntity
     {
         private CostInfo _costInfo;

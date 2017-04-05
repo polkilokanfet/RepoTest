@@ -68,7 +68,7 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<TestChildWrapper> Children { get; private set; }
+    public IValidatableChangeTrackingCollection<TestChildWrapper> Children { get; private set; }
 
 
     #endregion

@@ -35,18 +35,6 @@ namespace HVTApp.Model
                    PaymentConditionPoint == other.PaymentConditionPoint;
         }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = Id;
-                hashCode = (hashCode * 397) ^ PartInPercent.GetHashCode();
-                hashCode = (hashCode * 397) ^ DaysToPoint;
-                hashCode = (hashCode * 397) ^ (int) PaymentConditionPoint;
-                return hashCode;
-            }
-        }
-
         public int CompareTo(PaymentsCondition other)
         {
             if (this.PaymentConditionPoint > other.PaymentConditionPoint)

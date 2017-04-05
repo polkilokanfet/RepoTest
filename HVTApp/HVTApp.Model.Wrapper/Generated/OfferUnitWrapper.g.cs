@@ -91,10 +91,10 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<FacilityWrapper> Facilities { get; private set; }
+    public IValidatableChangeTrackingCollection<FacilityWrapper> Facilities { get; private set; }
 
 
-    public ValidatableChangeTrackingCollection<OfferProductWrapper> OfferProducts { get; private set; }
+    public IValidatableChangeTrackingCollection<OfferProductWrapper> OfferProducts { get; private set; }
 
 
     #endregion

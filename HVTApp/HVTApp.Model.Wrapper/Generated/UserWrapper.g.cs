@@ -95,7 +95,7 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public ValidatableChangeTrackingCollection<UserRoleWrapper> Roles { get; private set; }
+    public IValidatableChangeTrackingCollection<UserRoleWrapper> Roles { get; private set; }
 
 
     #endregion

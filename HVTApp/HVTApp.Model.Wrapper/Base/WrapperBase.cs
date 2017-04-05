@@ -345,7 +345,7 @@ namespace HVTApp.Model.Wrapper
         /// <typeparam name="TModel"></typeparam>
         /// <param name="wrapperCollection">коллекция обертки.</param>
         /// <param name="modelCollection">коллекция модели.</param>
-        protected void RegisterCollection<TWrapper, TModel>(ValidatableChangeTrackingCollection<TWrapper> wrapperCollection, ICollection<TModel> modelCollection)
+        protected void RegisterCollection<TWrapper, TModel>(IValidatableChangeTrackingCollection<TWrapper> wrapperCollection, ICollection<TModel> modelCollection)
             where TWrapper : WrapperBase<TModel>
             where TModel : BaseEntity
         {
