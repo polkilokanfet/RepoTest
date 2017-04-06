@@ -19,7 +19,7 @@ namespace HVTApp.Model
 
     }
 
-    public abstract class PaymentBase : BaseEntity
+    public class PaymentBase : BaseEntity
     {
         public double Sum { get; set; }
         public string Comment { get; set; }

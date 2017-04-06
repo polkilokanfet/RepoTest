@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected TermsInfoWrapper(TermsInfo model) : base(model) { }
 
+	public static TermsInfoWrapper GetWrapper()
+	{
+		return GetWrapper(new TermsInfo());
+	}
+
 	public static TermsInfoWrapper GetWrapper(TermsInfo model)
 	{
 	    if (model == null)

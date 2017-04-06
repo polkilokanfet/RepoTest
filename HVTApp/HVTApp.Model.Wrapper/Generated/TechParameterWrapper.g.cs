@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected TechParameterWrapper(TechParameter model) : base(model) { }
 
+	public static TechParameterWrapper GetWrapper()
+	{
+		return GetWrapper(new TechParameter());
+	}
+
 	public static TechParameterWrapper GetWrapper(TechParameter model)
 	{
 	    if (model == null)

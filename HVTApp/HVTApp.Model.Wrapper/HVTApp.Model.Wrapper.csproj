@@ -78,6 +78,7 @@
     <Compile Include="Generated\EquipmentWrapper.g.cs" />
     <Compile Include="Generated\FacilityTypeWrapper.g.cs" />
     <Compile Include="Generated\FacilityWrapper.g.cs" />
+    <Compile Include="Generated\PersonWrapper.g.cs" />
     <Compile Include="Generated\ProductWrapper.g.cs" />
     <Compile Include="Generated\TestFriendAddressWrapper.g.cs" />
     <Compile Include="Generated\TestFriendEmailWrapper.g.cs" />

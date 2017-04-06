@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected EmployeeWrapper(Employee model) : base(model) { }
 
+	public static EmployeeWrapper GetWrapper()
+	{
+		return GetWrapper(new Employee());
+	}
+
 	public static EmployeeWrapper GetWrapper(Employee model)
 	{
 	    if (model == null)
@@ -23,33 +28,6 @@ namespace HVTApp.Model.Wrapper
 
 
     #region SimpleProperties
-
-    public System.String Surname
-    {
-      get { return GetValue<System.String>(); }
-      set { SetValue(value); }
-    }
-    public System.String SurnameOriginalValue => GetOriginalValue<System.String>(nameof(Surname));
-    public bool SurnameIsChanged => GetIsChanged(nameof(Surname));
-
-
-    public System.String Name
-    {
-      get { return GetValue<System.String>(); }
-      set { SetValue(value); }
-    }
-    public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
-    public bool NameIsChanged => GetIsChanged(nameof(Name));
-
-
-    public System.String Patronymic
-    {
-      get { return GetValue<System.String>(); }
-      set { SetValue(value); }
-    }
-    public System.String PatronymicOriginalValue => GetOriginalValue<System.String>(nameof(Patronymic));
-    public bool PatronymicIsChanged => GetIsChanged(nameof(Patronymic));
-
 
     public System.String PhoneNumber
     {
@@ -82,6 +60,22 @@ namespace HVTApp.Model.Wrapper
 
 
     #region ComplexProperties
+
+	public PersonWrapper Person 
+    {
+        get { return PersonWrapper.GetWrapper(Model.Person); }
+        set
+        {
+			var oldPropVal = Person;
+            UnRegisterComplexProperty(oldPropVal);
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
+        }
+    }
+    public PersonWrapper PersonOriginalValue => PersonWrapper.GetWrapper(GetOriginalValue<Person>(nameof(Person)));
+    public bool PersonIsChanged => GetIsChanged(nameof(Person));
+
 
 	public CompanyWrapper Company 
     {
@@ -119,6 +113,8 @@ namespace HVTApp.Model.Wrapper
 
     protected override void InitializeComplexProperties(Employee model)
     {
+
+        Person = PersonWrapper.GetWrapper(model.Person);
 
         Company = CompanyWrapper.GetWrapper(model.Company);
 

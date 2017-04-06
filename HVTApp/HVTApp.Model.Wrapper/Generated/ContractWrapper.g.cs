@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected ContractWrapper(Contract model) : base(model) { }
 
+	public static ContractWrapper GetWrapper()
+	{
+		return GetWrapper(new Contract());
+	}
+
 	public static ContractWrapper GetWrapper(Contract model)
 	{
 	    if (model == null)

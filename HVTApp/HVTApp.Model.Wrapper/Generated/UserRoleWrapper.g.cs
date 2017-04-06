@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected UserRoleWrapper(UserRole model) : base(model) { }
 
+	public static UserRoleWrapper GetWrapper()
+	{
+		return GetWrapper(new UserRole());
+	}
+
 	public static UserRoleWrapper GetWrapper(UserRole model)
 	{
 	    if (model == null)

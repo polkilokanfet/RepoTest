@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected TestFriendAddressWrapper(TestFriendAddress model) : base(model) { }
 
+	public static TestFriendAddressWrapper GetWrapper()
+	{
+		return GetWrapper(new TestFriendAddress());
+	}
+
 	public static TestFriendAddressWrapper GetWrapper(TestFriendAddress model)
 	{
 	    if (model == null)

@@ -6,7 +6,7 @@ namespace HVTApp.Model
 {
     public class PaymentsInfo : BaseEntity
     {
-        protected PaymentsInfo() { }
+        public PaymentsInfo() { }
 
         public PaymentsInfo(ProductBase product)
         {

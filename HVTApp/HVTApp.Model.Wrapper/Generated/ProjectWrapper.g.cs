@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected ProjectWrapper(Project model) : base(model) { }
 
+	public static ProjectWrapper GetWrapper()
+	{
+		return GetWrapper(new Project());
+	}
+
 	public static ProjectWrapper GetWrapper(Project model)
 	{
 	    if (model == null)

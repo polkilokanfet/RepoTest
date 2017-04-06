@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected StandartPaymentConditionsWrapper(StandartPaymentConditions model) : base(model) { }
 
+	public static StandartPaymentConditionsWrapper GetWrapper()
+	{
+		return GetWrapper(new StandartPaymentConditions());
+	}
+
 	public static StandartPaymentConditionsWrapper GetWrapper(StandartPaymentConditions model)
 	{
 	    if (model == null)

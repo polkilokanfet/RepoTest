@@ -49,6 +49,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected <#=modelType.Name#>Wrapper(<#=modelType.Name#> model) : base(model) { }
 
+	public static <#=modelType.Name#>Wrapper GetWrapper()
+	{
+		return GetWrapper(new <#=modelType.Name#>());
+	}
+
 	public static <#=modelType.Name#>Wrapper GetWrapper(<#=modelType.Name#> model)
 	{
 	    if (model == null)

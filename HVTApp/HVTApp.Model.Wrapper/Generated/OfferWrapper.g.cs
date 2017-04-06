@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected OfferWrapper(Offer model) : base(model) { }
 
+	public static OfferWrapper GetWrapper()
+	{
+		return GetWrapper(new Offer());
+	}
+
 	public static OfferWrapper GetWrapper(Offer model)
 	{
 	    if (model == null)

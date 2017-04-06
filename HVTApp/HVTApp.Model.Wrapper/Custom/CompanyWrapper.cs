@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,8 +12,45 @@ namespace HVTApp.Model.Wrapper
         protected override void RunInConstructor()
         {
             this.ComplexPropertyChanged += OnParentCompanyChanged;
+            this.ChildCompanies.CollectionChanged += ChildCompaniesOnCollectionChanged;
         }
 
+        /// <summary>
+        /// Реакция на событие изменения коллекции дочерних компаний
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="notifyCollectionChangedEventArgs"></param>
+        private void ChildCompaniesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            var newChilds = notifyCollectionChangedEventArgs.NewItems;
+
+            if (newChilds != null)
+            {
+                foreach (var child in newChilds)
+                {
+                    if (!Equals(((CompanyWrapper)child).ParentCompany, this))
+                        ((CompanyWrapper)child).ParentCompany = this;
+                }
+            }
+
+
+            var oldChilds = notifyCollectionChangedEventArgs.OldItems;
+
+            if (oldChilds != null)
+            {
+                foreach (var child in oldChilds)
+                {
+                    ((CompanyWrapper) child).ParentCompany = null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Реакция на событие изменения головной компании
+        /// </summary>
+        /// <param name="oldPropVal"></param>
+        /// <param name="newPropVal"></param>
+        /// <param name="propertyName"></param>
         private void OnParentCompanyChanged(object oldPropVal, object newPropVal, string propertyName)
         {
             if (propertyName != nameof(ParentCompany)) return;

@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected TestWifeWrapper(TestWife model) : base(model) { }
 
+	public static TestWifeWrapper GetWrapper()
+	{
+		return GetWrapper(new TestWife());
+	}
+
 	public static TestWifeWrapper GetWrapper(TestWife model)
 	{
 	    if (model == null)

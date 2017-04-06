@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected DistrictsRegionWrapper(DistrictsRegion model) : base(model) { }
 
+	public static DistrictsRegionWrapper GetWrapper()
+	{
+		return GetWrapper(new DistrictsRegion());
+	}
+
 	public static DistrictsRegionWrapper GetWrapper(DistrictsRegion model)
 	{
 	    if (model == null)

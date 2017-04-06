@@ -20,6 +20,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected AddressWrapper(Address model) : base(model) { }
 
+	public static AddressWrapper GetWrapper()
+	{
+		return GetWrapper(new Address());
+	}
+
 	public static AddressWrapper GetWrapper(Address model)
 	{
 	    if (model == null)

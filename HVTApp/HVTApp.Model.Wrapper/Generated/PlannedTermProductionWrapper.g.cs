@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected PlannedTermProductionWrapper(PlannedTermProduction model) : base(model) { }
 
+	public static PlannedTermProductionWrapper GetWrapper()
+	{
+		return GetWrapper(new PlannedTermProduction());
+	}
+
 	public static PlannedTermProductionWrapper GetWrapper(PlannedTermProduction model)
 	{
 	    if (model == null)

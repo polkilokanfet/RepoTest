@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected LocalityTypeWrapper(LocalityType model) : base(model) { }
 
+	public static LocalityTypeWrapper GetWrapper()
+	{
+		return GetWrapper(new LocalityType());
+	}
+
 	public static LocalityTypeWrapper GetWrapper(LocalityType model)
 	{
 	    if (model == null)

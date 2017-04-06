@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected TenderWrapper(Tender model) : base(model) { }
 
+	public static TenderWrapper GetWrapper()
+	{
+		return GetWrapper(new Tender());
+	}
+
 	public static TenderWrapper GetWrapper(Tender model)
 	{
 	    if (model == null)

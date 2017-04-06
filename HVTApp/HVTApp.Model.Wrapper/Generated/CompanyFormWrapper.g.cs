@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected CompanyFormWrapper(CompanyForm model) : base(model) { }
 
+	public static CompanyFormWrapper GetWrapper()
+	{
+		return GetWrapper(new CompanyForm());
+	}
+
 	public static CompanyFormWrapper GetWrapper(CompanyForm model)
 	{
 	    if (model == null)

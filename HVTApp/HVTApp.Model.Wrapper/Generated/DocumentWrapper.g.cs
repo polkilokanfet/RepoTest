@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected DocumentWrapper(Document model) : base(model) { }
 
+	public static DocumentWrapper GetWrapper()
+	{
+		return GetWrapper(new Document());
+	}
+
 	public static DocumentWrapper GetWrapper(Document model)
 	{
 	    if (model == null)

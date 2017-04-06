@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected DateInfoWrapper(DateInfo model) : base(model) { }
 
+	public static DateInfoWrapper GetWrapper()
+	{
+		return GetWrapper(new DateInfo());
+	}
+
 	public static DateInfoWrapper GetWrapper(DateInfo model)
 	{
 	    if (model == null)

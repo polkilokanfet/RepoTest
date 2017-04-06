@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected ProductsGroup`1Wrapper(ProductsGroup`1 model) : base(model) { }
 
+	public static ProductsGroup`1Wrapper GetWrapper()
+	{
+		return GetWrapper(new ProductsGroup`1());
+	}
+
 	public static ProductsGroup`1Wrapper GetWrapper(ProductsGroup`1 model)
 	{
 	    if (model == null)

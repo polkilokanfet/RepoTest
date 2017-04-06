@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected RegistrationDetailsWrapper(RegistrationDetails model) : base(model) { }
 
+	public static RegistrationDetailsWrapper GetWrapper()
+	{
+		return GetWrapper(new RegistrationDetails());
+	}
+
 	public static RegistrationDetailsWrapper GetWrapper(RegistrationDetails model)
 	{
 	    if (model == null)

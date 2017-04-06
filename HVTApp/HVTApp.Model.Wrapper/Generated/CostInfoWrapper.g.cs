@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected CostInfoWrapper(CostInfo model) : base(model) { }
 
+	public static CostInfoWrapper GetWrapper()
+	{
+		return GetWrapper(new CostInfo());
+	}
+
 	public static CostInfoWrapper GetWrapper(CostInfo model)
 	{
 	    if (model == null)

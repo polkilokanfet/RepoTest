@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected CountryWrapper(Country model) : base(model) { }
 
+	public static CountryWrapper GetWrapper()
+	{
+		return GetWrapper(new Country());
+	}
+
 	public static CountryWrapper GetWrapper(Country model)
 	{
 	    if (model == null)

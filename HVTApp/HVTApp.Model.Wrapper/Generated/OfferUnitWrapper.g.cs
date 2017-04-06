@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected OfferUnitWrapper(OfferUnit model) : base(model) { }
 
+	public static OfferUnitWrapper GetWrapper()
+	{
+		return GetWrapper(new OfferUnit());
+	}
+
 	public static OfferUnitWrapper GetWrapper(OfferUnit model)
 	{
 	    if (model == null)

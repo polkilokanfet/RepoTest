@@ -59,6 +59,7 @@
     <Compile Include="PaymentsCollectionsTests.cs" />
     <Compile Include="ProductMainTests.cs" />
     <Compile Include="BaseEntityTest.cs" />
+    <Compile Include="CompanyTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Model.Wrapper\HVTApp.Model.Wrapper.csproj">

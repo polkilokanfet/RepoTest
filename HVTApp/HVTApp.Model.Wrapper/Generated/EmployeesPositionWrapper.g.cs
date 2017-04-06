@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected EmployeesPositionWrapper(EmployeesPosition model) : base(model) { }
 
+	public static EmployeesPositionWrapper GetWrapper()
+	{
+		return GetWrapper(new EmployeesPosition());
+	}
+
 	public static EmployeesPositionWrapper GetWrapper(EmployeesPosition model)
 	{
 	    if (model == null)

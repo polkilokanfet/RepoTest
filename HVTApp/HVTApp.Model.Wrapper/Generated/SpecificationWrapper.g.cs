@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected SpecificationWrapper(Specification model) : base(model) { }
 
+	public static SpecificationWrapper GetWrapper()
+	{
+		return GetWrapper(new Specification());
+	}
+
 	public static SpecificationWrapper GetWrapper(Specification model)
 	{
 	    if (model == null)

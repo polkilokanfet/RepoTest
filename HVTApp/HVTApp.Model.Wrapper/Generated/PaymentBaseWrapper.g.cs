@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected PaymentBaseWrapper(PaymentBase model) : base(model) { }
 
+	public static PaymentBaseWrapper GetWrapper()
+	{
+		return GetWrapper(new PaymentBase());
+	}
+
 	public static PaymentBaseWrapper GetWrapper(PaymentBase model)
 	{
 	    if (model == null)

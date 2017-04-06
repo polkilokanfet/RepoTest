@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected OrderWrapper(Order model) : base(model) { }
 
+	public static OrderWrapper GetWrapper()
+	{
+		return GetWrapper(new Order());
+	}
+
 	public static OrderWrapper GetWrapper(Order model)
 	{
 	    if (model == null)

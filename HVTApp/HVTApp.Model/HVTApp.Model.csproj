@@ -50,6 +50,8 @@
     <Compile Include="Contract\Contract.cs" />
     <Compile Include="Address\Country.cs" />
     <Compile Include="Address\District.cs" />
+    <Compile Include="Employee\Gender.cs" />
+    <Compile Include="Employee\Person.cs" />
     <Compile Include="Equipment\TechLinksCollection.cs" />
     <Compile Include="Test\TestFriendAddress.cs" />
     <Compile Include="Test\TestFriend.cs" />
@@ -104,7 +106,6 @@
     <Compile Include="Offer\OfferProduct.cs" />
     <Compile Include="Employee\User.cs" />
     <Compile Include="Employee\Role.cs" />
-    <Compile Include="TestModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Model.Services\HVTApp.Model.Services.csproj">

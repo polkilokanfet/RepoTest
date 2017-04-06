@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected ProductOptionalWrapper(ProductOptional model) : base(model) { }
 
+	public static ProductOptionalWrapper GetWrapper()
+	{
+		return GetWrapper(new ProductOptional());
+	}
+
 	public static ProductOptionalWrapper GetWrapper(ProductOptional model)
 	{
 	    if (model == null)

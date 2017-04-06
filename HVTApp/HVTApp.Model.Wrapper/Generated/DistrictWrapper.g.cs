@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected DistrictWrapper(District model) : base(model) { }
 
+	public static DistrictWrapper GetWrapper()
+	{
+		return GetWrapper(new District());
+	}
+
 	public static DistrictWrapper GetWrapper(District model)
 	{
 	    if (model == null)

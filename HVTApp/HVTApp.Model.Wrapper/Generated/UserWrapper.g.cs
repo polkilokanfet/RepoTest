@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected UserWrapper(User model) : base(model) { }
 
+	public static UserWrapper GetWrapper()
+	{
+		return GetWrapper(new User());
+	}
+
 	public static UserWrapper GetWrapper(User model)
 	{
 	    if (model == null)

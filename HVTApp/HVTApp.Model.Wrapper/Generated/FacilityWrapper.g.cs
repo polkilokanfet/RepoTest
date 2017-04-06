@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected FacilityWrapper(Facility model) : base(model) { }
 
+	public static FacilityWrapper GetWrapper()
+	{
+		return GetWrapper(new Facility());
+	}
+
 	public static FacilityWrapper GetWrapper(Facility model)
 	{
 	    if (model == null)

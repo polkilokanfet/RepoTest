@@ -29,7 +29,8 @@ namespace HVTApp.DataAccess
         private static readonly Company Fsk = new Company { FullName = "Федеральная сетевая компания", ShortName = "ФСК", Form = FormPao, ActivityFilds = new List<ActivityField> { ElectricityTransmission }, ParentCompany = Rosseti };
         private static readonly Company Mrsk = new Company { FullName = "Межрегиональные распределительные сети", ShortName = "МРСК", Form = FormPao, ActivityFilds = new List<ActivityField> { ElectricityTransmission }, ParentCompany = Rosseti };
         private static readonly EmployeesPosition EmployeesPosition = new EmployeesPosition {Name = "Директор"};
-        private static readonly Employee Employee = new Employee {Surname = "Иванов",Name = "Иван", Patronymic = "Иванович", Position = EmployeesPosition, Company = Uetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36"};
+        private static readonly Person Person = new Person { Surname = "Иванов", Name = "Иван" };
+        private static readonly Employee Employee = new Employee { Person = Person, Position = EmployeesPosition, Company = Uetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36" };
         private static readonly User User = new User {Login = "1",Password = StringToGuidService.GetHashString("1"),Employee = Employee, PersonalNumber = "333"};
         private static readonly UserRole UserRole = new UserRole { User = User, Role = Role.DataBaseFiller };
 

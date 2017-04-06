@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected ActivityFieldWrapper(ActivityField model) : base(model) { }
 
+	public static ActivityFieldWrapper GetWrapper()
+	{
+		return GetWrapper(new ActivityField());
+	}
+
 	public static ActivityFieldWrapper GetWrapper(ActivityField model)
 	{
 	    if (model == null)

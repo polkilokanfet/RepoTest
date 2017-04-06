@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected EquipmentWrapper(Equipment model) : base(model) { }
 
+	public static EquipmentWrapper GetWrapper()
+	{
+		return GetWrapper(new Equipment());
+	}
+
 	public static EquipmentWrapper GetWrapper(Equipment model)
 	{
 	    if (model == null)

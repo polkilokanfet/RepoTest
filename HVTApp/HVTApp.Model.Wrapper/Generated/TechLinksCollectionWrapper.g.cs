@@ -9,6 +9,11 @@ namespace HVTApp.Model.Wrapper
   {
     protected TechLinksCollectionWrapper(TechLinksCollection model) : base(model) { }
 
+	public static TechLinksCollectionWrapper GetWrapper()
+	{
+		return GetWrapper(new TechLinksCollection());
+	}
+
 	public static TechLinksCollectionWrapper GetWrapper(TechLinksCollection model)
 	{
 	    if (model == null)
