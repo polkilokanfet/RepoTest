@@ -59,36 +59,28 @@ namespace HVTApp.Model.Wrapper
     public bool EquipmentIsChanged => GetIsChanged(nameof(Equipment));
 
 
-	public CostInfoWrapper CostInfo 
+	public ProductWrapper ParentProduct 
     {
-        get { return CostInfoWrapper.GetWrapper(Model.CostInfo); }
+        get { return ProductWrapper.GetWrapper(Model.ParentProduct); }
         set
         {
-			var oldPropVal = CostInfo;
+			var oldPropVal = ParentProduct;
             UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
-    public CostInfoWrapper CostInfoOriginalValue => CostInfoWrapper.GetWrapper(GetOriginalValue<CostInfo>(nameof(CostInfo)));
-    public bool CostInfoIsChanged => GetIsChanged(nameof(CostInfo));
+    public ProductWrapper ParentProductOriginalValue => ProductWrapper.GetWrapper(GetOriginalValue<Product>(nameof(ParentProduct)));
+    public bool ParentProductIsChanged => GetIsChanged(nameof(ParentProduct));
 
 
-	public PaymentsInfoWrapper PaymentsInfo 
-    {
-        get { return PaymentsInfoWrapper.GetWrapper(Model.PaymentsInfo); }
-        set
-        {
-			var oldPropVal = PaymentsInfo;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
-        }
-    }
-    public PaymentsInfoWrapper PaymentsInfoOriginalValue => PaymentsInfoWrapper.GetWrapper(GetOriginalValue<PaymentsInfo>(nameof(PaymentsInfo)));
-    public bool PaymentsInfoIsChanged => GetIsChanged(nameof(PaymentsInfo));
+    #endregion
+
+
+    #region CollectionProperties
+
+    public IValidatableChangeTrackingCollection<ProductWrapper> ChildProducts { get; private set; }
 
 
     #endregion
@@ -98,9 +90,18 @@ namespace HVTApp.Model.Wrapper
 
         Equipment = EquipmentWrapper.GetWrapper(model.Equipment);
 
-        CostInfo = CostInfoWrapper.GetWrapper(model.CostInfo);
+        ParentProduct = ProductWrapper.GetWrapper(model.ParentProduct);
 
-        PaymentsInfo = PaymentsInfoWrapper.GetWrapper(model.PaymentsInfo);
+    }
+
+  
+    protected override void InitializeCollectionComplexProperties(Product model)
+    {
+
+      if (model.ChildProducts == null) throw new ArgumentException("ChildProducts cannot be null");
+      ChildProducts = new ValidatableChangeTrackingCollection<ProductWrapper>(model.ChildProducts.Select(e => ProductWrapper.GetWrapper(e)));
+      RegisterCollection(ChildProducts, model.ChildProducts);
+
 
     }
 

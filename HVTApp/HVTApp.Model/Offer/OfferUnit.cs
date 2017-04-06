@@ -12,7 +12,5 @@ namespace HVTApp.Model
         public virtual Offer Offer { get; set; }
         public virtual PlannedTermProduction PlannedTermProduction { get; set; }
 
-        public double Sum => OfferProducts.Sum(x => x.CostInfo.Cost);
-        public double SumWithVat => OfferProducts.Sum(x => x.CostInfo.CostWithVat);
     }
 }

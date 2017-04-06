@@ -53,6 +53,7 @@
     <Compile Include="Employee\Gender.cs" />
     <Compile Include="Employee\Person.cs" />
     <Compile Include="Equipment\TechLinksCollection.cs" />
+    <Compile Include="Payments\Payments\Payment.cs" />
     <Compile Include="Test\TestFriendAddress.cs" />
     <Compile Include="Test\TestFriend.cs" />
     <Compile Include="Test\TestFriendEmail.cs" />
@@ -61,19 +62,9 @@
     <Compile Include="Test\TestEntity.cs" />
     <Compile Include="Offer\OfferUnit.cs" />
     <Compile Include="Payments\Payments\PaymentConditionPoint.cs" />
-    <Compile Include="Payments\PaymentsCollections\PaymentsConditionsCollection.cs" />
-    <Compile Include="Payments\PaymentsCollections\PaymentsActualCollection.cs" />
-    <Compile Include="Payments\PaymentsCollections\PaymentsCollectionBase.cs" />
-    <Compile Include="Payments\PaymentsCollections\PaymentsPlannedCollection.cs" />
     <Compile Include="Payments\Payments\StandartPaymentConditions.cs" />
     <Compile Include="PlannedTermProduction.cs" />
     <Compile Include="Products\DateInfo.cs" />
-    <Compile Include="Products\OrderInfo.cs" />
-    <Compile Include="Products\PaymentsInfo.cs" />
-    <Compile Include="Products\ProductBase.cs" />
-    <Compile Include="Products\ProductsBaseCollection.cs" />
-    <Compile Include="Products\ProductsGroup.cs" />
-    <Compile Include="Products\ProductsOptionalGroup.cs" />
     <Compile Include="Products\TermsInfo.cs" />
     <Compile Include="Tender\TenderType.cs" />
     <Compile Include="Tender\TenderInfo.cs" />
@@ -85,19 +76,13 @@
     <Compile Include="Employee\Employee.cs" />
     <Compile Include="Employee\EmployeesPosition.cs" />
     <Compile Include="Order.cs" />
-    <Compile Include="Payments\Payments\PaymentActual.cs" />
-    <Compile Include="Payments\Payments\PaymentBase.cs" />
     <Compile Include="Payments\Payments\PaymentsCondition.cs" />
     <Compile Include="Payments\Payments\PaymentDocument.cs" />
-    <Compile Include="Payments\Payments\PaymentPlanned.cs" />
     <Compile Include="Facility.cs" />
     <Compile Include="FacilityType.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Address\DistrictsRegion.cs" />
-    <Compile Include="Products\ProductMain.cs" />
-    <Compile Include="Products\ProductOptional.cs" />
-    <Compile Include="Products\ProductsMainGroup.cs" />
     <Compile Include="Contract\Specification.cs" />
     <Compile Include="Equipment\TechParameters\TechParameter.cs" />
     <Compile Include="Equipment\TechParameters\TechParametersGroup.cs" />
@@ -106,6 +91,7 @@
     <Compile Include="Offer\OfferProduct.cs" />
     <Compile Include="Employee\User.cs" />
     <Compile Include="Employee\Role.cs" />
+    <Compile Include="Units\Units.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Model.Services\HVTApp.Model.Services.csproj">

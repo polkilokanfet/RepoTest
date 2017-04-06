@@ -1,4 +1,4 @@
-using HVTApp.Model.PaymentsCollections;
+using System.Collections.Generic;
 
 namespace HVTApp.Model
 {
@@ -7,7 +7,7 @@ namespace HVTApp.Model
         public virtual ProductMain ProductMain { get; set; }
         public virtual OfferUnit OfferUnit { get; set; }
         public virtual CostInfo CostInfo { get; set; }
-        public virtual PaymentsConditionsCollection PaymentsConditions { get; set; }
+        public virtual List<PaymentsCondition> PaymentsConditions { get; set; }
         public virtual PlannedTermProduction PlannedTermProduction { get; set; }
     }
 }

@@ -6,7 +6,6 @@ namespace HVTApp.Model
 {
     public class DateInfo : BaseEntity
     {
-        public virtual ProductBase Product { get; set; }
         #region Dates
 
         /// <summary>
