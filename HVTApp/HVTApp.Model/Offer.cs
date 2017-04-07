@@ -7,6 +7,6 @@ namespace HVTApp.Model
         public virtual Document Document { get; set; }
         public virtual Project Project { get; set; }
         public virtual Tender Tender { get; set; }
-        public DateTime ValidityDate { get; set; }// Дата до которой ТКП действительно.
+        public DateTime ValidityDate { get; set; } // Дата до которой ТКП действительно.
     }
 }

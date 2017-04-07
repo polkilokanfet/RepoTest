@@ -10,6 +10,7 @@ namespace HVTApp.Model
         public double Sum { get; set; }
         public DateTime DateOpen { get; set; }
         public DateTime DateClose { get; set; }
+        public DateTime DateNotice { get; set; }
         public virtual List<Company> Participants { get; set; } //участники
         public virtual Company Winner { get; set; }
     }

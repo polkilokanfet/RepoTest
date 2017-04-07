@@ -59,21 +59,6 @@ namespace HVTApp.Model.Wrapper
     public bool RequestDocumentIsChanged => GetIsChanged(nameof(RequestDocument));
 
 
-	public CompanyWrapper Sender 
-    {
-        get { return CompanyWrapper.GetWrapper(Model.Sender); }
-        set
-        {
-			var oldPropVal = Sender;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
-        }
-    }
-    public CompanyWrapper SenderOriginalValue => CompanyWrapper.GetWrapper(GetOriginalValue<Company>(nameof(Sender)));
-    public bool SenderIsChanged => GetIsChanged(nameof(Sender));
-
 
 	public EmployeeWrapper SenderEmployee 
     {
@@ -161,8 +146,6 @@ namespace HVTApp.Model.Wrapper
     {
 
         RequestDocument = DocumentWrapper.GetWrapper(model.RequestDocument);
-
-        Sender = CompanyWrapper.GetWrapper(model.Sender);
 
         SenderEmployee = EmployeeWrapper.GetWrapper(model.SenderEmployee);
 

@@ -60,6 +60,7 @@
     <Compile Include="CompanyTests.cs" />
     <Compile Include="SalesProductUnitWrapperTests.cs" />
     <Compile Include="PaymentConditionStandartWrapperTests.cs" />
+    <Compile Include="SumAndVatTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Model.Wrapper\HVTApp.Model.Wrapper.csproj">

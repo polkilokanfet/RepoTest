@@ -20,9 +20,9 @@ namespace HVTApp.Model.Wrapper
         {
             PaymentsPlanned.Clear();
 
-            foreach (var condition in PaymentsConditions)
+            foreach (var condition in PaymentsConditions.OrderBy(x => x.PaymentConditionPoint))
             {
-                Payment payment = new Payment {SumAndVat = new SumAndVat { Sum = Cost.SumWithVat*condition.PartInPercent }};
+                Payment payment = new Payment { SumAndVat = new SumAndVat { Sum = Cost.Sum * condition.PartInPercent / 100, Vat = this.Cost.Vat } };
                 PaymentsPlanned.Add(PaymentWrapper.GetWrapper(payment));
             }
         }

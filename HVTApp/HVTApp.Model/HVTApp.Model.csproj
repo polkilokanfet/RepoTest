@@ -58,12 +58,11 @@
     <Compile Include="Test\TestFriend.cs" />
     <Compile Include="Test\TestFriendEmail.cs" />
     <Compile Include="Test\TestFriendGroup.cs" />
-    <Compile Include="Document\Document.cs" />
+    <Compile Include="Document.cs" />
     <Compile Include="Test\TestEntity.cs" />
     <Compile Include="PlannedTermProduction.cs" />
     <Compile Include="Products\DateInfo.cs" />
     <Compile Include="Products\TermsInfo.cs" />
-    <Compile Include="Document\RegistrationDetails.cs" />
     <Compile Include="SumAndVat.cs" />
     <Compile Include="Equipment\Equipment.cs" />
     <Compile Include="Address\Locality.cs" />

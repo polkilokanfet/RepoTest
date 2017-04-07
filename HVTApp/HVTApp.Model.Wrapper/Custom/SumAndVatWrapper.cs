@@ -8,8 +8,10 @@ namespace HVTApp.Model.Wrapper
 
         protected override void RunInConstructor()
         {
-            this.PropertyChanged += OnSumChanged;
+            this.PropertyChanged += OnSumOrVatChanged;
             this.PropertyChanged += OnSumVithVatChanged;
+
+            OnSumOrVatChanged(this, new PropertyChangedEventArgs(nameof(Sum)));
         }
 
         private void OnSumVithVatChanged(object sender, PropertyChangedEventArgs e)
@@ -20,9 +22,9 @@ namespace HVTApp.Model.Wrapper
             Sum = SumWithVat / (1 + Vat / 100);
         }
 
-        private void OnSumChanged(object sender, PropertyChangedEventArgs e)
+        private void OnSumOrVatChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName != nameof(Sum))
+            if (e.PropertyName != nameof(Sum) && e.PropertyName != nameof(Vat))
                 return;
 
             SumWithVat = Sum * (1 + Vat / 100);
