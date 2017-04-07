@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;

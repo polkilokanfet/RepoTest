@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using HVTApp.Infrastructure.Interfaces;
-using HVTApp.Infrastructure.Interfaces.Services;
+﻿using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.AuthenticationService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model;
