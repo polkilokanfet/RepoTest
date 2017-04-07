@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {

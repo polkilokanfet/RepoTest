@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model
 {

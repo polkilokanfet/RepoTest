@@ -1,3 +1,4 @@
+using HVTApp.Infrastructure;
 using System.Collections.Generic;
 
 namespace HVTApp.Model.Wrapper

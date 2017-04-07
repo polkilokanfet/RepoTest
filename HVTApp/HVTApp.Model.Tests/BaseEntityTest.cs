@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using HVTApp.Infrastructure;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HVTApp.Model.Tests

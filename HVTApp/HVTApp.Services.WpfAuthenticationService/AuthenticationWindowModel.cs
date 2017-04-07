@@ -5,11 +5,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model;
-using HVTApp.Model.Wrapper;
 using HVTApp.Model.Wrapper.Annotations;
 using Prism.Commands;
 
@@ -78,7 +75,7 @@ namespace HVTApp.Services.WpfAuthenticationService
 
         private void OkCommand_Execute()
         {
-            CurrentUser.User = User;
+            CurrentUser.CurrentUser.User = User;
             CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
         }
 

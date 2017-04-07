@@ -39,7 +39,7 @@ namespace HVTApp.Model.Wrapper.Tests
         public void ShouldBeInSyncAfterRemovingEmail()
         {
             var wrapper = TestFriendWrapper.GetWrapper(_testFriend);
-            var emailToRemove = wrapper.Emails.Single(ew => ew.Model == _testFriendEmail);
+            var emailToRemove = wrapper.Emails.Single(ew => Equals(ew.Model, _testFriendEmail));
             wrapper.Emails.Remove(emailToRemove);
             CheckIfModelEmailsCollectionIsInSync(wrapper);
         }
@@ -65,7 +65,7 @@ namespace HVTApp.Model.Wrapper.Tests
         {
             Assert.AreEqual(_testFriend.Emails.Count, wrapper.Emails.Count);
             Assert.IsTrue(_testFriend.Emails.All(e =>
-                        wrapper.Emails.Any(we => we.Model == e)));
+                        wrapper.Emails.Any(we => Equals(we.Model, e))));
         }
     }
 }

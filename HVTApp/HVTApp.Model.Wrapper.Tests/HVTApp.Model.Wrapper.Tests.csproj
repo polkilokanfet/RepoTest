@@ -69,6 +69,10 @@
     <Compile Include="ValidationSimpleProperty.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
+      <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
+      <Name>HVTApp.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Model.Wrapper\HVTApp.Model.Wrapper.csproj">
       <Project>{ee385cdc-6790-4ba0-8b6e-31dad1b3ae1e}</Project>
       <Name>HVTApp.Model.Wrapper</Name>

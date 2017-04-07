@@ -1,3 +1,5 @@
+using HVTApp.Infrastructure;
+
 namespace HVTApp.Model
 {
     /// <summary>

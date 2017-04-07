@@ -1,4 +1,6 @@
-﻿namespace HVTApp.Model
+﻿using HVTApp.Infrastructure;
+
+namespace HVTApp.Model
 {
     /// <summary>
     /// Тип населенного пункта.
