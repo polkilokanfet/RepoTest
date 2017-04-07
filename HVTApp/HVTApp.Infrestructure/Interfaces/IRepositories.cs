@@ -23,8 +23,4 @@ namespace HVTApp.Infrastructure.Interfaces
     {
     }
 
-    public interface IProductsMainRepository : IRepository<ProductMain>
-    {
-    }
-
 }

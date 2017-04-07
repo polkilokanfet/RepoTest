@@ -6,7 +6,6 @@ namespace HVTApp.Model.Wrapper
     {
         protected override void RunInConstructor()
         {
-            PaymentsConditions = new PaymentsConditionWrappersCollection(Model.PaymentsConditions.Select(PaymentsConditionWrapper.GetWrapper));
         }
     }
 }

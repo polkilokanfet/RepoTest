@@ -10,8 +10,5 @@ namespace HVTApp.Model
         public DateTime Date { get; set; }
         public virtual Company Contragent { get; set; }
         public virtual List<Specification> Specifications { get; set; }
-
-        public double Sum => Specifications.Sum(x => x.Sum);
-        public double SumWithVat => Specifications.Sum(x => x.SumWithVat);
     }
 }

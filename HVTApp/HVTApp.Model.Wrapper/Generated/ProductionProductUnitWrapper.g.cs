@@ -47,6 +47,24 @@ namespace HVTApp.Model.Wrapper
     public bool EndProductionDateIsChanged => GetIsChanged(nameof(EndProductionDate));
 
 
+    public System.Int32 OrderPosition
+    {
+      get { return GetValue<System.Int32>(); }
+      set { SetValue(value); }
+    }
+    public System.Int32 OrderPositionOriginalValue => GetOriginalValue<System.Int32>(nameof(OrderPosition));
+    public bool OrderPositionIsChanged => GetIsChanged(nameof(OrderPosition));
+
+
+    public System.String SerialNumber
+    {
+      get { return GetValue<System.String>(); }
+      set { SetValue(value); }
+    }
+    public System.String SerialNumberOriginalValue => GetOriginalValue<System.String>(nameof(SerialNumber));
+    public bool SerialNumberIsChanged => GetIsChanged(nameof(SerialNumber));
+
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }

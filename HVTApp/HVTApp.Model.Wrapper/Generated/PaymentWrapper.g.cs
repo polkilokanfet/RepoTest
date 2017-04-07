@@ -38,13 +38,13 @@ namespace HVTApp.Model.Wrapper
     public bool DateIsChanged => GetIsChanged(nameof(Date));
 
 
-    public System.Double Summ
+    public System.String Comment
     {
-      get { return GetValue<System.Double>(); }
+      get { return GetValue<System.String>(); }
       set { SetValue(value); }
     }
-    public System.Double SummOriginalValue => GetOriginalValue<System.Double>(nameof(Summ));
-    public bool SummIsChanged => GetIsChanged(nameof(Summ));
+    public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+    public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
 
     public System.Int32 Id
@@ -57,6 +57,34 @@ namespace HVTApp.Model.Wrapper
 
 
     #endregion
+
+
+    #region ComplexProperties
+
+	public SumAndVatWrapper SumAndVat 
+    {
+        get { return SumAndVatWrapper.GetWrapper(Model.SumAndVat); }
+        set
+        {
+			var oldPropVal = SumAndVat;
+            UnRegisterComplexProperty(oldPropVal);
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
+        }
+    }
+    public SumAndVatWrapper SumAndVatOriginalValue => SumAndVatWrapper.GetWrapper(GetOriginalValue<SumAndVat>(nameof(SumAndVat)));
+    public bool SumAndVatIsChanged => GetIsChanged(nameof(SumAndVat));
+
+
+    #endregion
+
+    protected override void InitializeComplexProperties(Payment model)
+    {
+
+        SumAndVat = SumAndVatWrapper.GetWrapper(model.SumAndVat);
+
+    }
 
   }
 }

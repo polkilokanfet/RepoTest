@@ -82,21 +82,7 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public IValidatableChangeTrackingCollection<ProductsMainGroupWrapper> SalesGroups { get; private set; }
-
-
-    public IValidatableChangeTrackingCollection<PaymentsConditionWrapper> PaymentsConditions { get; private set; }
-
-
-    #endregion
-
-
-    #region GetProperties
-
-    public System.Double Sum => GetValue<System.Double>(); 
-
-
-    public System.Double SumWithVat => GetValue<System.Double>(); 
+    public IValidatableChangeTrackingCollection<SalesProductUnitWrapper> SalesProductUnits { get; private set; }
 
 
     #endregion
@@ -112,14 +98,9 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeCollectionComplexProperties(Specification model)
     {
 
-      if (model.SalesGroups == null) throw new ArgumentException("SalesGroups cannot be null");
-      SalesGroups = new ValidatableChangeTrackingCollection<ProductsMainGroupWrapper>(model.SalesGroups.Select(e => ProductsMainGroupWrapper.GetWrapper(e)));
-      RegisterCollection(SalesGroups, model.SalesGroups);
-
-
-      if (model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
-      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentsConditionWrapper>(model.PaymentsConditions.Select(e => PaymentsConditionWrapper.GetWrapper(e)));
-      RegisterCollection(PaymentsConditions, model.PaymentsConditions);
+      if (model.SalesProductUnits == null) throw new ArgumentException("SalesProductUnits cannot be null");
+      SalesProductUnits = new ValidatableChangeTrackingCollection<SalesProductUnitWrapper>(model.SalesProductUnits.Select(e => SalesProductUnitWrapper.GetWrapper(e)));
+      RegisterCollection(SalesProductUnits, model.SalesProductUnits);
 
 
     }

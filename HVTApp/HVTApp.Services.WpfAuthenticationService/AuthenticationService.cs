@@ -23,7 +23,7 @@ namespace HVTApp.Services.WpfAuthenticationService
 
         public bool Authentication()
         {
-            AuthenticationWindowModel authenticationWindowModel = new AuthenticationWindowModel(_unitOfWork.UsersRepository.GetAll());
+            AuthenticationWindowModel authenticationWindowModel = new AuthenticationWindowModel(_unitOfWork.Users.GetAll());
             bool? result = _dialogService.ShowDialog(authenticationWindowModel);
             if (result.HasValue && result.Value)
             {

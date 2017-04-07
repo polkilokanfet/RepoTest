@@ -23,13 +23,10 @@ namespace HVTApp.Model
     public class SalesProductUnit : BaseEntity
     {
         public virtual ProductionProductUnit ProductionProductUnit { get; set; }
-        public virtual CostInfo CostInfo { get; set; }
-        public virtual Payments Payments { get; set; }
+        public virtual SumAndVat Cost { get; set; }
         public virtual ShipmentProductUnit ShipmentProductUnit { get; set; }
-    }
 
-    public class Payments : BaseEntity
-    {
+        public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
         public virtual List<Payment> PaymentsPlanned { get; set; } = new List<Payment>();
         public virtual List<Payment> PaymentsActual { get; set; } = new List<Payment>();
     }
@@ -44,8 +41,7 @@ namespace HVTApp.Model
     public class ProjectProductUnit : BaseEntity
     {
         public virtual Facility Facility { get; set; }
-        public virtual Product Product { get; set; }
-        public virtual CostInfo CostInfo { get; set; }
+        public virtual SalesProductUnit SalesProductUnit { get; set; }
     }
 
     public class Product : BaseEntity

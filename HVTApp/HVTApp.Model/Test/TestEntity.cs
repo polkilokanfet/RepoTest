@@ -2,7 +2,7 @@
 
 namespace HVTApp.Model
 {
-    public abstract class TestEntity : BaseEntity
+    public class TestEntity : BaseEntity
     {
         public string Name { get; set; }
 

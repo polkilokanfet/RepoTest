@@ -59,36 +59,20 @@ namespace HVTApp.Model.Wrapper
     public bool ProductionProductUnitIsChanged => GetIsChanged(nameof(ProductionProductUnit));
 
 
-	public CostInfoWrapper CostInfo 
+	public SumAndVatWrapper Cost 
     {
-        get { return CostInfoWrapper.GetWrapper(Model.CostInfo); }
+        get { return SumAndVatWrapper.GetWrapper(Model.Cost); }
         set
         {
-			var oldPropVal = CostInfo;
+			var oldPropVal = Cost;
             UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
-    public CostInfoWrapper CostInfoOriginalValue => CostInfoWrapper.GetWrapper(GetOriginalValue<CostInfo>(nameof(CostInfo)));
-    public bool CostInfoIsChanged => GetIsChanged(nameof(CostInfo));
-
-
-	public PaymentsWrapper Payments 
-    {
-        get { return PaymentsWrapper.GetWrapper(Model.Payments); }
-        set
-        {
-			var oldPropVal = Payments;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
-        }
-    }
-    public PaymentsWrapper PaymentsOriginalValue => PaymentsWrapper.GetWrapper(GetOriginalValue<Payments>(nameof(Payments)));
-    public bool PaymentsIsChanged => GetIsChanged(nameof(Payments));
+    public SumAndVatWrapper CostOriginalValue => SumAndVatWrapper.GetWrapper(GetOriginalValue<SumAndVat>(nameof(Cost)));
+    public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
 
 	public ShipmentProductUnitWrapper ShipmentProductUnit 
@@ -109,16 +93,49 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
+
+    #region CollectionProperties
+
+    public IValidatableChangeTrackingCollection<PaymentConditionWrapper> PaymentsConditions { get; private set; }
+
+
+    public IValidatableChangeTrackingCollection<PaymentWrapper> PaymentsPlanned { get; private set; }
+
+
+    public IValidatableChangeTrackingCollection<PaymentWrapper> PaymentsActual { get; private set; }
+
+
+    #endregion
+
     protected override void InitializeComplexProperties(SalesProductUnit model)
     {
 
         ProductionProductUnit = ProductionProductUnitWrapper.GetWrapper(model.ProductionProductUnit);
 
-        CostInfo = CostInfoWrapper.GetWrapper(model.CostInfo);
-
-        Payments = PaymentsWrapper.GetWrapper(model.Payments);
+        Cost = SumAndVatWrapper.GetWrapper(model.Cost);
 
         ShipmentProductUnit = ShipmentProductUnitWrapper.GetWrapper(model.ShipmentProductUnit);
+
+    }
+
+  
+    protected override void InitializeCollectionComplexProperties(SalesProductUnit model)
+    {
+
+      if (model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
+      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(model.PaymentsConditions.Select(e => PaymentConditionWrapper.GetWrapper(e)));
+      RegisterCollection(PaymentsConditions, model.PaymentsConditions);
+
+
+      if (model.PaymentsPlanned == null) throw new ArgumentException("PaymentsPlanned cannot be null");
+      PaymentsPlanned = new ValidatableChangeTrackingCollection<PaymentWrapper>(model.PaymentsPlanned.Select(e => PaymentWrapper.GetWrapper(e)));
+      RegisterCollection(PaymentsPlanned, model.PaymentsPlanned);
+
+
+      if (model.PaymentsActual == null) throw new ArgumentException("PaymentsActual cannot be null");
+      PaymentsActual = new ValidatableChangeTrackingCollection<PaymentWrapper>(model.PaymentsActual.Select(e => PaymentWrapper.GetWrapper(e)));
+      RegisterCollection(PaymentsActual, model.PaymentsActual);
+
 
     }
 

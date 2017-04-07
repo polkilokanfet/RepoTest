@@ -8,7 +8,7 @@ namespace HVTApp.Infrastructure.Interfaces
 
         IActivityFieldsRepository ActivityFields { get; }
         IFriendGroupRepository FriendGroups { get; }
-        IUsersRepository UsersRepository { get; }
+        IUsersRepository Users { get; }
         ICompaniesRepository Companies { get; }
         ICompanyFormsRepository CompanyForms { get; }
     }

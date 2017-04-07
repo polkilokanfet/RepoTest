@@ -44,16 +44,16 @@ namespace HVTApp.DataAccess
             modelBuilder.Entity<Company>().Ignore(x => x.ChildCompanies);
             #endregion
 
-            modelBuilder.Entity<ProductMain>().HasRequired(x => x.TenderInfo).WithRequiredPrincipal(x => x.ProductMain);
-            modelBuilder.Entity<ProductBase>().HasRequired(x => x.OrderInfo).WithRequiredPrincipal(x => x.Product);
-            modelBuilder.Entity<ProductBase>().HasRequired(x => x.DateInfo).WithRequiredPrincipal(x => x.Product);
-            modelBuilder.Entity<ProductBase>().HasRequired(x => x.PaymentsInfo).WithRequiredPrincipal(x => x.Product);
-            modelBuilder.Entity<ProductBase>().HasRequired(x => x.CostInfo);
-            modelBuilder.Entity<ProductBase>().HasRequired(x => x.TermsInfo);
+            //modelBuilder.Entity<ProductMain>().HasRequired(x => x.TenderInfo).WithRequiredPrincipal(x => x.ProductMain);
+            //modelBuilder.Entity<ProductBase>().HasRequired(x => x.OrderInfo).WithRequiredPrincipal(x => x.Product);
+            //modelBuilder.Entity<ProductBase>().HasRequired(x => x.DateInfo).WithRequiredPrincipal(x => x.Product);
+            //modelBuilder.Entity<ProductBase>().HasRequired(x => x.PaymentsInfo).WithRequiredPrincipal(x => x.Product);
+            //modelBuilder.Entity<ProductBase>().HasRequired(x => x.Cost);
+            //modelBuilder.Entity<ProductBase>().HasRequired(x => x.TermsInfo);
 
-            modelBuilder.Entity<PaymentsInfo>().HasRequired(x => x.Product);
+            //modelBuilder.Entity<PaymentsInfo>().HasRequired(x => x.Product);
 
-            modelBuilder.Entity<PaymentPlanned>().HasRequired(x => x.PaymentsInfo);
+            //modelBuilder.Entity<PaymentPlanned>().HasRequired(x => x.PaymentsInfo);
 
             base.OnModelCreating(modelBuilder);
         }
@@ -68,16 +68,9 @@ namespace HVTApp.DataAccess
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<ActivityField> ActivityFilds { get; set; }
         public virtual DbSet<CompanyForm> CompanyForms { get; set; }
-        public virtual DbSet<ProductMain> ProductsMain { get; set; }
-        public virtual DbSet<ProductOptional> ProductsOptional { get; set; }
-        public virtual DbSet<CostInfo> CostInfos { get; set; }
-        public virtual DbSet<TenderInfo> TenderInfos { get; set; }
-        public virtual DbSet<PaymentsInfo> PaymentsInfos { get; set; }
-        public virtual DbSet<PaymentActual> PaymentsActual { get; set; }
-        public virtual DbSet<PaymentPlanned> PaymentsPlanned { get; set; }
-        public virtual DbSet<PaymentsCondition> PaymentConditions { get; set; }
+        public virtual DbSet<PaymentCondition> PaymentConditions { get; set; }
         public virtual DbSet<PaymentDocument> PaymentDocuments { get; set; }
-        public virtual DbSet<StandartPaymentConditions> StandartPaymentConditionses { get; set; }
+        public virtual DbSet<PaymentConditionStandart> StandartPaymentConditionses { get; set; }
         public virtual DbSet<TechParameter> TechParameters { get; set; }
     }
 }

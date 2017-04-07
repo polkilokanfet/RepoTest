@@ -82,30 +82,13 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public IValidatableChangeTrackingCollection<ProductsMainGroupWrapper> ProductsMainGroups { get; private set; }
+    public IValidatableChangeTrackingCollection<SalesProductUnitWrapper> SalesProductUnits { get; private set; }
 
 
     public IValidatableChangeTrackingCollection<TenderWrapper> Tenders { get; private set; }
 
 
     public IValidatableChangeTrackingCollection<OfferWrapper> Offers { get; private set; }
-
-
-    #endregion
-
-
-    #region GetProperties
-
-    public System.Double Sum => GetValue<System.Double>(); 
-
-
-    public HVTApp.Model.Company ProjectMaker => GetValue<HVTApp.Model.Company>(); 
-
-
-    public HVTApp.Model.Company Worker => GetValue<HVTApp.Model.Company>(); 
-
-
-    public HVTApp.Model.Company Supplier => GetValue<HVTApp.Model.Company>(); 
 
 
     #endregion
@@ -121,9 +104,9 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeCollectionComplexProperties(Project model)
     {
 
-      if (model.ProductsMainGroups == null) throw new ArgumentException("ProductsMainGroups cannot be null");
-      ProductsMainGroups = new ValidatableChangeTrackingCollection<ProductsMainGroupWrapper>(model.ProductsMainGroups.Select(e => ProductsMainGroupWrapper.GetWrapper(e)));
-      RegisterCollection(ProductsMainGroups, model.ProductsMainGroups);
+      if (model.SalesProductUnits == null) throw new ArgumentException("SalesProductUnits cannot be null");
+      SalesProductUnits = new ValidatableChangeTrackingCollection<SalesProductUnitWrapper>(model.SalesProductUnits.Select(e => SalesProductUnitWrapper.GetWrapper(e)));
+      RegisterCollection(SalesProductUnits, model.SalesProductUnits);
 
 
       if (model.Tenders == null) throw new ArgumentException("Tenders cannot be null");

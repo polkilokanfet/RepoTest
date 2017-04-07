@@ -9,6 +9,5 @@ namespace HVTApp.Model
         public DateTime Date { get; set; }
         public virtual Contract Contract { get; set; }
         public virtual List<SalesProductUnit> SalesProductUnits { get; set; }
-        public virtual List<PaymentsCondition> PaymentsConditions { get; set; }
     }
 }

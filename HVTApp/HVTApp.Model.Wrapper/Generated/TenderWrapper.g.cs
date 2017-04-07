@@ -119,9 +119,6 @@ namespace HVTApp.Model.Wrapper
     public IValidatableChangeTrackingCollection<CompanyWrapper> Participants { get; private set; }
 
 
-    public IValidatableChangeTrackingCollection<TenderInfoWrapper> TenderUnits { get; private set; }
-
-
     #endregion
 
     protected override void InitializeComplexProperties(Tender model)
@@ -140,11 +137,6 @@ namespace HVTApp.Model.Wrapper
       if (model.Participants == null) throw new ArgumentException("Participants cannot be null");
       Participants = new ValidatableChangeTrackingCollection<CompanyWrapper>(model.Participants.Select(e => CompanyWrapper.GetWrapper(e)));
       RegisterCollection(Participants, model.Participants);
-
-
-      if (model.TenderUnits == null) throw new ArgumentException("TenderUnits cannot be null");
-      TenderUnits = new ValidatableChangeTrackingCollection<TenderInfoWrapper>(model.TenderUnits.Select(e => TenderInfoWrapper.GetWrapper(e)));
-      RegisterCollection(TenderUnits, model.TenderUnits);
 
 
     }

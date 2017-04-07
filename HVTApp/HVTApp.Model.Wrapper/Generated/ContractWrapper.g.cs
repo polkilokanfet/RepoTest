@@ -87,17 +87,6 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-
-    #region GetProperties
-
-    public System.Double Sum => GetValue<System.Double>(); 
-
-
-    public System.Double SumWithVat => GetValue<System.Double>(); 
-
-
-    #endregion
-
     protected override void InitializeComplexProperties(Contract model)
     {
 

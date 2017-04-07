@@ -100,30 +100,6 @@ namespace HVTApp.Model.Wrapper
     public bool TenderIsChanged => GetIsChanged(nameof(Tender));
 
 
-	public PlannedTermProductionWrapper PlannedTermProduction 
-    {
-        get { return PlannedTermProductionWrapper.GetWrapper(Model.PlannedTermProduction); }
-        set
-        {
-			var oldPropVal = PlannedTermProduction;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
-        }
-    }
-    public PlannedTermProductionWrapper PlannedTermProductionOriginalValue => PlannedTermProductionWrapper.GetWrapper(GetOriginalValue<PlannedTermProduction>(nameof(PlannedTermProduction)));
-    public bool PlannedTermProductionIsChanged => GetIsChanged(nameof(PlannedTermProduction));
-
-
-    #endregion
-
-
-    #region CollectionProperties
-
-    public IValidatableChangeTrackingCollection<OfferUnitWrapper> OfferUnits { get; private set; }
-
-
     #endregion
 
     protected override void InitializeComplexProperties(Offer model)
@@ -134,19 +110,6 @@ namespace HVTApp.Model.Wrapper
         Project = ProjectWrapper.GetWrapper(model.Project);
 
         Tender = TenderWrapper.GetWrapper(model.Tender);
-
-        PlannedTermProduction = PlannedTermProductionWrapper.GetWrapper(model.PlannedTermProduction);
-
-    }
-
-  
-    protected override void InitializeCollectionComplexProperties(Offer model)
-    {
-
-      if (model.OfferUnits == null) throw new ArgumentException("OfferUnits cannot be null");
-      OfferUnits = new ValidatableChangeTrackingCollection<OfferUnitWrapper>(model.OfferUnits.Select(e => OfferUnitWrapper.GetWrapper(e)));
-      RegisterCollection(OfferUnits, model.OfferUnits);
-
 
     }
 

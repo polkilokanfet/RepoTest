@@ -5,24 +5,24 @@ using HVTApp.Model;
 
 namespace HVTApp.Model.Wrapper
 {
-  public partial class PaymentsConditionWrapper : WrapperBase<PaymentsCondition>
+  public partial class PaymentConditionWrapper : WrapperBase<PaymentCondition>
   {
-    protected PaymentsConditionWrapper(PaymentsCondition model) : base(model) { }
+    protected PaymentConditionWrapper(PaymentCondition model) : base(model) { }
 
-	public static PaymentsConditionWrapper GetWrapper()
+	public static PaymentConditionWrapper GetWrapper()
 	{
-		return GetWrapper(new PaymentsCondition());
+		return GetWrapper(new PaymentCondition());
 	}
 
-	public static PaymentsConditionWrapper GetWrapper(PaymentsCondition model)
+	public static PaymentConditionWrapper GetWrapper(PaymentCondition model)
 	{
 	    if (model == null)
 	        return null;
 
 		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-			return (PaymentsConditionWrapper)Repository.ModelWrapperDictionary[model];
+			return (PaymentConditionWrapper)Repository.ModelWrapperDictionary[model];
 
-		return new PaymentsConditionWrapper(model);
+		return new PaymentConditionWrapper(model);
 	}
 
 

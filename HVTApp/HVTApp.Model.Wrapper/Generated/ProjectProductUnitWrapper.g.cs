@@ -59,36 +59,20 @@ namespace HVTApp.Model.Wrapper
     public bool FacilityIsChanged => GetIsChanged(nameof(Facility));
 
 
-	public ProductWrapper Product 
+	public SalesProductUnitWrapper SalesProductUnit 
     {
-        get { return ProductWrapper.GetWrapper(Model.Product); }
+        get { return SalesProductUnitWrapper.GetWrapper(Model.SalesProductUnit); }
         set
         {
-			var oldPropVal = Product;
+			var oldPropVal = SalesProductUnit;
             UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
-    public ProductWrapper ProductOriginalValue => ProductWrapper.GetWrapper(GetOriginalValue<Product>(nameof(Product)));
-    public bool ProductIsChanged => GetIsChanged(nameof(Product));
-
-
-	public CostInfoWrapper CostInfo 
-    {
-        get { return CostInfoWrapper.GetWrapper(Model.CostInfo); }
-        set
-        {
-			var oldPropVal = CostInfo;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
-        }
-    }
-    public CostInfoWrapper CostInfoOriginalValue => CostInfoWrapper.GetWrapper(GetOriginalValue<CostInfo>(nameof(CostInfo)));
-    public bool CostInfoIsChanged => GetIsChanged(nameof(CostInfo));
+    public SalesProductUnitWrapper SalesProductUnitOriginalValue => SalesProductUnitWrapper.GetWrapper(GetOriginalValue<SalesProductUnit>(nameof(SalesProductUnit)));
+    public bool SalesProductUnitIsChanged => GetIsChanged(nameof(SalesProductUnit));
 
 
     #endregion
@@ -98,9 +82,7 @@ namespace HVTApp.Model.Wrapper
 
         Facility = FacilityWrapper.GetWrapper(model.Facility);
 
-        Product = ProductWrapper.GetWrapper(model.Product);
-
-        CostInfo = CostInfoWrapper.GetWrapper(model.CostInfo);
+        SalesProductUnit = SalesProductUnitWrapper.GetWrapper(model.SalesProductUnit);
 
     }
 

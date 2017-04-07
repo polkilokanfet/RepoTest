@@ -14,10 +14,9 @@ namespace HVTApp.DataAccess
             FriendGroups = new FriendGroupRepository(context);
 
             ActivityFields = new ActivityFieldsRepository(context);
-            UsersRepository = new UsersRepository(context);
+            Users = new UsersRepository(context);
             Companies = new CompaniesRepository(context);
             CompanyForms = new CompanyFormsRepository(context);
-            ProductsMain = new ProductsMainRepository(context);
         }
         public void Dispose()
         {
@@ -33,9 +32,8 @@ namespace HVTApp.DataAccess
 
         public ICompanyFormsRepository CompanyForms { get; }
         public IFriendGroupRepository FriendGroups { get; }
-        public IProductsMainRepository ProductsMain { get; set; }
 
-        public IUsersRepository UsersRepository { get; }
+        public IUsersRepository Users { get; }
 
         public ICompaniesRepository Companies { get; }
     }
