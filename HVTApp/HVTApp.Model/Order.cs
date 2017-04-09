@@ -13,6 +13,6 @@ namespace HVTApp.Model
         /// </summary>
         public virtual DateTime? OpenOrderDate { get; set; }
 
-        public virtual List<ProductionProductUnit> ProductionProductUnits { get; set; }
+        public virtual List<ProductionUnit> ProductionProductUnits { get; set; }
     }
 }

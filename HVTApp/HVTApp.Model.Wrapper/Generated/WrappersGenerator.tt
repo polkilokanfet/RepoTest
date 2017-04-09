@@ -1,5 +1,6 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
+<#@ assembly name="$(SolutionDir)\HVTApp.Model\bin\Debug\HVTApp.Infrastructure.dll" #>
 <#@ assembly name="$(SolutionDir)\HVTApp.Model\bin\Debug\HVTApp.Model.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -8,6 +9,7 @@
 <#@ import namespace="System.Collections" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="HVTApp.Model" #>
+<#@ import namespace="HVTApp.Infrastructure" #>
 <#@ output extension=".cs" #>
 <#
   foreach (var modelType in GetModelTypes())

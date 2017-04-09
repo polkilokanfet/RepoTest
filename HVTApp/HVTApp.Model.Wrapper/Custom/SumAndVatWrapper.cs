@@ -46,7 +46,7 @@ namespace HVTApp.Model.Wrapper
         ///// <summary>
         ///// Маржинальный доход в деньгах.
         ///// </summary>
-        //public double MarginalIncome => Sum - Price;
+        //public double MarginalIncome => Sum - SumOnDate;
 
         ///// <summary>
         ///// Маржинальный доход в процентах.

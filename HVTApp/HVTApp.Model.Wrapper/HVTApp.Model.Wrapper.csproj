@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
+    <Compile Include="Custom\SalesUnitWrapper.MarginalIncome.cs" />
     <Compile Include="Custom\ProjectWrapper.cs" />
     <Compile Include="Custom\SumAndVatWrapper.cs" />
     <Compile Include="Base\TrackingCollections\ValidatableChangeTrackingCollection.cs" />
@@ -55,7 +56,7 @@
     <Compile Include="Custom\CompanyWrapper.cs" />
     <Compile Include="Custom\PaymentConditionStandartWrapper.cs" />
     <Compile Include="Custom\ProductWrapper.cs" />
-    <Compile Include="Custom\SalesProductUnitWrapper.cs" />
+    <Compile Include="Custom\SalesUnitWrapper.cs" />
     <Compile Include="Custom\Test\TestFriendAddressWrapper.cs" />
     <Compile Include="Custom\Test\TestFriendEmailWrapper.cs" />
     <Compile Include="Custom\Test\TestFriendWrapper.cs" />
@@ -68,33 +69,39 @@
     <Compile Include="Generated\CompanyWrapper.g.cs" />
     <Compile Include="Generated\ContractWrapper.g.cs" />
     <Compile Include="Generated\CountryWrapper.g.cs" />
+    <Compile Include="Generated\CurrencyWrapper.g.cs" />
     <Compile Include="Generated\DistrictsRegionWrapper.g.cs" />
     <Compile Include="Generated\DistrictWrapper.g.cs" />
     <Compile Include="Generated\DocumentWrapper.g.cs" />
     <Compile Include="Generated\EmployeesPositionWrapper.g.cs" />
     <Compile Include="Generated\EmployeeWrapper.g.cs" />
-    <Compile Include="Generated\EquipmentWrapper.g.cs" />
+    <Compile Include="Generated\ExchangeRateWrapper.g.cs" />
     <Compile Include="Generated\FacilityTypeWrapper.g.cs" />
     <Compile Include="Generated\FacilityWrapper.g.cs" />
     <Compile Include="Generated\LocalityTypeWrapper.g.cs" />
     <Compile Include="Generated\LocalityWrapper.g.cs" />
     <Compile Include="Generated\OfferWrapper.g.cs" />
     <Compile Include="Generated\OrderWrapper.g.cs" />
+    <Compile Include="Generated\PaymentConditionStandartWrapper.g.cs" />
     <Compile Include="Generated\PaymentConditionWrapper.g.cs" />
     <Compile Include="Generated\PaymentDocumentWrapper.g.cs" />
     <Compile Include="Generated\PaymentWrapper.g.cs" />
     <Compile Include="Generated\PersonWrapper.g.cs" />
     <Compile Include="Generated\PlannedTermProductionWrapper.g.cs" />
-    <Compile Include="Generated\ProductionProductUnitWrapper.g.cs" />
+    <Compile Include="Generated\ProductionUnitWrapper.g.cs" />
+    <Compile Include="Generated\ProductParameterMeasureWrapper.g.cs" />
+    <Compile Include="Generated\ProductParameterSetWrapper.g.cs" />
+    <Compile Include="Generated\ProductParameterTypeWrapper.g.cs" />
+    <Compile Include="Generated\ProductParameterWrapper.g.cs" />
     <Compile Include="Generated\ProductWrapper.g.cs" />
-    <Compile Include="Generated\ProjectProductUnitWrapper.g.cs" />
+    <Compile Include="Generated\ProjectUnitWrapper.g.cs" />
     <Compile Include="Generated\ProjectWrapper.g.cs" />
     <Compile Include="Generated\RegistrationDetailsWrapper.g.cs" />
-    <Compile Include="Generated\SalesProductUnitWrapper.g.cs" />
-    <Compile Include="Generated\ShipmentProductUnitWrapper.g.cs" />
+    <Compile Include="Generated\SalesUnitWrapper.g.cs" />
+    <Compile Include="Generated\ShipmentUnitWrapper.g.cs" />
     <Compile Include="Generated\SpecificationWrapper.g.cs" />
-    <Compile Include="Generated\PaymentConditionStandartWrapper.g.cs" />
     <Compile Include="Generated\SumAndVatWrapper.g.cs" />
+    <Compile Include="Generated\SumOnDateWrapper.g.cs" />
     <Compile Include="Generated\TechLinksCollectionWrapper.g.cs" />
     <Compile Include="Generated\TechLinkWrapper.g.cs" />
     <Compile Include="Generated\TechParametersGroupWrapper.g.cs" />
@@ -119,7 +126,6 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

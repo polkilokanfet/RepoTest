@@ -5,24 +5,24 @@ using HVTApp.Model;
 
 namespace HVTApp.Model.Wrapper
 {
-  public partial class ProductionProductUnitWrapper : WrapperBase<ProductionProductUnit>
+  public partial class ProductionUnitWrapper : WrapperBase<ProductionUnit>
   {
-    protected ProductionProductUnitWrapper(ProductionProductUnit model) : base(model) { }
+    protected ProductionUnitWrapper(ProductionUnit model) : base(model) { }
 
-	public static ProductionProductUnitWrapper GetWrapper()
+	public static ProductionUnitWrapper GetWrapper()
 	{
-		return GetWrapper(new ProductionProductUnit());
+		return GetWrapper(new ProductionUnit());
 	}
 
-	public static ProductionProductUnitWrapper GetWrapper(ProductionProductUnit model)
+	public static ProductionUnitWrapper GetWrapper(ProductionUnit model)
 	{
 	    if (model == null)
 	        return null;
 
 		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-			return (ProductionProductUnitWrapper)Repository.ModelWrapperDictionary[model];
+			return (ProductionUnitWrapper)Repository.ModelWrapperDictionary[model];
 
-		return new ProductionProductUnitWrapper(model);
+		return new ProductionUnitWrapper(model);
 	}
 
 
@@ -113,7 +113,7 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    protected override void InitializeComplexProperties(ProductionProductUnit model)
+    protected override void InitializeComplexProperties(ProductionUnit model)
     {
 
         Product = ProductWrapper.GetWrapper(model.Product);

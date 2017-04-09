@@ -58,5 +58,33 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
+
+    #region ComplexProperties
+
+	public CurrencyWrapper Currency 
+    {
+        get { return CurrencyWrapper.GetWrapper(Model.Currency); }
+        set
+        {
+			var oldPropVal = Currency;
+            UnRegisterComplexProperty(oldPropVal);
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
+        }
+    }
+    public CurrencyWrapper CurrencyOriginalValue => CurrencyWrapper.GetWrapper(GetOriginalValue<Currency>(nameof(Currency)));
+    public bool CurrencyIsChanged => GetIsChanged(nameof(Currency));
+
+
+    #endregion
+
+    protected override void InitializeComplexProperties(SumAndVat model)
+    {
+
+        Currency = CurrencyWrapper.GetWrapper(model.Currency);
+
+    }
+
   }
 }

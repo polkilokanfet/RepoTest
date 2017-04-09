@@ -4,51 +4,42 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model
 {
-    public class ProductionProductUnit : BaseEntity
+    public class ProductionUnit : BaseEntity
     {
         public virtual Product Product { get; set; }
         public virtual Order Order { get; set; }
         public DateTime? StartProductionDate { get; set; }
         public DateTime? EndProductionDate { get; set; }
-        /// <summary>
-        /// Порядковый номер в заказе.
-        /// </summary>
-        public int OrderPosition { get; set; }
-
-        /// <summary>
-        /// Заводской номер изделия.
-        /// </summary>
-        public string SerialNumber { get; set; }
+        public int OrderPosition { get; set; } // Порядковый номер в заказе.
+        public string SerialNumber { get; set; } // Заводской номер изделия.
     }
 
-    public class SalesProductUnit : BaseEntity
+    public class SalesUnit : BaseEntity
     {
-        public virtual ProductionProductUnit ProductionProductUnit { get; set; }
+        public virtual SalesUnit ParentSalesUnit { get; set; }
+        public virtual List<SalesUnit> ChildSalesUnits { get; set; } = new List<SalesUnit>();
+
+        public virtual ProductionUnit ProductionUnit { get; set; }
         public virtual SumAndVat Cost { get; set; }
-        public virtual ShipmentProductUnit ShipmentProductUnit { get; set; }
+        public virtual ShipmentUnit ShipmentUnit { get; set; }
 
         public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
         public virtual List<Payment> PaymentsPlanned { get; set; } = new List<Payment>();
         public virtual List<Payment> PaymentsActual { get; set; } = new List<Payment>();
     }
 
-    public class ShipmentProductUnit : BaseEntity
+    public class ShipmentUnit : BaseEntity
     {
-        public virtual SalesProductUnit SalesProductUnit { get; set; }
-        public virtual DateTime? DateDesiredDelivery { get; set; } //Желаемая дата поставки.
+        public virtual SalesUnit SalesUnit { get; set; }
+        public virtual SumAndVat Cost { get; set; }
+        public virtual DateTime? RequiredDeliveryDate { get; set; } //Желаемая дата поставки.
 
     }
 
-    public class ProjectProductUnit : BaseEntity
+    public class ProjectUnit : BaseEntity
     {
+        public virtual Project Project { get; set; }
         public virtual Facility Facility { get; set; }
-        public virtual SalesProductUnit SalesProductUnit { get; set; }
-    }
-
-    public class Product : BaseEntity
-    {
-        public virtual Equipment Equipment { get; set; }
-        public virtual Product ParentProduct { get; set; }
-        public virtual List<Product> ChildProducts { get; set; }
+        public virtual SalesUnit SalesUnit { get; set; }
     }
 }

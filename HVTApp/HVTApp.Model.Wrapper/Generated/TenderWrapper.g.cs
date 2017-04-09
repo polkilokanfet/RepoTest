@@ -65,6 +65,15 @@ namespace HVTApp.Model.Wrapper
     public bool DateCloseIsChanged => GetIsChanged(nameof(DateClose));
 
 
+    public System.DateTime DateNotice
+    {
+      get { return GetValue<System.DateTime>(); }
+      set { SetValue(value); }
+    }
+    public System.DateTime DateNoticeOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateNotice));
+    public bool DateNoticeIsChanged => GetIsChanged(nameof(DateNotice));
+
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }

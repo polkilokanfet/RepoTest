@@ -11,7 +11,7 @@ namespace HVTApp.Model
     //    /// <summary>
     //    /// Желаемая дата поставки.
     //    /// </summary>
-    //    public virtual DateTime? DateDesiredDelivery { get; set; }
+    //    public virtual DateTime? RequiredDeliveryDate { get; set; }
 
 
     //    #region CalculatedDates
@@ -51,8 +51,8 @@ namespace HVTApp.Model
     //                return Product.ProductsMainGroup.Specification.Date;
 
     //            //по желаемой дате поставки.
-    //            if (DateDesiredDelivery != null)
-    //                return DateServices.GetTodayIfDateToEarlyAndSkipWeekend(DateDesiredDelivery.Value.AddDays(-Product.TermsInfo.TermProductionPlan));
+    //            if (RequiredDeliveryDate != null)
+    //                return DateServices.GetTodayIfDateToEarlyAndSkipWeekend(RequiredDeliveryDate.Value.AddDays(-Product.TermsInfo.TermProductionPlan));
 
     //            //по ориентировочной дате реализации проекта
     //            return DateServices.GetTodayIfDateToEarlyAndSkipWeekend(Product.ProductsMainGroup.Project.EstimatedDate.AddDays(-Product.TermsInfo.TermProductionPlan));
@@ -178,8 +178,8 @@ namespace HVTApp.Model
     //                return DateComplete.Value.AddDays(Product.TermsInfo.TermFromCompleteToProductionPlan);
 
     //            //если желаемая дата поставки еще не истекла
-    //            if (DateDesiredDelivery != null && DateDesiredDelivery >= DateTime.Today)
-    //                return DateDesiredDelivery.Value;
+    //            if (RequiredDeliveryDate != null && RequiredDeliveryDate >= DateTime.Today)
+    //                return RequiredDeliveryDate.Value;
 
     //            //расчетная дата производства
     //            return DateServices.GetTodayIfDateToEarly(DateOrderInTakeCalculated.AddDays(Product.TermsInfo.TermProductionPlan));

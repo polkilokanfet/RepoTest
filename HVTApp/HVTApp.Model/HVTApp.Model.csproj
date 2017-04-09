@@ -49,8 +49,7 @@
     <Compile Include="Contract.cs" />
     <Compile Include="Address\Country.cs" />
     <Compile Include="Address\District.cs" />
-    <Compile Include="Employee\Gender.cs" />
-    <Compile Include="Employee\Person.cs" />
+    <Compile Include="Person.cs" />
     <Compile Include="Equipment\TechLinksCollection.cs" />
     <Compile Include="Payment.cs" />
     <Compile Include="Test\TestFriendAddress.cs" />
@@ -63,11 +62,10 @@
     <Compile Include="Products\DateInfo.cs" />
     <Compile Include="Products\TermsInfo.cs" />
     <Compile Include="SumAndVat.cs" />
-    <Compile Include="Equipment\Equipment.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="Address\Locality.cs" />
     <Compile Include="Offer.cs" />
-    <Compile Include="Employee\Employee.cs" />
-    <Compile Include="Employee\EmployeesPosition.cs" />
+    <Compile Include="Employee.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="PaymentCondition.cs" />
     <Compile Include="PaymentDocument.cs" />
@@ -81,8 +79,7 @@
     <Compile Include="Equipment\TechParameters\TechParametersGroup.cs" />
     <Compile Include="Equipment\TechParameters\TechLink.cs" />
     <Compile Include="Tender.cs" />
-    <Compile Include="Employee\User.cs" />
-    <Compile Include="Employee\Role.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="Units.cs" />
   </ItemGroup>
   <ItemGroup>

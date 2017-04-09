@@ -4,24 +4,24 @@ namespace HVTApp.Infrastructure
     {
         public int Id { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            if (obj == null)
-                return false;
+        //public override bool Equals(object obj)
+        //{
+        //    if (obj == null)
+        //        return false;
 
-            //должны совпадать типы сравниваемых сущностей.
-            if (this.GetType() != obj.GetType())
-                return false;
+        //    //должны совпадать типы сравниваемых сущностей.
+        //    if (this.GetType() != obj.GetType())
+        //        return false;
 
-            BaseEntity otherEntity = obj as BaseEntity;
-            if (otherEntity == null)
-                return false;
+        //    BaseEntity otherEntity = obj as BaseEntity;
+        //    if (otherEntity == null)
+        //        return false;
 
-            if (this.Id > 0 && otherEntity.Id > 0)
-                return this.Id == otherEntity.Id;
+        //    if (this.Id > 0 && otherEntity.Id > 0)
+        //        return this.Id == otherEntity.Id;
 
-            return EqualsProperties(obj);
-        }
+        //    return EqualsProperties(obj);
+        //}
 
         /// <summary>
         /// ¬се свойства совпадают.

@@ -17,7 +17,7 @@ namespace HVTApp.DataAccess.Tests
         //        Cost = new Cost
         //        {
         //            Cost = 100,
-        //            Price = 50,
+        //            SumOnDate = 50,
         //            Vat = 20
         //        },
         //        TermsInfo = new TermsInfo(),

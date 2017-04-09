@@ -58,9 +58,10 @@
     <Compile Include="PaymentsCollectionsTests.cs" />
     <Compile Include="BaseEntityTest.cs" />
     <Compile Include="CompanyTests.cs" />
-    <Compile Include="SalesProductUnitWrapperTests.cs" />
+    <Compile Include="SalesUnitWrapperTests.cs" />
     <Compile Include="PaymentConditionStandartWrapperTests.cs" />
     <Compile Include="SumAndVatTests.cs" />
+    <Compile Include="ProductTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
