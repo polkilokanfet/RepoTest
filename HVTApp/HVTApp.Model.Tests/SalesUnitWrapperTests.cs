@@ -35,12 +35,11 @@ namespace HVTApp.Model.Tests
             var paymentsActual = _salesUnitWrapper.PaymentsActual;
             var paymentsAll = paymentsActual.Union(paymentsPlanned);
 
-            Assert.AreEqual(paymentsPlanned.Count, paymentsConditions.Count);
+            Assert.AreEqual(paymentsPlanned.Count, paymentsConditions.Count); //количество плановых и фактических платежей совпадает
             Assert.IsTrue(Math.Abs(cost - paymentsPlanned.Sum(x => x.SumAndVat.SumWithVat)) < 0.0001);
             Assert.IsTrue(Math.Abs(cost - paymentsAll.Sum(x => x.SumAndVat.SumWithVat)) < 0.0001);
 
-            var payment = new Payment {SumAndVat = new SumAndVat() };
-            payment.SumAndVat.Sum = _salesUnitWrapper.Cost.Sum / 2;
+            var payment = new Payment {SumAndVat = new SumAndVat { Sum = _salesUnitWrapper.Cost.Sum / 2 } };
             _salesUnitWrapper.PaymentsActual.Add(PaymentWrapper.GetWrapper(payment));
             Assert.IsTrue(Math.Abs(cost - paymentsAll.Sum(x => x.SumAndVat.SumWithVat)) < 0.0001);
 

@@ -10,6 +10,7 @@ namespace HVTApp.Model.Wrapper
         protected override void RunInConstructor()
         {
             this.PaymentsActual.CollectionChanged += PaymentsActualOnCollectionChanged;
+            this.ChildSalesUnits.CollectionChanged += ChildSalesUnitsOnCollectionChanged;
 
             this.MarginalIncome.PropertyChanged += MarginalIncomeOnPropertyChanged;
             this.PropertyChanged += OnMarginalIncomeInPercentChanged;

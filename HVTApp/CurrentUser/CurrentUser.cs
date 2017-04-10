@@ -1,6 +1,6 @@
 ﻿using HVTApp.Model;
 
-namespace CurrentUser
+namespace CurrentUserProject
 {
     public static class CurrentUser
     {

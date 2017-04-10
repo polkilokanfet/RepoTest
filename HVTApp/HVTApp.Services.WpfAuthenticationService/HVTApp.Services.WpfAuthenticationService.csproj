@@ -85,9 +85,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CurrentUser\CurrentUser.csproj">
-      <Project>{6c4bfdce-e9fe-4f57-b8d9-0e9002f61e64}</Project>
-      <Name>CurrentUser</Name>
+    <ProjectReference Include="..\CurrentUser\CurrentUserProject.csproj">
+      <Project>{6C4BFDCE-E9FE-4F57-B8D9-0E9002F61E64}</Project>
+      <Name>CurrentUserProject</Name>
     </ProjectReference>
     <ProjectReference Include="..\HVTApp.DataAccess\HVTApp.DataAccess.csproj">
       <Project>{9cf80c25-c04b-46b3-8eb7-f45bc42d4ba2}</Project>

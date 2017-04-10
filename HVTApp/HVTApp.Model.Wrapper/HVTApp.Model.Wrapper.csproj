@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
+    <Compile Include="Custom\SalesUnitWrapper.Cost.cs" />
     <Compile Include="Custom\SalesUnitWrapper.MarginalIncome.cs" />
     <Compile Include="Custom\ProjectWrapper.cs" />
     <Compile Include="Custom\SumAndVatWrapper.cs" />

@@ -9,8 +9,8 @@ namespace HVTApp.Model
         public string Name { get; set; }
         public DateTime EstimatedDate { get; set; } // Ориентировочная дата реализации проекта.
         public virtual User Manager { get; set; }
-        public virtual List<SalesUnit> SalesProductUnits { get; set; } 
-        public virtual List<Tender> Tenders { get; set; } 
-        public virtual List<Offer> Offers { get; set; }
+        public virtual List<ProjectUnit> ProjectsUnits { get; set; } = new List<ProjectUnit>();
+        public virtual List<Tender> Tenders { get; set; } = new List<Tender>();
+        public virtual List<Offer> Offers { get; set; } = new List<Offer>();
     }
 }
