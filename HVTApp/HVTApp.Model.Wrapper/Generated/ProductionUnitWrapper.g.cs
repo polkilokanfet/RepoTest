@@ -47,6 +47,15 @@ namespace HVTApp.Model.Wrapper
     public bool EndProductionDateIsChanged => GetIsChanged(nameof(EndProductionDate));
 
 
+    public System.Nullable<System.DateTime> PickingDate
+    {
+      get { return GetValue<System.Nullable<System.DateTime>>(); }
+      set { SetValue(value); }
+    }
+    public System.Nullable<System.DateTime> PickingDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(PickingDate));
+    public bool PickingDateIsChanged => GetIsChanged(nameof(PickingDate));
+
+
     public System.Int32 OrderPosition
     {
       get { return GetValue<System.Int32>(); }

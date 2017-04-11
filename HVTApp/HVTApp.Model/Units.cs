@@ -10,8 +10,9 @@ namespace HVTApp.Model
         public virtual Order Order { get; set; }
         public DateTime? StartProductionDate { get; set; }
         public DateTime? EndProductionDate { get; set; }
-        public int OrderPosition { get; set; } // Порядковый номер в заказе.
-        public string SerialNumber { get; set; } // Заводской номер изделия.
+        public DateTime? PickingDate { get; set; } //дата комплектации
+        public int OrderPosition { get; set; } //порядковый номер в заказе.
+        public string SerialNumber { get; set; } //заводской номер изделия.
     }
 
     public class SalesUnit : BaseEntity
@@ -32,7 +33,7 @@ namespace HVTApp.Model
     {
         public virtual SalesUnit SalesUnit { get; set; }
         public virtual SumAndVat Cost { get; set; }
-        public virtual DateTime? RequiredDeliveryDate { get; set; } //Желаемая дата поставки.
+        public virtual DateTime? RequiredDeliveryDate { get; set; } //желаемая дата поставки.
 
     }
 
