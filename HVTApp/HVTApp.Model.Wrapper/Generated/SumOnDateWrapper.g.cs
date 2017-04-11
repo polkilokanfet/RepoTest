@@ -38,6 +38,15 @@ namespace HVTApp.Model.Wrapper
     public bool DateIsChanged => GetIsChanged(nameof(Date));
 
 
+    public System.Double Sum
+    {
+      get { return GetValue<System.Double>(); }
+      set { SetValue(value); }
+    }
+    public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
+    public bool SumIsChanged => GetIsChanged(nameof(Sum));
+
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -48,34 +57,6 @@ namespace HVTApp.Model.Wrapper
 
 
     #endregion
-
-
-    #region ComplexProperties
-
-	public SumAndVatWrapper SumAndVat 
-    {
-        get { return SumAndVatWrapper.GetWrapper(Model.SumAndVat); }
-        set
-        {
-			var oldPropVal = SumAndVat;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
-        }
-    }
-    public SumAndVatWrapper SumAndVatOriginalValue => SumAndVatWrapper.GetWrapper(GetOriginalValue<SumAndVat>(nameof(SumAndVat)));
-    public bool SumAndVatIsChanged => GetIsChanged(nameof(SumAndVat));
-
-
-    #endregion
-
-    protected override void InitializeComplexProperties(SumOnDate model)
-    {
-
-        SumAndVat = SumAndVatWrapper.GetWrapper(model.SumAndVat);
-
-    }
 
   }
 }

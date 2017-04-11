@@ -7,47 +7,60 @@ namespace HVTApp.Model.Wrapper
 {
     public partial class ProductWrapper
     {
+        private DateTime? _totalPriceDate;
+
         protected override void RunInConstructor()
         {
-            this.TotalPrice.PropertyChanged += OnDateTotalPriceChanged;
             this.ChildProducts.CollectionChanged += ChildProductsOnCollectionChanged;
             this.ChildProducts.PropertyChanged += ChildProductsOnPropertyChanged;
+            this.PropertyChanged += OnTotalPriceDateChanged;
         }
 
-        private void ChildProductsOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        private void ChildProductsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            CalculateTotalPrice();
+            OnPropertyChanged(this, nameof(TotalPrice));
         }
 
         private void ChildProductsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            CalculateTotalPrice();
+            OnPropertyChanged(this, nameof(TotalPrice));
         }
 
-        private void OnDateTotalPriceChanged(object sender, PropertyChangedEventArgs e)
+        private void OnTotalPriceDateChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(TotalPrice.Date))
-                CalculateTotalPrice();
+            if (e.PropertyName == nameof(TotalPriceDate))
+                OnPropertyChanged(this, nameof(TotalPrice));
         }
 
-        public SumOnDateWrapper TotalPrice { get; } = SumOnDateWrapper.GetWrapper(new SumOnDate {SumAndVat = new SumAndVat()});
-
-        private void CalculateTotalPrice()
+        public DateTime? TotalPriceDate
         {
+            get { return _totalPriceDate; }
+            set
+            {
+                if (Equals(_totalPriceDate, value))
+                    return;
+                _totalPriceDate = value;
+                OnPropertyChanged(this, nameof(TotalPriceDate));
+            }
+        }
+
+        public double TotalPrice => GetTotalPrice(TotalPriceDate);
+
+
+        public double GetTotalPrice(DateTime? date)
+        {
+            if (!date.HasValue)
+                return 0;
+
             double totalPriceSum = 0;
-            var date = TotalPrice.Date;
 
             var prices = Prices.Where(x => (x.Date <= date)).OrderByDescending(x => x.Date);
             if (prices.Any())
-                totalPriceSum = prices.First().SumAndVat.Sum;
+                totalPriceSum = prices.First().Sum;
 
-            foreach (var child in ChildProducts)
-            {
-                child.TotalPrice.Date = date;
-                totalPriceSum += child.TotalPrice.SumAndVat.Sum;
-            }
+            totalPriceSum += ChildProducts.Sum(child => child.GetTotalPrice(date));
 
-            TotalPrice.SumAndVat.Sum = totalPriceSum;
+            return totalPriceSum;
         }
     }
 }

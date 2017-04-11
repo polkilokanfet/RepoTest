@@ -14,7 +14,7 @@ namespace HVTApp.Model.Tests
         public void InitialMethod()
         {
             Product product = new Product();
-            product.Prices.Add(new SumOnDate {Date = DateTime.Today, SumAndVat = new SumAndVat {Sum = 50, Vat = 10} });
+            product.Prices.Add(new SumOnDate {Date = DateTime.Today, Sum = 50 });
             ProductionUnit productionUnit = new ProductionUnit {Product = product};
 
             var unit = new SalesUnit { ProductionUnit = productionUnit, Cost = new SumAndVat { Sum = 100, Vat = 10 } };
@@ -54,10 +54,10 @@ namespace HVTApp.Model.Tests
         [TestMethod]
         public void SalesUnitCostAndMarginalIncomeTest()
         {
-            _salesUnitWrapper.MarginalIncome.Date = DateTime.Today;
+            _salesUnitWrapper.MarginalIncomeDate = DateTime.Today;
 
-            double cost = _salesUnitWrapper.Cost.SumWithVat;
-            double md = _salesUnitWrapper.MarginalIncome.SumAndVat.SumWithVat;
+            double cost = _salesUnitWrapper.Cost.Sum;
+            double md = _salesUnitWrapper.MarginalIncome;
 
             Assert.IsTrue(Math.Abs(_salesUnitWrapper.MarginalIncomeInPercent - md / cost * 100) < 0.0001);
         }

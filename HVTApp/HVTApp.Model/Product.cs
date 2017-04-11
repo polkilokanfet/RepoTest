@@ -29,7 +29,7 @@ namespace HVTApp.Model
     public class SumOnDate : BaseEntity
     {
         public DateTime Date { get; set; }
-        public virtual SumAndVat SumAndVat { get; set; }
+        public double Sum { get; set; }
     }
 
     public class ProductParameterType : BaseEntity

@@ -6,21 +6,21 @@ namespace HVTApp.Model.Wrapper
     public partial class SalesUnitWrapper
     {
         private double _marginalIncomeInPercent;
-        private SumOnDateWrapper _marginalIncome = SumOnDateWrapper.GetWrapper(new SumOnDate { SumAndVat = new SumAndVat() });
+        private DateTime? _marginalIncomeDate;
 
-        public SumOnDateWrapper MarginalIncome
+        public DateTime? MarginalIncomeDate
         {
-            get
+            get { return _marginalIncomeDate; }
+            set
             {
-                this.ProductionUnit.Product.TotalPrice.Date = _marginalIncome.Date;
-                _marginalIncome.SumAndVat.Vat = Cost.Vat;
-                _marginalIncome.SumAndVat.Sum = this.Cost.Sum - this.ProductionUnit.Product.TotalPrice.SumAndVat.Sum;
-                _marginalIncomeInPercent = this.MarginalIncome.SumAndVat.Sum/this.Cost.Sum*100;
-                OnPropertyChanged(this, nameof(MarginalIncomeInPercent));
-
-                return _marginalIncome;
+                if (Equals(_marginalIncomeDate, value))
+                    return;
+                _marginalIncomeDate = value;
+                OnPropertyChanged(this, nameof(MarginalIncomeDate));
             }
-        } 
+        }
+
+        public double MarginalIncome => Cost.Sum - ProductionUnit.Product.GetTotalPrice(MarginalIncomeDate);
 
         public double MarginalIncomeInPercent
         {
@@ -35,17 +35,10 @@ namespace HVTApp.Model.Wrapper
             }
         }
 
-
-
-
-        private void CalculateMarginalIncome()
-        {
-        }
-
         private void OnMarginalIncomeInPercentChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(MarginalIncomeInPercent))
-                this.Cost.Sum = this.ProductionUnit.Product.TotalPrice.SumAndVat.Sum / (1 - MarginalIncomeInPercent / 100);
+                Cost.Sum = ProductionUnit.Product.GetTotalPrice(MarginalIncomeDate) / (1 - MarginalIncomeInPercent / 100);
         }
     }
 }

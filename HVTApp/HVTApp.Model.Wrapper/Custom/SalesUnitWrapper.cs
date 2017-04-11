@@ -12,14 +12,18 @@ namespace HVTApp.Model.Wrapper
             this.PaymentsActual.CollectionChanged += PaymentsActualOnCollectionChanged;
             this.ChildSalesUnits.CollectionChanged += ChildSalesUnitsOnCollectionChanged;
 
-            this.MarginalIncome.PropertyChanged += MarginalIncomeOnPropertyChanged;
+            this.PropertyChanged += MarginalIncomeOnPropertyChanged;
             this.PropertyChanged += OnMarginalIncomeInPercentChanged;
         }
 
         private void MarginalIncomeOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(MarginalIncome.Date))
-                CalculateMarginalIncome();
+            if (e.PropertyName == nameof(MarginalIncomeDate))
+            {
+                OnPropertyChanged(this, nameof(MarginalIncome));
+                if (Cost != null && Math.Abs(Cost.Sum) > 0.00001)
+                    MarginalIncomeInPercent = MarginalIncome/Cost.Sum*100;
+            }
         }
 
         private void PaymentsActualOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)

@@ -10,18 +10,18 @@ namespace HVTApp.Model.Tests
         [TestMethod]
         public void ProductTotalPriceTest()
         {
-            SumOnDate price1 = new SumOnDate { SumAndVat = new SumAndVat { Sum = 10, Vat = 50}, Date = DateTime.Today.AddDays(-7) };
-            SumOnDate price2 = new SumOnDate { SumAndVat = new SumAndVat { Sum = 5, Vat = 50}, Date = DateTime.Today };
+            SumOnDate price1 = new SumOnDate { Sum = 10, Date = DateTime.Today.AddDays(-7) };
+            SumOnDate price2 = new SumOnDate { Sum = 5, Date = DateTime.Today };
 
             var productParent = ProductWrapper.GetWrapper();
             productParent.Prices.Add(SumOnDateWrapper.GetWrapper(price1));
             productParent.Prices.Add(SumOnDateWrapper.GetWrapper(price2));
-            productParent.TotalPrice.Date = DateTime.Today;
+            productParent.TotalPriceDate = DateTime.Today;
 
-            Assert.IsTrue(Math.Abs(productParent.TotalPrice.SumAndVat.Sum - price2.SumAndVat.Sum) < 0.0001);
+            Assert.IsTrue(Math.Abs(productParent.TotalPrice - price2.Sum) < 0.0001);
 
-            SumOnDate price3 = new SumOnDate { SumAndVat = new SumAndVat { Sum = 30, Vat = 50}, Date = DateTime.Today };
-            SumOnDate price4 = new SumOnDate { SumAndVat = new SumAndVat { Sum = 40, Vat = 50 }, Date = DateTime.Today };
+            SumOnDate price3 = new SumOnDate { Sum = 30, Date = DateTime.Today };
+            SumOnDate price4 = new SumOnDate { Sum = 40, Date = DateTime.Today };
 
             var productChild1 = ProductWrapper.GetWrapper();
             productChild1.Prices.Add(SumOnDateWrapper.GetWrapper(price3));
@@ -32,16 +32,16 @@ namespace HVTApp.Model.Tests
             productParent.ChildProducts.Add(productChild1);
             productParent.ChildProducts.Add(productChild2);
 
-            var totalSum = price2.SumAndVat.Sum + price3.SumAndVat.Sum + price4.SumAndVat.Sum;
-            Assert.IsTrue(Math.Abs(productParent.TotalPrice.SumAndVat.Sum - totalSum) < 0.0001);
+            var totalSum = price2.Sum + price3.Sum + price4.Sum;
+            Assert.IsTrue(Math.Abs(productParent.TotalPrice - totalSum) < 0.0001);
 
-            SumOnDate price5 = new SumOnDate { SumAndVat = new SumAndVat { Sum = 50, Vat = 50 }, Date = DateTime.Today };
+            SumOnDate price5 = new SumOnDate { Sum = 50, Date = DateTime.Today };
             var productChild3 = ProductWrapper.GetWrapper();
             productChild3.Prices.Add(SumOnDateWrapper.GetWrapper(price5));
             productChild1.ChildProducts.Add(productChild3);
 
-            totalSum += price5.SumAndVat.Sum;
-            Assert.IsTrue(Math.Abs(productParent.TotalPrice.SumAndVat.Sum - totalSum) < 0.0001);
+            totalSum += price5.Sum;
+            Assert.IsTrue(Math.Abs(productParent.TotalPrice - totalSum) < 0.0001);
 
         }
     }
