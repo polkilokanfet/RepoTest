@@ -78,7 +78,7 @@ namespace HVTApp.Model
     //            double totalSum = 0;
     //            foreach (PaymentActual payment in payments)
     //            {
-    //                totalSum += payment.Cost;
+    //                totalSum += payment.ShipmentCost;
     //                if (totalSum >= Product.PaymentsInfo.PaymentsSumToStartProduction) return payment.Date;
     //            }
 
@@ -101,7 +101,7 @@ namespace HVTApp.Model
     //            double totalSum = Product.PaymentsInfo.PaymentsActual.TotalSum;
     //            foreach (var payment in payments)
     //            {
-    //                totalSum += payment.Cost;
+    //                totalSum += payment.ShipmentCost;
     //                if (totalSum >= Product.PaymentsInfo.PaymentsSumToStartProduction)
     //                    return payment.Date;
     //            }
@@ -130,7 +130,7 @@ namespace HVTApp.Model
     //            double totalSum = 0;
     //            foreach (PaymentActual payment in payments)
     //            {
-    //                totalSum += payment.Cost;
+    //                totalSum += payment.ShipmentCost;
     //                if (totalSum >= Product.PaymentsInfo.PaymentsSumToShipping)
     //                    return payment.Date;
     //            }
@@ -153,7 +153,7 @@ namespace HVTApp.Model
     //            double totalSum = Product.PaymentsInfo.PaymentsActual.TotalSum;
     //            foreach (var payment in payments)
     //            {
-    //                totalSum += payment.Cost;
+    //                totalSum += payment.ShipmentCost;
     //                if (totalSum >= Product.PaymentsInfo.PaymentsSumToShipping)
     //                    return payment.Date;
     //            }

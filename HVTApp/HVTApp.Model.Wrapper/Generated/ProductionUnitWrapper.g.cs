@@ -29,6 +29,24 @@ namespace HVTApp.Model.Wrapper
 
     #region SimpleProperties
 
+    public System.Int32 PlannedProductionTerm
+    {
+      get { return GetValue<System.Int32>(); }
+      set { SetValue(value); }
+    }
+    public System.Int32 PlannedProductionTermOriginalValue => GetOriginalValue<System.Int32>(nameof(PlannedProductionTerm));
+    public bool PlannedProductionTermIsChanged => GetIsChanged(nameof(PlannedProductionTerm));
+
+
+    public System.Int32 PlanedTermFromPickToEndProductionEnd
+    {
+      get { return GetValue<System.Int32>(); }
+      set { SetValue(value); }
+    }
+    public System.Int32 PlanedTermFromPickToEndProductionEndOriginalValue => GetOriginalValue<System.Int32>(nameof(PlanedTermFromPickToEndProductionEnd));
+    public bool PlanedTermFromPickToEndProductionEndIsChanged => GetIsChanged(nameof(PlanedTermFromPickToEndProductionEnd));
+
+
     public System.Nullable<System.DateTime> StartProductionDate
     {
       get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -104,6 +122,22 @@ namespace HVTApp.Model.Wrapper
     public bool ProductIsChanged => GetIsChanged(nameof(Product));
 
 
+	public SalesUnitWrapper SalesUnit 
+    {
+        get { return SalesUnitWrapper.GetWrapper(Model.SalesUnit); }
+        set
+        {
+			var oldPropVal = SalesUnit;
+            UnRegisterComplexProperty(oldPropVal);
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
+        }
+    }
+    public SalesUnitWrapper SalesUnitOriginalValue => SalesUnitWrapper.GetWrapper(GetOriginalValue<SalesUnit>(nameof(SalesUnit)));
+    public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
+
+
 	public OrderWrapper Order 
     {
         get { return OrderWrapper.GetWrapper(Model.Order); }
@@ -126,6 +160,8 @@ namespace HVTApp.Model.Wrapper
     {
 
         Product = ProductWrapper.GetWrapper(model.Product);
+
+        SalesUnit = SalesUnitWrapper.GetWrapper(model.SalesUnit);
 
         Order = OrderWrapper.GetWrapper(model.Order);
 

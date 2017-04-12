@@ -17,7 +17,7 @@ namespace HVTApp.Model.Tests
             product.Prices.Add(new SumOnDate {Date = DateTime.Today, Sum = 50 });
             ProductionUnit productionUnit = new ProductionUnit {Product = product};
 
-            var unit = new SalesUnit { ProductionUnit = productionUnit, Cost = new SumAndVat { Sum = 100, Vat = 10 } };
+            var unit = new SalesUnit { Cost = new SumAndVat { Sum = 100, Vat = 10 } };
             unit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 50, DaysToPoint = 2, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
             unit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 30, DaysToPoint = 2, PaymentConditionPoint = PaymentConditionPoint.ProductionEnd });
             unit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 20, DaysToPoint = 2, PaymentConditionPoint = PaymentConditionPoint.Delivery });

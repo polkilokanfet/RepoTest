@@ -65,12 +65,12 @@ namespace HVTApp.Model.Wrapper
     public bool DateCloseIsChanged => GetIsChanged(nameof(DateClose));
 
 
-    public System.DateTime DateNotice
+    public System.Nullable<System.DateTime> DateNotice
     {
-      get { return GetValue<System.DateTime>(); }
+      get { return GetValue<System.Nullable<System.DateTime>>(); }
       set { SetValue(value); }
     }
-    public System.DateTime DateNoticeOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateNotice));
+    public System.Nullable<System.DateTime> DateNoticeOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DateNotice));
     public bool DateNoticeIsChanged => GetIsChanged(nameof(DateNotice));
 
 
@@ -128,6 +128,9 @@ namespace HVTApp.Model.Wrapper
     public IValidatableChangeTrackingCollection<CompanyWrapper> Participants { get; private set; }
 
 
+    public IValidatableChangeTrackingCollection<TenderUnitWrapper> TenderUnits { get; private set; }
+
+
     #endregion
 
     protected override void InitializeComplexProperties(Tender model)
@@ -146,6 +149,11 @@ namespace HVTApp.Model.Wrapper
       if (model.Participants == null) throw new ArgumentException("Participants cannot be null");
       Participants = new ValidatableChangeTrackingCollection<CompanyWrapper>(model.Participants.Select(e => CompanyWrapper.GetWrapper(e)));
       RegisterCollection(Participants, model.Participants);
+
+
+      if (model.TenderUnits == null) throw new ArgumentException("TenderUnits cannot be null");
+      TenderUnits = new ValidatableChangeTrackingCollection<TenderUnitWrapper>(model.TenderUnits.Select(e => TenderUnitWrapper.GetWrapper(e)));
+      RegisterCollection(TenderUnits, model.TenderUnits);
 
 
     }

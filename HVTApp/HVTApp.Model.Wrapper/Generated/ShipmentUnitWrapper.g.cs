@@ -29,6 +29,15 @@ namespace HVTApp.Model.Wrapper
 
     #region SimpleProperties
 
+    public System.Double ShipmentCost
+    {
+      get { return GetValue<System.Double>(); }
+      set { SetValue(value); }
+    }
+    public System.Double ShipmentCostOriginalValue => GetOriginalValue<System.Double>(nameof(ShipmentCost));
+    public bool ShipmentCostIsChanged => GetIsChanged(nameof(ShipmentCost));
+
+
     public System.Nullable<System.DateTime> RequiredDeliveryDate
     {
       get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -36,6 +45,15 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Nullable<System.DateTime> RequiredDeliveryDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(RequiredDeliveryDate));
     public bool RequiredDeliveryDateIsChanged => GetIsChanged(nameof(RequiredDeliveryDate));
+
+
+    public System.Nullable<System.DateTime> DeliveryDate
+    {
+      get { return GetValue<System.Nullable<System.DateTime>>(); }
+      set { SetValue(value); }
+    }
+    public System.Nullable<System.DateTime> DeliveryDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DeliveryDate));
+    public bool DeliveryDateIsChanged => GetIsChanged(nameof(DeliveryDate));
 
 
     public System.Int32 Id
@@ -68,30 +86,12 @@ namespace HVTApp.Model.Wrapper
     public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
 
 
-	public SumAndVatWrapper Cost 
-    {
-        get { return SumAndVatWrapper.GetWrapper(Model.Cost); }
-        set
-        {
-			var oldPropVal = Cost;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
-        }
-    }
-    public SumAndVatWrapper CostOriginalValue => SumAndVatWrapper.GetWrapper(GetOriginalValue<SumAndVat>(nameof(Cost)));
-    public bool CostIsChanged => GetIsChanged(nameof(Cost));
-
-
     #endregion
 
     protected override void InitializeComplexProperties(ShipmentUnit model)
     {
 
         SalesUnit = SalesUnitWrapper.GetWrapper(model.SalesUnit);
-
-        Cost = SumAndVatWrapper.GetWrapper(model.Cost);
 
     }
 

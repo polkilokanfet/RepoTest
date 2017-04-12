@@ -48,7 +48,7 @@ namespace HVTApp.DataAccess
             //modelBuilder.Entity<ProductBase>().HasRequired(x => x.OrderInfo).WithRequiredPrincipal(x => x.Product);
             //modelBuilder.Entity<ProductBase>().HasRequired(x => x.DateInfo).WithRequiredPrincipal(x => x.Product);
             //modelBuilder.Entity<ProductBase>().HasRequired(x => x.PaymentsInfo).WithRequiredPrincipal(x => x.Product);
-            //modelBuilder.Entity<ProductBase>().HasRequired(x => x.Cost);
+            //modelBuilder.Entity<ProductBase>().HasRequired(x => x.ShipmentCost);
             //modelBuilder.Entity<ProductBase>().HasRequired(x => x.TermsInfo);
 
             //modelBuilder.Entity<PaymentsInfo>().HasRequired(x => x.Product);

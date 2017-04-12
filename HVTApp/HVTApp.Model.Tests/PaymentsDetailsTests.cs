@@ -16,9 +16,9 @@ namespace HVTApp.Model.Tests
         //{
         //    ProductMain productMain = new ProductMain
         //    {
-        //        Cost = new Cost()
+        //        ShipmentCost = new ShipmentCost()
         //        {
-        //            Cost = 50,
+        //            ShipmentCost = 50,
         //            Vat = 100
         //        }
         //    };
@@ -28,15 +28,15 @@ namespace HVTApp.Model.Tests
 
         //    double part = 25;
         //    productMain.PaymentsInfo.PaymentsConditions.Add(new PaymentCondition { PartInPercent = part, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
-        //    Assert.AreEqual(productMain.PaymentsInfo.PaymentsSumToStartProduction, part * productMain.Cost.SumWithVat);
+        //    Assert.AreEqual(productMain.PaymentsInfo.PaymentsSumToStartProduction, part * productMain.ShipmentCost.SumWithVat);
 
         //    part = 25;
         //    productMain.PaymentsInfo.PaymentsConditions.Add(new PaymentCondition { PartInPercent = part, PaymentConditionPoint = PaymentConditionPoint.ProductionEnd });
-        //    Assert.AreEqual(productMain.PaymentsInfo.PaymentsSumToStartProduction, part * productMain.Cost.SumWithVat);
+        //    Assert.AreEqual(productMain.PaymentsInfo.PaymentsSumToStartProduction, part * productMain.ShipmentCost.SumWithVat);
 
         //    part = 24;
         //    productMain.PaymentsInfo.PaymentsConditions.Add(new PaymentCondition { PartInPercent = part, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
-        //    Assert.AreEqual(productMain.PaymentsInfo.PaymentsSumToStartProduction, (25 + 24) * productMain.Cost.SumWithVat);
+        //    Assert.AreEqual(productMain.PaymentsInfo.PaymentsSumToStartProduction, (25 + 24) * productMain.ShipmentCost.SumWithVat);
         //}
     }
 }

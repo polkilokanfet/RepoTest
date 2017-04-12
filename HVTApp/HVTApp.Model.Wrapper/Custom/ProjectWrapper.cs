@@ -8,12 +8,6 @@ namespace HVTApp.Model.Wrapper
     {
         protected override void RunInConstructor()
         {
-            this.ProjectsUnits.CollectionChanged += ProjectsUnitsOnCollectionChanged;
-        }
-
-        private void ProjectsUnitsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            
         }
 
         public SumAndVatWrapper Cost { get; } = SumAndVatWrapper.GetWrapper();
