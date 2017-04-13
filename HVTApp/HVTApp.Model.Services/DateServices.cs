@@ -2,14 +2,14 @@
 
 namespace HVTApp.Model.Services
 {
-    public class DateServices
+    public static class DateServices
     {
         /// <summary>
         /// Возвращает сегодня, если проверяемая дата раньше сегодняшней.
         /// </summary>
         /// <param name="date">Проверяемая дата.</param>
         /// <returns></returns>
-        public static DateTime GetTodayIfDateToEarly(DateTime date)
+        public static DateTime GetTodayIfDateToEarly(this DateTime date)
         {
             if (date >= DateTime.Today) return date;
             return DateTime.Today;
@@ -20,7 +20,7 @@ namespace HVTApp.Model.Services
         /// </summary>
         /// <param name="date">Проверяемая дата.</param>
         /// <returns></returns>
-        public static DateTime SkipWeekend(DateTime date)
+        public static DateTime SkipWeekend(this DateTime date)
         {
             while (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
             {
@@ -29,7 +29,12 @@ namespace HVTApp.Model.Services
             return date;
         }
 
-        public static DateTime GetTodayIfDateToEarlyAndSkipWeekend(DateTime date)
+        /// <summary>
+        /// Вернуть сегодня, если текущая дата из прошлого и исключить выходные.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public static DateTime GetTodayIfDateFromPastAndSkipWeekend(this DateTime date)
         {
             return GetTodayIfDateToEarly(SkipWeekend(date));
         }

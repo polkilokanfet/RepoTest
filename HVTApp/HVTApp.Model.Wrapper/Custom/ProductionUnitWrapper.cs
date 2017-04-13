@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using HVTApp.Model.Services;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -14,7 +15,7 @@ namespace HVTApp.Model.Wrapper
                 //по дате спецификации
                 if (SalesUnit.Specification != null) return SalesUnit.Specification.Date;
                 //по дате реализации проекта
-                return SalesUnit.Project.EstimatedDate.AddDays(-PlannedProductionTerm);
+                return SalesUnit.Project.EstimatedDate.AddDays(-PlannedProductionTerm).GetTodayIfDateFromPastAndSkipWeekend();
             }
         }
 
@@ -27,7 +28,7 @@ namespace HVTApp.Model.Wrapper
                 //по дате комплектации
                 if (PickingDate.HasValue) return PickingDate.Value.AddDays(PlanedTermFromPickToEndProductionEnd);
                 //по сроку производства
-                return StartProductionDateCalculated.AddDays(PlannedProductionTerm);
+                return StartProductionDateCalculated.AddDays(PlannedProductionTerm).GetTodayIfDateFromPastAndSkipWeekend();
             }
         }
 

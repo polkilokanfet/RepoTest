@@ -7,6 +7,7 @@ namespace HVTApp.Model
     /// </summary>
     public class Locality : BaseEntity
     {
+        public int StandartDeliveryPeriod { get; set; }
         public string Name { get; set; }
         public virtual LocalityType LocalityType { get; set; }
         public virtual DistrictsRegion DistrictsRegion { get; set; }

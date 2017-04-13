@@ -17,10 +17,12 @@ namespace HVTApp.Model.Tests
             product.Prices.Add(new SumOnDate {Date = DateTime.Today, Sum = 50 });
             ProductionUnit productionUnit = new ProductionUnit {Product = product};
 
-            var unit = new SalesUnit { Cost = new SumAndVat { Sum = 100, Vat = 10 } };
-            unit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 50, DaysToPoint = 2, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
-            unit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 30, DaysToPoint = 2, PaymentConditionPoint = PaymentConditionPoint.ProductionEnd });
-            unit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 20, DaysToPoint = 2, PaymentConditionPoint = PaymentConditionPoint.Delivery });
+            var unit = new SalesUnit { Cost = new SumAndVat { Sum = 100, Vat = 10 }, ProductionUnit = productionUnit };
+            unit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 40, DaysToPoint = -2, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
+            unit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 10, DaysToPoint = 20, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
+            unit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 20, DaysToPoint = 20, PaymentConditionPoint = PaymentConditionPoint.ProductionEnd });
+            unit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 15, DaysToPoint = -2, PaymentConditionPoint = PaymentConditionPoint.Shipment });
+            unit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 25, DaysToPoint = 25, PaymentConditionPoint = PaymentConditionPoint.Delivery });
             _salesUnitWrapper = SalesUnitWrapper.GetWrapper(unit);
         }
 

@@ -29,6 +29,15 @@ namespace HVTApp.Model.Wrapper
 
     #region SimpleProperties
 
+    public System.Int32 StandartDeliveryPeriod
+    {
+      get { return GetValue<System.Int32>(); }
+      set { SetValue(value); }
+    }
+    public System.Int32 StandartDeliveryPeriodOriginalValue => GetOriginalValue<System.Int32>(nameof(StandartDeliveryPeriod));
+    public bool StandartDeliveryPeriodIsChanged => GetIsChanged(nameof(StandartDeliveryPeriod));
+
+
     public System.String Name
     {
       get { return GetValue<System.String>(); }

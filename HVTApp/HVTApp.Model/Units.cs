@@ -31,16 +31,19 @@ namespace HVTApp.Model
         public DateTime? StartProductionDate { get; set; }
         public DateTime? EndProductionDate { get; set; }
         public DateTime? PickingDate { get; set; } //дата комплектации
-        public int OrderPosition { get; set; } //порядковый номер в заказе.
-        public string SerialNumber { get; set; } //заводской номер изделия.
+        public int OrderPosition { get; set; } //порядковый номер в заказе
+        public string SerialNumber { get; set; } //заводской номер изделия
     }
 
     public class ShipmentUnit : BaseEntity
     {
+        public int ExpectedDeliveryPeriod { get; set; }
+        public virtual Locality Locality { get; set; }
         public virtual SalesUnit SalesUnit { get; set; }
         public virtual double ShipmentCost { get; set; }
-        public virtual DateTime? RequiredDeliveryDate { get; set; } //желаемая дата поставки.
-        public virtual DateTime? DeliveryDate { get; set; } //дата поставки.
+        public virtual DateTime? ShipmentDate { get; set; } //дата отгрузки
+        public virtual DateTime? RequiredDeliveryDate { get; set; } //желаемая дата поставки
+        public virtual DateTime? DeliveryDate { get; set; } //дата поставки
     }
 
     public class TenderUnit : BaseEntity

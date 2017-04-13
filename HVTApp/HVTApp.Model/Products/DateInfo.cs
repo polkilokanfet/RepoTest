@@ -52,10 +52,10 @@ namespace HVTApp.Model
 
     //            //по желаемой дате поставки.
     //            if (RequiredDeliveryDate != null)
-    //                return DateServices.GetTodayIfDateToEarlyAndSkipWeekend(RequiredDeliveryDate.Value.AddDays(-Product.TermsInfo.TermProductionPlan));
+    //                return DateServices.GetTodayIfDateFromPastAndSkipWeekend(RequiredDeliveryDate.Value.AddDays(-Product.TermsInfo.TermProductionPlan));
 
     //            //по ориентировочной дате реализации проекта
-    //            return DateServices.GetTodayIfDateToEarlyAndSkipWeekend(Product.ProductsMainGroup.Project.EstimatedDate.AddDays(-Product.TermsInfo.TermProductionPlan));
+    //            return DateServices.GetTodayIfDateFromPastAndSkipWeekend(Product.ProductsMainGroup.Project.EstimatedDate.AddDays(-Product.TermsInfo.TermProductionPlan));
     //        }
     //    }
 

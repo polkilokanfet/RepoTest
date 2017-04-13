@@ -7,6 +7,7 @@ namespace HVTApp.Model
     /// </summary>
     public class District : BaseEntity
     {
+        public int StandartDeliveryPeriod { get; set; }
         public string Name { get; set; }
         public virtual Country Country { get; set; }
     }

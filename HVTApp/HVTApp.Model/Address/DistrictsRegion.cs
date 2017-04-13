@@ -8,11 +8,9 @@ namespace HVTApp.Model
     /// </summary>
     public class DistrictsRegion : BaseEntity
     {
+        public int StandartDeliveryPeriod { get; set; }
         public string Name { get; set; }
         public virtual District District { get; set; }
-        /// <summary>
-        /// Населенные пункты.
-        /// </summary>
-        public virtual List<Locality> Localities { get; set; }
+        public virtual List<Locality> Localities { get; set; } // Населенные пункты.
     }
 }
