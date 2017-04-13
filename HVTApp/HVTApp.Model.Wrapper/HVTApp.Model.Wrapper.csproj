@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
     <Compile Include="Custom\ProductionUnitWrapper.cs" />
-    <Compile Include="Custom\SalesUnitWrapper.Cost.cs" />
     <Compile Include="Custom\ProjectWrapper.cs" />
     <Compile Include="Custom\ShipmentUnitWrapper.cs" />
     <Compile Include="Custom\SumAndVatWrapper.cs" />
