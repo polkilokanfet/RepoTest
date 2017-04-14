@@ -15,6 +15,13 @@ namespace HVTApp.Model.Wrapper
             this.PropertyChanged += MarginalIncomeOnPropertyChanged;
             this.PropertyChanged += OnMarginalIncomeInPercentChanged;
             this.PropertyChanged += OnSpecificationChanged;
+
+            this.Cost.PropertyChanged += OnCostChanged;
+        }
+
+        private void OnCostChanged(object sender, PropertyChangedEventArgs e)
+        {
+            ReloadPaymentsPlannedLight();
         }
 
         private void MarginalIncomeOnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -29,8 +36,26 @@ namespace HVTApp.Model.Wrapper
 
         private void PaymentsActualOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)
         {
-
+            ReloadPaymentsPlannedLight();
         }
+
+        /// <summary>
+        /// Оплаченная часть
+        /// </summary>
+        public SumAndVatWrapper SumPaid => SumAndVatWrapper.GetWrapper(new SumAndVat()
+        {
+            Sum = PaymentsActual.Sum(x => x.SumAndVat.Sum),
+            Vat = Cost.Vat
+        });
+
+        /// <summary>
+        /// Неоплаченная часть
+        /// </summary>
+        public SumAndVatWrapper SumRest => SumAndVatWrapper.GetWrapper(new SumAndVat()
+        {
+            Sum = Cost.Sum - SumPaid.Sum,
+            Vat = Cost.Vat
+        });
 
         /// <summary>
         /// Еще не исполненные платежные условия
@@ -40,44 +65,84 @@ namespace HVTApp.Model.Wrapper
             get
             {
                 var conditions = PaymentsConditions.OrderBy(x => x.PaymentConditionPoint).ThenBy(x => x.DaysToPoint).ToList();
-                var paidSum = PaymentsActual.Sum(x => x.SumAndVat.Sum);
-                double conditionSum = Cost.Sum * conditions.First().PartInPercent / 100;
-                while (conditionSum <= paidSum)
-                {
-                    conditions.Remove(conditions.First());
-                    conditionSum += Cost.Sum * conditions.First().PartInPercent / 100;
-                }
+                var paidSum = SumPaid.Sum;
 
-                if (conditions.Any())
+                while (paidSum > 0)
                 {
                     var condition = conditions.First();
-                    var oldSum = condition.PartInPercent/100*Cost.Sum;
-                    var dSum = conditions.Sum(x => x.PartInPercent/100*Cost.Sum) - paidSum;
-                    if (Math.Abs(dSum) > 0.00001)
+                    var conditionSum = condition.PartInPercent/100*Cost.Sum;
+                    if (paidSum < conditionSum)
                     {
-                        var newPart = ((oldSum - dSum)*condition.PartInPercent)/oldSum;
-                        conditions.Remove(condition);
-                        conditions.Add(PaymentConditionWrapper.GetWrapper(new PaymentCondition {PartInPercent = newPart, PaymentConditionPoint = condition.PaymentConditionPoint, DaysToPoint = condition.DaysToPoint}));
-
-                        return conditions.OrderBy(x => x.PaymentConditionPoint).ThenBy(x => x.DaysToPoint).ToList();
+                        conditions.Add(PaymentConditionWrapper.GetWrapper(new PaymentCondition
+                        {
+                            PartInPercent = (conditionSum - paidSum) / Cost.Sum * 100,
+                            PaymentConditionPoint = condition.PaymentConditionPoint,
+                            DaysToPoint = condition.DaysToPoint
+                        }));
                     }
-                    return conditions;
+
+                    paidSum -= conditionSum;
+                    conditions.Remove(condition);
                 }
-                return new List<PaymentConditionWrapper>();
+
+                return conditions.OrderBy(x => x.PaymentConditionPoint).ThenBy(x => x.DaysToPoint).ToList();
             }
         }
 
-        public void ReloadPaymentsPlanned()
+        Dictionary<PaymentWrapper, PaymentConditionWrapper> _paymentConditionDictionary = new Dictionary<PaymentWrapper, PaymentConditionWrapper>();  
+
+        /// <summary>
+        /// Полная перезагрузка плановых платежей
+        /// </summary>
+        public void ReloadPaymentsPlannedFull()
         {
             PaymentsPlanned.Clear();
-
+            _paymentConditionDictionary.Clear();
             foreach (var condition in PaymentConditionsToDone)
             {
-                var payment = new Payment();
-                payment.SumAndVat = new SumAndVat { Sum = Cost.Sum*condition.PartInPercent/100, Vat = Cost.Vat };
+                var payment = new Payment { SumAndVat = new SumAndVat {Sum = Cost.Sum*condition.PartInPercent/100, Vat = Cost.Vat} };
 
-                PaymentsPlanned.Add(PaymentWrapper.GetWrapper(payment));
+                //дата платежа
+                if (condition.PaymentConditionPoint == PaymentConditionPoint.ProductionStart) payment.Date = ProductionUnit.StartProductionDateCalculated.AddDays(condition.DaysToPoint);
+                if (condition.PaymentConditionPoint == PaymentConditionPoint.ProductionEnd) payment.Date = ProductionUnit.EndProductionDateCalculated.AddDays(condition.DaysToPoint);
+                if (condition.PaymentConditionPoint == PaymentConditionPoint.Shipment) payment.Date = ShipmentUnit.ShipmentDateCalculated.AddDays(condition.DaysToPoint);
+                if (condition.PaymentConditionPoint == PaymentConditionPoint.Delivery) payment.Date = ShipmentUnit.DeliveryDateCalculated.AddDays(condition.DaysToPoint);
+
+                var paymentWrapper = PaymentWrapper.GetWrapper(payment);
+                _paymentConditionDictionary.Add(paymentWrapper, condition);
+                PaymentsPlanned.Add(paymentWrapper);
             }
+        }
+
+        /// <summary>
+        /// Перезагрузка плановых платежей с сохранением информации о преждних платежах.
+        /// </summary>
+        public void ReloadPaymentsPlannedLight()
+        {
+            if (!PaymentsPlanned.Any())
+            {
+                ReloadPaymentsPlannedFull();
+                return;
+            }
+
+            var paymentsToRemove = new List<PaymentWrapper>(PaymentsPlanned);
+            var sumRest = SumRest.Sum;
+            while (sumRest > 0)
+            {
+                var payment = paymentsToRemove.Last();
+                if (sumRest < payment.SumAndVat.Sum)
+                {
+                    payment.SumAndVat.Sum = sumRest;
+                    paymentsToRemove.Remove(payment);
+                    break;
+                }
+                sumRest -= payment.SumAndVat.Sum;
+                paymentsToRemove.Remove(payment);
+            }
+
+            foreach (var paymentWrapper in paymentsToRemove)
+                PaymentsPlanned.Remove(paymentWrapper);
+
         }
 
         #region Dates
@@ -118,14 +183,14 @@ namespace HVTApp.Model.Wrapper
             }
         }
 
-        public List<PaymentWrapper> AllPayments => PaymentsActual.Concat(PaymentsPlanned).OrderBy(x => x.Date).ToList();
+        public List<PaymentWrapper> PaymentsAll => PaymentsActual.Concat(PaymentsPlanned).OrderBy(x => x.Date).ToList();
 
         public DateTime? StartProductionConditionsDoneDate
         {
             get
             {
                 double sum = 0;
-                foreach (var payment in AllPayments)
+                foreach (var payment in PaymentsAll)
                 {
                     sum += payment.SumAndVat.Sum;
                     if (SumToStartProduction <= sum) return payment.Date;
@@ -139,7 +204,7 @@ namespace HVTApp.Model.Wrapper
             get
             {
                 double sum = 0;
-                foreach (var payment in AllPayments)
+                foreach (var payment in PaymentsAll)
                 {
                     sum += payment.SumAndVat.Sum;
                     if (SumToShipping <= sum) return payment.Date;
