@@ -8,5 +8,6 @@ namespace HVTApp.Model
         public DateTime Date { get; set; }
         public SumAndVat SumAndVat { get; set; }
         public string Comment { get; set; }
+        public virtual SalesUnit SalesUnit { get; set; }
     }
 }

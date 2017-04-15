@@ -77,12 +77,30 @@ namespace HVTApp.Model.Wrapper
     public bool SumAndVatIsChanged => GetIsChanged(nameof(SumAndVat));
 
 
+	public SalesUnitWrapper SalesUnit 
+    {
+        get { return SalesUnitWrapper.GetWrapper(Model.SalesUnit); }
+        set
+        {
+			var oldPropVal = SalesUnit;
+            UnRegisterComplexProperty(oldPropVal);
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
+        }
+    }
+    public SalesUnitWrapper SalesUnitOriginalValue => SalesUnitWrapper.GetWrapper(GetOriginalValue<SalesUnit>(nameof(SalesUnit)));
+    public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
+
+
     #endregion
 
     protected override void InitializeComplexProperties(Payment model)
     {
 
         SumAndVat = SumAndVatWrapper.GetWrapper(model.SumAndVat);
+
+        SalesUnit = SalesUnitWrapper.GetWrapper(model.SalesUnit);
 
     }
 

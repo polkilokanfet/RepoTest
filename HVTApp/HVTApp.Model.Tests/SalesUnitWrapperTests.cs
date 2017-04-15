@@ -61,6 +61,13 @@ namespace HVTApp.Model.Tests
 
             _salesUnitWrapper.PaymentsActual.Remove(_salesUnitWrapper.PaymentsActual.First());
             Assert.IsTrue(Math.Abs(cost - _salesUnitWrapper.PaymentsAll.Sum(x => x.SumAndVat.Sum)) < 0.0001);
+            Assert.IsTrue(Math.Abs(firstPaymentSum - _salesUnitWrapper.SumRest.Sum) < 0.0001);
+            Assert.IsTrue(Math.Abs(firstPaymentSum - _salesUnitWrapper.PaymentsPlanned.Sum(x => x.SumAndVat.Sum)) < 0.0001);
+
+            firstPayment.SumAndVat.Sum = firstPaymentSum / 2;
+            _salesUnitWrapper.PaymentsActual.Add(PaymentWrapper.GetWrapper(firstPayment));
+            _salesUnitWrapper.PaymentsActual.Remove(_salesUnitWrapper.PaymentsActual.First());
+            Assert.IsTrue(Math.Abs(_salesUnitWrapper.SumRest.Sum - _salesUnitWrapper.PaymentsPlanned.Sum(x => x.SumAndVat.Sum)) < 0.0001);
         }
 
         [TestMethod]

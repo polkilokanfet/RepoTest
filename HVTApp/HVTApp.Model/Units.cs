@@ -19,6 +19,8 @@ namespace HVTApp.Model
         public virtual Specification Specification { get; set; }
         public virtual List<Payment> PaymentsPlanned { get; set; } = new List<Payment>();
         public virtual List<Payment> PaymentsActual { get; set; } = new List<Payment>();
+
+        public DateTime? RealizationDate { get; set; }
     }
 
     public class ProductionUnit : BaseEntity
@@ -29,8 +31,8 @@ namespace HVTApp.Model
         public virtual SalesUnit SalesUnit { get; set; }
         public virtual Order Order { get; set; }
         public DateTime? StartProductionDate { get; set; }
-        public DateTime? EndProductionDate { get; set; }
         public DateTime? PickingDate { get; set; } //дата комплектации
+        public DateTime? EndProductionDate { get; set; }
         public int OrderPosition { get; set; } //порядковый номер в заказе
         public string SerialNumber { get; set; } //заводской номер изделия
     }

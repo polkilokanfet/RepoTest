@@ -29,6 +29,15 @@ namespace HVTApp.Model.Wrapper
 
     #region SimpleProperties
 
+    public System.Nullable<System.DateTime> RealizationDate
+    {
+      get { return GetValue<System.Nullable<System.DateTime>>(); }
+      set { SetValue(value); }
+    }
+    public System.Nullable<System.DateTime> RealizationDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(RealizationDate));
+    public bool RealizationDateIsChanged => GetIsChanged(nameof(RealizationDate));
+
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
