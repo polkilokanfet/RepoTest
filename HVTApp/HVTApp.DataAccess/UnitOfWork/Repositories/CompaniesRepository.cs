@@ -11,12 +11,5 @@ namespace HVTApp.DataAccess
         public CompaniesRepository(DbContext context) : base(context)
         {
         }
-
-        public override List<Company> GetAll()
-        {
-            List<Company> companies =  base.GetAll();
-            companies.ForEach(parent => parent.ChildCompanies = companies.Where(child => Equals(child.ParentCompany, parent)).ToList());
-            return companies;
-        }
     }
 }

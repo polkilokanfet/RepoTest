@@ -60,13 +60,13 @@ namespace HVTApp.Model.Wrapper
                 if (Address.Locality.DeliveryPeriod != null) return Address.Locality.DeliveryPeriod.DeliveryPeriod;
 
                 //по стандартному сроку доставки до столицы региона
-                if (Address.Locality.Region.Capital.DeliveryPeriod != null) return Address.Locality.Region.Capital.DeliveryPeriod.DeliveryPeriod;
+                if (Address.Locality.Region.Capital?.DeliveryPeriod != null) return Address.Locality.Region.Capital.DeliveryPeriod.DeliveryPeriod;
 
                 //по стандартному сроку доставки до столицы федерального округа
-                if (Address.Locality.Region.District.Capital.DeliveryPeriod != null) return Address.Locality.Region.District.Capital.DeliveryPeriod.DeliveryPeriod;
+                if (Address.Locality.Region.District.Capital?.DeliveryPeriod != null) return Address.Locality.Region.District.Capital.DeliveryPeriod.DeliveryPeriod;
 
                 //по стандартному сроку доставки до столицы страны
-                if (Address.Locality.Region.District.Country.Capital.DeliveryPeriod != null) return Address.Locality.Region.District.Country.Capital.DeliveryPeriod.DeliveryPeriod;
+                if (Address.Locality.Region.District.Country.Capital?.DeliveryPeriod != null) return Address.Locality.Region.District.Country.Capital.DeliveryPeriod.DeliveryPeriod;
 
                 return 7;
             }

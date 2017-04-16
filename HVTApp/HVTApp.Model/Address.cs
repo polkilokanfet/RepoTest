@@ -49,6 +49,7 @@ namespace HVTApp.Model
         public string Name { get; set; }
         public virtual Locality Capital { get; set; }
         public virtual Country Country { get; set; }
+        public virtual List<Region> Regions { get; set; }
     }
 
     /// <summary>

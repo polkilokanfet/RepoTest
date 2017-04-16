@@ -14,11 +14,12 @@ namespace HVTApp.DataAccess
         private static readonly CompanyForm FormZao = new CompanyForm {FullName = "Закрытое акционерное общество", ShortName = "ЗАО"};
 
         private static readonly Country Country = new Country {Name = "Россия"};
-        private static readonly District District = new District {Country = Country, Name = "Уральский федеральный округ"};
-        private static readonly Region Region = new Region {District = District, Name = "Свердловская область"};
+        private static readonly District DistrictCFO = new District { Country = Country, Name = "Центральный федеральный округ" };
+        private static readonly District DistrictUrFO = new District { Country = Country, Name = "Уральский федеральный округ" };
+        private static readonly Region Region = new Region {District = DistrictUrFO, Name = "Свердловская область"};
         private static readonly LocalityType LocalityType = new LocalityType {FullName = "Город", ShortName = "г."};
-        private static readonly Locality Locality = new Locality {Region = Region, LocalityType = LocalityType, Name = "Екатеринбург"};
-        private static readonly Address Address = new Address {Description = "ул.Фронтовых бригад, д.22", Locality = Locality};
+        private static readonly Locality Ekb = new Locality {Region = Region, LocalityType = LocalityType, Name = "Екатеринбург"};
+        private static readonly Address Address = new Address {Description = "ул.Фронтовых бригад, д.22", Locality = Ekb};
         private static readonly ActivityField ProducerOfHvt = new ActivityField { FieldOfActivity = FieldOfActivity.ProducerOfHighVoltageEquipment, Name = "Производитель ВВА"};
         private static readonly ActivityField Builder = new ActivityField { FieldOfActivity = FieldOfActivity.Builder, Name = "Подрядчик"};
         private static readonly ActivityField ElectricityTransmission = new ActivityField { FieldOfActivity = FieldOfActivity.ElectricityTransmission, Name = "Передача электроэнергии" };
@@ -36,9 +37,11 @@ namespace HVTApp.DataAccess
 
         protected override void Seed(HVTAppContext context)
         {
-            context.ActivityFilds.AddRange(new List<ActivityField> {ProducerOfHvt, Builder, ElectricityTransmission, ElectricityGenerator});
-            context.CompanyForms.AddRange(new List<CompanyForm> { FormAo, FormPao, FormOao, FormZao });
-            context.Companies.AddRange(new List<Company> { Uetm, Rosseti, Fsk, Mrsk });
+            context.ActivityFilds.AddRange(new[] {ProducerOfHvt, Builder, ElectricityTransmission, ElectricityGenerator});
+            context.CompanyForms.AddRange(new [] { FormAo, FormPao, FormOao, FormZao });
+            var companies = new List<Company> {Uetm, Rosseti, Fsk, Mrsk};
+            companies.ForEach(x => x.ChildCompanies.AddRange(companies.Where(c => Equals(c.ParentCompany, x))));
+            context.Companies.AddRange(companies);
             context.Employees.Add(Employee);
             context.Users.Add(User);
 

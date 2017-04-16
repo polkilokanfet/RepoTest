@@ -22,26 +22,67 @@ namespace HVTApp.DataAccess
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             #region Address
+
             modelBuilder.Entity<Country>().Property(x => x.Name).IsRequired().HasMaxLength(50);
+            //modelBuilder.Entity<Country>().HasRequired(x => x.Capital);
+            modelBuilder.Entity<Country>().HasMany(x => x.Districts).WithRequired(x => x.Country);
+
             modelBuilder.Entity<District>().Property(x => x.Name).IsRequired().HasMaxLength(50);
-            modelBuilder.Entity<District>().HasRequired(x => x.Country);
+            //modelBuilder.Entity<District>().HasRequired(x => x.Country);
+            //modelBuilder.Entity<District>().HasRequired(x => x.Capital);
+            modelBuilder.Entity<District>().HasMany(x => x.Regions).WithRequired(x => x.District);
+
             modelBuilder.Entity<Region>().Property(x => x.Name).IsRequired().HasMaxLength(50);
-            modelBuilder.Entity<Region>().HasRequired(x => x.District);
+            //modelBuilder.Entity<Region>().HasRequired(x => x.District);
+            //modelBuilder.Entity<Region>().HasRequired(x => x.Capital);
+            modelBuilder.Entity<Region>().HasMany(x => x.Localities).WithRequired(x => x.Region);
+
             modelBuilder.Entity<LocalityType>().Property(x => x.FullName).IsRequired().HasMaxLength(50);
+            modelBuilder.Entity<LocalityType>().Property(x => x.FullName).HasMaxLength(50);
+
             modelBuilder.Entity<Locality>().Property(x => x.Name).IsRequired().HasMaxLength(50);
-            modelBuilder.Entity<Locality>().HasRequired(x => x.Region);
+            //modelBuilder.Entity<Locality>().HasRequired(x => x.Region);
             modelBuilder.Entity<Locality>().HasRequired(x => x.LocalityType);
+            modelBuilder.Entity<Locality>().HasOptional(x => x.DeliveryPeriod).WithOptionalPrincipal(x => x.Locality);
+
+            modelBuilder.Entity<Address>().Property(x => x.Description).HasMaxLength(150);
             modelBuilder.Entity<Address>().HasRequired(x => x.Locality);
+
             #endregion
 
             #region Company
+
             modelBuilder.Entity<ActivityField>().Property(x => x.FieldOfActivity).IsRequired();
+
             modelBuilder.Entity<CompanyForm>().Property(x => x.FullName).IsRequired().HasMaxLength(50).IsUnicode();
             modelBuilder.Entity<CompanyForm>().Property(x => x.ShortName).IsRequired().HasMaxLength(50).IsUnicode();
+
             modelBuilder.Entity<Company>().Property(x => x.FullName).IsRequired().HasMaxLength(100).IsUnicode();
             modelBuilder.Entity<Company>().Property(x => x.ShortName).IsRequired().HasMaxLength(100).IsUnicode();
             modelBuilder.Entity<Company>().HasRequired(x => x.Form);
-            modelBuilder.Entity<Company>().Ignore(x => x.ChildCompanies);
+            modelBuilder.Entity<Company>().HasMany(x => x.ActivityFilds).WithMany();
+            modelBuilder.Entity<Company>().HasMany(x => x.Employees).WithRequired(x => x.Company);
+            modelBuilder.Entity<Company>().HasMany(x => x.ChildCompanies).WithOptional(x => x.ParentCompany);
+            //modelBuilder.Entity<Company>().Ignore(x => x.ChildCompanies);
+
+            #endregion
+
+            #region Employee
+
+            modelBuilder.Entity<Person>().Property(x => x.Name).IsRequired().HasMaxLength(50);
+            modelBuilder.Entity<Person>().Property(x => x.Surname).IsRequired().HasMaxLength(50);
+            modelBuilder.Entity<Person>().HasOptional(x => x.CurrentEmployee).WithRequired(x => x.Person);
+
+            #endregion
+
+            #region SalesUnit
+
+            modelBuilder.Entity<SalesUnit>().HasRequired(x => x.CostSingle);
+            modelBuilder.Entity<SalesUnit>().HasRequired(x => x.Facility);
+            modelBuilder.Entity<SalesUnit>().HasRequired(x => x.Project);
+            modelBuilder.Entity<SalesUnit>().HasRequired(x => x.ProductionUnit).WithRequiredPrincipal(x => x.SalesUnit);
+            modelBuilder.Entity<SalesUnit>().HasRequired(x => x.ShipmentUnit).WithRequiredPrincipal(x => x.SalesUnit);
+
             #endregion
 
             //modelBuilder.Entity<ProductMain>().HasRequired(x => x.TenderInfo).WithRequiredPrincipal(x => x.ProductMain);
