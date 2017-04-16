@@ -23,4 +23,7 @@ namespace HVTApp.DataAccess
     {
     }
 
+    public interface IProductParametersRepository : IRepository<ProductParameter>
+    {
+    }
 }

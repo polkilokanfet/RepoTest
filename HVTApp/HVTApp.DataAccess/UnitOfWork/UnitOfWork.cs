@@ -17,6 +17,7 @@ namespace HVTApp.DataAccess
             Users = new UsersRepository(context);
             Companies = new CompaniesRepository(context);
             CompanyForms = new CompanyFormsRepository(context);
+            ProductParameters = new ProductParametersRepository(context);
         }
         public void Dispose()
         {
@@ -36,5 +37,7 @@ namespace HVTApp.DataAccess
         public IUsersRepository Users { get; }
 
         public ICompaniesRepository Companies { get; }
+
+        public IProductParametersRepository ProductParameters { get; }
     }
 }
