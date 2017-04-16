@@ -29,12 +29,12 @@ namespace HVTApp.Model.Wrapper
 
     #region SimpleProperties
 
-    public System.Int32 ExpectedDeliveryPeriod
+    public System.Nullable<System.Int32> ExpectedDeliveryPeriod
     {
-      get { return GetValue<System.Int32>(); }
+      get { return GetValue<System.Nullable<System.Int32>>(); }
       set { SetValue(value); }
     }
-    public System.Int32 ExpectedDeliveryPeriodOriginalValue => GetOriginalValue<System.Int32>(nameof(ExpectedDeliveryPeriod));
+    public System.Nullable<System.Int32> ExpectedDeliveryPeriodOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(ExpectedDeliveryPeriod));
     public bool ExpectedDeliveryPeriodIsChanged => GetIsChanged(nameof(ExpectedDeliveryPeriod));
 
 
@@ -54,6 +54,15 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Nullable<System.DateTime> ShipmentDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(ShipmentDate));
     public bool ShipmentDateIsChanged => GetIsChanged(nameof(ShipmentDate));
+
+
+    public System.Nullable<System.DateTime> ShipmentPlanDate
+    {
+      get { return GetValue<System.Nullable<System.DateTime>>(); }
+      set { SetValue(value); }
+    }
+    public System.Nullable<System.DateTime> ShipmentPlanDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(ShipmentPlanDate));
+    public bool ShipmentPlanDateIsChanged => GetIsChanged(nameof(ShipmentPlanDate));
 
 
     public System.Nullable<System.DateTime> RequiredDeliveryDate
@@ -88,20 +97,20 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public LocalityWrapper Locality 
+	public AddressWrapper Address 
     {
-        get { return LocalityWrapper.GetWrapper(Model.Locality); }
+        get { return AddressWrapper.GetWrapper(Model.Address); }
         set
         {
-			var oldPropVal = Locality;
+			var oldPropVal = Address;
             UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
-    public LocalityWrapper LocalityOriginalValue => LocalityWrapper.GetWrapper(GetOriginalValue<Locality>(nameof(Locality)));
-    public bool LocalityIsChanged => GetIsChanged(nameof(Locality));
+    public AddressWrapper AddressOriginalValue => AddressWrapper.GetWrapper(GetOriginalValue<Address>(nameof(Address)));
+    public bool AddressIsChanged => GetIsChanged(nameof(Address));
 
 
 	public SalesUnitWrapper SalesUnit 
@@ -125,7 +134,7 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(ShipmentUnit model)
     {
 
-        Locality = LocalityWrapper.GetWrapper(model.Locality);
+        Address = AddressWrapper.GetWrapper(model.Address);
 
         SalesUnit = SalesUnitWrapper.GetWrapper(model.SalesUnit);
 

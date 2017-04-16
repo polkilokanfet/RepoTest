@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
+    <Compile Include="Custom\PaymentWrapper.cs" />
     <Compile Include="Custom\ProductionUnitWrapper.cs" />
     <Compile Include="Custom\ProjectWrapper.cs" />
     <Compile Include="Custom\ShipmentUnitWrapper.cs" />
@@ -71,7 +72,6 @@
     <Compile Include="Generated\ContractWrapper.g.cs" />
     <Compile Include="Generated\CountryWrapper.g.cs" />
     <Compile Include="Generated\CurrencyWrapper.g.cs" />
-    <Compile Include="Generated\DistrictsRegionWrapper.g.cs" />
     <Compile Include="Generated\DistrictWrapper.g.cs" />
     <Compile Include="Generated\DocumentWrapper.g.cs" />
     <Compile Include="Generated\EmployeesPositionWrapper.g.cs" />
@@ -90,25 +90,22 @@
     <Compile Include="Generated\PersonWrapper.g.cs" />
     <Compile Include="Generated\PlannedTermProductionWrapper.g.cs" />
     <Compile Include="Generated\ProductionUnitWrapper.g.cs" />
+    <Compile Include="Generated\ProductParameterGroupWrapper.g.cs" />
     <Compile Include="Generated\ProductParameterMeasureWrapper.g.cs" />
     <Compile Include="Generated\ProductParameterSetWrapper.g.cs" />
-    <Compile Include="Generated\ProductParameterTypeWrapper.g.cs" />
     <Compile Include="Generated\ProductParameterWrapper.g.cs" />
     <Compile Include="Generated\ProductWrapper.g.cs" />
     <Compile Include="Generated\ProjectWrapper.g.cs" />
+    <Compile Include="Generated\RegionWrapper.g.cs" />
     <Compile Include="Generated\RegistrationDetailsWrapper.g.cs" />
     <Compile Include="Generated\SalesUnitWrapper.g.cs" />
     <Compile Include="Generated\ShipmentUnitWrapper.g.cs" />
     <Compile Include="Generated\SpecificationWrapper.g.cs" />
+    <Compile Include="Generated\StandartDeliveryPeriodWrapper.g.cs" />
     <Compile Include="Generated\SumAndVatWrapper.g.cs" />
     <Compile Include="Generated\SumOnDateWrapper.g.cs" />
-    <Compile Include="Generated\TechLinksCollectionWrapper.g.cs" />
-    <Compile Include="Generated\TechLinkWrapper.g.cs" />
-    <Compile Include="Generated\TechParametersGroupWrapper.g.cs" />
-    <Compile Include="Generated\TechParameterWrapper.g.cs" />
     <Compile Include="Generated\TenderUnitWrapper.g.cs" />
     <Compile Include="Generated\TenderWrapper.g.cs" />
-    <Compile Include="Generated\TermsInfoWrapper.g.cs" />
     <Compile Include="Generated\TestChildWrapper.g.cs" />
     <Compile Include="Generated\TestEntityWrapper.g.cs" />
     <Compile Include="Generated\TestFriendAddressWrapper.g.cs" />

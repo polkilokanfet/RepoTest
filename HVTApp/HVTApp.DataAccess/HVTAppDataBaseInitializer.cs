@@ -15,9 +15,9 @@ namespace HVTApp.DataAccess
 
         private static readonly Country Country = new Country {Name = "Россия"};
         private static readonly District District = new District {Country = Country, Name = "Уральский федеральный округ"};
-        private static readonly DistrictsRegion DistrictsRegion = new DistrictsRegion {District = District, Name = "Свердловская область"};
+        private static readonly Region Region = new Region {District = District, Name = "Свердловская область"};
         private static readonly LocalityType LocalityType = new LocalityType {FullName = "Город", ShortName = "г."};
-        private static readonly Locality Locality = new Locality {DistrictsRegion = DistrictsRegion, LocalityType = LocalityType, Name = "Екатеринбург"};
+        private static readonly Locality Locality = new Locality {Region = Region, LocalityType = LocalityType, Name = "Екатеринбург"};
         private static readonly Address Address = new Address {Description = "ул.Фронтовых бригад, д.22", Locality = Locality};
         private static readonly ActivityField ProducerOfHvt = new ActivityField { FieldOfActivity = FieldOfActivity.ProducerOfHighVoltageEquipment, Name = "Производитель ВВА"};
         private static readonly ActivityField Builder = new ActivityField { FieldOfActivity = FieldOfActivity.Builder, Name = "Подрядчик"};

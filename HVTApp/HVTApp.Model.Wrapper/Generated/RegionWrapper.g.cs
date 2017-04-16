@@ -5,38 +5,29 @@ using HVTApp.Model;
 
 namespace HVTApp.Model.Wrapper
 {
-  public partial class DistrictsRegionWrapper : WrapperBase<DistrictsRegion>
+  public partial class RegionWrapper : WrapperBase<Region>
   {
-    protected DistrictsRegionWrapper(DistrictsRegion model) : base(model) { }
+    protected RegionWrapper(Region model) : base(model) { }
 
-	public static DistrictsRegionWrapper GetWrapper()
+	public static RegionWrapper GetWrapper()
 	{
-		return GetWrapper(new DistrictsRegion());
+		return GetWrapper(new Region());
 	}
 
-	public static DistrictsRegionWrapper GetWrapper(DistrictsRegion model)
+	public static RegionWrapper GetWrapper(Region model)
 	{
 	    if (model == null)
 	        return null;
 
 		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-			return (DistrictsRegionWrapper)Repository.ModelWrapperDictionary[model];
+			return (RegionWrapper)Repository.ModelWrapperDictionary[model];
 
-		return new DistrictsRegionWrapper(model);
+		return new RegionWrapper(model);
 	}
 
 
 
     #region SimpleProperties
-
-    public System.Int32 StandartDeliveryPeriod
-    {
-      get { return GetValue<System.Int32>(); }
-      set { SetValue(value); }
-    }
-    public System.Int32 StandartDeliveryPeriodOriginalValue => GetOriginalValue<System.Int32>(nameof(StandartDeliveryPeriod));
-    public bool StandartDeliveryPeriodIsChanged => GetIsChanged(nameof(StandartDeliveryPeriod));
-
 
     public System.String Name
     {
@@ -77,6 +68,22 @@ namespace HVTApp.Model.Wrapper
     public bool DistrictIsChanged => GetIsChanged(nameof(District));
 
 
+	public LocalityWrapper Capital 
+    {
+        get { return LocalityWrapper.GetWrapper(Model.Capital); }
+        set
+        {
+			var oldPropVal = Capital;
+            UnRegisterComplexProperty(oldPropVal);
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
+        }
+    }
+    public LocalityWrapper CapitalOriginalValue => LocalityWrapper.GetWrapper(GetOriginalValue<Locality>(nameof(Capital)));
+    public bool CapitalIsChanged => GetIsChanged(nameof(Capital));
+
+
     #endregion
 
 
@@ -87,15 +94,17 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-    protected override void InitializeComplexProperties(DistrictsRegion model)
+    protected override void InitializeComplexProperties(Region model)
     {
 
         District = DistrictWrapper.GetWrapper(model.District);
 
+        Capital = LocalityWrapper.GetWrapper(model.Capital);
+
     }
 
   
-    protected override void InitializeCollectionComplexProperties(DistrictsRegion model)
+    protected override void InitializeCollectionComplexProperties(Region model)
     {
 
       if (model.Localities == null) throw new ArgumentException("Localities cannot be null");

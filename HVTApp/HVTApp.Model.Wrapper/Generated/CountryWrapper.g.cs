@@ -59,12 +59,40 @@ namespace HVTApp.Model.Wrapper
     #endregion
 
 
+    #region ComplexProperties
+
+	public LocalityWrapper Capital 
+    {
+        get { return LocalityWrapper.GetWrapper(Model.Capital); }
+        set
+        {
+			var oldPropVal = Capital;
+            UnRegisterComplexProperty(oldPropVal);
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
+        }
+    }
+    public LocalityWrapper CapitalOriginalValue => LocalityWrapper.GetWrapper(GetOriginalValue<Locality>(nameof(Capital)));
+    public bool CapitalIsChanged => GetIsChanged(nameof(Capital));
+
+
+    #endregion
+
+
     #region CollectionProperties
 
     public IValidatableChangeTrackingCollection<DistrictWrapper> Districts { get; private set; }
 
 
     #endregion
+
+    protected override void InitializeComplexProperties(Country model)
+    {
+
+        Capital = LocalityWrapper.GetWrapper(model.Capital);
+
+    }
 
   
     protected override void InitializeCollectionComplexProperties(Country model)

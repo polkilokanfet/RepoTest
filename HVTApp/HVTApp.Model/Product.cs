@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.Model
@@ -12,41 +10,29 @@ namespace HVTApp.Model
         public virtual List<ProductParameter> Parameters { get; set; } = new List<ProductParameter>();
 
         public virtual List<SumOnDate> Prices { get; set; } = new List<SumOnDate>(); //себестоимости
-
-        //public override bool EqualsProperties(object obj)
-        //{
-        //    Product otherProduct = obj as Product;
-        //    if (otherProduct == null)
-        //        throw new ArgumentNullException();
-
-        //    return !this.Links.Except(otherProduct.Links).Any();
-        //}
-    }
-
-    /// <summary>
-    /// Сумма на какую-либо дату
-    /// </summary>
-    public class SumOnDate : BaseEntity
-    {
-        public DateTime Date { get; set; }
-        public double Sum { get; set; }
-    }
-
-    public class ProductParameterType : BaseEntity
-    {
-        public string Name { get; set; }
-    }
-    public class ProductParameterMeasure : BaseEntity
-    {
-        public string FullName { get; set; }
-        public string ShortName { get; set; }
     }
 
     public class ProductParameter : BaseEntity
     {
-        public virtual ProductParameterType Type { get; set; }
-        public virtual ProductParameterMeasure Measure { get; set; }
+        public virtual ProductParameterGroup Group { get; set; }
         public string Value { get; set; }
+        public virtual List<ProductParameterSet> ProductParameterSets { get; set; }
+    }
+
+    public class ProductParameterGroup : BaseEntity
+    {
+        public string Name { get; set; }
+        public virtual ProductParameterMeasure Measure { get; set; }
+        public bool IsOntyChoice { get; set; } = true; // группа из которой может быть выбран только один параметр для одного оборудования.
+    }
+
+    /// <summary>
+    /// Единица измерения
+    /// </summary>
+    public class ProductParameterMeasure : BaseEntity
+    {
+        public string FullName { get; set; }
+        public string ShortName { get; set; }
     }
 
     public class ProductParameterSet : BaseEntity

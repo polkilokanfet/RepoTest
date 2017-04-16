@@ -10,6 +10,6 @@ namespace HVTApp.Model.Wrapper
         {
         }
 
-        public SumAndVatWrapper Cost { get; } = SumAndVatWrapper.GetWrapper();
+        public double Sum => SalesUnits.Sum(x => x.CostTotal.Sum);
     }
 }

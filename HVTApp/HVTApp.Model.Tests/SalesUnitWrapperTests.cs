@@ -16,13 +16,13 @@ namespace HVTApp.Model.Tests
             Product product = new Product();
             product.Prices.Add(new SumOnDate {Date = DateTime.Today, Sum = 50 });
             ProductionUnit productionUnit = new ProductionUnit {Product = product};
-            ShipmentUnit shipmentUnit = new ShipmentUnit();
+            ShipmentUnit shipmentUnit = new ShipmentUnit {ExpectedDeliveryPeriod = 5};
 
             Project project = new Project {EstimatedDate = DateTime.Today.AddDays(120)};
 
             var unit = new SalesUnit
             {
-                Cost = new SumAndVat { Sum = 100, Vat = 10 },
+                CostSingle = new SumAndVat { Sum = 100, Vat = 10 },
                 ProductionUnit = productionUnit,
                 ShipmentUnit = shipmentUnit,
                 Project = project
@@ -44,7 +44,9 @@ namespace HVTApp.Model.Tests
         {
             _salesUnitWrapper.ReloadPaymentsPlannedFull();
 
-            var cost = _salesUnitWrapper.Cost.Sum;
+            //проверка соответствия плановых платежей и платежей по условиям контракта
+
+            var cost = _salesUnitWrapper.CostSingle.Sum;
 
             Assert.AreEqual(_salesUnitWrapper.PaymentsPlanned.Count, _salesUnitWrapper.PaymentsConditions.Count); //количество плановых и фактических платежей совпадает
             Assert.IsTrue(Math.Abs(cost - _salesUnitWrapper.PaymentsPlanned.Sum(x => x.SumAndVat.Sum)) < 0.0001);
@@ -80,10 +82,10 @@ namespace HVTApp.Model.Tests
         {
             _salesUnitWrapper.MarginalIncomeDate = DateTime.Today;
 
-            double cost = _salesUnitWrapper.Cost.Sum;
-            double md = _salesUnitWrapper.MarginalIncome;
+            double cost = _salesUnitWrapper.CostSingle.Sum;
+            double md = _salesUnitWrapper.MarginalIncomeSingle;
 
-            Assert.IsTrue(Math.Abs(_salesUnitWrapper.MarginalIncomeInPercent - md / cost * 100) < 0.0001);
+            Assert.IsTrue(Math.Abs(_salesUnitWrapper.MarginalIncomeInPercentSingle - md / cost * 100) < 0.0001);
         }
     }
 }

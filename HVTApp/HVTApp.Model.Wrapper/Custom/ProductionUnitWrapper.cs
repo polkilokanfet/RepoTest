@@ -6,7 +6,7 @@ namespace HVTApp.Model.Wrapper
 {
     public partial class ProductionUnitWrapper
     {
-        public DateTime StartProductionDateCalculated
+        public DateTime ProductionStartDateCalculated
         {
             get
             {
@@ -19,7 +19,7 @@ namespace HVTApp.Model.Wrapper
             }
         }
 
-        public DateTime EndProductionDateCalculated
+        public DateTime ProductionEndDateCalculated
         {
             get
             {
@@ -28,7 +28,7 @@ namespace HVTApp.Model.Wrapper
                 //по дате комплектации
                 if (PickingDate.HasValue) return PickingDate.Value.AddDays(PlanedTermFromPickToEndProductionEnd);
                 //по сроку производства
-                return StartProductionDateCalculated.AddDays(PlannedProductionTerm).GetTodayIfDateFromPastAndSkipWeekend();
+                return ProductionStartDateCalculated.AddDays(PlannedProductionTerm).GetTodayIfDateFromPastAndSkipWeekend();
             }
         }
 

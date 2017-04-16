@@ -25,11 +25,11 @@ namespace HVTApp.DataAccess
             modelBuilder.Entity<Country>().Property(x => x.Name).IsRequired().HasMaxLength(50);
             modelBuilder.Entity<District>().Property(x => x.Name).IsRequired().HasMaxLength(50);
             modelBuilder.Entity<District>().HasRequired(x => x.Country);
-            modelBuilder.Entity<DistrictsRegion>().Property(x => x.Name).IsRequired().HasMaxLength(50);
-            modelBuilder.Entity<DistrictsRegion>().HasRequired(x => x.District);
+            modelBuilder.Entity<Region>().Property(x => x.Name).IsRequired().HasMaxLength(50);
+            modelBuilder.Entity<Region>().HasRequired(x => x.District);
             modelBuilder.Entity<LocalityType>().Property(x => x.FullName).IsRequired().HasMaxLength(50);
             modelBuilder.Entity<Locality>().Property(x => x.Name).IsRequired().HasMaxLength(50);
-            modelBuilder.Entity<Locality>().HasRequired(x => x.DistrictsRegion);
+            modelBuilder.Entity<Locality>().HasRequired(x => x.Region);
             modelBuilder.Entity<Locality>().HasRequired(x => x.LocalityType);
             modelBuilder.Entity<Address>().HasRequired(x => x.Locality);
             #endregion
@@ -71,6 +71,5 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PaymentCondition> PaymentConditions { get; set; }
         public virtual DbSet<PaymentDocument> PaymentDocuments { get; set; }
         public virtual DbSet<PaymentConditionStandart> StandartPaymentConditionses { get; set; }
-        public virtual DbSet<TechParameter> TechParameters { get; set; }
     }
 }

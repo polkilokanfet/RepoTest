@@ -52,36 +52,28 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public ProductParameterTypeWrapper Type 
+	public ProductParameterGroupWrapper Group 
     {
-        get { return ProductParameterTypeWrapper.GetWrapper(Model.Type); }
+        get { return ProductParameterGroupWrapper.GetWrapper(Model.Group); }
         set
         {
-			var oldPropVal = Type;
+			var oldPropVal = Group;
             UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
-    public ProductParameterTypeWrapper TypeOriginalValue => ProductParameterTypeWrapper.GetWrapper(GetOriginalValue<ProductParameterType>(nameof(Type)));
-    public bool TypeIsChanged => GetIsChanged(nameof(Type));
+    public ProductParameterGroupWrapper GroupOriginalValue => ProductParameterGroupWrapper.GetWrapper(GetOriginalValue<ProductParameterGroup>(nameof(Group)));
+    public bool GroupIsChanged => GetIsChanged(nameof(Group));
 
 
-	public ProductParameterMeasureWrapper Measure 
-    {
-        get { return ProductParameterMeasureWrapper.GetWrapper(Model.Measure); }
-        set
-        {
-			var oldPropVal = Measure;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
-        }
-    }
-    public ProductParameterMeasureWrapper MeasureOriginalValue => ProductParameterMeasureWrapper.GetWrapper(GetOriginalValue<ProductParameterMeasure>(nameof(Measure)));
-    public bool MeasureIsChanged => GetIsChanged(nameof(Measure));
+    #endregion
+
+
+    #region CollectionProperties
+
+    public IValidatableChangeTrackingCollection<ProductParameterSetWrapper> ProductParameterSets { get; private set; }
 
 
     #endregion
@@ -89,9 +81,18 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(ProductParameter model)
     {
 
-        Type = ProductParameterTypeWrapper.GetWrapper(model.Type);
+        Group = ProductParameterGroupWrapper.GetWrapper(model.Group);
 
-        Measure = ProductParameterMeasureWrapper.GetWrapper(model.Measure);
+    }
+
+  
+    protected override void InitializeCollectionComplexProperties(ProductParameter model)
+    {
+
+      if (model.ProductParameterSets == null) throw new ArgumentException("ProductParameterSets cannot be null");
+      ProductParameterSets = new ValidatableChangeTrackingCollection<ProductParameterSetWrapper>(model.ProductParameterSets.Select(e => ProductParameterSetWrapper.GetWrapper(e)));
+      RegisterCollection(ProductParameterSets, model.ProductParameterSets);
+
 
     }
 

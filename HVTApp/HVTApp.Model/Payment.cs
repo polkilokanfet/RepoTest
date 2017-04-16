@@ -10,4 +10,16 @@ namespace HVTApp.Model
         public string Comment { get; set; }
         public virtual SalesUnit SalesUnit { get; set; }
     }
+
+    public enum PaymentType
+    {
+        /// <summary>
+        /// кредиторская задолженность
+        /// </summary>
+        AccountsPayable,
+        /// <summary>
+        /// дебиторская задолженность
+        /// </summary>
+        Receivables
+    }
 }
