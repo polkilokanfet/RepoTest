@@ -24,24 +24,18 @@ namespace HVTApp.DataAccess
             #region Address
 
             modelBuilder.Entity<Country>().Property(x => x.Name).IsRequired().HasMaxLength(50);
-            //modelBuilder.Entity<Country>().HasRequired(x => x.Capital);
             modelBuilder.Entity<Country>().HasMany(x => x.Districts).WithRequired(x => x.Country);
 
             modelBuilder.Entity<District>().Property(x => x.Name).IsRequired().HasMaxLength(50);
-            //modelBuilder.Entity<District>().HasRequired(x => x.Country);
-            //modelBuilder.Entity<District>().HasRequired(x => x.Capital);
             modelBuilder.Entity<District>().HasMany(x => x.Regions).WithRequired(x => x.District);
 
             modelBuilder.Entity<Region>().Property(x => x.Name).IsRequired().HasMaxLength(50);
-            //modelBuilder.Entity<Region>().HasRequired(x => x.District);
-            //modelBuilder.Entity<Region>().HasRequired(x => x.Capital);
             modelBuilder.Entity<Region>().HasMany(x => x.Localities).WithRequired(x => x.Region);
 
             modelBuilder.Entity<LocalityType>().Property(x => x.FullName).IsRequired().HasMaxLength(50);
             modelBuilder.Entity<LocalityType>().Property(x => x.FullName).HasMaxLength(50);
 
             modelBuilder.Entity<Locality>().Property(x => x.Name).IsRequired().HasMaxLength(50);
-            //modelBuilder.Entity<Locality>().HasRequired(x => x.Region);
             modelBuilder.Entity<Locality>().HasRequired(x => x.LocalityType);
             modelBuilder.Entity<Locality>().HasOptional(x => x.DeliveryPeriod).WithOptionalPrincipal(x => x.Locality);
 
@@ -79,9 +73,12 @@ namespace HVTApp.DataAccess
 
             modelBuilder.Entity<SalesUnit>().HasRequired(x => x.CostSingle);
             modelBuilder.Entity<SalesUnit>().HasRequired(x => x.Facility);
-            modelBuilder.Entity<SalesUnit>().HasRequired(x => x.Project);
+            modelBuilder.Entity<SalesUnit>().HasRequired(x => x.Project).WithMany(x => x.SalesUnits);
             modelBuilder.Entity<SalesUnit>().HasRequired(x => x.ProductionUnit).WithRequiredPrincipal(x => x.SalesUnit);
             modelBuilder.Entity<SalesUnit>().HasRequired(x => x.ShipmentUnit).WithRequiredPrincipal(x => x.SalesUnit);
+            modelBuilder.Entity<SalesUnit>().HasOptional(x => x.Specification).WithMany(x => x.SalesUnits);
+            modelBuilder.Entity<SalesUnit>().HasMany(x => x.PaymentsPlanned).WithRequired(x => x.SalesUnit);
+            modelBuilder.Entity<SalesUnit>().HasMany(x => x.PaymentsActual).WithRequired(x => x.SalesUnit);
 
             #endregion
 

@@ -11,6 +11,7 @@ namespace HVTApp.Model
 
         public virtual Project Project { get; set; }
         public virtual Facility Facility { get; set; }
+        public virtual Specification Specification { get; set; }
 
         public virtual SumAndVat CostSingle { get; set; }
 
@@ -18,9 +19,6 @@ namespace HVTApp.Model
         public virtual ShipmentUnit ShipmentUnit { get; set; }
 
         public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
-
-        public virtual Specification Specification { get; set; }
-
         public virtual List<Payment> PaymentsPlanned { get; set; } = new List<Payment>();
         public virtual List<Payment> PaymentsActual { get; set; } = new List<Payment>();
 

@@ -4,6 +4,6 @@ namespace HVTApp.Services.ChooseProductService
 {
     interface IChooseProductService
     {
-        Product ChooseProduct();
+        Product ChooseProduct(Product product = null);
     }
 }

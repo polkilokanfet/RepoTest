@@ -44,6 +44,7 @@
     <Compile Include="Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
     <Compile Include="Custom\PaymentWrapper.cs" />
     <Compile Include="Custom\ProductionUnitWrapper.cs" />
+    <Compile Include="Custom\ProductParameterWrapper.cs" />
     <Compile Include="Custom\ProjectWrapper.cs" />
     <Compile Include="Custom\ShipmentUnitWrapper.cs" />
     <Compile Include="Custom\SumAndVatWrapper.cs" />
