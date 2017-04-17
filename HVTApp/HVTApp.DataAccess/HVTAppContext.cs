@@ -61,24 +61,32 @@ namespace HVTApp.DataAccess
 
             #endregion
 
-            #region Employee
+            #region Person
 
             modelBuilder.Entity<Person>().Property(x => x.Name).IsRequired().HasMaxLength(50);
             modelBuilder.Entity<Person>().Property(x => x.Surname).IsRequired().HasMaxLength(50);
-            modelBuilder.Entity<Person>().HasOptional(x => x.CurrentEmployee).WithRequired(x => x.Person);
+            modelBuilder.Entity<Person>().HasOptional(x => x.CurrentEmployee);
+            modelBuilder.Entity<Person>().HasMany(x => x.Employees).WithRequired(x => x.Person);
 
             #endregion
 
             #region SalesUnit
 
+            modelBuilder.Entity<SalesUnit>().HasKey(x => x.Id).ToTable(nameof(SalesUnit));
+            modelBuilder.Entity<ProductionUnit>().HasKey(x => x.Id).ToTable(nameof(SalesUnit));
+            modelBuilder.Entity<ShipmentUnit>().HasKey(x => x.Id).ToTable(nameof(SalesUnit));
             modelBuilder.Entity<SalesUnit>().HasRequired(x => x.CostSingle);
             modelBuilder.Entity<SalesUnit>().HasRequired(x => x.Facility);
             modelBuilder.Entity<SalesUnit>().HasRequired(x => x.Project).WithMany(x => x.SalesUnits);
             modelBuilder.Entity<SalesUnit>().HasRequired(x => x.ProductionUnit).WithRequiredPrincipal(x => x.SalesUnit);
             modelBuilder.Entity<SalesUnit>().HasRequired(x => x.ShipmentUnit).WithRequiredPrincipal(x => x.SalesUnit);
             modelBuilder.Entity<SalesUnit>().HasOptional(x => x.Specification).WithMany(x => x.SalesUnits);
-            modelBuilder.Entity<SalesUnit>().HasMany(x => x.PaymentsPlanned).WithRequired(x => x.SalesUnit);
-            modelBuilder.Entity<SalesUnit>().HasMany(x => x.PaymentsActual).WithRequired(x => x.SalesUnit);
+
+            #endregion
+
+            #region Project
+
+            modelBuilder.Entity<Project>().HasRequired(x => x.Manager);
 
             #endregion
 
@@ -98,7 +106,7 @@ namespace HVTApp.DataAccess
 
         public virtual DbSet<TestFriendGroup> FriendGroups { get; set; }
 
-
+        public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<EmployeesPosition> EmployeesPositions { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -108,6 +116,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<CompanyForm> CompanyForms { get; set; }
         public virtual DbSet<PaymentCondition> PaymentConditions { get; set; }
         public virtual DbSet<PaymentDocument> PaymentDocuments { get; set; }
-        public virtual DbSet<PaymentConditionStandart> StandartPaymentConditionses { get; set; }
+        public virtual DbSet<PaymentConditionStandart> StandartPaymentConditions { get; set; }
     }
 }

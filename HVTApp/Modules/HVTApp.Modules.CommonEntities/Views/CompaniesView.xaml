@@ -6,9 +6,12 @@
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              x:Class="HVTApp.Modules.CommonEntities.Views.CompaniesView"             
              prism:ViewModelLocator.AutoWireViewModel="True">
-    
+
     <infg:XamDataGrid DataSource="{Binding Companies, Mode=OneWay}" SelectedDataItem="{Binding SelectedCompany, Mode=TwoWay}">
-        
+    </infg:XamDataGrid>
+
+    <!--<infg:XamDataGrid DataSource="{Binding Companies, Mode=OneWay}" SelectedDataItem="{Binding SelectedCompany, Mode=TwoWay}">
+
         <infg:XamDataGrid.FieldSettings>
             <infg:FieldSettings AllowEdit="False" AllowRecordFiltering="True"/>
         </infg:XamDataGrid.FieldSettings>
@@ -27,8 +30,9 @@
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
         </infg:XamDataGrid.FieldLayouts>
-    </infg:XamDataGrid>
-    
+    </infg:XamDataGrid>-->
+
+
 </inf:ViewBase>
 
 
