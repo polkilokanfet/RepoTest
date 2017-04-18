@@ -11,5 +11,10 @@ namespace HVTApp.Model
         public virtual FacilityType Type { get; set; }
         public virtual Company OwnerCompany { get; set; }
         public virtual Address Address { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name}, {Type.ShortName}";
+        }
     }
 }

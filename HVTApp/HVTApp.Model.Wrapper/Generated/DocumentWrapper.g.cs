@@ -59,9 +59,9 @@ namespace HVTApp.Model.Wrapper
     public bool RequestDocumentIsChanged => GetIsChanged(nameof(RequestDocument));
 
 
-	public UserWrapper Author 
+	public EmployeeWrapper Author 
     {
-        get { return UserWrapper.GetWrapper(Model.Author); }
+        get { return EmployeeWrapper.GetWrapper(Model.Author); }
         set
         {
 			var oldPropVal = Author;
@@ -71,7 +71,7 @@ namespace HVTApp.Model.Wrapper
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
-    public UserWrapper AuthorOriginalValue => UserWrapper.GetWrapper(GetOriginalValue<User>(nameof(Author)));
+    public EmployeeWrapper AuthorOriginalValue => EmployeeWrapper.GetWrapper(GetOriginalValue<Employee>(nameof(Author)));
     public bool AuthorIsChanged => GetIsChanged(nameof(Author));
 
 
@@ -154,7 +154,7 @@ namespace HVTApp.Model.Wrapper
 
         RequestDocument = DocumentWrapper.GetWrapper(model.RequestDocument);
 
-        Author = UserWrapper.GetWrapper(model.Author);
+        Author = EmployeeWrapper.GetWrapper(model.Author);
 
         SenderEmployee = EmployeeWrapper.GetWrapper(model.SenderEmployee);
 

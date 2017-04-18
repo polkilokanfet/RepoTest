@@ -19,6 +19,15 @@ namespace HVTApp.Model.Wrapper
             this.CostSingle.PropertyChanged += OnCostChanged;
         }
 
+        public bool IsTheSame(SalesUnitWrapper salesUnit)
+        {
+            if (Equals(this.Facility, salesUnit.Facility) &&
+                Equals(this.ProductionUnit.Product, salesUnit.ProductionUnit.Product) &&
+                Equals(this.CostTotal.Sum, salesUnit.CostTotal.Sum))
+                return true;
+            return false;
+        }
+
         #region OnEvents
         private void OnCostChanged(object sender, PropertyChangedEventArgs e)
         {

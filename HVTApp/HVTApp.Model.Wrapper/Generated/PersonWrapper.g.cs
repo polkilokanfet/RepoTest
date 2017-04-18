@@ -97,10 +97,29 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
+
+    #region CollectionProperties
+
+    public IValidatableChangeTrackingCollection<EmployeeWrapper> Employees { get; private set; }
+
+
+    #endregion
+
     protected override void InitializeComplexProperties(Person model)
     {
 
         CurrentEmployee = EmployeeWrapper.GetWrapper(model.CurrentEmployee);
+
+    }
+
+  
+    protected override void InitializeCollectionComplexProperties(Person model)
+    {
+
+      if (model.Employees == null) throw new ArgumentException("Employees cannot be null");
+      Employees = new ValidatableChangeTrackingCollection<EmployeeWrapper>(model.Employees.Select(e => EmployeeWrapper.GetWrapper(e)));
+      RegisterCollection(Employees, model.Employees);
+
 
     }
 

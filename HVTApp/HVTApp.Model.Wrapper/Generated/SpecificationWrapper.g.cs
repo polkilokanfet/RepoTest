@@ -82,7 +82,7 @@ namespace HVTApp.Model.Wrapper
 
     #region CollectionProperties
 
-    public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesProductUnits { get; private set; }
+    public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
 
 
     #endregion
@@ -99,8 +99,8 @@ namespace HVTApp.Model.Wrapper
     {
 
       if (model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
-      SalesProductUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(model.SalesUnits.Select(e => SalesUnitWrapper.GetWrapper(e)));
-      RegisterCollection(SalesProductUnits, model.SalesUnits);
+      SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(model.SalesUnits.Select(e => SalesUnitWrapper.GetWrapper(e)));
+      RegisterCollection(SalesUnits, model.SalesUnits);
 
 
     }

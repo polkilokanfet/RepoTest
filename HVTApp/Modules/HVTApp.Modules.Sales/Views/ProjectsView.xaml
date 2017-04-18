@@ -3,15 +3,44 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             xmlns:custom="http://infragistics.com/DataPresenter" 
+             xmlns:infg="http://infragistics.com/DataPresenter" 
              x:Class="HVTApp.Modules.Sales.Views.ProjectsView"
              prism:ViewModelLocator.AutoWireViewModel="True">
     
-    <custom:XamDataGrid BindToSampleData="True">
-        <custom:XamDataGrid.FieldSettings>
-            <custom:FieldSettings AllowRecordFiltering="True"/>
-        </custom:XamDataGrid.FieldSettings>
-    </custom:XamDataGrid>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <infg:XamDataGrid Grid.Row="0" 
+                          DataSource="{Binding Projects, Mode=OneWay}" 
+                          SelectedDataItem="{Binding SelectedProject, Mode=TwoWay}">
+            
+            <infg:XamDataGrid.FieldLayoutSettings>
+                <infg:FieldLayoutSettings AutoGenerateFields="False"/>
+            </infg:XamDataGrid.FieldLayoutSettings>
+            
+            <infg:XamDataGrid.FieldLayouts>
+                <infg:FieldLayout Key="Project">
+                    <infg:FieldLayout.Fields>
+                        <infg:Field Name="FacilitiesNames"/>
+                        <infg:Field Name="Name"/>
+                        <infg:Field Name="Sum"/>
+                        
+                        <infg:Field Name="SalesUnits" IsExpandable="True" IsPrimary="True"/>
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+
+                <infg:FieldLayout Key="SalesUnit" ParentFieldLayoutKey="Project" ParentFieldName="SalesUnits">
+                    <infg:FieldLayout.Fields>
+                        <infg:Field Name="Facility"/>
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+            </infg:XamDataGrid.FieldLayouts>
+            
+        </infg:XamDataGrid>
+    </Grid>
     
 </inf:ViewBase>
 

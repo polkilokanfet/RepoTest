@@ -38,8 +38,8 @@ namespace HVTApp.DataAccess
         private static readonly EmployeesPosition EmployeesPosition = new EmployeesPosition {Name = "Директор"};
         private static readonly Person Person = new Person { Surname = "Иванов", Name = "Иван" };
         private static readonly Employee Employee = new Employee { Person = Person, Position = EmployeesPosition, Company = Uetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36" };
-        private static readonly User User = new User {Login = "1",Password = StringToGuidService.GetHashString("1"),Employee = Employee, PersonalNumber = "333"};
-        private static readonly UserRole UserRole = new UserRole { User = User, Role = Role.DataBaseFiller };
+        private static readonly UserRole UserRole = new UserRole { Role = Role.DataBaseFiller };
+        private static readonly User User = new User {Login = "1", Password = StringToGuidService.GetHashString("1"), Employee = Employee, PersonalNumber = "333", Roles=new List<UserRole> {UserRole} };
 
         private static readonly Project Project = new Project {Name = "TestProject", Manager = User, EstimatedDate = DateTime.Today.AddDays(120)};
 
@@ -64,6 +64,7 @@ namespace HVTApp.DataAccess
             context.Companies.AddRange(new[] {Uetm, Rosseti, Fsk, Mrsk});
             context.Employees.Add(Employee);
             context.Users.Add(User);
+            Project.SalesUnits.AddRange(new[] { SalesUnit, SalesUnit, SalesUnit});
             context.Projects.Add(Project);
 
             context.SaveChanges();

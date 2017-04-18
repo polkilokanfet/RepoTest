@@ -44,12 +44,14 @@ namespace HVTApp.DataAccess
 
             #endregion
 
-            #region Company
 
+            #region Company
             modelBuilder.Entity<ActivityField>().Property(x => x.FieldOfActivity).IsRequired();
+            modelBuilder.Entity<ActivityField>().Property(x => x.Name).IsRequired().HasMaxLength(25);
 
             modelBuilder.Entity<CompanyForm>().Property(x => x.FullName).IsRequired().HasMaxLength(50).IsUnicode();
             modelBuilder.Entity<CompanyForm>().Property(x => x.ShortName).IsRequired().HasMaxLength(50).IsUnicode();
+
 
             modelBuilder.Entity<Company>().Property(x => x.FullName).IsRequired().HasMaxLength(100).IsUnicode();
             modelBuilder.Entity<Company>().Property(x => x.ShortName).IsRequired().HasMaxLength(100).IsUnicode();
@@ -61,7 +63,15 @@ namespace HVTApp.DataAccess
 
             #endregion
 
-            #region Person
+            #region Person, User, Employee
+
+            modelBuilder.Entity<UserRole>().Property(x => x.Role).IsRequired();
+
+            modelBuilder.Entity<User>().Property(x => x.Login).IsRequired().HasMaxLength(20);
+            modelBuilder.Entity<User>().Property(x => x.Password).IsRequired();
+            modelBuilder.Entity<User>().Property(x => x.PersonalNumber).IsRequired().HasMaxLength(10);
+            modelBuilder.Entity<User>().Ignore(x => x.RoleCurrent);
+            modelBuilder.Entity<User>().HasRequired(x => x.Employee);
 
             modelBuilder.Entity<Person>().Property(x => x.Name).IsRequired().HasMaxLength(50);
             modelBuilder.Entity<Person>().Property(x => x.Surname).IsRequired().HasMaxLength(50);
@@ -86,20 +96,35 @@ namespace HVTApp.DataAccess
 
             #region Project
 
+            modelBuilder.Entity<Project>().Property(x => x.Name).IsRequired().HasMaxLength(100);
             modelBuilder.Entity<Project>().HasRequired(x => x.Manager);
+            modelBuilder.Entity<Project>().HasMany(x => x.SalesUnits).WithRequired(x => x.Project);
+            modelBuilder.Entity<Project>().HasMany(x => x.Offers).WithRequired(x => x.Project);
+            modelBuilder.Entity<Project>().HasMany(x => x.Tenders).WithRequired(x => x.Project);
 
             #endregion
 
-            //modelBuilder.Entity<ProductMain>().HasRequired(x => x.TenderInfo).WithRequiredPrincipal(x => x.ProductMain);
-            //modelBuilder.Entity<ProductBase>().HasRequired(x => x.OrderInfo).WithRequiredPrincipal(x => x.Product);
-            //modelBuilder.Entity<ProductBase>().HasRequired(x => x.DateInfo).WithRequiredPrincipal(x => x.Product);
-            //modelBuilder.Entity<ProductBase>().HasRequired(x => x.PaymentsInfo).WithRequiredPrincipal(x => x.Product);
-            //modelBuilder.Entity<ProductBase>().HasRequired(x => x.ShipmentCost);
-            //modelBuilder.Entity<ProductBase>().HasRequired(x => x.TermsInfo);
+            #region Contract
 
-            //modelBuilder.Entity<PaymentsInfo>().HasRequired(x => x.Product);
+            modelBuilder.Entity<Contract>().Property(x => x.Number).IsRequired().HasMaxLength(50);
+            modelBuilder.Entity<Contract>().HasRequired(x => x.Contragent);
+            modelBuilder.Entity<Contract>().HasMany(x => x.Specifications).WithRequired(x => x.Contract);
 
-            //modelBuilder.Entity<PaymentPlanned>().HasRequired(x => x.PaymentsInfo);
+            modelBuilder.Entity<Specification>().Property(x => x.Number).HasMaxLength(4);
+            modelBuilder.Entity<Specification>().HasMany(x => x.SalesUnits).WithOptional(x => x.Specification);
+
+            #endregion
+
+            #region Document
+
+            modelBuilder.Entity<Document>().HasOptional(x => x.Author);
+            modelBuilder.Entity<Document>().HasRequired(x => x.SenderEmployee);
+            modelBuilder.Entity<Document>().HasRequired(x => x.RecipientEmployee);
+
+            modelBuilder.Entity<RegistrationDetails>().Property(x => x.RegistrationNumber).IsRequired().HasMaxLength(20);
+            modelBuilder.Entity<RegistrationDetails>().Property(x => x.RegistrationDate).IsRequired();
+
+            #endregion
 
             base.OnModelCreating(modelBuilder);
         }

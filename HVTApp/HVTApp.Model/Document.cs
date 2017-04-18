@@ -11,7 +11,7 @@ namespace HVTApp.Model
         /// </summary>
         public virtual Document RequestDocument { get; set; }
 
-        public virtual User Author { get; set; }
+        public virtual Employee Author { get; set; }
         public virtual Employee SenderEmployee { get; set; }
         public virtual Employee RecipientEmployee { get; set; }
         public virtual List<Employee> CopyToRecipients { get; set; }

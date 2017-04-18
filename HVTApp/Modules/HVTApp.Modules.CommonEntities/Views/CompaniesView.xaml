@@ -8,9 +8,6 @@
              prism:ViewModelLocator.AutoWireViewModel="True">
 
     <infg:XamDataGrid DataSource="{Binding Companies, Mode=OneWay}" SelectedDataItem="{Binding SelectedCompany, Mode=TwoWay}">
-    </infg:XamDataGrid>
-
-    <!--<infg:XamDataGrid DataSource="{Binding Companies, Mode=OneWay}" SelectedDataItem="{Binding SelectedCompany, Mode=TwoWay}">
 
         <infg:XamDataGrid.FieldSettings>
             <infg:FieldSettings AllowEdit="False" AllowRecordFiltering="True"/>
@@ -21,16 +18,27 @@
         </infg:XamDataGrid.FieldLayoutSettings>
 
         <infg:XamDataGrid.FieldLayouts>
-            <infg:FieldLayout>
+            <infg:FieldLayout Key="Company">
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="FullName" Label="Полное наименование"/>
                     <infg:TextField Name="ShortName" Label="Сокращенное наименование"/>
                     <infg:TextField Name="Form" Label="Форма"/>
                     <infg:TextField Name="ParentCompany" Label="Головная компания"/>
+
+                    <infg:Field Name="ChildCompanies" Visibility="Visible" IsExpandable="True" Label="Child Companies" IsSelected="True" IsPrimary="True"/>
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+            <infg:FieldLayout Key="ChildCompany" ParentFieldName="ChildCompanies" ParentFieldLayoutKey="Company">
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="FullName" Label="Полное наименование"/>
+                    <infg:TextField Name="ShortName" Label="Сокращенное наименование"/>
+                    <infg:TextField Name="Form" Label="Форма"/>
+                    <infg:TextField Name="ParentCompany" Label="Головная компания" Visibility="Collapsed"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
         </infg:XamDataGrid.FieldLayouts>
-    </infg:XamDataGrid>-->
+    </infg:XamDataGrid>
 
 
 </inf:ViewBase>

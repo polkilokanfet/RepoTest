@@ -100,6 +100,22 @@ namespace HVTApp.Model.Wrapper
     public bool FacilityIsChanged => GetIsChanged(nameof(Facility));
 
 
+	public SpecificationWrapper Specification 
+    {
+        get { return SpecificationWrapper.GetWrapper(Model.Specification); }
+        set
+        {
+			var oldPropVal = Specification;
+            UnRegisterComplexProperty(oldPropVal);
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
+        }
+    }
+    public SpecificationWrapper SpecificationOriginalValue => SpecificationWrapper.GetWrapper(GetOriginalValue<Specification>(nameof(Specification)));
+    public bool SpecificationIsChanged => GetIsChanged(nameof(Specification));
+
+
 	public SumAndVatWrapper CostSingle 
     {
         get { return SumAndVatWrapper.GetWrapper(Model.CostSingle); }
@@ -148,22 +164,6 @@ namespace HVTApp.Model.Wrapper
     public bool ShipmentUnitIsChanged => GetIsChanged(nameof(ShipmentUnit));
 
 
-	public SpecificationWrapper Specification 
-    {
-        get { return SpecificationWrapper.GetWrapper(Model.Specification); }
-        set
-        {
-			var oldPropVal = Specification;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
-        }
-    }
-    public SpecificationWrapper SpecificationOriginalValue => SpecificationWrapper.GetWrapper(GetOriginalValue<Specification>(nameof(Specification)));
-    public bool SpecificationIsChanged => GetIsChanged(nameof(Specification));
-
-
     #endregion
 
 
@@ -192,13 +192,13 @@ namespace HVTApp.Model.Wrapper
 
         Facility = FacilityWrapper.GetWrapper(model.Facility);
 
+        Specification = SpecificationWrapper.GetWrapper(model.Specification);
+
         CostSingle = SumAndVatWrapper.GetWrapper(model.CostSingle);
 
         ProductionUnit = ProductionUnitWrapper.GetWrapper(model.ProductionUnit);
 
         ShipmentUnit = ShipmentUnitWrapper.GetWrapper(model.ShipmentUnit);
-
-        Specification = SpecificationWrapper.GetWrapper(model.Specification);
 
     }
 

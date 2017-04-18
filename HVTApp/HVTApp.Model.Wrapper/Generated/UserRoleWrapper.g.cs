@@ -49,33 +49,5 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
-
-    #region ComplexProperties
-
-	public UserWrapper User 
-    {
-        get { return UserWrapper.GetWrapper(Model.User); }
-        set
-        {
-			var oldPropVal = User;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
-        }
-    }
-    public UserWrapper UserOriginalValue => UserWrapper.GetWrapper(GetOriginalValue<User>(nameof(User)));
-    public bool UserIsChanged => GetIsChanged(nameof(User));
-
-
-    #endregion
-
-    protected override void InitializeComplexProperties(UserRole model)
-    {
-
-        User = UserWrapper.GetWrapper(model.User);
-
-    }
-
   }
 }

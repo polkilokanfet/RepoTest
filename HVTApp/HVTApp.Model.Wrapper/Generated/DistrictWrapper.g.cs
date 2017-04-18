@@ -95,12 +95,31 @@ namespace HVTApp.Model.Wrapper
 
     #endregion
 
+
+    #region CollectionProperties
+
+    public IValidatableChangeTrackingCollection<RegionWrapper> Regions { get; private set; }
+
+
+    #endregion
+
     protected override void InitializeComplexProperties(District model)
     {
 
         Capital = LocalityWrapper.GetWrapper(model.Capital);
 
         Country = CountryWrapper.GetWrapper(model.Country);
+
+    }
+
+  
+    protected override void InitializeCollectionComplexProperties(District model)
+    {
+
+      if (model.Regions == null) throw new ArgumentException("Regions cannot be null");
+      Regions = new ValidatableChangeTrackingCollection<RegionWrapper>(model.Regions.Select(e => RegionWrapper.GetWrapper(e)));
+      RegisterCollection(Regions, model.Regions);
+
 
     }
 
