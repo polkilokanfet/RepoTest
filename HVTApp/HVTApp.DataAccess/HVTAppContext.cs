@@ -44,7 +44,6 @@ namespace HVTApp.DataAccess
 
             #endregion
 
-
             #region Company
             modelBuilder.Entity<ActivityField>().Property(x => x.FieldOfActivity).IsRequired();
             modelBuilder.Entity<ActivityField>().Property(x => x.Name).IsRequired().HasMaxLength(25);
@@ -94,6 +93,17 @@ namespace HVTApp.DataAccess
 
             #endregion
 
+            #region Facility
+
+            modelBuilder.Entity<FacilityType>().Property(x => x.FullName).IsRequired().HasMaxLength(25);
+            modelBuilder.Entity<FacilityType>().Property(x => x.ShortName).IsOptional().HasMaxLength(25);
+
+            modelBuilder.Entity<Facility>().Property(x => x.Name).IsRequired().HasMaxLength(25);
+            modelBuilder.Entity<Facility>().HasRequired(x => x.OwnerCompany).WithMany();
+            modelBuilder.Entity<Facility>().HasRequired(x => x.Type).WithMany();
+
+            #endregion
+
             #region Project
 
             modelBuilder.Entity<Project>().Property(x => x.Name).IsRequired().HasMaxLength(100);
@@ -118,11 +128,36 @@ namespace HVTApp.DataAccess
             #region Document
 
             modelBuilder.Entity<Document>().HasOptional(x => x.Author);
-            modelBuilder.Entity<Document>().HasRequired(x => x.SenderEmployee);
-            modelBuilder.Entity<Document>().HasRequired(x => x.RecipientEmployee);
+            modelBuilder.Entity<Document>().HasRequired(x => x.SenderEmployee).WithMany().WillCascadeOnDelete(false);
+            modelBuilder.Entity<Document>().HasRequired(x => x.RecipientEmployee).WithMany().WillCascadeOnDelete(false);
 
             modelBuilder.Entity<RegistrationDetails>().Property(x => x.RegistrationNumber).IsRequired().HasMaxLength(20);
             modelBuilder.Entity<RegistrationDetails>().Property(x => x.RegistrationDate).IsRequired();
+
+            #endregion
+
+            #region Parameter
+
+            modelBuilder.Entity<Parameter>().Property(x => x.Value).IsRequired().HasMaxLength(25);
+            modelBuilder.Entity<Parameter>().HasRequired(x => x.Group).WithMany(x => x.Parameters);
+
+            modelBuilder.Entity<ParameterGroup>().Property(x => x.Name).IsRequired().HasMaxLength(25);
+
+            modelBuilder.Entity<Measure>().Property(x => x.FullName).HasMaxLength(50);
+            modelBuilder.Entity<Measure>().Property(x => x.ShortName).IsOptional().HasMaxLength(50);
+            modelBuilder.Entity<Measure>().HasOptional(x => x.Group).WithMany(x => x.Measures);
+
+            #endregion
+
+            #region Offer
+
+            modelBuilder.Entity<Offer>().Property(x => x.ValidityDate).IsRequired();
+            modelBuilder.Entity<Offer>().HasRequired(x => x.Project).WithMany(x => x.Offers);
+            modelBuilder.Entity<Offer>().HasRequired(x => x.Tender).WithMany(x => x.Offers);
+
+            modelBuilder.Entity<OfferUnit>().HasRequired(x => x.Offer).WithMany(x => x.OfferUnits);
+            modelBuilder.Entity<OfferUnit>().HasRequired(x => x.CostSingle);
+
 
             #endregion
 
@@ -142,5 +177,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PaymentCondition> PaymentConditions { get; set; }
         public virtual DbSet<PaymentDocument> PaymentDocuments { get; set; }
         public virtual DbSet<PaymentConditionStandart> StandartPaymentConditions { get; set; }
+        public virtual DbSet<Parameter> ProductParameters { get; set; }
     }
 }

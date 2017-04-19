@@ -15,13 +15,13 @@ namespace HVTApp.Services.ChooseProductService
     public class ChooseProductService : IChooseProductService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly List<ProductParameterWrapper> _parameters;
+        private readonly List<ParameterWrapper> _parameters;
         private readonly List<ParametersGroup> _parametersGroups = new List<ParametersGroup>(); 
 
         public ChooseProductService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _parameters = new List<ProductParameterWrapper>(unitOfWork.ProductParameters.GetAll().Select(ProductParameterWrapper.GetWrapper));
+            _parameters = new List<ParameterWrapper>(unitOfWork.ProductParameters.GetAll().Select(ParameterWrapper.GetWrapper));
 
             var groups = _parameters.Select(x => x.Group).Distinct();
             foreach (var group in groups)
@@ -41,7 +41,7 @@ namespace HVTApp.Services.ChooseProductService
         }
 
         public ObservableCollection<ParametersGroup> ParametersGroups { get; } = new ObservableCollection<ParametersGroup>();
-        public List<ProductParameterWrapper> SelectedParameters => ParametersGroups.Select(x => x.SelectedParameter).ToList();
+        public List<ParameterWrapper> SelectedParameters => ParametersGroups.Select(x => x.SelectedParameter).ToList();
 
         private void RefreshParametersGroups()
         {
@@ -69,13 +69,13 @@ namespace HVTApp.Services.ChooseProductService
 
     public class ParametersGroup : INotifyPropertyChanged
     {
-        private ProductParameterWrapper _selectedParameter;
+        private ParameterWrapper _selectedParameter;
 
-        public ParametersGroup(ProductParameterGroupWrapper group, IEnumerable<ProductParameterWrapper> parameters)
+        public ParametersGroup(ParameterGroupWrapper group, IEnumerable<ParameterWrapper> parameters)
         {
             Group = group;
 
-            Parameters = new ObservableCollection<ProductParameterWrapper>(parameters);
+            Parameters = new ObservableCollection<ParameterWrapper>(parameters);
             if (Parameters.Any()) SelectedParameter = Parameters.First();
 
             this.Parameters.CollectionChanged += ParametersOnCollectionChanged;
@@ -95,11 +95,11 @@ namespace HVTApp.Services.ChooseProductService
             }
         }
 
-        public ProductParameterGroupWrapper Group { get; }
+        public ParameterGroupWrapper Group { get; }
 
-        public ObservableCollection<ProductParameterWrapper> Parameters { get; }
+        public ObservableCollection<ParameterWrapper> Parameters { get; }
 
-        public ProductParameterWrapper SelectedParameter
+        public ParameterWrapper SelectedParameter
         {
             get { return _selectedParameter; }
             set

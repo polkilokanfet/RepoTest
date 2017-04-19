@@ -44,7 +44,7 @@
     <Compile Include="Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
     <Compile Include="Custom\PaymentWrapper.cs" />
     <Compile Include="Custom\ProductionUnitWrapper.cs" />
-    <Compile Include="Custom\ProductParameterWrapper.cs" />
+    <Compile Include="Custom\ParameterWrapper.cs" />
     <Compile Include="Custom\ProjectWrapper.cs" />
     <Compile Include="Custom\ShipmentUnitWrapper.cs" />
     <Compile Include="Custom\SumAndVatWrapper.cs" />
@@ -82,8 +82,12 @@
     <Compile Include="Generated\FacilityWrapper.g.cs" />
     <Compile Include="Generated\LocalityTypeWrapper.g.cs" />
     <Compile Include="Generated\LocalityWrapper.g.cs" />
+    <Compile Include="Generated\MeasureWrapper.g.cs" />
+    <Compile Include="Generated\OfferUnitWrapper.g.cs" />
     <Compile Include="Generated\OfferWrapper.g.cs" />
     <Compile Include="Generated\OrderWrapper.g.cs" />
+    <Compile Include="Generated\ParameterGroupWrapper.g.cs" />
+    <Compile Include="Generated\ParameterWrapper.g.cs" />
     <Compile Include="Generated\PaymentConditionStandartWrapper.g.cs" />
     <Compile Include="Generated\PaymentConditionWrapper.g.cs" />
     <Compile Include="Generated\PaymentDocumentWrapper.g.cs" />
@@ -91,14 +95,11 @@
     <Compile Include="Generated\PersonWrapper.g.cs" />
     <Compile Include="Generated\PlannedTermProductionWrapper.g.cs" />
     <Compile Include="Generated\ProductionUnitWrapper.g.cs" />
-    <Compile Include="Generated\ProductParameterGroupWrapper.g.cs" />
-    <Compile Include="Generated\ProductParameterMeasureWrapper.g.cs" />
-    <Compile Include="Generated\ProductParameterSetWrapper.g.cs" />
-    <Compile Include="Generated\ProductParameterWrapper.g.cs" />
     <Compile Include="Generated\ProductWrapper.g.cs" />
     <Compile Include="Generated\ProjectWrapper.g.cs" />
     <Compile Include="Generated\RegionWrapper.g.cs" />
     <Compile Include="Generated\RegistrationDetailsWrapper.g.cs" />
+    <Compile Include="Generated\RequiredParentParametersWrapper.g.cs" />
     <Compile Include="Generated\SalesUnitWrapper.g.cs" />
     <Compile Include="Generated\ShipmentUnitWrapper.g.cs" />
     <Compile Include="Generated\SpecificationWrapper.g.cs" />

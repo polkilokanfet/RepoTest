@@ -15,6 +15,7 @@ namespace HVTApp.Model
         public virtual List<Company> Participants { get; set; } //участники
         public virtual Company Winner { get; set; }
         public virtual List<TenderUnit> TenderUnits { get; set; }
+        public virtual List<Offer> Offers { get; set; }
     }
 
     public enum TenderType

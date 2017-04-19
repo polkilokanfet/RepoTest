@@ -5,24 +5,24 @@ using HVTApp.Model;
 
 namespace HVTApp.Model.Wrapper
 {
-  public partial class ProductParameterMeasureWrapper : WrapperBase<ProductParameterMeasure>
+  public partial class MeasureWrapper : WrapperBase<Measure>
   {
-    protected ProductParameterMeasureWrapper(ProductParameterMeasure model) : base(model) { }
+    protected MeasureWrapper(Measure model) : base(model) { }
 
-	public static ProductParameterMeasureWrapper GetWrapper()
+	public static MeasureWrapper GetWrapper()
 	{
-		return GetWrapper(new ProductParameterMeasure());
+		return GetWrapper(new Measure());
 	}
 
-	public static ProductParameterMeasureWrapper GetWrapper(ProductParameterMeasure model)
+	public static MeasureWrapper GetWrapper(Measure model)
 	{
 	    if (model == null)
 	        return null;
 
 		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-			return (ProductParameterMeasureWrapper)Repository.ModelWrapperDictionary[model];
+			return (MeasureWrapper)Repository.ModelWrapperDictionary[model];
 
-		return new ProductParameterMeasureWrapper(model);
+		return new MeasureWrapper(model);
 	}
 
 
@@ -57,6 +57,34 @@ namespace HVTApp.Model.Wrapper
 
 
     #endregion
+
+
+    #region ComplexProperties
+
+	public ParameterGroupWrapper Group 
+    {
+        get { return ParameterGroupWrapper.GetWrapper(Model.Group); }
+        set
+        {
+			var oldPropVal = Group;
+            UnRegisterComplexProperty(oldPropVal);
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
+        }
+    }
+    public ParameterGroupWrapper GroupOriginalValue => ParameterGroupWrapper.GetWrapper(GetOriginalValue<ParameterGroup>(nameof(Group)));
+    public bool GroupIsChanged => GetIsChanged(nameof(Group));
+
+
+    #endregion
+
+    protected override void InitializeComplexProperties(Measure model)
+    {
+
+        Group = ParameterGroupWrapper.GetWrapper(model.Group);
+
+    }
 
   }
 }

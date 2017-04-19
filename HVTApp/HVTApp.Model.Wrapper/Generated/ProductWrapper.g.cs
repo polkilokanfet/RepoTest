@@ -67,7 +67,7 @@ namespace HVTApp.Model.Wrapper
     public IValidatableChangeTrackingCollection<ProductWrapper> ChildProducts { get; private set; }
 
 
-    public IValidatableChangeTrackingCollection<ProductParameterWrapper> Parameters { get; private set; }
+    public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
 
 
     public IValidatableChangeTrackingCollection<SumOnDateWrapper> Prices { get; private set; }
@@ -92,7 +92,7 @@ namespace HVTApp.Model.Wrapper
 
 
       if (model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
-      Parameters = new ValidatableChangeTrackingCollection<ProductParameterWrapper>(model.Parameters.Select(e => ProductParameterWrapper.GetWrapper(e)));
+      Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(model.Parameters.Select(e => ParameterWrapper.GetWrapper(e)));
       RegisterCollection(Parameters, model.Parameters);
 
 

@@ -46,9 +46,17 @@ namespace HVTApp.DataAccess
         private static readonly FacilityType FacilityType = new FacilityType { FullName = "Понизительная станция", ShortName = "ПС"};
         private static readonly Facility Facility = new Facility {Name = "Тестовая", Type = FacilityType, OwnerCompany = Mrsk};
 
-        private static readonly ProductParameterGroup Group = new ProductParameterGroup {Name = "Тип оборудования"};
-        private static readonly ProductParameter Parameter = new ProductParameter {Group = Group, Value = "Выключатель"};
-        private static readonly Product Product = new Product {Parameters = new List<ProductParameter> {Parameter}, Prices = new List<SumOnDate> {new SumOnDate {Sum = 100, Date = DateTime.Today} } };
+        private static readonly ParameterGroup GroupEqType = new ParameterGroup { Name = "Тип оборудования" };
+        private static readonly Parameter ParamBreaker = new Parameter { Group = GroupEqType, Value = "Выключатель" };
+        private static readonly Parameter ParamTransformator = new Parameter { Group = GroupEqType, Value = "Трансформатор" };
+
+        private static readonly RequiredParentParameters Set1 = new RequiredParentParameters { Parameters = new List<Parameter> { ParamBreaker } };
+
+        private static readonly ParameterGroup GroupBreakerType = new ParameterGroup { Name = "Тип выключателя" };
+        private static readonly Parameter ParamBreakerDT = new Parameter { Group = GroupBreakerType, Value = "Баковый", RequiredParentParametersList = new List<RequiredParentParameters> {Set1} };
+        private static readonly Parameter ParamBreakerLT = new Parameter { Group = GroupBreakerType, Value = "Колонковый" };
+
+        private static readonly Product Product = new Product {Parameters = new List<Parameter> {ParamBreaker, ParamBreakerDT}, Prices = new List<SumOnDate> {new SumOnDate {Sum = 100, Date = DateTime.Today} } };
         private static readonly SalesUnit SalesUnit = new SalesUnit
         {
             ProductionUnit = new ProductionUnit {Product = Product, OrderPosition = 1, SerialNumber = "1234"},
@@ -66,6 +74,7 @@ namespace HVTApp.DataAccess
             context.Users.Add(User);
             Project.SalesUnits.AddRange(new[] { SalesUnit, SalesUnit, SalesUnit});
             context.Projects.Add(Project);
+            context.ProductParameters.AddRange(new[] {ParamBreaker, ParamBreakerDT, ParamBreakerLT, ParamTransformator});
 
             context.SaveChanges();
             base.Seed(context);

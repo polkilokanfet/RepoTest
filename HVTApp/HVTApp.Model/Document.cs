@@ -17,6 +17,8 @@ namespace HVTApp.Model
         public virtual List<Employee> CopyToRecipients { get; set; }
         public virtual RegistrationDetails RegistrationDetailsOfSender { get; set; }
         public virtual RegistrationDetails RegistrationDetailsOfRecipient{ get; set; }
+
+        public string Comment { get; set; }
     }
 
     public class RegistrationDetails : BaseEntity

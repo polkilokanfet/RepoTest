@@ -3,7 +3,7 @@ using HVTApp.Model;
 
 namespace HVTApp.DataAccess
 {
-    public class ProductParametersRepository : BaseRepository<ProductParameter>, IProductParametersRepository {
+    public class ProductParametersRepository : BaseRepository<Parameter>, IProductParametersRepository {
         public ProductParametersRepository(DbContext context) : base(context)
         {
         }

@@ -29,6 +29,15 @@ namespace HVTApp.Model.Wrapper
 
     #region SimpleProperties
 
+    public System.String Comment
+    {
+      get { return GetValue<System.String>(); }
+      set { SetValue(value); }
+    }
+    public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+    public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
