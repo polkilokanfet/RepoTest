@@ -66,7 +66,7 @@ namespace HVTApp.Model.Wrapper
         /// <summary>
         /// Совершенные и плановые платежи (упорядочены по дате).
         /// </summary>
-        public List<PaymentWrapper> PaymentsAll => PaymentsActual.Concat(PaymentsPlanned).OrderBy(x => x.Date).ToList();
+        public List<IPayment> PaymentsAll => PaymentsActual.Select(x => (IPayment)x.Model).Concat(PaymentsPlanned.Select(x => x.Model)).OrderBy(x => x.Date).ToList();
 
         /// <summary>
         /// Не исполненные платежные условия
@@ -108,7 +108,7 @@ namespace HVTApp.Model.Wrapper
             PaymentsPlanned.Clear();
             foreach (var condition in PaymentConditionsToDone)
             {
-                var payment = new Payment { SumAndVat = new SumAndVat {Sum = CostSingle.Sum*condition.PartInPercent/100, Vat = CostSingle.Vat} };
+                var payment = new PaymentPlan { SumAndVat = new SumAndVat { Sum = CostSingle.Sum * condition.PartInPercent / 100, Vat = CostSingle.Vat } };
 
                 //дата платежа
                 if (condition.PaymentConditionPoint == PaymentConditionPoint.ProductionStart) payment.Date = ProductionUnit.ProductionStartDateCalculated.AddDays(condition.DaysToPoint);
@@ -116,7 +116,7 @@ namespace HVTApp.Model.Wrapper
                 if (condition.PaymentConditionPoint == PaymentConditionPoint.Shipment) payment.Date = ShipmentUnit.ShipmentDateCalculated.AddDays(condition.DaysToPoint);
                 if (condition.PaymentConditionPoint == PaymentConditionPoint.Delivery) payment.Date = ShipmentUnit.DeliveryDateCalculated.AddDays(condition.DaysToPoint);
 
-                var paymentWrapper = PaymentWrapper.GetWrapper(payment);
+                var paymentWrapper = PaymentPlanWrapper.GetWrapper(payment);
                 PaymentsPlanned.Add(paymentWrapper);
             }
         }
@@ -133,7 +133,7 @@ namespace HVTApp.Model.Wrapper
                 return;
             }
 
-            var paymentsToRemove = new List<PaymentWrapper>(PaymentsPlanned);
+            var paymentsToRemove = new List<PaymentPlanWrapper>(PaymentsPlanned);
             var sumRest = SumRest.Sum;
             while (sumRest > 0 && paymentsToRemove.Any())
             {

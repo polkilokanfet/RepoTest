@@ -5,24 +5,24 @@ using HVTApp.Model;
 
 namespace HVTApp.Model.Wrapper
 {
-  public partial class PaymentWrapper : WrapperBase<Payment>
+  public partial class PaymentPlanWrapper : WrapperBase<PaymentPlan>
   {
-    protected PaymentWrapper(Payment model) : base(model) { }
+    protected PaymentPlanWrapper(PaymentPlan model) : base(model) { }
 
-	public static PaymentWrapper GetWrapper()
+	public static PaymentPlanWrapper GetWrapper()
 	{
-		return GetWrapper(new Payment());
+		return GetWrapper(new PaymentPlan());
 	}
 
-	public static PaymentWrapper GetWrapper(Payment model)
+	public static PaymentPlanWrapper GetWrapper(PaymentPlan model)
 	{
 	    if (model == null)
 	        return null;
 
 		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-			return (PaymentWrapper)Repository.ModelWrapperDictionary[model];
+			return (PaymentPlanWrapper)Repository.ModelWrapperDictionary[model];
 
-		return new PaymentWrapper(model);
+		return new PaymentPlanWrapper(model);
 	}
 
 
@@ -61,22 +61,6 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public SumAndVatWrapper SumAndVat 
-    {
-        get { return SumAndVatWrapper.GetWrapper(Model.SumAndVat); }
-        set
-        {
-			var oldPropVal = SumAndVat;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
-        }
-    }
-    public SumAndVatWrapper SumAndVatOriginalValue => SumAndVatWrapper.GetWrapper(GetOriginalValue<SumAndVat>(nameof(SumAndVat)));
-    public bool SumAndVatIsChanged => GetIsChanged(nameof(SumAndVat));
-
-
 	public SalesUnitWrapper SalesUnit 
     {
         get { return SalesUnitWrapper.GetWrapper(Model.SalesUnit); }
@@ -93,14 +77,30 @@ namespace HVTApp.Model.Wrapper
     public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
 
 
+	public SumAndVatWrapper SumAndVat 
+    {
+        get { return SumAndVatWrapper.GetWrapper(Model.SumAndVat); }
+        set
+        {
+			var oldPropVal = SumAndVat;
+            UnRegisterComplexProperty(oldPropVal);
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
+        }
+    }
+    public SumAndVatWrapper SumAndVatOriginalValue => SumAndVatWrapper.GetWrapper(GetOriginalValue<SumAndVat>(nameof(SumAndVat)));
+    public bool SumAndVatIsChanged => GetIsChanged(nameof(SumAndVat));
+
+
     #endregion
 
-    protected override void InitializeComplexProperties(Payment model)
+    protected override void InitializeComplexProperties(PaymentPlan model)
     {
 
-        SumAndVat = SumAndVatWrapper.GetWrapper(model.SumAndVat);
-
         SalesUnit = SalesUnitWrapper.GetWrapper(model.SalesUnit);
+
+        SumAndVat = SumAndVatWrapper.GetWrapper(model.SumAndVat);
 
     }
 

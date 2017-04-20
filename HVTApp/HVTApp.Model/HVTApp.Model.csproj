@@ -56,8 +56,7 @@
     <Compile Include="Test\TestFriendGroup.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="Test\TestEntity.cs" />
-    <Compile Include="PlannedTermProduction.cs" />
-    <Compile Include="SumAndVat.cs" />
+    <Compile Include="Sums.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Offer.cs" />
     <Compile Include="Employee.cs" />

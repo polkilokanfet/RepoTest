@@ -43,36 +43,52 @@ namespace HVTApp.Model.Wrapper
 
     #region ComplexProperties
 
-	public SalesUnitWrapper SalesUnit 
+	public TenderWrapper Tender 
     {
-        get { return SalesUnitWrapper.GetWrapper(Model.SalesUnit); }
+        get { return TenderWrapper.GetWrapper(Model.Tender); }
         set
         {
-			var oldPropVal = SalesUnit;
+			var oldPropVal = Tender;
             UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
-    public SalesUnitWrapper SalesUnitOriginalValue => SalesUnitWrapper.GetWrapper(GetOriginalValue<SalesUnit>(nameof(SalesUnit)));
-    public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
+    public TenderWrapper TenderOriginalValue => TenderWrapper.GetWrapper(GetOriginalValue<Tender>(nameof(Tender)));
+    public bool TenderIsChanged => GetIsChanged(nameof(Tender));
 
 
-	public SumAndVatWrapper Cost 
+	public SalesUnitWrapper ParentSalesUnit 
     {
-        get { return SumAndVatWrapper.GetWrapper(Model.Cost); }
+        get { return SalesUnitWrapper.GetWrapper(Model.ParentSalesUnit); }
         set
         {
-			var oldPropVal = Cost;
+			var oldPropVal = ParentSalesUnit;
             UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
-    public SumAndVatWrapper CostOriginalValue => SumAndVatWrapper.GetWrapper(GetOriginalValue<SumAndVat>(nameof(Cost)));
-    public bool CostIsChanged => GetIsChanged(nameof(Cost));
+    public SalesUnitWrapper ParentSalesUnitOriginalValue => SalesUnitWrapper.GetWrapper(GetOriginalValue<SalesUnit>(nameof(ParentSalesUnit)));
+    public bool ParentSalesUnitIsChanged => GetIsChanged(nameof(ParentSalesUnit));
+
+
+	public SalesUnitWrapper ChildSalesUnit 
+    {
+        get { return SalesUnitWrapper.GetWrapper(Model.ChildSalesUnit); }
+        set
+        {
+			var oldPropVal = ChildSalesUnit;
+            UnRegisterComplexProperty(oldPropVal);
+            RegisterComplexProperty(value);
+            SetValue(value?.Model);
+			OnComplexPropertyChanged(oldPropVal, value);
+        }
+    }
+    public SalesUnitWrapper ChildSalesUnitOriginalValue => SalesUnitWrapper.GetWrapper(GetOriginalValue<SalesUnit>(nameof(ChildSalesUnit)));
+    public bool ChildSalesUnitIsChanged => GetIsChanged(nameof(ChildSalesUnit));
 
 
     #endregion
@@ -80,9 +96,11 @@ namespace HVTApp.Model.Wrapper
     protected override void InitializeComplexProperties(TenderUnit model)
     {
 
-        SalesUnit = SalesUnitWrapper.GetWrapper(model.SalesUnit);
+        Tender = TenderWrapper.GetWrapper(model.Tender);
 
-        Cost = SumAndVatWrapper.GetWrapper(model.Cost);
+        ParentSalesUnit = SalesUnitWrapper.GetWrapper(model.ParentSalesUnit);
+
+        ChildSalesUnit = SalesUnitWrapper.GetWrapper(model.ChildSalesUnit);
 
     }
 

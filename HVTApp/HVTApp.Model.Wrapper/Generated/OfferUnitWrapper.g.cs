@@ -59,111 +59,36 @@ namespace HVTApp.Model.Wrapper
     public bool OfferIsChanged => GetIsChanged(nameof(Offer));
 
 
-	public SalesUnitWrapper SalesUnit 
+	public SalesUnitWrapper ParentSalesUnit 
     {
-        get { return SalesUnitWrapper.GetWrapper(Model.SalesUnit); }
+        get { return SalesUnitWrapper.GetWrapper(Model.ParentSalesUnit); }
         set
         {
-			var oldPropVal = SalesUnit;
+			var oldPropVal = ParentSalesUnit;
             UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
-    public SalesUnitWrapper SalesUnitOriginalValue => SalesUnitWrapper.GetWrapper(GetOriginalValue<SalesUnit>(nameof(SalesUnit)));
-    public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
+    public SalesUnitWrapper ParentSalesUnitOriginalValue => SalesUnitWrapper.GetWrapper(GetOriginalValue<SalesUnit>(nameof(ParentSalesUnit)));
+    public bool ParentSalesUnitIsChanged => GetIsChanged(nameof(ParentSalesUnit));
 
 
-	public OfferUnitWrapper ParentOfferUnit 
+	public SalesUnitWrapper ChildSalesUnit 
     {
-        get { return OfferUnitWrapper.GetWrapper(Model.ParentOfferUnit); }
+        get { return SalesUnitWrapper.GetWrapper(Model.ChildSalesUnit); }
         set
         {
-			var oldPropVal = ParentOfferUnit;
+			var oldPropVal = ChildSalesUnit;
             UnRegisterComplexProperty(oldPropVal);
             RegisterComplexProperty(value);
             SetValue(value?.Model);
 			OnComplexPropertyChanged(oldPropVal, value);
         }
     }
-    public OfferUnitWrapper ParentOfferUnitOriginalValue => OfferUnitWrapper.GetWrapper(GetOriginalValue<OfferUnit>(nameof(ParentOfferUnit)));
-    public bool ParentOfferUnitIsChanged => GetIsChanged(nameof(ParentOfferUnit));
-
-
-	public FacilityWrapper Facility 
-    {
-        get { return FacilityWrapper.GetWrapper(Model.Facility); }
-        set
-        {
-			var oldPropVal = Facility;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
-        }
-    }
-    public FacilityWrapper FacilityOriginalValue => FacilityWrapper.GetWrapper(GetOriginalValue<Facility>(nameof(Facility)));
-    public bool FacilityIsChanged => GetIsChanged(nameof(Facility));
-
-
-	public SumAndVatWrapper CostSingle 
-    {
-        get { return SumAndVatWrapper.GetWrapper(Model.CostSingle); }
-        set
-        {
-			var oldPropVal = CostSingle;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
-        }
-    }
-    public SumAndVatWrapper CostSingleOriginalValue => SumAndVatWrapper.GetWrapper(GetOriginalValue<SumAndVat>(nameof(CostSingle)));
-    public bool CostSingleIsChanged => GetIsChanged(nameof(CostSingle));
-
-
-	public ProductionUnitWrapper ProductionUnit 
-    {
-        get { return ProductionUnitWrapper.GetWrapper(Model.ProductionUnit); }
-        set
-        {
-			var oldPropVal = ProductionUnit;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
-        }
-    }
-    public ProductionUnitWrapper ProductionUnitOriginalValue => ProductionUnitWrapper.GetWrapper(GetOriginalValue<ProductionUnit>(nameof(ProductionUnit)));
-    public bool ProductionUnitIsChanged => GetIsChanged(nameof(ProductionUnit));
-
-
-	public ShipmentUnitWrapper ShipmentUnit 
-    {
-        get { return ShipmentUnitWrapper.GetWrapper(Model.ShipmentUnit); }
-        set
-        {
-			var oldPropVal = ShipmentUnit;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
-        }
-    }
-    public ShipmentUnitWrapper ShipmentUnitOriginalValue => ShipmentUnitWrapper.GetWrapper(GetOriginalValue<ShipmentUnit>(nameof(ShipmentUnit)));
-    public bool ShipmentUnitIsChanged => GetIsChanged(nameof(ShipmentUnit));
-
-
-    #endregion
-
-
-    #region CollectionProperties
-
-    public IValidatableChangeTrackingCollection<OfferUnitWrapper> ChildOfferUnits { get; private set; }
-
-
-    public IValidatableChangeTrackingCollection<PaymentConditionWrapper> PaymentsConditions { get; private set; }
+    public SalesUnitWrapper ChildSalesUnitOriginalValue => SalesUnitWrapper.GetWrapper(GetOriginalValue<SalesUnit>(nameof(ChildSalesUnit)));
+    public bool ChildSalesUnitIsChanged => GetIsChanged(nameof(ChildSalesUnit));
 
 
     #endregion
@@ -173,33 +98,9 @@ namespace HVTApp.Model.Wrapper
 
         Offer = OfferWrapper.GetWrapper(model.Offer);
 
-        SalesUnit = SalesUnitWrapper.GetWrapper(model.SalesUnit);
+        ParentSalesUnit = SalesUnitWrapper.GetWrapper(model.ParentSalesUnit);
 
-        ParentOfferUnit = OfferUnitWrapper.GetWrapper(model.ParentOfferUnit);
-
-        Facility = FacilityWrapper.GetWrapper(model.Facility);
-
-        CostSingle = SumAndVatWrapper.GetWrapper(model.CostSingle);
-
-        ProductionUnit = ProductionUnitWrapper.GetWrapper(model.ProductionUnit);
-
-        ShipmentUnit = ShipmentUnitWrapper.GetWrapper(model.ShipmentUnit);
-
-    }
-
-  
-    protected override void InitializeCollectionComplexProperties(OfferUnit model)
-    {
-
-      if (model.ChildOfferUnits == null) throw new ArgumentException("ChildOfferUnits cannot be null");
-      ChildOfferUnits = new ValidatableChangeTrackingCollection<OfferUnitWrapper>(model.ChildOfferUnits.Select(e => OfferUnitWrapper.GetWrapper(e)));
-      RegisterCollection(ChildOfferUnits, model.ChildOfferUnits);
-
-
-      if (model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
-      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(model.PaymentsConditions.Select(e => PaymentConditionWrapper.GetWrapper(e)));
-      RegisterCollection(PaymentsConditions, model.PaymentsConditions);
-
+        ChildSalesUnit = SalesUnitWrapper.GetWrapper(model.ChildSalesUnit);
 
     }
 

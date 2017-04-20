@@ -3,6 +3,15 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model
 {
+    /// <summary>
+    /// Сумма на какую-либо дату
+    /// </summary>
+    public class SumOnDate : BaseEntity
+    {
+        public DateTime Date { get; set; }
+        public double Sum { get; set; }
+    }
+
     public class SumAndVat : BaseEntity
     {
         public virtual Currency Currency { get; set; }
@@ -20,9 +29,9 @@ namespace HVTApp.Model
     }
 
     /// <summary>
-    /// Курс валюты
+    /// Курс обмена валют.
     /// </summary>
-    public class ExchangeRate : BaseEntity
+    public class ExchangeCurrencyRate : BaseEntity
     {
         public DateTime Date { get; set; }
         public virtual Currency FirstCurrency { get; set; }

@@ -53,12 +53,12 @@ namespace HVTApp.Model.Tests
             Assert.IsTrue(Math.Abs(cost - _salesUnitWrapper.PaymentsAll.Sum(x => x.SumAndVat.Sum)) < 0.0001);
 
             var firstPaymentSum = cost/3;
-            var firstPayment = new Payment {SumAndVat = new SumAndVat { Sum = firstPaymentSum }, Date = DateTime.Today.AddDays(-20) };
-            _salesUnitWrapper.PaymentsActual.Add(PaymentWrapper.GetWrapper(firstPayment));
+            var firstPayment = new PaymentActual { SumAndVat = new SumAndVat { Sum = firstPaymentSum }, Date = DateTime.Today.AddDays(-20) };
+            _salesUnitWrapper.PaymentsActual.Add(PaymentActualWrapper.GetWrapper(firstPayment));
             Assert.IsTrue(Math.Abs(cost - _salesUnitWrapper.PaymentsAll.Sum(x => x.SumAndVat.Sum)) < 0.0001);
 
-            var secondPayment = new Payment {SumAndVat = new SumAndVat {Sum = cost - firstPaymentSum}, Date = DateTime.Today};
-            _salesUnitWrapper.PaymentsActual.Add(PaymentWrapper.GetWrapper(secondPayment));
+            var secondPayment = new PaymentActual { SumAndVat = new SumAndVat { Sum = cost - firstPaymentSum }, Date = DateTime.Today };
+            _salesUnitWrapper.PaymentsActual.Add(PaymentActualWrapper.GetWrapper(secondPayment));
             Assert.IsFalse(_salesUnitWrapper.PaymentsPlanned.Any());
 
             _salesUnitWrapper.PaymentsActual.Remove(_salesUnitWrapper.PaymentsActual.First());
@@ -67,7 +67,7 @@ namespace HVTApp.Model.Tests
             Assert.IsTrue(Math.Abs(firstPaymentSum - _salesUnitWrapper.PaymentsPlanned.Sum(x => x.SumAndVat.Sum)) < 0.0001);
 
             firstPayment.SumAndVat.Sum = firstPaymentSum / 2;
-            _salesUnitWrapper.PaymentsActual.Add(PaymentWrapper.GetWrapper(firstPayment));
+            _salesUnitWrapper.PaymentsActual.Add(PaymentActualWrapper.GetWrapper(firstPayment));
             _salesUnitWrapper.PaymentsActual.Remove(_salesUnitWrapper.PaymentsActual.First());
             Assert.IsTrue(Math.Abs(_salesUnitWrapper.SumRest.Sum - _salesUnitWrapper.PaymentsPlanned.Sum(x => x.SumAndVat.Sum)) < 0.0001);
         }

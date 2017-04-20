@@ -5,24 +5,24 @@ using HVTApp.Model;
 
 namespace HVTApp.Model.Wrapper
 {
-  public partial class ExchangeRateWrapper : WrapperBase<ExchangeCurrencyRate>
+  public partial class ExchangeCurrencyRateWrapper : WrapperBase<ExchangeCurrencyRate>
   {
-    protected ExchangeRateWrapper(ExchangeCurrencyRate model) : base(model) { }
+    protected ExchangeCurrencyRateWrapper(ExchangeCurrencyRate model) : base(model) { }
 
-	public static ExchangeRateWrapper GetWrapper()
+	public static ExchangeCurrencyRateWrapper GetWrapper()
 	{
 		return GetWrapper(new ExchangeCurrencyRate());
 	}
 
-	public static ExchangeRateWrapper GetWrapper(ExchangeCurrencyRate model)
+	public static ExchangeCurrencyRateWrapper GetWrapper(ExchangeCurrencyRate model)
 	{
 	    if (model == null)
 	        return null;
 
 		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-			return (ExchangeRateWrapper)Repository.ModelWrapperDictionary[model];
+			return (ExchangeCurrencyRateWrapper)Repository.ModelWrapperDictionary[model];
 
-		return new ExchangeRateWrapper(model);
+		return new ExchangeCurrencyRateWrapper(model);
 	}
 
 

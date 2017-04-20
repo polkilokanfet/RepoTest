@@ -9,6 +9,9 @@ namespace HVTApp.Model
         public virtual SalesUnit ParentSalesUnit { get; set; }
         public virtual List<SalesUnit> ChildSalesUnits { get; set; } = new List<SalesUnit>();
 
+        public virtual List<TenderUnit> TenderUnits { get; set; } = new List<TenderUnit>();
+        public virtual List<OfferUnit> OfferUnits { get; set; } = new List<OfferUnit>();
+
         public virtual Project Project { get; set; }
         public virtual Facility Facility { get; set; }
         public virtual Specification Specification { get; set; }
@@ -19,8 +22,8 @@ namespace HVTApp.Model
         public virtual ShipmentUnit ShipmentUnit { get; set; }
 
         public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
-        public virtual List<Payment> PaymentsPlanned { get; set; } = new List<Payment>();
-        public virtual List<Payment> PaymentsActual { get; set; } = new List<Payment>();
+        public virtual List<PaymentPlan> PaymentsPlanned { get; set; } = new List<PaymentPlan>();
+        public virtual List<PaymentActual> PaymentsActual { get; set; } = new List<PaymentActual>();
 
         public DateTime? RealizationDate { get; set; }
     }
@@ -49,11 +52,5 @@ namespace HVTApp.Model
         public virtual DateTime? ShipmentPlanDate { get; set; } //плановая дата отгрузки
         public virtual DateTime? RequiredDeliveryDate { get; set; } //желаемая дата поставки
         public virtual DateTime? DeliveryDate { get; set; } //дата поставки
-    }
-
-    public class TenderUnit : BaseEntity
-    {
-        public virtual SalesUnit SalesUnit { get; set; }
-        public virtual SumAndVat Cost { get; set; }
     }
 }

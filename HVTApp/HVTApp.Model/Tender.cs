@@ -25,4 +25,12 @@ namespace HVTApp.Model
         ToSupply,
         ToWorkAndSupply
     }
+
+    public class TenderUnit : BaseEntity
+    {
+        public virtual Tender Tender { get; set; }
+        public virtual SalesUnit ParentSalesUnit { get; set; }
+        public virtual SalesUnit ChildSalesUnit { get; set; }
+    }
+
 }

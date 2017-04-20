@@ -74,7 +74,7 @@ namespace HVTApp.DataAccess
             context.Users.Add(User);
             Project.SalesUnits.AddRange(new[] { SalesUnit, SalesUnit, SalesUnit});
             context.Projects.Add(Project);
-            context.ProductParameters.AddRange(new[] {ParamBreaker, ParamBreakerDT, ParamBreakerLT, ParamTransformator});
+            context.Parameters.AddRange(new[] {ParamBreaker, ParamBreakerDT, ParamBreakerLT, ParamTransformator});
 
             context.SaveChanges();
             base.Seed(context);

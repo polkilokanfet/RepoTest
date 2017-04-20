@@ -70,7 +70,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Entity<User>().Property(x => x.Password).IsRequired();
             modelBuilder.Entity<User>().Property(x => x.PersonalNumber).IsRequired().HasMaxLength(10);
             modelBuilder.Entity<User>().Ignore(x => x.RoleCurrent);
-            modelBuilder.Entity<User>().HasRequired(x => x.Employee);
+            modelBuilder.Entity<User>().HasRequired(x => x.Employee).WithOptional().WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Person>().Property(x => x.Name).IsRequired().HasMaxLength(50);
             modelBuilder.Entity<Person>().Property(x => x.Surname).IsRequired().HasMaxLength(50);
@@ -79,17 +79,46 @@ namespace HVTApp.DataAccess
 
             #endregion
 
+            #region Offer
+
+            modelBuilder.Entity<Offer>().Property(x => x.ValidityDate).IsRequired();
+            modelBuilder.Entity<Offer>().HasRequired(x => x.Project).WithMany(x => x.Offers);
+            modelBuilder.Entity<Offer>().HasRequired(x => x.Tender).WithMany(x => x.Offers);
+            modelBuilder.Entity<Offer>().HasMany(x => x.OfferUnits).WithRequired(x => x.Offer);
+
+            modelBuilder.Entity<OfferUnit>().HasRequired(x => x.ChildSalesUnit);
+
+            #endregion
+
+            #region Tender
+
+            modelBuilder.Entity<Tender>().Property(x => x.Type).IsRequired();
+            modelBuilder.Entity<Tender>().HasRequired(x => x.Project).WithMany(x => x.Tenders);
+            modelBuilder.Entity<Tender>().HasMany(x => x.Offers).WithRequired(x => x.Tender);
+            modelBuilder.Entity<Tender>().HasMany(x => x.TenderUnits).WithRequired(x => x.Tender);
+            modelBuilder.Entity<Tender>().HasMany(x => x.Participants).WithMany();
+
+            modelBuilder.Entity<TenderUnit>().HasRequired(x => x.ChildSalesUnit);
+
+            #endregion
+
             #region SalesUnit
 
             modelBuilder.Entity<SalesUnit>().HasKey(x => x.Id).ToTable(nameof(SalesUnit));
             modelBuilder.Entity<ProductionUnit>().HasKey(x => x.Id).ToTable(nameof(SalesUnit));
             modelBuilder.Entity<ShipmentUnit>().HasKey(x => x.Id).ToTable(nameof(SalesUnit));
+
             modelBuilder.Entity<SalesUnit>().HasRequired(x => x.CostSingle);
             modelBuilder.Entity<SalesUnit>().HasRequired(x => x.Facility);
             modelBuilder.Entity<SalesUnit>().HasRequired(x => x.Project).WithMany(x => x.SalesUnits);
             modelBuilder.Entity<SalesUnit>().HasRequired(x => x.ProductionUnit).WithRequiredPrincipal(x => x.SalesUnit);
             modelBuilder.Entity<SalesUnit>().HasRequired(x => x.ShipmentUnit).WithRequiredPrincipal(x => x.SalesUnit);
             modelBuilder.Entity<SalesUnit>().HasOptional(x => x.Specification).WithMany(x => x.SalesUnits);
+            modelBuilder.Entity<SalesUnit>().HasMany(x => x.TenderUnits).WithOptional(x => x.ParentSalesUnit);
+            modelBuilder.Entity<SalesUnit>().HasMany(x => x.OfferUnits).WithOptional(x => x.ParentSalesUnit);
+
+            modelBuilder.Entity<SalesUnit>().HasMany(x => x.PaymentsActual).WithRequired(x => x.SalesUnit);
+            modelBuilder.Entity<SalesUnit>().HasMany(x => x.PaymentsPlanned).WithRequired(x => x.SalesUnit);
 
             #endregion
 
@@ -109,8 +138,8 @@ namespace HVTApp.DataAccess
             modelBuilder.Entity<Project>().Property(x => x.Name).IsRequired().HasMaxLength(100);
             modelBuilder.Entity<Project>().HasRequired(x => x.Manager);
             modelBuilder.Entity<Project>().HasMany(x => x.SalesUnits).WithRequired(x => x.Project);
-            modelBuilder.Entity<Project>().HasMany(x => x.Offers).WithRequired(x => x.Project);
-            modelBuilder.Entity<Project>().HasMany(x => x.Tenders).WithRequired(x => x.Project);
+            modelBuilder.Entity<Project>().HasMany(x => x.Offers).WithRequired(x => x.Project).WillCascadeOnDelete(false);
+            modelBuilder.Entity<Project>().HasMany(x => x.Tenders).WithRequired(x => x.Project).WillCascadeOnDelete(false);
 
             #endregion
 
@@ -149,15 +178,31 @@ namespace HVTApp.DataAccess
 
             #endregion
 
-            #region Offer
+            #region Product
 
-            modelBuilder.Entity<Offer>().Property(x => x.ValidityDate).IsRequired();
-            modelBuilder.Entity<Offer>().HasRequired(x => x.Project).WithMany(x => x.Offers);
-            modelBuilder.Entity<Offer>().HasRequired(x => x.Tender).WithMany(x => x.Offers);
+            modelBuilder.Entity<Product>().HasOptional(x => x.ParentProduct).WithMany(x => x.ChildProducts).WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<OfferUnit>().HasRequired(x => x.Offer).WithMany(x => x.OfferUnits);
-            modelBuilder.Entity<OfferUnit>().HasRequired(x => x.CostSingle);
+            #endregion
 
+            #region PaymentCommon
+
+            modelBuilder.Entity<PaymentPlan>().Property(x => x.Date).IsRequired();
+            modelBuilder.Entity<PaymentPlan>().HasRequired(x => x.SumAndVat).WithOptional().WillCascadeOnDelete(false);
+            modelBuilder.Entity<PaymentPlan>().Property(x => x.Comment).IsOptional().HasMaxLength(100);
+
+            modelBuilder.Entity<PaymentActual>().Property(x => x.Date).IsRequired();
+            modelBuilder.Entity<PaymentActual>().HasRequired(x => x.SumAndVat).WithOptional().WillCascadeOnDelete(false);
+            modelBuilder.Entity<PaymentActual>().Property(x => x.Comment).IsOptional().HasMaxLength(100);
+
+            modelBuilder.Entity<PaymentCondition>().Property(x => x.PartInPercent).IsRequired();
+            modelBuilder.Entity<PaymentCondition>().Property(x => x.DaysToPoint).IsRequired();
+            modelBuilder.Entity<PaymentCondition>().Property(x => x.PaymentConditionPoint).IsRequired();
+
+            modelBuilder.Entity<PaymentConditionStandart>().Property(x => x.Name).IsRequired().HasMaxLength(50);
+            modelBuilder.Entity<PaymentConditionStandart>().HasMany(x => x.PaymentsConditions).WithMany();
+
+            modelBuilder.Entity<PaymentDocument>().Property(x => x.Number).IsOptional().HasMaxLength(25);
+            modelBuilder.Entity<PaymentDocument>().HasMany(x => x.Payments).WithRequired(x => x.Document);
 
             #endregion
 
@@ -177,6 +222,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PaymentCondition> PaymentConditions { get; set; }
         public virtual DbSet<PaymentDocument> PaymentDocuments { get; set; }
         public virtual DbSet<PaymentConditionStandart> StandartPaymentConditions { get; set; }
-        public virtual DbSet<Parameter> ProductParameters { get; set; }
+        public virtual DbSet<Parameter> Parameters { get; set; }
     }
 }

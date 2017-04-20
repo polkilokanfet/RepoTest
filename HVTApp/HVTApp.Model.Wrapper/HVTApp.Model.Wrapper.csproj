@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
-    <Compile Include="Custom\PaymentWrapper.cs" />
+    <Compile Include="Custom\PaymentCommonWrapper.cs" />
     <Compile Include="Custom\ProductionUnitWrapper.cs" />
     <Compile Include="Custom\ParameterWrapper.cs" />
     <Compile Include="Custom\ProjectWrapper.cs" />
@@ -77,6 +77,7 @@
     <Compile Include="Generated\DocumentWrapper.g.cs" />
     <Compile Include="Generated\EmployeesPositionWrapper.g.cs" />
     <Compile Include="Generated\EmployeeWrapper.g.cs" />
+    <Compile Include="Generated\ExchangeCurrencyRateWrapper.g.cs" />
     <Compile Include="Generated\ExchangeRateWrapper.g.cs" />
     <Compile Include="Generated\FacilityTypeWrapper.g.cs" />
     <Compile Include="Generated\FacilityWrapper.g.cs" />
@@ -88,12 +89,12 @@
     <Compile Include="Generated\OrderWrapper.g.cs" />
     <Compile Include="Generated\ParameterGroupWrapper.g.cs" />
     <Compile Include="Generated\ParameterWrapper.g.cs" />
+    <Compile Include="Generated\PaymentActualWrapper.g.cs" />
     <Compile Include="Generated\PaymentConditionStandartWrapper.g.cs" />
     <Compile Include="Generated\PaymentConditionWrapper.g.cs" />
     <Compile Include="Generated\PaymentDocumentWrapper.g.cs" />
-    <Compile Include="Generated\PaymentWrapper.g.cs" />
+    <Compile Include="Generated\PaymentPlanWrapper.g.cs" />
     <Compile Include="Generated\PersonWrapper.g.cs" />
-    <Compile Include="Generated\PlannedTermProductionWrapper.g.cs" />
     <Compile Include="Generated\ProductionUnitWrapper.g.cs" />
     <Compile Include="Generated\ProductWrapper.g.cs" />
     <Compile Include="Generated\ProjectWrapper.g.cs" />
