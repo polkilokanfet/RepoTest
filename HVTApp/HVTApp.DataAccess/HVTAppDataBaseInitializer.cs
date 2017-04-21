@@ -9,72 +9,75 @@ namespace HVTApp.DataAccess
 {
     public class HVTAppDataBaseInitializer : DropCreateDatabaseIfModelChanges<HVTAppContext>
     {
-        #region CompanyForm
-        private static readonly CompanyForm FormAo = new CompanyForm { FullName = "Акционерное общество", ShortName = "АО" };
-        private static readonly CompanyForm FormPao = new CompanyForm {FullName = "Публичное акционерное общество", ShortName = "ПАО"};
-        private static readonly CompanyForm FormOao = new CompanyForm {FullName = "Открытое акционерное общество", ShortName = "ОАО"};
-        private static readonly CompanyForm FormZao = new CompanyForm {FullName = "Закрытое акционерное общество", ShortName = "ЗАО"};
-        #endregion
-
-        #region ActivityField
-        private static readonly ActivityField ProducerOfHvt = new ActivityField { FieldOfActivity = FieldOfActivity.ProducerOfHighVoltageEquipment, Name = "Производитель ВВА"};
-        private static readonly ActivityField Builder = new ActivityField { FieldOfActivity = FieldOfActivity.Builder, Name = "Подрядчик"};
-        private static readonly ActivityField ElectricityTransmission = new ActivityField { FieldOfActivity = FieldOfActivity.ElectricityTransmission, Name = "Передача электроэнергии" };
-        private static readonly ActivityField ElectricityGenerator = new ActivityField { FieldOfActivity = FieldOfActivity.ElectricityGeneration, Name = "Генерация электроэнергии" };
-        #endregion
-
-        private static readonly Country Country = new Country {Name = "Россия"};
-        private static readonly District DistrictCFO = new District { Country = Country, Name = "Центральный федеральный округ" };
-        private static readonly District DistrictUrFO = new District { Country = Country, Name = "Уральский федеральный округ" };
-        private static readonly Region Region = new Region {District = DistrictUrFO, Name = "Свердловская область"};
-        private static readonly LocalityType LocalityType = new LocalityType {FullName = "Город", ShortName = "г."};
-        private static readonly Locality Ekb = new Locality {Region = Region, LocalityType = LocalityType, Name = "Екатеринбург"};
-        private static readonly Address Address = new Address {Description = "ул.Фронтовых бригад, д.22", Locality = Ekb};
-        private static readonly BankDetails BankDetails = new BankDetails {BankIdentificationCode = "1111"};
-        private static readonly Company Uetm = new Company { FullName = "Уралэлектротяжмаш", ShortName = "УЭТМ", Form = FormAo, Address = Address, BankDetails = BankDetails, ActivityFilds = new List<ActivityField> { ProducerOfHvt } };
-        private static readonly Company Rosseti = new Company { FullName = "Россети", ShortName = "Россети", Form = FormPao, ActivityFilds = new List<ActivityField> { ElectricityTransmission } };
-        private static readonly Company Fsk = new Company { FullName = "Федеральная сетевая компания", ShortName = "ФСК", Form = FormPao, ActivityFilds = new List<ActivityField> { ElectricityTransmission }, ParentCompany = Rosseti };
-        private static readonly Company Mrsk = new Company { FullName = "Межрегиональные распределительные сети", ShortName = "МРСК", Form = FormPao, ActivityFilds = new List<ActivityField> { ElectricityTransmission }, ParentCompany = Rosseti };
-        private static readonly EmployeesPosition EmployeesPosition = new EmployeesPosition {Name = "Директор"};
-        private static readonly Person Person = new Person { Surname = "Иванов", Name = "Иван" };
-        private static readonly Employee Employee = new Employee { Person = Person, Position = EmployeesPosition, Company = Uetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36" };
-        private static readonly UserRole UserRole = new UserRole { Role = Role.DataBaseFiller };
-        private static readonly User User = new User {Login = "1", Password = StringToGuidService.GetHashString("1"), Employee = Employee, PersonalNumber = "333", Roles=new List<UserRole> {UserRole} };
-
-        private static readonly Project Project = new Project {Name = "TestProject", Manager = User, EstimatedDate = DateTime.Today.AddDays(120)};
-
-        private static readonly FacilityType FacilityType = new FacilityType { FullName = "Понизительная станция", ShortName = "ПС"};
-        private static readonly Facility Facility = new Facility {Name = "Тестовая", Type = FacilityType, OwnerCompany = Mrsk};
-
-        private static readonly ParameterGroup GroupEqType = new ParameterGroup { Name = "Тип оборудования" };
-        private static readonly Parameter ParamBreaker = new Parameter { Group = GroupEqType, Value = "Выключатель" };
-        private static readonly Parameter ParamTransformator = new Parameter { Group = GroupEqType, Value = "Трансформатор" };
-
-        private static readonly RequiredParentParameters Set1 = new RequiredParentParameters { Parameters = new List<Parameter> { ParamBreaker } };
-
-        private static readonly ParameterGroup GroupBreakerType = new ParameterGroup { Name = "Тип выключателя" };
-        private static readonly Parameter ParamBreakerDT = new Parameter { Group = GroupBreakerType, Value = "Баковый", RequiredParentParametersList = new List<RequiredParentParameters> {Set1} };
-        private static readonly Parameter ParamBreakerLT = new Parameter { Group = GroupBreakerType, Value = "Колонковый" };
-
-        private static readonly Product Product = new Product {Parameters = new List<Parameter> {ParamBreaker, ParamBreakerDT}, Prices = new List<SumOnDate> {new SumOnDate {Sum = 100, Date = DateTime.Today} } };
-        private static readonly SalesUnit SalesUnit = new SalesUnit
-        {
-            ProductionUnit = new ProductionUnit {Product = Product, OrderPosition = 1, SerialNumber = "1234"},
-            ShipmentUnit = new ShipmentUnit {ShipmentCost = 100},
-            CostSingle = new SumAndVat { Sum = 1000, Vat = 18},
-            Facility = Facility, Project = Project
-        };
 
         protected override void Seed(HVTAppContext context)
         {
-            context.ActivityFilds.AddRange(new[] {ProducerOfHvt, Builder, ElectricityTransmission, ElectricityGenerator});
-            context.CompanyForms.AddRange(new[] { FormAo, FormPao, FormOao, FormZao });
-            context.Companies.AddRange(new[] {Uetm, Rosseti, Fsk, Mrsk});
-            context.Employees.Add(Employee);
-            context.Users.Add(User);
-            Project.SalesUnits.AddRange(new[] { SalesUnit, SalesUnit, SalesUnit});
-            context.Projects.Add(Project);
-            context.Parameters.AddRange(new[] {ParamBreaker, ParamBreakerDT, ParamBreakerLT, ParamTransformator});
+
+            #region CompanyForm
+            CompanyForm formAo = new CompanyForm { FullName = "Акционерное общество", ShortName = "АО" };
+            CompanyForm formPao = new CompanyForm {FullName = "Публичное акционерное общество", ShortName = "ПАО"};
+            CompanyForm formOao = new CompanyForm {FullName = "Открытое акционерное общество", ShortName = "ОАО"};
+            CompanyForm formZao = new CompanyForm {FullName = "Закрытое акционерное общество", ShortName = "ЗАО"};
+            #endregion
+
+            #region ActivityField
+            ActivityField producerOfHvt = new ActivityField { FieldOfActivity = FieldOfActivity.ProducerOfHighVoltageEquipment, Name = "Производитель ВВА"};
+            ActivityField builder = new ActivityField { FieldOfActivity = FieldOfActivity.Builder, Name = "Подрядчик"};
+            ActivityField electricityTransmission = new ActivityField { FieldOfActivity = FieldOfActivity.ElectricityTransmission, Name = "Передача электроэнергии" };
+            ActivityField electricityGenerator = new ActivityField { FieldOfActivity = FieldOfActivity.ElectricityGeneration, Name = "Генерация электроэнергии" };
+            #endregion
+
+            Country country = new Country {Name = "Россия"};
+            District districtCfo = new District { Country = country, Name = "Центральный федеральный округ" };
+            District districtUrFo = new District { Country = country, Name = "Уральский федеральный округ" };
+            Region region = new Region {District = districtUrFo, Name = "Свердловская область"};
+            LocalityType localityType = new LocalityType {FullName = "Город", ShortName = "г."};
+            Locality ekb = new Locality {Region = region, LocalityType = localityType, Name = "Екатеринбург"};
+            Address address = new Address {Description = "ул.Фронтовых бригад, д.22", Locality = ekb};
+            BankDetails bankDetails = new BankDetails {BankIdentificationCode = "1111"};
+            Company uetm = new Company { FullName = "Уралэлектротяжмаш", ShortName = "УЭТМ", Form = formAo, Address = address, BankDetails = bankDetails, ActivityFilds = new List<ActivityField> { producerOfHvt } };
+            Company rosseti = new Company { FullName = "Россети", ShortName = "Россети", Form = formPao, ActivityFilds = new List<ActivityField> { electricityTransmission } };
+            Company fsk = new Company { FullName = "Федеральная сетевая компания", ShortName = "ФСК", Form = formPao, ActivityFilds = new List<ActivityField> { electricityTransmission }, ParentCompany = rosseti };
+            Company mrsk = new Company { FullName = "Межрегиональные распределительные сети", ShortName = "МРСК", Form = formPao, ActivityFilds = new List<ActivityField> { electricityTransmission }, ParentCompany = rosseti };
+            EmployeesPosition employeesPosition = new EmployeesPosition {Name = "Директор"};
+            Person person = new Person { Surname = "Иванов", Name = "Иван" };
+            Employee employee = new Employee { Person = person, Position = employeesPosition, Company = uetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36" };
+            UserRole userRole = new UserRole { Role = Role.DataBaseFiller };
+            User user = new User {Login = "1", Password = StringToGuidService.GetHashString("1"), Employee = employee, PersonalNumber = "333", Roles=new List<UserRole> {userRole} };
+
+            Project project = new Project {Name = "TestProject", Manager = user, EstimatedDate = DateTime.Today.AddDays(120)};
+
+            FacilityType facilityType = new FacilityType { FullName = "Понизительная станция", ShortName = "ПС"};
+            Facility facility = new Facility {Name = "Тестовая", Type = facilityType, OwnerCompany = mrsk};
+
+            ParameterGroup groupEqType = new ParameterGroup { Name = "Тип оборудования" };
+            Parameter paramBreaker = new Parameter { Group = groupEqType, Value = "Выключатель" };
+            Parameter paramTransformator = new Parameter { Group = groupEqType, Value = "Трансформатор" };
+
+            RequiredParentParameters set1 = new RequiredParentParameters { Parameters = new List<Parameter> { paramBreaker } };
+
+            ParameterGroup groupBreakerType = new ParameterGroup { Name = "Тип выключателя" };
+            Parameter paramBreakerDt = new Parameter { Group = groupBreakerType, Value = "Баковый", RequiredParentParametersList = new List<RequiredParentParameters> {set1} };
+            Parameter paramBreakerLt = new Parameter { Group = groupBreakerType, Value = "Колонковый", RequiredParentParametersList = new List<RequiredParentParameters> {set1} };
+
+            Product product = new Product {Parameters = new List<Parameter> {paramBreaker, paramBreakerDt}, Prices = new List<SumOnDate> {new SumOnDate {Sum = 100, Date = DateTime.Today} } };
+            SalesUnit salesUnit = new SalesUnit
+            {
+                ProductionUnit = new ProductionUnit {Product = product, OrderPosition = 1, SerialNumber = "1234"},
+                ShipmentUnit = new ShipmentUnit {ShipmentCost = 100},
+                CostSingle = new SumAndVat { Sum = 1000, Vat = 18},
+                Facility = facility, Project = project
+            };
+
+
+            context.ActivityFilds.AddRange(new[] {producerOfHvt, builder, electricityTransmission, electricityGenerator});
+            context.CompanyForms.AddRange(new[] { formAo, formPao, formOao, formZao });
+            context.Companies.AddRange(new[] {uetm, rosseti, fsk, mrsk});
+            context.Employees.Add(employee);
+            context.Users.Add(user);
+            project.SalesUnits.AddRange(new[] { salesUnit, salesUnit, salesUnit});
+            context.Projects.Add(project);
+            context.Parameters.AddRange(new[] {paramBreaker, paramBreakerDt, paramBreakerLt, paramTransformator});
 
             context.SaveChanges();
             base.Seed(context);

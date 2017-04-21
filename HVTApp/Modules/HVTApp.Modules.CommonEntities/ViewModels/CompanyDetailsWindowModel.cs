@@ -8,6 +8,7 @@ using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model;
 using HVTApp.Model.Wrapper;
 using Prism.Commands;
@@ -18,12 +19,14 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IChooseService _chooseService;
+        private readonly ISelectService _selectService;
 
-        public CompanyDetailsWindowModel(CompanyWrapper companyWrapper, IUnitOfWork unitOfWork, IChooseService chooseService)
+        public CompanyDetailsWindowModel(CompanyWrapper companyWrapper, IUnitOfWork unitOfWork, IChooseService chooseService, ISelectService selectService)
         {
             CompanyWrapper = companyWrapper;
             _unitOfWork = unitOfWork;
             _chooseService = chooseService;
+            _selectService = selectService;
 
             Forms = new ObservableCollection<CompanyFormWrapper>(_unitOfWork.CompanyForms.GetAll().Select(x => CompanyFormWrapper.GetWrapper(x)));
 
@@ -58,6 +61,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
             IEnumerable<Company> possibleParents = _unitOfWork.Companies.GetAll().Except(exceptCompanies);
 
+            _selectService.SelectItem(possibleParents.Select(CompanyWrapper.GetWrapper), null);
             Company possibleParent = _chooseService.ChooseDialog(possibleParents, CompanyWrapper.ParentCompany?.Model);
 
             if (possibleParent != null && !Equals(possibleParent, CompanyWrapper.ParentCompany?.Model))

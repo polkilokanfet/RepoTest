@@ -9,23 +9,26 @@ using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model;
 using HVTApp.Model.Wrapper;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class CompaniesViewModel : BindableBase
+    public class CompaniesViewModel : BindableBase, ISelectViewModel<CompanyWrapper>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDialogService _dialogService;
         private readonly IChooseService _chooseService;
+        private readonly ISelectService _selectService;
         private CompanyWrapper _selectedCompany;
 
-        public CompaniesViewModel(IUnitOfWork unitOfWork, IDialogService dialogService, IChooseService chooseService)
+        public CompaniesViewModel(IUnitOfWork unitOfWork, IDialogService dialogService, IChooseService chooseService, ISelectService selectService)
         {
             _unitOfWork = unitOfWork;
             _dialogService = dialogService;
             _chooseService = chooseService;
+            _selectService = selectService;
 
             Companies = new ObservableCollection<CompanyWrapper>(_unitOfWork.Companies.GetAll().Select(x => CompanyWrapper.GetWrapper(x)));
 
@@ -35,7 +38,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         private void EditCompanyCommand_Execute()
         {
-            var companyDetailsWindowModel = new CompanyDetailsWindowModel(SelectedCompany, _unitOfWork, _chooseService);
+            var companyDetailsWindowModel = new CompanyDetailsWindowModel(SelectedCompany, _unitOfWork, _chooseService, _selectService);
             var dialogResult = _dialogService.ShowDialog(companyDetailsWindowModel);
 
             if (dialogResult.HasValue && dialogResult.Value)
@@ -52,7 +55,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         private void NewCompanyCommand_Execute()
         {
-            var companyDetailsWindowModel = new CompanyDetailsWindowModel(CompanyWrapper.GetWrapper(new Company()), _unitOfWork, _chooseService);
+            var companyDetailsWindowModel = new CompanyDetailsWindowModel(CompanyWrapper.GetWrapper(new Company()), _unitOfWork, _chooseService, _selectService);
             var dialogResult = _dialogService.ShowDialog(companyDetailsWindowModel);
 
             if (!dialogResult.HasValue || !dialogResult.Value)
@@ -90,5 +93,8 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             EditCompanyCommand.RaiseCanExecuteChanged();
             //DeleteCompanyCommand.RaiseCanExecuteChanged();
         }
+
+        public CompanyWrapper SelectedItem => SelectedCompany;
+        public ICommand NewItemCommand => NewCompanyCommand;
     }
 }

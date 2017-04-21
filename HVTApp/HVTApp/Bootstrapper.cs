@@ -9,13 +9,18 @@ using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.AuthenticationService;
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
+using HVTApp.Model.Wrapper;
 using HVTApp.Modules.CommonEntities;
+using HVTApp.Modules.CommonEntities.ViewModels;
+using HVTApp.Modules.CommonEntities.Views;
 using HVTApp.Modules.Production;
 using HVTApp.Modules.Sales;
 using HVTApp.Services.ChooseService;
 using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;
+using HVTApp.Services.SelectService;
 using Infragistics.Windows.OutlookBar;
 using Infragistics.Windows.Ribbon;
 using Prism.Modularity;
@@ -46,6 +51,9 @@ namespace HVTApp
             Container.RegisterType<DbContext, HVTAppContext>();
             Container.RegisterType<IUnitOfWork, UnitOfWork>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
+            Container.RegisterType<ISelectService, SelectService>(new ContainerControlledLifetimeManager());
+
+            Container.Resolve<ISelectService>().Register<CompaniesViewModel, CompaniesView, CompanyWrapper>();
 
             DialogService dialogService = new DialogService((Window)Shell);
             Container.RegisterInstance(typeof(IDialogService), dialogService);

@@ -88,9 +88,8 @@
     <Compile Include="Interfaces\Services\ChooseService\IChooseService.cs" />
     <Compile Include="Interfaces\Services\ChooseService\IChooseViewModel.cs" />
     <Compile Include="Interfaces\Services\DialogService\DialogRequestCloseEventArgs.cs" />
-    <Compile Include="Interfaces\Services\DialogService\IDialog.cs" />
-    <Compile Include="Interfaces\Services\DialogService\IDialogRequestClose.cs" />
     <Compile Include="Interfaces\Services\DialogService\IDialogService.cs" />
+    <Compile Include="Interfaces\Services\SelectService\ISelectService.cs" />
     <Compile Include="IOutlookBarGroup.cs" />
     <Compile Include="IRibbonTabItem.cs" />
     <Compile Include="IViewBase.cs" />

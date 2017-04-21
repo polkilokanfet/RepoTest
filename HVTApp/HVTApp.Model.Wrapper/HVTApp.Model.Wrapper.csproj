@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
-    <Compile Include="Custom\PaymentCommonWrapper.cs" />
     <Compile Include="Custom\ProductionUnitWrapper.cs" />
     <Compile Include="Custom\ParameterWrapper.cs" />
     <Compile Include="Custom\ProjectWrapper.cs" />
