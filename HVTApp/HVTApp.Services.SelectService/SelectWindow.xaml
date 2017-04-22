@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HVTApp.Services.SelectService"
-        mc:Ignorable="d"
-        Title="SelectWindow" Height="300" Width="300">
+        mc:Ignorable="d" 
+        SizeToContent="WidthAndHeight"
+        Title="SelectWindow">
     <StackPanel>
         <ContentControl Name="ContentControl"></ContentControl>
-        <Button>Выбрать</Button>
+        <Button Name="CreatNewButton">Создать</Button>
+        <Button Name="SelectButton">Выбрать</Button>
     </StackPanel>
 </Window>

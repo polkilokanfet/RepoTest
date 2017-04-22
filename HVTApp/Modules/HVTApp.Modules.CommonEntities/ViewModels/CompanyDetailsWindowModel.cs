@@ -61,8 +61,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
             IEnumerable<Company> possibleParents = _unitOfWork.Companies.GetAll().Except(exceptCompanies);
 
-            _selectService.SelectItem(possibleParents.Select(CompanyWrapper.GetWrapper), null);
-            Company possibleParent = _chooseService.ChooseDialog(possibleParents, CompanyWrapper.ParentCompany?.Model);
+            Company possibleParent = _selectService.SelectItem(possibleParents.Select(CompanyWrapper.GetWrapper), CompanyWrapper.ParentCompany)?.Model;
 
             if (possibleParent != null && !Equals(possibleParent, CompanyWrapper.ParentCompany?.Model))
             {

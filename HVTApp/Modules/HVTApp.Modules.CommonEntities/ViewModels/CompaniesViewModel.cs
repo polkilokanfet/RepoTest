@@ -22,6 +22,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         private readonly IChooseService _chooseService;
         private readonly ISelectService _selectService;
         private CompanyWrapper _selectedCompany;
+        private ICommand _selectItemCommand;
 
         public CompaniesViewModel(IUnitOfWork unitOfWork, IDialogService dialogService, IChooseService chooseService, ISelectService selectService)
         {
@@ -34,6 +35,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
             NewCompanyCommand = new DelegateCommand(NewCompanyCommand_Execute, NewCompanyCommand_CanExecute);
             EditCompanyCommand = new DelegateCommand(EditCompanyCommand_Execute, EditCompanyCommand_CanExecute);
+            SelectItemCommand = new DelegateCommand(SelectItemCommand_Execute, SelectItemCommand_CanExecute);
         }
 
         private void EditCompanyCommand_Execute()
@@ -83,6 +85,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             set
             {
                 _selectedCompany = value;
+                OnPropertyChanged();
                 InvalidateCommands();
             }
         }
@@ -92,9 +95,29 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             NewCompanyCommand.RaiseCanExecuteChanged();
             EditCompanyCommand.RaiseCanExecuteChanged();
             //DeleteCompanyCommand.RaiseCanExecuteChanged();
+            ((DelegateCommand)SelectItemCommand).RaiseCanExecuteChanged();
         }
 
-        public CompanyWrapper SelectedItem => SelectedCompany;
         public ICommand NewItemCommand => NewCompanyCommand;
+
+        public CompanyWrapper SelectedItem
+        {
+            get { return SelectedCompany; }
+            set { SelectedCompany = value; }
+        }
+
+        public ICommand SelectItemCommand { get; }
+
+        private bool SelectItemCommand_CanExecute()
+        {
+            return SelectedItem != null;
+        }
+
+        private void SelectItemCommand_Execute()
+        {
+            CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
+        }
+
+        public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
     }
 }

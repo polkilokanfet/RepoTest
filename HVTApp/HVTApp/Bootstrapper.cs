@@ -51,7 +51,7 @@ namespace HVTApp
             Container.RegisterType<DbContext, HVTAppContext>();
             Container.RegisterType<IUnitOfWork, UnitOfWork>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
-            Container.RegisterType<ISelectService, SelectService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ISelectService, SelectServiceRealization>(new ContainerControlledLifetimeManager());
 
             Container.Resolve<ISelectService>().Register<CompaniesViewModel, CompaniesView, CompanyWrapper>();
 
