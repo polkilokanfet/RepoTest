@@ -13,6 +13,6 @@
         <infRib:ButtonTool Caption="Delete" Command="{Binding DeleteCompanyCommand}"/>
     </infRib:RibbonGroup>
     <infRib:RibbonGroup>
-
+        <infRib:ButtonTool Caption="Refresh" Command="{Binding RefreshCommand}"/>
     </infRib:RibbonGroup>
 </inf:RibbonTabItemWithViewModel>

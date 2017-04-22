@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp", "HVTApp\HVTApp.csproj", "{99C9E82C-C594-446D-AA59-8FFBC43AD226}"
 EndProject
@@ -18,8 +18,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Model.Tests", "HVTApp.Model.Tests\HVTApp.Model.Tests.csproj", "{BF7C6921-CE77-45E1-A490-522A00761F4A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.DataAccess", "HVTApp.DataAccess\HVTApp.DataAccess.csproj", "{9CF80C25-C04B-46B3-8EB7-F45BC42D4BA2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToTest", "ToTest\ToTest.csproj", "{D1112629-9CAA-4728-AD8C-1AD57597BE74}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Model.Services", "HVTApp.Model.Services\HVTApp.Model.Services.csproj", "{11BFFD1C-4CE0-4B15-9B07-902DB9E0FF19}"
 EndProject
@@ -87,10 +85,6 @@ Global
 		{9CF80C25-C04B-46B3-8EB7-F45BC42D4BA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CF80C25-C04B-46B3-8EB7-F45BC42D4BA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CF80C25-C04B-46B3-8EB7-F45BC42D4BA2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D1112629-9CAA-4728-AD8C-1AD57597BE74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D1112629-9CAA-4728-AD8C-1AD57597BE74}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D1112629-9CAA-4728-AD8C-1AD57597BE74}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D1112629-9CAA-4728-AD8C-1AD57597BE74}.Release|Any CPU.Build.0 = Release|Any CPU
 		{11BFFD1C-4CE0-4B15-9B07-902DB9E0FF19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{11BFFD1C-4CE0-4B15-9B07-902DB9E0FF19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11BFFD1C-4CE0-4B15-9B07-902DB9E0FF19}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -18,15 +18,14 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
     public class CompanyDetailsWindowModel : IDialogRequestClose
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IChooseService _chooseService;
         private readonly ISelectService _selectService;
+        private CompanyWrapper _companyWrapper;
 
-        public CompanyDetailsWindowModel(CompanyWrapper companyWrapper, IUnitOfWork unitOfWork, IChooseService chooseService, ISelectService selectService)
+        public CompanyDetailsWindowModel(IUnitOfWork unitOfWork, ISelectService selectService)
         {
-            CompanyWrapper = companyWrapper;
             _unitOfWork = unitOfWork;
-            _chooseService = chooseService;
             _selectService = selectService;
+
 
             Forms = new ObservableCollection<CompanyFormWrapper>(_unitOfWork.CompanyForms.GetAll().Select(x => CompanyFormWrapper.GetWrapper(x)));
 
@@ -35,14 +34,33 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             RemoveParentCompanyCommand = new DelegateCommand(RemoveParentCompanyCommand_Execute);
             AddActivityFieldCommand = new DelegateCommand(AddActivityFieldCommand_Execute);
 
-            CompanyWrapper.PropertyChanged += CompanyWrapperOnPropertyChanged;
+            CompanyWrapper = CompanyWrapper.GetWrapper(new Company());
         }
+
+        public DelegateCommand OkCommand { get; }
+        public DelegateCommand SelectParentCompanyCommand { get; }
+        public DelegateCommand RemoveParentCompanyCommand { get; }
+        public DelegateCommand AddActivityFieldCommand { get; }
+
+        public CompanyWrapper CompanyWrapper
+        {
+            get { return _companyWrapper; }
+            set
+            {
+                if (_companyWrapper != null)
+                    _companyWrapper.PropertyChanged -= CompanyWrapperOnPropertyChanged;
+                _companyWrapper = value;
+                _companyWrapper.PropertyChanged += CompanyWrapperOnPropertyChanged;
+            }
+        }
+
+        public ObservableCollection<CompanyFormWrapper> Forms { get; }
 
         private void AddActivityFieldCommand_Execute()
         {
             IEnumerable<ActivityField> fields = _unitOfWork.ActivityFields.GetAll();
             fields = fields.Except(CompanyWrapper.ActivityFilds.Select(x => x.Model));
-            _chooseService.ChooseDialog(fields);
+            _selectService.SelectItem(fields);
         }
 
         private void RemoveParentCompanyCommand_Execute()
@@ -87,14 +105,6 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             return CompanyWrapper.IsChanged && CompanyWrapper.IsValid;
         }
 
-        public DelegateCommand OkCommand { get; }
-        public DelegateCommand SelectParentCompanyCommand { get; }
-        public DelegateCommand RemoveParentCompanyCommand { get; }
-        public DelegateCommand AddActivityFieldCommand { get; }
-
-        public CompanyWrapper CompanyWrapper { get; set; }
-
-        public ObservableCollection<CompanyFormWrapper> Forms { get; }
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
     }

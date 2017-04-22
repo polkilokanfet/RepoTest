@@ -12,6 +12,7 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model;
 using HVTApp.Model.Wrapper;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
@@ -19,28 +20,53 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDialogService _dialogService;
-        private readonly IChooseService _chooseService;
-        private readonly ISelectService _selectService;
+        private readonly IUnityContainer _container;
         private CompanyWrapper _selectedCompany;
         private ICommand _selectItemCommand;
 
-        public CompaniesViewModel(IUnitOfWork unitOfWork, IDialogService dialogService, IChooseService chooseService, ISelectService selectService)
+        public CompaniesViewModel(IUnitOfWork unitOfWork, IDialogService dialogService, IUnityContainer container)
         {
             _unitOfWork = unitOfWork;
             _dialogService = dialogService;
-            _chooseService = chooseService;
-            _selectService = selectService;
+            _container = container;
 
-            Companies = new ObservableCollection<CompanyWrapper>(_unitOfWork.Companies.GetAll().Select(x => CompanyWrapper.GetWrapper(x)));
+            Companies = new ObservableCollection<CompanyWrapper>(_unitOfWork.Companies.GetAll().Select(CompanyWrapper.GetWrapper));
 
             NewCompanyCommand = new DelegateCommand(NewCompanyCommand_Execute, NewCompanyCommand_CanExecute);
             EditCompanyCommand = new DelegateCommand(EditCompanyCommand_Execute, EditCompanyCommand_CanExecute);
             SelectItemCommand = new DelegateCommand(SelectItemCommand_Execute, SelectItemCommand_CanExecute);
+            RefreshCommand = new DelegateCommand(RefreshCommand_Execute);
+        }
+
+        public ObservableCollection<CompanyWrapper> Companies { get; }
+
+        public DelegateCommand NewCompanyCommand { get; set; }
+        public DelegateCommand EditCompanyCommand { get; set; }
+        public DelegateCommand DeleteCompanyCommand { get; set; }
+
+        public DelegateCommand RefreshCommand { get; set; }
+
+        public CompanyWrapper SelectedCompany
+        {
+            get { return _selectedCompany; }
+            set
+            {
+                _selectedCompany = value;
+                OnPropertyChanged();
+                InvalidateCommands();
+            }
+        }
+
+        private void RefreshCommand_Execute()
+        {
+            Companies.Clear();
+            Companies.AddRange(_unitOfWork.Companies.GetAll().Select(CompanyWrapper.GetWrapper));
         }
 
         private void EditCompanyCommand_Execute()
         {
-            var companyDetailsWindowModel = new CompanyDetailsWindowModel(SelectedCompany, _unitOfWork, _chooseService, _selectService);
+            CompanyDetailsWindowModel companyDetailsWindowModel = _container.Resolve<CompanyDetailsWindowModel>();
+            companyDetailsWindowModel.CompanyWrapper = SelectedCompany;
             var dialogResult = _dialogService.ShowDialog(companyDetailsWindowModel);
 
             if (dialogResult.HasValue && dialogResult.Value)
@@ -57,7 +83,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         private void NewCompanyCommand_Execute()
         {
-            var companyDetailsWindowModel = new CompanyDetailsWindowModel(CompanyWrapper.GetWrapper(new Company()), _unitOfWork, _chooseService, _selectService);
+            CompanyDetailsWindowModel companyDetailsWindowModel = _container.Resolve<CompanyDetailsWindowModel>();
             var dialogResult = _dialogService.ShowDialog(companyDetailsWindowModel);
 
             if (!dialogResult.HasValue || !dialogResult.Value)
@@ -66,6 +92,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             _unitOfWork.Companies.Add(companyDetailsWindowModel.CompanyWrapper.Model);
             _unitOfWork.Complete();
             Companies.Add(companyDetailsWindowModel.CompanyWrapper);
+            SelectedCompany = companyDetailsWindowModel.CompanyWrapper;
         }
 
         private bool NewCompanyCommand_CanExecute()
@@ -73,22 +100,6 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             return true;
         }
 
-        public DelegateCommand NewCompanyCommand { get; set; }
-        public DelegateCommand EditCompanyCommand { get; set; }
-        public DelegateCommand DeleteCompanyCommand { get; set; }
-
-        public ObservableCollection<CompanyWrapper> Companies { get; }
-
-        public CompanyWrapper SelectedCompany
-        {
-            get { return _selectedCompany; }
-            set
-            {
-                _selectedCompany = value;
-                OnPropertyChanged();
-                InvalidateCommands();
-            }
-        }
 
         private void InvalidateCommands()
         {
@@ -97,6 +108,8 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             //DeleteCompanyCommand.RaiseCanExecuteChanged();
             ((DelegateCommand)SelectItemCommand).RaiseCanExecuteChanged();
         }
+
+        #region ISelectViewModel
 
         public ICommand NewItemCommand => NewCompanyCommand;
 
@@ -119,5 +132,8 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         }
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
+
+        #endregion
+
     }
 }
