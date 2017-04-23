@@ -27,14 +27,14 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             _selectService = selectService;
 
 
-            Forms = new ObservableCollection<CompanyFormWrapper>(_unitOfWork.CompanyForms.GetAll().Select(x => CompanyFormWrapper.GetWrapper(x)));
+            Forms = new ObservableCollection<CompanyFormWrapper>(_unitOfWork.CompanyForms.GetAll().Select(x => new CompanyFormWrapper(x)));
 
             OkCommand = new DelegateCommand(OkCommand_Execute, OkCommand_CanExecute);
             SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_Execute);
             RemoveParentCompanyCommand = new DelegateCommand(RemoveParentCompanyCommand_Execute);
             AddActivityFieldCommand = new DelegateCommand(AddActivityFieldCommand_Execute);
 
-            CompanyWrapper = CompanyWrapper.GetWrapper(new Company());
+            CompanyWrapper = new CompanyWrapper(new Company());
         }
 
         public DelegateCommand OkCommand { get; }
@@ -79,12 +79,12 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
             IEnumerable<Company> possibleParents = _unitOfWork.Companies.GetAll().Except(exceptCompanies);
 
-            Company possibleParent = _selectService.SelectItem(possibleParents.Select(CompanyWrapper.GetWrapper), CompanyWrapper.ParentCompany)?.Model;
+            Company possibleParent = _selectService.SelectItem(possibleParents.Select(x => new CompanyWrapper(x)), CompanyWrapper.ParentCompany)?.Model;
 
             if (possibleParent != null && !Equals(possibleParent, CompanyWrapper.ParentCompany?.Model))
             {
                 RemoveParentCompanyCommand_Execute();
-                CompanyWrapper.ParentCompany = CompanyWrapper.GetWrapper(possibleParent);
+                CompanyWrapper.ParentCompany = new CompanyWrapper(possibleParent);
             }
         }
 

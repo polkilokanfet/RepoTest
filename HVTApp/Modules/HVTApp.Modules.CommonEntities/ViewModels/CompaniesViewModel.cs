@@ -30,7 +30,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             _dialogService = dialogService;
             _container = container;
 
-            Companies = new ObservableCollection<CompanyWrapper>(_unitOfWork.Companies.GetAll().Select(CompanyWrapper.GetWrapper));
+            Companies = new ObservableCollection<CompanyWrapper>(_unitOfWork.Companies.GetAll().Select(x => new CompanyWrapper(x)));
 
             NewCompanyCommand = new DelegateCommand(NewCompanyCommand_Execute, NewCompanyCommand_CanExecute);
             EditCompanyCommand = new DelegateCommand(EditCompanyCommand_Execute, EditCompanyCommand_CanExecute);
@@ -60,7 +60,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         private void RefreshCommand_Execute()
         {
             Companies.Clear();
-            Companies.AddRange(_unitOfWork.Companies.GetAll().Select(CompanyWrapper.GetWrapper));
+            Companies.AddRange(_unitOfWork.Companies.GetAll().Select(x => new CompanyWrapper(x)));
         }
 
         private void EditCompanyCommand_Execute()

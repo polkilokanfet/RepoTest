@@ -7,28 +7,27 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class ParameterWrapper : WrapperBase<Parameter>
   {
-    protected ParameterWrapper(Parameter model) : base(model) { }
+    public ParameterWrapper() : base(new Parameter()) { }
+    public ParameterWrapper(Parameter model) : base(model) { }
 
-	public static ParameterWrapper GetWrapper()
-	{
-		return GetWrapper(new Parameter());
-	}
-
-	public static ParameterWrapper GetWrapper(Parameter model)
-	{
-	    if (model == null)
-	        return null;
-
-		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-			return (ParameterWrapper)Repository.ModelWrapperDictionary[model];
-
-		return new ParameterWrapper(model);
-	}
-
+//	public static ParameterWrapper GetWrapper()
+//	{
+//		return GetWrapper(new Parameter());
+//	}
+//
+//	public static ParameterWrapper GetWrapper(Parameter model)
+//	{
+//	    if (model == null)
+//	        return null;
+//
+//		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+//			return (ParameterWrapper)Repository.ModelWrapperDictionary[model];
+//
+//		return new ParameterWrapper(model);
+//	}
 
 
     #region SimpleProperties
-
     public System.String Value
     {
       get { return GetValue<System.String>(); }
@@ -36,7 +35,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String ValueOriginalValue => GetOriginalValue<System.String>(nameof(Value));
     public bool ValueIsChanged => GetIsChanged(nameof(Value));
-
 
     public System.Int32 Id
     {
@@ -46,73 +44,53 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
 
     #region ComplexProperties
-
+	private ParameterGroupWrapper _fieldGroup;
 	public ParameterGroupWrapper Group 
     {
-        get { return ParameterGroupWrapper.GetWrapper(Model.Group); }
+        get { return _fieldGroup; }
         set
         {
-			var oldPropVal = Group;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<ParameterGroupWrapper, ParameterGroup>(_fieldGroup, value);
+			_fieldGroup = value;
         }
     }
-    public ParameterGroupWrapper GroupOriginalValue => ParameterGroupWrapper.GetWrapper(GetOriginalValue<ParameterGroup>(nameof(Group)));
+    public ParameterGroupWrapper GroupOriginalValue { get; private set; }
     public bool GroupIsChanged => GetIsChanged(nameof(Group));
 
-
+	private MeasureWrapper _fieldMeasure;
 	public MeasureWrapper Measure 
     {
-        get { return MeasureWrapper.GetWrapper(Model.Measure); }
+        get { return _fieldMeasure; }
         set
         {
-			var oldPropVal = Measure;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<MeasureWrapper, Measure>(_fieldMeasure, value);
+			_fieldMeasure = value;
         }
     }
-    public MeasureWrapper MeasureOriginalValue => MeasureWrapper.GetWrapper(GetOriginalValue<Measure>(nameof(Measure)));
+    public MeasureWrapper MeasureOriginalValue { get; private set; }
     public bool MeasureIsChanged => GetIsChanged(nameof(Measure));
 
-
     #endregion
-
 
     #region CollectionProperties
-
     public IValidatableChangeTrackingCollection<RequiredParentParametersWrapper> RequiredParentParametersList { get; private set; }
 
-
     #endregion
-
     protected override void InitializeComplexProperties(Parameter model)
     {
-
-        Group = ParameterGroupWrapper.GetWrapper(model.Group);
-
-        Measure = MeasureWrapper.GetWrapper(model.Measure);
-
+        Group = GetWrapper<ParameterGroupWrapper, ParameterGroup>(model.Group);
+        Measure = GetWrapper<MeasureWrapper, Measure>(model.Measure);
     }
-
   
     protected override void InitializeCollectionComplexProperties(Parameter model)
     {
-
       if (model.RequiredParentParametersList == null) throw new ArgumentException("RequiredParentParametersList cannot be null");
-      RequiredParentParametersList = new ValidatableChangeTrackingCollection<RequiredParentParametersWrapper>(model.RequiredParentParametersList.Select(e => RequiredParentParametersWrapper.GetWrapper(e)));
+      RequiredParentParametersList = new ValidatableChangeTrackingCollection<RequiredParentParametersWrapper>(model.RequiredParentParametersList.Select(e => GetWrapper<RequiredParentParametersWrapper, RequiredParentParameters>(e)));
       RegisterCollection(RequiredParentParametersList, model.RequiredParentParametersList);
 
-
     }
-
   }
 }

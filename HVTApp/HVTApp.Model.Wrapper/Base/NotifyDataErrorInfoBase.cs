@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -55,6 +56,12 @@ namespace HVTApp.Model.Wrapper
                 OnErrorsChanged(key);
             });
         }
+
+
+
+
+        protected static Dictionary<IBaseEntity, object> ModelWrapperDictionary { get; } = new Dictionary<IBaseEntity, object>();
+
 
     }
 }

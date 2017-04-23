@@ -7,28 +7,27 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class CompanyWrapper : WrapperBase<Company>
   {
-    protected CompanyWrapper(Company model) : base(model) { }
+    public CompanyWrapper() : base(new Company()) { }
+    public CompanyWrapper(Company model) : base(model) { }
 
-	public static CompanyWrapper GetWrapper()
-	{
-		return GetWrapper(new Company());
-	}
-
-	public static CompanyWrapper GetWrapper(Company model)
-	{
-	    if (model == null)
-	        return null;
-
-		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-			return (CompanyWrapper)Repository.ModelWrapperDictionary[model];
-
-		return new CompanyWrapper(model);
-	}
-
+//	public static CompanyWrapper GetWrapper()
+//	{
+//		return GetWrapper(new Company());
+//	}
+//
+//	public static CompanyWrapper GetWrapper(Company model)
+//	{
+//	    if (model == null)
+//	        return null;
+//
+//		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+//			return (CompanyWrapper)Repository.ModelWrapperDictionary[model];
+//
+//		return new CompanyWrapper(model);
+//	}
 
 
     #region SimpleProperties
-
     public System.String FullName
     {
       get { return GetValue<System.String>(); }
@@ -36,7 +35,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String FullNameOriginalValue => GetOriginalValue<System.String>(nameof(FullName));
     public bool FullNameIsChanged => GetIsChanged(nameof(FullName));
-
 
     public System.String ShortName
     {
@@ -46,7 +44,6 @@ namespace HVTApp.Model.Wrapper
     public System.String ShortNameOriginalValue => GetOriginalValue<System.String>(nameof(ShortName));
     public bool ShortNameIsChanged => GetIsChanged(nameof(ShortName));
 
-
     public System.String Inn
     {
       get { return GetValue<System.String>(); }
@@ -54,7 +51,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String InnOriginalValue => GetOriginalValue<System.String>(nameof(Inn));
     public bool InnIsChanged => GetIsChanged(nameof(Inn));
-
 
     public System.String Kpp
     {
@@ -64,7 +60,6 @@ namespace HVTApp.Model.Wrapper
     public System.String KppOriginalValue => GetOriginalValue<System.String>(nameof(Kpp));
     public bool KppIsChanged => GetIsChanged(nameof(Kpp));
 
-
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -73,125 +68,93 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
 
     #region ComplexProperties
-
+	private CompanyFormWrapper _fieldForm;
 	public CompanyFormWrapper Form 
     {
-        get { return CompanyFormWrapper.GetWrapper(Model.Form); }
+        get { return _fieldForm; }
         set
         {
-			var oldPropVal = Form;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<CompanyFormWrapper, CompanyForm>(_fieldForm, value);
+			_fieldForm = value;
         }
     }
-    public CompanyFormWrapper FormOriginalValue => CompanyFormWrapper.GetWrapper(GetOriginalValue<CompanyForm>(nameof(Form)));
+    public CompanyFormWrapper FormOriginalValue { get; private set; }
     public bool FormIsChanged => GetIsChanged(nameof(Form));
 
-
+	private CompanyWrapper _fieldParentCompany;
 	public CompanyWrapper ParentCompany 
     {
-        get { return CompanyWrapper.GetWrapper(Model.ParentCompany); }
+        get { return _fieldParentCompany; }
         set
         {
-			var oldPropVal = ParentCompany;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<CompanyWrapper, Company>(_fieldParentCompany, value);
+			_fieldParentCompany = value;
         }
     }
-    public CompanyWrapper ParentCompanyOriginalValue => CompanyWrapper.GetWrapper(GetOriginalValue<Company>(nameof(ParentCompany)));
+    public CompanyWrapper ParentCompanyOriginalValue { get; private set; }
     public bool ParentCompanyIsChanged => GetIsChanged(nameof(ParentCompany));
 
-
+	private AddressWrapper _fieldAddress;
 	public AddressWrapper Address 
     {
-        get { return AddressWrapper.GetWrapper(Model.Address); }
+        get { return _fieldAddress; }
         set
         {
-			var oldPropVal = Address;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<AddressWrapper, Address>(_fieldAddress, value);
+			_fieldAddress = value;
         }
     }
-    public AddressWrapper AddressOriginalValue => AddressWrapper.GetWrapper(GetOriginalValue<Address>(nameof(Address)));
+    public AddressWrapper AddressOriginalValue { get; private set; }
     public bool AddressIsChanged => GetIsChanged(nameof(Address));
 
-
+	private BankDetailsWrapper _fieldBankDetails;
 	public BankDetailsWrapper BankDetails 
     {
-        get { return BankDetailsWrapper.GetWrapper(Model.BankDetails); }
+        get { return _fieldBankDetails; }
         set
         {
-			var oldPropVal = BankDetails;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<BankDetailsWrapper, BankDetails>(_fieldBankDetails, value);
+			_fieldBankDetails = value;
         }
     }
-    public BankDetailsWrapper BankDetailsOriginalValue => BankDetailsWrapper.GetWrapper(GetOriginalValue<BankDetails>(nameof(BankDetails)));
+    public BankDetailsWrapper BankDetailsOriginalValue { get; private set; }
     public bool BankDetailsIsChanged => GetIsChanged(nameof(BankDetails));
-
 
     #endregion
 
-
     #region CollectionProperties
-
     public IValidatableChangeTrackingCollection<CompanyWrapper> ChildCompanies { get; private set; }
-
 
     public IValidatableChangeTrackingCollection<ActivityFieldWrapper> ActivityFilds { get; private set; }
 
-
     public IValidatableChangeTrackingCollection<EmployeeWrapper> Employees { get; private set; }
 
-
     #endregion
-
     protected override void InitializeComplexProperties(Company model)
     {
-
-        Form = CompanyFormWrapper.GetWrapper(model.Form);
-
-        ParentCompany = CompanyWrapper.GetWrapper(model.ParentCompany);
-
-        Address = AddressWrapper.GetWrapper(model.Address);
-
-        BankDetails = BankDetailsWrapper.GetWrapper(model.BankDetails);
-
+        Form = GetWrapper<CompanyFormWrapper, CompanyForm>(model.Form);
+        ParentCompany = GetWrapper<CompanyWrapper, Company>(model.ParentCompany);
+        Address = GetWrapper<AddressWrapper, Address>(model.Address);
+        BankDetails = GetWrapper<BankDetailsWrapper, BankDetails>(model.BankDetails);
     }
-
   
     protected override void InitializeCollectionComplexProperties(Company model)
     {
-
       if (model.ChildCompanies == null) throw new ArgumentException("ChildCompanies cannot be null");
-      ChildCompanies = new ValidatableChangeTrackingCollection<CompanyWrapper>(model.ChildCompanies.Select(e => CompanyWrapper.GetWrapper(e)));
+      ChildCompanies = new ValidatableChangeTrackingCollection<CompanyWrapper>(model.ChildCompanies.Select(e => GetWrapper<CompanyWrapper, Company>(e)));
       RegisterCollection(ChildCompanies, model.ChildCompanies);
 
-
       if (model.ActivityFilds == null) throw new ArgumentException("ActivityFilds cannot be null");
-      ActivityFilds = new ValidatableChangeTrackingCollection<ActivityFieldWrapper>(model.ActivityFilds.Select(e => ActivityFieldWrapper.GetWrapper(e)));
+      ActivityFilds = new ValidatableChangeTrackingCollection<ActivityFieldWrapper>(model.ActivityFilds.Select(e => GetWrapper<ActivityFieldWrapper, ActivityField>(e)));
       RegisterCollection(ActivityFilds, model.ActivityFilds);
 
-
       if (model.Employees == null) throw new ArgumentException("Employees cannot be null");
-      Employees = new ValidatableChangeTrackingCollection<EmployeeWrapper>(model.Employees.Select(e => EmployeeWrapper.GetWrapper(e)));
+      Employees = new ValidatableChangeTrackingCollection<EmployeeWrapper>(model.Employees.Select(e => GetWrapper<EmployeeWrapper, Employee>(e)));
       RegisterCollection(Employees, model.Employees);
 
-
     }
-
   }
 }

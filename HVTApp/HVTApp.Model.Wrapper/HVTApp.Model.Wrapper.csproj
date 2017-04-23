@@ -53,7 +53,6 @@
     <Compile Include="Base\Observable.cs" />
     <Compile Include="Base\WhoRised.cs" />
     <Compile Include="Base\WrapperBase.cs" />
-    <Compile Include="Base\WrappersFactory.cs" />
     <Compile Include="Custom\CompanyFormWrapper.cs" />
     <Compile Include="Custom\CompanyWrapper.cs" />
     <Compile Include="Custom\PaymentConditionStandartWrapper.cs" />
@@ -62,7 +61,6 @@
     <Compile Include="Custom\Test\TestFriendAddressWrapper.cs" />
     <Compile Include="Custom\Test\TestFriendEmailWrapper.cs" />
     <Compile Include="Custom\Test\TestFriendWrapper.cs" />
-    <Compile Include="Base\Repository.cs" />
     <Compile Include="Custom\SpecificationWrapper.cs" />
     <Compile Include="Generated\ActivityFieldWrapper.g.cs" />
     <Compile Include="Generated\AddressWrapper.g.cs" />
@@ -77,7 +75,6 @@
     <Compile Include="Generated\EmployeesPositionWrapper.g.cs" />
     <Compile Include="Generated\EmployeeWrapper.g.cs" />
     <Compile Include="Generated\ExchangeCurrencyRateWrapper.g.cs" />
-    <Compile Include="Generated\ExchangeRateWrapper.g.cs" />
     <Compile Include="Generated\FacilityTypeWrapper.g.cs" />
     <Compile Include="Generated\FacilityWrapper.g.cs" />
     <Compile Include="Generated\LocalityTypeWrapper.g.cs" />

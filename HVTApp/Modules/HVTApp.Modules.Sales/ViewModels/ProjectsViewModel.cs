@@ -18,7 +18,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         public ProjectsViewModel(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _projects = new List<ProjectWrapper>(unitOfWork.Projects.GetAll().Select(ProjectWrapper.GetWrapper));
+            _projects = new List<ProjectWrapper>(unitOfWork.Projects.GetAll().Select(x => new ProjectWrapper(x)));
             Projects = new ObservableCollection<ProjectWrapper>(_projects);
 
             NewProjectCommand = new DelegateCommand(NewProjectCommand_Execute, NewProjectCommand_CanExecute);

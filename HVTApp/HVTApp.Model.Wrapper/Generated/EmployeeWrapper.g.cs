@@ -7,28 +7,27 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class EmployeeWrapper : WrapperBase<Employee>
   {
-    protected EmployeeWrapper(Employee model) : base(model) { }
+    public EmployeeWrapper() : base(new Employee()) { }
+    public EmployeeWrapper(Employee model) : base(model) { }
 
-	public static EmployeeWrapper GetWrapper()
-	{
-		return GetWrapper(new Employee());
-	}
-
-	public static EmployeeWrapper GetWrapper(Employee model)
-	{
-	    if (model == null)
-	        return null;
-
-		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-			return (EmployeeWrapper)Repository.ModelWrapperDictionary[model];
-
-		return new EmployeeWrapper(model);
-	}
-
+//	public static EmployeeWrapper GetWrapper()
+//	{
+//		return GetWrapper(new Employee());
+//	}
+//
+//	public static EmployeeWrapper GetWrapper(Employee model)
+//	{
+//	    if (model == null)
+//	        return null;
+//
+//		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+//			return (EmployeeWrapper)Repository.ModelWrapperDictionary[model];
+//
+//		return new EmployeeWrapper(model);
+//	}
 
 
     #region SimpleProperties
-
     public System.String PhoneNumber
     {
       get { return GetValue<System.String>(); }
@@ -36,7 +35,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String PhoneNumberOriginalValue => GetOriginalValue<System.String>(nameof(PhoneNumber));
     public bool PhoneNumberIsChanged => GetIsChanged(nameof(PhoneNumber));
-
 
     public System.String Email
     {
@@ -46,7 +44,6 @@ namespace HVTApp.Model.Wrapper
     public System.String EmailOriginalValue => GetOriginalValue<System.String>(nameof(Email));
     public bool EmailIsChanged => GetIsChanged(nameof(Email));
 
-
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -55,72 +52,54 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
 
     #region ComplexProperties
-
+	private PersonWrapper _fieldPerson;
 	public PersonWrapper Person 
     {
-        get { return PersonWrapper.GetWrapper(Model.Person); }
+        get { return _fieldPerson; }
         set
         {
-			var oldPropVal = Person;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<PersonWrapper, Person>(_fieldPerson, value);
+			_fieldPerson = value;
         }
     }
-    public PersonWrapper PersonOriginalValue => PersonWrapper.GetWrapper(GetOriginalValue<Person>(nameof(Person)));
+    public PersonWrapper PersonOriginalValue { get; private set; }
     public bool PersonIsChanged => GetIsChanged(nameof(Person));
 
-
+	private CompanyWrapper _fieldCompany;
 	public CompanyWrapper Company 
     {
-        get { return CompanyWrapper.GetWrapper(Model.Company); }
+        get { return _fieldCompany; }
         set
         {
-			var oldPropVal = Company;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<CompanyWrapper, Company>(_fieldCompany, value);
+			_fieldCompany = value;
         }
     }
-    public CompanyWrapper CompanyOriginalValue => CompanyWrapper.GetWrapper(GetOriginalValue<Company>(nameof(Company)));
+    public CompanyWrapper CompanyOriginalValue { get; private set; }
     public bool CompanyIsChanged => GetIsChanged(nameof(Company));
 
-
+	private EmployeesPositionWrapper _fieldPosition;
 	public EmployeesPositionWrapper Position 
     {
-        get { return EmployeesPositionWrapper.GetWrapper(Model.Position); }
+        get { return _fieldPosition; }
         set
         {
-			var oldPropVal = Position;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<EmployeesPositionWrapper, EmployeesPosition>(_fieldPosition, value);
+			_fieldPosition = value;
         }
     }
-    public EmployeesPositionWrapper PositionOriginalValue => EmployeesPositionWrapper.GetWrapper(GetOriginalValue<EmployeesPosition>(nameof(Position)));
+    public EmployeesPositionWrapper PositionOriginalValue { get; private set; }
     public bool PositionIsChanged => GetIsChanged(nameof(Position));
 
-
     #endregion
-
     protected override void InitializeComplexProperties(Employee model)
     {
-
-        Person = PersonWrapper.GetWrapper(model.Person);
-
-        Company = CompanyWrapper.GetWrapper(model.Company);
-
-        Position = EmployeesPositionWrapper.GetWrapper(model.Position);
-
+        Person = GetWrapper<PersonWrapper, Person>(model.Person);
+        Company = GetWrapper<CompanyWrapper, Company>(model.Company);
+        Position = GetWrapper<EmployeesPositionWrapper, EmployeesPosition>(model.Position);
     }
-
   }
 }

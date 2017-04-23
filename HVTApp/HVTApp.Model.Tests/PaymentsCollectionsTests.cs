@@ -12,7 +12,7 @@ namespace HVTApp.Model.Tests
         [TestInitialize]
         public void InitialMethod()
         {
-            _specification = SpecificationWrapper.GetWrapper();
+            _specification = new SpecificationWrapper();
         }
 
     }

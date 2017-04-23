@@ -14,15 +14,15 @@ namespace HVTApp.Model.Wrapper.Tests
     {
       _emails = new List<TestFriendEmailWrapper>
       {
-        TestFriendEmailWrapper.GetWrapper(new TestFriendEmail {Email="thomas@thomasclaudiushuber.com" }),
-        TestFriendEmailWrapper.GetWrapper(new TestFriendEmail {Email="julia@juhu-design.com" }),
+        new TestFriendEmailWrapper(new TestFriendEmail {Email="thomas@thomasclaudiushuber.com" }),
+        new TestFriendEmailWrapper(new TestFriendEmail {Email="julia@juhu-design.com" }),
        };
     }
 
     [TestMethod]
     public void ShouldTrackAddedItems()
     {
-      var emailToAdd = TestFriendEmailWrapper.GetWrapper(new TestFriendEmail());
+      var emailToAdd = new TestFriendEmailWrapper(new TestFriendEmail());
 
       var c = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(_emails);
       Assert.AreEqual(2, c.Count);
@@ -92,7 +92,7 @@ namespace HVTApp.Model.Wrapper.Tests
     [TestMethod]
     public void ShouldNotTrackAddedItemAsModified()
     {
-      var emailToAdd = TestFriendEmailWrapper.GetWrapper(new TestFriendEmail());
+      var emailToAdd = new TestFriendEmailWrapper(new TestFriendEmail());
 
       var c = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(_emails);
       c.Add(emailToAdd);
@@ -133,7 +133,7 @@ namespace HVTApp.Model.Wrapper.Tests
     {
       var emailToModify = _emails.First();
       var emailToRemove = _emails.Skip(1).First();
-      var emailToAdd = TestFriendEmailWrapper.GetWrapper(new TestFriendEmail { Email = "anotherOne@thomasclaudiushuber.com" });
+      var emailToAdd = new TestFriendEmailWrapper(new TestFriendEmail { Email = "anotherOne@thomasclaudiushuber.com" });
 
       var c = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(_emails);
 
@@ -169,7 +169,7 @@ namespace HVTApp.Model.Wrapper.Tests
     {
       var emailToModify = _emails.First();
       var emailToRemove = _emails.Skip(1).First();
-      var emailToAdd = TestFriendEmailWrapper.GetWrapper(new TestFriendEmail { Email = "anotherOne@thomasclaudiushuber.com" });
+      var emailToAdd = new TestFriendEmailWrapper(new TestFriendEmail { Email = "anotherOne@thomasclaudiushuber.com" });
 
       var c = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(_emails);
 

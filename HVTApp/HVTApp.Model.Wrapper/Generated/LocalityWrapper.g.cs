@@ -7,28 +7,27 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class LocalityWrapper : WrapperBase<Locality>
   {
-    protected LocalityWrapper(Locality model) : base(model) { }
+    public LocalityWrapper() : base(new Locality()) { }
+    public LocalityWrapper(Locality model) : base(model) { }
 
-	public static LocalityWrapper GetWrapper()
-	{
-		return GetWrapper(new Locality());
-	}
-
-	public static LocalityWrapper GetWrapper(Locality model)
-	{
-	    if (model == null)
-	        return null;
-
-		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-			return (LocalityWrapper)Repository.ModelWrapperDictionary[model];
-
-		return new LocalityWrapper(model);
-	}
-
+//	public static LocalityWrapper GetWrapper()
+//	{
+//		return GetWrapper(new Locality());
+//	}
+//
+//	public static LocalityWrapper GetWrapper(Locality model)
+//	{
+//	    if (model == null)
+//	        return null;
+//
+//		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+//			return (LocalityWrapper)Repository.ModelWrapperDictionary[model];
+//
+//		return new LocalityWrapper(model);
+//	}
 
 
     #region SimpleProperties
-
     public System.String Name
     {
       get { return GetValue<System.String>(); }
@@ -36,7 +35,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
-
 
     public System.Int32 Id
     {
@@ -46,72 +44,54 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
 
     #region ComplexProperties
-
+	private LocalityTypeWrapper _fieldLocalityType;
 	public LocalityTypeWrapper LocalityType 
     {
-        get { return LocalityTypeWrapper.GetWrapper(Model.LocalityType); }
+        get { return _fieldLocalityType; }
         set
         {
-			var oldPropVal = LocalityType;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<LocalityTypeWrapper, LocalityType>(_fieldLocalityType, value);
+			_fieldLocalityType = value;
         }
     }
-    public LocalityTypeWrapper LocalityTypeOriginalValue => LocalityTypeWrapper.GetWrapper(GetOriginalValue<LocalityType>(nameof(LocalityType)));
+    public LocalityTypeWrapper LocalityTypeOriginalValue { get; private set; }
     public bool LocalityTypeIsChanged => GetIsChanged(nameof(LocalityType));
 
-
+	private RegionWrapper _fieldRegion;
 	public RegionWrapper Region 
     {
-        get { return RegionWrapper.GetWrapper(Model.Region); }
+        get { return _fieldRegion; }
         set
         {
-			var oldPropVal = Region;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<RegionWrapper, Region>(_fieldRegion, value);
+			_fieldRegion = value;
         }
     }
-    public RegionWrapper RegionOriginalValue => RegionWrapper.GetWrapper(GetOriginalValue<Region>(nameof(Region)));
+    public RegionWrapper RegionOriginalValue { get; private set; }
     public bool RegionIsChanged => GetIsChanged(nameof(Region));
 
-
+	private StandartDeliveryPeriodWrapper _fieldDeliveryPeriod;
 	public StandartDeliveryPeriodWrapper DeliveryPeriod 
     {
-        get { return StandartDeliveryPeriodWrapper.GetWrapper(Model.DeliveryPeriod); }
+        get { return _fieldDeliveryPeriod; }
         set
         {
-			var oldPropVal = DeliveryPeriod;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<StandartDeliveryPeriodWrapper, StandartDeliveryPeriod>(_fieldDeliveryPeriod, value);
+			_fieldDeliveryPeriod = value;
         }
     }
-    public StandartDeliveryPeriodWrapper DeliveryPeriodOriginalValue => StandartDeliveryPeriodWrapper.GetWrapper(GetOriginalValue<StandartDeliveryPeriod>(nameof(DeliveryPeriod)));
+    public StandartDeliveryPeriodWrapper DeliveryPeriodOriginalValue { get; private set; }
     public bool DeliveryPeriodIsChanged => GetIsChanged(nameof(DeliveryPeriod));
 
-
     #endregion
-
     protected override void InitializeComplexProperties(Locality model)
     {
-
-        LocalityType = LocalityTypeWrapper.GetWrapper(model.LocalityType);
-
-        Region = RegionWrapper.GetWrapper(model.Region);
-
-        DeliveryPeriod = StandartDeliveryPeriodWrapper.GetWrapper(model.DeliveryPeriod);
-
+        LocalityType = GetWrapper<LocalityTypeWrapper, LocalityType>(model.LocalityType);
+        Region = GetWrapper<RegionWrapper, Region>(model.Region);
+        DeliveryPeriod = GetWrapper<StandartDeliveryPeriodWrapper, StandartDeliveryPeriod>(model.DeliveryPeriod);
     }
-
   }
 }

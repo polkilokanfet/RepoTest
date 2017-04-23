@@ -7,28 +7,27 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class SumAndVatWrapper : WrapperBase<SumAndVat>
   {
-    protected SumAndVatWrapper(SumAndVat model) : base(model) { }
+    public SumAndVatWrapper() : base(new SumAndVat()) { }
+    public SumAndVatWrapper(SumAndVat model) : base(model) { }
 
-	public static SumAndVatWrapper GetWrapper()
-	{
-		return GetWrapper(new SumAndVat());
-	}
-
-	public static SumAndVatWrapper GetWrapper(SumAndVat model)
-	{
-	    if (model == null)
-	        return null;
-
-		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-			return (SumAndVatWrapper)Repository.ModelWrapperDictionary[model];
-
-		return new SumAndVatWrapper(model);
-	}
-
+//	public static SumAndVatWrapper GetWrapper()
+//	{
+//		return GetWrapper(new SumAndVat());
+//	}
+//
+//	public static SumAndVatWrapper GetWrapper(SumAndVat model)
+//	{
+//	    if (model == null)
+//	        return null;
+//
+//		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+//			return (SumAndVatWrapper)Repository.ModelWrapperDictionary[model];
+//
+//		return new SumAndVatWrapper(model);
+//	}
 
 
     #region SimpleProperties
-
     public System.Double Sum
     {
       get { return GetValue<System.Double>(); }
@@ -36,7 +35,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
     public bool SumIsChanged => GetIsChanged(nameof(Sum));
-
 
     public System.Double Vat
     {
@@ -46,7 +44,6 @@ namespace HVTApp.Model.Wrapper
     public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
     public bool VatIsChanged => GetIsChanged(nameof(Vat));
 
-
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -55,36 +52,26 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
 
     #region ComplexProperties
-
+	private CurrencyWrapper _fieldCurrency;
 	public CurrencyWrapper Currency 
     {
-        get { return CurrencyWrapper.GetWrapper(Model.Currency); }
+        get { return _fieldCurrency; }
         set
         {
-			var oldPropVal = Currency;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<CurrencyWrapper, Currency>(_fieldCurrency, value);
+			_fieldCurrency = value;
         }
     }
-    public CurrencyWrapper CurrencyOriginalValue => CurrencyWrapper.GetWrapper(GetOriginalValue<Currency>(nameof(Currency)));
+    public CurrencyWrapper CurrencyOriginalValue { get; private set; }
     public bool CurrencyIsChanged => GetIsChanged(nameof(Currency));
 
-
     #endregion
-
     protected override void InitializeComplexProperties(SumAndVat model)
     {
-
-        Currency = CurrencyWrapper.GetWrapper(model.Currency);
-
+        Currency = GetWrapper<CurrencyWrapper, Currency>(model.Currency);
     }
-
   }
 }

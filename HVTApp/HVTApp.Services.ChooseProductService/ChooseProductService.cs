@@ -21,7 +21,7 @@ namespace HVTApp.Services.ChooseProductService
         public ChooseProductService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _parameters = new List<ParameterWrapper>(unitOfWork.ProductParameters.GetAll().Select(ParameterWrapper.GetWrapper));
+            _parameters = new List<ParameterWrapper>(unitOfWork.ProductParameters.GetAll().Select(x => new ParameterWrapper()));
 
             var groups = _parameters.Select(x => x.Group).Distinct();
             foreach (var group in groups)

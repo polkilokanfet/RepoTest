@@ -7,28 +7,27 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class PaymentActualWrapper : WrapperBase<PaymentActual>
   {
-    protected PaymentActualWrapper(PaymentActual model) : base(model) { }
+    public PaymentActualWrapper() : base(new PaymentActual()) { }
+    public PaymentActualWrapper(PaymentActual model) : base(model) { }
 
-	public static PaymentActualWrapper GetWrapper()
-	{
-		return GetWrapper(new PaymentActual());
-	}
-
-	public static PaymentActualWrapper GetWrapper(PaymentActual model)
-	{
-	    if (model == null)
-	        return null;
-
-		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-			return (PaymentActualWrapper)Repository.ModelWrapperDictionary[model];
-
-		return new PaymentActualWrapper(model);
-	}
-
+//	public static PaymentActualWrapper GetWrapper()
+//	{
+//		return GetWrapper(new PaymentActual());
+//	}
+//
+//	public static PaymentActualWrapper GetWrapper(PaymentActual model)
+//	{
+//	    if (model == null)
+//	        return null;
+//
+//		if (Repository.ModelWrapperDictionary.ContainsKey(model))
+//			return (PaymentActualWrapper)Repository.ModelWrapperDictionary[model];
+//
+//		return new PaymentActualWrapper(model);
+//	}
 
 
     #region SimpleProperties
-
     public System.DateTime Date
     {
       get { return GetValue<System.DateTime>(); }
@@ -36,7 +35,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
     public bool DateIsChanged => GetIsChanged(nameof(Date));
-
 
     public System.String Comment
     {
@@ -46,7 +44,6 @@ namespace HVTApp.Model.Wrapper
     public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
     public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
-
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -55,72 +52,54 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
 
     #region ComplexProperties
-
+	private SalesUnitWrapper _fieldSalesUnit;
 	public SalesUnitWrapper SalesUnit 
     {
-        get { return SalesUnitWrapper.GetWrapper(Model.SalesUnit); }
+        get { return _fieldSalesUnit; }
         set
         {
-			var oldPropVal = SalesUnit;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<SalesUnitWrapper, SalesUnit>(_fieldSalesUnit, value);
+			_fieldSalesUnit = value;
         }
     }
-    public SalesUnitWrapper SalesUnitOriginalValue => SalesUnitWrapper.GetWrapper(GetOriginalValue<SalesUnit>(nameof(SalesUnit)));
+    public SalesUnitWrapper SalesUnitOriginalValue { get; private set; }
     public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
 
-
+	private PaymentDocumentWrapper _fieldDocument;
 	public PaymentDocumentWrapper Document 
     {
-        get { return PaymentDocumentWrapper.GetWrapper(Model.Document); }
+        get { return _fieldDocument; }
         set
         {
-			var oldPropVal = Document;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<PaymentDocumentWrapper, PaymentDocument>(_fieldDocument, value);
+			_fieldDocument = value;
         }
     }
-    public PaymentDocumentWrapper DocumentOriginalValue => PaymentDocumentWrapper.GetWrapper(GetOriginalValue<PaymentDocument>(nameof(Document)));
+    public PaymentDocumentWrapper DocumentOriginalValue { get; private set; }
     public bool DocumentIsChanged => GetIsChanged(nameof(Document));
 
-
+	private SumAndVatWrapper _fieldSumAndVat;
 	public SumAndVatWrapper SumAndVat 
     {
-        get { return SumAndVatWrapper.GetWrapper(Model.SumAndVat); }
+        get { return _fieldSumAndVat; }
         set
         {
-			var oldPropVal = SumAndVat;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<SumAndVatWrapper, SumAndVat>(_fieldSumAndVat, value);
+			_fieldSumAndVat = value;
         }
     }
-    public SumAndVatWrapper SumAndVatOriginalValue => SumAndVatWrapper.GetWrapper(GetOriginalValue<SumAndVat>(nameof(SumAndVat)));
+    public SumAndVatWrapper SumAndVatOriginalValue { get; private set; }
     public bool SumAndVatIsChanged => GetIsChanged(nameof(SumAndVat));
 
-
     #endregion
-
     protected override void InitializeComplexProperties(PaymentActual model)
     {
-
-        SalesUnit = SalesUnitWrapper.GetWrapper(model.SalesUnit);
-
-        Document = PaymentDocumentWrapper.GetWrapper(model.Document);
-
-        SumAndVat = SumAndVatWrapper.GetWrapper(model.SumAndVat);
-
+        SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(model.SalesUnit);
+        Document = GetWrapper<PaymentDocumentWrapper, PaymentDocument>(model.Document);
+        SumAndVat = GetWrapper<SumAndVatWrapper, SumAndVat>(model.SumAndVat);
     }
-
   }
 }

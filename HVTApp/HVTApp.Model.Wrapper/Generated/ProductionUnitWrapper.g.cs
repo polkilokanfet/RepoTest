@@ -7,28 +7,27 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class ProductionUnitWrapper : WrapperBase<ProductionUnit>
   {
-    protected ProductionUnitWrapper(ProductionUnit model) : base(model) { }
+    public ProductionUnitWrapper() : base(new ProductionUnit()) { }
+    public ProductionUnitWrapper(ProductionUnit model) : base(model) { }
 
-	public static ProductionUnitWrapper GetWrapper()
-	{
-		return GetWrapper(new ProductionUnit());
-	}
-
-	public static ProductionUnitWrapper GetWrapper(ProductionUnit model)
-	{
-	    if (model == null)
-	        return null;
-
-		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-			return (ProductionUnitWrapper)Repository.ModelWrapperDictionary[model];
-
-		return new ProductionUnitWrapper(model);
-	}
-
+//	public static ProductionUnitWrapper GetWrapper()
+//	{
+//		return GetWrapper(new ProductionUnit());
+//	}
+//
+//	public static ProductionUnitWrapper GetWrapper(ProductionUnit model)
+//	{
+//	    if (model == null)
+//	        return null;
+//
+//		if (Repository.ExistsWrappers.ContainsKey(model))
+//			return (ProductionUnitWrapper)Repository.ExistsWrappers[model];
+//
+//		return new ProductionUnitWrapper(model);
+//	}
 
 
     #region SimpleProperties
-
     public System.Int32 PlannedProductionTerm
     {
       get { return GetValue<System.Int32>(); }
@@ -36,7 +35,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Int32 PlannedProductionTermOriginalValue => GetOriginalValue<System.Int32>(nameof(PlannedProductionTerm));
     public bool PlannedProductionTermIsChanged => GetIsChanged(nameof(PlannedProductionTerm));
-
 
     public System.Int32 PlanedTermFromPickToEndProductionEnd
     {
@@ -46,7 +44,6 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 PlanedTermFromPickToEndProductionEndOriginalValue => GetOriginalValue<System.Int32>(nameof(PlanedTermFromPickToEndProductionEnd));
     public bool PlanedTermFromPickToEndProductionEndIsChanged => GetIsChanged(nameof(PlanedTermFromPickToEndProductionEnd));
 
-
     public System.Nullable<System.DateTime> StartProductionDate
     {
       get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -54,7 +51,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Nullable<System.DateTime> StartProductionDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(StartProductionDate));
     public bool StartProductionDateIsChanged => GetIsChanged(nameof(StartProductionDate));
-
 
     public System.Nullable<System.DateTime> PickingDate
     {
@@ -64,7 +60,6 @@ namespace HVTApp.Model.Wrapper
     public System.Nullable<System.DateTime> PickingDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(PickingDate));
     public bool PickingDateIsChanged => GetIsChanged(nameof(PickingDate));
 
-
     public System.Nullable<System.DateTime> EndProductionDate
     {
       get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -72,7 +67,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Nullable<System.DateTime> EndProductionDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(EndProductionDate));
     public bool EndProductionDateIsChanged => GetIsChanged(nameof(EndProductionDate));
-
 
     public System.Int32 OrderPosition
     {
@@ -82,7 +76,6 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 OrderPositionOriginalValue => GetOriginalValue<System.Int32>(nameof(OrderPosition));
     public bool OrderPositionIsChanged => GetIsChanged(nameof(OrderPosition));
 
-
     public System.String SerialNumber
     {
       get { return GetValue<System.String>(); }
@@ -90,7 +83,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String SerialNumberOriginalValue => GetOriginalValue<System.String>(nameof(SerialNumber));
     public bool SerialNumberIsChanged => GetIsChanged(nameof(SerialNumber));
-
 
     public System.Int32 Id
     {
@@ -100,72 +92,54 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
 
     #region ComplexProperties
-
+	private ProductWrapper _fieldProduct;
 	public ProductWrapper Product 
     {
-        get { return ProductWrapper.GetWrapper(Model.Product); }
+        get { return _fieldProduct; }
         set
         {
-			var oldPropVal = Product;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<ProductWrapper, Product>(_fieldProduct, value);
+			_fieldProduct = value;
         }
     }
-    public ProductWrapper ProductOriginalValue => ProductWrapper.GetWrapper(GetOriginalValue<Product>(nameof(Product)));
+    public ProductWrapper ProductOriginalValue { get; private set; }
     public bool ProductIsChanged => GetIsChanged(nameof(Product));
 
-
+	private SalesUnitWrapper _fieldSalesUnit;
 	public SalesUnitWrapper SalesUnit 
     {
-        get { return SalesUnitWrapper.GetWrapper(Model.SalesUnit); }
+        get { return _fieldSalesUnit; }
         set
         {
-			var oldPropVal = SalesUnit;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<SalesUnitWrapper, SalesUnit>(_fieldSalesUnit, value);
+			_fieldSalesUnit = value;
         }
     }
-    public SalesUnitWrapper SalesUnitOriginalValue => SalesUnitWrapper.GetWrapper(GetOriginalValue<SalesUnit>(nameof(SalesUnit)));
+    public SalesUnitWrapper SalesUnitOriginalValue { get; private set; }
     public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
 
-
+	private OrderWrapper _fieldOrder;
 	public OrderWrapper Order 
     {
-        get { return OrderWrapper.GetWrapper(Model.Order); }
+        get { return _fieldOrder; }
         set
         {
-			var oldPropVal = Order;
-            UnRegisterComplexProperty(oldPropVal);
-            RegisterComplexProperty(value);
-            SetValue(value?.Model);
-			OnComplexPropertyChanged(oldPropVal, value);
+			SetComplexProperty<OrderWrapper, Order>(_fieldOrder, value);
+			_fieldOrder = value;
         }
     }
-    public OrderWrapper OrderOriginalValue => OrderWrapper.GetWrapper(GetOriginalValue<Order>(nameof(Order)));
+    public OrderWrapper OrderOriginalValue { get; private set; }
     public bool OrderIsChanged => GetIsChanged(nameof(Order));
 
-
     #endregion
-
     protected override void InitializeComplexProperties(ProductionUnit model)
     {
-
-        Product = ProductWrapper.GetWrapper(model.Product);
-
-        SalesUnit = SalesUnitWrapper.GetWrapper(model.SalesUnit);
-
-        Order = OrderWrapper.GetWrapper(model.Order);
-
+        Product = GetWrapper<ProductWrapper, Product>(model.Product);
+        SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(model.SalesUnit);
+        Order = GetWrapper<OrderWrapper, Order>(model.Order);
     }
-
   }
 }

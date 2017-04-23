@@ -27,7 +27,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
             CompanyForms =
                 new ObservableCollection<CompanyFormWrapper>(
-                    _unitOfWork.CompanyForms.GetAll().Select(x => CompanyFormWrapper.GetWrapper(x)));
+                    _unitOfWork.CompanyForms.GetAll().Select(x => new CompanyFormWrapper(x)));
 
             NewCompanyFormCommand = new DelegateCommand(NewCompanyFormCommand_Execute, NewCompanyFormCommand_CanExecute);
             EditCompanyFormCommand = new DelegateCommand(EditCompanyFormCommand_Execute, EditCompanyFormCommand_CanExecute);
@@ -56,7 +56,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         private void NewCompanyFormCommand_Execute()
         {
             CompanyForm companyForm = new CompanyForm();
-            CompanyFormDetailsViewModel companyFormDetailsViewModel = new CompanyFormDetailsViewModel(CompanyFormWrapper.GetWrapper(companyForm));
+            CompanyFormDetailsViewModel companyFormDetailsViewModel = new CompanyFormDetailsViewModel(new CompanyFormWrapper(companyForm));
             bool? dialogResult = _dialogService.ShowDialog(companyFormDetailsViewModel);
 
             if (dialogResult.HasValue && dialogResult.Value)

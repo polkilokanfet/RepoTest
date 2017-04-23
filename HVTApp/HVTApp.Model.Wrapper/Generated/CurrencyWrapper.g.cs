@@ -7,28 +7,27 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class CurrencyWrapper : WrapperBase<Currency>
   {
-    protected CurrencyWrapper(Currency model) : base(model) { }
+    public CurrencyWrapper() : base(new Currency()) { }
+    public CurrencyWrapper(Currency model) : base(model) { }
 
-	public static CurrencyWrapper GetWrapper()
-	{
-		return GetWrapper(new Currency());
-	}
-
-	public static CurrencyWrapper GetWrapper(Currency model)
-	{
-	    if (model == null)
-	        return null;
-
-		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-			return (CurrencyWrapper)Repository.ModelWrapperDictionary[model];
-
-		return new CurrencyWrapper(model);
-	}
-
+//	public static CurrencyWrapper GetWrapper()
+//	{
+//		return GetWrapper(new Currency());
+//	}
+//
+//	public static CurrencyWrapper GetWrapper(Currency model)
+//	{
+//	    if (model == null)
+//	        return null;
+//
+//		if (Repository.ExistsWrappers.ContainsKey(model))
+//			return (CurrencyWrapper)Repository.ExistsWrappers[model];
+//
+//		return new CurrencyWrapper(model);
+//	}
 
 
     #region SimpleProperties
-
     public System.String FullName
     {
       get { return GetValue<System.String>(); }
@@ -36,7 +35,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String FullNameOriginalValue => GetOriginalValue<System.String>(nameof(FullName));
     public bool FullNameIsChanged => GetIsChanged(nameof(FullName));
-
 
     public System.String ShortName
     {
@@ -46,7 +44,6 @@ namespace HVTApp.Model.Wrapper
     public System.String ShortNameOriginalValue => GetOriginalValue<System.String>(nameof(ShortName));
     public bool ShortNameIsChanged => GetIsChanged(nameof(ShortName));
 
-
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -55,8 +52,6 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
   }
 }
