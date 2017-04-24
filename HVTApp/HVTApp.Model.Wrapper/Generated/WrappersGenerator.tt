@@ -51,22 +51,7 @@ namespace HVTApp.Model.Wrapper
   {
     public <#=modelType.Name#>Wrapper() : base(new <#=modelType.Name#>()) { }
     public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model) : base(model) { }
-
-//	public static <#=modelType.Name#>Wrapper GetWrapper()
-//	{
-//		return GetWrapper(new <#=modelType.Name#>());
-//	}
-//
-//	public static <#=modelType.Name#>Wrapper GetWrapper(<#=modelType.Name#> model)
-//	{
-//	    if (model == null)
-//	        return null;
-//
-//		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-//			return (<#=modelType.Name#>Wrapper)Repository.ModelWrapperDictionary[model];
-//
-//		return new <#=modelType.Name#>Wrapper(model);
-//	}
+    public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
 
 <#
 	GenerateSimpleProperties(simpleSetProperties);
@@ -217,16 +202,12 @@ namespace HVTApp.Model.Wrapper
       var propertyType = property.PropertyType.Name;
       var propertyName = property.Name;
 #>
-	private <#= propertyType #>Wrapper _field<#= propertyName #>;
 	public <#= propertyType #>Wrapper <#= propertyName #> 
     {
-        get { return _field<#= propertyName #>; }
-        set
-        {
-			SetComplexProperty<<#= propertyType #>Wrapper, <#= propertyType #>>(_field<#= propertyName #>, value);
-			_field<#= propertyName #> = value;
-        }
+        get { return GetComplexProperty<<#= propertyType #>Wrapper, <#= propertyType #>>(Model.<#= propertyName #>); }
+        set { SetComplexProperty<<#= propertyType #>Wrapper, <#= propertyType #>>(<#= propertyName #>, value); }
     }
+
     public <#=propertyType#>Wrapper <#=propertyName#>OriginalValue { get; private set; }
     public bool <#=propertyName#>IsChanged => GetIsChanged(nameof(<#=propertyName#>));
 

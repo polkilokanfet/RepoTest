@@ -10,15 +10,12 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
-    public interface IWrapper<TModel> : IValidatableChangeTracking, IValidatableObject
-        where TModel : class, IBaseEntity
-    {
-        TModel Model { get; }
-    }
-
     public abstract class WrapperBase<T> : NotifyDataErrorInfoBase, IWrapper<T>
         where T : class, IBaseEntity
     {
+        //сущность, необходимая для инициализации комплексных свойств (циклических).
+        private ExistsWrappers _existsWrappers;
+
         /// <summary>
         /// Словарь оригинальных значений. В словарь вносятся только те оригинальные значения, которые были изменены.
         /// </summary>
@@ -34,12 +31,12 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public T Model { get; }
 
-        protected WrapperBase(T model)
+        protected WrapperBase(T model, ExistsWrappers existsWrappers = null)
         {
             if (model == null) throw new ArgumentNullException(nameof(Model));
 
-            //if (!ModelWrapperDictionary.ContainsKey(model))
-                ModelWrapperDictionary.Add(model, this);
+            _existsWrappers = existsWrappers ?? new ExistsWrappers();
+            _existsWrappers.WrappersDictionary.Add(model, this);
 
             Model = model;
 
@@ -51,8 +48,8 @@ namespace HVTApp.Model.Wrapper
 
             RunInConstructor();
 
-            if (Equals(ModelWrapperDictionary.First().Key, model))
-                ModelWrapperDictionary.Clear();
+            if (Equals(_existsWrappers.WrappersDictionary.First().Key, model))
+                _existsWrappers.WrappersDictionary.Clear();
         }
 
         /// <summary>
@@ -311,6 +308,7 @@ namespace HVTApp.Model.Wrapper
             where TModel : class, IBaseEntity
         {
             if (wrapper == null) return;
+            if (_complexProperties.ContainsKey(wrapper.Model)) _complexProperties.Remove(wrapper.Model);
             UnRegisterTrackingObject(wrapper);
         }
 
@@ -322,8 +320,8 @@ namespace HVTApp.Model.Wrapper
         protected void RegisterComplexProperty<TModel>(IWrapper<TModel> wrapper)
             where TModel : class, IBaseEntity
         {
-            if (wrapper == null)
-                return;
+            if (wrapper == null) return;
+            if (!_complexProperties.ContainsKey(wrapper.Model)) _complexProperties.Add(wrapper.Model, wrapper);
             RegisterTrackingObject(wrapper);
         }
 
@@ -427,6 +425,16 @@ namespace HVTApp.Model.Wrapper
             return other != null && Model.Equals(other.Model);
         }
 
+        private readonly Dictionary<IBaseEntity, object> _complexProperties = new Dictionary<IBaseEntity, object>();
+
+        protected TProp GetComplexProperty<TProp, TModel>(TModel model)
+            where TProp : class, IWrapper<TModel>
+            where TModel : class, IBaseEntity
+        {
+            if (model != null && _complexProperties.ContainsKey(model))
+                return (TProp)_complexProperties[model];
+            return null;
+        }
 
         protected void SetComplexProperty<TProp, TModel>(TProp oldValue, TProp newValue, [CallerMemberName] string propertyName = null)
             where TProp : class, IWrapper<TModel>
@@ -445,17 +453,29 @@ namespace HVTApp.Model.Wrapper
         }
 
 
-        protected static TWrapper GetWrapper<TWrapper, TModel>(TModel model)
+        protected TWrapper GetWrapper<TWrapper, TModel>(TModel model)
             where TWrapper : class, IWrapper<TModel>
             where TModel : class, IBaseEntity
         {
             if (model == null)
                 return null;
 
-            if (ModelWrapperDictionary.ContainsKey(model))
-                return (TWrapper) ModelWrapperDictionary[model];
+            if (this._existsWrappers.WrappersDictionary.ContainsKey(model))
+                return (TWrapper)this._existsWrappers.WrappersDictionary[model];
 
-            return (TWrapper) Activator.CreateInstance(typeof(TWrapper), model);
+            return (TWrapper) Activator.CreateInstance(typeof(TWrapper), model, this._existsWrappers);
         }
+    }
+
+    public interface IWrapper<TModel> : IValidatableChangeTracking, IValidatableObject
+    where TModel : class, IBaseEntity
+    {
+        TModel Model { get; }
+    }
+
+
+    public class ExistsWrappers
+    {
+        public Dictionary<IBaseEntity, object> WrappersDictionary { get; } = new Dictionary<IBaseEntity, object>();
     }
 }

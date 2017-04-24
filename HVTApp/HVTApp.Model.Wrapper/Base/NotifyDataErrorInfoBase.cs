@@ -56,12 +56,5 @@ namespace HVTApp.Model.Wrapper
                 OnErrorsChanged(key);
             });
         }
-
-
-
-
-        protected static Dictionary<IBaseEntity, object> ModelWrapperDictionary { get; } = new Dictionary<IBaseEntity, object>();
-
-
     }
 }

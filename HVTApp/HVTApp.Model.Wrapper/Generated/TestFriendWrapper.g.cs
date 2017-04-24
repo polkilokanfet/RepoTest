@@ -9,25 +9,12 @@ namespace HVTApp.Model.Wrapper
   {
     public TestFriendWrapper() : base(new TestFriend()) { }
     public TestFriendWrapper(TestFriend model) : base(model) { }
+    public TestFriendWrapper(TestFriend model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
 
-//	public static TestFriendWrapper GetWrapper()
-//	{
-//		return GetWrapper(new TestFriend());
-//	}
-//
-//	public static TestFriendWrapper GetWrapper(TestFriend model)
-//	{
-//	    if (model == null)
-//	        return null;
-//
-//		if (Repository.ModelWrapperDictionary.ContainsKey(model))
-//			return (TestFriendWrapper)Repository.ModelWrapperDictionary[model];
-//
-//		return new TestFriendWrapper(model);
-//	}
 
 
     #region SimpleProperties
+
     public System.Int32 FriendGroupId
     {
       get { return GetValue<System.Int32>(); }
@@ -35,6 +22,7 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Int32 FriendGroupIdOriginalValue => GetOriginalValue<System.Int32>(nameof(FriendGroupId));
     public bool FriendGroupIdIsChanged => GetIsChanged(nameof(FriendGroupId));
+
 
     public System.String FirstName
     {
@@ -44,6 +32,7 @@ namespace HVTApp.Model.Wrapper
     public System.String FirstNameOriginalValue => GetOriginalValue<System.String>(nameof(FirstName));
     public bool FirstNameIsChanged => GetIsChanged(nameof(FirstName));
 
+
     public System.String LastName
     {
       get { return GetValue<System.String>(); }
@@ -51,6 +40,7 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String LastNameOriginalValue => GetOriginalValue<System.String>(nameof(LastName));
     public bool LastNameIsChanged => GetIsChanged(nameof(LastName));
+
 
     public System.Nullable<System.DateTime> Birthday
     {
@@ -60,6 +50,7 @@ namespace HVTApp.Model.Wrapper
     public System.Nullable<System.DateTime> BirthdayOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(Birthday));
     public bool BirthdayIsChanged => GetIsChanged(nameof(Birthday));
 
+
     public System.Boolean IsDeveloper
     {
       get { return GetValue<System.Boolean>(); }
@@ -67,6 +58,7 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Boolean IsDeveloperOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsDeveloper));
     public bool IsDeveloperIsChanged => GetIsChanged(nameof(IsDeveloper));
+
 
     public System.Int32 Id
     {
@@ -76,60 +68,72 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
-	private TestFriendAddressWrapper _fieldTestFriendAddress;
+
 	public TestFriendAddressWrapper TestFriendAddress 
     {
-        get { return _fieldTestFriendAddress; }
-        set
-        {
-			SetComplexProperty<TestFriendAddressWrapper, TestFriendAddress>(_fieldTestFriendAddress, value);
-			_fieldTestFriendAddress = value;
-        }
+        get { return GetComplexProperty<TestFriendAddressWrapper, TestFriendAddress>(Model.TestFriendAddress); }
+        set { SetComplexProperty<TestFriendAddressWrapper, TestFriendAddress>(TestFriendAddress, value); }
     }
+
     public TestFriendAddressWrapper TestFriendAddressOriginalValue { get; private set; }
     public bool TestFriendAddressIsChanged => GetIsChanged(nameof(TestFriendAddress));
 
-	private TestFriendGroupWrapper _fieldTestFriendGroup;
+
 	public TestFriendGroupWrapper TestFriendGroup 
     {
-        get { return _fieldTestFriendGroup; }
-        set
-        {
-			SetComplexProperty<TestFriendGroupWrapper, TestFriendGroup>(_fieldTestFriendGroup, value);
-			_fieldTestFriendGroup = value;
-        }
+        get { return GetComplexProperty<TestFriendGroupWrapper, TestFriendGroup>(Model.TestFriendGroup); }
+        set { SetComplexProperty<TestFriendGroupWrapper, TestFriendGroup>(TestFriendGroup, value); }
     }
+
     public TestFriendGroupWrapper TestFriendGroupOriginalValue { get; private set; }
     public bool TestFriendGroupIsChanged => GetIsChanged(nameof(TestFriendGroup));
 
+
     #endregion
+
 
     #region CollectionProperties
+
     public IValidatableChangeTrackingCollection<TestFriendEmailWrapper> Emails { get; private set; }
+
 
     #endregion
 
+
     #region GetProperties
+
     public System.Int32 IdGet => GetValue<System.Int32>(); 
+
 
     public HVTApp.Model.TestFriendEmail TestFriendEmailGet => GetValue<HVTApp.Model.TestFriendEmail>(); 
 
+
     #endregion
+
     protected override void InitializeComplexProperties(TestFriend model)
     {
+
         TestFriendAddress = GetWrapper<TestFriendAddressWrapper, TestFriendAddress>(model.TestFriendAddress);
+
         TestFriendGroup = GetWrapper<TestFriendGroupWrapper, TestFriendGroup>(model.TestFriendGroup);
+
     }
+
   
     protected override void InitializeCollectionComplexProperties(TestFriend model)
     {
+
       if (model.Emails == null) throw new ArgumentException("Emails cannot be null");
       Emails = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(model.Emails.Select(e => GetWrapper<TestFriendEmailWrapper, TestFriendEmail>(e)));
       RegisterCollection(Emails, model.Emails);
 
+
     }
+
   }
 }
