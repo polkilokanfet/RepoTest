@@ -8,15 +8,13 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class TestEntityWrapper : WrapperBase<TestEntity>
   {
-    public TestEntityWrapper() : base(new TestEntity()) { }
-    public TestEntityWrapper(TestEntity model) : base(model) { }
-    public TestEntityWrapper(TestEntity model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
-    public TestEntityWrapper(TestEntity model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
-
+    public TestEntityWrapper() : base(new TestEntity(), new Dictionary<IBaseEntity, object>()) { }
+    public TestEntityWrapper(TestEntity model) : base(model, new Dictionary<IBaseEntity, object>()) { }
+    //public TestEntityWrapper(TestEntity model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public TestEntityWrapper(TestEntity model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
     #region SimpleProperties
-
     public System.String Name
     {
       get { return GetValue<System.String>(); }
@@ -24,7 +22,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
-
 
     public System.Int32 Id
     {
@@ -34,8 +31,6 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
   }
 }

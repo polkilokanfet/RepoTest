@@ -8,15 +8,13 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class ActivityFieldWrapper : WrapperBase<ActivityField>
   {
-    public ActivityFieldWrapper() : base(new ActivityField()) { }
-    public ActivityFieldWrapper(ActivityField model) : base(model) { }
-    public ActivityFieldWrapper(ActivityField model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
-    public ActivityFieldWrapper(ActivityField model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
-
+    public ActivityFieldWrapper() : base(new ActivityField(), new Dictionary<IBaseEntity, object>()) { }
+    public ActivityFieldWrapper(ActivityField model) : base(model, new Dictionary<IBaseEntity, object>()) { }
+    //public ActivityFieldWrapper(ActivityField model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public ActivityFieldWrapper(ActivityField model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
     #region SimpleProperties
-
     public System.String Name
     {
       get { return GetValue<System.String>(); }
@@ -24,7 +22,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
-
 
     public HVTApp.Model.FieldOfActivity FieldOfActivity
     {
@@ -34,7 +31,6 @@ namespace HVTApp.Model.Wrapper
     public HVTApp.Model.FieldOfActivity FieldOfActivityOriginalValue => GetOriginalValue<HVTApp.Model.FieldOfActivity>(nameof(FieldOfActivity));
     public bool FieldOfActivityIsChanged => GetIsChanged(nameof(FieldOfActivity));
 
-
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -43,8 +39,6 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
   }
 }

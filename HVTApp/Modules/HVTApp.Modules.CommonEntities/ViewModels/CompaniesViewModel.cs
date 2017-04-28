@@ -23,6 +23,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         private readonly IUnityContainer _container;
         private CompanyWrapper _selectedCompany;
         private ICommand _selectItemCommand;
+        private ICollection<CompanyWrapper> _items;
 
         public CompaniesViewModel(IUnitOfWork unitOfWork, IDialogService dialogService, IUnityContainer container)
         {
@@ -34,8 +35,14 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
             NewCompanyCommand = new DelegateCommand(NewCompanyCommand_Execute, NewCompanyCommand_CanExecute);
             EditCompanyCommand = new DelegateCommand(EditCompanyCommand_Execute, EditCompanyCommand_CanExecute);
+            DeleteCompanyCommand = new DelegateCommand(DeleteCompanyCommand_Execute);
             SelectItemCommand = new DelegateCommand(SelectItemCommand_Execute, SelectItemCommand_CanExecute);
             RefreshCommand = new DelegateCommand(RefreshCommand_Execute);
+        }
+
+        private void DeleteCompanyCommand_Execute()
+        {
+            throw new NotImplementedException();
         }
 
         public ObservableCollection<CompanyWrapper> Companies { get; }
@@ -137,6 +144,8 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         }
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
+
+        public ICollection<CompanyWrapper> Items => Companies;
 
         #endregion
 

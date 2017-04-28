@@ -75,17 +75,17 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         private void SelectParentCompanyCommand_Execute()
         {
-            List<Company> exceptCompanies = CompanyWrapper.GetAllChilds().Select(x => x.Model).ToList();
-            exceptCompanies.Add(CompanyWrapper.Model);
+            //компании, которые не могут быть головной (дочернии и т.д.)
+            IEnumerable<CompanyWrapper> exceptCompanies = CompanyWrapper.GetAllChilds().Concat(new[] {this.CompanyWrapper});
+            //возможные головные компании
+            IEnumerable<CompanyWrapper> possibleParents = _unitOfWork.Companies.GetAll().Except(exceptCompanies);
+            //выбор одной из компаний
+            CompanyWrapper possibleParent = _selectService.SelectItem(possibleParents, CompanyWrapper.ParentCompany);
 
-            IEnumerable<Company> possibleParents = _unitOfWork.Companies.GetAll().Select(x => x.Model).Except(exceptCompanies);
-
-            Company possibleParent = _selectService.SelectItem(possibleParents.Select(x => new CompanyWrapper(x)), CompanyWrapper.ParentCompany)?.Model;
-
-            if (possibleParent != null && !Equals(possibleParent, CompanyWrapper.ParentCompany?.Model))
+            if (possibleParent != null && !Equals(possibleParent, CompanyWrapper.ParentCompany))
             {
                 RemoveParentCompanyCommand_Execute();
-                CompanyWrapper.ParentCompany = new CompanyWrapper(possibleParent);
+                CompanyWrapper.ParentCompany = possibleParent;
             }
         }
 

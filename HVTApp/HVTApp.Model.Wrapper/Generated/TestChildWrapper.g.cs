@@ -8,15 +8,13 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class TestChildWrapper : WrapperBase<TestChild>
   {
-    public TestChildWrapper() : base(new TestChild()) { }
-    public TestChildWrapper(TestChild model) : base(model) { }
-    public TestChildWrapper(TestChild model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
-    public TestChildWrapper(TestChild model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
-
+    public TestChildWrapper() : base(new TestChild(), new Dictionary<IBaseEntity, object>()) { }
+    public TestChildWrapper(TestChild model) : base(model, new Dictionary<IBaseEntity, object>()) { }
+    //public TestChildWrapper(TestChild model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public TestChildWrapper(TestChild model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
     #region SimpleProperties
-
     public System.String Name
     {
       get { return GetValue<System.String>(); }
@@ -24,7 +22,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
-
 
     public System.Int32 Id
     {
@@ -34,12 +31,9 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	public TestHusbandWrapper Husband 
     {
         get { return GetComplexProperty<TestHusbandWrapper, TestHusband>(Model.Husband); }
@@ -48,7 +42,6 @@ namespace HVTApp.Model.Wrapper
 
     public TestHusbandWrapper HusbandOriginalValue { get; private set; }
     public bool HusbandIsChanged => GetIsChanged(nameof(Husband));
-
 
 	public TestWifeWrapper Wife 
     {
@@ -59,17 +52,11 @@ namespace HVTApp.Model.Wrapper
     public TestWifeWrapper WifeOriginalValue { get; private set; }
     public bool WifeIsChanged => GetIsChanged(nameof(Wife));
 
-
     #endregion
-
     protected override void InitializeComplexProperties(TestChild model)
     {
-
         Husband = GetWrapper<TestHusbandWrapper, TestHusband>(model.Husband);
-
         Wife = GetWrapper<TestWifeWrapper, TestWife>(model.Wife);
-
     }
-
   }
 }

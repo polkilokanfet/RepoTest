@@ -34,6 +34,9 @@ namespace HVTApp.Services.SelectService
             ViewModelView vmv = Mappings[typeof(TItem)];
             var view = (Control)_unityContainer.Resolve(vmv.ViewType);
             ISelectViewModel<TItem> viewModel = (ISelectViewModel<TItem>)_unityContainer.Resolve(vmv.ViewModelType);
+            viewModel.Items.Clear();
+            foreach (TItem item in items)
+                viewModel.Items.Add(item);
             viewModel.SelectedItem = selectedItem;
             view.DataContext = viewModel;
 

@@ -8,15 +8,13 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class ShipmentUnitWrapper : WrapperBase<ShipmentUnit>
   {
-    public ShipmentUnitWrapper() : base(new ShipmentUnit()) { }
-    public ShipmentUnitWrapper(ShipmentUnit model) : base(model) { }
-    public ShipmentUnitWrapper(ShipmentUnit model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
-    public ShipmentUnitWrapper(ShipmentUnit model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
-
+    public ShipmentUnitWrapper() : base(new ShipmentUnit(), new Dictionary<IBaseEntity, object>()) { }
+    public ShipmentUnitWrapper(ShipmentUnit model) : base(model, new Dictionary<IBaseEntity, object>()) { }
+    //public ShipmentUnitWrapper(ShipmentUnit model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public ShipmentUnitWrapper(ShipmentUnit model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
     #region SimpleProperties
-
     public System.Nullable<System.Int32> ExpectedDeliveryPeriod
     {
       get { return GetValue<System.Nullable<System.Int32>>(); }
@@ -24,7 +22,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Nullable<System.Int32> ExpectedDeliveryPeriodOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(ExpectedDeliveryPeriod));
     public bool ExpectedDeliveryPeriodIsChanged => GetIsChanged(nameof(ExpectedDeliveryPeriod));
-
 
     public System.Double ShipmentCost
     {
@@ -34,7 +31,6 @@ namespace HVTApp.Model.Wrapper
     public System.Double ShipmentCostOriginalValue => GetOriginalValue<System.Double>(nameof(ShipmentCost));
     public bool ShipmentCostIsChanged => GetIsChanged(nameof(ShipmentCost));
 
-
     public System.Nullable<System.DateTime> ShipmentDate
     {
       get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -42,7 +38,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Nullable<System.DateTime> ShipmentDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(ShipmentDate));
     public bool ShipmentDateIsChanged => GetIsChanged(nameof(ShipmentDate));
-
 
     public System.Nullable<System.DateTime> ShipmentPlanDate
     {
@@ -52,7 +47,6 @@ namespace HVTApp.Model.Wrapper
     public System.Nullable<System.DateTime> ShipmentPlanDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(ShipmentPlanDate));
     public bool ShipmentPlanDateIsChanged => GetIsChanged(nameof(ShipmentPlanDate));
 
-
     public System.Nullable<System.DateTime> RequiredDeliveryDate
     {
       get { return GetValue<System.Nullable<System.DateTime>>(); }
@@ -60,7 +54,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Nullable<System.DateTime> RequiredDeliveryDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(RequiredDeliveryDate));
     public bool RequiredDeliveryDateIsChanged => GetIsChanged(nameof(RequiredDeliveryDate));
-
 
     public System.Nullable<System.DateTime> DeliveryDate
     {
@@ -70,7 +63,6 @@ namespace HVTApp.Model.Wrapper
     public System.Nullable<System.DateTime> DeliveryDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DeliveryDate));
     public bool DeliveryDateIsChanged => GetIsChanged(nameof(DeliveryDate));
 
-
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -79,12 +71,9 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	public AddressWrapper Address 
     {
         get { return GetComplexProperty<AddressWrapper, Address>(Model.Address); }
@@ -93,7 +82,6 @@ namespace HVTApp.Model.Wrapper
 
     public AddressWrapper AddressOriginalValue { get; private set; }
     public bool AddressIsChanged => GetIsChanged(nameof(Address));
-
 
 	public SalesUnitWrapper SalesUnit 
     {
@@ -104,17 +92,11 @@ namespace HVTApp.Model.Wrapper
     public SalesUnitWrapper SalesUnitOriginalValue { get; private set; }
     public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
 
-
     #endregion
-
     protected override void InitializeComplexProperties(ShipmentUnit model)
     {
-
         Address = GetWrapper<AddressWrapper, Address>(model.Address);
-
         SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(model.SalesUnit);
-
     }
-
   }
 }

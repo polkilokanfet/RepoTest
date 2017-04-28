@@ -8,15 +8,13 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class UserRoleWrapper : WrapperBase<UserRole>
   {
-    public UserRoleWrapper() : base(new UserRole()) { }
-    public UserRoleWrapper(UserRole model) : base(model) { }
-    public UserRoleWrapper(UserRole model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
-    public UserRoleWrapper(UserRole model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
-
+    public UserRoleWrapper() : base(new UserRole(), new Dictionary<IBaseEntity, object>()) { }
+    public UserRoleWrapper(UserRole model) : base(model, new Dictionary<IBaseEntity, object>()) { }
+    //public UserRoleWrapper(UserRole model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public UserRoleWrapper(UserRole model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
     #region SimpleProperties
-
     public HVTApp.Model.Role Role
     {
       get { return GetValue<HVTApp.Model.Role>(); }
@@ -24,7 +22,6 @@ namespace HVTApp.Model.Wrapper
     }
     public HVTApp.Model.Role RoleOriginalValue => GetOriginalValue<HVTApp.Model.Role>(nameof(Role));
     public bool RoleIsChanged => GetIsChanged(nameof(Role));
-
 
     public System.Int32 Id
     {
@@ -34,8 +31,6 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
   }
 }

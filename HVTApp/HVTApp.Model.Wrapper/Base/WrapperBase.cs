@@ -13,8 +13,8 @@ namespace HVTApp.Model.Wrapper
     public abstract class WrapperBase<T> : NotifyDataErrorInfoBase, IWrapper<T>
         where T : class, IBaseEntity
     {
-        //сущность, необходимая для инициализации комплексных свойств (циклических).
-        private ExistsWrappers _existsWrappers;
+        //уже созданные обертки сущностей
+        private readonly IDictionary<IBaseEntity, object> _existsWrappers;
 
         /// <summary>
         /// Словарь оригинальных значений. В словарь вносятся только те оригинальные значения, которые были изменены.
@@ -36,12 +36,12 @@ namespace HVTApp.Model.Wrapper
             return Equals(this.Model, wrapper.Model);
         }
 
-        protected WrapperBase(T model, ExistsWrappers existsWrappers = null)
+        protected WrapperBase(T model, IDictionary<IBaseEntity, object> existsWrappers)
         {
             if (model == null) throw new ArgumentNullException(nameof(Model));
 
-            _existsWrappers = existsWrappers ?? new ExistsWrappers();
-            _existsWrappers.WrappersDictionary.Add(model, this);
+            _existsWrappers = existsWrappers;
+            _existsWrappers.Add(model, this);
 
             Model = model;
 
@@ -52,30 +52,21 @@ namespace HVTApp.Model.Wrapper
             Validate();
 
             RunInConstructor();
-
-            if (Equals(_existsWrappers.WrappersDictionary.First().Key, model))
-                _existsWrappers.WrappersDictionary.Clear();
         }
 
         /// <summary>
         /// Инициализация свойств-коллекций объекта.
         /// </summary>
         /// <param name="model"></param>
-        protected virtual void InitializeCollectionComplexProperties(T model)
-        {
-        }
+        protected virtual void InitializeCollectionComplexProperties(T model) { }
 
-        protected virtual void InitializeCollectionSimpleProperties(T model)
-        {
-        }
+        protected virtual void InitializeCollectionSimpleProperties(T model) { }
 
         /// <summary>
         /// Инициализация свойств сложных (не примитивных) типов.
         /// </summary>
         /// <param name="model"></param>
-        protected virtual void InitializeComplexProperties(T model)
-        {
-        }
+        protected virtual void InitializeComplexProperties(T model) { }
 
         public List<string> ProcessesInWork { get; } = new List<string>();
 
@@ -465,26 +456,10 @@ namespace HVTApp.Model.Wrapper
             if (model == null)
                 return null;
 
-            if (this._existsWrappers.WrappersDictionary.ContainsKey(model))
-                return (TWrapper)this._existsWrappers.WrappersDictionary[model];
+            if (this._existsWrappers.ContainsKey(model))
+                return (TWrapper)this._existsWrappers[model];
 
-            var wrapper = (TWrapper) Activator.CreateInstance(typeof(TWrapper), model, this._existsWrappers);
-            CreatedNewPropertyWrapper?.Invoke(this, new CreatedNewPropertyWrapperEventArgs(model, wrapper));
-            return wrapper;
-        }
-
-        public event EventHandler<CreatedNewPropertyWrapperEventArgs> CreatedNewPropertyWrapper;
-    }
-
-    public class CreatedNewPropertyWrapperEventArgs : EventArgs
-    {
-        public IBaseEntity Model { get; }
-        public object Wrapper { get; }
-
-        public CreatedNewPropertyWrapperEventArgs(IBaseEntity model, object wrapper)
-        {
-            Model = model;
-            Wrapper = wrapper;
+            return (TWrapper) Activator.CreateInstance(typeof(TWrapper), model, this._existsWrappers);
         }
     }
 
@@ -493,22 +468,5 @@ namespace HVTApp.Model.Wrapper
     {
         TModel Model { get; }
         bool EqualsModels(IWrapper<TModel> wrapper);
-        event EventHandler<CreatedNewPropertyWrapperEventArgs> CreatedNewPropertyWrapper;
-    }
-
-
-    public class ExistsWrappers
-    {
-        public ExistsWrappers()
-        {
-            WrappersDictionary = new Dictionary<IBaseEntity, object>();
-        }
-
-        public ExistsWrappers(IDictionary<IBaseEntity, object> dictionary)
-        {
-            WrappersDictionary = new Dictionary<IBaseEntity, object>(dictionary);
-        }
-
-        public Dictionary<IBaseEntity, object> WrappersDictionary { get; }
     }
 }

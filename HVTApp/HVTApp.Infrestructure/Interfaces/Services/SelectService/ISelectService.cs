@@ -16,6 +16,7 @@ namespace HVTApp.Infrastructure.Interfaces.Services.SelectService
 
     public interface ISelectViewModel<TItem> : IDialogRequestClose
     {
+        ICollection<TItem> Items { get; }
         TItem SelectedItem { get; set; }
         ICommand SelectItemCommand { get; }
         ICommand NewItemCommand { get; }

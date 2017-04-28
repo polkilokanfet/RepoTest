@@ -8,15 +8,13 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class DocumentWrapper : WrapperBase<Document>
   {
-    public DocumentWrapper() : base(new Document()) { }
-    public DocumentWrapper(Document model) : base(model) { }
-    public DocumentWrapper(Document model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
-    public DocumentWrapper(Document model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
-
+    public DocumentWrapper() : base(new Document(), new Dictionary<IBaseEntity, object>()) { }
+    public DocumentWrapper(Document model) : base(model, new Dictionary<IBaseEntity, object>()) { }
+    //public DocumentWrapper(Document model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public DocumentWrapper(Document model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
     #region SimpleProperties
-
     public System.String Comment
     {
       get { return GetValue<System.String>(); }
@@ -24,7 +22,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
     public bool CommentIsChanged => GetIsChanged(nameof(Comment));
-
 
     public System.Int32 Id
     {
@@ -34,12 +31,9 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	public DocumentWrapper RequestDocument 
     {
         get { return GetComplexProperty<DocumentWrapper, Document>(Model.RequestDocument); }
@@ -48,7 +42,6 @@ namespace HVTApp.Model.Wrapper
 
     public DocumentWrapper RequestDocumentOriginalValue { get; private set; }
     public bool RequestDocumentIsChanged => GetIsChanged(nameof(RequestDocument));
-
 
 	public EmployeeWrapper Author 
     {
@@ -59,7 +52,6 @@ namespace HVTApp.Model.Wrapper
     public EmployeeWrapper AuthorOriginalValue { get; private set; }
     public bool AuthorIsChanged => GetIsChanged(nameof(Author));
 
-
 	public EmployeeWrapper SenderEmployee 
     {
         get { return GetComplexProperty<EmployeeWrapper, Employee>(Model.SenderEmployee); }
@@ -68,7 +60,6 @@ namespace HVTApp.Model.Wrapper
 
     public EmployeeWrapper SenderEmployeeOriginalValue { get; private set; }
     public bool SenderEmployeeIsChanged => GetIsChanged(nameof(SenderEmployee));
-
 
 	public EmployeeWrapper RecipientEmployee 
     {
@@ -79,7 +70,6 @@ namespace HVTApp.Model.Wrapper
     public EmployeeWrapper RecipientEmployeeOriginalValue { get; private set; }
     public bool RecipientEmployeeIsChanged => GetIsChanged(nameof(RecipientEmployee));
 
-
 	public RegistrationDetailsWrapper RegistrationDetailsOfSender 
     {
         get { return GetComplexProperty<RegistrationDetailsWrapper, RegistrationDetails>(Model.RegistrationDetailsOfSender); }
@@ -88,7 +78,6 @@ namespace HVTApp.Model.Wrapper
 
     public RegistrationDetailsWrapper RegistrationDetailsOfSenderOriginalValue { get; private set; }
     public bool RegistrationDetailsOfSenderIsChanged => GetIsChanged(nameof(RegistrationDetailsOfSender));
-
 
 	public RegistrationDetailsWrapper RegistrationDetailsOfRecipient 
     {
@@ -99,44 +88,28 @@ namespace HVTApp.Model.Wrapper
     public RegistrationDetailsWrapper RegistrationDetailsOfRecipientOriginalValue { get; private set; }
     public bool RegistrationDetailsOfRecipientIsChanged => GetIsChanged(nameof(RegistrationDetailsOfRecipient));
 
-
     #endregion
-
 
     #region CollectionProperties
-
     public IValidatableChangeTrackingCollection<EmployeeWrapper> CopyToRecipients { get; private set; }
 
-
     #endregion
-
     protected override void InitializeComplexProperties(Document model)
     {
-
         RequestDocument = GetWrapper<DocumentWrapper, Document>(model.RequestDocument);
-
         Author = GetWrapper<EmployeeWrapper, Employee>(model.Author);
-
         SenderEmployee = GetWrapper<EmployeeWrapper, Employee>(model.SenderEmployee);
-
         RecipientEmployee = GetWrapper<EmployeeWrapper, Employee>(model.RecipientEmployee);
-
         RegistrationDetailsOfSender = GetWrapper<RegistrationDetailsWrapper, RegistrationDetails>(model.RegistrationDetailsOfSender);
-
         RegistrationDetailsOfRecipient = GetWrapper<RegistrationDetailsWrapper, RegistrationDetails>(model.RegistrationDetailsOfRecipient);
-
     }
-
   
     protected override void InitializeCollectionComplexProperties(Document model)
     {
-
       if (model.CopyToRecipients == null) throw new ArgumentException("CopyToRecipients cannot be null");
       CopyToRecipients = new ValidatableChangeTrackingCollection<EmployeeWrapper>(model.CopyToRecipients.Select(e => GetWrapper<EmployeeWrapper, Employee>(e)));
       RegisterCollection(CopyToRecipients, model.CopyToRecipients);
 
-
     }
-
   }
 }

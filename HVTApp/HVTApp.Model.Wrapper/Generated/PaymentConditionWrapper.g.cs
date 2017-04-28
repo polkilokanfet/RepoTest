@@ -8,15 +8,13 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class PaymentConditionWrapper : WrapperBase<PaymentCondition>
   {
-    public PaymentConditionWrapper() : base(new PaymentCondition()) { }
-    public PaymentConditionWrapper(PaymentCondition model) : base(model) { }
-    public PaymentConditionWrapper(PaymentCondition model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
-    public PaymentConditionWrapper(PaymentCondition model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
-
+    public PaymentConditionWrapper() : base(new PaymentCondition(), new Dictionary<IBaseEntity, object>()) { }
+    public PaymentConditionWrapper(PaymentCondition model) : base(model, new Dictionary<IBaseEntity, object>()) { }
+    //public PaymentConditionWrapper(PaymentCondition model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public PaymentConditionWrapper(PaymentCondition model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
     #region SimpleProperties
-
     public System.Double PartInPercent
     {
       get { return GetValue<System.Double>(); }
@@ -24,7 +22,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.Double PartInPercentOriginalValue => GetOriginalValue<System.Double>(nameof(PartInPercent));
     public bool PartInPercentIsChanged => GetIsChanged(nameof(PartInPercent));
-
 
     public System.Int32 DaysToPoint
     {
@@ -34,7 +31,6 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 DaysToPointOriginalValue => GetOriginalValue<System.Int32>(nameof(DaysToPoint));
     public bool DaysToPointIsChanged => GetIsChanged(nameof(DaysToPoint));
 
-
     public HVTApp.Model.PaymentConditionPoint PaymentConditionPoint
     {
       get { return GetValue<HVTApp.Model.PaymentConditionPoint>(); }
@@ -42,7 +38,6 @@ namespace HVTApp.Model.Wrapper
     }
     public HVTApp.Model.PaymentConditionPoint PaymentConditionPointOriginalValue => GetOriginalValue<HVTApp.Model.PaymentConditionPoint>(nameof(PaymentConditionPoint));
     public bool PaymentConditionPointIsChanged => GetIsChanged(nameof(PaymentConditionPoint));
-
 
     public System.Int32 Id
     {
@@ -52,8 +47,6 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
   }
 }

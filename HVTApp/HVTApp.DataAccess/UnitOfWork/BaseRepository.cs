@@ -18,6 +18,8 @@ namespace HVTApp.DataAccess
         public BaseRepository(DbContext context, Dictionary<IBaseEntity, object> repository)
         {
             Context = context;
+
+            if (repository == null) throw new ArgumentNullException();
             _repository = repository;
         }
 
@@ -58,11 +60,14 @@ namespace HVTApp.DataAccess
         public void Delete(TWrapper entity)
         {
             Context.Set<TModel>().Remove(entity.Model);
+            _repository.Remove(entity.Model);
         }
 
         public void DeleteRange(IEnumerable<TWrapper> entities)
         {
             Context.Set<TModel>().RemoveRange(entities.Select(x => x.Model));
+            foreach (var wrapper in entities)
+                _repository.Remove(wrapper.Model);
         }
     }
 }

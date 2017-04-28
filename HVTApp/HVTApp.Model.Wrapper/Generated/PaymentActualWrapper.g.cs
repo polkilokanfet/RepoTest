@@ -8,15 +8,13 @@ namespace HVTApp.Model.Wrapper
 {
   public partial class PaymentActualWrapper : WrapperBase<PaymentActual>
   {
-    public PaymentActualWrapper() : base(new PaymentActual()) { }
-    public PaymentActualWrapper(PaymentActual model) : base(model) { }
-    public PaymentActualWrapper(PaymentActual model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
-    public PaymentActualWrapper(PaymentActual model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
-
+    public PaymentActualWrapper() : base(new PaymentActual(), new Dictionary<IBaseEntity, object>()) { }
+    public PaymentActualWrapper(PaymentActual model) : base(model, new Dictionary<IBaseEntity, object>()) { }
+    //public PaymentActualWrapper(PaymentActual model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public PaymentActualWrapper(PaymentActual model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
     #region SimpleProperties
-
     public System.DateTime Date
     {
       get { return GetValue<System.DateTime>(); }
@@ -24,7 +22,6 @@ namespace HVTApp.Model.Wrapper
     }
     public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
     public bool DateIsChanged => GetIsChanged(nameof(Date));
-
 
     public System.String Comment
     {
@@ -34,7 +31,6 @@ namespace HVTApp.Model.Wrapper
     public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
     public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
-
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -43,12 +39,9 @@ namespace HVTApp.Model.Wrapper
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	public SalesUnitWrapper SalesUnit 
     {
         get { return GetComplexProperty<SalesUnitWrapper, SalesUnit>(Model.SalesUnit); }
@@ -57,7 +50,6 @@ namespace HVTApp.Model.Wrapper
 
     public SalesUnitWrapper SalesUnitOriginalValue { get; private set; }
     public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
-
 
 	public PaymentDocumentWrapper Document 
     {
@@ -68,7 +60,6 @@ namespace HVTApp.Model.Wrapper
     public PaymentDocumentWrapper DocumentOriginalValue { get; private set; }
     public bool DocumentIsChanged => GetIsChanged(nameof(Document));
 
-
 	public SumAndVatWrapper SumAndVat 
     {
         get { return GetComplexProperty<SumAndVatWrapper, SumAndVat>(Model.SumAndVat); }
@@ -78,19 +69,12 @@ namespace HVTApp.Model.Wrapper
     public SumAndVatWrapper SumAndVatOriginalValue { get; private set; }
     public bool SumAndVatIsChanged => GetIsChanged(nameof(SumAndVat));
 
-
     #endregion
-
     protected override void InitializeComplexProperties(PaymentActual model)
     {
-
         SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(model.SalesUnit);
-
         Document = GetWrapper<PaymentDocumentWrapper, PaymentDocument>(model.Document);
-
         SumAndVat = GetWrapper<SumAndVatWrapper, SumAndVat>(model.SumAndVat);
-
     }
-
   }
 }

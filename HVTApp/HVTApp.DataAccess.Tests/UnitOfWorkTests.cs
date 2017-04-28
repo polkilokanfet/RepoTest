@@ -19,13 +19,13 @@ namespace HVTApp.DataAccess.Tests
             unitOfWork.Complete();
 
 
-            TestFriendGroup testFriendGroup = new TestFriendGroup {Name = "Тестовая группа"};
+            TestFriendGroup testFriendGroup = new TestFriendGroup { Name = "Тестовая группа" };
             var testFriendGroupWrapper = new TestFriendGroupWrapper(testFriendGroup);
             unitOfWork.FriendGroups.Add(testFriendGroupWrapper);
             unitOfWork.Complete();
 
             unitOfWork = new UnitOfWork(new HVTAppContext());
-            Assert.IsTrue(unitOfWork.FriendGroups.Find(x => x.Name == testFriendGroup.Name).Count() == 1);
+            Assert.IsTrue(unitOfWork.FriendGroups.Find(x => x.Name == testFriendGroupWrapper.Name).Count() == 1);
             
             //очищаем все записи
             unitOfWork.FriendGroups.DeleteRange(unitOfWork.FriendGroups.GetAll());
