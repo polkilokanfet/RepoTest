@@ -3,10 +3,11 @@ using System.Data.Entity;
 using System.Linq;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Model;
+using HVTApp.Model.Wrapper;
 
 namespace HVTApp.DataAccess
 {
-    public class CompaniesRepository : BaseRepository<Company>, ICompaniesRepository
+    public class CompaniesRepository : BaseRepository<Company, CompanyWrapper>, ICompaniesRepository
     {
         public CompaniesRepository(DbContext context) : base(context)
         {

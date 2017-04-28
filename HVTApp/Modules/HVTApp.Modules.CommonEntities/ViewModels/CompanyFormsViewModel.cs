@@ -25,9 +25,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             _unitOfWork = unitOfWork;
             _dialogService = dialogService;
 
-            CompanyForms =
-                new ObservableCollection<CompanyFormWrapper>(
-                    _unitOfWork.CompanyForms.GetAll().Select(x => new CompanyFormWrapper(x)));
+            CompanyForms = new ObservableCollection<CompanyFormWrapper>(_unitOfWork.CompanyForms.GetAll());
 
             NewCompanyFormCommand = new DelegateCommand(NewCompanyFormCommand_Execute, NewCompanyFormCommand_CanExecute);
             EditCompanyFormCommand = new DelegateCommand(EditCompanyFormCommand_Execute, EditCompanyFormCommand_CanExecute);
@@ -64,7 +62,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
                 companyFormDetailsViewModel.CompanyFormWrapper.AcceptChanges();
                 CompanyForms.Add(companyFormDetailsViewModel.CompanyFormWrapper);
 
-                _unitOfWork.CompanyForms.Add(companyForm);
+                _unitOfWork.CompanyForms.Add(new CompanyFormWrapper(companyForm));
                 _unitOfWork.Complete();
             }
         }
@@ -98,7 +96,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         private void DeleteCompanyFormCommand_Execute()
         {
             CompanyForms.Remove(SelectedCompanyForm);
-            _unitOfWork.CompanyForms.Delete(SelectedCompanyForm.Model);
+            _unitOfWork.CompanyForms.Delete(SelectedCompanyForm);
             _unitOfWork.Complete();
         }
 

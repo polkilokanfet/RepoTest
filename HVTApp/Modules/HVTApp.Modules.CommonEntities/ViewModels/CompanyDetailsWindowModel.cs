@@ -27,7 +27,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             _selectService = selectService;
 
 
-            Forms = new ObservableCollection<CompanyFormWrapper>(_unitOfWork.CompanyForms.GetAll().Select(x => new CompanyFormWrapper(x)));
+            Forms = new ObservableCollection<CompanyFormWrapper>(_unitOfWork.CompanyForms.GetAll());
 
             OkCommand = new DelegateCommand(OkCommand_Execute, OkCommand_CanExecute);
             SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_Execute);
@@ -58,7 +58,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         private void AddActivityFieldCommand_Execute()
         {
-            IEnumerable<ActivityField> fields = _unitOfWork.ActivityFields.GetAll();
+            IEnumerable<ActivityField> fields = _unitOfWork.ActivityFields.GetAll().Select(x => x.Model);
             fields = fields.Except(CompanyWrapper.ActivityFilds.Select(x => x.Model));
             _selectService.SelectItem(fields);
         }
@@ -77,7 +77,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             List<Company> exceptCompanies = CompanyWrapper.GetAllChilds().Select(x => x.Model).ToList();
             exceptCompanies.Add(CompanyWrapper.Model);
 
-            IEnumerable<Company> possibleParents = _unitOfWork.Companies.GetAll().Except(exceptCompanies);
+            IEnumerable<Company> possibleParents = _unitOfWork.Companies.GetAll().Select(x => x.Model).Except(exceptCompanies);
 
             Company possibleParent = _selectService.SelectItem(possibleParents.Select(x => new CompanyWrapper(x)), CompanyWrapper.ParentCompany)?.Model;
 

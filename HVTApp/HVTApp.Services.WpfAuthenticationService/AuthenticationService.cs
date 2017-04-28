@@ -1,4 +1,5 @@
-﻿using HVTApp.DataAccess;
+﻿using System.Linq;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.AuthenticationService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model;
@@ -21,7 +22,7 @@ namespace HVTApp.Services.WpfAuthenticationService
 
         public bool Authentication()
         {
-            AuthenticationWindowModel authenticationWindowModel = new AuthenticationWindowModel(_unitOfWork.Users.GetAll());
+            AuthenticationWindowModel authenticationWindowModel = new AuthenticationWindowModel(_unitOfWork.Users.GetAll().Select(x => x.Model).ToList());
             bool? result = _dialogService.ShowDialog(authenticationWindowModel);
             if (result.HasValue && result.Value)
             {

@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces;
+using HVTApp.Model.Wrapper;
 
 namespace HVTApp.DataAccess
 {
-    public class BaseRepository<TEntity> : IRepository<TEntity>
-        where TEntity : class
+    public class BaseRepository<TModel, TWrapper> : IRepository<TWrapper>
+        where TWrapper : class, IWrapper<TModel> 
+        where TModel : class, IBaseEntity
     {
         protected readonly DbContext Context;
 
@@ -16,37 +19,43 @@ namespace HVTApp.DataAccess
             Context = context;
         }
 
-        public virtual List<TEntity> GetAll()
+        public virtual List<TWrapper> GetAll()
         {
             Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-            return Context.Set<TEntity>().ToList();
+            var models = Context.Set<TModel>();
+            List<TWrapper> result = new List<TWrapper>();
+            foreach (var model in models)
+                result.Add((TWrapper)Activator.CreateInstance(typeof(TWrapper), model));
+            return result;
+            //return Context.Set<TModel>().Select(x => (TWrapper)Activator.CreateInstance(typeof(TWrapper), x)).ToList();
         }
 
-        public IEnumerable<TEntity> Find(Func<TEntity, bool> predicate)
+        public IEnumerable<TWrapper> Find(Func<TWrapper, bool> predicate)
         {
-            return Context.Set<TEntity>().Where(predicate);
-        }
-
-
-        public void Add(TEntity entity)
-        {
-            Context.Set<TEntity>().Add(entity);
-        }
-
-        public void AddRange(IEnumerable<TEntity> entities)
-        {
-            Context.Set<TEntity>().AddRange(entities);
+            return GetAll().Where(predicate);
+            //return Context.Set<TModel>().Select(x => (TWrapper)Activator.CreateInstance(typeof(TWrapper), x)).Where(predicate);
         }
 
 
-        public void Delete(TEntity entity)
+        public void Add(TWrapper entity)
         {
-            Context.Set<TEntity>().Remove(entity);
+            Context.Set<TModel>().Add(entity.Model);
         }
 
-        public void DeleteRange(IEnumerable<TEntity> entities)
+        public void AddRange(IEnumerable<TWrapper> entities)
         {
-            Context.Set<TEntity>().RemoveRange(entities);
+            Context.Set<TModel>().AddRange(entities.Select(x => x.Model));
+        }
+
+
+        public void Delete(TWrapper entity)
+        {
+            Context.Set<TModel>().Remove(entity.Model);
+        }
+
+        public void DeleteRange(IEnumerable<TWrapper> entities)
+        {
+            Context.Set<TModel>().RemoveRange(entities.Select(x => x.Model));
         }
     }
 }

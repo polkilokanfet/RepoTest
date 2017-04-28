@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Model.Wrapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HVTApp.DataAccess.Tests
@@ -19,7 +20,8 @@ namespace HVTApp.DataAccess.Tests
 
 
             TestFriendGroup testFriendGroup = new TestFriendGroup {Name = "Тестовая группа"};
-            unitOfWork.FriendGroups.Add(testFriendGroup);
+            var testFriendGroupWrapper = new TestFriendGroupWrapper(testFriendGroup);
+            unitOfWork.FriendGroups.Add(testFriendGroupWrapper);
             unitOfWork.Complete();
 
             unitOfWork = new UnitOfWork(new HVTAppContext());
