@@ -14,20 +14,27 @@ namespace HVTApp.DataAccess
     {
         protected readonly DbContext Context;
 
-        public BaseRepository(DbContext context)
+        private readonly Dictionary<IBaseEntity, object> _repository;
+        public BaseRepository(DbContext context, Dictionary<IBaseEntity, object> repository)
         {
             Context = context;
+            _repository = repository;
         }
 
         public virtual List<TWrapper> GetAll()
         {
             Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-            var models = Context.Set<TModel>();
+
             List<TWrapper> result = new List<TWrapper>();
+
+            var models = Context.Set<TModel>();
             foreach (var model in models)
-                result.Add((TWrapper)Activator.CreateInstance(typeof(TWrapper), model));
+                if (_repository.ContainsKey(model))
+                    result.Add((TWrapper)_repository[model]);
+                else
+                    result.Add((TWrapper)Activator.CreateInstance(typeof(TWrapper), model, _repository));
+
             return result;
-            //return Context.Set<TModel>().Select(x => (TWrapper)Activator.CreateInstance(typeof(TWrapper), x)).ToList();
         }
 
         public IEnumerable<TWrapper> Find(Func<TWrapper, bool> predicate)

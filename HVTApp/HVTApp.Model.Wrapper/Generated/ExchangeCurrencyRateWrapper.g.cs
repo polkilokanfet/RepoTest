@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -10,6 +11,7 @@ namespace HVTApp.Model.Wrapper
     public ExchangeCurrencyRateWrapper() : base(new ExchangeCurrencyRate()) { }
     public ExchangeCurrencyRateWrapper(ExchangeCurrencyRate model) : base(model) { }
     public ExchangeCurrencyRateWrapper(ExchangeCurrencyRate model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public ExchangeCurrencyRateWrapper(ExchangeCurrencyRate model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 

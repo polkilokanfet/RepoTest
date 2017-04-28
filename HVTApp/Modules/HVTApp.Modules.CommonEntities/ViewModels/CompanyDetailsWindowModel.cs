@@ -34,7 +34,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             RemoveParentCompanyCommand = new DelegateCommand(RemoveParentCompanyCommand_Execute);
             AddActivityFieldCommand = new DelegateCommand(AddActivityFieldCommand_Execute);
 
-            CompanyWrapper = new CompanyWrapper(new Company());
+            CompanyWrapper = new CompanyWrapper();
         }
 
         public DelegateCommand OkCommand { get; }
@@ -65,10 +65,11 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         private void RemoveParentCompanyCommand_Execute()
         {
-            if (CompanyWrapper.ParentCompany == null)
-                return;
-
+            //если головная компания не назначена
+            if (CompanyWrapper.ParentCompany == null) return;
+            //удаляем из списка дочерних компаний бывшей головной компании текущую компанию
             CompanyWrapper.ParentCompany.ChildCompanies.Remove(CompanyWrapper);
+            //удалаем головную компанию текущей компании
             CompanyWrapper.ParentCompany = null;
         }
 

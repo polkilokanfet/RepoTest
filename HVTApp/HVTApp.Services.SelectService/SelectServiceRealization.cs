@@ -39,9 +39,9 @@ namespace HVTApp.Services.SelectService
 
             SelectWindow selectWindow = new SelectWindow
             {
-                ContentControl = {Content = view},
-                CreatNewButton = {Command = viewModel.NewItemCommand},
-                SelectButton = {Command = viewModel.SelectItemCommand}
+                ContentControl = { Content = view },
+                CreatNewButton = { Command = viewModel.NewItemCommand },
+                SelectButton = { Command = viewModel.SelectItemCommand }
             };
 
             viewModel.CloseRequested += (sender, args) =>

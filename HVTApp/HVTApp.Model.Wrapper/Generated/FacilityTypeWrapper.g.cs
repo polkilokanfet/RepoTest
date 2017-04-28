@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -10,6 +11,7 @@ namespace HVTApp.Model.Wrapper
     public FacilityTypeWrapper() : base(new FacilityType()) { }
     public FacilityTypeWrapper(FacilityType model) : base(model) { }
     public FacilityTypeWrapper(FacilityType model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public FacilityTypeWrapper(FacilityType model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 

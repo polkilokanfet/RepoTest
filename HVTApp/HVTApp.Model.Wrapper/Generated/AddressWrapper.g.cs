@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -23,6 +24,7 @@ namespace HVTApp.Model.Wrapper
     public AddressWrapper() : base(new Address()) { }
     public AddressWrapper(Address model) : base(model) { }
     public AddressWrapper(Address model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public AddressWrapper(Address model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 

@@ -65,7 +65,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         private void EditCompanyCommand_Execute()
         {
-            CompanyDetailsWindowModel companyDetailsWindowModel = _container.Resolve<CompanyDetailsWindowModel>();
+            var companyDetailsWindowModel = _container.Resolve<CompanyDetailsWindowModel>();
             companyDetailsWindowModel.CompanyWrapper = SelectedCompany;
             var dialogResult = _dialogService.ShowDialog(companyDetailsWindowModel);
 
@@ -74,6 +74,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
             if (companyDetailsWindowModel.CompanyWrapper.IsChanged)
                 companyDetailsWindowModel.CompanyWrapper.RejectChanges();
+
         }
 
         private bool EditCompanyCommand_CanExecute()
@@ -89,9 +90,13 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             if (!dialogResult.HasValue || !dialogResult.Value)
                 return;
 
+            //добавляем новую компанию
+            //в базу данных
             _unitOfWork.Companies.Add(companyDetailsWindowModel.CompanyWrapper);
             _unitOfWork.Complete();
+            //в коллекцию этого окна
             Companies.Add(companyDetailsWindowModel.CompanyWrapper);
+            //выделяем вновь добавленную компанию
             SelectedCompany = companyDetailsWindowModel.CompanyWrapper;
         }
 
@@ -105,7 +110,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         {
             NewCompanyCommand.RaiseCanExecuteChanged();
             EditCompanyCommand.RaiseCanExecuteChanged();
-            //DeleteCompanyCommand.RaiseCanExecuteChanged();
+            DeleteCompanyCommand.RaiseCanExecuteChanged();
             ((DelegateCommand)SelectItemCommand).RaiseCanExecuteChanged();
         }
 

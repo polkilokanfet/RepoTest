@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -10,6 +11,7 @@ namespace HVTApp.Model.Wrapper
     public RequiredParentParametersWrapper() : base(new RequiredParentParameters()) { }
     public RequiredParentParametersWrapper(RequiredParentParameters model) : base(model) { }
     public RequiredParentParametersWrapper(RequiredParentParameters model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public RequiredParentParametersWrapper(RequiredParentParameters model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 

@@ -44,6 +44,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -52,6 +53,7 @@ namespace HVTApp.Model.Wrapper
     public <#=modelType.Name#>Wrapper() : base(new <#=modelType.Name#>()) { }
     public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model) : base(model) { }
     public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 <#
 	GenerateSimpleProperties(simpleSetProperties);

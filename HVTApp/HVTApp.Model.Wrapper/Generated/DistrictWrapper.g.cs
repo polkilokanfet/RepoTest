@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -10,6 +11,7 @@ namespace HVTApp.Model.Wrapper
     public DistrictWrapper() : base(new District()) { }
     public DistrictWrapper(District model) : base(model) { }
     public DistrictWrapper(District model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public DistrictWrapper(District model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 

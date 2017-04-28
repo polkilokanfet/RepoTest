@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -10,6 +11,7 @@ namespace HVTApp.Model.Wrapper
     public TestFriendGroupWrapper() : base(new TestFriendGroup()) { }
     public TestFriendGroupWrapper(TestFriendGroup model) : base(model) { }
     public TestFriendGroupWrapper(TestFriendGroup model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public TestFriendGroupWrapper(TestFriendGroup model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 

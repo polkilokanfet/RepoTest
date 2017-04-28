@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -10,6 +11,7 @@ namespace HVTApp.Model.Wrapper
     public StandartDeliveryPeriodWrapper() : base(new StandartDeliveryPeriod()) { }
     public StandartDeliveryPeriodWrapper(StandartDeliveryPeriod model) : base(model) { }
     public StandartDeliveryPeriodWrapper(StandartDeliveryPeriod model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public StandartDeliveryPeriodWrapper(StandartDeliveryPeriod model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 

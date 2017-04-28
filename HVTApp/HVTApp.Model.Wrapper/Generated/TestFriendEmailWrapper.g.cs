@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -10,6 +11,7 @@ namespace HVTApp.Model.Wrapper
     public TestFriendEmailWrapper() : base(new TestFriendEmail()) { }
     public TestFriendEmailWrapper(TestFriendEmail model) : base(model) { }
     public TestFriendEmailWrapper(TestFriendEmail model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public TestFriendEmailWrapper(TestFriendEmail model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 

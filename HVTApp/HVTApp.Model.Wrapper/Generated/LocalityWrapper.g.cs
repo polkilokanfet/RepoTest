@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -10,6 +11,7 @@ namespace HVTApp.Model.Wrapper
     public LocalityWrapper() : base(new Locality()) { }
     public LocalityWrapper(Locality model) : base(model) { }
     public LocalityWrapper(Locality model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public LocalityWrapper(Locality model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 

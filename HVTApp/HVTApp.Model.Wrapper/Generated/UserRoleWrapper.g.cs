@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -10,6 +11,7 @@ namespace HVTApp.Model.Wrapper
     public UserRoleWrapper() : base(new UserRole()) { }
     public UserRoleWrapper(UserRole model) : base(model) { }
     public UserRoleWrapper(UserRole model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public UserRoleWrapper(UserRole model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 

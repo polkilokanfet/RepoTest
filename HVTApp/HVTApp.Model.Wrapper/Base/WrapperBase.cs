@@ -31,6 +31,11 @@ namespace HVTApp.Model.Wrapper
         /// </summary>
         public T Model { get; }
 
+        public bool EqualsModels(IWrapper<T> wrapper)
+        {
+            return Equals(this.Model, wrapper.Model);
+        }
+
         protected WrapperBase(T model, ExistsWrappers existsWrappers = null)
         {
             if (model == null) throw new ArgumentNullException(nameof(Model));
@@ -463,7 +468,23 @@ namespace HVTApp.Model.Wrapper
             if (this._existsWrappers.WrappersDictionary.ContainsKey(model))
                 return (TWrapper)this._existsWrappers.WrappersDictionary[model];
 
-            return (TWrapper) Activator.CreateInstance(typeof(TWrapper), model, this._existsWrappers);
+            var wrapper = (TWrapper) Activator.CreateInstance(typeof(TWrapper), model, this._existsWrappers);
+            CreatedNewPropertyWrapper?.Invoke(this, new CreatedNewPropertyWrapperEventArgs(model, wrapper));
+            return wrapper;
+        }
+
+        public event EventHandler<CreatedNewPropertyWrapperEventArgs> CreatedNewPropertyWrapper;
+    }
+
+    public class CreatedNewPropertyWrapperEventArgs : EventArgs
+    {
+        public IBaseEntity Model { get; }
+        public object Wrapper { get; }
+
+        public CreatedNewPropertyWrapperEventArgs(IBaseEntity model, object wrapper)
+        {
+            Model = model;
+            Wrapper = wrapper;
         }
     }
 
@@ -471,11 +492,23 @@ namespace HVTApp.Model.Wrapper
     where TModel : class, IBaseEntity
     {
         TModel Model { get; }
+        bool EqualsModels(IWrapper<TModel> wrapper);
+        event EventHandler<CreatedNewPropertyWrapperEventArgs> CreatedNewPropertyWrapper;
     }
 
 
     public class ExistsWrappers
     {
-        public Dictionary<IBaseEntity, object> WrappersDictionary { get; } = new Dictionary<IBaseEntity, object>();
+        public ExistsWrappers()
+        {
+            WrappersDictionary = new Dictionary<IBaseEntity, object>();
+        }
+
+        public ExistsWrappers(IDictionary<IBaseEntity, object> dictionary)
+        {
+            WrappersDictionary = new Dictionary<IBaseEntity, object>(dictionary);
+        }
+
+        public Dictionary<IBaseEntity, object> WrappersDictionary { get; }
     }
 }

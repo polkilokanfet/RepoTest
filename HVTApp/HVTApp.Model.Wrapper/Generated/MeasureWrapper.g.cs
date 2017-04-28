@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -10,6 +11,7 @@ namespace HVTApp.Model.Wrapper
     public MeasureWrapper() : base(new Measure()) { }
     public MeasureWrapper(Measure model) : base(model) { }
     public MeasureWrapper(Measure model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public MeasureWrapper(Measure model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -10,6 +11,7 @@ namespace HVTApp.Model.Wrapper
     public CountryWrapper() : base(new Country()) { }
     public CountryWrapper(Country model) : base(model) { }
     public CountryWrapper(Country model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public CountryWrapper(Country model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 

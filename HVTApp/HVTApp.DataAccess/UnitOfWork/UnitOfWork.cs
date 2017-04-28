@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces;
 
 namespace HVTApp.DataAccess
@@ -6,19 +8,21 @@ namespace HVTApp.DataAccess
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DbContext _context;
+        private readonly Dictionary<IBaseEntity, object> _repository;
 
         public UnitOfWork(DbContext context)
         {
             _context = context;
+            _repository = new Dictionary<IBaseEntity, object>();
 
-            FriendGroups = new FriendGroupRepository(context);
+            FriendGroups = new FriendGroupRepository(context, _repository);
 
-            ActivityFields = new ActivityFieldsRepository(context);
-            Users = new UsersRepository(context);
-            Companies = new CompaniesRepository(context);
-            CompanyForms = new CompanyFormsRepository(context);
-            ProductParameters = new ProductParametersRepository(context);
-            Projects = new ProjectsRepository(context);
+            ActivityFields = new ActivityFieldsRepository(context, _repository);
+            Users = new UsersRepository(context, _repository);
+            Companies = new CompaniesRepository(context, _repository);
+            CompanyForms = new CompanyFormsRepository(context, _repository);
+            ProductParameters = new ProductParametersRepository(context, _repository);
+            Projects = new ProjectsRepository(context, _repository);
         }
         public void Dispose()
         {

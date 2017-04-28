@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -10,6 +11,7 @@ namespace HVTApp.Model.Wrapper
     public ContractWrapper() : base(new Contract()) { }
     public ContractWrapper(Contract model) : base(model) { }
     public ContractWrapper(Contract model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public ContractWrapper(Contract model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 

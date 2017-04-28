@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -10,6 +11,7 @@ namespace HVTApp.Model.Wrapper
     public SumOnDateWrapper() : base(new SumOnDate()) { }
     public SumOnDateWrapper(SumOnDate model) : base(model) { }
     public SumOnDateWrapper(SumOnDate model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public SumOnDateWrapper(SumOnDate model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 

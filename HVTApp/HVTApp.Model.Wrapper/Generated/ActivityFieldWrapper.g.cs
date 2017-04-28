@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -10,6 +11,7 @@ namespace HVTApp.Model.Wrapper
     public ActivityFieldWrapper() : base(new ActivityField()) { }
     public ActivityFieldWrapper(ActivityField model) : base(model) { }
     public ActivityFieldWrapper(ActivityField model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public ActivityFieldWrapper(ActivityField model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 

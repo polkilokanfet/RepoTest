@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -10,6 +11,7 @@ namespace HVTApp.Model.Wrapper
     public OrderWrapper() : base(new Order()) { }
     public OrderWrapper(Order model) : base(model) { }
     public OrderWrapper(Order model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public OrderWrapper(Order model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 

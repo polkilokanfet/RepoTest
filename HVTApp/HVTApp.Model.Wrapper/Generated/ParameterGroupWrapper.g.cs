@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -10,6 +11,7 @@ namespace HVTApp.Model.Wrapper
     public ParameterGroupWrapper() : base(new ParameterGroup()) { }
     public ParameterGroupWrapper(ParameterGroup model) : base(model) { }
     public ParameterGroupWrapper(ParameterGroup model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public ParameterGroupWrapper(ParameterGroup model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 

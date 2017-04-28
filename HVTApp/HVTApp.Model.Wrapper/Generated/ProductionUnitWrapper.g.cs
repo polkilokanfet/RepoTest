@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -10,6 +11,7 @@ namespace HVTApp.Model.Wrapper
     public ProductionUnitWrapper() : base(new ProductionUnit()) { }
     public ProductionUnitWrapper(ProductionUnit model) : base(model) { }
     public ProductionUnitWrapper(ProductionUnit model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public ProductionUnitWrapper(ProductionUnit model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 

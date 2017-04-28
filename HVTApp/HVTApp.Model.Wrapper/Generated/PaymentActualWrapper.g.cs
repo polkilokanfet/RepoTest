@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrapper
 {
@@ -10,6 +11,7 @@ namespace HVTApp.Model.Wrapper
     public PaymentActualWrapper() : base(new PaymentActual()) { }
     public PaymentActualWrapper(PaymentActual model) : base(model) { }
     public PaymentActualWrapper(PaymentActual model, ExistsWrappers existsWrappers) : base(model, existsWrappers) { }
+    public PaymentActualWrapper(PaymentActual model, IDictionary<IBaseEntity, object> dictionary) : base(model, new ExistsWrappers(dictionary)) { }
 
 
 
