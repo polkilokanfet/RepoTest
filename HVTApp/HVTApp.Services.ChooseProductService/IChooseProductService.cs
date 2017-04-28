@@ -1,9 +1,8 @@
-﻿using HVTApp.Model;
-using HVTApp.Model.POCOs;
+﻿using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.ChooseProductService
 {
-    interface IChooseProductService
+    public interface IChooseProductService
     {
         Product ChooseProduct(Product product = null);
     }

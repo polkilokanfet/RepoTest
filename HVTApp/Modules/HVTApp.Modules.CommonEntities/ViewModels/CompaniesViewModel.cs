@@ -3,15 +3,12 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
 using HVTApp.DataAccess;
-using HVTApp.Infrastructure.Interfaces;
-using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
-using HVTApp.Model;
 using HVTApp.Model.Wrappers;
+using HVTApp.Services.ChooseProductService;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
@@ -21,15 +18,17 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDialogService _dialogService;
         private readonly IUnityContainer _container;
+        private readonly IChooseProductService _chooseProductService;
         private CompanyWrapper _selectedCompany;
         private ICommand _selectItemCommand;
         private ICollection<CompanyWrapper> _items;
 
-        public CompaniesViewModel(IUnitOfWork unitOfWork, IDialogService dialogService, IUnityContainer container)
+        public CompaniesViewModel(IUnitOfWork unitOfWork, IDialogService dialogService, IUnityContainer container, IChooseProductService chooseProductService)
         {
             _unitOfWork = unitOfWork;
             _dialogService = dialogService;
             _container = container;
+            _chooseProductService = chooseProductService;
 
             Companies = new ObservableCollection<CompanyWrapper>(_unitOfWork.Companies.GetAll());
 
@@ -42,7 +41,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         private void DeleteCompanyCommand_Execute()
         {
-            throw new NotImplementedException();
+            _chooseProductService.ChooseProduct();
         }
 
         public ObservableCollection<CompanyWrapper> Companies { get; }

@@ -6,7 +6,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using HVTApp.DataAccess;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 
@@ -15,101 +14,105 @@ namespace HVTApp.Services.ChooseProductService
     public class ChooseProductService : IChooseProductService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly List<ParameterWrapper> _parameters;
-        private readonly List<ParametersGroup> _parametersGroups = new List<ParametersGroup>(); 
+
+        public ObservableCollection<UnionOfParameters> UnionsOfParameters { get; }
+        public List<ParameterWrapper> SelectedParameters => UnionsOfParameters.Where(x => x.IsActual).Select(x => x.SelectedParameter).ToList();
 
         public ChooseProductService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _parameters = new List<ParameterWrapper>(unitOfWork.ProductParameters.GetAll().Select(x => new ParameterWrapper()));
 
-            var groups = _parameters.Select(x => x.Group).Distinct();
+            var parameters = unitOfWork.ProductParameters.GetAll();
+
+            UnionsOfParameters = new ObservableCollection<UnionOfParameters>();
+            var groups = parameters.Select(x => x.Group).Distinct();
             foreach (var group in groups)
             {
-                ParametersGroup parametersGroup = new ParametersGroup(group, _parameters.Where(x => Equals(x.Group, group)));
-                _parametersGroups.Add(parametersGroup);
-                parametersGroup.PropertyChanged += ParametersGroupOnPropertyChanged;
+                var unionOfParameters = new UnionOfParameters(group, parameters.Where(x => Equals(x.Group, group)));
+                UnionsOfParameters.Add(unionOfParameters);
+                unionOfParameters.UnionChanged += OnUnionOfParametersChanged;
             }
-
-
         }
 
-        private void ParametersGroupOnPropertyChanged(object s, PropertyChangedEventArgs e)
+        private void OnUnionOfParametersChanged(object sender, EventArgs eventArgs)
         {
-            if (e.PropertyName != nameof(ParametersGroup.SelectedParameter)) return;
-            RefreshParametersGroups();
+            foreach (var unionOfParameters in UnionsOfParameters)
+            {
+                unionOfParameters.RefreshParametersToSelect(SelectedParameters);
+            }
         }
 
-        public ObservableCollection<ParametersGroup> ParametersGroups { get; } = new ObservableCollection<ParametersGroup>();
-        public List<ParameterWrapper> SelectedParameters => ParametersGroups.Select(x => x.SelectedParameter).ToList();
-
-        private void RefreshParametersGroups()
-        {
-            var parametersCurrent = ParametersGroups.SelectMany(x => x.Parameters);
-            var parametersCanBeSelected = _parameters.Where(x => x.CanBeSelected(SelectedParameters));
-
-            var parametersToAdd = parametersCanBeSelected.Except(parametersCurrent);
-            var parametersToRemove = _parameters.Except(parametersCanBeSelected).Intersect(parametersCurrent);
-
-            foreach (var parameter in parametersToAdd)
-                _parametersGroups.Single(x => Equals(x.Group, parameter.Group)).Parameters.Add(parameter);
-
-            foreach (var parameter in parametersToRemove)
-                _parametersGroups.Single(x => Equals(x.Group, parameter.Group)).Parameters.Remove(parameter);
-
-            ParametersGroups.Clear();
-            _parametersGroups.Where(x => x.Parameters.Any()).ToList().ForEach(ParametersGroups.Add);
-        }
 
         public Product ChooseProduct(Product product = null)
         {
-            throw new NotImplementedException();
+            UnionsOfParameters.First().SelectedParameter = UnionsOfParameters.First().Parameters.First();
+            SelectParametersWindow window = new SelectParametersWindow();
+            window.ItemsControl.ItemsSource = this.UnionsOfParameters;
+            window.ShowDialog();
+            return null;
         }
     }
 
-    public class ParametersGroup : INotifyPropertyChanged
+
+
+
+
+
+    public class UnionOfParameters : INotifyPropertyChanged
     {
-        private ParameterWrapper _selectedParameter;
-
-        public ParametersGroup(ParameterGroupWrapper group, IEnumerable<ParameterWrapper> parameters)
-        {
-            Group = group;
-
-            Parameters = new ObservableCollection<ParameterWrapper>(parameters);
-            if (Parameters.Any()) SelectedParameter = Parameters.First();
-
-            this.Parameters.CollectionChanged += ParametersOnCollectionChanged;
-        }
-
-        private void ParametersOnCollectionChanged(object s, NotifyCollectionChangedEventArgs e)
-        {
-            if (Parameters.Any())
-            {
-                if (SelectedParameter != null && Parameters.Contains(SelectedParameter))
-                    return;
-                SelectedParameter = Parameters.First();
-            }
-            else
-            {
-                SelectedParameter = null;
-            }
-        }
-
         public ParameterGroupWrapper Group { get; }
 
-        public ObservableCollection<ParameterWrapper> Parameters { get; }
+        public List<ParameterWrapper> Parameters { get; }
 
+        public ObservableCollection<ParameterWrapper> ParametersToSelect { get; } = new ObservableCollection<ParameterWrapper>();
+
+        private ParameterWrapper _selectedParameter;
         public ParameterWrapper SelectedParameter
         {
             get { return _selectedParameter; }
             set
             {
                 if (Equals(_selectedParameter, value)) return;
+
                 _selectedParameter = value;
                 OnPropertyChanged();
+                UnionChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
+        public bool IsActual => ParametersToSelect.Any();
+
+        public UnionOfParameters(ParameterGroupWrapper group, IEnumerable<ParameterWrapper> parameters)
+        {
+            Group = group;
+            Parameters = new List<ParameterWrapper>(parameters);
+        }
+
+        public void RefreshParametersToSelect(IEnumerable<ParameterWrapper> selectedParameters)
+        {
+            var paramsToSelect = Parameters.Where(x => x.CanBeSelected(selectedParameters)).ToList();
+
+            var paramsToAdd = paramsToSelect.Except(ParametersToSelect).ToList();
+            var paramsToRemove = ParametersToSelect.Except(paramsToSelect).ToList();
+
+            if (paramsToAdd.Any() || paramsToRemove.Any())
+            {
+                foreach (var param in paramsToAdd)
+                    ParametersToSelect.Add(param);
+                foreach (var param in paramsToRemove)
+                    ParametersToSelect.Remove(param);
+
+                if (ParametersToSelect.Any())
+                    if (SelectedParameter == null || !ParametersToSelect.Contains(SelectedParameter))
+                        SelectedParameter = ParametersToSelect.First();
+
+                UnionChanged?.Invoke(this, EventArgs.Empty);
+                OnPropertyChanged(nameof(IsActual));
+            }
+        }
+
+
+        public event EventHandler UnionChanged; 
 
         public event PropertyChangedEventHandler PropertyChanged;
 

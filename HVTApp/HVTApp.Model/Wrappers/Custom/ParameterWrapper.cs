@@ -7,8 +7,10 @@ namespace HVTApp.Model.Wrappers
     {
         public bool CanBeSelected(IEnumerable<ParameterWrapper> parameters)
         {
+            //если нет обязательных родительских параметров
             if (!RequiredParentParametersList.Any()) return true;
 
+            //если обязательные параметры выбраны
             foreach (var requiredParentParametersWrapper in RequiredParentParametersList)
                 if (requiredParentParametersWrapper.Parameters.All(parameters.Contains)) return true;
 

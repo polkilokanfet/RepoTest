@@ -9,6 +9,11 @@ namespace HVTApp.Model.POCOs
         public virtual Measure Measure { get; set; }
         public string Value { get; set; }
         public virtual List<RequiredParentParameters> RequiredParentParametersList { get; set; }
+
+        public override string ToString()
+        {
+            return Value;
+        }
     }
 
     public class ParameterGroup : BaseEntity
@@ -17,6 +22,11 @@ namespace HVTApp.Model.POCOs
         public virtual List<Parameter> Parameters { get; set; }
         public virtual List<Measure> Measures { get; set; }
         public bool IsOnlyChoice { get; set; } = true; // группа из которой может быть выбран только один параметр для одного оборудования.
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
     /// <summary>

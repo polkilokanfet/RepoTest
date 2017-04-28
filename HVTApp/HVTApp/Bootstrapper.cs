@@ -17,6 +17,7 @@ using HVTApp.Modules.CommonEntities.ViewModels;
 using HVTApp.Modules.CommonEntities.Views;
 using HVTApp.Modules.Production;
 using HVTApp.Modules.Sales;
+using HVTApp.Services.ChooseProductService;
 using HVTApp.Services.ChooseService;
 using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;
@@ -60,6 +61,8 @@ namespace HVTApp
 
             ChooseService chooseService = new ChooseService((Window)Shell);
             Container.RegisterInstance(typeof(IChooseService), chooseService);
+
+            Container.RegisterType<IChooseProductService, ChooseProductService>();
         }
         
         protected override IModuleCatalog CreateModuleCatalog()
