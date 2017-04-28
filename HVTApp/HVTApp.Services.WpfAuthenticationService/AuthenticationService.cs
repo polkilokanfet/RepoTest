@@ -3,6 +3,7 @@ using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.AuthenticationService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model;
+using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.WpfAuthenticationService
 {

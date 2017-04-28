@@ -7,8 +7,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using HVTApp.DataAccess;
 using HVTApp.Model;
-using HVTApp.Model.Wrapper;
-using HVTApp.Model.Wrapper.Annotations;
+using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrappers;
 
 namespace HVTApp.Services.ChooseProductService
 {
@@ -113,7 +113,6 @@ namespace HVTApp.Services.ChooseProductService
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

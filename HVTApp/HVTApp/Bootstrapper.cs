@@ -11,7 +11,7 @@ using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
-using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrappers;
 using HVTApp.Modules.CommonEntities;
 using HVTApp.Modules.CommonEntities.ViewModels;
 using HVTApp.Modules.CommonEntities.Views;

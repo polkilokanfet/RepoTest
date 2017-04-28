@@ -415,11 +415,11 @@ namespace HVTApp.Model.Wrapper
             return Model.ToString();
         }
 
-        public override bool Equals(object obj)
-        {
-            WrapperBase<T> other = obj as WrapperBase<T>;
-            return other != null && Model.Equals(other.Model);
-        }
+        //public override bool Equals(object obj)
+        //{
+        //    WrapperBase<T> other = obj as WrapperBase<T>;
+        //    return other != null && Model.Equals(other.Model);
+        //}
 
         private readonly Dictionary<IBaseEntity, object> _complexProperties = new Dictionary<IBaseEntity, object>();
 

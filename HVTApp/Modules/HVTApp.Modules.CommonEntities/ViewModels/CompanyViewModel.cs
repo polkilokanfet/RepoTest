@@ -6,7 +6,8 @@ using System.Linq;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Model;
-using HVTApp.Model.Wrapper;
+using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrappers;
 using Prism.Regions;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels

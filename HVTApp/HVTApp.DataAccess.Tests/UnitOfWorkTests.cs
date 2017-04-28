@@ -1,8 +1,7 @@
-﻿using System;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
 using HVTApp.Model;
-using HVTApp.Model.Wrapper;
+using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HVTApp.DataAccess.Tests

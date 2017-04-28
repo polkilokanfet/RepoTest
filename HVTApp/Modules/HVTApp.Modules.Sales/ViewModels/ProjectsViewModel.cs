@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.DataAccess;
-using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrappers;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {

@@ -10,7 +10,8 @@ using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model;
-using HVTApp.Model.Wrapper;
+using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrappers;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {

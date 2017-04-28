@@ -1,6 +1,9 @@
 ﻿using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Model;
-using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrappers;
+using CompanyWrapper = HVTApp.Model.Wrappers.CompanyWrapper;
+using ParameterWrapper = HVTApp.Model.Wrappers.ParameterWrapper;
+using ProjectWrapper = HVTApp.Model.Wrappers.ProjectWrapper;
 
 namespace HVTApp.DataAccess
 {

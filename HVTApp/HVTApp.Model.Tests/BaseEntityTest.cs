@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using HVTApp.Infrastructure;
+using HVTApp.Model.POCOs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HVTApp.Model.Tests

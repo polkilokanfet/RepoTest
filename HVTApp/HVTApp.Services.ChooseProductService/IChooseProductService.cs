@@ -1,4 +1,5 @@
 ﻿using HVTApp.Model;
+using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.ChooseProductService
 {

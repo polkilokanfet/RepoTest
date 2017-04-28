@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using HVTApp.Model;
+using HVTApp.Model.POCOs;
 using HVTApp.Services.StringToGuidService;
 
 namespace HVTApp.DataAccess

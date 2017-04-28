@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
-using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrappers;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {

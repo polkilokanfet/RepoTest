@@ -86,10 +86,6 @@
       <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
       <Name>HVTApp.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HVTApp.Model.Wrapper\HVTApp.Model.Wrapper.csproj">
-      <Project>{ee385cdc-6790-4ba0-8b6e-31dad1b3ae1e}</Project>
-      <Name>HVTApp.Model.Wrapper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Model\HVTApp.Model.csproj">
       <Project>{350bdab0-b331-426f-a024-004c8539af17}</Project>
       <Name>HVTApp.Model</Name>

@@ -1,5 +1,5 @@
 ﻿using System;
-using HVTApp.Model.Wrapper;
+using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HVTApp.Model.Tests

@@ -8,7 +8,7 @@ using System.Windows.Input;
 using CurrentUserProject;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model;
-using HVTApp.Model.Wrapper.Annotations;
+using HVTApp.Model.POCOs;
 using Prism.Commands;
 
 namespace HVTApp.Services.WpfAuthenticationService
@@ -111,7 +111,6 @@ namespace HVTApp.Services.WpfAuthenticationService
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
