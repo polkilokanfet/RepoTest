@@ -58,14 +58,14 @@ namespace HVTApp.DataAccess
             RequiredParentParameters set1 = new RequiredParentParameters { Parameters = new List<Parameter> { paramBreaker } };
 
             ParameterGroup groupBreakerType = new ParameterGroup { Name = "Тип выключателя" };
-            Parameter paramBreakerDt = new Parameter { Group = groupBreakerType, Value = "Баковый", RequiredParentParametersList = new List<RequiredParentParameters> { set1 } };
-            Parameter paramBreakerLt = new Parameter { Group = groupBreakerType, Value = "Колонковый", RequiredParentParametersList = new List<RequiredParentParameters> { set1 } };
+            Parameter paramBreakerDt = new Parameter { Group = groupBreakerType, Value = "Баковый", RequiredParents = new List<RequiredParentParameters> { set1 } };
+            Parameter paramBreakerLt = new Parameter { Group = groupBreakerType, Value = "Колонковый", RequiredParents = new List<RequiredParentParameters> { set1 } };
 
             RequiredParentParameters set2 = new RequiredParentParameters { Parameters = new List<Parameter> { paramTransformator } };
 
             ParameterGroup groupTransformatorType = new ParameterGroup { Name = "Тип трансформатора" };
-            Parameter paramTransformatorI = new Parameter { Group = groupTransformatorType, Value = "Тока", RequiredParentParametersList = new List<RequiredParentParameters> { set2 } };
-            Parameter paramTransformatorV = new Parameter { Group = groupTransformatorType, Value = "Напряжения", RequiredParentParametersList = new List<RequiredParentParameters> { set2 } };
+            Parameter paramTransformatorI = new Parameter { Group = groupTransformatorType, Value = "Тока", RequiredParents = new List<RequiredParentParameters> { set2 } };
+            Parameter paramTransformatorV = new Parameter { Group = groupTransformatorType, Value = "Напряжения", RequiredParents = new List<RequiredParentParameters> { set2 } };
 
             Product product = new Product {Parameters = new List<Parameter> {paramBreaker, paramBreakerDt}, Prices = new List<SumOnDate> {new SumOnDate {Sum = 100, Date = DateTime.Today} } };
             SalesUnit salesUnit = new SalesUnit
@@ -84,7 +84,7 @@ namespace HVTApp.DataAccess
             context.Users.Add(user);
             project.SalesUnits.AddRange(new[] { salesUnit, salesUnit, salesUnit});
             context.Projects.Add(project);
-            context.Parameters.AddRange(new[] {paramBreaker, paramBreakerDt, paramBreakerLt, paramTransformator, paramTransformatorI, paramTransformatorV});
+            context.Parameters.AddRange(new[] { paramBreaker, paramTransformator, paramBreakerDt, paramBreakerLt, paramTransformatorI, paramTransformatorV });
 
             context.SaveChanges();
             base.Seed(context);

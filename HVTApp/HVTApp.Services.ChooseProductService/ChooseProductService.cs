@@ -16,13 +16,13 @@ namespace HVTApp.Services.ChooseProductService
         private readonly IUnitOfWork _unitOfWork;
 
         public ObservableCollection<UnionOfParameters> UnionsOfParameters { get; }
-        public List<ParameterWrapper> SelectedParameters => UnionsOfParameters.Where(x => x.IsActual).Select(x => x.SelectedParameter).ToList();
+        public IEnumerable<ParameterWrapper> SelectedParameters => UnionsOfParameters.Select(x => x.SelectedParameter);
 
         public ChooseProductService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
 
-            var parameters = unitOfWork.ProductParameters.GetAll();
+            var parameters = unitOfWork.ProductParameters.GetAll().OrderBy(x => x.Rank);
 
             UnionsOfParameters = new ObservableCollection<UnionOfParameters>();
             var groups = parameters.Select(x => x.Group).Distinct();
@@ -47,7 +47,7 @@ namespace HVTApp.Services.ChooseProductService
         {
             UnionsOfParameters.First().SelectedParameter = UnionsOfParameters.First().Parameters.First();
             SelectParametersWindow window = new SelectParametersWindow();
-            window.ItemsControl.ItemsSource = this.UnionsOfParameters;
+            window.DataContext = this;
             window.ShowDialog();
             return null;
         }

@@ -5,9 +5,21 @@
         xmlns:local="clr-namespace:HVTApp.Services.ChooseProductService"
         Title="SelectParametersWindow" SizeToContent="WidthAndHeight">
     <StackPanel Orientation="Vertical">
-        <ItemsControl Name="ItemsControl">
-            <!--<ItemsControl ItemsSource="{Binding UnionsOfParameters}">-->
-                <ListBox ItemsSource="{Binding ParametersToSelect}" SelectedItem="{Binding SelectedParameter}"/>
+        <ItemsControl ItemsSource="{Binding UnionsOfParameters}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding Path=Group.Name}"/>
+                        <ComboBox ItemsSource="{Binding Path=ParametersToSelect}" SelectedItem="{Binding Path=SelectedParameter, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Path=Value}"></Label>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
         </ItemsControl>
         <Button>Ok</Button>
     </StackPanel>

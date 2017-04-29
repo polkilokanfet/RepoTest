@@ -65,9 +65,9 @@ namespace HVTApp.Model.Wrappers
   
     protected override void InitializeCollectionComplexProperties(Parameter model)
     {
-      if (model.RequiredParentParametersList == null) throw new ArgumentException("RequiredParentParametersList cannot be null");
-      RequiredParentParametersList = new ValidatableChangeTrackingCollection<RequiredParentParametersWrapper>(model.RequiredParentParametersList.Select(e => GetWrapper<RequiredParentParametersWrapper, RequiredParentParameters>(e)));
-      RegisterCollection(RequiredParentParametersList, model.RequiredParentParametersList);
+      if (model.RequiredParents == null) throw new ArgumentException("RequiredParents cannot be null");
+      RequiredParentParametersList = new ValidatableChangeTrackingCollection<RequiredParentParametersWrapper>(model.RequiredParents.Select(e => GetWrapper<RequiredParentParametersWrapper, RequiredParentParameters>(e)));
+      RegisterCollection(RequiredParentParametersList, model.RequiredParents);
 
     }
   }

@@ -8,7 +8,7 @@ namespace HVTApp.Model.POCOs
         public virtual ParameterGroup Group { get; set; }
         public virtual Measure Measure { get; set; }
         public string Value { get; set; }
-        public virtual List<RequiredParentParameters> RequiredParentParametersList { get; set; }
+        public virtual List<RequiredParentParameters> RequiredParents { get; set; }
 
         public override string ToString()
         {
