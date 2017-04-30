@@ -21,6 +21,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        <ListBox ItemsSource="{Binding SelectedParameters}"/>
         <Button>Ok</Button>
     </StackPanel>
 </Window>

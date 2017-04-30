@@ -16,7 +16,7 @@ namespace HVTApp.Services.ChooseProductService
         private readonly IUnitOfWork _unitOfWork;
 
         public ObservableCollection<UnionOfParameters> UnionsOfParameters { get; }
-        public IEnumerable<ParameterWrapper> SelectedParameters => UnionsOfParameters.Select(x => x.SelectedParameter);
+        public IEnumerable<ParameterWrapper> SelectedParameters => UnionsOfParameters.Where(x => x.IsActual).Select(x => x.SelectedParameter);
 
         public ChooseProductService(IUnitOfWork unitOfWork)
         {
@@ -37,9 +37,7 @@ namespace HVTApp.Services.ChooseProductService
         private void OnUnionOfParametersChanged(object sender, EventArgs eventArgs)
         {
             foreach (var unionOfParameters in UnionsOfParameters)
-            {
                 unionOfParameters.RefreshParametersToSelect(SelectedParameters);
-            }
         }
 
 
@@ -57,7 +55,9 @@ namespace HVTApp.Services.ChooseProductService
 
 
 
-
+    /// <summary>
+    /// Объединение параметров
+    /// </summary>
     public class UnionOfParameters : INotifyPropertyChanged
     {
         public ParameterGroupWrapper Group { get; }
@@ -66,6 +66,7 @@ namespace HVTApp.Services.ChooseProductService
 
         public ObservableCollection<ParameterWrapper> ParametersToSelect { get; } = new ObservableCollection<ParameterWrapper>();
 
+        private ParameterWrapper _selectedParameterBeforeNull; //параметр до выбора null
         private ParameterWrapper _selectedParameter;
         public ParameterWrapper SelectedParameter
         {
@@ -75,6 +76,7 @@ namespace HVTApp.Services.ChooseProductService
                 if (Equals(_selectedParameter, value)) return;
 
                 _selectedParameter = value;
+                if (value != null) _selectedParameterBeforeNull = value;
                 OnPropertyChanged();
                 UnionChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -102,9 +104,15 @@ namespace HVTApp.Services.ChooseProductService
                 foreach (var param in paramsToRemove)
                     ParametersToSelect.Remove(param);
 
+                //автоматический выбор в группе параметра (если он еще не выбран)
                 if (ParametersToSelect.Any())
+                { 
                     if (SelectedParameter == null || !ParametersToSelect.Contains(SelectedParameter))
-                        SelectedParameter = ParametersToSelect.First();
+                        if (_selectedParameterBeforeNull != null && ParametersToSelect.Contains(_selectedParameterBeforeNull))
+                            SelectedParameter = _selectedParameterBeforeNull;
+                        else
+                            SelectedParameter = ParametersToSelect.First();
+                }
 
                 UnionChanged?.Invoke(this, EventArgs.Empty);
                 OnPropertyChanged(nameof(IsActual));

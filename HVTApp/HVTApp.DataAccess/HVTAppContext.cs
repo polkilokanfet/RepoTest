@@ -172,7 +172,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Entity<Parameter>().HasRequired(x => x.Group).WithMany(x => x.Parameters);
             modelBuilder.Entity<Parameter>().HasMany(x => x.RequiredParents).WithMany();
 
-            modelBuilder.Entity<RequiredParentParameters>().HasMany(x => x.Parameters);
+            modelBuilder.Entity<RequiredParentParameters>().HasMany(x => x.Parameters).WithMany();
 
             modelBuilder.Entity<ParameterGroup>().Property(x => x.Name).IsRequired().HasMaxLength(25);
 

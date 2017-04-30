@@ -67,6 +67,18 @@ namespace HVTApp.DataAccess
             Parameter paramTransformatorI = new Parameter { Group = groupTransformatorType, Value = "Тока", RequiredParents = new List<RequiredParentParameters> { set2 } };
             Parameter paramTransformatorV = new Parameter { Group = groupTransformatorType, Value = "Напряжения", RequiredParents = new List<RequiredParentParameters> { set2 } };
 
+            RequiredParentParameters setBreakerDt = new RequiredParentParameters { Parameters = new List<Parameter> { paramBreaker, paramBreakerDt } };
+            RequiredParentParameters setBreakerLt = new RequiredParentParameters { Parameters = new List<Parameter> { paramBreaker, paramBreakerLt } };
+
+            RequiredParentParameters setTransformatorV = new RequiredParentParameters { Parameters = new List<Parameter> { paramTransformator, paramTransformatorV } };
+
+
+            ParameterGroup groupV = new ParameterGroup {Name = "Номинальное напряжение"};
+            Parameter paramV35kV = new Parameter { Group = groupV, Value = "35 kV", RequiredParents = new List<RequiredParentParameters> { setBreakerDt, setBreakerLt } };
+            Parameter paramV110kV = new Parameter { Group = groupV, Value = "110 kV", RequiredParents = new List<RequiredParentParameters> { setBreakerDt, setBreakerLt, setTransformatorV } };
+            Parameter paramV220kV = new Parameter { Group = groupV, Value = "220 kV", RequiredParents = new List<RequiredParentParameters> { setBreakerDt, setBreakerLt, setTransformatorV } };
+            Parameter paramV500kV = new Parameter { Group = groupV, Value = "500 kV", RequiredParents = new List<RequiredParentParameters> { setBreakerLt } };
+
             Product product = new Product {Parameters = new List<Parameter> {paramBreaker, paramBreakerDt}, Prices = new List<SumOnDate> {new SumOnDate {Sum = 100, Date = DateTime.Today} } };
             SalesUnit salesUnit = new SalesUnit
             {
@@ -84,7 +96,7 @@ namespace HVTApp.DataAccess
             context.Users.Add(user);
             project.SalesUnits.AddRange(new[] { salesUnit, salesUnit, salesUnit});
             context.Projects.Add(project);
-            context.Parameters.AddRange(new[] { paramBreaker, paramTransformator, paramBreakerDt, paramBreakerLt, paramTransformatorI, paramTransformatorV });
+            context.Parameters.AddRange(new[] { paramBreaker, paramTransformator, paramBreakerDt, paramBreakerLt, paramTransformatorI, paramTransformatorV, paramV35kV, paramV110kV, paramV220kV, paramV500kV });
 
             context.SaveChanges();
             base.Seed(context);
