@@ -1,9 +1,10 @@
 ﻿using HVTApp.Model.POCOs;
+using HVTApp.Model.Wrappers;
 
 namespace HVTApp.Services.ChooseProductService
 {
     public interface IChooseProductService
     {
-        Product ChooseProduct(Product product = null);
+        Product ChooseProduct(ProductWrapper product = null);
     }
 }

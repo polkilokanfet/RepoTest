@@ -3,12 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HVTApp.Services.ChooseProductService"
-        Title="SelectParametersWindow" SizeToContent="WidthAndHeight">
+        Title="Параметры изделия" 
+        SizeToContent="WidthAndHeight">
+    
+    <Window.Resources>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></local:BooleanToVisibilityConverter>
+    </Window.Resources>
+    
     <StackPanel Orientation="Vertical">
         <ItemsControl ItemsSource="{Binding UnionsOfParameters}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding Path=IsActual, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Label Content="{Binding Path=Group.Name}"/>
                         <ComboBox ItemsSource="{Binding Path=ParametersToSelect}" SelectedItem="{Binding Path=SelectedParameter, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
@@ -21,7 +27,6 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <ListBox ItemsSource="{Binding SelectedParameters}"/>
-        <Button>Ok</Button>
+        <Button Content="OK" Command="{Binding OkCommand}"/>
     </StackPanel>
 </Window>
