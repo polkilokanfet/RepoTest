@@ -22,7 +22,7 @@ namespace HVTApp.Services.ChooseProductService
         {
             _unitOfWork = unitOfWork;
 
-            var parameters = unitOfWork.ProductParameters.GetAll().OrderBy(x => x.Rank);
+            var parameters = unitOfWork.Parameters.GetAll().OrderBy(x => x.Rank);
 
             UnionsOfParameters = new ObservableCollection<UnionOfParameters>();
             var groups = parameters.Select(x => x.Group).Distinct();

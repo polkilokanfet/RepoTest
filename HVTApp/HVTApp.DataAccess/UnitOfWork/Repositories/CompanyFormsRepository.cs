@@ -10,7 +10,7 @@ namespace HVTApp.DataAccess
 {
     public class CompanyFormsRepository : BaseRepository<CompanyForm, CompanyFormWrapper>, ICompanyFormsRepository
     {
-        public CompanyFormsRepository(DbContext context, Dictionary<IBaseEntity, object> repository) : base(context, repository)
+        public CompanyFormsRepository(DbContext context, Dictionary<IBaseEntity, object> wrappersRepository) : base(context, wrappersRepository)
         {
         }
     }

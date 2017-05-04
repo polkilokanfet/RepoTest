@@ -1,4 +1,5 @@
-﻿using HVTApp.Infrastructure.Interfaces;
+﻿using System.Collections.Generic;
+using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Model;
 using HVTApp.Model.Wrappers;
 using CompanyWrapper = HVTApp.Model.Wrappers.CompanyWrapper;
@@ -27,8 +28,13 @@ namespace HVTApp.DataAccess
     {
     }
 
-    public interface IProductParametersRepository : IRepository<ParameterWrapper>
+    public interface IParametersRepository : IRepository<ParameterWrapper>
     {
+    }
+
+    public interface IProductsRepository : IRepository<ProductWrapper>
+    {
+        ProductWrapper Find(IEnumerable<ParameterWrapper> parameters);
     }
 
     public interface IProjectsRepository : IRepository<ProjectWrapper>

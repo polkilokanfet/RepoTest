@@ -9,7 +9,7 @@ namespace HVTApp.DataAccess
 {
     public class FriendGroupRepository : BaseRepository<TestFriendGroup, TestFriendGroupWrapper>, IFriendGroupRepository
     {
-        public FriendGroupRepository(DbContext context, Dictionary<IBaseEntity, object> repository) : base(context, repository)
+        public FriendGroupRepository(DbContext context, Dictionary<IBaseEntity, object> wrappersRepository) : base(context, wrappersRepository)
         {
         }
     }

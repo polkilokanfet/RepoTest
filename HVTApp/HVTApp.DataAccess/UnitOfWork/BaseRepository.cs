@@ -13,13 +13,14 @@ namespace HVTApp.DataAccess
     {
         protected readonly DbContext Context;
 
-        private readonly Dictionary<IBaseEntity, object> _repository;
-        public BaseRepository(DbContext context, Dictionary<IBaseEntity, object> repository)
+        protected readonly Dictionary<IBaseEntity, object> WrappersRepository;
+
+        public BaseRepository(DbContext context, Dictionary<IBaseEntity, object> wrappersRepository)
         {
             Context = context;
 
-            if (repository == null) throw new ArgumentNullException();
-            _repository = repository;
+            if (wrappersRepository == null) throw new ArgumentNullException();
+            WrappersRepository = wrappersRepository;
         }
 
         public virtual List<TWrapper> GetAll()
@@ -30,10 +31,10 @@ namespace HVTApp.DataAccess
 
             var models = Context.Set<TModel>();
             foreach (var model in models)
-                if (_repository.ContainsKey(model))
-                    result.Add((TWrapper)_repository[model]);
+                if (WrappersRepository.ContainsKey(model))
+                    result.Add((TWrapper)WrappersRepository[model]);
                 else
-                    result.Add((TWrapper)Activator.CreateInstance(typeof(TWrapper), model, _repository));
+                    result.Add((TWrapper)Activator.CreateInstance(typeof(TWrapper), model, WrappersRepository));
 
             return result;
         }
@@ -59,14 +60,14 @@ namespace HVTApp.DataAccess
         public void Delete(TWrapper entity)
         {
             Context.Set<TModel>().Remove(entity.Model);
-            _repository.Remove(entity.Model);
+            WrappersRepository.Remove(entity.Model);
         }
 
         public void DeleteRange(IEnumerable<TWrapper> entities)
         {
             Context.Set<TModel>().RemoveRange(entities.Select(x => x.Model));
             foreach (var wrapper in entities)
-                _repository.Remove(wrapper.Model);
+                WrappersRepository.Remove(wrapper.Model);
         }
     }
 }

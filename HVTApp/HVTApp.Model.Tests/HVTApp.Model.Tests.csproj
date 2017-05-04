@@ -62,6 +62,19 @@
     <Compile Include="PaymentConditionStandartWrapperTests.cs" />
     <Compile Include="SumAndVatTests.cs" />
     <Compile Include="ProductTests.cs" />
+    <Compile Include="Wrapper\BasicTests.cs" />
+    <Compile Include="Wrapper\ChangeNotificationCollectionProperty.cs" />
+    <Compile Include="Wrapper\ChangeNotificationComplexProperty.cs" />
+    <Compile Include="Wrapper\ChangeNotificationSimpleProperty.cs" />
+    <Compile Include="Wrapper\ChangeTrackingCollectionProperty.cs" />
+    <Compile Include="Wrapper\ChangeTrackingCollectionTests.cs" />
+    <Compile Include="Wrapper\ChangeTrackingComplexProperty.cs" />
+    <Compile Include="Wrapper\ChangeTrackingSimpleProperty.cs" />
+    <Compile Include="Wrapper\NavigationPropertiesTests.cs" />
+    <Compile Include="Wrapper\ValidationClassLevel.cs" />
+    <Compile Include="Wrapper\ValidationCollectionProperty.cs" />
+    <Compile Include="Wrapper\ValidationComplexProperty.cs" />
+    <Compile Include="Wrapper\ValidationSimpleProperty.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">

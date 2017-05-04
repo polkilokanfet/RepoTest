@@ -117,6 +117,7 @@
     </Compile>
     <Compile Include="ViewModels\CompaniesViewModel.cs" />
     <Compile Include="ViewModels\CompanyDetailsWindowModel.cs" />
+    <Compile Include="ViewModels\ProductDetailsViewModel.cs" />
     <Compile Include="Views\CompanyDetailsWindow.xaml.cs">
       <DependentUpon>CompanyDetailsWindow.xaml</DependentUpon>
     </Compile>
@@ -134,6 +135,9 @@
     </Compile>
     <Compile Include="Views\CompanyView.xaml.cs">
       <DependentUpon>CompanyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProductDetailsView.xaml.cs">
+      <DependentUpon>ProductDetailsView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -202,6 +206,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CompanyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProductDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

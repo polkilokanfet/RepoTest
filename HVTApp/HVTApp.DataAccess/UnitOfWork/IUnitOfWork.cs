@@ -11,7 +11,8 @@ namespace HVTApp.DataAccess
         IUsersRepository Users { get; }
         ICompaniesRepository Companies { get; }
         ICompanyFormsRepository CompanyForms { get; }
-        IProductParametersRepository ProductParameters { get; }
+        IParametersRepository Parameters { get; }
+        IProductsRepository Products { get; }
         IProjectsRepository Projects { get; }
     }
 }

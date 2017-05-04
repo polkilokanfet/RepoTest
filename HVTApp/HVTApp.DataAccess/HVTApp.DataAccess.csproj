@@ -62,7 +62,8 @@
     <Compile Include="UnitOfWork\BaseRepository.cs" />
     <Compile Include="HVTAppContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitOfWork\Repositories\ProductParametersRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\ParametersRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\ProductsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\ProjectsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\UsersRepository.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />

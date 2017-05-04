@@ -184,6 +184,7 @@ namespace HVTApp.DataAccess
 
             #region Product
 
+            modelBuilder.Entity<Product>().Property(x => x.Designation).IsRequired().HasMaxLength(100);
             modelBuilder.Entity<Product>().HasOptional(x => x.ParentProduct).WithMany(x => x.ChildProducts).WillCascadeOnDelete(false);
 
             #endregion
