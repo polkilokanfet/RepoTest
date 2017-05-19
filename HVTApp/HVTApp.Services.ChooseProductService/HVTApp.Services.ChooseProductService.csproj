@@ -73,6 +73,7 @@
       <DependentUpon>SelectParametersWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="SelectParametersWindowModel.cs" />
+    <Compile Include="UnionOfParameters.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

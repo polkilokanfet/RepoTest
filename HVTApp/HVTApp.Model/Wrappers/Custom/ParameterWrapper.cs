@@ -5,6 +5,11 @@ namespace HVTApp.Model.Wrappers
 {
     public partial class ParameterWrapper
     {
+        /// <summary>
+        /// Может ли быть выбран параметр совместно с другими
+        /// </summary>
+        /// <param name="parameters">Параметры, совместно с которыми требуется выбрать этот параметр</param>
+        /// <returns></returns>
         public bool CanBeSelected(IEnumerable<ParameterWrapper> parameters)
         {
             //если нет обязательных родительских параметров

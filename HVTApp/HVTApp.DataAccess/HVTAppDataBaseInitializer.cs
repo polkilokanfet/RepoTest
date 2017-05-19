@@ -79,13 +79,14 @@ namespace HVTApp.DataAccess
             Parameter paramV220kV = new Parameter { Group = groupV, Value = "220 kV", RequiredParents = new List<RequiredParentParameters> { setBreakerDt, setBreakerLt, setTransformatorV } };
             Parameter paramV500kV = new Parameter { Group = groupV, Value = "500 kV", RequiredParents = new List<RequiredParentParameters> { setBreakerLt } };
 
-            Product product = new Product {Parameters = new List<Parameter> {paramBreaker, paramBreakerDt}, Prices = new List<SumOnDate> {new SumOnDate {Sum = 100, Date = DateTime.Today} } };
+            Product product = new Product {Designation = "ВЭБ-110",Parameters = new List<Parameter> {paramBreaker, paramBreakerDt, paramV110kV}, Prices = new List<SumOnDate> {new SumOnDate {Sum = 100, Date = DateTime.Today} } };
             SalesUnit salesUnit = new SalesUnit
             {
                 ProductionUnit = new ProductionUnit {Product = product, OrderPosition = 1, SerialNumber = "1234"},
                 ShipmentUnit = new ShipmentUnit {ShipmentCost = 100},
                 CostSingle = new SumAndVat { Sum = 1000, Vat = 18},
-                Facility = facility, Project = project
+                Facility = facility,
+                Project = project
             };
 
 
