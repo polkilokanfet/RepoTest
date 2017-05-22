@@ -15,9 +15,10 @@ namespace HVTApp.Model.Wrappers
             //если нет обязательных родительских параметров
             if (!RequiredParentParametersList.Any()) return true;
 
+            var p = parameters.ToList();
             //если обязательные параметры выбраны
             foreach (var requiredParentParameters in RequiredParentParametersList)
-                if (requiredParentParameters.Parameters.All(parameters.Contains)) return true;
+                if (requiredParentParameters.Parameters.All(p.Contains)) return true;
 
             return false;
         }

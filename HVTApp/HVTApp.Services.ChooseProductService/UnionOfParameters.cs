@@ -16,7 +16,7 @@ namespace HVTApp.Services.ChooseProductService
         /// <summary>
         /// Группа параметров объединеия.
         /// </summary>
-        public ParameterGroupWrapper Group { get; }
+        public ParameterGroupWrapper Group => Parameters.First().Group;
 
         /// <summary>
         /// Все параметры объединения.
@@ -38,17 +38,21 @@ namespace HVTApp.Services.ChooseProductService
             {
                 if (!IsActual) return null;
                 if (ParametersToSelect.Contains(_selectedParameter)) return _selectedParameter;
+                SelectedParameter = ParametersToSelect.First();
                 return ParametersToSelect.First();
             }
             set
             {
                 if (Equals(_selectedParameter, value)) return;
 
+                if (value != null && !ParametersToSelect.Contains(value))
+                    throw new ArgumentException("Выбранный параметр не находится в списке параметров, подходящих для выбора.");
+
                 if (value != null) _selectedParameter = value;
 
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(IsActual));
-                UnionChanged?.Invoke(this, EventArgs.Empty);
+                SelectedParameterChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -60,9 +64,12 @@ namespace HVTApp.Services.ChooseProductService
         public UnionOfParameters(IEnumerable<ParameterWrapper> parameters)
         {
             var p = parameters.ToList();
+            if (p.Select(x => x.Group).Distinct().Count() != 1)
+                throw new ArgumentException("Параметры из разных групп.");
 
-            Group = p.First().Group;
             Parameters = new List<ParameterWrapper>(p);
+
+            RefreshParametersToSelect(new List<ParameterWrapper>());
         }
 
         /// <summary>
@@ -71,28 +78,20 @@ namespace HVTApp.Services.ChooseProductService
         /// <param name="selectedParameters"></param>
         public void RefreshParametersToSelect(IEnumerable<ParameterWrapper> selectedParameters)
         {
-            var refreshedParamsToSelect = Parameters.Where(x => x.CanBeSelected(selectedParameters)).ToList();
+            var actualParamsToSelect = Parameters.Where(x => x.CanBeSelected(selectedParameters)).ToList();
 
-            //var paramsToAdd = refreshedParamsToSelect.Except(ParametersToSelect).ToList(); //добавить к параметрам для выбора
-            //var paramsToRemove = ParametersToSelect.Except(refreshedParamsToSelect).ToList(); //удалить из параметров для выбора
-
-            if (refreshedParamsToSelect.Except(ParametersToSelect).Any())
-                //if (paramsToAdd.Any() || paramsToRemove.Any())
+            if (actualParamsToSelect.Except(ParametersToSelect).Any())
             {
                 ParametersToSelect.Clear();
-                refreshedParamsToSelect.ForEach(ParametersToSelect.Add);
+                actualParamsToSelect.ForEach(ParametersToSelect.Add);
 
-                //    foreach (var param in paramsToAdd) ParametersToSelect.Add(param); //добавляем
-                //foreach (var param in paramsToRemove) ParametersToSelect.Remove(param); //удаляем
-
-                UnionChanged?.Invoke(this, EventArgs.Empty);
                 OnPropertyChanged(nameof(IsActual));
                 OnPropertyChanged(nameof(SelectedParameter));
             }
         }
 
 
-        public event EventHandler UnionChanged; 
+        public event EventHandler SelectedParameterChanged;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

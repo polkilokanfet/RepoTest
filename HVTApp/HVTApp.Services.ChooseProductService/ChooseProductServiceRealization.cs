@@ -12,39 +12,32 @@ namespace HVTApp.Services.ChooseProductService
     public class ChooseProductServiceRealization : IChooseProductService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IEnumerable<ParameterWrapper> _parameters;
 
-        public IList<UnionOfParameters> UnionsOfParameters { get; }
-        public IEnumerable<ParameterWrapper> SelectedParameters => UnionsOfParameters.Where(x => x.IsActual).Select(x => x.SelectedParameter);
+        public IEnumerable<UnionOfParameters> UnionsOfParameters
+        {
+            get
+            {
+                foreach (var group in _parameters.Select(x => x.Group).Distinct())
+                    yield return new UnionOfParameters(_parameters.Where(x => Equals(x.Group, group)).OrderBy(x => x.Value));
+            }
+        }
 
         public ChooseProductServiceRealization(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-
-            var parameters = unitOfWork.Parameters.GetAll().OrderBy(x => x.Rank);
-
-            UnionsOfParameters = new List<UnionOfParameters>();
-            var groups = parameters.Select(x => x.Group).Distinct();
-            foreach (var group in groups)
-            {
-                var unionOfParameters = new UnionOfParameters(parameters.Where(x => Equals(x.Group, group)).OrderBy(x => x.Value));
-                UnionsOfParameters.Add(unionOfParameters);
-                unionOfParameters.UnionChanged += OnUnionOfParametersChanged;
-            }
+            _parameters = unitOfWork.Parameters.GetAll().OrderBy(x => x.Rank);
         }
 
-        private void OnUnionOfParametersChanged(object sender, EventArgs eventArgs)
+        public Product ChooseProduct(ProductWrapper originProduct = null)
         {
-            foreach (var unionOfParameters in UnionsOfParameters)
-                unionOfParameters.RefreshParametersToSelect(SelectedParameters);
-        }
-
-
-        public Product ChooseProduct(ProductWrapper product = null)
-        {
-            IDialogRequestClose wm = new SelectParametersWindowModel(this.UnionsOfParameters, product);
+            IDialogRequestClose windowModel = new SelectParametersWindowModel(UnionsOfParameters, originProduct);
             SelectParametersWindow window = new SelectParametersWindow();
-            window.DataContext = wm;
-            wm.CloseRequested += (sender, args) => { window.Close(); };
+            window.DataContext = windowModel;
+            windowModel.CloseRequested += (sender, args) =>
+            {
+                window.Close();
+            };
             
             window.ShowDialog();
             return null;

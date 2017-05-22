@@ -22,20 +22,22 @@ namespace HVTApp.Services.ChooseProductService
         /// <summary>
         /// Выбранный продукт
         /// </summary>
-        public ProductWrapper SelectedProduct { get; set; }
         public ICommand OkCommand { get; }
 
-        public SelectParametersWindowModel(IList<UnionOfParameters> unionsOfParameters, ProductWrapper product)
+        public SelectParametersWindowModel(IEnumerable<UnionOfParameters> unionsOfParameters, ProductWrapper product)
         {
             UnionsOfParameters = new ObservableCollection<UnionOfParameters>(unionsOfParameters);
 
-            //если нет предварительного выбора продукта
-            if (product == null)
-            {
-                //выбираем первый параметр каждой группы
-                UnionsOfParameters.First().SelectedParameter = UnionsOfParameters.First().Parameters.First();
-            }
-            else
+            foreach (var unionOfParameters in UnionsOfParameters)
+                unionOfParameters.SelectedParameterChanged += (sender, args) =>
+                {
+                    //foreach (var unionOfParameters in UnionsOfParameters.Except(new List<UnionOfParameters> {(UnionOfParameters)sender}))
+                    foreach (var uop in UnionsOfParameters)
+                        uop.RefreshParametersToSelect(SelectedParameters);
+                };
+
+            //выбор параметров по оригинальному продукту
+            if (product != null)
             {
                 //выбираем предварительно выбранные параметры
                 foreach (var parameter in product.Parameters)
@@ -47,6 +49,8 @@ namespace HVTApp.Services.ChooseProductService
                             uop.SelectedParameter = parameter;
                             break;
                         }
+
+                        uop.SelectedParameter = null;
                     }
                 }
             }
