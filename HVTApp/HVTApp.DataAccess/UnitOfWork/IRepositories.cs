@@ -28,6 +28,10 @@ namespace HVTApp.DataAccess
     {
     }
 
+    public interface IParametersGroupsRepository : IRepository<ParameterGroupWrapper>
+    {
+    }
+
     public interface IParametersRepository : IRepository<ParameterWrapper>
     {
     }

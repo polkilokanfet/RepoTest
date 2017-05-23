@@ -12,5 +12,10 @@ namespace HVTApp.Model.POCOs
         public virtual List<Parameter> Parameters { get; set; } = new List<Parameter>();
 
         public virtual List<SumOnDate> Prices { get; set; } = new List<SumOnDate>(); //себестоимости
+
+        public override string ToString()
+        {
+            return Designation;
+        }
     }
 }

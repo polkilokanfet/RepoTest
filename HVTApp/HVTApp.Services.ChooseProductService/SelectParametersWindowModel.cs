@@ -31,7 +31,7 @@ namespace HVTApp.Services.ChooseProductService
             foreach (var unionOfParameters in UnionsOfParameters)
                 unionOfParameters.SelectedParameterChanged += (sender, args) =>
                 {
-                    //foreach (var unionOfParameters in UnionsOfParameters.Except(new List<UnionOfParameters> {(UnionOfParameters)sender}))
+                    //foreach (var unionOfParameters in ParametersUnions.Except(new List<UnionOfParameters> {(UnionOfParameters)sender}))
                     foreach (var uop in UnionsOfParameters)
                         uop.RefreshParametersToSelect(SelectedParameters);
                 };

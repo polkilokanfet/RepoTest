@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="BooleanToVisibilityConverter.cs" />
     <Compile Include="ChooseProductServiceRealization.cs" />
+    <Compile Include="ChooseProductServiceRealization2.cs" />
     <Compile Include="IChooseProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

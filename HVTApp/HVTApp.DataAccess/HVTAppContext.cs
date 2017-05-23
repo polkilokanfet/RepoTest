@@ -227,6 +227,8 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PaymentCondition> PaymentConditions { get; set; }
         public virtual DbSet<PaymentDocument> PaymentDocuments { get; set; }
         public virtual DbSet<PaymentConditionStandart> StandartPaymentConditions { get; set; }
+        public virtual DbSet<ParameterGroup> ParameterGroups { get; set; }
         public virtual DbSet<Parameter> Parameters { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
     }
 }

@@ -21,6 +21,8 @@ namespace HVTApp.DataAccess
             Users = new UsersRepository(context, _repository);
             Companies = new CompaniesRepository(context, _repository);
             CompanyForms = new CompanyFormsRepository(context, _repository);
+
+            ParametersGroups = new ParametersGroupsRepository(context, _repository);
             Parameters = new ParametersRepository(context, _repository);
             Products = new ProductsRepository(context, _repository);
             Projects = new ProjectsRepository(context, _repository);
@@ -44,6 +46,7 @@ namespace HVTApp.DataAccess
 
         public ICompaniesRepository Companies { get; }
 
+        public IParametersGroupsRepository ParametersGroups { get; }
         public IParametersRepository Parameters { get; }
         public IProductsRepository Products { get; }
 

@@ -11,11 +11,11 @@
     </Window.Resources>
     
     <StackPanel Orientation="Vertical">
-        <ItemsControl ItemsSource="{Binding UnionsOfParameters}">
+        <ItemsControl ItemsSource="{Binding ParametersUnions}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Visibility="{Binding Path=IsActual, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <Label Content="{Binding Path=Group.Name}"/>
+                        <Label Content="{Binding Path=GroupName}"/>
                         <ComboBox ItemsSource="{Binding Path=ParametersToSelect}" SelectedItem="{Binding Path=SelectedParameter, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -27,6 +27,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        <TextBox Text="{Binding Product, Mode=OneWay}"></TextBox>
         <Button Content="OK" Command="{Binding OkCommand}"/>
     </StackPanel>
 </Window>

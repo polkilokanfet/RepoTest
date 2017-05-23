@@ -79,10 +79,12 @@ namespace HVTApp.DataAccess
             Parameter paramV220kV = new Parameter { Group = groupV, Value = "220 kV", RequiredParents = new List<RequiredParentParameters> { setBreakerDt, setBreakerLt, setTransformatorV } };
             Parameter paramV500kV = new Parameter { Group = groupV, Value = "500 kV", RequiredParents = new List<RequiredParentParameters> { setBreakerLt } };
 
-            Product product = new Product {Designation = "ВЭБ-110",Parameters = new List<Parameter> {paramBreaker, paramBreakerDt, paramV110kV}, Prices = new List<SumOnDate> {new SumOnDate {Sum = 100, Date = DateTime.Today} } };
+            Product ZNG110 = new Product { Designation = "ЗНГ-110", Parameters = new List<Parameter> { paramTransformator, paramTransformatorV, paramV110kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 75, Date = DateTime.Today } } };
+            Product Vgb35 = new Product { Designation = "ВГБ-35", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV35kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 50, Date = DateTime.Today } } };
+            Product Veb110 = new Product { Designation = "ВЭБ-110", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV110kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 100, Date = DateTime.Today } } };
             SalesUnit salesUnit = new SalesUnit
             {
-                ProductionUnit = new ProductionUnit {Product = product, OrderPosition = 1, SerialNumber = "1234"},
+                ProductionUnit = new ProductionUnit {Product = Veb110, OrderPosition = 1, SerialNumber = "1234"},
                 ShipmentUnit = new ShipmentUnit {ShipmentCost = 100},
                 CostSingle = new SumAndVat { Sum = 1000, Vat = 18},
                 Facility = facility,
@@ -95,6 +97,7 @@ namespace HVTApp.DataAccess
             context.Companies.AddRange(new[] {uetm, rosseti, fsk, mrsk});
             context.Employees.Add(employee);
             context.Users.Add(user);
+            context.Products.AddRange(new [] {Veb110, Vgb35, ZNG110});
             project.SalesUnits.AddRange(new[] { salesUnit, salesUnit, salesUnit});
             context.Projects.Add(project);
             context.Parameters.AddRange(new[] { paramBreaker, paramTransformator, paramBreakerDt, paramBreakerLt, paramTransformatorI, paramTransformatorV, paramV35kV, paramV110kV, paramV220kV, paramV500kV });
