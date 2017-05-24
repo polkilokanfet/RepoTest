@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace HVTApp.Modules.CommonEntities.Menus
 {
     /// <summary>
-    /// Interaction logic for TabCompanies.xaml
+    /// Interaction logic for TabCRUD.xaml
     /// </summary>
-    public partial class TabCompanies 
+    public partial class TabCRUD 
     {
-        public TabCompanies()
+        public TabCRUD()
         {
             InitializeComponent();
         }

@@ -5,12 +5,12 @@
              xmlns:local="clr-namespace:HVTApp.Modules.CommonEntities.Menus" 
              xmlns:infRib="http://infragistics.com/Ribbon" 
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             x:Class="HVTApp.Modules.CommonEntities.Menus.TabCompanies"
-             Header="Companies tab">
+             x:Class="HVTApp.Modules.CommonEntities.Menus.TabCRUD"
+             Header="Редактировать">
     <infRib:RibbonGroup Caption="Form">
-        <infRib:ButtonTool Caption="New" Command="{Binding NewCompanyCommand}"/>
-        <infRib:ButtonTool Caption="Edit" Command="{Binding EditCompanyCommand}"/>
-        <infRib:ButtonTool Caption="Delete" Command="{Binding DeleteCompanyCommand}"/>
+        <infRib:ButtonTool Caption="Создать" Command="{Binding NewItemCommand}"/>
+        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditItemCommand}"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveItemCommand}"/>
     </infRib:RibbonGroup>
     <infRib:RibbonGroup>
         <infRib:ButtonTool Caption="Refresh" Command="{Binding RefreshCommand}"/>

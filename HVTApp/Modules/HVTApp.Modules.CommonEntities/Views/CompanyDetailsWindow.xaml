@@ -40,7 +40,7 @@
         <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" Text="{Binding CompanyWrapper.Kpp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Column="0" Grid.Row ="5" Content="Сфера деятельности"/>
-        <myUserControls:ChooseItemToListControl Grid.Column="1" Grid.Row="5"
+        <myUserControls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
             Items="{Binding CompanyWrapper.ActivityFilds}"
             AddItem="{Binding AddActivityFieldCommand}"/>
 

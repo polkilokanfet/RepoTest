@@ -1,21 +1,29 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System;
 using HVTApp.DataAccess;
 using HVTApp.Model.Wrappers;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class ProductsViewModel : BindableBase
+    public class ProductsViewModel : EditableSelectableBindableBase<ProductWrapper>
     {
-        public ObservableCollection<ProductWrapper> Products { get; }
-
         public ProductsViewModel(IUnitOfWork unitOfWork)
         {
-            Products = new ObservableCollection<ProductWrapper>(unitOfWork.Products.GetAll());
+           unitOfWork.Products.GetAll().ForEach(Items.Add);
+        }
+
+        protected override void RemoveItemCommand_Execute()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void EditItemCommand_Execute()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void NewItemCommand_Execute()
+        {
+            throw new NotImplementedException();
         }
     }
 }

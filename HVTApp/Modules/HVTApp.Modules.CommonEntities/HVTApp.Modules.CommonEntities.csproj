@@ -96,8 +96,8 @@
       <DependentUpon>CommonEntitiesMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\CommonEntitiesMenuViewModel.cs" />
-    <Compile Include="Menus\TabCompanies.xaml.cs">
-      <DependentUpon>TabCompanies.xaml</DependentUpon>
+    <Compile Include="Menus\TabCRUD.xaml.cs">
+      <DependentUpon>TabCRUD.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\TabCompaniesForms.xaml.cs">
       <DependentUpon>TabCompaniesForms.xaml</DependentUpon>
@@ -115,6 +115,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ViewModels\ActivityFildsViewModel.cs" />
     <Compile Include="ViewModels\CompaniesViewModel.cs" />
     <Compile Include="ViewModels\CompanyDetailsWindowModel.cs" />
     <Compile Include="ViewModels\ProductDetailsViewModel.cs" />
@@ -185,7 +186,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Menus\TabCompanies.xaml">
+    <Page Include="Menus\TabCRUD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

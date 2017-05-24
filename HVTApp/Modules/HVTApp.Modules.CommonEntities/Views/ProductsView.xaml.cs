@@ -9,7 +9,7 @@ namespace HVTApp.Modules.CommonEntities.Views
     /// <summary>
     /// Interaction logic for ProductsView
     /// </summary>
-    [RibbonTab(typeof(TabCompanies))]
+    [RibbonTab(typeof(TabCRUD))]
     public partial class ProductsView 
     {
         public ProductsView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)

@@ -7,7 +7,7 @@
              x:Class="HVTApp.Modules.CommonEntities.Views.CompaniesView"             
              prism:ViewModelLocator.AutoWireViewModel="True">
 
-    <infg:XamDataGrid DataSource="{Binding Companies, Mode=OneWay}" SelectedDataItem="{Binding SelectedCompany, Mode=TwoWay}">
+    <infg:XamDataGrid DataSource="{Binding Items, Mode=OneWay}" SelectedDataItem="{Binding SelectedItem, Mode=TwoWay}">
 
         <infg:XamDataGrid.FieldSettings>
             <infg:FieldSettings AllowEdit="False" AllowRecordFiltering="True"/>
