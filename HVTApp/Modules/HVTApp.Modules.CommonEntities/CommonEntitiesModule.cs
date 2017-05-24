@@ -25,6 +25,7 @@ namespace HVTApp.Modules.CommonEntities
         {
             Container.RegisterViewForNavigation<CompaniesView>();
             Container.RegisterViewForNavigation<CompanyFormsView>();
+            Container.RegisterViewForNavigation<ProductsView>();
 
             _dialogService.Register<CompanyFormDetailsViewModel, CompanyFormDetailsView>();
             _dialogService.Register<CompanyDetailsWindowModel, CompanyDetailsWindow>();

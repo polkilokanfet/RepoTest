@@ -13,7 +13,9 @@ namespace HVTApp.Model.Wrappers
     public SumOnDateWrapper(SumOnDate model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
+
     #region SimpleProperties
+
     public System.DateTime Date
     {
       get { return GetValue<System.DateTime>(); }
@@ -21,6 +23,7 @@ namespace HVTApp.Model.Wrappers
     }
     public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
     public bool DateIsChanged => GetIsChanged(nameof(Date));
+
 
     public System.Double Sum
     {
@@ -30,6 +33,7 @@ namespace HVTApp.Model.Wrappers
     public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
     public bool SumIsChanged => GetIsChanged(nameof(Sum));
 
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -38,6 +42,8 @@ namespace HVTApp.Model.Wrappers
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
+
   }
 }

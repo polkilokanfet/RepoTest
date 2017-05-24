@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.StringToGuidService;
 
@@ -15,7 +13,7 @@ namespace HVTApp.DataAccess
         {
 
             #region CompanyForm
-            CompanyForm formAo = new CompanyForm { FullName = "Акционерное общество", ShortName = "АО" };
+            CompanyForm formAo = new CompanyForm {FullName = "Акционерное общество", ShortName = "АО"};
             CompanyForm formPao = new CompanyForm {FullName = "Публичное акционерное общество", ShortName = "ПАО"};
             CompanyForm formOao = new CompanyForm {FullName = "Открытое акционерное общество", ShortName = "ОАО"};
             CompanyForm formZao = new CompanyForm {FullName = "Закрытое акционерное общество", ShortName = "ЗАО"};
@@ -55,37 +53,39 @@ namespace HVTApp.DataAccess
             Parameter paramBreaker = new Parameter { Group = groupEqType, Value = "Выключатель" };
             Parameter paramTransformator = new Parameter { Group = groupEqType, Value = "Трансформатор" };
 
-            RequiredParentParameters set1 = new RequiredParentParameters { Parameters = new List<Parameter> { paramBreaker } };
+            RequiredParameters set1 = new RequiredParameters { Parameters = new List<Parameter> { paramBreaker } };
 
             ParameterGroup groupBreakerType = new ParameterGroup { Name = "Тип выключателя" };
-            Parameter paramBreakerDt = new Parameter { Group = groupBreakerType, Value = "Баковый", RequiredParents = new List<RequiredParentParameters> { set1 } };
-            Parameter paramBreakerLt = new Parameter { Group = groupBreakerType, Value = "Колонковый", RequiredParents = new List<RequiredParentParameters> { set1 } };
+            Parameter paramBreakerDt = new Parameter { Group = groupBreakerType, Value = "Баковый", RequiredParents = new List<RequiredParameters> { set1 } };
+            Parameter paramBreakerLt = new Parameter { Group = groupBreakerType, Value = "Колонковый", RequiredParents = new List<RequiredParameters> { set1 } };
 
-            RequiredParentParameters set2 = new RequiredParentParameters { Parameters = new List<Parameter> { paramTransformator } };
+            RequiredParameters set2 = new RequiredParameters { Parameters = new List<Parameter> { paramTransformator } };
 
             ParameterGroup groupTransformatorType = new ParameterGroup { Name = "Тип трансформатора" };
-            Parameter paramTransformatorI = new Parameter { Group = groupTransformatorType, Value = "Тока", RequiredParents = new List<RequiredParentParameters> { set2 } };
-            Parameter paramTransformatorV = new Parameter { Group = groupTransformatorType, Value = "Напряжения", RequiredParents = new List<RequiredParentParameters> { set2 } };
+            Parameter paramTransformatorI = new Parameter { Group = groupTransformatorType, Value = "Тока", RequiredParents = new List<RequiredParameters> { set2 } };
+            Parameter paramTransformatorV = new Parameter { Group = groupTransformatorType, Value = "Напряжения", RequiredParents = new List<RequiredParameters> { set2 } };
 
-            RequiredParentParameters setBreakerDt = new RequiredParentParameters { Parameters = new List<Parameter> { paramBreaker, paramBreakerDt } };
-            RequiredParentParameters setBreakerLt = new RequiredParentParameters { Parameters = new List<Parameter> { paramBreaker, paramBreakerLt } };
+            RequiredParameters setBreakerDt = new RequiredParameters { Parameters = new List<Parameter> { paramBreaker, paramBreakerDt } };
+            RequiredParameters setBreakerLt = new RequiredParameters { Parameters = new List<Parameter> { paramBreaker, paramBreakerLt } };
 
-            RequiredParentParameters setTransformatorV = new RequiredParentParameters { Parameters = new List<Parameter> { paramTransformator, paramTransformatorV } };
+            RequiredParameters setTransformatorV = new RequiredParameters { Parameters = new List<Parameter> { paramTransformator, paramTransformatorV } };
 
 
-            ParameterGroup groupV = new ParameterGroup {Name = "Номинальное напряжение"};
-            Parameter paramV35kV = new Parameter { Group = groupV, Value = "35 kV", RequiredParents = new List<RequiredParentParameters> { setBreakerDt, setBreakerLt } };
-            Parameter paramV110kV = new Parameter { Group = groupV, Value = "110 kV", RequiredParents = new List<RequiredParentParameters> { setBreakerDt, setBreakerLt, setTransformatorV } };
-            Parameter paramV220kV = new Parameter { Group = groupV, Value = "220 kV", RequiredParents = new List<RequiredParentParameters> { setBreakerDt, setBreakerLt, setTransformatorV } };
-            Parameter paramV500kV = new Parameter { Group = groupV, Value = "500 kV", RequiredParents = new List<RequiredParentParameters> { setBreakerLt } };
+            PhysicalQuantity voltage = new PhysicalQuantity {Name = "Напряжение"};
+            Measure kV = new Measure {PhysicalQuantity = voltage, FullName = "килоВольт", ShortName = "кВ"};
+            ParameterGroup groupV = new ParameterGroup {Name = "Номинальное напряжение", Measure = kV};
+            Parameter paramV35kV = new Parameter { Group = groupV, Value = "35", RequiredParents = new List<RequiredParameters> { setBreakerDt, setBreakerLt } };
+            Parameter paramV110kV = new Parameter { Group = groupV, Value = "110", RequiredParents = new List<RequiredParameters> { setBreakerDt, setBreakerLt, setTransformatorV } };
+            Parameter paramV220kV = new Parameter { Group = groupV, Value = "220", RequiredParents = new List<RequiredParameters> { setBreakerDt, setBreakerLt, setTransformatorV } };
+            Parameter paramV500kV = new Parameter { Group = groupV, Value = "500", RequiredParents = new List<RequiredParameters> { setBreakerLt } };
 
             Product ZNG110 = new Product { Designation = "ЗНГ-110", Parameters = new List<Parameter> { paramTransformator, paramTransformatorV, paramV110kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 75, Date = DateTime.Today } } };
             Product Vgb35 = new Product { Designation = "ВГБ-35", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV35kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 50, Date = DateTime.Today } } };
             Product Veb110 = new Product { Designation = "ВЭБ-110", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV110kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 100, Date = DateTime.Today } } };
             SalesUnit salesUnit = new SalesUnit
             {
-                ProductionUnit = new ProductionUnit {Product = Veb110, OrderPosition = 1, SerialNumber = "1234"},
-                ShipmentUnit = new ShipmentUnit {ShipmentCost = 100},
+                ProductionUnit = new ProductionUnit { Product = Veb110, OrderPosition = 1, SerialNumber = "1234" },
+                ShipmentUnit = new ShipmentUnit { ShipmentCost = 100 },
                 CostSingle = new SumAndVat { Sum = 1000, Vat = 18},
                 Facility = facility,
                 Project = project

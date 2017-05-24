@@ -13,7 +13,9 @@ namespace HVTApp.Model.Wrappers
     public ParameterWrapper(Parameter model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
+
     #region SimpleProperties
+
     public System.String Value
     {
       get { return GetValue<System.String>(); }
@@ -21,6 +23,7 @@ namespace HVTApp.Model.Wrappers
     }
     public System.String ValueOriginalValue => GetOriginalValue<System.String>(nameof(Value));
     public bool ValueIsChanged => GetIsChanged(nameof(Value));
+
 
     public System.Int32 Id
     {
@@ -30,9 +33,12 @@ namespace HVTApp.Model.Wrappers
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public ParameterGroupWrapper Group 
     {
         get { return GetComplexProperty<ParameterGroupWrapper, ParameterGroup>(Model.Group); }
@@ -42,33 +48,34 @@ namespace HVTApp.Model.Wrappers
     public ParameterGroupWrapper GroupOriginalValue { get; private set; }
     public bool GroupIsChanged => GetIsChanged(nameof(Group));
 
-	public MeasureWrapper Measure 
-    {
-        get { return GetComplexProperty<MeasureWrapper, Measure>(Model.Measure); }
-        set { SetComplexProperty<MeasureWrapper, Measure>(Measure, value); }
-    }
-
-    public MeasureWrapper MeasureOriginalValue { get; private set; }
-    public bool MeasureIsChanged => GetIsChanged(nameof(Measure));
 
     #endregion
+
 
     #region CollectionProperties
-    public IValidatableChangeTrackingCollection<RequiredParentParametersWrapper> RequiredParentParametersList { get; private set; }
+
+    public IValidatableChangeTrackingCollection<RequiredParametersWrapper> RequiredParents { get; private set; }
+
 
     #endregion
+
     protected override void InitializeComplexProperties(Parameter model)
     {
+
         Group = GetWrapper<ParameterGroupWrapper, ParameterGroup>(model.Group);
-        Measure = GetWrapper<MeasureWrapper, Measure>(model.Measure);
+
     }
+
   
     protected override void InitializeCollectionComplexProperties(Parameter model)
     {
+
       if (model.RequiredParents == null) throw new ArgumentException("RequiredParents cannot be null");
-      RequiredParentParametersList = new ValidatableChangeTrackingCollection<RequiredParentParametersWrapper>(model.RequiredParents.Select(e => GetWrapper<RequiredParentParametersWrapper, RequiredParentParameters>(e)));
-      RegisterCollection(RequiredParentParametersList, model.RequiredParents);
+      RequiredParents = new ValidatableChangeTrackingCollection<RequiredParametersWrapper>(model.RequiredParents.Select(e => GetWrapper<RequiredParametersWrapper, RequiredParameters>(e)));
+      RegisterCollection(RequiredParents, model.RequiredParents);
+
 
     }
+
   }
 }

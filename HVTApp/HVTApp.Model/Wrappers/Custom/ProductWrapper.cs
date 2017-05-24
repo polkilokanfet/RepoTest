@@ -62,5 +62,21 @@ namespace HVTApp.Model.Wrappers
 
             return totalPriceSum;
         }
+
+        public string ParametersToString
+        {
+            get
+            {
+                string result = string.Empty;
+                foreach (var parameter in Parameters)
+                    result = $"{result}; {parameter.Group.Name}: {parameter.Value}";
+                return result.Remove(0, 2);
+            }
+        }
+
+        public override string ToString()
+        {
+            return ParametersToString;
+        }
     }
 }

@@ -7,10 +7,13 @@ namespace HVTApp.Modules.CommonEntities.Menus
     {
         protected override void GenerateMenu()
         {
-            NavigationItem root = new NavigationItem("Companies", typeof(CompaniesView));
-            root.Items.Add(new NavigationItem("CompanyForms", typeof(CompanyFormsView)));
+            NavigationItem rootCompany = new NavigationItem("Companies", typeof(CompaniesView));
+            rootCompany.Items.Add(new NavigationItem("CompanyForms", typeof(CompanyFormsView)));
 
-            Items.Add(root);
+            NavigationItem rootProduct = new NavigationItem("Products", typeof(ProductsView));
+
+            Items.Add(rootCompany);
+            Items.Add(rootProduct);
         }
     }
 }

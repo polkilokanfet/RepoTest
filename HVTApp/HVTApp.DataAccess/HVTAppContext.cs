@@ -172,13 +172,16 @@ namespace HVTApp.DataAccess
             modelBuilder.Entity<Parameter>().HasRequired(x => x.Group).WithMany(x => x.Parameters);
             modelBuilder.Entity<Parameter>().HasMany(x => x.RequiredParents).WithMany();
 
-            modelBuilder.Entity<RequiredParentParameters>().HasMany(x => x.Parameters).WithMany();
+            modelBuilder.Entity<RequiredParameters>().HasMany(x => x.Parameters).WithMany();
 
             modelBuilder.Entity<ParameterGroup>().Property(x => x.Name).IsRequired().HasMaxLength(25);
+            modelBuilder.Entity<ParameterGroup>().HasOptional(x => x.Measure);
+
+            modelBuilder.Entity<PhysicalQuantity>().Property(x => x.Name).IsRequired().HasMaxLength(50);
 
             modelBuilder.Entity<Measure>().Property(x => x.FullName).HasMaxLength(50);
             modelBuilder.Entity<Measure>().Property(x => x.ShortName).IsOptional().HasMaxLength(50);
-            modelBuilder.Entity<Measure>().HasOptional(x => x.Group).WithMany(x => x.Measures);
+            modelBuilder.Entity<Measure>().HasRequired(x => x.PhysicalQuantity).WithMany(x => x.Measures);
 
             #endregion
 
@@ -186,6 +189,7 @@ namespace HVTApp.DataAccess
 
             modelBuilder.Entity<Product>().Property(x => x.Designation).IsRequired().HasMaxLength(100);
             modelBuilder.Entity<Product>().HasOptional(x => x.ParentProduct).WithMany(x => x.ChildProducts).WillCascadeOnDelete(false);
+            modelBuilder.Entity<Product>().HasMany(x => x.Parameters).WithMany();
 
             #endregion
 

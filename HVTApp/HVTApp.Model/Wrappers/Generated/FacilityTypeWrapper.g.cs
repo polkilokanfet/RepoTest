@@ -13,7 +13,9 @@ namespace HVTApp.Model.Wrappers
     public FacilityTypeWrapper(FacilityType model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
+
     #region SimpleProperties
+
     public System.String FullName
     {
       get { return GetValue<System.String>(); }
@@ -21,6 +23,7 @@ namespace HVTApp.Model.Wrappers
     }
     public System.String FullNameOriginalValue => GetOriginalValue<System.String>(nameof(FullName));
     public bool FullNameIsChanged => GetIsChanged(nameof(FullName));
+
 
     public System.String ShortName
     {
@@ -30,6 +33,7 @@ namespace HVTApp.Model.Wrappers
     public System.String ShortNameOriginalValue => GetOriginalValue<System.String>(nameof(ShortName));
     public bool ShortNameIsChanged => GetIsChanged(nameof(ShortName));
 
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -38,6 +42,8 @@ namespace HVTApp.Model.Wrappers
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
+
   }
 }

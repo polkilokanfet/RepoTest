@@ -13,7 +13,9 @@ namespace HVTApp.Model.Wrappers
     public TenderUnitWrapper(TenderUnit model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
+
     #region SimpleProperties
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -22,9 +24,12 @@ namespace HVTApp.Model.Wrappers
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public TenderWrapper Tender 
     {
         get { return GetComplexProperty<TenderWrapper, Tender>(Model.Tender); }
@@ -33,6 +38,7 @@ namespace HVTApp.Model.Wrappers
 
     public TenderWrapper TenderOriginalValue { get; private set; }
     public bool TenderIsChanged => GetIsChanged(nameof(Tender));
+
 
 	public SalesUnitWrapper ParentSalesUnit 
     {
@@ -43,6 +49,7 @@ namespace HVTApp.Model.Wrappers
     public SalesUnitWrapper ParentSalesUnitOriginalValue { get; private set; }
     public bool ParentSalesUnitIsChanged => GetIsChanged(nameof(ParentSalesUnit));
 
+
 	public SalesUnitWrapper ChildSalesUnit 
     {
         get { return GetComplexProperty<SalesUnitWrapper, SalesUnit>(Model.ChildSalesUnit); }
@@ -52,12 +59,19 @@ namespace HVTApp.Model.Wrappers
     public SalesUnitWrapper ChildSalesUnitOriginalValue { get; private set; }
     public bool ChildSalesUnitIsChanged => GetIsChanged(nameof(ChildSalesUnit));
 
+
     #endregion
+
     protected override void InitializeComplexProperties(TenderUnit model)
     {
+
         Tender = GetWrapper<TenderWrapper, Tender>(model.Tender);
+
         ParentSalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(model.ParentSalesUnit);
+
         ChildSalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(model.ChildSalesUnit);
+
     }
+
   }
 }

@@ -120,11 +120,13 @@
     <Compile Include="Wrappers\Generated\PaymentDocumentWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\PaymentPlanWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\PersonWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\PhysicalQuantityWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ProductionUnitWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ProductWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ProjectWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\RegionWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\RegistrationDetailsWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\RequiredParametersWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\RequiredParentParametersWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\SalesUnitWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ShipmentUnitWrapper.g.cs" />

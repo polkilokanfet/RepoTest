@@ -6,13 +6,15 @@ namespace HVTApp.Model.POCOs
     public class Parameter : BaseEntity
     {
         public virtual ParameterGroup Group { get; set; }
-        public virtual Measure Measure { get; set; }
         public string Value { get; set; }
-        public virtual List<RequiredParentParameters> RequiredParents { get; set; }
+        public virtual List<RequiredParameters> RequiredParents { get; set; }
 
         public override string ToString()
         {
-            return Value;
+            string result = Value;
+            if (Group.Measure != null)
+                result = result + " " + Group.Measure.ShortName;
+            return result;
         }
     }
 
@@ -20,13 +22,19 @@ namespace HVTApp.Model.POCOs
     {
         public string Name { get; set; }
         public virtual List<Parameter> Parameters { get; set; }
-        public virtual List<Measure> Measures { get; set; }
+        public virtual Measure Measure { get; set; }
         public bool IsOnlyChoice { get; set; } = true; // группа из которой может быть выбран только один параметр для одного оборудования.
 
         public override string ToString()
         {
             return Name;
         }
+    }
+
+    public class PhysicalQuantity : BaseEntity
+    {
+        public string Name { get; set; }
+        public virtual List<Measure> Measures { get; set; }
     }
 
     /// <summary>
@@ -36,10 +44,10 @@ namespace HVTApp.Model.POCOs
     {
         public string FullName { get; set; }
         public string ShortName { get; set; }
-        public ParameterGroup Group { get; set; }
+        public PhysicalQuantity PhysicalQuantity { get; set; }
     }
 
-    public class RequiredParentParameters : BaseEntity
+    public class RequiredParameters : BaseEntity
     {
         public virtual List<Parameter> Parameters { get; set; } = new List<Parameter>(); //обязательные родительские параметры, без которых этот параметр не имеет смысла
     }
