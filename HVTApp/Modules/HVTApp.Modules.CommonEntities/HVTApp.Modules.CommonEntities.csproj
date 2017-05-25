@@ -96,11 +96,8 @@
       <DependentUpon>CommonEntitiesMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\CommonEntitiesMenuViewModel.cs" />
-    <Compile Include="Menus\TabCRUD.xaml.cs">
+    <Compile Include="Tabs\TabCRUD.xaml.cs">
       <DependentUpon>TabCRUD.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Menus\TabCompaniesForms.xaml.cs">
-      <DependentUpon>TabCompaniesForms.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -118,8 +115,13 @@
     <Compile Include="ViewModels\ActivityFildsViewModel.cs" />
     <Compile Include="ViewModels\CompaniesViewModel.cs" />
     <Compile Include="ViewModels\CompanyDetailsWindowModel.cs" />
+    <Compile Include="EditableSelectableBindableBase.cs" />
     <Compile Include="ViewModels\ProductDetailsViewModel.cs" />
     <Compile Include="ViewModels\ProductsViewModel.cs" />
+    <Compile Include="SelectableBindableBase.cs" />
+    <Compile Include="Views\ActivityFildsView.xaml.cs">
+      <DependentUpon>ActivityFildsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CompanyDetailsWindow.xaml.cs">
       <DependentUpon>CompanyDetailsWindow.xaml</DependentUpon>
     </Compile>
@@ -186,13 +188,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Menus\TabCRUD.xaml">
+    <Page Include="Tabs\TabCRUD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Menus\TabCompaniesForms.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Views\ActivityFildsView.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CompanyDetailsWindow.xaml">
       <SubType>Designer</SubType>

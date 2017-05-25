@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:HVTApp.Modules.CommonEntities.Menus" 
              xmlns:infRib="http://infragistics.com/Ribbon" 
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             x:Class="HVTApp.Modules.CommonEntities.Menus.TabCRUD"
+             x:Class="HVTApp.Modules.CommonEntities.Tabs.TabCRUD"
              Header="Редактировать">
     <infRib:RibbonGroup Caption="Form">
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewItemCommand}"/>

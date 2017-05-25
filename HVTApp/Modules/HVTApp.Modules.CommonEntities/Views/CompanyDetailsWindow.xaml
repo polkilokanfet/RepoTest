@@ -25,33 +25,33 @@
         </Grid.ColumnDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Название полное"/>
-        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" Text="{Binding CompanyWrapper.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" Text="{Binding Company.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Название сокращенное"/>
-        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" Text="{Binding CompanyWrapper.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" Text="{Binding Company.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Форма"/>
-        <ComboBox Grid.Column="1" Grid.Row="2" MinWidth="200" ItemsSource="{Binding Forms, Mode=OneWay}" SelectedItem="{Binding CompanyWrapper.Form, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox Grid.Column="1" Grid.Row="2" MinWidth="200" ItemsSource="{Binding Forms, Mode=OneWay}" SelectedItem="{Binding Company.Form, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Column="0" Grid.Row ="3" Content="ИНН"/>
-        <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" Text="{Binding CompanyWrapper.Inn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" Text="{Binding Company.Inn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Column="0" Grid.Row ="4" Content="КПП"/>
-        <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" Text="{Binding CompanyWrapper.Kpp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" Text="{Binding Company.Kpp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Column="0" Grid.Row ="5" Content="Сфера деятельности"/>
         <myUserControls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
-            Items="{Binding CompanyWrapper.ActivityFilds}"
+            Items="{Binding Company.ActivityFilds, UpdateSourceTrigger=PropertyChanged}"
             AddItem="{Binding AddActivityFieldCommand}"/>
 
         <Label Grid.Column="0" Grid.Row="6" Content="Головная компания"/>
         <myUserControls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
-			Item="{Binding CompanyWrapper.ParentCompany}"
+			Item="{Binding Company.ParentCompany}"
 			AddItem="{Binding SelectParentCompanyCommand}"
             RemoveItem="{Binding RemoveParentCompanyCommand}"/>
 
         <Label Grid.Column="0" Grid.Row="7" Content="Дочерние компании"/>
-        <ListView Grid.Column="1" Grid.Row="7" ItemsSource="{Binding CompanyWrapper.ChildCompanies}" IsEnabled="False"/>
+        <ListView Grid.Column="1" Grid.Row="7" ItemsSource="{Binding Company.ChildCompanies}" IsEnabled="False"/>
 
         <Button Grid.Column="1" Grid.Row="8" Content="Ok" Command="{Binding OkCommand}"/>
 

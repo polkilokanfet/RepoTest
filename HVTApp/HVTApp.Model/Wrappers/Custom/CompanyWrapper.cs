@@ -95,6 +95,8 @@ namespace HVTApp.Model.Wrappers
             if (Form == null)
                 yield return new ValidationResult("Form is required", new[] { nameof(Form) });
 
+            if (!ActivityFilds.Any())
+                yield return new ValidationResult("У компании должна быть хотябы одна сфера деятельности.", new[] {nameof(ActivityFilds)});
         }
     }
 }

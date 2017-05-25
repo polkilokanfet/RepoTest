@@ -21,7 +21,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISelectService _selectService;
-        private CompanyWrapper _companyWrapper;
+        private CompanyWrapper _company;
 
         public CompanyDetailsWindowModel(IUnitOfWork unitOfWork, ISelectService selectService)
         {
@@ -36,7 +36,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             RemoveParentCompanyCommand = new DelegateCommand(RemoveParentCompanyCommand_Execute);
             AddActivityFieldCommand = new DelegateCommand(AddActivityFieldCommand_Execute);
 
-            CompanyWrapper = new CompanyWrapper();
+            Company = new CompanyWrapper();
         }
 
         public DelegateCommand OkCommand { get; }
@@ -44,15 +44,15 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         public DelegateCommand RemoveParentCompanyCommand { get; }
         public DelegateCommand AddActivityFieldCommand { get; }
 
-        public CompanyWrapper CompanyWrapper
+        public CompanyWrapper Company
         {
-            get { return _companyWrapper; }
+            get { return _company; }
             set
             {
-                if (_companyWrapper != null)
-                    _companyWrapper.PropertyChanged -= CompanyWrapperOnPropertyChanged;
-                _companyWrapper = value;
-                _companyWrapper.PropertyChanged += CompanyWrapperOnPropertyChanged;
+                if (_company != null)
+                    _company.PropertyChanged -= CompanyOnPropertyChanged;
+                _company = value;
+                _company.PropertyChanged += CompanyOnPropertyChanged;
             }
         }
 
@@ -60,38 +60,38 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         private void AddActivityFieldCommand_Execute()
         {
-            IEnumerable<ActivityField> fields = _unitOfWork.ActivityFields.GetAll().Select(x => x.Model);
-            fields = fields.Except(CompanyWrapper.ActivityFilds.Select(x => x.Model));
+            IEnumerable<ActivityFieldWrapper> fields = _unitOfWork.ActivityFields.GetAll();
+            fields = fields.Except(Company.ActivityFilds);
             _selectService.SelectItem(fields);
         }
 
         private void RemoveParentCompanyCommand_Execute()
         {
             //если головная компания не назначена
-            if (CompanyWrapper.ParentCompany == null) return;
+            if (Company.ParentCompany == null) return;
             //удаляем из списка дочерних компаний бывшей головной компании текущую компанию
-            CompanyWrapper.ParentCompany.ChildCompanies.Remove(CompanyWrapper);
+            Company.ParentCompany.ChildCompanies.Remove(Company);
             //удалаем головную компанию текущей компании
-            CompanyWrapper.ParentCompany = null;
+            Company.ParentCompany = null;
         }
 
         private void SelectParentCompanyCommand_Execute()
         {
             //компании, которые не могут быть головной (дочернии и т.д.)
-            IEnumerable<CompanyWrapper> exceptCompanies = CompanyWrapper.GetAllChilds().Concat(new[] {this.CompanyWrapper});
+            IEnumerable<CompanyWrapper> exceptCompanies = Company.GetAllChilds().Concat(new[] {this.Company});
             //возможные головные компании
             IEnumerable<CompanyWrapper> possibleParents = _unitOfWork.Companies.GetAll().Except(exceptCompanies);
             //выбор одной из компаний
-            CompanyWrapper possibleParent = _selectService.SelectItem(possibleParents, CompanyWrapper.ParentCompany);
+            CompanyWrapper possibleParent = _selectService.SelectItem(possibleParents, Company.ParentCompany);
 
-            if (possibleParent != null && !Equals(possibleParent, CompanyWrapper.ParentCompany))
+            if (possibleParent != null && !Equals(possibleParent, Company.ParentCompany))
             {
                 RemoveParentCompanyCommand_Execute();
-                CompanyWrapper.ParentCompany = possibleParent;
+                Company.ParentCompany = possibleParent;
             }
         }
 
-        private void CompanyWrapperOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        private void CompanyOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             OkCommand.RaiseCanExecuteChanged();
         }
@@ -99,13 +99,13 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         private void OkCommand_Execute()
         {
             CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
-            CompanyWrapper.AcceptChanges();
+            Company.AcceptChanges();
             _unitOfWork.Complete();
         }
 
         private bool OkCommand_CanExecute()
         {
-            return CompanyWrapper.IsChanged && CompanyWrapper.IsValid;
+            return Company.IsChanged && Company.IsValid;
         }
 
 

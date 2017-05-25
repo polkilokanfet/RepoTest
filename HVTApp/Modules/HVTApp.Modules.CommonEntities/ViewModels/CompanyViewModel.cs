@@ -98,7 +98,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         {
             //CompanyType companyType = new CompanyType();
             //CompanyTypeWrapper companyTypeWrapper = new CompanyTypeWrapper(companyType);
-            //CompanyWrapper.CompanyTypes.Add(companyTypeWrapper);
+            //Company.CompanyTypes.Add(companyTypeWrapper);
         }
 
         #endregion

@@ -1,19 +1,13 @@
 ﻿using Prism.Commands;
-using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
-using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.Wrappers;
 using HVTApp.Services.ChooseProductService;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class CompaniesViewModel : EditableSelectableBindableBase<CompanyWrapper>, ISelectViewModel<CompanyWrapper>
+    public class CompaniesViewModel : EditableSelectableBindableBase<CompanyWrapper>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDialogService _dialogService;
@@ -39,14 +33,14 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         protected override void EditItemCommand_Execute()
         {
             var companyDetailsWindowModel = _container.Resolve<CompanyDetailsWindowModel>();
-            companyDetailsWindowModel.CompanyWrapper = SelectedItem;
+            companyDetailsWindowModel.Company = SelectedItem;
             var dialogResult = _dialogService.ShowDialog(companyDetailsWindowModel);
 
             if (dialogResult.HasValue && dialogResult.Value)
                 return;
 
-            if (companyDetailsWindowModel.CompanyWrapper.IsChanged)
-                companyDetailsWindowModel.CompanyWrapper.RejectChanges();
+            if (companyDetailsWindowModel.Company.IsChanged)
+                companyDetailsWindowModel.Company.RejectChanges();
 
         }
 
@@ -60,17 +54,22 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
             //добавляем новую компанию
             //в базу данных
-            _unitOfWork.Companies.Add(companyDetailsWindowModel.CompanyWrapper);
+            _unitOfWork.Companies.Add(companyDetailsWindowModel.Company);
             _unitOfWork.Complete();
             //в коллекцию этого окна
-            Items.Add(companyDetailsWindowModel.CompanyWrapper);
+            Items.Add(companyDetailsWindowModel.Company);
             //выделяем вновь добавленную компанию
-            SelectedItem = companyDetailsWindowModel.CompanyWrapper;
+            SelectedItem = companyDetailsWindowModel.Company;
         }
 
         protected override void RemoveItemCommand_Execute()
         {
             _chooseProductService.ChooseProduct();
+        }
+
+        protected override bool RemoveItemCommand_CanExecute()
+        {
+            return true;
         }
 
         private void RefreshCommand_Execute()
@@ -80,12 +79,5 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         }
 
         #endregion
-
-
-        #region ISelectViewModel
-
-
-        #endregion
-
     }
 }

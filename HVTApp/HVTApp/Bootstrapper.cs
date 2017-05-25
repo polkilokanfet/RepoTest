@@ -55,6 +55,7 @@ namespace HVTApp
             Container.RegisterType<ISelectService, SelectServiceRealization>(new ContainerControlledLifetimeManager());
 
             Container.Resolve<ISelectService>().Register<CompaniesViewModel, CompaniesView, CompanyWrapper>();
+            Container.Resolve<ISelectService>().Register<ActivityFildsViewModel, ActivityFildsView, ActivityFieldWrapper>();
 
             DialogService dialogService = new DialogService((Window)Shell);
             Container.RegisterInstance(typeof(IDialogService), dialogService);
