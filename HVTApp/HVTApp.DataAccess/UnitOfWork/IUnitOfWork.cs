@@ -5,6 +5,7 @@ namespace HVTApp.DataAccess
     public interface IUnitOfWork : IDisposable
     {
         int Complete();
+        void AddItem<T>(T item) where T : class;
 
         IActivityFieldsRepository ActivityFields { get; }
         IFriendGroupRepository FriendGroups { get; }

@@ -1,0 +1,10 @@
+﻿<UserControl x:Class="HVTApp.Modules.CommonEntities.Views.ContractsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:dataPresenter="http://infragistics.com/DataPresenter"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <dataPresenter:XamDataGrid DataSource="{Binding Items}">
+            
+    </dataPresenter:XamDataGrid>
+</UserControl>

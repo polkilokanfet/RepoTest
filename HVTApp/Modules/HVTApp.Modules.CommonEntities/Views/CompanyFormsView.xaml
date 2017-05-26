@@ -7,7 +7,7 @@
              x:Class="HVTApp.Modules.CommonEntities.Views.CompanyFormsView"             
              prism:ViewModelLocator.AutoWireViewModel="True">
 
-    <igDp:XamDataGrid DataSource="{Binding CompanyForms}" SelectedDataItem="{Binding SelectedCompanyForm}">
+    <igDp:XamDataGrid DataSource="{Binding Items}" SelectedDataItem="{Binding SelectedItem}">
         <igDp:XamDataGrid.FieldSettings>
             <igDp:FieldSettings AllowEdit="False" AllowRecordFiltering="True"/>
         </igDp:XamDataGrid.FieldSettings>

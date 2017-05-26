@@ -3,17 +3,17 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class ProductDetailsViewModel : BindableBase
+    public class ProductDetailsViewModel : BaseDetailsViewModel<ProductWrapper, Product>
     {
-        public ProductWrapper Product { get; set; }
+        public ProductWrapper Product => Item;
 
-        public ProductDetailsViewModel(ProductWrapper product)
+        public ProductDetailsViewModel(ProductWrapper item) : base(item)
         {
-            Product = product;
         }
     }
 }

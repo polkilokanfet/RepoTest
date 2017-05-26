@@ -1,29 +1,18 @@
 ﻿using System;
 using HVTApp.DataAccess;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class ProductsViewModel : EditableSelectableBindableBase<ProductWrapper>
+    public class ProductsViewModel : EditableBase<ProductWrapper, ProductDetailsViewModel, Product>
     {
-        public ProductsViewModel(IUnitOfWork unitOfWork)
+        public ProductsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : 
+            base(unitOfWork, container, dialogService)
         {
            unitOfWork.Products.GetAll().ForEach(Items.Add);
-        }
-
-        protected override void RemoveItemCommand_Execute()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void EditItemCommand_Execute()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void NewItemCommand_Execute()
-        {
-            throw new NotImplementedException();
         }
     }
 }

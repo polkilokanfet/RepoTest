@@ -4,27 +4,26 @@
              SizeToContent="WidthAndHeight" 
              Title="Форма компании" 
              ResizeMode="CanResize">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <StackPanel Orientation="Vertical">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row="0" Content="Полное наименование"/>
-        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200"
-                 Text="{Binding CompanyFormWrapper.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        
-        <Label Grid.Column="0" Grid.Row="1" Content="Сокращенное наименование"/>
-        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200"
-                 Text="{Binding CompanyFormWrapper.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Grid.Column="0" Grid.Row="0" Content="Полное наименование"/>
+            <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200"
+                 Text="{Binding Item.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
-            <Button Content="Ok" Command="{Binding OkCommand}"/>
-        </StackPanel>
-    </Grid>
+            <Label Grid.Column="0" Grid.Row="1" Content="Сокращенное наименование"/>
+            <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200"
+                 Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+        <Button Content="Ok" Command="{Binding OkCommand}"/>
+
+    </StackPanel>
 </Window>

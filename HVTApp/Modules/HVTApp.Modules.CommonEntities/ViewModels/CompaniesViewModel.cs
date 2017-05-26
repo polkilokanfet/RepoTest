@@ -1,20 +1,21 @@
 ﻿using Prism.Commands;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using HVTApp.Services.ChooseProductService;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class CompaniesViewModel : EditableSelectableBindableBase<CompanyWrapper>
+    public class CompaniesViewModel : EditableBase<CompanyWrapper, CompanyDetailsWindowModel, Company>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDialogService _dialogService;
         private readonly IUnityContainer _container;
         private readonly IChooseProductService _chooseProductService;
 
-        public CompaniesViewModel(IUnitOfWork unitOfWork, IDialogService dialogService, IUnityContainer container, IChooseProductService chooseProductService)
+        public CompaniesViewModel(IUnitOfWork unitOfWork, IDialogService dialogService, IUnityContainer container, IChooseProductService chooseProductService) : base(unitOfWork, container, dialogService)
         {
             _unitOfWork = unitOfWork;
             _dialogService = dialogService;
@@ -29,38 +30,6 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         #region Commands
 
         public DelegateCommand RefreshCommand { get; set; }
-
-        protected override void EditItemCommand_Execute()
-        {
-            var companyDetailsWindowModel = _container.Resolve<CompanyDetailsWindowModel>();
-            companyDetailsWindowModel.Company = SelectedItem;
-            var dialogResult = _dialogService.ShowDialog(companyDetailsWindowModel);
-
-            if (dialogResult.HasValue && dialogResult.Value)
-                return;
-
-            if (companyDetailsWindowModel.Company.IsChanged)
-                companyDetailsWindowModel.Company.RejectChanges();
-
-        }
-
-        protected override void NewItemCommand_Execute()
-        {
-            CompanyDetailsWindowModel companyDetailsWindowModel = _container.Resolve<CompanyDetailsWindowModel>();
-            var dialogResult = _dialogService.ShowDialog(companyDetailsWindowModel);
-
-            if (!dialogResult.HasValue || !dialogResult.Value)
-                return;
-
-            //добавляем новую компанию
-            //в базу данных
-            _unitOfWork.Companies.Add(companyDetailsWindowModel.Company);
-            _unitOfWork.Complete();
-            //в коллекцию этого окна
-            Items.Add(companyDetailsWindowModel.Company);
-            //выделяем вновь добавленную компанию
-            SelectedItem = companyDetailsWindowModel.Company;
-        }
 
         protected override void RemoveItemCommand_Execute()
         {

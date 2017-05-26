@@ -37,6 +37,11 @@ namespace HVTApp.DataAccess
             return _context.SaveChanges();
         }
 
+        public void AddItem<T>(T item) where T : class
+        {
+            _context.Set<T>().Add(item);
+        }
+
         public IActivityFieldsRepository ActivityFields { get; }
 
         public ICompanyFormsRepository CompanyForms { get; }

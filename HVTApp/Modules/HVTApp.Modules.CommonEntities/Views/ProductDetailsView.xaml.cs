@@ -1,11 +1,9 @@
 ﻿using System.Windows.Controls;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 
 namespace HVTApp.Modules.CommonEntities.Views
 {
-    /// <summary>
-    /// Interaction logic for ProductDetailsView
-    /// </summary>
-    public partial class ProductDetailsView : UserControl
+    public partial class ProductDetailsView : IDialog
     {
         public ProductDetailsView()
         {

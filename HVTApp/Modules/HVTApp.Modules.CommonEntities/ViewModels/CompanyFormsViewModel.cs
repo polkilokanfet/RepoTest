@@ -12,98 +12,47 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class CompanyFormsViewModel : BindableBase
+    public class CompanyFormsViewModel : EditableBase<CompanyFormWrapper, CompanyFormDetailsViewModel, CompanyForm>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDialogService _dialogService;
-        private CompanyFormWrapper _selectedCompanyForm;
 
-        public CompanyFormsViewModel(IUnitOfWork unitOfWork, IDialogService dialogService)
+        public CompanyFormsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : 
+            base(unitOfWork, container, dialogService)
         {
             _unitOfWork = unitOfWork;
             _dialogService = dialogService;
 
-            CompanyForms = new ObservableCollection<CompanyFormWrapper>(_unitOfWork.CompanyForms.GetAll());
-
-            NewCompanyFormCommand = new DelegateCommand(NewCompanyFormCommand_Execute, NewCompanyFormCommand_CanExecute);
-            EditCompanyFormCommand = new DelegateCommand(EditCompanyFormCommand_Execute, EditCompanyFormCommand_CanExecute);
-            DeleteCompanyFormCommand = new DelegateCommand(DeleteCompanyFormCommand_Execute, DeleteCompanyFormCommand_CanExecute);
-        }
-
-        public ObservableCollection<CompanyFormWrapper> CompanyForms { get; }
-
-        public CompanyFormWrapper SelectedCompanyForm
-        {
-            get { return _selectedCompanyForm; }
-            set
-            {
-                _selectedCompanyForm = value;
-                ((DelegateCommand)EditCompanyFormCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)DeleteCompanyFormCommand).RaiseCanExecuteChanged();
-            }
+            _unitOfWork.CompanyForms.GetAll().ForEach(Items.Add);
         }
 
         #region CRUD Commands
 
-        public ICommand NewCompanyFormCommand { get; }
-        public ICommand EditCompanyFormCommand { get; }
-        public ICommand DeleteCompanyFormCommand { get; }
+        //protected override void NewItemCommand_Execute()
+        //{
+        //    CompanyForm companyForm = new CompanyForm();
+        //    CompanyFormDetailsViewModel companyFormDetailsViewModel = new CompanyFormDetailsViewModel(new CompanyFormWrapper(companyForm));
+        //    bool? dialogResult = _dialogService.ShowDialog(companyFormDetailsViewModel);
 
-        private void NewCompanyFormCommand_Execute()
+        //    if (dialogResult.HasValue && dialogResult.Value)
+        //    {
+        //        companyFormDetailsViewModel.CompanyFormWrapper.AcceptChanges();
+        //        Items.Add(companyFormDetailsViewModel.CompanyFormWrapper);
+
+        //        _unitOfWork.CompanyForms.Add(new CompanyFormWrapper(companyForm));
+        //        _unitOfWork.Complete();
+        //    }
+        //}
+
+        protected override void RemoveItemCommand_Execute()
         {
-            CompanyForm companyForm = new CompanyForm();
-            CompanyFormDetailsViewModel companyFormDetailsViewModel = new CompanyFormDetailsViewModel(new CompanyFormWrapper(companyForm));
-            bool? dialogResult = _dialogService.ShowDialog(companyFormDetailsViewModel);
-
-            if (dialogResult.HasValue && dialogResult.Value)
-            {
-                companyFormDetailsViewModel.CompanyFormWrapper.AcceptChanges();
-                CompanyForms.Add(companyFormDetailsViewModel.CompanyFormWrapper);
-
-                _unitOfWork.CompanyForms.Add(new CompanyFormWrapper(companyForm));
-                _unitOfWork.Complete();
-            }
-        }
-
-        private bool NewCompanyFormCommand_CanExecute()
-        {
-            return true;
-        }
-
-        private void EditCompanyFormCommand_Execute()
-        {
-            CompanyFormDetailsViewModel companyFormDetailsViewModel = new CompanyFormDetailsViewModel(SelectedCompanyForm);
-            bool? dialogResult = _dialogService.ShowDialog(companyFormDetailsViewModel);
-
-            if (dialogResult.HasValue && dialogResult.Value)
-            {
-                SelectedCompanyForm.AcceptChanges();
-                _unitOfWork.Complete();
-            }
-            else
-            {
-                SelectedCompanyForm.RejectChanges();
-            }
-        }
-
-        private bool EditCompanyFormCommand_CanExecute()
-        {
-            return SelectedCompanyForm != null;
-        }
-
-        private void DeleteCompanyFormCommand_Execute()
-        {
-            CompanyForms.Remove(SelectedCompanyForm);
-            _unitOfWork.CompanyForms.Delete(SelectedCompanyForm);
+            Items.Remove(SelectedItem);
+            _unitOfWork.CompanyForms.Delete(SelectedItem);
             _unitOfWork.Complete();
-        }
-
-        private bool DeleteCompanyFormCommand_CanExecute()
-        {
-            return SelectedCompanyForm != null;
         }
 
         #endregion

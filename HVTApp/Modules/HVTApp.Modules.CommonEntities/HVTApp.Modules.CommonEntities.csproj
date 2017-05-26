@@ -113,9 +113,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ViewModels\ActivityFildsViewModel.cs" />
+    <Compile Include="BaseDetailsViewModel.cs" />
     <Compile Include="ViewModels\CompaniesViewModel.cs" />
     <Compile Include="ViewModels\CompanyDetailsWindowModel.cs" />
     <Compile Include="EditableSelectableBindableBase.cs" />
+    <Compile Include="ViewModels\ContractDetailsViewModel.cs" />
+    <Compile Include="ViewModels\ContractsViewModel.cs" />
     <Compile Include="ViewModels\ProductDetailsViewModel.cs" />
     <Compile Include="ViewModels\ProductsViewModel.cs" />
     <Compile Include="SelectableBindableBase.cs" />
@@ -139,6 +142,9 @@
     </Compile>
     <Compile Include="Views\CompanyView.xaml.cs">
       <DependentUpon>CompanyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContractsView.xaml.cs">
+      <DependentUpon>ContractsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProductDetailsView.xaml.cs">
       <DependentUpon>ProductDetailsView.xaml</DependentUpon>
@@ -213,6 +219,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CompanyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContractsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
