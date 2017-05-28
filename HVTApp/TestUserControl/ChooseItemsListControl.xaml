@@ -7,7 +7,7 @@
             <Button Command="{Binding AddItem, ElementName=Root}" Width="25">+</Button>
             <Button Command="{Binding RemoveItem, ElementName=Root}" Width="25">-</Button>
         </StackPanel>
-        <ListView ItemsSource="{Binding Items, ElementName=Root}" 
+        <ListView ItemsSource="{Binding Items, ElementName=Root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                   SelectionMode="Single"
                   SelectedItem="{Binding SelectedItem, ElementName=Root}"/>
     </DockPanel>

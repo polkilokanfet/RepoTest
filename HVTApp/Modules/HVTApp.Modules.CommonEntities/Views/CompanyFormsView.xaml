@@ -8,13 +8,6 @@
              prism:ViewModelLocator.AutoWireViewModel="True">
 
     <igDp:XamDataGrid DataSource="{Binding Items}" SelectedDataItem="{Binding SelectedItem}">
-        <igDp:XamDataGrid.FieldSettings>
-            <igDp:FieldSettings AllowEdit="False" AllowRecordFiltering="True"/>
-        </igDp:XamDataGrid.FieldSettings>
-
-        <igDp:XamDataGrid.FieldLayoutSettings>
-            <igDp:FieldLayoutSettings AutoGenerateFields ="False" AutoFitMode="Always" AllowAddNew="False" AllowDelete="False"/>
-        </igDp:XamDataGrid.FieldLayoutSettings>
                
         <igDp:XamDataGrid.FieldLayouts>
             <igDp:FieldLayout>

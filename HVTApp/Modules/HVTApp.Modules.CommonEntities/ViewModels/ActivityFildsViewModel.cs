@@ -1,48 +1,18 @@
 ﻿using HVTApp.DataAccess;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class ActivityFildsViewModel : EditableSelectableBindableBase<ActivityFieldWrapper>
+    public class ActivityFildsViewModel : EditableBase<ActivityFieldWrapper, ActivityFildDetailsViewModel, ActivityField>
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public ActivityFildsViewModel(IUnitOfWork unitOfWork)
+        public ActivityFildsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(unitOfWork, container, dialogService)
         {
             _unitOfWork = unitOfWork;
-
             _unitOfWork.ActivityFields.GetAll().ForEach(Items.Add);
         }
-
-        #region Commands
-
-        protected override bool RemoveItemCommand_CanExecute()
-        {
-            return true;
-        }
-
-        protected override void RemoveItemCommand_Execute()
-        {
-            
-        }
-
-        protected override void EditItemCommand_Execute()
-        {
-            
-        }
-
-        protected override bool NewItemCommand_CanExecute()
-        {
-            return true;
-        }
-
-        protected override void NewItemCommand_Execute()
-        {
-            
-        }
-        
-
-        #endregion
-
     }
 }

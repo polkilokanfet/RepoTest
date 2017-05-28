@@ -3,5 +3,15 @@
                     xmlns:infg="http://infragistics.com/DataPresenter">
     <Style TargetType="infg:XamDataGrid">
         <Setter Property="AutoFit" Value="True"/>
+        <Setter Property="FieldSettings">
+            <Setter.Value>
+                <infg:FieldSettings AllowEdit="False" AllowRecordFiltering="True"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FieldLayoutSettings">
+            <Setter.Value>
+                <infg:FieldLayoutSettings AutoGenerateFields="False" AutoFitMode="Always" AllowAddNew="False" AllowDelete="False" AllowFieldMoving="Yes" AllowRecordFixing="Top"/>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

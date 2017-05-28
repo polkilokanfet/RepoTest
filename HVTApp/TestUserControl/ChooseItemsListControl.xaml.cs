@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 
@@ -15,13 +16,16 @@ namespace MyUserControls
         }
 
         public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register(
-            "Items", typeof(ObservableCollection<object>), typeof(ChooseItemsListControl), new PropertyMetadata(default(ObservableCollection<object>)));
+            "Items", typeof(IEnumerable), typeof(ChooseItemsListControl), new PropertyMetadata(default(IEnumerable)));
 
-        public ObservableCollection<object> Items
+        public IEnumerable Items
         {
-            get { return (ObservableCollection<object>) GetValue(ItemsProperty); }
+            get { return (IEnumerable) GetValue(ItemsProperty); }
             set { SetValue(ItemsProperty, value); }
         }
+
+
+
 
         public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(
             "SelectedItem", typeof(object), typeof(ChooseItemsListControl), new PropertyMetadata(default(object)));

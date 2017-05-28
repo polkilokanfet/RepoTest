@@ -2,9 +2,17 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
-             xmlns:dataPresenter="http://infragistics.com/DataPresenter"
+             xmlns:infg="http://infragistics.com/DataPresenter"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <dataPresenter:XamDataGrid DataSource="{Binding Items}">
-            
-    </dataPresenter:XamDataGrid>
+    <infg:XamDataGrid DataSource="{Binding Items}">
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Название"/>
+                    <infg:TextField Name="FieldOfActivity" Label="FieldOfActivity"/>
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
 </UserControl>
+

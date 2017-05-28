@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
@@ -13,6 +14,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISelectService _selectService;
+        private ActivityFieldWrapper _selectedActivityField;
 
         public CompanyDetailsWindowModel(IUnitOfWork unitOfWork, ISelectService selectService, CompanyWrapper item) :
             base(item)
@@ -25,15 +27,30 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_Execute);
             RemoveParentCompanyCommand = new DelegateCommand(RemoveParentCompanyCommand_Execute);
             AddActivityFieldCommand = new DelegateCommand(AddActivityFieldCommand_Execute);
+            RemoveActivityFieldCommand = new DelegateCommand(RemoveActivityFieldCommand_Execute, RemoveActivityFieldCommand_CanExecute);
         }
 
-        public DelegateCommand SelectParentCompanyCommand { get; }
-        public DelegateCommand RemoveParentCompanyCommand { get; }
-        public DelegateCommand AddActivityFieldCommand { get; }
+
+        #region Commands
+
+        public ICommand SelectParentCompanyCommand { get; }
+        public ICommand RemoveParentCompanyCommand { get; }
+        public ICommand AddActivityFieldCommand { get; }
+        public ICommand RemoveActivityFieldCommand { get; }
 
         public CompanyWrapper Company => Item;
 
         public ObservableCollection<CompanyFormWrapper> Forms { get; }
+
+        public ActivityFieldWrapper SelectedActivityField
+        {
+            get { return _selectedActivityField; }
+            set
+            {
+                _selectedActivityField = value;
+                ((DelegateCommand)RemoveActivityFieldCommand).RaiseCanExecuteChanged();
+            }
+        }
 
         private void AddActivityFieldCommand_Execute()
         {
@@ -41,6 +58,16 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             var field = _selectService.SelectItem(fields);
             if (field != null && !Company.ActivityFilds.Contains(field))
                 Company.ActivityFilds.Add(field);
+        }
+
+        private void RemoveActivityFieldCommand_Execute()
+        {
+            Company.ActivityFilds.Remove(SelectedActivityField);
+        }
+
+        private bool RemoveActivityFieldCommand_CanExecute()
+        {
+            return SelectedActivityField != null;
         }
 
         private void RemoveParentCompanyCommand_Execute()
@@ -68,5 +95,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
                 Company.ParentCompany = possibleParent;
             }
         }
+
+        #endregion
     }
 }

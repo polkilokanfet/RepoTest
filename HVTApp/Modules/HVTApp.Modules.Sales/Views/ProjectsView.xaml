@@ -16,17 +16,13 @@
         <infg:XamDataGrid Grid.Row="0" 
                           DataSource="{Binding Projects, Mode=OneWay}" 
                           SelectedDataItem="{Binding SelectedProject, Mode=TwoWay}">
-            
-            <infg:XamDataGrid.FieldLayoutSettings>
-                <infg:FieldLayoutSettings AutoGenerateFields="False"/>
-            </infg:XamDataGrid.FieldLayoutSettings>
-            
+                       
             <infg:XamDataGrid.FieldLayouts>
                 <infg:FieldLayout Key="Project">
                     <infg:FieldLayout.Fields>
-                        <infg:Field Name="FacilitiesNames"/>
-                        <infg:Field Name="Name"/>
-                        <infg:Field Name="Sum"/>
+                        <infg:Field Name="FacilitiesNames" Label="Объекты"/>
+                        <infg:Field Name="Name" Label="Название проекта"/>
+                        <infg:Field Name="Sum" Label="Сумма проекта, руб."/>
                         
                         <infg:Field Name="SalesUnits" IsExpandable="True" IsPrimary="True"/>
                     </infg:FieldLayout.Fields>
@@ -34,7 +30,9 @@
 
                 <infg:FieldLayout Key="SalesUnit" ParentFieldLayoutKey="Project" ParentFieldName="SalesUnits">
                     <infg:FieldLayout.Fields>
-                        <infg:Field Name="Facility"/>
+                        <infg:Field Name="Facility" Label="Объект"/>
+                        <infg:Field Name="ProductionUnit.Product" Label="Продукт"/>
+                        <infg:Field Name="CostSingle"/>
                     </infg:FieldLayout.Fields>
                 </infg:FieldLayout>
             </infg:XamDataGrid.FieldLayouts>

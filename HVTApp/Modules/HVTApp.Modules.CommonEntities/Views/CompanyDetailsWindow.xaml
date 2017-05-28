@@ -41,8 +41,10 @@
 
         <Label Grid.Column="0" Grid.Row ="5" Content="Сфера деятельности"/>
         <myUserControls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
-            Items="{Binding Company.ActivityFilds, UpdateSourceTrigger=PropertyChanged}"
-            AddItem="{Binding AddActivityFieldCommand}"/>
+            Items="{Binding Path=Company.ActivityFilds}"
+            SelectedItem="{Binding SelectedActivityField, Mode=TwoWay}"
+            AddItem="{Binding AddActivityFieldCommand}"
+            RemoveItem="{Binding RemoveActivityFieldCommand}"/>
 
         <Label Grid.Column="0" Grid.Row="6" Content="Головная компания"/>
         <myUserControls:ChooseItemControl Grid.Column="1" Grid.Row="6" 

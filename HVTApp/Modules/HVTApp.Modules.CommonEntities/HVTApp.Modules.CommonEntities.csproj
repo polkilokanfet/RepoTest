@@ -112,6 +112,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ViewModels\ActivityFildDetailsViewModel.cs" />
     <Compile Include="ViewModels\ActivityFildsViewModel.cs" />
     <Compile Include="BaseDetailsViewModel.cs" />
     <Compile Include="ViewModels\CompaniesViewModel.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="EditableSelectableBindableBase.cs" />
     <Compile Include="ViewModels\ContractDetailsViewModel.cs" />
     <Compile Include="ViewModels\ContractsViewModel.cs" />
+    <Compile Include="ViewModels\FacilitiesViewModel.cs" />
     <Compile Include="ViewModels\ProductDetailsViewModel.cs" />
     <Compile Include="ViewModels\ProductsViewModel.cs" />
     <Compile Include="SelectableBindableBase.cs" />

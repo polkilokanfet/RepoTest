@@ -7,11 +7,8 @@
              x:Class="HVTApp.Modules.CommonEntities.Views.CompaniesView"             
              prism:ViewModelLocator.AutoWireViewModel="True">
 
-    <infg:XamDataGrid DataSource="{Binding Items, Mode=OneWay}" SelectedDataItem="{Binding SelectedItem, Mode=TwoWay}">
-
-        <infg:XamDataGrid.FieldSettings>
-            <infg:FieldSettings AllowEdit="False" AllowRecordFiltering="True"/>
-        </infg:XamDataGrid.FieldSettings>
+    <infg:XamDataGrid DataSource="{Binding Items, Mode=OneWay}" 
+                      SelectedDataItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
         <infg:XamDataGrid.FieldLayoutSettings>
             <infg:FieldLayoutSettings AutoGenerateFields ="False" AutoFitMode="Always" AllowAddNew="False" AllowDelete="False"/>
@@ -24,8 +21,7 @@
                     <infg:TextField Name="ShortName" Label="Сокращенное наименование"/>
                     <infg:TextField Name="Form" Label="Форма"/>
                     <infg:TextField Name="ParentCompany" Label="Головная компания"/>
-
-                    <infg:Field Name="ChildCompanies" Visibility="Visible" IsExpandable="True" Label="Child Companies" IsSelected="True" IsPrimary="True"/>
+                    <infg:Field Name="ChildCompanies" Visibility="Visible" IsExpandable="True" Label="Дочерние компании" IsSelected="True" IsPrimary="True"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

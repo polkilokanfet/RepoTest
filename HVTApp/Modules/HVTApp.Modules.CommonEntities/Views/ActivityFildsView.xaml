@@ -6,6 +6,16 @@
              xmlns:infg="http://infragistics.com/DataPresenter"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <infg:XamDataGrid DataSource="{Binding Items, Mode=OneWay}" SelectedDataItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            
+
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout Key="Activity field">
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Название"/>
+                    <infg:TextField Name="FieldOfActivity" Label="FieldOfActivity"/>
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+        </infg:XamDataGrid.FieldLayouts>
+        
     </infg:XamDataGrid>
 </inf:ViewBase>
+
