@@ -72,35 +72,47 @@ namespace HVTApp.DataAccess
 
 
             PhysicalQuantity voltage = new PhysicalQuantity {Name = "Напряжение"};
-            Measure kV = new Measure {PhysicalQuantity = voltage, FullName = "килоВольт", ShortName = "кВ"};
+            Measure kV = new Measure {PhysicalQuantity = voltage, FullName = "Киловольт", ShortName = "кВ"};
             ParameterGroup groupV = new ParameterGroup {Name = "Номинальное напряжение", Measure = kV};
             Parameter paramV35kV = new Parameter { Group = groupV, Value = "35", RequiredParents = new List<RequiredParameters> { setBreakerDt, setBreakerLt } };
             Parameter paramV110kV = new Parameter { Group = groupV, Value = "110", RequiredParents = new List<RequiredParameters> { setBreakerDt, setBreakerLt, setTransformatorV } };
             Parameter paramV220kV = new Parameter { Group = groupV, Value = "220", RequiredParents = new List<RequiredParameters> { setBreakerDt, setBreakerLt, setTransformatorV } };
             Parameter paramV500kV = new Parameter { Group = groupV, Value = "500", RequiredParents = new List<RequiredParameters> { setBreakerLt } };
 
-            Product ZNG110 = new Product { Designation = "ЗНГ-110", Parameters = new List<Parameter> { paramTransformator, paramTransformatorV, paramV110kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 75, Date = DateTime.Today } } };
-            Product Vgb35 = new Product { Designation = "ВГБ-35", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV35kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 50, Date = DateTime.Today } } };
-            Product Veb110 = new Product { Designation = "ВЭБ-110", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV110kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 100, Date = DateTime.Today } } };
-            SalesUnit salesUnit = new SalesUnit
+            Product zng110 = new Product { Designation = "ЗНГ-110", Parameters = new List<Parameter> { paramTransformator, paramTransformatorV, paramV110kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 75, Date = DateTime.Today } } };
+            Product vgb35 = new Product { Designation = "ВГБ-35", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV35kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 50, Date = DateTime.Today } } };
+            Product veb110 = new Product { Designation = "ВЭБ-110", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV110kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 100, Date = DateTime.Today } } };
+            SalesUnit salesUnitVeb110 = new SalesUnit
             {
-                ProductionUnit = new ProductionUnit { Product = Veb110, OrderPosition = 1, SerialNumber = "1234" },
+                ProductionUnit = new ProductionUnit { Product = veb110, OrderPosition = 1, SerialNumber = "3651" },
                 ShipmentUnit = new ShipmentUnit { ShipmentCost = 100 },
-                CostSingle = new SumAndVat { Sum = 1000, Vat = 18},
+                CostSingle = new SumAndVat { Sum = 1000, Vat = 18 },
+                Facility = facility,
+                Project = project
+            };
+            SalesUnit salesUnitZng110 = new SalesUnit
+            {
+                ProductionUnit = new ProductionUnit { Product = zng110, OrderPosition = 1, SerialNumber = "325" },
+                ShipmentUnit = new ShipmentUnit { ShipmentCost = 150 },
+                CostSingle = new SumAndVat { Sum = 500, Vat = 18 },
                 Facility = facility,
                 Project = project
             };
 
+            Contract contract = new Contract { Contragent = mrsk, Date = DateTime.Today, Number = "0401-17"};
+            Specification specification = new Specification { Contract = contract, Date = contract.Date, Number = "1"};
+            specification.SalesUnits.AddRange(new[] { salesUnitVeb110, salesUnitZng110 });
 
             context.ActivityFilds.AddRange(new[] {producerOfHvt, builder, electricityTransmission, electricityGenerator});
             context.CompanyForms.AddRange(new[] { formAo, formPao, formOao, formZao });
             context.Companies.AddRange(new[] {uetm, rosseti, fsk, mrsk});
             context.Employees.Add(employee);
             context.Users.Add(user);
-            context.Products.AddRange(new [] {Veb110, Vgb35, ZNG110});
-            project.SalesUnits.AddRange(new[] { salesUnit, salesUnit, salesUnit});
+            context.Products.AddRange(new [] {veb110, vgb35, zng110});
+            project.SalesUnits.AddRange(new[] { salesUnitVeb110, salesUnitZng110 });
             context.Projects.Add(project);
             context.Parameters.AddRange(new[] { paramBreaker, paramTransformator, paramBreakerDt, paramBreakerLt, paramTransformatorI, paramTransformatorV, paramV35kV, paramV110kV, paramV220kV, paramV500kV });
+            context.Specifications.Add(specification);
 
             context.SaveChanges();
             base.Seed(context);

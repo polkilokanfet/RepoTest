@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.ChooseProdu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.SelectService", "HVTApp.Services.SelectService\HVTApp.Services.SelectService.csproj", "{903EF15D-0826-4E21-AC44-24A869938521}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Modules.Infrastructure", "HVTApp.Modules.Infrastructure\HVTApp.Modules.Infrastructure.csproj", "{62088575-8283-4BE9-ACC7-80DFC2FAB7A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,10 @@ Global
 		{903EF15D-0826-4E21-AC44-24A869938521}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{903EF15D-0826-4E21-AC44-24A869938521}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{903EF15D-0826-4E21-AC44-24A869938521}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62088575-8283-4BE9-ACC7-80DFC2FAB7A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62088575-8283-4BE9-ACC7-80DFC2FAB7A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62088575-8283-4BE9-ACC7-80DFC2FAB7A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62088575-8283-4BE9-ACC7-80DFC2FAB7A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,5 +151,6 @@ Global
 		{95B60D78-BF46-4667-B474-95F911BB4A09} = {FFBE2DD6-7521-4509-9599-35CD7EE85F30}
 		{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
 		{903EF15D-0826-4E21-AC44-24A869938521} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
+		{62088575-8283-4BE9-ACC7-80DFC2FAB7A0} = {D89A3693-4C45-45D7-B52B-B3A58C52B3E2}
 	EndGlobalSection
 EndGlobal

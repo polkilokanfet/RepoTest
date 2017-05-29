@@ -16,5 +16,7 @@ namespace HVTApp.DataAccess
         IParametersRepository Parameters { get; }
         IProductsRepository Products { get; }
         IProjectsRepository Projects { get; }
+        IContractsRepository Contracts { get; }
+        ISpecificationsRepository Specifications { get; }
     }
 }

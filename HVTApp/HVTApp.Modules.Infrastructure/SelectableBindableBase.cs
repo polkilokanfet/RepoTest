@@ -7,7 +7,7 @@ using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using Prism.Commands;
 using Prism.Mvvm;
 
-namespace HVTApp.Modules.CommonEntities
+namespace HVTApp.Modules.Infrastructure
 {
     public abstract class SelectableBindableBase<T> : BindableBase, ISelectViewModel<T>
         where T : class 

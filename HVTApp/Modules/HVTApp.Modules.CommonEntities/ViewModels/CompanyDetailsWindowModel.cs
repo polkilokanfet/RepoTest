@@ -6,6 +6,7 @@ using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
+using HVTApp.Modules.Infrastructure;
 using Prism.Commands;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels

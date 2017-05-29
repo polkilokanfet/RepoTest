@@ -4,9 +4,9 @@ using HVTApp.Modules.Infrastructure;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    internal class ContractDetailsViewModel : BaseDetailsViewModel<ContractWrapper, Contract>
+    public class FacilityDetailsViewModel : BaseDetailsViewModel<FacilityWrapper, Facility>
     {
-        public ContractDetailsViewModel(ContractWrapper item) : base(item)
+        public FacilityDetailsViewModel(FacilityWrapper item) : base(item)
         {
         }
     }

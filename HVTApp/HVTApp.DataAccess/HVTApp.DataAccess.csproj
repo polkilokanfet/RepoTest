@@ -57,6 +57,7 @@
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\Repositories\ActivityFieldsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\CompaniesRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\ContractsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\FriendGroupRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\CompanyFormsRepository.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="UnitOfWork\Repositories\ParametersRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\ProductsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\ProjectsRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\SpecificationsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\UsersRepository.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
   </ItemGroup>

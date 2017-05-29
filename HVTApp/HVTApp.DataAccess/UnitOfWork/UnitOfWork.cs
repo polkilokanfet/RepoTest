@@ -26,6 +26,8 @@ namespace HVTApp.DataAccess
             Parameters = new ParametersRepository(context, _repository);
             Products = new ProductsRepository(context, _repository);
             Projects = new ProjectsRepository(context, _repository);
+            Contracts = new ContractsRepository(context, _repository);
+            Specifications = new SpecificationsRepository(context, _repository);
         }
         public void Dispose()
         {
@@ -56,5 +58,7 @@ namespace HVTApp.DataAccess
         public IProductsRepository Products { get; }
 
         public IProjectsRepository Projects { get; }
+        public IContractsRepository Contracts { get; }
+        public ISpecificationsRepository Specifications { get; }
     }
 }

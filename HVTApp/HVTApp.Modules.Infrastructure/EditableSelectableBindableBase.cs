@@ -7,7 +7,7 @@ using HVTApp.Model.Wrappers;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
-namespace HVTApp.Modules.CommonEntities
+namespace HVTApp.Modules.Infrastructure
 {
     public class EditableBase<TItem, TItemDelailsViewModel, TModel> : EditableSelectableBindableBase<TItem>
         where TItem : class, IWrapper<TModel>, new() 

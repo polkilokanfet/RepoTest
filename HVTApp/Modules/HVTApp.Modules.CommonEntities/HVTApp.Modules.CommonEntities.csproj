@@ -96,9 +96,6 @@
       <DependentUpon>CommonEntitiesMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\CommonEntitiesMenuViewModel.cs" />
-    <Compile Include="Tabs\TabCRUD.xaml.cs">
-      <DependentUpon>TabCRUD.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -114,16 +111,14 @@
     </Compile>
     <Compile Include="ViewModels\ActivityFildDetailsViewModel.cs" />
     <Compile Include="ViewModels\ActivityFildsViewModel.cs" />
-    <Compile Include="BaseDetailsViewModel.cs" />
     <Compile Include="ViewModels\CompaniesViewModel.cs" />
     <Compile Include="ViewModels\CompanyDetailsWindowModel.cs" />
-    <Compile Include="EditableSelectableBindableBase.cs" />
     <Compile Include="ViewModels\ContractDetailsViewModel.cs" />
     <Compile Include="ViewModels\ContractsViewModel.cs" />
     <Compile Include="ViewModels\FacilitiesViewModel.cs" />
+    <Compile Include="ViewModels\FacilityDetailsViewModel.cs" />
     <Compile Include="ViewModels\ProductDetailsViewModel.cs" />
     <Compile Include="ViewModels\ProductsViewModel.cs" />
-    <Compile Include="SelectableBindableBase.cs" />
     <Compile Include="Views\ActivityFildsView.xaml.cs">
       <DependentUpon>ActivityFildsView.xaml</DependentUpon>
     </Compile>
@@ -168,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />
+    <Folder Include="Tabs\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\HVTApp.DataAccess\HVTApp.DataAccess.csproj">
@@ -182,6 +178,10 @@
       <Project>{350bdab0-b331-426f-a024-004c8539af17}</Project>
       <Name>HVTApp.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\HVTApp.Modules.Infrastructure\HVTApp.Modules.Infrastructure.csproj">
+      <Project>{62088575-8283-4BE9-ACC7-80DFC2FAB7A0}</Project>
+      <Name>HVTApp.Modules.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\HVTApp.Services.ChooseProductService\HVTApp.Services.ChooseProductService.csproj">
       <Project>{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}</Project>
       <Name>HVTApp.Services.ChooseProductService</Name>
@@ -193,10 +193,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Menus\CommonEntitiesMenu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tabs\TabCRUD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

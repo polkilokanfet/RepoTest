@@ -9,8 +9,9 @@ namespace HVTApp.Modules.Sales.Menus
         protected override void GenerateMenu()
         {
             NavigationItem root = new NavigationItem("Market", typeof(ProjectsView));
-            root.Items.Add(new NavigationItem("Projects", typeof(ProjectsView)));
-            root.Items.Add(new NavigationItem("Payments", typeof(PaymentsView)));
+            root.Items.Add(new NavigationItem("Проекты", typeof(ProjectsView)));
+            root.Items.Add(new NavigationItem("Контракты", typeof(ContractsView)));
+            root.Items.Add(new NavigationItem("Платежи", typeof(PaymentsView)));
 
             Items.Add(root);
         }

@@ -6,7 +6,7 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.Wrappers;
 using Prism.Commands;
 
-namespace HVTApp.Modules.CommonEntities
+namespace HVTApp.Modules.Infrastructure
 {
     public abstract class BaseDetailsViewModel<TWrapper, TModel> : IItemDetailsViewModel<TWrapper, TModel> 
         where TWrapper : IWrapper<TModel>

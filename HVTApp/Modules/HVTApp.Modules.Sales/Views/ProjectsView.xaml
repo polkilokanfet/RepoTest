@@ -22,7 +22,7 @@
                     <infg:FieldLayout.Fields>
                         <infg:Field Name="FacilitiesNames" Label="Объекты"/>
                         <infg:Field Name="Name" Label="Название проекта"/>
-                        <infg:Field Name="Sum" Label="Сумма проекта, руб."/>
+                        <infg:Field Name="Sum" Label="Сумма проекта без НДС, руб."/>
                         
                         <infg:Field Name="SalesUnits" IsExpandable="True" IsPrimary="True"/>
                     </infg:FieldLayout.Fields>
@@ -30,9 +30,9 @@
 
                 <infg:FieldLayout Key="SalesUnit" ParentFieldLayoutKey="Project" ParentFieldName="SalesUnits">
                     <infg:FieldLayout.Fields>
-                        <infg:Field Name="Facility" Label="Объект"/>
+                        <infg:TextField Name="Facility" Label="Объект"/>
                         <infg:Field Name="ProductionUnit.Product" Label="Продукт"/>
-                        <infg:Field Name="CostSingle"/>
+                        <infg:TextField Name="CostSingle"/>
                     </infg:FieldLayout.Fields>
                 </infg:FieldLayout>
             </infg:XamDataGrid.FieldLayouts>

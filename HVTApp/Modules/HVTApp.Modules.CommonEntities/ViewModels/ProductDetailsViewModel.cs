@@ -1,10 +1,6 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using HVTApp.Model.POCOs;
+﻿using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
+using HVTApp.Modules.Infrastructure;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {

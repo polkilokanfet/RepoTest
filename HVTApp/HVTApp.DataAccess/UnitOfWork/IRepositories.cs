@@ -8,40 +8,19 @@ using ProjectWrapper = HVTApp.Model.Wrappers.ProjectWrapper;
 
 namespace HVTApp.DataAccess
 {
-    public interface IActivityFieldsRepository : IRepository<ActivityFieldWrapper>
-    {
-    }
-
-    public interface IFriendGroupRepository : IRepository<TestFriendGroupWrapper>
-    {
-    }
-
-    public interface IUsersRepository : IRepository<UserWrapper>
-    {
-    }
-
-    public interface ICompaniesRepository : IRepository<CompanyWrapper>
-    {
-    }
-
-    public interface ICompanyFormsRepository : IRepository<CompanyFormWrapper>
-    {
-    }
-
-    public interface IParametersGroupsRepository : IRepository<ParameterGroupWrapper>
-    {
-    }
-
-    public interface IParametersRepository : IRepository<ParameterWrapper>
-    {
-    }
-
+    public interface IActivityFieldsRepository : IRepository<ActivityFieldWrapper> { }
+    public interface IFriendGroupRepository : IRepository<TestFriendGroupWrapper> { }
+    public interface IUsersRepository : IRepository<UserWrapper> { }
+    public interface ICompaniesRepository : IRepository<CompanyWrapper> { }
+    public interface ICompanyFormsRepository : IRepository<CompanyFormWrapper> { }
+    public interface IParametersGroupsRepository : IRepository<ParameterGroupWrapper> { }
+    public interface IParametersRepository : IRepository<ParameterWrapper> { }
     public interface IProductsRepository : IRepository<ProductWrapper>
     {
         ProductWrapper Find(IEnumerable<ParameterWrapper> parameters);
     }
 
-    public interface IProjectsRepository : IRepository<ProjectWrapper>
-    {
-    }
+    public interface IProjectsRepository : IRepository<ProjectWrapper> { }
+    public interface IContractsRepository : IRepository<ContractWrapper> { }
+    public interface ISpecificationsRepository : IRepository<SpecificationWrapper> { }
 }

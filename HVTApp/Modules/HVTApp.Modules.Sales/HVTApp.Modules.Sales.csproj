@@ -110,7 +110,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ViewModels\ContractDetailsViewModel.cs" />
+    <Compile Include="ViewModels\ContractsViewModel.cs" />
+    <Compile Include="ViewModels\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModels\ProjectsViewModel.cs" />
+    <Compile Include="Views\ContractsView.xaml.cs">
+      <DependentUpon>ContractsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PaymentsView.xaml.cs">
       <DependentUpon>PaymentsView.xaml</DependentUpon>
     </Compile>
@@ -148,6 +154,10 @@
       <Project>{350bdab0-b331-426f-a024-004c8539af17}</Project>
       <Name>HVTApp.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\HVTApp.Modules.Infrastructure\HVTApp.Modules.Infrastructure.csproj">
+      <Project>{62088575-8283-4be9-acc7-80dfc2fab7a0}</Project>
+      <Name>HVTApp.Modules.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\TestUserControl\MyUserControls.csproj">
       <Project>{95b60d78-bf46-4667-b474-95f911bb4a09}</Project>
       <Name>MyUserControls</Name>
@@ -159,6 +169,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Menus\TabProjects.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContractsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

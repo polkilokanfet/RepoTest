@@ -201,6 +201,10 @@
       <Project>{350BDAB0-B331-426F-A024-004C8539AF17}</Project>
       <Name>HVTApp.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Modules.Infrastructure\HVTApp.Modules.Infrastructure.csproj">
+      <Project>{62088575-8283-4BE9-ACC7-80DFC2FAB7A0}</Project>
+      <Name>HVTApp.Modules.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Modules.Production\HVTApp.Modules.Production.csproj">
       <Project>{b2c2c516-5bc8-4a41-9885-68bb4c91605b}</Project>
       <Name>HVTApp.Modules.Production</Name>

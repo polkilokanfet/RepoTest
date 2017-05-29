@@ -3,6 +3,7 @@ using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
+using HVTApp.Modules.Infrastructure;
 using HVTApp.Services.ChooseProductService;
 using Microsoft.Practices.Unity;
 

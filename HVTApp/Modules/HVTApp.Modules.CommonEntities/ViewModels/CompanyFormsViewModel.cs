@@ -1,17 +1,8 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Input;
-using HVTApp.DataAccess;
-using HVTApp.Infrastructure.Interfaces;
-using HVTApp.Infrastructure.Interfaces.Services;
+﻿using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
+using HVTApp.Modules.Infrastructure;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels

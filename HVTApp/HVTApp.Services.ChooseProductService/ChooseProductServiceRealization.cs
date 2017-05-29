@@ -35,6 +35,19 @@ namespace HVTApp.Services.ChooseProductService
 
     public class SelectParametersViewModel : INotifyPropertyChanged
     {
+        public SelectParametersViewModel(IEnumerable<ParametersUnion> parametersUnions, IUnitOfWork unitOfWork)
+        {
+            _existsProducts = unitOfWork.Products.GetAll();
+
+            ParametersUnions = parametersUnions.ToList();
+
+            foreach (var parametersUnion in ParametersUnions)
+            {
+                parametersUnion.SelectedParameterChanged += ParametersUnionOnSelectedParameterChanged;
+                parametersUnion.RefreshParametersToSelect(SelectedParameters);
+            }
+        }
+
         private readonly List<ProductWrapper> _existsProducts; 
 
         public IEnumerable<ParametersUnion> ParametersUnions { get; }
@@ -53,19 +66,6 @@ namespace HVTApp.Services.ChooseProductService
                     Parameters = new List<Parameter>(SelectedParameters.Select(x => x.Model))
                 };
                 return new ProductWrapper(productNew);
-            }
-        }
-
-        public SelectParametersViewModel(IEnumerable<ParametersUnion> parametersUnions, IUnitOfWork unitOfWork)
-        {
-            _existsProducts = unitOfWork.Products.GetAll();
-
-            ParametersUnions = parametersUnions.ToList();
-
-            foreach (var parametersUnion in ParametersUnions)
-            {
-                parametersUnion.SelectedParameterChanged += ParametersUnionOnSelectedParameterChanged;
-                parametersUnion.RefreshParametersToSelect(SelectedParameters);
             }
         }
 

@@ -5,17 +5,13 @@ using HVTApp.Model.Wrappers;
 using HVTApp.Modules.Infrastructure;
 using Microsoft.Practices.Unity;
 
-namespace HVTApp.Modules.CommonEntities.ViewModels
+namespace HVTApp.Modules.Sales.ViewModels
 {
     class ContractsViewModel : EditableBase<ContractWrapper, ContractDetailsViewModel, Contract>
     {
-        private readonly IUnitOfWork _unitOfWork;
-
         public ContractsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(unitOfWork, container, dialogService)
         {
-            _unitOfWork = unitOfWork;
-
-            
+            unitOfWork.Contracts.GetAll().ForEach(Items.Add);
         }
     }
 }

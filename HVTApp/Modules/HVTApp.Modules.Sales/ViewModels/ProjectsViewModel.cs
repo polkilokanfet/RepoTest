@@ -6,37 +6,25 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.DataAccess;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
+using HVTApp.Modules.Infrastructure;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class ProjectsViewModel : BindableBase
+    public class ProjectsViewModel : EditableBase<ProjectWrapper, ProjectDetailsViewModel, Project>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IList<ProjectWrapper> _projects;
-
-        public ProjectsViewModel(IUnitOfWork unitOfWork)
+        public ProjectsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(unitOfWork, container, dialogService)
         {
             _unitOfWork = unitOfWork;
-            _projects = new List<ProjectWrapper>(unitOfWork.Projects.GetAll());
-            Projects = new ObservableCollection<ProjectWrapper>(_projects);
 
-            NewProjectCommand = new DelegateCommand(NewProjectCommand_Execute, NewProjectCommand_CanExecute);
+            unitOfWork.Projects.GetAll().ForEach(Items.Add);
         }
 
-        public ObservableCollection<ProjectWrapper> Projects { get; }
+        public ICollection<ProjectWrapper> Projects => Items;
         public ProjectWrapper SelectedProject { get; set; }
-
-        public ICommand NewProjectCommand { get; }
-
-        private void NewProjectCommand_Execute()
-        {
-            
-        }
-
-        private bool NewProjectCommand_CanExecute()
-        {
-            return true;
-        }
     }
 }
