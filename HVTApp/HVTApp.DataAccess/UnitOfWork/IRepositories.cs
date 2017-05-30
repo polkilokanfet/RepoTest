@@ -20,6 +20,7 @@ namespace HVTApp.DataAccess
     public interface IFacilityTypesRepository : IRepository<FacilityTypeWrapper> { }
     public interface IFacilitiesRepository : IRepository<FacilityWrapper> { }
     public interface IProjectsRepository : IRepository<ProjectWrapper> { }
+    public interface ITendersRepository : IRepository<TenderWrapper> { }
     public interface IContractsRepository : IRepository<ContractWrapper> { }
     public interface ISpecificationsRepository : IRepository<SpecificationWrapper> { }
 }

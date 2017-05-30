@@ -14,8 +14,9 @@ namespace HVTApp.Modules.CommonEntities.Menus
             rootCompany.Items.Add(new NavigationItem("Организационные формы", typeof(CompanyFormsView)));
             rootCompany.Items.Add(new NavigationItem("Сферы деятельности", typeof(ActivityFildsView)));
 
-            NavigationItem rootProduct = new NavigationItem("Products", typeof(ProductsView));
+            NavigationItem rootProduct = new NavigationItem("Изделия", typeof(ProductsView));
 
+            Items.Add(rootFacility);
             Items.Add(rootCompany);
             Items.Add(rootProduct);
         }

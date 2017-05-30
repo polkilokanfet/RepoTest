@@ -13,9 +13,7 @@ namespace HVTApp.Model.Wrappers
     public OrderWrapper(Order model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
-
     #region SimpleProperties
-
     public System.String Number
     {
       get { return GetValue<System.String>(); }
@@ -23,7 +21,6 @@ namespace HVTApp.Model.Wrappers
     }
     public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
     public bool NumberIsChanged => GetIsChanged(nameof(Number));
-
 
     public System.Nullable<System.DateTime> OpenOrderDate
     {
@@ -33,7 +30,6 @@ namespace HVTApp.Model.Wrappers
     public System.Nullable<System.DateTime> OpenOrderDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(OpenOrderDate));
     public bool OpenOrderDateIsChanged => GetIsChanged(nameof(OpenOrderDate));
 
-
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -42,27 +38,19 @@ namespace HVTApp.Model.Wrappers
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
 
     #region CollectionProperties
-
     public IValidatableChangeTrackingCollection<ProductionUnitWrapper> ProductionProductUnits { get; private set; }
 
-
     #endregion
-
   
     protected override void InitializeCollectionComplexProperties(Order model)
     {
-
       if (model.ProductionProductUnits == null) throw new ArgumentException("ProductionProductUnits cannot be null");
       ProductionProductUnits = new ValidatableChangeTrackingCollection<ProductionUnitWrapper>(model.ProductionProductUnits.Select(e => GetWrapper<ProductionUnitWrapper, ProductionUnit>(e)));
       RegisterCollection(ProductionProductUnits, model.ProductionProductUnits);
 
-
     }
-
   }
 }

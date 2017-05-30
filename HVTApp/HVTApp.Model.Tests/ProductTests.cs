@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -44,6 +45,30 @@ namespace HVTApp.Model.Tests
             totalSum += price5.Sum;
             Assert.IsTrue(Math.Abs(productParent.TotalPrice - totalSum) < 0.0001);
 
+        }
+
+        [TestMethod]
+        public void ProductSameParametersTest()
+        {
+            Parameter p1 = new Parameter { Value = "p1p" };
+            Parameter p2 = new Parameter { Value = "p2p" };
+
+            Product pr1 = new Product();
+            pr1.Parameters.Add(p1);
+            Product pr2 = new Product();
+            pr1.Parameters.Add(p2);
+
+            ProductWrapper pr1W = new ProductWrapper(pr1);
+            ProductWrapper pr2W = new ProductWrapper(pr2);
+
+            Assert.IsFalse(pr1W.HasSameParameters(pr2W));
+
+            var pl1 = new List<ParameterWrapper>(pr1W.Parameters);
+            var pl2 = new List<ParameterWrapper>(pr2W.Parameters);
+            pl2.ForEach(pr1W.Parameters.Add);
+            pl1.ForEach(pr2W.Parameters.Add);
+
+            Assert.IsTrue(pr1W.HasSameParameters(pr2W));
         }
     }
 }

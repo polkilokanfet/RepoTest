@@ -12,13 +12,19 @@ namespace HVTApp.Model.POCOs
         public DateTime DateOpen { get; set; }
         public DateTime DateClose { get; set; }
         public DateTime? DateNotice { get; set; }
-        public virtual List<Company> Participants { get; set; } //участники
+        public virtual List<Company> Participants { get; set; } = new List<Company>(); //участники
         public virtual Company Winner { get; set; }
-        public virtual List<TenderUnit> TenderUnits { get; set; }
-        public virtual List<Offer> Offers { get; set; }
+        public virtual List<TenderUnit> TenderUnits { get; set; } = new List<TenderUnit>();
+        public virtual List<Offer> Offers { get; set; } = new List<Offer>();
     }
 
-    public enum TenderType
+    public class TenderType : BaseEntity
+    {
+        public string Name { get; set; }
+        public TenderTypeEnum Type { get; set; }
+    }
+
+    public enum TenderTypeEnum
     {
         ToProject,
         ToWork,

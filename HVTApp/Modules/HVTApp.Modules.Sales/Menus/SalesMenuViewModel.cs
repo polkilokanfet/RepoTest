@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using HVTApp.Infrastructure;
+﻿using HVTApp.Infrastructure;
 using HVTApp.Modules.Sales.Views;
 
 namespace HVTApp.Modules.Sales.Menus
@@ -10,6 +9,7 @@ namespace HVTApp.Modules.Sales.Menus
         {
             NavigationItem root = new NavigationItem("Market", typeof(ProjectsView));
             root.Items.Add(new NavigationItem("Проекты", typeof(ProjectsView)));
+            root.Items.Add(new NavigationItem("Конкурсы", typeof(TendersView)));
             root.Items.Add(new NavigationItem("Контракты", typeof(ContractsView)));
             root.Items.Add(new NavigationItem("Платежи", typeof(PaymentsView)));
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Interfaces;
+using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
 {
@@ -25,8 +25,10 @@ namespace HVTApp.DataAccess
             ParametersGroups = new ParametersGroupsRepository(context, _repository);
             Parameters = new ParametersRepository(context, _repository);
             Products = new ProductsRepository(context, _repository);
+            FacilityTypes = new FacilityTypesRepository(context, _repository);
             Facilities = new FacilitiesRepository(context, _repository);
             Projects = new ProjectsRepository(context, _repository);
+            Tenders = new TendersRepository(context, _repository);
             Contracts = new ContractsRepository(context, _repository);
             Specifications = new SpecificationsRepository(context, _repository);
         }
@@ -40,9 +42,12 @@ namespace HVTApp.DataAccess
             return _context.SaveChanges();
         }
 
-        public void AddItem<T>(T item) where T : class
+        public void AddItem<TModel, TWrapper>(TModel model, TWrapper wrapper) 
+            where TModel : class, IBaseEntity 
+            where TWrapper : IWrapper<TModel>
         {
-            _context.Set<T>().Add(item);
+            _context.Set<TModel>().Add(model);
+            _repository.Add(model, wrapper);
         }
 
         public IActivityFieldsRepository ActivityFields { get; }
@@ -63,5 +68,7 @@ namespace HVTApp.DataAccess
         public IProjectsRepository Projects { get; }
         public IContractsRepository Contracts { get; }
         public ISpecificationsRepository Specifications { get; }
+
+        public ITendersRepository Tenders { get; }
     }
 }

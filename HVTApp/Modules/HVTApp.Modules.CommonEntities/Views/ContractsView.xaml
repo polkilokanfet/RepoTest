@@ -4,7 +4,7 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:infg="http://infragistics.com/DataPresenter"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <infg:XamDataGrid DataSource="{Binding Items}">
+    <infg:XamDataGrid>
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>

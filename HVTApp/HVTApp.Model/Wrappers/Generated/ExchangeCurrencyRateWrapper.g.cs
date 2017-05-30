@@ -13,9 +13,7 @@ namespace HVTApp.Model.Wrappers
     public ExchangeCurrencyRateWrapper(ExchangeCurrencyRate model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
-
     #region SimpleProperties
-
     public System.DateTime Date
     {
       get { return GetValue<System.DateTime>(); }
@@ -23,7 +21,6 @@ namespace HVTApp.Model.Wrappers
     }
     public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
     public bool DateIsChanged => GetIsChanged(nameof(Date));
-
 
     public System.Double FirstCurrencyValue
     {
@@ -33,7 +30,6 @@ namespace HVTApp.Model.Wrappers
     public System.Double FirstCurrencyValueOriginalValue => GetOriginalValue<System.Double>(nameof(FirstCurrencyValue));
     public bool FirstCurrencyValueIsChanged => GetIsChanged(nameof(FirstCurrencyValue));
 
-
     public System.Double SecondCurrencyValue
     {
       get { return GetValue<System.Double>(); }
@@ -41,7 +37,6 @@ namespace HVTApp.Model.Wrappers
     }
     public System.Double SecondCurrencyValueOriginalValue => GetOriginalValue<System.Double>(nameof(SecondCurrencyValue));
     public bool SecondCurrencyValueIsChanged => GetIsChanged(nameof(SecondCurrencyValue));
-
 
     public System.Int32 Id
     {
@@ -51,12 +46,9 @@ namespace HVTApp.Model.Wrappers
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	public CurrencyWrapper FirstCurrency 
     {
         get { return GetComplexProperty<CurrencyWrapper, Currency>(Model.FirstCurrency); }
@@ -65,7 +57,6 @@ namespace HVTApp.Model.Wrappers
 
     public CurrencyWrapper FirstCurrencyOriginalValue { get; private set; }
     public bool FirstCurrencyIsChanged => GetIsChanged(nameof(FirstCurrency));
-
 
 	public CurrencyWrapper SecondCurrency 
     {
@@ -76,17 +67,11 @@ namespace HVTApp.Model.Wrappers
     public CurrencyWrapper SecondCurrencyOriginalValue { get; private set; }
     public bool SecondCurrencyIsChanged => GetIsChanged(nameof(SecondCurrency));
 
-
     #endregion
-
     protected override void InitializeComplexProperties(ExchangeCurrencyRate model)
     {
-
         FirstCurrency = GetWrapper<CurrencyWrapper, Currency>(model.FirstCurrency);
-
         SecondCurrency = GetWrapper<CurrencyWrapper, Currency>(model.SecondCurrency);
-
     }
-
   }
 }

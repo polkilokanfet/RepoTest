@@ -7,8 +7,7 @@
              x:Class="HVTApp.Modules.CommonEntities.Views.CompaniesView"             
              prism:ViewModelLocator.AutoWireViewModel="True">
 
-    <infg:XamDataGrid DataSource="{Binding Items, Mode=OneWay}" 
-                      SelectedDataItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+    <infg:XamDataGrid>
 
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout Key="Company">

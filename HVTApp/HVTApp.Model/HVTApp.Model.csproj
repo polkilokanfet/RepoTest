@@ -89,6 +89,7 @@
     <Compile Include="Wrappers\Custom\ProductionUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\ProductWrapper.cs" />
     <Compile Include="Wrappers\Custom\ProjectWrapper.cs" />
+    <Compile Include="Wrappers\Custom\SalesUnitsGroup.cs" />
     <Compile Include="Wrappers\Custom\SalesUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\ShipmentUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\SpecificationWrapper.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Wrappers\Generated\StandartDeliveryPeriodWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\SumAndVatWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\SumOnDateWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\TenderTypeWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\TenderUnitWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\TenderWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\TestChildWrapper.g.cs" />

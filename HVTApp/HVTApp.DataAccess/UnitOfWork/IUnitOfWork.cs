@@ -1,11 +1,16 @@
 ﻿using System;
+using HVTApp.Infrastructure;
+using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
 {
     public interface IUnitOfWork : IDisposable
     {
         int Complete();
-        void AddItem<T>(T item) where T : class;
+
+        void AddItem<TModel, TWrapper>(TModel model, TWrapper wrapper)
+            where TModel : class, IBaseEntity
+            where TWrapper : IWrapper<TModel>;
 
         IActivityFieldsRepository ActivityFields { get; }
         IFriendGroupRepository FriendGroups { get; }
@@ -18,6 +23,7 @@ namespace HVTApp.DataAccess
         IFacilityTypesRepository FacilityTypes { get; }
         IFacilitiesRepository Facilities { get; }
         IProjectsRepository Projects { get; }
+        ITendersRepository Tenders { get; }
         IContractsRepository Contracts { get; }
         ISpecificationsRepository Specifications { get; }
     }

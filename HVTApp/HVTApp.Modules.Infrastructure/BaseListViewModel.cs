@@ -34,7 +34,7 @@ namespace HVTApp.Modules.Infrastructure
             bool? dialogResult = _dialogService.ShowDialog(delailsViewModel);
             if (!dialogResult.HasValue || !dialogResult.Value) return;
 
-            _unitOfWork.AddItem(delailsViewModel.Item.Model);
+            _unitOfWork.AddItem(delailsViewModel.Item.Model, delailsViewModel.Item);
             _unitOfWork.Complete();
 
             Items.Add(delailsViewModel.Item);

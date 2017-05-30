@@ -6,8 +6,7 @@
              xmlns:infg="http://infragistics.com/DataPresenter"
              prism:ViewModelLocator.AutoWireViewModel="True">
     
-    <infg:XamDataGrid DataSource="{Binding Items, Mode=OneWay}"
-                      SelectedDataItem="{Binding SelectedItem, Mode=TwoWay}">
+    <infg:XamDataGrid>
         
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout Key="Contract">
@@ -33,7 +32,8 @@
 
             <infg:FieldLayout Key="SalesUnit" ParentFieldName="SalesUnits" ParentFieldLayoutKey="Specification">
                 <infg:FieldLayout.Fields>
-                    <infg:NumericField Name="CostTotal.Sum" Label="Стоимость"/>
+                    <!--<infg:NumericField Name="CostTotal.Sum" Label="Стоимость"/>-->
+                    <infg:TextField Name="Test"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
         </infg:XamDataGrid.FieldLayouts>

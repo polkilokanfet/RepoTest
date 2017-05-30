@@ -5,7 +5,14 @@
                 xmlns:infg="http://infragistics.com/DataPresenter"
                 xmlns:prism="http://prismlibrary.com/"             
                 prism:ViewModelLocator.AutoWireViewModel="True">
-    <infg:XamDataGrid DataSource="{Binding Items, Mode=OneWay}" SelectedDataItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Designation" Label="Обозначение"/>
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+        </infg:XamDataGrid.FieldLayouts>
     </infg:XamDataGrid>
 </inf:ViewBase>

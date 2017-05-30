@@ -114,6 +114,8 @@
     <Compile Include="ViewModels\ContractsViewModel.cs" />
     <Compile Include="ViewModels\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModels\ProjectsViewModel.cs" />
+    <Compile Include="ViewModels\TenderDetailsViewModel.cs" />
+    <Compile Include="ViewModels\TendersViewModel.cs" />
     <Compile Include="Views\ContractsView.xaml.cs">
       <DependentUpon>ContractsView.xaml</DependentUpon>
     </Compile>
@@ -122,6 +124,9 @@
     </Compile>
     <Compile Include="Views\ProjectsView.xaml.cs">
       <DependentUpon>ProjectsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TendersView.xaml.cs">
+      <DependentUpon>TendersView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -183,6 +188,10 @@
     <Page Include="Views\ProjectsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TendersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

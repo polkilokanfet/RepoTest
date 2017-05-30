@@ -13,9 +13,7 @@ namespace HVTApp.Model.Wrappers
     public SpecificationWrapper(Specification model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
-
     #region SimpleProperties
-
     public System.String Number
     {
       get { return GetValue<System.String>(); }
@@ -23,7 +21,6 @@ namespace HVTApp.Model.Wrappers
     }
     public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
     public bool NumberIsChanged => GetIsChanged(nameof(Number));
-
 
     public System.DateTime Date
     {
@@ -33,7 +30,6 @@ namespace HVTApp.Model.Wrappers
     public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
     public bool DateIsChanged => GetIsChanged(nameof(Date));
 
-
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -42,12 +38,9 @@ namespace HVTApp.Model.Wrappers
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	public ContractWrapper Contract 
     {
         get { return GetComplexProperty<ContractWrapper, Contract>(Model.Contract); }
@@ -57,34 +50,23 @@ namespace HVTApp.Model.Wrappers
     public ContractWrapper ContractOriginalValue { get; private set; }
     public bool ContractIsChanged => GetIsChanged(nameof(Contract));
 
-
     #endregion
-
 
     #region CollectionProperties
-
     public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
 
-
     #endregion
-
     protected override void InitializeComplexProperties(Specification model)
     {
-
         Contract = GetWrapper<ContractWrapper, Contract>(model.Contract);
-
     }
-
   
     protected override void InitializeCollectionComplexProperties(Specification model)
     {
-
       if (model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
       SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(model.SalesUnits.Select(e => GetWrapper<SalesUnitWrapper, SalesUnit>(e)));
       RegisterCollection(SalesUnits, model.SalesUnits);
 
-
     }
-
   }
 }

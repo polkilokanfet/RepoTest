@@ -7,7 +7,7 @@ namespace HVTApp.Model.POCOs
     {
         public virtual ParameterGroup Group { get; set; }
         public string Value { get; set; }
-        public virtual List<RequiredParameters> RequiredParents { get; set; }
+        public virtual List<RequiredParameters> RequiredParents { get; set; } = new List<RequiredParameters>();
 
         public override string ToString()
         {

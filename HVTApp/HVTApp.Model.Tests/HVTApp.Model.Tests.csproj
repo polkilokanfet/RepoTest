@@ -62,6 +62,7 @@
     <Compile Include="PaymentConditionStandartWrapperTests.cs" />
     <Compile Include="SumAndVatTests.cs" />
     <Compile Include="ProductTests.cs" />
+    <Compile Include="ProjectTests.cs" />
     <Compile Include="Wrapper\BasicTests.cs" />
     <Compile Include="Wrapper\ChangeNotificationCollectionProperty.cs" />
     <Compile Include="Wrapper\ChangeNotificationComplexProperty.cs" />

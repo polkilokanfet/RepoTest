@@ -46,7 +46,6 @@ namespace HVTApp.Model.Wrappers
 
         public double TotalPrice => GetTotalPrice(TotalPriceDate);
 
-
         public double GetTotalPrice(DateTime? date)
         {
             if (!date.HasValue)
@@ -63,6 +62,14 @@ namespace HVTApp.Model.Wrappers
             return totalPriceSum;
         }
 
+        public bool HasSameParameters(ProductWrapper product)
+        {
+            if (product == null)
+                throw new ArgumentNullException();
+
+            return !this.Parameters.Except(product.Parameters).Any();
+        }
+
         public string ParametersToString
         {
             get
@@ -76,6 +83,7 @@ namespace HVTApp.Model.Wrappers
 
         public override string ToString()
         {
+            if (!String.IsNullOrEmpty(Designation)) return Designation;
             return ParametersToString;
         }
     }

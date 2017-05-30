@@ -1,11 +1,4 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Input;
-using HVTApp.DataAccess;
+﻿using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
@@ -24,7 +17,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             unitOfWork.Projects.GetAll().ForEach(Items.Add);
         }
 
-        public ICollection<ProjectWrapper> Projects => Items;
-        public ProjectWrapper SelectedProject { get; set; }
+        public ProjectWrapper SelectedProject => SelectedItem;
     }
 }

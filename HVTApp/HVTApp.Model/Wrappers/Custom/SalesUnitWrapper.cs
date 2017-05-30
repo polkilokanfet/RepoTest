@@ -313,5 +313,6 @@ namespace HVTApp.Model.Wrappers
 
         #endregion
 
+        public string Test => "test";
     }
 }

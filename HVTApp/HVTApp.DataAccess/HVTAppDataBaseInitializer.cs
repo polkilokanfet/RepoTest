@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.StringToGuidService;
 
@@ -107,6 +108,9 @@ namespace HVTApp.DataAccess
             Specification specification = new Specification { Contract = contract, Date = contract.Date, Number = "1"};
             specification.SalesUnits.AddRange(new[] { salesUnitVeb110, salesUnitZng110 });
 
+            TenderType tenderType = new TenderType {Name = "Проектно-изыскательские работы", Type = TenderTypeEnum.ToProject};
+            Tender tender = new Tender { Type = tenderType, Project = project, Sum = 555, DateOpen = DateTime.Today, DateClose = DateTime.Today.AddDays(7), TenderUnits = new List<TenderUnit>(project.SalesUnits.Select(x => new TenderUnit {ParentSalesUnit = x}))};
+
             context.ActivityFilds.AddRange(new[] {producerOfHvt, builder, electricityTransmission, electricityGeneration});
             context.CompanyForms.AddRange(new[] { formAo, formPao, formOao, formZao });
             context.Companies.AddRange(new[] {uetm, rosseti, fsk, mrsk});
@@ -118,6 +122,7 @@ namespace HVTApp.DataAccess
             context.Projects.Add(project);
             context.Parameters.AddRange(new[] { paramBreaker, paramTransformator, paramBreakerDt, paramBreakerLt, paramTransformatorI, paramTransformatorV, paramV35kV, paramV110kV, paramV220kV, paramV500kV });
             context.Specifications.Add(specification);
+            context.Tenders.Add(tender);
 
             context.SaveChanges();
             base.Seed(context);

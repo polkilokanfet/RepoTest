@@ -93,7 +93,7 @@ namespace HVTApp.DataAccess
 
             #region Tender
 
-            modelBuilder.Entity<Tender>().Property(x => x.Type).IsRequired();
+            modelBuilder.Entity<Tender>().HasRequired(x => x.Type).WithMany();
             modelBuilder.Entity<Tender>().HasRequired(x => x.Project).WithMany(x => x.Tenders);
             modelBuilder.Entity<Tender>().HasMany(x => x.Offers).WithRequired(x => x.Tender);
             modelBuilder.Entity<Tender>().HasMany(x => x.TenderUnits).WithRequired(x => x.Tender);
@@ -223,6 +223,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<FacilityType> FacilityTypes { get; set; }
         public virtual DbSet<Facility> Facilities { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<Tender> Tenders { get; set; }
         public virtual DbSet<EmployeesPosition> EmployeesPositions { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<User> Users { get; set; }

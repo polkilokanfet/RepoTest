@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-  public partial class TestEntityWrapper : WrapperBase<TestEntity>
+  public partial class TenderTypeWrapper : WrapperBase<TenderType>
   {
-    public TestEntityWrapper() : base(new TestEntity(), new Dictionary<IBaseEntity, object>()) { }
-    public TestEntityWrapper(TestEntity model) : base(model, new Dictionary<IBaseEntity, object>()) { }
-    public TestEntityWrapper(TestEntity model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
+    public TenderTypeWrapper() : base(new TenderType(), new Dictionary<IBaseEntity, object>()) { }
+    public TenderTypeWrapper(TenderType model) : base(model, new Dictionary<IBaseEntity, object>()) { }
+    public TenderTypeWrapper(TenderType model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
     #region SimpleProperties
@@ -21,6 +21,14 @@ namespace HVTApp.Model.Wrappers
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+    public HVTApp.Model.POCOs.TenderTypeEnum Type
+    {
+      get { return GetValue<HVTApp.Model.POCOs.TenderTypeEnum>(); }
+      set { SetValue(value); }
+    }
+    public HVTApp.Model.POCOs.TenderTypeEnum TypeOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.TenderTypeEnum>(nameof(Type));
+    public bool TypeIsChanged => GetIsChanged(nameof(Type));
 
     public System.Int32 Id
     {

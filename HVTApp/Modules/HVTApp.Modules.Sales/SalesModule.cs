@@ -16,6 +16,7 @@ namespace HVTApp.Modules.Sales
         protected override void RegisterTypes()
         {
             Container.RegisterViewForNavigation<ProjectsView>();
+            Container.RegisterViewForNavigation<TendersView>();
             Container.RegisterViewForNavigation<PaymentsView>();
             Container.RegisterViewForNavigation<ContractsView>();
         }

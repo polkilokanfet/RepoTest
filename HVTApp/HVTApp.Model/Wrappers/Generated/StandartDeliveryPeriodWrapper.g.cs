@@ -13,9 +13,7 @@ namespace HVTApp.Model.Wrappers
     public StandartDeliveryPeriodWrapper(StandartDeliveryPeriod model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
-
     #region SimpleProperties
-
     public System.Int32 DeliveryPeriod
     {
       get { return GetValue<System.Int32>(); }
@@ -23,7 +21,6 @@ namespace HVTApp.Model.Wrappers
     }
     public System.Int32 DeliveryPeriodOriginalValue => GetOriginalValue<System.Int32>(nameof(DeliveryPeriod));
     public bool DeliveryPeriodIsChanged => GetIsChanged(nameof(DeliveryPeriod));
-
 
     public System.Int32 Id
     {
@@ -33,12 +30,9 @@ namespace HVTApp.Model.Wrappers
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	public LocalityWrapper Locality 
     {
         get { return GetComplexProperty<LocalityWrapper, Locality>(Model.Locality); }
@@ -48,15 +42,10 @@ namespace HVTApp.Model.Wrappers
     public LocalityWrapper LocalityOriginalValue { get; private set; }
     public bool LocalityIsChanged => GetIsChanged(nameof(Locality));
 
-
     #endregion
-
     protected override void InitializeComplexProperties(StandartDeliveryPeriod model)
     {
-
         Locality = GetWrapper<LocalityWrapper, Locality>(model.Locality);
-
     }
-
   }
 }
