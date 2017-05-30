@@ -7,10 +7,11 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class FacilitiesViewModel : EditableBase<FacilityWrapper, FacilityDetailsViewModel, Facility>
+    public class FacilitiesViewModel : BaseListViewModel<FacilityWrapper, FacilityDetailsViewModel, Facility>
     {
         public FacilitiesViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(unitOfWork, container, dialogService)
         {
+            unitOfWork.Facilities.GetAll().ForEach(Items.Add);
         }
     }
 }

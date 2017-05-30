@@ -10,10 +10,30 @@
                       SelectedDataItem="{Binding SelectedItem, Mode=TwoWay}">
         
         <infg:XamDataGrid.FieldLayouts>
-            <infg:FieldLayout>
+            <infg:FieldLayout Key="Contract">
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="Number"/>
-                    <infg:DateTimeField Name="Date"/>
+                    <infg:TextField Name="Number" Label="Номер"/>
+                    <infg:TextField Name="Contragent" Label="Контрагент"/>
+                    <infg:DateTimeField Name="Date" Label="Дата"/>
+                    <infg:NumericField Name="Sum" Label="Сумма без НДС, руб."/>
+                    
+                    <infg:Field Name="Specifications" IsExpandable="True"/>
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+            <infg:FieldLayout Key="Specification" ParentFieldName="Specifications">
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Number" Label="Номер"/>
+                    <infg:DateTimeField Name="Date" Label="Дата"/>
+                    <infg:NumericField Name="Sum" Label="Сумма без НДС, руб."/>
+                    
+                    <infg:Field Name="SalesUnits" IsExpandable="True"/>
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+            <infg:FieldLayout Key="SalesUnit" ParentFieldName="SalesUnits" ParentFieldLayoutKey="Specification">
+                <infg:FieldLayout.Fields>
+                    <infg:NumericField Name="CostTotal.Sum" Label="Стоимость"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
         </infg:XamDataGrid.FieldLayouts>

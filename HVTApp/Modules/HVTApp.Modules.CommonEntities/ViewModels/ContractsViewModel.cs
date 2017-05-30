@@ -7,7 +7,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    class ContractsViewModel : EditableBase<ContractWrapper, ContractDetailsViewModel, Contract>
+    class ContractsViewModel : BaseListViewModel<ContractWrapper, ContractDetailsViewModel, Contract>
     {
         private readonly IUnitOfWork _unitOfWork;
 

@@ -7,7 +7,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class CompanyFormsViewModel : EditableBase<CompanyFormWrapper, CompanyFormDetailsViewModel, CompanyForm>
+    public class CompanyFormsViewModel : BaseListViewModel<CompanyFormWrapper, CompanyFormDetailsViewModel, CompanyForm>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDialogService _dialogService;

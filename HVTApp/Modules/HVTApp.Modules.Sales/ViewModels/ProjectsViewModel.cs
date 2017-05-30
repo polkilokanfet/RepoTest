@@ -14,7 +14,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class ProjectsViewModel : EditableBase<ProjectWrapper, ProjectDetailsViewModel, Project>
+    public class ProjectsViewModel : BaseListViewModel<ProjectWrapper, ProjectDetailsViewModel, Project>
     {
         private readonly IUnitOfWork _unitOfWork;
         public ProjectsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(unitOfWork, container, dialogService)

@@ -8,7 +8,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class ProductsViewModel : EditableBase<ProductWrapper, ProductDetailsViewModel, Product>
+    public class ProductsViewModel : BaseListViewModel<ProductWrapper, ProductDetailsViewModel, Product>
     {
         public ProductsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : 
             base(unitOfWork, container, dialogService)

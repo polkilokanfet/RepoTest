@@ -10,10 +10,6 @@
     <infg:XamDataGrid DataSource="{Binding Items, Mode=OneWay}" 
                       SelectedDataItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
-        <infg:XamDataGrid.FieldLayoutSettings>
-            <infg:FieldLayoutSettings AutoGenerateFields ="False" AutoFitMode="Always" AllowAddNew="False" AllowDelete="False"/>
-        </infg:XamDataGrid.FieldLayoutSettings>
-
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout Key="Company">
                 <infg:FieldLayout.Fields>

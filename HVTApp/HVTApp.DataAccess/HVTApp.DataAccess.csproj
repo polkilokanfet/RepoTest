@@ -58,6 +58,8 @@
     <Compile Include="UnitOfWork\Repositories\ActivityFieldsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\CompaniesRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\ContractsRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\FacilitiesRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\FacilityTypesRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\FriendGroupRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\CompanyFormsRepository.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />

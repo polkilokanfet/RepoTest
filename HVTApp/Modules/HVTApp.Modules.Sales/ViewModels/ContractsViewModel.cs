@@ -7,7 +7,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    class ContractsViewModel : EditableBase<ContractWrapper, ContractDetailsViewModel, Contract>
+    class ContractsViewModel : BaseListViewModel<ContractWrapper, ContractDetailsViewModel, Contract>
     {
         public ContractsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(unitOfWork, container, dialogService)
         {

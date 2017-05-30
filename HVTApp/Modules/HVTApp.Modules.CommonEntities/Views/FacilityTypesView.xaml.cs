@@ -3,12 +3,12 @@ using HVTApp.Modules.Infrastructure;
 using Prism.Events;
 using Prism.Regions;
 
-namespace HVTApp.Modules.Sales.Views
+namespace HVTApp.Modules.CommonEntities.Views
 {
     [RibbonTab(typeof(TabCRUD))]
-    public partial class ContractsView 
+    public partial class FacilityTypesView
     {
-        public ContractsView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        public FacilityTypesView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
         }

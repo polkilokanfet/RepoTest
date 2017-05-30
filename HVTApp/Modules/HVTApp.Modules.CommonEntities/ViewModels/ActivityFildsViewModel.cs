@@ -7,7 +7,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class ActivityFildsViewModel : EditableBase<ActivityFieldWrapper, ActivityFildDetailsViewModel, ActivityField>
+    public class ActivityFildsViewModel : BaseListViewModel<ActivityFieldWrapper, ActivityFildDetailsViewModel, ActivityField>
     {
         private readonly IUnitOfWork _unitOfWork;
         public ActivityFildsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(unitOfWork, container, dialogService)

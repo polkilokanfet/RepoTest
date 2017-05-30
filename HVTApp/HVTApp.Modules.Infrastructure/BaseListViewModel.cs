@@ -9,7 +9,7 @@ using Prism.Commands;
 
 namespace HVTApp.Modules.Infrastructure
 {
-    public class EditableBase<TItem, TItemDelailsViewModel, TModel> : EditableSelectableBindableBase<TItem>
+    public class BaseListViewModel<TItem, TItemDelailsViewModel, TModel> : EditableSelectableBindableBase<TItem>
         where TItem : class, IWrapper<TModel>, new() 
         where TItemDelailsViewModel : class, IItemDetailsViewModel<TItem, TModel> 
         where TModel : class, IBaseEntity
@@ -18,7 +18,7 @@ namespace HVTApp.Modules.Infrastructure
         private readonly IUnityContainer _container;
         private readonly IDialogService _dialogService;
 
-        public EditableBase(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService)
+        public BaseListViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService)
         {
             _unitOfWork = unitOfWork;
             _container = container;

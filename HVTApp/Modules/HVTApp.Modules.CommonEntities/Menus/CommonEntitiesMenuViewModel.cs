@@ -7,9 +7,12 @@ namespace HVTApp.Modules.CommonEntities.Menus
     {
         protected override void GenerateMenu()
         {
+            NavigationItem rootFacility = new NavigationItem("Объекты", typeof(FacilitiesView));
+            rootFacility.Items.Add(new NavigationItem("Тип объекта", typeof(FacilityTypesView)));
+
             NavigationItem rootCompany = new NavigationItem("Компании", typeof(CompaniesView));
-            rootCompany.Items.Add(new NavigationItem("Организационные формы компаний", typeof(CompanyFormsView)));
-            rootCompany.Items.Add(new NavigationItem("Сферы деятельности компаний", typeof(ActivityFildsView)));
+            rootCompany.Items.Add(new NavigationItem("Организационные формы", typeof(CompanyFormsView)));
+            rootCompany.Items.Add(new NavigationItem("Сферы деятельности", typeof(ActivityFildsView)));
 
             NavigationItem rootProduct = new NavigationItem("Products", typeof(ProductsView));
 

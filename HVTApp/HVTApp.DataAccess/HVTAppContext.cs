@@ -220,6 +220,8 @@ namespace HVTApp.DataAccess
 
         public virtual DbSet<TestFriendGroup> FriendGroups { get; set; }
 
+        public virtual DbSet<FacilityType> FacilityTypes { get; set; }
+        public virtual DbSet<Facility> Facilities { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<EmployeesPosition> EmployeesPositions { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }

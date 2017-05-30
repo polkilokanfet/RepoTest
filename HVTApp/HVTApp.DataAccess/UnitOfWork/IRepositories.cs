@@ -2,9 +2,6 @@
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Model;
 using HVTApp.Model.Wrappers;
-using CompanyWrapper = HVTApp.Model.Wrappers.CompanyWrapper;
-using ParameterWrapper = HVTApp.Model.Wrappers.ParameterWrapper;
-using ProjectWrapper = HVTApp.Model.Wrappers.ProjectWrapper;
 
 namespace HVTApp.DataAccess
 {
@@ -20,6 +17,8 @@ namespace HVTApp.DataAccess
         ProductWrapper Find(IEnumerable<ParameterWrapper> parameters);
     }
 
+    public interface IFacilityTypesRepository : IRepository<FacilityTypeWrapper> { }
+    public interface IFacilitiesRepository : IRepository<FacilityWrapper> { }
     public interface IProjectsRepository : IRepository<ProjectWrapper> { }
     public interface IContractsRepository : IRepository<ContractWrapper> { }
     public interface ISpecificationsRepository : IRepository<SpecificationWrapper> { }

@@ -83,6 +83,7 @@
     <Compile Include="Wrappers\Base\WrapperBase.cs" />
     <Compile Include="Wrappers\Custom\CompanyFormWrapper.cs" />
     <Compile Include="Wrappers\Custom\CompanyWrapper.cs" />
+    <Compile Include="Wrappers\Custom\ContractWrapper.cs" />
     <Compile Include="Wrappers\Custom\ParameterWrapper.cs" />
     <Compile Include="Wrappers\Custom\PaymentConditionStandartWrapper.cs" />
     <Compile Include="Wrappers\Custom\ProductionUnitWrapper.cs" />

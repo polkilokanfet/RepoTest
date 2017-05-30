@@ -23,7 +23,7 @@ namespace HVTApp.DataAccess
             ActivityField producerOfHvt = new ActivityField { FieldOfActivity = FieldOfActivity.ProducerOfHighVoltageEquipment, Name = "Производитель ВВА"};
             ActivityField builder = new ActivityField { FieldOfActivity = FieldOfActivity.Builder, Name = "Подрядчик"};
             ActivityField electricityTransmission = new ActivityField { FieldOfActivity = FieldOfActivity.ElectricityTransmission, Name = "Передача электроэнергии" };
-            ActivityField electricityGenerator = new ActivityField { FieldOfActivity = FieldOfActivity.ElectricityGeneration, Name = "Генерация электроэнергии" };
+            ActivityField electricityGeneration = new ActivityField { FieldOfActivity = FieldOfActivity.ElectricityGeneration, Name = "Генерация электроэнергии" };
             #endregion
 
             Country country = new Country {Name = "Россия"};
@@ -38,6 +38,7 @@ namespace HVTApp.DataAccess
             Company rosseti = new Company { FullName = "Россети", ShortName = "Россети", Form = formPao, ActivityFilds = new List<ActivityField> { electricityTransmission } };
             Company fsk = new Company { FullName = "Федеральная сетевая компания", ShortName = "ФСК", Form = formPao, ActivityFilds = new List<ActivityField> { electricityTransmission }, ParentCompany = rosseti };
             Company mrsk = new Company { FullName = "Межрегиональные распределительные сети", ShortName = "МРСК", Form = formPao, ActivityFilds = new List<ActivityField> { electricityTransmission }, ParentCompany = rosseti };
+            Company enel = new Company { FullName = "Энел", ShortName = "Энел", Form = formPao, ActivityFilds = new List<ActivityField> { electricityGeneration }, ParentCompany = rosseti };
             EmployeesPosition employeesPosition = new EmployeesPosition {Name = "Директор"};
             Person person = new Person { Surname = "Иванов", Name = "Иван" };
             Employee employee = new Employee { Person = person, Position = employeesPosition, Company = uetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36" };
@@ -46,8 +47,11 @@ namespace HVTApp.DataAccess
 
             Project project = new Project {Name = "TestProject", Manager = user, EstimatedDate = DateTime.Today.AddDays(120)};
 
-            FacilityType facilityType = new FacilityType { FullName = "Понизительная станция", ShortName = "ПС"};
-            Facility facility = new Facility {Name = "Тестовая", Type = facilityType, OwnerCompany = mrsk};
+            FacilityType facilityTypeTec = new FacilityType { FullName = "Теплоэлектроцентраль", ShortName = "ТЭЦ" };
+            FacilityType facilityTypePc = new FacilityType { FullName = "Понизительная станция", ShortName = "ПС" };
+            Facility pc = new Facility { Name = "Первая", Type = facilityTypePc, OwnerCompany = mrsk };
+            Facility tec = new Facility { Name = "Свердловская", Type = facilityTypeTec, OwnerCompany = enel };
+
 
             ParameterGroup groupEqType = new ParameterGroup { Name = "Тип оборудования" };
             Parameter paramBreaker = new Parameter { Group = groupEqType, Value = "Выключатель" };
@@ -87,7 +91,7 @@ namespace HVTApp.DataAccess
                 ProductionUnit = new ProductionUnit { Product = veb110, OrderPosition = 1, SerialNumber = "3651" },
                 ShipmentUnit = new ShipmentUnit { ShipmentCost = 100 },
                 CostSingle = new SumAndVat { Sum = 1000, Vat = 18 },
-                Facility = facility,
+                Facility = pc,
                 Project = project
             };
             SalesUnit salesUnitZng110 = new SalesUnit
@@ -95,7 +99,7 @@ namespace HVTApp.DataAccess
                 ProductionUnit = new ProductionUnit { Product = zng110, OrderPosition = 1, SerialNumber = "325" },
                 ShipmentUnit = new ShipmentUnit { ShipmentCost = 150 },
                 CostSingle = new SumAndVat { Sum = 500, Vat = 18 },
-                Facility = facility,
+                Facility = pc,
                 Project = project
             };
 
@@ -103,13 +107,14 @@ namespace HVTApp.DataAccess
             Specification specification = new Specification { Contract = contract, Date = contract.Date, Number = "1"};
             specification.SalesUnits.AddRange(new[] { salesUnitVeb110, salesUnitZng110 });
 
-            context.ActivityFilds.AddRange(new[] {producerOfHvt, builder, electricityTransmission, electricityGenerator});
+            context.ActivityFilds.AddRange(new[] {producerOfHvt, builder, electricityTransmission, electricityGeneration});
             context.CompanyForms.AddRange(new[] { formAo, formPao, formOao, formZao });
             context.Companies.AddRange(new[] {uetm, rosseti, fsk, mrsk});
             context.Employees.Add(employee);
             context.Users.Add(user);
             context.Products.AddRange(new [] {veb110, vgb35, zng110});
             project.SalesUnits.AddRange(new[] { salesUnitVeb110, salesUnitZng110 });
+            context.Facilities.AddRange(new[] {pc, tec});
             context.Projects.Add(project);
             context.Parameters.AddRange(new[] { paramBreaker, paramTransformator, paramBreakerDt, paramBreakerLt, paramTransformatorI, paramTransformatorV, paramV35kV, paramV110kV, paramV220kV, paramV500kV });
             context.Specifications.Add(specification);
