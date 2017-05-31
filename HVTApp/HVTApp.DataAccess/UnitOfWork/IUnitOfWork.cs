@@ -24,6 +24,7 @@ namespace HVTApp.DataAccess
         IFacilitiesRepository Facilities { get; }
         IProjectsRepository Projects { get; }
         ITendersRepository Tenders { get; }
+        IOffersRepository Offers { get; }
         IContractsRepository Contracts { get; }
         ISpecificationsRepository Specifications { get; }
     }

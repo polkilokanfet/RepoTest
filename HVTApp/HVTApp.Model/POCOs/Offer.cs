@@ -10,7 +10,7 @@ namespace HVTApp.Model.POCOs
         public virtual Project Project { get; set; }
         public virtual Tender Tender { get; set; }
         public DateTime ValidityDate { get; set; } // Дата до которой ТКП действительно.
-        public virtual List<OfferUnit> OfferUnits { get; set; }
+        public virtual List<OfferUnit> OfferUnits { get; set; } = new List<OfferUnit>();
     }
 
     public class OfferUnit : BaseEntity

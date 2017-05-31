@@ -1,8 +1,5 @@
-﻿using Prism.Modularity;
-using Prism.Regions;
-using System;
+﻿using Prism.Regions;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.CommonEntities.Menus;
@@ -26,6 +23,8 @@ namespace HVTApp.Modules.CommonEntities
             Container.RegisterViewForNavigation<CompaniesView>();
             Container.RegisterViewForNavigation<CompanyFormsView>();
             Container.RegisterViewForNavigation<ActivityFildsView>();
+            Container.RegisterViewForNavigation<ParametersView>();
+            Container.RegisterViewForNavigation<ParametersGroupsView>();
             Container.RegisterViewForNavigation<ProductsView>();
             Container.RegisterViewForNavigation<FacilitiesView>();
             Container.RegisterViewForNavigation<FacilityTypesView>();

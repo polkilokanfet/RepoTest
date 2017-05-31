@@ -119,6 +119,10 @@
     <Compile Include="ViewModels\FacilityDetailsViewModel.cs" />
     <Compile Include="ViewModels\FacilityTypeDetailsViewModel.cs" />
     <Compile Include="ViewModels\FacilityTypesViewModel.cs" />
+    <Compile Include="ViewModels\ParameterDetailsViewModel.cs" />
+    <Compile Include="ViewModels\ParametersGroupDetailsViewModel.cs" />
+    <Compile Include="ViewModels\ParametersGroupsViewModel.cs" />
+    <Compile Include="ViewModels\ParametersViewModel.cs" />
     <Compile Include="ViewModels\ProductDetailsViewModel.cs" />
     <Compile Include="ViewModels\ProductsViewModel.cs" />
     <Compile Include="Views\ActivityFildsView.xaml.cs">
@@ -150,6 +154,12 @@
     </Compile>
     <Compile Include="Views\FacilityTypesView.xaml.cs">
       <DependentUpon>FacilityTypesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ParametersGroupsView.xaml.cs">
+      <DependentUpon>ParametersGroupsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ParametersView.xaml.cs">
+      <DependentUpon>ParametersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProductDetailsView.xaml.cs">
       <DependentUpon>ProductDetailsView.xaml</DependentUpon>
@@ -237,6 +247,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FacilityTypesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ParametersGroupsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ParametersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

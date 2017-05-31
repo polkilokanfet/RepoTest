@@ -112,12 +112,24 @@
     </Compile>
     <Compile Include="ViewModels\ContractDetailsViewModel.cs" />
     <Compile Include="ViewModels\ContractsViewModel.cs" />
+    <Compile Include="ViewModels\MarketViewModel.cs" />
+    <Compile Include="ViewModels\OfferDetailsWindowModel.cs" />
+    <Compile Include="ViewModels\OffersViewModel.cs" />
     <Compile Include="ViewModels\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModels\ProjectsViewModel.cs" />
     <Compile Include="ViewModels\TenderDetailsViewModel.cs" />
     <Compile Include="ViewModels\TendersViewModel.cs" />
     <Compile Include="Views\ContractsView.xaml.cs">
       <DependentUpon>ContractsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MarketView.xaml.cs">
+      <DependentUpon>MarketView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OfferDetailsWindow.xaml.cs">
+      <DependentUpon>OfferDetailsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OffersView.xaml.cs">
+      <DependentUpon>OffersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PaymentsView.xaml.cs">
       <DependentUpon>PaymentsView.xaml</DependentUpon>
@@ -178,6 +190,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ContractsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MarketView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OfferDetailsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OffersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

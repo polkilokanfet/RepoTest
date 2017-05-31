@@ -17,6 +17,8 @@ using HVTApp.Modules.CommonEntities.ViewModels;
 using HVTApp.Modules.CommonEntities.Views;
 using HVTApp.Modules.Production;
 using HVTApp.Modules.Sales;
+using HVTApp.Modules.Sales.ViewModels;
+using HVTApp.Modules.Sales.Views;
 using HVTApp.Services.ChooseProductService;
 using HVTApp.Services.ChooseService;
 using HVTApp.Services.WpfAuthenticationService;
@@ -56,6 +58,8 @@ namespace HVTApp
 
             Container.Resolve<ISelectService>().Register<CompaniesViewModel, CompaniesView, CompanyWrapper>();
             Container.Resolve<ISelectService>().Register<ActivityFildsViewModel, ActivityFildsView, ActivityFieldWrapper>();
+            Container.Resolve<ISelectService>().Register<ProjectsViewModel, ProjectsView, ProjectWrapper>();
+            Container.Resolve<ISelectService>().Register<TendersViewModel, TendersView, TenderWrapper>();
 
             DialogService dialogService = new DialogService((Window)Shell);
             Container.RegisterInstance(typeof(IDialogService), dialogService);

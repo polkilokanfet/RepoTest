@@ -46,7 +46,8 @@ namespace HVTApp.DataAccess
             UserRole userRole = new UserRole { Role = Role.DataBaseFiller };
             User user = new User {Login = "1", Password = StringToGuidService.GetHashString("1"), Employee = employee, PersonalNumber = "333", Roles=new List<UserRole> {userRole} };
 
-            Project project = new Project {Name = "TestProject", Manager = user, EstimatedDate = DateTime.Today.AddDays(120)};
+            Project project1 = new Project { Name = "Реконструкция ПС Первая", Manager = user, EstimatedDate = DateTime.Today.AddDays(120) };
+            Project project2 = new Project { Name = "Строительство Свердловской ТЭЦ", Manager = user, EstimatedDate = DateTime.Today.AddDays(365) };
 
             FacilityType facilityTypeTec = new FacilityType { FullName = "Теплоэлектроцентраль", ShortName = "ТЭЦ" };
             FacilityType facilityTypePc = new FacilityType { FullName = "Понизительная станция", ShortName = "ПС" };
@@ -87,29 +88,40 @@ namespace HVTApp.DataAccess
             Product zng110 = new Product { Designation = "ЗНГ-110", Parameters = new List<Parameter> { paramTransformator, paramTransformatorV, paramV110kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 75, Date = DateTime.Today } } };
             Product vgb35 = new Product { Designation = "ВГБ-35", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV35kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 50, Date = DateTime.Today } } };
             Product veb110 = new Product { Designation = "ВЭБ-110", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV110kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 100, Date = DateTime.Today } } };
+
             SalesUnit salesUnitVeb110 = new SalesUnit
             {
                 ProductionUnit = new ProductionUnit { Product = veb110, OrderPosition = 1, SerialNumber = "3651" },
                 ShipmentUnit = new ShipmentUnit { ShipmentCost = 100 },
                 CostSingle = new SumAndVat { Sum = 1000, Vat = 18 },
                 Facility = pc,
-                Project = project
+                Project = project1
             };
-            SalesUnit salesUnitZng110 = new SalesUnit
+
+            SalesUnit salesUnitZng1101 = new SalesUnit
             {
                 ProductionUnit = new ProductionUnit { Product = zng110, OrderPosition = 1, SerialNumber = "325" },
                 ShipmentUnit = new ShipmentUnit { ShipmentCost = 150 },
                 CostSingle = new SumAndVat { Sum = 500, Vat = 18 },
                 Facility = pc,
-                Project = project
+                Project = project1
+            };
+
+            SalesUnit salesUnitZng1102 = new SalesUnit
+            {
+                ProductionUnit = new ProductionUnit { Product = zng110, OrderPosition = 1, SerialNumber = "326" },
+                ShipmentUnit = new ShipmentUnit { ShipmentCost = 150 },
+                CostSingle = new SumAndVat { Sum = 500, Vat = 18 },
+                Facility = pc,
+                Project = project1
             };
 
             Contract contract = new Contract { Contragent = mrsk, Date = DateTime.Today, Number = "0401-17"};
-            Specification specification = new Specification { Contract = contract, Date = contract.Date, Number = "1"};
-            specification.SalesUnits.AddRange(new[] { salesUnitVeb110, salesUnitZng110 });
+            Specification specification = new Specification { Contract = contract, Date = contract.Date, Number = "1" };
+            specification.SalesUnits.AddRange(new[] { salesUnitVeb110, salesUnitZng1101, salesUnitZng1102 });
 
             TenderType tenderType = new TenderType {Name = "Проектно-изыскательские работы", Type = TenderTypeEnum.ToProject};
-            Tender tender = new Tender { Type = tenderType, Project = project, Sum = 555, DateOpen = DateTime.Today, DateClose = DateTime.Today.AddDays(7), TenderUnits = new List<TenderUnit>(project.SalesUnits.Select(x => new TenderUnit {ParentSalesUnit = x}))};
+            Tender tender = new Tender { Type = tenderType, Project = project1, Sum = 555, DateOpen = DateTime.Today, DateClose = DateTime.Today.AddDays(7), TenderUnits = new List<TenderUnit>(project1.SalesUnits.Select(x => new TenderUnit {ParentSalesUnit = x}))};
 
             context.ActivityFilds.AddRange(new[] {producerOfHvt, builder, electricityTransmission, electricityGeneration});
             context.CompanyForms.AddRange(new[] { formAo, formPao, formOao, formZao });
@@ -117,9 +129,9 @@ namespace HVTApp.DataAccess
             context.Employees.Add(employee);
             context.Users.Add(user);
             context.Products.AddRange(new [] {veb110, vgb35, zng110});
-            project.SalesUnits.AddRange(new[] { salesUnitVeb110, salesUnitZng110 });
+            project1.SalesUnits.AddRange(new[] { salesUnitVeb110, salesUnitZng1101 });
             context.Facilities.AddRange(new[] {pc, tec});
-            context.Projects.Add(project);
+            context.Projects.AddRange(new[] { project1, project2 });
             context.Parameters.AddRange(new[] { paramBreaker, paramTransformator, paramBreakerDt, paramBreakerLt, paramTransformatorI, paramTransformatorV, paramV35kV, paramV110kV, paramV220kV, paramV500kV });
             context.Specifications.Add(specification);
             context.Tenders.Add(tender);

@@ -1,0 +1,74 @@
+﻿<inf:ViewBase
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             xmlns:infg="http://infragistics.com/DataPresenter" 
+             x:Class="HVTApp.Modules.Sales.Views.MarketView"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <infg:XamDataGrid Grid.Row="0">
+
+            <infg:XamDataGrid.FieldLayouts>
+                <infg:FieldLayout Key="Project">
+                    <infg:FieldLayout.Fields>
+                        <infg:Field Name="FacilitiesNames" Label="Объекты"/>
+                        <infg:Field Name="Name" Label="Название проекта"/>
+                        <infg:Field Name="Sum" Label="Сумма проекта без НДС, руб."/>
+
+                        <infg:Field Name="SalesUnitsGroups" IsExpandable="True" IsPrimary="True"/>
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+
+                <infg:FieldLayout Key="SalesUnitsGroup" ParentFieldLayoutKey="Project" ParentFieldName="SalesUnitsGroups">
+                    <infg:FieldLayout.Fields>
+                        <infg:TextField Name="ProductName" Label="Обозначение"/>
+                        <infg:NumericField Name="Count" Label="Количество"/>
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+            </infg:XamDataGrid.FieldLayouts>
+
+        </infg:XamDataGrid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Vertical">
+                <Label>Конкурсы по проекту</Label>
+                <infg:XamDataGrid DataSource="{Binding SelectedItem.Tenders}">
+                    <infg:XamDataGrid.FieldLayouts>
+                        <infg:FieldLayout>
+                            <infg:FieldLayout.Fields>
+                                <infg:NumericField Name="Sum"/>
+                                <infg:Field Name="Type" Label="Тип"/>
+                            </infg:FieldLayout.Fields>
+                        </infg:FieldLayout>
+                    </infg:XamDataGrid.FieldLayouts>
+                </infg:XamDataGrid>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Vertical">
+                <Label>ТКП по проекту</Label>
+                <infg:XamDataGrid DataSource="{Binding SelectedItem.Offers}">
+                    <infg:XamDataGrid.FieldLayouts>
+                        <infg:FieldLayout>
+                            <infg:FieldLayout.Fields>
+                            </infg:FieldLayout.Fields>
+                        </infg:FieldLayout>
+                    </infg:XamDataGrid.FieldLayouts>
+                </infg:XamDataGrid>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+
+</inf:ViewBase>

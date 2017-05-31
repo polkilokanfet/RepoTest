@@ -6,15 +6,9 @@
              xmlns:infg="http://infragistics.com/DataPresenter" 
              x:Class="HVTApp.Modules.Sales.Views.ProjectsView"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        
-        <infg:XamDataGrid Grid.Row="0">
-                       
+
+        <infg:XamDataGrid>
+
             <infg:XamDataGrid.FieldLayouts>
                 <infg:FieldLayout Key="Project">
                     <infg:FieldLayout.Fields>
@@ -33,11 +27,7 @@
                     </infg:FieldLayout.Fields>
                 </infg:FieldLayout>
             </infg:XamDataGrid.FieldLayouts>
-            
+
         </infg:XamDataGrid>
-    </Grid>
-    
+
 </inf:ViewBase>
-
-
-

@@ -16,7 +16,5 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             unitOfWork.Projects.GetAll().ForEach(Items.Add);
         }
-
-        public ProjectWrapper SelectedProject => SelectedItem;
     }
 }
