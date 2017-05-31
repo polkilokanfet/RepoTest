@@ -7,7 +7,7 @@
              x:Class="HVTApp.Modules.Sales.Views.ProjectsView"
              prism:ViewModelLocator.AutoWireViewModel="True">
 
-        <infg:XamDataGrid>
+        <infg:XamDataGrid Name="ProjectsDataGrid">
 
             <infg:XamDataGrid.FieldLayouts>
                 <infg:FieldLayout Key="Project">

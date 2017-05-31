@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             xmlns:infg="http://infragistics.com/DataPresenter" 
+             xmlns:infg="http://infragistics.com/DataPresenter"
+             xmlns:views="clr-namespace:HVTApp.Modules.Sales.Views"
              x:Class="HVTApp.Modules.Sales.Views.MarketView"
              prism:ViewModelLocator.AutoWireViewModel="True">
 
@@ -13,7 +14,9 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <infg:XamDataGrid Grid.Row="0">
+        <views:ProjectsView Grid.Row="0" Projects="{Binding Projects}"></views:ProjectsView>
+
+        <!--<infg:XamDataGrid Grid.Row="0">
 
             <infg:XamDataGrid.FieldLayouts>
                 <infg:FieldLayout Key="Project">
@@ -34,7 +37,7 @@
                 </infg:FieldLayout>
             </infg:XamDataGrid.FieldLayouts>
 
-        </infg:XamDataGrid>
+        </infg:XamDataGrid>-->
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
