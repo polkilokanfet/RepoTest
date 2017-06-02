@@ -32,7 +32,7 @@
 
             <infg:FieldLayout Key="SalesUnit" ParentFieldName="SalesUnits" ParentFieldLayoutKey="Specification">
                 <infg:FieldLayout.Fields>
-                    <!--<infg:NumericField Name="CostTotal.Sum" Label="Стоимость"/>-->
+                    <!--<infg:NumericField Name="{infg:FieldBinding CostTotal, Path=Sum}" Label="Стоимость"/>-->
                     <infg:TextField Name="Test"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
