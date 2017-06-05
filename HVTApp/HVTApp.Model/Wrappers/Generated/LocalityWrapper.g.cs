@@ -13,7 +13,9 @@ namespace HVTApp.Model.Wrappers
     public LocalityWrapper(Locality model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
+
     #region SimpleProperties
+
     public System.String Name
     {
       get { return GetValue<System.String>(); }
@@ -21,6 +23,7 @@ namespace HVTApp.Model.Wrappers
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
+
 
     public System.Int32 Id
     {
@@ -30,9 +33,12 @@ namespace HVTApp.Model.Wrappers
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public LocalityTypeWrapper LocalityType 
     {
         get { return GetComplexProperty<LocalityTypeWrapper, LocalityType>(Model.LocalityType); }
@@ -41,6 +47,7 @@ namespace HVTApp.Model.Wrappers
 
     public LocalityTypeWrapper LocalityTypeOriginalValue { get; private set; }
     public bool LocalityTypeIsChanged => GetIsChanged(nameof(LocalityType));
+
 
 	public RegionWrapper Region 
     {
@@ -51,6 +58,7 @@ namespace HVTApp.Model.Wrappers
     public RegionWrapper RegionOriginalValue { get; private set; }
     public bool RegionIsChanged => GetIsChanged(nameof(Region));
 
+
 	public StandartDeliveryPeriodWrapper DeliveryPeriod 
     {
         get { return GetComplexProperty<StandartDeliveryPeriodWrapper, StandartDeliveryPeriod>(Model.DeliveryPeriod); }
@@ -60,12 +68,19 @@ namespace HVTApp.Model.Wrappers
     public StandartDeliveryPeriodWrapper DeliveryPeriodOriginalValue { get; private set; }
     public bool DeliveryPeriodIsChanged => GetIsChanged(nameof(DeliveryPeriod));
 
+
     #endregion
+
     protected override void InitializeComplexProperties(Locality model)
     {
+
         LocalityType = GetWrapper<LocalityTypeWrapper, LocalityType>(model.LocalityType);
+
         Region = GetWrapper<RegionWrapper, Region>(model.Region);
+
         DeliveryPeriod = GetWrapper<StandartDeliveryPeriodWrapper, StandartDeliveryPeriod>(model.DeliveryPeriod);
+
     }
+
   }
 }

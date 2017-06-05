@@ -32,6 +32,7 @@ namespace HVTApp.DataAccess
             Tenders = new TendersRepository(context, _repository);
             Contracts = new ContractsRepository(context, _repository);
             Specifications = new SpecificationsRepository(context, _repository);
+            Units = new UnitsRepository(context, _repository);
         }
         public void Dispose()
         {
@@ -70,6 +71,7 @@ namespace HVTApp.DataAccess
         public IOffersRepository Offers { get; }
         public IContractsRepository Contracts { get; }
         public ISpecificationsRepository Specifications { get; }
+        public IUnitsRepository Units { get; }
 
         public ITendersRepository Tenders { get; }
     }

@@ -24,4 +24,5 @@ namespace HVTApp.DataAccess
     public interface IOffersRepository : IRepository<OfferWrapper> { }
     public interface IContractsRepository : IRepository<ContractWrapper> { }
     public interface ISpecificationsRepository : IRepository<SpecificationWrapper> { }
+    public interface IUnitsRepository : IRepository<UnitWrapper> { }
 }

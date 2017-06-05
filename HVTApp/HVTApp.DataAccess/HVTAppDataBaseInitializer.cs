@@ -51,8 +51,8 @@ namespace HVTApp.DataAccess
 
             FacilityType facilityTypeTec = new FacilityType { FullName = "Теплоэлектроцентраль", ShortName = "ТЭЦ" };
             FacilityType facilityTypePc = new FacilityType { FullName = "Понизительная станция", ShortName = "ПС" };
-            Facility pc = new Facility { Name = "Первая", Type = facilityTypePc, OwnerCompany = mrsk };
-            Facility tec = new Facility { Name = "Свердловская", Type = facilityTypeTec, OwnerCompany = enel };
+            Facility substationPervaya = new Facility { Name = "Первая", Type = facilityTypePc, OwnerCompany = mrsk };
+            Facility stationSverdlovskaya = new Facility { Name = "Свердловская", Type = facilityTypeTec, OwnerCompany = enel };
 
 
             ParameterGroup groupEqType = new ParameterGroup { Name = "Тип оборудования" };
@@ -89,39 +89,60 @@ namespace HVTApp.DataAccess
             Product vgb35 = new Product { Designation = "ВГБ-35", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV35kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 50, Date = DateTime.Today } } };
             Product veb110 = new Product { Designation = "ВЭБ-110", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV110kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 100, Date = DateTime.Today } } };
 
-            SalesUnit salesUnitVeb110 = new SalesUnit
-            {
-                ProductionUnit = new ProductionUnit { Product = veb110, OrderPosition = 1, SerialNumber = "3651" },
-                ShipmentUnit = new ShipmentUnit { ShipmentCost = 100 },
-                CostSingle = new SumAndVat { Sum = 1000, Vat = 18 },
-                Facility = pc,
-                Project = project1
-            };
-
-            SalesUnit salesUnitZng1101 = new SalesUnit
-            {
-                ProductionUnit = new ProductionUnit { Product = zng110, OrderPosition = 1, SerialNumber = "325" },
-                ShipmentUnit = new ShipmentUnit { ShipmentCost = 150 },
-                CostSingle = new SumAndVat { Sum = 500, Vat = 18 },
-                Facility = pc,
-                Project = project1
-            };
-
-            SalesUnit salesUnitZng1102 = new SalesUnit
-            {
-                ProductionUnit = new ProductionUnit { Product = zng110, OrderPosition = 1, SerialNumber = "326" },
-                ShipmentUnit = new ShipmentUnit { ShipmentCost = 150 },
-                CostSingle = new SumAndVat { Sum = 500, Vat = 18 },
-                Facility = pc,
-                Project = project1
-            };
-
             Contract contract = new Contract { Contragent = mrsk, Date = DateTime.Today, Number = "0401-17"};
             Specification specification = new Specification { Contract = contract, Date = contract.Date, Number = "1" };
-            specification.SalesUnits.AddRange(new[] { salesUnitVeb110, salesUnitZng1101, salesUnitZng1102 });
+
+            Unit unitVeb110 = new Unit
+            {
+                Facility = substationPervaya,
+                Project = project1,
+
+                ProductionsUnit = new ProductionsUnit { Product = veb110, OrderPosition = 1, SerialNumber = "3651" },
+                ShipmentsUnit = new ShipmentsUnit { ShipmentCost = 100 },
+                SalesUnit = new SalesUnit { Specification = specification, Cost = new SumAndVat { Sum = 1000, Vat = 18 } },
+            };
+
+            Unit unitVeb1102 = new Unit
+            {
+                Facility = stationSverdlovskaya,
+                Project = project2,
+
+                ProductionsUnit = new ProductionsUnit { Product = veb110, OrderPosition = 1, SerialNumber = "3651" },
+                ShipmentsUnit = new ShipmentsUnit { ShipmentCost = 100 },
+                SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 1000, Vat = 18 } },
+            };
+
+            Unit unitZng1101 = new Unit
+            {
+                ProductionsUnit = new ProductionsUnit { Product = zng110, OrderPosition = 1, SerialNumber = "325" },
+                ShipmentsUnit = new ShipmentsUnit { ShipmentCost = 150 },
+                SalesUnit = new SalesUnit { Specification = specification, Cost = new SumAndVat { Sum = 500, Vat = 18 } },
+
+                Facility = substationPervaya, Project = project1
+            };
+
+            Unit unitZng1102 = new Unit
+            {
+                ProductionsUnit = new ProductionsUnit { Product = zng110, OrderPosition = 1, SerialNumber = "325" },
+                ShipmentsUnit = new ShipmentsUnit { ShipmentCost = 150 },
+                SalesUnit = new SalesUnit {Specification = specification, Cost = new SumAndVat { Sum = 500, Vat = 18 } },
+
+                Facility = substationPervaya, Project = project1
+            };
+
+
 
             TenderType tenderType = new TenderType {Name = "Проектно-изыскательские работы", Type = TenderTypeEnum.ToProject};
-            Tender tender = new Tender { Type = tenderType, Project = project1, Sum = 555, DateOpen = DateTime.Today, DateClose = DateTime.Today.AddDays(7), TenderUnits = new List<TenderUnit>(project1.SalesUnits.Select(x => new TenderUnit {ParentSalesUnit = x}))};
+            Tender tender = new Tender { Type = tenderType, Project = project1, Sum = 555, DateOpen = DateTime.Today,
+                DateClose = DateTime.Today.AddDays(7),
+                TendersUnits = new List<TendersUnit>(project1.Units.Select(x => new TendersUnit {Unit = x}))};
+
+
+
+
+
+
+
 
             context.ActivityFilds.AddRange(new[] {producerOfHvt, builder, electricityTransmission, electricityGeneration});
             context.CompanyForms.AddRange(new[] { formAo, formPao, formOao, formZao });
@@ -129,12 +150,13 @@ namespace HVTApp.DataAccess
             context.Employees.Add(employee);
             context.Users.Add(user);
             context.Products.AddRange(new [] {veb110, vgb35, zng110});
-            project1.SalesUnits.AddRange(new[] { salesUnitVeb110, salesUnitZng1101 });
-            context.Facilities.AddRange(new[] {pc, tec});
+            project1.Units.AddRange(new[] { unitVeb110, unitZng1101 });
+            context.Facilities.AddRange(new[] {substationPervaya, stationSverdlovskaya});
             context.Projects.AddRange(new[] { project1, project2 });
             context.Parameters.AddRange(new[] { paramBreaker, paramTransformator, paramBreakerDt, paramBreakerLt, paramTransformatorI, paramTransformatorV, paramV35kV, paramV110kV, paramV220kV, paramV500kV });
             context.Specifications.Add(specification);
             context.Tenders.Add(tender);
+            context.Units.AddRange(new[] {unitVeb110, unitVeb1102, unitZng1101, unitZng1102});
 
             context.SaveChanges();
             base.Seed(context);

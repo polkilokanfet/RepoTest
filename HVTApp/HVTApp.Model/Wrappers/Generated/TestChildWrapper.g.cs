@@ -13,7 +13,9 @@ namespace HVTApp.Model.Wrappers
     public TestChildWrapper(TestChild model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
+
     #region SimpleProperties
+
     public System.String Name
     {
       get { return GetValue<System.String>(); }
@@ -21,6 +23,7 @@ namespace HVTApp.Model.Wrappers
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
+
 
     public System.Int32 Id
     {
@@ -30,9 +33,12 @@ namespace HVTApp.Model.Wrappers
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public TestHusbandWrapper Husband 
     {
         get { return GetComplexProperty<TestHusbandWrapper, TestHusband>(Model.Husband); }
@@ -41,6 +47,7 @@ namespace HVTApp.Model.Wrappers
 
     public TestHusbandWrapper HusbandOriginalValue { get; private set; }
     public bool HusbandIsChanged => GetIsChanged(nameof(Husband));
+
 
 	public TestWifeWrapper Wife 
     {
@@ -51,11 +58,17 @@ namespace HVTApp.Model.Wrappers
     public TestWifeWrapper WifeOriginalValue { get; private set; }
     public bool WifeIsChanged => GetIsChanged(nameof(Wife));
 
+
     #endregion
+
     protected override void InitializeComplexProperties(TestChild model)
     {
+
         Husband = GetWrapper<TestHusbandWrapper, TestHusband>(model.Husband);
+
         Wife = GetWrapper<TestWifeWrapper, TestWife>(model.Wife);
+
     }
+
   }
 }

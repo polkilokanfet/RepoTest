@@ -6,32 +6,32 @@ namespace HVTApp.Model.Wrappers
 {
     public partial class ProjectWrapper
     {
-        public List<FacilityWrapper> Facilities => SalesUnits.Select(x => x.Facility).Distinct().ToList();
+        public List<FacilityWrapper> Facilities => Units.Select(x => x.Facility).Distinct().ToList();
 
         public string FacilitiesNames => Facilities.Aggregate(string.Empty, (current, facility) => current + facility.ToString() + "; ");
 
-        public double Sum => SalesUnits.Sum(x => x.CostTotal.Sum);
+        public double Sum => Units.Sum(x => x.SalesUnit.Cost.Sum);
 
-        public ObservableCollection<SalesUnitsGroup> SalesUnitsGroups
+        public ObservableCollection<UnitsGroup> UnitsGroups
         {
             get
             {
-                var result = new ObservableCollection<SalesUnitsGroup>();
+                var result = new ObservableCollection<UnitsGroup>();
 
-                foreach (var salesUnit in SalesUnits)
+                foreach (var unit in Units)
                 {
                     bool addFlag = true;
-                    foreach (var salesUnitsGroup in result)
+                    foreach (var unitsGroup in result)
                     {
-                        if (salesUnitsGroup.SalesUnits.First().ProductionUnit.Product.HasSameParameters(salesUnit.ProductionUnit.Product))
+                        if (unitsGroup.Units.First().ProductionsUnit.Product.HasSameParameters(unit.ProductionsUnit.Product))
                         {
-                            salesUnitsGroup.SalesUnits.Add(salesUnit);
+                            unitsGroup.Units.Add(unit);
                             addFlag = false;
                             break;
                         }
                     }
 
-                    if (addFlag) result.Add(new SalesUnitsGroup(new[] {salesUnit}));
+                    if (addFlag) result.Add(new UnitsGroup(new[] {unit}));
                 }
                 return result;
             }

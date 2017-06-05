@@ -14,7 +14,7 @@ namespace HVTApp.Model.POCOs
         public DateTime? DateNotice { get; set; }
         public virtual List<Company> Participants { get; set; } = new List<Company>(); //участники
         public virtual Company Winner { get; set; }
-        public virtual List<TenderUnit> TenderUnits { get; set; } = new List<TenderUnit>();
+        public virtual List<TendersUnit> TendersUnits { get; set; } = new List<TendersUnit>();
         public virtual List<Offer> Offers { get; set; } = new List<Offer>();
     }
 
@@ -35,13 +35,6 @@ namespace HVTApp.Model.POCOs
         ToWork,
         ToSupply,
         ToWorkAndSupply
-    }
-
-    public class TenderUnit : BaseEntity
-    {
-        public virtual Tender Tender { get; set; }
-        public virtual SalesUnit ParentSalesUnit { get; set; }
-        public virtual SalesUnit ChildSalesUnit { get; set; }
     }
 
 }

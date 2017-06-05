@@ -13,6 +13,6 @@ namespace HVTApp.Model.POCOs
         /// </summary>
         public virtual DateTime? OpenOrderDate { get; set; }
 
-        public virtual List<ProductionUnit> ProductionProductUnits { get; set; }
+        public virtual List<ProductionsUnit> ProductionProductUnits { get; set; }
     }
 }

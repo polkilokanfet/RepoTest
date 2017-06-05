@@ -13,7 +13,9 @@ namespace HVTApp.Model.Wrappers
     public SumAndVatWrapper(SumAndVat model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
+
     #region SimpleProperties
+
     public System.Double Sum
     {
       get { return GetValue<System.Double>(); }
@@ -21,6 +23,7 @@ namespace HVTApp.Model.Wrappers
     }
     public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
     public bool SumIsChanged => GetIsChanged(nameof(Sum));
+
 
     public System.Double Vat
     {
@@ -30,6 +33,7 @@ namespace HVTApp.Model.Wrappers
     public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
     public bool VatIsChanged => GetIsChanged(nameof(Vat));
 
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -38,9 +42,12 @@ namespace HVTApp.Model.Wrappers
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
 
+
     #region ComplexProperties
+
 	public CurrencyWrapper Currency 
     {
         get { return GetComplexProperty<CurrencyWrapper, Currency>(Model.Currency); }
@@ -50,10 +57,15 @@ namespace HVTApp.Model.Wrappers
     public CurrencyWrapper CurrencyOriginalValue { get; private set; }
     public bool CurrencyIsChanged => GetIsChanged(nameof(Currency));
 
+
     #endregion
+
     protected override void InitializeComplexProperties(SumAndVat model)
     {
+
         Currency = GetWrapper<CurrencyWrapper, Currency>(model.Currency);
+
     }
+
   }
 }

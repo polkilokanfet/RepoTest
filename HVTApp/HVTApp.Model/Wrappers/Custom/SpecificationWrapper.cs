@@ -6,7 +6,7 @@ namespace HVTApp.Model.Wrappers
 {
     public partial class SpecificationWrapper
     {
-        public double Sum => SalesUnits.Sum(x => x.CostTotal.Sum);
+        public double Sum => SalesUnits.Sum(x => x.Cost.Sum);
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

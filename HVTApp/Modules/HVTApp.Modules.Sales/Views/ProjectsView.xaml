@@ -16,11 +16,11 @@
                         <infg:Field Name="Name" Label="Название проекта"/>
                         <infg:Field Name="Sum" Label="Сумма проекта без НДС, руб."/>
 
-                        <infg:Field Name="SalesUnitsGroups" IsExpandable="True" IsPrimary="True"/>
+                        <infg:Field Name="UnitsGroups" IsExpandable="True" IsPrimary="True"/>
                     </infg:FieldLayout.Fields>
                 </infg:FieldLayout>
 
-                <infg:FieldLayout Key="SalesUnitsGroup" ParentFieldLayoutKey="Project" ParentFieldName="SalesUnitsGroups">
+                <infg:FieldLayout Key="UnitsGroup" ParentFieldLayoutKey="Project" ParentFieldName="UnitsGroups">
                     <infg:FieldLayout.Fields>
                         <infg:TextField Name="ProductName" Label="Обозначение"/>
                         <infg:NumericField Name="Count" Label="Количество"/>

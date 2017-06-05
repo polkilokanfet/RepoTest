@@ -16,28 +16,30 @@ namespace HVTApp.Model.Tests
         {
             Product product = new Product();
             product.Prices.Add(new SumOnDate {Date = DateTime.Today, Sum = 50 });
-            ProductionUnit productionUnit = new ProductionUnit {Product = product};
-            ShipmentUnit shipmentUnit = new ShipmentUnit {ExpectedDeliveryPeriod = 5};
+            SalesUnit salesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 100, Vat = 10 }};
+            ProductionsUnit productionsUnit = new ProductionsUnit {Product = product};
+            ShipmentsUnit shipmentsUnit = new ShipmentsUnit {ExpectedDeliveryPeriod = 5};
 
             Project project = new Project {EstimatedDate = DateTime.Today.AddDays(120)};
 
-            var unit = new SalesUnit
+            var unit = new Unit
             {
-                CostSingle = new SumAndVat { Sum = 100, Vat = 10 },
-                ProductionUnit = productionUnit,
-                ShipmentUnit = shipmentUnit,
+                SalesUnit = salesUnit,
+                ProductionsUnit = productionsUnit,
+                ShipmentsUnit = shipmentsUnit,
                 Project = project
             };
-            unit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 30, DaysToPoint = -2, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
-            unit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 10, DaysToPoint = 20, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
-            unit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 20, DaysToPoint = 20, PaymentConditionPoint = PaymentConditionPoint.ProductionEnd });
-            unit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 15, DaysToPoint = -2, PaymentConditionPoint = PaymentConditionPoint.Shipment });
-            unit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 25, DaysToPoint = 25, PaymentConditionPoint = PaymentConditionPoint.Delivery });
+            salesUnit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 30, DaysToPoint = -2, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
+            salesUnit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 10, DaysToPoint = 20, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
+            salesUnit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 20, DaysToPoint = 20, PaymentConditionPoint = PaymentConditionPoint.ProductionEnd });
+            salesUnit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 15, DaysToPoint = -2, PaymentConditionPoint = PaymentConditionPoint.Shipment });
+            salesUnit.PaymentsConditions.Add(new PaymentCondition { PartInPercent = 25, DaysToPoint = 25, PaymentConditionPoint = PaymentConditionPoint.Delivery });
 
-            productionUnit.SalesUnit = unit;
-            shipmentUnit.SalesUnit = unit;
+            salesUnit.Unit = unit;
+            productionsUnit.Unit = unit;
+            shipmentsUnit.Unit = unit;
 
-            _salesUnitWrapper = new SalesUnitWrapper(unit);
+            _salesUnitWrapper = new SalesUnitWrapper(unit.SalesUnit);
         }
 
         [TestMethod]
@@ -47,7 +49,7 @@ namespace HVTApp.Model.Tests
 
             //проверка соответствия плановых платежей и платежей по условиям контракта
 
-            var cost = _salesUnitWrapper.CostSingle.Sum;
+            var cost = _salesUnitWrapper.Cost.Sum;
 
             Assert.AreEqual(_salesUnitWrapper.PaymentsPlanned.Count, _salesUnitWrapper.PaymentsConditions.Count); //количество плановых и фактических платежей совпадает
             Assert.IsTrue(Math.Abs(cost - _salesUnitWrapper.PaymentsPlanned.Sum(x => x.SumAndVat.Sum)) < 0.0001);
@@ -83,7 +85,7 @@ namespace HVTApp.Model.Tests
         {
             _salesUnitWrapper.MarginalIncomeDate = DateTime.Today;
 
-            double cost = _salesUnitWrapper.CostSingle.Sum;
+            double cost = _salesUnitWrapper.Cost.Sum;
             double md = _salesUnitWrapper.MarginalIncomeSingle;
 
             Assert.IsTrue(Math.Abs(_salesUnitWrapper.MarginalIncomeInPercentSingle - md / cost * 100) < 0.0001);

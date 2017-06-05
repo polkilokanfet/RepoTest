@@ -3,7 +3,7 @@ using HVTApp.Model.Services;
 
 namespace HVTApp.Model.Wrappers
 {
-    public partial class ShipmentUnitWrapper
+    public partial class ShipmentsUnitWrapper
     {
         public DateTime ShipmentDateCalculated
         {
@@ -15,27 +15,27 @@ namespace HVTApp.Model.Wrappers
                 //по плановой дате отгрузки
                 if (ShipmentPlanDate.HasValue)
                 {
-                    if (SalesUnit.ShippingConditionsDoneDate.HasValue )
+                    if (Unit.SalesUnit.ShippingConditionsDoneDate.HasValue )
                     {
-                        if (ShipmentPlanDate.Value >= SalesUnit.ShippingConditionsDoneDate &&
-                            ShipmentPlanDate.Value >= SalesUnit.ProductionUnit.ProductionEndDateCalculated)
+                        if (ShipmentPlanDate.Value >= Unit.SalesUnit.ShippingConditionsDoneDate &&
+                            ShipmentPlanDate.Value >= Unit.ProductionsUnit.ProductionEndDateCalculated)
                             return ShipmentPlanDate.Value;
                     }
                     else
                     {
-                        if (ShipmentPlanDate.Value >= SalesUnit.ProductionUnit.ProductionEndDateCalculated)
+                        if (ShipmentPlanDate.Value >= Unit.ProductionsUnit.ProductionEndDateCalculated)
                             return ShipmentPlanDate.Value;
                     }
                     
                 }
 
                 //по дате исполнения условий для отгрузки
-                if (SalesUnit.ShippingConditionsDoneDate.HasValue && 
-                    SalesUnit.ShippingConditionsDoneDate >= SalesUnit.ProductionUnit.ProductionEndDateCalculated)
-                    return SalesUnit.ShippingConditionsDoneDate.Value.GetTodayIfDateFromPastAndSkipWeekend();
+                if (Unit.SalesUnit.ShippingConditionsDoneDate.HasValue && 
+                    Unit.SalesUnit.ShippingConditionsDoneDate >= Unit.ProductionsUnit.ProductionEndDateCalculated)
+                    return Unit.SalesUnit.ShippingConditionsDoneDate.Value.GetTodayIfDateFromPastAndSkipWeekend();
 
                 //по дате окончания производства
-                return SalesUnit.ProductionUnit.ProductionEndDateCalculated.GetTodayIfDateFromPastAndSkipWeekend();
+                return Unit.ProductionsUnit.ProductionEndDateCalculated.GetTodayIfDateFromPastAndSkipWeekend();
             }
         }
 

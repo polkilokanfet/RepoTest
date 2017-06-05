@@ -11,22 +11,22 @@ namespace HVTApp.Model.Tests
     public class ProjectTests
     {
         [TestMethod]
-        public void ProjectSalesUnitsGroups()
+        public void ProjectUnitsGroups()
         {
             Parameter p1 = new Parameter();
             Parameter p2 = new Parameter();
 
-            SalesUnit su10 = new SalesUnit { ProductionUnit = new ProductionUnit { Product = new Product { Parameters = new List<Parameter>(new[] { p1 }) } }, CostSingle = new SumAndVat() };
-            SalesUnit su11 = new SalesUnit { ProductionUnit = new ProductionUnit { Product = new Product { Parameters = new List<Parameter>(new[] { p1 }) } }, CostSingle = new SumAndVat() };
-            SalesUnit su12 = new SalesUnit { ProductionUnit = new ProductionUnit { Product = new Product { Parameters = new List<Parameter>(new[] { p1 }) } }, CostSingle = new SumAndVat() };
-            SalesUnit su20 = new SalesUnit { ProductionUnit = new ProductionUnit { Product = new Product { Parameters = new List<Parameter>(new[] { p2 }) } }, CostSingle = new SumAndVat() };
-            SalesUnit su21 = new SalesUnit { ProductionUnit = new ProductionUnit { Product = new Product { Parameters = new List<Parameter>(new[] { p2 }) } }, CostSingle = new SumAndVat() };
+            Unit su10 = new Unit { ProductionsUnit = new ProductionsUnit { Product = new Product { Parameters = new List<Parameter>(new[] { p1 }) } }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
+            Unit su11 = new Unit { ProductionsUnit = new ProductionsUnit { Product = new Product { Parameters = new List<Parameter>(new[] { p1 }) } }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
+            Unit su12 = new Unit { ProductionsUnit = new ProductionsUnit { Product = new Product { Parameters = new List<Parameter>(new[] { p1 }) } }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
+            Unit su20 = new Unit { ProductionsUnit = new ProductionsUnit { Product = new Product { Parameters = new List<Parameter>(new[] { p2 }) } }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
+            Unit su21 = new Unit { ProductionsUnit = new ProductionsUnit { Product = new Product { Parameters = new List<Parameter>(new[] { p2}) } }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
 
-            Project project = new Project() {SalesUnits = new List<SalesUnit>(new []{su10, su11, su12, su20, su21})};
+            Project project = new Project {Units = new List<Unit>(new[] {su10, su11, su12, su20, su21})};
             ProjectWrapper projectWrapper = new ProjectWrapper(project);
 
-            Assert.AreEqual(projectWrapper.SalesUnitsGroups.Count, 2);
-            Assert.AreEqual(projectWrapper.SalesUnitsGroups.First().SalesUnits.Count, 3);
+            Assert.AreEqual(projectWrapper.UnitsGroups.Count, 2);
+            Assert.AreEqual(projectWrapper.UnitsGroups.First().Units.Count, 3);
         }
     }
 }

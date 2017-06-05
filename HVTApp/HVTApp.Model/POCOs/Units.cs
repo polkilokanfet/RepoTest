@@ -4,22 +4,25 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class SalesUnit : BaseEntity
+    public class Unit : BaseEntity
     {
-        public virtual SalesUnit ParentSalesUnit { get; set; }
-        public virtual List<SalesUnit> ChildSalesUnits { get; set; } = new List<SalesUnit>();
-
-        public virtual List<TenderUnit> TenderUnits { get; set; } = new List<TenderUnit>();
-        public virtual List<OfferUnit> OfferUnits { get; set; } = new List<OfferUnit>();
-
         public virtual Project Project { get; set; }
         public virtual Facility Facility { get; set; }
+
+        public ProductionsUnit ProductionsUnit { get; set; }
+        public SalesUnit SalesUnit { get; set; }
+        public ShipmentsUnit ShipmentsUnit { get; set; }
+
+        public virtual List<TendersUnit> TendersUnits { get; set; } = new List<TendersUnit>();
+        public virtual List<OffersUnit> OffersUnits { get; set; } = new List<OffersUnit>();
+    }
+
+    public class SalesUnit : BaseEntity
+    {
+        public virtual Unit Unit { get; set; }
+
+        public virtual SumAndVat Cost { get; set; }
         public virtual Specification Specification { get; set; }
-
-        public virtual SumAndVat CostSingle { get; set; }
-
-        public virtual ProductionUnit ProductionUnit { get; set; }
-        public virtual ShipmentUnit ShipmentUnit { get; set; }
 
         public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
         public virtual List<PaymentPlan> PaymentsPlanned { get; set; } = new List<PaymentPlan>();
@@ -28,29 +31,58 @@ namespace HVTApp.Model.POCOs
         public DateTime? RealizationDate { get; set; }
     }
 
-    public class ProductionUnit : BaseEntity
+    public class ProductionsUnit : BaseEntity
     {
+        public virtual Unit Unit { get; set; }
+
         public int PlannedProductionTerm { get; set; } = 120;
         public int PlanedTermFromPickToEndProductionEnd { get; set; } = 7;
+
         public virtual Product Product { get; set; }
-        public virtual SalesUnit SalesUnit { get; set; }
+
         public virtual Order Order { get; set; }
+        public int OrderPosition { get; set; } //порядковый номер в заказе
+        public string SerialNumber { get; set; } //заводской номер изделия
+
         public DateTime? StartProductionDate { get; set; }
         public DateTime? PickingDate { get; set; } //дата комплектации
         public DateTime? EndProductionDate { get; set; }
-        public int OrderPosition { get; set; } //порядковый номер в заказе
-        public string SerialNumber { get; set; } //заводской номер изделия
+
     }
 
-    public class ShipmentUnit : BaseEntity
+    public class ShipmentsUnit : BaseEntity
     {
+        public virtual Unit Unit { get; set; }
+
         public int? ExpectedDeliveryPeriod { get; set; }
         public virtual Address Address { get; set; }
-        public virtual SalesUnit SalesUnit { get; set; }
         public virtual double ShipmentCost { get; set; }
         public virtual DateTime? ShipmentDate { get; set; } //дата отгрузки
         public virtual DateTime? ShipmentPlanDate { get; set; } //плановая дата отгрузки
         public virtual DateTime? RequiredDeliveryDate { get; set; } //желаемая дата поставки
         public virtual DateTime? DeliveryDate { get; set; } //дата поставки
     }
+
+    public class OffersUnit : BaseEntity
+    {
+        public virtual Unit Unit { get; set; }
+
+        public virtual Offer Offer { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual SumAndVat Cost { get; set; }
+
+        public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
+    }
+
+    public class TendersUnit : BaseEntity
+    {
+        public virtual Unit Unit { get; set; }
+
+        public virtual Tender Tender { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual SumAndVat Cost { get; set; }
+
+        public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
+    }
+
 }
