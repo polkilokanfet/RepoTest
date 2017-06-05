@@ -81,6 +81,95 @@ namespace HVTApp.DataAccess
 
             #endregion
 
+            #region Units
+
+            //modelBuilder.Entity<Unit>().HasKey(x => x.Id).ToTable(nameof(Unit));
+            //modelBuilder.Entity<ProjectsUnit>().HasKey(x => x.Id).ToTable(nameof(Unit));
+            //modelBuilder.Entity<ProductionsUnit>().HasKey(x => x.Id).ToTable(nameof(Unit));
+            //modelBuilder.Entity<SalesUnit>().HasKey(x => x.Id).ToTable(nameof(Unit));
+            //modelBuilder.Entity<ShipmentsUnit>().HasKey(x => x.Id).ToTable(nameof(Unit));
+
+            #region Unit
+
+            modelBuilder.Entity<Unit>().HasRequired(x => x.Facility).WithMany();
+            modelBuilder.Entity<Unit>().HasRequired(x => x.Project).WithMany(x => x.Units);
+
+            //modelBuilder.Entity<Unit>().HasRequired(x => x.SalesUnit).WithRequiredPrincipal(x => x.Unit);
+            //modelBuilder.Entity<Unit>().HasRequired(x => x.ProductionsUnit).WithRequiredPrincipal(x => x.Unit);
+            //modelBuilder.Entity<Unit>().HasRequired(x => x.ShipmentsUnit).WithRequiredPrincipal(x => x.Unit);
+
+            //modelBuilder.Entity<Unit>().HasMany(x => x.TendersUnits).WithRequired(x => x.Unit).WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Unit>().HasMany(x => x.OffersUnits).WithRequired(x => x.Unit).WillCascadeOnDelete(false);
+
+            #endregion
+
+            #region ProjectsUnit
+
+            modelBuilder.Entity<ProjectsUnit>().HasRequired(x => x.Unit).WithRequiredDependent(x => x.ProjectsUnit);
+            modelBuilder.Entity<ProjectsUnit>().HasRequired(x => x.Product).WithMany();
+            modelBuilder.Entity<ProjectsUnit>().HasRequired(x => x.Cost);
+
+            #endregion
+
+            #region SalesUnit
+
+            modelBuilder.Entity<SalesUnit>().HasRequired(x => x.Unit).WithOptional(x => x.SalesUnit);
+            modelBuilder.Entity<SalesUnit>().HasRequired(x => x.Cost);
+            modelBuilder.Entity<SalesUnit>().HasOptional(x => x.Specification).WithMany(x => x.SalesUnits);
+            modelBuilder.Entity<SalesUnit>().HasMany(x => x.PaymentsActual).WithRequired(x => x.SalesUnit);
+            modelBuilder.Entity<SalesUnit>().HasMany(x => x.PaymentsPlanned).WithRequired(x => x.SalesUnit);
+
+            #endregion
+
+            #region ProductionsUnit
+
+            modelBuilder.Entity<ProductionsUnit>().HasRequired(x => x.Unit).WithOptional(x => x.ProductionsUnit);
+            modelBuilder.Entity<ProductionsUnit>().HasRequired(x => x.Product).WithMany();
+            modelBuilder.Entity<ProductionsUnit>().HasOptional(x => x.Order).WithMany(x => x.ProductionsUnits);
+
+            #endregion
+
+            #region ShipmentsUnit
+
+            modelBuilder.Entity<ShipmentsUnit>().HasRequired(x => x.Unit).WithOptional(x => x.ShipmentsUnit);
+            modelBuilder.Entity<ShipmentsUnit>().HasRequired(x => x.Cost);
+            modelBuilder.Entity<ShipmentsUnit>().HasRequired(x => x.Address).WithMany();
+
+            #endregion
+
+            #region TendersUnit
+
+            modelBuilder.Entity<TendersUnit>().HasRequired(x => x.Unit).WithMany(x => x.TendersUnits);
+            modelBuilder.Entity<TendersUnit>().HasRequired(x => x.Tender).WithMany(x => x.TendersUnits);
+            modelBuilder.Entity<TendersUnit>().HasRequired(x => x.Product).WithMany();
+            modelBuilder.Entity<TendersUnit>().HasRequired(x => x.Cost);
+            modelBuilder.Entity<TendersUnit>().HasOptional(x => x.ProducerWinner).WithMany();
+            
+            #endregion
+
+            #region OffersUnit
+
+            modelBuilder.Entity<OffersUnit>().HasRequired(x => x.Unit).WithMany(x => x.OffersUnits);
+            modelBuilder.Entity<OffersUnit>().HasRequired(x => x.Offer).WithMany(x => x.OfferUnits);
+            modelBuilder.Entity<OffersUnit>().HasRequired(x => x.Product).WithMany();
+            modelBuilder.Entity<OffersUnit>().HasRequired(x => x.Cost);            
+
+            #endregion
+
+            #endregion
+
+            #region Tender
+
+            modelBuilder.Entity<Tender>().HasRequired(x => x.Type).WithMany();
+            modelBuilder.Entity<Tender>().HasRequired(x => x.Project).WithMany(x => x.Tenders);
+            modelBuilder.Entity<Tender>().HasRequired(x => x.Sum).WithOptional();
+            modelBuilder.Entity<Tender>().HasMany(x => x.Offers).WithRequired(x => x.Tender);
+            modelBuilder.Entity<Tender>().HasMany(x => x.TendersUnits).WithRequired(x => x.Tender);
+            modelBuilder.Entity<Tender>().HasMany(x => x.Participants).WithMany();
+            modelBuilder.Entity<Tender>().HasOptional(x => x.Winner).WithMany();
+
+            #endregion
+
             #region Offer
 
             modelBuilder.Entity<Offer>().Property(x => x.ValidityDate).IsRequired();
@@ -88,56 +177,9 @@ namespace HVTApp.DataAccess
             modelBuilder.Entity<Offer>().HasRequired(x => x.Tender).WithMany(x => x.Offers);
             modelBuilder.Entity<Offer>().HasMany(x => x.OfferUnits).WithRequired(x => x.Offer);
 
-            modelBuilder.Entity<OffersUnit>().HasRequired(x => x.Offer).WithMany(x => x.OfferUnits);
-            modelBuilder.Entity<OffersUnit>().HasRequired(x => x.Unit).WithMany(x => x.OffersUnits);
-            modelBuilder.Entity<OffersUnit>().HasRequired(x => x.Product);
-            modelBuilder.Entity<OffersUnit>().HasRequired(x => x.Cost);
             #endregion
 
-            #region Tender
 
-            modelBuilder.Entity<Tender>().HasRequired(x => x.Type).WithMany();
-            modelBuilder.Entity<Tender>().HasRequired(x => x.Project).WithMany(x => x.Tenders);
-            modelBuilder.Entity<Tender>().HasMany(x => x.Offers).WithRequired(x => x.Tender);
-            modelBuilder.Entity<Tender>().HasMany(x => x.TendersUnits).WithRequired(x => x.Tender);
-            modelBuilder.Entity<Tender>().HasMany(x => x.Participants).WithMany();
-
-            modelBuilder.Entity<TendersUnit>().HasRequired(x => x.Tender).WithMany(x => x.TendersUnits);
-            modelBuilder.Entity<TendersUnit>().HasRequired(x => x.Unit).WithMany(x => x.TendersUnits);
-            modelBuilder.Entity<TendersUnit>().HasRequired(x => x.Product);
-            modelBuilder.Entity<TendersUnit>().HasRequired(x => x.Cost);
-
-            #endregion
-
-            #region Unit
-
-            modelBuilder.Entity<Unit>().HasRequired(x => x.Facility);
-            modelBuilder.Entity<Unit>().HasRequired(x => x.Project).WithMany(x => x.Units);
-
-            modelBuilder.Entity<Unit>().HasRequired(x => x.SalesUnit).WithRequiredPrincipal(x => x.Unit);
-            modelBuilder.Entity<Unit>().HasRequired(x => x.ProductionsUnit).WithRequiredPrincipal(x => x.Unit);
-            modelBuilder.Entity<Unit>().HasRequired(x => x.ShipmentsUnit).WithRequiredPrincipal(x => x.Unit);
-
-            modelBuilder.Entity<Unit>().HasMany(x => x.TendersUnits).WithRequired(x => x.Unit).WillCascadeOnDelete(false);
-            modelBuilder.Entity<Unit>().HasMany(x => x.OffersUnits).WithRequired(x => x.Unit).WillCascadeOnDelete(false);
-
-            #endregion
-
-            #region SalesUnit
-
-            modelBuilder.Entity<Unit>().HasKey(x => x.Id).ToTable(nameof(Unit));
-            modelBuilder.Entity<SalesUnit>().HasKey(x => x.Id).ToTable(nameof(Unit));
-            modelBuilder.Entity<ProductionsUnit>().HasKey(x => x.Id).ToTable(nameof(Unit));
-            modelBuilder.Entity<ShipmentsUnit>().HasKey(x => x.Id).ToTable(nameof(Unit));
-
-            //modelBuilder.Entity<SalesUnit>().HasRequired(x => x.Unit).WithRequiredDependent(x => x.SalesUnit);
-            modelBuilder.Entity<SalesUnit>().HasRequired(x => x.Cost);
-            modelBuilder.Entity<SalesUnit>().HasOptional(x => x.Specification).WithMany(x => x.SalesUnits);
-
-            modelBuilder.Entity<SalesUnit>().HasMany(x => x.PaymentsActual).WithRequired(x => x.SalesUnit);
-            modelBuilder.Entity<SalesUnit>().HasMany(x => x.PaymentsPlanned).WithRequired(x => x.SalesUnit);
-
-            #endregion
 
             #region Facility
 

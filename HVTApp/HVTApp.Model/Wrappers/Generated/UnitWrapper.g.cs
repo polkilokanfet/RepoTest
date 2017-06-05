@@ -13,9 +13,7 @@ namespace HVTApp.Model.Wrappers
     public UnitWrapper(Unit model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
-
     #region SimpleProperties
-
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -24,12 +22,9 @@ namespace HVTApp.Model.Wrappers
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	public ProjectWrapper Project 
     {
         get { return GetComplexProperty<ProjectWrapper, Project>(Model.Project); }
@@ -38,7 +33,6 @@ namespace HVTApp.Model.Wrappers
 
     public ProjectWrapper ProjectOriginalValue { get; private set; }
     public bool ProjectIsChanged => GetIsChanged(nameof(Project));
-
 
 	public FacilityWrapper Facility 
     {
@@ -49,16 +43,14 @@ namespace HVTApp.Model.Wrappers
     public FacilityWrapper FacilityOriginalValue { get; private set; }
     public bool FacilityIsChanged => GetIsChanged(nameof(Facility));
 
-
-	public ProductionsUnitWrapper ProductionsUnit 
+	public ProjectsUnitWrapper ProjectsUnit 
     {
-        get { return GetComplexProperty<ProductionsUnitWrapper, ProductionsUnit>(Model.ProductionsUnit); }
-        set { SetComplexProperty<ProductionsUnitWrapper, ProductionsUnit>(ProductionsUnit, value); }
+        get { return GetComplexProperty<ProjectsUnitWrapper, ProjectsUnit>(Model.ProjectsUnit); }
+        set { SetComplexProperty<ProjectsUnitWrapper, ProjectsUnit>(ProjectsUnit, value); }
     }
 
-    public ProductionsUnitWrapper ProductionsUnitOriginalValue { get; private set; }
-    public bool ProductionsUnitIsChanged => GetIsChanged(nameof(ProductionsUnit));
-
+    public ProjectsUnitWrapper ProjectsUnitOriginalValue { get; private set; }
+    public bool ProjectsUnitIsChanged => GetIsChanged(nameof(ProjectsUnit));
 
 	public SalesUnitWrapper SalesUnit 
     {
@@ -69,6 +61,14 @@ namespace HVTApp.Model.Wrappers
     public SalesUnitWrapper SalesUnitOriginalValue { get; private set; }
     public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
 
+	public ProductionsUnitWrapper ProductionsUnit 
+    {
+        get { return GetComplexProperty<ProductionsUnitWrapper, ProductionsUnit>(Model.ProductionsUnit); }
+        set { SetComplexProperty<ProductionsUnitWrapper, ProductionsUnit>(ProductionsUnit, value); }
+    }
+
+    public ProductionsUnitWrapper ProductionsUnitOriginalValue { get; private set; }
+    public bool ProductionsUnitIsChanged => GetIsChanged(nameof(ProductionsUnit));
 
 	public ShipmentsUnitWrapper ShipmentsUnit 
     {
@@ -79,50 +79,34 @@ namespace HVTApp.Model.Wrappers
     public ShipmentsUnitWrapper ShipmentsUnitOriginalValue { get; private set; }
     public bool ShipmentsUnitIsChanged => GetIsChanged(nameof(ShipmentsUnit));
 
-
     #endregion
 
-
     #region CollectionProperties
-
     public IValidatableChangeTrackingCollection<TendersUnitWrapper> TendersUnits { get; private set; }
-
 
     public IValidatableChangeTrackingCollection<OffersUnitWrapper> OffersUnits { get; private set; }
 
-
     #endregion
-
     protected override void InitializeComplexProperties(Unit model)
     {
-
         Project = GetWrapper<ProjectWrapper, Project>(model.Project);
-
         Facility = GetWrapper<FacilityWrapper, Facility>(model.Facility);
-
-        ProductionsUnit = GetWrapper<ProductionsUnitWrapper, ProductionsUnit>(model.ProductionsUnit);
-
+        ProjectsUnit = GetWrapper<ProjectsUnitWrapper, ProjectsUnit>(model.ProjectsUnit);
         SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(model.SalesUnit);
-
+        ProductionsUnit = GetWrapper<ProductionsUnitWrapper, ProductionsUnit>(model.ProductionsUnit);
         ShipmentsUnit = GetWrapper<ShipmentsUnitWrapper, ShipmentsUnit>(model.ShipmentsUnit);
-
     }
-
   
     protected override void InitializeCollectionComplexProperties(Unit model)
     {
-
       if (model.TendersUnits == null) throw new ArgumentException("TendersUnits cannot be null");
       TendersUnits = new ValidatableChangeTrackingCollection<TendersUnitWrapper>(model.TendersUnits.Select(e => GetWrapper<TendersUnitWrapper, TendersUnit>(e)));
       RegisterCollection(TendersUnits, model.TendersUnits);
-
 
       if (model.OffersUnits == null) throw new ArgumentException("OffersUnits cannot be null");
       OffersUnits = new ValidatableChangeTrackingCollection<OffersUnitWrapper>(model.OffersUnits.Select(e => GetWrapper<OffersUnitWrapper, OffersUnit>(e)));
       RegisterCollection(OffersUnits, model.OffersUnits);
 
-
     }
-
   }
 }

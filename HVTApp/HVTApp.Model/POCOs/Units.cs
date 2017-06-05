@@ -9,12 +9,20 @@ namespace HVTApp.Model.POCOs
         public virtual Project Project { get; set; }
         public virtual Facility Facility { get; set; }
 
-        public ProductionsUnit ProductionsUnit { get; set; }
-        public SalesUnit SalesUnit { get; set; }
-        public ShipmentsUnit ShipmentsUnit { get; set; }
+        public virtual ProjectsUnit ProjectsUnit { get; set; }
+        public virtual SalesUnit SalesUnit { get; set; }
+        public virtual ProductionsUnit ProductionsUnit { get; set; }
+        public virtual ShipmentsUnit ShipmentsUnit { get; set; }
 
         public virtual List<TendersUnit> TendersUnits { get; set; } = new List<TendersUnit>();
         public virtual List<OffersUnit> OffersUnits { get; set; } = new List<OffersUnit>();
+    }
+
+    public class ProjectsUnit : BaseEntity
+    {
+        public virtual Unit Unit { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual SumAndVat Cost { get; set; }
     }
 
     public class SalesUnit : BaseEntity
@@ -34,15 +42,16 @@ namespace HVTApp.Model.POCOs
     public class ProductionsUnit : BaseEntity
     {
         public virtual Unit Unit { get; set; }
-
-        public int PlannedProductionTerm { get; set; } = 120;
-        public int PlanedTermFromPickToEndProductionEnd { get; set; } = 7;
-
         public virtual Product Product { get; set; }
 
         public virtual Order Order { get; set; }
         public int OrderPosition { get; set; } //порядковый номер в заказе
         public string SerialNumber { get; set; } //заводской номер изделия
+
+
+        public int PlannedProductionTerm { get; set; } = 120;
+        public int PlanedTermFromPickToEndProductionEnd { get; set; } = 7;
+
 
         public DateTime? StartProductionDate { get; set; }
         public DateTime? PickingDate { get; set; } //дата комплектации
@@ -56,7 +65,7 @@ namespace HVTApp.Model.POCOs
 
         public int? ExpectedDeliveryPeriod { get; set; }
         public virtual Address Address { get; set; }
-        public virtual double ShipmentCost { get; set; }
+        public virtual SumAndVat Cost { get; set; }
         public virtual DateTime? ShipmentDate { get; set; } //дата отгрузки
         public virtual DateTime? ShipmentPlanDate { get; set; } //плановая дата отгрузки
         public virtual DateTime? RequiredDeliveryDate { get; set; } //желаемая дата поставки
@@ -81,6 +90,7 @@ namespace HVTApp.Model.POCOs
         public virtual Tender Tender { get; set; }
         public virtual Product Product { get; set; }
         public virtual SumAndVat Cost { get; set; }
+        public virtual Company ProducerWinner { get; set; }
 
         public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
     }

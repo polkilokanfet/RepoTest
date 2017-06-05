@@ -8,7 +8,7 @@ namespace HVTApp.Model.POCOs
     {
         public TenderType Type { get; set; }
         public virtual Project Project { get; set; }
-        public double Sum { get; set; }
+        public virtual SumAndVat Sum { get; set; }
         public DateTime DateOpen { get; set; }
         public DateTime DateClose { get; set; }
         public DateTime? DateNotice { get; set; }

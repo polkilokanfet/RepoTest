@@ -13,9 +13,7 @@ namespace HVTApp.Model.Wrappers
     public TestEntityWrapper(TestEntity model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
-
     #region SimpleProperties
-
     public System.String Name
     {
       get { return GetValue<System.String>(); }
@@ -23,7 +21,6 @@ namespace HVTApp.Model.Wrappers
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
-
 
     public System.Int32 Id
     {
@@ -33,8 +30,6 @@ namespace HVTApp.Model.Wrappers
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
   }
 }

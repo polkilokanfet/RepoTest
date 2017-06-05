@@ -14,9 +14,9 @@ namespace HVTApp.DataAccess.Tests
         //{
         //    ProductMain product = new ProductMain
         //    {
-        //        ShipmentCost = new ShipmentCost
+        //        Cost = new Cost
         //        {
-        //            ShipmentCost = 100,
+        //            Cost = 100,
         //            SumOnDate = 50,
         //            Vat = 20
         //        },
@@ -42,7 +42,7 @@ namespace HVTApp.DataAccess.Tests
         //    product = unitOfWork.ProductsMain.GetAll().Single(x => x.Id == product.Id);
 
         //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.Count, product.PaymentsInfo.PaymentsConditions.Count);
-        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.ToList().ShipmentCost(x => x.ShipmentCost), product.ShipmentCost.CostWithVat);
+        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
 
         //    bool actualPaymentsChange = false;
         //    bool plannedPaymentsReloaded = false;
@@ -51,7 +51,7 @@ namespace HVTApp.DataAccess.Tests
 
         //    PaymentActual paymentActual = new PaymentActual
         //    {
-        //        ShipmentCost = 20,
+        //        Cost = 20,
         //        Date = DateTime.Today
         //    };
         //    product.PaymentsInfo.PaymentsActual.Add(paymentActual);
@@ -60,7 +60,7 @@ namespace HVTApp.DataAccess.Tests
         //    Assert.IsTrue(plannedPaymentsReloaded);
 
         //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.Count, 1);
-        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.ToList().ShipmentCost(x => x.ShipmentCost), product.ShipmentCost.CostWithVat - paymentActual.ShipmentCost);
+        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.ToList().Cost(x => x.Cost), product.Cost.CostWithVat - paymentActual.Cost);
 
         //    actualPaymentsChange = false;
         //    plannedPaymentsReloaded = false;
@@ -70,17 +70,17 @@ namespace HVTApp.DataAccess.Tests
         //    Assert.IsTrue(plannedPaymentsReloaded);
 
         //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.Count, 1);
-        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.ToList().ShipmentCost(x => x.ShipmentCost), product.ShipmentCost.CostWithVat);
+        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
 
         //    plannedPaymentsReloaded = false;
-        //    product.ShipmentCost.ShipmentCost += 10;
+        //    product.Cost.Cost += 10;
         //    Assert.IsTrue(plannedPaymentsReloaded);
-        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.ToList().ShipmentCost(x => x.ShipmentCost), product.ShipmentCost.CostWithVat);
+        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
 
         //    plannedPaymentsReloaded = false;
-        //    product.ShipmentCost.Vat = 0;
+        //    product.Cost.Vat = 0;
         //    Assert.IsTrue(plannedPaymentsReloaded);
-        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.ToList().ShipmentCost(x => x.ShipmentCost), product.ShipmentCost.CostWithVat);
+        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
 
         //    product.PaymentsInfo.PaymentsConditions.Clear();
         //    PaymentCondition condition1 = new PaymentCondition

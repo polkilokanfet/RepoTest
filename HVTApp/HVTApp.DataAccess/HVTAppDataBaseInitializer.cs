@@ -98,24 +98,23 @@ namespace HVTApp.DataAccess
                 Project = project1,
 
                 ProductionsUnit = new ProductionsUnit { Product = veb110, OrderPosition = 1, SerialNumber = "3651" },
-                ShipmentsUnit = new ShipmentsUnit { ShipmentCost = 100 },
+                ShipmentsUnit = new ShipmentsUnit { Cost = new SumAndVat {Sum = 100, Vat = 18}, Address = address},
                 SalesUnit = new SalesUnit { Specification = specification, Cost = new SumAndVat { Sum = 1000, Vat = 18 } },
             };
 
             Unit unitVeb1102 = new Unit
             {
-                Facility = stationSverdlovskaya,
-                Project = project2,
+                Facility = stationSverdlovskaya, Project = project2,
 
                 ProductionsUnit = new ProductionsUnit { Product = veb110, OrderPosition = 1, SerialNumber = "3651" },
-                ShipmentsUnit = new ShipmentsUnit { ShipmentCost = 100 },
+                ShipmentsUnit = new ShipmentsUnit { Cost = new SumAndVat { Sum = 100, Vat = 18}, Address = address },
                 SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 1000, Vat = 18 } },
             };
 
             Unit unitZng1101 = new Unit
             {
                 ProductionsUnit = new ProductionsUnit { Product = zng110, OrderPosition = 1, SerialNumber = "325" },
-                ShipmentsUnit = new ShipmentsUnit { ShipmentCost = 150 },
+                ShipmentsUnit = new ShipmentsUnit { Cost = new SumAndVat { Sum = 150, Vat = 18}, Address = address },
                 SalesUnit = new SalesUnit { Specification = specification, Cost = new SumAndVat { Sum = 500, Vat = 18 } },
 
                 Facility = substationPervaya, Project = project1
@@ -124,7 +123,7 @@ namespace HVTApp.DataAccess
             Unit unitZng1102 = new Unit
             {
                 ProductionsUnit = new ProductionsUnit { Product = zng110, OrderPosition = 1, SerialNumber = "325" },
-                ShipmentsUnit = new ShipmentsUnit { ShipmentCost = 150 },
+                ShipmentsUnit = new ShipmentsUnit { Cost = new SumAndVat { Sum = 150, Vat = 18 }, Address = address },
                 SalesUnit = new SalesUnit {Specification = specification, Cost = new SumAndVat { Sum = 500, Vat = 18 } },
 
                 Facility = substationPervaya, Project = project1
@@ -133,7 +132,7 @@ namespace HVTApp.DataAccess
 
 
             TenderType tenderType = new TenderType {Name = "Проектно-изыскательские работы", Type = TenderTypeEnum.ToProject};
-            Tender tender = new Tender { Type = tenderType, Project = project1, Sum = 555, DateOpen = DateTime.Today,
+            Tender tender = new Tender { Type = tenderType, Project = project1, Sum = new SumAndVat { Sum = 545, Vat = 18 }, DateOpen = DateTime.Today,
                 DateClose = DateTime.Today.AddDays(7),
                 TendersUnits = new List<TendersUnit>(project1.Units.Select(x => new TendersUnit {Unit = x}))};
 

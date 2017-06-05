@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-  public partial class OffersUnitWrapper : WrapperBase<OffersUnit>
+  public partial class ProjectsUnitWrapper : WrapperBase<ProjectsUnit>
   {
-    public OffersUnitWrapper() : base(new OffersUnit(), new Dictionary<IBaseEntity, object>()) { }
-    public OffersUnitWrapper(OffersUnit model) : base(model, new Dictionary<IBaseEntity, object>()) { }
-    public OffersUnitWrapper(OffersUnit model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
+    public ProjectsUnitWrapper() : base(new ProjectsUnit(), new Dictionary<IBaseEntity, object>()) { }
+    public ProjectsUnitWrapper(ProjectsUnit model) : base(model, new Dictionary<IBaseEntity, object>()) { }
+    public ProjectsUnitWrapper(ProjectsUnit model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
     #region SimpleProperties
@@ -34,15 +34,6 @@ namespace HVTApp.Model.Wrappers
     public UnitWrapper UnitOriginalValue { get; private set; }
     public bool UnitIsChanged => GetIsChanged(nameof(Unit));
 
-	public OfferWrapper Offer 
-    {
-        get { return GetComplexProperty<OfferWrapper, Offer>(Model.Offer); }
-        set { SetComplexProperty<OfferWrapper, Offer>(Offer, value); }
-    }
-
-    public OfferWrapper OfferOriginalValue { get; private set; }
-    public bool OfferIsChanged => GetIsChanged(nameof(Offer));
-
 	public ProductWrapper Product 
     {
         get { return GetComplexProperty<ProductWrapper, Product>(Model.Product); }
@@ -62,25 +53,11 @@ namespace HVTApp.Model.Wrappers
     public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
     #endregion
-
-    #region CollectionProperties
-    public IValidatableChangeTrackingCollection<PaymentConditionWrapper> PaymentsConditions { get; private set; }
-
-    #endregion
-    protected override void InitializeComplexProperties(OffersUnit model)
+    protected override void InitializeComplexProperties(ProjectsUnit model)
     {
         Unit = GetWrapper<UnitWrapper, Unit>(model.Unit);
-        Offer = GetWrapper<OfferWrapper, Offer>(model.Offer);
         Product = GetWrapper<ProductWrapper, Product>(model.Product);
         Cost = GetWrapper<SumAndVatWrapper, SumAndVat>(model.Cost);
-    }
-  
-    protected override void InitializeCollectionComplexProperties(OffersUnit model)
-    {
-      if (model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
-      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(model.PaymentsConditions.Select(e => GetWrapper<PaymentConditionWrapper, PaymentCondition>(e)));
-      RegisterCollection(PaymentsConditions, model.PaymentsConditions);
-
     }
   }
 }

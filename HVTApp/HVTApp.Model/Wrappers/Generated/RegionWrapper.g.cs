@@ -13,9 +13,7 @@ namespace HVTApp.Model.Wrappers
     public RegionWrapper(Region model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
-
     #region SimpleProperties
-
     public System.String Name
     {
       get { return GetValue<System.String>(); }
@@ -23,7 +21,6 @@ namespace HVTApp.Model.Wrappers
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
-
 
     public System.Int32 Id
     {
@@ -33,12 +30,9 @@ namespace HVTApp.Model.Wrappers
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	public DistrictWrapper District 
     {
         get { return GetComplexProperty<DistrictWrapper, District>(Model.District); }
@@ -47,7 +41,6 @@ namespace HVTApp.Model.Wrappers
 
     public DistrictWrapper DistrictOriginalValue { get; private set; }
     public bool DistrictIsChanged => GetIsChanged(nameof(District));
-
 
 	public LocalityWrapper Capital 
     {
@@ -58,36 +51,24 @@ namespace HVTApp.Model.Wrappers
     public LocalityWrapper CapitalOriginalValue { get; private set; }
     public bool CapitalIsChanged => GetIsChanged(nameof(Capital));
 
-
     #endregion
-
 
     #region CollectionProperties
-
     public IValidatableChangeTrackingCollection<LocalityWrapper> Localities { get; private set; }
 
-
     #endregion
-
     protected override void InitializeComplexProperties(Region model)
     {
-
         District = GetWrapper<DistrictWrapper, District>(model.District);
-
         Capital = GetWrapper<LocalityWrapper, Locality>(model.Capital);
-
     }
-
   
     protected override void InitializeCollectionComplexProperties(Region model)
     {
-
       if (model.Localities == null) throw new ArgumentException("Localities cannot be null");
       Localities = new ValidatableChangeTrackingCollection<LocalityWrapper>(model.Localities.Select(e => GetWrapper<LocalityWrapper, Locality>(e)));
       RegisterCollection(Localities, model.Localities);
 
-
     }
-
   }
 }

@@ -131,6 +131,7 @@
     <Compile Include="Wrappers\Generated\PhysicalQuantityWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ProductionsUnitWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ProductWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\ProjectsUnitWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ProjectWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\RegionWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\RegistrationDetailsWrapper.g.cs" />

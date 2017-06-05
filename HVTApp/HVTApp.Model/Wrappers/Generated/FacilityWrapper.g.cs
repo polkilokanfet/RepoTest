@@ -13,9 +13,7 @@ namespace HVTApp.Model.Wrappers
     public FacilityWrapper(Facility model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
-
     #region SimpleProperties
-
     public System.String Name
     {
       get { return GetValue<System.String>(); }
@@ -23,7 +21,6 @@ namespace HVTApp.Model.Wrappers
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
-
 
     public System.Int32 Id
     {
@@ -33,12 +30,9 @@ namespace HVTApp.Model.Wrappers
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	public FacilityTypeWrapper Type 
     {
         get { return GetComplexProperty<FacilityTypeWrapper, FacilityType>(Model.Type); }
@@ -47,7 +41,6 @@ namespace HVTApp.Model.Wrappers
 
     public FacilityTypeWrapper TypeOriginalValue { get; private set; }
     public bool TypeIsChanged => GetIsChanged(nameof(Type));
-
 
 	public CompanyWrapper OwnerCompany 
     {
@@ -58,7 +51,6 @@ namespace HVTApp.Model.Wrappers
     public CompanyWrapper OwnerCompanyOriginalValue { get; private set; }
     public bool OwnerCompanyIsChanged => GetIsChanged(nameof(OwnerCompany));
 
-
 	public AddressWrapper Address 
     {
         get { return GetComplexProperty<AddressWrapper, Address>(Model.Address); }
@@ -68,19 +60,12 @@ namespace HVTApp.Model.Wrappers
     public AddressWrapper AddressOriginalValue { get; private set; }
     public bool AddressIsChanged => GetIsChanged(nameof(Address));
 
-
     #endregion
-
     protected override void InitializeComplexProperties(Facility model)
     {
-
         Type = GetWrapper<FacilityTypeWrapper, FacilityType>(model.Type);
-
         OwnerCompany = GetWrapper<CompanyWrapper, Company>(model.OwnerCompany);
-
         Address = GetWrapper<AddressWrapper, Address>(model.Address);
-
     }
-
   }
 }
