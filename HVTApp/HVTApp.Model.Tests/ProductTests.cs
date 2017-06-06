@@ -16,8 +16,8 @@ namespace HVTApp.Model.Tests
             SumOnDate price2 = new SumOnDate { Sum = 5, Date = DateTime.Today };
 
             var productParent = new ProductWrapper();
-            productParent.Prices.Add(new SumOnDateWrapper(price1));
-            productParent.Prices.Add(new SumOnDateWrapper(price2));
+            productParent.ProductItem.Prices.Add(new SumOnDateWrapper(price1));
+            productParent.ProductItem.Prices.Add(new SumOnDateWrapper(price2));
             productParent.TotalPriceDate = DateTime.Today;
 
             Assert.IsTrue(Math.Abs(productParent.TotalPrice - price2.Sum) < 0.0001);
@@ -26,10 +26,10 @@ namespace HVTApp.Model.Tests
             SumOnDate price4 = new SumOnDate { Sum = 40, Date = DateTime.Today };
 
             var productChild1 = new ProductWrapper();
-            productChild1.Prices.Add(new SumOnDateWrapper(price3));
+            productChild1.ProductItem.Prices.Add(new SumOnDateWrapper(price3));
 
             var productChild2 = new ProductWrapper();
-            productChild2.Prices.Add(new SumOnDateWrapper(price4));
+            productChild2.ProductItem.Prices.Add(new SumOnDateWrapper(price4));
 
             productParent.ChildProducts.Add(productChild1);
             productParent.ChildProducts.Add(productChild2);
@@ -39,7 +39,7 @@ namespace HVTApp.Model.Tests
 
             SumOnDate price5 = new SumOnDate { Sum = 50, Date = DateTime.Today };
             var productChild3 = new ProductWrapper();
-            productChild3.Prices.Add(new SumOnDateWrapper(price5));
+            productChild3.ProductItem.Prices.Add(new SumOnDateWrapper(price5));
             productChild1.ChildProducts.Add(productChild3);
 
             totalSum += price5.Sum;
@@ -53,13 +53,13 @@ namespace HVTApp.Model.Tests
             Parameter p1 = new Parameter { Value = "p1p" };
             Parameter p2 = new Parameter { Value = "p2p" };
 
-            Product pr1 = new Product();
+            ProductItem pr1 = new ProductItem();
             pr1.Parameters.Add(p1);
-            Product pr2 = new Product();
             pr1.Parameters.Add(p2);
+            ProductItem pr2 = new ProductItem();
 
-            ProductWrapper pr1W = new ProductWrapper(pr1);
-            ProductWrapper pr2W = new ProductWrapper(pr2);
+            ProductItemWrapper pr1W = new ProductItemWrapper(pr1);
+            ProductItemWrapper pr2W = new ProductItemWrapper(pr2);
 
             Assert.IsFalse(pr1W.HasSameParameters(pr2W));
 

@@ -27,7 +27,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Label Content="{Binding Product, Mode=OneWay}"></Label>
+        <Label Content="{Binding ProductItem, Mode=OneWay}"></Label>
         <Button Content="OK" Command="{Binding OkCommand}"/>
     </StackPanel>
 </Window>

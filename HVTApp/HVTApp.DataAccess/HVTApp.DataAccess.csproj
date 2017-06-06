@@ -68,6 +68,7 @@
     <Compile Include="UnitOfWork\Repositories\OffersRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\ParametersGroupsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\ParametersRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\ProductItemsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\ProductsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\ProjectsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\SpecificationsRepository.cs" />

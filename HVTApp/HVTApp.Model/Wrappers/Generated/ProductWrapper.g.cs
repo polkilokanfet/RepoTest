@@ -39,14 +39,14 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public ProductWrapper ParentProduct 
+	public ProductItemWrapper ProductItem 
     {
-        get { return GetComplexProperty<ProductWrapper, Product>(Model.ParentProduct); }
-        set { SetComplexProperty<ProductWrapper, Product>(ParentProduct, value); }
+        get { return GetComplexProperty<ProductItemWrapper, ProductItem>(Model.ProductItem); }
+        set { SetComplexProperty<ProductItemWrapper, ProductItem>(ProductItem, value); }
     }
 
-    public ProductWrapper ParentProductOriginalValue { get; private set; }
-    public bool ParentProductIsChanged => GetIsChanged(nameof(ParentProduct));
+    public ProductItemWrapper ProductItemOriginalValue { get; private set; }
+    public bool ProductItemIsChanged => GetIsChanged(nameof(ProductItem));
 
 
     #endregion
@@ -54,13 +54,7 @@ namespace HVTApp.Model.Wrappers
 
     #region CollectionProperties
 
-    public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
-
-
     public IValidatableChangeTrackingCollection<ProductWrapper> ChildProducts { get; private set; }
-
-
-    public IValidatableChangeTrackingCollection<SumOnDateWrapper> Prices { get; private set; }
 
 
     #endregion
@@ -68,7 +62,7 @@ namespace HVTApp.Model.Wrappers
     protected override void InitializeComplexProperties(Product model)
     {
 
-        ParentProduct = GetWrapper<ProductWrapper, Product>(model.ParentProduct);
+        ProductItem = GetWrapper<ProductItemWrapper, ProductItem>(model.ProductItem);
 
     }
 
@@ -76,19 +70,9 @@ namespace HVTApp.Model.Wrappers
     protected override void InitializeCollectionComplexProperties(Product model)
     {
 
-      if (model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
-      Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(model.Parameters.Select(e => GetWrapper<ParameterWrapper, Parameter>(e)));
-      RegisterCollection(Parameters, model.Parameters);
-
-
       if (model.ChildProducts == null) throw new ArgumentException("ChildProducts cannot be null");
       ChildProducts = new ValidatableChangeTrackingCollection<ProductWrapper>(model.ChildProducts.Select(e => GetWrapper<ProductWrapper, Product>(e)));
       RegisterCollection(ChildProducts, model.ChildProducts);
-
-
-      if (model.Prices == null) throw new ArgumentException("Prices cannot be null");
-      Prices = new ValidatableChangeTrackingCollection<SumOnDateWrapper>(model.Prices.Select(e => GetWrapper<SumOnDateWrapper, SumOnDate>(e)));
-      RegisterCollection(Prices, model.Prices);
 
 
     }

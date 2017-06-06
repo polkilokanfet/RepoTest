@@ -13,31 +13,67 @@ namespace HVTApp.Services.ChooseProductService
     public class ChooseProductServiceRealization : IChooseProductService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly List<ParameterGroupWrapper> _parameterGroups;
+        private readonly List<RequiredProductsChildsWrapper> _requiredProductsChilds; 
 
         public ChooseProductServiceRealization(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+            _parameterGroups = unitOfWork.ParametersGroups.GetAll();
+            _requiredProductsChilds = unitOfWork.RequiredProductsChildses.GetAll();
         }
+
+        private List<ParameterWrapper> ChooseParameters(IEnumerable<ParameterWrapper> requiredParameters = null)
+        {
+            requiredParameters = requiredParameters == null ? new List<ParameterWrapper>() : new List<ParameterWrapper>(requiredParameters);
+
+            var parametersUnions = new List<ParametersUnion>();
+            foreach (var parameterGroup in _parameterGroups)
+            {
+                var intersect = parameterGroup.Parameters.Intersect(requiredParameters).ToList();
+                parametersUnions.Add(intersect.Count == 1
+                    ? new ParametersUnion(intersect)
+                    : new ParametersUnion(parameterGroup.Parameters));
+            }
+            var viewModel = new SelectParametersViewModel(parametersUnions, _unitOfWork);
+
+            SelectParametersWindow window = new SelectParametersWindow { DataContext = viewModel };
+
+            window.ShowDialog();
+
+            return viewModel.SelectedParameters.ToList();
+        }
+
+        private IEnumerable<ParameterWrapper> GetNextChildsProductParameters(List<List<ParameterWrapper>> parameters)
+        {
+            foreach (var requiredProductsChild in _requiredProductsChilds)
+            {
+                if (parameters.Any(p => !requiredProductsChild.MainProductParameters.Except(p).Any())) //если выбран родитель
+                    if (parameters.All(x => requiredProductsChild.ChildProductParameters.Except(x).Any())) //если еще не выбран дочерний продукт
+                        return requiredProductsChild.ChildProductParameters;
+            }
+            return new List<ParameterWrapper>();
+        } 
 
         public Product ChooseProduct(ProductWrapper originProduct = null)
         {
-            SelectParametersWindow window = new SelectParametersWindow();
-            var uops = _unitOfWork.ParametersGroups.GetAll().Select(x => new ParametersUnion(x.Parameters));
-            window.DataContext = new SelectParametersViewModel(uops, _unitOfWork);
+            var nextChildsProductParameters = new List<ParameterWrapper>();
+            var cp = new List<List<ParameterWrapper>>();
+            do
+            {
+                cp.Add(ChooseParameters(nextChildsProductParameters));
+                nextChildsProductParameters = GetNextChildsProductParameters(cp).ToList();
+            } while (nextChildsProductParameters.Any());
 
-            window.ShowDialog();
             return null;
         }
     }
-
-
-
 
     public class SelectParametersViewModel : INotifyPropertyChanged
     {
         public SelectParametersViewModel(IEnumerable<ParametersUnion> parametersUnions, IUnitOfWork unitOfWork)
         {
-            _existsProducts = unitOfWork.Products.GetAll();
+            _existsProductItems = unitOfWork.ProductItems.GetAll();
 
             ParametersUnions = parametersUnions.ToList();
 
@@ -48,24 +84,24 @@ namespace HVTApp.Services.ChooseProductService
             }
         }
 
-        private readonly List<ProductWrapper> _existsProducts; 
+        private readonly List<ProductItemWrapper> _existsProductItems; 
 
         public IEnumerable<ParametersUnion> ParametersUnions { get; }
 
-        public ProductWrapper Product
+        public ProductItemWrapper ProductItem
         {
             get
             {
-                foreach (var product in _existsProducts)
-                    if (!product.Parameters.Except(SelectedParameters).Any())
-                        return product;
+                foreach (var productItem in _existsProductItems)
+                    if (!productItem.Parameters.Except(SelectedParameters).Any())
+                        return productItem;
 
-                var productNew = new Product
+                var productItemNew = new ProductItem()
                 {
                     Designation = "new product",
                     Parameters = new List<Parameter>(SelectedParameters.Select(x => x.Model))
                 };
-                return new ProductWrapper(productNew);
+                return new ProductItemWrapper(productItemNew);
             }
         }
 

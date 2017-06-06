@@ -245,9 +245,12 @@ namespace HVTApp.DataAccess
 
             #region Product
 
+            modelBuilder.Entity<ProductItem>().Property(x => x.Designation).IsRequired().HasMaxLength(100);
+            modelBuilder.Entity<ProductItem>().HasMany(x => x.Parameters).WithMany();
+
             modelBuilder.Entity<Product>().Property(x => x.Designation).IsRequired().HasMaxLength(100);
-            modelBuilder.Entity<Product>().HasOptional(x => x.ParentProduct).WithMany(x => x.ChildProducts).WillCascadeOnDelete(false);
-            modelBuilder.Entity<Product>().HasMany(x => x.Parameters).WithMany();
+            modelBuilder.Entity<Product>().HasRequired(x => x.ProductItem).WithMany();
+            modelBuilder.Entity<Product>().HasMany(x => x.ChildProducts).WithMany();
 
             #endregion
 
@@ -295,6 +298,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<ParameterGroup> ParameterGroups { get; set; }
         public virtual DbSet<Parameter> Parameters { get; set; }
         public virtual DbSet<RequiredProductsChilds> RequiredProductsChildses { get; set; }
+        public virtual DbSet<ProductItem> ProductItems { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Contract> Contracts { get; set; }
         public virtual DbSet<Specification> Specifications { get; set; }

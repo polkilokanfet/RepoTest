@@ -23,7 +23,7 @@ namespace HVTApp.Model.Wrappers
                     bool addFlag = true;
                     foreach (var unitsGroup in result)
                     {
-                        if (unitsGroup.Units.First().ProductionsUnit.Product.HasSameParameters(unit.ProductionsUnit.Product))
+                        if (unitsGroup.Units.First().ProductionsUnit.Product.ProductItem.HasSameParameters(unit.ProductionsUnit.Product.ProductItem))
                         {
                             unitsGroup.Units.Add(unit);
                             addFlag = false;

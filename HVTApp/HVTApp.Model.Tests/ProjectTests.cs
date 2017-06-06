@@ -16,11 +16,11 @@ namespace HVTApp.Model.Tests
             Parameter p1 = new Parameter();
             Parameter p2 = new Parameter();
 
-            Unit su10 = new Unit { ProductionsUnit = new ProductionsUnit { Product = new Product { Parameters = new List<Parameter>(new[] { p1 }) } }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
-            Unit su11 = new Unit { ProductionsUnit = new ProductionsUnit { Product = new Product { Parameters = new List<Parameter>(new[] { p1 }) } }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
-            Unit su12 = new Unit { ProductionsUnit = new ProductionsUnit { Product = new Product { Parameters = new List<Parameter>(new[] { p1 }) } }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
-            Unit su20 = new Unit { ProductionsUnit = new ProductionsUnit { Product = new Product { Parameters = new List<Parameter>(new[] { p2 }) } }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
-            Unit su21 = new Unit { ProductionsUnit = new ProductionsUnit { Product = new Product { Parameters = new List<Parameter>(new[] { p2}) } }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
+            Unit su10 = new Unit { ProductionsUnit = new ProductionsUnit { Product = new Product { ProductItem = new ProductItem { Parameters = new List<Parameter>(new[] { p1 }) } } }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
+            Unit su11 = new Unit { ProductionsUnit = new ProductionsUnit { Product = new Product { ProductItem = new ProductItem { Parameters = new List<Parameter>(new[] { p1 }) } } }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
+            Unit su12 = new Unit { ProductionsUnit = new ProductionsUnit { Product = new Product { ProductItem = new ProductItem { Parameters = new List<Parameter>(new[] { p1 }) } } }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
+            Unit su20 = new Unit { ProductionsUnit = new ProductionsUnit { Product = new Product { ProductItem = new ProductItem { Parameters = new List<Parameter>(new[] { p2 }) } } }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
+            Unit su21 = new Unit { ProductionsUnit = new ProductionsUnit { Product = new Product { ProductItem = new ProductItem { Parameters = new List<Parameter>(new[] { p2 }) } } }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
 
             Project project = new Project {Units = new List<Unit>(new[] {su10, su11, su12, su20, su21})};
             ProjectWrapper projectWrapper = new ProjectWrapper(project);

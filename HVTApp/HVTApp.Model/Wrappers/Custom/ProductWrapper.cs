@@ -53,7 +53,7 @@ namespace HVTApp.Model.Wrappers
 
             double totalPriceSum = 0;
 
-            var prices = Prices.Where(x => (x.Date <= date)).OrderByDescending(x => x.Date);
+            var prices = ProductItem.Prices.Where(x => (x.Date <= date)).OrderByDescending(x => x.Date);
             if (prices.Any())
                 totalPriceSum = prices.First().Sum;
             else
@@ -64,29 +64,5 @@ namespace HVTApp.Model.Wrappers
             return totalPriceSum;
         }
 
-        public bool HasSameParameters(ProductWrapper product)
-        {
-            if (product == null)
-                throw new ArgumentNullException();
-
-            return !this.Parameters.Except(product.Parameters).Any();
-        }
-
-        public string ParametersToString
-        {
-            get
-            {
-                string result = string.Empty;
-                foreach (var parameter in Parameters)
-                    result = $"{result}; {parameter.Group.Name}: {parameter.Value}";
-                return result.Remove(0, 2);
-            }
-        }
-
-        public override string ToString()
-        {
-            if (!String.IsNullOrEmpty(Designation)) return Designation;
-            return ParametersToString;
-        }
     }
 }
