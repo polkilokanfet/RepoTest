@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Model;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
@@ -12,6 +13,7 @@ namespace HVTApp.DataAccess
     public interface ICompanyFormsRepository : IRepository<CompanyFormWrapper> { }
     public interface IParametersGroupsRepository : IRepository<ParameterGroupWrapper> { }
     public interface IParametersRepository : IRepository<ParameterWrapper> { }
+    public interface IRequiredProductsChildsesRepository : IRepository<RequiredProductsChildsWrapper> { }
     public interface IProductsRepository : IRepository<ProductWrapper>
     {
         ProductWrapper Find(IEnumerable<ParameterWrapper> parameters);

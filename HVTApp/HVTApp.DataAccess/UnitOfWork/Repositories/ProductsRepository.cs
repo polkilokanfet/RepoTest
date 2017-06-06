@@ -20,4 +20,11 @@ namespace HVTApp.DataAccess
             return new ProductWrapper(new Product(), WrappersRepository);
         }
     }
+
+    public class RequiredProductsChildsesRepository : BaseRepository<RequiredProductsChilds, RequiredProductsChildsWrapper>, IRequiredProductsChildsesRepository
+    {
+        public RequiredProductsChildsesRepository(DbContext context, Dictionary<IBaseEntity, object> wrappersRepository) : base(context, wrappersRepository)
+        {
+        }
+    }
 }

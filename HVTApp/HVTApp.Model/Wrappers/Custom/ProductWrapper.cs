@@ -56,6 +56,8 @@ namespace HVTApp.Model.Wrappers
             var prices = Prices.Where(x => (x.Date <= date)).OrderByDescending(x => x.Date);
             if (prices.Any())
                 totalPriceSum = prices.First().Sum;
+            else
+                throw new NullReferenceException();
 
             totalPriceSum += ChildProducts.Sum(child => child.GetTotalPrice(date));
 

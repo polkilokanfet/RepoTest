@@ -19,4 +19,11 @@ namespace HVTApp.Model.POCOs
                 return Designation;
         }
     }
+
+    public class RequiredProductsChilds : BaseEntity
+    {
+        public virtual List<Parameter> MainProductParameters { get; set; } = new List<Parameter>();
+        public virtual List<Parameter> ChildProductParameters { get; set; } = new List<Parameter>();
+        public int Count { get; set; }
+    }
 }

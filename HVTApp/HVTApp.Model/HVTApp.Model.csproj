@@ -136,6 +136,7 @@
     <Compile Include="Wrappers\Generated\RegionWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\RegistrationDetailsWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\RequiredParametersWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\RequiredProductsChildsWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\SalesUnitWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ShipmentsUnitWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\SpecificationWrapper.g.cs" />

@@ -294,6 +294,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PaymentConditionStandart> StandartPaymentConditions { get; set; }
         public virtual DbSet<ParameterGroup> ParameterGroups { get; set; }
         public virtual DbSet<Parameter> Parameters { get; set; }
+        public virtual DbSet<RequiredProductsChilds> RequiredProductsChildses { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Contract> Contracts { get; set; }
         public virtual DbSet<Specification> Specifications { get; set; }

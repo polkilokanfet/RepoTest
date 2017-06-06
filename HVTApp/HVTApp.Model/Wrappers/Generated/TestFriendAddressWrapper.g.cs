@@ -13,7 +13,9 @@ namespace HVTApp.Model.Wrappers
     public TestFriendAddressWrapper(TestFriendAddress model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
 
 
+
     #region SimpleProperties
+
     public System.String City
     {
       get { return GetValue<System.String>(); }
@@ -21,6 +23,7 @@ namespace HVTApp.Model.Wrappers
     }
     public System.String CityOriginalValue => GetOriginalValue<System.String>(nameof(City));
     public bool CityIsChanged => GetIsChanged(nameof(City));
+
 
     public System.String Street
     {
@@ -30,6 +33,7 @@ namespace HVTApp.Model.Wrappers
     public System.String StreetOriginalValue => GetOriginalValue<System.String>(nameof(Street));
     public bool StreetIsChanged => GetIsChanged(nameof(Street));
 
+
     public System.String StreetNumber
     {
       get { return GetValue<System.String>(); }
@@ -37,6 +41,7 @@ namespace HVTApp.Model.Wrappers
     }
     public System.String StreetNumberOriginalValue => GetOriginalValue<System.String>(nameof(StreetNumber));
     public bool StreetNumberIsChanged => GetIsChanged(nameof(StreetNumber));
+
 
     public System.Int32 Id
     {
@@ -46,6 +51,8 @@ namespace HVTApp.Model.Wrappers
     public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
+
     #endregion
+
   }
 }

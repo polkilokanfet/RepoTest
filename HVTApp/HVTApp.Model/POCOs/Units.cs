@@ -81,6 +81,7 @@ namespace HVTApp.Model.POCOs
         public virtual SumAndVat Cost { get; set; }
 
         public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
+        public int ProductionTerm { get; set; } //срок производства
     }
 
     public class TendersUnit : BaseEntity
