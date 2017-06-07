@@ -44,12 +44,13 @@ namespace HVTApp.Services.ChooseProductService
             return viewModel.SelectedParameters.ToList();
         }
 
-        private IEnumerable<ParameterWrapper> GetNextChildsProductParameters(List<List<ParameterWrapper>> parameters)
+        private IEnumerable<ParameterWrapper> GetNextChildsProductParameters(IEnumerable<ProductItemWrapper> productItems)
         {
+            var prItems = productItems.ToList();
             foreach (var requiredProductsChild in _requiredProductsChilds)
             {
-                if (parameters.Any(p => !requiredProductsChild.MainProductParameters.Except(p).Any())) //если выбран родитель
-                    if (parameters.All(x => requiredProductsChild.ChildProductParameters.Except(x).Any())) //если еще не выбран дочерний продукт
+                if (prItems.Any(p => !requiredProductsChild.MainProductParameters.Except(p.Parameters).Any())) //если выбран родитель
+                    if (prItems.All(x => requiredProductsChild.ChildProductParameters.Except(x.Parameters).Any())) //если еще не выбран дочерний продукт
                         return requiredProductsChild.ChildProductParameters;
             }
             return new List<ParameterWrapper>();
@@ -57,12 +58,14 @@ namespace HVTApp.Services.ChooseProductService
 
         public Product ChooseProduct(ProductWrapper originProduct = null)
         {
+            List<ProductItemWrapper> productItems = new List<ProductItemWrapper>();
+
             var nextChildsProductParameters = new List<ParameterWrapper>();
-            var cp = new List<List<ParameterWrapper>>();
             do
             {
-                cp.Add(ChooseParameters(nextChildsProductParameters));
-                nextChildsProductParameters = GetNextChildsProductParameters(cp).ToList();
+                var parameters = ChooseParameters(nextChildsProductParameters);
+                productItems.Add(_unitOfWork.ProductItems.GetProductItem(parameters));
+                nextChildsProductParameters = GetNextChildsProductParameters(productItems).ToList();
             } while (nextChildsProductParameters.Any());
 
             return null;
@@ -71,8 +74,12 @@ namespace HVTApp.Services.ChooseProductService
 
     public class SelectParametersViewModel : INotifyPropertyChanged
     {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly List<ProductItemWrapper> _existsProductItems; 
+
         public SelectParametersViewModel(IEnumerable<ParametersUnion> parametersUnions, IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
             _existsProductItems = unitOfWork.ProductItems.GetAll();
 
             ParametersUnions = parametersUnions.ToList();
@@ -84,33 +91,17 @@ namespace HVTApp.Services.ChooseProductService
             }
         }
 
-        private readonly List<ProductItemWrapper> _existsProductItems; 
 
         public IEnumerable<ParametersUnion> ParametersUnions { get; }
 
-        public ProductItemWrapper ProductItem
-        {
-            get
-            {
-                foreach (var productItem in _existsProductItems)
-                    if (!productItem.Parameters.Except(SelectedParameters).Any())
-                        return productItem;
-
-                var productItemNew = new ProductItem()
-                {
-                    Designation = "new product",
-                    Parameters = new List<Parameter>(SelectedParameters.Select(x => x.Model))
-                };
-                return new ProductItemWrapper(productItemNew);
-            }
-        }
+        public ProductItemWrapper ProductItem => _unitOfWork.ProductItems.GetProductItem(SelectedParameters);
 
         private void ParametersUnionOnSelectedParameterChanged(object sender, EventArgs eventArgs)
         {
             foreach (var uop in ParametersUnions)
                 uop.RefreshParametersToSelect(SelectedParameters);
 
-            OnPropertyChanged(nameof(Product));
+            OnPropertyChanged(nameof(ProductItem));
         }
 
         public List<ParameterWrapper> SelectedParameters => 

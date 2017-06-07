@@ -1,4 +1,5 @@
-﻿using HVTApp.Model.Wrappers;
+﻿using System.Collections.Generic;
+using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
 {
@@ -10,7 +11,11 @@ namespace HVTApp.DataAccess
     public interface IParametersGroupsRepository : IRepository<ParameterGroupWrapper> { }
     public interface IParametersRepository : IRepository<ParameterWrapper> { }
     public interface IRequiredProductsChildsesRepository : IRepository<RequiredProductsChildsWrapper> { }
-    public interface IProductItemsRepository : IRepository<ProductItemWrapper> { }
+
+    public interface IProductItemsRepository : IRepository<ProductItemWrapper>
+    {
+        ProductItemWrapper GetProductItem(IEnumerable<ParameterWrapper> parameters);
+    }
     public interface IProductsRepository : IRepository<ProductWrapper> { }
     public interface IFacilityTypesRepository : IRepository<FacilityTypeWrapper> { }
     public interface IFacilitiesRepository : IRepository<FacilityWrapper> { }
