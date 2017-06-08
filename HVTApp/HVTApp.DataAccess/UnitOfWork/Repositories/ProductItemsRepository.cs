@@ -21,11 +21,9 @@ namespace HVTApp.DataAccess
                                                           !prmtrs.Except(x.Parameters).Any());
             if (result != null) return result;
 
-            return new ProductItemWrapper(new ProductItem
-            {
-                Designation = "New ProductItem",
-                Parameters = new List<Parameter>(prmtrs.Select(x => x.Model)) 
-            });
+            result = new ProductItemWrapper(new ProductItem { Parameters = new List<Parameter>(prmtrs.Select(x => x.Model)) });
+            result.Designation = result.ParametersToString;
+            return result;
         }
     }
 }

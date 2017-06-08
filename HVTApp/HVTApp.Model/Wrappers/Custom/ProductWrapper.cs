@@ -8,39 +8,16 @@ namespace HVTApp.Model.Wrappers
     public partial class ProductWrapper
     {
         private DateTime? _totalPriceDate;
-
-        protected override void RunInConstructor()
-        {
-            this.ChildProducts.CollectionChanged += ChildProductsOnCollectionChanged;
-            this.ChildProducts.PropertyChanged += ChildProductsOnPropertyChanged;
-            this.PropertyChanged += OnTotalPriceDateChanged;
-        }
-
-        private void ChildProductsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            OnPropertyChanged(this, nameof(TotalPrice));
-        }
-
-        private void ChildProductsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            OnPropertyChanged(this, nameof(TotalPrice));
-        }
-
-        private void OnTotalPriceDateChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(TotalPriceDate))
-                OnPropertyChanged(this, nameof(TotalPrice));
-        }
-
         public DateTime? TotalPriceDate
         {
             get { return _totalPriceDate; }
             set
             {
-                if (Equals(_totalPriceDate, value))
-                    return;
+                if (Equals(_totalPriceDate, value)) return;
+
                 _totalPriceDate = value;
                 OnPropertyChanged(this, nameof(TotalPriceDate));
+                OnPropertyChanged(this, nameof(TotalPrice));
             }
         }
 
