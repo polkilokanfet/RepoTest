@@ -10,7 +10,7 @@ using Prism.Commands;
 namespace HVTApp.Modules.Infrastructure
 {
     public class BaseListViewModel<TItem, TItemDelailsViewModel, TModel> : EditableSelectableBindableBase<TItem>
-        where TItem : class, IWrapper<TModel>, new() 
+        where TItem : WrapperBase<TModel>, new() 
         where TItemDelailsViewModel : class, IItemDetailsViewModel<TItem, TModel> 
         where TModel : class, IBaseEntity
     {

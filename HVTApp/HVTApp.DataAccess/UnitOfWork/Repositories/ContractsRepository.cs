@@ -7,7 +7,7 @@ using HVTApp.Model.Wrappers;
 namespace HVTApp.DataAccess
 {
     public class ContractsRepository : BaseRepository<Contract, ContractWrapper>, IContractsRepository {
-        public ContractsRepository(DbContext context, Dictionary<IBaseEntity, object> wrappersRepository) : base(context, wrappersRepository)
+        public ContractsRepository(DbContext context, Dictionary<IBaseEntity, IWrapper<IBaseEntity>> wrappersRepository) : base(context, wrappersRepository)
         {
         }
     }

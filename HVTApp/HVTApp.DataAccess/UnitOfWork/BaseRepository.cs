@@ -8,14 +8,14 @@ using HVTApp.Model.Wrappers;
 namespace HVTApp.DataAccess
 {
     public class BaseRepository<TModel, TWrapper> : IRepository<TWrapper>
-        where TWrapper : class, IWrapper<TModel> 
         where TModel : class, IBaseEntity
+        where TWrapper : class, IWrapper<TModel> 
     {
         protected readonly DbContext Context;
 
-        protected readonly Dictionary<IBaseEntity, object> WrappersRepository;
+        protected readonly Dictionary<IBaseEntity, IWrapper<IBaseEntity>> WrappersRepository;
 
-        public BaseRepository(DbContext context, Dictionary<IBaseEntity, object> wrappersRepository)
+        public BaseRepository(DbContext context, Dictionary<IBaseEntity, IWrapper<IBaseEntity>> wrappersRepository)
         {
             Context = context;
 

@@ -9,7 +9,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-    public abstract class WrapperBase<T> : NotifyDataErrorInfoBase, IWrapper<T>
+    public abstract class WrapperBase<T> : NotifyDataErrorInfoBase, IWrapper<T>, IValidatableChangeTracking, IValidatableObject
         where T : class, IBaseEntity
     {
         //уже созданные обертки сущностей
@@ -299,7 +299,7 @@ namespace HVTApp.Model.Wrappers
         /// </summary>
         /// <typeparam name="TModel">Тип модели.</typeparam>
         /// <param name="wrapper">Обертка.</param>
-        protected void UnRegisterComplexProperty<TModel>(IWrapper<TModel> wrapper)
+        protected void UnRegisterComplexProperty<TModel>(WrapperBase<TModel> wrapper)
             where TModel : class, IBaseEntity
         {
             if (wrapper == null) return;
@@ -312,7 +312,7 @@ namespace HVTApp.Model.Wrappers
         /// </summary>
         /// <typeparam name="TModel">Тип модели.</typeparam>
         /// <param name="wrapper">Обертка.</param>
-        protected void RegisterComplexProperty<TModel>(IWrapper<TModel> wrapper)
+        protected void RegisterComplexProperty<TModel>(WrapperBase<TModel> wrapper)
             where TModel : class, IBaseEntity
         {
             if (wrapper == null) return;
@@ -432,7 +432,7 @@ namespace HVTApp.Model.Wrappers
         }
 
         protected void SetComplexProperty<TProp, TModel>(TProp oldValue, TProp newValue, [CallerMemberName] string propertyName = null)
-            where TProp : class, IWrapper<TModel>
+            where TProp : WrapperBase<TModel>
             where TModel : class, IBaseEntity
         {
             if (Equals(oldValue, newValue)) return;
@@ -462,10 +462,4 @@ namespace HVTApp.Model.Wrappers
         }
     }
 
-    public interface IWrapper<TModel> : IValidatableChangeTracking, IValidatableObject
-    where TModel : class, IBaseEntity
-    {
-        TModel Model { get; }
-        bool EqualsModels(IWrapper<TModel> wrapper);
-    }
 }

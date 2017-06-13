@@ -9,7 +9,7 @@ using Prism.Commands;
 namespace HVTApp.Modules.Infrastructure
 {
     public abstract class BaseDetailsViewModel<TWrapper, TModel> : IItemDetailsViewModel<TWrapper, TModel> 
-        where TWrapper : IWrapper<TModel>
+        where TWrapper : WrapperBase<TModel>
         where TModel : class, IBaseEntity 
     {
         protected BaseDetailsViewModel(TWrapper item)

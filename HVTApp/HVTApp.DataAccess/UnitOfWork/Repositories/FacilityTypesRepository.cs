@@ -8,7 +8,7 @@ namespace HVTApp.DataAccess
 {
     public class FacilityTypesRepository : BaseRepository<FacilityType, FacilityTypeWrapper>, IFacilityTypesRepository
     {
-        public FacilityTypesRepository(DbContext context, Dictionary<IBaseEntity, object> wrappersRepository) : base(context, wrappersRepository)
+        public FacilityTypesRepository(DbContext context, Dictionary<IBaseEntity, IWrapper<IBaseEntity>> wrappersRepository) : base(context, wrappersRepository)
         {
         }
     }

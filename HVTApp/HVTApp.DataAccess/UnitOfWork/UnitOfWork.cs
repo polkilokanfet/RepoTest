@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using HVTApp.Infrastructure;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
@@ -8,12 +9,12 @@ namespace HVTApp.DataAccess
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DbContext _context;
-        private readonly Dictionary<IBaseEntity, object> _repository;
+        private readonly Dictionary<IBaseEntity, IWrapper<IBaseEntity>> _repository;
 
         public UnitOfWork(DbContext context)
         {
             _context = context;
-            _repository = new Dictionary<IBaseEntity, object>();
+            _repository = new Dictionary<IBaseEntity, IWrapper<IBaseEntity>>();
 
             FriendGroups = new FriendGroupRepository(context, _repository);
 
@@ -51,7 +52,6 @@ namespace HVTApp.DataAccess
             where TWrapper : IWrapper<TModel>
         {
             _context.Set<TModel>().Add(model);
-            _repository.Add(model, wrapper);
         }
 
         public IActivityFieldsRepository ActivityFields { get; }
