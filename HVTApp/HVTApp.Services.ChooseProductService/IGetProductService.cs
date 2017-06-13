@@ -3,8 +3,8 @@ using HVTApp.Model.Wrappers;
 
 namespace HVTApp.Services.ChooseProductService
 {
-    public interface IChooseProductService
+    public interface IGetProductService
     {
-        ProductWrapper ChooseProduct(ProductWrapper originProduct = null);
+        ProductWrapper GetProduct(ProductWrapper originProduct = null);
     }
 }

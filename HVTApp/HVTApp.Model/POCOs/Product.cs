@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
@@ -8,6 +9,28 @@ namespace HVTApp.Model.POCOs
         public string Designation { get; set; }
         public virtual ProductItem ProductItem { get; set; }
         public virtual List<Product> ChildProducts { get; set; } = new List<Product>();
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Product);
+        }
+
+        protected bool Equals(Product other)
+        {
+            if (other == null) return false;
+
+            return Equals(this.ProductItem, other.ProductItem) && 
+                    !this.ChildProducts.Except(other.ChildProducts).Any() &&
+                    !other.ChildProducts.Except(this.ChildProducts).Any();
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((ProductItem != null ? ProductItem.GetHashCode() : 0)*397) ^ (ChildProducts != null ? ChildProducts.GetHashCode() : 0);
+            }
+        }
     }
 
     public class ProductItem : BaseEntity

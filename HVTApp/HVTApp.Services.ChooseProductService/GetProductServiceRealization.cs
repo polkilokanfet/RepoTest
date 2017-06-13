@@ -10,20 +10,22 @@ using HVTApp.Model.Wrappers;
 
 namespace HVTApp.Services.ChooseProductService
 {
-    public class ChooseProductServiceRealization : IChooseProductService
+    public class GetProductServiceRealization : IGetProductService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly List<ParameterGroupWrapper> _parameterGroups;
+        private readonly List<ProductWrapper> _products; 
         private readonly List<RequiredProductsChildsWrapper> _requiredProductsChilds; 
 
-        public ChooseProductServiceRealization(IUnitOfWork unitOfWork)
+        public GetProductServiceRealization(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _parameterGroups = unitOfWork.ParametersGroups.GetAll();
+            _products = unitOfWork.Products.GetAll();
             _requiredProductsChilds = unitOfWork.RequiredProductsChildses.GetAll();
         }
 
-        private ProductItemWrapper ChooseProductItem(IEnumerable<ParameterWrapper> requiredParameters = null)
+        private ProductItemWrapper GetProductItem(IEnumerable<ParameterWrapper> requiredParameters = null)
         {
             requiredParameters = requiredParameters == null ? new List<ParameterWrapper>() : new List<ParameterWrapper>(requiredParameters);
 
@@ -44,11 +46,11 @@ namespace HVTApp.Services.ChooseProductService
             return viewModel.ProductItem;
         }
 
-        private IEnumerable<RequiredProductsChildsWrapper> GetRequiredProductsChilds(ProductItemWrapper productItem)
+        private IEnumerable<RequiredProductsChildsWrapper> GetRequiredProductsChilds(ProductItem productItem)
         {
             foreach (var requiredProductsChild in _requiredProductsChilds)
             {
-                if (!requiredProductsChild.MainProductParameters.Select(x => x.Model).Except(productItem.Parameters.Select(x => x.Model)).Any())
+                if (!requiredProductsChild.MainProductParameters.Select(x => x.Model).Except(productItem.Parameters).Any())
                     yield return requiredProductsChild;
             }
         }
@@ -56,25 +58,23 @@ namespace HVTApp.Services.ChooseProductService
 
         private ProductWrapper SelectProduct(IEnumerable<ParameterWrapper> requiredParameters = null)
         {
-            ProductWrapper product = new ProductWrapper();
-            product.ProductItem = ChooseProductItem(requiredParameters);
+            Product product = new Product { ProductItem = GetProductItem(requiredParameters).Model };
             foreach (var requiredProductsChildsWrapper in GetRequiredProductsChilds(product.ProductItem))
             {
                 var childProduct = SelectProduct(requiredProductsChildsWrapper.ChildProductParameters);
                 for (int i = 0; i < requiredProductsChildsWrapper.Count; i++)
                 {
-                    product.ChildProducts.Add(childProduct);
+                    product.ChildProducts.Add(childProduct.Model);
                 }
             }
-            return product;
+
+            var result = _products.FirstOrDefault(x => x.Model.Equals(product));
+            return result ?? new ProductWrapper(product);
         }
 
-        public ProductWrapper ChooseProduct(ProductWrapper originProduct = null)
+        public ProductWrapper GetProduct(ProductWrapper originProduct = null)
         {
-            var selectedProduct = SelectProduct();
-            var result = _unitOfWork.Products.GetAll().FirstOrDefault(x => x.EqualsModels(selectedProduct));
-            if (result != null) return result;
-            return selectedProduct;
+            return SelectProduct();
         }
     }
 

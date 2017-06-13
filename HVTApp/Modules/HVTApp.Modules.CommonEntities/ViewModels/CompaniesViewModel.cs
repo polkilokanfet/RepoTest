@@ -14,14 +14,14 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDialogService _dialogService;
         private readonly IUnityContainer _container;
-        private readonly IChooseProductService _chooseProductService;
+        private readonly IGetProductService _getProductService;
 
-        public CompaniesViewModel(IUnitOfWork unitOfWork, IDialogService dialogService, IUnityContainer container, IChooseProductService chooseProductService) : base(unitOfWork, container, dialogService)
+        public CompaniesViewModel(IUnitOfWork unitOfWork, IDialogService dialogService, IUnityContainer container, IGetProductService getProductService) : base(unitOfWork, container, dialogService)
         {
             _unitOfWork = unitOfWork;
             _dialogService = dialogService;
             _container = container;
-            _chooseProductService = chooseProductService;
+            _getProductService = getProductService;
 
             _unitOfWork.Companies.GetAll().ForEach(Items.Add);
 
@@ -34,7 +34,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         protected override void RemoveItemCommand_Execute()
         {
-            _chooseProductService.ChooseProduct();
+            _getProductService.GetProduct();
         }
 
         protected override bool RemoveItemCommand_CanExecute()
