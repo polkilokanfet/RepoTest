@@ -8,9 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class CurrencyWrapper : WrapperBase<Currency>
   {
-    public CurrencyWrapper() : base(new Currency(), new Dictionary<IBaseEntity, object>()) { }
-    public CurrencyWrapper(Currency model) : base(model, new Dictionary<IBaseEntity, object>()) { }
-    public CurrencyWrapper(Currency model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
+    public CurrencyWrapper() : base(new Currency()) { }
+    public CurrencyWrapper(Currency model) : base(model) { }
 
 
 

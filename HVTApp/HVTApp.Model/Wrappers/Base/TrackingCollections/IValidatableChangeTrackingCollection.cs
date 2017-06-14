@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {

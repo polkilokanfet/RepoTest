@@ -8,9 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class PaymentDocumentWrapper : WrapperBase<PaymentDocument>
   {
-    public PaymentDocumentWrapper() : base(new PaymentDocument(), new Dictionary<IBaseEntity, object>()) { }
-    public PaymentDocumentWrapper(PaymentDocument model) : base(model, new Dictionary<IBaseEntity, object>()) { }
-    public PaymentDocumentWrapper(PaymentDocument model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
+    public PaymentDocumentWrapper() : base(new PaymentDocument()) { }
+    public PaymentDocumentWrapper(PaymentDocument model) : base(model) { }
 
 
 

@@ -8,9 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class ActivityFieldWrapper : WrapperBase<ActivityField>
   {
-    public ActivityFieldWrapper() : base(new ActivityField(), new Dictionary<IBaseEntity, object>()) { }
-    public ActivityFieldWrapper(ActivityField model) : base(model, new Dictionary<IBaseEntity, object>()) { }
-    public ActivityFieldWrapper(ActivityField model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
+    public ActivityFieldWrapper() : base(new ActivityField()) { }
+    public ActivityFieldWrapper(ActivityField model) : base(model) { }
 
 
 

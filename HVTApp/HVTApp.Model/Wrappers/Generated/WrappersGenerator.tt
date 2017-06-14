@@ -50,9 +50,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class <#=modelType.Name#>Wrapper : WrapperBase<<#=modelType.Name#>>
   {
-    public <#=modelType.Name#>Wrapper() : base(new <#=modelType.Name#>(), new Dictionary<IBaseEntity, object>()) { }
-    public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model) : base(model, new Dictionary<IBaseEntity, object>()) { }
-    public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
+    public <#=modelType.Name#>Wrapper() : base(new <#=modelType.Name#>()) { }
+    public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model) : base(model) { }
 
 <#
 	GenerateSimpleProperties(simpleSetProperties);

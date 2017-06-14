@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factory\WrappersFactory.cs" />
     <Compile Include="POCOs\Address.cs" />
     <Compile Include="POCOs\BankDetails.cs" />
     <Compile Include="POCOs\Company.cs" />
@@ -76,7 +77,6 @@
     <Compile Include="POCOs\Units.cs" />
     <Compile Include="Wrappers\Base\NotifyDataErrorInfoBase.cs" />
     <Compile Include="Wrappers\Base\Observable.cs" />
-    <Compile Include="Wrappers\Base\TrackingCollections\IValidatableChangeTracking.cs" />
     <Compile Include="Wrappers\Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
     <Compile Include="Wrappers\Base\TrackingCollections\ValidatableChangeTrackingCollection.cs" />
     <Compile Include="Wrappers\Base\WhoRised.cs" />
@@ -187,6 +187,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

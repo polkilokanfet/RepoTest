@@ -8,9 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class ProductionsUnitWrapper : WrapperBase<ProductionsUnit>
   {
-    public ProductionsUnitWrapper() : base(new ProductionsUnit(), new Dictionary<IBaseEntity, object>()) { }
-    public ProductionsUnitWrapper(ProductionsUnit model) : base(model, new Dictionary<IBaseEntity, object>()) { }
-    public ProductionsUnitWrapper(ProductionsUnit model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
+    public ProductionsUnitWrapper() : base(new ProductionsUnit()) { }
+    public ProductionsUnitWrapper(ProductionsUnit model) : base(model) { }
 
 
 

@@ -8,9 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class TestFriendWrapper : WrapperBase<TestFriend>
   {
-    public TestFriendWrapper() : base(new TestFriend(), new Dictionary<IBaseEntity, object>()) { }
-    public TestFriendWrapper(TestFriend model) : base(model, new Dictionary<IBaseEntity, object>()) { }
-    public TestFriendWrapper(TestFriend model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
+    public TestFriendWrapper() : base(new TestFriend()) { }
+    public TestFriendWrapper(TestFriend model) : base(model) { }
 
 
 

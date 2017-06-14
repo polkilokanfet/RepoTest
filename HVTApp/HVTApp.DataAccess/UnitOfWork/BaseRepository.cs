@@ -17,9 +17,9 @@ namespace HVTApp.DataAccess
 
         public BaseRepository(DbContext context, Dictionary<IBaseEntity, IWrapper<IBaseEntity>> wrappersRepository)
         {
-            Context = context;
+            if (context == null || wrappersRepository == null) throw new ArgumentNullException();
 
-            if (wrappersRepository == null) throw new ArgumentNullException();
+            Context = context;
             WrappersRepository = wrappersRepository;
         }
 

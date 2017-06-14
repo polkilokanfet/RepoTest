@@ -8,9 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class RegistrationDetailsWrapper : WrapperBase<RegistrationDetails>
   {
-    public RegistrationDetailsWrapper() : base(new RegistrationDetails(), new Dictionary<IBaseEntity, object>()) { }
-    public RegistrationDetailsWrapper(RegistrationDetails model) : base(model, new Dictionary<IBaseEntity, object>()) { }
-    public RegistrationDetailsWrapper(RegistrationDetails model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
+    public RegistrationDetailsWrapper() : base(new RegistrationDetails()) { }
+    public RegistrationDetailsWrapper(RegistrationDetails model) : base(model) { }
 
 
 

@@ -8,9 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class PhysicalQuantityWrapper : WrapperBase<PhysicalQuantity>
   {
-    public PhysicalQuantityWrapper() : base(new PhysicalQuantity(), new Dictionary<IBaseEntity, object>()) { }
-    public PhysicalQuantityWrapper(PhysicalQuantity model) : base(model, new Dictionary<IBaseEntity, object>()) { }
-    public PhysicalQuantityWrapper(PhysicalQuantity model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
+    public PhysicalQuantityWrapper() : base(new PhysicalQuantity()) { }
+    public PhysicalQuantityWrapper(PhysicalQuantity model) : base(model) { }
 
 
 

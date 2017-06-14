@@ -8,9 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class MeasureWrapper : WrapperBase<Measure>
   {
-    public MeasureWrapper() : base(new Measure(), new Dictionary<IBaseEntity, object>()) { }
-    public MeasureWrapper(Measure model) : base(model, new Dictionary<IBaseEntity, object>()) { }
-    public MeasureWrapper(Measure model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
+    public MeasureWrapper() : base(new Measure()) { }
+    public MeasureWrapper(Measure model) : base(model) { }
 
 
 

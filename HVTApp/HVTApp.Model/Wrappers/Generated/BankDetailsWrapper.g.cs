@@ -8,9 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class BankDetailsWrapper : WrapperBase<BankDetails>
   {
-    public BankDetailsWrapper() : base(new BankDetails(), new Dictionary<IBaseEntity, object>()) { }
-    public BankDetailsWrapper(BankDetails model) : base(model, new Dictionary<IBaseEntity, object>()) { }
-    public BankDetailsWrapper(BankDetails model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
+    public BankDetailsWrapper() : base(new BankDetails()) { }
+    public BankDetailsWrapper(BankDetails model) : base(model) { }
 
 
 

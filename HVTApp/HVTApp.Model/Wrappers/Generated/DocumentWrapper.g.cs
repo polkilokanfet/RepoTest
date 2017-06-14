@@ -8,9 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class DocumentWrapper : WrapperBase<Document>
   {
-    public DocumentWrapper() : base(new Document(), new Dictionary<IBaseEntity, object>()) { }
-    public DocumentWrapper(Document model) : base(model, new Dictionary<IBaseEntity, object>()) { }
-    public DocumentWrapper(Document model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
+    public DocumentWrapper() : base(new Document()) { }
+    public DocumentWrapper(Document model) : base(model) { }
 
 
 

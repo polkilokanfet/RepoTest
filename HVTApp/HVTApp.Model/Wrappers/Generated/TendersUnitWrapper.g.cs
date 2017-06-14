@@ -8,9 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class TendersUnitWrapper : WrapperBase<TendersUnit>
   {
-    public TendersUnitWrapper() : base(new TendersUnit(), new Dictionary<IBaseEntity, object>()) { }
-    public TendersUnitWrapper(TendersUnit model) : base(model, new Dictionary<IBaseEntity, object>()) { }
-    public TendersUnitWrapper(TendersUnit model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
+    public TendersUnitWrapper() : base(new TendersUnit()) { }
+    public TendersUnitWrapper(TendersUnit model) : base(model) { }
 
 
 

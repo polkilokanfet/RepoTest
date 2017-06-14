@@ -12,8 +12,11 @@ namespace HVTApp.Model.POCOs
 
         public override bool Equals(object obj)
         {
-            PaymentCondition other = obj as PaymentCondition;
+            return this.Equals(obj as PaymentCondition);
+        }
 
+        protected bool Equals(PaymentCondition other)
+        {
             if (other == null)
                 return false;
 
@@ -24,6 +27,17 @@ namespace HVTApp.Model.POCOs
                    PartInPercent.Equals(other.PartInPercent) && 
                    DaysToPoint == other.DaysToPoint &&
                    PaymentConditionPoint == other.PaymentConditionPoint;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = PartInPercent.GetHashCode();
+                hashCode = (hashCode*397) ^ DaysToPoint;
+                hashCode = (hashCode*397) ^ (int) PaymentConditionPoint;
+                return hashCode;
+            }
         }
 
         public int CompareTo(PaymentCondition other)

@@ -8,9 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class DistrictWrapper : WrapperBase<District>
   {
-    public DistrictWrapper() : base(new District(), new Dictionary<IBaseEntity, object>()) { }
-    public DistrictWrapper(District model) : base(model, new Dictionary<IBaseEntity, object>()) { }
-    public DistrictWrapper(District model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
+    public DistrictWrapper() : base(new District()) { }
+    public DistrictWrapper(District model) : base(model) { }
 
 
 

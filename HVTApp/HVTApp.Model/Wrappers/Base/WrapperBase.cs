@@ -6,15 +6,13 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using HVTApp.Infrastructure;
+using HVTApp.Model.Factory;
 
 namespace HVTApp.Model.Wrappers
 {
-    public abstract class WrapperBase<T> : NotifyDataErrorInfoBase, IWrapper<T>, IValidatableChangeTracking, IValidatableObject
+    public abstract class WrapperBase<T> : NotifyDataErrorInfoBase, IWrapper<T>
         where T : class, IBaseEntity
     {
-        //уже созданные обертки сущностей
-        private readonly IDictionary<IBaseEntity, object> _existsWrappers;
-
         /// <summary>
         /// Словарь оригинальных значений. В словарь вносятся только те оригинальные значения, которые были изменены.
         /// </summary>
@@ -35,12 +33,9 @@ namespace HVTApp.Model.Wrappers
             return Equals(this.Model, wrapper.Model);
         }
 
-        protected WrapperBase(T model, IDictionary<IBaseEntity, object> existsWrappers)
+        protected WrapperBase(T model)
         {
             if (model == null) throw new ArgumentNullException(nameof(Model));
-
-            _existsWrappers = existsWrappers;
-            _existsWrappers.Add(model, this);
 
             Model = model;
 
@@ -299,7 +294,7 @@ namespace HVTApp.Model.Wrappers
         /// </summary>
         /// <typeparam name="TModel">Тип модели.</typeparam>
         /// <param name="wrapper">Обертка.</param>
-        protected void UnRegisterComplexProperty<TModel>(WrapperBase<TModel> wrapper)
+        protected void UnRegisterComplexProperty<TModel>(IWrapper<TModel> wrapper)
             where TModel : class, IBaseEntity
         {
             if (wrapper == null) return;
@@ -312,7 +307,7 @@ namespace HVTApp.Model.Wrappers
         /// </summary>
         /// <typeparam name="TModel">Тип модели.</typeparam>
         /// <param name="wrapper">Обертка.</param>
-        protected void RegisterComplexProperty<TModel>(WrapperBase<TModel> wrapper)
+        protected void RegisterComplexProperty<TModel>(IWrapper<TModel> wrapper)
             where TModel : class, IBaseEntity
         {
             if (wrapper == null) return;
@@ -372,9 +367,8 @@ namespace HVTApp.Model.Wrappers
         /// <typeparam name="TModel"></typeparam>
         /// <param name="wrapperCollection">коллекция обертки.</param>
         /// <param name="modelCollection">коллекция модели.</param>
-        protected void RegisterCollection<TWrapper, TModel>(
-            IValidatableChangeTrackingCollection<TWrapper> wrapperCollection, ICollection<TModel> modelCollection)
-            where TWrapper : WrapperBase<TModel>
+        protected void RegisterCollection<TWrapper, TModel>(IValidatableChangeTrackingCollection<TWrapper> wrapperCollection, ICollection<TModel> modelCollection)
+            where TWrapper : class, IWrapper<TModel>
             where TModel : BaseEntity
         {
             //синхронизируем коллекцию модели с коллекцией обертки.
@@ -432,7 +426,7 @@ namespace HVTApp.Model.Wrappers
         }
 
         protected void SetComplexProperty<TProp, TModel>(TProp oldValue, TProp newValue, [CallerMemberName] string propertyName = null)
-            where TProp : WrapperBase<TModel>
+            where TProp : IWrapper<TModel>
             where TModel : class, IBaseEntity
         {
             if (Equals(oldValue, newValue)) return;
@@ -449,16 +443,13 @@ namespace HVTApp.Model.Wrappers
 
 
         protected TWrapper GetWrapper<TWrapper, TModel>(TModel model)
-            where TWrapper : class, IWrapper<TModel>
             where TModel : class, IBaseEntity
+            where TWrapper : class, IWrapper<TModel>
         {
             if (model == null)
                 return null;
 
-            if (this._existsWrappers.ContainsKey(model))
-                return (TWrapper)this._existsWrappers[model];
-
-            return (TWrapper) Activator.CreateInstance(typeof(TWrapper), model, this._existsWrappers);
+            return WrappersFactory.GetWrapper<TModel, TWrapper>(model);
         }
     }
 

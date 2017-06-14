@@ -8,9 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class CompanyWrapper : WrapperBase<Company>
   {
-    public CompanyWrapper() : base(new Company(), new Dictionary<IBaseEntity, object>()) { }
-    public CompanyWrapper(Company model) : base(model, new Dictionary<IBaseEntity, object>()) { }
-    public CompanyWrapper(Company model, IDictionary<IBaseEntity, object> dictionary) : base(model, dictionary) { }
+    public CompanyWrapper() : base(new Company()) { }
+    public CompanyWrapper(Company model) : base(model) { }
 
 
 
