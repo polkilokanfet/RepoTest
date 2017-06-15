@@ -39,9 +39,9 @@ namespace HVTApp.Model.Wrappers
 
             Model = model;
 
-            InitializeComplexProperties(model);
-            InitializeCollectionComplexProperties(model);
+            //InitializeComplexProperties(model);
             InitializeCollectionSimpleProperties(model);
+            InitializeCollectionComplexProperties(model);
 
             Validate();
 
@@ -416,17 +416,24 @@ namespace HVTApp.Model.Wrappers
 
         private readonly Dictionary<IBaseEntity, object> _complexProperties = new Dictionary<IBaseEntity, object>();
 
-        protected TProp GetComplexProperty<TProp, TModel>(TModel model)
-            where TProp : class, IWrapper<TModel>
+        protected TWrapper GetComplexProperty<TWrapper, TModel>(TModel model)
+            where TWrapper : class, IWrapper<TModel>
             where TModel : class, IBaseEntity
         {
-            if (model != null && _complexProperties.ContainsKey(model))
-                return (TProp)_complexProperties[model];
-            return null;
+            if (model == null) return null;
+
+            //if (_complexProperties.ContainsKey(model))
+            //    return (TWrapper)_complexProperties[model];
+
+            //var result = GetWrapper<TWrapper, TModel>(model);
+            //_complexProperties.Add(result);
+            var result = GetWrapper<TWrapper, TModel>(model);
+            //if (!_trackingObjects.Contains(result)) InitializeComplexProperties(Model);
+            return result;
         }
 
-        protected void SetComplexProperty<TProp, TModel>(TProp oldValue, TProp newValue, [CallerMemberName] string propertyName = null)
-            where TProp : IWrapper<TModel>
+        protected void SetComplexProperty<TWrapper, TModel>(TWrapper oldValue, TWrapper newValue, [CallerMemberName] string propertyName = null)
+            where TWrapper : class, IWrapper<TModel>
             where TModel : class, IBaseEntity
         {
             if (Equals(oldValue, newValue)) return;
@@ -446,8 +453,7 @@ namespace HVTApp.Model.Wrappers
             where TModel : class, IBaseEntity
             where TWrapper : class, IWrapper<TModel>
         {
-            if (model == null)
-                return null;
+            if (model == null) return null;
 
             return WrappersFactory.GetWrapper<TModel, TWrapper>(model);
         }
