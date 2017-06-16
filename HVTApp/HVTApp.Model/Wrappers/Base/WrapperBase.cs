@@ -34,7 +34,7 @@ namespace HVTApp.Model.Wrappers
 
             Model = model;
 
-            if (!WrappersFactory.Wrappers.ContainsKey(model))
+            //if (!WrappersFactory.Wrappers.ContainsKey(model))
                 WrappersFactory.Wrappers.Add(model, this);
 
             InitializeComplexProperties();

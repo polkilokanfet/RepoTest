@@ -16,26 +16,26 @@ namespace HVTApp.DataAccess
             _context = context;
             _repository = new Dictionary<IBaseEntity, IWrapper<IBaseEntity>>();
 
-            FriendGroups = new FriendGroupRepository(context, _repository);
+            FriendGroups = new FriendGroupRepository(context);
 
-            ActivityFields = new ActivityFieldsRepository(context, _repository);
-            Users = new UsersRepository(context, _repository);
-            Companies = new CompaniesRepository(context, _repository);
-            CompanyForms = new CompanyFormsRepository(context, _repository);
+            ActivityFields = new ActivityFieldsRepository(context);
+            Users = new UsersRepository(context);
+            Companies = new CompaniesRepository(context);
+            CompanyForms = new CompanyFormsRepository(context);
 
-            ParametersGroups = new ParametersGroupsRepository(context, _repository);
-            Parameters = new ParametersRepository(context, _repository);
-            ProductItems = new ProductItemsRepository(context, _repository);
-            Products = new ProductsRepository(context, _repository);
-            RequiredProductsChildses = new RequiredProductsChildsesRepository(context, _repository);
-            FacilityTypes = new FacilityTypesRepository(context, _repository);
-            Facilities = new FacilitiesRepository(context, _repository);
-            Projects = new ProjectsRepository(context, _repository);
-            Offers = new OffersRepository(context, _repository);
-            Tenders = new TendersRepository(context, _repository);
-            Contracts = new ContractsRepository(context, _repository);
-            Specifications = new SpecificationsRepository(context, _repository);
-            Units = new UnitsRepository(context, _repository);
+            ParametersGroups = new ParametersGroupsRepository(context);
+            Parameters = new ParametersRepository(context);
+            ProductItems = new ProductItemsRepository(context);
+            Products = new ProductsRepository(context);
+            RequiredProductsChildses = new RequiredProductsChildsesRepository(context);
+            FacilityTypes = new FacilityTypesRepository(context);
+            Facilities = new FacilitiesRepository(context);
+            Projects = new ProjectsRepository(context);
+            Offers = new OffersRepository(context);
+            Tenders = new TendersRepository(context);
+            Contracts = new ContractsRepository(context);
+            Specifications = new SpecificationsRepository(context);
+            Units = new UnitsRepository(context);
         }
         public void Dispose()
         {

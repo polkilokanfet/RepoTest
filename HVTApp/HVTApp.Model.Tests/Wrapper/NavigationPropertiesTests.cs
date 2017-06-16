@@ -81,7 +81,7 @@ namespace HVTApp.Model.Tests.Wrapper
             husbandWrapper.Children.Add(childWrapper);
             Assert.IsTrue(fired);
 
-            var husbandWrp = new TestHusbandWrapper(husbandWrapper.Model);
+            //var husbandWrp = new TestHusbandWrapper(husbandWrapper.Model);
 
             fired = false;
             childWrapper.Id = 1;

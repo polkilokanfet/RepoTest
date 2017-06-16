@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Model.Factory;
 using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
@@ -13,36 +14,20 @@ namespace HVTApp.DataAccess
     {
         protected readonly DbContext Context;
 
-        protected readonly Dictionary<IBaseEntity, IWrapper<IBaseEntity>> WrappersRepository;
-
-        public BaseRepository(DbContext context, Dictionary<IBaseEntity, IWrapper<IBaseEntity>> wrappersRepository)
+        public BaseRepository(DbContext context)
         {
-            if (context == null || wrappersRepository == null) throw new ArgumentNullException();
-
             Context = context;
-            WrappersRepository = wrappersRepository;
         }
 
         public virtual List<TWrapper> GetAll()
         {
             Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-
-            List<TWrapper> result = new List<TWrapper>();
-
-            var models = Context.Set<TModel>();
-            foreach (var model in models)
-                if (WrappersRepository.ContainsKey(model))
-                    result.Add((TWrapper)WrappersRepository[model]);
-                else
-                    result.Add((TWrapper)Activator.CreateInstance(typeof(TWrapper), model, WrappersRepository));
-
-            return result;
+            return Context.Set<TModel>().ToList().Select(WrappersFactory.GetWrapper<TModel, TWrapper>).ToList();
         }
 
         public IEnumerable<TWrapper> Find(Func<TWrapper, bool> predicate)
         {
             return GetAll().Where(predicate);
-            //return Context.Set<TModel>().Select(x => (TWrapper)Activator.CreateInstance(typeof(TWrapper), x)).Where(predicate);
         }
 
 
@@ -60,14 +45,14 @@ namespace HVTApp.DataAccess
         public void Delete(TWrapper entity)
         {
             Context.Set<TModel>().Remove(entity.Model);
-            WrappersRepository.Remove(entity.Model);
+            WrappersFactory.RemoveWrapper(entity.Model);
         }
 
         public void DeleteRange(IEnumerable<TWrapper> entities)
         {
             Context.Set<TModel>().RemoveRange(entities.Select(x => x.Model));
             foreach (var wrapper in entities)
-                WrappersRepository.Remove(wrapper.Model);
+                WrappersFactory.RemoveWrapper(wrapper.Model);
         }
     }
 }

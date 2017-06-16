@@ -8,7 +8,7 @@ namespace HVTApp.DataAccess
 {
     public class TendersRepository : BaseRepository<Tender, TenderWrapper>, ITendersRepository
     {
-        public TendersRepository(DbContext context, Dictionary<IBaseEntity, IWrapper<IBaseEntity>> wrappersRepository) : base(context, wrappersRepository)
+        public TendersRepository(DbContext context) : base(context)
         {
         }
     }

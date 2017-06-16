@@ -8,7 +8,7 @@ namespace HVTApp.DataAccess
 {
     public class SpecificationsRepository : BaseRepository<Specification, SpecificationWrapper>, ISpecificationsRepository
     {
-        public SpecificationsRepository(DbContext context, Dictionary<IBaseEntity, IWrapper<IBaseEntity>> wrappersRepository) : base(context, wrappersRepository)
+        public SpecificationsRepository(DbContext context) : base(context)
         {
         }
     }
