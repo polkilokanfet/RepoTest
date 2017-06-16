@@ -126,12 +126,12 @@ namespace HVTApp.Model.Wrappers
     }
 
   
-    protected override void InitializeCollectionComplexProperties(Document model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.CopyToRecipients == null) throw new ArgumentException("CopyToRecipients cannot be null");
-      CopyToRecipients = new ValidatableChangeTrackingCollection<EmployeeWrapper>(model.CopyToRecipients.Select(e => GetWrapper<EmployeeWrapper, Employee>(e)));
-      RegisterCollection(CopyToRecipients, model.CopyToRecipients);
+      if (Model.CopyToRecipients == null) throw new ArgumentException("CopyToRecipients cannot be null");
+      CopyToRecipients = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.CopyToRecipients.Select(e => GetWrapper<EmployeeWrapper, Employee>(e)));
+      RegisterCollection(CopyToRecipients, Model.CopyToRecipients);
 
 
     }

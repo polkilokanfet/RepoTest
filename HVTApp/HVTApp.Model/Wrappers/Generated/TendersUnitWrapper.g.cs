@@ -105,12 +105,12 @@ namespace HVTApp.Model.Wrappers
     }
 
   
-    protected override void InitializeCollectionComplexProperties(TendersUnit model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
-      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(model.PaymentsConditions.Select(e => GetWrapper<PaymentConditionWrapper, PaymentCondition>(e)));
-      RegisterCollection(PaymentsConditions, model.PaymentsConditions);
+      if (Model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
+      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(Model.PaymentsConditions.Select(e => GetWrapper<PaymentConditionWrapper, PaymentCondition>(e)));
+      RegisterCollection(PaymentsConditions, Model.PaymentsConditions);
 
 
     }

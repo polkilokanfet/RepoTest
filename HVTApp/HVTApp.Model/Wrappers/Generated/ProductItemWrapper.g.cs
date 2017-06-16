@@ -56,17 +56,17 @@ namespace HVTApp.Model.Wrappers
     #endregion
 
   
-    protected override void InitializeCollectionComplexProperties(ProductItem model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
-      Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(model.Parameters.Select(e => GetWrapper<ParameterWrapper, Parameter>(e)));
-      RegisterCollection(Parameters, model.Parameters);
+      if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+      Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => GetWrapper<ParameterWrapper, Parameter>(e)));
+      RegisterCollection(Parameters, Model.Parameters);
 
 
-      if (model.Prices == null) throw new ArgumentException("Prices cannot be null");
-      Prices = new ValidatableChangeTrackingCollection<SumOnDateWrapper>(model.Prices.Select(e => GetWrapper<SumOnDateWrapper, SumOnDate>(e)));
-      RegisterCollection(Prices, model.Prices);
+      if (Model.Prices == null) throw new ArgumentException("Prices cannot be null");
+      Prices = new ValidatableChangeTrackingCollection<SumOnDateWrapper>(Model.Prices.Select(e => GetWrapper<SumOnDateWrapper, SumOnDate>(e)));
+      RegisterCollection(Prices, Model.Prices);
 
 
     }

@@ -272,7 +272,7 @@ namespace HVTApp.Model.Wrappers
     {
 #>
   
-    protected override void InitializeCollectionComplexProperties(<#= modelTypeName#> model)
+    protected override void InitializeCollectionComplexProperties()
     {
 <#+
       foreach(var property in properties)
@@ -281,9 +281,9 @@ namespace HVTApp.Model.Wrappers
 		var propertyName = property.Name;
 		   
 #>
-      if (model.<#= propertyName #> == null) throw new ArgumentException("<#= propertyName #> cannot be null");
-      <#= propertyName #> = new ValidatableChangeTrackingCollection<<#= itemType #>Wrapper>(model.<#= propertyName #>.Select(e => GetWrapper<<#= itemType #>Wrapper, <#= itemType #>>(e)));
-      RegisterCollection(<#= propertyName #>, model.<#= propertyName #>);
+      if (Model.<#= propertyName #> == null) throw new ArgumentException("<#= propertyName #> cannot be null");
+      <#= propertyName #> = new ValidatableChangeTrackingCollection<<#= itemType #>Wrapper>(Model.<#= propertyName #>.Select(e => GetWrapper<<#= itemType #>Wrapper, <#= itemType #>>(e)));
+      RegisterCollection(<#= propertyName #>, Model.<#= propertyName #>);
 
 <#+
      }

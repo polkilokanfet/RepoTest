@@ -66,12 +66,12 @@ namespace HVTApp.Model.Wrappers
     }
 
   
-    protected override void InitializeCollectionComplexProperties(Product model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.ChildProducts == null) throw new ArgumentException("ChildProducts cannot be null");
-      ChildProducts = new ValidatableChangeTrackingCollection<ProductWrapper>(model.ChildProducts.Select(e => GetWrapper<ProductWrapper, Product>(e)));
-      RegisterCollection(ChildProducts, model.ChildProducts);
+      if (Model.ChildProducts == null) throw new ArgumentException("ChildProducts cannot be null");
+      ChildProducts = new ValidatableChangeTrackingCollection<ProductWrapper>(Model.ChildProducts.Select(e => GetWrapper<ProductWrapper, Product>(e)));
+      RegisterCollection(ChildProducts, Model.ChildProducts);
 
 
     }

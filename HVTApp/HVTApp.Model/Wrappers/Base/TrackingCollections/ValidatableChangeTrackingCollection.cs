@@ -69,11 +69,9 @@ namespace HVTApp.Model.Wrappers
         private void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             //если изменился флаг валидности члена.
-            if (e.PropertyName == nameof(IsValid))
-            {
-                OnPropertyChanged(sender, nameof(IsValid));
-            }
-            else
+            if (e.PropertyName == nameof(IsValid)) OnPropertyChanged(sender, nameof(IsValid));
+
+            if (e.PropertyName == nameof(IsChanged))
             {
                 //объект в котором изменилось свойство.
                 var item = (TCollectionItem) sender;
@@ -85,14 +83,12 @@ namespace HVTApp.Model.Wrappers
                     if (item.IsChanged)
                     {
                         //добавляем член в коллекцию измененных объектов, если он еще не в этой коллекции.
-                        if (!_modifiedItems.Contains(item))
-                            _modifiedItems.Add(item);
+                        if (!_modifiedItems.Contains(item)) _modifiedItems.Add(item);
                     }
                     else
                     {
                         //если объект не изменился, удяляем его из коллекции измененных объектов (если он там есть).
-                        if (_modifiedItems.Contains(item))
-                            _modifiedItems.Remove(item);
+                        if (_modifiedItems.Contains(item)) _modifiedItems.Remove(item);
                     }
 
                     //информируем о том, что коллекция изменилась.
@@ -135,9 +131,9 @@ namespace HVTApp.Model.Wrappers
             items.ToList().ForEach(observableCollection.Add);
         }
 
-        public bool IsChangedMethod(IDictionary<IBaseEntity, IValidatableChangeTracking> risedList)
+        public bool IsChangedMethod(IDictionary<IBaseEntity, IValidatableChangeTracking> risedDictionary)
         {
-            return IsChanged;
+            return _addedItems.Any() || _removedItems.Any() || _modifiedItems.Any(x => x.IsChangedMethod(risedDictionary)); ;
         }
         /// <summary>
         /// Изменена ли коллекция?

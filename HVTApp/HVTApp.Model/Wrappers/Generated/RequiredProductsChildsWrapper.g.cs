@@ -47,17 +47,17 @@ namespace HVTApp.Model.Wrappers
     #endregion
 
   
-    protected override void InitializeCollectionComplexProperties(RequiredProductsChilds model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.MainProductParameters == null) throw new ArgumentException("MainProductParameters cannot be null");
-      MainProductParameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(model.MainProductParameters.Select(e => GetWrapper<ParameterWrapper, Parameter>(e)));
-      RegisterCollection(MainProductParameters, model.MainProductParameters);
+      if (Model.MainProductParameters == null) throw new ArgumentException("MainProductParameters cannot be null");
+      MainProductParameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.MainProductParameters.Select(e => GetWrapper<ParameterWrapper, Parameter>(e)));
+      RegisterCollection(MainProductParameters, Model.MainProductParameters);
 
 
-      if (model.ChildProductParameters == null) throw new ArgumentException("ChildProductParameters cannot be null");
-      ChildProductParameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(model.ChildProductParameters.Select(e => GetWrapper<ParameterWrapper, Parameter>(e)));
-      RegisterCollection(ChildProductParameters, model.ChildProductParameters);
+      if (Model.ChildProductParameters == null) throw new ArgumentException("ChildProductParameters cannot be null");
+      ChildProductParameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.ChildProductParameters.Select(e => GetWrapper<ParameterWrapper, Parameter>(e)));
+      RegisterCollection(ChildProductParameters, Model.ChildProductParameters);
 
 
     }

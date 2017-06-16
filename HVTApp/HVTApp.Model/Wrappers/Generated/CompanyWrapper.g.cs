@@ -135,22 +135,22 @@ namespace HVTApp.Model.Wrappers
     }
 
   
-    protected override void InitializeCollectionComplexProperties(Company model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.ChildCompanies == null) throw new ArgumentException("ChildCompanies cannot be null");
-      ChildCompanies = new ValidatableChangeTrackingCollection<CompanyWrapper>(model.ChildCompanies.Select(e => GetWrapper<CompanyWrapper, Company>(e)));
-      RegisterCollection(ChildCompanies, model.ChildCompanies);
+      if (Model.ChildCompanies == null) throw new ArgumentException("ChildCompanies cannot be null");
+      ChildCompanies = new ValidatableChangeTrackingCollection<CompanyWrapper>(Model.ChildCompanies.Select(e => GetWrapper<CompanyWrapper, Company>(e)));
+      RegisterCollection(ChildCompanies, Model.ChildCompanies);
 
 
-      if (model.ActivityFilds == null) throw new ArgumentException("ActivityFilds cannot be null");
-      ActivityFilds = new ValidatableChangeTrackingCollection<ActivityFieldWrapper>(model.ActivityFilds.Select(e => GetWrapper<ActivityFieldWrapper, ActivityField>(e)));
-      RegisterCollection(ActivityFilds, model.ActivityFilds);
+      if (Model.ActivityFilds == null) throw new ArgumentException("ActivityFilds cannot be null");
+      ActivityFilds = new ValidatableChangeTrackingCollection<ActivityFieldWrapper>(Model.ActivityFilds.Select(e => GetWrapper<ActivityFieldWrapper, ActivityField>(e)));
+      RegisterCollection(ActivityFilds, Model.ActivityFilds);
 
 
-      if (model.Employees == null) throw new ArgumentException("Employees cannot be null");
-      Employees = new ValidatableChangeTrackingCollection<EmployeeWrapper>(model.Employees.Select(e => GetWrapper<EmployeeWrapper, Employee>(e)));
-      RegisterCollection(Employees, model.Employees);
+      if (Model.Employees == null) throw new ArgumentException("Employees cannot be null");
+      Employees = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.Employees.Select(e => GetWrapper<EmployeeWrapper, Employee>(e)));
+      RegisterCollection(Employees, Model.Employees);
 
 
     }

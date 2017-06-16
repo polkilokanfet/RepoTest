@@ -75,12 +75,12 @@ namespace HVTApp.Model.Wrappers
     }
 
   
-    protected override void InitializeCollectionComplexProperties(Contract model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.Specifications == null) throw new ArgumentException("Specifications cannot be null");
-      Specifications = new ValidatableChangeTrackingCollection<SpecificationWrapper>(model.Specifications.Select(e => GetWrapper<SpecificationWrapper, Specification>(e)));
-      RegisterCollection(Specifications, model.Specifications);
+      if (Model.Specifications == null) throw new ArgumentException("Specifications cannot be null");
+      Specifications = new ValidatableChangeTrackingCollection<SpecificationWrapper>(Model.Specifications.Select(e => GetWrapper<SpecificationWrapper, Specification>(e)));
+      RegisterCollection(Specifications, Model.Specifications);
 
 
     }

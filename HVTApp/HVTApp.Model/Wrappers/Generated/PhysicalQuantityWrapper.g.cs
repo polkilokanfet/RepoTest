@@ -44,12 +44,12 @@ namespace HVTApp.Model.Wrappers
     #endregion
 
   
-    protected override void InitializeCollectionComplexProperties(PhysicalQuantity model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.Measures == null) throw new ArgumentException("Measures cannot be null");
-      Measures = new ValidatableChangeTrackingCollection<MeasureWrapper>(model.Measures.Select(e => GetWrapper<MeasureWrapper, Measure>(e)));
-      RegisterCollection(Measures, model.Measures);
+      if (Model.Measures == null) throw new ArgumentException("Measures cannot be null");
+      Measures = new ValidatableChangeTrackingCollection<MeasureWrapper>(Model.Measures.Select(e => GetWrapper<MeasureWrapper, Measure>(e)));
+      RegisterCollection(Measures, Model.Measures);
 
 
     }

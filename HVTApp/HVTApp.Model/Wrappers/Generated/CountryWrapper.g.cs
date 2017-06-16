@@ -75,12 +75,12 @@ namespace HVTApp.Model.Wrappers
     }
 
   
-    protected override void InitializeCollectionComplexProperties(Country model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.Districts == null) throw new ArgumentException("Districts cannot be null");
-      Districts = new ValidatableChangeTrackingCollection<DistrictWrapper>(model.Districts.Select(e => GetWrapper<DistrictWrapper, District>(e)));
-      RegisterCollection(Districts, model.Districts);
+      if (Model.Districts == null) throw new ArgumentException("Districts cannot be null");
+      Districts = new ValidatableChangeTrackingCollection<DistrictWrapper>(Model.Districts.Select(e => GetWrapper<DistrictWrapper, District>(e)));
+      RegisterCollection(Districts, Model.Districts);
 
 
     }

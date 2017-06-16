@@ -120,17 +120,17 @@ namespace HVTApp.Model.Wrappers
     }
 
   
-    protected override void InitializeCollectionComplexProperties(Unit model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.TendersUnits == null) throw new ArgumentException("TendersUnits cannot be null");
-      TendersUnits = new ValidatableChangeTrackingCollection<TendersUnitWrapper>(model.TendersUnits.Select(e => GetWrapper<TendersUnitWrapper, TendersUnit>(e)));
-      RegisterCollection(TendersUnits, model.TendersUnits);
+      if (Model.TendersUnits == null) throw new ArgumentException("TendersUnits cannot be null");
+      TendersUnits = new ValidatableChangeTrackingCollection<TendersUnitWrapper>(Model.TendersUnits.Select(e => GetWrapper<TendersUnitWrapper, TendersUnit>(e)));
+      RegisterCollection(TendersUnits, Model.TendersUnits);
 
 
-      if (model.OffersUnits == null) throw new ArgumentException("OffersUnits cannot be null");
-      OffersUnits = new ValidatableChangeTrackingCollection<OffersUnitWrapper>(model.OffersUnits.Select(e => GetWrapper<OffersUnitWrapper, OffersUnit>(e)));
-      RegisterCollection(OffersUnits, model.OffersUnits);
+      if (Model.OffersUnits == null) throw new ArgumentException("OffersUnits cannot be null");
+      OffersUnits = new ValidatableChangeTrackingCollection<OffersUnitWrapper>(Model.OffersUnits.Select(e => GetWrapper<OffersUnitWrapper, OffersUnit>(e)));
+      RegisterCollection(OffersUnits, Model.OffersUnits);
 
 
     }

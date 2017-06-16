@@ -126,22 +126,22 @@ namespace HVTApp.Model.Wrappers
     }
 
   
-    protected override void InitializeCollectionComplexProperties(Tender model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.Participants == null) throw new ArgumentException("Participants cannot be null");
-      Participants = new ValidatableChangeTrackingCollection<CompanyWrapper>(model.Participants.Select(e => GetWrapper<CompanyWrapper, Company>(e)));
-      RegisterCollection(Participants, model.Participants);
+      if (Model.Participants == null) throw new ArgumentException("Participants cannot be null");
+      Participants = new ValidatableChangeTrackingCollection<CompanyWrapper>(Model.Participants.Select(e => GetWrapper<CompanyWrapper, Company>(e)));
+      RegisterCollection(Participants, Model.Participants);
 
 
-      if (model.TendersUnits == null) throw new ArgumentException("TendersUnits cannot be null");
-      TendersUnits = new ValidatableChangeTrackingCollection<TendersUnitWrapper>(model.TendersUnits.Select(e => GetWrapper<TendersUnitWrapper, TendersUnit>(e)));
-      RegisterCollection(TendersUnits, model.TendersUnits);
+      if (Model.TendersUnits == null) throw new ArgumentException("TendersUnits cannot be null");
+      TendersUnits = new ValidatableChangeTrackingCollection<TendersUnitWrapper>(Model.TendersUnits.Select(e => GetWrapper<TendersUnitWrapper, TendersUnit>(e)));
+      RegisterCollection(TendersUnits, Model.TendersUnits);
 
 
-      if (model.Offers == null) throw new ArgumentException("Offers cannot be null");
-      Offers = new ValidatableChangeTrackingCollection<OfferWrapper>(model.Offers.Select(e => GetWrapper<OfferWrapper, Offer>(e)));
-      RegisterCollection(Offers, model.Offers);
+      if (Model.Offers == null) throw new ArgumentException("Offers cannot be null");
+      Offers = new ValidatableChangeTrackingCollection<OfferWrapper>(Model.Offers.Select(e => GetWrapper<OfferWrapper, Offer>(e)));
+      RegisterCollection(Offers, Model.Offers);
 
 
     }

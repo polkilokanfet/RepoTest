@@ -96,22 +96,22 @@ namespace HVTApp.Model.Wrappers
     }
 
   
-    protected override void InitializeCollectionComplexProperties(SalesUnit model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
-      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(model.PaymentsConditions.Select(e => GetWrapper<PaymentConditionWrapper, PaymentCondition>(e)));
-      RegisterCollection(PaymentsConditions, model.PaymentsConditions);
+      if (Model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
+      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(Model.PaymentsConditions.Select(e => GetWrapper<PaymentConditionWrapper, PaymentCondition>(e)));
+      RegisterCollection(PaymentsConditions, Model.PaymentsConditions);
 
 
-      if (model.PaymentsPlanned == null) throw new ArgumentException("PaymentsPlanned cannot be null");
-      PaymentsPlanned = new ValidatableChangeTrackingCollection<PaymentPlanWrapper>(model.PaymentsPlanned.Select(e => GetWrapper<PaymentPlanWrapper, PaymentPlan>(e)));
-      RegisterCollection(PaymentsPlanned, model.PaymentsPlanned);
+      if (Model.PaymentsPlanned == null) throw new ArgumentException("PaymentsPlanned cannot be null");
+      PaymentsPlanned = new ValidatableChangeTrackingCollection<PaymentPlanWrapper>(Model.PaymentsPlanned.Select(e => GetWrapper<PaymentPlanWrapper, PaymentPlan>(e)));
+      RegisterCollection(PaymentsPlanned, Model.PaymentsPlanned);
 
 
-      if (model.PaymentsActual == null) throw new ArgumentException("PaymentsActual cannot be null");
-      PaymentsActual = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(model.PaymentsActual.Select(e => GetWrapper<PaymentActualWrapper, PaymentActual>(e)));
-      RegisterCollection(PaymentsActual, model.PaymentsActual);
+      if (Model.PaymentsActual == null) throw new ArgumentException("PaymentsActual cannot be null");
+      PaymentsActual = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(Model.PaymentsActual.Select(e => GetWrapper<PaymentActualWrapper, PaymentActual>(e)));
+      RegisterCollection(PaymentsActual, Model.PaymentsActual);
 
 
     }

@@ -14,7 +14,7 @@ namespace HVTApp.Infrastructure
     public interface IValidatableChangeTracking : IRevertibleChangeTracking, INotifyPropertyChanged
     {
         bool IsValid { get; }
-        bool IsChangedMethod(IDictionary<IBaseEntity, IValidatableChangeTracking> risedList);
+        bool IsChangedMethod(IDictionary<IBaseEntity, IValidatableChangeTracking> risedDictionary);
         bool IsValidMethod(IList<IBaseEntity> risedList);
         void AcceptChangesMethod(IList<IBaseEntity> acceptedModels);
         void RejectChangesMethod(IList<IBaseEntity> rejectedModels);

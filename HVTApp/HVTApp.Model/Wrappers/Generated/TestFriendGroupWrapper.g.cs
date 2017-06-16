@@ -44,12 +44,12 @@ namespace HVTApp.Model.Wrappers
     #endregion
 
   
-    protected override void InitializeCollectionComplexProperties(TestFriendGroup model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.FriendTests == null) throw new ArgumentException("FriendTests cannot be null");
-      FriendTests = new ValidatableChangeTrackingCollection<TestFriendWrapper>(model.FriendTests.Select(e => GetWrapper<TestFriendWrapper, TestFriend>(e)));
-      RegisterCollection(FriendTests, model.FriendTests);
+      if (Model.FriendTests == null) throw new ArgumentException("FriendTests cannot be null");
+      FriendTests = new ValidatableChangeTrackingCollection<TestFriendWrapper>(Model.FriendTests.Select(e => GetWrapper<TestFriendWrapper, TestFriend>(e)));
+      RegisterCollection(FriendTests, Model.FriendTests);
 
 
     }

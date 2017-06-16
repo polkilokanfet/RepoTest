@@ -53,12 +53,12 @@ namespace HVTApp.Model.Wrappers
     #endregion
 
   
-    protected override void InitializeCollectionComplexProperties(Order model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.ProductionsUnits == null) throw new ArgumentException("ProductionsUnits cannot be null");
-      ProductionsUnits = new ValidatableChangeTrackingCollection<ProductionsUnitWrapper>(model.ProductionsUnits.Select(e => GetWrapper<ProductionsUnitWrapper, ProductionsUnit>(e)));
-      RegisterCollection(ProductionsUnits, model.ProductionsUnits);
+      if (Model.ProductionsUnits == null) throw new ArgumentException("ProductionsUnits cannot be null");
+      ProductionsUnits = new ValidatableChangeTrackingCollection<ProductionsUnitWrapper>(Model.ProductionsUnits.Select(e => GetWrapper<ProductionsUnitWrapper, ProductionsUnit>(e)));
+      RegisterCollection(ProductionsUnits, Model.ProductionsUnits);
 
 
     }

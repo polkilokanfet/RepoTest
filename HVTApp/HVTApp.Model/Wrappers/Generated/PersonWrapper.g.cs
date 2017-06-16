@@ -93,12 +93,12 @@ namespace HVTApp.Model.Wrappers
     }
 
   
-    protected override void InitializeCollectionComplexProperties(Person model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.Employees == null) throw new ArgumentException("Employees cannot be null");
-      Employees = new ValidatableChangeTrackingCollection<EmployeeWrapper>(model.Employees.Select(e => GetWrapper<EmployeeWrapper, Employee>(e)));
-      RegisterCollection(Employees, model.Employees);
+      if (Model.Employees == null) throw new ArgumentException("Employees cannot be null");
+      Employees = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.Employees.Select(e => GetWrapper<EmployeeWrapper, Employee>(e)));
+      RegisterCollection(Employees, Model.Employees);
 
 
     }

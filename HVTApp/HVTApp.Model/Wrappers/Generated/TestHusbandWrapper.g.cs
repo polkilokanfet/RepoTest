@@ -66,12 +66,12 @@ namespace HVTApp.Model.Wrappers
     }
 
   
-    protected override void InitializeCollectionComplexProperties(TestHusband model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.Children == null) throw new ArgumentException("Children cannot be null");
-      Children = new ValidatableChangeTrackingCollection<TestChildWrapper>(model.Children.Select(e => GetWrapper<TestChildWrapper, TestChild>(e)));
-      RegisterCollection(Children, model.Children);
+      if (Model.Children == null) throw new ArgumentException("Children cannot be null");
+      Children = new ValidatableChangeTrackingCollection<TestChildWrapper>(Model.Children.Select(e => GetWrapper<TestChildWrapper, TestChild>(e)));
+      RegisterCollection(Children, Model.Children);
 
 
     }

@@ -93,12 +93,12 @@ namespace HVTApp.Model.Wrappers
     }
 
   
-    protected override void InitializeCollectionComplexProperties(User model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.Roles == null) throw new ArgumentException("Roles cannot be null");
-      Roles = new ValidatableChangeTrackingCollection<UserRoleWrapper>(model.Roles.Select(e => GetWrapper<UserRoleWrapper, UserRole>(e)));
-      RegisterCollection(Roles, model.Roles);
+      if (Model.Roles == null) throw new ArgumentException("Roles cannot be null");
+      Roles = new ValidatableChangeTrackingCollection<UserRoleWrapper>(Model.Roles.Select(e => GetWrapper<UserRoleWrapper, UserRole>(e)));
+      RegisterCollection(Roles, Model.Roles);
 
 
     }

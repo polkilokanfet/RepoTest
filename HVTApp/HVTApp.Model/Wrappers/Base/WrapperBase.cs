@@ -38,8 +38,8 @@ namespace HVTApp.Model.Wrappers
                 WrappersFactory.Wrappers.Add(model, this);
 
             InitializeComplexProperties();
-            InitializeCollectionSimpleProperties(model);
-            InitializeCollectionComplexProperties(model);
+            InitializeCollectionSimpleProperties();
+            InitializeCollectionComplexProperties();
 
             Validate();
 
@@ -51,30 +51,27 @@ namespace HVTApp.Model.Wrappers
         /// <summary>
         /// Инициализация свойств-коллекций объекта.
         /// </summary>
-        /// <param name="model"></param>
-        protected virtual void InitializeCollectionComplexProperties(T model) { }
+        protected virtual void InitializeCollectionComplexProperties() { }
 
-        public virtual void InitializeCollectionSimpleProperties(T model) { }
+        public virtual void InitializeCollectionSimpleProperties() { }
 
         /// <summary>
         /// Инициализация свойств сложных (не примитивных) типов.
         /// </summary>
-        /// <param name="model"></param>
         public virtual void InitializeComplexProperties() { }
 
         #endregion
 
-        public bool IsChangedMethod(IDictionary<IBaseEntity, IValidatableChangeTracking> risedList)
+        public bool IsChangedMethod(IDictionary<IBaseEntity, IValidatableChangeTracking> risedDictionary)
         {
-            if (risedList.ContainsKey(this.Model)) return false;
-            risedList.Add(this.Model, this);
+            if (risedDictionary.ContainsKey(this.Model)) return false;
+            risedDictionary.Add(this.Model, this);
 
-            var risedWrappers = risedList.Select(x => x.Value);
+            var risedWrappers = risedDictionary.Select(x => x.Value);
 
-            if (_trackingObjects.Count != _trackingObjects.Except(risedWrappers).Count())
-                return false;
+            bool result = _originalValues.Count > 0 || _trackingObjects.Except(risedWrappers).Any(x => x.IsChangedMethod(risedDictionary));
 
-            return _originalValues.Count > 0 || _trackingObjects.Except(risedWrappers).Any(x => x.IsChangedMethod(risedList));
+            return result;
         }
 
 
@@ -309,8 +306,7 @@ namespace HVTApp.Model.Wrappers
         /// <param name="propertyChangedEventArgs"></param>
         private void TrackingObjectOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            if (propertyChangedEventArgs.PropertyName == nameof(IsChanged))
-                OnPropertyChanged(sender, nameof(IsChanged));
+            if (propertyChangedEventArgs.PropertyName == nameof(IsChanged)) OnPropertyChanged(sender, nameof(IsChanged));
             if (propertyChangedEventArgs.PropertyName == nameof(IsValid)) OnPropertyChanged(sender, nameof(IsValid));
         }
 
@@ -372,6 +368,8 @@ namespace HVTApp.Model.Wrappers
             return GetWrapper<TWrapper, TModel>(model);
         }
 
+        public event Action<ComplexPropertyChangedEventArgs> ComplexPropertyChanged; 
+
         protected void SetComplexProperty<TWrapper, TModel>(TWrapper oldValue, TWrapper newValue, [CallerMemberName] string propertyName = null)
             where TWrapper : class, IWrapper<TModel>
             where TModel : class, IBaseEntity
@@ -381,6 +379,7 @@ namespace HVTApp.Model.Wrappers
             if (oldValue != null) UnRegisterTrackingObject(oldValue);
             if (newValue != null) RegisterTrackingObject(newValue);
             SetValue(newValue?.Model, propertyName);
+            if (!Equals(oldValue, newValue)) OnComplexPropertyChanged(new ComplexPropertyChangedEventArgs(oldValue, newValue, propertyName));
 
             //обновление оригинального значения комплексного свойства
             if (Equals(newValue?.Model, GetOriginalValue<TModel>(propertyName)))
@@ -395,6 +394,24 @@ namespace HVTApp.Model.Wrappers
 
             return WrappersFactory.GetWrapper<TModel, TWrapper>(model);
         }
+
+        protected virtual void OnComplexPropertyChanged(ComplexPropertyChangedEventArgs obj)
+        {
+            ComplexPropertyChanged?.Invoke(obj);
+        }
     }
 
+    public class ComplexPropertyChangedEventArgs : EventArgs
+    {
+        public object OldValue { get; }
+        public object NewValue { get; }
+        public string PropertyName { get; }
+
+        public ComplexPropertyChangedEventArgs(object oldValue, object newValue, string propertyName)
+        {
+            OldValue = oldValue;
+            NewValue = newValue;
+            PropertyName = propertyName;
+        }
+    }
 }

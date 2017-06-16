@@ -162,17 +162,17 @@ namespace HVTApp.Model.Wrappers
     }
 
   
-    protected override void InitializeCollectionComplexProperties(Offer model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.OfferUnits == null) throw new ArgumentException("OfferUnits cannot be null");
-      OfferUnits = new ValidatableChangeTrackingCollection<OffersUnitWrapper>(model.OfferUnits.Select(e => GetWrapper<OffersUnitWrapper, OffersUnit>(e)));
-      RegisterCollection(OfferUnits, model.OfferUnits);
+      if (Model.OfferUnits == null) throw new ArgumentException("OfferUnits cannot be null");
+      OfferUnits = new ValidatableChangeTrackingCollection<OffersUnitWrapper>(Model.OfferUnits.Select(e => GetWrapper<OffersUnitWrapper, OffersUnit>(e)));
+      RegisterCollection(OfferUnits, Model.OfferUnits);
 
 
-      if (model.CopyToRecipients == null) throw new ArgumentException("CopyToRecipients cannot be null");
-      CopyToRecipients = new ValidatableChangeTrackingCollection<EmployeeWrapper>(model.CopyToRecipients.Select(e => GetWrapper<EmployeeWrapper, Employee>(e)));
-      RegisterCollection(CopyToRecipients, model.CopyToRecipients);
+      if (Model.CopyToRecipients == null) throw new ArgumentException("CopyToRecipients cannot be null");
+      CopyToRecipients = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.CopyToRecipients.Select(e => GetWrapper<EmployeeWrapper, Employee>(e)));
+      RegisterCollection(CopyToRecipients, Model.CopyToRecipients);
 
 
     }

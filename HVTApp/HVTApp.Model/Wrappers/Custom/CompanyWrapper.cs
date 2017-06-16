@@ -10,14 +10,27 @@ namespace HVTApp.Model.Wrappers
     {
         protected override void RunInConstructor()
         {
-            this.PropertyChanged += OnParentCompanyChanged1;
+            this.ComplexPropertyChanged += OnParentCompanyChanged1;
             this.ChildCompanies.CollectionChanged += ChildCompaniesOnCollectionChanged;
         }
 
-        private void OnParentCompanyChanged1(object sender, PropertyChangedEventArgs e)
+        /// <summary>
+        /// Реакция на событие изменения головной компании
+        /// </summary>
+        /// <param name="obj"></param>
+        private void OnParentCompanyChanged1(ComplexPropertyChangedEventArgs obj)
         {
-            var company = (CompanyWrapper) sender;
+            if (obj.PropertyName != nameof(ParentCompany)) return;
+
+            CompanyWrapper oldParent = obj.OldValue as CompanyWrapper;
+            if (oldParent != null && oldParent.ChildCompanies.Contains(this))
+                oldParent.ChildCompanies.Remove(this);
+
+            CompanyWrapper newParent = obj.NewValue as CompanyWrapper;
+            if (newParent != null && !newParent.ChildCompanies.Contains(this))
+                newParent.ChildCompanies.Add(this);
         }
+
 
         /// <summary>
         /// Реакция на событие изменения коллекции дочерних компаний
@@ -47,25 +60,6 @@ namespace HVTApp.Model.Wrappers
                     ((CompanyWrapper) child).ParentCompany = null;
                 }
             }
-        }
-
-        /// <summary>
-        /// Реакция на событие изменения головной компании
-        /// </summary>
-        /// <param name="oldPropVal"></param>
-        /// <param name="newPropVal"></param>
-        /// <param name="propertyName"></param>
-        private void OnParentCompanyChanged(object oldPropVal, object newPropVal, string propertyName)
-        {
-            if (propertyName != nameof(ParentCompany)) return;
-
-            CompanyWrapper oldParent = oldPropVal as CompanyWrapper;
-            if (oldParent != null && oldParent.ChildCompanies.Contains(this))
-                oldParent.ChildCompanies.Remove(this);
-
-            CompanyWrapper newParent = newPropVal as CompanyWrapper;
-            if (newParent != null && !newParent.ChildCompanies.Contains(this))
-                newParent.ChildCompanies.Add(this);
         }
 
         public IEnumerable<CompanyWrapper> GetAllParents()

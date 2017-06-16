@@ -14,7 +14,7 @@ namespace HVTApp.Model.Tests
         [TestInitialize]
         public void InitialMethod()
         {
-            Product product = new Product();
+            Product product = new Product {ProductItem = new ProductItem()};
             product.ProductItem.Prices.Add(new SumOnDate {Date = DateTime.Today, Sum = 50 });
             SalesUnit salesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 100, Vat = 10 }};
             ProductionsUnit productionsUnit = new ProductionsUnit {Product = product};

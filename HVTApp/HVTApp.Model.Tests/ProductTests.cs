@@ -15,7 +15,7 @@ namespace HVTApp.Model.Tests
             SumOnDate price1 = new SumOnDate { Sum = 10, Date = DateTime.Today.AddDays(-7) };
             SumOnDate price2 = new SumOnDate { Sum = 5, Date = DateTime.Today };
 
-            var productParent = new ProductWrapper();
+            var productParent = new ProductWrapper {ProductItem = new ProductItemWrapper()};
             productParent.ProductItem.Prices.Add(new SumOnDateWrapper(price1));
             productParent.ProductItem.Prices.Add(new SumOnDateWrapper(price2));
             productParent.TotalPriceDate = DateTime.Today;
@@ -25,10 +25,10 @@ namespace HVTApp.Model.Tests
             SumOnDate price3 = new SumOnDate { Sum = 30, Date = DateTime.Today };
             SumOnDate price4 = new SumOnDate { Sum = 40, Date = DateTime.Today };
 
-            var productChild1 = new ProductWrapper();
+            var productChild1 = new ProductWrapper {ProductItem = new ProductItemWrapper()};
             productChild1.ProductItem.Prices.Add(new SumOnDateWrapper(price3));
 
-            var productChild2 = new ProductWrapper();
+            var productChild2 = new ProductWrapper {ProductItem = new ProductItemWrapper()};
             productChild2.ProductItem.Prices.Add(new SumOnDateWrapper(price4));
 
             productParent.ChildProducts.Add(productChild1);
@@ -38,7 +38,7 @@ namespace HVTApp.Model.Tests
             Assert.IsTrue(Math.Abs(productParent.TotalPrice - totalSum) < 0.0001);
 
             SumOnDate price5 = new SumOnDate { Sum = 50, Date = DateTime.Today };
-            var productChild3 = new ProductWrapper();
+            var productChild3 = new ProductWrapper {ProductItem = new ProductItemWrapper()};
             productChild3.ProductItem.Prices.Add(new SumOnDateWrapper(price5));
             productChild1.ChildProducts.Add(productChild3);
 

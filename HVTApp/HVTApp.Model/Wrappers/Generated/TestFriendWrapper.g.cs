@@ -125,12 +125,12 @@ namespace HVTApp.Model.Wrappers
     }
 
   
-    protected override void InitializeCollectionComplexProperties(TestFriend model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.Emails == null) throw new ArgumentException("Emails cannot be null");
-      Emails = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(model.Emails.Select(e => GetWrapper<TestFriendEmailWrapper, TestFriendEmail>(e)));
-      RegisterCollection(Emails, model.Emails);
+      if (Model.Emails == null) throw new ArgumentException("Emails cannot be null");
+      Emails = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(Model.Emails.Select(e => GetWrapper<TestFriendEmailWrapper, TestFriendEmail>(e)));
+      RegisterCollection(Emails, Model.Emails);
 
 
     }

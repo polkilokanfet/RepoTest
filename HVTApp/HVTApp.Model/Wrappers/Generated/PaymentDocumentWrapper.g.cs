@@ -53,12 +53,12 @@ namespace HVTApp.Model.Wrappers
     #endregion
 
   
-    protected override void InitializeCollectionComplexProperties(PaymentDocument model)
+    protected override void InitializeCollectionComplexProperties()
     {
 
-      if (model.Payments == null) throw new ArgumentException("Payments cannot be null");
-      Payments = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(model.Payments.Select(e => GetWrapper<PaymentActualWrapper, PaymentActual>(e)));
-      RegisterCollection(Payments, model.Payments);
+      if (Model.Payments == null) throw new ArgumentException("Payments cannot be null");
+      Payments = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(Model.Payments.Select(e => GetWrapper<PaymentActualWrapper, PaymentActual>(e)));
+      RegisterCollection(Payments, Model.Payments);
 
 
     }
