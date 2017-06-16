@@ -78,12 +78,12 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(ExchangeCurrencyRate model)
+    public override void InitializeComplexProperties()
     {
 
-        FirstCurrency = GetWrapper<CurrencyWrapper, Currency>(model.FirstCurrency);
+        FirstCurrency = GetWrapper<CurrencyWrapper, Currency>(Model.FirstCurrency);
 
-        SecondCurrency = GetWrapper<CurrencyWrapper, Currency>(model.SecondCurrency);
+        SecondCurrency = GetWrapper<CurrencyWrapper, Currency>(Model.SecondCurrency);
 
     }
 

@@ -102,20 +102,20 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(Unit model)
+    public override void InitializeComplexProperties()
     {
 
-        Project = GetWrapper<ProjectWrapper, Project>(model.Project);
+        Project = GetWrapper<ProjectWrapper, Project>(Model.Project);
 
-        Facility = GetWrapper<FacilityWrapper, Facility>(model.Facility);
+        Facility = GetWrapper<FacilityWrapper, Facility>(Model.Facility);
 
-        ProjectsUnit = GetWrapper<ProjectsUnitWrapper, ProjectsUnit>(model.ProjectsUnit);
+        ProjectsUnit = GetWrapper<ProjectsUnitWrapper, ProjectsUnit>(Model.ProjectsUnit);
 
-        SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(model.SalesUnit);
+        SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(Model.SalesUnit);
 
-        ProductionsUnit = GetWrapper<ProductionsUnitWrapper, ProductionsUnit>(model.ProductionsUnit);
+        ProductionsUnit = GetWrapper<ProductionsUnitWrapper, ProductionsUnit>(Model.ProductionsUnit);
 
-        ShipmentsUnit = GetWrapper<ShipmentsUnitWrapper, ShipmentsUnit>(model.ShipmentsUnit);
+        ShipmentsUnit = GetWrapper<ShipmentsUnitWrapper, ShipmentsUnit>(Model.ShipmentsUnit);
 
     }
 

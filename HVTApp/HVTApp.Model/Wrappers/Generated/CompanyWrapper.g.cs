@@ -121,16 +121,16 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(Company model)
+    public override void InitializeComplexProperties()
     {
 
-        Form = GetWrapper<CompanyFormWrapper, CompanyForm>(model.Form);
+        Form = GetWrapper<CompanyFormWrapper, CompanyForm>(Model.Form);
 
-        ParentCompany = GetWrapper<CompanyWrapper, Company>(model.ParentCompany);
+        ParentCompany = GetWrapper<CompanyWrapper, Company>(Model.ParentCompany);
 
-        Address = GetWrapper<AddressWrapper, Address>(model.Address);
+        Address = GetWrapper<AddressWrapper, Address>(Model.Address);
 
-        BankDetails = GetWrapper<BankDetailsWrapper, BankDetails>(model.BankDetails);
+        BankDetails = GetWrapper<BankDetailsWrapper, BankDetails>(Model.BankDetails);
 
     }
 

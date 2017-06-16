@@ -89,18 +89,18 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(TendersUnit model)
+    public override void InitializeComplexProperties()
     {
 
-        Unit = GetWrapper<UnitWrapper, Unit>(model.Unit);
+        Unit = GetWrapper<UnitWrapper, Unit>(Model.Unit);
 
-        Tender = GetWrapper<TenderWrapper, Tender>(model.Tender);
+        Tender = GetWrapper<TenderWrapper, Tender>(Model.Tender);
 
-        Product = GetWrapper<ProductWrapper, Product>(model.Product);
+        Product = GetWrapper<ProductWrapper, Product>(Model.Product);
 
-        Cost = GetWrapper<SumAndVatWrapper, SumAndVat>(model.Cost);
+        Cost = GetWrapper<SumAndVatWrapper, SumAndVat>(Model.Cost);
 
-        ProducerWinner = GetWrapper<CompanyWrapper, Company>(model.ProducerWinner);
+        ProducerWinner = GetWrapper<CompanyWrapper, Company>(Model.ProducerWinner);
 
     }
 

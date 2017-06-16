@@ -77,12 +77,12 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(District model)
+    public override void InitializeComplexProperties()
     {
 
-        Capital = GetWrapper<LocalityWrapper, Locality>(model.Capital);
+        Capital = GetWrapper<LocalityWrapper, Locality>(Model.Capital);
 
-        Country = GetWrapper<CountryWrapper, Country>(model.Country);
+        Country = GetWrapper<CountryWrapper, Country>(Model.Country);
 
     }
 

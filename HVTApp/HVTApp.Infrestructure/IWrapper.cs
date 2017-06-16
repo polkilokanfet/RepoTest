@@ -8,11 +8,15 @@ namespace HVTApp.Infrastructure
         where TModel : class, IBaseEntity
     {
         TModel Model { get; }
+        void InitializeComplexProperties();
     }
 
     public interface IValidatableChangeTracking : IRevertibleChangeTracking, INotifyPropertyChanged
     {
         bool IsValid { get; }
-        List<string> ProcessesInWork { get; }
+        bool IsChangedMethod(IDictionary<IBaseEntity, IValidatableChangeTracking> risedList);
+        bool IsValidMethod(IList<IBaseEntity> risedList);
+        void AcceptChangesMethod(IList<IBaseEntity> acceptedModels);
+        void RejectChangesMethod(IList<IBaseEntity> rejectedModels);
     }
 }

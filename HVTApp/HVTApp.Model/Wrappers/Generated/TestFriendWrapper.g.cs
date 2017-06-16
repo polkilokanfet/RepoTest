@@ -115,12 +115,12 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(TestFriend model)
+    public override void InitializeComplexProperties()
     {
 
-        TestFriendAddress = GetWrapper<TestFriendAddressWrapper, TestFriendAddress>(model.TestFriendAddress);
+        TestFriendAddress = GetWrapper<TestFriendAddressWrapper, TestFriendAddress>(Model.TestFriendAddress);
 
-        TestFriendGroup = GetWrapper<TestFriendGroupWrapper, TestFriendGroup>(model.TestFriendGroup);
+        TestFriendGroup = GetWrapper<TestFriendGroupWrapper, TestFriendGroup>(Model.TestFriendGroup);
 
     }
 

@@ -58,10 +58,10 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(Product model)
+    public override void InitializeComplexProperties()
     {
 
-        ProductItem = GetWrapper<ProductItemWrapper, ProductItem>(model.ProductItem);
+        ProductItem = GetWrapper<ProductItemWrapper, ProductItem>(Model.ProductItem);
 
     }
 

@@ -63,10 +63,10 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(Address model)
+    public override void InitializeComplexProperties()
     {
 
-        Locality = GetWrapper<LocalityWrapper, Locality>(model.Locality);
+        Locality = GetWrapper<LocalityWrapper, Locality>(Model.Locality);
 
     }
 

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -9,8 +10,13 @@ namespace HVTApp.Model.Wrappers
     {
         protected override void RunInConstructor()
         {
-            this.ComplexPropertyChanged += OnParentCompanyChanged;
+            this.PropertyChanged += OnParentCompanyChanged1;
             this.ChildCompanies.CollectionChanged += ChildCompaniesOnCollectionChanged;
+        }
+
+        private void OnParentCompanyChanged1(object sender, PropertyChangedEventArgs e)
+        {
+            var company = (CompanyWrapper) sender;
         }
 
         /// <summary>

@@ -27,14 +27,5 @@ namespace HVTApp.Model.Wrappers
                 _whoRisedEventPropertyChanged.Remove(whoRised);
             }
         }
-
-        protected event ComplexPropertyChangedEventHandler ComplexPropertyChanged;
-
-        protected virtual void OnComplexPropertyChanged(object oldpropval, object newpropval, [CallerMemberName] string propertyname = null)
-        {
-            ComplexPropertyChanged?.Invoke(oldpropval, newpropval, propertyname);
-        }
     }
-
-    public delegate void ComplexPropertyChangedEventHandler(object oldPropVal, object newPropVal, string propertyName);
 }

@@ -135,50 +135,57 @@ namespace HVTApp.Model.Wrappers
             items.ToList().ForEach(observableCollection.Add);
         }
 
+        public bool IsChangedMethod(IDictionary<IBaseEntity, IValidatableChangeTracking> risedList)
+        {
+            return IsChanged;
+        }
         /// <summary>
         /// Изменена ли коллекция?
         /// </summary>
         public bool IsChanged => _addedItems.Count > 0 || _modifiedItems.Count > 0 || _removedItems.Count > 0;
 
+        public bool IsValidMethod(IList<IBaseEntity> risedList)
+        {
+            return this.All(x => x.IsValidMethod(risedList));
+        }
+
+
         /// <summary>
         /// Валидны ли все члены коллекции?
         /// </summary>
-        public virtual bool IsValid => this.All(x => x.IsValid);
+        public virtual bool IsValid => IsValidMethod(new List<IBaseEntity>());
+
+
+        public void AcceptChangesMethod(IList<IBaseEntity> acceptedModels)
+        {
+            _addedItems.Clear();
+            _modifiedItems.Clear();
+            _removedItems.Clear();
+
+            this.ToList().ForEach(x => x.AcceptChangesMethod(acceptedModels));
+
+            _originalCollection = this.ToList();
+
+            OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
+        }
+
 
         /// <summary>
         /// Принять все изменения в коллекции
         /// </summary>
         public void AcceptChanges()
         {
-            if (ProcessesInWork.Contains(nameof(AcceptChanges)))
-                return;
-
-            ProcessesInWork.Add(nameof(AcceptChanges));
-
-            _addedItems.Clear();
-            _modifiedItems.Clear();
-            _removedItems.Clear();
-
-            this.Where(x => !x.ProcessesInWork.Contains(nameof(AcceptChanges))).ToList().ForEach(x => x.AcceptChanges());
-
-            _originalCollection = this.ToList();
-
-            ProcessesInWork.Remove(nameof(AcceptChanges));
-
-            OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
+            AcceptChangesMethod(new List<IBaseEntity>());
         }
 
-        /// <summary>
-        /// Отменить все изменения в коллекции.
-        /// </summary>
-        public void RejectChanges()
+        public void RejectChangesMethod(IList<IBaseEntity> rejectedModels)
         {
             this.Clear();
 
             foreach (TCollectionItem item in _originalCollection)
             {
                 if (item.IsChanged)
-                    item.RejectChanges();
+                    item.RejectChangesMethod(rejectedModels);
                 this.Add(item);
             }
 
@@ -187,6 +194,13 @@ namespace HVTApp.Model.Wrappers
             _removedItems.Clear();
 
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
+        }
+        /// <summary>
+        /// Отменить все изменения в коллекции.
+        /// </summary>
+        public void RejectChanges()
+        {
+            RejectChangesMethod(new List<IBaseEntity>());
         }
 
         public List<string> ProcessesInWork { get; } = new List<string>();

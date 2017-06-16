@@ -58,10 +58,10 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(TestHusband model)
+    public override void InitializeComplexProperties()
     {
 
-        Wife = GetWrapper<TestWifeWrapper, TestWife>(model.Wife);
+        Wife = GetWrapper<TestWifeWrapper, TestWife>(Model.Wife);
 
     }
 

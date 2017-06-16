@@ -73,10 +73,10 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(Project model)
+    public override void InitializeComplexProperties()
     {
 
-        Manager = GetWrapper<UserWrapper, User>(model.Manager);
+        Manager = GetWrapper<UserWrapper, User>(Model.Manager);
 
     }
 

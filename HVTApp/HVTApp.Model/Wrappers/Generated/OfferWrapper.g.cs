@@ -140,24 +140,24 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(Offer model)
+    public override void InitializeComplexProperties()
     {
 
-        Project = GetWrapper<ProjectWrapper, Project>(model.Project);
+        Project = GetWrapper<ProjectWrapper, Project>(Model.Project);
 
-        Tender = GetWrapper<TenderWrapper, Tender>(model.Tender);
+        Tender = GetWrapper<TenderWrapper, Tender>(Model.Tender);
 
-        RequestDocument = GetWrapper<DocumentWrapper, Document>(model.RequestDocument);
+        RequestDocument = GetWrapper<DocumentWrapper, Document>(Model.RequestDocument);
 
-        Author = GetWrapper<EmployeeWrapper, Employee>(model.Author);
+        Author = GetWrapper<EmployeeWrapper, Employee>(Model.Author);
 
-        SenderEmployee = GetWrapper<EmployeeWrapper, Employee>(model.SenderEmployee);
+        SenderEmployee = GetWrapper<EmployeeWrapper, Employee>(Model.SenderEmployee);
 
-        RecipientEmployee = GetWrapper<EmployeeWrapper, Employee>(model.RecipientEmployee);
+        RecipientEmployee = GetWrapper<EmployeeWrapper, Employee>(Model.RecipientEmployee);
 
-        RegistrationDetailsOfSender = GetWrapper<RegistrationDetailsWrapper, RegistrationDetails>(model.RegistrationDetailsOfSender);
+        RegistrationDetailsOfSender = GetWrapper<RegistrationDetailsWrapper, RegistrationDetails>(Model.RegistrationDetailsOfSender);
 
-        RegistrationDetailsOfRecipient = GetWrapper<RegistrationDetailsWrapper, RegistrationDetails>(model.RegistrationDetailsOfRecipient);
+        RegistrationDetailsOfRecipient = GetWrapper<RegistrationDetailsWrapper, RegistrationDetails>(Model.RegistrationDetailsOfRecipient);
 
     }
 

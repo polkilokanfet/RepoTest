@@ -67,10 +67,10 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(Specification model)
+    public override void InitializeComplexProperties()
     {
 
-        Contract = GetWrapper<ContractWrapper, Contract>(model.Contract);
+        Contract = GetWrapper<ContractWrapper, Contract>(Model.Contract);
 
     }
 

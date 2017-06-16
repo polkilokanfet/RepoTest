@@ -59,10 +59,10 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(Measure model)
+    public override void InitializeComplexProperties()
     {
 
-        PhysicalQuantity = GetWrapper<PhysicalQuantityWrapper, PhysicalQuantity>(model.PhysicalQuantity);
+        PhysicalQuantity = GetWrapper<PhysicalQuantityWrapper, PhysicalQuantity>(Model.PhysicalQuantity);
 
     }
 

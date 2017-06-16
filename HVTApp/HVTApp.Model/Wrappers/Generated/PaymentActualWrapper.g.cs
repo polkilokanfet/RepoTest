@@ -79,14 +79,14 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(PaymentActual model)
+    public override void InitializeComplexProperties()
     {
 
-        SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(model.SalesUnit);
+        SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(Model.SalesUnit);
 
-        Document = GetWrapper<PaymentDocumentWrapper, PaymentDocument>(model.Document);
+        Document = GetWrapper<PaymentDocumentWrapper, PaymentDocument>(Model.Document);
 
-        SumAndVat = GetWrapper<SumAndVatWrapper, SumAndVat>(model.SumAndVat);
+        SumAndVat = GetWrapper<SumAndVatWrapper, SumAndVat>(Model.SumAndVat);
 
     }
 

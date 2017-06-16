@@ -59,10 +59,10 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(SumAndVat model)
+    public override void InitializeComplexProperties()
     {
 
-        Currency = GetWrapper<CurrencyWrapper, Currency>(model.Currency);
+        Currency = GetWrapper<CurrencyWrapper, Currency>(Model.Currency);
 
     }
 

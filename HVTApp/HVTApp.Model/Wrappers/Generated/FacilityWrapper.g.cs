@@ -70,14 +70,14 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(Facility model)
+    public override void InitializeComplexProperties()
     {
 
-        Type = GetWrapper<FacilityTypeWrapper, FacilityType>(model.Type);
+        Type = GetWrapper<FacilityTypeWrapper, FacilityType>(Model.Type);
 
-        OwnerCompany = GetWrapper<CompanyWrapper, Company>(model.OwnerCompany);
+        OwnerCompany = GetWrapper<CompanyWrapper, Company>(Model.OwnerCompany);
 
-        Address = GetWrapper<AddressWrapper, Address>(model.Address);
+        Address = GetWrapper<AddressWrapper, Address>(Model.Address);
 
     }
 

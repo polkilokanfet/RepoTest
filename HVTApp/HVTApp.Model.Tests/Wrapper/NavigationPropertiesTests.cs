@@ -177,16 +177,16 @@ namespace HVTApp.Model.Tests.Wrapper
 
             wife.Husband = husband;
             husband.Wife = wife;
-            husband.Children.Add(child1);
-            husband.Children.Add(child2);
+            husband.Children.AddRange(new[] { child1, child2 });
 
             TestHusbandWrapper husbandWrapper = new TestHusbandWrapper(husband);
             Assert.IsFalse(husbandWrapper.IsChanged);
 
-            TestChildWrapper childWrapper1 = husbandWrapper.Children.First(x => Equals(x.Model, child1));
+            TestChildWrapper childWrapper1 = husbandWrapper.Children.Single(x => Equals(x.Model, child1));
 
             string oldChildsName = childWrapper1.Name;
             childWrapper1.Name = oldChildsName + "NEW";
+            Assert.AreEqual(childWrapper1.NameOriginalValue, oldChildsName);
             Assert.IsTrue(husbandWrapper.IsChanged);
 
             childWrapper1.Name = oldChildsName;

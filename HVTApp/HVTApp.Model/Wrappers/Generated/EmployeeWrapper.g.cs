@@ -79,14 +79,14 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(Employee model)
+    public override void InitializeComplexProperties()
     {
 
-        Person = GetWrapper<PersonWrapper, Person>(model.Person);
+        Person = GetWrapper<PersonWrapper, Person>(Model.Person);
 
-        Company = GetWrapper<CompanyWrapper, Company>(model.Company);
+        Company = GetWrapper<CompanyWrapper, Company>(Model.Company);
 
-        Position = GetWrapper<EmployeesPositionWrapper, EmployeesPosition>(model.Position);
+        Position = GetWrapper<EmployeesPositionWrapper, EmployeesPosition>(Model.Position);
 
     }
 

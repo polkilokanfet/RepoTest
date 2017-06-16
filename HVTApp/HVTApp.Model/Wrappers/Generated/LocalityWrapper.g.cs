@@ -70,14 +70,14 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(Locality model)
+    public override void InitializeComplexProperties()
     {
 
-        LocalityType = GetWrapper<LocalityTypeWrapper, LocalityType>(model.LocalityType);
+        LocalityType = GetWrapper<LocalityTypeWrapper, LocalityType>(Model.LocalityType);
 
-        Region = GetWrapper<RegionWrapper, Region>(model.Region);
+        Region = GetWrapper<RegionWrapper, Region>(Model.Region);
 
-        DeliveryPeriod = GetWrapper<StandartDeliveryPeriodWrapper, StandartDeliveryPeriod>(model.DeliveryPeriod);
+        DeliveryPeriod = GetWrapper<StandartDeliveryPeriodWrapper, StandartDeliveryPeriod>(Model.DeliveryPeriod);
 
     }
 

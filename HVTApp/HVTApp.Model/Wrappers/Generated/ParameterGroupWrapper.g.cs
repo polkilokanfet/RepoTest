@@ -67,10 +67,10 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(ParameterGroup model)
+    public override void InitializeComplexProperties()
     {
 
-        Measure = GetWrapper<MeasureWrapper, Measure>(model.Measure);
+        Measure = GetWrapper<MeasureWrapper, Measure>(Model.Measure);
 
     }
 

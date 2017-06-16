@@ -28,18 +28,16 @@ namespace HVTApp.Model.Wrappers
         /// </summary>
         public T Model { get; }
 
-        public bool EqualsModels(IWrapper<T> wrapper)
-        {
-            return Equals(this.Model, wrapper.Model);
-        }
-
         protected WrapperBase(T model)
         {
             if (model == null) throw new ArgumentNullException(nameof(Model));
 
             Model = model;
 
-            //InitializeComplexProperties(model);
+            if (!WrappersFactory.Wrappers.ContainsKey(model))
+                WrappersFactory.Wrappers.Add(model, this);
+
+            InitializeComplexProperties();
             InitializeCollectionSimpleProperties(model);
             InitializeCollectionComplexProperties(model);
 
@@ -48,108 +46,87 @@ namespace HVTApp.Model.Wrappers
             RunInConstructor();
         }
 
+        #region InitializeProperties
+
         /// <summary>
         /// Инициализация свойств-коллекций объекта.
         /// </summary>
         /// <param name="model"></param>
         protected virtual void InitializeCollectionComplexProperties(T model) { }
 
-        protected virtual void InitializeCollectionSimpleProperties(T model) { }
+        public virtual void InitializeCollectionSimpleProperties(T model) { }
 
         /// <summary>
         /// Инициализация свойств сложных (не примитивных) типов.
         /// </summary>
         /// <param name="model"></param>
-        protected virtual void InitializeComplexProperties(T model) { }
+        public virtual void InitializeComplexProperties() { }
 
-        public List<string> ProcessesInWork { get; } = new List<string>();
+        #endregion
+
+        public bool IsChangedMethod(IDictionary<IBaseEntity, IValidatableChangeTracking> risedList)
+        {
+            if (risedList.ContainsKey(this.Model)) return false;
+            risedList.Add(this.Model, this);
+
+            var risedWrappers = risedList.Select(x => x.Value);
+
+            if (_trackingObjects.Count != _trackingObjects.Except(risedWrappers).Count())
+                return false;
+
+            return _originalValues.Count > 0 || _trackingObjects.Except(risedWrappers).Any(x => x.IsChangedMethod(risedList));
+        }
+
 
         /// <summary>
         /// Произошли ли изменения каких-либо свойств объекта.
         /// </summary>
-        public bool IsChanged
-        {
-            get
-            {
-                if (ProcessesInWork.Contains(nameof(IsChanged)))
-                    return false;
-
-                ProcessesInWork.Add(nameof(IsChanged));
-
-                if (_originalValues.Count > 0)
-                {
-                    ProcessesInWork.Remove(nameof(IsChanged));
-                    return true;
-                }
-
-                bool result =
-                    _trackingObjects.Where(x => !x.ProcessesInWork.Contains(nameof(IsChanged))).Any(x => x.IsChanged);
-
-                ProcessesInWork.Remove(nameof(IsChanged));
-                return result;
-            }
-        }
+        public bool IsChanged => IsChangedMethod(new Dictionary<IBaseEntity, IValidatableChangeTracking>());
 
         //public bool IsChanged => _originalValues.Count > 0 || _trackingObjects.Any(x => x.IsChanged);
+
+        public bool IsValidMethod(IList<IBaseEntity> risedList)
+        {
+            if (risedList.Contains(this.Model)) return true;
+            risedList.Add(this.Model);
+
+            return !HasErrors && _trackingObjects.All(x => x.IsValidMethod(risedList));
+        }
+
 
         /// <summary>
         /// Все ли свойства валидны.
         /// </summary>
-        public bool IsValid
-        {
-            get
-            {
-                if (ProcessesInWork.Contains(nameof(IsValid)))
-                    return true;
-
-                ProcessesInWork.Add(nameof(IsValid));
-
-                if (HasErrors)
-                {
-                    ProcessesInWork.Remove(nameof(IsValid));
-                    return false;
-                }
-
-                bool result =
-                    _trackingObjects.Where(x => !x.ProcessesInWork.Contains(nameof(IsValid))).All(x => x.IsValid);
-
-                ProcessesInWork.Remove(nameof(IsValid));
-                return result;
-            }
-        }
+        public bool IsValid => IsValidMethod(new List<IBaseEntity>());
 
         //public bool IsValid => !HasErrors && _trackingObjects.All(x => x.IsValid);
+
+        public void AcceptChangesMethod(IList<IBaseEntity> acceptedModels)
+        {
+            if (acceptedModels.Contains(this.Model)) return;
+            acceptedModels.Add(this.Model);
+
+            //очищаем список начальных значений
+            _originalValues.Clear();
+            //принимаем изменения в сложных свойствах.
+            _trackingObjects.ForEach(x => x.AcceptChangesMethod(acceptedModels));
+            //обновляем в WPF весь объект целиком.
+            OnPropertyChanged(this, "");
+        }
+
 
         /// <summary>
         /// Принять изменения объекта.
         /// </summary>
         public void AcceptChanges()
         {
-            if (ProcessesInWork.Contains(nameof(AcceptChanges)))
-                return;
-
-            ProcessesInWork.Add(nameof(AcceptChanges));
-
-            //очищаем список начальных значений
-            _originalValues.Clear();
-            //принимаем изменения в сложных свойствах.
-            _trackingObjects.Where(x => !x.ProcessesInWork.Contains(nameof(AcceptChanges)))
-                .ToList().ForEach(x => x.AcceptChanges());
-            //обновляем в WPF весь объект целиком.
-            OnPropertyChanged(this, "");
-
-            ProcessesInWork.Remove(nameof(AcceptChanges));
+            AcceptChangesMethod(new List<IBaseEntity>());
         }
 
-        /// <summary>
-        /// Откатить изменения объекта.
-        /// </summary>
-        public void RejectChanges()
+        public void RejectChangesMethod(IList<IBaseEntity> rejectedModels)
         {
-            if (ProcessesInWork.Contains(nameof(RejectChanges)))
-                return;
-
-            ProcessesInWork.Add(nameof(RejectChanges));
+            if (rejectedModels.Contains(this.Model)) return;
+            rejectedModels.Add(this.Model);
 
             //устанавливаем в каждое измененное свойство начальное значение.
             foreach (var originalValue in _originalValues)
@@ -164,16 +141,20 @@ namespace HVTApp.Model.Wrappers
             _originalValues.Clear();
 
             //откатываем изменения в сложных свойствах.
-            _trackingObjects.Where(x => !x.ProcessesInWork.Contains(nameof(RejectChanges)))
-                .ToList().ForEach(x => x.RejectChanges());
+            _trackingObjects.ForEach(x => x.RejectChangesMethod(rejectedModels));
 
             //проверка на валидность объекта.
             Validate();
 
             //обновляем в WPF весь объект целиком.
             OnPropertyChanged(this, "");
-
-            ProcessesInWork.Remove(nameof(RejectChanges));
+        }
+        /// <summary>
+        /// Откатить изменения объекта.
+        /// </summary>
+        public void RejectChanges()
+        {
+            RejectChangesMethod(new List<IBaseEntity>());
         }
 
         /// <summary>
@@ -290,32 +271,6 @@ namespace HVTApp.Model.Wrappers
         }
 
         /// <summary>
-        /// Отмена регистрации сложного (не примитивного) свойства. В нем необходимо отслеживать изменения.
-        /// </summary>
-        /// <typeparam name="TModel">Тип модели.</typeparam>
-        /// <param name="wrapper">Обертка.</param>
-        protected void UnRegisterComplexProperty<TModel>(IWrapper<TModel> wrapper)
-            where TModel : class, IBaseEntity
-        {
-            if (wrapper == null) return;
-            if (_complexProperties.ContainsKey(wrapper.Model)) _complexProperties.Remove(wrapper.Model);
-            UnRegisterTrackingObject(wrapper);
-        }
-
-        /// <summary>
-        /// Регистрация сложного (не примитивного) свойства. В нем необходимо отслеживать изменения.
-        /// </summary>
-        /// <typeparam name="TModel">Тип модели.</typeparam>
-        /// <param name="wrapper">Обертка.</param>
-        protected void RegisterComplexProperty<TModel>(IWrapper<TModel> wrapper)
-            where TModel : class, IBaseEntity
-        {
-            if (wrapper == null) return;
-            if (!_complexProperties.ContainsKey(wrapper.Model)) _complexProperties.Add(wrapper.Model, wrapper);
-            RegisterTrackingObject(wrapper);
-        }
-
-        /// <summary>
         /// Удаление трекинг-объекта из реестра отслеживания в нем изменений.
         /// </summary>
         /// <param name="trackingObject"></param>
@@ -408,46 +363,29 @@ namespace HVTApp.Model.Wrappers
             return Model.ToString();
         }
 
-        //public override bool Equals(object obj)
-        //{
-        //    WrapperBase<T> other = obj as WrapperBase<T>;
-        //    return other != null && Model.Equals(other.Model);
-        //}
-
-        private readonly Dictionary<IBaseEntity, object> _complexProperties = new Dictionary<IBaseEntity, object>();
-
         protected TWrapper GetComplexProperty<TWrapper, TModel>(TModel model)
             where TWrapper : class, IWrapper<TModel>
             where TModel : class, IBaseEntity
         {
             if (model == null) return null;
 
-            //if (_complexProperties.ContainsKey(model))
-            //    return (TWrapper)_complexProperties[model];
-
-            //var result = GetWrapper<TWrapper, TModel>(model);
-            //_complexProperties.Add(result);
-            var result = GetWrapper<TWrapper, TModel>(model);
-            //if (!_trackingObjects.Contains(result)) InitializeComplexProperties(Model);
-            return result;
+            return GetWrapper<TWrapper, TModel>(model);
         }
 
         protected void SetComplexProperty<TWrapper, TModel>(TWrapper oldValue, TWrapper newValue, [CallerMemberName] string propertyName = null)
             where TWrapper : class, IWrapper<TModel>
             where TModel : class, IBaseEntity
         {
-            if (Equals(oldValue, newValue)) return;
+            if (Equals(oldValue, newValue) && _trackingObjects.Contains(oldValue)) return;
 
-            UnRegisterComplexProperty(oldValue);
-            RegisterComplexProperty(newValue);
+            if (oldValue != null) UnRegisterTrackingObject(oldValue);
+            if (newValue != null) RegisterTrackingObject(newValue);
             SetValue(newValue?.Model, propertyName);
-            OnComplexPropertyChanged(oldValue, newValue, propertyName); //событие изменения комплексного свойства
 
             //обновление оригинального значения комплексного свойства
             if (Equals(newValue?.Model, GetOriginalValue<TModel>(propertyName)))
                 this.GetType().GetProperty(propertyName + "OriginalValue").SetValue(this, newValue);
         }
-
 
         protected TWrapper GetWrapper<TWrapper, TModel>(TModel model)
             where TModel : class, IBaseEntity

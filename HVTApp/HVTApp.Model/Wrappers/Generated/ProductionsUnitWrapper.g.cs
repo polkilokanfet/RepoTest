@@ -124,14 +124,14 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-    protected override void InitializeComplexProperties(ProductionsUnit model)
+    public override void InitializeComplexProperties()
     {
 
-        Unit = GetWrapper<UnitWrapper, Unit>(model.Unit);
+        Unit = GetWrapper<UnitWrapper, Unit>(Model.Unit);
 
-        Product = GetWrapper<ProductWrapper, Product>(model.Product);
+        Product = GetWrapper<ProductWrapper, Product>(Model.Product);
 
-        Order = GetWrapper<OrderWrapper, Order>(model.Order);
+        Order = GetWrapper<OrderWrapper, Order>(Model.Order);
 
     }
 

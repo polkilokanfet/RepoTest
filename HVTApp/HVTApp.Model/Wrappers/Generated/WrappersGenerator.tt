@@ -248,7 +248,7 @@ namespace HVTApp.Model.Wrappers
     if(properties.Any())
     {
 #>
-    protected override void InitializeComplexProperties(<#= modelTypeName #> model)
+    public override void InitializeComplexProperties()
     {
 <#+
 	  foreach (var complexProperty in properties)
@@ -256,7 +256,7 @@ namespace HVTApp.Model.Wrappers
 		var propertyName = complexProperty.Name;
 		var propertyType = complexProperty.PropertyType.Name;
 #>
-        <#= propertyName #> = GetWrapper<<#= propertyType #>Wrapper, <#= propertyType #>>(model.<#= propertyName #>);
+        <#= propertyName #> = GetWrapper<<#= propertyType #>Wrapper, <#= propertyType #>>(Model.<#= propertyName #>);
 <#+
       }
 #>
