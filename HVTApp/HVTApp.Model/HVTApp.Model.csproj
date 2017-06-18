@@ -76,7 +76,7 @@
     <Compile Include="POCOs\User.cs" />
     <Compile Include="POCOs\Units.cs" />
     <Compile Include="Wrappers\Base\NotifyDataErrorInfoBase.cs" />
-    <Compile Include="Wrappers\Base\Observable.cs" />
+    <Compile Include="Wrappers\Base\ObservableWrapper.cs" />
     <Compile Include="Wrappers\Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
     <Compile Include="Wrappers\Base\TrackingCollections\ValidatableChangeTrackingCollection.cs" />
     <Compile Include="Wrappers\Base\WhoRised.cs" />

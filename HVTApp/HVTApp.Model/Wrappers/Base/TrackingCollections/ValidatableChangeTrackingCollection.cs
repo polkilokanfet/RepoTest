@@ -199,8 +199,6 @@ namespace HVTApp.Model.Wrappers
             RejectChangesMethod(new List<IBaseEntity>());
         }
 
-        public List<string> ProcessesInWork { get; } = new List<string>();
-
         private readonly List<WhoRised> _whoRisedEventPropertyChanged = new List<WhoRised>();
 
         protected void OnPropertyChanged(object sender, string propertyName)

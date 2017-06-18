@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Factory
@@ -13,10 +14,18 @@ namespace HVTApp.Model.Factory
             where TWrapper: class, IWrapper<TModel>
         {
             if (!Wrappers.ContainsKey(model))
-                Activator.CreateInstance(typeof (TWrapper), model);
+                Activator.CreateInstance(typeof (TWrapper), BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { model }, null, null);
 
             return (TWrapper) Wrappers[model];
         }
+
+        public static TWrapper GetWrapper<TModel, TWrapper>()
+            where TModel : class, IBaseEntity
+            where TWrapper : class, IWrapper<TModel>
+        {
+            return GetWrapper<TModel, TWrapper>(Activator.CreateInstance<TModel>());
+        }
+
 
         public static void RemoveWrapper(IBaseEntity model)
         {

@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace HVTApp.Model.Wrappers
 {
-    public class Observable : INotifyPropertyChanged
+    public class ObservableWrapper : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

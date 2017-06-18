@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace HVTApp.Model.Wrappers
 {
-    public abstract class NotifyDataErrorInfoBase : Observable, INotifyDataErrorInfo
+    public abstract class NotifyDataErrorInfoBase : ObservableWrapper, INotifyDataErrorInfo
     {
         /// <summary>
         /// Словарь ошибок, содержащихся в объекте.

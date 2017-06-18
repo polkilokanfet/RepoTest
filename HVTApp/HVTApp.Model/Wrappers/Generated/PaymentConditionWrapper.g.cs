@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class PaymentConditionWrapper : WrapperBase<PaymentCondition>
   {
-    public PaymentConditionWrapper() : base(new PaymentCondition()) { }
-    public PaymentConditionWrapper(PaymentCondition model) : base(model) { }
+    private PaymentConditionWrapper() : base(new PaymentCondition()) { }
+    private PaymentConditionWrapper(PaymentCondition model) : base(model) { }
 
 
 

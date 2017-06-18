@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Model.Factory;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,7 +24,7 @@ namespace HVTApp.Model.Tests
             Unit su21 = new Unit { ProductionsUnit = new ProductionsUnit { Product = new Product { ProductItem = new ProductItem { Parameters = new List<Parameter>(new[] { p2 }) } } }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
 
             Project project = new Project {Units = new List<Unit>(new[] {su10, su11, su12, su20, su21})};
-            ProjectWrapper projectWrapper = new ProjectWrapper(project);
+            ProjectWrapper projectWrapper = WrappersFactory.GetWrapper <Project, ProjectWrapper> (project);
 
             Assert.AreEqual(projectWrapper.UnitsGroups.Count, 2);
             Assert.AreEqual(projectWrapper.UnitsGroups.First().Units.Count, 3);

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Model.Factory;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -26,7 +27,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldReturnValidationErrorIfFirstNameIsEmpty()
         {
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             Assert.IsFalse(wrapper.HasErrors);
 
             wrapper.FirstName = "";
@@ -44,7 +45,7 @@ namespace HVTApp.Model.Tests.Wrapper
         public void ShouldRaiseErrorsChangedEventWhenFirstNameIsSetToEmptyAndBack()
         {
             var fired = false;
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
 
             wrapper.ErrorsChanged += (s, e) =>
             {
@@ -65,7 +66,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldSetIsValid()
         {
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             Assert.IsTrue(wrapper.IsValid);
 
             wrapper.FirstName = "";
@@ -79,7 +80,7 @@ namespace HVTApp.Model.Tests.Wrapper
         public void ShouldRaisePropertyChangedEventForIsValid()
         {
             var fired = false;
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
 
             wrapper.PropertyChanged += (s, e) =>
             {
@@ -101,7 +102,7 @@ namespace HVTApp.Model.Tests.Wrapper
         public void ShouldSetErrorsAndIsValidAfterInitialization()
         {
             _testFriend.FirstName = "";
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
 
             Assert.IsFalse(wrapper.IsValid);
             Assert.IsTrue(wrapper.HasErrors);
@@ -114,7 +115,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldRefreshErrorsAndIsValidWhenRejectingChanges()
         {
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             Assert.IsTrue(wrapper.IsValid);
             Assert.IsFalse(wrapper.HasErrors);
 

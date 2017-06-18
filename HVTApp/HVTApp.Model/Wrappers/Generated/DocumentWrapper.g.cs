@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class DocumentWrapper : WrapperBase<Document>
   {
-    public DocumentWrapper() : base(new Document()) { }
-    public DocumentWrapper(Document model) : base(model) { }
+    private DocumentWrapper() : base(new Document()) { }
+    private DocumentWrapper(Document model) : base(model) { }
 
 
 

@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class SumAndVatWrapper : WrapperBase<SumAndVat>
   {
-    public SumAndVatWrapper() : base(new SumAndVat()) { }
-    public SumAndVatWrapper(SumAndVat model) : base(model) { }
+    private SumAndVatWrapper() : base(new SumAndVat()) { }
+    private SumAndVatWrapper(SumAndVat model) : base(model) { }
 
 
 

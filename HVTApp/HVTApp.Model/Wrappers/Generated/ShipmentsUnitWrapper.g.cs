@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class ShipmentsUnitWrapper : WrapperBase<ShipmentsUnit>
   {
-    public ShipmentsUnitWrapper() : base(new ShipmentsUnit()) { }
-    public ShipmentsUnitWrapper(ShipmentsUnit model) : base(model) { }
+    private ShipmentsUnitWrapper() : base(new ShipmentsUnit()) { }
+    private ShipmentsUnitWrapper(ShipmentsUnit model) : base(model) { }
 
 
 

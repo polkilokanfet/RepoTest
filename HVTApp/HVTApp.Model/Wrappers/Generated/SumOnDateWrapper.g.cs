@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class SumOnDateWrapper : WrapperBase<SumOnDate>
   {
-    public SumOnDateWrapper() : base(new SumOnDate()) { }
-    public SumOnDateWrapper(SumOnDate model) : base(model) { }
+    private SumOnDateWrapper() : base(new SumOnDate()) { }
+    private SumOnDateWrapper(SumOnDate model) : base(model) { }
 
 
 

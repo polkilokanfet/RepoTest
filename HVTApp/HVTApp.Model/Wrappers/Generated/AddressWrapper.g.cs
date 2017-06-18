@@ -21,8 +21,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class AddressWrapper : WrapperBase<Address>
   {
-    public AddressWrapper() : base(new Address()) { }
-    public AddressWrapper(Address model) : base(model) { }
+    private AddressWrapper() : base(new Address()) { }
+    private AddressWrapper(Address model) : base(model) { }
 
 
 

@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class SpecificationWrapper : WrapperBase<Specification>
   {
-    public SpecificationWrapper() : base(new Specification()) { }
-    public SpecificationWrapper(Specification model) : base(model) { }
+    private SpecificationWrapper() : base(new Specification()) { }
+    private SpecificationWrapper(Specification model) : base(model) { }
 
 
 

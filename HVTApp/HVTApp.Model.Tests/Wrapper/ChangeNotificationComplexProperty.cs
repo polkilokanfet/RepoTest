@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using HVTApp.Model.Factory;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,7 +26,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldInitializeAddressProperty()
         {
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             Assert.IsNotNull(wrapper.TestFriendAddress);
             Assert.AreEqual(_testFriend.TestFriendAddress, wrapper.TestFriendAddress.Model);
         }

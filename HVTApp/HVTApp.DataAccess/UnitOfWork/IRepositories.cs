@@ -1,28 +1,29 @@
 ﻿using System.Collections.Generic;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
 {
-    public interface IActivityFieldsRepository : IRepository<ActivityFieldWrapper> { }
-    public interface IFriendGroupRepository : IRepository<TestFriendGroupWrapper> { }
-    public interface IUsersRepository : IRepository<UserWrapper> { }
-    public interface ICompaniesRepository : IRepository<CompanyWrapper> { }
-    public interface ICompanyFormsRepository : IRepository<CompanyFormWrapper> { }
-    public interface IParametersGroupsRepository : IRepository<ParameterGroupWrapper> { }
-    public interface IParametersRepository : IRepository<ParameterWrapper> { }
-    public interface IRequiredProductsChildsesRepository : IRepository<RequiredProductsChildsWrapper> { }
+    public interface IActivityFieldsRepository : IRepository<ActivityField, ActivityFieldWrapper> { }
+    public interface IFriendGroupRepository : IRepository<TestFriendGroup, TestFriendGroupWrapper> { }
+    public interface IUsersRepository : IRepository<User, UserWrapper> { }
+    public interface ICompaniesRepository : IRepository<Company, CompanyWrapper> { }
+    public interface ICompanyFormsRepository : IRepository<CompanyForm, CompanyFormWrapper> { }
+    public interface IParametersGroupsRepository : IRepository<ParameterGroup, ParameterGroupWrapper> { }
+    public interface IParametersRepository : IRepository<Parameter, ParameterWrapper> { }
+    public interface IRequiredProductsChildsesRepository : IRepository<RequiredProductsChilds, RequiredProductsChildsWrapper> { }
 
-    public interface IProductItemsRepository : IRepository<ProductItemWrapper>
+    public interface IProductItemsRepository : IRepository<ProductItem, ProductItemWrapper>
     {
         ProductItemWrapper GetProductItem(IEnumerable<ParameterWrapper> parameters);
     }
-    public interface IProductsRepository : IRepository<ProductWrapper> { }
-    public interface IFacilityTypesRepository : IRepository<FacilityTypeWrapper> { }
-    public interface IFacilitiesRepository : IRepository<FacilityWrapper> { }
-    public interface IProjectsRepository : IRepository<ProjectWrapper> { }
-    public interface ITendersRepository : IRepository<TenderWrapper> { }
-    public interface IOffersRepository : IRepository<OfferWrapper> { }
-    public interface IContractsRepository : IRepository<ContractWrapper> { }
-    public interface ISpecificationsRepository : IRepository<SpecificationWrapper> { }
-    public interface IUnitsRepository : IRepository<UnitWrapper> { }
+    public interface IProductsRepository : IRepository<Product, ProductWrapper> { }
+    public interface IFacilityTypesRepository : IRepository<FacilityType, FacilityTypeWrapper> { }
+    public interface IFacilitiesRepository : IRepository<Facility, FacilityWrapper> { }
+    public interface IProjectsRepository : IRepository<Project, ProjectWrapper> { }
+    public interface ITendersRepository : IRepository<Tender, TenderWrapper> { }
+    public interface IOffersRepository : IRepository<Offer, OfferWrapper> { }
+    public interface IContractsRepository : IRepository<Contract, ContractWrapper> { }
+    public interface ISpecificationsRepository : IRepository<Specification, SpecificationWrapper> { }
+    public interface IUnitsRepository : IRepository<Unit, UnitWrapper> { }
 }

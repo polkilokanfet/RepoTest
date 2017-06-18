@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class StandartDeliveryPeriodWrapper : WrapperBase<StandartDeliveryPeriod>
   {
-    public StandartDeliveryPeriodWrapper() : base(new StandartDeliveryPeriod()) { }
-    public StandartDeliveryPeriodWrapper(StandartDeliveryPeriod model) : base(model) { }
+    private StandartDeliveryPeriodWrapper() : base(new StandartDeliveryPeriod()) { }
+    private StandartDeliveryPeriodWrapper(StandartDeliveryPeriod model) : base(model) { }
 
 
 

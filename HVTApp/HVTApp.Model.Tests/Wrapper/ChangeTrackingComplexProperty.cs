@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using HVTApp.Model.Factory;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,7 +26,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldSetIsChangedOfFriendTestWrapper()
         {
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             wrapper.TestFriendAddress.City = "Salt Lake City";
             Assert.IsTrue(wrapper.IsChanged);
 
@@ -37,7 +38,7 @@ namespace HVTApp.Model.Tests.Wrapper
         public void ShouldRaisePropertyChangedEventForIsChangedPropertyOfFriendTestWrapper()
         {
             var fired = false;
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             wrapper.PropertyChanged += (s, e) =>
               {
                   if (e.PropertyName == nameof(wrapper.IsChanged))
@@ -53,7 +54,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldAcceptChanges()
         {
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             wrapper.TestFriendAddress.City = "Salt Lake City";
             Assert.AreEqual("Müllheim", wrapper.TestFriendAddress.CityOriginalValue);
 
@@ -67,7 +68,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldRejectChanges()
         {
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             wrapper.TestFriendAddress.City = "Salt Lake City";
             Assert.AreEqual("Müllheim", wrapper.TestFriendAddress.CityOriginalValue);
 

@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class CountryWrapper : WrapperBase<Country>
   {
-    public CountryWrapper() : base(new Country()) { }
-    public CountryWrapper(Country model) : base(model) { }
+    private CountryWrapper() : base(new Country()) { }
+    private CountryWrapper(Country model) : base(model) { }
 
 
 

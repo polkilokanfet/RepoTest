@@ -2,6 +2,7 @@
 using Prism.Mvvm;
 using System.Collections.Generic;
 using HVTApp.DataAccess;
+using HVTApp.Model.Factory;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Prism.Regions;
@@ -32,7 +33,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
                 Employees = new List<Employee>()
             };
 
-            CompanyWrapper = companyWrapper ?? new CompanyWrapper(newCompany);
+            CompanyWrapper = companyWrapper ?? WrappersFactory.GetWrapper<Company, CompanyWrapper>(newCompany);
 
             CompanyWrapper.PropertyChanged += (s, e) =>
             {

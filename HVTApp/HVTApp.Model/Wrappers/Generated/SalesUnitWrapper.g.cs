@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class SalesUnitWrapper : WrapperBase<SalesUnit>
   {
-    public SalesUnitWrapper() : base(new SalesUnit()) { }
-    public SalesUnitWrapper(SalesUnit model) : base(model) { }
+    private SalesUnitWrapper() : base(new SalesUnit()) { }
+    private SalesUnitWrapper(SalesUnit model) : base(model) { }
 
 
 

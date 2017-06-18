@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class OrderWrapper : WrapperBase<Order>
   {
-    public OrderWrapper() : base(new Order()) { }
-    public OrderWrapper(Order model) : base(model) { }
+    private OrderWrapper() : base(new Order()) { }
+    private OrderWrapper(Order model) : base(model) { }
 
 
 

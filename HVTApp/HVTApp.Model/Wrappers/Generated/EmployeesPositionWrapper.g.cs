@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class EmployeesPositionWrapper : WrapperBase<EmployeesPosition>
   {
-    public EmployeesPositionWrapper() : base(new EmployeesPosition()) { }
-    public EmployeesPositionWrapper(EmployeesPosition model) : base(model) { }
+    private EmployeesPositionWrapper() : base(new EmployeesPosition()) { }
+    private EmployeesPositionWrapper(EmployeesPosition model) : base(model) { }
 
 
 

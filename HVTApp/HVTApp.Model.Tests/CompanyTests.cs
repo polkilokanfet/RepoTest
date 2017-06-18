@@ -1,4 +1,5 @@
 ﻿using System;
+using HVTApp.Model.Factory;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,9 +12,9 @@ namespace HVTApp.Model.Tests
         [TestMethod]
         public void CompanyParentChildRelations()
         {
-            var parent = new CompanyWrapper(new Company {FullName = "ParentCompany"});
-            var child1 = new CompanyWrapper(new Company { FullName = "ChildCompany1" });
-            var child2 = new CompanyWrapper(new Company { FullName = "ChildCompany2" });
+            var parent = WrappersFactory.GetWrapper<Company, CompanyWrapper>(new Company {FullName = "ParentCompany"});
+            var child1 = WrappersFactory.GetWrapper<Company, CompanyWrapper>(new Company { FullName = "ChildCompany1" });
+            var child2 = WrappersFactory.GetWrapper<Company, CompanyWrapper>(new Company { FullName = "ChildCompany2" });
 
             child1.ParentCompany = parent;
             Assert.IsTrue(parent.ChildCompanies.Contains(child1));

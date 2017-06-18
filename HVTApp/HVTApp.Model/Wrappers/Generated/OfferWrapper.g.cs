@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class OfferWrapper : WrapperBase<Offer>
   {
-    public OfferWrapper() : base(new Offer()) { }
-    public OfferWrapper(Offer model) : base(model) { }
+    private OfferWrapper() : base(new Offer()) { }
+    private OfferWrapper(Offer model) : base(model) { }
 
 
 

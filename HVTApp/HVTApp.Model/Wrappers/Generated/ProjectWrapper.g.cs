@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class ProjectWrapper : WrapperBase<Project>
   {
-    public ProjectWrapper() : base(new Project()) { }
-    public ProjectWrapper(Project model) : base(model) { }
+    private ProjectWrapper() : base(new Project()) { }
+    private ProjectWrapper(Project model) : base(model) { }
 
 
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using HVTApp.Model.Factory;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -26,7 +27,7 @@ namespace HVTApp.Model.Tests.Wrapper
         public void ShouldRaisePropertyChangedEventOnPropertyChange()
         {
             var fired = false;
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             wrapper.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == "FirstName")
@@ -42,7 +43,7 @@ namespace HVTApp.Model.Tests.Wrapper
         public void ShouldNotRaisePropertyChangedEventIfPropertyIsSetToSameValue()
         {
             var fired = false;
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             wrapper.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == "FirstName")

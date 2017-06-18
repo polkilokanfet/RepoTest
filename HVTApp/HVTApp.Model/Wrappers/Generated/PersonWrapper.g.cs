@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class PersonWrapper : WrapperBase<Person>
   {
-    public PersonWrapper() : base(new Person()) { }
-    public PersonWrapper(Person model) : base(model) { }
+    private PersonWrapper() : base(new Person()) { }
+    private PersonWrapper(Person model) : base(model) { }
 
 
 

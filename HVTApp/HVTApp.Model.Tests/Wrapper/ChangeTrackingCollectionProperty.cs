@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Model.Factory;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -30,7 +31,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldSetIsChangedOfFriendTestWrapper()
         {
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             var emailToModify = wrapper.Emails.First();
             emailToModify.Email = "modified@thomasclaudiushuber.com";
 
@@ -44,7 +45,7 @@ namespace HVTApp.Model.Tests.Wrapper
         public void ShouldRaisePropertyChangedEventForIsChangedPropertyOfFriendTestWrapper()
         {
             var fired = false;
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             wrapper.PropertyChanged += (s, e) =>
               {
                   if (e.PropertyName == nameof(wrapper.IsChanged))
@@ -60,7 +61,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldAcceptChanges()
         {
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
 
             var emailToModify = wrapper.Emails.First();
             emailToModify.Email = "modified@thomasclaudiushuber.com";
@@ -77,7 +78,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldRejectChanges()
         {
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
 
             var emailToModify = wrapper.Emails.First();
             emailToModify.Email = "modified@thomasclaudiushuber.com";

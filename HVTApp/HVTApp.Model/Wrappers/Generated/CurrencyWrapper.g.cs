@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class CurrencyWrapper : WrapperBase<Currency>
   {
-    public CurrencyWrapper() : base(new Currency()) { }
-    public CurrencyWrapper(Currency model) : base(model) { }
+    private CurrencyWrapper() : base(new Currency()) { }
+    private CurrencyWrapper(Currency model) : base(model) { }
 
 
 

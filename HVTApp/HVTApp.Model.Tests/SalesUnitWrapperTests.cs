@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using HVTApp.Model.Factory;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -39,7 +40,7 @@ namespace HVTApp.Model.Tests
             productionsUnit.Unit = unit;
             shipmentsUnit.Unit = unit;
 
-            _salesUnitWrapper = new SalesUnitWrapper(unit.SalesUnit);
+            _salesUnitWrapper = WrappersFactory.GetWrapper <SalesUnit, SalesUnitWrapper> (unit.SalesUnit);
         }
 
         [TestMethod]
@@ -57,11 +58,11 @@ namespace HVTApp.Model.Tests
 
             var firstPaymentSum = cost/3;
             var firstPayment = new PaymentActual { SumAndVat = new SumAndVat { Sum = firstPaymentSum }, Date = DateTime.Today.AddDays(-20) };
-            _salesUnitWrapper.PaymentsActual.Add(new PaymentActualWrapper(firstPayment));
+            _salesUnitWrapper.PaymentsActual.Add(WrappersFactory.GetWrapper <PaymentActual, PaymentActualWrapper> (firstPayment));
             Assert.IsTrue(Math.Abs(cost - _salesUnitWrapper.PaymentsAll.Sum(x => x.SumAndVat.Sum)) < 0.0001);
 
             var secondPayment = new PaymentActual { SumAndVat = new SumAndVat { Sum = cost - firstPaymentSum }, Date = DateTime.Today };
-            _salesUnitWrapper.PaymentsActual.Add(new PaymentActualWrapper(secondPayment));
+            _salesUnitWrapper.PaymentsActual.Add(WrappersFactory.GetWrapper <PaymentActual, PaymentActualWrapper> (secondPayment));
             Assert.IsFalse(_salesUnitWrapper.PaymentsPlanned.Any());
 
             _salesUnitWrapper.PaymentsActual.Remove(_salesUnitWrapper.PaymentsActual.First());
@@ -70,7 +71,7 @@ namespace HVTApp.Model.Tests
             Assert.IsTrue(Math.Abs(firstPaymentSum - _salesUnitWrapper.PaymentsPlanned.Sum(x => x.SumAndVat.Sum)) < 0.0001);
 
             firstPayment.SumAndVat.Sum = firstPaymentSum / 2;
-            _salesUnitWrapper.PaymentsActual.Add(new PaymentActualWrapper(firstPayment));
+            _salesUnitWrapper.PaymentsActual.Add(WrappersFactory.GetWrapper <PaymentActual, PaymentActualWrapper> (firstPayment));
             _salesUnitWrapper.PaymentsActual.Remove(_salesUnitWrapper.PaymentsActual.First());
             Assert.IsTrue(Math.Abs(_salesUnitWrapper.SumRest.Sum - _salesUnitWrapper.PaymentsPlanned.Sum(x => x.SumAndVat.Sum)) < 0.0001);
         }

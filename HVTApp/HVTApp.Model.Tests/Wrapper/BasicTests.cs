@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using HVTApp.Model.Factory;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -26,7 +27,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod()]
         public void ShouldContainModelInModelProperty()
         {
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             Assert.AreEqual(_testFriend, wrapper.Model);
         }
 
@@ -36,7 +37,7 @@ namespace HVTApp.Model.Tests.Wrapper
         //{
         //    try
         //    {
-        //        var wrapper = new TestFriendWrapper(null);
+        //        var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(null);
         //    }
         //    catch (ArgumentNullException ex)
         //    {
@@ -52,7 +53,7 @@ namespace HVTApp.Model.Tests.Wrapper
         //    try
         //    {
         //        _testFriend.Test_FriendAddress = null;
-        //        var wrapper = new TestFriendWrapper(_testFriend);
+        //        var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
         //    }
         //    catch (ArgumentException ex)
         //    {
@@ -68,7 +69,7 @@ namespace HVTApp.Model.Tests.Wrapper
             try
             {
                 _testFriend.Emails = null;
-                var wrapper = new TestFriendWrapper(_testFriend);
+                var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             }
             catch (ArgumentException ex)
             {
@@ -80,14 +81,14 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldGetValueOfUnderlyingModelProperty()
         {
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             Assert.AreEqual(_testFriend.FirstName, wrapper.FirstName);
         }
 
         [TestMethod]
         public void ShouldSetValueOfUnderlyingModelProperty()
         {
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             wrapper.FirstName = "Julia";
             Assert.AreEqual("Julia", _testFriend.FirstName);
         }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using HVTApp.Model.Factory;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,7 +26,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldSetIsValidOfRoot()
         {
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             Assert.IsTrue(wrapper.IsValid);
 
             wrapper.TestFriendAddress.City = "";
@@ -39,7 +40,7 @@ namespace HVTApp.Model.Tests.Wrapper
         public void ShouldSetIsValidOfRootAfterInitialization()
         {
             _testFriend.TestFriendAddress.City = "";
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             Assert.IsFalse(wrapper.IsValid);
 
             wrapper.TestFriendAddress.City = "Salt Lake City";
@@ -50,7 +51,7 @@ namespace HVTApp.Model.Tests.Wrapper
         public void ShouldRaisePropertyChangedEventForIsValidOfRoot()
         {
             var fired = false;
-            var wrapper = new TestFriendWrapper(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
             wrapper.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == nameof(wrapper.IsValid))

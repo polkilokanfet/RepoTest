@@ -8,7 +8,7 @@ using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
 {
-    public class BaseRepository<TModel, TWrapper> : IRepository<TWrapper>
+    public class BaseRepository<TModel, TWrapper> : IRepository<TModel,TWrapper>
         where TModel : class, IBaseEntity
         where TWrapper : class, IWrapper<TModel> 
     {
@@ -17,6 +17,16 @@ namespace HVTApp.DataAccess
         public BaseRepository(DbContext context)
         {
             Context = context;
+        }
+
+        public virtual TWrapper GetWrapper()
+        {
+            return WrappersFactory.GetWrapper<TModel, TWrapper>();
+        }
+
+        public TWrapper GetWrapper(TModel model)
+        {
+            return WrappersFactory.GetWrapper<TModel, TWrapper>(model);
         }
 
         public virtual List<TWrapper> GetAll()
@@ -54,5 +64,6 @@ namespace HVTApp.DataAccess
             foreach (var wrapper in entities)
                 WrappersFactory.RemoveWrapper(wrapper.Model);
         }
+
     }
 }

@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class ExchangeCurrencyRateWrapper : WrapperBase<ExchangeCurrencyRate>
   {
-    public ExchangeCurrencyRateWrapper() : base(new ExchangeCurrencyRate()) { }
-    public ExchangeCurrencyRateWrapper(ExchangeCurrencyRate model) : base(model) { }
+    private ExchangeCurrencyRateWrapper() : base(new ExchangeCurrencyRate()) { }
+    private ExchangeCurrencyRateWrapper(ExchangeCurrencyRate model) : base(model) { }
 
 
 

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using HVTApp.Model.Factory;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -12,7 +14,7 @@ namespace HVTApp.Model.Tests
         [TestInitialize]
         public void InitialMethod()
         {
-            _specification = new SpecificationWrapper();
+            _specification = WrappersFactory.GetWrapper <Specification, SpecificationWrapper> ();
         }
 
     }
