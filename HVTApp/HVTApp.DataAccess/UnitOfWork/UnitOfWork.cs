@@ -47,11 +47,11 @@ namespace HVTApp.DataAccess
             return _context.SaveChanges();
         }
 
-        public void AddItem<TModel, TWrapper>(TModel model, TWrapper wrapper) 
+        public void AddItem<TModel, TWrapper>(TWrapper wrapper) 
             where TModel : class, IBaseEntity 
             where TWrapper : IWrapper<TModel>
         {
-            _context.Set<TModel>().Add(model);
+            _context.Set<TModel>().Add(wrapper.Model);
         }
 
         public IActivityFieldsRepository ActivityFields { get; }

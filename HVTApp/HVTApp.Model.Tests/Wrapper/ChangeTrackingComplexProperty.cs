@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using HVTApp.Model.Factory;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

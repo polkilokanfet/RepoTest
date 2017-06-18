@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Model.Factory;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 

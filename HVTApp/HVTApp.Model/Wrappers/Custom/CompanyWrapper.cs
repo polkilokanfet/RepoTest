@@ -10,7 +10,7 @@ namespace HVTApp.Model.Wrappers
     {
         protected override void RunInConstructor()
         {
-            this.ComplexPropertyChanged += OnParentCompanyChanged1;
+            this.ComplexPropertyChanged += OnParentCompanyChanged;
             this.ChildCompanies.CollectionChanged += ChildCompaniesOnCollectionChanged;
         }
 
@@ -18,7 +18,7 @@ namespace HVTApp.Model.Wrappers
         /// Реакция на событие изменения головной компании
         /// </summary>
         /// <param name="obj"></param>
-        private void OnParentCompanyChanged1(ComplexPropertyChangedEventArgs obj)
+        private void OnParentCompanyChanged(ComplexPropertyChangedEventArgs obj)
         {
             if (obj.PropertyName != nameof(ParentCompany)) return;
 

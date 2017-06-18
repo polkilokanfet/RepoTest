@@ -2,7 +2,7 @@
 using Prism.Mvvm;
 using System.Collections.Generic;
 using HVTApp.DataAccess;
-using HVTApp.Model.Factory;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Prism.Regions;

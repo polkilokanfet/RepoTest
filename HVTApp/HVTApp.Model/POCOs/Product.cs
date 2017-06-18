@@ -28,7 +28,7 @@ namespace HVTApp.Model.POCOs
         {
             unchecked
             {
-                return ((ProductItem != null ? ProductItem.GetHashCode() : 0)*397) ^ (ChildProducts != null ? ChildProducts.GetHashCode() : 0);
+                return ((ProductItem?.GetHashCode() ?? 0)*397) ^ (ChildProducts?.GetHashCode() ?? 0);
             }
         }
     }

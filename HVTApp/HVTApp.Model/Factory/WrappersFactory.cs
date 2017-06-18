@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using HVTApp.Infrastructure;
 
-namespace HVTApp.Model.Factory
+namespace HVTApp.Model
 {
     public static class WrappersFactory
     {

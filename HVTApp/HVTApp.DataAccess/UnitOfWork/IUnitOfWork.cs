@@ -8,7 +8,7 @@ namespace HVTApp.DataAccess
     {
         int Complete();
 
-        void AddItem<TModel, TWrapper>(TModel model, TWrapper wrapper)
+        void AddItem<TModel, TWrapper>(TWrapper wrapper)
             where TModel : class, IBaseEntity
             where TWrapper : IWrapper<TModel>;
 

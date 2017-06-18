@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using HVTApp.Model.Factory;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Model.Wrappers

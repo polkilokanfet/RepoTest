@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using HVTApp.DataAccess;
-using HVTApp.Model.Factory;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 

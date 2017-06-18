@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Model.Factory;
+using HVTApp.Model;
 using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
