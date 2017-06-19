@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
 
 namespace HVTApp.Model.Wrappers
 {
     public partial class ProductWrapper
     {
+        #region Price
+
         private DateTime? _totalPriceDate;
         public DateTime? TotalPriceDate
         {
@@ -41,5 +41,24 @@ namespace HVTApp.Model.Wrappers
             return totalPriceSum;
         }
 
+        #endregion
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as ProductWrapper;
+            if (other == null) return false;
+
+            return Equals(other);
+        }
+
+        protected bool Equals(ProductWrapper other)
+        {
+            return Equals(this.ProductItem, other.ProductItem) &&
+                this.ChildProducts.OrderBy(x => x.ProductItem).SequenceEqual(other.ChildProducts.OrderBy(x => x.ProductItem));
+        //    return Equals(this.ProductItem, other.ProductItem) &&
+        //      !this.ChildProducts.Except(other.ChildProducts).Any() &&
+        //      !other.ChildProducts.Except(this.ChildProducts).Any();
+
+        }
     }
 }

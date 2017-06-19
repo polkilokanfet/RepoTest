@@ -81,12 +81,12 @@
     <Compile Include="Wrappers\Base\TrackingCollections\ValidatableChangeTrackingCollection.cs" />
     <Compile Include="Wrappers\Base\WhoRised.cs" />
     <Compile Include="Wrappers\Base\WrapperBase.cs" />
-    <Compile Include="Wrappers\Custom\CompanyFormWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Validate\CompanyFormWrapper.cs" />
     <Compile Include="Wrappers\Custom\CompanyWrapper.cs" />
     <Compile Include="Wrappers\Custom\ContractWrapper.cs" />
-    <Compile Include="Wrappers\Custom\FacilityWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Validate\FacilityWrapper.cs" />
     <Compile Include="Wrappers\Custom\ParameterWrapper.cs" />
-    <Compile Include="Wrappers\Custom\PaymentConditionStandartWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Validate\PaymentConditionStandartWrapper.cs" />
     <Compile Include="Wrappers\Custom\ProductionsUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\ProductItemWrapper.cs" />
     <Compile Include="Wrappers\Custom\ProductWrapper.cs" />
@@ -100,6 +100,9 @@
     <Compile Include="Wrappers\Custom\Test\TestFriendWrapper.cs" />
     <Compile Include="Wrappers\Custom\UnitsGroup.cs" />
     <Compile Include="Wrappers\Custom\UnitWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Validate\CompanyWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Validate\ContractWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Validate\SpecificationWrapper.cs" />
     <Compile Include="Wrappers\Generated\ActivityFieldWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\AddressWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\BankDetailsWrapper.g.cs" />

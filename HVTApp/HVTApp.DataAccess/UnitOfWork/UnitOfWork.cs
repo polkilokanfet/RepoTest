@@ -9,12 +9,10 @@ namespace HVTApp.DataAccess
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DbContext _context;
-        private readonly Dictionary<IBaseEntity, IWrapper<IBaseEntity>> _repository;
 
         public UnitOfWork(DbContext context)
         {
             _context = context;
-            _repository = new Dictionary<IBaseEntity, IWrapper<IBaseEntity>>();
 
             FriendGroups = new FriendGroupRepository(context);
 

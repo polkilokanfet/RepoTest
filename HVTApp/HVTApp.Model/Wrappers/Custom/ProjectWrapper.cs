@@ -6,35 +6,17 @@ namespace HVTApp.Model.Wrappers
 {
     public partial class ProjectWrapper
     {
+        protected override void RunInConstructor()
+        {
+            UnitsGroups = new UnitsGroupsCollection(Units);
+        }
+
         public List<FacilityWrapper> Facilities => Units.Select(x => x.Facility).Distinct().ToList();
 
         public string FacilitiesNames => Facilities.Aggregate(string.Empty, (current, facility) => current + facility.ToString() + "; ");
 
         public double Sum => Units.Sum(x => x.SalesUnit.Cost.Sum);
 
-        public ObservableCollection<UnitsGroup> UnitsGroups
-        {
-            get
-            {
-                var result = new ObservableCollection<UnitsGroup>();
-
-                foreach (var unit in Units)
-                {
-                    bool addFlag = true;
-                    foreach (var unitsGroup in result)
-                    {
-                        if (unitsGroup.Units.First().ProductionsUnit.Product.ProductItem.HasSameParameters(unit.ProductionsUnit.Product.ProductItem))
-                        {
-                            unitsGroup.Units.Add(unit);
-                            addFlag = false;
-                            break;
-                        }
-                    }
-
-                    if (addFlag) result.Add(new UnitsGroup(new[] {unit}));
-                }
-                return result;
-            }
-        }
+        public UnitsGroupsCollection UnitsGroups { get; private set; }
     }
 }

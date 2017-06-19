@@ -7,10 +7,6 @@ namespace HVTApp.Model.Wrappers
 {
     public partial class PaymentConditionStandartWrapper
     {
-        protected override void RunInConstructor()
-        {
-        }
-
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (Math.Abs((int) (PaymentsConditions.Sum(x => x.PartInPercent) - 100)) > 0.0001)
