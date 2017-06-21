@@ -17,19 +17,8 @@ namespace HVTApp.Model.POCOs
 
         protected bool Equals(Product other)
         {
-            if (other == null) return false;
-
-            return Equals(this.ProductItem, other.ProductItem) && 
-                    !this.ChildProducts.Except(other.ChildProducts).Any() &&
-                    !other.ChildProducts.Except(this.ChildProducts).Any();
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return ((ProductItem?.GetHashCode() ?? 0)*397) ^ (ChildProducts?.GetHashCode() ?? 0);
-            }
+            return other != null && Equals(this.ProductItem, other.ProductItem) && 
+                this.ChildProducts.HasSameMembers(other.ChildProducts);
         }
     }
 

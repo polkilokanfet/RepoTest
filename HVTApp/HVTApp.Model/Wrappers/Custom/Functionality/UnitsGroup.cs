@@ -27,7 +27,7 @@ namespace HVTApp.Model.Wrappers
 
             _sourceUnits = sourceUnits;
 
-            foreach (var units in sourceUnits.GroupBy(x => x.Product.ProductItem))
+            foreach (var units in sourceUnits.GroupBy(x => x.Product))
             {
                 var unitGroup = new UnitsGroup(units);
                 this.Add(unitGroup);

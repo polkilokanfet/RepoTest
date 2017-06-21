@@ -83,6 +83,7 @@
     <Compile Include="Behaviors\DataGridChangeBehavior.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="Converters\DatePickerOriginalValueConverter.cs" />
+    <Compile Include="Extansions.cs" />
     <Compile Include="INavigationItem.cs" />
     <Compile Include="Interfaces\Services\AuthenticationService\IAuthenticationService.cs" />
     <Compile Include="Interfaces\Services\ChooseService\ChooseDialogEventArgs.cs" />

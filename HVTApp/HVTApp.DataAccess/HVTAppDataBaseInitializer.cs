@@ -90,19 +90,22 @@ namespace HVTApp.DataAccess
             Parameter paramV220kV = new Parameter { Group = groupV, Value = "220", RequiredParents = new List<RequiredParameters> { setBreakerDt, setBreakerLt, setTransformatorV } };
             Parameter paramV500kV = new Parameter { Group = groupV, Value = "500", RequiredParents = new List<RequiredParameters> { setBreakerLt } };
 
-            ProductItem zng110 = new ProductItem { Designation = "ЗНГ-110", Parameters = new List<Parameter> { paramTransformator, paramTransformatorV, paramV110kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 75, Date = DateTime.Today } } };
-            ProductItem vgb35 = new ProductItem { Designation = "ВГБ-35", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV35kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 50, Date = DateTime.Today } } };
-            ProductItem veb110 = new ProductItem { Designation = "ВЭБ-110", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV110kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 100, Date = DateTime.Today } } };
+            ProductItem zng110ProductItem = new ProductItem { Designation = "ЗНГ-110", Parameters = new List<Parameter> { paramTransformator, paramTransformatorV, paramV110kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 75, Date = DateTime.Today } } };
+            ProductItem vgb35ProductItem = new ProductItem { Designation = "ВГБ-35", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV35kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 50, Date = DateTime.Today } } };
+            ProductItem veb110ProductItem = new ProductItem { Designation = "ВЭБ-110", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV110kV }, Prices = new List<SumOnDate> { new SumOnDate { Sum = 100, Date = DateTime.Today } } };
 
-            Contract contract = new Contract { Contragent = mrsk, Date = DateTime.Today, Number = "0401-17"};
+
+            Product veb110Product = new Product {ProductItem = veb110ProductItem, Designation = "Выключатель баковый ВЭБ-110"};
+            Product zng110Product = new Product {ProductItem = zng110ProductItem, Designation = "Трансформатор напряжения ЗНГ-110" };
+
+            Contract contract = new Contract { Contragent = mrsk, Date = DateTime.Today, Number = "0401-17-0001"};
             Specification specification = new Specification { Contract = contract, Date = contract.Date, Number = "1" };
 
             Unit unitVeb110 = new Unit
             {
-                Facility = substationPervaya,
-                Project = project1,
+                Facility = substationPervaya, Project = project1,
 
-                ProductionsUnit = new ProductionsUnit { Product = new Product {ProductItem = veb110, Designation = "Выключатель баковый ВЭБ-110"}, OrderPosition = 1, SerialNumber = "3651" },
+                ProductionsUnit = new ProductionsUnit { Product = veb110Product, OrderPosition = 1, SerialNumber = "3651" },
                 ShipmentsUnit = new ShipmentsUnit { Cost = new SumAndVat {Sum = 100, Vat = 18}, Address = address},
                 SalesUnit = new SalesUnit { Specification = specification, Cost = new SumAndVat { Sum = 1000, Vat = 18 } },
             };
@@ -111,27 +114,27 @@ namespace HVTApp.DataAccess
             {
                 Facility = stationSverdlovskaya, Project = project2,
 
-                ProductionsUnit = new ProductionsUnit { Product = new Product { ProductItem = veb110, Designation = "Выключатель баковый ВЭБ-110" }, OrderPosition = 1, SerialNumber = "3652" },
+                ProductionsUnit = new ProductionsUnit { Product = veb110Product, OrderPosition = 1, SerialNumber = "3652" },
                 ShipmentsUnit = new ShipmentsUnit { Cost = new SumAndVat { Sum = 100, Vat = 18}, Address = address },
                 SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 1000, Vat = 18 } },
             };
 
             Unit unitZng1101 = new Unit
             {
-                ProductionsUnit = new ProductionsUnit { Product = new Product {ProductItem = zng110, Designation = "Трансформатор напряжения ЗНГ-110"}, OrderPosition = 1, SerialNumber = "325" },
+                Facility = substationPervaya, Project = project1, 
+
+                ProductionsUnit = new ProductionsUnit { Product = zng110Product, OrderPosition = 1, SerialNumber = "325" },
                 ShipmentsUnit = new ShipmentsUnit { Cost = new SumAndVat { Sum = 150, Vat = 18}, Address = address },
                 SalesUnit = new SalesUnit { Specification = specification, Cost = new SumAndVat { Sum = 500, Vat = 18 } },
-
-                Facility = substationPervaya, Project = project1
             };
 
             Unit unitZng1102 = new Unit
             {
-                ProductionsUnit = new ProductionsUnit { Product = new Product { ProductItem = zng110, Designation = "Трансформатор напряжения ЗНГ-110" }, OrderPosition = 1, SerialNumber = "326" },
+                Facility = substationPervaya, Project = project1,
+
+                ProductionsUnit = new ProductionsUnit { Product = zng110Product, OrderPosition = 1, SerialNumber = "326" },
                 ShipmentsUnit = new ShipmentsUnit { Cost = new SumAndVat { Sum = 150, Vat = 18 }, Address = address },
                 SalesUnit = new SalesUnit {Specification = specification, Cost = new SumAndVat { Sum = 500, Vat = 18 } },
-
-                Facility = substationPervaya, Project = project1
             };
 
 
