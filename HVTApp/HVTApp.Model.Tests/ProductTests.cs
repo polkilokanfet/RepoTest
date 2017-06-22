@@ -31,17 +31,6 @@ namespace HVTApp.Model.Tests
         }
 
         [TestMethod]
-        public void Product_EqualsWorks()
-        {
-            Product product1 = new Product { ProductItem = _productItem1 };
-            Product product2 = new Product { ProductItem = _productItem2 };
-            Product product3 = new Product { ProductItem = _productItem3, ChildProducts = new List<Product> {product1, product2} };
-            Product product4 = new Product { ProductItem = _productItem3, ChildProducts = new List<Product> {product2, product1} };
-
-            Assert.IsTrue(Equals(product3, product4));
-        }
-
-        [TestMethod]
         public void ProductTotalPriceTest()
         {
             SumOnDate price1 = new SumOnDate { Sum = 10, Date = DateTime.Today.AddDays(-7) };

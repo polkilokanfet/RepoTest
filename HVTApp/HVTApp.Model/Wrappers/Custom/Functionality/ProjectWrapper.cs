@@ -8,15 +8,15 @@ namespace HVTApp.Model.Wrappers
     {
         protected override void RunInConstructor()
         {
-            ProductsUnitsGroups = new ProductsUnitsGroupsCollection(Units);
+            ProductsUnitsGroups = new ProductsUnitsGroupsCollection<ProductComplexUnitWrapper>(ProductComplexUnits);
         }
 
-        public List<FacilityWrapper> Facilities => Units.Select(x => x.Facility).Distinct().ToList();
+        public List<FacilityWrapper> Facilities => ProductComplexUnits.Select(x => x.Facility).Distinct().ToList();
 
         public string FacilitiesNames => Facilities.Aggregate(string.Empty, (current, facility) => current + facility.ToString() + "; ");
 
-        public double Sum => Units.Sum(x => x.Cost.Sum);
+        public double Sum => ProductComplexUnits.Sum(x => x.Cost.Sum);
 
-        public ProductsUnitsGroupsCollection ProductsUnitsGroups { get; private set; }
+        public ProductsUnitsGroupsCollection<ProductComplexUnitWrapper> ProductsUnitsGroups { get; private set; }
     }
 }

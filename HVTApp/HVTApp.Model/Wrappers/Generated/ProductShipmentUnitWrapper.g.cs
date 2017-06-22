@@ -6,10 +6,10 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-  public partial class ShipmentsUnitWrapper : WrapperBase<ProductShipmentUnit>
+  public partial class ProductShipmentUnitWrapper : WrapperBase<ProductShipmentUnit>
   {
-    private ShipmentsUnitWrapper() : base(new ProductShipmentUnit()) { }
-    private ShipmentsUnitWrapper(ProductShipmentUnit model) : base(model) { }
+    private ProductShipmentUnitWrapper() : base(new ProductShipmentUnit()) { }
+    private ProductShipmentUnitWrapper(ProductShipmentUnit model) : base(model) { }
 
 
 
@@ -74,14 +74,14 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public UnitWrapper Unit 
+	public ProductComplexUnitWrapper ProductComplexUnit 
     {
-        get { return GetComplexProperty<UnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit); }
-        set { SetComplexProperty<UnitWrapper, ProductComplexUnit>(Unit, value); }
+        get { return GetComplexProperty<ProductComplexUnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit); }
+        set { SetComplexProperty<ProductComplexUnitWrapper, ProductComplexUnit>(ProductComplexUnit, value); }
     }
 
-    public UnitWrapper UnitOriginalValue { get; private set; }
-    public bool UnitIsChanged => GetIsChanged(nameof(Unit));
+    public ProductComplexUnitWrapper ProductComplexUnitOriginalValue { get; private set; }
+    public bool ProductComplexUnitIsChanged => GetIsChanged(nameof(ProductComplexUnit));
 
 
 	public AddressWrapper Address 
@@ -109,7 +109,7 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Unit = GetWrapper<UnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit);
+        ProductComplexUnit = GetWrapper<ProductComplexUnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit);
 
         Address = GetWrapper<AddressWrapper, Address>(Model.Address);
 

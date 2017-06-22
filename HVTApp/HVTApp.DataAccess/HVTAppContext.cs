@@ -81,20 +81,20 @@ namespace HVTApp.DataAccess
 
             #endregion
 
-            #region Units
+            #region ProductComplexUnits
 
             //modelBuilder.Entity<ProductComplexUnit>().HasKey(x => x.Id).ToTable(nameof(ProductComplexUnit));
             //modelBuilder.Entity<ProjectsUnit>().HasKey(x => x.Id).ToTable(nameof(ProductComplexUnit));
             //modelBuilder.Entity<ProductProductionUnit>().HasKey(x => x.Id).ToTable(nameof(ProductComplexUnit));
-            //modelBuilder.Entity<ProductSalesUnit>().HasKey(x => x.Id).ToTable(nameof(ProductComplexUnit));
+            //modelBuilder.Entity<ProductComplexUnit>().HasKey(x => x.Id).ToTable(nameof(ProductComplexUnit));
             //modelBuilder.Entity<ProductShipmentUnit>().HasKey(x => x.Id).ToTable(nameof(ProductComplexUnit));
 
             #region ProductComplexUnit
 
             modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.Facility).WithMany();
-            modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.Project).WithMany(x => x.Units);
+            modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.Project).WithMany(x => x.ProductComplexUnits);
 
-            //modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.ProductSalesUnit).WithRequiredPrincipal(x => x.ProductComplexUnit);
+            //modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.ProductComplexUnit).WithRequiredPrincipal(x => x.ProductComplexUnit);
             //modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.ProductProductionUnit).WithRequiredPrincipal(x => x.ProductComplexUnit);
             //modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.ProductShipmentUnit).WithRequiredPrincipal(x => x.ProductComplexUnit);
 
@@ -112,21 +112,19 @@ namespace HVTApp.DataAccess
 
             //#endregion
 
-            #region ProductSalesUnit
+            #region ProductComplexUnit
 
-            modelBuilder.Entity<ProductSalesUnit>().HasRequired(x => x.ProductComplexUnit).WithOptional(x => x.ProductSalesUnit);
-            modelBuilder.Entity<ProductSalesUnit>().HasRequired(x => x.Cost);
-            modelBuilder.Entity<ProductSalesUnit>().HasOptional(x => x.Specification).WithMany(x => x.SalesUnits);
-            modelBuilder.Entity<ProductSalesUnit>().HasMany(x => x.PaymentsActual).WithRequired(x => x.ProductSalesUnit);
-            modelBuilder.Entity<ProductSalesUnit>().HasMany(x => x.PaymentsPlanned).WithRequired(x => x.ProductSalesUnit);
+            modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.Cost);
+            modelBuilder.Entity<ProductComplexUnit>().HasOptional(x => x.Specification).WithMany(x => x.ProductComplexUnits);
+            modelBuilder.Entity<ProductComplexUnit>().HasMany(x => x.PaymentsActual).WithRequired(x => x.ProductComplexUnit);
+            modelBuilder.Entity<ProductComplexUnit>().HasMany(x => x.PaymentsPlanned).WithRequired(x => x.ProductComplexUnit);
 
             #endregion
 
             #region ProductProductionUnit
 
-            modelBuilder.Entity<ProductProductionUnit>().HasRequired(x => x.ProductComplexUnit).WithOptional(x => x.ProductProductionUnit);
-            modelBuilder.Entity<ProductProductionUnit>().HasRequired(x => x.Product).WithMany();
-            modelBuilder.Entity<ProductProductionUnit>().HasOptional(x => x.Order).WithMany(x => x.ProductionsUnits);
+            modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.Product).WithMany();
+            modelBuilder.Entity<ProductComplexUnit>().HasOptional(x => x.Order).WithMany(x => x.ProductComplexUnits);
 
             #endregion
 
@@ -197,7 +195,7 @@ namespace HVTApp.DataAccess
 
             modelBuilder.Entity<Project>().Property(x => x.Name).IsRequired().HasMaxLength(100);
             modelBuilder.Entity<Project>().HasRequired(x => x.Manager);
-            modelBuilder.Entity<Project>().HasMany(x => x.Units).WithRequired(x => x.Project);
+            modelBuilder.Entity<Project>().HasMany(x => x.ProductComplexUnits).WithRequired(x => x.Project);
             modelBuilder.Entity<Project>().HasMany(x => x.Offers).WithRequired(x => x.Project).WillCascadeOnDelete(false);
             modelBuilder.Entity<Project>().HasMany(x => x.Tenders).WithRequired(x => x.Project).WillCascadeOnDelete(false);
 
@@ -210,7 +208,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Entity<Contract>().HasMany(x => x.Specifications).WithRequired(x => x.Contract);
 
             modelBuilder.Entity<Specification>().Property(x => x.Number).HasMaxLength(4);
-            modelBuilder.Entity<Specification>().HasMany(x => x.SalesUnits).WithOptional(x => x.Specification);
+            modelBuilder.Entity<Specification>().HasMany(x => x.ProductComplexUnits).WithOptional(x => x.Specification);
 
             #endregion
 

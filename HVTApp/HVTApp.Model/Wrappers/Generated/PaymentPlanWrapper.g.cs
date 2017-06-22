@@ -47,14 +47,14 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public SalesUnitWrapper SalesUnit 
+	public ProductComplexUnitWrapper ProductComplexUnit 
     {
-        get { return GetComplexProperty<SalesUnitWrapper, ProductSalesUnit>(Model.ProductSalesUnit); }
-        set { SetComplexProperty<SalesUnitWrapper, ProductSalesUnit>(SalesUnit, value); }
+        get { return GetComplexProperty<ProductComplexUnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit); }
+        set { SetComplexProperty<ProductComplexUnitWrapper, ProductComplexUnit>(ProductComplexUnit, value); }
     }
 
-    public SalesUnitWrapper SalesUnitOriginalValue { get; private set; }
-    public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
+    public ProductComplexUnitWrapper ProductComplexUnitOriginalValue { get; private set; }
+    public bool ProductComplexUnitIsChanged => GetIsChanged(nameof(ProductComplexUnit));
 
 
 	public SumAndVatWrapper SumAndVat 
@@ -72,7 +72,7 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        SalesUnit = GetWrapper<SalesUnitWrapper, ProductSalesUnit>(Model.ProductSalesUnit);
+        ProductComplexUnit = GetWrapper<ProductComplexUnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit);
 
         SumAndVat = GetWrapper<SumAndVatWrapper, SumAndVat>(Model.SumAndVat);
 

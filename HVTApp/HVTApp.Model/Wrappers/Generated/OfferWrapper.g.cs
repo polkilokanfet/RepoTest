@@ -132,7 +132,7 @@ namespace HVTApp.Model.Wrappers
 
     #region CollectionProperties
 
-    public IValidatableChangeTrackingCollection<OffersUnitWrapper> OfferUnits { get; private set; }
+    public IValidatableChangeTrackingCollection<ProductOfferUnitWrapper> OfferUnits { get; private set; }
 
 
     public IValidatableChangeTrackingCollection<EmployeeWrapper> CopyToRecipients { get; private set; }
@@ -166,7 +166,7 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.OfferUnits == null) throw new ArgumentException("OfferUnits cannot be null");
-      OfferUnits = new ValidatableChangeTrackingCollection<OffersUnitWrapper>(Model.OfferUnits.Select(e => GetWrapper<OffersUnitWrapper, ProductOfferUnit>(e)));
+      OfferUnits = new ValidatableChangeTrackingCollection<ProductOfferUnitWrapper>(Model.OfferUnits.Select(e => GetWrapper<ProductOfferUnitWrapper, ProductOfferUnit>(e)));
       RegisterCollection(OfferUnits, Model.OfferUnits);
 
 

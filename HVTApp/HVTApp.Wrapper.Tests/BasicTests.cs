@@ -69,7 +69,7 @@ namespace HVTApp.Wrapper.Tests
             try
             {
                 _testFriend.Emails = null;
-                var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
+                var wrapper = WrappersFactory.GetWrapper<TestFriend, TestFriendWrapper>(_testFriend);
             }
             catch (ArgumentException ex)
             {

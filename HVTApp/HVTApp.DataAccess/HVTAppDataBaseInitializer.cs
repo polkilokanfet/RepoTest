@@ -105,36 +105,36 @@ namespace HVTApp.DataAccess
             {
                 Facility = substationPervaya, Project = project1,
 
-                ProductProductionUnit = new ProductProductionUnit { Product = veb110Product, OrderPosition = 1, SerialNumber = "3651" },
+                Product = veb110Product, OrderPosition = 1, SerialNumber = "3651",
                 ProductShipmentUnit = new ProductShipmentUnit { Cost = new SumAndVat {Sum = 100, Vat = 18}, Address = address},
-                ProductSalesUnit = new ProductSalesUnit { Specification = specification, Cost = new SumAndVat { Sum = 1000, Vat = 18 } },
+                Specification = specification, Cost = new SumAndVat { Sum = 1000, Vat = 18 } 
             };
 
             ProductComplexUnit productComplexUnitVeb1102 = new ProductComplexUnit
             {
                 Facility = stationSverdlovskaya, Project = project2,
 
-                ProductProductionUnit = new ProductProductionUnit { Product = veb110Product, OrderPosition = 1, SerialNumber = "3652" },
+                Product = veb110Product, OrderPosition = 1, SerialNumber = "3652",
                 ProductShipmentUnit = new ProductShipmentUnit { Cost = new SumAndVat { Sum = 100, Vat = 18}, Address = address },
-                ProductSalesUnit = new ProductSalesUnit { Cost = new SumAndVat { Sum = 1000, Vat = 18 } },
+                Cost = new SumAndVat { Sum = 1000, Vat = 18 } 
             };
 
             ProductComplexUnit productComplexUnitZng1101 = new ProductComplexUnit
             {
                 Facility = substationPervaya, Project = project1, 
 
-                ProductProductionUnit = new ProductProductionUnit { Product = zng110Product, OrderPosition = 1, SerialNumber = "325" },
+                Product = zng110Product, OrderPosition = 1, SerialNumber = "325",
                 ProductShipmentUnit = new ProductShipmentUnit { Cost = new SumAndVat { Sum = 150, Vat = 18}, Address = address },
-                ProductSalesUnit = new ProductSalesUnit { Specification = specification, Cost = new SumAndVat { Sum = 500, Vat = 18 } },
+                Specification = specification, Cost = new SumAndVat { Sum = 500, Vat = 18 }
             };
 
             ProductComplexUnit productComplexUnitZng1102 = new ProductComplexUnit
             {
                 Facility = substationPervaya, Project = project1,
 
-                ProductProductionUnit = new ProductProductionUnit { Product = zng110Product, OrderPosition = 1, SerialNumber = "326" },
+                Product = zng110Product, OrderPosition = 1, SerialNumber = "326",
                 ProductShipmentUnit = new ProductShipmentUnit { Cost = new SumAndVat { Sum = 150, Vat = 18 }, Address = address },
-                ProductSalesUnit = new ProductSalesUnit {Specification = specification, Cost = new SumAndVat { Sum = 500, Vat = 18 } },
+                Specification = specification, Cost = new SumAndVat { Sum = 500, Vat = 18 }
             };
 
 
@@ -142,7 +142,7 @@ namespace HVTApp.DataAccess
             TenderType tenderType = new TenderType {Name = "Проектно-изыскательные работы", Type = TenderTypeEnum.ToProject};
             Tender tender = new Tender { Type = tenderType, Project = project1, Sum = new SumAndVat { Sum = 545, Vat = 18 }, DateOpen = DateTime.Today,
                 DateClose = DateTime.Today.AddDays(7),
-                TendersUnits = new List<ProductTenderUnit>(project1.Units.Select(x => new ProductTenderUnit {ProductComplexUnit = x}))};
+                TendersUnits = new List<ProductTenderUnit>(project1.ProductComplexUnits.Select(x => new ProductTenderUnit {ProductComplexUnit = x}))};
 
 
 
@@ -158,7 +158,7 @@ namespace HVTApp.DataAccess
             context.Users.Add(user);
             context.RequiredProductsChildses.AddRange(new[] { requiredProductsChildsPrivod, requiredProductsChildsBreakerBlock });
             //context.Products.AddRange(new [] {veb110, vgb35, zng110});
-            project1.Units.AddRange(new[] { productComplexUnitVeb110, productComplexUnitZng1101 });
+            project1.ProductComplexUnits.AddRange(new[] { productComplexUnitVeb110, productComplexUnitZng1101 });
             context.Facilities.AddRange(new[] {substationPervaya, stationSverdlovskaya});
             context.Projects.AddRange(new[] { project1, project2 });
             context.Parameters.AddRange(new[] { paramBreaker, paramTransformator, paramBreakerDt, paramBreakerLt, paramTransformatorI, paramTransformatorV, paramV35kV, paramV110kV, paramV220kV, paramV500kV });

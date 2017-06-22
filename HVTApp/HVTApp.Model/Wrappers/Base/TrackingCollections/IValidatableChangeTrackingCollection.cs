@@ -6,7 +6,7 @@ using HVTApp.Infrastructure;
 namespace HVTApp.Model.Wrappers
 {
     public interface IValidatableChangeTrackingCollection<TCollectionItem> : IList<TCollectionItem>, IValidatableChangeTracking, INotifyCollectionChanged
-        where TCollectionItem : class, IValidatableChangeTracking
+        where TCollectionItem : IValidatableChangeTracking
     {
         ReadOnlyObservableCollection<TCollectionItem> AddedItems { get; }
         ReadOnlyObservableCollection<TCollectionItem> ModifiedItems { get; }

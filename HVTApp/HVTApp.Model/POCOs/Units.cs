@@ -4,36 +4,12 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class ProductComplexUnit : BaseEntity
+    public class ProductComplexUnit : BaseEntity, IProductSalesUnit, IProductProductionUnit
     {
         public virtual Project Project { get; set; }
         public virtual Facility Facility { get; set; }
 
-        public virtual ProductSalesUnit ProductSalesUnit { get; set; }
-        public virtual ProductProductionUnit ProductProductionUnit { get; set; }
-        public virtual ProductShipmentUnit ProductShipmentUnit { get; set; }
-
-        public virtual List<ProductTenderUnit> TendersUnits { get; set; } = new List<ProductTenderUnit>();
-        public virtual List<ProductOfferUnit> OffersUnits { get; set; } = new List<ProductOfferUnit>();
-    }
-
-    public class ProductSalesUnit : BaseEntity
-    {
-        public virtual ProductComplexUnit ProductComplexUnit { get; set; }
-
-        public virtual SumAndVat Cost { get; set; }
-        public virtual Specification Specification { get; set; }
-
-        public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
-        public virtual List<PaymentPlan> PaymentsPlanned { get; set; } = new List<PaymentPlan>();
-        public virtual List<PaymentActual> PaymentsActual { get; set; } = new List<PaymentActual>();
-
-        public DateTime? RealizationDate { get; set; }
-    }
-
-    public class ProductProductionUnit : BaseEntity
-    {
-        public virtual ProductComplexUnit ProductComplexUnit { get; set; }
+        #region ProductionInformation
         public virtual Product Product { get; set; }
 
         public virtual Order Order { get; set; }
@@ -49,6 +25,48 @@ namespace HVTApp.Model.POCOs
         public DateTime? PickingDate { get; set; } //дата комплектации
         public DateTime? EndProductionDate { get; set; }
 
+        #endregion
+
+        #region SalesInformation
+        public virtual SumAndVat Cost { get; set; }
+        public virtual Specification Specification { get; set; }
+
+        public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
+        public virtual List<PaymentPlan> PaymentsPlanned { get; set; } = new List<PaymentPlan>();
+        public virtual List<PaymentActual> PaymentsActual { get; set; } = new List<PaymentActual>();
+
+        public DateTime? RealizationDate { get; set; }
+
+        #endregion
+
+        public virtual ProductShipmentUnit ProductShipmentUnit { get; set; }
+
+        public virtual List<ProductTenderUnit> TendersUnits { get; set; } = new List<ProductTenderUnit>();
+        public virtual List<ProductOfferUnit> OffersUnits { get; set; } = new List<ProductOfferUnit>();
+    }
+
+    public interface IProductSalesUnit
+    {
+        Product Product { get; set; }
+        SumAndVat Cost { get; set; }
+        Specification Specification { get; set; }
+        List<PaymentCondition> PaymentsConditions { get; set; }
+        List<PaymentPlan> PaymentsPlanned { get; set; }
+        List<PaymentActual> PaymentsActual { get; set; }
+        DateTime? RealizationDate { get; set; }
+    }
+
+    public interface IProductProductionUnit
+    {
+        Product Product { get; set; }
+        Order Order { get; set; }
+        int OrderPosition { get; set; }
+        string SerialNumber { get; set; }
+        int PlannedProductionTerm { get; set; }
+        int PlanedTermFromPickToEndProductionEnd { get; set; }
+        DateTime? StartProductionDate { get; set; }
+        DateTime? PickingDate { get; set; }
+        DateTime? EndProductionDate { get; set; }
     }
 
     public class ProductShipmentUnit : BaseEntity

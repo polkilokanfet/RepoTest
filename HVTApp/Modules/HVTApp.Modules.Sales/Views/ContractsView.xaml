@@ -26,11 +26,11 @@
                     <infg:DateTimeField Name="Date" Label="Дата"/>
                     <infg:NumericField Name="Sum" Label="Сумма без НДС, руб."/>
                     
-                    <infg:Field Name="Units" IsExpandable="True"/>
+                    <infg:Field Name="ProductComplexUnits" IsExpandable="True"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
-            <infg:FieldLayout Key="ProductSalesUnit" ParentFieldName="Units" ParentFieldLayoutKey="Specification">
+            <infg:FieldLayout Key="ProductComplexUnit" ParentFieldName="ProductComplexUnits" ParentFieldLayoutKey="Specification">
                 <infg:FieldLayout.Fields>
                     <!--<infg:NumericField Name="{infg:FieldBinding CostTotal, Path=Sum}" Label="Стоимость"/>-->
                     <infg:TextField Name="Test"/>

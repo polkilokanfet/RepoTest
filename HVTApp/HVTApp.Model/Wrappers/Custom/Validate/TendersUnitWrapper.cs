@@ -1,6 +1,6 @@
 ﻿namespace HVTApp.Model.Wrappers
 {
-    public partial class TendersUnitWrapper : IPriductUnit
+    public partial class ProductTenderUnitWrapper : IProductWithCost
     {
     }
 }

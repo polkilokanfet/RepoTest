@@ -3,18 +3,18 @@ using HVTApp.Model.Services;
 
 namespace HVTApp.Model.Wrappers
 {
-    public partial class ProductionsUnitWrapper
+    public partial class ProductComplexUnitWrapper
     {
         public DateTime ProductionStartDateCalculated
         {
             get
             {
                 //по платежам
-                if (Unit.SalesUnit.StartProductionConditionsDoneDate.HasValue) return Unit.SalesUnit.StartProductionConditionsDoneDate.Value;
+                if (StartProductionConditionsDoneDate.HasValue) return StartProductionConditionsDoneDate.Value;
                 //по дате спецификации
-                if (Unit.SalesUnit.Specification != null) return Unit.SalesUnit.Specification.Date;
+                if (Specification != null) return Specification.Date;
                 //по дате реализации проекта
-                return Unit.Project.EstimatedDate.AddDays(-PlannedProductionTerm).GetTodayIfDateFromPastAndSkipWeekend();
+                return Project.EstimatedDate.AddDays(-PlannedProductionTerm).GetTodayIfDateFromPastAndSkipWeekend();
             }
         }
 

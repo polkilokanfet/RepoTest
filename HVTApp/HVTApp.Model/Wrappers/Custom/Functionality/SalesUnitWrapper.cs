@@ -7,7 +7,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.Model.Wrappers
 {
-    public partial class SalesUnitWrapper
+    public partial class ProductComplexUnitWrapper
     {
         protected override void RunInConstructor()
         {
@@ -45,7 +45,7 @@ namespace HVTApp.Model.Wrappers
         private void OnMarginalIncomeInPercentSingleChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(MarginalIncomeInPercentSingle))
-                Cost.Sum = Unit.ProductionsUnit.Product.GetTotalPrice(MarginalIncomeDate)/(1 - MarginalIncomeInPercentSingle/100);
+                Cost.Sum = Product.GetTotalPrice(MarginalIncomeDate)/(1 - MarginalIncomeInPercentSingle/100);
         }
 
         private void OnSpecificationChanged(object sender, PropertyChangedEventArgs e)
@@ -104,10 +104,10 @@ namespace HVTApp.Model.Wrappers
                 var payment = new PaymentPlan { SumAndVat = new SumAndVat { Sum = Cost.Sum * condition.PartInPercent / 100, Vat = Cost.Vat } };
 
                 //дата платежа
-                if (condition.PaymentConditionPoint == PaymentConditionPoint.ProductionStart) payment.Date = Unit.ProductionsUnit.ProductionStartDateCalculated.AddDays(condition.DaysToPoint);
-                if (condition.PaymentConditionPoint == PaymentConditionPoint.ProductionEnd) payment.Date = Unit.ProductionsUnit.ProductionEndDateCalculated.AddDays(condition.DaysToPoint);
-                if (condition.PaymentConditionPoint == PaymentConditionPoint.Shipment) payment.Date = Unit.ShipmentsUnit.ShipmentDateCalculated.AddDays(condition.DaysToPoint);
-                if (condition.PaymentConditionPoint == PaymentConditionPoint.Delivery) payment.Date = Unit.ShipmentsUnit.DeliveryDateCalculated.AddDays(condition.DaysToPoint);
+                if (condition.PaymentConditionPoint == PaymentConditionPoint.ProductionStart) payment.Date = ProductionStartDateCalculated.AddDays(condition.DaysToPoint);
+                if (condition.PaymentConditionPoint == PaymentConditionPoint.ProductionEnd) payment.Date = ProductionEndDateCalculated.AddDays(condition.DaysToPoint);
+                if (condition.PaymentConditionPoint == PaymentConditionPoint.Shipment) payment.Date = ProductShipmentUnit.ShipmentDateCalculated.AddDays(condition.DaysToPoint);
+                if (condition.PaymentConditionPoint == PaymentConditionPoint.Delivery) payment.Date = ProductShipmentUnit.DeliveryDateCalculated.AddDays(condition.DaysToPoint);
 
                 var paymentWrapper = WrappersFactory.GetWrapper<PaymentPlan, PaymentPlanWrapper>(payment);
                 PaymentsPlanned.Add(paymentWrapper);
@@ -200,8 +200,8 @@ namespace HVTApp.Model.Wrappers
             get
             {
                 //по дате запуска производства
-                if (Unit.ProductionsUnit.StartProductionDate.HasValue) return Unit.ProductionsUnit.StartProductionDate.Value;
-                return Unit.ProductionsUnit.ProductionStartDateCalculated;
+                if (StartProductionDate.HasValue) return StartProductionDate.Value;
+                return ProductionStartDateCalculated;
             }
         }
 
@@ -247,7 +247,7 @@ namespace HVTApp.Model.Wrappers
             get
             {
                 if (RealizationDate.HasValue) return RealizationDate.Value;
-                return Unit.ShipmentsUnit.DeliveryDateCalculated;
+                return ProductShipmentUnit.DeliveryDateCalculated;
             }
         }
 
@@ -273,7 +273,7 @@ namespace HVTApp.Model.Wrappers
         /// <summary>
         /// Маржинальный доход единицы
         /// </summary>
-        public double MarginalIncomeSingle => Cost.Sum - Unit.ProductionsUnit.Product.GetTotalPrice(MarginalIncomeDate);
+        public double MarginalIncomeSingle => Cost.Sum - Product.GetTotalPrice(MarginalIncomeDate);
 
         public double MarginalIncomeInPercentSingle
         {

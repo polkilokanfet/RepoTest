@@ -104,7 +104,7 @@ namespace HVTApp.Model.Wrappers
     public IValidatableChangeTrackingCollection<CompanyWrapper> Participants { get; private set; }
 
 
-    public IValidatableChangeTrackingCollection<TendersUnitWrapper> TendersUnits { get; private set; }
+    public IValidatableChangeTrackingCollection<ProductTenderUnitWrapper> TendersUnits { get; private set; }
 
 
     public IValidatableChangeTrackingCollection<OfferWrapper> Offers { get; private set; }
@@ -135,7 +135,7 @@ namespace HVTApp.Model.Wrappers
 
 
       if (Model.TendersUnits == null) throw new ArgumentException("TendersUnits cannot be null");
-      TendersUnits = new ValidatableChangeTrackingCollection<TendersUnitWrapper>(Model.TendersUnits.Select(e => GetWrapper<TendersUnitWrapper, ProductTenderUnit>(e)));
+      TendersUnits = new ValidatableChangeTrackingCollection<ProductTenderUnitWrapper>(Model.TendersUnits.Select(e => GetWrapper<ProductTenderUnitWrapper, ProductTenderUnit>(e)));
       RegisterCollection(TendersUnits, Model.TendersUnits);
 
 
