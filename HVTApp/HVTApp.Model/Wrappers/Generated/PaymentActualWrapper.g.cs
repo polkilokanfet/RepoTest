@@ -49,8 +49,8 @@ namespace HVTApp.Model.Wrappers
 
 	public SalesUnitWrapper SalesUnit 
     {
-        get { return GetComplexProperty<SalesUnitWrapper, SalesUnit>(Model.SalesUnit); }
-        set { SetComplexProperty<SalesUnitWrapper, SalesUnit>(SalesUnit, value); }
+        get { return GetComplexProperty<SalesUnitWrapper, ProductSalesUnit>(Model.ProductSalesUnit); }
+        set { SetComplexProperty<SalesUnitWrapper, ProductSalesUnit>(SalesUnit, value); }
     }
 
     public SalesUnitWrapper SalesUnitOriginalValue { get; private set; }
@@ -82,7 +82,7 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(Model.SalesUnit);
+        SalesUnit = GetWrapper<SalesUnitWrapper, ProductSalesUnit>(Model.ProductSalesUnit);
 
         Document = GetWrapper<PaymentDocumentWrapper, PaymentDocument>(Model.Document);
 

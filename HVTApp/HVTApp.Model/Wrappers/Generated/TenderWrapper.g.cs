@@ -135,7 +135,7 @@ namespace HVTApp.Model.Wrappers
 
 
       if (Model.TendersUnits == null) throw new ArgumentException("TendersUnits cannot be null");
-      TendersUnits = new ValidatableChangeTrackingCollection<TendersUnitWrapper>(Model.TendersUnits.Select(e => GetWrapper<TendersUnitWrapper, TendersUnit>(e)));
+      TendersUnits = new ValidatableChangeTrackingCollection<TendersUnitWrapper>(Model.TendersUnits.Select(e => GetWrapper<TendersUnitWrapper, ProductTenderUnit>(e)));
       RegisterCollection(TendersUnits, Model.TendersUnits);
 
 

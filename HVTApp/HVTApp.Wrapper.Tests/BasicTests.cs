@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HVTApp.Model.Tests.Wrapper
+namespace HVTApp.Wrapper.Tests
 {
     [TestClass()]
     public class BasicTests
@@ -18,7 +19,7 @@ namespace HVTApp.Model.Tests.Wrapper
             {
                 FirstName = "Thomas",
                 TestFriendAddress = new TestFriendAddress(),
-                TestFriendGroup = new TestFriendGroup() { FriendTests = new List<TestFriend>() },
+                TestFriendGroup = new TestFriendGroup { FriendTests = new List<TestFriend>() },
                 Emails = new List<TestFriendEmail>()
             };
         }

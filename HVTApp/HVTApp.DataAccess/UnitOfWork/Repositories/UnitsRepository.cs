@@ -6,7 +6,7 @@ using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
 {
-    public class UnitsRepository : BaseRepository<Unit, UnitWrapper>, IUnitsRepository
+    public class UnitsRepository : BaseRepository<ProductComplexUnit, UnitWrapper>, IUnitsRepository
     {
         public UnitsRepository(DbContext context) : base(context)
         {

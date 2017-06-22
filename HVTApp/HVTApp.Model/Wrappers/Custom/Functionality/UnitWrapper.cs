@@ -2,8 +2,23 @@ namespace HVTApp.Model.Wrappers
 {
     public partial class UnitWrapper
     {
-        public ProductWrapper Product => ProductionsUnit != null ? ProductionsUnit.Product : ProjectsUnit.Product;
-        public SumAndVatWrapper Cost => SalesUnit != null ? SalesUnit.Cost : ProjectsUnit.Cost;
+        private ProductWrapper _product;
+
+        public ProductWrapper Product
+        {
+            get
+            {
+                if (ProductionsUnit != null) return ProductionsUnit.Product;
+                return _product;
+            }
+            set
+            {
+                if (ProductionsUnit != null) ProductionsUnit.Product = value;
+                _product = value;
+            }
+        }
+
+        public SumAndVatWrapper Cost => SalesUnit?.Cost;
 
         public bool IsTheSame(UnitWrapper unit)
         {

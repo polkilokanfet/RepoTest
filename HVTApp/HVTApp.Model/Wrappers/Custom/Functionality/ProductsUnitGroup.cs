@@ -6,22 +6,22 @@ using System.Linq;
 
 namespace HVTApp.Model.Wrappers
 {
-    public class UnitsGroup : ObservableCollection<UnitWrapper>
+    public class ProductsUnitGroup : ObservableCollection<IPriductUnit>
     {
         public ProductWrapper Product => this.First().Product;
         public string ProductName => Product.Designation;
 
-        public UnitsGroup(IEnumerable<UnitWrapper> units) : base(units)
+        public ProductsUnitGroup(IEnumerable<IPriductUnit> units) : base(units)
         {
-            if (units == null) throw new NullReferenceException();
+            if (units == null) throw new ArgumentNullException(nameof(units));
             if (!units.Any()) throw new ArgumentException();
         }
     }
 
-    public class UnitsGroupsCollection : ObservableCollection<UnitsGroup>
+    public class ProductsUnitsGroupsCollection : ObservableCollection<ProductsUnitGroup>
     {
         private readonly IValidatableChangeTrackingCollection<UnitWrapper> _sourceUnits; 
-        public UnitsGroupsCollection(IValidatableChangeTrackingCollection<UnitWrapper> sourceUnits)
+        public ProductsUnitsGroupsCollection(IValidatableChangeTrackingCollection<UnitWrapper> sourceUnits)
         {
             if (sourceUnits == null) throw new NullReferenceException();
 
@@ -29,7 +29,7 @@ namespace HVTApp.Model.Wrappers
 
             foreach (var units in sourceUnits.GroupBy(x => x.Product))
             {
-                var unitGroup = new UnitsGroup(units);
+                var unitGroup = new ProductsUnitGroup(units);
                 this.Add(unitGroup);
                 unitGroup.CollectionChanged += UnitGroupOnCollectionChanged;
             }
@@ -51,11 +51,11 @@ namespace HVTApp.Model.Wrappers
             }
 
             //удаляем группу, если она опустошена
-            UnitsGroup unitsGroup = sender as UnitsGroup;
-            if (!unitsGroup.Any())
+            ProductsUnitGroup productsUnitGroup = sender as ProductsUnitGroup;
+            if (!productsUnitGroup.Any())
             {
-                this.Remove(unitsGroup);
-                unitsGroup.CollectionChanged -= UnitGroupOnCollectionChanged;
+                this.Remove(productsUnitGroup);
+                productsUnitGroup.CollectionChanged -= UnitGroupOnCollectionChanged;
             }
         }
 
@@ -79,9 +79,9 @@ namespace HVTApp.Model.Wrappers
                     continue;
                 }
 
-                UnitsGroup unitsGroup = new UnitsGroup(new[] {newUnit});
-                this.Add(unitsGroup);
-                unitsGroup.CollectionChanged += UnitGroupOnCollectionChanged;
+                ProductsUnitGroup productsUnitGroup = new ProductsUnitGroup(new[] {newUnit});
+                this.Add(productsUnitGroup);
+                productsUnitGroup.CollectionChanged += UnitGroupOnCollectionChanged;
             }
         }
     }

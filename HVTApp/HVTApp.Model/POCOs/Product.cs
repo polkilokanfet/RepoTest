@@ -10,16 +10,16 @@ namespace HVTApp.Model.POCOs
         public virtual ProductItem ProductItem { get; set; }
         public virtual List<Product> ChildProducts { get; set; } = new List<Product>();
 
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as Product);
-        }
+        //public override bool Equals(object obj)
+        //{
+        //    return Equals(obj as Product);
+        //}
 
-        protected bool Equals(Product other)
-        {
-            return other != null && Equals(this.ProductItem, other.ProductItem) && 
-                this.ChildProducts.HasSameMembers(other.ChildProducts);
-        }
+        //protected bool Equals(Product other)
+        //{
+        //    return other != null && Equals(this.ProductItem, other.ProductItem) && 
+        //        this.ChildProducts.HasSameMembers(other.ChildProducts);
+        //}
     }
 
     public class ProductItem : BaseEntity

@@ -80,7 +80,7 @@ namespace HVTApp.Model.Tests
         }
 
         [TestMethod]
-        public void ProductSameParametersTest()
+        public void ProductItemsSameParametersTest()
         {
             ProductItemWrapper productItemWrapper1 = WrappersFactory.GetWrapper <ProductItem, ProductItemWrapper> (_productItem1);
             ProductItemWrapper productItemWrapper2 = WrappersFactory.GetWrapper <ProductItem, ProductItemWrapper> (_productItem2);

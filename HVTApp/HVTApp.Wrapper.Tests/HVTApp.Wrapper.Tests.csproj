@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BF7C6921-CE77-45E1-A490-522A00761F4A}</ProjectGuid>
+    <ProjectGuid>{57E5FAFA-82C8-441A-AA0C-2C0C3C761C6D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HVTApp.Model.Tests</RootNamespace>
-    <AssemblyName>HVTApp.Model.Tests</AssemblyName>
+    <RootNamespace>HVTApp.Wrapper.Tests</RootNamespace>
+    <AssemblyName>HVTApp.Wrapper.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -46,24 +46,25 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
-          <Private>False</Private>
-        </Reference>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="PaymentsDetailsTests.cs" />
-    <Compile Include="ProductItemTests.cs" />
+    <Compile Include="BasicTests.cs" />
+    <Compile Include="ChangeNotificationCollectionProperty.cs" />
+    <Compile Include="ChangeNotificationComplexProperty.cs" />
+    <Compile Include="ChangeNotificationSimpleProperty.cs" />
+    <Compile Include="ChangeTrackingCollectionProperty.cs" />
+    <Compile Include="ChangeTrackingCollectionTests.cs" />
+    <Compile Include="ChangeTrackingComplexProperty.cs" />
+    <Compile Include="ChangeTrackingSimpleProperty.cs" />
+    <Compile Include="NavigationPropertiesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PaymentsCollectionsTests.cs" />
-    <Compile Include="BaseEntityTest.cs" />
-    <Compile Include="CompanyTests.cs" />
-    <Compile Include="SalesUnitWrapperTests.cs" />
-    <Compile Include="PaymentConditionStandartWrapperTests.cs" />
-    <Compile Include="SumAndVatTests.cs" />
-    <Compile Include="ProductTests.cs" />
-    <Compile Include="ProjectTests.cs" />
+    <Compile Include="ValidationClassLevel.cs" />
+    <Compile Include="ValidationCollectionProperty.cs" />
+    <Compile Include="ValidationComplexProperty.cs" />
+    <Compile Include="ValidationSimpleProperty.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
@@ -71,7 +72,7 @@
       <Name>HVTApp.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\HVTApp.Model\HVTApp.Model.csproj">
-      <Project>{350BDAB0-B331-426F-A024-004C8539AF17}</Project>
+      <Project>{350bdab0-b331-426f-a024-004c8539af17}</Project>
       <Name>HVTApp.Model</Name>
     </ProjectReference>
   </ItemGroup>

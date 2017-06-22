@@ -6,10 +6,10 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-  public partial class ShipmentsUnitWrapper : WrapperBase<ShipmentsUnit>
+  public partial class ShipmentsUnitWrapper : WrapperBase<ProductShipmentUnit>
   {
-    private ShipmentsUnitWrapper() : base(new ShipmentsUnit()) { }
-    private ShipmentsUnitWrapper(ShipmentsUnit model) : base(model) { }
+    private ShipmentsUnitWrapper() : base(new ProductShipmentUnit()) { }
+    private ShipmentsUnitWrapper(ProductShipmentUnit model) : base(model) { }
 
 
 
@@ -76,8 +76,8 @@ namespace HVTApp.Model.Wrappers
 
 	public UnitWrapper Unit 
     {
-        get { return GetComplexProperty<UnitWrapper, Unit>(Model.Unit); }
-        set { SetComplexProperty<UnitWrapper, Unit>(Unit, value); }
+        get { return GetComplexProperty<UnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit); }
+        set { SetComplexProperty<UnitWrapper, ProductComplexUnit>(Unit, value); }
     }
 
     public UnitWrapper UnitOriginalValue { get; private set; }
@@ -109,7 +109,7 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Unit = GetWrapper<UnitWrapper, Unit>(Model.Unit);
+        Unit = GetWrapper<UnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit);
 
         Address = GetWrapper<AddressWrapper, Address>(Model.Address);
 

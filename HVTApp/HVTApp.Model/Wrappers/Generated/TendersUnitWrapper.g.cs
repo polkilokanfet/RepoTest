@@ -6,10 +6,10 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-  public partial class TendersUnitWrapper : WrapperBase<TendersUnit>
+  public partial class TendersUnitWrapper : WrapperBase<ProductTenderUnit>
   {
-    private TendersUnitWrapper() : base(new TendersUnit()) { }
-    private TendersUnitWrapper(TendersUnit model) : base(model) { }
+    private TendersUnitWrapper() : base(new ProductTenderUnit()) { }
+    private TendersUnitWrapper(ProductTenderUnit model) : base(model) { }
 
 
 
@@ -31,8 +31,8 @@ namespace HVTApp.Model.Wrappers
 
 	public UnitWrapper Unit 
     {
-        get { return GetComplexProperty<UnitWrapper, Unit>(Model.Unit); }
-        set { SetComplexProperty<UnitWrapper, Unit>(Unit, value); }
+        get { return GetComplexProperty<UnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit); }
+        set { SetComplexProperty<UnitWrapper, ProductComplexUnit>(Unit, value); }
     }
 
     public UnitWrapper UnitOriginalValue { get; private set; }
@@ -92,7 +92,7 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Unit = GetWrapper<UnitWrapper, Unit>(Model.Unit);
+        Unit = GetWrapper<UnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit);
 
         Tender = GetWrapper<TenderWrapper, Tender>(Model.Tender);
 

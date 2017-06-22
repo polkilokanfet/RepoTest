@@ -38,17 +38,17 @@ namespace HVTApp.Model.Tests
             Product product3 = new Product { ProductItem = _productItem3, ChildProducts = new List<Product> { product1, product2 } };
             Product product4 = new Product { ProductItem = _productItem3, ChildProducts = new List<Product> { product2, product1 } };
 
-            Unit u10 = new Unit { ProductionsUnit = new ProductionsUnit { Product = product3 }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
-            Unit u11 = new Unit { ProductionsUnit = new ProductionsUnit { Product = product3 }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
-            Unit u12 = new Unit { ProductionsUnit = new ProductionsUnit { Product = product3 }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
-            Unit u20 = new Unit { ProductionsUnit = new ProductionsUnit { Product = product4 }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
-            Unit u21 = new Unit { ProductionsUnit = new ProductionsUnit { Product = product4 }, SalesUnit = new SalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
+            ProductComplexUnit u10 = new ProductComplexUnit { ProductProductionUnit = new ProductProductionUnit { Product = product3 }, ProductSalesUnit = new ProductSalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
+            ProductComplexUnit u11 = new ProductComplexUnit { ProductProductionUnit = new ProductProductionUnit { Product = product3 }, ProductSalesUnit = new ProductSalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
+            ProductComplexUnit u12 = new ProductComplexUnit { ProductProductionUnit = new ProductProductionUnit { Product = product3 }, ProductSalesUnit = new ProductSalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
+            ProductComplexUnit u20 = new ProductComplexUnit { ProductProductionUnit = new ProductProductionUnit { Product = product4 }, ProductSalesUnit = new ProductSalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
+            ProductComplexUnit u21 = new ProductComplexUnit { ProductProductionUnit = new ProductProductionUnit { Product = product4 }, ProductSalesUnit = new ProductSalesUnit { Cost = new SumAndVat { Sum = 10, Vat = 1 } } };
 
-            Project project = new Project {Units = new List<Unit>(new[] {u10, u11, u12, u20, u21})};
+            Project project = new Project {Units = new List<ProductComplexUnit>(new[] {u10, u11, u12, u20, u21})};
             ProjectWrapper projectWrapper = WrappersFactory.GetWrapper <Project, ProjectWrapper> (project);
 
-            Assert.AreEqual(projectWrapper.UnitsGroups.Count, 2);
-            Assert.AreEqual(projectWrapper.UnitsGroups.First().Count, 3);
+            Assert.AreEqual(projectWrapper.ProductsUnitsGroups.Count, 2);
+            Assert.AreEqual(projectWrapper.ProductsUnitsGroups.First().Count, 3);
         }
     }
 }

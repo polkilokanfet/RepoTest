@@ -85,7 +85,7 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.Units == null) throw new ArgumentException("Units cannot be null");
-      Units = new ValidatableChangeTrackingCollection<UnitWrapper>(Model.Units.Select(e => GetWrapper<UnitWrapper, Unit>(e)));
+      Units = new ValidatableChangeTrackingCollection<UnitWrapper>(Model.Units.Select(e => GetWrapper<UnitWrapper, ProductComplexUnit>(e)));
       RegisterCollection(Units, Model.Units);
 
 

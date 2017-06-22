@@ -4,30 +4,22 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class Unit : BaseEntity
+    public class ProductComplexUnit : BaseEntity
     {
         public virtual Project Project { get; set; }
         public virtual Facility Facility { get; set; }
 
-        public virtual ProjectsUnit ProjectsUnit { get; set; }
-        public virtual SalesUnit SalesUnit { get; set; }
-        public virtual ProductionsUnit ProductionsUnit { get; set; }
-        public virtual ShipmentsUnit ShipmentsUnit { get; set; }
+        public virtual ProductSalesUnit ProductSalesUnit { get; set; }
+        public virtual ProductProductionUnit ProductProductionUnit { get; set; }
+        public virtual ProductShipmentUnit ProductShipmentUnit { get; set; }
 
-        public virtual List<TendersUnit> TendersUnits { get; set; } = new List<TendersUnit>();
-        public virtual List<OffersUnit> OffersUnits { get; set; } = new List<OffersUnit>();
+        public virtual List<ProductTenderUnit> TendersUnits { get; set; } = new List<ProductTenderUnit>();
+        public virtual List<ProductOfferUnit> OffersUnits { get; set; } = new List<ProductOfferUnit>();
     }
 
-    public class ProjectsUnit : BaseEntity
+    public class ProductSalesUnit : BaseEntity
     {
-        public virtual Unit Unit { get; set; }
-        public virtual Product Product { get; set; }
-        public virtual SumAndVat Cost { get; set; }
-    }
-
-    public class SalesUnit : BaseEntity
-    {
-        public virtual Unit Unit { get; set; }
+        public virtual ProductComplexUnit ProductComplexUnit { get; set; }
 
         public virtual SumAndVat Cost { get; set; }
         public virtual Specification Specification { get; set; }
@@ -39,9 +31,9 @@ namespace HVTApp.Model.POCOs
         public DateTime? RealizationDate { get; set; }
     }
 
-    public class ProductionsUnit : BaseEntity
+    public class ProductProductionUnit : BaseEntity
     {
-        public virtual Unit Unit { get; set; }
+        public virtual ProductComplexUnit ProductComplexUnit { get; set; }
         public virtual Product Product { get; set; }
 
         public virtual Order Order { get; set; }
@@ -59,9 +51,9 @@ namespace HVTApp.Model.POCOs
 
     }
 
-    public class ShipmentsUnit : BaseEntity
+    public class ProductShipmentUnit : BaseEntity
     {
-        public virtual Unit Unit { get; set; }
+        public virtual ProductComplexUnit ProductComplexUnit { get; set; }
 
         public int? ExpectedDeliveryPeriod { get; set; }
         public virtual Address Address { get; set; }
@@ -72,9 +64,9 @@ namespace HVTApp.Model.POCOs
         public virtual DateTime? DeliveryDate { get; set; } //дата поставки
     }
 
-    public class OffersUnit : BaseEntity
+    public class ProductOfferUnit : BaseEntity
     {
-        public virtual Unit Unit { get; set; }
+        public virtual ProductComplexUnit ProductComplexUnit { get; set; }
 
         public virtual Offer Offer { get; set; }
         public virtual Product Product { get; set; }
@@ -84,9 +76,9 @@ namespace HVTApp.Model.POCOs
         public int ProductionTerm { get; set; } //срок производства
     }
 
-    public class TendersUnit : BaseEntity
+    public class ProductTenderUnit : BaseEntity
     {
-        public virtual Unit Unit { get; set; }
+        public virtual ProductComplexUnit ProductComplexUnit { get; set; }
 
         public virtual Tender Tender { get; set; }
         public virtual Product Product { get; set; }
@@ -95,5 +87,4 @@ namespace HVTApp.Model.POCOs
 
         public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
     }
-
 }

@@ -6,10 +6,10 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-  public partial class SalesUnitWrapper : WrapperBase<SalesUnit>
+  public partial class SalesUnitWrapper : WrapperBase<ProductSalesUnit>
   {
-    private SalesUnitWrapper() : base(new SalesUnit()) { }
-    private SalesUnitWrapper(SalesUnit model) : base(model) { }
+    private SalesUnitWrapper() : base(new ProductSalesUnit()) { }
+    private SalesUnitWrapper(ProductSalesUnit model) : base(model) { }
 
 
 
@@ -40,8 +40,8 @@ namespace HVTApp.Model.Wrappers
 
 	public UnitWrapper Unit 
     {
-        get { return GetComplexProperty<UnitWrapper, Unit>(Model.Unit); }
-        set { SetComplexProperty<UnitWrapper, Unit>(Unit, value); }
+        get { return GetComplexProperty<UnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit); }
+        set { SetComplexProperty<UnitWrapper, ProductComplexUnit>(Unit, value); }
     }
 
     public UnitWrapper UnitOriginalValue { get; private set; }
@@ -87,7 +87,7 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Unit = GetWrapper<UnitWrapper, Unit>(Model.Unit);
+        Unit = GetWrapper<UnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit);
 
         Cost = GetWrapper<SumAndVatWrapper, SumAndVat>(Model.Cost);
 
