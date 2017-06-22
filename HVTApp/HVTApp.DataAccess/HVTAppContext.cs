@@ -94,6 +94,14 @@ namespace HVTApp.DataAccess
             modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.Facility).WithMany();
             modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.Project).WithMany(x => x.ProductComplexUnits);
 
+            modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.Cost);
+            modelBuilder.Entity<ProductComplexUnit>().HasOptional(x => x.Specification).WithMany(x => x.ProductComplexUnits);
+            modelBuilder.Entity<ProductComplexUnit>().HasMany(x => x.PaymentsActual).WithRequired(x => x.ProductComplexUnit);
+            modelBuilder.Entity<ProductComplexUnit>().HasMany(x => x.PaymentsPlanned).WithRequired(x => x.ProductComplexUnit);
+
+            modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.Product).WithMany();
+            modelBuilder.Entity<ProductComplexUnit>().HasOptional(x => x.Order).WithMany(x => x.ProductComplexUnits);
+
             //modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.ProductComplexUnit).WithRequiredPrincipal(x => x.ProductComplexUnit);
             //modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.ProductProductionUnit).WithRequiredPrincipal(x => x.ProductComplexUnit);
             //modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.ProductShipmentUnit).WithRequiredPrincipal(x => x.ProductComplexUnit);
@@ -111,22 +119,6 @@ namespace HVTApp.DataAccess
             //modelBuilder.Entity<ProjectsUnit>().HasRequired(x => x.Project).WithMany(x => x.ProjectsUnits);
 
             //#endregion
-
-            #region ProductComplexUnit
-
-            modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.Cost);
-            modelBuilder.Entity<ProductComplexUnit>().HasOptional(x => x.Specification).WithMany(x => x.ProductComplexUnits);
-            modelBuilder.Entity<ProductComplexUnit>().HasMany(x => x.PaymentsActual).WithRequired(x => x.ProductComplexUnit);
-            modelBuilder.Entity<ProductComplexUnit>().HasMany(x => x.PaymentsPlanned).WithRequired(x => x.ProductComplexUnit);
-
-            #endregion
-
-            #region ProductProductionUnit
-
-            modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.Product).WithMany();
-            modelBuilder.Entity<ProductComplexUnit>().HasOptional(x => x.Order).WithMany(x => x.ProductComplexUnits);
-
-            #endregion
 
             #region ProductShipmentUnit
 
