@@ -7,7 +7,7 @@ namespace HVTApp.Model
 {
     public static class WrappersFactory
     {
-        internal static readonly Dictionary<IBaseEntity, object> Wrappers = new Dictionary<IBaseEntity, object>();
+        internal static readonly Dictionary<IBaseEntity, IWrapper<IBaseEntity>> Wrappers = new Dictionary<IBaseEntity, IWrapper<IBaseEntity>>();
          
         public static TWrapper GetWrapper<TWrapper>(IBaseEntity model)
             where TWrapper: class, IWrapper<IBaseEntity>
