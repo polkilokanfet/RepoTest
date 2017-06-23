@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using HVTApp.DataAccess;
+using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
@@ -14,16 +15,10 @@ namespace HVTApp.Services.ChooseProductService
     public class GetProductServiceRealization : IGetProductService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly List<ParameterGroupWrapper> _parameterGroups;
-        private readonly List<ProductWrapper> _products; 
-        private readonly List<RequiredProductsChildsWrapper> _requiredProductsChilds; 
 
         public GetProductServiceRealization(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _parameterGroups = unitOfWork.ParametersGroups.GetAll();
-            _products = unitOfWork.Products.GetAll();
-            _requiredProductsChilds = unitOfWork.RequiredProductsChildses.GetAll();
         }
 
         private ProductItemWrapper GetProductItem(IEnumerable<ParameterWrapper> requiredParameters = null)
@@ -31,7 +26,7 @@ namespace HVTApp.Services.ChooseProductService
             requiredParameters = requiredParameters == null ? new List<ParameterWrapper>() : new List<ParameterWrapper>(requiredParameters);
 
             var parametersUnions = new List<ParametersUnion>();
-            foreach (var parameterGroup in _parameterGroups)
+            foreach (var parameterGroup in _unitOfWork.ParametersGroups.GetAll())
             {
                 var intersect = parameterGroup.Parameters.Intersect(requiredParameters).ToList();
                 parametersUnions.Add(intersect.Count == 1
@@ -47,35 +42,37 @@ namespace HVTApp.Services.ChooseProductService
             return viewModel.ProductItem;
         }
 
-        private IEnumerable<RequiredProductsChildsWrapper> GetRequiredProductsChilds(ProductItem productItem)
+        private IEnumerable<RequiredChildProductParametersWrapper> GetRequiredChildProductParameters(ProductItem productItem)
         {
-            foreach (var requiredProductsChild in _requiredProductsChilds)
-            {
-                if (!requiredProductsChild.MainProductParameters.Select(x => x.Model).Except(productItem.Parameters).Any())
-                    yield return requiredProductsChild;
-            }
+            return _unitOfWork.RequiredChildProductParameters.GetAll()
+                .Where(p => !p.MainProductParameters.Select(x => x.Model).Except(productItem.Parameters).Any());
         }
 
 
         private ProductWrapper SelectProduct(IEnumerable<ParameterWrapper> requiredParameters = null)
         {
             Product product = new Product { ProductItem = GetProductItem(requiredParameters).Model };
-            foreach (var requiredProductsChildsWrapper in GetRequiredProductsChilds(product.ProductItem))
+            foreach (var requiredChildProductParameters in GetRequiredChildProductParameters(product.ProductItem))
             {
-                var childProduct = SelectProduct(requiredProductsChildsWrapper.ChildProductParameters);
-                for (int i = 0; i < requiredProductsChildsWrapper.Count; i++)
+                var childProduct = SelectProduct(requiredChildProductParameters.ChildProductParameters);
+                for (int i = 0; i < requiredChildProductParameters.Count; i++)
                 {
                     product.ChildProducts.Add(childProduct.Model);
                 }
             }
 
-            var result = _products.FirstOrDefault(x => x.Model.Equals(product));
+            var result = _unitOfWork.Products.GetAll().FirstOrDefault(x => ProductsAreSame(x.Model, product));
             return result ?? WrappersFactory.GetWrapper<Product, ProductWrapper>(product);
         }
 
         public ProductWrapper GetProduct(ProductWrapper originProduct = null)
         {
             return SelectProduct();
+        }
+
+        private bool ProductsAreSame(Product firstProduct, Product secondProduct)
+        {
+            return new ProductsComparer().Equals(firstProduct, secondProduct);
         }
     }
 

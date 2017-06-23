@@ -21,7 +21,7 @@ namespace HVTApp.DataAccess
         IParametersRepository Parameters { get; }
         IProductItemsRepository ProductItems { get; }
         IProductsRepository Products { get; }
-        IRequiredProductsChildsesRepository RequiredProductsChildses { get; }
+        IRequiredChildProductParametersRepository RequiredChildProductParameters { get; }
         IFacilityTypesRepository FacilityTypes { get; }
         IFacilitiesRepository Facilities { get; }
         IProjectsRepository Projects { get; }

@@ -13,9 +13,9 @@ namespace HVTApp.DataAccess
         }
     }
 
-    public class RequiredProductsChildsesRepository : BaseRepository<RequiredProductsChilds, RequiredProductsChildsWrapper>, IRequiredProductsChildsesRepository
+    public class RequiredChildProductParametersRepository : BaseRepository<RequiredChildProductParameters, RequiredChildProductParametersWrapper>, IRequiredChildProductParametersRepository
     {
-        public RequiredProductsChildsesRepository(DbContext context) : base(context)
+        public RequiredChildProductParametersRepository(DbContext context) : base(context)
         {
         }
     }

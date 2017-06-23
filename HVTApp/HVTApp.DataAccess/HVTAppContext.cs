@@ -83,12 +83,6 @@ namespace HVTApp.DataAccess
 
             #region ProductComplexUnits
 
-            //modelBuilder.Entity<ProductComplexUnit>().HasKey(x => x.Id).ToTable(nameof(ProductComplexUnit));
-            //modelBuilder.Entity<ProjectsUnit>().HasKey(x => x.Id).ToTable(nameof(ProductComplexUnit));
-            //modelBuilder.Entity<ProductProductionUnit>().HasKey(x => x.Id).ToTable(nameof(ProductComplexUnit));
-            //modelBuilder.Entity<ProductComplexUnit>().HasKey(x => x.Id).ToTable(nameof(ProductComplexUnit));
-            //modelBuilder.Entity<ProductShipmentUnit>().HasKey(x => x.Id).ToTable(nameof(ProductComplexUnit));
-
             #region ProductComplexUnit
 
             modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.Facility).WithMany();
@@ -106,8 +100,8 @@ namespace HVTApp.DataAccess
             //modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.ProductProductionUnit).WithRequiredPrincipal(x => x.ProductComplexUnit);
             //modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.ProductShipmentUnit).WithRequiredPrincipal(x => x.ProductComplexUnit);
 
-            //modelBuilder.Entity<ProductComplexUnit>().HasMany(x => x.TendersUnits).WithRequired(x => x.ProductComplexUnit).WillCascadeOnDelete(false);
-            //modelBuilder.Entity<ProductComplexUnit>().HasMany(x => x.OffersUnits).WithRequired(x => x.ProductComplexUnit).WillCascadeOnDelete(false);
+            //modelBuilder.Entity<ProductComplexUnit>().HasMany(x => x.ProductTenderUnits).WithRequired(x => x.ProductComplexUnit).WillCascadeOnDelete(false);
+            //modelBuilder.Entity<ProductComplexUnit>().HasMany(x => x.ProductOfferUnits).WithRequired(x => x.ProductComplexUnit).WillCascadeOnDelete(false);
 
             #endregion
 
@@ -130,8 +124,8 @@ namespace HVTApp.DataAccess
 
             #region ProductTenderUnit
 
-            modelBuilder.Entity<ProductTenderUnit>().HasRequired(x => x.ProductComplexUnit).WithMany(x => x.TendersUnits);
-            modelBuilder.Entity<ProductTenderUnit>().HasRequired(x => x.Tender).WithMany(x => x.TendersUnits);
+            modelBuilder.Entity<ProductTenderUnit>().HasRequired(x => x.ProductComplexUnit).WithMany(x => x.ProductTenderUnits).WillCascadeOnDelete(false);
+            modelBuilder.Entity<ProductTenderUnit>().HasRequired(x => x.Tender).WithMany(x => x.ProductTenderUnits);
             modelBuilder.Entity<ProductTenderUnit>().HasRequired(x => x.Product).WithMany();
             modelBuilder.Entity<ProductTenderUnit>().HasRequired(x => x.Cost);
             modelBuilder.Entity<ProductTenderUnit>().HasOptional(x => x.ProducerWinner).WithMany();
@@ -140,8 +134,8 @@ namespace HVTApp.DataAccess
 
             #region ProductOfferUnit
 
-            modelBuilder.Entity<ProductOfferUnit>().HasRequired(x => x.ProductComplexUnit).WithMany(x => x.OffersUnits);
-            modelBuilder.Entity<ProductOfferUnit>().HasRequired(x => x.Offer).WithMany(x => x.OfferUnits);
+            modelBuilder.Entity<ProductOfferUnit>().HasRequired(x => x.ProductComplexUnit).WithMany(x => x.ProductOfferUnits).WillCascadeOnDelete(false);
+            modelBuilder.Entity<ProductOfferUnit>().HasRequired(x => x.Offer).WithMany(x => x.ProductOfferUnits);
             modelBuilder.Entity<ProductOfferUnit>().HasRequired(x => x.Product).WithMany();
             modelBuilder.Entity<ProductOfferUnit>().HasRequired(x => x.Cost);            
 
@@ -155,7 +149,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Entity<Tender>().HasRequired(x => x.Project).WithMany(x => x.Tenders);
             modelBuilder.Entity<Tender>().HasRequired(x => x.Sum).WithOptional();
             modelBuilder.Entity<Tender>().HasMany(x => x.Offers).WithRequired(x => x.Tender);
-            modelBuilder.Entity<Tender>().HasMany(x => x.TendersUnits).WithRequired(x => x.Tender);
+            modelBuilder.Entity<Tender>().HasMany(x => x.ProductTenderUnits).WithRequired(x => x.Tender);
             modelBuilder.Entity<Tender>().HasMany(x => x.Participants).WithMany();
             modelBuilder.Entity<Tender>().HasOptional(x => x.Winner).WithMany();
 
@@ -166,7 +160,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Entity<Offer>().Property(x => x.ValidityDate).IsRequired();
             modelBuilder.Entity<Offer>().HasRequired(x => x.Project).WithMany(x => x.Offers);
             modelBuilder.Entity<Offer>().HasRequired(x => x.Tender).WithMany(x => x.Offers);
-            modelBuilder.Entity<Offer>().HasMany(x => x.OfferUnits).WithRequired(x => x.Offer);
+            modelBuilder.Entity<Offer>().HasMany(x => x.ProductOfferUnits).WithRequired(x => x.Offer);
 
             #endregion
 
@@ -288,7 +282,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PaymentConditionStandart> StandartPaymentConditions { get; set; }
         public virtual DbSet<ParameterGroup> ParameterGroups { get; set; }
         public virtual DbSet<Parameter> Parameters { get; set; }
-        public virtual DbSet<RequiredProductsChilds> RequiredProductsChildses { get; set; }
+        public virtual DbSet<RequiredChildProductParameters> RequiredProductsChildses { get; set; }
         public virtual DbSet<ProductItem> ProductItems { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Contract> Contracts { get; set; }

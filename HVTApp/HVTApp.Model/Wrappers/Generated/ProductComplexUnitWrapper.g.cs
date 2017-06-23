@@ -185,10 +185,10 @@ namespace HVTApp.Model.Wrappers
     public IValidatableChangeTrackingCollection<PaymentActualWrapper> PaymentsActual { get; private set; }
 
 
-    public IValidatableChangeTrackingCollection<ProductTenderUnitWrapper> TendersUnits { get; private set; }
+    public IValidatableChangeTrackingCollection<ProductTenderUnitWrapper> ProductTenderUnits { get; private set; }
 
 
-    public IValidatableChangeTrackingCollection<ProductOfferUnitWrapper> OffersUnits { get; private set; }
+    public IValidatableChangeTrackingCollection<ProductOfferUnitWrapper> ProductOfferUnits { get; private set; }
 
 
     #endregion
@@ -231,14 +231,14 @@ namespace HVTApp.Model.Wrappers
       RegisterCollection(PaymentsActual, Model.PaymentsActual);
 
 
-      if (Model.TendersUnits == null) throw new ArgumentException("TendersUnits cannot be null");
-      TendersUnits = new ValidatableChangeTrackingCollection<ProductTenderUnitWrapper>(Model.TendersUnits.Select(e => GetWrapper<ProductTenderUnitWrapper, ProductTenderUnit>(e)));
-      RegisterCollection(TendersUnits, Model.TendersUnits);
+      if (Model.ProductTenderUnits == null) throw new ArgumentException("ProductTenderUnits cannot be null");
+      ProductTenderUnits = new ValidatableChangeTrackingCollection<ProductTenderUnitWrapper>(Model.ProductTenderUnits.Select(e => GetWrapper<ProductTenderUnitWrapper, ProductTenderUnit>(e)));
+      RegisterCollection(ProductTenderUnits, Model.ProductTenderUnits);
 
 
-      if (Model.OffersUnits == null) throw new ArgumentException("OffersUnits cannot be null");
-      OffersUnits = new ValidatableChangeTrackingCollection<ProductOfferUnitWrapper>(Model.OffersUnits.Select(e => GetWrapper<ProductOfferUnitWrapper, ProductOfferUnit>(e)));
-      RegisterCollection(OffersUnits, Model.OffersUnits);
+      if (Model.ProductOfferUnits == null) throw new ArgumentException("ProductOfferUnits cannot be null");
+      ProductOfferUnits = new ValidatableChangeTrackingCollection<ProductOfferUnitWrapper>(Model.ProductOfferUnits.Select(e => GetWrapper<ProductOfferUnitWrapper, ProductOfferUnit>(e)));
+      RegisterCollection(ProductOfferUnits, Model.ProductOfferUnits);
 
 
     }

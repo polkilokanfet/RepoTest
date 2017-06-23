@@ -41,8 +41,8 @@ namespace HVTApp.Model.POCOs
 
         public virtual ProductShipmentUnit ProductShipmentUnit { get; set; }
 
-        public virtual List<ProductTenderUnit> TendersUnits { get; set; } = new List<ProductTenderUnit>();
-        public virtual List<ProductOfferUnit> OffersUnits { get; set; } = new List<ProductOfferUnit>();
+        public virtual List<ProductTenderUnit> ProductTenderUnits { get; set; } = new List<ProductTenderUnit>();
+        public virtual List<ProductOfferUnit> ProductOfferUnits { get; set; } = new List<ProductOfferUnit>();
     }
 
     public interface IProductSalesUnit

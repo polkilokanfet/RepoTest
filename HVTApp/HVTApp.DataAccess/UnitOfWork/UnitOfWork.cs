@@ -25,7 +25,7 @@ namespace HVTApp.DataAccess
             Parameters = new ParametersRepository(context);
             ProductItems = new ProductItemsRepository(context);
             Products = new ProductsRepository(context);
-            RequiredProductsChildses = new RequiredProductsChildsesRepository(context);
+            RequiredChildProductParameters = new RequiredChildProductParametersRepository(context);
             FacilityTypes = new FacilityTypesRepository(context);
             Facilities = new FacilitiesRepository(context);
             Projects = new ProjectsRepository(context);
@@ -65,7 +65,7 @@ namespace HVTApp.DataAccess
         public IParametersRepository Parameters { get; }
         public IProductItemsRepository ProductItems { get; }
         public IProductsRepository Products { get; }
-        public IRequiredProductsChildsesRepository RequiredProductsChildses { get; }
+        public IRequiredChildProductParametersRepository RequiredChildProductParameters { get; }
         public IFacilityTypesRepository FacilityTypes { get; }
 
         public IFacilitiesRepository Facilities { get; }

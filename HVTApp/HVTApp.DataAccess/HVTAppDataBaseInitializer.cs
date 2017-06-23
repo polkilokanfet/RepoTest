@@ -78,8 +78,8 @@ namespace HVTApp.DataAccess
 
             RequiredParameters setTransformatorV = new RequiredParameters { Parameters = new List<Parameter> { paramTransformator, paramTransformatorV } };
 
-            RequiredProductsChilds requiredProductsChildsPrivod = new RequiredProductsChilds { MainProductParameters = new List<Parameter> { paramBreaker }, ChildProductParameters = new List<Parameter> { paramPrivod }, Count = 1 };
-            RequiredProductsChilds requiredProductsChildsBreakerBlock = new RequiredProductsChilds { MainProductParameters = new List<Parameter> { paramBreakerBlock }, ChildProductParameters = new List<Parameter> { paramBreaker }, Count = 2 };
+            RequiredChildProductParameters requiredChildProductParametersPrivod = new RequiredChildProductParameters { MainProductParameters = new List<Parameter> { paramBreaker }, ChildProductParameters = new List<Parameter> { paramPrivod }, Count = 1 };
+            RequiredChildProductParameters requiredChildProductParametersBreakerBlock = new RequiredChildProductParameters { MainProductParameters = new List<Parameter> { paramBreakerBlock }, ChildProductParameters = new List<Parameter> { paramBreaker }, Count = 2 };
 
 
             PhysicalQuantity voltage = new PhysicalQuantity {Name = "Напряжение"};
@@ -142,7 +142,7 @@ namespace HVTApp.DataAccess
             TenderType tenderType = new TenderType {Name = "Проектно-изыскательные работы", Type = TenderTypeEnum.ToProject};
             Tender tender = new Tender { Type = tenderType, Project = project1, Sum = new SumAndVat { Sum = 545, Vat = 18 }, DateOpen = DateTime.Today,
                 DateClose = DateTime.Today.AddDays(7),
-                TendersUnits = new List<ProductTenderUnit>(project1.ProductComplexUnits.Select(x => new ProductTenderUnit {ProductComplexUnit = x}))};
+                ProductTenderUnits = new List<ProductTenderUnit>(project1.ProductComplexUnits.Select(x => new ProductTenderUnit {ProductComplexUnit = x}))};
 
 
 
@@ -156,7 +156,7 @@ namespace HVTApp.DataAccess
             context.Companies.AddRange(new[] {uetm, rosseti, fsk, mrsk});
             context.Employees.Add(employee);
             context.Users.Add(user);
-            context.RequiredProductsChildses.AddRange(new[] { requiredProductsChildsPrivod, requiredProductsChildsBreakerBlock });
+            context.RequiredProductsChildses.AddRange(new[] { requiredChildProductParametersPrivod, requiredChildProductParametersBreakerBlock });
             //context.Products.AddRange(new [] {veb110, vgb35, zng110});
             project1.ProductComplexUnits.AddRange(new[] { productComplexUnitVeb110, productComplexUnitZng1101 });
             context.Facilities.AddRange(new[] {substationPervaya, stationSverdlovskaya});

@@ -9,17 +9,6 @@ namespace HVTApp.Model.POCOs
         public string Designation { get; set; }
         public virtual ProductItem ProductItem { get; set; }
         public virtual List<Product> ChildProducts { get; set; } = new List<Product>();
-
-        //public override bool Equals(object obj)
-        //{
-        //    return Equals(obj as Product);
-        //}
-
-        //protected bool Equals(Product other)
-        //{
-        //    return other != null && Equals(this.ProductItem, other.ProductItem) && 
-        //        this.ChildProducts.HasSameMembers(other.ChildProducts);
-        //}
     }
 
     public class ProductItem : BaseEntity
@@ -38,7 +27,10 @@ namespace HVTApp.Model.POCOs
         }
     }
 
-    public class RequiredProductsChilds : BaseEntity
+    /// <summary>
+    /// Параметры обязательных дочерних продуктов.
+    /// </summary>
+    public class RequiredChildProductParameters : BaseEntity
     {
         public virtual List<Parameter> MainProductParameters { get; set; } = new List<Parameter>();
         public virtual List<Parameter> ChildProductParameters { get; set; } = new List<Parameter>();

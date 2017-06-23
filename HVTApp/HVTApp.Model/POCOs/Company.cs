@@ -18,7 +18,6 @@ namespace HVTApp.Model.POCOs
         public virtual List<Employee> Employees { get; set; } = new List<Employee>();
 
 
-
         public override string ToString()
         {
             return $"{FullName}, {Form.ShortName}";

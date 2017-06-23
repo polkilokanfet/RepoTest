@@ -11,7 +11,7 @@ namespace HVTApp.DataAccess
     public interface ICompanyFormsRepository : IRepository<CompanyForm, CompanyFormWrapper> { }
     public interface IParametersGroupsRepository : IRepository<ParameterGroup, ParameterGroupWrapper> { }
     public interface IParametersRepository : IRepository<Parameter, ParameterWrapper> { }
-    public interface IRequiredProductsChildsesRepository : IRepository<RequiredProductsChilds, RequiredProductsChildsWrapper> { }
+    public interface IRequiredChildProductParametersRepository : IRepository<RequiredChildProductParameters, RequiredChildProductParametersWrapper> { }
 
     public interface IProductItemsRepository : IRepository<ProductItem, ProductItemWrapper>
     {

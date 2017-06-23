@@ -56,6 +56,7 @@
     <Compile Include="BooleanToVisibilityConverter.cs" />
     <Compile Include="GetProductServiceRealization.cs" />
     <Compile Include="IGetProductService.cs" />
+    <Compile Include="ProductsComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
