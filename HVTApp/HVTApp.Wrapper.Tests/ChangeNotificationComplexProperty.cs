@@ -25,7 +25,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldInitializeAddressProperty()
         {
-            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
             Assert.IsNotNull(wrapper.TestFriendAddress);
             Assert.AreEqual(_testFriend.TestFriendAddress, wrapper.TestFriendAddress.Model);
         }

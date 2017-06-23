@@ -11,9 +11,9 @@ namespace HVTApp.Model.Tests
         [TestMethod]
         public void CompanyParentChildRelations()
         {
-            var parent = WrappersFactory.GetWrapper<Company, CompanyWrapper>(new Company {FullName = "ParentCompany"});
-            var child1 = WrappersFactory.GetWrapper<Company, CompanyWrapper>(new Company { FullName = "ChildCompany1" });
-            var child2 = WrappersFactory.GetWrapper<Company, CompanyWrapper>(new Company { FullName = "ChildCompany2" });
+            var parent = WrappersFactory.GetWrapper<CompanyWrapper>(new Company {FullName = "ParentCompany"});
+            var child1 = WrappersFactory.GetWrapper<CompanyWrapper>(new Company { FullName = "ChildCompany1" });
+            var child2 = WrappersFactory.GetWrapper<CompanyWrapper>(new Company { FullName = "ChildCompany2" });
 
             child1.ParentCompany = parent;
             Assert.IsTrue(parent.ChildCompanies.Contains(child1));

@@ -9,9 +9,8 @@ namespace HVTApp.Model
     {
         internal static readonly Dictionary<IBaseEntity, object> Wrappers = new Dictionary<IBaseEntity, object>();
          
-        public static TWrapper GetWrapper<TModel, TWrapper>(TModel model)
-            where TModel : class, IBaseEntity
-            where TWrapper: class, IWrapper<TModel>
+        public static TWrapper GetWrapper<TWrapper>(IBaseEntity model)
+            where TWrapper: class, IWrapper<IBaseEntity>
         {
             if (!Wrappers.ContainsKey(model))
                 Activator.CreateInstance(typeof (TWrapper), BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { model }, null, null);
@@ -19,11 +18,11 @@ namespace HVTApp.Model
             return (TWrapper) Wrappers[model];
         }
 
-        public static TWrapper GetWrapper<TModel, TWrapper>()
-            where TModel : class, IBaseEntity
-            where TWrapper : class, IWrapper<TModel>
+        public static TWrapper GetWrapper<TWrapper>()
+            where TWrapper : class, IWrapper<IBaseEntity>
         {
-            return GetWrapper<TModel, TWrapper>(Activator.CreateInstance<TModel>());
+            return (TWrapper)Activator.CreateInstance(typeof(TWrapper), BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { }, null, null);
+            //return GetWrapper<TWrapper>(Activator.CreateInstance<TModel>());
         }
 
 

@@ -24,11 +24,11 @@ namespace HVTApp.Model.Tests.Wrapper
             };
             group.FriendTests.Add(testFriend);
 
-            TestFriendWrapper wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(testFriend);
+            TestFriendWrapper wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(testFriend);
             Assert.IsFalse(wrapper.IsChanged);
 
             var old = wrapper.TestFriendAddress;
-            wrapper.TestFriendAddress = WrappersFactory.GetWrapper <TestFriendAddress, TestFriendAddressWrapper>(new TestFriendAddress {City = "CityNew"});
+            wrapper.TestFriendAddress = WrappersFactory.GetWrapper<TestFriendAddressWrapper>(new TestFriendAddress {City = "CityNew"});
             Assert.IsTrue(wrapper.IsChanged);
 
             //wrapper.Test_FriendAddress = old;
@@ -45,7 +45,7 @@ namespace HVTApp.Model.Tests.Wrapper
             wife.Husband = husband;
             husband.Wife = wife;
 
-            TestHusbandWrapper husbandWrapper = WrappersFactory.GetWrapper <TestHusband, TestHusbandWrapper>(husband);
+            TestHusbandWrapper husbandWrapper = WrappersFactory.GetWrapper<TestHusbandWrapper>(husband);
 
             bool fired = false;
             husbandWrapper.PropertyChanged += (sender, args) => { fired = true; };
@@ -57,7 +57,7 @@ namespace HVTApp.Model.Tests.Wrapper
             Assert.IsTrue(fired);
 
             TestWife otherTestWife = new TestWife { Id = 22 };
-            TestWifeWrapper otherTestWifeWrapper = WrappersFactory.GetWrapper <TestWife, TestWifeWrapper>(otherTestWife);
+            TestWifeWrapper otherTestWifeWrapper = WrappersFactory.GetWrapper<TestWifeWrapper>(otherTestWife);
             Assert.IsFalse(husbandWrapper.WifeIsChanged);
             husbandWrapper.Wife = otherTestWifeWrapper;
             Assert.IsTrue(husbandWrapper.WifeIsChanged);
@@ -77,7 +77,7 @@ namespace HVTApp.Model.Tests.Wrapper
             Assert.AreEqual(wifeWrapper, husbandWrapper.WifeOriginalValue);
 
             fired = false;
-            TestChildWrapper childWrapper = WrappersFactory.GetWrapper <TestChild, TestChildWrapper>(new TestChild { Husband = husband });
+            TestChildWrapper childWrapper = WrappersFactory.GetWrapper<TestChildWrapper>(new TestChild { Husband = husband });
             husbandWrapper.Children.Add(childWrapper);
             Assert.IsTrue(fired);
 
@@ -106,7 +106,7 @@ namespace HVTApp.Model.Tests.Wrapper
             husband.Children.Add(child1);
             husband.Children.Add(child2);
 
-            TestHusbandWrapper husbandWrapper = WrappersFactory.GetWrapper <TestHusband, TestHusbandWrapper>(husband);
+            TestHusbandWrapper husbandWrapper = WrappersFactory.GetWrapper<TestHusbandWrapper>(husband);
             Assert.IsFalse(husbandWrapper.IsChanged);
 
             TestChildWrapper childWrapper1 = husbandWrapper.Children.First(x => Equals(x.Model, child1));
@@ -127,7 +127,7 @@ namespace HVTApp.Model.Tests.Wrapper
             husbandWrapper.RejectChanges();
             Assert.AreEqual(husbandWrapper.Wife, wifeWrapper);
 
-            TestWifeWrapper wifeWrapper2 = WrappersFactory.GetWrapper <TestWife, TestWifeWrapper>(new TestWife());
+            TestWifeWrapper wifeWrapper2 = WrappersFactory.GetWrapper<TestWifeWrapper>(new TestWife());
             husbandWrapper.Wife = wifeWrapper2;
             husbandWrapper.AcceptChanges();
             Assert.AreEqual(wifeWrapper2.Model, husbandWrapper.Model.Wife);
@@ -148,7 +148,7 @@ namespace HVTApp.Model.Tests.Wrapper
             husband.Children.Add(child1);
             //husband.Children.Add(child2);
 
-            TestHusbandWrapper husbandWrapper = WrappersFactory.GetWrapper <TestHusband, TestHusbandWrapper>(husband);
+            TestHusbandWrapper husbandWrapper = WrappersFactory.GetWrapper<TestHusbandWrapper>(husband);
             TestChildWrapper childWrapper1 = husbandWrapper.Children.First(x => Equals(x.Model, child1));
             Assert.IsFalse(husbandWrapper.IsChanged);
 
@@ -179,7 +179,7 @@ namespace HVTApp.Model.Tests.Wrapper
             husband.Wife = wife;
             husband.Children.AddRange(new[] { child1, child2 });
 
-            TestHusbandWrapper husbandWrapper = WrappersFactory.GetWrapper <TestHusband, TestHusbandWrapper>(husband);
+            TestHusbandWrapper husbandWrapper = WrappersFactory.GetWrapper<TestHusbandWrapper>(husband);
             Assert.IsFalse(husbandWrapper.IsChanged);
 
             string oldWifesName = husbandWrapper.Wife.Name;
@@ -215,11 +215,11 @@ namespace HVTApp.Model.Tests.Wrapper
             wife1.Husband = husband;
             husband.Wife = wife1;
 
-            TestHusbandWrapper husbandWrapper = WrappersFactory.GetWrapper <TestHusband, TestHusbandWrapper>(husband);
+            TestHusbandWrapper husbandWrapper = WrappersFactory.GetWrapper<TestHusbandWrapper>(husband);
             Assert.IsFalse(husbandWrapper.IsChanged);
 
             var wife1Wrapper = husbandWrapper.Wife;
-            husbandWrapper.Wife = WrappersFactory.GetWrapper <TestWife, TestWifeWrapper>(new TestWife { Id = 3 });
+            husbandWrapper.Wife = WrappersFactory.GetWrapper<TestWifeWrapper>(new TestWife { Id = 3 });
             Assert.IsTrue(husbandWrapper.IsChanged);
 
             husbandWrapper.Wife = wife1Wrapper;
@@ -235,7 +235,7 @@ namespace HVTApp.Model.Tests.Wrapper
             wife1.Husband = husband;
             husband.Wife = wife1;
 
-            TestHusbandWrapper husbandWrapper = WrappersFactory.GetWrapper <TestHusband, TestHusbandWrapper>(husband);
+            TestHusbandWrapper husbandWrapper = WrappersFactory.GetWrapper<TestHusbandWrapper>(husband);
             Assert.IsFalse(husbandWrapper.IsChanged);
 
             husbandWrapper.Wife.Id++;
@@ -250,7 +250,7 @@ namespace HVTApp.Model.Tests.Wrapper
             Assert.IsFalse(husbandWrapper.IsChanged);
             Assert.AreEqual(oldId, husbandWrapper.Wife.Id);
 
-            TestChildWrapper childWrapper = WrappersFactory.GetWrapper <TestChild, TestChildWrapper>(new TestChild { Husband = husband });
+            TestChildWrapper childWrapper = WrappersFactory.GetWrapper<TestChildWrapper>(new TestChild { Husband = husband });
             husbandWrapper.Children.Add(childWrapper);
             Assert.IsTrue(husbandWrapper.IsChanged);
 

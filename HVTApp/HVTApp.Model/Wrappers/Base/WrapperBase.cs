@@ -391,7 +391,7 @@ namespace HVTApp.Model.Wrappers
         {
             if (model == null) return null;
 
-            return WrappersFactory.GetWrapper<TModel, TWrapper>(model);
+            return WrappersFactory.GetWrapper<TWrapper>(model);
         }
 
         protected virtual void OnComplexPropertyChanged(ComplexPropertyChangedEventArgs obj)

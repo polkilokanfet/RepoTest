@@ -36,9 +36,9 @@ namespace HVTApp.Model.Tests
             SumOnDate price1 = new SumOnDate { Sum = 10, Date = DateTime.Today.AddDays(-7) };
             SumOnDate price2 = new SumOnDate { Sum = 5, Date = DateTime.Today };
 
-            var productParent = WrappersFactory.GetWrapper<Product, ProductWrapper>(new Product {ProductItem = _productItem1});
-            productParent.ProductItem.Prices.Add(WrappersFactory.GetWrapper <SumOnDate, SumOnDateWrapper> (price1));
-            productParent.ProductItem.Prices.Add(WrappersFactory.GetWrapper <SumOnDate, SumOnDateWrapper> (price2));
+            var productParent = WrappersFactory.GetWrapper<ProductWrapper>(new Product {ProductItem = _productItem1});
+            productParent.ProductItem.Prices.Add(WrappersFactory.GetWrapper<SumOnDateWrapper> (price1));
+            productParent.ProductItem.Prices.Add(WrappersFactory.GetWrapper<SumOnDateWrapper> (price2));
             productParent.TotalPriceDate = DateTime.Today;
 
             Assert.IsTrue(Math.Abs(productParent.TotalPrice - price2.Sum) < 0.0001);
@@ -46,11 +46,11 @@ namespace HVTApp.Model.Tests
             SumOnDate price3 = new SumOnDate { Sum = 30, Date = DateTime.Today };
             SumOnDate price4 = new SumOnDate { Sum = 40, Date = DateTime.Today };
 
-            var productChild1 = WrappersFactory.GetWrapper<Product, ProductWrapper>(new Product {ProductItem = new ProductItem()});
-            productChild1.ProductItem.Prices.Add(WrappersFactory.GetWrapper <SumOnDate, SumOnDateWrapper> (price3));
+            var productChild1 = WrappersFactory.GetWrapper<ProductWrapper>(new Product {ProductItem = new ProductItem()});
+            productChild1.ProductItem.Prices.Add(WrappersFactory.GetWrapper<SumOnDateWrapper> (price3));
 
-            var productChild2 = WrappersFactory.GetWrapper<Product, ProductWrapper>(new Product {ProductItem = new ProductItem()});
-            productChild2.ProductItem.Prices.Add(WrappersFactory.GetWrapper <SumOnDate, SumOnDateWrapper> (price4));
+            var productChild2 = WrappersFactory.GetWrapper<ProductWrapper>(new Product {ProductItem = new ProductItem()});
+            productChild2.ProductItem.Prices.Add(WrappersFactory.GetWrapper<SumOnDateWrapper> (price4));
 
             productParent.ChildProducts.Add(productChild1);
             productParent.ChildProducts.Add(productChild2);
@@ -59,8 +59,8 @@ namespace HVTApp.Model.Tests
             Assert.IsTrue(Math.Abs(productParent.TotalPrice - totalSum) < 0.0001);
 
             SumOnDate price5 = new SumOnDate { Sum = 50, Date = DateTime.Today };
-            var productChild3 = WrappersFactory.GetWrapper<Product, ProductWrapper>(new Product {ProductItem = new ProductItem()});
-            productChild3.ProductItem.Prices.Add(WrappersFactory.GetWrapper <SumOnDate, SumOnDateWrapper> (price5));
+            var productChild3 = WrappersFactory.GetWrapper<ProductWrapper>(new Product {ProductItem = new ProductItem()});
+            productChild3.ProductItem.Prices.Add(WrappersFactory.GetWrapper<SumOnDateWrapper> (price5));
             productChild1.ChildProducts.Add(productChild3);
 
             totalSum += price5.Sum;
@@ -71,8 +71,8 @@ namespace HVTApp.Model.Tests
         [TestMethod]
         public void ProductItemsSameParametersTest()
         {
-            ProductItemWrapper productItemWrapper1 = WrappersFactory.GetWrapper <ProductItem, ProductItemWrapper> (_productItem1);
-            ProductItemWrapper productItemWrapper2 = WrappersFactory.GetWrapper <ProductItem, ProductItemWrapper> (_productItem2);
+            ProductItemWrapper productItemWrapper1 = WrappersFactory.GetWrapper<ProductItemWrapper> (_productItem1);
+            ProductItemWrapper productItemWrapper2 = WrappersFactory.GetWrapper<ProductItemWrapper> (_productItem2);
 
             Assert.IsFalse(productItemWrapper1.HasSameParameters(productItemWrapper2));
 

@@ -11,13 +11,13 @@ namespace HVTApp.Model.Tests
         [TestMethod]
         public void PaymentConditionStandartWrapperValidation()
         {
-            var wrapper = WrappersFactory.GetWrapper <PaymentConditionStandart, PaymentConditionStandartWrapper> ();
+            var wrapper = WrappersFactory.GetWrapper<PaymentConditionStandartWrapper> ();
             Assert.IsFalse(wrapper.IsValid);
 
-            wrapper.PaymentsConditions.Add(WrappersFactory.GetWrapper<PaymentCondition, PaymentConditionWrapper>(new PaymentCondition { PartInPercent = 30 }));
+            wrapper.PaymentsConditions.Add(WrappersFactory.GetWrapper<PaymentConditionWrapper>(new PaymentCondition { PartInPercent = 30 }));
             Assert.IsFalse(wrapper.IsValid);
 
-            wrapper.PaymentsConditions.Add(WrappersFactory.GetWrapper <PaymentCondition, PaymentConditionWrapper> (new PaymentCondition { PartInPercent = 70 }));
+            wrapper.PaymentsConditions.Add(WrappersFactory.GetWrapper<PaymentConditionWrapper>(new PaymentCondition { PartInPercent = 70 }));
             Assert.IsTrue(wrapper.IsValid);
         }
     }

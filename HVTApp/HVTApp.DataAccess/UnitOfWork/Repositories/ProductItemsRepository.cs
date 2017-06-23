@@ -22,7 +22,7 @@ namespace HVTApp.DataAccess
                                                           !prmtrs.Except(x.Parameters).Any());
             if (result != null) return result;
 
-            result = WrappersFactory.GetWrapper<ProductItem, ProductItemWrapper>(new ProductItem { Parameters = new List<Parameter>(prmtrs.Select(x => x.Model)) });
+            result = WrappersFactory.GetWrapper<ProductItemWrapper>(new ProductItem { Parameters = new List<Parameter>(prmtrs.Select(x => x.Model)) });
             result.Designation = result.ParametersToString;
             return result;
         }

@@ -16,15 +16,15 @@ namespace HVTApp.Model.Tests.Wrapper
     {
       _emails = new List<TestFriendEmailWrapper>
       {
-        WrappersFactory.GetWrapper <TestFriendEmail, TestFriendEmailWrapper>(new TestFriendEmail {Email="thomas@thomasclaudiushuber.com" }),
-        WrappersFactory.GetWrapper <TestFriendEmail, TestFriendEmailWrapper>(new TestFriendEmail {Email="julia@juhu-design.com" }),
+        WrappersFactory.GetWrapper<TestFriendEmailWrapper>(new TestFriendEmail {Email="thomas@thomasclaudiushuber.com" }),
+        WrappersFactory.GetWrapper<TestFriendEmailWrapper>(new TestFriendEmail {Email="julia@juhu-design.com" }),
        };
     }
 
     [TestMethod]
     public void ShouldTrackAddedItems()
     {
-      var emailToAdd = WrappersFactory.GetWrapper <TestFriendEmail, TestFriendEmailWrapper>(new TestFriendEmail());
+      var emailToAdd = WrappersFactory.GetWrapper<TestFriendEmailWrapper>(new TestFriendEmail());
 
       var c = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(_emails);
       Assert.AreEqual(2, c.Count);
@@ -94,7 +94,7 @@ namespace HVTApp.Model.Tests.Wrapper
     [TestMethod]
     public void ShouldNotTrackAddedItemAsModified()
     {
-      var emailToAdd = WrappersFactory.GetWrapper <TestFriendEmail, TestFriendEmailWrapper>(new TestFriendEmail());
+      var emailToAdd = WrappersFactory.GetWrapper<TestFriendEmailWrapper>(new TestFriendEmail());
 
       var c = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(_emails);
       c.Add(emailToAdd);
@@ -135,7 +135,7 @@ namespace HVTApp.Model.Tests.Wrapper
     {
       var emailToModify = _emails.First();
       var emailToRemove = _emails.Skip(1).First();
-      var emailToAdd = WrappersFactory.GetWrapper <TestFriendEmail, TestFriendEmailWrapper>(new TestFriendEmail { Email = "anotherOne@thomasclaudiushuber.com" });
+      var emailToAdd = WrappersFactory.GetWrapper<TestFriendEmailWrapper>(new TestFriendEmail { Email = "anotherOne@thomasclaudiushuber.com" });
 
       var c = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(_emails);
 
@@ -171,7 +171,7 @@ namespace HVTApp.Model.Tests.Wrapper
     {
       var emailToModify = _emails.First();
       var emailToRemove = _emails.Skip(1).First();
-      var emailToAdd = WrappersFactory.GetWrapper <TestFriendEmail, TestFriendEmailWrapper>(new TestFriendEmail { Email = "anotherOne@thomasclaudiushuber.com" });
+      var emailToAdd = WrappersFactory.GetWrapper<TestFriendEmailWrapper>(new TestFriendEmail { Email = "anotherOne@thomasclaudiushuber.com" });
 
       var c = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(_emails);
 

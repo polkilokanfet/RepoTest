@@ -27,7 +27,7 @@ namespace HVTApp.Wrapper.Tests
         [TestMethod()]
         public void ShouldContainModelInModelProperty()
         {
-            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
             Assert.AreEqual(_testFriend, wrapper.Model);
         }
 
@@ -37,7 +37,7 @@ namespace HVTApp.Wrapper.Tests
         //{
         //    try
         //    {
-        //        var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(null);
+        //        var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(null);
         //    }
         //    catch (ArgumentNullException ex)
         //    {
@@ -53,7 +53,7 @@ namespace HVTApp.Wrapper.Tests
         //    try
         //    {
         //        _testFriend.Test_FriendAddress = null;
-        //        var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
+        //        var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
         //    }
         //    catch (ArgumentException ex)
         //    {
@@ -69,7 +69,7 @@ namespace HVTApp.Wrapper.Tests
             try
             {
                 _testFriend.Emails = null;
-                var wrapper = WrappersFactory.GetWrapper<TestFriend, TestFriendWrapper>(_testFriend);
+                var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
             }
             catch (ArgumentException ex)
             {
@@ -81,14 +81,14 @@ namespace HVTApp.Wrapper.Tests
         [TestMethod]
         public void ShouldGetValueOfUnderlyingModelProperty()
         {
-            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
             Assert.AreEqual(_testFriend.FirstName, wrapper.FirstName);
         }
 
         [TestMethod]
         public void ShouldSetValueOfUnderlyingModelProperty()
         {
-            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
             wrapper.FirstName = "Julia";
             Assert.AreEqual("Julia", _testFriend.FirstName);
         }

@@ -32,7 +32,7 @@ namespace HVTApp.Model.Tests.Wrapper
         {
             var expectedError = "A developer must have an email-address";
 
-            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
             wrapper.Emails.Clear();
             Assert.IsFalse(wrapper.IsDeveloper);
             Assert.IsTrue(wrapper.IsValid);
@@ -52,7 +52,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldBeValidAgainWhenIsDeveloperIsSetBackToFalse()
         {
-            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
             wrapper.Emails.Clear();
             Assert.IsFalse(wrapper.IsDeveloper);
             Assert.IsTrue(wrapper.IsValid);
@@ -74,7 +74,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldBeValidAgainWhenEmailIsAdded()
         {
-            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
             wrapper.Emails.Clear();
             Assert.IsFalse(wrapper.IsDeveloper);
             Assert.IsTrue(wrapper.IsValid);
@@ -82,7 +82,7 @@ namespace HVTApp.Model.Tests.Wrapper
             wrapper.IsDeveloper = true;
             Assert.IsFalse(wrapper.IsValid);
 
-            wrapper.Emails.Add(WrappersFactory.GetWrapper <TestFriendEmail, TestFriendEmailWrapper>(new TestFriendEmail { Email = "thomas@thomasclaudiushuber.com" }));
+            wrapper.Emails.Add(WrappersFactory.GetWrapper<TestFriendEmailWrapper>(new TestFriendEmail { Email = "thomas@thomasclaudiushuber.com" }));
             Assert.IsTrue(wrapper.IsValid);
 
             var emailsErrors = wrapper.GetErrors(nameof(wrapper.Emails)).Cast<string>().ToList();
@@ -96,7 +96,7 @@ namespace HVTApp.Model.Tests.Wrapper
         public void ShouldIntializeWithoutProblems()
         {
             _testFriend.IsDeveloper = true;
-            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
             Assert.IsTrue(wrapper.IsValid);
         }
     }

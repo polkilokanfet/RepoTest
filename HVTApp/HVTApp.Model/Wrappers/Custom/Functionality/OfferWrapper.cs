@@ -18,7 +18,7 @@ namespace HVTApp.Model.Wrappers
                 this.CopyToRecipients.Add(copyToRecipient);
 
             foreach (var productOfferUnit in templateOffer.ProductOfferUnits.Select(x => x.Model))
-                this.ProductOfferUnits.Add(WrappersFactory.GetWrapper<ProductOfferUnit, ProductOfferUnitWrapper>(productOfferUnit));
+                this.ProductOfferUnits.Add(WrappersFactory.GetWrapper<ProductOfferUnitWrapper>(productOfferUnit));
         }
     }
 }

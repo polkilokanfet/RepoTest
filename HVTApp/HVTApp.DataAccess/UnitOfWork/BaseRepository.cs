@@ -21,18 +21,18 @@ namespace HVTApp.DataAccess
 
         public virtual TWrapper GetWrapper()
         {
-            return WrappersFactory.GetWrapper<TModel, TWrapper>();
+            return WrappersFactory.GetWrapper<TWrapper>();
         }
 
         public TWrapper GetWrapper(TModel model)
         {
-            return WrappersFactory.GetWrapper<TModel, TWrapper>(model);
+            return WrappersFactory.GetWrapper<TWrapper>(model);
         }
 
         public virtual List<TWrapper> GetAll()
         {
             Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-            return Context.Set<TModel>().ToList().Select(WrappersFactory.GetWrapper<TModel, TWrapper>).ToList();
+            return Context.Set<TModel>().ToList().Select(WrappersFactory.GetWrapper<TWrapper>).ToList();
         }
 
         public IEnumerable<TWrapper> Find(Func<TWrapper, bool> predicate)

@@ -11,7 +11,7 @@ namespace HVTApp.Model.Tests
         [TestMethod]
         public void SumAndVatTest()
         {
-            var sumAndVat = WrappersFactory.GetWrapper <SumAndVat, SumAndVatWrapper>(new SumAndVat {Sum = 100, Vat = 50});
+            var sumAndVat = WrappersFactory.GetWrapper<SumAndVatWrapper>(new SumAndVat {Sum = 100, Vat = 50});
             Assert.AreEqual(sumAndVat.SumWithVat, 150);
 
             sumAndVat.Vat = 100;

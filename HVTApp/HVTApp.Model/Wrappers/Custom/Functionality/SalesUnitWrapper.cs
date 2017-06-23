@@ -77,7 +77,7 @@ namespace HVTApp.Model.Wrappers
                     var conditionSum = condition.PartInPercent/100*Cost.Sum;
                     if (paidSum < conditionSum)
                     {
-                        conditions.Add(WrappersFactory.GetWrapper<PaymentCondition, PaymentConditionWrapper>(new PaymentCondition
+                        conditions.Add(WrappersFactory.GetWrapper<PaymentConditionWrapper>(new PaymentCondition
                         {
                             PartInPercent = (conditionSum - paidSum) / Cost.Sum * 100,
                             PaymentConditionPoint = condition.PaymentConditionPoint,
@@ -109,7 +109,7 @@ namespace HVTApp.Model.Wrappers
                 if (condition.PaymentConditionPoint == PaymentConditionPoint.Shipment) payment.Date = ProductShipmentUnit.ShipmentDateCalculated.AddDays(condition.DaysToPoint);
                 if (condition.PaymentConditionPoint == PaymentConditionPoint.Delivery) payment.Date = ProductShipmentUnit.DeliveryDateCalculated.AddDays(condition.DaysToPoint);
 
-                var paymentWrapper = WrappersFactory.GetWrapper<PaymentPlan, PaymentPlanWrapper>(payment);
+                var paymentWrapper = WrappersFactory.GetWrapper<PaymentPlanWrapper>(payment);
                 PaymentsPlanned.Add(paymentWrapper);
             }
         }
@@ -153,12 +153,12 @@ namespace HVTApp.Model.Wrappers
         /// <summary>
         /// Оплаченная сумма
         /// </summary>
-        public SumAndVatWrapper SumPaid => WrappersFactory.GetWrapper <SumAndVat, SumAndVatWrapper>(new SumAndVat { Sum = PaymentsActual.Sum(x => x.SumAndVat.Sum), Vat = Cost.Vat });
+        public SumAndVatWrapper SumPaid => WrappersFactory.GetWrapper<SumAndVatWrapper>(new SumAndVat { Sum = PaymentsActual.Sum(x => x.SumAndVat.Sum), Vat = Cost.Vat });
 
         /// <summary>
         /// Неоплаченная сумма
         /// </summary>
-        public SumAndVatWrapper SumRest => WrappersFactory.GetWrapper <SumAndVat, SumAndVatWrapper>(new SumAndVat { Sum = Cost.Sum - SumPaid.Sum, Vat = Cost.Vat });
+        public SumAndVatWrapper SumRest => WrappersFactory.GetWrapper<SumAndVatWrapper>(new SumAndVat { Sum = Cost.Sum - SumPaid.Sum, Vat = Cost.Vat });
 
         /// <summary>
         /// Сумама, необходимая для начала производства
@@ -170,7 +170,7 @@ namespace HVTApp.Model.Wrappers
                 //условия, связанные с датой запуска производства
                 var conditions = PaymentsConditions.Where(x => x.PaymentConditionPoint == PaymentConditionPoint.ProductionStart && x.DaysToPoint <= 0);
                 var sum = conditions.Sum(condition => Cost.Sum*condition.PartInPercent/100);
-                return WrappersFactory.GetWrapper <SumAndVat, SumAndVatWrapper>(new SumAndVat {Sum = sum, Vat = Cost.Vat});
+                return WrappersFactory.GetWrapper<SumAndVatWrapper>(new SumAndVat {Sum = sum, Vat = Cost.Vat});
             }
         }
 
@@ -187,7 +187,7 @@ namespace HVTApp.Model.Wrappers
                     (x.PaymentConditionPoint == PaymentConditionPoint.ProductionEnd) ||
                     (x.PaymentConditionPoint == PaymentConditionPoint.Shipment && x.DaysToPoint <= 0));
                 var sum = conditions.Sum(condition => Cost.Sum*condition.PartInPercent/100);
-                return WrappersFactory.GetWrapper <SumAndVat, SumAndVatWrapper>(new SumAndVat {Sum = sum, Vat = Cost.Vat});
+                return WrappersFactory.GetWrapper<SumAndVatWrapper>(new SumAndVat {Sum = sum, Vat = Cost.Vat});
             }
         }
 

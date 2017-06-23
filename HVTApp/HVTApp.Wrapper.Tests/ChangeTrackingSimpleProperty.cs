@@ -25,7 +25,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldStoreOriginalValue()
         {
-            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
             Assert.AreEqual("Thomas", wrapper.FirstNameOriginalValue);
 
             wrapper.FirstName = "Julia";
@@ -35,7 +35,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldSetIsChanged()
         {
-            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
             Assert.IsFalse(wrapper.FirstNameIsChanged);
             Assert.IsFalse(wrapper.IsChanged);
 
@@ -52,7 +52,7 @@ namespace HVTApp.Model.Tests.Wrapper
         public void ShouldRaisePropertyChangedEventForFirstNameIsChanged()
         {
             var fired = false;
-            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
             wrapper.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == nameof(wrapper.FirstNameIsChanged))
@@ -68,7 +68,7 @@ namespace HVTApp.Model.Tests.Wrapper
         public void ShouldRaisePropertyChangedEventForIsChanged()
         {
             var fired = false;
-            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
             wrapper.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == nameof(wrapper.IsChanged))
@@ -83,7 +83,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldAcceptChanges()
         {
-            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
             wrapper.FirstName = "Julia";
             Assert.AreEqual("Julia", wrapper.FirstName);
             Assert.AreEqual("Thomas", wrapper.FirstNameOriginalValue);
@@ -101,7 +101,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldRejectChanges()
         {
-            var wrapper = WrappersFactory.GetWrapper <TestFriend, TestFriendWrapper>(_testFriend);
+            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
             wrapper.FirstName = "Julia";
             Assert.AreEqual("Julia", wrapper.FirstName);
             Assert.AreEqual("Thomas", wrapper.FirstNameOriginalValue);
