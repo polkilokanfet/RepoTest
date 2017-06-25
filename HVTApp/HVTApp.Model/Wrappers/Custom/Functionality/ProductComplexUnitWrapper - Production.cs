@@ -30,6 +30,5 @@ namespace HVTApp.Model.Wrappers
                 return ProductionStartDateCalculated.AddDays(PlannedProductionTerm).GetTodayIfDateFromPastAndSkipWeekend();
             }
         }
-
     }
 }

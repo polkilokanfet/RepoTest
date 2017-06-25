@@ -50,7 +50,7 @@ namespace HVTApp.Model.Wrappers
     public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
 
 
-    public IValidatableChangeTrackingCollection<SumOnDateWrapper> Prices { get; private set; }
+    public IValidatableChangeTrackingCollection<CostOnDateWrapper> Prices { get; private set; }
 
 
     #endregion
@@ -65,7 +65,7 @@ namespace HVTApp.Model.Wrappers
 
 
       if (Model.Prices == null) throw new ArgumentException("Prices cannot be null");
-      Prices = new ValidatableChangeTrackingCollection<SumOnDateWrapper>(Model.Prices.Select(e => GetWrapper<SumOnDateWrapper, SumOnDate>(e)));
+      Prices = new ValidatableChangeTrackingCollection<CostOnDateWrapper>(Model.Prices.Select(e => GetWrapper<CostOnDateWrapper, CostOnDate>(e)));
       RegisterCollection(Prices, Model.Prices);
 
 

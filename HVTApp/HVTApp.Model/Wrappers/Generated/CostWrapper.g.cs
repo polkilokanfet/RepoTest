@@ -6,23 +6,14 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-  public partial class SumOnDateWrapper : WrapperBase<SumOnDate>
+  public partial class CostWrapper : WrapperBase<Cost>
   {
-    private SumOnDateWrapper() : base(new SumOnDate()) { }
-    private SumOnDateWrapper(SumOnDate model) : base(model) { }
+    private CostWrapper() : base(new Cost()) { }
+    private CostWrapper(Cost model) : base(model) { }
 
 
 
     #region SimpleProperties
-
-    public System.DateTime Date
-    {
-      get { return GetValue<System.DateTime>(); }
-      set { SetValue(value); }
-    }
-    public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
-    public bool DateIsChanged => GetIsChanged(nameof(Date));
-
 
     public System.Double Sum
     {
@@ -43,6 +34,28 @@ namespace HVTApp.Model.Wrappers
 
 
     #endregion
+
+
+    #region ComplexProperties
+
+	public CurrencyWrapper Currency 
+    {
+        get { return GetComplexProperty<CurrencyWrapper, Currency>(Model.Currency); }
+        set { SetComplexProperty<CurrencyWrapper, Currency>(Currency, value); }
+    }
+
+    public CurrencyWrapper CurrencyOriginalValue { get; private set; }
+    public bool CurrencyIsChanged => GetIsChanged(nameof(Currency));
+
+
+    #endregion
+
+    public override void InitializeComplexProperties()
+    {
+
+        Currency = GetWrapper<CurrencyWrapper, Currency>(Model.Currency);
+
+    }
 
   }
 }

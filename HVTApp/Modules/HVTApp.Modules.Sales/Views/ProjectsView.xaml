@@ -14,7 +14,7 @@
                     <infg:FieldLayout.Fields>
                         <infg:Field Name="FacilitiesNames" Label="Объекты"/>
                         <infg:Field Name="Name" Label="Название проекта"/>
-                        <infg:Field Name="Sum" Label="Сумма проекта без НДС, руб."/>
+                        <infg:Field Name="Cost" Label="Сумма проекта без НДС, руб."/>
 
                         <infg:Field Name="ProductsUnitGroups" IsExpandable="True" IsPrimary="True"/>
                     </infg:FieldLayout.Fields>

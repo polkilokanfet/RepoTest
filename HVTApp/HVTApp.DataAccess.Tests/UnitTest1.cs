@@ -17,7 +17,7 @@ namespace HVTApp.DataAccess.Tests
         //        Cost = new Cost
         //        {
         //            Cost = 100,
-        //            SumOnDate = 50,
+        //            CostOnDate = 50,
         //            Vat = 20
         //        },
         //        TermsInfo = new TermsInfo(),
@@ -30,7 +30,7 @@ namespace HVTApp.DataAccess.Tests
         //    {
         //        PaymentConditionPoint = PaymentConditionPoint.ProductionStart,
         //        DaysToPoint = 10,
-        //        PartInPercent = 100
+        //        Part = 100
         //    };
         //    product.PaymentsInfo.PaymentsConditions.Add(condition);
 
@@ -41,15 +41,15 @@ namespace HVTApp.DataAccess.Tests
         //    unitOfWork = new UnitOfWork(new HVTAppContext());
         //    product = unitOfWork.ProductsMain.GetAll().Single(x => x.Id == product.Id);
 
-        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.Count, product.PaymentsInfo.PaymentsConditions.Count);
-        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
+        //    Assert.AreEqual(product.PaymentsInfo.Payments.Count, product.PaymentsInfo.PaymentsConditions.Count);
+        //    Assert.AreEqual(product.PaymentsInfo.Payments.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
 
         //    bool actualPaymentsChange = false;
         //    bool plannedPaymentsReloaded = false;
         //    product.PaymentsInfo.PaymentsActual.CollectionChanged += (sender, args) => { actualPaymentsChange = true; };
-        //    product.PaymentsInfo.PaymentsPlanned.CollectionReloaded += (sender, args) => { plannedPaymentsReloaded = true; };
+        //    product.PaymentsInfo.Payments.CollectionReloaded += (sender, args) => { plannedPaymentsReloaded = true; };
 
-        //    PaymentActual paymentActual = new PaymentActual
+        //    Payment paymentActual = new Payment
         //    {
         //        Cost = 20,
         //        Date = DateTime.Today
@@ -59,8 +59,8 @@ namespace HVTApp.DataAccess.Tests
         //    Assert.IsTrue(actualPaymentsChange);
         //    Assert.IsTrue(plannedPaymentsReloaded);
 
-        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.Count, 1);
-        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.ToList().Cost(x => x.Cost), product.Cost.CostWithVat - paymentActual.Cost);
+        //    Assert.AreEqual(product.PaymentsInfo.Payments.Count, 1);
+        //    Assert.AreEqual(product.PaymentsInfo.Payments.ToList().Cost(x => x.Cost), product.Cost.CostWithVat - paymentActual.Cost);
 
         //    actualPaymentsChange = false;
         //    plannedPaymentsReloaded = false;
@@ -69,37 +69,37 @@ namespace HVTApp.DataAccess.Tests
         //    Assert.IsTrue(actualPaymentsChange);
         //    Assert.IsTrue(plannedPaymentsReloaded);
 
-        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.Count, 1);
-        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
+        //    Assert.AreEqual(product.PaymentsInfo.Payments.Count, 1);
+        //    Assert.AreEqual(product.PaymentsInfo.Payments.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
 
         //    plannedPaymentsReloaded = false;
         //    product.Cost.Cost += 10;
         //    Assert.IsTrue(plannedPaymentsReloaded);
-        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
+        //    Assert.AreEqual(product.PaymentsInfo.Payments.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
 
         //    plannedPaymentsReloaded = false;
         //    product.Cost.Vat = 0;
         //    Assert.IsTrue(plannedPaymentsReloaded);
-        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
+        //    Assert.AreEqual(product.PaymentsInfo.Payments.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
 
         //    product.PaymentsInfo.PaymentsConditions.Clear();
         //    PaymentCondition condition1 = new PaymentCondition
         //    {
         //        PaymentConditionPoint = PaymentConditionPoint.ProductionStart,
         //        DaysToPoint = 0,
-        //        PartInPercent = 50
+        //        Part = 50
         //    };
         //    PaymentCondition condition2 = new PaymentCondition
         //    {
         //        PaymentConditionPoint = PaymentConditionPoint.ProductionEnd,
         //        DaysToPoint = 10,
-        //        PartInPercent = 50
+        //        Part = 50
         //    };
 
         //    product.PaymentsInfo.PaymentsConditions.Add(condition1);
         //    product.PaymentsInfo.PaymentsConditions.Add(condition2);
 
-        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlanned.Count, product.PaymentsInfo.PaymentsConditions.Count);
+        //    Assert.AreEqual(product.PaymentsInfo.Payments.Count, product.PaymentsInfo.PaymentsConditions.Count);
         //}
     }
 }

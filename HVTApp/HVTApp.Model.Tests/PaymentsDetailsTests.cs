@@ -27,15 +27,15 @@ namespace HVTApp.Model.Tests
         //    Assert.AreEqual(productMain.PaymentsInfo.PaymentsSumToStartProduction, 0.0);
 
         //    double part = 25;
-        //    productMain.PaymentsInfo.PaymentsConditions.Add(new PaymentCondition { PartInPercent = part, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
+        //    productMain.PaymentsInfo.PaymentsConditions.Add(new PaymentCondition { Part = part, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
         //    Assert.AreEqual(productMain.PaymentsInfo.PaymentsSumToStartProduction, part * productMain.Cost.SumWithVat);
 
         //    part = 25;
-        //    productMain.PaymentsInfo.PaymentsConditions.Add(new PaymentCondition { PartInPercent = part, PaymentConditionPoint = PaymentConditionPoint.ProductionEnd });
+        //    productMain.PaymentsInfo.PaymentsConditions.Add(new PaymentCondition { Part = part, PaymentConditionPoint = PaymentConditionPoint.ProductionEnd });
         //    Assert.AreEqual(productMain.PaymentsInfo.PaymentsSumToStartProduction, part * productMain.Cost.SumWithVat);
 
         //    part = 24;
-        //    productMain.PaymentsInfo.PaymentsConditions.Add(new PaymentCondition { PartInPercent = part, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
+        //    productMain.PaymentsInfo.PaymentsConditions.Add(new PaymentCondition { Part = part, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
         //    Assert.AreEqual(productMain.PaymentsInfo.PaymentsSumToStartProduction, (25 + 24) * productMain.Cost.SumWithVat);
         //}
     }

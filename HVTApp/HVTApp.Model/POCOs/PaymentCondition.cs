@@ -6,7 +6,7 @@ namespace HVTApp.Model.POCOs
 {
     public class PaymentCondition : BaseEntity, IComparable<PaymentCondition>
     {
-        public double PartInPercent { get; set; } // Часть в процентах.
+        public double Part { get; set; } // Часть в процентах.
         public int DaysToPoint { get; set; } // Дней до связанной с платежом точки.
         public virtual PaymentConditionPoint PaymentConditionPoint { get; set; } // Связанная с платежом точка.
 
@@ -24,7 +24,7 @@ namespace HVTApp.Model.POCOs
                 return this.Id == other.Id;
 
             return Id == other.Id &&
-                   PartInPercent.Equals(other.PartInPercent) && 
+                   Part.Equals(other.Part) && 
                    DaysToPoint == other.DaysToPoint &&
                    PaymentConditionPoint == other.PaymentConditionPoint;
         }
@@ -33,7 +33,7 @@ namespace HVTApp.Model.POCOs
         {
             unchecked
             {
-                var hashCode = PartInPercent.GetHashCode();
+                var hashCode = Part.GetHashCode();
                 hashCode = (hashCode*397) ^ DaysToPoint;
                 hashCode = (hashCode*397) ^ (int) PaymentConditionPoint;
                 return hashCode;

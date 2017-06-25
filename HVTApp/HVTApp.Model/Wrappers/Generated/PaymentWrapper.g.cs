@@ -6,10 +6,10 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-  public partial class PaymentActualWrapper : WrapperBase<PaymentActual>
+  public partial class PaymentWrapper : WrapperBase<Payment>
   {
-    private PaymentActualWrapper() : base(new PaymentActual()) { }
-    private PaymentActualWrapper(PaymentActual model) : base(model) { }
+    private PaymentWrapper() : base(new Payment()) { }
+    private PaymentWrapper(Payment model) : base(model) { }
 
 
 
@@ -47,16 +47,6 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public ProductComplexUnitWrapper ProductComplexUnit 
-    {
-        get { return GetComplexProperty<ProductComplexUnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit); }
-        set { SetComplexProperty<ProductComplexUnitWrapper, ProductComplexUnit>(ProductComplexUnit, value); }
-    }
-
-    public ProductComplexUnitWrapper ProductComplexUnitOriginalValue { get; private set; }
-    public bool ProductComplexUnitIsChanged => GetIsChanged(nameof(ProductComplexUnit));
-
-
 	public PaymentDocumentWrapper Document 
     {
         get { return GetComplexProperty<PaymentDocumentWrapper, PaymentDocument>(Model.Document); }
@@ -67,14 +57,24 @@ namespace HVTApp.Model.Wrappers
     public bool DocumentIsChanged => GetIsChanged(nameof(Document));
 
 
-	public SumAndVatWrapper SumAndVat 
+	public ProductComplexUnitWrapper ProductComplexUnit 
     {
-        get { return GetComplexProperty<SumAndVatWrapper, SumAndVat>(Model.SumAndVat); }
-        set { SetComplexProperty<SumAndVatWrapper, SumAndVat>(SumAndVat, value); }
+        get { return GetComplexProperty<ProductComplexUnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit); }
+        set { SetComplexProperty<ProductComplexUnitWrapper, ProductComplexUnit>(ProductComplexUnit, value); }
     }
 
-    public SumAndVatWrapper SumAndVatOriginalValue { get; private set; }
-    public bool SumAndVatIsChanged => GetIsChanged(nameof(SumAndVat));
+    public ProductComplexUnitWrapper ProductComplexUnitOriginalValue { get; private set; }
+    public bool ProductComplexUnitIsChanged => GetIsChanged(nameof(ProductComplexUnit));
+
+
+	public CostWrapper Cost 
+    {
+        get { return GetComplexProperty<CostWrapper, Cost>(Model.Cost); }
+        set { SetComplexProperty<CostWrapper, Cost>(Cost, value); }
+    }
+
+    public CostWrapper CostOriginalValue { get; private set; }
+    public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
 
     #endregion
@@ -82,11 +82,11 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        ProductComplexUnit = GetWrapper<ProductComplexUnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit);
-
         Document = GetWrapper<PaymentDocumentWrapper, PaymentDocument>(Model.Document);
 
-        SumAndVat = GetWrapper<SumAndVatWrapper, SumAndVat>(Model.SumAndVat);
+        ProductComplexUnit = GetWrapper<ProductComplexUnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit);
+
+        Cost = GetWrapper<CostWrapper, Cost>(Model.Cost);
 
     }
 

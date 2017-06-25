@@ -76,13 +76,13 @@ namespace HVTApp.Model.Wrappers
     public bool ProjectIsChanged => GetIsChanged(nameof(Project));
 
 
-	public SumAndVatWrapper Sum 
+	public CostWrapper Sum 
     {
-        get { return GetComplexProperty<SumAndVatWrapper, SumAndVat>(Model.Sum); }
-        set { SetComplexProperty<SumAndVatWrapper, SumAndVat>(Sum, value); }
+        get { return GetComplexProperty<CostWrapper, Cost>(Model.Sum); }
+        set { SetComplexProperty<CostWrapper, Cost>(Sum, value); }
     }
 
-    public SumAndVatWrapper SumOriginalValue { get; private set; }
+    public CostWrapper SumOriginalValue { get; private set; }
     public bool SumIsChanged => GetIsChanged(nameof(Sum));
 
 
@@ -119,7 +119,7 @@ namespace HVTApp.Model.Wrappers
 
         Project = GetWrapper<ProjectWrapper, Project>(Model.Project);
 
-        Sum = GetWrapper<SumAndVatWrapper, SumAndVat>(Model.Sum);
+        Sum = GetWrapper<CostWrapper, Cost>(Model.Sum);
 
         Winner = GetWrapper<CompanyWrapper, Company>(Model.Winner);
 

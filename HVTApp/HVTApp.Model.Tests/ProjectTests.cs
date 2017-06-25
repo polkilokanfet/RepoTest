@@ -43,12 +43,12 @@ namespace HVTApp.Model.Tests
             Currency usd = new Currency();
 
 
-            ProductComplexUnit u10 = new ProductComplexUnit { Product = _product3, Cost = new SumAndVat { Sum = 10, Vat = 1, Currency = rub } };
-            ProductComplexUnit u11 = new ProductComplexUnit { Product = _product3, Cost = new SumAndVat { Sum = 20, Vat = 1, Currency = rub } };
-            ProductComplexUnit u12 = new ProductComplexUnit { Product = _product3, Cost = new SumAndVat { Sum = 10, Vat = 1, Currency = rub } };
-            ProductComplexUnit u20 = new ProductComplexUnit { Product = _product4, Cost = new SumAndVat { Sum = 10, Vat = 1, Currency = rub } };
-            ProductComplexUnit u21 = new ProductComplexUnit { Product = _product4, Cost = new SumAndVat { Sum = 10, Vat = 1, Currency = rub } };
-            ProductComplexUnit u22 = new ProductComplexUnit { Product = _product4, Cost = new SumAndVat { Sum = 10, Vat = 1, Currency = usd } };
+            ProductComplexUnit u10 = new ProductComplexUnit { Product = _product3, Cost = new Cost { Sum = 10, Currency = rub } };
+            ProductComplexUnit u11 = new ProductComplexUnit { Product = _product3, Cost = new Cost { Sum = 20, Currency = rub } };
+            ProductComplexUnit u12 = new ProductComplexUnit { Product = _product3, Cost = new Cost { Sum = 10, Currency = rub } };
+            ProductComplexUnit u20 = new ProductComplexUnit { Product = _product4, Cost = new Cost { Sum = 10, Currency = rub } };
+            ProductComplexUnit u21 = new ProductComplexUnit { Product = _product4, Cost = new Cost { Sum = 10, Currency = rub } };
+            ProductComplexUnit u22 = new ProductComplexUnit { Product = _product4, Cost = new Cost { Sum = 10, Currency = usd } };
 
             Project project = new Project {ProductComplexUnits = new List<ProductComplexUnit>(new[] {u10, u11, u12, u20, u21, u22})};
             ProjectWrapper projectWrapper = WrappersFactory.GetWrapper<ProjectWrapper> (project);

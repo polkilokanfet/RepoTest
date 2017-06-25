@@ -9,7 +9,7 @@ namespace HVTApp.Model.Wrappers
     public class ProductsUnitGroup : ObservableCollection<IProductWithCost>
     {
         public ProductWrapper Product => this.First().Product;
-        public SumAndVatWrapper Cost => this.First().Cost;
+        public CostWrapper Cost => this.First().Cost;
         public string ProductName => Product.Designation;
 
         public ProductsUnitGroup(IEnumerable<IProductWithCost> units) : base(units)

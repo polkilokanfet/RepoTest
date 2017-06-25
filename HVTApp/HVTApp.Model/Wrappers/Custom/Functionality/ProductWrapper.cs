@@ -33,7 +33,7 @@ namespace HVTApp.Model.Wrappers
 
             var prices = ProductItem.Prices.Where(x => (x.Date <= date)).OrderByDescending(x => x.Date);
             if (prices.Any())
-                totalPriceSum = prices.First().Sum;
+                totalPriceSum = prices.First().Cost.Sum;
             else
                 throw new NullReferenceException();
 

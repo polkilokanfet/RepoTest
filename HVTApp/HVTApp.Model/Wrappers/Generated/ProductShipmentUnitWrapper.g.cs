@@ -94,13 +94,13 @@ namespace HVTApp.Model.Wrappers
     public bool AddressIsChanged => GetIsChanged(nameof(Address));
 
 
-	public SumAndVatWrapper Cost 
+	public CostWrapper Cost 
     {
-        get { return GetComplexProperty<SumAndVatWrapper, SumAndVat>(Model.Cost); }
-        set { SetComplexProperty<SumAndVatWrapper, SumAndVat>(Cost, value); }
+        get { return GetComplexProperty<CostWrapper, Cost>(Model.Cost); }
+        set { SetComplexProperty<CostWrapper, Cost>(Cost, value); }
     }
 
-    public SumAndVatWrapper CostOriginalValue { get; private set; }
+    public CostWrapper CostOriginalValue { get; private set; }
     public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
 
@@ -113,7 +113,7 @@ namespace HVTApp.Model.Wrappers
 
         Address = GetWrapper<AddressWrapper, Address>(Model.Address);
 
-        Cost = GetWrapper<SumAndVatWrapper, SumAndVat>(Model.Cost);
+        Cost = GetWrapper<CostWrapper, Cost>(Model.Cost);
 
     }
 

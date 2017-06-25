@@ -11,8 +11,6 @@ namespace HVTApp.Model.Wrappers
     {
         protected override void RunInConstructor()
         {
-            this.PaymentsActual.CollectionChanged += PaymentsActualOnCollectionChanged;
-
             this.PropertyChanged += MarginalIncomeOnPropertyChanged;
             this.PropertyChanged += OnMarginalIncomeInPercentSingleChanged;
             this.PropertyChanged += OnSpecificationChanged;
@@ -56,10 +54,6 @@ namespace HVTApp.Model.Wrappers
         #endregion
 
         #region Payments
-        /// <summary>
-        /// Совершенные и плановые платежи (упорядочены по дате).
-        /// </summary>
-        public List<IPayment> PaymentsAll => PaymentsActual.Select(x => (IPayment)x.Model).Concat(PaymentsPlanned.Select(x => x.Model)).OrderBy(x => x.Date).ToList();
 
         /// <summary>
         /// Не исполненные платежные условия
@@ -74,12 +68,12 @@ namespace HVTApp.Model.Wrappers
                 while (paidSum > 0)
                 {
                     var condition = conditions.First();
-                    var conditionSum = condition.PartInPercent/100*Cost.Sum;
+                    var conditionSum = condition.Part*Cost.Sum;
                     if (paidSum < conditionSum)
                     {
                         conditions.Add(WrappersFactory.GetWrapper<PaymentConditionWrapper>(new PaymentCondition
                         {
-                            PartInPercent = (conditionSum - paidSum) / Cost.Sum * 100,
+                            Part = (conditionSum - paidSum) / Cost.Sum * 100,
                             PaymentConditionPoint = condition.PaymentConditionPoint,
                             DaysToPoint = condition.DaysToPoint
                         }));
@@ -98,20 +92,20 @@ namespace HVTApp.Model.Wrappers
         /// </summary>
         public void ReloadPaymentsPlannedFull()
         {
-            PaymentsPlanned.Clear();
-            foreach (var condition in PaymentConditionsToDone)
-            {
-                var payment = new PaymentPlan { SumAndVat = new SumAndVat { Sum = Cost.Sum * condition.PartInPercent / 100, Vat = Cost.Vat } };
+            //PaymentsPlanned.Clear();
+            //foreach (var condition in PaymentConditionsToDone)
+            //{
+            //    var payment = new PaymentPlan { Cost = new Cost { Cost = Cost.Cost * condition.Part / 100, Vat = Cost.Vat } };
 
-                //дата платежа
-                if (condition.PaymentConditionPoint == PaymentConditionPoint.ProductionStart) payment.Date = ProductionStartDateCalculated.AddDays(condition.DaysToPoint);
-                if (condition.PaymentConditionPoint == PaymentConditionPoint.ProductionEnd) payment.Date = ProductionEndDateCalculated.AddDays(condition.DaysToPoint);
-                if (condition.PaymentConditionPoint == PaymentConditionPoint.Shipment) payment.Date = ProductShipmentUnit.ShipmentDateCalculated.AddDays(condition.DaysToPoint);
-                if (condition.PaymentConditionPoint == PaymentConditionPoint.Delivery) payment.Date = ProductShipmentUnit.DeliveryDateCalculated.AddDays(condition.DaysToPoint);
+            //    //дата платежа
+            //    if (condition.PaymentConditionPoint == PaymentConditionPoint.ProductionStart) payment.Date = ProductionStartDateCalculated.AddDays(condition.DaysToPoint);
+            //    if (condition.PaymentConditionPoint == PaymentConditionPoint.ProductionEnd) payment.Date = ProductionEndDateCalculated.AddDays(condition.DaysToPoint);
+            //    if (condition.PaymentConditionPoint == PaymentConditionPoint.Shipment) payment.Date = ProductShipmentUnit.ShipmentDateCalculated.AddDays(condition.DaysToPoint);
+            //    if (condition.PaymentConditionPoint == PaymentConditionPoint.Delivery) payment.Date = ProductShipmentUnit.DeliveryDateCalculated.AddDays(condition.DaysToPoint);
 
-                var paymentWrapper = WrappersFactory.GetWrapper<PaymentPlanWrapper>(payment);
-                PaymentsPlanned.Add(paymentWrapper);
-            }
+            //    var paymentWrapper = WrappersFactory.GetWrapper<PaymentPlanWrapper>(payment);
+            //    PaymentsPlanned.Add(paymentWrapper);
+            //}
         }
 
         /// <summary>
@@ -119,30 +113,30 @@ namespace HVTApp.Model.Wrappers
         /// </summary>
         public void ReloadPaymentsPlannedLight()
         {
-            //если плановых платежей еще нет, либо был удален совершенный платеж.
-            if (!PaymentsPlanned.Any() || SumRest.Sum > PaymentsPlanned.Sum(x => x.SumAndVat.Sum))
-            {
-                ReloadPaymentsPlannedFull();
-                return;
-            }
+            ////если плановых платежей еще нет, либо был удален совершенный платеж.
+            //if (!PaymentsPlanned.Any() || SumDontPaid.Cost > PaymentsPlanned.Cost(x => x.Cost.Cost))
+            //{
+            //    ReloadPaymentsPlannedFull();
+            //    return;
+            //}
 
-            var paymentsToRemove = new List<PaymentPlanWrapper>(PaymentsPlanned);
-            var sumRest = SumRest.Sum;
-            while (sumRest > 0 && paymentsToRemove.Any())
-            {
-                var payment = paymentsToRemove.Last();
-                if (sumRest < payment.SumAndVat.Sum)
-                {
-                    payment.SumAndVat.Sum = sumRest;
-                    paymentsToRemove.Remove(payment);
-                    break;
-                }
-                sumRest -= payment.SumAndVat.Sum;
-                paymentsToRemove.Remove(payment);
-            }
+            //var paymentsToRemove = new List<PaymentPlanWrapper>(PaymentsPlanned);
+            //var sumRest = SumDontPaid.Cost;
+            //while (sumRest > 0 && paymentsToRemove.Any())
+            //{
+            //    var payment = paymentsToRemove.Last();
+            //    if (sumRest < payment.Cost.Cost)
+            //    {
+            //        payment.Cost.Cost = sumRest;
+            //        paymentsToRemove.Remove(payment);
+            //        break;
+            //    }
+            //    sumRest -= payment.Cost.Cost;
+            //    paymentsToRemove.Remove(payment);
+            //}
 
-            foreach (var paymentWrapper in paymentsToRemove)
-                PaymentsPlanned.Remove(paymentWrapper);
+            //foreach (var paymentWrapper in paymentsToRemove)
+            //    PaymentsPlanned.Remove(paymentWrapper);
 
         }
 
@@ -153,31 +147,31 @@ namespace HVTApp.Model.Wrappers
         /// <summary>
         /// Оплаченная сумма
         /// </summary>
-        public SumAndVatWrapper SumPaid => WrappersFactory.GetWrapper<SumAndVatWrapper>(new SumAndVat { Sum = PaymentsActual.Sum(x => x.SumAndVat.Sum), Vat = Cost.Vat });
+        public CostWrapper SumPaid => WrappersFactory.GetWrapper<CostWrapper>(new Cost { Sum = Payments.Where(x => x.Document != null).Sum(x => x.Cost.Sum) });
 
         /// <summary>
         /// Неоплаченная сумма
         /// </summary>
-        public SumAndVatWrapper SumRest => WrappersFactory.GetWrapper<SumAndVatWrapper>(new SumAndVat { Sum = Cost.Sum - SumPaid.Sum, Vat = Cost.Vat });
+        public CostWrapper SumDontPaid => WrappersFactory.GetWrapper<CostWrapper>(new Cost { Sum = Cost.Sum - SumPaid.Sum });
 
         /// <summary>
         /// Сумама, необходимая для начала производства
         /// </summary>
-        public SumAndVatWrapper SumToStartProduction
+        public CostWrapper SumToStartProduction
         {
             get
             {
                 //условия, связанные с датой запуска производства
                 var conditions = PaymentsConditions.Where(x => x.PaymentConditionPoint == PaymentConditionPoint.ProductionStart && x.DaysToPoint <= 0);
-                var sum = conditions.Sum(condition => Cost.Sum*condition.PartInPercent/100);
-                return WrappersFactory.GetWrapper<SumAndVatWrapper>(new SumAndVat {Sum = sum, Vat = Cost.Vat});
+                var sum = conditions.Sum(condition => Cost.Sum*condition.Part);
+                return WrappersFactory.GetWrapper<CostWrapper>(new Cost {Sum = sum});
             }
         }
 
         /// <summary>
         /// Сумма, необходимая для отгрузки
         /// </summary>
-        public SumAndVatWrapper SumToShipping
+        public CostWrapper SumToShipping
         {
             get
             {
@@ -186,8 +180,8 @@ namespace HVTApp.Model.Wrappers
                     (x.PaymentConditionPoint == PaymentConditionPoint.ProductionStart) ||
                     (x.PaymentConditionPoint == PaymentConditionPoint.ProductionEnd) ||
                     (x.PaymentConditionPoint == PaymentConditionPoint.Shipment && x.DaysToPoint <= 0));
-                var sum = conditions.Sum(condition => Cost.Sum*condition.PartInPercent/100);
-                return WrappersFactory.GetWrapper<SumAndVatWrapper>(new SumAndVat {Sum = sum, Vat = Cost.Vat});
+                var sum = conditions.Sum(condition => Cost.Sum*condition.Part);
+                return WrappersFactory.GetWrapper<CostWrapper>(new Cost {Sum = sum});
             }
         }
 
@@ -213,9 +207,9 @@ namespace HVTApp.Model.Wrappers
             get
             {
                 double sum = 0;
-                foreach (var payment in PaymentsAll)
+                foreach (var payment in Payments)
                 {
-                    sum += payment.SumAndVat.Sum;
+                    sum += payment.Cost.Sum;
                     if (SumToStartProduction.Sum <= sum) return payment.Date;
                 }
                 return null;
@@ -230,9 +224,9 @@ namespace HVTApp.Model.Wrappers
             get
             {
                 double sum = 0;
-                foreach (var payment in PaymentsAll)
+                foreach (var payment in Payments)
                 {
-                    sum += payment.SumAndVat.Sum;
+                    sum += payment.Cost.Sum;
                     if (SumToShipping.Sum <= sum) return payment.Date;
                 }
                 return null;
@@ -290,6 +284,26 @@ namespace HVTApp.Model.Wrappers
 
         #endregion
 
-        public string Test => "test";
+        public IEnumerable<PaymentWrapper> PaymentsPlanned => Payments.Where(x => x.Document == null);
+
+        public void ReGeneratePlanPayments()
+        {
+            PaymentsPlanned.ToList().ForEach(x => Payments.Remove(x));
+            foreach (var condition in PaymentConditionsToDone)
+            {
+                var payment = new Payment { Cost = new Cost { Sum = Cost.Sum * condition.Part } };
+
+                //дата платежа
+                if (condition.PaymentConditionPoint == PaymentConditionPoint.ProductionStart) payment.Date = ProductionStartDateCalculated.AddDays(condition.DaysToPoint);
+                if (condition.PaymentConditionPoint == PaymentConditionPoint.ProductionEnd) payment.Date = ProductionEndDateCalculated.AddDays(condition.DaysToPoint);
+                if (condition.PaymentConditionPoint == PaymentConditionPoint.Shipment) payment.Date = ProductShipmentUnit.ShipmentDateCalculated.AddDays(condition.DaysToPoint);
+                if (condition.PaymentConditionPoint == PaymentConditionPoint.Delivery) payment.Date = ProductShipmentUnit.DeliveryDateCalculated.AddDays(condition.DaysToPoint);
+
+                var paymentWrapper = WrappersFactory.GetWrapper<PaymentWrapper>(payment);
+                Payments.Add(paymentWrapper);
+            }
+        }
+
+
     }
 }

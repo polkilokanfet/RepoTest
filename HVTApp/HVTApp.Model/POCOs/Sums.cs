@@ -6,17 +6,16 @@ namespace HVTApp.Model.POCOs
     /// <summary>
     /// Сумма на какую-либо дату
     /// </summary>
-    public class SumOnDate : BaseEntity
+    public class CostOnDate : BaseEntity
     {
         public DateTime Date { get; set; }
-        public double Sum { get; set; }
+        public virtual Cost Cost { get; set; }
     }
 
-    public class SumAndVat : BaseEntity
+    public class Cost : BaseEntity
     {
         public virtual Currency Currency { get; set; }
         public double Sum { get; set; }
-        public double Vat { get; set; }
     }
 
     /// <summary>

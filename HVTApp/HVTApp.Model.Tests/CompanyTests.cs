@@ -1,5 +1,4 @@
-﻿using System;
-using HVTApp.Model.POCOs;
+﻿using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

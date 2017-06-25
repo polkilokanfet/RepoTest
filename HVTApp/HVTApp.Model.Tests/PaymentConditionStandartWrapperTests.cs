@@ -14,10 +14,10 @@ namespace HVTApp.Model.Tests
             var wrapper = WrappersFactory.GetWrapper<PaymentConditionStandartWrapper> ();
             Assert.IsFalse(wrapper.IsValid);
 
-            wrapper.PaymentsConditions.Add(WrappersFactory.GetWrapper<PaymentConditionWrapper>(new PaymentCondition { PartInPercent = 30 }));
+            wrapper.PaymentsConditions.Add(WrappersFactory.GetWrapper<PaymentConditionWrapper>(new PaymentCondition { Part = 30 }));
             Assert.IsFalse(wrapper.IsValid);
 
-            wrapper.PaymentsConditions.Add(WrappersFactory.GetWrapper<PaymentConditionWrapper>(new PaymentCondition { PartInPercent = 70 }));
+            wrapper.PaymentsConditions.Add(WrappersFactory.GetWrapper<PaymentConditionWrapper>(new PaymentCondition { Part = 70 }));
             Assert.IsTrue(wrapper.IsValid);
         }
     }

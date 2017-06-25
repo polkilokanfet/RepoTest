@@ -15,13 +15,13 @@ namespace HVTApp.Model.Wrappers
 
     #region SimpleProperties
 
-    public System.Double PartInPercent
+    public System.Double Part
     {
       get { return GetValue<System.Double>(); }
       set { SetValue(value); }
     }
-    public System.Double PartInPercentOriginalValue => GetOriginalValue<System.Double>(nameof(PartInPercent));
-    public bool PartInPercentIsChanged => GetIsChanged(nameof(PartInPercent));
+    public System.Double PartOriginalValue => GetOriginalValue<System.Double>(nameof(Part));
+    public bool PartIsChanged => GetIsChanged(nameof(Part));
 
 
     public System.Int32 DaysToPoint

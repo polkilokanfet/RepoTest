@@ -28,12 +28,11 @@ namespace HVTApp.Model.POCOs
         #endregion
 
         #region SalesInformation
-        public virtual SumAndVat Cost { get; set; }
+        public virtual Cost Cost { get; set; }
         public virtual Specification Specification { get; set; }
 
         public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
-        public virtual List<PaymentPlan> PaymentsPlanned { get; set; } = new List<PaymentPlan>();
-        public virtual List<PaymentActual> PaymentsActual { get; set; } = new List<PaymentActual>();
+        public virtual List<Payment> Payments { get; set; } = new List<Payment>();
 
         public DateTime? RealizationDate { get; set; }
 
@@ -48,11 +47,10 @@ namespace HVTApp.Model.POCOs
     public interface IProductSalesUnit
     {
         Product Product { get; set; }
-        SumAndVat Cost { get; set; }
+        Cost Cost { get; set; }
         Specification Specification { get; set; }
         List<PaymentCondition> PaymentsConditions { get; set; }
-        List<PaymentPlan> PaymentsPlanned { get; set; }
-        List<PaymentActual> PaymentsActual { get; set; }
+        List<Payment> Payments { get; set; }
         DateTime? RealizationDate { get; set; }
     }
 
@@ -75,7 +73,7 @@ namespace HVTApp.Model.POCOs
 
         public int? ExpectedDeliveryPeriod { get; set; }
         public virtual Address Address { get; set; }
-        public virtual SumAndVat Cost { get; set; }
+        public virtual Cost Cost { get; set; }
         public virtual DateTime? ShipmentDate { get; set; } //дата отгрузки
         public virtual DateTime? ShipmentPlanDate { get; set; } //плановая дата отгрузки
         public virtual DateTime? RequiredDeliveryDate { get; set; } //желаемая дата поставки
@@ -88,7 +86,7 @@ namespace HVTApp.Model.POCOs
 
         public virtual Offer Offer { get; set; }
         public virtual Product Product { get; set; }
-        public virtual SumAndVat Cost { get; set; }
+        public virtual Cost Cost { get; set; }
 
         public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
         public int ProductionTerm { get; set; } //срок производства
@@ -100,7 +98,7 @@ namespace HVTApp.Model.POCOs
 
         public virtual Tender Tender { get; set; }
         public virtual Product Product { get; set; }
-        public virtual SumAndVat Cost { get; set; }
+        public virtual Cost Cost { get; set; }
         public virtual Company ProducerWinner { get; set; }
 
         public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();

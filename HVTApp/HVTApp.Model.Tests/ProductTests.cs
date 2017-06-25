@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Ploeh.AutoFixture;
 
 namespace HVTApp.Model.Tests
 {
@@ -33,37 +34,38 @@ namespace HVTApp.Model.Tests
         [TestMethod]
         public void ProductTotalPriceTest()
         {
-            SumOnDate price1 = new SumOnDate { Sum = 10, Date = DateTime.Today.AddDays(-7) };
-            SumOnDate price2 = new SumOnDate { Sum = 5, Date = DateTime.Today };
+            Fixture fixture = new Fixture();
+            CostOnDate price1 = fixture.Create<CostOnDate>();
+            CostOnDate price2 = fixture.Create<CostOnDate>();
 
             var productParent = WrappersFactory.GetWrapper<ProductWrapper>(new Product {ProductItem = _productItem1});
-            productParent.ProductItem.Prices.Add(WrappersFactory.GetWrapper<SumOnDateWrapper> (price1));
-            productParent.ProductItem.Prices.Add(WrappersFactory.GetWrapper<SumOnDateWrapper> (price2));
+            productParent.ProductItem.Prices.Add(WrappersFactory.GetWrapper<CostOnDateWrapper> (price1));
+            productParent.ProductItem.Prices.Add(WrappersFactory.GetWrapper<CostOnDateWrapper> (price2));
             productParent.TotalPriceDate = DateTime.Today;
 
-            Assert.IsTrue(Math.Abs(productParent.TotalPrice - price2.Sum) < 0.0001);
+            Assert.IsTrue(Math.Abs(productParent.TotalPrice - price2.Cost.Sum) < 0.0001);
 
-            SumOnDate price3 = new SumOnDate { Sum = 30, Date = DateTime.Today };
-            SumOnDate price4 = new SumOnDate { Sum = 40, Date = DateTime.Today };
+            CostOnDate price3 = fixture.Create<CostOnDate>();
+            CostOnDate price4 = fixture.Create<CostOnDate>();
 
             var productChild1 = WrappersFactory.GetWrapper<ProductWrapper>(new Product {ProductItem = new ProductItem()});
-            productChild1.ProductItem.Prices.Add(WrappersFactory.GetWrapper<SumOnDateWrapper> (price3));
+            productChild1.ProductItem.Prices.Add(WrappersFactory.GetWrapper<CostOnDateWrapper> (price3));
 
             var productChild2 = WrappersFactory.GetWrapper<ProductWrapper>(new Product {ProductItem = new ProductItem()});
-            productChild2.ProductItem.Prices.Add(WrappersFactory.GetWrapper<SumOnDateWrapper> (price4));
+            productChild2.ProductItem.Prices.Add(WrappersFactory.GetWrapper<CostOnDateWrapper> (price4));
 
             productParent.ChildProducts.Add(productChild1);
             productParent.ChildProducts.Add(productChild2);
 
-            var totalSum = price2.Sum + price3.Sum + price4.Sum;
+            var totalSum = price2.Cost.Sum + price3.Cost.Sum + price4.Cost.Sum;
             Assert.IsTrue(Math.Abs(productParent.TotalPrice - totalSum) < 0.0001);
 
-            SumOnDate price5 = new SumOnDate { Sum = 50, Date = DateTime.Today };
+            CostOnDate price5 = fixture.Create<CostOnDate>();
             var productChild3 = WrappersFactory.GetWrapper<ProductWrapper>(new Product {ProductItem = new ProductItem()});
-            productChild3.ProductItem.Prices.Add(WrappersFactory.GetWrapper<SumOnDateWrapper> (price5));
+            productChild3.ProductItem.Prices.Add(WrappersFactory.GetWrapper<CostOnDateWrapper> (price5));
             productChild1.ChildProducts.Add(productChild3);
 
-            totalSum += price5.Sum;
+            totalSum += price5.Cost.Sum;
             Assert.IsTrue(Math.Abs(productParent.TotalPrice - totalSum) < 0.0001);
 
         }

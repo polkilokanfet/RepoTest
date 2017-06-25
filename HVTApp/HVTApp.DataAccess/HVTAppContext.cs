@@ -90,8 +90,7 @@ namespace HVTApp.DataAccess
 
             modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.Cost);
             modelBuilder.Entity<ProductComplexUnit>().HasOptional(x => x.Specification).WithMany(x => x.ProductComplexUnits);
-            modelBuilder.Entity<ProductComplexUnit>().HasMany(x => x.PaymentsActual).WithRequired(x => x.ProductComplexUnit);
-            modelBuilder.Entity<ProductComplexUnit>().HasMany(x => x.PaymentsPlanned).WithRequired(x => x.ProductComplexUnit);
+            modelBuilder.Entity<ProductComplexUnit>().HasMany(x => x.Payments).WithRequired(x => x.ProductComplexUnit);
 
             modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.Product).WithMany();
             modelBuilder.Entity<ProductComplexUnit>().HasOptional(x => x.Order).WithMany(x => x.ProductComplexUnits);
@@ -239,17 +238,13 @@ namespace HVTApp.DataAccess
 
             #endregion
 
-            #region PaymentCommon
+            #region Payment
 
-            modelBuilder.Entity<PaymentPlan>().Property(x => x.Date).IsRequired();
-            modelBuilder.Entity<PaymentPlan>().HasRequired(x => x.SumAndVat).WithOptional().WillCascadeOnDelete(false);
-            modelBuilder.Entity<PaymentPlan>().Property(x => x.Comment).IsOptional().HasMaxLength(100);
+            modelBuilder.Entity<Payment>().Property(x => x.Date).IsRequired();
+            modelBuilder.Entity<Payment>().HasRequired(x => x.Cost).WithOptional().WillCascadeOnDelete(false);
+            modelBuilder.Entity<Payment>().Property(x => x.Comment).IsOptional().HasMaxLength(100);
 
-            modelBuilder.Entity<PaymentActual>().Property(x => x.Date).IsRequired();
-            modelBuilder.Entity<PaymentActual>().HasRequired(x => x.SumAndVat).WithOptional().WillCascadeOnDelete(false);
-            modelBuilder.Entity<PaymentActual>().Property(x => x.Comment).IsOptional().HasMaxLength(100);
-
-            modelBuilder.Entity<PaymentCondition>().Property(x => x.PartInPercent).IsRequired();
+            modelBuilder.Entity<PaymentCondition>().Property(x => x.Part).IsRequired();
             modelBuilder.Entity<PaymentCondition>().Property(x => x.DaysToPoint).IsRequired();
             modelBuilder.Entity<PaymentCondition>().Property(x => x.PaymentConditionPoint).IsRequired();
 
