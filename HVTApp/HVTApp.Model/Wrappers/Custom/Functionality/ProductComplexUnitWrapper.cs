@@ -73,7 +73,7 @@ namespace HVTApp.Model.Wrappers
                     {
                         conditions.Add(WrappersFactory.GetWrapper<PaymentConditionWrapper>(new PaymentCondition
                         {
-                            Part = (conditionSum - paidSum) / Cost.Sum * 100,
+                            Part = (conditionSum - paidSum) / Cost.Sum,
                             PaymentConditionPoint = condition.PaymentConditionPoint,
                             DaysToPoint = condition.DaysToPoint
                         }));
@@ -113,30 +113,6 @@ namespace HVTApp.Model.Wrappers
         /// </summary>
         public void ReloadPaymentsPlannedLight()
         {
-            ////если плановых платежей еще нет, либо был удален совершенный платеж.
-            //if (!PaymentsPlanned.Any() || SumDontPaid.Cost > PaymentsPlanned.Cost(x => x.Cost.Cost))
-            //{
-            //    ReloadPaymentsPlannedFull();
-            //    return;
-            //}
-
-            //var paymentsToRemove = new List<PaymentPlanWrapper>(PaymentsPlanned);
-            //var sumRest = SumDontPaid.Cost;
-            //while (sumRest > 0 && paymentsToRemove.Any())
-            //{
-            //    var payment = paymentsToRemove.Last();
-            //    if (sumRest < payment.Cost.Cost)
-            //    {
-            //        payment.Cost.Cost = sumRest;
-            //        paymentsToRemove.Remove(payment);
-            //        break;
-            //    }
-            //    sumRest -= payment.Cost.Cost;
-            //    paymentsToRemove.Remove(payment);
-            //}
-
-            //foreach (var paymentWrapper in paymentsToRemove)
-            //    PaymentsPlanned.Remove(paymentWrapper);
 
         }
 
@@ -286,7 +262,7 @@ namespace HVTApp.Model.Wrappers
 
         public IEnumerable<PaymentWrapper> PaymentsPlanned => Payments.Where(x => x.Document == null);
 
-        public void ReGeneratePlanPayments()
+        public void ReGeneratePlanPaymentsHard()
         {
             PaymentsPlanned.ToList().ForEach(x => Payments.Remove(x));
             foreach (var condition in PaymentConditionsToDone)
@@ -302,6 +278,34 @@ namespace HVTApp.Model.Wrappers
                 var paymentWrapper = WrappersFactory.GetWrapper<PaymentWrapper>(payment);
                 Payments.Add(paymentWrapper);
             }
+        }
+
+        public void ReGeneratePlanPaymentsLight()
+        {
+            //если плановых платежей еще нет, либо был удален совершенный платеж.
+            if (!PaymentsPlanned.Any() || SumDontPaid.Sum > PaymentsPlanned.Sum(x => x.Cost.Sum))
+            {
+                ReloadPaymentsPlannedFull();
+                return;
+            }
+
+            var paymentsToRemove = new List<PaymentWrapper>(PaymentsPlanned);
+            var sumRest = SumDontPaid.Sum;
+            while (sumRest > 0 && paymentsToRemove.Any())
+            {
+                var payment = paymentsToRemove.Last();
+                if (sumRest < payment.Cost.Sum)
+                {
+                    payment.Cost.Sum = sumRest;
+                    paymentsToRemove.Remove(payment);
+                    break;
+                }
+                sumRest -= payment.Cost.Sum;
+                paymentsToRemove.Remove(payment);
+            }
+
+            foreach (var paymentWrapper in paymentsToRemove)
+                Payments.Remove(paymentWrapper);
         }
 
 

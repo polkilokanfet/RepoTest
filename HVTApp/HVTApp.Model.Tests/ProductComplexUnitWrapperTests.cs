@@ -42,7 +42,7 @@ namespace HVTApp.Model.Tests
         public void ReGeneratePlanPayments()
         {
             _productComplex.Payments.Clear();
-            _productComplex.ReGeneratePlanPayments();
+            _productComplex.ReGeneratePlanPaymentsHard();
             Assert.AreEqual(_productComplex.Cost.Sum, _productComplex.Payments.Sum(x => x.Cost.Sum));
             foreach (var condition in _productComplex.PaymentsConditions)
             {
