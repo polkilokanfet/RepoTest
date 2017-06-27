@@ -10,7 +10,7 @@ using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 
-namespace HVTApp.Services.ChooseProductService
+namespace HVTApp.Services.GetProductService
 {
     public class GetProductServiceRealization : IGetProductService
     {
@@ -23,7 +23,9 @@ namespace HVTApp.Services.ChooseProductService
 
         private ProductItemWrapper GetProductItem(IEnumerable<ParameterWrapper> requiredParameters = null)
         {
-            requiredParameters = requiredParameters == null ? new List<ParameterWrapper>() : new List<ParameterWrapper>(requiredParameters);
+            requiredParameters = requiredParameters == null 
+                ? new List<ParameterWrapper>() 
+                : new List<ParameterWrapper>(requiredParameters);
 
             var parametersUnions = new List<ParametersUnion>();
             foreach (var parameterGroup in _unitOfWork.ParametersGroups.GetAll())
@@ -65,7 +67,7 @@ namespace HVTApp.Services.ChooseProductService
             return result ?? WrappersFactory.GetWrapper<ProductWrapper>(product);
         }
 
-        public ProductWrapper GetProduct(ProductWrapper originProduct = null)
+        public ProductWrapper GetProduct(ProductWrapper templateProduct = null)
         {
             return SelectProduct();
         }

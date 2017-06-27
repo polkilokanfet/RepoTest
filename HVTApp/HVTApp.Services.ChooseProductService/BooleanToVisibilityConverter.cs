@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace HVTApp.Services.ChooseProductService
+namespace HVTApp.Services.GetProductService
 {
     [ValueConversion(typeof(bool), typeof(System.Windows.Visibility))]
     public class BooleanToVisibilityConverter : IValueConverter

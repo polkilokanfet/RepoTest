@@ -210,13 +210,13 @@ namespace HVTApp.DataAccess
 
             #region Parameter
 
-            modelBuilder.Entity<Parameter>().Property(x => x.Value).IsRequired().HasMaxLength(25);
+            modelBuilder.Entity<Parameter>().Property(x => x.Value).IsRequired().HasMaxLength(50);
             modelBuilder.Entity<Parameter>().HasRequired(x => x.Group).WithMany(x => x.Parameters);
             modelBuilder.Entity<Parameter>().HasMany(x => x.RequiredParents).WithMany();
 
             modelBuilder.Entity<RequiredParameters>().HasMany(x => x.Parameters).WithMany();
 
-            modelBuilder.Entity<ParameterGroup>().Property(x => x.Name).IsRequired().HasMaxLength(25);
+            modelBuilder.Entity<ParameterGroup>().Property(x => x.Name).IsRequired().HasMaxLength(50);
             modelBuilder.Entity<ParameterGroup>().HasOptional(x => x.Measure);
 
             modelBuilder.Entity<PhysicalQuantity>().Property(x => x.Name).IsRequired().HasMaxLength(50);

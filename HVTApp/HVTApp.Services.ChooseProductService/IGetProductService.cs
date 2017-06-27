@@ -1,9 +1,9 @@
 ﻿using HVTApp.Model.Wrappers;
 
-namespace HVTApp.Services.ChooseProductService
+namespace HVTApp.Services.GetProductService
 {
     public interface IGetProductService
     {
-        ProductWrapper GetProduct(ProductWrapper originProduct = null);
+        ProductWrapper GetProduct(ProductWrapper templateProduct = null);
     }
 }

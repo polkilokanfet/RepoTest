@@ -19,7 +19,7 @@ using HVTApp.Modules.Production;
 using HVTApp.Modules.Sales;
 using HVTApp.Modules.Sales.ViewModels;
 using HVTApp.Modules.Sales.Views;
-using HVTApp.Services.ChooseProductService;
+using HVTApp.Services.GetProductService;
 using HVTApp.Services.ChooseService;
 using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;

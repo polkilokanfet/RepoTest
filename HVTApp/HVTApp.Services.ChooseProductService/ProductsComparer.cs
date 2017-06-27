@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.Services.ChooseProductService
+namespace HVTApp.Services.GetProductService
 {
     class ProductsComparer : IEqualityComparer<Product>
     {

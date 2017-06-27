@@ -7,8 +7,8 @@
     <ProjectGuid>{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}</ProjectGuid>
     <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HVTApp.Services.ChooseProductService</RootNamespace>
-    <AssemblyName>HVTApp.Services.ChooseProductService</AssemblyName>
+    <RootNamespace>HVTApp.Services.GetProductService</RootNamespace>
+    <AssemblyName>HVTApp.Services.GetProductService</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace HVTApp.Services.ChooseProductService
+namespace HVTApp.Services.GetProductService
 {
     /// <summary>
     /// Interaction logic for SelectProductItemWindow.xaml
