@@ -21,6 +21,11 @@ namespace HVTApp.DataAccess
             Database.SetInitializer(new HVTAppDataBaseInitializer());
         }
 
+        public HVTAppContext(string nameOrConnectionString) : base(nameOrConnectionString)
+        {
+            Database.SetInitializer(new HVTAppDataBaseInitializer());
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             #region Address
