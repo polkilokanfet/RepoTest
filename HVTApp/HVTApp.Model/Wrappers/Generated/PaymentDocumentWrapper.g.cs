@@ -56,7 +56,7 @@ namespace HVTApp.Model.Wrappers
     protected override void InitializeCollectionComplexProperties()
     {
 
-      if (Model.Payments == null) throw new ArgumentException("Payments cannot be null");
+      if (Model.Payments == null) throw new ArgumentException("PaymentsPlaned cannot be null");
       Payments = new ValidatableChangeTrackingCollection<PaymentWrapper>(Model.Payments.Select(e => GetWrapper<PaymentWrapper, Payment>(e)));
       RegisterCollection(Payments, Model.Payments);
 

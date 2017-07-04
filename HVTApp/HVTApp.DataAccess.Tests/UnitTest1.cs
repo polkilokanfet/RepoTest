@@ -41,13 +41,13 @@ namespace HVTApp.DataAccess.Tests
         //    unitOfWork = new UnitOfWork(new HVTAppContext());
         //    product = unitOfWork.ProductsMain.GetAll().Single(x => x.Id == product.Id);
 
-        //    Assert.AreEqual(product.PaymentsInfo.Payments.Count, product.PaymentsInfo.PaymentsConditions.Count);
-        //    Assert.AreEqual(product.PaymentsInfo.Payments.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
+        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlaned.Count, product.PaymentsInfo.PaymentsConditions.Count);
+        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlaned.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
 
         //    bool actualPaymentsChange = false;
         //    bool plannedPaymentsReloaded = false;
         //    product.PaymentsInfo.PaymentsActual.CollectionChanged += (sender, args) => { actualPaymentsChange = true; };
-        //    product.PaymentsInfo.Payments.CollectionReloaded += (sender, args) => { plannedPaymentsReloaded = true; };
+        //    product.PaymentsInfo.PaymentsPlaned.CollectionReloaded += (sender, args) => { plannedPaymentsReloaded = true; };
 
         //    Payment paymentActual = new Payment
         //    {
@@ -59,8 +59,8 @@ namespace HVTApp.DataAccess.Tests
         //    Assert.IsTrue(actualPaymentsChange);
         //    Assert.IsTrue(plannedPaymentsReloaded);
 
-        //    Assert.AreEqual(product.PaymentsInfo.Payments.Count, 1);
-        //    Assert.AreEqual(product.PaymentsInfo.Payments.ToList().Cost(x => x.Cost), product.Cost.CostWithVat - paymentActual.Cost);
+        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlaned.Count, 1);
+        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlaned.ToList().Cost(x => x.Cost), product.Cost.CostWithVat - paymentActual.Cost);
 
         //    actualPaymentsChange = false;
         //    plannedPaymentsReloaded = false;
@@ -69,18 +69,18 @@ namespace HVTApp.DataAccess.Tests
         //    Assert.IsTrue(actualPaymentsChange);
         //    Assert.IsTrue(plannedPaymentsReloaded);
 
-        //    Assert.AreEqual(product.PaymentsInfo.Payments.Count, 1);
-        //    Assert.AreEqual(product.PaymentsInfo.Payments.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
+        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlaned.Count, 1);
+        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlaned.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
 
         //    plannedPaymentsReloaded = false;
         //    product.Cost.Cost += 10;
         //    Assert.IsTrue(plannedPaymentsReloaded);
-        //    Assert.AreEqual(product.PaymentsInfo.Payments.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
+        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlaned.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
 
         //    plannedPaymentsReloaded = false;
         //    product.Cost.Vat = 0;
         //    Assert.IsTrue(plannedPaymentsReloaded);
-        //    Assert.AreEqual(product.PaymentsInfo.Payments.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
+        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlaned.ToList().Cost(x => x.Cost), product.Cost.CostWithVat);
 
         //    product.PaymentsInfo.PaymentsConditions.Clear();
         //    PaymentCondition condition1 = new PaymentCondition
@@ -99,7 +99,7 @@ namespace HVTApp.DataAccess.Tests
         //    product.PaymentsInfo.PaymentsConditions.Add(condition1);
         //    product.PaymentsInfo.PaymentsConditions.Add(condition2);
 
-        //    Assert.AreEqual(product.PaymentsInfo.Payments.Count, product.PaymentsInfo.PaymentsConditions.Count);
+        //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlaned.Count, product.PaymentsInfo.PaymentsConditions.Count);
         //}
     }
 }

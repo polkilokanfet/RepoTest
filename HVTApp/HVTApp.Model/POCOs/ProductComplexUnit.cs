@@ -33,6 +33,8 @@ namespace HVTApp.Model.POCOs
 
         public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
         public virtual List<Payment> Payments { get; set; } = new List<Payment>();
+        public virtual List<Payment> PaymentsPaid { get; set; } = new List<Payment>();
+        public virtual List<Payment> PaymentsNotPaid { get; set; } = new List<Payment>();
 
         public DateTime? RealizationDate { get; set; }
 

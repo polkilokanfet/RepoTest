@@ -4,6 +4,6 @@
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
-            <TextBlock>Payments</TextBlock>
+            <TextBlock>PaymentsPlaned</TextBlock>
     </Grid>
 </UserControl>

@@ -1,12 +1,21 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using HVTApp.Model;
+﻿using System.Data.Entity.ModelConfiguration;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
-    using System;
     using System.Data.Entity;
-    using System.Linq;
+
+    public class UserConfiguration : EntityTypeConfiguration<User>
+    {
+        public UserConfiguration()
+        {
+            Property(x => x.Login).IsRequired().HasMaxLength(20);
+            Property(x => x.Password).IsRequired();
+            Property(x => x.PersonalNumber).IsRequired().HasMaxLength(10);
+            Ignore(x => x.RoleCurrent);
+            HasRequired(x => x.Employee).WithOptional().WillCascadeOnDelete(false);
+        }
+   }
 
     public class HVTAppContext : DbContext
     {
@@ -21,63 +30,33 @@ namespace HVTApp.DataAccess
             Database.SetInitializer(new HVTAppDataBaseInitializer());
         }
 
-        public HVTAppContext(string nameOrConnectionString) : base(nameOrConnectionString)
-        {
-            Database.SetInitializer(new HVTAppDataBaseInitializer());
-        }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             #region Address
-
-            modelBuilder.Entity<Country>().Property(x => x.Name).IsRequired().HasMaxLength(50);
-            modelBuilder.Entity<Country>().HasMany(x => x.Districts).WithRequired(x => x.Country);
-
-            modelBuilder.Entity<District>().Property(x => x.Name).IsRequired().HasMaxLength(50);
-            modelBuilder.Entity<District>().HasMany(x => x.Regions).WithRequired(x => x.District);
-
-            modelBuilder.Entity<Region>().Property(x => x.Name).IsRequired().HasMaxLength(50);
-            modelBuilder.Entity<Region>().HasMany(x => x.Localities).WithRequired(x => x.Region);
-
-            modelBuilder.Entity<LocalityType>().Property(x => x.FullName).IsRequired().HasMaxLength(50);
-            modelBuilder.Entity<LocalityType>().Property(x => x.FullName).HasMaxLength(50);
-
-            modelBuilder.Entity<Locality>().Property(x => x.Name).IsRequired().HasMaxLength(50);
-            modelBuilder.Entity<Locality>().HasRequired(x => x.LocalityType);
-            modelBuilder.Entity<Locality>().HasOptional(x => x.DeliveryPeriod).WithOptionalPrincipal(x => x.Locality);
-
-            modelBuilder.Entity<Address>().Property(x => x.Description).HasMaxLength(150);
-            modelBuilder.Entity<Address>().HasRequired(x => x.Locality);
-
+            modelBuilder.Configurations.Add(new CountryConfiguration());
+            modelBuilder.Configurations.Add(new DistrictConfiguration());
+            modelBuilder.Configurations.Add(new RegionConfiguration());
+            modelBuilder.Configurations.Add(new LocalityTypeConfiguration());
+            modelBuilder.Configurations.Add(new LocalityConfiguration());
+            modelBuilder.Configurations.Add(new AddressConfiguration());
             #endregion
+
+            modelBuilder.Configurations.Add(new ContractConfiguration());
+            modelBuilder.Configurations.Add(new SpecificationConfiguration());
 
             #region Company
-            modelBuilder.Entity<ActivityField>().Property(x => x.FieldOfActivity).IsRequired();
-            modelBuilder.Entity<ActivityField>().Property(x => x.Name).IsRequired().HasMaxLength(25);
-
-            modelBuilder.Entity<CompanyForm>().Property(x => x.FullName).IsRequired().HasMaxLength(50).IsUnicode();
-            modelBuilder.Entity<CompanyForm>().Property(x => x.ShortName).IsRequired().HasMaxLength(50).IsUnicode();
-
-
-            modelBuilder.Entity<Company>().Property(x => x.FullName).IsRequired().HasMaxLength(100).IsUnicode();
-            modelBuilder.Entity<Company>().Property(x => x.ShortName).IsRequired().HasMaxLength(100).IsUnicode();
-            modelBuilder.Entity<Company>().HasRequired(x => x.Form);
-            modelBuilder.Entity<Company>().HasMany(x => x.ActivityFilds).WithMany();
-            modelBuilder.Entity<Company>().HasMany(x => x.Employees).WithRequired(x => x.Company);
-            modelBuilder.Entity<Company>().HasMany(x => x.ChildCompanies).WithOptional(x => x.ParentCompany);
-            //modelBuilder.Entity<Company>().Ignore(x => x.ChildCompanies);
-
+            modelBuilder.Configurations.Add(new ActivityFieldConfiguration());
+            modelBuilder.Configurations.Add(new CompanyFormConfiguration());
+            modelBuilder.Configurations.Add(new CompanyConfiguration());
             #endregion
+
+            modelBuilder.Configurations.Add(new UserConfiguration());
+
 
             #region Person, User, Employee
 
             modelBuilder.Entity<UserRole>().Property(x => x.Role).IsRequired();
 
-            modelBuilder.Entity<User>().Property(x => x.Login).IsRequired().HasMaxLength(20);
-            modelBuilder.Entity<User>().Property(x => x.Password).IsRequired();
-            modelBuilder.Entity<User>().Property(x => x.PersonalNumber).IsRequired().HasMaxLength(10);
-            modelBuilder.Entity<User>().Ignore(x => x.RoleCurrent);
-            modelBuilder.Entity<User>().HasRequired(x => x.Employee).WithOptional().WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Person>().Property(x => x.Name).IsRequired().HasMaxLength(50);
             modelBuilder.Entity<Person>().Property(x => x.Surname).IsRequired().HasMaxLength(50);
@@ -96,6 +75,8 @@ namespace HVTApp.DataAccess
             modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.Cost);
             modelBuilder.Entity<ProductComplexUnit>().HasOptional(x => x.Specification).WithMany(x => x.ProductComplexUnits);
             modelBuilder.Entity<ProductComplexUnit>().HasMany(x => x.Payments).WithRequired(x => x.ProductComplexUnit);
+            modelBuilder.Entity<ProductComplexUnit>().HasMany(x => x.PaymentsPaid).WithOptional(x => x.ProductComplexUnitPaid);
+            modelBuilder.Entity<ProductComplexUnit>().HasMany(x => x.PaymentsNotPaid).WithOptional(x => x.ProductComplexUnitNotPaid);
 
             modelBuilder.Entity<ProductComplexUnit>().HasRequired(x => x.Product).WithMany();
             modelBuilder.Entity<ProductComplexUnit>().HasOptional(x => x.Order).WithMany(x => x.ProductComplexUnits);
@@ -193,12 +174,6 @@ namespace HVTApp.DataAccess
 
             #region Contract
 
-            modelBuilder.Entity<Contract>().Property(x => x.Number).IsRequired().HasMaxLength(50);
-            modelBuilder.Entity<Contract>().HasRequired(x => x.Contragent);
-            modelBuilder.Entity<Contract>().HasMany(x => x.Specifications).WithRequired(x => x.Contract);
-
-            modelBuilder.Entity<Specification>().Property(x => x.Number).HasMaxLength(4);
-            modelBuilder.Entity<Specification>().HasMany(x => x.ProductComplexUnits).WithOptional(x => x.Specification);
 
             #endregion
 

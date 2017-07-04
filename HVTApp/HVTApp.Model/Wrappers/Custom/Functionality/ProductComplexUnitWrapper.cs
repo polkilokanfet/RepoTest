@@ -53,7 +53,7 @@ namespace HVTApp.Model.Wrappers
         }
         #endregion
 
-        #region Payments
+        #region PaymentsPlaned
 
         /// <summary>
         /// Не исполненные платежные условия

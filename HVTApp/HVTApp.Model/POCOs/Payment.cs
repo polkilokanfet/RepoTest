@@ -7,6 +7,8 @@ namespace HVTApp.Model.POCOs
     {
         public virtual PaymentDocument Document { get; set; }
         public virtual ProductComplexUnit ProductComplexUnit { get; set; }
+        public virtual ProductComplexUnit ProductComplexUnitPaid { get; set; }
+        public virtual ProductComplexUnit ProductComplexUnitNotPaid { get; set; }
         public DateTime Date { get; set; }
         public Cost Cost { get; set; }
         public string Comment { get; set; }
