@@ -101,48 +101,48 @@ namespace HVTApp.DataAccess
             Contract contract = new Contract { Contragent = mrsk, Date = DateTime.Today, Number = "0401-17-0001"};
             Specification specification = new Specification { Contract = contract, Date = contract.Date, Number = "1" };
 
-            ProductComplexUnit productComplexUnitVeb110 = new ProductComplexUnit
-            {
-                Facility = substationPervaya, Project = project1,
+            //ProductComplexUnit productComplexUnitVeb110 = new ProductComplexUnit
+            //{
+            //    Facility = substationPervaya, Project = project1,
 
-                Product = veb110Product, OrderPosition = 1, SerialNumber = "3651",
-                ProductShipmentUnit = new ProductShipmentUnit { Cost = new Cost {Sum = 100}, Address = address},
-                Specification = specification, Cost = new Cost { Sum = 1000} 
-            };
+            //    Product = veb110Product, OrderPosition = 1, SerialNumber = "3651",
+            //    ShipmentUnit = new ShipmentUnit { Cost = new Cost {Sum = 100}, Address = address},
+            //    Specification = specification, Cost = new Cost { Sum = 1000} 
+            //};
 
-            ProductComplexUnit productComplexUnitVeb1102 = new ProductComplexUnit
-            {
-                Facility = stationSverdlovskaya, Project = project2,
+            //ProductComplexUnit productComplexUnitVeb1102 = new ProductComplexUnit
+            //{
+            //    Facility = stationSverdlovskaya, Project = project2,
 
-                Product = veb110Product, OrderPosition = 1, SerialNumber = "3652",
-                ProductShipmentUnit = new ProductShipmentUnit { Cost = new Cost { Sum = 100}, Address = address },
-                Cost = new Cost { Sum = 1000 } 
-            };
+            //    Product = veb110Product, OrderPosition = 1, SerialNumber = "3652",
+            //    ShipmentUnit = new ShipmentUnit { Cost = new Cost { Sum = 100}, Address = address },
+            //    Cost = new Cost { Sum = 1000 } 
+            //};
 
-            ProductComplexUnit productComplexUnitZng1101 = new ProductComplexUnit
-            {
-                Facility = substationPervaya, Project = project1, 
+            //ProductComplexUnit productComplexUnitZng1101 = new ProductComplexUnit
+            //{
+            //    Facility = substationPervaya, Project = project1, 
 
-                Product = zng110Product, OrderPosition = 1, SerialNumber = "325",
-                ProductShipmentUnit = new ProductShipmentUnit { Cost = new Cost { Sum = 150}, Address = address },
-                Specification = specification, Cost = new Cost { Sum = 500 }
-            };
+            //    Product = zng110Product, OrderPosition = 1, SerialNumber = "325",
+            //    ShipmentUnit = new ShipmentUnit { Cost = new Cost { Sum = 150}, Address = address },
+            //    Specification = specification, Cost = new Cost { Sum = 500 }
+            //};
 
-            ProductComplexUnit productComplexUnitZng1102 = new ProductComplexUnit
-            {
-                Facility = substationPervaya, Project = project1,
+            //ProductComplexUnit productComplexUnitZng1102 = new ProductComplexUnit
+            //{
+            //    Facility = substationPervaya, Project = project1,
 
-                Product = zng110Product, OrderPosition = 1, SerialNumber = "326",
-                ProductShipmentUnit = new ProductShipmentUnit { Cost = new Cost { Sum = 150 }, Address = address },
-                Specification = specification, Cost = new Cost { Sum = 500 }
-            };
+            //    Product = zng110Product, OrderPosition = 1, SerialNumber = "326",
+            //    ShipmentUnit = new ShipmentUnit { Cost = new Cost { Sum = 150 }, Address = address },
+            //    Specification = specification, Cost = new Cost { Sum = 500 }
+            //};
 
 
 
             TenderType tenderType = new TenderType {Name = "Проектно-изыскательные работы", Type = TenderTypeEnum.ToProject};
-            Tender tender = new Tender { Type = tenderType, Project = project1, Sum = new Cost { Sum = 545 }, DateOpen = DateTime.Today,
-                DateClose = DateTime.Today.AddDays(7),
-                ProductTenderUnits = new List<ProductTenderUnit>(project1.ProductComplexUnits.Select(x => new ProductTenderUnit {ProductComplexUnit = x}))};
+            //Tender tender = new Tender { Type = tenderType, Project = project1, Sum = new Cost { Sum = 545 }, DateOpen = DateTime.Today,
+            //    DateClose = DateTime.Today.AddDays(7),
+            //    TenderUnits = new List<TenderUnit>(project1.ProductionUnits.Select(x => new TenderUnit {ProductComplexUnit = x}))};
 
 
 
@@ -158,13 +158,13 @@ namespace HVTApp.DataAccess
             context.Users.Add(user);
             context.RequiredProductsChildses.AddRange(new[] { requiredChildProductParametersPrivod, requiredChildProductParametersBreakerBlock });
             //context.Products.AddRange(new [] {veb110, vgb35, zng110});
-            project1.ProductComplexUnits.AddRange(new[] { productComplexUnitVeb110, productComplexUnitZng1101 });
+            //project1.ProductionUnits.AddRange(new[] { productComplexUnitVeb110, productComplexUnitZng1101 });
             context.Facilities.AddRange(new[] {substationPervaya, stationSverdlovskaya});
             context.Projects.AddRange(new[] { project1, project2 });
             context.Parameters.AddRange(new[] { paramBreaker, paramTransformator, paramBreakerDt, paramBreakerLt, paramTransformatorI, paramTransformatorV, paramV35kV, paramV110kV, paramV220kV, paramV500kV });
             context.Specifications.Add(specification);
-            context.Tenders.Add(tender);
-            context.Units.AddRange(new[] {productComplexUnitVeb110, productComplexUnitVeb1102, productComplexUnitZng1101, productComplexUnitZng1102});
+            //context.Tenders.Add(tender);
+            //context.Units.AddRange(new[] {productComplexUnitVeb110, productComplexUnitVeb1102, productComplexUnitZng1101, productComplexUnitZng1102});
 
             context.SaveChanges();
             base.Seed(context);

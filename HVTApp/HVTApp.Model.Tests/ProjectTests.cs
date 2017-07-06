@@ -50,7 +50,7 @@ namespace HVTApp.Model.Tests
             ProductComplexUnit u21 = new ProductComplexUnit { Product = _product4, Cost = new Cost { Sum = 10, Currency = rub } };
             ProductComplexUnit u22 = new ProductComplexUnit { Product = _product4, Cost = new Cost { Sum = 10, Currency = usd } };
 
-            Project project = new Project {ProductComplexUnits = new List<ProductComplexUnit>(new[] {u10, u11, u12, u20, u21, u22})};
+            Project project = new Project {ProjectUnits = new List<ProductComplexUnit>(new[] {u10, u11, u12, u20, u21, u22})};
             ProjectWrapper projectWrapper = WrappersFactory.GetWrapper<ProjectWrapper> (project);
 
             Assert.AreEqual(projectWrapper.ProductsUnitsGroups.Count, 4);

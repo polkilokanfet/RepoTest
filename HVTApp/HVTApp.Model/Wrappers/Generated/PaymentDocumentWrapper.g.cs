@@ -47,7 +47,7 @@ namespace HVTApp.Model.Wrappers
 
     #region CollectionProperties
 
-    public IValidatableChangeTrackingCollection<PaymentWrapper> Payments { get; private set; }
+    public IValidatableChangeTrackingCollection<PaymentActualWrapper> Payments { get; private set; }
 
 
     #endregion
@@ -56,8 +56,8 @@ namespace HVTApp.Model.Wrappers
     protected override void InitializeCollectionComplexProperties()
     {
 
-      if (Model.Payments == null) throw new ArgumentException("PaymentsPlaned cannot be null");
-      Payments = new ValidatableChangeTrackingCollection<PaymentWrapper>(Model.Payments.Select(e => GetWrapper<PaymentWrapper, Payment>(e)));
+      if (Model.Payments == null) throw new ArgumentException("Payments cannot be null");
+      Payments = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(Model.Payments.Select(e => GetWrapper<PaymentActualWrapper, PaymentActual>(e)));
       RegisterCollection(Payments, Model.Payments);
 
 

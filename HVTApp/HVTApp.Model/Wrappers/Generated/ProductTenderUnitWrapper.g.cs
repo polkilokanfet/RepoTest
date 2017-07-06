@@ -6,10 +6,10 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-  public partial class ProductTenderUnitWrapper : WrapperBase<ProductTenderUnit>
+  public partial class ProductTenderUnitWrapper : WrapperBase<TenderUnit>
   {
-    private ProductTenderUnitWrapper() : base(new ProductTenderUnit()) { }
-    private ProductTenderUnitWrapper(ProductTenderUnit model) : base(model) { }
+    private ProductTenderUnitWrapper() : base(new TenderUnit()) { }
+    private ProductTenderUnitWrapper(TenderUnit model) : base(model) { }
 
 
 

@@ -6,10 +6,10 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-  public partial class PaymentWrapper : WrapperBase<Payment>
+  public partial class PaymentPlanedWrapper : WrapperBase<PaymentPlanned>
   {
-    private PaymentWrapper() : base(new Payment()) { }
-    private PaymentWrapper(Payment model) : base(model) { }
+    private PaymentPlanedWrapper() : base(new PaymentPlanned()) { }
+    private PaymentPlanedWrapper(PaymentPlanned model) : base(model) { }
 
 
 
@@ -47,19 +47,9 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public PaymentDocumentWrapper Document 
-    {
-        get { return GetComplexProperty<PaymentDocumentWrapper, PaymentDocument>(Model.Document); }
-        set { SetComplexProperty<PaymentDocumentWrapper, PaymentDocument>(Document, value); }
-    }
-
-    public PaymentDocumentWrapper DocumentOriginalValue { get; private set; }
-    public bool DocumentIsChanged => GetIsChanged(nameof(Document));
-
-
 	public ProductComplexUnitWrapper ProductComplexUnit 
     {
-        get { return GetComplexProperty<ProductComplexUnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit); }
+        get { return GetComplexProperty<ProductComplexUnitWrapper, ProductComplexUnit>(Model.SalesUnit); }
         set { SetComplexProperty<ProductComplexUnitWrapper, ProductComplexUnit>(ProductComplexUnit, value); }
     }
 
@@ -82,9 +72,7 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Document = GetWrapper<PaymentDocumentWrapper, PaymentDocument>(Model.Document);
-
-        ProductComplexUnit = GetWrapper<ProductComplexUnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit);
+        ProductComplexUnit = GetWrapper<ProductComplexUnitWrapper, ProductComplexUnit>(Model.SalesUnit);
 
         Cost = GetWrapper<CostWrapper, Cost>(Model.Cost);
 

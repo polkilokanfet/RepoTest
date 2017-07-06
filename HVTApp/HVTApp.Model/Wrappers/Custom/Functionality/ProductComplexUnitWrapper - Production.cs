@@ -14,7 +14,7 @@ namespace HVTApp.Model.Wrappers
                 //по дате спецификации
                 if (Specification != null) return Specification.Date;
                 //по дате реализации проекта
-                return Project.EstimatedDate.AddDays(-PlannedProductionTerm).GetTodayIfDateFromPastAndSkipWeekend();
+                return Project.EstimatedDate.AddDays(-PlannedTerm_Production).GetTodayIfDateFromPastAndSkipWeekend();
             }
         }
 
@@ -25,9 +25,9 @@ namespace HVTApp.Model.Wrappers
                 //по дате производства
                 if (EndProductionDate.HasValue) return EndProductionDate.Value;
                 //по дате комплектации
-                if (PickingDate.HasValue) return PickingDate.Value.AddDays(PlanedTermFromPickToEndProductionEnd);
+                if (PickingDate.HasValue) return PickingDate.Value.AddDays(PlanedTerm_FromPickToEndProductionEndOriginalValue);
                 //по сроку производства
-                return ProductionStartDateCalculated.AddDays(PlannedProductionTerm).GetTodayIfDateFromPastAndSkipWeekend();
+                return ProductionStartDateCalculated.AddDays(PlannedTerm_Production).GetTodayIfDateFromPastAndSkipWeekend();
             }
         }
     }

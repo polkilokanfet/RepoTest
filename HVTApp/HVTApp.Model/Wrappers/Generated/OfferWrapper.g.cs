@@ -166,7 +166,7 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.ProductOfferUnits == null) throw new ArgumentException("ProductOfferUnits cannot be null");
-      ProductOfferUnits = new ValidatableChangeTrackingCollection<ProductOfferUnitWrapper>(Model.ProductOfferUnits.Select(e => GetWrapper<ProductOfferUnitWrapper, ProductOfferUnit>(e)));
+      ProductOfferUnits = new ValidatableChangeTrackingCollection<ProductOfferUnitWrapper>(Model.ProductOfferUnits.Select(e => GetWrapper<ProductOfferUnitWrapper, OfferUnit>(e)));
       RegisterCollection(ProductOfferUnits, Model.ProductOfferUnits);
 
 

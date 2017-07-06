@@ -84,7 +84,6 @@
     <Compile Include="UnitOfWork\Repositories\ProjectsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\SpecificationsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\TendersRepository.cs" />
-    <Compile Include="UnitOfWork\Repositories\UnitsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\UsersRepository.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
   </ItemGroup>

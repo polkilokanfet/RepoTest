@@ -9,6 +9,6 @@ namespace HVTApp.Model.POCOs
         public string Number { get; set; }
         public DateTime Date { get; set; }
         public virtual Contract Contract { get; set; }
-        public virtual List<ProductComplexUnit> ProductComplexUnits { get; set; } = new List<ProductComplexUnit>();
+        public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
     }
 }

@@ -6,10 +6,10 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-  public partial class ProductShipmentUnitWrapper : WrapperBase<ProductShipmentUnit>
+  public partial class ProductShipmentUnitWrapper : WrapperBase<ShipmentUnit>
   {
-    private ProductShipmentUnitWrapper() : base(new ProductShipmentUnit()) { }
-    private ProductShipmentUnitWrapper(ProductShipmentUnit model) : base(model) { }
+    private ProductShipmentUnitWrapper() : base(new ShipmentUnit()) { }
+    private ProductShipmentUnitWrapper(ShipmentUnit model) : base(model) { }
 
 
 

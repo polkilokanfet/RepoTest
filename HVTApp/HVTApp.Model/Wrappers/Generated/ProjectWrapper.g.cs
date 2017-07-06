@@ -84,9 +84,9 @@ namespace HVTApp.Model.Wrappers
     protected override void InitializeCollectionComplexProperties()
     {
 
-      if (Model.ProductComplexUnits == null) throw new ArgumentException("ProductComplexUnits cannot be null");
-      ProductComplexUnits = new ValidatableChangeTrackingCollection<ProductComplexUnitWrapper>(Model.ProductComplexUnits.Select(e => GetWrapper<ProductComplexUnitWrapper, ProductComplexUnit>(e)));
-      RegisterCollection(ProductComplexUnits, Model.ProductComplexUnits);
+      if (Model.ProjectUnits == null) throw new ArgumentException("SalesUnits cannot be null");
+      ProductComplexUnits = new ValidatableChangeTrackingCollection<ProductComplexUnitWrapper>(Model.ProjectUnits.Select(e => GetWrapper<ProductComplexUnitWrapper, ProductComplexUnit>(e)));
+      RegisterCollection(ProductComplexUnits, Model.ProjectUnits);
 
 
       if (Model.Tenders == null) throw new ArgumentException("Tenders cannot be null");

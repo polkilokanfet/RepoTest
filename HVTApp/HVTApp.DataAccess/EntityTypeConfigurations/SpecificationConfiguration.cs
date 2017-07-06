@@ -8,7 +8,7 @@ namespace HVTApp.DataAccess
         public SpecificationConfiguration()
         {
             this.Property(x => x.Number).HasMaxLength(4);
-            this.HasMany(x => x.ProductComplexUnits).WithOptional(x => x.Specification);
+            this.HasMany(x => x.SalesUnits).WithOptional(x => x.Specification);
         }
     }
 }

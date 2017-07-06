@@ -14,7 +14,7 @@ namespace HVTApp.Model.POCOs
         public DateTime? DateNotice { get; set; }
         public virtual List<Company> Participants { get; set; } = new List<Company>(); //участники
         public virtual Company Winner { get; set; }
-        public virtual List<ProductTenderUnit> ProductTenderUnits { get; set; } = new List<ProductTenderUnit>();
+        public virtual List<TenderUnit> TenderUnits { get; set; } = new List<TenderUnit>();
         public virtual List<Offer> Offers { get; set; } = new List<Offer>();
     }
 

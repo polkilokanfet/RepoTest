@@ -49,7 +49,7 @@ namespace HVTApp.DataAccess.Tests
         //    product.PaymentsInfo.PaymentsActual.CollectionChanged += (sender, args) => { actualPaymentsChange = true; };
         //    product.PaymentsInfo.PaymentsPlaned.CollectionReloaded += (sender, args) => { plannedPaymentsReloaded = true; };
 
-        //    Payment paymentActual = new Payment
+        //    PaymentActual paymentActual = new PaymentActual
         //    {
         //        Cost = 20,
         //        Date = DateTime.Today
