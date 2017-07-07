@@ -60,7 +60,7 @@ namespace HVTApp.Model.Wrappers
 
 	public StandartDeliveryPeriodWrapper DeliveryPeriod 
     {
-        get { return GetComplexProperty<StandartDeliveryPeriodWrapper, StandartDeliveryPeriod>(Model.DeliveryPeriod); }
+        get { return GetComplexProperty<StandartDeliveryPeriodWrapper, StandartDeliveryPeriod>(Model.StandartDeliveryPeriod); }
         set { SetComplexProperty<StandartDeliveryPeriodWrapper, StandartDeliveryPeriod>(DeliveryPeriod, value); }
     }
 
@@ -77,7 +77,7 @@ namespace HVTApp.Model.Wrappers
 
         Region = GetWrapper<RegionWrapper, Region>(Model.Region);
 
-        DeliveryPeriod = GetWrapper<StandartDeliveryPeriodWrapper, StandartDeliveryPeriod>(Model.DeliveryPeriod);
+        DeliveryPeriod = GetWrapper<StandartDeliveryPeriodWrapper, StandartDeliveryPeriod>(Model.StandartDeliveryPeriod);
 
     }
 

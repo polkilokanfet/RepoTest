@@ -3,6 +3,19 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
+    public class ParameterGroup : BaseEntity
+    {
+        public string Name { get; set; }
+        public virtual List<Parameter> Parameters { get; set; }
+        public virtual Measure Measure { get; set; }
+        public bool IsOnlyChoice { get; set; } = true; // группа из которой может быть выбран только один параметр для одного оборудования.
+
+        public override string ToString()
+        {
+            return Name;
+        }
+    }
+
     public class Parameter : BaseEntity
     {
         public virtual ParameterGroup Group { get; set; }
@@ -15,19 +28,6 @@ namespace HVTApp.Model.POCOs
             if (Group.Measure != null)
                 result = result + " " + Group.Measure.ShortName;
             return result;
-        }
-    }
-
-    public class ParameterGroup : BaseEntity
-    {
-        public string Name { get; set; }
-        public virtual List<Parameter> Parameters { get; set; }
-        public virtual Measure Measure { get; set; }
-        public bool IsOnlyChoice { get; set; } = true; // группа из которой может быть выбран только один параметр для одного оборудования.
-
-        public override string ToString()
-        {
-            return Name;
         }
     }
 

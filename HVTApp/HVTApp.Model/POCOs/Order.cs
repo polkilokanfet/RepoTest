@@ -11,7 +11,7 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// Дата открытия заказа.
         /// </summary>
-        public virtual DateTime? OpenOrderDate { get; set; }
+        public virtual DateTime OpenOrderDate { get; set; }
 
         public virtual List<ProductionUnit> ProductionUnits { get; set; }
     }

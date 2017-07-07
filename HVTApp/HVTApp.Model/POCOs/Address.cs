@@ -17,7 +17,7 @@ namespace HVTApp.Model.POCOs
         public string Name { get; set; }
         public virtual LocalityType LocalityType { get; set; }
         public virtual Region Region { get; set; }
-        public virtual StandartDeliveryPeriod DeliveryPeriod { get; set; }
+        public double? StandartDeliveryPeriod { get; set; }
     }
 
     /// <summary>
@@ -45,7 +45,6 @@ namespace HVTApp.Model.POCOs
     /// </summary>
     public class District : BaseEntity
     {
-        public int StandartDeliveryPeriod { get; set; }
         public string Name { get; set; }
         public virtual Locality Capital { get; set; }
         public virtual Country Country { get; set; }
@@ -53,22 +52,12 @@ namespace HVTApp.Model.POCOs
     }
 
     /// <summary>
-    /// Страна.
+    /// Страна
     /// </summary>
     public class Country : BaseEntity
     {
-        public int StandartDeliveryPeriod { get; set; }
         public string Name { get; set; }
         public virtual Locality Capital { get; set; }
         public virtual List<District> Districts { get; set; } // Округа.
-    }
-
-    /// <summary>
-    /// стандартное время доставки чего-либо из Екатеринбурга
-    /// </summary>
-    public class StandartDeliveryPeriod : BaseEntity
-    {
-        public virtual Locality Locality { get; set; }
-        public int DeliveryPeriod { get; set; }
     }
 }

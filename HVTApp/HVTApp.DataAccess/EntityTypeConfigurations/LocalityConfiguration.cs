@@ -9,7 +9,7 @@ namespace HVTApp.DataAccess
         {
             Property(x => x.Name).IsRequired().HasMaxLength(50);
             HasRequired(x => x.LocalityType);
-            HasOptional(x => x.DeliveryPeriod).WithOptionalPrincipal(x => x.Locality);
+            HasOptional(x => x.StandartDeliveryPeriod).WithOptionalPrincipal(x => x.Locality);
         }
     }
 }

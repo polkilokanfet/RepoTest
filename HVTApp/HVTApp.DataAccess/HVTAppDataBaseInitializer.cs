@@ -35,7 +35,7 @@ namespace HVTApp.DataAccess
             Locality ekb = new Locality {Region = region, LocalityType = localityType, Name = "Екатеринбург"};
             Address address = new Address {Description = "ул.Фронтовых бригад, д.22", Locality = ekb};
             BankDetails bankDetails = new BankDetails {BankIdentificationCode = "1111"};
-            Company uetm = new Company { FullName = "Уралэлектротяжмаш", ShortName = "УЭТМ", Form = formAo, Address = address, BankDetails = bankDetails, ActivityFilds = new List<ActivityField> { producerOfHvt } };
+            Company uetm = new Company { FullName = "Уралэлектротяжмаш", ShortName = "УЭТМ", Form = formAo, Address = address, BankDetailsList = bankDetails, ActivityFilds = new List<ActivityField> { producerOfHvt } };
             Company rosseti = new Company { FullName = "Россети", ShortName = "Россети", Form = formPao, ActivityFilds = new List<ActivityField> { electricityTransmission } };
             Company fsk = new Company { FullName = "Федеральная сетевая компания", ShortName = "ФСК", Form = formPao, ActivityFilds = new List<ActivityField> { electricityTransmission }, ParentCompany = rosseti };
             Company mrsk = new Company { FullName = "Межрегиональные распределительные сети", ShortName = "МРСК", Form = formPao, ActivityFilds = new List<ActivityField> { electricityTransmission }, ParentCompany = rosseti };

@@ -97,7 +97,7 @@ namespace HVTApp.Model.Wrappers
 
 	public BankDetailsWrapper BankDetails 
     {
-        get { return GetComplexProperty<BankDetailsWrapper, BankDetails>(Model.BankDetails); }
+        get { return GetComplexProperty<BankDetailsWrapper, BankDetails>(Model.BankDetailsList); }
         set { SetComplexProperty<BankDetailsWrapper, BankDetails>(BankDetails, value); }
     }
 
@@ -130,7 +130,7 @@ namespace HVTApp.Model.Wrappers
 
         Address = GetWrapper<AddressWrapper, Address>(Model.Address);
 
-        BankDetails = GetWrapper<BankDetailsWrapper, BankDetails>(Model.BankDetails);
+        BankDetails = GetWrapper<BankDetailsWrapper, BankDetails>(Model.BankDetailsList);
 
     }
 

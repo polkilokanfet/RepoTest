@@ -18,7 +18,6 @@ namespace HVTApp.Model.POCOs
 
         public virtual DateTime? RealizationDate { get; set; }
 
-        public virtual ProjectUnit ProjectUnit { get; set; }
         public virtual OfferUnit OfferUnit { get; set; }
     }
 }

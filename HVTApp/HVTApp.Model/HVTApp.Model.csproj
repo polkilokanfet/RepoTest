@@ -53,8 +53,9 @@
     <Compile Include="POCOs\FieldOfActivity.cs" />
     <Compile Include="POCOs\Contract.cs" />
     <Compile Include="POCOs\Parameter.cs" />
+    <Compile Include="POCOs\PaymentConditionStandart.cs" />
     <Compile Include="POCOs\Person.cs" />
-    <Compile Include="POCOs\PaymentActual.cs" />
+    <Compile Include="POCOs\Payments.cs" />
     <Compile Include="POCOs\ProjectUnit.cs" />
     <Compile Include="POCOs\Units\TenderUnit.cs" />
     <Compile Include="POCOs\Units\ShipmentUnit.cs" />
