@@ -56,7 +56,7 @@
     <Compile Include="POCOs\PaymentConditionStandart.cs" />
     <Compile Include="POCOs\Person.cs" />
     <Compile Include="POCOs\Payments.cs" />
-    <Compile Include="POCOs\ProjectUnit.cs" />
+    <Compile Include="POCOs\Units\ProjectUnit.cs" />
     <Compile Include="POCOs\Units\TenderUnit.cs" />
     <Compile Include="POCOs\Units\ShipmentUnit.cs" />
     <Compile Include="POCOs\Units\ProductionUnit.cs" />

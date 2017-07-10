@@ -6,9 +6,9 @@ namespace HVTApp.Model.POCOs
 {
     public class Tender : BaseEntity
     {
-        public TenderType Type { get; set; }
+        public virtual TenderType Type { get; set; }
         public virtual Project Project { get; set; }
-        public virtual Cost Sum { get; set; }
+        public virtual double Sum { get; set; }
         public DateTime DateOpen { get; set; }
         public DateTime DateClose { get; set; }
         public DateTime? DateNotice { get; set; }
