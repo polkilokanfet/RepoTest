@@ -5,7 +5,7 @@ namespace HVTApp.Model.POCOs
 {
     public class PaymentCondition : BaseEntity, IComparable<PaymentCondition>
     {
-        public double Part { get; set; } // Часть в процентах.
+        public double Part { get; set; } 
         public int DaysToPoint { get; set; } // Дней до связанной с платежом точки.
         public virtual PaymentConditionPoint PaymentConditionPoint { get; set; } // Связанная с платежом точка.
 

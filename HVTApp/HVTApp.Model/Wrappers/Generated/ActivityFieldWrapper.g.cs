@@ -24,13 +24,13 @@ namespace HVTApp.Model.Wrappers
     public bool NameIsChanged => GetIsChanged(nameof(Name));
 
 
-    public HVTApp.Model.POCOs.FieldOfActivity FieldOfActivity
+    public HVTApp.Model.POCOs.ActivityFieldEnum ActivityFieldEnum
     {
-      get { return GetValue<HVTApp.Model.POCOs.FieldOfActivity>(); }
+      get { return GetValue<HVTApp.Model.POCOs.ActivityFieldEnum>(); }
       set { SetValue(value); }
     }
-    public HVTApp.Model.POCOs.FieldOfActivity FieldOfActivityOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.FieldOfActivity>(nameof(FieldOfActivity));
-    public bool FieldOfActivityIsChanged => GetIsChanged(nameof(FieldOfActivity));
+    public HVTApp.Model.POCOs.ActivityFieldEnum ActivityFieldEnumOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.ActivityFieldEnum>(nameof(ActivityFieldEnum));
+    public bool FieldOfActivityIsChanged => GetIsChanged(nameof(ActivityFieldEnum));
 
 
     public System.Int32 Id

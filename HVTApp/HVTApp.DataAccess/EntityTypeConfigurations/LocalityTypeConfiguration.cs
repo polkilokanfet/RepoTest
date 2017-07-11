@@ -7,8 +7,8 @@ namespace HVTApp.DataAccess
     {
         public LocalityTypeConfiguration()
         {
-            Property(x => x.FullName).IsRequired().HasMaxLength(50);
-            Property(x => x.FullName).HasMaxLength(50);
+            Property(x => x.FullName).IsRequired().HasMaxLength(75);
+            Property(x => x.ShortName).IsRequired().HasMaxLength(20);
         }
     }
 }

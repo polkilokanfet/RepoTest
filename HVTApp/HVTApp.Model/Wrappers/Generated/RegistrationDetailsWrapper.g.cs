@@ -6,10 +6,10 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-  public partial class RegistrationDetailsWrapper : WrapperBase<RegistrationDetails>
+  public partial class RegistrationDetailsWrapper : WrapperBase<DocumentsRegistrationDetails>
   {
-    private RegistrationDetailsWrapper() : base(new RegistrationDetails()) { }
-    private RegistrationDetailsWrapper(RegistrationDetails model) : base(model) { }
+    private RegistrationDetailsWrapper() : base(new DocumentsRegistrationDetails()) { }
+    private RegistrationDetailsWrapper(DocumentsRegistrationDetails model) : base(model) { }
 
 
 

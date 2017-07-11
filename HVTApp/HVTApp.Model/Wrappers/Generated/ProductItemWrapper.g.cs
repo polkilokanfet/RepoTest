@@ -59,7 +59,7 @@ namespace HVTApp.Model.Wrappers
     protected override void InitializeCollectionComplexProperties()
     {
 
-      if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+      if (Model.Parameters == null) throw new ArgumentException("RequiredParameters cannot be null");
       Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => GetWrapper<ParameterWrapper, Parameter>(e)));
       RegisterCollection(Parameters, Model.Parameters);
 

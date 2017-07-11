@@ -17,11 +17,4 @@ namespace HVTApp.Model.POCOs
             return $"{Name}, {Type.ShortName}";
         }
     }
-
-    public class FacilityType : BaseEntity
-    {
-        public string FullName { get; set; }
-        public string ShortName { get; set; }
-    }
-
 }

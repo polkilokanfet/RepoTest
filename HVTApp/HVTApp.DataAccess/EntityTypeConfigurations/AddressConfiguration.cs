@@ -7,8 +7,8 @@ namespace HVTApp.DataAccess
     {
         public AddressConfiguration()
         {
-            Property(x => x.Description).HasMaxLength(150);
-            HasRequired(x => x.Locality);
+            Property(x => x.Description).IsRequired().HasMaxLength(150);
+            HasRequired(x => x.Locality).WithMany();
         }
     }
 }

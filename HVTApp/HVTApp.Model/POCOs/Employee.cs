@@ -10,13 +10,4 @@ namespace HVTApp.Model.POCOs
         public virtual Company Company { get; set; }
         public virtual EmployeesPosition Position { get; set; }
     }
-
-    /// <summary>
-    /// Должность сотрудника.
-    /// </summary>
-    public class EmployeesPosition : BaseEntity
-    {
-        public string Name { get; set; }
-    }
-
 }

@@ -7,9 +7,10 @@ namespace HVTApp.DataAccess
     {
         public LocalityConfiguration()
         {
-            Property(x => x.Name).IsRequired().HasMaxLength(50);
-            HasRequired(x => x.LocalityType);
-            HasOptional(x => x.StandartDeliveryPeriod).WithOptionalPrincipal(x => x.Locality);
+            Property(x => x.Name).IsRequired().HasMaxLength(100);
+            Property(x => x.StandartDeliveryPeriod).IsOptional();
+            HasRequired(x => x.LocalityType).WithMany();
+            HasRequired(x => x.Region).WithMany(x => x.Localities);
         }
     }
 }

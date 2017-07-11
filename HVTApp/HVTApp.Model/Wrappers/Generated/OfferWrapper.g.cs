@@ -109,8 +109,8 @@ namespace HVTApp.Model.Wrappers
 
 	public RegistrationDetailsWrapper RegistrationDetailsOfSender 
     {
-        get { return GetComplexProperty<RegistrationDetailsWrapper, RegistrationDetails>(Model.RegistrationDetailsOfSender); }
-        set { SetComplexProperty<RegistrationDetailsWrapper, RegistrationDetails>(RegistrationDetailsOfSender, value); }
+        get { return GetComplexProperty<RegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfSender); }
+        set { SetComplexProperty<RegistrationDetailsWrapper, DocumentsRegistrationDetails>(RegistrationDetailsOfSender, value); }
     }
 
     public RegistrationDetailsWrapper RegistrationDetailsOfSenderOriginalValue { get; private set; }
@@ -119,8 +119,8 @@ namespace HVTApp.Model.Wrappers
 
 	public RegistrationDetailsWrapper RegistrationDetailsOfRecipient 
     {
-        get { return GetComplexProperty<RegistrationDetailsWrapper, RegistrationDetails>(Model.RegistrationDetailsOfRecipient); }
-        set { SetComplexProperty<RegistrationDetailsWrapper, RegistrationDetails>(RegistrationDetailsOfRecipient, value); }
+        get { return GetComplexProperty<RegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfRecipient); }
+        set { SetComplexProperty<RegistrationDetailsWrapper, DocumentsRegistrationDetails>(RegistrationDetailsOfRecipient, value); }
     }
 
     public RegistrationDetailsWrapper RegistrationDetailsOfRecipientOriginalValue { get; private set; }
@@ -155,9 +155,9 @@ namespace HVTApp.Model.Wrappers
 
         RecipientEmployee = GetWrapper<EmployeeWrapper, Employee>(Model.RecipientEmployee);
 
-        RegistrationDetailsOfSender = GetWrapper<RegistrationDetailsWrapper, RegistrationDetails>(Model.RegistrationDetailsOfSender);
+        RegistrationDetailsOfSender = GetWrapper<RegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfSender);
 
-        RegistrationDetailsOfRecipient = GetWrapper<RegistrationDetailsWrapper, RegistrationDetails>(Model.RegistrationDetailsOfRecipient);
+        RegistrationDetailsOfRecipient = GetWrapper<RegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfRecipient);
 
     }
 
@@ -165,9 +165,9 @@ namespace HVTApp.Model.Wrappers
     protected override void InitializeCollectionComplexProperties()
     {
 
-      if (Model.ProductOfferUnits == null) throw new ArgumentException("ProductOfferUnits cannot be null");
-      ProductOfferUnits = new ValidatableChangeTrackingCollection<ProductOfferUnitWrapper>(Model.ProductOfferUnits.Select(e => GetWrapper<ProductOfferUnitWrapper, OfferUnit>(e)));
-      RegisterCollection(ProductOfferUnits, Model.ProductOfferUnits);
+      if (Model.OfferUnits == null) throw new ArgumentException("OfferUnits cannot be null");
+      ProductOfferUnits = new ValidatableChangeTrackingCollection<ProductOfferUnitWrapper>(Model.OfferUnits.Select(e => GetWrapper<ProductOfferUnitWrapper, OfferUnit>(e)));
+      RegisterCollection(ProductOfferUnits, Model.OfferUnits);
 
 
       if (Model.CopyToRecipients == null) throw new ArgumentException("CopyToRecipients cannot be null");

@@ -51,6 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityTypeConfigurations\EmployeesPositionConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\BankDetailsConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\EmployeeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\DocumentConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\DocumentsRegistrationDetailsConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\CompanyConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\ActivityFieldConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\AddressConfiguration.cs" />
@@ -58,11 +63,31 @@
     <Compile Include="EntityTypeConfigurations\CountryConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\DistrictConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\ContractConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\FacilityConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\FacilityTypeConfiguration.cs" />
     <Compile Include="HVTAppDataBaseInitializer.cs" />
     <Compile Include="EntityTypeConfigurations\SpecificationConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\RegionConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\LocalityConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\LocalityTypeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\OfferUnitConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\PersonConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\TenderUnitConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\OfferConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\TenderConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\ParameterConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\ParameterGroupConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\ProjectConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\RequiredParametersConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\MeasureConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\PaymentActualConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\PaymentConditionConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\PaymentConditionStandartConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\PaymentDocumentConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\ProductConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\ProductItemConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\OrderConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\PaymentPlannedConfiguration.cs" />
     <Compile Include="UnitOfWork\IRepositories.cs" />
     <Compile Include="UnitOfWork\IRepository.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
@@ -86,6 +111,7 @@
     <Compile Include="UnitOfWork\Repositories\TendersRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\UsersRepository.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
+    <Compile Include="EntityTypeConfigurations\UserConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

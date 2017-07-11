@@ -45,17 +45,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseViewModels\BaseDetailsViewModel.cs" />
+    <Compile Include="BaseViewModels\EditableSelectableBindableBase.cs" />
     <Compile Include="Factory\WrappersFactory.cs" />
     <Compile Include="POCOs\Address.cs" />
     <Compile Include="POCOs\BankDetails.cs" />
     <Compile Include="POCOs\Company.cs" />
     <Compile Include="POCOs\CompanyForm.cs" />
-    <Compile Include="POCOs\FieldOfActivity.cs" />
+    <Compile Include="POCOs\DocumentsRegistrationDetails.cs" />
+    <Compile Include="POCOs\EmployeesPosition.cs" />
+    <Compile Include="POCOs\FacilityType.cs" />
+    <Compile Include="POCOs\ActivityField.cs" />
     <Compile Include="POCOs\Contract.cs" />
+    <Compile Include="POCOs\Measure.cs" />
     <Compile Include="POCOs\Parameter.cs" />
+    <Compile Include="POCOs\ParameterGroup.cs" />
     <Compile Include="POCOs\PaymentConditionStandart.cs" />
     <Compile Include="POCOs\Person.cs" />
     <Compile Include="POCOs\Payments.cs" />
+    <Compile Include="POCOs\RequiredPreviousParameters.cs" />
     <Compile Include="POCOs\Units\ProjectUnit.cs" />
     <Compile Include="POCOs\Units\TenderUnit.cs" />
     <Compile Include="POCOs\Units\ShipmentUnit.cs" />

@@ -12,7 +12,7 @@
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Название"/>
-                    <infg:TextField Name="FieldOfActivity" Label="FieldOfActivity"/>
+                    <infg:TextField Name="ActivityFieldEnum" Label="ActivityFieldEnum"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
         </infg:XamDataGrid.FieldLayouts>

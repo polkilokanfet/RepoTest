@@ -7,8 +7,9 @@ namespace HVTApp.DataAccess
     {
         public CountryConfiguration()
         {
-            this.Property(x => x.Name).IsRequired().HasMaxLength(50);
-            this.HasMany(x => x.Districts).WithRequired(x => x.Country);
+            Property(x => x.Name).IsRequired().HasMaxLength(75);
+            HasMany(x => x.Districts).WithRequired(x => x.Country);
+            HasRequired(x => x.Capital).WithOptional();
         }
     }
 }

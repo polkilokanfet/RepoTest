@@ -87,7 +87,7 @@ namespace HVTApp.Model.Wrappers
 
 	public AddressWrapper Address 
     {
-        get { return GetComplexProperty<AddressWrapper, Address>(Model.Address); }
+        get { return GetComplexProperty<AddressWrapper, Address>(Model.AddressLegal); }
         set { SetComplexProperty<AddressWrapper, Address>(Address, value); }
     }
 
@@ -128,7 +128,7 @@ namespace HVTApp.Model.Wrappers
 
         ParentCompany = GetWrapper<CompanyWrapper, Company>(Model.ParentCompany);
 
-        Address = GetWrapper<AddressWrapper, Address>(Model.Address);
+        Address = GetWrapper<AddressWrapper, Address>(Model.AddressLegal);
 
         BankDetails = GetWrapper<BankDetailsWrapper, BankDetails>(Model.BankDetailsList);
 

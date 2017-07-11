@@ -8,7 +8,7 @@ namespace HVTApp.Model.POCOs
     public class ActivityField : BaseEntity
     {
         public string Name { get; set; }
-        public FieldOfActivity FieldOfActivity { get; set; }
+        public ActivityFieldEnum ActivityFieldEnum { get; set; }
 
         public override string ToString()
         {
@@ -16,7 +16,7 @@ namespace HVTApp.Model.POCOs
         }
     }
 
-    public enum FieldOfActivity
+    public enum ActivityFieldEnum
     {
         ElectricityGeneration,
         ElectricityTransmission,

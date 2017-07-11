@@ -7,12 +7,17 @@ namespace HVTApp.DataAccess
     {
         public CompanyConfiguration()
         {
-            Property(x => x.FullName).IsRequired().HasMaxLength(100).IsUnicode();
-            Property(x => x.ShortName).IsRequired().HasMaxLength(100).IsUnicode();
-            HasRequired(x => x.Form);
+            Property(x => x.FullName).IsRequired().HasMaxLength(100);
+            Property(x => x.ShortName).IsRequired().HasMaxLength(100);
+            Property(x => x.Inn).IsOptional().HasMaxLength(20);
+            Property(x => x.Kpp).IsOptional().HasMaxLength(20);
+            HasRequired(x => x.Form).WithMany();
+            HasOptional(x => x.AddressLegal).WithMany();
+            HasOptional(x => x.AddressPost).WithMany();
             HasMany(x => x.ActivityFilds).WithMany();
             HasMany(x => x.Employees).WithRequired(x => x.Company);
             HasMany(x => x.ChildCompanies).WithOptional(x => x.ParentCompany);
+            HasMany(x => x.BankDetailsList).WithOptional();
             //modelBuilder.Entity<Company>().Ignore(x => x.ChildCompanies);
         }
     }

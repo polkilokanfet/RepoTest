@@ -6,10 +6,10 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-  public partial class RequiredParametersWrapper : WrapperBase<RequiredParameters>
+  public partial class RequiredParametersWrapper : WrapperBase<RequiredPreviousParameters>
   {
-    private RequiredParametersWrapper() : base(new RequiredParameters()) { }
-    private RequiredParametersWrapper(RequiredParameters model) : base(model) { }
+    private RequiredParametersWrapper() : base(new RequiredPreviousParameters()) { }
+    private RequiredParametersWrapper(RequiredPreviousParameters model) : base(model) { }
 
 
 
@@ -38,9 +38,9 @@ namespace HVTApp.Model.Wrappers
     protected override void InitializeCollectionComplexProperties()
     {
 
-      if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
-      Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => GetWrapper<ParameterWrapper, Parameter>(e)));
-      RegisterCollection(Parameters, Model.Parameters);
+      if (Model.RequiredParameters == null) throw new ArgumentException("RequiredParameters cannot be null");
+      Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.RequiredParameters.Select(e => GetWrapper<ParameterWrapper, Parameter>(e)));
+      RegisterCollection(Parameters, Model.RequiredParameters);
 
 
     }

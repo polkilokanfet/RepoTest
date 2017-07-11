@@ -7,8 +7,8 @@ namespace HVTApp.DataAccess
     {
         public CompanyFormConfiguration()
         {
-            Property(x => x.FullName).IsRequired().HasMaxLength(50).IsUnicode();
-            Property(x => x.ShortName).IsRequired().HasMaxLength(50).IsUnicode();
+            Property(x => x.FullName).IsRequired().HasMaxLength(50);
+            Property(x => x.ShortName).IsRequired().HasMaxLength(50);
         }
     }
 }
