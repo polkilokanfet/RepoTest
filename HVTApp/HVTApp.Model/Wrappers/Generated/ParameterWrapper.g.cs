@@ -53,7 +53,7 @@ namespace HVTApp.Model.Wrappers
 
     #region CollectionProperties
 
-    public IValidatableChangeTrackingCollection<RequiredParametersWrapper> RequiredParents { get; private set; }
+    public IValidatableChangeTrackingCollection<RequiredPreviousParametersWrapper> RequiredPreviousParameters { get; private set; }
 
 
     #endregion
@@ -70,8 +70,8 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.RequiredPreviousParameters == null) throw new ArgumentException("RequiredPreviousParameters cannot be null");
-      RequiredParents = new ValidatableChangeTrackingCollection<RequiredParametersWrapper>(Model.RequiredPreviousParameters.Select(e => GetWrapper<RequiredParametersWrapper, RequiredPreviousParameters>(e)));
-      RegisterCollection(RequiredParents, Model.RequiredPreviousParameters);
+      RequiredPreviousParameters = new ValidatableChangeTrackingCollection<RequiredPreviousParametersWrapper>(Model.RequiredPreviousParameters.Select(e => GetWrapper<RequiredPreviousParametersWrapper, RequiredPreviousParameters>(e)));
+      RegisterCollection(RequiredPreviousParameters, Model.RequiredPreviousParameters);
 
 
     }

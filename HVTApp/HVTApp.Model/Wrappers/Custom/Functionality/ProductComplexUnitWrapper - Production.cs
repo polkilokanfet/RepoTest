@@ -1,9 +1,10 @@
 ﻿using System;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 
 namespace HVTApp.Model.Wrappers
 {
-    public partial class ProductComplexUnitWrapper
+    public partial class ProductionUnitWrapper
     {
         public DateTime ProductionStartDateCalculated
         {

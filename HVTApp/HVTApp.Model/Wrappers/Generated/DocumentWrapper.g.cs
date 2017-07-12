@@ -78,23 +78,23 @@ namespace HVTApp.Model.Wrappers
     public bool RecipientEmployeeIsChanged => GetIsChanged(nameof(RecipientEmployee));
 
 
-	public RegistrationDetailsWrapper RegistrationDetailsOfSender 
+	public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfSender 
     {
-        get { return GetComplexProperty<RegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfSender); }
-        set { SetComplexProperty<RegistrationDetailsWrapper, DocumentsRegistrationDetails>(RegistrationDetailsOfSender, value); }
+        get { return GetComplexProperty<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfSender); }
+        set { SetComplexProperty<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails>(RegistrationDetailsOfSender, value); }
     }
 
-    public RegistrationDetailsWrapper RegistrationDetailsOfSenderOriginalValue { get; private set; }
+    public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfSenderOriginalValue { get; private set; }
     public bool RegistrationDetailsOfSenderIsChanged => GetIsChanged(nameof(RegistrationDetailsOfSender));
 
 
-	public RegistrationDetailsWrapper RegistrationDetailsOfRecipient 
+	public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfRecipient 
     {
-        get { return GetComplexProperty<RegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfRecipient); }
-        set { SetComplexProperty<RegistrationDetailsWrapper, DocumentsRegistrationDetails>(RegistrationDetailsOfRecipient, value); }
+        get { return GetComplexProperty<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfRecipient); }
+        set { SetComplexProperty<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails>(RegistrationDetailsOfRecipient, value); }
     }
 
-    public RegistrationDetailsWrapper RegistrationDetailsOfRecipientOriginalValue { get; private set; }
+    public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfRecipientOriginalValue { get; private set; }
     public bool RegistrationDetailsOfRecipientIsChanged => GetIsChanged(nameof(RegistrationDetailsOfRecipient));
 
 
@@ -119,9 +119,9 @@ namespace HVTApp.Model.Wrappers
 
         RecipientEmployee = GetWrapper<EmployeeWrapper, Employee>(Model.RecipientEmployee);
 
-        RegistrationDetailsOfSender = GetWrapper<RegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfSender);
+        RegistrationDetailsOfSender = GetWrapper<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfSender);
 
-        RegistrationDetailsOfRecipient = GetWrapper<RegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfRecipient);
+        RegistrationDetailsOfRecipient = GetWrapper<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfRecipient);
 
     }
 

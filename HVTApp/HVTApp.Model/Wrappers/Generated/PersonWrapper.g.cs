@@ -42,13 +42,13 @@ namespace HVTApp.Model.Wrappers
     public bool PatronymicIsChanged => GetIsChanged(nameof(Patronymic));
 
 
-    public HVTApp.Model.POCOs.Gender Gender
+    public System.Boolean IsMan
     {
-      get { return GetValue<HVTApp.Model.POCOs.Gender>(); }
+      get { return GetValue<System.Boolean>(); }
       set { SetValue(value); }
     }
-    public HVTApp.Model.POCOs.Gender GenderOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.Gender>(nameof(Gender));
-    public bool GenderIsChanged => GetIsChanged(nameof(Gender));
+    public System.Boolean IsManOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsMan));
+    public bool IsManIsChanged => GetIsChanged(nameof(IsMan));
 
 
     public System.Int32 Id

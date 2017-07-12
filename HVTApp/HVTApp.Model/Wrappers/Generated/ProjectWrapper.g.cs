@@ -24,15 +24,6 @@ namespace HVTApp.Model.Wrappers
     public bool NameIsChanged => GetIsChanged(nameof(Name));
 
 
-    public System.DateTime EstimatedDate
-    {
-      get { return GetValue<System.DateTime>(); }
-      set { SetValue(value); }
-    }
-    public System.DateTime EstimatedDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(EstimatedDate));
-    public bool EstimatedDateIsChanged => GetIsChanged(nameof(EstimatedDate));
-
-
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -62,7 +53,7 @@ namespace HVTApp.Model.Wrappers
 
     #region CollectionProperties
 
-    public IValidatableChangeTrackingCollection<ProductComplexUnitWrapper> ProductComplexUnits { get; private set; }
+    public IValidatableChangeTrackingCollection<ProjectUnitWrapper> ProjectUnits { get; private set; }
 
 
     public IValidatableChangeTrackingCollection<TenderWrapper> Tenders { get; private set; }
@@ -84,9 +75,9 @@ namespace HVTApp.Model.Wrappers
     protected override void InitializeCollectionComplexProperties()
     {
 
-      if (Model.ProjectUnits == null) throw new ArgumentException("SalesUnits cannot be null");
-      ProductComplexUnits = new ValidatableChangeTrackingCollection<ProductComplexUnitWrapper>(Model.ProjectUnits.Select(e => GetWrapper<ProductComplexUnitWrapper, ProductComplexUnit>(e)));
-      RegisterCollection(ProductComplexUnits, Model.ProjectUnits);
+      if (Model.ProjectUnits == null) throw new ArgumentException("ProjectUnits cannot be null");
+      ProjectUnits = new ValidatableChangeTrackingCollection<ProjectUnitWrapper>(Model.ProjectUnits.Select(e => GetWrapper<ProjectUnitWrapper, ProjectUnit>(e)));
+      RegisterCollection(ProjectUnits, Model.ProjectUnits);
 
 
       if (Model.Tenders == null) throw new ArgumentException("Tenders cannot be null");

@@ -15,6 +15,15 @@ namespace HVTApp.Model.Wrappers
 
     #region SimpleProperties
 
+    public System.Double Sum
+    {
+      get { return GetValue<System.Double>(); }
+      set { SetValue(value); }
+    }
+    public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
+    public bool SumIsChanged => GetIsChanged(nameof(Sum));
+
+
     public System.DateTime DateOpen
     {
       get { return GetValue<System.DateTime>(); }
@@ -76,16 +85,6 @@ namespace HVTApp.Model.Wrappers
     public bool ProjectIsChanged => GetIsChanged(nameof(Project));
 
 
-	public CostWrapper Sum 
-    {
-        get { return GetComplexProperty<CostWrapper, Cost>(Model.Sum); }
-        set { SetComplexProperty<CostWrapper, Cost>(Sum, value); }
-    }
-
-    public CostWrapper SumOriginalValue { get; private set; }
-    public bool SumIsChanged => GetIsChanged(nameof(Sum));
-
-
 	public CompanyWrapper Winner 
     {
         get { return GetComplexProperty<CompanyWrapper, Company>(Model.Winner); }
@@ -104,7 +103,7 @@ namespace HVTApp.Model.Wrappers
     public IValidatableChangeTrackingCollection<CompanyWrapper> Participants { get; private set; }
 
 
-    public IValidatableChangeTrackingCollection<ProductTenderUnitWrapper> ProductTenderUnits { get; private set; }
+    public IValidatableChangeTrackingCollection<TenderUnitWrapper> TenderUnits { get; private set; }
 
 
     public IValidatableChangeTrackingCollection<OfferWrapper> Offers { get; private set; }
@@ -118,8 +117,6 @@ namespace HVTApp.Model.Wrappers
         Type = GetWrapper<TenderTypeWrapper, TenderType>(Model.Type);
 
         Project = GetWrapper<ProjectWrapper, Project>(Model.Project);
-
-        Sum = GetWrapper<CostWrapper, Cost>(Model.Sum);
 
         Winner = GetWrapper<CompanyWrapper, Company>(Model.Winner);
 
@@ -135,8 +132,8 @@ namespace HVTApp.Model.Wrappers
 
 
       if (Model.TenderUnits == null) throw new ArgumentException("TenderUnits cannot be null");
-      ProductTenderUnits = new ValidatableChangeTrackingCollection<ProductTenderUnitWrapper>(Model.TenderUnits.Select(e => GetWrapper<ProductTenderUnitWrapper, TenderUnit>(e)));
-      RegisterCollection(ProductTenderUnits, Model.TenderUnits);
+      TenderUnits = new ValidatableChangeTrackingCollection<TenderUnitWrapper>(Model.TenderUnits.Select(e => GetWrapper<TenderUnitWrapper, TenderUnit>(e)));
+      RegisterCollection(TenderUnits, Model.TenderUnits);
 
 
       if (Model.Offers == null) throw new ArgumentException("Offers cannot be null");

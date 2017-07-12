@@ -30,7 +30,7 @@ namespace HVTApp.Model.Wrappers
       set { SetValue(value); }
     }
     public HVTApp.Model.POCOs.ActivityFieldEnum ActivityFieldEnumOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.ActivityFieldEnum>(nameof(ActivityFieldEnum));
-    public bool FieldOfActivityIsChanged => GetIsChanged(nameof(ActivityFieldEnum));
+    public bool ActivityFieldEnumIsChanged => GetIsChanged(nameof(ActivityFieldEnum));
 
 
     public System.Int32 Id

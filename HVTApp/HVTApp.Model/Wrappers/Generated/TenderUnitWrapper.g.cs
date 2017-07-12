@@ -6,14 +6,32 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-  public partial class ProductTenderUnitWrapper : WrapperBase<TenderUnit>
+  public partial class TenderUnitWrapper : WrapperBase<TenderUnit>
   {
-    private ProductTenderUnitWrapper() : base(new TenderUnit()) { }
-    private ProductTenderUnitWrapper(TenderUnit model) : base(model) { }
+    private TenderUnitWrapper() : base(new TenderUnit()) { }
+    private TenderUnitWrapper(TenderUnit model) : base(model) { }
 
 
 
     #region SimpleProperties
+
+    public System.Double Cost
+    {
+      get { return GetValue<System.Double>(); }
+      set { SetValue(value); }
+    }
+    public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
+    public bool CostIsChanged => GetIsChanged(nameof(Cost));
+
+
+    public System.DateTime DeliveryDate
+    {
+      get { return GetValue<System.DateTime>(); }
+      set { SetValue(value); }
+    }
+    public System.DateTime DeliveryDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(DeliveryDate));
+    public bool DeliveryDateIsChanged => GetIsChanged(nameof(DeliveryDate));
+
 
     public System.Int32 Id
     {
@@ -29,24 +47,14 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public ProductComplexUnitWrapper ProductComplexUnit 
+	public ProjectUnitWrapper ProjectUnit 
     {
-        get { return GetComplexProperty<ProductComplexUnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit); }
-        set { SetComplexProperty<ProductComplexUnitWrapper, ProductComplexUnit>(ProductComplexUnit, value); }
+        get { return GetComplexProperty<ProjectUnitWrapper, ProjectUnit>(Model.ProjectUnit); }
+        set { SetComplexProperty<ProjectUnitWrapper, ProjectUnit>(ProjectUnit, value); }
     }
 
-    public ProductComplexUnitWrapper ProductComplexUnitOriginalValue { get; private set; }
-    public bool ProductComplexUnitIsChanged => GetIsChanged(nameof(ProductComplexUnit));
-
-
-	public TenderWrapper Tender 
-    {
-        get { return GetComplexProperty<TenderWrapper, Tender>(Model.Tender); }
-        set { SetComplexProperty<TenderWrapper, Tender>(Tender, value); }
-    }
-
-    public TenderWrapper TenderOriginalValue { get; private set; }
-    public bool TenderIsChanged => GetIsChanged(nameof(Tender));
+    public ProjectUnitWrapper ProjectUnitOriginalValue { get; private set; }
+    public bool ProjectUnitIsChanged => GetIsChanged(nameof(ProjectUnit));
 
 
 	public ProductWrapper Product 
@@ -59,14 +67,14 @@ namespace HVTApp.Model.Wrappers
     public bool ProductIsChanged => GetIsChanged(nameof(Product));
 
 
-	public CostWrapper Cost 
+	public TenderWrapper Tender 
     {
-        get { return GetComplexProperty<CostWrapper, Cost>(Model.Cost); }
-        set { SetComplexProperty<CostWrapper, Cost>(Cost, value); }
+        get { return GetComplexProperty<TenderWrapper, Tender>(Model.Tender); }
+        set { SetComplexProperty<TenderWrapper, Tender>(Tender, value); }
     }
 
-    public CostWrapper CostOriginalValue { get; private set; }
-    public bool CostIsChanged => GetIsChanged(nameof(Cost));
+    public TenderWrapper TenderOriginalValue { get; private set; }
+    public bool TenderIsChanged => GetIsChanged(nameof(Tender));
 
 
 	public CompanyWrapper ProducerWinner 
@@ -87,18 +95,19 @@ namespace HVTApp.Model.Wrappers
     public IValidatableChangeTrackingCollection<PaymentConditionWrapper> PaymentsConditions { get; private set; }
 
 
+    public IValidatableChangeTrackingCollection<OfferUnitWrapper> OfferUnits { get; private set; }
+
+
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        ProductComplexUnit = GetWrapper<ProductComplexUnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit);
-
-        Tender = GetWrapper<TenderWrapper, Tender>(Model.Tender);
+        ProjectUnit = GetWrapper<ProjectUnitWrapper, ProjectUnit>(Model.ProjectUnit);
 
         Product = GetWrapper<ProductWrapper, Product>(Model.Product);
 
-        Cost = GetWrapper<CostWrapper, Cost>(Model.Cost);
+        Tender = GetWrapper<TenderWrapper, Tender>(Model.Tender);
 
         ProducerWinner = GetWrapper<CompanyWrapper, Company>(Model.ProducerWinner);
 
@@ -111,6 +120,11 @@ namespace HVTApp.Model.Wrappers
       if (Model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
       PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(Model.PaymentsConditions.Select(e => GetWrapper<PaymentConditionWrapper, PaymentCondition>(e)));
       RegisterCollection(PaymentsConditions, Model.PaymentsConditions);
+
+
+      if (Model.OfferUnits == null) throw new ArgumentException("OfferUnits cannot be null");
+      OfferUnits = new ValidatableChangeTrackingCollection<OfferUnitWrapper>(Model.OfferUnits.Select(e => GetWrapper<OfferUnitWrapper, OfferUnit>(e)));
+      RegisterCollection(OfferUnits, Model.OfferUnits);
 
 
     }

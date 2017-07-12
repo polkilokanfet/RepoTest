@@ -6,10 +6,10 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-  public partial class ProductShipmentUnitWrapper : WrapperBase<ShipmentUnit>
+  public partial class ShipmentUnitWrapper : WrapperBase<ShipmentUnit>
   {
-    private ProductShipmentUnitWrapper() : base(new ShipmentUnit()) { }
-    private ProductShipmentUnitWrapper(ShipmentUnit model) : base(model) { }
+    private ShipmentUnitWrapper() : base(new ShipmentUnit()) { }
+    private ShipmentUnitWrapper(ShipmentUnit model) : base(model) { }
 
 
 
@@ -22,6 +22,15 @@ namespace HVTApp.Model.Wrappers
     }
     public System.Nullable<System.Int32> ExpectedDeliveryPeriodOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(ExpectedDeliveryPeriod));
     public bool ExpectedDeliveryPeriodIsChanged => GetIsChanged(nameof(ExpectedDeliveryPeriod));
+
+
+    public System.Double Cost
+    {
+      get { return GetValue<System.Double>(); }
+      set { SetValue(value); }
+    }
+    public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
+    public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
 
     public System.Nullable<System.DateTime> ShipmentDate
@@ -74,14 +83,14 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public ProductComplexUnitWrapper ProductComplexUnit 
+	public SalesUnitWrapper SalesUnit 
     {
-        get { return GetComplexProperty<ProductComplexUnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit); }
-        set { SetComplexProperty<ProductComplexUnitWrapper, ProductComplexUnit>(ProductComplexUnit, value); }
+        get { return GetComplexProperty<SalesUnitWrapper, SalesUnit>(Model.SalesUnit); }
+        set { SetComplexProperty<SalesUnitWrapper, SalesUnit>(SalesUnit, value); }
     }
 
-    public ProductComplexUnitWrapper ProductComplexUnitOriginalValue { get; private set; }
-    public bool ProductComplexUnitIsChanged => GetIsChanged(nameof(ProductComplexUnit));
+    public SalesUnitWrapper SalesUnitOriginalValue { get; private set; }
+    public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
 
 
 	public AddressWrapper Address 
@@ -94,26 +103,14 @@ namespace HVTApp.Model.Wrappers
     public bool AddressIsChanged => GetIsChanged(nameof(Address));
 
 
-	public CostWrapper Cost 
-    {
-        get { return GetComplexProperty<CostWrapper, Cost>(Model.Cost); }
-        set { SetComplexProperty<CostWrapper, Cost>(Cost, value); }
-    }
-
-    public CostWrapper CostOriginalValue { get; private set; }
-    public bool CostIsChanged => GetIsChanged(nameof(Cost));
-
-
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        ProductComplexUnit = GetWrapper<ProductComplexUnitWrapper, ProductComplexUnit>(Model.ProductComplexUnit);
+        SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(Model.SalesUnit);
 
         Address = GetWrapper<AddressWrapper, Address>(Model.Address);
-
-        Cost = GetWrapper<CostWrapper, Cost>(Model.Cost);
 
     }
 

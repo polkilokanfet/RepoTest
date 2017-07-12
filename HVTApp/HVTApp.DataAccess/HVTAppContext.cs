@@ -9,6 +9,7 @@ namespace HVTApp.DataAccess
     {
         public UserRoleConfiguration()
         {
+            Property(x => x.Name).IsRequired().HasMaxLength(20);
             Property(x => x.Role).IsRequired();
         }
     }
@@ -44,6 +45,7 @@ namespace HVTApp.DataAccess
 
             modelBuilder.Configurations.Add(new TenderUnitConfiguration());
             modelBuilder.Configurations.Add(new OfferUnitConfiguration());
+            modelBuilder.Configurations.Add(new SalesUnitConfiguration());
 
             modelBuilder.Configurations.Add(new TenderConfiguration());
 
@@ -86,6 +88,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<Facility> Facilities { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Tender> Tenders { get; set; }
+        public virtual DbSet<Offer> Offers { get; set; }
         public virtual DbSet<EmployeesPosition> EmployeesPositions { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -106,5 +109,11 @@ namespace HVTApp.DataAccess
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Contract> Contracts { get; set; }
         public virtual DbSet<Specification> Specifications { get; set; }
+        public virtual DbSet<ProjectUnit> ProjectUnits { get; set; }
+        public virtual DbSet<TenderUnit> TenderUnits { get; set; }
+        public virtual DbSet<OfferUnit> OfferUnits { get; set; }
+        public virtual DbSet<SalesUnit> SalesUnits { get; set; }
+        public virtual DbSet<ProductionUnit> ProductionUnits { get; set; }
+
     }
 }

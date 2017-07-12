@@ -45,8 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseViewModels\BaseDetailsViewModel.cs" />
-    <Compile Include="BaseViewModels\EditableSelectableBindableBase.cs" />
     <Compile Include="Factory\WrappersFactory.cs" />
     <Compile Include="POCOs\Address.cs" />
     <Compile Include="POCOs\BankDetails.cs" />
@@ -84,6 +82,7 @@
     <Compile Include="POCOs\PaymentDocument.cs" />
     <Compile Include="POCOs\Facility.cs" />
     <Compile Include="POCOs\Project.cs" />
+    <Compile Include="POCOs\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="POCOs\Specification.cs" />
     <Compile Include="POCOs\Tender.cs" />
@@ -116,10 +115,8 @@
     <Compile Include="Wrappers\Custom\Validate\CompanyWrapper.cs" />
     <Compile Include="Wrappers\Custom\Validate\ContractWrapper.cs" />
     <Compile Include="Wrappers\Custom\Validate\FacilityWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Validate\OffersUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\Validate\PaymentConditionStandartWrapper.cs" />
     <Compile Include="Wrappers\Custom\Validate\SpecificationWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Validate\TendersUnitWrapper.cs" />
     <Compile Include="Wrappers\Generated\ActivityFieldWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\AddressWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\BankDetailsWrapper.g.cs" />
@@ -131,6 +128,7 @@
     <Compile Include="Wrappers\Generated\CountryWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\CurrencyWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\DistrictWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\DocumentsRegistrationDetailsWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\DocumentWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\EmployeesPositionWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\EmployeeWrapper.g.cs" />
@@ -140,6 +138,7 @@
     <Compile Include="Wrappers\Generated\LocalityTypeWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\LocalityWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\MeasureWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\OfferUnitWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\OfferWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\OrderWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ParameterGroupWrapper.g.cs" />
@@ -148,23 +147,21 @@
     <Compile Include="Wrappers\Generated\PaymentConditionStandartWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\PaymentConditionWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\PaymentDocumentWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\PaymentPlanedWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\PaymentPlannedWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\PersonWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\PhysicalQuantityWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ProductionUnitWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ProductItemWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\ProductOfferUnitWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\ProductShipmentUnitWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\ProductTenderUnitWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ProductWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\ProjectUnitWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ProjectWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\RegionWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\RegistrationDetailsWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\RequiredChildProductParametersWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\RequiredParametersWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\RequiredPreviousParametersWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\SalesUnitWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\ShipmentUnitWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\SpecificationWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\StandartDeliveryPeriodWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\TenderTypeWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\TenderUnitWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\TenderWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\TestChildWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\TestEntityWrapper.g.cs" />

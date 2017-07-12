@@ -44,27 +44,5 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-
-    #region ComplexProperties
-
-	public PhysicalQuantityWrapper PhysicalQuantity 
-    {
-        get { return GetComplexProperty<PhysicalQuantityWrapper, PhysicalQuantity>(Model.PhysicalQuantity); }
-        set { SetComplexProperty<PhysicalQuantityWrapper, PhysicalQuantity>(PhysicalQuantity, value); }
-    }
-
-    public PhysicalQuantityWrapper PhysicalQuantityOriginalValue { get; private set; }
-    public bool PhysicalQuantityIsChanged => GetIsChanged(nameof(PhysicalQuantity));
-
-
-    #endregion
-
-    public override void InitializeComplexProperties()
-    {
-
-        PhysicalQuantity = GetWrapper<PhysicalQuantityWrapper, PhysicalQuantity>(Model.PhysicalQuantity);
-
-    }
-
   }
 }

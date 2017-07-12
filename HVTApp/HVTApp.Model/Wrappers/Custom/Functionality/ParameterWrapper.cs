@@ -13,28 +13,14 @@ namespace HVTApp.Model.Wrappers
         public bool CanBeSelected(IEnumerable<ParameterWrapper> parameters)
         {
             //если нет обязательных родительских параметров
-            if (!RequiredParents.Any()) return true;
+            if (!RequiredPreviousParameters.Any()) return true;
 
             var p = parameters.ToList();
             //если обязательные параметры выбраны
-            foreach (var requiredParentParameters in RequiredParents)
-                if (requiredParentParameters.Parameters.All(p.Contains)) return true;
+            foreach (var requiredParentParameters in RequiredPreviousParameters)
+                if (requiredParentParameters.RequiredParameters.All(p.Contains)) return true;
 
             return false;
-        }
-
-        public int Rank
-        {
-            get
-            {
-                int result = 0;
-                foreach (var requiredParentParametersWrapper in RequiredParents)
-                {
-                    if (result < requiredParentParametersWrapper.Parameters.Count)
-                        result = requiredParentParametersWrapper.Parameters.Count;
-                }
-                return result;
-            }
         }
     }
 }

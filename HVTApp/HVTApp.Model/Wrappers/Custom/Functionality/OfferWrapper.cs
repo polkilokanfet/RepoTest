@@ -11,14 +11,14 @@ namespace HVTApp.Model.Wrappers
             this.Project = templateOffer.Project;
             this.Tender = templateOffer.Tender;
             this.ValidityDate = DateTime.Today.AddDays(30);
-            this.RegistrationDetailsOfSender.RegistrationDate = DateTime.Today;
-            this.RecipientEmployee = templateOffer.RecipientEmployee;
+            this.Document.RegistrationDetailsOfSender.RegistrationDate = DateTime.Today;
+            this.Document.RecipientEmployee = templateOffer.Document.RecipientEmployee;
 
-            foreach (var copyToRecipient in CopyToRecipients)
-                this.CopyToRecipients.Add(copyToRecipient);
+            foreach (var copyToRecipient in Document.CopyToRecipients)
+                this.Document.CopyToRecipients.Add(copyToRecipient);
 
-            foreach (var productOfferUnit in templateOffer.ProductOfferUnits.Select(x => x.Model))
-                this.ProductOfferUnits.Add(WrappersFactory.GetWrapper<ProductOfferUnitWrapper>(productOfferUnit));
+            foreach (var productOfferUnit in templateOffer.OfferUnits.Select(x => x.Model))
+                this.OfferUnits.Add(WrappersFactory.GetWrapper<OfferUnitWrapper>(productOfferUnit));
         }
     }
 }

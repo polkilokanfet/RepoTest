@@ -9,10 +9,14 @@ namespace HVTApp.DataAccess
         {
             HasRequired(x => x.Type).WithMany();
             HasRequired(x => x.Project).WithMany(x => x.Tenders);
-            HasMany(x => x.Offers).WithRequired(x => x.Tender);
-            HasMany(x => x.TenderUnits).WithRequired(x => x.Tender);
+            Property(x => x.Sum).IsRequired();
+            Property(x => x.DateOpen).IsRequired();
+            Property(x => x.DateClose).IsRequired();
+            Property(x => x.DateNotice).IsOptional();
             HasMany(x => x.Participants).WithMany();
             HasOptional(x => x.Winner).WithMany();
+            HasMany(x => x.TenderUnits).WithRequired(x => x.Tender);
+            HasMany(x => x.Offers).WithRequired(x => x.Tender);
         }
     }
 }

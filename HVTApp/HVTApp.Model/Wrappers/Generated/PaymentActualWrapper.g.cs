@@ -24,6 +24,15 @@ namespace HVTApp.Model.Wrappers
     public bool DateIsChanged => GetIsChanged(nameof(Date));
 
 
+    public System.Double Cost
+    {
+      get { return GetValue<System.Double>(); }
+      set { SetValue(value); }
+    }
+    public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
+    public bool CostIsChanged => GetIsChanged(nameof(Cost));
+
+
     public System.String Comment
     {
       get { return GetValue<System.String>(); }
@@ -57,24 +66,14 @@ namespace HVTApp.Model.Wrappers
     public bool DocumentIsChanged => GetIsChanged(nameof(Document));
 
 
-	public ProductComplexUnitWrapper ProductComplexUnit 
+	public SalesUnitWrapper SalesUnit 
     {
-        get { return GetComplexProperty<ProductComplexUnitWrapper, ProductComplexUnit>(Model.SalesUnit); }
-        set { SetComplexProperty<ProductComplexUnitWrapper, ProductComplexUnit>(ProductComplexUnit, value); }
+        get { return GetComplexProperty<SalesUnitWrapper, SalesUnit>(Model.SalesUnit); }
+        set { SetComplexProperty<SalesUnitWrapper, SalesUnit>(SalesUnit, value); }
     }
 
-    public ProductComplexUnitWrapper ProductComplexUnitOriginalValue { get; private set; }
-    public bool ProductComplexUnitIsChanged => GetIsChanged(nameof(ProductComplexUnit));
-
-
-	public CostWrapper Cost 
-    {
-        get { return GetComplexProperty<CostWrapper, Cost>(Model.Cost); }
-        set { SetComplexProperty<CostWrapper, Cost>(Cost, value); }
-    }
-
-    public CostWrapper CostOriginalValue { get; private set; }
-    public bool CostIsChanged => GetIsChanged(nameof(Cost));
+    public SalesUnitWrapper SalesUnitOriginalValue { get; private set; }
+    public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
 
 
     #endregion
@@ -84,9 +83,7 @@ namespace HVTApp.Model.Wrappers
 
         Document = GetWrapper<PaymentDocumentWrapper, PaymentDocument>(Model.Document);
 
-        ProductComplexUnit = GetWrapper<ProductComplexUnitWrapper, ProductComplexUnit>(Model.SalesUnit);
-
-        Cost = GetWrapper<CostWrapper, Cost>(Model.Cost);
+        SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(Model.SalesUnit);
 
     }
 

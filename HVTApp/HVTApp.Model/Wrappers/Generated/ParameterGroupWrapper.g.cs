@@ -24,15 +24,6 @@ namespace HVTApp.Model.Wrappers
     public bool NameIsChanged => GetIsChanged(nameof(Name));
 
 
-    public System.Boolean IsOnlyChoice
-    {
-      get { return GetValue<System.Boolean>(); }
-      set { SetValue(value); }
-    }
-    public System.Boolean IsOnlyChoiceOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsOnlyChoice));
-    public bool IsOnlyChoiceIsChanged => GetIsChanged(nameof(IsOnlyChoice));
-
-
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -78,7 +69,7 @@ namespace HVTApp.Model.Wrappers
     protected override void InitializeCollectionComplexProperties()
     {
 
-      if (Model.Parameters == null) throw new ArgumentException("RequiredParameters cannot be null");
+      if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
       Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => GetWrapper<ParameterWrapper, Parameter>(e)));
       RegisterCollection(Parameters, Model.Parameters);
 

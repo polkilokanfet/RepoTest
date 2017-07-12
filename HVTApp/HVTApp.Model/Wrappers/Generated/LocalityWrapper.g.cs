@@ -24,6 +24,15 @@ namespace HVTApp.Model.Wrappers
     public bool NameIsChanged => GetIsChanged(nameof(Name));
 
 
+    public System.Nullable<System.Double> StandartDeliveryPeriod
+    {
+      get { return GetValue<System.Nullable<System.Double>>(); }
+      set { SetValue(value); }
+    }
+    public System.Nullable<System.Double> StandartDeliveryPeriodOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(StandartDeliveryPeriod));
+    public bool StandartDeliveryPeriodIsChanged => GetIsChanged(nameof(StandartDeliveryPeriod));
+
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -58,16 +67,6 @@ namespace HVTApp.Model.Wrappers
     public bool RegionIsChanged => GetIsChanged(nameof(Region));
 
 
-	public StandartDeliveryPeriodWrapper DeliveryPeriod 
-    {
-        get { return GetComplexProperty<StandartDeliveryPeriodWrapper, StandartDeliveryPeriod>(Model.StandartDeliveryPeriod); }
-        set { SetComplexProperty<StandartDeliveryPeriodWrapper, StandartDeliveryPeriod>(DeliveryPeriod, value); }
-    }
-
-    public StandartDeliveryPeriodWrapper DeliveryPeriodOriginalValue { get; private set; }
-    public bool DeliveryPeriodIsChanged => GetIsChanged(nameof(DeliveryPeriod));
-
-
     #endregion
 
     public override void InitializeComplexProperties()
@@ -76,8 +75,6 @@ namespace HVTApp.Model.Wrappers
         LocalityType = GetWrapper<LocalityTypeWrapper, LocalityType>(Model.LocalityType);
 
         Region = GetWrapper<RegionWrapper, Region>(Model.Region);
-
-        DeliveryPeriod = GetWrapper<StandartDeliveryPeriodWrapper, StandartDeliveryPeriod>(Model.StandartDeliveryPeriod);
 
     }
 

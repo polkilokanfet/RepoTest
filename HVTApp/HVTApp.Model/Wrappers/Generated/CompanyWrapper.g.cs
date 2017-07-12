@@ -85,30 +85,33 @@ namespace HVTApp.Model.Wrappers
     public bool ParentCompanyIsChanged => GetIsChanged(nameof(ParentCompany));
 
 
-	public AddressWrapper Address 
+	public AddressWrapper AddressLegal 
     {
         get { return GetComplexProperty<AddressWrapper, Address>(Model.AddressLegal); }
-        set { SetComplexProperty<AddressWrapper, Address>(Address, value); }
+        set { SetComplexProperty<AddressWrapper, Address>(AddressLegal, value); }
     }
 
-    public AddressWrapper AddressOriginalValue { get; private set; }
-    public bool AddressIsChanged => GetIsChanged(nameof(Address));
+    public AddressWrapper AddressLegalOriginalValue { get; private set; }
+    public bool AddressLegalIsChanged => GetIsChanged(nameof(AddressLegal));
 
 
-	public BankDetailsWrapper BankDetails 
+	public AddressWrapper AddressPost 
     {
-        get { return GetComplexProperty<BankDetailsWrapper, BankDetails>(Model.BankDetailsList); }
-        set { SetComplexProperty<BankDetailsWrapper, BankDetails>(BankDetails, value); }
+        get { return GetComplexProperty<AddressWrapper, Address>(Model.AddressPost); }
+        set { SetComplexProperty<AddressWrapper, Address>(AddressPost, value); }
     }
 
-    public BankDetailsWrapper BankDetailsOriginalValue { get; private set; }
-    public bool BankDetailsIsChanged => GetIsChanged(nameof(BankDetails));
+    public AddressWrapper AddressPostOriginalValue { get; private set; }
+    public bool AddressPostIsChanged => GetIsChanged(nameof(AddressPost));
 
 
     #endregion
 
 
     #region CollectionProperties
+
+    public IValidatableChangeTrackingCollection<BankDetailsWrapper> BankDetailsList { get; private set; }
+
 
     public IValidatableChangeTrackingCollection<CompanyWrapper> ChildCompanies { get; private set; }
 
@@ -128,15 +131,20 @@ namespace HVTApp.Model.Wrappers
 
         ParentCompany = GetWrapper<CompanyWrapper, Company>(Model.ParentCompany);
 
-        Address = GetWrapper<AddressWrapper, Address>(Model.AddressLegal);
+        AddressLegal = GetWrapper<AddressWrapper, Address>(Model.AddressLegal);
 
-        BankDetails = GetWrapper<BankDetailsWrapper, BankDetails>(Model.BankDetailsList);
+        AddressPost = GetWrapper<AddressWrapper, Address>(Model.AddressPost);
 
     }
 
   
     protected override void InitializeCollectionComplexProperties()
     {
+
+      if (Model.BankDetailsList == null) throw new ArgumentException("BankDetailsList cannot be null");
+      BankDetailsList = new ValidatableChangeTrackingCollection<BankDetailsWrapper>(Model.BankDetailsList.Select(e => GetWrapper<BankDetailsWrapper, BankDetails>(e)));
+      RegisterCollection(BankDetailsList, Model.BankDetailsList);
+
 
       if (Model.ChildCompanies == null) throw new ArgumentException("ChildCompanies cannot be null");
       ChildCompanies = new ValidatableChangeTrackingCollection<CompanyWrapper>(Model.ChildCompanies.Select(e => GetWrapper<CompanyWrapper, Company>(e)));

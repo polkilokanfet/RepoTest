@@ -33,6 +33,15 @@ namespace HVTApp.Model.Wrappers
     public bool DateIsChanged => GetIsChanged(nameof(Date));
 
 
+    public System.Double Vat
+    {
+      get { return GetValue<System.Double>(); }
+      set { SetValue(value); }
+    }
+    public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
+    public bool VatIsChanged => GetIsChanged(nameof(Vat));
+
+
     public System.Int32 Id
     {
       get { return GetValue<System.Int32>(); }
@@ -62,7 +71,7 @@ namespace HVTApp.Model.Wrappers
 
     #region CollectionProperties
 
-    public IValidatableChangeTrackingCollection<ProductComplexUnitWrapper> ProductComplexUnits { get; private set; }
+    public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
 
 
     #endregion
@@ -79,8 +88,8 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
-      ProductComplexUnits = new ValidatableChangeTrackingCollection<ProductComplexUnitWrapper>(Model.SalesUnits.Select(e => GetWrapper<ProductComplexUnitWrapper, ProductComplexUnit>(e)));
-      RegisterCollection(ProductComplexUnits, Model.SalesUnits);
+      SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => GetWrapper<SalesUnitWrapper, SalesUnit>(e)));
+      RegisterCollection(SalesUnits, Model.SalesUnits);
 
 
     }

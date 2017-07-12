@@ -7,8 +7,11 @@ namespace HVTApp.DataAccess
     {
         public SpecificationConfiguration()
         {
-            this.Property(x => x.Number).HasMaxLength(4);
-            this.HasMany(x => x.SalesUnits).WithOptional(x => x.Specification);
+            Property(x => x.Number).IsRequired().HasMaxLength(4);
+            Property(x => x.Date).IsRequired();
+            Property(x => x.Vat).IsRequired();
+            HasRequired(x => x.Contract).WithMany(x => x.Specifications);
+            HasMany(x => x.SalesUnits).WithOptional(x => x.Specification);
         }
     }
 }
