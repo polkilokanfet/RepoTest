@@ -43,10 +43,10 @@ namespace HVTApp.Model.Tests
         {
             //_productComplex.Payments.Clear();
             //_productComplex.ReGeneratePlanPaymentsHard();
-            //Assert.AreEqual(_productComplex.Cost.Sum, _productComplex.Payments.Sum(x => x.Cost.Sum));
+            //Assert.AreEqual(_productComplex.Sum.Sum, _productComplex.Payments.Sum(x => x.Sum.Sum));
             //foreach (var condition in _productComplex.PaymentsConditions)
             //{
-            //    Assert.IsTrue(_productComplex.Payments.Any(x => Math.Abs(x.Cost.Sum - condition.Part * _productComplex.Cost.Sum) < 0.0001));
+            //    Assert.IsTrue(_productComplex.Payments.Any(x => Math.Abs(x.Sum.Sum - condition.Part * _productComplex.Sum.Sum) < 0.0001));
             //}
         }
 
@@ -57,30 +57,30 @@ namespace HVTApp.Model.Tests
 
             ////проверка соответствия плановых платежей и платежей по условиям контракта
 
-            //var cost = _productComplex.Cost.Cost;
+            //var cost = _productComplex.Sum.Sum;
 
             //Assert.AreEqual(_productComplex.PaymentsPlanned.Count, _productComplex.PaymentsConditions.Count); //количество плановых и фактических платежей совпадает
-            //Assert.IsTrue(Math.Abs(cost - _productComplex.PaymentsPlanned.Cost(x => x.Cost.Cost)) < 0.0001);
-            //Assert.IsTrue(Math.Abs(cost - _productComplex.PaymentsAll.Cost(x => x.Cost.Cost)) < 0.0001);
+            //Assert.IsTrue(Math.Abs(cost - _productComplex.PaymentsPlanned.Sum(x => x.Sum.Sum)) < 0.0001);
+            //Assert.IsTrue(Math.Abs(cost - _productComplex.PaymentsAll.Sum(x => x.Sum.Sum)) < 0.0001);
 
             //var firstPaymentSum = cost/3;
-            //var firstPayment = new PaymentActual { Cost = new Cost { Cost = firstPaymentSum }, Date = DateTime.Today.AddDays(-20) };
+            //var firstPayment = new PaymentActual { Sum = new Sum { Sum = firstPaymentSum }, Date = DateTime.Today.AddDays(-20) };
             //_productComplex.PaymentsActual.Add(WrappersFactory.GetWrapper<PaymentActualWrapper> (firstPayment));
-            //Assert.IsTrue(Math.Abs(cost - _productComplex.PaymentsAll.Cost(x => x.Cost.Cost)) < 0.0001);
+            //Assert.IsTrue(Math.Abs(cost - _productComplex.PaymentsAll.Sum(x => x.Sum.Sum)) < 0.0001);
 
-            //var secondPayment = new PaymentActual { Cost = new Cost { Cost = cost - firstPaymentSum }, Date = DateTime.Today };
+            //var secondPayment = new PaymentActual { Sum = new Sum { Sum = cost - firstPaymentSum }, Date = DateTime.Today };
             //_productComplex.PaymentsActual.Add(WrappersFactory.GetWrapper<PaymentActualWrapper> (secondPayment));
             //Assert.IsFalse(_productComplex.PaymentsPlanned.Any());
 
             //_productComplex.PaymentsActual.Remove(_productComplex.PaymentsActual.First());
-            //Assert.IsTrue(Math.Abs(cost - _productComplex.PaymentsAll.Cost(x => x.Cost.Cost)) < 0.0001);
-            //Assert.IsTrue(Math.Abs(firstPaymentSum - _productComplex.SumDontPaid.Cost) < 0.0001);
-            //Assert.IsTrue(Math.Abs(firstPaymentSum - _productComplex.PaymentsPlanned.Cost(x => x.Cost.Cost)) < 0.0001);
+            //Assert.IsTrue(Math.Abs(cost - _productComplex.PaymentsAll.Sum(x => x.Sum.Sum)) < 0.0001);
+            //Assert.IsTrue(Math.Abs(firstPaymentSum - _productComplex.SumNotPaid.Sum) < 0.0001);
+            //Assert.IsTrue(Math.Abs(firstPaymentSum - _productComplex.PaymentsPlanned.Sum(x => x.Sum.Sum)) < 0.0001);
 
-            //firstPayment.Cost.Cost = firstPaymentSum / 2;
+            //firstPayment.Sum.Sum = firstPaymentSum / 2;
             //_productComplex.PaymentsActual.Add(WrappersFactory.GetWrapper<PaymentActualWrapper> (firstPayment));
             //_productComplex.PaymentsActual.Remove(_productComplex.PaymentsActual.First());
-            //Assert.IsTrue(Math.Abs(_productComplex.SumDontPaid.Cost - _productComplex.PaymentsPlanned.Cost(x => x.Cost.Cost)) < 0.0001);
+            //Assert.IsTrue(Math.Abs(_productComplex.SumNotPaid.Sum - _productComplex.PaymentsPlanned.Sum(x => x.Sum.Sum)) < 0.0001);
         }
 
         [TestMethod]

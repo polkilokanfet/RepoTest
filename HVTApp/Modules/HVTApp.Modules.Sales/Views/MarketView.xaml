@@ -51,7 +51,7 @@
                     <infg:XamDataGrid.FieldLayouts>
                         <infg:FieldLayout>
                             <infg:FieldLayout.Fields>
-                                <infg:NumericField Name="Cost"/>
+                                <infg:NumericField Name="Sum"/>
                                 <infg:Field Name="Type" Label="Тип"/>
                             </infg:FieldLayout.Fields>
                         </infg:FieldLayout>

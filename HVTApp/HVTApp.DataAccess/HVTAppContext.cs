@@ -46,6 +46,8 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new TenderUnitConfiguration());
             modelBuilder.Configurations.Add(new OfferUnitConfiguration());
             modelBuilder.Configurations.Add(new SalesUnitConfiguration());
+            modelBuilder.Configurations.Add(new ProductionUnitConfiguration());
+            modelBuilder.Configurations.Add(new ShipmentUnitConfiguration());
 
             modelBuilder.Configurations.Add(new TenderConfiguration());
 

@@ -9,7 +9,7 @@ namespace HVTApp.DataAccess
         {
             HasRequired(x => x.SalesUnit).WithMany(x => x.PaymentsActual);
             Property(x => x.Date).IsRequired();
-            Property(x => x.Cost).IsRequired();
+            Property(x => x.Sum).IsRequired();
             Property(x => x.Comment).IsOptional().HasMaxLength(100);
             HasRequired(x => x.Document).WithMany(x => x.Payments);
         }

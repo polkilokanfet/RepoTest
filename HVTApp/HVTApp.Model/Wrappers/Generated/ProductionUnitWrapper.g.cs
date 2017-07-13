@@ -33,22 +33,22 @@ namespace HVTApp.Model.Wrappers
     public bool SerialNumberIsChanged => GetIsChanged(nameof(SerialNumber));
 
 
-    public System.Int32 PlannedTerm_FromStartToEndProduction
+    public System.Int32 PlannedTermFromStartToEndProduction
     {
       get { return GetValue<System.Int32>(); }
       set { SetValue(value); }
     }
-    public System.Int32 PlannedTerm_FromStartToEndProductionOriginalValue => GetOriginalValue<System.Int32>(nameof(PlannedTerm_FromStartToEndProduction));
-    public bool PlannedTerm_FromStartToEndProductionIsChanged => GetIsChanged(nameof(PlannedTerm_FromStartToEndProduction));
+    public System.Int32 PlannedTermFromStartToEndProductionOriginalValue => GetOriginalValue<System.Int32>(nameof(PlannedTermFromStartToEndProduction));
+    public bool PlannedTermFromStartToEndProductionIsChanged => GetIsChanged(nameof(PlannedTermFromStartToEndProduction));
 
 
-    public System.Int32 PlannedTerm_FromPickToEndProduction
+    public System.Int32 PlannedTermFromPickToEndProduction
     {
       get { return GetValue<System.Int32>(); }
       set { SetValue(value); }
     }
-    public System.Int32 PlannedTerm_FromPickToEndProductionOriginalValue => GetOriginalValue<System.Int32>(nameof(PlannedTerm_FromPickToEndProduction));
-    public bool PlannedTerm_FromPickToEndProductionIsChanged => GetIsChanged(nameof(PlannedTerm_FromPickToEndProduction));
+    public System.Int32 PlannedTermFromPickToEndProductionOriginalValue => GetOriginalValue<System.Int32>(nameof(PlannedTermFromPickToEndProduction));
+    public bool PlannedTermFromPickToEndProductionIsChanged => GetIsChanged(nameof(PlannedTermFromPickToEndProduction));
 
 
     public System.Nullable<System.DateTime> StartProductionDate
@@ -76,6 +76,15 @@ namespace HVTApp.Model.Wrappers
     }
     public System.Nullable<System.DateTime> EndProductionDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(EndProductionDate));
     public bool EndProductionDateIsChanged => GetIsChanged(nameof(EndProductionDate));
+
+
+    public System.Nullable<System.DateTime> EndProductionDateByPlan
+    {
+      get { return GetValue<System.Nullable<System.DateTime>>(); }
+      set { SetValue(value); }
+    }
+    public System.Nullable<System.DateTime> EndProductionDateByPlanOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(EndProductionDateByPlan));
+    public bool EndProductionDateByPlanIsChanged => GetIsChanged(nameof(EndProductionDateByPlan));
 
 
     public System.Int32 Id
@@ -112,6 +121,16 @@ namespace HVTApp.Model.Wrappers
     public bool OrderIsChanged => GetIsChanged(nameof(Order));
 
 
+	public SalesUnitWrapper SalesUnit 
+    {
+        get { return GetComplexProperty<SalesUnitWrapper, SalesUnit>(Model.SalesUnit); }
+        set { SetComplexProperty<SalesUnitWrapper, SalesUnit>(SalesUnit, value); }
+    }
+
+    public SalesUnitWrapper SalesUnitOriginalValue { get; private set; }
+    public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
+
+
     #endregion
 
     public override void InitializeComplexProperties()
@@ -120,6 +139,8 @@ namespace HVTApp.Model.Wrappers
         Product = GetWrapper<ProductWrapper, Product>(Model.Product);
 
         Order = GetWrapper<OrderWrapper, Order>(Model.Order);
+
+        SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(Model.SalesUnit);
 
     }
 

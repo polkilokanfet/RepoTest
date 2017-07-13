@@ -106,8 +106,8 @@ namespace HVTApp.DataAccess
             //    Facility = substationPervaya, Project = project1,
 
             //    Product = veb110Product, OrderPosition = 1, SerialNumber = "3651",
-            //    ShipmentUnit = new ShipmentUnit { Cost = new Cost {Sum = 100}, Address = address},
-            //    Specification = specification, Cost = new Cost { Sum = 1000} 
+            //    ShipmentUnit = new ShipmentUnit { Sum = new Sum {Sum = 100}, Address = address},
+            //    Specification = specification, Sum = new Sum { Sum = 1000} 
             //};
 
             //ProductComplexUnit productComplexUnitVeb1102 = new ProductComplexUnit
@@ -115,8 +115,8 @@ namespace HVTApp.DataAccess
             //    Facility = stationSverdlovskaya, Project = project2,
 
             //    Product = veb110Product, OrderPosition = 1, SerialNumber = "3652",
-            //    ShipmentUnit = new ShipmentUnit { Cost = new Cost { Sum = 100}, Address = address },
-            //    Cost = new Cost { Sum = 1000 } 
+            //    ShipmentUnit = new ShipmentUnit { Sum = new Sum { Sum = 100}, Address = address },
+            //    Sum = new Sum { Sum = 1000 } 
             //};
 
             //ProductComplexUnit productComplexUnitZng1101 = new ProductComplexUnit
@@ -124,8 +124,8 @@ namespace HVTApp.DataAccess
             //    Facility = substationPervaya, Project = project1, 
 
             //    Product = zng110Product, OrderPosition = 1, SerialNumber = "325",
-            //    ShipmentUnit = new ShipmentUnit { Cost = new Cost { Sum = 150}, Address = address },
-            //    Specification = specification, Cost = new Cost { Sum = 500 }
+            //    ShipmentUnit = new ShipmentUnit { Sum = new Sum { Sum = 150}, Address = address },
+            //    Specification = specification, Sum = new Sum { Sum = 500 }
             //};
 
             //ProductComplexUnit productComplexUnitZng1102 = new ProductComplexUnit
@@ -133,14 +133,14 @@ namespace HVTApp.DataAccess
             //    Facility = substationPervaya, Project = project1,
 
             //    Product = zng110Product, OrderPosition = 1, SerialNumber = "326",
-            //    ShipmentUnit = new ShipmentUnit { Cost = new Cost { Sum = 150 }, Address = address },
-            //    Specification = specification, Cost = new Cost { Sum = 500 }
+            //    ShipmentUnit = new ShipmentUnit { Sum = new Sum { Sum = 150 }, Address = address },
+            //    Specification = specification, Sum = new Sum { Sum = 500 }
             //};
 
 
 
             TenderType tenderType = new TenderType {Name = "Проектно-изыскательные работы", Type = TenderTypeEnum.ToProject};
-            //Tender tender = new Tender { Type = tenderType, Project = project1, Sum = new Cost { Sum = 545 }, DateOpen = DateTime.Today,
+            //Tender tender = new Tender { Type = tenderType, Project = project1, Sum = new Sum { Sum = 545 }, DateOpen = DateTime.Today,
             //    DateClose = DateTime.Today.AddDays(7),
             //    TenderUnits = new List<TenderUnit>(project1.ProductionUnits.Select(x => new TenderUnit {ProductComplexUnit = x}))};
 

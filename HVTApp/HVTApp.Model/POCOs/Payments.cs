@@ -7,7 +7,7 @@ namespace HVTApp.Model.POCOs
     {
         public virtual SalesUnit SalesUnit { get; set; }
         public DateTime Date { get; set; }
-        public double Cost { get; set; }
+        public double Sum { get; set; }
         public string Comment { get; set; }
     }
 
