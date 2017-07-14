@@ -102,11 +102,11 @@
     <Compile Include="Wrappers\Custom\Functionality\ProductionUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ProductComplexUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ProductItemWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\ProductShipmentUnitWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Functionality\ShipmentUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ProductsUnitGroup.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ProductWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ProjectWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\ShipmentUnitWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Functionality\SalesUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\SpecificationWrapper.cs" />
     <Compile Include="Wrappers\Custom\IProductWithCost.cs" />
     <Compile Include="Wrappers\Custom\Test\TestFriendAddressWrapper.cs" />

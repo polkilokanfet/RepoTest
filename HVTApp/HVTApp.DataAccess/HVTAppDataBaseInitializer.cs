@@ -35,7 +35,7 @@ namespace HVTApp.DataAccess
             Locality ekb = new Locality {Region = region, LocalityType = localityType, Name = "Екатеринбург"};
             Address address = new Address {Description = "ул.Фронтовых бригад, д.22", Locality = ekb};
             BankDetails bankDetails = new BankDetails {BankIdentificationCode = "1111"};
-            Company uetm = new Company { FullName = "Уралэлектротяжмаш", ShortName = "УЭТМ", Form = formAo, AddressLegal = address, BankDetailsList = bankDetails, ActivityFilds = new List<ActivityField> { producerOfHvt } };
+            Company uetm = new Company { FullName = "Уралэлектротяжмаш", ShortName = "УЭТМ", Form = formAo, AddressLegal = address, BankDetailsList = new List<BankDetails> {bankDetails}, ActivityFilds = new List<ActivityField> { producerOfHvt } };
             Company rosseti = new Company { FullName = "Россети", ShortName = "Россети", Form = formPao, ActivityFilds = new List<ActivityField> { electricityTransmission } };
             Company fsk = new Company { FullName = "Федеральная сетевая компания", ShortName = "ФСК", Form = formPao, ActivityFilds = new List<ActivityField> { electricityTransmission }, ParentCompany = rosseti };
             Company mrsk = new Company { FullName = "Межрегиональные распределительные сети", ShortName = "МРСК", Form = formPao, ActivityFilds = new List<ActivityField> { electricityTransmission }, ParentCompany = rosseti };
@@ -46,8 +46,8 @@ namespace HVTApp.DataAccess
             UserRole userRole = new UserRole { Role = Role.DataBaseFiller };
             User user = new User {Login = "1", Password = StringToGuidService.GetHashString("1"), Employee = employee, PersonalNumber = "333", Roles=new List<UserRole> {userRole} };
 
-            Project project1 = new Project { Name = "Реконструкция ПС Первая", Manager = user, EstimatedDate = DateTime.Today.AddDays(120) };
-            Project project2 = new Project { Name = "Строительство Свердловской ТЭЦ", Manager = user, EstimatedDate = DateTime.Today.AddDays(365) };
+            Project project1 = new Project { Name = "Реконструкция ПС Первая", Manager = user };
+            Project project2 = new Project { Name = "Строительство Свердловской ТЭЦ", Manager = user };
 
             FacilityType facilityTypeTec = new FacilityType { FullName = "Теплоэлектроцентраль", ShortName = "ТЭЦ" };
             FacilityType facilityTypePc = new FacilityType { FullName = "Понизительная станция", ShortName = "ПС" };
@@ -82,8 +82,7 @@ namespace HVTApp.DataAccess
             RequiredChildProductParameters requiredChildProductParametersBreakerBlock = new RequiredChildProductParameters { MainProductParameters = new List<Parameter> { paramBreakerBlock }, ChildProductParameters = new List<Parameter> { paramBreaker }, Count = 2 };
 
 
-            PhysicalQuantity voltage = new PhysicalQuantity {Name = "Напряжение"};
-            Measure kV = new Measure {PhysicalQuantity = voltage, FullName = "Киловольт", ShortName = "кВ"};
+            Measure kV = new Measure {FullName = "Киловольт", ShortName = "кВ"};
             ParameterGroup groupV = new ParameterGroup {Name = "Номинальное напряжение", Measure = kV};
             Parameter paramV35kV = new Parameter { Group = groupV, Value = "35", RequiredPreviousParameters = new List<RequiredPreviousParameters> { setBreakerDt, setBreakerLt } };
             Parameter paramV110kV = new Parameter { Group = groupV, Value = "110", RequiredPreviousParameters = new List<RequiredPreviousParameters> { setBreakerDt, setBreakerLt, setTransformatorV } };

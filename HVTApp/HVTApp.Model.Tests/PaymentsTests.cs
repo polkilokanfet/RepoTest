@@ -26,10 +26,9 @@ namespace HVTApp.Model.Tests
             _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
         }
 
-        [TestMethod]
-        public void TestMethod1()
-        {
-            var productComplex = _fixture.Create<ProductComplexUnit>();
-        }
+        //[TestMethod]
+        //public void TestMethod1()
+        //{
+        //}
     }
 }

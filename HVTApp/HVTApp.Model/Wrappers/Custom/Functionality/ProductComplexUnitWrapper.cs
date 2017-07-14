@@ -12,17 +12,21 @@ namespace HVTApp.Model.Wrappers
         protected override void RunInConstructor()
         {
             this.PropertyChanged += MarginalIncomeOnPropertyChanged;
-            this.PropertyChanged += OnMarginalIncomeInPercentSingleChanged;
+            this.PropertyChanged += OnMarginalIncomeInPercentChanged;
             this.PropertyChanged += OnSpecificationChanged;
+
+            this.PaymentsActual.CollectionChanged += PaymentsActualOnCollectionChanged;
         }
 
 
         #region OnEvents
+        //реакция на изменение стоимости
         private void OnCostChanged(object sender, PropertyChangedEventArgs e)
         {
             ReloadPaymentsPlannedLight();
         }
 
+        //реакция на изменение совершенных платежей
         private void PaymentsActualOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)
         {
             ReloadPaymentsPlannedLight();
@@ -30,18 +34,17 @@ namespace HVTApp.Model.Wrappers
 
         private void MarginalIncomeOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(MarginalIncomeDate))
-            {
-                OnPropertyChanged(this, nameof(MarginalIncomeSingle));
-                if (Math.Abs(Cost) > 0.00001)
-                    MarginalIncomeInPercentSingle = MarginalIncomeSingle / Cost * 100;
-            }
+            if (e.PropertyName != nameof(MarginalIncomeDate)) return;
+
+            OnPropertyChanged(this, nameof(MarginalIncome));
+            if (Math.Abs(Cost) > 0.00001)
+                MarginalIncomeInPercent = MarginalIncome / Cost * 100;
         }
 
-        private void OnMarginalIncomeInPercentSingleChanged(object sender, PropertyChangedEventArgs e)
+        private void OnMarginalIncomeInPercentChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(MarginalIncomeInPercentSingle))
-                Cost = ProductionUnit.Product.GetTotalPrice(MarginalIncomeDate) / (1 - MarginalIncomeInPercentSingle / 100);
+            if (e.PropertyName == nameof(MarginalIncomeInPercent))
+                Cost = ProductionUnit.Product.GetTotalPrice(MarginalIncomeDate) / (1 - MarginalIncomeInPercent / 100);
         }
 
         private void OnSpecificationChanged(object sender, PropertyChangedEventArgs e)
@@ -88,6 +91,23 @@ namespace HVTApp.Model.Wrappers
             }
         }
 
+        DateTime GetPaymentDate(PaymentCondition condition)
+        {
+                switch (condition.PaymentConditionPoint)
+                {
+                    case PaymentConditionPoint.ProductionStart:
+                        return ProductionUnit.StartProductionDateCalculated.AddDays(condition.DaysToPoint);
+                    case PaymentConditionPoint.ProductionEnd:
+                        return ProductionUnit.EndProductionDateCalculated.AddDays(condition.DaysToPoint);
+                    case PaymentConditionPoint.Shipment:
+                        return ShipmentUnit.ShipmentDateCalculated.AddDays(condition.DaysToPoint);
+                    case PaymentConditionPoint.Delivery:
+                        return ShipmentUnit.DeliveryDateCalculated.AddDays(condition.DaysToPoint);
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+        }
+
         /// <summary>
         /// Полная перезагрузка плановых платежей
         /// </summary>
@@ -96,14 +116,7 @@ namespace HVTApp.Model.Wrappers
             PaymentsPlanned.Clear();
             foreach (var condition in PaymentConditionsToDone)
             {
-                var payment = new PaymentPlanned { Sum = Cost * condition.Part };
-
-                //дата платежа
-                if (condition.PaymentConditionPoint == PaymentConditionPoint.ProductionStart) payment.Date = ProductionUnit.StartProductionDateCalculated.AddDays(condition.DaysToPoint);
-                if (condition.PaymentConditionPoint == PaymentConditionPoint.ProductionEnd) payment.Date = ProductionUnit.EndProductionDateCalculated.AddDays(condition.DaysToPoint);
-                if (condition.PaymentConditionPoint == PaymentConditionPoint.Shipment) payment.Date = ShipmentUnit.ShipmentDateCalculated.AddDays(condition.DaysToPoint);
-                if (condition.PaymentConditionPoint == PaymentConditionPoint.Delivery) payment.Date = ShipmentUnit.DeliveryDateCalculated.AddDays(condition.DaysToPoint);
-
+                var payment = new PaymentPlanned {Sum = Cost*condition.Part, Date = GetPaymentDate(condition)};
                 var paymentWrapper = WrappersFactory.GetWrapper<PaymentPlannedWrapper>(payment);
                 PaymentsPlanned.Add(paymentWrapper);
             }
@@ -114,7 +127,6 @@ namespace HVTApp.Model.Wrappers
         /// </summary>
         public void ReloadPaymentsPlannedLight()
         {
-
         }
 
         #endregion
@@ -134,17 +146,12 @@ namespace HVTApp.Model.Wrappers
         /// <summary>
         /// Сумама, необходимая для начала производства
         /// </summary>
-        public double SumToStartProduction => PaymentsConditions.Where(x => x.PaymentConditionPoint == PaymentConditionPoint.ProductionStart && 
-                                                x.DaysToPoint <= 0).Sum(condition => Cost * condition.Part);
+        public double SumToStartProduction => PaymentsConditions.Where(x => x.PaymentConditionPoint == PaymentConditionPoint.ProductionStart && x.DaysToPoint <= 0).Sum(condition => Cost*condition.Part);
 
         /// <summary>
         /// Сумма, необходимая для отгрузки
         /// </summary>
-        public double SumToShipping => PaymentsConditions.Where(x =>
-                    (x.PaymentConditionPoint == PaymentConditionPoint.ProductionStart) ||
-                    (x.PaymentConditionPoint == PaymentConditionPoint.ProductionEnd) ||
-                    (x.PaymentConditionPoint == PaymentConditionPoint.Shipment && x.DaysToPoint <= 0))
-                    .Sum(condition => Cost * condition.Part);
+        public double SumToShipping => PaymentsConditions.Where(x => (x.PaymentConditionPoint == PaymentConditionPoint.ProductionStart) || (x.PaymentConditionPoint == PaymentConditionPoint.ProductionEnd) || (x.PaymentConditionPoint == PaymentConditionPoint.Shipment && x.DaysToPoint <= 0)).Sum(condition => Cost*condition.Part);
 
         #endregion
 
@@ -160,39 +167,31 @@ namespace HVTApp.Model.Wrappers
             }
         }
 
+        //дата достижения суммы
+        private DateTime? AchiveSumDate(double sumToAchive)
+        {
+            IEnumerable<IPayment> paymentsActual = PaymentsActual.Select(x => x.Model as IPayment);
+            IEnumerable<IPayment> paymentsPlanned = PaymentsPlanned.Select(x => x.Model as IPayment);
+            IEnumerable<IPayment> payments = paymentsActual.Concat(paymentsPlanned);
+
+            double sum = 0;
+            foreach (var payment in payments)
+            {
+                sum += payment.Sum;
+                if (sumToAchive <= sum) return payment.Date;
+            }
+            return null;
+        }
+
         /// <summary>
         /// Дата исполнения условий для запуска производства
         /// </summary>
-        public DateTime? StartProductionConditionsDoneDate
-        {
-            get
-            {
-                double sum = 0;
-                foreach (var payment in Payments)
-                {
-                    sum += payment.Sum;
-                    if (SumToStartProduction <= sum) return payment.Date;
-                }
-                return null;
-            }
-        }
+        public DateTime? StartProductionConditionsDoneDate => AchiveSumDate(SumToStartProduction);
 
         /// <summary>
         /// Дата исполнения условий для осуществления отгрузки
         /// </summary>
-        public DateTime? ShippingConditionsDoneDate
-        {
-            get
-            {
-                double sum = 0;
-                foreach (var payment in Payments)
-                {
-                    sum += payment.Sum;
-                    if (SumToShipping <= sum) return payment.Date;
-                }
-                return null;
-            }
-        }
+        public DateTime? ShippingConditionsDoneDate => AchiveSumDate(SumToShipping);
 
         /// <summary>
         /// Расчетная дата реализации.
@@ -208,9 +207,8 @@ namespace HVTApp.Model.Wrappers
 
         #endregion
 
-        #region MarginalIncomeSingle
+        #region MarginalIncome
 
-        private double _marginalIncomeInPercentSingle;
         private DateTime? _marginalIncomeDate;
 
         public DateTime? MarginalIncomeDate
@@ -228,67 +226,23 @@ namespace HVTApp.Model.Wrappers
         /// <summary>
         /// Маржинальный доход единицы
         /// </summary>
-        public double MarginalIncomeSingle => Cost - ProductionUnit.Product.GetTotalPrice(MarginalIncomeDate);
+        public double MarginalIncome => Cost - ProductionUnit.Product.GetTotalPrice(MarginalIncomeDate);
 
-        public double MarginalIncomeInPercentSingle
+        private double _marginalIncomeInPercent;
+
+        public double MarginalIncomeInPercent
         {
-            get { return _marginalIncomeInPercentSingle; }
+            get { return _marginalIncomeInPercent; }
             set
             {
-                if (value >= 100 || Math.Abs(_marginalIncomeInPercentSingle - value) < 0.00001)
-                    return;
+                //МД не должен быть 100% и более
+                if (value >= 100 || Math.Abs(_marginalIncomeInPercent - value) < 0.00001) return;
 
-                _marginalIncomeInPercentSingle = value;
-                OnPropertyChanged(this, nameof(MarginalIncomeInPercentSingle));
+                _marginalIncomeInPercent = value;
+                OnPropertyChanged(this, nameof(MarginalIncomeInPercent));
             }
         }
 
         #endregion
-
-        public void ReGeneratePlanPaymentsHard()
-        {
-            PaymentsPlanned.ToList().ForEach(x => Payments.Remove(x));
-            foreach (var condition in PaymentConditionsToDone)
-            {
-                var payment = new PaymentActual { Sum = new Cost { Sum = Cost.Sum * condition.Part } };
-
-                //дата платежа
-                if (condition.PaymentConditionPoint == PaymentConditionPoint.ProductionStart) payment.Date = StartProductionDateCalculated.AddDays(condition.DaysToPoint);
-                if (condition.PaymentConditionPoint == PaymentConditionPoint.ProductionEnd) payment.Date = EndProductionDateCalculated.AddDays(condition.DaysToPoint);
-                if (condition.PaymentConditionPoint == PaymentConditionPoint.Shipment) payment.Date = ShipmentUnit.ShipmentDateCalculated.AddDays(condition.DaysToPoint);
-                if (condition.PaymentConditionPoint == PaymentConditionPoint.Delivery) payment.Date = ShipmentUnit.DeliveryDateCalculated.AddDays(condition.DaysToPoint);
-
-                var paymentWrapper = WrappersFactory.GetWrapper<PaymentWrapper>(payment);
-                Payments.Add(paymentWrapper);
-            }
-        }
-
-        public void ReGeneratePlanPaymentsLight()
-        {
-            //если плановых платежей еще нет, либо был удален совершенный платеж.
-            if (!PaymentsPlanned.Any() || SumNotPaid.Sum > PaymentsPlanned.Sum(x => x.Cost.Sum))
-            {
-                ReloadPaymentsPlannedFull();
-                return;
-            }
-
-            var paymentsToRemove = new List<PaymentWrapper>(PaymentsPlanned);
-            var sumRest = SumNotPaid.Sum;
-            while (sumRest > 0 && paymentsToRemove.Any())
-            {
-                var payment = paymentsToRemove.Last();
-                if (sumRest < payment.Cost.Sum)
-                {
-                    payment.Cost.Sum = sumRest;
-                    paymentsToRemove.Remove(payment);
-                    break;
-                }
-                sumRest -= payment.Cost.Sum;
-                paymentsToRemove.Remove(payment);
-            }
-
-            foreach (var paymentWrapper in paymentsToRemove)
-                Payments.Remove(paymentWrapper);
-        }
     }
 }

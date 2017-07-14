@@ -17,10 +17,9 @@ namespace HVTApp.Model.Wrappers
                     //по дате спецификации
                     if (SalesUnit.Specification != null) return SalesUnit.Specification.Date;
                     //по дате реализации проекта
-                    return SalesUnit.Project.EstimatedDate.AddDays(-PlannedTerm_Production).GetTodayIfDateFromPastAndSkipWeekend();
-
+                    return SalesUnit.OfferUnit.ProjectUnit.RequiredDeliveryDate.AddDays(-PlannedTermFromStartToEndProduction).GetTodayIfDateFromPastAndSkipWeekend();
                 }
-                //по платежам
+                throw new NotImplementedException();
             }
         }
 
@@ -31,9 +30,9 @@ namespace HVTApp.Model.Wrappers
                 //по дате производства
                 if (EndProductionDate.HasValue) return EndProductionDate.Value;
                 //по дате комплектации
-                if (PickingDate.HasValue) return PickingDate.Value.AddDays(PlanedTerm_FromPickToEndProductionEndOriginalValue);
+                if (PickingDate.HasValue) return PickingDate.Value.AddDays(PlannedTermFromPickToEndProduction);
                 //по сроку производства
-                return StartProductionDateCalculated.AddDays(PlannedTerm_Production).GetTodayIfDateFromPastAndSkipWeekend();
+                return StartProductionDateCalculated.AddDays(PlannedTermFromStartToEndProduction).GetTodayIfDateFromPastAndSkipWeekend();
             }
         }
     }

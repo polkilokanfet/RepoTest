@@ -88,9 +88,9 @@
     <Compile Include="EntityTypeConfigurations\ProductItemConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\OrderConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\PaymentPlannedConfiguration.cs" />
-    <Compile Include="ProductionUnitConfiguration.cs" />
-    <Compile Include="SalesUnitConfiguration.cs" />
-    <Compile Include="ShipmentUnitConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\ProductionUnitConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\SalesUnitConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\ShipmentUnitConfiguration.cs" />
     <Compile Include="UnitOfWork\IRepositories.cs" />
     <Compile Include="UnitOfWork\IRepository.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />

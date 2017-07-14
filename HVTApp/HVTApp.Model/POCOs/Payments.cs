@@ -3,7 +3,12 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class PaymentPlanned : BaseEntity
+    public interface IPayment
+    {
+        DateTime Date { get; }
+        double Sum { get; }
+    }
+    public class PaymentPlanned : BaseEntity, IPayment
     {
         public virtual SalesUnit SalesUnit { get; set; }
         public DateTime Date { get; set; }

@@ -103,7 +103,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PaymentDocument> PaymentDocuments { get; set; }
         public virtual DbSet<PaymentActual> PaymentsActual { get; set; }
         public virtual DbSet<PaymentPlanned> PaymentsPlanned { get; set; }
-        public virtual DbSet<PaymentConditionStandart> StandartPaymentConditions { get; set; }
         public virtual DbSet<ParameterGroup> ParameterGroups { get; set; }
         public virtual DbSet<Parameter> Parameters { get; set; }
         public virtual DbSet<RequiredChildProductParameters> RequiredProductsChildses { get; set; }
