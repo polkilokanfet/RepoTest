@@ -27,28 +27,27 @@ namespace HVTApp.Model.Tests
             _fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList().ForEach(b => _fixture.Behaviors.Remove(b));
             //подключаем поведение - останавливаться на стандартной глубине рекурсии
             _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+            _fixture.Customize<ParameterGroup>(p => p.With(x => x.Parameters, new List<Parameter>()));
 
 
-            Parameter parameter1 = new Parameter { Id = 1, Value = "parameter1" };
-            Parameter parameter2 = new Parameter { Id = 2, Value = "parameter2" };
-            Parameter parameter3 = new Parameter { Id = 3, Value = "parameter3" };
-            Parameter parameter4 = new Parameter { Id = 4, Value = "parameter4" };
-            Parameter parameter5 = new Parameter { Id = 5, Value = "parameter5" };
-            Parameter parameter6 = new Parameter { Id = 6, Value = "parameter6" };
-            Parameter parameter7 = new Parameter { Id = 7, Value = "parameter7" };
+            Parameter parameter1 = new Parameter { Value = "parameter1" };
+            Parameter parameter2 = new Parameter { Value = "parameter2" };
+            Parameter parameter3 = new Parameter { Value = "parameter3" };
+            Parameter parameter4 = new Parameter { Value = "parameter4" };
+            Parameter parameter5 = new Parameter { Value = "parameter5" };
+            Parameter parameter6 = new Parameter { Value = "parameter6" };
+            Parameter parameter7 = new Parameter { Value = "parameter7" };
 
-            _productItem1 = new ProductItem { Id = 1, Designation = "ProductItem1", Parameters = new List<Parameter> { parameter1, parameter2 } };
-            _productItem2 = new ProductItem { Id = 2, Designation = "ProductItem2", Parameters = new List<Parameter> { parameter3, parameter4 } };
-            _productItem3 = new ProductItem { Id = 3, Designation = "ProductItem3", Parameters = new List<Parameter> { parameter5, parameter6 } };
-            _productItem4 = new ProductItem { Id = 4, Designation = "ProductItem4", Parameters = new List<Parameter> { parameter7 } };
-
-            var iii = _fixture.Create<ProductItem>();
+            _productItem1 = new ProductItem { Designation = "ProductItem1", Parameters = new List<Parameter> { parameter1, parameter2 } };
+            _productItem2 = new ProductItem { Designation = "ProductItem2", Parameters = new List<Parameter> { parameter3, parameter4 } };
+            _productItem3 = new ProductItem { Designation = "ProductItem3", Parameters = new List<Parameter> { parameter5, parameter6 } };
+            _productItem4 = new ProductItem { Designation = "ProductItem4", Parameters = new List<Parameter> { parameter7 } };
         }
 
         [TestMethod]
         public void ProductTotalPriceTest()
         {
-            var product = _fixture.Create<Product>();
+            var product = _fixture.Build<Product>().Create();
             var productParent = WrappersFactory.GetWrapper<ProductWrapper>(product);
             productParent.TotalPriceDate = productParent.ProductItem.Prices[1].Date;
 

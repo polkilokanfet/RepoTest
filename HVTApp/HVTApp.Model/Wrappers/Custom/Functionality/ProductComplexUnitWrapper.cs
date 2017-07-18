@@ -136,7 +136,7 @@ namespace HVTApp.Model.Wrappers
         /// <summary>
         /// Оплаченная сумма
         /// </summary>
-        public double SumPaid => PaymentsActual.Sum(x => x.Cost);
+        public double SumPaid => PaymentsActual.Sum(x => x.Sum);
 
         /// <summary>
         /// Неоплаченная сумма

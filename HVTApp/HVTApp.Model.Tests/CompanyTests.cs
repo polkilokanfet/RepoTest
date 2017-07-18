@@ -1,6 +1,13 @@
-﻿using HVTApp.Model.POCOs;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using AutoFixture.AutoEF;
+using HVTApp.DataAccess;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.Kernel;
 
 namespace HVTApp.Model.Tests
 {
@@ -25,6 +32,23 @@ namespace HVTApp.Model.Tests
 
             parent.ChildCompanies.Add(child1);
             Assert.AreEqual(parent, child1.ParentCompany);
+        }
+
+        [TestMethod]
+        public void ffff()
+        {
+            Fixture fixture = new Fixture();
+
+            fixture.Customize(new EntityCustomization(new DbContextEntityTypesProvider(typeof(HVTAppContext))));
+
+            //отключаем поведение - бросать ошибку при обнаружении циклической связи
+            fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList().ForEach(b => fixture.Behaviors.Remove(b));
+            //подключаем поведение - останавливаться на стандартной глубине рекурсии
+            fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+
+            fixture.Customize<ParameterGroup>(p => p.Without(x => x.Parameters));
+
+            var product = fixture.Build<ProductItem>().Create();
         }
     }
 }

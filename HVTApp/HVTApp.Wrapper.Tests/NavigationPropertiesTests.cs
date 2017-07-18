@@ -14,7 +14,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void NavigationCollectionPropertiesTest()
         {
-            TestFriendGroup group = new TestFriendGroup {Id = 1, Name = "group1", FriendTests = new List<TestFriend>()};
+            TestFriendGroup group = new TestFriendGroup {Name = "group1", FriendTests = new List<TestFriend>()};
             TestFriend testFriend = new TestFriend
             {
                 FirstName = "Thomas",
@@ -39,8 +39,8 @@ namespace HVTApp.Model.Tests.Wrapper
         [SuppressMessage("ReSharper", "HeuristicUnreachableCode")]
         public void NavigationPropertiesTest()
         {
-            TestHusband husband = new TestHusband { Id = 1 };
-            TestWife wife = new TestWife { Id = 2 };
+            TestHusband husband = new TestHusband();
+            TestWife wife = new TestWife();
 
             wife.Husband = husband;
             husband.Wife = wife;
@@ -56,7 +56,7 @@ namespace HVTApp.Model.Tests.Wrapper
             Assert.IsTrue(husbandWrapper.IsChanged);
             Assert.IsTrue(fired);
 
-            TestWife otherTestWife = new TestWife { Id = 22 };
+            TestWife otherTestWife = new TestWife();
             TestWifeWrapper otherTestWifeWrapper = WrappersFactory.GetWrapper<TestWifeWrapper>(otherTestWife);
             Assert.IsFalse(husbandWrapper.WifeIsChanged);
             husbandWrapper.Wife = otherTestWifeWrapper;
@@ -84,12 +84,12 @@ namespace HVTApp.Model.Tests.Wrapper
             //var husbandWrp = WrappersFactory.GetWrapper <TestHusband, TestHusbandWrapper>(husbandWrapper.Model);
 
             fired = false;
-            childWrapper.Id = 1;
+            childWrapper.Name += "new";
             Assert.IsTrue(fired);
 
             husbandWrapper.Children.Remove(childWrapper);
             fired = false;
-            childWrapper.Id++;
+            childWrapper.Name += "new2";
             Assert.IsFalse(fired);
         }
 
@@ -98,8 +98,8 @@ namespace HVTApp.Model.Tests.Wrapper
         {
             TestHusband husband = new TestHusband();
             TestWife wife1 = new TestWife();
-            TestChild child1 = new TestChild {Id = 1, Husband = husband, Wife = wife1};
-            TestChild child2 = new TestChild {Id = 2, Husband = husband, Wife = wife1};
+            TestChild child1 = new TestChild {Husband = husband, Wife = wife1};
+            TestChild child2 = new TestChild {Husband = husband, Wife = wife1};
 
             wife1.Husband = husband;
             husband.Wife = wife1;
@@ -142,7 +142,7 @@ namespace HVTApp.Model.Tests.Wrapper
         public void SimpleWrapperTest()
         {
             TestHusband husband = new TestHusband();
-            TestChild child1 = new TestChild { Id = 1, Husband = husband };
+            TestChild child1 = new TestChild { Husband = husband };
             //TestChild child2 = new TestChild { Id = 2, Husband = husband };
 
             husband.Children.Add(child1);
@@ -172,8 +172,8 @@ namespace HVTApp.Model.Tests.Wrapper
         {
             TestHusband husband = new TestHusband();
             TestWife wife = new TestWife();
-            TestChild child1 = new TestChild { Id = 1, Husband = husband, Wife = wife };
-            TestChild child2 = new TestChild { Id = 2, Husband = husband, Wife = wife };
+            TestChild child1 = new TestChild { Husband = husband, Wife = wife };
+            TestChild child2 = new TestChild { Husband = husband, Wife = wife };
 
             wife.Husband = husband;
             husband.Wife = wife;
@@ -209,8 +209,8 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void IsChangedNavigationProperty()
         {
-            TestHusband husband = new TestHusband { Id = 1 };
-            TestWife wife1 = new TestWife { Id = 2 };
+            TestHusband husband = new TestHusband();
+            TestWife wife1 = new TestWife();
 
             wife1.Husband = husband;
             husband.Wife = wife1;
@@ -219,7 +219,7 @@ namespace HVTApp.Model.Tests.Wrapper
             Assert.IsFalse(husbandWrapper.IsChanged);
 
             var wife1Wrapper = husbandWrapper.Wife;
-            husbandWrapper.Wife = WrappersFactory.GetWrapper<TestWifeWrapper>(new TestWife { Id = 3 });
+            husbandWrapper.Wife = WrappersFactory.GetWrapper<TestWifeWrapper>(new TestWife());
             Assert.IsTrue(husbandWrapper.IsChanged);
 
             husbandWrapper.Wife = wife1Wrapper;
@@ -229,8 +229,8 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void AcceptAndRejectChangesInObjectsWithNavigationProperty()
         {
-            TestHusband husband = new TestHusband { Id = 1 };
-            TestWife wife1 = new TestWife { Id = 2 };
+            TestHusband husband = new TestHusband();
+            TestWife wife1 = new TestWife();
 
             wife1.Husband = husband;
             husband.Wife = wife1;
@@ -238,13 +238,13 @@ namespace HVTApp.Model.Tests.Wrapper
             TestHusbandWrapper husbandWrapper = WrappersFactory.GetWrapper<TestHusbandWrapper>(husband);
             Assert.IsFalse(husbandWrapper.IsChanged);
 
-            husbandWrapper.Wife.Id++;
+            husbandWrapper.Wife.N++;
             Assert.IsTrue(husbandWrapper.IsChanged);
             husbandWrapper.AcceptChanges();
             Assert.IsFalse(husbandWrapper.IsChanged);
 
-            int oldId = husbandWrapper.Wife.Id;
-            husbandWrapper.Wife.Id++;
+            var oldId = husbandWrapper.Wife.Id;
+            husbandWrapper.Wife.Id = Guid.NewGuid();
             Assert.IsTrue(husbandWrapper.IsChanged);
             husbandWrapper.RejectChanges();
             Assert.IsFalse(husbandWrapper.IsChanged);

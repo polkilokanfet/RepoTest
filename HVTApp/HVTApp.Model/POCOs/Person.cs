@@ -9,7 +9,6 @@ namespace HVTApp.Model.POCOs
         public string Name { get; set; }
         public string Patronymic { get; set; }
         public bool IsMan { get; set; }
-        public Employee CurrentEmployee { get; set; } //сотрудник какой компании в настоящее время
-        public List<Employee> Employees { get; set; }
+        public virtual List<Employee> Employees { get; set; }
     }
 }

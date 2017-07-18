@@ -33,12 +33,12 @@ namespace HVTApp.Model.Wrappers
     public bool RegistrationDateIsChanged => GetIsChanged(nameof(RegistrationDate));
 
 
-    public System.Int32 Id
+    public System.Guid Id
     {
-      get { return GetValue<System.Int32>(); }
+      get { return GetValue<System.Guid>(); }
       set { SetValue(value); }
     }
-    public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
+    public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
 

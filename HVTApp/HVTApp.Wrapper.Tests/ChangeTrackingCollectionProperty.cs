@@ -18,7 +18,7 @@ namespace HVTApp.Model.Tests.Wrapper
             {
                 FirstName = "Thomas",
                 TestFriendAddress = new TestFriendAddress(),
-                TestFriendGroup = new TestFriendGroup() {Id = 1, FriendTests = new List<TestFriend>()},
+                TestFriendGroup = new TestFriendGroup {FriendTests = new List<TestFriend>()},
                 Emails = new List<TestFriendEmail>
                 {
                   new TestFriendEmail { Email="thomas@thomasclaudiushuber.com" },

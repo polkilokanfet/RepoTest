@@ -24,13 +24,13 @@ namespace HVTApp.Model.Wrappers
     public bool DateIsChanged => GetIsChanged(nameof(Date));
 
 
-    public System.Double Cost
+    public System.Double Sum
     {
       get { return GetValue<System.Double>(); }
       set { SetValue(value); }
     }
-    public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
-    public bool CostIsChanged => GetIsChanged(nameof(Cost));
+    public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
+    public bool SumIsChanged => GetIsChanged(nameof(Sum));
 
 
     public System.String Comment
@@ -42,12 +42,12 @@ namespace HVTApp.Model.Wrappers
     public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
 
-    public System.Int32 Id
+    public System.Guid Id
     {
-      get { return GetValue<System.Int32>(); }
+      get { return GetValue<System.Guid>(); }
       set { SetValue(value); }
     }
-    public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
+    public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
 

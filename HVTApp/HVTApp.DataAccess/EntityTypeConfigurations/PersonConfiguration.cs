@@ -9,7 +9,6 @@ namespace HVTApp.DataAccess
         {
             Property(x => x.Name).IsRequired().HasMaxLength(50);
             Property(x => x.Surname).IsRequired().HasMaxLength(50);
-            HasOptional(x => x.CurrentEmployee);
             HasMany(x => x.Employees).WithRequired(x => x.Person);
         }
     }

@@ -63,7 +63,7 @@ namespace HVTApp.DataAccess
 
             modelBuilder.Configurations.Add(new ParameterGroupConfiguration());
             modelBuilder.Configurations.Add(new ParameterConfiguration());
-            modelBuilder.Configurations.Add(new RequiredParametersConfiguration());
+            modelBuilder.Configurations.Add(new RequiredPreviousParametersConfiguration());
 
             modelBuilder.Configurations.Add(new MeasureConfiguration());
 

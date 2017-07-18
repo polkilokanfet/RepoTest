@@ -15,6 +15,15 @@ namespace HVTApp.Model.Wrappers
 
     #region SimpleProperties
 
+    public System.Boolean IsActual
+    {
+      get { return GetValue<System.Boolean>(); }
+      set { SetValue(value); }
+    }
+    public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
+    public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
+
+
     public System.String PhoneNumber
     {
       get { return GetValue<System.String>(); }
@@ -33,12 +42,12 @@ namespace HVTApp.Model.Wrappers
     public bool EmailIsChanged => GetIsChanged(nameof(Email));
 
 
-    public System.Int32 Id
+    public System.Guid Id
     {
-      get { return GetValue<System.Int32>(); }
+      get { return GetValue<System.Guid>(); }
       set { SetValue(value); }
     }
-    public System.Int32 IdOriginalValue => GetOriginalValue<System.Int32>(nameof(Id));
+    public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
 

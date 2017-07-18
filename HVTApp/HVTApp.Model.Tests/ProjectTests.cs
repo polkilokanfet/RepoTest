@@ -17,18 +17,18 @@ namespace HVTApp.Model.Tests
         [TestInitialize]
         public void Init()
         {
-            _parameter1 = new Parameter { Id = 1, Value = "parameter1" };
-            _parameter2 = new Parameter { Id = 2, Value = "parameter2" };
-            _parameter3 = new Parameter { Id = 3, Value = "parameter3" };
-            _parameter4 = new Parameter { Id = 4, Value = "parameter4" };
-            _parameter5 = new Parameter { Id = 5, Value = "parameter5" };
-            _parameter6 = new Parameter { Id = 6, Value = "parameter6" };
-            _parameter7 = new Parameter { Id = 7, Value = "parameter7" };
+            _parameter1 = new Parameter { Value = "parameter1" };
+            _parameter2 = new Parameter { Value = "parameter2" };
+            _parameter3 = new Parameter { Value = "parameter3" };
+            _parameter4 = new Parameter { Value = "parameter4" };
+            _parameter5 = new Parameter { Value = "parameter5" };
+            _parameter6 = new Parameter { Value = "parameter6" };
+            _parameter7 = new Parameter { Value = "parameter7" };
 
-            _productItem1 = new ProductItem { Id = 1, Designation = "ProductItem1", Parameters = new List<Parameter> { _parameter1, _parameter2 } };
-            _productItem2 = new ProductItem { Id = 2, Designation = "ProductItem2", Parameters = new List<Parameter> { _parameter3, _parameter4 } };
-            _productItem3 = new ProductItem { Id = 3, Designation = "ProductItem3", Parameters = new List<Parameter> { _parameter5, _parameter6 } };
-            _productItem4 = new ProductItem { Id = 4, Designation = "ProductItem3", Parameters = new List<Parameter> { _parameter7 } };
+            _productItem1 = new ProductItem { Designation = "ProductItem1", Parameters = new List<Parameter> { _parameter1, _parameter2 } };
+            _productItem2 = new ProductItem { Designation = "ProductItem2", Parameters = new List<Parameter> { _parameter3, _parameter4 } };
+            _productItem3 = new ProductItem { Designation = "ProductItem3", Parameters = new List<Parameter> { _parameter5, _parameter6 } };
+            _productItem4 = new ProductItem { Designation = "ProductItem3", Parameters = new List<Parameter> { _parameter7 } };
 
             _product1 = new Product { ProductItem = _productItem1 };
             _product2 = new Product { ProductItem = _productItem2 };

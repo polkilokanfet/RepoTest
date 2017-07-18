@@ -8,9 +8,9 @@ namespace HVTApp.DataAccess
         public DocumentConfiguration()
         {
             HasOptional(x => x.RequestDocument).WithOptionalDependent();
-            HasOptional(x => x.Author).WithMany();
-            HasRequired(x => x.SenderEmployee).WithMany();
-            HasRequired(x => x.RecipientEmployee).WithMany();
+            HasOptional(x => x.Author).WithMany().WillCascadeOnDelete(false);
+            HasRequired(x => x.SenderEmployee).WithMany().WillCascadeOnDelete(false);
+            HasRequired(x => x.RecipientEmployee).WithMany().WillCascadeOnDelete(false);
             HasMany(x => x.CopyToRecipients).WithMany();
             HasOptional(x => x.RegistrationDetailsOfSender).WithRequired();
             HasOptional(x => x.RegistrationDetailsOfRecipient).WithRequired();

@@ -1,41 +1,25 @@
+using System;
+
 namespace HVTApp.Infrastructure
 {
     public abstract class BaseEntity : IBaseEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
-        //public override bool Equals(object obj)
-        //{
-        //    if (obj == null)
-        //        return false;
-
-        //    //должны совпадать типы сравниваемых сущностей.
-        //    if (this.GetType() != obj.GetType())
-        //        return false;
-
-        //    BaseEntity otherEntity = obj as BaseEntity;
-        //    if (otherEntity == null)
-        //        return false;
-
-        //    if (this.Id > 0 && otherEntity.Id > 0)
-        //        return this.Id == otherEntity.Id;
-
-        //    return EqualsProperties(obj);
-        //}
-
-        /// <summary>
-        /// ¬се свойства совпадают.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public virtual bool EqualsProperties(object obj)
+        protected BaseEntity()
         {
-            return base.Equals(obj);
+            Id = Guid.NewGuid();
+        }
+
+        public override bool Equals(object obj)
+        {
+            BaseEntity other = obj as BaseEntity;
+            return other != null && this.Id.Equals(other.Id);
         }
     }
 
     public interface IBaseEntity
     {
-        int Id { get; set; }
+        Guid Id { get; set; }
     }
 }
