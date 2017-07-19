@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class ParameterGroupWrapper : WrapperBase<ParameterGroup>
   {
-    private ParameterGroupWrapper() : base(new ParameterGroup()) { }
-    private ParameterGroupWrapper(ParameterGroup model) : base(model) { }
+    private ParameterGroupWrapper(IGetWrapper getWrapper) : base(new ParameterGroup(), getWrapper) { }
+    private ParameterGroupWrapper(ParameterGroup model, IGetWrapper getWrapper) : base(model, getWrapper) { }
 
 
 

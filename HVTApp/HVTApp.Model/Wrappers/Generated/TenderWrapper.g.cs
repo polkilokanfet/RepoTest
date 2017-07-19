@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class TenderWrapper : WrapperBase<Tender>
   {
-    private TenderWrapper() : base(new Tender()) { }
-    private TenderWrapper(Tender model) : base(model) { }
+    private TenderWrapper(IGetWrapper getWrapper) : base(new Tender(), getWrapper) { }
+    private TenderWrapper(Tender model, IGetWrapper getWrapper) : base(model, getWrapper) { }
 
 
 

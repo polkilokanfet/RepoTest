@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class ContractWrapper : WrapperBase<Contract>
   {
-    private ContractWrapper() : base(new Contract()) { }
-    private ContractWrapper(Contract model) : base(model) { }
+    private ContractWrapper(IGetWrapper getWrapper) : base(new Contract(), getWrapper) { }
+    private ContractWrapper(Contract model, IGetWrapper getWrapper) : base(model, getWrapper) { }
 
 
 

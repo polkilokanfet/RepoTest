@@ -19,7 +19,7 @@ namespace HVTApp.DataAccess.Tests
 
 
             TestFriendGroup testFriendGroup = new TestFriendGroup { Name = "Тестовая группа" };
-            var testFriendGroupWrapper = unitOfWork.FriendGroups.GetWrapper(testFriendGroup);
+            var testFriendGroupWrapper = unitOfWork.GetWrapper<TestFriendGroupWrapper>(testFriendGroup);
             unitOfWork.FriendGroups.Add(testFriendGroupWrapper);
             unitOfWork.Complete();
 

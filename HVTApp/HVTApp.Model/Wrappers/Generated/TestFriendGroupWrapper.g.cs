@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class TestFriendGroupWrapper : WrapperBase<TestFriendGroup>
   {
-    private TestFriendGroupWrapper() : base(new TestFriendGroup()) { }
-    private TestFriendGroupWrapper(TestFriendGroup model) : base(model) { }
+    private TestFriendGroupWrapper(IGetWrapper getWrapper) : base(new TestFriendGroup(), getWrapper) { }
+    private TestFriendGroupWrapper(TestFriendGroup model, IGetWrapper getWrapper) : base(model, getWrapper) { }
 
 
 

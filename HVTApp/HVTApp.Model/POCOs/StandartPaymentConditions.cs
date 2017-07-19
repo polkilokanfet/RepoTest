@@ -3,7 +3,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class PaymentConditionStandart : BaseEntity
+    public class StandartPaymentConditions : BaseEntity
     {
         public string Name { get; set; }
         public List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();

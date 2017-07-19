@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class TestChildWrapper : WrapperBase<TestChild>
   {
-    private TestChildWrapper() : base(new TestChild()) { }
-    private TestChildWrapper(TestChild model) : base(model) { }
+    private TestChildWrapper(IGetWrapper getWrapper) : base(new TestChild(), getWrapper) { }
+    private TestChildWrapper(TestChild model, IGetWrapper getWrapper) : base(model, getWrapper) { }
 
 
 

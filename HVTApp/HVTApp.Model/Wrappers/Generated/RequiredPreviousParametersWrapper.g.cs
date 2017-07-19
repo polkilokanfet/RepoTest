@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class RequiredPreviousParametersWrapper : WrapperBase<RequiredPreviousParameters>
   {
-    private RequiredPreviousParametersWrapper() : base(new RequiredPreviousParameters()) { }
-    private RequiredPreviousParametersWrapper(RequiredPreviousParameters model) : base(model) { }
+    private RequiredPreviousParametersWrapper(IGetWrapper getWrapper) : base(new RequiredPreviousParameters(), getWrapper) { }
+    private RequiredPreviousParametersWrapper(RequiredPreviousParameters model, IGetWrapper getWrapper) : base(model, getWrapper) { }
 
 
 

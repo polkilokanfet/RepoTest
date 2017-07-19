@@ -27,6 +27,7 @@ namespace HVTApp.Model.Tests
             _fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList().ForEach(b => _fixture.Behaviors.Remove(b));
             //подключаем поведение - останавливаться на стандартной глубине рекурсии
             _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+
             _fixture.Customize<ParameterGroup>(p => p.With(x => x.Parameters, new List<Parameter>()));
 
 

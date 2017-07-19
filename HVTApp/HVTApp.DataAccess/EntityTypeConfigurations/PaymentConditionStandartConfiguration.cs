@@ -3,7 +3,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
-    public class PaymentConditionStandartConfiguration : EntityTypeConfiguration<PaymentConditionStandart>
+    public class PaymentConditionStandartConfiguration : EntityTypeConfiguration<StandartPaymentConditions>
     {
         public PaymentConditionStandartConfiguration()
         {

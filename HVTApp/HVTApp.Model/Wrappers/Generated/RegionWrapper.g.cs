@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class RegionWrapper : WrapperBase<Region>
   {
-    private RegionWrapper() : base(new Region()) { }
-    private RegionWrapper(Region model) : base(model) { }
+    private RegionWrapper(IGetWrapper getWrapper) : base(new Region(), getWrapper) { }
+    private RegionWrapper(Region model, IGetWrapper getWrapper) : base(model, getWrapper) { }
 
 
 

@@ -8,7 +8,7 @@ namespace HVTApp.DataAccess
 {
     public class FacilitiesRepository : BaseRepository<Facility, FacilityWrapper>, IFacilitiesRepository
     {
-        public FacilitiesRepository(DbContext context) : base(context)
+        public FacilitiesRepository(DbContext context, IGetWrapper getWrapper) : base(context, getWrapper)
         {
         }
     }

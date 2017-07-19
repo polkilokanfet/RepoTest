@@ -58,7 +58,7 @@
     <Compile Include="POCOs\Measure.cs" />
     <Compile Include="POCOs\Parameter.cs" />
     <Compile Include="POCOs\ParameterGroup.cs" />
-    <Compile Include="POCOs\PaymentConditionStandart.cs" />
+    <Compile Include="POCOs\StandartPaymentConditions.cs" />
     <Compile Include="POCOs\Person.cs" />
     <Compile Include="POCOs\Payments.cs" />
     <Compile Include="POCOs\RequiredPreviousParameters.cs" />
@@ -116,7 +116,7 @@
     <Compile Include="Wrappers\Custom\Validate\CompanyWrapper.cs" />
     <Compile Include="Wrappers\Custom\Validate\ContractWrapper.cs" />
     <Compile Include="Wrappers\Custom\Validate\FacilityWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Validate\PaymentConditionStandartWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Validate\StandartPaymentConditionsWrapper.cs" />
     <Compile Include="Wrappers\Custom\Validate\SpecificationWrapper.cs" />
     <Compile Include="Wrappers\Generated\ActivityFieldWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\AddressWrapper.g.cs" />
@@ -145,7 +145,7 @@
     <Compile Include="Wrappers\Generated\ParameterGroupWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ParameterWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\PaymentActualWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\PaymentConditionStandartWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\StandartPaymentConditionsWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\PaymentConditionWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\PaymentDocumentWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\PaymentPlannedWrapper.g.cs" />

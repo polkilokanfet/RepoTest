@@ -9,32 +9,31 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-    public abstract class WrapperBase<T> : NotifyDataErrorInfoBase, IWrapper<T>
-        where T : class, IBaseEntity
+    public abstract class WrapperBase<TModel> : NotifyDataErrorInfoBase, IWrapper<TModel>
+        where TModel : class, IBaseEntity
     {
-        /// <summary>
-        /// Словарь оригинальных значений. В словарь вносятся только те оригинальные значения, которые были изменены.
-        /// </summary>
+        private readonly IGetWrapper _getWrapper;
+
+        // Словарь оригинальных значений. В словарь вносятся только те оригинальные значения, которые были изменены.
         private readonly Dictionary<string, object> _originalValues = new Dictionary<string, object>();
 
-        /// <summary>
-        /// Список объектов в которых отслеживаются изменения (свойства объекта не примитивного типа и коллекции).
-        /// </summary>
+        // Список объектов в которых отслеживаются изменения (свойства объекта не примитивного типа и коллекции).
         private readonly List<IValidatableChangeTracking> _trackingObjects = new List<IValidatableChangeTracking>();
 
-        /// <summary>
-        /// Объект, обертка которого создана в этом классе.
-        /// </summary>
-        public T Model { get; }
+        // Объект, обертка которого создана в этом классе.
+        public TModel Model { get; }
 
-        protected WrapperBase(T model)
+        protected WrapperBase(TModel model, IGetWrapper getWrapper)
         {
+            _getWrapper = getWrapper;
             if (model == null) throw new ArgumentNullException(nameof(Model));
 
             Model = model;
 
             //if (!WrappersFactory.Wrappers.ContainsKey(model))
-                WrappersFactory.Wrappers.Add(model, this);
+                //WrappersFactory.Wrappers.Add(model, this);
+
+            _getWrapper.AddWrapperInDictionary(this);
 
             InitializeComplexProperties();
             InitializeCollectionSimpleProperties();
@@ -314,19 +313,19 @@ namespace HVTApp.Model.Wrappers
         /// Регистрация коллекции.
         /// </summary>
         /// <typeparam name="TWrapper"></typeparam>
-        /// <typeparam name="TModel"></typeparam>
+        /// <typeparam name="TModelC"></typeparam>
         /// <param name="wrapperCollection">коллекция обертки.</param>
         /// <param name="modelCollection">коллекция модели.</param>
-        protected void RegisterCollection<TWrapper, TModel>(IValidatableChangeTrackingCollection<TWrapper> wrapperCollection, ICollection<TModel> modelCollection)
-            where TWrapper : class, IWrapper<TModel>
-            where TModel : BaseEntity
+        protected void RegisterCollection<TWrapper, TModelC>(IValidatableChangeTrackingCollection<TWrapper> wrapperCollection, ICollection<TModelC> modelCollection)
+            where TWrapper : class, IWrapper<TModelC>
+            where TModelC : class, IBaseEntity
         {
             //синхронизируем коллекцию модели с коллекцией обертки.
             wrapperCollection.CollectionChanged += (s, e) =>
             {
                 modelCollection.Clear();
 
-                foreach (TModel modelItem in wrapperCollection.Select(x => x.Model))
+                foreach (TModelC modelItem in wrapperCollection.Select(x => x.Model))
                     modelCollection.Add(modelItem);
 
                 Validate();
@@ -358,20 +357,18 @@ namespace HVTApp.Model.Wrappers
             return Model.ToString();
         }
 
-        protected TWrapper GetComplexProperty<TWrapper, TModel>(TModel model)
-            where TWrapper : class, IWrapper<TModel>
-            where TModel : class, IBaseEntity
+        protected TWrapper GetComplexProperty<TWrapper, TModelP>(TModelP model)
+            where TWrapper : class, IWrapper<TModelP>
+            where TModelP : class, IBaseEntity
         {
-            if (model == null) return null;
-
-            return GetWrapper<TWrapper, TModel>(model);
+            return model == null ? null : GetWrapper<TWrapper, TModelP>(model);
         }
 
         public event Action<ComplexPropertyChangedEventArgs> ComplexPropertyChanged; 
 
-        protected void SetComplexProperty<TWrapper, TModel>(TWrapper oldValue, TWrapper newValue, [CallerMemberName] string propertyName = null)
-            where TWrapper : class, IWrapper<TModel>
-            where TModel : class, IBaseEntity
+        protected void SetComplexProperty<TWrapper, TModelP>(TWrapper oldValue, TWrapper newValue, [CallerMemberName] string propertyName = null)
+            where TWrapper : class, IWrapper<TModelP>
+            where TModelP : class, IBaseEntity
         {
             if (Equals(oldValue, newValue) && _trackingObjects.Contains(oldValue)) return;
 
@@ -381,17 +378,16 @@ namespace HVTApp.Model.Wrappers
             if (!Equals(oldValue, newValue)) OnComplexPropertyChanged(new ComplexPropertyChangedEventArgs(oldValue, newValue, propertyName));
 
             //обновление оригинального значения комплексного свойства
-            if (Equals(newValue?.Model, GetOriginalValue<TModel>(propertyName)))
+            if (Equals(newValue?.Model, GetOriginalValue<TModelP>(propertyName)))
                 this.GetType().GetProperty(propertyName + "OriginalValue").SetValue(this, newValue);
         }
 
-        protected TWrapper GetWrapper<TWrapper, TModel>(TModel model)
-            where TModel : class, IBaseEntity
-            where TWrapper : class, IWrapper<TModel>
+        protected TWrapper GetWrapper<TWrapper, TModelW>(TModelW model)
+            where TModelW : class, IBaseEntity
+            where TWrapper : class, IWrapper<TModelW>
         {
-            if (model == null) return null;
-
-            return WrappersFactory.GetWrapper<TWrapper>(model);
+            //return model == null ? null : WrappersFactory.GetWrapper<TWrapper>(model);
+            return model == null ? null : _getWrapper.GetWrapper<TWrapper>(model);
         }
 
         protected virtual void OnComplexPropertyChanged(ComplexPropertyChangedEventArgs obj)

@@ -9,7 +9,8 @@ namespace HVTApp.DataAccess
 {
     public class ActivityFieldsRepository : BaseRepository<ActivityField, ActivityFieldWrapper>, IActivityFieldsRepository
     {
-        public ActivityFieldsRepository(DbContext context) : base(context)
+        //public ActivityFieldsRepository(DbContext context, IGetWrapper getWrapper) : base(context, getWrapper)
+        public ActivityFieldsRepository(DbContext context, IGetWrapper getWrapper) : base(context, getWrapper)
         {
         }
     }

@@ -9,7 +9,7 @@ namespace HVTApp.DataAccess
 {
     public class ParametersRepository : BaseRepository<Parameter, ParameterWrapper>, IParametersRepository
     {
-        public ParametersRepository(DbContext context) : base(context)
+        public ParametersRepository(DbContext context, IGetWrapper getWrapper) : base(context, getWrapper)
         {
         }
     }

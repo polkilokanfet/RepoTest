@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class CostWrapper : WrapperBase<Cost>
   {
-    private CostWrapper() : base(new Cost()) { }
-    private CostWrapper(Cost model) : base(model) { }
+    private CostWrapper(IGetWrapper getWrapper) : base(new Cost(), getWrapper) { }
+    private CostWrapper(Cost model, IGetWrapper getWrapper) : base(model, getWrapper) { }
 
 
 

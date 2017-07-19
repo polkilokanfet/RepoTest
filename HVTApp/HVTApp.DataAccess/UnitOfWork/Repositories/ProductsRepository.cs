@@ -8,14 +8,14 @@ namespace HVTApp.DataAccess
 {
     public class ProductsRepository : BaseRepository<Product, ProductWrapper>, IProductsRepository
     {
-        public ProductsRepository(DbContext context) : base(context)
+        public ProductsRepository(DbContext context, IGetWrapper getWrapper) : base(context, getWrapper)
         {
         }
     }
 
     public class RequiredChildProductParametersRepository : BaseRepository<RequiredChildProductParameters, RequiredChildProductParametersWrapper>, IRequiredChildProductParametersRepository
     {
-        public RequiredChildProductParametersRepository(DbContext context) : base(context)
+        public RequiredChildProductParametersRepository(DbContext context, IGetWrapper getWrapper) : base(context, getWrapper)
         {
         }
     }

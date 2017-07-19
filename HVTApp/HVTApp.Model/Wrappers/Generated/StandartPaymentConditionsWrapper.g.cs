@@ -6,10 +6,10 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-  public partial class PaymentConditionStandartWrapper : WrapperBase<PaymentConditionStandart>
+  public partial class StandartPaymentConditionsWrapper : WrapperBase<StandartPaymentConditions>
   {
-    private PaymentConditionStandartWrapper() : base(new PaymentConditionStandart()) { }
-    private PaymentConditionStandartWrapper(PaymentConditionStandart model) : base(model) { }
+    private StandartPaymentConditionsWrapper(IGetWrapper getWrapper) : base(new StandartPaymentConditions(), getWrapper) { }
+    private StandartPaymentConditionsWrapper(StandartPaymentConditions model, IGetWrapper getWrapper) : base(model, getWrapper) { }
 
 
 

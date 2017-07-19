@@ -7,7 +7,7 @@ using HVTApp.Model.Wrappers;
 namespace HVTApp.DataAccess
 {
     public class ParametersGroupsRepository : BaseRepository<ParameterGroup, ParameterGroupWrapper>, IParametersGroupsRepository {
-        public ParametersGroupsRepository(DbContext context) : base(context)
+        public ParametersGroupsRepository(DbContext context, IGetWrapper getWrapper) : base(context, getWrapper)
         {
         }
     }

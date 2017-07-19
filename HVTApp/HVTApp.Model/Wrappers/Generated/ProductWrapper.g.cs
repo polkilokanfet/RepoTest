@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class ProductWrapper : WrapperBase<Product>
   {
-    private ProductWrapper() : base(new Product()) { }
-    private ProductWrapper(Product model) : base(model) { }
+    private ProductWrapper(IGetWrapper getWrapper) : base(new Product(), getWrapper) { }
+    private ProductWrapper(Product model, IGetWrapper getWrapper) : base(model, getWrapper) { }
 
 
 

@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class DocumentsRegistrationDetailsWrapper : WrapperBase<DocumentsRegistrationDetails>
   {
-    private DocumentsRegistrationDetailsWrapper() : base(new DocumentsRegistrationDetails()) { }
-    private DocumentsRegistrationDetailsWrapper(DocumentsRegistrationDetails model) : base(model) { }
+    private DocumentsRegistrationDetailsWrapper(IGetWrapper getWrapper) : base(new DocumentsRegistrationDetails(), getWrapper) { }
+    private DocumentsRegistrationDetailsWrapper(DocumentsRegistrationDetails model, IGetWrapper getWrapper) : base(model, getWrapper) { }
 
 
 

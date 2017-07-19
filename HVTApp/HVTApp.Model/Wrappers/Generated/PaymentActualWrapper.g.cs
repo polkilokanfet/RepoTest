@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class PaymentActualWrapper : WrapperBase<PaymentActual>
   {
-    private PaymentActualWrapper() : base(new PaymentActual()) { }
-    private PaymentActualWrapper(PaymentActual model) : base(model) { }
+    private PaymentActualWrapper(IGetWrapper getWrapper) : base(new PaymentActual(), getWrapper) { }
+    private PaymentActualWrapper(PaymentActual model, IGetWrapper getWrapper) : base(model, getWrapper) { }
 
 
 

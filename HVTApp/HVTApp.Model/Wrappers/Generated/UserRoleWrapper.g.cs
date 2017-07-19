@@ -8,8 +8,8 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class UserRoleWrapper : WrapperBase<UserRole>
   {
-    private UserRoleWrapper() : base(new UserRole()) { }
-    private UserRoleWrapper(UserRole model) : base(model) { }
+    private UserRoleWrapper(IGetWrapper getWrapper) : base(new UserRole(), getWrapper) { }
+    private UserRoleWrapper(UserRole model, IGetWrapper getWrapper) : base(model, getWrapper) { }
 
 
 

@@ -11,8 +11,9 @@ namespace HVTApp.DataAccess
         List<TWrapper> GetAll();
         IEnumerable<TWrapper> Find(Func<TWrapper, bool> predicate);
 
-        TWrapper GetWrapper();
-        TWrapper GetWrapper(TModel model);
+        //TWrapper GetWrapper();
+        //TWrapper GetWrapper(TModel model);
+
         void Add(TWrapper entity);
         void AddRange(IEnumerable<TWrapper> entities);
 

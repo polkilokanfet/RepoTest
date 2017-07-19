@@ -99,7 +99,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<ActivityField> ActivityFilds { get; set; }
         public virtual DbSet<CompanyForm> CompanyForms { get; set; }
         public virtual DbSet<PaymentCondition> PaymentConditions { get; set; }
-        public virtual DbSet<PaymentConditionStandart> PaymentConditionStandarts { get; set; }
+        public virtual DbSet<StandartPaymentConditions> PaymentConditionStandarts { get; set; }
         public virtual DbSet<PaymentDocument> PaymentDocuments { get; set; }
         public virtual DbSet<PaymentActual> PaymentsActual { get; set; }
         public virtual DbSet<PaymentPlanned> PaymentsPlanned { get; set; }
