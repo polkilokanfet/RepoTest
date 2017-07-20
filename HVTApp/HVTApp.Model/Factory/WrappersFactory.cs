@@ -5,30 +5,35 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model
 {
-    public static class WrappersFactory
+    public class WrappersFactory : IGetWrapper
     {
-        internal static readonly Dictionary<IBaseEntity, IWrapper<IBaseEntity>> Wrappers = new Dictionary<IBaseEntity, IWrapper<IBaseEntity>>();
-         
-        public static TWrapper GetWrapper<TWrapper>(IBaseEntity model)
-            where TWrapper: class, IWrapper<IBaseEntity>
-        {
-            if (!Wrappers.ContainsKey(model))
-                Activator.CreateInstance(typeof (TWrapper), BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { model }, null, null);
+        readonly Dictionary<IBaseEntity, IWrapper<IBaseEntity>> _wrappers = new Dictionary<IBaseEntity, IWrapper<IBaseEntity>>();
 
-            return (TWrapper) Wrappers[model];
+        public void AddWrapperInDictionary(IWrapper<IBaseEntity> wrapper)
+        {
+            _wrappers.Add(wrapper.Model, wrapper);
         }
 
-        public static TWrapper GetWrapper<TWrapper>()
+        public TWrapper GetWrapper<TWrapper>(IBaseEntity model)
+            where TWrapper: class, IWrapper<IBaseEntity>
+        {
+            if (!_wrappers.ContainsKey(model))
+                Activator.CreateInstance(typeof (TWrapper), BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { model, this }, null, null);
+
+            return (TWrapper) _wrappers[model];
+        }
+
+        public TWrapper GetWrapper<TWrapper>()
             where TWrapper : class, IWrapper<IBaseEntity>
         {
-            return (TWrapper)Activator.CreateInstance(typeof(TWrapper), BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { }, null, null);
+            return (TWrapper)Activator.CreateInstance(typeof(TWrapper), BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { this }, null, null);
             //return GetWrapper<TWrapper>(Activator.CreateInstance<TModel>());
         }
 
 
-        public static void RemoveWrapper(IBaseEntity model)
+        public void RemoveWrapper(IBaseEntity model)
         {
-            Wrappers.Remove(model);
+            _wrappers.Remove(model);
         }
     }
 }

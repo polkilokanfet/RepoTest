@@ -48,17 +48,19 @@ namespace HVTApp.Model.Tests
         [TestMethod]
         public void ProductTotalPriceTest()
         {
+            var wrappersFactory = new WrappersFactory();
+
             var product = _fixture.Build<Product>().Create();
-            var productParent = WrappersFactory.GetWrapper<ProductWrapper>(product);
+            var productParent = wrappersFactory.GetWrapper<ProductWrapper>(product);
             productParent.TotalPriceDate = productParent.ProductItem.Prices[1].Date;
 
             Assert.IsTrue(Math.Abs(productParent.TotalPrice - productParent.ProductItem.Prices[1].Cost.Sum) < 0.0001);
 
-            var productChild1 = WrappersFactory.GetWrapper<ProductWrapper>(_fixture.Create<Product>());
+            var productChild1 = wrappersFactory.GetWrapper<ProductWrapper>(_fixture.Create<Product>());
             productChild1.ProductItem.Prices[1].Date = productParent.ProductItem.Prices[1].Date;
             productParent.ChildProducts.Add(productChild1);
 
-            var productChild2 = WrappersFactory.GetWrapper<ProductWrapper>(_fixture.Create<Product>());
+            var productChild2 = wrappersFactory.GetWrapper<ProductWrapper>(_fixture.Create<Product>());
             productChild2.ProductItem.Prices[1].Date = productParent.ProductItem.Prices[1].Date;
             productParent.ChildProducts.Add(productChild2);
 
@@ -68,7 +70,7 @@ namespace HVTApp.Model.Tests
                             productChild2.ProductItem.Prices[1].Cost.Sum;
             Assert.IsTrue(Math.Abs(productParent.TotalPrice - totalSum) < 0.0001);
 
-            var productChild3 = WrappersFactory.GetWrapper<ProductWrapper>(_fixture.Create<Product>());
+            var productChild3 = wrappersFactory.GetWrapper<ProductWrapper>(_fixture.Create<Product>());
             productChild3.ProductItem.Prices[1].Date = productParent.ProductItem.Prices[1].Date;
             productParent.ChildProducts.Add(productChild3);
 
@@ -79,8 +81,10 @@ namespace HVTApp.Model.Tests
         [TestMethod]
         public void ProductItemsSameParametersTest()
         {
-            ProductItemWrapper productItemWrapper1 = WrappersFactory.GetWrapper<ProductItemWrapper> (_productItem1);
-            ProductItemWrapper productItemWrapper2 = WrappersFactory.GetWrapper<ProductItemWrapper> (_productItem2);
+            var wrappersFactory = new WrappersFactory();
+
+            ProductItemWrapper productItemWrapper1 = wrappersFactory.GetWrapper<ProductItemWrapper> (_productItem1);
+            ProductItemWrapper productItemWrapper2 = wrappersFactory.GetWrapper<ProductItemWrapper> (_productItem2);
 
             Assert.IsFalse(productItemWrapper1.HasSameParameters(productItemWrapper2));
 

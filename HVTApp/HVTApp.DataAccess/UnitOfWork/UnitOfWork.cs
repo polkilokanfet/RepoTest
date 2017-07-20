@@ -9,7 +9,7 @@ using HVTApp.Model.Wrappers;
 namespace HVTApp.DataAccess
 {
 
-    public class UnitOfWork : IUnitOfWork, IGetWrapper
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly DbContext _context;
 

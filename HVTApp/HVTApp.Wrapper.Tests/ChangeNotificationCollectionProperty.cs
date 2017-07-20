@@ -32,7 +32,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldInitializeEmailsProperty()
         {
-            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new WrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
             Assert.IsNotNull(wrapper.Emails);
             CheckIfModelEmailsCollectionIsInSync(wrapper);
         }
@@ -40,7 +40,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldBeInSyncAfterRemovingEmail()
         {
-            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new WrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
             var emailToRemove = wrapper.Emails.Single(ew => Equals(ew.Model, _testFriendEmail));
             wrapper.Emails.Remove(emailToRemove);
             CheckIfModelEmailsCollectionIsInSync(wrapper);
@@ -49,16 +49,18 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldBeInSyncAfterAddingEmail()
         {
+            var wrappersFactory = new WrappersFactory();
+
             _testFriend.Emails.Remove(_testFriendEmail);
-            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
-            wrapper.Emails.Add(WrappersFactory.GetWrapper<TestFriendEmailWrapper>(_testFriendEmail));
+            var wrapper = wrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
+            wrapper.Emails.Add(wrappersFactory.GetWrapper<TestFriendEmailWrapper>(_testFriendEmail));
             CheckIfModelEmailsCollectionIsInSync(wrapper);
         }
 
         [TestMethod]
         public void ShouldBeInSyncAfterClearingEmails()
         {
-            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new WrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
             wrapper.Emails.Clear();
             CheckIfModelEmailsCollectionIsInSync(wrapper);
         }

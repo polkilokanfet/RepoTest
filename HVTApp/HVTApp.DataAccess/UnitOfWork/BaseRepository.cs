@@ -22,15 +22,15 @@ namespace HVTApp.DataAccess
             _getWrapper = getWrapper;
         }
 
-        //public virtual TWrapper GetWrapper()
-        //{
-        //    return WrappersFactory.GetWrapper<TWrapper>();
-        //}
+        public virtual TWrapper GetWrapper()
+        {
+            return _getWrapper.GetWrapper<TWrapper>();
+        }
 
-        //public TWrapper GetWrapper(TModel model)
-        //{
-        //    return WrappersFactory.GetWrapper<TWrapper>(model);
-        //}
+        public TWrapper GetWrapper(TModel model)
+        {
+            return _getWrapper.GetWrapper<TWrapper>(model);
+        }
 
         public virtual List<TWrapper> GetAll()
         {

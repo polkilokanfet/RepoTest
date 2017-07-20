@@ -26,7 +26,7 @@ namespace HVTApp.Model.Tests.Wrapper
         public void ShouldRaisePropertyChangedEventOnPropertyChange()
         {
             var fired = false;
-            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new WrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
             wrapper.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == "FirstName")
@@ -42,7 +42,7 @@ namespace HVTApp.Model.Tests.Wrapper
         public void ShouldNotRaisePropertyChangedEventIfPropertyIsSetToSameValue()
         {
             var fired = false;
-            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new WrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
             wrapper.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == "FirstName")

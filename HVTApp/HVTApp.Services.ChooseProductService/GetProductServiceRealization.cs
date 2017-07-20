@@ -64,7 +64,7 @@ namespace HVTApp.Services.GetProductService
             }
 
             var result = _unitOfWork.Products.GetAll().FirstOrDefault(x => ProductsAreSame(x.Model, product));
-            return result ?? WrappersFactory.GetWrapper<ProductWrapper>(product);
+            return result ?? _unitOfWork.Products.GetWrapper(product);
         }
 
         public ProductWrapper GetProduct(ProductWrapper templateProduct = null)

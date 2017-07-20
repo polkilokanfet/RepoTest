@@ -25,7 +25,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldSetIsValidOfRoot()
         {
-            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new WrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
             Assert.IsTrue(wrapper.IsValid);
 
             wrapper.TestFriendAddress.City = "";
@@ -39,7 +39,7 @@ namespace HVTApp.Model.Tests.Wrapper
         public void ShouldSetIsValidOfRootAfterInitialization()
         {
             _testFriend.TestFriendAddress.City = "";
-            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new WrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
             Assert.IsFalse(wrapper.IsValid);
 
             wrapper.TestFriendAddress.City = "Salt Lake City";
@@ -50,7 +50,7 @@ namespace HVTApp.Model.Tests.Wrapper
         public void ShouldRaisePropertyChangedEventForIsValidOfRoot()
         {
             var fired = false;
-            var wrapper = WrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new WrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
             wrapper.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == nameof(wrapper.IsValid))

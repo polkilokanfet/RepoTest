@@ -117,7 +117,7 @@ namespace HVTApp.Model.Wrappers
             foreach (var condition in PaymentConditionsToDone)
             {
                 var payment = new PaymentPlanned {Sum = Cost*condition.Part, Date = GetPaymentDate(condition)};
-                var paymentWrapper = WrappersFactory.GetWrapper<PaymentPlannedWrapper>(payment);
+                var paymentWrapper = GetWrapper<PaymentPlannedWrapper, PaymentPlanned>(payment);
                 PaymentsPlanned.Add(paymentWrapper);
             }
         }

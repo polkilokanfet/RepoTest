@@ -28,7 +28,7 @@ namespace HVTApp.Modules.Infrastructure
 
         protected override void NewItemCommand_Execute()
         {
-            TItem item = WrappersFactory.GetWrapper<TItem>();
+            TItem item = _unitOfWork.GetWrapper<TItem>();
 
             TItemDelailsViewModel delailsViewModel = _container.Resolve<TItemDelailsViewModel>(new ParameterOverride("item", item));
             bool? dialogResult = _dialogService.ShowDialog(delailsViewModel);
