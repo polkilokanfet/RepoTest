@@ -48,7 +48,7 @@ namespace HVTApp.Model.Tests
         [TestMethod]
         public void ProductTotalPriceTest()
         {
-            var wrappersFactory = new WrappersFactory();
+            var wrappersFactory = new Factory.TestWrappersFactory();
 
             var product = _fixture.Build<Product>().Create();
             var productParent = wrappersFactory.GetWrapper<ProductWrapper>(product);
@@ -81,7 +81,7 @@ namespace HVTApp.Model.Tests
         [TestMethod]
         public void ProductItemsSameParametersTest()
         {
-            var wrappersFactory = new WrappersFactory();
+            var wrappersFactory = new Factory.TestWrappersFactory();
 
             ProductItemWrapper productItemWrapper1 = wrappersFactory.GetWrapper<ProductItemWrapper> (_productItem1);
             ProductItemWrapper productItemWrapper2 = wrappersFactory.GetWrapper<ProductItemWrapper> (_productItem2);

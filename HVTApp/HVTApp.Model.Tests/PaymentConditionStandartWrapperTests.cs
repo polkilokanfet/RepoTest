@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Linq;
-using AutoFixture.AutoEF;
-using HVTApp.DataAccess;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,27 +14,23 @@ namespace HVTApp.Model.Tests
         [TestInitialize]
         public void InitializeMethod()
         {
-            _fixture = new Fixture();
-
-            _fixture.Customize(new EntityCustomization(new DbContextEntityTypesProvider(typeof(HVTAppContext))));
-
-            //отключаем поведение - бросать ошибку при обнаружении циклической связи
-            _fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList().ForEach(b => _fixture.Behaviors.Remove(b));
-            //подключаем поведение - останавливаться на стандартной глубине рекурсии
-            _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+            _fixture = FixtureTest.GetFixture();
         }
 
         [TestMethod]
         public void PaymentConditionStandartWrapperValidation()
         {
-            var wrappersFactory = new WrappersFactory();
+            var wrappersFactory = new Factory.TestWrappersFactory();
+
             var wrapper = wrappersFactory.GetWrapper<StandartPaymentConditionsWrapper> ();
             Assert.IsFalse(wrapper.IsValid);
 
-            wrapper.PaymentsConditions.Add(wrappersFactory.GetWrapper<PaymentConditionWrapper>(new PaymentCondition { Part = 0.30 }));
+            PaymentCondition paymentCondition1 = _fixture.Build<PaymentCondition>().With(x => x.Part, 0.3).Create();
+            wrapper.PaymentsConditions.Add(wrappersFactory.GetWrapper<PaymentConditionWrapper>(paymentCondition1));
             Assert.IsFalse(wrapper.IsValid);
 
-            wrapper.PaymentsConditions.Add(wrappersFactory.GetWrapper<PaymentConditionWrapper>(new PaymentCondition { Part = 0.70 }));
+            PaymentCondition paymentCondition2 = _fixture.Build<PaymentCondition>().With(x => x.Part, 1-paymentCondition1.Part).Create();
+            wrapper.PaymentsConditions.Add(wrappersFactory.GetWrapper<PaymentConditionWrapper>(paymentCondition2));
             Assert.IsTrue(wrapper.IsValid);
         }
     }

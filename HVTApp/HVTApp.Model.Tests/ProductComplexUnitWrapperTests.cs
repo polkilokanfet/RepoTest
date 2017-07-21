@@ -34,7 +34,7 @@ namespace HVTApp.Model.Tests
 
             //shipmentUnit.ProductComplexUnit = salesUnit;
 
-            //_salesUnit = WrappersFactory.GetWrapper<ProductComplexUnitWrapper>(salesUnit);
+            //_salesUnit = TestWrappersFactory.GetWrapper<ProductComplexUnitWrapper>(salesUnit);
         }
 
         [TestMethod]
@@ -64,11 +64,11 @@ namespace HVTApp.Model.Tests
 
             //var firstPaymentSum = cost/3;
             //var firstPayment = new PaymentActual { Sum = new Sum { Sum = firstPaymentSum }, Date = DateTime.Today.AddDays(-20) };
-            //_salesUnit.PaymentsActual.Add(WrappersFactory.GetWrapper<PaymentActualWrapper> (firstPayment));
+            //_salesUnit.PaymentsActual.Add(TestWrappersFactory.GetWrapper<PaymentActualWrapper> (firstPayment));
             //Assert.IsTrue(Math.Abs(cost - _salesUnit.PaymentsAll.Sum(x => x.Sum.Sum)) < 0.0001);
 
             //var secondPayment = new PaymentActual { Sum = new Sum { Sum = cost - firstPaymentSum }, Date = DateTime.Today };
-            //_salesUnit.PaymentsActual.Add(WrappersFactory.GetWrapper<PaymentActualWrapper> (secondPayment));
+            //_salesUnit.PaymentsActual.Add(TestWrappersFactory.GetWrapper<PaymentActualWrapper> (secondPayment));
             //Assert.IsFalse(_salesUnit.PaymentsPlanned.Any());
 
             //_salesUnit.PaymentsActual.Remove(_salesUnit.PaymentsActual.First());
@@ -77,7 +77,7 @@ namespace HVTApp.Model.Tests
             //Assert.IsTrue(Math.Abs(firstPaymentSum - _salesUnit.PaymentsPlanned.Sum(x => x.Sum.Sum)) < 0.0001);
 
             //firstPayment.Sum.Sum = firstPaymentSum / 2;
-            //_salesUnit.PaymentsActual.Add(WrappersFactory.GetWrapper<PaymentActualWrapper> (firstPayment));
+            //_salesUnit.PaymentsActual.Add(TestWrappersFactory.GetWrapper<PaymentActualWrapper> (firstPayment));
             //_salesUnit.PaymentsActual.Remove(_salesUnit.PaymentsActual.First());
             //Assert.IsTrue(Math.Abs(_salesUnit.SumNotPaid.Sum - _salesUnit.PaymentsPlanned.Sum(x => x.Sum.Sum)) < 0.0001);
         }

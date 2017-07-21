@@ -4,7 +4,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HVTApp.Model.Tests.Wrapper
+namespace HVTApp.Model.Tests.WrapperTests
 {
     [TestClass]
     public class ValidationClassLevel
@@ -32,7 +32,7 @@ namespace HVTApp.Model.Tests.Wrapper
         {
             var expectedError = "A developer must have an email-address";
 
-            var wrapper = new TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new Factory.TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
             wrapper.Emails.Clear();
             Assert.IsFalse(wrapper.IsDeveloper);
             Assert.IsTrue(wrapper.IsValid);
@@ -52,7 +52,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldBeValidAgainWhenIsDeveloperIsSetBackToFalse()
         {
-            var wrapper = new TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new Factory.TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
             wrapper.Emails.Clear();
             Assert.IsFalse(wrapper.IsDeveloper);
             Assert.IsTrue(wrapper.IsValid);
@@ -74,7 +74,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldBeValidAgainWhenEmailIsAdded()
         {
-            TestWrappersFactory testWrappersFactory = new TestWrappersFactory();
+            Factory.TestWrappersFactory testWrappersFactory = new Factory.TestWrappersFactory();
 
             var wrapper = testWrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
             wrapper.Emails.Clear();
@@ -98,7 +98,7 @@ namespace HVTApp.Model.Tests.Wrapper
         public void ShouldIntializeWithoutProblems()
         {
             _testFriend.IsDeveloper = true;
-            var wrapper = new TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new Factory.TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
             Assert.IsTrue(wrapper.IsValid);
         }
     }

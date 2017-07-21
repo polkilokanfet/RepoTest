@@ -25,14 +25,11 @@ namespace HVTApp.Model.Wrappers
 
         protected WrapperBase(TModel model, IGetWrapper getWrapper)
         {
-            _getWrapper = getWrapper;
             if (model == null) throw new ArgumentNullException(nameof(Model));
-
             Model = model;
 
-            //if (!WrappersFactory.Wrappers.ContainsKey(model))
-                //WrappersFactory.Wrappers.Add(model, this);
-
+            if (getWrapper == null) throw new ArgumentNullException(nameof(getWrapper));
+            _getWrapper = getWrapper;
             _getWrapper.AddWrapperInDictionary(this);
 
             InitializeComplexProperties();
@@ -160,6 +157,7 @@ namespace HVTApp.Model.Wrappers
         /// <returns></returns>
         protected TValue GetValue<TValue>([CallerMemberName] string propertyName = null)
         {
+            if (propertyName == null) throw new ArgumentNullException(nameof(propertyName));
             return (TValue) Model.GetType().GetProperty(propertyName).GetValue(Model);
         }
 
@@ -386,7 +384,6 @@ namespace HVTApp.Model.Wrappers
             where TModelW : class, IBaseEntity
             where TWrapper : class, IWrapper<TModelW>
         {
-            //return model == null ? null : WrappersFactory.GetWrapper<TWrapper>(model);
             return model == null ? null : _getWrapper.GetWrapper<TWrapper>(model);
         }
 

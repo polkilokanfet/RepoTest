@@ -4,13 +4,13 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HVTApp.Model.Tests.Wrapper
+namespace HVTApp.Model.Tests.WrapperTests
 {
   [TestClass]
   public class ChangeTrackingCollectionTests
   {
     private List<TestFriendEmailWrapper> _emails;
-      private readonly TestWrappersFactory _testWrappersFactory = new TestWrappersFactory();
+      private readonly Factory.TestWrappersFactory _testWrappersFactory = new Factory.TestWrappersFactory();
 
     [TestInitialize]
     public void Initialize()

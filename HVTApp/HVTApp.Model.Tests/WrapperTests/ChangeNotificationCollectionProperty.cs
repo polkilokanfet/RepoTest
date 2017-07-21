@@ -4,7 +4,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HVTApp.Model.Tests.Wrapper
+namespace HVTApp.Model.Tests.WrapperTestsTests
 {
     [TestClass]
     public class ChangeNotificationCollectionProperty
@@ -32,7 +32,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldInitializeEmailsProperty()
         {
-            var wrapper = new TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new Factory.TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
             Assert.IsNotNull(wrapper.Emails);
             CheckIfModelEmailsCollectionIsInSync(wrapper);
         }
@@ -40,7 +40,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldBeInSyncAfterRemovingEmail()
         {
-            var wrapper = new TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new Factory.TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
             var emailToRemove = wrapper.Emails.Single(ew => Equals(ew.Model, _testFriendEmail));
             wrapper.Emails.Remove(emailToRemove);
             CheckIfModelEmailsCollectionIsInSync(wrapper);
@@ -49,7 +49,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldBeInSyncAfterAddingEmail()
         {
-            var wrappersFactory = new TestWrappersFactory();
+            var wrappersFactory = new Factory.TestWrappersFactory();
 
             _testFriend.Emails.Remove(_testFriendEmail);
             var wrapper = wrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
@@ -60,7 +60,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldBeInSyncAfterClearingEmails()
         {
-            var wrapper = new TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new Factory.TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
             wrapper.Emails.Clear();
             CheckIfModelEmailsCollectionIsInSync(wrapper);
         }

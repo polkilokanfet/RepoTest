@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TestWrappersFactory = HVTApp.Model.Tests.Factory.TestWrappersFactory;
 
-namespace HVTApp.Wrapper.Tests
+namespace HVTApp.Model.Tests.WrapperTests
 {
     [TestClass()]
     public class BasicTests

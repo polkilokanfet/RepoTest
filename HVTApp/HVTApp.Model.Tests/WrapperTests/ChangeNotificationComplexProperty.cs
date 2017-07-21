@@ -3,7 +3,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HVTApp.Model.Tests.Wrapper
+namespace HVTApp.Model.Tests.WrapperTests
 {
     [TestClass]
     public class ChangeNotificationComplexProperty
@@ -25,7 +25,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ShouldInitializeAddressProperty()
         {
-            var wrapper = new TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new Factory.TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
             Assert.IsNotNull(wrapper.TestFriendAddress);
             Assert.AreEqual(_testFriend.TestFriendAddress, wrapper.TestFriendAddress.Model);
         }

@@ -6,7 +6,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HVTApp.Model.Tests.Wrapper
+namespace HVTApp.Model.Tests.WrapperTests
 {
     [TestClass]
     public class NavigationPropertiesTests
@@ -14,7 +14,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void NavigationCollectionPropertiesTest()
         {
-            TestWrappersFactory testWrappersFactory = new TestWrappersFactory();
+            Factory.TestWrappersFactory testWrappersFactory = new Factory.TestWrappersFactory();
 
             TestFriendGroup group = new TestFriendGroup {Name = "group1", FriendTests = new List<TestFriend>()};
             TestFriend testFriend = new TestFriend
@@ -41,7 +41,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [SuppressMessage("ReSharper", "HeuristicUnreachableCode")]
         public void NavigationPropertiesTest()
         {
-            TestWrappersFactory testWrappersFactory = new TestWrappersFactory();
+            Factory.TestWrappersFactory testWrappersFactory = new Factory.TestWrappersFactory();
 
             TestHusband husband = new TestHusband();
             TestWife wife = new TestWife();
@@ -100,7 +100,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void ComplexWrapperAcceptAndReject()
         {
-            TestWrappersFactory testWrappersFactory = new TestWrappersFactory();
+            Factory.TestWrappersFactory testWrappersFactory = new Factory.TestWrappersFactory();
 
             TestHusband husband = new TestHusband();
             TestWife wife1 = new TestWife();
@@ -154,7 +154,7 @@ namespace HVTApp.Model.Tests.Wrapper
             husband.Children.Add(child1);
             //husband.Children.Add(child2);
 
-            TestHusbandWrapper husbandWrapper = new TestWrappersFactory().GetWrapper<TestHusbandWrapper>(husband);
+            TestHusbandWrapper husbandWrapper = new Factory.TestWrappersFactory().GetWrapper<TestHusbandWrapper>(husband);
             TestChildWrapper childWrapper1 = husbandWrapper.Children.First(x => Equals(x.Model, child1));
             Assert.IsFalse(husbandWrapper.IsChanged);
 
@@ -185,7 +185,7 @@ namespace HVTApp.Model.Tests.Wrapper
             husband.Wife = wife;
             husband.Children.AddRange(new[] { child1, child2 });
 
-            TestHusbandWrapper husbandWrapper = new TestWrappersFactory().GetWrapper<TestHusbandWrapper>(husband);
+            TestHusbandWrapper husbandWrapper = new Factory.TestWrappersFactory().GetWrapper<TestHusbandWrapper>(husband);
             Assert.IsFalse(husbandWrapper.IsChanged);
 
             string oldWifesName = husbandWrapper.Wife.Name;
@@ -215,7 +215,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void IsChangedNavigationProperty()
         {
-            TestWrappersFactory testWrappersFactory = new TestWrappersFactory();
+            Factory.TestWrappersFactory testWrappersFactory = new Factory.TestWrappersFactory();
 
             TestHusband husband = new TestHusband();
             TestWife wife1 = new TestWife();
@@ -237,7 +237,7 @@ namespace HVTApp.Model.Tests.Wrapper
         [TestMethod]
         public void AcceptAndRejectChangesInObjectsWithNavigationProperty()
         {
-            TestWrappersFactory testWrappersFactory = new TestWrappersFactory();
+            Factory.TestWrappersFactory testWrappersFactory = new Factory.TestWrappersFactory();
 
             TestHusband husband = new TestHusband();
             TestWife wife1 = new TestWife();

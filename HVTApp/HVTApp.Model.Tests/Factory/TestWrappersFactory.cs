@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using HVTApp.Infrastructure;
 
-namespace HVTApp.Model
+namespace HVTApp.Model.Tests.Factory
 {
-    public class WrappersFactory : IGetWrapper
+    public class TestWrappersFactory : IGetWrapper
     {
         readonly Dictionary<IBaseEntity, IWrapper<IBaseEntity>> _wrappers = new Dictionary<IBaseEntity, IWrapper<IBaseEntity>>();
 

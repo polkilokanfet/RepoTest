@@ -1,5 +1,9 @@
 ﻿using System;
+using HVTApp.Model.POCOs;
+using HVTApp.Model.Tests.Factory;
+using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Ploeh.AutoFixture;
 
 namespace HVTApp.Model.Tests
 {
@@ -11,32 +15,49 @@ namespace HVTApp.Model.Tests
         {
         }
 
-        //[TestMethod]
-        //public void PaymentToStartProductionTest()
-        //{
-        //    ProductMain productMain = new ProductMain
-        //    {
-        //        Sum = new Sum()
-        //        {
-        //            Sum = 50,
-        //            Vat = 100
-        //        }
-        //    };
-        //    PaymentsInfo paymentsInfo = new PaymentsInfo(productMain);
-        //    productMain.PaymentsInfo = paymentsInfo;
-        //    Assert.AreEqual(productMain.PaymentsInfo.PaymentsSumToStartProduction, 0.0);
+        [TestMethod]
+        public void PaymentToStartProductionTest()
+        {
+            Fixture fixture = FixtureTest.GetFixture();
+            TestWrappersFactory factory = new TestWrappersFactory();
 
-        //    double part = 25;
-        //    productMain.PaymentsInfo.PaymentsConditions.Add(new PaymentCondition { Part = part, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
-        //    Assert.AreEqual(productMain.PaymentsInfo.PaymentsSumToStartProduction, part * productMain.Sum.SumWithVat);
+            SalesUnit salesUnit = fixture.Build<SalesUnit>().Create();
+            SalesUnitWrapper suw = factory.GetWrapper<SalesUnitWrapper>(salesUnit);
 
-        //    part = 25;
-        //    productMain.PaymentsInfo.PaymentsConditions.Add(new PaymentCondition { Part = part, PaymentConditionPoint = PaymentConditionPoint.ProductionEnd });
-        //    Assert.AreEqual(productMain.PaymentsInfo.PaymentsSumToStartProduction, part * productMain.Sum.SumWithVat);
+            Assert.AreEqual(suw.SumToStartProduction, 0.0);
 
-        //    part = 24;
-        //    productMain.PaymentsInfo.PaymentsConditions.Add(new PaymentCondition { Part = part, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
-        //    Assert.AreEqual(productMain.PaymentsInfo.PaymentsSumToStartProduction, (25 + 24) * productMain.Sum.SumWithVat);
-        //}
+            //вносим условие - оплатить до запуска производства
+            double part1 = 25;
+            PaymentCondition paymentCondition1 = fixture.Build<PaymentCondition>().
+                With(x => x.Part, part1).
+                With(x => x.PaymentConditionPoint, PaymentConditionPoint.ProductionStart).
+                With(x => x.DaysToPoint, -7).Create();
+            suw.PaymentsConditions.Add(factory.GetWrapper<PaymentConditionWrapper>(paymentCondition1));
+            Assert.AreEqual(suw.SumToStartProduction, part1 * salesUnit.Cost);
+
+            //вносим условие - оплатить после запуска производства
+            PaymentCondition paymentCondition = fixture.Build<PaymentCondition>().
+                With(x => x.Part, part1).
+                With(x => x.PaymentConditionPoint, PaymentConditionPoint.ProductionStart).
+                With(x => x.DaysToPoint, -7).Create();
+            suw.PaymentsConditions.Add(factory.GetWrapper<PaymentConditionWrapper>(paymentCondition1));
+            Assert.AreEqual(suw.SumToStartProduction, part1 * salesUnit.Cost);
+
+            //вносим условие - оплатить до окончания производства
+            PaymentCondition paymentCondition3 = fixture.Build<PaymentCondition>().
+                With(x => x.PaymentConditionPoint, PaymentConditionPoint.ProductionEnd).Create();
+            suw.PaymentsConditions.Add(factory.GetWrapper<PaymentConditionWrapper>(paymentCondition3));
+            Assert.AreEqual(suw.SumToStartProduction, part1 * salesUnit.Cost);
+
+
+            //вносим условие - оплатить до запуска производства
+            double part2 = 20;
+            PaymentCondition paymentCondition4 = fixture.Build<PaymentCondition>().
+                With(x => x.Part, part2).
+                With(x => x.PaymentConditionPoint, PaymentConditionPoint.ProductionStart).
+                With(x => x.DaysToPoint, 0).Create();
+            suw.PaymentsConditions.Add(factory.GetWrapper<PaymentConditionWrapper>(paymentCondition1));
+            Assert.AreEqual(suw.SumToStartProduction, (part1 + part2) * salesUnit.Cost);
+        }
     }
 }

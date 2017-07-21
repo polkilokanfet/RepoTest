@@ -73,6 +73,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Factory\TestWrappersFactory.cs" />
+    <Compile Include="FixtureTest.cs" />
     <Compile Include="PaymentsDetailsTests.cs" />
     <Compile Include="ProductItemTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,6 +85,19 @@
     <Compile Include="ProductTests.cs" />
     <Compile Include="ProjectTests.cs" />
     <Compile Include="PaymentsTests.cs" />
+    <Compile Include="WrapperTests\BasicTests.cs" />
+    <Compile Include="WrapperTests\ChangeNotificationCollectionProperty.cs" />
+    <Compile Include="WrapperTests\ChangeNotificationComplexProperty.cs" />
+    <Compile Include="WrapperTests\ChangeNotificationSimpleProperty.cs" />
+    <Compile Include="WrapperTests\ChangeTrackingCollectionProperty.cs" />
+    <Compile Include="WrapperTests\ChangeTrackingCollectionTests.cs" />
+    <Compile Include="WrapperTests\ChangeTrackingComplexProperty.cs" />
+    <Compile Include="WrapperTests\ChangeTrackingSimpleProperty.cs" />
+    <Compile Include="WrapperTests\NavigationPropertiesTests.cs" />
+    <Compile Include="WrapperTests\ValidationClassLevel.cs" />
+    <Compile Include="WrapperTests\ValidationCollectionProperty.cs" />
+    <Compile Include="WrapperTests\ValidationComplexProperty.cs" />
+    <Compile Include="WrapperTests\ValidationSimpleProperty.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.DataAccess\HVTApp.DataAccess.csproj">
@@ -102,6 +117,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
