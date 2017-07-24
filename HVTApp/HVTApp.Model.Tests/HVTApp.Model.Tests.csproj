@@ -80,11 +80,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PaymentsCollectionsTests.cs" />
     <Compile Include="CompanyTests.cs" />
-    <Compile Include="ProductComplexUnitWrapperTests.cs" />
+    <Compile Include="SalesUnitTests.cs" />
     <Compile Include="PaymentConditionStandartWrapperTests.cs" />
     <Compile Include="ProductTests.cs" />
     <Compile Include="ProjectTests.cs" />
-    <Compile Include="PaymentsTests.cs" />
     <Compile Include="WrapperTests\BasicTests.cs" />
     <Compile Include="WrapperTests\ChangeNotificationCollectionProperty.cs" />
     <Compile Include="WrapperTests\ChangeNotificationComplexProperty.cs" />

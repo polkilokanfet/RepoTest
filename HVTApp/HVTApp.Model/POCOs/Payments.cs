@@ -11,6 +11,7 @@ namespace HVTApp.Model.POCOs
 
     public class PaymentPlanned : BaseEntity, IPayment
     {
+        public virtual PaymentCondition Condition { get; set; }
         public virtual SalesUnit SalesUnit { get; set; }
         public DateTime Date { get; set; }
         public double Sum { get; set; }

@@ -26,7 +26,7 @@ namespace HVTApp.DataAccess.Tests
         //    product.PaymentsInfo = paymentsInfo;
 
 
-        //    PaymentCondition condition = new PaymentCondition
+        //    Condition condition = new Condition
         //    {
         //        PaymentConditionPoint = PaymentConditionPoint.ProductionStart,
         //        DaysToPoint = 10,
@@ -83,13 +83,13 @@ namespace HVTApp.DataAccess.Tests
         //    Assert.AreEqual(product.PaymentsInfo.PaymentsPlaned.ToList().Sum(x => x.Sum), product.Sum.CostWithVat);
 
         //    product.PaymentsInfo.PaymentsConditions.Clear();
-        //    PaymentCondition condition1 = new PaymentCondition
+        //    Condition condition1 = new Condition
         //    {
         //        PaymentConditionPoint = PaymentConditionPoint.ProductionStart,
         //        DaysToPoint = 0,
         //        Part = 50
         //    };
-        //    PaymentCondition condition2 = new PaymentCondition
+        //    Condition condition2 = new Condition
         //    {
         //        PaymentConditionPoint = PaymentConditionPoint.ProductionEnd,
         //        DaysToPoint = 10,

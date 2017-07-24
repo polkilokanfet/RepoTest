@@ -56,6 +56,16 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
+	public PaymentConditionWrapper Condition 
+    {
+        get { return GetComplexProperty<PaymentConditionWrapper, PaymentCondition>(Model.Condition); }
+        set { SetComplexProperty<PaymentConditionWrapper, PaymentCondition>(Condition, value); }
+    }
+
+    public PaymentConditionWrapper ConditionOriginalValue { get; private set; }
+    public bool ConditionIsChanged => GetIsChanged(nameof(Condition));
+
+
 	public SalesUnitWrapper SalesUnit 
     {
         get { return GetComplexProperty<SalesUnitWrapper, SalesUnit>(Model.SalesUnit); }
@@ -70,6 +80,8 @@ namespace HVTApp.Model.Wrappers
 
     public override void InitializeComplexProperties()
     {
+
+        Condition = GetWrapper<PaymentConditionWrapper, PaymentCondition>(Model.Condition);
 
         SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(Model.SalesUnit);
 

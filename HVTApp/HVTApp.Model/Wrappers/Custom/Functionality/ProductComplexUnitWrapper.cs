@@ -116,7 +116,7 @@ namespace HVTApp.Model.Wrappers
             PaymentsPlanned.Clear();
             foreach (var condition in PaymentConditionsToDone)
             {
-                var payment = new PaymentPlanned {Sum = Cost*condition.Part, Date = GetPaymentDate(condition)};
+                var payment = new PaymentPlanned {Sum = Cost*condition.Part, Date = GetPaymentDate(condition), Condition = condition};
                 var paymentWrapper = GetWrapper<PaymentPlannedWrapper, PaymentPlanned>(payment);
                 PaymentsPlanned.Add(paymentWrapper);
             }
@@ -127,6 +127,23 @@ namespace HVTApp.Model.Wrappers
         /// </summary>
         public void ReloadPaymentsPlannedLight()
         {
+            if (!PaymentsPlanned.Any()) { ReloadPaymentsPlannedFull(); }
+
+            //сортируем плановые платежи в соответствии с датой платежа.
+            var paymentsPlanned = PaymentsPlanned.OrderByDescending(x => x.Date);
+            double rest = SumNotPaid;
+            foreach (var paymentPlanned in paymentsPlanned)
+            {
+                if (rest >= paymentPlanned.Sum)
+                {
+                    rest -= paymentPlanned.Sum;
+                    continue;
+                }
+
+                paymentPlanned.Sum = rest;
+                rest -= paymentPlanned.Sum;
+                if (Math.Abs(paymentPlanned.Sum) < 0.00001) PaymentsPlanned.Remove(paymentPlanned);
+            }
         }
 
         #endregion

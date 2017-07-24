@@ -11,10 +11,10 @@ namespace HVTApp.Model.POCOs
 
         public double Cost { get; set; }
         public virtual Specification Specification { get; set; }
-        public virtual List<PaymentCondition> PaymentsConditions { get; set; }
+        public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
 
-        public virtual List<PaymentActual> PaymentsActual { get; set; }
-        public virtual List<PaymentPlanned> PaymentsPlanned { get; set; }
+        public virtual List<PaymentActual> PaymentsActual { get; set; } = new List<PaymentActual>();
+        public virtual List<PaymentPlanned> PaymentsPlanned { get; set; } = new List<PaymentPlanned>();
 
         public virtual DateTime? RealizationDate { get; set; }
 

@@ -21,6 +21,7 @@ namespace HVTApp.Model.Tests
             fixture.Behaviors.Add(new OmitOnRecursionBehavior());
 
             fixture.Customize<ParameterGroup>(p => p.With(x => x.Parameters, new List<Parameter>()));
+            fixture.Customize<Country>(c => c.Without(x => x.Capital));
 
             return fixture;
         }
