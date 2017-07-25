@@ -59,35 +59,26 @@ namespace HVTApp.Model.Wrappers
         /// <summary>
         /// Не исполненные платежные условия
         /// </summary>
-        public List<PaymentCondition> PaymentConditionsToDone
+        public IEnumerable<PaymentCondition> PaymentConditionsToDone
         {
             get
             {
-                var conditions = PaymentsConditions.
-                                    OrderBy(x => x.PaymentConditionPoint).
-                                    ThenBy(x => x.DaysToPoint).Select(x => x.Model).ToList();
+                var conditions = PaymentsConditions.Select(x => x.Model).OrderByDescending(x => x).ToList();
 
-                var paidSum = SumPaid;
-
-                while (paidSum > 0)
+                double rest = SumNotPaid/Cost;
+                foreach (var condition in conditions)
                 {
-                    var condition = conditions.First();
-                    var conditionSum = condition.Part * Cost;
-                    if (paidSum < conditionSum)
+                    rest -= condition.Part;
+                    if (rest >= 0)
                     {
-                        conditions.Add(new PaymentCondition
-                        {
-                            Part = (conditionSum - paidSum) / Cost,
-                            PaymentConditionPoint = condition.PaymentConditionPoint,
-                            DaysToPoint = condition.DaysToPoint
-                        });
+                        yield return condition;
+                        continue;
                     }
 
-                    paidSum -= conditionSum;
-                    conditions.Remove(condition);
+                    var newCondition = new PaymentCondition { DaysToPoint = condition.DaysToPoint,
+                        PaymentConditionPoint = condition.PaymentConditionPoint, Part = condition.Part-rest};
+                    if (newCondition.Part > 0) yield return newCondition;
                 }
-
-                return conditions.OrderBy(x => x.PaymentConditionPoint).ThenBy(x => x.DaysToPoint).ToList();
             }
         }
 
@@ -114,12 +105,15 @@ namespace HVTApp.Model.Wrappers
         public void ReloadPaymentsPlannedFull()
         {
             PaymentsPlanned.Clear();
-            foreach (var condition in PaymentConditionsToDone)
+            foreach (var payment in GetPlannedPayments(PaymentConditionsToDone))
             {
-                var payment = new PaymentPlanned {Sum = Cost*condition.Part, Date = GetPaymentDate(condition), Condition = condition};
-                var paymentWrapper = GetWrapper<PaymentPlannedWrapper, PaymentPlanned>(payment);
-                PaymentsPlanned.Add(paymentWrapper);
+                PaymentsPlanned.Add(GetWrapper<PaymentPlannedWrapper, PaymentPlanned>(payment));
             }
+        }
+
+        private IEnumerable<PaymentPlanned> GetPlannedPayments(IEnumerable<PaymentCondition> conditions)
+        {
+            return conditions.Select(condition => new PaymentPlanned {Sum = Cost*condition.Part, Date = GetPaymentDate(condition), Condition = condition});
         }
 
         /// <summary>
@@ -127,22 +121,22 @@ namespace HVTApp.Model.Wrappers
         /// </summary>
         public void ReloadPaymentsPlannedLight()
         {
-            if (!PaymentsPlanned.Any()) { ReloadPaymentsPlannedFull(); }
+            if (!PaymentsPlanned.Any())
+            {
+                ReloadPaymentsPlannedFull();
+                return;
+            }
 
             //сортируем плановые платежи в соответствии с датой платежа.
             var paymentsPlanned = PaymentsPlanned.OrderByDescending(x => x.Date);
             double rest = SumNotPaid;
             foreach (var paymentPlanned in paymentsPlanned)
             {
-                if (rest >= paymentPlanned.Sum)
-                {
-                    rest -= paymentPlanned.Sum;
-                    continue;
-                }
-
-                paymentPlanned.Sum = rest;
                 rest -= paymentPlanned.Sum;
-                if (Math.Abs(paymentPlanned.Sum) < 0.00001) PaymentsPlanned.Remove(paymentPlanned);
+                if (rest >= 0) continue;
+
+                paymentPlanned.Sum += rest;
+                if (paymentPlanned.Sum <= 0) PaymentsPlanned.Remove(paymentPlanned);
             }
         }
 
