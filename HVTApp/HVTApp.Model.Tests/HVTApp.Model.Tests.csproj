@@ -75,10 +75,8 @@
   <ItemGroup>
     <Compile Include="Factory\TestWrappersFactory.cs" />
     <Compile Include="FixtureTest.cs" />
-    <Compile Include="PaymentsDetailsTests.cs" />
     <Compile Include="ProductItemTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PaymentsCollectionsTests.cs" />
     <Compile Include="CompanyTests.cs" />
     <Compile Include="SalesUnitTests.cs" />
     <Compile Include="PaymentConditionStandartWrapperTests.cs" />

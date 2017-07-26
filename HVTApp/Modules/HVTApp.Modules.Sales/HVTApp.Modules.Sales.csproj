@@ -89,6 +89,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converter\ProjectUnitListConverter.cs" />
     <Compile Include="Menus\SalesMenu.xaml.cs">
       <DependentUpon>SalesMenu.xaml</DependentUpon>
     </Compile>

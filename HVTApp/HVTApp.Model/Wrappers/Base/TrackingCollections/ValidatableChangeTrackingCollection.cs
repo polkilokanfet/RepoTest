@@ -140,11 +140,11 @@ namespace HVTApp.Model.Wrappers
         /// </summary>
         public bool IsChanged => _addedItems.Count > 0 || _modifiedItems.Count > 0 || _removedItems.Count > 0;
 
+
         public bool IsValidMethod(IList<IBaseEntity> risedList)
         {
             return this.All(x => x.IsValidMethod(risedList));
         }
-
 
         /// <summary>
         /// Валидны ли все члены коллекции?

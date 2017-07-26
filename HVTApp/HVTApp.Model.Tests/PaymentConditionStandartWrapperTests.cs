@@ -22,7 +22,7 @@ namespace HVTApp.Model.Tests
         {
             var wrappersFactory = new Factory.TestWrappersFactory();
 
-            var wrapper = wrappersFactory.GetWrapper<StandartPaymentConditionsWrapper> ();
+            var wrapper = wrappersFactory.GetWrapper<StandartPaymentConditionsWrapper>();
             Assert.IsFalse(wrapper.IsValid);
 
             PaymentCondition paymentCondition1 = _fixture.Build<PaymentCondition>().With(x => x.Part, 0.3).Create();

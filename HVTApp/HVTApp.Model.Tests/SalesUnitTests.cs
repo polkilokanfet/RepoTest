@@ -41,6 +41,44 @@ namespace HVTApp.Model.Tests
         }
 
         [TestMethod]
+        public void PaymentToStartProductionTest()
+        {
+            TestWrappersFactory factory = new TestWrappersFactory();
+
+            SalesUnit salesUnit = new SalesUnit();
+            SalesUnitWrapper suw = factory.GetWrapper<SalesUnitWrapper>(salesUnit);
+
+            Assert.AreEqual(suw.SumToStartProduction, 0.0);
+
+            //вносим условие - оплатить до запуска производства
+            double part1 = 25;
+            PaymentCondition paymentCondition1 = new PaymentCondition
+            { Part = part1, DaysToPoint = -7, PaymentConditionPoint = PaymentConditionPoint.ProductionStart };
+            suw.PaymentsConditions.Add(factory.GetWrapper<PaymentConditionWrapper>(paymentCondition1));
+            Assert.AreEqual(suw.SumToStartProduction, part1 * salesUnit.Cost);
+
+            //вносим условие - оплатить после запуска производства
+            PaymentCondition paymentCondition2 = new PaymentCondition
+            { Part = part1, DaysToPoint = 10, PaymentConditionPoint = PaymentConditionPoint.ProductionStart };
+            suw.PaymentsConditions.Add(factory.GetWrapper<PaymentConditionWrapper>(paymentCondition2));
+            Assert.AreEqual(suw.SumToStartProduction, part1 * salesUnit.Cost);
+
+            //вносим условие - оплатить до окончания производства
+            PaymentCondition paymentCondition3 = new PaymentCondition
+            { Part = part1, DaysToPoint = -5, PaymentConditionPoint = PaymentConditionPoint.ProductionEnd };
+            suw.PaymentsConditions.Add(factory.GetWrapper<PaymentConditionWrapper>(paymentCondition3));
+            Assert.AreEqual(suw.SumToStartProduction, part1 * salesUnit.Cost);
+
+            //вносим условие - оплатить до запуска производства
+            double part2 = 20;
+            PaymentCondition paymentCondition4 = new PaymentCondition
+            { Part = part2, DaysToPoint = 0, PaymentConditionPoint = PaymentConditionPoint.ProductionStart };
+            suw.PaymentsConditions.Add(factory.GetWrapper<PaymentConditionWrapper>(paymentCondition4));
+            Assert.AreEqual(suw.SumToStartProduction, (part1 + part2) * salesUnit.Cost);
+        }
+
+
+        [TestMethod]
         public void ReloadPaymentsPlannedFullTest()
         {
             _salesUnit.ReloadPaymentsPlannedFull();
@@ -52,15 +90,19 @@ namespace HVTApp.Model.Tests
         }
 
         [TestMethod]
-        public void SalesUnitWrapperReactionOnActualPayment()
+        public void SalesUnitWrapperOnActualPaymentsCollectionChanged()
         {
             _salesUnit.ReloadPaymentsPlannedFull();
             double paymentSum = _salesUnit.Cost/3;
-            _salesUnit.PaymentsActual.Add(_factory.GetWrapper<PaymentActualWrapper>(new PaymentActual {Sum = paymentSum}));
+            var payment = _factory.GetWrapper<PaymentActualWrapper>(new PaymentActual {Sum = paymentSum});
+            _salesUnit.PaymentsActual.Add(payment);
             Assert.IsTrue(Math.Abs(_salesUnit.Cost - paymentSum - _salesUnit.PaymentsPlanned.Sum(x => x.Sum)) < 0.0001);
 
-            //_salesUnit.PaymentsActual.Clear();
-            //Assert.IsTrue(Math.Abs(_salesUnit.Cost - _salesUnit.PaymentsPlanned.Sum(x => x.Sum)) < 0.0001);
+            payment.Sum = paymentSum/2;
+            Assert.IsTrue(Math.Abs(_salesUnit.Cost - paymentSum/2 - _salesUnit.PaymentsPlanned.Sum(x => x.Sum)) < 0.0001);
+
+            _salesUnit.PaymentsActual.Clear();
+            Assert.IsTrue(Math.Abs(_salesUnit.Cost - _salesUnit.PaymentsPlanned.Sum(x => x.Sum)) < 0.0001);
         }
 
         [TestMethod]
