@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace HVTApp.Services.GetProductService
 {
     /// <summary>
-    /// Interaction logic for SelectProductItemWindow.xaml
+    /// Interaction logic for SelectProductWindow.xaml
     /// </summary>
-    public partial class SelectProductItemWindow : Window
+    public partial class SelectProductWindow : Window
     {
-        public SelectProductItemWindow()
+        public SelectProductWindow()
         {
             InitializeComponent();
         }

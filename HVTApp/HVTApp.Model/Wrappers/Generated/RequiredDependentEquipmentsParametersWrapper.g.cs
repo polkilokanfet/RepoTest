@@ -6,10 +6,10 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-  public partial class RequiredChildProductParametersWrapper : WrapperBase<RequiredChildProductParameters>
+  public partial class RequiredDependentEquipmentsParametersWrapper : WrapperBase<RequiredDependentEquipmentsParameters>
   {
-    private RequiredChildProductParametersWrapper(IGetWrapper getWrapper) : base(new RequiredChildProductParameters(), getWrapper) { }
-    private RequiredChildProductParametersWrapper(RequiredChildProductParameters model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    private RequiredDependentEquipmentsParametersWrapper(IGetWrapper getWrapper) : base(new RequiredDependentEquipmentsParameters(), getWrapper) { }
+    private RequiredDependentEquipmentsParametersWrapper(RequiredDependentEquipmentsParameters model, IGetWrapper getWrapper) : base(model, getWrapper) { }
 
 
 

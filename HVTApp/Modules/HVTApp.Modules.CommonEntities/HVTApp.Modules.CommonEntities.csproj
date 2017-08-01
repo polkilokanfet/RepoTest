@@ -123,8 +123,8 @@
     <Compile Include="ViewModels\ParametersGroupDetailsViewModel.cs" />
     <Compile Include="ViewModels\ParametersGroupsViewModel.cs" />
     <Compile Include="ViewModels\ParametersViewModel.cs" />
-    <Compile Include="ViewModels\ProductDetailsViewModel.cs" />
-    <Compile Include="ViewModels\ProductsViewModel.cs" />
+    <Compile Include="ViewModels\EquipmentDetailsViewModel.cs" />
+    <Compile Include="ViewModels\EquipmentsViewModel.cs" />
     <Compile Include="Views\ActivityFildsView.xaml.cs">
       <DependentUpon>ActivityFildsView.xaml</DependentUpon>
     </Compile>

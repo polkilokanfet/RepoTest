@@ -57,14 +57,14 @@ namespace HVTApp.Model.Wrappers
     public bool ProjectUnitIsChanged => GetIsChanged(nameof(ProjectUnit));
 
 
-	public ProductWrapper Product 
+	public EquipmentWrapper Equipment 
     {
-        get { return GetComplexProperty<ProductWrapper, Product>(Model.Product); }
-        set { SetComplexProperty<ProductWrapper, Product>(Product, value); }
+        get { return GetComplexProperty<EquipmentWrapper, Equipment>(Model.Equipment); }
+        set { SetComplexProperty<EquipmentWrapper, Equipment>(Equipment, value); }
     }
 
-    public ProductWrapper ProductOriginalValue { get; private set; }
-    public bool ProductIsChanged => GetIsChanged(nameof(Product));
+    public EquipmentWrapper EquipmentOriginalValue { get; private set; }
+    public bool EquipmentIsChanged => GetIsChanged(nameof(Equipment));
 
 
 	public TenderWrapper Tender 
@@ -105,7 +105,7 @@ namespace HVTApp.Model.Wrappers
 
         ProjectUnit = GetWrapper<ProjectUnitWrapper, ProjectUnit>(Model.ProjectUnit);
 
-        Product = GetWrapper<ProductWrapper, Product>(Model.Product);
+        Equipment = GetWrapper<EquipmentWrapper, Equipment>(Model.Equipment);
 
         Tender = GetWrapper<TenderWrapper, Tender>(Model.Tender);
 

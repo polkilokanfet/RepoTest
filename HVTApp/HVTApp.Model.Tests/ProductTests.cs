@@ -14,7 +14,7 @@ namespace HVTApp.Model.Tests
     public class ProductTests
     {
         private Fixture _fixture;
-        private ProductItem _productItem1, _productItem2, _productItem3, _productItem4;
+        private Product _productItem1, _productItem2, _productItem3, _productItem4;
 
         [TestInitialize]
         public void InitializeMethod()
@@ -39,10 +39,10 @@ namespace HVTApp.Model.Tests
             Parameter parameter6 = new Parameter { Value = "parameter6" };
             Parameter parameter7 = new Parameter { Value = "parameter7" };
 
-            _productItem1 = new ProductItem { Designation = "ProductItem1", Parameters = new List<Parameter> { parameter1, parameter2 } };
-            _productItem2 = new ProductItem { Designation = "ProductItem2", Parameters = new List<Parameter> { parameter3, parameter4 } };
-            _productItem3 = new ProductItem { Designation = "ProductItem3", Parameters = new List<Parameter> { parameter5, parameter6 } };
-            _productItem4 = new ProductItem { Designation = "ProductItem4", Parameters = new List<Parameter> { parameter7 } };
+            _productItem1 = new Product { Designation = "ProductItem1", Parameters = new List<Parameter> { parameter1, parameter2 } };
+            _productItem2 = new Product { Designation = "ProductItem2", Parameters = new List<Parameter> { parameter3, parameter4 } };
+            _productItem3 = new Product { Designation = "ProductItem3", Parameters = new List<Parameter> { parameter5, parameter6 } };
+            _productItem4 = new Product { Designation = "ProductItem4", Parameters = new List<Parameter> { parameter7 } };
         }
 
         [TestMethod]
@@ -50,32 +50,32 @@ namespace HVTApp.Model.Tests
         {
             var wrappersFactory = new Factory.TestWrappersFactory();
 
-            var product = _fixture.Build<Product>().Create();
-            var productParent = wrappersFactory.GetWrapper<ProductWrapper>(product);
-            productParent.TotalPriceDate = productParent.ProductItem.Prices[1].Date;
+            var equipment = _fixture.Build<Equipment>().Create();
+            var equipmentParent = wrappersFactory.GetWrapper<EquipmentWrapper>(equipment);
+            equipmentParent.TotalPriceDate = equipmentParent.Product.Prices[1].Date;
 
-            Assert.IsTrue(Math.Abs(productParent.TotalPrice - productParent.ProductItem.Prices[1].Cost.Sum) < 0.0001);
+            Assert.IsTrue(Math.Abs(equipmentParent.TotalPrice - equipmentParent.Product.Prices[1].Cost.Sum) < 0.0001);
 
-            var productChild1 = wrappersFactory.GetWrapper<ProductWrapper>(_fixture.Create<Product>());
-            productChild1.ProductItem.Prices[1].Date = productParent.ProductItem.Prices[1].Date;
-            productParent.ChildProducts.Add(productChild1);
+            var equipmentChild1 = wrappersFactory.GetWrapper<EquipmentWrapper>(_fixture.Create<Equipment>());
+            equipmentChild1.Product.Prices[1].Date = equipmentParent.Product.Prices[1].Date;
+            equipmentParent.DependentEquipments.Add(equipmentChild1);
 
-            var productChild2 = wrappersFactory.GetWrapper<ProductWrapper>(_fixture.Create<Product>());
-            productChild2.ProductItem.Prices[1].Date = productParent.ProductItem.Prices[1].Date;
-            productParent.ChildProducts.Add(productChild2);
+            var equipmentChild2 = wrappersFactory.GetWrapper<EquipmentWrapper>(_fixture.Create<Equipment>());
+            equipmentChild2.Product.Prices[1].Date = equipmentParent.Product.Prices[1].Date;
+            equipmentParent.DependentEquipments.Add(equipmentChild2);
 
 
-            var totalSum =  productParent.ProductItem.Prices[1].Cost.Sum + 
-                            productChild1.ProductItem.Prices[1].Cost.Sum + 
-                            productChild2.ProductItem.Prices[1].Cost.Sum;
-            Assert.IsTrue(Math.Abs(productParent.TotalPrice - totalSum) < 0.0001);
+            var totalSum =  equipmentParent.Product.Prices[1].Cost.Sum + 
+                            equipmentChild1.Product.Prices[1].Cost.Sum + 
+                            equipmentChild2.Product.Prices[1].Cost.Sum;
+            Assert.IsTrue(Math.Abs(equipmentParent.TotalPrice - totalSum) < 0.0001);
 
-            var productChild3 = wrappersFactory.GetWrapper<ProductWrapper>(_fixture.Create<Product>());
-            productChild3.ProductItem.Prices[1].Date = productParent.ProductItem.Prices[1].Date;
-            productParent.ChildProducts.Add(productChild3);
+            var productChild3 = wrappersFactory.GetWrapper<EquipmentWrapper>(_fixture.Create<Equipment>());
+            productChild3.Product.Prices[1].Date = equipmentParent.Product.Prices[1].Date;
+            equipmentParent.DependentEquipments.Add(productChild3);
 
-            totalSum += productChild3.ProductItem.Prices[1].Cost.Sum;
-            Assert.IsTrue(Math.Abs(productParent.TotalPrice - totalSum) < 0.0001);
+            totalSum += productChild3.Product.Prices[1].Cost.Sum;
+            Assert.IsTrue(Math.Abs(equipmentParent.TotalPrice - totalSum) < 0.0001);
         }
 
         [TestMethod]
@@ -83,8 +83,8 @@ namespace HVTApp.Model.Tests
         {
             var wrappersFactory = new Factory.TestWrappersFactory();
 
-            ProductItemWrapper productItemWrapper1 = wrappersFactory.GetWrapper<ProductItemWrapper> (_productItem1);
-            ProductItemWrapper productItemWrapper2 = wrappersFactory.GetWrapper<ProductItemWrapper> (_productItem2);
+            ProductWrapper productItemWrapper1 = wrappersFactory.GetWrapper<ProductWrapper> (_productItem1);
+            ProductWrapper productItemWrapper2 = wrappersFactory.GetWrapper<ProductWrapper> (_productItem2);
 
             Assert.IsFalse(productItemWrapper1.HasSameParameters(productItemWrapper2));
 

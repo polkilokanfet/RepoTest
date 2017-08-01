@@ -31,7 +31,7 @@ namespace HVTApp.Modules.CommonEntities
 
             _dialogService.Register<CompanyFormDetailsViewModel, CompanyFormDetailsView>();
             _dialogService.Register<CompanyDetailsWindowModel, CompanyDetailsWindow>();
-            _dialogService.Register<ProductDetailsViewModel, ProductDetailsView>();
+            _dialogService.Register<EquipmentDetailsViewModel, ProductDetailsView>();
         }
 
         protected override void ResolveOutlookGroup()

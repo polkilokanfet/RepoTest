@@ -7,7 +7,7 @@ namespace HVTApp.DataAccess
     {
         public ProductionUnitConfiguration()
         {
-            HasRequired(x => x.Product).WithMany();
+            HasRequired(x => x.Equipment).WithMany();
             HasOptional(x => x.Order).WithMany(x => x.ProductionUnits);
             Property(x => x.OrderPosition).IsOptional();
             Property(x => x.SerialNumber).IsOptional();

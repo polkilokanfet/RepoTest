@@ -5,7 +5,7 @@ namespace HVTApp.Model.POCOs
 {
     public class ProductionUnit : BaseEntity
     {
-        public virtual Product Product { get; set; }
+        public virtual Equipment Equipment { get; set; }
         public virtual Order Order { get; set; }
         public int OrderPosition { get; set; }
         public string SerialNumber { get; set; }

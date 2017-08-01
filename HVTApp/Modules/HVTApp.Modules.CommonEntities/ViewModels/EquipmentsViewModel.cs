@@ -8,12 +8,12 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class ProductsViewModel : BaseListViewModel<ProductWrapper, ProductDetailsViewModel, Product>
+    public class EquipmentsViewModel : BaseListViewModel<EquipmentWrapper, EquipmentDetailsViewModel, Equipment>
     {
-        public ProductsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : 
+        public EquipmentsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : 
             base(unitOfWork, container, dialogService)
         {
-           unitOfWork.Products.GetAll().ForEach(Items.Add);
+           unitOfWork.Equipments.GetAll().ForEach(Items.Add);
         }
     }
 }

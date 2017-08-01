@@ -16,11 +16,11 @@ namespace HVTApp.Model.Tests
         [TestInitialize]
         public void InitialMethod()
         {
-            Product product = new Product { ProductItem = new ProductItem() };
-            product.ProductItem.Prices.Add(new CostOnDate { Date = DateTime.Today, Cost = new Cost { Sum = 50 } });
+            Equipment equipment = new Equipment { Product = new Product() };
+            equipment.Product.Prices.Add(new CostOnDate { Date = DateTime.Today, Cost = new Cost { Sum = 50 } });
             var salesUnit = new SalesUnit
             {
-                ProductionUnit = new ProductionUnit {Product = product},
+                ProductionUnit = new ProductionUnit {Equipment = equipment},
                 OfferUnit = new OfferUnit(),
                 Cost = 100,
                 ShipmentUnit = new ShipmentUnit { ExpectedDeliveryPeriod = 5 },

@@ -24,6 +24,15 @@ namespace HVTApp.Model.Wrappers
     public bool DesignationIsChanged => GetIsChanged(nameof(Designation));
 
 
+    public System.String StructureCostNumber
+    {
+      get { return GetValue<System.String>(); }
+      set { SetValue(value); }
+    }
+    public System.String StructureCostNumberOriginalValue => GetOriginalValue<System.String>(nameof(StructureCostNumber));
+    public bool StructureCostNumberIsChanged => GetIsChanged(nameof(StructureCostNumber));
+
+
     public System.Guid Id
     {
       get { return GetValue<System.Guid>(); }
@@ -36,42 +45,28 @@ namespace HVTApp.Model.Wrappers
     #endregion
 
 
-    #region ComplexProperties
-
-	public ProductItemWrapper ProductItem 
-    {
-        get { return GetComplexProperty<ProductItemWrapper, ProductItem>(Model.ProductItem); }
-        set { SetComplexProperty<ProductItemWrapper, ProductItem>(ProductItem, value); }
-    }
-
-    public ProductItemWrapper ProductItemOriginalValue { get; private set; }
-    public bool ProductItemIsChanged => GetIsChanged(nameof(ProductItem));
-
-
-    #endregion
-
-
     #region CollectionProperties
 
-    public IValidatableChangeTrackingCollection<ProductWrapper> ChildProducts { get; private set; }
+    public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+
+
+    public IValidatableChangeTrackingCollection<CostOnDateWrapper> Prices { get; private set; }
 
 
     #endregion
-
-    public override void InitializeComplexProperties()
-    {
-
-        ProductItem = GetWrapper<ProductItemWrapper, ProductItem>(Model.ProductItem);
-
-    }
 
   
     protected override void InitializeCollectionComplexProperties()
     {
 
-      if (Model.ChildProducts == null) throw new ArgumentException("ChildProducts cannot be null");
-      ChildProducts = new ValidatableChangeTrackingCollection<ProductWrapper>(Model.ChildProducts.Select(e => GetWrapper<ProductWrapper, Product>(e)));
-      RegisterCollection(ChildProducts, Model.ChildProducts);
+      if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+      Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => GetWrapper<ParameterWrapper, Parameter>(e)));
+      RegisterCollection(Parameters, Model.Parameters);
+
+
+      if (Model.Prices == null) throw new ArgumentException("Prices cannot be null");
+      Prices = new ValidatableChangeTrackingCollection<CostOnDateWrapper>(Model.Prices.Select(e => GetWrapper<CostOnDateWrapper, CostOnDate>(e)));
+      RegisterCollection(Prices, Model.Prices);
 
 
     }

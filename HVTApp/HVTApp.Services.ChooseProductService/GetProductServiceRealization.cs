@@ -21,7 +21,7 @@ namespace HVTApp.Services.GetProductService
             _unitOfWork = unitOfWork;
         }
 
-        private ProductItemWrapper GetProductItem(IEnumerable<ParameterWrapper> requiredParameters = null)
+        private ProductWrapper GetProduct(IEnumerable<ParameterWrapper> requiredParameters = null)
         {
             requiredParameters = requiredParameters == null 
                 ? new List<ParameterWrapper>() 
@@ -35,54 +35,54 @@ namespace HVTApp.Services.GetProductService
                     ? new ParametersUnion(intersect)
                     : new ParametersUnion(parameterGroup.Parameters));
             }
-            var viewModel = new SelectProductItemViewModel(parametersUnions, _unitOfWork);
+            var viewModel = new SelectProductViewModel(parametersUnions, _unitOfWork);
 
-            SelectProductItemWindow window = new SelectProductItemWindow { DataContext = viewModel };
+            SelectProductWindow window = new SelectProductWindow { DataContext = viewModel };
 
             window.ShowDialog();
 
             return viewModel.ProductItem;
         }
 
-        private IEnumerable<RequiredChildProductParametersWrapper> GetRequiredChildProductParameters(ProductItem productItem)
+        private IEnumerable<RequiredDependentEquipmentsParametersWrapper> GetRequiredDependentEquipmentsParameters(Product product)
         {
-            return _unitOfWork.RequiredChildProductParameters.GetAll()
-                .Where(p => !p.MainProductParameters.Select(x => x.Model).Except(productItem.Parameters).Any());
+            return _unitOfWork.RequiredDependentEquipmentsParameters.GetAll()
+                .Where(p => !p.MainProductParameters.Select(x => x.Model).Except(product.Parameters).Any());
         }
 
 
-        private ProductWrapper SelectProduct(IEnumerable<ParameterWrapper> requiredParameters = null)
+        private EquipmentWrapper SelectEquipment(IEnumerable<ParameterWrapper> requiredParameters = null)
         {
-            Product product = new Product { ProductItem = GetProductItem(requiredParameters).Model };
-            foreach (var requiredChildProductParameters in GetRequiredChildProductParameters(product.ProductItem))
+            Equipment equipment = new Equipment { Product = GetProduct(requiredParameters).Model };
+            foreach (var requiredChildProductParameters in GetRequiredDependentEquipmentsParameters(equipment.Product))
             {
-                var childProduct = SelectProduct(requiredChildProductParameters.ChildProductParameters);
+                var childProduct = SelectEquipment(requiredChildProductParameters.ChildProductParameters);
                 for (int i = 0; i < requiredChildProductParameters.Count; i++)
                 {
-                    product.ChildProducts.Add(childProduct.Model);
+                    equipment.DependentEquipments.Add(childProduct.Model);
                 }
             }
 
-            var result = _unitOfWork.Products.GetAll().FirstOrDefault(x => ProductsAreSame(x.Model, product));
-            return result ?? _unitOfWork.Products.GetWrapper(product);
+            var result = _unitOfWork.Equipments.GetAll().FirstOrDefault(x => ProductsAreSame(x.Model, equipment));
+            return result ?? _unitOfWork.Equipments.GetWrapper(equipment);
         }
 
-        public ProductWrapper GetProduct(ProductWrapper templateProduct = null)
+        public EquipmentWrapper GetEquipment(EquipmentWrapper templateEquipment = null)
         {
-            return SelectProduct();
+            return SelectEquipment();
         }
 
-        private bool ProductsAreSame(Product firstProduct, Product secondProduct)
+        private bool ProductsAreSame(Equipment firstEquipment, Equipment secondEquipment)
         {
-            return new ProductsComparer().Equals(firstProduct, secondProduct);
+            return new ProductsComparer().Equals(firstEquipment, secondEquipment);
         }
     }
 
-    public class SelectProductItemViewModel : INotifyPropertyChanged
+    public class SelectProductViewModel : INotifyPropertyChanged
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public SelectProductItemViewModel(IEnumerable<ParametersUnion> parametersUnions, IUnitOfWork unitOfWork)
+        public SelectProductViewModel(IEnumerable<ParametersUnion> parametersUnions, IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
 
@@ -98,7 +98,7 @@ namespace HVTApp.Services.GetProductService
 
         public IEnumerable<ParametersUnion> ParametersUnions { get; }
 
-        public ProductItemWrapper ProductItem => _unitOfWork.ProductItems.GetProductItem(SelectedParameters);
+        public ProductWrapper ProductItem => _unitOfWork.ProductItems.GetProductItem(SelectedParameters);
 
         private void ParametersUnionOnSelectedParameterChanged(object sender, EventArgs eventArgs)
         {

@@ -3,13 +3,13 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
-    public class ProductConfiguration : EntityTypeConfiguration<Product>
+    public class ProductConfiguration : EntityTypeConfiguration<Equipment>
     {
         public ProductConfiguration()
         {
             Property(x => x.Designation).IsRequired().HasMaxLength(100);
-            HasRequired(x => x.ProductItem).WithMany();
-            HasMany(x => x.ChildProducts).WithMany();
+            HasRequired(x => x.Product).WithMany();
+            HasMany(x => x.DependentEquipments).WithMany();
         }
     }
 }

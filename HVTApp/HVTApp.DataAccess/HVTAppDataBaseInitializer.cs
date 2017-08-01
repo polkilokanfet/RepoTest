@@ -97,8 +97,8 @@ namespace HVTApp.DataAccess
 
         //    RequiredPreviousParameters setTransformatorV = new RequiredPreviousParameters { RequiredParameters = new List<Parameter> { paramTransformator, paramTransformatorV } };
 
-        //    RequiredChildProductParameters requiredChildProductParametersPrivod = new RequiredChildProductParameters { MainProductParameters = new List<Parameter> { paramBreaker }, ChildProductParameters = new List<Parameter> { paramPrivod }, Count = 1 };
-        //    RequiredChildProductParameters requiredChildProductParametersBreakerBlock = new RequiredChildProductParameters { MainProductParameters = new List<Parameter> { paramBreakerBlock }, ChildProductParameters = new List<Parameter> { paramBreaker }, Count = 2 };
+        //    RequiredDependentEquipmentsParameters requiredChildProductParametersPrivod = new RequiredDependentEquipmentsParameters { MainProductParameters = new List<Parameter> { paramBreaker }, ChildProductParameters = new List<Parameter> { paramPrivod }, Count = 1 };
+        //    RequiredDependentEquipmentsParameters requiredChildProductParametersBreakerBlock = new RequiredDependentEquipmentsParameters { MainProductParameters = new List<Parameter> { paramBreakerBlock }, ChildProductParameters = new List<Parameter> { paramBreaker }, Count = 2 };
 
 
         //    Measure kV = new Measure {FullName = "Киловольт", ShortName = "кВ"};
@@ -108,13 +108,13 @@ namespace HVTApp.DataAccess
         //    Parameter paramV220kV = new Parameter { Group = groupV, Value = "220", RequiredPreviousParameters = new List<RequiredPreviousParameters> { setBreakerDt, setBreakerLt, setTransformatorV } };
         //    Parameter paramV500kV = new Parameter { Group = groupV, Value = "500", RequiredPreviousParameters = new List<RequiredPreviousParameters> { setBreakerLt } };
 
-        //    ProductItem zng110ProductItem = new ProductItem { Designation = "ЗНГ-110", Parameters = new List<Parameter> { paramTransformator, paramTransformatorV, paramV110kV }, Prices = new List<CostOnDate> { new CostOnDate { Cost = new Cost {Sum = 75}, Date = DateTime.Today } } };
-        //    ProductItem vgb35ProductItem = new ProductItem { Designation = "ВГБ-35", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV35kV }, Prices = new List<CostOnDate> { new CostOnDate { Cost = new Cost { Sum = 50 }, Date = DateTime.Today } } };
-        //    ProductItem veb110ProductItem = new ProductItem { Designation = "ВЭБ-110", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV110kV }, Prices = new List<CostOnDate> { new CostOnDate { Cost = new Cost { Sum = 100 }, Date = DateTime.Today } } };
+        //    Product zng110ProductItem = new Product { Designation = "ЗНГ-110", Parameters = new List<Parameter> { paramTransformator, paramTransformatorV, paramV110kV }, Prices = new List<CostOnDate> { new CostOnDate { Cost = new Cost {Sum = 75}, Date = DateTime.Today } } };
+        //    Product vgb35ProductItem = new Product { Designation = "ВГБ-35", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV35kV }, Prices = new List<CostOnDate> { new CostOnDate { Cost = new Cost { Sum = 50 }, Date = DateTime.Today } } };
+        //    Product veb110ProductItem = new Product { Designation = "ВЭБ-110", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV110kV }, Prices = new List<CostOnDate> { new CostOnDate { Cost = new Cost { Sum = 100 }, Date = DateTime.Today } } };
 
 
-        //    Product veb110Product = new Product {ProductItem = veb110ProductItem, Designation = "Выключатель баковый ВЭБ-110"};
-        //    Product zng110Product = new Product {ProductItem = zng110ProductItem, Designation = "Трансформатор напряжения ЗНГ-110" };
+        //    Equipment veb110Product = new Equipment {Product = veb110ProductItem, Designation = "Выключатель баковый ВЭБ-110"};
+        //    Equipment zng110Product = new Equipment {Product = zng110ProductItem, Designation = "Трансформатор напряжения ЗНГ-110" };
 
         //    Contract contract = new Contract { Contragent = mrsk, Date = DateTime.Today, Number = "0401-17-0001"};
         //    Specification specification = new Specification { Contract = contract, Date = contract.Date, Number = "1" };
@@ -123,7 +123,7 @@ namespace HVTApp.DataAccess
         //    //{
         //    //    Facility = substationPervaya, Project = project1,
 
-        //    //    Product = veb110Product, OrderPosition = 1, SerialNumber = "3651",
+        //    //    Equipment = veb110Product, OrderPosition = 1, SerialNumber = "3651",
         //    //    ShipmentUnit = new ShipmentUnit { Sum = new Sum {Sum = 100}, Address = address},
         //    //    Specification = specification, Sum = new Sum { Sum = 1000} 
         //    //};
@@ -132,7 +132,7 @@ namespace HVTApp.DataAccess
         //    //{
         //    //    Facility = stationSverdlovskaya, Project = project2,
 
-        //    //    Product = veb110Product, OrderPosition = 1, SerialNumber = "3652",
+        //    //    Equipment = veb110Product, OrderPosition = 1, SerialNumber = "3652",
         //    //    ShipmentUnit = new ShipmentUnit { Sum = new Sum { Sum = 100}, Address = address },
         //    //    Sum = new Sum { Sum = 1000 } 
         //    //};
@@ -141,7 +141,7 @@ namespace HVTApp.DataAccess
         //    //{
         //    //    Facility = substationPervaya, Project = project1, 
 
-        //    //    Product = zng110Product, OrderPosition = 1, SerialNumber = "325",
+        //    //    Equipment = zng110Product, OrderPosition = 1, SerialNumber = "325",
         //    //    ShipmentUnit = new ShipmentUnit { Sum = new Sum { Sum = 150}, Address = address },
         //    //    Specification = specification, Sum = new Sum { Sum = 500 }
         //    //};
@@ -150,7 +150,7 @@ namespace HVTApp.DataAccess
         //    //{
         //    //    Facility = substationPervaya, Project = project1,
 
-        //    //    Product = zng110Product, OrderPosition = 1, SerialNumber = "326",
+        //    //    Equipment = zng110Product, OrderPosition = 1, SerialNumber = "326",
         //    //    ShipmentUnit = new ShipmentUnit { Sum = new Sum { Sum = 150 }, Address = address },
         //    //    Specification = specification, Sum = new Sum { Sum = 500 }
         //    //};
@@ -175,7 +175,7 @@ namespace HVTApp.DataAccess
         //    context.Employees.Add(employee);
         //    context.Users.Add(user);
         //    context.RequiredProductsChildses.AddRange(new[] { requiredChildProductParametersPrivod, requiredChildProductParametersBreakerBlock });
-        //    //context.Products.AddRange(new [] {veb110, vgb35, zng110});
+        //    //context.Equipments.AddRange(new [] {veb110, vgb35, zng110});
         //    //project1.ProductionUnits.AddRange(new[] { productComplexUnitVeb110, productComplexUnitZng1101 });
         //    context.Facilities.AddRange(new[] {substationPervaya, stationSverdlovskaya});
         //    context.Projects.AddRange(new[] { project1, project2 });

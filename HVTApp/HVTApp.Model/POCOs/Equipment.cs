@@ -4,14 +4,14 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class Product : BaseEntity
+    public class Equipment : BaseEntity
     {
         public string Designation { get; set; }
-        public virtual ProductItem ProductItem { get; set; }
-        public virtual List<Product> ChildProducts { get; set; } = new List<Product>();
+        public virtual Product Product { get; set; }
+        public virtual List<Equipment> DependentEquipments { get; set; } = new List<Equipment>();
     }
 
-    public class ProductItem : BaseEntity
+    public class Product : BaseEntity
     {
         public string Designation { get; set; }
         public virtual List<Parameter> Parameters { get; set; } = new List<Parameter>();
@@ -30,7 +30,7 @@ namespace HVTApp.Model.POCOs
     /// <summary>
     /// Параметры обязательных дочерних продуктов.
     /// </summary>
-    public class RequiredChildProductParameters : BaseEntity
+    public class RequiredDependentEquipmentsParameters : BaseEntity
     {
         public virtual List<Parameter> MainProductParameters { get; set; } = new List<Parameter>();
         public virtual List<Parameter> ChildProductParameters { get; set; } = new List<Parameter>();

@@ -11,13 +11,13 @@ namespace HVTApp.DataAccess
     public interface ICompanyFormsRepository : IRepository<CompanyForm, CompanyFormWrapper> { }
     public interface IParametersGroupsRepository : IRepository<ParameterGroup, ParameterGroupWrapper> { }
     public interface IParametersRepository : IRepository<Parameter, ParameterWrapper> { }
-    public interface IRequiredChildProductParametersRepository : IRepository<RequiredChildProductParameters, RequiredChildProductParametersWrapper> { }
+    public interface IRequiredDependentEquipmentsParametersRepository : IRepository<RequiredDependentEquipmentsParameters, RequiredDependentEquipmentsParametersWrapper> { }
 
-    public interface IProductItemsRepository : IRepository<ProductItem, ProductItemWrapper>
+    public interface IProductItemsRepository : IRepository<Product, ProductWrapper>
     {
-        ProductItemWrapper GetProductItem(IEnumerable<ParameterWrapper> parameters);
+        ProductWrapper GetProductItem(IEnumerable<ParameterWrapper> parameters);
     }
-    public interface IProductsRepository : IRepository<Product, ProductWrapper> { }
+    public interface IEquipmentsRepository : IRepository<Equipment, EquipmentWrapper> { }
     public interface IFacilityTypesRepository : IRepository<FacilityType, FacilityTypeWrapper> { }
     public interface IFacilitiesRepository : IRepository<Facility, FacilityWrapper> { }
     public interface IProjectsRepository : IRepository<Project, ProjectWrapper> { }

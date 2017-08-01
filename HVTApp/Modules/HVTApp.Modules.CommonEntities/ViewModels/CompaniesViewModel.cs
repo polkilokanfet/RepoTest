@@ -34,7 +34,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         protected override void RemoveItemCommand_Execute()
         {
-            _getProductService.GetProduct();
+            _getProductService.GetEquipment();
         }
 
         protected override bool RemoveItemCommand_CanExecute()

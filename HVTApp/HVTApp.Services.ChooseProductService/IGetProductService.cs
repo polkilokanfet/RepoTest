@@ -4,6 +4,6 @@ namespace HVTApp.Services.GetProductService
 {
     public interface IGetProductService
     {
-        ProductWrapper GetProduct(ProductWrapper templateProduct = null);
+        EquipmentWrapper GetEquipment(EquipmentWrapper templateEquipment = null);
     }
 }
