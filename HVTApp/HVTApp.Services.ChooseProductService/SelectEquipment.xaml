@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="HVTApp.Services.GetProductService.SelectProduct"
+﻿<UserControl x:Class="HVTApp.Services.GetProductService.SelectEquipment"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,14 +6,14 @@
              xmlns:local="clr-namespace:HVTApp.Services.GetProductService"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <ItemsControl ItemsSource="{Binding ParametersToSelect}">
+    <StackPanel>
+        <local:SelectProduct ParametersToSelect="{Binding ProductToSelect.ParametersToSelect}"/>
+        <ItemsControl ItemsSource="{Binding EquipmentsToSelect}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <local:SelectParameter Parameters="{Binding Parameters}" 
-                                           SelectedParameter="{Binding SelectedParameter}"/>
+                    <local:SelectEquipment/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-    </Grid>
+    </StackPanel>
 </UserControl>

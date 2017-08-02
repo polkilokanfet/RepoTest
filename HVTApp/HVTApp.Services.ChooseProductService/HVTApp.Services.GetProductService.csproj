@@ -71,6 +71,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="SelectEquipment.xaml.cs">
+      <DependentUpon>SelectEquipment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SelectParameter.xaml.cs">
       <DependentUpon>SelectParameter.xaml</DependentUpon>
     </Compile>
@@ -111,6 +114,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="SelectEquipment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SelectParameter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

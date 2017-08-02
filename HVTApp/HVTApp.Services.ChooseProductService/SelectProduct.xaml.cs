@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,15 @@ namespace HVTApp.Services.GetProductService
         public SelectProduct()
         {
             InitializeComponent();
+        }
+
+        public static readonly DependencyProperty ParametersToSelectProperty = DependencyProperty.Register(
+            "ParametersToSelect", typeof (ObservableCollection<ParametersToSelect>), typeof (SelectProduct), new PropertyMetadata(default(ObservableCollection<ParametersToSelect>)));
+
+        public ObservableCollection<ParametersToSelect> ParametersToSelect
+        {
+            get { return (ObservableCollection<ParametersToSelect>) GetValue(ParametersToSelectProperty); }
+            set { SetValue(ParametersToSelectProperty, value); }
         }
     }
 }
