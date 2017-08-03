@@ -27,11 +27,11 @@ namespace HVTApp.Services.GetProductService
         }
 
         public static readonly DependencyProperty ParametersToSelectProperty = DependencyProperty.Register(
-            "ParametersToSelect", typeof (ObservableCollection<ParametersToSelect>), typeof (SelectProduct), new PropertyMetadata(default(ObservableCollection<ParametersToSelect>)));
+            "ParametersSelectors", typeof (ObservableCollection<ParametersSelector>), typeof (SelectProduct), new PropertyMetadata(default(ObservableCollection<ParametersSelector>)));
 
-        public ObservableCollection<ParametersToSelect> ParametersToSelect
+        public ObservableCollection<ParametersSelector> ParametersToSelect
         {
-            get { return (ObservableCollection<ParametersToSelect>) GetValue(ParametersToSelectProperty); }
+            get { return (ObservableCollection<ParametersSelector>) GetValue(ParametersToSelectProperty); }
             set { SetValue(ParametersToSelectProperty, value); }
         }
     }

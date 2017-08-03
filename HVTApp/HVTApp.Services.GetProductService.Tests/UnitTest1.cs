@@ -42,12 +42,12 @@ namespace HVTApp.Services.GetProductService.Tests
         public void TestMethod1()
         {
             Equipment parentEquipment = new Equipment {Product = new Product {Parameters = new List<Parameter> {_breaker, _v110} } };
-            EquipmentToSelect equipmentToSelect = new EquipmentToSelect(_groups, _requiredDependentEquipmentsParametersList, parentEquipment, GetEquipment);
+            EquipmentSelector equipmentSelector = new EquipmentSelector(_groups, _requiredDependentEquipmentsParametersList, parentEquipment, GetEquipment);
 
-            Assert.IsTrue(equipmentToSelect.Product.ParametersToSelect.Count == _groups.Count);
+            Assert.IsTrue(equipmentSelector.ProductSelector.ParametersSelectors.Count == _groups.Count);
 
             //должен иметь зависимые продукты
-            Assert.IsTrue(equipmentToSelect.DependentEquipments.Count == 1);
+            Assert.IsTrue(equipmentSelector.DependetEquipmentSelectors.Count == 1);
         }
 
         private static List<Equipment> Equipments = new List<Equipment>();
