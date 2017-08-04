@@ -40,7 +40,7 @@ namespace HVTApp.Services.GetProductService
 
 
         public static readonly DependencyProperty ParametersProperty = DependencyProperty.Register(
-            "ParameterSelectors", typeof (ObservableCollection<Parameter>), typeof (SelectParameter), new PropertyMetadata(default(ObservableCollection<Parameter>)));
+            "ParametersWithActualFlag", typeof (ObservableCollection<Parameter>), typeof (SelectParameter), new PropertyMetadata(default(ObservableCollection<Parameter>)));
 
         public ObservableCollection<Parameter> Parameters
         {

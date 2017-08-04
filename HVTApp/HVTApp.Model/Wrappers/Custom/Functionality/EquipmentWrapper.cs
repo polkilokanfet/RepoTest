@@ -54,7 +54,7 @@ namespace HVTApp.Model.Wrappers
 
         //protected bool Equals(ProductWrapper other)
         //{
-        //    return Equals(this.Product, other.Product) && this.DependentEquipments.HasSameMembers(other.DependentEquipments);
+        //    return Equals(this.Product, other.Product) && this.DependentEquipments.AllMembersAreSame(other.DependentEquipments);
         //}
     }
 }

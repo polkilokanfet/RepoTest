@@ -5,9 +5,12 @@ namespace HVTApp.Infrastructure
 {
     public static class Extansions
     {
-        public static bool HasSameMembers<T>(this IEnumerable<T> first, IEnumerable<T> second)
+        public static bool AllMembersAreSame<T>(this IEnumerable<T> first, IEnumerable<T> second)
         {
-            return !first.Except(second).Any() && !second.Except(first).Any();
+            var firstList = first as IList<T> ?? first.ToList();
+            var secondList = second as T[] ?? second.ToArray();
+
+            return !firstList.Except(secondList).Any() && !secondList.Except(firstList).Any();
         }
     }
 }

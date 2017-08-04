@@ -55,12 +55,12 @@
   <ItemGroup>
     <Compile Include="BooleanToVisibilityConverter.cs" />
     <Compile Include="Selectors\NotifyPropertyChanged.cs" />
-    <Compile Include="Selectors\ParameterSelector.cs" />
+    <Compile Include="Selectors\ParameterWithActualFlag.cs" />
     <Compile Include="Selectors\ProductSelector.cs" />
     <Compile Include="Selectors\EquipmentSelector.cs" />
     <Compile Include="GetProductServiceRealization.cs" />
     <Compile Include="IGetProductService.cs" />
-    <Compile Include="Selectors\ParametersSelector.cs" />
+    <Compile Include="Selectors\ParameterSelector.cs" />
     <Compile Include="ProductsComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -135,7 +135,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

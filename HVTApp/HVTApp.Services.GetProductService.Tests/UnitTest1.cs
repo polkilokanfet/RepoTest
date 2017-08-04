@@ -41,37 +41,13 @@ namespace HVTApp.Services.GetProductService.Tests
         [TestMethod]
         public void TestMethod1()
         {
-            Equipment parentEquipment = new Equipment {Product = new Product {Parameters = new List<Parameter> {_breaker, _v110} } };
-            EquipmentSelector equipmentSelector = new EquipmentSelector(_groups, _requiredDependentEquipmentsParametersList, parentEquipment, GetEquipment);
+            var equipmentSelector = new EquipmentSelector(_groups, new List<Product>(), new List<Equipment>(), 
+                _requiredDependentEquipmentsParametersList);
 
-            Assert.IsTrue(equipmentSelector.ProductSelector.ParametersSelectors.Count == _groups.Count);
+            Assert.IsTrue(equipmentSelector.ProductSelector.ParameterSelectors.Count == _groups.Count);
 
             //должен иметь зависимые продукты
             Assert.IsTrue(equipmentSelector.DependetEquipmentSelectors.Count == 1);
-        }
-
-        private static List<Equipment> Equipments = new List<Equipment>();
-        private Equipment GetEquipment(Product product, IEnumerable<Equipment> dependentEquipment)
-        {
-            var result = Equipments.SingleOrDefault(x => Equals(x.Product, product) && x.DependentEquipments.All(e => dependentEquipment.Contains(e)));
-            if (result == null)
-            {
-                result = new Equipment { Product = product, DependentEquipments = new List<Equipment>(dependentEquipment) };
-                Equipments.Add(result);
-            }
-            return result;
-        }
-
-        private static List<Product> Products = new List<Product>();
-        private Product GetProduct(IEnumerable<Parameter> parameters)
-        {
-            var result = Products.SingleOrDefault(x => x.Parameters.All(parameters.Contains));
-            if (result == null)
-            {
-                result = new Product { Parameters = new List<Parameter>(parameters) };
-                Products.Add(result);
-            }
-            return result;
         }
     }
 }

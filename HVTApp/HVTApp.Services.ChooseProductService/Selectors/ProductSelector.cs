@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.GetProductService
@@ -10,64 +11,60 @@ namespace HVTApp.Services.GetProductService
     {
         private readonly IList<Product> _products;
 
-        public ProductSelector(IEnumerable<IEnumerable<Parameter>> parametersGroups, IList<Product> products, IEnumerable<Parameter> requiredParameters)
+        public ProductSelector(IEnumerable<IEnumerable<Parameter>> parametersGroups, IList<Product> products, IEnumerable<Parameter> requiredParameters = null, Product originProduct = null)
         {
             _products = products;
 
-            SelectedParameters = new ObservableCollection<Parameter>();
-
-            ParametersSelectors = new ObservableCollection<ParametersSelector>();
+            ParameterSelectors = new ObservableCollection<ParameterSelector>();
             foreach (var parameters in parametersGroups)
             {
-                var parametersGroup = new ParametersSelector(parameters, null, this);
-                ParametersSelectors.Add(parametersGroup);
+                List<Parameter> parametersToSelect = new List<Parameter>();
+
+                var parametersList = parameters as IList<Parameter> ?? parameters.ToList();
+
+                //исключаем возможность выбора параметров, отличных от обязательных
+                if (requiredParameters != null && parametersList.Any(requiredParameters.Contains))
+                    parametersToSelect.Add(parametersList.Single(requiredParameters.Contains));
+                else
+                    parametersToSelect.AddRange(parametersList);
+
+                var parameterSelector = new ParameterSelector(parametersToSelect, this);
+                ParameterSelectors.Add(parameterSelector);
                 //подписываемся на изменение выбора параметра в каждой группе параметров
-                parametersGroup.PropertyChanged += ParametersGroupOnPropertyChanged;
+                parameterSelector.PropertyChanged += ParametersGroupOnPropertyChanged;
             }
 
-            //исключаем возможность выбора параметров, отличных от обязательных
-            foreach (var requiredParameter in requiredParameters)
-            {
-                var group = ParametersSelectors.Single(x => x.ParameterSelectors.Select(p => p.Parameter).Contains(requiredParameter));
-                group.SelectedParameter = requiredParameter;
-                foreach (var parameterToSelect in group.ParameterSelectors)
+            //выбираем параметры
+            if (originProduct != null)
+                foreach (var parameter in originProduct.Parameters)
                 {
-                    if (!Equals(parameterToSelect.Parameter, requiredParameter)) group.ParameterSelectors.Remove(parameterToSelect);
+                    var group = ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).Contains(parameter));
+                    group.SelectedParameter = parameter;
                 }
-            }
+
         }
 
-        public ObservableCollection<ParametersSelector> ParametersSelectors { get; set; }
+        public ObservableCollection<ParameterSelector> ParameterSelectors { get; set; }
 
-        public ObservableCollection<Parameter> SelectedParameters { get; }
+        public IEnumerable<Parameter> SelectedParameters => ParameterSelectors.Where(x => x.IsActual).Select(x => x.SelectedParameter);
 
         public Product SelectedProduct
         {
             get
             {
-                var result = _products.SingleOrDefault(x => SelectedParameters.All(p => x.Parameters.Contains(p)));
+                var result = _products.SingleOrDefault(x => SelectedParameters.AllMembersAreSame(x.Parameters));
                 if (result == null)
                 {
-                    result = new Product() {Parameters = new List<Parameter>(SelectedParameters)};
+                    result = new Product {Parameters = new List<Parameter>(SelectedParameters)};
                     _products.Add(result);
                 }
                 return result;
             }
         }
 
-
         private void ParametersGroupOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            ParametersSelector parametersSelector = sender as ParametersSelector;
-            if (parametersSelector.IsActual)
-            {
-                if (!SelectedParameters.Contains(parametersSelector.SelectedParameter)) SelectedParameters.Add(parametersSelector.SelectedParameter);
-            }
-            else
-            {
-                if (SelectedParameters.Contains(parametersSelector.SelectedParameter)) SelectedParameters.Remove(parametersSelector.SelectedParameter);
-            }
-
+            OnPropertyChanged(nameof(SelectedParameters));
             OnPropertyChanged(nameof(SelectedProduct));
         }
     }
