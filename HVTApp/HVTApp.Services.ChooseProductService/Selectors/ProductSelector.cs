@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -31,7 +32,7 @@ namespace HVTApp.Services.GetProductService
                 var parameterSelector = new ParameterSelector(parametersToSelect, this);
                 ParameterSelectors.Add(parameterSelector);
                 //подписываемся на изменение выбора параметра в каждой группе параметров
-                parameterSelector.PropertyChanged += ParametersGroupOnPropertyChanged;
+                parameterSelector.SelectedParameterChanged += ParameterSelectorOnSelectedParameterChanged;
             }
 
             //выбираем параметры
@@ -44,9 +45,10 @@ namespace HVTApp.Services.GetProductService
 
         }
 
+
         public ObservableCollection<ParameterSelector> ParameterSelectors { get; set; }
 
-        public IEnumerable<Parameter> SelectedParameters => ParameterSelectors.Where(x => x.IsActual).Select(x => x.SelectedParameter);
+        public ObservableCollection<Parameter> SelectedParameters { get; } = new ObservableCollection<Parameter>();
 
         public Product SelectedProduct
         {
@@ -62,7 +64,17 @@ namespace HVTApp.Services.GetProductService
             }
         }
 
-        private void ParametersGroupOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        private void RefreshSelectedParameters()
+        {
+            var actual = ParameterSelectors.Where(x => x.IsActual).Select(x => x.SelectedParameter).ToList();
+            var toAdd = actual.Except(SelectedParameters).ToList();
+            var toRemove = SelectedParameters.Except(actual).ToList();
+
+            toAdd.ForEach(SelectedParameters.Add);
+            toRemove.ForEach(x => SelectedParameters.Remove(x));
+        }
+
+        private void ParameterSelectorOnSelectedParameterChanged()
         {
             OnPropertyChanged(nameof(SelectedParameters));
             OnPropertyChanged(nameof(SelectedProduct));

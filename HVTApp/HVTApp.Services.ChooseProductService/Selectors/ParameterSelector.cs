@@ -32,8 +32,11 @@ namespace HVTApp.Services.GetProductService
                 if(!_parameters.Contains(value)) throw new ArgumentException("Выбранный параметр не из списка.");
 
                 _selectedParameter = value;
+
+                OnSelectedParameterChanged();
                 OnPropertyChanged();
 
+                //перепроверяем флаги актуальности во всей группе
                 foreach (var parameterWithActualFlag in ParametersWithActualFlag)
                 {
                     parameterWithActualFlag.IsActual = !parameterWithActualFlag.Parameter.RequiredPreviousParameters.Any() ||
@@ -44,5 +47,14 @@ namespace HVTApp.Services.GetProductService
         }
 
         public bool IsActual => ParametersWithActualFlag.Any(x => x.IsActual);
+
+
+
+        public event Action SelectedParameterChanged;
+
+        protected virtual void OnSelectedParameterChanged()
+        {
+            SelectedParameterChanged?.Invoke();
+        }
     }
 }
