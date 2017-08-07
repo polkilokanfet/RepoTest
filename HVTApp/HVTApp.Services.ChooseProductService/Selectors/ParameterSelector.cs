@@ -8,20 +8,37 @@ namespace HVTApp.Services.GetProductService
 {
     public class ParameterSelector : NotifyPropertyChanged
     {
-        private readonly IEnumerable<Parameter> _parameters;
-        private readonly ProductSelector _product;
+        private Parameter _selectedParameter;
+        private bool _isActual = true;
 
-        public ParameterSelector(IEnumerable<Parameter> parameters, ProductSelector product, Parameter selectedParameter = null)
+        public ParameterSelector(IEnumerable<Parameter> parameters, Parameter selectedParameter = null)
         {
-            _parameters = parameters;
-            _product = product;
-            ParametersWithActualFlag = new ObservableCollection<ParameterWithActualFlag>(parameters.Select(x => new ParameterWithActualFlag(x)));
-            SelectedParameter = selectedParameter ?? ParametersWithActualFlag.First().Parameter;
+            ParametersWithActualFlag = new ObservableCollection<ParameterWithActualFlag>();
+            foreach (var parameter in parameters)
+            {
+                var parameterWithActualFlag = new ParameterWithActualFlag(parameter);
+                ParametersWithActualFlag.Add(parameterWithActualFlag);
+                //подписываемся на смену актуальности параметра
+                parameterWithActualFlag.IsActualChanged += ParameterWithActualFlagOnIsActualChanged; 
+            }
+
+            SelectedParameter = selectedParameter ?? ParametersWithActualFlag.FirstOrDefault(x => x.IsActual)?.Parameter;
         }
+
+        private void ParameterWithActualFlagOnIsActualChanged(ParameterWithActualFlag parameterWithActualFlag)
+        {
+            //меняем выбранный параметр, если он теперь не актуален
+            if (Equals(SelectedParameter, parameterWithActualFlag.Parameter) && !parameterWithActualFlag.IsActual)
+                SelectedParameter = ParametersWithActualFlag.FirstOrDefault(x => x.IsActual)?.Parameter;
+
+            //актуальна ли теперь вся группа?
+            IsActual = this.ParametersWithActualFlag.Any(x => x.IsActual);
+        }
+
 
         public ObservableCollection<ParameterWithActualFlag> ParametersWithActualFlag { get; }
 
-        private Parameter _selectedParameter;
+
         public Parameter SelectedParameter
         {
             get { return _selectedParameter; }
@@ -29,32 +46,45 @@ namespace HVTApp.Services.GetProductService
             {
                 if (Equals(_selectedParameter, value)) return;
 
-                if(!_parameters.Contains(value)) throw new ArgumentException("Выбранный параметр не из списка.");
+                if(value != null && !ParametersWithActualFlag.Select(x => x.Parameter).Contains(value))
+                    throw new ArgumentException("Выбран параметр не из списка.");
 
+                var oldValue = _selectedParameter;
                 _selectedParameter = value;
 
-                OnSelectedParameterChanged();
+                OnSelectedParameterChanged(oldValue, value);
                 OnPropertyChanged();
 
-                //перепроверяем флаги актуальности во всей группе
-                foreach (var parameterWithActualFlag in ParametersWithActualFlag)
-                {
-                    parameterWithActualFlag.IsActual = !parameterWithActualFlag.Parameter.RequiredPreviousParameters.Any() ||
-                                parameterWithActualFlag.Parameter.RequiredPreviousParameters.Any(pp => pp.RequiredParameters.All(x => _product.SelectedParameters.Contains(x)));
-                }
                 OnPropertyChanged(nameof(IsActual));
             }
         }
 
-        public bool IsActual => ParametersWithActualFlag.Any(x => x.IsActual);
-
-
-
-        public event Action SelectedParameterChanged;
-
-        protected virtual void OnSelectedParameterChanged()
+        public bool IsActual
         {
-            SelectedParameterChanged?.Invoke();
+            get { return _isActual; }
+            set
+            {
+                if (Equals(_isActual, value)) return;
+                _isActual = value;
+                OnIsActualChanged();
+                OnPropertyChanged();
+            }
         }
+
+
+        public event Action<Parameter, Parameter> SelectedParameterChanged;
+
+        protected virtual void OnSelectedParameterChanged(Parameter oldParameter, Parameter newParameter)
+        {
+            SelectedParameterChanged?.Invoke(oldParameter, newParameter);
+        }
+
+        public event Action IsActualChanged;
+
+        protected virtual void OnIsActualChanged()
+        {
+            IsActualChanged?.Invoke();
+        }
+
     }
 }

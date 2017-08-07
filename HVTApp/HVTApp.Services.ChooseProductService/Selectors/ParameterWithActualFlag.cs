@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -7,7 +8,7 @@ namespace HVTApp.Services.GetProductService
 {
     public class ParameterWithActualFlag : NotifyPropertyChanged
     {
-        private bool _isActual;
+        private bool _isActual = true;
 
         public ParameterWithActualFlag(Parameter parameter)
         {
@@ -23,8 +24,18 @@ namespace HVTApp.Services.GetProductService
             {
                 if (Equals(_isActual, value)) return;
                 _isActual = value;
+                OnIsActualChanged(this);
                 OnPropertyChanged();
             }
+        }
+
+
+
+        public event Action<ParameterWithActualFlag> IsActualChanged;
+
+        protected virtual void OnIsActualChanged(ParameterWithActualFlag obj)
+        {
+            IsActualChanged?.Invoke(obj);
         }
     }
 }

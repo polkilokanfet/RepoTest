@@ -12,5 +12,10 @@ namespace HVTApp.Infrastructure
 
             return !firstList.Except(secondList).Any() && !secondList.Except(firstList).Any();
         }
+
+        public static bool AllContainsIn<T>(this IEnumerable<T> first, IEnumerable<T> second)
+        {
+            return first.All(second.Contains);
+        }
     }
 }

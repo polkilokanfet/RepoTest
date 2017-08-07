@@ -47,7 +47,7 @@ namespace HVTApp.Services.GetProductService.Tests
             Assert.IsTrue(equipmentSelector.ProductSelector.ParameterSelectors.Count == _groups.Count);
 
             //должен иметь зависимые продукты
-            Assert.IsTrue(equipmentSelector.DependetEquipmentSelectors.Count == 1);
+            Assert.IsTrue(equipmentSelector.DependentEquipmentSelectors.Count == 1);
         }
     }
 }
