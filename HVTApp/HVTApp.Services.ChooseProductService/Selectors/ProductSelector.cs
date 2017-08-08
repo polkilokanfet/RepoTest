@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
@@ -19,11 +20,7 @@ namespace HVTApp.Services.GetProductService
 
             ParameterSelectors = new ObservableCollection<ParameterSelector>();
             SelectedParameters = new ObservableCollection<Parameter>();
-            SelectedParameters.CollectionChanged += (sender, args) =>
-            {
-                RefreshActualFlagsOfParameters();
-                SelectedProduct = GetProduct();
-            };
+            SelectedParameters.CollectionChanged += SelectedParametersOnCollectionChanged;
 
             foreach (var parameters in parametersGroups)
             {
@@ -48,6 +45,23 @@ namespace HVTApp.Services.GetProductService
                     var group = ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).Contains(originProductParameter));
                     group.SelectedParameter = originProductParameter;
                 }
+        }
+
+        private void SelectedParametersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            //перепроверяем флаги актуальности каждого параметра
+            foreach (var parameterSelector in ParameterSelectors)
+            {
+                
+                foreach (var parameterWithActualFlag in parameterSelector.ParametersWithActualFlag)
+                {
+                    parameterWithActualFlag.IsActual =
+                        !parameterWithActualFlag.Parameter.RequiredPreviousParameters.Any() ||
+                        parameterWithActualFlag.Parameter.RequiredPreviousParameters.Any(x => x.RequiredParameters.AllContainsIn(SelectedParameters));
+                }
+            }
+
+            SelectedProduct = GetProduct();
         }
 
         public ObservableCollection<ParameterSelector> ParameterSelectors { get; set; }
@@ -87,16 +101,6 @@ namespace HVTApp.Services.GetProductService
 
         private void RefreshActualFlagsOfParameters()
         {
-            foreach (var parameterSelector in ParameterSelectors)
-            {
-                //перепроверяем флаги актуальности каждого параметра
-                foreach (var parameterWithActualFlag in parameterSelector.ParametersWithActualFlag)
-                {
-                    parameterWithActualFlag.IsActual =
-                        !parameterWithActualFlag.Parameter.RequiredPreviousParameters.Any() ||
-                        parameterWithActualFlag.Parameter.RequiredPreviousParameters.Any(pp => pp.RequiredParameters.All(x => SelectedParameters.Contains(x)));
-                }
-            }
         }
 
         public event Action<Product, Product> SelectedProductChanged;

@@ -13,6 +13,9 @@ namespace HVTApp.Services.GetProductService
 
         public ParameterSelector(IEnumerable<Parameter> parameters, Parameter selectedParameter = null)
         {
+            if (parameters == null) throw new ArgumentNullException(nameof(parameters), @"Вы не передали параметры");
+            if (!parameters.Any()) throw new ArgumentException("Вы передали пустой список параметров");
+
             ParametersWithActualFlag = new ObservableCollection<ParameterWithActualFlag>();
             foreach (var parameter in parameters)
             {
@@ -28,7 +31,7 @@ namespace HVTApp.Services.GetProductService
         private void ParameterWithActualFlagOnIsActualChanged(ParameterWithActualFlag parameterWithActualFlag)
         {
             //меняем выбранный параметр, если он теперь не актуален
-            if (Equals(SelectedParameter, parameterWithActualFlag.Parameter) && !parameterWithActualFlag.IsActual)
+            if (SelectedParameter == null || (Equals(SelectedParameter, parameterWithActualFlag.Parameter) && !parameterWithActualFlag.IsActual))
                 SelectedParameter = ParametersWithActualFlag.FirstOrDefault(x => x.IsActual)?.Parameter;
 
             //актуальна ли теперь вся группа?
@@ -46,8 +49,11 @@ namespace HVTApp.Services.GetProductService
             {
                 if (Equals(_selectedParameter, value)) return;
 
-                if(value != null && !ParametersWithActualFlag.Select(x => x.Parameter).Contains(value))
+                if (value != null && !ParametersWithActualFlag.Select(x => x.Parameter).Contains(value))
                     throw new ArgumentException("Выбран параметр не из списка.");
+
+                if (value != null && !ParametersWithActualFlag.Single(x => Equals(value, x.Parameter)).IsActual)
+                    throw new ArgumentException("Параметр не актуален");
 
                 var oldValue = _selectedParameter;
                 _selectedParameter = value;

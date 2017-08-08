@@ -17,6 +17,11 @@ namespace HVTApp.Services.GetProductService
 
         private Equipment _selectedEquipment;
 
+        public EquipmentSelector(IEnumerable<ParameterGroup> groups, IEnumerable<RequiredDependentEquipmentsParameters> requiredDependentEquipmentsParametersList) : 
+            this(groups, new List<Product>(), new List<Equipment>(), requiredDependentEquipmentsParametersList)
+        {
+        }
+
         public EquipmentSelector(
             IEnumerable<ParameterGroup> groups, 
             IList<Product> products, 

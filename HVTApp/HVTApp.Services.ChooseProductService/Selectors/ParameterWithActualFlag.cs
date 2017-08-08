@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.GetProductService
@@ -12,6 +9,7 @@ namespace HVTApp.Services.GetProductService
 
         public ParameterWithActualFlag(Parameter parameter)
         {
+            if (parameter == null) throw new ArgumentNullException(nameof(parameter));
             Parameter = parameter;
         }
 
