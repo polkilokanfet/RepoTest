@@ -11,56 +11,60 @@ namespace HVTApp.Services.GetProductService.Tests
     public class EquipmentSelectorTests
     {
         private List<ParameterGroup> _groups;
+        private Parameter _breaker, _transformator;
+        private Parameter _v110, _v220, _v500;
+        private Parameter _c2500, _c3150, _c0001, _c0005;
+        private ParameterGroup _current, _voltage, _eqType;
+
         private List<RequiredDependentEquipmentsParameters> _requiredDependentEquipmentsParametersList;
-        private Parameter _breaker, _transformator, _v110, _v220;
         private RequiredDependentEquipmentsParameters _requiredDependentEquipmentsParameters;
+        private EquipmentSelector _equipmentSelector;
 
         [TestInitialize]
         public void Init()
         {
-            
-            _breaker = new Parameter();
-            _transformator = new Parameter();
-            ParameterGroup eqType = new ParameterGroup().AddParameters(new[] { _breaker, _transformator });
+            _breaker = new Parameter() { Value = "выключатель" };
+            _transformator = new Parameter() { Value = "трансформатор" };
+            _eqType = new ParameterGroup().AddParameters(new[] { _breaker, _transformator });
 
-            _v110 = new Parameter(); _v110.RequiredPreviousParameters.Add(new RequiredPreviousParameters { RequiredParameters = new List<Parameter> { _breaker } });
-            _v220 = new Parameter(); _v220.RequiredPreviousParameters.Add(new RequiredPreviousParameters { RequiredParameters = new List<Parameter> { _breaker } });
-            ParameterGroup voltage = new ParameterGroup().AddParameters(new[] { _v110, _v220 });
+            _v110 = new Parameter() { Value = "110кВ" }.AddRequiredPreviousParameters(new[] { _breaker });
+            _v220 = new Parameter() { Value = "220кВ" }.AddRequiredPreviousParameters(new[] { _breaker });
+            _v500 = new Parameter() { Value = "500кВ" }.AddRequiredPreviousParameters(new[] { _breaker });
+            _voltage = new ParameterGroup().AddParameters(new[] { _v110, _v220, _v500 });
 
-            _groups = new List<ParameterGroup> { eqType, voltage };
+            _c2500 = new Parameter() { Value = "2500А" }.AddRequiredPreviousParameters(new[] { _breaker, _v110 })
+                                                        .AddRequiredPreviousParameters(new[] { _breaker, _v220 });
+            _c3150 = new Parameter() { Value = "3150А" }.AddRequiredPreviousParameters(new[] { _breaker, _v110 })
+                                                        .AddRequiredPreviousParameters(new[] { _breaker, _v220 })
+                                                        .AddRequiredPreviousParameters(new[] { _breaker, _v500 });
+            _c0001 = new Parameter() { Value = "1А" }.AddRequiredPreviousParameters(new[] { _transformator });
+            _c0005 = new Parameter() { Value = "5А" }.AddRequiredPreviousParameters(new[] { _transformator });
+            _current = new ParameterGroup().AddParameters(new[] { _c2500, _c3150, _c0001, _c0005 });
+
+            _groups = new List<ParameterGroup> { _eqType, _voltage, _current };
 
             _requiredDependentEquipmentsParameters = new RequiredDependentEquipmentsParameters
             {
                 MainProductParameters = new List<Parameter> { _breaker, _v110 },
-                ChildProductParameters = new List<Parameter> { _transformator }
+                ChildProductParameters = new List<Parameter> { _transformator },
+                Count = 6
             };
             _requiredDependentEquipmentsParametersList = new List<RequiredDependentEquipmentsParameters> { _requiredDependentEquipmentsParameters };
+
+            _equipmentSelector = new EquipmentSelector(_groups, new List<Product>(), new List<Equipment>(), _requiredDependentEquipmentsParametersList);
         }
 
         [TestMethod]
         public void EquipmentSelectorHasSelectedEquipment()
         {
-            var equipmentSelector = new EquipmentSelector(_groups, _requiredDependentEquipmentsParametersList);
-
-            Assert.IsTrue(equipmentSelector.SelectedEquipment != null);
-        }
-
-
-        [TestMethod]
-        public void EquipmentSelectorIncludesAllGroups()
-        {
-            var equipmentSelector = new EquipmentSelector(_groups, _requiredDependentEquipmentsParametersList);
-
-            Assert.IsTrue(equipmentSelector.ProductSelector.ParameterSelectors.Count == _groups.Count);
+            Assert.IsTrue(_equipmentSelector.SelectedEquipment != null);
         }
 
         [TestMethod]
         public void EquipmentSelectorIncludesDependentEquipmentSelectors()
         {
-            var equipmentSelector = new EquipmentSelector(_groups, _requiredDependentEquipmentsParametersList);
-
             //должен иметь зависимые продукты
-            Assert.IsTrue(equipmentSelector.DependentEquipmentSelectors.Count == 1);
+            Assert.AreEqual(_equipmentSelector.DependentEquipmentSelectors.Count, _requiredDependentEquipmentsParameters.Count);
         }
     }
 }

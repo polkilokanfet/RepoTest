@@ -86,7 +86,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
-    <Compile Include="GetProductServiceTests.cs" />
     <Compile Include="ParameterSelectorTests.cs" />
     <Compile Include="ProductSelectorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

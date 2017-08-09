@@ -58,13 +58,13 @@ namespace HVTApp.Services.GetProductService.Tests
             _parameterSelectorEqType.SelectedParameter = _v110;
         }
 
-        //[TestMethod]
-        //[ExpectedException(typeof(ArgumentException), "Параметр не актуален")]
-        //public void ParameterSelectorSelectedParameterIsNotActualException()
-        //{
-        //    _parameterSelectorEqType.ParametersWithActualFlag.ForEach(x => x.IsActual = false);
-        //    _parameterSelectorEqType.SelectedParameter = _parameterSelectorEqType.ParametersWithActualFlag.Last().Parameter;
-        //}
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException), "Параметр не актуален")]
+        public void ParameterSelectorSelectedParameterIsNotActualException()
+        {
+            _parameterSelectorEqType.ParametersWithActualFlag.ForEach(x => x.IsActual = false);
+            _parameterSelectorEqType.SelectedParameter = _parameterSelectorEqType.ParametersWithActualFlag.Last().Parameter;
+        }
 
         [TestMethod]
         public void ParameterSelectorSelectedParameterIsNotActual()

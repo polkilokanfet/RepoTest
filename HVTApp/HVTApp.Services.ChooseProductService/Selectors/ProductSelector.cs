@@ -19,8 +19,6 @@ namespace HVTApp.Services.GetProductService
             _products = products;
 
             ParameterSelectors = new ObservableCollection<ParameterSelector>();
-            SelectedParameters = new ObservableCollection<Parameter>();
-            SelectedParameters.CollectionChanged += SelectedParametersOnCollectionChanged;
 
             foreach (var parameters in parametersGroups)
             {
@@ -34,9 +32,9 @@ namespace HVTApp.Services.GetProductService
 
                 //подписываемся на изменение выбора параметра в каждой группе
                 parameterSelector.SelectedParameterChanged += OnSelectedParameterChanged;
-
-                if (parameterSelector.SelectedParameter != null) SelectedParameters.Add(parameterSelector.SelectedParameter);
             }
+
+            SelectedProduct = GetProduct();
 
             //назаначаем предварительно выбранный продукт
             if (preSelectedProduct != null) SelectedProduct = preSelectedProduct;
@@ -44,7 +42,7 @@ namespace HVTApp.Services.GetProductService
 
         public ObservableCollection<ParameterSelector> ParameterSelectors { get; set; }
 
-        public ObservableCollection<Parameter> SelectedParameters { get; }
+        public IEnumerable<Parameter> SelectedParameters => ParameterSelectors.Select(x => x.SelectedParameter).Where(x => x != null);
 
         public Product SelectedProduct
         {
@@ -55,6 +53,7 @@ namespace HVTApp.Services.GetProductService
                 var oldValue = _selectedProduct;
                 _selectedProduct = value;
 
+                //назначаем в селекторы актуальные выбранные параметры
                 var actualParameterSelectors = new List<ParameterSelector>();
                 foreach (var parameter in _selectedProduct.Parameters)
                 {
@@ -85,55 +84,69 @@ namespace HVTApp.Services.GetProductService
 
         private void OnSelectedParameterChanged(Parameter oldParameter, Parameter newParameter)
         {
-            SelectedParameters.CollectionChanged -= SelectedParametersOnCollectionChanged;
-
             //определяем выбранные параметры, которые зависели от старого параметра
             List<Parameter> dependendParametersFromOld = new List<Parameter>();
             if (oldParameter != null)
-                dependendParametersFromOld.AddRange(SelectedParameters.Where(x => ParameterNeeds(x, oldParameter)));
+                dependendParametersFromOld.AddRange(SelectedParameters.Where(x => ParameterDependsFrom(x, oldParameter)));
             //определяем выбранные параметры, которые зависят от нового параметра
             List<Parameter> dependendParametersFromNew = new List<Parameter>();
             if (newParameter != null)
-                dependendParametersFromNew.AddRange(SelectedParameters.Where(x => ParameterNeeds(x, newParameter)));
+                dependendParametersFromNew.AddRange(SelectedParameters.Where(x => ParameterDependsFrom(x, newParameter)));
 
-            //исключаем не актуальные параметры параметры
-            dependendParametersFromOld.Except(dependendParametersFromNew).ToList().ForEach(x => SelectedParameters.Remove(x));
+            //не актуальные параметры
+            var notActualSelectedParameters = dependendParametersFromOld.Except(dependendParametersFromNew);
+            //актуальные параметры
+            var actualSelectedParameters = SelectedParameters.Except(notActualSelectedParameters).ToList();
+            if (oldParameter != null) actualSelectedParameters.Remove(oldParameter);
+            if (newParameter != null) actualSelectedParameters.Add(newParameter);
 
-            SelectedParameters.CollectionChanged += SelectedParametersOnCollectionChanged;
-
-            if (oldParameter != null && SelectedParameters.Contains(oldParameter)) SelectedParameters.Remove(oldParameter);
-            if (newParameter != null && !SelectedParameters.Contains(newParameter)) SelectedParameters.Add(newParameter);
-        }
-
-
-        private void SelectedParametersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
-        {
             //перепроверяем флаги актуальности каждого параметра
             foreach (var parameterSelector in ParameterSelectors)
             {
                 foreach (var parameterWithActualFlag in parameterSelector.ParametersWithActualFlag)
-                {
-                    parameterWithActualFlag.IsActual =
-                        !parameterWithActualFlag.Parameter.RequiredPreviousParameters.Any() ||
-                        parameterWithActualFlag.Parameter.RequiredPreviousParameters.Any(x => x.RequiredParameters.AllContainsIn(SelectedParameters));
-                }
+                    parameterWithActualFlag.IsActual = ParameterIsActual(parameterWithActualFlag.Parameter, actualSelectedParameters);
+
+                var selectedParameterWithActualFlag = parameterSelector.ParametersWithActualFlag.SingleOrDefault(x => Equals(x.Parameter, parameterSelector.SelectedParameter));
+
+                //если выбранный параметр потерял свою актуальность, выбирам другой актуальный
+                if (selectedParameterWithActualFlag != null && !selectedParameterWithActualFlag.IsActual)
+                    parameterSelector.SelectedParameter = parameterSelector.ParametersWithActualFlag.FirstOrDefault(x => x.IsActual)?.Parameter;
             }
 
+            OnSelectedParametersChanged();
             SelectedProduct = GetProduct();
         }
 
+
+        private bool ParameterIsActual(Parameter parameter, IEnumerable<Parameter> requiredParameters)
+        {
+            return !parameter.RequiredPreviousParameters.Any() ||
+                    parameter.RequiredPreviousParameters.Any(x => x.RequiredParameters.AllContainsIn(requiredParameters));
+        }
+
         //нужен ли параметру для актуальности выбор другого параметра
-        private bool ParameterNeeds(Parameter targetParameter, Parameter possibleNeededParameter)
+        private bool ParameterDependsFrom(Parameter targetParameter, Parameter possibleNeededParameter)
         {
             if (!targetParameter.RequiredPreviousParameters.Any()) return false;
             return targetParameter.RequiredPreviousParameters.Any(x => x.RequiredParameters.Contains(possibleNeededParameter));
         }
+
+
+
+
 
         public event Action<Product, Product> SelectedProductChanged;
 
         protected virtual void OnSelectedProductChanged(Product oldProduct, Product newProduct)
         {
             SelectedProductChanged?.Invoke(oldProduct, newProduct);
+        }
+
+        private event Action SelectedParametersChanged;
+
+        protected virtual void OnSelectedParametersChanged()
+        {
+            SelectedParametersChanged?.Invoke();
         }
     }
 }

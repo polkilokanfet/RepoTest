@@ -34,6 +34,6 @@ namespace HVTApp.Model.POCOs
     {
         public virtual List<Parameter> MainProductParameters { get; set; } = new List<Parameter>();
         public virtual List<Parameter> ChildProductParameters { get; set; } = new List<Parameter>();
-        public int Count { get; set; }
+        public int Count { get; set; } = 1;
     }
 }
