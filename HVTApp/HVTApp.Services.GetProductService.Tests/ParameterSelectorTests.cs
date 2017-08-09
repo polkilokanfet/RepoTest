@@ -10,7 +10,9 @@ namespace HVTApp.Services.GetProductService.Tests
     [TestClass]
     public class ParameterSelectorTests
     {
-        private Parameter _breaker, _transformator, _v110, _v220;
+        private Parameter _breaker, _transformator;
+        private Parameter _v110, _v220, _v500;
+        private Parameter _c2500, _c3150;
         private ParameterSelector _parameterSelectorEqType;
 
         [TestInitialize]
@@ -20,9 +22,16 @@ namespace HVTApp.Services.GetProductService.Tests
             _transformator = new Parameter();
             ParameterGroup eqType = new ParameterGroup().AddParameters(new[] { _breaker, _transformator });
 
-            _v110 = new Parameter(); _v110.RequiredPreviousParameters.Add(new RequiredPreviousParameters { RequiredParameters = new List<Parameter> { _breaker } });
-            _v220 = new Parameter(); _v220.RequiredPreviousParameters.Add(new RequiredPreviousParameters { RequiredParameters = new List<Parameter> { _breaker } });
-            ParameterGroup voltage = new ParameterGroup().AddParameters(new[] { _v110, _v220 });
+            _v110 = new Parameter().AddRequiredPreviousParameters(new[] { _breaker });
+            _v220 = new Parameter().AddRequiredPreviousParameters(new[] { _breaker });
+            _v500 = new Parameter().AddRequiredPreviousParameters(new[] { _breaker });
+            ParameterGroup voltage = new ParameterGroup().AddParameters(new[] { _v110, _v220, _v500 });
+
+            _c2500 = new Parameter().AddRequiredPreviousParameters(new[] { _breaker, _v110 })
+                                    .AddRequiredPreviousParameters(new[] { _breaker, _v220 });
+            _c3150 = new Parameter().AddRequiredPreviousParameters(new[] { _breaker, _v110 })
+                                    .AddRequiredPreviousParameters(new[] { _breaker, _v220 })
+                                    .AddRequiredPreviousParameters(new[] { _breaker, _v500 });
 
             _parameterSelectorEqType = new ParameterSelector(eqType.Parameters);
         }
@@ -49,13 +58,13 @@ namespace HVTApp.Services.GetProductService.Tests
             _parameterSelectorEqType.SelectedParameter = _v110;
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "Параметр не актуален")]
-        public void ParameterSelectorSelectedParameterIsNotActualException()
-        {
-            _parameterSelectorEqType.ParametersWithActualFlag.ForEach(x => x.IsActual = false);
-            _parameterSelectorEqType.SelectedParameter = _parameterSelectorEqType.ParametersWithActualFlag.Last().Parameter;
-        }
+        //[TestMethod]
+        //[ExpectedException(typeof(ArgumentException), "Параметр не актуален")]
+        //public void ParameterSelectorSelectedParameterIsNotActualException()
+        //{
+        //    _parameterSelectorEqType.ParametersWithActualFlag.ForEach(x => x.IsActual = false);
+        //    _parameterSelectorEqType.SelectedParameter = _parameterSelectorEqType.ParametersWithActualFlag.Last().Parameter;
+        //}
 
         [TestMethod]
         public void ParameterSelectorSelectedParameterIsNotActual()

@@ -14,7 +14,7 @@ namespace HVTApp.Services.GetProductService
         private readonly IList<Product> _products;
         private Product _selectedProduct;
 
-        public ProductSelector(IEnumerable<IEnumerable<Parameter>> parametersGroups, IList<Product> products, IEnumerable<Parameter> requiredParameters = null, Product originProduct = null)
+        public ProductSelector(IEnumerable<IEnumerable<Parameter>> parametersGroups, IList<Product> products, IEnumerable<Parameter> requiredParameters = null, Product preSelectedProduct = null)
         {
             _products = products;
 
@@ -38,30 +38,8 @@ namespace HVTApp.Services.GetProductService
                 if (parameterSelector.SelectedParameter != null) SelectedParameters.Add(parameterSelector.SelectedParameter);
             }
 
-            //выбираем параметры
-            if (originProduct != null)
-                foreach (var originProductParameter in originProduct.Parameters)
-                {
-                    var group = ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).Contains(originProductParameter));
-                    group.SelectedParameter = originProductParameter;
-                }
-        }
-
-        private void SelectedParametersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
-        {
-            //перепроверяем флаги актуальности каждого параметра
-            foreach (var parameterSelector in ParameterSelectors)
-            {
-                
-                foreach (var parameterWithActualFlag in parameterSelector.ParametersWithActualFlag)
-                {
-                    parameterWithActualFlag.IsActual =
-                        !parameterWithActualFlag.Parameter.RequiredPreviousParameters.Any() ||
-                        parameterWithActualFlag.Parameter.RequiredPreviousParameters.Any(x => x.RequiredParameters.AllContainsIn(SelectedParameters));
-                }
-            }
-
-            SelectedProduct = GetProduct();
+            //назаначаем предварительно выбранный продукт
+            if (preSelectedProduct != null) SelectedProduct = preSelectedProduct;
         }
 
         public ObservableCollection<ParameterSelector> ParameterSelectors { get; set; }
@@ -76,6 +54,18 @@ namespace HVTApp.Services.GetProductService
                 if (Equals(_selectedProduct, value)) return;
                 var oldValue = _selectedProduct;
                 _selectedProduct = value;
+
+                var actualParameterSelectors = new List<ParameterSelector>();
+                foreach (var parameter in _selectedProduct.Parameters)
+                {
+                    var parameterSelector = ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).Contains(parameter));
+                    if (!Equals(parameterSelector.SelectedParameter, parameter)) parameterSelector.SelectedParameter = parameter;
+                    actualParameterSelectors.Add(parameterSelector);
+                }
+                foreach (var parameterSelector in ParameterSelectors.Except(actualParameterSelectors))
+                {
+                    if (!Equals(parameterSelector.SelectedParameter, null)) parameterSelector.SelectedParameter = null;
+                }
 
                 OnSelectedProductChanged(oldValue, value);
                 OnPropertyChanged();
@@ -95,12 +85,48 @@ namespace HVTApp.Services.GetProductService
 
         private void OnSelectedParameterChanged(Parameter oldParameter, Parameter newParameter)
         {
+            SelectedParameters.CollectionChanged -= SelectedParametersOnCollectionChanged;
+
+            //определяем выбранные параметры, которые зависели от старого параметра
+            List<Parameter> dependendParametersFromOld = new List<Parameter>();
+            if (oldParameter != null)
+                dependendParametersFromOld.AddRange(SelectedParameters.Where(x => ParameterNeeds(x, oldParameter)));
+            //определяем выбранные параметры, которые зависят от нового параметра
+            List<Parameter> dependendParametersFromNew = new List<Parameter>();
+            if (newParameter != null)
+                dependendParametersFromNew.AddRange(SelectedParameters.Where(x => ParameterNeeds(x, newParameter)));
+
+            //исключаем не актуальные параметры параметры
+            dependendParametersFromOld.Except(dependendParametersFromNew).ToList().ForEach(x => SelectedParameters.Remove(x));
+
+            SelectedParameters.CollectionChanged += SelectedParametersOnCollectionChanged;
+
             if (oldParameter != null && SelectedParameters.Contains(oldParameter)) SelectedParameters.Remove(oldParameter);
             if (newParameter != null && !SelectedParameters.Contains(newParameter)) SelectedParameters.Add(newParameter);
         }
 
-        private void RefreshActualFlagsOfParameters()
+
+        private void SelectedParametersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
         {
+            //перепроверяем флаги актуальности каждого параметра
+            foreach (var parameterSelector in ParameterSelectors)
+            {
+                foreach (var parameterWithActualFlag in parameterSelector.ParametersWithActualFlag)
+                {
+                    parameterWithActualFlag.IsActual =
+                        !parameterWithActualFlag.Parameter.RequiredPreviousParameters.Any() ||
+                        parameterWithActualFlag.Parameter.RequiredPreviousParameters.Any(x => x.RequiredParameters.AllContainsIn(SelectedParameters));
+                }
+            }
+
+            SelectedProduct = GetProduct();
+        }
+
+        //нужен ли параметру для актуальности выбор другого параметра
+        private bool ParameterNeeds(Parameter targetParameter, Parameter possibleNeededParameter)
+        {
+            if (!targetParameter.RequiredPreviousParameters.Any()) return false;
+            return targetParameter.RequiredPreviousParameters.Any(x => x.RequiredParameters.Contains(possibleNeededParameter));
         }
 
         public event Action<Product, Product> SelectedProductChanged;
