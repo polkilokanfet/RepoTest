@@ -27,7 +27,7 @@ namespace HVTApp.Services.GetProductService.Tests
             _breaker = new Parameter() { Value = "выключатель" };
             _transformator = new Parameter() { Value = "трансформатор" };
             _drive = new Parameter() {Value = "привод выключателя"};
-            _drivesReducer = new Parameter() {Value = "редкутор"};
+            _drivesReducer = new Parameter() {Value = "редуктор"};
             _eqType = new ParameterGroup().AddParameters(new[] { _breaker, _transformator, _drive, _drivesReducer });
 
             _v110 = new Parameter() { Value = "110кВ" }.AddRequiredPreviousParameters(new[] { _breaker });
@@ -72,7 +72,16 @@ namespace HVTApp.Services.GetProductService.Tests
         [TestMethod]
         public void EquipmentSelectorHasSelectedEquipment()
         {
-            Assert.IsTrue(_equipmentSelector.SelectedEquipment != null);
+            DependentEquipmentNotNull(_equipmentSelector.SelectedEquipment);
+        }
+        //всё зависимое оборудование выбрано
+        private void DependentEquipmentNotNull(Equipment equipment)
+        {
+            Assert.IsTrue(equipment != null);
+            foreach (var dependentEquipment in equipment.DependentEquipments)
+            {
+                DependentEquipmentNotNull(dependentEquipment);
+            }
         }
 
         [TestMethod]
@@ -88,10 +97,58 @@ namespace HVTApp.Services.GetProductService.Tests
         }
 
         [TestMethod]
-        public void EquipmentSelectorSelectedParametersOfDependentEquipment()
+        public void EquipmentSelectorPreSelectedParametersOfDependentEquipment()
         {
             EquipmentSelector driveEquipmentSelector = _equipmentSelector.EquipmentSelectors.Single(x => x.ProductSelector.SelectedParameters.Contains(_drive));
-            Assert.IsTrue(driveEquipmentSelector.ProductSelector.SelectedParameters.AllMembersAreSame(new[] {_drive}));
+            Assert.IsTrue(driveEquipmentSelector.ProductSelector.SelectedParameters.AllMembersAreSame(new[] { _drive }));
+            Assert.IsTrue(driveEquipmentSelector.ProductSelector.SelectedProduct.Parameters.AllMembersAreSame(new[] { _drive }));
+        }
+
+        [TestMethod]
+        public void EquipmentSelectorSelectParameters()
+        {
+            ParameterSelector parameterSelector = _equipmentSelector.ProductSelector.ParameterSelectors.Single(x => Equals(x.SelectedParameter, _breaker));
+            parameterSelector.SelectedParameter = _drive;
+
+            Assert.IsTrue(_equipmentSelector.SelectedEquipment.Product.Parameters.AllMembersAreSame(new[] { _drive }));
+            Assert.AreEqual(_equipmentSelector.SelectedEquipment.DependentEquipments.Count, _requiredDependentEquipmentsParametersReducerToDrive.Count);
+        }
+
+        [TestMethod]
+        public void EquipmentSelectorPreSelectedEquipment()
+        {
+            List<Product> products = new List<Product>();
+            List<Equipment> equipments = new List<Equipment>();
+            EquipmentSelector equipmentSelector1 = new EquipmentSelector(_groups, products, equipments, _requiredDependentEquipmentsParametersList);
+
+            ParameterSelector parameterSelector = equipmentSelector1.ProductSelector.ParameterSelectors.Single(x => Equals(x.SelectedParameter, _breaker));
+            parameterSelector.SelectedParameter = _drive;
+            Equipment refEquipment = equipmentSelector1.SelectedEquipment;
+
+            EquipmentSelector equipmentSelector2 = new EquipmentSelector(_groups, products, equipments, _requiredDependentEquipmentsParametersList, 
+                preSelectedEquipment: refEquipment);
+
+            //продукты совпадают
+            Assert.AreEqual(equipmentSelector2.SelectedEquipment, refEquipment);
+            //параметры главных продуктов совпадают
+            Assert.IsTrue(equipmentSelector2.SelectedEquipment.Product.Parameters.AllMembersAreSame(equipmentSelector1.SelectedEquipment.Product.Parameters));
+            //параметры выбранного продукта и выбранные параметры селектора совпадают
+            Assert.IsTrue(equipmentSelector2.SelectedEquipment.Product.Parameters.AllMembersAreSame(equipmentSelector2.ProductSelector.SelectedParameters));
+
+            Assert.IsTrue(GetProducts(refEquipment).AllMembersAreSame(GetProducts(equipmentSelector2.SelectedEquipment)));
+        }
+
+        IEnumerable<Product> GetProducts(Equipment equipment)
+        {
+            yield return equipment.Product;
+
+            foreach (var dependentEquipment in equipment.DependentEquipments)
+            {
+                foreach (var product in GetProducts(dependentEquipment))
+                {
+                    yield return product;
+                }
+            }
         }
     }
 }

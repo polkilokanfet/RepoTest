@@ -54,6 +54,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BooleanToVisibilityConverter.cs" />
+    <Compile Include="GetProductServiceWpf.cs" />
+    <Compile Include="SelectEquipmentWindow.xaml.cs">
+      <DependentUpon>SelectEquipmentWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Selectors\NotifyPropertyChanged.cs" />
     <Compile Include="Selectors\ParameterWithActualFlag.cs" />
     <Compile Include="Selectors\ProductSelector.cs" />
@@ -119,6 +123,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="SelectEquipment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SelectEquipmentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -13,7 +13,7 @@ namespace HVTApp.DataAccess
     public interface IParametersRepository : IRepository<Parameter, ParameterWrapper> { }
     public interface IRequiredDependentEquipmentsParametersRepository : IRepository<RequiredDependentEquipmentsParameters, RequiredDependentEquipmentsParametersWrapper> { }
 
-    public interface IProductItemsRepository : IRepository<Product, ProductWrapper>
+    public interface IProductsRepository : IRepository<Product, ProductWrapper>
     {
         ProductWrapper GetProductItem(IEnumerable<ParameterWrapper> parameters);
     }

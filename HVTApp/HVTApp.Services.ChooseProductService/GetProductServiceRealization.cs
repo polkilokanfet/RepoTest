@@ -98,7 +98,7 @@ namespace HVTApp.Services.GetProductService
 
         public IEnumerable<ParametersUnion> ParametersUnions { get; }
 
-        public ProductWrapper ProductItem => _unitOfWork.ProductItems.GetProductItem(SelectedParameters);
+        public ProductWrapper ProductItem => _unitOfWork.Products.GetProductItem(SelectedParameters);
 
         private void ParametersUnionOnSelectedParameterChanged(object sender, EventArgs eventArgs)
         {

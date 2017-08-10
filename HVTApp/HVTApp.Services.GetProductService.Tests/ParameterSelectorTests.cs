@@ -36,19 +36,19 @@ namespace HVTApp.Services.GetProductService.Tests
             _parameterSelectorEqType = new ParameterSelector(eqType.Parameters);
         }
 
-        //[TestMethod]
-        //public void ParameterSelectorHasPreSelectedParameter()
-        //{
-        //    Assert.IsTrue(_parameterSelectorEqType.SelectedParameter != null);
-        //}
+        [TestMethod]
+        public void ParameterSelectorHasPreSelectedParameter()
+        {
+            Assert.IsTrue(_parameterSelectorEqType.SelectedParameter != null);
+        }
 
-        //[TestMethod]
-        //public void ParameterSelectorHasSelectedParameter()
-        //{
-        //    var parameters = _breaker.Group.Parameters;
-        //    ParameterSelector parameterSelector = new ParameterSelector(parameters, parameters.Last());
-        //    Assert.AreEqual(parameterSelector.SelectedParameter, parameters.Last());
-        //}
+        [TestMethod]
+        public void ParameterSelectorHasSelectedParameter()
+        {
+            var parameters = _breaker.Group.Parameters;
+            ParameterSelector parameterSelector = new ParameterSelector(parameters, parameters.Last());
+            Assert.AreEqual(parameterSelector.SelectedParameter, parameters.Last());
+        }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "Выбран параметр не из списка.")]

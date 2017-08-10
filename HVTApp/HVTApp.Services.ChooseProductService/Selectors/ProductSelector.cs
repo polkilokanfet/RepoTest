@@ -10,21 +10,23 @@ namespace HVTApp.Services.GetProductService
     public class ProductSelector : NotifyPropertyChanged
     {
         private readonly IList<Product> _products;
+        private readonly IEnumerable<Parameter> _requiredParameters;
         private Product _selectedProduct;
 
         public ProductSelector(IEnumerable<IEnumerable<Parameter>> parametersGroups, IList<Product> products, IEnumerable<Parameter> requiredParameters = null, Product preSelectedProduct = null)
         {
             _products = products;
+            _requiredParameters = requiredParameters == null ? new List<Parameter>() : new List<Parameter>(requiredParameters);
 
             ParameterSelectors = new ObservableCollection<ParameterSelector>();
 
             foreach (var parameters in parametersGroups)
             {
-                var parameterSelector = new ParameterSelector(parameters);
-
                 //исключаем возможность выбора параметров, отличных от обязательных
-                if (requiredParameters != null && parameters.Any(requiredParameters.Contains))
-                    parameterSelector = new ParameterSelector(new [] { parameters.Single(requiredParameters.Contains) } );
+                //если в селекторе есть обязательный параметр - оставляем только его
+                var parameterSelector = parameters.Any(_requiredParameters.Contains)
+                    ? new ParameterSelector(new[] {parameters.Single(_requiredParameters.Contains)})
+                    : new ParameterSelector(parameters);
 
                 ParameterSelectors.Add(parameterSelector);
 
@@ -65,10 +67,16 @@ namespace HVTApp.Services.GetProductService
                 {
                     if (!Equals(parameterSelector.SelectedParameter, null)) parameterSelector.SelectedParameter = null;
                 }
+                if (!_products.Contains(value)) _products.Add(value);
 
                 OnSelectedProductChanged(oldValue, value);
                 OnPropertyChanged();
             }
+        }
+
+        public IEnumerable<Parameter> GetRequaredParameters()
+        {
+            return _requiredParameters;
         }
 
         private Product GetProduct()

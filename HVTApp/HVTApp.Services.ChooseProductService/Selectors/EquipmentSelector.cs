@@ -17,47 +17,45 @@ namespace HVTApp.Services.GetProductService
 
         private Equipment _selectedEquipment;
 
-        public EquipmentSelector(
-            IEnumerable<ParameterGroup> groups, 
-            IList<Product> products, 
-            IList<Equipment> equipments, 
-            IEnumerable<RequiredDependentEquipmentsParameters> requiredDependentEquipmentsParametersList, 
-            IEnumerable<Parameter> requiredProductsParameters = null)
+        public ProductSelector ProductSelector { get; }
+        public ObservableCollection<EquipmentSelector> EquipmentSelectors { get; }
+
+
+        public EquipmentSelector(IEnumerable<ParameterGroup> groups, 
+                                 IList<Product> products, 
+                                 IList<Equipment> equipments, 
+                                 IEnumerable<RequiredDependentEquipmentsParameters> requiredDependentEquipmentsParametersList, 
+                                 IEnumerable<Parameter> requiredProductsParameters = null,
+                                 Equipment preSelectedEquipment = null)
         {
-            RequiredProductsParameters = requiredProductsParameters;
-            _groups = groups;
+            _groups = new List<ParameterGroup>(groups);
             _products = products;
             _equipments = equipments;
-            _requiredDependentEquipmentsParametersList = requiredDependentEquipmentsParametersList;
+            _requiredDependentEquipmentsParametersList = new List<RequiredDependentEquipmentsParameters>(requiredDependentEquipmentsParametersList);
 
             //продукт
-            ProductSelector = new ProductSelector(_groups.Select(x => x.Parameters), _products, RequiredProductsParameters);
+            ProductSelector = new ProductSelector(_groups.Select(x => x.Parameters), _products, requiredProductsParameters, preSelectedEquipment?.Product);
             ProductSelector.SelectedProductChanged += OnMainProductChanged;
 
             //дочернее оборудование
             EquipmentSelectors = new ObservableCollection<EquipmentSelector>();
             RefreshDependentEquipments();
             SelectedEquipment = GetEquipment();
+
+            //предварительно выбранное оборудование
+            //if (preSelectedEquipment != null) SelectedEquipment = preSelectedEquipment;
         }
 
-        private void OnMainProductChanged(Product oldProduct, Product newProduct)
-        {
-            RefreshDependentEquipments();
-            SelectedEquipment = GetEquipment();
-        }
-
-        public IEnumerable<Parameter> RequiredProductsParameters { get; }
-        public ProductSelector ProductSelector { get; }
-        public ObservableCollection<EquipmentSelector> EquipmentSelectors { get; }
 
         public Equipment SelectedEquipment
         {
             get { return _selectedEquipment; }
-            set
+            private set
             {
                 if (Equals(_selectedEquipment, value)) return;
                 var oldValue = _selectedEquipment;
                 _selectedEquipment = value;
+                if(!_equipments.Contains(value)) _equipments.Add(value);
 
                 OnSelectedEquipmentChanged(oldValue, value);
                 OnPropertyChanged();
@@ -66,7 +64,7 @@ namespace HVTApp.Services.GetProductService
 
         private Equipment GetEquipment()
         {
-            var dependentEquipment = EquipmentSelectors.Select(x => SelectedEquipment);
+            var dependentEquipment = EquipmentSelectors.Select(x => x.SelectedEquipment).ToList();
             var result = _equipments.SingleOrDefault(x => Equals(x.Product, ProductSelector.SelectedProduct) &&
                                                           x.DependentEquipments.AllMembersAreSame(dependentEquipment));
             if (result == null)
@@ -74,13 +72,16 @@ namespace HVTApp.Services.GetProductService
                 result = new Equipment
                 {
                     Product = ProductSelector.SelectedProduct,
-                    DependentEquipments = new List<Equipment>(dependentEquipment)
+                    DependentEquipments = dependentEquipment
                 };
                 _equipments.Add(result);
             }
             return result;
         }
 
+        /// <summary>
+        /// ѕараметры, необходимые зависимому оборудованию
+        /// </summary>
         IEnumerable<RequiredDependentEquipmentsParameters> RequiredDependentEquipmentsParameterses => _requiredDependentEquipmentsParametersList
             .Where(x => x.MainProductParameters.AllContainsIn(ProductSelector.SelectedParameters));
 
@@ -88,7 +89,7 @@ namespace HVTApp.Services.GetProductService
         {
             //исключаем не актуальное дочернее оборудование
             foreach (var equipmentSelector in EquipmentSelectors
-                .Where(des => !RequiredDependentEquipmentsParameterses.Any(x => x.ChildProductParameters.AllMembersAreSame(des.RequiredProductsParameters))))
+                .Where(des => !RequiredDependentEquipmentsParameterses.Any(x => x.ChildProductParameters.AllMembersAreSame(des.ProductSelector.GetRequaredParameters()))).ToList())
             {
                 EquipmentSelectors.Remove(equipmentSelector);
                 equipmentSelector.SelectedEquipmentChanged -= OnDependentSelectedEquipmentChanged;
@@ -96,7 +97,7 @@ namespace HVTApp.Services.GetProductService
 
             //добавл€ем актуальное дочернее оборудование
             foreach (var requiredDependentEquipmentsParameters in RequiredDependentEquipmentsParameterses
-                .Where(x => !EquipmentSelectors.Any(des => des.RequiredProductsParameters.AllMembersAreSame(x.ChildProductParameters))))
+                .Where(x => !EquipmentSelectors.Any(des => des.ProductSelector.GetRequaredParameters().AllMembersAreSame(x.ChildProductParameters))))
             {
                 for (int i = 0; i < requiredDependentEquipmentsParameters.Count; i++)
                 {
@@ -109,6 +110,12 @@ namespace HVTApp.Services.GetProductService
 
         private void OnDependentSelectedEquipmentChanged(Equipment oldEquipment, Equipment newEquipment)
         {
+            SelectedEquipment = GetEquipment();
+        }
+
+        private void OnMainProductChanged(Product oldProduct, Product newProduct)
+        {
+            RefreshDependentEquipments();
             SelectedEquipment = GetEquipment();
         }
 
