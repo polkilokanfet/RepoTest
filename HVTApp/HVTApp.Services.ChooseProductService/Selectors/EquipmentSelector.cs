@@ -35,7 +35,7 @@ namespace HVTApp.Services.GetProductService
             ProductSelector.SelectedProductChanged += OnMainProductChanged;
 
             //дочернее оборудование
-            DependentEquipmentSelectors = new ObservableCollection<EquipmentSelector>();
+            EquipmentSelectors = new ObservableCollection<EquipmentSelector>();
             RefreshDependentEquipments();
             SelectedEquipment = GetEquipment();
         }
@@ -48,7 +48,7 @@ namespace HVTApp.Services.GetProductService
 
         public IEnumerable<Parameter> RequiredProductsParameters { get; }
         public ProductSelector ProductSelector { get; }
-        public ObservableCollection<EquipmentSelector> DependentEquipmentSelectors { get; }
+        public ObservableCollection<EquipmentSelector> EquipmentSelectors { get; }
 
         public Equipment SelectedEquipment
         {
@@ -66,7 +66,7 @@ namespace HVTApp.Services.GetProductService
 
         private Equipment GetEquipment()
         {
-            var dependentEquipment = DependentEquipmentSelectors.Select(x => SelectedEquipment);
+            var dependentEquipment = EquipmentSelectors.Select(x => SelectedEquipment);
             var result = _equipments.SingleOrDefault(x => Equals(x.Product, ProductSelector.SelectedProduct) &&
                                                           x.DependentEquipments.AllMembersAreSame(dependentEquipment));
             if (result == null)
@@ -81,28 +81,29 @@ namespace HVTApp.Services.GetProductService
             return result;
         }
 
-        IEnumerable<IEnumerable<Parameter>> DependentEquipmentParametersList => 
-                _requiredDependentEquipmentsParametersList.Where(x => x.MainProductParameters.All(p => ProductSelector.SelectedParameters.Contains(p))).
-                                                           Select(x => x.ChildProductParameters);
+        IEnumerable<RequiredDependentEquipmentsParameters> RequiredDependentEquipmentsParameterses => _requiredDependentEquipmentsParametersList
+            .Where(x => x.MainProductParameters.AllContainsIn(ProductSelector.SelectedParameters));
 
         private void RefreshDependentEquipments()
         {
-
             //исключаем не актуальное дочернее оборудование
-            foreach (var equipmentSelector in DependentEquipmentSelectors
-                .Where(des => !DependentEquipmentParametersList.Any(x => x.AllMembersAreSame(des.RequiredProductsParameters))))
+            foreach (var equipmentSelector in EquipmentSelectors
+                .Where(des => !RequiredDependentEquipmentsParameterses.Any(x => x.ChildProductParameters.AllMembersAreSame(des.RequiredProductsParameters))))
             {
-                DependentEquipmentSelectors.Remove(equipmentSelector);
+                EquipmentSelectors.Remove(equipmentSelector);
                 equipmentSelector.SelectedEquipmentChanged -= OnDependentSelectedEquipmentChanged;
             }
 
             //добавляем актуальное дочернее оборудование
-            foreach (var dependentEquipmentsParameters in DependentEquipmentParametersList
-                .Where(x => !DependentEquipmentSelectors.Any(des => des.RequiredProductsParameters.AllMembersAreSame(x))))
+            foreach (var requiredDependentEquipmentsParameters in RequiredDependentEquipmentsParameterses
+                .Where(x => !EquipmentSelectors.Any(des => des.RequiredProductsParameters.AllMembersAreSame(x.ChildProductParameters))))
             {
-                var equipmentSelector = new EquipmentSelector(_groups, _products, _equipments, _requiredDependentEquipmentsParametersList, dependentEquipmentsParameters);
-                DependentEquipmentSelectors.Add(equipmentSelector);
-                equipmentSelector.SelectedEquipmentChanged += OnSelectedEquipmentChanged;
+                for (int i = 0; i < requiredDependentEquipmentsParameters.Count; i++)
+                {
+                    var equipmentSelector = new EquipmentSelector(_groups, _products, _equipments, _requiredDependentEquipmentsParametersList, requiredDependentEquipmentsParameters.ChildProductParameters);
+                    EquipmentSelectors.Add(equipmentSelector);
+                    equipmentSelector.SelectedEquipmentChanged += OnSelectedEquipmentChanged;
+                }
             }
         }
 

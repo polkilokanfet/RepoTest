@@ -41,6 +41,7 @@ namespace HVTApp.Services.GetProductService
 
         public ObservableCollection<ParameterWithActualFlag> ParametersWithActualFlag { get; }
 
+        public ParameterWithActualFlag SelectedParameterWithActualFlag => ParametersWithActualFlag.SingleOrDefault(x => Equals(x.Parameter, SelectedParameter));
 
         public Parameter SelectedParameter
         {

@@ -10,19 +10,22 @@ namespace HVTApp.Services.GetProductService.Tests
     public class ProductSelectorTests
     {
         private List<ParameterGroup> _groups;
-        private Parameter _breaker, _transformator;
+        private Parameter _breaker, _transformator, _drive, _drivesReducer;
         private Parameter _v110, _v220, _v500;
         private Parameter _c2500, _c3150, _c0001, _c0005;
+        private Parameter _transCurrent, _transVoltage;
         private ProductSelector _productSelector;
         private Product _preSelectedProduct;
-        private ParameterGroup _current, _voltage, _eqType;
+        private ParameterGroup _current, _voltage, _eqType, _transformatorType;
 
         [TestInitialize]
         public void Init()
         {
-            _breaker = new Parameter() {Value = "выключатель"};
+            _breaker = new Parameter() { Value = "выключатель" };
             _transformator = new Parameter() { Value = "трансформатор" };
-            _eqType = new ParameterGroup().AddParameters(new[] { _breaker, _transformator });
+            _drive = new Parameter() { Value = "привод выключателя" };
+            _drivesReducer = new Parameter() { Value = "редкутор" };
+            _eqType = new ParameterGroup().AddParameters(new[] { _breaker, _transformator, _drive, _drivesReducer });
 
             _v110 = new Parameter() { Value = "110кВ" }.AddRequiredPreviousParameters(new[] { _breaker });
             _v220 = new Parameter() { Value = "220кВ" }.AddRequiredPreviousParameters(new[] { _breaker });
@@ -36,9 +39,13 @@ namespace HVTApp.Services.GetProductService.Tests
                                                         .AddRequiredPreviousParameters(new[] { _breaker, _v500 });
             _c0001 = new Parameter() { Value = "1А" }.AddRequiredPreviousParameters(new[] { _transformator });
             _c0005 = new Parameter() { Value = "5А" }.AddRequiredPreviousParameters(new[] { _transformator });
-            _current = new ParameterGroup().AddParameters(new [] {_c2500, _c3150, _c0001, _c0005});
+            _current = new ParameterGroup().AddParameters(new[] { _c2500, _c3150, _c0001, _c0005 });
 
-            _groups = new List<ParameterGroup> {_eqType, _voltage, _current};
+            _transCurrent = new Parameter() { Value = "TT" }.AddRequiredPreviousParameters(new[] { _transformator });
+            _transVoltage = new Parameter() { Value = "ТН" }.AddRequiredPreviousParameters(new[] { _transformator });
+            _transformatorType = new ParameterGroup().AddParameters(new[] {_transCurrent, _transVoltage});
+
+            _groups = new List<ParameterGroup> {_eqType, _voltage, _current, _transformatorType };
 
             _preSelectedProduct = new Product {Parameters = new List<Parameter> {_breaker, _v500, _c3150} };
 
@@ -46,11 +53,10 @@ namespace HVTApp.Services.GetProductService.Tests
         }
 
         [TestMethod]
-        public void ProductSelectorIncludesAllGroups()
+        public void ProductSelectorIncludsAllGroups()
         {
             Assert.IsTrue(_productSelector.ParameterSelectors.Count == _groups.Count);
         }
-
 
         [TestMethod]
         public void ProductSelectorDefaultProduct()
@@ -63,7 +69,7 @@ namespace HVTApp.Services.GetProductService.Tests
         [TestMethod]
         public void ProductSelectorRequiredParameters()
         {
-            List<Parameter> requiredParameters = new List<Parameter> { _breaker, _c3150 };
+            List<Parameter> requiredParameters = new List<Parameter> { _transformator, _c0005 };
             ProductSelector productSelector = new ProductSelector(_groups.Select(x => x.Parameters), new List<Product>(), requiredParameters);
 
             foreach (var requiredParameter in requiredParameters)
@@ -73,12 +79,14 @@ namespace HVTApp.Services.GetProductService.Tests
                 Assert.AreEqual(parameterSelector.ParametersWithActualFlag.Count, 1);
                 Assert.AreEqual(parameterSelector.SelectedParameter, requiredParameter);
             }
+
+            Assert.IsTrue(productSelector.ParameterSelectors.Select(x => x.SelectedParameterWithActualFlag).Where(x => x != null).All(x => x.IsActual));
         }
 
         [TestMethod]
         public void ProductSelectorSelectParameter()
         {
-            List<Parameter> parameters = new List<Parameter> { _transformator, _c0001 };
+            List<Parameter> parameters = new List<Parameter> { _transformator, _c0001, _transCurrent };
             //находим селектор с типами оборудования
             ParameterSelector parameterSelector = _productSelector.ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).AllMembersAreSame(_eqType.Parameters));
             parameterSelector.SelectedParameter = _transformator;

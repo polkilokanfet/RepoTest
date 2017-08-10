@@ -36,19 +36,19 @@ namespace HVTApp.Services.GetProductService.Tests
             _parameterSelectorEqType = new ParameterSelector(eqType.Parameters);
         }
 
-        [TestMethod]
-        public void ParameterSelectorHasPreSelectedParameter()
-        {
-            Assert.IsTrue(_parameterSelectorEqType.SelectedParameter != null);
-        }
+        //[TestMethod]
+        //public void ParameterSelectorHasPreSelectedParameter()
+        //{
+        //    Assert.IsTrue(_parameterSelectorEqType.SelectedParameter != null);
+        //}
 
-        [TestMethod]
-        public void ParameterSelectorHasSelectedParameter()
-        {
-            var parameters = _breaker.Group.Parameters;
-            ParameterSelector parameterSelector = new ParameterSelector(parameters, parameters.Last());
-            Assert.AreEqual(parameterSelector.SelectedParameter, parameters.Last());
-        }
+        //[TestMethod]
+        //public void ParameterSelectorHasSelectedParameter()
+        //{
+        //    var parameters = _breaker.Group.Parameters;
+        //    ParameterSelector parameterSelector = new ParameterSelector(parameters, parameters.Last());
+        //    Assert.AreEqual(parameterSelector.SelectedParameter, parameters.Last());
+        //}
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "¬ыбран параметр не из списка.")]
@@ -69,10 +69,11 @@ namespace HVTApp.Services.GetProductService.Tests
         [TestMethod]
         public void ParameterSelectorSelectedParameterIsNotActual()
         {
-            var selectedParameter = _parameterSelectorEqType.SelectedParameter;
+            var selectedParameter = _parameterSelectorEqType.SelectedParameter = _parameterSelectorEqType.ParametersWithActualFlag.Last().Parameter;
             var parameterWithActualFlag = _parameterSelectorEqType.ParametersWithActualFlag.Single(x => Equals(selectedParameter, x.Parameter));
             parameterWithActualFlag.IsActual = false;
 
+            //как только выбранный параметр потер€л свою актуальность, мен€ем его на актуальный
             Assert.IsFalse(Equals(_parameterSelectorEqType.SelectedParameter, selectedParameter));
         }
 

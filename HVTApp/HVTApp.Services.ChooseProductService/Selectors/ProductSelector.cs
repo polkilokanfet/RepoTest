@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
@@ -32,6 +30,8 @@ namespace HVTApp.Services.GetProductService
 
                 //подписываемся на изменение выбора параметра в каждой группе
                 parameterSelector.SelectedParameterChanged += OnSelectedParameterChanged;
+                //перепроверяем статусы актуальности каждого параметра
+                RefreshParametersActualStatuses(SelectedParameters);
             }
 
             SelectedProduct = GetProduct();
@@ -82,6 +82,23 @@ namespace HVTApp.Services.GetProductService
             return result;
         }
 
+        private void RefreshParametersActualStatuses(IEnumerable<Parameter> actualSelectedParameters)
+        {
+            //перепроверяем флаги актуальности каждого параметра
+            foreach (var parameterSelector in ParameterSelectors)
+            {
+                foreach (var parameterWithActualFlag in parameterSelector.ParametersWithActualFlag)
+                    parameterWithActualFlag.IsActual = ParameterIsActual(parameterWithActualFlag.Parameter, actualSelectedParameters);
+
+                var selectedParameterWithActualFlag = parameterSelector.ParametersWithActualFlag.SingleOrDefault(x => Equals(x.Parameter, parameterSelector.SelectedParameter));
+
+                //если выбранный параметр потерял свою актуальность, выбирам другой актуальный
+                if (selectedParameterWithActualFlag != null && !selectedParameterWithActualFlag.IsActual)
+                    parameterSelector.SelectedParameter = parameterSelector.ParametersWithActualFlag.FirstOrDefault(x => x.IsActual)?.Parameter;
+            }
+        }
+
+
         private void OnSelectedParameterChanged(Parameter oldParameter, Parameter newParameter)
         {
             //определяем выбранные параметры, которые зависели от старого параметра
@@ -101,19 +118,9 @@ namespace HVTApp.Services.GetProductService
             if (newParameter != null) actualSelectedParameters.Add(newParameter);
 
             //перепроверяем флаги актуальности каждого параметра
-            foreach (var parameterSelector in ParameterSelectors)
-            {
-                foreach (var parameterWithActualFlag in parameterSelector.ParametersWithActualFlag)
-                    parameterWithActualFlag.IsActual = ParameterIsActual(parameterWithActualFlag.Parameter, actualSelectedParameters);
-
-                var selectedParameterWithActualFlag = parameterSelector.ParametersWithActualFlag.SingleOrDefault(x => Equals(x.Parameter, parameterSelector.SelectedParameter));
-
-                //если выбранный параметр потерял свою актуальность, выбирам другой актуальный
-                if (selectedParameterWithActualFlag != null && !selectedParameterWithActualFlag.IsActual)
-                    parameterSelector.SelectedParameter = parameterSelector.ParametersWithActualFlag.FirstOrDefault(x => x.IsActual)?.Parameter;
-            }
-
+            RefreshParametersActualStatuses(actualSelectedParameters);
             OnSelectedParametersChanged();
+
             SelectedProduct = GetProduct();
         }
 
