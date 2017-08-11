@@ -22,6 +22,8 @@ namespace HVTApp.Services.GetProductService
             var requiredDependentEquipmentsParameters = _unitOfWork.RequiredDependentEquipmentsParameters.GetAll().Select(x => x.Model).ToList();
 
             EquipmentSelector equipmentSelector = new EquipmentSelector(groups, products, equipments, requiredDependentEquipmentsParameters, preSelectedEquipment: templateEquipment?.Model);
+            SelectEquipmentWindow window = new SelectEquipmentWindow {DataContext = equipmentSelector};
+            window.ShowDialog();
 
             return _unitOfWork.Equipments.GetWrapper(equipmentSelector.SelectedEquipment);
         }

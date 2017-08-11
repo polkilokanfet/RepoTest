@@ -64,6 +64,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new ParameterGroupConfiguration());
             modelBuilder.Configurations.Add(new ParameterConfiguration());
             modelBuilder.Configurations.Add(new RequiredPreviousParametersConfiguration());
+            modelBuilder.Configurations.Add(new RequiredDependentEquipmentsParametersConfiguration());
 
             modelBuilder.Configurations.Add(new MeasureConfiguration());
 
@@ -105,7 +106,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PaymentPlanned> PaymentsPlanned { get; set; }
         public virtual DbSet<ParameterGroup> ParameterGroups { get; set; }
         public virtual DbSet<Parameter> Parameters { get; set; }
-        public virtual DbSet<RequiredDependentEquipmentsParameters> RequiredProductsChildses { get; set; }
+        public virtual DbSet<RequiredDependentEquipmentsParameters> RequiredDependentEquipmentsParameterses { get; set; }
         public virtual DbSet<Product> ProductItems { get; set; }
         public virtual DbSet<Equipment> Products { get; set; }
         public virtual DbSet<Contract> Contracts { get; set; }

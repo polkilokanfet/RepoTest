@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Castle.Components.DictionaryAdapter;
 using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -107,8 +108,8 @@ namespace HVTApp.Services.GetProductService.Tests
         [TestMethod]
         public void EquipmentSelectorSelectParameters()
         {
-            ParameterSelector parameterSelector = _equipmentSelector.ProductSelector.ParameterSelectors.Single(x => Equals(x.SelectedParameter, _breaker));
-            parameterSelector.SelectedParameter = _drive;
+            ParameterSelector parameterSelector = _equipmentSelector.ProductSelector.ParameterSelectors.Single(x => Equals(x.SelectedParameterWithActualFlag.Parameter, _breaker));
+            parameterSelector.SetSelectedParameterWithActualFlag(_drive);
 
             Assert.IsTrue(_equipmentSelector.SelectedEquipment.Product.Parameters.AllMembersAreSame(new[] { _drive }));
             Assert.AreEqual(_equipmentSelector.SelectedEquipment.DependentEquipments.Count, _requiredDependentEquipmentsParametersReducerToDrive.Count);
@@ -121,8 +122,8 @@ namespace HVTApp.Services.GetProductService.Tests
             List<Equipment> equipments = new List<Equipment>();
             EquipmentSelector equipmentSelector1 = new EquipmentSelector(_groups, products, equipments, _requiredDependentEquipmentsParametersList);
 
-            ParameterSelector parameterSelector = equipmentSelector1.ProductSelector.ParameterSelectors.Single(x => Equals(x.SelectedParameter, _breaker));
-            parameterSelector.SelectedParameter = _drive;
+            ParameterSelector parameterSelector = equipmentSelector1.ProductSelector.ParameterSelectors.Single(x => Equals(x.SelectedParameterWithActualFlag.Parameter, _breaker));
+            parameterSelector.SetSelectedParameterWithActualFlag(_drive);
             Equipment refEquipment = equipmentSelector1.SelectedEquipment;
 
             EquipmentSelector equipmentSelector2 = new EquipmentSelector(_groups, products, equipments, _requiredDependentEquipmentsParametersList, 

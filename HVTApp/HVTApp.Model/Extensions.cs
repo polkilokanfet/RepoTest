@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.Services.GetProductService.Tests
+namespace HVTApp.Model
 {
     public static class Extensions
     {

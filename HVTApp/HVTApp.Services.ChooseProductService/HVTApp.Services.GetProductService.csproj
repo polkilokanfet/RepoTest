@@ -62,7 +62,6 @@
     <Compile Include="Selectors\ParameterWithActualFlag.cs" />
     <Compile Include="Selectors\ProductSelector.cs" />
     <Compile Include="Selectors\EquipmentSelector.cs" />
-    <Compile Include="GetProductServiceRealization.cs" />
     <Compile Include="IGetProductService.cs" />
     <Compile Include="Selectors\ParameterSelector.cs" />
     <Compile Include="ProductsComparer.cs" />
@@ -81,15 +80,6 @@
     </Compile>
     <Compile Include="SelectEquipment.xaml.cs">
       <DependentUpon>SelectEquipment.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SelectParameter.xaml.cs">
-      <DependentUpon>SelectParameter.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SelectProduct.xaml.cs">
-      <DependentUpon>SelectProduct.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SelectProductWindow.xaml.cs">
-      <DependentUpon>SelectProductWindow.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -127,18 +117,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SelectEquipmentWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SelectParameter.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SelectProduct.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SelectProductWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

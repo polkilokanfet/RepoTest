@@ -35,5 +35,10 @@ namespace HVTApp.Services.GetProductService
         {
             IsActualChanged?.Invoke(obj);
         }
+
+        public override string ToString()
+        {
+            return Parameter.ToString();
+        }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Castle.Core.Internal;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -39,7 +40,7 @@ namespace HVTApp.Services.GetProductService.Tests
         [TestMethod]
         public void ParameterSelectorHasPreSelectedParameter()
         {
-            Assert.IsTrue(_parameterSelectorEqType.SelectedParameter != null);
+            Assert.IsTrue(_parameterSelectorEqType.SelectedParameterWithActualFlag != null);
         }
 
         [TestMethod]
@@ -47,7 +48,7 @@ namespace HVTApp.Services.GetProductService.Tests
         {
             var parameters = _breaker.Group.Parameters;
             ParameterSelector parameterSelector = new ParameterSelector(parameters, parameters.Last());
-            Assert.AreEqual(parameterSelector.SelectedParameter, parameters.Last());
+            Assert.AreEqual(parameterSelector.SelectedParameterWithActualFlag.Parameter, parameters.Last());
         }
 
         [TestMethod]
@@ -55,7 +56,7 @@ namespace HVTApp.Services.GetProductService.Tests
         public void ParameterSelectorSelectedParameterException()
         {
             Assert.IsFalse(_parameterSelectorEqType.ParametersWithActualFlag.Select(x => x.Parameter).Contains(_v110));
-            _parameterSelectorEqType.SelectedParameter = _v110;
+            _parameterSelectorEqType.SetSelectedParameterWithActualFlag(_v110);
         }
 
         [TestMethod]
@@ -63,18 +64,18 @@ namespace HVTApp.Services.GetProductService.Tests
         public void ParameterSelectorSelectedParameterIsNotActualException()
         {
             _parameterSelectorEqType.ParametersWithActualFlag.ForEach(x => x.IsActual = false);
-            _parameterSelectorEqType.SelectedParameter = _parameterSelectorEqType.ParametersWithActualFlag.Last().Parameter;
+            _parameterSelectorEqType.SetSelectedParameterWithActualFlag(_parameterSelectorEqType.ParametersWithActualFlag.Last().Parameter);
         }
 
         [TestMethod]
         public void ParameterSelectorSelectedParameterIsNotActual()
         {
-            var selectedParameter = _parameterSelectorEqType.SelectedParameter = _parameterSelectorEqType.ParametersWithActualFlag.Last().Parameter;
-            var parameterWithActualFlag = _parameterSelectorEqType.ParametersWithActualFlag.Single(x => Equals(selectedParameter, x.Parameter));
+            var selectedParameter = _parameterSelectorEqType.SelectedParameterWithActualFlag = _parameterSelectorEqType.ParametersWithActualFlag.Last();
+            var parameterWithActualFlag = _parameterSelectorEqType.ParametersWithActualFlag.Single(x => Equals(selectedParameter, x));
             parameterWithActualFlag.IsActual = false;
 
             //как только выбранный параметр потерял свою актуальность, меняем его на актуальный
-            Assert.IsFalse(Equals(_parameterSelectorEqType.SelectedParameter, selectedParameter));
+            Assert.IsFalse(Equals(_parameterSelectorEqType.SelectedParameterWithActualFlag, selectedParameter));
         }
 
         [TestMethod]
@@ -82,11 +83,11 @@ namespace HVTApp.Services.GetProductService.Tests
         {
             foreach (var parameterWithActualFlag in _parameterSelectorEqType.ParametersWithActualFlag)
                 parameterWithActualFlag.IsActual = false;
-            Assert.IsTrue(_parameterSelectorEqType.SelectedParameter == null);
+            Assert.IsTrue(_parameterSelectorEqType.SelectedParameterWithActualFlag == null);
 
             var pwaf = _parameterSelectorEqType.ParametersWithActualFlag.Last();
             pwaf.IsActual = true;
-            Assert.IsTrue(Equals(_parameterSelectorEqType.SelectedParameter, pwaf.Parameter));
+            Assert.IsTrue(Equals(_parameterSelectorEqType.SelectedParameterWithActualFlag, pwaf));
         }
     }
 }

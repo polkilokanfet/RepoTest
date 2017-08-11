@@ -41,9 +41,6 @@ namespace HVTApp.Services.GetProductService
             EquipmentSelectors = new ObservableCollection<EquipmentSelector>();
             RefreshDependentEquipments();
             SelectedEquipment = GetEquipment();
-
-            //предварительно выбранное оборудование
-            //if (preSelectedEquipment != null) SelectedEquipment = preSelectedEquipment;
         }
 
 

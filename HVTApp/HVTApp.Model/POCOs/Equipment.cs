@@ -22,8 +22,12 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            //if (!string.IsNullOrEmpty(Designation))
+            if (!string.IsNullOrEmpty(Designation))
                 return Designation;
+
+            string result = "";
+            result = Parameters.Aggregate(result, (current, parameter) => current + (parameter.Value + " "));
+            return result;
         }
     }
 

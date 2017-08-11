@@ -44,7 +44,7 @@ namespace HVTApp.Services.GetProductService
 
         public ObservableCollection<ParameterSelector> ParameterSelectors { get; set; }
 
-        public IEnumerable<Parameter> SelectedParameters => ParameterSelectors.Select(x => x.SelectedParameter).Where(x => x != null);
+        public IEnumerable<Parameter> SelectedParameters => ParameterSelectors.Select(x => x.SelectedParameterWithActualFlag).Where(x => x != null).Select(x => x.Parameter);
 
         public Product SelectedProduct
         {
@@ -60,12 +60,13 @@ namespace HVTApp.Services.GetProductService
                 foreach (var parameter in _selectedProduct.Parameters)
                 {
                     var parameterSelector = ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).Contains(parameter));
-                    if (!Equals(parameterSelector.SelectedParameter, parameter)) parameterSelector.SelectedParameter = parameter;
+                    if (!Equals(parameterSelector.SelectedParameterWithActualFlag.Parameter, parameter))
+                        parameterSelector.SetSelectedParameterWithActualFlag(parameter);
                     actualParameterSelectors.Add(parameterSelector);
                 }
                 foreach (var parameterSelector in ParameterSelectors.Except(actualParameterSelectors))
                 {
-                    if (!Equals(parameterSelector.SelectedParameter, null)) parameterSelector.SelectedParameter = null;
+                    if (!Equals(parameterSelector.SelectedParameterWithActualFlag, null)) parameterSelector.SelectedParameterWithActualFlag = null;
                 }
                 if (!_products.Contains(value)) _products.Add(value);
 
@@ -98,11 +99,11 @@ namespace HVTApp.Services.GetProductService
                 foreach (var parameterWithActualFlag in parameterSelector.ParametersWithActualFlag)
                     parameterWithActualFlag.IsActual = ParameterIsActual(parameterWithActualFlag.Parameter, actualSelectedParameters);
 
-                var selectedParameterWithActualFlag = parameterSelector.ParametersWithActualFlag.SingleOrDefault(x => Equals(x.Parameter, parameterSelector.SelectedParameter));
+                var selectedParameterWithActualFlag = parameterSelector.ParametersWithActualFlag.SingleOrDefault(x => Equals(x.Parameter, parameterSelector.SelectedParameterWithActualFlag));
 
                 //если выбранный параметр потерял свою актуальность, выбирам другой актуальный
                 if (selectedParameterWithActualFlag != null && !selectedParameterWithActualFlag.IsActual)
-                    parameterSelector.SelectedParameter = parameterSelector.ParametersWithActualFlag.FirstOrDefault(x => x.IsActual)?.Parameter;
+                    parameterSelector.SelectedParameterWithActualFlag = parameterSelector.ParametersWithActualFlag.FirstOrDefault(x => x.IsActual);
             }
         }
 
@@ -131,7 +132,6 @@ namespace HVTApp.Services.GetProductService
 
             SelectedProduct = GetProduct();
         }
-
 
         private bool ParameterIsActual(Parameter parameter, IEnumerable<Parameter> requiredParameters)
         {

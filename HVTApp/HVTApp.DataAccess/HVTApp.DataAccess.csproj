@@ -101,6 +101,7 @@
     <Compile Include="EntityTypeConfigurations\ProductionUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\SalesUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\ShipmentUnitConfiguration.cs" />
+    <Compile Include="RequiredDependentEquipmentsParametersConfiguration.cs" />
     <Compile Include="UnitOfWork\IRepositories.cs" />
     <Compile Include="UnitOfWork\IRepository.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />

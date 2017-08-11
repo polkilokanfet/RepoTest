@@ -1,21 +1,9 @@
 ﻿<Window x:Class="HVTApp.Services.GetProductService.SelectEquipmentWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HVTApp.Services.GetProductService"
-        Title="SelectEquipmentWindow" Height="300" Width="300">
+        Title="SelectEquipmentWindow" SizeToContent="WidthAndHeight">
     <StackPanel>
-        <ContentControl>
-            <ContentControl.ContentTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <local:SelectEquipment/>
-                        <ItemsControl ItemsSource="{Binding}">
-                            <local:SelectEquipment/>
-                        </ItemsControl>
-                    </StackPanel>
-                </DataTemplate>
-            </ContentControl.ContentTemplate>
-        </ContentControl>
+        <local:SelectEquipment DataContext="{Binding}"/>
     </StackPanel>
 </Window>

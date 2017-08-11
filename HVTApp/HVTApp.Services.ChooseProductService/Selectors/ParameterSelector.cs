@@ -8,10 +8,10 @@ namespace HVTApp.Services.GetProductService
 {
     public class ParameterSelector : NotifyPropertyChanged
     {
-        private Parameter _selectedParameter;
+        private ParameterWithActualFlag _selectedParameterWithActualFlag;
         private bool _isActual = true;
 
-        public ParameterSelector(IEnumerable<Parameter> parameters, Parameter selectedParameter = null)
+        public ParameterSelector(IEnumerable<Parameter> parameters, Parameter preSelectedParameter = null)
         {
             if (parameters == null) throw new ArgumentNullException(nameof(parameters), @"Вы не передали параметры");
             if (!parameters.Any()) throw new ArgumentException("Вы передали пустой список параметров");
@@ -25,14 +25,17 @@ namespace HVTApp.Services.GetProductService
                 parameterWithActualFlag.IsActualChanged += ParameterWithActualFlagOnIsActualChanged; 
             }
 
-            SelectedParameter = selectedParameter ?? ParametersWithActualFlag.FirstOrDefault(x => x.IsActual)?.Parameter;
+            SelectedParameterWithActualFlag = preSelectedParameter != null
+                ? ParametersWithActualFlag.FirstOrDefault(x => x.IsActual && Equals(preSelectedParameter, x.Parameter))
+                : ParametersWithActualFlag.FirstOrDefault(x => x.IsActual);
         }
 
         private void ParameterWithActualFlagOnIsActualChanged(ParameterWithActualFlag parameterWithActualFlag)
         {
             //меняем выбранный параметр, если он теперь не актуален
-            if (SelectedParameter == null || (Equals(SelectedParameter, parameterWithActualFlag.Parameter) && !parameterWithActualFlag.IsActual))
-                SelectedParameter = ParametersWithActualFlag.FirstOrDefault(x => x.IsActual)?.Parameter;
+            if (SelectedParameterWithActualFlag == null || 
+                (Equals(SelectedParameterWithActualFlag, parameterWithActualFlag) && !parameterWithActualFlag.IsActual))
+                SelectedParameterWithActualFlag = ParametersWithActualFlag.FirstOrDefault(x => x.IsActual);
 
             //актуальна ли теперь вся группа?
             IsActual = this.ParametersWithActualFlag.Any(x => x.IsActual);
@@ -41,29 +44,35 @@ namespace HVTApp.Services.GetProductService
 
         public ObservableCollection<ParameterWithActualFlag> ParametersWithActualFlag { get; }
 
-        public ParameterWithActualFlag SelectedParameterWithActualFlag => ParametersWithActualFlag.SingleOrDefault(x => Equals(x.Parameter, SelectedParameter));
-
-        public Parameter SelectedParameter
+        public ParameterWithActualFlag SelectedParameterWithActualFlag
         {
-            get { return _selectedParameter; }
+            get { return _selectedParameterWithActualFlag; }
             set
             {
-                if (Equals(_selectedParameter, value)) return;
+                if (Equals(_selectedParameterWithActualFlag, value)) return;
 
-                if (value != null && !ParametersWithActualFlag.Select(x => x.Parameter).Contains(value))
+                if (value != null && !ParametersWithActualFlag.Contains(value))
                     throw new ArgumentException("Выбран параметр не из списка.");
 
-                if (value != null && !ParametersWithActualFlag.Single(x => Equals(value, x.Parameter)).IsActual)
+                if (value != null && !value.IsActual)
                     throw new ArgumentException("Параметр не актуален");
 
-                var oldValue = _selectedParameter;
-                _selectedParameter = value;
+                var oldValue = _selectedParameterWithActualFlag;
+                _selectedParameterWithActualFlag = value;
 
-                OnSelectedParameterChanged(oldValue, value);
+                OnSelectedParameterChanged(oldValue?.Parameter, value?.Parameter);
                 OnPropertyChanged();
 
                 OnPropertyChanged(nameof(IsActual));
             }
+        }
+
+        public void SetSelectedParameterWithActualFlag(Parameter parameter)
+        {
+            if (parameter != null && !ParametersWithActualFlag.Select(x => x.Parameter).Contains(parameter))
+                throw new ArgumentException("Выбран параметр не из списка.");
+
+            SelectedParameterWithActualFlag = ParametersWithActualFlag.SingleOrDefault(x => Equals(parameter, x.Parameter));
         }
 
         public bool IsActual

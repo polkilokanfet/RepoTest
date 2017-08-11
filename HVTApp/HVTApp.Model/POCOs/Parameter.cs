@@ -9,6 +9,8 @@ namespace HVTApp.Model.POCOs
         public string Value { get; set; }
         public virtual List<RequiredPreviousParameters> RequiredPreviousParameters { get; set; } = new List<RequiredPreviousParameters>();
 
+
+
         public override string ToString()
         {
             string result = Value;

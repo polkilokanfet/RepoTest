@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Castle.Components.DictionaryAdapter;
 using HVTApp.Infrastructure;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -77,7 +79,7 @@ namespace HVTApp.Services.GetProductService.Tests
                 //находим селектор
                 ParameterSelector parameterSelector = productSelector.ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).Contains(requiredParameter));
                 Assert.AreEqual(parameterSelector.ParametersWithActualFlag.Count, 1);
-                Assert.AreEqual(parameterSelector.SelectedParameter, requiredParameter);
+                Assert.AreEqual(parameterSelector.SelectedParameterWithActualFlag.Parameter, requiredParameter);
             }
 
             Assert.IsTrue(productSelector.ParameterSelectors.Select(x => x.SelectedParameterWithActualFlag).Where(x => x != null).All(x => x.IsActual));
@@ -89,7 +91,7 @@ namespace HVTApp.Services.GetProductService.Tests
             List<Parameter> parameters = new List<Parameter> { _transformator, _c0001, _transCurrent };
             //находим селектор с типами оборудования
             ParameterSelector parameterSelector = _productSelector.ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).AllMembersAreSame(_eqType.Parameters));
-            parameterSelector.SelectedParameter = _transformator;
+            parameterSelector.SetSelectedParameterWithActualFlag(_transformator);
 
             Assert.IsTrue(_productSelector.SelectedParameters.AllMembersAreSame(parameters));
             Assert.IsTrue(_productSelector.SelectedProduct.Parameters.AllMembersAreSame(parameters));
@@ -135,16 +137,34 @@ namespace HVTApp.Services.GetProductService.Tests
 
             //находим селектор с типами оборудования
             ParameterSelector parameterSelector = productSelector.ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).AllMembersAreSame(_eqType.Parameters));
-            parameterSelector.SelectedParameter = _transformator;
+            parameterSelector.SetSelectedParameterWithActualFlag(_transformator);
 
             Assert.AreEqual(products.Count, 2);
 
             //находим селектор с токами
             ParameterSelector parameterSelector2 = productSelector.ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).AllMembersAreSame(_current.Parameters));
-            parameterSelector2.SelectedParameter = _c0005;
+            parameterSelector2.SetSelectedParameterWithActualFlag(_c0005);
 
             Assert.AreEqual(products.Count, 3);
         }
+
+        //когда прилетают неупоряноченные группы параметров
+        [TestMethod]
+        public void ProductSelectorDefaultProductNotOrderedParameters()
+        {
+            List<Parameter> eqType = new List<Parameter>() {_breaker, _transformator};
+            List<Parameter> voltage = new List<Parameter>() {_v110, _v220};
+            List<Parameter> current = new List<Parameter>() {_c0005, _c2500 };
+
+            List<List<Parameter>> parametersList = new List<List<Parameter>>() {current, voltage, eqType};
+
+            List<Parameter> parameters = new List<Parameter> { _breaker, _v110, _c2500 };
+            ProductSelector productSelector = new ProductSelector(parametersList, new List<Product>());
+
+            Assert.IsTrue(productSelector.SelectedParameters.AllMembersAreSame(parameters));
+            Assert.IsTrue(productSelector.SelectedProduct.Parameters.AllMembersAreSame(parameters));
+        }
+
 
     }
 }
