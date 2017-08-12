@@ -107,9 +107,9 @@
       <Project>{62088575-8283-4be9-acc7-80dfc2fab7a0}</Project>
       <Name>HVTApp.Modules.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HVTApp.Services.ChooseProductService\HVTApp.Services.GetProductService.csproj">
+    <ProjectReference Include="..\HVTApp.Services.ChooseProductService\HVTApp.Services.GetEquipmentService.csproj">
       <Project>{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}</Project>
-      <Name>HVTApp.Services.GetProductService</Name>
+      <Name>HVTApp.Services.GetEquipmentService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

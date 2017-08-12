@@ -3,7 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:HVTApp.Services.GetProductService"
         Title="SelectEquipmentWindow" SizeToContent="WidthAndHeight">
-    <StackPanel>
-        <local:SelectEquipment DataContext="{Binding}"/>
-    </StackPanel>
+
+    <ScrollViewer>
+        <StackPanel>
+            <Button Content="Ok" Click="ButtonBase_OnClick"/>
+            <local:SelectEquipment DataContext="{Binding}"/>
+        </StackPanel>
+    </ScrollViewer>
 </Window>

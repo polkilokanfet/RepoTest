@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp", "HVTApp\HVTApp.csproj", "{99C9E82C-C594-446D-AA59-8FFBC43AD226}"
 EndProject
@@ -43,7 +43,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyUserControls", "TestUserC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrentUserProject", "CurrentUser\CurrentUserProject.csproj", "{6C4BFDCE-E9FE-4F57-B8D9-0E9002F61E64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.GetProductService", "HVTApp.Services.ChooseProductService\HVTApp.Services.GetProductService.csproj", "{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.GetEquipmentService", "HVTApp.Services.ChooseProductService\HVTApp.Services.GetEquipmentService.csproj", "{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.SelectService", "HVTApp.Services.SelectService\HVTApp.Services.SelectService.csproj", "{903EF15D-0826-4E21-AC44-24A869938521}"
 EndProject

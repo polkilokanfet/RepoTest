@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.Services.GetEquipmentService;
 
 namespace HVTApp.Services.GetProductService
 {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HVTApp.Services.GetProductService.Properties {
+namespace HVTApp.Services.GetEquipmentService.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace HVTApp.Services.GetProductService.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HVTApp.Services.GetProductService.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HVTApp.Services.GetEquipmentService.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

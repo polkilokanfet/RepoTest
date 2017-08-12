@@ -4,6 +4,7 @@ using Castle.Components.DictionaryAdapter;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.Services.GetEquipmentService;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HVTApp.Services.GetProductService.Tests
@@ -163,6 +164,12 @@ namespace HVTApp.Services.GetProductService.Tests
 
             Assert.IsTrue(productSelector.SelectedParameters.AllMembersAreSame(parameters));
             Assert.IsTrue(productSelector.SelectedProduct.Parameters.AllMembersAreSame(parameters));
+
+            //проверяем верна ли последовательность
+            for (int i = 0; i < parametersList.Count; i++)
+            {
+                Assert.AreEqual(parameters[i], productSelector.SelectedParameters.ToList()[i]);
+            }
         }
 
 

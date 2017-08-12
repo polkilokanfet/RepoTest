@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Model.POCOs;
+using HVTApp.Services.GetProductService;
 
-namespace HVTApp.Services.GetProductService
+namespace HVTApp.Services.GetEquipmentService
 {
     public class ParameterSelector : NotifyPropertyChanged
     {
@@ -14,10 +15,15 @@ namespace HVTApp.Services.GetProductService
         public ParameterSelector(IEnumerable<Parameter> parameters, Parameter preSelectedParameter = null)
         {
             if (parameters == null) throw new ArgumentNullException(nameof(parameters), @"Вы не передали параметры");
-            if (!parameters.Any()) throw new ArgumentException("Вы передали пустой список параметров");
+
+            var parametersList = new List<Parameter>(parameters.OrderBy(x =>x.Value));
+            if (!parametersList.Any()) throw new ArgumentException(@"Вы передали пустой список параметров", nameof(parameters));
+            if (!parametersList.All(x => Equals(x.Group, parametersList.First().Group))) throw new ArgumentException(@"Параметры должны быть из одной группы", nameof(parameters));
+
+
 
             ParametersWithActualFlag = new ObservableCollection<ParameterWithActualFlag>();
-            foreach (var parameter in parameters)
+            foreach (var parameter in parametersList)
             {
                 var parameterWithActualFlag = new ParameterWithActualFlag(parameter);
                 ParametersWithActualFlag.Add(parameterWithActualFlag);
@@ -41,7 +47,7 @@ namespace HVTApp.Services.GetProductService
             IsActual = this.ParametersWithActualFlag.Any(x => x.IsActual);
         }
 
-
+        public ParameterGroup Group => ParametersWithActualFlag.First().Parameter.Group;
         public ObservableCollection<ParameterWithActualFlag> ParametersWithActualFlag { get; }
 
         public ParameterWithActualFlag SelectedParameterWithActualFlag

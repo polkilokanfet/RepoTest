@@ -2,14 +2,15 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.DataAccess;
 using HVTApp.Model.Wrappers;
+using HVTApp.Services.GetEquipmentService;
 
 namespace HVTApp.Services.GetProductService
 {
-    public class GetProductServiceWpf : IGetProductService
+    public class GetEquipmentServiceWpf : IGetEquipmentService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public GetProductServiceWpf(IUnitOfWork unitOfWork)
+        public GetEquipmentServiceWpf(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -25,6 +26,7 @@ namespace HVTApp.Services.GetProductService
             SelectEquipmentWindow window = new SelectEquipmentWindow {DataContext = equipmentSelector};
             window.ShowDialog();
 
+            if (!window.DialogResult.HasValue || !window.DialogResult.Value) return templateEquipment;
             return _unitOfWork.Equipments.GetWrapper(equipmentSelector.SelectedEquipment);
         }
     }

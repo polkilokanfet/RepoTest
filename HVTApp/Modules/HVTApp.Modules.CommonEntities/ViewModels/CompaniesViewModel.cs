@@ -4,6 +4,7 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using HVTApp.Modules.Infrastructure;
+using HVTApp.Services.GetEquipmentService;
 using HVTApp.Services.GetProductService;
 using Microsoft.Practices.Unity;
 
@@ -14,14 +15,14 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDialogService _dialogService;
         private readonly IUnityContainer _container;
-        private readonly IGetProductService _getProductService;
+        private readonly IGetEquipmentService _getEquipmentService;
 
-        public CompaniesViewModel(IUnitOfWork unitOfWork, IDialogService dialogService, IUnityContainer container, IGetProductService getProductService) : base(unitOfWork, container, dialogService)
+        public CompaniesViewModel(IUnitOfWork unitOfWork, IDialogService dialogService, IUnityContainer container, IGetEquipmentService getEquipmentService) : base(unitOfWork, container, dialogService)
         {
             _unitOfWork = unitOfWork;
             _dialogService = dialogService;
             _container = container;
-            _getProductService = getProductService;
+            _getEquipmentService = getEquipmentService;
 
             _unitOfWork.Companies.GetAll().ForEach(Items.Add);
 
@@ -34,7 +35,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         protected override void RemoveItemCommand_Execute()
         {
-            _getProductService.GetEquipment();
+            _getEquipmentService.GetEquipment();
         }
 
         protected override bool RemoveItemCommand_CanExecute()

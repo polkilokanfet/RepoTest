@@ -23,6 +23,7 @@ using HVTApp.Services.GetProductService;
 using HVTApp.Services.ChooseService;
 using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;
+using HVTApp.Services.GetEquipmentService;
 using HVTApp.Services.SelectService;
 using Infragistics.Windows.OutlookBar;
 using Infragistics.Windows.Ribbon;
@@ -67,7 +68,7 @@ namespace HVTApp
             ChooseService chooseService = new ChooseService((Window)Shell);
             Container.RegisterInstance(typeof(IChooseService), chooseService);
 
-            Container.RegisterType<IGetProductService, GetProductServiceWpf>();
+            Container.RegisterType<IGetEquipmentService, GetEquipmentServiceWpf>();
         }
         
         protected override IModuleCatalog CreateModuleCatalog()

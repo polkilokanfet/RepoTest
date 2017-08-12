@@ -1,8 +1,8 @@
 ﻿using HVTApp.Model.Wrappers;
 
-namespace HVTApp.Services.GetProductService
+namespace HVTApp.Services.GetEquipmentService
 {
-    public interface IGetProductService
+    public interface IGetEquipmentService
     {
         EquipmentWrapper GetEquipment(EquipmentWrapper templateEquipment = null);
     }

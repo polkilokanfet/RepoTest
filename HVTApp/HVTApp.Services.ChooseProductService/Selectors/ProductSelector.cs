@@ -4,8 +4,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.Services.GetProductService;
 
-namespace HVTApp.Services.GetProductService
+namespace HVTApp.Services.GetEquipmentService
 {
     public class ProductSelector : NotifyPropertyChanged
     {
@@ -18,9 +19,11 @@ namespace HVTApp.Services.GetProductService
             _products = products;
             _requiredParameters = requiredParameters == null ? new List<Parameter>() : new List<Parameter>(requiredParameters);
 
-            ParameterSelectors = new ObservableCollection<ParameterSelector>();
+            //упорядочиваем группы по отдаленности от опорной группы (параметра)
+            var parameterses = new List<IEnumerable<Parameter>>(parametersGroups.OrderBy(x => x, new ParametersEnumerableComparer()));
 
-            foreach (var parameters in parametersGroups)
+            ParameterSelectors = new ObservableCollection<ParameterSelector>();
+            foreach (var parameters in parameterses)
             {
                 //исключаем возможность выбора параметров, отличных от обязательных
                 //если в селекторе есть обязательный параметр - оставляем только его
