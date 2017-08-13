@@ -12,198 +12,355 @@ using Ploeh.AutoFixture;
 
 namespace HVTApp.DataAccess
 {
-    public class HVTAppDataBaseInitializer : DropCreateDatabaseIfModelChanges<HVTAppContext>
+    public static class TestDataGenerator
     {
-        //protected override void Seed(HVTAppContext context)
-        //{
-        //    var fixture = new Fixture();
-        //    fixture.Customize(new EntityCustomization(new DbContextEntityTypesProvider(typeof(HVTAppContext))));
+        public static BankDetails BankDetailsOfUetm;
 
-        //    //отключаем поведение - бросать ошибку при обнаружении циклической связи
-        //    fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList().ForEach(b => fixture.Behaviors.Remove(b));
-        //    //подключаем поведение - останавливаться на стандартной глубине рекурсии
-        //    fixture.Behaviors.Add(new OmitOnRecursionBehavior(1));
+        public static CompanyForm CompanyFormAo;
+        public static CompanyForm CompanyFormPao;
+        public static CompanyForm CompanyFormOao;
+        public static CompanyForm CompanyFormZao;
 
+        public static Company CompanyUetm;
+        public static Company CompanyRosseti;
+        public static Company CompanyFsk;
+        public static Company CompanyMrsk;
+        public static Company CompanyEnel;
 
-        //    var companyForm = fixture.Create<CompanyForm>();
+        public static ActivityField ActivityFieldProducerOfHvt;
+        public static ActivityField ActivityFieldBuilder;
+        public static ActivityField ActivityFieldElectricityTransmission;
+        public static ActivityField ActivityFieldElectricityGeneration;
 
-        //    context.CompanyForms.Add(companyForm);
+        public static LocalityType LocalityTypeCity;
 
-        //    base.Seed(context);
-        //}
+        public static Locality LocalityMoscow;
+        public static Locality LocalityEkaterinburg;
 
+        public static Region RegionSverdlovskayaOblast;
+        public static Region RegionMoskovskayaOblast;
+
+        public static District DistrictCentr;
+        public static District DistrictUral;
+
+        public static Country CountryRussia;
+
+        public static Address AddressOfUetm;
+        public static Address AddressOfStation;
+        public static Address AddressOfSubstation;
+
+        public static Person PersonIvanov;
+
+        public static EmployeesPosition EmployeesPositionDirector;
+
+        public static Employee EmployeeIvanov;
+
+        public static UserRole UserRoleDataBaseFiller;
+        public static UserRole UserRoleAdmin;
+        public static UserRole UserRoleSalesManager;
+
+        public static User UserIvanov;
+
+        public static Project Project1;
+        public static Project Project2;
+
+        public static FacilityType FacilityTypeStation;
+        public static FacilityType FacilityTypeSubStation;
+
+        public static Facility FacilityStation;
+        public static Facility FacilitySubstation;
+
+        public static Measure MeasureKv;
+
+        public static ParameterGroup ParameterGroupEqType;
+        public static ParameterGroup ParameterGroupBreakerType;
+        public static ParameterGroup ParameterGroupTransformatorType;
+        public static ParameterGroup ParameterGroupVoltage;
+        public static ParameterGroup ParameterGroupBrakersDrive;
+
+        public static Parameter ParameterBreaker;
+        public static Parameter ParameterTransformator;
+        public static Parameter ParameterBrakersDrive;
+        public static Parameter ParameterBreakerBlock;
+        public static Parameter ParameterBreakerDeadTank;
+        public static Parameter ParameterBreakerLiveTank;
+        public static Parameter ParameterTransformatorCurrent;
+        public static Parameter ParameterTransformatorVoltage;
+        public static Parameter ParameterVoltage35kV;
+        public static Parameter ParameterVoltage110kV;
+        public static Parameter ParameterVoltage220kV;
+        public static Parameter ParameterVoltage500kV;
+
+        public static RequiredDependentEquipmentsParameters RequiredChildProductParametersDrive;
+        public static RequiredDependentEquipmentsParameters RequiredChildProductParametersBreakerBlock;
+
+        public static Product ProductZng110;
+        public static Product ProductVgb35;
+        public static Product ProductVeb110;
+        public static Product ProductBreakesDrive;
+
+        public static Equipment EquipmentVeb110;
+        public static Equipment EquipmentZng110;
+        public static Equipment EquipmentBreakersDrive;
+
+        public static Contract ContractMrsk;
+
+        public static Specification SpecificationMrsk1;
+
+        public static TenderType TenderTypeProject;
+
+        static TestDataGenerator()
+        {
+            GenerateCompanyForms();
+            GenerateActivityFields();
+            GenerateLocalityTypes();
+            GenerateLocalities();
+            GenerateRegions();
+            GenerateDistricts();
+            GenerateCountries();
+            GenerateAddresses();
+            GenerateBankDetails();
+            GenerateCompanies();
+            GeneratePersons();
+            GenerateEmployeesPositions();
+            GenerateEmployees();
+            GenerateUserRoles();
+            GenerateUsers();
+            GenerateProjects();
+            GenerateFacilityTypes();
+            GenerateFacilities();
+            GenerateMeasures();
+            GenerateParameterGroups();
+            GenerateParameters();
+            GenerateRequiredDependentEquipmentsParameters();
+            GenerateProducts();
+            GenerateEquipments();
+            GenerateContracts();
+            GenerateSpecifications();
+            GenerateTenderTypes();
+        }
+
+        public static void GenerateCompanyForms()
+        {
+            CompanyFormAo = new CompanyForm {FullName = "Акционерное общество", ShortName = "АО"};
+            CompanyFormPao = new CompanyForm {FullName = "Публичное акционерное общество", ShortName = "ПАО"};
+            CompanyFormOao = new CompanyForm {FullName = "Открытое акционерное общество", ShortName = "ОАО"};
+            CompanyFormZao = new CompanyForm {FullName = "Закрытое акционерное общество", ShortName = "ЗАО"};
+        }
+
+        public static void GenerateActivityFields()
+        {
+            ActivityFieldProducerOfHvt = new ActivityField { ActivityFieldEnum = ActivityFieldEnum.ProducerOfHighVoltageEquipment, Name = "Производитель ВВА" };
+            ActivityFieldBuilder = new ActivityField { ActivityFieldEnum = ActivityFieldEnum.Builder, Name = "Подрядчик" };
+            ActivityFieldElectricityTransmission = new ActivityField { ActivityFieldEnum = ActivityFieldEnum.ElectricityTransmission, Name = "Передача электроэнергии" };
+            ActivityFieldElectricityGeneration = new ActivityField { ActivityFieldEnum = ActivityFieldEnum.ElectricityGeneration, Name = "Генерация электроэнергии" };
+        }
+
+        public static void GenerateLocalityTypes()
+        {
+            LocalityTypeCity = new LocalityType { FullName = "Город", ShortName = "г." };
+        }
+
+        public static void GenerateLocalities()
+        {
+            LocalityMoscow = new Locality { LocalityType = LocalityTypeCity, Name = "Москва", Region = RegionMoskovskayaOblast, IsCountryCapital = true, IsDistrictsCapital = true, IsRegionCapital = true };
+            LocalityEkaterinburg = new Locality { LocalityType = LocalityTypeCity, Name = "Екатеринбург", Region = RegionSverdlovskayaOblast, IsDistrictsCapital = true, IsRegionCapital = true };
+        }
+
+        public static void GenerateRegions()
+        {
+            RegionMoskovskayaOblast = new Region { Name = "Московская область", Localities = new List<Locality> { LocalityMoscow }, District = DistrictCentr};
+            RegionSverdlovskayaOblast = new Region { Name = "Свердловская", Localities = new List<Locality> { LocalityEkaterinburg }, District = DistrictUral};
+        }
+
+        public static void GenerateDistricts()
+        {
+            DistrictCentr = new District { Country = CountryRussia, Name = "Центральный федеральный округ", Regions = new List<Region>() {RegionMoskovskayaOblast} };
+            DistrictUral = new District { Country = CountryRussia, Name = "Уральский федеральный округ", Regions = new List<Region>() {RegionSverdlovskayaOblast} };
+        }
+
+        public static void GenerateCountries()
+        {
+            CountryRussia = new Country { Name = "Россия", Districts = new List<District> {DistrictCentr, DistrictUral} };
+        }
+
+        public static void GenerateAddresses()
+        {
+            AddressOfUetm = new Address { Description = "ул.Фронтовых бригад, д.22", Locality = LocalityEkaterinburg };
+            AddressOfStation = new Address {Description = "ул.Станционная, 5", Locality = LocalityEkaterinburg };
+            AddressOfSubstation = new Address {Description = "ул.ПодСтанционная, 25", Locality = LocalityMoscow };
+        }
+
+        public static void GenerateBankDetails()
+        {
+            BankDetailsOfUetm = new BankDetails { BankName = "Объебанк", BankIdentificationCode = "1111", CorrespondentAccount = "213564", CheckingAccount = "444554" };
+        }
+
+        public static void GenerateCompanies()
+        {
+            CompanyUetm = new Company { FullName = "Уралэлектротяжмаш", ShortName = "УЭТМ", Form = CompanyFormAo, AddressLegal = AddressOfUetm, BankDetailsList = new List<BankDetails> { BankDetailsOfUetm }, ActivityFilds = new List<ActivityField> { ActivityFieldProducerOfHvt } };
+            CompanyRosseti = new Company { FullName = "Россети", ShortName = "Россети", Form = CompanyFormPao, ActivityFilds = new List<ActivityField> { ActivityFieldElectricityTransmission } };
+            CompanyFsk = new Company { FullName = "Федеральная сетевая компания", ShortName = "ФСК", Form = CompanyFormPao, ActivityFilds = new List<ActivityField> { ActivityFieldElectricityTransmission }, ParentCompany = CompanyRosseti };
+            CompanyMrsk = new Company { FullName = "Межрегиональные распределительные сети", ShortName = "МРСК", Form = CompanyFormPao, ActivityFilds = new List<ActivityField> { ActivityFieldElectricityTransmission }, ParentCompany = CompanyRosseti };
+            CompanyEnel = new Company { FullName = "Энел", ShortName = "Энел", Form = CompanyFormPao, ActivityFilds = new List<ActivityField> { ActivityFieldElectricityGeneration } };
+        }
+
+        public static void GeneratePersons()
+        {
+            PersonIvanov = new Person { Surname = "Иванов", Name = "Иван", Patronymic = "Иванович", IsMan = true, Employees = new List<Employee>() { } };
+        }
+
+        public static void GenerateEmployeesPositions()
+        {
+            EmployeesPositionDirector = new EmployeesPosition { Name = "Директор" };
+        }
+
+        public static void GenerateEmployees()
+        {
+            EmployeeIvanov = new Employee { Person = PersonIvanov, Position = EmployeesPositionDirector, Company = CompanyUetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true};
+        }
+
+        public static void GenerateUserRoles()
+        {
+            UserRoleDataBaseFiller = new UserRole { Role = Role.DataBaseFiller, Name = "DataBaseFiller" };
+            UserRoleAdmin = new UserRole { Role = Role.Admin, Name = "Admin" };
+            UserRoleSalesManager = new UserRole { Role = Role.SalesManager, Name = "SalesManager" };
+        }
+
+        public static void GenerateUsers()
+        {
+            UserIvanov = new User { Login = "1", Password = StringToGuidService.GetHashString("1"), Employee = EmployeeIvanov, PersonalNumber = "333", Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager } };
+        }
+
+        public static void GenerateProjects()
+        {
+            Project1 = new Project { Name = "Реконструкция ПС Первая", Manager = UserIvanov };
+            Project2 = new Project { Name = "Строительство Свердловской ТЭЦ", Manager = UserIvanov };
+        }
+
+        public static void GenerateFacilityTypes()
+        {
+            FacilityTypeStation = new FacilityType { FullName = "Теплоэлектроцентраль", ShortName = "ТЭЦ" };
+            FacilityTypeSubStation = new FacilityType { FullName = "Понизительная станция", ShortName = "ПС" };
+        }
+
+        public static void GenerateFacilities()
+        {
+            FacilitySubstation = new Facility { Name = "Первая", Type = FacilityTypeSubStation, OwnerCompany = CompanyMrsk, Address = AddressOfSubstation};
+            FacilityStation = new Facility { Name = "Свердловская", Type = FacilityTypeStation, OwnerCompany = CompanyEnel, Address = AddressOfStation };
+        }
+
+        public static void GenerateMeasures()
+        {
+            MeasureKv = new Measure { FullName = "Киловольт", ShortName = "кВ" };
+        }
+
+        public static void GenerateParameterGroups()
+        {
+            ParameterGroupEqType = new ParameterGroup { Name = "Тип оборудования" };
+            ParameterGroupBreakerType = new ParameterGroup { Name = "Тип выключателя" };
+            ParameterGroupTransformatorType = new ParameterGroup { Name = "Тип трансформатора" };
+            ParameterGroupVoltage = new ParameterGroup { Name = "Номинальное напряжение", Measure = MeasureKv };
+        }
+
+        public static void GenerateParameters()
+        {
+            ParameterBreaker = new Parameter { Group = ParameterGroupEqType, Value = "Выключатель" };
+            ParameterTransformator = new Parameter { Group = ParameterGroupEqType, Value = "Трансформатор" };
+            ParameterBrakersDrive = new Parameter { Group = ParameterGroupEqType, Value = "Привод" };
+            ParameterBreakerBlock = new Parameter { Group = ParameterGroupEqType, Value = "Блок выключателя" };
+
+            ParameterBreakerDeadTank = new Parameter { Group = ParameterGroupBreakerType, Value = "Баковый" }.AddRequiredPreviousParameters(new []{ParameterBreaker});
+            ParameterBreakerLiveTank = new Parameter { Group = ParameterGroupBreakerType, Value = "Колонковый" }.AddRequiredPreviousParameters(new[] { ParameterBreaker });
+
+            ParameterTransformatorCurrent = new Parameter { Group = ParameterGroupTransformatorType, Value = "Тока" }.AddRequiredPreviousParameters(new[] { ParameterTransformator });
+            ParameterTransformatorVoltage = new Parameter { Group = ParameterGroupTransformatorType, Value = "Напряжения" }.AddRequiredPreviousParameters(new[] { ParameterTransformator });
+
+            ParameterVoltage35kV = new Parameter { Group = ParameterGroupVoltage, Value = "35" }.AddRequiredPreviousParameters(new []{ParameterBreaker})
+                                                                                                .AddRequiredPreviousParameters(new []{ParameterTransformator, ParameterTransformatorCurrent});
+            ParameterVoltage110kV = new Parameter { Group = ParameterGroupVoltage, Value = "110" }.AddRequiredPreviousParameters(new[] { ParameterBreaker })
+                                                                                                  .AddRequiredPreviousParameters(new[] { ParameterTransformator }); 
+            ParameterVoltage220kV = new Parameter { Group = ParameterGroupVoltage, Value = "220" }.AddRequiredPreviousParameters(new[] { ParameterBreaker })
+                                                                                                  .AddRequiredPreviousParameters(new[] { ParameterTransformator }); 
+            ParameterVoltage500kV = new Parameter { Group = ParameterGroupVoltage, Value = "500" }.AddRequiredPreviousParameters(new[] { ParameterBreaker, ParameterBreakerLiveTank });
+
+        }
+
+        public static void GenerateRequiredDependentEquipmentsParameters()
+        {
+            RequiredChildProductParametersDrive = new RequiredDependentEquipmentsParameters { MainProductParameters = new List<Parameter> { ParameterBreaker },
+                                                                                               ChildProductParameters = new List<Parameter> { ParameterBrakersDrive }, Count = 1 };
+            RequiredChildProductParametersBreakerBlock = new RequiredDependentEquipmentsParameters { MainProductParameters = new List<Parameter> { ParameterBreakerBlock },
+                                                                                                     ChildProductParameters = new List<Parameter> { ParameterBreaker }, Count = 2 };
+        }
+
+        public static void GenerateProducts()
+        {
+            ProductZng110 = new Product { Designation = "ЗНГ-110", Parameters = new List<Parameter> { ParameterTransformator, ParameterTransformatorVoltage, ParameterVoltage110kV },
+                Prices = new List<CostOnDate> { new CostOnDate { Cost = new Cost { Sum = 75 }, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber1"};
+            ProductVgb35 = new Product { Designation = "ВГБ-35", Parameters = new List<Parameter> { ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage35kV },
+                Prices = new List<CostOnDate> { new CostOnDate { Cost = new Cost { Sum = 50 }, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber2" };
+            ProductVeb110 = new Product { Designation = "ВЭБ-110", Parameters = new List<Parameter> { ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage110kV },
+                Prices = new List<CostOnDate> { new CostOnDate { Cost = new Cost { Sum = 100 }, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber3" };
+            ProductBreakesDrive = new Product { Designation = "Привод выключателя", Parameters = new List<Parameter> { ParameterBreaker },
+                Prices = new List<CostOnDate> { new CostOnDate { Cost = new Cost { Sum = 100 }, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber4" };
+        }
+
+        public static void GenerateEquipments()
+        {
+            EquipmentVeb110 = new Equipment { Designation = "Выключатель баковый ВЭБ-110", Product = ProductVeb110, DependentEquipments  = new List<Equipment> {EquipmentBreakersDrive} };
+            EquipmentZng110 = new Equipment { Designation = "Трансформатор напряжения ЗНГ-110", Product = ProductZng110 };
+            EquipmentBreakersDrive = new Equipment { Designation = "Привод выключателя", Product = ProductBreakesDrive };
+        }
+
+        public static void GenerateContracts()
+        {
+            ContractMrsk = new Contract { Contragent = CompanyMrsk, Date = DateTime.Today, Number = "0401-17-0001" };
+        }
+
+        public static void GenerateSpecifications()
+        {
+            SpecificationMrsk1 = new Specification { Contract = ContractMrsk, Date = ContractMrsk.Date, Number = "1", Vat = 0.18 };
+        }
+
+        public static void GenerateTenderTypes()
+        {
+            TenderTypeProject = new TenderType { Name = "Проектно-изыскательные работы", Type = TenderTypeEnum.ToProject };
+        }
+    }
+    public class HvtAppDataBaseInitializer : DropCreateDatabaseIfModelChanges<HVTAppContext>
+    {
         protected override void Seed(HVTAppContext context)
         {
-
-            #region CompanyForm
-
-            CompanyForm formAo = new CompanyForm {FullName = "Акционерное общество", ShortName = "АО"};
-            CompanyForm formPao = new CompanyForm {FullName = "Публичное акционерное общество", ShortName = "ПАО"};
-            CompanyForm formOao = new CompanyForm {FullName = "Открытое акционерное общество", ShortName = "ОАО"};
-            CompanyForm formZao = new CompanyForm {FullName = "Закрытое акционерное общество", ShortName = "ЗАО"};
-
-            #endregion
-
-            //#region ActivityField
-            //ActivityField producerOfHvt = new ActivityField { ActivityFieldEnum = ActivityFieldEnum.ProducerOfHighVoltageEquipment, Name = "Производитель ВВА" };
-            //ActivityField builder = new ActivityField { ActivityFieldEnum = ActivityFieldEnum.Builder, Name = "Подрядчик" };
-            //ActivityField electricityTransmission = new ActivityField { ActivityFieldEnum = ActivityFieldEnum.ElectricityTransmission, Name = "Передача электроэнергии" };
-            //ActivityField electricityGeneration = new ActivityField { ActivityFieldEnum = ActivityFieldEnum.ElectricityGeneration, Name = "Генерация электроэнергии" };
-            //#endregion
-
-            //Country country = new Country { Name = "Россия" };
-            //District districtCfo = new District { Country = country, Name = "Центральный федеральный округ" };
-            //District districtUrFo = new District { Country = country, Name = "Уральский федеральный округ" };
-            //Region region = new Region { District = districtUrFo, Name = "Свердловская область" };
-            //LocalityType localityType = new LocalityType { FullName = "Город", ShortName = "г." };
-            //Locality ekb = new Locality { Region = region, LocalityType = localityType, Name = "Екатеринбург" };
-            //Address address = new Address { Description = "ул.Фронтовых бригад, д.22", Locality = ekb };
-            //BankDetails bankDetails = new BankDetails { BankIdentificationCode = "1111" };
-            //Company uetm = new Company { FullName = "Уралэлектротяжмаш", ShortName = "УЭТМ", Form = formAo, AddressLegal = address, BankDetailsList = new List<BankDetails> { bankDetails }, ActivityFilds = new List<ActivityField> { producerOfHvt } };
-            //Company rosseti = new Company { FullName = "Россети", ShortName = "Россети", Form = formPao, ActivityFilds = new List<ActivityField> { electricityTransmission } };
-            //Company fsk = new Company { FullName = "Федеральная сетевая компания", ShortName = "ФСК", Form = formPao, ActivityFilds = new List<ActivityField> { electricityTransmission }, ParentCompany = rosseti };
-            //Company mrsk = new Company { FullName = "Межрегиональные распределительные сети", ShortName = "МРСК", Form = formPao, ActivityFilds = new List<ActivityField> { electricityTransmission }, ParentCompany = rosseti };
-            //Company enel = new Company { FullName = "Энел", ShortName = "Энел", Form = formPao, ActivityFilds = new List<ActivityField> { electricityGeneration }, ParentCompany = rosseti };
-            //EmployeesPosition employeesPosition = new EmployeesPosition { Name = "Директор" };
-            //Person person = new Person { Surname = "Иванов", Name = "Иван" };
-            //Employee employee = new Employee { Person = person, Position = employeesPosition, Company = uetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36" };
-            //UserRole userRole = new UserRole { Role = Role.DataBaseFiller };
-            //User user = new User { Login = "1", Password = StringToGuidService.GetHashString("1"), Employee = employee, PersonalNumber = "333", Roles = new List<UserRole> { userRole } };
-
-            //Project project1 = new Project { Name = "Реконструкция ПС Первая", Manager = user };
-            //Project project2 = new Project { Name = "Строительство Свердловской ТЭЦ", Manager = user };
-
-            //FacilityType facilityTypeTec = new FacilityType { FullName = "Теплоэлектроцентраль", ShortName = "ТЭЦ" };
-            //FacilityType facilityTypePc = new FacilityType { FullName = "Понизительная станция", ShortName = "ПС" };
-            //Facility substationPervaya = new Facility { Name = "Первая", Type = facilityTypePc, OwnerCompany = mrsk };
-            //Facility stationSverdlovskaya = new Facility { Name = "Свердловская", Type = facilityTypeTec, OwnerCompany = enel };
-
-
-            //ParameterGroup groupEqType = new ParameterGroup { Name = "Тип оборудования" };
-            //Parameter paramBreaker = new Parameter { Group = groupEqType, Value = "Выключатель" };
-            //Parameter paramTransformator = new Parameter { Group = groupEqType, Value = "Трансформатор" };
-            //Parameter paramPrivod = new Parameter { Group = groupEqType, Value = "Привод" };
-            //Parameter paramBreakerBlock = new Parameter { Group = groupEqType, Value = "Блок выключателя" };
-
-            //RequiredPreviousParameters set1 = new RequiredPreviousParameters { RequiredParameters = new List<Parameter> { paramBreaker } };
-
-            //ParameterGroup groupBreakerType = new ParameterGroup { Name = "Тип выключателя" };
-            //Parameter paramBreakerDt = new Parameter { Group = groupBreakerType, Value = "Баковый", RequiredPreviousParameters = new List<RequiredPreviousParameters> { set1 } };
-            //Parameter paramBreakerLt = new Parameter { Group = groupBreakerType, Value = "Колонковый", RequiredPreviousParameters = new List<RequiredPreviousParameters> { set1 } };
-
-            //RequiredPreviousParameters set2 = new RequiredPreviousParameters { RequiredParameters = new List<Parameter> { paramTransformator } };
-
-            //ParameterGroup groupTransformatorType = new ParameterGroup { Name = "Тип трансформатора" };
-            //Parameter paramTransformatorI = new Parameter { Group = groupTransformatorType, Value = "Тока", RequiredPreviousParameters = new List<RequiredPreviousParameters> { set2 } };
-            //Parameter paramTransformatorV = new Parameter { Group = groupTransformatorType, Value = "Напряжения", RequiredPreviousParameters = new List<RequiredPreviousParameters> { set2 } };
-
-            //RequiredPreviousParameters setBreakerDt = new RequiredPreviousParameters { RequiredParameters = new List<Parameter> { paramBreaker, paramBreakerDt } };
-            //RequiredPreviousParameters setBreakerLt = new RequiredPreviousParameters { RequiredParameters = new List<Parameter> { paramBreaker, paramBreakerLt } };
-
-            //RequiredPreviousParameters setTransformatorV = new RequiredPreviousParameters { RequiredParameters = new List<Parameter> { paramTransformator, paramTransformatorV } };
-
-            //RequiredDependentEquipmentsParameters requiredChildProductParametersPrivod = new RequiredDependentEquipmentsParameters { MainProductParameters = new List<Parameter> { paramBreaker }, ChildProductParameters = new List<Parameter> { paramPrivod }, Count = 1 };
-            //RequiredDependentEquipmentsParameters requiredChildProductParametersBreakerBlock = new RequiredDependentEquipmentsParameters { MainProductParameters = new List<Parameter> { paramBreakerBlock }, ChildProductParameters = new List<Parameter> { paramBreaker }, Count = 2 };
-
-
-            //Measure kV = new Measure { FullName = "Киловольт", ShortName = "кВ" };
-            //ParameterGroup groupV = new ParameterGroup { Name = "Номинальное напряжение", Measure = kV };
-            //Parameter paramV35kV = new Parameter { Group = groupV, Value = "35", RequiredPreviousParameters = new List<RequiredPreviousParameters> { setBreakerDt, setBreakerLt } };
-            //Parameter paramV110kV = new Parameter { Group = groupV, Value = "110", RequiredPreviousParameters = new List<RequiredPreviousParameters> { setBreakerDt, setBreakerLt, setTransformatorV } };
-            //Parameter paramV220kV = new Parameter { Group = groupV, Value = "220", RequiredPreviousParameters = new List<RequiredPreviousParameters> { setBreakerDt, setBreakerLt, setTransformatorV } };
-            //Parameter paramV500kV = new Parameter { Group = groupV, Value = "500", RequiredPreviousParameters = new List<RequiredPreviousParameters> { setBreakerLt } };
-
-            //Product zng110ProductItem = new Product { Designation = "ЗНГ-110", Parameters = new List<Parameter> { paramTransformator, paramTransformatorV, paramV110kV }, Prices = new List<CostOnDate> { new CostOnDate { Cost = new Cost { Sum = 75 }, Date = DateTime.Today } } };
-            //Product vgb35ProductItem = new Product { Designation = "ВГБ-35", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV35kV }, Prices = new List<CostOnDate> { new CostOnDate { Cost = new Cost { Sum = 50 }, Date = DateTime.Today } } };
-            //Product veb110ProductItem = new Product { Designation = "ВЭБ-110", Parameters = new List<Parameter> { paramBreaker, paramBreakerDt, paramV110kV }, Prices = new List<CostOnDate> { new CostOnDate { Cost = new Cost { Sum = 100 }, Date = DateTime.Today } } };
-
-
-            //Equipment veb110Product = new Equipment { Product = veb110ProductItem, Designation = "Выключатель баковый ВЭБ-110" };
-            //Equipment zng110Product = new Equipment { Product = zng110ProductItem, Designation = "Трансформатор напряжения ЗНГ-110" };
-
-            //Contract contract = new Contract { Contragent = mrsk, Date = DateTime.Today, Number = "0401-17-0001" };
-            //Specification specification = new Specification { Contract = contract, Date = contract.Date, Number = "1" };
-
-            ////ProductComplexUnit productComplexUnitVeb110 = new ProductComplexUnit
-            ////{
-            ////    Facility = substationPervaya, Project = project1,
-
-            ////    Equipment = veb110Product, OrderPosition = 1, SerialNumber = "3651",
-            ////    ShipmentUnit = new ShipmentUnit { Sum = new Sum {Sum = 100}, Address = address},
-            ////    Specification = specification, Sum = new Sum { Sum = 1000} 
-            ////};
-
-            ////ProductComplexUnit productComplexUnitVeb1102 = new ProductComplexUnit
-            ////{
-            ////    Facility = stationSverdlovskaya, Project = project2,
-
-            ////    Equipment = veb110Product, OrderPosition = 1, SerialNumber = "3652",
-            ////    ShipmentUnit = new ShipmentUnit { Sum = new Sum { Sum = 100}, Address = address },
-            ////    Sum = new Sum { Sum = 1000 } 
-            ////};
-
-            ////ProductComplexUnit productComplexUnitZng1101 = new ProductComplexUnit
-            ////{
-            ////    Facility = substationPervaya, Project = project1, 
-
-            ////    Equipment = zng110Product, OrderPosition = 1, SerialNumber = "325",
-            ////    ShipmentUnit = new ShipmentUnit { Sum = new Sum { Sum = 150}, Address = address },
-            ////    Specification = specification, Sum = new Sum { Sum = 500 }
-            ////};
-
-            ////ProductComplexUnit productComplexUnitZng1102 = new ProductComplexUnit
-            ////{
-            ////    Facility = substationPervaya, Project = project1,
-
-            ////    Equipment = zng110Product, OrderPosition = 1, SerialNumber = "326",
-            ////    ShipmentUnit = new ShipmentUnit { Sum = new Sum { Sum = 150 }, Address = address },
-            ////    Specification = specification, Sum = new Sum { Sum = 500 }
-            ////};
-
-
-
-            //TenderType tenderType = new TenderType { Name = "Проектно-изыскательные работы", Type = TenderTypeEnum.ToProject };
-            ////Tender tender = new Tender { Type = tenderType, Project = project1, Sum = new Sum { Sum = 545 }, DateOpen = DateTime.Today,
-            ////    DateClose = DateTime.Today.AddDays(7),
-            ////    TenderUnits = new List<TenderUnit>(project1.ProductionUnits.Select(x => new TenderUnit {ProductComplexUnit = x}))};
-
-
-
-
-
-
-
-
-            //context.ActivityFilds.AddRange(new[] { producerOfHvt, builder, electricityTransmission, electricityGeneration });
-            context.CompanyForms.AddRange(new[] {formAo, formPao, formOao, formZao});
-            //context.Companies.AddRange(new[] { uetm, rosseti, fsk, mrsk });
-            //context.Employees.Add(employee);
-            //context.Users.Add(user);
-            //context.RequiredDependentEquipmentsParameterses.AddRange(new[] { requiredChildProductParametersPrivod, requiredChildProductParametersBreakerBlock });
-            ////context.Equipments.AddRange(new [] {veb110, vgb35, zng110});
-            ////project1.ProductionUnits.AddRange(new[] { productComplexUnitVeb110, productComplexUnitZng1101 });
-            //context.Facilities.AddRange(new[] { substationPervaya, stationSverdlovskaya });
-            //context.Projects.AddRange(new[] { project1, project2 });
-            //context.Parameters.AddRange(new[] { paramBreaker, paramTransformator, paramBreakerDt, paramBreakerLt, paramTransformatorI, paramTransformatorV, paramV35kV, paramV110kV, paramV220kV, paramV500kV });
-            //context.Specifications.Add(specification);
-            ////context.Tenders.Add(tender);
-            ////context.Units.AddRange(new[] {productComplexUnitVeb110, productComplexUnitVeb1102, productComplexUnitZng1101, productComplexUnitZng1102});
+            context.Countries.Add(TestDataGenerator.CountryRussia);
+            context.ActivityFilds.AddRange(new[] { TestDataGenerator.ActivityFieldProducerOfHvt, TestDataGenerator.ActivityFieldBuilder, TestDataGenerator.ActivityFieldElectricityTransmission, TestDataGenerator.ActivityFieldElectricityGeneration });
+            context.CompanyForms.AddRange(new[] { TestDataGenerator.CompanyFormAo, TestDataGenerator.CompanyFormOao, TestDataGenerator.CompanyFormPao, TestDataGenerator.CompanyFormZao });
+            context.Companies.AddRange(new[] { TestDataGenerator.CompanyEnel, TestDataGenerator.CompanyFsk, TestDataGenerator.CompanyMrsk, TestDataGenerator.CompanyRosseti, TestDataGenerator.CompanyUetm });
+            context.Employees.Add(TestDataGenerator.EmployeeIvanov);
+            context.Users.Add(TestDataGenerator.UserIvanov);
+            context.RequiredDependentEquipmentsParameterses.AddRange(new[] { TestDataGenerator.RequiredChildProductParametersBreakerBlock, TestDataGenerator.RequiredChildProductParametersDrive });
+            //context.Equipments.AddRange(new [] {veb110, vgb35, zng110});
+            context.Facilities.AddRange(new[] { TestDataGenerator.FacilityStation, TestDataGenerator.FacilitySubstation });
+            context.Projects.AddRange(new[] { TestDataGenerator.Project1, TestDataGenerator.Project2 });
+            context.Parameters.AddRange(new[] { TestDataGenerator.ParameterBreaker, TestDataGenerator.ParameterTransformator, TestDataGenerator.ParameterBreakerDeadTank,
+                TestDataGenerator.ParameterBreakerLiveTank, TestDataGenerator.ParameterTransformatorCurrent, TestDataGenerator.ParameterTransformatorVoltage,
+                TestDataGenerator.ParameterVoltage35kV, TestDataGenerator.ParameterVoltage110kV, TestDataGenerator.ParameterVoltage220kV, TestDataGenerator.ParameterVoltage500kV });
+            context.Specifications.Add(TestDataGenerator.SpecificationMrsk1);
+            //context.Tenders.Add(tender);
+            //context.Units.AddRange(new[] {productComplexUnitVeb110, productComplexUnitVeb1102, productComplexUnitZng1101, productComplexUnitZng1102});
 
             try
             {
-                Init();
-                context.ParameterGroups.AddRange(_groups);
-                context.RequiredDependentEquipmentsParameterses.AddRange(_requiredDependentEquipmentsParametersList);
-
                 context.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)
             {
                 foreach (var validationErrors in dbEx.EntityValidationErrors)
                 {
+                    Trace.TraceInformation("Entry: {0}", validationErrors.Entry.Entity);
                     foreach (var validationError in validationErrors.ValidationErrors)
                     {
-                        Trace.TraceInformation("Property: {0} Error: {1}",
+                        Trace.TraceInformation("Property: {0}; Error: {1}",
                             validationError.PropertyName,
                             validationError.ErrorMessage);
                     }

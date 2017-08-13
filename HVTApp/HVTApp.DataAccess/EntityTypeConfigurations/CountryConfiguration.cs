@@ -9,7 +9,6 @@ namespace HVTApp.DataAccess
         {
             Property(x => x.Name).IsRequired().HasMaxLength(75);
             HasMany(x => x.Districts).WithRequired(x => x.Country);
-            HasRequired(x => x.Capital).WithOptional();
         }
     }
 }

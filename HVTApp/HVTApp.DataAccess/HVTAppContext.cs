@@ -18,7 +18,7 @@ namespace HVTApp.DataAccess
     {
         public HVTAppContext() : base("name=HVTAppContext")
         {
-            Database.SetInitializer(new HVTAppDataBaseInitializer());
+            Database.SetInitializer(new HvtAppDataBaseInitializer());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

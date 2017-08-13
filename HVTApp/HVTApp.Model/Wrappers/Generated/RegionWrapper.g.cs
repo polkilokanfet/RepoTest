@@ -48,16 +48,6 @@ namespace HVTApp.Model.Wrappers
     public bool DistrictIsChanged => GetIsChanged(nameof(District));
 
 
-	public LocalityWrapper Capital 
-    {
-        get { return GetComplexProperty<LocalityWrapper, Locality>(Model.Capital); }
-        set { SetComplexProperty<LocalityWrapper, Locality>(Capital, value); }
-    }
-
-    public LocalityWrapper CapitalOriginalValue { get; private set; }
-    public bool CapitalIsChanged => GetIsChanged(nameof(Capital));
-
-
     #endregion
 
 
@@ -68,12 +58,18 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
+
+    #region GetProperties
+
+    public HVTApp.Model.POCOs.Locality Capital => GetValue<HVTApp.Model.POCOs.Locality>(); 
+
+
+    #endregion
+
     public override void InitializeComplexProperties()
     {
 
         District = GetWrapper<DistrictWrapper, District>(Model.District);
-
-        Capital = GetWrapper<LocalityWrapper, Locality>(Model.Capital);
 
     }
 

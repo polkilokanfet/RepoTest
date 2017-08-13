@@ -24,6 +24,33 @@ namespace HVTApp.Model.Wrappers
     public bool NameIsChanged => GetIsChanged(nameof(Name));
 
 
+    public System.Boolean IsRegionCapital
+    {
+      get { return GetValue<System.Boolean>(); }
+      set { SetValue(value); }
+    }
+    public System.Boolean IsRegionCapitalOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsRegionCapital));
+    public bool IsRegionCapitalIsChanged => GetIsChanged(nameof(IsRegionCapital));
+
+
+    public System.Boolean IsDistrictsCapital
+    {
+      get { return GetValue<System.Boolean>(); }
+      set { SetValue(value); }
+    }
+    public System.Boolean IsDistrictsCapitalOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsDistrictsCapital));
+    public bool IsDistrictsCapitalIsChanged => GetIsChanged(nameof(IsDistrictsCapital));
+
+
+    public System.Boolean IsCountryCapital
+    {
+      get { return GetValue<System.Boolean>(); }
+      set { SetValue(value); }
+    }
+    public System.Boolean IsCountryCapitalOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsCountryCapital));
+    public bool IsCountryCapitalIsChanged => GetIsChanged(nameof(IsCountryCapital));
+
+
     public System.Nullable<System.Double> StandartDeliveryPeriod
     {
       get { return GetValue<System.Nullable<System.Double>>(); }
