@@ -3,14 +3,14 @@ using System.Linq;
 
 namespace HVTApp.Model.Wrappers
 {
-    public partial class ProductWrapper
+    public partial class PartWrapper
     {
-        public bool HasSameParameters(ProductWrapper productItem)
+        public bool HasSameParameters(PartWrapper partItem)
         {
-            if (productItem == null)
+            if (partItem == null)
                 throw new ArgumentNullException();
 
-            return !this.Parameters.Except(productItem.Parameters).Any();
+            return !this.Parameters.Except(partItem.Parameters).Any();
         }
 
         public string ParametersToString

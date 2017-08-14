@@ -23,9 +23,9 @@ namespace HVTApp.Modules.Sales.Converter
             while (units.Any())
             {
                 var firstMember = units.First();
-                var members = units.Where(x => x.Equipment== firstMember.Equipment);
+                var members = units.Where(x => x.Product == firstMember.Product);
 
-                result.Add(new ProjectUnitGroup {Equipment = firstMember.Equipment.Model, Count = members.Count()});
+                result.Add(new ProjectUnitGroup {Product = firstMember.Product.Model, Count = members.Count()});
 
                 members.ForEach(x => units.Remove(x));
             }
@@ -41,7 +41,7 @@ namespace HVTApp.Modules.Sales.Converter
 
     public class ProjectUnitGroup
     {
-        public Equipment Equipment { get; set; }
+        public Product Product { get; set; }
         public int Count { get; set; }
     }
 }

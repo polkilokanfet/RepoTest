@@ -18,7 +18,7 @@ namespace HVTApp.Services.GetProductService.Tests
         private Parameter _c2500, _c3150, _c0001, _c0005;
         private Parameter _transCurrent, _transVoltage;
         private ProductSelector _productSelector;
-        private Product _preSelectedProduct;
+        private Part _preSelectedPart;
         private ParameterGroup _current, _voltage, _eqType, _transformatorType;
 
         [TestInitialize]
@@ -50,9 +50,9 @@ namespace HVTApp.Services.GetProductService.Tests
 
             _groups = new List<ParameterGroup> {_eqType, _voltage, _current, _transformatorType };
 
-            _preSelectedProduct = new Product {Parameters = new List<Parameter> {_breaker, _v500, _c3150} };
+            _preSelectedPart = new Part {Parameters = new List<Parameter> {_breaker, _v500, _c3150} };
 
-            _productSelector = new ProductSelector(_groups.Select(x => x.Parameters), new List<Product>());
+            _productSelector = new ProductSelector(_groups.Select(x => x.Parameters), new List<Part>());
         }
 
         [TestMethod]
@@ -66,14 +66,14 @@ namespace HVTApp.Services.GetProductService.Tests
         {
             List<Parameter> parameters = new List<Parameter> { _breaker, _v110, _c2500 };
             Assert.IsTrue(_productSelector.SelectedParameters.AllMembersAreSame(parameters));
-            Assert.IsTrue(_productSelector.SelectedProduct.Parameters.AllMembersAreSame(parameters));
+            Assert.IsTrue(_productSelector.SelectedPart.Parameters.AllMembersAreSame(parameters));
         }
 
         [TestMethod]
         public void ProductSelectorRequiredParameters()
         {
             List<Parameter> requiredParameters = new List<Parameter> { _transformator, _c0005 };
-            ProductSelector productSelector = new ProductSelector(_groups.Select(x => x.Parameters), new List<Product>(), requiredParameters);
+            ProductSelector productSelector = new ProductSelector(_groups.Select(x => x.Parameters), new List<Part>(), requiredParameters);
 
             foreach (var requiredParameter in requiredParameters)
             {
@@ -95,7 +95,7 @@ namespace HVTApp.Services.GetProductService.Tests
             parameterSelector.SetSelectedParameterWithActualFlag(_transformator);
 
             Assert.IsTrue(_productSelector.SelectedParameters.AllMembersAreSame(parameters));
-            Assert.IsTrue(_productSelector.SelectedProduct.Parameters.AllMembersAreSame(parameters));
+            Assert.IsTrue(_productSelector.SelectedPart.Parameters.AllMembersAreSame(parameters));
 
             //находим селектор с токами
             ParameterSelector parameterSelector2 = _productSelector.ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).AllMembersAreSame(_current.Parameters));
@@ -106,16 +106,16 @@ namespace HVTApp.Services.GetProductService.Tests
         [TestMethod]
         public void ProductSelectorPreSelectedProduct()
         {
-            ProductSelector productSelector = new ProductSelector(_groups.Select(x => x.Parameters), new List<Product> { _preSelectedProduct }, null, _preSelectedProduct);
+            ProductSelector productSelector = new ProductSelector(_groups.Select(x => x.Parameters), new List<Part> { _preSelectedPart }, null, _preSelectedPart);
 
-            Assert.AreEqual(_preSelectedProduct, productSelector.SelectedProduct);
-            Assert.IsTrue(_preSelectedProduct.Parameters.AllMembersAreSame(productSelector.SelectedParameters));
+            Assert.AreEqual(_preSelectedPart, productSelector.SelectedPart);
+            Assert.IsTrue(_preSelectedPart.Parameters.AllMembersAreSame(productSelector.SelectedParameters));
         }
 
         [TestMethod]
         public void ProductSelectorActualParameters()
         {
-            ProductSelector productSelector = new ProductSelector(_groups.Select(x => x.Parameters), new List<Product> { _preSelectedProduct }, null, _preSelectedProduct);
+            ProductSelector productSelector = new ProductSelector(_groups.Select(x => x.Parameters), new List<Part> { _preSelectedPart }, null, _preSelectedPart);
 
             //находим селектор с токами
             ParameterSelector parameterSelector = productSelector.ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).AllMembersAreSame(_current.Parameters));
@@ -131,7 +131,7 @@ namespace HVTApp.Services.GetProductService.Tests
         [TestMethod]
         public void ProductSelectorCreateProducts()
         {
-            List<Product> products = new List<Product>();
+            List<Part> products = new List<Part>();
             ProductSelector productSelector = new ProductSelector(_groups.Select(x => x.Parameters), products);
 
             Assert.AreEqual(products.Count, 1);
@@ -160,10 +160,10 @@ namespace HVTApp.Services.GetProductService.Tests
             List<List<Parameter>> parametersList = new List<List<Parameter>>() {current, voltage, eqType};
 
             List<Parameter> parameters = new List<Parameter> { _breaker, _v110, _c2500 };
-            ProductSelector productSelector = new ProductSelector(parametersList, new List<Product>());
+            ProductSelector productSelector = new ProductSelector(parametersList, new List<Part>());
 
             Assert.IsTrue(productSelector.SelectedParameters.AllMembersAreSame(parameters));
-            Assert.IsTrue(productSelector.SelectedProduct.Parameters.AllMembersAreSame(parameters));
+            Assert.IsTrue(productSelector.SelectedPart.Parameters.AllMembersAreSame(parameters));
 
             //проверяем верна ли последовательность
             for (int i = 0; i < parametersList.Count; i++)

@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BooleanToVisibilityConverter.cs" />
-    <Compile Include="GetEquipmentServiceWpf.cs" />
+    <Compile Include="GetProductServiceWpf.cs" />
     <Compile Include="SelectEquipmentWindow.xaml.cs">
       <DependentUpon>SelectEquipmentWindow.xaml</DependentUpon>
     </Compile>
@@ -63,7 +63,7 @@
     <Compile Include="Selectors\ParameterWithActualFlag.cs" />
     <Compile Include="Selectors\ProductSelector.cs" />
     <Compile Include="Selectors\EquipmentSelector.cs" />
-    <Compile Include="IGetEquipmentService.cs" />
+    <Compile Include="IGetProductService.cs" />
     <Compile Include="Selectors\ParameterSelector.cs" />
     <Compile Include="EquipmentsComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

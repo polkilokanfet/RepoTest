@@ -4,11 +4,11 @@ using HVTApp.Modules.Infrastructure;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class EquipmentDetailsViewModel : BaseDetailsViewModel<EquipmentWrapper, Equipment>
+    public class EquipmentDetailsViewModel : BaseDetailsViewModel<ProductWrapper, Product>
     {
-        public EquipmentWrapper Product => Item;
+        public ProductWrapper Product => Item;
 
-        public EquipmentDetailsViewModel(EquipmentWrapper item) : base(item)
+        public EquipmentDetailsViewModel(ProductWrapper item) : base(item)
         {
         }
     }

@@ -4,7 +4,7 @@ namespace HVTApp.Model.Wrappers
 {
     public interface IProductWithCost : IValidatableChangeTracking
     {
-        ProductWrapper Product { get; }
+        PartWrapper Part { get; }
         CostWrapper Cost { get; }
     }
 }

@@ -4,14 +4,14 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class Equipment : BaseEntity
+    public class Product : BaseEntity
     {
         public string Designation { get; set; }
-        public virtual Product Product { get; set; }
-        public virtual List<Equipment> DependentEquipments { get; set; } = new List<Equipment>();
+        public virtual Part Part { get; set; }
+        public virtual List<Product> DependentProducts { get; set; } = new List<Product>();
     }
 
-    public class Product : BaseEntity
+    public class Part : BaseEntity
     {
         public string Designation { get; set; }
         public virtual List<Parameter> Parameters { get; set; } = new List<Parameter>();

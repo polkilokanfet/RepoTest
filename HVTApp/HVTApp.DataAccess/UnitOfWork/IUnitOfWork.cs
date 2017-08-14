@@ -19,8 +19,8 @@ namespace HVTApp.DataAccess
         ICompanyFormsRepository CompanyForms { get; }
         IParametersGroupsRepository ParametersGroups { get; }
         IParametersRepository Parameters { get; }
+        IPartsRepository Parts { get; }
         IProductsRepository Products { get; }
-        IEquipmentsRepository Equipments { get; }
         IRequiredDependentEquipmentsParametersRepository RequiredDependentEquipmentsParameters { get; }
         IFacilityTypesRepository FacilityTypes { get; }
         IFacilitiesRepository Facilities { get; }

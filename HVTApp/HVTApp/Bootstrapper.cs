@@ -68,7 +68,7 @@ namespace HVTApp
             ChooseService chooseService = new ChooseService((Window)Shell);
             Container.RegisterInstance(typeof(IChooseService), chooseService);
 
-            Container.RegisterType<IGetEquipmentService, GetEquipmentServiceWpf>();
+            Container.RegisterType<IGetProductService, GetProductServiceWpf>();
         }
         
         protected override IModuleCatalog CreateModuleCatalog()

@@ -61,7 +61,7 @@ namespace HVTApp.Model.Wrappers
         private void OnMarginalIncomeInPercentChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(MarginalIncomeInPercent))
-                Cost = ProductionUnit.Equipment.GetTotalPrice(MarginalIncomeDate) / (1 - MarginalIncomeInPercent / 100);
+                Cost = ProductionUnit.Product.GetTotalPrice(MarginalIncomeDate) / (1 - MarginalIncomeInPercent / 100);
         }
 
         private void OnSpecificationChanged(object sender, PropertyChangedEventArgs e)
@@ -281,7 +281,7 @@ namespace HVTApp.Model.Wrappers
         /// <summary>
         /// Маржинальный доход единицы
         /// </summary>
-        public double MarginalIncome => Cost - ProductionUnit.Equipment.GetTotalPrice(MarginalIncomeDate);
+        public double MarginalIncome => Cost - ProductionUnit.Product.GetTotalPrice(MarginalIncomeDate);
 
         private double _marginalIncomeInPercent;
 

@@ -8,7 +8,7 @@ namespace HVTApp.DataAccess
         public TenderUnitConfiguration()
         {
             HasRequired(x => x.Tender).WithMany(x => x.TenderUnits);
-            HasRequired(x => x.Equipment).WithMany();
+            HasRequired(x => x.Product).WithMany();
             HasOptional(x => x.ProducerWinner).WithMany();
         }
     }

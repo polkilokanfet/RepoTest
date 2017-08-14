@@ -8,13 +8,13 @@ using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
 {
-    public class ProductsRepository : BaseRepository<Product, ProductWrapper>, IProductsRepository
+    public class PartsRepository : BaseRepository<Part, PartWrapper>, IPartsRepository
     {
-        public ProductsRepository(DbContext context, IGetWrapper getWrapper) : base(context, getWrapper)
+        public PartsRepository(DbContext context, IGetWrapper getWrapper) : base(context, getWrapper)
         {
         }
 
-        public ProductWrapper GetProductItem(IEnumerable<ParameterWrapper> parameters)
+        public PartWrapper GetProductItem(IEnumerable<ParameterWrapper> parameters)
         {
             var prmtrs = parameters.ToList();
             var productItems = this.GetAll();
@@ -22,7 +22,7 @@ namespace HVTApp.DataAccess
                                                           !prmtrs.Except(x.Parameters).Any());
             if (result != null) return result;
 
-            result = GetWrapper(new Product { Parameters = new List<Parameter>(prmtrs.Select(x => x.Model)) });
+            result = GetWrapper(new Part { Parameters = new List<Parameter>(prmtrs.Select(x => x.Model)) });
             result.Designation = result.ParametersToString;
             return result;
         }

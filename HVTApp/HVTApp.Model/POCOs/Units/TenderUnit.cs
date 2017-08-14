@@ -8,7 +8,7 @@ namespace HVTApp.Model.POCOs
     {
         public virtual ProjectUnit ProjectUnit { get; set; }
 
-        public virtual Equipment Equipment { get; set; }
+        public virtual Product Product { get; set; }
         public virtual Tender Tender { get; set; }
         public double Cost { get; set; }
 

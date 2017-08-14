@@ -6,28 +6,28 @@ using HVTApp.Services.GetEquipmentService;
 
 namespace HVTApp.Services.GetProductService
 {
-    public class GetEquipmentServiceWpf : IGetEquipmentService
+    public class GetProductServiceWpf : IGetProductService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public GetEquipmentServiceWpf(IUnitOfWork unitOfWork)
+        public GetProductServiceWpf(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public EquipmentWrapper GetEquipment(EquipmentWrapper templateEquipment = null)
+        public ProductWrapper GetEquipment(ProductWrapper templateEquipment = null)
         {
             var groups = _unitOfWork.ParametersGroups.GetAll().Select(x => x.Model).ToList();
-            var products = _unitOfWork.Products.GetAll().Select(x => x.Model).ToList();
-            var equipments = _unitOfWork.Equipments.GetAll().Select(x => x.Model).ToList();
+            var products = _unitOfWork.Parts.GetAll().Select(x => x.Model).ToList();
+            var equipments = _unitOfWork.Products.GetAll().Select(x => x.Model).ToList();
             var requiredDependentEquipmentsParameters = _unitOfWork.RequiredDependentEquipmentsParameters.GetAll().Select(x => x.Model).ToList();
 
-            EquipmentSelector equipmentSelector = new EquipmentSelector(groups, products, equipments, requiredDependentEquipmentsParameters, preSelectedEquipment: templateEquipment?.Model);
+            EquipmentSelector equipmentSelector = new EquipmentSelector(groups, products, equipments, requiredDependentEquipmentsParameters, preSelectedProduct: templateEquipment?.Model);
             SelectEquipmentWindow window = new SelectEquipmentWindow {DataContext = equipmentSelector};
             window.ShowDialog();
 
             if (!window.DialogResult.HasValue || !window.DialogResult.Value) return templateEquipment;
-            return _unitOfWork.Equipments.GetWrapper(equipmentSelector.SelectedEquipment);
+            return _unitOfWork.Products.GetWrapper(equipmentSelector.SelectedProduct);
         }
     }
 }

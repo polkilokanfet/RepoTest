@@ -67,14 +67,14 @@ namespace HVTApp.Model.Wrappers
     public bool FacilityIsChanged => GetIsChanged(nameof(Facility));
 
 
-	public EquipmentWrapper Equipment 
+	public ProductWrapper Product 
     {
-        get { return GetComplexProperty<EquipmentWrapper, Equipment>(Model.Equipment); }
-        set { SetComplexProperty<EquipmentWrapper, Equipment>(Equipment, value); }
+        get { return GetComplexProperty<ProductWrapper, Product>(Model.Product); }
+        set { SetComplexProperty<ProductWrapper, Product>(Product, value); }
     }
 
-    public EquipmentWrapper EquipmentOriginalValue { get; private set; }
-    public bool EquipmentIsChanged => GetIsChanged(nameof(Equipment));
+    public ProductWrapper ProductOriginalValue { get; private set; }
+    public bool ProductIsChanged => GetIsChanged(nameof(Product));
 
 
     #endregion
@@ -97,7 +97,7 @@ namespace HVTApp.Model.Wrappers
 
         Facility = GetWrapper<FacilityWrapper, Facility>(Model.Facility);
 
-        Equipment = GetWrapper<EquipmentWrapper, Equipment>(Model.Equipment);
+        Product = GetWrapper<ProductWrapper, Product>(Model.Product);
 
     }
 

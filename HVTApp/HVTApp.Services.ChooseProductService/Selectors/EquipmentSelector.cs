@@ -12,22 +12,22 @@ namespace HVTApp.Services.GetProductService
     public class EquipmentSelector : NotifyPropertyChanged
     {
         private readonly IEnumerable<ParameterGroup> _groups;
-        private readonly IList<Product> _products;
-        private readonly IList<Equipment> _equipments;
+        private readonly IList<Part> _products;
+        private readonly IList<Product> _equipments;
         private readonly IEnumerable<RequiredDependentEquipmentsParameters> _requiredDependentEquipmentsParametersList;
 
-        private Equipment _selectedEquipment;
+        private Product _selectedProduct;
 
         public ProductSelector ProductSelector { get; }
         public ObservableCollection<EquipmentSelector> EquipmentSelectors { get; }
 
 
         public EquipmentSelector(IEnumerable<ParameterGroup> groups, 
-                                 IList<Product> products, 
-                                 IList<Equipment> equipments, 
+                                 IList<Part> products, 
+                                 IList<Product> equipments, 
                                  IEnumerable<RequiredDependentEquipmentsParameters> requiredDependentEquipmentsParametersList, 
                                  IEnumerable<Parameter> requiredProductsParameters = null,
-                                 Equipment preSelectedEquipment = null)
+                                 Product preSelectedProduct = null)
         {
             _groups = new List<ParameterGroup>(groups);
             _products = products;
@@ -35,24 +35,24 @@ namespace HVTApp.Services.GetProductService
             _requiredDependentEquipmentsParametersList = new List<RequiredDependentEquipmentsParameters>(requiredDependentEquipmentsParametersList);
 
             //продукт
-            ProductSelector = new ProductSelector(_groups.Select(x => x.Parameters), _products, requiredProductsParameters, preSelectedEquipment?.Product);
+            ProductSelector = new ProductSelector(_groups.Select(x => x.Parameters), _products, requiredProductsParameters, preSelectedProduct?.Part);
             ProductSelector.SelectedProductChanged += OnMainProductChanged;
 
             //дочернее оборудование
             EquipmentSelectors = new ObservableCollection<EquipmentSelector>();
             RefreshDependentEquipments();
-            SelectedEquipment = GetEquipment();
+            SelectedProduct = GetEquipment();
         }
 
 
-        public Equipment SelectedEquipment
+        public Product SelectedProduct
         {
-            get { return _selectedEquipment; }
+            get { return _selectedProduct; }
             private set
             {
-                if (Equals(_selectedEquipment, value)) return;
-                var oldValue = _selectedEquipment;
-                _selectedEquipment = value;
+                if (Equals(_selectedProduct, value)) return;
+                var oldValue = _selectedProduct;
+                _selectedProduct = value;
                 if(!_equipments.Contains(value)) _equipments.Add(value);
 
                 OnSelectedEquipmentChanged(oldValue, value);
@@ -60,17 +60,17 @@ namespace HVTApp.Services.GetProductService
             }
         }
 
-        private Equipment GetEquipment()
+        private Product GetEquipment()
         {
-            var dependentEquipment = EquipmentSelectors.Select(x => x.SelectedEquipment).ToList();
-            var result = _equipments.SingleOrDefault(x => Equals(x.Product, ProductSelector.SelectedProduct) &&
-                                                          x.DependentEquipments.AllMembersAreSame(dependentEquipment));
+            var dependentEquipment = EquipmentSelectors.Select(x => x.SelectedProduct).ToList();
+            var result = _equipments.SingleOrDefault(x => Equals(x.Part, ProductSelector.SelectedPart) &&
+                                                          x.DependentProducts.AllMembersAreSame(dependentEquipment));
             if (result == null)
             {
-                result = new Equipment
+                result = new Product
                 {
-                    Product = ProductSelector.SelectedProduct,
-                    DependentEquipments = dependentEquipment
+                    Part = ProductSelector.SelectedPart,
+                    DependentProducts = dependentEquipment
                 };
                 _equipments.Add(result);
             }
@@ -106,22 +106,22 @@ namespace HVTApp.Services.GetProductService
             }
         }
 
-        private void OnDependentSelectedEquipmentChanged(Equipment oldEquipment, Equipment newEquipment)
+        private void OnDependentSelectedEquipmentChanged(Product oldProduct, Product newProduct)
         {
-            SelectedEquipment = GetEquipment();
+            SelectedProduct = GetEquipment();
         }
 
-        private void OnMainProductChanged(Product oldProduct, Product newProduct)
+        private void OnMainProductChanged(Part oldPart, Part newPart)
         {
             RefreshDependentEquipments();
-            SelectedEquipment = GetEquipment();
+            SelectedProduct = GetEquipment();
         }
 
 
-        public event Action<Equipment, Equipment> SelectedEquipmentChanged;
-        protected virtual void OnSelectedEquipmentChanged(Equipment oldEquipment, Equipment newEquipment)
+        public event Action<Product, Product> SelectedEquipmentChanged;
+        protected virtual void OnSelectedEquipmentChanged(Product oldProduct, Product newProduct)
         {
-            SelectedEquipmentChanged?.Invoke(oldEquipment, newEquipment);
+            SelectedEquipmentChanged?.Invoke(oldProduct, newProduct);
         }
     }
 }

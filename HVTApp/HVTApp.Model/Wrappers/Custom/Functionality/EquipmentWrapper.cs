@@ -4,7 +4,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-    public partial class EquipmentWrapper
+    public partial class ProductWrapper
     {
         #region Price
 
@@ -31,13 +31,13 @@ namespace HVTApp.Model.Wrappers
 
             double totalPriceSum = 0;
 
-            var prices = Product.Prices.Where(x => (x.Date <= date)).OrderByDescending(x => x.Date);
+            var prices = Part.Prices.Where(x => (x.Date <= date)).OrderByDescending(x => x.Date);
             if (prices.Any())
                 totalPriceSum = prices.First().Cost.Sum;
             else
                 throw new NullReferenceException();
 
-            totalPriceSum += DependentEquipments.Sum(child => child.GetTotalPrice(date));
+            totalPriceSum += DependentProducts.Sum(child => child.GetTotalPrice(date));
 
             return totalPriceSum;
         }
@@ -54,7 +54,7 @@ namespace HVTApp.Model.Wrappers
 
         //protected bool Equals(ProductWrapper other)
         //{
-        //    return Equals(this.Product, other.Product) && this.DependentEquipments.AllMembersAreSame(other.DependentEquipments);
+        //    return Equals(this.Part, other.Part) && this.DependentProducts.AllMembersAreSame(other.DependentProducts);
         //}
     }
 }

@@ -8,9 +8,9 @@ namespace HVTApp.Model.Wrappers
 {
     public class ProductsUnitGroup : ObservableCollection<IProductWithCost>
     {
-        public ProductWrapper Product => this.First().Product;
+        public PartWrapper Part => this.First().Part;
         public CostWrapper Cost => this.First().Cost;
-        public string ProductName => Product.Designation;
+        public string ProductName => Part.Designation;
 
         public ProductsUnitGroup(IEnumerable<IProductWithCost> units) : base(units)
         {
@@ -30,7 +30,7 @@ namespace HVTApp.Model.Wrappers
 
             _sourceUnits = sourceUnits;
 
-            foreach (var unitsGroupedByProduct in sourceUnits.GroupBy(x => x.Product)) //группируем по продукту
+            foreach (var unitsGroupedByProduct in sourceUnits.GroupBy(x => x.Part)) //группируем по продукту
             {
                 foreach (var unitsGroupedByCurrency in unitsGroupedByProduct.GroupBy(x => x.Cost.Currency)) //по валюте
                 {
@@ -82,9 +82,9 @@ namespace HVTApp.Model.Wrappers
                 if (this.Any(x => x.Contains(newUnit)))
                     continue;
 
-                if (this.Any(x => Equals(x.Product, newUnit.Product)))
+                if (this.Any(x => Equals(x.Part, newUnit.Part)))
                 {
-                    this.Single(x => Equals(x.Product, newUnit.Product)).Add(newUnit);
+                    this.Single(x => Equals(x.Part, newUnit.Part)).Add(newUnit);
                     continue;
                 }
 

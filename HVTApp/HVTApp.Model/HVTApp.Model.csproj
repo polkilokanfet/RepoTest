@@ -74,7 +74,7 @@
     <Compile Include="POCOs\Document.cs" />
     <Compile Include="POCOs\Test\TestEntity.cs" />
     <Compile Include="POCOs\Sums.cs" />
-    <Compile Include="POCOs\Equipment.cs" />
+    <Compile Include="POCOs\Product.cs" />
     <Compile Include="POCOs\Offer.cs" />
     <Compile Include="POCOs\Employee.cs" />
     <Compile Include="POCOs\Order.cs" />
@@ -96,16 +96,16 @@
     <Compile Include="Wrappers\Base\WrapperBase.cs" />
     <Compile Include="Wrappers\Custom\Functionality\CompanyWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ContractWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Functionality\EquipmentWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\OfferWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ParameterWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\PaymentWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ProductionUnitWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\SalesUnitWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\ProductWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\ShipmentUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ProductsUnitGroup.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\EquipmentWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Functionality\ProductWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ProjectWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Functionality\SalesUnitWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Functionality\ShipmentUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\SpecificationWrapper.cs" />
     <Compile Include="Wrappers\Custom\IProductWithCost.cs" />
     <Compile Include="Wrappers\Custom\Test\TestFriendAddressWrapper.cs" />
@@ -115,8 +115,8 @@
     <Compile Include="Wrappers\Custom\Validate\CompanyWrapper.cs" />
     <Compile Include="Wrappers\Custom\Validate\ContractWrapper.cs" />
     <Compile Include="Wrappers\Custom\Validate\FacilityWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Validate\StandartPaymentConditionsWrapper.cs" />
     <Compile Include="Wrappers\Custom\Validate\SpecificationWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Validate\StandartPaymentConditionsWrapper.cs" />
     <Compile Include="Wrappers\Generated\ActivityFieldWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\AddressWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\BankDetailsWrapper.g.cs" />
@@ -132,7 +132,6 @@
     <Compile Include="Wrappers\Generated\DocumentWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\EmployeesPositionWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\EmployeeWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\EquipmentWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ExchangeCurrencyRateWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\FacilityTypeWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\FacilityWrapper.g.cs" />
@@ -144,6 +143,7 @@
     <Compile Include="Wrappers\Generated\OrderWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ParameterGroupWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ParameterWrapper.g.cs" />
+    <Compile Include="Wrappers\Generated\PartWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\PaymentActualWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\PaymentConditionWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\PaymentDocumentWrapper.g.cs" />

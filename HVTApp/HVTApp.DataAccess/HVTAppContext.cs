@@ -107,8 +107,8 @@ namespace HVTApp.DataAccess
         public virtual DbSet<ParameterGroup> ParameterGroups { get; set; }
         public virtual DbSet<Parameter> Parameters { get; set; }
         public virtual DbSet<RequiredDependentEquipmentsParameters> RequiredDependentEquipmentsParameterses { get; set; }
-        public virtual DbSet<Product> ProductItems { get; set; }
-        public virtual DbSet<Equipment> Products { get; set; }
+        public virtual DbSet<Part> ProductItems { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Contract> Contracts { get; set; }
         public virtual DbSet<Specification> Specifications { get; set; }
         public virtual DbSet<ProjectUnit> ProjectUnits { get; set; }

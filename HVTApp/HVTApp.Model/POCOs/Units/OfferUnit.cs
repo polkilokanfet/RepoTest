@@ -9,7 +9,7 @@ namespace HVTApp.Model.POCOs
         public virtual TenderUnit TenderUnit { get; set; }
         public virtual SalesUnit SalesUnit { get; set; }
 
-        public virtual Equipment Equipment { get; set; }
+        public virtual Product Product { get; set; }
         public virtual Offer Offer { get; set; }
         public double Cost { get; set; }
 

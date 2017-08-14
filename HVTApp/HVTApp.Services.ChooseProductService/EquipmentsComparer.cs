@@ -5,16 +5,16 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.GetProductService
 {
-    class EquipmentsComparer : IEqualityComparer<Equipment>
+    class EquipmentsComparer : IEqualityComparer<Product>
     {
-        public bool Equals(Equipment x, Equipment y)
+        public bool Equals(Product x, Product y)
         {
-            return Equals(x.Product, y.Product) &&
-                   x.DependentEquipments.Except(y.DependentEquipments, new EquipmentsComparer()).Any() &&
-                   y.DependentEquipments.Except(x.DependentEquipments, new EquipmentsComparer()).Any();
+            return Equals(x.Part, y.Part) &&
+                   x.DependentProducts.Except(y.DependentProducts, new EquipmentsComparer()).Any() &&
+                   y.DependentProducts.Except(x.DependentProducts, new EquipmentsComparer()).Any();
         }
 
-        public int GetHashCode(Equipment obj)
+        public int GetHashCode(Product obj)
         {
             throw new NotImplementedException();
         }

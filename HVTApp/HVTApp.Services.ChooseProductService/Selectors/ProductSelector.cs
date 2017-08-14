@@ -10,11 +10,11 @@ namespace HVTApp.Services.GetEquipmentService
 {
     public class ProductSelector : NotifyPropertyChanged
     {
-        private readonly IList<Product> _products;
+        private readonly IList<Part> _products;
         private readonly IEnumerable<Parameter> _requiredParameters;
-        private Product _selectedProduct;
+        private Part _selectedPart;
 
-        public ProductSelector(IEnumerable<IEnumerable<Parameter>> parametersGroups, IList<Product> products, IEnumerable<Parameter> requiredParameters = null, Product preSelectedProduct = null)
+        public ProductSelector(IEnumerable<IEnumerable<Parameter>> parametersGroups, IList<Part> products, IEnumerable<Parameter> requiredParameters = null, Part preSelectedPart = null)
         {
             _products = products;
             _requiredParameters = requiredParameters == null ? new List<Parameter>() : new List<Parameter>(requiredParameters);
@@ -39,28 +39,28 @@ namespace HVTApp.Services.GetEquipmentService
                 RefreshParametersActualStatuses(SelectedParameters);
             }
 
-            SelectedProduct = GetProduct();
+            SelectedPart = GetProduct();
 
             //назаначаем предварительно выбранный продукт
-            if (preSelectedProduct != null) SelectedProduct = preSelectedProduct;
+            if (preSelectedPart != null) SelectedPart = preSelectedPart;
         }
 
         public ObservableCollection<ParameterSelector> ParameterSelectors { get; set; }
 
         public IEnumerable<Parameter> SelectedParameters => ParameterSelectors.Select(x => x.SelectedParameterWithActualFlag).Where(x => x != null).Select(x => x.Parameter);
 
-        public Product SelectedProduct
+        public Part SelectedPart
         {
-            get { return _selectedProduct; }
+            get { return _selectedPart; }
             set
             {
-                if (Equals(_selectedProduct, value)) return;
-                var oldValue = _selectedProduct;
-                _selectedProduct = value;
+                if (Equals(_selectedPart, value)) return;
+                var oldValue = _selectedPart;
+                _selectedPart = value;
 
                 //назначаем в селекторы актуальные выбранные параметры
                 var actualParameterSelectors = new List<ParameterSelector>();
-                foreach (var parameter in _selectedProduct.Parameters)
+                foreach (var parameter in _selectedPart.Parameters)
                 {
                     var parameterSelector = ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).Contains(parameter));
                     if (!Equals(parameterSelector.SelectedParameterWithActualFlag.Parameter, parameter))
@@ -83,12 +83,12 @@ namespace HVTApp.Services.GetEquipmentService
             return _requiredParameters;
         }
 
-        private Product GetProduct()
+        private Part GetProduct()
         {
             var result = _products.SingleOrDefault(x => SelectedParameters.AllMembersAreSame(x.Parameters));
             if (result == null)
             {
-                result = new Product {Parameters = new List<Parameter>(SelectedParameters)};
+                result = new Part {Parameters = new List<Parameter>(SelectedParameters)};
                 _products.Add(result);
             }
             return result;
@@ -133,7 +133,7 @@ namespace HVTApp.Services.GetEquipmentService
             RefreshParametersActualStatuses(actualSelectedParameters);
             OnSelectedParametersChanged();
 
-            SelectedProduct = GetProduct();
+            SelectedPart = GetProduct();
         }
 
         private bool ParameterIsActual(Parameter parameter, IEnumerable<Parameter> requiredParameters)
@@ -153,11 +153,11 @@ namespace HVTApp.Services.GetEquipmentService
 
 
 
-        public event Action<Product, Product> SelectedProductChanged;
+        public event Action<Part, Part> SelectedProductChanged;
 
-        protected virtual void OnSelectedProductChanged(Product oldProduct, Product newProduct)
+        protected virtual void OnSelectedProductChanged(Part oldPart, Part newPart)
         {
-            SelectedProductChanged?.Invoke(oldProduct, newProduct);
+            SelectedProductChanged?.Invoke(oldPart, newPart);
         }
 
         private event Action SelectedParametersChanged;
