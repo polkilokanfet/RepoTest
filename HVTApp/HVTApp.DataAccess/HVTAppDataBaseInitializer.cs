@@ -4,6 +4,7 @@ using System.Data.Entity.Validation;
 using System.Diagnostics;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.TestDataGenerator;
 
 namespace HVTApp.DataAccess
 {
@@ -11,8 +12,9 @@ namespace HVTApp.DataAccess
     {
         protected override void Seed(HVTAppContext context)
         {
-            TestDataGenerator.TestData testData = new TestDataGenerator.TestData();
+            TestData testData = new TestData();
 
+            context.Documents.Add(testData.DocumentOfferMrsk);
             context.Countries.Add(testData.CountryRussia);
             context.ActivityFilds.AddRange(new[] { testData.ActivityFieldProducerOfHvt, testData.ActivityFieldBuilder, testData.ActivityFieldElectricityTransmission, testData.ActivityFieldElectricityGeneration });
             context.CompanyForms.AddRange(new[] { testData.CompanyFormAo, testData.CompanyFormOao, testData.CompanyFormPao, testData.CompanyFormZao });
@@ -20,15 +22,14 @@ namespace HVTApp.DataAccess
             context.Employees.Add(testData.EmployeeIvanov);
             context.Users.Add(testData.UserIvanov);
             context.RequiredDependentEquipmentsParameterses.AddRange(new[] { testData.RequiredChildProductParametersBreakerBlock, testData.RequiredChildProductParametersDrive });
-            //context.Products.AddRange(new [] {veb110, vgb35, zng110});
             context.Facilities.AddRange(new[] { testData.FacilityStation, testData.FacilitySubstation });
             context.Projects.AddRange(new[] { testData.Project1, testData.Project2 });
-            context.Parameters.AddRange(new[] { testData.ParameterBreaker, testData.ParameterTransformator, testData.ParameterBreakerDeadTank,
+            context.Parameters.AddRange(new[] {
+                testData.ParameterBreaker, testData.ParameterTransformator, testData.ParameterBreakerDeadTank,
                 testData.ParameterBreakerLiveTank, testData.ParameterTransformatorCurrent, testData.ParameterTransformatorVoltage,
                 testData.ParameterVoltage35kV, testData.ParameterVoltage110kV, testData.ParameterVoltage220kV, testData.ParameterVoltage500kV });
             context.Specifications.Add(testData.SpecificationMrsk1);
-            //context.Tenders.Add(tender);
-            //context.Units.AddRange(new[] {productComplexUnitVeb110, productComplexUnitVeb1102, productComplexUnitZng1101, productComplexUnitZng1102});
+            context.Tenders.Add(testData.TenderMrsk);
 
             try
             {
