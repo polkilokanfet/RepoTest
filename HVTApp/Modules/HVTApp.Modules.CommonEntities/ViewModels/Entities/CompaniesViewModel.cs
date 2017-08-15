@@ -10,7 +10,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class CompaniesViewModel : BaseListViewModel<CompanyWrapper, CompanyDetailsWindowModel, Company>
+    public class CompaniesViewModel : BaseListViewModel<CompanyWrapper, CompanyDetailsWindowModel>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDialogService _dialogService;

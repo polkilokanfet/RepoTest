@@ -4,7 +4,7 @@ using HVTApp.Modules.Infrastructure;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class TenderDetailsViewModel : BaseDetailsViewModel<TenderWrapper, Tender>
+    public class TenderDetailsViewModel : BaseDetailsViewModel<TenderWrapper>
     {
         public TenderDetailsViewModel(TenderWrapper item) : base(item)
         {

@@ -4,7 +4,7 @@ using HVTApp.Modules.Infrastructure;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class ActivityFildDetailsViewModel : BaseDetailsViewModel<ActivityFieldWrapper, ActivityField>
+    public class ActivityFildDetailsViewModel : BaseDetailsViewModel<ActivityFieldWrapper>
     {
         public ActivityFildDetailsViewModel(ActivityFieldWrapper item) : base(item)
         {

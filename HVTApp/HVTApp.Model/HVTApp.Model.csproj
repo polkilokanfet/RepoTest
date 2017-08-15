@@ -96,6 +96,8 @@
     <Compile Include="Wrappers\Base\WrapperBase.cs" />
     <Compile Include="Wrappers\Custom\Functionality\CompanyWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ContractWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Functionality\CountryWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Functionality\DistrictWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\EquipmentWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\OfferWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ParameterWrapper.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="Wrappers\Custom\Functionality\ProductsUnitGroup.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ProductWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ProjectWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Functionality\RegionWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\SalesUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ShipmentUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\SpecificationWrapper.cs" />

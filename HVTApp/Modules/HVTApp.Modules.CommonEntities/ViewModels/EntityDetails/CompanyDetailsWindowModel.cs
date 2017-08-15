@@ -11,7 +11,7 @@ using Prism.Commands;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class CompanyDetailsWindowModel : BaseDetailsViewModel<CompanyWrapper, Company>
+    public class CompanyDetailsWindowModel : BaseDetailsViewModel<CompanyWrapper>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISelectService _selectService;

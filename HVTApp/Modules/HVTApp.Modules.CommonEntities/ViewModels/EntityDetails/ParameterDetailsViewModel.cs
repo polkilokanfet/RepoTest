@@ -4,9 +4,9 @@ using HVTApp.Modules.Infrastructure;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class FacilityTypeDetailsViewModel : BaseDetailsViewModel<FacilityTypeWrapper, FacilityType>
+    public class ParameterDetailsViewModel : BaseDetailsViewModel<ParameterWrapper>
     {
-        public FacilityTypeDetailsViewModel(FacilityTypeWrapper item) : base(item)
+        public ParameterDetailsViewModel(ParameterWrapper item) : base(item)
         {
         }
     }

@@ -43,14 +43,6 @@ namespace HVTApp.Model.Wrappers
 
     #endregion
 
-
-    #region GetProperties
-
-    public HVTApp.Model.POCOs.Locality Capital => GetValue<HVTApp.Model.POCOs.Locality>(); 
-
-
-    #endregion
-
   
     protected override void InitializeCollectionComplexProperties()
     {

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
@@ -10,10 +12,22 @@ using Prism.Commands;
 
 namespace HVTApp.Modules.Infrastructure
 {
-    public class BaseListViewModel<TItem, TItemDelailsViewModel, TModel> : EditableSelectableBindableBase<TItem>
-        where TItem : class, IWrapper<TModel>
-        where TItemDelailsViewModel : class, IItemDetailsViewModel<TItem, TModel> 
-        where TModel : class, IBaseEntity
+    public interface IBaseListViewModel<TWrapper> : INotifyPropertyChanged
+        where TWrapper : class, IWrapper<IBaseEntity>
+    {
+        ICollection<TWrapper> Items { get; }
+        TWrapper SelectedItem { get; set; }
+
+        ICommand NewItemCommand { get; }
+        ICommand EditItemCommand { get; }
+        ICommand RemoveItemCommand { get; }
+        ICommand SelectItemCommand { get; }
+
+        event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
+    }
+
+    public class BaseListViewModel<TWrapper, TDelailsViewModel> : EditableSelectableBindableBase<TWrapper>, IBaseListViewModel<TWrapper> where TWrapper : class, IWrapper<IBaseEntity>
+        where TDelailsViewModel : class, IDetailsViewModel<TWrapper> 
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUnityContainer _container;
@@ -28,13 +42,13 @@ namespace HVTApp.Modules.Infrastructure
 
         protected override void NewItemCommand_Execute()
         {
-            TItem item = _unitOfWork.GetWrapper<TItem>();
+            TWrapper item = _unitOfWork.GetWrapper<TWrapper>();
 
-            TItemDelailsViewModel delailsViewModel = _container.Resolve<TItemDelailsViewModel>(new ParameterOverride("item", item));
+            TDelailsViewModel delailsViewModel = _container.Resolve<TDelailsViewModel>(new ParameterOverride("item", item));
             bool? dialogResult = _dialogService.ShowDialog(delailsViewModel);
             if (!dialogResult.HasValue || !dialogResult.Value) return;
 
-            _unitOfWork.AddItem<TModel, TItem>(delailsViewModel.Item);
+            _unitOfWork.AddItem(delailsViewModel.Item);
             _unitOfWork.Complete();
 
             Items.Add(delailsViewModel.Item);
@@ -43,7 +57,7 @@ namespace HVTApp.Modules.Infrastructure
 
         protected override void EditItemCommand_Execute()
         {
-            TItemDelailsViewModel delailsViewModel = _container.Resolve<TItemDelailsViewModel>(new ParameterOverride("item", SelectedItem));
+            TDelailsViewModel delailsViewModel = _container.Resolve<TDelailsViewModel>(new ParameterOverride("item", SelectedItem));
 
             bool? dialogResult = _dialogService.ShowDialog(delailsViewModel);
             if (dialogResult.HasValue && dialogResult.Value)
@@ -62,6 +76,13 @@ namespace HVTApp.Modules.Infrastructure
             throw new System.NotImplementedException();
         }
     }
+
+
+
+
+
+
+
 
     public abstract class EditableSelectableBindableBase<T> : SelectableBindableBase<T>
         where T : class

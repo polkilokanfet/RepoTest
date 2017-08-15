@@ -4,7 +4,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.DataAccess
 {
-    public interface IRepository<TModel, TWrapper>
+    public interface IRepository<in TModel, TWrapper>
         where TModel : class, IBaseEntity
         where TWrapper : class, IWrapper<TModel>
     {

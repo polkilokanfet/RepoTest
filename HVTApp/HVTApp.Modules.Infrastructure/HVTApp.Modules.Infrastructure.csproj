@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="BaseDetailsViewModel.cs" />
     <Compile Include="BaseListViewModel.cs" />
+    <Compile Include="IDetailsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelectableBindableBase.cs" />
     <Compile Include="TabCRUD.xaml.cs">

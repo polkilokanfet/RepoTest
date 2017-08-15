@@ -48,12 +48,11 @@ namespace HVTApp.DataAccess
         {
             return _context.SaveChanges();
         }
-
-        public void AddItem<TModel, TWrapper>(TWrapper wrapper)
-            where TModel : class, IBaseEntity
-            where TWrapper : IWrapper<TModel>
+        
+        public void AddItem(IWrapper<IBaseEntity> wrapper)
         {
-            _context.Set<TModel>().Add(wrapper.Model);
+            var modelType = wrapper.GetType().GetProperty(nameof(wrapper.Model)).PropertyType;
+            _context.Set(modelType).Add(wrapper.Model);
         }
 
         #region Repositories

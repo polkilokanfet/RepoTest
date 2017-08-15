@@ -97,6 +97,18 @@ namespace HVTApp.TestDataGenerator
         public Product ProductZng110;
         public Product ProductBreakersDrive;
 
+        public ProjectUnit ProjectUnitVeb1101;
+        public ProjectUnit ProjectUnitVeb1102;
+        public ProjectUnit ProjectUnitZng1101;
+        public ProjectUnit ProjectUnitZng1102;
+        public ProjectUnit ProjectUnitZng1103;
+
+        public ProductionUnit ProductionUnitVeb1101;
+        public ProductionUnit ProductionUnitVeb1102;
+        public ProductionUnit ProductionUnitZng1101;
+        public ProductionUnit ProductionUnitZng1102;
+        public ProductionUnit ProductionUnitZng1103;
+
         public Contract ContractMrsk;
 
         public Specification SpecificationMrsk1;
@@ -132,14 +144,14 @@ namespace HVTApp.TestDataGenerator
             GenerateParameterGroups();
             GenerateParameters();
             GenerateRequiredDependentEquipmentsParameters();
-            GenerateProducts();
-            GenerateEquipments();
+            GenerateParts();
+            GenerateProduct();
             GenerateContracts();
             GenerateSpecifications();
             GenerateTenderTypes();
         }
 
-    public void GenerateCompanyForms()
+        public void GenerateCompanyForms()
         {
             CompanyFormAo = new CompanyForm {FullName = "Акционерное общество", ShortName = "АО"};
             CompanyFormPao = new CompanyForm {FullName = "Публичное акционерное общество", ShortName = "ПАО"};
@@ -293,7 +305,7 @@ namespace HVTApp.TestDataGenerator
                 ChildProductParameters = new List<Parameter> { ParameterBreaker }, Count = 2 };
         }
 
-        public void GenerateProducts()
+        public void GenerateParts()
         {
             PartZng110 = new Part { Designation = "ЗНГ-110", Parameters = new List<Parameter> { ParameterTransformator, ParameterTransformatorVoltage, ParameterVoltage110kV },
                 Prices = new List<CostOnDate> { new CostOnDate { Cost = new Cost { Sum = 75 }, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber1"};
@@ -305,11 +317,29 @@ namespace HVTApp.TestDataGenerator
                 Prices = new List<CostOnDate> { new CostOnDate { Cost = new Cost { Sum = 100 }, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber4" };
         }
 
-        public void GenerateEquipments()
+        public void GenerateProduct()
         {
             ProductVeb110 = new Product { Designation = "Выключатель баковый ВЭБ-110", Part = PartVeb110, DependentProducts  = new List<Product> {ProductBreakersDrive} };
             ProductZng110 = new Product { Designation = "Трансформатор напряжения ЗНГ-110", Part = PartZng110 };
             ProductBreakersDrive = new Product { Designation = "Привод выключателя", Part = PartBreakesDrive };
+        }
+
+        public void GenerateProductionUnit()
+        {
+            ProductionUnitVeb1101 = new ProductionUnit { Product = ProductVeb110 };
+            ProductionUnitVeb1102 = new ProductionUnit { Product = ProductVeb110 };
+            ProductionUnitZng1101 = new ProductionUnit { Product = ProductZng110 };
+            ProductionUnitZng1102 = new ProductionUnit { Product = ProductZng110 };
+            ProductionUnitZng1103 = new ProductionUnit { Product = ProductZng110 };
+        }
+
+        public void GenerateProjectUnit()
+        {
+            ProjectUnitVeb1101 = new ProjectUnit { Product = ProductVeb110, Cost = 5, Project = Project1, Facility = FacilitySubstation };
+            ProjectUnitVeb1102 = new ProjectUnit { Product = ProductVeb110, Cost = 5, Project = Project1, Facility = FacilitySubstation };
+            ProjectUnitZng1101 = new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project2, Facility = FacilityStation };
+            ProjectUnitZng1102 = new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project2, Facility = FacilityStation };
+            ProjectUnitZng1103 = new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project2, Facility = FacilityStation };
         }
 
         public void GenerateContracts()

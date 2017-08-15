@@ -4,7 +4,7 @@ using HVTApp.Modules.Infrastructure;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class ProjectDetailsViewModel : BaseDetailsViewModel<ProjectWrapper, Project>
+    public class ProjectDetailsViewModel : BaseDetailsViewModel<ProjectWrapper>
     {
         public ProjectDetailsViewModel(ProjectWrapper item) : base(item)
         {

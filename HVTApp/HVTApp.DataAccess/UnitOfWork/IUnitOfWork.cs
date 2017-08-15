@@ -8,9 +8,7 @@ namespace HVTApp.DataAccess
     {
         int Complete();
 
-        void AddItem<TModel, TWrapper>(TWrapper wrapper)
-            where TModel : class, IBaseEntity
-            where TWrapper : IWrapper<TModel>;
+        void AddItem(IWrapper<IBaseEntity> wrapper);
 
         IActivityFieldsRepository ActivityFields { get; }
         IFriendGroupRepository FriendGroups { get; }

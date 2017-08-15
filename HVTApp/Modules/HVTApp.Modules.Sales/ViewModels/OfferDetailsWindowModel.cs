@@ -9,7 +9,7 @@ using Prism.Commands;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class OfferDetailsWindowModel : BaseDetailsViewModel<OfferWrapper, Offer>
+    public class OfferDetailsWindowModel : BaseDetailsViewModel<OfferWrapper>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISelectService _selectService;

@@ -8,10 +8,11 @@ using Prism.Commands;
 
 namespace HVTApp.Modules.Infrastructure
 {
-    public abstract class BaseDetailsViewModel<TWrapper, TModel> : IItemDetailsViewModel<TWrapper, TModel> 
-        where TWrapper : WrapperBase<TModel>
-        where TModel : class, IBaseEntity 
+    public abstract class BaseDetailsViewModel<TWrapper> : IDetailsViewModel<TWrapper> 
+        where TWrapper : IWrapper<IBaseEntity>
     {
+        public TWrapper Item { get; }
+
         protected BaseDetailsViewModel(TWrapper item)
         {
             Item = item;
@@ -26,7 +27,9 @@ namespace HVTApp.Modules.Infrastructure
         }
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
-        public TWrapper Item { get; }
+
+
+
         public ICommand OkCommand { get; }
 
         private void OkCommand_Execute()
@@ -39,13 +42,4 @@ namespace HVTApp.Modules.Infrastructure
             return Item.IsChanged && Item.IsValid;
         }
     }
-
-    public interface IItemDetailsViewModel<TWrapper, TModel> : IDialogRequestClose
-    where TModel : class, IBaseEntity
-    where TWrapper : IWrapper<TModel>
-    {
-        TWrapper Item { get; }
-        ICommand OkCommand { get; }
-    }
-
 }
