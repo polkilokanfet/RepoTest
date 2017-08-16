@@ -43,11 +43,15 @@ namespace HVTApp.TestDataGenerator
         public Address AddressOfStation;
         public Address AddressOfSubstation;
 
-        public Person PersonIvanov;
-
         public EmployeesPosition EmployeesPositionDirector;
 
+        public Person PersonIvanov;
+        public Person PersonPetrov;
+        public Person PersonSidorov;
+
         public Employee EmployeeIvanov;
+        public Employee EmployeePetrov;
+        public Employee EmployeeSidorov;
 
         public UserRole UserRoleDataBaseFiller;
         public UserRole UserRoleAdmin;
@@ -268,7 +272,9 @@ namespace HVTApp.TestDataGenerator
 
         private void GeneratePersons()
         {
-            PersonIvanov = new Person { Surname = "Иванов", Name = "Иван", Patronymic = "Иванович", IsMan = true, Employees = new List<Employee>() { } };
+            PersonIvanov = new Person { Surname = "Иванов", Name = "Иван", Patronymic = "Иванович", IsMan = true, Employees = new List<Employee> { EmployeeIvanov } };
+            PersonPetrov = new Person { Surname = "Петров", Name = "Иван", Patronymic = "Иванович", IsMan = true, Employees = new List<Employee> { EmployeePetrov } };
+            PersonSidorov = new Person { Surname = "Сидоров", Name = "Иван", Patronymic = "Иванович", IsMan = true, Employees = new List<Employee> { EmployeeSidorov } };
         }
 
         private void GenerateEmployeesPositions()
@@ -278,7 +284,9 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateEmployees()
         {
-            EmployeeIvanov = new Employee { Person = PersonIvanov, Position = EmployeesPositionDirector, Company = CompanyUetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true};
+            EmployeeIvanov = new Employee { Person = PersonIvanov, Position = EmployeesPositionDirector, Company = CompanyUetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true };
+            EmployeePetrov = new Employee { Person = PersonPetrov, Position = EmployeesPositionDirector, Company = CompanyFsk, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true };
+            EmployeeSidorov = new Employee { Person = PersonSidorov, Position = EmployeesPositionDirector, Company = CompanyEnel, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true };
         }
 
         private void GenerateUserRoles()
@@ -378,6 +386,7 @@ namespace HVTApp.TestDataGenerator
         {
             ProductionUnitVeb1101 = new ProductionUnit { Product = ProductVeb110, Order = OrderVeb110, OrderPosition = 1, SerialNumber = "1", SalesUnit = SalesUnitVeb1101, PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7 };
             ProductionUnitVeb1102 = new ProductionUnit { Product = ProductVeb110, Order = OrderVeb110, OrderPosition = 2, SerialNumber = "2", SalesUnit = SalesUnitVeb1102, PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7 };
+
             ProductionUnitZng1101 = new ProductionUnit { Product = ProductZng110, Order = OrderZng110, OrderPosition = 1, SerialNumber = "5", SalesUnit = SalesUnitZng1101, PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7 };
             ProductionUnitZng1102 = new ProductionUnit { Product = ProductZng110, Order = OrderZng110, OrderPosition = 2, SerialNumber = "6", SalesUnit = SalesUnitZng1102, PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7 };
             ProductionUnitZng1103 = new ProductionUnit { Product = ProductZng110, Order = OrderZng110, OrderPosition = 3, SerialNumber = "7", SalesUnit = SalesUnitZng1103, PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7 };
@@ -387,6 +396,7 @@ namespace HVTApp.TestDataGenerator
         {
             SalesUnitVeb1101 = new SalesUnit { ProductionUnit = ProductionUnitVeb1101, OfferUnit = OfferUnitVeb1101, Cost = 6, Specification = SpecificationMrsk1, PaymentsConditions = StandartPaymentConditions, ShipmentUnit = ShipmentUnitVeb1101 };
             SalesUnitVeb1102 = new SalesUnit { ProductionUnit = ProductionUnitVeb1102, OfferUnit = OfferUnitVeb1102, Cost = 6, Specification = SpecificationMrsk1, PaymentsConditions = StandartPaymentConditions, ShipmentUnit = ShipmentUnitVeb1102 }; 
+
             SalesUnitZng1101 = new SalesUnit { ProductionUnit = ProductionUnitZng1101, OfferUnit = OfferUnitZng1101, Cost = 5, Specification = SpecificationMrsk1, PaymentsConditions = StandartPaymentConditions, ShipmentUnit = ShipmentUnitZng1101 }; 
             SalesUnitZng1102 = new SalesUnit { ProductionUnit = ProductionUnitZng1102, OfferUnit = OfferUnitZng1102, Cost = 5, Specification = SpecificationMrsk1, PaymentsConditions = StandartPaymentConditions, ShipmentUnit = ShipmentUnitZng1102 }; 
             SalesUnitZng1103 = new SalesUnit { ProductionUnit = ProductionUnitZng1103, OfferUnit = OfferUnitZng1103, Cost = 5, Specification = SpecificationMrsk1, PaymentsConditions = StandartPaymentConditions, ShipmentUnit = ShipmentUnitZng1103 }; 
@@ -396,6 +406,7 @@ namespace HVTApp.TestDataGenerator
         {
             ShipmentUnitVeb1101 = new ShipmentUnit { Address = AddressOfSubstation, SalesUnit = SalesUnitVeb1101, Cost = 1, DeliveryDate = DateTime.Today.AddDays(180)};
             ShipmentUnitVeb1102 = new ShipmentUnit { Address = AddressOfSubstation, SalesUnit = SalesUnitVeb1102, Cost = 1, DeliveryDate = DateTime.Today.AddDays(180) }; 
+
             ShipmentUnitZng1101 = new ShipmentUnit { Address = AddressOfSubstation, SalesUnit = SalesUnitZng1101, Cost = 1, DeliveryDate = DateTime.Today.AddDays(180) }; 
             ShipmentUnitZng1102 = new ShipmentUnit { Address = AddressOfSubstation, SalesUnit = SalesUnitZng1102, Cost = 1, DeliveryDate = DateTime.Today.AddDays(180) }; 
             ShipmentUnitZng1103 = new ShipmentUnit { Address = AddressOfSubstation, SalesUnit = SalesUnitZng1103, Cost = 1, DeliveryDate = DateTime.Today.AddDays(180) }; 
@@ -403,11 +414,12 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateOfferUnits()
         {
-            OfferUnitVeb1101 = new OfferUnit { Product = ProductVeb110, SalesUnit = SalesUnitVeb1101, Cost = 7, ProjectUnit = ProjectUnitVeb1101, Offer = OfferMrsk, TenderUnit = TenderUnitVeb1101, ProductionTerm = 120 };
-            OfferUnitVeb1102 = new OfferUnit { Product = ProductVeb110, SalesUnit = SalesUnitVeb1102, Cost = 7, ProjectUnit = ProjectUnitVeb1102, Offer = OfferMrsk, TenderUnit = TenderUnitVeb1102, ProductionTerm = 120 };
-            OfferUnitZng1101 = new OfferUnit { Product = ProductZng110, SalesUnit = SalesUnitZng1101, Cost = 3, ProjectUnit = ProjectUnitZng1101, Offer = OfferMrsk, TenderUnit = TenderUnitZng1101, ProductionTerm = 150 };
-            OfferUnitZng1102 = new OfferUnit { Product = ProductZng110, SalesUnit = SalesUnitZng1102, Cost = 3, ProjectUnit = ProjectUnitZng1102, Offer = OfferMrsk, TenderUnit = TenderUnitZng1102, ProductionTerm = 150 };
-            OfferUnitZng1103 = new OfferUnit { Product = ProductZng110, SalesUnit = SalesUnitZng1103, Cost = 3, ProjectUnit = ProjectUnitZng1103, Offer = OfferMrsk, TenderUnit = TenderUnitZng1103, ProductionTerm = 150 };
+            OfferUnitVeb1101 = new OfferUnit { Product = ProductVeb110, SalesUnit = SalesUnitVeb1101, Cost = 7, ProjectUnit = ProjectUnitVeb1101, Offer = OfferMrsk, TenderUnit = TenderUnitVeb1101, ProductionTerm = 120, PaymentsConditions = StandartPaymentConditions };
+            OfferUnitVeb1102 = new OfferUnit { Product = ProductVeb110, SalesUnit = SalesUnitVeb1102, Cost = 7, ProjectUnit = ProjectUnitVeb1102, Offer = OfferMrsk, TenderUnit = TenderUnitVeb1102, ProductionTerm = 120, PaymentsConditions = StandartPaymentConditions };
+
+            OfferUnitZng1101 = new OfferUnit { Product = ProductZng110, SalesUnit = SalesUnitZng1101, Cost = 3, ProjectUnit = ProjectUnitZng1101, Offer = OfferMrsk, TenderUnit = TenderUnitZng1101, ProductionTerm = 150, PaymentsConditions = StandartPaymentConditions };
+            OfferUnitZng1102 = new OfferUnit { Product = ProductZng110, SalesUnit = SalesUnitZng1102, Cost = 3, ProjectUnit = ProjectUnitZng1102, Offer = OfferMrsk, TenderUnit = TenderUnitZng1102, ProductionTerm = 150, PaymentsConditions = StandartPaymentConditions };
+            OfferUnitZng1103 = new OfferUnit { Product = ProductZng110, SalesUnit = SalesUnitZng1103, Cost = 3, ProjectUnit = ProjectUnitZng1103, Offer = OfferMrsk, TenderUnit = TenderUnitZng1103, ProductionTerm = 150, PaymentsConditions = StandartPaymentConditions };
         }
 
         private void GenerateOffers()
@@ -417,7 +429,7 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateDocuments()
         {
-            DocumentOfferMrsk = new Document { Author = EmployeeIvanov, SenderEmployee = EmployeeIvanov, RecipientEmployee = EmployeeIvanov, RegistrationDetailsOfSender = new DocumentsRegistrationDetails { RegistrationNumber = "7412-17-0212", RegistrationDate = DateTime.Today }, RegistrationDetailsOfRecipient = new DocumentsRegistrationDetails { RegistrationNumber = "12f455", RegistrationDate = DateTime.Today.AddDays(-3) } };
+            DocumentOfferMrsk = new Document { Author = EmployeeIvanov, SenderEmployee = EmployeePetrov, RecipientEmployee = EmployeeSidorov, RegistrationDetailsOfSender = new DocumentsRegistrationDetails { RegistrationNumber = "7412-17-0212", RegistrationDate = DateTime.Today }, RegistrationDetailsOfRecipient = new DocumentsRegistrationDetails { RegistrationNumber = "12f455", RegistrationDate = DateTime.Today.AddDays(-3) } };
         }
 
         private void GenerateTenderTypes()
@@ -434,6 +446,7 @@ namespace HVTApp.TestDataGenerator
         {
             TenderUnitVeb1101 = new TenderUnit { Product = ProductVeb110, Tender = TenderMrsk, Cost = 2, OfferUnits = new List<OfferUnit> { OfferUnitVeb1101 }, ProjectUnit = ProjectUnitVeb1101, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(150), PaymentsConditions = StandartPaymentConditions };
             TenderUnitVeb1102 = new TenderUnit { Product = ProductVeb110, Tender = TenderMrsk, Cost = 2, OfferUnits = new List<OfferUnit> { OfferUnitVeb1102 }, ProjectUnit = ProjectUnitVeb1102, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(150), PaymentsConditions = StandartPaymentConditions }; 
+
             TenderUnitZng1101 = new TenderUnit { Product = ProductZng110, Tender = TenderMrsk, Cost = 1, OfferUnits = new List<OfferUnit> { OfferUnitZng1101 }, ProjectUnit = ProjectUnitZng1101, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(120), PaymentsConditions = StandartPaymentConditions }; 
             TenderUnitZng1102 = new TenderUnit { Product = ProductZng110, Tender = TenderMrsk, Cost = 1, OfferUnits = new List<OfferUnit> { OfferUnitZng1102 }, ProjectUnit = ProjectUnitZng1102, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(120), PaymentsConditions = StandartPaymentConditions }; 
             TenderUnitZng1103 = new TenderUnit { Product = ProductZng110, Tender = TenderMrsk, Cost = 1, OfferUnits = new List<OfferUnit> { OfferUnitZng1103 }, ProjectUnit = ProjectUnitZng1103, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(120), PaymentsConditions = StandartPaymentConditions }; 
@@ -442,16 +455,17 @@ namespace HVTApp.TestDataGenerator
         private void GenerateOrders()
         {
             OrderVeb110 = new Order { Number = "8012-17", OpenOrderDate = DateTime.Today, ProductionUnits = new List<ProductionUnit> { ProductionUnitVeb1101, ProductionUnitVeb1102 } };
-            OrderVeb110 = new Order { Number = "8011-15", OpenOrderDate = DateTime.Today.AddDays(-50), ProductionUnits = new List<ProductionUnit> { ProductionUnitZng1101, ProductionUnitZng1102, ProductionUnitZng1103 } };
+            OrderZng110 = new Order { Number = "8011-15", OpenOrderDate = DateTime.Today.AddDays(-50), ProductionUnits = new List<ProductionUnit> { ProductionUnitZng1101, ProductionUnitZng1102, ProductionUnitZng1103 } };
         }
 
         private void GenerateProjectUnits()
         {
-            ProjectUnitVeb1101 = new ProjectUnit { Product = ProductVeb110, Cost = 5, Project = Project1, Facility = FacilitySubstation };
-            ProjectUnitVeb1102 = new ProjectUnit { Product = ProductVeb110, Cost = 5, Project = Project1, Facility = FacilitySubstation };
-            ProjectUnitZng1101 = new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project2, Facility = FacilityStation };
-            ProjectUnitZng1102 = new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project2, Facility = FacilityStation };
-            ProjectUnitZng1103 = new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project2, Facility = FacilityStation };
+            ProjectUnitVeb1101 = new ProjectUnit { Product = ProductVeb110, Cost = 5, Project = Project1, Facility = FacilitySubstation, OfferUnits = new List<OfferUnit> { OfferUnitVeb1101 }, TenderUnits = new List<TenderUnit> {TenderUnitVeb1101}, RequiredDeliveryDate = DateTime.Today.AddDays(200)};
+            ProjectUnitVeb1102 = new ProjectUnit { Product = ProductVeb110, Cost = 5, Project = Project1, Facility = FacilitySubstation, OfferUnits = new List<OfferUnit> { OfferUnitVeb1102 }, TenderUnits = new List<TenderUnit> { TenderUnitVeb1102 }, RequiredDeliveryDate = DateTime.Today.AddDays(200) };
+
+            ProjectUnitZng1101 = new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project2, Facility = FacilityStation, OfferUnits = new List<OfferUnit> { OfferUnitZng1101 }, TenderUnits = new List<TenderUnit> { TenderUnitZng1101 }, RequiredDeliveryDate = DateTime.Today.AddDays(200) };
+            ProjectUnitZng1102 = new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project2, Facility = FacilityStation, OfferUnits = new List<OfferUnit> { OfferUnitZng1102 }, TenderUnits = new List<TenderUnit> { TenderUnitZng1102 }, RequiredDeliveryDate = DateTime.Today.AddDays(200) };
+            ProjectUnitZng1103 = new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project2, Facility = FacilityStation, OfferUnits = new List<OfferUnit> { OfferUnitZng1103 }, TenderUnits = new List<TenderUnit> { TenderUnitZng1103 }, RequiredDeliveryDate = DateTime.Today.AddDays(200) };
         }
 
         private void GenerateContracts()
