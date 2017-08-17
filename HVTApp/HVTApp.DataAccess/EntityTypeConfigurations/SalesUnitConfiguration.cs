@@ -7,6 +7,7 @@ namespace HVTApp.DataAccess
     {
         public SalesUnitConfiguration()
         {
+            HasRequired(x => x.OfferUnit).WithOptional(x => x.SalesUnit);
             HasRequired(x => x.ProductionUnit).WithOptional(x => x.SalesUnit);
             HasRequired(x => x.ShipmentUnit).WithRequiredPrincipal(x => x.SalesUnit);
             Property(x => x.Cost).IsRequired();
@@ -15,7 +16,6 @@ namespace HVTApp.DataAccess
             HasMany(x => x.PaymentsActual).WithRequired(x => x.SalesUnit);
             HasMany(x => x.PaymentsPlanned).WithRequired(x => x.SalesUnit);
             Property(x => x.RealizationDate).IsOptional();
-            HasRequired(x => x.OfferUnit).WithOptional(x => x.SalesUnit);
         }
     }
 }

@@ -471,7 +471,7 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateTenders()
         {
-            TenderMrsk.Clone(new Tender {Project = Project1, Sum = 9, Type = TenderTypeProject, Winner = CompanyUetm, Participants= new List<Company> {CompanyUetm, CompanyEnel}, Offers = new List<Offer> {OfferMrsk}, DateOpen = DateTime.Today, DateClose = DateTime.Today.AddDays(7), TenderUnits= new List<TenderUnit> {TenderUnitVeb1101, TenderUnitVeb1102, TenderUnitZng1101, TenderUnitZng1102, TenderUnitZng1103} });
+            TenderMrsk.Clone(new Tender { Project = Project1, Sum = 9, Type = TenderTypeProject, Winner = CompanyUetm, Participants = new List<Company> { CompanyUetm, CompanyEnel }, Offers = new List<Offer> { OfferMrsk }, DateOpen = DateTime.Today, DateClose = DateTime.Today.AddDays(7), TenderUnits = new List<TenderUnit> { TenderUnitVeb1101, TenderUnitVeb1102, TenderUnitZng1101, TenderUnitZng1102, TenderUnitZng1103 } });
         }
 
         private void GenerateTanderUnits()
@@ -512,10 +512,10 @@ namespace HVTApp.TestDataGenerator
 
         private void GeneratePaymentConditions()
         {
-            PaymentConditionAvans50.Clone(new PaymentCondition { Part = 0.5, DaysToPoint = -10, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
-            PaymentConditionDoplata50.Clone(new PaymentCondition { Part = 0.5, DaysToPoint = -14, PaymentConditionPoint = PaymentConditionPoint.ProductionEnd });
+            //PaymentConditionAvans50.Clone(new PaymentCondition { Part = 0.5, DaysToPoint = -10, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
+            //PaymentConditionDoplata50.Clone(new PaymentCondition { Part = 0.5, DaysToPoint = -14, PaymentConditionPoint = PaymentConditionPoint.ProductionEnd });
 
-            StandartPaymentConditions.AddRange(new[] {PaymentConditionAvans50, PaymentConditionDoplata50});
+            //StandartPaymentConditions.AddRange(new[] {PaymentConditionAvans50, PaymentConditionDoplata50});
         }
     }
 }

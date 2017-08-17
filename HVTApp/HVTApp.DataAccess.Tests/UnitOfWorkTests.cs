@@ -10,6 +10,13 @@ namespace HVTApp.DataAccess.Tests
     public class UnitOfWorkTests
     {
         [TestMethod]
+        public void CanCreateDataBase()
+        {
+            UnitOfWork unitOfWork = new UnitOfWork(new HVTAppContext());
+            unitOfWork.ActivityFields.GetAll();
+        }
+
+        [TestMethod]
         public void CanAddSaveRemoveEntity()
         {
             UnitOfWork unitOfWork = new UnitOfWork(new HVTAppContext());

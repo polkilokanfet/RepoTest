@@ -43,6 +43,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new EmployeeConfiguration());
             modelBuilder.Configurations.Add(new EmployeesPositionConfiguration());
 
+            modelBuilder.Configurations.Add(new ProjectUnitConfiguration());
             modelBuilder.Configurations.Add(new TenderUnitConfiguration());
             modelBuilder.Configurations.Add(new OfferUnitConfiguration());
             modelBuilder.Configurations.Add(new SalesUnitConfiguration());

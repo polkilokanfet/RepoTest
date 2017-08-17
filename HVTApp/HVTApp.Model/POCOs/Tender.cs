@@ -7,12 +7,14 @@ namespace HVTApp.Model.POCOs
     public class Tender : BaseEntity
     {
         public virtual TenderType Type { get; set; }
+        public virtual Guid? ProjectId { get; set; }
         public virtual Project Project { get; set; }
         public virtual double Sum { get; set; }
         public DateTime DateOpen { get; set; }
         public DateTime DateClose { get; set; }
         public DateTime? DateNotice { get; set; }
         public virtual List<Company> Participants { get; set; } = new List<Company>(); //участники
+        public virtual Guid? WinnerId { get; set; }
         public virtual Company Winner { get; set; }
         public virtual List<TenderUnit> TenderUnits { get; set; } = new List<TenderUnit>();
         public virtual List<Offer> Offers { get; set; } = new List<Offer>();
