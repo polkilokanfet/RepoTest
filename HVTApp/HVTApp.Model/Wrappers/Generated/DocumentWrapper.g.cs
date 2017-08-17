@@ -36,69 +36,69 @@ namespace HVTApp.Model.Wrappers
     #endregion
 
 
-    #region ComplexProperties
+ //   #region ComplexProperties
 
-	public DocumentWrapper RequestDocument 
-    {
-        get { return GetComplexProperty<DocumentWrapper, Document>(Model.RequestDocument); }
-        set { SetComplexProperty<DocumentWrapper, Document>(RequestDocument, value); }
-    }
+	//public DocumentWrapper RequestDocument 
+ //   {
+ //       get { return GetComplexProperty<DocumentWrapper, Document>(Model.RequestDocument); }
+ //       set { SetComplexProperty<DocumentWrapper, Document>(RequestDocument, value); }
+ //   }
 
-    public DocumentWrapper RequestDocumentOriginalValue { get; private set; }
-    public bool RequestDocumentIsChanged => GetIsChanged(nameof(RequestDocument));
-
-
-	public EmployeeWrapper Author 
-    {
-        get { return GetComplexProperty<EmployeeWrapper, Employee>(Model.Author); }
-        set { SetComplexProperty<EmployeeWrapper, Employee>(Author, value); }
-    }
-
-    public EmployeeWrapper AuthorOriginalValue { get; private set; }
-    public bool AuthorIsChanged => GetIsChanged(nameof(Author));
+ //   public DocumentWrapper RequestDocumentOriginalValue { get; private set; }
+ //   public bool RequestDocumentIsChanged => GetIsChanged(nameof(RequestDocument));
 
 
-	public EmployeeWrapper SenderEmployee 
-    {
-        get { return GetComplexProperty<EmployeeWrapper, Employee>(Model.SenderEmployee); }
-        set { SetComplexProperty<EmployeeWrapper, Employee>(SenderEmployee, value); }
-    }
+	//public EmployeeWrapper Author 
+ //   {
+ //       get { return GetComplexProperty<EmployeeWrapper, Employee>(Model.Author); }
+ //       set { SetComplexProperty<EmployeeWrapper, Employee>(Author, value); }
+ //   }
 
-    public EmployeeWrapper SenderEmployeeOriginalValue { get; private set; }
-    public bool SenderEmployeeIsChanged => GetIsChanged(nameof(SenderEmployee));
-
-
-	public EmployeeWrapper RecipientEmployee 
-    {
-        get { return GetComplexProperty<EmployeeWrapper, Employee>(Model.RecipientEmployee); }
-        set { SetComplexProperty<EmployeeWrapper, Employee>(RecipientEmployee, value); }
-    }
-
-    public EmployeeWrapper RecipientEmployeeOriginalValue { get; private set; }
-    public bool RecipientEmployeeIsChanged => GetIsChanged(nameof(RecipientEmployee));
+ //   public EmployeeWrapper AuthorOriginalValue { get; private set; }
+ //   public bool AuthorIsChanged => GetIsChanged(nameof(Author));
 
 
-	public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfSender 
-    {
-        get { return GetComplexProperty<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfSender); }
-        set { SetComplexProperty<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails>(RegistrationDetailsOfSender, value); }
-    }
+	//public EmployeeWrapper SenderEmployee 
+ //   {
+ //       get { return GetComplexProperty<EmployeeWrapper, Employee>(Model.SenderEmployee); }
+ //       set { SetComplexProperty<EmployeeWrapper, Employee>(SenderEmployee, value); }
+ //   }
 
-    public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfSenderOriginalValue { get; private set; }
-    public bool RegistrationDetailsOfSenderIsChanged => GetIsChanged(nameof(RegistrationDetailsOfSender));
-
-
-	public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfRecipient 
-    {
-        get { return GetComplexProperty<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfRecipient); }
-        set { SetComplexProperty<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails>(RegistrationDetailsOfRecipient, value); }
-    }
-
-    public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfRecipientOriginalValue { get; private set; }
-    public bool RegistrationDetailsOfRecipientIsChanged => GetIsChanged(nameof(RegistrationDetailsOfRecipient));
+ //   public EmployeeWrapper SenderEmployeeOriginalValue { get; private set; }
+ //   public bool SenderEmployeeIsChanged => GetIsChanged(nameof(SenderEmployee));
 
 
-    #endregion
+	//public EmployeeWrapper RecipientEmployee 
+ //   {
+ //       get { return GetComplexProperty<EmployeeWrapper, Employee>(Model.RecipientEmployee); }
+ //       set { SetComplexProperty<EmployeeWrapper, Employee>(RecipientEmployee, value); }
+ //   }
+
+ //   public EmployeeWrapper RecipientEmployeeOriginalValue { get; private set; }
+ //   public bool RecipientEmployeeIsChanged => GetIsChanged(nameof(RecipientEmployee));
+
+
+	//public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfSender 
+ //   {
+ //       get { return GetComplexProperty<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfSender); }
+ //       set { SetComplexProperty<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails>(RegistrationDetailsOfSender, value); }
+ //   }
+
+ //   public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfSenderOriginalValue { get; private set; }
+ //   public bool RegistrationDetailsOfSenderIsChanged => GetIsChanged(nameof(RegistrationDetailsOfSender));
+
+
+	//public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfRecipient 
+ //   {
+ //       get { return GetComplexProperty<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfRecipient); }
+ //       set { SetComplexProperty<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails>(RegistrationDetailsOfRecipient, value); }
+ //   }
+
+ //   public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfRecipientOriginalValue { get; private set; }
+ //   public bool RegistrationDetailsOfRecipientIsChanged => GetIsChanged(nameof(RegistrationDetailsOfRecipient));
+
+
+ //   #endregion
 
 
     #region CollectionProperties
@@ -111,17 +111,17 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        RequestDocument = GetWrapper<DocumentWrapper, Document>(Model.RequestDocument);
+        //RequestDocument = GetWrapper<DocumentWrapper, Document>(Model.RequestDocument);
 
-        Author = GetWrapper<EmployeeWrapper, Employee>(Model.Author);
+        //Author = GetWrapper<EmployeeWrapper, Employee>(Model.Author);
 
-        SenderEmployee = GetWrapper<EmployeeWrapper, Employee>(Model.SenderEmployee);
+        //SenderEmployee = GetWrapper<EmployeeWrapper, Employee>(Model.SenderEmployee);
 
-        RecipientEmployee = GetWrapper<EmployeeWrapper, Employee>(Model.RecipientEmployee);
+        //RecipientEmployee = GetWrapper<EmployeeWrapper, Employee>(Model.RecipientEmployee);
 
-        RegistrationDetailsOfSender = GetWrapper<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfSender);
+        //RegistrationDetailsOfSender = GetWrapper<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfSender);
 
-        RegistrationDetailsOfRecipient = GetWrapper<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfRecipient);
+        //RegistrationDetailsOfRecipient = GetWrapper<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails>(Model.RegistrationDetailsOfRecipient);
 
     }
 
@@ -129,9 +129,9 @@ namespace HVTApp.Model.Wrappers
     protected override void InitializeCollectionComplexProperties()
     {
 
-      if (Model.CopyToRecipients == null) throw new ArgumentException("CopyToRecipients cannot be null");
-      CopyToRecipients = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.CopyToRecipients.Select(e => GetWrapper<EmployeeWrapper, Employee>(e)));
-      RegisterCollection(CopyToRecipients, Model.CopyToRecipients);
+      //if (Model.CopyToRecipients == null) throw new ArgumentException("CopyToRecipients cannot be null");
+      //CopyToRecipients = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.CopyToRecipients.Select(e => GetWrapper<EmployeeWrapper, Employee>(e)));
+      //RegisterCollection(CopyToRecipients, Model.CopyToRecipients);
 
 
     }

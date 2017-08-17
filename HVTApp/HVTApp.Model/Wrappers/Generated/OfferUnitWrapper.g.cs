@@ -47,21 +47,9 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public ProjectUnitWrapper ProjectUnit 
-    {
-        get { return GetComplexProperty<ProjectUnitWrapper, ProjectUnit>(Model.ProjectUnit); }
-        set { SetComplexProperty<ProjectUnitWrapper, ProjectUnit>(ProjectUnit, value); }
-    }
-
     public ProjectUnitWrapper ProjectUnitOriginalValue { get; private set; }
     public bool ProjectUnitIsChanged => GetIsChanged(nameof(ProjectUnit));
 
-
-	public TenderUnitWrapper TenderUnit 
-    {
-        get { return GetComplexProperty<TenderUnitWrapper, TenderUnit>(Model.TenderUnit); }
-        set { SetComplexProperty<TenderUnitWrapper, TenderUnit>(TenderUnit, value); }
-    }
 
     public TenderUnitWrapper TenderUnitOriginalValue { get; private set; }
     public bool TenderUnitIsChanged => GetIsChanged(nameof(TenderUnit));
@@ -109,10 +97,6 @@ namespace HVTApp.Model.Wrappers
 
     public override void InitializeComplexProperties()
     {
-
-        ProjectUnit = GetWrapper<ProjectUnitWrapper, ProjectUnit>(Model.ProjectUnit);
-
-        TenderUnit = GetWrapper<TenderUnitWrapper, TenderUnit>(Model.TenderUnit);
 
         SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(Model.SalesUnit);
 

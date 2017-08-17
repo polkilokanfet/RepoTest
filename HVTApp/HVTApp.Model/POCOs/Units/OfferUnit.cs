@@ -5,8 +5,6 @@ namespace HVTApp.Model.POCOs
 {
     public class OfferUnit : BaseEntity
     {
-        public virtual ProjectUnit ProjectUnit { get; set; }
-        public virtual TenderUnit TenderUnit { get; set; }
         public virtual SalesUnit SalesUnit { get; set; }
 
         public virtual Product Product { get; set; }

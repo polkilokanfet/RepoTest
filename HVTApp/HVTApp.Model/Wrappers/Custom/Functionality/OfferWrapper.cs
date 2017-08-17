@@ -8,11 +8,9 @@ namespace HVTApp.Model.Wrappers
     {
         public void ChangeOffer(OfferWrapper templateOffer)
         {
-            this.Project = templateOffer.Project;
-            this.Tender = templateOffer.Tender;
             this.ValidityDate = DateTime.Today.AddDays(30);
-            this.Document.RegistrationDetailsOfSender.RegistrationDate = DateTime.Today;
-            this.Document.RecipientEmployee = templateOffer.Document.RecipientEmployee;
+            //this.Document.RegistrationDetailsOfSender.RegistrationDate = DateTime.Today;
+            //this.Document.RecipientEmployee = templateOffer.Document.RecipientEmployee;
 
             foreach (var copyToRecipient in Document.CopyToRecipients)
                 this.Document.CopyToRecipients.Add(copyToRecipient);

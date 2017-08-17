@@ -16,7 +16,7 @@ namespace HVTApp.DataAccess
             HasMany(x => x.Participants).WithMany();
             HasOptional(x => x.Winner).WithMany();
             HasMany(x => x.TenderUnits).WithRequired(x => x.Tender);
-            HasMany(x => x.Offers).WithRequired(x => x.Tender);
+            HasMany(x => x.Offers).WithOptional();
         }
     }
 }

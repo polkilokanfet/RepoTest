@@ -8,8 +8,6 @@ namespace HVTApp.DataAccess
         public OfferConfiguration()
         {
             HasRequired(x => x.Document).WithOptional();
-            HasRequired(x => x.Project).WithMany(x => x.Offers);
-            HasRequired(x => x.Tender).WithMany(x => x.Offers);
             Property(x => x.ValidityDate).IsRequired();
             HasMany(x => x.OfferUnits).WithRequired(x => x.Offer);
             Property(x => x.Vat).IsRequired();

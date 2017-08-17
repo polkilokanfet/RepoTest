@@ -32,27 +32,18 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void AddTenderCommand_Execute()
         {
-            var tenders = _unitOfWork.Tenders.GetAll();
-            if (Item.Project != null) tenders = tenders.Where(x => x.Project == Item.Project).ToList();
-            var tender = _selectService.SelectItem(tenders, Item.Tender);
-            if (tender != null) Item.Tender = tender;
         }
 
         private void RemoveTenderCommand_Execute()
         {
-            Item.Tender = null;
         }
 
         private void AddProjectCommand_Execute()
         {
-            var projects = _unitOfWork.Projects.GetAll();
-            var project = _selectService.SelectItem(projects, Item.Project);
-            if (project != null) Item.Project = project;
         }
 
         private void RemoveProjectCommand_Execute()
         {
-            Item.Project = null;
         }
     }
 }
