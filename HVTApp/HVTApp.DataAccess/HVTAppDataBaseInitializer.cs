@@ -15,7 +15,7 @@ namespace HVTApp.DataAccess
             TestData testData = new TestData();
 
             //context.Documents.Add(testData.DocumentOfferMrsk);
-            //context.Offers.Add(testData.OfferMrsk);
+            context.Offers.Add(testData.OfferMrsk);
             context.Countries.Add(testData.CountryRussia);
             context.ActivityFilds.AddRange(new[] { testData.ActivityFieldProducerOfHvt, testData.ActivityFieldBuilder, testData.ActivityFieldElectricityTransmission, testData.ActivityFieldElectricityGeneration });
             context.CompanyForms.AddRange(new[] { testData.CompanyFormAo, testData.CompanyFormOao, testData.CompanyFormPao, testData.CompanyFormZao });

@@ -319,7 +319,7 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateProjects()
         {
-            Project1.Clone(new Project { Name = "Реконструкция ПС Первая", Manager = UserIvanov, Offers= new List<Offer> {OfferMrsk} });
+            Project1.Clone(new Project { Name = "Реконструкция ПС Первая", Manager = UserIvanov, Offers= new List<Offer> {OfferMrsk}, ProjectUnits = new List<ProjectUnit> {ProjectUnitVeb1101, ProjectUnitVeb1102, ProjectUnitZng1101, ProjectUnitZng1102, ProjectUnitZng1103}, Tenders = new List<Tender> {TenderMrsk} });
             Project2.Clone(new Project { Name = "Строительство Свердловской ТЭЦ", Manager = UserIvanov });
         }
 
@@ -343,9 +343,16 @@ namespace HVTApp.TestDataGenerator
         private void GenerateParameterGroups()
         {
             ParameterGroupEqType.Clone(new ParameterGroup { Name = "Тип оборудования" });
+            ParameterGroupEqType.Parameters.AddRange(new []{ParameterBreaker, ParameterTransformator, ParameterBrakersDrive, ParameterBreakerBlock});
+
             ParameterGroupBreakerType.Clone(new ParameterGroup { Name = "Тип выключателя" });
+            ParameterGroupBreakerType.Parameters.AddRange(new []{ParameterBreakerDeadTank, ParameterBreakerLiveTank} );
+
             ParameterGroupTransformatorType.Clone(new ParameterGroup { Name = "Тип трансформатора" });
+            ParameterGroupTransformatorType.Parameters.AddRange(new []{ParameterTransformatorCurrent, ParameterTransformatorVoltage});
+
             ParameterGroupVoltage.Clone(new ParameterGroup { Name = "Номинальное напряжение", Measure = MeasureKv });
+            ParameterGroupVoltage.Parameters.AddRange(new []{ParameterVoltage35kV, ParameterVoltage110kV, ParameterVoltage220kV, ParameterVoltage500kV});
         }
 
         private void GenerateParameters()
@@ -368,7 +375,6 @@ namespace HVTApp.TestDataGenerator
             ParameterVoltage35kV.Clone(new Parameter { Group = ParameterGroupVoltage, Value = "35" });
             ParameterVoltage35kV.AddRequiredPreviousParameters(new []{ParameterBreaker})
                                 .AddRequiredPreviousParameters(new []{ParameterTransformator, ParameterTransformatorCurrent});
-
             ParameterVoltage110kV.Clone(new Parameter { Group = ParameterGroupVoltage, Value = "110" });
             ParameterVoltage110kV.AddRequiredPreviousParameters(new[] { ParameterBreaker })
                                  .AddRequiredPreviousParameters(new[] { ParameterTransformator }); 
@@ -465,7 +471,7 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateTenders()
         {
-            TenderMrsk.Clone(new Tender {Project = Project1, Sum = 9, Type = TenderTypeProject, Winner = CompanyUetm, Participants= new List<Company> {CompanyUetm, CompanyEnel}, Offers= new List<Offer> {OfferMrsk}, DateOpen = DateTime.Today, DateClose = DateTime.Today.AddDays(7), TenderUnits= new List<TenderUnit> {TenderUnitVeb1101, TenderUnitVeb1102, TenderUnitZng1101, TenderUnitZng1102, TenderUnitZng1103} });
+            TenderMrsk.Clone(new Tender {Project = Project1, Sum = 9, Type = TenderTypeProject, Winner = CompanyUetm, Participants= new List<Company> {CompanyUetm, CompanyEnel}, Offers = new List<Offer> {OfferMrsk}, DateOpen = DateTime.Today, DateClose = DateTime.Today.AddDays(7), TenderUnits= new List<TenderUnit> {TenderUnitVeb1101, TenderUnitVeb1102, TenderUnitZng1101, TenderUnitZng1102, TenderUnitZng1103} });
         }
 
         private void GenerateTanderUnits()
@@ -489,9 +495,9 @@ namespace HVTApp.TestDataGenerator
             ProjectUnitVeb1101.Clone(new ProjectUnit { Product = ProductVeb110, Cost = 5, Project = Project1, Facility = FacilitySubstation, OfferUnits= new List<OfferUnit> { OfferUnitVeb1101 }, TenderUnits= new List<TenderUnit> {TenderUnitVeb1101}, RequiredDeliveryDate = DateTime.Today.AddDays(200)});
             ProjectUnitVeb1102.Clone(new ProjectUnit { Product = ProductVeb110, Cost = 5, Project = Project1, Facility = FacilitySubstation, OfferUnits= new List<OfferUnit> { OfferUnitVeb1102 }, TenderUnits= new List<TenderUnit> { TenderUnitVeb1102 }, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
 
-            ProjectUnitZng1101.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project2, Facility = FacilityStation, OfferUnits= new List<OfferUnit> { OfferUnitZng1101 }, TenderUnits= new List<TenderUnit> { TenderUnitZng1101 }, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
-            ProjectUnitZng1102.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project2, Facility = FacilityStation, OfferUnits= new List<OfferUnit> { OfferUnitZng1102 }, TenderUnits= new List<TenderUnit> { TenderUnitZng1102 }, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
-            ProjectUnitZng1103.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project2, Facility = FacilityStation, OfferUnits= new List<OfferUnit> { OfferUnitZng1103 }, TenderUnits= new List<TenderUnit> { TenderUnitZng1103 }, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitZng1101.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project1, Facility = FacilityStation, OfferUnits= new List<OfferUnit> { OfferUnitZng1101 }, TenderUnits= new List<TenderUnit> { TenderUnitZng1101 }, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitZng1102.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project1, Facility = FacilityStation, OfferUnits= new List<OfferUnit> { OfferUnitZng1102 }, TenderUnits= new List<TenderUnit> { TenderUnitZng1102 }, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitZng1103.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project1, Facility = FacilityStation, OfferUnits= new List<OfferUnit> { OfferUnitZng1103 }, TenderUnits= new List<TenderUnit> { TenderUnitZng1103 }, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
         }
 
         private void GenerateContracts()
