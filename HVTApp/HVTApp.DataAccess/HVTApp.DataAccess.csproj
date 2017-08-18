@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityTypeConfigurations\CostOnDateConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\EmployeesPositionConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\BankDetailsConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\EmployeeConfiguration.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="EntityTypeConfigurations\ContractConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\FacilityConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\FacilityTypeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\TenderTypeConfiguration.cs" />
     <Compile Include="HVTAppDataBaseInitializer.cs" />
     <Compile Include="EntityTypeConfigurations\SpecificationConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\RegionConfiguration.cs" />

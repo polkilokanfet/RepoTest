@@ -50,6 +50,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new ProductionUnitConfiguration());
             modelBuilder.Configurations.Add(new ShipmentUnitConfiguration());
 
+            modelBuilder.Configurations.Add(new TenderTypeConfiguration());
             modelBuilder.Configurations.Add(new TenderConfiguration());
 
             modelBuilder.Configurations.Add(new OfferConfiguration());
@@ -82,6 +83,8 @@ namespace HVTApp.DataAccess
 
             modelBuilder.Configurations.Add(new OrderConfiguration());
 
+            modelBuilder.Configurations.Add(new CostOnDateConfiguration());
+
 
             base.OnModelCreating(modelBuilder);
         }
@@ -93,22 +96,32 @@ namespace HVTApp.DataAccess
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Tender> Tenders { get; set; }
         public virtual DbSet<Offer> Offers { get; set; }
+
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Person> Persons { get; set; }
         public virtual DbSet<EmployeesPosition> EmployeesPositions { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+
         public virtual DbSet<Country> Countries { get; set; }
-        public virtual DbSet<Company> Companies { get; set; }
+        public virtual DbSet<District> Districts { get; set; }
+        public virtual DbSet<Region> Regions { get; set; }
+        public virtual DbSet<Locality> Localities { get; set; }
+
         public virtual DbSet<ActivityField> ActivityFilds { get; set; }
         public virtual DbSet<CompanyForm> CompanyForms { get; set; }
+        public virtual DbSet<Company> Companies { get; set; }
+
         public virtual DbSet<PaymentCondition> PaymentConditions { get; set; }
         public virtual DbSet<StandartPaymentConditions> PaymentConditionStandarts { get; set; }
         public virtual DbSet<PaymentDocument> PaymentDocuments { get; set; }
         public virtual DbSet<PaymentActual> PaymentsActual { get; set; }
         public virtual DbSet<PaymentPlanned> PaymentsPlanned { get; set; }
+
         public virtual DbSet<ParameterGroup> ParameterGroups { get; set; }
         public virtual DbSet<Parameter> Parameters { get; set; }
         public virtual DbSet<RequiredDependentEquipmentsParameters> RequiredDependentEquipmentsParameterses { get; set; }
-        public virtual DbSet<Part> ProductItems { get; set; }
+
+        public virtual DbSet<Part> Parts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Contract> Contracts { get; set; }
         public virtual DbSet<Specification> Specifications { get; set; }

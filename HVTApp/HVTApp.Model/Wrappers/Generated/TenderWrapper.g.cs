@@ -15,6 +15,15 @@ namespace HVTApp.Model.Wrappers
 
     #region SimpleProperties
 
+    public System.Nullable<System.Guid> ProjectId
+    {
+      get { return GetValue<System.Nullable<System.Guid>>(); }
+      set { SetValue(value); }
+    }
+    public System.Nullable<System.Guid> ProjectIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProjectId));
+    public bool ProjectIdIsChanged => GetIsChanged(nameof(ProjectId));
+
+
     public System.Double Sum
     {
       get { return GetValue<System.Double>(); }
@@ -49,6 +58,15 @@ namespace HVTApp.Model.Wrappers
     }
     public System.Nullable<System.DateTime> DateNoticeOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DateNotice));
     public bool DateNoticeIsChanged => GetIsChanged(nameof(DateNotice));
+
+
+    public System.Nullable<System.Guid> WinnerId
+    {
+      get { return GetValue<System.Nullable<System.Guid>>(); }
+      set { SetValue(value); }
+    }
+    public System.Nullable<System.Guid> WinnerIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(WinnerId));
+    public bool WinnerIdIsChanged => GetIsChanged(nameof(WinnerId));
 
 
     public System.Guid Id

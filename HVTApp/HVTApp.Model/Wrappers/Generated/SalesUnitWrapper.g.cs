@@ -47,6 +47,16 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
+	public OfferUnitWrapper OfferUnit 
+    {
+        get { return GetComplexProperty<OfferUnitWrapper, OfferUnit>(Model.OfferUnit); }
+        set { SetComplexProperty<OfferUnitWrapper, OfferUnit>(OfferUnit, value); }
+    }
+
+    public OfferUnitWrapper OfferUnitOriginalValue { get; private set; }
+    public bool OfferUnitIsChanged => GetIsChanged(nameof(OfferUnit));
+
+
 	public ProductionUnitWrapper ProductionUnit 
     {
         get { return GetComplexProperty<ProductionUnitWrapper, ProductionUnit>(Model.ProductionUnit); }
@@ -77,16 +87,6 @@ namespace HVTApp.Model.Wrappers
     public bool SpecificationIsChanged => GetIsChanged(nameof(Specification));
 
 
-	public OfferUnitWrapper OfferUnit 
-    {
-        get { return GetComplexProperty<OfferUnitWrapper, OfferUnit>(Model.OfferUnit); }
-        set { SetComplexProperty<OfferUnitWrapper, OfferUnit>(OfferUnit, value); }
-    }
-
-    public OfferUnitWrapper OfferUnitOriginalValue { get; private set; }
-    public bool OfferUnitIsChanged => GetIsChanged(nameof(OfferUnit));
-
-
     #endregion
 
 
@@ -106,13 +106,13 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
+        OfferUnit = GetWrapper<OfferUnitWrapper, OfferUnit>(Model.OfferUnit);
+
         ProductionUnit = GetWrapper<ProductionUnitWrapper, ProductionUnit>(Model.ProductionUnit);
 
         ShipmentUnit = GetWrapper<ShipmentUnitWrapper, ShipmentUnit>(Model.ShipmentUnit);
 
         Specification = GetWrapper<SpecificationWrapper, Specification>(Model.Specification);
-
-        OfferUnit = GetWrapper<OfferUnitWrapper, OfferUnit>(Model.OfferUnit);
 
     }
 

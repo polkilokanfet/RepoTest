@@ -54,7 +54,7 @@ namespace HVTApp.Model.Tests
             var equipmentParent = wrappersFactory.GetWrapper<ProductWrapper>(equipment);
             equipmentParent.TotalPriceDate = equipmentParent.Part.Prices[1].Date;
 
-            Assert.IsTrue(Math.Abs(equipmentParent.TotalPrice - equipmentParent.Part.Prices[1].Cost.Sum) < 0.0001);
+            Assert.IsTrue(Math.Abs(equipmentParent.TotalPrice - equipmentParent.Part.Prices[1].Cost) < 0.0001);
 
             var equipmentChild1 = wrappersFactory.GetWrapper<ProductWrapper>(_fixture.Create<Product>());
             equipmentChild1.Part.Prices[1].Date = equipmentParent.Part.Prices[1].Date;
@@ -65,16 +65,16 @@ namespace HVTApp.Model.Tests
             equipmentParent.DependentProducts.Add(equipmentChild2);
 
 
-            var totalSum =  equipmentParent.Part.Prices[1].Cost.Sum + 
-                            equipmentChild1.Part.Prices[1].Cost.Sum + 
-                            equipmentChild2.Part.Prices[1].Cost.Sum;
+            var totalSum =  equipmentParent.Part.Prices[1].Cost + 
+                            equipmentChild1.Part.Prices[1].Cost + 
+                            equipmentChild2.Part.Prices[1].Cost;
             Assert.IsTrue(Math.Abs(equipmentParent.TotalPrice - totalSum) < 0.0001);
 
             var productChild3 = wrappersFactory.GetWrapper<ProductWrapper>(_fixture.Create<Product>());
             productChild3.Part.Prices[1].Date = equipmentParent.Part.Prices[1].Date;
             equipmentParent.DependentProducts.Add(productChild3);
 
-            totalSum += productChild3.Part.Prices[1].Cost.Sum;
+            totalSum += productChild3.Part.Prices[1].Cost;
             Assert.IsTrue(Math.Abs(equipmentParent.TotalPrice - totalSum) < 0.0001);
         }
 

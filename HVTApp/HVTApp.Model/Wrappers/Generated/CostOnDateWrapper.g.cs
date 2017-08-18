@@ -24,6 +24,15 @@ namespace HVTApp.Model.Wrappers
     public bool DateIsChanged => GetIsChanged(nameof(Date));
 
 
+    public System.Double Cost
+    {
+      get { return GetValue<System.Double>(); }
+      set { SetValue(value); }
+    }
+    public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
+    public bool CostIsChanged => GetIsChanged(nameof(Cost));
+
+
     public System.Guid Id
     {
       get { return GetValue<System.Guid>(); }
@@ -34,28 +43,6 @@ namespace HVTApp.Model.Wrappers
 
 
     #endregion
-
-
-    #region ComplexProperties
-
-	public CostWrapper Cost 
-    {
-        get { return GetComplexProperty<CostWrapper, Cost>(Model.Cost); }
-        set { SetComplexProperty<CostWrapper, Cost>(Cost, value); }
-    }
-
-    public CostWrapper CostOriginalValue { get; private set; }
-    public bool CostIsChanged => GetIsChanged(nameof(Cost));
-
-
-    #endregion
-
-    public override void InitializeComplexProperties()
-    {
-
-        Cost = GetWrapper<CostWrapper, Cost>(Model.Cost);
-
-    }
 
   }
 }

@@ -15,6 +15,15 @@ namespace HVTApp.Model.Wrappers
 
     #region SimpleProperties
 
+    public System.Guid ProjectUnitId
+    {
+      get { return GetValue<System.Guid>(); }
+      set { SetValue(value); }
+    }
+    public System.Guid ProjectUnitIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ProjectUnitId));
+    public bool ProjectUnitIdIsChanged => GetIsChanged(nameof(ProjectUnitId));
+
+
     public System.Double Cost
     {
       get { return GetValue<System.Double>(); }
@@ -22,6 +31,15 @@ namespace HVTApp.Model.Wrappers
     }
     public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
     public bool CostIsChanged => GetIsChanged(nameof(Cost));
+
+
+    public System.Nullable<System.Guid> ProducerWinnerId
+    {
+      get { return GetValue<System.Nullable<System.Guid>>(); }
+      set { SetValue(value); }
+    }
+    public System.Nullable<System.Guid> ProducerWinnerIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProducerWinnerId));
+    public bool ProducerWinnerIdIsChanged => GetIsChanged(nameof(ProducerWinnerId));
 
 
     public System.DateTime DeliveryDate

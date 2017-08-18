@@ -6,9 +6,7 @@ namespace HVTApp.Model.POCOs
 {
     public class OfferUnit : BaseEntity
     {
-        public virtual Guid? ProjectUnitId { get; set; }
         public virtual ProjectUnit ProjectUnit { get; set; }
-        public virtual Guid? TenderUnitId { get; set; }
         public virtual TenderUnit TenderUnit { get; set; }
         public virtual SalesUnit SalesUnit { get; set; }
 

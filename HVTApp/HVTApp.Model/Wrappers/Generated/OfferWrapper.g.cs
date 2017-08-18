@@ -57,14 +57,6 @@ namespace HVTApp.Model.Wrappers
     public bool DocumentIsChanged => GetIsChanged(nameof(Document));
 
 
-    public ProjectWrapper ProjectOriginalValue { get; private set; }
-    public bool ProjectIsChanged => GetIsChanged(nameof(Project));
-
-
-    public TenderWrapper TenderOriginalValue { get; private set; }
-    public bool TenderIsChanged => GetIsChanged(nameof(Tender));
-
-
     #endregion
 
 

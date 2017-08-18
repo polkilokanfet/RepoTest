@@ -12,11 +12,11 @@ namespace HVTApp.Model.Wrappers
             //this.Document.RegistrationDetailsOfSender.RegistrationDate = DateTime.Today;
             //this.Document.RecipientEmployee = templateOffer.Document.RecipientEmployee;
 
-            foreach (var copyToRecipient in Document.CopyToRecipients)
-                this.Document.CopyToRecipients.Add(copyToRecipient);
+            //foreach (var copyToRecipient in Document.CopyToRecipients)
+            //    this.Document.CopyToRecipients.Add(copyToRecipient);
 
-            foreach (var productOfferUnit in templateOffer.OfferUnits.Select(x => x.Model))
-                this.OfferUnits.Add(GetWrapper<OfferUnitWrapper, OfferUnit>(productOfferUnit));
+            //foreach (var productOfferUnit in templateOffer.OfferUnits.Select(x => x.Model))
+            //    this.OfferUnits.Add(GetWrapper<OfferUnitWrapper, OfferUnit>(productOfferUnit));
         }
     }
 }

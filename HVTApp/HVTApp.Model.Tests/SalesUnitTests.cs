@@ -17,7 +17,7 @@ namespace HVTApp.Model.Tests
         public void InitialMethod()
         {
             Product product = new Product { Part = new Part() };
-            product.Part.Prices.Add(new CostOnDate { Date = DateTime.Today, Cost = new Cost { Sum = 50 } });
+            product.Part.Prices.Add(new CostOnDate { Date = DateTime.Today, Cost = 50 });
             var salesUnit = new SalesUnit
             {
                 ProductionUnit = new ProductionUnit {Product = product},

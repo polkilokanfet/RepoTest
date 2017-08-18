@@ -9,7 +9,7 @@ namespace HVTApp.Model.POCOs
     public class CostOnDate : BaseEntity
     {
         public DateTime Date { get; set; }
-        public virtual Cost Cost { get; set; }
+        public virtual double Cost { get; set; }
     }
 
     public class Cost : BaseEntity

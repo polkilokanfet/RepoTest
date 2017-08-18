@@ -62,7 +62,8 @@ namespace HVTApp.TestDataGenerator
                 
         public Project Project1;
         public Project Project2;
-                
+        public Project Project3;
+
         public FacilityType FacilityTypeStation;
         public FacilityType FacilityTypeSubStation;
                 
@@ -194,7 +195,7 @@ namespace HVTApp.TestDataGenerator
             GenerateParameters();
             GenerateRequiredDependentEquipmentsParameters();
             GenerateParts();
-            GenerateProduct();
+            GenerateProducts();
             GenerateContracts();
             GenerateSpecifications();
             GenerateTenderTypes();
@@ -321,6 +322,31 @@ namespace HVTApp.TestDataGenerator
         {
             Project1.Clone(new Project { Name = "Реконструкция ПС Первая", Manager = UserIvanov, Offers= new List<Offer> {OfferMrsk}, ProjectUnits = new List<ProjectUnit> {ProjectUnitVeb1101, ProjectUnitVeb1102, ProjectUnitZng1101, ProjectUnitZng1102, ProjectUnitZng1103}, Tenders = new List<Tender> {TenderMrsk} });
             Project2.Clone(new Project { Name = "Строительство Свердловской ТЭЦ", Manager = UserIvanov });
+
+            DateTime today = DateTime.Today;
+            Project3.Clone(new Project { Manager = UserIvanov, Name = "Third project"});
+            Tender tender = new Tender { Project = Project3, Winner = CompanyUetm, Sum = 100, Type = TenderTypeProject, DateOpen = today, DateClose = today};
+            tender.Participants.AddRange(new[] {CompanyEnel, CompanyUetm});
+            Project3.Tenders.Add(tender);
+            Offer offer = new Offer {Document = new Document(), Vat = 0.18, ValidityDate = today};
+            tender.Offers.Add(offer);
+
+            ProjectUnit projectUnit1 = new ProjectUnit { Facility = FacilitySubstation, Product = ProductVeb110, Project = Project3, RequiredDeliveryDate = today };
+            ProjectUnit projectUnit2 = new ProjectUnit { Facility = FacilitySubstation, Product = ProductVeb110, Project = Project3, RequiredDeliveryDate = today };
+            Project3.ProjectUnits.AddRange(new[] {projectUnit1, projectUnit2});
+
+            TenderUnit tenderUnit1 = new TenderUnit { Product = ProductVeb110, Tender = tender, ProjectUnit = projectUnit1, DeliveryDate = today, ProducerWinner = CompanyUetm };
+            TenderUnit tenderUnit2 = new TenderUnit { Product = ProductVeb110, Tender = tender, ProjectUnit = projectUnit2, DeliveryDate = today, ProducerWinner = CompanyUetm };
+            tender.TenderUnits.AddRange(new[] {tenderUnit1, tenderUnit2} );
+            projectUnit1.TenderUnits.Add(tenderUnit1);
+            projectUnit2.TenderUnits.Add(tenderUnit2);
+
+
+            OfferUnit offerUnit1 = new OfferUnit { Product = ProductVeb110, Offer = offer, TenderUnit = tenderUnit1, ProjectUnit = projectUnit1 };
+            OfferUnit offerUnit2 = new OfferUnit { Product = ProductVeb110, Offer = offer, TenderUnit = tenderUnit2, ProjectUnit = projectUnit2 };
+            tenderUnit1.OfferUnits.AddRange(new[] { offerUnit1 });
+            tenderUnit2.OfferUnits.AddRange(new[] { offerUnit2 });
+            offer.OfferUnits.AddRange(new[] {offerUnit1, offerUnit2} );
         }
 
         private void GenerateFacilityTypes()
@@ -397,16 +423,16 @@ namespace HVTApp.TestDataGenerator
         private void GenerateParts()
         {
             PartZng110.Clone(new Part { Designation = "ЗНГ-110", Parameters= new List<Parameter> { ParameterTransformator, ParameterTransformatorVoltage, ParameterVoltage110kV },
-                Prices= new List<CostOnDate> { new CostOnDate { Cost=new Cost { Sum = 75 }, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber1"});
+                Prices= new List<CostOnDate> { new CostOnDate { Cost=75, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber1"});
             PartVgb35.Clone(new Part { Designation = "ВГБ-35", Parameters= new List<Parameter> { ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage35kV },
-                Prices= new List<CostOnDate> { new CostOnDate { Cost=new Cost { Sum = 50 }, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber2" });
+                Prices= new List<CostOnDate> { new CostOnDate { Cost=50, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber2" });
             PartVeb110.Clone(new Part { Designation = "ВЭБ-110", Parameters= new List<Parameter> { ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage110kV },
-                Prices= new List<CostOnDate> { new CostOnDate { Cost=new Cost { Sum = 100 }, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber3" });
+                Prices= new List<CostOnDate> { new CostOnDate { Cost=100, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber3" });
             PartBreakesDrive.Clone(new Part { Designation = "Привод выключателя", Parameters= new List<Parameter> { ParameterBreaker },
-                Prices= new List<CostOnDate> { new CostOnDate { Cost=new Cost { Sum = 100 }, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber4" });
+                Prices= new List<CostOnDate> { new CostOnDate { Cost=100, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber4" });
         }
 
-        private void GenerateProduct()
+        private void GenerateProducts()
         {
             ProductVeb110.Clone(new Product { Designation = "Выключатель баковый ВЭБ-110", Part = PartVeb110, DependentProducts = new List<Product> {ProductBreakersDrive} });
             ProductZng110.Clone(new Product { Designation = "Трансформатор напряжения ЗНГ-110", Part = PartZng110 });
@@ -461,7 +487,7 @@ namespace HVTApp.TestDataGenerator
         private void GenerateDocuments()
         {
             DocumentOfferMrsk.Clone(new Document());
-            //DocumentOfferMrsk.Clone(new Document { Author = EmployeeIvanov, AuthorId = EmployeeIvanov.Id, SenderEmployee = EmployeePetrov, SenderId = EmployeePetrov.Id, RecipientEmployee = EmployeeSidorov, RecipientId = EmployeeSidorov.Id, RegistrationDetailsOfSender.Clone(new DocumentsRegistrationDetails { RegistrationNumber = "7412-17-0212", RegistrationDate = DateTime.Today }, RegistrationDetailsOfRecipient.Clone(new DocumentsRegistrationDetails { RegistrationNumber = "12f455", RegistrationDate = DateTime.Today.AddDays(-3) } });
+            //DocumentOfferMrsk.Clone(new Document { Author = EmployeeIvanov, AuthorId = EmployeeIvanov.Id, SenderEmployee = EmployeePetrov, SenderId = EmployeePetrov.Id, RecipientEmployee = EmployeeSidorov, RecipientId = EmployeeSidorov.Id, RegistrationDetailsOfSender=new DocumentsRegistrationDetails { RegistrationNumber = "7412-17-0212", RegistrationDate = DateTime.Today }, RegistrationDetailsOfRecipient=new DocumentsRegistrationDetails { RegistrationNumber = "12f455", RegistrationDate = DateTime.Today.AddDays(-3) } });
         }
 
         private void GenerateTenderTypes()
