@@ -347,7 +347,17 @@ namespace HVTApp.TestDataGenerator
             tenderUnit1.OfferUnits.AddRange(new[] { offerUnit1 });
             tenderUnit2.OfferUnits.AddRange(new[] { offerUnit2 });
             offer.OfferUnits.AddRange(new[] {offerUnit1, offerUnit2} );
+
+            ProductionUnit1 = new ProductionUnit {Product = ProductVeb110};
+            ShipmentUnit1 = new ShipmentUnit {Address = AddressOfStation};
+            SalesUnit1 = new SalesUnit {OfferUnit = offerUnit1, ProductionUnit = ProductionUnit1, ShipmentUnit = ShipmentUnit1 };
+            ShipmentUnit1.SalesUnit = SalesUnit1;
+            ProductionUnit1.SalesUnit = SalesUnit1;
         }
+
+        public ProductionUnit ProductionUnit1;
+        public ShipmentUnit ShipmentUnit1;
+        public SalesUnit SalesUnit1;
 
         private void GenerateFacilityTypes()
         {
@@ -471,12 +481,12 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateOfferUnits()
         {
-            OfferUnitVeb1101.Clone(new OfferUnit { Product = ProductVeb110, SalesUnit = SalesUnitVeb1101, Cost = 7, Offer = OfferMrsk, ProductionTerm = 120, PaymentsConditions = new List<PaymentCondition>(StandartPaymentConditions) });
-            OfferUnitVeb1102.Clone(new OfferUnit { Product = ProductVeb110, SalesUnit = SalesUnitVeb1102, Cost = 7, Offer = OfferMrsk, ProductionTerm = 120, PaymentsConditions = new List<PaymentCondition>(StandartPaymentConditions) });
+            OfferUnitVeb1101.Clone(new OfferUnit { Product = ProductVeb110, Cost = 7, Offer = OfferMrsk, ProductionTerm = 120, PaymentsConditions = new List<PaymentCondition>(StandartPaymentConditions) });
+            OfferUnitVeb1102.Clone(new OfferUnit { Product = ProductVeb110, Cost = 7, Offer = OfferMrsk, ProductionTerm = 120, PaymentsConditions = new List<PaymentCondition>(StandartPaymentConditions) });
 
-            OfferUnitZng1101.Clone(new OfferUnit { Product = ProductZng110, SalesUnit = SalesUnitZng1101, Cost = 3, Offer = OfferMrsk, ProductionTerm = 150, PaymentsConditions = new List<PaymentCondition>(StandartPaymentConditions) });
-            OfferUnitZng1102.Clone(new OfferUnit { Product = ProductZng110, SalesUnit = SalesUnitZng1102, Cost = 3, Offer = OfferMrsk, ProductionTerm = 150, PaymentsConditions = new List<PaymentCondition>(StandartPaymentConditions) });
-            OfferUnitZng1103.Clone(new OfferUnit { Product = ProductZng110, SalesUnit = SalesUnitZng1103, Cost = 3, Offer = OfferMrsk, ProductionTerm = 150, PaymentsConditions = new List<PaymentCondition>(StandartPaymentConditions) });
+            OfferUnitZng1101.Clone(new OfferUnit { Product = ProductZng110, Cost = 3, Offer = OfferMrsk, ProductionTerm = 150, PaymentsConditions = new List<PaymentCondition>(StandartPaymentConditions) });
+            OfferUnitZng1102.Clone(new OfferUnit { Product = ProductZng110, Cost = 3, Offer = OfferMrsk, ProductionTerm = 150, PaymentsConditions = new List<PaymentCondition>(StandartPaymentConditions) });
+            OfferUnitZng1103.Clone(new OfferUnit { Product = ProductZng110, Cost = 3, Offer = OfferMrsk, ProductionTerm = 150, PaymentsConditions = new List<PaymentCondition>(StandartPaymentConditions) });
         }
 
         private void GenerateOffers()

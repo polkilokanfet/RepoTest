@@ -85,12 +85,6 @@ namespace HVTApp.Model.Wrappers
     public bool TenderUnitIsChanged => GetIsChanged(nameof(TenderUnit));
 
 
-	public SalesUnitWrapper SalesUnit 
-    {
-        get { return GetComplexProperty<SalesUnitWrapper, SalesUnit>(Model.SalesUnit); }
-        set { SetComplexProperty<SalesUnitWrapper, SalesUnit>(SalesUnit, value); }
-    }
-
     public SalesUnitWrapper SalesUnitOriginalValue { get; private set; }
     public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
 
@@ -131,8 +125,6 @@ namespace HVTApp.Model.Wrappers
         ProjectUnit = GetWrapper<ProjectUnitWrapper, ProjectUnit>(Model.ProjectUnit);
 
         TenderUnit = GetWrapper<TenderUnitWrapper, TenderUnit>(Model.TenderUnit);
-
-        SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(Model.SalesUnit);
 
         Product = GetWrapper<ProductWrapper, Product>(Model.Product);
 

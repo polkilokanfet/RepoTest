@@ -7,7 +7,7 @@ namespace HVTApp.DataAccess
     {
         public ProductionUnitConfiguration()
         {
-            HasRequired(x => x.Product).WithMany();
+            HasRequired(x => x.Product).WithMany().WillCascadeOnDelete(false);
             HasOptional(x => x.Order).WithMany(x => x.ProductionUnits);
             Property(x => x.OrderPosition).IsOptional();
             Property(x => x.SerialNumber).IsOptional();
@@ -19,7 +19,7 @@ namespace HVTApp.DataAccess
             Property(x => x.EndProductionDate).IsOptional();
             Property(x => x.EndProductionDateByPlan).IsOptional();
 
-            HasOptional(x => x.SalesUnit).WithRequired(x => x.ProductionUnit);
+            Ignore(x => x.SalesUnit);
         }
     }
 }

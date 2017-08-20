@@ -7,7 +7,9 @@ namespace HVTApp.DataAccess
     {
         public ShipmentUnitConfiguration()
         {
-            HasRequired(x => x.SalesUnit).WithRequiredDependent(x => x.ShipmentUnit);
+            //HasRequired(x => x.SalesUnit).WithMany().HasForeignKey(x => x.SalesUnitId).WillCascadeOnDelete(false);
+            Ignore(x => x.SalesUnit);
+
             Property(x => x.ExpectedDeliveryPeriod).IsOptional();
             HasRequired(x => x.Address).WithMany();
             Property(x => x.Cost).IsRequired();
