@@ -16,12 +16,22 @@ namespace HVTApp.Model.POCOs
         public virtual Company Winner { get; set; }
         public virtual List<TenderUnit> TenderUnits { get; set; } = new List<TenderUnit>();
         public virtual List<Offer> Offers { get; set; } = new List<Offer>();
+
+        public override string ToString()
+        {
+            return $"Tender {Type} of {Project}";
+        }
     }
 
     public class TenderType : BaseEntity
     {
         public string Name { get; set; }
         public TenderTypeEnum Type { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
     public enum TenderTypeEnum

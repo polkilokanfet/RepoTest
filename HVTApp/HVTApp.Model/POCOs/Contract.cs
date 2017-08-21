@@ -10,5 +10,10 @@ namespace HVTApp.Model.POCOs
         public DateTime Date { get; set; }
         public virtual Company Contragent { get; set; }
         public virtual List<Specification> Specifications { get; set; }
+
+        public override string ToString()
+        {
+            return $"Contract with {Contragent} №{Number} of {Date}";
+        }
     }
 }

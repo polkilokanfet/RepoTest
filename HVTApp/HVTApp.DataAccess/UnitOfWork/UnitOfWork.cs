@@ -29,6 +29,7 @@ namespace HVTApp.DataAccess
             Parameters = new ParametersRepository(context, this);
             Parts = new PartsRepository(context, this);
             Products = new ProductsRepository(context, this);
+            ProductionUnits = new ProductionUnitsRepository(context, this);
             RequiredDependentEquipmentsParameters = new RequiredDependentEquipmentsParametersRepository(context, this);
             FacilityTypes = new FacilityTypesRepository(context, this);
             Facilities = new FacilitiesRepository(context, this);
@@ -70,6 +71,7 @@ namespace HVTApp.DataAccess
         public IParametersRepository Parameters { get; }
         public IPartsRepository Parts { get; }
         public IProductsRepository Products { get; }
+        public IProductionUnitsRepository ProductionUnits { get; }
         public IRequiredDependentEquipmentsParametersRepository RequiredDependentEquipmentsParameters { get; }
         public IFacilityTypesRepository FacilityTypes { get; }
 

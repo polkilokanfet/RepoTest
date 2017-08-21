@@ -27,7 +27,7 @@ namespace HVTApp.DataAccess
             return _getWrapper.GetWrapper<TWrapper>();
         }
 
-        public TWrapper GetWrapper(TModel model)
+        public virtual TWrapper GetWrapper(TModel model)
         {
             return _getWrapper.GetWrapper<TWrapper>(model);
         }
@@ -35,7 +35,8 @@ namespace HVTApp.DataAccess
         public virtual List<TWrapper> GetAll()
         {
             Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-            return Context.Set<TModel>().ToList().Select(_getWrapper.GetWrapper<TWrapper>).ToList();
+            var models = Context.Set<TModel>();
+            return models.Select(_getWrapper.GetWrapper<TWrapper>).ToList();
         }
 
         public IEnumerable<TWrapper> Find(Func<TWrapper, bool> predicate)

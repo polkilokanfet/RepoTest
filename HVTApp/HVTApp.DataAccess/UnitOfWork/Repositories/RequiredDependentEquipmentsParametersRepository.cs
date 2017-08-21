@@ -8,7 +8,7 @@ namespace HVTApp.DataAccess
 {
     public class RequiredDependentEquipmentsParametersRepository : BaseRepository<RequiredDependentEquipmentsParameters, RequiredDependentEquipmentsParametersWrapper>, IRequiredDependentEquipmentsParametersRepository
     {
-        public RequiredDependentEquipmentsParametersRepository(DbContext context, IGetWrapper getWrapper) : base(context, getWrapper)
+        public RequiredDependentEquipmentsParametersRepository(DbContext context, IGetWrapper wrappersGetter) : base(context, wrappersGetter)
         {
         }
     }

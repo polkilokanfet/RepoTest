@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 
@@ -9,6 +10,12 @@ namespace HVTApp.Model.POCOs
         public string Designation { get; set; }
         public virtual Part Part { get; set; }
         public virtual List<Product> DependentProducts { get; set; } = new List<Product>();
+
+        public override string ToString()
+        {
+            if (!String.IsNullOrEmpty(Designation)) return Designation;
+            return Part.ToString();
+        }
     }
 
     public class Part : BaseEntity

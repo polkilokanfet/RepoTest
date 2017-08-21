@@ -7,5 +7,10 @@ namespace HVTApp.Model.POCOs
     {
         public string Name { get; set; }
         public List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

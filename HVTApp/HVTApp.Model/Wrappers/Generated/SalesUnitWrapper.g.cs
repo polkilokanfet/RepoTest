@@ -15,6 +15,15 @@ namespace HVTApp.Model.Wrappers
 
     #region SimpleProperties
 
+    public System.Guid OfferUnitId
+    {
+      get { return GetValue<System.Guid>(); }
+      set { SetValue(value); }
+    }
+    public System.Guid OfferUnitIdOriginalValue => GetOriginalValue<System.Guid>(nameof(OfferUnitId));
+    public bool OfferUnitIdIsChanged => GetIsChanged(nameof(OfferUnitId));
+
+
     public System.Double Cost
     {
       get { return GetValue<System.Double>(); }

@@ -9,6 +9,11 @@ namespace HVTApp.Model.POCOs
         public int DaysToPoint { get; set; } // Дней до связанной с платежом точки.
         public virtual PaymentConditionPoint PaymentConditionPoint { get; set; } // Связанная с платежом точка.
 
+        public override string ToString()
+        {
+            return $"PaymentConditionPoint: {PaymentConditionPoint}, DaysToPoint: {DaysToPoint}, Part: {Part}";
+        }
+
         public int CompareTo(PaymentCondition other)
         {
             if (this.PaymentConditionPoint > other.PaymentConditionPoint)

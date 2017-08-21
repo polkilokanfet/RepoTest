@@ -8,7 +8,7 @@ using HVTApp.Model.Wrappers;
 namespace HVTApp.DataAccess
 {
     public class ProjectsRepository : BaseRepository<Project, ProjectWrapper>, IProjectsRepository {
-        public ProjectsRepository(DbContext context, IGetWrapper getWrapper) : base(context, getWrapper)
+        public ProjectsRepository(DbContext context, IGetWrapper wrappersGetter) : base(context, wrappersGetter)
         {
         }
     }

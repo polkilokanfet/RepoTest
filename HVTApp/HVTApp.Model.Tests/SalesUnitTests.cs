@@ -26,8 +26,6 @@ namespace HVTApp.Model.Tests
                 ShipmentUnit = new ShipmentUnit { ExpectedDeliveryPeriod = 5 },
                 Specification = new Specification { Date = DateTime.Today, Vat = 0.2}
             };
-            salesUnit.ProductionUnit.SalesUnit = salesUnit;
-            salesUnit.ShipmentUnit.SalesUnit = salesUnit;
 
             salesUnit.PaymentsConditions.Add(new PaymentCondition { Part = 0.30, DaysToPoint = -2, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
             salesUnit.PaymentsConditions.Add(new PaymentCondition { Part = 0.10, DaysToPoint = 10, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
@@ -38,6 +36,8 @@ namespace HVTApp.Model.Tests
 
             _factory = new TestWrappersFactory();
             _salesUnit = _factory.GetWrapper<SalesUnitWrapper>(salesUnit);
+            _salesUnit.ProductionUnit.SalesUnit = _salesUnit;
+            _salesUnit.ShipmentUnit.SalesUnit = _salesUnit;
         }
 
         [TestMethod]

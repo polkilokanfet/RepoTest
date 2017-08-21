@@ -9,7 +9,7 @@ namespace HVTApp.DataAccess
 {
     public class UsersRepository : BaseRepository<User, UserWrapper>, IUsersRepository
     {
-        public UsersRepository(DbContext context, IGetWrapper getWrapper) : base(context, getWrapper)
+        public UsersRepository(DbContext context, IGetWrapper wrappersGetter) : base(context, wrappersGetter)
         {
         }
     }

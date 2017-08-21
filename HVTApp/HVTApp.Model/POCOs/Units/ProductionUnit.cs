@@ -19,5 +19,11 @@ namespace HVTApp.Model.POCOs
         public DateTime? EndProductionDateByPlan { get; set; }
 
         public virtual SalesUnit SalesUnit { get; set; }
+
+        public override string ToString()
+        {
+            return "ProductionUnit: " + Product.ToString();
+        }
+
     }
 }

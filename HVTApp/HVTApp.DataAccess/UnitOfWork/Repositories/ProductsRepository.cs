@@ -10,7 +10,7 @@ namespace HVTApp.DataAccess
 {
     public class PartsRepository : BaseRepository<Part, PartWrapper>, IPartsRepository
     {
-        public PartsRepository(DbContext context, IGetWrapper getWrapper) : base(context, getWrapper)
+        public PartsRepository(DbContext context, IGetWrapper wrappersGetter) : base(context, wrappersGetter)
         {
         }
 

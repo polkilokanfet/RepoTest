@@ -10,5 +10,10 @@ namespace HVTApp.Model.POCOs
         public DateTime ValidityDate { get; set; } // Дата до которой ТКП действительно.
         public virtual List<OfferUnit> OfferUnits { get; set; } = new List<OfferUnit>();
         public double Vat { get; set; }
+
+        public override string ToString()
+        {
+            return "Offer №";
+        }
     }
 }

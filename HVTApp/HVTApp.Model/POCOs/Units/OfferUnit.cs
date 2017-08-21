@@ -15,5 +15,10 @@ namespace HVTApp.Model.POCOs
 
         public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
         public int ProductionTerm { get; set; } //срок производства
+
+        public override string ToString()
+        {
+            return "OfferUnit: " + Product.ToString();
+        }
     }
 }

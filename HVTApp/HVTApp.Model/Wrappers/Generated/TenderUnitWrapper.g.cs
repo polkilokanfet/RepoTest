@@ -15,15 +15,6 @@ namespace HVTApp.Model.Wrappers
 
     #region SimpleProperties
 
-    public System.Guid ProjectUnitId
-    {
-      get { return GetValue<System.Guid>(); }
-      set { SetValue(value); }
-    }
-    public System.Guid ProjectUnitIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ProjectUnitId));
-    public bool ProjectUnitIdIsChanged => GetIsChanged(nameof(ProjectUnitId));
-
-
     public System.Double Cost
     {
       get { return GetValue<System.Double>(); }
@@ -31,15 +22,6 @@ namespace HVTApp.Model.Wrappers
     }
     public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
     public bool CostIsChanged => GetIsChanged(nameof(Cost));
-
-
-    public System.Nullable<System.Guid> ProducerWinnerId
-    {
-      get { return GetValue<System.Nullable<System.Guid>>(); }
-      set { SetValue(value); }
-    }
-    public System.Nullable<System.Guid> ProducerWinnerIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProducerWinnerId));
-    public bool ProducerWinnerIdIsChanged => GetIsChanged(nameof(ProducerWinnerId));
 
 
     public System.DateTime DeliveryDate
@@ -113,9 +95,6 @@ namespace HVTApp.Model.Wrappers
     public IValidatableChangeTrackingCollection<PaymentConditionWrapper> PaymentsConditions { get; private set; }
 
 
-    public IValidatableChangeTrackingCollection<OfferUnitWrapper> OfferUnits { get; private set; }
-
-
     #endregion
 
     public override void InitializeComplexProperties()
@@ -138,11 +117,6 @@ namespace HVTApp.Model.Wrappers
       if (Model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
       PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(Model.PaymentsConditions.Select(e => GetWrapper<PaymentConditionWrapper, PaymentCondition>(e)));
       RegisterCollection(PaymentsConditions, Model.PaymentsConditions);
-
-
-      if (Model.OfferUnits == null) throw new ArgumentException("OfferUnits cannot be null");
-      OfferUnits = new ValidatableChangeTrackingCollection<OfferUnitWrapper>(Model.OfferUnits.Select(e => GetWrapper<OfferUnitWrapper, OfferUnit>(e)));
-      RegisterCollection(OfferUnits, Model.OfferUnits);
 
 
     }

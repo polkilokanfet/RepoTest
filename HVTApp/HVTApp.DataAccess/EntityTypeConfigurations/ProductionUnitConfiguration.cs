@@ -18,8 +18,6 @@ namespace HVTApp.DataAccess
             Property(x => x.PickingDate).IsOptional();
             Property(x => x.EndProductionDate).IsOptional();
             Property(x => x.EndProductionDateByPlan).IsOptional();
-
-            HasOptional(x => x.SalesUnit).WithRequired(x => x.ProductionUnit);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
 
@@ -8,6 +9,12 @@ namespace HVTApp.Model.POCOs
     {
         public string Description { get; set; }
         public virtual Locality Locality { get; set; }
+
+        public override string ToString()
+        {
+            return Locality.ToString() + "; " + Description;
+        }
+
     }
 
     /// <summary>
@@ -23,6 +30,11 @@ namespace HVTApp.Model.POCOs
         public virtual bool IsCountryCapital { get; set; } = false;
 
         public double? StandartDeliveryPeriod { get; set; }
+
+        public override string ToString()
+        {
+            return LocalityType.ShortName + Name;
+        }
     }
 
     /// <summary>
@@ -32,6 +44,11 @@ namespace HVTApp.Model.POCOs
     {
         public string FullName { get; set; }
         public string ShortName { get; set; }
+
+        public override string ToString()
+        {
+            return $"{FullName}, ({ShortName})";
+        }
     }
 
     /// <summary>
@@ -42,6 +59,11 @@ namespace HVTApp.Model.POCOs
         public string Name { get; set; }
         public virtual District District { get; set; }
         public virtual List<Locality> Localities { get; set; } // Населенные пункты.
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
     /// <summary>
@@ -52,6 +74,11 @@ namespace HVTApp.Model.POCOs
         public string Name { get; set; }
         public virtual Country Country { get; set; }
         public virtual List<Region> Regions { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
     /// <summary>
@@ -61,5 +88,9 @@ namespace HVTApp.Model.POCOs
     {
         public string Name { get; set; }
         public virtual List<District> Districts { get; set; } // Округа.
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

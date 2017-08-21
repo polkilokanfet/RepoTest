@@ -6,11 +6,9 @@ namespace HVTApp.Model.POCOs
 {
     public class SalesUnit : BaseEntity
     {
-        public virtual Guid OfferUnitId { get; set; }
+        public Guid OfferUnitId { get; set; }
         public virtual OfferUnit OfferUnit { get; set; }
-        public virtual Guid ProductionUnitId { get; set; }
         public virtual ProductionUnit ProductionUnit { get; set; }
-        public virtual Guid ShipmentUnitId { get; set; }
         public virtual ShipmentUnit ShipmentUnit { get; set; }
 
         public double Cost { get; set; }
@@ -22,5 +20,9 @@ namespace HVTApp.Model.POCOs
 
         public virtual DateTime? RealizationDate { get; set; }
 
+        public override string ToString()
+        {
+            return "SalesUnit: " + ProductionUnit.Product.ToString();
+        }
     }
 }

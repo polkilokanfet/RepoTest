@@ -8,5 +8,10 @@ namespace HVTApp.Model.POCOs
     public class EmployeesPosition : BaseEntity
     {
         public string Name { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

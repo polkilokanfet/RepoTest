@@ -9,5 +9,10 @@ namespace HVTApp.Model.POCOs
         public string Number { get; set; }
         public DateTime Date { get; set; }
         public virtual List<PaymentActual> Payments { get; set; } = new List<PaymentActual>();
+
+        public override string ToString()
+        {
+            return $"PaymentDocument: {Number}";
+        }
     }
 }

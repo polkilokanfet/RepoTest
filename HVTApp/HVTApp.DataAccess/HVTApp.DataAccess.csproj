@@ -116,6 +116,7 @@
     <Compile Include="UnitOfWork\Repositories\OffersRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\ParametersGroupsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\ParametersRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\ProductionUnitsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\ProductsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\RequiredDependentEquipmentsParametersRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\ProjectsRepository.cs" />

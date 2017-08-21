@@ -18,6 +18,7 @@ namespace HVTApp.DataAccess
         PartWrapper GetProductItem(IEnumerable<ParameterWrapper> parameters);
     }
     public interface IProductsRepository : IRepository<Product, ProductWrapper> { }
+    public interface IProductionUnitsRepository : IRepository<ProductionUnit, ProductionUnitWrapper> { }
     public interface IFacilityTypesRepository : IRepository<FacilityType, FacilityTypeWrapper> { }
     public interface IFacilitiesRepository : IRepository<Facility, FacilityWrapper> { }
     public interface IProjectsRepository : IRepository<Project, ProjectWrapper> { }
