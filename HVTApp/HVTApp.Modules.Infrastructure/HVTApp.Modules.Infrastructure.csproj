@@ -77,6 +77,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HVTApp.DataAccess.Infrastructure\HVTApp.DataAccess.Infrastructure.csproj">
+      <Project>{8ED995B6-B4A2-4B85-9057-69CACF5BBD51}</Project>
+      <Name>HVTApp.DataAccess.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.DataAccess\HVTApp.DataAccess.csproj">
       <Project>{9CF80C25-C04B-46B3-8EB7-F45BC42D4BA2}</Project>
       <Name>HVTApp.DataAccess</Name>

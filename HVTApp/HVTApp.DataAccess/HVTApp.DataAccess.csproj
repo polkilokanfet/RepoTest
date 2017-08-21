@@ -99,9 +99,6 @@
     <Compile Include="EntityTypeConfigurations\ShipmentUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\ProjectUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\RequiredDependentEquipmentsParametersConfiguration.cs" />
-    <Compile Include="UnitOfWork\IRepositories.cs" />
-    <Compile Include="UnitOfWork\IRepository.cs" />
-    <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\Repositories\ActivityFieldsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\CompaniesRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\ContractsRepository.cs" />
@@ -131,6 +128,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HVTApp.DataAccess.Infrastructure\HVTApp.DataAccess.Infrastructure.csproj">
+      <Project>{8ed995b6-b4a2-4b85-9057-69cacf5bbd51}</Project>
+      <Name>HVTApp.DataAccess.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
       <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
       <Name>HVTApp.Infrastructure</Name>

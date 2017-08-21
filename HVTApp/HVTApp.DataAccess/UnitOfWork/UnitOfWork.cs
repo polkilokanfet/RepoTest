@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Reflection;
+using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
@@ -30,7 +31,7 @@ namespace HVTApp.DataAccess
             Parts = new PartsRepository(context, this);
             Products = new ProductsRepository(context, this);
             ProductionUnits = new ProductionUnitsRepository(context, this);
-            RequiredDependentEquipmentsParameters = new RequiredDependentEquipmentsParametersRepository(context, this);
+            RequiredDependentProductssParameters = new RequiredDependentProductssParametersRepository(context, this);
             FacilityTypes = new FacilityTypesRepository(context, this);
             Facilities = new FacilitiesRepository(context, this);
             Projects = new ProjectsRepository(context, this);
@@ -72,7 +73,7 @@ namespace HVTApp.DataAccess
         public IPartsRepository Parts { get; }
         public IProductsRepository Products { get; }
         public IProductionUnitsRepository ProductionUnits { get; }
-        public IRequiredDependentEquipmentsParametersRepository RequiredDependentEquipmentsParameters { get; }
+        public IRequiredDependentProductssParametersRepository RequiredDependentProductssParameters { get; }
         public IFacilityTypesRepository FacilityTypes { get; }
 
         public IFacilitiesRepository Facilities { get; }

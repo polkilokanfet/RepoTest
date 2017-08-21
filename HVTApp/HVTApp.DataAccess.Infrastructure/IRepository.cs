@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using HVTApp.Infrastructure;
 
-namespace HVTApp.Infrastructure.Interfaces
+namespace HVTApp.DataAccess.Infrastructure
 {
-    public interface IRepository<TEntity> where TEntity : class 
+    public interface IRepository<in TModel, TWrapper>
+        where TModel : class, IBaseEntity
+        where TWrapper : class, IWrapper<TModel>
     {
-        List<TEntity> GetAll();
-        IEnumerable<TEntity> Find(Func<TEntity, bool> predicate);
+        List<TWrapper> GetAll();
+        IEnumerable<TWrapper> Find(Func<TWrapper, bool> predicate);
 
-        void Add(TEntity entity);
-        void AddRange(IEnumerable<TEntity> entities);
+        TWrapper GetWrapper();
+        TWrapper GetWrapper(TModel model);
 
-        void Delete(TEntity entity);
-        void DeleteRange(IEnumerable<TEntity> entities);
+        void Add(TWrapper entity);
+        void AddRange(IEnumerable<TWrapper> entities);
+
+        void Delete(TWrapper entity);
+        void DeleteRange(IEnumerable<TWrapper> entities);
     }
 }

@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="Prism, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.2.0\lib\net45\Prism.dll</HintPath>
       <Private>True</Private>
@@ -45,7 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\UnitsToGroupConverter.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="IProduct.cs" />
     <Compile Include="POCOs\Address.cs" />
     <Compile Include="POCOs\BankDetails.cs" />
     <Compile Include="POCOs\Company.cs" />
@@ -105,6 +108,7 @@
     <Compile Include="Wrappers\Custom\Functionality\ProductionUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ProductsUnitGroup.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ProductWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Functionality\ProjectUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ProjectWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\RegionWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\SalesUnitWrapper.cs" />

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.DataAccess;
+using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Model.Wrappers;
 using HVTApp.Services.GetEquipmentService;
 
@@ -20,7 +21,7 @@ namespace HVTApp.Services.GetProductService
             var groups = _unitOfWork.ParametersGroups.GetAll().Select(x => x.Model).ToList();
             var products = _unitOfWork.Parts.GetAll().Select(x => x.Model).ToList();
             var equipments = _unitOfWork.Products.GetAll().Select(x => x.Model).ToList();
-            var requiredDependentEquipmentsParameters = _unitOfWork.RequiredDependentEquipmentsParameters.GetAll().Select(x => x.Model).ToList();
+            var requiredDependentEquipmentsParameters = _unitOfWork.RequiredDependentProductssParameters.GetAll().Select(x => x.Model).ToList();
 
             EquipmentSelector equipmentSelector = new EquipmentSelector(groups, products, equipments, requiredDependentEquipmentsParameters, preSelectedProduct: templateEquipment?.Model);
             SelectEquipmentWindow window = new SelectEquipmentWindow {DataContext = equipmentSelector};

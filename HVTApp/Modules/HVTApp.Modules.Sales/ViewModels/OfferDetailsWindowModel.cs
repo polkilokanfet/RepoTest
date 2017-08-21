@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Windows.Input;
 using HVTApp.DataAccess;
+using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;

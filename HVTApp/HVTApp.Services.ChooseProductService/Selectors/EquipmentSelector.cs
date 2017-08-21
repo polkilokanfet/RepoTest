@@ -14,7 +14,7 @@ namespace HVTApp.Services.GetProductService
         private readonly IEnumerable<ParameterGroup> _groups;
         private readonly IList<Part> _products;
         private readonly IList<Product> _equipments;
-        private readonly IEnumerable<RequiredDependentEquipmentsParameters> _requiredDependentEquipmentsParametersList;
+        private readonly IEnumerable<RequiredDependentProductsParameters> _requiredDependentEquipmentsParametersList;
 
         private Product _selectedProduct;
 
@@ -25,14 +25,14 @@ namespace HVTApp.Services.GetProductService
         public EquipmentSelector(IEnumerable<ParameterGroup> groups, 
                                  IList<Part> products, 
                                  IList<Product> equipments, 
-                                 IEnumerable<RequiredDependentEquipmentsParameters> requiredDependentEquipmentsParametersList, 
+                                 IEnumerable<RequiredDependentProductsParameters> requiredDependentEquipmentsParametersList, 
                                  IEnumerable<Parameter> requiredProductsParameters = null,
                                  Product preSelectedProduct = null)
         {
             _groups = new List<ParameterGroup>(groups);
             _products = products;
             _equipments = equipments;
-            _requiredDependentEquipmentsParametersList = new List<RequiredDependentEquipmentsParameters>(requiredDependentEquipmentsParametersList);
+            _requiredDependentEquipmentsParametersList = new List<RequiredDependentProductsParameters>(requiredDependentEquipmentsParametersList);
 
             //продукт
             ProductSelector = new ProductSelector(_groups.Select(x => x.Parameters), _products, requiredProductsParameters, preSelectedProduct?.Part);
@@ -80,7 +80,7 @@ namespace HVTApp.Services.GetProductService
         /// <summary>
         /// Параметры, необходимые зависимому оборудованию
         /// </summary>
-        IEnumerable<RequiredDependentEquipmentsParameters> RequiredDependentEquipmentsParameterses => _requiredDependentEquipmentsParametersList
+        IEnumerable<RequiredDependentProductsParameters> RequiredDependentEquipmentsParameterses => _requiredDependentEquipmentsParametersList
             .Where(x => x.MainProductParameters.AllContainsIn(ProductSelector.SelectedParameters));
 
         private void RefreshDependentEquipments()

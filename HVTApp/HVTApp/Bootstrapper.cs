@@ -4,6 +4,7 @@ using Prism.Unity;
 using HVTApp.Views;
 using System.Windows;
 using HVTApp.DataAccess;
+using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.AuthenticationService;
