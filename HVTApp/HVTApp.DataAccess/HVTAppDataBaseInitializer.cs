@@ -36,9 +36,9 @@ namespace HVTApp.DataAccess
             context.RequiredDependentEquipmentsParameterses.AddRange(new[] { testData.RequiredChildProductParametersBreakerBlock, testData.RequiredChildProductParametersDrive });
             context.Products.AddRange(new[] { testData.ProductVeb110, testData.ProductZng110, testData.ProductBreakersDrive });
 
-            context.Projects.Add(testData.Project3);
-            context.ProductionUnits.Add(testData.ProductionUnit1);
-            context.SalesUnits.Add(testData.SalesUnit1);
+            //context.Projects.Add(testData.Project3);
+            //context.ProductionUnits.Add(testData.ProductionUnit1);
+            //context.SalesUnits.Add(testData.SalesUnit1);
             context.Projects.AddRange(new[] { testData.Project1, testData.Project2 });
             context.Tenders.Add(testData.TenderMrsk);
             context.Documents.Add(testData.DocumentOfferMrsk);
