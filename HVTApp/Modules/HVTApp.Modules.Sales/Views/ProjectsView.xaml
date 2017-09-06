@@ -4,28 +4,35 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns:infg="http://infragistics.com/DataPresenter" 
+             xmlns:converters="clr-namespace:HVTApp.Modules.Sales.Converter"
              x:Class="HVTApp.Modules.Sales.Views.ProjectsView"
              prism:ViewModelLocator.AutoWireViewModel="True">
-
+    
+    <Control.Resources>
+        <converters:ProjectToFacilitiesNamesStringConverter x:Key="FacilitiesNamesStringConverter"/>
+    </Control.Resources>
+    
         <infg:XamDataGrid Name="ProjectsDataGrid">
 
             <infg:XamDataGrid.FieldLayouts>
                 <infg:FieldLayout Key="Project">
                     <infg:FieldLayout.Fields>
-                        <infg:Field Name="FacilitiesNames" Label="Объекты"/>
+                        <!--<infg:Field Name="FacilitiesNames" Label="Объекты"/>-->
+                        <!--<infg:Field Label="Объекты" DataContext="{Binding RelativeSource={RelativeSource Self}}" ValueToTextConverter="{StaticResource FacilitiesNamesStringConverter}"/>-->
                         <infg:Field Name="Name" Label="Название проекта"/>
                         <infg:Field Name="Sum" Label="Сумма проекта без НДС, руб."/>
+                        <!--<infg:Field Name="{Binding RelativeSource={RelativeSource Self}}" Label="Объекты" ValueToTextConverter="{StaticResource FacilitiesNamesStringConverter}"/>-->
 
-                        <infg:Field Name="ProductsUnitGroups" IsExpandable="True" IsPrimary="True"/>
+                        <!--<infg:Field Name="ProductsUnitGroups" IsExpandable="True" IsPrimary="True"/>-->
                     </infg:FieldLayout.Fields>
                 </infg:FieldLayout>
 
-                <infg:FieldLayout Key="ProductsUnitGroup" ParentFieldLayoutKey="Project" ParentFieldName="ProductsUnitGroups">
+                <!--<infg:FieldLayout Key="ProductsUnitGroup" ParentFieldLayoutKey="Project" ParentFieldName="ProductsUnitGroups">
                     <infg:FieldLayout.Fields>
                         <infg:TextField Name="ProductName" Label="Обозначение"/>
                         <infg:NumericField Name="Count" Label="Количество"/>
                     </infg:FieldLayout.Fields>
-                </infg:FieldLayout>
+                </infg:FieldLayout>-->
             </infg:XamDataGrid.FieldLayouts>
 
         </infg:XamDataGrid>

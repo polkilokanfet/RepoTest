@@ -107,7 +107,7 @@
     <Compile Include="Wrappers\Custom\Functionality\PaymentWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ProductionUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ProductsUnitGroup.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\ProductWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Functionality\PartWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ProjectUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ProjectWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\RegionWrapper.cs" />

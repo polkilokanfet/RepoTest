@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -63,7 +64,7 @@ namespace HVTApp.Model.Tests.WrapperTests
         //}
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(TargetInvocationException))]
         public void ShouldThrowArgumentExceptionIfEmailsCollectionIsNull()
         {
             try
@@ -71,9 +72,9 @@ namespace HVTApp.Model.Tests.WrapperTests
                 _testFriend.Emails = null;
                 var wrapper = new TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
             }
-            catch (ArgumentException ex)
+            catch (TargetInvocationException ex)
             {
-                Assert.AreEqual("Emails cannot be null", ex.Message);
+                Assert.AreEqual("Emails cannot be null", ex.InnerException.Message);
                 throw;
             }
         }

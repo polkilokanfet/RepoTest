@@ -10,8 +10,7 @@ namespace HVTApp.Services.GetProductService
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool val = (bool) value;
-            if (val) return System.Windows.Visibility.Visible;
-            return System.Windows.Visibility.Collapsed;
+            return val ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

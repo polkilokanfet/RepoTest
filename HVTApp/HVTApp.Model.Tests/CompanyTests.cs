@@ -1,13 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using AutoFixture.AutoEF;
-using HVTApp.DataAccess;
-using HVTApp.Model.POCOs;
+﻿using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Ploeh.AutoFixture;
-using Ploeh.AutoFixture.Kernel;
 
 namespace HVTApp.Model.Tests
 {

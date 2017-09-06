@@ -8,7 +8,7 @@ using HVTApp.TestDataGenerator;
 
 namespace HVTApp.DataAccess
 {
-    public class HvtAppDataBaseInitializer : DropCreateDatabaseAlways<HVTAppContext> //DropCreateDatabaseIfModelChanges<HVTAppContext>
+    public class HvtAppDataBaseInitializer : DropCreateDatabaseIfModelChanges<HVTAppContext>
     {
         protected override void Seed(HVTAppContext context)
         {
