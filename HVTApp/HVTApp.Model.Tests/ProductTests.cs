@@ -1,4 +1,4 @@
-п»їusing System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoFixture.AutoEF;
@@ -13,87 +13,39 @@ namespace HVTApp.Model.Tests
     [TestClass]
     public class ProductTests
     {
-        private Fixture _fixture;
-        private Part _partItem1, _partItem2, _partItem3, _partItem4;
-
-        [TestInitialize]
-        public void InitializeMethod()
-        {
-            _fixture = new Fixture();
-
-            _fixture.Customize(new EntityCustomization(new DbContextEntityTypesProvider(typeof(HVTAppContext))));
-
-            //РѕС‚РєР»СЋС‡Р°РµРј РїРѕРІРµРґРµРЅРёРµ - Р±СЂРѕСЃР°С‚СЊ РѕС€РёР±РєСѓ РїСЂРё РѕР±РЅР°СЂСѓР¶РµРЅРёРё С†РёРєР»РёС‡РµСЃРєРѕР№ СЃРІСЏР·Рё
-            _fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList().ForEach(b => _fixture.Behaviors.Remove(b));
-            //РїРѕРґРєР»СЋС‡Р°РµРј РїРѕРІРµРґРµРЅРёРµ - РѕСЃС‚Р°РЅР°РІР»РёРІР°С‚СЊСЃСЏ РЅР° СЃС‚Р°РЅРґР°СЂС‚РЅРѕР№ РіР»СѓР±РёРЅРµ СЂРµРєСѓСЂСЃРёРё
-            _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
-
-            _fixture.Customize<ParameterGroup>(p => p.With(x => x.Parameters, new List<Parameter>()));
-
-
-            Parameter parameter1 = new Parameter { Value = "parameter1" };
-            Parameter parameter2 = new Parameter { Value = "parameter2" };
-            Parameter parameter3 = new Parameter { Value = "parameter3" };
-            Parameter parameter4 = new Parameter { Value = "parameter4" };
-            Parameter parameter5 = new Parameter { Value = "parameter5" };
-            Parameter parameter6 = new Parameter { Value = "parameter6" };
-            Parameter parameter7 = new Parameter { Value = "parameter7" };
-
-            _partItem1 = new Part { Designation = "ProductItem1", Parameters = new List<Parameter> { parameter1, parameter2 } };
-            _partItem2 = new Part { Designation = "ProductItem2", Parameters = new List<Parameter> { parameter3, parameter4 } };
-            _partItem3 = new Part { Designation = "ProductItem3", Parameters = new List<Parameter> { parameter5, parameter6 } };
-            _partItem4 = new Part { Designation = "ProductItem4", Parameters = new List<Parameter> { parameter7 } };
-        }
-
         [TestMethod]
-        public void ProductTotalPriceTest()
+        public void ProductPriceTest()
         {
-            var wrappersFactory = new Factory.TestWrappersFactory();
+            var factory = new Factory.TestWrappersFactory();
 
-            var equipment = _fixture.Build<Product>().Create();
-            var equipmentParent = wrappersFactory.GetWrapper<ProductWrapper>(equipment);
-            equipmentParent.TotalPriceDate = equipmentParent.Part.Prices[1].Date;
+            ProductWrapper productMain = factory.GetWrapper<ProductWrapper>(new Product {Part = new Part()});
 
-            Assert.IsTrue(Math.Abs(equipmentParent.TotalPrice - equipmentParent.Part.Prices[1].Cost) < 0.0001);
+            //ловим ошибку при пустом списке себистоимостей в главном продукте
+            try
+            {
+                productMain.GetPrice();
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreSame(e.Message, "Нет себистоимости для этой даты (или для более ранней даты)");
+            }
 
-            var equipmentChild1 = wrappersFactory.GetWrapper<ProductWrapper>(_fixture.Create<Product>());
-            equipmentChild1.Part.Prices[1].Date = equipmentParent.Part.Prices[1].Date;
-            equipmentParent.DependentProducts.Add(equipmentChild1);
+            //добавляем стоимость главного продукта
+            productMain.Part.Prices.Add(factory.GetWrapper<CostOnDateWrapper>(new CostOnDate {Date = DateTime.Today.AddDays(-1), Cost = 10}));
+            Assert.AreEqual(productMain.GetPrice(), 10);
 
-            var equipmentChild2 = wrappersFactory.GetWrapper<ProductWrapper>(_fixture.Create<Product>());
-            equipmentChild2.Part.Prices[1].Date = equipmentParent.Part.Prices[1].Date;
-            equipmentParent.DependentProducts.Add(equipmentChild2);
+            //добавляем стоимость дочернего продукта
+            ProductWrapper productChild1 = factory.GetWrapper<ProductWrapper>(new Product { Part = new Part() });
+            productChild1.Part.Prices.Add(factory.GetWrapper<CostOnDateWrapper>(new CostOnDate { Date = DateTime.Today.AddDays(-1), Cost = 10 }));
+            productMain.DependentProducts.Add(productChild1);
+            Assert.AreEqual(productMain.GetPrice(), 20);
 
-
-            var totalSum =  equipmentParent.Part.Prices[1].Cost + 
-                            equipmentChild1.Part.Prices[1].Cost + 
-                            equipmentChild2.Part.Prices[1].Cost;
-            Assert.IsTrue(Math.Abs(equipmentParent.TotalPrice - totalSum) < 0.0001);
-
-            var productChild3 = wrappersFactory.GetWrapper<ProductWrapper>(_fixture.Create<Product>());
-            productChild3.Part.Prices[1].Date = equipmentParent.Part.Prices[1].Date;
-            equipmentParent.DependentProducts.Add(productChild3);
-
-            totalSum += productChild3.Part.Prices[1].Cost;
-            Assert.IsTrue(Math.Abs(equipmentParent.TotalPrice - totalSum) < 0.0001);
+            //добавляем стоимость дочернего продукта к дочернему продукту
+            ProductWrapper productChild2 = factory.GetWrapper<ProductWrapper>(new Product { Part = new Part() });
+            productChild2.Part.Prices.Add(factory.GetWrapper<CostOnDateWrapper>(new CostOnDate { Date = DateTime.Today.AddDays(-1), Cost = 10 }));
+            productChild1.DependentProducts.Add(productChild2);
+            Assert.AreEqual(productMain.GetPrice(), 30);
         }
 
-        [TestMethod]
-        public void ProductItemsSameParametersTest()
-        {
-            var wrappersFactory = new Factory.TestWrappersFactory();
-
-            PartWrapper partItemWrapper1 = wrappersFactory.GetWrapper<PartWrapper> (_partItem1);
-            PartWrapper partItemWrapper2 = wrappersFactory.GetWrapper<PartWrapper> (_partItem2);
-
-            Assert.IsFalse(partItemWrapper1.HasSameParameters(partItemWrapper2));
-
-            var pl1 = new List<ParameterWrapper>(partItemWrapper1.Parameters);
-            var pl2 = new List<ParameterWrapper>(partItemWrapper2.Parameters);
-            pl2.ForEach(partItemWrapper1.Parameters.Add);
-            pl1.ForEach(partItemWrapper2.Parameters.Add);
-
-            Assert.IsTrue(partItemWrapper1.HasSameParameters(partItemWrapper2));
-        }
     }
 }

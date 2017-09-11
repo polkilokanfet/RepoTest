@@ -1,5 +1,4 @@
 using System.Linq;
-using HVTApp.Model.POCOs;
 
 namespace HVTApp.Model.Wrappers
 {

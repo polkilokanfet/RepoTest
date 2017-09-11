@@ -24,7 +24,7 @@ namespace HVTApp.DataAccess
             if (result != null) return result;
 
             result = GetWrapper(new Part { Parameters = new List<Parameter>(prmtrs.Select(x => x.Model)) });
-            result.Designation = result.ParametersToString;
+            result.Designation = result.ToString();
             return result;
         }
     }

@@ -11,21 +11,13 @@ namespace HVTApp.Model.Wrappers
             return !this.Parameters.Except(partItem.Parameters).Any();
         }
 
-        public string ParametersToString
+        //—ебестоимость по дате
+        public double GetPrice(DateTime? date = null)
         {
-            get
-            {
-                string result = string.Empty;
-                foreach (var parameter in Parameters)
-                    result = $"{result}; {parameter.Group.Name}: {parameter.Value}";
-                return result.Remove(0, 2);
-            }
-        }
-
-        public override string ToString()
-        {
-            if (!String.IsNullOrEmpty(Designation)) return Designation;
-            return ParametersToString;
+            DateTime targetDate = date ?? DateTime.Today;
+            var prices = Prices.Where(x => x.Date <= targetDate).OrderBy(x => x.Date);
+            if (!prices.Any()) throw new ArgumentException("Ќет себистоимости дл€ этой даты (или дл€ более ранней даты)");
+            return prices.Last().Cost;
         }
     }
 }

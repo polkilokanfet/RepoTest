@@ -11,7 +11,7 @@ namespace HVTApp.Model.Wrappers
     {
         protected override void RunInConstructor()
         {
-            this.PropertyChanged += MarginalIncomeOnPropertyChanged;
+            this.PropertyChanged += OnMarginalIncomeOnPropertyChanged;
             this.PropertyChanged += OnMarginalIncomeInPercentChanged;
             this.PropertyChanged += OnSpecificationChanged;
 
@@ -47,7 +47,7 @@ namespace HVTApp.Model.Wrappers
             ReloadPaymentsPlannedLight();
         }
 
-        private void MarginalIncomeOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void OnMarginalIncomeOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName != nameof(MarginalIncomeDate)) return;
 
@@ -59,7 +59,7 @@ namespace HVTApp.Model.Wrappers
         private void OnMarginalIncomeInPercentChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(MarginalIncomeInPercent))
-                Cost = ProductionUnit.Product.GetTotalPrice(MarginalIncomeDate) / (1 - MarginalIncomeInPercent / 100);
+                Cost = ProductionUnit.Product.GetPrice(MarginalIncomeDate) / (1 - MarginalIncomeInPercent / 100);
         }
 
         private void OnSpecificationChanged(object sender, PropertyChangedEventArgs e)
@@ -210,15 +210,7 @@ namespace HVTApp.Model.Wrappers
 
         #region Dates
 
-        public DateTime OrderInTakeDate
-        {
-            get
-            {
-                //по дате запуска производства
-                if (ProductionUnit.StartProductionDate.HasValue) return ProductionUnit.StartProductionDate.Value;
-                return ProductionUnit.StartProductionDateCalculated;
-            }
-        }
+        public DateTime OrderInTakeDate => ProductionUnit.StartProductionDate ?? ProductionUnit.StartProductionDateCalculated;
 
         //дата достижения суммы
         private DateTime? AchiveSumDate(double sumToAchive)
@@ -249,14 +241,7 @@ namespace HVTApp.Model.Wrappers
         /// <summary>
         /// Расчетная дата реализации.
         /// </summary>
-        public DateTime RealizationDateCalculated
-        {
-            get
-            {
-                if (RealizationDate.HasValue) return RealizationDate.Value;
-                return ShipmentUnit.DeliveryDateCalculated;
-            }
-        }
+        public DateTime RealizationDateCalculated => RealizationDate ?? ShipmentUnit.DeliveryDateCalculated;
 
         #endregion
 
@@ -279,7 +264,7 @@ namespace HVTApp.Model.Wrappers
         /// <summary>
         /// Маржинальный доход единицы
         /// </summary>
-        public double MarginalIncome => Cost - ProductionUnit.Product.GetTotalPrice(MarginalIncomeDate);
+        public double MarginalIncome => Cost - ProductionUnit.Product.GetPrice(MarginalIncomeDate);
 
         private double _marginalIncomeInPercent;
 
