@@ -55,6 +55,7 @@
       <HintPath>..\packages\AutoFixture.3.50.2\lib\net40\Ploeh.AutoFixture.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
@@ -100,7 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.DataAccess.Infrastructure\HVTApp.DataAccess.Infrastructure.csproj">
-      <Project>{8ED995B6-B4A2-4B85-9057-69CACF5BBD51}</Project>
+      <Project>{8ed995b6-b4a2-4b85-9057-69cacf5bbd51}</Project>
       <Name>HVTApp.DataAccess.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\HVTApp.DataAccess\HVTApp.DataAccess.csproj">

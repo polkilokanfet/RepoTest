@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoFixture.AutoEF;
-using HVTApp.DataAccess;
+п»їusing System;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Ploeh.AutoFixture;
 
 namespace HVTApp.Model.Tests
 {
@@ -20,27 +15,27 @@ namespace HVTApp.Model.Tests
 
             ProductWrapper productMain = factory.GetWrapper<ProductWrapper>(new Product {Part = new Part()});
 
-            //ловим ошибку при пустом списке себистоимостей в главном продукте
+            //Р»РѕРІРёРј РѕС€РёР±РєСѓ РїСЂРё РїСѓСЃС‚РѕРј СЃРїРёСЃРєРµ СЃРµР±РёСЃС‚РѕРёРјРѕСЃС‚РµР№ РІ РіР»Р°РІРЅРѕРј РїСЂРѕРґСѓРєС‚Рµ
             try
             {
                 productMain.GetPrice();
             }
             catch (ArgumentException e)
             {
-                Assert.AreSame(e.Message, "Нет себистоимости для этой даты (или для более ранней даты)");
+                Assert.AreSame(e.Message, "РќРµС‚ СЃРµР±РёСЃС‚РѕРёРјРѕСЃС‚Рё РґР»СЏ СЌС‚РѕР№ РґР°С‚С‹ (РёР»Рё РґР»СЏ Р±РѕР»РµРµ СЂР°РЅРЅРµР№ РґР°С‚С‹)");
             }
 
-            //добавляем стоимость главного продукта
+            //РґРѕР±Р°РІР»СЏРµРј СЃС‚РѕРёРјРѕСЃС‚СЊ РіР»Р°РІРЅРѕРіРѕ РїСЂРѕРґСѓРєС‚Р°
             productMain.Part.Prices.Add(factory.GetWrapper<CostOnDateWrapper>(new CostOnDate {Date = DateTime.Today.AddDays(-1), Cost = 10}));
             Assert.AreEqual(productMain.GetPrice(), 10);
 
-            //добавляем стоимость дочернего продукта
+            //РґРѕР±Р°РІР»СЏРµРј СЃС‚РѕРёРјРѕСЃС‚СЊ РґРѕС‡РµСЂРЅРµРіРѕ РїСЂРѕРґСѓРєС‚Р°
             ProductWrapper productChild1 = factory.GetWrapper<ProductWrapper>(new Product { Part = new Part() });
             productChild1.Part.Prices.Add(factory.GetWrapper<CostOnDateWrapper>(new CostOnDate { Date = DateTime.Today.AddDays(-1), Cost = 10 }));
             productMain.DependentProducts.Add(productChild1);
             Assert.AreEqual(productMain.GetPrice(), 20);
 
-            //добавляем стоимость дочернего продукта к дочернему продукту
+            //РґРѕР±Р°РІР»СЏРµРј СЃС‚РѕРёРјРѕСЃС‚СЊ РґРѕС‡РµСЂРЅРµРіРѕ РїСЂРѕРґСѓРєС‚Р° Рє РґРѕС‡РµСЂРЅРµРјСѓ РїСЂРѕРґСѓРєС‚Сѓ
             ProductWrapper productChild2 = factory.GetWrapper<ProductWrapper>(new Product { Part = new Part() });
             productChild2.Part.Prices.Add(factory.GetWrapper<CostOnDateWrapper>(new CostOnDate { Date = DateTime.Today.AddDays(-1), Cost = 10 }));
             productChild1.DependentProducts.Add(productChild2);

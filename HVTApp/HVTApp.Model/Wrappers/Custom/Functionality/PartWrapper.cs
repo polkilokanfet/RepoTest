@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Linq;
 
 namespace HVTApp.Model.Wrappers
@@ -11,12 +11,12 @@ namespace HVTApp.Model.Wrappers
             return !this.Parameters.Except(partItem.Parameters).Any();
         }
 
-        //Себестоимость по дате
+        //РЎРµР±РµСЃС‚РѕРёРјРѕСЃС‚СЊ РїРѕ РґР°С‚Рµ
         public double GetPrice(DateTime? date = null)
         {
             DateTime targetDate = date ?? DateTime.Today;
             var prices = Prices.Where(x => x.Date <= targetDate).OrderBy(x => x.Date);
-            if (!prices.Any()) throw new ArgumentException("Нет себистоимости для этой даты (или для более ранней даты)");
+            if (!prices.Any()) throw new ArgumentException("РќРµС‚ СЃРµР±РёСЃС‚РѕРёРјРѕСЃС‚Рё РґР»СЏ СЌС‚РѕР№ РґР°С‚С‹ (РёР»Рё РґР»СЏ Р±РѕР»РµРµ СЂР°РЅРЅРµР№ РґР°С‚С‹)");
             return prices.Last().Cost;
         }
     }

@@ -90,7 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converter\ProjectUnitListConverter.cs" />
-    <Compile Include="Converter\ProjectToFacilitiesNamesStringConverter.cs" />
+    <Compile Include="Converter\ProjectUnitWrappersToFacilitiesNamesStringConverter.cs" />
     <Compile Include="Menus\SalesMenu.xaml.cs">
       <DependentUpon>SalesMenu.xaml</DependentUpon>
     </Compile>

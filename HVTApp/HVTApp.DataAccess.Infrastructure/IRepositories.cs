@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
+using HVTApp.DataAccess.Infrastructure;
 
 namespace HVTApp.DataAccess.Infrastructure
 {
