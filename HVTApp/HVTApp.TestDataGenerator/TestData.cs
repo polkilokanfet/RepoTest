@@ -108,7 +108,10 @@ namespace HVTApp.TestDataGenerator
         public ProjectUnit ProjectUnitZng1101;
         public ProjectUnit ProjectUnitZng1102;
         public ProjectUnit ProjectUnitZng1103;
-                
+        public ProjectUnit ProjectUnitZng1104;
+        public ProjectUnit ProjectUnitZng1105;
+        public ProjectUnit ProjectUnitZng1106;
+
         public ProductionUnit ProductionUnitVeb1101;
         public ProductionUnit ProductionUnitVeb1102;
         public ProductionUnit ProductionUnitZng1101;
@@ -517,6 +520,10 @@ namespace HVTApp.TestDataGenerator
             ProjectUnitZng1101.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project1, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
             ProjectUnitZng1102.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project1, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
             ProjectUnitZng1103.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project1, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
+
+            ProjectUnitZng1104.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project2, Facility = FacilitySubstation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitZng1105.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project2, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitZng1106.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project2, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
         }
 
         private void GenerateContracts()

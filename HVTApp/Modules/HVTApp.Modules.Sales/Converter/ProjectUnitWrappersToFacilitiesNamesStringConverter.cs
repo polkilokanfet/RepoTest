@@ -40,10 +40,18 @@ namespace HVTApp.Modules.Sales.Converter
             var projectUnits = value as IEnumerable<ProjectUnitWrapper>;
             if (projectUnits == null) throw new ArgumentException();
 
+            var groups = projectUnits.GroupBy(x => new {x.Product, x.Facility, x.Cost});
+
             List<ProjectUnitsGroup> projectUnitsGroups = new List<ProjectUnitsGroup>();
-            foreach (var unit in projectUnits)
+            foreach (var group in groups)
             {
-                projectUnitsGroups.Add(new ProjectUnitsGroup() {Product = unit.Product, Count = 2});
+                projectUnitsGroups.Add(new ProjectUnitsGroup
+                {
+                    Facility = group.Key.Facility,
+                    Product = group.Key.Product,
+                    Count = group.Count(),
+                    Cost = group.Key.Cost
+                });
             }
             return projectUnitsGroups;
         }
@@ -56,7 +64,9 @@ namespace HVTApp.Modules.Sales.Converter
 
     public class ProjectUnitsGroup
     {
+        public FacilityWrapper Facility { get; set; }
         public ProductWrapper Product { get; set; }
         public int Count { get; set; }
+        public double Cost { get; set; }
     }
 }
