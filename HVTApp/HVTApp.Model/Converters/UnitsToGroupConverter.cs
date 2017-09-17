@@ -7,12 +7,12 @@ using HVTApp.Model.Wrappers;
 
 namespace HVTApp.Model.Converters
 {
-    [ValueConversion(typeof(IEnumerable<IProduct>), typeof(IEnumerable<GroupUnit>))]
+    [ValueConversion(typeof(IEnumerable<IProductUnit>), typeof(IEnumerable<GroupUnit>))]
     public class UnitsToGroupConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var source = value as IEnumerable<IProduct>;
+            var source = value as IEnumerable<IProductUnit>;
             if (source == null) throw new ArgumentException("Передан неверный тип.");
 
             var groups = source.GroupBy(x => x.Product).ToList();

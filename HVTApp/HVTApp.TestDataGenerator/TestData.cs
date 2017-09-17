@@ -314,37 +314,8 @@ namespace HVTApp.TestDataGenerator
         private void GenerateProjects()
         {
             Project1.Clone(new Project { Name = "Реконструкция ПС Первая", Manager = UserIvanov, Offers= new List<Offer> {OfferMrsk}, ProjectUnits = new List<ProjectUnit> {ProjectUnitVeb1101, ProjectUnitVeb1102, ProjectUnitZng1101, ProjectUnitZng1102, ProjectUnitZng1103}, Tenders = new List<Tender> {TenderMrsk} });
-            Project2.Clone(new Project { Name = "Строительство Свердловской ТЭЦ", Manager = UserIvanov });
-
-            //DateTime today = DateTime.Today;
-            //Project3.Clone(new Project { Manager = UserIvanov, Name = "Third project"});
-            //Tender tender = new Tender { Project = Project3, Winner = CompanyUetm, Sum = 100, Type = TenderTypeProject, DateOpen = today, DateClose = today};
-            //tender.Participants.AddRange(new[] {CompanyEnel, CompanyUetm});
-            //Project3.Tenders.Add(tender);
-            //Offer offer = new Offer {Document = new Document(), Vat = 0.18, ValidityDate = today};
-            //tender.Offers.Add(offer);
-
-            //ProjectUnit projectUnit1 = new ProjectUnit { Facility = FacilitySubstation, Product = ProductVeb110, Project = Project3, RequiredDeliveryDate = today };
-            //ProjectUnit projectUnit2 = new ProjectUnit { Facility = FacilitySubstation, Product = ProductVeb110, Project = Project3, RequiredDeliveryDate = today };
-            //Project3.ProjectUnits.AddRange(new[] {projectUnit1, projectUnit2});
-
-            //TenderUnit tenderUnit1 = new TenderUnit { Product = ProductVeb110, Tender = tender, ProjectUnit = projectUnit1, DeliveryDate = today, ProducerWinner = CompanyUetm };
-            //TenderUnit tenderUnit2 = new TenderUnit { Product = ProductVeb110, Tender = tender, ProjectUnit = projectUnit2, DeliveryDate = today, ProducerWinner = CompanyUetm };
-            //tender.TenderUnits.AddRange(new[] {tenderUnit1, tenderUnit2} );
-
-
-            //OfferUnit offerUnit1 = new OfferUnit { Product = ProductVeb110, Offer = offer, TenderUnit = tenderUnit1, ProjectUnit = projectUnit1 };
-            //OfferUnit offerUnit2 = new OfferUnit { Product = ProductVeb110, Offer = offer, TenderUnit = tenderUnit2, ProjectUnit = projectUnit2 };
-            //offer.OfferUnits.AddRange(new[] {offerUnit1, offerUnit2} );
-
-            //ProductionUnit1 = new ProductionUnit {Product = ProductVeb110};
-            //ShipmentUnit1 = new ShipmentUnit {Address = AddressOfStation};
-            //SalesUnit1 = new SalesUnit {OfferUnit = offerUnit1, ProductionUnit = ProductionUnit1, ShipmentUnit = ShipmentUnit1 };
+            Project2.Clone(new Project { Name = "Строительство Свердловской ТЭЦ", Manager = UserIvanov, ProjectUnits = new List<ProjectUnit> { ProjectUnitZng1104, ProjectUnitZng1105, ProjectUnitZng1106 } });
         }
-
-        //public ProductionUnit ProductionUnit1;
-        //public ShipmentUnit ShipmentUnit1;
-        //public SalesUnit SalesUnit1;
 
         private void GenerateFacilityTypes()
         {

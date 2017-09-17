@@ -9,8 +9,8 @@
              prism:ViewModelLocator.AutoWireViewModel="True">
 
     <Control.Resources>
-        <converters:ProjectUnitWrappersToFacilitiesNamesStringConverter x:Key="FacilitiesNamesStringConverter"/>
-        <converters:ProjectUnitWrappersToGroupsConverter x:Key="ProjectUnitWrappersToGroupsConverter"/>
+        <converters:ProductUnitsToFacilitiesNamesConverter x:Key="FacilitiesNamesStringConverter"/>
+        <converters:ProductUnitsToProductGroupsConverter x:Key="ProductGroupsConverter"/>
     </Control.Resources>
 
     <infg:XamDataGrid Name="ProjectsDataGrid">
@@ -22,11 +22,11 @@
                     <infg:TextField Name="Name" Label="Название проекта"/>
                     <infg:Field Name="Sum" Label="Стоимость без НДС, руб."/>
 
-                    <infg:Field Name="ProjectUnits" IsExpandable="True" IsPrimary="True" Converter="{StaticResource ProjectUnitWrappersToGroupsConverter}"/>
+                    <infg:Field Name="ProjectUnits" IsExpandable="True" IsPrimary="True" Converter="{StaticResource ProductGroupsConverter}"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
-            <infg:FieldLayout Key="ProjectUnitsGroup" ParentFieldLayoutKey="Project" ParentFieldName="ProjectUnits">
+            <infg:FieldLayout Key="ProductUnitsGroup" ParentFieldLayoutKey="Project" ParentFieldName="ProjectUnits">
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Facility" Label="Объект"/>
                     <infg:TextField Name="Product" Label="Оборудование"/>

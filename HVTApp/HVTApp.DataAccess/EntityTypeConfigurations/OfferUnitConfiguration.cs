@@ -11,7 +11,6 @@ namespace HVTApp.DataAccess
             HasRequired(x => x.Offer).WithMany(x => x.OfferUnits);
 
             HasOptional(x => x.ProjectUnit).WithMany();
-            HasOptional(x => x.TenderUnit).WithMany();
 
             Property(x => x.Cost).IsRequired();
             HasMany(x => x.PaymentsConditions).WithMany();

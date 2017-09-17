@@ -1,7 +1,5 @@
-﻿using HVTApp.DataAccess;
-using HVTApp.DataAccess.Infrastructure;
+﻿using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
-using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using HVTApp.Modules.Infrastructure;
 using Microsoft.Practices.Unity;

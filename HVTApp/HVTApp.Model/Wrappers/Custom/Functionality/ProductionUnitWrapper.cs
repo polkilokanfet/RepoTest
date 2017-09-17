@@ -22,7 +22,7 @@ namespace HVTApp.Model.Wrappers
                     //по дате реализации проекта
                     if (SalesUnit.OfferUnit.ProjectUnit != null)
                         return SalesUnit.OfferUnit.ProjectUnit.RequiredDeliveryDate.AddDays(-PlannedTermFromStartToEndProduction).GetTodayIfDateFromPastAndSkipWeekend();
-                    return SalesUnit.OfferUnit.TenderUnit.ProjectUnit.RequiredDeliveryDate.AddDays(-PlannedTermFromStartToEndProduction).GetTodayIfDateFromPastAndSkipWeekend();
+                    throw new NotImplementedException();
                 }
                 throw new NotImplementedException();
             }

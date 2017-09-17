@@ -89,8 +89,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converter\ProjectUnitListConverter.cs" />
-    <Compile Include="Converter\ProjectUnitWrappersToFacilitiesNamesStringConverter.cs" />
+    <Compile Include="Converter\ProductUnitsGroup.cs" />
+    <Compile Include="Converter\ProductUnitsToFacilitiesNamesConverter.cs" />
+    <Compile Include="Converter\ProductUnitsToProductGroupsConverter.cs" />
     <Compile Include="Menus\SalesMenu.xaml.cs">
       <DependentUpon>SalesMenu.xaml</DependentUpon>
     </Compile>
@@ -112,34 +113,34 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ViewModels\ContractDetailsViewModel.cs" />
-    <Compile Include="ViewModels\ContractsViewModel.cs" />
+    <Compile Include="ViewModels\EntityDetails\ContractDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Entities\ContractsViewModel.cs" />
     <Compile Include="ViewModels\MarketViewModel.cs" />
-    <Compile Include="ViewModels\OfferDetailsWindowModel.cs" />
-    <Compile Include="ViewModels\OffersViewModel.cs" />
-    <Compile Include="ViewModels\ProjectDetailsViewModel.cs" />
-    <Compile Include="ViewModels\ProjectsViewModel.cs" />
-    <Compile Include="ViewModels\TenderDetailsViewModel.cs" />
-    <Compile Include="ViewModels\TendersViewModel.cs" />
-    <Compile Include="Views\ContractsView.xaml.cs">
+    <Compile Include="ViewModels\EntityDetails\OfferDetailsWindowModel.cs" />
+    <Compile Include="ViewModels\Entities\OffersViewModel.cs" />
+    <Compile Include="ViewModels\EntityDetails\ProjectDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Entities\ProjectsViewModel.cs" />
+    <Compile Include="ViewModels\EntityDetails\TenderDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Entities\TendersViewModel.cs" />
+    <Compile Include="Views\Entities\ContractsView.xaml.cs">
       <DependentUpon>ContractsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OfferDetailsWindow.xaml.cs">
+    <Compile Include="Views\EntityDetails\OfferDetailsWindow.xaml.cs">
       <DependentUpon>OfferDetailsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OffersView.xaml.cs">
+    <Compile Include="Views\Entities\OffersView.xaml.cs">
       <DependentUpon>OffersView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PaymentsView.xaml.cs">
+    <Compile Include="Views\Entities\PaymentsView.xaml.cs">
       <DependentUpon>PaymentsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ProjectsView.xaml.cs">
+    <Compile Include="Views\Entities\ProjectsView.xaml.cs">
       <DependentUpon>ProjectsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TendersView.xaml.cs">
+    <Compile Include="Views\Entities\TendersView.xaml.cs">
       <DependentUpon>TendersView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Licenses.licx" />
@@ -196,7 +197,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ContractsView.xaml">
+    <Page Include="Views\Entities\ContractsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -204,23 +205,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\OfferDetailsWindow.xaml">
+    <Page Include="Views\EntityDetails\OfferDetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\OffersView.xaml">
+    <Page Include="Views\Entities\OffersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PaymentsView.xaml">
+    <Page Include="Views\Entities\PaymentsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ProjectsView.xaml">
+    <Page Include="Views\Entities\ProjectsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TendersView.xaml">
+    <Page Include="Views\Entities\TendersView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

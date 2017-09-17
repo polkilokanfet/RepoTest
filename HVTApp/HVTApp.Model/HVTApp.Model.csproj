@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="Converters\UnitsToGroupConverter.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="IProduct.cs" />
+    <Compile Include="IProductUnit.cs" />
     <Compile Include="POCOs\Units\AdditionalSalesUnits.cs" />
     <Compile Include="POCOs\Address.cs" />
     <Compile Include="POCOs\BankDetails.cs" />
@@ -104,7 +104,7 @@
     <Compile Include="Wrappers\Custom\Functionality\ContractWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\CountryWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\DistrictWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\IProduct.cs" />
+    <Compile Include="Wrappers\Custom\Functionality\OfferUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ProductWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\OfferWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ParameterWrapper.cs" />
@@ -117,6 +117,7 @@
     <Compile Include="Wrappers\Custom\Functionality\SalesUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\ShipmentUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\Functionality\SpecificationWrapper.cs" />
+    <Compile Include="Wrappers\Custom\Functionality\TenderUnitWrapper.cs" />
     <Compile Include="Wrappers\Custom\IProductWithCost.cs" />
     <Compile Include="Wrappers\Custom\Test\TestFriendAddressWrapper.cs" />
     <Compile Include="Wrappers\Custom\Test\TestFriendEmailWrapper.cs" />
