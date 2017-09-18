@@ -58,10 +58,11 @@ namespace HVTApp
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
             Container.RegisterType<ISelectService, SelectServiceRealization>(new ContainerControlledLifetimeManager());
 
-            Container.Resolve<ISelectService>().Register<CompaniesViewModel, CompaniesView, CompanyWrapper>();
-            Container.Resolve<ISelectService>().Register<ActivityFildsViewModel, ActivityFildsView, ActivityFieldWrapper>();
-            Container.Resolve<ISelectService>().Register<ProjectsViewModel, ProjectsView, ProjectWrapper>();
-            Container.Resolve<ISelectService>().Register<TendersViewModel, TendersView, TenderWrapper>();
+            ISelectService selectService = Container.Resolve<ISelectService>();
+            selectService.Register<CompaniesViewModel, CompaniesView, CompanyWrapper>();
+            selectService.Register<ActivityFildsViewModel, ActivityFildsView, ActivityFieldWrapper>();
+            selectService.Register<ProjectsViewModel, ProjectsView, ProjectWrapper>();
+            selectService.Register<TendersViewModel, TendersView, TenderWrapper>();
 
             DialogService dialogService = new DialogService((Window)Shell);
             Container.RegisterInstance(typeof(IDialogService), dialogService);

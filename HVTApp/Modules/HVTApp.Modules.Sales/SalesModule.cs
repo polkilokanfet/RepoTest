@@ -28,6 +28,7 @@ namespace HVTApp.Modules.Sales
             Container.RegisterViewForNavigation<PaymentsView>();
             Container.RegisterViewForNavigation<ContractsView>();
 
+            _dialogService.Register<ProjectDetailsViewModel, ProjectDetailsWindow>();
             _dialogService.Register<OfferDetailsWindowModel, OfferDetailsWindow>();
         }
 
