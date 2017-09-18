@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
-using HVTApp.DataAccess;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
-using HVTApp.Model;
-using HVTApp.Model.Wrappers;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -68,7 +65,8 @@ namespace HVTApp.Modules.Infrastructure
             }
             else
             {
-                SelectedItem.RejectChanges();
+                if (SelectedItem.IsChanged)
+                    SelectedItem.RejectChanges();
             }
         }
 

@@ -18,8 +18,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         private readonly ISelectService _selectService;
         private ActivityFieldWrapper _selectedActivityField;
 
-        public CompanyDetailsWindowModel(IUnitOfWork unitOfWork, ISelectService selectService, CompanyWrapper item) :
-            base(item)
+        public CompanyDetailsWindowModel(IUnitOfWork unitOfWork, ISelectService selectService, CompanyWrapper item) : base(item)
         {
             _unitOfWork = unitOfWork;
             _selectService = selectService;

@@ -35,6 +35,7 @@ namespace HVTApp.DataAccess
             FacilityTypes = new FacilityTypesRepository(context, this);
             Facilities = new FacilitiesRepository(context, this);
             Projects = new ProjectsRepository(context, this);
+            ProjectUnits = new ProjectUnitsRepository(context, this);
             Offers = new OffersRepository(context, this);
             Tenders = new TendersRepository(context, this);
             Contracts = new ContractsRepository(context, this);
@@ -78,6 +79,7 @@ namespace HVTApp.DataAccess
 
         public IFacilitiesRepository Facilities { get; }
         public IProjectsRepository Projects { get; }
+        public IProjectUnitsRepository ProjectUnits { get; }
         public IOffersRepository Offers { get; }
         public IContractsRepository Contracts { get; }
         public ISpecificationsRepository Specifications { get; }

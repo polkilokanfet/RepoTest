@@ -1,0 +1,36 @@
+﻿<Window x:Class="HVTApp.Modules.Sales.Views.ProductUnitsDetailsWindow"
+        xmlns:myUserControls="clr-namespace:MyUserControls;assembly=MyUserControls"  
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ProductUnitsDetailsWindow" 
+        SizeToContent="WidthAndHeight">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Объект"/>
+        <myUserControls:ChooseItemControl Grid.Row="0" Grid.Column="1"
+                                          Item="{Binding Item.Facility}"
+                                          AddItem="{Binding ChooseFacilityCommand}"
+                                          RemoveItem="{Binding RemoveFacilityCommand}"/>
+
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Продукт"/>
+        <myUserControls:ChooseItemControl Grid.Row="1" Grid.Column="1"
+                                          Item="{Binding Item.Product}"
+                                          AddItem="{Binding ChooseProductCommand}"
+                                          RemoveItem="{Binding RemoveProductCommand}"/>
+        
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding OkCommand}">Ok</Button>
+    </Grid>
+</Window>

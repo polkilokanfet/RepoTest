@@ -81,11 +81,13 @@ namespace HVTApp.TestDataGenerator
 
         public IFacilitiesRepository Facilities { get; }
         public IProjectsRepository Projects { get; }
+        public IProjectUnitsRepository ProjectUnits { get; }
         public IOffersRepository Offers { get; }
         public IContractsRepository Contracts { get; }
         public ISpecificationsRepository Specifications { get; }
 
         public ITendersRepository Tenders { get; }
+
 
         #endregion
 

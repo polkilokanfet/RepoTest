@@ -23,6 +23,7 @@ namespace HVTApp.DataAccess.Infrastructure
     public interface IFacilityTypesRepository : IRepository<FacilityType, FacilityTypeWrapper> { }
     public interface IFacilitiesRepository : IRepository<Facility, FacilityWrapper> { }
     public interface IProjectsRepository : IRepository<Project, ProjectWrapper> { }
+    public interface IProjectUnitsRepository : IRepository<ProjectUnit, ProjectUnitWrapper> { }
     public interface ITendersRepository : IRepository<Tender, TenderWrapper> { }
     public interface IOffersRepository : IRepository<Offer, OfferWrapper> { }
     public interface IContractsRepository : IRepository<Contract, ContractWrapper> { }

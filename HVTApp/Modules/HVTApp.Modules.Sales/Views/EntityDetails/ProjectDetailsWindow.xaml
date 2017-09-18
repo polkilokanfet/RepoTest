@@ -36,9 +36,9 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             
-            <infg:XamDataGrid Grid.Column="0" Grid.ColumnSpan="2" 
-                          DataSource="{Binding Item.ProjectUnits, Converter={StaticResource ProductGroupsConverter}}"
-                          SelectedDataItem="{Binding ProductGroup, Mode=TwoWay}">
+            <infg:XamDataGrid Grid.Column="0" 
+                              DataSource="{Binding Item.ProjectUnits, Converter={StaticResource ProductGroupsConverter}}"
+                              SelectedDataItem="{Binding ProductGroup, Mode=TwoWay}">
                 <infg:XamDataGrid.FieldLayouts>
                     <infg:FieldLayout Key="ProductUnitsGroup">
                         <infg:FieldLayout.Fields>

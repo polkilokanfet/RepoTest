@@ -30,6 +30,7 @@ namespace HVTApp.Modules.Sales
 
             _dialogService.Register<ProjectDetailsViewModel, ProjectDetailsWindow>();
             _dialogService.Register<OfferDetailsWindowModel, OfferDetailsWindow>();
+            _dialogService.Register<ProductUnitsDetailsViewModel, ProductUnitsDetailsWindow>();
         }
 
         protected override void ResolveOutlookGroup()

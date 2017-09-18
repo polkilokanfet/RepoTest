@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
-using HVTApp.Model.Wrappers;
 using Prism.Commands;
 
 namespace HVTApp.Modules.Infrastructure

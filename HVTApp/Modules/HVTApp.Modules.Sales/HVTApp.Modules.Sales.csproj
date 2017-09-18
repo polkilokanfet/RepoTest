@@ -115,6 +115,7 @@
     </Compile>
     <Compile Include="ViewModels\EntityDetails\ContractDetailsViewModel.cs" />
     <Compile Include="ViewModels\Entities\ContractsViewModel.cs" />
+    <Compile Include="ViewModels\EntityDetails\ProductUnitsDetailsViewModel.cs" />
     <Compile Include="ViewModels\MarketViewModel.cs" />
     <Compile Include="ViewModels\EntityDetails\OfferDetailsWindowModel.cs" />
     <Compile Include="ViewModels\Entities\OffersViewModel.cs" />
@@ -124,6 +125,9 @@
     <Compile Include="ViewModels\Entities\TendersViewModel.cs" />
     <Compile Include="Views\Entities\ContractsView.xaml.cs">
       <DependentUpon>ContractsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EntityDetails\ProductUnitsDetailsWindow.xaml.cs">
+      <DependentUpon>ProductUnitsDetailsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EntityDetails\ProjectDetailsWindow.xaml.cs">
       <DependentUpon>ProjectDetailsWindow.xaml</DependentUpon>
@@ -186,6 +190,10 @@
       <Project>{62088575-8283-4be9-acc7-80dfc2fab7a0}</Project>
       <Name>HVTApp.Modules.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\HVTApp.Services.ChooseProductService\HVTApp.Services.GetProductService.csproj">
+      <Project>{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}</Project>
+      <Name>HVTApp.Services.GetProductService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\TestUserControl\MyUserControls.csproj">
       <Project>{95b60d78-bf46-4667-b474-95f911bb4a09}</Project>
       <Name>MyUserControls</Name>
@@ -201,6 +209,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Entities\ContractsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EntityDetails\ProductUnitsDetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
