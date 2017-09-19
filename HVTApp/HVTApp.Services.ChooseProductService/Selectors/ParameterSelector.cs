@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Model.POCOs;
-using HVTApp.Services.GetProductService;
 
-namespace HVTApp.Services.GetEquipmentService
+namespace HVTApp.Services.GetProductService
 {
     public class ParameterSelector : NotifyPropertyChanged
     {

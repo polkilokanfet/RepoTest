@@ -44,7 +44,7 @@
                         <infg:FieldLayout.Fields>
                             <infg:TextField Name="Facility" Label="Объект"/>
                             <infg:TextField Name="Product" Label="Оборудование"/>
-                            <infg:NumericField Name="Count" Label="Количество"/>
+                            <infg:NumericField Name="Amount" Label="Количество"/>
                             <infg:NumericField Name="Cost" Label="Стоимость"/>
                         </infg:FieldLayout.Fields>
                     </infg:FieldLayout>
@@ -52,7 +52,8 @@
             </infg:XamDataGrid>
             
             <StackPanel Grid.Column="1" Orientation="Vertical">
-                <Button Command="{Binding AddProjectUnitsCommand}">+</Button>
+                <Button Command="{Binding AddProjectUnitsCommand}" Content="+"/>
+                <Button Command="{Binding ChangeProjectUnitsCommand}" Content="~"/>
             </StackPanel>
         </Grid>
 

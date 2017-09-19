@@ -25,7 +25,7 @@ namespace HVTApp.Modules.Sales.Converter
                 {
                     Facility = group.Key.Facility,
                     Product = group.Key.Product,
-                    Count = group.Count(),
+                    Amount = group.Count(),
                     Cost = group.Key.Cost
                 });
             }

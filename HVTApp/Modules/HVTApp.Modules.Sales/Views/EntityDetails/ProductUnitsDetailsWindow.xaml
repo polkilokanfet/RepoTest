@@ -30,7 +30,13 @@
                                           Item="{Binding Item.Product}"
                                           AddItem="{Binding ChooseProductCommand}"
                                           RemoveItem="{Binding RemoveProductCommand}"/>
-        
-        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding OkCommand}">Ok</Button>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Стоимость"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Row="3" Grid.Column="0" Content="Количество"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Amount, Mode=TwoWay}"/>
+
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding OkCommand}" Content="Ok"/>
     </Grid>
 </Window>

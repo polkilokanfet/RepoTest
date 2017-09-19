@@ -23,12 +23,12 @@ namespace HVTApp.Services.GetProductService
             var equipments = _unitOfWork.Products.GetAll().Select(x => x.Model).ToList();
             var requiredDependentEquipmentsParameters = _unitOfWork.RequiredDependentProductssParameters.GetAll().Select(x => x.Model).ToList();
 
-            EquipmentSelector equipmentSelector = new EquipmentSelector(groups, products, equipments, requiredDependentEquipmentsParameters, preSelectedProduct: templateEquipment?.Model);
-            SelectEquipmentWindow window = new SelectEquipmentWindow {DataContext = equipmentSelector};
+            ProductSelector productSelector = new ProductSelector(groups, products, equipments, requiredDependentEquipmentsParameters, preSelectedProduct: templateEquipment?.Model);
+            SelectEquipmentWindow window = new SelectEquipmentWindow {DataContext = productSelector};
             window.ShowDialog();
 
             if (!window.DialogResult.HasValue || !window.DialogResult.Value) return templateEquipment;
-            return _unitOfWork.Products.GetWrapper(equipmentSelector.SelectedProduct);
+            return _unitOfWork.Products.GetWrapper(productSelector.SelectedProduct);
         }
     }
 }

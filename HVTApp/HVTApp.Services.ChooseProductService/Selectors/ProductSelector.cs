@@ -4,167 +4,122 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.Services.GetProductService;
 
-namespace HVTApp.Services.GetEquipmentService
+namespace HVTApp.Services.GetProductService
 {
     public class ProductSelector : NotifyPropertyChanged
     {
-        private readonly IList<Part> _products;
-        private readonly IEnumerable<Parameter> _requiredParameters;
-        private Part _selectedPart;
+        private readonly IEnumerable<ParameterGroup> _groups;
+        private readonly IList<Part> _parts;
+        private readonly IList<Product> _products;
+        private readonly IEnumerable<RequiredDependentProductsParameters> _requiredDependentProductsParametersList;
 
-        public ProductSelector(IEnumerable<IEnumerable<Parameter>> parametersGroups, IList<Part> products, IEnumerable<Parameter> requiredParameters = null, Part preSelectedPart = null)
+        private Product _selectedProduct;
+
+        public PartSelector PartSelector { get; }
+        public ObservableCollection<ProductSelector> ProductSelectors { get; }
+
+
+        public ProductSelector(  IEnumerable<ParameterGroup> groups, 
+                                 IList<Part> parts, 
+                                 IList<Product> products, 
+                                 IEnumerable<RequiredDependentProductsParameters> requiredDependentProductsParametersList, 
+                                 IEnumerable<Parameter> requiredProductsParameters = null,
+                                 Product preSelectedProduct = null)
         {
+            _groups = new List<ParameterGroup>(groups);
+            _parts = parts;
             _products = products;
-            _requiredParameters = requiredParameters == null ? new List<Parameter>() : new List<Parameter>(requiredParameters);
+            _requiredDependentProductsParametersList = new List<RequiredDependentProductsParameters>(requiredDependentProductsParametersList);
 
-            //упорядочиваем группы по отдаленности от опорной группы (параметра)
-            var parameterses = new List<IEnumerable<Parameter>>(parametersGroups.OrderBy(x => x, new ParametersEnumerableComparer()));
+            //продукт
+            PartSelector = new PartSelector(_groups.Select(x => x.Parameters), _parts, requiredProductsParameters, preSelectedProduct?.Part);
+            PartSelector.SelectedProductChanged += OnMainProductChanged;
 
-            ParameterSelectors = new ObservableCollection<ParameterSelector>();
-            foreach (var parameters in parameterses)
-            {
-                //исключаем возможность выбора параметров, отличных от обязательных
-                //если в селекторе есть обязательный параметр - оставляем только его
-                var parameterSelector = parameters.Any(_requiredParameters.Contains)
-                    ? new ParameterSelector(new[] {parameters.Single(_requiredParameters.Contains)})
-                    : new ParameterSelector(parameters);
-
-                ParameterSelectors.Add(parameterSelector);
-
-                //подписываемся на изменение выбора параметра в каждой группе
-                parameterSelector.SelectedParameterChanged += OnSelectedParameterChanged;
-                //перепроверяем статусы актуальности каждого параметра
-                RefreshParametersActualStatuses(SelectedParameters);
-            }
-
-            SelectedPart = GetProduct();
-
-            //назаначаем предварительно выбранный продукт
-            if (preSelectedPart != null) SelectedPart = preSelectedPart;
+            //дочернее оборудование
+            ProductSelectors = new ObservableCollection<ProductSelector>();
+            RefreshDependentEquipments();
+            SelectedProduct = GetEquipment();
         }
 
-        public ObservableCollection<ParameterSelector> ParameterSelectors { get; set; }
 
-        public IEnumerable<Parameter> SelectedParameters => ParameterSelectors.Select(x => x.SelectedParameterWithActualFlag).Where(x => x != null).Select(x => x.Parameter);
-
-        public Part SelectedPart
+        public Product SelectedProduct
         {
-            get { return _selectedPart; }
-            set
+            get { return _selectedProduct; }
+            private set
             {
-                if (Equals(_selectedPart, value)) return;
-                var oldValue = _selectedPart;
-                _selectedPart = value;
+                if (Equals(_selectedProduct, value)) return;
+                var oldValue = _selectedProduct;
+                _selectedProduct = value;
+                if(!_products.Contains(value)) _products.Add(value);
 
-                //назначаем в селекторы актуальные выбранные параметры
-                var actualParameterSelectors = new List<ParameterSelector>();
-                foreach (var parameter in _selectedPart.Parameters)
-                {
-                    var parameterSelector = ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).Contains(parameter));
-                    if (!Equals(parameterSelector.SelectedParameterWithActualFlag.Parameter, parameter))
-                        parameterSelector.SetSelectedParameterWithActualFlag(parameter);
-                    actualParameterSelectors.Add(parameterSelector);
-                }
-                foreach (var parameterSelector in ParameterSelectors.Except(actualParameterSelectors))
-                {
-                    if (!Equals(parameterSelector.SelectedParameterWithActualFlag, null)) parameterSelector.SelectedParameterWithActualFlag = null;
-                }
-                if (!_products.Contains(value)) _products.Add(value);
-
-                OnSelectedProductChanged(oldValue, value);
+                OnSelectedEquipmentChanged(oldValue, value);
                 OnPropertyChanged();
             }
         }
 
-        public IEnumerable<Parameter> GetRequaredParameters()
+        private Product GetEquipment()
         {
-            return _requiredParameters;
-        }
-
-        private Part GetProduct()
-        {
-            var result = _products.SingleOrDefault(x => SelectedParameters.AllMembersAreSame(x.Parameters));
+            var dependentEquipment = ProductSelectors.Select(x => x.SelectedProduct).ToList();
+            var result = _products.SingleOrDefault(x => Equals(x.Part, PartSelector.SelectedPart) &&
+                                                          x.DependentProducts.AllMembersAreSame(dependentEquipment));
             if (result == null)
             {
-                result = new Part {Parameters = new List<Parameter>(SelectedParameters)};
+                result = new Product
+                {
+                    Part = PartSelector.SelectedPart,
+                    DependentProducts = dependentEquipment
+                };
                 _products.Add(result);
             }
             return result;
         }
 
-        private void RefreshParametersActualStatuses(IEnumerable<Parameter> actualSelectedParameters)
+        /// <summary>
+        /// Параметры, необходимые зависимому оборудованию
+        /// </summary>
+        IEnumerable<RequiredDependentProductsParameters> RequiredDependentEquipmentsParameterses => _requiredDependentProductsParametersList
+            .Where(x => x.MainProductParameters.AllContainsIn(PartSelector.SelectedParameters));
+
+        private void RefreshDependentEquipments()
         {
-            //перепроверяем флаги актуальности каждого параметра
-            foreach (var parameterSelector in ParameterSelectors)
+            //исключаем не актуальное дочернее оборудование
+            foreach (var equipmentSelector in ProductSelectors
+                .Where(des => !RequiredDependentEquipmentsParameterses.Any(x => x.ChildProductParameters.AllMembersAreSame(des.PartSelector.GetRequaredParameters()))).ToList())
             {
-                foreach (var parameterWithActualFlag in parameterSelector.ParametersWithActualFlag)
-                    parameterWithActualFlag.IsActual = ParameterIsActual(parameterWithActualFlag.Parameter, actualSelectedParameters);
+                ProductSelectors.Remove(equipmentSelector);
+                equipmentSelector.SelectedEquipmentChanged -= OnDependentSelectedEquipmentChanged;
+            }
 
-                var selectedParameterWithActualFlag = parameterSelector.ParametersWithActualFlag.SingleOrDefault(x => Equals(x.Parameter, parameterSelector.SelectedParameterWithActualFlag));
-
-                //если выбранный параметр потерял свою актуальность, выбирам другой актуальный
-                if (selectedParameterWithActualFlag != null && !selectedParameterWithActualFlag.IsActual)
-                    parameterSelector.SelectedParameterWithActualFlag = parameterSelector.ParametersWithActualFlag.FirstOrDefault(x => x.IsActual);
+            //добавляем актуальное дочернее оборудование
+            foreach (var requiredDependentEquipmentsParameters in RequiredDependentEquipmentsParameterses
+                .Where(x => !ProductSelectors.Any(des => des.PartSelector.GetRequaredParameters().AllMembersAreSame(x.ChildProductParameters))))
+            {
+                for (int i = 0; i < requiredDependentEquipmentsParameters.Count; i++)
+                {
+                    var equipmentSelector = new ProductSelector(_groups, _parts, _products, _requiredDependentProductsParametersList, requiredDependentEquipmentsParameters.ChildProductParameters);
+                    ProductSelectors.Add(equipmentSelector);
+                    equipmentSelector.SelectedEquipmentChanged += OnSelectedEquipmentChanged;
+                }
             }
         }
 
-
-        private void OnSelectedParameterChanged(Parameter oldParameter, Parameter newParameter)
+        private void OnDependentSelectedEquipmentChanged(Product oldProduct, Product newProduct)
         {
-            //определяем выбранные параметры, которые зависели от старого параметра
-            List<Parameter> dependendParametersFromOld = new List<Parameter>();
-            if (oldParameter != null)
-                dependendParametersFromOld.AddRange(SelectedParameters.Where(x => ParameterDependsFrom(x, oldParameter)));
-            //определяем выбранные параметры, которые зависят от нового параметра
-            List<Parameter> dependendParametersFromNew = new List<Parameter>();
-            if (newParameter != null)
-                dependendParametersFromNew.AddRange(SelectedParameters.Where(x => ParameterDependsFrom(x, newParameter)));
-
-            //не актуальные параметры
-            var notActualSelectedParameters = dependendParametersFromOld.Except(dependendParametersFromNew);
-            //актуальные параметры
-            var actualSelectedParameters = SelectedParameters.Except(notActualSelectedParameters).ToList();
-            if (oldParameter != null) actualSelectedParameters.Remove(oldParameter);
-            if (newParameter != null) actualSelectedParameters.Add(newParameter);
-
-            //перепроверяем флаги актуальности каждого параметра
-            RefreshParametersActualStatuses(actualSelectedParameters);
-            OnSelectedParametersChanged();
-
-            SelectedPart = GetProduct();
+            SelectedProduct = GetEquipment();
         }
 
-        private bool ParameterIsActual(Parameter parameter, IEnumerable<Parameter> requiredParameters)
+        private void OnMainProductChanged(Part oldPart, Part newPart)
         {
-            return !parameter.RequiredPreviousParameters.Any() ||
-                    parameter.RequiredPreviousParameters.Any(x => x.RequiredParameters.AllContainsIn(requiredParameters));
-        }
-
-        //нужен ли параметру для актуальности выбор другого параметра
-        private bool ParameterDependsFrom(Parameter targetParameter, Parameter possibleNeededParameter)
-        {
-            if (!targetParameter.RequiredPreviousParameters.Any()) return false;
-            return targetParameter.RequiredPreviousParameters.Any(x => x.RequiredParameters.Contains(possibleNeededParameter));
+            RefreshDependentEquipments();
+            SelectedProduct = GetEquipment();
         }
 
 
-
-
-
-        public event Action<Part, Part> SelectedProductChanged;
-
-        protected virtual void OnSelectedProductChanged(Part oldPart, Part newPart)
+        public event Action<Product, Product> SelectedEquipmentChanged;
+        protected virtual void OnSelectedEquipmentChanged(Product oldProduct, Product newProduct)
         {
-            SelectedProductChanged?.Invoke(oldPart, newPart);
-        }
-
-        private event Action SelectedParametersChanged;
-
-        protected virtual void OnSelectedParametersChanged()
-        {
-            SelectedParametersChanged?.Invoke();
+            SelectedEquipmentChanged?.Invoke(oldProduct, newProduct);
         }
     }
 }

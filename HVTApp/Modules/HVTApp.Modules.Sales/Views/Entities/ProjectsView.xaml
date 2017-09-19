@@ -30,7 +30,7 @@
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Facility" Label="Объект"/>
                     <infg:TextField Name="Product" Label="Оборудование"/>
-                    <infg:NumericField Name="Count" Label="Количество"/>
+                    <infg:NumericField Name="Amount" Label="Количество"/>
                     <infg:NumericField Name="Cost" Label="Стоимость"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>

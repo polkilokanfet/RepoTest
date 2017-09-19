@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Castle.Components.DictionaryAdapter;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.Services.GetEquipmentService;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HVTApp.Services.GetProductService.Tests
@@ -16,18 +14,19 @@ namespace HVTApp.Services.GetProductService.Tests
         private Parameter _breaker, _transformator, _drive, _drivesReducer;
         private Parameter _v110, _v220, _v500;
         private Parameter _c2500, _c3150, _c0001, _c0005;
-        private Parameter _transCurrent, _transVoltage;
+        private ParameterGroup _current, _voltage, _eqType;
+
+        private List<RequiredDependentProductsParameters> _requiredDependentEquipmentsParametersList;
+        private RequiredDependentProductsParameters _requiredDependentProductsParametersTransformatorsToBreker, _requiredDependentProductsParametersDriveToBreker, _requiredDependentProductsParametersReducerToDrive;
         private ProductSelector _productSelector;
-        private Part _preSelectedPart;
-        private ParameterGroup _current, _voltage, _eqType, _transformatorType;
 
         [TestInitialize]
         public void Init()
         {
             _breaker = new Parameter() { Value = "выключатель" };
             _transformator = new Parameter() { Value = "трансформатор" };
-            _drive = new Parameter() { Value = "привод выключателя" };
-            _drivesReducer = new Parameter() { Value = "редкутор" };
+            _drive = new Parameter() {Value = "привод выключателя"};
+            _drivesReducer = new Parameter() {Value = "редуктор"};
             _eqType = new ParameterGroup().AddParameters(new[] { _breaker, _transformator, _drive, _drivesReducer });
 
             _v110 = new Parameter() { Value = "110кВ" }.AddRequiredPreviousParameters(new[] { _breaker });
@@ -44,134 +43,112 @@ namespace HVTApp.Services.GetProductService.Tests
             _c0005 = new Parameter() { Value = "5А" }.AddRequiredPreviousParameters(new[] { _transformator });
             _current = new ParameterGroup().AddParameters(new[] { _c2500, _c3150, _c0001, _c0005 });
 
-            _transCurrent = new Parameter() { Value = "TT" }.AddRequiredPreviousParameters(new[] { _transformator });
-            _transVoltage = new Parameter() { Value = "ТН" }.AddRequiredPreviousParameters(new[] { _transformator });
-            _transformatorType = new ParameterGroup().AddParameters(new[] {_transCurrent, _transVoltage});
+            _groups = new List<ParameterGroup> { _eqType, _voltage, _current };
 
-            _groups = new List<ParameterGroup> {_eqType, _voltage, _current, _transformatorType };
-
-            _preSelectedPart = new Part {Parameters = new List<Parameter> {_breaker, _v500, _c3150} };
-
-            _productSelector = new ProductSelector(_groups.Select(x => x.Parameters), new List<Part>());
-        }
-
-        [TestMethod]
-        public void ProductSelectorIncludsAllGroups()
-        {
-            Assert.IsTrue(_productSelector.ParameterSelectors.Count == _groups.Count);
-        }
-
-        [TestMethod]
-        public void ProductSelectorDefaultProduct()
-        {
-            List<Parameter> parameters = new List<Parameter> { _breaker, _v110, _c2500 };
-            Assert.IsTrue(_productSelector.SelectedParameters.AllMembersAreSame(parameters));
-            Assert.IsTrue(_productSelector.SelectedPart.Parameters.AllMembersAreSame(parameters));
-        }
-
-        [TestMethod]
-        public void ProductSelectorRequiredParameters()
-        {
-            List<Parameter> requiredParameters = new List<Parameter> { _transformator, _c0005 };
-            ProductSelector productSelector = new ProductSelector(_groups.Select(x => x.Parameters), new List<Part>(), requiredParameters);
-
-            foreach (var requiredParameter in requiredParameters)
+            _requiredDependentProductsParametersTransformatorsToBreker = new RequiredDependentProductsParameters
             {
-                //находим селектор
-                ParameterSelector parameterSelector = productSelector.ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).Contains(requiredParameter));
-                Assert.AreEqual(parameterSelector.ParametersWithActualFlag.Count, 1);
-                Assert.AreEqual(parameterSelector.SelectedParameterWithActualFlag.Parameter, requiredParameter);
-            }
+                MainProductParameters = new List<Parameter> { _breaker, _v110 },
+                ChildProductParameters = new List<Parameter> { _transformator },
+                Count = 6
+            };
+            _requiredDependentProductsParametersDriveToBreker = new RequiredDependentProductsParameters
+            {
+                MainProductParameters = new List<Parameter> { _breaker, _v110 },
+                ChildProductParameters = new List<Parameter> { _drive },
+                Count = 1
+            };
+            _requiredDependentProductsParametersReducerToDrive = new RequiredDependentProductsParameters
+            {
+                MainProductParameters = new List<Parameter> { _drive },
+                ChildProductParameters = new List<Parameter> { _drivesReducer },
+                Count = 3
+            };
+            _requiredDependentEquipmentsParametersList = new List<RequiredDependentProductsParameters> { _requiredDependentProductsParametersTransformatorsToBreker, _requiredDependentProductsParametersDriveToBreker, _requiredDependentProductsParametersReducerToDrive };
 
-            Assert.IsTrue(productSelector.ParameterSelectors.Select(x => x.SelectedParameterWithActualFlag).Where(x => x != null).All(x => x.IsActual));
+            _productSelector = new ProductSelector(_groups, new List<Part>(), new List<Product>(), _requiredDependentEquipmentsParametersList);
         }
 
         [TestMethod]
-        public void ProductSelectorSelectParameter()
+        public void ProductSelectorHasSelectedEquipment()
         {
-            List<Parameter> parameters = new List<Parameter> { _transformator, _c0001, _transCurrent };
-            //находим селектор с типами оборудования
-            ParameterSelector parameterSelector = _productSelector.ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).AllMembersAreSame(_eqType.Parameters));
-            parameterSelector.SetSelectedParameterWithActualFlag(_transformator);
+            DependentEquipmentNotNull(_productSelector.SelectedProduct);
+        }
 
-            Assert.IsTrue(_productSelector.SelectedParameters.AllMembersAreSame(parameters));
-            Assert.IsTrue(_productSelector.SelectedPart.Parameters.AllMembersAreSame(parameters));
+        //всё зависимое оборудование выбрано
+        private void DependentEquipmentNotNull(Product product)
+        {
+            Assert.IsTrue(product != null);
+            foreach (var dependentEquipment in product.DependentProducts)
+            {
+                DependentEquipmentNotNull(dependentEquipment);
+            }
+        }
 
-            //находим селектор с токами
-            ParameterSelector parameterSelector2 = _productSelector.ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).AllMembersAreSame(_current.Parameters));
-            //актуальны параметры с током 1 и 5
-            Assert.IsTrue(parameterSelector2.ParametersWithActualFlag.Where(x => x.IsActual).Select(x => x.Parameter).AllMembersAreSame(new[] { _c0001, _c0005 }));
+        [TestMethod]
+        public void ProductSelectorIncludesDependentProductSelectors()
+        {
+            //должен иметь зависимые продукты (выключатель: трансформаторы + привод)
+            Assert.AreEqual(_productSelector.ProductSelectors.Count, _requiredDependentProductsParametersTransformatorsToBreker.Count +
+                                                                         _requiredDependentProductsParametersDriveToBreker.Count);
+
+            //должен иметь зависимые продукты (привод: редуктор)
+            ProductSelector driveProductSelector = _productSelector.ProductSelectors.Single(x => x.PartSelector.SelectedParameters.Contains(_drive));
+            Assert.AreEqual(driveProductSelector.ProductSelectors.Count, _requiredDependentProductsParametersReducerToDrive.Count);
+        }
+
+        [TestMethod]
+        public void ProductSelectorPreSelectedParametersOfDependentProduct()
+        {
+            ProductSelector driveProductSelector = _productSelector.ProductSelectors.Single(x => x.PartSelector.SelectedParameters.Contains(_drive));
+            Assert.IsTrue(driveProductSelector.PartSelector.SelectedParameters.AllMembersAreSame(new[] { _drive }));
+            Assert.IsTrue(driveProductSelector.PartSelector.SelectedPart.Parameters.AllMembersAreSame(new[] { _drive }));
+        }
+
+        [TestMethod]
+        public void ProductSelectorSelectParameters()
+        {
+            ParameterSelector parameterSelector = _productSelector.PartSelector.ParameterSelectors.Single(x => Equals(x.SelectedParameterWithActualFlag.Parameter, _breaker));
+            parameterSelector.SetSelectedParameterWithActualFlag(_drive);
+
+            Assert.IsTrue(_productSelector.SelectedProduct.Part.Parameters.AllMembersAreSame(new[] { _drive }));
+            Assert.AreEqual(_productSelector.SelectedProduct.DependentProducts.Count, _requiredDependentProductsParametersReducerToDrive.Count);
         }
 
         [TestMethod]
         public void ProductSelectorPreSelectedProduct()
         {
-            ProductSelector productSelector = new ProductSelector(_groups.Select(x => x.Parameters), new List<Part> { _preSelectedPart }, null, _preSelectedPart);
+            List<Part> parts = new List<Part>();
+            List<Product> products = new List<Product>();
+            ProductSelector productSelector1 = new ProductSelector(_groups, parts, products, _requiredDependentEquipmentsParametersList);
 
-            Assert.AreEqual(_preSelectedPart, productSelector.SelectedPart);
-            Assert.IsTrue(_preSelectedPart.Parameters.AllMembersAreSame(productSelector.SelectedParameters));
+            ParameterSelector parameterSelector = productSelector1.PartSelector.ParameterSelectors.Single(x => Equals(x.SelectedParameterWithActualFlag.Parameter, _breaker));
+            parameterSelector.SetSelectedParameterWithActualFlag(_drive);
+            Product refProduct = productSelector1.SelectedProduct;
+
+            ProductSelector productSelector2 = new ProductSelector(_groups, parts, products, _requiredDependentEquipmentsParametersList, 
+                preSelectedProduct: refProduct);
+
+            //продукты совпадают
+            Assert.AreEqual(productSelector2.SelectedProduct, refProduct);
+            //параметры главных продуктов совпадают
+            Assert.IsTrue(productSelector2.SelectedProduct.Part.Parameters.AllMembersAreSame(productSelector1.SelectedProduct.Part.Parameters));
+            //параметры выбранного продукта и выбранные параметры селектора совпадают
+            Assert.IsTrue(productSelector2.SelectedProduct.Part.Parameters.AllMembersAreSame(productSelector2.PartSelector.SelectedParameters));
+
+            Assert.IsTrue(GetParts(refProduct).AllMembersAreSame(GetParts(productSelector2.SelectedProduct)));
         }
 
-        [TestMethod]
-        public void ProductSelectorActualParameters()
+        IEnumerable<Part> GetParts(Product product)
         {
-            ProductSelector productSelector = new ProductSelector(_groups.Select(x => x.Parameters), new List<Part> { _preSelectedPart }, null, _preSelectedPart);
+            yield return product.Part;
 
-            //находим селектор с токами
-            ParameterSelector parameterSelector = productSelector.ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).AllMembersAreSame(_current.Parameters));
-            //актуален только параметр с током 3150
-            Assert.IsTrue(parameterSelector.ParametersWithActualFlag.Where(x => x.IsActual).Select(x => x.Parameter).AllMembersAreSame(new[] { _c3150 }));
-
-            //находим селектор с напряженями
-            ParameterSelector parameterSelector2 = productSelector.ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).AllMembersAreSame(_voltage.Parameters));
-            //актуалены все напряжения
-            Assert.IsTrue(parameterSelector2.ParametersWithActualFlag.Where(x => x.IsActual).Select(x => x.Parameter).AllMembersAreSame(_voltage.Parameters));
-        }
-
-        [TestMethod]
-        public void ProductSelectorCreateProducts()
-        {
-            List<Part> products = new List<Part>();
-            ProductSelector productSelector = new ProductSelector(_groups.Select(x => x.Parameters), products);
-
-            Assert.AreEqual(products.Count, 1);
-
-            //находим селектор с типами оборудования
-            ParameterSelector parameterSelector = productSelector.ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).AllMembersAreSame(_eqType.Parameters));
-            parameterSelector.SetSelectedParameterWithActualFlag(_transformator);
-
-            Assert.AreEqual(products.Count, 2);
-
-            //находим селектор с токами
-            ParameterSelector parameterSelector2 = productSelector.ParameterSelectors.Single(x => x.ParametersWithActualFlag.Select(p => p.Parameter).AllMembersAreSame(_current.Parameters));
-            parameterSelector2.SetSelectedParameterWithActualFlag(_c0005);
-
-            Assert.AreEqual(products.Count, 3);
-        }
-
-        //когда прилетают неупоряноченные группы параметров
-        [TestMethod]
-        public void ProductSelectorDefaultProductNotOrderedParameters()
-        {
-            List<Parameter> eqType = new List<Parameter>() {_breaker, _transformator};
-            List<Parameter> voltage = new List<Parameter>() {_v110, _v220};
-            List<Parameter> current = new List<Parameter>() {_c0005, _c2500 };
-
-            List<List<Parameter>> parametersList = new List<List<Parameter>>() {current, voltage, eqType};
-
-            List<Parameter> parameters = new List<Parameter> { _breaker, _v110, _c2500 };
-            ProductSelector productSelector = new ProductSelector(parametersList, new List<Part>());
-
-            Assert.IsTrue(productSelector.SelectedParameters.AllMembersAreSame(parameters));
-            Assert.IsTrue(productSelector.SelectedPart.Parameters.AllMembersAreSame(parameters));
-
-            //проверяем верна ли последовательность
-            for (int i = 0; i < parametersList.Count; i++)
+            foreach (var dependentEquipment in product.DependentProducts)
             {
-                Assert.AreEqual(parameters[i], productSelector.SelectedParameters.ToList()[i]);
+                foreach (var part in GetParts(dependentEquipment))
+                {
+                    yield return part;
+                }
             }
         }
-
-
     }
 }

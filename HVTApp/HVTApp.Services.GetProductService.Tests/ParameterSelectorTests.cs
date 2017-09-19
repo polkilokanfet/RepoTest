@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Castle.Core.Internal;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.Services.GetEquipmentService;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HVTApp.Services.GetProductService.Tests

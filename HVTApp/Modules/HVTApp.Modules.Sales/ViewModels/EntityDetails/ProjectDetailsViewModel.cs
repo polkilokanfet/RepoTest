@@ -17,25 +17,54 @@ namespace HVTApp.Modules.Sales.ViewModels
         private readonly IUnityContainer _unityContainer;
         private readonly IUnitOfWork _unitOfWork;
 
+        private ProductUnitsGroup _productGroup;
+
         public ProjectDetailsViewModel(IDialogService dialogService, IUnityContainer unityContainer, IUnitOfWork unitOfWork, ProjectWrapper item) : base(item)
         {
             _dialogService = dialogService;
             _unityContainer = unityContainer;
             _unitOfWork = unitOfWork;
+
             AddProjectUnitsCommand = new DelegateCommand(AddProjectUnitsCommand_Execute);
+            ChangeProjectUnitsCommand = new DelegateCommand(ChangeProjectUnitsCommand_Execute, ChangeProjectUnitsCommand_CanExecute);
         }
+
+        public ProductUnitsGroup ProductGroup
+        {
+            get { return _productGroup; }
+            set
+            {
+                if (Equals(_productGroup, value)) return;
+                _productGroup = value;
+                ((DelegateCommand)ChangeProjectUnitsCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        public ICommand AddProjectUnitsCommand { get; }
+        public ICommand ChangeProjectUnitsCommand { get; }
+
 
         private void AddProjectUnitsCommand_Execute()
         {
             var projectUnit = _unitOfWork.ProjectUnits.GetWrapper();
             var viewModel = _unityContainer.Resolve<ProductUnitsDetailsViewModel>(new ParameterOverride("item", projectUnit));
             var dialogResult = _dialogService.ShowDialog(viewModel);
-            if(dialogResult != null && dialogResult.Value)
+            if(dialogResult.HasValue && dialogResult.Value)
                 Item.ProjectUnits.Add(projectUnit);
         }
 
-        public ProductUnitsGroup ProductGroup { get; set; }
+        private void ChangeProjectUnitsCommand_Execute()
+        {
+            var projectUnit = Item.ProjectUnits.First(x => (x.Product.Equals(ProductGroup.Product) && x.Facility.Equals(ProductGroup.Facility)));
+            var viewModel = _unityContainer.Resolve<ProductUnitsDetailsViewModel>(new ParameterOverride("item", projectUnit));
+            var dialogResult = _dialogService.ShowDialog(viewModel);
+            if(dialogResult.HasValue && dialogResult.Value)
+                Item.ProjectUnits.Add(projectUnit);
+        }
 
-        public ICommand AddProjectUnitsCommand { get; }
+        private bool ChangeProjectUnitsCommand_CanExecute()
+        {
+            return ProductGroup != null;
+        }
     }
 }

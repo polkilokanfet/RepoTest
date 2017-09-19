@@ -57,7 +57,7 @@ namespace HVTApp.Modules.Infrastructure
         {
             TDelailsViewModel delailsViewModel = _container.Resolve<TDelailsViewModel>(new ParameterOverride("item", SelectedItem));
 
-            bool? dialogResult = _dialogService.ShowDialog(delailsViewModel);
+            var dialogResult = _dialogService.ShowDialog(delailsViewModel);
             if (dialogResult.HasValue && dialogResult.Value)
             {
                 SelectedItem.AcceptChanges();

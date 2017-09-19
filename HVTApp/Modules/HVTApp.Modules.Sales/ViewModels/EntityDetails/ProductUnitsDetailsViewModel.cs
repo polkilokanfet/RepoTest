@@ -19,18 +19,12 @@ namespace HVTApp.Modules.Sales.ViewModels
             _chooseService = chooseService;
             _getProductService = getProductService;
 
-
             ChooseFacilityCommand = new DelegateCommand(ChooseFacilityCommand_Execute);
             RemoveFacilityCommand = new DelegateCommand(RemoveFacilityCommand_Execute);
             ChooseProductCommand = new DelegateCommand(ChooseProductCommand_Execute);
         }
 
-        private void ChooseProductCommand_Execute()
-        {
-            var product = _getProductService.GetEquipment();
-            if (product != null) Item.Product = product;
-        }
-
+        public int Amount { get; set; }
 
         public DelegateCommand ChooseFacilityCommand { get; }
         public DelegateCommand RemoveFacilityCommand { get; }
@@ -48,5 +42,10 @@ namespace HVTApp.Modules.Sales.ViewModels
             Item.Facility = null;
         }
 
+        private void ChooseProductCommand_Execute()
+        {
+            var product = _getProductService.GetEquipment(Item.Product);
+            if (product != null) Item.Product = product;
+        }
     }
 }
