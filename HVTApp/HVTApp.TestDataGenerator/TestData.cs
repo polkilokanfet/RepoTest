@@ -76,7 +76,6 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupBreakerType;
         public ParameterGroup ParameterGroupTransformatorType;
         public ParameterGroup ParameterGroupVoltage;
-        public ParameterGroup ParameterGroupBrakersDrive;
                 
         public Parameter ParameterBreaker;
         public Parameter ParameterTransformator;

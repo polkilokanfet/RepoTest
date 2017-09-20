@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.Services.GetEquipmentService
+namespace HVTApp.Services.GetProductService
 {
     public class ParametersEnumerableComparer : IComparer<IEnumerable<Parameter>>
     {

@@ -34,12 +34,12 @@ namespace HVTApp.Services.GetProductService
 
             //продукт
             PartSelector = new PartSelector(_groups.Select(x => x.Parameters), _parts, requiredProductsParameters, preSelectedProduct?.Part);
-            PartSelector.SelectedProductChanged += OnMainProductChanged;
+            PartSelector.SelectedPartChanged += OnMainPartChanged;
 
             //дочернее оборудование
             ProductSelectors = new ObservableCollection<ProductSelector>();
-            RefreshDependentEquipments();
-            SelectedProduct = GetEquipment();
+            RefreshDependentProducts();
+            SelectedProduct = GetProduct();
         }
 
 
@@ -53,73 +53,70 @@ namespace HVTApp.Services.GetProductService
                 _selectedProduct = value;
                 if(!_products.Contains(value)) _products.Add(value);
 
-                OnSelectedEquipmentChanged(oldValue, value);
+                OnSelectedProductChanged(oldValue, value);
                 OnPropertyChanged();
             }
         }
 
-        private Product GetEquipment()
+        private Product GetProduct()
         {
-            var dependentEquipment = ProductSelectors.Select(x => x.SelectedProduct).ToList();
-            var result = _products.SingleOrDefault(x => Equals(x.Part, PartSelector.SelectedPart) &&
-                                                          x.DependentProducts.AllMembersAreSame(dependentEquipment));
-            if (result == null)
+            var selectedProduct = new Product
             {
-                result = new Product
-                {
-                    Part = PartSelector.SelectedPart,
-                    DependentProducts = dependentEquipment
-                };
-                _products.Add(result);
-            }
+                Part = PartSelector.SelectedPart,
+                DependentProducts = ProductSelectors.Select(p => p.SelectedProduct).ToList()
+            };
+
+            var result = _products.SingleOrDefault(x => x.Equals(selectedProduct)) ?? selectedProduct;
+            if (!_products.Contains(result)) _products.Add(result);
             return result;
         }
 
         /// <summary>
         /// Параметры, необходимые зависимому оборудованию
         /// </summary>
-        IEnumerable<RequiredDependentProductsParameters> RequiredDependentEquipmentsParameterses => _requiredDependentProductsParametersList
+        IEnumerable<RequiredDependentProductsParameters> RequiredDependentProductParameters => 
+            _requiredDependentProductsParametersList
             .Where(x => x.MainProductParameters.AllContainsIn(PartSelector.SelectedParameters));
 
-        private void RefreshDependentEquipments()
+        private void RefreshDependentProducts()
         {
             //исключаем не актуальное дочернее оборудование
-            foreach (var equipmentSelector in ProductSelectors
-                .Where(des => !RequiredDependentEquipmentsParameterses.Any(x => x.ChildProductParameters.AllMembersAreSame(des.PartSelector.GetRequaredParameters()))).ToList())
+            foreach (var productSelector in ProductSelectors
+                .Where(ps => !RequiredDependentProductParameters.Any(x => x.ChildProductParameters.AllMembersAreSame(ps.PartSelector.GetRequaredParameters()))).ToList())
             {
-                ProductSelectors.Remove(equipmentSelector);
-                equipmentSelector.SelectedEquipmentChanged -= OnDependentSelectedEquipmentChanged;
+                ProductSelectors.Remove(productSelector);
+                productSelector.SelectedProductChanged -= OnDependentProductChanged;
             }
 
             //добавляем актуальное дочернее оборудование
-            foreach (var requiredDependentEquipmentsParameters in RequiredDependentEquipmentsParameterses
+            foreach (var requiredDependentProductParameters in RequiredDependentProductParameters
                 .Where(x => !ProductSelectors.Any(des => des.PartSelector.GetRequaredParameters().AllMembersAreSame(x.ChildProductParameters))))
             {
-                for (int i = 0; i < requiredDependentEquipmentsParameters.Count; i++)
+                for (int i = 0; i < requiredDependentProductParameters.Count; i++)
                 {
-                    var equipmentSelector = new ProductSelector(_groups, _parts, _products, _requiredDependentProductsParametersList, requiredDependentEquipmentsParameters.ChildProductParameters);
-                    ProductSelectors.Add(equipmentSelector);
-                    equipmentSelector.SelectedEquipmentChanged += OnSelectedEquipmentChanged;
+                    var productSelector = new ProductSelector(_groups, _parts, _products, _requiredDependentProductsParametersList, requiredDependentProductParameters.ChildProductParameters);
+                    ProductSelectors.Add(productSelector);
+                    productSelector.SelectedProductChanged += OnDependentProductChanged;
                 }
             }
         }
 
-        private void OnDependentSelectedEquipmentChanged(Product oldProduct, Product newProduct)
+        private void OnDependentProductChanged(Product oldProduct, Product newProduct)
         {
-            SelectedProduct = GetEquipment();
+            SelectedProduct = GetProduct();
         }
 
-        private void OnMainProductChanged(Part oldPart, Part newPart)
+        private void OnMainPartChanged(Part oldPart, Part newPart)
         {
-            RefreshDependentEquipments();
-            SelectedProduct = GetEquipment();
+            RefreshDependentProducts();
+            SelectedProduct = GetProduct();
         }
 
 
-        public event Action<Product, Product> SelectedEquipmentChanged;
-        protected virtual void OnSelectedEquipmentChanged(Product oldProduct, Product newProduct)
+        public event Action<Product, Product> SelectedProductChanged;
+        protected virtual void OnSelectedProductChanged(Product oldProduct, Product newProduct)
         {
-            SelectedEquipmentChanged?.Invoke(oldProduct, newProduct);
+            SelectedProductChanged?.Invoke(oldProduct, newProduct);
         }
     }
 }

@@ -76,7 +76,7 @@ namespace HVTApp.TestDataGenerator
         public IPartsRepository Parts { get; }
         public IProductsRepository Products { get; }
         public IProductionUnitsRepository ProductionUnits { get; }
-        public IRequiredDependentProductssParametersRepository RequiredDependentProductssParameters { get; }
+        public IRequiredDependentProductssParametersRepository RequiredDependentProductsParameters { get; }
         public IFacilityTypesRepository FacilityTypes { get; }
 
         public IFacilitiesRepository Facilities { get; }

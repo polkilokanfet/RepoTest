@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.Services.GetEquipmentService;
 
 namespace HVTApp.Services.GetProductService
 {
@@ -153,11 +152,11 @@ namespace HVTApp.Services.GetProductService
 
 
 
-        public event Action<Part, Part> SelectedProductChanged;
+        public event Action<Part, Part> SelectedPartChanged;
 
         protected virtual void OnSelectedProductChanged(Part oldPart, Part newPart)
         {
-            SelectedProductChanged?.Invoke(oldPart, newPart);
+            SelectedPartChanged?.Invoke(oldPart, newPart);
         }
 
         private event Action SelectedParametersChanged;

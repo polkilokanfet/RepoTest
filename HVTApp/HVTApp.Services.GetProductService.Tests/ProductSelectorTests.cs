@@ -3,6 +3,7 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.TestDataGenerator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HVTApp.Services.GetProductService.Tests
@@ -150,5 +151,22 @@ namespace HVTApp.Services.GetProductService.Tests
                 }
             }
         }
+
+        [TestMethod]
+        public void ProductSelectorPreSelectedProduct2()
+        {
+            TestData testData = new TestData();
+            var groups = new List<ParameterGroup> {testData.ParameterGroupBreakerType, testData.ParameterGroupEqType, testData.ParameterGroupTransformatorType, testData.ParameterGroupVoltage};
+            var parts = new List<Part> {testData.PartBreakesDrive, testData.PartVeb110, testData.PartVgb35, testData.PartZng110};
+            var products = new List<Product> {testData.ProductBreakersDrive, testData.ProductVeb110, testData.ProductZng110};
+            var rdpp = new List<RequiredDependentProductsParameters> {testData.RequiredChildProductParametersBreakerBlock, testData.RequiredChildProductParametersDrive};
+
+            ProductSelector productSelector = new ProductSelector(groups, parts, products, rdpp, preSelectedProduct: testData.ProductVeb110);
+            var parts1 = GetParts(productSelector.SelectedProduct);
+            var parts2 = GetParts(testData.ProductVeb110);
+            Assert.IsTrue(parts1.AllMembersAreSame(parts2));
+
+        }
+
     }
 }

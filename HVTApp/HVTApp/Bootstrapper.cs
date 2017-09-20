@@ -24,7 +24,6 @@ using HVTApp.Services.GetProductService;
 using HVTApp.Services.ChooseService;
 using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;
-using HVTApp.Services.GetEquipmentService;
 using HVTApp.Services.SelectService;
 using Infragistics.Windows.OutlookBar;
 using Infragistics.Windows.Ribbon;

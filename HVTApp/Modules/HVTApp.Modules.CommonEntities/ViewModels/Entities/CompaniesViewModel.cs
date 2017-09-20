@@ -5,7 +5,6 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using HVTApp.Modules.Infrastructure;
-using HVTApp.Services.GetEquipmentService;
 using HVTApp.Services.GetProductService;
 using Microsoft.Practices.Unity;
 
@@ -36,7 +35,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         protected override void RemoveItemCommand_Execute()
         {
-            _getProductService.GetEquipment();
+            _getProductService.GetProduct();
         }
 
         protected override bool RemoveItemCommand_CanExecute()

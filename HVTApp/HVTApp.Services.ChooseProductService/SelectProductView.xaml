@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="HVTApp.Services.GetProductService.SelectEquipment"
+﻿<UserControl x:Class="HVTApp.Services.GetProductService.SelectProductView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:HVTApp.Services.GetProductService">
@@ -10,13 +10,13 @@
     <Border BorderThickness="1" BorderBrush="Black" Margin="2">
         <StackPanel Orientation="Vertical">
             
-            <Label Content="{Binding ProductSelector.SelectedProduct, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="{Binding PartSelector.SelectedProduct, UpdateSourceTrigger=PropertyChanged}"/>
             
-            <ItemsControl ItemsSource="{Binding ProductSelector.ParameterSelectors}">
+            <ItemsControl ItemsSource="{Binding PartSelector.ParameterSelectors}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal"
-                                    Visibility="{Binding Path=IsActual, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    Visibility="{Binding IsActual, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Label Content="{Binding Group.Name}"/>
                             <ComboBox ItemsSource="{Binding ParametersWithActualFlag}"
                                       SelectedItem="{Binding SelectedParameterWithActualFlag, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -36,10 +36,10 @@
             
             
             <Label Content="Составные части:"/>
-            <ItemsControl ItemsSource="{Binding EquipmentSelectors}">
+            <ItemsControl ItemsSource="{Binding ProductSelectors}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:SelectEquipment DataContext="{Binding}"/>
+                        <local:SelectProductView DataContext="{Binding}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

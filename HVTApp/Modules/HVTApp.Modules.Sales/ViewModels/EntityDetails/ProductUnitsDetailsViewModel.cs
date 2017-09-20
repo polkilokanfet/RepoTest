@@ -2,7 +2,7 @@
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Model.Wrappers;
 using HVTApp.Modules.Infrastructure;
-using HVTApp.Services.GetEquipmentService;
+using HVTApp.Services.GetProductService;
 using Prism.Commands;
 
 namespace HVTApp.Modules.Sales.ViewModels
@@ -44,7 +44,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void ChooseProductCommand_Execute()
         {
-            var product = _getProductService.GetEquipment(Item.Product);
+            var product = _getProductService.GetProduct(Item.Product);
             if (product != null) Item.Product = product;
         }
     }

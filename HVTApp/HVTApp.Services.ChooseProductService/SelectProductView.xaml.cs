@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace HVTApp.Services.GetProductService
 {
     /// <summary>
-    /// Interaction logic for SelectEquipment.xaml
+    /// Interaction logic for SelectProductView.xaml
     /// </summary>
-    public partial class SelectEquipment : UserControl
+    public partial class SelectProductView : UserControl
     {
-        public SelectEquipment()
+        public SelectProductView()
         {
             InitializeComponent();
         }
