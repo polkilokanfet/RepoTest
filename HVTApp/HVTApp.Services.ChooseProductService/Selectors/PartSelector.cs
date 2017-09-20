@@ -38,13 +38,13 @@ namespace HVTApp.Services.GetProductService
                 RefreshParametersActualStatuses(SelectedParameters);
             }
 
-            SelectedPart = GetProduct();
+            SelectedPart = GetPart();
 
             //назаначаем предварительно выбранный продукт
             if (preSelectedPart != null) SelectedPart = preSelectedPart;
         }
 
-        public ObservableCollection<ParameterSelector> ParameterSelectors { get; set; }
+        public ObservableCollection<ParameterSelector> ParameterSelectors { get; }
 
         public IEnumerable<Parameter> SelectedParameters => ParameterSelectors.Select(x => x.SelectedParameterWithActualFlag).Where(x => x != null).Select(x => x.Parameter);
 
@@ -82,7 +82,7 @@ namespace HVTApp.Services.GetProductService
             return _requiredParameters;
         }
 
-        private Part GetProduct()
+        private Part GetPart()
         {
             var result = _products.SingleOrDefault(x => SelectedParameters.AllMembersAreSame(x.Parameters));
             if (result == null)
@@ -101,7 +101,7 @@ namespace HVTApp.Services.GetProductService
                 foreach (var parameterWithActualFlag in parameterSelector.ParametersWithActualFlag)
                     parameterWithActualFlag.IsActual = ParameterIsActual(parameterWithActualFlag.Parameter, actualSelectedParameters);
 
-                var selectedParameterWithActualFlag = parameterSelector.ParametersWithActualFlag.SingleOrDefault(x => Equals(x.Parameter, parameterSelector.SelectedParameterWithActualFlag));
+                var selectedParameterWithActualFlag = parameterSelector.ParametersWithActualFlag.SingleOrDefault(x => Equals(x.Parameter, parameterSelector.SelectedParameterWithActualFlag?.Parameter));
 
                 //если выбранный параметр потерял свою актуальность, выбирам другой актуальный
                 if (selectedParameterWithActualFlag != null && !selectedParameterWithActualFlag.IsActual)
@@ -132,7 +132,7 @@ namespace HVTApp.Services.GetProductService
             RefreshParametersActualStatuses(actualSelectedParameters);
             OnSelectedParametersChanged();
 
-            SelectedPart = GetProduct();
+            SelectedPart = GetPart();
         }
 
         private bool ParameterIsActual(Parameter parameter, IEnumerable<Parameter> requiredParameters)
