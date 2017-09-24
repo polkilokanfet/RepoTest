@@ -11,7 +11,7 @@ namespace HVTApp.Services.GetProductService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        private readonly IList<ParameterGroup> _groups;
+        private readonly IList<Parameter> _parameters;
         private readonly IList<Part> _parts;
         private readonly IList<Product> _products;
         private readonly IList<RequiredDependentProductsParameters> _requiredDependentProductsParameteres;
@@ -20,7 +20,7 @@ namespace HVTApp.Services.GetProductService
         {
             _unitOfWork = unitOfWork;
 
-            _groups = _unitOfWork.ParametersGroups.GetAll().Select(x => x.Model).ToList();
+            _parameters = _unitOfWork.Parameters.GetAll().Select(x => x.Model).ToList();
             _parts = _unitOfWork.Parts.GetAll().Select(x => x.Model).ToList();
             _products = _unitOfWork.Products.GetAll().Select(x => x.Model).ToList();
             _requiredDependentProductsParameteres = _unitOfWork.RequiredDependentProductsParameters.GetAll().Select(x => x.Model).ToList();
@@ -28,7 +28,7 @@ namespace HVTApp.Services.GetProductService
 
         public ProductWrapper GetProduct(ProductWrapper templateProduct = null)
         {
-            ProductSelector productSelector = new ProductSelector(_groups, _parts, _products, _requiredDependentProductsParameteres, preSelectedProduct: templateProduct?.Model);
+            ProductSelector productSelector = new ProductSelector(_parameters, _requiredDependentProductsParameteres, preSelectedProduct: templateProduct?.Model);
             SelectProductWindow window = new SelectProductWindow {DataContext = productSelector};
             window.ShowDialog();
 

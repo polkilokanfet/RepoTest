@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace HVTApp.Infrastructure
@@ -15,7 +16,13 @@ namespace HVTApp.Infrastructure
 
         public static bool AllContainsIn<T>(this IEnumerable<T> first, IEnumerable<T> second)
         {
-            return first.All(second.Contains);
+            if (second == null) throw new ArgumentNullException(nameof(second));
+            var firstArray = first as T[] ?? first.ToArray();
+            var secondArray = second as T[] ?? second.ToArray();
+            if (!secondArray.Any()) throw new ArgumentException("Передано перечисление не содержащее членов.", nameof(second));
+            if (!firstArray.Any()) throw new ArgumentException("Передано перечисление не содержащее членов.", nameof(first));
+
+            return firstArray.All(secondArray.Contains);
         }
     }
 }
