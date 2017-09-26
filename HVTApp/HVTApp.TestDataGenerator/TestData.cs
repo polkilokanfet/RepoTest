@@ -395,7 +395,7 @@ namespace HVTApp.TestDataGenerator
                 Prices= new List<CostOnDate> { new CostOnDate { Cost=50, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber2" });
             PartVeb110.Clone(new Part { Designation = "ВЭБ-110", Parameters= new List<Parameter> { ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage110kV },
                 Prices= new List<CostOnDate> { new CostOnDate { Cost=100, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber3" });
-            PartBreakesDrive.Clone(new Part { Designation = "Привод выключателя", Parameters= new List<Parameter> { ParameterBreaker },
+            PartBreakesDrive.Clone(new Part { Designation = "Привод выключателя", Parameters= new List<Parameter> { ParameterBrakersDrive },
                 Prices= new List<CostOnDate> { new CostOnDate { Cost=100, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber4" });
         }
 

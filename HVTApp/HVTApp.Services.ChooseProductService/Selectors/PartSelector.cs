@@ -38,7 +38,7 @@ namespace HVTApp.Services.GetProductService
                 RefreshParametersActualStatuses(SelectedParameters);
             }
 
-            SelectedPart = GetPart();
+            SelectedPart = RefreshPart();
 
             //назаначаем предварительно выбранный продукт
             if (preSelectedPart != null) SelectedPart = preSelectedPart;
@@ -81,7 +81,7 @@ namespace HVTApp.Services.GetProductService
             return _requiredParameters;
         }
 
-        private Part GetPart()
+        private Part RefreshPart()
         {
             var result = _parts.SingleOrDefault(x => SelectedParameters.AllMembersAreSame(x.Parameters));
             if (result == null)
@@ -130,7 +130,7 @@ namespace HVTApp.Services.GetProductService
             RefreshParametersActualStatuses(actualSelectedParameters);
             OnSelectedParametersChanged();
 
-            SelectedPart = GetPart();
+            SelectedPart = RefreshPart();
         }
 
         //нужен ли параметру для актуальности выбор другого параметра

@@ -152,6 +152,12 @@ namespace HVTApp.Services.GetProductService.Tests
             }
         }
 
+
+    }
+
+    [TestClass]
+    public class TestClass2
+    {
         [TestMethod]
         public void ProductSelectorPreSelectedProduct2()
         {
@@ -161,14 +167,24 @@ namespace HVTApp.Services.GetProductService.Tests
             var products = new List<Product> {testData.ProductBreakersDrive, testData.ProductVeb110, testData.ProductZng110};
             var rdpp = new List<RequiredDependentProductsParameters> {testData.RequiredChildProductParametersBreakerBlock, testData.RequiredChildProductParametersDrive};
 
-            Product product = testData.ProductVeb110;
-
             ProductSelector productSelector = new ProductSelector(groups, parts, products, rdpp, preSelectedProduct: testData.ProductVeb110);
             var parts1 = GetParts(productSelector.SelectedProduct);
             var parts2 = GetParts(testData.ProductVeb110);
             Assert.IsTrue(parts1.AllMembersAreSame(parts2));
 
         }
+        IEnumerable<Part> GetParts(Product product)
+        {
+            yield return product.Part;
 
+            foreach (var dependentEquipment in product.DependentProducts)
+            {
+                foreach (var part in GetParts(dependentEquipment))
+                {
+                    yield return part;
+                }
+            }
+        }
+        
     }
 }

@@ -71,15 +71,13 @@ namespace HVTApp.Services.GetProductService
             return result;
         }
 
-        /// <summary>
-        /// Параметры, необходимые зависимому оборудованию
-        /// </summary>
-        IEnumerable<RequiredDependentProductsParameters> RequiredDependentProductParameters =>
-            _requiredDependentProductsParametersList
-            .Where(x => x.MainProductParameters.AllContainsIn(PartSelector.SelectedParameters));
 
         private void RefreshDependentProducts()
         {
+            // Параметры, необходимые зависимому оборудованию
+            var RequiredDependentProductParameters =_requiredDependentProductsParametersList
+                .Where(x => x.MainProductParameters.AllContainsIn(PartSelector.SelectedParameters));
+
             //исключаем не актуальное дочернее оборудование
             foreach (var productSelector in ProductSelectors
                 .Where(ps => !RequiredDependentProductParameters.Any(x => x.ChildProductParameters.AllMembersAreSame(ps.PartSelector.GetRequaredParameters()))).ToList())

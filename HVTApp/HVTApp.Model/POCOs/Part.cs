@@ -13,8 +13,6 @@ namespace HVTApp.Model.POCOs
 
         public string StructureCostNumber { get; set; }
 
-
-
         public string ParametersToString()
         {
             StringBuilder stringBuilder = new StringBuilder();

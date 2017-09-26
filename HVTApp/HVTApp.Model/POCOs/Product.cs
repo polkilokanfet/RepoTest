@@ -21,7 +21,7 @@ namespace HVTApp.Model.POCOs
             if (otherProduct == null) return false;
 
             //если составные части не совпадают
-            if (!Part.Equals(otherProduct.Part)) return false;
+            if (!Part.Parameters.AllMembersAreSame(otherProduct.Part.Parameters)) return false;
 
             //если зависимые продукты не совпадают / совпадают
             return DependentProducts.AllMembersAreSame(otherProduct.DependentProducts);
