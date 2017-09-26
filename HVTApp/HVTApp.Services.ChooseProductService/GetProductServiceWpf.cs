@@ -28,7 +28,7 @@ namespace HVTApp.Services.GetProductService
 
         public ProductWrapper GetProduct(ProductWrapper templateProduct = null)
         {
-            ProductSelector productSelector = new ProductSelector(_parameters, _requiredDependentProductsParameteres, preSelectedProduct: templateProduct?.Model);
+            ProductSelector productSelector = new ProductSelector(_parameters.Select(x => x.Group).Distinct(), _parts, _products, _requiredDependentProductsParameteres, preSelectedProduct: templateProduct?.Model);
             SelectProductWindow window = new SelectProductWindow {DataContext = productSelector};
             window.ShowDialog();
 

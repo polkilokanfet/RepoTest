@@ -18,8 +18,8 @@
                         <StackPanel Orientation="Horizontal"
                                     Visibility="{Binding IsActual, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Label Content="{Binding Group.Name}"/>
-                            <ComboBox ItemsSource="{Binding ParametersWithActualFlag}"
-                                      SelectedItem="{Binding SelectedParameterWithActualFlag, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBox ItemsSource="{Binding ParametersFlaged}"
+                                      SelectedItem="{Binding SelectedParameterFlaged, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" 

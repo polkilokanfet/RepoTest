@@ -108,8 +108,8 @@ namespace HVTApp.Services.GetProductService.Tests
         [TestMethod]
         public void ProductSelectorSelectParameters()
         {
-            ParameterSelector parameterSelector = _productSelector.PartSelector.ParameterSelectors.Single(x => Equals(x.SelectedParameterWithActualFlag.Parameter, _breaker));
-            parameterSelector.SetSelectedParameterWithActualFlag(_drive);
+            ParameterSelector parameterSelector = _productSelector.PartSelector.ParameterSelectors.Single(x => Equals(x.SelectedParameterFlaged.Parameter, _breaker));
+            parameterSelector.SelectedParameter = (_drive);
 
             Assert.IsTrue(_productSelector.SelectedProduct.Part.Parameters.AllMembersAreSame(new[] { _drive }));
             Assert.AreEqual(_productSelector.SelectedProduct.DependentProducts.Count, _requiredDependentProductsParametersReducerToDrive.Count);
@@ -122,8 +122,8 @@ namespace HVTApp.Services.GetProductService.Tests
             List<Product> products = new List<Product>();
             ProductSelector productSelector1 = new ProductSelector(_groups, parts, products, _requiredDependentEquipmentsParametersList);
 
-            ParameterSelector parameterSelector = productSelector1.PartSelector.ParameterSelectors.Single(x => Equals(x.SelectedParameterWithActualFlag.Parameter, _breaker));
-            parameterSelector.SetSelectedParameterWithActualFlag(_drive);
+            ParameterSelector parameterSelector = productSelector1.PartSelector.ParameterSelectors.Single(x => Equals(x.SelectedParameterFlaged.Parameter, _breaker));
+            parameterSelector.SelectedParameter = (_drive);
             Product refProduct = productSelector1.SelectedProduct;
 
             ProductSelector productSelector2 = new ProductSelector(_groups, parts, products, _requiredDependentEquipmentsParametersList, 

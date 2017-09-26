@@ -60,7 +60,7 @@
     </Compile>
     <Compile Include="Selectors\NotifyPropertyChanged.cs" />
     <Compile Include="Selectors\ParametersEnumerableComparer.cs" />
-    <Compile Include="Selectors\ParameterWithActualFlag.cs" />
+    <Compile Include="Selectors\ParameterFlaged.cs" />
     <Compile Include="Selectors\PartSelector.cs" />
     <Compile Include="Selectors\ProductSelector.cs" />
     <Compile Include="IGetProductService.cs" />

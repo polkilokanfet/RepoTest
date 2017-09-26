@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.GetProductService
@@ -27,6 +30,11 @@ namespace HVTApp.Services.GetProductService
             }
         }
 
+        public void RefreshActualStatus(IEnumerable<Parameter> requiredParameters)
+        {
+            IsActual = !Parameter.RequiredPreviousParameters.Any() ||
+                        Parameter.RequiredPreviousParameters.Any(x => x.RequiredParameters.AllContainsIn(requiredParameters));
+        }
 
 
         public event Action<ParameterFlaged> IsActualChanged;
