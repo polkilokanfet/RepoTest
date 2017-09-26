@@ -39,10 +39,6 @@ namespace HVTApp.Services.GetProductService
             //дочернее оборудование
             ProductSelectors = new ObservableCollection<ProductSelector>();
             RefreshDependentProducts();
-            if (preSelectedProduct != null)
-            {
-                
-            }
             SelectedProduct = GetProduct();
         }
 

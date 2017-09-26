@@ -23,7 +23,7 @@ namespace HVTApp.Services.GetProductService
                 if (Equals(_selectedParameterFlaged, value)) return;
 
                 if (value != null && !ParametersFlaged.Contains(value)) throw new ArgumentException("Выбран параметр не из списка.");
-                if (value != null && !value.IsActual) throw new ArgumentException("Параметр не актуален");
+                //if (value != null && !value.IsActual) throw new ArgumentException("Параметр не актуален");
 
                 var oldValue = _selectedParameterFlaged;
                 _selectedParameterFlaged = value;

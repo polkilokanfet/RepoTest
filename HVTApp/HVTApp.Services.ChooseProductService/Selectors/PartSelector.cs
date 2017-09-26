@@ -9,13 +9,13 @@ namespace HVTApp.Services.GetProductService
 {
     public class PartSelector : NotifyPropertyChanged
     {
-        private readonly IList<Part> _products;
+        private readonly IList<Part> _parts;
         private readonly IEnumerable<Parameter> _requiredParameters;
         private Part _selectedPart;
 
-        public PartSelector(IEnumerable<IEnumerable<Parameter>> parametersGroups, IList<Part> products, IEnumerable<Parameter> requiredParameters = null, Part preSelectedPart = null)
+        public PartSelector(IEnumerable<IEnumerable<Parameter>> parametersGroups, IList<Part> parts, IEnumerable<Parameter> requiredParameters = null, Part preSelectedPart = null)
         {
-            _products = products;
+            _parts = parts;
             _requiredParameters = requiredParameters == null ? new List<Parameter>() : new List<Parameter>(requiredParameters);
 
             //упорядочиваем группы по отдаленности от опорной группы (параметра)
@@ -62,15 +62,14 @@ namespace HVTApp.Services.GetProductService
                 foreach (var parameter in _selectedPart.Parameters)
                 {
                     var parameterSelector = ParameterSelectors.Single(x => x.ParametersFlaged.Select(p => p.Parameter).Contains(parameter));
-                    if (!Equals(parameterSelector.SelectedParameterFlaged.Parameter, parameter))
-                        parameterSelector.SelectedParameter = parameter;
+                    parameterSelector.SelectedParameter = parameter;
                     actualParameterSelectors.Add(parameterSelector);
                 }
                 foreach (var parameterSelector in ParameterSelectors.Except(actualParameterSelectors))
                 {
                     if (!Equals(parameterSelector.SelectedParameterFlaged, null)) parameterSelector.SelectedParameterFlaged = null;
                 }
-                if (!_products.Contains(value)) _products.Add(value);
+                if (!_parts.Contains(value)) _parts.Add(value);
 
                 OnSelectedProductChanged(oldValue, value);
                 OnPropertyChanged();
@@ -84,11 +83,11 @@ namespace HVTApp.Services.GetProductService
 
         private Part GetPart()
         {
-            var result = _products.SingleOrDefault(x => SelectedParameters.AllMembersAreSame(x.Parameters));
+            var result = _parts.SingleOrDefault(x => SelectedParameters.AllMembersAreSame(x.Parameters));
             if (result == null)
             {
                 result = new Part { Parameters = new List<Parameter>(SelectedParameters) };
-                _products.Add(result);
+                _parts.Add(result);
             }
             return result;
         }

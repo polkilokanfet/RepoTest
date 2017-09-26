@@ -161,6 +161,8 @@ namespace HVTApp.Services.GetProductService.Tests
             var products = new List<Product> {testData.ProductBreakersDrive, testData.ProductVeb110, testData.ProductZng110};
             var rdpp = new List<RequiredDependentProductsParameters> {testData.RequiredChildProductParametersBreakerBlock, testData.RequiredChildProductParametersDrive};
 
+            Product product = testData.ProductVeb110;
+
             ProductSelector productSelector = new ProductSelector(groups, parts, products, rdpp, preSelectedProduct: testData.ProductVeb110);
             var parts1 = GetParts(productSelector.SelectedProduct);
             var parts2 = GetParts(testData.ProductVeb110);
