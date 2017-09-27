@@ -12,6 +12,18 @@ namespace HVTApp.Services.GetProductService
         private ParameterFlaged _selectedParameterFlaged;
         private bool _isActual = true;
 
+        public bool IsActual
+        {
+            get { return _isActual; }
+            set
+            {
+                if (Equals(_isActual, value)) return;
+                _isActual = value;
+                OnIsActualChanged();
+                OnPropertyChanged();
+            }
+        }
+
         public ParameterGroup Group => ParametersFlaged.First().Parameter.Group;
         public ReadOnlyObservableCollection<ParameterFlaged> ParametersFlaged { get; }
 
@@ -31,7 +43,7 @@ namespace HVTApp.Services.GetProductService
                 OnSelectedParameterChanged(oldValue?.Parameter, value?.Parameter);
                 OnPropertyChanged();
 
-                OnPropertyChanged(nameof(IsActual));
+                RefreshActualStatus();
             }
         }
 
@@ -40,6 +52,12 @@ namespace HVTApp.Services.GetProductService
             get { return SelectedParameterFlaged?.Parameter; }
             set
             {
+                if (value == null)
+                {
+                    SelectedParameterFlaged = null;
+                    return;
+                }
+
                 if (value != null && !ParametersFlaged.Select(x => x.Parameter).Contains(value))
                     throw new ArgumentException("Выбран параметр не из списка.");
 
@@ -47,17 +65,6 @@ namespace HVTApp.Services.GetProductService
             }
         }
 
-        public bool IsActual
-        {
-            get { return _isActual; }
-            set
-            {
-                if (Equals(_isActual, value)) return;
-                _isActual = value;
-                OnIsActualChanged();
-                OnPropertyChanged();
-            }
-        }
 
         public ParameterSelector(IEnumerable<Parameter> parameters, Parameter preSelectedParameter = null)
         {
@@ -72,9 +79,9 @@ namespace HVTApp.Services.GetProductService
             //подписываемся на смену актуальности параметра
             ParametersFlaged.ToList().ForEach(x => x.IsActualChanged += ParameterFlagedOnIsActualChanged);
 
-            SelectedParameterFlaged = preSelectedParameter != null
-                ? ParametersFlaged.FirstOrDefault(x => x.IsActual && Equals(preSelectedParameter, x.Parameter))
-                : ParametersFlaged.FirstOrDefault(x => x.IsActual);
+            //предварительно выбранный параметр
+            if (preSelectedParameter != null) SelectedParameter = preSelectedParameter;
+            else SelectedParameterFlaged = ParametersFlaged.FirstOrDefault(x => x.IsActual);
         }
 
         private void ParameterFlagedOnIsActualChanged(ParameterFlaged parameterFlaged)
@@ -88,11 +95,26 @@ namespace HVTApp.Services.GetProductService
         }
 
         /// <summary>
+        /// обновлем флаги актуальности каждого параметра
+        /// </summary>
+        /// <param name="requiredParameters"></param>
+        public void RefreshParametersActualStatuses(IEnumerable<Parameter> requiredParameters)
+        {
+            ParametersFlaged.ToList().ForEach(x => x.RefreshActualStatus(requiredParameters));
+        }
+
+
+        /// <summary>
         /// Обновление статуса актуальности группы
         /// </summary>
         public void RefreshActualStatus()
         {
             IsActual = this.ParametersFlaged.Any(x => x.IsActual);
+        }
+
+        public bool Contains(Parameter parameter)
+        {
+            return ParametersFlaged.Select(x => x.Parameter).Contains(parameter);
         }
 
         #region Events

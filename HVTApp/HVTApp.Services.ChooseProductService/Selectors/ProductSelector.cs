@@ -39,7 +39,7 @@ namespace HVTApp.Services.GetProductService
             //дочернее оборудование
             ProductSelectors = new ObservableCollection<ProductSelector>();
             RefreshDependentProducts();
-            SelectedProduct = GetProduct();
+            RefreshSelectedProduct();
         }
 
 
@@ -58,7 +58,7 @@ namespace HVTApp.Services.GetProductService
             }
         }
 
-        private Product GetProduct()
+        private void RefreshSelectedProduct()
         {
             var selectedProduct = new Product
             {
@@ -68,7 +68,7 @@ namespace HVTApp.Services.GetProductService
 
             var result = _products.SingleOrDefault(x => x.Equals(selectedProduct)) ?? selectedProduct;
             if (!_products.Contains(result)) _products.Add(result);
-            return result;
+            SelectedProduct = result;
         }
 
 
@@ -101,13 +101,13 @@ namespace HVTApp.Services.GetProductService
 
         private void OnDependentProductChanged(Product oldProduct, Product newProduct)
         {
-            SelectedProduct = GetProduct();
+            RefreshSelectedProduct();
         }
 
         private void OnMainPartChanged(Part oldPart, Part newPart)
         {
             RefreshDependentProducts();
-            SelectedProduct = GetProduct();
+            RefreshSelectedProduct();
         }
 
 

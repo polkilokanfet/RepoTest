@@ -19,29 +19,28 @@ namespace HVTApp.Services.GetProductService
             _requiredParameters = requiredParameters == null ? new List<Parameter>() : new List<Parameter>(requiredParameters);
 
             //упорядочиваем группы по отдаленности от опорной группы (параметра)
-            var parameterses = new List<IEnumerable<Parameter>>(parametersGroups.OrderBy(x => x, new ParametersEnumerableComparer()));
+            var parameterGroups = new List<IEnumerable<Parameter>>(parametersGroups.OrderBy(x => x, new ParametersEnumerableComparer()));
 
             ParameterSelectors = new ObservableCollection<ParameterSelector>();
-            foreach (var parameters in parameterses)
+            foreach (var parameters in parameterGroups)
             {
                 //исключаем возможность выбора параметров, отличных от обязательных
                 //если в селекторе есть обязательный параметр - оставляем только его
                 var parameterSelector = parameters.Any(_requiredParameters.Contains)
-                    ? new ParameterSelector(new[] { parameters.Single(_requiredParameters.Contains) })
+                    ? new ParameterSelector(parameters.Intersect(_requiredParameters))
                     : new ParameterSelector(parameters);
 
                 ParameterSelectors.Add(parameterSelector);
 
                 //подписываемся на изменение выбора параметра в каждой группе
                 parameterSelector.SelectedParameterChanged += OnSelectedParameterChanged;
-                //перепроверяем статусы актуальности каждого параметра
-                RefreshParametersActualStatuses(SelectedParameters);
             }
-
-            SelectedPart = RefreshPart();
+            //обновлем статусы актуальности каждого параметра
+            RefreshParametersActualStatuses(SelectedParameters);
 
             //назаначаем предварительно выбранный продукт
             if (preSelectedPart != null) SelectedPart = preSelectedPart;
+            else RefreshSelectedPart();
         }
 
         public ObservableCollection<ParameterSelector> ParameterSelectors { get; }
@@ -58,17 +57,9 @@ namespace HVTApp.Services.GetProductService
                 _selectedPart = value;
 
                 //назначаем в селекторы актуальные выбранные параметры
-                var actualParameterSelectors = new List<ParameterSelector>();
-                foreach (var parameter in _selectedPart.Parameters)
-                {
-                    var parameterSelector = ParameterSelectors.Single(x => x.ParametersFlaged.Select(p => p.Parameter).Contains(parameter));
-                    parameterSelector.SelectedParameter = parameter;
-                    actualParameterSelectors.Add(parameterSelector);
-                }
-                foreach (var parameterSelector in ParameterSelectors.Except(actualParameterSelectors))
-                {
-                    if (!Equals(parameterSelector.SelectedParameterFlaged, null)) parameterSelector.SelectedParameterFlaged = null;
-                }
+                if (!SelectedParameters.AllMembersAreSame(_selectedPart.Parameters))
+                    SetParametersInSelectors(_selectedPart.Parameters);
+
                 if (!_parts.Contains(value)) _parts.Add(value);
 
                 OnSelectedProductChanged(oldValue, value);
@@ -76,12 +67,25 @@ namespace HVTApp.Services.GetProductService
             }
         }
 
+        private void SetParametersInSelectors(IEnumerable<Parameter> parameters)
+        {
+                var parameterSelectors = new List<ParameterSelector>(ParameterSelectors);
+                foreach (var parameter in parameters)
+                {
+                    var parameterSelector = ParameterSelectors.Single(x => x.Contains(parameter));
+                    if (!Equals(parameterSelector.SelectedParameter, parameter)) parameterSelector.SelectedParameter = parameter;
+                    parameterSelectors.Remove(parameterSelector);
+                }
+
+                parameterSelectors.ForEach(x => x.SelectedParameter = null);
+        }
+
         public IEnumerable<Parameter> GetRequaredParameters()
         {
             return _requiredParameters;
         }
 
-        private Part RefreshPart()
+        private void RefreshSelectedPart()
         {
             var result = _parts.SingleOrDefault(x => SelectedParameters.AllMembersAreSame(x.Parameters));
             if (result == null)
@@ -89,35 +93,21 @@ namespace HVTApp.Services.GetProductService
                 result = new Part { Parameters = new List<Parameter>(SelectedParameters) };
                 _parts.Add(result);
             }
-            return result;
+            SelectedPart = result;
         }
 
         private void RefreshParametersActualStatuses(IEnumerable<Parameter> actualSelectedParameters)
         {
-            //перепроверяем флаги актуальности каждого параметра
-            foreach (var parameterSelector in ParameterSelectors)
-            {
-                foreach (var parameterFlaged in parameterSelector.ParametersFlaged)
-                    parameterFlaged.RefreshActualStatus(actualSelectedParameters);
-
-                //если выбранный параметр потерял свою актуальность, выбирам другой актуальный
-                var selectedParameterFlaged = parameterSelector.ParametersFlaged.SingleOrDefault(x => Equals(x.Parameter, parameterSelector.SelectedParameterFlaged?.Parameter));
-                if (selectedParameterFlaged != null && !selectedParameterFlaged.IsActual)
-                    parameterSelector.SelectedParameterFlaged = parameterSelector.ParametersFlaged.FirstOrDefault(x => x.IsActual);
-            }
+            ParameterSelectors.ToList().ForEach(x => x.RefreshParametersActualStatuses(actualSelectedParameters));
         }
-
 
         private void OnSelectedParameterChanged(Parameter oldParameter, Parameter newParameter)
         {
             //определяем выбранные параметры, которые зависели от старого параметра
-            List<Parameter> dependendParametersFromOld = new List<Parameter>();
-            if (oldParameter != null)
-                dependendParametersFromOld.AddRange(SelectedParameters.Where(x => ParameterDependsFrom(x, oldParameter)));
+            var dependendParametersFromOld = GetDependendParameters(oldParameter);
+
             //определяем выбранные параметры, которые зависят от нового параметра
-            List<Parameter> dependendParametersFromNew = new List<Parameter>();
-            if (newParameter != null)
-                dependendParametersFromNew.AddRange(SelectedParameters.Where(x => ParameterDependsFrom(x, newParameter)));
+            var dependendParametersFromNew = GetDependendParameters(newParameter);
 
             //не актуальные параметры
             var notActualSelectedParameters = dependendParametersFromOld.Except(dependendParametersFromNew);
@@ -128,9 +118,15 @@ namespace HVTApp.Services.GetProductService
 
             //перепроверяем флаги актуальности каждого параметра
             RefreshParametersActualStatuses(actualSelectedParameters);
-            OnSelectedParametersChanged();
 
-            SelectedPart = RefreshPart();
+            RefreshSelectedPart();
+        }
+
+        private IEnumerable<Parameter> GetDependendParameters(Parameter parameter)
+        {
+            return parameter != null
+                ? new List<Parameter>(SelectedParameters.Where(x => ParameterDependsFrom(x, parameter)))
+                : new List<Parameter>();
         }
 
         //нужен ли параметру для актуальности выбор другого параметра
@@ -151,11 +147,5 @@ namespace HVTApp.Services.GetProductService
             SelectedPartChanged?.Invoke(oldPart, newPart);
         }
 
-        private event Action SelectedParametersChanged;
-
-        protected virtual void OnSelectedParametersChanged()
-        {
-            SelectedParametersChanged?.Invoke();
-        }
     }
 }
