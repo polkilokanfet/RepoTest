@@ -62,7 +62,6 @@ namespace HVTApp.TestDataGenerator
                 
         public Project Project1;
         public Project Project2;
-        //public Project Project3;
 
         public FacilityType FacilityTypeStation;
         public FacilityType FacilityTypeSubStation;
@@ -76,7 +75,8 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupBreakerType;
         public ParameterGroup ParameterGroupTransformatorType;
         public ParameterGroup ParameterGroupVoltage;
-                
+        public ParameterGroup ParameterGroupDrivesVoltage;
+
         public Parameter ParameterBreaker;
         public Parameter ParameterTransformator;
         public Parameter ParameterBrakersDrive;
@@ -89,7 +89,10 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterVoltage110kV;
         public Parameter ParameterVoltage220kV;
         public Parameter ParameterVoltage500kV;
-                
+        public Parameter ParameterVoltage110V;
+        public Parameter ParameterVoltage220V;
+
+
         public RequiredDependentProductsParameters RequiredChildProductParametersDrive;
         public RequiredDependentProductsParameters RequiredChildProductParametersBreakerBlock;
                 
@@ -345,7 +348,10 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupTransformatorType.Parameters.AddRange(new []{ParameterTransformatorCurrent, ParameterTransformatorVoltage});
 
             ParameterGroupVoltage.Clone(new ParameterGroup { Name = "Номинальное напряжение", Measure = MeasureKv });
-            ParameterGroupVoltage.Parameters.AddRange(new []{ParameterVoltage35kV, ParameterVoltage110kV, ParameterVoltage220kV, ParameterVoltage500kV});
+            ParameterGroupVoltage.Parameters.AddRange(new[] { ParameterVoltage35kV, ParameterVoltage110kV, ParameterVoltage220kV, ParameterVoltage500kV });
+
+            ParameterGroupDrivesVoltage.Clone(new ParameterGroup { Name = "Номинальное напряжение двигателя завода пружин", Measure = MeasureKv });
+            ParameterGroupDrivesVoltage.Parameters.AddRange(new[] { ParameterVoltage110V, ParameterVoltage220V });
         }
 
         private void GenerateParameters()
@@ -377,6 +383,11 @@ namespace HVTApp.TestDataGenerator
             ParameterVoltage500kV.Clone(new Parameter { Group = ParameterGroupVoltage, Value = "500" });
             ParameterVoltage500kV.AddRequiredPreviousParameters(new[] { ParameterBreaker, ParameterBreakerLiveTank });
 
+            ParameterVoltage110V.Clone(new Parameter { Group = ParameterGroupDrivesVoltage, Value = "110 В" });
+            ParameterVoltage110V.AddRequiredPreviousParameters(new[] { ParameterBrakersDrive });
+
+            ParameterVoltage220V.Clone(new Parameter { Group = ParameterGroupDrivesVoltage, Value = "220 В" });
+            ParameterVoltage220V.AddRequiredPreviousParameters(new[] { ParameterBrakersDrive });
         }
 
         private void GenerateRequiredDependentEquipmentsParameters()
@@ -395,7 +406,7 @@ namespace HVTApp.TestDataGenerator
                 Prices= new List<CostOnDate> { new CostOnDate { Cost=50, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber2" });
             PartVeb110.Clone(new Part { Designation = "ВЭБ-110", Parameters= new List<Parameter> { ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage110kV },
                 Prices= new List<CostOnDate> { new CostOnDate { Cost=100, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber3" });
-            PartBreakesDrive.Clone(new Part { Designation = "Привод выключателя", Parameters= new List<Parameter> { ParameterBrakersDrive },
+            PartBreakesDrive.Clone(new Part { Designation = "Привод выключателя", Parameters= new List<Parameter> { ParameterBrakersDrive, ParameterVoltage220V },
                 Prices= new List<CostOnDate> { new CostOnDate { Cost=100, Date = DateTime.Today } }, StructureCostNumber = "StructureCostNumber4" });
         }
 

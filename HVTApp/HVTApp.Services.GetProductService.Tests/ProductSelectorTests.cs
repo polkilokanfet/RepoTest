@@ -162,7 +162,7 @@ namespace HVTApp.Services.GetProductService.Tests
         public void ProductSelectorPreSelectedProduct2()
         {
             TestData testData = new TestData();
-            var groups = new List<ParameterGroup> {testData.ParameterGroupBreakerType, testData.ParameterGroupEqType, testData.ParameterGroupTransformatorType, testData.ParameterGroupVoltage};
+            var groups = new List<ParameterGroup> {testData.ParameterGroupBreakerType, testData.ParameterGroupEqType, testData.ParameterGroupTransformatorType, testData.ParameterGroupVoltage, testData.ParameterGroupDrivesVoltage};
             var parts = new List<Part> {testData.PartBreakesDrive, testData.PartVeb110, testData.PartVgb35, testData.PartZng110};
             var products = new List<Product> {testData.ProductBreakersDrive, testData.ProductVeb110, testData.ProductZng110};
             var rdpp = new List<RequiredDependentProductsParameters> {testData.RequiredChildProductParametersBreakerBlock, testData.RequiredChildProductParametersDrive};

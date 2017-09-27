@@ -29,7 +29,8 @@ namespace HVTApp.DataAccess
             context.Parameters.AddRange(new[] {
                 testData.ParameterBreaker, testData.ParameterTransformator, testData.ParameterBreakerDeadTank,
                 testData.ParameterBreakerLiveTank, testData.ParameterTransformatorCurrent, testData.ParameterTransformatorVoltage,
-                testData.ParameterVoltage35kV, testData.ParameterVoltage110kV, testData.ParameterVoltage220kV, testData.ParameterVoltage500kV });
+                testData.ParameterVoltage35kV, testData.ParameterVoltage110kV, testData.ParameterVoltage220kV, testData.ParameterVoltage500kV,
+                testData.ParameterVoltage110V, testData.ParameterVoltage220V });
             context.RequiredDependentEquipmentsParameterses.AddRange(new[] { testData.RequiredChildProductParametersBreakerBlock, testData.RequiredChildProductParametersDrive });
             context.Products.AddRange(new[] { testData.ProductVeb110, testData.ProductZng110, testData.ProductBreakersDrive });
 
