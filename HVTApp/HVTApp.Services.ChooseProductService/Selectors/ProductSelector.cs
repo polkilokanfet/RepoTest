@@ -66,11 +66,27 @@ namespace HVTApp.Services.GetProductService
                 DependentProducts = ProductSelectors.Select(p => p.SelectedProduct).ToList()
             };
 
-            var result = _products.SingleOrDefault(x => x.Equals(selectedProduct)) ?? selectedProduct;
+            var result = _products.SingleOrDefault(x => ProductsAreSame(x, selectedProduct)) ?? selectedProduct;
             if (!_products.Contains(result)) _products.Add(result);
             SelectedProduct = result;
         }
 
+        private bool ProductsAreSame(Product firstProduct, Product secondProduct)
+        {
+            if(firstProduct == null || secondProduct == null) throw new ArgumentNullException();
+
+            if (!firstProduct.Part.Parameters.AllMembersAreSame(secondProduct.Part.Parameters)) return false;
+
+            if (firstProduct.DependentProducts.Count != secondProduct.DependentProducts.Count) return false;
+
+            foreach (var dependentProduct in firstProduct.DependentProducts)
+                if (secondProduct.DependentProducts.Any(x => ProductsAreSame(x, dependentProduct))) return false;
+
+            foreach (var dependentProduct in secondProduct.DependentProducts)
+                if (firstProduct.DependentProducts.Any(x => ProductsAreSame(x, dependentProduct))) return false;
+
+            return true;
+        }
 
         private void RefreshDependentProducts()
         {

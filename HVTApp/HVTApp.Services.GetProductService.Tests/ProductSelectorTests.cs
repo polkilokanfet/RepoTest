@@ -167,11 +167,20 @@ namespace HVTApp.Services.GetProductService.Tests
             var products = new List<Product> {testData.ProductBreakersDrive, testData.ProductVeb110, testData.ProductZng110};
             var rdpp = new List<RequiredDependentProductsParameters> {testData.RequiredChildProductParametersBreakerBlock, testData.RequiredChildProductParametersDrive};
 
-            ProductSelector productSelector = new ProductSelector(groups, parts, products, rdpp, preSelectedProduct: testData.ProductVeb110);
+            var productSelector = new ProductSelector(groups, parts, products, rdpp, preSelectedProduct: testData.ProductVeb110);
             var parts1 = GetParts(productSelector.SelectedProduct);
             var parts2 = GetParts(testData.ProductVeb110);
             Assert.IsTrue(parts1.AllMembersAreSame(parts2));
 
+            var drive = testData.ProductBreakersDrive;
+            var breaker = testData.ProductVeb110;
+            breaker.DependentProducts.Remove(drive);
+            breaker.DependentProducts.Add(new Product() {Part = new Part() {Parameters = new List<Parameter>() {testData.ParameterBrakersDrive, testData.ParameterVoltage110V} } });
+
+            var productSelector2 = new ProductSelector(groups, parts, products, rdpp, preSelectedProduct: breaker);
+            var parts3 = GetParts(productSelector2.SelectedProduct);
+            var parts4 = GetParts(breaker);
+            Assert.IsTrue(parts3.AllMembersAreSame(parts4));
         }
         IEnumerable<Part> GetParts(Product product)
         {
