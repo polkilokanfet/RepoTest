@@ -7,7 +7,7 @@ using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
 {
-    public class RequiredDependentProductssParametersRepository : BaseRepository<RequiredDependentProductsParameters, RequiredDependentProductsParametersWrapper>, IRequiredDependentProductssParametersRepository
+    public class RequiredDependentProductssParametersRepository : BaseRepository<ProductsRelation, RequiredDependentProductsParametersWrapper>, IRequiredDependentProductssParametersRepository
     {
         public RequiredDependentProductssParametersRepository(DbContext context, IGetWrapper wrappersGetter) : base(context, wrappersGetter)
         {

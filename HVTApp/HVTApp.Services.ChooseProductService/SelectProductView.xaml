@@ -39,7 +39,8 @@
             <ItemsControl ItemsSource="{Binding ProductSelectors}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:SelectProductView DataContext="{Binding}"/>
+                        <local:SelectProductView DataContext="{Binding}" 
+                                                 Visibility="{Binding Path=IsActual, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

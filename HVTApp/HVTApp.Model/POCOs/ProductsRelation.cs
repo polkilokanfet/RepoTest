@@ -6,9 +6,9 @@ namespace HVTApp.Model.POCOs
     /// <summary>
     /// Параметры обязательных дочерних продуктов.
     /// </summary>
-    public class RequiredDependentProductsParameters : BaseEntity
+    public class ProductsRelation : BaseEntity
     {
-        public virtual List<Parameter> MainProductParameters { get; set; } = new List<Parameter>();
+        public virtual List<Parameter> ParentProductParameters { get; set; } = new List<Parameter>();
         public virtual List<Parameter> ChildProductParameters { get; set; } = new List<Parameter>();
         public int Count { get; set; } = 1;
     }

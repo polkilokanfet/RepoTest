@@ -63,7 +63,7 @@
     <Compile Include="POCOs\Parameter.cs" />
     <Compile Include="POCOs\ParameterGroup.cs" />
     <Compile Include="POCOs\Part.cs" />
-    <Compile Include="POCOs\RequiredDependentProductsParameters.cs" />
+    <Compile Include="POCOs\ProductsRelation.cs" />
     <Compile Include="POCOs\StandartPaymentConditions.cs" />
     <Compile Include="POCOs\Person.cs" />
     <Compile Include="POCOs\Payments.cs" />
