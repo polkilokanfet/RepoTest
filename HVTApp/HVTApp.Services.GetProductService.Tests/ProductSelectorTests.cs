@@ -165,9 +165,9 @@ namespace HVTApp.Services.GetProductService.Tests
             var groups = new List<ParameterGroup> {testData.ParameterGroupBreakerType, testData.ParameterGroupEqType, testData.ParameterGroupTransformatorType, testData.ParameterGroupVoltage, testData.ParameterGroupDrivesVoltage};
             var parts = new List<Part> {testData.PartBreakesDrive, testData.PartVeb110, testData.PartVgb35, testData.PartZng110};
             var products = new List<Product> {testData.ProductBreakersDrive, testData.ProductVeb110, testData.ProductZng110};
-            var rdpp = new List<ProductsRelation> {testData.RequiredChildProductRelationBreakerBlock, testData.RequiredChildProductRelationDrive};
+            var relations = new List<ProductsRelation> {testData.RequiredChildProductRelationBreakerBlock, testData.RequiredChildProductRelationDrive};
 
-            var productSelector = new ProductSelector(groups, parts, products, rdpp, preSelectedProduct: testData.ProductVeb110);
+            var productSelector = new ProductSelector(groups, parts, products, relations, preSelectedProduct: testData.ProductVeb110);
             var parts1 = GetParts(productSelector.SelectedProduct);
             var parts2 = GetParts(testData.ProductVeb110);
             Assert.IsTrue(parts1.AllMembersAreSame(parts2));
@@ -175,9 +175,9 @@ namespace HVTApp.Services.GetProductService.Tests
             var drive = testData.ProductBreakersDrive;
             var breaker = testData.ProductVeb110;
             breaker.DependentProducts.Remove(drive);
-            breaker.DependentProducts.Add(new Product() {Part = new Part() {Parameters = new List<Parameter>() {testData.ParameterBrakersDrive, testData.ParameterVoltage110V} } });
+            breaker.DependentProducts.Add(new Product {Part = new Part {Parameters = new List<Parameter> {testData.ParameterBrakersDrive, testData.ParameterVoltage110V} } });
 
-            var productSelector2 = new ProductSelector(groups, parts, products, rdpp, preSelectedProduct: breaker);
+            var productSelector2 = new ProductSelector(groups, parts, products, relations, preSelectedProduct: breaker);
             var parts3 = GetParts(productSelector2.SelectedProduct);
             var parts4 = GetParts(breaker);
             Assert.IsTrue(parts3.AllMembersAreSame(parts4));

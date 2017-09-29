@@ -32,7 +32,7 @@ namespace HVTApp.Services.GetProductService
                                IEnumerable<Parameter> requiredParameters = null,
                                Product preSelectedProduct = null)
         {
-            _groups = new List<ParameterGroup>(groups);
+            _groups = groups;
             _parts = parts;
             _products = products;
             _requiredParameters = requiredParameters;
@@ -51,10 +51,12 @@ namespace HVTApp.Services.GetProductService
 
         private void GenerateProductSelectors()
         {
+            //связи, актуальные при таких обязательных к выбору параметров
             var relations = _requiredParameters == null
                 ? _productsRelations
                 : _productsRelations.Where(x => x.ParentProductParameters.AllContainsIn(_requiredParameters));
 
+            //создаём словарь селекторов продукта
             foreach (var relation in relations)
             {
                 var productSelectors = new List<ProductSelector>();
@@ -66,7 +68,7 @@ namespace HVTApp.Services.GetProductService
                 }
                 _productSelectorsDictionary.Add(relation, productSelectors);
             }
-
+            //подписываемся на событие изменение дочернего продукта
             ProductSelectors.ToList().ForEach(x => x.SelectedProductChanged += OnDependentProductChanged);
         }
 
@@ -136,33 +138,6 @@ namespace HVTApp.Services.GetProductService
             actualProductsRelations.ToList()
                 .ForEach(x => _productSelectorsDictionary[x].ToList().ForEach(ps => ps.IsActual = true));
         }
-
-        //private void RefreshDependentProducts()
-        //{
-        //    // Параметры, необходимые зависимому оборудованию
-        //    var productsRelations =_productsRelations
-        //        .Where(x => x.ParentProductParameters.AllContainsIn(PartSelector.SelectedParameters));
-
-        //    //исключаем не актуальное дочернее оборудование
-        //    foreach (var productSelector in ProductSelectors
-        //        .Where(ps => !productsRelations.Any(x => x.ChildProductParameters.AllMembersAreSame(ps.PartSelector.GetRequaredParameters()))).ToList())
-        //    {
-        //        ProductSelectors.Remove(productSelector);
-        //        productSelector.SelectedProductChanged -= OnDependentProductChanged;
-        //    }
-
-        //    //добавляем актуальное дочернее оборудование
-        //    foreach (var requiredDependentProductParameters in productsRelations
-        //        .Where(x => !ProductSelectors.Any(des => des.PartSelector.GetRequaredParameters().AllMembersAreSame(x.ChildProductParameters))))
-        //    {
-        //        for (int i = 0; i < requiredDependentProductParameters.Count; i++)
-        //        {
-        //            var productSelector = new ProductSelector(_groups, _parts, _products, _productsRelations, requiredDependentProductParameters.ChildProductParameters);
-        //            ProductSelectors.Add(productSelector);
-        //            productSelector.SelectedProductChanged += OnDependentProductChanged;
-        //        }
-        //    }
-        //}
 
         private void OnDependentProductChanged(Product oldProduct, Product newProduct)
         {
