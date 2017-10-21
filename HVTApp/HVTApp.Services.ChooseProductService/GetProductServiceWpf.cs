@@ -14,7 +14,7 @@ namespace HVTApp.Services.GetProductService
         private readonly IList<Parameter> _parameters;
         private readonly IList<Part> _parts;
         private readonly IList<Product> _products;
-        private readonly IList<RequiredDependentProductsParameters> _requiredDependentProductsParameteres;
+        private readonly IList<ProductsRelation> _requiredDependentProductsParameteres;
 
         public GetProductServiceWpf(IUnitOfWork unitOfWork)
         {

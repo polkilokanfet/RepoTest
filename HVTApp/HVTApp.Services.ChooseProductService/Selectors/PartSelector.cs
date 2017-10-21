@@ -80,11 +80,6 @@ namespace HVTApp.Services.GetProductService
                 parameterSelectors.ForEach(x => x.SelectedParameter = null);
         }
 
-        public IEnumerable<Parameter> GetRequaredParameters()
-        {
-            return _requiredParameters;
-        }
-
         private void RefreshSelectedPart()
         {
             var result = _parts.SingleOrDefault(x => SelectedParameters.AllMembersAreSame(x.Parameters));
@@ -135,9 +130,6 @@ namespace HVTApp.Services.GetProductService
             if (!targetParameter.RequiredPreviousParameters.Any()) return false;
             return targetParameter.RequiredPreviousParameters.Any(x => x.RequiredParameters.Contains(possibleNeededParameter));
         }
-
-
-
 
 
         public event Action<Part, Part> SelectedPartChanged;

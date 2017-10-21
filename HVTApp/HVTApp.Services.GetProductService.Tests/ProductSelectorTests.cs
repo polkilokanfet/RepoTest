@@ -17,8 +17,8 @@ namespace HVTApp.Services.GetProductService.Tests
         private Parameter _c2500, _c3150, _c0001, _c0005;
         private ParameterGroup _current, _voltage, _eqType;
 
-        private List<RequiredDependentProductsParameters> _requiredDependentEquipmentsParametersList;
-        private RequiredDependentProductsParameters _requiredDependentProductsParametersTransformatorsToBreker, _requiredDependentProductsParametersDriveToBreker, _requiredDependentProductsParametersReducerToDrive;
+        private List<ProductsRelation> _requiredDependentEquipmentsParametersList;
+        private ProductsRelation _productsRelationTransformatorsToBreker, _productsRelationDriveToBreker, _productsRelationReducerToDrive;
         private ProductSelector _productSelector;
 
         [TestInitialize]
@@ -46,42 +46,42 @@ namespace HVTApp.Services.GetProductService.Tests
 
             _groups = new List<ParameterGroup> { _eqType, _voltage, _current };
 
-            _requiredDependentProductsParametersTransformatorsToBreker = new RequiredDependentProductsParameters
+            _productsRelationTransformatorsToBreker = new ProductsRelation
             {
-                MainProductParameters = new List<Parameter> { _breaker, _v110 },
+                ParentProductParameters = new List<Parameter> { _breaker, _v110 },
                 ChildProductParameters = new List<Parameter> { _transformator },
                 Count = 6
             };
-            _requiredDependentProductsParametersDriveToBreker = new RequiredDependentProductsParameters
+            _productsRelationDriveToBreker = new ProductsRelation
             {
-                MainProductParameters = new List<Parameter> { _breaker, _v110 },
+                ParentProductParameters = new List<Parameter> { _breaker, _v110 },
                 ChildProductParameters = new List<Parameter> { _drive },
                 Count = 1
             };
-            _requiredDependentProductsParametersReducerToDrive = new RequiredDependentProductsParameters
+            _productsRelationReducerToDrive = new ProductsRelation
             {
-                MainProductParameters = new List<Parameter> { _drive },
+                ParentProductParameters = new List<Parameter> { _drive },
                 ChildProductParameters = new List<Parameter> { _drivesReducer },
                 Count = 3
             };
-            _requiredDependentEquipmentsParametersList = new List<RequiredDependentProductsParameters> { _requiredDependentProductsParametersTransformatorsToBreker, _requiredDependentProductsParametersDriveToBreker, _requiredDependentProductsParametersReducerToDrive };
+            _requiredDependentEquipmentsParametersList = new List<ProductsRelation> { _productsRelationTransformatorsToBreker, _productsRelationDriveToBreker, _productsRelationReducerToDrive };
 
             _productSelector = new ProductSelector(_groups, new List<Part>(), new List<Product>(), _requiredDependentEquipmentsParametersList);
         }
 
         [TestMethod]
-        public void ProductSelectorHasSelectedEquipment()
+        public void ProductSelectorHasSelectedProduct()
         {
-            DependentEquipmentNotNull(_productSelector.SelectedProduct);
+            DependentProductNotNull(_productSelector.SelectedProduct);
         }
 
         //всё зависимое оборудование выбрано
-        private void DependentEquipmentNotNull(Product product)
+        private void DependentProductNotNull(Product product)
         {
             Assert.IsTrue(product != null);
             foreach (var dependentEquipment in product.DependentProducts)
             {
-                DependentEquipmentNotNull(dependentEquipment);
+                DependentProductNotNull(dependentEquipment);
             }
         }
 
@@ -89,12 +89,12 @@ namespace HVTApp.Services.GetProductService.Tests
         public void ProductSelectorIncludesDependentProductSelectors()
         {
             //должен иметь зависимые продукты (выключатель: трансформаторы + привод)
-            Assert.AreEqual(_productSelector.ProductSelectors.Count, _requiredDependentProductsParametersTransformatorsToBreker.Count +
-                                                                         _requiredDependentProductsParametersDriveToBreker.Count);
+            Assert.AreEqual(_productSelector.ProductSelectors.Count(x => x.IsActual), _productsRelationTransformatorsToBreker.Count +
+                                                                         _productsRelationDriveToBreker.Count);
 
             //должен иметь зависимые продукты (привод: редуктор)
             ProductSelector driveProductSelector = _productSelector.ProductSelectors.Single(x => x.PartSelector.SelectedParameters.Contains(_drive));
-            Assert.AreEqual(driveProductSelector.ProductSelectors.Count, _requiredDependentProductsParametersReducerToDrive.Count);
+            Assert.AreEqual(driveProductSelector.ProductSelectors.Count, _productsRelationReducerToDrive.Count);
         }
 
         [TestMethod]
@@ -112,7 +112,7 @@ namespace HVTApp.Services.GetProductService.Tests
             parameterSelector.SelectedParameter = (_drive);
 
             Assert.IsTrue(_productSelector.SelectedProduct.Part.Parameters.AllMembersAreSame(new[] { _drive }));
-            Assert.AreEqual(_productSelector.SelectedProduct.DependentProducts.Count, _requiredDependentProductsParametersReducerToDrive.Count);
+            Assert.AreEqual(_productSelector.SelectedProduct.DependentProducts.Count, _productsRelationReducerToDrive.Count);
         }
 
         [TestMethod]
@@ -165,9 +165,9 @@ namespace HVTApp.Services.GetProductService.Tests
             var groups = new List<ParameterGroup> {testData.ParameterGroupBreakerType, testData.ParameterGroupEqType, testData.ParameterGroupTransformatorType, testData.ParameterGroupVoltage, testData.ParameterGroupDrivesVoltage};
             var parts = new List<Part> {testData.PartBreakesDrive, testData.PartVeb110, testData.PartVgb35, testData.PartZng110};
             var products = new List<Product> {testData.ProductBreakersDrive, testData.ProductVeb110, testData.ProductZng110};
-            var rdpp = new List<RequiredDependentProductsParameters> {testData.RequiredChildProductParametersBreakerBlock, testData.RequiredChildProductParametersDrive};
+            var relations = new List<ProductsRelation> {testData.RequiredChildProductRelationBreakerBlock, testData.RequiredChildProductRelationDrive};
 
-            var productSelector = new ProductSelector(groups, parts, products, rdpp, preSelectedProduct: testData.ProductVeb110);
+            var productSelector = new ProductSelector(groups, parts, products, relations, preSelectedProduct: testData.ProductVeb110);
             var parts1 = GetParts(productSelector.SelectedProduct);
             var parts2 = GetParts(testData.ProductVeb110);
             Assert.IsTrue(parts1.AllMembersAreSame(parts2));
@@ -175,9 +175,9 @@ namespace HVTApp.Services.GetProductService.Tests
             var drive = testData.ProductBreakersDrive;
             var breaker = testData.ProductVeb110;
             breaker.DependentProducts.Remove(drive);
-            breaker.DependentProducts.Add(new Product() {Part = new Part() {Parameters = new List<Parameter>() {testData.ParameterBrakersDrive, testData.ParameterVoltage110V} } });
+            breaker.DependentProducts.Add(new Product {Part = new Part {Parameters = new List<Parameter> {testData.ParameterBrakersDrive, testData.ParameterVoltage110V} } });
 
-            var productSelector2 = new ProductSelector(groups, parts, products, rdpp, preSelectedProduct: breaker);
+            var productSelector2 = new ProductSelector(groups, parts, products, relations, preSelectedProduct: breaker);
             var parts3 = GetParts(productSelector2.SelectedProduct);
             var parts4 = GetParts(breaker);
             Assert.IsTrue(parts3.AllMembersAreSame(parts4));

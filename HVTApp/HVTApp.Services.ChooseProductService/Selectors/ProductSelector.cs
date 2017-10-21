@@ -12,36 +12,65 @@ namespace HVTApp.Services.GetProductService
         private readonly IEnumerable<ParameterGroup> _groups;
         private readonly IList<Part> _parts;
         private readonly IList<Product> _products;
-        private readonly IEnumerable<RequiredDependentProductsParameters> _requiredDependentProductsParametersList;
+        private readonly IEnumerable<Parameter> _requiredParameters;
+        private readonly IEnumerable<ProductsRelation> _productsRelations;
 
         private Product _selectedProduct;
+        private bool _isActual = true;
 
         public PartSelector PartSelector { get; }
-        public ObservableCollection<ProductSelector> ProductSelectors { get; }
+        public ObservableCollection<ProductSelector> ProductSelectors { get; } = new ObservableCollection<ProductSelector>();
+
+        private readonly Dictionary<ProductsRelation, IEnumerable<ProductSelector>> _productSelectorsDictionary 
+            = new Dictionary<ProductsRelation, IEnumerable<ProductSelector>>();
 
 
         public ProductSelector(IEnumerable<ParameterGroup> groups,
-                                 IList<Part> parts,
-                                 IList<Product> products,
-                                 IEnumerable<RequiredDependentProductsParameters> requiredDependentProductsParametersList,
-                                 IEnumerable<Parameter> requiredProductsParameters = null,
-                                 Product preSelectedProduct = null)
+                               IList<Part> parts,
+                               IList<Product> products,
+                               IEnumerable<ProductsRelation> productsRelations,
+                               IEnumerable<Parameter> requiredParameters = null,
+                               Product preSelectedProduct = null)
         {
-            _groups = new List<ParameterGroup>(groups);
+            _groups = groups;
             _parts = parts;
             _products = products;
-            _requiredDependentProductsParametersList = new List<RequiredDependentProductsParameters>(requiredDependentProductsParametersList);
+            _requiredParameters = requiredParameters;
+            _productsRelations = new List<ProductsRelation>(productsRelations);
 
             //продукт
-            PartSelector = new PartSelector(_groups.Select(x => x.Parameters), _parts, requiredProductsParameters, preSelectedProduct?.Part);
+            PartSelector = new PartSelector(_groups.Select(x => x.Parameters), _parts, requiredParameters, preSelectedProduct?.Part);
             PartSelector.SelectedPartChanged += OnMainPartChanged;
 
+            GenerateProductSelectors();
+
             //дочернее оборудование
-            ProductSelectors = new ObservableCollection<ProductSelector>();
-            RefreshDependentProducts();
+            RefreshProductSelectorsActualStatuses();
             RefreshSelectedProduct();
         }
 
+        private void GenerateProductSelectors()
+        {
+            //связи, актуальные при таких обязательных к выбору параметров
+            var relations = _requiredParameters == null
+                ? _productsRelations
+                : _productsRelations.Where(x => x.ParentProductParameters.AllContainsIn(_requiredParameters));
+
+            //создаём словарь селекторов продукта
+            foreach (var relation in relations)
+            {
+                var productSelectors = new List<ProductSelector>();
+                for (int i = 0; i < relation.Count; i++)
+                {
+                    var productSelector = new ProductSelector(_groups, _parts, _products, _productsRelations, relation.ChildProductParameters);
+                    productSelectors.Add(productSelector);
+                    ProductSelectors.Add(productSelector);
+                }
+                _productSelectorsDictionary.Add(relation, productSelectors);
+            }
+            //подписываемся на событие изменение дочернего продукта
+            ProductSelectors.ToList().ForEach(x => x.SelectedProductChanged += OnDependentProductChanged);
+        }
 
         public Product SelectedProduct
         {
@@ -63,7 +92,7 @@ namespace HVTApp.Services.GetProductService
             var selectedProduct = new Product
             {
                 Part = PartSelector.SelectedPart,
-                DependentProducts = ProductSelectors.Select(p => p.SelectedProduct).ToList()
+                DependentProducts = ProductSelectors.Where(x => x.IsActual).Select(p => p.SelectedProduct).ToList()
             };
 
             var result = _products.SingleOrDefault(x => ProductsAreSame(x, selectedProduct)) ?? selectedProduct;
@@ -88,31 +117,26 @@ namespace HVTApp.Services.GetProductService
             return true;
         }
 
-        private void RefreshDependentProducts()
+        public bool IsActual
         {
-            // Параметры, необходимые зависимому оборудованию
-            var RequiredDependentProductParameters =_requiredDependentProductsParametersList
-                .Where(x => x.MainProductParameters.AllContainsIn(PartSelector.SelectedParameters));
-
-            //исключаем не актуальное дочернее оборудование
-            foreach (var productSelector in ProductSelectors
-                .Where(ps => !RequiredDependentProductParameters.Any(x => x.ChildProductParameters.AllMembersAreSame(ps.PartSelector.GetRequaredParameters()))).ToList())
+            get { return _isActual; }
+            set
             {
-                ProductSelectors.Remove(productSelector);
-                productSelector.SelectedProductChanged -= OnDependentProductChanged;
+                if (_isActual == value) return;
+                _isActual = value;
+                OnIsActualChanged();
+                OnPropertyChanged();
             }
+        }
 
-            //добавляем актуальное дочернее оборудование
-            foreach (var requiredDependentProductParameters in RequiredDependentProductParameters
-                .Where(x => !ProductSelectors.Any(des => des.PartSelector.GetRequaredParameters().AllMembersAreSame(x.ChildProductParameters))))
-            {
-                for (int i = 0; i < requiredDependentProductParameters.Count; i++)
-                {
-                    var productSelector = new ProductSelector(_groups, _parts, _products, _requiredDependentProductsParametersList, requiredDependentProductParameters.ChildProductParameters);
-                    ProductSelectors.Add(productSelector);
-                    productSelector.SelectedProductChanged += OnDependentProductChanged;
-                }
-            }
+        private void RefreshProductSelectorsActualStatuses()
+        {
+            var actualProductsRelations =_productsRelations
+                .Where(x => x.ParentProductParameters.AllContainsIn(PartSelector.SelectedParameters));
+
+            _productSelectorsDictionary.SelectMany(x => x.Value).ToList().ForEach(x => x.IsActual = false);
+            actualProductsRelations.ToList()
+                .ForEach(x => _productSelectorsDictionary[x].ToList().ForEach(ps => ps.IsActual = true));
         }
 
         private void OnDependentProductChanged(Product oldProduct, Product newProduct)
@@ -122,7 +146,7 @@ namespace HVTApp.Services.GetProductService
 
         private void OnMainPartChanged(Part oldPart, Part newPart)
         {
-            RefreshDependentProducts();
+            RefreshProductSelectorsActualStatuses();
             RefreshSelectedProduct();
         }
 
@@ -132,5 +156,12 @@ namespace HVTApp.Services.GetProductService
         {
             SelectedProductChanged?.Invoke(oldProduct, newProduct);
         }
+
+        public event Action IsActualChanged;
+        protected virtual void OnIsActualChanged()
+        {
+            IsActualChanged?.Invoke();
+        }
+
     }
 }

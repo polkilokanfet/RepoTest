@@ -3,12 +3,12 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
-    public class RequiredDependentEquipmentsParametersConfiguration : EntityTypeConfiguration<RequiredDependentProductsParameters>
+    public class RequiredDependentEquipmentsParametersConfiguration : EntityTypeConfiguration<ProductsRelation>
     {
         public RequiredDependentEquipmentsParametersConfiguration()
         {
-            HasMany(x => x.MainProductParameters).WithMany();
-            HasMany(x => x.MainProductParameters).WithMany();
+            HasMany(x => x.ParentProductParameters).WithMany();
+            HasMany(x => x.ParentProductParameters).WithMany();
             Property(x => x.Count).IsRequired();
         }
     }

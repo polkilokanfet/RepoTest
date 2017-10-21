@@ -93,8 +93,8 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterVoltage220V;
 
 
-        public RequiredDependentProductsParameters RequiredChildProductParametersDrive;
-        public RequiredDependentProductsParameters RequiredChildProductParametersBreakerBlock;
+        public ProductsRelation RequiredChildProductRelationDrive;
+        public ProductsRelation RequiredChildProductRelationBreakerBlock;
                 
         public Part PartZng110;
         public Part PartVgb35;
@@ -392,9 +392,9 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateRequiredDependentEquipmentsParameters()
         {
-            RequiredChildProductParametersDrive.Clone(new RequiredDependentProductsParameters { MainProductParameters= new List<Parameter> { ParameterBreaker },
+            RequiredChildProductRelationDrive.Clone(new ProductsRelation { ParentProductParameters= new List<Parameter> { ParameterBreaker },
                 ChildProductParameters= new List<Parameter> { ParameterBrakersDrive }, Count = 1 });
-            RequiredChildProductParametersBreakerBlock.Clone(new RequiredDependentProductsParameters { MainProductParameters= new List<Parameter> { ParameterBreakerBlock },
+            RequiredChildProductRelationBreakerBlock.Clone(new ProductsRelation { ParentProductParameters= new List<Parameter> { ParameterBreakerBlock },
                 ChildProductParameters= new List<Parameter> { ParameterBreaker }, Count = 2 });
         }
 
