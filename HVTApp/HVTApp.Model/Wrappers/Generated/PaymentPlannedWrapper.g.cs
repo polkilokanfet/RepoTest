@@ -55,20 +55,44 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public PaymentConditionWrapper Condition { get; set; }
+	private PaymentConditionWrapper _fieldCondition;
+	public PaymentConditionWrapper Condition 
+    {
+        get { return _fieldCondition ; }
+        set
+        {
+            SetComplexValue<PaymentCondition, PaymentConditionWrapper>(_fieldCondition, value);
+            _fieldCondition  = value;
+        }
+    }
 
-	public SalesUnitWrapper SalesUnit { get; set; }
+	private SalesUnitWrapper _fieldSalesUnit;
+	public SalesUnitWrapper SalesUnit 
+    {
+        get { return _fieldSalesUnit ; }
+        set
+        {
+            SetComplexValue<SalesUnit, SalesUnitWrapper>(_fieldSalesUnit, value);
+            _fieldSalesUnit  = value;
+        }
+    }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        Condition = new PaymentConditionWrapper(Model.Condition);
-		RegisterComplex(Condition);
+		if (Model.Condition != null)
+        {
+            _fieldCondition = new PaymentConditionWrapper(Model.Condition);
+            RegisterComplex(Condition);
+        }
 
-        SalesUnit = new SalesUnitWrapper(Model.SalesUnit);
-		RegisterComplex(SalesUnit);
+		if (Model.SalesUnit != null)
+        {
+            _fieldSalesUnit = new SalesUnitWrapper(Model.SalesUnit);
+            RegisterComplex(SalesUnit);
+        }
 
     }
 

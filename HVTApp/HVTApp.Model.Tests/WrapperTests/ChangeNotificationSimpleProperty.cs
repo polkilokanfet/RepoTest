@@ -25,33 +25,15 @@ namespace HVTApp.Model.Tests.WrapperTests
         [TestMethod]
         public void ShouldRaisePropertyChangedEventOnPropertyChange()
         {
-            var fired = false;
             var wrapper = new TestFriendWrapper(_testFriend);
-            wrapper.PropertyChanged += (s, e) =>
-            {
-                if (e.PropertyName == "FirstName")
-                {
-                    fired = true;
-                }
-            };
-            wrapper.FirstName = "Julia";
-            Assert.IsTrue(fired);
+            Assert.IsTrue(wrapper.PropertyChangedEventRised(nameof(wrapper.FirstName), () => wrapper.FirstName = "Julia"));
         }
 
         [TestMethod]
         public void ShouldNotRaisePropertyChangedEventIfPropertyIsSetToSameValue()
         {
-            var fired = false;
             var wrapper = new TestFriendWrapper(_testFriend);
-            wrapper.PropertyChanged += (s, e) =>
-            {
-                if (e.PropertyName == "FirstName")
-                {
-                    fired = true;
-                }
-            };
-            wrapper.FirstName = "Thomas";
-            Assert.IsFalse(fired);
+            Assert.IsFalse(wrapper.PropertyChangedEventRised(nameof(wrapper.FirstName), () => wrapper.FirstName = "Thomas"));
         }
     }
 }

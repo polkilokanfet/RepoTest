@@ -37,7 +37,16 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public CountryWrapper Country { get; set; }
+	private CountryWrapper _fieldCountry;
+	public CountryWrapper Country 
+    {
+        get { return _fieldCountry ; }
+        set
+        {
+            SetComplexValue<Country, CountryWrapper>(_fieldCountry, value);
+            _fieldCountry  = value;
+        }
+    }
 
     #endregion
 
@@ -52,13 +61,16 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Country = new CountryWrapper(Model.Country);
-		RegisterComplex(Country);
+		if (Model.Country != null)
+        {
+            _fieldCountry = new CountryWrapper(Model.Country);
+            RegisterComplex(Country);
+        }
 
     }
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.Regions == null) throw new ArgumentException("Regions cannot be null");

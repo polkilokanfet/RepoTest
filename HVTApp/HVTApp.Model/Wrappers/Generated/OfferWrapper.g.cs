@@ -46,7 +46,16 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public DocumentWrapper Document { get; set; }
+	private DocumentWrapper _fieldDocument;
+	public DocumentWrapper Document 
+    {
+        get { return _fieldDocument ; }
+        set
+        {
+            SetComplexValue<Document, DocumentWrapper>(_fieldDocument, value);
+            _fieldDocument  = value;
+        }
+    }
 
     #endregion
 
@@ -61,13 +70,16 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Document = new DocumentWrapper(Model.Document);
-		RegisterComplex(Document);
+		if (Model.Document != null)
+        {
+            _fieldDocument = new DocumentWrapper(Model.Document);
+            RegisterComplex(Document);
+        }
 
     }
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.OfferUnits == null) throw new ArgumentException("OfferUnits cannot be null");

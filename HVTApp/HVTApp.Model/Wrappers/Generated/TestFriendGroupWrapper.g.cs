@@ -43,7 +43,7 @@ namespace HVTApp.Model.Wrappers
     #endregion
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.FriendTests == null) throw new ArgumentException("FriendTests cannot be null");

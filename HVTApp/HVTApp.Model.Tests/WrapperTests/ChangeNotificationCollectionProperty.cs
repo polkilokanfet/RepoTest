@@ -4,7 +4,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HVTApp.Model.Tests.WrapperTestsTests
+namespace HVTApp.Model.Tests.WrapperTests
 {
     [TestClass]
     public class ChangeNotificationCollectionProperty

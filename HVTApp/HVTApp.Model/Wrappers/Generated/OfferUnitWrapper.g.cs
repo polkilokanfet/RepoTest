@@ -46,11 +46,38 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public ProjectUnitWrapper ProjectUnit { get; set; }
+	private ProjectUnitWrapper _fieldProjectUnit;
+	public ProjectUnitWrapper ProjectUnit 
+    {
+        get { return _fieldProjectUnit ; }
+        set
+        {
+            SetComplexValue<ProjectUnit, ProjectUnitWrapper>(_fieldProjectUnit, value);
+            _fieldProjectUnit  = value;
+        }
+    }
 
-	public ProductWrapper Product { get; set; }
+	private ProductWrapper _fieldProduct;
+	public ProductWrapper Product 
+    {
+        get { return _fieldProduct ; }
+        set
+        {
+            SetComplexValue<Product, ProductWrapper>(_fieldProduct, value);
+            _fieldProduct  = value;
+        }
+    }
 
-	public OfferWrapper Offer { get; set; }
+	private OfferWrapper _fieldOffer;
+	public OfferWrapper Offer 
+    {
+        get { return _fieldOffer ; }
+        set
+        {
+            SetComplexValue<Offer, OfferWrapper>(_fieldOffer, value);
+            _fieldOffer  = value;
+        }
+    }
 
     #endregion
 
@@ -65,19 +92,28 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        ProjectUnit = new ProjectUnitWrapper(Model.ProjectUnit);
-		RegisterComplex(ProjectUnit);
+		if (Model.ProjectUnit != null)
+        {
+            _fieldProjectUnit = new ProjectUnitWrapper(Model.ProjectUnit);
+            RegisterComplex(ProjectUnit);
+        }
 
-        Product = new ProductWrapper(Model.Product);
-		RegisterComplex(Product);
+		if (Model.Product != null)
+        {
+            _fieldProduct = new ProductWrapper(Model.Product);
+            RegisterComplex(Product);
+        }
 
-        Offer = new OfferWrapper(Model.Offer);
-		RegisterComplex(Offer);
+		if (Model.Offer != null)
+        {
+            _fieldOffer = new OfferWrapper(Model.Offer);
+            RegisterComplex(Offer);
+        }
 
     }
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");

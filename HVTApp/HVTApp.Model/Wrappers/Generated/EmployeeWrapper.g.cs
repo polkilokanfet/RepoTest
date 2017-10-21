@@ -55,25 +55,61 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public PersonWrapper Person { get; set; }
+	private PersonWrapper _fieldPerson;
+	public PersonWrapper Person 
+    {
+        get { return _fieldPerson ; }
+        set
+        {
+            SetComplexValue<Person, PersonWrapper>(_fieldPerson, value);
+            _fieldPerson  = value;
+        }
+    }
 
-	public CompanyWrapper Company { get; set; }
+	private CompanyWrapper _fieldCompany;
+	public CompanyWrapper Company 
+    {
+        get { return _fieldCompany ; }
+        set
+        {
+            SetComplexValue<Company, CompanyWrapper>(_fieldCompany, value);
+            _fieldCompany  = value;
+        }
+    }
 
-	public EmployeesPositionWrapper Position { get; set; }
+	private EmployeesPositionWrapper _fieldPosition;
+	public EmployeesPositionWrapper Position 
+    {
+        get { return _fieldPosition ; }
+        set
+        {
+            SetComplexValue<EmployeesPosition, EmployeesPositionWrapper>(_fieldPosition, value);
+            _fieldPosition  = value;
+        }
+    }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        Person = new PersonWrapper(Model.Person);
-		RegisterComplex(Person);
+		if (Model.Person != null)
+        {
+            _fieldPerson = new PersonWrapper(Model.Person);
+            RegisterComplex(Person);
+        }
 
-        Company = new CompanyWrapper(Model.Company);
-		RegisterComplex(Company);
+		if (Model.Company != null)
+        {
+            _fieldCompany = new CompanyWrapper(Model.Company);
+            RegisterComplex(Company);
+        }
 
-        Position = new EmployeesPositionWrapper(Model.Position);
-		RegisterComplex(Position);
+		if (Model.Position != null)
+        {
+            _fieldPosition = new EmployeesPositionWrapper(Model.Position);
+            RegisterComplex(Position);
+        }
 
     }
 

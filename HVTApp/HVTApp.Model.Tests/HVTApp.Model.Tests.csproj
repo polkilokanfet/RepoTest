@@ -74,16 +74,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="FixtureTest.cs" />
-    <Compile Include="ProductItemTests.cs" />
-    <Compile Include="ProductTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CompanyTests.cs" />
-    <Compile Include="SalesUnitTests.cs" />
-    <Compile Include="PaymentConditionStandartWrapperTests.cs" />
-    <Compile Include="PartTests.cs" />
-    <Compile Include="ProjectTests.cs" />
-    <Compile Include="UnitsToGroupConverterTests.cs" />
     <Compile Include="WrapperTests\BasicTests.cs" />
     <Compile Include="WrapperTests\ChangeNotificationCollectionProperty.cs" />
     <Compile Include="WrapperTests\ChangeNotificationComplexProperty.cs" />
@@ -92,6 +83,7 @@
     <Compile Include="WrapperTests\ChangeTrackingCollectionTests.cs" />
     <Compile Include="WrapperTests\ChangeTrackingComplexProperty.cs" />
     <Compile Include="WrapperTests\ChangeTrackingSimpleProperty.cs" />
+    <Compile Include="WrapperTests\TestExtensions.cs" />
     <Compile Include="WrapperTests\ValidationClassLevel.cs" />
     <Compile Include="WrapperTests\ValidationCollectionProperty.cs" />
     <Compile Include="WrapperTests\ValidationComplexProperty.cs" />
@@ -123,9 +115,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Factory\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

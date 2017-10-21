@@ -64,7 +64,16 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public EmployeeWrapper Employee { get; set; }
+	private EmployeeWrapper _fieldEmployee;
+	public EmployeeWrapper Employee 
+    {
+        get { return _fieldEmployee ; }
+        set
+        {
+            SetComplexValue<Employee, EmployeeWrapper>(_fieldEmployee, value);
+            _fieldEmployee  = value;
+        }
+    }
 
     #endregion
 
@@ -79,13 +88,16 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Employee = new EmployeeWrapper(Model.Employee);
-		RegisterComplex(Employee);
+		if (Model.Employee != null)
+        {
+            _fieldEmployee = new EmployeeWrapper(Model.Employee);
+            RegisterComplex(Employee);
+        }
 
     }
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.Roles == null) throw new ArgumentException("Roles cannot be null");

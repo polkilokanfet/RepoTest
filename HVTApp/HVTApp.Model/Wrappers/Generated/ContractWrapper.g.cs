@@ -46,7 +46,16 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public CompanyWrapper Contragent { get; set; }
+	private CompanyWrapper _fieldContragent;
+	public CompanyWrapper Contragent 
+    {
+        get { return _fieldContragent ; }
+        set
+        {
+            SetComplexValue<Company, CompanyWrapper>(_fieldContragent, value);
+            _fieldContragent  = value;
+        }
+    }
 
     #endregion
 
@@ -61,13 +70,16 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Contragent = new CompanyWrapper(Model.Contragent);
-		RegisterComplex(Contragent);
+		if (Model.Contragent != null)
+        {
+            _fieldContragent = new CompanyWrapper(Model.Contragent);
+            RegisterComplex(Contragent);
+        }
 
     }
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.Specifications == null) throw new ArgumentException("Specifications cannot be null");

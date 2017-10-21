@@ -165,7 +165,6 @@
     <Compile Include="Wrappers\Generated\ProjectUnitWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ProjectWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\RegionWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\RequiredDependentProductsParametersWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\RequiredPreviousParametersWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\SalesUnitWrapper.g.cs" />
     <Compile Include="Wrappers\Generated\ShipmentUnitWrapper.g.cs" />

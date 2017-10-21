@@ -37,25 +37,61 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public FacilityTypeWrapper Type { get; set; }
+	private FacilityTypeWrapper _fieldType;
+	public FacilityTypeWrapper Type 
+    {
+        get { return _fieldType ; }
+        set
+        {
+            SetComplexValue<FacilityType, FacilityTypeWrapper>(_fieldType, value);
+            _fieldType  = value;
+        }
+    }
 
-	public CompanyWrapper OwnerCompany { get; set; }
+	private CompanyWrapper _fieldOwnerCompany;
+	public CompanyWrapper OwnerCompany 
+    {
+        get { return _fieldOwnerCompany ; }
+        set
+        {
+            SetComplexValue<Company, CompanyWrapper>(_fieldOwnerCompany, value);
+            _fieldOwnerCompany  = value;
+        }
+    }
 
-	public AddressWrapper Address { get; set; }
+	private AddressWrapper _fieldAddress;
+	public AddressWrapper Address 
+    {
+        get { return _fieldAddress ; }
+        set
+        {
+            SetComplexValue<Address, AddressWrapper>(_fieldAddress, value);
+            _fieldAddress  = value;
+        }
+    }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        Type = new FacilityTypeWrapper(Model.Type);
-		RegisterComplex(Type);
+		if (Model.Type != null)
+        {
+            _fieldType = new FacilityTypeWrapper(Model.Type);
+            RegisterComplex(Type);
+        }
 
-        OwnerCompany = new CompanyWrapper(Model.OwnerCompany);
-		RegisterComplex(OwnerCompany);
+		if (Model.OwnerCompany != null)
+        {
+            _fieldOwnerCompany = new CompanyWrapper(Model.OwnerCompany);
+            RegisterComplex(OwnerCompany);
+        }
 
-        Address = new AddressWrapper(Model.Address);
-		RegisterComplex(Address);
+		if (Model.Address != null)
+        {
+            _fieldAddress = new AddressWrapper(Model.Address);
+            RegisterComplex(Address);
+        }
 
     }
 

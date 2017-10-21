@@ -43,18 +43,8 @@ namespace HVTApp.Model.Tests.WrapperTests
         [TestMethod]
         public void ShouldRaisePropertyChangedEventForIsChangedPropertyOfFriendTestWrapper()
         {
-            var fired = false;
             var wrapper = new TestFriendWrapper(_testFriend);
-            wrapper.PropertyChanged += (s, e) =>
-              {
-                  if (e.PropertyName == nameof(wrapper.IsChanged))
-                  {
-                      fired = true;
-                  }
-              };
-
-            wrapper.Emails.First().Email = "modified@thomasclaudiushuber.com";
-            Assert.IsTrue(fired);
+            Assert.IsTrue(wrapper.PropertyChangedEventRised(nameof(wrapper.IsChanged), () => wrapper.Emails.First().Email = "modified@thomasclaudiushuber.com"));
         }
 
         [TestMethod]

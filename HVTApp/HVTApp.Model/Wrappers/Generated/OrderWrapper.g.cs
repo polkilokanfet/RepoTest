@@ -52,7 +52,7 @@ namespace HVTApp.Model.Wrappers
     #endregion
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.ProductionUnits == null) throw new ArgumentException("ProductionUnits cannot be null");

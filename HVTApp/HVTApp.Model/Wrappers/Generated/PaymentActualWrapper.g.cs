@@ -55,20 +55,44 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public SalesUnitWrapper SalesUnit { get; set; }
+	private SalesUnitWrapper _fieldSalesUnit;
+	public SalesUnitWrapper SalesUnit 
+    {
+        get { return _fieldSalesUnit ; }
+        set
+        {
+            SetComplexValue<SalesUnit, SalesUnitWrapper>(_fieldSalesUnit, value);
+            _fieldSalesUnit  = value;
+        }
+    }
 
-	public PaymentDocumentWrapper Document { get; set; }
+	private PaymentDocumentWrapper _fieldDocument;
+	public PaymentDocumentWrapper Document 
+    {
+        get { return _fieldDocument ; }
+        set
+        {
+            SetComplexValue<PaymentDocument, PaymentDocumentWrapper>(_fieldDocument, value);
+            _fieldDocument  = value;
+        }
+    }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        SalesUnit = new SalesUnitWrapper(Model.SalesUnit);
-		RegisterComplex(SalesUnit);
+		if (Model.SalesUnit != null)
+        {
+            _fieldSalesUnit = new SalesUnitWrapper(Model.SalesUnit);
+            RegisterComplex(SalesUnit);
+        }
 
-        Document = new PaymentDocumentWrapper(Model.Document);
-		RegisterComplex(Document);
+		if (Model.Document != null)
+        {
+            _fieldDocument = new PaymentDocumentWrapper(Model.Document);
+            RegisterComplex(Document);
+        }
 
     }
 

@@ -27,8 +27,7 @@ namespace HVTApp.Model.Wrappers
             Model = model;
 
             InitializeComplexProperties();
-            InitializeCollectionSimpleProperties();
-            InitializeCollectionComplexProperties();
+            InitializeCollectionProperties();
 
             Validate();
 
@@ -40,9 +39,7 @@ namespace HVTApp.Model.Wrappers
         /// <summary>
         /// Инициализация свойств-коллекций объекта.
         /// </summary>
-        protected virtual void InitializeCollectionComplexProperties() { }
-
-        public virtual void InitializeCollectionSimpleProperties() { }
+        protected virtual void InitializeCollectionProperties() { }
 
         /// <summary>
         /// Инициализация свойств сложных (не примитивных) типов.
@@ -153,6 +150,32 @@ namespace HVTApp.Model.Wrappers
             }
         }
 
+        protected void SetComplexValue<TModelValue, TWrapperValue>(TWrapperValue currentValue, TWrapperValue newValue, [CallerMemberName] string propertyName = null)
+            where TModelValue : class, IBaseEntity
+            where TWrapperValue : IWrapper<TModelValue>
+        {
+            PropertyInfo propertyInfo = Model.GetType().GetProperty(propertyName);
+            if (!Equals(newValue?.Model.Id, currentValue?.Model.Id))
+            {
+                UpdateOriginalValue(propertyName, currentValue?.Model, newValue?.Model); //обновляем список оригинальных значений.
+                propertyInfo.SetValue(Model, newValue?.Model); //устанавливаем в свойство модели новое значение.
+
+                if (currentValue != null && _trackingObjects.Contains(currentValue))
+                {
+                    _trackingObjects.Remove(currentValue);
+                    currentValue.PropertyChanged -= TrackingObjectOnPropertyChanged;
+                }
+
+                if (newValue != null)
+                    RegisterComplex(newValue);
+
+                Validate();
+                OnPropertyChanged(propertyName);
+                OnPropertyChanged(propertyName + "IsChanged");
+                OnPropertyChanged(nameof(IsChanged));
+            }
+        }
+
         /// <summary>
         /// Обновить (добавить или удалить) оригинальное (начальное) значение свойства в списке оригинальных значений.
         /// </summary>
@@ -180,7 +203,7 @@ namespace HVTApp.Model.Wrappers
             }
         }
 
-        protected void RegisterComplex<TWrapper>(WrapperBase<TWrapper> wrapper) 
+        protected void RegisterComplex<TWrapper>(IWrapper<TWrapper> wrapper) 
             where TWrapper : class, IBaseEntity
         {
             RegisterTrackingObject(wrapper);

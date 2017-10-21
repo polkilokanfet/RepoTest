@@ -46,25 +46,61 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public ProjectWrapper Project { get; set; }
+	private ProjectWrapper _fieldProject;
+	public ProjectWrapper Project 
+    {
+        get { return _fieldProject ; }
+        set
+        {
+            SetComplexValue<Project, ProjectWrapper>(_fieldProject, value);
+            _fieldProject  = value;
+        }
+    }
 
-	public FacilityWrapper Facility { get; set; }
+	private FacilityWrapper _fieldFacility;
+	public FacilityWrapper Facility 
+    {
+        get { return _fieldFacility ; }
+        set
+        {
+            SetComplexValue<Facility, FacilityWrapper>(_fieldFacility, value);
+            _fieldFacility  = value;
+        }
+    }
 
-	public ProductWrapper Product { get; set; }
+	private ProductWrapper _fieldProduct;
+	public ProductWrapper Product 
+    {
+        get { return _fieldProduct ; }
+        set
+        {
+            SetComplexValue<Product, ProductWrapper>(_fieldProduct, value);
+            _fieldProduct  = value;
+        }
+    }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        Project = new ProjectWrapper(Model.Project);
-		RegisterComplex(Project);
+		if (Model.Project != null)
+        {
+            _fieldProject = new ProjectWrapper(Model.Project);
+            RegisterComplex(Project);
+        }
 
-        Facility = new FacilityWrapper(Model.Facility);
-		RegisterComplex(Facility);
+		if (Model.Facility != null)
+        {
+            _fieldFacility = new FacilityWrapper(Model.Facility);
+            RegisterComplex(Facility);
+        }
 
-        Product = new ProductWrapper(Model.Product);
-		RegisterComplex(Product);
+		if (Model.Product != null)
+        {
+            _fieldProduct = new ProductWrapper(Model.Product);
+            RegisterComplex(Product);
+        }
 
     }
 

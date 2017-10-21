@@ -64,13 +64,49 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public CompanyFormWrapper Form { get; set; }
+	private CompanyFormWrapper _fieldForm;
+	public CompanyFormWrapper Form 
+    {
+        get { return _fieldForm ; }
+        set
+        {
+            SetComplexValue<CompanyForm, CompanyFormWrapper>(_fieldForm, value);
+            _fieldForm  = value;
+        }
+    }
 
-	public CompanyWrapper ParentCompany { get; set; }
+	private CompanyWrapper _fieldParentCompany;
+	public CompanyWrapper ParentCompany 
+    {
+        get { return _fieldParentCompany ; }
+        set
+        {
+            SetComplexValue<Company, CompanyWrapper>(_fieldParentCompany, value);
+            _fieldParentCompany  = value;
+        }
+    }
 
-	public AddressWrapper AddressLegal { get; set; }
+	private AddressWrapper _fieldAddressLegal;
+	public AddressWrapper AddressLegal 
+    {
+        get { return _fieldAddressLegal ; }
+        set
+        {
+            SetComplexValue<Address, AddressWrapper>(_fieldAddressLegal, value);
+            _fieldAddressLegal  = value;
+        }
+    }
 
-	public AddressWrapper AddressPost { get; set; }
+	private AddressWrapper _fieldAddressPost;
+	public AddressWrapper AddressPost 
+    {
+        get { return _fieldAddressPost ; }
+        set
+        {
+            SetComplexValue<Address, AddressWrapper>(_fieldAddressPost, value);
+            _fieldAddressPost  = value;
+        }
+    }
 
     #endregion
 
@@ -94,22 +130,34 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Form = new CompanyFormWrapper(Model.Form);
-		RegisterComplex(Form);
+		if (Model.Form != null)
+        {
+            _fieldForm = new CompanyFormWrapper(Model.Form);
+            RegisterComplex(Form);
+        }
 
-        ParentCompany = new CompanyWrapper(Model.ParentCompany);
-		RegisterComplex(ParentCompany);
+		if (Model.ParentCompany != null)
+        {
+            _fieldParentCompany = new CompanyWrapper(Model.ParentCompany);
+            RegisterComplex(ParentCompany);
+        }
 
-        AddressLegal = new AddressWrapper(Model.AddressLegal);
-		RegisterComplex(AddressLegal);
+		if (Model.AddressLegal != null)
+        {
+            _fieldAddressLegal = new AddressWrapper(Model.AddressLegal);
+            RegisterComplex(AddressLegal);
+        }
 
-        AddressPost = new AddressWrapper(Model.AddressPost);
-		RegisterComplex(AddressPost);
+		if (Model.AddressPost != null)
+        {
+            _fieldAddressPost = new AddressWrapper(Model.AddressPost);
+            RegisterComplex(AddressPost);
+        }
 
     }
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.BankDetailsList == null) throw new ArgumentException("BankDetailsList cannot be null");

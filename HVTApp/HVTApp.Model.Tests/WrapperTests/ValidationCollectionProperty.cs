@@ -78,63 +78,27 @@ namespace HVTApp.Model.Tests.WrapperTests
         [TestMethod]
         public void ShouldRaisePropertyChangedEventForIsValidOfRoot()
         {
-            var fired = false;
             var wrapper = new TestFriendWrapper(_testFriend);
-            wrapper.PropertyChanged += (s, e) =>
-            {
-                if (e.PropertyName == "IsValid")
-                {
-                    fired = true;
-                }
-            };
-            wrapper.Emails.First().Email = "";
-            Assert.IsTrue(fired);
-
-            fired = false;
-            wrapper.Emails.First().Email = "thomas@thomasclaudiushuber.com";
-            Assert.IsTrue(fired);
+            Assert.IsTrue(wrapper.PropertyChangedEventRised(nameof(wrapper.IsValid), () => wrapper.Emails.First().Email = ""));
+            Assert.IsTrue(wrapper.PropertyChangedEventRised(nameof(wrapper.IsValid), () => wrapper.Emails.First().Email = "thomas@thomasclaudiushuber.com"));
         }
 
         [TestMethod]
         public void ShouldRaisePropertyChangedEventForIsValidOfRootWhenRemovingInvalidItem()
         {
-            var fired = false;
             var wrapper = new TestFriendWrapper(_testFriend);
-            wrapper.PropertyChanged += (s, e) =>
-            {
-                if (e.PropertyName == "IsValid")
-                {
-                    fired = true;
-                }
-            };
-            wrapper.Emails.First().Email = "";
-            Assert.IsTrue(fired);
-
-            fired = false;
-            wrapper.Emails.Remove(wrapper.Emails.First());
-            Assert.IsTrue(fired);
+            Assert.IsTrue(wrapper.PropertyChangedEventRised(nameof(wrapper.IsValid), () => wrapper.Emails.First().Email = ""));
+            Assert.IsTrue(wrapper.PropertyChangedEventRised(nameof(wrapper.IsValid), () => wrapper.Emails.Remove(wrapper.Emails.First())));
         }
 
         [TestMethod]
         public void ShouldRaisePropertyChangedEventForIsValidOfRootWhenAddingInvalidItem()
         {
-            var fired = false;
             var wrapper = new TestFriendWrapper(_testFriend);
-            wrapper.PropertyChanged += (s, e) =>
-            {
-                if (e.PropertyName == "IsValid")
-                {
-                    fired = true;
-                }
-            };
-
             var emailToAdd = new TestFriendEmailWrapper(new TestFriendEmail());
-            wrapper.Emails.Add(emailToAdd);
-            Assert.IsTrue(fired);
-
-            fired = false;
-            emailToAdd.Email = "thomas@thomasclaudiushuber.com";
-            Assert.IsTrue(fired);
+            
+            Assert.IsTrue(wrapper.PropertyChangedEventRised(nameof(wrapper.IsValid), () => wrapper.Emails.Add(emailToAdd)));
+            Assert.IsTrue(wrapper.PropertyChangedEventRised(nameof(wrapper.IsValid), () => emailToAdd.Email = "thomas@thomasclaudiushuber.com"));
         }
     }
 }

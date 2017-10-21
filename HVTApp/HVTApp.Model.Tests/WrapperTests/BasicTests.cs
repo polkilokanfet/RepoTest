@@ -46,23 +46,6 @@ namespace HVTApp.Model.Tests.WrapperTests
             }
         }
 
-        //[TestMethod]
-        //[ExpectedException(typeof(ArgumentException))]
-        //public void ShouldThrowArgumentExceptionIfAddressIsNull()
-        //{
-        //    try
-        //    {
-        //        _testFriend.Test_FriendAddress = null;
-        //        var wrapper = TestWrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
-        //    }
-        //    catch (ArgumentException ex)
-        //    {
-        //        Assert.AreEqual("Test_FriendAddress cannot be null", ex.Message);
-        //        throw;
-        //    }
-        //}
-
-
         [TestMethod]
         public void ShouldGetValueOfUnderlyingModelProperty()
         {

@@ -37,7 +37,16 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public TestWifeWrapper Wife { get; set; }
+	private TestWifeWrapper _fieldWife;
+	public TestWifeWrapper Wife 
+    {
+        get { return _fieldWife ; }
+        set
+        {
+            SetComplexValue<TestWife, TestWifeWrapper>(_fieldWife, value);
+            _fieldWife  = value;
+        }
+    }
 
     #endregion
 
@@ -52,13 +61,16 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Wife = new TestWifeWrapper(Model.Wife);
-		RegisterComplex(Wife);
+		if (Model.Wife != null)
+        {
+            _fieldWife = new TestWifeWrapper(Model.Wife);
+            RegisterComplex(Wife);
+        }
 
     }
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.Children == null) throw new ArgumentException("Children cannot be null");

@@ -49,21 +49,10 @@ namespace HVTApp.Model.Tests.WrapperTests
         [TestMethod]
         public void ShouldRaisePropertyChangedEventForIsValidOfRoot()
         {
-            var fired = false;
             var wrapper = new TestFriendWrapper(_testFriend);
-            wrapper.PropertyChanged += (s, e) =>
-            {
-                if (e.PropertyName == nameof(wrapper.IsValid))
-                {
-                    fired = true;
-                }
-            };
-            wrapper.TestFriendAddress.City = "";
-            Assert.IsTrue(fired);
+            Assert.IsTrue(wrapper.PropertyChangedEventRised(nameof(wrapper.IsValid), () => wrapper.TestFriendAddress.City = ""));
 
-            fired = false;
-            wrapper.TestFriendAddress.City = "Salt Lake City";
-            Assert.IsTrue(fired);
+            Assert.IsTrue(wrapper.PropertyChangedEventRised(nameof(wrapper.IsValid), () => wrapper.TestFriendAddress.City = "Salt Lake City"));
         }
     }
 }

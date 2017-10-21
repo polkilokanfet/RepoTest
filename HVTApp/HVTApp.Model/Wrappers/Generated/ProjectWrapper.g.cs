@@ -37,7 +37,16 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public UserWrapper Manager { get; set; }
+	private UserWrapper _fieldManager;
+	public UserWrapper Manager 
+    {
+        get { return _fieldManager ; }
+        set
+        {
+            SetComplexValue<User, UserWrapper>(_fieldManager, value);
+            _fieldManager  = value;
+        }
+    }
 
     #endregion
 
@@ -58,13 +67,16 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Manager = new UserWrapper(Model.Manager);
-		RegisterComplex(Manager);
+		if (Model.Manager != null)
+        {
+            _fieldManager = new UserWrapper(Model.Manager);
+            RegisterComplex(Manager);
+        }
 
     }
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.ProjectUnits == null) throw new ArgumentException("ProjectUnits cannot be null");

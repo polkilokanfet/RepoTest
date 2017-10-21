@@ -52,7 +52,7 @@ namespace HVTApp.Model.Wrappers
     #endregion
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.Payments == null) throw new ArgumentException("Payments cannot be null");

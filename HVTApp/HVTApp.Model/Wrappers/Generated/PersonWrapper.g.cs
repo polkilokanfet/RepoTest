@@ -70,7 +70,7 @@ namespace HVTApp.Model.Wrappers
     #endregion
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.Employees == null) throw new ArgumentException("Employees cannot be null");

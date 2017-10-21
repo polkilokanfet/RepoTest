@@ -55,7 +55,7 @@ namespace HVTApp.Model.Wrappers
     #endregion
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");

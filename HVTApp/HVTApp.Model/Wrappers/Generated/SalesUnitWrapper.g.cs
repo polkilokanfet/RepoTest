@@ -55,13 +55,49 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public OfferUnitWrapper OfferUnit { get; set; }
+	private OfferUnitWrapper _fieldOfferUnit;
+	public OfferUnitWrapper OfferUnit 
+    {
+        get { return _fieldOfferUnit ; }
+        set
+        {
+            SetComplexValue<OfferUnit, OfferUnitWrapper>(_fieldOfferUnit, value);
+            _fieldOfferUnit  = value;
+        }
+    }
 
-	public ProductionUnitWrapper ProductionUnit { get; set; }
+	private ProductionUnitWrapper _fieldProductionUnit;
+	public ProductionUnitWrapper ProductionUnit 
+    {
+        get { return _fieldProductionUnit ; }
+        set
+        {
+            SetComplexValue<ProductionUnit, ProductionUnitWrapper>(_fieldProductionUnit, value);
+            _fieldProductionUnit  = value;
+        }
+    }
 
-	public ShipmentUnitWrapper ShipmentUnit { get; set; }
+	private ShipmentUnitWrapper _fieldShipmentUnit;
+	public ShipmentUnitWrapper ShipmentUnit 
+    {
+        get { return _fieldShipmentUnit ; }
+        set
+        {
+            SetComplexValue<ShipmentUnit, ShipmentUnitWrapper>(_fieldShipmentUnit, value);
+            _fieldShipmentUnit  = value;
+        }
+    }
 
-	public SpecificationWrapper Specification { get; set; }
+	private SpecificationWrapper _fieldSpecification;
+	public SpecificationWrapper Specification 
+    {
+        get { return _fieldSpecification ; }
+        set
+        {
+            SetComplexValue<Specification, SpecificationWrapper>(_fieldSpecification, value);
+            _fieldSpecification  = value;
+        }
+    }
 
     #endregion
 
@@ -82,22 +118,34 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        OfferUnit = new OfferUnitWrapper(Model.OfferUnit);
-		RegisterComplex(OfferUnit);
+		if (Model.OfferUnit != null)
+        {
+            _fieldOfferUnit = new OfferUnitWrapper(Model.OfferUnit);
+            RegisterComplex(OfferUnit);
+        }
 
-        ProductionUnit = new ProductionUnitWrapper(Model.ProductionUnit);
-		RegisterComplex(ProductionUnit);
+		if (Model.ProductionUnit != null)
+        {
+            _fieldProductionUnit = new ProductionUnitWrapper(Model.ProductionUnit);
+            RegisterComplex(ProductionUnit);
+        }
 
-        ShipmentUnit = new ShipmentUnitWrapper(Model.ShipmentUnit);
-		RegisterComplex(ShipmentUnit);
+		if (Model.ShipmentUnit != null)
+        {
+            _fieldShipmentUnit = new ShipmentUnitWrapper(Model.ShipmentUnit);
+            RegisterComplex(ShipmentUnit);
+        }
 
-        Specification = new SpecificationWrapper(Model.Specification);
-		RegisterComplex(Specification);
+		if (Model.Specification != null)
+        {
+            _fieldSpecification = new SpecificationWrapper(Model.Specification);
+            RegisterComplex(Specification);
+        }
 
     }
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");

@@ -37,7 +37,16 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public DistrictWrapper District { get; set; }
+	private DistrictWrapper _fieldDistrict;
+	public DistrictWrapper District 
+    {
+        get { return _fieldDistrict ; }
+        set
+        {
+            SetComplexValue<District, DistrictWrapper>(_fieldDistrict, value);
+            _fieldDistrict  = value;
+        }
+    }
 
     #endregion
 
@@ -52,13 +61,16 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        District = new DistrictWrapper(Model.District);
-		RegisterComplex(District);
+		if (Model.District != null)
+        {
+            _fieldDistrict = new DistrictWrapper(Model.District);
+            RegisterComplex(District);
+        }
 
     }
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.Localities == null) throw new ArgumentException("Localities cannot be null");

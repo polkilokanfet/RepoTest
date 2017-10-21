@@ -46,13 +46,49 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public ProjectUnitWrapper ProjectUnit { get; set; }
+	private ProjectUnitWrapper _fieldProjectUnit;
+	public ProjectUnitWrapper ProjectUnit 
+    {
+        get { return _fieldProjectUnit ; }
+        set
+        {
+            SetComplexValue<ProjectUnit, ProjectUnitWrapper>(_fieldProjectUnit, value);
+            _fieldProjectUnit  = value;
+        }
+    }
 
-	public ProductWrapper Product { get; set; }
+	private ProductWrapper _fieldProduct;
+	public ProductWrapper Product 
+    {
+        get { return _fieldProduct ; }
+        set
+        {
+            SetComplexValue<Product, ProductWrapper>(_fieldProduct, value);
+            _fieldProduct  = value;
+        }
+    }
 
-	public TenderWrapper Tender { get; set; }
+	private TenderWrapper _fieldTender;
+	public TenderWrapper Tender 
+    {
+        get { return _fieldTender ; }
+        set
+        {
+            SetComplexValue<Tender, TenderWrapper>(_fieldTender, value);
+            _fieldTender  = value;
+        }
+    }
 
-	public CompanyWrapper ProducerWinner { get; set; }
+	private CompanyWrapper _fieldProducerWinner;
+	public CompanyWrapper ProducerWinner 
+    {
+        get { return _fieldProducerWinner ; }
+        set
+        {
+            SetComplexValue<Company, CompanyWrapper>(_fieldProducerWinner, value);
+            _fieldProducerWinner  = value;
+        }
+    }
 
     #endregion
 
@@ -67,22 +103,34 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        ProjectUnit = new ProjectUnitWrapper(Model.ProjectUnit);
-		RegisterComplex(ProjectUnit);
+		if (Model.ProjectUnit != null)
+        {
+            _fieldProjectUnit = new ProjectUnitWrapper(Model.ProjectUnit);
+            RegisterComplex(ProjectUnit);
+        }
 
-        Product = new ProductWrapper(Model.Product);
-		RegisterComplex(Product);
+		if (Model.Product != null)
+        {
+            _fieldProduct = new ProductWrapper(Model.Product);
+            RegisterComplex(Product);
+        }
 
-        Tender = new TenderWrapper(Model.Tender);
-		RegisterComplex(Tender);
+		if (Model.Tender != null)
+        {
+            _fieldTender = new TenderWrapper(Model.Tender);
+            RegisterComplex(Tender);
+        }
 
-        ProducerWinner = new CompanyWrapper(Model.ProducerWinner);
-		RegisterComplex(ProducerWinner);
+		if (Model.ProducerWinner != null)
+        {
+            _fieldProducerWinner = new CompanyWrapper(Model.ProducerWinner);
+            RegisterComplex(ProducerWinner);
+        }
 
     }
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");

@@ -46,15 +46,27 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public TestHusbandWrapper Husband { get; set; }
+	private TestHusbandWrapper _fieldHusband;
+	public TestHusbandWrapper Husband 
+    {
+        get { return _fieldHusband ; }
+        set
+        {
+            SetComplexValue<TestHusband, TestHusbandWrapper>(_fieldHusband, value);
+            _fieldHusband  = value;
+        }
+    }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        Husband = new TestHusbandWrapper(Model.Husband);
-		RegisterComplex(Husband);
+		if (Model.Husband != null)
+        {
+            _fieldHusband = new TestHusbandWrapper(Model.Husband);
+            RegisterComplex(Husband);
+        }
 
     }
 

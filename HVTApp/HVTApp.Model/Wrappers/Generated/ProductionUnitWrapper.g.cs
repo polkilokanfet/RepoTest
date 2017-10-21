@@ -100,25 +100,61 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public ProductWrapper Product { get; set; }
+	private ProductWrapper _fieldProduct;
+	public ProductWrapper Product 
+    {
+        get { return _fieldProduct ; }
+        set
+        {
+            SetComplexValue<Product, ProductWrapper>(_fieldProduct, value);
+            _fieldProduct  = value;
+        }
+    }
 
-	public OrderWrapper Order { get; set; }
+	private OrderWrapper _fieldOrder;
+	public OrderWrapper Order 
+    {
+        get { return _fieldOrder ; }
+        set
+        {
+            SetComplexValue<Order, OrderWrapper>(_fieldOrder, value);
+            _fieldOrder  = value;
+        }
+    }
 
-	public SalesUnitWrapper SalesUnit { get; set; }
+	private SalesUnitWrapper _fieldSalesUnit;
+	public SalesUnitWrapper SalesUnit 
+    {
+        get { return _fieldSalesUnit ; }
+        set
+        {
+            SetComplexValue<SalesUnit, SalesUnitWrapper>(_fieldSalesUnit, value);
+            _fieldSalesUnit  = value;
+        }
+    }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        Product = new ProductWrapper(Model.Product);
-		RegisterComplex(Product);
+		if (Model.Product != null)
+        {
+            _fieldProduct = new ProductWrapper(Model.Product);
+            RegisterComplex(Product);
+        }
 
-        Order = new OrderWrapper(Model.Order);
-		RegisterComplex(Order);
+		if (Model.Order != null)
+        {
+            _fieldOrder = new OrderWrapper(Model.Order);
+            RegisterComplex(Order);
+        }
 
-        SalesUnit = new SalesUnitWrapper(Model.SalesUnit);
-		RegisterComplex(SalesUnit);
+		if (Model.SalesUnit != null)
+        {
+            _fieldSalesUnit = new SalesUnitWrapper(Model.SalesUnit);
+            RegisterComplex(SalesUnit);
+        }
 
     }
 

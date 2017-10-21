@@ -73,9 +73,27 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public TestFriendAddressWrapper TestFriendAddress { get; set; }
+	private TestFriendAddressWrapper _fieldTestFriendAddress;
+	public TestFriendAddressWrapper TestFriendAddress 
+    {
+        get { return _fieldTestFriendAddress ; }
+        set
+        {
+            SetComplexValue<TestFriendAddress, TestFriendAddressWrapper>(_fieldTestFriendAddress, value);
+            _fieldTestFriendAddress  = value;
+        }
+    }
 
-	public TestFriendGroupWrapper TestFriendGroup { get; set; }
+	private TestFriendGroupWrapper _fieldTestFriendGroup;
+	public TestFriendGroupWrapper TestFriendGroup 
+    {
+        get { return _fieldTestFriendGroup ; }
+        set
+        {
+            SetComplexValue<TestFriendGroup, TestFriendGroupWrapper>(_fieldTestFriendGroup, value);
+            _fieldTestFriendGroup  = value;
+        }
+    }
 
     #endregion
 
@@ -101,16 +119,22 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        TestFriendAddress = new TestFriendAddressWrapper(Model.TestFriendAddress);
-		RegisterComplex(TestFriendAddress);
+		if (Model.TestFriendAddress != null)
+        {
+            _fieldTestFriendAddress = new TestFriendAddressWrapper(Model.TestFriendAddress);
+            RegisterComplex(TestFriendAddress);
+        }
 
-        TestFriendGroup = new TestFriendGroupWrapper(Model.TestFriendGroup);
-		RegisterComplex(TestFriendGroup);
+		if (Model.TestFriendGroup != null)
+        {
+            _fieldTestFriendGroup = new TestFriendGroupWrapper(Model.TestFriendGroup);
+            RegisterComplex(TestFriendGroup);
+        }
 
     }
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.Emails == null) throw new ArgumentException("Emails cannot be null");

@@ -22,7 +22,6 @@ namespace HVTApp.DataAccess.Infrastructure
         IParametersRepository Parameters { get; }
         IPartsRepository Parts { get; }
         IProductsRepository Products { get; }
-        IRequiredDependentProductssParametersRepository RequiredDependentProductsParameters { get; }
 
         IProductionUnitsRepository ProductionUnits { get; }
 

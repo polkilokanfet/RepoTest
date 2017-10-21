@@ -23,7 +23,7 @@ namespace HVTApp.Services.GetProductService
             _parameters = _unitOfWork.Parameters.GetAll().ToList();
             _parts = _unitOfWork.Parts.GetAll().ToList();
             _products = _unitOfWork.Products.GetAll().ToList();
-            _requiredDependentProductsParameteres = _unitOfWork.RequiredDependentProductsParameters.GetAll().ToList();
+            //_requiredDependentProductsParameteres = _unitOfWork.RequiredDependentProductsParameters.GetAll().ToList();
         }
 
         public ProductWrapper GetProduct(ProductWrapper templateProduct = null)

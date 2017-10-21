@@ -43,23 +43,9 @@ namespace HVTApp.Model.Tests.WrapperTests
         [TestMethod]
         public void ShouldRaiseErrorsChangedEventWhenFirstNameIsSetToEmptyAndBack()
         {
-            var fired = false;
             var wrapper = new TestFriendWrapper(_testFriend);
-
-            wrapper.ErrorsChanged += (s, e) =>
-            {
-                if (e.PropertyName == nameof(wrapper.FirstName))
-                {
-                    fired = true;
-                }
-            };
-
-            wrapper.FirstName = "";
-            Assert.IsTrue(fired);
-
-            fired = false;
-            wrapper.FirstName = "Julia";
-            Assert.IsTrue(fired);
+            Assert.IsTrue(wrapper.PropertyChangedEventRised(nameof(wrapper.FirstName), () => wrapper.FirstName = ""));
+            Assert.IsTrue(wrapper.PropertyChangedEventRised(nameof(wrapper.FirstName), () => wrapper.FirstName = "Julia"));
         }
 
         [TestMethod]
@@ -78,23 +64,10 @@ namespace HVTApp.Model.Tests.WrapperTests
         [TestMethod]
         public void ShouldRaisePropertyChangedEventForIsValid()
         {
-            var fired = false;
             var wrapper = new TestFriendWrapper(_testFriend);
+            Assert.IsTrue(wrapper.PropertyChangedEventRised(nameof(wrapper.IsValid), () => wrapper.FirstName = ""));
 
-            wrapper.PropertyChanged += (s, e) =>
-            {
-                if (e.PropertyName == nameof(wrapper.IsValid))
-                {
-                    fired = true;
-                }
-            };
-
-            wrapper.FirstName = "";
-            Assert.IsTrue(fired);
-
-            fired = false;
-            wrapper.FirstName = "Julia";
-            Assert.IsTrue(fired);
+            Assert.IsTrue(wrapper.PropertyChangedEventRised(nameof(wrapper.IsValid), () => wrapper.FirstName = "Julia"));
         }
 
         [TestMethod]

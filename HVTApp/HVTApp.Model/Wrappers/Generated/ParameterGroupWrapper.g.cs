@@ -37,7 +37,16 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public MeasureWrapper Measure { get; set; }
+	private MeasureWrapper _fieldMeasure;
+	public MeasureWrapper Measure 
+    {
+        get { return _fieldMeasure ; }
+        set
+        {
+            SetComplexValue<Measure, MeasureWrapper>(_fieldMeasure, value);
+            _fieldMeasure  = value;
+        }
+    }
 
     #endregion
 
@@ -52,13 +61,16 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Measure = new MeasureWrapper(Model.Measure);
-		RegisterComplex(Measure);
+		if (Model.Measure != null)
+        {
+            _fieldMeasure = new MeasureWrapper(Model.Measure);
+            RegisterComplex(Measure);
+        }
 
     }
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");

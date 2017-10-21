@@ -200,7 +200,16 @@ namespace HVTApp.Model.Wrappers
       var propertyType = property.PropertyType.Name;
       var propertyName = property.Name;
 #>
-	public <#= propertyType #>Wrapper <#= propertyName #> { get; set; }
+	private <#= propertyType #>Wrapper _field<#= propertyName #>;
+	public <#= propertyType #>Wrapper <#= propertyName #> 
+    {
+        get { return _field<#= propertyName #> ; }
+        set
+        {
+            SetComplexValue<<#= propertyType #>, <#= propertyType #>Wrapper>(_field<#= propertyName #>, value);
+            _field<#= propertyName #>  = value;
+        }
+    }
 <#+   
     }
 #>
@@ -246,8 +255,11 @@ namespace HVTApp.Model.Wrappers
 		var propertyName = complexProperty.Name;
 		var propertyType = complexProperty.PropertyType.Name;
 #>
-        <#= propertyName #> = new <#= propertyType #>Wrapper(Model.<#= propertyName #>);
-		RegisterComplex(<#= propertyName #>);
+		if (Model.<#= propertyName #> != null)
+        {
+            _field<#= propertyName #> = new <#= propertyType #>Wrapper(Model.<#= propertyName #>);
+            RegisterComplex(<#= propertyName #>);
+        }
 <#+
       }
 #>
@@ -263,7 +275,7 @@ namespace HVTApp.Model.Wrappers
     {
 #>
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 <#+
       foreach(var property in properties)

@@ -55,7 +55,16 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public ContractWrapper Contract { get; set; }
+	private ContractWrapper _fieldContract;
+	public ContractWrapper Contract 
+    {
+        get { return _fieldContract ; }
+        set
+        {
+            SetComplexValue<Contract, ContractWrapper>(_fieldContract, value);
+            _fieldContract  = value;
+        }
+    }
 
     #endregion
 
@@ -70,13 +79,16 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Contract = new ContractWrapper(Model.Contract);
-		RegisterComplex(Contract);
+		if (Model.Contract != null)
+        {
+            _fieldContract = new ContractWrapper(Model.Contract);
+            RegisterComplex(Contract);
+        }
 
     }
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");

@@ -6,9 +6,9 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.Wrappers
 {
-  public partial class RequiredDependentProductsParametersWrapper : WrapperBase<RequiredDependentProductsParameters>
+  public partial class ProductsRelationWrapper : WrapperBase<ProductsRelation>
   {
-    public RequiredDependentProductsParametersWrapper(RequiredDependentProductsParameters model) : base(model) { }
+    public ProductsRelationWrapper(ProductsRelation model) : base(model) { }
 
 
 
@@ -37,7 +37,7 @@ namespace HVTApp.Model.Wrappers
 
     #region CollectionProperties
 
-    public IValidatableChangeTrackingCollection<ParameterWrapper> MainProductParameters { get; private set; }
+    public IValidatableChangeTrackingCollection<ParameterWrapper> ParentProductParameters { get; private set; }
 
 
     public IValidatableChangeTrackingCollection<ParameterWrapper> ChildProductParameters { get; private set; }
@@ -46,12 +46,12 @@ namespace HVTApp.Model.Wrappers
     #endregion
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
-      if (Model.MainProductParameters == null) throw new ArgumentException("MainProductParameters cannot be null");
-      MainProductParameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.MainProductParameters.Select(e => new ParameterWrapper(e)));
-      RegisterCollection(MainProductParameters, Model.MainProductParameters);
+      if (Model.ParentProductParameters == null) throw new ArgumentException("ParentProductParameters cannot be null");
+      ParentProductParameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.ParentProductParameters.Select(e => new ParameterWrapper(e)));
+      RegisterCollection(ParentProductParameters, Model.ParentProductParameters);
 
 
       if (Model.ChildProductParameters == null) throw new ArgumentException("ChildProductParameters cannot be null");

@@ -37,7 +37,16 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public ParameterGroupWrapper Group { get; set; }
+	private ParameterGroupWrapper _fieldGroup;
+	public ParameterGroupWrapper Group 
+    {
+        get { return _fieldGroup ; }
+        set
+        {
+            SetComplexValue<ParameterGroup, ParameterGroupWrapper>(_fieldGroup, value);
+            _fieldGroup  = value;
+        }
+    }
 
     #endregion
 
@@ -52,13 +61,16 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Group = new ParameterGroupWrapper(Model.Group);
-		RegisterComplex(Group);
+		if (Model.Group != null)
+        {
+            _fieldGroup = new ParameterGroupWrapper(Model.Group);
+            RegisterComplex(Group);
+        }
 
     }
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.RequiredPreviousParameters == null) throw new ArgumentException("RequiredPreviousParameters cannot be null");

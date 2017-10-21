@@ -37,7 +37,16 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public PartWrapper Part { get; set; }
+	private PartWrapper _fieldPart;
+	public PartWrapper Part 
+    {
+        get { return _fieldPart ; }
+        set
+        {
+            SetComplexValue<Part, PartWrapper>(_fieldPart, value);
+            _fieldPart  = value;
+        }
+    }
 
     #endregion
 
@@ -52,13 +61,16 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Part = new PartWrapper(Model.Part);
-		RegisterComplex(Part);
+		if (Model.Part != null)
+        {
+            _fieldPart = new PartWrapper(Model.Part);
+            RegisterComplex(Part);
+        }
 
     }
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.DependentProducts == null) throw new ArgumentException("DependentProducts cannot be null");

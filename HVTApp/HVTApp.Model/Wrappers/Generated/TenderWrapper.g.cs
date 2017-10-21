@@ -64,11 +64,38 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public TenderTypeWrapper Type { get; set; }
+	private TenderTypeWrapper _fieldType;
+	public TenderTypeWrapper Type 
+    {
+        get { return _fieldType ; }
+        set
+        {
+            SetComplexValue<TenderType, TenderTypeWrapper>(_fieldType, value);
+            _fieldType  = value;
+        }
+    }
 
-	public ProjectWrapper Project { get; set; }
+	private ProjectWrapper _fieldProject;
+	public ProjectWrapper Project 
+    {
+        get { return _fieldProject ; }
+        set
+        {
+            SetComplexValue<Project, ProjectWrapper>(_fieldProject, value);
+            _fieldProject  = value;
+        }
+    }
 
-	public CompanyWrapper Winner { get; set; }
+	private CompanyWrapper _fieldWinner;
+	public CompanyWrapper Winner 
+    {
+        get { return _fieldWinner ; }
+        set
+        {
+            SetComplexValue<Company, CompanyWrapper>(_fieldWinner, value);
+            _fieldWinner  = value;
+        }
+    }
 
     #endregion
 
@@ -89,19 +116,28 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Type = new TenderTypeWrapper(Model.Type);
-		RegisterComplex(Type);
+		if (Model.Type != null)
+        {
+            _fieldType = new TenderTypeWrapper(Model.Type);
+            RegisterComplex(Type);
+        }
 
-        Project = new ProjectWrapper(Model.Project);
-		RegisterComplex(Project);
+		if (Model.Project != null)
+        {
+            _fieldProject = new ProjectWrapper(Model.Project);
+            RegisterComplex(Project);
+        }
 
-        Winner = new CompanyWrapper(Model.Winner);
-		RegisterComplex(Winner);
+		if (Model.Winner != null)
+        {
+            _fieldWinner = new CompanyWrapper(Model.Winner);
+            RegisterComplex(Winner);
+        }
 
     }
 
   
-    protected override void InitializeCollectionComplexProperties()
+    protected override void InitializeCollectionProperties()
     {
 
       if (Model.Participants == null) throw new ArgumentException("Participants cannot be null");
