@@ -19,9 +19,9 @@ namespace HVTApp.Model.Wrappers
         /// </summary>
         private IList<TCollectionItem> _originalCollection; 
 
-        private readonly ObservableCollection<TCollectionItem> _addedItems;
-        private readonly ObservableCollection<TCollectionItem> _modifiedItems;
-        private readonly ObservableCollection<TCollectionItem> _removedItems;
+        private readonly ObservableCollection<TCollectionItem> _addedItems = new ObservableCollection<TCollectionItem>();
+        private readonly ObservableCollection<TCollectionItem> _modifiedItems = new ObservableCollection<TCollectionItem>();
+        private readonly ObservableCollection<TCollectionItem> _removedItems = new ObservableCollection<TCollectionItem>();
 
         public ValidatableChangeTrackingCollection(IEnumerable<TCollectionItem> items) : base(items)
         {
@@ -29,10 +29,6 @@ namespace HVTApp.Model.Wrappers
             _originalCollection = this.ToList();
 
             AttachedItemPropertyChangedHandler(_originalCollection);
-
-            _addedItems = new ObservableCollection<TCollectionItem>();
-            _modifiedItems = new ObservableCollection<TCollectionItem>();
-            _removedItems = new ObservableCollection<TCollectionItem>();
 
             AddedItems = new ReadOnlyObservableCollection<TCollectionItem>(_addedItems);
             ModifiedItems = new ReadOnlyObservableCollection<TCollectionItem>(_modifiedItems);
@@ -44,57 +40,49 @@ namespace HVTApp.Model.Wrappers
         public ReadOnlyObservableCollection<TCollectionItem> RemovedItems { get; }
 
         /// <summary>
-        /// прикрепление обработчика к событию изменения свойств члена коллекции.
+        /// Изменена ли коллекция?
         /// </summary>
-        /// <param name="items"></param>
-        private void AttachedItemPropertyChangedHandler(IList<TCollectionItem> items)
+        public bool IsChanged => _addedItems.Count > 0 || _modifiedItems.Count > 0 || _removedItems.Count > 0;
+
+        /// <summary>
+        /// Валидны ли все члены коллекции?
+        /// </summary>
+        public virtual bool IsValid => this.All(x => x.IsValid);
+
+        /// <summary>
+        /// Принять все изменения в коллекции
+        /// </summary>
+        public void AcceptChanges()
         {
-            items.ToList().ForEach(x => x.PropertyChanged += OnItemPropertyChanged);
+            _addedItems.Clear();
+            _modifiedItems.Clear();
+            _removedItems.Clear();
+
+            this.ToList().ForEach(x => x.AcceptChanges());
+
+            _originalCollection = this.ToList();
+
+            OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
         }
 
         /// <summary>
-        /// открепление обработчика от события изменения свойств члена коллекции.
+        /// Отменить все изменения в коллекции.
         /// </summary>
-        /// <param name="items"></param>
-        private void DettachedItemPropertyChangedHandler(IList<TCollectionItem> items)
+        public void RejectChanges()
         {
-            items.ToList().ForEach(x => x.PropertyChanged -= OnItemPropertyChanged);
-        }
+            this.Clear();
 
-        /// <summary>
-        /// Обработчик изменения какого-либо свойства в члене коллекции.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            //если изменился флаг валидности члена.
-            if (e.PropertyName == nameof(IsValid)) OnPropertyChanged(sender, nameof(IsValid));
-
-            if (e.PropertyName == nameof(IsChanged))
+            foreach (TCollectionItem item in _originalCollection)
             {
-                //объект в котором изменилось свойство.
-                var item = (TCollectionItem) sender;
-
-                //если этот объект добавлен в этом сеансе, нет смысла реагировать на изменение его свойств.
-                if (!_addedItems.Contains(item))
-                {
-                    //если изменился объект (флаг IsChanged об этом говорит).
-                    if (item.IsChanged)
-                    {
-                        //добавляем член в коллекцию измененных объектов, если он еще не в этой коллекции.
-                        if (!_modifiedItems.Contains(item)) _modifiedItems.Add(item);
-                    }
-                    else
-                    {
-                        //если объект не изменился, удяляем его из коллекции измененных объектов (если он там есть).
-                        if (_modifiedItems.Contains(item)) _modifiedItems.Remove(item);
-                    }
-
-                    //информируем о том, что коллекция изменилась.
-                    OnPropertyChanged(this, nameof(IsChanged));
-                }
+                if (item.IsChanged) item.RejectChanges();
+                this.Add(item);
             }
+
+            _addedItems.Clear();
+            _modifiedItems.Clear();
+            _removedItems.Clear();
+
+            OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
         }
 
         //реакция на изменение коллекции (добавление или удаление элемента коллекции)
@@ -120,97 +108,55 @@ namespace HVTApp.Model.Wrappers
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsValid)));
         }
 
-        /// <summary>
-        /// Синхронизация элементов коллекций.
-        /// </summary>
-        /// <param name="items"></param>
-        /// <param name="observableCollection"></param>
-        private void UpdateObservableCollection(IList<TCollectionItem> items, ObservableCollection<TCollectionItem> observableCollection)
+        // Обработчик изменения какого-либо свойства в члене коллекции.
+        private void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //если изменился флаг валидности члена.
+            if (e.PropertyName == nameof(IsValid)) OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsValid)));
+
+            if (e.PropertyName == nameof(IsChanged))
+            {
+                //объект в котором изменилось свойство.
+                var item = (TCollectionItem) sender;
+
+                //если этот объект добавлен в этом сеансе, нет смысла реагировать на изменение его свойств.
+                if (!_addedItems.Contains(item))
+                {
+                    //если изменился объект (флаг IsChanged об этом говорит).
+                    if (item.IsChanged)
+                    {
+                        //добавляем член в коллекцию измененных объектов, если он еще не в этой коллекции.
+                        if (!_modifiedItems.Contains(item)) _modifiedItems.Add(item);
+                    }
+                    else
+                    {
+                        //если объект не изменился, удяляем его из коллекции измененных объектов (если он там есть).
+                        if (_modifiedItems.Contains(item)) _modifiedItems.Remove(item);
+                    }
+
+                    //информируем о том, что коллекция изменилась.
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
+                }
+            }
+        }
+
+        // прикрепление обработчика к событию изменения свойств члена коллекции.
+        private void AttachedItemPropertyChangedHandler(IEnumerable<TCollectionItem> items)
+        {
+            items.ToList().ForEach(x => x.PropertyChanged += OnItemPropertyChanged);
+        }
+
+        // открепление обработчика от события изменения свойств члена коллекции.
+        private void DettachedItemPropertyChangedHandler(IEnumerable<TCollectionItem> items)
+        {
+            items.ToList().ForEach(x => x.PropertyChanged -= OnItemPropertyChanged);
+        }
+
+        // Синхронизация элементов коллекций.
+        private void UpdateObservableCollection(IEnumerable<TCollectionItem> items, ICollection<TCollectionItem> observableCollection)
         {
             observableCollection.Clear();
             items.ToList().ForEach(observableCollection.Add);
         }
-
-        public bool IsChangedMethod(IDictionary<IBaseEntity, IValidatableChangeTracking> risedDictionary)
-        {
-            return _addedItems.Any() || _removedItems.Any() || _modifiedItems.Any(x => x.IsChangedMethod(risedDictionary)); ;
-        }
-        /// <summary>
-        /// Изменена ли коллекция?
-        /// </summary>
-        public bool IsChanged => _addedItems.Count > 0 || _modifiedItems.Count > 0 || _removedItems.Count > 0;
-
-
-        public bool IsValidMethod(IList<IBaseEntity> risedList)
-        {
-            return this.All(x => x.IsValidMethod(risedList));
-        }
-
-        /// <summary>
-        /// Валидны ли все члены коллекции?
-        /// </summary>
-        public virtual bool IsValid => IsValidMethod(new List<IBaseEntity>());
-
-
-        public void AcceptChangesMethod(IList<IBaseEntity> acceptedModels)
-        {
-            _addedItems.Clear();
-            _modifiedItems.Clear();
-            _removedItems.Clear();
-
-            this.ToList().ForEach(x => x.AcceptChangesMethod(acceptedModels));
-
-            _originalCollection = this.ToList();
-
-            OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
-        }
-
-
-        /// <summary>
-        /// Принять все изменения в коллекции
-        /// </summary>
-        public void AcceptChanges()
-        {
-            AcceptChangesMethod(new List<IBaseEntity>());
-        }
-
-        public void RejectChangesMethod(IList<IBaseEntity> rejectedModels)
-        {
-            this.Clear();
-
-            foreach (TCollectionItem item in _originalCollection)
-            {
-                if (item.IsChanged)
-                    item.RejectChangesMethod(rejectedModels);
-                this.Add(item);
-            }
-
-            _addedItems.Clear();
-            _modifiedItems.Clear();
-            _removedItems.Clear();
-
-            OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsChanged)));
-        }
-        /// <summary>
-        /// Отменить все изменения в коллекции.
-        /// </summary>
-        public void RejectChanges()
-        {
-            RejectChangesMethod(new List<IBaseEntity>());
-        }
-
-        private readonly List<WhoRised> _whoRisedEventPropertyChanged = new List<WhoRised>();
-
-        protected void OnPropertyChanged(object sender, string propertyName)
-        {
-            WhoRised whoRised = new WhoRised(sender, propertyName);
-            if (!_whoRisedEventPropertyChanged.Contains(whoRised))
-            {
-                _whoRisedEventPropertyChanged.Add(whoRised);
-                OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
-                _whoRisedEventPropertyChanged.Remove(whoRised);
-            }
-        }
-
     }
 }

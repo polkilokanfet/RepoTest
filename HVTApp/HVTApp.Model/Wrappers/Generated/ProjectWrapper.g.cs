@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class ProjectWrapper : WrapperBase<Project>
   {
-    private ProjectWrapper(IGetWrapper getWrapper) : base(new Project(), getWrapper) { }
-    private ProjectWrapper(Project model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public ProjectWrapper(Project model) : base(model) { }
 
 
 
@@ -38,15 +37,7 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public UserWrapper Manager 
-    {
-        get { return GetComplexProperty<UserWrapper, User>(Model.Manager); }
-        set { SetComplexProperty<UserWrapper, User>(Manager, value); }
-    }
-
-    public UserWrapper ManagerOriginalValue { get; private set; }
-    public bool ManagerIsChanged => GetIsChanged(nameof(Manager));
-
+	public UserWrapper Manager { get; set; }
 
     #endregion
 
@@ -67,7 +58,8 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Manager = GetWrapper<UserWrapper, User>(Model.Manager);
+        Manager = new UserWrapper(Model.Manager);
+		RegisterComplex(Manager);
 
     }
 
@@ -76,17 +68,17 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.ProjectUnits == null) throw new ArgumentException("ProjectUnits cannot be null");
-      ProjectUnits = new ValidatableChangeTrackingCollection<ProjectUnitWrapper>(Model.ProjectUnits.Select(e => GetWrapper<ProjectUnitWrapper, ProjectUnit>(e)));
+      ProjectUnits = new ValidatableChangeTrackingCollection<ProjectUnitWrapper>(Model.ProjectUnits.Select(e => new ProjectUnitWrapper(e)));
       RegisterCollection(ProjectUnits, Model.ProjectUnits);
 
 
       if (Model.Tenders == null) throw new ArgumentException("Tenders cannot be null");
-      Tenders = new ValidatableChangeTrackingCollection<TenderWrapper>(Model.Tenders.Select(e => GetWrapper<TenderWrapper, Tender>(e)));
+      Tenders = new ValidatableChangeTrackingCollection<TenderWrapper>(Model.Tenders.Select(e => new TenderWrapper(e)));
       RegisterCollection(Tenders, Model.Tenders);
 
 
       if (Model.Offers == null) throw new ArgumentException("Offers cannot be null");
-      Offers = new ValidatableChangeTrackingCollection<OfferWrapper>(Model.Offers.Select(e => GetWrapper<OfferWrapper, Offer>(e)));
+      Offers = new ValidatableChangeTrackingCollection<OfferWrapper>(Model.Offers.Select(e => new OfferWrapper(e)));
       RegisterCollection(Offers, Model.Offers);
 
 

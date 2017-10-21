@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class PaymentActualWrapper : WrapperBase<PaymentActual>
   {
-    private PaymentActualWrapper(IGetWrapper getWrapper) : base(new PaymentActual(), getWrapper) { }
-    private PaymentActualWrapper(PaymentActual model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public PaymentActualWrapper(PaymentActual model) : base(model) { }
 
 
 
@@ -56,34 +55,20 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public SalesUnitWrapper SalesUnit 
-    {
-        get { return GetComplexProperty<SalesUnitWrapper, SalesUnit>(Model.SalesUnit); }
-        set { SetComplexProperty<SalesUnitWrapper, SalesUnit>(SalesUnit, value); }
-    }
+	public SalesUnitWrapper SalesUnit { get; set; }
 
-    public SalesUnitWrapper SalesUnitOriginalValue { get; private set; }
-    public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
-
-
-	public PaymentDocumentWrapper Document 
-    {
-        get { return GetComplexProperty<PaymentDocumentWrapper, PaymentDocument>(Model.Document); }
-        set { SetComplexProperty<PaymentDocumentWrapper, PaymentDocument>(Document, value); }
-    }
-
-    public PaymentDocumentWrapper DocumentOriginalValue { get; private set; }
-    public bool DocumentIsChanged => GetIsChanged(nameof(Document));
-
+	public PaymentDocumentWrapper Document { get; set; }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(Model.SalesUnit);
+        SalesUnit = new SalesUnitWrapper(Model.SalesUnit);
+		RegisterComplex(SalesUnit);
 
-        Document = GetWrapper<PaymentDocumentWrapper, PaymentDocument>(Model.Document);
+        Document = new PaymentDocumentWrapper(Model.Document);
+		RegisterComplex(Document);
 
     }
 

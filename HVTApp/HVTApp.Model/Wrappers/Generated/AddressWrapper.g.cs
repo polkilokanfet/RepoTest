@@ -1,16 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class AddressWrapper : WrapperBase<Address>
   {
-    private AddressWrapper(IGetWrapper getWrapper) : base(new Address(), getWrapper) { }
-    private AddressWrapper(Address model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public AddressWrapper(Address model) : base(model) { }
 
 
 
@@ -51,22 +37,15 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public LocalityWrapper Locality 
-    {
-        get { return GetComplexProperty<LocalityWrapper, Locality>(Model.Locality); }
-        set { SetComplexProperty<LocalityWrapper, Locality>(Locality, value); }
-    }
-
-    public LocalityWrapper LocalityOriginalValue { get; private set; }
-    public bool LocalityIsChanged => GetIsChanged(nameof(Locality));
-
+	public LocalityWrapper Locality { get; set; }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        Locality = GetWrapper<LocalityWrapper, Locality>(Model.Locality);
+        Locality = new LocalityWrapper(Model.Locality);
+		RegisterComplex(Locality);
 
     }
 

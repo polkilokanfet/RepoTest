@@ -32,7 +32,7 @@ namespace HVTApp.Model.Tests.WrapperTestsTests
         [TestMethod]
         public void ShouldInitializeEmailsProperty()
         {
-            var wrapper = new Factory.TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new TestFriendWrapper(_testFriend);
             Assert.IsNotNull(wrapper.Emails);
             CheckIfModelEmailsCollectionIsInSync(wrapper);
         }
@@ -40,7 +40,7 @@ namespace HVTApp.Model.Tests.WrapperTestsTests
         [TestMethod]
         public void ShouldBeInSyncAfterRemovingEmail()
         {
-            var wrapper = new Factory.TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new TestFriendWrapper(_testFriend);
             var emailToRemove = wrapper.Emails.Single(ew => Equals(ew.Model, _testFriendEmail));
             wrapper.Emails.Remove(emailToRemove);
             CheckIfModelEmailsCollectionIsInSync(wrapper);
@@ -49,18 +49,16 @@ namespace HVTApp.Model.Tests.WrapperTestsTests
         [TestMethod]
         public void ShouldBeInSyncAfterAddingEmail()
         {
-            var wrappersFactory = new Factory.TestWrappersFactory();
-
             _testFriend.Emails.Remove(_testFriendEmail);
-            var wrapper = wrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
-            wrapper.Emails.Add(wrappersFactory.GetWrapper<TestFriendEmailWrapper>(_testFriendEmail));
+            var wrapper = new TestFriendWrapper(_testFriend);
+            wrapper.Emails.Add(new TestFriendEmailWrapper(_testFriendEmail));
             CheckIfModelEmailsCollectionIsInSync(wrapper);
         }
 
         [TestMethod]
         public void ShouldBeInSyncAfterClearingEmails()
         {
-            var wrapper = new Factory.TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new TestFriendWrapper(_testFriend);
             wrapper.Emails.Clear();
             CheckIfModelEmailsCollectionIsInSync(wrapper);
         }

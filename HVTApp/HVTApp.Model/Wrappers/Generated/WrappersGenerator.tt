@@ -31,8 +31,7 @@
     var collectionComplexProperties = allCollectionProperties.Where(x => !CollectionMemberTypeIsSimple(x.PropertyType)).ToList();
 
     //Сложные свойства
-    //var allComplexProperties = allProperties.Except(simpleProperties)
-        //.Where(p => p.PropertyType.IsClass && !typeof(IEnumerable).IsAssignableFrom(p.PropertyType));
+    //var allComplexProperties = allProperties.Except(simpleProperties).Where(p => p.PropertyType.IsClass && !typeof(IEnumerable).IsAssignableFrom(p.PropertyType));
     var allComplexProperties = allProperties.Except(allSimpleProperties).Except(allCollectionProperties);
 
     var complexSetProperties = allComplexProperties.Where(p => p.CanWrite).ToList();
@@ -50,8 +49,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class <#=modelType.Name#>Wrapper : WrapperBase<<#=modelType.Name#>>
   {
-    private <#=modelType.Name#>Wrapper(IGetWrapper getWrapper) : base(new <#=modelType.Name#>(), getWrapper) { }
-    private <#=modelType.Name#>Wrapper(<#=modelType.Name#> model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model) : base(model) { }
 
 <#
 	GenerateSimpleProperties(simpleSetProperties);
@@ -202,15 +200,7 @@ namespace HVTApp.Model.Wrappers
       var propertyType = property.PropertyType.Name;
       var propertyName = property.Name;
 #>
-	public <#= propertyType #>Wrapper <#= propertyName #> 
-    {
-        get { return GetComplexProperty<<#= propertyType #>Wrapper, <#= propertyType #>>(Model.<#= propertyName #>); }
-        set { SetComplexProperty<<#= propertyType #>Wrapper, <#= propertyType #>>(<#= propertyName #>, value); }
-    }
-
-    public <#=propertyType#>Wrapper <#=propertyName#>OriginalValue { get; private set; }
-    public bool <#=propertyName#>IsChanged => GetIsChanged(nameof(<#=propertyName#>));
-
+	public <#= propertyType #>Wrapper <#= propertyName #> { get; set; }
 <#+   
     }
 #>
@@ -256,7 +246,8 @@ namespace HVTApp.Model.Wrappers
 		var propertyName = complexProperty.Name;
 		var propertyType = complexProperty.PropertyType.Name;
 #>
-        <#= propertyName #> = GetWrapper<<#= propertyType #>Wrapper, <#= propertyType #>>(Model.<#= propertyName #>);
+        <#= propertyName #> = new <#= propertyType #>Wrapper(Model.<#= propertyName #>);
+		RegisterComplex(<#= propertyName #>);
 <#+
       }
 #>
@@ -282,7 +273,7 @@ namespace HVTApp.Model.Wrappers
 		   
 #>
       if (Model.<#= propertyName #> == null) throw new ArgumentException("<#= propertyName #> cannot be null");
-      <#= propertyName #> = new ValidatableChangeTrackingCollection<<#= itemType #>Wrapper>(Model.<#= propertyName #>.Select(e => GetWrapper<<#= itemType #>Wrapper, <#= itemType #>>(e)));
+      <#= propertyName #> = new ValidatableChangeTrackingCollection<<#= itemType #>Wrapper>(Model.<#= propertyName #>.Select(e => new <#= itemType #>Wrapper(e)));
       RegisterCollection(<#= propertyName #>, Model.<#= propertyName #>);
 
 <#+

@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class ShipmentUnitWrapper : WrapperBase<ShipmentUnit>
   {
-    private ShipmentUnitWrapper(IGetWrapper getWrapper) : base(new ShipmentUnit(), getWrapper) { }
-    private ShipmentUnitWrapper(ShipmentUnit model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public ShipmentUnitWrapper(ShipmentUnit model) : base(model) { }
 
 
 
@@ -83,34 +82,20 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public SalesUnitWrapper SalesUnit 
-    {
-        get { return GetComplexProperty<SalesUnitWrapper, SalesUnit>(Model.SalesUnit); }
-        set { SetComplexProperty<SalesUnitWrapper, SalesUnit>(SalesUnit, value); }
-    }
+	public SalesUnitWrapper SalesUnit { get; set; }
 
-    public SalesUnitWrapper SalesUnitOriginalValue { get; private set; }
-    public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
-
-
-	public AddressWrapper Address 
-    {
-        get { return GetComplexProperty<AddressWrapper, Address>(Model.Address); }
-        set { SetComplexProperty<AddressWrapper, Address>(Address, value); }
-    }
-
-    public AddressWrapper AddressOriginalValue { get; private set; }
-    public bool AddressIsChanged => GetIsChanged(nameof(Address));
-
+	public AddressWrapper Address { get; set; }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(Model.SalesUnit);
+        SalesUnit = new SalesUnitWrapper(Model.SalesUnit);
+		RegisterComplex(SalesUnit);
 
-        Address = GetWrapper<AddressWrapper, Address>(Model.Address);
+        Address = new AddressWrapper(Model.Address);
+		RegisterComplex(Address);
 
     }
 

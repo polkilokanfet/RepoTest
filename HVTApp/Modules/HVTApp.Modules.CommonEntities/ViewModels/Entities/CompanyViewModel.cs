@@ -34,7 +34,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
                 Employees = new List<Employee>()
             };
 
-            CompanyWrapper = companyWrapper ?? _unitOfWork.Companies.GetWrapper(newCompany);
+            CompanyWrapper = companyWrapper ?? new CompanyWrapper(newCompany);
 
             CompanyWrapper.PropertyChanged += (s, e) =>
             {

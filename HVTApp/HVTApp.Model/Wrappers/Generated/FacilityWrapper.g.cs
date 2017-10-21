@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class FacilityWrapper : WrapperBase<Facility>
   {
-    private FacilityWrapper(IGetWrapper getWrapper) : base(new Facility(), getWrapper) { }
-    private FacilityWrapper(Facility model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public FacilityWrapper(Facility model) : base(model) { }
 
 
 
@@ -38,46 +37,25 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public FacilityTypeWrapper Type 
-    {
-        get { return GetComplexProperty<FacilityTypeWrapper, FacilityType>(Model.Type); }
-        set { SetComplexProperty<FacilityTypeWrapper, FacilityType>(Type, value); }
-    }
+	public FacilityTypeWrapper Type { get; set; }
 
-    public FacilityTypeWrapper TypeOriginalValue { get; private set; }
-    public bool TypeIsChanged => GetIsChanged(nameof(Type));
+	public CompanyWrapper OwnerCompany { get; set; }
 
-
-	public CompanyWrapper OwnerCompany 
-    {
-        get { return GetComplexProperty<CompanyWrapper, Company>(Model.OwnerCompany); }
-        set { SetComplexProperty<CompanyWrapper, Company>(OwnerCompany, value); }
-    }
-
-    public CompanyWrapper OwnerCompanyOriginalValue { get; private set; }
-    public bool OwnerCompanyIsChanged => GetIsChanged(nameof(OwnerCompany));
-
-
-	public AddressWrapper Address 
-    {
-        get { return GetComplexProperty<AddressWrapper, Address>(Model.Address); }
-        set { SetComplexProperty<AddressWrapper, Address>(Address, value); }
-    }
-
-    public AddressWrapper AddressOriginalValue { get; private set; }
-    public bool AddressIsChanged => GetIsChanged(nameof(Address));
-
+	public AddressWrapper Address { get; set; }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        Type = GetWrapper<FacilityTypeWrapper, FacilityType>(Model.Type);
+        Type = new FacilityTypeWrapper(Model.Type);
+		RegisterComplex(Type);
 
-        OwnerCompany = GetWrapper<CompanyWrapper, Company>(Model.OwnerCompany);
+        OwnerCompany = new CompanyWrapper(Model.OwnerCompany);
+		RegisterComplex(OwnerCompany);
 
-        Address = GetWrapper<AddressWrapper, Address>(Model.Address);
+        Address = new AddressWrapper(Model.Address);
+		RegisterComplex(Address);
 
     }
 

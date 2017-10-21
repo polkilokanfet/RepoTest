@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class CountryWrapper : WrapperBase<Country>
   {
-    private CountryWrapper(IGetWrapper getWrapper) : base(new Country(), getWrapper) { }
-    private CountryWrapper(Country model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public CountryWrapper(Country model) : base(model) { }
 
 
 
@@ -48,7 +47,7 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.Districts == null) throw new ArgumentException("Districts cannot be null");
-      Districts = new ValidatableChangeTrackingCollection<DistrictWrapper>(Model.Districts.Select(e => GetWrapper<DistrictWrapper, District>(e)));
+      Districts = new ValidatableChangeTrackingCollection<DistrictWrapper>(Model.Districts.Select(e => new DistrictWrapper(e)));
       RegisterCollection(Districts, Model.Districts);
 
 

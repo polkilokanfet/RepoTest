@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class StandartPaymentConditionsWrapper : WrapperBase<StandartPaymentConditions>
   {
-    private StandartPaymentConditionsWrapper(IGetWrapper getWrapper) : base(new StandartPaymentConditions(), getWrapper) { }
-    private StandartPaymentConditionsWrapper(StandartPaymentConditions model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public StandartPaymentConditionsWrapper(StandartPaymentConditions model) : base(model) { }
 
 
 
@@ -48,7 +47,7 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
-      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(Model.PaymentsConditions.Select(e => GetWrapper<PaymentConditionWrapper, PaymentCondition>(e)));
+      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(Model.PaymentsConditions.Select(e => new PaymentConditionWrapper(e)));
       RegisterCollection(PaymentsConditions, Model.PaymentsConditions);
 
 

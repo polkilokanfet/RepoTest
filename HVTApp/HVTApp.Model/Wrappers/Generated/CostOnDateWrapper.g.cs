@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class CostOnDateWrapper : WrapperBase<CostOnDate>
   {
-    private CostOnDateWrapper(IGetWrapper getWrapper) : base(new CostOnDate(), getWrapper) { }
-    private CostOnDateWrapper(CostOnDate model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public CostOnDateWrapper(CostOnDate model) : base(model) { }
 
 
 

@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class ParameterGroupWrapper : WrapperBase<ParameterGroup>
   {
-    private ParameterGroupWrapper(IGetWrapper getWrapper) : base(new ParameterGroup(), getWrapper) { }
-    private ParameterGroupWrapper(ParameterGroup model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public ParameterGroupWrapper(ParameterGroup model) : base(model) { }
 
 
 
@@ -38,15 +37,7 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public MeasureWrapper Measure 
-    {
-        get { return GetComplexProperty<MeasureWrapper, Measure>(Model.Measure); }
-        set { SetComplexProperty<MeasureWrapper, Measure>(Measure, value); }
-    }
-
-    public MeasureWrapper MeasureOriginalValue { get; private set; }
-    public bool MeasureIsChanged => GetIsChanged(nameof(Measure));
-
+	public MeasureWrapper Measure { get; set; }
 
     #endregion
 
@@ -61,7 +52,8 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Measure = GetWrapper<MeasureWrapper, Measure>(Model.Measure);
+        Measure = new MeasureWrapper(Model.Measure);
+		RegisterComplex(Measure);
 
     }
 
@@ -70,7 +62,7 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
-      Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => GetWrapper<ParameterWrapper, Parameter>(e)));
+      Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
       RegisterCollection(Parameters, Model.Parameters);
 
 

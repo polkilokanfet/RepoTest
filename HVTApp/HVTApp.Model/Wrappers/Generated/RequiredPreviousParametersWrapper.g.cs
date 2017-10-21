@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class RequiredPreviousParametersWrapper : WrapperBase<RequiredPreviousParameters>
   {
-    private RequiredPreviousParametersWrapper(IGetWrapper getWrapper) : base(new RequiredPreviousParameters(), getWrapper) { }
-    private RequiredPreviousParametersWrapper(RequiredPreviousParameters model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public RequiredPreviousParametersWrapper(RequiredPreviousParameters model) : base(model) { }
 
 
 
@@ -29,15 +28,7 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public ParameterWrapper Parameter 
-    {
-        get { return GetComplexProperty<ParameterWrapper, Parameter>(Model.Parameter); }
-        set { SetComplexProperty<ParameterWrapper, Parameter>(Parameter, value); }
-    }
-
-    public ParameterWrapper ParameterOriginalValue { get; private set; }
-    public bool ParameterIsChanged => GetIsChanged(nameof(Parameter));
-
+	public ParameterWrapper Parameter { get; set; }
 
     #endregion
 
@@ -52,7 +43,8 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Parameter = GetWrapper<ParameterWrapper, Parameter>(Model.Parameter);
+        Parameter = new ParameterWrapper(Model.Parameter);
+		RegisterComplex(Parameter);
 
     }
 
@@ -61,7 +53,7 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.RequiredParameters == null) throw new ArgumentException("RequiredParameters cannot be null");
-      RequiredParameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.RequiredParameters.Select(e => GetWrapper<ParameterWrapper, Parameter>(e)));
+      RequiredParameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.RequiredParameters.Select(e => new ParameterWrapper(e)));
       RegisterCollection(RequiredParameters, Model.RequiredParameters);
 
 

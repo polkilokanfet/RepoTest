@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class TestFriendGroupWrapper : WrapperBase<TestFriendGroup>
   {
-    private TestFriendGroupWrapper(IGetWrapper getWrapper) : base(new TestFriendGroup(), getWrapper) { }
-    private TestFriendGroupWrapper(TestFriendGroup model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public TestFriendGroupWrapper(TestFriendGroup model) : base(model) { }
 
 
 
@@ -48,7 +47,7 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.FriendTests == null) throw new ArgumentException("FriendTests cannot be null");
-      FriendTests = new ValidatableChangeTrackingCollection<TestFriendWrapper>(Model.FriendTests.Select(e => GetWrapper<TestFriendWrapper, TestFriend>(e)));
+      FriendTests = new ValidatableChangeTrackingCollection<TestFriendWrapper>(Model.FriendTests.Select(e => new TestFriendWrapper(e)));
       RegisterCollection(FriendTests, Model.FriendTests);
 
 

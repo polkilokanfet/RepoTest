@@ -41,8 +41,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controls", "Controls", "{FF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyUserControls", "TestUserControl\MyUserControls.csproj", "{95B60D78-BF46-4667-B474-95F911BB4A09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrentUserProject", "CurrentUser\CurrentUserProject.csproj", "{6C4BFDCE-E9FE-4F57-B8D9-0E9002F61E64}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.GetProductService", "HVTApp.Services.ChooseProductService\HVTApp.Services.GetProductService.csproj", "{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.SelectService", "HVTApp.Services.SelectService\HVTApp.Services.SelectService.csproj", "{903EF15D-0826-4E21-AC44-24A869938521}"
@@ -127,10 +125,6 @@ Global
 		{95B60D78-BF46-4667-B474-95F911BB4A09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95B60D78-BF46-4667-B474-95F911BB4A09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95B60D78-BF46-4667-B474-95F911BB4A09}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6C4BFDCE-E9FE-4F57-B8D9-0E9002F61E64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6C4BFDCE-E9FE-4F57-B8D9-0E9002F61E64}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6C4BFDCE-E9FE-4F57-B8D9-0E9002F61E64}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6C4BFDCE-E9FE-4F57-B8D9-0E9002F61E64}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}.Release|Any CPU.ActiveCfg = Release|Any CPU

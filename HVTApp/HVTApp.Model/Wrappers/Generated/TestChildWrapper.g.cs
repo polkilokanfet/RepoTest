@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class TestChildWrapper : WrapperBase<TestChild>
   {
-    private TestChildWrapper(IGetWrapper getWrapper) : base(new TestChild(), getWrapper) { }
-    private TestChildWrapper(TestChild model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public TestChildWrapper(TestChild model) : base(model) { }
 
 
 
@@ -38,34 +37,20 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public TestHusbandWrapper Husband 
-    {
-        get { return GetComplexProperty<TestHusbandWrapper, TestHusband>(Model.Husband); }
-        set { SetComplexProperty<TestHusbandWrapper, TestHusband>(Husband, value); }
-    }
+	public TestHusbandWrapper Husband { get; set; }
 
-    public TestHusbandWrapper HusbandOriginalValue { get; private set; }
-    public bool HusbandIsChanged => GetIsChanged(nameof(Husband));
-
-
-	public TestWifeWrapper Wife 
-    {
-        get { return GetComplexProperty<TestWifeWrapper, TestWife>(Model.Wife); }
-        set { SetComplexProperty<TestWifeWrapper, TestWife>(Wife, value); }
-    }
-
-    public TestWifeWrapper WifeOriginalValue { get; private set; }
-    public bool WifeIsChanged => GetIsChanged(nameof(Wife));
-
+	public TestWifeWrapper Wife { get; set; }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        Husband = GetWrapper<TestHusbandWrapper, TestHusband>(Model.Husband);
+        Husband = new TestHusbandWrapper(Model.Husband);
+		RegisterComplex(Husband);
 
-        Wife = GetWrapper<TestWifeWrapper, TestWife>(Model.Wife);
+        Wife = new TestWifeWrapper(Model.Wife);
+		RegisterComplex(Wife);
 
     }
 

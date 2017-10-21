@@ -19,27 +19,27 @@ namespace HVTApp.DataAccess
             _context = context;
 
 
-            FriendGroups = new FriendGroupRepository(context, this);
+            FriendGroups = new FriendGroupRepository(context);
 
-            ActivityFields = new ActivityFieldsRepository(context, this);
-            Users = new UsersRepository(context, this);
-            Companies = new CompaniesRepository(context, this);
-            CompanyForms = new CompanyFormsRepository(context, this);
+            ActivityFields = new ActivityFieldsRepository(context);
+            Users = new UsersRepository(context);
+            Companies = new CompaniesRepository(context);
+            CompanyForms = new CompanyFormsRepository(context);
 
-            ParametersGroups = new ParametersGroupsRepository(context, this);
-            Parameters = new ParametersRepository(context, this);
-            Parts = new PartsRepository(context, this);
-            Products = new ProductsRepository(context, this);
-            ProductionUnits = new ProductionUnitsRepository(context, this);
-            RequiredDependentProductsParameters = new RequiredDependentProductssParametersRepository(context, this);
-            FacilityTypes = new FacilityTypesRepository(context, this);
-            Facilities = new FacilitiesRepository(context, this);
-            Projects = new ProjectsRepository(context, this);
-            ProjectUnits = new ProjectUnitsRepository(context, this);
-            Offers = new OffersRepository(context, this);
-            Tenders = new TendersRepository(context, this);
-            Contracts = new ContractsRepository(context, this);
-            Specifications = new SpecificationsRepository(context, this);
+            ParametersGroups = new ParametersGroupsRepository(context);
+            Parameters = new ParametersRepository(context);
+            Parts = new PartsRepository(context);
+            Products = new ProductsRepository(context);
+            ProductionUnits = new ProductionUnitsRepository(context);
+            RequiredDependentProductsParameters = new RequiredDependentProductssParametersRepository(context);
+            FacilityTypes = new FacilityTypesRepository(context);
+            Facilities = new FacilitiesRepository(context);
+            Projects = new ProjectsRepository(context);
+            ProjectUnits = new ProjectUnitsRepository(context);
+            Offers = new OffersRepository(context);
+            Tenders = new TendersRepository(context);
+            Contracts = new ContractsRepository(context);
+            Specifications = new SpecificationsRepository(context);
         }
 
         public void Dispose()
@@ -89,33 +89,33 @@ namespace HVTApp.DataAccess
         #endregion
 
 
-        readonly Dictionary<IBaseEntity, IWrapper<IBaseEntity>> _wrappers = new Dictionary<IBaseEntity, IWrapper<IBaseEntity>>();
+        //readonly Dictionary<IBaseEntity, IWrapper<IBaseEntity>> _wrappers = new Dictionary<IBaseEntity, IWrapper<IBaseEntity>>();
 
-        public void AddWrapperInDictionary(IWrapper<IBaseEntity> wrapper)
-        {
-            _wrappers.Add(wrapper.Model, wrapper);
-        }
+        //public void AddWrapperInDictionary(IWrapper<IBaseEntity> wrapper)
+        //{
+        //    _wrappers.Add(wrapper.Model, wrapper);
+        //}
 
-        public TWrapper GetWrapper<TWrapper>(IBaseEntity model)
-            where TWrapper : class, IWrapper<IBaseEntity>
-        {
-            if (!_wrappers.ContainsKey(model))
-                Activator.CreateInstance(typeof(TWrapper), BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { model, this }, null, null);
+        //public TWrapper GetWrapper<TWrapper>(IBaseEntity model)
+        //    where TWrapper : class, IWrapper<IBaseEntity>
+        //{
+        //    if (!_wrappers.ContainsKey(model))
+        //        Activator.CreateInstance(typeof(TWrapper), BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { model, this }, null, null);
 
-            return (TWrapper)_wrappers[model];
-        }
+        //    return (TWrapper)_wrappers[model];
+        //}
 
-        public TWrapper GetWrapper<TWrapper>()
-            where TWrapper : class, IWrapper<IBaseEntity>
-        {
-            return (TWrapper)Activator.CreateInstance(typeof(TWrapper), BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { this }, null, null);
-            //return GetWrapper<TWrapper>(Activator.CreateInstance<TModel>());
-        }
+        //public TWrapper GetWrapper<TWrapper>()
+        //    where TWrapper : class, IWrapper<IBaseEntity>
+        //{
+        //    return (TWrapper)Activator.CreateInstance(typeof(TWrapper), BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { this }, null, null);
+        //    //return GetWrapper<TWrapper>(Activator.CreateInstance<TModel>());
+        //}
 
-        public void RemoveWrapper(IBaseEntity model)
-        {
-            _wrappers.Remove(model);
-        }
+        //public void RemoveWrapper(IBaseEntity model)
+        //{
+        //    _wrappers.Remove(model);
+        //}
 
     }
 }

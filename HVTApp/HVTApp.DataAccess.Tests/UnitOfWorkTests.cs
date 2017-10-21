@@ -1,7 +1,5 @@
 ﻿using System.Linq;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HVTApp.DataAccess.Tests
@@ -12,8 +10,8 @@ namespace HVTApp.DataAccess.Tests
         [TestMethod]
         public void CanCreateDataBase()
         {
-            HVTAppContext hvtAppContext = new HVTAppContext();
-            UnitOfWork unitOfWork = new UnitOfWork(hvtAppContext);
+            var hvtAppContext = new HVTAppContext();
+            var unitOfWork = new UnitOfWork(hvtAppContext);
             unitOfWork.ActivityFields.GetAll();
         }
 
@@ -26,13 +24,12 @@ namespace HVTApp.DataAccess.Tests
             unitOfWork.Complete();
 
 
-            TestFriendGroup testFriendGroup = new TestFriendGroup { Name = "Тестовая группа" };
-            var testFriendGroupWrapper = unitOfWork.GetWrapper<TestFriendGroupWrapper>(testFriendGroup);
-            unitOfWork.FriendGroups.Add(testFriendGroupWrapper);
+            var testFriendGroup = new TestFriendGroup { Name = "Тестовая группа" };
+            unitOfWork.FriendGroups.Add(testFriendGroup);
             unitOfWork.Complete();
 
             unitOfWork = new UnitOfWork(new HVTAppContext());
-            Assert.IsTrue(unitOfWork.FriendGroups.Find(x => x.Name == testFriendGroupWrapper.Name).Count() == 1);
+            Assert.IsTrue(unitOfWork.FriendGroups.Find(x => x.Name == testFriendGroup.Name).Count() == 1);
             
             //очищаем все записи
             unitOfWork.FriendGroups.DeleteRange(unitOfWork.FriendGroups.GetAll());

@@ -1,16 +1,12 @@
-using System.Collections.Generic;
 using System.Data.Entity;
 using HVTApp.DataAccess.Infrastructure;
-using HVTApp.Infrastructure;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
 {
-    public class FriendGroupRepository : BaseRepository<TestFriendGroup, TestFriendGroupWrapper>, IFriendGroupRepository
+    public class FriendGroupRepository : BaseRepository<TestFriendGroup>, IFriendGroupRepository
     {
-        public FriendGroupRepository(DbContext context, IGetWrapper wrappersGetter) : base(context, wrappersGetter)
+        public FriendGroupRepository(DbContext context) : base(context)
         {
         }
     }

@@ -11,9 +11,7 @@ namespace HVTApp.Model.Tests
         [TestMethod]
         public void ProductPriceTest()
         {
-            var factory = new Factory.TestWrappersFactory();
-
-            ProductWrapper productMain = factory.GetWrapper<ProductWrapper>(new Product {Part = new Part()});
+            ProductWrapper productMain = new ProductWrapper(new Product {Part = new Part()});
 
             //ловим ошибку при пустом списке себистоимостей в главном продукте
             try
@@ -26,18 +24,18 @@ namespace HVTApp.Model.Tests
             }
 
             //добавляем стоимость главного продукта
-            productMain.Part.Prices.Add(factory.GetWrapper<CostOnDateWrapper>(new CostOnDate {Date = DateTime.Today.AddDays(-1), Cost = 10}));
+            productMain.Part.Prices.Add(new CostOnDateWrapper(new CostOnDate {Date = DateTime.Today.AddDays(-1), Cost = 10}));
             Assert.AreEqual(productMain.GetPrice(), 10);
 
             //добавляем стоимость дочернего продукта
-            ProductWrapper productChild1 = factory.GetWrapper<ProductWrapper>(new Product { Part = new Part() });
-            productChild1.Part.Prices.Add(factory.GetWrapper<CostOnDateWrapper>(new CostOnDate { Date = DateTime.Today.AddDays(-1), Cost = 10 }));
+            ProductWrapper productChild1 = new ProductWrapper(new Product { Part = new Part() });
+            productChild1.Part.Prices.Add(new CostOnDateWrapper(new CostOnDate { Date = DateTime.Today.AddDays(-1), Cost = 10 }));
             productMain.DependentProducts.Add(productChild1);
             Assert.AreEqual(productMain.GetPrice(), 20);
 
             //добавляем стоимость дочернего продукта к дочернему продукту
-            ProductWrapper productChild2 = factory.GetWrapper<ProductWrapper>(new Product { Part = new Part() });
-            productChild2.Part.Prices.Add(factory.GetWrapper<CostOnDateWrapper>(new CostOnDate { Date = DateTime.Today.AddDays(-1), Cost = 10 }));
+            ProductWrapper productChild2 = new ProductWrapper(new Product { Part = new Part() });
+            productChild2.Part.Prices.Add(new CostOnDateWrapper(new CostOnDate { Date = DateTime.Today.AddDays(-1), Cost = 10 }));
             productChild1.DependentProducts.Add(productChild2);
             Assert.AreEqual(productMain.GetPrice(), 30);
         }

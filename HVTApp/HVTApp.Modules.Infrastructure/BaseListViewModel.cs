@@ -24,7 +24,8 @@ namespace HVTApp.Modules.Infrastructure
         event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
     }
 
-    public class BaseListViewModel<TWrapper, TDelailsViewModel> : EditableSelectableBindableBase<TWrapper>, IBaseListViewModel<TWrapper> where TWrapper : class, IWrapper<IBaseEntity>
+    public class BaseListViewModel<TWrapper, TDelailsViewModel> : EditableSelectableBindableBase<TWrapper>, IBaseListViewModel<TWrapper> 
+        where TWrapper : class, IWrapper<IBaseEntity>
         where TDelailsViewModel : class, IDetailsViewModel<TWrapper> 
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -40,7 +41,8 @@ namespace HVTApp.Modules.Infrastructure
 
         protected override void NewItemCommand_Execute()
         {
-            TWrapper item = _unitOfWork.GetWrapper<TWrapper>();
+            //TWrapper item = _unitOfWork.GetWrapper<TWrapper>();
+            TWrapper item = default(TWrapper);
 
             TDelailsViewModel delailsViewModel = _container.Resolve<TDelailsViewModel>(new ParameterOverride("item", item));
             bool? dialogResult = _dialogService.ShowDialog(delailsViewModel);

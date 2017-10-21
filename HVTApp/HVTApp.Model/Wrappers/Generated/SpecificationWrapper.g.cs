@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class SpecificationWrapper : WrapperBase<Specification>
   {
-    private SpecificationWrapper(IGetWrapper getWrapper) : base(new Specification(), getWrapper) { }
-    private SpecificationWrapper(Specification model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public SpecificationWrapper(Specification model) : base(model) { }
 
 
 
@@ -56,15 +55,7 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public ContractWrapper Contract 
-    {
-        get { return GetComplexProperty<ContractWrapper, Contract>(Model.Contract); }
-        set { SetComplexProperty<ContractWrapper, Contract>(Contract, value); }
-    }
-
-    public ContractWrapper ContractOriginalValue { get; private set; }
-    public bool ContractIsChanged => GetIsChanged(nameof(Contract));
-
+	public ContractWrapper Contract { get; set; }
 
     #endregion
 
@@ -79,7 +70,8 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Contract = GetWrapper<ContractWrapper, Contract>(Model.Contract);
+        Contract = new ContractWrapper(Model.Contract);
+		RegisterComplex(Contract);
 
     }
 
@@ -88,7 +80,7 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
-      SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => GetWrapper<SalesUnitWrapper, SalesUnit>(e)));
+      SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
       RegisterCollection(SalesUnits, Model.SalesUnits);
 
 

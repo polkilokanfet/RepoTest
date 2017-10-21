@@ -1,7 +1,8 @@
-﻿namespace HVTApp.Model.Wrappers
+﻿using HVTApp.Model.POCOs;
+
+namespace HVTApp.Model.Wrappers
 {
-    public partial class OfferUnitWrapper : IProductUnit
+    public partial class OfferUnitWrapper
     {
-        public FacilityWrapper Facility => ProjectUnit.Facility;
     }
 }

@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class OfferUnitWrapper : WrapperBase<OfferUnit>
   {
-    private OfferUnitWrapper(IGetWrapper getWrapper) : base(new OfferUnit(), getWrapper) { }
-    private OfferUnitWrapper(OfferUnit model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public OfferUnitWrapper(OfferUnit model) : base(model) { }
 
 
 
@@ -47,39 +46,11 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public ProjectUnitWrapper ProjectUnit 
-    {
-        get { return GetComplexProperty<ProjectUnitWrapper, ProjectUnit>(Model.ProjectUnit); }
-        set { SetComplexProperty<ProjectUnitWrapper, ProjectUnit>(ProjectUnit, value); }
-    }
+	public ProjectUnitWrapper ProjectUnit { get; set; }
 
-    public ProjectUnitWrapper ProjectUnitOriginalValue { get; private set; }
-    public bool ProjectUnitIsChanged => GetIsChanged(nameof(ProjectUnit));
+	public ProductWrapper Product { get; set; }
 
-
-    public TenderUnitWrapper TenderUnitOriginalValue { get; private set; }
-    public bool TenderUnitIsChanged => GetIsChanged(nameof(TenderUnit));
-
-
-	public ProductWrapper Product 
-    {
-        get { return GetComplexProperty<ProductWrapper, Product>(Model.Product); }
-        set { SetComplexProperty<ProductWrapper, Product>(Product, value); }
-    }
-
-    public ProductWrapper ProductOriginalValue { get; private set; }
-    public bool ProductIsChanged => GetIsChanged(nameof(Product));
-
-
-	public OfferWrapper Offer 
-    {
-        get { return GetComplexProperty<OfferWrapper, Offer>(Model.Offer); }
-        set { SetComplexProperty<OfferWrapper, Offer>(Offer, value); }
-    }
-
-    public OfferWrapper OfferOriginalValue { get; private set; }
-    public bool OfferIsChanged => GetIsChanged(nameof(Offer));
-
+	public OfferWrapper Offer { get; set; }
 
     #endregion
 
@@ -94,11 +65,14 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        ProjectUnit = GetWrapper<ProjectUnitWrapper, ProjectUnit>(Model.ProjectUnit);
+        ProjectUnit = new ProjectUnitWrapper(Model.ProjectUnit);
+		RegisterComplex(ProjectUnit);
 
-        Product = GetWrapper<ProductWrapper, Product>(Model.Product);
+        Product = new ProductWrapper(Model.Product);
+		RegisterComplex(Product);
 
-        Offer = GetWrapper<OfferWrapper, Offer>(Model.Offer);
+        Offer = new OfferWrapper(Model.Offer);
+		RegisterComplex(Offer);
 
     }
 
@@ -107,7 +81,7 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
-      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(Model.PaymentsConditions.Select(e => GetWrapper<PaymentConditionWrapper, PaymentCondition>(e)));
+      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(Model.PaymentsConditions.Select(e => new PaymentConditionWrapper(e)));
       RegisterCollection(PaymentsConditions, Model.PaymentsConditions);
 
 

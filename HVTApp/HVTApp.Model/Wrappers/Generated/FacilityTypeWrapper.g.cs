@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class FacilityTypeWrapper : WrapperBase<FacilityType>
   {
-    private FacilityTypeWrapper(IGetWrapper getWrapper) : base(new FacilityType(), getWrapper) { }
-    private FacilityTypeWrapper(FacilityType model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public FacilityTypeWrapper(FacilityType model) : base(model) { }
 
 
 

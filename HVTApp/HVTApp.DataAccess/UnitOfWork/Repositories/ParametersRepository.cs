@@ -8,9 +8,9 @@ using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
 {
-    public class ParametersRepository : BaseRepository<Parameter, ParameterWrapper>, IParametersRepository
+    public class ParametersRepository : BaseRepository<Parameter>, IParametersRepository
     {
-        public ParametersRepository(DbContext context, IGetWrapper wrappersGetter) : base(context, wrappersGetter)
+        public ParametersRepository(DbContext context) : base(context)
         {
         }
     }

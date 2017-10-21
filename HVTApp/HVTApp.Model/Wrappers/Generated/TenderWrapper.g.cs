@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class TenderWrapper : WrapperBase<Tender>
   {
-    private TenderWrapper(IGetWrapper getWrapper) : base(new Tender(), getWrapper) { }
-    private TenderWrapper(Tender model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public TenderWrapper(Tender model) : base(model) { }
 
 
 
@@ -65,35 +64,11 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public TenderTypeWrapper Type 
-    {
-        get { return GetComplexProperty<TenderTypeWrapper, TenderType>(Model.Type); }
-        set { SetComplexProperty<TenderTypeWrapper, TenderType>(Type, value); }
-    }
+	public TenderTypeWrapper Type { get; set; }
 
-    public TenderTypeWrapper TypeOriginalValue { get; private set; }
-    public bool TypeIsChanged => GetIsChanged(nameof(Type));
+	public ProjectWrapper Project { get; set; }
 
-
-	public ProjectWrapper Project 
-    {
-        get { return GetComplexProperty<ProjectWrapper, Project>(Model.Project); }
-        set { SetComplexProperty<ProjectWrapper, Project>(Project, value); }
-    }
-
-    public ProjectWrapper ProjectOriginalValue { get; private set; }
-    public bool ProjectIsChanged => GetIsChanged(nameof(Project));
-
-
-	public CompanyWrapper Winner 
-    {
-        get { return GetComplexProperty<CompanyWrapper, Company>(Model.Winner); }
-        set { SetComplexProperty<CompanyWrapper, Company>(Winner, value); }
-    }
-
-    public CompanyWrapper WinnerOriginalValue { get; private set; }
-    public bool WinnerIsChanged => GetIsChanged(nameof(Winner));
-
+	public CompanyWrapper Winner { get; set; }
 
     #endregion
 
@@ -114,11 +89,14 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Type = GetWrapper<TenderTypeWrapper, TenderType>(Model.Type);
+        Type = new TenderTypeWrapper(Model.Type);
+		RegisterComplex(Type);
 
-        Project = GetWrapper<ProjectWrapper, Project>(Model.Project);
+        Project = new ProjectWrapper(Model.Project);
+		RegisterComplex(Project);
 
-        Winner = GetWrapper<CompanyWrapper, Company>(Model.Winner);
+        Winner = new CompanyWrapper(Model.Winner);
+		RegisterComplex(Winner);
 
     }
 
@@ -127,17 +105,17 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.Participants == null) throw new ArgumentException("Participants cannot be null");
-      Participants = new ValidatableChangeTrackingCollection<CompanyWrapper>(Model.Participants.Select(e => GetWrapper<CompanyWrapper, Company>(e)));
+      Participants = new ValidatableChangeTrackingCollection<CompanyWrapper>(Model.Participants.Select(e => new CompanyWrapper(e)));
       RegisterCollection(Participants, Model.Participants);
 
 
       if (Model.TenderUnits == null) throw new ArgumentException("TenderUnits cannot be null");
-      TenderUnits = new ValidatableChangeTrackingCollection<TenderUnitWrapper>(Model.TenderUnits.Select(e => GetWrapper<TenderUnitWrapper, TenderUnit>(e)));
+      TenderUnits = new ValidatableChangeTrackingCollection<TenderUnitWrapper>(Model.TenderUnits.Select(e => new TenderUnitWrapper(e)));
       RegisterCollection(TenderUnits, Model.TenderUnits);
 
 
       if (Model.Offers == null) throw new ArgumentException("Offers cannot be null");
-      Offers = new ValidatableChangeTrackingCollection<OfferWrapper>(Model.Offers.Select(e => GetWrapper<OfferWrapper, Offer>(e)));
+      Offers = new ValidatableChangeTrackingCollection<OfferWrapper>(Model.Offers.Select(e => new OfferWrapper(e)));
       RegisterCollection(Offers, Model.Offers);
 
 

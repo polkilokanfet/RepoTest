@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class OfferWrapper : WrapperBase<Offer>
   {
-    private OfferWrapper(IGetWrapper getWrapper) : base(new Offer(), getWrapper) { }
-    private OfferWrapper(Offer model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public OfferWrapper(Offer model) : base(model) { }
 
 
 
@@ -47,15 +46,7 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public DocumentWrapper Document 
-    {
-        get { return GetComplexProperty<DocumentWrapper, Document>(Model.Document); }
-        set { SetComplexProperty<DocumentWrapper, Document>(Document, value); }
-    }
-
-    public DocumentWrapper DocumentOriginalValue { get; private set; }
-    public bool DocumentIsChanged => GetIsChanged(nameof(Document));
-
+	public DocumentWrapper Document { get; set; }
 
     #endregion
 
@@ -70,7 +61,8 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Document = GetWrapper<DocumentWrapper, Document>(Model.Document);
+        Document = new DocumentWrapper(Model.Document);
+		RegisterComplex(Document);
 
     }
 
@@ -79,7 +71,7 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.OfferUnits == null) throw new ArgumentException("OfferUnits cannot be null");
-      OfferUnits = new ValidatableChangeTrackingCollection<OfferUnitWrapper>(Model.OfferUnits.Select(e => GetWrapper<OfferUnitWrapper, OfferUnit>(e)));
+      OfferUnits = new ValidatableChangeTrackingCollection<OfferUnitWrapper>(Model.OfferUnits.Select(e => new OfferUnitWrapper(e)));
       RegisterCollection(OfferUnits, Model.OfferUnits);
 
 

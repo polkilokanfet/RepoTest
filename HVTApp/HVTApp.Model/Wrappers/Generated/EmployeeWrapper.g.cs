@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class EmployeeWrapper : WrapperBase<Employee>
   {
-    private EmployeeWrapper(IGetWrapper getWrapper) : base(new Employee(), getWrapper) { }
-    private EmployeeWrapper(Employee model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public EmployeeWrapper(Employee model) : base(model) { }
 
 
 
@@ -56,46 +55,25 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public PersonWrapper Person 
-    {
-        get { return GetComplexProperty<PersonWrapper, Person>(Model.Person); }
-        set { SetComplexProperty<PersonWrapper, Person>(Person, value); }
-    }
+	public PersonWrapper Person { get; set; }
 
-    public PersonWrapper PersonOriginalValue { get; private set; }
-    public bool PersonIsChanged => GetIsChanged(nameof(Person));
+	public CompanyWrapper Company { get; set; }
 
-
-	public CompanyWrapper Company 
-    {
-        get { return GetComplexProperty<CompanyWrapper, Company>(Model.Company); }
-        set { SetComplexProperty<CompanyWrapper, Company>(Company, value); }
-    }
-
-    public CompanyWrapper CompanyOriginalValue { get; private set; }
-    public bool CompanyIsChanged => GetIsChanged(nameof(Company));
-
-
-	public EmployeesPositionWrapper Position 
-    {
-        get { return GetComplexProperty<EmployeesPositionWrapper, EmployeesPosition>(Model.Position); }
-        set { SetComplexProperty<EmployeesPositionWrapper, EmployeesPosition>(Position, value); }
-    }
-
-    public EmployeesPositionWrapper PositionOriginalValue { get; private set; }
-    public bool PositionIsChanged => GetIsChanged(nameof(Position));
-
+	public EmployeesPositionWrapper Position { get; set; }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        Person = GetWrapper<PersonWrapper, Person>(Model.Person);
+        Person = new PersonWrapper(Model.Person);
+		RegisterComplex(Person);
 
-        Company = GetWrapper<CompanyWrapper, Company>(Model.Company);
+        Company = new CompanyWrapper(Model.Company);
+		RegisterComplex(Company);
 
-        Position = GetWrapper<EmployeesPositionWrapper, EmployeesPosition>(Model.Position);
+        Position = new EmployeesPositionWrapper(Model.Position);
+		RegisterComplex(Position);
 
     }
 

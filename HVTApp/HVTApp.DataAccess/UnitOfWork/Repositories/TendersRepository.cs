@@ -7,9 +7,9 @@ using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
 {
-    public class TendersRepository : BaseRepository<Tender, TenderWrapper>, ITendersRepository
+    public class TendersRepository : BaseRepository<Tender>, ITendersRepository
     {
-        public TendersRepository(DbContext context, IGetWrapper wrappersGetter) : base(context, wrappersGetter)
+        public TendersRepository(DbContext context) : base(context)
         {
         }
     }

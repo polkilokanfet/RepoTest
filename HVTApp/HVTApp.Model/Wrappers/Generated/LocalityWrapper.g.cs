@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class LocalityWrapper : WrapperBase<Locality>
   {
-    private LocalityWrapper(IGetWrapper getWrapper) : base(new Locality(), getWrapper) { }
-    private LocalityWrapper(Locality model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public LocalityWrapper(Locality model) : base(model) { }
 
 
 
@@ -74,34 +73,20 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public LocalityTypeWrapper LocalityType 
-    {
-        get { return GetComplexProperty<LocalityTypeWrapper, LocalityType>(Model.LocalityType); }
-        set { SetComplexProperty<LocalityTypeWrapper, LocalityType>(LocalityType, value); }
-    }
+	public LocalityTypeWrapper LocalityType { get; set; }
 
-    public LocalityTypeWrapper LocalityTypeOriginalValue { get; private set; }
-    public bool LocalityTypeIsChanged => GetIsChanged(nameof(LocalityType));
-
-
-	public RegionWrapper Region 
-    {
-        get { return GetComplexProperty<RegionWrapper, Region>(Model.Region); }
-        set { SetComplexProperty<RegionWrapper, Region>(Region, value); }
-    }
-
-    public RegionWrapper RegionOriginalValue { get; private set; }
-    public bool RegionIsChanged => GetIsChanged(nameof(Region));
-
+	public RegionWrapper Region { get; set; }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        LocalityType = GetWrapper<LocalityTypeWrapper, LocalityType>(Model.LocalityType);
+        LocalityType = new LocalityTypeWrapper(Model.LocalityType);
+		RegisterComplex(LocalityType);
 
-        Region = GetWrapper<RegionWrapper, Region>(Model.Region);
+        Region = new RegionWrapper(Model.Region);
+		RegisterComplex(Region);
 
     }
 

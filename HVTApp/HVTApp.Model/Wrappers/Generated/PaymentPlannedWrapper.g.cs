@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class PaymentPlannedWrapper : WrapperBase<PaymentPlanned>
   {
-    private PaymentPlannedWrapper(IGetWrapper getWrapper) : base(new PaymentPlanned(), getWrapper) { }
-    private PaymentPlannedWrapper(PaymentPlanned model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public PaymentPlannedWrapper(PaymentPlanned model) : base(model) { }
 
 
 
@@ -56,34 +55,20 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public PaymentConditionWrapper Condition 
-    {
-        get { return GetComplexProperty<PaymentConditionWrapper, PaymentCondition>(Model.Condition); }
-        set { SetComplexProperty<PaymentConditionWrapper, PaymentCondition>(Condition, value); }
-    }
+	public PaymentConditionWrapper Condition { get; set; }
 
-    public PaymentConditionWrapper ConditionOriginalValue { get; private set; }
-    public bool ConditionIsChanged => GetIsChanged(nameof(Condition));
-
-
-	public SalesUnitWrapper SalesUnit 
-    {
-        get { return GetComplexProperty<SalesUnitWrapper, SalesUnit>(Model.SalesUnit); }
-        set { SetComplexProperty<SalesUnitWrapper, SalesUnit>(SalesUnit, value); }
-    }
-
-    public SalesUnitWrapper SalesUnitOriginalValue { get; private set; }
-    public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
-
+	public SalesUnitWrapper SalesUnit { get; set; }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        Condition = GetWrapper<PaymentConditionWrapper, PaymentCondition>(Model.Condition);
+        Condition = new PaymentConditionWrapper(Model.Condition);
+		RegisterComplex(Condition);
 
-        SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(Model.SalesUnit);
+        SalesUnit = new SalesUnitWrapper(Model.SalesUnit);
+		RegisterComplex(SalesUnit);
 
     }
 

@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class ProductionUnitWrapper : WrapperBase<ProductionUnit>
   {
-    private ProductionUnitWrapper(IGetWrapper getWrapper) : base(new ProductionUnit(), getWrapper) { }
-    private ProductionUnitWrapper(ProductionUnit model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public ProductionUnitWrapper(ProductionUnit model) : base(model) { }
 
 
 
@@ -101,46 +100,25 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public ProductWrapper Product 
-    {
-        get { return GetComplexProperty<ProductWrapper, Product>(Model.Product); }
-        set { SetComplexProperty<ProductWrapper, Product>(Product, value); }
-    }
+	public ProductWrapper Product { get; set; }
 
-    public ProductWrapper ProductOriginalValue { get; private set; }
-    public bool ProductIsChanged => GetIsChanged(nameof(Product));
+	public OrderWrapper Order { get; set; }
 
-
-	public OrderWrapper Order 
-    {
-        get { return GetComplexProperty<OrderWrapper, Order>(Model.Order); }
-        set { SetComplexProperty<OrderWrapper, Order>(Order, value); }
-    }
-
-    public OrderWrapper OrderOriginalValue { get; private set; }
-    public bool OrderIsChanged => GetIsChanged(nameof(Order));
-
-
-	public SalesUnitWrapper SalesUnit 
-    {
-        get { return GetComplexProperty<SalesUnitWrapper, SalesUnit>(Model.SalesUnit); }
-        set { SetComplexProperty<SalesUnitWrapper, SalesUnit>(SalesUnit, value); }
-    }
-
-    public SalesUnitWrapper SalesUnitOriginalValue { get; private set; }
-    public bool SalesUnitIsChanged => GetIsChanged(nameof(SalesUnit));
-
+	public SalesUnitWrapper SalesUnit { get; set; }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        Product = GetWrapper<ProductWrapper, Product>(Model.Product);
+        Product = new ProductWrapper(Model.Product);
+		RegisterComplex(Product);
 
-        Order = GetWrapper<OrderWrapper, Order>(Model.Order);
+        Order = new OrderWrapper(Model.Order);
+		RegisterComplex(Order);
 
-        SalesUnit = GetWrapper<SalesUnitWrapper, SalesUnit>(Model.SalesUnit);
+        SalesUnit = new SalesUnitWrapper(Model.SalesUnit);
+		RegisterComplex(SalesUnit);
 
     }
 

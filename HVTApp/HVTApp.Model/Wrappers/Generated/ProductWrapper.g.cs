@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class ProductWrapper : WrapperBase<Product>
   {
-    private ProductWrapper(IGetWrapper getWrapper) : base(new Product(), getWrapper) { }
-    private ProductWrapper(Product model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public ProductWrapper(Product model) : base(model) { }
 
 
 
@@ -38,15 +37,7 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public PartWrapper Part 
-    {
-        get { return GetComplexProperty<PartWrapper, Part>(Model.Part); }
-        set { SetComplexProperty<PartWrapper, Part>(Part, value); }
-    }
-
-    public PartWrapper PartOriginalValue { get; private set; }
-    public bool PartIsChanged => GetIsChanged(nameof(Part));
-
+	public PartWrapper Part { get; set; }
 
     #endregion
 
@@ -61,7 +52,8 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Part = GetWrapper<PartWrapper, Part>(Model.Part);
+        Part = new PartWrapper(Model.Part);
+		RegisterComplex(Part);
 
     }
 
@@ -70,7 +62,7 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.DependentProducts == null) throw new ArgumentException("DependentProducts cannot be null");
-      DependentProducts = new ValidatableChangeTrackingCollection<ProductWrapper>(Model.DependentProducts.Select(e => GetWrapper<ProductWrapper, Product>(e)));
+      DependentProducts = new ValidatableChangeTrackingCollection<ProductWrapper>(Model.DependentProducts.Select(e => new ProductWrapper(e)));
       RegisterCollection(DependentProducts, Model.DependentProducts);
 
 

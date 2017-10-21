@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class SalesUnitWrapper : WrapperBase<SalesUnit>
   {
-    private SalesUnitWrapper(IGetWrapper getWrapper) : base(new SalesUnit(), getWrapper) { }
-    private SalesUnitWrapper(SalesUnit model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public SalesUnitWrapper(SalesUnit model) : base(model) { }
 
 
 
@@ -56,45 +55,13 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public OfferUnitWrapper OfferUnit 
-    {
-        get { return GetComplexProperty<OfferUnitWrapper, OfferUnit>(Model.OfferUnit); }
-        set { SetComplexProperty<OfferUnitWrapper, OfferUnit>(OfferUnit, value); }
-    }
+	public OfferUnitWrapper OfferUnit { get; set; }
 
-    public OfferUnitWrapper OfferUnitOriginalValue { get; private set; }
-    public bool OfferUnitIsChanged => GetIsChanged(nameof(OfferUnit));
+	public ProductionUnitWrapper ProductionUnit { get; set; }
 
+	public ShipmentUnitWrapper ShipmentUnit { get; set; }
 
-	public ProductionUnitWrapper ProductionUnit 
-    {
-        get { return GetComplexProperty<ProductionUnitWrapper, ProductionUnit>(Model.ProductionUnit); }
-        set { SetComplexProperty<ProductionUnitWrapper, ProductionUnit>(ProductionUnit, value); }
-    }
-
-    public ProductionUnitWrapper ProductionUnitOriginalValue { get; private set; }
-    public bool ProductionUnitIsChanged => GetIsChanged(nameof(ProductionUnit));
-
-
-	public ShipmentUnitWrapper ShipmentUnit 
-    {
-        get { return GetComplexProperty<ShipmentUnitWrapper, ShipmentUnit>(Model.ShipmentUnit); }
-        set { SetComplexProperty<ShipmentUnitWrapper, ShipmentUnit>(ShipmentUnit, value); }
-    }
-
-    public ShipmentUnitWrapper ShipmentUnitOriginalValue { get; private set; }
-    public bool ShipmentUnitIsChanged => GetIsChanged(nameof(ShipmentUnit));
-
-
-	public SpecificationWrapper Specification 
-    {
-        get { return GetComplexProperty<SpecificationWrapper, Specification>(Model.Specification); }
-        set { SetComplexProperty<SpecificationWrapper, Specification>(Specification, value); }
-    }
-
-    public SpecificationWrapper SpecificationOriginalValue { get; private set; }
-    public bool SpecificationIsChanged => GetIsChanged(nameof(Specification));
-
+	public SpecificationWrapper Specification { get; set; }
 
     #endregion
 
@@ -115,13 +82,17 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        OfferUnit = GetWrapper<OfferUnitWrapper, OfferUnit>(Model.OfferUnit);
+        OfferUnit = new OfferUnitWrapper(Model.OfferUnit);
+		RegisterComplex(OfferUnit);
 
-        ProductionUnit = GetWrapper<ProductionUnitWrapper, ProductionUnit>(Model.ProductionUnit);
+        ProductionUnit = new ProductionUnitWrapper(Model.ProductionUnit);
+		RegisterComplex(ProductionUnit);
 
-        ShipmentUnit = GetWrapper<ShipmentUnitWrapper, ShipmentUnit>(Model.ShipmentUnit);
+        ShipmentUnit = new ShipmentUnitWrapper(Model.ShipmentUnit);
+		RegisterComplex(ShipmentUnit);
 
-        Specification = GetWrapper<SpecificationWrapper, Specification>(Model.Specification);
+        Specification = new SpecificationWrapper(Model.Specification);
+		RegisterComplex(Specification);
 
     }
 
@@ -130,17 +101,17 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
-      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(Model.PaymentsConditions.Select(e => GetWrapper<PaymentConditionWrapper, PaymentCondition>(e)));
+      PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(Model.PaymentsConditions.Select(e => new PaymentConditionWrapper(e)));
       RegisterCollection(PaymentsConditions, Model.PaymentsConditions);
 
 
       if (Model.PaymentsActual == null) throw new ArgumentException("PaymentsActual cannot be null");
-      PaymentsActual = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(Model.PaymentsActual.Select(e => GetWrapper<PaymentActualWrapper, PaymentActual>(e)));
+      PaymentsActual = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(Model.PaymentsActual.Select(e => new PaymentActualWrapper(e)));
       RegisterCollection(PaymentsActual, Model.PaymentsActual);
 
 
       if (Model.PaymentsPlanned == null) throw new ArgumentException("PaymentsPlanned cannot be null");
-      PaymentsPlanned = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(Model.PaymentsPlanned.Select(e => GetWrapper<PaymentPlannedWrapper, PaymentPlanned>(e)));
+      PaymentsPlanned = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(Model.PaymentsPlanned.Select(e => new PaymentPlannedWrapper(e)));
       RegisterCollection(PaymentsPlanned, Model.PaymentsPlanned);
 
 

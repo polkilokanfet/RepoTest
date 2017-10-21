@@ -86,10 +86,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CurrentUser\CurrentUserProject.csproj">
-      <Project>{6C4BFDCE-E9FE-4F57-B8D9-0E9002F61E64}</Project>
-      <Name>CurrentUserProject</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HVTApp.DataAccess.Infrastructure\HVTApp.DataAccess.Infrastructure.csproj">
       <Project>{8ED995B6-B4A2-4B85-9057-69CACF5BBD51}</Project>
       <Name>HVTApp.DataAccess.Infrastructure</Name>

@@ -10,20 +10,20 @@ namespace HVTApp.Model.Wrappers
         {
             get
             {
-                if (StartProductionDate.HasValue) return StartProductionDate.Value;
-                if (SalesUnit != null)
-                {
-                    //по проставленной дате
-                    if (SalesUnit.StartProductionConditionsDoneDate.HasValue)
-                        return SalesUnit.StartProductionConditionsDoneDate.Value;
-                    //по дате спецификации
-                    if (SalesUnit.Specification != null)
-                        return SalesUnit.Specification.Date;
-                    //по дате реализации проекта
-                    if (SalesUnit.OfferUnit.ProjectUnit != null)
-                        return SalesUnit.OfferUnit.ProjectUnit.RequiredDeliveryDate.AddDays(-PlannedTermFromStartToEndProduction).GetTodayIfDateFromPastAndSkipWeekend();
-                    throw new NotImplementedException();
-                }
+                //if (StartProductionDate.HasValue) return StartProductionDate.Value;
+                //if (SalesUnit != null)
+                //{
+                //    //по проставленной дате
+                //    if (SalesUnit.StartProductionConditionsDoneDate.HasValue)
+                //        return SalesUnit.StartProductionConditionsDoneDate.Value;
+                //    //по дате спецификации
+                //    if (SalesUnit.Specification != null)
+                //        return SalesUnit.Specification.Date;
+                //    //по дате реализации проекта
+                //    if (SalesUnit.OfferUnit.ProjectUnit != null)
+                //        return SalesUnit.OfferUnit.ProjectUnit.RequiredDeliveryDate.AddDays(-PlannedTermFromStartToEndProduction).GetTodayIfDateFromPastAndSkipWeekend();
+                //    throw new NotImplementedException();
+                //}
                 throw new NotImplementedException();
             }
         }

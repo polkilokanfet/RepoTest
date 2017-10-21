@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using System.Linq;
+using Prism.Commands;
 using HVTApp.DataAccess;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -7,6 +8,7 @@ using HVTApp.Model.Wrappers;
 using HVTApp.Modules.Infrastructure;
 using HVTApp.Services.GetProductService;
 using Microsoft.Practices.Unity;
+using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
@@ -24,7 +26,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             _container = container;
             _getProductService = getProductService;
 
-            _unitOfWork.Companies.GetAll().ForEach(Items.Add);
+            _unitOfWork.Companies.GetAll().Select(x => new CompanyWrapper(x)).ForEach(Items.Add);
 
             RefreshCommand = new DelegateCommand(RefreshCommand_Execute);
         }
@@ -46,7 +48,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         private void RefreshCommand_Execute()
         {
             Items.Clear();
-            _unitOfWork.Companies.GetAll().ForEach(Items.Add);
+            _unitOfWork.Companies.GetAll().Select(x => new CompanyWrapper(x)).ForEach(Items.Add);
         }
 
         #endregion

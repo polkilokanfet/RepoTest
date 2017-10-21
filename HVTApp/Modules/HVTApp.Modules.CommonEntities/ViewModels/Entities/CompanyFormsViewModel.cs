@@ -1,10 +1,12 @@
-﻿using HVTApp.DataAccess;
+﻿using System.Linq;
+using HVTApp.DataAccess;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using HVTApp.Modules.Infrastructure;
 using Microsoft.Practices.Unity;
+using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
@@ -19,7 +21,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             _unitOfWork = unitOfWork;
             _dialogService = dialogService;
 
-            _unitOfWork.CompanyForms.GetAll().ForEach(Items.Add);
+            _unitOfWork.CompanyForms.GetAll().Select(x => new CompanyFormWrapper(x)).ForEach(Items.Add);
         }
 
         #region CRUD Commands
@@ -43,7 +45,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         protected override void RemoveItemCommand_Execute()
         {
             Items.Remove(SelectedItem);
-            _unitOfWork.CompanyForms.Delete(SelectedItem);
+            _unitOfWork.CompanyForms.Delete(SelectedItem.Model);
             _unitOfWork.Complete();
         }
 

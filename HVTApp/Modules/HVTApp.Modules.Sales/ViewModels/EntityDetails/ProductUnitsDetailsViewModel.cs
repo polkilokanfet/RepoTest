@@ -1,4 +1,5 @@
-﻿using HVTApp.DataAccess.Infrastructure;
+﻿using System.Linq;
+using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Model.Wrappers;
 using HVTApp.Modules.Infrastructure;
@@ -33,7 +34,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void ChooseFacilityCommand_Execute()
         {
-            var facility = _chooseService.ChooseDialog(_unitOfWork.Facilities.GetAll());
+            var facility = _chooseService.ChooseDialog(_unitOfWork.Facilities.GetAll().Select(x => new FacilityWrapper(x)));
             if (facility != null) Item.Facility = facility;
         }
 

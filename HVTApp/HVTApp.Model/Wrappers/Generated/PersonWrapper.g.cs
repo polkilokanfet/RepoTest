@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class PersonWrapper : WrapperBase<Person>
   {
-    private PersonWrapper(IGetWrapper getWrapper) : base(new Person(), getWrapper) { }
-    private PersonWrapper(Person model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public PersonWrapper(Person model) : base(model) { }
 
 
 
@@ -75,7 +74,7 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.Employees == null) throw new ArgumentException("Employees cannot be null");
-      Employees = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.Employees.Select(e => GetWrapper<EmployeeWrapper, Employee>(e)));
+      Employees = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.Employees.Select(e => new EmployeeWrapper(e)));
       RegisterCollection(Employees, Model.Employees);
 
 

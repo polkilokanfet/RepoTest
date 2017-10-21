@@ -9,9 +9,9 @@ using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
 {
-    public class CompanyFormsRepository : BaseRepository<CompanyForm, CompanyFormWrapper>, ICompanyFormsRepository
+    public class CompanyFormsRepository : BaseRepository<CompanyForm>, ICompanyFormsRepository
     {
-        public CompanyFormsRepository(DbContext context, IGetWrapper wrappersGetter) : base(context, wrappersGetter)
+        public CompanyFormsRepository(DbContext context) : base(context)
         {
         }
     }

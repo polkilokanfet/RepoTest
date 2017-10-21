@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class CostWrapper : WrapperBase<Cost>
   {
-    private CostWrapper(IGetWrapper getWrapper) : base(new Cost(), getWrapper) { }
-    private CostWrapper(Cost model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public CostWrapper(Cost model) : base(model) { }
 
 
 
@@ -38,22 +37,15 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public CurrencyWrapper Currency 
-    {
-        get { return GetComplexProperty<CurrencyWrapper, Currency>(Model.Currency); }
-        set { SetComplexProperty<CurrencyWrapper, Currency>(Currency, value); }
-    }
-
-    public CurrencyWrapper CurrencyOriginalValue { get; private set; }
-    public bool CurrencyIsChanged => GetIsChanged(nameof(Currency));
-
+	public CurrencyWrapper Currency { get; set; }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        Currency = GetWrapper<CurrencyWrapper, Currency>(Model.Currency);
+        Currency = new CurrencyWrapper(Model.Currency);
+		RegisterComplex(Currency);
 
     }
 

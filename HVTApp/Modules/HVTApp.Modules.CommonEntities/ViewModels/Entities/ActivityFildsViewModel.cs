@@ -1,9 +1,11 @@
-﻿using HVTApp.DataAccess;
+﻿using System.Linq;
+using HVTApp.DataAccess;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using HVTApp.Modules.Infrastructure;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
@@ -14,7 +16,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         public ActivityFildsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(unitOfWork, container, dialogService)
         {
             _unitOfWork = unitOfWork;
-            _unitOfWork.ActivityFields.GetAll().ForEach(Items.Add);
+            _unitOfWork.ActivityFields.GetAll().Select(x => new ActivityFieldWrapper(x)).ForEach(Items.Add);
         }
     }
 }

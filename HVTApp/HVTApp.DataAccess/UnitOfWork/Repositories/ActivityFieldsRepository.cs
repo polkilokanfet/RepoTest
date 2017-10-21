@@ -8,9 +8,9 @@ using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
 {
-    public class ActivityFieldsRepository : BaseRepository<ActivityField, ActivityFieldWrapper>, IActivityFieldsRepository
+    public class ActivityFieldsRepository : BaseRepository<ActivityField>, IActivityFieldsRepository
     {
-        public ActivityFieldsRepository(DbContext context, IGetWrapper wrappersGetter) : base(context, wrappersGetter)
+        public ActivityFieldsRepository(DbContext context) : base(context)
         {
         }
     }

@@ -12,8 +12,6 @@ namespace HVTApp.Model.Wrappers
     public abstract class WrapperBase<TModel> : NotifyDataErrorInfoBase, IWrapper<TModel>
         where TModel : class, IBaseEntity
     {
-        private readonly IGetWrapper _getWrapper;
-
         // Словарь оригинальных значений. В словарь вносятся только те оригинальные значения, которые были изменены.
         private readonly Dictionary<string, object> _originalValues = new Dictionary<string, object>();
 
@@ -23,14 +21,10 @@ namespace HVTApp.Model.Wrappers
         // Объект, обертка которого создана в этом классе.
         public TModel Model { get; }
 
-        protected WrapperBase(TModel model, IGetWrapper getWrapper)
+        protected WrapperBase(TModel model)
         {
             if (model == null) throw new ArgumentNullException(nameof(Model));
             Model = model;
-
-            if (getWrapper == null) throw new ArgumentNullException(nameof(getWrapper));
-            _getWrapper = getWrapper;
-            _getWrapper.AddWrapperInDictionary(this);
 
             InitializeComplexProperties();
             InitializeCollectionSimpleProperties();
@@ -57,96 +51,49 @@ namespace HVTApp.Model.Wrappers
 
         #endregion
 
-        public bool IsChangedMethod(IDictionary<IBaseEntity, IValidatableChangeTracking> risedDictionary)
-        {
-            if (risedDictionary.ContainsKey(this.Model)) return false;
-            risedDictionary.Add(this.Model, this);
-
-            var risedWrappers = risedDictionary.Select(x => x.Value);
-
-            bool result = _originalValues.Count > 0 || _trackingObjects.Except(risedWrappers).Any(x => x.IsChangedMethod(risedDictionary));
-
-            return result;
-        }
-
-
         /// <summary>
         /// Произошли ли изменения каких-либо свойств объекта.
         /// </summary>
-        public bool IsChanged => IsChangedMethod(new Dictionary<IBaseEntity, IValidatableChangeTracking>());
-
-        //public bool IsChanged => _originalValues.Count > 0 || _trackingObjects.Any(x => x.IsChanged);
-
-        public bool IsValidMethod(IList<IBaseEntity> risedList)
-        {
-            if (risedList.Contains(this.Model)) return true;
-            risedList.Add(this.Model);
-
-            return !HasErrors && _trackingObjects.All(x => x.IsValidMethod(risedList));
-        }
-
+        public bool IsChanged => _originalValues.Count > 0 || _trackingObjects.Any(x => x.IsChanged);
 
         /// <summary>
         /// Все ли свойства валидны.
         /// </summary>
-        public bool IsValid => IsValidMethod(new List<IBaseEntity>());
-
-        //public bool IsValid => !HasErrors && _trackingObjects.All(x => x.IsValid);
-
-        public void AcceptChangesMethod(IList<IBaseEntity> acceptedModels)
-        {
-            if (acceptedModels.Contains(this.Model)) return;
-            acceptedModels.Add(this.Model);
-
-            //очищаем список начальных значений
-            _originalValues.Clear();
-            //принимаем изменения в сложных свойствах.
-            _trackingObjects.ForEach(x => x.AcceptChangesMethod(acceptedModels));
-            //обновляем в WPF весь объект целиком.
-            OnPropertyChanged(this, "");
-        }
-
+        public bool IsValid => !HasErrors && _trackingObjects.All(x => x.IsValid);
 
         /// <summary>
         /// Принять изменения объекта.
         /// </summary>
         public void AcceptChanges()
         {
-            AcceptChangesMethod(new List<IBaseEntity>());
-        }
-
-        public void RejectChangesMethod(IList<IBaseEntity> rejectedModels)
-        {
-            if (rejectedModels.Contains(this.Model)) return;
-            rejectedModels.Add(this.Model);
-
-            //устанавливаем в каждое измененное свойство начальное значение.
-            foreach (var originalValue in _originalValues)
-            {
-                Model.GetType().GetProperty(originalValue.Key).SetValue(Model, originalValue.Value); //reject in Model
-
-                var originalValueInWrapper = this.GetType().GetProperty(originalValue.Key + "OriginalValue").GetValue(this); //reject in Wrapper
-                this.GetType().GetProperty(originalValue.Key).SetValue(this, originalValueInWrapper); 
-            }
-
             //очищаем список начальных значений
             _originalValues.Clear();
-
-            //откатываем изменения в сложных свойствах.
-            _trackingObjects.ForEach(x => x.RejectChangesMethod(rejectedModels));
-
-            //проверка на валидность объекта.
-            Validate();
-
+            //принимаем изменения в сложных свойствах.
+            _trackingObjects.ForEach(x => x.AcceptChanges());
             //обновляем в WPF весь объект целиком.
-            OnPropertyChanged(this, "");
+            OnPropertyChanged("");
         }
+
         /// <summary>
         /// Откатить изменения объекта.
         /// </summary>
         public void RejectChanges()
         {
-            RejectChangesMethod(new List<IBaseEntity>());
+            //устанавливаем в каждое измененное свойство начальное значение.
+            foreach (var originalValue in _originalValues)
+                Model.GetType().GetProperty(originalValue.Key).SetValue(Model, originalValue.Value); //reject in Model
+
+            //очищаем список начальных значений
+            _originalValues.Clear();
+
+            //откатываем изменения в сложных свойствах.
+            _trackingObjects.ForEach(x => x.RejectChanges());
+
+            //проверка на валидность объекта.
+            Validate();
+
+            //обновляем в WPF весь объект целиком.
+            OnPropertyChanged("");
         }
 
         /// <summary>
@@ -200,9 +147,9 @@ namespace HVTApp.Model.Wrappers
                 propertyInfo.SetValue(Model, newValue); //устанавливаем в свойство модели новое значение.
 
                 Validate();
-                OnPropertyChanged(this, propertyName);
-                OnPropertyChanged(this, propertyName + "IsChanged");
-                OnPropertyChanged(this, nameof(IsChanged));
+                OnPropertyChanged(propertyName);
+                OnPropertyChanged(propertyName + "IsChanged");
+                OnPropertyChanged(nameof(IsChanged));
             }
         }
 
@@ -222,16 +169,39 @@ namespace HVTApp.Model.Wrappers
                 {
                     //удаляем значение свойства из списка измененных значений.
                     _originalValues.Remove(propertyName);
-                    OnPropertyChanged(this, nameof(IsChanged));
+                    OnPropertyChanged(nameof(IsChanged));
                 }
             }
             else
             {
                 //добавляем значение свойства в список измененных значений.
                 _originalValues.Add(propertyName, originalValue);
-                OnPropertyChanged(this, nameof(IsChanged));
+                OnPropertyChanged(nameof(IsChanged));
             }
         }
+
+        protected void RegisterComplex<TWrapper>(WrapperBase<TWrapper> wrapper) 
+            where TWrapper : class, IBaseEntity
+        {
+            RegisterTrackingObject(wrapper);
+        }
+
+        protected void RegisterCollection<TWrapperCollection, TModelOfItem>(
+            IValidatableChangeTrackingCollection<TWrapperCollection> wrapperCollection, 
+            List<TModelOfItem> modelCollection) 
+
+            where TModelOfItem : class, IBaseEntity
+            where TWrapperCollection : WrapperBase<TModelOfItem>
+        {
+            wrapperCollection.CollectionChanged += (s, e) =>
+            {
+                modelCollection.Clear();
+                modelCollection.AddRange(wrapperCollection.Select(w => w.Model));
+                Validate();
+            };
+            RegisterTrackingObject(wrapperCollection);
+        }
+
 
         /// <summary>
         /// Валидация всех свойств объекта.
@@ -240,8 +210,8 @@ namespace HVTApp.Model.Wrappers
         {
             ClearErrors();
 
-            ValidationContext context = new ValidationContext(this); //контекст поиска ошибок
-            List<ValidationResult> results = new List<ValidationResult>();
+            var context = new ValidationContext(this); //контекст поиска ошибок
+            var results = new List<ValidationResult>();
             Validator.TryValidateObject(this, context, results, true); //класс ищущий ошибки по специальным атрибутам.
             //если валидатор нашел ошибки.
             if (results.Any())
@@ -253,30 +223,14 @@ namespace HVTApp.Model.Wrappers
                 {
                     var errors =
                         results.Where(x => x.MemberNames.Contains(propertyName))
-                            .Select(x => x.ErrorMessage)
-                            .Distinct()
-                            .ToList();
+                               .Select(x => x.ErrorMessage)
+                               .Distinct()
+                               .ToList();
                     Errors.Add(propertyName, errors);
                     OnErrorsChanged(propertyName); //возбуждаем событие изменения ошибок в свойстве.
                 }
             }
-            OnPropertyChanged(this, nameof(IsValid));
-        }
-
-        /// <summary>
-        /// Удаление трекинг-объекта из реестра отслеживания в нем изменений.
-        /// </summary>
-        /// <param name="trackingObject"></param>
-        private void UnRegisterTrackingObject(IValidatableChangeTracking trackingObject)
-        {
-            //если объект зарегистрирован.
-            if (_trackingObjects.Contains(trackingObject))
-            {
-                //изымаем его из списока.
-                _trackingObjects.Remove(trackingObject);
-                //отписываемся от события изменений его свойств
-                trackingObject.PropertyChanged -= TrackingObjectOnPropertyChanged;
-            }
+            OnPropertyChanged(nameof(IsValid));
         }
 
         /// <summary>
@@ -286,50 +240,22 @@ namespace HVTApp.Model.Wrappers
         private void RegisterTrackingObject(IValidatableChangeTracking trackingObject)
         {
             //если объект еще не зарегистрирован.
-            if (!_trackingObjects.Contains(trackingObject))
-            {
-                //добавляем его в список.
-                _trackingObjects.Add(trackingObject);
-                //подписываемся на событие изменений его свойств
-                trackingObject.PropertyChanged += TrackingObjectOnPropertyChanged;
-            }
+            if (_trackingObjects.Contains(trackingObject)) return;
+            //добавляем его в список.
+            _trackingObjects.Add(trackingObject);
+            //подписываемся на событие изменений его свойств
+            trackingObject.PropertyChanged += TrackingObjectOnPropertyChanged;
         }
 
         /// <summary>
-        /// реакция на изменение в трекинг-свойстве.
+        /// Реакция на изменение в трекинг-свойстве.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="propertyChangedEventArgs"></param>
         private void TrackingObjectOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            if (propertyChangedEventArgs.PropertyName == nameof(IsChanged)) OnPropertyChanged(sender, nameof(IsChanged));
-            if (propertyChangedEventArgs.PropertyName == nameof(IsValid)) OnPropertyChanged(sender, nameof(IsValid));
-        }
-
-
-        /// <summary>
-        /// Регистрация коллекции.
-        /// </summary>
-        /// <typeparam name="TWrapper"></typeparam>
-        /// <typeparam name="TModelC"></typeparam>
-        /// <param name="wrapperCollection">коллекция обертки.</param>
-        /// <param name="modelCollection">коллекция модели.</param>
-        protected void RegisterCollection<TWrapper, TModelC>(IValidatableChangeTrackingCollection<TWrapper> wrapperCollection, ICollection<TModelC> modelCollection)
-            where TWrapper : class, IWrapper<TModelC>
-            where TModelC : class, IBaseEntity
-        {
-            //синхронизируем коллекцию модели с коллекцией обертки.
-            wrapperCollection.CollectionChanged += (s, e) =>
-            {
-                modelCollection.Clear();
-
-                foreach (TModelC modelItem in wrapperCollection.Select(x => x.Model))
-                    modelCollection.Add(modelItem);
-
-                Validate();
-            };
-
-            RegisterTrackingObject(wrapperCollection);
+            if (propertyChangedEventArgs.PropertyName == nameof(IsChanged)) OnPropertyChanged(nameof(IsChanged));
+            if (propertyChangedEventArgs.PropertyName == nameof(IsValid)) OnPropertyChanged(nameof(IsValid));
         }
 
         /// <summary>
@@ -346,64 +272,11 @@ namespace HVTApp.Model.Wrappers
         /// <summary>
         /// Запустить в конструкторе.
         /// </summary>
-        protected virtual void RunInConstructor()
-        {
-        }
+        protected virtual void RunInConstructor() { }
 
         public override string ToString()
         {
             return Model.ToString();
-        }
-
-        protected TWrapper GetComplexProperty<TWrapper, TModelP>(TModelP model)
-            where TWrapper : class, IWrapper<TModelP>
-            where TModelP : class, IBaseEntity
-        {
-            return model == null ? null : GetWrapper<TWrapper, TModelP>(model);
-        }
-
-        public event Action<ComplexPropertyChangedEventArgs> ComplexPropertyChanged; 
-
-        protected void SetComplexProperty<TWrapper, TModelP>(TWrapper oldValue, TWrapper newValue, [CallerMemberName] string propertyName = null)
-            where TWrapper : class, IWrapper<TModelP>
-            where TModelP : class, IBaseEntity
-        {
-            if (Equals(oldValue, newValue) && _trackingObjects.Contains(oldValue)) return;
-
-            if (oldValue != null) UnRegisterTrackingObject(oldValue);
-            if (newValue != null) RegisterTrackingObject(newValue);
-            SetValue(newValue?.Model, propertyName);
-            if (!Equals(oldValue, newValue)) OnComplexPropertyChanged(new ComplexPropertyChangedEventArgs(oldValue, newValue, propertyName));
-
-            //обновление оригинального значения комплексного свойства
-            if (Equals(newValue?.Model, GetOriginalValue<TModelP>(propertyName)))
-                this.GetType().GetProperty(propertyName + "OriginalValue").SetValue(this, newValue);
-        }
-
-        protected TWrapper GetWrapper<TWrapper, TModelW>(TModelW model)
-            where TModelW : class, IBaseEntity
-            where TWrapper : class, IWrapper<TModelW>
-        {
-            return model == null ? null : _getWrapper.GetWrapper<TWrapper>(model);
-        }
-
-        protected virtual void OnComplexPropertyChanged(ComplexPropertyChangedEventArgs obj)
-        {
-            ComplexPropertyChanged?.Invoke(obj);
-        }
-    }
-
-    public class ComplexPropertyChangedEventArgs : EventArgs
-    {
-        public object OldValue { get; }
-        public object NewValue { get; }
-        public string PropertyName { get; }
-
-        public ComplexPropertyChangedEventArgs(object oldValue, object newValue, string propertyName)
-        {
-            OldValue = oldValue;
-            NewValue = newValue;
-            PropertyName = propertyName;
         }
     }
 }

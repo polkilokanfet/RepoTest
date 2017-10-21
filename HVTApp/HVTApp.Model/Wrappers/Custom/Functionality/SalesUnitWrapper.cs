@@ -51,7 +51,7 @@ namespace HVTApp.Model.Wrappers
         {
             if (e.PropertyName != nameof(MarginalIncomeDate)) return;
 
-            OnPropertyChanged(this, nameof(MarginalIncome));
+            OnPropertyChanged(nameof(MarginalIncome));
             if (Math.Abs(Cost) > 0.00001)
                 MarginalIncomeInPercent = MarginalIncome / Cost * 100;
         }
@@ -65,7 +65,7 @@ namespace HVTApp.Model.Wrappers
         private void OnSpecificationChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(POCOs.Specification))
-                OnPropertyChanged(this, nameof(OrderInTakeDate));
+                OnPropertyChanged(nameof(OrderInTakeDate));
         }
         #endregion
 
@@ -126,7 +126,7 @@ namespace HVTApp.Model.Wrappers
             PaymentsPlanned.Clear();
             foreach (var payment in GetPlannedPayments(PaymentConditionsToDone))
             {
-                PaymentsPlanned.Add(GetWrapper<PaymentPlannedWrapper, PaymentPlanned>(payment));
+                PaymentsPlanned.Add(new PaymentPlannedWrapper(payment));
             }
         }
 
@@ -168,12 +168,12 @@ namespace HVTApp.Model.Wrappers
                     rest -= paymentPlanned.Sum;
                     if (rest >= 0)
                     {
-                        PaymentsPlanned.Add(GetWrapper<PaymentPlannedWrapper, PaymentPlanned>(paymentPlanned));
+                        PaymentsPlanned.Add( new PaymentPlannedWrapper(paymentPlanned));
                         continue;
                     }
 
                     paymentPlanned.Sum += rest;
-                    PaymentsPlanned.Add(GetWrapper<PaymentPlannedWrapper, PaymentPlanned>(paymentPlanned));
+                    PaymentsPlanned.Add(new PaymentPlannedWrapper(paymentPlanned));
                     break;
                 }
             }
@@ -257,7 +257,7 @@ namespace HVTApp.Model.Wrappers
                 if (Equals(_marginalIncomeDate, value))
                     return;
                 _marginalIncomeDate = value;
-                OnPropertyChanged(this, nameof(MarginalIncomeDate));
+                OnPropertyChanged(nameof(MarginalIncomeDate));
             }
         }
 
@@ -277,7 +277,7 @@ namespace HVTApp.Model.Wrappers
                 if (value >= 100 || Math.Abs(_marginalIncomeInPercent - value) < 0.00001) return;
 
                 _marginalIncomeInPercent = value;
-                OnPropertyChanged(this, nameof(MarginalIncomeInPercent));
+                OnPropertyChanged(nameof(MarginalIncomeInPercent));
             }
         }
 

@@ -1,9 +1,11 @@
-﻿using HVTApp.DataAccess;
+﻿using System.Linq;
+using HVTApp.DataAccess;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using HVTApp.Modules.Infrastructure;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Sales.ViewModels
@@ -12,7 +14,7 @@ namespace HVTApp.Modules.Sales.ViewModels
     {
         public ContractsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(unitOfWork, container, dialogService)
         {
-            unitOfWork.Contracts.GetAll().ForEach(Items.Add);
+            unitOfWork.Contracts.GetAll().Select(x => new ContractWrapper(x)).ForEach(Items.Add);
         }
     }
 }

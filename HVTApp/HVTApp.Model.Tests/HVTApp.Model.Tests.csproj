@@ -74,7 +74,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Factory\TestWrappersFactory.cs" />
     <Compile Include="FixtureTest.cs" />
     <Compile Include="ProductItemTests.cs" />
     <Compile Include="ProductTests.cs" />
@@ -93,7 +92,6 @@
     <Compile Include="WrapperTests\ChangeTrackingCollectionTests.cs" />
     <Compile Include="WrapperTests\ChangeTrackingComplexProperty.cs" />
     <Compile Include="WrapperTests\ChangeTrackingSimpleProperty.cs" />
-    <Compile Include="WrapperTests\NavigationPropertiesTests.cs" />
     <Compile Include="WrapperTests\ValidationClassLevel.cs" />
     <Compile Include="WrapperTests\ValidationCollectionProperty.cs" />
     <Compile Include="WrapperTests\ValidationComplexProperty.cs" />
@@ -125,7 +123,9 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Factory\" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

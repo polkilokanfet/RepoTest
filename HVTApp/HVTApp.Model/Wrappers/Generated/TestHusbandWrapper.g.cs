@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class TestHusbandWrapper : WrapperBase<TestHusband>
   {
-    private TestHusbandWrapper(IGetWrapper getWrapper) : base(new TestHusband(), getWrapper) { }
-    private TestHusbandWrapper(TestHusband model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public TestHusbandWrapper(TestHusband model) : base(model) { }
 
 
 
@@ -38,15 +37,7 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public TestWifeWrapper Wife 
-    {
-        get { return GetComplexProperty<TestWifeWrapper, TestWife>(Model.Wife); }
-        set { SetComplexProperty<TestWifeWrapper, TestWife>(Wife, value); }
-    }
-
-    public TestWifeWrapper WifeOriginalValue { get; private set; }
-    public bool WifeIsChanged => GetIsChanged(nameof(Wife));
-
+	public TestWifeWrapper Wife { get; set; }
 
     #endregion
 
@@ -61,7 +52,8 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Wife = GetWrapper<TestWifeWrapper, TestWife>(Model.Wife);
+        Wife = new TestWifeWrapper(Model.Wife);
+		RegisterComplex(Wife);
 
     }
 
@@ -70,7 +62,7 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.Children == null) throw new ArgumentException("Children cannot be null");
-      Children = new ValidatableChangeTrackingCollection<TestChildWrapper>(Model.Children.Select(e => GetWrapper<TestChildWrapper, TestChild>(e)));
+      Children = new ValidatableChangeTrackingCollection<TestChildWrapper>(Model.Children.Select(e => new TestChildWrapper(e)));
       RegisterCollection(Children, Model.Children);
 
 

@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class CompanyFormWrapper : WrapperBase<CompanyForm>
   {
-    private CompanyFormWrapper(IGetWrapper getWrapper) : base(new CompanyForm(), getWrapper) { }
-    private CompanyFormWrapper(CompanyForm model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public CompanyFormWrapper(CompanyForm model) : base(model) { }
 
 
 

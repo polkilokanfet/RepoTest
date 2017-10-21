@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using HVTApp.Modules.Infrastructure;
 using HVTApp.Modules.Sales.Converter;
@@ -46,7 +47,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void AddProjectUnitsCommand_Execute()
         {
-            var projectUnit = _unitOfWork.ProjectUnits.GetWrapper();
+            var projectUnit = new ProjectUnitWrapper(new ProjectUnit());
             var viewModel = _unityContainer.Resolve<ProductUnitsDetailsViewModel>(new ParameterOverride("item", projectUnit));
             var dialogResult = _dialogService.ShowDialog(viewModel);
             if(dialogResult.HasValue && dialogResult.Value)

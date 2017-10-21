@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class OrderWrapper : WrapperBase<Order>
   {
-    private OrderWrapper(IGetWrapper getWrapper) : base(new Order(), getWrapper) { }
-    private OrderWrapper(Order model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public OrderWrapper(Order model) : base(model) { }
 
 
 
@@ -57,7 +56,7 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.ProductionUnits == null) throw new ArgumentException("ProductionUnits cannot be null");
-      ProductionUnits = new ValidatableChangeTrackingCollection<ProductionUnitWrapper>(Model.ProductionUnits.Select(e => GetWrapper<ProductionUnitWrapper, ProductionUnit>(e)));
+      ProductionUnits = new ValidatableChangeTrackingCollection<ProductionUnitWrapper>(Model.ProductionUnits.Select(e => new ProductionUnitWrapper(e)));
       RegisterCollection(ProductionUnits, Model.ProductionUnits);
 
 

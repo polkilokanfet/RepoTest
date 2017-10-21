@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class ProjectUnitWrapper : WrapperBase<ProjectUnit>
   {
-    private ProjectUnitWrapper(IGetWrapper getWrapper) : base(new ProjectUnit(), getWrapper) { }
-    private ProjectUnitWrapper(ProjectUnit model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public ProjectUnitWrapper(ProjectUnit model) : base(model) { }
 
 
 
@@ -47,46 +46,25 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public ProjectWrapper Project 
-    {
-        get { return GetComplexProperty<ProjectWrapper, Project>(Model.Project); }
-        set { SetComplexProperty<ProjectWrapper, Project>(Project, value); }
-    }
+	public ProjectWrapper Project { get; set; }
 
-    public ProjectWrapper ProjectOriginalValue { get; private set; }
-    public bool ProjectIsChanged => GetIsChanged(nameof(Project));
+	public FacilityWrapper Facility { get; set; }
 
-
-	public FacilityWrapper Facility 
-    {
-        get { return GetComplexProperty<FacilityWrapper, Facility>(Model.Facility); }
-        set { SetComplexProperty<FacilityWrapper, Facility>(Facility, value); }
-    }
-
-    public FacilityWrapper FacilityOriginalValue { get; private set; }
-    public bool FacilityIsChanged => GetIsChanged(nameof(Facility));
-
-
-	public ProductWrapper Product 
-    {
-        get { return GetComplexProperty<ProductWrapper, Product>(Model.Product); }
-        set { SetComplexProperty<ProductWrapper, Product>(Product, value); }
-    }
-
-    public ProductWrapper ProductOriginalValue { get; private set; }
-    public bool ProductIsChanged => GetIsChanged(nameof(Product));
-
+	public ProductWrapper Product { get; set; }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        Project = GetWrapper<ProjectWrapper, Project>(Model.Project);
+        Project = new ProjectWrapper(Model.Project);
+		RegisterComplex(Project);
 
-        Facility = GetWrapper<FacilityWrapper, Facility>(Model.Facility);
+        Facility = new FacilityWrapper(Model.Facility);
+		RegisterComplex(Facility);
 
-        Product = GetWrapper<ProductWrapper, Product>(Model.Product);
+        Product = new ProductWrapper(Model.Product);
+		RegisterComplex(Product);
 
     }
 

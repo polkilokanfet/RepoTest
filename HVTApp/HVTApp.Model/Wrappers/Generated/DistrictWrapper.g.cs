@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class DistrictWrapper : WrapperBase<District>
   {
-    private DistrictWrapper(IGetWrapper getWrapper) : base(new District(), getWrapper) { }
-    private DistrictWrapper(District model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public DistrictWrapper(District model) : base(model) { }
 
 
 
@@ -38,15 +37,7 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public CountryWrapper Country 
-    {
-        get { return GetComplexProperty<CountryWrapper, Country>(Model.Country); }
-        set { SetComplexProperty<CountryWrapper, Country>(Country, value); }
-    }
-
-    public CountryWrapper CountryOriginalValue { get; private set; }
-    public bool CountryIsChanged => GetIsChanged(nameof(Country));
-
+	public CountryWrapper Country { get; set; }
 
     #endregion
 
@@ -61,7 +52,8 @@ namespace HVTApp.Model.Wrappers
     public override void InitializeComplexProperties()
     {
 
-        Country = GetWrapper<CountryWrapper, Country>(Model.Country);
+        Country = new CountryWrapper(Model.Country);
+		RegisterComplex(Country);
 
     }
 
@@ -70,7 +62,7 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.Regions == null) throw new ArgumentException("Regions cannot be null");
-      Regions = new ValidatableChangeTrackingCollection<RegionWrapper>(Model.Regions.Select(e => GetWrapper<RegionWrapper, Region>(e)));
+      Regions = new ValidatableChangeTrackingCollection<RegionWrapper>(Model.Regions.Select(e => new RegionWrapper(e)));
       RegisterCollection(Regions, Model.Regions);
 
 

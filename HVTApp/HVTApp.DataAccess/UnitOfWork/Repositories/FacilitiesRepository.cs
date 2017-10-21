@@ -7,9 +7,9 @@ using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
 {
-    public class FacilitiesRepository : BaseRepository<Facility, FacilityWrapper>, IFacilitiesRepository
+    public class FacilitiesRepository : BaseRepository<Facility>, IFacilitiesRepository
     {
-        public FacilitiesRepository(DbContext context, IGetWrapper wrappersGetter) : base(context, wrappersGetter)
+        public FacilitiesRepository(DbContext context) : base(context)
         {
         }
     }

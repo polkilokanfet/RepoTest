@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class PartWrapper : WrapperBase<Part>
   {
-    private PartWrapper(IGetWrapper getWrapper) : base(new Part(), getWrapper) { }
-    private PartWrapper(Part model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public PartWrapper(Part model) : base(model) { }
 
 
 
@@ -60,12 +59,12 @@ namespace HVTApp.Model.Wrappers
     {
 
       if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
-      Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => GetWrapper<ParameterWrapper, Parameter>(e)));
+      Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
       RegisterCollection(Parameters, Model.Parameters);
 
 
       if (Model.Prices == null) throw new ArgumentException("Prices cannot be null");
-      Prices = new ValidatableChangeTrackingCollection<CostOnDateWrapper>(Model.Prices.Select(e => GetWrapper<CostOnDateWrapper, CostOnDate>(e)));
+      Prices = new ValidatableChangeTrackingCollection<CostOnDateWrapper>(Model.Prices.Select(e => new CostOnDateWrapper(e)));
       RegisterCollection(Prices, Model.Prices);
 
 

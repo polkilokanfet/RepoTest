@@ -1,9 +1,11 @@
-﻿using HVTApp.DataAccess;
+﻿using System.Linq;
+using HVTApp.DataAccess;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Wrappers;
 using HVTApp.Modules.Infrastructure;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
@@ -12,7 +14,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
     {
         public FacilityTypesViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(unitOfWork, container, dialogService)
         {
-            unitOfWork.FacilityTypes.GetAll().ForEach(x => Items.Add(x));
+            unitOfWork.FacilityTypes.GetAll().Select(x => new FacilityTypeWrapper(x)).ForEach(Items.Add);
         }
     }
 }

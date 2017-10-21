@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class ExchangeCurrencyRateWrapper : WrapperBase<ExchangeCurrencyRate>
   {
-    private ExchangeCurrencyRateWrapper(IGetWrapper getWrapper) : base(new ExchangeCurrencyRate(), getWrapper) { }
-    private ExchangeCurrencyRateWrapper(ExchangeCurrencyRate model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public ExchangeCurrencyRateWrapper(ExchangeCurrencyRate model) : base(model) { }
 
 
 
@@ -56,34 +55,20 @@ namespace HVTApp.Model.Wrappers
 
     #region ComplexProperties
 
-	public CurrencyWrapper FirstCurrency 
-    {
-        get { return GetComplexProperty<CurrencyWrapper, Currency>(Model.FirstCurrency); }
-        set { SetComplexProperty<CurrencyWrapper, Currency>(FirstCurrency, value); }
-    }
+	public CurrencyWrapper FirstCurrency { get; set; }
 
-    public CurrencyWrapper FirstCurrencyOriginalValue { get; private set; }
-    public bool FirstCurrencyIsChanged => GetIsChanged(nameof(FirstCurrency));
-
-
-	public CurrencyWrapper SecondCurrency 
-    {
-        get { return GetComplexProperty<CurrencyWrapper, Currency>(Model.SecondCurrency); }
-        set { SetComplexProperty<CurrencyWrapper, Currency>(SecondCurrency, value); }
-    }
-
-    public CurrencyWrapper SecondCurrencyOriginalValue { get; private set; }
-    public bool SecondCurrencyIsChanged => GetIsChanged(nameof(SecondCurrency));
-
+	public CurrencyWrapper SecondCurrency { get; set; }
 
     #endregion
 
     public override void InitializeComplexProperties()
     {
 
-        FirstCurrency = GetWrapper<CurrencyWrapper, Currency>(Model.FirstCurrency);
+        FirstCurrency = new CurrencyWrapper(Model.FirstCurrency);
+		RegisterComplex(FirstCurrency);
 
-        SecondCurrency = GetWrapper<CurrencyWrapper, Currency>(Model.SecondCurrency);
+        SecondCurrency = new CurrencyWrapper(Model.SecondCurrency);
+		RegisterComplex(SecondCurrency);
 
     }
 

@@ -32,7 +32,7 @@ namespace HVTApp.Model.Tests.WrapperTests
         {
             var expectedError = "A developer must have an email-address";
 
-            var wrapper = new Factory.TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new TestFriendWrapper(_testFriend);
             wrapper.Emails.Clear();
             Assert.IsFalse(wrapper.IsDeveloper);
             Assert.IsTrue(wrapper.IsValid);
@@ -52,7 +52,7 @@ namespace HVTApp.Model.Tests.WrapperTests
         [TestMethod]
         public void ShouldBeValidAgainWhenIsDeveloperIsSetBackToFalse()
         {
-            var wrapper = new Factory.TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new TestFriendWrapper(_testFriend);
             wrapper.Emails.Clear();
             Assert.IsFalse(wrapper.IsDeveloper);
             Assert.IsTrue(wrapper.IsValid);
@@ -74,9 +74,7 @@ namespace HVTApp.Model.Tests.WrapperTests
         [TestMethod]
         public void ShouldBeValidAgainWhenEmailIsAdded()
         {
-            Factory.TestWrappersFactory testWrappersFactory = new Factory.TestWrappersFactory();
-
-            var wrapper = testWrappersFactory.GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new TestFriendWrapper(_testFriend);
             wrapper.Emails.Clear();
             Assert.IsFalse(wrapper.IsDeveloper);
             Assert.IsTrue(wrapper.IsValid);
@@ -84,7 +82,7 @@ namespace HVTApp.Model.Tests.WrapperTests
             wrapper.IsDeveloper = true;
             Assert.IsFalse(wrapper.IsValid);
 
-            wrapper.Emails.Add(testWrappersFactory.GetWrapper<TestFriendEmailWrapper>(new TestFriendEmail { Email = "thomas@thomasclaudiushuber.com" }));
+            wrapper.Emails.Add(new TestFriendEmailWrapper(new TestFriendEmail { Email = "thomas@thomasclaudiushuber.com" }));
             Assert.IsTrue(wrapper.IsValid);
 
             var emailsErrors = wrapper.GetErrors(nameof(wrapper.Emails)).Cast<string>().ToList();
@@ -98,7 +96,7 @@ namespace HVTApp.Model.Tests.WrapperTests
         public void ShouldIntializeWithoutProblems()
         {
             _testFriend.IsDeveloper = true;
-            var wrapper = new Factory.TestWrappersFactory().GetWrapper<TestFriendWrapper>(_testFriend);
+            var wrapper = new TestFriendWrapper(_testFriend);
             Assert.IsTrue(wrapper.IsValid);
         }
     }

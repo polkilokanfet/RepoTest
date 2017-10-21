@@ -20,10 +20,10 @@ namespace HVTApp.Services.GetProductService
         {
             _unitOfWork = unitOfWork;
 
-            _parameters = _unitOfWork.Parameters.GetAll().Select(x => x.Model).ToList();
-            _parts = _unitOfWork.Parts.GetAll().Select(x => x.Model).ToList();
-            _products = _unitOfWork.Products.GetAll().Select(x => x.Model).ToList();
-            _requiredDependentProductsParameteres = _unitOfWork.RequiredDependentProductsParameters.GetAll().Select(x => x.Model).ToList();
+            _parameters = _unitOfWork.Parameters.GetAll().ToList();
+            _parts = _unitOfWork.Parts.GetAll().ToList();
+            _products = _unitOfWork.Products.GetAll().ToList();
+            _requiredDependentProductsParameteres = _unitOfWork.RequiredDependentProductsParameters.GetAll().ToList();
         }
 
         public ProductWrapper GetProduct(ProductWrapper templateProduct = null)
@@ -33,7 +33,7 @@ namespace HVTApp.Services.GetProductService
             window.ShowDialog();
 
             if (!window.DialogResult.HasValue || !window.DialogResult.Value) return templateProduct;
-            return _unitOfWork.Products.GetWrapper(productSelector.SelectedProduct);
+            return new ProductWrapper(productSelector.SelectedProduct);
         }
     }
 }

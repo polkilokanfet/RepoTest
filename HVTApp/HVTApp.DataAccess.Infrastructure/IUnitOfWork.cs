@@ -3,11 +3,12 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.DataAccess.Infrastructure
 {
-    public interface IUnitOfWork : IDisposable, IGetWrapper
+    public interface IUnitOfWork : IDisposable
     {
         int Complete();
-
         void AddItem(IWrapper<IBaseEntity> wrapper);
+
+
 
         IFriendGroupRepository FriendGroups { get; }
 

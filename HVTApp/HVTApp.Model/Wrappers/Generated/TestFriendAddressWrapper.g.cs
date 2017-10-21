@@ -8,8 +8,7 @@ namespace HVTApp.Model.Wrappers
 {
   public partial class TestFriendAddressWrapper : WrapperBase<TestFriendAddress>
   {
-    private TestFriendAddressWrapper(IGetWrapper getWrapper) : base(new TestFriendAddress(), getWrapper) { }
-    private TestFriendAddressWrapper(TestFriendAddress model, IGetWrapper getWrapper) : base(model, getWrapper) { }
+    public TestFriendAddressWrapper(TestFriendAddress model) : base(model) { }
 
 
 

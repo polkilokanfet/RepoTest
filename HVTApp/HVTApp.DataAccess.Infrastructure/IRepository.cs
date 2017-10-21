@@ -4,20 +4,16 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.DataAccess.Infrastructure
 {
-    public interface IRepository<in TModel, TWrapper>
+    public interface IRepository<TModel>
         where TModel : class, IBaseEntity
-        where TWrapper : class, IWrapper<TModel>
     {
-        List<TWrapper> GetAll();
-        IEnumerable<TWrapper> Find(Func<TWrapper, bool> predicate);
+        List<TModel> GetAll();
+        IEnumerable<TModel> Find(Func<TModel, bool> predicate);
 
-        TWrapper GetWrapper();
-        TWrapper GetWrapper(TModel model);
+        void Add(TModel entity);
+        void AddRange(IEnumerable<TModel> entities);
 
-        void Add(TWrapper entity);
-        void AddRange(IEnumerable<TWrapper> entities);
-
-        void Delete(TWrapper entity);
-        void DeleteRange(IEnumerable<TWrapper> entities);
+        void Delete(TModel entity);
+        void DeleteRange(IEnumerable<TModel> entities);
     }
 }

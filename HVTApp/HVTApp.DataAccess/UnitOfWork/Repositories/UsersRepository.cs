@@ -8,9 +8,9 @@ using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
 {
-    public class UsersRepository : BaseRepository<User, UserWrapper>, IUsersRepository
+    public class UsersRepository : BaseRepository<User>, IUsersRepository
     {
-        public UsersRepository(DbContext context, IGetWrapper wrappersGetter) : base(context, wrappersGetter)
+        public UsersRepository(DbContext context) : base(context)
         {
         }
     }
