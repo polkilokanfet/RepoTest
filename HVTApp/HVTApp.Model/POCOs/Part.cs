@@ -17,7 +17,7 @@ namespace HVTApp.Model.POCOs
         {
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var parameter in Parameters)
-                stringBuilder.Append($"{parameter.Group.Name}: {parameter.Value}; ");
+                stringBuilder.Append($"{parameter.GroupId}: {parameter.Value}; ");
 
             return stringBuilder.ToString();
         }

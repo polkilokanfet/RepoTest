@@ -24,7 +24,7 @@ namespace HVTApp.Services.GetProductService
             }
         }
 
-        public ParameterGroup Group => ParametersFlaged.First().Parameter.Group;
+        //public ParameterGroup Group => ParametersFlaged.First().ParameterId.GroupId;
         public ReadOnlyObservableCollection<ParameterFlaged> ParametersFlaged { get; }
 
         public ParameterFlaged SelectedParameterFlaged
@@ -72,7 +72,7 @@ namespace HVTApp.Services.GetProductService
             if (parameters == null) throw new ArgumentNullException(nameof(parameters), @"Вы не передали параметры");
             var parametersList = new List<Parameter>(parameters.OrderBy(x => x.Value));
             if (!parametersList.Any()) throw new ArgumentException(@"Вы передали пустой список параметров", nameof(parameters));
-            if (!parametersList.All(x => Equals(x.Group, parametersList.First().Group))) throw new ArgumentException(@"Параметры должны быть из одной группы", nameof(parameters));
+            if (!parametersList.All(x => Equals(x.GroupId, parametersList.First().GroupId))) throw new ArgumentException(@"Параметры должны быть из одной группы", nameof(parameters));
 
             ParametersFlaged = new ReadOnlyObservableCollection<ParameterFlaged>(
                 new ObservableCollection<ParameterFlaged>(parametersList.Select(x => new ParameterFlaged(x))));

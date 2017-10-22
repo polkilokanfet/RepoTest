@@ -194,6 +194,10 @@
       <Project>{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}</Project>
       <Name>HVTApp.Services.GetProductService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\HVTApp.Wrapper\HVTApp.Wrapper.csproj">
+      <Project>{4a26fa25-1ae4-4808-b789-c7ed92086aed}</Project>
+      <Name>HVTApp.Wrapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\TestUserControl\MyUserControls.csproj">
       <Project>{95b60d78-bf46-4667-b474-95f911bb4a09}</Project>
       <Name>MyUserControls</Name>

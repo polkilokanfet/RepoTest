@@ -34,11 +34,11 @@ namespace HVTApp.DataAccess.Tests
         //    };
         //    Product.PaymentsInfo.PaymentsConditions.Add(condition);
 
-        //    UnitOfWork unitOfWork = new UnitOfWork(new HVTAppContext());
+        //    UnitOfWork unitOfWork = new UnitOfWork(new HvtAppContext());
         //    unitOfWork.ProductsMain.Add(Product);
         //    unitOfWork.Complete();
 
-        //    unitOfWork = new UnitOfWork(new HVTAppContext());
+        //    unitOfWork = new UnitOfWork(new HvtAppContext());
         //    Product = unitOfWork.ProductsMain.GetAll().Single(x => x.Id == Product.Id);
 
         //    Assert.AreEqual(Product.PaymentsInfo.PaymentsPlaned.Count, Product.PaymentsInfo.PaymentsConditions.Count);

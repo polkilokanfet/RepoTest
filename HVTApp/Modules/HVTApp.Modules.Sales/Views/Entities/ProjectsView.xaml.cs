@@ -24,7 +24,7 @@ namespace HVTApp.Modules.Sales.Views
             set
             {
                 SetValue(ProjectsProperty, value);
-                ProjectsDataGrid.DataSource = value;
+                //ProjectsDataGrid.DataSource = value;
             }
         }
     }

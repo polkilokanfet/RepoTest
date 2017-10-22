@@ -1,4 +1,4 @@
-﻿using HVTApp.Model.Wrappers;
+﻿using HVTApp.Wrapper;
 using HVTApp.Modules.Infrastructure;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels

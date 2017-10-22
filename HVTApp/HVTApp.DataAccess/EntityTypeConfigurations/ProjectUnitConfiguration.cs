@@ -9,7 +9,6 @@ namespace HVTApp.DataAccess
         {
             HasRequired(x => x.Product).WithMany();
             HasRequired(x => x.Facility).WithMany();
-            HasRequired(x => x.Project).WithMany(x => x.ProjectUnits);
 
             Property(x => x.Cost).IsRequired();
             Property(x => x.RequiredDeliveryDate).IsRequired();

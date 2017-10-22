@@ -10,8 +10,8 @@ namespace HVTApp.DataAccess
             Property(x => x.Name).IsRequired().HasMaxLength(100);
             HasRequired(x => x.Manager).WithMany();
             HasMany(x => x.Offers).WithOptional();
-            HasMany(x => x.ProjectUnits).WithRequired(x => x.Project);
-            HasMany(x => x.Tenders).WithRequired(x => x.Project);
+            HasMany(x => x.ProjectUnits).WithRequired().HasForeignKey(x => x.ProjectId);
+            HasMany(x => x.Tenders).WithRequired().HasForeignKey(x => x.ProjectId);
         }
     }
 }

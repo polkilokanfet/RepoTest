@@ -115,6 +115,10 @@
       <Project>{18C8C1C1-89C2-42DD-AF2A-3F6C8E06399D}</Project>
       <Name>HVTApp.Services.ChooseService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Wrapper\HVTApp.Wrapper.csproj">
+      <Project>{4a26fa25-1ae4-4808-b789-c7ed92086aed}</Project>
+      <Name>HVTApp.Wrapper</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="SelectProductView.xaml">

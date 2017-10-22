@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
 using HVTApp.Model;
+using HVTApp.Wrapper;
 
 namespace HVTApp.Modules.Sales.Converter
 {

@@ -9,28 +9,28 @@
     <infg:XamDataGrid>
         
         <infg:XamDataGrid.FieldLayouts>
-            <infg:FieldLayout Key="Contract">
+            <infg:FieldLayout Key="ContractId">
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Number" Label="Номер"/>
                     <infg:TextField Name="Contragent" Label="Контрагент"/>
                     <infg:DateTimeField Name="Date" Label="Дата"/>
                     <infg:NumericField Name="Sum" Label="Сумма без НДС, руб."/>
                     
-                    <infg:Field Name="Specifications" IsExpandable="True"/>
+                    <infg:Field Name="SpecificationIds" IsExpandable="True"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
-            <infg:FieldLayout Key="Specification" ParentFieldName="Specifications">
+            <infg:FieldLayout Key="SpecificationId" ParentFieldName="SpecificationIds">
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Number" Label="Номер"/>
                     <infg:DateTimeField Name="Date" Label="Дата"/>
                     <infg:NumericField Name="Sum" Label="Сумма без НДС, руб."/>
                     
-                    <infg:Field Name="SalesUnits" IsExpandable="True"/>
+                    <infg:Field Name="SalesUnitIds" IsExpandable="True"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
-            <infg:FieldLayout Key="SalesUnit" ParentFieldName="SalesUnits" ParentFieldLayoutKey="Specification">
+            <infg:FieldLayout Key="SalesUnitId" ParentFieldName="SalesUnitIds" ParentFieldLayoutKey="SpecificationId">
                 <infg:FieldLayout.Fields>
                     <!--<infg:NumericField Name="{infg:FieldBinding CostTotal, Path=Sum}" Label="Стоимость"/>-->
                     <infg:TextField Name="Test"/>

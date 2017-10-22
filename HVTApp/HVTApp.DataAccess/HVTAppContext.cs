@@ -14,9 +14,9 @@ namespace HVTApp.DataAccess
         }
     }
 
-    public class HVTAppContext : DbContext
+    public class HvtAppContext : DbContext
     {
-        public HVTAppContext() : base("name=HVTAppContext")
+        public HvtAppContext() : base("name=HvtAppContext")
         {
             Database.SetInitializer(new HvtAppDataBaseInitializer());
         }

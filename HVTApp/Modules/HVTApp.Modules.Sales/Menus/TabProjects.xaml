@@ -4,8 +4,8 @@
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns:infRib="http://infragistics.com/Ribbon" 
              x:Class="HVTApp.Modules.Sales.Menus.TabProjects"
-             Header="Projects Tab">
-    <infRib:RibbonGroup Caption="Project">
+             Header="ProjectIdIds Tab">
+    <infRib:RibbonGroup Caption="ProjectIdId">
         <infRib:ButtonTool Caption="New project" Command="{Binding NewProjectCommand}" 
                            SmallImage="/HVTApp.Modules.Sales;component/Images/newProject16.png" 
                            LargeImage="/HVTApp.Modules.Sales;component/Images/newProject32.png"/>

@@ -9,10 +9,5 @@ namespace HVTApp.Model.POCOs
         public string Number { get; set; }
         public DateTime OpenOrderDate { get; set; }
         public virtual List<ProductionUnit> ProductionUnits { get; set; }
-
-        public override string ToString()
-        {
-            return "Order №" + Number;
-        }
     }
 }

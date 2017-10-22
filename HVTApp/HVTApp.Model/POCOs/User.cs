@@ -12,10 +12,5 @@ namespace HVTApp.Model.POCOs
         public Role RoleCurrent { get; set; }
         public virtual List<UserRole> Roles { get; set; }
         public virtual Employee Employee { get; set; }
-
-        public override string ToString()
-        {
-            return Login;
-        }
     }
 }

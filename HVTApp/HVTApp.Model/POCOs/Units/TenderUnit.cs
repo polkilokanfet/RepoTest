@@ -6,10 +6,10 @@ namespace HVTApp.Model.POCOs
 {
     public class TenderUnit : BaseEntity
     {
+        public virtual Guid TenderId { get; set; }
         public virtual ProjectUnit ProjectUnit { get; set; }
 
         public virtual Product Product { get; set; }
-        public virtual Tender Tender { get; set; }
         public double Cost { get; set; }
 
         public virtual Company ProducerWinner { get; set; }

@@ -7,8 +7,7 @@ namespace HVTApp.DataAccess
     {
         public RequiredPreviousParametersConfiguration()
         {
-            HasRequired(x => x.Parameter).WithMany(x => x.RequiredPreviousParameters).WillCascadeOnDelete(false);
-            HasMany(x => x.RequiredParameters).WithMany();
+            HasMany(x => x.RequiredParameters);
         }
     }
 }

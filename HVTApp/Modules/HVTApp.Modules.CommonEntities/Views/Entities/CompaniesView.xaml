@@ -5,9 +5,22 @@
              xmlns:infg="http://infragistics.com/DataPresenter"
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              x:Class="HVTApp.Modules.CommonEntities.Views.CompaniesView"             
-             prism:ViewModelLocator.AutoWireViewModel="True">
+             prism:ViewModelLocator.AutoWireViewModel="True"             
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
 
-    <infg:XamDataGrid>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <infg:XamDataGrid DataSource="{Binding CompanyLookups}">
+        <!--<infg:FieldLayoutSettings AutoGenerateFields="True">
+            
+        </infg:FieldLayoutSettings>-->
+    </infg:XamDataGrid>
+
+    <!--<infg:XamDataGrid>
 
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout Key="Company">
@@ -29,7 +42,7 @@
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
         </infg:XamDataGrid.FieldLayouts>
-    </infg:XamDataGrid>
+    </infg:XamDataGrid>-->
 
 
 </inf:ViewBase>

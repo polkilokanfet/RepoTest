@@ -14,18 +14,18 @@
 
     <infg:XamDataGrid>
         <infg:XamDataGrid.FieldLayouts>
-            <infg:FieldLayout Key="Tender">
+            <infg:FieldLayout Key="TenderId">
                 <infg:FieldLayout.Fields>
                     <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding TenderUnits}" Label="Объекты" Converter="{StaticResource FacilitiesNamesStringConverter}"/>
-                    <infg:Field Name="Project" Label="Проект"/>
+                    <infg:Field Name="ProjectIdId" Label="Проект"/>
                     <infg:Field Name="Type" Label="Тип"/>
                     <infg:NumericField Name="Sum"/>
 
-                    <infg:Field Name="TenderUnits" IsExpandable="True" IsPrimary="True" Converter="{StaticResource ProductGroupsConverter}"/>
+                    <infg:Field Name="TenderIdUnits" IsExpandable="True" IsPrimary="True" Converter="{StaticResource ProductGroupsConverter}"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
-            <infg:FieldLayout Key="TenderUnitsGroup" ParentFieldLayoutKey="Tender" ParentFieldName="TenderUnits">
+            <infg:FieldLayout Key="TenderIdUnitsGroup" ParentFieldLayoutKey="TenderId" ParentFieldName="TenderIdUnits">
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Facility" Label="Объект"/>
                     <infg:TextField Name="Product" Label="Оборудование"/>

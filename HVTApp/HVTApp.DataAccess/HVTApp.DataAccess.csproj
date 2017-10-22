@@ -99,6 +99,12 @@
     <Compile Include="EntityTypeConfigurations\ShipmentUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\ProjectUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\RequiredDependentEquipmentsParametersConfiguration.cs" />
+    <Compile Include="Lookup\Items\CompanyLookup.cs" />
+    <Compile Include="Lookup\Items\ProjectLookup.cs" />
+    <Compile Include="Lookup\Items\LookupItem.cs" />
+    <Compile Include="Lookup\Service\ICompanyLookupDataService.cs" />
+    <Compile Include="Lookup\Service\IProjectLookupDataService.cs" />
+    <Compile Include="Lookup\Service\LookupDataService.cs" />
     <Compile Include="UnitOfWork\Repositories\ActivityFieldsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\CompaniesRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\ContractsRepository.cs" />
@@ -147,6 +153,10 @@
     <ProjectReference Include="..\HVTApp.TestDataGenerator\HVTApp.TestDataGenerator.csproj">
       <Project>{a1dafdd1-564e-4e7c-b13e-7ed25956bb67}</Project>
       <Name>HVTApp.TestDataGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Wrapper\HVTApp.Wrapper.csproj">
+      <Project>{4a26fa25-1ae4-4808-b789-c7ed92086aed}</Project>
+      <Name>HVTApp.Wrapper</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

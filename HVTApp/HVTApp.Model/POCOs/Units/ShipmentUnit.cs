@@ -5,7 +5,6 @@ namespace HVTApp.Model.POCOs
 {
     public class ShipmentUnit : BaseEntity
     {
-        public SalesUnit SalesUnit { get; set; }
         public int? ExpectedDeliveryPeriod { get; set; }
         public virtual Address Address { get; set; }
         public double Cost { get; set; }

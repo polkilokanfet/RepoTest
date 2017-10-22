@@ -46,9 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converters\UnitsToGroupConverter.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="IProductUnit.cs" />
     <Compile Include="POCOs\Units\AdditionalSalesUnits.cs" />
     <Compile Include="POCOs\Address.cs" />
     <Compile Include="POCOs\BankDetails.cs" />
@@ -94,100 +92,6 @@
     <Compile Include="POCOs\Tender.cs" />
     <Compile Include="POCOs\User.cs" />
     <Compile Include="POCOs\Units\OfferUnit.cs" />
-    <Compile Include="Wrappers\Base\NotifyDataErrorInfoBase.cs" />
-    <Compile Include="Wrappers\Base\ObservableWrapper.cs" />
-    <Compile Include="Wrappers\Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
-    <Compile Include="Wrappers\Base\TrackingCollections\ValidatableChangeTrackingCollection.cs" />
-    <Compile Include="Wrappers\Base\WrapperBase.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\CompanyWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\ContractWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\CountryWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\DistrictWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\OfferUnitWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\OfferWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\ParameterWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\PartWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\ProductionUnitWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\ProductsUnitGroup.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\ProductWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\ProjectUnitWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\ProjectWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\RegionWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\SalesUnitWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\ShipmentUnitWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\SpecificationWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Functionality\TenderUnitWrapper.cs" />
-    <Compile Include="Wrappers\Custom\IProductWithCost.cs" />
-    <Compile Include="Wrappers\Custom\Test\TestFriendAddressWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Test\TestFriendEmailWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Test\TestFriendWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Validate\CompanyFormWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Validate\CompanyWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Validate\ContractWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Validate\FacilityWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Validate\SpecificationWrapper.cs" />
-    <Compile Include="Wrappers\Custom\Validate\StandartPaymentConditionsWrapper.cs" />
-    <Compile Include="Wrappers\Generated\ActivityFieldWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\AdditionalSalesUnitsWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\AddressWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\BankDetailsWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\CompanyFormWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\CompanyWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\ContractWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\CostOnDateWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\CostWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\CountryWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\CurrencyWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\DistrictWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\DocumentsRegistrationDetailsWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\DocumentWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\EmployeesPositionWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\EmployeeWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\ExchangeCurrencyRateWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\FacilityTypeWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\FacilityWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\LocalityTypeWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\LocalityWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\MeasureWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\OfferUnitWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\OfferWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\OrderWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\ParameterGroupWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\ParameterWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\PartWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\PaymentActualWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\PaymentConditionWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\PaymentDocumentWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\PaymentPlannedWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\PersonWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\ProductionUnitWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\ProductWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\ProjectUnitWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\ProjectWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\RegionWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\RequiredPreviousParametersWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\SalesUnitWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\ShipmentUnitWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\SpecificationWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\StandartPaymentConditionsWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\TenderTypeWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\TenderUnitWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\TenderWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\TestChildWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\TestEntityWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\TestFriendAddressWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\TestFriendEmailWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\TestFriendGroupWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\TestFriendWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\TestHusbandWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\TestWifeWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\UserRoleWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\UserWrapper.g.cs" />
-    <Compile Include="Wrappers\Generated\WrappersGenerator.cs">
-      <DependentUpon>WrappersGenerator.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
@@ -201,12 +105,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Wrappers\Generated\WrappersGenerator.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>WrappersGenerator.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

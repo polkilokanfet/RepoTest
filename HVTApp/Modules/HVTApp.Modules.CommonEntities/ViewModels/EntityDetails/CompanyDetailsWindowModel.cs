@@ -6,7 +6,7 @@ using HVTApp.DataAccess;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrappers;
+using HVTApp.Wrapper;
 using HVTApp.Modules.Infrastructure;
 using Prism.Commands;
 
@@ -75,8 +75,6 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         {
             //если головная компания не назначена
             if (Company.ParentCompany == null) return;
-            //удаляем из списка дочерних компаний бывшей головной компании текущую компанию
-            Company.ParentCompany.ChildCompanies.Remove(Company);
             //удалаем головную компанию текущей компании
             Company.ParentCompany = null;
         }

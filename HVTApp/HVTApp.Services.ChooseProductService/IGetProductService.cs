@@ -1,4 +1,4 @@
-﻿using HVTApp.Model.Wrappers;
+﻿using HVTApp.Wrapper;
 
 namespace HVTApp.Services.GetProductService
 {

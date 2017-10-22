@@ -240,20 +240,20 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateLocalities()
         {
-            LocalityMoscow.Clone(new Locality { LocalityType = LocalityTypeCity, Name = "Москва", Region = RegionMoskovskayaOblast, IsCountryCapital = true, IsDistrictsCapital = true, IsRegionCapital = true });
-            LocalityEkaterinburg.Clone(new Locality { LocalityType = LocalityTypeCity, Name = "Екатеринбург", Region = RegionSverdlovskayaOblast, IsDistrictsCapital = true, IsRegionCapital = true });
+            LocalityMoscow.Clone(new Locality { LocalityType = LocalityTypeCity, Name = "Москва", RegionId = RegionMoskovskayaOblast.Id, IsCountryCapital = true, IsDistrictsCapital = true, IsRegionCapital = true });
+            LocalityEkaterinburg.Clone(new Locality { LocalityType = LocalityTypeCity, Name = "Екатеринбург", RegionId = RegionSverdlovskayaOblast.Id, IsDistrictsCapital = true, IsRegionCapital = true });
         }
 
         private void GenerateRegions()
         {
-            RegionMoskovskayaOblast.Clone(new Region { Name = "Московская область", Localities= new List<Locality> { LocalityMoscow }, District = DistrictCentr });
-            RegionSverdlovskayaOblast.Clone(new Region { Name = "Свердловская область", Localities= new List<Locality> { LocalityEkaterinburg }, District = DistrictUral });
+            RegionMoskovskayaOblast.Clone(new Region { Name = "Московская область", Localities= new List<Locality> { LocalityMoscow }, DistrictId = DistrictCentr.Id });
+            RegionSverdlovskayaOblast.Clone(new Region { Name = "Свердловская область", Localities= new List<Locality> { LocalityEkaterinburg }, DistrictId = DistrictUral.Id });
         }
 
         private void GenerateDistricts()
         {
-            DistrictCentr.Clone(new District { Country = CountryRussia, Name = "Центральный федеральный округ", Regions= new List<Region>() {RegionMoskovskayaOblast} });
-            DistrictUral.Clone(new District { Country = CountryRussia, Name = "Уральский федеральный округ", Regions= new List<Region>() {RegionSverdlovskayaOblast} });
+            DistrictCentr.Clone(new District { CountryId = CountryRussia.Id, Name = "Центральный федеральный округ", Regions= new List<Region>() {RegionMoskovskayaOblast} });
+            DistrictUral.Clone(new District { CountryId = CountryRussia.Id, Name = "Уральский федеральный округ", Regions= new List<Region>() {RegionSverdlovskayaOblast} });
         }
 
         private void GenerateCountries()
@@ -296,9 +296,9 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateEmployees()
         {
-            EmployeeIvanov.Clone(new Employee { Person = PersonIvanov, Position = EmployeesPositionDirector, Company = CompanyUetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true });
-            EmployeePetrov.Clone(new Employee { Person = PersonPetrov, Position = EmployeesPositionDirector, Company = CompanyFsk, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true });
-            EmployeeSidorov.Clone(new Employee { Person = PersonSidorov, Position = EmployeesPositionDirector, Company = CompanyEnel, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true });
+            EmployeeIvanov.Clone(new Employee { PersonId = PersonIvanov.Id, Position = EmployeesPositionDirector, CompanyId = CompanyUetm.Id, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true });
+            EmployeePetrov.Clone(new Employee { PersonId = PersonPetrov.Id, Position = EmployeesPositionDirector, CompanyId = CompanyFsk.Id, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true });
+            EmployeeSidorov.Clone(new Employee { PersonId = PersonSidorov.Id, Position = EmployeesPositionDirector, CompanyId = CompanyEnel.Id, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true });
         }
 
         private void GenerateUserRoles()
@@ -356,45 +356,45 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateParameters()
         {
-            ParameterBreaker.Clone(new Parameter { Group = ParameterGroupEqType, Value = "Выключатель" });
-            ParameterTransformator.Clone(new Parameter { Group = ParameterGroupEqType, Value = "Трансформатор" });
-            ParameterBrakersDrive.Clone(new Parameter { Group = ParameterGroupEqType, Value = "Привод" });
-            ParameterBreakerBlock.Clone(new Parameter { Group = ParameterGroupEqType, Value = "Блок выключателя" });
+            ParameterBreaker.Clone(new Parameter { GroupId = ParameterGroupEqType.Id, Value = "Выключатель" });
+            ParameterTransformator.Clone(new Parameter { GroupId = ParameterGroupEqType.Id, Value = "Трансформатор" });
+            ParameterBrakersDrive.Clone(new Parameter { GroupId = ParameterGroupEqType.Id, Value = "Привод" });
+            ParameterBreakerBlock.Clone(new Parameter { GroupId = ParameterGroupEqType.Id, Value = "Блок выключателя" });
 
-            ParameterBreakerDeadTank.Clone(new Parameter { Group = ParameterGroupBreakerType, Value = "Баковый" });
+            ParameterBreakerDeadTank.Clone(new Parameter { GroupId = ParameterGroupBreakerType.Id, Value = "Баковый" });
             ParameterBreakerDeadTank.AddRequiredPreviousParameters(new []{ParameterBreaker});
-            ParameterBreakerLiveTank.Clone(new Parameter { Group = ParameterGroupBreakerType, Value = "Колонковый" });
+            ParameterBreakerLiveTank.Clone(new Parameter { GroupId = ParameterGroupBreakerType.Id, Value = "Колонковый" });
             ParameterBreakerLiveTank.AddRequiredPreviousParameters(new[] { ParameterBreaker });
 
-            ParameterTransformatorCurrent.Clone(new Parameter { Group = ParameterGroupTransformatorType, Value = "Тока" });
+            ParameterTransformatorCurrent.Clone(new Parameter { GroupId = ParameterGroupTransformatorType.Id, Value = "Тока" });
             ParameterTransformatorCurrent.AddRequiredPreviousParameters(new[] { ParameterTransformator });
-            ParameterTransformatorVoltage.Clone(new Parameter { Group = ParameterGroupTransformatorType, Value = "Напряжения" });
+            ParameterTransformatorVoltage.Clone(new Parameter { GroupId = ParameterGroupTransformatorType.Id, Value = "Напряжения" });
             ParameterTransformatorVoltage.AddRequiredPreviousParameters(new[] { ParameterTransformator });
 
-            ParameterVoltage35kV.Clone(new Parameter { Group = ParameterGroupVoltage, Value = "35" });
+            ParameterVoltage35kV.Clone(new Parameter { GroupId = ParameterGroupVoltage.Id, Value = "35" });
             ParameterVoltage35kV.AddRequiredPreviousParameters(new []{ParameterBreaker})
                                 .AddRequiredPreviousParameters(new []{ParameterTransformator, ParameterTransformatorCurrent});
-            ParameterVoltage110kV.Clone(new Parameter { Group = ParameterGroupVoltage, Value = "110" });
+            ParameterVoltage110kV.Clone(new Parameter { GroupId = ParameterGroupVoltage.Id, Value = "110" });
             ParameterVoltage110kV.AddRequiredPreviousParameters(new[] { ParameterBreaker })
                                  .AddRequiredPreviousParameters(new[] { ParameterTransformator }); 
-            ParameterVoltage220kV.Clone(new Parameter { Group = ParameterGroupVoltage, Value = "220" });
+            ParameterVoltage220kV.Clone(new Parameter { GroupId = ParameterGroupVoltage.Id, Value = "220" });
             ParameterVoltage220kV.AddRequiredPreviousParameters(new[] { ParameterBreaker })
                                  .AddRequiredPreviousParameters(new[] { ParameterTransformator }); 
-            ParameterVoltage500kV.Clone(new Parameter { Group = ParameterGroupVoltage, Value = "500" });
+            ParameterVoltage500kV.Clone(new Parameter { GroupId = ParameterGroupVoltage.Id, Value = "500" });
             ParameterVoltage500kV.AddRequiredPreviousParameters(new[] { ParameterBreaker, ParameterBreakerLiveTank });
 
-            ParameterVoltage110V.Clone(new Parameter { Group = ParameterGroupDrivesVoltage, Value = "110 В" });
+            ParameterVoltage110V.Clone(new Parameter { GroupId = ParameterGroupDrivesVoltage.Id, Value = "110 В" });
             ParameterVoltage110V.AddRequiredPreviousParameters(new[] { ParameterBrakersDrive });
 
-            ParameterVoltage220V.Clone(new Parameter { Group = ParameterGroupDrivesVoltage, Value = "220 В" });
+            ParameterVoltage220V.Clone(new Parameter { GroupId = ParameterGroupDrivesVoltage.Id, Value = "220 В" });
             ParameterVoltage220V.AddRequiredPreviousParameters(new[] { ParameterBrakersDrive });
         }
 
         private void GenerateRequiredDependentEquipmentsParameters()
         {
-            RequiredChildProductRelationDrive.Clone(new ProductsRelation { ParentProductParameters= new List<Parameter> { ParameterBreaker },
+            RequiredChildProductRelationDrive.Clone(new ProductsRelation { ParentProductParameters = new List<Parameter> { ParameterBreaker },
                 ChildProductParameters= new List<Parameter> { ParameterBrakersDrive }, Count = 1 });
-            RequiredChildProductRelationBreakerBlock.Clone(new ProductsRelation { ParentProductParameters= new List<Parameter> { ParameterBreakerBlock },
+            RequiredChildProductRelationBreakerBlock.Clone(new ProductsRelation { ParentProductParameters = new List<Parameter> { ParameterBreakerBlock },
                 ChildProductParameters= new List<Parameter> { ParameterBreaker }, Count = 2 });
         }
 
@@ -419,42 +419,42 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateProductionUnit()
         {
-            ProductionUnitVeb1101.Clone(new ProductionUnit { Product = ProductVeb110, Order = OrderVeb110, OrderPosition = 1, SerialNumber = "1", SalesUnit = SalesUnitVeb1101, PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7 });
-            ProductionUnitVeb1102.Clone(new ProductionUnit { Product = ProductVeb110, Order = OrderVeb110, OrderPosition = 2, SerialNumber = "2", SalesUnit = SalesUnitVeb1102, PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7 });
+            ProductionUnitVeb1101.Clone(new ProductionUnit { Product = ProductVeb110, OrderId = OrderVeb110.Id, OrderPosition = 1, SerialNumber = "1", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7 });
+            ProductionUnitVeb1102.Clone(new ProductionUnit { Product = ProductVeb110, OrderId = OrderVeb110.Id, OrderPosition = 2, SerialNumber = "2", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7 });
 
-            ProductionUnitZng1101.Clone(new ProductionUnit { Product = ProductZng110, Order = OrderZng110, OrderPosition = 1, SerialNumber = "5", SalesUnit = SalesUnitZng1101, PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7 });
-            ProductionUnitZng1102.Clone(new ProductionUnit { Product = ProductZng110, Order = OrderZng110, OrderPosition = 2, SerialNumber = "6", SalesUnit = SalesUnitZng1102, PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7 });
-            ProductionUnitZng1103.Clone(new ProductionUnit { Product = ProductZng110, Order = OrderZng110, OrderPosition = 3, SerialNumber = "7", SalesUnit = SalesUnitZng1103, PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7 });
+            ProductionUnitZng1101.Clone(new ProductionUnit { Product = ProductZng110, OrderId = OrderZng110.Id, OrderPosition = 1, SerialNumber = "5", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7 });
+            ProductionUnitZng1102.Clone(new ProductionUnit { Product = ProductZng110, OrderId = OrderZng110.Id, OrderPosition = 2, SerialNumber = "6", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7 });
+            ProductionUnitZng1103.Clone(new ProductionUnit { Product = ProductZng110, OrderId = OrderZng110.Id, OrderPosition = 3, SerialNumber = "7", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7 });
         }
 
         private void GenerateSalesUnits()
         {
-            SalesUnitVeb1101.Clone(new SalesUnit { ProductionUnit = ProductionUnitVeb1101, OfferUnit = OfferUnitVeb1101, Cost = 6, Specification = SpecificationMrsk1, PaymentsConditions = StandartPaymentConditions, ShipmentUnit = ShipmentUnitVeb1101 });
-            SalesUnitVeb1102.Clone(new SalesUnit { ProductionUnit = ProductionUnitVeb1102, OfferUnit = OfferUnitVeb1102, Cost = 6, Specification = SpecificationMrsk1, PaymentsConditions = StandartPaymentConditions, ShipmentUnit = ShipmentUnitVeb1102 }); 
+            SalesUnitVeb1101.Clone(new SalesUnit { ProductionUnit = ProductionUnitVeb1101, OfferUnit = OfferUnitVeb1101, Cost = 6, SpecificationId = SpecificationMrsk1.Id, PaymentsConditions = StandartPaymentConditions, ShipmentUnit = ShipmentUnitVeb1101 });
+            SalesUnitVeb1102.Clone(new SalesUnit { ProductionUnit = ProductionUnitVeb1102, OfferUnit = OfferUnitVeb1102, Cost = 6, SpecificationId = SpecificationMrsk1.Id, PaymentsConditions = StandartPaymentConditions, ShipmentUnit = ShipmentUnitVeb1102 }); 
 
-            SalesUnitZng1101.Clone(new SalesUnit { ProductionUnit = ProductionUnitZng1101, OfferUnit = OfferUnitZng1101, Cost = 5, Specification = SpecificationMrsk1, PaymentsConditions = StandartPaymentConditions, ShipmentUnit = ShipmentUnitZng1101 }); 
-            SalesUnitZng1102.Clone(new SalesUnit { ProductionUnit = ProductionUnitZng1102, OfferUnit = OfferUnitZng1102, Cost = 5, Specification = SpecificationMrsk1, PaymentsConditions = StandartPaymentConditions, ShipmentUnit = ShipmentUnitZng1102 }); 
-            SalesUnitZng1103.Clone(new SalesUnit { ProductionUnit = ProductionUnitZng1103, OfferUnit = OfferUnitZng1103, Cost = 5, Specification = SpecificationMrsk1, PaymentsConditions = StandartPaymentConditions, ShipmentUnit = ShipmentUnitZng1103 }); 
+            SalesUnitZng1101.Clone(new SalesUnit { ProductionUnit = ProductionUnitZng1101, OfferUnit = OfferUnitZng1101, Cost = 5, SpecificationId = SpecificationMrsk1.Id, PaymentsConditions = StandartPaymentConditions, ShipmentUnit = ShipmentUnitZng1101 }); 
+            SalesUnitZng1102.Clone(new SalesUnit { ProductionUnit = ProductionUnitZng1102, OfferUnit = OfferUnitZng1102, Cost = 5, SpecificationId = SpecificationMrsk1.Id, PaymentsConditions = StandartPaymentConditions, ShipmentUnit = ShipmentUnitZng1102 }); 
+            SalesUnitZng1103.Clone(new SalesUnit { ProductionUnit = ProductionUnitZng1103, OfferUnit = OfferUnitZng1103, Cost = 5, SpecificationId = SpecificationMrsk1.Id, PaymentsConditions = StandartPaymentConditions, ShipmentUnit = ShipmentUnitZng1103 }); 
         }
 
         private void GenerateShippmentUnits()
         {
-            ShipmentUnitVeb1101.Clone(new ShipmentUnit { SalesUnit = SalesUnitVeb1101, Address = AddressOfSubstation, Cost = 1, DeliveryDate = DateTime.Today.AddDays(180) });
-            ShipmentUnitVeb1102.Clone(new ShipmentUnit { SalesUnit = SalesUnitVeb1102, Address = AddressOfSubstation, Cost = 1, DeliveryDate = DateTime.Today.AddDays(180) }); 
+            ShipmentUnitVeb1101.Clone(new ShipmentUnit { Address = AddressOfSubstation, Cost = 1, DeliveryDate = DateTime.Today.AddDays(180) });
+            ShipmentUnitVeb1102.Clone(new ShipmentUnit { Address = AddressOfSubstation, Cost = 1, DeliveryDate = DateTime.Today.AddDays(180) }); 
 
-            ShipmentUnitZng1101.Clone(new ShipmentUnit { SalesUnit = SalesUnitZng1101, Address = AddressOfSubstation, Cost = 1, DeliveryDate = DateTime.Today.AddDays(180) }); 
-            ShipmentUnitZng1102.Clone(new ShipmentUnit { SalesUnit = SalesUnitZng1102, Address = AddressOfSubstation, Cost = 1, DeliveryDate = DateTime.Today.AddDays(180) }); 
-            ShipmentUnitZng1103.Clone(new ShipmentUnit { SalesUnit = SalesUnitZng1103, Address = AddressOfSubstation, Cost = 1, DeliveryDate = DateTime.Today.AddDays(180) }); 
+            ShipmentUnitZng1101.Clone(new ShipmentUnit { Address = AddressOfSubstation, Cost = 1, DeliveryDate = DateTime.Today.AddDays(180) }); 
+            ShipmentUnitZng1102.Clone(new ShipmentUnit { Address = AddressOfSubstation, Cost = 1, DeliveryDate = DateTime.Today.AddDays(180) }); 
+            ShipmentUnitZng1103.Clone(new ShipmentUnit { Address = AddressOfSubstation, Cost = 1, DeliveryDate = DateTime.Today.AddDays(180) }); 
         }
 
         private void GenerateOfferUnits()
         {
-            OfferUnitVeb1101.Clone(new OfferUnit { Product = ProductVeb110, Cost = 7, Offer = OfferMrsk, ProductionTerm = 120, PaymentsConditions = StandartPaymentConditions });
-            OfferUnitVeb1102.Clone(new OfferUnit { Product = ProductVeb110, Cost = 7, Offer = OfferMrsk, ProductionTerm = 120, PaymentsConditions = StandartPaymentConditions });
+            OfferUnitVeb1101.Clone(new OfferUnit { Product = ProductVeb110, Cost = 7, OfferId = OfferMrsk.Id, ProductionTerm = 120, PaymentsConditions = StandartPaymentConditions });
+            OfferUnitVeb1102.Clone(new OfferUnit { Product = ProductVeb110, Cost = 7, OfferId = OfferMrsk.Id, ProductionTerm = 120, PaymentsConditions = StandartPaymentConditions });
 
-            OfferUnitZng1101.Clone(new OfferUnit { Product = ProductZng110, Cost = 3, Offer = OfferMrsk, ProductionTerm = 150, PaymentsConditions = StandartPaymentConditions });
-            OfferUnitZng1102.Clone(new OfferUnit { Product = ProductZng110, Cost = 3, Offer = OfferMrsk, ProductionTerm = 150, PaymentsConditions = StandartPaymentConditions });
-            OfferUnitZng1103.Clone(new OfferUnit { Product = ProductZng110, Cost = 3, Offer = OfferMrsk, ProductionTerm = 150, PaymentsConditions = StandartPaymentConditions });
+            OfferUnitZng1101.Clone(new OfferUnit { Product = ProductZng110, Cost = 3, OfferId = OfferMrsk.Id, ProductionTerm = 150, PaymentsConditions = StandartPaymentConditions });
+            OfferUnitZng1102.Clone(new OfferUnit { Product = ProductZng110, Cost = 3, OfferId = OfferMrsk.Id, ProductionTerm = 150, PaymentsConditions = StandartPaymentConditions });
+            OfferUnitZng1103.Clone(new OfferUnit { Product = ProductZng110, Cost = 3, OfferId = OfferMrsk.Id, ProductionTerm = 150, PaymentsConditions = StandartPaymentConditions });
         }
 
         private void GenerateOffers()
@@ -474,17 +474,17 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateTenders()
         {
-            TenderMrsk.Clone(new Tender { Project = Project1, Sum = 9, Type = TenderTypeProject, Winner = CompanyUetm, Participants = new List<Company> { CompanyUetm, CompanyEnel }, Offers = new List<Offer> { OfferMrsk }, DateOpen = DateTime.Today, DateClose = DateTime.Today.AddDays(7), TenderUnits = new List<TenderUnit> { TenderUnitVeb1101, TenderUnitVeb1102, TenderUnitZng1101, TenderUnitZng1102, TenderUnitZng1103 } });
+            TenderMrsk.Clone(new Tender { ProjectId = Project1.Id, Sum = 9, Type = TenderTypeProject, Winner = CompanyUetm, Participants = new List<Company> { CompanyUetm, CompanyEnel }, Offers = new List<Offer> { OfferMrsk }, DateOpen = DateTime.Today, DateClose = DateTime.Today.AddDays(7), TenderUnits = new List<TenderUnit> { TenderUnitVeb1101, TenderUnitVeb1102, TenderUnitZng1101, TenderUnitZng1102, TenderUnitZng1103 } });
         }
 
         private void GenerateTanderUnits()
         {
-            TenderUnitVeb1101.Clone(new TenderUnit { Product = ProductVeb110, Tender = TenderMrsk, Cost = 2, ProjectUnit = ProjectUnitVeb1101, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(150), PaymentsConditions = StandartPaymentConditions });
-            TenderUnitVeb1102.Clone(new TenderUnit { Product = ProductVeb110, Tender = TenderMrsk, Cost = 2, ProjectUnit = ProjectUnitVeb1102, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(150), PaymentsConditions = StandartPaymentConditions }); 
+            TenderUnitVeb1101.Clone(new TenderUnit { Product = ProductVeb110, TenderId = TenderMrsk.Id, Cost = 2, ProjectUnit = ProjectUnitVeb1101, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(150), PaymentsConditions = StandartPaymentConditions });
+            TenderUnitVeb1102.Clone(new TenderUnit { Product = ProductVeb110, TenderId = TenderMrsk.Id, Cost = 2, ProjectUnit = ProjectUnitVeb1102, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(150), PaymentsConditions = StandartPaymentConditions }); 
 
-            TenderUnitZng1101.Clone(new TenderUnit { Product = ProductZng110, Tender = TenderMrsk, Cost = 1, ProjectUnit = ProjectUnitZng1101, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(120), PaymentsConditions = StandartPaymentConditions }); 
-            TenderUnitZng1102.Clone(new TenderUnit { Product = ProductZng110, Tender = TenderMrsk, Cost = 1, ProjectUnit = ProjectUnitZng1102, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(120), PaymentsConditions = StandartPaymentConditions }); 
-            TenderUnitZng1103.Clone(new TenderUnit { Product = ProductZng110, Tender = TenderMrsk, Cost = 1, ProjectUnit = ProjectUnitZng1103, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(120), PaymentsConditions = StandartPaymentConditions }); 
+            TenderUnitZng1101.Clone(new TenderUnit { Product = ProductZng110, TenderId = TenderMrsk.Id, Cost = 1, ProjectUnit = ProjectUnitZng1101, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(120), PaymentsConditions = StandartPaymentConditions }); 
+            TenderUnitZng1102.Clone(new TenderUnit { Product = ProductZng110, TenderId = TenderMrsk.Id, Cost = 1, ProjectUnit = ProjectUnitZng1102, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(120), PaymentsConditions = StandartPaymentConditions }); 
+            TenderUnitZng1103.Clone(new TenderUnit { Product = ProductZng110, TenderId = TenderMrsk.Id, Cost = 1, ProjectUnit = ProjectUnitZng1103, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(120), PaymentsConditions = StandartPaymentConditions }); 
         }
 
         private void GenerateOrders()
@@ -495,16 +495,16 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateProjectUnits()
         {
-            ProjectUnitVeb1101.Clone(new ProjectUnit { Product = ProductVeb110, Cost = 5, Project = Project1, Facility = FacilitySubstation, RequiredDeliveryDate = DateTime.Today.AddDays(200)});
-            ProjectUnitVeb1102.Clone(new ProjectUnit { Product = ProductVeb110, Cost = 5, Project = Project1, Facility = FacilitySubstation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitVeb1101.Clone(new ProjectUnit { Product = ProductVeb110, Cost = 5, ProjectId = Project1.Id, Facility = FacilitySubstation, RequiredDeliveryDate = DateTime.Today.AddDays(200)});
+            ProjectUnitVeb1102.Clone(new ProjectUnit { Product = ProductVeb110, Cost = 5, ProjectId = Project1.Id, Facility = FacilitySubstation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
 
-            ProjectUnitZng1101.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project1, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
-            ProjectUnitZng1102.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project1, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
-            ProjectUnitZng1103.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project1, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitZng1101.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, ProjectId = Project1.Id, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitZng1102.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, ProjectId = Project1.Id, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitZng1103.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, ProjectId = Project1.Id, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
 
-            ProjectUnitZng1104.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project2, Facility = FacilitySubstation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
-            ProjectUnitZng1105.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project2, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
-            ProjectUnitZng1106.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, Project = Project2, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitZng1104.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, ProjectId = Project2.Id, Facility = FacilitySubstation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitZng1105.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, ProjectId = Project2.Id, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitZng1106.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, ProjectId = Project2.Id, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
         }
 
         private void GenerateContracts()
@@ -514,7 +514,7 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateSpecifications()
         {
-            SpecificationMrsk1.Clone(new Specification { Contract = ContractMrsk, Date = ContractMrsk.Date, Number = "1", Vat = 0.18, SalesUnits = new List<SalesUnit> {SalesUnitVeb1101, SalesUnitVeb1102, SalesUnitZng1101, SalesUnitZng1102, SalesUnitZng1103} });
+            SpecificationMrsk1.Clone(new Specification { ContractId = ContractMrsk.Id, Date = ContractMrsk.Date, Number = "1", Vat = 0.18, SalesUnits = new List<SalesUnit> {SalesUnitVeb1101, SalesUnitVeb1102, SalesUnitZng1101, SalesUnitZng1102, SalesUnitZng1103} });
         }
 
         private void GeneratePaymentConditions()

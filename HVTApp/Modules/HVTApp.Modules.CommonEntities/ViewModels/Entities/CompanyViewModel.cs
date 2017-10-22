@@ -5,7 +5,7 @@ using HVTApp.DataAccess;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrappers;
+using HVTApp.Wrapper;
 using Prism.Regions;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
@@ -30,7 +30,6 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             {
                 FullName = "NewCompany",
                 Form = new CompanyForm(),
-                ChildCompanies = new List<Company>(),
                 Employees = new List<Employee>()
             };
 

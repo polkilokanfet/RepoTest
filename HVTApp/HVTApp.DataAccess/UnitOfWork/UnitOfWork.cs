@@ -5,7 +5,7 @@ using System.Reflection;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrappers;
+using HVTApp.Wrapper;
 
 namespace HVTApp.DataAccess
 {

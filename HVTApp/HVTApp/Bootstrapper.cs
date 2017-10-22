@@ -5,6 +5,7 @@ using HVTApp.Views;
 using System.Windows;
 using HVTApp.DataAccess;
 using HVTApp.DataAccess.Infrastructure;
+using HVTApp.DataAccess.Lookup;
 using HVTApp.Infrastructure.Interfaces;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.AuthenticationService;
@@ -12,7 +13,7 @@ using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
-using HVTApp.Model.Wrappers;
+using HVTApp.Wrapper;
 using HVTApp.Modules.CommonEntities;
 using HVTApp.Modules.CommonEntities.ViewModels;
 using HVTApp.Modules.CommonEntities.Views;
@@ -52,10 +53,13 @@ namespace HVTApp
         {
             base.ConfigureContainer();
 
-            Container.RegisterType<DbContext, HVTAppContext>();
-            Container.RegisterType<IUnitOfWork, UnitOfWork>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<DbContext, HvtAppContext>();
+            Container.RegisterType<IUnitOfWork, UnitOfWork>();
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
             Container.RegisterType<ISelectService, SelectServiceRealization>(new ContainerControlledLifetimeManager());
+
+            Container.RegisterType<IProjectLookupDataService, LookupDataService>();
+            Container.RegisterType<ICompanyLookupDataService, LookupDataService>();
 
             ISelectService selectService = Container.Resolve<ISelectService>();
             selectService.Register<CompaniesViewModel, CompaniesView, CompanyWrapper>();

@@ -4,7 +4,7 @@ using System.Windows.Input;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrappers;
+using HVTApp.Wrapper;
 using HVTApp.Modules.Infrastructure;
 using HVTApp.Modules.Sales.Converter;
 using Microsoft.Practices.Unity;

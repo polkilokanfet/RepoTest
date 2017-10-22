@@ -3,7 +3,7 @@ using System.Linq;
 using HVTApp.DataAccess;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrappers;
+using HVTApp.Wrapper;
 
 namespace HVTApp.Services.GetProductService
 {
@@ -28,7 +28,7 @@ namespace HVTApp.Services.GetProductService
 
         public ProductWrapper GetProduct(ProductWrapper templateProduct = null)
         {
-            ProductSelector productSelector = new ProductSelector(_parameters.Select(x => x.Group).Distinct(), _parts, _products, _requiredDependentProductsParameteres, preSelectedProduct: templateProduct?.Model);
+            ProductSelector productSelector = new ProductSelector(new List<ParameterGroup>(), _parts, _products, _requiredDependentProductsParameteres, preSelectedProduct: templateProduct?.Model);
             SelectProductWindow window = new SelectProductWindow {DataContext = productSelector};
             window.ShowDialog();
 

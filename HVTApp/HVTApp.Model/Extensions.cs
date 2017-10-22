@@ -10,7 +10,7 @@ namespace HVTApp.Model
             foreach (var parameter in parameters)
             {
                 group.Parameters.Add(parameter);
-                parameter.Group = group;
+                parameter.GroupId = group.Id;
             }
             return group;
         }
@@ -19,7 +19,7 @@ namespace HVTApp.Model
         {
             parameter.RequiredPreviousParameters.Add(new RequiredPreviousParameters
             {
-                Parameter = parameter,
+                ParameterId = parameter.Id,
                 RequiredParameters = new List<Parameter>(requiredPreviousParameters)
             });
             return parameter;

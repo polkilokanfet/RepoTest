@@ -10,7 +10,7 @@ namespace HVTApp.DataAccess
             Property(x => x.Number).IsRequired().HasMaxLength(50);
             Property(x => x.Date).IsRequired();
             HasRequired(x => x.Contragent).WithMany();
-            HasMany(x => x.Specifications).WithRequired(x => x.Contract);
+            HasMany(x => x.Specifications).WithRequired().HasForeignKey(x => x.ContractId);
         }
     }
 }

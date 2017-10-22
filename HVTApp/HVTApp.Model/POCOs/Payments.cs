@@ -12,7 +12,7 @@ namespace HVTApp.Model.POCOs
     public class PaymentPlanned : BaseEntity, IPayment
     {
         public virtual PaymentCondition Condition { get; set; }
-        public virtual SalesUnit SalesUnit { get; set; }
+        public virtual Guid SalesUnitId { get; set; }
         public DateTime Date { get; set; }
         public double Sum { get; set; }
         public string Comment { get; set; }
@@ -20,11 +20,11 @@ namespace HVTApp.Model.POCOs
 
     public class PaymentActual : BaseEntity, IPayment
     {
-        public virtual SalesUnit SalesUnit { get; set; }
+        public virtual Guid SalesUnitId { get; set; }
         public DateTime Date { get; set; }
         public double Sum { get; set; }
         public string Comment { get; set; }
-        public virtual PaymentDocument Document { get; set; }
+        public virtual Guid DocumentId { get; set; }
     }
 
 

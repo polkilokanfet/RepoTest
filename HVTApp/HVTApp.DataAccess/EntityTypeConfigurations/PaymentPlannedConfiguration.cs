@@ -7,7 +7,6 @@ namespace HVTApp.DataAccess
     {
         public PaymentPlannedConfiguration()
         {
-            HasRequired(x => x.SalesUnit).WithMany(x => x.PaymentsPlanned);
             Property(x => x.Date).IsRequired();
             Property(x => x.Sum).IsRequired();
             Property(x => x.Comment).IsOptional().HasMaxLength(100);

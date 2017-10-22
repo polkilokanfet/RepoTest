@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Data;
 using HVTApp.Model;
+using HVTApp.Wrapper;
 
 namespace HVTApp.Modules.Sales.Converter
 {

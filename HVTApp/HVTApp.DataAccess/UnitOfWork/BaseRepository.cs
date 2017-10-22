@@ -49,13 +49,5 @@ namespace HVTApp.DataAccess
         {
             Context.Set<TModel>().RemoveRange(entities);
         }
-
-
-
-
-
-
-
-
     }
 }

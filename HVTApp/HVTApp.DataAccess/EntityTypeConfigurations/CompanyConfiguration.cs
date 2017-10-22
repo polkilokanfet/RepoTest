@@ -15,11 +15,8 @@ namespace HVTApp.DataAccess
             HasOptional(x => x.AddressLegal).WithMany();
             HasOptional(x => x.AddressPost).WithMany();
             HasMany(x => x.ActivityFilds).WithMany();
-            HasMany(x => x.Employees).WithRequired(x => x.Company);
-            //HasMany(x => x.ChildCompanies).WithOptional(x => x.ParentCompany);
+            HasMany(x => x.Employees).WithRequired().HasForeignKey(x => x.CompanyId);
             HasMany(x => x.BankDetailsList).WithOptional();
-            //Ignore(x => x.ParentCompany);
-            Ignore(x => x.ChildCompanies);
             HasOptional(x => x.ParentCompany).WithMany();
         }
     }

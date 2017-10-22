@@ -24,7 +24,7 @@ namespace HVTApp.Model.POCOs
     {
         public string Name { get; set; }
         public virtual LocalityType LocalityType { get; set; }
-        public virtual Region Region { get; set; }
+        public virtual Guid RegionId { get; set; }
         public virtual bool IsRegionCapital { get; set; } = false;
         public virtual bool IsDistrictsCapital { get; set; } = false;
         public virtual bool IsCountryCapital { get; set; } = false;
@@ -57,7 +57,7 @@ namespace HVTApp.Model.POCOs
     public class Region : BaseEntity
     {
         public string Name { get; set; }
-        public virtual District District { get; set; }
+        public virtual Guid DistrictId { get; set; }
         public virtual List<Locality> Localities { get; set; } // Населенные пункты.
 
         public override string ToString()
@@ -72,7 +72,7 @@ namespace HVTApp.Model.POCOs
     public class District : BaseEntity
     {
         public string Name { get; set; }
-        public virtual Country Country { get; set; }
+        public virtual Guid CountryId { get; set; }
         public virtual List<Region> Regions { get; set; }
 
         public override string ToString()

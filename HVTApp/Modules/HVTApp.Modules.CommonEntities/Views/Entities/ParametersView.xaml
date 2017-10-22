@@ -10,7 +10,7 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:Field Name="Group" Label="Группа"/>
+                    <infg:Field Name="GroupId" Label="Группа"/>
                     <infg:TextField Name="Value" Label="Значение"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>

@@ -5,8 +5,8 @@ namespace HVTApp.Model.POCOs
 {
     public class ProductionUnit : BaseEntity
     {
+        public virtual Guid OrderId { get; set; }
         public virtual Product Product { get; set; }
-        public virtual Order Order { get; set; }
         public int OrderPosition { get; set; }
         public string SerialNumber { get; set; }
 
@@ -17,8 +17,6 @@ namespace HVTApp.Model.POCOs
         public DateTime? PickingDate { get; set; }
         public DateTime? EndProductionDate { get; set; }
         public DateTime? EndProductionDateByPlan { get; set; }
-
-        public virtual SalesUnit SalesUnit { get; set; }
 
         public override string ToString()
         {

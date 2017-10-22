@@ -8,7 +8,6 @@ namespace HVTApp.DataAccess
         public OfferUnitConfiguration()
         {
             HasRequired(x => x.Product).WithMany();
-            HasRequired(x => x.Offer).WithMany(x => x.OfferUnits);
 
             HasOptional(x => x.ProjectUnit).WithMany();
 

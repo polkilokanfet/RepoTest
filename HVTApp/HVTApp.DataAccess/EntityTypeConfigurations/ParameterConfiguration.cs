@@ -8,8 +8,7 @@ namespace HVTApp.DataAccess
         public ParameterConfiguration()
         {
             Property(x => x.Value).IsRequired().HasMaxLength(50);
-            HasRequired(x => x.Group).WithMany(x => x.Parameters);
-            HasMany(x => x.RequiredPreviousParameters).WithRequired(x => x.Parameter);
+            HasMany(x => x.RequiredPreviousParameters).WithRequired().HasForeignKey(x => x.ParameterId);
         }
     }
 }

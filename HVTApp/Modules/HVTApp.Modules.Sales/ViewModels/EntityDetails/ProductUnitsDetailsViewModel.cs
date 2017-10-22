@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
-using HVTApp.Model.Wrappers;
+using HVTApp.Wrapper;
 using HVTApp.Modules.Infrastructure;
 using HVTApp.Services.GetProductService;
 using Prism.Commands;

@@ -14,7 +14,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return $"Project: {Name}";
+            return $"ProjectId: {Name}";
         }
     }
 }

@@ -55,6 +55,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.TestDataGenerator", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.DataAccess.Infrastructure", "HVTApp.DataAccess.Infrastructure\HVTApp.DataAccess.Infrastructure.csproj", "{8ED995B6-B4A2-4B85-9057-69CACF5BBD51}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Wrapper", "HVTApp.Wrapper\HVTApp.Wrapper.csproj", "{4A26FA25-1AE4-4808-B789-C7ED92086AED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.UI", "HVTApp.UI\HVTApp.UI.csproj", "{C4EE0B80-67F5-4C58-8F74-0222983D67D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -149,6 +153,14 @@ Global
 		{8ED995B6-B4A2-4B85-9057-69CACF5BBD51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ED995B6-B4A2-4B85-9057-69CACF5BBD51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ED995B6-B4A2-4B85-9057-69CACF5BBD51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A26FA25-1AE4-4808-B789-C7ED92086AED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A26FA25-1AE4-4808-B789-C7ED92086AED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A26FA25-1AE4-4808-B789-C7ED92086AED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A26FA25-1AE4-4808-B789-C7ED92086AED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4EE0B80-67F5-4C58-8F74-0222983D67D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4EE0B80-67F5-4C58-8F74-0222983D67D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4EE0B80-67F5-4C58-8F74-0222983D67D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4EE0B80-67F5-4C58-8F74-0222983D67D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
