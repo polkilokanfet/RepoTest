@@ -32,11 +32,12 @@ namespace HVTApp.DataAccess.Lookup
             using (var ctx = _contextCreator())
             {
                 var companies = await ctx.Companies.AsNoTracking().Include(x => x.ParentCompany).ToListAsync();
-                var lookups = companies.Select(x => new CompanyLookup() {Id = x.Id, DisplayMember = x.FullName});
+                var lookups = companies.Select(x => new CompanyLookup {Id = x.Id, DisplayMember = x.FullName}).ToList();
                 foreach (var companyLookup in lookups)
                 {
-                    var childCompanies = companies.Where(x => x.ParentCompany.Id == companyLookup.Id);
+                    var childCompanies = companies.Where(x => x.ParentCompany != null && x.ParentCompany.Id == companyLookup.Id).ToList();
                     companyLookup.ChildCompanies = childCompanies.Select(x => lookups.Single(l => l.Id == x.Id));
+                    companyLookup.ChildCompanies.ToList().ForEach(x => x.ParentCompany = companyLookup);
                 }
                 return lookups;
             }

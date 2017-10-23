@@ -15,34 +15,29 @@
     </i:Interaction.Triggers>
 
     <infg:XamDataGrid DataSource="{Binding CompanyLookups}">
-        <!--<infg:FieldLayoutSettings AutoGenerateFields="True">
-            
-        </infg:FieldLayoutSettings>-->
-    </infg:XamDataGrid>
-
-    <!--<infg:XamDataGrid>
 
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout Key="Company">
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="FullName" Label="Полное наименование"/>
+                    <infg:TextField Name="DisplayMember" Label="Полное наименование"/>
+                    <!--<infg:TextField Name="FullName" Label="Полное наименование"/>
                     <infg:TextField Name="ShortName" Label="Сокращенное наименование"/>
                     <infg:TextField Name="Form" Label="Форма"/>
                     <infg:TextField Name="ParentCompany" Label="Головная компания"/>
-                    <infg:Field Name="ChildCompanies" Visibility="Visible" IsExpandable="True" Label="Дочерние компании" IsSelected="True" IsPrimary="True"/>
+                    <infg:Field Name="ChildCompanies" Visibility="Visible" IsExpandable="True" Label="Дочерние компании" IsSelected="True" IsPrimary="True"/>-->
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
-            <infg:FieldLayout Key="ChildCompany" ParentFieldName="ChildCompanies" ParentFieldLayoutKey="Company">
+            <!--<infg:FieldLayout Key="ChildCompany" ParentFieldName="ChildCompanies" ParentFieldLayoutKey="Company">
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="FullName" Label="Полное наименование"/>
                     <infg:TextField Name="ShortName" Label="Сокращенное наименование"/>
                     <infg:TextField Name="Form" Label="Форма"/>
                     <infg:TextField Name="ParentCompany" Label="Головная компания" Visibility="Collapsed"/>
                 </infg:FieldLayout.Fields>
-            </infg:FieldLayout>
+            </infg:FieldLayout>-->
         </infg:XamDataGrid.FieldLayouts>
-    </infg:XamDataGrid>-->
+    </infg:XamDataGrid>
 
 
 </inf:ViewBase>
