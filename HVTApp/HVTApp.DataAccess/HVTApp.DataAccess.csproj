@@ -99,6 +99,7 @@
     <Compile Include="EntityTypeConfigurations\ShipmentUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\ProjectUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\RequiredDependentEquipmentsParametersConfiguration.cs" />
+    <Compile Include="Lookup\Items\CompanyFormLookup.cs" />
     <Compile Include="Lookup\Items\CompanyLookup.cs" />
     <Compile Include="Lookup\Items\ProjectLookup.cs" />
     <Compile Include="Lookup\Items\LookupItem.cs" />

@@ -12,32 +12,44 @@ using HVTApp.Modules.Infrastructure;
 using HVTApp.Services.GetProductService;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.ObjectBuilder2;
+using Prism.Events;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class CompaniesViewModel : BaseListViewModel<CompanyWrapper, CompanyDetailsWindowModel>
+    public class CompaniesViewModel : BaseListViewModel<CompanyWrapper, CompanyDetailsViewModel>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IDialogService _dialogService;
-        private readonly IUnityContainer _container;
         private readonly IGetProductService _getProductService;
         private readonly ICompanyLookupDataService _companyLookupDataService;
+        private readonly IEventAggregator _eventAggregator;
+        private CompanyLookup _selectedCompanyLookup;
 
-        public CompaniesViewModel(IUnitOfWork unitOfWork, IDialogService dialogService, IUnityContainer container, IGetProductService getProductService, ICompanyLookupDataService companyLookupDataService) : base(unitOfWork, container, dialogService)
+        public CompaniesViewModel(IUnityContainer container, IGetProductService getProductService, 
+            ICompanyLookupDataService companyLookupDataService, IEventAggregator eventAggregator) : 
+            base(container)
         {
-            _unitOfWork = unitOfWork;
-            _dialogService = dialogService;
-            _container = container;
             _getProductService = getProductService;
             _companyLookupDataService = companyLookupDataService;
+            _eventAggregator = eventAggregator;
 
-            //_unitOfWork.Companies.GetAll().Select(x => new CompanyWrapper(x)).ForEach(Items.Add);
-
-            RefreshCommand = new DelegateCommand(RefreshCommand_Execute);
             LoadedCommand = new DelegateCommand(async () => await LoadAsync());
         }
 
         public ObservableCollection<CompanyLookup> CompanyLookups { get; } = new ObservableCollection<CompanyLookup>();
+
+        public CompanyLookup SelectedCompanyLookup
+        {
+            get { return _selectedCompanyLookup; }
+            set
+            {
+                _selectedCompanyLookup = value;
+                ((DelegateCommand)EditItemCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        protected override bool EditItemCommand_CanExecute()
+        {
+            return SelectedCompanyLookup != null;
+        }
 
         public async Task LoadAsync()
         {
@@ -47,27 +59,25 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         }
 
 
-
         #region Commands
 
-        public DelegateCommand RefreshCommand { get; set; }
         public DelegateCommand LoadedCommand { get; set; }
 
 
         protected override void RemoveItemCommand_Execute()
         {
-            _getProductService.GetProduct();
         }
 
         protected override bool RemoveItemCommand_CanExecute()
         {
-            return true;
+            return SelectedCompanyLookup != null;
         }
 
-        private void RefreshCommand_Execute()
+        protected override async void EditItemCommand_Execute()
         {
-            Items.Clear();
-            _unitOfWork.Companies.GetAll().Select(x => new CompanyWrapper(x)).ForEach(Items.Add);
+            var viewModel = Container.Resolve<CompanyDetailsViewModel>();
+            await viewModel.LoadAsync(SelectedCompanyLookup.Id);
+            DialogService.ShowDialog(viewModel);
         }
 
         #endregion

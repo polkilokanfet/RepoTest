@@ -19,6 +19,6 @@
         <Label Grid.Row = "1" Grid.Column = "0" Content="Параметры"/>
         <DataGrid Grid.Row = "1" Grid.Column = "1" ItemsSource="{Binding Item.Parameters}"/>
         
-        <Button Grid.Row = "2" Grid.Column = "1" Content="Ok" Command="{Binding OkCommand}"/>
+        <Button Grid.Row = "2" Grid.Column = "1" Content="Save" Command="{Binding SaveCommand}"/>
     </Grid>
 </Window>

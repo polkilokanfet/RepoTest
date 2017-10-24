@@ -28,6 +28,7 @@ using HVTApp.Services.DialogService;
 using HVTApp.Services.SelectService;
 using Infragistics.Windows.OutlookBar;
 using Infragistics.Windows.Ribbon;
+using Prism.Events;
 using Prism.Modularity;
 using Prism.Regions;
 
@@ -53,6 +54,7 @@ namespace HVTApp
         {
             base.ConfigureContainer();
 
+            Container.RegisterType<IEventAggregator, EventAggregator>(new ContainerControlledLifetimeManager());
             Container.RegisterType<DbContext, HvtAppContext>();
             Container.RegisterType<IUnitOfWork, UnitOfWork>();
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
@@ -63,7 +65,6 @@ namespace HVTApp
 
             ISelectService selectService = Container.Resolve<ISelectService>();
             selectService.Register<CompaniesViewModel, CompaniesView, CompanyWrapper>();
-            selectService.Register<ActivityFildsViewModel, ActivityFildsView, ActivityFieldWrapper>();
             selectService.Register<ProjectsViewModel, ProjectsView, ProjectWrapper>();
             selectService.Register<TendersViewModel, TendersView, TenderWrapper>();
 

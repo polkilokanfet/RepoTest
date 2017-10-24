@@ -12,7 +12,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class TendersViewModel : BaseListViewModel<TenderWrapper, TenderDetailsViewModel>
     {
-        public TendersViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(unitOfWork, container, dialogService)
+        public TendersViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(container)
         {
             unitOfWork.Tenders.GetAll().Select(x => new TenderWrapper(x)).ForEach(Items.Add);
         }

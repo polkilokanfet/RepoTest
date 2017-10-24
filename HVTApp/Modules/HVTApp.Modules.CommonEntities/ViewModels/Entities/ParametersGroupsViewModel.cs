@@ -12,7 +12,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 {
     public class ParametersGroupsViewModel : BaseListViewModel<ParameterGroupWrapper, ParametersGroupDetailsViewModel>
     {
-        public ParametersGroupsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(unitOfWork, container, dialogService)
+        public ParametersGroupsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(container)
         {
             unitOfWork.ParametersGroups.GetAll().Select(x => new ParameterGroupWrapper(x)).ForEach(Items.Add);
         }

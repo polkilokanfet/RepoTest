@@ -10,7 +10,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class OffersViewModel : BaseListViewModel<OfferWrapper, OfferDetailsWindowModel>
     {
-        public OffersViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(unitOfWork, container, dialogService)
+        public OffersViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(container)
         {
             
         }

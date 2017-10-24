@@ -8,6 +8,7 @@ namespace HVTApp.DataAccess.Infrastructure
         where TModel : class, IBaseEntity
     {
         List<TModel> GetAll();
+        TModel GetById(Guid Id);
         IEnumerable<TModel> Find(Func<TModel, bool> predicate);
 
         void Add(TModel entity);

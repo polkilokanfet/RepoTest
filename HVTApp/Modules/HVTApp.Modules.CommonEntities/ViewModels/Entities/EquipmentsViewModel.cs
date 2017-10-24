@@ -14,7 +14,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
     public class EquipmentsViewModel : BaseListViewModel<ProductWrapper, EquipmentDetailsViewModel>
     {
         public EquipmentsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : 
-            base(unitOfWork, container, dialogService)
+            base(container)
         {
            unitOfWork.Products.GetAll().Select(x => new ProductWrapper(x)).ForEach(Items.Add);
         }

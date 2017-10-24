@@ -49,5 +49,10 @@ namespace HVTApp.DataAccess
         {
             Context.Set<TModel>().RemoveRange(entities);
         }
+
+        public TModel GetById(Guid id)
+        {
+            return Context.Set<TModel>().Single(x => x.Id == id);
+        }
     }
 }

@@ -57,6 +57,6 @@
             </StackPanel>
         </Grid>
 
-        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding OkCommand}">Ok</Button>
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding SaveCommand}">Save</Button>
     </Grid>
 </Window>

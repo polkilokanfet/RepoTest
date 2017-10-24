@@ -4,6 +4,7 @@ using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Wrapper;
 using HVTApp.Modules.Infrastructure;
 using HVTApp.Services.GetProductService;
+using Microsoft.Practices.Unity;
 using Prism.Commands;
 
 namespace HVTApp.Modules.Sales.ViewModels
@@ -14,7 +15,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         private readonly IChooseService _chooseService;
         private readonly IGetProductService _getProductService;
 
-        public ProductUnitsDetailsViewModel(IUnitOfWork unitOfWork, IChooseService chooseService, IGetProductService getProductService, ProjectUnitWrapper item) : base(item)
+        public ProductUnitsDetailsViewModel(IUnitOfWork unitOfWork, IChooseService chooseService, IGetProductService getProductService, ProjectUnitWrapper item, IUnityContainer container) : base(container)
         {
             _unitOfWork = unitOfWork;
             _chooseService = chooseService;

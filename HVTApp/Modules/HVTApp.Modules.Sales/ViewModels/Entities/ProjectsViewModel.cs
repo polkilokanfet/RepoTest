@@ -19,7 +19,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private bool _loaded = false;
 
-        public ProjectsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService, IProjectLookupDataService projectLookupDataService) : base(unitOfWork, container, dialogService)
+        public ProjectsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService, IProjectLookupDataService projectLookupDataService) : base(container)
         {
             _unitOfWork = unitOfWork;
             _projectLookupDataService = projectLookupDataService;

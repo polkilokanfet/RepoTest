@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Reflection;
+using System.Threading.Tasks;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
@@ -83,6 +84,10 @@ namespace HVTApp.DataAccess
         public ISpecificationsRepository Specifications { get; }
 
         public ITendersRepository Tenders { get; }
+        public async Task<TEntity> GetEntityByIdAsync<TEntity>(Guid id) where TEntity : class, IBaseEntity
+        {
+            return await _context.Set<TEntity>().FindAsync(id);
+        }
 
         #endregion
 

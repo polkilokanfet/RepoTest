@@ -12,7 +12,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public ContractsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(unitOfWork, container, dialogService)
+        public ContractsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(container)
         {
             _unitOfWork = unitOfWork;
 

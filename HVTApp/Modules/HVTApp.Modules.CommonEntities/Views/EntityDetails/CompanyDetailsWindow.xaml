@@ -55,7 +55,7 @@
         <Label Grid.Column="0" Grid.Row="7" Content="Дочерние компании"/>
         <ListView Grid.Column="1" Grid.Row="7" ItemsSource="{Binding Company.ChildCompanies}" IsEnabled="False"/>
 
-        <Button Grid.Column="1" Grid.Row="8" Content="Ok" Command="{Binding OkCommand}"/>
+        <Button Grid.Column="1" Grid.Row="8" Content="Save" Command="{Binding SaveCommand}"/>
 
     </Grid>
 </Window>

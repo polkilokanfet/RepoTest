@@ -23,7 +23,7 @@
             <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200"
                  Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
-        <Button Content="Ok" Command="{Binding OkCommand}"/>
+        <Button Content="Save" Command="{Binding SaveCommand}"/>
 
     </StackPanel>
 </Window>

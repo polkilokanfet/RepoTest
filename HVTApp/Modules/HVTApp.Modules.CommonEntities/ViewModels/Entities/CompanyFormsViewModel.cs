@@ -16,7 +16,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
         private readonly IDialogService _dialogService;
 
         public CompanyFormsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : 
-            base(unitOfWork, container, dialogService)
+            base(container)
         {
             _unitOfWork = unitOfWork;
             _dialogService = dialogService;

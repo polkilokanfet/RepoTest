@@ -12,7 +12,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     class ContractsViewModel : BaseListViewModel<ContractWrapper, ContractDetailsViewModel>
     {
-        public ContractsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(unitOfWork, container, dialogService)
+        public ContractsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(container)
         {
             unitOfWork.Contracts.GetAll().Select(x => new ContractWrapper(x)).ForEach(Items.Add);
         }

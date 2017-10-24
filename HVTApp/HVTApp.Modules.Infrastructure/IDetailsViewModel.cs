@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -8,6 +10,8 @@ namespace HVTApp.Modules.Infrastructure
         where TWrapper : IWrapper<IBaseEntity>
     {
         TWrapper Item { get; }
-        ICommand OkCommand { get; }
+        ICommand SaveCommand { get; }
+        Task LoadAsync();
+        Task LoadAsync(Guid id);
     }
 }

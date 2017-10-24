@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.DataAccess.Infrastructure
@@ -7,8 +8,8 @@ namespace HVTApp.DataAccess.Infrastructure
     {
         int Complete();
         void AddItem(IWrapper<IBaseEntity> wrapper);
-
-
+        Task<TEntity> GetEntityByIdAsync<TEntity>(Guid id)
+            where TEntity : class, IBaseEntity;
 
         IFriendGroupRepository FriendGroups { get; }
 

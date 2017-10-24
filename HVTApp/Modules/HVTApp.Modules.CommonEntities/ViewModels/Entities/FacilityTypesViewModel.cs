@@ -12,7 +12,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 {
     public class FacilityTypesViewModel : BaseListViewModel<FacilityTypeWrapper, FacilityTypeDetailsViewModel>
     {
-        public FacilityTypesViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(unitOfWork, container, dialogService)
+        public FacilityTypesViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(container)
         {
             unitOfWork.FacilityTypes.GetAll().Select(x => new FacilityTypeWrapper(x)).ForEach(Items.Add);
         }

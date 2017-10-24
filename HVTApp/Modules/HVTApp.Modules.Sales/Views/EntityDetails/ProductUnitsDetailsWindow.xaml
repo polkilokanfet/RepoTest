@@ -37,6 +37,6 @@
         <Label Grid.Row="3" Grid.Column="0" Content="Количество"/>
         <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Amount, Mode=TwoWay}"/>
 
-        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding OkCommand}" Content="Ok"/>
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding SaveCommand}" Content="Ok"/>
     </Grid>
 </Window>

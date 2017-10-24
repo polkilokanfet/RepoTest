@@ -20,7 +20,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private ProductUnitsGroup _productGroup;
 
-        public ProjectDetailsViewModel(IDialogService dialogService, IUnityContainer unityContainer, IUnitOfWork unitOfWork, ProjectWrapper item) : base(item)
+        public ProjectDetailsViewModel(IDialogService dialogService, IUnityContainer unityContainer, IUnitOfWork unitOfWork, ProjectWrapper item, IUnityContainer container) : base(container)
         {
             _dialogService = dialogService;
             _unityContainer = unityContainer;
