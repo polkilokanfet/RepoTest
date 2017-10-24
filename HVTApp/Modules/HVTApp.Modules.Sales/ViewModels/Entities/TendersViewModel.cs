@@ -10,7 +10,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class TendersViewModel : BaseListViewModel<TenderWrapper, TenderDetailsViewModel>
+    public class TendersViewModel : BaseListViewModel<TenderWrapper, Tender, TenderDetailsViewModel>
     {
         public TendersViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(container)
         {

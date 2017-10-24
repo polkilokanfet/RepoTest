@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.DataAccess.Lookup;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Model.POCOs;
 using HVTApp.Wrapper;
 using HVTApp.Modules.Infrastructure;
 using Microsoft.Practices.ObjectBuilder2;
@@ -12,7 +13,7 @@ using Prism.Commands;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class ProjectsViewModel : BaseListViewModel<ProjectWrapper, ProjectDetailsViewModel>
+    public class ProjectsViewModel : BaseListViewModel<ProjectWrapper, Project, ProjectDetailsViewModel>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IProjectLookupDataService _projectLookupDataService;

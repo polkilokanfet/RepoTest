@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
+using HVTApp.Model.POCOs;
 using HVTApp.Wrapper;
 using HVTApp.Modules.Infrastructure;
 using HVTApp.Services.GetProductService;
@@ -9,13 +10,13 @@ using Prism.Commands;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class ProductUnitsDetailsViewModel : BaseDetailsViewModel<ProjectUnitWrapper>
+    public class ProjectUnitsDetailsViewModel : BaseDetailsViewModel<ProjectUnitWrapper, ProjectUnit>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IChooseService _chooseService;
         private readonly IGetProductService _getProductService;
 
-        public ProductUnitsDetailsViewModel(IUnitOfWork unitOfWork, IChooseService chooseService, IGetProductService getProductService, ProjectUnitWrapper item, IUnityContainer container) : base(container)
+        public ProjectUnitsDetailsViewModel(IUnitOfWork unitOfWork, IChooseService chooseService, IGetProductService getProductService, ProjectUnitWrapper item, IUnityContainer container) : base(container)
         {
             _unitOfWork = unitOfWork;
             _chooseService = chooseService;

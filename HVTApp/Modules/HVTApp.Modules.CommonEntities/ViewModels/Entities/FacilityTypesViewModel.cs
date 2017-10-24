@@ -10,7 +10,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class FacilityTypesViewModel : BaseListViewModel<FacilityTypeWrapper, FacilityTypeDetailsViewModel>
+    public class FacilityTypesViewModel : BaseListViewModel<FacilityTypeWrapper, FacilityType, FacilityTypeDetailsViewModel>
     {
         public FacilityTypesViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(container)
         {

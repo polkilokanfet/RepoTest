@@ -10,7 +10,7 @@ using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class CompanyFormsViewModel : BaseListViewModel<CompanyFormWrapper, CompanyFormDetailsViewModel>
+    public class CompanyFormsViewModel : BaseListViewModel<CompanyFormWrapper, CompanyForm, CompanyFormDetailsViewModel>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDialogService _dialogService;
@@ -26,7 +26,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
 
         #region CRUD Commands
 
-        //protected override void NewItemCommand_Execute()
+        //protected override void NewItemCommand_ExecuteAsync()
         //{
         //    CompanyForm companyForm = new CompanyForm();
         //    CompanyFormDetailsViewModel companyFormDetailsViewModel = new CompanyFormDetailsViewModel(new CompanyFormWrapper(companyForm));

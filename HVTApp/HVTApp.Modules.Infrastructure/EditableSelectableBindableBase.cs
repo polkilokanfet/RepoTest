@@ -8,8 +8,8 @@ namespace HVTApp.Modules.Infrastructure
     {
         protected EditableSelectableBindableBase()
         {
-            NewItemCommand = new DelegateCommand(NewItemCommand_Execute, NewItemCommand_CanExecute);
-            EditItemCommand = new DelegateCommand(EditItemCommand_Execute, EditItemCommand_CanExecute);
+            NewItemCommand = new DelegateCommand(NewItemCommand_ExecuteAsync, NewItemCommand_CanExecute);
+            EditItemCommand = new DelegateCommand(EditItemCommand_ExecuteAsync, EditItemCommand_CanExecute);
             RemoveItemCommand = new DelegateCommand(RemoveItemCommand_Execute, RemoveItemCommand_CanExecute);
         }
 
@@ -25,14 +25,14 @@ namespace HVTApp.Modules.Infrastructure
             return SelectedItem != null;
         }
 
-        protected abstract void EditItemCommand_Execute();
+        protected abstract void EditItemCommand_ExecuteAsync();
 
         protected virtual bool NewItemCommand_CanExecute()
         {
             return true;
         }
 
-        protected abstract void NewItemCommand_Execute();
+        protected abstract void NewItemCommand_ExecuteAsync();
 
         private T _selectedItem;
         public override T SelectedItem

@@ -11,7 +11,7 @@ using Prism.Commands;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class OfferDetailsWindowModel : BaseDetailsViewModel<OfferWrapper>
+    public class OfferDetailsWindowModel : BaseDetailsViewModel<OfferWrapper, Offer>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISelectService _selectService;

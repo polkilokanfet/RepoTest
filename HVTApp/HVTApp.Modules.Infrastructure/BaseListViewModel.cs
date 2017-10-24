@@ -5,9 +5,10 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Infrastructure
 {
-    public class BaseListViewModel<TWrapper, TDelailsViewModel> : EditableSelectableBindableBase<TWrapper>, IBaseListViewModel<TWrapper> 
-        where TWrapper : class, IWrapper<IBaseEntity>
-        where TDelailsViewModel : IDetailsViewModel<TWrapper> 
+    public class BaseListViewModel<TWrapper, TEntity, TDelailsViewModel> : EditableSelectableBindableBase<TWrapper>, IBaseListViewModel<TWrapper> 
+        where TEntity : class, IBaseEntity
+        where TWrapper : class, IWrapper<TEntity>
+        where TDelailsViewModel : IDetailsViewModel<TWrapper, TEntity> 
     {
         protected readonly IUnitOfWork UnitOfWork;
         protected readonly IUnityContainer Container;
@@ -20,37 +21,18 @@ namespace HVTApp.Modules.Infrastructure
             DialogService = Container.Resolve<IDialogService>();
         }
 
-        protected override void NewItemCommand_Execute()
+        protected override async void NewItemCommand_ExecuteAsync()
         {
-            //TWrapper item = _unitOfWork.GetWrapper<TWrapper>();
-            TWrapper item = default(TWrapper);
-
-            TDelailsViewModel delailsViewModel = Container.Resolve<TDelailsViewModel>(new ParameterOverride("item", item));
-            bool? dialogResult = DialogService.ShowDialog(delailsViewModel);
-            if (!dialogResult.HasValue || !dialogResult.Value) return;
-
-            UnitOfWork.AddItem(delailsViewModel.Item);
-            UnitOfWork.Complete();
-
-            Items.Add(delailsViewModel.Item);
-            SelectedItem = delailsViewModel.Item;
+            var viewModel = Container.Resolve<TDelailsViewModel>();
+            await viewModel.LoadAsync(SelectedItem.Model.Id);
+            DialogService.ShowDialog(viewModel);
         }
 
-        protected override void EditItemCommand_Execute()
+        protected override async void EditItemCommand_ExecuteAsync()
         {
-            TDelailsViewModel delailsViewModel = Container.Resolve<TDelailsViewModel>(new ParameterOverride("item", SelectedItem));
-
-            var dialogResult = DialogService.ShowDialog(delailsViewModel);
-            if (dialogResult.HasValue && dialogResult.Value)
-            {
-                SelectedItem.AcceptChanges();
-                UnitOfWork.Complete();
-            }
-            else
-            {
-                if (SelectedItem.IsChanged)
-                    SelectedItem.RejectChanges();
-            }
+            var viewModel = Container.Resolve<TDelailsViewModel>();
+            await viewModel.LoadAsync(SelectedItem.Model.Id);
+            DialogService.ShowDialog(viewModel);
         }
 
         protected override void RemoveItemCommand_Execute()

@@ -112,8 +112,6 @@
     <Compile Include="ViewModels\EntityDetails\ActivityFildDetailsViewModel.cs" />
     <Compile Include="ViewModels\Entities\CompaniesViewModel.cs" />
     <Compile Include="ViewModels\EntityDetails\CompanyDetailsViewModel.cs" />
-    <Compile Include="ViewModels\EntityDetails\ContractDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Entities\ContractsViewModel.cs" />
     <Compile Include="ViewModels\Entities\FacilitiesViewModel.cs" />
     <Compile Include="ViewModels\EntityDetails\FacilityDetailsViewModel.cs" />
     <Compile Include="ViewModels\EntityDetails\FacilityTypeDetailsViewModel.cs" />

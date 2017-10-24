@@ -113,9 +113,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ViewModels\EntityDetails\ContractDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Entities\ContractsViewModel.cs" />
-    <Compile Include="ViewModels\EntityDetails\ProductUnitsDetailsViewModel.cs" />
+    <Compile Include="ViewModels\EntityDetails\ProjectUnitsDetailsViewModel.cs" />
     <Compile Include="ViewModels\MarketViewModel.cs" />
     <Compile Include="ViewModels\EntityDetails\OfferDetailsWindowModel.cs" />
     <Compile Include="ViewModels\Entities\OffersViewModel.cs" />

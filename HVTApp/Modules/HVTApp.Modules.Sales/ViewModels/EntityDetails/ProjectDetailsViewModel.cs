@@ -12,7 +12,7 @@ using Prism.Commands;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class ProjectDetailsViewModel : BaseDetailsViewModel<ProjectWrapper>
+    public class ProjectDetailsViewModel : BaseDetailsViewModel<ProjectWrapper, Project>
     {
         private readonly IDialogService _dialogService;
         private readonly IUnityContainer _unityContainer;
@@ -48,7 +48,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         private void AddProjectUnitsCommand_Execute()
         {
             var projectUnit = new ProjectUnitWrapper(new ProjectUnit());
-            var viewModel = _unityContainer.Resolve<ProductUnitsDetailsViewModel>(new ParameterOverride("item", projectUnit));
+            var viewModel = _unityContainer.Resolve<ProjectUnitsDetailsViewModel>(new ParameterOverride("item", projectUnit));
             var dialogResult = _dialogService.ShowDialog(viewModel);
             if(dialogResult.HasValue && dialogResult.Value)
                 Item.ProjectUnits.Add(projectUnit);
@@ -57,7 +57,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         private void ChangeProjectUnitsCommand_Execute()
         {
             var projectUnit = Item.ProjectUnits.First(x => (x.Product.Equals(ProductGroup.Product) && x.Facility.Equals(ProductGroup.Facility)));
-            var viewModel = _unityContainer.Resolve<ProductUnitsDetailsViewModel>(new ParameterOverride("item", projectUnit));
+            var viewModel = _unityContainer.Resolve<ProjectUnitsDetailsViewModel>(new ParameterOverride("item", projectUnit));
             var dialogResult = _dialogService.ShowDialog(viewModel);
             if(dialogResult.HasValue && dialogResult.Value)
                 Item.ProjectUnits.Add(projectUnit);

@@ -11,7 +11,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class EquipmentsViewModel : BaseListViewModel<ProductWrapper, EquipmentDetailsViewModel>
+    public class EquipmentsViewModel : BaseListViewModel<ProductWrapper, Product, EquipmentDetailsViewModel>
     {
         public EquipmentsViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : 
             base(container)

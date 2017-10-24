@@ -12,8 +12,9 @@ using Prism.Commands;
 
 namespace HVTApp.Modules.Infrastructure
 {
-    public abstract class BaseDetailsViewModel<TWrapper> : IDetailsViewModel<TWrapper> 
-        where TWrapper : class, IWrapper<IBaseEntity>
+    public abstract class BaseDetailsViewModel<TWrapper, TEntity> : IDetailsViewModel<TWrapper, TEntity> 
+        where TEntity : class, IBaseEntity
+        where TWrapper : class, IWrapper<TEntity> 
     {
         protected readonly IUnityContainer Container;
         protected readonly IUnitOfWork UnitOfWork;
@@ -43,13 +44,14 @@ namespace HVTApp.Modules.Infrastructure
 
         public async Task LoadAsync()
         {
-            throw new NotImplementedException();
+            var entity = Activator.CreateInstance<TEntity>();
+            Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity);
         }
 
         public async Task LoadAsync(Guid id)
         {
-            var company = await UnitOfWork.GetEntityByIdAsync<Company>(id);
-            Item = new CompanyWrapper(company) as TWrapper;
+            var entity = await UnitOfWork.GetEntityByIdAsync<TEntity>(id);
+            Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity);
         }
 
 
@@ -61,6 +63,7 @@ namespace HVTApp.Modules.Infrastructure
 
         private void SaveCommand_Execute()
         {
+            UnitOfWork.Complete();
             CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
         }
 

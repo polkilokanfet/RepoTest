@@ -10,7 +10,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class ParametersViewModel : BaseListViewModel<ParameterWrapper, ParameterDetailsViewModel>
+    public class ParametersViewModel : BaseListViewModel<ParameterWrapper, Parameter, ParameterDetailsViewModel>
     {
         public ParametersViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(container)
         {

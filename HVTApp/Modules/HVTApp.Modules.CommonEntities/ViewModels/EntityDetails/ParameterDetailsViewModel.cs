@@ -5,7 +5,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class ParameterDetailsViewModel : BaseDetailsViewModel<ParameterWrapper>
+    public class ParameterDetailsViewModel : BaseDetailsViewModel<ParameterWrapper, Parameter>
     {
         public ParameterDetailsViewModel(IUnityContainer container) : base(container)
         {

@@ -16,7 +16,7 @@ using Prism.Events;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class CompaniesViewModel : BaseListViewModel<CompanyWrapper, CompanyDetailsViewModel>
+    public class CompaniesViewModel : BaseListViewModel<CompanyWrapper, Company, CompanyDetailsViewModel>
     {
         private readonly IGetProductService _getProductService;
         private readonly ICompanyLookupDataService _companyLookupDataService;
@@ -73,7 +73,7 @@ namespace HVTApp.Modules.CommonEntities.ViewModels
             return SelectedCompanyLookup != null;
         }
 
-        protected override async void EditItemCommand_Execute()
+        protected override async void EditItemCommand_ExecuteAsync()
         {
             var viewModel = Container.Resolve<CompanyDetailsViewModel>();
             await viewModel.LoadAsync(SelectedCompanyLookup.Id);

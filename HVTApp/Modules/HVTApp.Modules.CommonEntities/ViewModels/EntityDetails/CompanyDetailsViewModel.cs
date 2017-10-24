@@ -14,7 +14,7 @@ using Prism.Commands;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class CompanyDetailsViewModel : BaseDetailsViewModel<CompanyWrapper>
+    public class CompanyDetailsViewModel : BaseDetailsViewModel<CompanyWrapper, Company>
     {
         private readonly ISelectService _selectService;
         private ActivityFieldWrapper _selectedActivityField;

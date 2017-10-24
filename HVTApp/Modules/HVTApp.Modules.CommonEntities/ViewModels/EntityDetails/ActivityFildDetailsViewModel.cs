@@ -5,7 +5,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class ActivityFildDetailsViewModel : BaseDetailsViewModel<ActivityFieldWrapper>
+    public class ActivityFildDetailsViewModel : BaseDetailsViewModel<ActivityFieldWrapper, ActivityField>
     {
         public ActivityFildDetailsViewModel(IUnityContainer container) : base(container)
         {

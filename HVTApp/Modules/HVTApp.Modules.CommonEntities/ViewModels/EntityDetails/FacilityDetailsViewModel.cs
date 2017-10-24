@@ -5,7 +5,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class FacilityDetailsViewModel : BaseDetailsViewModel<FacilityWrapper>
+    public class FacilityDetailsViewModel : BaseDetailsViewModel<FacilityWrapper, Facility>
     {
         public FacilityDetailsViewModel(IUnityContainer container) : base(container)
         {

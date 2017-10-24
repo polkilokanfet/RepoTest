@@ -5,7 +5,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class TenderDetailsViewModel : BaseDetailsViewModel<TenderWrapper>
+    public class TenderDetailsViewModel : BaseDetailsViewModel<TenderWrapper, Tender>
     {
         public TenderDetailsViewModel(IUnityContainer container) : base(container)
         {

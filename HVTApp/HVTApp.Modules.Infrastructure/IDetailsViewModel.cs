@@ -6,8 +6,9 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 
 namespace HVTApp.Modules.Infrastructure
 {
-    public interface IDetailsViewModel<out TWrapper> : IDialogRequestClose
-        where TWrapper : IWrapper<IBaseEntity>
+    public interface IDetailsViewModel<out TWrapper, TEntity> : IDialogRequestClose
+        where TEntity : class, IBaseEntity
+        where TWrapper : class, IWrapper<TEntity>
     {
         TWrapper Item { get; }
         ICommand SaveCommand { get; }
