@@ -11,18 +11,20 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 
 namespace HVTApp.Modules.Infrastructure
 {
     public class BaseListViewModel<TLookupItem, TEntity, TDelailsViewModel> : BindableBase, ISelectViewModel<TLookupItem>, IBaseListViewModel<TLookupItem> 
         where TEntity : class, IBaseEntity
-        where TLookupItem : class, ILookupItem
+        where TLookupItem : class, ILookupItem, new() 
         where TDelailsViewModel : IDetailsViewModel<IWrapper<TEntity>, TEntity> 
     {
-        protected readonly IUnitOfWork UnitOfWork;
         protected readonly IUnityContainer Container;
+        protected readonly IUnitOfWork UnitOfWork;
         protected readonly ILookupDataService<TLookupItem> LookupDataService;
+        protected readonly IEventAggregator EventAggregator;
         protected readonly IDialogService DialogService;
 
         private TLookupItem _selectedItem;
@@ -33,6 +35,7 @@ namespace HVTApp.Modules.Infrastructure
             Container = container;
             LookupDataService = lookupDataService;
             UnitOfWork = Container.Resolve<IUnitOfWork>();
+            EventAggregator = Container.Resolve<IEventAggregator>();
             DialogService = Container.Resolve<IDialogService>();
 
             Items = new ObservableCollection<TLookupItem>();

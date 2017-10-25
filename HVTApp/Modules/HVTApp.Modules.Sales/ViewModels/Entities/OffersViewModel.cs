@@ -5,11 +5,10 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class OffersViewModel : BaseListViewModel<OfferLookup, Offer, OfferDetailsWindowModel>
+    public class OffersViewModel : BaseListViewModel<OfferLookup, Offer, OfferDetailsViewModel>
     {
         public OffersViewModel(IUnityContainer container, IOfferLookupDataDataService lookupDataDataService) : base(container, lookupDataDataService)
         {
-            
         }
     }
 }

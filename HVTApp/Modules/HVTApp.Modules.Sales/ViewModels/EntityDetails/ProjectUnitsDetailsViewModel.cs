@@ -4,13 +4,14 @@ using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Model.POCOs;
 using HVTApp.Wrapper;
 using HVTApp.Modules.Infrastructure;
+using HVTApp.Modules.Infrastructure.Events;
 using HVTApp.Services.GetProductService;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class ProjectUnitsDetailsViewModel : BaseDetailsViewModel<ProjectUnitWrapper, ProjectUnit>
+    public class ProjectUnitsDetailsViewModel : BaseDetailsViewModel<ProjectUnitWrapper, ProjectUnit, AfterSaveProjectUnitEvent>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IChooseService _chooseService;

@@ -6,9 +6,9 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class CompanyFormDetailsViewModel : BaseDetailsViewModel<CompanyFormWrapper, CompanyForm, AfterSaveCompanyFormEvent>
+    public class ProductDetailsViewModel : BaseDetailsViewModel<ProductWrapper, Product, AfterSaveProductEvent>
     {
-        public CompanyFormDetailsViewModel(IUnityContainer container) : base(container)
+        public ProductDetailsViewModel(IUnityContainer container) : base(container)
         {
         }
     }

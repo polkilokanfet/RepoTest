@@ -124,6 +124,7 @@
     <Compile Include="Lookup\Service\ITenderLookupDataService.cs" />
     <Compile Include="Lookup\Service\LookupDataService.cs" />
     <Compile Include="Lookup\Service\ProjectLookupDataService.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\Repositories\ActivityFieldsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\CompaniesRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\ContractsRepository.cs" />

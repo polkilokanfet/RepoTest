@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="BaseDetailsViewModel.cs" />
     <Compile Include="BaseListViewModel.cs" />
+    <Compile Include="Events\AfterSaveCompanyEvent.cs" />
     <Compile Include="IBaseListViewModel.cs" />
     <Compile Include="IDetailsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

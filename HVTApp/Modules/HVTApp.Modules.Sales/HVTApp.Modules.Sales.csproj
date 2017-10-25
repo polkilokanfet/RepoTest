@@ -115,7 +115,7 @@
     </Compile>
     <Compile Include="ViewModels\EntityDetails\ProjectUnitsDetailsViewModel.cs" />
     <Compile Include="ViewModels\MarketViewModel.cs" />
-    <Compile Include="ViewModels\EntityDetails\OfferDetailsWindowModel.cs" />
+    <Compile Include="ViewModels\EntityDetails\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Entities\OffersViewModel.cs" />
     <Compile Include="ViewModels\EntityDetails\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModels\Entities\ProjectsViewModel.cs" />

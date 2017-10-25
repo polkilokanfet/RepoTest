@@ -6,13 +6,14 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
 using HVTApp.Wrapper;
 using HVTApp.Modules.Infrastructure;
+using HVTApp.Modules.Infrastructure.Events;
 using HVTApp.Modules.Sales.Converter;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class ProjectDetailsViewModel : BaseDetailsViewModel<ProjectWrapper, Project>
+    public class ProjectDetailsViewModel : BaseDetailsViewModel<ProjectWrapper, Project, AfterSaveProjectEvent>
     {
         private readonly IDialogService _dialogService;
         private readonly IUnityContainer _unityContainer;

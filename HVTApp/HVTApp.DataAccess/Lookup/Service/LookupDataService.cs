@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.DataAccess.Lookup
 {
-    public abstract class LookupDataService<T> : ILookupDataService<T>
+    public abstract class LookupDataService<TLookup, TEntity> : ILookupDataService<TLookup> 
+        where TEntity : class, IBaseEntity
+        where TLookup : class, ILookupItem, new()
     {
         protected readonly Func<HvtAppContext> ContextCreator;
 
@@ -13,6 +18,18 @@ namespace HVTApp.DataAccess.Lookup
             ContextCreator = contextCreator;
         }
 
-        public abstract Task<IEnumerable<T>> GetAllLookupsAsync();
+        public virtual async Task<IEnumerable<TLookup>> GetAllLookupsAsync()
+        {
+            using (var ctx = ContextCreator())
+            {
+                var entities = await ctx.Set<TEntity>().AsNoTracking().ToListAsync();
+                var lookups = new List<TLookup>();
+                foreach (var entity in entities)
+                {
+                    lookups.Add(new TLookup {Id = entity.Id, DisplayMember = entity.ToString()});
+                }
+                return lookups;
+            }
+        }
     }
 }

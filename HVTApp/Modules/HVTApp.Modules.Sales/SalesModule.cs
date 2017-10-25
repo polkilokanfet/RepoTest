@@ -29,7 +29,7 @@ namespace HVTApp.Modules.Sales
             Container.RegisterViewForNavigation<ContractsView>();
 
             _dialogService.Register<ProjectDetailsViewModel, ProjectDetailsWindow>();
-            _dialogService.Register<OfferDetailsWindowModel, OfferDetailsWindow>();
+            _dialogService.Register<OfferDetailsViewModel, OfferDetailsWindow>();
             _dialogService.Register<ProjectUnitsDetailsViewModel, ProductUnitsDetailsWindow>();
         }
 

@@ -6,12 +6,13 @@ using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.Wrapper;
 using HVTApp.Modules.Infrastructure;
+using HVTApp.Modules.Infrastructure.Events;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class OfferDetailsWindowModel : BaseDetailsViewModel<OfferWrapper, Offer>
+    public class OfferDetailsViewModel : BaseDetailsViewModel<OfferWrapper, Offer, AfterSaveOfferEvent>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISelectService _selectService;
@@ -21,7 +22,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         public ICommand AddTenderCommand { get; }
         public ICommand RemoveTenderCommand { get; }
 
-        public OfferDetailsWindowModel(OfferWrapper item, IUnitOfWork unitOfWork, ISelectService selectService, IUnityContainer container) : base(container)
+        public OfferDetailsViewModel(OfferWrapper item, IUnitOfWork unitOfWork, ISelectService selectService, IUnityContainer container) : base(container)
         {
             _unitOfWork = unitOfWork;
             _selectService = selectService;

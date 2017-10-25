@@ -9,21 +9,26 @@ using HVTApp.Model.POCOs;
 using HVTApp.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Events;
 
 namespace HVTApp.Modules.Infrastructure
 {
-    public abstract class BaseDetailsViewModel<TWrapper, TEntity> : IDetailsViewModel<TWrapper, TEntity> 
+    public abstract class BaseDetailsViewModel<TWrapper, TEntity, TAfterSaveEntityEvent> : IDetailsViewModel<TWrapper, TEntity> 
         where TEntity : class, IBaseEntity
-        where TWrapper : class, IWrapper<TEntity> 
+        where TWrapper : class, IWrapper<TEntity>
+        where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
     {
         protected readonly IUnityContainer Container;
         protected readonly IUnitOfWork UnitOfWork;
+        protected readonly IEventAggregator EventAggregator;
+
         private TWrapper _item;
 
         protected BaseDetailsViewModel(IUnityContainer container)
         {
             Container = container;
             UnitOfWork = Container.Resolve<IUnitOfWork>();
+            EventAggregator = Container.Resolve<IEventAggregator>();
 
             SaveCommand = new DelegateCommand(SaveCommand_Execute, SaveCommand_CanExecute);
         }
@@ -61,13 +66,14 @@ namespace HVTApp.Modules.Infrastructure
 
         public ICommand SaveCommand { get; }
 
-        private void SaveCommand_Execute()
+        protected virtual void SaveCommand_Execute()
         {
             UnitOfWork.Complete();
             CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
+            EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
         }
 
-        private bool SaveCommand_CanExecute()
+        protected virtual bool SaveCommand_CanExecute()
         {
             return Item.IsChanged && Item.IsValid;
         }
