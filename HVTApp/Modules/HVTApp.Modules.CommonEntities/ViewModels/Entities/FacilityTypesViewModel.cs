@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using HVTApp.DataAccess;
 using HVTApp.DataAccess.Infrastructure;
+using HVTApp.DataAccess.Lookup;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
 using HVTApp.Wrapper;
@@ -10,11 +11,10 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.CommonEntities.ViewModels
 {
-    public class FacilityTypesViewModel : BaseListViewModel<FacilityTypeWrapper, FacilityType, FacilityTypeDetailsViewModel>
+    public class FacilityTypesViewModel : BaseListViewModel<FacilityTypeLookup, FacilityType, FacilityTypeDetailsViewModel>
     {
-        public FacilityTypesViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(container)
+        public FacilityTypesViewModel(IUnityContainer container, IFacilityTypeLookupDataDataService lookupDataDataService) : base(container, lookupDataDataService)
         {
-            unitOfWork.FacilityTypes.GetAll().Select(x => new FacilityTypeWrapper(x)).ForEach(Items.Add);
         }
     }
 }

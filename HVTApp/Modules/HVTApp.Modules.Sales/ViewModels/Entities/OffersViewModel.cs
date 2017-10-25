@@ -1,16 +1,13 @@
-﻿using HVTApp.DataAccess;
-using HVTApp.DataAccess.Infrastructure;
-using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+﻿using HVTApp.DataAccess.Lookup;
 using HVTApp.Model.POCOs;
-using HVTApp.Wrapper;
 using HVTApp.Modules.Infrastructure;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class OffersViewModel : BaseListViewModel<OfferWrapper, Offer, OfferDetailsWindowModel>
+    public class OffersViewModel : BaseListViewModel<OfferLookup, Offer, OfferDetailsWindowModel>
     {
-        public OffersViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(container)
+        public OffersViewModel(IUnityContainer container, IOfferLookupDataDataService lookupDataDataService) : base(container, lookupDataDataService)
         {
             
         }

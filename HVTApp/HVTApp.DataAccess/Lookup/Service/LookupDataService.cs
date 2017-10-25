@@ -1,46 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HVTApp.DataAccess.Lookup
 {
-    public class LookupDataService : IProjectLookupDataService, ICompanyLookupDataService
+    public abstract class LookupDataService<T> : ILookupDataService<T>
     {
-        private readonly Func<HvtAppContext> _contextCreator;
+        protected readonly Func<HvtAppContext> ContextCreator;
 
-        public LookupDataService(Func<HvtAppContext> contextCreator)
+        protected LookupDataService(Func<HvtAppContext> contextCreator)
         {
-            _contextCreator = contextCreator;
+            ContextCreator = contextCreator;
         }
 
-        public async Task<IEnumerable<ProjectLookup>> GetProjectLookupsAsync()
-        {
-            using (var ctx = _contextCreator())
-            {
-                return await ctx.Projects.AsNoTracking().Select(x => new ProjectLookup()
-                {
-                    Id = x.Id,
-                    DisplayMember = x.Name
-                }).ToListAsync();
-            }
-        }
-
-        public async Task<IEnumerable<CompanyLookup>> GetCompanyLookupsAsync()
-        {
-            using (var ctx = _contextCreator())
-            {
-                var companies = await ctx.Companies.AsNoTracking().Include(x => x.ParentCompany).ToListAsync();
-                var lookups = companies.Select(x => new CompanyLookup {Id = x.Id, DisplayMember = x.FullName}).ToList();
-                foreach (var companyLookup in lookups)
-                {
-                    var childCompanies = companies.Where(x => x.ParentCompany != null && x.ParentCompany.Id == companyLookup.Id).ToList();
-                    companyLookup.ChildCompanies = childCompanies.Select(x => lookups.Single(l => l.Id == x.Id));
-                    companyLookup.ChildCompanies.ToList().ForEach(x => x.ParentCompany = companyLookup);
-                }
-                return lookups;
-            }
-        }
+        public abstract Task<IEnumerable<T>> GetAllLookupsAsync();
     }
 }

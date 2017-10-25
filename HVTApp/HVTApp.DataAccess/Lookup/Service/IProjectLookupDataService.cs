@@ -1,10 +1,6 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace HVTApp.DataAccess.Lookup
 {
-    public interface IProjectLookupDataService
+    public interface IProjectLookupDataService : ILookupDataService<ProjectLookup>
     {
-        Task<IEnumerable<ProjectLookup>> GetProjectLookupsAsync();
     }
 }

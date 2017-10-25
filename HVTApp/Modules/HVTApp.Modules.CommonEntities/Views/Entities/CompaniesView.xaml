@@ -14,8 +14,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <infg:XamDataGrid DataSource="{Binding CompanyLookups}" 
-                      SelectedDataItem="{Binding SelectedCompanyLookup}">
+    <infg:XamDataGrid>
 
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout Key="Company">

@@ -121,7 +121,7 @@
     <Compile Include="ViewModels\Entities\ParametersGroupsViewModel.cs" />
     <Compile Include="ViewModels\Entities\ParametersViewModel.cs" />
     <Compile Include="ViewModels\EntityDetails\EquipmentDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Entities\EquipmentsViewModel.cs" />
+    <Compile Include="ViewModels\Entities\ProductsViewModel.cs" />
     <Compile Include="Views\Entities\ActivityFildsView.xaml.cs">
       <DependentUpon>ActivityFildsView.xaml</DependentUpon>
     </Compile>

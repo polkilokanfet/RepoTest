@@ -1,20 +1,14 @@
-﻿using System.Linq;
-using HVTApp.DataAccess;
-using HVTApp.DataAccess.Infrastructure;
-using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+﻿using HVTApp.DataAccess.Lookup;
 using HVTApp.Model.POCOs;
-using HVTApp.Wrapper;
 using HVTApp.Modules.Infrastructure;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class TendersViewModel : BaseListViewModel<TenderWrapper, Tender, TenderDetailsViewModel>
+    public class TendersViewModel : BaseListViewModel<TenderLookup, Tender, TenderDetailsViewModel>
     {
-        public TendersViewModel(IUnitOfWork unitOfWork, IUnityContainer container, IDialogService dialogService) : base(container)
+        public TendersViewModel(IUnityContainer container, ITenderLookupDataService lookupData) : base(container, lookupData)
         {
-            unitOfWork.Tenders.GetAll().Select(x => new TenderWrapper(x)).ForEach(Items.Add);
         }
     }
 }

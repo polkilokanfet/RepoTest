@@ -1,10 +1,6 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace HVTApp.DataAccess.Lookup
 {
-    public interface ICompanyLookupDataService
+    public interface ICompanyLookupDataService : ILookupDataService<CompanyLookup>
     {
-        Task<IEnumerable<CompanyLookup>> GetCompanyLookupsAsync();
     }
 }
