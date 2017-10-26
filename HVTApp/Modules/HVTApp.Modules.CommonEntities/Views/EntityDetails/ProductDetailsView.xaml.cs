@@ -1,7 +1,6 @@
-﻿using System.Windows.Controls;
-using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+﻿using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 
-namespace HVTApp.Modules.CommonEntities.Views
+namespace HVTApp.UI.Views
 {
     public partial class ProductDetailsView : IDialog
     {

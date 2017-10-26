@@ -205,10 +205,6 @@
       <Project>{350BDAB0-B331-426F-A024-004C8539AF17}</Project>
       <Name>HVTApp.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HVTApp.Modules.Infrastructure\HVTApp.Modules.Infrastructure.csproj">
-      <Project>{62088575-8283-4BE9-ACC7-80DFC2FAB7A0}</Project>
-      <Name>HVTApp.Modules.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Modules.Production\HVTApp.Modules.Production.csproj">
       <Project>{b2c2c516-5bc8-4a41-9885-68bb4c91605b}</Project>
       <Name>HVTApp.Modules.Production</Name>
@@ -237,9 +233,9 @@
       <Project>{4a26fa25-1ae4-4808-b789-c7ed92086aed}</Project>
       <Name>HVTApp.Wrapper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Modules\HVTApp.Modules.CommonEntities\HVTApp.Modules.CommonEntities.csproj">
+    <ProjectReference Include="..\Modules\HVTApp.Modules.CommonEntities\HVTApp.UI.csproj">
       <Project>{984df0f0-471d-4e38-b701-9dfc536217a8}</Project>
-      <Name>HVTApp.Modules.CommonEntities</Name>
+      <Name>HVTApp.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\HVTApp.Modules.Sales\HVTApp.Modules.Sales.csproj">
       <Project>{ab8b448c-dd74-4d60-a041-3e5d03a32180}</Project>

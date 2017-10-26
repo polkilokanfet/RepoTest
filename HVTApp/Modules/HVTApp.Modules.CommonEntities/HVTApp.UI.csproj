@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{984DF0F0-471D-4E38-B701-9DFC536217A8}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HVTApp.UI</RootNamespace>
+    <AssemblyName>HVTApp.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="InfragisticsWPF4.Controls.Menus.XamDataTree.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Controls.Menus.XamMenu.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Controls.Schedules.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.DataPresenter.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Editors.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.OutlookBar.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Ribbon.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Prism, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Prism.Core.6.2.0\lib\net45\Prism.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Prism.Wpf, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Prism.Wpf.6.2.0\lib\net45\Prism.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Prism.Wpf.6.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseView\BaseDetailsViewModel.cs" />
+    <Compile Include="BaseView\BaseListViewModel.cs" />
+    <Compile Include="BaseView\IBaseListViewModel.cs" />
+    <Compile Include="BaseView\IDetailsViewModel.cs" />
+    <Compile Include="CommonEntitiesModule.cs" />
+    <Compile Include="Converter\ProductUnitsGroup.cs" />
+    <Compile Include="Converter\ProductUnitsToFacilitiesNamesConverter.cs" />
+    <Compile Include="Converter\ProductUnitsToProductGroupsConverter.cs" />
+    <Compile Include="Events\AfterSaveCompanyEvent.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="TabCRUD.xaml.cs">
+      <DependentUpon>TabCRUD.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\EntityDetails\OfferDetailsViewModel.cs" />
+    <Compile Include="ViewModels\EntityDetails\ProjectDetailsViewModel.cs" />
+    <Compile Include="ViewModels\EntityDetails\ProjectUnitsDetailsViewModel.cs" />
+    <Compile Include="ViewModels\EntityDetails\TenderDetailsViewModel.cs" />
+    <Compile Include="Views\Entities\ContractsView.xaml.cs">
+      <DependentUpon>ContractsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Entities\OffersView.xaml.cs">
+      <DependentUpon>OffersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Entities\OffersViewModel.cs" />
+    <Compile Include="Views\Entities\PaymentsView.xaml.cs">
+      <DependentUpon>PaymentsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Entities\ProjectsView.xaml.cs">
+      <DependentUpon>ProjectsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Entities\ProjectsViewModel.cs" />
+    <Compile Include="Views\Entities\TendersView.xaml.cs">
+      <DependentUpon>TendersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Entities\TendersViewModel.cs" />
+    <Compile Include="ViewModels\EntityDetails\ActivityFieldDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Entities\CompaniesViewModel.cs" />
+    <Compile Include="ViewModels\EntityDetails\CompanyDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Entities\FacilitiesViewModel.cs" />
+    <Compile Include="ViewModels\EntityDetails\FacilityDetailsViewModel.cs" />
+    <Compile Include="ViewModels\EntityDetails\FacilityTypeDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Entities\FacilityTypesViewModel.cs" />
+    <Compile Include="Views\EntityDetails\OfferDetailsWindow.xaml.cs">
+      <DependentUpon>OfferDetailsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\EntityDetails\ParameterDetailsViewModel.cs" />
+    <Compile Include="ViewModels\EntityDetails\ParametersGroupDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Entities\ParametersGroupsViewModel.cs" />
+    <Compile Include="ViewModels\Entities\ParametersViewModel.cs" />
+    <Compile Include="ViewModels\EntityDetails\ProductDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Entities\ProductsViewModel.cs" />
+    <Compile Include="Views\EntityDetails\ProductUnitsDetailsWindow.xaml.cs">
+      <DependentUpon>ProductUnitsDetailsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EntityDetails\ProjectDetailsWindow.xaml.cs">
+      <DependentUpon>ProjectDetailsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Entities\ActivityFildsView.xaml.cs">
+      <DependentUpon>ActivityFildsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EntityDetails\CompanyDetailsWindow.xaml.cs">
+      <DependentUpon>CompanyDetailsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\EntityDetails\CompanyFormDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Entities\CompanyFormsViewModel.cs" />
+    <Compile Include="ViewModels\Entities\CompanyViewModel.cs" />
+    <Compile Include="Views\Entities\CompaniesView.xaml.cs">
+      <DependentUpon>CompaniesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EntityDetails\CompanyFormDetailsView.xaml.cs">
+      <DependentUpon>CompanyFormDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Entities\CompanyFormsView.xaml.cs">
+      <DependentUpon>CompanyFormsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Entities\CompanyView.xaml.cs">
+      <DependentUpon>CompanyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Entities\FacilitiesView.xaml.cs">
+      <DependentUpon>FacilitiesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Entities\FacilityTypesView.xaml.cs">
+      <DependentUpon>FacilityTypesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Entities\ParametersGroupsView.xaml.cs">
+      <DependentUpon>ParametersGroupsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Entities\ParametersView.xaml.cs">
+      <DependentUpon>ParametersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EntityDetails\ProductDetailsView.xaml.cs">
+      <DependentUpon>ProductDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Entities\ProductsView.xaml.cs">
+      <DependentUpon>ProductsView.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\HVTApp.DataAccess.Infrastructure\HVTApp.DataAccess.Infrastructure.csproj">
+      <Project>{8ED995B6-B4A2-4B85-9057-69CACF5BBD51}</Project>
+      <Name>HVTApp.DataAccess.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\HVTApp.DataAccess\HVTApp.DataAccess.csproj">
+      <Project>{9cf80c25-c04b-46b3-8eb7-f45bc42d4ba2}</Project>
+      <Name>HVTApp.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
+      <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
+      <Name>HVTApp.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\HVTApp.Model\HVTApp.Model.csproj">
+      <Project>{350bdab0-b331-426f-a024-004c8539af17}</Project>
+      <Name>HVTApp.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\HVTApp.Services.ChooseProductService\HVTApp.Services.GetProductService.csproj">
+      <Project>{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}</Project>
+      <Name>HVTApp.Services.GetProductService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\HVTApp.Wrapper\HVTApp.Wrapper.csproj">
+      <Project>{4a26fa25-1ae4-4808-b789-c7ed92086aed}</Project>
+      <Name>HVTApp.Wrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TestUserControl\MyUserControls.csproj">
+      <Project>{95b60d78-bf46-4667-b474-95f911bb4a09}</Project>
+      <Name>MyUserControls</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="TabCRUD.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Entities\ContractsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Entities\OffersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Entities\PaymentsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Entities\ProjectsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Entities\TendersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EntityDetails\OfferDetailsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EntityDetails\ProductUnitsDetailsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EntityDetails\ProjectDetailsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Entities\ActivityFildsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EntityDetails\CompanyDetailsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Entities\CompaniesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EntityDetails\CompanyFormDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Entities\CompanyFormsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Entities\CompanyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Entities\FacilitiesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Entities\FacilityTypesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Entities\ParametersGroupsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Entities\ParametersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EntityDetails\ProductDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Entities\ProductsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

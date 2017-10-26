@@ -1,16 +1,12 @@
-﻿using System.Linq;
-using HVTApp.DataAccess;
-using HVTApp.DataAccess.Infrastructure;
-using HVTApp.DataAccess.Lookup;
-using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+﻿using HVTApp.DataAccess.Lookup;
 using HVTApp.Model.POCOs;
-using HVTApp.Wrapper;
+using HVTApp.UI.ViewModels;
 using HVTApp.Modules.Infrastructure;
-using HVTApp.Modules.Infrastructure.Events;
-using Microsoft.Practices.ObjectBuilder2;
+using HVTApp.UI.BaseView;
+using HVTApp.UI.Events;
 using Microsoft.Practices.Unity;
 
-namespace HVTApp.Modules.CommonEntities.ViewModels
+namespace HVTApp.UI.ViewModels
 {
     public class FacilityTypesViewModel : BaseListViewModel<FacilityTypeLookup, FacilityType, FacilityTypeDetailsViewModel, AfterSaveFacilityTypeEvent>
     {

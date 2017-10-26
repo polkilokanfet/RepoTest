@@ -4,7 +4,7 @@
              xmlns:prism="http://prismlibrary.com/"             
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns:infg="http://infragistics.com/DataPresenter" 
-             x:Class="HVTApp.Modules.CommonEntities.Views.CompanyFormsView"             
+             x:Class="HVTApp.UI.Views.CompanyFormsView"             
              prism:ViewModelLocator.AutoWireViewModel="True">
 
     <infg:XamDataGrid>

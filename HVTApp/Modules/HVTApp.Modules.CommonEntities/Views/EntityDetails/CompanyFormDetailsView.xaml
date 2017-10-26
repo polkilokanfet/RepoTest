@@ -1,4 +1,4 @@
-﻿<Window x:Class="HVTApp.Modules.CommonEntities.Views.CompanyFormDetailsView"
+﻿<Window x:Class="HVTApp.UI.Views.CompanyFormDetailsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              SizeToContent="WidthAndHeight" 

@@ -1,8 +1,6 @@
-﻿using System.Windows.Controls;
-using HVTApp.Infrastructure.Interfaces.Services;
-using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+﻿using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 
-namespace HVTApp.Modules.CommonEntities.Views
+namespace HVTApp.UI.Views
 {
     /// <summary>
     /// Interaction logic for CompanyFormDetailsView

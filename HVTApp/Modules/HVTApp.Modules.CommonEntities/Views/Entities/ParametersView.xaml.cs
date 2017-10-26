@@ -3,7 +3,7 @@ using HVTApp.Modules.Infrastructure;
 using Prism.Events;
 using Prism.Regions;
 
-namespace HVTApp.Modules.CommonEntities.Views
+namespace HVTApp.UI.Views
 {
     [RibbonTab(typeof(TabCRUD))]
     public partial class ParametersView 

@@ -1,14 +1,12 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using System.Collections.Generic;
-using HVTApp.DataAccess;
+﻿using System.Collections.Generic;
 using HVTApp.DataAccess.Infrastructure;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Wrapper;
+using Prism.Commands;
+using Prism.Mvvm;
 using Prism.Regions;
 
-namespace HVTApp.Modules.CommonEntities.ViewModels
+namespace HVTApp.UI.ViewModels
 {
     public class CompanyViewModel : BindableBase, INavigationAware
     {

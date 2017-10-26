@@ -1,13 +1,23 @@
-﻿using Prism.Regions;
-using HVTApp.Infrastructure;
+﻿using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.CommonEntities.Menus;
-using HVTApp.Modules.CommonEntities.ViewModels;
-using HVTApp.Modules.CommonEntities.Views;
+using HVTApp.UI.ViewModels;
+using HVTApp.UI.Views;
 using Microsoft.Practices.Unity;
+using Prism.Regions;
+using ActivityFildsView = HVTApp.UI.Views.ActivityFildsView;
+using CompaniesView = HVTApp.UI.Views.CompaniesView;
+using CompanyDetailsWindow = HVTApp.UI.Views.CompanyDetailsWindow;
+using CompanyFormDetailsView = HVTApp.UI.Views.CompanyFormDetailsView;
+using CompanyFormsView = HVTApp.UI.Views.CompanyFormsView;
+using FacilitiesView = HVTApp.UI.Views.FacilitiesView;
+using FacilityTypesView = HVTApp.UI.Views.FacilityTypesView;
+using ParametersGroupsView = HVTApp.UI.Views.ParametersGroupsView;
+using ParametersView = HVTApp.UI.Views.ParametersView;
+using ProductsView = HVTApp.UI.Views.ProductsView;
 
-namespace HVTApp.Modules.CommonEntities
+namespace HVTApp.UI
 {
     public class CommonEntitiesModule : ModuleBase
     {

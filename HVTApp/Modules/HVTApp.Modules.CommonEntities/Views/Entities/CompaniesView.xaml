@@ -4,7 +4,7 @@
              xmlns:prism="http://prismlibrary.com/"             
              xmlns:infg="http://infragistics.com/DataPresenter"
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             x:Class="HVTApp.Modules.CommonEntities.Views.CompaniesView"             
+             x:Class="HVTApp.UI.Views.CompaniesView"             
              prism:ViewModelLocator.AutoWireViewModel="True"             
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
 

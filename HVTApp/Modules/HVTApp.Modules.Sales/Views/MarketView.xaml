@@ -5,6 +5,7 @@
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns:infg="http://infragistics.com/DataPresenter"
              xmlns:views="clr-namespace:HVTApp.Modules.Sales.Views"
+             xmlns:views1="clr-namespace:HVTApp.Modules.Sales.Views;assembly=HVTApp.UI"
              x:Class="HVTApp.Modules.Sales.Views.MarketView"
              prism:ViewModelLocator.AutoWireViewModel="True">
 
@@ -14,7 +15,6 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <views:ProjectsView Grid.Row="0" Projects="{Binding Projects}"></views:ProjectsView>
 
         <!--<infg:XamDataGrid Grid.Row="0">
 

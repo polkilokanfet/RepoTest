@@ -1,10 +1,7 @@
 ﻿using System.Windows.Controls;
 
-namespace HVTApp.Modules.CommonEntities.Views
+namespace HVTApp.UI.Views
 {
-    /// <summary>
-    /// Interaction logic for CompanyView
-    /// </summary>
     public partial class CompanyView : UserControl
     {
         public CompanyView()

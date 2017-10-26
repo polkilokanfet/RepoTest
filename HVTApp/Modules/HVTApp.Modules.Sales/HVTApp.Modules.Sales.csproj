@@ -89,9 +89,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converter\ProductUnitsGroup.cs" />
-    <Compile Include="Converter\ProductUnitsToFacilitiesNamesConverter.cs" />
-    <Compile Include="Converter\ProductUnitsToProductGroupsConverter.cs" />
     <Compile Include="Menus\SalesMenu.xaml.cs">
       <DependentUpon>SalesMenu.xaml</DependentUpon>
     </Compile>
@@ -113,40 +110,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ViewModels\EntityDetails\ProjectUnitsDetailsViewModel.cs" />
     <Compile Include="ViewModels\MarketViewModel.cs" />
-    <Compile Include="ViewModels\EntityDetails\OfferDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Entities\OffersViewModel.cs" />
-    <Compile Include="ViewModels\EntityDetails\ProjectDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Entities\ProjectsViewModel.cs" />
-    <Compile Include="ViewModels\EntityDetails\TenderDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Entities\TendersViewModel.cs" />
-    <Compile Include="Views\Entities\ContractsView.xaml.cs">
-      <DependentUpon>ContractsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\EntityDetails\ProductUnitsDetailsWindow.xaml.cs">
-      <DependentUpon>ProductUnitsDetailsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\EntityDetails\ProjectDetailsWindow.xaml.cs">
-      <DependentUpon>ProjectDetailsWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\EntityDetails\OfferDetailsWindow.xaml.cs">
-      <DependentUpon>OfferDetailsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Entities\OffersView.xaml.cs">
-      <DependentUpon>OffersView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Entities\PaymentsView.xaml.cs">
-      <DependentUpon>PaymentsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Entities\ProjectsView.xaml.cs">
-      <DependentUpon>ProjectsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Entities\TendersView.xaml.cs">
-      <DependentUpon>TendersView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -184,10 +150,6 @@
       <Project>{350bdab0-b331-426f-a024-004c8539af17}</Project>
       <Name>HVTApp.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\HVTApp.Modules.Infrastructure\HVTApp.Modules.Infrastructure.csproj">
-      <Project>{62088575-8283-4be9-acc7-80dfc2fab7a0}</Project>
-      <Name>HVTApp.Modules.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\HVTApp.Services.ChooseProductService\HVTApp.Services.GetProductService.csproj">
       <Project>{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}</Project>
       <Name>HVTApp.Services.GetProductService</Name>
@@ -200,6 +162,10 @@
       <Project>{95b60d78-bf46-4667-b474-95f911bb4a09}</Project>
       <Name>MyUserControls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Modules.CommonEntities\HVTApp.UI.csproj">
+      <Project>{984df0f0-471d-4e38-b701-9dfc536217a8}</Project>
+      <Name>HVTApp.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Menus\SalesMenu.xaml">
@@ -210,47 +176,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Entities\ContractsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\EntityDetails\ProductUnitsDetailsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\EntityDetails\ProjectDetailsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\MarketView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\EntityDetails\OfferDetailsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Entities\OffersView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Entities\PaymentsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Entities\ProjectsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Entities\TendersView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\coins16.png" />
     <Resource Include="Images\coins32.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
