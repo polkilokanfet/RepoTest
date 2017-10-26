@@ -20,6 +20,7 @@
             <infg:FieldLayout Key="Company">
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="DisplayMember" Label="Полное наименование"/>
+                    <infg:TextField Name="CompanyForm" Label="Организационная форма"/>
                     <!--<infg:TextField Name="ParentCompany.DisplayMember" Label="Полное наименование"/>-->
                     <!--<infg:TextField Name="FullName" Label="Полное наименование"/>
                     <infg:TextField Name="ShortName" Label="Сокращенное наименование"/>

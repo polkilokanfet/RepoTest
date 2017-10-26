@@ -1,29 +1,37 @@
 using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
 using HVTApp.DataAccess;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Lookup
 {
-    public partial class CompanyLookupDataService : LookupDataService<CompanyLookup, Company>, ICompanyLookupDataService
+    public partial class CompanyLookupDataService
     {
         public CompanyLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator)
         {
         }
 
-        //public override async Task<IEnumerable<CompanyLookup>> GetAllLookupsAsync()
-        //{
-        //    using (var ctx = ContextCreator())
-        //    {
-        //        var companies = await ctx.Companies.AsNoTracking().Include(x => x.ParentCompany).ToListAsync();
-        //        var lookups = companies.Select(x => new CompanyLookup { Id = x.Id, DisplayMember = x.FullName }).ToList();
-        //        foreach (var companyLookup in lookups)
-        //        {
-        //            var childCompanies = companies.Where(x => x.ParentCompany != null && x.ParentCompany.Id == companyLookup.Id).ToList();
-        //            companyLookup.ChildCompanies = childCompanies.Select(x => lookups.Single(l => l.Id == x.Id));
-        //            companyLookup.ChildCompanies.ToList().ForEach(x => x.ParentCompany = companyLookup);
-        //        }
-        //        return lookups;
-        //    }
-        //}
+        public override async Task<IEnumerable<CompanyLookup>> GetAllLookupsAsync()
+        {
+            var lookups = new List<CompanyLookup>();
+            using (var ctx = ContextCreator())
+            {
+                var companies = await ctx.Companies.AsNoTracking().Include(x => x.ParentCompany).Include(x => x.Form).ToListAsync();
+                foreach (var company in companies)
+                {
+                    var lookup = new CompanyLookup()
+                    {
+                        Id = company.Id,
+                        DisplayMember = GenerateDisplayMember(company),
+                        CompanyForm = new CompanyFormLookup() { Id = company.Form.Id, DisplayMember = company.Form.FullName }
+                    };
+                    lookups.Add(lookup);
+                }
+                return lookups;
+            }
+        }
     }
 }

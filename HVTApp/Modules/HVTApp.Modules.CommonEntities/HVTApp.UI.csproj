@@ -421,9 +421,6 @@
     <Compile Include="Views\Entities\CompanyFormsView.xaml.cs">
       <DependentUpon>CompanyFormsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Entities\CompanyView.xaml.cs">
-      <DependentUpon>CompanyView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Entities\FacilitiesView.xaml.cs">
       <DependentUpon>FacilitiesView.xaml</DependentUpon>
     </Compile>
@@ -638,10 +635,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Entities\CompanyFormsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Entities\CompanyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

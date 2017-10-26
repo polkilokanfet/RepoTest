@@ -26,10 +26,15 @@ namespace HVTApp.UI.Lookup
                 var lookups = new List<TLookup>();
                 foreach (var entity in entities)
                 {
-                    lookups.Add(new TLookup {Id = entity.Id, DisplayMember = entity.ToString()});
+                    lookups.Add(new TLookup {Id = entity.Id, DisplayMember = GenerateDisplayMember(entity)});
                 }
                 return lookups;
             }
+        }
+
+        public virtual string GenerateDisplayMember(TEntity entity)
+        {
+            return entity.ToString();
         }
     }
 }

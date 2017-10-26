@@ -21,6 +21,11 @@ namespace HVTApp.UI.Lookup
             }
         }
 
+        public override string ToString()
+        {
+            return DisplayMember;
+        }
+
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 

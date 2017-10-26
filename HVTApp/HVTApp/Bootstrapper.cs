@@ -58,6 +58,7 @@ namespace HVTApp
 
             Container.RegisterType<IProjectLookupDataService, ProjectLookupDataService>();
             Container.RegisterType<ICompanyLookupDataService, CompanyLookupDataService>();
+            Container.RegisterType<ICompanyFormLookupDataService, CompanyFormLookupDataService>();
 
             ISelectService selectService = Container.Resolve<ISelectService>();
             selectService.Register<CompaniesViewModel, CompaniesView, CompanyLookup>();
