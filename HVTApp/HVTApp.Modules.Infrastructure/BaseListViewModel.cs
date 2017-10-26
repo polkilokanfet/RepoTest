@@ -16,10 +16,12 @@ using Prism.Mvvm;
 
 namespace HVTApp.Modules.Infrastructure
 {
-    public class BaseListViewModel<TLookupItem, TEntity, TDelailsViewModel> : BindableBase, ISelectViewModel<TLookupItem>, IBaseListViewModel<TLookupItem> 
+    public class BaseListViewModel<TLookupItem, TEntity, TDelailsViewModel, TAfterSaveEntityEvent> : 
+        BindableBase, ISelectViewModel<TLookupItem>, IBaseListViewModel<TLookupItem> 
         where TEntity : class, IBaseEntity
         where TLookupItem : class, ILookupItem, new() 
-        where TDelailsViewModel : IDetailsViewModel<IWrapper<TEntity>, TEntity> 
+        where TDelailsViewModel : IDetailsViewModel<IWrapper<TEntity>, TEntity>
+        where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
     {
         protected readonly IUnityContainer Container;
         protected readonly IUnitOfWork UnitOfWork;
@@ -50,6 +52,22 @@ namespace HVTApp.Modules.Infrastructure
                 if (!_loaded) await LoadAsync();
                 _loaded = true;
             });
+
+            EventAggregator.GetEvent<TAfterSaveEntityEvent>().Subscribe(OnAfterSaveEntity);
+        }
+
+        private void OnAfterSaveEntity(TEntity entity)
+        {
+            var lookup = Items.SingleOrDefault(x => x.Id == entity.Id);
+            if (lookup != null)
+            {
+                lookup.DisplayMember = entity.ToString();
+            }
+            else
+            {
+                lookup = new TLookupItem { Id = entity.Id, DisplayMember = entity.ToString()};
+                Items.Add(lookup);
+            }
         }
 
         public ICollection<TLookupItem> Items { get; }
