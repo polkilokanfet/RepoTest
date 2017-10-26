@@ -5,7 +5,6 @@ using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.Wrapper;
-using HVTApp.Modules.Infrastructure;
 using HVTApp.UI.BaseView;
 using HVTApp.UI.Events;
 using Microsoft.Practices.Unity;

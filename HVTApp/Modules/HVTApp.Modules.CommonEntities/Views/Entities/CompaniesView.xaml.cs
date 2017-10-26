@@ -1,5 +1,5 @@
 ﻿using HVTApp.Infrastructure;
-using HVTApp.Modules.Infrastructure;
+using HVTApp.UI.Tabs;
 using Prism.Events;
 using Prism.Regions;
 

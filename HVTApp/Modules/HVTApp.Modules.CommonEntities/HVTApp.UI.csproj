@@ -95,7 +95,7 @@
     <Compile Include="BaseView\BaseListViewModel.cs" />
     <Compile Include="BaseView\IBaseListViewModel.cs" />
     <Compile Include="BaseView\IDetailsViewModel.cs" />
-    <Compile Include="CommonEntitiesModule.cs" />
+    <Compile Include="UIModule.cs" />
     <Compile Include="Converter\ProductUnitsGroup.cs" />
     <Compile Include="Converter\ProductUnitsToFacilitiesNamesConverter.cs" />
     <Compile Include="Converter\ProductUnitsToProductGroupsConverter.cs" />
@@ -113,7 +113,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="TabCRUD.xaml.cs">
+    <Compile Include="Tabs\TabCRUD.xaml.cs">
       <DependentUpon>TabCRUD.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\EntityDetails\OfferDetailsViewModel.cs" />
@@ -244,7 +244,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="TabCRUD.xaml">
+    <Page Include="Tabs\TabCRUD.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

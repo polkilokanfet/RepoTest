@@ -1,6 +1,5 @@
 ﻿using HVTApp.DataAccess.Lookup;
 using HVTApp.Model.POCOs;
-using HVTApp.Modules.Infrastructure;
 using HVTApp.UI.BaseView;
 using HVTApp.UI.Events;
 using Microsoft.Practices.Unity;

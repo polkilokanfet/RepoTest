@@ -5,7 +5,6 @@ using System.Windows.Input;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
-using HVTApp.Modules.Infrastructure;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;

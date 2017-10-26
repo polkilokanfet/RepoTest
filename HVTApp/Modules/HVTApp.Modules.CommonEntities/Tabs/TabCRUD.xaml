@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:infRib="http://infragistics.com/Ribbon" 
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             x:Class="HVTApp.Modules.Infrastructure.TabCRUD"
+             x:Class="HVTApp.UI.Tabs.TabCRUD"
              Header="Редактирование">
     <infRib:RibbonGroup Caption="Form">
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewItemCommand}"/>

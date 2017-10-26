@@ -3,7 +3,6 @@ using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Model.POCOs;
 using HVTApp.Wrapper;
-using HVTApp.Modules.Infrastructure;
 using HVTApp.Services.GetProductService;
 using HVTApp.UI.BaseView;
 using HVTApp.UI.Events;

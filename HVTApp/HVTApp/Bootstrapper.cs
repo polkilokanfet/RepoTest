@@ -6,18 +6,14 @@ using System.Windows;
 using HVTApp.DataAccess;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.DataAccess.Lookup;
-using HVTApp.Infrastructure.Interfaces;
-using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.AuthenticationService;
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
-using HVTApp.Wrapper;
+using HVTApp.Modules.BaseEntities;
 using HVTApp.Modules.Production;
 using HVTApp.Modules.Sales;
-using HVTApp.Modules.Sales.ViewModels;
-using HVTApp.Modules.Sales.Views;
 using HVTApp.Services.GetProductService;
 using HVTApp.Services.ChooseService;
 using HVTApp.Services.WpfAuthenticationService;
@@ -25,14 +21,12 @@ using HVTApp.Services.DialogService;
 using HVTApp.Services.SelectService;
 using HVTApp.UI;
 using HVTApp.UI.ViewModels;
+using HVTApp.UI.Views;
 using Infragistics.Windows.OutlookBar;
 using Infragistics.Windows.Ribbon;
 using Prism.Events;
 using Prism.Modularity;
 using Prism.Regions;
-using CompaniesView = HVTApp.UI.Views.CompaniesView;
-using ProjectsView = HVTApp.UI.Views.ProjectsView;
-using TendersView = HVTApp.UI.Views.TendersView;
 
 namespace HVTApp
 {
@@ -81,11 +75,12 @@ namespace HVTApp
         
         protected override IModuleCatalog CreateModuleCatalog()
         {
-            ModuleCatalog catalog = new ModuleCatalog();
+            var catalog = new ModuleCatalog();
 
+            catalog.AddModule(typeof(UiModule));
+            catalog.AddModule(typeof(BaseEntitiesModule));
             catalog.AddModule(typeof(SalesModule));
             catalog.AddModule(typeof(ProductionModule));
-            catalog.AddModule(typeof(CommonEntitiesModule));
 
             return catalog;
         }

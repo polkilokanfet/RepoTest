@@ -3,12 +3,9 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Modules.BaseEntities.Menus
 {
-    /// <summary>
-    /// Interaction logic for CommonEntitiesMenu.xaml
-    /// </summary>
-    public partial class CommonEntitiesMenu : IOutlookBarGroup
+    public partial class BaseEntitiesMenu : IOutlookBarGroup
     {
-        public CommonEntitiesMenu(CommonEntitiesMenuViewModel viewModel)
+        public BaseEntitiesMenu(BaseEntitiesMenuViewModel viewModel)
         {
             InitializeComponent();
             this.DataContext = viewModel;

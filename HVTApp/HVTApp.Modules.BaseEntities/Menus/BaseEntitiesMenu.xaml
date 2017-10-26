@@ -1,11 +1,11 @@
-﻿<igWPF:OutlookBarGroup
+﻿<igWpf:OutlookBarGroup
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"
+             xmlns:igWpf="http://schemas.infragistics.com/xaml/wpf"
              xmlns:prism="clr-namespace:HVTApp.Infrastructure.Prism;assembly=HVTApp.Infrastructure"
              xmlns:igs="http://schemas.infragistics.com/xaml"
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             x:Class="HVTApp.Modules.BaseEntities.Menus.CommonEntitiesMenu"
+             x:Class="HVTApp.Modules.BaseEntities.Menus.BaseEntitiesMenu"
              Header="CommonEntities">
     <igs:XamDataTree 
         Name="_xamDataTree"
@@ -19,4 +19,5 @@
         </igs:XamDataTree.GlobalNodeLayouts>
     </igs:XamDataTree>
 
-</igWPF:OutlookBarGroup>
+</igWpf:OutlookBarGroup>
+

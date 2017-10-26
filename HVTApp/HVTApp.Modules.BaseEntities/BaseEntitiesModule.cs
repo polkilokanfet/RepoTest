@@ -20,23 +20,23 @@ namespace HVTApp.Modules.BaseEntities
 
         protected override void RegisterTypes()
         {
-            Container.RegisterViewForNavigation<CompaniesView>();
-            Container.RegisterViewForNavigation<CompanyFormsView>();
-            Container.RegisterViewForNavigation<ActivityFildsView>();
-            Container.RegisterViewForNavigation<ParametersView>();
-            Container.RegisterViewForNavigation<ParametersGroupsView>();
-            Container.RegisterViewForNavigation<ProductsView>();
-            Container.RegisterViewForNavigation<FacilitiesView>();
-            Container.RegisterViewForNavigation<FacilityTypesView>();
+            //Container.RegisterViewForNavigation<CompaniesView>();
+            //Container.RegisterViewForNavigation<CompanyFormsView>();
+            //Container.RegisterViewForNavigation<ActivityFildsView>();
+            //Container.RegisterViewForNavigation<ParametersView>();
+            //Container.RegisterViewForNavigation<ParametersGroupsView>();
+            //Container.RegisterViewForNavigation<ProductsView>();
+            //Container.RegisterViewForNavigation<FacilitiesView>();
+            //Container.RegisterViewForNavigation<FacilityTypesView>();
 
-            _dialogService.Register<CompanyFormDetailsViewModel, CompanyFormDetailsView>();
-            _dialogService.Register<CompanyDetailsViewModel, CompanyDetailsWindow>();
-            _dialogService.Register<ProductDetailsViewModel, ProductDetailsView>();
+            //_dialogService.Register<CompanyFormDetailsViewModel, CompanyFormDetailsView>();
+            //_dialogService.Register<CompanyDetailsViewModel, CompanyDetailsWindow>();
+            //_dialogService.Register<ProductDetailsViewModel, ProductDetailsView>();
         }
 
         protected override void ResolveOutlookGroup()
         {
-            RegionManager.Regions[RegionNames.OutlookBarGroupsRegion].Add(Container.Resolve<CommonEntitiesMenu>());
+            RegionManager.Regions[RegionNames.OutlookBarGroupsRegion].Add(Container.Resolve<BaseEntitiesMenu>());
         }
     }
 }

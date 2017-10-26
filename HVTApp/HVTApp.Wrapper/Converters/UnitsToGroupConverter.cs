@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
-using HVTApp.Model;
-using HVTApp.Model.POCOs;
 
 namespace HVTApp.Wrapper.Converters
 {

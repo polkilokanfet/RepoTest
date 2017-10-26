@@ -9,7 +9,6 @@ using HVTApp.DataAccess.Lookup;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
-using HVTApp.Modules.Infrastructure;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;

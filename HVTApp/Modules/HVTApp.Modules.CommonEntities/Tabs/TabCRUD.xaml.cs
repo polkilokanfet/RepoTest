@@ -1,10 +1,7 @@
 ﻿using HVTApp.Infrastructure;
 
-namespace HVTApp.Modules.Infrastructure
+namespace HVTApp.UI.Tabs
 {
-    /// <summary>
-    /// Interaction logic for TabCRUD.xaml
-    /// </summary>
     public partial class TabCRUD : RibbonTabItemWithViewModel
     {
         public TabCRUD()
