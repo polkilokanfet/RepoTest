@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class ContractWrapper : WrapperBase<Contract>
-  {
-    public ContractWrapper(Contract model) : base(model) { }
+	public partial class ContractWrapper : WrapperBase<Contract>
+	{
+	public ContractWrapper(Contract model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -89,5 +89,6 @@ namespace HVTApp.Wrapper
 
     }
 
-  }
+	}
 }
+	

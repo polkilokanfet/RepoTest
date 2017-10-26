@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class OfferWrapper : WrapperBase<Offer>
-  {
-    public OfferWrapper(Offer model) : base(model) { }
+	public partial class OfferWrapper : WrapperBase<Offer>
+	{
+	public OfferWrapper(Offer model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -89,5 +89,6 @@ namespace HVTApp.Wrapper
 
     }
 
-  }
+	}
 }
+	

@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class FacilityWrapper : WrapperBase<Facility>
-  {
-    public FacilityWrapper(Facility model) : base(model) { }
+	public partial class FacilityWrapper : WrapperBase<Facility>
+	{
+	public FacilityWrapper(Facility model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -95,5 +95,6 @@ namespace HVTApp.Wrapper
 
     }
 
-  }
+	}
 }
+	

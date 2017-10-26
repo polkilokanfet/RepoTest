@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class PaymentActualWrapper : WrapperBase<PaymentActual>
-  {
-    public PaymentActualWrapper(PaymentActual model) : base(model) { }
+	public partial class PaymentActualWrapper : WrapperBase<PaymentActual>
+	{
+	public PaymentActualWrapper(PaymentActual model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -70,5 +70,6 @@ namespace HVTApp.Wrapper
 
     #endregion
 
-  }
+	}
 }
+	

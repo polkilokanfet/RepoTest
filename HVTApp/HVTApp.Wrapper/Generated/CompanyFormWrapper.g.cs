@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class CompanyFormWrapper : WrapperBase<CompanyForm>
-  {
-    public CompanyFormWrapper(CompanyForm model) : base(model) { }
+	public partial class CompanyFormWrapper : WrapperBase<CompanyForm>
+	{
+	public CompanyFormWrapper(CompanyForm model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -43,5 +43,6 @@ namespace HVTApp.Wrapper
 
     #endregion
 
-  }
+	}
 }
+	

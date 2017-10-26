@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class EmployeeWrapper : WrapperBase<Employee>
-  {
-    public EmployeeWrapper(Employee model) : base(model) { }
+	public partial class EmployeeWrapper : WrapperBase<Employee>
+	{
+	public EmployeeWrapper(Employee model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -97,5 +97,6 @@ namespace HVTApp.Wrapper
 
     }
 
-  }
+	}
 }
+	

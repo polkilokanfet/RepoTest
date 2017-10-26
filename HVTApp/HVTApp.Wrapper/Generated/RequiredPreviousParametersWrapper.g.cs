@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class RequiredPreviousParametersWrapper : WrapperBase<RequiredPreviousParameters>
-  {
-    public RequiredPreviousParametersWrapper(RequiredPreviousParameters model) : base(model) { }
+	public partial class RequiredPreviousParametersWrapper : WrapperBase<RequiredPreviousParameters>
+	{
+	public RequiredPreviousParametersWrapper(RequiredPreviousParameters model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -53,5 +53,6 @@ namespace HVTApp.Wrapper
 
     }
 
-  }
+	}
 }
+	

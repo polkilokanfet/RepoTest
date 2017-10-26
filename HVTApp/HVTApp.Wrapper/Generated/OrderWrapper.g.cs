@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class OrderWrapper : WrapperBase<Order>
-  {
-    public OrderWrapper(Order model) : base(model) { }
+	public partial class OrderWrapper : WrapperBase<Order>
+	{
+	public OrderWrapper(Order model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -62,5 +62,6 @@ namespace HVTApp.Wrapper
 
     }
 
-  }
+	}
 }
+	

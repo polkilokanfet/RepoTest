@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class TestFriendWrapper : WrapperBase<TestFriend>
-  {
-    public TestFriendWrapper(TestFriend model) : base(model) { }
+	public partial class TestFriendWrapper : WrapperBase<TestFriend>
+	{
+	public TestFriendWrapper(TestFriend model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -144,5 +144,6 @@ namespace HVTApp.Wrapper
 
     }
 
-  }
+	}
 }
+	

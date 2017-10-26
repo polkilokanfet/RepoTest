@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class ProjectWrapper : WrapperBase<Project>
-  {
-    public ProjectWrapper(Project model) : base(model) { }
+	public partial class ProjectWrapper : WrapperBase<Project>
+	{
+	public ProjectWrapper(Project model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -96,5 +96,6 @@ namespace HVTApp.Wrapper
 
     }
 
-  }
+	}
 }
+	

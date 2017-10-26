@@ -14,30 +14,36 @@
 <#
   foreach (var modelType in GetModelTypes())
   {
-    var allProperties = modelType.GetProperties();
+	GenerateWrapper(modelType);
+	SaveGeneratedCodeAsFile(modelType.Name + "Wrapper.g.cs", "Generated");
+  }
+#>
+
+<#+
+	private void GenerateWrapper(Type modelType)
+	{
+		var allProperties = modelType.GetProperties();
 
 
-    //Простые свойства
-    var allSimpleProperties = allProperties.Where(p => IsSimple(p.PropertyType));
+		//Простые свойства
+		var allSimpleProperties = allProperties.Where(p => IsSimple(p.PropertyType));
 
-    var simpleSetProperties = allSimpleProperties.Where(p => p.CanWrite).ToList();
-    var simpleGetProperties = allSimpleProperties.Where(p => !p.CanWrite).ToList();
+		var simpleSetProperties = allSimpleProperties.Where(p => p.CanWrite).ToList();
+		var simpleGetProperties = allSimpleProperties.Where(p => !p.CanWrite).ToList();
 
-    //Перечисления
-    var allCollectionProperties = allProperties.Except(allSimpleProperties)
-	      .Where(p => p.PropertyType.GetInterfaces()
-          .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)));
+		//Перечисления
+		var allCollectionProperties = allProperties.Except(allSimpleProperties)
+				.Where(p => p.PropertyType.GetInterfaces()
+				.Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)));
 
-    var collectionComplexProperties = allCollectionProperties.Where(x => !CollectionMemberTypeIsSimple(x.PropertyType)).ToList();
+		var collectionComplexProperties = allCollectionProperties.Where(x => !CollectionMemberTypeIsSimple(x.PropertyType)).ToList();
 
-    //Сложные свойства
-    //var allComplexProperties = allProperties.Except(simpleProperties).Where(p => p.PropertyType.IsClass && !typeof(IEnumerable).IsAssignableFrom(p.PropertyType));
-    var allComplexProperties = allProperties.Except(allSimpleProperties).Except(allCollectionProperties);
+		//Сложные свойства
+		//var allComplexProperties = allProperties.Except(simpleProperties).Where(p => p.PropertyType.IsClass && !typeof(IEnumerable).IsAssignableFrom(p.PropertyType));
+		var allComplexProperties = allProperties.Except(allSimpleProperties).Except(allCollectionProperties);
 
-    var complexSetProperties = allComplexProperties.Where(p => p.CanWrite).ToList();
-    var complexGetProperties = allComplexProperties.Where(p => !p.CanWrite).ToList();
-
-
+		var complexSetProperties = allComplexProperties.Where(p => p.CanWrite).ToList();
+		var complexGetProperties = allComplexProperties.Where(p => !p.CanWrite).ToList();
 
 #>using System;
 using System.Collections.Generic;
@@ -47,28 +53,25 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class <#=modelType.Name#>Wrapper : WrapperBase<<#=modelType.Name#>>
-  {
-    public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model) : base(model) { }
+	public partial class <#=modelType.Name#>Wrapper : WrapperBase<<#=modelType.Name#>>
+	{
+	public <#=modelType.Name#>Wrapper(<#=modelType.Name#> model) : base(model) { }
 
-<#
-	GenerateSimpleProperties(simpleSetProperties);
-	GenerateComplexProperties(complexSetProperties);
-	GenerateCollectionComplexProperties(collectionComplexProperties);
+	<#+
+		GenerateSimpleProperties(simpleSetProperties);
+		GenerateComplexProperties(complexSetProperties);
+		GenerateCollectionComplexProperties(collectionComplexProperties);
 
-    GenerateGetProperties(simpleGetProperties.Union(complexGetProperties));
+		GenerateGetProperties(simpleGetProperties.Union(complexGetProperties));
 
-    GenerateInitializeComplexProperties(modelType.Name, complexSetProperties);
-	GenerateInitializeCollectionComplexProperties(modelType.Name, collectionComplexProperties);
-#>
-  }
+		GenerateInitializeComplexProperties(modelType.Name, complexSetProperties);
+		GenerateInitializeCollectionComplexProperties(modelType.Name, collectionComplexProperties);
+	#>
+	}
 }
-<#  
-  SaveGeneratedCodeAsFile(modelType.Name + "Wrapper.g.cs");
-  }
-#>
-
-<#+
+	<#+
+	}
+	
     //берем все классы модели.
     private IEnumerable<Type> GetModelTypes()
     {
@@ -107,9 +110,10 @@ namespace HVTApp.Wrapper
     }
     
     //сохранение сгенерированного кода в отдельный файл.
-    private void SaveGeneratedCodeAsFile(string fileName)
+    private void SaveGeneratedCodeAsFile(string fileName, string filePath)
     {
-        string dir = Path.GetDirectoryName(Host.TemplateFile);
+		string directoryName = Path.GetDirectoryName(Host.TemplateFile);
+        string dir = Path.Combine(directoryName, filePath);
   
         string outputFilePath = Path.Combine(dir, fileName);
         File.WriteAllText(outputFilePath, GenerationEnvironment.ToString()); 

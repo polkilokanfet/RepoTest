@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class DocumentWrapper : WrapperBase<Document>
-  {
-    public DocumentWrapper(Document model) : base(model) { }
+	public partial class DocumentWrapper : WrapperBase<Document>
+	{
+	public DocumentWrapper(Document model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -210,5 +210,6 @@ namespace HVTApp.Wrapper
 
     }
 
-  }
+	}
 }
+	

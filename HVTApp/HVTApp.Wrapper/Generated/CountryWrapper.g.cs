@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class CountryWrapper : WrapperBase<Country>
-  {
-    public CountryWrapper(Country model) : base(model) { }
+	public partial class CountryWrapper : WrapperBase<Country>
+	{
+	public CountryWrapper(Country model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -53,5 +53,6 @@ namespace HVTApp.Wrapper
 
     }
 
-  }
+	}
 }
+	

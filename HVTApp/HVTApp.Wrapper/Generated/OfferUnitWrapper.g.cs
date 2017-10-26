@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class OfferUnitWrapper : WrapperBase<OfferUnit>
-  {
-    public OfferUnitWrapper(OfferUnit model) : base(model) { }
+	public partial class OfferUnitWrapper : WrapperBase<OfferUnit>
+	{
+	public OfferUnitWrapper(OfferUnit model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -115,5 +115,6 @@ namespace HVTApp.Wrapper
 
     }
 
-  }
+	}
 }
+	

@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class CostWrapper : WrapperBase<Cost>
-  {
-    public CostWrapper(Cost model) : base(model) { }
+	public partial class CostWrapper : WrapperBase<Cost>
+	{
+	public CostWrapper(Cost model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -61,5 +61,6 @@ namespace HVTApp.Wrapper
 
     }
 
-  }
+	}
 }
+	

@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class PaymentDocumentWrapper : WrapperBase<PaymentDocument>
-  {
-    public PaymentDocumentWrapper(PaymentDocument model) : base(model) { }
+	public partial class PaymentDocumentWrapper : WrapperBase<PaymentDocument>
+	{
+	public PaymentDocumentWrapper(PaymentDocument model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -62,5 +62,6 @@ namespace HVTApp.Wrapper
 
     }
 
-  }
+	}
 }
+	

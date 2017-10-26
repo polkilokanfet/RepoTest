@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class TestEntityWrapper : WrapperBase<TestEntity>
-  {
-    public TestEntityWrapper(TestEntity model) : base(model) { }
+	public partial class TestEntityWrapper : WrapperBase<TestEntity>
+	{
+	public TestEntityWrapper(TestEntity model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -34,5 +34,6 @@ namespace HVTApp.Wrapper
 
     #endregion
 
-  }
+	}
 }
+	

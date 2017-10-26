@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class ParameterGroupWrapper : WrapperBase<ParameterGroup>
-  {
-    public ParameterGroupWrapper(ParameterGroup model) : base(model) { }
+	public partial class ParameterGroupWrapper : WrapperBase<ParameterGroup>
+	{
+	public ParameterGroupWrapper(ParameterGroup model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -80,5 +80,6 @@ namespace HVTApp.Wrapper
 
     }
 
-  }
+	}
 }
+	

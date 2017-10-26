@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class PaymentConditionWrapper : WrapperBase<PaymentCondition>
-  {
-    public PaymentConditionWrapper(PaymentCondition model) : base(model) { }
+	public partial class PaymentConditionWrapper : WrapperBase<PaymentCondition>
+	{
+	public PaymentConditionWrapper(PaymentCondition model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -52,5 +52,6 @@ namespace HVTApp.Wrapper
 
     #endregion
 
-  }
+	}
 }
+	

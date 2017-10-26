@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class TestFriendEmailWrapper : WrapperBase<TestFriendEmail>
-  {
-    public TestFriendEmailWrapper(TestFriendEmail model) : base(model) { }
+	public partial class TestFriendEmailWrapper : WrapperBase<TestFriendEmail>
+	{
+	public TestFriendEmailWrapper(TestFriendEmail model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -43,5 +43,6 @@ namespace HVTApp.Wrapper
 
     #endregion
 
-  }
+	}
 }
+	

@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class ActivityFieldWrapper : WrapperBase<ActivityField>
-  {
-    public ActivityFieldWrapper(ActivityField model) : base(model) { }
+	public partial class ActivityFieldWrapper : WrapperBase<ActivityField>
+	{
+	public ActivityFieldWrapper(ActivityField model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -43,5 +43,6 @@ namespace HVTApp.Wrapper
 
     #endregion
 
-  }
+	}
 }
+	

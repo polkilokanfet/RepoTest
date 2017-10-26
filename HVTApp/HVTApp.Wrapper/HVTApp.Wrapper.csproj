@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\UnitsToGroupConverter.cs" />
+    <Compile Include="Generated\ProductsRelationWrapper.g.cs" />
     <Compile Include="IProductUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Base\NotifyDataErrorInfoBase.cs" />
@@ -134,14 +135,14 @@
     <Compile Include="Generated\TestWifeWrapper.g.cs" />
     <Compile Include="Generated\UserRoleWrapper.g.cs" />
     <Compile Include="Generated\UserWrapper.g.cs" />
-    <Compile Include="Generated\WrappersGenerator.cs">
+    <Compile Include="WrappersGenerator.cs">
       <DependentUpon>WrappersGenerator.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Generated\WrappersGenerator.tt">
+    <Content Include="WrappersGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>WrappersGenerator.cs</LastGenOutput>
     </Content>

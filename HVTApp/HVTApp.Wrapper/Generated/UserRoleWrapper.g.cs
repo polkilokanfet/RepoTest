@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class UserRoleWrapper : WrapperBase<UserRole>
-  {
-    public UserRoleWrapper(UserRole model) : base(model) { }
+	public partial class UserRoleWrapper : WrapperBase<UserRole>
+	{
+	public UserRoleWrapper(UserRole model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -43,5 +43,6 @@ namespace HVTApp.Wrapper
 
     #endregion
 
-  }
+	}
 }
+	

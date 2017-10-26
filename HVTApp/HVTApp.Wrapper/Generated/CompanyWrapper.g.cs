@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class CompanyWrapper : WrapperBase<Company>
-  {
-    public CompanyWrapper(Company model) : base(model) { }
+	public partial class CompanyWrapper : WrapperBase<Company>
+	{
+	public CompanyWrapper(Company model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -174,5 +174,6 @@ namespace HVTApp.Wrapper
 
     }
 
-  }
+	}
 }
+	

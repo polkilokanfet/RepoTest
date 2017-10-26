@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class TestChildWrapper : WrapperBase<TestChild>
-  {
-    public TestChildWrapper(TestChild model) : base(model) { }
+	public partial class TestChildWrapper : WrapperBase<TestChild>
+	{
+	public TestChildWrapper(TestChild model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -78,5 +78,6 @@ namespace HVTApp.Wrapper
 
     }
 
-  }
+	}
 }
+	

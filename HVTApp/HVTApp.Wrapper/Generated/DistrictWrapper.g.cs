@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class DistrictWrapper : WrapperBase<District>
-  {
-    public DistrictWrapper(District model) : base(model) { }
+	public partial class DistrictWrapper : WrapperBase<District>
+	{
+	public DistrictWrapper(District model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -62,5 +62,6 @@ namespace HVTApp.Wrapper
 
     }
 
-  }
+	}
 }
+	

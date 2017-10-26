@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class CostOnDateWrapper : WrapperBase<CostOnDate>
-  {
-    public CostOnDateWrapper(CostOnDate model) : base(model) { }
+	public partial class CostOnDateWrapper : WrapperBase<CostOnDate>
+	{
+	public CostOnDateWrapper(CostOnDate model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -43,5 +43,6 @@ namespace HVTApp.Wrapper
 
     #endregion
 
-  }
+	}
 }
+	

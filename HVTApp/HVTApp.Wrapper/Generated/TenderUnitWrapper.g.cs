@@ -6,11 +6,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Wrapper
 {
-  public partial class TenderUnitWrapper : WrapperBase<TenderUnit>
-  {
-    public TenderUnitWrapper(TenderUnit model) : base(model) { }
+	public partial class TenderUnitWrapper : WrapperBase<TenderUnit>
+	{
+	public TenderUnitWrapper(TenderUnit model) : base(model) { }
 
-
+	
 
     #region SimpleProperties
 
@@ -132,5 +132,6 @@ namespace HVTApp.Wrapper
 
     }
 
-  }
+	}
 }
+	
