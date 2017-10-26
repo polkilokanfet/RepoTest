@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace HVTApp.DataAccess.Lookup
+namespace HVTApp.UI.Lookup
 {
     public class CompanyLookup : LookupItem
     {

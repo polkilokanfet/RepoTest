@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using HVTApp.DataAccess.Annotations;
 
-namespace HVTApp.DataAccess.Lookup
+namespace HVTApp.UI.Lookup
 {
     public class LookupItem : ILookupItem, INotifyPropertyChanged
     {

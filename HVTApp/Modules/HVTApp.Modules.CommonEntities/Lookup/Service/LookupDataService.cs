@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 
-namespace HVTApp.DataAccess.Lookup
+namespace HVTApp.UI.Lookup
 {
     public abstract class LookupDataService<TLookup, TEntity> : ILookupDataService<TLookup> 
         where TEntity : class, IBaseEntity

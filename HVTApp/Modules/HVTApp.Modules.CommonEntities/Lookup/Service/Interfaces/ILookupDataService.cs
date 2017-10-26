@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace HVTApp.DataAccess.Lookup
+namespace HVTApp.UI.Lookup
 {
     public interface ILookupDataService<TLookup> 
         where TLookup : class, ILookupItem, new()

@@ -1,8 +1,8 @@
-﻿using HVTApp.DataAccess.Lookup;
-using HVTApp.Model.POCOs;
+﻿using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.ViewModels;
 using HVTApp.UI.BaseView;
 using HVTApp.UI.Events;
+using HVTApp.UI.Lookup;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.ViewModels

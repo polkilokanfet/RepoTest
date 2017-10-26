@@ -1,4 +1,4 @@
-namespace HVTApp.DataAccess.Lookup
+namespace HVTApp.UI.Lookup
 {
     public interface IParametersGroupLookupDataDataService : ILookupDataService<ParametersGroupLookup>
     {

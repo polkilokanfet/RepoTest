@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <Reference Include="InfragisticsWPF4.Controls.Menus.XamDataTree.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.Controls.Menus.XamMenu.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.Controls.Schedules.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
@@ -95,6 +96,31 @@
     <Compile Include="BaseView\BaseListViewModel.cs" />
     <Compile Include="BaseView\IBaseListViewModel.cs" />
     <Compile Include="BaseView\IDetailsViewModel.cs" />
+    <Compile Include="Lookup\Items\CompanyFormLookup.cs" />
+    <Compile Include="Lookup\Items\CompanyLookup.cs" />
+    <Compile Include="Lookup\Items\FacilityLookup.cs" />
+    <Compile Include="Lookup\Items\FacilityTypeLookup.cs" />
+    <Compile Include="Lookup\Items\LookupItem.cs" />
+    <Compile Include="Lookup\Items\OfferLookup.cs" />
+    <Compile Include="Lookup\Items\ParameterLookup.cs" />
+    <Compile Include="Lookup\Items\ParametersGroupLookup.cs" />
+    <Compile Include="Lookup\Items\ProductLookup.cs" />
+    <Compile Include="Lookup\Items\ProjectLookup.cs" />
+    <Compile Include="Lookup\Items\TenderLookup.cs" />
+    <Compile Include="Lookup\Service\CompanyLookupDataService.cs" />
+    <Compile Include="Lookup\Service\Interfaces\ICompanyFormLookupDataDataService.cs" />
+    <Compile Include="Lookup\Service\Interfaces\ICompanyLookupDataService.cs" />
+    <Compile Include="Lookup\Service\Interfaces\IFacilityLookupDataDataService.cs" />
+    <Compile Include="Lookup\Service\Interfaces\IFacilityTypeLookupDataDataService.cs" />
+    <Compile Include="Lookup\Service\Interfaces\ILookupDataService.cs" />
+    <Compile Include="Lookup\Service\Interfaces\IOfferLookupDataDataService.cs" />
+    <Compile Include="Lookup\Service\Interfaces\IParameterLookupDataDataService.cs" />
+    <Compile Include="Lookup\Service\Interfaces\IParametersGroupLookupDataDataService.cs" />
+    <Compile Include="Lookup\Service\Interfaces\IProductLookupDataDataService.cs" />
+    <Compile Include="Lookup\Service\Interfaces\IProjectLookupDataService.cs" />
+    <Compile Include="Lookup\Service\Interfaces\ITenderLookupDataService.cs" />
+    <Compile Include="Lookup\Service\LookupDataService.cs" />
+    <Compile Include="Lookup\Service\ProjectLookupDataService.cs" />
     <Compile Include="UIModule.cs" />
     <Compile Include="Converter\ProductUnitsGroup.cs" />
     <Compile Include="Converter\ProductUnitsToFacilitiesNamesConverter.cs" />

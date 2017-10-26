@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
-using HVTApp.DataAccess.Lookup;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.UI.Lookup;
 
 namespace HVTApp.UI.BaseView
 {
