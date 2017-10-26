@@ -1,5 +1,4 @@
 ﻿using HVTApp.Model.POCOs;
-using HVTApp.UI.ViewModels;
 using HVTApp.UI.BaseView;
 using HVTApp.UI.Events;
 using HVTApp.UI.Lookup;

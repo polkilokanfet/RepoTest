@@ -9,7 +9,7 @@ namespace HVTApp.UI.ViewModels
 {
     public class OffersViewModel : BaseListViewModel<OfferLookup, Offer, OfferDetailsViewModel, AfterSaveOfferEvent>
     {
-        public OffersViewModel(IUnityContainer container, IOfferLookupDataDataService lookupDataDataService) : base(container, lookupDataDataService)
+        public OffersViewModel(IUnityContainer container, IOfferLookupDataService lookupDataService) : base(container, lookupDataService)
         {
         }
     }

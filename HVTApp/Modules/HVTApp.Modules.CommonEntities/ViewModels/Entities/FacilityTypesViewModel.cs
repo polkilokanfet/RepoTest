@@ -9,7 +9,7 @@ namespace HVTApp.UI.ViewModels
 {
     public class FacilityTypesViewModel : BaseListViewModel<FacilityTypeLookup, FacilityType, FacilityTypeDetailsViewModel, AfterSaveFacilityTypeEvent>
     {
-        public FacilityTypesViewModel(IUnityContainer container, IFacilityTypeLookupDataDataService lookupDataDataService) : base(container, lookupDataDataService)
+        public FacilityTypesViewModel(IUnityContainer container, IFacilityTypeLookupDataService lookupDataService) : base(container, lookupDataService)
         {
         }
     }

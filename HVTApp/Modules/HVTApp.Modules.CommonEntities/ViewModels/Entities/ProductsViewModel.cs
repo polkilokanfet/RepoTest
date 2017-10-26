@@ -9,7 +9,7 @@ namespace HVTApp.UI.ViewModels
 {
     public class ProductsViewModel : BaseListViewModel<ProductLookup, Product, ProductDetailsViewModel, AfterSaveProductEvent>
     {
-        public ProductsViewModel(IUnityContainer container, IProductLookupDataDataService lookupDataDataService) : base(container, lookupDataDataService)
+        public ProductsViewModel(IUnityContainer container, IProductLookupDataService lookupDataService) : base(container, lookupDataService)
         {
         }
     }
