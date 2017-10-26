@@ -199,6 +199,103 @@
     <Compile Include="Views\Entities\ProductsView.xaml.cs">
       <DependentUpon>ProductsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Wrapper\Base\NotifyDataErrorInfoBase.cs" />
+    <Compile Include="Wrapper\Base\ObservableWrapper.cs" />
+    <Compile Include="Wrapper\Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
+    <Compile Include="Wrapper\Base\TrackingCollections\ValidatableChangeTrackingCollection.cs" />
+    <Compile Include="Wrapper\Base\WrapperBase.cs" />
+    <Compile Include="Wrapper\Converters\UnitsToGroupConverter.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\CompanyWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\ContractWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\CountryWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\DistrictWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\OfferUnitWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\OfferWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\ParameterWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\PartWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\ProductionUnitWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\ProductsUnitGroup.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\ProductWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\ProjectUnitWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\ProjectWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\RegionWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\SalesUnitWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\ShipmentUnitWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\SpecificationWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\TenderUnitWrapper.cs" />
+    <Compile Include="Wrapper\Custom\IProductWithCost.cs" />
+    <Compile Include="Wrapper\Custom\Test\TestFriendAddressWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Test\TestFriendEmailWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Test\TestFriendWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Validate\CompanyFormWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Validate\CompanyWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Validate\ContractWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Validate\FacilityWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Validate\SpecificationWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Validate\StandartPaymentConditionsWrapper.cs" />
+    <Compile Include="Wrapper\Generated\ActivityFieldWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\AdditionalSalesUnitsWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\AddressWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\BankDetailsWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\CompanyFormWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\CompanyWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\ContractWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\CostOnDateWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\CostWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\CountryWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\CurrencyWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\DistrictWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\DocumentsRegistrationDetailsWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\DocumentWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\EmployeesPositionWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\EmployeeWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\ExchangeCurrencyRateWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\FacilityTypeWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\FacilityWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\LocalityTypeWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\LocalityWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\MeasureWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\OfferUnitWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\OfferWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\OrderWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\ParameterGroupWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\ParameterWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\PartWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\PaymentActualWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\PaymentConditionWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\PaymentDocumentWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\PaymentPlannedWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\PersonWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\ProductionUnitWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\ProductsRelationWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\ProductWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\ProjectUnitWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\ProjectWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\RegionWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\RequiredPreviousParametersWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\SalesUnitWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\ShipmentUnitWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\SpecificationWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\StandartPaymentConditionsWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\TenderTypeWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\TenderUnitWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\TenderWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\TestChildWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\TestEntityWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\TestFriendAddressWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\TestFriendEmailWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\TestFriendGroupWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\TestFriendWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\TestHusbandWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\TestWifeWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\UserRoleWrapper.g.cs" />
+    <Compile Include="Wrapper\Generated\UserWrapper.g.cs" />
+    <Compile Include="Wrapper\IProductUnit.cs" />
+    <Compile Include="Wrapper\WrappersGenerator.cs">
+      <DependentUpon>WrappersGenerator.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -212,7 +309,12 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Wrapper\WrappersGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WrappersGenerator.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\HVTApp.DataAccess.Infrastructure\HVTApp.DataAccess.Infrastructure.csproj">
       <Project>{8ED995B6-B4A2-4B85-9057-69CACF5BBD51}</Project>
@@ -233,10 +335,6 @@
     <ProjectReference Include="..\..\HVTApp.Services.ChooseProductService\HVTApp.Services.GetProductService.csproj">
       <Project>{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}</Project>
       <Name>HVTApp.Services.GetProductService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\HVTApp.Wrapper\HVTApp.Wrapper.csproj">
-      <Project>{4a26fa25-1ae4-4808-b789-c7ed92086aed}</Project>
-      <Name>HVTApp.Wrapper</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\TestUserControl\MyUserControls.csproj">
       <Project>{95b60d78-bf46-4667-b474-95f911bb4a09}</Project>
@@ -328,6 +426,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

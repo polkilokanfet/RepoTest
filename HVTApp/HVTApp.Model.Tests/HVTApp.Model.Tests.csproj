@@ -110,9 +110,9 @@
       <Project>{A1DAFDD1-564E-4E7C-B13E-7ED25956BB67}</Project>
       <Name>HVTApp.TestDataGenerator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HVTApp.Wrapper\HVTApp.Wrapper.csproj">
-      <Project>{4a26fa25-1ae4-4808-b789-c7ed92086aed}</Project>
-      <Name>HVTApp.Wrapper</Name>
+    <ProjectReference Include="..\Modules\HVTApp.Modules.CommonEntities\HVTApp.UI.csproj">
+      <Project>{984DF0F0-471D-4E38-B701-9DFC536217A8}</Project>
+      <Name>HVTApp.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,7 @@ using HVTApp.Modules.Sales.ViewModels;
 using HVTApp.UI.BaseView;
 using HVTApp.UI.Converter;
 using HVTApp.UI.Events;
-using HVTApp.Wrapper;
+using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 

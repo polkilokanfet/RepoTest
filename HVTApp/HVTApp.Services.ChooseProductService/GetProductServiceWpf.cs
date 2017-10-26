@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using HVTApp.DataAccess;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.Wrapper;
 
 namespace HVTApp.Services.GetProductService
 {
@@ -26,14 +24,14 @@ namespace HVTApp.Services.GetProductService
             //_requiredDependentProductsParameteres = _unitOfWork.RequiredDependentProductsParameters.GetAll().ToList();
         }
 
-        public ProductWrapper GetProduct(ProductWrapper templateProduct = null)
+        public Product GetProduct(Product templateProduct = null)
         {
-            ProductSelector productSelector = new ProductSelector(new List<ParameterGroup>(), _parts, _products, _requiredDependentProductsParameteres, preSelectedProduct: templateProduct?.Model);
+            ProductSelector productSelector = new ProductSelector(new List<ParameterGroup>(), _parts, _products, _requiredDependentProductsParameteres, preSelectedProduct: templateProduct);
             SelectProductWindow window = new SelectProductWindow {DataContext = productSelector};
             window.ShowDialog();
 
             if (!window.DialogResult.HasValue || !window.DialogResult.Value) return templateProduct;
-            return new ProductWrapper(productSelector.SelectedProduct);
+            return productSelector.SelectedProduct;
         }
     }
 }

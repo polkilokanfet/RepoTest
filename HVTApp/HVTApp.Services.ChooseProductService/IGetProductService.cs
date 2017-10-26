@@ -1,9 +1,9 @@
-﻿using HVTApp.Wrapper;
+﻿using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.GetProductService
 {
     public interface IGetProductService
     {
-        ProductWrapper GetProduct(ProductWrapper templateProduct = null);
+        Product GetProduct(Product templateProduct = null);
     }
 }

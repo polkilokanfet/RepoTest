@@ -55,10 +55,6 @@
       <Project>{350bdab0-b331-426f-a024-004c8539af17}</Project>
       <Name>HVTApp.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HVTApp.Wrapper\HVTApp.Wrapper.csproj">
-      <Project>{4a26fa25-1ae4-4808-b789-c7ed92086aed}</Project>
-      <Name>HVTApp.Wrapper</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.Wrapper;
+using HVTApp.UI.Wrapper;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
+using CompanyWrapper = HVTApp.UI.Wrapper.CompanyWrapper;
 
 namespace HVTApp.UI.ViewModels
 {

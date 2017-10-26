@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Reflection;
 using System.Threading.Tasks;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure;
-using HVTApp.Model.POCOs;
-using HVTApp.Wrapper;
+
 
 namespace HVTApp.DataAccess
 {

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using HVTApp.Model.POCOs;
-using HVTApp.Wrapper;
+﻿using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess.Infrastructure
 {
@@ -11,10 +9,7 @@ namespace HVTApp.DataAccess.Infrastructure
     public interface ICompanyFormsRepository : IRepository<CompanyForm> { }
     public interface IParametersGroupsRepository : IRepository<ParameterGroup> { }
     public interface IParametersRepository : IRepository<Parameter> { }
-    public interface IPartsRepository : IRepository<Part>
-    {
-        PartWrapper GetProductItem(IEnumerable<ParameterWrapper> parameters);
-    }
+    public interface IPartsRepository : IRepository<Part> { }
     public interface IProductsRepository : IRepository<Product> { }
     public interface IProductionUnitsRepository : IRepository<ProductionUnit> { }
     public interface IFacilityTypesRepository : IRepository<FacilityType> { }

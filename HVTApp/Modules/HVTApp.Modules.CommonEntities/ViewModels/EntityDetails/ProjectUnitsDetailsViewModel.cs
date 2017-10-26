@@ -2,7 +2,7 @@
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Model.POCOs;
-using HVTApp.Wrapper;
+using HVTApp.UI.Wrapper;
 using HVTApp.Services.GetProductService;
 using HVTApp.UI.BaseView;
 using HVTApp.UI.Events;
@@ -48,8 +48,8 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void ChooseProductCommand_Execute()
         {
-            var product = _getProductService.GetProduct(Item.Product);
-            if (product != null) Item.Product = product;
+            var product = _getProductService.GetProduct(Item.Product.Model);
+            if (product != null) Item.Product = new ProductWrapper(product);
         }
     }
 }

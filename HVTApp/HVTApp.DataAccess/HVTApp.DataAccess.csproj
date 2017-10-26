@@ -174,10 +174,6 @@
       <Project>{a1dafdd1-564e-4e7c-b13e-7ed25956bb67}</Project>
       <Name>HVTApp.TestDataGenerator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HVTApp.Wrapper\HVTApp.Wrapper.csproj">
-      <Project>{4a26fa25-1ae4-4808-b789-c7ed92086aed}</Project>
-      <Name>HVTApp.Wrapper</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

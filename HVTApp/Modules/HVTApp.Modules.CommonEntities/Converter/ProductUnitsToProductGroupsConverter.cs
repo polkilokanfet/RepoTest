@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
-using HVTApp.Wrapper;
+using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.Converter
 {
