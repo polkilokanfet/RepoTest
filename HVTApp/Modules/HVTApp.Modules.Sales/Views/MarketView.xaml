@@ -5,7 +5,15 @@
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns:infg="http://infragistics.com/DataPresenter"
              x:Class="HVTApp.Modules.Sales.Views.MarketView"
-             prism:ViewModelLocator.AutoWireViewModel="True">
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
 
     <Grid>
         <Grid.RowDefinitions>
@@ -13,29 +21,28 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-
-        <!--<infg:XamDataGrid Grid.Row="0">
+        <infg:XamDataGrid Grid.Row="0"
+                          DataSource="{Binding Projects}"
+                          SelectedDataItem="{Binding SelectedProject, Mode=TwoWay}">
 
             <infg:XamDataGrid.FieldLayouts>
                 <infg:FieldLayout Key="Project">
                     <infg:FieldLayout.Fields>
-                        <infg:Field Name="FacilitiesNames" Label="Объекты"/>
-                        <infg:Field Name="Name" Label="Название проекта"/>
-                        <infg:Field Name="Sum" Label="Сумма проекта без НДС, руб."/>
+                        <infg:Field Name="DisplayMember" Label="Проект"/>
 
-                        <infg:Field Name="SalesUnitsGroups" IsExpandable="True" IsPrimary="True"/>
+                        <!--<infg:Field Name="SalesUnitsGroups" IsExpandable="True" IsPrimary="True"/>-->
                     </infg:FieldLayout.Fields>
                 </infg:FieldLayout>
 
-                <infg:FieldLayout Key="SalesUnitsGroup" ParentFieldLayoutKey="Project" ParentFieldName="SalesUnitsGroups">
+                <!--<infg:FieldLayout Key="SalesUnitsGroup" ParentFieldLayoutKey="Project" ParentFieldName="SalesUnitsGroups">
                     <infg:FieldLayout.Fields>
                         <infg:TextField Name="ProductName" Label="Обозначение"/>
                         <infg:NumericField Name="Count" Label="Количество"/>
                     </infg:FieldLayout.Fields>
-                </infg:FieldLayout>
+                </infg:FieldLayout>-->
             </infg:XamDataGrid.FieldLayouts>
 
-        </infg:XamDataGrid>-->
+        </infg:XamDataGrid>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>

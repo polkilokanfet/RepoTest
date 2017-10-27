@@ -15,14 +15,19 @@
     </i:Interaction.Triggers>
 
     <infg:XamDataGrid>
-               
-        <infg:XamDataGrid.FieldLayouts>
+        <infg:XamDataGrid.FieldLayoutSettings>
+            <infg:FieldLayoutSettings AutoGenerateFields="True">
+                
+            </infg:FieldLayoutSettings>
+        </infg:XamDataGrid.FieldLayoutSettings>
+        
+        <!--<infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="DisplayMember" Label="Организационная форма"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
-        </infg:XamDataGrid.FieldLayouts>
+        </infg:XamDataGrid.FieldLayouts>-->
         
     </infg:XamDataGrid>
 
