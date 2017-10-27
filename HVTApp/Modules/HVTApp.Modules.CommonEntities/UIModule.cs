@@ -1,6 +1,7 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Prism;
+using HVTApp.Modules.Sales.ViewModels;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Views;
 using Microsoft.Practices.Unity;
@@ -27,10 +28,18 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<ProductsView>();
             Container.RegisterViewForNavigation<FacilitiesView>();
             Container.RegisterViewForNavigation<FacilityTypesView>();
+            Container.RegisterViewForNavigation<ProjectsView>();
+            Container.RegisterViewForNavigation<TendersView>();
+            Container.RegisterViewForNavigation<OffersView>();
+            Container.RegisterViewForNavigation<PaymentsView>();
+            Container.RegisterViewForNavigation<ContractsView>();
 
             _dialogService.Register<CompanyFormDetailsViewModel, CompanyFormDetailsView>();
             _dialogService.Register<CompanyDetailsViewModel, CompanyDetailsWindow>();
             _dialogService.Register<ProductDetailsViewModel, ProductDetailsView>();
+            _dialogService.Register<ProjectDetailsViewModel, ProjectDetailsWindow>();
+            _dialogService.Register<OfferDetailsViewModel, OfferDetailsWindow>();
+            _dialogService.Register<ProjectUnitsDetailsViewModel, ProductUnitsDetailsWindow>();
         }
 
         protected override void ResolveOutlookGroup()

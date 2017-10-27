@@ -1,9 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 
-namespace MyUserControls
+namespace HVTApp.UI.Controls
 {
     /// <summary>
     /// Interaction logic for ChooseItemsListControl.xaml

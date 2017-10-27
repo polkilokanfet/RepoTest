@@ -206,7 +206,7 @@
       <Name>HVTApp.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\HVTApp.Modules.BaseEntities\HVTApp.Modules.BaseEntities.csproj">
-      <Project>{49629F07-4FB0-4448-B598-10361512F554}</Project>
+      <Project>{49629f07-4fb0-4448-b598-10361512f554}</Project>
       <Name>HVTApp.Modules.BaseEntities</Name>
     </ProjectReference>
     <ProjectReference Include="..\HVTApp.Modules.Production\HVTApp.Modules.Production.csproj">
@@ -240,10 +240,6 @@
     <ProjectReference Include="..\Modules\HVTApp.Modules.Sales\HVTApp.Modules.Sales.csproj">
       <Project>{ab8b448c-dd74-4d60-a041-3e5d03a32180}</Project>
       <Name>HVTApp.Modules.Sales</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TestUserControl\MyUserControls.csproj">
-      <Project>{95b60d78-bf46-4667-b474-95f911bb4a09}</Project>
-      <Name>MyUserControls</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -18,6 +18,19 @@ namespace HVTApp.UI.Lookup
             ContextCreator = contextCreator;
         }
 
+        public async Task<TLookup> GetLookupById(Guid id)
+        {
+            using (var ctx = ContextCreator())
+            {
+                var entity = await ctx.Set<TEntity>().FindAsync(id);
+                return new TLookup
+                {
+                    Id = entity.Id,
+                    DisplayMember = GenerateDisplayMember(entity)
+                };
+            }
+        }
+
         public virtual async Task<IEnumerable<TLookup>> GetAllLookupsAsync()
         {
             using (var ctx = ContextCreator())
@@ -26,7 +39,11 @@ namespace HVTApp.UI.Lookup
                 var lookups = new List<TLookup>();
                 foreach (var entity in entities)
                 {
-                    lookups.Add(new TLookup {Id = entity.Id, DisplayMember = GenerateDisplayMember(entity)});
+                    lookups.Add(new TLookup
+                    {
+                        Id = entity.Id,
+                        DisplayMember = GenerateDisplayMember(entity)
+                    });
                 }
                 return lookups;
             }

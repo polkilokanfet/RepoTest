@@ -4,7 +4,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Lookup
 {
-    public class PaymentDocumentLookupDataService : LookupDataService<PaymentDocumentLookup, PaymentDocument>, IPaymentDocumentLookupDataService
+    public partial class PaymentDocumentLookupDataService : LookupDataService<PaymentDocumentLookup, PaymentDocument>, IPaymentDocumentLookupDataService
     {
         public PaymentDocumentLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
     }

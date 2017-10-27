@@ -4,7 +4,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Lookup
 {
-    public class OfferLookupDataService : LookupDataService<OfferLookup, Offer>, IOfferLookupDataService
+    public partial class OfferLookupDataService : LookupDataService<OfferLookup, Offer>, IOfferLookupDataService
     {
         public OfferLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
     }

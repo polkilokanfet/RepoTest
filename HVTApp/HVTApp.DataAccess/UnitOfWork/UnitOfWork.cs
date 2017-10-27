@@ -48,11 +48,22 @@ namespace HVTApp.DataAccess
         {
             return _context.SaveChanges();
         }
-        
-        public void AddItem(IWrapper<IBaseEntity> wrapper)
+        public async Task<TEntity> GetEntityByIdAsync<TEntity>(Guid id) where TEntity : class, IBaseEntity
         {
-            var modelType = wrapper.GetType().GetProperty(nameof(wrapper.Model)).PropertyType;
-            _context.Set(modelType).Add(wrapper.Model);
+            return await _context.Set<TEntity>().FindAsync(id);
+        }
+        
+        public async Task AddItem<TEntity>(TEntity item) where TEntity : class, IBaseEntity
+        {
+            _context.Set<TEntity>().Add(item);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveItem<TEntity>(Guid id) where TEntity : class, IBaseEntity
+        {
+            var item = await GetEntityByIdAsync<TEntity>(id);
+            _context.Set<TEntity>().Remove(item);
+            await _context.SaveChangesAsync();
         }
 
         #region Repositories
@@ -81,41 +92,7 @@ namespace HVTApp.DataAccess
         public ISpecificationsRepository Specifications { get; }
 
         public ITendersRepository Tenders { get; }
-        public async Task<TEntity> GetEntityByIdAsync<TEntity>(Guid id) where TEntity : class, IBaseEntity
-        {
-            return await _context.Set<TEntity>().FindAsync(id);
-        }
 
         #endregion
-
-
-        //readonly Dictionary<IBaseEntity, IWrapper<IBaseEntity>> _wrappers = new Dictionary<IBaseEntity, IWrapper<IBaseEntity>>();
-
-        //public void AddWrapperInDictionary(IWrapper<IBaseEntity> wrapper)
-        //{
-        //    _wrappers.Add(wrapper.Model, wrapper);
-        //}
-
-        //public TWrapper GetWrapper<TWrapper>(IBaseEntity model)
-        //    where TWrapper : class, IWrapper<IBaseEntity>
-        //{
-        //    if (!_wrappers.ContainsKey(model))
-        //        Activator.CreateInstance(typeof(TWrapper), BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { model, this }, null, null);
-
-        //    return (TWrapper)_wrappers[model];
-        //}
-
-        //public TWrapper GetWrapper<TWrapper>()
-        //    where TWrapper : class, IWrapper<IBaseEntity>
-        //{
-        //    return (TWrapper)Activator.CreateInstance(typeof(TWrapper), BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { this }, null, null);
-        //    //return GetWrapper<TWrapper>(Activator.CreateInstance<TModel>());
-        //}
-
-        //public void RemoveWrapper(IBaseEntity model)
-        //{
-        //    _wrappers.Remove(model);
-        //}
-
     }
 }

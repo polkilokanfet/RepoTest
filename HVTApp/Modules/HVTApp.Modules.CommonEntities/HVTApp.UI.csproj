@@ -96,63 +96,69 @@
     <Compile Include="BaseView\BaseListViewModel.cs" />
     <Compile Include="BaseView\IBaseListViewModel.cs" />
     <Compile Include="BaseView\IDetailsViewModel.cs" />
-    <Compile Include="Events\AfterSaveActivityFieldEvent.g.cs" />
-    <Compile Include="Events\AfterSaveAdditionalSalesUnitsEvent.g.cs" />
-    <Compile Include="Events\AfterSaveAddressEvent.g.cs" />
-    <Compile Include="Events\AfterSaveBankDetailsEvent.g.cs" />
-    <Compile Include="Events\AfterSaveCompanyEvent.g.cs" />
-    <Compile Include="Events\AfterSaveCompanyFormEvent.g.cs" />
-    <Compile Include="Events\AfterSaveContractEvent.g.cs" />
-    <Compile Include="Events\AfterSaveCostEvent.g.cs" />
-    <Compile Include="Events\AfterSaveCostOnDateEvent.g.cs" />
-    <Compile Include="Events\AfterSaveCountryEvent.g.cs" />
-    <Compile Include="Events\AfterSaveCurrencyEvent.g.cs" />
-    <Compile Include="Events\AfterSaveDistrictEvent.g.cs" />
-    <Compile Include="Events\AfterSaveDocumentEvent.g.cs" />
-    <Compile Include="Events\AfterSaveDocumentsRegistrationDetailsEvent.g.cs" />
-    <Compile Include="Events\AfterSaveEmployeeEvent.g.cs" />
-    <Compile Include="Events\AfterSaveEmployeesPositionEvent.g.cs" />
-    <Compile Include="Events\AfterSaveExchangeCurrencyRateEvent.g.cs" />
-    <Compile Include="Events\AfterSaveFacilityEvent.g.cs" />
-    <Compile Include="Events\AfterSaveFacilityTypeEvent.g.cs" />
-    <Compile Include="Events\AfterSaveLocalityEvent.g.cs" />
-    <Compile Include="Events\AfterSaveLocalityTypeEvent.g.cs" />
-    <Compile Include="Events\AfterSaveMeasureEvent.g.cs" />
-    <Compile Include="Events\AfterSaveOfferEvent.g.cs" />
-    <Compile Include="Events\AfterSaveOfferUnitEvent.g.cs" />
-    <Compile Include="Events\AfterSaveOrderEvent.g.cs" />
-    <Compile Include="Events\AfterSaveParameterEvent.g.cs" />
-    <Compile Include="Events\AfterSaveParameterGroupEvent.g.cs" />
-    <Compile Include="Events\AfterSavePartEvent.g.cs" />
-    <Compile Include="Events\AfterSavePaymentActualEvent.g.cs" />
-    <Compile Include="Events\AfterSavePaymentConditionEvent.g.cs" />
-    <Compile Include="Events\AfterSavePaymentDocumentEvent.g.cs" />
-    <Compile Include="Events\AfterSavePaymentPlannedEvent.g.cs" />
-    <Compile Include="Events\AfterSavePersonEvent.g.cs" />
-    <Compile Include="Events\AfterSaveProductEvent.g.cs" />
-    <Compile Include="Events\AfterSaveProductionUnitEvent.g.cs" />
-    <Compile Include="Events\AfterSaveProductsRelationEvent.g.cs" />
-    <Compile Include="Events\AfterSaveProjectEvent.g.cs" />
-    <Compile Include="Events\AfterSaveProjectUnitEvent.g.cs" />
-    <Compile Include="Events\AfterSaveRegionEvent.g.cs" />
-    <Compile Include="Events\AfterSaveRequiredPreviousParametersEvent.g.cs" />
-    <Compile Include="Events\AfterSaveSalesUnitEvent.g.cs" />
-    <Compile Include="Events\AfterSaveShipmentUnitEvent.g.cs" />
-    <Compile Include="Events\AfterSaveSpecificationEvent.g.cs" />
-    <Compile Include="Events\AfterSaveStandartPaymentConditionsEvent.g.cs" />
-    <Compile Include="Events\AfterSaveTenderEvent.g.cs" />
-    <Compile Include="Events\AfterSaveTenderTypeEvent.g.cs" />
-    <Compile Include="Events\AfterSaveTenderUnitEvent.g.cs" />
-    <Compile Include="Events\AfterSaveTestChildEvent.g.cs" />
-    <Compile Include="Events\AfterSaveTestEntityEvent.g.cs" />
-    <Compile Include="Events\AfterSaveTestFriendAddressEvent.g.cs" />
-    <Compile Include="Events\AfterSaveTestFriendEmailEvent.g.cs" />
-    <Compile Include="Events\AfterSaveTestFriendEvent.g.cs" />
-    <Compile Include="Events\AfterSaveTestFriendGroupEvent.g.cs" />
-    <Compile Include="Events\AfterSaveTestHusbandEvent.g.cs" />
-    <Compile Include="Events\AfterSaveTestWifeEvent.g.cs" />
-    <Compile Include="Events\AfterSaveUserEvent.g.cs" />
-    <Compile Include="Events\AfterSaveUserRoleEvent.g.cs" />
+    <Compile Include="Controls\ChooseItemControl.xaml.cs">
+      <DependentUpon>ChooseItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChooseItemsListControl.xaml.cs">
+      <DependentUpon>ChooseItemsListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveActivityFieldEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveAdditionalSalesUnitsEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveAddressEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveBankDetailsEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveCompanyEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveCompanyFormEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveContractEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveCostEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveCostOnDateEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveCountryEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveCurrencyEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveDistrictEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveDocumentEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveDocumentsRegistrationDetailsEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveEmployeeEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveEmployeesPositionEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveExchangeCurrencyRateEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveFacilityEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveFacilityTypeEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveLocalityEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveLocalityTypeEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveMeasureEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveOfferEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveOfferUnitEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveOrderEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveParameterEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveParameterGroupEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSavePartEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSavePaymentActualEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSavePaymentConditionEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSavePaymentDocumentEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSavePaymentPlannedEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSavePersonEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveProductEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveProductionUnitEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveProductsRelationEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveProjectEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveProjectUnitEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveRegionEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveRequiredPreviousParametersEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveSalesUnitEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveShipmentUnitEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveSpecificationEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveStandartPaymentConditionsEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveTenderEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveTenderTypeEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveTenderUnitEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveTestChildEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveTestEntityEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveTestFriendAddressEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveTestFriendEmailEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveTestFriendEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveTestFriendGroupEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveTestHusbandEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveTestWifeEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveUserEvent.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveUserRoleEvent.g.cs" />
     <Compile Include="Lookup\Items\Generated\CompanyFormLookup.cs" />
     <Compile Include="Lookup\Items\Custom\CompanyLookup.cs" />
     <Compile Include="Lookup\Items\Custom\FacilityLookup.cs" />
@@ -576,12 +582,16 @@
       <Project>{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}</Project>
       <Name>HVTApp.Services.GetProductService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\TestUserControl\MyUserControls.csproj">
-      <Project>{95b60d78-bf46-4667-b474-95f911bb4a09}</Project>
-      <Name>MyUserControls</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\ChooseItemControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ChooseItemsListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Tabs\TabCRUD.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

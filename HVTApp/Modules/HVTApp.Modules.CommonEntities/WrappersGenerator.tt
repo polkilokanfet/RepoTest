@@ -27,7 +27,7 @@
 	SaveGeneratedCodeAsFile(modelType.Name + "LookupDataService.g.cs", "Lookup/Service/Generated");
 
 	GenerateAfterSaveEntityEvent(modelType);
-	SaveGeneratedCodeAsFile("AfterSave" + modelType.Name + "Event.g.cs", "Events");
+	SaveGeneratedCodeAsFile("AfterSave" + modelType.Name + "Event.g.cs", "Events/AfterSaveEntityEvents");
 }
 #>
 
@@ -58,7 +58,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Lookup
 {
-    public class <#=modelType.Name#>LookupDataService : LookupDataService<<#=modelType.Name#>Lookup, <#=modelType.Name#>>, I<#=modelType.Name#>LookupDataService
+    public partial class <#=modelType.Name#>LookupDataService : LookupDataService<<#=modelType.Name#>Lookup, <#=modelType.Name#>>, I<#=modelType.Name#>LookupDataService
     {
         public <#=modelType.Name#>LookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
     }

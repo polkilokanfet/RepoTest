@@ -3,14 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:infg="http://infragistics.com/DataPresenter"
-        xmlns:converter1="clr-namespace:HVTApp.UI.Converter"
+             xmlns:converter1="clr-namespace:HVTApp.UI.Converter"
              prism:ViewModelLocator.AutoWireViewModel="True" 
              SizeToContent="WidthAndHeight">
 
-    <Window.Resources>
+    <!--<Window.Resources>
         <converter1:ProductUnitsToFacilitiesNamesConverter x:Key="FacilitiesNamesStringConverter"/>
         <converter1:ProductUnitsToProductGroupsConverter x:Key="ProductGroupsConverter"/>
-    </Window.Resources>
+    </Window.Resources>-->
 
     <Grid>
         <Grid.ColumnDefinitions>

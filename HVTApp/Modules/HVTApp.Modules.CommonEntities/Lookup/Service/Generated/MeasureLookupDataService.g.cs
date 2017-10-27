@@ -4,7 +4,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Lookup
 {
-    public class MeasureLookupDataService : LookupDataService<MeasureLookup, Measure>, IMeasureLookupDataService
+    public partial class MeasureLookupDataService : LookupDataService<MeasureLookup, Measure>, IMeasureLookupDataService
     {
         public MeasureLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
     }

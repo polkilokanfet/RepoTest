@@ -4,7 +4,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Lookup
 {
-    public class LocalityLookupDataService : LookupDataService<LocalityLookup, Locality>, ILocalityLookupDataService
+    public partial class LocalityLookupDataService : LookupDataService<LocalityLookup, Locality>, ILocalityLookupDataService
     {
         public LocalityLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
     }

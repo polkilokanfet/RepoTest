@@ -4,7 +4,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Lookup
 {
-    public class RegionLookupDataService : LookupDataService<RegionLookup, Region>, IRegionLookupDataService
+    public partial class RegionLookupDataService : LookupDataService<RegionLookup, Region>, IRegionLookupDataService
     {
         public RegionLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
     }

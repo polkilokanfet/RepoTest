@@ -66,7 +66,7 @@ namespace HVTApp.UI.BaseView
 
         protected virtual void SaveCommand_Execute()
         {
-            UnitOfWork.Complete();
+            UnitOfWork.AddItem(Item.Model);
             CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
             EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
         }

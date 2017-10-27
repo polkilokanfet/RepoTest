@@ -7,7 +7,10 @@ namespace HVTApp.DataAccess.Infrastructure
     public interface IUnitOfWork : IDisposable
     {
         int Complete();
-        void AddItem(IWrapper<IBaseEntity> wrapper);
+        Task AddItem<TEntity>(TEntity item)
+            where TEntity : class, IBaseEntity;
+        Task RemoveItem<TEntity>(Guid id)
+            where TEntity : class, IBaseEntity;
         Task<TEntity> GetEntityByIdAsync<TEntity>(Guid id)
             where TEntity : class, IBaseEntity;
 

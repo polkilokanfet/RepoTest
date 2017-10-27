@@ -31,15 +31,6 @@ namespace HVTApp.Modules.Sales
         protected override void RegisterTypes()
         {
             Container.RegisterViewForNavigation<MarketView>();
-            Container.RegisterViewForNavigation<ProjectsView>();
-            Container.RegisterViewForNavigation<TendersView>();
-            Container.RegisterViewForNavigation<OffersView>();
-            Container.RegisterViewForNavigation<PaymentsView>();
-            Container.RegisterViewForNavigation<ContractsView>();
-
-            _dialogService.Register<ProjectDetailsViewModel, ProjectDetailsWindow>();
-            _dialogService.Register<OfferDetailsViewModel, OfferDetailsWindow>();
-            _dialogService.Register<ProjectUnitsDetailsViewModel, ProductUnitsDetailsWindow>();
         }
 
         protected override void ResolveOutlookGroup()

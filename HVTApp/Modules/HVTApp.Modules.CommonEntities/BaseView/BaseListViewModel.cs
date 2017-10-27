@@ -127,9 +127,10 @@ namespace HVTApp.UI.BaseView
             return SelectedItem != null;
         }
 
-        protected void RemoveItemCommand_Execute()
+        protected async void RemoveItemCommand_Execute()
         {
-            throw new System.NotImplementedException();
+            await UnitOfWork.RemoveItem<TEntity>(SelectedItem.Id);
+            Items.Remove(SelectedItem);
         }
 
         protected virtual bool RemoveItemCommand_CanExecute()

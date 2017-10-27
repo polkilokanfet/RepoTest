@@ -1,9 +1,8 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace MyUserControls
+namespace HVTApp.UI.Controls
 {
     /// <summary>
     /// Interaction logic for ChooseItemControl.xaml

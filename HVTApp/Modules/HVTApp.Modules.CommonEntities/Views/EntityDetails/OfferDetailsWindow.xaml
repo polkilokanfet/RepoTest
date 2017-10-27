@@ -1,9 +1,9 @@
 ﻿<Window x:Class="HVTApp.UI.Views.OfferDetailsWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:myControls="clr-namespace:MyUserControls;assembly=MyUserControls"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:infg="http://infragistics.com/DataPresenter"
+             xmlns:controls="clr-namespace:HVTApp.UI.Controls"
              prism:ViewModelLocator.AutoWireViewModel="True"
              SizeToContent="WidthAndHeight">
     
@@ -23,13 +23,13 @@
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Content="Проект"/>
-            <myControls:ChooseItemControl Grid.Row="0" Grid.Column="1" 
+            <controls:ChooseItemControl Grid.Row="0" Grid.Column="1" 
                                           Item="{Binding Item.Project, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           AddItem="{Binding AddProjectCommand}"
                                           RemoveItem="{Binding RemoveProjectCommand}"/>
 
             <Label Grid.Row="1" Grid.Column="0" Content="Конкурс"/>
-            <myControls:ChooseItemControl Grid.Row="1" Grid.Column="1" 
+            <controls:ChooseItemControl Grid.Row="1" Grid.Column="1" 
                                           Item="{Binding Item.Tender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           AddItem="{Binding AddTenderCommand}"
                                           RemoveItem="{Binding RemoveTenderCommand}"/>
