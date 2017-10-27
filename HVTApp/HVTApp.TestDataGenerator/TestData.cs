@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -9,6 +10,15 @@ namespace HVTApp.TestDataGenerator
 {
     public class TestData
     {
+        public IEnumerable<TData> GetAll<TData>()
+        {
+            var fields = this.GetType().GetFields().Where(x => x.FieldType == typeof(TData)).ToList();
+            foreach (var field in fields)
+            {
+                yield return (TData) field.GetValue(this);
+            }
+        }
+
         public BankDetails BankDetailsOfUetm;
 
         public CompanyForm CompanyFormAo;

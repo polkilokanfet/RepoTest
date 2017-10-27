@@ -119,7 +119,7 @@ namespace HVTApp.DataAccess
 
         public virtual DbSet<ParameterGroup> ParameterGroups { get; set; }
         public virtual DbSet<Parameter> Parameters { get; set; }
-        public virtual DbSet<ProductsRelation> RequiredDependentEquipmentsParameterses { get; set; }
+        public virtual DbSet<ProductsRelation> ProductsRelations { get; set; }
 
         public virtual DbSet<Part> Parts { get; set; }
         public virtual DbSet<Product> Products { get; set; }

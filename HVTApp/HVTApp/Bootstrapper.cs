@@ -22,6 +22,7 @@ using HVTApp.UI;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Views;
+using HVTApp.UI.Wrapper;
 using Infragistics.Windows.OutlookBar;
 using Infragistics.Windows.Ribbon;
 using Prism.Events;
@@ -59,6 +60,8 @@ namespace HVTApp
             Container.RegisterType<IProjectLookupDataService, ProjectLookupDataService>();
             Container.RegisterType<ICompanyLookupDataService, CompanyLookupDataService>();
             Container.RegisterType<ICompanyFormLookupDataService, CompanyFormLookupDataService>();
+
+            Container.RegisterType<ProjectWrapperDataService>();
 
             ISelectService selectService = Container.Resolve<ISelectService>();
             selectService.Register<CompaniesViewModel, CompaniesView, CompanyLookup>();

@@ -8,5 +8,6 @@ namespace HVTApp.UI.Converter
         public ProductWrapper Product { get; set; }
         public int Amount { get; set; }
         public double Cost { get; set; }
+        public double Total => Cost * Amount;
     }
 }

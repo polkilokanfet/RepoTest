@@ -4,7 +4,8 @@
              xmlns:prism="http://prismlibrary.com/"             
              xmlns:infg="http://infragistics.com/DataPresenter"
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             x:Class="HVTApp.UI.Views.CompaniesView"             
+             x:Class="HVTApp.UI.Views.CompaniesView"
+             xmlns:converters="clr-namespace:HVTApp.UI.Converter"
              prism:ViewModelLocator.AutoWireViewModel="True"             
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
 
@@ -13,6 +14,10 @@
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    
+    <Control.Resources>
+        <converters:LookupToStringConverter x:Key="LookupToStringConverter"/>
+    </Control.Resources>
 
     <infg:XamDataGrid>
 
@@ -20,7 +25,8 @@
             <infg:FieldLayout Key="Company">
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="DisplayMember" Label="Полное наименование"/>
-                    <infg:TextField Name="CompanyForm" Label="Организационная форма"/>
+                    <infg:TextField Name="CompanyForm" Label="Организационная форма" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="ParentCompany" Label="Родительская компания" Converter="{StaticResource LookupToStringConverter}"/>
                     <!--<infg:TextField Name="ParentCompany.DisplayMember" Label="Полное наименование"/>-->
                     <!--<infg:TextField Name="FullName" Label="Полное наименование"/>
                     <infg:TextField Name="ShortName" Label="Сокращенное наименование"/>

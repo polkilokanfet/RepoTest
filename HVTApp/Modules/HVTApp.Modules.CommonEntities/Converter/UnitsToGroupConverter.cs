@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
+using HVTApp.UI.Wrapper;
 
-namespace HVTApp.UI.Wrapper.Converters
+namespace HVTApp.UI.Converter
 {
     [ValueConversion(typeof(IEnumerable<IProductUnit>), typeof(IEnumerable<GroupUnit>))]
     public class UnitsToGroupConverter : IValueConverter

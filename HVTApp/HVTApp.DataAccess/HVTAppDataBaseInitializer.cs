@@ -1,6 +1,8 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
+using System.Linq;
+using HVTApp.Model.POCOs;
 using HVTApp.TestDataGenerator;
 
 namespace HVTApp.DataAccess
@@ -11,52 +13,41 @@ namespace HVTApp.DataAccess
         {
             TestData testData = new TestData();
 
-            context.Countries.Add(testData.CountryRussia);
-            context.Districts.AddRange(new[] { testData.DistrictCentr, testData.DistrictUral });
-            context.Regions.AddRange(new[] { testData.RegionMoskovskayaOblast, testData.RegionSverdlovskayaOblast });
-            context.Localities.AddRange(new[] { testData.LocalityEkaterinburg, testData.LocalityMoscow });
+            context.Countries.AddRange(testData.GetAll<Country>());
+            context.Districts.AddRange(testData.GetAll<District>());
+            context.Regions.AddRange(testData.GetAll<Region>());
+            context.Localities.AddRange(testData.GetAll<Locality>());
 
-            context.ActivityFilds.AddRange(new[] { testData.ActivityFieldProducerOfHvt, testData.ActivityFieldBuilder, testData.ActivityFieldElectricityTransmission, testData.ActivityFieldElectricityGeneration });
-            context.CompanyForms.AddRange(new[] { testData.CompanyFormAo, testData.CompanyFormOao, testData.CompanyFormPao, testData.CompanyFormZao });
-            context.Companies.AddRange(new[] { testData.CompanyEnel, testData.CompanyFsk, testData.CompanyMrsk, testData.CompanyRosseti, testData.CompanyUetm });
+            context.ActivityFilds.AddRange(testData.GetAll<ActivityField>());
+            context.CompanyForms.AddRange(testData.GetAll<CompanyForm>());
+            context.Companies.AddRange(testData.GetAll<Company>());
 
-            context.Users.AddRange(new[] { testData.UserIvanov });
-            context.Persons.AddRange(new[] { testData.PersonIvanov, testData.PersonPetrov, testData.PersonSidorov });
-            context.Employees.AddRange(new[] { testData.EmployeeIvanov, testData.EmployeePetrov, testData.EmployeeSidorov });
+            context.Users.AddRange(testData.GetAll<User>());
+            context.Persons.AddRange(testData.GetAll<Person>());
+            context.Employees.AddRange(testData.GetAll<Employee>());
 
-            context.Facilities.AddRange(new[] { testData.FacilityStation, testData.FacilitySubstation });
+            context.Facilities.AddRange(testData.GetAll<Facility>());
 
-            context.Parameters.AddRange(new[] {
-                testData.ParameterBreaker, testData.ParameterTransformator, testData.ParameterBreakerDeadTank,
-                testData.ParameterBreakerLiveTank, testData.ParameterTransformatorCurrent, testData.ParameterTransformatorVoltage,
-                testData.ParameterVoltage35kV, testData.ParameterVoltage110kV, testData.ParameterVoltage220kV, testData.ParameterVoltage500kV,
-                testData.ParameterVoltage110V, testData.ParameterVoltage220V });
-            context.ParameterGroups.AddRange(new[]
-            {
-                testData.ParameterGroupBreakerType, testData.ParameterGroupDrivesVoltage, testData.ParameterGroupEqType,
-                testData.ParameterGroupTransformatorType, testData.ParameterGroupVoltage
-            });
-            context.RequiredDependentEquipmentsParameterses.AddRange(new[] { testData.RequiredChildProductRelationBreakerBlock, testData.RequiredChildProductRelationDrive });
-            context.Products.AddRange(new[] { testData.ProductVeb110, testData.ProductZng110, testData.ProductBreakersDrive });
+            context.Parameters.AddRange(testData.GetAll<Parameter>());
+            context.ParameterGroups.AddRange(testData.GetAll<ParameterGroup>());
+            context.ProductsRelations.AddRange(testData.GetAll<ProductsRelation>());
+            context.Products.AddRange(testData.GetAll<Product>());
 
-            //context.Projects.Add(testData.Project3);
-            //context.ProductionUnits.Add(testData.ProductionUnit1);
-            //context.SalesUnits.Add(testData.SalesUnit1);
-            context.Projects.AddRange(new[] { testData.Project1, testData.Project2 });
-            context.Tenders.Add(testData.TenderMrsk);
-            context.Documents.Add(testData.DocumentOfferMrsk);
-            context.Offers.Add(testData.OfferMrsk);
-            context.Specifications.Add(testData.SpecificationMrsk1);
+            context.Projects.AddRange(testData.GetAll<Project>());
+            context.Tenders.AddRange(testData.GetAll<Tender>());
+            context.Documents.AddRange(testData.GetAll<Document>());
+            context.Offers.AddRange(testData.GetAll<Offer>());
+            context.Specifications.AddRange(testData.GetAll<Specification>());
 
-            context.ProjectUnits.AddRange(new[] { testData.ProjectUnitVeb1101, testData.ProjectUnitVeb1102, testData.ProjectUnitZng1101, testData.ProjectUnitZng1102, testData.ProjectUnitZng1103 });
-            context.TenderUnits.AddRange(new[] { testData.TenderUnitVeb1101, testData.TenderUnitVeb1102, testData.TenderUnitZng1101, testData.TenderUnitZng1102, testData.TenderUnitZng1103 });
-            context.OfferUnits.AddRange(new[] { testData.OfferUnitVeb1101, testData.OfferUnitVeb1102, testData.OfferUnitZng1101, testData.OfferUnitZng1102, testData.OfferUnitZng1103 });
-            context.ProductionUnits.AddRange(new[] { testData.ProductionUnitVeb1101, testData.ProductionUnitVeb1102, testData.ProductionUnitZng1101, testData.ProductionUnitZng1102, testData.ProductionUnitZng1103 });
-            context.SalesUnits.AddRange(new[] { testData.SalesUnitVeb1101, testData.SalesUnitVeb1102, testData.SalesUnitZng1101, testData.SalesUnitZng1102, testData.SalesUnitZng1103 });
-            context.ShipmentUnits.AddRange(new[] { testData.ShipmentUnitVeb1101, testData.ShipmentUnitVeb1102, testData.ShipmentUnitZng1101, testData.ShipmentUnitZng1102, testData.ShipmentUnitZng1103 });
+            context.ProjectUnits.AddRange(testData.GetAll<ProjectUnit>());
+            context.TenderUnits.AddRange(testData.GetAll<TenderUnit>());
+            context.OfferUnits.AddRange(testData.GetAll<OfferUnit>());
+            context.ProductionUnits.AddRange(testData.GetAll<ProductionUnit>());
+            context.SalesUnits.AddRange(testData.GetAll<SalesUnit>());
+            context.ShipmentUnits.AddRange(testData.GetAll<ShipmentUnit>());
 
-            context.Orders.AddRange(new[] {testData.OrderVeb110, testData.OrderZng110});
-            context.Contracts.AddRange(new[] {testData.ContractMrsk});
+            context.Orders.AddRange(testData.GetAll<Order>());
+            context.Contracts.AddRange(testData.GetAll<Contract>());
 
             try
             {

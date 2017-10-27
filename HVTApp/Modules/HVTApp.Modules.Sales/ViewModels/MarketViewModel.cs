@@ -2,21 +2,20 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.UI.Lookup;
+using HVTApp.UI.Wrapper;
 using Prism.Commands;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
     public class MarketViewModel
     {
-        private readonly IProjectLookupDataService _projectLookupDataService;
-
+        private readonly ProjectWrapperDataService _projectWrapperDataService;
         private bool _loadedFlag = false;
 
-        public MarketViewModel(IProjectLookupDataService projectLookupDataService)
+        public MarketViewModel(ProjectWrapperDataService projectWrapperDataService)
         {
-            _projectLookupDataService = projectLookupDataService;
-
-            Projects = new ObservableCollection<ProjectLookup>();
+            _projectWrapperDataService = projectWrapperDataService;
+            Projects = new ObservableCollection<ProjectWrapper>();
 
             LoadedCommand = new DelegateCommand(async () =>
             {
@@ -27,13 +26,13 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public ICommand LoadedCommand { get; }
 
-        public ObservableCollection<ProjectLookup> Projects { get; }
+        public ObservableCollection<ProjectWrapper> Projects { get; }
 
-        public ProjectLookup SelectedProject { get; set; }
+        public ProjectWrapper SelectedProject { get; set; }
 
         private async Task LoadAsync()
         {
-            var lookups = await _projectLookupDataService.GetAllLookupsAsync();
+            var lookups = await _projectWrapperDataService.GetAllWrappersAsync();
             Projects.AddRange(lookups);
         }
     }

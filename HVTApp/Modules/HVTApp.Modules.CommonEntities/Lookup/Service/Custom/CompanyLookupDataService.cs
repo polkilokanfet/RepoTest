@@ -10,10 +10,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class CompanyLookupDataService
     {
-        public CompanyLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator)
-        {
-        }
-
         public override async Task<IEnumerable<CompanyLookup>> GetAllLookupsAsync()
         {
             var lookups = new List<CompanyLookup>();
@@ -22,12 +18,15 @@ namespace HVTApp.UI.Lookup
                 var companies = await ctx.Companies.AsNoTracking().Include(x => x.ParentCompany).Include(x => x.Form).ToListAsync();
                 foreach (var company in companies)
                 {
-                    var lookup = new CompanyLookup()
+                    var lookup = new CompanyLookup
                     {
                         Id = company.Id,
                         DisplayMember = GenerateDisplayMember(company),
-                        CompanyForm = new CompanyFormLookup() { Id = company.Form.Id, DisplayMember = company.Form.FullName }
+                        CompanyForm = new CompanyFormLookup { Id = company.Form.Id, DisplayMember = company.Form.FullName }
                     };
+                    if(company.ParentCompany != null)
+                        lookup.ParentCompany = new CompanyLookup { Id = company.ParentCompany.Id, DisplayMember = GenerateDisplayMember(company.ParentCompany)};
+
                     lookups.Add(lookup);
                 }
                 return lookups;

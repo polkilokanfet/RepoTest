@@ -4,6 +4,7 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns:infg="http://infragistics.com/DataPresenter"
+             xmlns:converters="clr-namespace:HVTApp.UI.Converter;assembly=HVTApp.UI"
              x:Class="HVTApp.Modules.Sales.Views.MarketView"
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
@@ -14,6 +15,11 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
+    <Control.Resources>
+        <converters:WrapperToStringConverter x:Key="WrapperToStringConverter"/>
+        <converters:WrappersToStringConverter x:Key="WrappersToStringConverter"/>
+        <converters:ProductUnitsToProductGroupsConverter x:Key="ProductUnitsToProductGroupsConverter"/>
+    </Control.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -28,18 +34,24 @@
             <infg:XamDataGrid.FieldLayouts>
                 <infg:FieldLayout Key="Project">
                     <infg:FieldLayout.Fields>
-                        <infg:Field Name="DisplayMember" Label="Проект"/>
+                        <infg:TextField Name="Name" Label="Проект"/>
+                        <infg:TextField Name="Facilities" Label="Объекты" Converter="{StaticResource WrappersToStringConverter}"/>
+                        <infg:NumericField Name="Sum" Label="Сумма"/>
 
-                        <!--<infg:Field Name="SalesUnitsGroups" IsExpandable="True" IsPrimary="True"/>-->
+                        <infg:Field Name="ProjectUnits" Converter="{StaticResource ProductUnitsToProductGroupsConverter}" IsExpandable="True" IsPrimary="True"/>
                     </infg:FieldLayout.Fields>
                 </infg:FieldLayout>
 
-                <!--<infg:FieldLayout Key="SalesUnitsGroup" ParentFieldLayoutKey="Project" ParentFieldName="SalesUnitsGroups">
+                <infg:FieldLayout Key="ProjectUnit" ParentFieldLayoutKey="Project" ParentFieldName="ProjectUnits">
                     <infg:FieldLayout.Fields>
-                        <infg:TextField Name="ProductName" Label="Обозначение"/>
-                        <infg:NumericField Name="Count" Label="Количество"/>
+                        <infg:TextField Name="Facility" Label="Объект" Converter="{StaticResource WrapperToStringConverter}"/>
+                        <infg:TextField Name="Product" Label="Оборудование" Converter="{StaticResource WrapperToStringConverter}"/>
+                        <infg:NumericField Name="Amount" Label="Количество"/>
+                        <infg:NumericField Name="Cost" Label="Стоимость"/>
+                        <infg:NumericField Name="Total" Label="Сумма"/>
                     </infg:FieldLayout.Fields>
-                </infg:FieldLayout>-->
+                </infg:FieldLayout>
+
             </infg:XamDataGrid.FieldLayouts>
 
         </infg:XamDataGrid>

@@ -26,6 +26,9 @@
 	GenerateLookupDataService(modelType);
 	SaveGeneratedCodeAsFile(modelType.Name + "LookupDataService.g.cs", "Lookup/Service/Generated");
 
+	GenerateWrapperDataService(modelType);
+	SaveGeneratedCodeAsFile(modelType.Name + "WrapperDataService.g.cs", "Wrapper/DataService/Generated");
+
 	GenerateAfterSaveEntityEvent(modelType);
 	SaveGeneratedCodeAsFile("AfterSave" + modelType.Name + "Event.g.cs", "Events/AfterSaveEntityEvents");
 }
@@ -61,6 +64,29 @@ namespace HVTApp.UI.Lookup
     public partial class <#=modelType.Name#>LookupDataService : LookupDataService<<#=modelType.Name#>Lookup, <#=modelType.Name#>>, I<#=modelType.Name#>LookupDataService
     {
         public <#=modelType.Name#>LookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+    }
+}
+<#+
+	}
+
+		private void GenerateWrapperDataService(Type modelType)
+	{
+#>using System;
+using HVTApp.DataAccess;
+using HVTApp.Model.POCOs;
+
+namespace HVTApp.UI.Wrapper
+{
+    public partial class <#=modelType.Name#>WrapperDataService : WrapperDataService<<#=modelType.Name#>, <#=modelType.Name#>Wrapper>
+    {
+        public <#=modelType.Name#>WrapperDataService(Func<HvtAppContext> contextCreator) : base(contextCreator)
+        {
+        }
+		
+		protected override <#=modelType.Name#>Wrapper GenerateWrapper(<#=modelType.Name#> model)
+        {
+            return new <#=modelType.Name#>Wrapper(model);
+        }
     }
 }
 <#+
