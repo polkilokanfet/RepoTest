@@ -132,5 +132,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<ProductionUnit> ProductionUnits { get; set; }
         public virtual DbSet<ShipmentUnit> ShipmentUnits { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
     }
 }

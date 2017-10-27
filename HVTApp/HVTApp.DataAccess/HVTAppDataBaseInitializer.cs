@@ -26,34 +26,37 @@ namespace HVTApp.DataAccess
 
             context.Facilities.AddRange(new[] { testData.FacilityStation, testData.FacilitySubstation });
 
-            //context.ParameterGroups.AddRange(new[]
-            //{
-            //    testData.ParameterGroupBreakerType, testData.ParameterGroupDrivesVoltage, testData.ParameterGroupEqType,
-            //    testData.ParameterGroupTransformatorType, testData.ParameterGroupVoltage
-            //});
-            //context.Parameters.AddRange(new[] {
-            //    testData.ParameterBreaker, testData.ParameterTransformator, testData.ParameterBreakerDeadTank,
-            //    testData.ParameterBreakerLiveTank, testData.ParameterTransformatorCurrent, testData.ParameterTransformatorVoltage,
-            //    testData.ParameterVoltage35kV, testData.ParameterVoltage110kV, testData.ParameterVoltage220kV, testData.ParameterVoltage500kV,
-            //    testData.ParameterVoltage110V, testData.ParameterVoltage220V });
-            //context.RequiredDependentEquipmentsParameterses.AddRange(new[] { testData.RequiredChildProductRelationBreakerBlock, testData.RequiredChildProductRelationDrive });
-            //context.Products.AddRange(new[] { testData.ProductVeb110, testData.ProductZng110, testData.ProductBreakersDrive });
+            context.Parameters.AddRange(new[] {
+                testData.ParameterBreaker, testData.ParameterTransformator, testData.ParameterBreakerDeadTank,
+                testData.ParameterBreakerLiveTank, testData.ParameterTransformatorCurrent, testData.ParameterTransformatorVoltage,
+                testData.ParameterVoltage35kV, testData.ParameterVoltage110kV, testData.ParameterVoltage220kV, testData.ParameterVoltage500kV,
+                testData.ParameterVoltage110V, testData.ParameterVoltage220V });
+            context.ParameterGroups.AddRange(new[]
+            {
+                testData.ParameterGroupBreakerType, testData.ParameterGroupDrivesVoltage, testData.ParameterGroupEqType,
+                testData.ParameterGroupTransformatorType, testData.ParameterGroupVoltage
+            });
+            context.RequiredDependentEquipmentsParameterses.AddRange(new[] { testData.RequiredChildProductRelationBreakerBlock, testData.RequiredChildProductRelationDrive });
+            context.Products.AddRange(new[] { testData.ProductVeb110, testData.ProductZng110, testData.ProductBreakersDrive });
 
-            ////context.Projects.Add(testData.Project3);
-            ////context.ProductionUnits.Add(testData.ProductionUnit1);
-            ////context.SalesUnits.Add(testData.SalesUnit1);
-            //context.Projects.AddRange(new[] { testData.Project1, testData.Project2 });
-            //context.Tenders.Add(testData.TenderMrsk);
-            //context.Documents.Add(testData.DocumentOfferMrsk);
-            //context.Offers.Add(testData.OfferMrsk);
-            //context.Specifications.Add(testData.SpecificationMrsk1);
+            //context.Projects.Add(testData.Project3);
+            //context.ProductionUnits.Add(testData.ProductionUnit1);
+            //context.SalesUnits.Add(testData.SalesUnit1);
+            context.Projects.AddRange(new[] { testData.Project1, testData.Project2 });
+            context.Tenders.Add(testData.TenderMrsk);
+            context.Documents.Add(testData.DocumentOfferMrsk);
+            context.Offers.Add(testData.OfferMrsk);
+            context.Specifications.Add(testData.SpecificationMrsk1);
 
-            //context.ProjectUnits.AddRange(new[] { testData.ProjectUnitVeb1101, testData.ProjectUnitVeb1102, testData.ProjectUnitZng1101, testData.ProjectUnitZng1102, testData.ProjectUnitZng1103 });
-            //context.TenderUnits.AddRange(new[] { testData.TenderUnitVeb1101, testData.TenderUnitVeb1102, testData.TenderUnitZng1101, testData.TenderUnitZng1102, testData.TenderUnitZng1103 });
-            //context.OfferUnits.AddRange(new[] { testData.OfferUnitVeb1101, testData.OfferUnitVeb1102, testData.OfferUnitZng1101, testData.OfferUnitZng1102, testData.OfferUnitZng1103 });
-            //context.ProductionUnits.AddRange(new[] { testData.ProductionUnitVeb1101, testData.ProductionUnitVeb1102, testData.ProductionUnitZng1101, testData.ProductionUnitZng1102, testData.ProductionUnitZng1103 });
-            //context.SalesUnits.AddRange(new[] { testData.SalesUnitVeb1101, testData.SalesUnitVeb1102, testData.SalesUnitZng1101, testData.SalesUnitZng1102, testData.SalesUnitZng1103 });
-            //context.ShipmentUnits.AddRange(new[] { testData.ShipmentUnitVeb1101, testData.ShipmentUnitVeb1102, testData.ShipmentUnitZng1101, testData.ShipmentUnitZng1102, testData.ShipmentUnitZng1103 });
+            context.ProjectUnits.AddRange(new[] { testData.ProjectUnitVeb1101, testData.ProjectUnitVeb1102, testData.ProjectUnitZng1101, testData.ProjectUnitZng1102, testData.ProjectUnitZng1103 });
+            context.TenderUnits.AddRange(new[] { testData.TenderUnitVeb1101, testData.TenderUnitVeb1102, testData.TenderUnitZng1101, testData.TenderUnitZng1102, testData.TenderUnitZng1103 });
+            context.OfferUnits.AddRange(new[] { testData.OfferUnitVeb1101, testData.OfferUnitVeb1102, testData.OfferUnitZng1101, testData.OfferUnitZng1102, testData.OfferUnitZng1103 });
+            context.ProductionUnits.AddRange(new[] { testData.ProductionUnitVeb1101, testData.ProductionUnitVeb1102, testData.ProductionUnitZng1101, testData.ProductionUnitZng1102, testData.ProductionUnitZng1103 });
+            context.SalesUnits.AddRange(new[] { testData.SalesUnitVeb1101, testData.SalesUnitVeb1102, testData.SalesUnitZng1101, testData.SalesUnitZng1102, testData.SalesUnitZng1103 });
+            context.ShipmentUnits.AddRange(new[] { testData.ShipmentUnitVeb1101, testData.ShipmentUnitVeb1102, testData.ShipmentUnitZng1101, testData.ShipmentUnitZng1102, testData.ShipmentUnitZng1103 });
+
+            context.Orders.AddRange(new[] {testData.OrderVeb110, testData.OrderZng110});
+            context.Contracts.AddRange(new[] {testData.ContractMrsk});
 
             try
             {

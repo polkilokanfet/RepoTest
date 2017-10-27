@@ -362,31 +362,33 @@ namespace HVTApp.TestDataGenerator
             ParameterBreakerBlock.Clone(new Parameter { GroupId = ParameterGroupEqType.Id, Value = "Блок выключателя" });
 
             ParameterBreakerDeadTank.Clone(new Parameter { GroupId = ParameterGroupBreakerType.Id, Value = "Баковый" });
-            ParameterBreakerDeadTank.AddRequiredPreviousParameters(new []{ParameterBreaker});
             ParameterBreakerLiveTank.Clone(new Parameter { GroupId = ParameterGroupBreakerType.Id, Value = "Колонковый" });
-            ParameterBreakerLiveTank.AddRequiredPreviousParameters(new[] { ParameterBreaker });
-
             ParameterTransformatorCurrent.Clone(new Parameter { GroupId = ParameterGroupTransformatorType.Id, Value = "Тока" });
-            ParameterTransformatorCurrent.AddRequiredPreviousParameters(new[] { ParameterTransformator });
             ParameterTransformatorVoltage.Clone(new Parameter { GroupId = ParameterGroupTransformatorType.Id, Value = "Напряжения" });
-            ParameterTransformatorVoltage.AddRequiredPreviousParameters(new[] { ParameterTransformator });
-
             ParameterVoltage35kV.Clone(new Parameter { GroupId = ParameterGroupVoltage.Id, Value = "35" });
-            ParameterVoltage35kV.AddRequiredPreviousParameters(new []{ParameterBreaker})
-                                .AddRequiredPreviousParameters(new []{ParameterTransformator, ParameterTransformatorCurrent});
             ParameterVoltage110kV.Clone(new Parameter { GroupId = ParameterGroupVoltage.Id, Value = "110" });
+            ParameterVoltage220kV.Clone(new Parameter { GroupId = ParameterGroupVoltage.Id, Value = "220" });
+            ParameterVoltage500kV.Clone(new Parameter { GroupId = ParameterGroupVoltage.Id, Value = "500" });
+            ParameterVoltage110V.Clone(new Parameter { GroupId = ParameterGroupDrivesVoltage.Id, Value = "110 В" });
+            ParameterVoltage220V.Clone(new Parameter { GroupId = ParameterGroupDrivesVoltage.Id, Value = "220 В" });
+
+
+            ParameterBreakerDeadTank.AddRequiredPreviousParameters(new[] {ParameterBreaker});
+            ParameterBreakerLiveTank.AddRequiredPreviousParameters(new[] {ParameterBreaker});
+
+            ParameterTransformatorCurrent.AddRequiredPreviousParameters(new[] {ParameterTransformator});
+            ParameterTransformatorVoltage.AddRequiredPreviousParameters(new[] {ParameterTransformator});
+
+            ParameterVoltage35kV.AddRequiredPreviousParameters(new[] {ParameterBreaker})
+                                .AddRequiredPreviousParameters(new[] {ParameterTransformator, ParameterTransformatorCurrent});
             ParameterVoltage110kV.AddRequiredPreviousParameters(new[] { ParameterBreaker })
                                  .AddRequiredPreviousParameters(new[] { ParameterTransformator }); 
-            ParameterVoltage220kV.Clone(new Parameter { GroupId = ParameterGroupVoltage.Id, Value = "220" });
             ParameterVoltage220kV.AddRequiredPreviousParameters(new[] { ParameterBreaker })
                                  .AddRequiredPreviousParameters(new[] { ParameterTransformator }); 
-            ParameterVoltage500kV.Clone(new Parameter { GroupId = ParameterGroupVoltage.Id, Value = "500" });
             ParameterVoltage500kV.AddRequiredPreviousParameters(new[] { ParameterBreaker, ParameterBreakerLiveTank });
 
-            ParameterVoltage110V.Clone(new Parameter { GroupId = ParameterGroupDrivesVoltage.Id, Value = "110 В" });
             ParameterVoltage110V.AddRequiredPreviousParameters(new[] { ParameterBrakersDrive });
 
-            ParameterVoltage220V.Clone(new Parameter { GroupId = ParameterGroupDrivesVoltage.Id, Value = "220 В" });
             ParameterVoltage220V.AddRequiredPreviousParameters(new[] { ParameterBrakersDrive });
         }
 
