@@ -12,11 +12,11 @@ namespace HVTApp.UI.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var projectUnits = value as IEnumerable<IProductUnit>;
-            if (projectUnits == null) throw new ArgumentException();
+            var productUnits = value as IEnumerable<IProductUnit>;
+            if (productUnits == null) throw new ArgumentException();
 
             //Группируем по ключу: продукт + объект + стоимость
-            var groups = projectUnits.GroupBy(x => new Group() {Product=x.Product, Facility = x.Facility, Cost = x.Cost}, new Comparer());
+            var groups = productUnits.GroupBy(x => new Group() {Product=x.Product, Facility = x.Facility, Cost = x.Cost}, new Comparer());
 
             List<ProductUnitsGroup> projectUnitsGroups = new List<ProductUnitsGroup>();
             foreach (var group in groups)

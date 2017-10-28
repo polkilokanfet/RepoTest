@@ -217,12 +217,12 @@ namespace HVTApp.TestDataGenerator
             GenerateProductionUnit();
             GenerateSalesUnits();
             GenerateShippmentUnits();
-            GenerateOffers();
-            GenerateOfferUnits();
             GenerateOrders();
             GenerateTenders();
-            GenerateTanderUnits();
             GenerateProjectUnits();
+            GenerateTanderUnits();
+            GenerateOffers();
+            GenerateOfferUnits();
             GeneratePaymentConditions();
             GenerateDocuments();
         }
@@ -461,12 +461,12 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateOfferUnits()
         {
-            OfferUnitVeb1101.Clone(new OfferUnit { Product = ProductVeb110, Cost = 7, OfferId = OfferMrsk.Id, ProductionTerm = 120, PaymentsConditions = StandartPaymentConditions });
-            OfferUnitVeb1102.Clone(new OfferUnit { Product = ProductVeb110, Cost = 7, OfferId = OfferMrsk.Id, ProductionTerm = 120, PaymentsConditions = StandartPaymentConditions });
+            OfferUnitVeb1101.Clone(new OfferUnit { Product = ProductVeb110, Cost = 7, OfferId = OfferMrsk.Id, ProductionTerm = 120, PaymentsConditions = StandartPaymentConditions, Facility = ProjectUnitVeb1101.Facility });
+            OfferUnitVeb1102.Clone(new OfferUnit { Product = ProductVeb110, Cost = 7, OfferId = OfferMrsk.Id, ProductionTerm = 120, PaymentsConditions = StandartPaymentConditions, Facility = ProjectUnitVeb1102.Facility });
 
-            OfferUnitZng1101.Clone(new OfferUnit { Product = ProductZng110, Cost = 3, OfferId = OfferMrsk.Id, ProductionTerm = 150, PaymentsConditions = StandartPaymentConditions });
-            OfferUnitZng1102.Clone(new OfferUnit { Product = ProductZng110, Cost = 3, OfferId = OfferMrsk.Id, ProductionTerm = 150, PaymentsConditions = StandartPaymentConditions });
-            OfferUnitZng1103.Clone(new OfferUnit { Product = ProductZng110, Cost = 3, OfferId = OfferMrsk.Id, ProductionTerm = 150, PaymentsConditions = StandartPaymentConditions });
+            OfferUnitZng1101.Clone(new OfferUnit { Product = ProductZng110, Cost = 3, OfferId = OfferMrsk.Id, ProductionTerm = 150, PaymentsConditions = StandartPaymentConditions, Facility = ProjectUnitZng1101.Facility });
+            OfferUnitZng1102.Clone(new OfferUnit { Product = ProductZng110, Cost = 3, OfferId = OfferMrsk.Id, ProductionTerm = 150, PaymentsConditions = StandartPaymentConditions, Facility = ProjectUnitZng1102.Facility });
+            OfferUnitZng1103.Clone(new OfferUnit { Product = ProductZng110, Cost = 3, OfferId = OfferMrsk.Id, ProductionTerm = 150, PaymentsConditions = StandartPaymentConditions, Facility = ProjectUnitZng1103.Facility });
         }
 
         private void GenerateOffers()
@@ -486,17 +486,17 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateTenders()
         {
-            TenderMrsk.Clone(new Tender { ProjectId = Project1.Id, Sum = 9, Type = TenderTypeProject, Winner = CompanyUetm, Participants = new List<Company> { CompanyUetm, CompanyEnel }, Offers = new List<Offer> { OfferMrsk }, DateOpen = DateTime.Today, DateClose = DateTime.Today.AddDays(7), TenderUnits = new List<TenderUnit> { TenderUnitVeb1101, TenderUnitVeb1102, TenderUnitZng1101, TenderUnitZng1102, TenderUnitZng1103 } });
+            TenderMrsk.Clone(new Tender { ProjectId = Project1.Id, Type = TenderTypeProject, Winner = CompanyUetm, Participants = new List<Company> { CompanyUetm, CompanyEnel }, Offers = new List<Offer> { OfferMrsk }, DateOpen = DateTime.Today, DateClose = DateTime.Today.AddDays(7), TenderUnits = new List<TenderUnit> { TenderUnitVeb1101, TenderUnitVeb1102, TenderUnitZng1101, TenderUnitZng1102, TenderUnitZng1103 } });
         }
 
         private void GenerateTanderUnits()
         {
-            TenderUnitVeb1101.Clone(new TenderUnit { Product = ProductVeb110, TenderId = TenderMrsk.Id, Cost = 2, ProjectUnit = ProjectUnitVeb1101, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(150), PaymentsConditions = StandartPaymentConditions });
-            TenderUnitVeb1102.Clone(new TenderUnit { Product = ProductVeb110, TenderId = TenderMrsk.Id, Cost = 2, ProjectUnit = ProjectUnitVeb1102, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(150), PaymentsConditions = StandartPaymentConditions }); 
+            TenderUnitVeb1101.Clone(new TenderUnit { Product = ProductVeb110, TenderId = TenderMrsk.Id, Cost = 2, ProjectUnit = ProjectUnitVeb1101, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(150), PaymentsConditions = StandartPaymentConditions, Facility = ProjectUnitVeb1101.Facility });
+            TenderUnitVeb1102.Clone(new TenderUnit { Product = ProductVeb110, TenderId = TenderMrsk.Id, Cost = 2, ProjectUnit = ProjectUnitVeb1102, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(150), PaymentsConditions = StandartPaymentConditions, Facility = ProjectUnitVeb1102.Facility }); 
 
-            TenderUnitZng1101.Clone(new TenderUnit { Product = ProductZng110, TenderId = TenderMrsk.Id, Cost = 1, ProjectUnit = ProjectUnitZng1101, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(120), PaymentsConditions = StandartPaymentConditions }); 
-            TenderUnitZng1102.Clone(new TenderUnit { Product = ProductZng110, TenderId = TenderMrsk.Id, Cost = 1, ProjectUnit = ProjectUnitZng1102, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(120), PaymentsConditions = StandartPaymentConditions }); 
-            TenderUnitZng1103.Clone(new TenderUnit { Product = ProductZng110, TenderId = TenderMrsk.Id, Cost = 1, ProjectUnit = ProjectUnitZng1103, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(120), PaymentsConditions = StandartPaymentConditions }); 
+            TenderUnitZng1101.Clone(new TenderUnit { Product = ProductZng110, TenderId = TenderMrsk.Id, Cost = 1, ProjectUnit = ProjectUnitZng1101, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(120), PaymentsConditions = StandartPaymentConditions, Facility = ProjectUnitZng1101.Facility }); 
+            TenderUnitZng1102.Clone(new TenderUnit { Product = ProductZng110, TenderId = TenderMrsk.Id, Cost = 1, ProjectUnit = ProjectUnitZng1102, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(120), PaymentsConditions = StandartPaymentConditions, Facility = ProjectUnitZng1102.Facility }); 
+            TenderUnitZng1103.Clone(new TenderUnit { Product = ProductZng110, TenderId = TenderMrsk.Id, Cost = 1, ProjectUnit = ProjectUnitZng1103, ProducerWinner = CompanyUetm, DeliveryDate = DateTime.Today.AddDays(120), PaymentsConditions = StandartPaymentConditions, Facility = ProjectUnitZng1103.Facility }); 
         }
 
         private void GenerateOrders()

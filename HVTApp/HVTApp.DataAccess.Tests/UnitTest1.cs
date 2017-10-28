@@ -39,7 +39,7 @@ namespace HVTApp.DataAccess.Tests
         //    unitOfWork.Complete();
 
         //    unitOfWork = new UnitOfWork(new HvtAppContext());
-        //    Product = unitOfWork.ProductsMain.GetAll().Single(x => x.Id == Product.Id);
+        //    Product = unitOfWork.ProductsMain.GetAllAsync().Single(x => x.Id == Product.Id);
 
         //    Assert.AreEqual(Product.PaymentsInfo.PaymentsPlaned.Count, Product.PaymentsInfo.PaymentsConditions.Count);
         //    Assert.AreEqual(Product.PaymentsInfo.PaymentsPlaned.ToList().Sum(x => x.Sum), Product.Sum.CostWithVat);

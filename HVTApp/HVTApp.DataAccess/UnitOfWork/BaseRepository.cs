@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.DataAccess
 {
-    public class BaseRepository<TModel> : IRepository<TModel>
-        where TModel : class, IBaseEntity
+    public class BaseRepository<TEntity> : IRepository<TEntity>
+        where TEntity : class, IBaseEntity
     {
         protected readonly DbContext Context;
 
@@ -17,42 +18,42 @@ namespace HVTApp.DataAccess
             Context = context;
         }
 
-        public virtual List<TModel> GetAll()
+        public virtual async Task<List<TEntity>> GetAllAsync()
         {
             Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-            return Context.Set<TModel>().ToList();
+            return await Context.Set<TEntity>().ToListAsync();
         }
 
-        public IEnumerable<TModel> Find(Func<TModel, bool> predicate)
+        public IEnumerable<TEntity> Find(Func<TEntity, bool> predicate)
         {
-            return GetAll().Where(predicate);
-        }
-
-
-        public void Add(TModel entity)
-        {
-            Context.Set<TModel>().Add(entity);
-        }
-
-        public void AddRange(IEnumerable<TModel> entities)
-        {
-            Context.Set<TModel>().AddRange(entities);
+            return Context.Set<TEntity>().Where(predicate);
         }
 
 
-        public void Delete(TModel entity)
+        public void Add(TEntity entity)
         {
-            Context.Set<TModel>().Remove(entity);
+            Context.Set<TEntity>().Add(entity);
         }
 
-        public void DeleteRange(IEnumerable<TModel> entities)
+        public void AddRange(IEnumerable<TEntity> entities)
         {
-            Context.Set<TModel>().RemoveRange(entities);
+            Context.Set<TEntity>().AddRange(entities);
         }
 
-        public TModel GetById(Guid id)
+
+        public void Delete(TEntity entity)
         {
-            return Context.Set<TModel>().Single(x => x.Id == id);
+            Context.Set<TEntity>().Remove(entity);
+        }
+
+        public void DeleteRange(IEnumerable<TEntity> entities)
+        {
+            Context.Set<TEntity>().RemoveRange(entities);
+        }
+
+        public TEntity GetById(Guid id)
+        {
+            return Context.Set<TEntity>().Single(x => x.Id == id);
         }
     }
 }

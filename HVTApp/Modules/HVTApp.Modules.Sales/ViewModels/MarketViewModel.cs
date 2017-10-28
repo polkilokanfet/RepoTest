@@ -11,6 +11,7 @@ namespace HVTApp.Modules.Sales.ViewModels
     {
         private readonly ProjectWrapperDataService _projectWrapperDataService;
         private bool _loadedFlag = false;
+        private ProjectWrapper _selectedProject;
 
         public MarketViewModel(ProjectWrapperDataService projectWrapperDataService)
         {
@@ -28,7 +29,11 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public ObservableCollection<ProjectWrapper> Projects { get; }
 
-        public ProjectWrapper SelectedProject { get; set; }
+        public ProjectWrapper SelectedProject
+        {
+            get { return _selectedProject; }
+            set { _selectedProject = value; }
+        }
 
         private async Task LoadAsync()
         {

@@ -66,6 +66,17 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
+	private FacilityWrapper _fieldFacility;
+	public FacilityWrapper Facility 
+    {
+        get { return _fieldFacility ; }
+        set
+        {
+            SetComplexValue<Facility, FacilityWrapper>(_fieldFacility, value);
+            _fieldFacility  = value;
+        }
+    }
+
 	private ProductWrapper _fieldProduct;
 	public ProductWrapper Product 
     {
@@ -105,6 +116,12 @@ namespace HVTApp.UI.Wrapper
         {
             _fieldProjectUnit = new ProjectUnitWrapper(Model.ProjectUnit);
             RegisterComplex(ProjectUnit);
+        }
+
+		if (Model.Facility != null)
+        {
+            _fieldFacility = new FacilityWrapper(Model.Facility);
+            RegisterComplex(Facility);
         }
 
 		if (Model.Product != null)

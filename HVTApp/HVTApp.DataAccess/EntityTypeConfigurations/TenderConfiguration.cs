@@ -8,7 +8,6 @@ namespace HVTApp.DataAccess
         public TenderConfiguration()
         {
             HasRequired(x => x.Type).WithMany();
-            Property(x => x.Sum).IsRequired();
             Property(x => x.DateOpen).IsRequired();
             Property(x => x.DateClose).IsRequired();
             Property(x => x.DateNotice).IsOptional();

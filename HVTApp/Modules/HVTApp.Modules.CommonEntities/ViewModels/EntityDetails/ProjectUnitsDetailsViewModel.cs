@@ -2,14 +2,14 @@
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Wrapper;
 using HVTApp.Services.GetProductService;
 using HVTApp.UI.BaseView;
 using HVTApp.UI.Events;
+using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
-namespace HVTApp.Modules.Sales.ViewModels
+namespace HVTApp.UI.ViewModels
 {
     public class ProjectUnitsDetailsViewModel : BaseDetailsViewModel<ProjectUnitWrapper, ProjectUnit, AfterSaveProjectUnitEvent>
     {
@@ -35,9 +35,9 @@ namespace HVTApp.Modules.Sales.ViewModels
         public DelegateCommand ChooseProductCommand { get; }
 
 
-        private void ChooseFacilityCommand_Execute()
+        private async void ChooseFacilityCommand_Execute()
         {
-            var facility = _chooseService.ChooseDialog(_unitOfWork.Facilities.GetAll().Select(x => new FacilityWrapper(x)));
+            var facility = _chooseService.ChooseDialog((await _unitOfWork.Facilities.GetAllAsync()).Select(x => new FacilityWrapper(x)));
             if (facility != null) Item.Facility = facility;
         }
 
@@ -46,9 +46,9 @@ namespace HVTApp.Modules.Sales.ViewModels
             Item.Facility = null;
         }
 
-        private void ChooseProductCommand_Execute()
+        private async void ChooseProductCommand_Execute()
         {
-            var product = _getProductService.GetProduct(Item.Product.Model);
+            var product = await _getProductService.GetProduct(Item.Product.Model);
             if (product != null) Item.Product = new ProductWrapper(product);
         }
     }

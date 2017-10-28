@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using HVTApp.DataAccess;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.AuthenticationService;
@@ -22,9 +23,10 @@ namespace HVTApp.Services.WpfAuthenticationService
             _dialogService.Register<AuthenticationWindowModel, AuthenticationWindow>();
         }
 
-        public bool Authentication()
+        public async Task<bool> Authentication()
         {
-            AuthenticationWindowModel authenticationWindowModel = new AuthenticationWindowModel(_unitOfWork.Users.GetAll().ToList());
+            var users = await _unitOfWork.Users.GetAllAsync();
+            AuthenticationWindowModel authenticationWindowModel = new AuthenticationWindowModel(users);
             bool? result = _dialogService.ShowDialog(authenticationWindowModel);
             if (result.HasValue && result.Value)
             {

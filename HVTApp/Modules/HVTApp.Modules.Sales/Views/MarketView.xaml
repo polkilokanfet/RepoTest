@@ -64,26 +64,54 @@
 
             <StackPanel Grid.Column="0" Orientation="Vertical">
                 <Label>Конкурсы по проекту</Label>
-                <infg:XamDataGrid DataSource="{Binding SelectedItem.Tenders}">
+                <infg:XamDataGrid DataSource="{Binding SelectedProject.Tenders}">
                     <infg:XamDataGrid.FieldLayouts>
-                        <infg:FieldLayout>
+                        <infg:FieldLayout Key="Tender">
                             <infg:FieldLayout.Fields>
-                                <infg:NumericField Name="Sum"/>
-                                <infg:Field Name="Type" Label="Тип"/>
+                                <infg:Field Name="Type" Label="Тип" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <infg:NumericField Name="Sum" Label="Сумма"/>
+
+                                <infg:Field Name="TenderUnits" Converter="{StaticResource ProductUnitsToProductGroupsConverter}" IsExpandable="True" IsPrimary="True"/>
                             </infg:FieldLayout.Fields>
                         </infg:FieldLayout>
+
+                        <infg:FieldLayout Key="TenderUnit" ParentFieldLayoutKey="Tender" ParentFieldName="TenderUnits">
+                            <infg:FieldLayout.Fields>
+                                <infg:TextField Name="Facility" Label="Объект" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <infg:TextField Name="Product" Label="Оборудование" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <infg:NumericField Name="Amount" Label="Количество"/>
+                                <infg:NumericField Name="Cost" Label="Стоимость"/>
+                                <infg:NumericField Name="Total" Label="Сумма"/>
+                            </infg:FieldLayout.Fields>
+                        </infg:FieldLayout>
+
                     </infg:XamDataGrid.FieldLayouts>
                 </infg:XamDataGrid>
             </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Vertical">
                 <Label>ТКП по проекту</Label>
-                <infg:XamDataGrid DataSource="{Binding SelectedItem.Offers}">
+                <infg:XamDataGrid DataSource="{Binding SelectedProject.Offers}">
                     <infg:XamDataGrid.FieldLayouts>
-                        <infg:FieldLayout>
+                        <infg:FieldLayout Key="Offer">
                             <infg:FieldLayout.Fields>
+                                <!--<infg:Field Name="Type" Label="Тип" Converter="{StaticResource WrapperToStringConverter}"/>-->
+                                <infg:NumericField Name="Sum" Label="Сумма"/>
+
+                                <infg:Field Name="OfferUnits" Converter="{StaticResource ProductUnitsToProductGroupsConverter}" IsExpandable="True" IsPrimary="True"/>
                             </infg:FieldLayout.Fields>
                         </infg:FieldLayout>
+
+                        <infg:FieldLayout Key="OfferUnit" ParentFieldLayoutKey="Offer" ParentFieldName="OfferUnits">
+                            <infg:FieldLayout.Fields>
+                                <infg:TextField Name="Facility" Label="Объект" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <infg:TextField Name="Product" Label="Оборудование" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <infg:NumericField Name="Amount" Label="Количество"/>
+                                <infg:NumericField Name="Cost" Label="Стоимость"/>
+                                <infg:NumericField Name="Total" Label="Сумма"/>
+                            </infg:FieldLayout.Fields>
+                        </infg:FieldLayout>
+
                     </infg:XamDataGrid.FieldLayouts>
                 </infg:XamDataGrid>
             </StackPanel>

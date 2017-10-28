@@ -23,15 +23,6 @@ namespace HVTApp.UI.Wrapper
     public bool ProjectIdIsChanged => GetIsChanged(nameof(ProjectId));
 
 
-    public System.Double Sum
-    {
-      get { return GetValue<System.Double>(); }
-      set { SetValue(value); }
-    }
-    public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
-    public bool SumIsChanged => GetIsChanged(nameof(Sum));
-
-
     public System.DateTime DateOpen
     {
       get { return GetValue<System.DateTime>(); }

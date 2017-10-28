@@ -2,7 +2,7 @@
 
 namespace HVTApp.UI.Wrapper
 {
-    public partial class OfferUnitWrapper
+    public partial class OfferUnitWrapper : IProductUnit
     {
     }
 }

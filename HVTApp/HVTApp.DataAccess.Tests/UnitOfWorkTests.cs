@@ -12,15 +12,15 @@ namespace HVTApp.DataAccess.Tests
         {
             var hvtAppContext = new HvtAppContext();
             var unitOfWork = new UnitOfWork(hvtAppContext);
-            unitOfWork.ActivityFields.GetAll();
+            unitOfWork.ActivityFields.GetAllAsync();
         }
 
         [TestMethod]
-        public void CanAddSaveRemoveEntity()
+        public async void CanAddSaveRemoveEntity()
         {
             UnitOfWork unitOfWork = new UnitOfWork(new HvtAppContext());
             //очищаем все записи
-            unitOfWork.FriendGroups.DeleteRange(unitOfWork.FriendGroups.GetAll());
+            unitOfWork.FriendGroups.DeleteRange(await unitOfWork.FriendGroups.GetAllAsync());
             unitOfWork.Complete();
 
 
@@ -32,11 +32,11 @@ namespace HVTApp.DataAccess.Tests
             Assert.IsTrue(unitOfWork.FriendGroups.Find(x => x.Name == testFriendGroup.Name).Count() == 1);
             
             //очищаем все записи
-            unitOfWork.FriendGroups.DeleteRange(unitOfWork.FriendGroups.GetAll());
+            unitOfWork.FriendGroups.DeleteRange(await unitOfWork.FriendGroups.GetAllAsync());
             unitOfWork.Complete();
 
             unitOfWork = new UnitOfWork(new HvtAppContext());
-            Assert.IsFalse(unitOfWork.FriendGroups.GetAll().Any());
+            Assert.IsFalse((await unitOfWork.FriendGroups.GetAllAsync()).Any());
         }
     }
 }

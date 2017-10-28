@@ -6,6 +6,8 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class OfferWrapper
     {
+        public double Sum => OfferUnits.Sum(x => x.Cost);
+
         public void ChangeOffer(OfferWrapper templateOffer)
         {
             this.ValidityDate = DateTime.Today.AddDays(30);

@@ -1,7 +1,9 @@
-﻿namespace HVTApp.Infrastructure.Interfaces.Services.AuthenticationService
+﻿using System.Threading.Tasks;
+
+namespace HVTApp.Infrastructure.Interfaces.Services.AuthenticationService
 {
     public interface IAuthenticationService
     {
-        bool Authentication();
+        Task<bool> Authentication();
     }
 }

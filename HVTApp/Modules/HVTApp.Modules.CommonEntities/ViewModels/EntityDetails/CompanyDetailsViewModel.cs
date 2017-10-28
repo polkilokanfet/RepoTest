@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.DataAccess.Infrastructure;
@@ -25,7 +26,7 @@ namespace HVTApp.UI.ViewModels
         {
             _selectService = selectService;
 
-            Forms = new ObservableCollection<CompanyFormWrapper>(UnitOfWork.CompanyForms.GetAll().Select(x => new CompanyFormWrapper(x)));
+            //Forms = new ObservableCollection<CompanyFormWrapper>(UnitOfWork.CompanyForms.GetAllAsync().Select(x => new CompanyFormWrapper(x)));
 
             SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_Execute);
             RemoveParentCompanyCommand = new DelegateCommand(RemoveParentCompanyCommand_Execute);
@@ -54,9 +55,9 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
-        private void AddActivityFieldCommand_Execute()
+        private async void AddActivityFieldCommand_Execute()
         {
-            var fields = UnitOfWork.ActivityFields.GetAll().Select(x => new ActivityFieldWrapper(x)).Except(Company.ActivityFilds);
+            var fields = (await UnitOfWork.ActivityFields.GetAllAsync()).Select(x => new ActivityFieldWrapper(x)).Except(Company.ActivityFilds);
             var field = _selectService.SelectItem(fields);
             if (field != null && !Company.ActivityFilds.Contains(field))
                 Company.ActivityFilds.Add(field);
@@ -80,12 +81,12 @@ namespace HVTApp.UI.ViewModels
             Company.ParentCompany = null;
         }
 
-        private void SelectParentCompanyCommand_Execute()
+        private async void SelectParentCompanyCommand_Execute()
         {
             //компании, которые не могут быть головной (дочернии и т.д.)
             IEnumerable<CompanyWrapper> exceptCompanies = Company.GetAllChilds().Concat(new[] {this.Company});
             //возможные головные компании
-            IEnumerable<CompanyWrapper> possibleParents = UnitOfWork.Companies.GetAll().Select(x => new CompanyWrapper(x)).Except(exceptCompanies);
+            IEnumerable<CompanyWrapper> possibleParents = (await UnitOfWork.Companies.GetAllAsync()).Select(x => new CompanyWrapper(x)).Except(exceptCompanies);
             //выбор одной из компаний
             CompanyWrapper possibleParent = _selectService.SelectItem(possibleParents, Company.ParentCompany);
 

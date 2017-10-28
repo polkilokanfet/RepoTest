@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.DataAccess.Infrastructure
 {
-    public interface IRepository<TModel>
-        where TModel : class, IBaseEntity
+    public interface IRepository<TEntity>
+        where TEntity : class, IBaseEntity
     {
-        List<TModel> GetAll();
-        TModel GetById(Guid Id);
-        IEnumerable<TModel> Find(Func<TModel, bool> predicate);
+        Task<List<TEntity>> GetAllAsync();
+        TEntity GetById(Guid id);
+        IEnumerable<TEntity> Find(Func<TEntity, bool> predicate);
 
-        void Add(TModel entity);
-        void AddRange(IEnumerable<TModel> entities);
+        void Add(TEntity entity);
+        void AddRange(IEnumerable<TEntity> entities);
 
-        void Delete(TModel entity);
-        void DeleteRange(IEnumerable<TModel> entities);
+        void Delete(TEntity entity);
+        void DeleteRange(IEnumerable<TEntity> entities);
     }
 }

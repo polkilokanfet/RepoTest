@@ -471,6 +471,7 @@
     <Compile Include="Wrapper\Custom\Functionality\ShipmentUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\SpecificationWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\TenderUnitWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\TenderWrapper.cs" />
     <Compile Include="Wrapper\Custom\IProductWithCost.cs" />
     <Compile Include="Wrapper\Custom\Test\TestFriendAddressWrapper.cs" />
     <Compile Include="Wrapper\Custom\Test\TestFriendEmailWrapper.cs" />
