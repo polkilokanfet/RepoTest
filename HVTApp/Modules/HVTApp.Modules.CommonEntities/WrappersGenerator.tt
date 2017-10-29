@@ -31,6 +31,9 @@
 
 	GenerateAfterSaveEntityEvent(modelType);
 	SaveGeneratedCodeAsFile("AfterSave" + modelType.Name + "Event.g.cs", "Events/AfterSaveEntityEvents");
+
+	GenerateAfterRemoveEntityEvent(modelType);
+	SaveGeneratedCodeAsFile("AfterRemove" + modelType.Name + "Event.g.cs", "Events/AfterRemoveEntityEvents");
 }
 #>
 
@@ -69,7 +72,7 @@ namespace HVTApp.UI.Lookup
 <#+
 	}
 
-		private void GenerateWrapperDataService(Type modelType)
+	private void GenerateWrapperDataService(Type modelType)
 	{
 #>using System;
 using HVTApp.DataAccess;
@@ -100,6 +103,18 @@ using Prism.Events;
 namespace HVTApp.UI.Events
 {
 	public partial class AfterSave<#=modelType.Name#>Event : PubSubEvent<<#=modelType.Name#>> { }
+}
+<#+
+	}
+
+	private void GenerateAfterRemoveEntityEvent(Type modelType)
+	{
+#>using HVTApp.Model.POCOs;
+using Prism.Events;
+
+namespace HVTApp.UI.Events
+{
+	public partial class AfterRemove<#=modelType.Name#>Event : PubSubEvent<<#=modelType.Name#>> { }
 }
 <#+
 	}

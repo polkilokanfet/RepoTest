@@ -8,7 +8,6 @@ using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
-using HVTApp.UI.BaseView;
 using HVTApp.UI.Events;
 using Microsoft.Practices.Unity;
 using Prism.Commands;

@@ -3,8 +3,6 @@ using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
-using HVTApp.Modules.Sales.ViewModels;
-using HVTApp.UI.BaseView;
 using HVTApp.UI.Converter;
 using HVTApp.UI.Events;
 using HVTApp.UI.Wrapper;

@@ -285,8 +285,8 @@
     <Compile Include="EntityTypeConfigurations\Custom\UserConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\UserRoleConfiguration.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.g.cs" />
-    <Compile Include="WrappersGenerator.cs">
-      <DependentUpon>WrappersGenerator.tt</DependentUpon>
+    <Compile Include="Generator.cs">
+      <DependentUpon>Generator.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -318,9 +318,9 @@
     <Folder Include="UnitOfWork\Repositories\IRepository\Custom\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="WrappersGenerator.tt">
+    <Content Include="Generator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>WrappersGenerator.cs</LastGenOutput>
+      <LastGenOutput>Generator.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

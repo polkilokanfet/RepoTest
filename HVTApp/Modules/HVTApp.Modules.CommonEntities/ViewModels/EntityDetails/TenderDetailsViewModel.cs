@@ -1,10 +1,9 @@
 ﻿using HVTApp.Model.POCOs;
-using HVTApp.UI.Wrapper;
-using HVTApp.UI.BaseView;
 using HVTApp.UI.Events;
+using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 
-namespace HVTApp.Modules.Sales.ViewModels
+namespace HVTApp.UI.ViewModels
 {
     public class TenderDetailsViewModel : BaseDetailsViewModel<TenderWrapper, Tender, AfterSaveTenderEvent>
     {

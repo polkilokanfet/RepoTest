@@ -5,7 +5,7 @@ using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.UI.Lookup;
 
-namespace HVTApp.UI.BaseView
+namespace HVTApp.UI.ViewModels
 {
     public interface IBaseListViewModel<TLookupItem> : INotifyPropertyChanged
         where TLookupItem : ILookupItem

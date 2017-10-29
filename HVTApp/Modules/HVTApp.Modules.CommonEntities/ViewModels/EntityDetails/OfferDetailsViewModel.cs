@@ -1,15 +1,13 @@
-﻿using System.Linq;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Wrapper;
-using HVTApp.UI.BaseView;
 using HVTApp.UI.Events;
+using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
-namespace HVTApp.Modules.Sales.ViewModels
+namespace HVTApp.UI.ViewModels
 {
     public class OfferDetailsViewModel : BaseDetailsViewModel<OfferWrapper, Offer, AfterSaveOfferEvent>
     {
