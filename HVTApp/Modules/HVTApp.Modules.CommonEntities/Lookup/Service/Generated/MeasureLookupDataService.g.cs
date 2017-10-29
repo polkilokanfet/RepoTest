@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class MeasureLookupDataService : LookupDataService<MeasureLookup, Measure>, IMeasureLookupDataService
     {
-        public MeasureLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public MeasureLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

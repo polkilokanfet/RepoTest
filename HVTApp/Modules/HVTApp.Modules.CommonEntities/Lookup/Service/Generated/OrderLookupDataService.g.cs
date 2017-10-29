@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class OrderLookupDataService : LookupDataService<OrderLookup, Order>, IOrderLookupDataService
     {
-        public OrderLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public OrderLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

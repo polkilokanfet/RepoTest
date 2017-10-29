@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class LocalityLookupDataService : LookupDataService<LocalityLookup, Locality>, ILocalityLookupDataService
     {
-        public LocalityLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public LocalityLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

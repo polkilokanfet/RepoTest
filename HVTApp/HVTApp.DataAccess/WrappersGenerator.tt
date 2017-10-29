@@ -1,0 +1,192 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(SolutionDir)\HVTApp.Model\bin\Debug\HVTApp.Infrastructure.dll" #>
+<#@ assembly name="$(SolutionDir)\HVTApp.Model\bin\Debug\HVTApp.Model.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="HVTApp.Model.POCOs" #>
+<#@ import namespace="HVTApp.Infrastructure" #>
+<#@ output extension=".cs" #>
+<#
+  IEnumerable<Type> modelTypes = GetModelTypes();
+
+  foreach (var modelType in modelTypes)
+  {
+	GenerateConfigurations(modelType);
+	SaveGeneratedCodeAsFile(modelType.Name + "Configuration.g.cs", "EntityTypeConfigurations/Generated");
+  }
+
+  GenerateContext(modelTypes);
+  SaveGeneratedCodeAsFile("HvtAppContext.g.cs", "");
+
+  GenerateDataBaseInitializer(modelTypes);
+  SaveGeneratedCodeAsFile("HvtAppDataBaseInitializer.g.cs", "");
+#>
+<#+
+	private void GenerateConfigurations(Type modelType)
+	{
+#>using System.Data.Entity.ModelConfiguration;
+using HVTApp.Model.POCOs;
+
+namespace HVTApp.DataAccess
+{
+    public partial class <#=modelType.Name#>Configuration : EntityTypeConfiguration<<#=modelType.Name#>> { }
+}
+<#+
+	}
+
+	private void GenerateContext(IEnumerable<Type> modelTypes)
+	{
+#>using HVTApp.Model.POCOs;
+
+namespace HVTApp.DataAccess
+{
+    using System.Data.Entity;
+
+    public partial class HvtAppContext
+    {
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+			#region Configurations
+<#+ 
+	foreach (var modelType in modelTypes)
+    {
+#>
+            modelBuilder.Configurations.Add(new <#=modelType.Name#>Configuration());
+<#+
+	}
+#>
+			#endregion
+
+            base.OnModelCreating(modelBuilder);
+        }
+
+		#region DbSets
+<#+ 
+	foreach (var modelType in modelTypes)
+    {
+#>
+        public virtual DbSet<<#=modelType.Name#>> <#=modelType.Name#>DbSet { get; set; }
+<#+
+	}
+#>
+		#endregion
+    }
+}
+<#+
+	}
+
+		private void GenerateDataBaseInitializer(IEnumerable<Type> modelTypes)
+	{
+#>using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
+using HVTApp.Model.POCOs;
+using HVTApp.TestDataGenerator;
+
+namespace HVTApp.DataAccess
+{
+    public partial class HvtAppDataBaseInitializer
+    {
+        protected override void Seed(HvtAppContext context)
+        {
+            TestData testData = new TestData();
+
+<#+ 
+	foreach (var modelType in modelTypes)
+    {
+#>
+            context.<#=modelType.Name#>DbSet.AddRange(testData.GetAll<<#=modelType.Name#>>());
+<#+
+	}
+#>
+
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    Trace.TraceInformation("Entry: {0}", validationErrors.Entry.Entity);
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0}; Error: {1}",
+                            validationError.PropertyName,
+                            validationError.ErrorMessage);
+                    }
+                }
+            }
+
+            base.Seed(context);
+        }
+    }
+}
+<#+
+	}
+
+	private void GenerateAfterSaveEntityEvent(Type modelType)
+	{
+#>using HVTApp.Model.POCOs;
+using Prism.Events;
+
+namespace HVTApp.UI.Events
+{
+	public partial class AfterSave<#=modelType.Name#>Event : PubSubEvent<<#=modelType.Name#>> { }
+}
+<#+
+	}
+
+    //берем все классы модели.
+    private IEnumerable<Type> GetModelTypes()
+    {
+        var ns = typeof(Address).Namespace;
+        //return typeof(Address).Assembly.GetTypes().Where(x => !x.IsAbstract && !x.IsEnum && x.Namespace == ns && !x.Name.Contains("<"));
+        return typeof(Address).Assembly.GetTypes().Where(x => GetBaseTypes(x).Contains(typeof(BaseEntity)));
+    }
+    
+	IEnumerable<Type> GetBaseTypes(Type type)
+    {
+        List<Type> result = new List<Type>();
+        while (type.BaseType != null)
+        {
+            result.Add(type.BaseType);
+            type = type.BaseType;
+        }
+        return result;
+    }
+   
+    //сохранение сгенерированного кода в отдельный файл.
+    private void SaveGeneratedCodeAsFile(string fileName, string filePath)
+    {
+		string directoryName = Path.GetDirectoryName(Host.TemplateFile);
+        string dir = Path.Combine(directoryName, filePath);
+  
+        string outputFilePath = Path.Combine(dir, fileName);
+        File.WriteAllText(outputFilePath, GenerationEnvironment.ToString()); 
+ 
+        GenerationEnvironment.Clear();
+    }
+
+    //возвращаем имя типа
+    private string GetTypeName(Type type)
+    {
+        if (type.IsGenericType)
+        {
+            var genericArguments = type.GetGenericArguments().Select(t => GetTypeName(t)).ToArray();
+            var typeDefinition = type.GetGenericTypeDefinition().FullName;
+            typeDefinition = typeDefinition.Substring(0, typeDefinition.IndexOf('`'));
+            return string.Format("{0}<{1}>", typeDefinition, string.Join(",", genericArguments));
+        }
+        else
+        {
+            return type.FullName;
+        }
+    }
+
+#>

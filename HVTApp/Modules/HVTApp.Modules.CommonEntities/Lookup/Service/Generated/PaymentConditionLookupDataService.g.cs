@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class PaymentConditionLookupDataService : LookupDataService<PaymentConditionLookup, PaymentCondition>, IPaymentConditionLookupDataService
     {
-        public PaymentConditionLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public PaymentConditionLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

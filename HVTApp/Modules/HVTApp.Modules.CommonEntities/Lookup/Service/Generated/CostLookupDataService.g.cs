@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class CostLookupDataService : LookupDataService<CostLookup, Cost>, ICostLookupDataService
     {
-        public CostLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public CostLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

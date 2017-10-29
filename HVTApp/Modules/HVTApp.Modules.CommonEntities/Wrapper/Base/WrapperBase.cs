@@ -17,6 +17,7 @@ namespace HVTApp.UI.Wrapper
 
         // Список объектов в которых отслеживаются изменения (свойства объекта не примитивного типа и коллекции).
         private readonly List<IValidatableChangeTracking> _trackingObjects = new List<IValidatableChangeTracking>();
+        private string _displayMember;
 
         // Объект, обертка которого создана в этом классе.
         public TModel Model { get; }
@@ -301,5 +302,12 @@ namespace HVTApp.UI.Wrapper
         {
             return Model.ToString();
         }
+
+        public void Refresh()
+        {
+            OnPropertyChanged("");
+        }
+
+        public string DisplayMember => ToString();
     }
 }

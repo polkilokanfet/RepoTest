@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class ExchangeCurrencyRateLookupDataService : LookupDataService<ExchangeCurrencyRateLookup, ExchangeCurrencyRate>, IExchangeCurrencyRateLookupDataService
     {
-        public ExchangeCurrencyRateLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public ExchangeCurrencyRateLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

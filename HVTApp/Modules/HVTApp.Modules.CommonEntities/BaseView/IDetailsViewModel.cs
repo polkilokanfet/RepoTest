@@ -12,7 +12,7 @@ namespace HVTApp.UI.BaseView
     {
         TWrapper Item { get; }
         ICommand SaveCommand { get; }
-        Task LoadAsync();
+        void Load();
         Task LoadAsync(Guid id);
     }
 }

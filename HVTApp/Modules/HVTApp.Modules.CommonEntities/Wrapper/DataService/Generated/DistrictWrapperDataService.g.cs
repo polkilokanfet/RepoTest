@@ -6,7 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class DistrictWrapperDataService : WrapperDataService<District, DistrictWrapper>
     {
-        public DistrictWrapperDataService(Func<HvtAppContext> contextCreator) : base(contextCreator)
+        public DistrictWrapperDataService(HvtAppContext context) : base(context)
         {
         }
 		

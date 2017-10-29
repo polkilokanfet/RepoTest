@@ -1,4 +1,7 @@
 ﻿using System.Linq;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Model.POCOs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -8,6 +11,14 @@ namespace HVTApp.DataAccess.Tests
     public class UnitOfWorkTests
     {
         [TestMethod]
+        public void ShouldReturnRepository()
+        {
+            IUnitOfWork unitOfWork = new UnitOfWork(new HvtAppContext());
+            var repo = unitOfWork.GetRepository<Company>();
+            Assert.IsNotNull(repo as CompaniesRepository);
+        }
+
+        [TestMethod]
         public void CanCreateDataBase()
         {
             var hvtAppContext = new HvtAppContext();
@@ -16,7 +27,7 @@ namespace HVTApp.DataAccess.Tests
         }
 
         [TestMethod]
-        public async void CanAddSaveRemoveEntity()
+        public async Task CanAddSaveRemoveEntity()
         {
             UnitOfWork unitOfWork = new UnitOfWork(new HvtAppContext());
             //очищаем все записи

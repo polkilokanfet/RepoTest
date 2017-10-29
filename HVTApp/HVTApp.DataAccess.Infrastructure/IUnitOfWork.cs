@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.DataAccess.Infrastructure
 {
-    public interface IUnitOfWork : IDisposable
+    public partial interface IUnitOfWork : IDisposable
     {
         int Complete();
-        Task AddItem<TEntity>(TEntity item)
-            where TEntity : class, IBaseEntity;
-        Task RemoveItem<TEntity>(Guid id)
-            where TEntity : class, IBaseEntity;
-        Task<TEntity> GetEntityByIdAsync<TEntity>(Guid id)
-            where TEntity : class, IBaseEntity;
+
+        IRepository<T> GetRepository<T>()
+            where T : class, IBaseEntity;
 
         IFriendGroupRepository FriendGroups { get; }
 

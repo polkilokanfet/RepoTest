@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class CompanyFormLookupDataService : LookupDataService<CompanyFormLookup, CompanyForm>, ICompanyFormLookupDataService
     {
-        public CompanyFormLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public CompanyFormLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class CountryLookupDataService : LookupDataService<CountryLookup, Country>, ICountryLookupDataService
     {
-        public CountryLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public CountryLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

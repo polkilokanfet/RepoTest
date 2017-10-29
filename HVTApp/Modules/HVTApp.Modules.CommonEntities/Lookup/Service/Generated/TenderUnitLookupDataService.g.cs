@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class TenderUnitLookupDataService : LookupDataService<TenderUnitLookup, TenderUnit>, ITenderUnitLookupDataService
     {
-        public TenderUnitLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public TenderUnitLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class EmployeeLookupDataService : LookupDataService<EmployeeLookup, Employee>, IEmployeeLookupDataService
     {
-        public EmployeeLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public EmployeeLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

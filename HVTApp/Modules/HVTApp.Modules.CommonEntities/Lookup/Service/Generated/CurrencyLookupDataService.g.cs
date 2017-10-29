@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class CurrencyLookupDataService : LookupDataService<CurrencyLookup, Currency>, ICurrencyLookupDataService
     {
-        public CurrencyLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public CurrencyLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

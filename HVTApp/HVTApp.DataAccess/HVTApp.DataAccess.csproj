@@ -55,50 +55,110 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityTypeConfigurations\CostOnDateConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\EmployeesPositionConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\BankDetailsConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\EmployeeConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\DocumentConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\DocumentsRegistrationDetailsConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\CompanyConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\ActivityFieldConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\AddressConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\CompanyFormConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\CountryConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\DistrictConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\ContractConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\FacilityConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\FacilityTypeConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\TenderTypeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\CostOnDateConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\EmployeesPositionConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\BankDetailsConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\EmployeeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\DocumentConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\DocumentsRegistrationDetailsConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\CompanyConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ActivityFieldConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\AddressConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\CompanyFormConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\CountryConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\DistrictConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ContractConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\FacilityConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\FacilityTypeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\TenderTypeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\TestHusbandConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\ActivityFieldConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\AdditionalSalesUnitsConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\AddressConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\BankDetailsConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\CompanyConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\CompanyFormConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\ContractConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\CostConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\CostOnDateConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\CountryConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\CurrencyConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\DistrictConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\DocumentConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\DocumentsRegistrationDetailsConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\EmployeeConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\EmployeesPositionConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\ExchangeCurrencyRateConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\FacilityConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\FacilityTypeConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\LocalityConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\LocalityTypeConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\MeasureConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\OfferConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\OfferUnitConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\OrderConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\ParameterConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\ParameterGroupConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\PartConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\PaymentActualConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\PaymentConditionConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\PaymentDocumentConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\PaymentPlannedConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\PersonConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\ProductConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\ProductionUnitConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\ProductsRelationConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\ProjectConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\ProjectUnitConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\RegionConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\RequiredPreviousParametersConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\SalesUnitConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\ShipmentUnitConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\SpecificationConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\StandartPaymentConditionsConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\TenderConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\TenderTypeConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\TenderUnitConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\TestChildConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\TestEntityConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\TestFriendAddressConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\TestFriendConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\TestFriendEmailConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\TestFriendGroupConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\TestHusbandConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\TestWifeConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\UserConfiguration.g.cs" />
+    <Compile Include="EntityTypeConfigurations\Generated\UserRoleConfiguration.g.cs" />
+    <Compile Include="HvtAppContext.g.cs" />
     <Compile Include="HVTAppDataBaseInitializer.cs" />
-    <Compile Include="EntityTypeConfigurations\SpecificationConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\RegionConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\LocalityConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\LocalityTypeConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\OfferUnitConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\PersonConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\TenderUnitConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\OfferConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\TenderConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\ParameterConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\ParameterGroupConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\ProjectConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\RequiredPreviousParametersConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\MeasureConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\PaymentActualConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\PaymentConditionConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\PaymentConditionStandartConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\PaymentDocumentConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\ProductConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\ProductItemConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\OrderConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\PaymentPlannedConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\ProductionUnitConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\SalesUnitConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\ShipmentUnitConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\ProjectUnitConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\RequiredDependentEquipmentsParametersConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\SpecificationConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\RegionConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\LocalityConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\LocalityTypeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\OfferUnitConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\PersonConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\TenderUnitConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\OfferConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\TenderConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ParameterConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ParameterGroupConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ProjectConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\RequiredPreviousParametersConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\MeasureConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\PaymentActualConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\PaymentConditionConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\PaymentConditionStandartConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\PaymentDocumentConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ProductConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ProductItemConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\OrderConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\PaymentPlannedConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ProductionUnitConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\SalesUnitConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ShipmentUnitConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ProjectUnitConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\RequiredDependentEquipmentsParametersConfiguration.cs" />
+    <Compile Include="HvtAppDataBaseInitializer.g.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\Repositories\ActivityFieldsRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\CompaniesRepository.cs" />
@@ -122,7 +182,13 @@
     <Compile Include="UnitOfWork\Repositories\TendersRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\UsersRepository.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
-    <Compile Include="EntityTypeConfigurations\UserConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\UserConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\UserRoleConfiguration.cs" />
+    <Compile Include="WrappersGenerator.cs">
+      <DependentUpon>WrappersGenerator.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -151,6 +217,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="WrappersGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WrappersGenerator.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

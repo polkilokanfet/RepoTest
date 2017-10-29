@@ -1,22 +1,30 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HVTApp.Model.POCOs;
+using HVTApp.UI.Events;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.Wrapper;
 using Prism.Commands;
+using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
     public class MarketViewModel
     {
         private readonly ProjectWrapperDataService _projectWrapperDataService;
+        private readonly IEventAggregator _eventAggregator;
         private bool _loadedFlag = false;
         private ProjectWrapper _selectedProject;
 
-        public MarketViewModel(ProjectWrapperDataService projectWrapperDataService)
+        public MarketViewModel(ProjectWrapperDataService projectWrapperDataService, IEventAggregator eventAggregator)
         {
             _projectWrapperDataService = projectWrapperDataService;
-            Projects = new ObservableCollection<ProjectWrapper>();
+            _eventAggregator = eventAggregator;
+
+            _eventAggregator.GetEvent<AfterSaveCompanyEvent>().Subscribe(OnSaveCompany);
 
             LoadedCommand = new DelegateCommand(async () =>
             {
@@ -25,9 +33,19 @@ namespace HVTApp.Modules.Sales.ViewModels
             });
         }
 
+        private void OnSaveCompany(Company company)
+        {
+            foreach (var project in Projects)
+            {
+                project.Refresh();
+                if(project.Tenders.Any() && Equals(project.Tenders.First().Winner.Model, company))
+                    project.Tenders.First().Refresh();
+            }
+        }
+
         public ICommand LoadedCommand { get; }
 
-        public ObservableCollection<ProjectWrapper> Projects { get; }
+        public ObservableCollection<ProjectWrapper> Projects { get; } = new ObservableCollection<ProjectWrapper>();
 
         public ProjectWrapper SelectedProject
         {

@@ -63,7 +63,7 @@ namespace HVTApp.UI.Lookup
 {
     public partial class <#=modelType.Name#>LookupDataService : LookupDataService<<#=modelType.Name#>Lookup, <#=modelType.Name#>>, I<#=modelType.Name#>LookupDataService
     {
-        public <#=modelType.Name#>LookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public <#=modelType.Name#>LookupDataService(HvtAppContext context) : base(context) { }
     }
 }
 <#+
@@ -79,7 +79,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class <#=modelType.Name#>WrapperDataService : WrapperDataService<<#=modelType.Name#>, <#=modelType.Name#>Wrapper>
     {
-        public <#=modelType.Name#>WrapperDataService(Func<HvtAppContext> contextCreator) : base(contextCreator)
+        public <#=modelType.Name#>WrapperDataService(HvtAppContext context) : base(context)
         {
         }
 		

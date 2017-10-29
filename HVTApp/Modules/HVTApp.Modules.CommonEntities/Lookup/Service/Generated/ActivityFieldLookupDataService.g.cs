@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class ActivityFieldLookupDataService : LookupDataService<ActivityFieldLookup, ActivityField>, IActivityFieldLookupDataService
     {
-        public ActivityFieldLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public ActivityFieldLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

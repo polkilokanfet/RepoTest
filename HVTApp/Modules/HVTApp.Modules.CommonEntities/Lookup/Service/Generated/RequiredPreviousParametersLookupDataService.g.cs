@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class RequiredPreviousParametersLookupDataService : LookupDataService<RequiredPreviousParametersLookup, RequiredPreviousParameters>, IRequiredPreviousParametersLookupDataService
     {
-        public RequiredPreviousParametersLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public RequiredPreviousParametersLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class ContractLookupDataService : LookupDataService<ContractLookup, Contract>, IContractLookupDataService
     {
-        public ContractLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public ContractLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

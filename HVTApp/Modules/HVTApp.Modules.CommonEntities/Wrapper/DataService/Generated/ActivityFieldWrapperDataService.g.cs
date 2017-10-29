@@ -6,7 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class ActivityFieldWrapperDataService : WrapperDataService<ActivityField, ActivityFieldWrapper>
     {
-        public ActivityFieldWrapperDataService(Func<HvtAppContext> contextCreator) : base(contextCreator)
+        public ActivityFieldWrapperDataService(HvtAppContext context) : base(context)
         {
         }
 		

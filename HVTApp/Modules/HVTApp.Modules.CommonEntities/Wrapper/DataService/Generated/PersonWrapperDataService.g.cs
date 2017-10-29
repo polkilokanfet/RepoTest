@@ -6,7 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class PersonWrapperDataService : WrapperDataService<Person, PersonWrapper>
     {
-        public PersonWrapperDataService(Func<HvtAppContext> contextCreator) : base(contextCreator)
+        public PersonWrapperDataService(HvtAppContext context) : base(context)
         {
         }
 		

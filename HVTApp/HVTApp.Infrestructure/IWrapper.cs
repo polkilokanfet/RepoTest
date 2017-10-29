@@ -7,6 +7,8 @@ namespace HVTApp.Infrastructure
         where TModel : class, IBaseEntity
     {
         TModel Model { get; }
+        string DisplayMember { get; }
+        void Refresh();
     }
 
     public interface IValidatableChangeTracking : IRevertibleChangeTracking, INotifyPropertyChanged

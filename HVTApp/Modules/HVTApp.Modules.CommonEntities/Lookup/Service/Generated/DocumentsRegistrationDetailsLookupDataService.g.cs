@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class DocumentsRegistrationDetailsLookupDataService : LookupDataService<DocumentsRegistrationDetailsLookup, DocumentsRegistrationDetails>, IDocumentsRegistrationDetailsLookupDataService
     {
-        public DocumentsRegistrationDetailsLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public DocumentsRegistrationDetailsLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

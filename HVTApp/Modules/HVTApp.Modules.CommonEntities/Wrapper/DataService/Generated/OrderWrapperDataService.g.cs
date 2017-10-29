@@ -6,7 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class OrderWrapperDataService : WrapperDataService<Order, OrderWrapper>
     {
-        public OrderWrapperDataService(Func<HvtAppContext> contextCreator) : base(contextCreator)
+        public OrderWrapperDataService(HvtAppContext context) : base(context)
         {
         }
 		

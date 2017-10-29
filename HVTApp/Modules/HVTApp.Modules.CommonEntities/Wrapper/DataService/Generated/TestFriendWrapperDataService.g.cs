@@ -6,7 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class TestFriendWrapperDataService : WrapperDataService<TestFriend, TestFriendWrapper>
     {
-        public TestFriendWrapperDataService(Func<HvtAppContext> contextCreator) : base(contextCreator)
+        public TestFriendWrapperDataService(HvtAppContext context) : base(context)
         {
         }
 		

@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class ParameterGroupLookupDataService : LookupDataService<ParameterGroupLookup, ParameterGroup>, IParameterGroupLookupDataService
     {
-        public ParameterGroupLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public ParameterGroupLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

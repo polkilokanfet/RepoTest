@@ -102,10 +102,10 @@ namespace HVTApp.UI.BaseView
 
 
 
-        protected async void NewItemCommand_ExecuteAsync()
+        protected void NewItemCommand_ExecuteAsync()
         {
             var viewModel = Container.Resolve<TDelailsViewModel>();
-            await viewModel.LoadAsync();
+            viewModel.Load();
             DialogService.ShowDialog(viewModel);
         }
 
@@ -129,7 +129,13 @@ namespace HVTApp.UI.BaseView
 
         protected async void RemoveItemCommand_Execute()
         {
-            await UnitOfWork.RemoveItem<TEntity>(SelectedItem.Id);
+            var repo = UnitOfWork.GetRepository<TEntity>();
+            var entityToRemove = await repo.GetByIdAsync(SelectedItem.Id);
+            if (entityToRemove != null)
+            {
+                UnitOfWork.GetRepository<TEntity>().Delete(entityToRemove);
+                UnitOfWork.Complete();
+            }
             Items.Remove(SelectedItem);
         }
 

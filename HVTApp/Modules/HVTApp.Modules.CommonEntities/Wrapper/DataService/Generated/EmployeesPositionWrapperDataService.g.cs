@@ -6,7 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class EmployeesPositionWrapperDataService : WrapperDataService<EmployeesPosition, EmployeesPositionWrapper>
     {
-        public EmployeesPositionWrapperDataService(Func<HvtAppContext> contextCreator) : base(contextCreator)
+        public EmployeesPositionWrapperDataService(HvtAppContext context) : base(context)
         {
         }
 		

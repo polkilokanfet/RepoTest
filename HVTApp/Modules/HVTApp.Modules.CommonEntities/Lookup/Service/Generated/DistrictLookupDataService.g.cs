@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class DistrictLookupDataService : LookupDataService<DistrictLookup, District>, IDistrictLookupDataService
     {
-        public DistrictLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public DistrictLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

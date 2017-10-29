@@ -9,7 +9,7 @@ namespace HVTApp.DataAccess.Infrastructure
         where TEntity : class, IBaseEntity
     {
         Task<List<TEntity>> GetAllAsync();
-        TEntity GetById(Guid id);
+        Task<TEntity> GetByIdAsync(Guid id);
         IEnumerable<TEntity> Find(Func<TEntity, bool> predicate);
 
         void Add(TEntity entity);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure;
@@ -39,31 +40,21 @@ namespace HVTApp.DataAccess
             Specifications = new SpecificationsRepository(context);
         }
 
-        public void Dispose()
+        public IRepository<T> GetRepository<T>() 
+            where T : class, IBaseEntity
         {
-            _context.Dispose();
+            var repositoryPropertyInfo = this.GetType().GetProperties().Single(x => typeof(IRepository<T>).IsAssignableFrom(x.PropertyType));
+            return (IRepository<T>) repositoryPropertyInfo.GetValue(this);
         }
 
         public int Complete()
         {
             return _context.SaveChanges();
         }
-        public async Task<TEntity> GetEntityByIdAsync<TEntity>(Guid id) where TEntity : class, IBaseEntity
-        {
-            return await _context.Set<TEntity>().FindAsync(id);
-        }
-        
-        public async Task AddItem<TEntity>(TEntity item) where TEntity : class, IBaseEntity
-        {
-            _context.Set<TEntity>().Add(item);
-            await _context.SaveChangesAsync();
-        }
 
-        public async Task RemoveItem<TEntity>(Guid id) where TEntity : class, IBaseEntity
+        public void Dispose()
         {
-            var item = await GetEntityByIdAsync<TEntity>(id);
-            _context.Set<TEntity>().Remove(item);
-            await _context.SaveChangesAsync();
+            _context?.Dispose();
         }
 
         #region Repositories

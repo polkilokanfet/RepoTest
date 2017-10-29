@@ -6,7 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class ExchangeCurrencyRateWrapperDataService : WrapperDataService<ExchangeCurrencyRate, ExchangeCurrencyRateWrapper>
     {
-        public ExchangeCurrencyRateWrapperDataService(Func<HvtAppContext> contextCreator) : base(contextCreator)
+        public ExchangeCurrencyRateWrapperDataService(HvtAppContext context) : base(context)
         {
         }
 		

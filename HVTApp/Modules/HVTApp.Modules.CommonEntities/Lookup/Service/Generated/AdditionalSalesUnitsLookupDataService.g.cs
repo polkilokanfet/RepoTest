@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class AdditionalSalesUnitsLookupDataService : LookupDataService<AdditionalSalesUnitsLookup, AdditionalSalesUnits>, IAdditionalSalesUnitsLookupDataService
     {
-        public AdditionalSalesUnitsLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public AdditionalSalesUnitsLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

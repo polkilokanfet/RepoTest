@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class TestFriendAddressLookupDataService : LookupDataService<TestFriendAddressLookup, TestFriendAddress>, ITestFriendAddressLookupDataService
     {
-        public TestFriendAddressLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public TestFriendAddressLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

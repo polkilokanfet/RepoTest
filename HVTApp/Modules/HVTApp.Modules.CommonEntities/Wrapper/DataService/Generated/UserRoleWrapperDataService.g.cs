@@ -6,7 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class UserRoleWrapperDataService : WrapperDataService<UserRole, UserRoleWrapper>
     {
-        public UserRoleWrapperDataService(Func<HvtAppContext> contextCreator) : base(contextCreator)
+        public UserRoleWrapperDataService(HvtAppContext context) : base(context)
         {
         }
 		

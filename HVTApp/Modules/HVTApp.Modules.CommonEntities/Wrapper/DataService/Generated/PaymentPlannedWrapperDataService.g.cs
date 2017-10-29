@@ -6,7 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class PaymentPlannedWrapperDataService : WrapperDataService<PaymentPlanned, PaymentPlannedWrapper>
     {
-        public PaymentPlannedWrapperDataService(Func<HvtAppContext> contextCreator) : base(contextCreator)
+        public PaymentPlannedWrapperDataService(HvtAppContext context) : base(context)
         {
         }
 		

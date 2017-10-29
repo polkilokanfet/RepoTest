@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class SpecificationLookupDataService : LookupDataService<SpecificationLookup, Specification>, ISpecificationLookupDataService
     {
-        public SpecificationLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public SpecificationLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

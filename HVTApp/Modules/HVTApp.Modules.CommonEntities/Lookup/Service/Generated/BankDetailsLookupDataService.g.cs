@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class BankDetailsLookupDataService : LookupDataService<BankDetailsLookup, BankDetails>, IBankDetailsLookupDataService
     {
-        public BankDetailsLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public BankDetailsLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

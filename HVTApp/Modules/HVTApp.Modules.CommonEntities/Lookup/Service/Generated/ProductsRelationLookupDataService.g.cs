@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class ProductsRelationLookupDataService : LookupDataService<ProductsRelationLookup, ProductsRelation>, IProductsRelationLookupDataService
     {
-        public ProductsRelationLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public ProductsRelationLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

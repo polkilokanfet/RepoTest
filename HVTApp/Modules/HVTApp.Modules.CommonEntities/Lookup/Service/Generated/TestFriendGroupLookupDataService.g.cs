@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class TestFriendGroupLookupDataService : LookupDataService<TestFriendGroupLookup, TestFriendGroup>, ITestFriendGroupLookupDataService
     {
-        public TestFriendGroupLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public TestFriendGroupLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

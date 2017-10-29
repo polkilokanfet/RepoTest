@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class ShipmentUnitLookupDataService : LookupDataService<ShipmentUnitLookup, ShipmentUnit>, IShipmentUnitLookupDataService
     {
-        public ShipmentUnitLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public ShipmentUnitLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

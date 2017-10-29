@@ -6,6 +6,6 @@ namespace HVTApp.UI.Lookup
 {
     public partial class CostOnDateLookupDataService : LookupDataService<CostOnDateLookup, CostOnDate>, ICostOnDateLookupDataService
     {
-        public CostOnDateLookupDataService(Func<HvtAppContext> contextCreator) : base(contextCreator) { }
+        public CostOnDateLookupDataService(HvtAppContext context) : base(context) { }
     }
 }

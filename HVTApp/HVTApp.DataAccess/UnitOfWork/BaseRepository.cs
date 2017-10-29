@@ -51,9 +51,9 @@ namespace HVTApp.DataAccess
             Context.Set<TEntity>().RemoveRange(entities);
         }
 
-        public TEntity GetById(Guid id)
+        public async Task<TEntity> GetByIdAsync(Guid id)
         {
-            return Context.Set<TEntity>().Single(x => x.Id == id);
+            return await Context.Set<TEntity>().FindAsync(id);
         }
     }
 }

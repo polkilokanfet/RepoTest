@@ -6,7 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class CostWrapperDataService : WrapperDataService<Cost, CostWrapper>
     {
-        public CostWrapperDataService(Func<HvtAppContext> contextCreator) : base(contextCreator)
+        public CostWrapperDataService(HvtAppContext context) : base(context)
         {
         }
 		

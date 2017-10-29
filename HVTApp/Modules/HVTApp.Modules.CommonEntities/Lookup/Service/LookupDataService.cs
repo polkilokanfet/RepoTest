@@ -11,47 +11,46 @@ namespace HVTApp.UI.Lookup
         where TEntity : class, IBaseEntity
         where TLookup : class, ILookupItem, new()
     {
-        protected readonly Func<HvtAppContext> ContextCreator;
+        protected readonly HvtAppContext Context;
 
-        protected LookupDataService(Func<HvtAppContext> contextCreator)
+        protected LookupDataService(HvtAppContext context)
         {
-            ContextCreator = contextCreator;
+            Context = context;
         }
 
         public async Task<TLookup> GetLookupById(Guid id)
         {
-            using (var ctx = ContextCreator())
+            var entity = await Context.Set<TEntity>().FindAsync(id);
+            return new TLookup
             {
-                var entity = await ctx.Set<TEntity>().FindAsync(id);
-                return new TLookup
-                {
-                    Id = entity.Id,
-                    DisplayMember = GenerateDisplayMember(entity)
-                };
-            }
+                Id = entity.Id,
+                DisplayMember = GenerateDisplayMember(entity)
+            };
         }
 
         public virtual async Task<IEnumerable<TLookup>> GetAllLookupsAsync()
         {
-            using (var ctx = ContextCreator())
+            var entities = await Context.Set<TEntity>().AsNoTracking().ToListAsync();
+            var lookups = new List<TLookup>();
+            foreach (var entity in entities)
             {
-                var entities = await ctx.Set<TEntity>().AsNoTracking().ToListAsync();
-                var lookups = new List<TLookup>();
-                foreach (var entity in entities)
+                lookups.Add(new TLookup
                 {
-                    lookups.Add(new TLookup
-                    {
-                        Id = entity.Id,
-                        DisplayMember = GenerateDisplayMember(entity)
-                    });
-                }
-                return lookups;
+                    Id = entity.Id,
+                    DisplayMember = GenerateDisplayMember(entity)
+                });
             }
+            return lookups;
         }
 
         public virtual string GenerateDisplayMember(TEntity entity)
         {
             return entity.ToString();
+        }
+
+        public void Dispose()
+        {
+            Context?.Dispose();
         }
     }
 }

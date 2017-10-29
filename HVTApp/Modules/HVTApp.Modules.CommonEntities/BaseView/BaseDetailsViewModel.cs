@@ -45,7 +45,7 @@ namespace HVTApp.UI.BaseView
             }
         }
 
-        public async Task LoadAsync()
+        public void Load()
         {
             var entity = Activator.CreateInstance<TEntity>();
             Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity);
@@ -53,7 +53,7 @@ namespace HVTApp.UI.BaseView
 
         public async Task LoadAsync(Guid id)
         {
-            var entity = await UnitOfWork.GetEntityByIdAsync<TEntity>(id);
+            var entity = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(id);
             Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity);
         }
 
@@ -64,9 +64,13 @@ namespace HVTApp.UI.BaseView
 
         public ICommand SaveCommand { get; }
 
-        protected virtual void SaveCommand_Execute()
+        protected virtual async void SaveCommand_Execute()
         {
-            UnitOfWork.AddItem(Item.Model);
+            if ((await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(Item.Model.Id)) == null)
+                UnitOfWork.GetRepository<TEntity>().Add(Item.Model);
+
+            Item.AcceptChanges();
+            UnitOfWork.Complete();
             CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
             EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
         }

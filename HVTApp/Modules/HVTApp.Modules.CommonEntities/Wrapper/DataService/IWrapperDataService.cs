@@ -8,7 +8,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Wrapper
 {
-    public interface IWrapperDataService<TModel, TWrapper>
+    public interface IWrapperDataService<TModel, TWrapper> : IDisposable
         where TModel : class, IBaseEntity
         where TWrapper : WrapperBase<TModel>
     {
@@ -19,33 +19,35 @@ namespace HVTApp.UI.Wrapper
         where TModel : class, IBaseEntity 
         where TWrapper : WrapperBase<TModel>
     {
-        protected readonly Func<HvtAppContext> ContextCreator;
+        protected readonly HvtAppContext Context;
 
-        protected WrapperDataService(Func<HvtAppContext> contextCreator)
+        protected WrapperDataService(HvtAppContext context)
         {
-            ContextCreator = contextCreator;
+            Context = context;
         }
 
         public virtual async Task<IEnumerable<TWrapper>> GetAllWrappersAsync()
         {
-            using (var context = ContextCreator())
-            {
-                var models = await context.Set<TModel>().AsNoTracking().ToListAsync();
-                //return models.Select(x => Activator.CreateInstance(typeof(TWrapper), x)).Cast<TWrapper>(); - не канает, т.к. не подгружает свойства
+            var models = await Context.Set<TModel>().AsNoTracking().ToListAsync();
+            //return models.Select(x => Activator.CreateInstance(typeof(TWrapper), x)).Cast<TWrapper>(); - не канает, т.к. не подгружает свойства
 
-                var result = new List<TWrapper>();
-                foreach (var model in models)
-                {
-                    var wrapper = GenerateWrapper(model);
-                    result.Add(wrapper);
-                }
-                return result;
+            var result = new List<TWrapper>();
+            foreach (var model in models)
+            {
+                var wrapper = GenerateWrapper(model);
+                result.Add(wrapper);
             }
+            return result;
         }
 
         protected virtual TWrapper GenerateWrapper(TModel model)
         {
             return Activator.CreateInstance(typeof(TWrapper), model) as TWrapper;
+        }
+
+        public void Dispose()
+        {
+            Context?.Dispose();
         }
     }
 }
