@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.DataAccess

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Windows.Input;
-using HVTApp.DataAccess.Infrastructure;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.ViewModels;

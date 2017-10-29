@@ -1,38 +1,11 @@
 ﻿using System;
 using HVTApp.Infrastructure;
-using HVTApp.Model.Wrappers;
 
 namespace HVTApp.DataAccess
 {
-    public interface IUnitOfWork : IDisposable, IGetWrapper
+    public partial interface IUnitOfWork : IDisposable
     {
         int Complete();
-
-        void AddItem(IWrapper<IBaseEntity> wrapper);
-
-        IFriendGroupRepository FriendGroups { get; }
-
-        IActivityFieldsRepository ActivityFields { get; }
-        ICompanyFormsRepository CompanyForms { get; }
-        ICompaniesRepository Companies { get; }
-
-        IUsersRepository Users { get; }
-
-        IParametersGroupsRepository ParametersGroups { get; }
-        IParametersRepository Parameters { get; }
-        IPartsRepository Parts { get; }
-        IProductsRepository Products { get; }
-        IRequiredDependentProductssParametersRepository RequiredDependentProductssParameters { get; }
-
-        IProductionUnitsRepository ProductionUnits { get; }
-
-        IFacilityTypesRepository FacilityTypes { get; }
-        IFacilitiesRepository Facilities { get; }
-
-        IProjectsRepository Projects { get; }
-        ITendersRepository Tenders { get; }
-        IOffersRepository Offers { get; }
-        IContractsRepository Contracts { get; }
-        ISpecificationsRepository Specifications { get; }
+        IRepository<T> GetRepository<T>() where T : class, IBaseEntity;
     }
 }

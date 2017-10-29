@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using HVTApp.DataAccess.Infrastructure;
+using HVTApp.DataAccess;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 using Prism.Commands;

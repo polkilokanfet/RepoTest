@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.DataAccess;
-using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
@@ -57,7 +56,7 @@ namespace HVTApp.UI.ViewModels
 
         private async void AddActivityFieldCommand_Execute()
         {
-            var fields = (await UnitOfWork.ActivityFields.GetAllAsync()).Select(x => new ActivityFieldWrapper(x)).Except(Company.ActivityFilds);
+            var fields = (await UnitOfWork.ActivityFieldRepository.GetAllAsync()).Select(x => new ActivityFieldWrapper(x)).Except(Company.ActivityFilds);
             var field = _selectService.SelectItem(fields);
             if (field != null && !Company.ActivityFilds.Contains(field))
                 Company.ActivityFilds.Add(field);
@@ -86,7 +85,7 @@ namespace HVTApp.UI.ViewModels
             //компании, которые не могут быть головной (дочернии и т.д.)
             IEnumerable<CompanyWrapper> exceptCompanies = Company.GetAllChilds().Concat(new[] {this.Company});
             //возможные головные компании
-            IEnumerable<CompanyWrapper> possibleParents = (await UnitOfWork.Companies.GetAllAsync()).Select(x => new CompanyWrapper(x)).Except(exceptCompanies);
+            IEnumerable<CompanyWrapper> possibleParents = (await UnitOfWork.CompanyRepository.GetAllAsync()).Select(x => new CompanyWrapper(x)).Except(exceptCompanies);
             //выбор одной из компаний
             CompanyWrapper possibleParent = _selectService.SelectItem(possibleParents, Company.ParentCompany);
 

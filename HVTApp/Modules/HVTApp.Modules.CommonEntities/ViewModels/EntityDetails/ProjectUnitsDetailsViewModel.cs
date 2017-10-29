@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using HVTApp.DataAccess.Infrastructure;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.GetProductService;
@@ -37,7 +37,7 @@ namespace HVTApp.UI.ViewModels
 
         private async void ChooseFacilityCommand_Execute()
         {
-            var facility = _chooseService.ChooseDialog((await _unitOfWork.Facilities.GetAllAsync()).Select(x => new FacilityWrapper(x)));
+            var facility = _chooseService.ChooseDialog((await _unitOfWork.FacilityRepository.GetAllAsync()).Select(x => new FacilityWrapper(x)));
             if (facility != null) Item.Facility = facility;
         }
 

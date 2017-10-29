@@ -16,8 +16,14 @@
 
   foreach (var modelType in modelTypes)
   {
-	GenerateConfigurations(modelType);
+	GenerateConfiguration(modelType);
 	SaveGeneratedCodeAsFile(modelType.Name + "Configuration.g.cs", "EntityTypeConfigurations/Generated");
+
+	GenerateIRepository(modelType);
+	SaveGeneratedCodeAsFile("I" + modelType.Name + "Repository.g.cs", "UnitOfWork/Repositories/IRepository/Generated");
+
+	GenerateRepository(modelType);
+	SaveGeneratedCodeAsFile(modelType.Name + "Repository.g.cs", "UnitOfWork/Repositories/Generated");
   }
 
   GenerateContext(modelTypes);
@@ -25,9 +31,15 @@
 
   GenerateDataBaseInitializer(modelTypes);
   SaveGeneratedCodeAsFile("HvtAppDataBaseInitializer.g.cs", "");
+
+  GenerateUnitOfWork(modelTypes);
+  SaveGeneratedCodeAsFile("UnitOfWork.g.cs", "UnitOfWork");
+
+  GenerateIUnitOfWork(modelTypes);
+  SaveGeneratedCodeAsFile("IUnitOfWork.g.cs", "UnitOfWork");
 #>
 <#+
-	private void GenerateConfigurations(Type modelType)
+	private void GenerateConfiguration(Type modelType)
 	{
 #>using System.Data.Entity.ModelConfiguration;
 using HVTApp.Model.POCOs;
@@ -35,6 +47,34 @@ using HVTApp.Model.POCOs;
 namespace HVTApp.DataAccess
 {
     public partial class <#=modelType.Name#>Configuration : EntityTypeConfiguration<<#=modelType.Name#>> { }
+}
+<#+
+	}
+
+	private void GenerateIRepository(Type modelType)
+	{
+#>using HVTApp.Model.POCOs;
+
+namespace HVTApp.DataAccess
+{
+    public partial interface I<#=modelType.Name#>Repository : IRepository<<#=modelType.Name#>> { }
+}
+<#+
+	}
+
+	private void GenerateRepository(Type modelType)
+	{
+#>using System.Data.Entity;
+using HVTApp.Model.POCOs;
+
+namespace HVTApp.DataAccess
+{
+    public partial class <#=modelType.Name#>Repository : BaseRepository<<#=modelType.Name#>>, I<#=modelType.Name#>Repository
+    {
+        public <#=modelType.Name#>Repository(DbContext context) : base(context)
+        {
+        }
+    }
 }
 <#+
 	}
@@ -80,7 +120,7 @@ namespace HVTApp.DataAccess
 <#+
 	}
 
-		private void GenerateDataBaseInitializer(IEnumerable<Type> modelTypes)
+	private void GenerateDataBaseInitializer(IEnumerable<Type> modelTypes)
 	{
 #>using System.Data.Entity;
 using System.Data.Entity.Validation;
@@ -130,14 +170,68 @@ namespace HVTApp.DataAccess
 <#+
 	}
 
-	private void GenerateAfterSaveEntityEvent(Type modelType)
+	private void GenerateUnitOfWork(IEnumerable<Type> modelTypes)
 	{
-#>using HVTApp.Model.POCOs;
-using Prism.Events;
+#>using System.Data.Entity;
+using System.Linq;
+using HVTApp.Infrastructure;
 
-namespace HVTApp.UI.Events
+
+namespace HVTApp.DataAccess
 {
-	public partial class AfterSave<#=modelType.Name#>Event : PubSubEvent<<#=modelType.Name#>> { }
+    public partial class UnitOfWork
+    {
+        private readonly DbContext _context;
+
+        public UnitOfWork(DbContext context)
+        {
+            _context = context;
+			#region RepositoriesInit
+<#+ 
+	foreach (var modelType in modelTypes)
+    {
+#>
+            <#=modelType.Name#>Repository = new <#=modelType.Name#>Repository(context);
+<#+
+	}
+#>
+			#endregion
+        }
+
+
+        #region Repositories
+<#+ 
+	foreach (var modelType in modelTypes)
+    {
+#>
+        public I<#=modelType.Name#>Repository <#=modelType.Name#>Repository { get; }
+<#+
+	}
+#>
+        #endregion
+    }
+}
+<#+
+	}
+
+	private void GenerateIUnitOfWork(IEnumerable<Type> modelTypes)
+	{
+#>using System;
+using HVTApp.Infrastructure;
+
+namespace HVTApp.DataAccess
+{
+    public partial interface IUnitOfWork
+    {
+<#+ 
+	foreach (var modelType in modelTypes)
+    {
+#>
+        I<#=modelType.Name#>Repository <#=modelType.Name#>Repository { get; }
+<#+
+	}
+#>
+    }
 }
 <#+
 	}

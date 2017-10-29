@@ -160,30 +160,131 @@
     <Compile Include="EntityTypeConfigurations\Custom\RequiredDependentEquipmentsParametersConfiguration.cs" />
     <Compile Include="HvtAppDataBaseInitializer.g.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="UnitOfWork\Repositories\ActivityFieldsRepository.cs" />
-    <Compile Include="UnitOfWork\Repositories\CompaniesRepository.cs" />
-    <Compile Include="UnitOfWork\Repositories\ContractsRepository.cs" />
-    <Compile Include="UnitOfWork\Repositories\EquipmentsRepository.cs" />
-    <Compile Include="UnitOfWork\Repositories\FacilitiesRepository.cs" />
-    <Compile Include="UnitOfWork\Repositories\FacilityTypesRepository.cs" />
-    <Compile Include="UnitOfWork\Repositories\FriendGroupRepository.cs" />
-    <Compile Include="UnitOfWork\Repositories\CompanyFormsRepository.cs" />
+    <Compile Include="UnitOfWork\IRepositories.cs" />
+    <Compile Include="UnitOfWork\IRepository.cs" />
+    <Compile Include="UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="UnitOfWork\IUnitOfWork.g.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />
     <Compile Include="HVTAppContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitOfWork\Repositories\OffersRepository.cs" />
-    <Compile Include="UnitOfWork\Repositories\ParametersGroupsRepository.cs" />
-    <Compile Include="UnitOfWork\Repositories\ParametersRepository.cs" />
-    <Compile Include="UnitOfWork\Repositories\ProductionUnitsRepository.cs" />
-    <Compile Include="UnitOfWork\Repositories\ProductsRepository.cs" />
-    <Compile Include="UnitOfWork\Repositories\ProjectUnitsRepository.cs" />
-    <Compile Include="UnitOfWork\Repositories\ProjectsRepository.cs" />
-    <Compile Include="UnitOfWork\Repositories\SpecificationsRepository.cs" />
-    <Compile Include="UnitOfWork\Repositories\TendersRepository.cs" />
-    <Compile Include="UnitOfWork\Repositories\UsersRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\ActivityFieldRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\AdditionalSalesUnitsRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\AddressRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\BankDetailsRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\CompanyFormRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\CompanyRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\ContractRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\CostOnDateRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\CostRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\CountryRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\CurrencyRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\DistrictRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\DocumentRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\DocumentsRegistrationDetailsRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\EmployeeRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\EmployeesPositionRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\ExchangeCurrencyRateRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\FacilityRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\FacilityTypeRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\LocalityRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\LocalityTypeRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\MeasureRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\OfferRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\OfferUnitRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\OrderRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\ParameterGroupRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\ParameterRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\PartRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\PaymentActualRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\PaymentConditionRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\PaymentDocumentRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\PaymentPlannedRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\PersonRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\ProductionUnitRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\ProductRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\ProductsRelationRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\ProjectRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\ProjectUnitRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\RegionRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\RequiredPreviousParametersRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\SalesUnitRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\ShipmentUnitRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\SpecificationRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\StandartPaymentConditionsRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\TenderRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\TenderTypeRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\TenderUnitRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\TestChildRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\TestEntityRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\TestFriendAddressRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\TestFriendEmailRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\TestFriendGroupRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\TestFriendRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\TestHusbandRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\TestWifeRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\UserRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\Generated\UserRoleRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IActivityFieldRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IAdditionalSalesUnitsRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IAddressRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IBankDetailsRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ICompanyFormRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ICompanyRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IContractRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ICostOnDateRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ICostRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ICountryRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ICurrencyRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IDistrictRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IDocumentRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IDocumentsRegistrationDetailsRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IEmployeeRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IEmployeesPositionRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IExchangeCurrencyRateRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IFacilityRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IFacilityTypeRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ILocalityRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ILocalityTypeRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IMeasureRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IOfferRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IOfferUnitRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IOrderRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IParameterGroupRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IParameterRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IPartRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IPaymentActualRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IPaymentConditionRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IPaymentDocumentRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IPaymentPlannedRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IPersonRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IProductionUnitRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IProductRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IProductsRelationRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IProjectRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IProjectUnitRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IRegionRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IRequiredPreviousParametersRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ISalesUnitRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IShipmentUnitRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ISpecificationRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IStandartPaymentConditionsRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ITenderRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ITenderTypeRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ITenderUnitRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ITestChildRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ITestEntityRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ITestFriendAddressRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ITestFriendEmailRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ITestFriendGroupRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ITestFriendRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ITestHusbandRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\ITestWifeRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IUserRepository.g.cs" />
+    <Compile Include="UnitOfWork\Repositories\IRepository\Generated\IUserRoleRepository.g.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\UserConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\UserRoleConfiguration.cs" />
+    <Compile Include="UnitOfWork\UnitOfWork.g.cs" />
     <Compile Include="WrappersGenerator.cs">
       <DependentUpon>WrappersGenerator.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -195,10 +296,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HVTApp.DataAccess.Infrastructure\HVTApp.DataAccess.Infrastructure.csproj">
-      <Project>{8ed995b6-b4a2-4b85-9057-69cacf5bbd51}</Project>
-      <Name>HVTApp.DataAccess.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
       <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
       <Name>HVTApp.Infrastructure</Name>
@@ -216,7 +313,10 @@
       <Name>HVTApp.TestDataGenerator</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UnitOfWork\Repositories\Custom\" />
+    <Folder Include="UnitOfWork\Repositories\IRepository\Custom\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="WrappersGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

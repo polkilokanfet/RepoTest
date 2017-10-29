@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HVTApp.DataAccess.Infrastructure;
+using HVTApp.DataAccess;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.GetProductService
@@ -13,7 +13,7 @@ namespace HVTApp.Services.GetProductService
         private IList<Parameter> _parameters;
         private IList<Part> _parts;
         private IList<Product> _products;
-        private IList<ProductsRelation> _requiredDependentProductsParameteres;
+        private IList<ProductsRelation> _productsRelations;
 
         public GetProductServiceWpf(IUnitOfWork unitOfWork)
         {
@@ -22,17 +22,17 @@ namespace HVTApp.Services.GetProductService
 
         public async Task LoadAsync()
         {
-            _parameters = await _unitOfWork.Parameters.GetAllAsync();
-            _parts = await _unitOfWork.Parts.GetAllAsync();
-            _products = await _unitOfWork.Products.GetAllAsync();
-            //_requiredDependentProductsParameteres = _unitOfWork.RequiredDependentProductsParameters.GetAllAsync().ToList();
+            _parameters = await _unitOfWork.ParameterRepository.GetAllAsync();
+            _parts = await _unitOfWork.PartRepository.GetAllAsync();
+            _products = await _unitOfWork.ProductRepository.GetAllAsync();
+            _productsRelations = await _unitOfWork.ProductsRelationRepository.GetAllAsync();
         }
 
         public async Task<Product> GetProduct(Product templateProduct = null)
         {
             if (_parameters == null)
                 await LoadAsync();
-            ProductSelector productSelector = new ProductSelector(new List<ParameterGroup>(), _parts, _products, _requiredDependentProductsParameteres, preSelectedProduct: templateProduct);
+            ProductSelector productSelector = new ProductSelector(new List<ParameterGroup>(), _parts, _products, _productsRelations, preSelectedProduct: templateProduct);
             SelectProductWindow window = new SelectProductWindow {DataContext = productSelector};
             window.ShowDialog();
 

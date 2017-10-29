@@ -1,7 +1,5 @@
 ﻿using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using HVTApp.DataAccess.Infrastructure;
 using HVTApp.Model.POCOs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -15,7 +13,7 @@ namespace HVTApp.DataAccess.Tests
         {
             IUnitOfWork unitOfWork = new UnitOfWork(new HvtAppContext());
             var repo = unitOfWork.GetRepository<Company>();
-            Assert.IsNotNull(repo as CompaniesRepository);
+            Assert.IsNotNull(repo as CompanyRepository);
         }
 
         [TestMethod]
@@ -23,7 +21,7 @@ namespace HVTApp.DataAccess.Tests
         {
             var hvtAppContext = new HvtAppContext();
             var unitOfWork = new UnitOfWork(hvtAppContext);
-            unitOfWork.ActivityFields.GetAllAsync();
+            unitOfWork.GetRepository<ActivityField>().GetAllAsync();
         }
 
         [TestMethod]
@@ -31,23 +29,23 @@ namespace HVTApp.DataAccess.Tests
         {
             UnitOfWork unitOfWork = new UnitOfWork(new HvtAppContext());
             //очищаем все записи
-            unitOfWork.FriendGroups.DeleteRange(await unitOfWork.FriendGroups.GetAllAsync());
+            unitOfWork.GetRepository<TestFriendGroup>().DeleteRange(await unitOfWork.GetRepository<TestFriendGroup>().GetAllAsync());
             unitOfWork.Complete();
 
 
             var testFriendGroup = new TestFriendGroup { Name = "Тестовая группа" };
-            unitOfWork.FriendGroups.Add(testFriendGroup);
+            unitOfWork.GetRepository<TestFriendGroup>().Add(testFriendGroup);
             unitOfWork.Complete();
 
             unitOfWork = new UnitOfWork(new HvtAppContext());
-            Assert.IsTrue(unitOfWork.FriendGroups.Find(x => x.Name == testFriendGroup.Name).Count() == 1);
+            Assert.IsTrue(unitOfWork.GetRepository<TestFriendGroup>().Find(x => x.Name == testFriendGroup.Name).Count() == 1);
             
             //очищаем все записи
-            unitOfWork.FriendGroups.DeleteRange(await unitOfWork.FriendGroups.GetAllAsync());
+            unitOfWork.GetRepository<TestFriendGroup>().DeleteRange(await unitOfWork.GetRepository<TestFriendGroup>().GetAllAsync());
             unitOfWork.Complete();
 
             unitOfWork = new UnitOfWork(new HvtAppContext());
-            Assert.IsFalse((await unitOfWork.FriendGroups.GetAllAsync()).Any());
+            Assert.IsFalse((await unitOfWork.GetRepository<TestFriendGroup>().GetAllAsync()).Any());
         }
     }
 }

@@ -90,10 +90,6 @@
     <Compile Include="WrapperTests\ValidationSimpleProperty.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HVTApp.DataAccess.Infrastructure\HVTApp.DataAccess.Infrastructure.csproj">
-      <Project>{8ed995b6-b4a2-4b85-9057-69cacf5bbd51}</Project>
-      <Name>HVTApp.DataAccess.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HVTApp.DataAccess\HVTApp.DataAccess.csproj">
       <Project>{9CF80C25-C04B-46B3-8EB7-F45BC42D4BA2}</Project>
       <Name>HVTApp.DataAccess</Name>
