@@ -4,9 +4,6 @@ using System.Windows.Media;
 
 namespace HVTApp.UI.Controls
 {
-    /// <summary>
-    /// Interaction logic for ChooseItemControl.xaml
-    /// </summary>
     public partial class ChooseItemControl
     {
         public ChooseItemControl()
@@ -23,22 +20,22 @@ namespace HVTApp.UI.Controls
             set { SetValue(ItemProperty, value); }
         }
 
-        public static readonly DependencyProperty AddItemProperty = DependencyProperty.Register(
-            "AddItem", typeof (ICommand), typeof (ChooseItemControl), new PropertyMetadata(default(ICommand)));
+        public static readonly DependencyProperty AddItemCommandProperty = DependencyProperty.Register(
+            "AddItemCommand", typeof (ICommand), typeof (ChooseItemControl), new PropertyMetadata(default(ICommand)));
 
-        public ICommand AddItem
+        public ICommand AddItemCommand
         {
-            get { return (ICommand) GetValue(AddItemProperty); }
-            set { SetValue(AddItemProperty, value); }
+            get { return (ICommand) GetValue(AddItemCommandProperty); }
+            set { SetValue(AddItemCommandProperty, value); }
         }
 
-        public static readonly DependencyProperty RemoveItemProperty = DependencyProperty.Register(
-            "RemoveItem", typeof (ICommand), typeof (ChooseItemControl), new PropertyMetadata(default(ICommand)));
+        public static readonly DependencyProperty RemoveItemCommandProperty = DependencyProperty.Register(
+            "RemoveItemCommand", typeof (ICommand), typeof (ChooseItemControl), new PropertyMetadata(default(ICommand)));
 
-        public ICommand RemoveItem
+        public ICommand RemoveItemCommand
         {
-            get { return (ICommand) GetValue(RemoveItemProperty); }
-            set { SetValue(RemoveItemProperty, value); }
+            get { return (ICommand) GetValue(RemoveItemCommandProperty); }
+            set { SetValue(RemoveItemCommandProperty, value); }
         }
 
         public static readonly RoutedEvent ItemChangedEvent = EventManager.RegisterRoutedEvent(

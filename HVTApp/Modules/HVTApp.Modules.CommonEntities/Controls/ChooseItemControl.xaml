@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              x:Name="Root">
     <DockPanel>
-        <Button DockPanel.Dock="Right" Command="{Binding RemoveItem, ElementName=Root}" MinWidth="25">X</Button>
-        <Button DockPanel.Dock="Right" Command="{Binding AddItem, ElementName=Root}" MinWidth="25">...</Button>
-        <TextBox MinWidth="150" Text="{Binding Item, ElementName=Root}" IsReadOnly="True" IsEnabled="False"></TextBox>
+        <Button DockPanel.Dock="Right" Command="{Binding RemoveItemCommand, ElementName=Root}" MinWidth="25">X</Button>
+        <Button DockPanel.Dock="Right" Command="{Binding AddItemCommand, ElementName=Root}" MinWidth="25">...</Button>
+        <TextBox MinWidth="150" Text="{Binding Item, ElementName=Root, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" IsEnabled="False"></TextBox>
     </DockPanel>
 </UserControl>

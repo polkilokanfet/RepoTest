@@ -41,14 +41,14 @@
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
             Items="{Binding Path=Company.ActivityFilds}"
             SelectedItem="{Binding SelectedActivityField, Mode=TwoWay}"
-            AddItem="{Binding AddActivityFieldCommand}"
-            RemoveItem="{Binding RemoveActivityFieldCommand}"/>
+            AddItemCommand="{Binding AddActivityFieldCommand}"
+            RemoveItemCommand="{Binding RemoveActivityFieldCommand}"/>
 
         <Label Grid.Column="0" Grid.Row="6" Content="Головная компания"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
 			Item="{Binding Company.ParentCompany}"
-			AddItem="{Binding SelectParentCompanyCommand}"
-            RemoveItem="{Binding RemoveParentCompanyCommand}"/>
+			AddItemCommand="{Binding SelectParentCompanyCommand}"
+            RemoveItemCommand="{Binding RemoveParentCompanyCommand}"/>
 
         <Label Grid.Column="0" Grid.Row="7" Content="Дочерние компании"/>
         <ListView Grid.Column="1" Grid.Row="7" ItemsSource="{Binding Company.ChildCompanies}" IsEnabled="False"/>

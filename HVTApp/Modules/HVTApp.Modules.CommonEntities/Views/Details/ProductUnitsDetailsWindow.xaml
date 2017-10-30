@@ -21,15 +21,15 @@
         <Label Grid.Row="0" Grid.Column="0" Content="Объект"/>
         <controls:ChooseItemControl Grid.Row="0" Grid.Column="1"
                                           Item="{Binding Item.Facility}"
-                                          AddItem="{Binding ChooseFacilityCommand}"
-                                          RemoveItem="{Binding RemoveFacilityCommand}"/>
+                                          AddItemCommand="{Binding ChooseFacilityCommand}"
+                                          RemoveItemCommand="{Binding RemoveFacilityCommand}"/>
 
 
         <Label Grid.Row="1" Grid.Column="0" Content="Продукт"/>
         <controls:ChooseItemControl Grid.Row="1" Grid.Column="1"
                                           Item="{Binding Item.Product}"
-                                          AddItem="{Binding ChooseProductCommand}"
-                                          RemoveItem="{Binding RemoveProductCommand}"/>
+                                          AddItemCommand="{Binding ChooseProductCommand}"
+                                          RemoveItemCommand="{Binding RemoveProductCommand}"/>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Стоимость"/>
         <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>

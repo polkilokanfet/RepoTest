@@ -4,8 +4,8 @@
              x:Name="Root">
     <DockPanel LastChildFill="True">
         <StackPanel DockPanel.Dock="Right">
-            <Button Command="{Binding AddItem, ElementName=Root}" Width="25">+</Button>
-            <Button Command="{Binding RemoveItem, ElementName=Root}" Width="25">-</Button>
+            <Button Command="{Binding AddItemCommand, ElementName=Root}" Width="25">+</Button>
+            <Button Command="{Binding RemoveItemCommand, ElementName=Root}" Width="25">-</Button>
         </StackPanel>
         <ListView ItemsSource="{Binding Items, ElementName=Root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                   SelectionMode="Single"

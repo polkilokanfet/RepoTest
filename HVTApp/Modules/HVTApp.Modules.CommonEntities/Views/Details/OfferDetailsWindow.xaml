@@ -25,14 +25,14 @@
             <Label Grid.Row="0" Grid.Column="0" Content="Проект"/>
             <controls:ChooseItemControl Grid.Row="0" Grid.Column="1" 
                                           Item="{Binding Item.Project, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          AddItem="{Binding AddProjectCommand}"
-                                          RemoveItem="{Binding RemoveProjectCommand}"/>
+                                          AddItemCommand="{Binding AddProjectCommand}"
+                                          RemoveItemCommand="{Binding RemoveProjectCommand}"/>
 
             <Label Grid.Row="1" Grid.Column="0" Content="Конкурс"/>
             <controls:ChooseItemControl Grid.Row="1" Grid.Column="1" 
                                           Item="{Binding Item.Tender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          AddItem="{Binding AddTenderCommand}"
-                                          RemoveItem="{Binding RemoveTenderCommand}"/>
+                                          AddItemCommand="{Binding AddTenderCommand}"
+                                          RemoveItemCommand="{Binding RemoveTenderCommand}"/>
 
         </Grid>
         

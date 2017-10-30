@@ -59,15 +59,6 @@ namespace HVTApp.UI.ViewModels
             EventAggregator.GetEvent<TAfterSaveEntityEvent>().Subscribe(OnAfterSaveEntity);
         }
 
-        private void OnAfterSaveEntity(TModel entity)
-        {
-            var wrapper = Items.SingleOrDefault(x => Equals(x.Model.Id, entity.Id));
-            if(wrapper == null)
-                Items.Add((TWrapper)Activator.CreateInstance(typeof(TWrapper), entity));
-            else
-                wrapper.Refresh();
-        }
-
         public ICollection<TWrapper> Items { get; }
 
         public TWrapper SelectedItem
@@ -170,6 +161,15 @@ namespace HVTApp.UI.ViewModels
         }
         #endregion
 
+
+        private void OnAfterSaveEntity(TModel entity)
+        {
+            var wrapper = Items.SingleOrDefault(x => Equals(x.Model.Id, entity.Id));
+            if(wrapper == null)
+                Items.Add((TWrapper)Activator.CreateInstance(typeof(TWrapper), entity));
+            else
+                wrapper.Refresh();
+        }
 
     }
 }
