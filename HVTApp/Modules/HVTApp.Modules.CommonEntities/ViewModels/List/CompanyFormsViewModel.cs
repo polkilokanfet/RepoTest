@@ -5,7 +5,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.ViewModels
 {
-    public class CompanyFormsViewModel : BaseListViewModel<CompanyFormLookup, CompanyForm, CompanyFormDetailsViewModel, AfterSaveCompanyFormEvent>
+    public class CompanyFormsViewModel : BaseLookupListViewModel<CompanyFormLookup, CompanyForm, CompanyFormDetailsViewModel, AfterSaveCompanyFormEvent>
     {
         public CompanyFormsViewModel(IUnityContainer container, ICompanyFormLookupDataService lookupDataService) : base(container, lookupDataService)
         {

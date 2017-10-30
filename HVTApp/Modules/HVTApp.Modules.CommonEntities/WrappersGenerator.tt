@@ -34,7 +34,14 @@
 
 	GenerateAfterRemoveEntityEvent(modelType);
 	SaveGeneratedCodeAsFile("AfterRemove" + modelType.Name + "Event.g.cs", "Events/AfterRemoveEntityEvents");
-}
+  }
+
+    GenerateListViewModels(GetModelTypes());
+	SaveGeneratedCodeAsFile("GeneratedListViewModels.g.cs", "ViewModels/List");
+
+    GenerateDetailsViewModels(GetModelTypes());
+	SaveGeneratedCodeAsFile("GeneratedDetailsViewModels.g.cs", "ViewModels/Details");
+
 #>
 
 <#+
@@ -52,6 +59,56 @@
 #>namespace HVTApp.UI.Lookup
 {
 	public interface I<#=modelType.Name#>LookupDataService : ILookupDataService<<#=modelType.Name#>Lookup> { }
+}
+<#+
+	}
+
+    private void GenerateListViewModels(IEnumerable<Type> modelTypes)
+	{
+#>using HVTApp.Model.POCOs;
+using HVTApp.UI.Events;
+using HVTApp.UI.Wrapper;
+using Microsoft.Practices.Unity;
+
+namespace HVTApp.UI.ViewModels
+{
+<#+
+        foreach(var modelType in modelTypes)
+        {
+#>
+    public partial class <#=modelType.Name#>ListViewModel : BaseWrapperListViewModel<<#=modelType.Name#>Wrapper, <#=modelType.Name#>, <#=modelType.Name#>DetailsViewModel, AfterSave<#=modelType.Name#>Event>
+    {
+        public <#=modelType.Name#>ListViewModel(IUnityContainer container, <#=modelType.Name#>WrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+    }
+
+<#+
+        }
+#>
+}
+<#+
+	}
+
+    private void GenerateDetailsViewModels(IEnumerable<Type> modelTypes)
+	{
+#>using HVTApp.Model.POCOs;
+using HVTApp.UI.Events;
+using HVTApp.UI.Wrapper;
+using Microsoft.Practices.Unity;
+
+namespace HVTApp.UI.ViewModels
+{
+<#+
+        foreach(var modelType in modelTypes)
+        {
+#>
+    public partial class <#=modelType.Name#>DetailsViewModel : BaseDetailsViewModel<<#=modelType.Name#>Wrapper, <#=modelType.Name#>, AfterSave<#=modelType.Name#>Event>
+    {
+        public <#=modelType.Name#>DetailsViewModel(IUnityContainer container) : base(container) { }
+    }
+
+<#+
+        }
+#>
 }
 <#+
 	}

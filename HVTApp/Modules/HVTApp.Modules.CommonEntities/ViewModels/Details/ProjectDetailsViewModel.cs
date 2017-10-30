@@ -11,7 +11,7 @@ using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
-    public class ProjectDetailsViewModel : BaseDetailsViewModel<ProjectWrapper, Project, AfterSaveProjectEvent>
+    public partial class ProjectDetailsViewModel : BaseDetailsViewModel<ProjectWrapper, Project, AfterSaveProjectEvent>
     {
         private readonly IDialogService _dialogService;
         private readonly IUnityContainer _unityContainer;

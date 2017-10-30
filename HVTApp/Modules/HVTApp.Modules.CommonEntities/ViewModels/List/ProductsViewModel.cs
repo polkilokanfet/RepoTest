@@ -6,7 +6,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.ViewModels
 {
-    public class ProductsViewModel : BaseListViewModel<ProductLookup, Product, ProductDetailsViewModel, AfterSaveProductEvent>
+    public class ProductsViewModel : BaseLookupListViewModel<ProductLookup, Product, ProductDetailsViewModel, AfterSaveProductEvent>
     {
         public ProductsViewModel(IUnityContainer container, IProductLookupDataService lookupDataService) : base(container, lookupDataService)
         {

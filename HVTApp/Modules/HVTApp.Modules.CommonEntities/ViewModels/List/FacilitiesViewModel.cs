@@ -6,7 +6,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.ViewModels
 {
-    public class FacilitiesViewModel : BaseListViewModel<FacilityLookup, Facility, FacilityDetailsViewModel, AfterSaveFacilityEvent>
+    public class FacilitiesViewModel : BaseLookupListViewModel<FacilityLookup, Facility, FacilityDetailsViewModel, AfterSaveFacilityEvent>
     {
         public FacilitiesViewModel(IUnityContainer container, IFacilityLookupDataService lookupDataService) : base(container, lookupDataService)
         {

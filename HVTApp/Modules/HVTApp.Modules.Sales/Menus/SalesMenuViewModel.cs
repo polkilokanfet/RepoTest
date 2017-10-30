@@ -1,10 +1,6 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Modules.Sales.Views;
-using ContractsView = HVTApp.UI.Views.ContractsView;
-using OffersView = HVTApp.UI.Views.OffersView;
-using PaymentsView = HVTApp.UI.Views.PaymentsView;
-using ProjectsView = HVTApp.UI.Views.ProjectsView;
-using TendersView = HVTApp.UI.Views.TendersView;
+using HVTApp.UI.Views;
 
 namespace HVTApp.Modules.Sales.Menus
 {

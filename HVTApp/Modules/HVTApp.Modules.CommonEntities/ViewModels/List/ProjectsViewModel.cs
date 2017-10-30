@@ -5,7 +5,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.ViewModels
 {
-    public class ProjectsViewModel : BaseListViewModel<ProjectLookup, Project, ProjectDetailsViewModel, AfterSaveProjectEvent>
+    public class ProjectsViewModel : BaseLookupListViewModel<ProjectLookup, Project, ProjectDetailsViewModel, AfterSaveProjectEvent>
     {
         public ProjectsViewModel(IUnityContainer container, IProjectLookupDataService projectLookupDataService) : base(container, projectLookupDataService)
         {

@@ -15,7 +15,7 @@ using CompanyWrapper = HVTApp.UI.Wrapper.CompanyWrapper;
 
 namespace HVTApp.UI.ViewModels
 {
-    public class CompanyDetailsViewModel : BaseDetailsViewModel<CompanyWrapper, Company, AfterSaveCompanyEvent>
+    public partial class CompanyDetailsViewModel : BaseDetailsViewModel<CompanyWrapper, Company, AfterSaveCompanyEvent>
     {
         private readonly ISelectService _selectService;
         private ActivityFieldWrapper _selectedActivityField;

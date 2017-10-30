@@ -7,7 +7,7 @@ using HVTApp.UI.Lookup;
 
 namespace HVTApp.UI.ViewModels
 {
-    public interface IBaseListViewModel<TLookupItem> : INotifyPropertyChanged
+    public interface IBaseLookupListViewModel<TLookupItem> : INotifyPropertyChanged
         where TLookupItem : ILookupItem
     {
         ICollection<TLookupItem> Items { get; }

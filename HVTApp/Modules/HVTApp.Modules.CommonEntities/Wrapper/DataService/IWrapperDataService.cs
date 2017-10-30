@@ -10,7 +10,7 @@ namespace HVTApp.UI.Wrapper
 {
     public interface IWrapperDataService<TModel, TWrapper> : IDisposable
         where TModel : class, IBaseEntity
-        where TWrapper : WrapperBase<TModel>
+        where TWrapper : IWrapper<TModel>
     {
         Task<IEnumerable<TWrapper>> GetAllWrappersAsync();
     }

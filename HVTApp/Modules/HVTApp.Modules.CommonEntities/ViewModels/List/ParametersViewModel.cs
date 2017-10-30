@@ -6,7 +6,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.ViewModels
 {
-    public class ParametersViewModel : BaseListViewModel<ParameterLookup, Parameter, ParameterDetailsViewModel, AfterSaveParameterEvent>
+    public class ParametersViewModel : BaseLookupListViewModel<ParameterLookup, Parameter, ParameterDetailsViewModel, AfterSaveParameterEvent>
     {
         public ParametersViewModel(IUnityContainer container, IParameterLookupDataService lookupDataService) : base(container, lookupDataService)
         {

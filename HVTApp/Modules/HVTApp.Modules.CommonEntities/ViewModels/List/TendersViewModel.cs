@@ -5,7 +5,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.ViewModels
 {
-    public class TendersViewModel : BaseListViewModel<TenderLookup, Tender, TenderDetailsViewModel, AfterSaveTenderEvent>
+    public class TendersViewModel : BaseLookupListViewModel<TenderLookup, Tender, TenderDetailsViewModel, AfterSaveTenderEvent>
     {
         public TendersViewModel(IUnityContainer container, ITenderLookupDataService lookupData) : base(container, lookupData)
         {
