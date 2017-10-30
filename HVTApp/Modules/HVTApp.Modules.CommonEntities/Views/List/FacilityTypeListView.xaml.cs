@@ -6,9 +6,9 @@ using Prism.Regions;
 namespace HVTApp.UI.Views
 {
     [RibbonTab(typeof(TabCRUD))]
-    public partial class ParametersGroupsView
+    public partial class FacilityTypeListView
     {
-        public ParametersGroupsView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        public FacilityTypeListView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
         }

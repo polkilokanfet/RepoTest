@@ -8,15 +8,15 @@ using Prism.Regions;
 namespace HVTApp.UI.Views
 {
     [RibbonTab(typeof(TabCRUD))]
-    public partial class ProjectsView
+    public partial class ProjectListView
     {
-        public ProjectsView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        public ProjectListView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
         }
 
         public static readonly DependencyProperty ProjectsProperty = DependencyProperty.Register(
-            "Projects", typeof (IEnumerable), typeof (ProjectsView), new PropertyMetadata(default(IEnumerable)));
+            "Projects", typeof (IEnumerable), typeof (ProjectListView), new PropertyMetadata(default(IEnumerable)));
 
         public IEnumerable Projects
         {

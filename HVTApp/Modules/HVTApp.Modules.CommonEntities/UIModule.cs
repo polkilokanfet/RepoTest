@@ -19,19 +19,19 @@ namespace HVTApp.UI
 
         protected override void RegisterTypes()
         {
-            Container.RegisterViewForNavigation<CompaniesView>();
-            Container.RegisterViewForNavigation<CompanyFormsView>();
-            Container.RegisterViewForNavigation<ActivityFildsView>();
-            Container.RegisterViewForNavigation<ParametersView>();
-            Container.RegisterViewForNavigation<ParametersGroupsView>();
-            Container.RegisterViewForNavigation<ProductsView>();
-            Container.RegisterViewForNavigation<FacilitiesView>();
-            Container.RegisterViewForNavigation<FacilityTypesView>();
-            Container.RegisterViewForNavigation<ProjectsView>();
-            Container.RegisterViewForNavigation<TendersView>();
-            Container.RegisterViewForNavigation<OffersView>();
-            Container.RegisterViewForNavigation<PaymentsView>();
-            Container.RegisterViewForNavigation<ContractsView>();
+            Container.RegisterViewForNavigation<CompanyListView>();
+            Container.RegisterViewForNavigation<CompanyFormListView>();
+            Container.RegisterViewForNavigation<ActivityFildListView>();
+            Container.RegisterViewForNavigation<ParameterListView>();
+            Container.RegisterViewForNavigation<ParameterGroupListView>();
+            Container.RegisterViewForNavigation<ProductListView>();
+            Container.RegisterViewForNavigation<FacilityListView>();
+            Container.RegisterViewForNavigation<FacilityTypeListView>();
+            Container.RegisterViewForNavigation<ProjectListView>();
+            Container.RegisterViewForNavigation<TenderListView>();
+            Container.RegisterViewForNavigation<OfferListView>();
+            Container.RegisterViewForNavigation<PaymentListView>();
+            Container.RegisterViewForNavigation<ContractListView>();
 
             _dialogService.Register<CompanyFormDetailsViewModel, CompanyFormDetailsView>();
             _dialogService.Register<CompanyDetailsViewModel, CompanyDetailsWindow>();

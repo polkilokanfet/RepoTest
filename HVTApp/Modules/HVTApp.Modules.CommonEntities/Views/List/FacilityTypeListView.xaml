@@ -1,4 +1,4 @@
-﻿<inf:ViewBase x:Class="HVTApp.UI.Views.FacilityTypesView"
+﻿<inf:ViewBase x:Class="HVTApp.UI.Views.FacilityTypeListView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -19,16 +19,16 @@
     </Control.Resources>
 
     <infg:XamDataGrid>
-        
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="FullName" Label="Полное наименование"/>
-                    <infg:TextField Name="ShortName" Label="Сокращенное наименование"/>
+                    <infg:TextField Name="FullName" Label="Полное наименование" AllowEdit="True"/>
+                    <infg:TextField Name="ShortName" Label="Сокращенное наименование" AllowEdit="True"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
         </infg:XamDataGrid.FieldLayouts>
-            
+
     </infg:XamDataGrid>
-    
+
 </inf:ViewBase>

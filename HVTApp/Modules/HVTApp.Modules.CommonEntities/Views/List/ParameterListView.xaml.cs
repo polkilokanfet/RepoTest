@@ -5,11 +5,10 @@ using Prism.Regions;
 
 namespace HVTApp.UI.Views
 {
-
     [RibbonTab(typeof(TabCRUD))]
-    public partial class ActivityFildsView
+    public partial class ParameterListView 
     {
-        public ActivityFildsView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        public ParameterListView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
         }
