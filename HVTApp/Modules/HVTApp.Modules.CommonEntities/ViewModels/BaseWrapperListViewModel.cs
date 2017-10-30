@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -62,6 +62,11 @@ namespace HVTApp.UI.ViewModels
 
         private void OnAfterSaveEntity(TModel entity)
         {
+            var wrapper = Items.SingleOrDefault(x => Equals(x.Model.Id, entity.Id));
+            if(wrapper == null)
+                Items.Add((TWrapper)Activator.CreateInstance(typeof(TWrapper), entity));
+            else
+                wrapper.Refresh();
         }
 
         public ICollection<TWrapper> Items { get; }
@@ -125,9 +130,8 @@ namespace HVTApp.UI.ViewModels
 
         protected async void RemoveItemCommand_Execute()
         {
-            if (
-                MessageService.ShowYesNoMessageDialog("Удалить",
-                    $"Вы действительно хотите удалить {SelectedItem.DisplayMember}") != MessageDialogResult.Yes)
+            if (MessageService.ShowYesNoMessageDialog("РЈРґР°Р»РёС‚СЊ", $"Р’С‹ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ С…РѕС‚РёС‚Рµ СѓРґР°Р»РёС‚СЊ '{SelectedItem.DisplayMember}'") 
+                != MessageDialogResult.Yes)
                 return;
 
             var repo = UnitOfWork.GetRepository<TModel>();

@@ -305,7 +305,7 @@ namespace HVTApp.UI.Wrapper
 
         public void Refresh()
         {
-            OnPropertyChanged("");
+            OnPropertyChanged(string.Empty);
         }
 
         public string DisplayMember => ToString();
