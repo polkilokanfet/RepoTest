@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class LocalityWrapperDataService : WrapperDataService<Locality, LocalityWrapper>
     {
-        public LocalityWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public LocalityWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override LocalityWrapper GenerateWrapper(Locality model)
         {

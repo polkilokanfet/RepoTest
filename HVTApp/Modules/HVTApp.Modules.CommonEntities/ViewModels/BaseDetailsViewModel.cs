@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
@@ -45,16 +44,17 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
-        public void Load()
+        public void Load(TWrapper wrapper = null)
         {
-            var entity = Activator.CreateInstance<TEntity>();
-            Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity);
-        }
-
-        public async Task LoadAsync(Guid id)
-        {
-            var entity = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(id);
-            Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity);
+            if (wrapper == null)
+            {
+                var entity = Activator.CreateInstance<TEntity>();
+                Item = (TWrapper) Activator.CreateInstance(typeof(TWrapper), entity);
+            }
+            else
+            {
+                Item = wrapper;
+            }
         }
 
 

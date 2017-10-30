@@ -118,7 +118,8 @@ namespace HVTApp.UI.ViewModels
         protected async void EditItemCommand_ExecuteAsync()
         {
             var viewModel = Container.Resolve<TDelailsViewModel>();
-            await viewModel.LoadAsync(SelectedItem.Id);
+            //TODO: fix it
+            //await viewModel.Load(SelectedItem.Id);
             var dialogResult = DialogService.ShowDialog(viewModel);
             if (!dialogResult.HasValue || !dialogResult.Value)
                 viewModel.Item.RejectChanges();

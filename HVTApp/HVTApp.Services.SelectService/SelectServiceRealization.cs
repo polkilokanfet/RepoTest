@@ -44,7 +44,7 @@ namespace HVTApp.Services.SelectService
             SelectWindow selectWindow = new SelectWindow
             {
                 ContentControl = { Content = view },
-                CreatNewButton = { Command = viewModel.NewItemCommand },
+                CreateNewButton = { Command = viewModel.NewItemCommand },
                 SelectButton = { Command = viewModel.SelectItemCommand }
             };
 

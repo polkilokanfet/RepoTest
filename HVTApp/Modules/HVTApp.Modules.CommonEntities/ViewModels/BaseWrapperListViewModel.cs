@@ -18,11 +18,10 @@ using Prism.Mvvm;
 namespace HVTApp.UI.ViewModels
 {
     public class BaseWrapperListViewModel<TWrapper, TModel, TDelailsViewModel, TAfterSaveEntityEvent> :
-        BindableBase, ISelectViewModel<TWrapper>, IBaseWrapperListViewModel<TWrapper>
-
+        BindableBase, ISelectViewModel<TWrapper>, IBaseWrapperListViewModel<TModel, TWrapper>
         where TModel : class, IBaseEntity
         where TWrapper : class, IWrapper<TModel>
-        where TDelailsViewModel : IDetailsViewModel<IWrapper<TModel>, TModel>
+        where TDelailsViewModel : IDetailsViewModel<TWrapper, TModel>
         where TAfterSaveEntityEvent : PubSubEvent<TModel>, new()
     {
         protected readonly IUnityContainer Container;
@@ -114,12 +113,14 @@ namespace HVTApp.UI.ViewModels
         }
 
 
-        protected async void EditItemCommand_ExecuteAsync()
+        protected void EditItemCommand_ExecuteAsync()
         {
             var viewModel = Container.Resolve<TDelailsViewModel>();
-            await viewModel.LoadAsync(SelectedItem.Model.Id);
+            viewModel.Load(SelectedItem);
             var dialogResult = DialogService.ShowDialog(viewModel);
-            if (!dialogResult.HasValue || !dialogResult.Value)
+            if (dialogResult.HasValue && dialogResult.Value)
+                SelectedItem.Refresh();
+            else
                 viewModel.Item.RejectChanges();
         }
 
@@ -130,7 +131,7 @@ namespace HVTApp.UI.ViewModels
 
         protected async void RemoveItemCommand_Execute()
         {
-            if (MessageService.ShowYesNoMessageDialog("Удалить", $"Вы действительно хотите удалить '{SelectedItem.DisplayMember}'") 
+            if (MessageService.ShowYesNoMessageDialog("Удалить", $"Вы действительно хотите удалить '{SelectedItem.DisplayMember}'?") 
                 != MessageDialogResult.Yes)
                 return;
 

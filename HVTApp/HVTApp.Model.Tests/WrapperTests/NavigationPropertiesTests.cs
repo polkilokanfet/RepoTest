@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Wrappers;
+using HVTApp.UI.Wrapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HVTApp.Model.Tests.WrapperTests
@@ -11,28 +10,50 @@ namespace HVTApp.Model.Tests.WrapperTests
     [TestClass]
     public class NavigationPropertiesTests
     {
-        [TestMethod]
-        public void NavigationCollectionPropertiesTest()
+        private TestFriendWrapper _testFriendWrapper;
+
+        [TestInitialize]
+        public void Init()
         {
-            TestFriendGroup group = new TestFriendGroup {Name = "group1", FriendTests = new List<TestFriend>()};
-            TestFriend testFriend = new TestFriend
+            var testFriend = new TestFriend
             {
                 FirstName = "Thomas",
                 TestFriendAddress = new TestFriendAddress { City = "CityOld"},
-                TestFriendGroup = group,
                 Emails = new List<TestFriendEmail>()
             };
-            group.FriendTests.Add(testFriend);
 
-            TestFriendWrapper wrapper = new TestFriendWrapper(testFriend);
-            Assert.IsFalse(wrapper.IsChanged);
+            _testFriendWrapper = new TestFriendWrapper(testFriend);
+        }
 
-            var old = wrapper.TestFriendAddress;
-            wrapper.TestFriendAddress = new TestFriendAddressWrapper(new TestFriendAddress {City = "CityNew"});
-            Assert.IsTrue(wrapper.IsChanged);
 
-            //wrapper.Test_FriendAddress = old;
-            //Assert.IsFalse(wrapper.IsChanged);
+        [TestMethod]
+        public void ShouldRiseEventIfComplexPropertyChanged()
+        {
+            Assert.IsFalse(_testFriendWrapper.IsChanged);
+
+            var oldAddress = _testFriendWrapper.TestFriendAddress;
+            var newAddress = new TestFriendAddress { City = "CityNew" };
+
+            Assert.IsTrue(_testFriendWrapper.PropertyChangedEventRised(nameof(_testFriendWrapper.TestFriendAddress),
+                () => _testFriendWrapper.TestFriendAddress = new TestFriendAddressWrapper(newAddress)));
+
+            Assert.IsTrue(_testFriendWrapper.IsChanged);
+
+            Assert.IsTrue(_testFriendWrapper.PropertyChangedEventRised(nameof(_testFriendWrapper.TestFriendAddress),
+                () => _testFriendWrapper.TestFriendAddress = oldAddress));
+            Assert.IsFalse(_testFriendWrapper.IsChanged);
+
+            Assert.IsFalse(_testFriendWrapper.PropertyChangedEventRised(nameof(_testFriendWrapper.TestFriendAddress),
+                () => _testFriendWrapper.TestFriendAddress = new TestFriendAddressWrapper(oldAddress.Model)));
+            Assert.IsFalse(_testFriendWrapper.IsChanged);
+        }
+
+        [TestMethod]
+        public void ShouldAcceptComplexPropertyChanged()
+        {
+            var newAddress = new TestFriendAddress { City = "CityNew" };
+            _testFriendWrapper.TestFriendAddress = new TestFriendAddressWrapper(newAddress);
+            Assert.AreSame(newAddress, _testFriendWrapper.Model.TestFriendAddress);
         }
 
         //[TestMethod]

@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class CountryWrapperDataService : WrapperDataService<Country, CountryWrapper>
     {
-        public CountryWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public CountryWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override CountryWrapper GenerateWrapper(Country model)
         {

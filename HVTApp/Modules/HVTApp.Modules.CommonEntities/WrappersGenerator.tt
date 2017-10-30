@@ -139,9 +139,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class <#=modelType.Name#>WrapperDataService : WrapperDataService<<#=modelType.Name#>, <#=modelType.Name#>Wrapper>
     {
-        public <#=modelType.Name#>WrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public <#=modelType.Name#>WrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override <#=modelType.Name#>Wrapper GenerateWrapper(<#=modelType.Name#> model)
         {

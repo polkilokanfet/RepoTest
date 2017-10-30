@@ -81,16 +81,16 @@ namespace HVTApp.UI.ViewModels
 
         private async void SelectParentCompanyCommand_Execute()
         {
-            //компании, которые не могут быть головной (дочернии и т.д.)
-            IEnumerable<CompanyWrapper> exceptCompanies = Company.GetAllChilds().Concat(new[] {this.Company});
+            var companies = await UnitOfWork.GetRepository<Company>().GetAllAsync();
+            //компании, которые не могут быть головной (дочерние и т.д.)
+            var exceptCompanies = companies.Where(x => Equals(x.ParentCompany?.Id, Company.Id)).Concat(new[] {this.Company.Model});
             //возможные головные компании
-            IEnumerable<CompanyWrapper> possibleParents = (await UnitOfWork.CompanyRepository.GetAllAsync()).Select(x => new CompanyWrapper(x)).Except(exceptCompanies);
+            IEnumerable<CompanyWrapper> possibleParents = companies.Except(exceptCompanies).Select(x => new CompanyWrapper(x));
             //выбор одной из компаний
             CompanyWrapper possibleParent = _selectService.SelectItem(possibleParents, Company.ParentCompany);
 
-            if (possibleParent != null && !Equals(possibleParent, Company.ParentCompany))
+            if (possibleParent != null && !Equals(possibleParent.Id, Company.ParentCompany?.Id))
             {
-                RemoveParentCompanyCommand_Execute();
                 Company.ParentCompany = possibleParent;
             }
         }

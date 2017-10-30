@@ -6,13 +6,12 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 
 namespace HVTApp.UI.ViewModels
 {
-    public interface IDetailsViewModel<out TWrapper, TEntity> : IDialogRequestClose
+    public interface IDetailsViewModel<TWrapper, TEntity> : IDialogRequestClose
         where TEntity : class, IBaseEntity
         where TWrapper : class, IWrapper<TEntity>
     {
         TWrapper Item { get; }
         ICommand SaveCommand { get; }
-        void Load();
-        Task LoadAsync(Guid id);
+        void Load(TWrapper wrapper = null);
     }
 }

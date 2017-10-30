@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class RegionWrapperDataService : WrapperDataService<Region, RegionWrapper>
     {
-        public RegionWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public RegionWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override RegionWrapper GenerateWrapper(Region model)
         {

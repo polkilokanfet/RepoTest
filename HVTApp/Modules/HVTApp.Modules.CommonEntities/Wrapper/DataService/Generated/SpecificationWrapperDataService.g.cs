@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class SpecificationWrapperDataService : WrapperDataService<Specification, SpecificationWrapper>
     {
-        public SpecificationWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public SpecificationWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override SpecificationWrapper GenerateWrapper(Specification model)
         {

@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class ShipmentUnitWrapperDataService : WrapperDataService<ShipmentUnit, ShipmentUnitWrapper>
     {
-        public ShipmentUnitWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public ShipmentUnitWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override ShipmentUnitWrapper GenerateWrapper(ShipmentUnit model)
         {

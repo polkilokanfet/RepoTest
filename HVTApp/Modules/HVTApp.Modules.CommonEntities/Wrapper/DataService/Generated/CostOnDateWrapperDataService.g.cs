@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class CostOnDateWrapperDataService : WrapperDataService<CostOnDate, CostOnDateWrapper>
     {
-        public CostOnDateWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public CostOnDateWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override CostOnDateWrapper GenerateWrapper(CostOnDate model)
         {

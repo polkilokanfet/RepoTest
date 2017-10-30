@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class PersonWrapperDataService : WrapperDataService<Person, PersonWrapper>
     {
-        public PersonWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public PersonWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override PersonWrapper GenerateWrapper(Person model)
         {

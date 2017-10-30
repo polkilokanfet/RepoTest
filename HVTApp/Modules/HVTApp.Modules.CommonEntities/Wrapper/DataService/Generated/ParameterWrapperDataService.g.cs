@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class ParameterWrapperDataService : WrapperDataService<Parameter, ParameterWrapper>
     {
-        public ParameterWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public ParameterWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override ParameterWrapper GenerateWrapper(Parameter model)
         {

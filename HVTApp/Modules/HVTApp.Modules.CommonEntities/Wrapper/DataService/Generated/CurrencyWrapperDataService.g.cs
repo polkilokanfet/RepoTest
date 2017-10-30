@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class CurrencyWrapperDataService : WrapperDataService<Currency, CurrencyWrapper>
     {
-        public CurrencyWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public CurrencyWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override CurrencyWrapper GenerateWrapper(Currency model)
         {

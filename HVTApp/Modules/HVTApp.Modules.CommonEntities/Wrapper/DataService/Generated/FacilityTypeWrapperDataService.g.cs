@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class FacilityTypeWrapperDataService : WrapperDataService<FacilityType, FacilityTypeWrapper>
     {
-        public FacilityTypeWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public FacilityTypeWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override FacilityTypeWrapper GenerateWrapper(FacilityType model)
         {

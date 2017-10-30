@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class CompanyFormWrapperDataService : WrapperDataService<CompanyForm, CompanyFormWrapper>
     {
-        public CompanyFormWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public CompanyFormWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override CompanyFormWrapper GenerateWrapper(CompanyForm model)
         {

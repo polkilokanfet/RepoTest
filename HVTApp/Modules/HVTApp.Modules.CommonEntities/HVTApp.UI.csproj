@@ -581,7 +581,7 @@
     <Compile Include="Wrapper\DataService\Generated\UserRoleWrapperDataService.g.cs" />
     <Compile Include="Wrapper\DataService\Generated\UserWrapperDataService.g.cs" />
     <Compile Include="Wrapper\DataService\IWrapperDataService.cs" />
-    <Compile Include="Wrapper\DataService\ProjectWrapperDataService.cs" />
+    <Compile Include="Wrapper\DataService\WrapperDataService.cs" />
     <Compile Include="Wrapper\Generated\ActivityFieldWrapper.g.cs" />
     <Compile Include="Wrapper\Generated\AdditionalSalesUnitsWrapper.g.cs" />
     <Compile Include="Wrapper\Generated\AddressWrapper.g.cs" />

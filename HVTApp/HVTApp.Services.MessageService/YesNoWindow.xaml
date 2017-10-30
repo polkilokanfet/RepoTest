@@ -1,13 +1,13 @@
 ﻿<Window x:Class="HVTApp.Services.MessageService.YesNoWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="YesNoWindow" SizeToContent="WidthAndHeight">
+        Title="YesNoWindow" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
     
     <StackPanel Orientation="Vertical">
         <TextBlock Name="Message">Message</TextBlock>
-        <StackPanel Orientation="Horizontal">
-            <Button Name="YesButton" Content="Да" Click="YesButton_OnClick"/>
-            <Button Name="NoButton" Content="Нет" Click="NoButton_OnClick"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="YesButton" Content="Да" Click="YesButton_OnClick" Margin="4,4,2,4"/>
+            <Button Name="NoButton" Content="Нет" Click="NoButton_OnClick" Margin="2,4,4,4"/>
         </StackPanel>
     </StackPanel>
 </Window>

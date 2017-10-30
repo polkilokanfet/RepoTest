@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class RequiredPreviousParametersWrapperDataService : WrapperDataService<RequiredPreviousParameters, RequiredPreviousParametersWrapper>
     {
-        public RequiredPreviousParametersWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public RequiredPreviousParametersWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override RequiredPreviousParametersWrapper GenerateWrapper(RequiredPreviousParameters model)
         {

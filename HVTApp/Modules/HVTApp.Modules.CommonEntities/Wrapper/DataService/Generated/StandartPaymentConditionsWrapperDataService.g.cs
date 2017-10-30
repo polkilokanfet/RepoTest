@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class StandartPaymentConditionsWrapperDataService : WrapperDataService<StandartPaymentConditions, StandartPaymentConditionsWrapper>
     {
-        public StandartPaymentConditionsWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public StandartPaymentConditionsWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override StandartPaymentConditionsWrapper GenerateWrapper(StandartPaymentConditions model)
         {

@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class DocumentsRegistrationDetailsWrapperDataService : WrapperDataService<DocumentsRegistrationDetails, DocumentsRegistrationDetailsWrapper>
     {
-        public DocumentsRegistrationDetailsWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public DocumentsRegistrationDetailsWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override DocumentsRegistrationDetailsWrapper GenerateWrapper(DocumentsRegistrationDetails model)
         {

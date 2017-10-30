@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class PaymentActualWrapperDataService : WrapperDataService<PaymentActual, PaymentActualWrapper>
     {
-        public PaymentActualWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public PaymentActualWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override PaymentActualWrapper GenerateWrapper(PaymentActual model)
         {

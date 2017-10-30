@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class MeasureWrapperDataService : WrapperDataService<Measure, MeasureWrapper>
     {
-        public MeasureWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public MeasureWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override MeasureWrapper GenerateWrapper(Measure model)
         {

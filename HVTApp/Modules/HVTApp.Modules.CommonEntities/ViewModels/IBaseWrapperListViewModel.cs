@@ -7,8 +7,9 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 
 namespace HVTApp.UI.ViewModels
 {
-    public interface IBaseWrapperListViewModel<TWrapper> : INotifyPropertyChanged
-        where TWrapper : class, IWrapper<IBaseEntity>
+    public interface IBaseWrapperListViewModel<TModel,TWrapper> : INotifyPropertyChanged
+        where TModel : class, IBaseEntity
+        where TWrapper : class, IWrapper<TModel>
     {
         ICollection<TWrapper> Items { get; }
         TWrapper SelectedItem { get; set; }

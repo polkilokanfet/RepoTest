@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class OfferWrapperDataService : WrapperDataService<Offer, OfferWrapper>
     {
-        public OfferWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public OfferWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override OfferWrapper GenerateWrapper(Offer model)
         {

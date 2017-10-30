@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class TenderWrapperDataService : WrapperDataService<Tender, TenderWrapper>
     {
-        public TenderWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public TenderWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override TenderWrapper GenerateWrapper(Tender model)
         {

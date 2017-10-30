@@ -6,9 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class ContractWrapperDataService : WrapperDataService<Contract, ContractWrapper>
     {
-        public ContractWrapperDataService(HvtAppContext context) : base(context)
-        {
-        }
+        public ContractWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
 		protected override ContractWrapper GenerateWrapper(Contract model)
         {
