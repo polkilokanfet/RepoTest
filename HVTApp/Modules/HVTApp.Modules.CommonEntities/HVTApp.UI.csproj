@@ -681,6 +681,10 @@
       <Project>{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}</Project>
       <Name>HVTApp.Services.GetProductService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\HVTApp.Services.MessageService\HVTApp.Services.MessageService.csproj">
+      <Project>{7703A90A-E742-41B1-96CB-CD0F51E3F2B6}</Project>
+      <Name>HVTApp.Services.MessageService</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\ChooseItemControl.xaml">

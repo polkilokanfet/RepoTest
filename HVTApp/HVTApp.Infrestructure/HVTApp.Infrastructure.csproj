@@ -97,6 +97,7 @@
     <Compile Include="IRibbonTabItem.cs" />
     <Compile Include="IViewBase.cs" />
     <Compile Include="IWrapper.cs" />
+    <Compile Include="MessageDialogResult.cs" />
     <Compile Include="NavigationAwareViewModelBase.cs" />
     <Compile Include="NavigationItem.cs" />
     <Compile Include="Prism\ModuleBase.cs" />

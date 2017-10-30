@@ -221,6 +221,10 @@
       <Project>{ec872082-d2a4-499e-b589-ad5101e53145}</Project>
       <Name>HVTApp.Services.DialogService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Services.MessageService\HVTApp.Services.MessageService.csproj">
+      <Project>{7703a90a-e742-41b1-96cb-cd0f51e3f2b6}</Project>
+      <Name>HVTApp.Services.MessageService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Services.SelectService\HVTApp.Services.SelectService.csproj">
       <Project>{903EF15D-0826-4E21-AC44-24A869938521}</Project>
       <Name>HVTApp.Services.SelectService</Name>

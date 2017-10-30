@@ -8,6 +8,7 @@ using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Services.MessageService;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -29,6 +30,7 @@ namespace HVTApp.UI.ViewModels
         protected readonly IWrapperDataService<TModel, TWrapper> WrapperDataService;
         protected readonly IEventAggregator EventAggregator;
         protected readonly IDialogService DialogService;
+        protected readonly IMessageService MessageService;
 
         private TWrapper _selectedItem;
         private bool _loaded = false;
@@ -40,6 +42,7 @@ namespace HVTApp.UI.ViewModels
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             EventAggregator = Container.Resolve<IEventAggregator>();
             DialogService = Container.Resolve<IDialogService>();
+            MessageService = Container.Resolve<IMessageService>();
 
             Items = new ObservableCollection<TWrapper>();
 
@@ -122,6 +125,11 @@ namespace HVTApp.UI.ViewModels
 
         protected async void RemoveItemCommand_Execute()
         {
+            if (
+                MessageService.ShowYesNoMessageDialog("Удалить",
+                    $"Вы действительно хотите удалить {SelectedItem.DisplayMember}") != MessageDialogResult.Yes)
+                return;
+
             var repo = UnitOfWork.GetRepository<TModel>();
             var entityToRemove = await repo.GetByIdAsync(SelectedItem.Model.Id);
             if (entityToRemove != null)

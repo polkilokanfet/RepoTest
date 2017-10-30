@@ -16,6 +16,7 @@ using HVTApp.Services.GetProductService;
 using HVTApp.Services.ChooseService;
 using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;
+using HVTApp.Services.MessageService;
 using HVTApp.Services.SelectService;
 using HVTApp.UI;
 using HVTApp.UI.Lookup;
@@ -55,6 +56,7 @@ namespace HVTApp
             Container.RegisterType<IUnitOfWork, UnitOfWork>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
             Container.RegisterType<ISelectService, SelectServiceRealization>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IMessageService, MessageServiceWpf>();
 
             Container.RegisterType<IProjectLookupDataService, ProjectLookupDataService>();
             Container.RegisterType<ICompanyLookupDataService, CompanyLookupDataService>();
