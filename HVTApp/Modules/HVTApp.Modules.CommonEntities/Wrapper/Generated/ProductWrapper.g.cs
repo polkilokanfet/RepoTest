@@ -49,11 +49,14 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldPart);
+        _fieldPart = null;
 		if (Model.Part != null)
         {
             _fieldPart = new PartWrapper(Model.Part);
             RegisterComplex(Part);
         }
+
     }
   
     protected override void InitializeCollectionProperties()

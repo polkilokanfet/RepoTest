@@ -84,11 +84,14 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldAddress);
+        _fieldAddress = null;
 		if (Model.Address != null)
         {
             _fieldAddress = new AddressWrapper(Model.Address);
             RegisterComplex(Address);
         }
+
     }
 	}
 }

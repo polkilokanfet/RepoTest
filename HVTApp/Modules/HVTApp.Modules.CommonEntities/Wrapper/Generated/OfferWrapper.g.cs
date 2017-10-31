@@ -57,11 +57,14 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldDocument);
+        _fieldDocument = null;
 		if (Model.Document != null)
         {
             _fieldDocument = new DocumentWrapper(Model.Document);
             RegisterComplex(Document);
         }
+
     }
   
     protected override void InitializeCollectionProperties()

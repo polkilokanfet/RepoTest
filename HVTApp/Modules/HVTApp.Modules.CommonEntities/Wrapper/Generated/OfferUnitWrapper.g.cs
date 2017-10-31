@@ -85,21 +85,30 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldProjectUnit);
+        _fieldProjectUnit = null;
 		if (Model.ProjectUnit != null)
         {
             _fieldProjectUnit = new ProjectUnitWrapper(Model.ProjectUnit);
             RegisterComplex(ProjectUnit);
         }
+
+        UnRegisterComplex(_fieldFacility);
+        _fieldFacility = null;
 		if (Model.Facility != null)
         {
             _fieldFacility = new FacilityWrapper(Model.Facility);
             RegisterComplex(Facility);
         }
+
+        UnRegisterComplex(_fieldProduct);
+        _fieldProduct = null;
 		if (Model.Product != null)
         {
             _fieldProduct = new ProductWrapper(Model.Product);
             RegisterComplex(Product);
         }
+
     }
   
     protected override void InitializeCollectionProperties()

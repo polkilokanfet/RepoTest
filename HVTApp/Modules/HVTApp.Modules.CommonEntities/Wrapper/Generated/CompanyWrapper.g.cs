@@ -107,26 +107,38 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldForm);
+        _fieldForm = null;
 		if (Model.Form != null)
         {
             _fieldForm = new CompanyFormWrapper(Model.Form);
             RegisterComplex(Form);
         }
+
+        UnRegisterComplex(_fieldParentCompany);
+        _fieldParentCompany = null;
 		if (Model.ParentCompany != null)
         {
             _fieldParentCompany = new CompanyWrapper(Model.ParentCompany);
             RegisterComplex(ParentCompany);
         }
+
+        UnRegisterComplex(_fieldAddressLegal);
+        _fieldAddressLegal = null;
 		if (Model.AddressLegal != null)
         {
             _fieldAddressLegal = new AddressWrapper(Model.AddressLegal);
             RegisterComplex(AddressLegal);
         }
+
+        UnRegisterComplex(_fieldAddressPost);
+        _fieldAddressPost = null;
 		if (Model.AddressPost != null)
         {
             _fieldAddressPost = new AddressWrapper(Model.AddressPost);
             RegisterComplex(AddressPost);
         }
+
     }
   
     protected override void InitializeCollectionProperties()

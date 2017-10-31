@@ -98,16 +98,22 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldTestFriendAddress);
+        _fieldTestFriendAddress = null;
 		if (Model.TestFriendAddress != null)
         {
             _fieldTestFriendAddress = new TestFriendAddressWrapper(Model.TestFriendAddress);
             RegisterComplex(TestFriendAddress);
         }
+
+        UnRegisterComplex(_fieldTestFriendGroup);
+        _fieldTestFriendGroup = null;
 		if (Model.TestFriendGroup != null)
         {
             _fieldTestFriendGroup = new TestFriendGroupWrapper(Model.TestFriendGroup);
             RegisterComplex(TestFriendGroup);
         }
+
     }
   
     protected override void InitializeCollectionProperties()

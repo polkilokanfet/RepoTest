@@ -459,11 +459,14 @@ namespace HVTApp.UI.Wrapper
 		var propertyName = complexProperty.Name;
 		var propertyType = complexProperty.PropertyType.Name;
 #>
+        UnRegisterComplex(_field<#= propertyName #>);
+        _field<#= propertyName #> = null;
 		if (Model.<#= propertyName #> != null)
         {
             _field<#= propertyName #> = new <#= propertyType #>Wrapper(Model.<#= propertyName #>);
             RegisterComplex(<#= propertyName #>);
         }
+
 <#+
       }
 #>

@@ -87,16 +87,22 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldType);
+        _fieldType = null;
 		if (Model.Type != null)
         {
             _fieldType = new TenderTypeWrapper(Model.Type);
             RegisterComplex(Type);
         }
+
+        UnRegisterComplex(_fieldWinner);
+        _fieldWinner = null;
 		if (Model.Winner != null)
         {
             _fieldWinner = new CompanyWrapper(Model.Winner);
             RegisterComplex(Winner);
         }
+
     }
   
     protected override void InitializeCollectionProperties()

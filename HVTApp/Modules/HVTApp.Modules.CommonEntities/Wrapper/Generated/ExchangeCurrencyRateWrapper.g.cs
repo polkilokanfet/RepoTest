@@ -70,16 +70,22 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldFirstCurrency);
+        _fieldFirstCurrency = null;
 		if (Model.FirstCurrency != null)
         {
             _fieldFirstCurrency = new CurrencyWrapper(Model.FirstCurrency);
             RegisterComplex(FirstCurrency);
         }
+
+        UnRegisterComplex(_fieldSecondCurrency);
+        _fieldSecondCurrency = null;
 		if (Model.SecondCurrency != null)
         {
             _fieldSecondCurrency = new CurrencyWrapper(Model.SecondCurrency);
             RegisterComplex(SecondCurrency);
         }
+
     }
 	}
 }

@@ -84,11 +84,14 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldLocalityType);
+        _fieldLocalityType = null;
 		if (Model.LocalityType != null)
         {
             _fieldLocalityType = new LocalityTypeWrapper(Model.LocalityType);
             RegisterComplex(LocalityType);
         }
+
     }
 	}
 }

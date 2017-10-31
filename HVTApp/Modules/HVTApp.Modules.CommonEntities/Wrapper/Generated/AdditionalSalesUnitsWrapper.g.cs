@@ -41,11 +41,14 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldAdditionalSalesUnit);
+        _fieldAdditionalSalesUnit = null;
 		if (Model.AdditionalSalesUnit != null)
         {
             _fieldAdditionalSalesUnit = new SalesUnitWrapper(Model.AdditionalSalesUnit);
             RegisterComplex(AdditionalSalesUnit);
         }
+
     }
   
     protected override void InitializeCollectionProperties()

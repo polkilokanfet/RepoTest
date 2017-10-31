@@ -49,11 +49,14 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldWife);
+        _fieldWife = null;
 		if (Model.Wife != null)
         {
             _fieldWife = new TestWifeWrapper(Model.Wife);
             RegisterComplex(Wife);
         }
+
     }
   
     protected override void InitializeCollectionProperties()

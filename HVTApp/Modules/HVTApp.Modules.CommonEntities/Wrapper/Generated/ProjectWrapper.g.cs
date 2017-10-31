@@ -53,11 +53,14 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldManager);
+        _fieldManager = null;
 		if (Model.Manager != null)
         {
             _fieldManager = new UserWrapper(Model.Manager);
             RegisterComplex(Manager);
         }
+
     }
   
     protected override void InitializeCollectionProperties()

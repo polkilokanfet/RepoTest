@@ -57,11 +57,14 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldContragent);
+        _fieldContragent = null;
 		if (Model.Contragent != null)
         {
             _fieldContragent = new CompanyWrapper(Model.Contragent);
             RegisterComplex(Contragent);
         }
+
     }
   
     protected override void InitializeCollectionProperties()

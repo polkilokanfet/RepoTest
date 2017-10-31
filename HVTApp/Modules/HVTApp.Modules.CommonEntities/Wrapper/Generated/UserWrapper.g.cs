@@ -73,11 +73,14 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldEmployee);
+        _fieldEmployee = null;
 		if (Model.Employee != null)
         {
             _fieldEmployee = new EmployeeWrapper(Model.Employee);
             RegisterComplex(Employee);
         }
+
     }
   
     protected override void InitializeCollectionProperties()

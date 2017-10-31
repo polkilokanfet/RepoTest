@@ -64,21 +64,30 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldType);
+        _fieldType = null;
 		if (Model.Type != null)
         {
             _fieldType = new FacilityTypeWrapper(Model.Type);
             RegisterComplex(Type);
         }
+
+        UnRegisterComplex(_fieldOwnerCompany);
+        _fieldOwnerCompany = null;
 		if (Model.OwnerCompany != null)
         {
             _fieldOwnerCompany = new CompanyWrapper(Model.OwnerCompany);
             RegisterComplex(OwnerCompany);
         }
+
+        UnRegisterComplex(_fieldAddress);
+        _fieldAddress = null;
 		if (Model.Address != null)
         {
             _fieldAddress = new AddressWrapper(Model.Address);
             RegisterComplex(Address);
         }
+
     }
 	}
 }

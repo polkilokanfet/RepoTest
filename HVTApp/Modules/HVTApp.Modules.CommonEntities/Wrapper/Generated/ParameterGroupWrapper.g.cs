@@ -49,11 +49,14 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldMeasure);
+        _fieldMeasure = null;
 		if (Model.Measure != null)
         {
             _fieldMeasure = new MeasureWrapper(Model.Measure);
             RegisterComplex(Measure);
         }
+
     }
   
     protected override void InitializeCollectionProperties()

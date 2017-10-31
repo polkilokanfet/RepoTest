@@ -52,11 +52,14 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldHusband);
+        _fieldHusband = null;
 		if (Model.Husband != null)
         {
             _fieldHusband = new TestHusbandWrapper(Model.Husband);
             RegisterComplex(Husband);
         }
+
     }
 	}
 }

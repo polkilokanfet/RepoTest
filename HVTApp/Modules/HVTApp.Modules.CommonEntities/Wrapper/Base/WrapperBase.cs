@@ -86,6 +86,9 @@ namespace HVTApp.UI.Wrapper
             //откатываем изменения в сложных свойствах.
             _trackingObjects.ForEach(x => x.RejectChanges());
 
+            //заново инициализируем сложные свойства
+            InitializeComplexProperties();
+
             //проверка на валидность объекта.
             Validate();
 
@@ -160,11 +163,7 @@ namespace HVTApp.UI.Wrapper
                 UpdateOriginalValue(propertyName, currentValue?.Model, newValue?.Model); //обновляем список оригинальных значений.
                 propertyInfo.SetValue(Model, newValue?.Model); //устанавливаем в свойство модели новое значение.
 
-                if (currentValue != null && _trackingObjects.Contains(currentValue))
-                {
-                    _trackingObjects.Remove(currentValue);
-                    currentValue.PropertyChanged -= TrackingObjectOnPropertyChanged;
-                }
+                UnRegisterComplex(currentValue);
 
                 if (newValue != null)
                     RegisterComplex(newValue);
@@ -174,6 +173,15 @@ namespace HVTApp.UI.Wrapper
                 OnPropertyChanged(propertyName + "IsChanged");
                 OnPropertyChanged(nameof(IsChanged));
             }
+        }
+
+        protected void UnRegisterComplex<TModelWrapper>(IWrapper<TModelWrapper> wrapper) 
+            where TModelWrapper : class, IBaseEntity
+        {
+            if (wrapper == null || !_trackingObjects.Contains(wrapper)) return;
+
+            _trackingObjects.Remove(wrapper);
+            wrapper.PropertyChanged -= TrackingObjectOnPropertyChanged;
         }
 
         /// <summary>
@@ -203,8 +211,29 @@ namespace HVTApp.UI.Wrapper
             }
         }
 
-        protected void RegisterComplex<TWrapper>(IWrapper<TWrapper> wrapper) 
-            where TWrapper : class, IBaseEntity
+        private void UpdateOriginalValueComplexProp(string propertyName, object originalValue, object newValue)
+        {
+            //Если оригинальное значение уже менялось (содержится в списке измененных значений).
+            if (_originalValues.ContainsKey(propertyName))
+            {
+                //Если оригинальное (начальное) значение свойства совпадает с новым (присваеваемым).
+                if (Equals(_originalValues[propertyName], newValue))
+                {
+                    //удаляем значение свойства из списка измененных значений.
+                    _originalValues.Remove(propertyName);
+                    OnPropertyChanged(nameof(IsChanged));
+                }
+            }
+            else
+            {
+                //добавляем значение свойства в список измененных значений.
+                _originalValues.Add(propertyName, originalValue);
+                OnPropertyChanged(nameof(IsChanged));
+            }
+        }
+
+        protected void RegisterComplex<TModelWrapper>(IWrapper<TModelWrapper> wrapper) 
+            where TModelWrapper : class, IBaseEntity
         {
             RegisterTrackingObject(wrapper);
         }

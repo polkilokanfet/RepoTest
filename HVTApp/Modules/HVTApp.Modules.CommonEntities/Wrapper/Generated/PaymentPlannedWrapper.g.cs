@@ -68,11 +68,14 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldCondition);
+        _fieldCondition = null;
 		if (Model.Condition != null)
         {
             _fieldCondition = new PaymentConditionWrapper(Model.Condition);
             RegisterComplex(Condition);
         }
+
     }
 	}
 }

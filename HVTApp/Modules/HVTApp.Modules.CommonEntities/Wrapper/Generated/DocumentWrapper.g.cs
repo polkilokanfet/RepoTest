@@ -139,36 +139,54 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
+        UnRegisterComplex(_fieldRequestDocument);
+        _fieldRequestDocument = null;
 		if (Model.RequestDocument != null)
         {
             _fieldRequestDocument = new DocumentWrapper(Model.RequestDocument);
             RegisterComplex(RequestDocument);
         }
+
+        UnRegisterComplex(_fieldAuthor);
+        _fieldAuthor = null;
 		if (Model.Author != null)
         {
             _fieldAuthor = new EmployeeWrapper(Model.Author);
             RegisterComplex(Author);
         }
+
+        UnRegisterComplex(_fieldSenderEmployee);
+        _fieldSenderEmployee = null;
 		if (Model.SenderEmployee != null)
         {
             _fieldSenderEmployee = new EmployeeWrapper(Model.SenderEmployee);
             RegisterComplex(SenderEmployee);
         }
+
+        UnRegisterComplex(_fieldRecipientEmployee);
+        _fieldRecipientEmployee = null;
 		if (Model.RecipientEmployee != null)
         {
             _fieldRecipientEmployee = new EmployeeWrapper(Model.RecipientEmployee);
             RegisterComplex(RecipientEmployee);
         }
+
+        UnRegisterComplex(_fieldRegistrationDetailsOfSender);
+        _fieldRegistrationDetailsOfSender = null;
 		if (Model.RegistrationDetailsOfSender != null)
         {
             _fieldRegistrationDetailsOfSender = new DocumentsRegistrationDetailsWrapper(Model.RegistrationDetailsOfSender);
             RegisterComplex(RegistrationDetailsOfSender);
         }
+
+        UnRegisterComplex(_fieldRegistrationDetailsOfRecipient);
+        _fieldRegistrationDetailsOfRecipient = null;
 		if (Model.RegistrationDetailsOfRecipient != null)
         {
             _fieldRegistrationDetailsOfRecipient = new DocumentsRegistrationDetailsWrapper(Model.RegistrationDetailsOfRecipient);
             RegisterComplex(RegistrationDetailsOfRecipient);
         }
+
     }
   
     protected override void InitializeCollectionProperties()
