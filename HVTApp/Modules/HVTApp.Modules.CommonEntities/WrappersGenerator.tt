@@ -26,15 +26,18 @@
 	GenerateLookupDataService(modelType);
 	SaveGeneratedCodeAsFile(modelType.Name + "LookupDataService.g.cs", "Lookup/Service/Generated");
 
-	GenerateWrapperDataService(modelType);
-	SaveGeneratedCodeAsFile(modelType.Name + "WrapperDataService.g.cs", "Wrapper/DataService/Generated");
-
 	GenerateAfterSaveEntityEvent(modelType);
 	SaveGeneratedCodeAsFile("AfterSave" + modelType.Name + "Event.g.cs", "Events/AfterSaveEntityEvents");
 
 	GenerateAfterRemoveEntityEvent(modelType);
 	SaveGeneratedCodeAsFile("AfterRemove" + modelType.Name + "Event.g.cs", "Events/AfterRemoveEntityEvents");
   }
+
+	GenerateEntityWrapperDataServices(GetModelTypes());
+	SaveGeneratedCodeAsFile("EntityWrapperDataServices.g.cs", "Wrapper/DataService");
+
+	GenerateWrapperDataService(GetModelTypes());
+	SaveGeneratedCodeAsFile("WrapperDataService.g.cs", "Wrapper/DataService");
 
     GenerateListViewModels(GetModelTypes());
 	SaveGeneratedCodeAsFile("GeneratedListViewModels.g.cs", "ViewModels/List");
@@ -129,7 +132,7 @@ namespace HVTApp.UI.Lookup
 <#+
 	}
 
-	private void GenerateWrapperDataService(Type modelType)
+	private void GenerateEntityWrapperDataServices(IEnumerable<Type> modelTypes)
 	{
 #>using System;
 using HVTApp.DataAccess;
@@ -137,7 +140,11 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Wrapper
 {
-    public partial class <#=modelType.Name#>WrapperDataService : WrapperDataService<<#=modelType.Name#>, <#=modelType.Name#>Wrapper>
+<#+
+        foreach(var modelType in modelTypes)
+        {
+ #>
+    public partial class <#=modelType.Name#>WrapperDataService : EntityWrapperDataService<<#=modelType.Name#>, <#=modelType.Name#>Wrapper>
     {
         public <#=modelType.Name#>WrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
@@ -146,9 +153,48 @@ namespace HVTApp.UI.Wrapper
             return new <#=modelType.Name#>Wrapper(model);
         }
     }
+
+<#+
+        }
+ #>
 }
 <#+
 	}
+
+
+	private void GenerateWrapperDataService(IEnumerable<Type> modelTypes)
+	{
+#>using HVTApp.DataAccess;
+
+namespace HVTApp.UI.Wrapper
+{
+    public partial class WrapperDataService
+    {
+        public WrapperDataService(IUnitOfWork unitOfWork)
+        {
+<#+
+        foreach(var modelType in modelTypes)
+        {
+#>
+            <#=modelType.Name#>WrapperDataService = new <#=modelType.Name#>WrapperDataService(unitOfWork);
+<#+
+        }
+#>
+        }
+
+<#+
+        foreach(var modelType in modelTypes)
+        {
+#>
+        public <#=modelType.Name#>WrapperDataService <#=modelType.Name#>WrapperDataService { get; }
+<#+
+        }
+#>
+    }
+}
+<#+
+	}
+
 
 	private void GenerateAfterSaveEntityEvent(Type modelType)
 	{

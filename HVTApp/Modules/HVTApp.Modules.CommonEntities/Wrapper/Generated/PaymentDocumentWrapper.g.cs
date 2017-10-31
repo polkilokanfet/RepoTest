@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public PaymentDocumentWrapper(PaymentDocument model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.String Number
     {
       get { return GetValue<System.String>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
     public bool NumberIsChanged => GetIsChanged(nameof(Number));
-
 
     public System.DateTime Date
     {
@@ -31,7 +28,6 @@ namespace HVTApp.UI.Wrapper
     public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
     public bool DateIsChanged => GetIsChanged(nameof(Date));
 
-
     public System.Guid Id
     {
       get { return GetValue<System.Guid>(); }
@@ -40,28 +36,20 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
 
     #region CollectionProperties
-
     public IValidatableChangeTrackingCollection<PaymentActualWrapper> Payments { get; private set; }
 
-
     #endregion
-
   
     protected override void InitializeCollectionProperties()
     {
-
       if (Model.Payments == null) throw new ArgumentException("Payments cannot be null");
       Payments = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(Model.Payments.Select(e => new PaymentActualWrapper(e)));
       RegisterCollection(Payments, Model.Payments);
 
-
     }
-
 	}
 }
 	

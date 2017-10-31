@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public PaymentActualWrapper(PaymentActual model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.Guid SalesUnitId
     {
       get { return GetValue<System.Guid>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.Guid SalesUnitIdOriginalValue => GetOriginalValue<System.Guid>(nameof(SalesUnitId));
     public bool SalesUnitIdIsChanged => GetIsChanged(nameof(SalesUnitId));
-
 
     public System.DateTime Date
     {
@@ -31,7 +28,6 @@ namespace HVTApp.UI.Wrapper
     public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
     public bool DateIsChanged => GetIsChanged(nameof(Date));
 
-
     public System.Double Sum
     {
       get { return GetValue<System.Double>(); }
@@ -39,7 +35,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
     public bool SumIsChanged => GetIsChanged(nameof(Sum));
-
 
     public System.String Comment
     {
@@ -49,7 +44,6 @@ namespace HVTApp.UI.Wrapper
     public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
     public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
-
     public System.Guid DocumentId
     {
       get { return GetValue<System.Guid>(); }
@@ -57,7 +51,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.Guid DocumentIdOriginalValue => GetOriginalValue<System.Guid>(nameof(DocumentId));
     public bool DocumentIdIsChanged => GetIsChanged(nameof(DocumentId));
-
 
     public System.Guid Id
     {
@@ -67,9 +60,7 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
 	}
 }
 	

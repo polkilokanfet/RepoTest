@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public UserWrapper(User model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.String Login
     {
       get { return GetValue<System.String>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.String LoginOriginalValue => GetOriginalValue<System.String>(nameof(Login));
     public bool LoginIsChanged => GetIsChanged(nameof(Login));
-
 
     public System.Guid Password
     {
@@ -31,7 +28,6 @@ namespace HVTApp.UI.Wrapper
     public System.Guid PasswordOriginalValue => GetOriginalValue<System.Guid>(nameof(Password));
     public bool PasswordIsChanged => GetIsChanged(nameof(Password));
 
-
     public System.String PersonalNumber
     {
       get { return GetValue<System.String>(); }
@@ -39,7 +35,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.String PersonalNumberOriginalValue => GetOriginalValue<System.String>(nameof(PersonalNumber));
     public bool PersonalNumberIsChanged => GetIsChanged(nameof(PersonalNumber));
-
 
     public HVTApp.Model.POCOs.Role RoleCurrent
     {
@@ -49,7 +44,6 @@ namespace HVTApp.UI.Wrapper
     public HVTApp.Model.POCOs.Role RoleCurrentOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.Role>(nameof(RoleCurrent));
     public bool RoleCurrentIsChanged => GetIsChanged(nameof(RoleCurrent));
 
-
     public System.Guid Id
     {
       get { return GetValue<System.Guid>(); }
@@ -58,12 +52,9 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	private EmployeeWrapper _fieldEmployee;
 	public EmployeeWrapper Employee 
     {
@@ -74,39 +65,28 @@ namespace HVTApp.UI.Wrapper
             _fieldEmployee  = value;
         }
     }
-
     #endregion
-
 
     #region CollectionProperties
-
     public IValidatableChangeTrackingCollection<UserRoleWrapper> Roles { get; private set; }
 
-
     #endregion
-
     public override void InitializeComplexProperties()
     {
-
 		if (Model.Employee != null)
         {
             _fieldEmployee = new EmployeeWrapper(Model.Employee);
             RegisterComplex(Employee);
         }
-
     }
-
   
     protected override void InitializeCollectionProperties()
     {
-
       if (Model.Roles == null) throw new ArgumentException("Roles cannot be null");
       Roles = new ValidatableChangeTrackingCollection<UserRoleWrapper>(Model.Roles.Select(e => new UserRoleWrapper(e)));
       RegisterCollection(Roles, Model.Roles);
 
-
     }
-
 	}
 }
 	

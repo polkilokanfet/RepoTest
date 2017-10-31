@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public TenderWrapper(Tender model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.Guid ProjectId
     {
       get { return GetValue<System.Guid>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.Guid ProjectIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ProjectId));
     public bool ProjectIdIsChanged => GetIsChanged(nameof(ProjectId));
-
 
     public System.DateTime DateOpen
     {
@@ -31,7 +28,6 @@ namespace HVTApp.UI.Wrapper
     public System.DateTime DateOpenOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateOpen));
     public bool DateOpenIsChanged => GetIsChanged(nameof(DateOpen));
 
-
     public System.DateTime DateClose
     {
       get { return GetValue<System.DateTime>(); }
@@ -39,7 +35,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.DateTime DateCloseOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateClose));
     public bool DateCloseIsChanged => GetIsChanged(nameof(DateClose));
-
 
     public System.Nullable<System.DateTime> DateNotice
     {
@@ -49,7 +44,6 @@ namespace HVTApp.UI.Wrapper
     public System.Nullable<System.DateTime> DateNoticeOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DateNotice));
     public bool DateNoticeIsChanged => GetIsChanged(nameof(DateNotice));
 
-
     public System.Guid Id
     {
       get { return GetValue<System.Guid>(); }
@@ -58,12 +52,9 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	private TenderTypeWrapper _fieldType;
 	public TenderTypeWrapper Type 
     {
@@ -74,7 +65,6 @@ namespace HVTApp.UI.Wrapper
             _fieldType  = value;
         }
     }
-
 	private CompanyWrapper _fieldWinner;
 	public CompanyWrapper Winner 
     {
@@ -85,61 +75,45 @@ namespace HVTApp.UI.Wrapper
             _fieldWinner  = value;
         }
     }
-
     #endregion
 
-
     #region CollectionProperties
-
     public IValidatableChangeTrackingCollection<CompanyWrapper> Participants { get; private set; }
-
 
     public IValidatableChangeTrackingCollection<TenderUnitWrapper> TenderUnits { get; private set; }
 
-
     public IValidatableChangeTrackingCollection<OfferWrapper> Offers { get; private set; }
 
-
     #endregion
-
     public override void InitializeComplexProperties()
     {
-
 		if (Model.Type != null)
         {
             _fieldType = new TenderTypeWrapper(Model.Type);
             RegisterComplex(Type);
         }
-
 		if (Model.Winner != null)
         {
             _fieldWinner = new CompanyWrapper(Model.Winner);
             RegisterComplex(Winner);
         }
-
     }
-
   
     protected override void InitializeCollectionProperties()
     {
-
       if (Model.Participants == null) throw new ArgumentException("Participants cannot be null");
       Participants = new ValidatableChangeTrackingCollection<CompanyWrapper>(Model.Participants.Select(e => new CompanyWrapper(e)));
       RegisterCollection(Participants, Model.Participants);
-
 
       if (Model.TenderUnits == null) throw new ArgumentException("TenderUnits cannot be null");
       TenderUnits = new ValidatableChangeTrackingCollection<TenderUnitWrapper>(Model.TenderUnits.Select(e => new TenderUnitWrapper(e)));
       RegisterCollection(TenderUnits, Model.TenderUnits);
 
-
       if (Model.Offers == null) throw new ArgumentException("Offers cannot be null");
       Offers = new ValidatableChangeTrackingCollection<OfferWrapper>(Model.Offers.Select(e => new OfferWrapper(e)));
       RegisterCollection(Offers, Model.Offers);
 
-
     }
-
 	}
 }
 	

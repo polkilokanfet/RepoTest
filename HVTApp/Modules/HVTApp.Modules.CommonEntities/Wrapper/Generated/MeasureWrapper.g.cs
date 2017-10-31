@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public MeasureWrapper(Measure model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.String FullName
     {
       get { return GetValue<System.String>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.String FullNameOriginalValue => GetOriginalValue<System.String>(nameof(FullName));
     public bool FullNameIsChanged => GetIsChanged(nameof(FullName));
-
 
     public System.String ShortName
     {
@@ -31,7 +28,6 @@ namespace HVTApp.UI.Wrapper
     public System.String ShortNameOriginalValue => GetOriginalValue<System.String>(nameof(ShortName));
     public bool ShortNameIsChanged => GetIsChanged(nameof(ShortName));
 
-
     public System.Guid Id
     {
       get { return GetValue<System.Guid>(); }
@@ -40,9 +36,7 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
 	}
 }
 	

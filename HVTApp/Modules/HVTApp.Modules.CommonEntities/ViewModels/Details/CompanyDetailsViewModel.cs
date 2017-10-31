@@ -24,12 +24,19 @@ namespace HVTApp.UI.ViewModels
         {
             _selectService = selectService;
 
-            //Forms = new ObservableCollection<CompanyFormWrapper>(UnitOfWork.CompanyForms.GetAllAsync().Select(x => new CompanyFormWrapper(x)));
-
             SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_Execute);
             RemoveParentCompanyCommand = new DelegateCommand(RemoveParentCompanyCommand_Execute);
             AddActivityFieldCommand = new DelegateCommand(AddActivityFieldCommand_Execute);
             RemoveActivityFieldCommand = new DelegateCommand(RemoveActivityFieldCommand_Execute, RemoveActivityFieldCommand_CanExecute);
+        }
+
+        public override async void Load(CompanyWrapper wrapper = null)
+        {
+            base.Load(wrapper);
+
+            Forms.Clear();
+            var forms = await WrapperDataService.CompanyFormWrapperDataService.GetAllAsync();
+            Forms.AddRange(forms);
         }
 
         #region Commands
@@ -39,9 +46,7 @@ namespace HVTApp.UI.ViewModels
         public ICommand AddActivityFieldCommand { get; }
         public ICommand RemoveActivityFieldCommand { get; }
 
-        public CompanyWrapper Company => Item;
-
-        public ObservableCollection<CompanyFormWrapper> Forms { get; }
+        public ObservableCollection<CompanyFormWrapper> Forms { get; } = new ObservableCollection<CompanyFormWrapper>();
 
         public ActivityFieldWrapper SelectedActivityField
         {
@@ -55,15 +60,15 @@ namespace HVTApp.UI.ViewModels
 
         private async void AddActivityFieldCommand_Execute()
         {
-            var fields = (await UnitOfWork.ActivityFieldRepository.GetAllAsync()).Select(x => new ActivityFieldWrapper(x)).Except(Company.ActivityFilds);
+            var fields = (await UnitOfWork.ActivityFieldRepository.GetAllAsync()).Select(x => new ActivityFieldWrapper(x)).Except(Item.ActivityFilds);
             var field = _selectService.SelectItem(fields);
-            if (field != null && !Company.ActivityFilds.Contains(field))
-                Company.ActivityFilds.Add(field);
+            if (field != null && !Item.ActivityFilds.Contains(field))
+                Item.ActivityFilds.Add(field);
         }
 
         private void RemoveActivityFieldCommand_Execute()
         {
-            Company.ActivityFilds.Remove(SelectedActivityField);
+            Item.ActivityFilds.Remove(SelectedActivityField);
         }
 
         private bool RemoveActivityFieldCommand_CanExecute()
@@ -74,24 +79,24 @@ namespace HVTApp.UI.ViewModels
         private void RemoveParentCompanyCommand_Execute()
         {
             //если головная компания не назначена
-            if (Company.ParentCompany == null) return;
+            if (Item.ParentCompany == null) return;
             //удалаем головную компанию текущей компании
-            Company.ParentCompany = null;
+            Item.ParentCompany = null;
         }
 
         private async void SelectParentCompanyCommand_Execute()
         {
             var companies = await UnitOfWork.GetRepository<Company>().GetAllAsync();
             //компании, которые не могут быть головной (дочерние и т.д.)
-            var exceptCompanies = companies.Where(x => Equals(x.ParentCompany?.Id, Company.Id)).Concat(new[] {this.Company.Model});
+            var exceptCompanies = companies.Where(x => Equals(x.ParentCompany?.Id, Item.Id)).Concat(new[] {Item.Model});
             //возможные головные компании
             IEnumerable<CompanyWrapper> possibleParents = companies.Except(exceptCompanies).Select(x => new CompanyWrapper(x));
             //выбор одной из компаний
-            CompanyWrapper possibleParent = _selectService.SelectItem(possibleParents, Company.ParentCompany);
+            CompanyWrapper possibleParent = _selectService.SelectItem(possibleParents, Item.ParentCompany);
 
-            if (possibleParent != null && !Equals(possibleParent.Id, Company.ParentCompany?.Id))
+            if (possibleParent != null && !Equals(possibleParent.Id, Item.ParentCompany?.Id))
             {
-                Company.ParentCompany = possibleParent;
+                Item.ParentCompany = possibleParent;
             }
         }
 

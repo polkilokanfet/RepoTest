@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public OfferWrapper(Offer model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.DateTime ValidityDate
     {
       get { return GetValue<System.DateTime>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.DateTime ValidityDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(ValidityDate));
     public bool ValidityDateIsChanged => GetIsChanged(nameof(ValidityDate));
-
 
     public System.Double Vat
     {
@@ -31,7 +28,6 @@ namespace HVTApp.UI.Wrapper
     public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
     public bool VatIsChanged => GetIsChanged(nameof(Vat));
 
-
     public System.Guid Id
     {
       get { return GetValue<System.Guid>(); }
@@ -40,12 +36,9 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	private DocumentWrapper _fieldDocument;
 	public DocumentWrapper Document 
     {
@@ -56,39 +49,28 @@ namespace HVTApp.UI.Wrapper
             _fieldDocument  = value;
         }
     }
-
     #endregion
-
 
     #region CollectionProperties
-
     public IValidatableChangeTrackingCollection<OfferUnitWrapper> OfferUnits { get; private set; }
 
-
     #endregion
-
     public override void InitializeComplexProperties()
     {
-
 		if (Model.Document != null)
         {
             _fieldDocument = new DocumentWrapper(Model.Document);
             RegisterComplex(Document);
         }
-
     }
-
   
     protected override void InitializeCollectionProperties()
     {
-
       if (Model.OfferUnits == null) throw new ArgumentException("OfferUnits cannot be null");
       OfferUnits = new ValidatableChangeTrackingCollection<OfferUnitWrapper>(Model.OfferUnits.Select(e => new OfferUnitWrapper(e)));
       RegisterCollection(OfferUnits, Model.OfferUnits);
 
-
     }
-
 	}
 }
 	

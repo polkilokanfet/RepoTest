@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public PaymentConditionWrapper(PaymentCondition model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.Double Part
     {
       get { return GetValue<System.Double>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.Double PartOriginalValue => GetOriginalValue<System.Double>(nameof(Part));
     public bool PartIsChanged => GetIsChanged(nameof(Part));
-
 
     public System.Int32 DaysToPoint
     {
@@ -31,7 +28,6 @@ namespace HVTApp.UI.Wrapper
     public System.Int32 DaysToPointOriginalValue => GetOriginalValue<System.Int32>(nameof(DaysToPoint));
     public bool DaysToPointIsChanged => GetIsChanged(nameof(DaysToPoint));
 
-
     public HVTApp.Model.POCOs.PaymentConditionPoint PaymentConditionPoint
     {
       get { return GetValue<HVTApp.Model.POCOs.PaymentConditionPoint>(); }
@@ -39,7 +35,6 @@ namespace HVTApp.UI.Wrapper
     }
     public HVTApp.Model.POCOs.PaymentConditionPoint PaymentConditionPointOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.PaymentConditionPoint>(nameof(PaymentConditionPoint));
     public bool PaymentConditionPointIsChanged => GetIsChanged(nameof(PaymentConditionPoint));
-
 
     public System.Guid Id
     {
@@ -49,9 +44,7 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
 	}
 }
 	

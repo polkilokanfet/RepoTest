@@ -145,6 +145,7 @@ namespace HVTApp.Model.Tests.WrapperTests
             wrapper.TestFriendAddress = new TestFriendAddressWrapper(new TestFriendAddress());
             wrapper.RejectChanges();
             Assert.AreEqual(wrapper.Model.TestFriendAddress, address);
+            Assert.AreEqual(wrapper.TestFriendAddress.Model, address);
 
             _testFriend.TestFriendAddress = null;
             wrapper = new TestFriendWrapper(_testFriend);

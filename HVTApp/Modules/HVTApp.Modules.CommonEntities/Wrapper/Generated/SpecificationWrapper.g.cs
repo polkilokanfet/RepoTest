@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public SpecificationWrapper(Specification model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.String Number
     {
       get { return GetValue<System.String>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
     public bool NumberIsChanged => GetIsChanged(nameof(Number));
-
 
     public System.DateTime Date
     {
@@ -31,7 +28,6 @@ namespace HVTApp.UI.Wrapper
     public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
     public bool DateIsChanged => GetIsChanged(nameof(Date));
 
-
     public System.Double Vat
     {
       get { return GetValue<System.Double>(); }
@@ -39,7 +35,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
     public bool VatIsChanged => GetIsChanged(nameof(Vat));
-
 
     public System.Guid ContractId
     {
@@ -49,7 +44,6 @@ namespace HVTApp.UI.Wrapper
     public System.Guid ContractIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ContractId));
     public bool ContractIdIsChanged => GetIsChanged(nameof(ContractId));
 
-
     public System.Guid Id
     {
       get { return GetValue<System.Guid>(); }
@@ -58,28 +52,20 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
 
     #region CollectionProperties
-
     public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
 
-
     #endregion
-
   
     protected override void InitializeCollectionProperties()
     {
-
       if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
       SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
       RegisterCollection(SalesUnits, Model.SalesUnits);
 
-
     }
-
 	}
 }
 	

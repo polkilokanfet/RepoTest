@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public AddressWrapper(Address model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.String Description
     {
       get { return GetValue<System.String>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.String DescriptionOriginalValue => GetOriginalValue<System.String>(nameof(Description));
     public bool DescriptionIsChanged => GetIsChanged(nameof(Description));
-
 
     public System.Guid Id
     {
@@ -31,12 +28,9 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	private LocalityWrapper _fieldLocality;
 	public LocalityWrapper Locality 
     {
@@ -47,20 +41,15 @@ namespace HVTApp.UI.Wrapper
             _fieldLocality  = value;
         }
     }
-
     #endregion
-
     public override void InitializeComplexProperties()
     {
-
 		if (Model.Locality != null)
         {
             _fieldLocality = new LocalityWrapper(Model.Locality);
             RegisterComplex(Locality);
         }
-
     }
-
 	}
 }
 	

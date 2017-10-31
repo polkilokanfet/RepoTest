@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public LocalityWrapper(Locality model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.String Name
     {
       get { return GetValue<System.String>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
-
 
     public System.Guid RegionId
     {
@@ -31,7 +28,6 @@ namespace HVTApp.UI.Wrapper
     public System.Guid RegionIdOriginalValue => GetOriginalValue<System.Guid>(nameof(RegionId));
     public bool RegionIdIsChanged => GetIsChanged(nameof(RegionId));
 
-
     public System.Boolean IsRegionCapital
     {
       get { return GetValue<System.Boolean>(); }
@@ -39,7 +35,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.Boolean IsRegionCapitalOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsRegionCapital));
     public bool IsRegionCapitalIsChanged => GetIsChanged(nameof(IsRegionCapital));
-
 
     public System.Boolean IsDistrictsCapital
     {
@@ -49,7 +44,6 @@ namespace HVTApp.UI.Wrapper
     public System.Boolean IsDistrictsCapitalOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsDistrictsCapital));
     public bool IsDistrictsCapitalIsChanged => GetIsChanged(nameof(IsDistrictsCapital));
 
-
     public System.Boolean IsCountryCapital
     {
       get { return GetValue<System.Boolean>(); }
@@ -57,7 +51,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.Boolean IsCountryCapitalOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsCountryCapital));
     public bool IsCountryCapitalIsChanged => GetIsChanged(nameof(IsCountryCapital));
-
 
     public System.Nullable<System.Double> StandartDeliveryPeriod
     {
@@ -67,7 +60,6 @@ namespace HVTApp.UI.Wrapper
     public System.Nullable<System.Double> StandartDeliveryPeriodOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(StandartDeliveryPeriod));
     public bool StandartDeliveryPeriodIsChanged => GetIsChanged(nameof(StandartDeliveryPeriod));
 
-
     public System.Guid Id
     {
       get { return GetValue<System.Guid>(); }
@@ -76,12 +68,9 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	private LocalityTypeWrapper _fieldLocalityType;
 	public LocalityTypeWrapper LocalityType 
     {
@@ -92,20 +81,15 @@ namespace HVTApp.UI.Wrapper
             _fieldLocalityType  = value;
         }
     }
-
     #endregion
-
     public override void InitializeComplexProperties()
     {
-
 		if (Model.LocalityType != null)
         {
             _fieldLocalityType = new LocalityTypeWrapper(Model.LocalityType);
             RegisterComplex(LocalityType);
         }
-
     }
-
 	}
 }
 	

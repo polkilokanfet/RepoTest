@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public ContractWrapper(Contract model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.String Number
     {
       get { return GetValue<System.String>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
     public bool NumberIsChanged => GetIsChanged(nameof(Number));
-
 
     public System.DateTime Date
     {
@@ -31,7 +28,6 @@ namespace HVTApp.UI.Wrapper
     public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
     public bool DateIsChanged => GetIsChanged(nameof(Date));
 
-
     public System.Guid Id
     {
       get { return GetValue<System.Guid>(); }
@@ -40,12 +36,9 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	private CompanyWrapper _fieldContragent;
 	public CompanyWrapper Contragent 
     {
@@ -56,39 +49,28 @@ namespace HVTApp.UI.Wrapper
             _fieldContragent  = value;
         }
     }
-
     #endregion
-
 
     #region CollectionProperties
-
     public IValidatableChangeTrackingCollection<SpecificationWrapper> Specifications { get; private set; }
 
-
     #endregion
-
     public override void InitializeComplexProperties()
     {
-
 		if (Model.Contragent != null)
         {
             _fieldContragent = new CompanyWrapper(Model.Contragent);
             RegisterComplex(Contragent);
         }
-
     }
-
   
     protected override void InitializeCollectionProperties()
     {
-
       if (Model.Specifications == null) throw new ArgumentException("Specifications cannot be null");
       Specifications = new ValidatableChangeTrackingCollection<SpecificationWrapper>(Model.Specifications.Select(e => new SpecificationWrapper(e)));
       RegisterCollection(Specifications, Model.Specifications);
 
-
     }
-
 	}
 }
 	

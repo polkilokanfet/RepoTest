@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public ExchangeCurrencyRateWrapper(ExchangeCurrencyRate model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.DateTime Date
     {
       get { return GetValue<System.DateTime>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
     public bool DateIsChanged => GetIsChanged(nameof(Date));
-
 
     public System.Double FirstCurrencyValue
     {
@@ -31,7 +28,6 @@ namespace HVTApp.UI.Wrapper
     public System.Double FirstCurrencyValueOriginalValue => GetOriginalValue<System.Double>(nameof(FirstCurrencyValue));
     public bool FirstCurrencyValueIsChanged => GetIsChanged(nameof(FirstCurrencyValue));
 
-
     public System.Double SecondCurrencyValue
     {
       get { return GetValue<System.Double>(); }
@@ -39,7 +35,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.Double SecondCurrencyValueOriginalValue => GetOriginalValue<System.Double>(nameof(SecondCurrencyValue));
     public bool SecondCurrencyValueIsChanged => GetIsChanged(nameof(SecondCurrencyValue));
-
 
     public System.Guid Id
     {
@@ -49,12 +44,9 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	private CurrencyWrapper _fieldFirstCurrency;
 	public CurrencyWrapper FirstCurrency 
     {
@@ -65,7 +57,6 @@ namespace HVTApp.UI.Wrapper
             _fieldFirstCurrency  = value;
         }
     }
-
 	private CurrencyWrapper _fieldSecondCurrency;
 	public CurrencyWrapper SecondCurrency 
     {
@@ -76,26 +67,20 @@ namespace HVTApp.UI.Wrapper
             _fieldSecondCurrency  = value;
         }
     }
-
     #endregion
-
     public override void InitializeComplexProperties()
     {
-
 		if (Model.FirstCurrency != null)
         {
             _fieldFirstCurrency = new CurrencyWrapper(Model.FirstCurrency);
             RegisterComplex(FirstCurrency);
         }
-
 		if (Model.SecondCurrency != null)
         {
             _fieldSecondCurrency = new CurrencyWrapper(Model.SecondCurrency);
             RegisterComplex(SecondCurrency);
         }
-
     }
-
 	}
 }
 	

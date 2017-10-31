@@ -14,14 +14,14 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class MarketViewModel
     {
-        private readonly ProjectWrapperDataService _projectWrapperDataService;
+        private readonly WrapperDataService _wrapperDataService;
         private readonly IEventAggregator _eventAggregator;
         private bool _loadedFlag = false;
         private ProjectWrapper _selectedProject;
 
-        public MarketViewModel(ProjectWrapperDataService projectWrapperDataService, IEventAggregator eventAggregator)
+        public MarketViewModel(WrapperDataService wrapperDataService, IEventAggregator eventAggregator)
         {
-            _projectWrapperDataService = projectWrapperDataService;
+            _wrapperDataService = wrapperDataService;
             _eventAggregator = eventAggregator;
 
             _eventAggregator.GetEvent<AfterSaveCompanyEvent>().Subscribe(OnSaveCompany);
@@ -55,7 +55,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private async Task LoadAsync()
         {
-            var lookups = await _projectWrapperDataService.GetAllWrappersAsync();
+            var lookups = await _wrapperDataService.ProjectWrapperDataService.GetAllAsync();
             Projects.AddRange(lookups);
         }
     }

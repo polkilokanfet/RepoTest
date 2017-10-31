@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public ProjectUnitWrapper(ProjectUnit model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.Guid ProjectId
     {
       get { return GetValue<System.Guid>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.Guid ProjectIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ProjectId));
     public bool ProjectIdIsChanged => GetIsChanged(nameof(ProjectId));
-
 
     public System.Double Cost
     {
@@ -31,7 +28,6 @@ namespace HVTApp.UI.Wrapper
     public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
     public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
-
     public System.DateTime RequiredDeliveryDate
     {
       get { return GetValue<System.DateTime>(); }
@@ -39,7 +35,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.DateTime RequiredDeliveryDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(RequiredDeliveryDate));
     public bool RequiredDeliveryDateIsChanged => GetIsChanged(nameof(RequiredDeliveryDate));
-
 
     public System.Guid Id
     {
@@ -49,12 +44,9 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	private FacilityWrapper _fieldFacility;
 	public FacilityWrapper Facility 
     {
@@ -65,7 +57,6 @@ namespace HVTApp.UI.Wrapper
             _fieldFacility  = value;
         }
     }
-
 	private ProductWrapper _fieldProduct;
 	public ProductWrapper Product 
     {
@@ -76,26 +67,20 @@ namespace HVTApp.UI.Wrapper
             _fieldProduct  = value;
         }
     }
-
     #endregion
-
     public override void InitializeComplexProperties()
     {
-
 		if (Model.Facility != null)
         {
             _fieldFacility = new FacilityWrapper(Model.Facility);
             RegisterComplex(Facility);
         }
-
 		if (Model.Product != null)
         {
             _fieldProduct = new ProductWrapper(Model.Product);
             RegisterComplex(Product);
         }
-
     }
-
 	}
 }
 	

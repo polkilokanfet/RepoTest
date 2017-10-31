@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public ParameterGroupWrapper(ParameterGroup model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.String Name
     {
       get { return GetValue<System.String>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
-
 
     public System.Guid Id
     {
@@ -31,12 +28,9 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	private MeasureWrapper _fieldMeasure;
 	public MeasureWrapper Measure 
     {
@@ -47,39 +41,28 @@ namespace HVTApp.UI.Wrapper
             _fieldMeasure  = value;
         }
     }
-
     #endregion
-
 
     #region CollectionProperties
-
     public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
 
-
     #endregion
-
     public override void InitializeComplexProperties()
     {
-
 		if (Model.Measure != null)
         {
             _fieldMeasure = new MeasureWrapper(Model.Measure);
             RegisterComplex(Measure);
         }
-
     }
-
   
     protected override void InitializeCollectionProperties()
     {
-
       if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
       Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
       RegisterCollection(Parameters, Model.Parameters);
 
-
     }
-
 	}
 }
 	

@@ -26,7 +26,7 @@ namespace HVTApp.UI.ViewModels
     {
         protected readonly IUnityContainer Container;
         protected readonly IUnitOfWork UnitOfWork;
-        protected readonly IWrapperDataService<TModel, TWrapper> WrapperDataService;
+        protected readonly IEntityWrapperDataService<TModel, TWrapper> WrapperDataService;
         protected readonly IEventAggregator EventAggregator;
         protected readonly IDialogService DialogService;
         protected readonly IMessageService MessageService;
@@ -34,7 +34,7 @@ namespace HVTApp.UI.ViewModels
         private TWrapper _selectedItem;
         private bool _loaded = false;
 
-        public BaseWrapperListViewModel(IUnityContainer container, IWrapperDataService<TModel, TWrapper> wrapperDataService)
+        public BaseWrapperListViewModel(IUnityContainer container, IEntityWrapperDataService<TModel, TWrapper> wrapperDataService)
         {
             Container = container;
             WrapperDataService = wrapperDataService;
@@ -77,7 +77,7 @@ namespace HVTApp.UI.ViewModels
 
         public virtual async Task LoadAsync()
         {
-            var wrappers = (await WrapperDataService.GetAllWrappersAsync()).ToList();
+            var wrappers = (await WrapperDataService.GetAllAsync()).ToList();
             Items.Clear();
             wrappers.ForEach(Items.Add);
         }

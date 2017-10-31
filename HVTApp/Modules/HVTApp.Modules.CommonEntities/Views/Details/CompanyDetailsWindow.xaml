@@ -5,6 +5,7 @@
         x:Class="HVTApp.UI.Views.CompanyDetailsWindow"
         Title="CompanyDetailsWindow" 
         SizeToContent="WidthAndHeight">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -23,35 +24,35 @@
         </Grid.ColumnDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Название полное"/>
-        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" Text="{Binding Company.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" Text="{Binding Item.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Название сокращенное"/>
-        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" Text="{Binding Company.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Форма"/>
-        <ComboBox Grid.Column="1" Grid.Row="2" MinWidth="200" ItemsSource="{Binding Forms, Mode=OneWay}" SelectedItem="{Binding Company.Form, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox Grid.Column="1" Grid.Row="2" MinWidth="200" ItemsSource="{Binding Forms, Mode=OneWay}" SelectedItem="{Binding Item.Form, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Column="0" Grid.Row ="3" Content="ИНН"/>
-        <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" Text="{Binding Company.Inn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" Text="{Binding Item.Inn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Column="0" Grid.Row ="4" Content="КПП"/>
-        <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" Text="{Binding Company.Kpp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" Text="{Binding Item.Kpp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Column="0" Grid.Row ="5" Content="Сфера деятельности"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
-            Items="{Binding Path=Company.ActivityFilds}"
+            Items="{Binding Path=Item.ActivityFilds}"
             SelectedItem="{Binding SelectedActivityField, Mode=TwoWay}"
             AddItemCommand="{Binding AddActivityFieldCommand}"
             RemoveItemCommand="{Binding RemoveActivityFieldCommand}"/>
 
         <Label Grid.Column="0" Grid.Row="6" Content="Головная компания"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
-			Item="{Binding Company.ParentCompany}"
+			Item="{Binding Item.ParentCompany}"
 			AddItemCommand="{Binding SelectParentCompanyCommand}"
             RemoveItemCommand="{Binding RemoveParentCompanyCommand}"/>
 
         <Label Grid.Column="0" Grid.Row="7" Content="Дочерние компании"/>
-        <ListView Grid.Column="1" Grid.Row="7" ItemsSource="{Binding Company.ChildCompanies}" IsEnabled="False"/>
+        <ListView Grid.Column="1" Grid.Row="7" ItemsSource="{Binding Item.ChildCompanies}" IsEnabled="False"/>
 
         <Button Grid.Column="1" Grid.Row="8" Content="Save" Command="{Binding SaveCommand}"/>
 

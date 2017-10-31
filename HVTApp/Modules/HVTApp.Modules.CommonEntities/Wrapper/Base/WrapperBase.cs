@@ -17,7 +17,6 @@ namespace HVTApp.UI.Wrapper
 
         // Список объектов в которых отслеживаются изменения (свойства объекта не примитивного типа и коллекции).
         private readonly List<IValidatableChangeTracking> _trackingObjects = new List<IValidatableChangeTracking>();
-        private string _displayMember;
 
         // Объект, обертка которого создана в этом классе.
         public TModel Model { get; }
@@ -77,7 +76,7 @@ namespace HVTApp.UI.Wrapper
         /// </summary>
         public void RejectChanges()
         {
-            //устанавливаем в каждое измененное свойство начальное значение.
+            //устанавливаем в каждое измененное свойство начальное значение в модели.
             foreach (var originalValue in _originalValues)
                 Model.GetType().GetProperty(originalValue.Key).SetValue(Model, originalValue.Value); //reject in Model
 

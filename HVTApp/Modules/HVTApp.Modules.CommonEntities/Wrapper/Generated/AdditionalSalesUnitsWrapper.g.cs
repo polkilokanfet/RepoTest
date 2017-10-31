@@ -1,16 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public AdditionalSalesUnitsWrapper(AdditionalSalesUnits model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.Guid Id
     {
       get { return GetValue<System.Guid>(); }
@@ -35,12 +20,9 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	private SalesUnitWrapper _fieldAdditionalSalesUnit;
 	public SalesUnitWrapper AdditionalSalesUnit 
     {
@@ -51,39 +33,28 @@ namespace HVTApp.UI.Wrapper
             _fieldAdditionalSalesUnit  = value;
         }
     }
-
     #endregion
-
 
     #region CollectionProperties
-
     public IValidatableChangeTrackingCollection<SalesUnitWrapper> ParentSalesUnits { get; private set; }
 
-
     #endregion
-
     public override void InitializeComplexProperties()
     {
-
 		if (Model.AdditionalSalesUnit != null)
         {
             _fieldAdditionalSalesUnit = new SalesUnitWrapper(Model.AdditionalSalesUnit);
             RegisterComplex(AdditionalSalesUnit);
         }
-
     }
-
   
     protected override void InitializeCollectionProperties()
     {
-
       if (Model.ParentSalesUnits == null) throw new ArgumentException("ParentSalesUnits cannot be null");
       ParentSalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.ParentSalesUnits.Select(e => new SalesUnitWrapper(e)));
       RegisterCollection(ParentSalesUnits, Model.ParentSalesUnits);
 
-
     }
-
 	}
 }
 	

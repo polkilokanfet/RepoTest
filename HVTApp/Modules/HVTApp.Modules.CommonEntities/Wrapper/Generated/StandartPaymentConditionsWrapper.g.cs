@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public StandartPaymentConditionsWrapper(StandartPaymentConditions model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.String Name
     {
       get { return GetValue<System.String>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
-
 
     public System.Guid Id
     {
@@ -31,28 +28,20 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
 
     #region CollectionProperties
-
     public IValidatableChangeTrackingCollection<PaymentConditionWrapper> PaymentsConditions { get; private set; }
 
-
     #endregion
-
   
     protected override void InitializeCollectionProperties()
     {
-
       if (Model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
       PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(Model.PaymentsConditions.Select(e => new PaymentConditionWrapper(e)));
       RegisterCollection(PaymentsConditions, Model.PaymentsConditions);
 
-
     }
-
 	}
 }
 	

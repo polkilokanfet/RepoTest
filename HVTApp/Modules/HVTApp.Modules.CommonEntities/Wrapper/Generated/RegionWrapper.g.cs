@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public RegionWrapper(Region model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.String Name
     {
       get { return GetValue<System.String>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
-
 
     public System.Guid DistrictId
     {
@@ -31,7 +28,6 @@ namespace HVTApp.UI.Wrapper
     public System.Guid DistrictIdOriginalValue => GetOriginalValue<System.Guid>(nameof(DistrictId));
     public bool DistrictIdIsChanged => GetIsChanged(nameof(DistrictId));
 
-
     public System.Guid Id
     {
       get { return GetValue<System.Guid>(); }
@@ -40,28 +36,20 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
 
     #region CollectionProperties
-
     public IValidatableChangeTrackingCollection<LocalityWrapper> Localities { get; private set; }
 
-
     #endregion
-
   
     protected override void InitializeCollectionProperties()
     {
-
       if (Model.Localities == null) throw new ArgumentException("Localities cannot be null");
       Localities = new ValidatableChangeTrackingCollection<LocalityWrapper>(Model.Localities.Select(e => new LocalityWrapper(e)));
       RegisterCollection(Localities, Model.Localities);
 
-
     }
-
 	}
 }
 	

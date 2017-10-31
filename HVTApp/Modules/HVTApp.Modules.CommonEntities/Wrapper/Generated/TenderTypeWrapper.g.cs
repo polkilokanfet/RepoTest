@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public TenderTypeWrapper(TenderType model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.String Name
     {
       get { return GetValue<System.String>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
-
 
     public HVTApp.Model.POCOs.TenderTypeEnum Type
     {
@@ -31,7 +28,6 @@ namespace HVTApp.UI.Wrapper
     public HVTApp.Model.POCOs.TenderTypeEnum TypeOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.TenderTypeEnum>(nameof(Type));
     public bool TypeIsChanged => GetIsChanged(nameof(Type));
 
-
     public System.Guid Id
     {
       get { return GetValue<System.Guid>(); }
@@ -40,9 +36,7 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
 	}
 }
 	

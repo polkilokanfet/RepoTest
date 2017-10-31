@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public DocumentsRegistrationDetailsWrapper(DocumentsRegistrationDetails model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.String RegistrationNumber
     {
       get { return GetValue<System.String>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.String RegistrationNumberOriginalValue => GetOriginalValue<System.String>(nameof(RegistrationNumber));
     public bool RegistrationNumberIsChanged => GetIsChanged(nameof(RegistrationNumber));
-
 
     public System.DateTime RegistrationDate
     {
@@ -31,7 +28,6 @@ namespace HVTApp.UI.Wrapper
     public System.DateTime RegistrationDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(RegistrationDate));
     public bool RegistrationDateIsChanged => GetIsChanged(nameof(RegistrationDate));
 
-
     public System.Guid Id
     {
       get { return GetValue<System.Guid>(); }
@@ -40,9 +36,7 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
 	}
 }
 	

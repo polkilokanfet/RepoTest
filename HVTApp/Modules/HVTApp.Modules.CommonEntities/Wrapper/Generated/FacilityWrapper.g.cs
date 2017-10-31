@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public FacilityWrapper(Facility model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.String Name
     {
       get { return GetValue<System.String>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
     public bool NameIsChanged => GetIsChanged(nameof(Name));
-
 
     public System.Guid Id
     {
@@ -31,12 +28,9 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
 
-
     #region ComplexProperties
-
 	private FacilityTypeWrapper _fieldType;
 	public FacilityTypeWrapper Type 
     {
@@ -47,7 +41,6 @@ namespace HVTApp.UI.Wrapper
             _fieldType  = value;
         }
     }
-
 	private CompanyWrapper _fieldOwnerCompany;
 	public CompanyWrapper OwnerCompany 
     {
@@ -58,7 +51,6 @@ namespace HVTApp.UI.Wrapper
             _fieldOwnerCompany  = value;
         }
     }
-
 	private AddressWrapper _fieldAddress;
 	public AddressWrapper Address 
     {
@@ -69,32 +61,25 @@ namespace HVTApp.UI.Wrapper
             _fieldAddress  = value;
         }
     }
-
     #endregion
-
     public override void InitializeComplexProperties()
     {
-
 		if (Model.Type != null)
         {
             _fieldType = new FacilityTypeWrapper(Model.Type);
             RegisterComplex(Type);
         }
-
 		if (Model.OwnerCompany != null)
         {
             _fieldOwnerCompany = new CompanyWrapper(Model.OwnerCompany);
             RegisterComplex(OwnerCompany);
         }
-
 		if (Model.Address != null)
         {
             _fieldAddress = new AddressWrapper(Model.Address);
             RegisterComplex(Address);
         }
-
     }
-
 	}
 }
 	

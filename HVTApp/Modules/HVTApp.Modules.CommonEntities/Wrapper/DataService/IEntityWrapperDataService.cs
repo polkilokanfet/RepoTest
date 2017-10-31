@@ -6,10 +6,10 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Wrapper
 {
-    public interface IWrapperDataService<TModel, TWrapper> : IDisposable
+    public interface IEntityWrapperDataService<TModel, TWrapper> : IDisposable
         where TModel : class, IBaseEntity
         where TWrapper : IWrapper<TModel>
     {
-        Task<IEnumerable<TWrapper>> GetAllWrappersAsync();
+        Task<IEnumerable<TWrapper>> GetAllAsync();
     }
 }

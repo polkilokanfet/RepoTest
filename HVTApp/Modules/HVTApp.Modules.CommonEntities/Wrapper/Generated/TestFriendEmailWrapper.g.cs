@@ -11,9 +11,7 @@ namespace HVTApp.UI.Wrapper
 	public TestFriendEmailWrapper(TestFriendEmail model) : base(model) { }
 
 	
-
     #region SimpleProperties
-
     public System.String Email
     {
       get { return GetValue<System.String>(); }
@@ -21,7 +19,6 @@ namespace HVTApp.UI.Wrapper
     }
     public System.String EmailOriginalValue => GetOriginalValue<System.String>(nameof(Email));
     public bool EmailIsChanged => GetIsChanged(nameof(Email));
-
 
     public System.String Comment
     {
@@ -31,7 +28,6 @@ namespace HVTApp.UI.Wrapper
     public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
     public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
-
     public System.Guid Id
     {
       get { return GetValue<System.Guid>(); }
@@ -40,9 +36,7 @@ namespace HVTApp.UI.Wrapper
     public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
     public bool IdIsChanged => GetIsChanged(nameof(Id));
 
-
     #endregion
-
 	}
 }
 	

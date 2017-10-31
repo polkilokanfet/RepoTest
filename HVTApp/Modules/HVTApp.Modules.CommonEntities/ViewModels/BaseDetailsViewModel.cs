@@ -4,6 +4,7 @@ using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
@@ -17,6 +18,7 @@ namespace HVTApp.UI.ViewModels
     {
         protected readonly IUnityContainer Container;
         protected readonly IUnitOfWork UnitOfWork;
+        protected readonly WrapperDataService WrapperDataService;
         protected readonly IEventAggregator EventAggregator;
 
         private TWrapper _item;
@@ -26,6 +28,7 @@ namespace HVTApp.UI.ViewModels
             Container = container;
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             EventAggregator = Container.Resolve<IEventAggregator>();
+            WrapperDataService = Container.Resolve<WrapperDataService>();
 
             SaveCommand = new DelegateCommand(SaveCommand_Execute, SaveCommand_CanExecute);
         }
@@ -44,7 +47,7 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
-        public void Load(TWrapper wrapper = null)
+        public virtual void Load(TWrapper wrapper = null)
         {
             if (wrapper == null)
             {
