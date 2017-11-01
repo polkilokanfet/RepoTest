@@ -95,26 +95,16 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private ProductWrapper _fieldProduct;
 	public ProductWrapper Product 
     {
-        get { return _fieldProduct ; }
-        set
-        {
-            SetComplexValue<Product, ProductWrapper>(_fieldProduct, value);
-            _fieldProduct  = value;
-        }
+        get { return GetWrapper<ProductWrapper>(); }
+        set { SetComplexValue<Product, ProductWrapper>(Product, value); }
     }
+
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldProduct);
-        _fieldProduct = null;
-		if (Model.Product != null)
-        {
-            _fieldProduct = new ProductWrapper(Model.Product);
-            RegisterComplex(Product);
-        }
+        InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
 
     }
 	}

@@ -71,26 +71,16 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private LocalityTypeWrapper _fieldLocalityType;
 	public LocalityTypeWrapper LocalityType 
     {
-        get { return _fieldLocalityType ; }
-        set
-        {
-            SetComplexValue<LocalityType, LocalityTypeWrapper>(_fieldLocalityType, value);
-            _fieldLocalityType  = value;
-        }
+        get { return GetWrapper<LocalityTypeWrapper>(); }
+        set { SetComplexValue<LocalityType, LocalityTypeWrapper>(LocalityType, value); }
     }
+
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldLocalityType);
-        _fieldLocalityType = null;
-		if (Model.LocalityType != null)
-        {
-            _fieldLocalityType = new LocalityTypeWrapper(Model.LocalityType);
-            RegisterComplex(LocalityType);
-        }
+        InitializeComplexProperty<LocalityTypeWrapper>(nameof(LocalityType), Model.LocalityType == null ? null : new LocalityTypeWrapper(Model.LocalityType));
 
     }
 	}

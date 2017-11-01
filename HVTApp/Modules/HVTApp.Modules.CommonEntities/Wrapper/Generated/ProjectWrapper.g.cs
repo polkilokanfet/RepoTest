@@ -31,16 +31,12 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private UserWrapper _fieldManager;
 	public UserWrapper Manager 
     {
-        get { return _fieldManager ; }
-        set
-        {
-            SetComplexValue<User, UserWrapper>(_fieldManager, value);
-            _fieldManager  = value;
-        }
+        get { return GetWrapper<UserWrapper>(); }
+        set { SetComplexValue<User, UserWrapper>(Manager, value); }
     }
+
     #endregion
 
     #region CollectionProperties
@@ -53,13 +49,7 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldManager);
-        _fieldManager = null;
-		if (Model.Manager != null)
-        {
-            _fieldManager = new UserWrapper(Model.Manager);
-            RegisterComplex(Manager);
-        }
+        InitializeComplexProperty<UserWrapper>(nameof(Manager), Model.Manager == null ? null : new UserWrapper(Model.Manager));
 
     }
   

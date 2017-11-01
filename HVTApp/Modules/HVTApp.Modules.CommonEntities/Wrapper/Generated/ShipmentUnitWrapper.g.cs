@@ -71,26 +71,16 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private AddressWrapper _fieldAddress;
 	public AddressWrapper Address 
     {
-        get { return _fieldAddress ; }
-        set
-        {
-            SetComplexValue<Address, AddressWrapper>(_fieldAddress, value);
-            _fieldAddress  = value;
-        }
+        get { return GetWrapper<AddressWrapper>(); }
+        set { SetComplexValue<Address, AddressWrapper>(Address, value); }
     }
+
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldAddress);
-        _fieldAddress = null;
-		if (Model.Address != null)
-        {
-            _fieldAddress = new AddressWrapper(Model.Address);
-            RegisterComplex(Address);
-        }
+        InitializeComplexProperty<AddressWrapper>(nameof(Address), Model.Address == null ? null : new AddressWrapper(Model.Address));
 
     }
 	}

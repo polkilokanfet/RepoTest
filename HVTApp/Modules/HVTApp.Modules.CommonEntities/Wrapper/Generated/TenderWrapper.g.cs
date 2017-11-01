@@ -55,26 +55,18 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private TenderTypeWrapper _fieldType;
 	public TenderTypeWrapper Type 
     {
-        get { return _fieldType ; }
-        set
-        {
-            SetComplexValue<TenderType, TenderTypeWrapper>(_fieldType, value);
-            _fieldType  = value;
-        }
+        get { return GetWrapper<TenderTypeWrapper>(); }
+        set { SetComplexValue<TenderType, TenderTypeWrapper>(Type, value); }
     }
-	private CompanyWrapper _fieldWinner;
+
 	public CompanyWrapper Winner 
     {
-        get { return _fieldWinner ; }
-        set
-        {
-            SetComplexValue<Company, CompanyWrapper>(_fieldWinner, value);
-            _fieldWinner  = value;
-        }
+        get { return GetWrapper<CompanyWrapper>(); }
+        set { SetComplexValue<Company, CompanyWrapper>(Winner, value); }
     }
+
     #endregion
 
     #region CollectionProperties
@@ -87,21 +79,9 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldType);
-        _fieldType = null;
-		if (Model.Type != null)
-        {
-            _fieldType = new TenderTypeWrapper(Model.Type);
-            RegisterComplex(Type);
-        }
+        InitializeComplexProperty<TenderTypeWrapper>(nameof(Type), Model.Type == null ? null : new TenderTypeWrapper(Model.Type));
 
-        UnRegisterComplex(_fieldWinner);
-        _fieldWinner = null;
-		if (Model.Winner != null)
-        {
-            _fieldWinner = new CompanyWrapper(Model.Winner);
-            RegisterComplex(Winner);
-        }
+        InitializeComplexProperty<CompanyWrapper>(nameof(Winner), Model.Winner == null ? null : new CompanyWrapper(Model.Winner));
 
     }
   

@@ -23,16 +23,12 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private SalesUnitWrapper _fieldAdditionalSalesUnit;
 	public SalesUnitWrapper AdditionalSalesUnit 
     {
-        get { return _fieldAdditionalSalesUnit ; }
-        set
-        {
-            SetComplexValue<SalesUnit, SalesUnitWrapper>(_fieldAdditionalSalesUnit, value);
-            _fieldAdditionalSalesUnit  = value;
-        }
+        get { return GetWrapper<SalesUnitWrapper>(); }
+        set { SetComplexValue<SalesUnit, SalesUnitWrapper>(AdditionalSalesUnit, value); }
     }
+
     #endregion
 
     #region CollectionProperties
@@ -41,13 +37,7 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldAdditionalSalesUnit);
-        _fieldAdditionalSalesUnit = null;
-		if (Model.AdditionalSalesUnit != null)
-        {
-            _fieldAdditionalSalesUnit = new SalesUnitWrapper(Model.AdditionalSalesUnit);
-            RegisterComplex(AdditionalSalesUnit);
-        }
+        InitializeComplexProperty<SalesUnitWrapper>(nameof(AdditionalSalesUnit), Model.AdditionalSalesUnit == null ? null : new SalesUnitWrapper(Model.AdditionalSalesUnit));
 
     }
   

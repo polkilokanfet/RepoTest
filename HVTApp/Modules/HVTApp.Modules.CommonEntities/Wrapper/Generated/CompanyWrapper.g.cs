@@ -55,46 +55,30 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private CompanyFormWrapper _fieldForm;
 	public CompanyFormWrapper Form 
     {
-        get { return _fieldForm ; }
-        set
-        {
-            SetComplexValue<CompanyForm, CompanyFormWrapper>(_fieldForm, value);
-            _fieldForm  = value;
-        }
+        get { return GetWrapper<CompanyFormWrapper>(); }
+        set { SetComplexValue<CompanyForm, CompanyFormWrapper>(Form, value); }
     }
-	private CompanyWrapper _fieldParentCompany;
+
 	public CompanyWrapper ParentCompany 
     {
-        get { return _fieldParentCompany ; }
-        set
-        {
-            SetComplexValue<Company, CompanyWrapper>(_fieldParentCompany, value);
-            _fieldParentCompany  = value;
-        }
+        get { return GetWrapper<CompanyWrapper>(); }
+        set { SetComplexValue<Company, CompanyWrapper>(ParentCompany, value); }
     }
-	private AddressWrapper _fieldAddressLegal;
+
 	public AddressWrapper AddressLegal 
     {
-        get { return _fieldAddressLegal ; }
-        set
-        {
-            SetComplexValue<Address, AddressWrapper>(_fieldAddressLegal, value);
-            _fieldAddressLegal  = value;
-        }
+        get { return GetWrapper<AddressWrapper>(); }
+        set { SetComplexValue<Address, AddressWrapper>(AddressLegal, value); }
     }
-	private AddressWrapper _fieldAddressPost;
+
 	public AddressWrapper AddressPost 
     {
-        get { return _fieldAddressPost ; }
-        set
-        {
-            SetComplexValue<Address, AddressWrapper>(_fieldAddressPost, value);
-            _fieldAddressPost  = value;
-        }
+        get { return GetWrapper<AddressWrapper>(); }
+        set { SetComplexValue<Address, AddressWrapper>(AddressPost, value); }
     }
+
     #endregion
 
     #region CollectionProperties
@@ -107,37 +91,13 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldForm);
-        _fieldForm = null;
-		if (Model.Form != null)
-        {
-            _fieldForm = new CompanyFormWrapper(Model.Form);
-            RegisterComplex(Form);
-        }
+        InitializeComplexProperty<CompanyFormWrapper>(nameof(Form), Model.Form == null ? null : new CompanyFormWrapper(Model.Form));
 
-        UnRegisterComplex(_fieldParentCompany);
-        _fieldParentCompany = null;
-		if (Model.ParentCompany != null)
-        {
-            _fieldParentCompany = new CompanyWrapper(Model.ParentCompany);
-            RegisterComplex(ParentCompany);
-        }
+        InitializeComplexProperty<CompanyWrapper>(nameof(ParentCompany), Model.ParentCompany == null ? null : new CompanyWrapper(Model.ParentCompany));
 
-        UnRegisterComplex(_fieldAddressLegal);
-        _fieldAddressLegal = null;
-		if (Model.AddressLegal != null)
-        {
-            _fieldAddressLegal = new AddressWrapper(Model.AddressLegal);
-            RegisterComplex(AddressLegal);
-        }
+        InitializeComplexProperty<AddressWrapper>(nameof(AddressLegal), Model.AddressLegal == null ? null : new AddressWrapper(Model.AddressLegal));
 
-        UnRegisterComplex(_fieldAddressPost);
-        _fieldAddressPost = null;
-		if (Model.AddressPost != null)
-        {
-            _fieldAddressPost = new AddressWrapper(Model.AddressPost);
-            RegisterComplex(AddressPost);
-        }
+        InitializeComplexProperty<AddressWrapper>(nameof(AddressPost), Model.AddressPost == null ? null : new AddressWrapper(Model.AddressPost));
 
     }
   

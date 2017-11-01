@@ -55,36 +55,24 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private OfferUnitWrapper _fieldOfferUnit;
 	public OfferUnitWrapper OfferUnit 
     {
-        get { return _fieldOfferUnit ; }
-        set
-        {
-            SetComplexValue<OfferUnit, OfferUnitWrapper>(_fieldOfferUnit, value);
-            _fieldOfferUnit  = value;
-        }
+        get { return GetWrapper<OfferUnitWrapper>(); }
+        set { SetComplexValue<OfferUnit, OfferUnitWrapper>(OfferUnit, value); }
     }
-	private ProductionUnitWrapper _fieldProductionUnit;
+
 	public ProductionUnitWrapper ProductionUnit 
     {
-        get { return _fieldProductionUnit ; }
-        set
-        {
-            SetComplexValue<ProductionUnit, ProductionUnitWrapper>(_fieldProductionUnit, value);
-            _fieldProductionUnit  = value;
-        }
+        get { return GetWrapper<ProductionUnitWrapper>(); }
+        set { SetComplexValue<ProductionUnit, ProductionUnitWrapper>(ProductionUnit, value); }
     }
-	private ShipmentUnitWrapper _fieldShipmentUnit;
+
 	public ShipmentUnitWrapper ShipmentUnit 
     {
-        get { return _fieldShipmentUnit ; }
-        set
-        {
-            SetComplexValue<ShipmentUnit, ShipmentUnitWrapper>(_fieldShipmentUnit, value);
-            _fieldShipmentUnit  = value;
-        }
+        get { return GetWrapper<ShipmentUnitWrapper>(); }
+        set { SetComplexValue<ShipmentUnit, ShipmentUnitWrapper>(ShipmentUnit, value); }
     }
+
     #endregion
 
     #region CollectionProperties
@@ -97,29 +85,11 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldOfferUnit);
-        _fieldOfferUnit = null;
-		if (Model.OfferUnit != null)
-        {
-            _fieldOfferUnit = new OfferUnitWrapper(Model.OfferUnit);
-            RegisterComplex(OfferUnit);
-        }
+        InitializeComplexProperty<OfferUnitWrapper>(nameof(OfferUnit), Model.OfferUnit == null ? null : new OfferUnitWrapper(Model.OfferUnit));
 
-        UnRegisterComplex(_fieldProductionUnit);
-        _fieldProductionUnit = null;
-		if (Model.ProductionUnit != null)
-        {
-            _fieldProductionUnit = new ProductionUnitWrapper(Model.ProductionUnit);
-            RegisterComplex(ProductionUnit);
-        }
+        InitializeComplexProperty<ProductionUnitWrapper>(nameof(ProductionUnit), Model.ProductionUnit == null ? null : new ProductionUnitWrapper(Model.ProductionUnit));
 
-        UnRegisterComplex(_fieldShipmentUnit);
-        _fieldShipmentUnit = null;
-		if (Model.ShipmentUnit != null)
-        {
-            _fieldShipmentUnit = new ShipmentUnitWrapper(Model.ShipmentUnit);
-            RegisterComplex(ShipmentUnit);
-        }
+        InitializeComplexProperty<ShipmentUnitWrapper>(nameof(ShipmentUnit), Model.ShipmentUnit == null ? null : new ShipmentUnitWrapper(Model.ShipmentUnit));
 
     }
   

@@ -31,16 +31,12 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private PartWrapper _fieldPart;
 	public PartWrapper Part 
     {
-        get { return _fieldPart ; }
-        set
-        {
-            SetComplexValue<Part, PartWrapper>(_fieldPart, value);
-            _fieldPart  = value;
-        }
+        get { return GetWrapper<PartWrapper>(); }
+        set { SetComplexValue<Part, PartWrapper>(Part, value); }
     }
+
     #endregion
 
     #region CollectionProperties
@@ -49,13 +45,7 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldPart);
-        _fieldPart = null;
-		if (Model.Part != null)
-        {
-            _fieldPart = new PartWrapper(Model.Part);
-            RegisterComplex(Part);
-        }
+        InitializeComplexProperty<PartWrapper>(nameof(Part), Model.Part == null ? null : new PartWrapper(Model.Part));
 
     }
   

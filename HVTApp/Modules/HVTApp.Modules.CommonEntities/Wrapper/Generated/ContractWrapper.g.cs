@@ -39,16 +39,12 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private CompanyWrapper _fieldContragent;
 	public CompanyWrapper Contragent 
     {
-        get { return _fieldContragent ; }
-        set
-        {
-            SetComplexValue<Company, CompanyWrapper>(_fieldContragent, value);
-            _fieldContragent  = value;
-        }
+        get { return GetWrapper<CompanyWrapper>(); }
+        set { SetComplexValue<Company, CompanyWrapper>(Contragent, value); }
     }
+
     #endregion
 
     #region CollectionProperties
@@ -57,13 +53,7 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldContragent);
-        _fieldContragent = null;
-		if (Model.Contragent != null)
-        {
-            _fieldContragent = new CompanyWrapper(Model.Contragent);
-            RegisterComplex(Contragent);
-        }
+        InitializeComplexProperty<CompanyWrapper>(nameof(Contragent), Model.Contragent == null ? null : new CompanyWrapper(Model.Contragent));
 
     }
   

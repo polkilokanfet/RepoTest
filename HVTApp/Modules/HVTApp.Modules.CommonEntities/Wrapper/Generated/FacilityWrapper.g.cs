@@ -31,62 +31,32 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private FacilityTypeWrapper _fieldType;
 	public FacilityTypeWrapper Type 
     {
-        get { return _fieldType ; }
-        set
-        {
-            SetComplexValue<FacilityType, FacilityTypeWrapper>(_fieldType, value);
-            _fieldType  = value;
-        }
+        get { return GetWrapper<FacilityTypeWrapper>(); }
+        set { SetComplexValue<FacilityType, FacilityTypeWrapper>(Type, value); }
     }
-	private CompanyWrapper _fieldOwnerCompany;
+
 	public CompanyWrapper OwnerCompany 
     {
-        get { return _fieldOwnerCompany ; }
-        set
-        {
-            SetComplexValue<Company, CompanyWrapper>(_fieldOwnerCompany, value);
-            _fieldOwnerCompany  = value;
-        }
+        get { return GetWrapper<CompanyWrapper>(); }
+        set { SetComplexValue<Company, CompanyWrapper>(OwnerCompany, value); }
     }
-	private AddressWrapper _fieldAddress;
+
 	public AddressWrapper Address 
     {
-        get { return _fieldAddress ; }
-        set
-        {
-            SetComplexValue<Address, AddressWrapper>(_fieldAddress, value);
-            _fieldAddress  = value;
-        }
+        get { return GetWrapper<AddressWrapper>(); }
+        set { SetComplexValue<Address, AddressWrapper>(Address, value); }
     }
+
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldType);
-        _fieldType = null;
-		if (Model.Type != null)
-        {
-            _fieldType = new FacilityTypeWrapper(Model.Type);
-            RegisterComplex(Type);
-        }
+        InitializeComplexProperty<FacilityTypeWrapper>(nameof(Type), Model.Type == null ? null : new FacilityTypeWrapper(Model.Type));
 
-        UnRegisterComplex(_fieldOwnerCompany);
-        _fieldOwnerCompany = null;
-		if (Model.OwnerCompany != null)
-        {
-            _fieldOwnerCompany = new CompanyWrapper(Model.OwnerCompany);
-            RegisterComplex(OwnerCompany);
-        }
+        InitializeComplexProperty<CompanyWrapper>(nameof(OwnerCompany), Model.OwnerCompany == null ? null : new CompanyWrapper(Model.OwnerCompany));
 
-        UnRegisterComplex(_fieldAddress);
-        _fieldAddress = null;
-		if (Model.Address != null)
-        {
-            _fieldAddress = new AddressWrapper(Model.Address);
-            RegisterComplex(Address);
-        }
+        InitializeComplexProperty<AddressWrapper>(nameof(Address), Model.Address == null ? null : new AddressWrapper(Model.Address));
 
     }
 	}

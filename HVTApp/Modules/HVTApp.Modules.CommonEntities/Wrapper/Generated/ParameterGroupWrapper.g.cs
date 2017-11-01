@@ -31,16 +31,12 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private MeasureWrapper _fieldMeasure;
 	public MeasureWrapper Measure 
     {
-        get { return _fieldMeasure ; }
-        set
-        {
-            SetComplexValue<Measure, MeasureWrapper>(_fieldMeasure, value);
-            _fieldMeasure  = value;
-        }
+        get { return GetWrapper<MeasureWrapper>(); }
+        set { SetComplexValue<Measure, MeasureWrapper>(Measure, value); }
     }
+
     #endregion
 
     #region CollectionProperties
@@ -49,13 +45,7 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldMeasure);
-        _fieldMeasure = null;
-		if (Model.Measure != null)
-        {
-            _fieldMeasure = new MeasureWrapper(Model.Measure);
-            RegisterComplex(Measure);
-        }
+        InitializeComplexProperty<MeasureWrapper>(nameof(Measure), Model.Measure == null ? null : new MeasureWrapper(Model.Measure));
 
     }
   

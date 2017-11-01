@@ -47,36 +47,24 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private ProjectUnitWrapper _fieldProjectUnit;
 	public ProjectUnitWrapper ProjectUnit 
     {
-        get { return _fieldProjectUnit ; }
-        set
-        {
-            SetComplexValue<ProjectUnit, ProjectUnitWrapper>(_fieldProjectUnit, value);
-            _fieldProjectUnit  = value;
-        }
+        get { return GetWrapper<ProjectUnitWrapper>(); }
+        set { SetComplexValue<ProjectUnit, ProjectUnitWrapper>(ProjectUnit, value); }
     }
-	private FacilityWrapper _fieldFacility;
+
 	public FacilityWrapper Facility 
     {
-        get { return _fieldFacility ; }
-        set
-        {
-            SetComplexValue<Facility, FacilityWrapper>(_fieldFacility, value);
-            _fieldFacility  = value;
-        }
+        get { return GetWrapper<FacilityWrapper>(); }
+        set { SetComplexValue<Facility, FacilityWrapper>(Facility, value); }
     }
-	private ProductWrapper _fieldProduct;
+
 	public ProductWrapper Product 
     {
-        get { return _fieldProduct ; }
-        set
-        {
-            SetComplexValue<Product, ProductWrapper>(_fieldProduct, value);
-            _fieldProduct  = value;
-        }
+        get { return GetWrapper<ProductWrapper>(); }
+        set { SetComplexValue<Product, ProductWrapper>(Product, value); }
     }
+
     #endregion
 
     #region CollectionProperties
@@ -85,29 +73,11 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldProjectUnit);
-        _fieldProjectUnit = null;
-		if (Model.ProjectUnit != null)
-        {
-            _fieldProjectUnit = new ProjectUnitWrapper(Model.ProjectUnit);
-            RegisterComplex(ProjectUnit);
-        }
+        InitializeComplexProperty<ProjectUnitWrapper>(nameof(ProjectUnit), Model.ProjectUnit == null ? null : new ProjectUnitWrapper(Model.ProjectUnit));
 
-        UnRegisterComplex(_fieldFacility);
-        _fieldFacility = null;
-		if (Model.Facility != null)
-        {
-            _fieldFacility = new FacilityWrapper(Model.Facility);
-            RegisterComplex(Facility);
-        }
+        InitializeComplexProperty<FacilityWrapper>(nameof(Facility), Model.Facility == null ? null : new FacilityWrapper(Model.Facility));
 
-        UnRegisterComplex(_fieldProduct);
-        _fieldProduct = null;
-		if (Model.Product != null)
-        {
-            _fieldProduct = new ProductWrapper(Model.Product);
-            RegisterComplex(Product);
-        }
+        InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
 
     }
   

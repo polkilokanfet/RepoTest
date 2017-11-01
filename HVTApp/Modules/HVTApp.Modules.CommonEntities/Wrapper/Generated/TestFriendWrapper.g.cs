@@ -63,26 +63,18 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private TestFriendAddressWrapper _fieldTestFriendAddress;
 	public TestFriendAddressWrapper TestFriendAddress 
     {
-        get { return _fieldTestFriendAddress ; }
-        set
-        {
-            SetComplexValue<TestFriendAddress, TestFriendAddressWrapper>(_fieldTestFriendAddress, value);
-            _fieldTestFriendAddress  = value;
-        }
+        get { return GetWrapper<TestFriendAddressWrapper>(); }
+        set { SetComplexValue<TestFriendAddress, TestFriendAddressWrapper>(TestFriendAddress, value); }
     }
-	private TestFriendGroupWrapper _fieldTestFriendGroup;
+
 	public TestFriendGroupWrapper TestFriendGroup 
     {
-        get { return _fieldTestFriendGroup ; }
-        set
-        {
-            SetComplexValue<TestFriendGroup, TestFriendGroupWrapper>(_fieldTestFriendGroup, value);
-            _fieldTestFriendGroup  = value;
-        }
+        get { return GetWrapper<TestFriendGroupWrapper>(); }
+        set { SetComplexValue<TestFriendGroup, TestFriendGroupWrapper>(TestFriendGroup, value); }
     }
+
     #endregion
 
     #region CollectionProperties
@@ -98,21 +90,9 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldTestFriendAddress);
-        _fieldTestFriendAddress = null;
-		if (Model.TestFriendAddress != null)
-        {
-            _fieldTestFriendAddress = new TestFriendAddressWrapper(Model.TestFriendAddress);
-            RegisterComplex(TestFriendAddress);
-        }
+        InitializeComplexProperty<TestFriendAddressWrapper>(nameof(TestFriendAddress), Model.TestFriendAddress == null ? null : new TestFriendAddressWrapper(Model.TestFriendAddress));
 
-        UnRegisterComplex(_fieldTestFriendGroup);
-        _fieldTestFriendGroup = null;
-		if (Model.TestFriendGroup != null)
-        {
-            _fieldTestFriendGroup = new TestFriendGroupWrapper(Model.TestFriendGroup);
-            RegisterComplex(TestFriendGroup);
-        }
+        InitializeComplexProperty<TestFriendGroupWrapper>(nameof(TestFriendGroup), Model.TestFriendGroup == null ? null : new TestFriendGroupWrapper(Model.TestFriendGroup));
 
     }
   

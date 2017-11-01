@@ -12,6 +12,9 @@ namespace HVTApp.UI.Wrapper
     public abstract class WrapperBase<TModel> : NotifyDataErrorInfoBase, IWrapper<TModel>
         where TModel : class, IBaseEntity
     {
+        protected readonly Dictionary<string, IWrapper<IBaseEntity>> OriginalWrappers = new Dictionary<string, IWrapper<IBaseEntity>>();
+        protected readonly Dictionary<string, IWrapper<IBaseEntity>> CurrentWrappers = new Dictionary<string, IWrapper<IBaseEntity>>();
+
         // Словарь оригинальных значений. В словарь вносятся только те оригинальные значения, которые были изменены.
         private readonly Dictionary<string, object> _originalValues = new Dictionary<string, object>();
 
@@ -67,6 +70,7 @@ namespace HVTApp.UI.Wrapper
             _originalValues.Clear();
             //принимаем изменения в сложных свойствах.
             _trackingObjects.ForEach(x => x.AcceptChanges());
+            AcceptWrappers();
             //обновляем в WPF весь объект целиком.
             OnPropertyChanged("");
         }
@@ -86,8 +90,7 @@ namespace HVTApp.UI.Wrapper
             //откатываем изменения в сложных свойствах.
             _trackingObjects.ForEach(x => x.RejectChanges());
 
-            //заново инициализируем сложные свойства
-            InitializeComplexProperties();
+            RejectWrappers();
 
             //проверка на валидность объекта.
             Validate();
@@ -153,6 +156,28 @@ namespace HVTApp.UI.Wrapper
             }
         }
 
+        private void AcceptWrappers()
+        {
+            foreach (var currentWrapper in CurrentWrappers)
+            {
+                OriginalWrappers[currentWrapper.Key] = currentWrapper.Value;
+            }
+        }
+
+        private void RejectWrappers()
+        {
+            foreach (var originalWrapper in OriginalWrappers)
+            {
+                CurrentWrappers[originalWrapper.Key] = originalWrapper.Value;
+            }
+        }
+
+        protected TWrapper GetWrapper<TWrapper>([CallerMemberName] string propertyName = null)
+            where TWrapper : IWrapper<IBaseEntity>
+        {
+            return (TWrapper) CurrentWrappers[propertyName];
+        }
+
         protected void SetComplexValue<TModelValue, TWrapperValue>(TWrapperValue currentValue, TWrapperValue newValue, [CallerMemberName] string propertyName = null)
             where TModelValue : class, IBaseEntity
             where TWrapperValue : IWrapper<TModelValue>
@@ -168,12 +193,28 @@ namespace HVTApp.UI.Wrapper
                 if (newValue != null)
                     RegisterComplex(newValue);
 
+                CurrentWrappers[propertyName] = newValue;
+
                 Validate();
                 OnPropertyChanged(propertyName);
                 OnPropertyChanged(propertyName + "IsChanged");
                 OnPropertyChanged(nameof(IsChanged));
             }
         }
+
+        protected void InitializeComplexProperty<TWrapper>(string propertyName, TWrapper wrapper)
+            where TWrapper : IWrapper<IBaseEntity>
+        {
+            OriginalWrappers.Add(propertyName, null);
+            CurrentWrappers.Add(propertyName, null);
+            if (wrapper != null)
+            {
+                OriginalWrappers[propertyName] = wrapper;
+                CurrentWrappers[propertyName] = OriginalWrappers[propertyName];
+                RegisterComplex(wrapper);
+            }
+        }
+
 
         protected void UnRegisterComplex<TModelWrapper>(IWrapper<TModelWrapper> wrapper) 
             where TModelWrapper : class, IBaseEntity

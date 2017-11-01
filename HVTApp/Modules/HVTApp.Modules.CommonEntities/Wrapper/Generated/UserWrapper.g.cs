@@ -55,16 +55,12 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private EmployeeWrapper _fieldEmployee;
 	public EmployeeWrapper Employee 
     {
-        get { return _fieldEmployee ; }
-        set
-        {
-            SetComplexValue<Employee, EmployeeWrapper>(_fieldEmployee, value);
-            _fieldEmployee  = value;
-        }
+        get { return GetWrapper<EmployeeWrapper>(); }
+        set { SetComplexValue<Employee, EmployeeWrapper>(Employee, value); }
     }
+
     #endregion
 
     #region CollectionProperties
@@ -73,13 +69,7 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldEmployee);
-        _fieldEmployee = null;
-		if (Model.Employee != null)
-        {
-            _fieldEmployee = new EmployeeWrapper(Model.Employee);
-            RegisterComplex(Employee);
-        }
+        InitializeComplexProperty<EmployeeWrapper>(nameof(Employee), Model.Employee == null ? null : new EmployeeWrapper(Model.Employee));
 
     }
   

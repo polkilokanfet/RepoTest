@@ -47,44 +47,24 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private CurrencyWrapper _fieldFirstCurrency;
 	public CurrencyWrapper FirstCurrency 
     {
-        get { return _fieldFirstCurrency ; }
-        set
-        {
-            SetComplexValue<Currency, CurrencyWrapper>(_fieldFirstCurrency, value);
-            _fieldFirstCurrency  = value;
-        }
+        get { return GetWrapper<CurrencyWrapper>(); }
+        set { SetComplexValue<Currency, CurrencyWrapper>(FirstCurrency, value); }
     }
-	private CurrencyWrapper _fieldSecondCurrency;
+
 	public CurrencyWrapper SecondCurrency 
     {
-        get { return _fieldSecondCurrency ; }
-        set
-        {
-            SetComplexValue<Currency, CurrencyWrapper>(_fieldSecondCurrency, value);
-            _fieldSecondCurrency  = value;
-        }
+        get { return GetWrapper<CurrencyWrapper>(); }
+        set { SetComplexValue<Currency, CurrencyWrapper>(SecondCurrency, value); }
     }
+
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldFirstCurrency);
-        _fieldFirstCurrency = null;
-		if (Model.FirstCurrency != null)
-        {
-            _fieldFirstCurrency = new CurrencyWrapper(Model.FirstCurrency);
-            RegisterComplex(FirstCurrency);
-        }
+        InitializeComplexProperty<CurrencyWrapper>(nameof(FirstCurrency), Model.FirstCurrency == null ? null : new CurrencyWrapper(Model.FirstCurrency));
 
-        UnRegisterComplex(_fieldSecondCurrency);
-        _fieldSecondCurrency = null;
-		if (Model.SecondCurrency != null)
-        {
-            _fieldSecondCurrency = new CurrencyWrapper(Model.SecondCurrency);
-            RegisterComplex(SecondCurrency);
-        }
+        InitializeComplexProperty<CurrencyWrapper>(nameof(SecondCurrency), Model.SecondCurrency == null ? null : new CurrencyWrapper(Model.SecondCurrency));
 
     }
 	}

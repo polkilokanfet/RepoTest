@@ -39,16 +39,12 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private DocumentWrapper _fieldDocument;
 	public DocumentWrapper Document 
     {
-        get { return _fieldDocument ; }
-        set
-        {
-            SetComplexValue<Document, DocumentWrapper>(_fieldDocument, value);
-            _fieldDocument  = value;
-        }
+        get { return GetWrapper<DocumentWrapper>(); }
+        set { SetComplexValue<Document, DocumentWrapper>(Document, value); }
     }
+
     #endregion
 
     #region CollectionProperties
@@ -57,13 +53,7 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldDocument);
-        _fieldDocument = null;
-		if (Model.Document != null)
-        {
-            _fieldDocument = new DocumentWrapper(Model.Document);
-            RegisterComplex(Document);
-        }
+        InitializeComplexProperty<DocumentWrapper>(nameof(Document), Model.Document == null ? null : new DocumentWrapper(Model.Document));
 
     }
   

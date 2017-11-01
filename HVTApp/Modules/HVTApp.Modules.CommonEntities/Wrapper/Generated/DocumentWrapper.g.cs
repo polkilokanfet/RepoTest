@@ -71,66 +71,42 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private DocumentWrapper _fieldRequestDocument;
 	public DocumentWrapper RequestDocument 
     {
-        get { return _fieldRequestDocument ; }
-        set
-        {
-            SetComplexValue<Document, DocumentWrapper>(_fieldRequestDocument, value);
-            _fieldRequestDocument  = value;
-        }
+        get { return GetWrapper<DocumentWrapper>(); }
+        set { SetComplexValue<Document, DocumentWrapper>(RequestDocument, value); }
     }
-	private EmployeeWrapper _fieldAuthor;
+
 	public EmployeeWrapper Author 
     {
-        get { return _fieldAuthor ; }
-        set
-        {
-            SetComplexValue<Employee, EmployeeWrapper>(_fieldAuthor, value);
-            _fieldAuthor  = value;
-        }
+        get { return GetWrapper<EmployeeWrapper>(); }
+        set { SetComplexValue<Employee, EmployeeWrapper>(Author, value); }
     }
-	private EmployeeWrapper _fieldSenderEmployee;
+
 	public EmployeeWrapper SenderEmployee 
     {
-        get { return _fieldSenderEmployee ; }
-        set
-        {
-            SetComplexValue<Employee, EmployeeWrapper>(_fieldSenderEmployee, value);
-            _fieldSenderEmployee  = value;
-        }
+        get { return GetWrapper<EmployeeWrapper>(); }
+        set { SetComplexValue<Employee, EmployeeWrapper>(SenderEmployee, value); }
     }
-	private EmployeeWrapper _fieldRecipientEmployee;
+
 	public EmployeeWrapper RecipientEmployee 
     {
-        get { return _fieldRecipientEmployee ; }
-        set
-        {
-            SetComplexValue<Employee, EmployeeWrapper>(_fieldRecipientEmployee, value);
-            _fieldRecipientEmployee  = value;
-        }
+        get { return GetWrapper<EmployeeWrapper>(); }
+        set { SetComplexValue<Employee, EmployeeWrapper>(RecipientEmployee, value); }
     }
-	private DocumentsRegistrationDetailsWrapper _fieldRegistrationDetailsOfSender;
+
 	public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfSender 
     {
-        get { return _fieldRegistrationDetailsOfSender ; }
-        set
-        {
-            SetComplexValue<DocumentsRegistrationDetails, DocumentsRegistrationDetailsWrapper>(_fieldRegistrationDetailsOfSender, value);
-            _fieldRegistrationDetailsOfSender  = value;
-        }
+        get { return GetWrapper<DocumentsRegistrationDetailsWrapper>(); }
+        set { SetComplexValue<DocumentsRegistrationDetails, DocumentsRegistrationDetailsWrapper>(RegistrationDetailsOfSender, value); }
     }
-	private DocumentsRegistrationDetailsWrapper _fieldRegistrationDetailsOfRecipient;
+
 	public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfRecipient 
     {
-        get { return _fieldRegistrationDetailsOfRecipient ; }
-        set
-        {
-            SetComplexValue<DocumentsRegistrationDetails, DocumentsRegistrationDetailsWrapper>(_fieldRegistrationDetailsOfRecipient, value);
-            _fieldRegistrationDetailsOfRecipient  = value;
-        }
+        get { return GetWrapper<DocumentsRegistrationDetailsWrapper>(); }
+        set { SetComplexValue<DocumentsRegistrationDetails, DocumentsRegistrationDetailsWrapper>(RegistrationDetailsOfRecipient, value); }
     }
+
     #endregion
 
     #region CollectionProperties
@@ -139,53 +115,17 @@ namespace HVTApp.UI.Wrapper
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldRequestDocument);
-        _fieldRequestDocument = null;
-		if (Model.RequestDocument != null)
-        {
-            _fieldRequestDocument = new DocumentWrapper(Model.RequestDocument);
-            RegisterComplex(RequestDocument);
-        }
+        InitializeComplexProperty<DocumentWrapper>(nameof(RequestDocument), Model.RequestDocument == null ? null : new DocumentWrapper(Model.RequestDocument));
 
-        UnRegisterComplex(_fieldAuthor);
-        _fieldAuthor = null;
-		if (Model.Author != null)
-        {
-            _fieldAuthor = new EmployeeWrapper(Model.Author);
-            RegisterComplex(Author);
-        }
+        InitializeComplexProperty<EmployeeWrapper>(nameof(Author), Model.Author == null ? null : new EmployeeWrapper(Model.Author));
 
-        UnRegisterComplex(_fieldSenderEmployee);
-        _fieldSenderEmployee = null;
-		if (Model.SenderEmployee != null)
-        {
-            _fieldSenderEmployee = new EmployeeWrapper(Model.SenderEmployee);
-            RegisterComplex(SenderEmployee);
-        }
+        InitializeComplexProperty<EmployeeWrapper>(nameof(SenderEmployee), Model.SenderEmployee == null ? null : new EmployeeWrapper(Model.SenderEmployee));
 
-        UnRegisterComplex(_fieldRecipientEmployee);
-        _fieldRecipientEmployee = null;
-		if (Model.RecipientEmployee != null)
-        {
-            _fieldRecipientEmployee = new EmployeeWrapper(Model.RecipientEmployee);
-            RegisterComplex(RecipientEmployee);
-        }
+        InitializeComplexProperty<EmployeeWrapper>(nameof(RecipientEmployee), Model.RecipientEmployee == null ? null : new EmployeeWrapper(Model.RecipientEmployee));
 
-        UnRegisterComplex(_fieldRegistrationDetailsOfSender);
-        _fieldRegistrationDetailsOfSender = null;
-		if (Model.RegistrationDetailsOfSender != null)
-        {
-            _fieldRegistrationDetailsOfSender = new DocumentsRegistrationDetailsWrapper(Model.RegistrationDetailsOfSender);
-            RegisterComplex(RegistrationDetailsOfSender);
-        }
+        InitializeComplexProperty<DocumentsRegistrationDetailsWrapper>(nameof(RegistrationDetailsOfSender), Model.RegistrationDetailsOfSender == null ? null : new DocumentsRegistrationDetailsWrapper(Model.RegistrationDetailsOfSender));
 
-        UnRegisterComplex(_fieldRegistrationDetailsOfRecipient);
-        _fieldRegistrationDetailsOfRecipient = null;
-		if (Model.RegistrationDetailsOfRecipient != null)
-        {
-            _fieldRegistrationDetailsOfRecipient = new DocumentsRegistrationDetailsWrapper(Model.RegistrationDetailsOfRecipient);
-            RegisterComplex(RegistrationDetailsOfRecipient);
-        }
+        InitializeComplexProperty<DocumentsRegistrationDetailsWrapper>(nameof(RegistrationDetailsOfRecipient), Model.RegistrationDetailsOfRecipient == null ? null : new DocumentsRegistrationDetailsWrapper(Model.RegistrationDetailsOfRecipient));
 
     }
   

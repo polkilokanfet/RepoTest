@@ -39,26 +39,16 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private TestHusbandWrapper _fieldHusband;
 	public TestHusbandWrapper Husband 
     {
-        get { return _fieldHusband ; }
-        set
-        {
-            SetComplexValue<TestHusband, TestHusbandWrapper>(_fieldHusband, value);
-            _fieldHusband  = value;
-        }
+        get { return GetWrapper<TestHusbandWrapper>(); }
+        set { SetComplexValue<TestHusband, TestHusbandWrapper>(Husband, value); }
     }
+
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldHusband);
-        _fieldHusband = null;
-		if (Model.Husband != null)
-        {
-            _fieldHusband = new TestHusbandWrapper(Model.Husband);
-            RegisterComplex(Husband);
-        }
+        InitializeComplexProperty<TestHusbandWrapper>(nameof(Husband), Model.Husband == null ? null : new TestHusbandWrapper(Model.Husband));
 
     }
 	}

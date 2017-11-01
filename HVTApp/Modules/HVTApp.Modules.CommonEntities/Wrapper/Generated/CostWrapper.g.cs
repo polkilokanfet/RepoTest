@@ -31,26 +31,16 @@ namespace HVTApp.UI.Wrapper
     #endregion
 
     #region ComplexProperties
-	private CurrencyWrapper _fieldCurrency;
 	public CurrencyWrapper Currency 
     {
-        get { return _fieldCurrency ; }
-        set
-        {
-            SetComplexValue<Currency, CurrencyWrapper>(_fieldCurrency, value);
-            _fieldCurrency  = value;
-        }
+        get { return GetWrapper<CurrencyWrapper>(); }
+        set { SetComplexValue<Currency, CurrencyWrapper>(Currency, value); }
     }
+
     #endregion
     public override void InitializeComplexProperties()
     {
-        UnRegisterComplex(_fieldCurrency);
-        _fieldCurrency = null;
-		if (Model.Currency != null)
-        {
-            _fieldCurrency = new CurrencyWrapper(Model.Currency);
-            RegisterComplex(Currency);
-        }
+        InitializeComplexProperty<CurrencyWrapper>(nameof(Currency), Model.Currency == null ? null : new CurrencyWrapper(Model.Currency));
 
     }
 	}
