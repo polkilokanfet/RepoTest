@@ -161,11 +161,11 @@ namespace HVTApp.Services.GetProductService.Tests
         [TestMethod]
         public void ProductSelectorPreSelectedProduct2()
         {
-            TestData testData = new TestData();
-            var groups = new List<ParameterGroup> {testData.ParameterGroupBreakerType, testData.ParameterGroupEqType, testData.ParameterGroupTransformatorType, testData.ParameterGroupVoltage, testData.ParameterGroupDrivesVoltage};
-            var parts = new List<Part> {testData.PartBreakesDrive, testData.PartVeb110, testData.PartVgb35, testData.PartZng110};
-            var products = new List<Product> {testData.ProductBreakersDrive, testData.ProductVeb110, testData.ProductZng110};
-            var relations = new List<ProductsRelation> {testData.RequiredChildProductRelationBreakerBlock, testData.RequiredChildProductRelationDrive};
+            var testData = new TestData();
+            var groups = testData.GetAll<ParameterGroup>().ToList();
+            var parts = testData.GetAll<Part>().ToList();
+            var products = testData.GetAll<Product>().ToList();
+            var relations = testData.GetAll<ProductsRelation>().ToList();
 
             var productSelector = new ProductSelector(groups, parts, products, relations, preSelectedProduct: testData.ProductVeb110);
             var parts1 = GetParts(productSelector.SelectedProduct);
@@ -182,6 +182,7 @@ namespace HVTApp.Services.GetProductService.Tests
             var parts4 = GetParts(breaker);
             Assert.IsTrue(parts3.AllMembersAreSame(parts4));
         }
+
         IEnumerable<Part> GetParts(Product product)
         {
             yield return product.Part;

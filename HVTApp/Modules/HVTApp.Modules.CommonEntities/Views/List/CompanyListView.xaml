@@ -25,8 +25,9 @@
             <infg:FieldLayout Key="Company">
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="FullName" Label="Полное наименование"/>
+                    <infg:TextField Name="ShortName" Label="Краткое наименование"/>
                     <infg:TextField Name="Form" Label="Организационная форма" Converter="{StaticResource WrapperToStringConverter}"/>
-                    <infg:TextField Name="Inn" Label="ИНН"/>
+                    <infg:TextField Name="Inn" Label="ИНН" Width="Auto"/>
                     <infg:TextField Name="ParentCompany" Label="Родительская компания" Converter="{StaticResource WrapperToStringConverter}"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>

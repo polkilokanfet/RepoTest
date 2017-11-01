@@ -46,7 +46,8 @@ namespace HVTApp.Services.DialogService
             viewModel.CloseRequested += handler;
 
             dialog.DataContext = viewModel;
-            dialog.Owner = _owner;
+            //dialog.Owner = _owner;
+            dialog.Owner = Application.Current.MainWindow;
 
             return dialog.ShowDialog();
         }

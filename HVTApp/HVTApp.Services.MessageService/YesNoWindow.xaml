@@ -4,10 +4,10 @@
         Title="YesNoWindow" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
     
     <StackPanel Orientation="Vertical">
-        <TextBlock Name="Message">Message</TextBlock>
+        <TextBlock Name="Message" Margin="10,5">Message</TextBlock>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Name="YesButton" Content="Да" Click="YesButton_OnClick" Margin="4,4,2,4"/>
-            <Button Name="NoButton" Content="Нет" Click="NoButton_OnClick" Margin="2,4,4,4"/>
+            <Button Name="YesButton" Content="Да" Padding="20,5" Click="YesButton_OnClick" Margin="4,4,2,4"/>
+            <Button Name="NoButton" Content="Нет" Padding="20,5" Click="NoButton_OnClick" Margin="2,4,4,4"/>
         </StackPanel>
     </StackPanel>
 </Window>

@@ -7,10 +7,10 @@
              prism:ViewModelLocator.AutoWireViewModel="True" 
              SizeToContent="WidthAndHeight">
 
-    <!--<Window.Resources>
+    <Window.Resources>
         <converter1:ProductUnitsToFacilitiesNamesConverter x:Key="FacilitiesNamesStringConverter"/>
         <converter1:ProductUnitsToProductGroupsConverter x:Key="ProductGroupsConverter"/>
-    </Window.Resources>-->
+    </Window.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>

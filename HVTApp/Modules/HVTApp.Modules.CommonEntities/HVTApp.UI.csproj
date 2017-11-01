@@ -150,6 +150,7 @@
     <Compile Include="Views\List\ContractListView.xaml.cs">
       <DependentUpon>ContractListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\List\ListViews.g.cs" />
     <Compile Include="Views\List\OfferListView.xaml.cs">
       <DependentUpon>OfferListView.xaml</DependentUpon>
     </Compile>

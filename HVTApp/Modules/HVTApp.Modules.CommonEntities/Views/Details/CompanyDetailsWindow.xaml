@@ -4,7 +4,8 @@
         xmlns:controls="clr-namespace:HVTApp.UI.Controls"
         x:Class="HVTApp.UI.Views.CompanyDetailsWindow"
         Title="CompanyDetailsWindow" 
-        SizeToContent="WidthAndHeight">
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterOwner">
     
     <Grid>
         <Grid.RowDefinitions>

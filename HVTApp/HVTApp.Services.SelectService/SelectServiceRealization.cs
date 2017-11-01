@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -67,6 +68,7 @@ namespace HVTApp.Services.SelectService
 
             viewModel.CloseRequested += handler;
 
+            selectWindow.Owner = Application.Current.MainWindow;
             selectWindow.ShowDialog();
 
             return result;

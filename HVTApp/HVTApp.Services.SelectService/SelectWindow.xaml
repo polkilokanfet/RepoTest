@@ -2,7 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         SizeToContent="WidthAndHeight"
-        Title="Select Window">
+        Title="Select Window"
+        WindowStartupLocation="CenterOwner">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -11,9 +13,10 @@
         
         <ContentControl Name="ContentControl"></ContentControl>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Name="CreateNewButton" Margin="4,4,2,4"> <TextBlock Text="Создать" Margin="2"/> </Button>
-            <Button Name="SelectButton" Margin="2,4,4,4"> <TextBlock Text="Выбрать" Margin="2"/></Button>
+            <Button Name="CreateNewButton" Content="Создать" Padding="20,5" Margin="4,4,2,4"/>
+            <Button Name="SelectButton" Content="Выбрать" Padding="20,5" Margin="2,4,4,4"/>
         </StackPanel>
         
     </Grid>
+    
 </Window>

@@ -20,7 +20,7 @@
         <converter:ProductUnitsToProductGroupsConverter x:Key="ProductGroupsConverter"/>
     </Control.Resources>
 
-    <ItemsControl ItemsSource="{Binding ProjectLookups}" DisplayMemberPath="DisplayMember"></ItemsControl>
+    <ItemsControl ItemsSource="{Binding Items}" DisplayMemberPath="DisplayMember"></ItemsControl>
 
     <!--<infg:XamDataGrid Name="ProjectIdIdsDataGrid">
 

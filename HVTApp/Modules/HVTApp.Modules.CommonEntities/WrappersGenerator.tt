@@ -65,6 +65,8 @@
 	GenerateAfterRemoveEntityEvents(modelTypes);
 	SaveGeneratedCodeAsFile("AfterRemoveEntityEvents.g.cs", "Events/AfterRemoveEntityEvents");
 
+	GenerateListViews(modelTypes);
+	SaveGeneratedCodeAsFile("ListViews.g.cs", "Views/List");
 #>
 
 <#+
@@ -293,6 +295,36 @@ namespace HVTApp.UI.Events
 	private void GenerateAfterRemoveEntityEvent(Type modelType)
 	{
 #>	public partial class AfterRemove<#=modelType.Name#>Event : PubSubEvent<<#=modelType.Name#>> { }
+<#+
+	}
+
+
+	private void GenerateListViews(IEnumerable<Type> modelTypes)
+	{
+#>using HVTApp.Infrastructure;
+using HVTApp.UI.Tabs;
+using Prism.Events;
+using Prism.Regions;
+
+namespace HVTApp.UI.Views
+{
+<#+
+        foreach(var modelType in modelTypes)
+        {
+ #>
+    [RibbonTab(typeof(TabCRUD))]
+    public partial class <#=modelType.Name#>ListView //: ViewBase
+    {
+        //public <#=modelType.Name#>ListView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        //{
+        //    InitializeComponent();
+        //}
+    }
+
+<#+
+        }
+ #>
+}
 <#+
 	}
 

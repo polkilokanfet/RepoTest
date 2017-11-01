@@ -20,8 +20,6 @@ using HVTApp.Services.MessageService;
 using HVTApp.Services.SelectService;
 using HVTApp.UI;
 using HVTApp.UI.Lookup;
-using HVTApp.UI.ViewModels;
-using HVTApp.UI.Views;
 using HVTApp.UI.Wrapper;
 using Infragistics.Windows.OutlookBar;
 using Infragistics.Windows.Ribbon;
@@ -64,15 +62,11 @@ namespace HVTApp
 
             Container.RegisterType<WrapperDataService>();
 
-            DialogService dialogService = new DialogService((Window)Shell);
-            Container.RegisterInstance(typeof(IDialogService), dialogService);
-
-            ChooseService chooseService = new ChooseService((Window)Shell);
-            Container.RegisterInstance(typeof(IChooseService), chooseService);
-
+            Container.RegisterInstance(typeof(IDialogService), new DialogService((Window)Shell));
+            Container.RegisterInstance(typeof(IChooseService), new ChooseService((Window)Shell));
             Container.RegisterType<IGetProductService, GetProductServiceWpf>();
         }
-        
+
         protected override IModuleCatalog CreateModuleCatalog()
         {
             var catalog = new ModuleCatalog();

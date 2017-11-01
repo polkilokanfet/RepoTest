@@ -14,7 +14,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return $"{Name}, {Type.ShortName}";
+            return $"{Name} ({Type.ShortName})";
         }
     }
 }

@@ -10,30 +10,32 @@ namespace HVTApp.Services.GetProductService.Tests
     [TestClass]
     public class ParameterSelectorTests
     {
-        private Parameter _breaker, _transformator;
-        private Parameter _v110, _v220, _v500;
+        private ParameterGroup _groupEqType;
+
+        private Parameter _parameterBreaker, _parameterTransformator;
+        private Parameter _parameterV110, _parameterV220, _parameterV500;
         private Parameter _c2500, _c3150;
         private ParameterSelector _parameterSelectorEqType;
 
         [TestInitialize]
         public void Init()
         {
-            _breaker = new Parameter();
-            _transformator = new Parameter();
-            ParameterGroup eqType = new ParameterGroup().AddParameters(new[] { _breaker, _transformator });
+            _parameterBreaker = new Parameter();
+            _parameterTransformator = new Parameter();
+            _groupEqType = new ParameterGroup().AddParameters(new[] { _parameterBreaker, _parameterTransformator });
 
-            _v110 = new Parameter().AddRequiredPreviousParameters(new[] { _breaker });
-            _v220 = new Parameter().AddRequiredPreviousParameters(new[] { _breaker });
-            _v500 = new Parameter().AddRequiredPreviousParameters(new[] { _breaker });
-            ParameterGroup voltage = new ParameterGroup().AddParameters(new[] { _v110, _v220, _v500 });
+            _parameterV110 = new Parameter().AddRequiredPreviousParameters(new[] { _parameterBreaker });
+            _parameterV220 = new Parameter().AddRequiredPreviousParameters(new[] { _parameterBreaker });
+            _parameterV500 = new Parameter().AddRequiredPreviousParameters(new[] { _parameterBreaker });
+            ParameterGroup voltage = new ParameterGroup().AddParameters(new[] { _parameterV110, _parameterV220, _parameterV500 });
 
-            _c2500 = new Parameter().AddRequiredPreviousParameters(new[] { _breaker, _v110 })
-                                    .AddRequiredPreviousParameters(new[] { _breaker, _v220 });
-            _c3150 = new Parameter().AddRequiredPreviousParameters(new[] { _breaker, _v110 })
-                                    .AddRequiredPreviousParameters(new[] { _breaker, _v220 })
-                                    .AddRequiredPreviousParameters(new[] { _breaker, _v500 });
+            _c2500 = new Parameter().AddRequiredPreviousParameters(new[] { _parameterBreaker, _parameterV110 })
+                                    .AddRequiredPreviousParameters(new[] { _parameterBreaker, _parameterV220 });
+            _c3150 = new Parameter().AddRequiredPreviousParameters(new[] { _parameterBreaker, _parameterV110 })
+                                    .AddRequiredPreviousParameters(new[] { _parameterBreaker, _parameterV220 })
+                                    .AddRequiredPreviousParameters(new[] { _parameterBreaker, _parameterV500 });
 
-            _parameterSelectorEqType = new ParameterSelector(eqType.Parameters);
+            _parameterSelectorEqType = new ParameterSelector(_groupEqType.Parameters);
         }
 
         [TestMethod]
@@ -45,17 +47,17 @@ namespace HVTApp.Services.GetProductService.Tests
         [TestMethod]
         public void ParameterSelectorHasSelectedParameter()
         {
-            //var parameters = _breaker.GroupId.Parameters;
-            //ParameterSelector parameterSelector = new ParameterSelector(parameters, parameters.Last());
-            //Assert.AreEqual(parameterSelector.SelectedParameterFlaged.ParameterId, parameters.Last());
+            var parameters = _groupEqType.Parameters;
+            ParameterSelector parameterSelector = new ParameterSelector(parameters, parameters.Last());
+            Assert.AreEqual(parameterSelector.SelectedParameterFlaged.Parameter, parameters.Last());
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "Выбран параметр не из списка.")]
         public void ParameterSelectorSelectedParameterException()
         {
-            Assert.IsFalse(_parameterSelectorEqType.ParametersFlaged.Select(x => x.Parameter).Contains(_v110));
-            _parameterSelectorEqType.SelectedParameter = (_v110);
+            Assert.IsFalse(_parameterSelectorEqType.ParametersFlaged.Select(x => x.Parameter).Contains(_parameterV110));
+            _parameterSelectorEqType.SelectedParameter = (_parameterV110);
         }
 
         //[TestMethod]
