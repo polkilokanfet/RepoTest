@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
@@ -10,6 +11,7 @@ namespace HVTApp.Model.POCOs
         public string Inn { get; set; }
         public string Kpp { get; set; }
         public virtual CompanyForm Form { get; set; }
+        public Guid? ParentCompanyId { get; set; }
         public virtual Company ParentCompany { get; set; }
         public virtual Address AddressLegal { get; set; }
         public virtual Address AddressPost { get; set; }

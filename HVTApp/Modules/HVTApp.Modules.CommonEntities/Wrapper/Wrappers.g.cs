@@ -416,6 +416,14 @@ namespace HVTApp.UI.Wrapper
         public System.String KppOriginalValue => GetOriginalValue<System.String>(nameof(Kpp));
         public bool KppIsChanged => GetIsChanged(nameof(Kpp));
 
+        public System.Nullable<System.Guid> ParentCompanyId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ParentCompanyIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ParentCompanyId));
+        public bool ParentCompanyIdIsChanged => GetIsChanged(nameof(ParentCompanyId));
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }

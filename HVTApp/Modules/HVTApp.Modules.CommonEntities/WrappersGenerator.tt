@@ -12,59 +12,129 @@
 <#@ import namespace="HVTApp.Infrastructure" #>
 <#@ output extension=".cs" #>
 <#
-  foreach (var modelType in GetModelTypes())
-  {
+  //foreach (var modelType in GetModelTypes())
+  //{
 	//GenerateWrapper(modelType);
 	//SaveGeneratedCodeAsFile(modelType.Name + "Wrapper.g.cs", "Wrapper/Generated");
-  	
-	GenerateLookup(modelType);
-	SaveGeneratedCodeAsFile(modelType.Name + "Lookup.g.cs", "Lookup/Items/Generated");
+  //	
+	//GenerateLookup(modelType);
+	//SaveGeneratedCodeAsFile(modelType.Name + "Lookup.g.cs", "Lookup/Items/Generated");
+  //
+	//GenerateLookupDataServiceInterface(modelType);
+	//SaveGeneratedCodeAsFile("I" + modelType.Name + "LookupDataService.g.cs", "Lookup/Service/Interfaces");
+  //
+	//GenerateLookupDataService(modelType);
+	//SaveGeneratedCodeAsFile(modelType.Name + "LookupDataService.g.cs", "Lookup/Service/Generated");
+  //
+	//GenerateAfterSaveEntityEvent(modelType);
+	//SaveGeneratedCodeAsFile("AfterSave" + modelType.Name + "Event.g.cs", "Events/AfterSaveEntityEvents");
+  //
+	//GenerateAfterRemoveEntityEvent(modelType);
+	//SaveGeneratedCodeAsFile("AfterRemove" + modelType.Name + "Event.g.cs", "Events/AfterRemoveEntityEvents");
+  //}
 
-	GenerateLookupDataServiceInterface(modelType);
-	SaveGeneratedCodeAsFile("I" + modelType.Name + "LookupDataService.g.cs", "Lookup/Service/Interfaces");
+	var modelTypes = GetModelTypes();
 
-	GenerateLookupDataService(modelType);
-	SaveGeneratedCodeAsFile(modelType.Name + "LookupDataService.g.cs", "Lookup/Service/Generated");
-
-	GenerateAfterSaveEntityEvent(modelType);
-	SaveGeneratedCodeAsFile("AfterSave" + modelType.Name + "Event.g.cs", "Events/AfterSaveEntityEvents");
-
-	GenerateAfterRemoveEntityEvent(modelType);
-	SaveGeneratedCodeAsFile("AfterRemove" + modelType.Name + "Event.g.cs", "Events/AfterRemoveEntityEvents");
-  }
-    GenerateWrappers(GetModelTypes());
+    GenerateWrappers(modelTypes);
 	SaveGeneratedCodeAsFile("Wrappers.g.cs", "Wrapper");
 
-	GenerateEntityWrapperDataServices(GetModelTypes());
+	GenerateLookups(modelTypes);
+	SaveGeneratedCodeAsFile("Lookups.g.cs", "Lookup/Items");
+
+	GenerateLookupDataServiceInterfaces(modelTypes);
+	SaveGeneratedCodeAsFile("ILookupDataServices.g.cs", "Lookup/Service");
+
+	GenerateLookupDataServices(modelTypes);
+	SaveGeneratedCodeAsFile("LookupDataServices.g.cs", "Lookup/Service");
+
+	GenerateEntityWrapperDataServices(modelTypes);
 	SaveGeneratedCodeAsFile("EntityWrapperDataServices.g.cs", "Wrapper/DataService");
 
-	GenerateWrapperDataService(GetModelTypes());
+	GenerateWrapperDataService(modelTypes);
 	SaveGeneratedCodeAsFile("WrapperDataService.g.cs", "Wrapper/DataService");
 
-    GenerateListViewModels(GetModelTypes());
+    GenerateListViewModels(modelTypes);
 	SaveGeneratedCodeAsFile("GeneratedListViewModels.g.cs", "ViewModels/List");
 
-    GenerateDetailsViewModels(GetModelTypes());
+    GenerateDetailsViewModels(modelTypes);
 	SaveGeneratedCodeAsFile("GeneratedDetailsViewModels.g.cs", "ViewModels/Details");
+
+	GenerateAfterSaveEntityEvents(modelTypes);
+	SaveGeneratedCodeAsFile("AfterSaveEntityEvents.g.cs", "Events/AfterSaveEntityEvents");
+
+	GenerateAfterRemoveEntityEvents(modelTypes);
+	SaveGeneratedCodeAsFile("AfterRemoveEntityEvents.g.cs", "Events/AfterRemoveEntityEvents");
 
 #>
 
 <#+
-	private void GenerateLookup(Type modelType)
-	{
+
+    private void GenerateLookups(IEnumerable<Type> modelTypes)
+    {
 #>namespace HVTApp.UI.Lookup
 {
+<#+
+        foreach(var modelType in modelTypes)
+        {
+            GenerateLookup(modelType);
+        }
+#>}
+<#+
+    }
+
+	private void GenerateLookup(Type modelType)
+	{
+#>
 	public partial class <#=modelType.Name#>Lookup : LookupItem { }
-}
 <#+
 	}
 
-	private void GenerateLookupDataServiceInterface(Type modelType)
-	{
+
+    private void GenerateLookupDataServiceInterfaces(IEnumerable<Type> modelTypes)
+    {
 #>namespace HVTApp.UI.Lookup
 {
-	public interface I<#=modelType.Name#>LookupDataService : ILookupDataService<<#=modelType.Name#>Lookup> { }
-}
+<#+
+        foreach(var modelType in modelTypes)
+        {
+            GenerateLookupDataServiceInterface(modelType);
+        }
+#>}
+<#+
+    }
+
+	private void GenerateLookupDataServiceInterface(Type modelType)
+	{
+#>	public interface I<#=modelType.Name#>LookupDataService : ILookupDataService<<#=modelType.Name#>Lookup> { } 
+<#+
+	}
+
+
+    private void GenerateLookupDataServices(IEnumerable<Type> modelTypes)
+    {
+#>using System;
+using HVTApp.DataAccess;
+using HVTApp.Model.POCOs;
+
+namespace HVTApp.UI.Lookup
+{
+<#+
+        foreach(var modelType in modelTypes)
+        {
+            GenerateLookupDataService(modelType);
+        }
+#>}
+<#+
+    }
+
+	private void GenerateLookupDataService(Type modelType)
+	{
+#>
+    public partial class <#=modelType.Name#>LookupDataService : LookupDataService<<#=modelType.Name#>Lookup, <#=modelType.Name#>>, I<#=modelType.Name#>LookupDataService
+    {
+        public <#=modelType.Name#>LookupDataService(HvtAppContext context) : base(context) { }
+    }
+
 <#+
 	}
 
@@ -114,22 +184,6 @@ namespace HVTApp.UI.ViewModels
 <#+
         }
 #>
-}
-<#+
-	}
-
-	private void GenerateLookupDataService(Type modelType)
-	{
-#>using System;
-using HVTApp.DataAccess;
-using HVTApp.Model.POCOs;
-
-namespace HVTApp.UI.Lookup
-{
-    public partial class <#=modelType.Name#>LookupDataService : LookupDataService<<#=modelType.Name#>Lookup, <#=modelType.Name#>>, I<#=modelType.Name#>LookupDataService
-    {
-        public <#=modelType.Name#>LookupDataService(HvtAppContext context) : base(context) { }
-    }
 }
 <#+
 	}
@@ -197,27 +251,48 @@ namespace HVTApp.UI.Wrapper
 	}
 
 
-	private void GenerateAfterSaveEntityEvent(Type modelType)
-	{
+    private void GenerateAfterSaveEntityEvents(IEnumerable<Type> modelTypes)
+    {
 #>using HVTApp.Model.POCOs;
 using Prism.Events;
 
 namespace HVTApp.UI.Events
 {
-	public partial class AfterSave<#=modelType.Name#>Event : PubSubEvent<<#=modelType.Name#>> { }
-}
+<#+
+        foreach(var modelType in modelTypes)
+        {
+            GenerateAfterSaveEntityEvent(modelType);
+        }
+#>}
+<#+
+    }
+
+	private void GenerateAfterSaveEntityEvent(Type modelType)
+	{
+#>	public partial class AfterSave<#=modelType.Name#>Event : PubSubEvent<<#=modelType.Name#>> { }
 <#+
 	}
 
-	private void GenerateAfterRemoveEntityEvent(Type modelType)
-	{
+
+    private void GenerateAfterRemoveEntityEvents(IEnumerable<Type> modelTypes)
+    {
 #>using HVTApp.Model.POCOs;
 using Prism.Events;
 
 namespace HVTApp.UI.Events
 {
-	public partial class AfterRemove<#=modelType.Name#>Event : PubSubEvent<<#=modelType.Name#>> { }
-}
+<#+
+        foreach(var modelType in modelTypes)
+        {
+            GenerateAfterRemoveEntityEvent(modelType);
+        }
+#>}
+<#+
+    }
+
+	private void GenerateAfterRemoveEntityEvent(Type modelType)
+	{
+#>	public partial class AfterRemove<#=modelType.Name#>Event : PubSubEvent<<#=modelType.Name#>> { }
 <#+
 	}
 
