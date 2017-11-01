@@ -22,7 +22,7 @@ namespace HVTApp.Modules.BaseEntities
         {
             //Container.RegisterViewForNavigation<CompanyListView>();
             //Container.RegisterViewForNavigation<CompanyFormListView>();
-            //Container.RegisterViewForNavigation<ActivityFildListView>();
+            //Container.RegisterViewForNavigation<ActivityFieldListView>();
             //Container.RegisterViewForNavigation<ParameterListView>();
             //Container.RegisterViewForNavigation<ParameterGroupListView>();
             //Container.RegisterViewForNavigation<ProductListView>();

@@ -64,11 +64,6 @@ namespace HVTApp
 
             Container.RegisterType<WrapperDataService>();
 
-            ISelectService selectService = Container.Resolve<ISelectService>();
-            selectService.Register<CompanyListViewModel, CompanyListView, CompanyWrapper>();
-            selectService.Register<ProjectListViewModel, ProjectListView, ProjectWrapper>();
-            selectService.Register<TenderListViewModel, TenderListView, TenderWrapper>();
-
             DialogService dialogService = new DialogService((Window)Shell);
             Container.RegisterInstance(typeof(IDialogService), dialogService);
 

@@ -32,7 +32,6 @@ namespace HVTApp.UI.ViewModels
         protected readonly IMessageService MessageService;
 
         private TWrapper _selectedItem;
-        private bool _loaded = false;
 
         public BaseWrapperListViewModel(IUnityContainer container, IEntityWrapperDataService<TModel, TWrapper> wrapperDataService)
         {
@@ -52,8 +51,8 @@ namespace HVTApp.UI.ViewModels
 
             LoadedCommand = new DelegateCommand(async () =>
             {
-                if (!_loaded) await LoadAsync();
-                _loaded = true;
+                if (AutoLoadItems) await LoadAsync();
+                AutoLoadItems = false;
             });
 
             EventAggregator.GetEvent<TAfterSaveEntityEvent>().Subscribe(OnAfterSaveEntity);
@@ -72,6 +71,8 @@ namespace HVTApp.UI.ViewModels
                 InvalidateCommands();
             }
         }
+
+        public bool AutoLoadItems { get; set; } = true;
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
 

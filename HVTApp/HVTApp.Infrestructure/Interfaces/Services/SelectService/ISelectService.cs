@@ -9,16 +9,21 @@ namespace HVTApp.Infrastructure.Interfaces.Services.SelectService
     {
         void Register<TViewModel, TView, TItem>() 
             where TViewModel : ISelectViewModel<TItem>
-            where TView : Control;
+            where TView : Control 
+            where TItem : IWrapper<IBaseEntity>;
+
         TItem SelectItem<TItem>(IEnumerable<TItem> items, TItem selectedItem = null) 
-            where TItem : class ;
+            where TItem : class, IWrapper<IBaseEntity>;
     }
 
     public interface ISelectViewModel<TItem> : IDialogRequestClose
+        where TItem : IWrapper<IBaseEntity>
     {
         ICollection<TItem> Items { get; }
         TItem SelectedItem { get; set; }
         ICommand SelectItemCommand { get; }
         ICommand NewItemCommand { get; }
+
+        bool AutoLoadItems { set; }
     }
 }

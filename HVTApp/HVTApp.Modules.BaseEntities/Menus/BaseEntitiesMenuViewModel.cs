@@ -12,7 +12,7 @@ namespace HVTApp.Modules.BaseEntities.Menus
 
             NavigationItem rootCompany = new NavigationItem("Компании", typeof(CompanyListView));
             rootCompany.Items.Add(new NavigationItem("Организационные формы", typeof(CompanyFormListView)));
-            rootCompany.Items.Add(new NavigationItem("Сферы деятельности", typeof(ActivityFildListView)));
+            rootCompany.Items.Add(new NavigationItem("Сферы деятельности", typeof(ActivityFieldListView)));
 
             NavigationItem rootParameter = new NavigationItem("Параметры", typeof(ParameterListView));
             rootParameter.Items.Add(new NavigationItem("Группа параметров", typeof(ParameterGroupListView)));

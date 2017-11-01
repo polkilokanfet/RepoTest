@@ -7,7 +7,6 @@ using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
-using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.UI.Lookup;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -17,7 +16,7 @@ using Prism.Mvvm;
 namespace HVTApp.UI.ViewModels
 {
     public class BaseLookupListViewModel<TLookupItem, TEntity, TDelailsViewModel, TAfterSaveEntityEvent> :
-        BindableBase, ISelectViewModel<TLookupItem>, IBaseLookupListViewModel<TLookupItem>
+        BindableBase, IBaseLookupListViewModel<TLookupItem>
         where TEntity : class, IBaseEntity
         where TLookupItem : class, ILookupItem, new()
         where TDelailsViewModel : IDetailsViewModel<IWrapper<TEntity>, TEntity>
@@ -95,6 +94,7 @@ namespace HVTApp.UI.ViewModels
 
         #region Commands
         public ICommand NewItemCommand { get; }
+        public bool AutoLoadItems { get; set; }
         public ICommand EditItemCommand { get; }
         public ICommand RemoveItemCommand { get; }
         public ICommand SelectItemCommand { get; }

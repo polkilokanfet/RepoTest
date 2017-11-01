@@ -1,7 +1,9 @@
 using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using HVTApp.DataAccess;
+using HVTApp.DataAccess.Annotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.UI.Wrapper;
@@ -11,7 +13,7 @@ using Prism.Events;
 
 namespace HVTApp.UI.ViewModels
 {
-    public abstract class BaseDetailsViewModel<TWrapper, TEntity, TAfterSaveEntityEvent> : IDetailsViewModel<TWrapper, TEntity> 
+    public abstract class BaseDetailsViewModel<TWrapper, TEntity, TAfterSaveEntityEvent> : IDetailsViewModel<TWrapper, TEntity>, INotifyPropertyChanged
         where TEntity : class, IBaseEntity
         where TWrapper : class, IWrapper<TEntity>
         where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
@@ -86,6 +88,14 @@ namespace HVTApp.UI.ViewModels
         private void ItemOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

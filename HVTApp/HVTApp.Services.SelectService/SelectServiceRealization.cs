@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
+using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using Microsoft.Practices.Unity;
 
@@ -19,7 +21,8 @@ namespace HVTApp.Services.SelectService
 
         public void Register<TViewModel, TView, TItem>() 
             where TViewModel : ISelectViewModel<TItem>
-            where TView : Control
+            where TView : Control 
+            where TItem : IWrapper<IBaseEntity>
         {
             if(Mappings.ContainsKey(typeof(TItem)))
                 throw new ArgumentException($"Type {typeof(TItem)} is already mapped to type {typeof(TView)}");
@@ -28,17 +31,21 @@ namespace HVTApp.Services.SelectService
         }
 
         public TItem SelectItem<TItem>(IEnumerable<TItem> items, TItem selectedItem = null) 
-            where TItem : class
+            where TItem : class, IWrapper<IBaseEntity>
         {
             TItem result = null;
 
             ViewModelView vmv = Mappings[typeof(TItem)];
+
             var view = (Control)_unityContainer.Resolve(vmv.ViewType);
+
             ISelectViewModel<TItem> viewModel = (ISelectViewModel<TItem>)_unityContainer.Resolve(vmv.ViewModelType);
-            viewModel.Items.Clear();
-            var itemsList = items.ToList();
-            foreach (TItem item in itemsList) viewModel.Items.Add(item);
-            if (itemsList.Contains(selectedItem)) viewModel.SelectedItem = selectedItem;
+            items.ToList().ForEach(viewModel.Items.Add);
+            viewModel.AutoLoadItems = false;
+            
+            if (selectedItem != null && items.Any(x => x.Model.Id == selectedItem.Model.Id))
+                viewModel.SelectedItem = items.Single(x => x.Model.Id == selectedItem.Model.Id);
+
             view.DataContext = viewModel;
 
             SelectWindow selectWindow = new SelectWindow
@@ -48,12 +55,17 @@ namespace HVTApp.Services.SelectService
                 SelectButton = { Command = viewModel.SelectItemCommand }
             };
 
-            viewModel.CloseRequested += (sender, args) =>
+            EventHandler<DialogRequestCloseEventArgs> handler = null;
+            handler = (sender, args) =>
             {
+                viewModel.CloseRequested -= handler;
+
                 if (args.DialogResult.HasValue && args.DialogResult.Value)
                     result = viewModel.SelectedItem;
                 selectWindow.Close();
             };
+
+            viewModel.CloseRequested += handler;
 
             selectWindow.ShowDialog();
 

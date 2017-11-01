@@ -4,7 +4,7 @@
              xmlns:prism="http://prismlibrary.com/"             
              xmlns:infg="http://infragistics.com/DataPresenter"
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             x:Class="HVTApp.UI.Views.CompanyListView"
+             x:Class="HVTApp.UI.Views.ActivityFieldListView"
              xmlns:converters="clr-namespace:HVTApp.UI.Converter"
              prism:ViewModelLocator.AutoWireViewModel="True"             
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
@@ -14,7 +14,7 @@
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    
+
     <Control.Resources>
         <converters:WrapperToStringConverter x:Key="WrapperToStringConverter"/>
     </Control.Resources>
@@ -24,10 +24,7 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout Key="Company">
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="FullName" Label="Полное наименование"/>
-                    <infg:TextField Name="Form" Label="Организационная форма" Converter="{StaticResource WrapperToStringConverter}"/>
-                    <infg:TextField Name="Inn" Label="ИНН"/>
-                    <infg:TextField Name="ParentCompany" Label="Родительская компания" Converter="{StaticResource WrapperToStringConverter}"/>
+                    <infg:TextField Name="Name" Label="Наименование"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -36,7 +33,3 @@
 
 
 </inf:ViewBase>
-
-
-
-
