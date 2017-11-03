@@ -1,18 +1,31 @@
 ﻿<inf:ViewBase x:Class="HVTApp.UI.Views.FacilityListView"
-             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:prism="http://prismlibrary.com/"
+             xmlns:prism="http://prismlibrary.com/"             
              xmlns:infg="http://infragistics.com/DataPresenter"
-             prism:ViewModelLocator.AutoWireViewModel="True">
-    <infg:XamDataGrid DataSource="{Binding Items}"
-                      SelectedDataItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-        
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             prism:ViewModelLocator.AutoWireViewModel="True"             
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <infg:XamDataGrid>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
-                <infg:TextField Name="Name" Label="Название"/>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Название"/>
+                    <infg:Field Name="Type" Label="Тип" Converter="{StaticResource WrapperToStringConverter}"/>
+                    <infg:Field Name="OwnerCompany" Label="Владелец" Converter="{StaticResource WrapperToStringConverter}"/>
+                </infg:FieldLayout.Fields>
             </infg:FieldLayout>
+
         </infg:XamDataGrid.FieldLayouts>
-            
     </infg:XamDataGrid>
+
+
 </inf:ViewBase>

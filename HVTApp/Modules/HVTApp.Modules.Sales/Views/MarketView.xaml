@@ -4,7 +4,6 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns:infg="http://infragistics.com/DataPresenter"
-             xmlns:converters="clr-namespace:HVTApp.UI.Converter;assembly=HVTApp.UI"
              x:Class="HVTApp.Modules.Sales.Views.MarketView"
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
@@ -14,12 +13,6 @@
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-
-    <Control.Resources>
-        <converters:WrapperToStringConverter x:Key="WrapperToStringConverter"/>
-        <converters:WrappersToStringConverter x:Key="WrappersToStringConverter"/>
-        <converters:ProductUnitsToProductGroupsConverter x:Key="ProductUnitsToProductGroupsConverter"/>
-    </Control.Resources>
 
     <Grid>
         <Grid.RowDefinitions>

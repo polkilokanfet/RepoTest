@@ -3,11 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:HVTApp"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
-             xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure">
+             xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
+             xmlns:converters2="clr-namespace:HVTApp.UI.Converter;assembly=HVTApp.UI">
     <Application.Resources>
         <ResourceDictionary>
             <system:Double x:Key="DefaultFontSize">18</system:Double>
             <converters:DatePickerOriginalValueConverter x:Key="DatePickerOriginalValueConverter"/>
+            <converters2:WrapperToStringConverter x:Key="WrapperToStringConverter"/>
+            <converters2:WrappersToStringConverter x:Key="WrappersToStringConverter"/>
+            <converters2:ProductUnitsToProductGroupsConverter x:Key="ProductUnitsToProductGroupsConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/Brushes.xaml"/>
                 <ResourceDictionary Source="Styles/ValidationErrorTemplates.xaml"/>

@@ -4,7 +4,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:infg="http://infragistics.com/DataPresenter"
-             xmlns:converters="clr-namespace:HVTApp.UI.Converter"
              prism:ViewModelLocator.AutoWireViewModel="True"             
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
 
@@ -13,10 +12,6 @@
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-
-    <Control.Resources>
-        <converters:WrapperToStringConverter x:Key="WrapperToStringConverter"/>
-    </Control.Resources>
 
     <infg:XamDataGrid>
 

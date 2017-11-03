@@ -147,6 +147,9 @@
     <Compile Include="ViewModels\Details\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitsDetailsViewModel.cs" />
     <Compile Include="ViewModels\List\GeneratedListViewModels.g.cs" />
+    <Compile Include="Views\List\AddressListView.xaml.cs">
+      <DependentUpon>AddressListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\List\ContractListView.xaml.cs">
       <DependentUpon>ContractListView.xaml</DependentUpon>
     </Compile>
@@ -306,6 +309,10 @@
     <Page Include="Tabs\TabCRUD.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\AddressListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\List\ContractListView.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -22,7 +22,7 @@
     <infg:XamDataGrid>
 
         <infg:XamDataGrid.FieldLayouts>
-            <infg:FieldLayout Key="Company">
+            <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Наименование"/>
                 </infg:FieldLayout.Fields>
