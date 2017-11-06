@@ -1,0 +1,17 @@
+﻿<Window x:Class="HVTApp.Services.UpdateDetailsService.UpdateDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="UpdateDetailsWindow" 
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <ContentControl Grid.Row="0" Name="ContentControl"/>
+        <Button Grid.Row="1" Content="Save" Name="SaveButton"/>
+        
+    </Grid>
+</Window>

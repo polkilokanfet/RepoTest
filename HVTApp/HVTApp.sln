@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp", "HVTApp\HVTApp.csproj", "{99C9E82C-C594-446D-AA59-8FFBC43AD226}"
 EndProject
@@ -50,6 +50,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Modules.BaseEntities", "HVTApp.Modules.BaseEntities\HVTApp.Modules.BaseEntities.csproj", "{49629F07-4FB0-4448-B598-10361512F554}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.MessageService", "HVTApp.Services.MessageService\HVTApp.Services.MessageService.csproj", "{7703A90A-E742-41B1-96CB-CD0F51E3F2B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.UpdateDetailsService", "HVTApp.Services.UpdateDetailsService\HVTApp.Services.UpdateDetailsService.csproj", "{AF8C5039-A97F-4C1A-B3A7-C325639D02CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -141,6 +143,10 @@ Global
 		{7703A90A-E742-41B1-96CB-CD0F51E3F2B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7703A90A-E742-41B1-96CB-CD0F51E3F2B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7703A90A-E742-41B1-96CB-CD0F51E3F2B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF8C5039-A97F-4C1A-B3A7-C325639D02CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF8C5039-A97F-4C1A-B3A7-C325639D02CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF8C5039-A97F-4C1A-B3A7-C325639D02CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF8C5039-A97F-4C1A-B3A7-C325639D02CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -160,5 +166,6 @@ Global
 		{14519231-6CF2-49B2-A0C5-72588657CA9D} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
 		{49629F07-4FB0-4448-B598-10361512F554} = {D89A3693-4C45-45D7-B52B-B3A58C52B3E2}
 		{7703A90A-E742-41B1-96CB-CD0F51E3F2B6} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
+		{AF8C5039-A97F-4C1A-B3A7-C325639D02CF} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
 	EndGlobalSection
 EndGlobal

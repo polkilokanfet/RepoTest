@@ -1,7 +1,9 @@
 ﻿using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
+using HVTApp.Model.POCOs;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Views;
 using HVTApp.UI.Wrapper;
@@ -14,12 +16,14 @@ namespace HVTApp.UI
     {
         private readonly IDialogService _dialogService;
         private readonly ISelectService _selectService;
+        private readonly IUpdateDetailsService _updateDetailsService;
 
         public UiModule(IUnityContainer container, IRegionManager regionManager, IDialogService dialogService,
-            ISelectService selectService) : base(container, regionManager)
+            ISelectService selectService, IUpdateDetailsService updateDetailsService) : base(container, regionManager)
         {
             _dialogService = dialogService;
             _selectService = selectService;
+            _updateDetailsService = updateDetailsService;
         }
 
         protected override void RegisterTypes()
@@ -39,7 +43,6 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<ContractListView>();
 
             _dialogService.Register<CompanyFormDetailsViewModel, CompanyFormDetailsView>();
-            _dialogService.Register<CompanyDetailsViewModel, CompanyDetailsWindow>();
             _dialogService.Register<ProductDetailsViewModel, ProductDetailsView>();
             _dialogService.Register<ProjectDetailsViewModel, ProjectDetailsWindow>();
             _dialogService.Register<OfferDetailsViewModel, OfferDetailsWindow>();
@@ -50,6 +53,7 @@ namespace HVTApp.UI
             _selectService.Register<ProjectListViewModel, ProjectListView, ProjectWrapper>();
             _selectService.Register<TenderListViewModel, TenderListView, TenderWrapper>();
 
+            _updateDetailsService.Register<Company, CompanyWrapper, CompanyDetailsViewModel, CompanyDetailsView>();
         }
 
         protected override void ResolveOutlookGroup()

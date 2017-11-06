@@ -1,10 +1,7 @@
-using System;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 
-namespace HVTApp.UI.ViewModels
+namespace HVTApp.Infrastructure
 {
     public interface IDetailsViewModel<TWrapper, TEntity> : IDialogRequestClose
         where TEntity : class, IBaseEntity

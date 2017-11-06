@@ -92,8 +92,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\ViewBaseList.xaml.cs">
-      <DependentUpon>ViewBaseList.xaml</DependentUpon>
+    <Compile Include="Controls\SaveButtonControl.xaml.cs">
+      <DependentUpon>SaveButtonControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Events\AfterRemoveEntityEvents\AfterRemoveEntityEvents.g.cs" />
     <Compile Include="Events\AfterSaveEntityEvents\AfterSaveEntityEvents.g.cs" />
@@ -107,7 +107,6 @@
     <Compile Include="ViewModels\Details\GeneratedDetailsViewModels.g.cs" />
     <Compile Include="ViewModels\IBaseLookupListViewModel.cs" />
     <Compile Include="ViewModels\IBaseWrapperListViewModel.cs" />
-    <Compile Include="ViewModels\IDetailsViewModel.cs" />
     <Compile Include="Controls\ChooseItemControl.xaml.cs">
       <DependentUpon>ChooseItemControl.xaml</DependentUpon>
     </Compile>
@@ -150,6 +149,9 @@
     <Compile Include="ViewModels\Details\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitsDetailsViewModel.cs" />
     <Compile Include="ViewModels\List\GeneratedListViewModels.g.cs" />
+    <Compile Include="Views\Details\CompanyDetailsView.xaml.cs">
+      <DependentUpon>CompanyDetailsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\List\AddressListView.xaml.cs">
       <DependentUpon>AddressListView.xaml</DependentUpon>
     </Compile>
@@ -181,9 +183,6 @@
     </Compile>
     <Compile Include="Views\List\ActivityFieldListView.xaml.cs">
       <DependentUpon>ActivityFieldListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Details\CompanyDetailsWindow.xaml.cs">
-      <DependentUpon>CompanyDetailsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\List\CompanyListView.xaml.cs">
       <DependentUpon>CompanyListView.xaml</DependentUpon>
@@ -309,13 +308,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\ViewBaseList.xaml">
+    <Page Include="Controls\SaveButtonControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Tabs\TabCRUD.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Details\CompanyDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\List\AddressListView.xaml">
       <SubType>Designer</SubType>
@@ -354,10 +357,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\List\ActivityFieldListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Details\CompanyDetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

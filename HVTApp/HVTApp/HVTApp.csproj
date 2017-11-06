@@ -229,6 +229,10 @@
       <Project>{903EF15D-0826-4E21-AC44-24A869938521}</Project>
       <Name>HVTApp.Services.SelectService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Services.UpdateDetailsService\HVTApp.Services.UpdateDetailsService.csproj">
+      <Project>{AF8C5039-A97F-4C1A-B3A7-C325639D02CF}</Project>
+      <Name>HVTApp.Services.UpdateDetailsService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Services.WpfAuthenticationService\HVTApp.Services.WpfAuthenticationService.csproj">
       <Project>{3a8f0c30-a576-42fe-a232-c52e039276b4}</Project>
       <Name>HVTApp.Services.WpfAuthenticationService</Name>
