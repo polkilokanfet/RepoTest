@@ -10,7 +10,7 @@ namespace HVTApp.Infrastructure.Interfaces.Services
             where TDetailsViewModel : class, IDetailsViewModel<TWrapper, TEntity>
             where TDetailsView : Control;
 
-        void UpdateDetails<TEntity, TWrapper>(TWrapper wrapper)
+        bool UpdateDetails<TEntity, TWrapper>(TWrapper wrapper)
             where TEntity : class, IBaseEntity
             where TWrapper : class, IWrapper<TEntity>;
     }

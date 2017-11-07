@@ -74,9 +74,9 @@ namespace HVTApp.UI.ViewModels
             if ((await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(Item.Model.Id)) == null)
                 UnitOfWork.GetRepository<TEntity>().Add(Item.Model);
 
-            Item.AcceptChanges();
-            UnitOfWork.Complete();
             CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
+            //Item.AcceptChanges();
+            //UnitOfWork.Complete();
             EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
         }
 

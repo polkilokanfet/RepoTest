@@ -1,29 +1,26 @@
-﻿<Window x:Class="HVTApp.UI.Views.CompanyFormDetailsView"
+﻿<inf:ViewBase x:Class="HVTApp.UI.Views.CompanyFormDetailsView"
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-             SizeToContent="WidthAndHeight" 
-             Title="Форма компании" ResizeMode="CanResize" 
-             WindowStartupLocation="CenterOwner">
-    <StackPanel Orientation="Vertical">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-            <Label Grid.Column="0" Grid.Row="0" Content="Полное наименование"/>
-            <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200"
+        <Label Grid.Column="0" Grid.Row="0" Content="Полное наименование"/>
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200"
                  Text="{Binding Item.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Label Grid.Column="0" Grid.Row="1" Content="Сокращенное наименование"/>
-            <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200"
+        <Label Grid.Column="0" Grid.Row="1" Content="Сокращенное наименование"/>
+        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200"
                  Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        </Grid>
-        <Button Content="Save" Command="{Binding SaveCommand}"/>
-
-    </StackPanel>
-</Window>
+    </Grid>
+    
+</inf:ViewBase>

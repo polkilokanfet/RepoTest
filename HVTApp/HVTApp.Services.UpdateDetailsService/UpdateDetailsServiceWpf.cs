@@ -34,10 +34,12 @@ namespace HVTApp.Services.UpdateDetailsService
             _wrapperViewDictionary.Add(typeof(TWrapper), typeof(TDetailsView));
         }
 
-        public void UpdateDetails<TEntity, TWrapper>(TWrapper wrapper)
+        public bool UpdateDetails<TEntity, TWrapper>(TWrapper wrapper)
             where TEntity : class, IBaseEntity
             where TWrapper : class, IWrapper<TEntity>
         {
+            bool result = false;
+
             var detailsViewModel = (IDetailsViewModel<TWrapper, TEntity>)_container.Resolve(_wrapperViewModelDictionary[typeof(TWrapper)]);
             detailsViewModel.Load(wrapper);
             var detailsView = (Control)_container.Resolve(_wrapperViewDictionary[typeof(TWrapper)]);
@@ -60,6 +62,7 @@ namespace HVTApp.Services.UpdateDetailsService
                     {
                         wrapper.AcceptChanges();
                         _unitOfWork.Complete();
+                        result = true;
                     }
                     else
                     {
@@ -76,6 +79,8 @@ namespace HVTApp.Services.UpdateDetailsService
 
             if (wrapper.IsChanged)
                 wrapper.RejectChanges();
+
+            return result;
         }
     }
 }

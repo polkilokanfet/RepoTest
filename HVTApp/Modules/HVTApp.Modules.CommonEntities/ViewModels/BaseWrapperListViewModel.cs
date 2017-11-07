@@ -148,7 +148,7 @@ namespace HVTApp.UI.ViewModels
         }
 
 
-        private void InvalidateCommands()
+        protected virtual void InvalidateCommands()
         {
             ((DelegateCommand)NewItemCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)EditItemCommand).RaiseCanExecuteChanged();

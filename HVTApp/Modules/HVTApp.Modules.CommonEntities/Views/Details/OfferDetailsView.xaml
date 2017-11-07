@@ -1,11 +1,11 @@
-﻿<Window x:Class="HVTApp.UI.Views.OfferDetailsWindow"
+﻿<inf:ViewBase x:Class="HVTApp.UI.Views.OfferDetailsView"
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
-             xmlns:infg="http://infragistics.com/DataPresenter"
              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
-             prism:ViewModelLocator.AutoWireViewModel="True"
-             SizeToContent="WidthAndHeight">
+             xmlns:dataPresenter="http://infragistics.com/DataPresenter"
+             prism:ViewModelLocator.AutoWireViewModel="True">
     
     <StackPanel Orientation="Vertical">
         <Grid>
@@ -35,9 +35,11 @@
                                           RemoveItemCommand="{Binding RemoveTenderCommand}"/>
 
         </Grid>
-        
-        <infg:XamDataGrid>
-            
-        </infg:XamDataGrid>
+
+        <dataPresenter:XamDataGrid>
+
+        </dataPresenter:XamDataGrid>
     </StackPanel>
-</Window>
+    
+</inf:ViewBase>
+
