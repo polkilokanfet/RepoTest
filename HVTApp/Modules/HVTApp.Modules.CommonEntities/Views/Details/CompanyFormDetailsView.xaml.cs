@@ -1,13 +1,11 @@
-﻿using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+﻿using Prism.Events;
+using Prism.Regions;
 
 namespace HVTApp.UI.Views
 {
-    /// <summary>
-    /// Interaction logic for CompanyFormDetailsView
-    /// </summary>
-    public partial class CompanyFormDetailsView : IDialog
+    public partial class CompanyFormDetailsView
     {
-        public CompanyFormDetailsView()
+        public CompanyFormDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
         }

@@ -11,7 +11,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
-        <ContentControl Name="ContentControl"></ContentControl>
+        <ContentControl Name="ContentControl"/>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Name="CreateNewButton" Content="Создать" Padding="20,5" Margin="4,4,2,4"/>
             <Button Name="SelectButton" Content="Выбрать" Padding="20,5" Margin="2,4,4,4"/>

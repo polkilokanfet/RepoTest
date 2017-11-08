@@ -2,20 +2,16 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
-using HVTApp.UI.Events;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
-using CompanyWrapper = HVTApp.UI.Wrapper.CompanyWrapper;
 
 namespace HVTApp.UI.ViewModels
 {
-    public partial class CompanyDetailsViewModel : BaseDetailsViewModel<CompanyWrapper, Company, AfterSaveCompanyEvent>
+    public partial class CompanyDetailsViewModel
     {
         private readonly ISelectService _selectService;
         private ActivityFieldWrapper _selectedActivityField;
@@ -39,7 +35,7 @@ namespace HVTApp.UI.ViewModels
             var forms = await WrapperDataService.CompanyFormWrapperDataService.GetAllAsync();
             Forms.AddRange(forms);
 
-            if (wrapper != null) FormId = wrapper.Form.Id;
+            if (wrapper?.Form != null) FormId = wrapper.Form.Id;
         }
 
         public ObservableCollection<CompanyFormWrapper> Forms { get; } = new ObservableCollection<CompanyFormWrapper>();

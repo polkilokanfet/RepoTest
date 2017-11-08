@@ -4,11 +4,13 @@ using Prism.Unity;
 using HVTApp.Views;
 using System.Windows;
 using HVTApp.DataAccess;
+using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.AuthenticationService;
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
+using HVTApp.Model.POCOs;
 using HVTApp.Modules.BaseEntities;
 using HVTApp.Modules.Production;
 using HVTApp.Modules.Sales;
@@ -18,8 +20,11 @@ using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;
 using HVTApp.Services.MessageService;
 using HVTApp.Services.SelectService;
+using HVTApp.Services.UpdateDetailsService;
 using HVTApp.UI;
 using HVTApp.UI.Lookup;
+using HVTApp.UI.ViewModels;
+using HVTApp.UI.Views;
 using HVTApp.UI.Wrapper;
 using Infragistics.Windows.OutlookBar;
 using Infragistics.Windows.Ribbon;
@@ -61,6 +66,8 @@ namespace HVTApp
             Container.RegisterType<ICompanyFormLookupDataService, CompanyFormLookupDataService>();
 
             Container.RegisterType<WrapperDataService>();
+
+            Container.RegisterType<IUpdateDetailsService, UpdateDetailsServiceWpf>(new ContainerControlledLifetimeManager());
 
             Container.RegisterInstance(typeof(IDialogService), new DialogService((Window)Shell));
             Container.RegisterInstance(typeof(IChooseService), new ChooseService((Window)Shell));

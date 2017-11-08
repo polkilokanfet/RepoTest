@@ -47,13 +47,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="POCOs\Address\Address.cs" />
     <Compile Include="POCOs\Address\Country.cs" />
     <Compile Include="POCOs\Address\District.cs" />
     <Compile Include="POCOs\Address\Locality.cs" />
     <Compile Include="POCOs\Address\LocalityType.cs" />
     <Compile Include="POCOs\Address\Region.cs" />
     <Compile Include="POCOs\Units\AdditionalSalesUnits.cs" />
-    <Compile Include="POCOs\Address\Address.cs" />
     <Compile Include="POCOs\BankDetails.cs" />
     <Compile Include="POCOs\Company.cs" />
     <Compile Include="POCOs\CompanyForm.cs" />

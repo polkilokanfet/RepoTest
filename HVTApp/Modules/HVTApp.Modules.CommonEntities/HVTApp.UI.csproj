@@ -92,19 +92,25 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\SaveButtonControl.xaml.cs">
+      <DependentUpon>SaveButtonControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Events\AfterRemoveEntityEvents\AfterRemoveEntityEvents.g.cs" />
     <Compile Include="Events\AfterSaveEntityEvents\AfterSaveEntityEvents.g.cs" />
     <Compile Include="Lookup\Items\Lookups.g.cs" />
     <Compile Include="Lookup\Service\ILookupDataServices.g.cs" />
     <Compile Include="Lookup\Service\ILookupDataService.cs" />
     <Compile Include="Lookup\Service\LookupDataServices.g.cs" />
+    <Compile Include="Tabs\TabPartPriceCRUD.xaml.cs">
+      <DependentUpon>TabPartPriceCRUD.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\BaseDetailsViewModel.cs" />
     <Compile Include="ViewModels\BaseLookupListViewModel.cs" />
     <Compile Include="ViewModels\BaseWrapperListViewModel.cs" />
     <Compile Include="ViewModels\Details\GeneratedDetailsViewModels.g.cs" />
+    <Compile Include="ViewModels\Details\PartDetailsViewModel.cs" />
     <Compile Include="ViewModels\IBaseLookupListViewModel.cs" />
     <Compile Include="ViewModels\IBaseWrapperListViewModel.cs" />
-    <Compile Include="ViewModels\IDetailsViewModel.cs" />
     <Compile Include="Controls\ChooseItemControl.xaml.cs">
       <DependentUpon>ChooseItemControl.xaml</DependentUpon>
     </Compile>
@@ -147,6 +153,16 @@
     <Compile Include="ViewModels\Details\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitsDetailsViewModel.cs" />
     <Compile Include="ViewModels\List\GeneratedListViewModels.g.cs" />
+    <Compile Include="ViewModels\List\PartPriceListViewModel.cs" />
+    <Compile Include="Views\Details\CompanyDetailsView.xaml.cs">
+      <DependentUpon>CompanyDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Details\CompanyFormDetailsView.xaml.cs">
+      <DependentUpon>CompanyFormDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Details\CostOnDateDetailsView.xaml.cs">
+      <DependentUpon>CostOnDateDetailsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\List\AddressListView.xaml.cs">
       <DependentUpon>AddressListView.xaml</DependentUpon>
     </Compile>
@@ -156,6 +172,9 @@
     <Compile Include="Views\List\ListViews.g.cs" />
     <Compile Include="Views\List\OfferListView.xaml.cs">
       <DependentUpon>OfferListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\List\PartPriceListView.xaml.cs">
+      <DependentUpon>PartPriceListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\List\PaymentListView.xaml.cs">
       <DependentUpon>PaymentListView.xaml</DependentUpon>
@@ -167,9 +186,6 @@
       <DependentUpon>TenderListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Details\CompanyDetailsViewModel.cs" />
-    <Compile Include="Views\Details\OfferDetailsWindow.xaml.cs">
-      <DependentUpon>OfferDetailsWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Details\ProductUnitsDetailsWindow.xaml.cs">
       <DependentUpon>ProductUnitsDetailsWindow.xaml</DependentUpon>
     </Compile>
@@ -179,14 +195,8 @@
     <Compile Include="Views\List\ActivityFieldListView.xaml.cs">
       <DependentUpon>ActivityFieldListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Details\CompanyDetailsWindow.xaml.cs">
-      <DependentUpon>CompanyDetailsWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\List\CompanyListView.xaml.cs">
       <DependentUpon>CompanyListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Details\CompanyFormDetailsView.xaml.cs">
-      <DependentUpon>CompanyFormDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\List\CompanyFormListView.xaml.cs">
       <DependentUpon>CompanyFormListView.xaml</DependentUpon>
@@ -208,6 +218,9 @@
     </Compile>
     <Compile Include="Views\List\ProductListView.xaml.cs">
       <DependentUpon>ProductListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Details\OfferDetailsView.xaml.cs">
+      <DependentUpon>OfferDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wrapper\Base\NotifyDataErrorInfoBase.cs" />
     <Compile Include="Wrapper\Base\ObservableWrapper.cs" />
@@ -306,9 +319,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\SaveButtonControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\TabPartPriceCRUD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Tabs\TabCRUD.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Details\CompanyDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Details\CompanyFormDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Details\CostOnDateDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\List\AddressListView.xaml">
       <SubType>Designer</SubType>
@@ -322,6 +355,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\List\PartPriceListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\List\PaymentListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -331,10 +368,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\List\TenderListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Details\OfferDetailsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -350,15 +383,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Details\CompanyDetailsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\List\CompanyListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Details\CompanyFormDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -387,6 +412,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\List\ProductListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Details\OfferDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,4 +1,3 @@
-﻿using System.Linq;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
@@ -12,5 +11,6 @@ namespace HVTApp.Model.POCOs
         {
             return Locality.ToString() + "; " + Description;
         }
+
     }
 }

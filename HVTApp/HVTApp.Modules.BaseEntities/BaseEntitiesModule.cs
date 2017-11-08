@@ -29,7 +29,7 @@ namespace HVTApp.Modules.BaseEntities
             //Container.RegisterViewForNavigation<FacilityListView>();
             //Container.RegisterViewForNavigation<FacilityTypeListView>();
 
-            //_dialogService.Register<CompanyFormDetailsViewModel, CompanyFormDetailsView>();
+            //_dialogService.Register<CompanyFormDetailsViewModel, CompanyFormDetailsView1>();
             //_dialogService.Register<CompanyDetailsViewModel, CompanyDetailsWindow>();
             //_dialogService.Register<ProductDetailsViewModel, ProductDetailsView>();
         }

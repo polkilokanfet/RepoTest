@@ -6,13 +6,20 @@
         
         <Setter Property="FieldSettings">
             <Setter.Value>
-                <infg:FieldSettings AllowEdit="False" AllowRecordFiltering="True"/>
+                <infg:FieldSettings AllowEdit="False" 
+                                    AllowRecordFiltering="True"/>
             </Setter.Value>
         </Setter>
         
         <Setter Property="FieldLayoutSettings">
             <Setter.Value>
-                <infg:FieldLayoutSettings AutoGenerateFields="False" AutoFitMode="Always" AllowAddNew="False" AllowDelete="False" AllowFieldMoving="Yes" AllowRecordFixing="Top"/>
+                <infg:FieldLayoutSettings AutoGenerateFields="False" 
+                                          AutoFitMode="Always" 
+                                          AllowAddNew="False" 
+                                          AllowDelete="False" 
+                                          AllowFieldMoving="Yes" 
+                                          AllowRecordFixing="Top"
+                                          HighlightAlternateRecords="True"/>
             </Setter.Value>
         </Setter>
         

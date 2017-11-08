@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Services.MessageService;
@@ -94,9 +95,9 @@ namespace HVTApp.UI.ViewModels
 
         protected void NewItemCommand_ExecuteAsync()
         {
-            var viewModel = Container.Resolve<TDelailsViewModel>();
-            viewModel.Load();
-            DialogService.ShowDialog(viewModel);
+            var model = Activator.CreateInstance<TModel>();
+            var wrapper = (TWrapper) Activator.CreateInstance(typeof(TWrapper), model);
+            Container.Resolve<IUpdateDetailsService>().UpdateDetails<TModel, TWrapper>(wrapper);
         }
 
         protected virtual bool NewItemCommand_CanExecute()
@@ -107,13 +108,7 @@ namespace HVTApp.UI.ViewModels
 
         protected void EditItemCommand_ExecuteAsync()
         {
-            var viewModel = Container.Resolve<TDelailsViewModel>();
-            viewModel.Load(SelectedItem);
-            var dialogResult = DialogService.ShowDialog(viewModel);
-            if (dialogResult.HasValue && dialogResult.Value)
-                SelectedItem.Refresh();
-            else
-                viewModel.Item.RejectChanges();
+            Container.Resolve<IUpdateDetailsService>().UpdateDetails<TModel, TWrapper>(SelectedItem);
         }
 
         protected virtual bool EditItemCommand_CanExecute()
@@ -153,7 +148,7 @@ namespace HVTApp.UI.ViewModels
         }
 
 
-        private void InvalidateCommands()
+        protected virtual void InvalidateCommands()
         {
             ((DelegateCommand)NewItemCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)EditItemCommand).RaiseCanExecuteChanged();
