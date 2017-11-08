@@ -4,7 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
-             xmlns:dataPresenter="http://infragistics.com/DataPresenter"
+             xmlns:infWpf="http://infragistics.com/DataPresenter"
              prism:ViewModelLocator.AutoWireViewModel="True">
     
     <StackPanel Orientation="Vertical">
@@ -36,9 +36,11 @@
 
         </Grid>
 
-        <dataPresenter:XamDataGrid>
-
-        </dataPresenter:XamDataGrid>
+        <infWpf:XamDataGrid DataSource="{Binding Item.OfferUnits}">
+            <infWpf:FieldLayout>
+                <infWpf:TextField></infWpf:TextField>
+            </infWpf:FieldLayout>
+        </infWpf:XamDataGrid>
     </StackPanel>
     
 </inf:ViewBase>
