@@ -16,7 +16,7 @@ namespace HVTApp.UI.Converter
             if (productUnits == null) throw new ArgumentException();
 
             //Группируем по ключу: продукт + объект + стоимость
-            var groups = productUnits.GroupBy(x => new Group() {Product=x.Product, Facility = x.Facility, Cost = x.Cost}, new Comparer());
+            var groups = productUnits.GroupBy(x => new Group {Product=x.Product, Facility = x.Facility, Cost = x.Cost}, new Comparer());
 
             List<ProductUnitsGroup> projectUnitsGroups = new List<ProductUnitsGroup>();
             foreach (var group in groups)
@@ -26,7 +26,8 @@ namespace HVTApp.UI.Converter
                     Facility = group.Key.Facility,
                     Product = group.Key.Product,
                     Amount = group.Count(),
-                    Cost = group.Key.Cost
+                    Cost = group.Key.Cost,
+                    ProductUnits = new List<IProductUnit>(group)
                 });
             }
             return projectUnitsGroups;

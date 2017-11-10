@@ -1,11 +1,11 @@
 ﻿<inf:ViewBase x:Class="HVTApp.UI.Views.OfferDetailsView"
-             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:prism="http://prismlibrary.com/"
-             xmlns:controls="clr-namespace:HVTApp.UI.Controls"
-             xmlns:infWpf="http://infragistics.com/DataPresenter"
-             prism:ViewModelLocator.AutoWireViewModel="True">
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:prism="http://prismlibrary.com/"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+              xmlns:infWpf="http://infragistics.com/DataPresenter"
+              prism:ViewModelLocator.AutoWireViewModel="True">
     
     <StackPanel Orientation="Vertical">
         <Grid>
@@ -24,23 +24,26 @@
 
             <Label Grid.Row="0" Grid.Column="0" Content="Проект"/>
             <controls:ChooseItemControl Grid.Row="0" Grid.Column="1" 
-                                          Item="{Binding Item.Project, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          AddItemCommand="{Binding AddProjectCommand}"
-                                          RemoveItemCommand="{Binding RemoveProjectCommand}"/>
+                                        Item="{Binding Item.Project, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        AddItemCommand="{Binding AddProjectCommand}"
+                                        RemoveItemCommand="{Binding RemoveProjectCommand}"/>
 
             <Label Grid.Row="1" Grid.Column="0" Content="Конкурс"/>
             <controls:ChooseItemControl Grid.Row="1" Grid.Column="1" 
-                                          Item="{Binding Item.Tender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          AddItemCommand="{Binding AddTenderCommand}"
-                                          RemoveItemCommand="{Binding RemoveTenderCommand}"/>
+                                        Item="{Binding Item.Tender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        AddItemCommand="{Binding AddTenderCommand}"
+                                        RemoveItemCommand="{Binding RemoveTenderCommand}"/>
 
         </Grid>
 
         <infWpf:XamDataGrid DataSource="{Binding Item.OfferUnits}">
             <infWpf:FieldLayout>
-                <infWpf:TextField></infWpf:TextField>
+                <infWpf:FieldLayout.Fields>
+                    <infWpf:TextField Name="Product" Label="Оборудование" Converter="{StaticResource WrapperToStringConverter}"/>
+                </infWpf:FieldLayout.Fields>
             </infWpf:FieldLayout>
         </infWpf:XamDataGrid>
+        
     </StackPanel>
     
 </inf:ViewBase>
