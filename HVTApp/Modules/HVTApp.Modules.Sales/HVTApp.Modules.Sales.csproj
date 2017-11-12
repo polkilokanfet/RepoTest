@@ -110,6 +110,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Tabs\SalesCRUD.xaml.cs">
+      <DependentUpon>SalesCRUD.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\MarketViewModel.cs" />
     <Compile Include="Views\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
@@ -161,6 +164,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Menus\TabProjects.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\SalesCRUD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -2,8 +2,8 @@
 {
     public interface IProductUnit
     {
-        ProductWrapper Product { get; }
-        FacilityWrapper Facility { get; }
-        double Cost { get; }
+        ProductWrapper Product { get; set; }
+        FacilityWrapper Facility { get; set; }
+        double Cost { get; set; }
     }
 }

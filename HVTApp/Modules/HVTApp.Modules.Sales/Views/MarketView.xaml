@@ -86,12 +86,13 @@
         
         <StackPanel Grid.Row="4" Orientation="Vertical">
             <Label>ТКП по проекту</Label>
-            <infg:XamDataGrid DataSource="{Binding SelectedProject.Offers}">
+            <infg:XamDataGrid DataSource="{Binding SelectedProject.Offers}" 
+                              SelectedDataItem="{Binding SelectedOffer}">
                 <infg:XamDataGrid.FieldLayouts>
                     <infg:FieldLayout Key="Offer">
                         <infg:FieldLayout.Fields>
                             <!--<infg:Field Name="Type" Label="Тип" Converter="{StaticResource WrapperToStringConverter}"/>-->
-                            <infg:NumericField Name="Sum" Label="Сумма"/>
+                            <infg:NumericField Name="TotalCost" Label="Сумма"/>
 
                             <infg:Field Name="OfferUnits" Converter="{StaticResource ProductUnitsToProductGroupsConverter}" IsExpandable="True" IsPrimary="True"/>
                         </infg:FieldLayout.Fields>

@@ -16,21 +16,9 @@ namespace HVTApp.UI.Converter
             if (productUnits == null) throw new ArgumentException();
 
             //Группируем по ключу: продукт + объект + стоимость
-            var groups = productUnits.GroupBy(x => new Group {Product=x.Product, Facility = x.Facility, Cost = x.Cost}, new Comparer());
+            var groups = productUnits.GroupBy(x => new ProductGrouper {Product=x.Product, Facility = x.Facility, Cost = x.Cost}, new Comparer());
 
-            List<ProductUnitsGroup> projectUnitsGroups = new List<ProductUnitsGroup>();
-            foreach (var group in groups)
-            {
-                projectUnitsGroups.Add(new ProductUnitsGroup
-                {
-                    Facility = group.Key.Facility,
-                    Product = group.Key.Product,
-                    Amount = group.Count(),
-                    Cost = group.Key.Cost,
-                    ProductUnits = new List<IProductUnit>(group)
-                });
-            }
-            return projectUnitsGroups;
+            return groups.Select(@group => new ProductUnitsGroup(@group)).ToList();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -39,21 +27,21 @@ namespace HVTApp.UI.Converter
         }
     }
 
-    class Group
+    internal class ProductGrouper
     {
         public ProductWrapper Product { get; set; }
         public FacilityWrapper Facility { get; set; }
         public double Cost { get; set; }
     }
 
-    class Comparer : IEqualityComparer<Group>
+    internal class Comparer : IEqualityComparer<ProductGrouper>
     {
-        public bool Equals(Group x, Group y)
+        public bool Equals(ProductGrouper x, ProductGrouper y)
         {
             return Equals(x.Product.Id, y.Product.Id) && Equals(x.Facility.Id, y.Facility.Id) && Equals(x.Cost, y.Cost);
         }
 
-        public int GetHashCode(Group obj)
+        public int GetHashCode(ProductGrouper obj)
         {
             return obj.Product.Id.GetHashCode() + obj.Facility.Id.GetHashCode() + obj.Cost.GetHashCode();
         }

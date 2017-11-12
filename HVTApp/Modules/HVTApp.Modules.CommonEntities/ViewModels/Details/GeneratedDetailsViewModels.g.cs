@@ -289,5 +289,4 @@ namespace HVTApp.UI.ViewModels
     {
         public OfferUnitDetailsViewModel(IUnityContainer container) : base(container) { }
     }
-
 }

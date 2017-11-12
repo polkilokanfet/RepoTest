@@ -38,6 +38,8 @@ namespace HVTApp.Services.UpdateDetailsService
             where TEntity : class, IBaseEntity
             where TWrapper : class, IWrapper<TEntity>
         {
+            if(wrapper == null) throw new ArgumentNullException(nameof(wrapper));
+
             bool result = false;
 
             var detailsViewModel = (IDetailsViewModel<TWrapper, TEntity>)_container.Resolve(_wrapperViewModelDictionary[typeof(TWrapper)]);

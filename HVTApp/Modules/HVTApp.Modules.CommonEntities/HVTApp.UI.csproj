@@ -108,6 +108,7 @@
     <Compile Include="ViewModels\BaseLookupListViewModel.cs" />
     <Compile Include="ViewModels\BaseWrapperListViewModel.cs" />
     <Compile Include="ViewModels\Details\GeneratedDetailsViewModels.g.cs" />
+    <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\PartDetailsViewModel.cs" />
     <Compile Include="ViewModels\IBaseLookupListViewModel.cs" />
     <Compile Include="ViewModels\IBaseWrapperListViewModel.cs" />
@@ -189,8 +190,8 @@
     <Compile Include="Views\Details\ProductUnitsDetailsWindow.xaml.cs">
       <DependentUpon>ProductUnitsDetailsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Details\ProjectDetailsWindow.xaml.cs">
-      <DependentUpon>ProjectDetailsWindow.xaml</DependentUpon>
+    <Compile Include="Views\Details\ProjectDetailsView.xaml.cs">
+      <DependentUpon>ProjectDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\List\ActivityFieldListView.xaml.cs">
       <DependentUpon>ActivityFieldListView.xaml</DependentUpon>
@@ -375,7 +376,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Details\ProjectDetailsWindow.xaml">
+    <Page Include="Views\Details\ProjectDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

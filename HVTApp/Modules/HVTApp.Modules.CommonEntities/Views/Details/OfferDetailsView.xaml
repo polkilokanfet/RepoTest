@@ -1,4 +1,5 @@
-﻿<inf:ViewBase x:Class="HVTApp.UI.Views.OfferDetailsView"
+﻿<inf:ViewBase xmlns:igWpf="http://schemas.infragistics.com/xaml/wpf"  
+              x:Class="HVTApp.UI.Views.OfferDetailsView"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,7 +7,7 @@
               xmlns:controls="clr-namespace:HVTApp.UI.Controls"
               xmlns:infWpf="http://infragistics.com/DataPresenter"
               prism:ViewModelLocator.AutoWireViewModel="True">
-    
+
     <StackPanel Orientation="Vertical">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -36,15 +37,34 @@
 
         </Grid>
 
-        <infWpf:XamDataGrid DataSource="{Binding Item.OfferUnits}">
-            <infWpf:FieldLayout>
-                <infWpf:FieldLayout.Fields>
-                    <infWpf:TextField Name="Product" Label="Оборудование" Converter="{StaticResource WrapperToStringConverter}"/>
-                </infWpf:FieldLayout.Fields>
-            </infWpf:FieldLayout>
+        <infWpf:XamDataGrid DataSource="{Binding Item.OfferUnits, Converter={StaticResource ProductUnitsToProductGroupsConverter}}">
+            <infWpf:XamDataGrid.FieldLayouts>
+                <infWpf:FieldLayout>
+                    <infWpf:FieldLayout.Fields>
+                        <infWpf:TextField Name="Facility" Label="Объект" Converter="{StaticResource WrapperToStringConverter}"/>
+                        <infWpf:TextField Name="Product" Label="Оборудование" Converter="{StaticResource WrapperToStringConverter}"/>
+                        <infWpf:NumericField Name="Amount" Label="Количество"/>
+                        <infWpf:NumericField Name="MarginalIncome" Label="МД, %" AllowEdit="True"/>
+                        <infWpf:NumericField Name="Cost" Label="Стоимость" AllowEdit="True"/>
+                        <infWpf:NumericField Name="Total" Label="Сумма"/>
+                    </infWpf:FieldLayout.Fields>
+                </infWpf:FieldLayout>
+            </infWpf:XamDataGrid.FieldLayouts>
         </infWpf:XamDataGrid>
         
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Общая стоимость: "/>
+            <Label Content="{Binding Item.TotalCost}"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Стоимость с НДС ("/>
+            <igWpf:XamNumericEditor Value="{Binding Item.Vat}"/>
+            <Label Content="%) "></Label>
+            <Label Content="{Binding Item.TotalCostWithVat}"></Label>
+        </StackPanel>
+
     </StackPanel>
-    
+
 </inf:ViewBase>
 
