@@ -29,6 +29,9 @@
             <Label Grid.Row="1" Grid.Column="0" Content="Конкурс"/>
             <Label Grid.Row="1" Grid.Column="1" Content="{Binding Item.Tender}"/>
 
+            <Label Grid.Row="2" Grid.Column="0" Content="Получатель"/>
+            <controls:ChooseItemControl Grid.Row="2" Grid.Column="1" Item="{Binding Item.RecipientEmployee}"/>
+
         </Grid>
 
         <infWpf:XamDataGrid DataSource="{Binding Item.OfferUnits, Converter={StaticResource ProductUnitsToProductGroupsConverter}}">
@@ -54,7 +57,7 @@
         <StackPanel Orientation="Horizontal">
             <Label Content="Стоимость с НДС ("/>
             <igWpf:XamNumericEditor Value="{Binding Item.VatProc}"/>
-            <Label Content="%) "></Label>
+            <Label Content="%): "/>
             <Label Content="{Binding Item.TotalCostWithVat}"></Label>
         </StackPanel>
 
