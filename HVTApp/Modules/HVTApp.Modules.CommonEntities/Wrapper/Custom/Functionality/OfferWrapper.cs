@@ -16,6 +16,20 @@ namespace HVTApp.UI.Wrapper
             }
         }
 
+        public double VatProc
+        {
+            get { return this.Vat * 100; }
+            set
+            {
+                if (value < 0) return;
+                this.Vat = value / 100;
+                OnPropertyChanged();
+            }
+        }
+
+        public double TotalCost => OfferUnits.Sum(x => x.Cost);
+        public double TotalCostWithVat => TotalCost + TotalCost * Vat;
+
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             if (Equals(propertyChangedEventArgs.PropertyName, nameof(Vat)))
@@ -32,8 +46,5 @@ namespace HVTApp.UI.Wrapper
                 OnPropertyChanged(nameof(TotalCostWithVat));
             }
         }
-
-        public double TotalCost => OfferUnits.Sum(x => x.Cost);
-        public double TotalCostWithVat => TotalCost + TotalCost * Vat;
     }
 }

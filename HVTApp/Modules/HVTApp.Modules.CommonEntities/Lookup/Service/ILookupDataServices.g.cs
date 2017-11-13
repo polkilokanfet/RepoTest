@@ -1,12 +1,12 @@
 namespace HVTApp.UI.Lookup
 {
-	public interface IAdditionalSalesUnitsLookupDataService : ILookupDataService<AdditionalSalesUnitsLookup> { } 
 	public interface IAddressLookupDataService : ILookupDataService<AddressLookup> { } 
+	public interface ICountryLookupDataService : ILookupDataService<CountryLookup> { } 
+	public interface IDistrictLookupDataService : ILookupDataService<DistrictLookup> { } 
 	public interface ILocalityLookupDataService : ILookupDataService<LocalityLookup> { } 
 	public interface ILocalityTypeLookupDataService : ILookupDataService<LocalityTypeLookup> { } 
 	public interface IRegionLookupDataService : ILookupDataService<RegionLookup> { } 
-	public interface IDistrictLookupDataService : ILookupDataService<DistrictLookup> { } 
-	public interface ICountryLookupDataService : ILookupDataService<CountryLookup> { } 
+	public interface IAdditionalSalesUnitsLookupDataService : ILookupDataService<AdditionalSalesUnitsLookup> { } 
 	public interface IBankDetailsLookupDataService : ILookupDataService<BankDetailsLookup> { } 
 	public interface ICompanyLookupDataService : ILookupDataService<CompanyLookup> { } 
 	public interface ICompanyFormLookupDataService : ILookupDataService<CompanyFormLookup> { } 

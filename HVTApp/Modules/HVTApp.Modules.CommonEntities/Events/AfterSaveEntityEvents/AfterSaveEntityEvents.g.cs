@@ -3,13 +3,13 @@ using Prism.Events;
 
 namespace HVTApp.UI.Events
 {
-	public partial class AfterSaveAdditionalSalesUnitsEvent : PubSubEvent<AdditionalSalesUnits> { }
 	public partial class AfterSaveAddressEvent : PubSubEvent<Address> { }
+	public partial class AfterSaveCountryEvent : PubSubEvent<Country> { }
+	public partial class AfterSaveDistrictEvent : PubSubEvent<District> { }
 	public partial class AfterSaveLocalityEvent : PubSubEvent<Locality> { }
 	public partial class AfterSaveLocalityTypeEvent : PubSubEvent<LocalityType> { }
 	public partial class AfterSaveRegionEvent : PubSubEvent<Region> { }
-	public partial class AfterSaveDistrictEvent : PubSubEvent<District> { }
-	public partial class AfterSaveCountryEvent : PubSubEvent<Country> { }
+	public partial class AfterSaveAdditionalSalesUnitsEvent : PubSubEvent<AdditionalSalesUnits> { }
 	public partial class AfterSaveBankDetailsEvent : PubSubEvent<BankDetails> { }
 	public partial class AfterSaveCompanyEvent : PubSubEvent<Company> { }
 	public partial class AfterSaveCompanyFormEvent : PubSubEvent<CompanyForm> { }

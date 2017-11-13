@@ -4,14 +4,19 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Lookup
 {
-    public partial class AdditionalSalesUnitsLookupDataService : LookupDataService<AdditionalSalesUnitsLookup, AdditionalSalesUnits>, IAdditionalSalesUnitsLookupDataService
-    {
-        public AdditionalSalesUnitsLookupDataService(HvtAppContext context) : base(context) { }
-    }
-
     public partial class AddressLookupDataService : LookupDataService<AddressLookup, Address>, IAddressLookupDataService
     {
         public AddressLookupDataService(HvtAppContext context) : base(context) { }
+    }
+
+    public partial class CountryLookupDataService : LookupDataService<CountryLookup, Country>, ICountryLookupDataService
+    {
+        public CountryLookupDataService(HvtAppContext context) : base(context) { }
+    }
+
+    public partial class DistrictLookupDataService : LookupDataService<DistrictLookup, District>, IDistrictLookupDataService
+    {
+        public DistrictLookupDataService(HvtAppContext context) : base(context) { }
     }
 
     public partial class LocalityLookupDataService : LookupDataService<LocalityLookup, Locality>, ILocalityLookupDataService
@@ -29,14 +34,9 @@ namespace HVTApp.UI.Lookup
         public RegionLookupDataService(HvtAppContext context) : base(context) { }
     }
 
-    public partial class DistrictLookupDataService : LookupDataService<DistrictLookup, District>, IDistrictLookupDataService
+    public partial class AdditionalSalesUnitsLookupDataService : LookupDataService<AdditionalSalesUnitsLookup, AdditionalSalesUnits>, IAdditionalSalesUnitsLookupDataService
     {
-        public DistrictLookupDataService(HvtAppContext context) : base(context) { }
-    }
-
-    public partial class CountryLookupDataService : LookupDataService<CountryLookup, Country>, ICountryLookupDataService
-    {
-        public CountryLookupDataService(HvtAppContext context) : base(context) { }
+        public AdditionalSalesUnitsLookupDataService(HvtAppContext context) : base(context) { }
     }
 
     public partial class BankDetailsLookupDataService : LookupDataService<BankDetailsLookup, BankDetails>, IBankDetailsLookupDataService

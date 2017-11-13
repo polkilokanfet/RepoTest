@@ -6,18 +6,27 @@ using Prism.Regions;
 namespace HVTApp.UI.Views
 {
     [RibbonTab(typeof(TabCRUD))]
-    public partial class AdditionalSalesUnitsListView //: ViewBase
+    public partial class AddressListView //: ViewBase
     {
-        //public AdditionalSalesUnitsListView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        //public AddressListView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         //{
         //    InitializeComponent();
         //}
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class AddressListView //: ViewBase
+    public partial class CountryListView //: ViewBase
     {
-        //public AddressListView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        //public CountryListView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        //{
+        //    InitializeComponent();
+        //}
+    }
+
+    [RibbonTab(typeof(TabCRUD))]
+    public partial class DistrictListView //: ViewBase
+    {
+        //public DistrictListView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         //{
         //    InitializeComponent();
         //}
@@ -51,18 +60,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class DistrictListView //: ViewBase
+    public partial class AdditionalSalesUnitsListView //: ViewBase
     {
-        //public DistrictListView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
-        //{
-        //    InitializeComponent();
-        //}
-    }
-
-    [RibbonTab(typeof(TabCRUD))]
-    public partial class CountryListView //: ViewBase
-    {
-        //public CountryListView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        //public AdditionalSalesUnitsListView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         //{
         //    InitializeComponent();
         //}

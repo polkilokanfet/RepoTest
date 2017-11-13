@@ -4,51 +4,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Wrapper
 {
-	public partial class AdditionalSalesUnitsWrapper : WrapperBase<AdditionalSalesUnits>
-	{
-	    public AdditionalSalesUnitsWrapper(AdditionalSalesUnits model) : base(model) { }
-
-	
-        #region SimpleProperties
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-        #endregion
-
-        #region ComplexProperties
-	    public SalesUnitWrapper AdditionalSalesUnit 
-        {
-            get { return GetWrapper<SalesUnitWrapper>(); }
-            set { SetComplexValue<SalesUnit, SalesUnitWrapper>(AdditionalSalesUnit, value); }
-        }
-
-        #endregion
-
-        #region CollectionProperties
-        public IValidatableChangeTrackingCollection<SalesUnitWrapper> ParentSalesUnits { get; private set; }
-
-        #endregion
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<SalesUnitWrapper>(nameof(AdditionalSalesUnit), Model.AdditionalSalesUnit == null ? null : new SalesUnitWrapper(Model.AdditionalSalesUnit));
-
-        }
-  
-        protected override void InitializeCollectionProperties()
-        {
-          if (Model.ParentSalesUnits == null) throw new ArgumentException("ParentSalesUnits cannot be null");
-          ParentSalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.ParentSalesUnits.Select(e => new SalesUnitWrapper(e)));
-          RegisterCollection(ParentSalesUnits, Model.ParentSalesUnits);
-
-        }
-	}
-
-		public partial class AddressWrapper : WrapperBase<Address>
+	public partial class AddressWrapper : WrapperBase<Address>
 	{
 	    public AddressWrapper(Address model) : base(model) { }
 
@@ -83,6 +39,90 @@ namespace HVTApp.UI.Wrapper
         public override void InitializeComplexProperties()
         {
             InitializeComplexProperty<LocalityWrapper>(nameof(Locality), Model.Locality == null ? null : new LocalityWrapper(Model.Locality));
+
+        }
+	}
+
+		public partial class CountryWrapper : WrapperBase<Country>
+	{
+	    public CountryWrapper(Country model) : base(model) { }
+
+	
+        #region SimpleProperties
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region CollectionProperties
+        public IValidatableChangeTrackingCollection<DistrictWrapper> Districts { get; private set; }
+
+        #endregion
+  
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.Districts == null) throw new ArgumentException("Districts cannot be null");
+          Districts = new ValidatableChangeTrackingCollection<DistrictWrapper>(Model.Districts.Select(e => new DistrictWrapper(e)));
+          RegisterCollection(Districts, Model.Districts);
+
+        }
+	}
+
+		public partial class DistrictWrapper : WrapperBase<District>
+	{
+	    public DistrictWrapper(District model) : base(model) { }
+
+	
+        #region SimpleProperties
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+        public System.Guid CountryId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid CountryIdOriginalValue => GetOriginalValue<System.Guid>(nameof(CountryId));
+        public bool CountryIdIsChanged => GetIsChanged(nameof(CountryId));
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region CollectionProperties
+        public IValidatableChangeTrackingCollection<RegionWrapper> Regions { get; private set; }
+
+        #endregion
+  
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.Regions == null) throw new ArgumentException("Regions cannot be null");
+          Regions = new ValidatableChangeTrackingCollection<RegionWrapper>(Model.Regions.Select(e => new RegionWrapper(e)));
+          RegisterCollection(Regions, Model.Regions);
 
         }
 	}
@@ -245,28 +285,12 @@ namespace HVTApp.UI.Wrapper
         }
 	}
 
-		public partial class DistrictWrapper : WrapperBase<District>
+		public partial class AdditionalSalesUnitsWrapper : WrapperBase<AdditionalSalesUnits>
 	{
-	    public DistrictWrapper(District model) : base(model) { }
+	    public AdditionalSalesUnitsWrapper(AdditionalSalesUnits model) : base(model) { }
 
 	
         #region SimpleProperties
-        public System.String Name
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
-        public bool NameIsChanged => GetIsChanged(nameof(Name));
-
-        public System.Guid CountryId
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid CountryIdOriginalValue => GetOriginalValue<System.Guid>(nameof(CountryId));
-        public bool CountryIdIsChanged => GetIsChanged(nameof(CountryId));
-
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -277,54 +301,30 @@ namespace HVTApp.UI.Wrapper
 
         #endregion
 
-        #region CollectionProperties
-        public IValidatableChangeTrackingCollection<RegionWrapper> Regions { get; private set; }
-
-        #endregion
-  
-        protected override void InitializeCollectionProperties()
+        #region ComplexProperties
+	    public SalesUnitWrapper AdditionalSalesUnit 
         {
-          if (Model.Regions == null) throw new ArgumentException("Regions cannot be null");
-          Regions = new ValidatableChangeTrackingCollection<RegionWrapper>(Model.Regions.Select(e => new RegionWrapper(e)));
-          RegisterCollection(Regions, Model.Regions);
-
+            get { return GetWrapper<SalesUnitWrapper>(); }
+            set { SetComplexValue<SalesUnit, SalesUnitWrapper>(AdditionalSalesUnit, value); }
         }
-	}
-
-		public partial class CountryWrapper : WrapperBase<Country>
-	{
-	    public CountryWrapper(Country model) : base(model) { }
-
-	
-        #region SimpleProperties
-        public System.String Name
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
-        public bool NameIsChanged => GetIsChanged(nameof(Name));
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
 
         #endregion
 
         #region CollectionProperties
-        public IValidatableChangeTrackingCollection<DistrictWrapper> Districts { get; private set; }
+        public IValidatableChangeTrackingCollection<SalesUnitWrapper> ParentSalesUnits { get; private set; }
 
         #endregion
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<SalesUnitWrapper>(nameof(AdditionalSalesUnit), Model.AdditionalSalesUnit == null ? null : new SalesUnitWrapper(Model.AdditionalSalesUnit));
+
+        }
   
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Districts == null) throw new ArgumentException("Districts cannot be null");
-          Districts = new ValidatableChangeTrackingCollection<DistrictWrapper>(Model.Districts.Select(e => new DistrictWrapper(e)));
-          RegisterCollection(Districts, Model.Districts);
+          if (Model.ParentSalesUnits == null) throw new ArgumentException("ParentSalesUnits cannot be null");
+          ParentSalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.ParentSalesUnits.Select(e => new SalesUnitWrapper(e)));
+          RegisterCollection(ParentSalesUnits, Model.ParentSalesUnits);
 
         }
 	}
@@ -2397,6 +2397,54 @@ namespace HVTApp.UI.Wrapper
         public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
         public bool VatIsChanged => GetIsChanged(nameof(Vat));
 
+        public System.Nullable<System.Guid> AuthorId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> AuthorIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(AuthorId));
+        public bool AuthorIdIsChanged => GetIsChanged(nameof(AuthorId));
+
+        public System.Guid SenderId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid SenderIdOriginalValue => GetOriginalValue<System.Guid>(nameof(SenderId));
+        public bool SenderIdIsChanged => GetIsChanged(nameof(SenderId));
+
+        public System.Guid RecipientId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid RecipientIdOriginalValue => GetOriginalValue<System.Guid>(nameof(RecipientId));
+        public bool RecipientIdIsChanged => GetIsChanged(nameof(RecipientId));
+
+        public System.Guid RegistrationDetailsOfSenderId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid RegistrationDetailsOfSenderIdOriginalValue => GetOriginalValue<System.Guid>(nameof(RegistrationDetailsOfSenderId));
+        public bool RegistrationDetailsOfSenderIdIsChanged => GetIsChanged(nameof(RegistrationDetailsOfSenderId));
+
+        public System.Guid RegistrationDetailsOfRecipientId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid RegistrationDetailsOfRecipientIdOriginalValue => GetOriginalValue<System.Guid>(nameof(RegistrationDetailsOfRecipientId));
+        public bool RegistrationDetailsOfRecipientIdIsChanged => GetIsChanged(nameof(RegistrationDetailsOfRecipientId));
+
+        public System.String Comment
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2408,10 +2456,40 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
-	    public DocumentWrapper Document 
+	    public DocumentWrapper RequestDocument 
         {
             get { return GetWrapper<DocumentWrapper>(); }
-            set { SetComplexValue<Document, DocumentWrapper>(Document, value); }
+            set { SetComplexValue<Document, DocumentWrapper>(RequestDocument, value); }
+        }
+
+	    public EmployeeWrapper Author 
+        {
+            get { return GetWrapper<EmployeeWrapper>(); }
+            set { SetComplexValue<Employee, EmployeeWrapper>(Author, value); }
+        }
+
+	    public EmployeeWrapper SenderEmployee 
+        {
+            get { return GetWrapper<EmployeeWrapper>(); }
+            set { SetComplexValue<Employee, EmployeeWrapper>(SenderEmployee, value); }
+        }
+
+	    public EmployeeWrapper RecipientEmployee 
+        {
+            get { return GetWrapper<EmployeeWrapper>(); }
+            set { SetComplexValue<Employee, EmployeeWrapper>(RecipientEmployee, value); }
+        }
+
+	    public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfSender 
+        {
+            get { return GetWrapper<DocumentsRegistrationDetailsWrapper>(); }
+            set { SetComplexValue<DocumentsRegistrationDetails, DocumentsRegistrationDetailsWrapper>(RegistrationDetailsOfSender, value); }
+        }
+
+	    public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfRecipient 
+        {
+            get { return GetWrapper<DocumentsRegistrationDetailsWrapper>(); }
+            set { SetComplexValue<DocumentsRegistrationDetails, DocumentsRegistrationDetailsWrapper>(RegistrationDetailsOfRecipient, value); }
         }
 
         #endregion
@@ -2419,10 +2497,22 @@ namespace HVTApp.UI.Wrapper
         #region CollectionProperties
         public IValidatableChangeTrackingCollection<OfferUnitWrapper> OfferUnits { get; private set; }
 
+        public IValidatableChangeTrackingCollection<EmployeeWrapper> CopyToRecipients { get; private set; }
+
         #endregion
         public override void InitializeComplexProperties()
         {
-            InitializeComplexProperty<DocumentWrapper>(nameof(Document), Model.Document == null ? null : new DocumentWrapper(Model.Document));
+            InitializeComplexProperty<DocumentWrapper>(nameof(RequestDocument), Model.RequestDocument == null ? null : new DocumentWrapper(Model.RequestDocument));
+
+            InitializeComplexProperty<EmployeeWrapper>(nameof(Author), Model.Author == null ? null : new EmployeeWrapper(Model.Author));
+
+            InitializeComplexProperty<EmployeeWrapper>(nameof(SenderEmployee), Model.SenderEmployee == null ? null : new EmployeeWrapper(Model.SenderEmployee));
+
+            InitializeComplexProperty<EmployeeWrapper>(nameof(RecipientEmployee), Model.RecipientEmployee == null ? null : new EmployeeWrapper(Model.RecipientEmployee));
+
+            InitializeComplexProperty<DocumentsRegistrationDetailsWrapper>(nameof(RegistrationDetailsOfSender), Model.RegistrationDetailsOfSender == null ? null : new DocumentsRegistrationDetailsWrapper(Model.RegistrationDetailsOfSender));
+
+            InitializeComplexProperty<DocumentsRegistrationDetailsWrapper>(nameof(RegistrationDetailsOfRecipient), Model.RegistrationDetailsOfRecipient == null ? null : new DocumentsRegistrationDetailsWrapper(Model.RegistrationDetailsOfRecipient));
 
         }
   
@@ -2431,6 +2521,10 @@ namespace HVTApp.UI.Wrapper
           if (Model.OfferUnits == null) throw new ArgumentException("OfferUnits cannot be null");
           OfferUnits = new ValidatableChangeTrackingCollection<OfferUnitWrapper>(Model.OfferUnits.Select(e => new OfferUnitWrapper(e)));
           RegisterCollection(OfferUnits, Model.OfferUnits);
+
+          if (Model.CopyToRecipients == null) throw new ArgumentException("CopyToRecipients cannot be null");
+          CopyToRecipients = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.CopyToRecipients.Select(e => new EmployeeWrapper(e)));
+          RegisterCollection(CopyToRecipients, Model.CopyToRecipients);
 
         }
 	}

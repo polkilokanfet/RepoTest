@@ -1,12 +1,12 @@
 namespace HVTApp.UI.Lookup
 {
-	public partial class AdditionalSalesUnitsLookup : LookupItem { }
 	public partial class AddressLookup : LookupItem { }
+	public partial class CountryLookup : LookupItem { }
+	public partial class DistrictLookup : LookupItem { }
 	public partial class LocalityLookup : LookupItem { }
 	public partial class LocalityTypeLookup : LookupItem { }
 	public partial class RegionLookup : LookupItem { }
-	public partial class DistrictLookup : LookupItem { }
-	public partial class CountryLookup : LookupItem { }
+	public partial class AdditionalSalesUnitsLookup : LookupItem { }
 	public partial class BankDetailsLookup : LookupItem { }
 	public partial class CompanyLookup : LookupItem { }
 	public partial class CompanyFormLookup : LookupItem { }
