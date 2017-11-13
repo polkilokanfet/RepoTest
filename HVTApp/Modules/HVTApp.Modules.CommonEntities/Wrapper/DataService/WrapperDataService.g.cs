@@ -6,13 +6,13 @@ namespace HVTApp.UI.Wrapper
     {
         public WrapperDataService(IUnitOfWork unitOfWork)
         {
-            AdditionalSalesUnitsWrapperDataService = new AdditionalSalesUnitsWrapperDataService(unitOfWork);
             AddressWrapperDataService = new AddressWrapperDataService(unitOfWork);
+            CountryWrapperDataService = new CountryWrapperDataService(unitOfWork);
+            DistrictWrapperDataService = new DistrictWrapperDataService(unitOfWork);
             LocalityWrapperDataService = new LocalityWrapperDataService(unitOfWork);
             LocalityTypeWrapperDataService = new LocalityTypeWrapperDataService(unitOfWork);
             RegionWrapperDataService = new RegionWrapperDataService(unitOfWork);
-            DistrictWrapperDataService = new DistrictWrapperDataService(unitOfWork);
-            CountryWrapperDataService = new CountryWrapperDataService(unitOfWork);
+            AdditionalSalesUnitsWrapperDataService = new AdditionalSalesUnitsWrapperDataService(unitOfWork);
             BankDetailsWrapperDataService = new BankDetailsWrapperDataService(unitOfWork);
             CompanyWrapperDataService = new CompanyWrapperDataService(unitOfWork);
             CompanyFormWrapperDataService = new CompanyFormWrapperDataService(unitOfWork);
@@ -65,13 +65,13 @@ namespace HVTApp.UI.Wrapper
             OfferUnitWrapperDataService = new OfferUnitWrapperDataService(unitOfWork);
         }
 
-        public AdditionalSalesUnitsWrapperDataService AdditionalSalesUnitsWrapperDataService { get; }
         public AddressWrapperDataService AddressWrapperDataService { get; }
+        public CountryWrapperDataService CountryWrapperDataService { get; }
+        public DistrictWrapperDataService DistrictWrapperDataService { get; }
         public LocalityWrapperDataService LocalityWrapperDataService { get; }
         public LocalityTypeWrapperDataService LocalityTypeWrapperDataService { get; }
         public RegionWrapperDataService RegionWrapperDataService { get; }
-        public DistrictWrapperDataService DistrictWrapperDataService { get; }
-        public CountryWrapperDataService CountryWrapperDataService { get; }
+        public AdditionalSalesUnitsWrapperDataService AdditionalSalesUnitsWrapperDataService { get; }
         public BankDetailsWrapperDataService BankDetailsWrapperDataService { get; }
         public CompanyWrapperDataService CompanyWrapperDataService { get; }
         public CompanyFormWrapperDataService CompanyFormWrapperDataService { get; }

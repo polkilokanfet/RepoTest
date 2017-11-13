@@ -5,14 +5,19 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.ViewModels
 {
-    public partial class AdditionalSalesUnitsListViewModel : BaseWrapperListViewModel<AdditionalSalesUnitsWrapper, AdditionalSalesUnits, AdditionalSalesUnitsDetailsViewModel, AfterSaveAdditionalSalesUnitsEvent>
-    {
-        public AdditionalSalesUnitsListViewModel(IUnityContainer container, AdditionalSalesUnitsWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
-    }
-
     public partial class AddressListViewModel : BaseWrapperListViewModel<AddressWrapper, Address, AddressDetailsViewModel, AfterSaveAddressEvent>
     {
         public AddressListViewModel(IUnityContainer container, AddressWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+    }
+
+    public partial class CountryListViewModel : BaseWrapperListViewModel<CountryWrapper, Country, CountryDetailsViewModel, AfterSaveCountryEvent>
+    {
+        public CountryListViewModel(IUnityContainer container, CountryWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+    }
+
+    public partial class DistrictListViewModel : BaseWrapperListViewModel<DistrictWrapper, District, DistrictDetailsViewModel, AfterSaveDistrictEvent>
+    {
+        public DistrictListViewModel(IUnityContainer container, DistrictWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
     }
 
     public partial class LocalityListViewModel : BaseWrapperListViewModel<LocalityWrapper, Locality, LocalityDetailsViewModel, AfterSaveLocalityEvent>
@@ -30,14 +35,9 @@ namespace HVTApp.UI.ViewModels
         public RegionListViewModel(IUnityContainer container, RegionWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
     }
 
-    public partial class DistrictListViewModel : BaseWrapperListViewModel<DistrictWrapper, District, DistrictDetailsViewModel, AfterSaveDistrictEvent>
+    public partial class AdditionalSalesUnitsListViewModel : BaseWrapperListViewModel<AdditionalSalesUnitsWrapper, AdditionalSalesUnits, AdditionalSalesUnitsDetailsViewModel, AfterSaveAdditionalSalesUnitsEvent>
     {
-        public DistrictListViewModel(IUnityContainer container, DistrictWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
-    }
-
-    public partial class CountryListViewModel : BaseWrapperListViewModel<CountryWrapper, Country, CountryDetailsViewModel, AfterSaveCountryEvent>
-    {
-        public CountryListViewModel(IUnityContainer container, CountryWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public AdditionalSalesUnitsListViewModel(IUnityContainer container, AdditionalSalesUnitsWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
     }
 
     public partial class BankDetailsListViewModel : BaseWrapperListViewModel<BankDetailsWrapper, BankDetails, BankDetailsDetailsViewModel, AfterSaveBankDetailsEvent>

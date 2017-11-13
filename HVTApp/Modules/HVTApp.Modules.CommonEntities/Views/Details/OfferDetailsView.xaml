@@ -24,16 +24,10 @@
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Content="Проект"/>
-            <controls:ChooseItemControl Grid.Row="0" Grid.Column="1" 
-                                        Item="{Binding Item.Project, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        AddItemCommand="{Binding AddProjectCommand}"
-                                        RemoveItemCommand="{Binding RemoveProjectCommand}"/>
+            <Label Grid.Row="0" Grid.Column="1" Content="{Binding Item.Project}"/>
 
             <Label Grid.Row="1" Grid.Column="0" Content="Конкурс"/>
-            <controls:ChooseItemControl Grid.Row="1" Grid.Column="1" 
-                                        Item="{Binding Item.Tender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        AddItemCommand="{Binding AddTenderCommand}"
-                                        RemoveItemCommand="{Binding RemoveTenderCommand}"/>
+            <Label Grid.Row="1" Grid.Column="1" Content="{Binding Item.Tender}"/>
 
         </Grid>
 
@@ -59,7 +53,7 @@
 
         <StackPanel Orientation="Horizontal">
             <Label Content="Стоимость с НДС ("/>
-            <igWpf:XamNumericEditor Value="{Binding Item.Vat}"/>
+            <igWpf:XamNumericEditor Value="{Binding Item.VatProc}"/>
             <Label Content="%) "></Label>
             <Label Content="{Binding Item.TotalCostWithVat}"></Label>
         </StackPanel>

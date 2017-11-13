@@ -149,9 +149,7 @@ namespace HVTApp.TestDataGenerator
         public OfferUnit OfferUnitZng1103;
                 
         public Offer OfferMrsk;
-                
-        public Document DocumentOfferMrsk;
-                
+                               
         public Order OrderVeb110;
         public Order OrderZng110;
                 
@@ -224,7 +222,6 @@ namespace HVTApp.TestDataGenerator
             GenerateOffers();
             GenerateOfferUnits();
             GeneratePaymentConditions();
-            GenerateDocuments();
         }
 
         private void GenerateCompanyForms()
@@ -471,12 +468,8 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateOffers()
         {
-            OfferMrsk.Clone(new Offer { Vat = 0.18, Document = DocumentOfferMrsk, OfferUnits= new List<OfferUnit> {OfferUnitVeb1101, OfferUnitVeb1102, OfferUnitZng1101, OfferUnitZng1102, OfferUnitZng1103}, ValidityDate = DateTime.Today.AddDays(60) });
-        }
-
-        private void GenerateDocuments()
-        {
-            DocumentOfferMrsk.Clone(new Document { Author = EmployeeIvanov, SenderEmployee = EmployeeIvanov, RecipientEmployee = EmployeeSidorov, CopyToRecipients = new List<Employee> {EmployeePetrov}, RegistrationDetailsOfSender = new DocumentsRegistrationDetails { RegistrationNumber = "7412-17-0212", RegistrationDate = DateTime.Today }, RegistrationDetailsOfRecipient = new DocumentsRegistrationDetails { RegistrationNumber = "12f455", RegistrationDate = DateTime.Today.AddDays(-3) } });
+            OfferMrsk.Clone(new Offer { Vat = 0.18, OfferUnits = new List<OfferUnit> {OfferUnitVeb1101, OfferUnitVeb1102, OfferUnitZng1101, OfferUnitZng1102, OfferUnitZng1103}, ValidityDate = DateTime.Today.AddDays(60),
+                Author = EmployeeIvanov, SenderEmployee = EmployeeIvanov, RecipientEmployee = EmployeeSidorov, CopyToRecipients = new List<Employee> {EmployeePetrov}, RegistrationDetailsOfSender = new DocumentsRegistrationDetails { RegistrationNumber = "7412-17-0212", RegistrationDate = DateTime.Today }, RegistrationDetailsOfRecipient = new DocumentsRegistrationDetails { RegistrationNumber = "12f455", RegistrationDate = DateTime.Today.AddDays(-3) }});
         }
 
         private void GenerateTenderTypes()

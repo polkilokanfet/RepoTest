@@ -5,14 +5,19 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.ViewModels
 {
-    public partial class AdditionalSalesUnitsDetailsViewModel : BaseDetailsViewModel<AdditionalSalesUnitsWrapper, AdditionalSalesUnits, AfterSaveAdditionalSalesUnitsEvent>
-    {
-        public AdditionalSalesUnitsDetailsViewModel(IUnityContainer container) : base(container) { }
-    }
-
     public partial class AddressDetailsViewModel : BaseDetailsViewModel<AddressWrapper, Address, AfterSaveAddressEvent>
     {
         public AddressDetailsViewModel(IUnityContainer container) : base(container) { }
+    }
+
+    public partial class CountryDetailsViewModel : BaseDetailsViewModel<CountryWrapper, Country, AfterSaveCountryEvent>
+    {
+        public CountryDetailsViewModel(IUnityContainer container) : base(container) { }
+    }
+
+    public partial class DistrictDetailsViewModel : BaseDetailsViewModel<DistrictWrapper, District, AfterSaveDistrictEvent>
+    {
+        public DistrictDetailsViewModel(IUnityContainer container) : base(container) { }
     }
 
     public partial class LocalityDetailsViewModel : BaseDetailsViewModel<LocalityWrapper, Locality, AfterSaveLocalityEvent>
@@ -30,14 +35,9 @@ namespace HVTApp.UI.ViewModels
         public RegionDetailsViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class DistrictDetailsViewModel : BaseDetailsViewModel<DistrictWrapper, District, AfterSaveDistrictEvent>
+    public partial class AdditionalSalesUnitsDetailsViewModel : BaseDetailsViewModel<AdditionalSalesUnitsWrapper, AdditionalSalesUnits, AfterSaveAdditionalSalesUnitsEvent>
     {
-        public DistrictDetailsViewModel(IUnityContainer container) : base(container) { }
-    }
-
-    public partial class CountryDetailsViewModel : BaseDetailsViewModel<CountryWrapper, Country, AfterSaveCountryEvent>
-    {
-        public CountryDetailsViewModel(IUnityContainer container) : base(container) { }
+        public AdditionalSalesUnitsDetailsViewModel(IUnityContainer container) : base(container) { }
     }
 
     public partial class BankDetailsDetailsViewModel : BaseDetailsViewModel<BankDetailsWrapper, BankDetails, AfterSaveBankDetailsEvent>
@@ -289,4 +289,5 @@ namespace HVTApp.UI.ViewModels
     {
         public OfferUnitDetailsViewModel(IUnityContainer container) : base(container) { }
     }
+
 }

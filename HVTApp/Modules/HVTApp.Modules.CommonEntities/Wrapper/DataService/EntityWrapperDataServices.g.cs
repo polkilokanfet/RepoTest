@@ -4,16 +4,6 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Wrapper
 {
-    public partial class AdditionalSalesUnitsWrapperDataService : EntityWrapperDataService<AdditionalSalesUnits, AdditionalSalesUnitsWrapper>
-    {
-        public AdditionalSalesUnitsWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-		
-		protected override AdditionalSalesUnitsWrapper GenerateWrapper(AdditionalSalesUnits model)
-        {
-            return new AdditionalSalesUnitsWrapper(model);
-        }
-    }
-
     public partial class AddressWrapperDataService : EntityWrapperDataService<Address, AddressWrapper>
     {
         public AddressWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -21,6 +11,26 @@ namespace HVTApp.UI.Wrapper
 		protected override AddressWrapper GenerateWrapper(Address model)
         {
             return new AddressWrapper(model);
+        }
+    }
+
+    public partial class CountryWrapperDataService : EntityWrapperDataService<Country, CountryWrapper>
+    {
+        public CountryWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		
+		protected override CountryWrapper GenerateWrapper(Country model)
+        {
+            return new CountryWrapper(model);
+        }
+    }
+
+    public partial class DistrictWrapperDataService : EntityWrapperDataService<District, DistrictWrapper>
+    {
+        public DistrictWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		
+		protected override DistrictWrapper GenerateWrapper(District model)
+        {
+            return new DistrictWrapper(model);
         }
     }
 
@@ -54,23 +64,13 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-    public partial class DistrictWrapperDataService : EntityWrapperDataService<District, DistrictWrapper>
+    public partial class AdditionalSalesUnitsWrapperDataService : EntityWrapperDataService<AdditionalSalesUnits, AdditionalSalesUnitsWrapper>
     {
-        public DistrictWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+        public AdditionalSalesUnitsWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
-		protected override DistrictWrapper GenerateWrapper(District model)
+		protected override AdditionalSalesUnitsWrapper GenerateWrapper(AdditionalSalesUnits model)
         {
-            return new DistrictWrapper(model);
-        }
-    }
-
-    public partial class CountryWrapperDataService : EntityWrapperDataService<Country, CountryWrapper>
-    {
-        public CountryWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-		
-		protected override CountryWrapper GenerateWrapper(Country model)
-        {
-            return new CountryWrapper(model);
+            return new AdditionalSalesUnitsWrapper(model);
         }
     }
 
