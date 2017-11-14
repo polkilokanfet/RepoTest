@@ -466,8 +466,6 @@ namespace HVTApp.UI.Wrapper
 
         public IValidatableChangeTrackingCollection<ActivityFieldWrapper> ActivityFilds { get; private set; }
 
-        public IValidatableChangeTrackingCollection<EmployeeWrapper> Employees { get; private set; }
-
         #endregion
         public override void InitializeComplexProperties()
         {
@@ -490,10 +488,6 @@ namespace HVTApp.UI.Wrapper
           if (Model.ActivityFilds == null) throw new ArgumentException("ActivityFilds cannot be null");
           ActivityFilds = new ValidatableChangeTrackingCollection<ActivityFieldWrapper>(Model.ActivityFilds.Select(e => new ActivityFieldWrapper(e)));
           RegisterCollection(ActivityFilds, Model.ActivityFilds);
-
-          if (Model.Employees == null) throw new ArgumentException("Employees cannot be null");
-          Employees = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.Employees.Select(e => new EmployeeWrapper(e)));
-          RegisterCollection(Employees, Model.Employees);
 
         }
 	}
@@ -2567,14 +2561,6 @@ namespace HVTApp.UI.Wrapper
         public System.String EmailOriginalValue => GetOriginalValue<System.String>(nameof(Email));
         public bool EmailIsChanged => GetIsChanged(nameof(Email));
 
-        public System.Guid CompanyId
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid CompanyIdOriginalValue => GetOriginalValue<System.Guid>(nameof(CompanyId));
-        public bool CompanyIdIsChanged => GetIsChanged(nameof(CompanyId));
-
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2586,6 +2572,12 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
+	    public CompanyWrapper Company 
+        {
+            get { return GetWrapper<CompanyWrapper>(); }
+            set { SetComplexValue<Company, CompanyWrapper>(Company, value); }
+        }
+
 	    public EmployeesPositionWrapper Position 
         {
             get { return GetWrapper<EmployeesPositionWrapper>(); }
@@ -2595,6 +2587,8 @@ namespace HVTApp.UI.Wrapper
         #endregion
         public override void InitializeComplexProperties()
         {
+            InitializeComplexProperty<CompanyWrapper>(nameof(Company), Model.Company == null ? null : new CompanyWrapper(Model.Company));
+
             InitializeComplexProperty<EmployeesPositionWrapper>(nameof(Position), Model.Position == null ? null : new EmployeesPositionWrapper(Model.Position));
 
         }

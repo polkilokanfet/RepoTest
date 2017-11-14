@@ -40,10 +40,10 @@
                     <infWpf:FieldLayout.Fields>
                         <infWpf:TextField Name="Facility" Label="Объект" Converter="{StaticResource WrapperToStringConverter}"/>
                         <infWpf:TextField Name="Product" Label="Оборудование" Converter="{StaticResource WrapperToStringConverter}"/>
-                        <infWpf:NumericField Name="Amount" Label="Количество"/>
-                        <infWpf:NumericField Name="MarginalIncome" Label="МД, %" AllowEdit="True"/>
-                        <infWpf:NumericField Name="Cost" Label="Стоимость" AllowEdit="True"/>
-                        <infWpf:NumericField Name="Total" Label="Сумма"/>
+                        <infWpf:NumericField Name="Amount" Label="Количество" Width="Auto"/>
+                        <infWpf:NumericField Name="MarginalIncome" Label="МД, %" AllowEdit="True" Width="Auto"/>
+                        <infWpf:CurrencyField Name="Cost" Label="Стоимость" AllowEdit="True"/>
+                        <infWpf:CurrencyField Name="Total" Label="Сумма" Width="Auto"/>
                     </infWpf:FieldLayout.Fields>
                 </infWpf:FieldLayout>
             </infWpf:XamDataGrid.FieldLayouts>

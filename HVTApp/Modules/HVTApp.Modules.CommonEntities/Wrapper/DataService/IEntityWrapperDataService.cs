@@ -11,5 +11,6 @@ namespace HVTApp.UI.Wrapper
         where TWrapper : IWrapper<TModel>
     {
         Task<IEnumerable<TWrapper>> GetAllAsync();
+        Task<TWrapper> GetByIdAsync(Guid id);
     }
 }

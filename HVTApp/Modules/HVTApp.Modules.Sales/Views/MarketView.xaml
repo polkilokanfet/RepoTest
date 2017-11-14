@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             xmlns:infg="http://infragistics.com/DataPresenter"
+             xmlns:ig="http://infragistics.com/DataPresenter"
              x:Class="HVTApp.Modules.Sales.Views.MarketView"
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
@@ -22,95 +22,100 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+            
+        <GroupBox Grid.Row="0" Header="Проекты" >
+            <ScrollViewer>
+                <ig:XamDataGrid DataSource="{Binding Projects}"
+                                  SelectedDataItem="{Binding SelectedProject, Mode=TwoWay}">
 
-        <infg:XamDataGrid Grid.Row="0"
-                          DataSource="{Binding Projects}"
-                          SelectedDataItem="{Binding SelectedProject, Mode=TwoWay}">
+                    <ig:XamDataGrid.FieldLayouts>
+                        <ig:FieldLayout Key="Project">
+                            <ig:FieldLayout.Fields>
+                                <ig:TextField Name="Name" Label="Проект"/>
+                                <ig:TextField Name="Facilities" Label="Объекты" Converter="{StaticResource WrappersToStringConverter}"/>
+                                <ig:NumericField Name="Sum" Label="Сумма"/>
 
-            <infg:XamDataGrid.FieldLayouts>
-                <infg:FieldLayout Key="Project">
-                    <infg:FieldLayout.Fields>
-                        <infg:TextField Name="Name" Label="Проект"/>
-                        <infg:TextField Name="Facilities" Label="Объекты" Converter="{StaticResource WrappersToStringConverter}"/>
-                        <infg:NumericField Name="Sum" Label="Сумма"/>
+                                <ig:Field Name="ProjectUnits" Converter="{StaticResource ProductUnitsToProductGroupsConverter}" IsExpandable="True" IsPrimary="True"/>
+                            </ig:FieldLayout.Fields>
+                        </ig:FieldLayout>
 
-                        <infg:Field Name="ProjectUnits" Converter="{StaticResource ProductUnitsToProductGroupsConverter}" IsExpandable="True" IsPrimary="True"/>
-                    </infg:FieldLayout.Fields>
-                </infg:FieldLayout>
+                        <ig:FieldLayout Key="ProjectUnit" ParentFieldLayoutKey="Project" ParentFieldName="ProjectUnits">
+                            <ig:FieldLayout.Fields>
+                                <ig:TextField Name="Facility" Label="Объект" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <ig:TextField Name="Product" Label="Оборудование" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <ig:NumericField Name="Amount" Label="Количество"/>
+                                <ig:NumericField Name="Cost" Label="Стоимость"/>
+                                <ig:NumericField Name="Total" Label="Сумма"/>
+                            </ig:FieldLayout.Fields>
+                        </ig:FieldLayout>
 
-                <infg:FieldLayout Key="ProjectUnit" ParentFieldLayoutKey="Project" ParentFieldName="ProjectUnits">
-                    <infg:FieldLayout.Fields>
-                        <infg:TextField Name="Facility" Label="Объект" Converter="{StaticResource WrapperToStringConverter}"/>
-                        <infg:TextField Name="Product" Label="Оборудование" Converter="{StaticResource WrapperToStringConverter}"/>
-                        <infg:NumericField Name="Amount" Label="Количество"/>
-                        <infg:NumericField Name="Cost" Label="Стоимость"/>
-                        <infg:NumericField Name="Total" Label="Сумма"/>
-                    </infg:FieldLayout.Fields>
-                </infg:FieldLayout>
+                    </ig:XamDataGrid.FieldLayouts>
 
-            </infg:XamDataGrid.FieldLayouts>
-
-        </infg:XamDataGrid>
-
-        <GridSplitter Grid.Row="1" Height="5" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                </ig:XamDataGrid>
+            </ScrollViewer>
+        </GroupBox>
         
-        <StackPanel Grid.Row="2" Orientation="Vertical">
-            <Label>Конкурсы по проекту</Label>
-            <infg:XamDataGrid DataSource="{Binding SelectedProject.Tenders}">
-                <infg:XamDataGrid.FieldLayouts>
-                    <infg:FieldLayout Key="Tender">
-                        <infg:FieldLayout.Fields>
-                            <infg:TextField Name="Type" Label="Тип" Converter="{StaticResource WrapperToStringConverter}"/>
-                            <infg:NumericField Name="Sum" Label="Сумма"/>
-                            <infg:TextField Name="Winner" Label="Победитель" Converter="{StaticResource WrapperToStringConverter}"/>
-
-                            <infg:Field Name="TenderUnits" Converter="{StaticResource ProductUnitsToProductGroupsConverter}" IsExpandable="True" IsPrimary="True"/>
-                        </infg:FieldLayout.Fields>
-                    </infg:FieldLayout>
-
-                    <infg:FieldLayout Key="TenderUnit" ParentFieldLayoutKey="Tender" ParentFieldName="TenderUnits">
-                        <infg:FieldLayout.Fields>
-                            <infg:TextField Name="Facility" Label="Объект" Converter="{StaticResource WrapperToStringConverter}"/>
-                            <infg:TextField Name="Product" Label="Оборудование" Converter="{StaticResource WrapperToStringConverter}"/>
-                            <infg:NumericField Name="Amount" Label="Количество"/>
-                            <infg:NumericField Name="Cost" Label="Стоимость"/>
-                            <infg:NumericField Name="Total" Label="Сумма"/>
-                        </infg:FieldLayout.Fields>
-                    </infg:FieldLayout>
-
-                </infg:XamDataGrid.FieldLayouts>
-            </infg:XamDataGrid>
-        </StackPanel>
-
-        <GridSplitter Grid.Row="3" Height="5" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        <GridSplitter Grid.Row="1" Height="2" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
         
-        <StackPanel Grid.Row="4" Orientation="Vertical">
-            <Label>ТКП по проекту</Label>
-            <infg:XamDataGrid DataSource="{Binding SelectedProject.Offers}" 
-                              SelectedDataItem="{Binding SelectedOffer}">
-                <infg:XamDataGrid.FieldLayouts>
-                    <infg:FieldLayout Key="Offer">
-                        <infg:FieldLayout.Fields>
-                            <!--<infg:Field Name="Type" Label="Тип" Converter="{StaticResource WrapperToStringConverter}"/>-->
-                            <infg:NumericField Name="TotalCost" Label="Сумма"/>
+        <GroupBox Grid.Row="2" Header="Конкурсы">
+            <ScrollViewer>
+                <ig:XamDataGrid DataSource="{Binding SelectedProject.Tenders}">
+                    <ig:XamDataGrid.FieldLayouts>
+                        <ig:FieldLayout Key="Tender">
+                            <ig:FieldLayout.Fields>
+                                <ig:TextField Name="Type" Label="Тип" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <ig:NumericField Name="Sum" Label="Сумма"/>
+                                <ig:TextField Name="Winner" Label="Победитель" Converter="{StaticResource WrapperToStringConverter}"/>
 
-                            <infg:Field Name="OfferUnits" Converter="{StaticResource ProductUnitsToProductGroupsConverter}" IsExpandable="True" IsPrimary="True"/>
-                        </infg:FieldLayout.Fields>
-                    </infg:FieldLayout>
+                                <ig:Field Name="TenderUnits" Converter="{StaticResource ProductUnitsToProductGroupsConverter}" IsExpandable="True" IsPrimary="True"/>
+                            </ig:FieldLayout.Fields>
+                        </ig:FieldLayout>
 
-                    <infg:FieldLayout Key="OfferUnit" ParentFieldLayoutKey="Offer" ParentFieldName="OfferUnits">
-                        <infg:FieldLayout.Fields>
-                            <infg:TextField Name="Facility" Label="Объект" Converter="{StaticResource WrapperToStringConverter}"/>
-                            <infg:TextField Name="Product" Label="Оборудование" Converter="{StaticResource WrapperToStringConverter}"/>
-                            <infg:NumericField Name="Amount" Label="Количество"/>
-                            <infg:NumericField Name="Cost" Label="Стоимость"/>
-                            <infg:NumericField Name="Total" Label="Сумма"/>
-                        </infg:FieldLayout.Fields>
-                    </infg:FieldLayout>
+                        <ig:FieldLayout Key="TenderUnit" ParentFieldLayoutKey="Tender" ParentFieldName="TenderUnits">
+                            <ig:FieldLayout.Fields>
+                                <ig:TextField Name="Facility" Label="Объект" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <ig:TextField Name="Product" Label="Оборудование" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <ig:NumericField Name="Amount" Label="Количество"/>
+                                <ig:NumericField Name="Cost" Label="Стоимость"/>
+                                <ig:NumericField Name="Total" Label="Сумма"/>
+                            </ig:FieldLayout.Fields>
+                        </ig:FieldLayout>
 
-                </infg:XamDataGrid.FieldLayouts>
-            </infg:XamDataGrid>
-        </StackPanel>
+                    </ig:XamDataGrid.FieldLayouts>
+                </ig:XamDataGrid>
+            </ScrollViewer>
+        </GroupBox>
+
+        <GridSplitter Grid.Row="3" Height="2" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        
+        <GroupBox Grid.Row="4" Header="Предложения">
+            <ScrollViewer>
+                <ig:XamDataGrid DataSource="{Binding SelectedProject.Offers}"
+                                SelectedDataItem="{Binding SelectedOffer}">
+                    <ig:XamDataGrid.FieldLayouts>
+                        <ig:FieldLayout Key="Offer">
+                            <ig:FieldLayout.Fields>
+                                <ig:TextField Label="Компания" AlternateBinding="{Binding RecipientEmployee.Company}" BindingType="UseAlternateBinding" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <ig:CurrencyField Label="Сумма" Name="TotalCost"/>
+
+                                <ig:Field Name="OfferUnits" Converter="{StaticResource ProductUnitsToProductGroupsConverter}" IsExpandable="True" IsPrimary="True"/>
+                            </ig:FieldLayout.Fields>
+                        </ig:FieldLayout>
+
+                        <ig:FieldLayout Key="OfferUnit" ParentFieldLayoutKey="Offer" ParentFieldName="OfferUnits">
+                            <ig:FieldLayout.Fields>
+                                <ig:TextField Name="Facility" Label="Объект" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <ig:TextField Name="Product" Label="Оборудование" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <ig:NumericField Name="Amount" Label="Количество"/>
+                                <ig:NumericField Name="Cost" Label="Стоимость"/>
+                                <ig:NumericField Name="Total" Label="Сумма"/>
+                            </ig:FieldLayout.Fields>
+                        </ig:FieldLayout>
+
+                    </ig:XamDataGrid.FieldLayouts>
+                </ig:XamDataGrid>
+            </ScrollViewer>
+        </GroupBox>
 
     </Grid>
 

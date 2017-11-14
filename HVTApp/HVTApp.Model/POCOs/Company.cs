@@ -17,7 +17,6 @@ namespace HVTApp.Model.POCOs
         public virtual Address AddressPost { get; set; }
         public virtual List<BankDetails> BankDetailsList { get; set; } = new List<BankDetails>();
         public virtual List<ActivityField> ActivityFilds { get; set; } = new List<ActivityField>();
-        public virtual List<Employee> Employees { get; set; } = new List<Employee>();
 
         public override string ToString()
         {

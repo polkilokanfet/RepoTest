@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
@@ -12,6 +13,8 @@ namespace HVTApp.UI.Wrapper
         where TWrapper : class, IWrapper<TModel>
     {
         protected readonly IUnitOfWork UnitOfWork;
+
+        protected readonly List<TWrapper> ExistsWrappers = new List<TWrapper>();
 
         protected EntityWrapperDataService(IUnitOfWork unitOfWork)
         {
@@ -46,12 +49,26 @@ namespace HVTApp.UI.Wrapper
 
         protected virtual TWrapper GenerateWrapper(TModel model)
         {
-            return Activator.CreateInstance(typeof(TWrapper), model) as TWrapper;
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            TWrapper wrapper = Activator.CreateInstance(typeof(TWrapper), model) as TWrapper;
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
 
         public void Dispose()
         {
             UnitOfWork?.Dispose();
+        }
+
+        public async Task<TWrapper> GetByIdAsync(Guid id)
+        {
+            if (ExistsWrappers.Any(x => x.Model.Id == id))
+                return ExistsWrappers.Single(x => x.Model.Id == id);
+
+            TModel model = await UnitOfWork.GetRepository<TModel>().GetByIdAsync(id);
+            return GenerateWrapper(model);
         }
     }
 }

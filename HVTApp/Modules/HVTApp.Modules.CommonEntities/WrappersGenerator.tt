@@ -192,7 +192,7 @@ namespace HVTApp.UI.ViewModels
 
 	private void GenerateEntityWrapperDataServices(IEnumerable<Type> modelTypes)
 	{
-#>using System;
+#>using System.Linq;
 using HVTApp.DataAccess;
 using HVTApp.Model.POCOs;
 
@@ -208,7 +208,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override <#=modelType.Name#>Wrapper GenerateWrapper(<#=modelType.Name#> model)
         {
-            return new <#=modelType.Name#>Wrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new <#=modelType.Name#>Wrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 

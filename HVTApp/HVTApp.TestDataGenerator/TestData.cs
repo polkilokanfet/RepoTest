@@ -303,9 +303,9 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateEmployees()
         {
-            EmployeeIvanov.Clone(new Employee { PersonId = PersonIvanov.Id, Position = EmployeesPositionDirector, CompanyId = CompanyUetm.Id, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true });
-            EmployeePetrov.Clone(new Employee { PersonId = PersonPetrov.Id, Position = EmployeesPositionDirector, CompanyId = CompanyFsk.Id, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true });
-            EmployeeSidorov.Clone(new Employee { PersonId = PersonSidorov.Id, Position = EmployeesPositionDirector, CompanyId = CompanyEnel.Id, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true });
+            EmployeeIvanov.Clone(new Employee { PersonId = PersonIvanov.Id, Position = EmployeesPositionDirector, Company = CompanyUetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true });
+            EmployeePetrov.Clone(new Employee { PersonId = PersonPetrov.Id, Position = EmployeesPositionDirector, Company = CompanyFsk, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true });
+            EmployeeSidorov.Clone(new Employee { PersonId = PersonSidorov.Id, Position = EmployeesPositionDirector, Company = CompanyEnel, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true });
         }
 
         private void GenerateUserRoles()

@@ -233,6 +233,7 @@
     <Compile Include="Wrapper\Custom\Functionality\ContractWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\CountryWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\DistrictWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\EmployeeWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\OfferUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\OfferWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ParameterWrapper.cs" />

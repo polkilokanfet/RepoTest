@@ -1,4 +1,4 @@
-using System;
+using System.Linq;
 using HVTApp.DataAccess;
 using HVTApp.Model.POCOs;
 
@@ -10,7 +10,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override AddressWrapper GenerateWrapper(Address model)
         {
-            return new AddressWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new AddressWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -20,7 +25,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override CountryWrapper GenerateWrapper(Country model)
         {
-            return new CountryWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new CountryWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -30,7 +40,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override DistrictWrapper GenerateWrapper(District model)
         {
-            return new DistrictWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new DistrictWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -40,7 +55,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override LocalityWrapper GenerateWrapper(Locality model)
         {
-            return new LocalityWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new LocalityWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -50,7 +70,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override LocalityTypeWrapper GenerateWrapper(LocalityType model)
         {
-            return new LocalityTypeWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new LocalityTypeWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -60,7 +85,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override RegionWrapper GenerateWrapper(Region model)
         {
-            return new RegionWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new RegionWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -70,7 +100,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override AdditionalSalesUnitsWrapper GenerateWrapper(AdditionalSalesUnits model)
         {
-            return new AdditionalSalesUnitsWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new AdditionalSalesUnitsWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -80,7 +115,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override BankDetailsWrapper GenerateWrapper(BankDetails model)
         {
-            return new BankDetailsWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new BankDetailsWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -90,7 +130,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override CompanyWrapper GenerateWrapper(Company model)
         {
-            return new CompanyWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new CompanyWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -100,7 +145,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override CompanyFormWrapper GenerateWrapper(CompanyForm model)
         {
-            return new CompanyFormWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new CompanyFormWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -110,7 +160,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override DocumentsRegistrationDetailsWrapper GenerateWrapper(DocumentsRegistrationDetails model)
         {
-            return new DocumentsRegistrationDetailsWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new DocumentsRegistrationDetailsWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -120,7 +175,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override EmployeesPositionWrapper GenerateWrapper(EmployeesPosition model)
         {
-            return new EmployeesPositionWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new EmployeesPositionWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -130,7 +190,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override FacilityTypeWrapper GenerateWrapper(FacilityType model)
         {
-            return new FacilityTypeWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new FacilityTypeWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -140,7 +205,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override ActivityFieldWrapper GenerateWrapper(ActivityField model)
         {
-            return new ActivityFieldWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new ActivityFieldWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -150,7 +220,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override ContractWrapper GenerateWrapper(Contract model)
         {
-            return new ContractWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new ContractWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -160,7 +235,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override MeasureWrapper GenerateWrapper(Measure model)
         {
-            return new MeasureWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new MeasureWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -170,7 +250,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override ParameterWrapper GenerateWrapper(Parameter model)
         {
-            return new ParameterWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new ParameterWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -180,7 +265,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override ParameterGroupWrapper GenerateWrapper(ParameterGroup model)
         {
-            return new ParameterGroupWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new ParameterGroupWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -190,7 +280,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override PartWrapper GenerateWrapper(Part model)
         {
-            return new PartWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new PartWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -200,7 +295,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override ProductsRelationWrapper GenerateWrapper(ProductsRelation model)
         {
-            return new ProductsRelationWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new ProductsRelationWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -210,7 +310,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override StandartPaymentConditionsWrapper GenerateWrapper(StandartPaymentConditions model)
         {
-            return new StandartPaymentConditionsWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new StandartPaymentConditionsWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -220,7 +325,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override PersonWrapper GenerateWrapper(Person model)
         {
-            return new PersonWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new PersonWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -230,7 +340,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override PaymentPlannedWrapper GenerateWrapper(PaymentPlanned model)
         {
-            return new PaymentPlannedWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new PaymentPlannedWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -240,7 +355,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override PaymentActualWrapper GenerateWrapper(PaymentActual model)
         {
-            return new PaymentActualWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new PaymentActualWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -250,7 +370,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override RequiredPreviousParametersWrapper GenerateWrapper(RequiredPreviousParameters model)
         {
-            return new RequiredPreviousParametersWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new RequiredPreviousParametersWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -260,7 +385,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override ProjectUnitWrapper GenerateWrapper(ProjectUnit model)
         {
-            return new ProjectUnitWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new ProjectUnitWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -270,7 +400,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override TenderUnitWrapper GenerateWrapper(TenderUnit model)
         {
-            return new TenderUnitWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new TenderUnitWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -280,7 +415,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override ShipmentUnitWrapper GenerateWrapper(ShipmentUnit model)
         {
-            return new ShipmentUnitWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new ShipmentUnitWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -290,7 +430,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override ProductionUnitWrapper GenerateWrapper(ProductionUnit model)
         {
-            return new ProductionUnitWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new ProductionUnitWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -300,7 +445,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override SalesUnitWrapper GenerateWrapper(SalesUnit model)
         {
-            return new SalesUnitWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new SalesUnitWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -310,7 +460,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override TestFriendAddressWrapper GenerateWrapper(TestFriendAddress model)
         {
-            return new TestFriendAddressWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new TestFriendAddressWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -320,7 +475,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override TestFriendWrapper GenerateWrapper(TestFriend model)
         {
-            return new TestFriendWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new TestFriendWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -330,7 +490,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override TestFriendEmailWrapper GenerateWrapper(TestFriendEmail model)
         {
-            return new TestFriendEmailWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new TestFriendEmailWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -340,7 +505,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override TestFriendGroupWrapper GenerateWrapper(TestFriendGroup model)
         {
-            return new TestFriendGroupWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new TestFriendGroupWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -350,7 +520,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override DocumentWrapper GenerateWrapper(Document model)
         {
-            return new DocumentWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new DocumentWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -360,7 +535,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override TestEntityWrapper GenerateWrapper(TestEntity model)
         {
-            return new TestEntityWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new TestEntityWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -370,7 +550,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override TestHusbandWrapper GenerateWrapper(TestHusband model)
         {
-            return new TestHusbandWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new TestHusbandWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -380,7 +565,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override TestWifeWrapper GenerateWrapper(TestWife model)
         {
-            return new TestWifeWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new TestWifeWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -390,7 +580,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override TestChildWrapper GenerateWrapper(TestChild model)
         {
-            return new TestChildWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new TestChildWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -400,7 +595,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override CostOnDateWrapper GenerateWrapper(CostOnDate model)
         {
-            return new CostOnDateWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new CostOnDateWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -410,7 +610,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override CostWrapper GenerateWrapper(Cost model)
         {
-            return new CostWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new CostWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -420,7 +625,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override CurrencyWrapper GenerateWrapper(Currency model)
         {
-            return new CurrencyWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new CurrencyWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -430,7 +640,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override ExchangeCurrencyRateWrapper GenerateWrapper(ExchangeCurrencyRate model)
         {
-            return new ExchangeCurrencyRateWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new ExchangeCurrencyRateWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -440,7 +655,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override ProductWrapper GenerateWrapper(Product model)
         {
-            return new ProductWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new ProductWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -450,7 +670,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override OfferWrapper GenerateWrapper(Offer model)
         {
-            return new OfferWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new OfferWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -460,7 +685,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override EmployeeWrapper GenerateWrapper(Employee model)
         {
-            return new EmployeeWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new EmployeeWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -470,7 +700,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override OrderWrapper GenerateWrapper(Order model)
         {
-            return new OrderWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new OrderWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -480,7 +715,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override PaymentConditionWrapper GenerateWrapper(PaymentCondition model)
         {
-            return new PaymentConditionWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new PaymentConditionWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -490,7 +730,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override PaymentDocumentWrapper GenerateWrapper(PaymentDocument model)
         {
-            return new PaymentDocumentWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new PaymentDocumentWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -500,7 +745,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override FacilityWrapper GenerateWrapper(Facility model)
         {
-            return new FacilityWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new FacilityWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -510,7 +760,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override ProjectWrapper GenerateWrapper(Project model)
         {
-            return new ProjectWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new ProjectWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -520,7 +775,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override UserRoleWrapper GenerateWrapper(UserRole model)
         {
-            return new UserRoleWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new UserRoleWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -530,7 +790,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override SpecificationWrapper GenerateWrapper(Specification model)
         {
-            return new SpecificationWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new SpecificationWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -540,7 +805,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override TenderWrapper GenerateWrapper(Tender model)
         {
-            return new TenderWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new TenderWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -550,7 +820,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override TenderTypeWrapper GenerateWrapper(TenderType model)
         {
-            return new TenderTypeWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new TenderTypeWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -560,7 +835,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override UserWrapper GenerateWrapper(User model)
         {
-            return new UserWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new UserWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
@@ -570,7 +850,12 @@ namespace HVTApp.UI.Wrapper
 		
 		protected override OfferUnitWrapper GenerateWrapper(OfferUnit model)
         {
-            return new OfferUnitWrapper(model);
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new OfferUnitWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
         }
     }
 
