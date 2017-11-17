@@ -55,9 +55,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HVTApp.DataAccess\HVTApp.DataAccess.csproj">
+      <Project>{9CF80C25-C04B-46B3-8EB7-F45BC42D4BA2}</Project>
+      <Name>HVTApp.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
       <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
       <Name>HVTApp.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Model\HVTApp.Model.csproj">
+      <Project>{350BDAB0-B331-426F-A024-004C8539AF17}</Project>
+      <Name>HVTApp.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\HVTApp.Modules.CommonEntities\HVTApp.UI.csproj">
       <Project>{984DF0F0-471D-4E38-B701-9DFC536217A8}</Project>

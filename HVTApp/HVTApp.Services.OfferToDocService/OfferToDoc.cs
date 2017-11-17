@@ -1,24 +1,44 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Media;
+using HVTApp.DataAccess;
+using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 using Infragistics.Documents.Word;
 
 namespace HVTApp.Services.OfferToDocService
 {
+    public static class WordDocumentWriterExt
+    {
+        public static void Paragraph(this WordDocumentWriter docWriter, string text)
+        {
+            docWriter.StartParagraph();
+            docWriter.AddTextRun(text);
+            docWriter.EndParagraph();
+        }
+    }
+
     public class OfferToDoc : IOfferToDoc
     {
-        public void GenerateOfferDoc(OfferWrapper offerWrapper)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public OfferToDoc(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        public async Task GenerateOfferDoc(OfferWrapper offer)
         {
             string offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestOfferDocument.docx";
             WordDocumentWriter docWriter = WordDocumentWriter.Create(offerDocumentPath);
             docWriter.StartDocument();
-            docWriter.StartParagraph();
-            docWriter.AddTextRun($"Recipient: {offerWrapper.RecipientEmployee}");
-            docWriter.EndParagraph();
+            docWriter.Paragraph($"Получатель");
+            docWriter.Paragraph($"должность: {offer.RecipientEmployee.Position.Name}");
+            docWriter.Paragraph($"компания: {offer.RecipientEmployee.Company}");
+            Person person = await _unitOfWork.GetRepository<Person>().GetByIdAsync(offer.RecipientEmployee.PersonId);
+            docWriter.Paragraph($"Ф.И.О.: {person.Surname} {person.Name} {person.Patronymic}");
 
-            docWriter.StartParagraph();
-            docWriter.AddTextRun($"Validity Date: {offerWrapper.ValidityDate.ToShortDateString()}");
-            docWriter.EndParagraph();
+            docWriter.Paragraph($"Validity Date: {offer.ValidityDate.ToShortDateString()}");
 
 
             //Table

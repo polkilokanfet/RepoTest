@@ -1,9 +1,10 @@
-﻿using HVTApp.UI.Wrapper;
+﻿using System.Threading.Tasks;
+using HVTApp.UI.Wrapper;
 
 namespace HVTApp.Services.OfferToDocService
 {
     public interface IOfferToDoc
     {
-        void GenerateOfferDoc(OfferWrapper offerWrapper);
+        Task GenerateOfferDoc(OfferWrapper offer);
     }
 }
