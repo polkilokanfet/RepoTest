@@ -5,13 +5,13 @@ namespace HVTApp.DataAccess
 {
     public partial interface IUnitOfWork
     {
-        IAdditionalSalesUnitsRepository AdditionalSalesUnitsRepository { get; }
         IAddressRepository AddressRepository { get; }
+        ICountryRepository CountryRepository { get; }
+        IDistrictRepository DistrictRepository { get; }
         ILocalityRepository LocalityRepository { get; }
         ILocalityTypeRepository LocalityTypeRepository { get; }
         IRegionRepository RegionRepository { get; }
-        IDistrictRepository DistrictRepository { get; }
-        ICountryRepository CountryRepository { get; }
+        IAdditionalSalesUnitsRepository AdditionalSalesUnitsRepository { get; }
         IBankDetailsRepository BankDetailsRepository { get; }
         ICompanyRepository CompanyRepository { get; }
         ICompanyFormRepository CompanyFormRepository { get; }

@@ -27,7 +27,7 @@ namespace HVTApp.Services.OfferToDocService
             _unitOfWork = unitOfWork;
         }
 
-        public async Task GenerateOfferDoc(OfferWrapper offer)
+        public async Task GenerateOfferDocAsync(OfferWrapper offer)
         {
             string offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestOfferDocument.docx";
             WordDocumentWriter docWriter = WordDocumentWriter.Create(offerDocumentPath);

@@ -1,18 +1,21 @@
-﻿using HVTApp.TestDataGenerator;
+﻿using System.Threading.Tasks;
+using HVTApp.DataAccess;
+using HVTApp.Services.OfferToDocService;
+using HVTApp.TestDataGenerator;
 using HVTApp.UI.Wrapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HVTApp.Services.OfferToDocService.Tests
+namespace HVTApp.Services.OfferToDocServiceTests
 {
     [TestClass()]
     public class OfferToDocTests
     {
         [TestMethod()]
-        public void GenerateOfferDocTest()
+        public async Task GenerateOfferDocTest()
         {
-            OfferWrapper offerWrapper = new OfferWrapper(new TestData().OfferMrsk); 
-            OfferToDoc offerToDoc = new OfferToDoc();
-            offerToDoc.GenerateOfferDoc(offerWrapper);
+            var offerWrapper = new OfferWrapper(new TestData().OfferMrsk); 
+            var offerToDoc = new OfferToDoc(new UnitOfWorkTest(new TestData()));
+            await offerToDoc.GenerateOfferDocAsync(offerWrapper);
         }
     }
 }

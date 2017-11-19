@@ -9,13 +9,13 @@ namespace HVTApp.DataAccess
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 			#region Configurations
-            modelBuilder.Configurations.Add(new AdditionalSalesUnitsConfiguration());
             modelBuilder.Configurations.Add(new AddressConfiguration());
+            modelBuilder.Configurations.Add(new CountryConfiguration());
+            modelBuilder.Configurations.Add(new DistrictConfiguration());
             modelBuilder.Configurations.Add(new LocalityConfiguration());
             modelBuilder.Configurations.Add(new LocalityTypeConfiguration());
             modelBuilder.Configurations.Add(new RegionConfiguration());
-            modelBuilder.Configurations.Add(new DistrictConfiguration());
-            modelBuilder.Configurations.Add(new CountryConfiguration());
+            modelBuilder.Configurations.Add(new AdditionalSalesUnitsConfiguration());
             modelBuilder.Configurations.Add(new BankDetailsConfiguration());
             modelBuilder.Configurations.Add(new CompanyConfiguration());
             modelBuilder.Configurations.Add(new CompanyFormConfiguration());
@@ -72,13 +72,13 @@ namespace HVTApp.DataAccess
         }
 
 		#region DbSets
-        public virtual DbSet<AdditionalSalesUnits> AdditionalSalesUnitsDbSet { get; set; }
         public virtual DbSet<Address> AddressDbSet { get; set; }
+        public virtual DbSet<Country> CountryDbSet { get; set; }
+        public virtual DbSet<District> DistrictDbSet { get; set; }
         public virtual DbSet<Locality> LocalityDbSet { get; set; }
         public virtual DbSet<LocalityType> LocalityTypeDbSet { get; set; }
         public virtual DbSet<Region> RegionDbSet { get; set; }
-        public virtual DbSet<District> DistrictDbSet { get; set; }
-        public virtual DbSet<Country> CountryDbSet { get; set; }
+        public virtual DbSet<AdditionalSalesUnits> AdditionalSalesUnitsDbSet { get; set; }
         public virtual DbSet<BankDetails> BankDetailsDbSet { get; set; }
         public virtual DbSet<Company> CompanyDbSet { get; set; }
         public virtual DbSet<CompanyForm> CompanyFormDbSet { get; set; }

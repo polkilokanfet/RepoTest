@@ -13,13 +13,13 @@ namespace HVTApp.DataAccess
         {
             _context = context;
 			#region RepositoriesInit
-            AdditionalSalesUnitsRepository = new AdditionalSalesUnitsRepository(context);
             AddressRepository = new AddressRepository(context);
+            CountryRepository = new CountryRepository(context);
+            DistrictRepository = new DistrictRepository(context);
             LocalityRepository = new LocalityRepository(context);
             LocalityTypeRepository = new LocalityTypeRepository(context);
             RegionRepository = new RegionRepository(context);
-            DistrictRepository = new DistrictRepository(context);
-            CountryRepository = new CountryRepository(context);
+            AdditionalSalesUnitsRepository = new AdditionalSalesUnitsRepository(context);
             BankDetailsRepository = new BankDetailsRepository(context);
             CompanyRepository = new CompanyRepository(context);
             CompanyFormRepository = new CompanyFormRepository(context);
@@ -75,13 +75,13 @@ namespace HVTApp.DataAccess
 
 
         #region Repositories
-        public IAdditionalSalesUnitsRepository AdditionalSalesUnitsRepository { get; }
         public IAddressRepository AddressRepository { get; }
+        public ICountryRepository CountryRepository { get; }
+        public IDistrictRepository DistrictRepository { get; }
         public ILocalityRepository LocalityRepository { get; }
         public ILocalityTypeRepository LocalityTypeRepository { get; }
         public IRegionRepository RegionRepository { get; }
-        public IDistrictRepository DistrictRepository { get; }
-        public ICountryRepository CountryRepository { get; }
+        public IAdditionalSalesUnitsRepository AdditionalSalesUnitsRepository { get; }
         public IBankDetailsRepository BankDetailsRepository { get; }
         public ICompanyRepository CompanyRepository { get; }
         public ICompanyFormRepository CompanyFormRepository { get; }

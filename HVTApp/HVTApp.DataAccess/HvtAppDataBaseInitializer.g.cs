@@ -12,13 +12,13 @@ namespace HVTApp.DataAccess
         {
             TestData testData = new TestData();
 
-            context.AdditionalSalesUnitsDbSet.AddRange(testData.GetAll<AdditionalSalesUnits>());
             context.AddressDbSet.AddRange(testData.GetAll<Address>());
+            context.CountryDbSet.AddRange(testData.GetAll<Country>());
+            context.DistrictDbSet.AddRange(testData.GetAll<District>());
             context.LocalityDbSet.AddRange(testData.GetAll<Locality>());
             context.LocalityTypeDbSet.AddRange(testData.GetAll<LocalityType>());
             context.RegionDbSet.AddRange(testData.GetAll<Region>());
-            context.DistrictDbSet.AddRange(testData.GetAll<District>());
-            context.CountryDbSet.AddRange(testData.GetAll<Country>());
+            context.AdditionalSalesUnitsDbSet.AddRange(testData.GetAll<AdditionalSalesUnits>());
             context.BankDetailsDbSet.AddRange(testData.GetAll<BankDetails>());
             context.CompanyDbSet.AddRange(testData.GetAll<Company>());
             context.CompanyFormDbSet.AddRange(testData.GetAll<CompanyForm>());

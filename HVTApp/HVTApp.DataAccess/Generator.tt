@@ -14,70 +14,118 @@
 <#
   IEnumerable<Type> modelTypes = GetModelTypes();
 
-  foreach (var modelType in modelTypes)
-  {
-	GenerateConfiguration(modelType);
-	SaveGeneratedCodeAsFile(modelType.Name + "Configuration.g.cs", "EntityTypeConfigurations/Generated");
-
-	GenerateIRepository(modelType);
-	SaveGeneratedCodeAsFile("I" + modelType.Name + "Repository.g.cs", "UnitOfWork/Repositories/IRepository/Generated");
-
-	GenerateRepository(modelType);
-	SaveGeneratedCodeAsFile(modelType.Name + "Repository.g.cs", "UnitOfWork/Repositories/Generated");
-  }
+  GenerateConfigurations(modelTypes);
+  SaveGeneratedCodeAsFile("Configurations.g.cs", "EntityTypeConfigurations/Generated");
 
   GenerateContext(modelTypes);
   SaveGeneratedCodeAsFile("HvtAppContext.g.cs", "");
 
   GenerateDataBaseInitializer(modelTypes);
   SaveGeneratedCodeAsFile("HvtAppDataBaseInitializer.g.cs", "");
+  
+  GenerateIRepositories(modelTypes);
+  SaveGeneratedCodeAsFile("IRepositories.g.cs", "UnitOfWork/Repositories/IRepository");
+
+  GenerateRepositories(modelTypes);
+  SaveGeneratedCodeAsFile("Repositories.g.cs", "UnitOfWork/Repositories");
+
+  GenerateIUnitOfWork(modelTypes);
+  SaveGeneratedCodeAsFile("IUnitOfWork.g.cs", "UnitOfWork");
 
   GenerateUnitOfWork(modelTypes);
   SaveGeneratedCodeAsFile("UnitOfWork.g.cs", "UnitOfWork");
 
-  GenerateIUnitOfWork(modelTypes);
-  SaveGeneratedCodeAsFile("IUnitOfWork.g.cs", "UnitOfWork");
+  GenerateRepositoriesTest(modelTypes);
+  SaveGeneratedCodeAsFile("Repositories.g.cs", "UnitOfWork/Test");
+
+  GenerateUnitOfWorkTest(modelTypes);
+  SaveGeneratedCodeAsFile("UnitOfWorkTest.g.cs", "UnitOfWork/Test");
 #>
 <#+
-	private void GenerateConfiguration(Type modelType)
+	private void GenerateConfigurations(IEnumerable<Type> modelTypes)
 	{
 #>using System.Data.Entity.ModelConfiguration;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
+<#+ 
+	foreach (var modelType in modelTypes)
+    {
+#>
     public partial class <#=modelType.Name#>Configuration : EntityTypeConfiguration<<#=modelType.Name#>> { }
+<#+
+	}
+#>
 }
 <#+
 	}
 
-	private void GenerateIRepository(Type modelType)
+	private void GenerateIRepositories(IEnumerable<Type> modelTypes)
 	{
 #>using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
+<#+ 
+	foreach (var modelType in modelTypes)
+    {
+#>
     public partial interface I<#=modelType.Name#>Repository : IRepository<<#=modelType.Name#>> { }
+<#+
+	}
+#>
+
 }
 <#+
 	}
 
-	private void GenerateRepository(Type modelType)
+	private void GenerateRepositories(IEnumerable<Type> modelTypes)
 	{
 #>using System.Data.Entity;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
+<#+ 
+	foreach (var modelType in modelTypes)
+    {
+#>
     public partial class <#=modelType.Name#>Repository : BaseRepository<<#=modelType.Name#>>, I<#=modelType.Name#>Repository
     {
-        public <#=modelType.Name#>Repository(DbContext context) : base(context)
-        {
-        }
+        public <#=modelType.Name#>Repository(DbContext context) : base(context) {}
     }
+
+<#+
+	}
+#>
 }
 <#+
 	}
+
+	private void GenerateRepositoriesTest(IEnumerable<Type> modelTypes)
+	{
+#>using HVTApp.TestDataGenerator;
+using HVTApp.Model.POCOs;
+
+namespace HVTApp.DataAccess
+{
+<#+ 
+	foreach (var modelType in modelTypes)
+    {
+#>
+    public partial class <#=modelType.Name#>RepositoryTest : TestBaseRepository<<#=modelType.Name#>>, I<#=modelType.Name#>Repository
+    {
+        public <#=modelType.Name#>RepositoryTest(TestData testData) : base(testData) {}
+    }
+
+<#+
+	}
+#>
+}
+<#+
+	}
+
 
 	private void GenerateContext(IEnumerable<Type> modelTypes)
 	{
@@ -231,6 +279,44 @@ namespace HVTApp.DataAccess
 <#+
 	}
 #>
+    }
+}
+<#+
+	}
+
+	private void GenerateUnitOfWorkTest(IEnumerable<Type> modelTypes)
+	{
+#>using HVTApp.TestDataGenerator;
+
+namespace HVTApp.DataAccess
+{
+    public partial class UnitOfWorkTest
+    {
+        public UnitOfWorkTest(TestData testData)
+        {
+			#region RepositoriesInit
+<#+ 
+	foreach (var modelType in modelTypes)
+    {
+#>
+            <#=modelType.Name#>Repository = new <#=modelType.Name#>RepositoryTest(testData);
+<#+
+	}
+#>
+			#endregion
+        }
+
+
+        #region Repositories
+<#+ 
+	foreach (var modelType in modelTypes)
+    {
+#>
+        public I<#=modelType.Name#>Repository <#=modelType.Name#>Repository { get; }
+<#+
+	}
+#>
+        #endregion
     }
 }
 <#+
