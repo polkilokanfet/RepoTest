@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using HVTApp.DataAccess;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Converter;
 using HVTApp.UI.Wrapper;
 using Infragistics.Documents.Word;
 
@@ -10,11 +11,19 @@ namespace HVTApp.Services.OfferToDocService
 {
     public static class WordDocumentWriterExt
     {
-        public static void Paragraph(this WordDocumentWriter docWriter, string text)
+        public static void Paragraph(this WordDocumentWriter docWriter, string text, ParagraphProperties paragraphProperties = null)
         {
-            docWriter.StartParagraph();
+            if (paragraphProperties == null) docWriter.StartParagraph();
+            else docWriter.StartParagraph(paragraphProperties);
             docWriter.AddTextRun(text);
             docWriter.EndParagraph();
+        }
+
+        public static void TableCell(this WordDocumentWriter docWriter, string text, TableCellProperties cellProps, ParagraphProperties paragraphProperties = null)
+        {
+            docWriter.StartTableCell(cellProps);
+            docWriter.Paragraph(text, paragraphProperties);
+            docWriter.EndTableCell();
         }
     }
 
@@ -60,27 +69,19 @@ namespace HVTApp.Services.OfferToDocService
             TableCellProperties cellProps = docWriter.CreateTableCellProperties();
             cellProps.BorderProperties = borderProps;
 
-            // Begin a table with 2 columns, and apply the table properties
-            docWriter.StartTable(2, tableProps);
+            docWriter.StartTable(4, tableProps);
 
-            // Begin a Row and apply table row properties
-            // This row will be set as the Header row by the row properties
-            //Make the row a Header
             rowProps.IsHeaderRow = true;
             docWriter.StartTableRow(rowProps);
-            // Define back color for header cell
             cellProps.BackColor = Colors.Aquamarine;
-            cellProps.ColumnSpan = 2;
-            // Cell Value for 1st row 1st column
-            // Start a Paragraph and add a text run to the cell
-            docWriter.StartTableCell(cellProps);
-            // Set the alignment of the cell text using ParagraphProperties
             ParagraphProperties paraProps = docWriter.CreateParagraphProperties();
-            paraProps.Alignment = ParagraphAlignment.Center;
-            docWriter.StartParagraph(paraProps);
-            docWriter.AddTextRun("test table header");
-            docWriter.EndParagraph();
-            docWriter.EndTableCell();
+            paraProps.Alignment = ParagraphAlignment.Left;
+
+            docWriter.TableCell("Оборудование", cellProps, paraProps);
+            docWriter.TableCell("Кол.", cellProps, paraProps);
+            docWriter.TableCell("Стоимость, руб.", cellProps, paraProps);
+            docWriter.TableCell("Сумма, руб.", cellProps, paraProps);
+
             // End the Table Row
             docWriter.EndTableRow();
 
@@ -88,122 +89,52 @@ namespace HVTApp.Services.OfferToDocService
             // cell properties are different from the header cells.
             cellProps.Reset();
             cellProps.BackColor = Colors.Azure;
-            cellProps.VerticalAlignment = TableCellVerticalAlignment.Center;
+            cellProps.VerticalAlignment = TableCellVerticalAlignment.Top;
             // Reset the row properties
             rowProps.Reset();
 
-            // DATA ROW
+            ParagraphProperties parPropRight = docWriter.CreateParagraphProperties();
+            parPropRight.Alignment = ParagraphAlignment.Right;
+            foreach (var groupUnit in offer.OfferUnits.ToGroupUnits())
+            {
+                docWriter.StartTableRow();
+
+                docWriter.TableCell(groupUnit.Product.DisplayMember, cellProps);
+                docWriter.TableCell($"{groupUnit.Amount:D}", cellProps, parPropRight);
+                docWriter.TableCell($"{groupUnit.Cost:C}", cellProps, parPropRight);
+                docWriter.TableCell($"{groupUnit.Amount * groupUnit.Cost:C}", cellProps, parPropRight);
+
+                docWriter.EndTableRow();
+            }
+
             docWriter.StartTableRow();
-            // Cell Value for 2nd row 1st column
-            docWriter.StartTableCell(cellProps);
-            docWriter.StartParagraph();
-            docWriter.AddTextRun("test1");
-            docWriter.EndParagraph();
-            docWriter.EndTableCell();
-            // Cell Value for 2nd row 2nd column
-            docWriter.StartTableCell(cellProps);
-            docWriter.StartParagraph();
-            docWriter.AddTextRun("test2");
-            docWriter.EndParagraph();
-            docWriter.EndTableCell();
+            cellProps.ColumnSpan = 3;
+            docWriter.TableCell("Итого без НДС:", cellProps);
+            cellProps.ColumnSpan = 1;
+            docWriter.TableCell($"{offer.TotalCost:C}", cellProps, parPropRight);
+            docWriter.EndTableRow();
+
+            docWriter.StartTableRow();
+            cellProps.ColumnSpan = 3;
+            docWriter.TableCell($"НДС ({offer.VatProc} %):", cellProps);
+            cellProps.ColumnSpan = 1;
+            docWriter.TableCell($"{offer.TotalCost * offer.Vat:C}", cellProps, parPropRight);
             docWriter.EndTableRow();
 
 
-            // DATA ROW
             docWriter.StartTableRow();
-            // Cell Value for 2nd row 1st column
-            docWriter.StartTableCell(cellProps);
-            docWriter.StartParagraph();
-            docWriter.AddTextRun("test11");
-            docWriter.EndParagraph();
-            docWriter.EndTableCell();
-            // Cell Value for 2nd row 2nd column
-            docWriter.StartTableCell(cellProps);
-            docWriter.StartParagraph();
-            docWriter.AddTextRun("test22");
-            docWriter.EndParagraph();
-            docWriter.EndTableCell();
-            docWriter.EndTableRow();
-
-
-            // DATA ROW
-            docWriter.StartTableRow();
-            // Cell Value for 3rd row 1st column
-            docWriter.StartTableCell(cellProps);
-            docWriter.StartParagraph();
-            docWriter.AddTextRun("test3");
-            docWriter.AddNewLine();
-            docWriter.EndParagraph();
-            docWriter.StartParagraph();
-            docWriter.AddTextRun("test4");
-            docWriter.EndParagraph();
-            docWriter.EndTableCell();
-            // Cell Value for 3rd row 2nd column
-            docWriter.StartTableCell(cellProps);
-            docWriter.StartParagraph();
-            docWriter.AddTextRun("test5");
-            docWriter.EndParagraph();
-            docWriter.EndTableCell();
+            cellProps.ColumnSpan = 3;
+            docWriter.TableCell($"Итого с НДС:", cellProps);
+            cellProps.ColumnSpan = 1;
+            docWriter.TableCell($"{offer.TotalCostWithVat:C}", cellProps, parPropRight);
             docWriter.EndTableRow();
 
             docWriter.EndTable();
 
 
-
-            //docWriter.StartTable(2, tableProps);
-            //docWriter.StartTableRow(rowProps);
-            //docWriter.StartTableCell(cellProps);
-            //docWriter.StartParagraph();
-            //docWriter.AddTextRun("test cell text");
-            //docWriter.EndParagraph();
-            //docWriter.EndTableCell();
-            //docWriter.EndTableRow();
-            //docWriter.EndTable();
-
             docWriter.EndDocument();
             docWriter.Close();
             System.Diagnostics.Process.Start(offerDocumentPath);
-
-
-
-            ////  Create a new instance of the WordDocumentWriter     
-            ////  class using the static 'Create' method.      
-            ////  This instance must be closed once content is written into Word.  
-            //WordDocumentWriter docWriter = WordDocumentWriter.Create(documentName);
-            ////  Set the document properties, such as title, author, etc.          
-            //string strDocTitle = "testTitle";
-            //docWriter.DocumentProperties.Title = strDocTitle;
-            //docWriter.DocumentProperties.Author = string.Format("Infragistics.{0}", "TestName");
-            ////  Start the document...note that each call to StartDocument must   
-            ////  be balanced with a corresponding call to EndDocument.     
-            //docWriter.StartDocument();
-            ////  Create a font, which we can reuse in content creation          
-            //Infragistics.Documents.Word.Font font = docWriter.CreateFont();
-            //font.Reset();
-            //font.Bold = true;
-            //font.Size = 15;
-            //font.Underline = Infragistics.Documents.Word.Underline.Double;
-            ////  Start a paragraph           
-            //docWriter.StartParagraph();
-            ////  Add a text run for the title   
-            //string strSimpleWordHeading = "testHeader";
-            //docWriter.AddTextRun(strSimpleWordHeading, font);
-            //// Add a new line         
-            //docWriter.AddNewLine();
-            ////End the paragraph      
-            //docWriter.EndParagraph();
-            ////  Start a paragraph        
-            //docWriter.StartParagraph();
-            //font.Reset();
-            ////  Add a text run for the title   
-            //string strSimpleWordDocSampleText = "testText";
-            //docWriter.AddTextRun(strSimpleWordDocSampleText);
-            ////End the paragraph    
-            //docWriter.EndParagraph();
-            //docWriter.EndDocument();
-            //// Close the writer     
-            //docWriter.Close();
-            //System.Diagnostics.Process.Start(documentName);
 
         }
     }

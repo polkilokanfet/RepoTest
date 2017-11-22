@@ -28,7 +28,7 @@ namespace HVTApp.UI.Wrapper
         }
 
         public double TotalCost => OfferUnits.Sum(x => x.Cost);
-        public double TotalCostWithVat => TotalCost + TotalCost * Vat;
+        public double TotalCostWithVat => TotalCost * (1 + Vat);
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {

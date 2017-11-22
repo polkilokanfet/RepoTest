@@ -95,6 +95,7 @@
     <Compile Include="Controls\SaveButtonControl.xaml.cs">
       <DependentUpon>SaveButtonControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\ConverterExtansions.cs" />
     <Compile Include="Events\AfterRemoveEntityEvents\AfterRemoveEntityEvents.g.cs" />
     <Compile Include="Events\AfterSaveEntityEvents\AfterSaveEntityEvents.g.cs" />
     <Compile Include="Lookup\Items\Lookups.g.cs" />

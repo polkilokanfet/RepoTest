@@ -15,7 +15,7 @@ namespace HVTApp.UI.Converter
             var source = value as IEnumerable<IProductUnit>;
             if (source == null) throw new ArgumentException("Передан неверный тип.");
             var groups = source.GroupBy(x => x.Product).ToList();
-            List<GroupUnit> result = new List<GroupUnit>();
+            var result = new List<GroupUnit>();
             foreach (var group in groups)
             {
                 result.Add(new GroupUnit {Product = group.First().Product, Count = group.Count()});

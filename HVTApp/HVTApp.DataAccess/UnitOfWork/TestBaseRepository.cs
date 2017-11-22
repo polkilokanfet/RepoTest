@@ -23,10 +23,10 @@ namespace HVTApp.DataAccess
             return task;
         }
 
-        public Task<TEntity> GetByIdAsync(Guid id)
+        public async Task<TEntity> GetByIdAsync(Guid id)
         {
             var entities = GetAllAsync().Result;
-            return new Task<TEntity>(() => entities.Single(x => x.Id == id));
+            return await new Task<TEntity>(() => entities.Single(x => x.Id == id));
         }
 
         public IEnumerable<TEntity> Find(Func<TEntity, bool> predicate)
