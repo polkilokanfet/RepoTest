@@ -11,11 +11,13 @@ namespace HVTApp.Services.OfferToDocServiceTests
     public class OfferToDocTests
     {
         [TestMethod()]
-        public void GenerateOfferDocTest()
+        public async Task GenerateOfferDocTest()
         {
-            var offerWrapper = new OfferWrapper(new TestData().OfferMrsk); 
-            var offerToDoc = new OfferToDoc(new UnitOfWorkTest(new TestData()));
-            offerToDoc.GenerateOfferDocAsync(offerWrapper);
+            var testData = new TestData();
+
+            var offerWrapper = new OfferWrapper(testData.OfferMrsk); 
+            var offerToDoc = new OfferToDoc(new UnitOfWorkTest(testData));
+            await offerToDoc.GenerateOfferDocAsync(offerWrapper);
         }
     }
 }

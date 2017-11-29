@@ -17,16 +17,15 @@ namespace HVTApp.DataAccess
             _testData = testData;
         }
 
-        public Task<List<TEntity>> GetAllAsync()
+        public async Task<List<TEntity>> GetAllAsync()
         {
-            var task = new Task<List<TEntity>>(() => _testData.GetAll<TEntity>().ToList());
-            return task;
+            var task = Task<List<TEntity>>.Factory.StartNew(() => _testData.GetAll<TEntity>().ToList());
+            return await task;
         }
 
         public async Task<TEntity> GetByIdAsync(Guid id)
         {
-            var entities = GetAllAsync().Result;
-            return await new Task<TEntity>(() => entities.Single(x => x.Id == id));
+            return (await GetAllAsync()).Single(x => x.Id == id);
         }
 
         public IEnumerable<TEntity> Find(Func<TEntity, bool> predicate)
