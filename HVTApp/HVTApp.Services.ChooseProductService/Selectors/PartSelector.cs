@@ -96,20 +96,20 @@ namespace HVTApp.Services.GetProductService
             ParameterSelectors.ToList().ForEach(x => x.RefreshParametersActualStatuses(actualSelectedParameters));
         }
 
-        private void OnSelectedParameterChanged(Parameter oldParameter, Parameter newParameter)
+        private void OnSelectedParameterChanged(ParameterFlaged oldParameter, ParameterFlaged newParameter)
         {
             //определяем выбранные параметры, которые зависели от старого параметра
-            var dependendParametersFromOld = GetDependendParameters(oldParameter);
+            var dependendParametersFromOld = GetDependendParameters(oldParameter?.Parameter);
 
             //определяем выбранные параметры, которые зависят от нового параметра
-            var dependendParametersFromNew = GetDependendParameters(newParameter);
+            var dependendParametersFromNew = GetDependendParameters(newParameter?.Parameter);
 
             //не актуальные параметры
             var notActualSelectedParameters = dependendParametersFromOld.Except(dependendParametersFromNew);
             //актуальные параметры
             var actualSelectedParameters = SelectedParameters.Except(notActualSelectedParameters).ToList();
-            if (oldParameter != null) actualSelectedParameters.Remove(oldParameter);
-            if (newParameter != null) actualSelectedParameters.Add(newParameter);
+            if (oldParameter != null) actualSelectedParameters.Remove(oldParameter?.Parameter);
+            if (newParameter != null) actualSelectedParameters.Add(newParameter?.Parameter);
 
             //перепроверяем флаги актуальности каждого параметра
             RefreshParametersActualStatuses(actualSelectedParameters);

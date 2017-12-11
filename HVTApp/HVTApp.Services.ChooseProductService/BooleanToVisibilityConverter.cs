@@ -9,7 +9,7 @@ namespace HVTApp.Services.GetProductService
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            bool val = (bool) value;
+            var val = value != null && (bool) value;
             return val ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
         }
 

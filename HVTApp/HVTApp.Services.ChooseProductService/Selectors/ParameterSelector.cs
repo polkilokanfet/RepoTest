@@ -7,40 +7,24 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.GetProductService
 {
-    public class ParameterSelector : NotifyPropertyChanged
+    public class ParameterSelector : NotifyIsActualChanged
     {
-        private ParameterFlaged _selectedParameterFlaged;
-        private bool _isActual = true;
-
-        public bool IsActual
-        {
-            get { return _isActual; }
-            set
-            {
-                if (Equals(_isActual, value)) return;
-                _isActual = value;
-                OnIsActualChanged();
-                OnPropertyChanged();
-            }
-        }
-
-        //public ParameterGroup Group => ParametersFlaged.First().ParameterId.GroupId;
         public ReadOnlyObservableCollection<ParameterFlaged> ParametersFlaged { get; }
 
         public ParameterFlaged SelectedParameterFlaged
         {
-            get { return _selectedParameterFlaged; }
+            get { return ParametersFlaged.SingleOrDefault(x => x.IsSelected); }
             set
             {
-                if (Equals(_selectedParameterFlaged, value)) return;
-
                 if (value != null && !ParametersFlaged.Contains(value)) throw new ArgumentException("Выбран параметр не из списка.");
-                //if (value != null && !value.IsActual) throw new ArgumentException("Параметр не актуален");
 
-                var oldValue = _selectedParameterFlaged;
-                _selectedParameterFlaged = value;
+                if (Equals(SelectedParameterFlaged, value)) return;
 
-                OnSelectedParameterChanged(oldValue?.Parameter, value?.Parameter);
+                var oldValue = SelectedParameterFlaged;
+                if (oldValue != null) oldValue.IsSelected = false;
+                if (value != null) value.IsSelected = true;
+
+                OnSelectedParameterChanged(oldValue, value);
                 OnPropertyChanged();
 
                 RefreshActualStatus();
@@ -75,17 +59,21 @@ namespace HVTApp.Services.GetProductService
             if (!parametersList.All(x => Equals(x.GroupId, parametersList.First().GroupId))) throw new ArgumentException(@"Параметры должны быть из одной группы", nameof(parameters));
 
             ParametersFlaged = new ReadOnlyObservableCollection<ParameterFlaged>(
-                new ObservableCollection<ParameterFlaged>(parametersList.Select(x => new ParameterFlaged(x))));
+                new ObservableCollection<ParameterFlaged>(parametersList.Select(x => new ParameterFlaged(x, this))));
             //подписываемся на смену актуальности параметра
             ParametersFlaged.ToList().ForEach(x => x.IsActualChanged += ParameterFlagedOnIsActualChanged);
 
             //предварительно выбранный параметр
-            if (preSelectedParameter != null) SelectedParameter = preSelectedParameter;
-            else SelectedParameterFlaged = ParametersFlaged.FirstOrDefault(x => x.IsActual);
+            if (preSelectedParameter != null)
+                SelectedParameter = preSelectedParameter;
+            else
+                SelectedParameterFlaged = ParametersFlaged.FirstOrDefault(x => x.IsActual);
         }
 
-        private void ParameterFlagedOnIsActualChanged(ParameterFlaged parameterFlaged)
+        private void ParameterFlagedOnIsActualChanged(object sender)
         {
+            var parameterFlaged = (ParameterFlaged) sender;
+
             //меняем выбранный параметр, если он теперь не актуален
             if (SelectedParameterFlaged == null ||
                 (Equals(SelectedParameterFlaged, parameterFlaged) && !parameterFlaged.IsActual))
@@ -117,19 +105,11 @@ namespace HVTApp.Services.GetProductService
             return ParametersFlaged.Select(x => x.Parameter).Contains(parameter);
         }
 
-        #region Events
-        public event Action<Parameter, Parameter> SelectedParameterChanged;
-        protected virtual void OnSelectedParameterChanged(Parameter oldParameter, Parameter newParameter)
+        public event Action<ParameterFlaged, ParameterFlaged> SelectedParameterChanged;
+        protected virtual void OnSelectedParameterChanged(ParameterFlaged oldParameter, ParameterFlaged newParameter)
         {
             SelectedParameterChanged?.Invoke(oldParameter, newParameter);
         }
-
-        public event Action IsActualChanged;
-        protected virtual void OnIsActualChanged()
-        {
-            IsActualChanged?.Invoke();
-        }
-        #endregion
 
     }
 

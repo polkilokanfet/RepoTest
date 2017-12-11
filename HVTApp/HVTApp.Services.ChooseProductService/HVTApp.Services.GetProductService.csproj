@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="BooleanToVisibilityConverter.cs" />
     <Compile Include="GetProductServiceWpf.cs" />
+    <Compile Include="Selectors\NotifyIsActualChanged.cs" />
     <Compile Include="SelectProductWindow.xaml.cs">
       <DependentUpon>SelectProductWindow.xaml</DependentUpon>
     </Compile>

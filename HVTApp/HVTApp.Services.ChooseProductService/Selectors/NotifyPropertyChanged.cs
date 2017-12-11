@@ -4,7 +4,8 @@ using HVTApp.Services.ChooseService.Annotations;
 
 namespace HVTApp.Services.GetProductService
 {
-    public class NotifyPropertyChanged : INotifyPropertyChanged {
+    public class NotifyPropertyChanged : INotifyPropertyChanged
+    {
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
