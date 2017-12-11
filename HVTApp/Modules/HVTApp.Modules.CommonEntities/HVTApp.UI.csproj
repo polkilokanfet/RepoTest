@@ -162,8 +162,14 @@
     <Compile Include="Views\Details\CompanyFormDetailsView.xaml.cs">
       <DependentUpon>CompanyFormDetailsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Details\ContractDetailsView.xaml.cs">
+      <DependentUpon>ContractDetailsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Details\CostOnDateDetailsView.xaml.cs">
       <DependentUpon>CostOnDateDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Details\SpecificationDetailsView.xaml.cs">
+      <DependentUpon>SpecificationDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\List\AddressListView.xaml.cs">
       <DependentUpon>AddressListView.xaml</DependentUpon>
@@ -342,7 +348,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Details\ContractDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Details\CostOnDateDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Details\SpecificationDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
