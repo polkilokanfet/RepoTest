@@ -13,7 +13,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return $"ContractId with {Contragent} №{Number} of {Date}";
+            return $"Contract with {Contragent} №{Number} of {Date}";
         }
     }
 }
