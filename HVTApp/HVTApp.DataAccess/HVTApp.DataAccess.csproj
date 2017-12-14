@@ -104,7 +104,6 @@
     <Compile Include="EntityTypeConfigurations\Custom\RequiredDependentEquipmentsParametersConfiguration.cs" />
     <Compile Include="HvtAppDataBaseInitializer.g.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="UnitOfWork\IRepositories.cs" />
     <Compile Include="UnitOfWork\IRepository.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.g.cs" />

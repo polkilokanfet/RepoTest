@@ -29,7 +29,7 @@ namespace HVTApp.DataAccess
 
         //    context.Parameters.AddRange(testData.GetAll<Parameter>());
         //    context.ParameterGroups.AddRange(testData.GetAll<ParameterGroup>());
-        //    context.ProductsRelations.AddRange(testData.GetAll<ProductsRelation>());
+        //    context.ProductsRelations.AddRange(testData.GetAll<ProductRelation>());
         //    context.Products.AddRange(testData.GetAll<Product>());
 
         //    context.Projects.AddRange(testData.GetAll<Project>());

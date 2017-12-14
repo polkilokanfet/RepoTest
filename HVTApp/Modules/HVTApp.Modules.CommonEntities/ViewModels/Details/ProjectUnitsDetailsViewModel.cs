@@ -47,7 +47,7 @@ namespace HVTApp.UI.ViewModels
 
         private async void ChooseProductCommand_Execute()
         {
-            var product = await _getProductService.GetProduct(Item.Product.Model);
+            var product = await _getProductService.GetProductAsync(Item.Product.Model);
             if (product != null) Item.Product = new ProductWrapper(product);
         }
     }

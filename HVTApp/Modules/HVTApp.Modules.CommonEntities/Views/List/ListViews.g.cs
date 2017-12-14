@@ -168,18 +168,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class PartListView //: ViewBase
+    public partial class ProductRelationListView //: ViewBase
     {
-        //public PartListView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
-        //{
-        //    InitializeComponent();
-        //}
-    }
-
-    [RibbonTab(typeof(TabCRUD))]
-    public partial class ProductsRelationListView //: ViewBase
-    {
-        //public ProductsRelationListView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        //public ProductRelationListView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         //{
         //    InitializeComponent();
         //}
@@ -222,9 +213,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class RequiredPreviousParametersListView //: ViewBase
+    public partial class ParameterRelationListView //: ViewBase
     {
-        //public RequiredPreviousParametersListView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        //public ParameterRelationListView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         //{
         //    InitializeComponent();
         //}

@@ -34,13 +34,12 @@ namespace HVTApp.DataAccess
     public partial class MeasureConfiguration : EntityTypeConfiguration<Measure> { }
     public partial class ParameterConfiguration : EntityTypeConfiguration<Parameter> { }
     public partial class ParameterGroupConfiguration : EntityTypeConfiguration<ParameterGroup> { }
-    public partial class PartConfiguration : EntityTypeConfiguration<Part> { }
-    public partial class ProductsRelationConfiguration : EntityTypeConfiguration<ProductsRelation> { }
+    public partial class ProductRelationConfiguration : EntityTypeConfiguration<ProductRelation> { }
     public partial class StandartPaymentConditionsConfiguration : EntityTypeConfiguration<StandartPaymentConditions> { }
     public partial class PersonConfiguration : EntityTypeConfiguration<Person> { }
     public partial class PaymentPlannedConfiguration : EntityTypeConfiguration<PaymentPlanned> { }
     public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }
-    public partial class RequiredPreviousParametersConfiguration : EntityTypeConfiguration<RequiredPreviousParameters> { }
+    public partial class ParameterRelationConfiguration : EntityTypeConfiguration<ParameterRelation> { }
     public partial class ProjectUnitConfiguration : EntityTypeConfiguration<ProjectUnit> { }
     public partial class TenderUnitConfiguration : EntityTypeConfiguration<TenderUnit> { }
     public partial class ShipmentUnitConfiguration : EntityTypeConfiguration<ShipmentUnit> { }

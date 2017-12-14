@@ -23,13 +23,12 @@ namespace HVTApp.DataAccess
         IMeasureRepository MeasureRepository { get; }
         IParameterRepository ParameterRepository { get; }
         IParameterGroupRepository ParameterGroupRepository { get; }
-        IPartRepository PartRepository { get; }
-        IProductsRelationRepository ProductsRelationRepository { get; }
+        IProductRelationRepository ProductRelationRepository { get; }
         IStandartPaymentConditionsRepository StandartPaymentConditionsRepository { get; }
         IPersonRepository PersonRepository { get; }
         IPaymentPlannedRepository PaymentPlannedRepository { get; }
         IPaymentActualRepository PaymentActualRepository { get; }
-        IRequiredPreviousParametersRepository RequiredPreviousParametersRepository { get; }
+        IParameterRelationRepository ParameterRelationRepository { get; }
         IProjectUnitRepository ProjectUnitRepository { get; }
         ITenderUnitRepository TenderUnitRepository { get; }
         IShipmentUnitRepository ShipmentUnitRepository { get; }

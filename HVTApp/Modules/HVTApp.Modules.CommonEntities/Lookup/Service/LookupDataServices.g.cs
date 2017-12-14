@@ -94,14 +94,9 @@ namespace HVTApp.UI.Lookup
         public ParameterGroupLookupDataService(HvtAppContext context) : base(context) { }
     }
 
-    public partial class PartLookupDataService : LookupDataService<PartLookup, Part>, IPartLookupDataService
+    public partial class ProductRelationLookupDataService : LookupDataService<ProductRelationLookup, ProductRelation>, IProductRelationLookupDataService
     {
-        public PartLookupDataService(HvtAppContext context) : base(context) { }
-    }
-
-    public partial class ProductsRelationLookupDataService : LookupDataService<ProductsRelationLookup, ProductsRelation>, IProductsRelationLookupDataService
-    {
-        public ProductsRelationLookupDataService(HvtAppContext context) : base(context) { }
+        public ProductRelationLookupDataService(HvtAppContext context) : base(context) { }
     }
 
     public partial class StandartPaymentConditionsLookupDataService : LookupDataService<StandartPaymentConditionsLookup, StandartPaymentConditions>, IStandartPaymentConditionsLookupDataService
@@ -124,9 +119,9 @@ namespace HVTApp.UI.Lookup
         public PaymentActualLookupDataService(HvtAppContext context) : base(context) { }
     }
 
-    public partial class RequiredPreviousParametersLookupDataService : LookupDataService<RequiredPreviousParametersLookup, RequiredPreviousParameters>, IRequiredPreviousParametersLookupDataService
+    public partial class ParameterRelationLookupDataService : LookupDataService<ParameterRelationLookup, ParameterRelation>, IParameterRelationLookupDataService
     {
-        public RequiredPreviousParametersLookupDataService(HvtAppContext context) : base(context) { }
+        public ParameterRelationLookupDataService(HvtAppContext context) : base(context) { }
     }
 
     public partial class ProjectUnitLookupDataService : LookupDataService<ProjectUnitLookup, ProjectUnit>, IProjectUnitLookupDataService

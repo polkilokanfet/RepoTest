@@ -274,31 +274,16 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-    public partial class PartWrapperDataService : EntityWrapperDataService<Part, PartWrapper>
+    public partial class ProductRelationWrapperDataService : EntityWrapperDataService<ProductRelation, ProductRelationWrapper>
     {
-        public PartWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+        public ProductRelationWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
-		protected override PartWrapper GenerateWrapper(Part model)
+		protected override ProductRelationWrapper GenerateWrapper(ProductRelation model)
         {
             if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
                 return ExistsWrappers.Single(x => x.Model.Id == model.Id);
 
-            var wrapper = new PartWrapper(model);
-            ExistsWrappers.Add(wrapper);
-            return wrapper;
-        }
-    }
-
-    public partial class ProductsRelationWrapperDataService : EntityWrapperDataService<ProductsRelation, ProductsRelationWrapper>
-    {
-        public ProductsRelationWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-		
-		protected override ProductsRelationWrapper GenerateWrapper(ProductsRelation model)
-        {
-            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
-                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
-
-            var wrapper = new ProductsRelationWrapper(model);
+            var wrapper = new ProductRelationWrapper(model);
             ExistsWrappers.Add(wrapper);
             return wrapper;
         }
@@ -364,16 +349,16 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-    public partial class RequiredPreviousParametersWrapperDataService : EntityWrapperDataService<RequiredPreviousParameters, RequiredPreviousParametersWrapper>
+    public partial class ParameterRelationWrapperDataService : EntityWrapperDataService<ParameterRelation, ParameterRelationWrapper>
     {
-        public RequiredPreviousParametersWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+        public ParameterRelationWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
-		protected override RequiredPreviousParametersWrapper GenerateWrapper(RequiredPreviousParameters model)
+		protected override ParameterRelationWrapper GenerateWrapper(ParameterRelation model)
         {
             if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
                 return ExistsWrappers.Single(x => x.Model.Id == model.Id);
 
-            var wrapper = new RequiredPreviousParametersWrapper(model);
+            var wrapper = new ParameterRelationWrapper(model);
             ExistsWrappers.Add(wrapper);
             return wrapper;
         }

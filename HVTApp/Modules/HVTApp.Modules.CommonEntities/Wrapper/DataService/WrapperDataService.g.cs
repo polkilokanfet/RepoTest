@@ -24,13 +24,12 @@ namespace HVTApp.UI.Wrapper
             MeasureWrapperDataService = new MeasureWrapperDataService(unitOfWork);
             ParameterWrapperDataService = new ParameterWrapperDataService(unitOfWork);
             ParameterGroupWrapperDataService = new ParameterGroupWrapperDataService(unitOfWork);
-            PartWrapperDataService = new PartWrapperDataService(unitOfWork);
-            ProductsRelationWrapperDataService = new ProductsRelationWrapperDataService(unitOfWork);
+            ProductRelationWrapperDataService = new ProductRelationWrapperDataService(unitOfWork);
             StandartPaymentConditionsWrapperDataService = new StandartPaymentConditionsWrapperDataService(unitOfWork);
             PersonWrapperDataService = new PersonWrapperDataService(unitOfWork);
             PaymentPlannedWrapperDataService = new PaymentPlannedWrapperDataService(unitOfWork);
             PaymentActualWrapperDataService = new PaymentActualWrapperDataService(unitOfWork);
-            RequiredPreviousParametersWrapperDataService = new RequiredPreviousParametersWrapperDataService(unitOfWork);
+            ParameterRelationWrapperDataService = new ParameterRelationWrapperDataService(unitOfWork);
             ProjectUnitWrapperDataService = new ProjectUnitWrapperDataService(unitOfWork);
             TenderUnitWrapperDataService = new TenderUnitWrapperDataService(unitOfWork);
             ShipmentUnitWrapperDataService = new ShipmentUnitWrapperDataService(unitOfWork);
@@ -83,13 +82,12 @@ namespace HVTApp.UI.Wrapper
         public MeasureWrapperDataService MeasureWrapperDataService { get; }
         public ParameterWrapperDataService ParameterWrapperDataService { get; }
         public ParameterGroupWrapperDataService ParameterGroupWrapperDataService { get; }
-        public PartWrapperDataService PartWrapperDataService { get; }
-        public ProductsRelationWrapperDataService ProductsRelationWrapperDataService { get; }
+        public ProductRelationWrapperDataService ProductRelationWrapperDataService { get; }
         public StandartPaymentConditionsWrapperDataService StandartPaymentConditionsWrapperDataService { get; }
         public PersonWrapperDataService PersonWrapperDataService { get; }
         public PaymentPlannedWrapperDataService PaymentPlannedWrapperDataService { get; }
         public PaymentActualWrapperDataService PaymentActualWrapperDataService { get; }
-        public RequiredPreviousParametersWrapperDataService RequiredPreviousParametersWrapperDataService { get; }
+        public ParameterRelationWrapperDataService ParameterRelationWrapperDataService { get; }
         public ProjectUnitWrapperDataService ProjectUnitWrapperDataService { get; }
         public TenderUnitWrapperDataService TenderUnitWrapperDataService { get; }
         public ShipmentUnitWrapperDataService ShipmentUnitWrapperDataService { get; }

@@ -8,7 +8,7 @@ namespace HVTApp.DataAccess
         public ProductConfiguration()
         {
             Property(x => x.Designation).IsRequired().HasMaxLength(100);
-            HasRequired(x => x.Part).WithMany();
+            HasMany(x => x.Parameters).WithMany();
             HasMany(x => x.DependentProducts).WithMany();
         }
     }

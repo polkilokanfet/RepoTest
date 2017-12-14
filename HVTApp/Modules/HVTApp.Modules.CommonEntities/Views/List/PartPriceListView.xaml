@@ -16,7 +16,7 @@
 
     <infg:XamDataGrid>
         <infg:XamDataGrid.FieldLayouts>
-            <infg:FieldLayout Key="Part">
+            <infg:FieldLayout Key="Product">
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Designation" Label="Наименование"/>
                     <infg:TextField Name="StructureCostNumber" Label="StructureCostNumber"/>
@@ -24,7 +24,7 @@
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
             
-            <infg:FieldLayout Key="Price" ParentFieldName="Prices" ParentFieldLayoutKey="Part">
+            <infg:FieldLayout Key="Price" ParentFieldName="Prices" ParentFieldLayoutKey="Product">
                 <infg:NumericField Name="Cost" Label="Стоимость"/>
                 <infg:DateTimeField Name="Date" Label="Дата"/>
             </infg:FieldLayout>

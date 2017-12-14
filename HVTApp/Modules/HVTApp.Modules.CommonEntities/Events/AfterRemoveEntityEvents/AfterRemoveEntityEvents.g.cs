@@ -21,13 +21,12 @@ namespace HVTApp.UI.Events
 	public partial class AfterRemoveMeasureEvent : PubSubEvent<Measure> { }
 	public partial class AfterRemoveParameterEvent : PubSubEvent<Parameter> { }
 	public partial class AfterRemoveParameterGroupEvent : PubSubEvent<ParameterGroup> { }
-	public partial class AfterRemovePartEvent : PubSubEvent<Part> { }
-	public partial class AfterRemoveProductsRelationEvent : PubSubEvent<ProductsRelation> { }
+	public partial class AfterRemoveProductRelationEvent : PubSubEvent<ProductRelation> { }
 	public partial class AfterRemoveStandartPaymentConditionsEvent : PubSubEvent<StandartPaymentConditions> { }
 	public partial class AfterRemovePersonEvent : PubSubEvent<Person> { }
 	public partial class AfterRemovePaymentPlannedEvent : PubSubEvent<PaymentPlanned> { }
 	public partial class AfterRemovePaymentActualEvent : PubSubEvent<PaymentActual> { }
-	public partial class AfterRemoveRequiredPreviousParametersEvent : PubSubEvent<RequiredPreviousParameters> { }
+	public partial class AfterRemoveParameterRelationEvent : PubSubEvent<ParameterRelation> { }
 	public partial class AfterRemoveProjectUnitEvent : PubSubEvent<ProjectUnit> { }
 	public partial class AfterRemoveTenderUnitEvent : PubSubEvent<TenderUnit> { }
 	public partial class AfterRemoveShipmentUnitEvent : PubSubEvent<ShipmentUnit> { }

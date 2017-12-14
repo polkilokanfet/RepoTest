@@ -17,7 +17,7 @@ namespace HVTApp.Model
 
         public static Parameter AddRequiredPreviousParameters(this Parameter parameter, IEnumerable<Parameter> requiredPreviousParameters)
         {
-            parameter.RequiredPreviousParameters.Add(new RequiredPreviousParameters
+            parameter.RequiredPreviousParameters.Add(new ParameterRelation
             {
                 ParameterId = parameter.Id,
                 RequiredParameters = new List<Parameter>(requiredPreviousParameters)

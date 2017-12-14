@@ -18,13 +18,12 @@ namespace HVTApp.UI.Lookup
 	public partial class MeasureLookup : LookupItem { }
 	public partial class ParameterLookup : LookupItem { }
 	public partial class ParameterGroupLookup : LookupItem { }
-	public partial class PartLookup : LookupItem { }
-	public partial class ProductsRelationLookup : LookupItem { }
+	public partial class ProductRelationLookup : LookupItem { }
 	public partial class StandartPaymentConditionsLookup : LookupItem { }
 	public partial class PersonLookup : LookupItem { }
 	public partial class PaymentPlannedLookup : LookupItem { }
 	public partial class PaymentActualLookup : LookupItem { }
-	public partial class RequiredPreviousParametersLookup : LookupItem { }
+	public partial class ParameterRelationLookup : LookupItem { }
 	public partial class ProjectUnitLookup : LookupItem { }
 	public partial class TenderUnitLookup : LookupItem { }
 	public partial class ShipmentUnitLookup : LookupItem { }

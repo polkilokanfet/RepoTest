@@ -27,13 +27,12 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new MeasureConfiguration());
             modelBuilder.Configurations.Add(new ParameterConfiguration());
             modelBuilder.Configurations.Add(new ParameterGroupConfiguration());
-            modelBuilder.Configurations.Add(new PartConfiguration());
-            modelBuilder.Configurations.Add(new ProductsRelationConfiguration());
+            modelBuilder.Configurations.Add(new ProductRelationConfiguration());
             modelBuilder.Configurations.Add(new StandartPaymentConditionsConfiguration());
             modelBuilder.Configurations.Add(new PersonConfiguration());
             modelBuilder.Configurations.Add(new PaymentPlannedConfiguration());
             modelBuilder.Configurations.Add(new PaymentActualConfiguration());
-            modelBuilder.Configurations.Add(new RequiredPreviousParametersConfiguration());
+            modelBuilder.Configurations.Add(new ParameterRelationConfiguration());
             modelBuilder.Configurations.Add(new ProjectUnitConfiguration());
             modelBuilder.Configurations.Add(new TenderUnitConfiguration());
             modelBuilder.Configurations.Add(new ShipmentUnitConfiguration());
@@ -90,13 +89,12 @@ namespace HVTApp.DataAccess
         public virtual DbSet<Measure> MeasureDbSet { get; set; }
         public virtual DbSet<Parameter> ParameterDbSet { get; set; }
         public virtual DbSet<ParameterGroup> ParameterGroupDbSet { get; set; }
-        public virtual DbSet<Part> PartDbSet { get; set; }
-        public virtual DbSet<ProductsRelation> ProductsRelationDbSet { get; set; }
+        public virtual DbSet<ProductRelation> ProductRelationDbSet { get; set; }
         public virtual DbSet<StandartPaymentConditions> StandartPaymentConditionsDbSet { get; set; }
         public virtual DbSet<Person> PersonDbSet { get; set; }
         public virtual DbSet<PaymentPlanned> PaymentPlannedDbSet { get; set; }
         public virtual DbSet<PaymentActual> PaymentActualDbSet { get; set; }
-        public virtual DbSet<RequiredPreviousParameters> RequiredPreviousParametersDbSet { get; set; }
+        public virtual DbSet<ParameterRelation> ParameterRelationDbSet { get; set; }
         public virtual DbSet<ProjectUnit> ProjectUnitDbSet { get; set; }
         public virtual DbSet<TenderUnit> TenderUnitDbSet { get; set; }
         public virtual DbSet<ShipmentUnit> ShipmentUnitDbSet { get; set; }

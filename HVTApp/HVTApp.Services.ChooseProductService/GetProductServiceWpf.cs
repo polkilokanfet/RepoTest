@@ -11,7 +11,6 @@ namespace HVTApp.Services.GetProductService
         private readonly IUnitOfWork _unitOfWork;
 
         private IList<Parameter> _parameters;
-        private IList<Part> _parts;
         private IList<Product> _products;
         private IList<ProductsRelation> _productsRelations;
 
@@ -23,12 +22,11 @@ namespace HVTApp.Services.GetProductService
         public async Task LoadAsync()
         {
             _parameters = await _unitOfWork.ParameterRepository.GetAllAsync();
-            _parts = await _unitOfWork.PartRepository.GetAllAsync();
             _products = await _unitOfWork.ProductRepository.GetAllAsync();
             _productsRelations = await _unitOfWork.ProductsRelationRepository.GetAllAsync();
         }
 
-        public async Task<Product> GetProduct(Product templateProduct = null)
+        public async Task<Product> GetProductAsync(Product templateProduct = null)
         {
             if (_parameters == null)
                 await LoadAsync();

@@ -10,7 +10,7 @@ namespace HVTApp.Services.GetProductService
     {
         private bool _isSelected;
 
-        public ParameterFlaged(Parameter parameter, ParameterSelector parameterSelector)
+        public ParameterFlaged(Parameter parameter)
         {
             if (parameter == null) throw new ArgumentNullException(nameof(parameter));
             
@@ -33,20 +33,27 @@ namespace HVTApp.Services.GetProductService
 
         public event Action IsSelectedChanged;
 
-        public void RefreshActualStatus(IEnumerable<Parameter> selectedParameters)
+        public void SubscribingToChangeActualStatus(PartSelector partSelector)
+        {
+            partSelector.SelectedParametersChanged += RefreshActualStatus;
+        }
+
+        private void RefreshActualStatus(IEnumerable<Parameter> selectedParameters)
         {
             IsActual = !Parameter.RequiredPreviousParameters.Any() ||
                         Parameter.RequiredPreviousParameters.Any(x => x.RequiredParameters.AllContainsIn(selectedParameters));
-        }
-
-        public override string ToString()
-        {
-            return Parameter.ToString();
+            if (!IsActual)
+                IsSelected = false;
         }
 
         protected virtual void OnIsSelectedChanged()
         {
             IsSelectedChanged?.Invoke();
+        }
+
+        public override string ToString()
+        {
+            return Parameter.ToString();
         }
     }
 }

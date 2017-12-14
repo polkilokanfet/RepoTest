@@ -5,6 +5,6 @@ namespace HVTApp.Services.GetProductService
 {
     public interface IGetProductService
     {
-        Task<Product> GetProduct(Product templateProduct = null);
+        Task<Product> GetProductAsync(Product templateProduct = null);
     }
 }

@@ -93,14 +93,9 @@ namespace HVTApp.DataAccess
         public ParameterGroupRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class PartRepositoryTest : TestBaseRepository<Part>, IPartRepository
+    public partial class ProductRelationRepositoryTest : TestBaseRepository<ProductRelation>, IProductRelationRepository
     {
-        public PartRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class ProductsRelationRepositoryTest : TestBaseRepository<ProductsRelation>, IProductsRelationRepository
-    {
-        public ProductsRelationRepositoryTest(TestData testData) : base(testData) {}
+        public ProductRelationRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class StandartPaymentConditionsRepositoryTest : TestBaseRepository<StandartPaymentConditions>, IStandartPaymentConditionsRepository
@@ -123,9 +118,9 @@ namespace HVTApp.DataAccess
         public PaymentActualRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class RequiredPreviousParametersRepositoryTest : TestBaseRepository<RequiredPreviousParameters>, IRequiredPreviousParametersRepository
+    public partial class ParameterRelationRepositoryTest : TestBaseRepository<ParameterRelation>, IParameterRelationRepository
     {
-        public RequiredPreviousParametersRepositoryTest(TestData testData) : base(testData) {}
+        public ParameterRelationRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class ProjectUnitRepositoryTest : TestBaseRepository<ProjectUnit>, IProjectUnitRepository

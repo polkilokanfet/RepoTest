@@ -31,13 +31,12 @@ namespace HVTApp.DataAccess
             MeasureRepository = new MeasureRepository(context);
             ParameterRepository = new ParameterRepository(context);
             ParameterGroupRepository = new ParameterGroupRepository(context);
-            PartRepository = new PartRepository(context);
-            ProductsRelationRepository = new ProductsRelationRepository(context);
+            ProductRelationRepository = new ProductRelationRepository(context);
             StandartPaymentConditionsRepository = new StandartPaymentConditionsRepository(context);
             PersonRepository = new PersonRepository(context);
             PaymentPlannedRepository = new PaymentPlannedRepository(context);
             PaymentActualRepository = new PaymentActualRepository(context);
-            RequiredPreviousParametersRepository = new RequiredPreviousParametersRepository(context);
+            ParameterRelationRepository = new ParameterRelationRepository(context);
             ProjectUnitRepository = new ProjectUnitRepository(context);
             TenderUnitRepository = new TenderUnitRepository(context);
             ShipmentUnitRepository = new ShipmentUnitRepository(context);
@@ -93,13 +92,12 @@ namespace HVTApp.DataAccess
         public IMeasureRepository MeasureRepository { get; }
         public IParameterRepository ParameterRepository { get; }
         public IParameterGroupRepository ParameterGroupRepository { get; }
-        public IPartRepository PartRepository { get; }
-        public IProductsRelationRepository ProductsRelationRepository { get; }
+        public IProductRelationRepository ProductRelationRepository { get; }
         public IStandartPaymentConditionsRepository StandartPaymentConditionsRepository { get; }
         public IPersonRepository PersonRepository { get; }
         public IPaymentPlannedRepository PaymentPlannedRepository { get; }
         public IPaymentActualRepository PaymentActualRepository { get; }
-        public IRequiredPreviousParametersRepository RequiredPreviousParametersRepository { get; }
+        public IParameterRelationRepository ParameterRelationRepository { get; }
         public IProjectUnitRepository ProjectUnitRepository { get; }
         public ITenderUnitRepository TenderUnitRepository { get; }
         public IShipmentUnitRepository ShipmentUnitRepository { get; }

@@ -3,12 +3,12 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
-    public class ProductItemConfiguration : EntityTypeConfiguration<Part>
-    {
-        public ProductItemConfiguration()
-        {
-            Property(x => x.Designation).IsRequired().HasMaxLength(100);
-            HasMany(x => x.Parameters).WithMany();
-        }
-    }
+    //public class ProductItemConfiguration : EntityTypeConfiguration<Part>
+    //{
+    //    public ProductItemConfiguration()
+    //    {
+    //        Property(x => x.Designation).IsRequired().HasMaxLength(100);
+    //        HasMany(x => x.Parameters).WithMany();
+    //    }
+    //}
 }

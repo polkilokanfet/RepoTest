@@ -16,7 +16,9 @@ namespace HVTApp.Services.GetProductService
         public PartSelector(IEnumerable<IEnumerable<Parameter>> parametersGroups, IList<Part> parts, IEnumerable<Parameter> requiredParameters = null, Part preSelectedPart = null)
         {
             _parts = parts;
-            _requiredParameters = requiredParameters == null ? new List<Parameter>() : new List<Parameter>(requiredParameters);
+            _requiredParameters = requiredParameters == null 
+                ? new List<Parameter>() 
+                : new List<Parameter>(requiredParameters);
 
             //упорядочиваем группы по отдаленности от опорной группы (параметра)
             var parameterGroups = new List<IEnumerable<Parameter>>(parametersGroups.OrderBy(x => x, new ParametersEnumerableComparer()));
@@ -34,6 +36,11 @@ namespace HVTApp.Services.GetProductService
 
                 //подписываемся на изменение выбора параметра в каждой группе
                 parameterSelector.SelectedParameterChanged += OnSelectedParameterChanged;
+
+                foreach (var parameterFlaged in parameterSelector.ParametersFlaged)
+                {
+                    parameterFlaged.SubscribingToChangeActualStatus(this);
+                }
             }
             //обновлем статусы актуальности каждого параметра
             RefreshParametersActualStatuses(SelectedParameters);
@@ -58,11 +65,14 @@ namespace HVTApp.Services.GetProductService
 
                 //назначаем в селекторы актуальные выбранные параметры
                 if (!SelectedParameters.AllMembersAreSame(_selectedPart.Parameters))
+                {
                     SetParametersInSelectors(_selectedPart.Parameters);
+                    OnSelectedParametersChanged(SelectedParameters);
+                }
 
                 if (!_parts.Contains(value)) _parts.Add(value);
 
-                OnSelectedProductChanged(oldValue, value);
+                OnSelectedPartChanged(oldValue, value);
                 OnPropertyChanged();
             }
         }
@@ -93,7 +103,7 @@ namespace HVTApp.Services.GetProductService
 
         private void RefreshParametersActualStatuses(IEnumerable<Parameter> actualSelectedParameters)
         {
-            ParameterSelectors.ToList().ForEach(x => x.RefreshParametersActualStatuses(actualSelectedParameters));
+            //ParameterSelectors.ToList().ForEach(x => x.RefreshParametersActualStatuses(actualSelectedParameters));
         }
 
         private void OnSelectedParameterChanged(ParameterFlaged oldParameter, ParameterFlaged newParameter)
@@ -134,10 +144,16 @@ namespace HVTApp.Services.GetProductService
 
         public event Action<Part, Part> SelectedPartChanged;
 
-        protected virtual void OnSelectedProductChanged(Part oldPart, Part newPart)
+        protected virtual void OnSelectedPartChanged(Part oldPart, Part newPart)
         {
             SelectedPartChanged?.Invoke(oldPart, newPart);
         }
 
+        public event Action<IEnumerable<Parameter>> SelectedParametersChanged;
+
+        protected virtual void OnSelectedParametersChanged(IEnumerable<Parameter> selectedParameters)
+        {
+            SelectedParametersChanged?.Invoke(selectedParameters);
+        }
     }
 }

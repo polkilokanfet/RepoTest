@@ -3,7 +3,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
-    public partial class RequiredPreviousParametersConfiguration : EntityTypeConfiguration<RequiredPreviousParameters>
+    public partial class RequiredPreviousParametersConfiguration : EntityTypeConfiguration<ParameterRelation>
     {
         public RequiredPreviousParametersConfiguration()
         {

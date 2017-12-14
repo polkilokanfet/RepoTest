@@ -20,13 +20,12 @@ namespace HVTApp.DataAccess
     public partial interface IMeasureRepository : IRepository<Measure> { }
     public partial interface IParameterRepository : IRepository<Parameter> { }
     public partial interface IParameterGroupRepository : IRepository<ParameterGroup> { }
-    public partial interface IPartRepository : IRepository<Part> { }
-    public partial interface IProductsRelationRepository : IRepository<ProductsRelation> { }
+    public partial interface IProductRelationRepository : IRepository<ProductRelation> { }
     public partial interface IStandartPaymentConditionsRepository : IRepository<StandartPaymentConditions> { }
     public partial interface IPersonRepository : IRepository<Person> { }
     public partial interface IPaymentPlannedRepository : IRepository<PaymentPlanned> { }
     public partial interface IPaymentActualRepository : IRepository<PaymentActual> { }
-    public partial interface IRequiredPreviousParametersRepository : IRepository<RequiredPreviousParameters> { }
+    public partial interface IParameterRelationRepository : IRepository<ParameterRelation> { }
     public partial interface IProjectUnitRepository : IRepository<ProjectUnit> { }
     public partial interface ITenderUnitRepository : IRepository<TenderUnit> { }
     public partial interface IShipmentUnitRepository : IRepository<ShipmentUnit> { }

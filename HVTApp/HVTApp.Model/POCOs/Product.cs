@@ -9,8 +9,28 @@ namespace HVTApp.Model.POCOs
     public class Product : BaseEntity
     {
         public string Designation { get; set; }
-        public virtual Part Part { get; set; }
+
+        public virtual List<Parameter> Parameters { get; set; } = new List<Parameter>();
+        public virtual List<CostOnDate> Prices { get; set; } = new List<CostOnDate>(); //себестоимости по датам
+
+        public string StructureCostNumber { get; set; }
+
+        public string ParametersToString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (var parameter in Parameters)
+                stringBuilder.Append($"{parameter.GroupId}: {parameter.Value}; ");
+
+            return stringBuilder.ToString();
+        }
+
         public virtual List<Product> DependentProducts { get; set; } = new List<Product>();
+
+
+        public override string ToString()
+        {
+            return !string.IsNullOrEmpty(Designation) ? Designation : ParametersToString();
+        }
 
 
         public override bool Equals(object obj)
@@ -21,7 +41,7 @@ namespace HVTApp.Model.POCOs
             if (otherProduct == null) return false;
 
             //если составные части не совпадают
-            if (!Part.Parameters.AllMembersAreSame(otherProduct.Part.Parameters)) return false;
+            if (!Parameters.AllMembersAreSame(otherProduct.Parameters)) return false;
 
             //если зависимые продукты не совпадают / совпадают
             return DependentProducts.AllMembersAreSame(otherProduct.DependentProducts);
@@ -30,7 +50,7 @@ namespace HVTApp.Model.POCOs
         public string PartsToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append(Part.ToString());
+            stringBuilder.Append(ToString());
             if (DependentProducts.Any())
             {
                 stringBuilder.Append(Environment.NewLine + "Составные части:");
@@ -39,12 +59,6 @@ namespace HVTApp.Model.POCOs
             }
 
             return stringBuilder.ToString();
-        }
-
-        public override string ToString()
-        {
-            if (!String.IsNullOrEmpty(Designation)) return Designation;
-            return Part.ToString();
         }
     }
 }

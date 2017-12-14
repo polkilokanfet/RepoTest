@@ -54,19 +54,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BooleanToVisibilityConverter.cs" />
-    <Compile Include="GetProductServiceWpf.cs" />
-    <Compile Include="Selectors\NotifyIsActualChanged.cs" />
+    <Compile Include="Selectors2\ParameterSelector.cs" />
     <Compile Include="SelectProductWindow.xaml.cs">
       <DependentUpon>SelectProductWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Selectors\NotifyPropertyChanged.cs" />
-    <Compile Include="Selectors\ParametersEnumerableComparer.cs" />
-    <Compile Include="Selectors\ParameterFlaged.cs" />
-    <Compile Include="Selectors\PartSelector.cs" />
-    <Compile Include="Selectors\ProductSelector.cs" />
     <Compile Include="IGetProductService.cs" />
-    <Compile Include="Selectors\ParameterSelector.cs" />
-    <Compile Include="EquipmentsComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -122,6 +114,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Selectors\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

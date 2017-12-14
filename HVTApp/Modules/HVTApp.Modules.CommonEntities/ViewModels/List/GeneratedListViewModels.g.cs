@@ -95,14 +95,9 @@ namespace HVTApp.UI.ViewModels
         public ParameterGroupListViewModel(IUnityContainer container, ParameterGroupWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
     }
 
-    public partial class PartListViewModel : BaseWrapperListViewModel<PartWrapper, Part, PartDetailsViewModel, AfterSavePartEvent>
+    public partial class ProductRelationListViewModel : BaseWrapperListViewModel<ProductRelationWrapper, ProductRelation, ProductRelationDetailsViewModel, AfterSaveProductRelationEvent>
     {
-        public PartListViewModel(IUnityContainer container, PartWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
-    }
-
-    public partial class ProductsRelationListViewModel : BaseWrapperListViewModel<ProductsRelationWrapper, ProductsRelation, ProductsRelationDetailsViewModel, AfterSaveProductsRelationEvent>
-    {
-        public ProductsRelationListViewModel(IUnityContainer container, ProductsRelationWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public ProductRelationListViewModel(IUnityContainer container, ProductRelationWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
     }
 
     public partial class StandartPaymentConditionsListViewModel : BaseWrapperListViewModel<StandartPaymentConditionsWrapper, StandartPaymentConditions, StandartPaymentConditionsDetailsViewModel, AfterSaveStandartPaymentConditionsEvent>
@@ -125,9 +120,9 @@ namespace HVTApp.UI.ViewModels
         public PaymentActualListViewModel(IUnityContainer container, PaymentActualWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
     }
 
-    public partial class RequiredPreviousParametersListViewModel : BaseWrapperListViewModel<RequiredPreviousParametersWrapper, RequiredPreviousParameters, RequiredPreviousParametersDetailsViewModel, AfterSaveRequiredPreviousParametersEvent>
+    public partial class ParameterRelationListViewModel : BaseWrapperListViewModel<ParameterRelationWrapper, ParameterRelation, ParameterRelationDetailsViewModel, AfterSaveParameterRelationEvent>
     {
-        public RequiredPreviousParametersListViewModel(IUnityContainer container, RequiredPreviousParametersWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public ParameterRelationListViewModel(IUnityContainer container, ParameterRelationWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
     }
 
     public partial class ProjectUnitListViewModel : BaseWrapperListViewModel<ProjectUnitWrapper, ProjectUnit, ProjectUnitDetailsViewModel, AfterSaveProjectUnitEvent>

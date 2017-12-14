@@ -238,7 +238,6 @@
     <Compile Include="Wrapper\Custom\Functionality\OfferUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\OfferWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ParameterWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\PartWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductionUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductsUnitGroup.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductWrapper.cs" />

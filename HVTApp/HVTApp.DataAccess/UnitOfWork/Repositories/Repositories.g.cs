@@ -93,14 +93,9 @@ namespace HVTApp.DataAccess
         public ParameterGroupRepository(DbContext context) : base(context) {}
     }
 
-    public partial class PartRepository : BaseRepository<Part>, IPartRepository
+    public partial class ProductRelationRepository : BaseRepository<ProductRelation>, IProductRelationRepository
     {
-        public PartRepository(DbContext context) : base(context) {}
-    }
-
-    public partial class ProductsRelationRepository : BaseRepository<ProductsRelation>, IProductsRelationRepository
-    {
-        public ProductsRelationRepository(DbContext context) : base(context) {}
+        public ProductRelationRepository(DbContext context) : base(context) {}
     }
 
     public partial class StandartPaymentConditionsRepository : BaseRepository<StandartPaymentConditions>, IStandartPaymentConditionsRepository
@@ -123,9 +118,9 @@ namespace HVTApp.DataAccess
         public PaymentActualRepository(DbContext context) : base(context) {}
     }
 
-    public partial class RequiredPreviousParametersRepository : BaseRepository<RequiredPreviousParameters>, IRequiredPreviousParametersRepository
+    public partial class ParameterRelationRepository : BaseRepository<ParameterRelation>, IParameterRelationRepository
     {
-        public RequiredPreviousParametersRepository(DbContext context) : base(context) {}
+        public ParameterRelationRepository(DbContext context) : base(context) {}
     }
 
     public partial class ProjectUnitRepository : BaseRepository<ProjectUnit>, IProjectUnitRepository

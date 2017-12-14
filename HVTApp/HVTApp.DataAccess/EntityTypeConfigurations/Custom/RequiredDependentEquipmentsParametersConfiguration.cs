@@ -3,7 +3,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
-    public class RequiredDependentEquipmentsParametersConfiguration : EntityTypeConfiguration<ProductsRelation>
+    public class RequiredDependentEquipmentsParametersConfiguration : EntityTypeConfiguration<ProductRelation>
     {
         public RequiredDependentEquipmentsParametersConfiguration()
         {

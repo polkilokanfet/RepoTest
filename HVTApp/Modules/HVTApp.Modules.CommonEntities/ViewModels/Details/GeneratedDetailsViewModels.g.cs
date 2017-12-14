@@ -95,14 +95,9 @@ namespace HVTApp.UI.ViewModels
         public ParameterGroupDetailsViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class PartDetailsViewModel : BaseDetailsViewModel<PartWrapper, Part, AfterSavePartEvent>
+    public partial class ProductRelationDetailsViewModel : BaseDetailsViewModel<ProductRelationWrapper, ProductRelation, AfterSaveProductRelationEvent>
     {
-        public PartDetailsViewModel(IUnityContainer container) : base(container) { }
-    }
-
-    public partial class ProductsRelationDetailsViewModel : BaseDetailsViewModel<ProductsRelationWrapper, ProductsRelation, AfterSaveProductsRelationEvent>
-    {
-        public ProductsRelationDetailsViewModel(IUnityContainer container) : base(container) { }
+        public ProductRelationDetailsViewModel(IUnityContainer container) : base(container) { }
     }
 
     public partial class StandartPaymentConditionsDetailsViewModel : BaseDetailsViewModel<StandartPaymentConditionsWrapper, StandartPaymentConditions, AfterSaveStandartPaymentConditionsEvent>
@@ -125,9 +120,9 @@ namespace HVTApp.UI.ViewModels
         public PaymentActualDetailsViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class RequiredPreviousParametersDetailsViewModel : BaseDetailsViewModel<RequiredPreviousParametersWrapper, RequiredPreviousParameters, AfterSaveRequiredPreviousParametersEvent>
+    public partial class ParameterRelationDetailsViewModel : BaseDetailsViewModel<ParameterRelationWrapper, ParameterRelation, AfterSaveParameterRelationEvent>
     {
-        public RequiredPreviousParametersDetailsViewModel(IUnityContainer container) : base(container) { }
+        public ParameterRelationDetailsViewModel(IUnityContainer container) : base(container) { }
     }
 
     public partial class ProjectUnitDetailsViewModel : BaseDetailsViewModel<ProjectUnitWrapper, ProjectUnit, AfterSaveProjectUnitEvent>

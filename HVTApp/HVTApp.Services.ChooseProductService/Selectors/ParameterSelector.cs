@@ -59,7 +59,7 @@ namespace HVTApp.Services.GetProductService
             if (!parametersList.All(x => Equals(x.GroupId, parametersList.First().GroupId))) throw new ArgumentException(@"Параметры должны быть из одной группы", nameof(parameters));
 
             ParametersFlaged = new ReadOnlyObservableCollection<ParameterFlaged>(
-                new ObservableCollection<ParameterFlaged>(parametersList.Select(x => new ParameterFlaged(x, this))));
+                new ObservableCollection<ParameterFlaged>(parametersList.Select(x => new ParameterFlaged(x))));
             //подписываемся на смену актуальности параметра
             ParametersFlaged.ToList().ForEach(x => x.IsActualChanged += ParameterFlagedOnIsActualChanged);
 
@@ -86,10 +86,10 @@ namespace HVTApp.Services.GetProductService
         /// обновлем флаги актуальности каждого параметра
         /// </summary>
         /// <param name="requiredParameters"></param>
-        public void RefreshParametersActualStatuses(IEnumerable<Parameter> requiredParameters)
-        {
-            ParametersFlaged.ToList().ForEach(x => x.RefreshActualStatus(requiredParameters));
-        }
+        //public void RefreshParametersActualStatuses(IEnumerable<Parameter> requiredParameters)
+        //{
+        //    ParametersFlaged.ToList().ForEach(x => x.RefreshActualStatus(requiredParameters));
+        //}
 
 
         /// <summary>

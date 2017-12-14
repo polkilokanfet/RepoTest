@@ -18,13 +18,12 @@ namespace HVTApp.UI.Lookup
 	public interface IMeasureLookupDataService : ILookupDataService<MeasureLookup> { } 
 	public interface IParameterLookupDataService : ILookupDataService<ParameterLookup> { } 
 	public interface IParameterGroupLookupDataService : ILookupDataService<ParameterGroupLookup> { } 
-	public interface IPartLookupDataService : ILookupDataService<PartLookup> { } 
-	public interface IProductsRelationLookupDataService : ILookupDataService<ProductsRelationLookup> { } 
+	public interface IProductRelationLookupDataService : ILookupDataService<ProductRelationLookup> { } 
 	public interface IStandartPaymentConditionsLookupDataService : ILookupDataService<StandartPaymentConditionsLookup> { } 
 	public interface IPersonLookupDataService : ILookupDataService<PersonLookup> { } 
 	public interface IPaymentPlannedLookupDataService : ILookupDataService<PaymentPlannedLookup> { } 
 	public interface IPaymentActualLookupDataService : ILookupDataService<PaymentActualLookup> { } 
-	public interface IRequiredPreviousParametersLookupDataService : ILookupDataService<RequiredPreviousParametersLookup> { } 
+	public interface IParameterRelationLookupDataService : ILookupDataService<ParameterRelationLookup> { } 
 	public interface IProjectUnitLookupDataService : ILookupDataService<ProjectUnitLookup> { } 
 	public interface ITenderUnitLookupDataService : ILookupDataService<TenderUnitLookup> { } 
 	public interface IShipmentUnitLookupDataService : ILookupDataService<ShipmentUnitLookup> { } 

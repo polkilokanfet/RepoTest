@@ -7,11 +7,9 @@ namespace HVTApp.Services.GetProductService
 {
     class EquipmentsComparer : IEqualityComparer<Product>
     {
-        public bool Equals(Product x, Product y)
+        bool IEqualityComparer<Product>.Equals(Product x, Product y)
         {
-            return Equals(x.Part, y.Part) &&
-                   x.DependentProducts.Except(y.DependentProducts, new EquipmentsComparer()).Any() &&
-                   y.DependentProducts.Except(x.DependentProducts, new EquipmentsComparer()).Any();
+            return Equals(x, y);
         }
 
         public int GetHashCode(Product obj)
