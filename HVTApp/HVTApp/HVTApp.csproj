@@ -339,10 +339,7 @@
       <HintPath>..\packages\Infragistics.WPF.15.1.20151.1000\lib\net40\InfragisticsWPF4.Olap.Xmla.v15.1.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="InfragisticsWPF4.OutlookBar.v15.1, Version=15.1.20151.1000, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
-      <HintPath>..\packages\Infragistics.WPF.15.1.20151.1000\lib\net40\InfragisticsWPF4.OutlookBar.v15.1.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="InfragisticsWPF4.OutlookBar.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.Persistence.v15.1, Version=15.1.20151.1000, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <HintPath>..\packages\Infragistics.WPF.15.1.20151.1000\lib\net40\InfragisticsWPF4.Persistence.v15.1.dll</HintPath>
       <Private>True</Private>
@@ -351,7 +348,7 @@
       <HintPath>..\packages\Infragistics.WPF.15.1.20151.1000\lib\net40\InfragisticsWPF4.Reporting.v15.1.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="InfragisticsWPF4.Ribbon.v15.1, Version=15.1.20151.1000, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+    <Reference Include="InfragisticsWPF4.Ribbon.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <HintPath>..\packages\Infragistics.WPF.15.1.20151.1000\lib\net40\InfragisticsWPF4.Ribbon.v15.1.dll</HintPath>
       <Private>True</Private>
     </Reference>
@@ -403,7 +400,7 @@
       <HintPath>..\packages\Infragistics.WPF.15.1.20151.1000\lib\net40\InfragisticsWPF4.Undo.v15.1.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="InfragisticsWPF4.v15.1, Version=15.1.20151.1000, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+    <Reference Include="InfragisticsWPF4.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <HintPath>..\packages\Infragistics.WPF.15.1.20151.1000\lib\net40\InfragisticsWPF4.v15.1.dll</HintPath>
       <Private>True</Private>
     </Reference>
