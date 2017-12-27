@@ -55,6 +55,10 @@
     <Compile Include="Selectors2\ProductSelectorTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
+      <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
+      <Name>HVTApp.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Model\HVTApp.Model.csproj">
       <Project>{350BDAB0-B331-426F-A024-004C8539AF17}</Project>
       <Name>HVTApp.Model</Name>
