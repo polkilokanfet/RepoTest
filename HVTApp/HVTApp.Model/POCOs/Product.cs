@@ -37,7 +37,7 @@ namespace HVTApp.Model.POCOs
         {
             if(base.Equals(obj)) return true;
 
-            Product otherProduct = obj as Product;
+            var otherProduct = obj as Product;
             if (otherProduct == null) return false;
 
             //если составные части не совпадают

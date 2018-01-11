@@ -27,12 +27,12 @@ namespace HVTApp.Services.GetProductService
 
         private void ProductSelectorOnSelectedParametersChanged(IEnumerable<Parameter> selectedParameters)
         {
-            var actualParameters = _parameters.Where(x => x.IsActual(selectedParameters));
+            var actualParameters = _parameters.Where(x => x.IsActual(selectedParameters)).ToList();
 
             if (Parameters.AllMembersAreSame(actualParameters)) return;
 
             Parameters.Clear();
-            actualParameters.ToList().ForEach(Parameters.Add);
+            actualParameters.ForEach(Parameters.Add);
 
             OnIsActualChanged();
 
@@ -87,54 +87,5 @@ namespace HVTApp.Services.GetProductService
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-    }
-
-    public class ProductSelector
-    {
-        public ProductSelector(IEnumerable<Parameter> parameters)
-        {
-            var parametersGrouped = parameters.GroupBy(x => x.GroupId);
-            foreach (var group in parametersGrouped)
-            {
-                var parameterSelector = new ParameterSelector(group, this);
-
-                parameterSelector.SelectedParameterChanged += ParameterSelectorOnSelectedParameterChanged;
-                parameterSelector.IsActualChanged += ParameterSelectorOnIsActualChanged;
-
-                if(parameterSelector.IsActual) ParameterSelectorOnIsActualChanged(parameterSelector);
-            }
-        }
-
-        private void ParameterSelectorOnIsActualChanged(ParameterSelector parameterSelector)
-        {
-            if (parameterSelector.IsActual)
-                ParameterSelectors.Add(parameterSelector);
-            else
-                ParameterSelectors.Remove(parameterSelector);
-        }
-
-        private void ParameterSelectorOnSelectedParameterChanged(Parameter oldParameter, Parameter newParameter)
-        {
-            OnSelectedParametersChanged();
-        }
-
-        public ObservableCollection<ParameterSelector> ParameterSelectors { get; } = new ObservableCollection<ParameterSelector>();
-
-        public IEnumerable<Parameter> SelectedParameters => ParameterSelectors.Select(x => x.SelectedParameter);
-
-        public event Action<IEnumerable<Parameter>> SelectedParametersChanged;
-
-
-
-        private readonly List<Parameter> _selectedParametersBefore = new List<Parameter>();
-        protected virtual void OnSelectedParametersChanged()
-        {
-            if (_selectedParametersBefore.AllMembersAreSame(SelectedParameters)) return;
-
-            _selectedParametersBefore.Clear();
-            _selectedParametersBefore.AddRange(SelectedParameters);
-
-            SelectedParametersChanged?.Invoke(SelectedParameters);
-        }
     }
 }

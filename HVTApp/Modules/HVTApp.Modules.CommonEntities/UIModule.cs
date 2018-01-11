@@ -44,7 +44,7 @@ namespace HVTApp.UI
             Container.RegisterViewForNavigation<PartPriceListView>();
 
             _dialogService.Register<ProductDetailsViewModel, ProductDetailsView>();
-            _dialogService.Register<ProjectUnitsDetailsViewModel, ProductUnitsDetailsWindow>();
+            //_dialogService.Register<ProjectUnitsDetailsViewModel, ProductUnitsDetailsView>();
 
             _selectService.Register<ActivityFieldListViewModel, ActivityFieldListView, ActivityFieldWrapper>();
             _selectService.Register<CompanyListViewModel, CompanyListView, CompanyWrapper>();
@@ -56,6 +56,7 @@ namespace HVTApp.UI
             _updateDetailsService.Register<Offer, OfferWrapper, OfferDetailsViewModel, OfferDetailsView>();
             _updateDetailsService.Register<CostOnDate, CostOnDateWrapper, CostOnDateDetailsViewModel, CostOnDateDetailsView>();
             _updateDetailsService.Register<Project, ProjectWrapper, ProjectDetailsViewModel, ProjectDetailsView>();
+            _updateDetailsService.Register<ProjectUnit, ProjectUnitWrapper, ProjectUnitDetailsViewModel, ProductUnitsDetailsView>();
         }
 
         protected override void ResolveOutlookGroup()

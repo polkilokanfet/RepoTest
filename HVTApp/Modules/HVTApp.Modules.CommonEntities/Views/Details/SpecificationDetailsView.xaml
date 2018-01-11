@@ -1,11 +1,15 @@
-﻿<inf:ViewBase x:Class="HVTApp.UI.Views.SpecificationDetailsView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:prism="http://prismlibrary.com/"             
-             prism:ViewModelLocator.AutoWireViewModel="True">
+﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:prism="http://prismlibrary.com/"
+              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:wrapper="clr-namespace:HVTApp.UI.Wrapper"
+              mc:Ignorable="d"
+              x:Class="HVTApp.UI.Views.SpecificationDetailsView"
+              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
-        <Grid.ColumnDefinitions>
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -28,7 +32,95 @@
         <DatePicker Grid.Row="2" Grid.Column="1" />
         
         <Label Grid.Row="3" Grid.Column="0" Content="НДС"/>
-        <TextBox Grid.Row="3" Grid.Column="1" />
-        
+        <TextBox Grid.Row="3" Grid.Column="1" />-->
+
+        <Grid x:Name="Grid1"
+              DataContext="{Binding Item}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label VerticalAlignment="Center"
+                   Grid.Row="0"
+                   Margin="3"
+                   HorizontalAlignment="Left"
+                   Grid.Column="0"
+                   Content="Contract:" />
+            <TextBox x:Name="ContractTextBox"
+                     Text="{Binding Contracts, Mode=OneWay}"
+                     Width="120"
+                     VerticalAlignment="Center"
+                     Grid.Row="0"
+                     Margin="3"
+                     Height="23"
+                     HorizontalAlignment="Left"
+                     Grid.Column="1" />
+            <Label VerticalAlignment="Center"
+                   Grid.Row="1"
+                   Margin="3"
+                   HorizontalAlignment="Left"
+                   Grid.Column="0"
+                   Content="Date:" />
+            <DatePicker x:Name="dateDatePicker"
+                        VerticalAlignment="Center"
+                        SelectedDate="{Binding Date, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                        Grid.Row="1"
+                        Margin="3"
+                        HorizontalAlignment="Left"
+                        Grid.Column="1" />
+            <Label VerticalAlignment="Center"
+                   Grid.Row="2"
+                   Margin="3"
+                   HorizontalAlignment="Left"
+                   Grid.Column="0"
+                   Content="Number:" />
+            <TextBox x:Name="numberTextBox"
+                     Width="120"
+                     VerticalAlignment="Center"
+                     Text="{Binding Number, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                     Grid.Row="2"
+                     Margin="3"
+                     Height="23"
+                     HorizontalAlignment="Left"
+                     Grid.Column="1" />
+            <Label VerticalAlignment="Center"
+                   Grid.Row="3"
+                   Margin="3"
+                   HorizontalAlignment="Left"
+                   Grid.Column="0"
+                   Content="Sum:" />
+            <TextBox x:Name="sumTextBox"
+                     Width="120"
+                     VerticalAlignment="Center"
+                     Text="{Binding Sum, Mode=OneWay}"
+                     Grid.Row="3"
+                     Margin="3"
+                     Height="23"
+                     HorizontalAlignment="Left"
+                     Grid.Column="1" />
+            <Label VerticalAlignment="Center"
+                   Grid.Row="4"
+                   Margin="3"
+                   HorizontalAlignment="Left"
+                   Grid.Column="0"
+                   Content="Vat:" />
+            <TextBox x:Name="vatTextBox"
+                     Width="120"
+                     VerticalAlignment="Center"
+                     Text="{Binding Vat, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                     Grid.Row="4"
+                     Margin="3"
+                     Height="23"
+                     HorizontalAlignment="Left"
+                     Grid.Column="1" />
+        </Grid>
+
     </Grid>
 </inf:ViewBase>

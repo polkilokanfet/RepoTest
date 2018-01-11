@@ -180,7 +180,7 @@ namespace HVTApp.UI.ViewModels
 #>
     public partial class <#=modelType.Name#>DetailsViewModel : BaseDetailsViewModel<<#=modelType.Name#>Wrapper, <#=modelType.Name#>, AfterSave<#=modelType.Name#>Event>
     {
-        public <#=modelType.Name#>DetailsViewModel(IUnityContainer container) : base(container) { }
+        public <#=modelType.Name#>DetailsViewModel(IUnityContainer container, <#=modelType.Name#>Wrapper wrapper = null) : base(container, wrapper) { }
     }
 
 <#+

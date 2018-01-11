@@ -17,7 +17,7 @@ namespace HVTApp.UI.ViewModels
         private ActivityFieldWrapper _selectedActivityField;
         private Guid _formId;
 
-        public CompanyDetailsViewModel(IUnityContainer container, ISelectService selectService) : base(container)
+        public CompanyDetailsViewModel(IUnityContainer container, ISelectService selectService, CompanyWrapper wrapper = null) : base(container, wrapper)
         {
             _selectService = selectService;
 
@@ -27,10 +27,8 @@ namespace HVTApp.UI.ViewModels
             RemoveActivityFieldCommand = new DelegateCommand(RemoveActivityFieldCommand_Execute, RemoveActivityFieldCommand_CanExecute);
         }
 
-        public override async void Load(CompanyWrapper wrapper = null)
+        public async void Load(CompanyWrapper wrapper = null)
         {
-            base.Load(wrapper);
-
             Forms.Clear();
             var forms = await WrapperDataService.CompanyFormWrapperDataService.GetAllAsync();
             Forms.AddRange(forms);

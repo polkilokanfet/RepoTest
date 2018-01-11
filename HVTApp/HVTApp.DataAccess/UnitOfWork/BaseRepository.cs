@@ -17,6 +17,12 @@ namespace HVTApp.DataAccess
             Context = context;
         }
 
+        public virtual List<TEntity> GetAll()
+        {
+            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            return Context.Set<TEntity>().ToList();
+        }
+
         public virtual async Task<List<TEntity>> GetAllAsync()
         {
             Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);

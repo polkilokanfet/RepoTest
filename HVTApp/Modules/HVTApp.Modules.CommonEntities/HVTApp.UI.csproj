@@ -194,8 +194,8 @@
       <DependentUpon>TenderListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Details\CompanyDetailsViewModel.cs" />
-    <Compile Include="Views\Details\ProductUnitsDetailsWindow.xaml.cs">
-      <DependentUpon>ProductUnitsDetailsWindow.xaml</DependentUpon>
+    <Compile Include="Views\Details\ProductUnitsDetailsView.xaml.cs">
+      <DependentUpon>ProductUnitsDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Details\ProjectDetailsView.xaml.cs">
       <DependentUpon>ProjectDetailsView.xaml</DependentUpon>
@@ -284,6 +284,63 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.ActivityField.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.AdditionalSalesUnits.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Address.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.BankDetails.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Company.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.CompanyForm.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Contract.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Cost.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.CostOnDate.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Country.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Currency.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.District.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Document.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.DocumentsRegistrationDetails.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Employee.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.EmployeesPosition.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.ExchangeCurrencyRate.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Facility.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.FacilityType.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.IPayment.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Locality.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.LocalityType.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Measure.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Offer.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.OfferUnit.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Order.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Parameter.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.ParameterGroup.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.ParameterRelation.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.PaymentActual.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.PaymentCondition.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.PaymentDocument.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.PaymentPlanned.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Person.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Product.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.ProductionUnit.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.ProductRelation.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Project.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.ProjectUnit.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Region.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.SalesUnit.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.ShipmentUnit.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Specification.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.StandartPaymentConditions.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.Tender.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TenderType.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TenderUnit.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestChild.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestEntity.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestFriend.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestFriendAddress.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestFriendEmail.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestFriendGroup.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestHusband.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestWife.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.User.datasource" />
+    <None Include="Properties\DataSources\HVTApp.Model.POCOs.UserRole.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -387,7 +444,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Details\ProductUnitsDetailsWindow.xaml">
+    <Page Include="Views\Details\ProductUnitsDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

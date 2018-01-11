@@ -105,7 +105,6 @@ namespace HVTApp.UI.ViewModels
         protected void NewItemCommand_ExecuteAsync()
         {
             var viewModel = Container.Resolve<TDelailsViewModel>();
-            viewModel.Load();
             DialogService.ShowDialog(viewModel);
         }
 

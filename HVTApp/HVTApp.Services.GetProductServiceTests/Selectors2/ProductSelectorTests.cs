@@ -13,9 +13,12 @@ namespace HVTApp.Services.GetProductServiceTests.Selectors2
         [TestMethod()]
         public void ProductSelectorTest()
         {
-            TestData testData = new TestData();
+            var testData = new TestData();
+            var products = testData.GetAll<Product>();
             var parameters = testData.GetAll<Parameter>().ToList();
-            var productSelector = new ProductSelector(parameters);
+            var productRelations = testData.GetAll<ProductRelation>().ToList();
+
+            var productSelector = new ProductSelector(products, parameters, productRelations);
 
             var originParameters = parameters.Where(x => !x.RequiredPreviousParameters.Any());
             var originParameterSelector = productSelector.ParameterSelectors.Single(x => x.Parameters.AllMembersAreSame(originParameters));

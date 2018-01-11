@@ -9,6 +9,5 @@ namespace HVTApp.Infrastructure
     {
         TWrapper Item { get; }
         ICommand SaveCommand { get; }
-        void Load(TWrapper wrapper = null);
     }
 }

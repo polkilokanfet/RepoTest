@@ -17,6 +17,11 @@ namespace HVTApp.DataAccess
             _testData = testData;
         }
 
+        public List<TEntity> GetAll()
+        {
+            return _testData.GetAll<TEntity>().ToList();
+        }
+
         public async Task<List<TEntity>> GetAllAsync()
         {
             var task = Task<List<TEntity>>.Factory.StartNew(() => _testData.GetAll<TEntity>().ToList());

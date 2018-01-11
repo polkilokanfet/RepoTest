@@ -8,6 +8,7 @@ namespace HVTApp.DataAccess
     public interface IRepository<TEntity>
         where TEntity : class, IBaseEntity
     {
+        List<TEntity> GetAll();
         Task<List<TEntity>> GetAllAsync();
         Task<TEntity> GetByIdAsync(Guid id);
         IEnumerable<TEntity> Find(Func<TEntity, bool> predicate);

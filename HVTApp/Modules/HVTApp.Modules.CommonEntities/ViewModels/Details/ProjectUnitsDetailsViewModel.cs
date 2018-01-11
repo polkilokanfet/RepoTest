@@ -16,7 +16,7 @@ namespace HVTApp.UI.ViewModels
         private readonly IChooseService _chooseService;
         private readonly IGetProductService _getProductService;
 
-        public ProjectUnitsDetailsViewModel(IUnitOfWork unitOfWork, IChooseService chooseService, IGetProductService getProductService, ProjectUnitWrapper item, IUnityContainer container) : base(container)
+        public ProjectUnitsDetailsViewModel(IUnitOfWork unitOfWork, IChooseService chooseService, IGetProductService getProductService, IUnityContainer container, ProjectUnitWrapper wrapper = null) : base(container, null)
         {
             _unitOfWork = unitOfWork;
             _chooseService = chooseService;

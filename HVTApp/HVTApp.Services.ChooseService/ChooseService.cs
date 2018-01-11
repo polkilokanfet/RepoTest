@@ -16,12 +16,12 @@ namespace HVTApp.Services.ChooseService
             _owner = owner;
         }
 
-        public TChoosenItem ChooseDialog<TChoosenItem>(IEnumerable<TChoosenItem> items)
-        {
-            return this.ChooseDialog(items, default(TChoosenItem));
-        }
+        //public TChoosenItem ChooseDialog<TChoosenItem>(IEnumerable<TChoosenItem> items)
+        //{
+        //    return this.ChooseDialog(items, default(TChoosenItem));
+        //}
 
-        public TItem ChooseDialog<TItem>(IEnumerable<TItem> items, TItem selectedItem) 
+        public TItem ChooseDialog<TItem>(IEnumerable<TItem> items, TItem selectedItem = default(TItem)) 
         {
             ChooseViewModel<TItem> viewModel = new ChooseViewModel<TItem>(items)
             {

@@ -42,8 +42,7 @@ namespace HVTApp.Services.UpdateDetailsService
 
             bool result = false;
 
-            var detailsViewModel = (IDetailsViewModel<TWrapper, TEntity>)_container.Resolve(_wrapperViewModelDictionary[typeof(TWrapper)]);
-            detailsViewModel.Load(wrapper);
+            var detailsViewModel = (IDetailsViewModel<TWrapper, TEntity>)_container.Resolve(_wrapperViewModelDictionary[typeof(TWrapper)], new ParameterOverride("wrapper", wrapper));
             var detailsView = (Control)_container.Resolve(_wrapperViewDictionary[typeof(TWrapper)]);
             detailsView.DataContext = detailsViewModel;
 

@@ -25,7 +25,7 @@ namespace HVTApp.UI.ViewModels
 
         private TWrapper _item;
 
-        protected BaseDetailsViewModel(IUnityContainer container)
+        protected BaseDetailsViewModel(IUnityContainer container, TWrapper item)
         {
             Container = container;
             UnitOfWork = Container.Resolve<IUnitOfWork>();
@@ -33,6 +33,16 @@ namespace HVTApp.UI.ViewModels
             WrapperDataService = Container.Resolve<WrapperDataService>();
 
             SaveCommand = new DelegateCommand(SaveCommand_Execute, SaveCommand_CanExecute);
+
+            if (item == null)
+            {
+                var entity = Activator.CreateInstance<TEntity>();
+                Item = (TWrapper) Activator.CreateInstance(typeof(TWrapper), entity);
+            }
+            else
+            {
+                Item = item;
+            }
         }
 
 
@@ -48,20 +58,6 @@ namespace HVTApp.UI.ViewModels
                 ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
             }
         }
-
-        public virtual void Load(TWrapper wrapper = null)
-        {
-            if (wrapper == null)
-            {
-                var entity = Activator.CreateInstance<TEntity>();
-                Item = (TWrapper) Activator.CreateInstance(typeof(TWrapper), entity);
-            }
-            else
-            {
-                Item = wrapper;
-            }
-        }
-
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
 
