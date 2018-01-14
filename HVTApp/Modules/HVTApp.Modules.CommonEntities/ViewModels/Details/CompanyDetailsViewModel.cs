@@ -15,11 +15,11 @@ namespace HVTApp.UI.ViewModels
     {
         private readonly ISelectService _selectService;
         private ActivityFieldWrapper _selectedActivityField;
-        private Guid _formId;
 
         public CompanyDetailsViewModel(IUnityContainer container, ISelectService selectService, CompanyWrapper wrapper = null) : base(container, wrapper)
         {
             _selectService = selectService;
+            Load();
 
             SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_Execute);
             RemoveParentCompanyCommand = new DelegateCommand(RemoveParentCompanyCommand_Execute);
@@ -32,22 +32,10 @@ namespace HVTApp.UI.ViewModels
             Forms.Clear();
             var forms = await WrapperDataService.CompanyFormWrapperDataService.GetAllAsync();
             Forms.AddRange(forms);
-
-            if (wrapper?.Form != null) FormId = wrapper.Form.Id;
         }
 
         public ObservableCollection<CompanyFormWrapper> Forms { get; } = new ObservableCollection<CompanyFormWrapper>();
 
-        public Guid FormId
-        {
-            get { return _formId; }
-            set
-            {
-                _formId = value;
-                Item.Form = Forms.Single(x => x.Id == value);
-                OnPropertyChanged();
-            }
-        }
 
         #region Commands
 

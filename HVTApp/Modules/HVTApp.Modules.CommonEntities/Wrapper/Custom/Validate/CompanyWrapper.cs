@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -14,8 +15,8 @@ namespace HVTApp.UI.Wrapper
             if (string.IsNullOrWhiteSpace(ShortName))
                 yield return new ValidationResult("ShortName is required", new[] { nameof(ShortName) });
 
-            if (Form == null)
-                yield return new ValidationResult("Form is required", new[] { nameof(Form) });
+            if (Equals(FormId, Guid.Empty))
+                yield return new ValidationResult("Form is required", new[] { nameof(FormId) });
 
             if (!ActivityFilds.Any())
                 yield return new ValidationResult("У компании должна быть хотябы одна сфера деятельности.", new[] { nameof(ActivityFilds) });

@@ -32,7 +32,8 @@ namespace HVTApp.UI.ViewModels
         protected readonly IDialogService DialogService;
         protected readonly IMessageService MessageService;
 
-        private TWrapper _selectedItem;
+        public ICollection<TWrapper> Items { get; } = new ObservableCollection<TWrapper>();
+
 
         public BaseWrapperListViewModel(IUnityContainer container, IEntityWrapperDataService<TModel, TWrapper> wrapperDataService)
         {
@@ -43,24 +44,23 @@ namespace HVTApp.UI.ViewModels
             DialogService = Container.Resolve<IDialogService>();
             MessageService = Container.Resolve<IMessageService>();
 
-            Items = new ObservableCollection<TWrapper>();
+            LoadItemsAsync();
 
             NewItemCommand = new DelegateCommand(NewItemCommand_ExecuteAsync, NewItemCommand_CanExecute);
             EditItemCommand = new DelegateCommand(EditItemCommand_ExecuteAsync, EditItemCommand_CanExecute);
             RemoveItemCommand = new DelegateCommand(RemoveItemCommand_Execute, RemoveItemCommand_CanExecute);
             SelectItemCommand = new DelegateCommand(SelectItemCommand_Execute, SelectItemCommand_CanExecute);
 
-            LoadedCommand = new DelegateCommand(async () =>
-            {
-                if (AutoLoadItems) await LoadAsync();
-                AutoLoadItems = false;
-            });
-
             EventAggregator.GetEvent<TAfterSaveEntityEvent>().Subscribe(OnAfterSaveEntity);
         }
 
-        public ICollection<TWrapper> Items { get; }
+        private async void LoadItemsAsync()
+        {
+            var wrappers = (await WrapperDataService.GetAllAsync()).ToList();
+            wrappers.ForEach(Items.Add);
+        }
 
+        private TWrapper _selectedItem;
         public TWrapper SelectedItem
         {
             get { return _selectedItem; }
@@ -72,8 +72,6 @@ namespace HVTApp.UI.ViewModels
                 InvalidateCommands();
             }
         }
-
-        public bool AutoLoadItems { get; set; } = true;
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
 
@@ -89,7 +87,6 @@ namespace HVTApp.UI.ViewModels
         public ICommand EditItemCommand { get; }
         public ICommand RemoveItemCommand { get; }
         public ICommand SelectItemCommand { get; }
-        public DelegateCommand LoadedCommand { get; set; }
 
 
 

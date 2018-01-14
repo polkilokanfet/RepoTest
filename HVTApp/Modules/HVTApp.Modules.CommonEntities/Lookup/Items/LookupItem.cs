@@ -7,9 +7,9 @@ namespace HVTApp.UI.Lookup
 {
     public class LookupItem : ILookupItem, INotifyPropertyChanged
     {
-        private string _displayMember;
         public Guid Id { get; set; }
 
+        private string _displayMember;
         public string DisplayMember
         {
             get { return _displayMember; }

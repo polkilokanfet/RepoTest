@@ -23,7 +23,5 @@ namespace HVTApp.Infrastructure.Interfaces.Services.SelectService
         TItem SelectedItem { get; set; }
         ICommand SelectItemCommand { get; }
         ICommand NewItemCommand { get; }
-
-        bool AutoLoadItems { set; }
     }
 }

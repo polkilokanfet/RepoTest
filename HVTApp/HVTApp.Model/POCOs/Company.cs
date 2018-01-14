@@ -10,7 +10,7 @@ namespace HVTApp.Model.POCOs
         public string ShortName { get; set; }
         public string Inn { get; set; }
         public string Kpp { get; set; }
-        public virtual CompanyForm Form { get; set; }
+        public Guid FormId { get; set; }
         public Guid? ParentCompanyId { get; set; }
         public virtual Company ParentCompany { get; set; }
         public virtual Address AddressLegal { get; set; }
@@ -20,7 +20,8 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return $"{ShortName} ({Form.ShortName})";
+            return $"{ShortName}";
+            //return $"{ShortName} ({Form.ShortName})";
         }
     }
 }

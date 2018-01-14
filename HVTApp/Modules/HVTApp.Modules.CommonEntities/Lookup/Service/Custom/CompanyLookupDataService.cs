@@ -13,15 +13,14 @@ namespace HVTApp.UI.Lookup
         public override async Task<IEnumerable<CompanyLookup>> GetAllLookupsAsync()
         {
             var lookups = new List<CompanyLookup>();
-            var companies =
-                await Context.CompanyDbSet.AsNoTracking().Include(x => x.ParentCompany).Include(x => x.Form).ToListAsync();
+            var companies = await Context.CompanyDbSet.AsNoTracking().Include(x => x.ParentCompany).ToListAsync();
             foreach (var company in companies)
             {
                 var lookup = new CompanyLookup
                 {
                     Id = company.Id,
                     DisplayMember = GenerateDisplayMember(company),
-                    CompanyForm = new CompanyFormLookup {Id = company.Form.Id, DisplayMember = company.Form.FullName}
+                    CompanyForm = new CompanyFormLookup {Id = company.FormId, DisplayMember = "company.Form.FullName"}
                 };
                 if (company.ParentCompany != null)
                     lookup.ParentCompany = new CompanyLookup
