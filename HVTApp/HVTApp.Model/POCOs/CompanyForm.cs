@@ -7,7 +7,7 @@ namespace HVTApp.Model.POCOs
     {
         public string FullName { get; set; }
         public string ShortName { get; set; }
-        public virtual List<Company> Companies { get; set; } = new List<Company>();
+        //public virtual List<Company> Companies { get; set; } = new List<Company>();
 
         public override string ToString()
         {

@@ -17,6 +17,8 @@ namespace HVTApp.DataAccess
             HasMany(x => x.ActivityFilds).WithMany();
             HasMany(x => x.BankDetailsList).WithOptional();
             HasOptional(x => x.ParentCompany).WithMany().HasForeignKey(x => x.ParentCompanyId);
+
+            HasRequired(x => x.Form).WithMany().HasForeignKey(x => x.FormId);
         }
     }
 }
