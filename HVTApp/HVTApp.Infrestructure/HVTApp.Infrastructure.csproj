@@ -102,6 +102,7 @@
     <Compile Include="MessageDialogResult.cs" />
     <Compile Include="NavigationAwareViewModelBase.cs" />
     <Compile Include="NavigationItem.cs" />
+    <Compile Include="NotifyTaskCompletion.cs" />
     <Compile Include="Prism\ModuleBase.cs" />
     <Compile Include="Prism\XamDataTreeCommandBehavior.cs" />
     <Compile Include="Prism\XamDataTreeItemSelected.cs" />

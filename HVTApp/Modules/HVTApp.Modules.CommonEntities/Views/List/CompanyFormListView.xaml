@@ -40,7 +40,7 @@
     <DataGrid x:Name="CompanyFormWrapperDataGrid"
               AutoGenerateColumns="False"
               EnableRowVirtualization="True"
-              ItemsSource="{Binding Path=Items}"
+              ItemsSource="{Binding Path=ItemsAsync.Result}"
               SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
               RowDetailsVisibilityMode="VisibleWhenSelected">
         <DataGrid.Columns>

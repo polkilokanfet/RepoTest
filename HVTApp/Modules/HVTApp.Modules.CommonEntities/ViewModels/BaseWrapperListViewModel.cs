@@ -32,8 +32,8 @@ namespace HVTApp.UI.ViewModels
         protected readonly IDialogService DialogService;
         protected readonly IMessageService MessageService;
 
-        public ICollection<TWrapper> Items { get; } = new ObservableCollection<TWrapper>();
-
+        public ICollection<TWrapper> Items => ItemsAsync.Result?.ToList();
+        public NotifyTaskCompletion<ObservableCollection<TWrapper>> ItemsAsync { get; }
 
         public BaseWrapperListViewModel(IUnityContainer container, IEntityWrapperDataService<TModel, TWrapper> wrapperDataService)
         {
@@ -44,7 +44,8 @@ namespace HVTApp.UI.ViewModels
             DialogService = Container.Resolve<IDialogService>();
             MessageService = Container.Resolve<IMessageService>();
 
-            LoadItemsAsync();
+            //LoadItemsAsync();
+            ItemsAsync = new NotifyTaskCompletion<ObservableCollection<TWrapper>>(GetAllItemsAsync());
 
             NewItemCommand = new DelegateCommand(NewItemCommand_ExecuteAsync, NewItemCommand_CanExecute);
             EditItemCommand = new DelegateCommand(EditItemCommand_ExecuteAsync, EditItemCommand_CanExecute);
@@ -52,6 +53,12 @@ namespace HVTApp.UI.ViewModels
             SelectItemCommand = new DelegateCommand(SelectItemCommand_Execute, SelectItemCommand_CanExecute);
 
             EventAggregator.GetEvent<TAfterSaveEntityEvent>().Subscribe(OnAfterSaveEntity);
+        }
+
+        private async Task<ObservableCollection<TWrapper>> GetAllItemsAsync()
+        {
+            var wrappers = await WrapperDataService.GetAllAsync();
+            return new ObservableCollection<TWrapper>(wrappers);
         }
 
         private async void LoadItemsAsync()

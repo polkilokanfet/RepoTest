@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
@@ -19,7 +18,8 @@ namespace HVTApp.UI.ViewModels
         public CompanyDetailsViewModel(IUnityContainer container, ISelectService selectService, CompanyWrapper wrapper = null) : base(container, wrapper)
         {
             _selectService = selectService;
-            Load();
+
+            Forms = new NotifyTaskCompletion<IEnumerable<CompanyFormWrapper>>(WrapperDataService.CompanyFormWrapperDataService.GetAllAsync());
 
             SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_Execute);
             RemoveParentCompanyCommand = new DelegateCommand(RemoveParentCompanyCommand_Execute);
@@ -27,14 +27,7 @@ namespace HVTApp.UI.ViewModels
             RemoveActivityFieldCommand = new DelegateCommand(RemoveActivityFieldCommand_Execute, RemoveActivityFieldCommand_CanExecute);
         }
 
-        public async void Load(CompanyWrapper wrapper = null)
-        {
-            Forms.Clear();
-            var forms = await WrapperDataService.CompanyFormWrapperDataService.GetAllAsync();
-            Forms.AddRange(forms);
-        }
-
-        public ObservableCollection<CompanyFormWrapper> Forms { get; } = new ObservableCollection<CompanyFormWrapper>();
+        public NotifyTaskCompletion<IEnumerable<CompanyFormWrapper>> Forms { get; }
 
 
         #region Commands

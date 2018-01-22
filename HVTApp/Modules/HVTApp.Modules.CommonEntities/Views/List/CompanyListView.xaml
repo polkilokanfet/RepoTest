@@ -12,7 +12,7 @@
         <converters:WrapperToStringConverter x:Key="WrapperToStringConverter"/>
     </Control.Resources>
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid DataSource="{Binding ItemsAsync.Result, Mode=OneWay}">
 
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout Key="Company">
