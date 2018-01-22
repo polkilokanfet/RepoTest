@@ -9,7 +9,6 @@ namespace HVTApp.DataAccess
         {
             Property(x => x.FullName).IsRequired().HasMaxLength(50);
             Property(x => x.ShortName).IsRequired().HasMaxLength(50);
-            HasMany(x => x.Companies).WithRequired().HasForeignKey(x => x.FormId);
         }
     }
 }

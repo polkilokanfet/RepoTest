@@ -531,10 +531,6 @@ namespace HVTApp.UI.Wrapper
   
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Companies == null) throw new ArgumentException("Companies cannot be null");
-          Companies = new ValidatableChangeTrackingCollection<CompanyWrapper>(Model.Companies.Select(e => new CompanyWrapper(e)));
-          RegisterCollection(Companies, Model.Companies);
-
         }
 	}
 
