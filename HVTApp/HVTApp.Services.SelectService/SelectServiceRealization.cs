@@ -42,7 +42,7 @@ namespace HVTApp.Services.SelectService
 
             ISelectViewModel<TItem> viewModel = (ISelectViewModel<TItem>)_unityContainer.Resolve(vmv.ViewModelType);
             items.ToList().Clear();
-            items.ToList().ForEach(viewModel.Items.Add);
+            items.ToList().ForEach((viewModel.Items as ICollection<TItem>).Add);
             
             if (selectedItem != null && items.Any(x => x.Model.Id == selectedItem.Model.Id))
                 viewModel.SelectedItem = items.Single(x => x.Model.Id == selectedItem.Model.Id);

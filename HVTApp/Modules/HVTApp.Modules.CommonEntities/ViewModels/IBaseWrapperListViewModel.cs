@@ -11,7 +11,7 @@ namespace HVTApp.UI.ViewModels
         where TModel : class, IBaseEntity
         where TWrapper : class, IWrapper<TModel>
     {
-        ICollection<TWrapper> Items { get; }
+        IEnumerable<TWrapper> Items { get; }
         TWrapper SelectedItem { get; set; }
 
         ICommand NewItemCommand { get; }

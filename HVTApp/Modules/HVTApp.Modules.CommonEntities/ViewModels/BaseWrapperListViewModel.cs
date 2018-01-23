@@ -32,7 +32,7 @@ namespace HVTApp.UI.ViewModels
         protected readonly IDialogService DialogService;
         protected readonly IMessageService MessageService;
 
-        public ICollection<TWrapper> Items => ItemsAsync.Result?.ToList();
+        public IEnumerable<TWrapper> Items => ItemsAsync.Result;
         public NotifyTaskCompletion<ObservableCollection<TWrapper>> ItemsAsync { get; }
 
         public BaseWrapperListViewModel(IUnityContainer container, IEntityWrapperDataService<TModel, TWrapper> wrapperDataService)
@@ -44,27 +44,25 @@ namespace HVTApp.UI.ViewModels
             DialogService = Container.Resolve<IDialogService>();
             MessageService = Container.Resolve<IMessageService>();
 
-            //LoadItemsAsync();
             ItemsAsync = new NotifyTaskCompletion<ObservableCollection<TWrapper>>(GetAllItemsAsync());
 
-            NewItemCommand = new DelegateCommand(NewItemCommand_ExecuteAsync, NewItemCommand_CanExecute);
-            EditItemCommand = new DelegateCommand(EditItemCommand_ExecuteAsync, EditItemCommand_CanExecute);
-            RemoveItemCommand = new DelegateCommand(RemoveItemCommand_Execute, RemoveItemCommand_CanExecute);
+            NewItemCommand = new DelegateCommand(NewItemCommand_Execute, NewItemCommand_CanExecute);
+            EditItemCommand = new DelegateCommand(EditItemCommand_Execute, EditItemCommand_CanExecute);
+            RemoveItemCommand = new DelegateCommand(RemoveItemCommand_ExecuteAsync, RemoveItemCommand_CanExecute);
+
             SelectItemCommand = new DelegateCommand(SelectItemCommand_Execute, SelectItemCommand_CanExecute);
 
             EventAggregator.GetEvent<TAfterSaveEntityEvent>().Subscribe(OnAfterSaveEntity);
         }
 
-        private async Task<ObservableCollection<TWrapper>> GetAllItemsAsync()
+        protected virtual async Task<IEnumerable<TWrapper>> GetItems()
         {
-            var wrappers = await WrapperDataService.GetAllAsync();
-            return new ObservableCollection<TWrapper>(wrappers);
+            return await WrapperDataService.GetAllAsync();
         }
 
-        private async void LoadItemsAsync()
+        private async Task<ObservableCollection<TWrapper>> GetAllItemsAsync()
         {
-            var wrappers = (await WrapperDataService.GetAllAsync()).ToList();
-            wrappers.ForEach(Items.Add);
+            return new ObservableCollection<TWrapper>(await GetItems());
         }
 
         private TWrapper _selectedItem;
@@ -82,14 +80,8 @@ namespace HVTApp.UI.ViewModels
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
 
-        public virtual async Task LoadAsync()
-        {
-            var wrappers = (await WrapperDataService.GetAllAsync()).ToList();
-            Items.Clear();
-            wrappers.ForEach(Items.Add);
-        }
-
         #region Commands
+
         public ICommand NewItemCommand { get; }
         public ICommand EditItemCommand { get; }
         public ICommand RemoveItemCommand { get; }
@@ -97,11 +89,13 @@ namespace HVTApp.UI.ViewModels
 
 
 
-        protected void NewItemCommand_ExecuteAsync()
+        protected void NewItemCommand_Execute()
         {
             var model = Activator.CreateInstance<TModel>();
             var wrapper = (TWrapper) Activator.CreateInstance(typeof(TWrapper), model);
             Container.Resolve<IUpdateDetailsService>().UpdateDetails<TModel, TWrapper>(wrapper);
+
+            //добавляется сущность в реакции на событие сохранения OnAfterSaveEntity
         }
 
         protected virtual bool NewItemCommand_CanExecute()
@@ -110,7 +104,7 @@ namespace HVTApp.UI.ViewModels
         }
 
 
-        protected void EditItemCommand_ExecuteAsync()
+        protected void EditItemCommand_Execute()
         {
             Container.Resolve<IUpdateDetailsService>().UpdateDetails<TModel, TWrapper>(SelectedItem);
         }
@@ -120,10 +114,9 @@ namespace HVTApp.UI.ViewModels
             return SelectedItem != null;
         }
 
-        protected async void RemoveItemCommand_Execute()
+        protected async void RemoveItemCommand_ExecuteAsync()
         {
-            if (MessageService.ShowYesNoMessageDialog("Удалить", $"Вы действительно хотите удалить '{SelectedItem.DisplayMember}'?") 
-                != MessageDialogResult.Yes)
+            if (MessageService.ShowYesNoMessageDialog("Удалить", $"Вы действительно хотите удалить '{SelectedItem.DisplayMember}'?") != MessageDialogResult.Yes)
                 return;
 
             var repo = UnitOfWork.GetRepository<TModel>();
@@ -133,7 +126,7 @@ namespace HVTApp.UI.ViewModels
                 UnitOfWork.GetRepository<TModel>().Delete(entityToRemove);
                 UnitOfWork.Complete();
             }
-            Items.Remove(SelectedItem);
+            ItemsAsync.Result.Remove(SelectedItem);
         }
 
         protected virtual bool RemoveItemCommand_CanExecute()
@@ -166,7 +159,7 @@ namespace HVTApp.UI.ViewModels
         {
             var wrapper = Items.SingleOrDefault(x => Equals(x.Model.Id, entity.Id));
             if(wrapper == null)
-                Items.Add((TWrapper)Activator.CreateInstance(typeof(TWrapper), entity));
+                (Items as ICollection<TWrapper>).Add((TWrapper)Activator.CreateInstance(typeof(TWrapper), entity));
             else
                 wrapper.Refresh();
         }

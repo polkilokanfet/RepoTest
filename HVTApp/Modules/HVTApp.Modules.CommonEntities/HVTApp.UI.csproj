@@ -154,6 +154,7 @@
     </Compile>
     <Compile Include="ViewModels\Details\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitsDetailsViewModel.cs" />
+    <Compile Include="ViewModels\List\CompanyListViewModel.cs" />
     <Compile Include="ViewModels\List\GeneratedListViewModels.g.cs" />
     <Compile Include="ViewModels\List\PartPriceListViewModel.cs" />
     <Compile Include="Views\Details\CompanyDetailsView.xaml.cs">

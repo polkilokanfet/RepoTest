@@ -19,7 +19,7 @@ namespace HVTApp.Infrastructure.Interfaces.Services.SelectService
     public interface ISelectViewModel<TItem> : IDialogRequestClose
         where TItem : IWrapper<IBaseEntity>
     {
-        ICollection<TItem> Items { get; }
+        IEnumerable<TItem> Items { get; }
         TItem SelectedItem { get; set; }
         ICommand SelectItemCommand { get; }
         ICommand NewItemCommand { get; }

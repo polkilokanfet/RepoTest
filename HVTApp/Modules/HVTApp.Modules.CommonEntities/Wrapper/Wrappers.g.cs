@@ -443,6 +443,12 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
+	    public CompanyFormWrapper Form 
+        {
+            get { return GetWrapper<CompanyFormWrapper>(); }
+            set { SetComplexValue<CompanyForm, CompanyFormWrapper>(Form, value); }
+        }
+
 	    public CompanyWrapper ParentCompany 
         {
             get { return GetWrapper<CompanyWrapper>(); }
@@ -471,6 +477,8 @@ namespace HVTApp.UI.Wrapper
         #endregion
         public override void InitializeComplexProperties()
         {
+            InitializeComplexProperty<CompanyFormWrapper>(nameof(Form), Model.Form == null ? null : new CompanyFormWrapper(Model.Form));
+
             InitializeComplexProperty<CompanyWrapper>(nameof(ParentCompany), Model.ParentCompany == null ? null : new CompanyWrapper(Model.ParentCompany));
 
             InitializeComplexProperty<AddressWrapper>(nameof(AddressLegal), Model.AddressLegal == null ? null : new AddressWrapper(Model.AddressLegal));
@@ -523,15 +531,6 @@ namespace HVTApp.UI.Wrapper
         public bool IdIsChanged => GetIsChanged(nameof(Id));
 
         #endregion
-
-        #region CollectionProperties
-        public IValidatableChangeTrackingCollection<CompanyWrapper> Companies { get; private set; }
-
-        #endregion
-  
-        protected override void InitializeCollectionProperties()
-        {
-        }
 	}
 
 		public partial class DocumentsRegistrationDetailsWrapper : WrapperBase<DocumentsRegistrationDetails>
