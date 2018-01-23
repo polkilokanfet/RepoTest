@@ -44,7 +44,7 @@ namespace HVTApp.UI.ViewModels
             DialogService = Container.Resolve<IDialogService>();
             MessageService = Container.Resolve<IMessageService>();
 
-            ItemsAsync = new NotifyTaskCompletion<ObservableCollection<TWrapper>>(GetAllItemsAsync());
+            ItemsAsync = new NotifyTaskCompletion<ObservableCollection<TWrapper>>(GetCollectionOfItemsAsync());
 
             NewItemCommand = new DelegateCommand(NewItemCommand_Execute, NewItemCommand_CanExecute);
             EditItemCommand = new DelegateCommand(EditItemCommand_Execute, EditItemCommand_CanExecute);
@@ -60,7 +60,7 @@ namespace HVTApp.UI.ViewModels
             return await WrapperDataService.GetAllAsync();
         }
 
-        private async Task<ObservableCollection<TWrapper>> GetAllItemsAsync()
+        private async Task<ObservableCollection<TWrapper>> GetCollectionOfItemsAsync()
         {
             return new ObservableCollection<TWrapper>(await GetItems());
         }
@@ -163,6 +163,5 @@ namespace HVTApp.UI.ViewModels
             else
                 wrapper.Refresh();
         }
-
     }
 }

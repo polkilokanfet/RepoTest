@@ -31,7 +31,7 @@ namespace HVTApp.Services.SelectService
             Mappings.Add(typeof(TItem), new ViewModelView(typeof(TViewModel), typeof(TView)));
         }
 
-        public TItem SelectItem<TItem>(IEnumerable<TItem> items, TItem selectedItem = null) 
+        public TItem SelectItem<TItem>(IEnumerable<TItem> items, Guid selectedItemId = default(Guid)) 
             where TItem : class, IWrapper<IBaseEntity>
         {
             TItem result = null;
@@ -41,15 +41,16 @@ namespace HVTApp.Services.SelectService
             var view = (Control)_unityContainer.Resolve(vmv.ViewType);
 
             ISelectViewModel<TItem> viewModel = (ISelectViewModel<TItem>)_unityContainer.Resolve(vmv.ViewModelType);
-            items.ToList().Clear();
-            items.ToList().ForEach((viewModel.Items as ICollection<TItem>).Add);
+            //items.ToList().Clear();
+            //items.ToList().ForEach((viewModel.Items as ICollection<TItem>).Add);
+            viewModel.SetItems(items);
             
-            if (selectedItem != null && items.Any(x => x.Model.Id == selectedItem.Model.Id))
-                viewModel.SelectedItem = items.Single(x => x.Model.Id == selectedItem.Model.Id);
+            if (selectedItemId != null && items.Any(x => x.Model.Id == selectedItemId))
+                viewModel.SelectedItem = items.Single(x => x.Model.Id == selectedItemId);
 
             view.DataContext = viewModel;
 
-            SelectWindow selectWindow = new SelectWindow
+            var selectWindow = new SelectWindow
             {
                 ContentControl = { Content = view },
                 CreateNewButton = { Command = viewModel.NewItemCommand },

@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Linq;
+using System.Reflection;
 using HVTApp.Infrastructure;
 
 
@@ -9,8 +10,9 @@ namespace HVTApp.DataAccess
     {
         public IRepository<T> GetRepository<T>() where T : class, IBaseEntity
         {
-            var repositoryPropertyInfo = this.GetType().GetProperties().Single(x => typeof(IRepository<T>).IsAssignableFrom(x.PropertyType));
-            return (IRepository<T>) repositoryPropertyInfo.GetValue(this);
+            var repositoryFieldInfo = this.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+                                                    .Single(x => typeof(IRepository<T>).IsAssignableFrom(x.FieldType));
+            return (IRepository<T>) repositoryFieldInfo.GetValue(this);
         }
 
         public int Complete()

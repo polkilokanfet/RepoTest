@@ -11,12 +11,6 @@
               x:Class="HVTApp.UI.Views.CompanyFormListView"
               prism:ViewModelLocator.AutoWireViewModel="True">
 
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
-
     <!--<infg:XamDataGrid>
         <infg:XamDataGrid.FieldLayoutSettings>
             <infg:FieldLayoutSettings AutoGenerateFields="True">

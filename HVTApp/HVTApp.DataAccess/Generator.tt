@@ -24,7 +24,7 @@
   SaveGeneratedCodeAsFile("HvtAppDataBaseInitializer.g.cs", "");
   
   GenerateIRepositories(modelTypes);
-  SaveGeneratedCodeAsFile("IRepositories.g.cs", "UnitOfWork/Repositories/IRepository");
+  SaveGeneratedCodeAsFile("IRepositories.g.cs", "UnitOfWork/Repositories");
 
   GenerateRepositories(modelTypes);
   SaveGeneratedCodeAsFile("Repositories.g.cs", "UnitOfWork/Repositories");
@@ -252,7 +252,7 @@ namespace HVTApp.DataAccess
 	foreach (var modelType in modelTypes)
     {
 #>
-        public I<#=modelType.Name#>Repository <#=modelType.Name#>Repository { get; }
+        private I<#=modelType.Name#>Repository <#=modelType.Name#>Repository;
 <#+
 	}
 #>
@@ -275,7 +275,7 @@ namespace HVTApp.DataAccess
 	foreach (var modelType in modelTypes)
     {
 #>
-        I<#=modelType.Name#>Repository <#=modelType.Name#>Repository { get; }
+        //I<#=modelType.Name#>Repository <#=modelType.Name#>Repository { get; }
 <#+
 	}
 #>

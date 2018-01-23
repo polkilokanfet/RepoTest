@@ -36,7 +36,7 @@ namespace HVTApp.UI.ViewModels
 
         private async void ChooseFacilityCommand_Execute()
         {
-            var facility = _chooseService.ChooseDialog((await _unitOfWork.FacilityRepository.GetAllAsync()).Select(x => new FacilityWrapper(x)));
+            var facility = _chooseService.ChooseDialog((await _unitOfWork.GetRepository<Facility>().GetAllAsync()).Select(x => new FacilityWrapper(x)));
             if (facility != null) Item.Facility = facility;
         }
 

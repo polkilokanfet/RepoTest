@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -12,7 +14,7 @@ namespace HVTApp.Infrastructure.Interfaces.Services.SelectService
             where TView : Control 
             where TItem : IWrapper<IBaseEntity>;
 
-        TItem SelectItem<TItem>(IEnumerable<TItem> items, TItem selectedItem = null) 
+        TItem SelectItem<TItem>(IEnumerable<TItem> items, Guid selectedItemId = default(Guid)) 
             where TItem : class, IWrapper<IBaseEntity>;
     }
 

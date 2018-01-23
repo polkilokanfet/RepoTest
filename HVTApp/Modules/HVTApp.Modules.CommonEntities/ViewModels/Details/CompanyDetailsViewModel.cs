@@ -50,7 +50,7 @@ namespace HVTApp.UI.ViewModels
 
         private async void AddActivityFieldCommand_Execute()
         {
-            var fields = (await UnitOfWork.ActivityFieldRepository.GetAllAsync()).Select(x => new ActivityFieldWrapper(x)).Except(Item.ActivityFilds);
+            var fields = (await UnitOfWork.GetRepository<ActivityField>().GetAllAsync()).Select(x => new ActivityFieldWrapper(x)).Except(Item.ActivityFilds);
             var field = _selectService.SelectItem(fields);
             if (field != null && !Item.ActivityFilds.Contains(field))
                 Item.ActivityFilds.Add(field);
@@ -82,7 +82,7 @@ namespace HVTApp.UI.ViewModels
             //возможные головные компании
             IEnumerable<CompanyWrapper> possibleParents = companies.Except(exceptCompanies).Select(x => new CompanyWrapper(x));
             //выбор одной из компаний
-            CompanyWrapper possibleParent = _selectService.SelectItem(possibleParents, Item.ParentCompany);
+            CompanyWrapper possibleParent = _selectService.SelectItem(possibleParents, Item.ParentCompany.Id);
 
             if (possibleParent != null && !Equals(possibleParent.Id, Item.ParentCompany?.Id))
             {
