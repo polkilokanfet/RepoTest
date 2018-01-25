@@ -32,8 +32,7 @@ namespace HVTApp.UI.ViewModels
         protected readonly IDialogService DialogService;
         protected readonly IMessageService MessageService;
 
-        public IEnumerable<TWrapper> Items => ItemsAsync.Result;
-        public NotifyTaskCompletion<ObservableCollection<TWrapper>> ItemsAsync { get; }
+        public IEnumerable<TWrapper> Items => new ObservableCollection<TWrapper>(GetItems());
 
         public BaseWrapperListViewModel(IUnityContainer container, IEntityWrapperDataService<TModel, TWrapper> wrapperDataService)
         {
@@ -44,25 +43,18 @@ namespace HVTApp.UI.ViewModels
             DialogService = Container.Resolve<IDialogService>();
             MessageService = Container.Resolve<IMessageService>();
 
-            ItemsAsync = new NotifyTaskCompletion<ObservableCollection<TWrapper>>(GetCollectionOfItemsAsync());
-
             NewItemCommand = new DelegateCommand(NewItemCommand_Execute, NewItemCommand_CanExecute);
             EditItemCommand = new DelegateCommand(EditItemCommand_Execute, EditItemCommand_CanExecute);
-            RemoveItemCommand = new DelegateCommand(RemoveItemCommand_ExecuteAsync, RemoveItemCommand_CanExecute);
+            RemoveItemCommand = new DelegateCommand(RemoveItemCommand_Execute, RemoveItemCommand_CanExecute);
 
             SelectItemCommand = new DelegateCommand(SelectItemCommand_Execute, SelectItemCommand_CanExecute);
 
             EventAggregator.GetEvent<TAfterSaveEntityEvent>().Subscribe(OnAfterSaveEntity);
         }
 
-        protected virtual async Task<IEnumerable<TWrapper>> GetItems()
+        protected virtual IEnumerable<TWrapper> GetItems()
         {
-            return await WrapperDataService.GetAllAsync();
-        }
-
-        private async Task<ObservableCollection<TWrapper>> GetCollectionOfItemsAsync()
-        {
-            return new ObservableCollection<TWrapper>(await GetItems());
+            return WrapperDataService.GetAll();
         }
 
         private TWrapper _selectedItem;
@@ -114,19 +106,19 @@ namespace HVTApp.UI.ViewModels
             return SelectedItem != null;
         }
 
-        protected async void RemoveItemCommand_ExecuteAsync()
+        protected void RemoveItemCommand_Execute()
         {
             if (MessageService.ShowYesNoMessageDialog("Удалить", $"Вы действительно хотите удалить '{SelectedItem.DisplayMember}'?") != MessageDialogResult.Yes)
                 return;
 
             var repo = UnitOfWork.GetRepository<TModel>();
-            var entityToRemove = await repo.GetByIdAsync(SelectedItem.Model.Id);
+            var entityToRemove = repo.GetById(SelectedItem.Model.Id);
             if (entityToRemove != null)
             {
                 UnitOfWork.GetRepository<TModel>().Delete(entityToRemove);
                 UnitOfWork.Complete();
             }
-            ItemsAsync.Result.Remove(SelectedItem);
+            (Items as ICollection<TWrapper>).Remove(SelectedItem);
         }
 
         protected virtual bool RemoveItemCommand_CanExecute()

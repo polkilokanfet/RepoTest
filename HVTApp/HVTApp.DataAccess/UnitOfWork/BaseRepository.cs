@@ -60,5 +60,10 @@ namespace HVTApp.DataAccess
         {
             return await Context.Set<TEntity>().FindAsync(id);
         }
+
+        public TEntity GetById(Guid id)
+        {
+            return Context.Set<TEntity>().Find(id);
+        }
     }
 }

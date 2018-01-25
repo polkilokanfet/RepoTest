@@ -23,7 +23,7 @@
             </Setter.Value>
         </Setter>
         
-        <Setter Property="DataSource" Value="{Binding ItemsAsync.Result, Mode=OneWay}"/>
+        <Setter Property="DataSource" Value="{Binding Items, Mode=OneWay}"/>
         <Setter Property="SelectedDataItem" Value="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <Setter Property="AutoFit" Value="True"/>
     </Style>

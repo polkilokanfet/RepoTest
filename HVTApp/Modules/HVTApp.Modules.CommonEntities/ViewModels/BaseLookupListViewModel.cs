@@ -129,10 +129,10 @@ namespace HVTApp.UI.ViewModels
             return SelectedItem != null;
         }
 
-        protected async void RemoveItemCommand_Execute()
+        protected void RemoveItemCommand_Execute()
         {
             var repo = UnitOfWork.GetRepository<TEntity>();
-            var entityToRemove = await repo.GetByIdAsync(SelectedItem.Id);
+            var entityToRemove = repo.GetById(SelectedItem.Id);
             if (entityToRemove != null)
             {
                 UnitOfWork.GetRepository<TEntity>().Delete(entityToRemove);

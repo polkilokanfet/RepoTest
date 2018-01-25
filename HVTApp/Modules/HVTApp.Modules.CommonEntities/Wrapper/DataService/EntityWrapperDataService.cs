@@ -21,9 +21,9 @@ namespace HVTApp.UI.Wrapper
             UnitOfWork = unitOfWork;
         }
 
-        public virtual async Task<IEnumerable<TWrapper>> GetAllAsync()
+        public virtual IEnumerable<TWrapper> GetAll()
         {
-            var models = await UnitOfWork.GetRepository<TModel>().GetAllAsync();
+            var models = UnitOfWork.GetRepository<TModel>().GetAll();
             var result = new List<TWrapper>();
             foreach (var model in models)
             {
@@ -33,7 +33,7 @@ namespace HVTApp.UI.Wrapper
             return result;
         }
 
-        //public virtual async Task<IEnumerable<TWrapper>> GetAllAsync()
+        //public virtual async Task<IEnumerable<TWrapper>> GetAll()
         //{
         //    var models = await Context.Set<TModel>().AsNoTracking().ToListAsync();
         //    //return models.Select(x => Activator.CreateInstance(typeof(TWrapper), x)).Cast<TWrapper>(); - не канает, т.к. не подгружает свойства
@@ -62,12 +62,12 @@ namespace HVTApp.UI.Wrapper
             UnitOfWork?.Dispose();
         }
 
-        public async Task<TWrapper> GetByIdAsync(Guid id)
+        public TWrapper GetById(Guid id)
         {
             if (ExistsWrappers.Any(x => x.Model.Id == id))
                 return ExistsWrappers.Single(x => x.Model.Id == id);
 
-            TModel model = await UnitOfWork.GetRepository<TModel>().GetByIdAsync(id);
+            TModel model = UnitOfWork.GetRepository<TModel>().GetById(id);
             return GenerateWrapper(model);
         }
     }

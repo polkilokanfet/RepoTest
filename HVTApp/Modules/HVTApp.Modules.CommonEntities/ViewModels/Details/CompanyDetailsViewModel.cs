@@ -19,7 +19,7 @@ namespace HVTApp.UI.ViewModels
         {
             _selectService = selectService;
 
-            Forms = new NotifyTaskCompletion<IEnumerable<CompanyFormWrapper>>(WrapperDataService.CompanyFormWrapperDataService.GetAllAsync());
+            //Forms = new NotifyTaskCompletion<IEnumerable<CompanyFormWrapper>>(WrapperDataService.CompanyFormWrapperDataService.GetAll());
 
             SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_Execute);
             RemoveParentCompanyCommand = new DelegateCommand(RemoveParentCompanyCommand_Execute);
@@ -48,9 +48,12 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
-        private async void AddActivityFieldCommand_Execute()
+        private void AddActivityFieldCommand_Execute()
         {
-            var fields = (await UnitOfWork.GetRepository<ActivityField>().GetAllAsync()).Select(x => new ActivityFieldWrapper(x)).Except(Item.ActivityFilds);
+            var exceptIds = Item.ActivityFilds.Select(x => x.Id);
+            var fields = UnitOfWork.GetRepository<ActivityField>().GetAll()
+                                                                  .Where(x => !exceptIds.Contains(x.Id))
+                                                                  .Select(x => new ActivityFieldWrapper(x));
             var field = _selectService.SelectItem(fields);
             if (field != null && !Item.ActivityFilds.Contains(field))
                 Item.ActivityFilds.Add(field);
@@ -76,7 +79,7 @@ namespace HVTApp.UI.ViewModels
 
         private async void SelectParentCompanyCommand_Execute()
         {
-            var companies = await UnitOfWork.GetRepository<Company>().GetAllAsync();
+            var companies = UnitOfWork.GetRepository<Company>().GetAll();
             //компании, которые не могут быть головной (дочерние и т.д.)
             var exceptCompanies = companies.Where(x => Equals(x.ParentCompany?.Id, Item.Id)).Concat(new[] {Item.Model});
             //возможные головные компании

@@ -65,9 +65,9 @@ namespace HVTApp.UI.ViewModels
 
         public ICommand SaveCommand { get; }
 
-        protected virtual async void SaveCommand_Execute()
+        protected virtual void SaveCommand_Execute()
         {
-            if ((await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(Item.Model.Id)) == null)
+            if (UnitOfWork.GetRepository<TEntity>().GetById(Item.Model.Id) == null)
                 UnitOfWork.GetRepository<TEntity>().Add(Item.Model);
 
             CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));

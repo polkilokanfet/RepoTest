@@ -39,7 +39,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             LoadedCommand = new DelegateCommand(async () =>
             {
-                if(!_loadedFlag) await LoadAsync();
+                if(!_loadedFlag) Load();
                 _loadedFlag = true;
             });
         }
@@ -96,9 +96,9 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
-        private async Task LoadAsync()
+        private void Load()
         {
-            var projectWrappers = await _wrapperDataService.ProjectWrapperDataService.GetAllAsync();
+            var projectWrappers = _wrapperDataService.ProjectWrapperDataService.GetAll();
             Projects.AddRange(projectWrappers);
         }
 

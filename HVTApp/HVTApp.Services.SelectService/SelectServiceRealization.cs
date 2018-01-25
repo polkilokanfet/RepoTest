@@ -12,12 +12,12 @@ namespace HVTApp.Services.SelectService
 {
     public class SelectServiceRealization : ISelectService
     {
-        private readonly IUnityContainer _unityContainer;
+        private readonly IUnityContainer _container;
         public Dictionary<Type, ViewModelView> Mappings { get; } = new Dictionary<Type, ViewModelView>();
 
-        public SelectServiceRealization(IUnityContainer unityContainer)
+        public SelectServiceRealization(IUnityContainer container)
         {
-            _unityContainer = unityContainer;
+            _container = container;
         }
 
         public void Register<TViewModel, TView, TItem>() 
@@ -38,16 +38,15 @@ namespace HVTApp.Services.SelectService
 
             ViewModelView vmv = Mappings[typeof(TItem)];
 
-            var view = (Control)_unityContainer.Resolve(vmv.ViewType);
-
-            ISelectViewModel<TItem> viewModel = (ISelectViewModel<TItem>)_unityContainer.Resolve(vmv.ViewModelType);
+            ISelectViewModel<TItem> viewModel = (ISelectViewModel<TItem>)_container.Resolve(vmv.ViewModelType, new ParameterOverride("items", items));
             //items.ToList().Clear();
             //items.ToList().ForEach((viewModel.Items as ICollection<TItem>).Add);
             //viewModel.SetItems(items);
             
-            if (selectedItemId != null && items.Any(x => x.Model.Id == selectedItemId))
+            if (selectedItemId != Guid.Empty && items.Any(x => x.Model.Id == selectedItemId))
                 viewModel.SelectedItem = items.Single(x => x.Model.Id == selectedItemId);
 
+            var view = (Control)_container.Resolve(vmv.ViewType);
             view.DataContext = viewModel;
 
             var selectWindow = new SelectWindow

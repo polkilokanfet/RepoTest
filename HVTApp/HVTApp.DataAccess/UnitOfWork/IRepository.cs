@@ -9,8 +9,9 @@ namespace HVTApp.DataAccess
         where TEntity : class, IBaseEntity
     {
         List<TEntity> GetAll();
-        Task<List<TEntity>> GetAllAsync();
-        Task<TEntity> GetByIdAsync(Guid id);
+        //Task<List<TEntity>> GetAllAsync();
+        //Task<TEntity> GetByIdAsync(Guid id);
+        TEntity GetById(Guid id);
         IEnumerable<TEntity> Find(Func<TEntity, bool> predicate);
 
         void Add(TEntity entity);

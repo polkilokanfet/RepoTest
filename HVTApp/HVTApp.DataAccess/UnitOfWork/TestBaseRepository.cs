@@ -57,5 +57,10 @@ namespace HVTApp.DataAccess
         {
             throw new NotImplementedException();
         }
+
+        public TEntity GetById(Guid id)
+        {
+            return GetAll().Single(x => x.Id == id);
+        }
     }
 }

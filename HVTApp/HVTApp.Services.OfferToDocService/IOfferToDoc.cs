@@ -5,6 +5,6 @@ namespace HVTApp.Services.OfferToDocService
 {
     public interface IOfferToDoc
     {
-        Task GenerateOfferDocAsync(OfferWrapper offer);
+        void GenerateOfferDocAsync(OfferWrapper offer);
     }
 }
