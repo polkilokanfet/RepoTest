@@ -19,7 +19,7 @@ namespace HVTApp.UI.ViewModels
         {
             _selectService = selectService;
 
-            //Forms = new NotifyTaskCompletion<IEnumerable<CompanyFormWrapper>>(WrapperDataService.CompanyFormWrapperDataService.GetAll());
+            Forms = WrapperDataService.CompanyFormWrapperDataService.GetAll();
 
             SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_Execute);
             RemoveParentCompanyCommand = new DelegateCommand(RemoveParentCompanyCommand_Execute);
@@ -27,7 +27,7 @@ namespace HVTApp.UI.ViewModels
             RemoveActivityFieldCommand = new DelegateCommand(RemoveActivityFieldCommand_Execute, RemoveActivityFieldCommand_CanExecute);
         }
 
-        public NotifyTaskCompletion<IEnumerable<CompanyFormWrapper>> Forms { get; }
+        public IEnumerable<CompanyFormWrapper> Forms { get; }
 
 
         #region Commands

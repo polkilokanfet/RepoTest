@@ -29,7 +29,7 @@
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Форма"/>
         <ComboBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
-                  ItemsSource="{Binding Forms.Result, Mode=OneWay}"
+                  ItemsSource="{Binding Forms, Mode=OneWay}"
                   DisplayMemberPath="DisplayMember"
                   SelectedValuePath="Id"
                   SelectedValue="{Binding Item.FormId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
