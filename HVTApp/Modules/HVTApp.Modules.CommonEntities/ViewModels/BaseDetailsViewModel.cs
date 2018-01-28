@@ -35,7 +35,7 @@ namespace HVTApp.UI.ViewModels
             SaveCommand = new DelegateCommand(SaveCommand_Execute, SaveCommand_CanExecute);
         }
 
-        public async Task LoadAsync(Guid id)
+        public virtual async Task LoadAsync(Guid id)
         {
             TEntity entity = null;
 
@@ -59,6 +59,7 @@ namespace HVTApp.UI.ViewModels
                 _item = value;
                 if (_item != null) _item.PropertyChanged += ItemOnPropertyChanged;
                 ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -79,7 +80,7 @@ namespace HVTApp.UI.ViewModels
 
         protected virtual bool SaveCommand_CanExecute()
         {
-            return Item.IsChanged && Item.IsValid;
+            return Item != null && Item.IsChanged && Item.IsValid;
         }
 
         private void ItemOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)

@@ -1,17 +1,15 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 
 namespace HVTApp.Infrastructure.Interfaces.Services
 {
     public interface IUpdateDetailsService
     {
-        void Register<TEntity, TWrapper, TDetailsViewModel, TDetailsView>()
+        void Register<TEntity, TDetailsView>()
             where TEntity : class, IBaseEntity
-            where TWrapper : class, IWrapper<TEntity>
-            where TDetailsViewModel : class, IDetailsViewModel<TWrapper, TEntity>
             where TDetailsView : Control;
 
-        bool UpdateDetails<TEntity, TWrapper>(TWrapper wrapper)
-            where TEntity : class, IBaseEntity
-            where TWrapper : class, IWrapper<TEntity>;
+        bool UpdateDetails<TEntity>(Guid entityId) 
+            where TEntity : class, IBaseEntity;
     }
 }

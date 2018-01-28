@@ -45,7 +45,7 @@ namespace HVTApp.UI.ViewModels
         {
             //var viewModel = _unityContainer.Resolve<ProjectUnitsDetailsViewModel>();
             var wrapper = new ProjectUnitWrapper(new ProjectUnit());
-            var dialogResult = _updateDetailsService.UpdateDetails<ProjectUnit, ProjectUnitWrapper>(wrapper);
+            var dialogResult = _updateDetailsService.UpdateDetails<ProjectUnit>(wrapper.Model.Id);
             if(dialogResult)
                 Item.ProjectUnits.Add(wrapper);
         }

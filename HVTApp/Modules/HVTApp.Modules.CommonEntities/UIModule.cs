@@ -51,12 +51,12 @@ namespace HVTApp.UI
             _selectService.Register<ProjectListViewModel, ProjectListView, ProjectWrapper>();
             _selectService.Register<TenderListViewModel, TenderListView, TenderWrapper>();
 
-            _updateDetailsService.Register<Company, CompanyWrapper, CompanyDetailsViewModel, CompanyDetailsView>();
-            _updateDetailsService.Register<CompanyForm, CompanyFormWrapper, CompanyFormDetailsViewModel, CompanyFormDetailsView>();
-            _updateDetailsService.Register<Offer, OfferWrapper, OfferDetailsViewModel, OfferDetailsView>();
-            _updateDetailsService.Register<CostOnDate, CostOnDateWrapper, CostOnDateDetailsViewModel, CostOnDateDetailsView>();
-            _updateDetailsService.Register<Project, ProjectWrapper, ProjectDetailsViewModel, ProjectDetailsView>();
-            _updateDetailsService.Register<ProjectUnit, ProjectUnitWrapper, ProjectUnitDetailsViewModel, ProductUnitsDetailsView>();
+            _updateDetailsService.Register<Company, CompanyDetailsView>();
+            _updateDetailsService.Register<CompanyForm, CompanyFormDetailsView>();
+            _updateDetailsService.Register<Offer, OfferDetailsView>();
+            _updateDetailsService.Register<CostOnDate, CostOnDateDetailsView>();
+            _updateDetailsService.Register<Project, ProjectDetailsView>();
+            _updateDetailsService.Register<ProjectUnit, ProductUnitsDetailsView>();
         }
 
         protected override void ResolveOutlookGroup()

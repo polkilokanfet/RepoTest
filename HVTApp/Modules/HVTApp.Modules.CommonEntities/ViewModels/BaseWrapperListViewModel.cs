@@ -95,9 +95,9 @@ namespace HVTApp.UI.ViewModels
 
         protected void NewItemCommand_Execute()
         {
-            var model = Activator.CreateInstance<TEntity>();
-            var wrapper = (TWrapper) Activator.CreateInstance(typeof(TWrapper), model);
-            Container.Resolve<IUpdateDetailsService>().UpdateDetails<TEntity, TWrapper>(wrapper);
+            //var model = Activator.CreateInstance<TEntity>();
+            //var wrapper = (TWrapper) Activator.CreateInstance(typeof(TWrapper), model);
+            Container.Resolve<IUpdateDetailsService>().UpdateDetails<TEntity>(Guid.Empty);
 
             //добавляется сущность в реакции на событие сохранения OnAfterSaveEntity
         }
@@ -110,7 +110,7 @@ namespace HVTApp.UI.ViewModels
 
         protected void EditItemCommand_Execute()
         {
-            Container.Resolve<IUpdateDetailsService>().UpdateDetails<TEntity, TWrapper>(SelectedItem);
+            Container.Resolve<IUpdateDetailsService>().UpdateDetails<TEntity>(SelectedItem.Model.Id);
         }
 
         protected virtual bool EditItemCommand_CanExecute()

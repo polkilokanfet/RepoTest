@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
@@ -14,6 +16,7 @@ namespace HVTApp.UI.ViewModels
     {
         private readonly ISelectService _selectService;
         private ActivityFieldWrapper _selectedActivityField;
+        private IEnumerable<CompanyFormWrapper> _forms;
 
         public CompanyDetailsViewModel(IUnityContainer container, ISelectService selectService) : base(container)
         {
@@ -27,8 +30,21 @@ namespace HVTApp.UI.ViewModels
             RemoveActivityFieldCommand = new DelegateCommand(RemoveActivityFieldCommand_Execute, RemoveActivityFieldCommand_CanExecute);
         }
 
-        public IEnumerable<CompanyFormWrapper> Forms { get; }
+        public IEnumerable<CompanyFormWrapper> Forms
+        {
+            get { return _forms; }
+            private set
+            {
+                _forms = value;
+                OnPropertyChanged();
+            }
+        }
 
+        public override async Task LoadAsync(Guid id)
+        {
+            await base.LoadAsync(id);
+            Forms = (await UnitOfWork.GetRepository<CompanyForm>().GetAllAsNoTrackingAsync()).Select(x => new CompanyFormWrapper(x));
+        }
 
         #region Commands
 

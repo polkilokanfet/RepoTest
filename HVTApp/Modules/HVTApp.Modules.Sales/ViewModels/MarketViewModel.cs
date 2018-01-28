@@ -46,7 +46,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void OnEditProjectCommand_Execute()
         {
-            _updateDetailsService.UpdateDetails<Project, ProjectWrapper>(SelectedProject);
+            _updateDetailsService.UpdateDetails<Project>(SelectedProject.Model.Id);
         }
 
         private void OnEditTenderCommand_Execute()
@@ -56,7 +56,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void OnEditOfferCommand_Execute()
         {
-            _updateDetailsService.UpdateDetails<Offer, OfferWrapper>(SelectedOffer);
+            _updateDetailsService.UpdateDetails<Offer>(SelectedOffer.Id);
         }
 
         public ICommand NewProjectCommand { get; }

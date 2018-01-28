@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -13,73 +12,50 @@ namespace HVTApp.Services.UpdateDetailsService
     public class UpdateDetailsServiceWpf : IUpdateDetailsService
     {
         private readonly IUnityContainer _container;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly Dictionary<Type, Type> _wrapperViewModelDictionary = new Dictionary<Type, Type>();
-        private readonly Dictionary<Type, Type> _wrapperViewDictionary = new Dictionary<Type, Type>();
+        private readonly Dictionary<Type, Type> _dictionary = new Dictionary<Type, Type>();
 
-        public UpdateDetailsServiceWpf(IUnityContainer container, IUnitOfWork unitOfWork)
+        public UpdateDetailsServiceWpf(IUnityContainer container)
         {
             _container = container;
-            _unitOfWork = unitOfWork;
         }
 
-        public void Register<TEntity, TWrapper, TDetailsViewModel, TDetailsView>()
+        public void Register<TEntity, TDetailsView>()
             where TEntity : class, IBaseEntity
-            where TWrapper : class, IWrapper<TEntity>
-            where TDetailsViewModel : class, IDetailsViewModel<TWrapper, TEntity>
             where TDetailsView : Control
 
         {
-            _wrapperViewModelDictionary.Add(typeof(TWrapper), typeof(TDetailsViewModel));
-            _wrapperViewDictionary.Add(typeof(TWrapper), typeof(TDetailsView));
+            _dictionary.Add(typeof(TEntity), typeof(TDetailsView));
         }
 
-        public bool UpdateDetails<TEntity, TWrapper>(TWrapper wrapper)
+        public bool UpdateDetails<TEntity>(Guid entityId)
             where TEntity : class, IBaseEntity
-            where TWrapper : class, IWrapper<TEntity>
         {
-            if(wrapper == null) throw new ArgumentNullException(nameof(wrapper));
+            if(entityId == null) throw new ArgumentNullException(nameof(entityId));
 
             bool result = false;
 
-            var detailsViewModel = (IDetailsViewModel<TWrapper, TEntity>)_container.Resolve(_wrapperViewModelDictionary[typeof(TWrapper)], new ParameterOverride("wrapper", wrapper));
-            var detailsView = (Control)_container.Resolve(_wrapperViewDictionary[typeof(TWrapper)]);
-            detailsView.DataContext = detailsViewModel;
+            var detailsView = (Control)_container.Resolve(_dictionary[typeof(TEntity)]);
+            var detailsViewModel = detailsView.DataContext;
+            ((ILoadable) detailsViewModel).LoadAsync(entityId);
 
             var updateDetailsWindow = new UpdateDetailsWindow
             {
                 ContentControl = {Content = detailsView},
-                SaveButton = {Command = detailsViewModel.SaveCommand},
+                SaveButton = {Command = ((ISavable)detailsViewModel).SaveCommand},
                 Owner = Application.Current.MainWindow
             };
 
             EventHandler<DialogRequestCloseEventArgs> handler = null;
             handler = (sender, args) =>
             {
-                detailsViewModel.CloseRequested -= handler;
-                if (wrapper.IsChanged)
-                {
-                    if (args.DialogResult.HasValue && args.DialogResult.Value)
-                    {
-                        wrapper.AcceptChanges();
-                        _unitOfWork.Complete();
-                        result = true;
-                    }
-                    else
-                    {
-                        wrapper.RejectChanges();
-                    }
-                }
-
+                ((IDialogRequestClose) detailsViewModel).CloseRequested -= handler;
+                if (args.DialogResult.HasValue && args.DialogResult.Value) result = true;
                 updateDetailsWindow.Close();
             };
 
-            detailsViewModel.CloseRequested += handler;
+            ((IDialogRequestClose)detailsViewModel).CloseRequested += handler;
 
             updateDetailsWindow.ShowDialog();
-
-            if (wrapper.IsChanged)
-                wrapper.RejectChanges();
 
             return result;
         }
