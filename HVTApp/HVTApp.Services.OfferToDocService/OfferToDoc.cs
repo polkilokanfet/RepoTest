@@ -18,7 +18,7 @@ namespace HVTApp.Services.OfferToDocService
             _unitOfWork = unitOfWork;
         }
 
-        public void GenerateOfferDocAsync(OfferWrapper offer)
+        public async void GenerateOfferDocAsync(OfferWrapper offer)
         {
             string offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestOfferDocument.docx";
             WordDocumentWriter docWriter = WordDocumentWriter.Create(offerDocumentPath);
@@ -26,7 +26,7 @@ namespace HVTApp.Services.OfferToDocService
             docWriter.Paragraph($"Получатель");
             docWriter.Paragraph($"должность: {offer.RecipientEmployee.Position.Name}");
             docWriter.Paragraph($"компания: {offer.RecipientEmployee.Company}");
-            Person person = _unitOfWork.GetRepository<Person>().GetById(offer.RecipientEmployee.PersonId);
+            Person person = await _unitOfWork.GetRepository<Person>().GetByIdAsync(offer.RecipientEmployee.PersonId);
             docWriter.Paragraph($"Ф.И.О.: {person.Surname} {person.Name} {person.Patronymic}");
 
             docWriter.Paragraph($"Validity Date: {offer.ValidityDate.ToShortDateString()}");

@@ -180,7 +180,7 @@ namespace HVTApp.UI.ViewModels
 #>
     public partial class <#=modelType.Name#>DetailsViewModel : BaseDetailsViewModel<<#=modelType.Name#>Wrapper, <#=modelType.Name#>, AfterSave<#=modelType.Name#>Event>
     {
-        public <#=modelType.Name#>DetailsViewModel(IUnityContainer container, <#=modelType.Name#>Wrapper wrapper = null) : base(container, wrapper) { }
+        public <#=modelType.Name#>DetailsViewModel(IUnityContainer container) : base(container) { }
     }
 
 <#+
@@ -310,6 +310,8 @@ namespace HVTApp.UI.Events
 using HVTApp.UI.Tabs;
 using Prism.Events;
 using Prism.Regions;
+using HVTApp.UI.ViewModels;
+using System.Windows;
 
 namespace HVTApp.UI.Views
 {
@@ -318,12 +320,22 @@ namespace HVTApp.UI.Views
         {
  #>
     [RibbonTab(typeof(TabCRUD))]
-    public partial class <#=modelType.Name#>ListView //: ViewBase
+    public partial class <#=modelType.Name#>ListView : ViewBase
     {
-        //public <#=modelType.Name#>ListView(IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
-        //{
-        //    InitializeComponent();
-        //}
+        public <#=modelType.Name#>ListView(IRegionManager regionManager, IEventAggregator eventAggregator, <#=modelType.Name#>ListViewModel <#=modelType.Name#>ListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = <#=modelType.Name#>ListViewModel;
+            Loaded += OnLoaded;
+        }
+		        
+		private bool _loaded = false;
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            if (_loaded) return;
+            await ((<#=modelType.Name#>ListViewModel)DataContext).LoadAsync();
+            _loaded = true;
+        }
     }
 
 <#+

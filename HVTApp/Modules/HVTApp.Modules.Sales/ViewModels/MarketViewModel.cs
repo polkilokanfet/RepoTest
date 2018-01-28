@@ -96,9 +96,9 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
-        private void Load()
+        private async void Load()
         {
-            var projectWrappers = _wrapperDataService.ProjectWrapperDataService.GetAll();
+            var projectWrappers = await _wrapperDataService.ProjectWrapperDataService.GetAllAsync();
             Projects.AddRange(projectWrappers);
         }
 

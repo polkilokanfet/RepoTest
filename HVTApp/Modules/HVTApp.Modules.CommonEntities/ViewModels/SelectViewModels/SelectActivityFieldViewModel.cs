@@ -13,9 +13,5 @@ namespace HVTApp.UI.ViewModels
             _items = items;
         }
 
-        protected override IEnumerable<ActivityFieldWrapper> GetItems()
-        {
-            return _items;
-        }
     }
 }

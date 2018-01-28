@@ -5,7 +5,7 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:infg="http://infragistics.com/DataPresenter"
              xmlns:converter="clr-namespace:HVTApp.UI.Converter"
-             prism:ViewModelLocator.AutoWireViewModel="True">
+             >
 
     <Control.Resources>
         <converter:ProductUnitsToFacilitiesNamesConverter x:Key="FacilitiesNamesStringConverter"/>

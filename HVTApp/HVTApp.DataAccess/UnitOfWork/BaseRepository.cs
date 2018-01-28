@@ -17,16 +17,22 @@ namespace HVTApp.DataAccess
             Context = context;
         }
 
-        public virtual List<TEntity> GetAll()
-        {
-            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-            return Context.Set<TEntity>().ToList();
-        }
+        //public virtual List<TEntity> GetAll()
+        //{
+        //    Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+        //    return Context.Set<TEntity>().ToList();
+        //}
 
         public virtual async Task<List<TEntity>> GetAllAsync()
         {
             Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
             return await Context.Set<TEntity>().ToListAsync();
+        }
+
+        public async Task<List<TEntity>> GetAllAsNoTrackingAsync()
+        {
+            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            return await Context.Set<TEntity>().AsNoTracking().ToListAsync();
         }
 
         public IEnumerable<TEntity> Find(Func<TEntity, bool> predicate)
@@ -61,9 +67,9 @@ namespace HVTApp.DataAccess
             return await Context.Set<TEntity>().FindAsync(id);
         }
 
-        public TEntity GetById(Guid id)
-        {
-            return Context.Set<TEntity>().Find(id);
-        }
+        //public TEntity GetById(Guid id)
+        //{
+        //    return Context.Set<TEntity>().Find(id);
+        //}
     }
 }

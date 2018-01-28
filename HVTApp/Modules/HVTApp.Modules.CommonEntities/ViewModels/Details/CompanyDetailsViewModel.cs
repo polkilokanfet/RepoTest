@@ -15,15 +15,15 @@ namespace HVTApp.UI.ViewModels
         private readonly ISelectService _selectService;
         private ActivityFieldWrapper _selectedActivityField;
 
-        public CompanyDetailsViewModel(IUnityContainer container, ISelectService selectService, CompanyWrapper wrapper = null) : base(container, wrapper)
+        public CompanyDetailsViewModel(IUnityContainer container, ISelectService selectService) : base(container)
         {
             _selectService = selectService;
 
-            Forms = WrapperDataService.CompanyFormWrapperDataService.GetAll();
+            //Forms = WrapperDataService.CompanyFormWrapperDataService.GetAllAsync();
 
-            SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_Execute);
+            SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_ExecuteAsync);
             RemoveParentCompanyCommand = new DelegateCommand(RemoveParentCompanyCommand_Execute);
-            AddActivityFieldCommand = new DelegateCommand(AddActivityFieldCommand_Execute);
+            AddActivityFieldCommand = new DelegateCommand(AddActivityFieldCommand_ExecuteAsync);
             RemoveActivityFieldCommand = new DelegateCommand(RemoveActivityFieldCommand_Execute, RemoveActivityFieldCommand_CanExecute);
         }
 
@@ -48,10 +48,10 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
-        private void AddActivityFieldCommand_Execute()
+        private async void AddActivityFieldCommand_ExecuteAsync()
         {
             var exceptIds = Item.ActivityFilds.Select(x => x.Id);
-            var fields = UnitOfWork.GetRepository<ActivityField>().GetAll()
+            var fields = (await UnitOfWork.GetRepository<ActivityField>().GetAllAsync())
                                                                   .Where(x => !exceptIds.Contains(x.Id))
                                                                   .Select(x => new ActivityFieldWrapper(x));
             var field = _selectService.SelectItem(fields);
@@ -77,9 +77,9 @@ namespace HVTApp.UI.ViewModels
             Item.ParentCompany = null;
         }
 
-        private async void SelectParentCompanyCommand_Execute()
+        private async void SelectParentCompanyCommand_ExecuteAsync()
         {
-            var companies = UnitOfWork.GetRepository<Company>().GetAll();
+            var companies = await UnitOfWork.GetRepository<Company>().GetAllAsync();
             //компании, которые не могут быть головной (дочерние и т.д.)
             var exceptCompanies = companies.Where(x => Equals(x.ParentCompany?.Id, Item.Id)).Concat(new[] {Item.Model});
             //возможные головные компании

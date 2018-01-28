@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using HVTApp.DataAccess.Annotations;
-using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Lookup
 {

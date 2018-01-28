@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using System.Threading.Tasks;
 
 namespace HVTApp.UI.ViewModels
 {
@@ -11,6 +12,8 @@ namespace HVTApp.UI.ViewModels
         where TModel : class, IBaseEntity
         where TWrapper : class, IWrapper<TModel>
     {
+        Task LoadAsync();
+
         IEnumerable<TWrapper> Items { get; }
         TWrapper SelectedItem { get; set; }
 

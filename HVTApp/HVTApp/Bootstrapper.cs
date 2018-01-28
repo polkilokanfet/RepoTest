@@ -44,7 +44,7 @@ namespace HVTApp
         protected override void InitializeShell()
         {
             //AuthenticationService authenticationService = (AuthenticationService)Container.Resolve<IAuthenticationService>();
-            //if (!authenticationService.Authentication())
+            //if (!authenticationService.AuthenticationAsync())
             //    Application.Current.Shutdown();
 
             Application.Current.MainWindow.Show();
@@ -55,8 +55,8 @@ namespace HVTApp
             base.ConfigureContainer();
 
             Container.RegisterType<IEventAggregator, EventAggregator>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<DbContext, HvtAppContext>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IUnitOfWork, UnitOfWork>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<DbContext, HvtAppContext>();
+            Container.RegisterType<IUnitOfWork, UnitOfWork>();
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
             Container.RegisterType<ISelectService, SelectServiceRealization>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMessageService, MessageServiceWpf>();

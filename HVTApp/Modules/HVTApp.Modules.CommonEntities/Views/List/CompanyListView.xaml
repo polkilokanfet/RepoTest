@@ -6,7 +6,7 @@
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              x:Class="HVTApp.UI.Views.CompanyListView"
              xmlns:converters="clr-namespace:HVTApp.UI.Converter"
-             prism:ViewModelLocator.AutoWireViewModel="True">
+             >
 
     <Control.Resources>
         <converters:WrapperToStringConverter x:Key="WrapperToStringConverter"/>

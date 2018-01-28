@@ -43,7 +43,7 @@ namespace HVTApp.UI.ViewModels
 
             NewItemCommand = new DelegateCommand(NewItemCommand_ExecuteAsync, NewItemCommand_CanExecute);
             EditItemCommand = new DelegateCommand(EditItemCommand_ExecuteAsync, EditItemCommand_CanExecute);
-            RemoveItemCommand = new DelegateCommand(RemoveItemCommand_Execute, RemoveItemCommand_CanExecute);
+            RemoveItemCommand = new DelegateCommand(RemoveItemCommand_ExecuteAsync, RemoveItemCommand_CanExecute);
             SelectItemCommand = new DelegateCommand(SelectItemCommand_Execute, SelectItemCommand_CanExecute);
 
             LoadedCommand = new DelegateCommand(async () =>
@@ -129,10 +129,10 @@ namespace HVTApp.UI.ViewModels
             return SelectedItem != null;
         }
 
-        protected void RemoveItemCommand_Execute()
+        protected async void RemoveItemCommand_ExecuteAsync()
         {
             var repo = UnitOfWork.GetRepository<TEntity>();
-            var entityToRemove = repo.GetById(SelectedItem.Id);
+            var entityToRemove = await repo.GetByIdAsync(SelectedItem.Id);
             if (entityToRemove != null)
             {
                 UnitOfWork.GetRepository<TEntity>().Delete(entityToRemove);

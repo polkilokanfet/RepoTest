@@ -6,8 +6,8 @@
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              x:Class="HVTApp.UI.Views.ActivityFieldListView"
              xmlns:converters="clr-namespace:HVTApp.UI.Converter"
-             prism:ViewModelLocator.AutoWireViewModel="True"             
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
+             <!--prism:ViewModelLocator.AutoWireViewModel="True"-->             
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">

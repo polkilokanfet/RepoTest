@@ -55,5 +55,10 @@ namespace HVTApp.Infrastructure
         }
 
         #endregion
+
+        //костыль: чтобы не выскакивала ошибка при автогенерации Views
+        public virtual void InitializeComponent()
+        {
+        }
     }
 }

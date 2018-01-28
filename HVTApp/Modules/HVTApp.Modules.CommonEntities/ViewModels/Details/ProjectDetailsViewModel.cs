@@ -15,16 +15,12 @@ namespace HVTApp.UI.ViewModels
     public partial class ProjectDetailsViewModel : BaseDetailsViewModel<ProjectWrapper, Project, AfterSaveProjectEvent>
     {
         private readonly IUpdateDetailsService _updateDetailsService;
-        private readonly IUnityContainer _unityContainer;
-        private readonly IUnitOfWork _unitOfWork;
 
         private ProductUnitsGroup _productGroup;
 
-        public ProjectDetailsViewModel(IUpdateDetailsService updateDetailsService, IUnityContainer unityContainer, IUnitOfWork unitOfWork, IUnityContainer container, ProjectWrapper item) : base(container, item)
+        public ProjectDetailsViewModel(IUpdateDetailsService updateDetailsService, IUnityContainer container) : base(container)
         {
             _updateDetailsService = updateDetailsService;
-            _unityContainer = unityContainer;
-            _unitOfWork = unitOfWork;
 
             AddProjectUnitsCommand = new DelegateCommand(AddProjectUnitsCommand_Execute);
             ChangeProjectUnitsCommand = new DelegateCommand(ChangeProjectUnitsCommand_Execute, ChangeProjectUnitsCommand_CanExecute);

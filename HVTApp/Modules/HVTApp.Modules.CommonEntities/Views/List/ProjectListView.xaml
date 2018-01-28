@@ -5,7 +5,8 @@
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns:infg="http://infragistics.com/DataPresenter"
              x:Class="HVTApp.UI.Views.ProjectListView"
-             prism:ViewModelLocator.AutoWireViewModel="True"
+             
+    
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:converter="clr-namespace:HVTApp.UI.Converter">
 

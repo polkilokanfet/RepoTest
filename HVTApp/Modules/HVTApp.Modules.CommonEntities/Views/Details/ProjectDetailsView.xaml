@@ -5,7 +5,7 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
              xmlns:dataPresenter="http://infragistics.com/DataPresenter"
-             prism:ViewModelLocator.AutoWireViewModel="True">
+             >
 
     <Grid>
         <Grid.ColumnDefinitions>

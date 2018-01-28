@@ -3,7 +3,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:prism="http://prismlibrary.com/"
               x:Class="HVTApp.UI.Views.CompanyFormDetailsView"
-              prism:ViewModelLocator.AutoWireViewModel="True">
+              >
 
     <Grid x:Name="Grid1"
           VerticalAlignment="Top"

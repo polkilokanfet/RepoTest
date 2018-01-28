@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.GetProductService;
@@ -12,17 +11,15 @@ namespace HVTApp.UI.ViewModels
 {
     public class ProjectUnitsDetailsViewModel : BaseDetailsViewModel<ProjectUnitWrapper, ProjectUnit, AfterSaveProjectUnitEvent>
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IChooseService _chooseService;
         private readonly IGetProductService _getProductService;
 
-        public ProjectUnitsDetailsViewModel(IUnitOfWork unitOfWork, IChooseService chooseService, IGetProductService getProductService, IUnityContainer container, ProjectUnitWrapper wrapper = null) : base(container, null)
+        public ProjectUnitsDetailsViewModel(IChooseService chooseService, IGetProductService getProductService, IUnityContainer container) : base(container)
         {
-            _unitOfWork = unitOfWork;
             _chooseService = chooseService;
             _getProductService = getProductService;
 
-            ChooseFacilityCommand = new DelegateCommand(ChooseFacilityCommand_Execute);
+            ChooseFacilityCommand = new DelegateCommand(ChooseFacilityCommand_ExecuteAsync);
             RemoveFacilityCommand = new DelegateCommand(RemoveFacilityCommand_Execute);
             ChooseProductCommand = new DelegateCommand(ChooseProductCommand_Execute);
         }
@@ -34,9 +31,9 @@ namespace HVTApp.UI.ViewModels
         public DelegateCommand ChooseProductCommand { get; }
 
 
-        private void ChooseFacilityCommand_Execute()
+        private async void ChooseFacilityCommand_ExecuteAsync()
         {
-            var facility = _chooseService.ChooseDialog(_unitOfWork.GetRepository<Facility>().GetAll().Select(x => new FacilityWrapper(x)));
+            var facility = _chooseService.ChooseDialog((await UnitOfWork.GetRepository<Facility>().GetAllAsync()).Select(x => new FacilityWrapper(x)));
             if (facility != null) Item.Facility = facility;
         }
 

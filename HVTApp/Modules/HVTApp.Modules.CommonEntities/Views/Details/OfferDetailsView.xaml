@@ -6,7 +6,7 @@
               xmlns:prism="http://prismlibrary.com/"
               xmlns:controls="clr-namespace:HVTApp.UI.Controls"
               xmlns:infWpf="http://infragistics.com/DataPresenter"
-              prism:ViewModelLocator.AutoWireViewModel="True">
+              >
 
     <StackPanel Orientation="Vertical">
         <Grid>

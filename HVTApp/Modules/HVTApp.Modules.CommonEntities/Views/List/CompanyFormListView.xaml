@@ -9,7 +9,7 @@
               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
               mc:Ignorable="d"
               x:Class="HVTApp.UI.Views.CompanyFormListView"
-              prism:ViewModelLocator.AutoWireViewModel="True">
+              >
 
     <!--<infg:XamDataGrid>
         <infg:XamDataGrid.FieldLayoutSettings>

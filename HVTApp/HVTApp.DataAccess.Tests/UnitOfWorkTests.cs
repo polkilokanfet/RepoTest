@@ -17,19 +17,19 @@ namespace HVTApp.DataAccess.Tests
         }
 
         [TestMethod]
-        public void CanCreateDataBase()
+        public async void CanCreateDataBase()
         {
             var hvtAppContext = new HvtAppContext();
             var unitOfWork = new UnitOfWork(hvtAppContext);
-            unitOfWork.GetRepository<ActivityField>().GetAll();
+            await unitOfWork.GetRepository<ActivityField>().GetAllAsync();
         }
 
         [TestMethod]
-        public void CanAddSaveRemoveEntity()
+        public async void CanAddSaveRemoveEntity()
         {
-            UnitOfWork unitOfWork = new UnitOfWork(new HvtAppContext());
+            var unitOfWork = new UnitOfWork(new HvtAppContext());
             //очищаем все записи
-            unitOfWork.GetRepository<TestFriendGroup>().DeleteRange(unitOfWork.GetRepository<TestFriendGroup>().GetAll());
+            unitOfWork.GetRepository<TestFriendGroup>().DeleteRange(await unitOfWork.GetRepository<TestFriendGroup>().GetAllAsync());
             unitOfWork.Complete();
 
 
@@ -41,11 +41,11 @@ namespace HVTApp.DataAccess.Tests
             Assert.IsTrue(unitOfWork.GetRepository<TestFriendGroup>().Find(x => x.Name == testFriendGroup.Name).Count() == 1);
             
             //очищаем все записи
-            unitOfWork.GetRepository<TestFriendGroup>().DeleteRange(unitOfWork.GetRepository<TestFriendGroup>().GetAll());
+            unitOfWork.GetRepository<TestFriendGroup>().DeleteRange(await unitOfWork.GetRepository<TestFriendGroup>().GetAllAsync());
             unitOfWork.Complete();
 
             unitOfWork = new UnitOfWork(new HvtAppContext());
-            Assert.IsFalse(unitOfWork.GetRepository<TestFriendGroup>().GetAll().Any());
+            Assert.IsFalse((await unitOfWork.GetRepository<TestFriendGroup>().GetAllAsync()).Any());
         }
     }
 }
