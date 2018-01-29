@@ -7,7 +7,7 @@ namespace HVTApp.UI.Views
 {
     public partial class ActivityFieldListView
     {
-        //public ActivityFieldListView(IRegionManager regionManager, IEventAggregator eventAggregator, ActivityFieldListViewModel activityFieldListViewModel) : base(regionManager, eventAggregator)
+        //public ActivityFieldListView(IRegionManager regionManager, IEventAggregator eventAggregator, ActivityFieldListServiceViewModel activityFieldListViewModel) : base(regionManager, eventAggregator)
         //{
         //    InitializeComponent();
         //    DataContext = activityFieldListViewModel;
@@ -16,7 +16,7 @@ namespace HVTApp.UI.Views
 
         //private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         //{
-        //    await ((ActivityFieldListViewModel) DataContext).LoadAsync();
+        //    await ((ActivityFieldListServiceViewModel) DataContext).LoadAsync();
         //}
     }
 }

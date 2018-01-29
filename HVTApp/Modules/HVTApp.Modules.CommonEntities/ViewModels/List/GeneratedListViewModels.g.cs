@@ -2,287 +2,288 @@ using HVTApp.Model.POCOs;
 using HVTApp.UI.Events;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
+using HVTApp.UI.Lookup;
 
 namespace HVTApp.UI.ViewModels
 {
-    public partial class AddressListViewModel : BaseWrapperListViewModel<AddressWrapper, Address, AddressDetailsViewModel, AfterSaveAddressEvent>
+    public partial class AddressListServiceViewModel : BaseListServiceViewModel<Address, AddressLookup, AfterSaveAddressEvent>
     {
-        public AddressListViewModel(IUnityContainer container, AddressWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public AddressListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class CountryListViewModel : BaseWrapperListViewModel<CountryWrapper, Country, CountryDetailsViewModel, AfterSaveCountryEvent>
+    public partial class CountryListServiceViewModel : BaseListServiceViewModel<Country, CountryLookup, AfterSaveCountryEvent>
     {
-        public CountryListViewModel(IUnityContainer container, CountryWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public CountryListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class DistrictListViewModel : BaseWrapperListViewModel<DistrictWrapper, District, DistrictDetailsViewModel, AfterSaveDistrictEvent>
+    public partial class DistrictListServiceViewModel : BaseListServiceViewModel<District, DistrictLookup, AfterSaveDistrictEvent>
     {
-        public DistrictListViewModel(IUnityContainer container, DistrictWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public DistrictListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class LocalityListViewModel : BaseWrapperListViewModel<LocalityWrapper, Locality, LocalityDetailsViewModel, AfterSaveLocalityEvent>
+    public partial class LocalityListServiceViewModel : BaseListServiceViewModel<Locality, LocalityLookup, AfterSaveLocalityEvent>
     {
-        public LocalityListViewModel(IUnityContainer container, LocalityWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public LocalityListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class LocalityTypeListViewModel : BaseWrapperListViewModel<LocalityTypeWrapper, LocalityType, LocalityTypeDetailsViewModel, AfterSaveLocalityTypeEvent>
+    public partial class LocalityTypeListServiceViewModel : BaseListServiceViewModel<LocalityType, LocalityTypeLookup, AfterSaveLocalityTypeEvent>
     {
-        public LocalityTypeListViewModel(IUnityContainer container, LocalityTypeWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public LocalityTypeListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class RegionListViewModel : BaseWrapperListViewModel<RegionWrapper, Region, RegionDetailsViewModel, AfterSaveRegionEvent>
+    public partial class RegionListServiceViewModel : BaseListServiceViewModel<Region, RegionLookup, AfterSaveRegionEvent>
     {
-        public RegionListViewModel(IUnityContainer container, RegionWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public RegionListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class AdditionalSalesUnitsListViewModel : BaseWrapperListViewModel<AdditionalSalesUnitsWrapper, AdditionalSalesUnits, AdditionalSalesUnitsDetailsViewModel, AfterSaveAdditionalSalesUnitsEvent>
+    public partial class AdditionalSalesUnitsListServiceViewModel : BaseListServiceViewModel<AdditionalSalesUnits, AdditionalSalesUnitsLookup, AfterSaveAdditionalSalesUnitsEvent>
     {
-        public AdditionalSalesUnitsListViewModel(IUnityContainer container, AdditionalSalesUnitsWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public AdditionalSalesUnitsListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class BankDetailsListViewModel : BaseWrapperListViewModel<BankDetailsWrapper, BankDetails, BankDetailsDetailsViewModel, AfterSaveBankDetailsEvent>
+    public partial class BankDetailsListServiceViewModel : BaseListServiceViewModel<BankDetails, BankDetailsLookup, AfterSaveBankDetailsEvent>
     {
-        public BankDetailsListViewModel(IUnityContainer container, BankDetailsWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public BankDetailsListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class CompanyListViewModel : BaseWrapperListViewModel<CompanyWrapper, Company, CompanyDetailsViewModel, AfterSaveCompanyEvent>
+    public partial class CompanyListServiceViewModel : BaseListServiceViewModel<Company, CompanyLookup, AfterSaveCompanyEvent>
     {
-        public CompanyListViewModel(IUnityContainer container, CompanyWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public CompanyListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class CompanyFormListViewModel : BaseWrapperListViewModel<CompanyFormWrapper, CompanyForm, CompanyFormDetailsViewModel, AfterSaveCompanyFormEvent>
+    public partial class CompanyFormListServiceViewModel : BaseListServiceViewModel<CompanyForm, CompanyFormLookup, AfterSaveCompanyFormEvent>
     {
-        public CompanyFormListViewModel(IUnityContainer container, CompanyFormWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public CompanyFormListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class DocumentsRegistrationDetailsListViewModel : BaseWrapperListViewModel<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails, DocumentsRegistrationDetailsDetailsViewModel, AfterSaveDocumentsRegistrationDetailsEvent>
+    public partial class DocumentsRegistrationDetailsListServiceViewModel : BaseListServiceViewModel<DocumentsRegistrationDetails, DocumentsRegistrationDetailsLookup, AfterSaveDocumentsRegistrationDetailsEvent>
     {
-        public DocumentsRegistrationDetailsListViewModel(IUnityContainer container, DocumentsRegistrationDetailsWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public DocumentsRegistrationDetailsListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class EmployeesPositionListViewModel : BaseWrapperListViewModel<EmployeesPositionWrapper, EmployeesPosition, EmployeesPositionDetailsViewModel, AfterSaveEmployeesPositionEvent>
+    public partial class EmployeesPositionListServiceViewModel : BaseListServiceViewModel<EmployeesPosition, EmployeesPositionLookup, AfterSaveEmployeesPositionEvent>
     {
-        public EmployeesPositionListViewModel(IUnityContainer container, EmployeesPositionWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public EmployeesPositionListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class FacilityTypeListViewModel : BaseWrapperListViewModel<FacilityTypeWrapper, FacilityType, FacilityTypeDetailsViewModel, AfterSaveFacilityTypeEvent>
+    public partial class FacilityTypeListServiceViewModel : BaseListServiceViewModel<FacilityType, FacilityTypeLookup, AfterSaveFacilityTypeEvent>
     {
-        public FacilityTypeListViewModel(IUnityContainer container, FacilityTypeWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public FacilityTypeListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class ActivityFieldListViewModel : BaseWrapperListViewModel<ActivityFieldWrapper, ActivityField, ActivityFieldDetailsViewModel, AfterSaveActivityFieldEvent>
+    public partial class ActivityFieldListServiceViewModel : BaseListServiceViewModel<ActivityField, ActivityFieldLookup, AfterSaveActivityFieldEvent>
     {
-        public ActivityFieldListViewModel(IUnityContainer container, ActivityFieldWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public ActivityFieldListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class ContractListViewModel : BaseWrapperListViewModel<ContractWrapper, Contract, ContractDetailsViewModel, AfterSaveContractEvent>
+    public partial class ContractListServiceViewModel : BaseListServiceViewModel<Contract, ContractLookup, AfterSaveContractEvent>
     {
-        public ContractListViewModel(IUnityContainer container, ContractWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public ContractListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class MeasureListViewModel : BaseWrapperListViewModel<MeasureWrapper, Measure, MeasureDetailsViewModel, AfterSaveMeasureEvent>
+    public partial class MeasureListServiceViewModel : BaseListServiceViewModel<Measure, MeasureLookup, AfterSaveMeasureEvent>
     {
-        public MeasureListViewModel(IUnityContainer container, MeasureWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public MeasureListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class ParameterListViewModel : BaseWrapperListViewModel<ParameterWrapper, Parameter, ParameterDetailsViewModel, AfterSaveParameterEvent>
+    public partial class ParameterListServiceViewModel : BaseListServiceViewModel<Parameter, ParameterLookup, AfterSaveParameterEvent>
     {
-        public ParameterListViewModel(IUnityContainer container, ParameterWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public ParameterListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class ParameterGroupListViewModel : BaseWrapperListViewModel<ParameterGroupWrapper, ParameterGroup, ParameterGroupDetailsViewModel, AfterSaveParameterGroupEvent>
+    public partial class ParameterGroupListServiceViewModel : BaseListServiceViewModel<ParameterGroup, ParameterGroupLookup, AfterSaveParameterGroupEvent>
     {
-        public ParameterGroupListViewModel(IUnityContainer container, ParameterGroupWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public ParameterGroupListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class ProductRelationListViewModel : BaseWrapperListViewModel<ProductRelationWrapper, ProductRelation, ProductRelationDetailsViewModel, AfterSaveProductRelationEvent>
+    public partial class ProductRelationListServiceViewModel : BaseListServiceViewModel<ProductRelation, ProductRelationLookup, AfterSaveProductRelationEvent>
     {
-        public ProductRelationListViewModel(IUnityContainer container, ProductRelationWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public ProductRelationListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class StandartPaymentConditionsListViewModel : BaseWrapperListViewModel<StandartPaymentConditionsWrapper, StandartPaymentConditions, StandartPaymentConditionsDetailsViewModel, AfterSaveStandartPaymentConditionsEvent>
+    public partial class StandartPaymentConditionsListServiceViewModel : BaseListServiceViewModel<StandartPaymentConditions, StandartPaymentConditionsLookup, AfterSaveStandartPaymentConditionsEvent>
     {
-        public StandartPaymentConditionsListViewModel(IUnityContainer container, StandartPaymentConditionsWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public StandartPaymentConditionsListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class PersonListViewModel : BaseWrapperListViewModel<PersonWrapper, Person, PersonDetailsViewModel, AfterSavePersonEvent>
+    public partial class PersonListServiceViewModel : BaseListServiceViewModel<Person, PersonLookup, AfterSavePersonEvent>
     {
-        public PersonListViewModel(IUnityContainer container, PersonWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public PersonListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class PaymentPlannedListViewModel : BaseWrapperListViewModel<PaymentPlannedWrapper, PaymentPlanned, PaymentPlannedDetailsViewModel, AfterSavePaymentPlannedEvent>
+    public partial class PaymentPlannedListServiceViewModel : BaseListServiceViewModel<PaymentPlanned, PaymentPlannedLookup, AfterSavePaymentPlannedEvent>
     {
-        public PaymentPlannedListViewModel(IUnityContainer container, PaymentPlannedWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public PaymentPlannedListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class PaymentActualListViewModel : BaseWrapperListViewModel<PaymentActualWrapper, PaymentActual, PaymentActualDetailsViewModel, AfterSavePaymentActualEvent>
+    public partial class PaymentActualListServiceViewModel : BaseListServiceViewModel<PaymentActual, PaymentActualLookup, AfterSavePaymentActualEvent>
     {
-        public PaymentActualListViewModel(IUnityContainer container, PaymentActualWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public PaymentActualListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class ParameterRelationListViewModel : BaseWrapperListViewModel<ParameterRelationWrapper, ParameterRelation, ParameterRelationDetailsViewModel, AfterSaveParameterRelationEvent>
+    public partial class ParameterRelationListServiceViewModel : BaseListServiceViewModel<ParameterRelation, ParameterRelationLookup, AfterSaveParameterRelationEvent>
     {
-        public ParameterRelationListViewModel(IUnityContainer container, ParameterRelationWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public ParameterRelationListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class ProjectUnitListViewModel : BaseWrapperListViewModel<ProjectUnitWrapper, ProjectUnit, ProjectUnitDetailsViewModel, AfterSaveProjectUnitEvent>
+    public partial class ProjectUnitListServiceViewModel : BaseListServiceViewModel<ProjectUnit, ProjectUnitLookup, AfterSaveProjectUnitEvent>
     {
-        public ProjectUnitListViewModel(IUnityContainer container, ProjectUnitWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public ProjectUnitListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class TenderUnitListViewModel : BaseWrapperListViewModel<TenderUnitWrapper, TenderUnit, TenderUnitDetailsViewModel, AfterSaveTenderUnitEvent>
+    public partial class TenderUnitListServiceViewModel : BaseListServiceViewModel<TenderUnit, TenderUnitLookup, AfterSaveTenderUnitEvent>
     {
-        public TenderUnitListViewModel(IUnityContainer container, TenderUnitWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public TenderUnitListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class ShipmentUnitListViewModel : BaseWrapperListViewModel<ShipmentUnitWrapper, ShipmentUnit, ShipmentUnitDetailsViewModel, AfterSaveShipmentUnitEvent>
+    public partial class ShipmentUnitListServiceViewModel : BaseListServiceViewModel<ShipmentUnit, ShipmentUnitLookup, AfterSaveShipmentUnitEvent>
     {
-        public ShipmentUnitListViewModel(IUnityContainer container, ShipmentUnitWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public ShipmentUnitListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class ProductionUnitListViewModel : BaseWrapperListViewModel<ProductionUnitWrapper, ProductionUnit, ProductionUnitDetailsViewModel, AfterSaveProductionUnitEvent>
+    public partial class ProductionUnitListServiceViewModel : BaseListServiceViewModel<ProductionUnit, ProductionUnitLookup, AfterSaveProductionUnitEvent>
     {
-        public ProductionUnitListViewModel(IUnityContainer container, ProductionUnitWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public ProductionUnitListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class SalesUnitListViewModel : BaseWrapperListViewModel<SalesUnitWrapper, SalesUnit, SalesUnitDetailsViewModel, AfterSaveSalesUnitEvent>
+    public partial class SalesUnitListServiceViewModel : BaseListServiceViewModel<SalesUnit, SalesUnitLookup, AfterSaveSalesUnitEvent>
     {
-        public SalesUnitListViewModel(IUnityContainer container, SalesUnitWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public SalesUnitListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class TestFriendAddressListViewModel : BaseWrapperListViewModel<TestFriendAddressWrapper, TestFriendAddress, TestFriendAddressDetailsViewModel, AfterSaveTestFriendAddressEvent>
+    public partial class TestFriendAddressListServiceViewModel : BaseListServiceViewModel<TestFriendAddress, TestFriendAddressLookup, AfterSaveTestFriendAddressEvent>
     {
-        public TestFriendAddressListViewModel(IUnityContainer container, TestFriendAddressWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public TestFriendAddressListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class TestFriendListViewModel : BaseWrapperListViewModel<TestFriendWrapper, TestFriend, TestFriendDetailsViewModel, AfterSaveTestFriendEvent>
+    public partial class TestFriendListServiceViewModel : BaseListServiceViewModel<TestFriend, TestFriendLookup, AfterSaveTestFriendEvent>
     {
-        public TestFriendListViewModel(IUnityContainer container, TestFriendWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public TestFriendListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class TestFriendEmailListViewModel : BaseWrapperListViewModel<TestFriendEmailWrapper, TestFriendEmail, TestFriendEmailDetailsViewModel, AfterSaveTestFriendEmailEvent>
+    public partial class TestFriendEmailListServiceViewModel : BaseListServiceViewModel<TestFriendEmail, TestFriendEmailLookup, AfterSaveTestFriendEmailEvent>
     {
-        public TestFriendEmailListViewModel(IUnityContainer container, TestFriendEmailWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public TestFriendEmailListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class TestFriendGroupListViewModel : BaseWrapperListViewModel<TestFriendGroupWrapper, TestFriendGroup, TestFriendGroupDetailsViewModel, AfterSaveTestFriendGroupEvent>
+    public partial class TestFriendGroupListServiceViewModel : BaseListServiceViewModel<TestFriendGroup, TestFriendGroupLookup, AfterSaveTestFriendGroupEvent>
     {
-        public TestFriendGroupListViewModel(IUnityContainer container, TestFriendGroupWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public TestFriendGroupListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class DocumentListViewModel : BaseWrapperListViewModel<DocumentWrapper, Document, DocumentDetailsViewModel, AfterSaveDocumentEvent>
+    public partial class DocumentListServiceViewModel : BaseListServiceViewModel<Document, DocumentLookup, AfterSaveDocumentEvent>
     {
-        public DocumentListViewModel(IUnityContainer container, DocumentWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public DocumentListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class TestEntityListViewModel : BaseWrapperListViewModel<TestEntityWrapper, TestEntity, TestEntityDetailsViewModel, AfterSaveTestEntityEvent>
+    public partial class TestEntityListServiceViewModel : BaseListServiceViewModel<TestEntity, TestEntityLookup, AfterSaveTestEntityEvent>
     {
-        public TestEntityListViewModel(IUnityContainer container, TestEntityWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public TestEntityListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class TestHusbandListViewModel : BaseWrapperListViewModel<TestHusbandWrapper, TestHusband, TestHusbandDetailsViewModel, AfterSaveTestHusbandEvent>
+    public partial class TestHusbandListServiceViewModel : BaseListServiceViewModel<TestHusband, TestHusbandLookup, AfterSaveTestHusbandEvent>
     {
-        public TestHusbandListViewModel(IUnityContainer container, TestHusbandWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public TestHusbandListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class TestWifeListViewModel : BaseWrapperListViewModel<TestWifeWrapper, TestWife, TestWifeDetailsViewModel, AfterSaveTestWifeEvent>
+    public partial class TestWifeListServiceViewModel : BaseListServiceViewModel<TestWife, TestWifeLookup, AfterSaveTestWifeEvent>
     {
-        public TestWifeListViewModel(IUnityContainer container, TestWifeWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public TestWifeListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class TestChildListViewModel : BaseWrapperListViewModel<TestChildWrapper, TestChild, TestChildDetailsViewModel, AfterSaveTestChildEvent>
+    public partial class TestChildListServiceViewModel : BaseListServiceViewModel<TestChild, TestChildLookup, AfterSaveTestChildEvent>
     {
-        public TestChildListViewModel(IUnityContainer container, TestChildWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public TestChildListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class CostOnDateListViewModel : BaseWrapperListViewModel<CostOnDateWrapper, CostOnDate, CostOnDateDetailsViewModel, AfterSaveCostOnDateEvent>
+    public partial class CostOnDateListServiceViewModel : BaseListServiceViewModel<CostOnDate, CostOnDateLookup, AfterSaveCostOnDateEvent>
     {
-        public CostOnDateListViewModel(IUnityContainer container, CostOnDateWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public CostOnDateListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class CostListViewModel : BaseWrapperListViewModel<CostWrapper, Cost, CostDetailsViewModel, AfterSaveCostEvent>
+    public partial class CostListServiceViewModel : BaseListServiceViewModel<Cost, CostLookup, AfterSaveCostEvent>
     {
-        public CostListViewModel(IUnityContainer container, CostWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public CostListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class CurrencyListViewModel : BaseWrapperListViewModel<CurrencyWrapper, Currency, CurrencyDetailsViewModel, AfterSaveCurrencyEvent>
+    public partial class CurrencyListServiceViewModel : BaseListServiceViewModel<Currency, CurrencyLookup, AfterSaveCurrencyEvent>
     {
-        public CurrencyListViewModel(IUnityContainer container, CurrencyWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public CurrencyListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class ExchangeCurrencyRateListViewModel : BaseWrapperListViewModel<ExchangeCurrencyRateWrapper, ExchangeCurrencyRate, ExchangeCurrencyRateDetailsViewModel, AfterSaveExchangeCurrencyRateEvent>
+    public partial class ExchangeCurrencyRateListServiceViewModel : BaseListServiceViewModel<ExchangeCurrencyRate, ExchangeCurrencyRateLookup, AfterSaveExchangeCurrencyRateEvent>
     {
-        public ExchangeCurrencyRateListViewModel(IUnityContainer container, ExchangeCurrencyRateWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public ExchangeCurrencyRateListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class ProductListViewModel : BaseWrapperListViewModel<ProductWrapper, Product, ProductDetailsViewModel, AfterSaveProductEvent>
+    public partial class ProductListServiceViewModel : BaseListServiceViewModel<Product, ProductLookup, AfterSaveProductEvent>
     {
-        public ProductListViewModel(IUnityContainer container, ProductWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public ProductListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class OfferListViewModel : BaseWrapperListViewModel<OfferWrapper, Offer, OfferDetailsViewModel, AfterSaveOfferEvent>
+    public partial class OfferListServiceViewModel : BaseListServiceViewModel<Offer, OfferLookup, AfterSaveOfferEvent>
     {
-        public OfferListViewModel(IUnityContainer container, OfferWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public OfferListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class EmployeeListViewModel : BaseWrapperListViewModel<EmployeeWrapper, Employee, EmployeeDetailsViewModel, AfterSaveEmployeeEvent>
+    public partial class EmployeeListServiceViewModel : BaseListServiceViewModel<Employee, EmployeeLookup, AfterSaveEmployeeEvent>
     {
-        public EmployeeListViewModel(IUnityContainer container, EmployeeWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public EmployeeListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class OrderListViewModel : BaseWrapperListViewModel<OrderWrapper, Order, OrderDetailsViewModel, AfterSaveOrderEvent>
+    public partial class OrderListServiceViewModel : BaseListServiceViewModel<Order, OrderLookup, AfterSaveOrderEvent>
     {
-        public OrderListViewModel(IUnityContainer container, OrderWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public OrderListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class PaymentConditionListViewModel : BaseWrapperListViewModel<PaymentConditionWrapper, PaymentCondition, PaymentConditionDetailsViewModel, AfterSavePaymentConditionEvent>
+    public partial class PaymentConditionListServiceViewModel : BaseListServiceViewModel<PaymentCondition, PaymentConditionLookup, AfterSavePaymentConditionEvent>
     {
-        public PaymentConditionListViewModel(IUnityContainer container, PaymentConditionWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public PaymentConditionListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class PaymentDocumentListViewModel : BaseWrapperListViewModel<PaymentDocumentWrapper, PaymentDocument, PaymentDocumentDetailsViewModel, AfterSavePaymentDocumentEvent>
+    public partial class PaymentDocumentListServiceViewModel : BaseListServiceViewModel<PaymentDocument, PaymentDocumentLookup, AfterSavePaymentDocumentEvent>
     {
-        public PaymentDocumentListViewModel(IUnityContainer container, PaymentDocumentWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public PaymentDocumentListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class FacilityListViewModel : BaseWrapperListViewModel<FacilityWrapper, Facility, FacilityDetailsViewModel, AfterSaveFacilityEvent>
+    public partial class FacilityListServiceViewModel : BaseListServiceViewModel<Facility, FacilityLookup, AfterSaveFacilityEvent>
     {
-        public FacilityListViewModel(IUnityContainer container, FacilityWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public FacilityListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class ProjectListViewModel : BaseWrapperListViewModel<ProjectWrapper, Project, ProjectDetailsViewModel, AfterSaveProjectEvent>
+    public partial class ProjectListServiceViewModel : BaseListServiceViewModel<Project, ProjectLookup, AfterSaveProjectEvent>
     {
-        public ProjectListViewModel(IUnityContainer container, ProjectWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public ProjectListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class UserRoleListViewModel : BaseWrapperListViewModel<UserRoleWrapper, UserRole, UserRoleDetailsViewModel, AfterSaveUserRoleEvent>
+    public partial class UserRoleListServiceViewModel : BaseListServiceViewModel<UserRole, UserRoleLookup, AfterSaveUserRoleEvent>
     {
-        public UserRoleListViewModel(IUnityContainer container, UserRoleWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public UserRoleListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class SpecificationListViewModel : BaseWrapperListViewModel<SpecificationWrapper, Specification, SpecificationDetailsViewModel, AfterSaveSpecificationEvent>
+    public partial class SpecificationListServiceViewModel : BaseListServiceViewModel<Specification, SpecificationLookup, AfterSaveSpecificationEvent>
     {
-        public SpecificationListViewModel(IUnityContainer container, SpecificationWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public SpecificationListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class TenderListViewModel : BaseWrapperListViewModel<TenderWrapper, Tender, TenderDetailsViewModel, AfterSaveTenderEvent>
+    public partial class TenderListServiceViewModel : BaseListServiceViewModel<Tender, TenderLookup, AfterSaveTenderEvent>
     {
-        public TenderListViewModel(IUnityContainer container, TenderWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public TenderListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class TenderTypeListViewModel : BaseWrapperListViewModel<TenderTypeWrapper, TenderType, TenderTypeDetailsViewModel, AfterSaveTenderTypeEvent>
+    public partial class TenderTypeListServiceViewModel : BaseListServiceViewModel<TenderType, TenderTypeLookup, AfterSaveTenderTypeEvent>
     {
-        public TenderTypeListViewModel(IUnityContainer container, TenderTypeWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public TenderTypeListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class UserListViewModel : BaseWrapperListViewModel<UserWrapper, User, UserDetailsViewModel, AfterSaveUserEvent>
+    public partial class UserListServiceViewModel : BaseListServiceViewModel<User, UserLookup, AfterSaveUserEvent>
     {
-        public UserListViewModel(IUnityContainer container, UserWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public UserListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class OfferUnitListViewModel : BaseWrapperListViewModel<OfferUnitWrapper, OfferUnit, OfferUnitDetailsViewModel, AfterSaveOfferUnitEvent>
+    public partial class OfferUnitListServiceViewModel : BaseListServiceViewModel<OfferUnit, OfferUnitLookup, AfterSaveOfferUnitEvent>
     {
-        public OfferUnitListViewModel(IUnityContainer container, OfferUnitWrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public OfferUnitListServiceViewModel(IUnityContainer container) : base(container) { }
     }
 
 }

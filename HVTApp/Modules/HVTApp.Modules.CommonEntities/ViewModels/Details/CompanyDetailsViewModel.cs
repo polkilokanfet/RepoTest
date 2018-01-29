@@ -70,9 +70,9 @@ namespace HVTApp.UI.ViewModels
             var fields = (await UnitOfWork.GetRepository<ActivityField>().GetAllAsync())
                                                                   .Where(x => !exceptIds.Contains(x.Id))
                                                                   .Select(x => new ActivityFieldWrapper(x));
-            var field = _selectService.SelectItem(fields);
-            if (field != null && !Item.ActivityFilds.Contains(field))
-                Item.ActivityFilds.Add(field);
+            //var field = _selectService.SelectItem(fields);
+            //if (field != null && !Item.ActivityFilds.Contains(field))
+            //    Item.ActivityFilds.Add(field);
         }
 
         private void RemoveActivityFieldCommand_Execute()
@@ -101,12 +101,12 @@ namespace HVTApp.UI.ViewModels
             //возможные головные компании
             IEnumerable<CompanyWrapper> possibleParents = companies.Except(exceptCompanies).Select(x => new CompanyWrapper(x));
             //выбор одной из компаний
-            CompanyWrapper possibleParent = _selectService.SelectItem(possibleParents, Item.ParentCompany.Id);
+            //CompanyWrapper possibleParent = _selectService.SelectItem(possibleParents, Item.ParentCompany.Id);
 
-            if (possibleParent != null && !Equals(possibleParent.Id, Item.ParentCompany?.Id))
-            {
-                Item.ParentCompany = possibleParent;
-            }
+            //if (possibleParent != null && !Equals(possibleParent.Id, Item.ParentCompany?.Id))
+            //{
+            //    Item.ParentCompany = possibleParent;
+            //}
         }
 
         #endregion

@@ -4,11 +4,11 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.ViewModels
 {
-    public class SelectActivityFieldViewModel : ActivityFieldListViewModel
+    public class SelectActivityFieldServiceViewModel : ActivityFieldListServiceViewModel
     {
         private readonly IEnumerable<ActivityFieldWrapper> _items;
 
-        public SelectActivityFieldViewModel(IUnityContainer container, ActivityFieldWrapperDataService wrapperDataService, IEnumerable<ActivityFieldWrapper> items) : base(container, wrapperDataService)
+        public SelectActivityFieldServiceViewModel(IUnityContainer container, IEnumerable<ActivityFieldWrapper> items) : base(container)
         {
             _items = items;
         }

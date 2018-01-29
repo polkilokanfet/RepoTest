@@ -10,10 +10,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class AddressListView : ViewBase
     {
-        public AddressListView(IRegionManager regionManager, IEventAggregator eventAggregator, AddressListViewModel AddressListViewModel) : base(regionManager, eventAggregator)
+        public AddressListView(IRegionManager regionManager, IEventAggregator eventAggregator, AddressListServiceViewModel AddressListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = AddressListViewModel;
+            DataContext = AddressListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -21,7 +21,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((AddressListViewModel)DataContext).LoadAsync();
+            await ((AddressListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -29,10 +29,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class CountryListView : ViewBase
     {
-        public CountryListView(IRegionManager regionManager, IEventAggregator eventAggregator, CountryListViewModel CountryListViewModel) : base(regionManager, eventAggregator)
+        public CountryListView(IRegionManager regionManager, IEventAggregator eventAggregator, CountryListServiceViewModel CountryListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = CountryListViewModel;
+            DataContext = CountryListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -40,7 +40,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((CountryListViewModel)DataContext).LoadAsync();
+            await ((CountryListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -48,10 +48,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class DistrictListView : ViewBase
     {
-        public DistrictListView(IRegionManager regionManager, IEventAggregator eventAggregator, DistrictListViewModel DistrictListViewModel) : base(regionManager, eventAggregator)
+        public DistrictListView(IRegionManager regionManager, IEventAggregator eventAggregator, DistrictListServiceViewModel DistrictListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = DistrictListViewModel;
+            DataContext = DistrictListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -59,7 +59,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((DistrictListViewModel)DataContext).LoadAsync();
+            await ((DistrictListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -67,10 +67,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class LocalityListView : ViewBase
     {
-        public LocalityListView(IRegionManager regionManager, IEventAggregator eventAggregator, LocalityListViewModel LocalityListViewModel) : base(regionManager, eventAggregator)
+        public LocalityListView(IRegionManager regionManager, IEventAggregator eventAggregator, LocalityListServiceViewModel LocalityListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = LocalityListViewModel;
+            DataContext = LocalityListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -78,7 +78,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((LocalityListViewModel)DataContext).LoadAsync();
+            await ((LocalityListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -86,10 +86,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class LocalityTypeListView : ViewBase
     {
-        public LocalityTypeListView(IRegionManager regionManager, IEventAggregator eventAggregator, LocalityTypeListViewModel LocalityTypeListViewModel) : base(regionManager, eventAggregator)
+        public LocalityTypeListView(IRegionManager regionManager, IEventAggregator eventAggregator, LocalityTypeListServiceViewModel LocalityTypeListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = LocalityTypeListViewModel;
+            DataContext = LocalityTypeListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -97,7 +97,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((LocalityTypeListViewModel)DataContext).LoadAsync();
+            await ((LocalityTypeListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -105,10 +105,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class RegionListView : ViewBase
     {
-        public RegionListView(IRegionManager regionManager, IEventAggregator eventAggregator, RegionListViewModel RegionListViewModel) : base(regionManager, eventAggregator)
+        public RegionListView(IRegionManager regionManager, IEventAggregator eventAggregator, RegionListServiceViewModel RegionListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = RegionListViewModel;
+            DataContext = RegionListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -116,7 +116,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((RegionListViewModel)DataContext).LoadAsync();
+            await ((RegionListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -124,10 +124,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class AdditionalSalesUnitsListView : ViewBase
     {
-        public AdditionalSalesUnitsListView(IRegionManager regionManager, IEventAggregator eventAggregator, AdditionalSalesUnitsListViewModel AdditionalSalesUnitsListViewModel) : base(regionManager, eventAggregator)
+        public AdditionalSalesUnitsListView(IRegionManager regionManager, IEventAggregator eventAggregator, AdditionalSalesUnitsListServiceViewModel AdditionalSalesUnitsListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = AdditionalSalesUnitsListViewModel;
+            DataContext = AdditionalSalesUnitsListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -135,7 +135,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((AdditionalSalesUnitsListViewModel)DataContext).LoadAsync();
+            await ((AdditionalSalesUnitsListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -143,10 +143,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class BankDetailsListView : ViewBase
     {
-        public BankDetailsListView(IRegionManager regionManager, IEventAggregator eventAggregator, BankDetailsListViewModel BankDetailsListViewModel) : base(regionManager, eventAggregator)
+        public BankDetailsListView(IRegionManager regionManager, IEventAggregator eventAggregator, BankDetailsListServiceViewModel BankDetailsListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = BankDetailsListViewModel;
+            DataContext = BankDetailsListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -154,7 +154,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((BankDetailsListViewModel)DataContext).LoadAsync();
+            await ((BankDetailsListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -162,10 +162,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class CompanyListView : ViewBase
     {
-        public CompanyListView(IRegionManager regionManager, IEventAggregator eventAggregator, CompanyListViewModel CompanyListViewModel) : base(regionManager, eventAggregator)
+        public CompanyListView(IRegionManager regionManager, IEventAggregator eventAggregator, CompanyListServiceViewModel CompanyListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = CompanyListViewModel;
+            DataContext = CompanyListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -173,7 +173,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((CompanyListViewModel)DataContext).LoadAsync();
+            await ((CompanyListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -181,10 +181,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class CompanyFormListView : ViewBase
     {
-        public CompanyFormListView(IRegionManager regionManager, IEventAggregator eventAggregator, CompanyFormListViewModel CompanyFormListViewModel) : base(regionManager, eventAggregator)
+        public CompanyFormListView(IRegionManager regionManager, IEventAggregator eventAggregator, CompanyFormListServiceViewModel CompanyFormListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = CompanyFormListViewModel;
+            DataContext = CompanyFormListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -192,7 +192,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((CompanyFormListViewModel)DataContext).LoadAsync();
+            await ((CompanyFormListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -200,10 +200,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class DocumentsRegistrationDetailsListView : ViewBase
     {
-        public DocumentsRegistrationDetailsListView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentsRegistrationDetailsListViewModel DocumentsRegistrationDetailsListViewModel) : base(regionManager, eventAggregator)
+        public DocumentsRegistrationDetailsListView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentsRegistrationDetailsListServiceViewModel DocumentsRegistrationDetailsListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = DocumentsRegistrationDetailsListViewModel;
+            DataContext = DocumentsRegistrationDetailsListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -211,7 +211,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((DocumentsRegistrationDetailsListViewModel)DataContext).LoadAsync();
+            await ((DocumentsRegistrationDetailsListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -219,10 +219,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class EmployeesPositionListView : ViewBase
     {
-        public EmployeesPositionListView(IRegionManager regionManager, IEventAggregator eventAggregator, EmployeesPositionListViewModel EmployeesPositionListViewModel) : base(regionManager, eventAggregator)
+        public EmployeesPositionListView(IRegionManager regionManager, IEventAggregator eventAggregator, EmployeesPositionListServiceViewModel EmployeesPositionListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = EmployeesPositionListViewModel;
+            DataContext = EmployeesPositionListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -230,7 +230,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((EmployeesPositionListViewModel)DataContext).LoadAsync();
+            await ((EmployeesPositionListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -238,10 +238,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class FacilityTypeListView : ViewBase
     {
-        public FacilityTypeListView(IRegionManager regionManager, IEventAggregator eventAggregator, FacilityTypeListViewModel FacilityTypeListViewModel) : base(regionManager, eventAggregator)
+        public FacilityTypeListView(IRegionManager regionManager, IEventAggregator eventAggregator, FacilityTypeListServiceViewModel FacilityTypeListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = FacilityTypeListViewModel;
+            DataContext = FacilityTypeListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -249,7 +249,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((FacilityTypeListViewModel)DataContext).LoadAsync();
+            await ((FacilityTypeListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -257,10 +257,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class ActivityFieldListView : ViewBase
     {
-        public ActivityFieldListView(IRegionManager regionManager, IEventAggregator eventAggregator, ActivityFieldListViewModel ActivityFieldListViewModel) : base(regionManager, eventAggregator)
+        public ActivityFieldListView(IRegionManager regionManager, IEventAggregator eventAggregator, ActivityFieldListServiceViewModel ActivityFieldListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = ActivityFieldListViewModel;
+            DataContext = ActivityFieldListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -268,7 +268,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((ActivityFieldListViewModel)DataContext).LoadAsync();
+            await ((ActivityFieldListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -276,10 +276,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class ContractListView : ViewBase
     {
-        public ContractListView(IRegionManager regionManager, IEventAggregator eventAggregator, ContractListViewModel ContractListViewModel) : base(regionManager, eventAggregator)
+        public ContractListView(IRegionManager regionManager, IEventAggregator eventAggregator, ContractListServiceViewModel ContractListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = ContractListViewModel;
+            DataContext = ContractListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -287,7 +287,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((ContractListViewModel)DataContext).LoadAsync();
+            await ((ContractListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -295,10 +295,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class MeasureListView : ViewBase
     {
-        public MeasureListView(IRegionManager regionManager, IEventAggregator eventAggregator, MeasureListViewModel MeasureListViewModel) : base(regionManager, eventAggregator)
+        public MeasureListView(IRegionManager regionManager, IEventAggregator eventAggregator, MeasureListServiceViewModel MeasureListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = MeasureListViewModel;
+            DataContext = MeasureListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -306,7 +306,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((MeasureListViewModel)DataContext).LoadAsync();
+            await ((MeasureListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -314,10 +314,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class ParameterListView : ViewBase
     {
-        public ParameterListView(IRegionManager regionManager, IEventAggregator eventAggregator, ParameterListViewModel ParameterListViewModel) : base(regionManager, eventAggregator)
+        public ParameterListView(IRegionManager regionManager, IEventAggregator eventAggregator, ParameterListServiceViewModel ParameterListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = ParameterListViewModel;
+            DataContext = ParameterListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -325,7 +325,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((ParameterListViewModel)DataContext).LoadAsync();
+            await ((ParameterListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -333,10 +333,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class ParameterGroupListView : ViewBase
     {
-        public ParameterGroupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ParameterGroupListViewModel ParameterGroupListViewModel) : base(regionManager, eventAggregator)
+        public ParameterGroupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ParameterGroupListServiceViewModel ParameterGroupListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = ParameterGroupListViewModel;
+            DataContext = ParameterGroupListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -344,7 +344,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((ParameterGroupListViewModel)DataContext).LoadAsync();
+            await ((ParameterGroupListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -352,10 +352,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class ProductRelationListView : ViewBase
     {
-        public ProductRelationListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductRelationListViewModel ProductRelationListViewModel) : base(regionManager, eventAggregator)
+        public ProductRelationListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductRelationListServiceViewModel ProductRelationListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = ProductRelationListViewModel;
+            DataContext = ProductRelationListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -363,7 +363,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((ProductRelationListViewModel)DataContext).LoadAsync();
+            await ((ProductRelationListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -371,10 +371,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class StandartPaymentConditionsListView : ViewBase
     {
-        public StandartPaymentConditionsListView(IRegionManager regionManager, IEventAggregator eventAggregator, StandartPaymentConditionsListViewModel StandartPaymentConditionsListViewModel) : base(regionManager, eventAggregator)
+        public StandartPaymentConditionsListView(IRegionManager regionManager, IEventAggregator eventAggregator, StandartPaymentConditionsListServiceViewModel StandartPaymentConditionsListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = StandartPaymentConditionsListViewModel;
+            DataContext = StandartPaymentConditionsListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -382,7 +382,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((StandartPaymentConditionsListViewModel)DataContext).LoadAsync();
+            await ((StandartPaymentConditionsListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -390,10 +390,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class PersonListView : ViewBase
     {
-        public PersonListView(IRegionManager regionManager, IEventAggregator eventAggregator, PersonListViewModel PersonListViewModel) : base(regionManager, eventAggregator)
+        public PersonListView(IRegionManager regionManager, IEventAggregator eventAggregator, PersonListServiceViewModel PersonListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = PersonListViewModel;
+            DataContext = PersonListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -401,7 +401,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((PersonListViewModel)DataContext).LoadAsync();
+            await ((PersonListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -409,10 +409,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class PaymentPlannedListView : ViewBase
     {
-        public PaymentPlannedListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentPlannedListViewModel PaymentPlannedListViewModel) : base(regionManager, eventAggregator)
+        public PaymentPlannedListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentPlannedListServiceViewModel PaymentPlannedListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = PaymentPlannedListViewModel;
+            DataContext = PaymentPlannedListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -420,7 +420,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((PaymentPlannedListViewModel)DataContext).LoadAsync();
+            await ((PaymentPlannedListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -428,10 +428,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class PaymentActualListView : ViewBase
     {
-        public PaymentActualListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentActualListViewModel PaymentActualListViewModel) : base(regionManager, eventAggregator)
+        public PaymentActualListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentActualListServiceViewModel PaymentActualListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = PaymentActualListViewModel;
+            DataContext = PaymentActualListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -439,7 +439,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((PaymentActualListViewModel)DataContext).LoadAsync();
+            await ((PaymentActualListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -447,10 +447,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class ParameterRelationListView : ViewBase
     {
-        public ParameterRelationListView(IRegionManager regionManager, IEventAggregator eventAggregator, ParameterRelationListViewModel ParameterRelationListViewModel) : base(regionManager, eventAggregator)
+        public ParameterRelationListView(IRegionManager regionManager, IEventAggregator eventAggregator, ParameterRelationListServiceViewModel ParameterRelationListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = ParameterRelationListViewModel;
+            DataContext = ParameterRelationListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -458,7 +458,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((ParameterRelationListViewModel)DataContext).LoadAsync();
+            await ((ParameterRelationListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -466,10 +466,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class ProjectUnitListView : ViewBase
     {
-        public ProjectUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectUnitListViewModel ProjectUnitListViewModel) : base(regionManager, eventAggregator)
+        public ProjectUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectUnitListServiceViewModel ProjectUnitListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = ProjectUnitListViewModel;
+            DataContext = ProjectUnitListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -477,7 +477,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((ProjectUnitListViewModel)DataContext).LoadAsync();
+            await ((ProjectUnitListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -485,10 +485,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class TenderUnitListView : ViewBase
     {
-        public TenderUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderUnitListViewModel TenderUnitListViewModel) : base(regionManager, eventAggregator)
+        public TenderUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderUnitListServiceViewModel TenderUnitListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = TenderUnitListViewModel;
+            DataContext = TenderUnitListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -496,7 +496,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((TenderUnitListViewModel)DataContext).LoadAsync();
+            await ((TenderUnitListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -504,10 +504,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class ShipmentUnitListView : ViewBase
     {
-        public ShipmentUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, ShipmentUnitListViewModel ShipmentUnitListViewModel) : base(regionManager, eventAggregator)
+        public ShipmentUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, ShipmentUnitListServiceViewModel ShipmentUnitListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = ShipmentUnitListViewModel;
+            DataContext = ShipmentUnitListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -515,7 +515,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((ShipmentUnitListViewModel)DataContext).LoadAsync();
+            await ((ShipmentUnitListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -523,10 +523,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class ProductionUnitListView : ViewBase
     {
-        public ProductionUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductionUnitListViewModel ProductionUnitListViewModel) : base(regionManager, eventAggregator)
+        public ProductionUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductionUnitListServiceViewModel ProductionUnitListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = ProductionUnitListViewModel;
+            DataContext = ProductionUnitListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -534,7 +534,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((ProductionUnitListViewModel)DataContext).LoadAsync();
+            await ((ProductionUnitListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -542,10 +542,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class SalesUnitListView : ViewBase
     {
-        public SalesUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, SalesUnitListViewModel SalesUnitListViewModel) : base(regionManager, eventAggregator)
+        public SalesUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, SalesUnitListServiceViewModel SalesUnitListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = SalesUnitListViewModel;
+            DataContext = SalesUnitListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -553,7 +553,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((SalesUnitListViewModel)DataContext).LoadAsync();
+            await ((SalesUnitListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -561,10 +561,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class TestFriendAddressListView : ViewBase
     {
-        public TestFriendAddressListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendAddressListViewModel TestFriendAddressListViewModel) : base(regionManager, eventAggregator)
+        public TestFriendAddressListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendAddressListServiceViewModel TestFriendAddressListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = TestFriendAddressListViewModel;
+            DataContext = TestFriendAddressListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -572,7 +572,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((TestFriendAddressListViewModel)DataContext).LoadAsync();
+            await ((TestFriendAddressListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -580,10 +580,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class TestFriendListView : ViewBase
     {
-        public TestFriendListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendListViewModel TestFriendListViewModel) : base(regionManager, eventAggregator)
+        public TestFriendListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendListServiceViewModel TestFriendListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = TestFriendListViewModel;
+            DataContext = TestFriendListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -591,7 +591,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((TestFriendListViewModel)DataContext).LoadAsync();
+            await ((TestFriendListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -599,10 +599,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class TestFriendEmailListView : ViewBase
     {
-        public TestFriendEmailListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendEmailListViewModel TestFriendEmailListViewModel) : base(regionManager, eventAggregator)
+        public TestFriendEmailListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendEmailListServiceViewModel TestFriendEmailListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = TestFriendEmailListViewModel;
+            DataContext = TestFriendEmailListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -610,7 +610,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((TestFriendEmailListViewModel)DataContext).LoadAsync();
+            await ((TestFriendEmailListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -618,10 +618,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class TestFriendGroupListView : ViewBase
     {
-        public TestFriendGroupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendGroupListViewModel TestFriendGroupListViewModel) : base(regionManager, eventAggregator)
+        public TestFriendGroupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendGroupListServiceViewModel TestFriendGroupListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = TestFriendGroupListViewModel;
+            DataContext = TestFriendGroupListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -629,7 +629,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((TestFriendGroupListViewModel)DataContext).LoadAsync();
+            await ((TestFriendGroupListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -637,10 +637,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class DocumentListView : ViewBase
     {
-        public DocumentListView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentListViewModel DocumentListViewModel) : base(regionManager, eventAggregator)
+        public DocumentListView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentListServiceViewModel DocumentListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = DocumentListViewModel;
+            DataContext = DocumentListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -648,7 +648,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((DocumentListViewModel)DataContext).LoadAsync();
+            await ((DocumentListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -656,10 +656,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class TestEntityListView : ViewBase
     {
-        public TestEntityListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestEntityListViewModel TestEntityListViewModel) : base(regionManager, eventAggregator)
+        public TestEntityListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestEntityListServiceViewModel TestEntityListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = TestEntityListViewModel;
+            DataContext = TestEntityListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -667,7 +667,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((TestEntityListViewModel)DataContext).LoadAsync();
+            await ((TestEntityListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -675,10 +675,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class TestHusbandListView : ViewBase
     {
-        public TestHusbandListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestHusbandListViewModel TestHusbandListViewModel) : base(regionManager, eventAggregator)
+        public TestHusbandListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestHusbandListServiceViewModel TestHusbandListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = TestHusbandListViewModel;
+            DataContext = TestHusbandListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -686,7 +686,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((TestHusbandListViewModel)DataContext).LoadAsync();
+            await ((TestHusbandListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -694,10 +694,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class TestWifeListView : ViewBase
     {
-        public TestWifeListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestWifeListViewModel TestWifeListViewModel) : base(regionManager, eventAggregator)
+        public TestWifeListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestWifeListServiceViewModel TestWifeListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = TestWifeListViewModel;
+            DataContext = TestWifeListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -705,7 +705,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((TestWifeListViewModel)DataContext).LoadAsync();
+            await ((TestWifeListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -713,10 +713,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class TestChildListView : ViewBase
     {
-        public TestChildListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestChildListViewModel TestChildListViewModel) : base(regionManager, eventAggregator)
+        public TestChildListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestChildListServiceViewModel TestChildListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = TestChildListViewModel;
+            DataContext = TestChildListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -724,7 +724,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((TestChildListViewModel)DataContext).LoadAsync();
+            await ((TestChildListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -732,10 +732,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class CostOnDateListView : ViewBase
     {
-        public CostOnDateListView(IRegionManager regionManager, IEventAggregator eventAggregator, CostOnDateListViewModel CostOnDateListViewModel) : base(regionManager, eventAggregator)
+        public CostOnDateListView(IRegionManager regionManager, IEventAggregator eventAggregator, CostOnDateListServiceViewModel CostOnDateListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = CostOnDateListViewModel;
+            DataContext = CostOnDateListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -743,7 +743,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((CostOnDateListViewModel)DataContext).LoadAsync();
+            await ((CostOnDateListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -751,10 +751,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class CostListView : ViewBase
     {
-        public CostListView(IRegionManager regionManager, IEventAggregator eventAggregator, CostListViewModel CostListViewModel) : base(regionManager, eventAggregator)
+        public CostListView(IRegionManager regionManager, IEventAggregator eventAggregator, CostListServiceViewModel CostListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = CostListViewModel;
+            DataContext = CostListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -762,7 +762,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((CostListViewModel)DataContext).LoadAsync();
+            await ((CostListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -770,10 +770,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class CurrencyListView : ViewBase
     {
-        public CurrencyListView(IRegionManager regionManager, IEventAggregator eventAggregator, CurrencyListViewModel CurrencyListViewModel) : base(regionManager, eventAggregator)
+        public CurrencyListView(IRegionManager regionManager, IEventAggregator eventAggregator, CurrencyListServiceViewModel CurrencyListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = CurrencyListViewModel;
+            DataContext = CurrencyListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -781,7 +781,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((CurrencyListViewModel)DataContext).LoadAsync();
+            await ((CurrencyListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -789,10 +789,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class ExchangeCurrencyRateListView : ViewBase
     {
-        public ExchangeCurrencyRateListView(IRegionManager regionManager, IEventAggregator eventAggregator, ExchangeCurrencyRateListViewModel ExchangeCurrencyRateListViewModel) : base(regionManager, eventAggregator)
+        public ExchangeCurrencyRateListView(IRegionManager regionManager, IEventAggregator eventAggregator, ExchangeCurrencyRateListServiceViewModel ExchangeCurrencyRateListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = ExchangeCurrencyRateListViewModel;
+            DataContext = ExchangeCurrencyRateListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -800,7 +800,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((ExchangeCurrencyRateListViewModel)DataContext).LoadAsync();
+            await ((ExchangeCurrencyRateListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -808,10 +808,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class ProductListView : ViewBase
     {
-        public ProductListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductListViewModel ProductListViewModel) : base(regionManager, eventAggregator)
+        public ProductListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductListServiceViewModel ProductListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = ProductListViewModel;
+            DataContext = ProductListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -819,7 +819,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((ProductListViewModel)DataContext).LoadAsync();
+            await ((ProductListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -827,10 +827,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class OfferListView : ViewBase
     {
-        public OfferListView(IRegionManager regionManager, IEventAggregator eventAggregator, OfferListViewModel OfferListViewModel) : base(regionManager, eventAggregator)
+        public OfferListView(IRegionManager regionManager, IEventAggregator eventAggregator, OfferListServiceViewModel OfferListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = OfferListViewModel;
+            DataContext = OfferListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -838,7 +838,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((OfferListViewModel)DataContext).LoadAsync();
+            await ((OfferListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -846,10 +846,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class EmployeeListView : ViewBase
     {
-        public EmployeeListView(IRegionManager regionManager, IEventAggregator eventAggregator, EmployeeListViewModel EmployeeListViewModel) : base(regionManager, eventAggregator)
+        public EmployeeListView(IRegionManager regionManager, IEventAggregator eventAggregator, EmployeeListServiceViewModel EmployeeListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = EmployeeListViewModel;
+            DataContext = EmployeeListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -857,7 +857,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((EmployeeListViewModel)DataContext).LoadAsync();
+            await ((EmployeeListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -865,10 +865,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class OrderListView : ViewBase
     {
-        public OrderListView(IRegionManager regionManager, IEventAggregator eventAggregator, OrderListViewModel OrderListViewModel) : base(regionManager, eventAggregator)
+        public OrderListView(IRegionManager regionManager, IEventAggregator eventAggregator, OrderListServiceViewModel OrderListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = OrderListViewModel;
+            DataContext = OrderListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -876,7 +876,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((OrderListViewModel)DataContext).LoadAsync();
+            await ((OrderListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -884,10 +884,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class PaymentConditionListView : ViewBase
     {
-        public PaymentConditionListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionListViewModel PaymentConditionListViewModel) : base(regionManager, eventAggregator)
+        public PaymentConditionListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionListServiceViewModel PaymentConditionListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = PaymentConditionListViewModel;
+            DataContext = PaymentConditionListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -895,7 +895,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((PaymentConditionListViewModel)DataContext).LoadAsync();
+            await ((PaymentConditionListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -903,10 +903,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class PaymentDocumentListView : ViewBase
     {
-        public PaymentDocumentListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentDocumentListViewModel PaymentDocumentListViewModel) : base(regionManager, eventAggregator)
+        public PaymentDocumentListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentDocumentListServiceViewModel PaymentDocumentListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = PaymentDocumentListViewModel;
+            DataContext = PaymentDocumentListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -914,7 +914,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((PaymentDocumentListViewModel)DataContext).LoadAsync();
+            await ((PaymentDocumentListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -922,10 +922,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class FacilityListView : ViewBase
     {
-        public FacilityListView(IRegionManager regionManager, IEventAggregator eventAggregator, FacilityListViewModel FacilityListViewModel) : base(regionManager, eventAggregator)
+        public FacilityListView(IRegionManager regionManager, IEventAggregator eventAggregator, FacilityListServiceViewModel FacilityListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = FacilityListViewModel;
+            DataContext = FacilityListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -933,7 +933,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((FacilityListViewModel)DataContext).LoadAsync();
+            await ((FacilityListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -941,10 +941,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class ProjectListView : ViewBase
     {
-        public ProjectListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectListViewModel ProjectListViewModel) : base(regionManager, eventAggregator)
+        public ProjectListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectListServiceViewModel ProjectListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = ProjectListViewModel;
+            DataContext = ProjectListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -952,7 +952,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((ProjectListViewModel)DataContext).LoadAsync();
+            await ((ProjectListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -960,10 +960,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class UserRoleListView : ViewBase
     {
-        public UserRoleListView(IRegionManager regionManager, IEventAggregator eventAggregator, UserRoleListViewModel UserRoleListViewModel) : base(regionManager, eventAggregator)
+        public UserRoleListView(IRegionManager regionManager, IEventAggregator eventAggregator, UserRoleListServiceViewModel UserRoleListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = UserRoleListViewModel;
+            DataContext = UserRoleListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -971,7 +971,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((UserRoleListViewModel)DataContext).LoadAsync();
+            await ((UserRoleListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -979,10 +979,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class SpecificationListView : ViewBase
     {
-        public SpecificationListView(IRegionManager regionManager, IEventAggregator eventAggregator, SpecificationListViewModel SpecificationListViewModel) : base(regionManager, eventAggregator)
+        public SpecificationListView(IRegionManager regionManager, IEventAggregator eventAggregator, SpecificationListServiceViewModel SpecificationListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = SpecificationListViewModel;
+            DataContext = SpecificationListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -990,7 +990,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((SpecificationListViewModel)DataContext).LoadAsync();
+            await ((SpecificationListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -998,10 +998,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class TenderListView : ViewBase
     {
-        public TenderListView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderListViewModel TenderListViewModel) : base(regionManager, eventAggregator)
+        public TenderListView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderListServiceViewModel TenderListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = TenderListViewModel;
+            DataContext = TenderListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -1009,7 +1009,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((TenderListViewModel)DataContext).LoadAsync();
+            await ((TenderListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -1017,10 +1017,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class TenderTypeListView : ViewBase
     {
-        public TenderTypeListView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderTypeListViewModel TenderTypeListViewModel) : base(regionManager, eventAggregator)
+        public TenderTypeListView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderTypeListServiceViewModel TenderTypeListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = TenderTypeListViewModel;
+            DataContext = TenderTypeListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -1028,7 +1028,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((TenderTypeListViewModel)DataContext).LoadAsync();
+            await ((TenderTypeListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -1036,10 +1036,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class UserListView : ViewBase
     {
-        public UserListView(IRegionManager regionManager, IEventAggregator eventAggregator, UserListViewModel UserListViewModel) : base(regionManager, eventAggregator)
+        public UserListView(IRegionManager regionManager, IEventAggregator eventAggregator, UserListServiceViewModel UserListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = UserListViewModel;
+            DataContext = UserListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -1047,7 +1047,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((UserListViewModel)DataContext).LoadAsync();
+            await ((UserListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }
@@ -1055,10 +1055,10 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
     public partial class OfferUnitListView : ViewBase
     {
-        public OfferUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, OfferUnitListViewModel OfferUnitListViewModel) : base(regionManager, eventAggregator)
+        public OfferUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, OfferUnitListServiceViewModel OfferUnitListServiceViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = OfferUnitListViewModel;
+            DataContext = OfferUnitListServiceViewModel;
             Loaded += OnLoaded;
         }
 		        
@@ -1066,7 +1066,7 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             if (_loaded) return;
-            await ((OfferUnitListViewModel)DataContext).LoadAsync();
+            await ((OfferUnitListServiceViewModel)DataContext).LoadAsync();
             _loaded = true;
         }
     }

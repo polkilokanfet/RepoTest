@@ -46,10 +46,10 @@ namespace HVTApp.UI
             _dialogService.Register<ProductDetailsViewModel, ProductDetailsView>();
             //_dialogService.Register<ProjectUnitsDetailsViewModel, ProductUnitsDetailsView>();
 
-            _selectService.Register<SelectActivityFieldViewModel, ActivityFieldListView, ActivityFieldWrapper>();
-            _selectService.Register<CompanyListViewModel, CompanyListView, CompanyWrapper>();
-            _selectService.Register<ProjectListViewModel, ProjectListView, ProjectWrapper>();
-            _selectService.Register<TenderListViewModel, TenderListView, TenderWrapper>();
+            //_selectService.Register<SelectActivityFieldServiceViewModel, ActivityFieldListView, ActivityFieldWrapper>();
+            //_selectService.Register<CompanyListServiceViewModel, CompanyListView, CompanyWrapper>();
+            //_selectService.Register<ProjectListServiceViewModel, ProjectListView, ProjectWrapper>();
+            //_selectService.Register<TenderListServiceViewModel, TenderListView, TenderWrapper>();
 
             _updateDetailsService.Register<Company, CompanyDetailsView>();
             _updateDetailsService.Register<CompanyForm, CompanyFormDetailsView>();

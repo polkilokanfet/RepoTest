@@ -146,6 +146,7 @@ namespace HVTApp.UI.Lookup
 using HVTApp.UI.Events;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
+using HVTApp.UI.Lookup;
 
 namespace HVTApp.UI.ViewModels
 {
@@ -153,9 +154,9 @@ namespace HVTApp.UI.ViewModels
         foreach(var modelType in modelTypes)
         {
 #>
-    public partial class <#=modelType.Name#>ListViewModel : BaseWrapperListViewModel<<#=modelType.Name#>Wrapper, <#=modelType.Name#>, <#=modelType.Name#>DetailsViewModel, AfterSave<#=modelType.Name#>Event>
+    public partial class <#=modelType.Name#>ListViewModel : BaseListViewModel<<#=modelType.Name#>, <#=modelType.Name#>Lookup, AfterSave<#=modelType.Name#>Event>
     {
-        public <#=modelType.Name#>ListViewModel(IUnityContainer container, <#=modelType.Name#>WrapperDataService wrapperDataService) : base(container, wrapperDataService) { }
+        public <#=modelType.Name#>ListViewModel(IUnityContainer container) : base(container) { }
     }
 
 <#+

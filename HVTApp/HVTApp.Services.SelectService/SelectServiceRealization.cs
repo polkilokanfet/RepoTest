@@ -21,9 +21,9 @@ namespace HVTApp.Services.SelectService
         }
 
         public void Register<TViewModel, TView, TItem>() 
-            where TViewModel : ISelectViewModel<TItem>
+            where TViewModel : ISelectServiceViewModel<TItem>
             where TView : Control 
-            where TItem : IWrapper<IBaseEntity>
+            where TItem : class, IBaseEntity
         {
             if(Mappings.ContainsKey(typeof(TItem)))
                 throw new ArgumentException($"Type {typeof(TItem)} is already mapped to type {typeof(TView)}");
@@ -32,21 +32,18 @@ namespace HVTApp.Services.SelectService
         }
 
         public TItem SelectItem<TItem>(IEnumerable<TItem> items, Guid selectedItemId = default(Guid)) 
-            where TItem : class, IWrapper<IBaseEntity>
+            where TItem : class, IBaseEntity
         {
             TItem result = null;
 
             ViewModelView vmv = Mappings[typeof(TItem)];
 
-            ISelectViewModel<TItem> viewModel = (ISelectViewModel<TItem>)_container.Resolve(vmv.ViewModelType, new ParameterOverride("items", items));
-            //items.ToList().Clear();
-            //items.ToList().ForEach((viewModel.Items as ICollection<TItem>).Add);
-            //viewModel.SetItems(items);
-            
-            if (selectedItemId != Guid.Empty && items.Any(x => x.Model.Id == selectedItemId))
-                viewModel.SelectedItem = items.Single(x => x.Model.Id == selectedItemId);
-
             var view = (Control)_container.Resolve(vmv.ViewType);
+            var viewModel = (ISelectServiceViewModel<TItem>)_container.Resolve(vmv.ViewModelType, new ParameterOverride("items", items));
+            
+            //if (selectedItemId != Guid.Empty && items.Any(x => x.Id == selectedItemId))
+            //    viewModel.SelectedItem = items.Single(x => x.Id == selectedItemId);
+
             view.DataContext = viewModel;
 
             var selectWindow = new SelectWindow
@@ -61,8 +58,8 @@ namespace HVTApp.Services.SelectService
             {
                 viewModel.CloseRequested -= handler;
 
-                if (args.DialogResult.HasValue && args.DialogResult.Value)
-                    result = viewModel.SelectedItem;
+                //if (args.DialogResult.HasValue && args.DialogResult.Value)
+                //    result = viewModel.SelectedItem;
                 selectWindow.Close();
             };
 
