@@ -9,7 +9,7 @@ namespace HVTApp.DataAccess
         {
         }
 
-        public int Complete()
+        public int CompleteAsync()
         {
             return 0;
         }

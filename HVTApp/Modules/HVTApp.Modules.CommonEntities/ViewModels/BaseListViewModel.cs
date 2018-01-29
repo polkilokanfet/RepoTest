@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -126,16 +127,23 @@ namespace HVTApp.UI.ViewModels
 
         protected async void RemoveItemCommand_ExecuteAsync()
         {
-            if (MessageService.ShowYesNoMessageDialog("Удалить", $"Вы действительно хотите удалить '{SelectedLookup.DisplayMember}'?") != MessageDialogResult.Yes)
+            if (MessageService.ShowYesNoMessageDialog("Удалить",
+                    $"Вы действительно хотите удалить '{SelectedLookup.DisplayMember}'?") != MessageDialogResult.Yes)
                 return;
 
             var entityToRemove = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(SelectedLookup.Id);
-            if (entityToRemove != null)
+            if (entityToRemove == null) return;
+
+            try
             {
                 UnitOfWork.GetRepository<TEntity>().Delete(entityToRemove);
-                UnitOfWork.Complete();
+                await UnitOfWork.CompleteAsync();
+                (Lookups as ICollection<TLookup>)?.Remove(SelectedLookup);
             }
-            (Lookups as ICollection<TLookup>).Remove(SelectedLookup);
+            catch (DbUpdateException e)
+            {
+                MessageService.ShowYesNoMessageDialog("DbUpdateException", e.Message);
+            }
         }
 
         protected virtual bool RemoveItemCommand_CanExecute()

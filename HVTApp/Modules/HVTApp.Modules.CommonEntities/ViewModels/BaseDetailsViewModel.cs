@@ -73,7 +73,7 @@ namespace HVTApp.UI.ViewModels
             CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
 
             Item.AcceptChanges();
-            UnitOfWork.Complete();
+            UnitOfWork.CompleteAsync();
 
             EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
         }

@@ -40,7 +40,7 @@ namespace HVTApp.UI.ViewModels
     //        {
     //            SelectedItem.Prices.Add(wrapper);
     //            SelectedItem.AcceptChanges();
-    //            UnitOfWork.Complete();
+    //            UnitOfWork.CompleteAsync();
     //        }
     //    }
 

@@ -1,6 +1,8 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 
 
@@ -15,9 +17,16 @@ namespace HVTApp.DataAccess
             return (IRepository<T>) repositoryFieldInfo.GetValue(this);
         }
 
-        public int Complete()
+        public async Task<int> CompleteAsync()
         {
-            return _context.SaveChanges();
+            try
+            {
+                return await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException e)
+            {
+                throw;
+            }
         }
 
         public void Dispose()

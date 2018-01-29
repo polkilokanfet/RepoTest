@@ -22,8 +22,6 @@ namespace HVTApp.UI.ViewModels
         {
             _selectService = selectService;
 
-            //Forms = WrapperDataService.CompanyFormWrapperDataService.GetAllAsync();
-
             SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_ExecuteAsync);
             RemoveParentCompanyCommand = new DelegateCommand(RemoveParentCompanyCommand_Execute);
             AddActivityFieldCommand = new DelegateCommand(AddActivityFieldCommand_ExecuteAsync);

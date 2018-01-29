@@ -136,7 +136,7 @@ namespace HVTApp.UI.ViewModels
             if (entityToRemove != null)
             {
                 UnitOfWork.GetRepository<TEntity>().Delete(entityToRemove);
-                UnitOfWork.Complete();
+                UnitOfWork.CompleteAsync();
             }
             Items.Remove(SelectedItem);
         }
