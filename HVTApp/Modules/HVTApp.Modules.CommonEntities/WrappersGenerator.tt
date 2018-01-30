@@ -692,7 +692,7 @@ namespace HVTApp.UI.Wrapper
       var propertyType = property.PropertyType.Name;
       var propertyName = property.Name;
 #>
-			<#= propertyName #>?.Refresh(Model.<#= propertyName #>);
+			<#= propertyName #>?.Refresh(Entity.<#= propertyName #>);
 <#+
     }
   }

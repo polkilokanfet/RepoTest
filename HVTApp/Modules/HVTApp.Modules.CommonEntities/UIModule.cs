@@ -47,7 +47,7 @@ namespace HVTApp.UI
             _dialogService.Register<ProductDetailsViewModel, ProductDetailsView>();
             //_dialogService.Register<ProjectUnitsDetailsViewModel, ProductUnitsDetailsView>();
 
-            _selectService.Register<ActivityFieldListViewModel, ActivityFieldListView, ActivityFieldLookup>();
+            _selectService.Register<ActivityFieldListView, ActivityFieldLookup>();
             //_selectService.Register<CompanyListServiceViewModel, CompanyListView, CompanyWrapper>();
             //_selectService.Register<ProjectListServiceViewModel, ProjectListView, ProjectWrapper>();
             //_selectService.Register<TenderListServiceViewModel, TenderListView, TenderWrapper>();

@@ -13,40 +13,36 @@ namespace HVTApp.Services.SelectService
     public class SelectServiceWpf : ISelectService
     {
         private readonly IUnityContainer _container;
-        public Dictionary<Type, ViewModelView> Mappings { get; } = new Dictionary<Type, ViewModelView>();
+        public Dictionary<Type, Type> Mappings { get; } = new Dictionary<Type, Type>();
 
         public SelectServiceWpf(IUnityContainer container)
         {
             _container = container;
         }
 
-        public void Register<TViewModel, TView, TItem>() 
-            where TViewModel : ISelectServiceViewModel<TItem>
+        public void Register<TView, TLookup>() 
             where TView : Control 
-            where TItem : class, ILookupItem
+            where TLookup : class, ILookupItem
         {
-            if(Mappings.ContainsKey(typeof(TItem)))
-                throw new ArgumentException($"Type {typeof(TItem)} is already mapped to type {typeof(TView)}");
+            if(Mappings.ContainsKey(typeof(TLookup)))
+                throw new ArgumentException($"Type {typeof(TLookup)} is already mapped to type {typeof(TView)}");
 
-            Mappings.Add(typeof(TItem), new ViewModelView(typeof(TViewModel), typeof(TView)));
+            Mappings.Add(typeof(TLookup), typeof(TView));
         }
 
-        public TItem SelectItem<TItem>(IEnumerable<TItem> items, Guid selectedItemId = default(Guid)) 
-            where TItem : class, ILookupItem
+        public TLookup SelectItem<TLookup>(IEnumerable<TLookup> items, Guid selectedItemId = default(Guid)) 
+            where TLookup : class, ILookupItem
         {
-            TItem result = null;
+            TLookup result = null;
 
-            ViewModelView vmv = Mappings[typeof(TItem)];
+            Type viewType = Mappings[typeof(TLookup)];
 
-            var view = (Control)_container.Resolve(vmv.ViewType);
-            //var viewModel = (ISelectServiceViewModel<TItem>)_container.Resolve(vmv.ViewModelType, new ParameterOverride("items", items));
-            var viewModel = (ISelectServiceViewModel<TItem>)view.DataContext;
+            var view = (Control)_container.Resolve(viewType);
+            var viewModel = (ISelectServiceViewModel<TLookup>)view.DataContext;
             viewModel.InjectItems(items);
 
             //if (selectedItemId != Guid.Empty && items.Any(x => x.Id == selectedItemId))
             //    viewModel.SelectedItem = items.Single(x => x.Id == selectedItemId);
-
-            //view.DataContext = viewModel;
 
             var selectWindow = new SelectWindow
             {
@@ -71,21 +67,6 @@ namespace HVTApp.Services.SelectService
             selectWindow.ShowDialog();
 
             return result;
-        }
-
-
-
-
-        public class ViewModelView
-        {
-            public Type ViewModelType { get; }
-            public Type ViewType { get; }
-
-            public ViewModelView(Type viewModelType, Type viewType)
-            {
-                ViewModelType = viewModelType;
-                ViewType = viewType;
-            }
         }
     }
 }

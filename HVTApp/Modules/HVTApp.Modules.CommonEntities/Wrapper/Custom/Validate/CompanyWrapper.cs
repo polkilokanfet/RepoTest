@@ -15,8 +15,8 @@ namespace HVTApp.UI.Wrapper
             if (string.IsNullOrWhiteSpace(ShortName))
                 yield return new ValidationResult("ShortName is required", new[] { nameof(ShortName) });
 
-            if (Equals(FormId, Guid.Empty))
-                yield return new ValidationResult("Form is required", new[] { nameof(FormId) });
+            if (Equals(Form, null))
+                yield return new ValidationResult("Form is required", new[] { nameof(Form) });
 
             if (!ActivityFilds.Any())
                 yield return new ValidationResult("У компании должна быть хотябы одна сфера деятельности.", new[] { nameof(ActivityFilds) });

@@ -13,7 +13,7 @@ namespace HVTApp.UI.Lookup
     {
         protected LookupItem(TEntity entity)
         {
-            Refresh(entity);
+            Entity = entity;
         }
 
         public Guid Id => GetValue<Guid>();

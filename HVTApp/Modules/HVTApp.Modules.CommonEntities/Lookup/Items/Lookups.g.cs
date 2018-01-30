@@ -171,8 +171,6 @@ namespace HVTApp.UI.Lookup
 
         public System.String Kpp => GetValue<System.String>();
 
-        public System.Guid FormId => GetValue<System.Guid>();
-
         public System.Nullable<System.Guid> ParentCompanyId => GetValue<System.Nullable<System.Guid>>();
 
         #endregion
