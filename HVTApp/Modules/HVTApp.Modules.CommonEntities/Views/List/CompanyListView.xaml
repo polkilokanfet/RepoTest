@@ -17,12 +17,12 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout Key="Company">
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="DisplayMember" Label="DisplayMember"/>
                     <infg:TextField Name="FullName" Label="Полное наименование"/>
                     <infg:TextField Name="ShortName" Label="Краткое наименование"/>
+                    <infg:TextField Name="Form" Label="Форма" Width="Auto"/>
+                    <infg:TextField Name="Inn" Label="ИНН" Width="Auto"/>
                     <!--<infg:TextField AlternateBinding="{Binding Form.ShortName}" BindingType="UseAlternateBinding" Label="Форм." Width="Auto"/>
                     <infg:TextField AlternateBinding="{Binding Form.FullName}" BindingType="UseAlternateBinding" Label="Форма" Width="Auto"/>
-                    <infg:TextField Name="Inn" Label="ИНН" Width="Auto"/>
                     <infg:TextField Name="ParentCompany" Label="Родительская компания" Converter="{StaticResource WrapperToStringConverter}"/>
                     <infg:TextField Name="ActivityFilds" Label="Сферы деятельности" Converter="{StaticResource WrappersToStringConverter}"/>-->
                 </infg:FieldLayout.Fields>

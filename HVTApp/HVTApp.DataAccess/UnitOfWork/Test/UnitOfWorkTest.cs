@@ -1,4 +1,6 @@
+using System;
 using System.Linq;
+using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.DataAccess
@@ -9,9 +11,9 @@ namespace HVTApp.DataAccess
         {
         }
 
-        public int CompleteAsync()
+        public Task<int> CompleteAsync()
         {
-            return 0;
+            throw new NotImplementedException();
         }
 
         public IRepository<T> GetRepository<T>() where T : class, IBaseEntity

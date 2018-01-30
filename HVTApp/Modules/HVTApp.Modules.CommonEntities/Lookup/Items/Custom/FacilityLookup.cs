@@ -1,4 +1,7 @@
 namespace HVTApp.UI.Lookup
 {
-    public partial class FacilityLookup : LookupItem { }
+    public partial class FacilityLookup
+    {
+        
+    }
 }

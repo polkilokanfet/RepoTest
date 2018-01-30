@@ -9,7 +9,7 @@ namespace HVTApp.UI.Lookup
 {
     public abstract class LookupDataService<TLookup, TEntity> : ILookupDataService<TLookup> 
         where TEntity : class, IBaseEntity
-        where TLookup : class, ILookupItem, new()
+        where TLookup : class, ILookupItem
     {
         protected readonly HvtAppContext Context;
 
@@ -21,11 +21,10 @@ namespace HVTApp.UI.Lookup
         public async Task<TLookup> GetLookupById(Guid id)
         {
             var entity = await Context.Set<TEntity>().FindAsync(id);
-            return new TLookup
-            {
-                Id = entity.Id,
-                DisplayMember = GenerateDisplayMember(entity)
-            };
+            var lookup = Activator.CreateInstance<TLookup>();
+            //lookup.Id = entity.Id;
+            lookup.DisplayMember = GenerateDisplayMember(entity);
+            return lookup;
         }
 
         public virtual async Task<IEnumerable<TLookup>> GetAllLookupsAsync()
@@ -34,11 +33,10 @@ namespace HVTApp.UI.Lookup
             var lookups = new List<TLookup>();
             foreach (var entity in entities)
             {
-                lookups.Add(new TLookup
-                {
-                    Id = entity.Id,
-                    DisplayMember = GenerateDisplayMember(entity)
-                });
+                var lookup = Activator.CreateInstance<TLookup>();
+                //lookup.Id = entity.Id;
+                lookup.DisplayMember = GenerateDisplayMember(entity);
+                lookups.Add(lookup);
             }
             return lookups;
         }

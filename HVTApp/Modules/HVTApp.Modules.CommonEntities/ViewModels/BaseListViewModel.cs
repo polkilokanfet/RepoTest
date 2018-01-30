@@ -21,10 +21,10 @@ using Prism.Mvvm;
 
 namespace HVTApp.UI.ViewModels
 {
-    public abstract class BaseListServiceViewModel<TEntity, TLookup, TAfterSaveEntityEvent> :
+    public abstract class BaseListViewModel<TEntity, TLookup, TAfterSaveEntityEvent> :
         BindableBase, IBaseListViewModel<TLookup>, ISelectServiceViewModel<TEntity>, IDisposable
         where TEntity : class, IBaseEntity
-        where TLookup : ILookupItem
+        where TLookup : ILookupItemNavigation<TEntity>
         where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
     {
         protected readonly IUnityContainer Container;
@@ -36,7 +36,7 @@ namespace HVTApp.UI.ViewModels
 
         public IEnumerable<TLookup> Lookups { get; }
 
-        protected BaseListServiceViewModel(IUnityContainer container)
+        protected BaseListViewModel(IUnityContainer container)
         {
             Container = container;
             UnitOfWork = Container.Resolve<IUnitOfWork>();
@@ -57,7 +57,6 @@ namespace HVTApp.UI.ViewModels
         protected virtual async Task<IEnumerable<TEntity>> GetItems()
         {
             return (await UnitOfWork.GetRepository<TEntity>().GetAllAsNoTrackingAsync());
-            //.Select(x => (TWrapper) Activator.CreateInstance(typeof(TWrapper), x));
         }
 
         public virtual async Task LoadAsync()
@@ -73,7 +72,7 @@ namespace HVTApp.UI.ViewModels
 
         protected virtual TLookup GenerateLookup(TEntity entity)
         {
-            var lookup = Activator.CreateInstance<TLookup>();
+            var lookup = (TLookup)Activator.CreateInstance(typeof(TLookup), entity);
             lookup.Refresh(entity);
             lookup.DisplayMember = entity.ToString();
             return lookup;

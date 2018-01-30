@@ -9,7 +9,7 @@ using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
-    //public class PartPriceListViewModel : BaseListServiceViewModel<PartWrapper, Product, PartDetailsViewModel, AfterSavePartEvent>
+    //public class PartPriceListViewModel : BaseListViewModel<PartWrapper, Product, PartDetailsViewModel, AfterSavePartEvent>
     //{
     //    private CostOnDateWrapper _selectedPrice;
 

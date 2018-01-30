@@ -12,27 +12,6 @@
 <#@ import namespace="HVTApp.Infrastructure" #>
 <#@ output extension=".cs" #>
 <#
-  //foreach (var modelType in GetModelTypes())
-  //{
-	//GenerateWrapper(modelType);
-	//SaveGeneratedCodeAsFile(modelType.Name + "Wrapper.g.cs", "Wrapper/Generated");
-  //	
-	//GenerateLookup(modelType);
-	//SaveGeneratedCodeAsFile(modelType.Name + "Lookup.g.cs", "Lookup/Items/Generated");
-  //
-	//GenerateLookupDataServiceInterface(modelType);
-	//SaveGeneratedCodeAsFile("I" + modelType.Name + "LookupDataService.g.cs", "Lookup/Service/Interfaces");
-  //
-	//GenerateLookupDataService(modelType);
-	//SaveGeneratedCodeAsFile(modelType.Name + "LookupDataService.g.cs", "Lookup/Service/Generated");
-  //
-	//GenerateAfterSaveEntityEvent(modelType);
-	//SaveGeneratedCodeAsFile("AfterSave" + modelType.Name + "Event.g.cs", "Events/AfterSaveEntityEvents");
-  //
-	//GenerateAfterRemoveEntityEvent(modelType);
-	//SaveGeneratedCodeAsFile("AfterRemove" + modelType.Name + "Event.g.cs", "Events/AfterRemoveEntityEvents");
-  //}
-
 	var modelTypes = GetModelTypes();
 
     GenerateWrappers(modelTypes);
@@ -73,7 +52,9 @@
 
     private void GenerateLookups(IEnumerable<Type> modelTypes)
     {
-#>namespace HVTApp.UI.Lookup
+#>using HVTApp.Model.POCOs;
+
+namespace HVTApp.UI.Lookup
 {
 <#+
         foreach(var modelType in modelTypes)
@@ -86,8 +67,31 @@
 
 	private void GenerateLookup(Type modelType)
 	{
+		var allProperties = modelType.GetProperties();
+		var allSimpleProperties = allProperties.Where(p => IsSimple(p.PropertyType));
+				
+		//Перечисления
+		var allCollectionProperties = allProperties.Except(allSimpleProperties)
+				.Where(p => p.PropertyType.GetInterfaces()
+				.Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)));
+
+		//Сложные свойства
+		var allComplexProperties = allProperties.Except(allSimpleProperties).Except(allCollectionProperties);
+
 #>
-	public partial class <#=modelType.Name#>Lookup : LookupItem { }
+	public partial class <#=modelType.Name#>Lookup : LookupItem<<#=modelType.Name#>>
+	{
+		public <#=modelType.Name#>Lookup(<#=modelType.Name#> entity) : base(entity) 
+		{
+			 <#+ InitComplexLookupProperties(allComplexProperties);#>
+		}
+		<#+
+
+		GenerateSimpleLookupProperties(allSimpleProperties.Where(x => x.Name != "Id"));
+		GenerateComplexLookupProperties(allComplexProperties);
+
+		#>
+	}
 <#+
 	}
 
@@ -139,6 +143,7 @@ namespace HVTApp.UI.Lookup
 
 <#+
 	}
+
 
     private void GenerateListViewModels(IEnumerable<Type> modelTypes)
 	{
@@ -415,7 +420,7 @@ namespace HVTApp.UI.Wrapper
         return typeof(Address).Assembly.GetTypes().Where(x => GetBaseTypes(x).Contains(typeof(BaseEntity)));
     }
     
-	    IEnumerable<Type> GetBaseTypes(Type type)
+	private IEnumerable<Type> GetBaseTypes(Type type)
         {
             List<Type> result = new List<Type>();
             while (type.BaseType != null)
@@ -627,4 +632,66 @@ namespace HVTApp.UI.Wrapper
 <#+
     }
   }
+
+
+
+  private void GenerateSimpleLookupProperties(IEnumerable<PropertyInfo> properties)
+  {
+  	if (!properties.Any())
+		return;
+#>
+
+        #region SimpleProperties
+<#+ 
+    foreach (var property in properties)
+    {
+      var propertyType = GetTypeName(property.PropertyType);
+      var propertyName = property.Name;
+#>
+        public <#=propertyType#> <#=propertyName#> => GetValue<<#=propertyType#>>();
+
+<#+ 
+    }
+#>
+        #endregion
+<#+
+  }
+
+  private void GenerateComplexLookupProperties(IEnumerable<PropertyInfo> properties)
+  {
+  	if (!properties.Any())
+		return;
+#>
+
+        #region ComplexProperties
+<#+ 
+
+    foreach (var property in properties)
+    {
+      var propertyType = property.PropertyType.Name;
+      var propertyName = property.Name;
+#>
+	    public <#= propertyType #>Lookup <#= propertyName #> { get { return GetLookup<<#= propertyType #>Lookup>(); } }
+
+<#+   
+    }
+#>
+        #endregion
+<#+
+  }
+
+  private void InitComplexLookupProperties(IEnumerable<PropertyInfo> properties)
+  {
+  	if (!properties.Any()) return;
+
+    foreach (var property in properties)
+    {
+      var propertyType = property.PropertyType.Name;
+      var propertyName = property.Name;
+#>
+		//<#= propertyName #> = new <#= propertyType #>Lookup(entity?.<#= propertyName #>);
+<#+
+    }
+  }
+
 #>

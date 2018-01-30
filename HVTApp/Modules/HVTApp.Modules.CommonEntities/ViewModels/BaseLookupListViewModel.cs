@@ -64,7 +64,11 @@ namespace HVTApp.UI.ViewModels
             }
             else
             {
-                lookup = new TLookupItem { Id = entity.Id, DisplayMember = entity.ToString() };
+                lookup = new TLookupItem
+                {
+                    //Id = entity.Id,
+                    DisplayMember = entity.ToString()
+                };
                 Items.Add(lookup);
             }
         }

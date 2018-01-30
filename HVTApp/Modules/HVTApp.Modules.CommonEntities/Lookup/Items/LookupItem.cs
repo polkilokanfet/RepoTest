@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -7,40 +8,66 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Lookup
 {
-    public class LookupItem : ILookupItem, INotifyPropertyChanged
+    public abstract class LookupItem<TEntity> : ILookupItemNavigation<TEntity>, INotifyPropertyChanged
+        where TEntity : class, IBaseEntity
     {
-        public Guid Id { get; set; }
+        protected LookupItem(TEntity entity)
+        {
+            Model = entity;
+        }
+
+        public Guid Id => GetValue<Guid>();
+
+        protected TEntity Model;
 
         private string _displayMember;
         public string DisplayMember
         {
             get { return _displayMember; }
-            set { SetSimpleProperty(ref _displayMember, value); }
+            set { SetValue(ref _displayMember, value); }
         }
 
-        public void Refresh(IBaseEntity entity)
+        public void Refresh(TEntity entity)
         {
-            var props = entity.GetType().GetProperties().Where(p => !p.PropertyType.IsClass || 
-                                                                     p.PropertyType == typeof(String) ||
-                                                                     p.PropertyType == typeof(DateTime));
-            foreach (var propertyInfo in props)
-            {
-                var propsName = propertyInfo.Name;
-                var value = propertyInfo.GetValue(entity);
-                this.GetType().GetProperty(propsName)?.SetValue(this, value);
-            }
+            Model = entity;
+            OnPropertyChanged("");
         }
 
-        protected void SetSimpleProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        protected T GetValue<T>([CallerMemberName] string propertyName = null)
+        {
+            return (T)Model.GetType().GetProperty(propertyName)?.GetValue(Model);
+        }
+
+        protected void SetValue<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             if (Equals(field, value)) return;
             field = value;
             OnPropertyChanged(propertyName);
         }
 
+        private readonly Dictionary<string, object> _lookups = new Dictionary<string, object>();
+        protected TLookup GetLookup<TLookup>([CallerMemberName] string propertyName = null)
+            where TLookup : class 
+        {
+            var value = Model.GetType().GetProperty(propertyName).GetValue(Model);
+            if (Equals(value, null))
+                return null;
+
+            if (_lookups.ContainsKey(propertyName))
+            {
+                return (TLookup)_lookups[propertyName];
+            }
+            else
+            {
+                var lookup = (TLookup) Activator.CreateInstance(typeof(TLookup), value);
+                _lookups.Add(propertyName, lookup);
+                return lookup;
+            }
+        }
+
         public override string ToString()
         {
-            return DisplayMember;
+            return Model.ToString();
         }
 
         #region INotifyPropertyChanged

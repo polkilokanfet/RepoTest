@@ -6,8 +6,12 @@ namespace HVTApp.UI.Lookup
     public interface ILookupItem
     {
         string DisplayMember { get; set; }
-        Guid Id { get; set; }
+        Guid Id { get; }
+    }
 
-        void Refresh(IBaseEntity entity);
+    public interface ILookupItemNavigation<in TEntity> : ILookupItem
+        where TEntity : class, IBaseEntity
+    {
+        void Refresh(TEntity entity);
     }
 }
