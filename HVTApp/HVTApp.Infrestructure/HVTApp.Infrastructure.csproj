@@ -84,8 +84,11 @@
     <Compile Include="Commands.cs" />
     <Compile Include="Converters\DatePickerOriginalValueConverter.cs" />
     <Compile Include="Extansions.cs" />
+    <Compile Include="IBaseEntity.cs" />
     <Compile Include="IDetailsViewModel.cs" />
     <Compile Include="IGetWrapper.cs" />
+    <Compile Include="ILookupItem.cs" />
+    <Compile Include="ILookupItemNavigation.cs" />
     <Compile Include="INavigationItem.cs" />
     <Compile Include="Interfaces\Services\AuthenticationService\IAuthenticationService.cs" />
     <Compile Include="Interfaces\Services\ChooseService\ChooseDialogEventArgs.cs" />

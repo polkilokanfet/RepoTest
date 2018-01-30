@@ -6,6 +6,7 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Lookup;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -65,12 +66,10 @@ namespace HVTApp.UI.ViewModels
         private async void AddActivityFieldCommand_ExecuteAsync()
         {
             var exceptIds = Item.ActivityFilds.Select(x => x.Id);
-            var fields = (await UnitOfWork.GetRepository<ActivityField>().GetAllAsync())
-                                                                  .Where(x => !exceptIds.Contains(x.Id))
-                                                                  .Select(x => new ActivityFieldWrapper(x));
-            //var field = _selectService.SelectItem(fields);
-            //if (field != null && !Item.ActivityFilds.Contains(field))
-            //    Item.ActivityFilds.Add(field);
+            var fields = (await UnitOfWork.GetRepository<ActivityField>().GetAllAsync()).Where(x => !exceptIds.Contains(x.Id)).Select(x => new ActivityFieldLookup(x));
+            var field = _selectService.SelectItem(fields);
+            if (field != null && !Item.ActivityFilds.Any(x => Equals(x.Id, field.Id)))
+                Item.ActivityFilds.Add(new ActivityFieldWrapper(field.Entity));
         }
 
         private void RemoveActivityFieldCommand_Execute()

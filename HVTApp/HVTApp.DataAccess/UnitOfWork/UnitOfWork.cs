@@ -17,7 +17,7 @@ namespace HVTApp.DataAccess
             return (IRepository<T>) repositoryFieldInfo.GetValue(this);
         }
 
-        public async Task<int> CompleteAsync()
+        public async Task<int> SaveChangesAsync()
         {
             try
             {

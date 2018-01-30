@@ -11,7 +11,7 @@ namespace HVTApp.DataAccess
         {
         }
 
-        public Task<int> CompleteAsync()
+        public Task<int> SaveChangesAsync()
         {
             throw new NotImplementedException();
         }

@@ -17,9 +17,4 @@ namespace HVTApp.Infrastructure
             return other != null && this.Id.Equals(other.Id);
         }
     }
-
-    public interface IBaseEntity
-    {
-        Guid Id { get; set; }
-    }
 }

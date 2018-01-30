@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using HVTApp.UI.Lookup;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Converter
 {

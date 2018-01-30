@@ -9,10 +9,12 @@ using HVTApp.UI.Lookup;
 
 namespace HVTApp.UI.ViewModels
 {
-    public interface IBaseListViewModel<TLookup> : INotifyPropertyChanged
-        where TLookup : ILookupItem
+    public interface IBaseListViewModel<TEntity, TLookup> : INotifyPropertyChanged
+        where TEntity : class, IBaseEntity
+        where TLookup : class, ILookupItemNavigation<TEntity>
     {
         Task LoadAsync();
+        Task InjectItems(IEnumerable<TEntity> entities);
 
         IEnumerable<TLookup> Lookups { get; }
         TLookup SelectedLookup { get; set; }

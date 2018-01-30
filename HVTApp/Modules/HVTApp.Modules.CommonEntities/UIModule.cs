@@ -4,6 +4,7 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Views;
 using HVTApp.UI.Wrapper;
@@ -46,7 +47,7 @@ namespace HVTApp.UI
             _dialogService.Register<ProductDetailsViewModel, ProductDetailsView>();
             //_dialogService.Register<ProjectUnitsDetailsViewModel, ProductUnitsDetailsView>();
 
-            //_selectService.Register<SelectActivityFieldViewModel, ActivityFieldListView, ActivityFieldWrapper>();
+            _selectService.Register<ActivityFieldListViewModel, ActivityFieldListView, ActivityFieldLookup>();
             //_selectService.Register<CompanyListServiceViewModel, CompanyListView, CompanyWrapper>();
             //_selectService.Register<ProjectListServiceViewModel, ProjectListView, ProjectWrapper>();
             //_selectService.Register<TenderListServiceViewModel, TenderListView, TenderWrapper>();

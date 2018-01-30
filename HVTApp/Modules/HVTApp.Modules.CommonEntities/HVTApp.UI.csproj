@@ -98,7 +98,6 @@
     <Compile Include="Converter\ConverterExtansions.cs" />
     <Compile Include="Events\AfterRemoveEntityEvents\AfterRemoveEntityEvents.g.cs" />
     <Compile Include="Events\AfterSaveEntityEvents\AfterSaveEntityEvents.g.cs" />
-    <Compile Include="Lookup\Items\ILookupItem.cs" />
     <Compile Include="Lookup\Items\Lookups.g.cs" />
     <Compile Include="Lookup\Service\ILookupDataServices.g.cs" />
     <Compile Include="Lookup\Service\ILookupDataService.cs" />
@@ -107,12 +106,10 @@
       <DependentUpon>TabPartPriceCRUD.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\BaseDetailsViewModel.cs" />
-    <Compile Include="ViewModels\BaseLookupListViewModel.cs" />
     <Compile Include="ViewModels\BaseListViewModel.cs" />
     <Compile Include="ViewModels\Details\GeneratedDetailsViewModels.g.cs" />
     <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\PartDetailsViewModel.cs" />
-    <Compile Include="ViewModels\IBaseLookupListViewModel.cs" />
     <Compile Include="ViewModels\IBaseListViewModel.cs" />
     <Compile Include="Controls\ChooseItemControl.xaml.cs">
       <DependentUpon>ChooseItemControl.xaml</DependentUpon>

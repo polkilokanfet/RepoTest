@@ -83,7 +83,10 @@ namespace HVTApp.UI.Lookup
 	{
 		public <#=modelType.Name#>Lookup(<#=modelType.Name#> entity) : base(entity) 
 		{
-			 <#+ InitComplexLookupProperties(allComplexProperties);#>
+		}
+		protected override void RefreshLookups()
+        {
+			 <#+ GenerateRefreshComplexLookupProperties(allComplexProperties);#>
 		}
 		<#+
 
@@ -680,7 +683,7 @@ namespace HVTApp.UI.Wrapper
 <#+
   }
 
-  private void InitComplexLookupProperties(IEnumerable<PropertyInfo> properties)
+  private void GenerateRefreshComplexLookupProperties(IEnumerable<PropertyInfo> properties)
   {
   	if (!properties.Any()) return;
 
@@ -689,7 +692,7 @@ namespace HVTApp.UI.Wrapper
       var propertyType = property.PropertyType.Name;
       var propertyName = property.Name;
 #>
-		//<#= propertyName #> = new <#= propertyType #>Lookup(entity?.<#= propertyName #>);
+			<#= propertyName #>?.Refresh(Model.<#= propertyName #>);
 <#+
     }
   }

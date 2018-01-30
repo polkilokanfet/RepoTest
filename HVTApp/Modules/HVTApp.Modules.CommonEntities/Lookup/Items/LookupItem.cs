@@ -13,12 +13,12 @@ namespace HVTApp.UI.Lookup
     {
         protected LookupItem(TEntity entity)
         {
-            Model = entity;
+            Refresh(entity);
         }
 
         public Guid Id => GetValue<Guid>();
 
-        protected TEntity Model;
+        public TEntity Entity { get; private set; }
 
         private string _displayMember;
         public string DisplayMember
@@ -29,13 +29,16 @@ namespace HVTApp.UI.Lookup
 
         public void Refresh(TEntity entity)
         {
-            Model = entity;
+            Entity = entity;
+            RefreshLookups();
             OnPropertyChanged("");
         }
 
+        protected abstract void RefreshLookups();
+
         protected T GetValue<T>([CallerMemberName] string propertyName = null)
         {
-            return (T)Model.GetType().GetProperty(propertyName)?.GetValue(Model);
+            return (T)Entity.GetType().GetProperty(propertyName)?.GetValue(Entity);
         }
 
         protected void SetValue<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
@@ -49,7 +52,7 @@ namespace HVTApp.UI.Lookup
         protected TLookup GetLookup<TLookup>([CallerMemberName] string propertyName = null)
             where TLookup : class 
         {
-            var value = Model.GetType().GetProperty(propertyName).GetValue(Model);
+            var value = Entity.GetType().GetProperty(propertyName).GetValue(Entity);
             if (Equals(value, null))
                 return null;
 
@@ -67,7 +70,7 @@ namespace HVTApp.UI.Lookup
 
         public override string ToString()
         {
-            return Model.ToString();
+            return Entity.ToString();
         }
 
         #region INotifyPropertyChanged

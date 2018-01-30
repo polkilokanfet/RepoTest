@@ -65,17 +65,16 @@ namespace HVTApp.UI.ViewModels
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
 
-        protected virtual void SaveCommand_Execute()
+        protected virtual async void SaveCommand_Execute()
         {
-            if (UnitOfWork.GetRepository<TEntity>().GetByIdAsync(Item.Model.Id) == null)
+            if (await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(Item.Model.Id) == null)
                 UnitOfWork.GetRepository<TEntity>().Add(Item.Model);
-
-            CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
-
             Item.AcceptChanges();
-            UnitOfWork.CompleteAsync();
+            await UnitOfWork.SaveChangesAsync();
 
             EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
+
+            CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
         }
 
         protected virtual bool SaveCommand_CanExecute()

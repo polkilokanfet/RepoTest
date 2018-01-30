@@ -21,6 +21,7 @@
                     <infg:TextField Name="ShortName" Label="Краткое наименование"/>
                     <infg:TextField Name="Form" Label="Форма" Width="Auto"/>
                     <infg:TextField Name="Inn" Label="ИНН" Width="Auto"/>
+                    <infg:TextField Name="ParentCompany" Label="Родительская компания"/>
                     <!--<infg:TextField AlternateBinding="{Binding Form.ShortName}" BindingType="UseAlternateBinding" Label="Форм." Width="Auto"/>
                     <infg:TextField AlternateBinding="{Binding Form.FullName}" BindingType="UseAlternateBinding" Label="Форма" Width="Auto"/>
                     <infg:TextField Name="ParentCompany" Label="Родительская компания" Converter="{StaticResource WrapperToStringConverter}"/>

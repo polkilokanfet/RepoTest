@@ -6,7 +6,10 @@ namespace HVTApp.UI.Lookup
 	{
 		public AddressLookup(Address entity) : base(entity) 
 		{
-			 		//Locality = new LocalityLookup(entity?.Locality);
+		}
+		protected override void RefreshLookups()
+        {
+			 			Locality?.Refresh(Entity.Locality);
 		}
 		
         #region SimpleProperties
@@ -23,6 +26,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public CountryLookup(Country entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -34,6 +40,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public DistrictLookup(District entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -47,7 +56,10 @@ namespace HVTApp.UI.Lookup
 	{
 		public LocalityLookup(Locality entity) : base(entity) 
 		{
-			 		//LocalityType = new LocalityTypeLookup(entity?.LocalityType);
+		}
+		protected override void RefreshLookups()
+        {
+			 			LocalityType?.Refresh(Entity.LocalityType);
 		}
 		
         #region SimpleProperties
@@ -74,6 +86,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public LocalityTypeLookup(LocalityType entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -87,6 +102,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public RegionLookup(Region entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -100,7 +118,10 @@ namespace HVTApp.UI.Lookup
 	{
 		public AdditionalSalesUnitsLookup(AdditionalSalesUnits entity) : base(entity) 
 		{
-			 		//AdditionalSalesUnit = new SalesUnitLookup(entity?.AdditionalSalesUnit);
+		}
+		protected override void RefreshLookups()
+        {
+			 			AdditionalSalesUnit?.Refresh(Entity.AdditionalSalesUnit);
 		}
 		
         #region ComplexProperties
@@ -112,6 +133,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public BankDetailsLookup(BankDetails entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -129,10 +153,13 @@ namespace HVTApp.UI.Lookup
 	{
 		public CompanyLookup(Company entity) : base(entity) 
 		{
-			 		//Form = new CompanyFormLookup(entity?.Form);
-		//ParentCompany = new CompanyLookup(entity?.ParentCompany);
-		//AddressLegal = new AddressLookup(entity?.AddressLegal);
-		//AddressPost = new AddressLookup(entity?.AddressPost);
+		}
+		protected override void RefreshLookups()
+        {
+			 			Form?.Refresh(Entity.Form);
+			ParentCompany?.Refresh(Entity.ParentCompany);
+			AddressLegal?.Refresh(Entity.AddressLegal);
+			AddressPost?.Refresh(Entity.AddressPost);
 		}
 		
         #region SimpleProperties
@@ -165,6 +192,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public CompanyFormLookup(CompanyForm entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -178,6 +208,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public DocumentsRegistrationDetailsLookup(DocumentsRegistrationDetails entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -191,6 +224,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public EmployeesPositionLookup(EmployeesPosition entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -202,6 +238,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public FacilityTypeLookup(FacilityType entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -215,6 +254,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public ActivityFieldLookup(ActivityField entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -228,7 +270,10 @@ namespace HVTApp.UI.Lookup
 	{
 		public ContractLookup(Contract entity) : base(entity) 
 		{
-			 		//Contragent = new CompanyLookup(entity?.Contragent);
+		}
+		protected override void RefreshLookups()
+        {
+			 			Contragent?.Refresh(Entity.Contragent);
 		}
 		
         #region SimpleProperties
@@ -247,6 +292,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public MeasureLookup(Measure entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -260,6 +308,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public ParameterLookup(Parameter entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -273,7 +324,10 @@ namespace HVTApp.UI.Lookup
 	{
 		public ParameterGroupLookup(ParameterGroup entity) : base(entity) 
 		{
-			 		//Measure = new MeasureLookup(entity?.Measure);
+		}
+		protected override void RefreshLookups()
+        {
+			 			Measure?.Refresh(Entity.Measure);
 		}
 		
         #region SimpleProperties
@@ -290,6 +344,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public ProductRelationLookup(ProductRelation entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -301,6 +358,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public StandartPaymentConditionsLookup(StandartPaymentConditions entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -312,6 +372,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public PersonLookup(Person entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -329,7 +392,10 @@ namespace HVTApp.UI.Lookup
 	{
 		public PaymentPlannedLookup(PaymentPlanned entity) : base(entity) 
 		{
-			 		//Condition = new PaymentConditionLookup(entity?.Condition);
+		}
+		protected override void RefreshLookups()
+        {
+			 			Condition?.Refresh(Entity.Condition);
 		}
 		
         #region SimpleProperties
@@ -352,6 +418,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public PaymentActualLookup(PaymentActual entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -371,6 +440,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public ParameterRelationLookup(ParameterRelation entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -382,8 +454,11 @@ namespace HVTApp.UI.Lookup
 	{
 		public ProjectUnitLookup(ProjectUnit entity) : base(entity) 
 		{
-			 		//Facility = new FacilityLookup(entity?.Facility);
-		//Product = new ProductLookup(entity?.Product);
+		}
+		protected override void RefreshLookups()
+        {
+			 			Facility?.Refresh(Entity.Facility);
+			Product?.Refresh(Entity.Product);
 		}
 		
         #region SimpleProperties
@@ -406,10 +481,13 @@ namespace HVTApp.UI.Lookup
 	{
 		public TenderUnitLookup(TenderUnit entity) : base(entity) 
 		{
-			 		//ProjectUnit = new ProjectUnitLookup(entity?.ProjectUnit);
-		//Facility = new FacilityLookup(entity?.Facility);
-		//Product = new ProductLookup(entity?.Product);
-		//ProducerWinner = new CompanyLookup(entity?.ProducerWinner);
+		}
+		protected override void RefreshLookups()
+        {
+			 			ProjectUnit?.Refresh(Entity.ProjectUnit);
+			Facility?.Refresh(Entity.Facility);
+			Product?.Refresh(Entity.Product);
+			ProducerWinner?.Refresh(Entity.ProducerWinner);
 		}
 		
         #region SimpleProperties
@@ -436,7 +514,10 @@ namespace HVTApp.UI.Lookup
 	{
 		public ShipmentUnitLookup(ShipmentUnit entity) : base(entity) 
 		{
-			 		//Address = new AddressLookup(entity?.Address);
+		}
+		protected override void RefreshLookups()
+        {
+			 			Address?.Refresh(Entity.Address);
 		}
 		
         #region SimpleProperties
@@ -463,7 +544,10 @@ namespace HVTApp.UI.Lookup
 	{
 		public ProductionUnitLookup(ProductionUnit entity) : base(entity) 
 		{
-			 		//Product = new ProductLookup(entity?.Product);
+		}
+		protected override void RefreshLookups()
+        {
+			 			Product?.Refresh(Entity.Product);
 		}
 		
         #region SimpleProperties
@@ -496,9 +580,12 @@ namespace HVTApp.UI.Lookup
 	{
 		public SalesUnitLookup(SalesUnit entity) : base(entity) 
 		{
-			 		//OfferUnit = new OfferUnitLookup(entity?.OfferUnit);
-		//ProductionUnit = new ProductionUnitLookup(entity?.ProductionUnit);
-		//ShipmentUnit = new ShipmentUnitLookup(entity?.ShipmentUnit);
+		}
+		protected override void RefreshLookups()
+        {
+			 			OfferUnit?.Refresh(Entity.OfferUnit);
+			ProductionUnit?.Refresh(Entity.ProductionUnit);
+			ShipmentUnit?.Refresh(Entity.ShipmentUnit);
 		}
 		
         #region SimpleProperties
@@ -525,6 +612,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public TestFriendAddressLookup(TestFriendAddress entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -540,9 +630,12 @@ namespace HVTApp.UI.Lookup
 	{
 		public TestFriendLookup(TestFriend entity) : base(entity) 
 		{
-			 		//TestFriendAddress = new TestFriendAddressLookup(entity?.TestFriendAddress);
-		//TestFriendGroup = new TestFriendGroupLookup(entity?.TestFriendGroup);
-		//TestFriendEmailGet = new TestFriendEmailLookup(entity?.TestFriendEmailGet);
+		}
+		protected override void RefreshLookups()
+        {
+			 			TestFriendAddress?.Refresh(Entity.TestFriendAddress);
+			TestFriendGroup?.Refresh(Entity.TestFriendGroup);
+			TestFriendEmailGet?.Refresh(Entity.TestFriendEmailGet);
 		}
 		
         #region SimpleProperties
@@ -573,6 +666,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public TestFriendEmailLookup(TestFriendEmail entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -586,6 +682,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public TestFriendGroupLookup(TestFriendGroup entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -597,12 +696,15 @@ namespace HVTApp.UI.Lookup
 	{
 		public DocumentLookup(Document entity) : base(entity) 
 		{
-			 		//RequestDocument = new DocumentLookup(entity?.RequestDocument);
-		//Author = new EmployeeLookup(entity?.Author);
-		//SenderEmployee = new EmployeeLookup(entity?.SenderEmployee);
-		//RecipientEmployee = new EmployeeLookup(entity?.RecipientEmployee);
-		//RegistrationDetailsOfSender = new DocumentsRegistrationDetailsLookup(entity?.RegistrationDetailsOfSender);
-		//RegistrationDetailsOfRecipient = new DocumentsRegistrationDetailsLookup(entity?.RegistrationDetailsOfRecipient);
+		}
+		protected override void RefreshLookups()
+        {
+			 			RequestDocument?.Refresh(Entity.RequestDocument);
+			Author?.Refresh(Entity.Author);
+			SenderEmployee?.Refresh(Entity.SenderEmployee);
+			RecipientEmployee?.Refresh(Entity.RecipientEmployee);
+			RegistrationDetailsOfSender?.Refresh(Entity.RegistrationDetailsOfSender);
+			RegistrationDetailsOfRecipient?.Refresh(Entity.RegistrationDetailsOfRecipient);
 		}
 		
         #region SimpleProperties
@@ -639,6 +741,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public TestEntityLookup(TestEntity entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -650,7 +755,10 @@ namespace HVTApp.UI.Lookup
 	{
 		public TestHusbandLookup(TestHusband entity) : base(entity) 
 		{
-			 		//Wife = new TestWifeLookup(entity?.Wife);
+		}
+		protected override void RefreshLookups()
+        {
+			 			Wife?.Refresh(Entity.Wife);
 		}
 		
         #region SimpleProperties
@@ -667,7 +775,10 @@ namespace HVTApp.UI.Lookup
 	{
 		public TestWifeLookup(TestWife entity) : base(entity) 
 		{
-			 		//Husband = new TestHusbandLookup(entity?.Husband);
+		}
+		protected override void RefreshLookups()
+        {
+			 			Husband?.Refresh(Entity.Husband);
 		}
 		
         #region SimpleProperties
@@ -686,8 +797,11 @@ namespace HVTApp.UI.Lookup
 	{
 		public TestChildLookup(TestChild entity) : base(entity) 
 		{
-			 		//Husband = new TestHusbandLookup(entity?.Husband);
-		//Wife = new TestWifeLookup(entity?.Wife);
+		}
+		protected override void RefreshLookups()
+        {
+			 			Husband?.Refresh(Entity.Husband);
+			Wife?.Refresh(Entity.Wife);
 		}
 		
         #region SimpleProperties
@@ -706,6 +820,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public CostOnDateLookup(CostOnDate entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -719,7 +836,10 @@ namespace HVTApp.UI.Lookup
 	{
 		public CostLookup(Cost entity) : base(entity) 
 		{
-			 		//Currency = new CurrencyLookup(entity?.Currency);
+		}
+		protected override void RefreshLookups()
+        {
+			 			Currency?.Refresh(Entity.Currency);
 		}
 		
         #region SimpleProperties
@@ -736,6 +856,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public CurrencyLookup(Currency entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -749,8 +872,11 @@ namespace HVTApp.UI.Lookup
 	{
 		public ExchangeCurrencyRateLookup(ExchangeCurrencyRate entity) : base(entity) 
 		{
-			 		//FirstCurrency = new CurrencyLookup(entity?.FirstCurrency);
-		//SecondCurrency = new CurrencyLookup(entity?.SecondCurrency);
+		}
+		protected override void RefreshLookups()
+        {
+			 			FirstCurrency?.Refresh(Entity.FirstCurrency);
+			SecondCurrency?.Refresh(Entity.SecondCurrency);
 		}
 		
         #region SimpleProperties
@@ -773,6 +899,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public ProductLookup(Product entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -786,12 +915,15 @@ namespace HVTApp.UI.Lookup
 	{
 		public OfferLookup(Offer entity) : base(entity) 
 		{
-			 		//RequestDocument = new DocumentLookup(entity?.RequestDocument);
-		//Author = new EmployeeLookup(entity?.Author);
-		//SenderEmployee = new EmployeeLookup(entity?.SenderEmployee);
-		//RecipientEmployee = new EmployeeLookup(entity?.RecipientEmployee);
-		//RegistrationDetailsOfSender = new DocumentsRegistrationDetailsLookup(entity?.RegistrationDetailsOfSender);
-		//RegistrationDetailsOfRecipient = new DocumentsRegistrationDetailsLookup(entity?.RegistrationDetailsOfRecipient);
+		}
+		protected override void RefreshLookups()
+        {
+			 			RequestDocument?.Refresh(Entity.RequestDocument);
+			Author?.Refresh(Entity.Author);
+			SenderEmployee?.Refresh(Entity.SenderEmployee);
+			RecipientEmployee?.Refresh(Entity.RecipientEmployee);
+			RegistrationDetailsOfSender?.Refresh(Entity.RegistrationDetailsOfSender);
+			RegistrationDetailsOfRecipient?.Refresh(Entity.RegistrationDetailsOfRecipient);
 		}
 		
         #region SimpleProperties
@@ -832,8 +964,11 @@ namespace HVTApp.UI.Lookup
 	{
 		public EmployeeLookup(Employee entity) : base(entity) 
 		{
-			 		//Company = new CompanyLookup(entity?.Company);
-		//Position = new EmployeesPositionLookup(entity?.Position);
+		}
+		protected override void RefreshLookups()
+        {
+			 			Company?.Refresh(Entity.Company);
+			Position?.Refresh(Entity.Position);
 		}
 		
         #region SimpleProperties
@@ -858,6 +993,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public OrderLookup(Order entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -871,6 +1009,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public PaymentConditionLookup(PaymentCondition entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -886,6 +1027,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public PaymentDocumentLookup(PaymentDocument entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -899,9 +1043,12 @@ namespace HVTApp.UI.Lookup
 	{
 		public FacilityLookup(Facility entity) : base(entity) 
 		{
-			 		//Type = new FacilityTypeLookup(entity?.Type);
-		//OwnerCompany = new CompanyLookup(entity?.OwnerCompany);
-		//Address = new AddressLookup(entity?.Address);
+		}
+		protected override void RefreshLookups()
+        {
+			 			Type?.Refresh(Entity.Type);
+			OwnerCompany?.Refresh(Entity.OwnerCompany);
+			Address?.Refresh(Entity.Address);
 		}
 		
         #region SimpleProperties
@@ -922,7 +1069,10 @@ namespace HVTApp.UI.Lookup
 	{
 		public ProjectLookup(Project entity) : base(entity) 
 		{
-			 		//Manager = new UserLookup(entity?.Manager);
+		}
+		protected override void RefreshLookups()
+        {
+			 			Manager?.Refresh(Entity.Manager);
 		}
 		
         #region SimpleProperties
@@ -939,6 +1089,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public UserRoleLookup(UserRole entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -952,6 +1105,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public SpecificationLookup(Specification entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -969,8 +1125,11 @@ namespace HVTApp.UI.Lookup
 	{
 		public TenderLookup(Tender entity) : base(entity) 
 		{
-			 		//Type = new TenderTypeLookup(entity?.Type);
-		//Winner = new CompanyLookup(entity?.Winner);
+		}
+		protected override void RefreshLookups()
+        {
+			 			Type?.Refresh(Entity.Type);
+			Winner?.Refresh(Entity.Winner);
 		}
 		
         #region SimpleProperties
@@ -995,6 +1154,9 @@ namespace HVTApp.UI.Lookup
 	{
 		public TenderTypeLookup(TenderType entity) : base(entity) 
 		{
+		}
+		protected override void RefreshLookups()
+        {
 			 		}
 		
         #region SimpleProperties
@@ -1008,7 +1170,10 @@ namespace HVTApp.UI.Lookup
 	{
 		public UserLookup(User entity) : base(entity) 
 		{
-			 		//Employee = new EmployeeLookup(entity?.Employee);
+		}
+		protected override void RefreshLookups()
+        {
+			 			Employee?.Refresh(Entity.Employee);
 		}
 		
         #region SimpleProperties
@@ -1031,9 +1196,12 @@ namespace HVTApp.UI.Lookup
 	{
 		public OfferUnitLookup(OfferUnit entity) : base(entity) 
 		{
-			 		//ProjectUnit = new ProjectUnitLookup(entity?.ProjectUnit);
-		//Facility = new FacilityLookup(entity?.Facility);
-		//Product = new ProductLookup(entity?.Product);
+		}
+		protected override void RefreshLookups()
+        {
+			 			ProjectUnit?.Refresh(Entity.ProjectUnit);
+			Facility?.Refresh(Entity.Facility);
+			Product?.Refresh(Entity.Product);
 		}
 		
         #region SimpleProperties

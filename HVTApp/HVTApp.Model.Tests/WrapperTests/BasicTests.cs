@@ -40,7 +40,7 @@ namespace HVTApp.Model.Tests.WrapperTests
             }
             catch (ArgumentNullException ex)
             {
-                Assert.AreEqual("Model", ex.ParamName);
+                Assert.AreEqual("Entity", ex.ParamName);
                 throw;
             }
         }

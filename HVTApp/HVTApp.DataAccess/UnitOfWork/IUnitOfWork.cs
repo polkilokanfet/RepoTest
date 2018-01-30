@@ -6,7 +6,7 @@ namespace HVTApp.DataAccess
 {
     public partial interface IUnitOfWork : IDisposable
     {
-        Task<int> CompleteAsync();
+        Task<int> SaveChangesAsync();
         IRepository<T> GetRepository<T>() where T : class, IBaseEntity;
     }
 }

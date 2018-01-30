@@ -30,19 +30,19 @@ namespace HVTApp.DataAccess.Tests
             var unitOfWork = new UnitOfWork(new HvtAppContext());
             //очищаем все записи
             unitOfWork.GetRepository<TestFriendGroup>().DeleteRange(await unitOfWork.GetRepository<TestFriendGroup>().GetAllAsync());
-            unitOfWork.CompleteAsync();
+            await unitOfWork.SaveChangesAsync();
 
 
             var testFriendGroup = new TestFriendGroup { Name = "Тестовая группа" };
             unitOfWork.GetRepository<TestFriendGroup>().Add(testFriendGroup);
-            unitOfWork.CompleteAsync();
+            await unitOfWork.SaveChangesAsync();
 
             unitOfWork = new UnitOfWork(new HvtAppContext());
             Assert.IsTrue(unitOfWork.GetRepository<TestFriendGroup>().Find(x => x.Name == testFriendGroup.Name).Count() == 1);
             
             //очищаем все записи
             unitOfWork.GetRepository<TestFriendGroup>().DeleteRange(await unitOfWork.GetRepository<TestFriendGroup>().GetAllAsync());
-            unitOfWork.CompleteAsync();
+            await unitOfWork.SaveChangesAsync();
 
             unitOfWork = new UnitOfWork(new HvtAppContext());
             Assert.IsFalse((await unitOfWork.GetRepository<TestFriendGroup>().GetAllAsync()).Any());
