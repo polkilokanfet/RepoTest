@@ -20,6 +20,10 @@ namespace HVTApp.Infrastructure
             set { DataContext = value; }
         }
 
+        public ViewBase()
+        {
+        }
+
         public ViewBase(IRegionManager regionManager, IEventAggregator eventAggregator)
         {
             RegionManager = regionManager;

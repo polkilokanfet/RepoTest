@@ -277,11 +277,11 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateCompanies()
         {
-            CompanyUetm.Clone(new Company { FullName = "Уралэлектротяжмаш", ShortName = "УЭТМ", Form = CompanyFormAo, AddressLegal = AddressOfUetm, BankDetailsList= new List<BankDetails> { BankDetailsOfUetm }, ActivityFilds= new List<ActivityField> { ActivityFieldProducerOfHvt } });
-            CompanyRosseti.Clone(new Company { FullName = "Россети", ShortName = "Россети", Form = CompanyFormPao, ActivityFilds= new List<ActivityField> { ActivityFieldElectricityTransmission } });
-            CompanyFsk.Clone(new Company { FullName = "Федеральная сетевая компания", ShortName = "ФСК", Form = CompanyFormPao, ActivityFilds= new List<ActivityField> { ActivityFieldElectricityTransmission }, ParentCompany = CompanyRosseti });
-            CompanyMrsk.Clone(new Company { FullName = "Межрегиональные распределительные сети", ShortName = "МРСК", Form = CompanyFormPao, ActivityFilds= new List<ActivityField> { ActivityFieldElectricityTransmission }, ParentCompany = CompanyRosseti });
-            CompanyEnel.Clone(new Company { FullName = "Энел", ShortName = "Энел", Form = CompanyFormPao, ActivityFilds= new List<ActivityField> { ActivityFieldElectricityGeneration } });
+            CompanyUetm.Clone(new Company { FullName = "Уралэлектротяжмаш", ShortName = "УЭТМ", Inn = "23658", Form = CompanyFormAo, AddressLegal = AddressOfUetm, BankDetailsList= new List<BankDetails> { BankDetailsOfUetm }, ActivityFilds= new List<ActivityField> { ActivityFieldProducerOfHvt } });
+            CompanyRosseti.Clone(new Company { FullName = "Россети", ShortName = "Россети", Inn = "23659", Form = CompanyFormPao, ActivityFilds= new List<ActivityField> { ActivityFieldElectricityTransmission } });
+            CompanyFsk.Clone(new Company { FullName = "Федеральная сетевая компания", ShortName = "ФСК", Inn = "26658", Form = CompanyFormPao, ActivityFilds= new List<ActivityField> { ActivityFieldElectricityTransmission }, ParentCompany = CompanyRosseti });
+            CompanyMrsk.Clone(new Company { FullName = "Межрегиональные распределительные сети", Inn = "23358", ShortName = "МРСК", Form = CompanyFormPao, ActivityFilds= new List<ActivityField> { ActivityFieldElectricityTransmission }, ParentCompany = CompanyRosseti });
+            CompanyEnel.Clone(new Company { FullName = "Энел", ShortName = "Энел", Inn = "25658", Form = CompanyFormPao, ActivityFilds= new List<ActivityField> { ActivityFieldElectricityGeneration } });
         }
 
         private void GeneratePersons()

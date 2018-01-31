@@ -1,51 +1,41 @@
 ﻿<inf:ViewBase
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:prism="http://prismlibrary.com/"
-             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             xmlns:infg="http://infragistics.com/DataPresenter"
-             x:Class="HVTApp.UI.Views.ProjectListView"
-             
-    
-             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:converter="clr-namespace:HVTApp.UI.Converter">
-
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
-    
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+                xmlns:infg="http://infragistics.com/DataPresenter"
+                x:Class="HVTApp.UI.Views.ProjectListView"
+                xmlns:converter="clr-namespace:HVTApp.UI.Converter">
+  
     <Control.Resources>
         <converter:ProductUnitsToFacilitiesNamesConverter x:Key="FacilitiesNamesStringConverter"/>
         <converter:ProductUnitsToProductGroupsConverter x:Key="ProductGroupsConverter"/>
     </Control.Resources>
 
-    <ItemsControl ItemsSource="{Binding Items}" DisplayMemberPath="DisplayMember"></ItemsControl>
-
-    <!--<infg:XamDataGrid Name="ProjectIdIdsDataGrid">
+    <infg:XamDataGrid>
 
         <infg:XamDataGrid.FieldLayouts>
-            <infg:FieldLayout Key="ProjectIdId">
+            <infg:FieldLayout Key="Project">
                 <infg:FieldLayout.Fields>
-                    <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding ProjectUnits}" Label="Объекты" Converter="{StaticResource FacilitiesNamesStringConverter}"/>
-                    <infg:TextField Name="Name" Label="Название проекта"/>
-                    <infg:Field Name="Sum" Label="Стоимость без НДС, руб."/>
+                    <infg:TextField Name="Name" Label="Проект"/>
+                    <!--<infg:TextField Name="Facilities" Label="Объекты" Converter="{StaticResource WrappersToStringConverter}"/>-->
+                    <!--<infg:NumericField Name="Sum" Label="Сумма"/>-->
 
-                    <infg:Field Name="ProjectIdIdUnits" IsExpandable="True" IsPrimary="True" Converter="{StaticResource ProductGroupsConverter}"/>
+                    <!--<infg:Field Name="ProjectUnits" Converter="{StaticResource ProductUnitsToProductGroupsConverter}" IsExpandable="True" IsPrimary="True"/>-->
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
-            <infg:FieldLayout Key="ProductUnitsGroup" ParentFieldLayoutKey="ProjectIdId" ParentFieldName="ProjectIdIdUnits">
+            <infg:FieldLayout Key="ProjectUnit" ParentFieldLayoutKey="Project" ParentFieldName="ProjectUnits">
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="Facility" Label="Объект"/>
-                    <infg:TextField Name="Product" Label="Оборудование"/>
+                    <!--<infg:TextField Name="Facility" Label="Объект" Converter="{StaticResource WrapperToStringConverter}"/>-->
+                    <!--<infg:TextField Name="Product" Label="Оборудование" Converter="{StaticResource WrapperToStringConverter}"/>-->
                     <infg:NumericField Name="Amount" Label="Количество"/>
                     <infg:NumericField Name="Cost" Label="Стоимость"/>
+                    <infg:NumericField Name="Total" Label="Сумма"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
+
         </infg:XamDataGrid.FieldLayouts>
 
-    </infg:XamDataGrid>-->
+    </infg:XamDataGrid>
 
 </inf:ViewBase>

@@ -416,6 +416,14 @@ namespace HVTApp.UI.Wrapper
         public System.String KppOriginalValue => GetOriginalValue<System.String>(nameof(Kpp));
         public bool KppIsChanged => GetIsChanged(nameof(Kpp));
 
+        public System.Guid FormId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid FormIdOriginalValue => GetOriginalValue<System.Guid>(nameof(FormId));
+        public bool FormIdIsChanged => GetIsChanged(nameof(FormId));
+
         public System.Nullable<System.Guid> ParentCompanyId
         {
           get { return GetValue<System.Nullable<System.Guid>>(); }
@@ -423,6 +431,22 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Nullable<System.Guid> ParentCompanyIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ParentCompanyId));
         public bool ParentCompanyIdIsChanged => GetIsChanged(nameof(ParentCompanyId));
+
+        public System.Nullable<System.Guid> AddressLegalId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> AddressLegalIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(AddressLegalId));
+        public bool AddressLegalIdIsChanged => GetIsChanged(nameof(AddressLegalId));
+
+        public System.Nullable<System.Guid> AddressPostId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> AddressPostIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(AddressPostId));
+        public bool AddressPostIdIsChanged => GetIsChanged(nameof(AddressPostId));
 
         public System.Guid Id
         {

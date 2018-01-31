@@ -1,7 +1,6 @@
 ﻿<inf:ViewBase xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:prism="http://prismlibrary.com/"
               x:Class="HVTApp.UI.Views.CompanyFormDetailsView"
               >
 
@@ -9,6 +8,7 @@
           VerticalAlignment="Top"
           HorizontalAlignment="Left"
           DataContext="{Binding Path=Item}">
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />

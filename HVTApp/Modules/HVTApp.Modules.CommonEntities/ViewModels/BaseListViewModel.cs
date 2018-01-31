@@ -11,7 +11,7 @@ using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Services.MessageService;
-using HVTApp.UI.Lookup;
+using HVTApp.UI.Events;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -20,11 +20,12 @@ using Prism.Mvvm;
 
 namespace HVTApp.UI.ViewModels
 {
-    public abstract class BaseListViewModel<TEntity, TLookup, TAfterSaveEntityEvent> :
+    public abstract class BaseListViewModel<TEntity, TLookup, TAfterSaveEntityEvent, TAfterSelectEntityEvent> :
         BindableBase, IBaseListViewModel<TEntity, TLookup>, ISelectServiceViewModel<TLookup>, IDisposable
         where TEntity : class, IBaseEntity
         where TLookup : class, ILookupItemNavigation<TEntity>
         where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
+        where TAfterSelectEntityEvent : PubSubEvent<PubSubEventArgs<TEntity>>, new()
     {
         protected readonly IUnityContainer Container;
         protected readonly IUnitOfWork UnitOfWork;
@@ -98,7 +99,8 @@ namespace HVTApp.UI.ViewModels
                 if (Equals(_selectedLookup, value)) return;
                 _selectedLookup = value;
                 OnPropertyChanged();
-                InvalidateCommands();               
+                InvalidateCommands();
+                Container.Resolve<IEventAggregator>().GetEvent<TAfterSelectEntityEvent>().Publish(new PubSubEventArgs<TEntity>(this, value.Entity));
             }
         }
 

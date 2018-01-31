@@ -79,8 +79,8 @@ namespace HVTApp
             var catalog = new ModuleCatalog();
 
             catalog.AddModule(typeof(UiModule));
-            catalog.AddModule(typeof(BaseEntitiesModule));
             catalog.AddModule(typeof(SalesModule));
+            catalog.AddModule(typeof(BaseEntitiesModule));
             catalog.AddModule(typeof(ProductionModule));
 
             return catalog;

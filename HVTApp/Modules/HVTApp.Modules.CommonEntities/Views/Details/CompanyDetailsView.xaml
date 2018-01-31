@@ -31,7 +31,8 @@
         <ComboBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                   ItemsSource="{Binding Forms, Mode=OneWay}"
                   DisplayMemberPath="DisplayMember"
-                  SelectedValue="{Binding Item.Form, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                  SelectedValuePath="Id"
+                  SelectedValue="{Binding Item.FormId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Column="0" Grid.Row ="3" Content="ИНН"/>
         <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" Text="{Binding Item.Inn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>

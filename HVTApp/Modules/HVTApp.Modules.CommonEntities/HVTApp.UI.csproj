@@ -98,6 +98,8 @@
     <Compile Include="Converter\ConverterExtansions.cs" />
     <Compile Include="Events\AfterRemoveEntityEvents\AfterRemoveEntityEvents.g.cs" />
     <Compile Include="Events\AfterSaveEntityEvents\AfterSaveEntityEvents.g.cs" />
+    <Compile Include="Events\AfterSelectEntityEvents\AfterSelectEntityEvents.g.cs" />
+    <Compile Include="Events\AfterSelectEntityEvents\PubSubEventArgs.cs" />
     <Compile Include="Lookup\Items\Lookups.g.cs" />
     <Compile Include="Lookup\Service\ILookupDataServices.g.cs" />
     <Compile Include="Lookup\Service\ILookupDataService.cs" />
@@ -167,6 +169,9 @@
     </Compile>
     <Compile Include="Views\Details\CostOnDateDetailsView.xaml.cs">
       <DependentUpon>CostOnDateDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Details\EmployeeDetailsView.xaml.cs">
+      <DependentUpon>EmployeeDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Details\SpecificationDetailsView.xaml.cs">
       <DependentUpon>SpecificationDetailsView.xaml</DependentUpon>
@@ -409,6 +414,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Details\CostOnDateDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Details\EmployeeDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
