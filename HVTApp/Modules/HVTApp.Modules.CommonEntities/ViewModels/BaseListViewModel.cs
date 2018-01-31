@@ -196,8 +196,9 @@ namespace HVTApp.UI.ViewModels
             }
 
             //добавление несуществующего айтема
-            lookup = (TLookup)Activator.CreateInstance(typeof(TLookup), entity);
-            lookup.Refresh(entity);
+            var eee = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(entity.Id);
+            lookup = (TLookup)Activator.CreateInstance(typeof(TLookup), eee);
+            lookup.Refresh(eee);
             ((ICollection<TLookup>)Lookups).Add(lookup);
 
             //выбор добавленного айтема
