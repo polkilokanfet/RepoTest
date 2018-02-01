@@ -4,9 +4,10 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class TenderUnit : BaseEntity
+    public partial class TenderUnit : BaseEntity
     {
-        public virtual Guid TenderId { get; set; }
+        public virtual Tender Tender { get; set; }
+
         public virtual ProjectUnit ProjectUnit { get; set; }
 
         public virtual Facility Facility { get; set; }

@@ -4,7 +4,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class TestFriend : BaseEntity
+    public partial class TestFriend : BaseEntity
     {
         public int FriendGroupId { get; set; }
 

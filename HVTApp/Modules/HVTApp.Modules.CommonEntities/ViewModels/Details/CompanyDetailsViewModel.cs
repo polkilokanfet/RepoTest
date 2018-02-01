@@ -96,14 +96,14 @@ namespace HVTApp.UI.ViewModels
             //компании, которые не могут быть головной (дочерние и т.д.)
             var exceptCompanies = companies.Where(x => Equals(x.ParentCompany?.Id, Item.Id)).Concat(new[] {Item.Model});
             //возможные головные компании
-            IEnumerable<CompanyWrapper> possibleParents = companies.Except(exceptCompanies).Select(x => new CompanyWrapper(x));
+            IEnumerable<CompanyLookup> possibleParents = companies.Except(exceptCompanies).Select(x => new CompanyLookup(x));
             //выбор одной из компаний
-            //CompanyWrapper possibleParent = _selectService.SelectItem(possibleParents, Item.ParentCompany.Id);
+            var possibleParent = _selectService.SelectItem(possibleParents, Item.ParentCompany.Id);
 
-            //if (possibleParent != null && !Equals(possibleParent.Id, Item.ParentCompany?.Id))
-            //{
-            //    Item.ParentCompany = possibleParent;
-            //}
+            if (possibleParent != null && !Equals(possibleParent.Id, Item.ParentCompany?.Id))
+            {
+                Item.ParentCompany = new CompanyWrapper(possibleParent.Entity);
+            }
         }
 
         #endregion

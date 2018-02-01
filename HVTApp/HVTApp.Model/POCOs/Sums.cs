@@ -6,13 +6,13 @@ namespace HVTApp.Model.POCOs
     /// <summary>
     /// Сумма на какую-либо дату
     /// </summary>
-    public class CostOnDate : BaseEntity
+    public partial class CostOnDate : BaseEntity
     {
         public DateTime Date { get; set; }
         public virtual double Cost { get; set; }
     }
 
-    public class Cost : BaseEntity
+    public partial class Cost : BaseEntity
     {
         public virtual Currency Currency { get; set; }
         public double Sum { get; set; }
@@ -21,7 +21,7 @@ namespace HVTApp.Model.POCOs
     /// <summary>
     /// Валюта
     /// </summary>
-    public class Currency : BaseEntity
+    public partial class Currency : BaseEntity
     {
         public string FullName { get; set; }
         public string ShortName { get; set; }
@@ -30,7 +30,7 @@ namespace HVTApp.Model.POCOs
     /// <summary>
     /// Курс обмена валют.
     /// </summary>
-    public class ExchangeCurrencyRate : BaseEntity
+    public partial class ExchangeCurrencyRate : BaseEntity
     {
         public DateTime Date { get; set; }
         public virtual Currency FirstCurrency { get; set; }

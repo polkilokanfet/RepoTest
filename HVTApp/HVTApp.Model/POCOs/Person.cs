@@ -3,7 +3,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class Person : BaseEntity
+    public partial class Person : BaseEntity
     {
         public string Surname { get; set; }
         public string Name { get; set; }

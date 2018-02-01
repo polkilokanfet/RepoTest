@@ -4,16 +4,16 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class SalesUnit : BaseEntity
+    public partial class SalesUnit : BaseEntity
     {
-        public Guid OfferUnitId { get; set; }
-
         public virtual OfferUnit OfferUnit { get; set; }
         public virtual ProductionUnit ProductionUnit { get; set; }
         public virtual ShipmentUnit ShipmentUnit { get; set; }
 
         public double Cost { get; set; }
-        public virtual Guid SpecificationId { get; set; }
+
+        public virtual Specification Specification { get; set; }
+
         public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
 
         public virtual List<PaymentActual> PaymentsActual { get; set; } = new List<PaymentActual>();

@@ -3,7 +3,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class ProductionUnit : BaseEntity
+    public partial class ProductionUnit : BaseEntity
     {
         public virtual Guid OrderId { get; set; }
         public virtual Product Product { get; set; }

@@ -13,7 +13,7 @@ using Prism.Regions;
 
 namespace HVTApp.UI
 {
-    public class UiModule : ModuleBase
+    public partial class UiModule : ModuleBase
     {
         private readonly IDialogService _dialogService;
         private readonly ISelectService _selectService;
@@ -29,35 +29,7 @@ namespace HVTApp.UI
 
         protected override void RegisterTypes()
         {
-            Container.RegisterViewForNavigation<CompanyListView>();
-            Container.RegisterViewForNavigation<CompanyFormListView>();
-            Container.RegisterViewForNavigation<ActivityFieldListView>();
-            Container.RegisterViewForNavigation<ParameterListView>();
-            Container.RegisterViewForNavigation<ParameterGroupListView>();
-            Container.RegisterViewForNavigation<ProductListView>();
-            Container.RegisterViewForNavigation<FacilityListView>();
-            Container.RegisterViewForNavigation<FacilityTypeListView>();
-            Container.RegisterViewForNavigation<ProjectListView>();
-            Container.RegisterViewForNavigation<TenderListView>();
-            Container.RegisterViewForNavigation<OfferListView>();
-            Container.RegisterViewForNavigation<PaymentListView>();
-            Container.RegisterViewForNavigation<ContractListView>();
-            Container.RegisterViewForNavigation<PartPriceListView>();
-
-            _dialogService.Register<ProductDetailsViewModel, ProductDetailsView>();
-            //_dialogService.Register<ProjectUnitsDetailsViewModel, ProductUnitsDetailsView>();
-
-            _selectService.Register<ActivityFieldListView, ActivityFieldLookup>();
-            //_selectService.Register<CompanyListServiceViewModel, CompanyListView, CompanyWrapper>();
-            //_selectService.Register<ProjectListServiceViewModel, ProjectListView, ProjectWrapper>();
-            //_selectService.Register<TenderListServiceViewModel, TenderListView, TenderWrapper>();
-
-            _updateDetailsService.Register<Company, CompanyDetailsView>();
-            _updateDetailsService.Register<CompanyForm, CompanyFormDetailsView>();
-            _updateDetailsService.Register<Offer, OfferDetailsView>();
-            _updateDetailsService.Register<CostOnDate, CostOnDateDetailsView>();
-            _updateDetailsService.Register<Project, ProjectDetailsView>();
-            _updateDetailsService.Register<ProjectUnit, ProductUnitsDetailsView>();
+            RegisterViews();
         }
 
         protected override void ResolveOutlookGroup()

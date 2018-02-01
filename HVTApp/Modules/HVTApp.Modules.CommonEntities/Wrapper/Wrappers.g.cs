@@ -18,6 +18,14 @@ namespace HVTApp.UI.Wrapper
         public System.String DescriptionOriginalValue => GetOriginalValue<System.String>(nameof(Description));
         public bool DescriptionIsChanged => GetIsChanged(nameof(Description));
 
+        public System.Nullable<System.Guid> LocalityId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> LocalityIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(LocalityId));
+        public bool LocalityIdIsChanged => GetIsChanged(nameof(LocalityId));
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -181,6 +189,14 @@ namespace HVTApp.UI.Wrapper
         public System.Nullable<System.Double> StandartDeliveryPeriodOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(StandartDeliveryPeriod));
         public bool StandartDeliveryPeriodIsChanged => GetIsChanged(nameof(StandartDeliveryPeriod));
 
+        public System.Nullable<System.Guid> LocalityTypeId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> LocalityTypeIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(LocalityTypeId));
+        public bool LocalityTypeIdIsChanged => GetIsChanged(nameof(LocalityTypeId));
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -291,6 +307,14 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> AdditionalSalesUnitId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> AdditionalSalesUnitIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(AdditionalSalesUnitId));
+        public bool AdditionalSalesUnitIdIsChanged => GetIsChanged(nameof(AdditionalSalesUnitId));
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -384,6 +408,38 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> FormId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> FormIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(FormId));
+        public bool FormIdIsChanged => GetIsChanged(nameof(FormId));
+
+        public System.Nullable<System.Guid> ParentCompanyId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ParentCompanyIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ParentCompanyId));
+        public bool ParentCompanyIdIsChanged => GetIsChanged(nameof(ParentCompanyId));
+
+        public System.Nullable<System.Guid> AddressLegalId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> AddressLegalIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(AddressLegalId));
+        public bool AddressLegalIdIsChanged => GetIsChanged(nameof(AddressLegalId));
+
+        public System.Nullable<System.Guid> AddressPostId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> AddressPostIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(AddressPostId));
+        public bool AddressPostIdIsChanged => GetIsChanged(nameof(AddressPostId));
+
         public System.String FullName
         {
           get { return GetValue<System.String>(); }
@@ -415,38 +471,6 @@ namespace HVTApp.UI.Wrapper
         }
         public System.String KppOriginalValue => GetOriginalValue<System.String>(nameof(Kpp));
         public bool KppIsChanged => GetIsChanged(nameof(Kpp));
-
-        public System.Guid FormId
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid FormIdOriginalValue => GetOriginalValue<System.Guid>(nameof(FormId));
-        public bool FormIdIsChanged => GetIsChanged(nameof(FormId));
-
-        public System.Nullable<System.Guid> ParentCompanyId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> ParentCompanyIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ParentCompanyId));
-        public bool ParentCompanyIdIsChanged => GetIsChanged(nameof(ParentCompanyId));
-
-        public System.Nullable<System.Guid> AddressLegalId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> AddressLegalIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(AddressLegalId));
-        public bool AddressLegalIdIsChanged => GetIsChanged(nameof(AddressLegalId));
-
-        public System.Nullable<System.Guid> AddressPostId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> AddressPostIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(AddressPostId));
-        public bool AddressPostIdIsChanged => GetIsChanged(nameof(AddressPostId));
 
         public System.Guid Id
         {
@@ -679,6 +703,14 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> ContragentId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ContragentIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ContragentId));
+        public bool ContragentIdIsChanged => GetIsChanged(nameof(ContragentId));
+
         public System.String Number
         {
           get { return GetValue<System.String>(); }
@@ -713,22 +745,9 @@ namespace HVTApp.UI.Wrapper
         }
 
         #endregion
-
-        #region CollectionProperties
-        public IValidatableChangeTrackingCollection<SpecificationWrapper> Specifications { get; private set; }
-
-        #endregion
         public override void InitializeComplexProperties()
         {
             InitializeComplexProperty<CompanyWrapper>(nameof(Contragent), Model.Contragent == null ? null : new CompanyWrapper(Model.Contragent));
-
-        }
-  
-        protected override void InitializeCollectionProperties()
-        {
-          if (Model.Specifications == null) throw new ArgumentException("Specifications cannot be null");
-          Specifications = new ValidatableChangeTrackingCollection<SpecificationWrapper>(Model.Specifications.Select(e => new SpecificationWrapper(e)));
-          RegisterCollection(Specifications, Model.Specifications);
 
         }
 	}
@@ -818,6 +837,14 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> MeasureId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> MeasureIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(MeasureId));
+        public bool MeasureIdIsChanged => GetIsChanged(nameof(MeasureId));
+
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -1014,6 +1041,14 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> ConditionId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ConditionIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ConditionId));
+        public bool ConditionIdIsChanged => GetIsChanged(nameof(ConditionId));
+
         public System.Guid SalesUnitId
         {
           get { return GetValue<System.Guid>(); }
@@ -1172,6 +1207,22 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> FacilityId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> FacilityIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(FacilityId));
+        public bool FacilityIdIsChanged => GetIsChanged(nameof(FacilityId));
+
+        public System.Nullable<System.Guid> ProductId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ProductIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductId));
+        public bool ProductIdIsChanged => GetIsChanged(nameof(ProductId));
+
         public System.Guid ProjectId
         {
           get { return GetValue<System.Guid>(); }
@@ -1235,13 +1286,45 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
-        public System.Guid TenderId
+        public System.Nullable<System.Guid> TenderId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return GetValue<System.Nullable<System.Guid>>(); }
           set { SetValue(value); }
         }
-        public System.Guid TenderIdOriginalValue => GetOriginalValue<System.Guid>(nameof(TenderId));
+        public System.Nullable<System.Guid> TenderIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(TenderId));
         public bool TenderIdIsChanged => GetIsChanged(nameof(TenderId));
+
+        public System.Nullable<System.Guid> ProjectUnitId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ProjectUnitIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProjectUnitId));
+        public bool ProjectUnitIdIsChanged => GetIsChanged(nameof(ProjectUnitId));
+
+        public System.Nullable<System.Guid> FacilityId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> FacilityIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(FacilityId));
+        public bool FacilityIdIsChanged => GetIsChanged(nameof(FacilityId));
+
+        public System.Nullable<System.Guid> ProductId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ProductIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductId));
+        public bool ProductIdIsChanged => GetIsChanged(nameof(ProductId));
+
+        public System.Nullable<System.Guid> ProducerWinnerId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ProducerWinnerIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProducerWinnerId));
+        public bool ProducerWinnerIdIsChanged => GetIsChanged(nameof(ProducerWinnerId));
 
         public System.Double Cost
         {
@@ -1270,6 +1353,12 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
+	    public TenderWrapper Tender 
+        {
+            get { return GetWrapper<TenderWrapper>(); }
+            set { SetComplexValue<Tender, TenderWrapper>(Tender, value); }
+        }
+
 	    public ProjectUnitWrapper ProjectUnit 
         {
             get { return GetWrapper<ProjectUnitWrapper>(); }
@@ -1302,6 +1391,8 @@ namespace HVTApp.UI.Wrapper
         #endregion
         public override void InitializeComplexProperties()
         {
+            InitializeComplexProperty<TenderWrapper>(nameof(Tender), Model.Tender == null ? null : new TenderWrapper(Model.Tender));
+
             InitializeComplexProperty<ProjectUnitWrapper>(nameof(ProjectUnit), Model.ProjectUnit == null ? null : new ProjectUnitWrapper(Model.ProjectUnit));
 
             InitializeComplexProperty<FacilityWrapper>(nameof(Facility), Model.Facility == null ? null : new FacilityWrapper(Model.Facility));
@@ -1327,6 +1418,14 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> AddressId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> AddressIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(AddressId));
+        public bool AddressIdIsChanged => GetIsChanged(nameof(AddressId));
+
         public System.Nullable<System.Int32> ExpectedDeliveryPeriod
         {
           get { return GetValue<System.Nullable<System.Int32>>(); }
@@ -1406,6 +1505,14 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> ProductId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ProductIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductId));
+        public bool ProductIdIsChanged => GetIsChanged(nameof(ProductId));
+
         public System.Guid OrderId
         {
           get { return GetValue<System.Guid>(); }
@@ -1509,13 +1616,37 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
-        public System.Guid OfferUnitId
+        public System.Nullable<System.Guid> OfferUnitId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return GetValue<System.Nullable<System.Guid>>(); }
           set { SetValue(value); }
         }
-        public System.Guid OfferUnitIdOriginalValue => GetOriginalValue<System.Guid>(nameof(OfferUnitId));
+        public System.Nullable<System.Guid> OfferUnitIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(OfferUnitId));
         public bool OfferUnitIdIsChanged => GetIsChanged(nameof(OfferUnitId));
+
+        public System.Nullable<System.Guid> ProductionUnitId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ProductionUnitIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductionUnitId));
+        public bool ProductionUnitIdIsChanged => GetIsChanged(nameof(ProductionUnitId));
+
+        public System.Nullable<System.Guid> ShipmentUnitId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ShipmentUnitIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ShipmentUnitId));
+        public bool ShipmentUnitIdIsChanged => GetIsChanged(nameof(ShipmentUnitId));
+
+        public System.Nullable<System.Guid> SpecificationId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> SpecificationIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(SpecificationId));
+        public bool SpecificationIdIsChanged => GetIsChanged(nameof(SpecificationId));
 
         public System.Double Cost
         {
@@ -1524,14 +1655,6 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
         public bool CostIsChanged => GetIsChanged(nameof(Cost));
-
-        public System.Guid SpecificationId
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid SpecificationIdOriginalValue => GetOriginalValue<System.Guid>(nameof(SpecificationId));
-        public bool SpecificationIdIsChanged => GetIsChanged(nameof(SpecificationId));
 
         public System.Nullable<System.DateTime> RealizationDate
         {
@@ -1570,6 +1693,12 @@ namespace HVTApp.UI.Wrapper
             set { SetComplexValue<ShipmentUnit, ShipmentUnitWrapper>(ShipmentUnit, value); }
         }
 
+	    public SpecificationWrapper Specification 
+        {
+            get { return GetWrapper<SpecificationWrapper>(); }
+            set { SetComplexValue<Specification, SpecificationWrapper>(Specification, value); }
+        }
+
         #endregion
 
         #region CollectionProperties
@@ -1587,6 +1716,8 @@ namespace HVTApp.UI.Wrapper
             InitializeComplexProperty<ProductionUnitWrapper>(nameof(ProductionUnit), Model.ProductionUnit == null ? null : new ProductionUnitWrapper(Model.ProductionUnit));
 
             InitializeComplexProperty<ShipmentUnitWrapper>(nameof(ShipmentUnit), Model.ShipmentUnit == null ? null : new ShipmentUnitWrapper(Model.ShipmentUnit));
+
+            InitializeComplexProperty<SpecificationWrapper>(nameof(Specification), Model.Specification == null ? null : new SpecificationWrapper(Model.Specification));
 
         }
   
@@ -1654,6 +1785,30 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> TestFriendAddressId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> TestFriendAddressIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(TestFriendAddressId));
+        public bool TestFriendAddressIdIsChanged => GetIsChanged(nameof(TestFriendAddressId));
+
+        public System.Nullable<System.Guid> TestFriendGroupId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> TestFriendGroupIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(TestFriendGroupId));
+        public bool TestFriendGroupIdIsChanged => GetIsChanged(nameof(TestFriendGroupId));
+
+        public System.Nullable<System.Guid> TestFriendEmailGetId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> TestFriendEmailGetIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(TestFriendEmailGetId));
+        public bool TestFriendEmailGetIdIsChanged => GetIsChanged(nameof(TestFriendEmailGetId));
+
         public System.Int32 FriendGroupId
         {
           get { return GetValue<System.Int32>(); }
@@ -1824,6 +1979,14 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> RequestDocumentId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> RequestDocumentIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(RequestDocumentId));
+        public bool RequestDocumentIdIsChanged => GetIsChanged(nameof(RequestDocumentId));
+
         public System.Nullable<System.Guid> AuthorId
         {
           get { return GetValue<System.Nullable<System.Guid>>(); }
@@ -1831,6 +1994,38 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Nullable<System.Guid> AuthorIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(AuthorId));
         public bool AuthorIdIsChanged => GetIsChanged(nameof(AuthorId));
+
+        public System.Nullable<System.Guid> SenderEmployeeId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> SenderEmployeeIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(SenderEmployeeId));
+        public bool SenderEmployeeIdIsChanged => GetIsChanged(nameof(SenderEmployeeId));
+
+        public System.Nullable<System.Guid> RecipientEmployeeId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> RecipientEmployeeIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(RecipientEmployeeId));
+        public bool RecipientEmployeeIdIsChanged => GetIsChanged(nameof(RecipientEmployeeId));
+
+        public System.Nullable<System.Guid> RegistrationDetailsOfSenderId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> RegistrationDetailsOfSenderIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(RegistrationDetailsOfSenderId));
+        public bool RegistrationDetailsOfSenderIdIsChanged => GetIsChanged(nameof(RegistrationDetailsOfSenderId));
+
+        public System.Nullable<System.Guid> RegistrationDetailsOfRecipientId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> RegistrationDetailsOfRecipientIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(RegistrationDetailsOfRecipientId));
+        public bool RegistrationDetailsOfRecipientIdIsChanged => GetIsChanged(nameof(RegistrationDetailsOfRecipientId));
 
         public System.Guid SenderId
         {
@@ -1847,22 +2042,6 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Guid RecipientIdOriginalValue => GetOriginalValue<System.Guid>(nameof(RecipientId));
         public bool RecipientIdIsChanged => GetIsChanged(nameof(RecipientId));
-
-        public System.Guid RegistrationDetailsOfSenderId
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid RegistrationDetailsOfSenderIdOriginalValue => GetOriginalValue<System.Guid>(nameof(RegistrationDetailsOfSenderId));
-        public bool RegistrationDetailsOfSenderIdIsChanged => GetIsChanged(nameof(RegistrationDetailsOfSenderId));
-
-        public System.Guid RegistrationDetailsOfRecipientId
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid RegistrationDetailsOfRecipientIdOriginalValue => GetOriginalValue<System.Guid>(nameof(RegistrationDetailsOfRecipientId));
-        public bool RegistrationDetailsOfRecipientIdIsChanged => GetIsChanged(nameof(RegistrationDetailsOfRecipientId));
 
         public System.String Comment
         {
@@ -1981,6 +2160,14 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> WifeId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> WifeIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(WifeId));
+        public bool WifeIdIsChanged => GetIsChanged(nameof(WifeId));
+
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -2033,6 +2220,14 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> HusbandId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> HusbandIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(HusbandId));
+        public bool HusbandIdIsChanged => GetIsChanged(nameof(HusbandId));
+
         public System.Int32 N
         {
           get { return GetValue<System.Int32>(); }
@@ -2080,6 +2275,22 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> HusbandId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> HusbandIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(HusbandId));
+        public bool HusbandIdIsChanged => GetIsChanged(nameof(HusbandId));
+
+        public System.Nullable<System.Guid> WifeId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> WifeIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(WifeId));
+        public bool WifeIdIsChanged => GetIsChanged(nameof(WifeId));
+
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -2160,6 +2371,14 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> CurrencyId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> CurrencyIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(CurrencyId));
+        public bool CurrencyIdIsChanged => GetIsChanged(nameof(CurrencyId));
+
         public System.Double Sum
         {
           get { return GetValue<System.Double>(); }
@@ -2232,6 +2451,22 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> FirstCurrencyId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> FirstCurrencyIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(FirstCurrencyId));
+        public bool FirstCurrencyIdIsChanged => GetIsChanged(nameof(FirstCurrencyId));
+
+        public System.Nullable<System.Guid> SecondCurrencyId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> SecondCurrencyIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(SecondCurrencyId));
+        public bool SecondCurrencyIdIsChanged => GetIsChanged(nameof(SecondCurrencyId));
+
         public System.DateTime Date
         {
           get { return GetValue<System.DateTime>(); }
@@ -2353,6 +2588,62 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> TenderId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> TenderIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(TenderId));
+        public bool TenderIdIsChanged => GetIsChanged(nameof(TenderId));
+
+        public System.Nullable<System.Guid> RequestDocumentId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> RequestDocumentIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(RequestDocumentId));
+        public bool RequestDocumentIdIsChanged => GetIsChanged(nameof(RequestDocumentId));
+
+        public System.Nullable<System.Guid> AuthorId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> AuthorIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(AuthorId));
+        public bool AuthorIdIsChanged => GetIsChanged(nameof(AuthorId));
+
+        public System.Nullable<System.Guid> SenderEmployeeId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> SenderEmployeeIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(SenderEmployeeId));
+        public bool SenderEmployeeIdIsChanged => GetIsChanged(nameof(SenderEmployeeId));
+
+        public System.Nullable<System.Guid> RecipientEmployeeId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> RecipientEmployeeIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(RecipientEmployeeId));
+        public bool RecipientEmployeeIdIsChanged => GetIsChanged(nameof(RecipientEmployeeId));
+
+        public System.Nullable<System.Guid> RegistrationDetailsOfSenderId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> RegistrationDetailsOfSenderIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(RegistrationDetailsOfSenderId));
+        public bool RegistrationDetailsOfSenderIdIsChanged => GetIsChanged(nameof(RegistrationDetailsOfSenderId));
+
+        public System.Nullable<System.Guid> RegistrationDetailsOfRecipientId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> RegistrationDetailsOfRecipientIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(RegistrationDetailsOfRecipientId));
+        public bool RegistrationDetailsOfRecipientIdIsChanged => GetIsChanged(nameof(RegistrationDetailsOfRecipientId));
+
         public System.DateTime ValidityDate
         {
           get { return GetValue<System.DateTime>(); }
@@ -2369,14 +2660,6 @@ namespace HVTApp.UI.Wrapper
         public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
         public bool VatIsChanged => GetIsChanged(nameof(Vat));
 
-        public System.Nullable<System.Guid> AuthorId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> AuthorIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(AuthorId));
-        public bool AuthorIdIsChanged => GetIsChanged(nameof(AuthorId));
-
         public System.Guid SenderId
         {
           get { return GetValue<System.Guid>(); }
@@ -2392,22 +2675,6 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Guid RecipientIdOriginalValue => GetOriginalValue<System.Guid>(nameof(RecipientId));
         public bool RecipientIdIsChanged => GetIsChanged(nameof(RecipientId));
-
-        public System.Guid RegistrationDetailsOfSenderId
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid RegistrationDetailsOfSenderIdOriginalValue => GetOriginalValue<System.Guid>(nameof(RegistrationDetailsOfSenderId));
-        public bool RegistrationDetailsOfSenderIdIsChanged => GetIsChanged(nameof(RegistrationDetailsOfSenderId));
-
-        public System.Guid RegistrationDetailsOfRecipientId
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid RegistrationDetailsOfRecipientIdOriginalValue => GetOriginalValue<System.Guid>(nameof(RegistrationDetailsOfRecipientId));
-        public bool RegistrationDetailsOfRecipientIdIsChanged => GetIsChanged(nameof(RegistrationDetailsOfRecipientId));
 
         public System.String Comment
         {
@@ -2428,6 +2695,12 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
+	    public TenderWrapper Tender 
+        {
+            get { return GetWrapper<TenderWrapper>(); }
+            set { SetComplexValue<Tender, TenderWrapper>(Tender, value); }
+        }
+
 	    public DocumentWrapper RequestDocument 
         {
             get { return GetWrapper<DocumentWrapper>(); }
@@ -2474,6 +2747,8 @@ namespace HVTApp.UI.Wrapper
         #endregion
         public override void InitializeComplexProperties()
         {
+            InitializeComplexProperty<TenderWrapper>(nameof(Tender), Model.Tender == null ? null : new TenderWrapper(Model.Tender));
+
             InitializeComplexProperty<DocumentWrapper>(nameof(RequestDocument), Model.RequestDocument == null ? null : new DocumentWrapper(Model.RequestDocument));
 
             InitializeComplexProperty<EmployeeWrapper>(nameof(Author), Model.Author == null ? null : new EmployeeWrapper(Model.Author));
@@ -2507,6 +2782,22 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> CompanyId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> CompanyIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(CompanyId));
+        public bool CompanyIdIsChanged => GetIsChanged(nameof(CompanyId));
+
+        public System.Nullable<System.Guid> PositionId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> PositionIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(PositionId));
+        public bool PositionIdIsChanged => GetIsChanged(nameof(PositionId));
+
         public System.Guid PersonId
         {
           get { return GetValue<System.Guid>(); }
@@ -2711,6 +3002,30 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> TypeId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> TypeIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(TypeId));
+        public bool TypeIdIsChanged => GetIsChanged(nameof(TypeId));
+
+        public System.Nullable<System.Guid> OwnerCompanyId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> OwnerCompanyIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(OwnerCompanyId));
+        public bool OwnerCompanyIdIsChanged => GetIsChanged(nameof(OwnerCompanyId));
+
+        public System.Nullable<System.Guid> AddressId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> AddressIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(AddressId));
+        public bool AddressIdIsChanged => GetIsChanged(nameof(AddressId));
+
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -2766,6 +3081,14 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> ManagerId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ManagerIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ManagerId));
+        public bool ManagerIdIsChanged => GetIsChanged(nameof(ManagerId));
+
         public System.String Name
         {
           get { return GetValue<System.String>(); }
@@ -2863,6 +3186,14 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> ContractId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ContractIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ContractId));
+        public bool ContractIdIsChanged => GetIsChanged(nameof(ContractId));
+
         public System.String Number
         {
           get { return GetValue<System.String>(); }
@@ -2887,14 +3218,6 @@ namespace HVTApp.UI.Wrapper
         public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
         public bool VatIsChanged => GetIsChanged(nameof(Vat));
 
-        public System.Guid ContractId
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid ContractIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ContractId));
-        public bool ContractIdIsChanged => GetIsChanged(nameof(ContractId));
-
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2905,16 +3228,17 @@ namespace HVTApp.UI.Wrapper
 
         #endregion
 
-        #region CollectionProperties
-        public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
+        #region ComplexProperties
+	    public ContractWrapper Contract 
+        {
+            get { return GetWrapper<ContractWrapper>(); }
+            set { SetComplexValue<Contract, ContractWrapper>(Contract, value); }
+        }
 
         #endregion
-  
-        protected override void InitializeCollectionProperties()
+        public override void InitializeComplexProperties()
         {
-          if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
-          SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
-          RegisterCollection(SalesUnits, Model.SalesUnits);
+            InitializeComplexProperty<ContractWrapper>(nameof(Contract), Model.Contract == null ? null : new ContractWrapper(Model.Contract));
 
         }
 	}
@@ -2925,13 +3249,29 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
-        public System.Guid ProjectId
+        public System.Nullable<System.Guid> TypeId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return GetValue<System.Nullable<System.Guid>>(); }
           set { SetValue(value); }
         }
-        public System.Guid ProjectIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ProjectId));
+        public System.Nullable<System.Guid> TypeIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(TypeId));
+        public bool TypeIdIsChanged => GetIsChanged(nameof(TypeId));
+
+        public System.Nullable<System.Guid> ProjectId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ProjectIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProjectId));
         public bool ProjectIdIsChanged => GetIsChanged(nameof(ProjectId));
+
+        public System.Nullable<System.Guid> WinnerId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> WinnerIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(WinnerId));
+        public bool WinnerIdIsChanged => GetIsChanged(nameof(WinnerId));
 
         public System.DateTime DateOpen
         {
@@ -2974,6 +3314,12 @@ namespace HVTApp.UI.Wrapper
             set { SetComplexValue<TenderType, TenderTypeWrapper>(Type, value); }
         }
 
+	    public ProjectWrapper Project 
+        {
+            get { return GetWrapper<ProjectWrapper>(); }
+            set { SetComplexValue<Project, ProjectWrapper>(Project, value); }
+        }
+
 	    public CompanyWrapper Winner 
         {
             get { return GetWrapper<CompanyWrapper>(); }
@@ -2985,14 +3331,14 @@ namespace HVTApp.UI.Wrapper
         #region CollectionProperties
         public IValidatableChangeTrackingCollection<CompanyWrapper> Participants { get; private set; }
 
-        public IValidatableChangeTrackingCollection<TenderUnitWrapper> TenderUnits { get; private set; }
-
         public IValidatableChangeTrackingCollection<OfferWrapper> Offers { get; private set; }
 
         #endregion
         public override void InitializeComplexProperties()
         {
             InitializeComplexProperty<TenderTypeWrapper>(nameof(Type), Model.Type == null ? null : new TenderTypeWrapper(Model.Type));
+
+            InitializeComplexProperty<ProjectWrapper>(nameof(Project), Model.Project == null ? null : new ProjectWrapper(Model.Project));
 
             InitializeComplexProperty<CompanyWrapper>(nameof(Winner), Model.Winner == null ? null : new CompanyWrapper(Model.Winner));
 
@@ -3003,10 +3349,6 @@ namespace HVTApp.UI.Wrapper
           if (Model.Participants == null) throw new ArgumentException("Participants cannot be null");
           Participants = new ValidatableChangeTrackingCollection<CompanyWrapper>(Model.Participants.Select(e => new CompanyWrapper(e)));
           RegisterCollection(Participants, Model.Participants);
-
-          if (Model.TenderUnits == null) throw new ArgumentException("TenderUnits cannot be null");
-          TenderUnits = new ValidatableChangeTrackingCollection<TenderUnitWrapper>(Model.TenderUnits.Select(e => new TenderUnitWrapper(e)));
-          RegisterCollection(TenderUnits, Model.TenderUnits);
 
           if (Model.Offers == null) throw new ArgumentException("Offers cannot be null");
           Offers = new ValidatableChangeTrackingCollection<OfferWrapper>(Model.Offers.Select(e => new OfferWrapper(e)));
@@ -3054,6 +3396,14 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> EmployeeId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> EmployeeIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(EmployeeId));
+        public bool EmployeeIdIsChanged => GetIsChanged(nameof(EmployeeId));
+
         public System.String Login
         {
           get { return GetValue<System.String>(); }
@@ -3130,13 +3480,37 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
-        public System.Guid OfferId
+        public System.Nullable<System.Guid> OfferId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return GetValue<System.Nullable<System.Guid>>(); }
           set { SetValue(value); }
         }
-        public System.Guid OfferIdOriginalValue => GetOriginalValue<System.Guid>(nameof(OfferId));
+        public System.Nullable<System.Guid> OfferIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(OfferId));
         public bool OfferIdIsChanged => GetIsChanged(nameof(OfferId));
+
+        public System.Nullable<System.Guid> ProjectUnitId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ProjectUnitIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProjectUnitId));
+        public bool ProjectUnitIdIsChanged => GetIsChanged(nameof(ProjectUnitId));
+
+        public System.Nullable<System.Guid> FacilityId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> FacilityIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(FacilityId));
+        public bool FacilityIdIsChanged => GetIsChanged(nameof(FacilityId));
+
+        public System.Nullable<System.Guid> ProductId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ProductIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductId));
+        public bool ProductIdIsChanged => GetIsChanged(nameof(ProductId));
 
         public System.Double Cost
         {
@@ -3165,6 +3539,12 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
+	    public OfferWrapper Offer 
+        {
+            get { return GetWrapper<OfferWrapper>(); }
+            set { SetComplexValue<Offer, OfferWrapper>(Offer, value); }
+        }
+
 	    public ProjectUnitWrapper ProjectUnit 
         {
             get { return GetWrapper<ProjectUnitWrapper>(); }
@@ -3191,6 +3571,8 @@ namespace HVTApp.UI.Wrapper
         #endregion
         public override void InitializeComplexProperties()
         {
+            InitializeComplexProperty<OfferWrapper>(nameof(Offer), Model.Offer == null ? null : new OfferWrapper(Model.Offer));
+
             InitializeComplexProperty<ProjectUnitWrapper>(nameof(ProjectUnit), Model.ProjectUnit == null ? null : new ProjectUnitWrapper(Model.ProjectUnit));
 
             InitializeComplexProperty<FacilityWrapper>(nameof(Facility), Model.Facility == null ? null : new FacilityWrapper(Model.Facility));

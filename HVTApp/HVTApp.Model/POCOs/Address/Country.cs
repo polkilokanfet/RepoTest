@@ -6,7 +6,7 @@ namespace HVTApp.Model.POCOs
     /// <summary>
     /// Страна
     /// </summary>
-    public class Country : BaseEntity
+    public partial class Country : BaseEntity
     {
         public string Name { get; set; }
         public virtual List<District> Districts { get; set; } // Округа.

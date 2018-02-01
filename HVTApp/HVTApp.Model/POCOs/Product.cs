@@ -6,7 +6,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class Product : BaseEntity
+    public partial class Product : BaseEntity
     {
         public string Designation { get; set; }
 

@@ -1,0 +1,35 @@
+﻿<inf:ViewBase x:Class="HVTApp.UI.Views.TenderUnitListView"
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dataPresenter="http://infragistics.com/DataPresenter">
+    
+    <dataPresenter:XamDataGrid>
+        <dataPresenter:XamDataGrid.FieldLayouts>
+            <dataPresenter:FieldLayout>
+                <dataPresenter:FieldLayout.Fields>
+                    <dataPresenter:TextField Name="Tender" Label="Tender"/>
+                    <dataPresenter:TextField Name="Facility" Label="Facility"/>
+                    <dataPresenter:TextField Name="Product" Label="Product"/>
+                    <dataPresenter:TextField Name="Cost" Label="Cost"/>
+                </dataPresenter:FieldLayout.Fields>
+            </dataPresenter:FieldLayout>
+        </dataPresenter:XamDataGrid.FieldLayouts>
+    </dataPresenter:XamDataGrid>
+    
+</inf:ViewBase>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

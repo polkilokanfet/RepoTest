@@ -3,7 +3,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class TestEntity : BaseEntity
+    public partial class TestEntity : BaseEntity
     {
         public string Name { get; set; }
 
@@ -15,7 +15,7 @@ namespace HVTApp.Model.POCOs
         }
     }
 
-    public class TestHusband : TestEntity
+    public partial class TestHusband : TestEntity
     {
         public TestHusband()
         {
@@ -25,7 +25,7 @@ namespace HVTApp.Model.POCOs
         public List<TestChild> Children { get; set; } = new List<TestChild>();
     }
 
-    public class TestWife : TestEntity
+    public partial class TestWife : TestEntity
     {
         public TestWife()
         {
@@ -35,7 +35,7 @@ namespace HVTApp.Model.POCOs
         public virtual TestHusband Husband { get; set; }
     }
 
-    public class TestChild : TestEntity
+    public partial class TestChild : TestEntity
     {
         public TestChild()
         {

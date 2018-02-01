@@ -7,7 +7,7 @@ namespace HVTApp.Model.POCOs
     /// <summary>
     /// Округ страны.
     /// </summary>
-    public class District : BaseEntity
+    public partial class District : BaseEntity
     {
         public string Name { get; set; }
         public virtual Guid CountryId { get; set; }

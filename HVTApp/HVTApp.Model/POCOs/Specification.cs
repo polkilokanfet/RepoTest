@@ -4,12 +4,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class Specification : BaseEntity
+    public partial class Specification : BaseEntity
     {
         public string Number { get; set; }
         public DateTime Date { get; set; }
         public double Vat { get; set; } //НДС
-        public virtual Guid ContractId { get; set; }
-        public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
+        public virtual Contract Contract { get; set; }
     }
 }

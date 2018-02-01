@@ -107,6 +107,7 @@
     <Compile Include="Tabs\TabPartPriceCRUD.xaml.cs">
       <DependentUpon>TabPartPriceCRUD.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UiModule.g.cs" />
     <Compile Include="ViewModels\BaseDetailsViewModel.cs" />
     <Compile Include="ViewModels\BaseListViewModel.cs" />
     <Compile Include="ViewModels\Details\GeneratedDetailsViewModels.g.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Views\Details\CostOnDateDetailsView.xaml.cs">
       <DependentUpon>CostOnDateDetailsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Details\DetailsViews.g.cs" />
     <Compile Include="Views\Details\EmployeeDetailsView.xaml.cs">
       <DependentUpon>EmployeeDetailsView.xaml</DependentUpon>
     </Compile>
@@ -235,6 +237,9 @@
     <Compile Include="Views\Details\OfferDetailsView.xaml.cs">
       <DependentUpon>OfferDetailsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\List\TenderUnitListView.xaml.cs">
+      <DependentUpon>TenderUnitListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Wrapper\Base\NotifyDataErrorInfoBase.cs" />
     <Compile Include="Wrapper\Base\ObservableWrapper.cs" />
     <Compile Include="Wrapper\Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
@@ -276,8 +281,8 @@
     <Compile Include="Wrapper\DataService\WrapperDataService.cs" />
     <Compile Include="Wrapper\DataService\WrapperDataService.g.cs" />
     <Compile Include="Wrapper\IProductUnit.cs" />
-    <Compile Include="WrappersGenerator.cs">
-      <DependentUpon>WrappersGenerator.tt</DependentUpon>
+    <Compile Include="Generator.cs">
+      <DependentUpon>Generator.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -353,9 +358,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="WrappersGenerator.tt">
+    <Content Include="Generator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>WrappersGenerator.cs</LastGenOutput>
+      <LastGenOutput>Generator.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -498,6 +503,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Details\OfferDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\List\TenderUnitListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

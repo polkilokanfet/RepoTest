@@ -20,12 +20,13 @@ using Prism.Mvvm;
 
 namespace HVTApp.UI.ViewModels
 {
-    public abstract class BaseListViewModel<TEntity, TLookup, TAfterSaveEntityEvent, TAfterSelectEntityEvent> :
+    public abstract class BaseListViewModel<TEntity, TLookup, TAfterSaveEntityEvent, TAfterSelectEntityEvent, TAfterRemoveEntityEvent> :
         BindableBase, IBaseListViewModel<TEntity, TLookup>, ISelectServiceViewModel<TLookup>, IDisposable
         where TEntity : class, IBaseEntity
         where TLookup : class, ILookupItemNavigation<TEntity>
         where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
         where TAfterSelectEntityEvent : PubSubEvent<PubSubEventArgs<TEntity>>, new()
+        where TAfterRemoveEntityEvent : PubSubEvent<TEntity>, new()
     {
         protected readonly IUnityContainer Container;
         protected readonly IUnitOfWork UnitOfWork;
@@ -33,8 +34,8 @@ namespace HVTApp.UI.ViewModels
         protected readonly IMessageService MessageService;
 
         private TLookup _selectedLookup;
-
-        public IEnumerable<TLookup> Lookups { get; }
+        private IEnumerable<TLookup> _lookups;
+        private IEnumerable<TEntity> _entities;
 
         protected BaseListViewModel(IUnityContainer container)
         {
@@ -52,12 +53,10 @@ namespace HVTApp.UI.ViewModels
             SelectItemCommand = new DelegateCommand(SelectItemCommand_Execute, SelectItemCommand_CanExecute);
 
             Container.Resolve<IEventAggregator>().GetEvent<TAfterSaveEntityEvent>().Subscribe(OnAfterSaveEntity);
+            Container.Resolve<IEventAggregator>().GetEvent<TAfterRemoveEntityEvent>().Subscribe(OnAfterRemoveEntity);
         }
 
-        protected virtual async Task<IEnumerable<TEntity>> GetItems()
-        {
-            return await UnitOfWork.GetRepository<TEntity>().GetAllAsNoTrackingAsync();
-        }
+        public IEnumerable<TLookup> Lookups { get; }
 
         public virtual async Task LoadAsync()
         {
@@ -77,14 +76,12 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
-        private IEnumerable<TLookup> _lookups;
         public async Task InjectItems(IEnumerable<TLookup> entities)
         {
             _lookups = new List<TLookup>(entities);
             await LoadAsync();
         }
 
-        private IEnumerable<TEntity> _entities;
         public async Task InjectItems(IEnumerable<TEntity> entities)
         {
             _entities = new List<TEntity>(entities);
@@ -100,11 +97,16 @@ namespace HVTApp.UI.ViewModels
                 _selectedLookup = value;
                 OnPropertyChanged();
                 InvalidateCommands();
-                Container.Resolve<IEventAggregator>().GetEvent<TAfterSelectEntityEvent>().Publish(new PubSubEventArgs<TEntity>(this, value.Entity));
+                Container.Resolve<IEventAggregator>().GetEvent<TAfterSelectEntityEvent>().Publish(new PubSubEventArgs<TEntity>(this, value?.Entity));
             }
         }
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
+
+        protected virtual async Task<IEnumerable<TEntity>> GetItems()
+        {
+            return await UnitOfWork.GetRepository<TEntity>().GetAllAsNoTrackingAsync();
+        }
 
         #region Commands
 
@@ -155,8 +157,15 @@ namespace HVTApp.UI.ViewModels
             }
             catch (DbUpdateException e)
             {
-                MessageService.ShowYesNoMessageDialog("DbUpdateException", e.Message);
+                Exception ex = e;
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                }
+                MessageService.ShowYesNoMessageDialog("DbUpdateException", ex.Message);
             }
+
+            Container.Resolve<IEventAggregator>().GetEvent<TAfterRemoveEntityEvent>().Publish(entityToRemove);
         }
 
         protected virtual bool RemoveItemCommand_CanExecute()
@@ -203,6 +212,12 @@ namespace HVTApp.UI.ViewModels
 
             //выбор добавленного айтема
             SelectedLookup = lookup;
+        }
+
+        private void OnAfterRemoveEntity(TEntity entity)
+        {
+            var lookup = Lookups.SingleOrDefault(x => x.Id == entity.Id);
+            if (lookup != null) ((ICollection<TLookup>) Lookups).Remove(lookup);
         }
 
         public void Dispose()
