@@ -3,7 +3,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class Employee : BaseEntity
+    public partial class Employee : BaseEntity
     {
         public virtual Guid PersonId { get; set; }
         public bool IsActual { get; set; }

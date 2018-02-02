@@ -9,8 +9,9 @@ namespace HVTApp.DataAccess
         {
             HasRequired(x => x.Product).WithMany();
             HasRequired(x => x.Facility).WithMany();
+            HasRequired(x => x.Offer).WithMany().HasForeignKey(x => x.OfferId);
 
-            HasOptional(x => x.ProjectUnit).WithMany();
+            HasOptional(x => x.ProjectUnit).WithMany().HasForeignKey(x => x.ProjectUnitId);
 
             Property(x => x.Cost).IsRequired();
             HasMany(x => x.PaymentsConditions).WithMany();

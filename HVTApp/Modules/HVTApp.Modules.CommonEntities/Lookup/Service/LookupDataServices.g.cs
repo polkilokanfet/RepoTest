@@ -284,4 +284,9 @@ namespace HVTApp.UI.Lookup
         public OfferUnitLookupDataService(HvtAppContext context) : base(context) { }
     }
 
+    public partial class TenderUnitGroupLookupDataService : LookupDataService<TenderUnitGroupLookup, TenderUnitGroup>, ITenderUnitGroupLookupDataService
+    {
+        public TenderUnitGroupLookupDataService(HvtAppContext context) : base(context) { }
+    }
+
 }

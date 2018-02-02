@@ -3,7 +3,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class ShipmentUnit : BaseEntity
+    public partial class ShipmentUnit : BaseEntity
     {
         public int? ExpectedDeliveryPeriod { get; set; }
         public virtual Address Address { get; set; }

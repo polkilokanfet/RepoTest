@@ -4,7 +4,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class PaymentDocument : BaseEntity
+    public partial class PaymentDocument : BaseEntity
     {
         public string Number { get; set; }
         public DateTime Date { get; set; }

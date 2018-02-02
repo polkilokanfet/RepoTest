@@ -4,7 +4,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class User : BaseEntity
+    public partial class User : BaseEntity
     {
         public string Login { get; set; }
         public Guid Password { get; set; }

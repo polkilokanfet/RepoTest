@@ -3,7 +3,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class ProjectUnit : BaseEntity
+    public partial class ProjectUnit : BaseEntity
     {
         public virtual Guid ProjectId { get; set; }
 

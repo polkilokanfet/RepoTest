@@ -2,7 +2,7 @@
 
 namespace HVTApp.Model.POCOs
 {
-    public class BankDetails : BaseEntity
+    public partial class BankDetails : BaseEntity
     {
         public string BankName { get; set; }
         public string BankIdentificationCode { get; set; }

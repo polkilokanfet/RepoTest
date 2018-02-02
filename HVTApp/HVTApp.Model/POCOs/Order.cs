@@ -4,7 +4,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class Order : BaseEntity
+    public partial class Order : BaseEntity
     {
         public string Number { get; set; }
         public DateTime OpenOrderDate { get; set; }

@@ -5,7 +5,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class Parameter : BaseEntity
+    public partial class Parameter : BaseEntity
     {
         public virtual Guid GroupId { get; set; }
         public string Value { get; set; }

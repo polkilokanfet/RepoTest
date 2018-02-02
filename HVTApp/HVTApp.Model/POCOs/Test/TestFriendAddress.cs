@@ -2,7 +2,7 @@
 
 namespace HVTApp.Model.POCOs
 {
-  public class TestFriendAddress : BaseEntity
+  public partial class TestFriendAddress : BaseEntity
     {
     public string City { get; set; }
     public string Street { get; set; }

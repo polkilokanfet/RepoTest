@@ -59,4 +59,5 @@ namespace HVTApp.UI.Events
 	public partial class AfterSelectTenderTypeEvent : PubSubEvent<PubSubEventArgs<TenderType>> { }
 	public partial class AfterSelectUserEvent : PubSubEvent<PubSubEventArgs<User>> { }
 	public partial class AfterSelectOfferUnitEvent : PubSubEvent<PubSubEventArgs<OfferUnit>> { }
+	public partial class AfterSelectTenderUnitGroupEvent : PubSubEvent<PubSubEventArgs<TenderUnitGroup>> { }
 }

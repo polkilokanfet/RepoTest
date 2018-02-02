@@ -4,7 +4,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class Project : BaseEntity
+    public partial class Project : BaseEntity
     {
         public string Name { get; set; }
         public virtual User Manager { get; set; }

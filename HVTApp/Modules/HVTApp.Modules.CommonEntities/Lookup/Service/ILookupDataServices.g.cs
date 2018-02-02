@@ -56,4 +56,5 @@ namespace HVTApp.UI.Lookup
 	public interface ITenderTypeLookupDataService : ILookupDataService<TenderTypeLookup> { } 
 	public interface IUserLookupDataService : ILookupDataService<UserLookup> { } 
 	public interface IOfferUnitLookupDataService : ILookupDataService<OfferUnitLookup> { } 
+	public interface ITenderUnitGroupLookupDataService : ILookupDataService<TenderUnitGroupLookup> { } 
 }

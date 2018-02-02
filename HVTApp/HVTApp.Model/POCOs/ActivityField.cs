@@ -5,7 +5,7 @@ namespace HVTApp.Model.POCOs
     /// <summary>
     /// Сфера деятельности компании.
     /// </summary>
-    public class ActivityField : BaseEntity
+    public partial class ActivityField : BaseEntity
     {
         public string Name { get; set; }
         public ActivityFieldEnum ActivityFieldEnum { get; set; }

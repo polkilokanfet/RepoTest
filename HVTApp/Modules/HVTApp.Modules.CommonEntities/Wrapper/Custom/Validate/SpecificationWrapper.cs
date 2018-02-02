@@ -14,9 +14,6 @@ namespace HVTApp.UI.Wrapper
 
             if (ContractId == Guid.Empty)
                 yield return new ValidationResult("Не указан контракт", new[] {nameof(ContractId)});
-
-            if (SalesUnits == null || SalesUnits.Count == 0)
-                yield return new ValidationResult("У спецификации должна быть хотябы одна сбытовая единица", new[] {nameof(SalesUnits)});
         }
     }
 }

@@ -844,4 +844,19 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
+    public partial class TenderUnitGroupWrapperDataService : EntityWrapperDataService<TenderUnitGroup, TenderUnitGroupWrapper>
+    {
+        public TenderUnitGroupWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		
+		protected override TenderUnitGroupWrapper GenerateWrapper(TenderUnitGroup model)
+        {
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new TenderUnitGroupWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
+        }
+    }
+
 }

@@ -1,6 +1,4 @@
-using System;
 using System.Data.Entity.ModelConfiguration;
-using System.Data.Entity.ModelConfiguration.Configuration;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
@@ -12,6 +10,8 @@ namespace HVTApp.DataAccess
             HasRequired(x => x.OfferUnit).WithMany().HasForeignKey(x => x.OfferUnitId);
             HasRequired(x => x.ProductionUnit).WithOptional();
             HasRequired(x => x.ShipmentUnit).WithRequiredPrincipal();
+
+            HasOptional(x => x.Specification).WithMany().HasForeignKey(x => x.SpecificationId);
 
             Property(x => x.Cost).IsRequired();
             HasMany(x => x.PaymentsConditions).WithMany();

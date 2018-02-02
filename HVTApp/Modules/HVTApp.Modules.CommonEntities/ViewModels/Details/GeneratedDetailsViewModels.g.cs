@@ -285,4 +285,9 @@ namespace HVTApp.UI.ViewModels
         public OfferUnitDetailsViewModel(IUnityContainer container) : base(container) { }
     }
 
+    public partial class TenderUnitGroupDetailsViewModel : BaseDetailsViewModel<TenderUnitGroupWrapper, TenderUnitGroup, AfterSaveTenderUnitGroupEvent>
+    {
+        public TenderUnitGroupDetailsViewModel(IUnityContainer container) : base(container) { }
+    }
+
 }

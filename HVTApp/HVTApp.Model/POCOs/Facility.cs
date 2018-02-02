@@ -5,7 +5,7 @@ namespace HVTApp.Model.POCOs
     /// <summary>
     /// Объект поставки.
     /// </summary>
-    public class Facility : BaseEntity
+    public partial class Facility : BaseEntity
     {
         public string Name { get; set; }
         public virtual FacilityType Type { get; set; }

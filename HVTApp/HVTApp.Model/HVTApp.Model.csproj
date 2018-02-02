@@ -53,6 +53,7 @@
     <Compile Include="POCOs\Address\Locality.cs" />
     <Compile Include="POCOs\Address\LocalityType.cs" />
     <Compile Include="POCOs\Address\Region.cs" />
+    <Compile Include="POCOs\Generated\POCOs.g.cs" />
     <Compile Include="POCOs\Units\AdditionalSalesUnits.cs" />
     <Compile Include="POCOs\BankDetails.cs" />
     <Compile Include="POCOs\Company.cs" />
@@ -96,6 +97,11 @@
     <Compile Include="POCOs\Tender.cs" />
     <Compile Include="POCOs\User.cs" />
     <Compile Include="POCOs\Units\OfferUnit.cs" />
+    <Compile Include="Generator.cs">
+      <DependentUpon>Generator.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
@@ -113,7 +119,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Generator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Generator.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
