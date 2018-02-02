@@ -100,6 +100,7 @@
     <Compile Include="Events\AfterSaveEntityEvents\AfterSaveEntityEvents.g.cs" />
     <Compile Include="Events\AfterSelectEntityEvents\AfterSelectEntityEvents.g.cs" />
     <Compile Include="Events\AfterSelectEntityEvents\PubSubEventArgs.cs" />
+    <Compile Include="Lookup\IProductUnitLookup.cs" />
     <Compile Include="Lookup\Items\Lookups.g.cs" />
     <Compile Include="Lookup\Service\ILookupDataServices.g.cs" />
     <Compile Include="Lookup\Service\ILookupDataService.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="ViewModels\List\CompanyListViewModel.cs" />
     <Compile Include="ViewModels\List\GeneratedListViewModels.g.cs" />
     <Compile Include="ViewModels\List\PartPriceListViewModel.cs" />
+    <Compile Include="ViewModels\List\TenderUnitGroupListViewModel.cs" />
     <Compile Include="ViewModels\SelectViewModels\SelectActivityFieldViewModel.cs" />
     <Compile Include="Views\Details\CompanyDetailsView.xaml.cs">
       <DependentUpon>CompanyDetailsView.xaml</DependentUpon>

@@ -11,6 +11,7 @@
             <converters2:WrapperToStringConverter x:Key="WrapperToStringConverter"/>
             <converters2:WrappersToStringConverter x:Key="WrappersToStringConverter"/>
             <converters2:ProductUnitsToProductGroupsConverter x:Key="ProductUnitsToProductGroupsConverter"/>
+            <converters2:LookupToStringConverter x:Key="LookupToStringConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/Brushes.xaml"/>
                 <ResourceDictionary Source="Styles/ValidationErrorTemplates.xaml"/>

@@ -511,4 +511,13 @@ namespace HVTApp.UI.Views
         }
     }
 
+    public partial class TenderUnitGroupDetailsView : ViewBase
+    {
+        public TenderUnitGroupDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderUnitGroupDetailsViewModel TenderUnitGroupDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = TenderUnitGroupDetailsViewModel;
+        }
+    }
+
 }

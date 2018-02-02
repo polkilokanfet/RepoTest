@@ -16,9 +16,14 @@ namespace HVTApp.UI.Converter
             if (productUnits == null) throw new ArgumentException();
 
             //Группируем по ключу: продукт + объект + стоимость
-            var groups = productUnits.GroupBy(x => new ProductGrouper {Product=x.Product, Facility = x.Facility, Cost = x.Cost}, new Comparer());
+            var groups = productUnits.GroupBy(x => new ProductGrouper
+            {
+                Product=x.Product,
+                Facility = x.Facility,
+                Cost = x.Cost
+            }, new Comparer());
 
-            return groups.Select(@group => new ProductUnitsGroup(@group)).ToList();
+            return groups.Select(group => new ProductUnitsGroup(group)).ToList();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

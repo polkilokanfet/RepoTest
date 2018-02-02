@@ -1,24 +1,15 @@
 ﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:prism="http://prismlibrary.com/"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:infg="http://infragistics.com/DataPresenter"
-              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-              xmlns:Wrapper="clr-namespace:HVTApp.UI.Wrapper"
-              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-              mc:Ignorable="d"
               x:Class="HVTApp.UI.Views.CompanyFormListView"
               >
 
-    <!--<infg:XamDataGrid>
+    <infg:XamDataGrid>
         <infg:XamDataGrid.FieldLayoutSettings>
-            <infg:FieldLayoutSettings AutoGenerateFields="True">
-                
-            </infg:FieldLayoutSettings>
+            <infg:FieldLayoutSettings AutoGenerateFields="True"/>
         </infg:XamDataGrid.FieldLayoutSettings>
         
-        -->
     <!--<infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
@@ -26,30 +17,8 @@
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
         </infg:XamDataGrid.FieldLayouts>-->
-    <!--
         
-    </infg:XamDataGrid>-->
-
-
-    <DataGrid x:Name="CompanyFormWrapperDataGrid"
-              AutoGenerateColumns="False"
-              EnableRowVirtualization="True"
-              ItemsSource="{Binding Path=ItemsAsync.Result}"
-              SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
-              RowDetailsVisibilityMode="VisibleWhenSelected">
-        <DataGrid.Columns>
-            <DataGridTextColumn x:Name="FullNameColumn"
-                                Binding="{Binding FullName}"
-                                Header="Full Name"
-                                Width="*" />
-            <DataGridTextColumn x:Name="ShortNameColumn"
-                                Binding="{Binding ShortName}"
-                                Header="Short Name"
-                                Width="Auto" />
-        </DataGrid.Columns>
-    </DataGrid>
-
-
+    </infg:XamDataGrid>
 </inf:ViewBase>
 
 

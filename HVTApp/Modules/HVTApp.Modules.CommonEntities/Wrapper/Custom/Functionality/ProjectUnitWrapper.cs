@@ -1,6 +1,6 @@
 ﻿namespace HVTApp.UI.Wrapper
 {
-    public partial class ProjectUnitWrapper : IProductUnit
+    public partial class ProjectUnitWrapper
     {
         
     }

@@ -1340,4 +1340,27 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
+	public partial class TenderUnitGroupLookup : LookupItem<TenderUnitGroup>
+	{
+		public TenderUnitGroupLookup(TenderUnitGroup entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 			Product?.Refresh(Entity.Product);
+			Facility?.Refresh(Entity.Facility);
+		}
+		
+        #region SimpleProperties
+        public System.Double Cost => GetValue<System.Double>();
+
+        #endregion
+
+        #region ComplexProperties
+	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
+
+	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
+
+        #endregion
+	}
 }

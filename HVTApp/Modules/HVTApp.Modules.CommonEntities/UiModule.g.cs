@@ -291,6 +291,11 @@ namespace HVTApp.UI
 			_selectService.Register<OfferUnitListView, OfferUnitLookup>();
             _updateDetailsService.Register<OfferUnit, OfferUnitDetailsView>();
 
+            Container.RegisterViewForNavigation<TenderUnitGroupListView>();
+            //_dialogService.Register<TenderUnitGroupDetailsViewModel, TenderUnitGroupDetailsView>();
+			_selectService.Register<TenderUnitGroupListView, TenderUnitGroupLookup>();
+            _updateDetailsService.Register<TenderUnitGroup, TenderUnitGroupDetailsView>();
+
 		}
 	}
 }

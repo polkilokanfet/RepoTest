@@ -1071,4 +1071,23 @@ namespace HVTApp.UI.Views
         }
     }
 
+    [RibbonTab(typeof(TabCRUD))]
+    public partial class TenderUnitGroupListView : ViewBase
+    {
+        public TenderUnitGroupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderUnitGroupListViewModel TenderUnitGroupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = TenderUnitGroupListViewModel;
+            Loaded += OnLoaded;
+        }
+		        
+		private bool _loaded = false;
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            if (_loaded) return;
+            await ((TenderUnitGroupListViewModel)DataContext).LoadAsync();
+            _loaded = true;
+        }
+    }
+
 }
