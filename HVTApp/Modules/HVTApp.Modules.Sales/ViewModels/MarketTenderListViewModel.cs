@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Events;
 using HVTApp.UI.ViewModels;
@@ -20,6 +21,8 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             var tenders = UnitOfWork.GetRepository<Tender>().Find(x => Equals(e.Entity.Id, x.ProjectId));
             await InjectItems(tenders);
+
+                SelectedLookup = Lookups.FirstOrDefault();
         }
     }
 }

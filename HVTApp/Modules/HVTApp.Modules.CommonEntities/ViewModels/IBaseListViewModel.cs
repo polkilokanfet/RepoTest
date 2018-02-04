@@ -13,7 +13,7 @@ namespace HVTApp.UI.ViewModels
         where TEntity : class, IBaseEntity
         where TLookup : class, ILookupItemNavigation<TEntity>
     {
-        Task LoadAsync();
+        Task LoadAsync(IEnumerable<TLookup> lookups = null);
         Task InjectItems(IEnumerable<TEntity> entities);
 
         IEnumerable<TLookup> Lookups { get; }
@@ -25,6 +25,5 @@ namespace HVTApp.UI.ViewModels
         ICommand SelectItemCommand { get; }
 
         event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
-
     }
 }

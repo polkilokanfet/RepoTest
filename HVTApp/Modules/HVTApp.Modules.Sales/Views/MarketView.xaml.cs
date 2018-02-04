@@ -13,11 +13,15 @@ namespace HVTApp.Modules.Sales.Views
     public partial class MarketView
     {
         public MarketView(IRegionManager regionManager, IEventAggregator eventAggregator, 
-            MarketProjectListViewModel projectListViewModel, MarketTenderListViewModel tenderListViewModel) : base(regionManager, eventAggregator)
+                          MarketProjectListViewModel projectListViewModel, 
+                          MarketTenderListViewModel tenderListViewModel, 
+                          MarketTenderUnitGroupListViewModel tenderUnitGroupListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
+
             ProjectListView.DataContext = projectListViewModel;
             TenderListView.DataContext = tenderListViewModel;
+            TenderUnitGroupListView.DataContext = tenderUnitGroupListViewModel;
 
             Loaded += OnLoaded;
         }

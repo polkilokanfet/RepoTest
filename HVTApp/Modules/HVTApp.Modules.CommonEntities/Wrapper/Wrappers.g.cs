@@ -3596,14 +3596,6 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
-        public System.Double Cost
-        {
-          get { return GetValue<System.Double>(); }
-          set { SetValue(value); }
-        }
-        public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
-        public bool CostIsChanged => GetIsChanged(nameof(Cost));
-
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3614,32 +3606,19 @@ namespace HVTApp.UI.Wrapper
 
         #endregion
 
-        #region ComplexProperties
-	    public ProductWrapper Product 
-        {
-            get { return GetWrapper<ProductWrapper>(); }
-            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
-        }
-
-	    public FacilityWrapper Facility 
-        {
-            get { return GetWrapper<FacilityWrapper>(); }
-            set { SetComplexValue<Facility, FacilityWrapper>(Facility, value); }
-        }
-
-        #endregion
-
         #region CollectionProperties
         public IValidatableChangeTrackingCollection<TenderUnitWrapper> TenderUnits { get; private set; }
 
         #endregion
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
 
-            InitializeComplexProperty<FacilityWrapper>(nameof(Facility), Model.Facility == null ? null : new FacilityWrapper(Model.Facility));
+        #region GetProperties
+        public System.Double Cost => GetValue<System.Double>(); 
 
-        }
+        public HVTApp.Model.POCOs.Product Product => GetValue<HVTApp.Model.POCOs.Product>(); 
+
+        public HVTApp.Model.POCOs.Facility Facility => GetValue<HVTApp.Model.POCOs.Facility>(); 
+
+        #endregion
   
         protected override void InitializeCollectionProperties()
         {

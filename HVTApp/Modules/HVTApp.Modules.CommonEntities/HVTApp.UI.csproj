@@ -239,6 +239,9 @@
     <Compile Include="Views\Details\OfferDetailsView.xaml.cs">
       <DependentUpon>OfferDetailsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\List\TenderUnitGroupListView.xaml.cs">
+      <DependentUpon>TenderUnitGroupListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\List\TenderUnitListView.xaml.cs">
       <DependentUpon>TenderUnitListView.xaml</DependentUpon>
     </Compile>
@@ -505,6 +508,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Details\OfferDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\List\TenderUnitGroupListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

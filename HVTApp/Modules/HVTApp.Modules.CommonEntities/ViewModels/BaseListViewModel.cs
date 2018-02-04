@@ -58,21 +58,21 @@ namespace HVTApp.UI.ViewModels
 
         public IEnumerable<TLookup> Lookups { get; }
 
-        public virtual async Task LoadAsync()
+        public virtual async Task LoadAsync(IEnumerable<TLookup> lookups = null)
         {
-            var lookups = Lookups as ICollection<TLookup>;
-            lookups?.Clear();
+            var lookupsCollection = Lookups as ICollection<TLookup>;
+            lookupsCollection?.Clear();
 
-            if (_lookups != null)
+            if (lookups != null)
             {
-                _lookups.ForEach(lookups.Add);
+                lookups.ForEach(lookupsCollection.Add);
                 return;
             }
 
             var items = _entities?? await GetItems();
             foreach (var item in items)
             {
-                lookups?.Add((TLookup)Activator.CreateInstance(typeof(TLookup), item));
+                lookupsCollection?.Add((TLookup)Activator.CreateInstance(typeof(TLookup), item));
             }
         }
 

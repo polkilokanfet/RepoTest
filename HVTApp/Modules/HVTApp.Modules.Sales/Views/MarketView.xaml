@@ -2,13 +2,20 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             xmlns:ig="http://infragistics.com/DataPresenter"
              xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
              x:Class="HVTApp.Modules.Sales.Views.MarketView">
 
     <StackPanel>
         <views:ProjectListView Name="ProjectListView"/>
-        <views:TenderListView Name="TenderListView"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <views:TenderListView Name="TenderListView" Grid.Column="0"/>
+            <views:TenderUnitGroupListView Name="TenderUnitGroupListView" Grid.Column="1"/>
+        </Grid>
     </StackPanel>
     
 </inf:ViewBase>
