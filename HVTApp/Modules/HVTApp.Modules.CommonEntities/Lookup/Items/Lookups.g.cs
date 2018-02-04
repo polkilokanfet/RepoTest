@@ -495,7 +495,7 @@ namespace HVTApp.UI.Lookup
 
         public System.Double Cost => GetValue<System.Double>();
 
-        public System.DateTime RequiredDeliveryDate => GetValue<System.DateTime>();
+        public System.DateTime DeliveryDate => GetValue<System.DateTime>();
 
         #endregion
 

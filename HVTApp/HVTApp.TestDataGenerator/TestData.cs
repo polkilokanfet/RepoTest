@@ -505,16 +505,16 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateProjectUnits()
         {
-            ProjectUnitVeb1101.Clone(new ProjectUnit { Product = ProductVeb110, Cost = 5, ProjectId = Project1.Id, Facility = FacilitySubstation, RequiredDeliveryDate = DateTime.Today.AddDays(200)});
-            ProjectUnitVeb1102.Clone(new ProjectUnit { Product = ProductVeb110, Cost = 5, ProjectId = Project1.Id, Facility = FacilitySubstation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitVeb1101.Clone(new ProjectUnit { Product = ProductVeb110, Cost = 5, ProjectId = Project1.Id, Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200)});
+            ProjectUnitVeb1102.Clone(new ProjectUnit { Product = ProductVeb110, Cost = 5, ProjectId = Project1.Id, Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200) });
 
-            ProjectUnitZng1101.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, ProjectId = Project1.Id, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
-            ProjectUnitZng1102.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, ProjectId = Project1.Id, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
-            ProjectUnitZng1103.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, ProjectId = Project1.Id, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitZng1101.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, ProjectId = Project1.Id, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitZng1102.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, ProjectId = Project1.Id, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitZng1103.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, ProjectId = Project1.Id, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200) });
 
-            ProjectUnitZng1104.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, ProjectId = Project2.Id, Facility = FacilitySubstation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
-            ProjectUnitZng1105.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, ProjectId = Project2.Id, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
-            ProjectUnitZng1106.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, ProjectId = Project2.Id, Facility = FacilityStation, RequiredDeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitZng1104.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, ProjectId = Project2.Id, Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitZng1105.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, ProjectId = Project2.Id, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectUnitZng1106.Clone(new ProjectUnit { Product = ProductZng110, Cost = 7, ProjectId = Project2.Id, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200) });
         }
 
         private void GenerateContracts()

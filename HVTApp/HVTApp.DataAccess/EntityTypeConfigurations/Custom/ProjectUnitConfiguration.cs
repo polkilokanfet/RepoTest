@@ -11,7 +11,7 @@ namespace HVTApp.DataAccess
             HasRequired(x => x.Facility).WithMany();
 
             Property(x => x.Cost).IsRequired();
-            Property(x => x.RequiredDeliveryDate).IsRequired();
+            Property(x => x.DeliveryDate).IsRequired();
         }
     }
 }

@@ -19,6 +19,6 @@ namespace HVTApp.Infrastructure
 
     public interface ILoadable
     {
-        Task LoadAsync(Guid id);
+        Task LoadAsync(Guid? id = null);
     }
 }

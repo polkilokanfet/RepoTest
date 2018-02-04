@@ -1253,13 +1253,13 @@ namespace HVTApp.UI.Wrapper
         public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
         public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
-        public System.DateTime RequiredDeliveryDate
+        public System.DateTime DeliveryDate
         {
           get { return GetValue<System.DateTime>(); }
           set { SetValue(value); }
         }
-        public System.DateTime RequiredDeliveryDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(RequiredDeliveryDate));
-        public bool RequiredDeliveryDateIsChanged => GetIsChanged(nameof(RequiredDeliveryDate));
+        public System.DateTime DeliveryDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(DeliveryDate));
+        public bool DeliveryDateIsChanged => GetIsChanged(nameof(DeliveryDate));
 
         public System.Guid Id
         {

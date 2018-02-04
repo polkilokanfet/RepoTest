@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.Wrapper;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -15,42 +15,30 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class CompanyDetailsViewModel
     {
-        private readonly ISelectService _selectService;
         private ActivityFieldWrapper _selectedActivityField;
-        private IEnumerable<CompanyFormWrapper> _forms;
 
-        public CompanyDetailsViewModel(IUnityContainer container, ISelectService selectService) : base(container)
+        protected override void InitCommands()
         {
-            _selectService = selectService;
-
             SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_ExecuteAsync);
             RemoveParentCompanyCommand = new DelegateCommand(RemoveParentCompanyCommand_Execute);
             AddActivityFieldCommand = new DelegateCommand(AddActivityFieldCommand_ExecuteAsync);
             RemoveActivityFieldCommand = new DelegateCommand(RemoveActivityFieldCommand_Execute, RemoveActivityFieldCommand_CanExecute);
         }
 
-        public IEnumerable<CompanyFormWrapper> Forms
-        {
-            get { return _forms; }
-            private set
-            {
-                _forms = value;
-                OnPropertyChanged();
-            }
-        }
+        public ICollection<CompanyFormWrapper> Forms { get; } = new ObservableCollection<CompanyFormWrapper>();
 
-        public override async Task LoadAsync(Guid id)
+        protected override async Task LoadOtherAsync()
         {
-            await base.LoadAsync(id);
-            Forms = (await UnitOfWork.GetRepository<CompanyForm>().GetAllAsNoTrackingAsync()).Select(x => new CompanyFormWrapper(x));
+            var forms = (await UnitOfWork.GetRepository<CompanyForm>().GetAllAsNoTrackingAsync()).Select(x => new CompanyFormWrapper(x));
+            forms.ForEach(Forms.Add);
         }
 
         #region Commands
 
-        public ICommand SelectParentCompanyCommand { get; }
-        public ICommand RemoveParentCompanyCommand { get; }
-        public ICommand AddActivityFieldCommand { get; }
-        public ICommand RemoveActivityFieldCommand { get; }
+        public ICommand SelectParentCompanyCommand { get; private set; }
+        public ICommand RemoveParentCompanyCommand { get; private set; }
+        public ICommand AddActivityFieldCommand { get; private set; }
+        public ICommand RemoveActivityFieldCommand { get; private set; }
 
 
         public ActivityFieldWrapper SelectedActivityField
@@ -67,7 +55,7 @@ namespace HVTApp.UI.ViewModels
         {
             var exceptIds = Item.ActivityFilds.Select(x => x.Id);
             var fields = (await UnitOfWork.GetRepository<ActivityField>().GetAllAsync()).Where(x => !exceptIds.Contains(x.Id)).Select(x => new ActivityFieldLookup(x));
-            var field = _selectService.SelectItem(fields);
+            var field = Container.Resolve<ISelectService>().SelectItem(fields);
             if (field != null && !Item.ActivityFilds.Any(x => Equals(x.Id, field.Id)))
                 Item.ActivityFilds.Add(new ActivityFieldWrapper(field.Entity));
         }
@@ -98,7 +86,7 @@ namespace HVTApp.UI.ViewModels
             //возможные головные компании
             IEnumerable<CompanyLookup> possibleParents = companies.Except(exceptCompanies).Select(x => new CompanyLookup(x));
             //выбор одной из компаний
-            var possibleParent = _selectService.SelectItem(possibleParents, Item.ParentCompany.Id);
+            var possibleParent = Container.Resolve<ISelectService>().SelectItem(possibleParents, Item.ParentCompany?.Id);
 
             if (possibleParent != null && !Equals(possibleParent.Id, Item.ParentCompany?.Id))
             {

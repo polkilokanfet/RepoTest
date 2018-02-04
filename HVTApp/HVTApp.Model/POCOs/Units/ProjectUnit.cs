@@ -11,7 +11,7 @@ namespace HVTApp.Model.POCOs
         public virtual Product Product { get; set; }
         public double Cost { get; set; }
 
-        public virtual DateTime RequiredDeliveryDate { get; set; } //желаемая дата поставки
+        public virtual DateTime DeliveryDate { get; set; } //желаемая дата поставки
 
         public override string ToString()
         {

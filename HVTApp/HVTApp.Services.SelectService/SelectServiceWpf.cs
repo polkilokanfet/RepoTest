@@ -30,7 +30,7 @@ namespace HVTApp.Services.SelectService
             Mappings.Add(typeof(TLookup), typeof(TView));
         }
 
-        public TLookup SelectItem<TLookup>(IEnumerable<TLookup> items, Guid selectedItemId = default(Guid)) 
+        public TLookup SelectItem<TLookup>(IEnumerable<TLookup> items, Guid? selectedItemId = null) 
             where TLookup : class, ILookupItem
         {
             TLookup result = null;
@@ -39,10 +39,10 @@ namespace HVTApp.Services.SelectService
 
             var view = (Control)_container.Resolve(viewType);
             var viewModel = (ISelectServiceViewModel<TLookup>)view.DataContext;
-            viewModel.InjectItems(items);
+            viewModel.LoadAsync(items);
 
-            //if (selectedItemId != Guid.Empty && items.Any(x => x.Id == selectedItemId))
-            //    viewModel.SelectedItem = items.Single(x => x.Id == selectedItemId);
+            if (selectedItemId != null && items.Any(x => x.Id == selectedItemId))
+                viewModel.SelectedLookup = items.Single(x => x.Id == selectedItemId);
 
             var selectWindow = new SelectWindow
             {

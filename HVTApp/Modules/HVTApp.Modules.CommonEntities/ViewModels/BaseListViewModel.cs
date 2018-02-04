@@ -34,8 +34,6 @@ namespace HVTApp.UI.ViewModels
         protected readonly IMessageService MessageService;
 
         private TLookup _selectedLookup;
-        private IEnumerable<TLookup> _lookups;
-        private IEnumerable<TEntity> _entities;
 
         protected BaseListViewModel(IUnityContainer container)
         {
@@ -58,8 +56,11 @@ namespace HVTApp.UI.ViewModels
 
         public IEnumerable<TLookup> Lookups { get; }
 
+        public bool LoadedFlag { get; private set; } = false;
         public virtual async Task LoadAsync(IEnumerable<TLookup> lookups = null)
         {
+            LoadedFlag = true;
+
             var lookupsCollection = Lookups as ICollection<TLookup>;
             lookupsCollection?.Clear();
 
@@ -69,23 +70,11 @@ namespace HVTApp.UI.ViewModels
                 return;
             }
 
-            var items = _entities?? await GetItems();
+            var items = await GetItems();
             foreach (var item in items)
             {
                 lookupsCollection?.Add((TLookup)Activator.CreateInstance(typeof(TLookup), item));
             }
-        }
-
-        public async Task InjectItems(IEnumerable<TLookup> entities)
-        {
-            _lookups = new List<TLookup>(entities);
-            await LoadAsync();
-        }
-
-        public async Task InjectItems(IEnumerable<TEntity> entities)
-        {
-            _entities = new List<TEntity>(entities);
-            await LoadAsync();
         }
 
         public TLookup SelectedLookup
@@ -119,9 +108,7 @@ namespace HVTApp.UI.ViewModels
 
         protected void NewItemCommand_Execute()
         {
-            //var model = Activator.CreateInstance<TEntity>();
-            //var wrapper = (TWrapper) Activator.CreateInstance(typeof(TWrapper), model);
-            Container.Resolve<IUpdateDetailsService>().UpdateDetails<TEntity>(Guid.Empty);
+            Container.Resolve<IUpdateDetailsService>().UpdateDetails<TEntity>();
         }
 
         protected virtual bool NewItemCommand_CanExecute()

@@ -27,16 +27,14 @@ namespace HVTApp.Services.UpdateDetailsService
             _dictionary.Add(typeof(TEntity), typeof(TDetailsView));
         }
 
-        public bool UpdateDetails<TEntity>(Guid entityId)
+        public bool UpdateDetails<TEntity>(Guid? id = null)
             where TEntity : class, IBaseEntity
         {
-            if(entityId == null) throw new ArgumentNullException(nameof(entityId));
-
             bool result = false;
 
             var detailsView = (Control)_container.Resolve(_dictionary[typeof(TEntity)]);
             var detailsViewModel = detailsView.DataContext;
-            ((ILoadable) detailsViewModel).LoadAsync(entityId);
+            ((ILoadable) detailsViewModel).LoadAsync(id);
 
             var updateDetailsWindow = new UpdateDetailsWindow
             {

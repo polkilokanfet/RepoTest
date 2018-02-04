@@ -9,7 +9,7 @@ namespace HVTApp.Infrastructure.Interfaces.Services
             where TEntity : class, IBaseEntity
             where TDetailsView : Control;
 
-        bool UpdateDetails<TEntity>(Guid entityId) 
+        bool UpdateDetails<TEntity>(Guid? id = null) 
             where TEntity : class, IBaseEntity;
     }
 }

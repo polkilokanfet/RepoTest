@@ -20,7 +20,7 @@ namespace HVTApp.UI.Wrapper
                 //        return SalesUnitId.SpecificationId.Date;
                 //    //по дате реализации проекта
                 //    if (SalesUnitId.OfferUnit.ProjectUnit != null)
-                //        return SalesUnitId.OfferUnit.ProjectUnit.RequiredDeliveryDate.AddDays(-PlannedTermFromStartToEndProduction).GetTodayIfDateFromPastAndSkipWeekend();
+                //        return SalesUnitId.OfferUnit.ProjectUnit.DeliveryDate.AddDays(-PlannedTermFromStartToEndProduction).GetTodayIfDateFromPastAndSkipWeekend();
                 //    throw new NotImplementedException();
                 //}
                 throw new NotImplementedException();

@@ -13,14 +13,14 @@ namespace HVTApp.Infrastructure.Interfaces.Services.SelectService
             where TView : Control 
             where TLookup : class, ILookupItem;
 
-        TLookup SelectItem<TLookup>(IEnumerable<TLookup> items, Guid selectedItemId = default(Guid)) 
+        TLookup SelectItem<TLookup>(IEnumerable<TLookup> items, Guid? selectedItemId = null) 
             where TLookup : class, ILookupItem;
     }
 
     public interface ISelectServiceViewModel<TItem> : IDialogRequestClose
         //where TItem : IBaseEntity
     {
-        Task InjectItems(IEnumerable<TItem> entities);
+        Task LoadAsync(IEnumerable<TItem> entities);
 
         TItem SelectedLookup { get; set; }
         ICommand SelectItemCommand { get; }

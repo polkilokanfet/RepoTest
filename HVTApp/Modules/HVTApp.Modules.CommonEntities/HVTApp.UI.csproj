@@ -114,6 +114,7 @@
     <Compile Include="ViewModels\Details\GeneratedDetailsViewModels.g.cs" />
     <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\PartDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\TenderUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\IBaseListViewModel.cs" />
     <Compile Include="Controls\ChooseItemControl.xaml.cs">
       <DependentUpon>ChooseItemControl.xaml</DependentUpon>
@@ -160,7 +161,7 @@
     <Compile Include="ViewModels\List\GeneratedListViewModels.g.cs" />
     <Compile Include="ViewModels\List\PartPriceListViewModel.cs" />
     <Compile Include="ViewModels\List\TenderUnitGroupListViewModel.cs" />
-    <Compile Include="ViewModels\SelectViewModels\SelectActivityFieldViewModel.cs" />
+    <Compile Include="ViewModels\List\TenderUnitListViewModel.cs" />
     <Compile Include="Views\Details\CompanyDetailsView.xaml.cs">
       <DependentUpon>CompanyDetailsView.xaml</DependentUpon>
     </Compile>
@@ -179,6 +180,12 @@
     </Compile>
     <Compile Include="Views\Details\SpecificationDetailsView.xaml.cs">
       <DependentUpon>SpecificationDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Details\TenderUnitDetailsView.xaml.cs">
+      <DependentUpon>TenderUnitDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Details\TenderUnitGroupDetailsView.xaml.cs">
+      <DependentUpon>TenderUnitGroupDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\List\AddressListView.xaml.cs">
       <DependentUpon>AddressListView.xaml</DependentUpon>
@@ -432,6 +439,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Details\SpecificationDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Details\TenderUnitDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Details\TenderUnitGroupDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

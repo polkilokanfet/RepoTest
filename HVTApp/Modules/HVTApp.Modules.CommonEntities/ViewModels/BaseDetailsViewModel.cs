@@ -33,18 +33,29 @@ namespace HVTApp.UI.ViewModels
             EventAggregator = Container.Resolve<IEventAggregator>();
 
             SaveCommand = new DelegateCommand(SaveCommand_Execute, SaveCommand_CanExecute);
+            InitCommands();
         }
 
-        public virtual async Task LoadAsync(Guid id)
+        protected virtual void InitCommands()
+        {
+        }
+
+        public async Task LoadAsync(Guid? id = null)
         {
             TEntity entity = null;
 
-            if (id == Guid.Empty)
+            if (id == null)
                 entity = Activator.CreateInstance<TEntity>();
             else
-                entity = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(id);;
+                entity = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(id.Value);
 
             Item = (TWrapper) Activator.CreateInstance(typeof(TWrapper), entity);
+
+            await LoadOtherAsync();
+        }
+
+        protected virtual async Task LoadOtherAsync()
+        {
         }
 
         public ICommand SaveCommand { get; }
