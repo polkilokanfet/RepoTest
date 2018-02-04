@@ -791,13 +791,13 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
-        public System.Guid GroupId
+        public System.Nullable<System.Guid> ParameterGroupId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return GetValue<System.Nullable<System.Guid>>(); }
           set { SetValue(value); }
         }
-        public System.Guid GroupIdOriginalValue => GetOriginalValue<System.Guid>(nameof(GroupId));
-        public bool GroupIdIsChanged => GetIsChanged(nameof(GroupId));
+        public System.Nullable<System.Guid> ParameterGroupIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ParameterGroupId));
+        public bool ParameterGroupIdIsChanged => GetIsChanged(nameof(ParameterGroupId));
 
         public System.String Value
         {
@@ -817,16 +817,30 @@ namespace HVTApp.UI.Wrapper
 
         #endregion
 
-        #region CollectionProperties
-        public IValidatableChangeTrackingCollection<ParameterRelationWrapper> RequiredPreviousParameters { get; private set; }
+        #region ComplexProperties
+	    public ParameterGroupWrapper ParameterGroup 
+        {
+            get { return GetWrapper<ParameterGroupWrapper>(); }
+            set { SetComplexValue<ParameterGroup, ParameterGroupWrapper>(ParameterGroup, value); }
+        }
 
         #endregion
+
+        #region CollectionProperties
+        public IValidatableChangeTrackingCollection<ParameterRelationWrapper> ParameterRelations { get; private set; }
+
+        #endregion
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<ParameterGroupWrapper>(nameof(ParameterGroup), Model.ParameterGroup == null ? null : new ParameterGroupWrapper(Model.ParameterGroup));
+
+        }
   
         protected override void InitializeCollectionProperties()
         {
-          if (Model.RequiredPreviousParameters == null) throw new ArgumentException("RequiredPreviousParameters cannot be null");
-          RequiredPreviousParameters = new ValidatableChangeTrackingCollection<ParameterRelationWrapper>(Model.RequiredPreviousParameters.Select(e => new ParameterRelationWrapper(e)));
-          RegisterCollection(RequiredPreviousParameters, Model.RequiredPreviousParameters);
+          if (Model.ParameterRelations == null) throw new ArgumentException("ParameterRelations cannot be null");
+          ParameterRelations = new ValidatableChangeTrackingCollection<ParameterRelationWrapper>(Model.ParameterRelations.Select(e => new ParameterRelationWrapper(e)));
+          RegisterCollection(ParameterRelations, Model.ParameterRelations);
 
         }
 	}
@@ -3596,6 +3610,22 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> ProductId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ProductIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductId));
+        public bool ProductIdIsChanged => GetIsChanged(nameof(ProductId));
+
+        public System.Nullable<System.Guid> FacilityId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> FacilityIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(FacilityId));
+        public bool FacilityIdIsChanged => GetIsChanged(nameof(FacilityId));
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3613,6 +3643,8 @@ namespace HVTApp.UI.Wrapper
 
         #region GetProperties
         public System.Double Cost => GetValue<System.Double>(); 
+
+        public System.Int32 Amount => GetValue<System.Int32>(); 
 
         public HVTApp.Model.POCOs.Product Product => GetValue<HVTApp.Model.POCOs.Product>(); 
 

@@ -72,4 +72,5 @@ namespace HVTApp.DataAccess
     public partial class TenderTypeConfiguration : EntityTypeConfiguration<TenderType> { }
     public partial class UserConfiguration : EntityTypeConfiguration<User> { }
     public partial class OfferUnitConfiguration : EntityTypeConfiguration<OfferUnit> { }
+    public partial class TenderUnitGroupConfiguration : EntityTypeConfiguration<TenderUnitGroup> { }
 }

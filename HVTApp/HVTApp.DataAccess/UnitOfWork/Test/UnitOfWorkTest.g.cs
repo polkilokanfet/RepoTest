@@ -63,6 +63,7 @@ namespace HVTApp.DataAccess
             TenderTypeRepository = new TenderTypeRepositoryTest(testData);
             UserRepository = new UserRepositoryTest(testData);
             OfferUnitRepository = new OfferUnitRepositoryTest(testData);
+            TenderUnitGroupRepository = new TenderUnitGroupRepositoryTest(testData);
 			#endregion
         }
 
@@ -124,6 +125,7 @@ namespace HVTApp.DataAccess
         public ITenderTypeRepository TenderTypeRepository { get; }
         public IUserRepository UserRepository { get; }
         public IOfferUnitRepository OfferUnitRepository { get; }
+        public ITenderUnitGroupRepository TenderUnitGroupRepository { get; }
         #endregion
     }
 }

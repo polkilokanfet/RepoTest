@@ -283,4 +283,9 @@ namespace HVTApp.DataAccess
         public OfferUnitRepository(DbContext context) : base(context) {}
     }
 
+    public partial class TenderUnitGroupRepository : BaseRepository<TenderUnitGroup>, ITenderUnitGroupRepository
+    {
+        public TenderUnitGroupRepository(DbContext context) : base(context) {}
+    }
+
 }

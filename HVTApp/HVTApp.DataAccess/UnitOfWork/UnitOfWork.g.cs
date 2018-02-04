@@ -69,6 +69,7 @@ namespace HVTApp.DataAccess
             TenderTypeRepository = new TenderTypeRepository(context);
             UserRepository = new UserRepository(context);
             OfferUnitRepository = new OfferUnitRepository(context);
+            TenderUnitGroupRepository = new TenderUnitGroupRepository(context);
 			#endregion
         }
 
@@ -130,6 +131,7 @@ namespace HVTApp.DataAccess
         private ITenderTypeRepository TenderTypeRepository;
         private IUserRepository UserRepository;
         private IOfferUnitRepository OfferUnitRepository;
+        private ITenderUnitGroupRepository TenderUnitGroupRepository;
         #endregion
     }
 }

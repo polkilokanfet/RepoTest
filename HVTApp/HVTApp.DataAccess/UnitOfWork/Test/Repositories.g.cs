@@ -283,4 +283,9 @@ namespace HVTApp.DataAccess
         public OfferUnitRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class TenderUnitGroupRepositoryTest : TestBaseRepository<TenderUnitGroup>, ITenderUnitGroupRepository
+    {
+        public TenderUnitGroupRepositoryTest(TestData testData) : base(testData) {}
+    }
+
 }

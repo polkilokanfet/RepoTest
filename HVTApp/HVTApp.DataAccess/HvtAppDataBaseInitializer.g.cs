@@ -1,6 +1,3 @@
-using System.Data.Entity;
-using System.Data.Entity.Validation;
-using System.Diagnostics;
 using HVTApp.Model.POCOs;
 using HVTApp.TestDataGenerator;
 
@@ -8,7 +5,7 @@ namespace HVTApp.DataAccess
 {
     public partial class HvtAppDataBaseInitializer
     {
-        protected override void Seed(HvtAppContext context)
+        protected void AddData(HvtAppContext context)
         {
             TestData testData = new TestData();
 
@@ -68,26 +65,7 @@ namespace HVTApp.DataAccess
             context.TenderTypeDbSet.AddRange(testData.GetAll<TenderType>());
             context.UserDbSet.AddRange(testData.GetAll<User>());
             context.OfferUnitDbSet.AddRange(testData.GetAll<OfferUnit>());
-
-            try
-            {
-                context.SaveChanges();
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                {
-                    Trace.TraceInformation("Entry: {0}", validationErrors.Entry.Entity);
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        Trace.TraceInformation("Property: {0}; Error: {1}",
-                            validationError.PropertyName,
-                            validationError.ErrorMessage);
-                    }
-                }
-            }
-
-            base.Seed(context);
+            context.TenderUnitGroupDbSet.AddRange(testData.GetAll<TenderUnitGroup>());
         }
     }
 }

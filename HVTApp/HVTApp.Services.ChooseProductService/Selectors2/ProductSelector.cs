@@ -22,7 +22,7 @@ namespace HVTApp.Services.GetProductService
             _productRelations = productRelations;
             ProductRelation = productRelation;
 
-            var parametersGrouped = _allParameters.GroupBy(x => x.GroupId);
+            var parametersGrouped = _allParameters.GroupBy(x => x.ParameterGroup);
             foreach (var group in parametersGrouped)
             {
                 IEnumerable<Parameter> parameters = group;

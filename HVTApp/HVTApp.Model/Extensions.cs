@@ -5,19 +5,9 @@ namespace HVTApp.Model
 {
     public static class Extensions
     {
-        public static ParameterGroup AddParameters(this ParameterGroup group, IEnumerable<Parameter> parameters)
-        {
-            foreach (var parameter in parameters)
-            {
-                group.Parameters.Add(parameter);
-                parameter.GroupId = group.Id;
-            }
-            return group;
-        }
-
         public static Parameter AddRequiredPreviousParameters(this Parameter parameter, IEnumerable<Parameter> requiredPreviousParameters)
         {
-            parameter.RequiredPreviousParameters.Add(new ParameterRelation
+            parameter.ParameterRelations.Add(new ParameterRelation
             {
                 ParameterId = parameter.Id,
                 RequiredParameters = new List<Parameter>(requiredPreviousParameters)

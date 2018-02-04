@@ -20,7 +20,7 @@ namespace HVTApp.Services.GetProductServiceTests.Selectors2
 
             var productSelector = new ProductSelector(products, parameters, productRelations);
 
-            var originParameters = parameters.Where(x => !x.RequiredPreviousParameters.Any());
+            var originParameters = parameters.Where(x => !x.ParameterRelations.Any());
             var originParameterSelector = productSelector.ParameterSelectors.Single(x => x.Parameters.AllMembersAreSame(originParameters));
 
             foreach (var originParameter in originParameters)

@@ -58,5 +58,6 @@ namespace HVTApp.DataAccess
     public partial interface ITenderTypeRepository : IRepository<TenderType> { }
     public partial interface IUserRepository : IRepository<User> { }
     public partial interface IOfferUnitRepository : IRepository<OfferUnit> { }
+    public partial interface ITenderUnitGroupRepository : IRepository<TenderUnitGroup> { }
 
 }

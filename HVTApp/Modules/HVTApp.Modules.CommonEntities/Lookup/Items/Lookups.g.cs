@@ -326,12 +326,18 @@ namespace HVTApp.UI.Lookup
 		}
 		protected override void RefreshLookups()
         {
-			 		}
+			 			ParameterGroup?.Refresh(Entity.ParameterGroup);
+		}
 		
         #region SimpleProperties
-        public System.Guid GroupId => GetValue<System.Guid>();
+        public System.Nullable<System.Guid> ParameterGroupId => GetValue<System.Nullable<System.Guid>>();
 
         public System.String Value => GetValue<System.String>();
+
+        #endregion
+
+        #region ComplexProperties
+	    public ParameterGroupLookup ParameterGroup { get { return GetLookup<ParameterGroupLookup>(); } }
 
         #endregion
 	}
@@ -1352,7 +1358,13 @@ namespace HVTApp.UI.Lookup
 		}
 		
         #region SimpleProperties
+        public System.Nullable<System.Guid> ProductId => GetValue<System.Nullable<System.Guid>>();
+
+        public System.Nullable<System.Guid> FacilityId => GetValue<System.Nullable<System.Guid>>();
+
         public System.Double Cost => GetValue<System.Double>();
+
+        public System.Int32 Amount => GetValue<System.Int32>();
 
         #endregion
 

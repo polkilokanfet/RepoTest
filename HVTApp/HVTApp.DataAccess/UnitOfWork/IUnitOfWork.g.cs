@@ -61,5 +61,6 @@ namespace HVTApp.DataAccess
         //ITenderTypeRepository TenderTypeRepository { get; }
         //IUserRepository UserRepository { get; }
         //IOfferUnitRepository OfferUnitRepository { get; }
+        //ITenderUnitGroupRepository TenderUnitGroupRepository { get; }
     }
 }

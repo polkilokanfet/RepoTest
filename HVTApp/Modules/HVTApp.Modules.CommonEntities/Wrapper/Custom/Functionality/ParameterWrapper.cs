@@ -13,10 +13,10 @@ namespace HVTApp.UI.Wrapper
         public bool CanBeSelected(IEnumerable<ParameterWrapper> parameters)
         {
             //если нет обязательных родительских параметров
-            if (!RequiredPreviousParameters.Any()) return true;
+            if (!ParameterRelations.Any()) return true;
 
             //если обязательные параметры выбраны
-            return RequiredPreviousParameters.Any(requiredParentParameters => requiredParentParameters.RequiredParameters.All(parameters.Contains));
+            return ParameterRelations.Any(requiredParentParameters => requiredParentParameters.RequiredParameters.All(parameters.Contains));
         }
     }
 }
