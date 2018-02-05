@@ -1,4 +1,4 @@
-﻿<inf:ViewBase x:Class="HVTApp.UI.Views.TenderUnitListView"
+﻿<inf:ViewBase x:Class="HVTApp.UI.Views.ProjectUnitListView"
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,7 +8,6 @@
         <dataPresenter:XamDataGrid.FieldLayouts>
             <dataPresenter:FieldLayout>
                 <dataPresenter:FieldLayout.Fields>
-                    <dataPresenter:TextField Name="Tender" Label="Tender"/>
                     <dataPresenter:TextField Name="Facility" Label="Facility"/>
                     <dataPresenter:TextField Name="Product" Label="Product"/>
                     <dataPresenter:TextField Name="Cost" Label="Cost"/>

@@ -136,11 +136,6 @@ namespace HVTApp.UI
 			_selectService.Register<ProjectUnitListView, ProjectUnitLookup>();
             _updateDetailsService.Register<ProjectUnit, ProjectUnitDetailsView>();
 
-            Container.RegisterViewForNavigation<TenderUnitListView>();
-            //_dialogService.Register<TenderUnitDetailsViewModel, TenderUnitDetailsView>();
-			_selectService.Register<TenderUnitListView, TenderUnitLookup>();
-            _updateDetailsService.Register<TenderUnit, TenderUnitDetailsView>();
-
             Container.RegisterViewForNavigation<ShipmentUnitListView>();
             //_dialogService.Register<ShipmentUnitDetailsViewModel, ShipmentUnitDetailsView>();
 			_selectService.Register<ShipmentUnitListView, ShipmentUnitLookup>();
@@ -291,10 +286,10 @@ namespace HVTApp.UI
 			_selectService.Register<OfferUnitListView, OfferUnitLookup>();
             _updateDetailsService.Register<OfferUnit, OfferUnitDetailsView>();
 
-            Container.RegisterViewForNavigation<TenderUnitGroupListView>();
-            //_dialogService.Register<TenderUnitGroupDetailsViewModel, TenderUnitGroupDetailsView>();
-			_selectService.Register<TenderUnitGroupListView, TenderUnitGroupLookup>();
-            _updateDetailsService.Register<TenderUnitGroup, TenderUnitGroupDetailsView>();
+            Container.RegisterViewForNavigation<ProjectUnitGroupListView>();
+            //_dialogService.Register<ProjectUnitGroupDetailsViewModel, ProjectUnitGroupDetailsView>();
+			_selectService.Register<ProjectUnitGroupListView, ProjectUnitGroupLookup>();
+            _updateDetailsService.Register<ProjectUnitGroup, ProjectUnitGroupDetailsView>();
 
 		}
 	}

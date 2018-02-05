@@ -72,7 +72,6 @@
     <Compile Include="POCOs\Payments.cs" />
     <Compile Include="POCOs\ParameterRelation.cs" />
     <Compile Include="POCOs\Units\ProjectUnit.cs" />
-    <Compile Include="POCOs\Units\TenderUnit.cs" />
     <Compile Include="POCOs\Units\ShipmentUnit.cs" />
     <Compile Include="POCOs\Units\ProductionUnit.cs" />
     <Compile Include="POCOs\Units\SalesUnit.cs" />
@@ -91,7 +90,7 @@
     <Compile Include="POCOs\PaymentDocument.cs" />
     <Compile Include="POCOs\Facility.cs" />
     <Compile Include="POCOs\Project.cs" />
-    <Compile Include="POCOs\Units\TenderUnitGroup.cs" />
+    <Compile Include="POCOs\Units\ProjectUnitGroup.cs" />
     <Compile Include="POCOs\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="POCOs\Specification.cs" />

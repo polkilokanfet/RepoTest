@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.Modules.Sales.Tabs;
 using HVTApp.Modules.Sales.ViewModels;
@@ -14,24 +13,21 @@ namespace HVTApp.Modules.Sales.Views
     {
         public MarketView(IRegionManager regionManager, IEventAggregator eventAggregator, 
                           MarketProjectListViewModel projectListViewModel, 
-                          MarketTenderListViewModel tenderListViewModel, 
-                          MarketTenderUnitGroupListViewModel tenderUnitGroupListViewModel) : base(regionManager, eventAggregator)
+                          MarketProjectUnitGroupListViewModel projectUnitGroupListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
 
             ProjectListView.DataContext = projectListViewModel;
-            TenderListView.DataContext = tenderListViewModel;
-            TenderUnitGroupListView.DataContext = tenderUnitGroupListViewModel;
+            ProjectUnitGroupListView.DataContext = projectUnitGroupListViewModel;
 
             Loaded += OnLoaded;
         }
 
-        private bool _loaded = false;
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            if (_loaded) return;
-            await ((ProjectListViewModel)ProjectListView.DataContext).LoadAsync();
-            _loaded = true;
+            var viewModel = (ProjectListViewModel)ProjectListView.DataContext;
+            if (!viewModel.LoadedFlag)
+                await viewModel.LoadAsync();
         }
     }
 }

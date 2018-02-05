@@ -41,7 +41,6 @@ namespace HVTApp.DataAccess
     public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }
     public partial class ParameterRelationConfiguration : EntityTypeConfiguration<ParameterRelation> { }
     public partial class ProjectUnitConfiguration : EntityTypeConfiguration<ProjectUnit> { }
-    public partial class TenderUnitConfiguration : EntityTypeConfiguration<TenderUnit> { }
     public partial class ShipmentUnitConfiguration : EntityTypeConfiguration<ShipmentUnit> { }
     public partial class ProductionUnitConfiguration : EntityTypeConfiguration<ProductionUnit> { }
     public partial class SalesUnitConfiguration : EntityTypeConfiguration<SalesUnit> { }
@@ -72,5 +71,5 @@ namespace HVTApp.DataAccess
     public partial class TenderTypeConfiguration : EntityTypeConfiguration<TenderType> { }
     public partial class UserConfiguration : EntityTypeConfiguration<User> { }
     public partial class OfferUnitConfiguration : EntityTypeConfiguration<OfferUnit> { }
-    public partial class TenderUnitGroupConfiguration : EntityTypeConfiguration<TenderUnitGroup> { }
+    public partial class ProjectUnitGroupConfiguration : EntityTypeConfiguration<ProjectUnitGroup> { }
 }

@@ -114,7 +114,7 @@
     <Compile Include="ViewModels\Details\GeneratedDetailsViewModels.g.cs" />
     <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\PartDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Details\TenderUnitDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\IBaseListViewModel.cs" />
     <Compile Include="Controls\ChooseItemControl.xaml.cs">
       <DependentUpon>ChooseItemControl.xaml</DependentUpon>
@@ -160,8 +160,10 @@
     <Compile Include="ViewModels\List\CompanyListViewModel.cs" />
     <Compile Include="ViewModels\List\GeneratedListViewModels.g.cs" />
     <Compile Include="ViewModels\List\PartPriceListViewModel.cs" />
-    <Compile Include="ViewModels\List\TenderUnitGroupListViewModel.cs" />
+    <Compile Include="ViewModels\List\ProjectUnitGroupListViewModel.cs" />
+    <Compile Include="Extantions\ProjectUnitComparer.cs" />
     <Compile Include="ViewModels\List\TenderUnitListViewModel.cs" />
+    <Compile Include="Extantions\UnitConverters.cs" />
     <Compile Include="Views\Details\CompanyDetailsView.xaml.cs">
       <DependentUpon>CompanyDetailsView.xaml</DependentUpon>
     </Compile>
@@ -177,6 +179,9 @@
     <Compile Include="Views\Details\DetailsViews.g.cs" />
     <Compile Include="Views\Details\EmployeeDetailsView.xaml.cs">
       <DependentUpon>EmployeeDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Details\ProjectUnitDetailsView.xaml.cs">
+      <DependentUpon>ProjectUnitDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Details\SpecificationDetailsView.xaml.cs">
       <DependentUpon>SpecificationDetailsView.xaml</DependentUpon>
@@ -206,12 +211,15 @@
     <Compile Include="Views\List\ProjectListView.xaml.cs">
       <DependentUpon>ProjectListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\List\ProjectUnitGroupListView.xaml.cs">
+      <DependentUpon>ProjectUnitGroupListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\List\TenderListView.xaml.cs">
       <DependentUpon>TenderListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Details\CompanyDetailsViewModel.cs" />
-    <Compile Include="Views\Details\ProductUnitsDetailsView.xaml.cs">
-      <DependentUpon>ProductUnitsDetailsView.xaml</DependentUpon>
+    <Compile Include="Views\Details\ProductUnitDetailsView.xaml.cs">
+      <DependentUpon>ProductUnitDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Details\ProjectDetailsView.xaml.cs">
       <DependentUpon>ProjectDetailsView.xaml</DependentUpon>
@@ -246,11 +254,8 @@
     <Compile Include="Views\Details\OfferDetailsView.xaml.cs">
       <DependentUpon>OfferDetailsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\List\TenderUnitGroupListView.xaml.cs">
-      <DependentUpon>TenderUnitGroupListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\TenderUnitListView.xaml.cs">
-      <DependentUpon>TenderUnitListView.xaml</DependentUpon>
+    <Compile Include="Views\List\ProjectUnitListView.xaml.cs">
+      <DependentUpon>ProjectUnitListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wrapper\Base\NotifyDataErrorInfoBase.cs" />
     <Compile Include="Wrapper\Base\ObservableWrapper.cs" />
@@ -352,7 +357,6 @@
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.StandartPaymentConditions.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.Tender.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.TenderType.datasource" />
-    <None Include="Properties\DataSources\HVTApp.Model.POCOs.TenderUnit.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestChild.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestEntity.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.TestFriend.datasource" />
@@ -438,6 +442,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Details\ProjectUnitDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Details\SpecificationDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -474,11 +482,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\List\ProjectUnitGroupListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\List\TenderListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Details\ProductUnitsDetailsView.xaml">
+    <Page Include="Views\Details\ProductUnitDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -526,11 +538,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\List\TenderUnitGroupListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\TenderUnitListView.xaml">
+    <Page Include="Views\List\ProjectUnitListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -538,9 +546,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extantions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

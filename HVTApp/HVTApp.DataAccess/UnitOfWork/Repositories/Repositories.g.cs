@@ -128,11 +128,6 @@ namespace HVTApp.DataAccess
         public ProjectUnitRepository(DbContext context) : base(context) {}
     }
 
-    public partial class TenderUnitRepository : BaseRepository<TenderUnit>, ITenderUnitRepository
-    {
-        public TenderUnitRepository(DbContext context) : base(context) {}
-    }
-
     public partial class ShipmentUnitRepository : BaseRepository<ShipmentUnit>, IShipmentUnitRepository
     {
         public ShipmentUnitRepository(DbContext context) : base(context) {}
@@ -283,9 +278,9 @@ namespace HVTApp.DataAccess
         public OfferUnitRepository(DbContext context) : base(context) {}
     }
 
-    public partial class TenderUnitGroupRepository : BaseRepository<TenderUnitGroup>, ITenderUnitGroupRepository
+    public partial class ProjectUnitGroupRepository : BaseRepository<ProjectUnitGroup>, IProjectUnitGroupRepository
     {
-        public TenderUnitGroupRepository(DbContext context) : base(context) {}
+        public ProjectUnitGroupRepository(DbContext context) : base(context) {}
     }
 
 }

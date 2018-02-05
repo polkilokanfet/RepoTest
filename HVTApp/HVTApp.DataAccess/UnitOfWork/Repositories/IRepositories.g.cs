@@ -27,7 +27,6 @@ namespace HVTApp.DataAccess
     public partial interface IPaymentActualRepository : IRepository<PaymentActual> { }
     public partial interface IParameterRelationRepository : IRepository<ParameterRelation> { }
     public partial interface IProjectUnitRepository : IRepository<ProjectUnit> { }
-    public partial interface ITenderUnitRepository : IRepository<TenderUnit> { }
     public partial interface IShipmentUnitRepository : IRepository<ShipmentUnit> { }
     public partial interface IProductionUnitRepository : IRepository<ProductionUnit> { }
     public partial interface ISalesUnitRepository : IRepository<SalesUnit> { }
@@ -58,6 +57,6 @@ namespace HVTApp.DataAccess
     public partial interface ITenderTypeRepository : IRepository<TenderType> { }
     public partial interface IUserRepository : IRepository<User> { }
     public partial interface IOfferUnitRepository : IRepository<OfferUnit> { }
-    public partial interface ITenderUnitGroupRepository : IRepository<TenderUnitGroup> { }
+    public partial interface IProjectUnitGroupRepository : IRepository<ProjectUnitGroup> { }
 
 }

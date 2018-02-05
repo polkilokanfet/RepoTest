@@ -379,21 +379,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-    public partial class TenderUnitWrapperDataService : EntityWrapperDataService<TenderUnit, TenderUnitWrapper>
-    {
-        public TenderUnitWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-		
-		protected override TenderUnitWrapper GenerateWrapper(TenderUnit model)
-        {
-            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
-                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
-
-            var wrapper = new TenderUnitWrapper(model);
-            ExistsWrappers.Add(wrapper);
-            return wrapper;
-        }
-    }
-
     public partial class ShipmentUnitWrapperDataService : EntityWrapperDataService<ShipmentUnit, ShipmentUnitWrapper>
     {
         public ShipmentUnitWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -844,16 +829,16 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-    public partial class TenderUnitGroupWrapperDataService : EntityWrapperDataService<TenderUnitGroup, TenderUnitGroupWrapper>
+    public partial class ProjectUnitGroupWrapperDataService : EntityWrapperDataService<ProjectUnitGroup, ProjectUnitGroupWrapper>
     {
-        public TenderUnitGroupWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+        public ProjectUnitGroupWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
-		protected override TenderUnitGroupWrapper GenerateWrapper(TenderUnitGroup model)
+		protected override ProjectUnitGroupWrapper GenerateWrapper(ProjectUnitGroup model)
         {
             if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
                 return ExistsWrappers.Single(x => x.Model.Id == model.Id);
 
-            var wrapper = new TenderUnitGroupWrapper(model);
+            var wrapper = new ProjectUnitGroupWrapper(model);
             ExistsWrappers.Add(wrapper);
             return wrapper;
         }

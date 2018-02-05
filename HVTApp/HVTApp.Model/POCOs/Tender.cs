@@ -6,18 +6,17 @@ namespace HVTApp.Model.POCOs
 {
     public partial class Tender : BaseEntity
     {
-        public virtual TenderType Type { get; set; }
         public virtual Project Project { get; set; }
+        public virtual List<TenderType> Types { get; set; } = new List<TenderType>();
         public DateTime DateOpen { get; set; }
         public DateTime DateClose { get; set; }
         public DateTime? DateNotice { get; set; }
         public virtual List<Company> Participants { get; set; } = new List<Company>(); //участники
         public virtual Company Winner { get; set; }
-        public virtual List<Offer> Offers { get; set; } = new List<Offer>();
 
         public override string ToString()
         {
-            return $"TenderId {Type} of {ProjectId}";
+            return $"Tender {Types} of {Project}";
         }
     }
 
@@ -35,9 +34,8 @@ namespace HVTApp.Model.POCOs
     public enum TenderTypeEnum
     {
         ToProject,
-        ToWork,
         ToSupply,
-        ToWorkAndSupply
+        ToWork
     }
 
 }

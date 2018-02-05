@@ -112,17 +112,10 @@ namespace HVTApp.Model.POCOs
 
 	public partial class ProjectUnit
 	{
+		public virtual Guid? ProjectId { get; set; }
 		public virtual Guid? FacilityId { get; set; }
 		public virtual Guid? ProductId { get; set; }
-	}
-
-	public partial class TenderUnit
-	{
-		public virtual Guid? TenderId { get; set; }
-		public virtual Guid? ProjectUnitId { get; set; }
-		public virtual Guid? FacilityId { get; set; }
-		public virtual Guid? ProductId { get; set; }
-		public virtual Guid? ProducerWinnerId { get; set; }
+		public virtual Guid? ProducerId { get; set; }
 	}
 
 	public partial class ShipmentUnit
@@ -267,7 +260,6 @@ namespace HVTApp.Model.POCOs
 
 	public partial class Tender
 	{
-		public virtual Guid? TypeId { get; set; }
 		public virtual Guid? ProjectId { get; set; }
 		public virtual Guid? WinnerId { get; set; }
 	}
@@ -289,7 +281,7 @@ namespace HVTApp.Model.POCOs
 		public virtual Guid? ProductId { get; set; }
 	}
 
-	public partial class TenderUnitGroup
+	public partial class ProjectUnitGroup
 	{
 		public virtual Guid? ProductId { get; set; }
 		public virtual Guid? FacilityId { get; set; }

@@ -30,7 +30,6 @@ namespace HVTApp.DataAccess
         //IPaymentActualRepository PaymentActualRepository { get; }
         //IParameterRelationRepository ParameterRelationRepository { get; }
         //IProjectUnitRepository ProjectUnitRepository { get; }
-        //ITenderUnitRepository TenderUnitRepository { get; }
         //IShipmentUnitRepository ShipmentUnitRepository { get; }
         //IProductionUnitRepository ProductionUnitRepository { get; }
         //ISalesUnitRepository SalesUnitRepository { get; }
@@ -61,6 +60,6 @@ namespace HVTApp.DataAccess
         //ITenderTypeRepository TenderTypeRepository { get; }
         //IUserRepository UserRepository { get; }
         //IOfferUnitRepository OfferUnitRepository { get; }
-        //ITenderUnitGroupRepository TenderUnitGroupRepository { get; }
+        //IProjectUnitGroupRepository ProjectUnitGroupRepository { get; }
     }
 }

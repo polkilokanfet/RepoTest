@@ -482,54 +482,20 @@ namespace HVTApp.UI.Lookup
 		}
 		protected override void RefreshLookups()
         {
-			 			Facility?.Refresh(Entity.Facility);
-			Product?.Refresh(Entity.Product);
-		}
-		
-        #region SimpleProperties
-        public System.Nullable<System.Guid> FacilityId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Nullable<System.Guid> ProductId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Guid ProjectId => GetValue<System.Guid>();
-
-        public System.Double Cost => GetValue<System.Double>();
-
-        public System.DateTime DeliveryDate => GetValue<System.DateTime>();
-
-        #endregion
-
-        #region ComplexProperties
-	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
-
-	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
-
-        #endregion
-	}
-	public partial class TenderUnitLookup : LookupItem<TenderUnit>
-	{
-		public TenderUnitLookup(TenderUnit entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 			Tender?.Refresh(Entity.Tender);
-			ProjectUnit?.Refresh(Entity.ProjectUnit);
+			 			Project?.Refresh(Entity.Project);
 			Facility?.Refresh(Entity.Facility);
 			Product?.Refresh(Entity.Product);
-			ProducerWinner?.Refresh(Entity.ProducerWinner);
+			Producer?.Refresh(Entity.Producer);
 		}
 		
         #region SimpleProperties
-        public System.Nullable<System.Guid> TenderId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Nullable<System.Guid> ProjectUnitId => GetValue<System.Nullable<System.Guid>>();
+        public System.Nullable<System.Guid> ProjectId => GetValue<System.Nullable<System.Guid>>();
 
         public System.Nullable<System.Guid> FacilityId => GetValue<System.Nullable<System.Guid>>();
 
         public System.Nullable<System.Guid> ProductId => GetValue<System.Nullable<System.Guid>>();
 
-        public System.Nullable<System.Guid> ProducerWinnerId => GetValue<System.Nullable<System.Guid>>();
+        public System.Nullable<System.Guid> ProducerId => GetValue<System.Nullable<System.Guid>>();
 
         public System.Double Cost => GetValue<System.Double>();
 
@@ -538,15 +504,13 @@ namespace HVTApp.UI.Lookup
         #endregion
 
         #region ComplexProperties
-	    public TenderLookup Tender { get { return GetLookup<TenderLookup>(); } }
-
-	    public ProjectUnitLookup ProjectUnit { get { return GetLookup<ProjectUnitLookup>(); } }
+	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
 
 	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
 
 	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
-	    public CompanyLookup ProducerWinner { get { return GetLookup<CompanyLookup>(); } }
+	    public CompanyLookup Producer { get { return GetLookup<CompanyLookup>(); } }
 
         #endregion
 	}
@@ -1234,14 +1198,11 @@ namespace HVTApp.UI.Lookup
 		}
 		protected override void RefreshLookups()
         {
-			 			Type?.Refresh(Entity.Type);
-			Project?.Refresh(Entity.Project);
+			 			Project?.Refresh(Entity.Project);
 			Winner?.Refresh(Entity.Winner);
 		}
 		
         #region SimpleProperties
-        public System.Nullable<System.Guid> TypeId => GetValue<System.Nullable<System.Guid>>();
-
         public System.Nullable<System.Guid> ProjectId => GetValue<System.Nullable<System.Guid>>();
 
         public System.Nullable<System.Guid> WinnerId => GetValue<System.Nullable<System.Guid>>();
@@ -1255,8 +1216,6 @@ namespace HVTApp.UI.Lookup
         #endregion
 
         #region ComplexProperties
-	    public TenderTypeLookup Type { get { return GetLookup<TenderTypeLookup>(); } }
-
 	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
 
 	    public CompanyLookup Winner { get { return GetLookup<CompanyLookup>(); } }
@@ -1346,9 +1305,9 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	public partial class TenderUnitGroupLookup : LookupItem<TenderUnitGroup>
+	public partial class ProjectUnitGroupLookup : LookupItem<ProjectUnitGroup>
 	{
-		public TenderUnitGroupLookup(TenderUnitGroup entity) : base(entity) 
+		public ProjectUnitGroupLookup(ProjectUnitGroup entity) : base(entity) 
 		{
 		}
 		protected override void RefreshLookups()
@@ -1361,6 +1320,8 @@ namespace HVTApp.UI.Lookup
         public System.Nullable<System.Guid> ProductId => GetValue<System.Nullable<System.Guid>>();
 
         public System.Nullable<System.Guid> FacilityId => GetValue<System.Nullable<System.Guid>>();
+
+        public System.Nullable<System.DateTime> DeliveryDate => GetValue<System.Nullable<System.DateTime>>();
 
         public System.Double Cost => GetValue<System.Double>();
 

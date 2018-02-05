@@ -31,7 +31,6 @@ namespace HVTApp.UI.Wrapper
             PaymentActualWrapperDataService = new PaymentActualWrapperDataService(unitOfWork);
             ParameterRelationWrapperDataService = new ParameterRelationWrapperDataService(unitOfWork);
             ProjectUnitWrapperDataService = new ProjectUnitWrapperDataService(unitOfWork);
-            TenderUnitWrapperDataService = new TenderUnitWrapperDataService(unitOfWork);
             ShipmentUnitWrapperDataService = new ShipmentUnitWrapperDataService(unitOfWork);
             ProductionUnitWrapperDataService = new ProductionUnitWrapperDataService(unitOfWork);
             SalesUnitWrapperDataService = new SalesUnitWrapperDataService(unitOfWork);
@@ -62,7 +61,7 @@ namespace HVTApp.UI.Wrapper
             TenderTypeWrapperDataService = new TenderTypeWrapperDataService(unitOfWork);
             UserWrapperDataService = new UserWrapperDataService(unitOfWork);
             OfferUnitWrapperDataService = new OfferUnitWrapperDataService(unitOfWork);
-            TenderUnitGroupWrapperDataService = new TenderUnitGroupWrapperDataService(unitOfWork);
+            ProjectUnitGroupWrapperDataService = new ProjectUnitGroupWrapperDataService(unitOfWork);
         }
 
         public AddressWrapperDataService AddressWrapperDataService { get; }
@@ -90,7 +89,6 @@ namespace HVTApp.UI.Wrapper
         public PaymentActualWrapperDataService PaymentActualWrapperDataService { get; }
         public ParameterRelationWrapperDataService ParameterRelationWrapperDataService { get; }
         public ProjectUnitWrapperDataService ProjectUnitWrapperDataService { get; }
-        public TenderUnitWrapperDataService TenderUnitWrapperDataService { get; }
         public ShipmentUnitWrapperDataService ShipmentUnitWrapperDataService { get; }
         public ProductionUnitWrapperDataService ProductionUnitWrapperDataService { get; }
         public SalesUnitWrapperDataService SalesUnitWrapperDataService { get; }
@@ -121,6 +119,6 @@ namespace HVTApp.UI.Wrapper
         public TenderTypeWrapperDataService TenderTypeWrapperDataService { get; }
         public UserWrapperDataService UserWrapperDataService { get; }
         public OfferUnitWrapperDataService OfferUnitWrapperDataService { get; }
-        public TenderUnitGroupWrapperDataService TenderUnitGroupWrapperDataService { get; }
+        public ProjectUnitGroupWrapperDataService ProjectUnitGroupWrapperDataService { get; }
     }
 }

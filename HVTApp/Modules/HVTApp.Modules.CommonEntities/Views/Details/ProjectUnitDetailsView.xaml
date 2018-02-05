@@ -1,0 +1,57 @@
+﻿<inf:ViewBase
+    xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:infg="http://infragistics.com/Editors" 
+    xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+    x:Class="HVTApp.UI.Views.ProjectUnitDetailsView">
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Label Content="Cost:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+        <infg:XamNumericEditor Grid.Row="0" Grid.Column="1" MinWidth="200" 
+                               Value="{Binding Item.Cost}"/>
+        
+        <Label Content="Delivery:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+        <DatePicker Grid.Row="1" Grid.Column="1" MinWidth="200" 
+                    SelectedDate="{Binding Item.DeliveryDate, Mode=TwoWay}"/>
+        
+        <Label Content="Facility:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+        <controls:ChooseItemControl Grid.Row="2" Grid.Column="1" MinWidth="200"
+                                    Item="{Binding Item.Facility}" 
+                                    AddItemCommand="{Binding SelectFacilityCommand}"
+                                    RemoveItemCommand="{Binding RemoveFacilityCommand}"/>
+        
+        <Label Content="Producer:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+        <controls:ChooseItemControl Grid.Row="3" Grid.Column="1" MinWidth="200"
+                                    Item="{Binding Item.Producer}" 
+                                    AddItemCommand="{Binding SelectProducerCommand}"
+                                    RemoveItemCommand="{Binding RemoveProducerCommand}"/>
+
+        <Label Content="Product:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
+        <controls:ChooseItemControl Grid.Row="4" Grid.Column="1" MinWidth="200"
+                                    Item="{Binding Item.Product}" 
+                                    AddItemCommand="{Binding SelectProductCommand}"
+                                    RemoveItemCommand="{Binding RemoveProductCommand}"/>
+
+        <Label Content="Project:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"/>
+        <controls:ChooseItemControl Grid.Row="5" Grid.Column="1" MinWidth="200"
+                                    Item="{Binding Item.Project}" 
+                                    AddItemCommand="{Binding SelectProjectCommand}"
+                                    RemoveItemCommand="{Binding RemoveProjectCommand}"/>
+    </Grid>
+
+</inf:ViewBase>

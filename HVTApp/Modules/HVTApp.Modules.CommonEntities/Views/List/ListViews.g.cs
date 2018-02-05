@@ -458,24 +458,6 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class TenderUnitListView : ViewBase
-    {
-        public TenderUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderUnitListViewModel TenderUnitListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = TenderUnitListViewModel;
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			var viewModel = (TenderUnitListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
-        }
-    }
-
-    [RibbonTab(typeof(TabCRUD))]
     public partial class ShipmentUnitListView : ViewBase
     {
         public ShipmentUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, ShipmentUnitListViewModel ShipmentUnitListViewModel) : base(regionManager, eventAggregator)
@@ -1016,18 +998,18 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class TenderUnitGroupListView : ViewBase
+    public partial class ProjectUnitGroupListView : ViewBase
     {
-        public TenderUnitGroupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderUnitGroupListViewModel TenderUnitGroupListViewModel) : base(regionManager, eventAggregator)
+        public ProjectUnitGroupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectUnitGroupListViewModel ProjectUnitGroupListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = TenderUnitGroupListViewModel;
+            DataContext = ProjectUnitGroupListViewModel;
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (TenderUnitGroupListViewModel) DataContext;
+			var viewModel = (ProjectUnitGroupListViewModel) DataContext;
             if (!viewModel.LoadedFlag)
                 await viewModel.LoadAsync();
         }

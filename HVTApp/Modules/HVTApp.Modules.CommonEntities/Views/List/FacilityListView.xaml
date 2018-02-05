@@ -10,7 +10,7 @@
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Название"/>
-                    <infg:Field Name="Type" Label="Тип"/>
+                    <infg:Field Name="Types" Label="Тип"/>
                     <infg:Field Name="OwnerCompany" Label="Владелец"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>

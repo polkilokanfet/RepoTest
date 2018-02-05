@@ -16,7 +16,7 @@
                 <infg:FieldLayout.Fields>
                     <!--<infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding TenderUnits}" Label="Объекты" Converter="{StaticResource FacilitiesNamesStringConverter}"/>-->
                     <!--<infg:Field Name="Project" Label="Проект"/>-->
-                    <infg:Field Name="Type" Label="Тип"/>
+                    <infg:Field Name="Types" Label="Тип"/>
                     <!--<infg:NumericField Name="Sum"/>
 
                     <infg:Field Name="TenderIdUnits" IsExpandable="True" IsPrimary="True" Converter="{StaticResource ProductGroupsConverter}"/>-->

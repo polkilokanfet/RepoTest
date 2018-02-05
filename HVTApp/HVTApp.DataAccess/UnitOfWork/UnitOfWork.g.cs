@@ -38,7 +38,6 @@ namespace HVTApp.DataAccess
             PaymentActualRepository = new PaymentActualRepository(context);
             ParameterRelationRepository = new ParameterRelationRepository(context);
             ProjectUnitRepository = new ProjectUnitRepository(context);
-            TenderUnitRepository = new TenderUnitRepository(context);
             ShipmentUnitRepository = new ShipmentUnitRepository(context);
             ProductionUnitRepository = new ProductionUnitRepository(context);
             SalesUnitRepository = new SalesUnitRepository(context);
@@ -69,7 +68,7 @@ namespace HVTApp.DataAccess
             TenderTypeRepository = new TenderTypeRepository(context);
             UserRepository = new UserRepository(context);
             OfferUnitRepository = new OfferUnitRepository(context);
-            TenderUnitGroupRepository = new TenderUnitGroupRepository(context);
+            ProjectUnitGroupRepository = new ProjectUnitGroupRepository(context);
 			#endregion
         }
 
@@ -100,7 +99,6 @@ namespace HVTApp.DataAccess
         private IPaymentActualRepository PaymentActualRepository;
         private IParameterRelationRepository ParameterRelationRepository;
         private IProjectUnitRepository ProjectUnitRepository;
-        private ITenderUnitRepository TenderUnitRepository;
         private IShipmentUnitRepository ShipmentUnitRepository;
         private IProductionUnitRepository ProductionUnitRepository;
         private ISalesUnitRepository SalesUnitRepository;
@@ -131,7 +129,7 @@ namespace HVTApp.DataAccess
         private ITenderTypeRepository TenderTypeRepository;
         private IUserRepository UserRepository;
         private IOfferUnitRepository OfferUnitRepository;
-        private ITenderUnitGroupRepository TenderUnitGroupRepository;
+        private IProjectUnitGroupRepository ProjectUnitGroupRepository;
         #endregion
     }
 }

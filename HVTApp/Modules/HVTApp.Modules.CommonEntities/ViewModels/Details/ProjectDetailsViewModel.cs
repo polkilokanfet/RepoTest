@@ -44,10 +44,10 @@ namespace HVTApp.UI.ViewModels
         private void AddProjectUnitsCommand_Execute()
         {
             //var viewModel = _unityContainer.Resolve<ProjectUnitsDetailsViewModel>();
-            var wrapper = new ProjectUnitWrapper(new ProjectUnit());
-            var dialogResult = _updateDetailsService.UpdateDetails<ProjectUnit>(wrapper.Model.Id);
-            if(dialogResult)
-                Item.ProjectUnits.Add(wrapper);
+            //var wrapper = new ProjectUnitWrapper(new ProjectUnit());
+            //var dialogResult = _updateDetailsService.UpdateDetails<ProjectUnit>(wrapper.Model.Id);
+            //if(dialogResult)
+            //    Item.ProjectUnits.Add(wrapper);
         }
 
         private void ChangeProjectUnitsCommand_Execute()

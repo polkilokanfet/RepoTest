@@ -1,8 +1,8 @@
 ﻿namespace HVTApp.UI.Views
 {
-    public partial class TenderUnitListView
+    public partial class ProjectUnitDetailsView
     {
-        public TenderUnitListView()
+        public ProjectUnitDetailsView()
         {
             InitializeComponent();
         }

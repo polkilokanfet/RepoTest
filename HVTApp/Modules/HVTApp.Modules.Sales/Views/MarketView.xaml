@@ -5,17 +5,17 @@
              xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
              x:Class="HVTApp.Modules.Sales.Views.MarketView">
 
-    <StackPanel>
-        <views:ProjectListView Name="ProjectListView"/>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            
-            <views:TenderListView Name="TenderListView" Grid.Column="0"/>
-            <views:TenderUnitGroupListView Name="TenderUnitGroupListView" Grid.Column="1"/>
-        </Grid>
-    </StackPanel>
-    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <views:ProjectListView Name="ProjectListView" Grid.Row="0"/>
+        <GridSplitter Grid.Row="1" Height="2" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+        <views:ProjectUnitGroupListView Name="ProjectUnitGroupListView" Grid.Row="2"/>
+
+    </Grid>
+
 </inf:ViewBase>

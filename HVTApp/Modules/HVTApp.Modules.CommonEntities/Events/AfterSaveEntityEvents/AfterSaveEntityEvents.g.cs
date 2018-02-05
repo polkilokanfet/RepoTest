@@ -28,7 +28,6 @@ namespace HVTApp.UI.Events
 	public partial class AfterSavePaymentActualEvent : PubSubEvent<PaymentActual> { }
 	public partial class AfterSaveParameterRelationEvent : PubSubEvent<ParameterRelation> { }
 	public partial class AfterSaveProjectUnitEvent : PubSubEvent<ProjectUnit> { }
-	public partial class AfterSaveTenderUnitEvent : PubSubEvent<TenderUnit> { }
 	public partial class AfterSaveShipmentUnitEvent : PubSubEvent<ShipmentUnit> { }
 	public partial class AfterSaveProductionUnitEvent : PubSubEvent<ProductionUnit> { }
 	public partial class AfterSaveSalesUnitEvent : PubSubEvent<SalesUnit> { }
@@ -59,5 +58,5 @@ namespace HVTApp.UI.Events
 	public partial class AfterSaveTenderTypeEvent : PubSubEvent<TenderType> { }
 	public partial class AfterSaveUserEvent : PubSubEvent<User> { }
 	public partial class AfterSaveOfferUnitEvent : PubSubEvent<OfferUnit> { }
-	public partial class AfterSaveTenderUnitGroupEvent : PubSubEvent<TenderUnitGroup> { }
+	public partial class AfterSaveProjectUnitGroupEvent : PubSubEvent<ProjectUnitGroup> { }
 }

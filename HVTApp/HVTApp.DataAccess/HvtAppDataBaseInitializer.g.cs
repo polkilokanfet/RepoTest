@@ -1,3 +1,6 @@
+using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using HVTApp.Model.POCOs;
 using HVTApp.TestDataGenerator;
 
@@ -34,7 +37,6 @@ namespace HVTApp.DataAccess
             context.PaymentActualDbSet.AddRange(testData.GetAll<PaymentActual>());
             context.ParameterRelationDbSet.AddRange(testData.GetAll<ParameterRelation>());
             context.ProjectUnitDbSet.AddRange(testData.GetAll<ProjectUnit>());
-            context.TenderUnitDbSet.AddRange(testData.GetAll<TenderUnit>());
             context.ShipmentUnitDbSet.AddRange(testData.GetAll<ShipmentUnit>());
             context.ProductionUnitDbSet.AddRange(testData.GetAll<ProductionUnit>());
             context.SalesUnitDbSet.AddRange(testData.GetAll<SalesUnit>());
@@ -65,7 +67,7 @@ namespace HVTApp.DataAccess
             context.TenderTypeDbSet.AddRange(testData.GetAll<TenderType>());
             context.UserDbSet.AddRange(testData.GetAll<User>());
             context.OfferUnitDbSet.AddRange(testData.GetAll<OfferUnit>());
-            context.TenderUnitGroupDbSet.AddRange(testData.GetAll<TenderUnitGroup>());
+            context.ProjectUnitGroupDbSet.AddRange(testData.GetAll<ProjectUnitGroup>());
         }
     }
 }

@@ -9,7 +9,6 @@ namespace HVTApp.DataAccess
         {
             //HasRequired(x => x.Document).WithOptional();
             Property(x => x.ValidityDate).IsRequired();
-            HasMany(x => x.OfferUnits).WithRequired().HasForeignKey(x => x.OfferId);
             Property(x => x.Vat).IsRequired();
         }
     }

@@ -34,7 +34,6 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new PaymentActualConfiguration());
             modelBuilder.Configurations.Add(new ParameterRelationConfiguration());
             modelBuilder.Configurations.Add(new ProjectUnitConfiguration());
-            modelBuilder.Configurations.Add(new TenderUnitConfiguration());
             modelBuilder.Configurations.Add(new ShipmentUnitConfiguration());
             modelBuilder.Configurations.Add(new ProductionUnitConfiguration());
             modelBuilder.Configurations.Add(new SalesUnitConfiguration());
@@ -65,7 +64,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new TenderTypeConfiguration());
             modelBuilder.Configurations.Add(new UserConfiguration());
             modelBuilder.Configurations.Add(new OfferUnitConfiguration());
-            modelBuilder.Configurations.Add(new TenderUnitGroupConfiguration());
+            modelBuilder.Configurations.Add(new ProjectUnitGroupConfiguration());
 			#endregion
 
             base.OnModelCreating(modelBuilder);
@@ -97,7 +96,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PaymentActual> PaymentActualDbSet { get; set; }
         public virtual DbSet<ParameterRelation> ParameterRelationDbSet { get; set; }
         public virtual DbSet<ProjectUnit> ProjectUnitDbSet { get; set; }
-        public virtual DbSet<TenderUnit> TenderUnitDbSet { get; set; }
         public virtual DbSet<ShipmentUnit> ShipmentUnitDbSet { get; set; }
         public virtual DbSet<ProductionUnit> ProductionUnitDbSet { get; set; }
         public virtual DbSet<SalesUnit> SalesUnitDbSet { get; set; }
@@ -128,7 +126,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<TenderType> TenderTypeDbSet { get; set; }
         public virtual DbSet<User> UserDbSet { get; set; }
         public virtual DbSet<OfferUnit> OfferUnitDbSet { get; set; }
-        public virtual DbSet<TenderUnitGroup> TenderUnitGroupDbSet { get; set; }
+        public virtual DbSet<ProjectUnitGroup> ProjectUnitGroupDbSet { get; set; }
 		#endregion
     }
 }

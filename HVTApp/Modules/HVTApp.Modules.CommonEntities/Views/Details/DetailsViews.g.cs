@@ -232,15 +232,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-    public partial class TenderUnitDetailsView : ViewBase
-    {
-        public TenderUnitDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderUnitDetailsViewModel TenderUnitDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = TenderUnitDetailsViewModel;
-        }
-    }
-
     public partial class ShipmentUnitDetailsView : ViewBase
     {
         public ShipmentUnitDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ShipmentUnitDetailsViewModel ShipmentUnitDetailsViewModel) : base(regionManager, eventAggregator)
@@ -511,12 +502,12 @@ namespace HVTApp.UI.Views
         }
     }
 
-    public partial class TenderUnitGroupDetailsView : ViewBase
+    public partial class ProjectUnitGroupDetailsView : ViewBase
     {
-        public TenderUnitGroupDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderUnitGroupDetailsViewModel TenderUnitGroupDetailsViewModel) : base(regionManager, eventAggregator)
+        public ProjectUnitGroupDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectUnitGroupDetailsViewModel ProjectUnitGroupDetailsViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = TenderUnitGroupDetailsViewModel;
+            DataContext = ProjectUnitGroupDetailsViewModel;
         }
     }
 

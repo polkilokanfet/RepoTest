@@ -82,7 +82,6 @@
     <Compile Include="EntityTypeConfigurations\Custom\LocalityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\OfferUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PersonConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\TenderUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\OfferConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TenderConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ParameterConfiguration.cs" />

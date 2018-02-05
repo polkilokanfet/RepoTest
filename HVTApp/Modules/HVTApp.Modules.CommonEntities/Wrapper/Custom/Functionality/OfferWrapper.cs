@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using HVTApp.Model.POCOs;
@@ -7,14 +8,14 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class OfferWrapper
     {
-        protected override void RunInConstructor()
-        {
-            this.PropertyChanged += OnPropertyChanged;
-            foreach (var offerUnit in OfferUnits)
-            {
-                offerUnit.PropertyChanged += OfferUnitOnPropertyChanged;
-            }
-        }
+        //protected override void RunInConstructor()
+        //{
+        //    this.PropertyChanged += OnPropertyChanged;
+        //    foreach (var offerUnit in OfferUnits)
+        //    {
+        //        offerUnit.PropertyChanged += OfferUnitOnPropertyChanged;
+        //    }
+        //}
 
         public double VatProc
         {
@@ -27,7 +28,10 @@ namespace HVTApp.UI.Wrapper
             }
         }
 
-        public double TotalCost => OfferUnits.Sum(x => x.Cost);
+        public List<OfferUnitWrapper> OfferUnits { get; set; }
+
+        //public double TotalCost => OfferUnits.Sum(x => x.Cost);
+        public double TotalCost => 0;
         public double TotalCostWithVat => TotalCost * (1 + Vat);
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)

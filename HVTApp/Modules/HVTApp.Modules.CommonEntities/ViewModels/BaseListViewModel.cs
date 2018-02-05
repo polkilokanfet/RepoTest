@@ -52,6 +52,12 @@ namespace HVTApp.UI.ViewModels
 
             Container.Resolve<IEventAggregator>().GetEvent<TAfterSaveEntityEvent>().Subscribe(OnAfterSaveEntity);
             Container.Resolve<IEventAggregator>().GetEvent<TAfterRemoveEntityEvent>().Subscribe(OnAfterRemoveEntity);
+
+            SubscribesToEvents();
+        }
+
+        protected virtual void SubscribesToEvents()
+        {
         }
 
         public IEnumerable<TLookup> Lookups { get; }

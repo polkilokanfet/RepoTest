@@ -32,7 +32,6 @@ namespace HVTApp.DataAccess
             PaymentActualRepository = new PaymentActualRepositoryTest(testData);
             ParameterRelationRepository = new ParameterRelationRepositoryTest(testData);
             ProjectUnitRepository = new ProjectUnitRepositoryTest(testData);
-            TenderUnitRepository = new TenderUnitRepositoryTest(testData);
             ShipmentUnitRepository = new ShipmentUnitRepositoryTest(testData);
             ProductionUnitRepository = new ProductionUnitRepositoryTest(testData);
             SalesUnitRepository = new SalesUnitRepositoryTest(testData);
@@ -63,7 +62,7 @@ namespace HVTApp.DataAccess
             TenderTypeRepository = new TenderTypeRepositoryTest(testData);
             UserRepository = new UserRepositoryTest(testData);
             OfferUnitRepository = new OfferUnitRepositoryTest(testData);
-            TenderUnitGroupRepository = new TenderUnitGroupRepositoryTest(testData);
+            ProjectUnitGroupRepository = new ProjectUnitGroupRepositoryTest(testData);
 			#endregion
         }
 
@@ -94,7 +93,6 @@ namespace HVTApp.DataAccess
         public IPaymentActualRepository PaymentActualRepository { get; }
         public IParameterRelationRepository ParameterRelationRepository { get; }
         public IProjectUnitRepository ProjectUnitRepository { get; }
-        public ITenderUnitRepository TenderUnitRepository { get; }
         public IShipmentUnitRepository ShipmentUnitRepository { get; }
         public IProductionUnitRepository ProductionUnitRepository { get; }
         public ISalesUnitRepository SalesUnitRepository { get; }
@@ -125,7 +123,7 @@ namespace HVTApp.DataAccess
         public ITenderTypeRepository TenderTypeRepository { get; }
         public IUserRepository UserRepository { get; }
         public IOfferUnitRepository OfferUnitRepository { get; }
-        public ITenderUnitGroupRepository TenderUnitGroupRepository { get; }
+        public IProjectUnitGroupRepository ProjectUnitGroupRepository { get; }
         #endregion
     }
 }

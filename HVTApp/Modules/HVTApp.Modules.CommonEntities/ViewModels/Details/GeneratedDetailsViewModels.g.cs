@@ -130,11 +130,6 @@ namespace HVTApp.UI.ViewModels
         public ProjectUnitDetailsViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class TenderUnitDetailsViewModel : BaseDetailsViewModel<TenderUnitWrapper, TenderUnit, AfterSaveTenderUnitEvent>
-    {
-        public TenderUnitDetailsViewModel(IUnityContainer container) : base(container) { }
-    }
-
     public partial class ShipmentUnitDetailsViewModel : BaseDetailsViewModel<ShipmentUnitWrapper, ShipmentUnit, AfterSaveShipmentUnitEvent>
     {
         public ShipmentUnitDetailsViewModel(IUnityContainer container) : base(container) { }
@@ -285,9 +280,9 @@ namespace HVTApp.UI.ViewModels
         public OfferUnitDetailsViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class TenderUnitGroupDetailsViewModel : BaseDetailsViewModel<TenderUnitGroupWrapper, TenderUnitGroup, AfterSaveTenderUnitGroupEvent>
+    public partial class ProjectUnitGroupDetailsViewModel : BaseDetailsViewModel<ProjectUnitGroupWrapper, ProjectUnitGroup, AfterSaveProjectUnitGroupEvent>
     {
-        public TenderUnitGroupDetailsViewModel(IUnityContainer container) : base(container) { }
+        public ProjectUnitGroupDetailsViewModel(IUnityContainer container) : base(container) { }
     }
 
 }

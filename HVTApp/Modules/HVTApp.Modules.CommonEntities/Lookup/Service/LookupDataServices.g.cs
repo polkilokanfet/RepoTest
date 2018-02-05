@@ -129,11 +129,6 @@ namespace HVTApp.UI.Lookup
         public ProjectUnitLookupDataService(HvtAppContext context) : base(context) { }
     }
 
-    public partial class TenderUnitLookupDataService : LookupDataService<TenderUnitLookup, TenderUnit>, ITenderUnitLookupDataService
-    {
-        public TenderUnitLookupDataService(HvtAppContext context) : base(context) { }
-    }
-
     public partial class ShipmentUnitLookupDataService : LookupDataService<ShipmentUnitLookup, ShipmentUnit>, IShipmentUnitLookupDataService
     {
         public ShipmentUnitLookupDataService(HvtAppContext context) : base(context) { }
@@ -284,9 +279,9 @@ namespace HVTApp.UI.Lookup
         public OfferUnitLookupDataService(HvtAppContext context) : base(context) { }
     }
 
-    public partial class TenderUnitGroupLookupDataService : LookupDataService<TenderUnitGroupLookup, TenderUnitGroup>, ITenderUnitGroupLookupDataService
+    public partial class ProjectUnitGroupLookupDataService : LookupDataService<ProjectUnitGroupLookup, ProjectUnitGroup>, IProjectUnitGroupLookupDataService
     {
-        public TenderUnitGroupLookupDataService(HvtAppContext context) : base(context) { }
+        public ProjectUnitGroupLookupDataService(HvtAppContext context) : base(context) { }
     }
 
 }
