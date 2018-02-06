@@ -15,19 +15,18 @@ namespace HVTApp.Services.GetProductService
         public bool IsActual => true;
 
         public ObservableCollection<ParameterSelector> ParameterSelectors { get; }
-        public ObservableCollection<ProductSelector> ProductSelectors { get; }
+        public ObservableCollection<ProductSelector> ProductSelectors { get; } = new ObservableCollection<ProductSelector>();
 
         public ProductSelector(IEnumerable<Parameter> parameters, Product selectedProduct)
         {
             //создаем селекторы параметров
-            var parameterSelectors = Grouping(parameters).Select(x => new ParameterSelector(x, this, Cross(x, selectedProduct)));
+            var parameterSelectors = GetGroupingParameters(parameters).Select(x => new ParameterSelector(x, this, Cross(x, selectedProduct)));
             ParameterSelectors = new ObservableCollection<ParameterSelector>(parameterSelectors);
 
             //реакция на смену параметра в селекторе
             foreach (var parameterSelector in ParameterSelectors)
                 parameterSelector.SelectedParameterFlagedChanged += ParameterSelectorOnSelectedParameterFlagedChanged;
 
-            ProductSelectors = new ObservableCollection<ProductSelector>();
             if (selectedProduct != null)
             {
                 foreach (var dependentProduct in selectedProduct.DependentProducts)
@@ -41,13 +40,24 @@ namespace HVTApp.Services.GetProductService
             }
         }
 
-        //выбор первого базового параметра
-        private void SelectFirstBaseParameter()
+        private Dictionary<ProductRelation, Product> GetDictionaryOfMatching(Product product)
         {
-            var parametersFlaged = ParameterSelectors.SelectMany(x => x.ParametersFlaged);
-            var selectedParameterFlaged = parametersFlaged.First(x => !x.Parameter.ParameterRelations.Any());
-            var selector = ParameterSelectors.Single(x => x.ParametersFlaged.Contains(selectedParameterFlaged));
-            selector.SelectedParameterFlaged = selectedParameterFlaged;
+            var result = new Dictionary<ProductRelation, Product>();
+            GetActualProductRelations(product.Parameters).ToList().ForEach(x => result.Add(x, null));
+
+            var products = new List<Product>(product.DependentProducts);
+
+            while (products.Any())
+            {
+                var product1 = products.First();
+                var searchZone = result.Where(x => x.Value == null);
+                var node = searchZone.FirstOrDefault(x => x.Key.ChildProductParameters.AllContainsIn(product1.Parameters));
+                if (!Equals(node, default(KeyValuePair<ProductRelation, Product>)))
+                {
+                    result[node.Key] = product1;
+                    products.Remove(product1);
+                }
+            }
         }
 
         private void ParameterSelectorOnSelectedParameterFlagedChanged(ParameterSelector parameterSelector)
@@ -73,11 +83,11 @@ namespace HVTApp.Services.GetProductService
             {
                 if (ProductSelectors.Any(x => productRelation.ChildProductParameters.AllContainsIn(x.SelectedParameters)))
                     continue;
-                ProductSelectors.Add(new ProductSelector(KeepUsefullParameters(productRelation.ChildProductParameters), null));
+                ProductSelectors.Add(new ProductSelector(GetUsefullParameters(productRelation.ChildProductParameters), null));
             }
         }
 
-        private IEnumerable<Parameter> KeepUsefullParameters(IEnumerable<Parameter> requiredParameters)
+        private IEnumerable<Parameter> GetUsefullParameters(IEnumerable<Parameter> requiredParameters)
         {
             var result = new List<Parameter>(Parameters);
             foreach (var requiredParameter in requiredParameters)
@@ -95,7 +105,7 @@ namespace HVTApp.Services.GetProductService
         public IEnumerable<Parameter> SelectedParameters => SelectedParametersFlaged.Select(x => x.Parameter);
 
         //группировка параметрам по группе и упорядочивание их
-        private IEnumerable<IEnumerable<Parameter>> Grouping(IEnumerable<Parameter> parameters)
+        private IEnumerable<IEnumerable<Parameter>> GetGroupingParameters(IEnumerable<Parameter> parameters)
         {
             var groups = parameters.GroupBy(x => x.ParameterGroup);
             foreach (var group in groups)
@@ -109,10 +119,19 @@ namespace HVTApp.Services.GetProductService
             return product == null ? null : parameters.SingleOrDefault(x => product.Parameters.Contains(x));
         }
 
-
-        private IEnumerable<ProductRelation> GetActualProductRelations()
+        private IEnumerable<ProductRelation> GetActualProductRelations(IEnumerable<Parameter> forParameters = null)
         {
-            return ProductRelations.Where(x => x.ParentProductParameters.AllContainsIn(SelectedParameters));
+            var parameters = forParameters ?? SelectedParameters;
+            return ProductRelations.Where(x => x.ParentProductParameters.AllContainsIn(parameters));
+        }
+
+        //выбор первого базового параметра
+        private void SelectFirstBaseParameter()
+        {
+            var parametersFlaged = ParameterSelectors.SelectMany(x => x.ParametersFlaged);
+            var selectedParameterFlaged = parametersFlaged.First(x => !x.Parameter.ParameterRelations.Any());
+            var parameterSelector = ParameterSelectors.Single(x => x.ParametersFlaged.Contains(selectedParameterFlaged));
+            parameterSelector.SelectedParameterFlaged = selectedParameterFlaged;
         }
 
         #region events
