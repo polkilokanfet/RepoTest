@@ -12,7 +12,7 @@ namespace HVTApp.Services.GetProductService
 
         private IList<Parameter> _parameters;
         private IList<Product> _products;
-        private IList<ProductsRelation> _productsRelations;
+        private IList<ProductRelation> _productRelations;
 
         public GetProductServiceWpf(IUnitOfWork unitOfWork)
         {
@@ -21,21 +21,25 @@ namespace HVTApp.Services.GetProductService
 
         public async Task LoadAsync()
         {
-            _parameters = await _unitOfWork.ParameterRepository.GetAllAsync();
-            _products = await _unitOfWork.ProductRepository.GetAllAsync();
-            _productsRelations = await _unitOfWork.ProductsRelationRepository.GetAllAsync();
+            _parameters = await _unitOfWork.GetRepository<Parameter>().GetAllAsync();
+            _products = await _unitOfWork.GetRepository<Product>().GetAllAsync();
+            _productRelations = await _unitOfWork.GetRepository<ProductRelation>().GetAllAsync();
         }
 
         public async Task<Product> GetProductAsync(Product templateProduct = null)
         {
             if (_parameters == null)
                 await LoadAsync();
-            ProductSelector productSelector = new ProductSelector(new List<ParameterGroup>(), _parts, _products, _productsRelations, preSelectedProduct: templateProduct);
-            SelectProductWindow window = new SelectProductWindow {DataContext = productSelector};
+
+            ProductSelector.ProductRelations = _productRelations;
+            ProductSelector.Parameters = _parameters;
+
+            var productSelector = new ProductSelector(_parameters, templateProduct);
+            var window = new SelectProductWindow {DataContext = productSelector};
             window.ShowDialog();
 
             if (!window.DialogResult.HasValue || !window.DialogResult.Value) return templateProduct;
-            return productSelector.SelectedProduct;
+            return null;
         }
     }
 }

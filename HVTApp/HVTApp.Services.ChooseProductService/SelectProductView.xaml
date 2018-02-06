@@ -10,9 +10,9 @@
     <Border BorderThickness="1" BorderBrush="Black" Margin="2">
         <StackPanel Orientation="Vertical">
             
-            <Label Content="{Binding PartSelector.SelectedProduct, UpdateSourceTrigger=PropertyChanged}"/>
+            <!--<Label Content="{Binding PartSelector.SelectedProduct, UpdateSourceTrigger=PropertyChanged}"/>-->
             
-            <ItemsControl ItemsSource="{Binding PartSelector.ParameterSelectors}">
+            <ItemsControl ItemsSource="{Binding ParameterSelectors}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal"
@@ -35,7 +35,7 @@
             </ItemsControl>
             
             
-            <Label Content="Составные части:"/>
+            <Label Content="Составные части:" HorizontalAlignment="Left"/>
             <ItemsControl ItemsSource="{Binding ProductSelectors}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>

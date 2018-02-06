@@ -55,6 +55,10 @@
     <Compile Include="Selectors2\ProductSelectorTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HVTApp.DataAccess\HVTApp.DataAccess.csproj">
+      <Project>{9CF80C25-C04B-46B3-8EB7-F45BC42D4BA2}</Project>
+      <Name>HVTApp.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
       <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
       <Name>HVTApp.Infrastructure</Name>

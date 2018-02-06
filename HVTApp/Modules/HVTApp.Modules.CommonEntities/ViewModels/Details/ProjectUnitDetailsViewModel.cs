@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
@@ -26,7 +25,7 @@ namespace HVTApp.UI.ViewModels
 
         private async void SelectProduct_Execute()
         {
-            await Container.Resolve<IGetProductService>().GetProductAsync();
+            await Container.Resolve<IGetProductService>().GetProductAsync(Item.Product?.Model);
         }
 
         private async void SelectProducer_Execute()

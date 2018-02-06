@@ -8,7 +8,7 @@
         x:Class="HVTApp.Views.MainWindow"
         prism:ViewModelLocator.AutoWireViewModel="True"
         WindowStartupLocation="CenterScreen"
-        Title="{Binding Title}" Height="768" Width="1024">
+        Title="{Binding Title}" Height="600" Width="800">
 
     <igWPF:RibbonWindowContentHost>
 

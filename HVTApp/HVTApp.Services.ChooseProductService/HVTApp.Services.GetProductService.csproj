@@ -54,8 +54,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BooleanToVisibilityConverter.cs" />
-    <Compile Include="Selectors2\ParameterSelector.cs" />
-    <Compile Include="Selectors2\ProductSelector.cs" />
+    <Compile Include="GetProductServiceWpf.cs" />
+    <Compile Include="Selectors3\NotifyPropertyChanged.cs" />
+    <Compile Include="Selectors3\ParameterFlaged.cs" />
+    <Compile Include="Selectors3\ParameterSelector.cs" />
+    <Compile Include="Selectors3\ProductSelector.cs" />
     <Compile Include="SelectProductWindow.xaml.cs">
       <DependentUpon>SelectProductWindow.xaml</DependentUpon>
     </Compile>

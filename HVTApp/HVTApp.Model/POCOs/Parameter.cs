@@ -11,6 +11,10 @@ namespace HVTApp.Model.POCOs
         public string Value { get; set; }
         public virtual List<ParameterRelation> ParameterRelations { get; set; } = new List<ParameterRelation>();
 
+        public override string ToString()
+        {
+            return $"{ParameterGroup.Name}: {Value}";
+        }
 
         public bool IsActual(IEnumerable<Parameter> parameters)
         {

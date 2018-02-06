@@ -2473,7 +2473,7 @@ namespace HVTApp.UI.Wrapper
   
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          if (Model.Parameters == null) throw new ArgumentException("ParametersFlaged cannot be null");
           Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
           RegisterCollection(Parameters, Model.Parameters);
 

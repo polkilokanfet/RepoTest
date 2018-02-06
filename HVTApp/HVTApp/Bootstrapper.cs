@@ -71,7 +71,7 @@ namespace HVTApp
 
             Container.RegisterInstance(typeof(IDialogService), new DialogService((Window)Shell));
             Container.RegisterInstance(typeof(IChooseService), new ChooseService((Window)Shell));
-            //Container.RegisterType<IGetProductService, GetProductServiceWpf>();
+            Container.RegisterType<IGetProductService, GetProductServiceWpf>();
         }
 
         protected override IModuleCatalog CreateModuleCatalog()

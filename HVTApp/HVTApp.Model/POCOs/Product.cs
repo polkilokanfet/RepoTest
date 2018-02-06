@@ -15,6 +15,8 @@ namespace HVTApp.Model.POCOs
 
         public string StructureCostNumber { get; set; }
 
+        public virtual List<Product> DependentProducts { get; set; } = new List<Product>();
+
         public string ParametersToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -23,8 +25,6 @@ namespace HVTApp.Model.POCOs
 
             return stringBuilder.ToString();
         }
-
-        public virtual List<Product> DependentProducts { get; set; } = new List<Product>();
 
 
         public override string ToString()
