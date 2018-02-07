@@ -8,7 +8,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Lookup
 {
-    public abstract class LookupItem<TEntity> : ILookupItemNavigation<TEntity>, INotifyPropertyChanged
+    public abstract class LookupItem<TEntity> : ILookupItemNavigation<TEntity>, INotifyPropertyChanged, IComparable
         where TEntity : class, IBaseEntity
     {
         protected LookupItem(TEntity entity)
@@ -82,5 +82,11 @@ namespace HVTApp.UI.Lookup
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+
+        public virtual int CompareTo(object obj)
+        {
+            return ToString().CompareTo(obj.ToString());
+        }
+
     }
 }

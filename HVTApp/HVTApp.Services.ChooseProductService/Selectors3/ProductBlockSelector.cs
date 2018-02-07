@@ -11,32 +11,37 @@ namespace HVTApp.Services.GetProductService
     {
         public static IEnumerable<ProductBlock> ProductBlocks { get; set; } = new List<ProductBlock>();
 
-        public ObservableCollection<ParameterSelector> ParameterSelectors { get; }
-
-        public ProductBlockSelector(IEnumerable<Parameter> parameters, Product selectedProduct)
+        public ProductBlockSelector(IEnumerable<Parameter> parameters, IEnumerable<Parameter> selectedParameters)
         {
             //создаем селекторы параметров
-            var parameterSelectors =
-                GetGroupingParameters(parameters).Select(x => new ParameterSelector(x, this, Cross(x, selectedProduct)));
+            var parameterSelectors = GetGroupingParameters(parameters).
+                Select(x => new ParameterSelector(x, this, x.SingleOrDefault(selectedParameters.Contains)));
             ParameterSelectors = new ObservableCollection<ParameterSelector>(parameterSelectors);
 
             //реакция на смену параметра в селекторе
             foreach (var parameterSelector in ParameterSelectors)
                 parameterSelector.SelectedParameterFlagedChanged += parSel =>
                 {
-                    OnSelectedParametersChanged(SelectedParameters);
+                    OnSelectedParametersChanged(SelectedProductBlock.Parameters);
                     OnPropertyChanged(nameof(SelectedProductBlock));
-                    OnPropertyChanged(nameof(SelectedParameters));
                 };
+
+            if (selectedParameters.Any())
+                OnSelectedParametersChanged(SelectedProductBlock.Parameters);
         }
 
 
+        public ObservableCollection<ParameterSelector> ParameterSelectors { get; }
+        public ProductBlock SelectedProductBlock
+        {
+            get
+            {
+                var selectedParameters = ParameterSelectors.Select(x => x.SelectedParameterFlaged).Where(x => x != null).Select(x => x.Parameter).ToList();
+                var result = ProductBlocks.FirstOrDefault(x => x.Parameters.AllMembersAreSame(selectedParameters));
+                return result ?? new ProductBlock {Parameters = selectedParameters};
+            }
+        }
 
-        public IEnumerable<ParameterFlaged> SelectedParametersFlaged => ParameterSelectors.Select(x => x.SelectedParameterFlaged).Where(x => x != null);
-
-        public IEnumerable<Parameter> SelectedParameters => SelectedParametersFlaged.Select(x => x.Parameter);
-
-        public ProductBlock SelectedProductBlock => ProductBlocks.FirstOrDefault(x => x.Parameters.AllMembersAreSame(SelectedParameters)); 
 
         //группировка параметрам по группе и упорядочивание их
         private IEnumerable<IEnumerable<Parameter>> GetGroupingParameters(IEnumerable<Parameter> parameters)
@@ -47,12 +52,6 @@ namespace HVTApp.Services.GetProductService
                 yield return group.OrderBy(x => x.Value);
             }
         }
-
-        private Parameter Cross(IEnumerable<Parameter> parameters, Product product)
-        {
-            return product == null ? null : parameters.SingleOrDefault(x => product.ProductBlock.Parameters.Contains(x));
-        }
-
 
         //выбор первого базового параметра
         public void SelectFirstParameter()
@@ -66,29 +65,10 @@ namespace HVTApp.Services.GetProductService
         #region events
         public event Action<IEnumerable<Parameter>> SelectedParametersChanged;
 
-        protected virtual void OnSelectedParametersChanged(IEnumerable<Parameter> parameters)
+        protected void OnSelectedParametersChanged(IEnumerable<Parameter> parameters)
         {
             SelectedParametersChanged?.Invoke(parameters);
         }
         #endregion
-    }
-
-    public static class Ext
-    {
-        /// <summary>
-        /// Удаление из списка параметров, которые в одной группе с обязательными параметрами.
-        /// </summary>
-        /// <returns></returns>
-        public static IEnumerable<Parameter> RemoveUseLess(this IEnumerable<Parameter> targetParameters, IEnumerable<Parameter> requiredParameters)
-        {
-            var result = targetParameters.ToList();
-            foreach (var requiredParameter in requiredParameters)
-            {
-                var toExcept = result.Where(x => Equals(x.ParameterGroupId, requiredParameter.ParameterGroup.Id))
-                        .Except(new List<Parameter> {requiredParameter});
-                result = result.Except(toExcept).ToList();
-            }
-            return result;
-        }
     }
 }

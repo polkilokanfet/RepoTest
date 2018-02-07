@@ -18,6 +18,7 @@ namespace HVTApp.Modules.BaseEntities.Menus
             rootParameter.Items.Add(new NavigationItem("Группа параметров", typeof(ParameterGroupListView)));
 
             var rootProduct = new NavigationItem("Изделия", typeof(ProductListView));
+            rootProduct.Items.Add(new NavigationItem("Блоки", typeof(ProductBlockListView)));
 
             var rootPartPrices = new NavigationItem("Себестоимости", typeof(PartPriceListView));
 

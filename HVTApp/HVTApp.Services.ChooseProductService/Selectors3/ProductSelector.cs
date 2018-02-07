@@ -9,16 +9,36 @@ namespace HVTApp.Services.GetProductService
 {
     public class ProductSelector : NotifyPropertyChanged
     {
+        #region StaticProps
         public static IEnumerable<Product> Products { get; set; } = new List<Product>();
         public static IEnumerable<ProductRelation> ProductRelations { get; set; } = new List<ProductRelation>();
         public static IEnumerable<Parameter> Parameters { get; set; } = new List<Parameter>();
+        #endregion
 
         public ProductBlockSelector ProductBlockSelector { get; }
         public ObservableCollection<ProductSelector> ProductSelectors { get; } = new ObservableCollection<ProductSelector>();
 
+        public Product SelectedProduct
+        {
+            get
+            {
+                var product = new Product
+                {
+                    ProductBlock = ProductBlockSelector.SelectedProductBlock,
+                    DependentProducts = ProductSelectors.Select(x => x.SelectedProduct).ToList(),
+                };
+                product.Designation = product.ToString();
+
+                var existsProduct = Products.SingleOrDefault(x => x.Equals(product));
+
+                return existsProduct ?? product;
+            }
+        }
+
         public ProductSelector(IEnumerable<Parameter> parameters, Product selectedProduct)
         {
-            ProductBlockSelector = new ProductBlockSelector(parameters, selectedProduct);
+            var selectedParameters = selectedProduct == null ? new List<Parameter>() : selectedProduct.ProductBlock.Parameters; 
+            ProductBlockSelector = new ProductBlockSelector(parameters, selectedParameters);
             ProductBlockSelector.SelectedParametersChanged += ProductBlockSelectorOnSelectedParametersChanged;
 
             if (selectedProduct != null)
@@ -26,7 +46,9 @@ namespace HVTApp.Services.GetProductService
                 var dic = GetDictionaryOfMatching(selectedProduct);
                 foreach (var kvp in dic)
                 {
-                    ProductSelectors.Add(new ProductSelector(parameters.RemoveUseLess(kvp.Key.ChildProductParameters), kvp.Value));
+                    var productSelector = new ProductSelector(Parameters.RemoveUseLess(kvp.Key.ChildProductParameters), kvp.Value);
+                    ProductSelectors.Add(productSelector);
+                    productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
                 }
             }
             else
@@ -35,15 +57,22 @@ namespace HVTApp.Services.GetProductService
             }
         }
 
+        private void ProductSelectorOnSelectedProductChanged()
+        {
+            OnPropertyChanged(nameof(SelectedProduct));
+        }
+
         private void ProductBlockSelectorOnSelectedParametersChanged(IEnumerable<Parameter> parameters)
         {
             RefreshProductSelectors();
+            OnSelectedProductChanged();
+            OnPropertyChanged(nameof(SelectedProduct));
         }
 
         private IEnumerable<ProductRelation> GetActualProductRelations(IEnumerable<Parameter> forParameters = null)
         {
-            var parameters = forParameters ?? ProductBlockSelector.SelectedParameters;
-            return ProductRelations.Where(x => Extansions.AllContainsIn(x.ParentProductParameters, parameters));
+            var parameters = forParameters ?? ProductBlockSelector.SelectedProductBlock.Parameters;
+            return ProductRelations.Where(x => x.ParentProductParameters.AllContainsIn(parameters));
         }
 
         private void RefreshProductSelectors()
@@ -54,16 +83,21 @@ namespace HVTApp.Services.GetProductService
             //удаление неактуальных селекторов
             foreach (var productSelector in productSelectors)
             {
-                if (actualProductRelations.All(x => !x.ChildProductParameters.AllContainsIn(productSelector.ProductBlockSelector.SelectedParameters)))
+                if (actualProductRelations.All(x => !x.ChildProductParameters.AllContainsIn(productSelector.ProductBlockSelector.SelectedProductBlock.Parameters)))
+                {
                     ProductSelectors.Remove(productSelector);
+                    productSelector.SelectedProductChanged -= ProductSelectorOnSelectedProductChanged;
+                }
             }
 
             //добавление новых актуальных селекторов
             foreach (var productRelation in actualProductRelations)
             {
-                if (ProductSelectors.Any(x => productRelation.ChildProductParameters.AllContainsIn(x.ProductBlockSelector.SelectedParameters)))
+                if (ProductSelectors.Any(x => productRelation.ChildProductParameters.AllContainsIn(x.ProductBlockSelector.SelectedProductBlock.Parameters)))
                     continue;
-                ProductSelectors.Add(new ProductSelector(Parameters.RemoveUseLess(productRelation.ChildProductParameters), null));
+                var productSelector = new ProductSelector(Parameters.RemoveUseLess(productRelation.ChildProductParameters), null);
+                ProductSelectors.Add(productSelector);
+                productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
             }
         }
 
@@ -101,6 +135,13 @@ namespace HVTApp.Services.GetProductService
             }
 
             return result;
+        }
+
+        public event Action SelectedProductChanged;
+
+        protected virtual void OnSelectedProductChanged()
+        {
+            SelectedProductChanged?.Invoke();
         }
     }
 }

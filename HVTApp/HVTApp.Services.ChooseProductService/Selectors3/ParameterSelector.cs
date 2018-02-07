@@ -13,6 +13,7 @@ namespace HVTApp.Services.GetProductService
         /// </summary>
         public ProductBlockSelector ProductBlockSelector { get; }
         public bool IsActual => ParametersFlaged.Any(x => x.IsActual);
+        public string GroupName { get; }
 
         private ParameterFlaged _selectedParameterFlaged;
         public ParameterFlaged SelectedParameterFlaged
@@ -32,6 +33,8 @@ namespace HVTApp.Services.GetProductService
         public ParameterSelector(IEnumerable<Parameter> parameters, ProductBlockSelector productBlockSelector, Parameter selectedParameter = null)
         {
             ProductBlockSelector = productBlockSelector;
+
+            GroupName = parameters.First().ParameterGroup.ToString();
 
             var parametersFlaged = parameters.Select(x => new ParameterFlaged(x, this, Equals(x, selectedParameter)));
             ParametersFlaged = new ObservableCollection<ParameterFlaged>(parametersFlaged);

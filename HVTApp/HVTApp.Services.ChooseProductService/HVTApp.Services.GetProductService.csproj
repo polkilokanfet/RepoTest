@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="BooleanToVisibilityConverter.cs" />
     <Compile Include="GetProductServiceWpf.cs" />
+    <Compile Include="Selectors3\Ext.cs" />
     <Compile Include="Selectors3\NotifyPropertyChanged.cs" />
     <Compile Include="Selectors3\ParameterFlaged.cs" />
     <Compile Include="Selectors3\ParameterSelector.cs" />

@@ -9,17 +9,19 @@
 
     <Border BorderThickness="1" BorderBrush="Black" Margin="2">
         <StackPanel Orientation="Vertical">
-            
-            <!--<Label Content="{Binding SelectedProductBlock, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>-->
+
+            <Label Content="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="{Binding ProductBlockSelector.SelectedProductBlock, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
 
             <ItemsControl ItemsSource="{Binding ProductBlockSelector.ParameterSelectors}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal"
                                     Visibility="{Binding IsActual, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <Label Content="{Binding Group.Name}"/>
+                            <Label Content="{Binding GroupName}" HorizontalAlignment="Left"/>
                             <ComboBox ItemsSource="{Binding ParametersFlaged}"
-                                      SelectedItem="{Binding SelectedParameterFlaged, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                      SelectedItem="{Binding SelectedParameterFlaged, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      HorizontalAlignment="Right">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" 

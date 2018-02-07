@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Windows.Input;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.GetProductService;
@@ -25,7 +26,8 @@ namespace HVTApp.UI.ViewModels
 
         private async void SelectProduct_Execute()
         {
-            await Container.Resolve<IGetProductService>().GetProductAsync(Item.Product?.Model);
+            var product = await Container.Resolve<IGetProductService>().GetProductAsync(Item.Product?.Model);
+            Item.Product = new ProductWrapper(await UnitOfWork.GetRepository<Product>().GetByIdAsync(product.Id));
         }
 
         private async void SelectProducer_Execute()

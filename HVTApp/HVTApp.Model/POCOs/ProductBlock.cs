@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
 
@@ -13,7 +14,7 @@ namespace HVTApp.Model.POCOs
         public string ParametersToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            foreach (var parameter in Parameters)
+            foreach (var parameter in Parameters.OrderBy(x => x))
                 stringBuilder.Append($"{parameter.ParameterGroup}: {parameter.Value}; ");
 
             return stringBuilder.ToString();
