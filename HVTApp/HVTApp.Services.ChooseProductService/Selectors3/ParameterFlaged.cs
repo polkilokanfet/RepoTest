@@ -18,7 +18,7 @@ namespace HVTApp.Services.GetProductService
             _isSelected = isSelected;
             _isActual = isSelected || !Parameter.ParameterRelations.Any();
 
-            parameterSelector.ProductSelector.SelectedParametersChanged += CheckIsActual;
+            parameterSelector.ProductBlockSelector.SelectedParametersChanged += CheckIsActual;
         }
 
         public bool IsActual

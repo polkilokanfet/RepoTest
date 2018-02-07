@@ -2436,6 +2436,14 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> ProductBlockId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ProductBlockIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductBlockId));
+        public bool ProductBlockIdIsChanged => GetIsChanged(nameof(ProductBlockId));
+
         public System.String Designation
         {
           get { return GetValue<System.String>(); }
@@ -2443,14 +2451,6 @@ namespace HVTApp.UI.Wrapper
         }
         public System.String DesignationOriginalValue => GetOriginalValue<System.String>(nameof(Designation));
         public bool DesignationIsChanged => GetIsChanged(nameof(Designation));
-
-        public System.String StructureCostNumber
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String StructureCostNumberOriginalValue => GetOriginalValue<System.String>(nameof(StructureCostNumber));
-        public bool StructureCostNumberIsChanged => GetIsChanged(nameof(StructureCostNumber));
 
         public System.Guid Id
         {
@@ -2462,25 +2462,27 @@ namespace HVTApp.UI.Wrapper
 
         #endregion
 
+        #region ComplexProperties
+	    public ProductBlockWrapper ProductBlock 
+        {
+            get { return GetWrapper<ProductBlockWrapper>(); }
+            set { SetComplexValue<ProductBlock, ProductBlockWrapper>(ProductBlock, value); }
+        }
+
+        #endregion
+
         #region CollectionProperties
-        public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
-
-        public IValidatableChangeTrackingCollection<CostOnDateWrapper> Prices { get; private set; }
-
         public IValidatableChangeTrackingCollection<ProductWrapper> DependentProducts { get; private set; }
 
         #endregion
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlock), Model.ProductBlock == null ? null : new ProductBlockWrapper(Model.ProductBlock));
+
+        }
   
         protected override void InitializeCollectionProperties()
         {
-          if (Model.Parameters == null) throw new ArgumentException("ParametersFlaged cannot be null");
-          Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
-          RegisterCollection(Parameters, Model.Parameters);
-
-          if (Model.Prices == null) throw new ArgumentException("Prices cannot be null");
-          Prices = new ValidatableChangeTrackingCollection<CostOnDateWrapper>(Model.Prices.Select(e => new CostOnDateWrapper(e)));
-          RegisterCollection(Prices, Model.Prices);
-
           if (Model.DependentProducts == null) throw new ArgumentException("DependentProducts cannot be null");
           DependentProducts = new ValidatableChangeTrackingCollection<ProductWrapper>(Model.DependentProducts.Select(e => new ProductWrapper(e)));
           RegisterCollection(DependentProducts, Model.DependentProducts);
@@ -3504,6 +3506,58 @@ namespace HVTApp.UI.Wrapper
           if (Model.ProjectUnits == null) throw new ArgumentException("ProjectUnits cannot be null");
           ProjectUnits = new ValidatableChangeTrackingCollection<ProjectUnitWrapper>(Model.ProjectUnits.Select(e => new ProjectUnitWrapper(e)));
           RegisterCollection(ProjectUnits, Model.ProjectUnits);
+
+        }
+	}
+
+		public partial class ProductBlockWrapper : WrapperBase<ProductBlock>
+	{
+	    public ProductBlockWrapper(ProductBlock model) : base(model) { }
+
+	
+        #region SimpleProperties
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+        public System.String StructureCostNumber
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String StructureCostNumberOriginalValue => GetOriginalValue<System.String>(nameof(StructureCostNumber));
+        public bool StructureCostNumberIsChanged => GetIsChanged(nameof(StructureCostNumber));
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region CollectionProperties
+        public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+
+        public IValidatableChangeTrackingCollection<CostOnDateWrapper> Prices { get; private set; }
+
+        #endregion
+  
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
+          RegisterCollection(Parameters, Model.Parameters);
+
+          if (Model.Prices == null) throw new ArgumentException("Prices cannot be null");
+          Prices = new ValidatableChangeTrackingCollection<CostOnDateWrapper>(Model.Prices.Select(e => new CostOnDateWrapper(e)));
+          RegisterCollection(Prices, Model.Prices);
 
         }
 	}

@@ -61,5 +61,6 @@ namespace HVTApp.DataAccess
         //IUserRepository UserRepository { get; }
         //IOfferUnitRepository OfferUnitRepository { get; }
         //IProjectUnitGroupRepository ProjectUnitGroupRepository { get; }
+        //IProductBlockRepository ProductBlockRepository { get; }
     }
 }

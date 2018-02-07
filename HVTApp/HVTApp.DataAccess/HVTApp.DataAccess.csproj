@@ -70,6 +70,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\ContractConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\FacilityConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\FacilityTypeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ProductBlockConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TenderTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TestHusbandConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Generated\Configurations.g.cs" />

@@ -105,12 +105,17 @@ namespace HVTApp.TestDataGenerator
 
         public ProductRelation RequiredChildProductRelationDrive;
         public ProductRelation RequiredChildProductRelationBreakerBlock;
-                
+
+        public ProductBlock ProductBlockVgb35;
+        public ProductBlock ProductBlockVeb110;
+        public ProductBlock ProductBlockZng110;
+        public ProductBlock ProductBlockBreakersDrive;
+
         public Product ProductVgb35;
         public Product ProductVeb110;
         public Product ProductZng110;
         public Product ProductBreakersDrive;
-                
+
         public ProjectUnit ProjectUnitVeb1101;
         public ProjectUnit ProjectUnitVeb1102;
         public ProjectUnit ProjectUnitZng1101;
@@ -197,6 +202,7 @@ namespace HVTApp.TestDataGenerator
             GenerateParameterGroups();
             GenerateParameters();
             GenerateRequiredDependentEquipmentsParameters();
+            GenerateProductBlocs();
             GenerateProducts();
             GenerateContracts();
             GenerateSpecifications();
@@ -386,33 +392,70 @@ namespace HVTApp.TestDataGenerator
                 ChildProductParameters= new List<Parameter> { ParameterBreaker }, Count = 2 });
         }
 
+
+
+        private void GenerateProductBlocs()
+        {
+            ProductBlockVgb35.Clone(new ProductBlock
+            {
+                Name = "Block Выключатель баковый ВГБ-35",
+                Parameters = new List<Parameter> { ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage35kV },
+                Prices = new List<CostOnDate> { new CostOnDate { Cost = 50, Date = DateTime.Today } },
+                StructureCostNumber = "StructureCostNumberVGB35",
+            });
+
+            ProductBlockVeb110.Clone(new ProductBlock
+            {
+                Name = "Block Выключатель баковый ВЭБ-110",
+                Parameters = new List<Parameter> { ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage110kV },
+                Prices = new List<CostOnDate> { new CostOnDate { Cost = 100, Date = DateTime.Today } },
+                StructureCostNumber = "StructureCostNumber3",
+            });
+
+            ProductBlockZng110.Clone(new ProductBlock
+            {
+                Name = "Block Трансформатор напряжения ЗНГ-110",
+                Parameters = new List<Parameter> { ParameterTransformator, ParameterTransformatorVoltage, ParameterVoltage110kV },
+                Prices = new List<CostOnDate> { new CostOnDate { Cost = 75, Date = DateTime.Today } },
+                StructureCostNumber = "StructureCostNumber1"
+            });
+
+            ProductBlockBreakersDrive.Clone(new ProductBlock
+            {
+                Name = "Block Привод выключателя",
+                Parameters = new List<Parameter> { ParameterBrakersDrive, ParameterVoltage220V },
+                Prices = new List<CostOnDate> { new CostOnDate { Cost = 100, Date = DateTime.Today } },
+                StructureCostNumber = "StructureCostNumber4"
+            });
+        }
+
         private void GenerateProducts()
         {
-            ProductVgb35.Clone(new Product {
+            ProductVgb35.Clone(new Product
+            {
                 Designation = "Выключатель баковый ВГБ-35",
-                Parameters = new List<Parameter> { ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage35kV },
-                Prices= new List<CostOnDate> { new CostOnDate { Cost=50, Date = DateTime.Today } },
-                StructureCostNumber = "StructureCostNumberVGB35",
-                DependentProducts = new List<Product> { ProductBreakersDrive } });
+                ProductBlock = ProductBlockVgb35,
+                DependentProducts = new List<Product> { ProductBreakersDrive }
+            });
 
-            ProductVeb110.Clone(new Product {
+            ProductVeb110.Clone(new Product
+            {
                 Designation = "Выключатель баковый ВЭБ-110",
-                Parameters = new List<Parameter> { ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage110kV },
-                Prices= new List<CostOnDate> { new CostOnDate { Cost=100, Date = DateTime.Today } },
-                StructureCostNumber = "StructureCostNumber3",
-                DependentProducts = new List<Product> { ProductBreakersDrive } });
+                ProductBlock = ProductBlockVeb110,
+                DependentProducts = new List<Product> { ProductBreakersDrive }
+            });
 
-            ProductZng110.Clone(new Product {
+            ProductZng110.Clone(new Product
+            {
                 Designation = "Трансформатор напряжения ЗНГ-110",
-                Parameters = new List<Parameter> { ParameterTransformator, ParameterTransformatorVoltage, ParameterVoltage110kV },
-                Prices= new List<CostOnDate> { new CostOnDate { Cost=75, Date = DateTime.Today } },
-                StructureCostNumber = "StructureCostNumber1" });
+                ProductBlock = ProductBlockZng110
+            });
 
-            ProductBreakersDrive.Clone(new Product {
+            ProductBreakersDrive.Clone(new Product
+            {
                 Designation = "Привод выключателя",
-                Parameters = new List<Parameter> { ParameterBrakersDrive, ParameterVoltage220V },
-                Prices= new List<CostOnDate> { new CostOnDate { Cost=100, Date = DateTime.Today } },
-                StructureCostNumber = "StructureCostNumber4" });
+                ProductBlock = ProductBlockBreakersDrive
+            });
         }
 
         private void GenerateProductionUnit()

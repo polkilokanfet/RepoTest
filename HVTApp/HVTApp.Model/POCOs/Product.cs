@@ -10,42 +10,28 @@ namespace HVTApp.Model.POCOs
     {
         public string Designation { get; set; }
 
-        public virtual List<Parameter> Parameters { get; set; } = new List<Parameter>();
-        public virtual List<CostOnDate> Prices { get; set; } = new List<CostOnDate>();
-
-        public string StructureCostNumber { get; set; }
+        public virtual ProductBlock ProductBlock { get; set; }
 
         public virtual List<Product> DependentProducts { get; set; } = new List<Product>();
 
-        public string ParametersToString()
-        {
-            StringBuilder stringBuilder = new StringBuilder();
-            foreach (var parameter in Parameters)
-                stringBuilder.Append($"{parameter.ParameterGroup}: {parameter.Value}; ");
-
-            return stringBuilder.ToString();
-        }
-
-
         public override string ToString()
         {
-            return !string.IsNullOrEmpty(Designation) ? Designation : ParametersToString();
+            return string.IsNullOrEmpty(Designation) ? ProductBlock.ToString() : Designation;
         }
 
+        //public override bool Equals(object obj)
+        //{
+        //    if(base.Equals(obj)) return true;
 
-        public override bool Equals(object obj)
-        {
-            if(base.Equals(obj)) return true;
+        //    var otherProduct = obj as Product;
+        //    if (otherProduct == null) return false;
 
-            var otherProduct = obj as Product;
-            if (otherProduct == null) return false;
+        //    //если составные части не совпадают
+        //    if (!Parameters.AllMembersAreSame(otherProduct.Parameters)) return false;
 
-            //если составные части не совпадают
-            if (!Parameters.AllMembersAreSame(otherProduct.Parameters)) return false;
-
-            //если зависимые продукты не совпадают / совпадают
-            return DependentProducts.AllMembersAreSame(otherProduct.DependentProducts);
-        }
+        //    //если зависимые продукты не совпадают / совпадают
+        //    return DependentProducts.AllMembersAreSame(otherProduct.DependentProducts);
+        //}
 
         public string PartsToString()
         {

@@ -69,6 +69,7 @@ namespace HVTApp.DataAccess
             UserRepository = new UserRepository(context);
             OfferUnitRepository = new OfferUnitRepository(context);
             ProjectUnitGroupRepository = new ProjectUnitGroupRepository(context);
+            ProductBlockRepository = new ProductBlockRepository(context);
 			#endregion
         }
 
@@ -130,6 +131,7 @@ namespace HVTApp.DataAccess
         private IUserRepository UserRepository;
         private IOfferUnitRepository OfferUnitRepository;
         private IProjectUnitGroupRepository ProjectUnitGroupRepository;
+        private IProductBlockRepository ProductBlockRepository;
         #endregion
     }
 }

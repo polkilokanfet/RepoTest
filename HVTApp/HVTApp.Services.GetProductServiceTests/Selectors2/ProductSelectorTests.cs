@@ -20,10 +20,10 @@ namespace HVTApp.Services.GetProductServiceTests.Selectors2
             //var parameters = testData.GetAll<Parameter>().ToList();
             //var productRelations = testData.GetAll<ProductRelation>().ToList();
 
-            //var productSelector = new ProductSelector(products, parameters, productRelations);
+            //var productBlockSelector = new ProductBlockSelector(products, parameters, productRelations);
 
             //var originParameters = parameters.Where(x => !x.ParameterRelations.Any());
-            //var originParameterSelector = productSelector.ParameterSelectors.Single(x => x.Parameters.AllMembersAreSame(originParameters));
+            //var originParameterSelector = productBlockSelector.ParameterSelectors.Single(x => x.Parameters.AllMembersAreSame(originParameters));
 
             //foreach (var originParameter in originParameters)
             //{

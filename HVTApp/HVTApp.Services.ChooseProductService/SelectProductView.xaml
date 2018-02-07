@@ -10,9 +10,9 @@
     <Border BorderThickness="1" BorderBrush="Black" Margin="2">
         <StackPanel Orientation="Vertical">
             
-            <Label Content="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
-            
-            <ItemsControl ItemsSource="{Binding ParameterSelectors}">
+            <!--<Label Content="{Binding SelectedProductBlock, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>-->
+
+            <ItemsControl ItemsSource="{Binding ProductBlockSelector.ParameterSelectors}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal"

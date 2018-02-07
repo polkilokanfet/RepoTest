@@ -1015,4 +1015,22 @@ namespace HVTApp.UI.Views
         }
     }
 
+    [RibbonTab(typeof(TabCRUD))]
+    public partial class ProductBlockListView : ViewBase
+    {
+        public ProductBlockListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductBlockListViewModel ProductBlockListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = ProductBlockListViewModel;
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			var viewModel = (ProductBlockListViewModel) DataContext;
+            if (!viewModel.LoadedFlag)
+                await viewModel.LoadAsync();
+        }
+    }
+
 }

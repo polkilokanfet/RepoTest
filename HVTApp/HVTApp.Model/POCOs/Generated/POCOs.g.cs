@@ -206,6 +206,7 @@ namespace HVTApp.Model.POCOs
 
 	public partial class Product
 	{
+		public virtual Guid? ProductBlockId { get; set; }
 	}
 
 	public partial class Offer
@@ -285,6 +286,10 @@ namespace HVTApp.Model.POCOs
 	{
 		public virtual Guid? ProductId { get; set; }
 		public virtual Guid? FacilityId { get; set; }
+	}
+
+	public partial class ProductBlock
+	{
 	}
 
 }

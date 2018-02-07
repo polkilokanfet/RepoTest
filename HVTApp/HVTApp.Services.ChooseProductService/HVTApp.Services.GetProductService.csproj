@@ -58,6 +58,7 @@
     <Compile Include="Selectors3\NotifyPropertyChanged.cs" />
     <Compile Include="Selectors3\ParameterFlaged.cs" />
     <Compile Include="Selectors3\ParameterSelector.cs" />
+    <Compile Include="Selectors3\ProductBlockSelector.cs" />
     <Compile Include="Selectors3\ProductSelector.cs" />
     <Compile Include="SelectProductWindow.xaml.cs">
       <DependentUpon>SelectProductWindow.xaml</DependentUpon>

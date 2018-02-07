@@ -943,12 +943,18 @@ namespace HVTApp.UI.Lookup
 		}
 		protected override void RefreshLookups()
         {
-			 		}
+			 			ProductBlock?.Refresh(Entity.ProductBlock);
+		}
 		
         #region SimpleProperties
+        public System.Nullable<System.Guid> ProductBlockId => GetValue<System.Nullable<System.Guid>>();
+
         public System.String Designation => GetValue<System.String>();
 
-        public System.String StructureCostNumber => GetValue<System.String>();
+        #endregion
+
+        #region ComplexProperties
+	    public ProductBlockLookup ProductBlock { get { return GetLookup<ProductBlockLookup>(); } }
 
         #endregion
 	}
@@ -1333,6 +1339,22 @@ namespace HVTApp.UI.Lookup
 	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
+
+        #endregion
+	}
+	public partial class ProductBlockLookup : LookupItem<ProductBlock>
+	{
+		public ProductBlockLookup(ProductBlock entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 		}
+		
+        #region SimpleProperties
+        public System.String Name => GetValue<System.String>();
+
+        public System.String StructureCostNumber => GetValue<System.String>();
 
         #endregion
 	}

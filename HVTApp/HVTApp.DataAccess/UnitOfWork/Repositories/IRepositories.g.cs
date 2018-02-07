@@ -58,5 +58,6 @@ namespace HVTApp.DataAccess
     public partial interface IUserRepository : IRepository<User> { }
     public partial interface IOfferUnitRepository : IRepository<OfferUnit> { }
     public partial interface IProjectUnitGroupRepository : IRepository<ProjectUnitGroup> { }
+    public partial interface IProductBlockRepository : IRepository<ProductBlock> { }
 
 }

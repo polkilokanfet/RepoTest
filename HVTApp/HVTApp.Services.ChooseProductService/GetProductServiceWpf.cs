@@ -34,6 +34,7 @@ namespace HVTApp.Services.GetProductService
             ProductSelector.ProductRelations = _productRelations;
             ProductSelector.Parameters = _parameters;
 
+
             var productSelector = new ProductSelector(_parameters, templateProduct);
             var window = new SelectProductWindow {DataContext = productSelector};
             window.ShowDialog();

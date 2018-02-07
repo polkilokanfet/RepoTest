@@ -62,6 +62,7 @@ namespace HVTApp.UI.Wrapper
             UserWrapperDataService = new UserWrapperDataService(unitOfWork);
             OfferUnitWrapperDataService = new OfferUnitWrapperDataService(unitOfWork);
             ProjectUnitGroupWrapperDataService = new ProjectUnitGroupWrapperDataService(unitOfWork);
+            ProductBlockWrapperDataService = new ProductBlockWrapperDataService(unitOfWork);
         }
 
         public AddressWrapperDataService AddressWrapperDataService { get; }
@@ -120,5 +121,6 @@ namespace HVTApp.UI.Wrapper
         public UserWrapperDataService UserWrapperDataService { get; }
         public OfferUnitWrapperDataService OfferUnitWrapperDataService { get; }
         public ProjectUnitGroupWrapperDataService ProjectUnitGroupWrapperDataService { get; }
+        public ProductBlockWrapperDataService ProductBlockWrapperDataService { get; }
     }
 }

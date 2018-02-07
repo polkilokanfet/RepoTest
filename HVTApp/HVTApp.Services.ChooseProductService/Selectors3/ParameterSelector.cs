@@ -11,7 +11,7 @@ namespace HVTApp.Services.GetProductService
         /// <summary>
         /// Родительский селектор
         /// </summary>
-        public ProductSelector ProductSelector { get; }
+        public ProductBlockSelector ProductBlockSelector { get; }
         public bool IsActual => ParametersFlaged.Any(x => x.IsActual);
 
         private ParameterFlaged _selectedParameterFlaged;
@@ -29,9 +29,9 @@ namespace HVTApp.Services.GetProductService
 
         public ObservableCollection<ParameterFlaged> ParametersFlaged { get; }
 
-        public ParameterSelector(IEnumerable<Parameter> parameters, ProductSelector productSelector, Parameter selectedParameter = null)
+        public ParameterSelector(IEnumerable<Parameter> parameters, ProductBlockSelector productBlockSelector, Parameter selectedParameter = null)
         {
-            ProductSelector = productSelector;
+            ProductBlockSelector = productBlockSelector;
 
             var parametersFlaged = parameters.Select(x => new ParameterFlaged(x, this, Equals(x, selectedParameter)));
             ParametersFlaged = new ObservableCollection<ParameterFlaged>(parametersFlaged);

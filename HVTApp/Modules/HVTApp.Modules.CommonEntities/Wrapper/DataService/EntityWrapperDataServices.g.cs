@@ -844,4 +844,19 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
+    public partial class ProductBlockWrapperDataService : EntityWrapperDataService<ProductBlock, ProductBlockWrapper>
+    {
+        public ProductBlockWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		
+		protected override ProductBlockWrapper GenerateWrapper(ProductBlock model)
+        {
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new ProductBlockWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
+        }
+    }
+
 }
