@@ -7,12 +7,16 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.GetProductService
 {
-    public class ProductSelector
+    public class ProductSelector : NotifyPropertyChanged
     {
+        public static IEnumerable<Product> Products { get; set; } = new List<Product>();
         public static IEnumerable<ProductRelation> ProductRelations { get; set; } = new List<ProductRelation>();
         public static IEnumerable<Parameter> Parameters { get; set; } = new List<Parameter>();
 
-        public bool IsActual => true;
+        public Product SelectedProduct
+        {
+            get { return Products.FirstOrDefault(x => x.Parameters.AllMembersAreSame(SelectedParameters)); }
+        }
 
         public ObservableCollection<ParameterSelector> ParameterSelectors { get; }
         public ObservableCollection<ProductSelector> ProductSelectors { get; } = new ObservableCollection<ProductSelector>();
@@ -29,9 +33,10 @@ namespace HVTApp.Services.GetProductService
 
             if (selectedProduct != null)
             {
-                foreach (var dependentProduct in selectedProduct.DependentProducts)
+                var dic = GetDictionaryOfMatching(selectedProduct);
+                foreach (var kvp in dic)
                 {
-                    ProductSelectors.Add(new ProductSelector(Parameters, dependentProduct));
+                    ProductSelectors.Add(new ProductSelector(GetUsefullParameters(kvp.Key.ChildProductParameters), kvp.Value));
                 }
             }
             else
@@ -56,14 +61,30 @@ namespace HVTApp.Services.GetProductService
                 {
                     result[node.Key] = product1;
                     products.Remove(product1);
+                    continue;
                 }
+
+                node = result.FirstOrDefault(x => x.Key.ChildProductParameters.AllContainsIn(product1.Parameters));
+
+                if (!Equals(node, default(KeyValuePair<ProductRelation, Product>)))
+                {
+                    products.Add(result[node.Key]);
+                    result[node.Key] = product1;
+                    products.Remove(product1);
+                    continue;
+                }
+
+                throw new Exception("Не найдена подходящая зависимость для продукта");
             }
+
+            return result;
         }
 
         private void ParameterSelectorOnSelectedParameterFlagedChanged(ParameterSelector parameterSelector)
         {
             RefreshProductSelectors();
             OnSelectedParametersChanged(this.SelectedParametersFlaged.Select(x => x.Parameter));
+            OnPropertyChanged(nameof(SelectedProduct));
         }
 
         private void RefreshProductSelectors()

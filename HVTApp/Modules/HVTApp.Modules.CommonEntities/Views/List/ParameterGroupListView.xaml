@@ -2,11 +2,16 @@
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:prism="http://prismlibrary.com/"
              xmlns:infg="http://infragistics.com/DataPresenter"
              >
-    
+
     <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayoutSettings>
+            <infg:FieldLayoutSettings AutoGenerateFields="True"/>
+        </infg:XamDataGrid.FieldLayoutSettings>
+    </infg:XamDataGrid>
+
+    <!--<infg:XamDataGrid>
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
@@ -14,6 +19,6 @@
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
         </infg:XamDataGrid.FieldLayouts>
-    </infg:XamDataGrid>
+    </infg:XamDataGrid>-->
     
 </inf:ViewBase>

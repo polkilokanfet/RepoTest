@@ -10,7 +10,7 @@
     <Border BorderThickness="1" BorderBrush="Black" Margin="2">
         <StackPanel Orientation="Vertical">
             
-            <!--<Label Content="{Binding PartSelector.SelectedProduct, UpdateSourceTrigger=PropertyChanged}"/>-->
+            <Label Content="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
             
             <ItemsControl ItemsSource="{Binding ParameterSelectors}">
                 <ItemsControl.ItemTemplate>
@@ -39,8 +39,7 @@
             <ItemsControl ItemsSource="{Binding ProductSelectors}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:SelectProductView DataContext="{Binding}" 
-                                                 Visibility="{Binding Path=IsActual, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <local:SelectProductView DataContext="{Binding}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

@@ -11,7 +11,7 @@ namespace HVTApp.Model.POCOs
         public string Designation { get; set; }
 
         public virtual List<Parameter> Parameters { get; set; } = new List<Parameter>();
-        public virtual List<CostOnDate> Prices { get; set; } = new List<CostOnDate>(); //себестоимости по датам
+        public virtual List<CostOnDate> Prices { get; set; } = new List<CostOnDate>();
 
         public string StructureCostNumber { get; set; }
 

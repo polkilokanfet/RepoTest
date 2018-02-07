@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.DataAccess;
 using HVTApp.Model.POCOs;
@@ -31,6 +30,7 @@ namespace HVTApp.Services.GetProductService
             if (_parameters == null)
                 await LoadAsync();
 
+            ProductSelector.Products = _products;
             ProductSelector.ProductRelations = _productRelations;
             ProductSelector.Parameters = _parameters;
 
