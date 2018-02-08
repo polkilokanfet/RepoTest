@@ -16,8 +16,8 @@ namespace HVTApp.Services.GetProductService
             if (xIsMain && !yIsMain) return -1;
             if (yIsMain && !xIsMain) return 1;
 
-            int xMin = x.Select(parameter => parameter.RequiredPreviousParameters.Select(rp => rp.RequiredParameters).Count()).Min();
-            int yMin = y.Select(parameter => parameter.RequiredPreviousParameters.Select(rp => rp.RequiredParameters).Count()).Min();
+            int xMin = x.Select(parameter => parameter.ParameterRelations.Select(rp => rp.RequiredParameters).Count()).Min();
+            int yMin = y.Select(parameter => parameter.ParameterRelations.Select(rp => rp.RequiredParameters).Count()).Min();
 
             if (xMin > yMin) return 1;
             if (xMin < yMin) return -1;
@@ -27,7 +27,7 @@ namespace HVTApp.Services.GetProductService
 
         private IEnumerable<Parameter> GetAllRequiredParameters(Parameter parameter)
         {
-            return parameter.RequiredPreviousParameters.SelectMany(x => x.RequiredParameters);
+            return parameter.ParameterRelations.SelectMany(x => x.RequiredParameters);
         }
 
         private IEnumerable<Parameter> GetAllRequiredParameters(IEnumerable<Parameter> parameters)

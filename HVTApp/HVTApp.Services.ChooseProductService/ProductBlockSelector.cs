@@ -47,7 +47,7 @@ namespace HVTApp.Services.GetProductService
         //группировка параметрам по группе и упорядочивание их
         private IEnumerable<IEnumerable<Parameter>> GetGroupingParameters(IEnumerable<Parameter> parameters)
         {
-            var groups = parameters.GroupBy(x => x.ParameterGroup);
+            var groups = parameters.GroupBy(x => x.ParameterGroup).OrderBy(x => x, new ParametersEnumerableComparer());
             foreach (var group in groups)
             {
                 yield return group.OrderBy(x => x.Value);

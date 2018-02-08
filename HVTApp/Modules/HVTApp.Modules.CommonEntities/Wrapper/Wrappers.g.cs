@@ -2603,10 +2603,10 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
-	    public TenderWrapper Tender 
+	    public ProjectWrapper Project 
         {
-            get { return GetWrapper<TenderWrapper>(); }
-            set { SetComplexValue<Tender, TenderWrapper>(Tender, value); }
+            get { return GetWrapper<ProjectWrapper>(); }
+            set { SetComplexValue<Project, ProjectWrapper>(Project, value); }
         }
 
 	    public DocumentWrapper RequestDocument 
@@ -2653,7 +2653,7 @@ namespace HVTApp.UI.Wrapper
         #endregion
         public override void InitializeComplexProperties()
         {
-            InitializeComplexProperty<TenderWrapper>(nameof(Tender), Model.Tender == null ? null : new TenderWrapper(Model.Tender));
+            InitializeComplexProperty<ProjectWrapper>(nameof(Project), Model.Project == null ? null : new ProjectWrapper(Model.Project));
 
             InitializeComplexProperty<DocumentWrapper>(nameof(RequestDocument), Model.RequestDocument == null ? null : new DocumentWrapper(Model.RequestDocument));
 

@@ -113,7 +113,7 @@
     <Compile Include="ViewModels\BaseListViewModel.cs" />
     <Compile Include="ViewModels\Details\GeneratedDetailsViewModels.g.cs" />
     <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Details\PartDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\IBaseListViewModel.cs" />
     <Compile Include="Controls\ChooseItemControl.xaml.cs">
@@ -156,7 +156,6 @@
       <DependentUpon>TabCRUD.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Details\ProjectDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Details\ProjectUnitsDetailsViewModel.cs" />
     <Compile Include="ViewModels\List\CompanyListViewModel.cs" />
     <Compile Include="ViewModels\List\GeneratedListViewModels.g.cs" />
     <Compile Include="ViewModels\List\PartPriceListViewModel.cs" />

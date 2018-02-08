@@ -211,7 +211,7 @@ namespace HVTApp.Model.POCOs
 
 	public partial class Offer
 	{
-		public virtual Guid? TenderId { get; set; }
+		public virtual Guid? ProjectId { get; set; }
 		public virtual Guid? RequestDocumentId { get; set; }
 		public virtual Guid? AuthorId { get; set; }
 		public virtual Guid? SenderEmployeeId { get; set; }

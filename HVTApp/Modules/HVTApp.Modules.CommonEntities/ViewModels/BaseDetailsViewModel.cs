@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -7,6 +9,8 @@ using HVTApp.DataAccess;
 using HVTApp.DataAccess.Annotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.UI.Lookup;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -97,6 +101,23 @@ namespace HVTApp.UI.ViewModels
         {
             ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
         }
+
+        protected void SelectAndSetWrapper<TEntity1, TLookup, TWrapper1>(IEnumerable<TEntity1> entities, string propertyName)
+            where TEntity1 : class, IBaseEntity
+            where TLookup : LookupItem<TEntity1>
+            where TWrapper1 : WrapperBase<TEntity1>
+        {
+            var lookups = entities.Select(x => (TLookup)Activator.CreateInstance(typeof(TLookup), x));
+            var entity = Container.Resolve<ISelectService>().SelectItem(lookups);
+            var propertyValue = (TWrapper1)Item.GetType().GetProperty(propertyName).GetValue(Item);
+            if (entity != null && !Equals(entity.Id, propertyValue?.Model.Id))
+            {
+                var wrapper = (TWrapper1)Activator.CreateInstance(typeof(TWrapper1), entity.Entity);
+                Item.GetType().GetProperty(propertyName).SetValue(Item, wrapper);
+                Item.GetType().GetProperty(propertyName + "Id").SetValue(Item, entity.Entity.Id);
+            }
+        }
+
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

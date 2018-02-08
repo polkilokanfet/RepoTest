@@ -1,8 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows.Input;
-using HVTApp.DataAccess;
-using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.GetProductService;
 using HVTApp.UI.Lookup;
@@ -27,17 +24,6 @@ namespace HVTApp.UI.ViewModels
             SelectProjectCommand = new DelegateCommand(SelectProject_Execute);
         }
 
-        private async void SelectProject_Execute()
-        {
-            var projects = await UnitOfWork.GetRepository<Project>().GetAllAsync();
-            var project = Container.Resolve<ISelectService>().SelectItem(projects.Select(x => new ProjectLookup(x)), Item.ProjectId);
-            if (project != null && !Equals(project.Id, Item.ProjectId))
-            {
-                Item.Project = new ProjectWrapper(project.Entity);
-                Item.ProjectId = project.Id;
-            }
-        }
-
         private async void SelectProduct_Execute()
         {
             var product = await Container.Resolve<IGetProductService>().GetProductAsync(Item.Product?.Model);
@@ -48,22 +34,24 @@ namespace HVTApp.UI.ViewModels
             Item.ProductId = prod.Id;
         }
 
+        private async void SelectProject_Execute()
+        {
+            var projects = await UnitOfWork.GetRepository<Project>().GetAllAsync();
+            SelectAndSetWrapper<Project, ProjectLookup, ProjectWrapper>(projects, nameof(Item.Project));
+        }
+
         private async void SelectProducer_Execute()
         {
-            var producers = await UnitOfWork.GetRepository<Company>().GetAllAsync();
-            var producerLookups = producers.Where(x => x.ActivityFilds.Select(af => af.ActivityFieldEnum)
-                            .Contains(ActivityFieldEnum.ProducerOfHighVoltageEquipment)).Select(x => new CompanyLookup(x));
-            var producer = Container.Resolve<ISelectService>().SelectItem(producerLookups);
-            if (producer != null)
-                Item.Producer = new CompanyWrapper(producer.Entity);
+            var companies = await UnitOfWork.GetRepository<Company>().GetAllAsync();
+            var producers = companies.Where(x => x.ActivityFilds.Select(af => af.ActivityFieldEnum).Contains(ActivityFieldEnum.ProducerOfHighVoltageEquipment));
+            SelectAndSetWrapper<Company, CompanyLookup, CompanyWrapper>(producers, nameof(Item.Producer));
         }
 
         private async void SelectFacility_Execute()
         {
-            var facilities = (await UnitOfWork.GetRepository<Facility>().GetAllAsync()).Select(x => new FacilityLookup(x));
-            var facility = Container.Resolve<ISelectService>().SelectItem(facilities);
-            if(facility != null)
-                Item.Facility = new FacilityWrapper(facility.Entity);
+            var facilities = await UnitOfWork.GetRepository<Facility>().GetAllAsync();
+            SelectAndSetWrapper<Facility, FacilityLookup, FacilityWrapper>(facilities, nameof(Item.Facility));
         }
+
     }
 }

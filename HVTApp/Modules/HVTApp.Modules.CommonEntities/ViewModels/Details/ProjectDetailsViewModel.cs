@@ -1,8 +1,5 @@
-﻿using System.Linq;
-using System.Windows.Input;
-using HVTApp.DataAccess;
+﻿using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services;
-using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Converter;
 using HVTApp.UI.Events;

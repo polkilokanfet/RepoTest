@@ -55,12 +55,13 @@
   <ItemGroup>
     <Compile Include="BooleanToVisibilityConverter.cs" />
     <Compile Include="GetProductServiceWpf.cs" />
-    <Compile Include="Selectors3\Ext.cs" />
-    <Compile Include="Selectors3\NotifyPropertyChanged.cs" />
-    <Compile Include="Selectors3\ParameterFlaged.cs" />
-    <Compile Include="Selectors3\ParameterSelector.cs" />
-    <Compile Include="Selectors3\ProductBlockSelector.cs" />
-    <Compile Include="Selectors3\ProductSelector.cs" />
+    <Compile Include="Ext.cs" />
+    <Compile Include="NotifyPropertyChanged.cs" />
+    <Compile Include="ParameterFlaged.cs" />
+    <Compile Include="ParameterSelector.cs" />
+    <Compile Include="ProductBlockSelector.cs" />
+    <Compile Include="ProductSelector.cs" />
+    <Compile Include="ParametersEnumerableComparer.cs" />
     <Compile Include="SelectProductWindow.xaml.cs">
       <DependentUpon>SelectProductWindow.xaml</DependentUpon>
     </Compile>
@@ -121,9 +122,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Selectors\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

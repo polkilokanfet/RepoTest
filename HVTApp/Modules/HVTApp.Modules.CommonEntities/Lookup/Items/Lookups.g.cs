@@ -965,7 +965,7 @@ namespace HVTApp.UI.Lookup
 		}
 		protected override void RefreshLookups()
         {
-			 			Tender?.Refresh(Entity.Tender);
+			 			Project?.Refresh(Entity.Project);
 			RequestDocument?.Refresh(Entity.RequestDocument);
 			Author?.Refresh(Entity.Author);
 			SenderEmployee?.Refresh(Entity.SenderEmployee);
@@ -1002,7 +1002,7 @@ namespace HVTApp.UI.Lookup
         #endregion
 
         #region ComplexProperties
-	    public TenderLookup Tender { get { return GetLookup<TenderLookup>(); } }
+	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
 
 	    public DocumentLookup RequestDocument { get { return GetLookup<DocumentLookup>(); } }
 

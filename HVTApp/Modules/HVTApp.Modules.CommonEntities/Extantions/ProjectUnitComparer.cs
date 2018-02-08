@@ -23,4 +23,21 @@ namespace HVTApp.UI.Extantions
                    projectUnit.Cost.GetHashCode();
         }
     }
+
+    public class OfferUnitComparer : IEqualityComparer<OfferUnit> {
+        public bool Equals(OfferUnit x, OfferUnit y)
+        {
+            return x != null &&
+                   y != null &&
+                   Equals(x.Facility.Id, y.Facility.Id) &&
+                   Equals(x.Product.Id, y.Product.Id) &&
+                   Equals(x.Offer.Id, y.Offer.Id) &&
+                   Equals(x.Cost, y.Cost);
+        }
+
+        public int GetHashCode(OfferUnit offerUnit)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }
