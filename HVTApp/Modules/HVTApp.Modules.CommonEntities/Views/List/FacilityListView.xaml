@@ -1,12 +1,16 @@
 ﻿<inf:ViewBase x:Class="HVTApp.UI.Views.FacilityListView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:infg="http://infragistics.com/DataPresenter"
-             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure">
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure">
 
     <infg:XamDataGrid>
+        
+        <infg:XamDataGrid.FieldLayoutSettings>
+            <infg:FieldLayoutSettings AutoGenerateFields="True"/>
+        </infg:XamDataGrid.FieldLayoutSettings>
 
-        <infg:XamDataGrid.FieldLayouts>
+        <!--<infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Название"/>
@@ -15,7 +19,7 @@
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
-        </infg:XamDataGrid.FieldLayouts>
+        </infg:XamDataGrid.FieldLayouts>-->
     </infg:XamDataGrid>
 
 

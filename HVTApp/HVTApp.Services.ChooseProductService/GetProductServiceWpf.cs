@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows;
 using HVTApp.DataAccess;
 using HVTApp.Model.POCOs;
 
@@ -29,8 +30,7 @@ namespace HVTApp.Services.GetProductService
 
         public async Task<Product> GetProductAsync(Product templateProduct = null)
         {
-            if (_parameters == null)
-                await LoadAsync();
+            if (_parameters == null) await LoadAsync();
 
             ProductSelector.Products = _products;
             ProductSelector.ProductRelations = _productRelations;
@@ -40,10 +40,15 @@ namespace HVTApp.Services.GetProductService
 
 
             var productSelector = new ProductSelector(_parameters, templateProduct);
-            var window = new SelectProductWindow {DataContext = productSelector};
+            var window = new SelectProductWindow
+            {
+                DataContext = productSelector,
+                Owner = Application.Current.MainWindow
+            };
             window.ShowDialog();
 
             if (!window.DialogResult.HasValue || !window.DialogResult.Value) return templateProduct;
+
             var result = productSelector.SelectedProduct;
             if (!_products.Contains(result))
             {
@@ -51,7 +56,7 @@ namespace HVTApp.Services.GetProductService
                 await _unitOfWork.SaveChangesAsync();
             }
 
-            return productSelector.SelectedProduct;
+            return result;
         }
     }
 }

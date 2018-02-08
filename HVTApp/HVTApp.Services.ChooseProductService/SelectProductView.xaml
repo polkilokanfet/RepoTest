@@ -10,34 +10,46 @@
     <Border BorderThickness="1" BorderBrush="Black" Margin="2">
         <StackPanel Orientation="Vertical">
 
-            <Label Content="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Content="{Binding ProductBlockSelector.SelectedProductBlock, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+            <Label Content="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"
+                   HorizontalAlignment="Center"
+                   FontWeight="Bold"/>
+            <Label Content="{Binding ProductBlockSelector.SelectedProductBlock, UpdateSourceTrigger=PropertyChanged}" 
+                   HorizontalAlignment="Center"/>
 
             <ItemsControl ItemsSource="{Binding ProductBlockSelector.ParameterSelectors}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal"
-                                    Visibility="{Binding IsActual, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <Label Content="{Binding GroupName}" HorizontalAlignment="Left"/>
+                        <Grid Visibility="{Binding IsActual, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label Content="{Binding GroupName}"
+                                   HorizontalAlignment="Right" 
+                                   Grid.Column="0"/>
                             <ComboBox ItemsSource="{Binding ParametersFlaged}"
                                       SelectedItem="{Binding SelectedParameterFlaged, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      HorizontalAlignment="Right">
+                                      HorizontalAlignment="Left"
+                                      Grid.Column="1">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" 
                                                     Visibility="{Binding Path=IsActual, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                            <Label Content="{Binding Parameter}"/>
+                                            <Label Content="{Binding Parameter.Value}"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
-                        </StackPanel>
+                        </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
             
             
-            <Label Content="Составные части:" HorizontalAlignment="Left"/>
+            <Label Content="Дочерние блоки оборудования:" 
+                   HorizontalAlignment="Center"
+                   FontStyle="Italic"/>
             <ItemsControl ItemsSource="{Binding ProductSelectors}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>

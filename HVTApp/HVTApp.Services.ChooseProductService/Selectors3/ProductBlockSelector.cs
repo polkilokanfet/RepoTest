@@ -26,6 +26,7 @@ namespace HVTApp.Services.GetProductService
                     OnPropertyChanged(nameof(SelectedProductBlock));
                 };
 
+            //необходимо взбодрить параметры (узнать кто актуален, а кто нет)
             if (selectedParameters.Any())
                 OnSelectedParametersChanged(SelectedProductBlock.Parameters);
         }
