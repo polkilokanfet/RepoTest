@@ -24,7 +24,7 @@
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
-            <infg:FieldLayout Key="ProjectUnit" ParentFieldLayoutKey="Project" ParentFieldName="ProjectUnits">
+            <infg:FieldLayout Key="ProjectUnit" ParentFieldLayoutKey="Project" ParentFieldName="OfferUnits">
                 <infg:FieldLayout.Fields>
                     <!--<infg:TextField Name="Facility" Label="Объект" Converter="{StaticResource WrapperToStringConverter}"/>-->
                     <!--<infg:TextField Name="Product" Label="Оборудование" Converter="{StaticResource WrapperToStringConverter}"/>-->

@@ -3503,7 +3503,7 @@ namespace HVTApp.UI.Wrapper
   
         protected override void InitializeCollectionProperties()
         {
-          if (Model.ProjectUnits == null) throw new ArgumentException("ProjectUnits cannot be null");
+          if (Model.ProjectUnits == null) throw new ArgumentException("OfferUnits cannot be null");
           ProjectUnits = new ValidatableChangeTrackingCollection<ProjectUnitWrapper>(Model.ProjectUnits.Select(e => new ProjectUnitWrapper(e)));
           RegisterCollection(ProjectUnits, Model.ProjectUnits);
 

@@ -44,16 +44,16 @@ namespace HVTApp.UI.ViewModels
             //var wrapper = new ProjectUnitWrapper(new ProjectUnit());
             //var dialogResult = _updateDetailsService.UpdateDetails<ProjectUnit>(wrapper.Model.Id);
             //if(dialogResult)
-            //    Item.ProjectUnits.Add(wrapper);
+            //    Item.OfferUnits.Add(wrapper);
         }
 
         private void ChangeProjectUnitsCommand_Execute()
         {
-            //var projectUnit = Item.ProjectUnits.First(x => (x.Product.Equals(ProductGroup.Product) && x.Facility.Equals(ProductGroup.Facility)));
+            //var projectUnit = Item.OfferUnits.First(x => (x.Product.Equals(ProductGroup.Product) && x.Facility.Equals(ProductGroup.Facility)));
             //var viewModel = _unityContainer.Resolve<ProjectUnitsDetailsViewModel>(new ParameterOverride("item", projectUnit));
             //var dialogResult = _dialogService.ShowDialog(viewModel);
             //if(dialogResult.HasValue && dialogResult.Value)
-            //    Item.ProjectUnits.Add(projectUnit);
+            //    Item.OfferUnits.Add(projectUnit);
         }
 
         private bool ChangeProjectUnitsCommand_CanExecute()

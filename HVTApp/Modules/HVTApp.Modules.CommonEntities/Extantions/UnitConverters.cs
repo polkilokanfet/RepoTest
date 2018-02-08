@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.ViewModels;
 
 namespace HVTApp.UI.Extantions
 {
@@ -12,6 +11,13 @@ namespace HVTApp.UI.Extantions
             var groups = projectUnits.GroupBy(x => x, new ProjectUnitComparer());
             foreach (var group in groups)
                 yield return new ProjectUnitGroup { ProjectUnits = group.ToList() };
+        }
+
+        public static IEnumerable<OfferUnitGroup> ConvertToGroup(this IEnumerable<OfferUnit> offerUnits)
+        {
+            var groups = offerUnits.GroupBy(x => x, new OfferUnitComparer());
+            foreach (var group in groups)
+                yield return new OfferUnitGroup { OfferUnits = group.ToList() };
         }
     }
 }

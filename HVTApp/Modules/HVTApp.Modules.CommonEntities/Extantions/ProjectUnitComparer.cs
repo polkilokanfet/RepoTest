@@ -1,4 +1,7 @@
+using System.CodeDom;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Extantions
@@ -37,7 +40,8 @@ namespace HVTApp.UI.Extantions
 
         public int GetHashCode(OfferUnit offerUnit)
         {
-            throw new System.NotImplementedException();
+            var propInfos = offerUnit.GetType().GetProperties(BindingFlags.Public);
+            return propInfos.Select(propertyInfo => propertyInfo.GetValue(offerUnit)).Where(val => !Equals(val, null)).Sum(val => val.GetHashCode());
         }
     }
 }

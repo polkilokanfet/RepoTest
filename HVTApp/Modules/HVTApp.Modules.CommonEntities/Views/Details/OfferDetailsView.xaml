@@ -160,8 +160,13 @@
                                     Text="{Binding Item.Vat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
         </Grid>
 
-        <infWpf:XamDataGrid Grid.Row="1" DataSource="{Binding Item.OfferUnits}">
-            <infWpf:XamDataGrid.FieldLayouts>
+        <infWpf:XamDataGrid Grid.Row="1"
+                            DataSource="{Binding OfferUnitGroups}">
+            <infWpf:XamDataGrid.FieldLayoutSettings>
+                <igWpf:FieldLayoutSettings AutoGenerateFields="True"/>
+            </infWpf:XamDataGrid.FieldLayoutSettings>
+            
+            <!--<infWpf:XamDataGrid.FieldLayouts>
                 <infWpf:FieldLayout>
                     <infWpf:FieldLayout.Fields>
                         <infWpf:TextField Name="Facility" Label="Объект" />
@@ -172,7 +177,7 @@
                         <infWpf:CurrencyField Name="Total" Label="Сумма" Width="Auto"/>
                     </infWpf:FieldLayout.Fields>
                 </infWpf:FieldLayout>
-            </infWpf:XamDataGrid.FieldLayouts>
+            </infWpf:XamDataGrid.FieldLayouts>-->
         </infWpf:XamDataGrid>
 
     </Grid>
