@@ -520,4 +520,13 @@ namespace HVTApp.UI.Views
         }
     }
 
+    public partial class OfferUnitGroupDetailsView : ViewBase
+    {
+        public OfferUnitGroupDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, OfferUnitGroupDetailsViewModel OfferUnitGroupDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = OfferUnitGroupDetailsViewModel;
+        }
+    }
+
 }

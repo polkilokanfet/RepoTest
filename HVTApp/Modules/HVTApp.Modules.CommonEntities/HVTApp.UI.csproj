@@ -115,6 +115,7 @@
     <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\ProjectUnitGroupDetailsViewModel.cs" />
     <Compile Include="ViewModels\IBaseListViewModel.cs" />
     <Compile Include="Controls\ChooseItemControl.xaml.cs">
       <DependentUpon>ChooseItemControl.xaml</DependentUpon>
@@ -181,6 +182,9 @@
     </Compile>
     <Compile Include="Views\Details\ProjectUnitDetailsView.xaml.cs">
       <DependentUpon>ProjectUnitDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Details\ProjectUnitGroupDetailsView.xaml.cs">
+      <DependentUpon>ProjectUnitGroupDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Details\SpecificationDetailsView.xaml.cs">
       <DependentUpon>SpecificationDetailsView.xaml</DependentUpon>
@@ -282,7 +286,7 @@
     <Compile Include="Wrapper\Custom\Functionality\SalesUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ShipmentUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\SpecificationWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\TenderUnitWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\OfferUnitGroupWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\TenderWrapper.cs" />
     <Compile Include="Wrapper\Custom\IProductWithCost.cs" />
     <Compile Include="Wrapper\Custom\Test\TestFriendAddressWrapper.cs" />
@@ -445,6 +449,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Details\ProjectUnitDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Details\ProjectUnitGroupDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

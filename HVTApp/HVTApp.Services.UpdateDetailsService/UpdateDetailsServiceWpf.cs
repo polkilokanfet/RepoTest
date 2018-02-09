@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using HVTApp.Infrastructure;
@@ -27,14 +28,14 @@ namespace HVTApp.Services.UpdateDetailsService
             _dictionary.Add(typeof(TEntity), typeof(TDetailsView));
         }
 
-        public bool UpdateDetails<TEntity>(Guid? id = null)
+        public async Task<bool> UpdateDetails<TEntity>(Guid? id = null)
             where TEntity : class, IBaseEntity
         {
             bool result = false;
 
             var detailsView = (Control)_container.Resolve(_dictionary[typeof(TEntity)]);
             var detailsViewModel = detailsView.DataContext;
-            ((ILoadable) detailsViewModel).LoadAsync(id);
+            await ((ILoadable) detailsViewModel).LoadAsync(id);
 
             var updateDetailsWindow = new UpdateDetailsWindow
             {

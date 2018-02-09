@@ -1033,4 +1033,22 @@ namespace HVTApp.UI.Views
         }
     }
 
+    [RibbonTab(typeof(TabCRUD))]
+    public partial class OfferUnitGroupListView : ViewBase
+    {
+        public OfferUnitGroupListView(IRegionManager regionManager, IEventAggregator eventAggregator, OfferUnitGroupListViewModel OfferUnitGroupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = OfferUnitGroupListViewModel;
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			var viewModel = (OfferUnitGroupListViewModel) DataContext;
+            if (!viewModel.LoadedFlag)
+                await viewModel.LoadAsync();
+        }
+    }
+
 }

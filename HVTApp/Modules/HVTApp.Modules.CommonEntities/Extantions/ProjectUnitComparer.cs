@@ -1,4 +1,3 @@
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -21,13 +20,13 @@ namespace HVTApp.UI.Extantions
 
         public int GetHashCode(ProjectUnit projectUnit)
         {
-            return projectUnit.Product.Id.GetHashCode() + 
-                   projectUnit.Facility.Id.GetHashCode() + 
-                   projectUnit.Cost.GetHashCode();
+            var propInfos = projectUnit.GetType().GetProperties(BindingFlags.Public);
+            return propInfos.Select(propertyInfo => propertyInfo.GetValue(projectUnit)).Where(val => !Equals(val, null)).Sum(val => val.GetHashCode());
         }
     }
 
-    public class OfferUnitComparer : IEqualityComparer<OfferUnit> {
+    public class OfferUnitComparer : IEqualityComparer<OfferUnit>
+    {
         public bool Equals(OfferUnit x, OfferUnit y)
         {
             return x != null &&

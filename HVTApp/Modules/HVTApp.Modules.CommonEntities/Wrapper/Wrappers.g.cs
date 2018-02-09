@@ -2496,13 +2496,13 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
-        public System.Nullable<System.Guid> TenderId
+        public System.Nullable<System.Guid> ProjectId
         {
           get { return GetValue<System.Nullable<System.Guid>>(); }
           set { SetValue(value); }
         }
-        public System.Nullable<System.Guid> TenderIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(TenderId));
-        public bool TenderIdIsChanged => GetIsChanged(nameof(TenderId));
+        public System.Nullable<System.Guid> ProjectIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProjectId));
+        public bool ProjectIdIsChanged => GetIsChanged(nameof(ProjectId));
 
         public System.Nullable<System.Guid> RequestDocumentId
         {
@@ -3473,6 +3473,22 @@ namespace HVTApp.UI.Wrapper
         public System.Nullable<System.Guid> FacilityIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(FacilityId));
         public bool FacilityIdIsChanged => GetIsChanged(nameof(FacilityId));
 
+        public System.DateTime DeliveryDate
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime DeliveryDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(DeliveryDate));
+        public bool DeliveryDateIsChanged => GetIsChanged(nameof(DeliveryDate));
+
+        public System.Double Cost
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
+        public bool CostIsChanged => GetIsChanged(nameof(Cost));
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3483,27 +3499,41 @@ namespace HVTApp.UI.Wrapper
 
         #endregion
 
+        #region ComplexProperties
+	    public ProductWrapper Product 
+        {
+            get { return GetWrapper<ProductWrapper>(); }
+            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
+        }
+
+	    public FacilityWrapper Facility 
+        {
+            get { return GetWrapper<FacilityWrapper>(); }
+            set { SetComplexValue<Facility, FacilityWrapper>(Facility, value); }
+        }
+
+        #endregion
+
         #region CollectionProperties
         public IValidatableChangeTrackingCollection<ProjectUnitWrapper> ProjectUnits { get; private set; }
 
         #endregion
 
         #region GetProperties
-        public System.Nullable<System.DateTime> DeliveryDate => GetValue<System.Nullable<System.DateTime>>(); 
-
-        public System.Double Cost => GetValue<System.Double>(); 
-
         public System.Int32 Amount => GetValue<System.Int32>(); 
 
-        public HVTApp.Model.POCOs.Product Product => GetValue<HVTApp.Model.POCOs.Product>(); 
-
-        public HVTApp.Model.POCOs.Facility Facility => GetValue<HVTApp.Model.POCOs.Facility>(); 
-
         #endregion
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
+
+            InitializeComplexProperty<FacilityWrapper>(nameof(Facility), Model.Facility == null ? null : new FacilityWrapper(Model.Facility));
+
+        }
   
         protected override void InitializeCollectionProperties()
         {
-          if (Model.ProjectUnits == null) throw new ArgumentException("OfferUnits cannot be null");
+          if (Model.ProjectUnits == null) throw new ArgumentException("ProjectUnits cannot be null");
           ProjectUnits = new ValidatableChangeTrackingCollection<ProjectUnitWrapper>(Model.ProjectUnits.Select(e => new ProjectUnitWrapper(e)));
           RegisterCollection(ProjectUnits, Model.ProjectUnits);
 
@@ -3558,6 +3588,111 @@ namespace HVTApp.UI.Wrapper
           if (Model.Prices == null) throw new ArgumentException("Prices cannot be null");
           Prices = new ValidatableChangeTrackingCollection<CostOnDateWrapper>(Model.Prices.Select(e => new CostOnDateWrapper(e)));
           RegisterCollection(Prices, Model.Prices);
+
+        }
+	}
+
+		public partial class OfferUnitGroupWrapper : WrapperBase<OfferUnitGroup>
+	{
+	    public OfferUnitGroupWrapper(OfferUnitGroup model) : base(model) { }
+
+	
+        #region SimpleProperties
+        public System.Nullable<System.Guid> OfferId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> OfferIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(OfferId));
+        public bool OfferIdIsChanged => GetIsChanged(nameof(OfferId));
+
+        public System.Nullable<System.Guid> ProductId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ProductIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductId));
+        public bool ProductIdIsChanged => GetIsChanged(nameof(ProductId));
+
+        public System.Nullable<System.Guid> FacilityId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> FacilityIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(FacilityId));
+        public bool FacilityIdIsChanged => GetIsChanged(nameof(FacilityId));
+
+        public System.Int32 ProductionTerm
+        {
+          get { return GetValue<System.Int32>(); }
+          set { SetValue(value); }
+        }
+        public System.Int32 ProductionTermOriginalValue => GetOriginalValue<System.Int32>(nameof(ProductionTerm));
+        public bool ProductionTermIsChanged => GetIsChanged(nameof(ProductionTerm));
+
+        public System.Double Cost
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
+        public bool CostIsChanged => GetIsChanged(nameof(Cost));
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region ComplexProperties
+	    public OfferWrapper Offer 
+        {
+            get { return GetWrapper<OfferWrapper>(); }
+            set { SetComplexValue<Offer, OfferWrapper>(Offer, value); }
+        }
+
+	    public ProductWrapper Product 
+        {
+            get { return GetWrapper<ProductWrapper>(); }
+            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
+        }
+
+	    public FacilityWrapper Facility 
+        {
+            get { return GetWrapper<FacilityWrapper>(); }
+            set { SetComplexValue<Facility, FacilityWrapper>(Facility, value); }
+        }
+
+        #endregion
+
+        #region CollectionProperties
+        public IValidatableChangeTrackingCollection<OfferUnitWrapper> OfferUnits { get; private set; }
+
+        #endregion
+
+        #region GetProperties
+        public System.Int32 Amount => GetValue<System.Int32>(); 
+
+        #endregion
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<OfferWrapper>(nameof(Offer), Model.Offer == null ? null : new OfferWrapper(Model.Offer));
+
+            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
+
+            InitializeComplexProperty<FacilityWrapper>(nameof(Facility), Model.Facility == null ? null : new FacilityWrapper(Model.Facility));
+
+        }
+  
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.OfferUnits == null) throw new ArgumentException("OfferUnits cannot be null");
+          OfferUnits = new ValidatableChangeTrackingCollection<OfferUnitWrapper>(Model.OfferUnits.Select(e => new OfferUnitWrapper(e)));
+          RegisterCollection(OfferUnits, Model.OfferUnits);
 
         }
 	}

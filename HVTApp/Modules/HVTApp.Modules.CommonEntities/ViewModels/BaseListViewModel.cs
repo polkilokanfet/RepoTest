@@ -112,9 +112,9 @@ namespace HVTApp.UI.ViewModels
 
 
 
-        protected void NewItemCommand_Execute()
+        protected async void NewItemCommand_Execute()
         {
-            Container.Resolve<IUpdateDetailsService>().UpdateDetails<TEntity>();
+            await Container.Resolve<IUpdateDetailsService>().UpdateDetails<TEntity>();
         }
 
         protected virtual bool NewItemCommand_CanExecute()
@@ -123,9 +123,9 @@ namespace HVTApp.UI.ViewModels
         }
 
 
-        protected void EditItemCommand_Execute()
+        protected async void EditItemCommand_Execute()
         {
-            Container.Resolve<IUpdateDetailsService>().UpdateDetails<TEntity>(SelectedLookup.Id);
+            await Container.Resolve<IUpdateDetailsService>().UpdateDetails<TEntity>(SelectedLookup.Id);
         }
 
         protected virtual bool EditItemCommand_CanExecute()

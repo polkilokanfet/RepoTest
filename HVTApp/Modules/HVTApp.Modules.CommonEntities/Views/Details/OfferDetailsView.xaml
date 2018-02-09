@@ -4,42 +4,10 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:controls="clr-namespace:HVTApp.UI.Controls"
               xmlns:infWpf="http://infragistics.com/DataPresenter"
-              x:Class="HVTApp.UI.Views.OfferDetailsView"
-              >
+              x:Class="HVTApp.UI.Views.OfferDetailsView">
 
     <!--<StackPanel Orientation="Vertical">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition MinWidth ="200"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
 
-
-        </Grid>
-
-        <infWpf:XamDataGrid DataSource="{Binding Item.OfferUnits, Converter={StaticResource ProductUnitsToProductGroupsConverter}}">
-            <infWpf:XamDataGrid.FieldLayouts>
-                <infWpf:FieldLayout>
-                    <infWpf:FieldLayout.Fields>
-                        <infWpf:TextField Name="Facility" Label="Объект" Converter="{StaticResource WrapperToStringConverter}"/>
-                        <infWpf:TextField Name="Product" Label="Оборудование" Converter="{StaticResource WrapperToStringConverter}"/>
-                        <infWpf:NumericField Name="Amount" Label="Количество" Width="Auto"/>
-                        <infWpf:NumericField Name="MarginalIncome" Label="МД, %" AllowEdit="True" Width="Auto"/>
-                        <infWpf:CurrencyField Name="Cost" Label="Стоимость" AllowEdit="True"/>
-                        <infWpf:CurrencyField Name="Total" Label="Сумма" Width="Auto"/>
-                    </infWpf:FieldLayout.Fields>
-                </infWpf:FieldLayout>
-            </infWpf:XamDataGrid.FieldLayouts>
-        </infWpf:XamDataGrid>
-        
         <StackPanel Orientation="Horizontal">
             <Label Content="Общая стоимость: "/>
             <Label Content="{Binding Item.TotalCost}"/>
@@ -56,14 +24,14 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition MinWidth="500"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -160,24 +128,20 @@
                                     Text="{Binding Item.Vat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
         </Grid>
 
-        <infWpf:XamDataGrid Grid.Row="1"
-                            DataSource="{Binding OfferUnitGroups}">
-            <infWpf:XamDataGrid.FieldLayoutSettings>
-                <igWpf:FieldLayoutSettings AutoGenerateFields="True"/>
-            </infWpf:XamDataGrid.FieldLayoutSettings>
-            
-            <!--<infWpf:XamDataGrid.FieldLayouts>
+        <infWpf:XamDataGrid Grid.Row="1" DataSource="{Binding OfferUnitGroups}">
+
+            <infWpf:XamDataGrid.FieldLayouts>
                 <infWpf:FieldLayout>
                     <infWpf:FieldLayout.Fields>
-                        <infWpf:TextField Name="Facility" Label="Объект" />
+                        <infWpf:TextField Name="Facility" Label="Объект" Width="Auto"/>
                         <infWpf:TextField Name="Product" Label="Оборудование" />
                         <infWpf:NumericField Name="Amount" Label="Количество" Width="Auto"/>
                         <infWpf:NumericField Name="MarginalIncome" Label="МД, %" AllowEdit="True" Width="Auto"/>
-                        <infWpf:CurrencyField Name="Cost" Label="Стоимость" AllowEdit="True"/>
+                        <infWpf:CurrencyField Name="Cost" Label="Стоимость" AllowEdit="True" Width="Auto"/>
                         <infWpf:CurrencyField Name="Total" Label="Сумма" Width="Auto"/>
                     </infWpf:FieldLayout.Fields>
                 </infWpf:FieldLayout>
-            </infWpf:XamDataGrid.FieldLayouts>-->
+            </infWpf:XamDataGrid.FieldLayouts>
         </infWpf:XamDataGrid>
 
     </Grid>

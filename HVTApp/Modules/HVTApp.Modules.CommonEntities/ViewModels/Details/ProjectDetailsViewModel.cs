@@ -1,64 +1,79 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Converter;
-using HVTApp.UI.Events;
+using HVTApp.UI.Extantions;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
-    public partial class ProjectDetailsViewModel : BaseDetailsViewModel<ProjectWrapper, Project, AfterSaveProjectEvent>
+    public partial class ProjectDetailsViewModel
     {
-        private readonly IUpdateDetailsService _updateDetailsService;
+        private ProjectUnitGroupWrapper _selectedProjectUnitGroupWrapper;
+        public ObservableCollection<ProjectUnitGroupWrapper> ProjectUnitGroups { get; } = new ObservableCollection<ProjectUnitGroupWrapper>();
 
-        private ProductUnitsGroup _productGroup;
-
-        public ProjectDetailsViewModel(IUpdateDetailsService updateDetailsService, IUnityContainer container) : base(container)
+        public ProjectUnitGroupWrapper SelectedProjectUnitGroupWrapper
         {
-            _updateDetailsService = updateDetailsService;
-
-            AddProjectUnitsCommand = new DelegateCommand(AddProjectUnitsCommand_Execute);
-            ChangeProjectUnitsCommand = new DelegateCommand(ChangeProjectUnitsCommand_Execute, ChangeProjectUnitsCommand_CanExecute);
-        }
-
-        public ProductUnitsGroup ProductGroup
-        {
-            get { return _productGroup; }
+            get { return _selectedProjectUnitGroupWrapper; }
             set
             {
-                if (Equals(_productGroup, value)) return;
-                _productGroup = value;
-                ((DelegateCommand)ChangeProjectUnitsCommand).RaiseCanExecuteChanged();
+                if (Equals(_selectedProjectUnitGroupWrapper, value)) return;
+                _selectedProjectUnitGroupWrapper = value;
+                ((DelegateCommand)EditProjectUnitGroupCommand).RaiseCanExecuteChanged();
             }
         }
 
-        public ICommand AddProjectUnitsCommand { get; }
-        public ICommand ChangeProjectUnitsCommand { get; }
-
-
-        private void AddProjectUnitsCommand_Execute()
+        protected override async Task LoadOtherAsync()
         {
-            //var viewModel = _unityContainer.Resolve<ProjectUnitsDetailsViewModel>();
-            //var wrapper = new ProjectUnitWrapper(new ProjectUnit());
-            //var dialogResult = _updateDetailsService.UpdateDetails<ProjectUnit>(wrapper.Model.Id);
-            //if(dialogResult)
-            //    Item.OfferUnits.Add(wrapper);
+            var projectUnits = (await UnitOfWork.GetRepository<ProjectUnit>().GetAllAsync()).Where(x => x.ProjectId == Item.Id);
+            foreach (var projectUnitGroup in projectUnits.ConvertToGroup())
+            {
+                var projectUnitGroupWrapper = new ProjectUnitGroupWrapper(projectUnitGroup);
+                ProjectUnitGroups.Add(projectUnitGroupWrapper);
+                projectUnitGroupWrapper.PropertyChanged += ProjectUnitGroupOnPropertyChanged;
+            }
         }
 
-        private void ChangeProjectUnitsCommand_Execute()
+        public ICommand EditProjectUnitGroupCommand { get; private set; }
+        public ICommand AddProjectUnitGroupCommand { get; private set; }
+
+        protected override void InitCommands()
         {
-            //var projectUnit = Item.OfferUnits.First(x => (x.Product.Equals(ProductGroup.Product) && x.Facility.Equals(ProductGroup.Facility)));
-            //var viewModel = _unityContainer.Resolve<ProjectUnitsDetailsViewModel>(new ParameterOverride("item", projectUnit));
-            //var dialogResult = _dialogService.ShowDialog(viewModel);
-            //if(dialogResult.HasValue && dialogResult.Value)
-            //    Item.OfferUnits.Add(projectUnit);
+            EditProjectUnitGroupCommand = new DelegateCommand(EditProjectUnitGroupCommand_Execute, EditProjectUnitGroupCommand_CanExecute);
+            AddProjectUnitGroupCommand = new DelegateCommand(AddProjectUnitGroupCommand_Execute);
         }
 
-        private bool ChangeProjectUnitsCommand_CanExecute()
+        private void AddProjectUnitGroupCommand_Execute()
         {
-            return ProductGroup != null;
+            throw new NotImplementedException();
+        }
+
+        private async void EditProjectUnitGroupCommand_Execute()
+        {
+            var id = SelectedProjectUnitGroupWrapper.ProjectUnits.First().Id;
+            await Container.Resolve<IUpdateDetailsService>().UpdateDetails<ProjectUnitGroup>(id);
+        }
+
+        private bool EditProjectUnitGroupCommand_CanExecute()
+        {
+            return SelectedProjectUnitGroupWrapper != null;
+        }
+
+        private void ProjectUnitGroupOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+        }
+
+        protected override bool SaveCommand_CanExecute()
+        {
+            return base.SaveCommand_CanExecute() ||
+                   (ProjectUnitGroups.Any(x => x.IsChanged) && ProjectUnitGroups.All(x => x.IsValid));
         }
     }
 }

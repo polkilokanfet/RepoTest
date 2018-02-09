@@ -291,4 +291,9 @@ namespace HVTApp.UI.ViewModels
         public ProductBlockListViewModel(IUnityContainer container) : base(container) { }
     }
 
+    public partial class OfferUnitGroupListViewModel : BaseListViewModel<OfferUnitGroup, OfferUnitGroupLookup, AfterSaveOfferUnitGroupEvent, AfterSelectOfferUnitGroupEvent, AfterRemoveOfferUnitGroupEvent>
+    {
+        public OfferUnitGroupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
 }

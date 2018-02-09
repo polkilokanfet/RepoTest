@@ -975,7 +975,7 @@ namespace HVTApp.UI.Lookup
 		}
 		
         #region SimpleProperties
-        public System.Nullable<System.Guid> TenderId => GetValue<System.Nullable<System.Guid>>();
+        public System.Nullable<System.Guid> ProjectId => GetValue<System.Nullable<System.Guid>>();
 
         public System.Nullable<System.Guid> RequestDocumentId => GetValue<System.Nullable<System.Guid>>();
 
@@ -1327,7 +1327,7 @@ namespace HVTApp.UI.Lookup
 
         public System.Nullable<System.Guid> FacilityId => GetValue<System.Nullable<System.Guid>>();
 
-        public System.Nullable<System.DateTime> DeliveryDate => GetValue<System.Nullable<System.DateTime>>();
+        public System.DateTime DeliveryDate => GetValue<System.DateTime>();
 
         public System.Double Cost => GetValue<System.Double>();
 
@@ -1355,6 +1355,42 @@ namespace HVTApp.UI.Lookup
         public System.String Name => GetValue<System.String>();
 
         public System.String StructureCostNumber => GetValue<System.String>();
+
+        #endregion
+	}
+	public partial class OfferUnitGroupLookup : LookupItem<OfferUnitGroup>
+	{
+		public OfferUnitGroupLookup(OfferUnitGroup entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 			Offer?.Refresh(Entity.Offer);
+			Product?.Refresh(Entity.Product);
+			Facility?.Refresh(Entity.Facility);
+		}
+		
+        #region SimpleProperties
+        public System.Nullable<System.Guid> OfferId => GetValue<System.Nullable<System.Guid>>();
+
+        public System.Nullable<System.Guid> ProductId => GetValue<System.Nullable<System.Guid>>();
+
+        public System.Nullable<System.Guid> FacilityId => GetValue<System.Nullable<System.Guid>>();
+
+        public System.Int32 ProductionTerm => GetValue<System.Int32>();
+
+        public System.Double Cost => GetValue<System.Double>();
+
+        public System.Int32 Amount => GetValue<System.Int32>();
+
+        #endregion
+
+        #region ComplexProperties
+	    public OfferLookup Offer { get { return GetLookup<OfferLookup>(); } }
+
+	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
+
+	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
 
         #endregion
 	}

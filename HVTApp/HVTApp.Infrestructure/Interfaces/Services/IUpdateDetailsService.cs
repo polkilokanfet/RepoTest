@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace HVTApp.Infrastructure.Interfaces.Services
@@ -9,7 +10,7 @@ namespace HVTApp.Infrastructure.Interfaces.Services
             where TEntity : class, IBaseEntity
             where TDetailsView : Control;
 
-        bool UpdateDetails<TEntity>(Guid? id = null) 
+        Task<bool> UpdateDetails<TEntity>(Guid? id = null) 
             where TEntity : class, IBaseEntity;
     }
 }

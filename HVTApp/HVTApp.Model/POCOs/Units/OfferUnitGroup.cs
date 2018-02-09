@@ -1,16 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public partial class ProjectUnitGroup : BaseEntity
+    public partial class OfferUnitGroup : BaseEntity
     {
-        public ProjectUnitGroup(List<ProjectUnit> projectUnits)
+        public OfferUnitGroup(List<OfferUnit> offerUnits)
         {
-            ProjectUnits = projectUnits;
+            OfferUnits = offerUnits;
+        }
+
+        public virtual Offer Offer
+        {
+            get { return GetValue<Offer>(); }
+            set { SetValue(value); }
         }
 
         public virtual Product Product
@@ -25,9 +30,9 @@ namespace HVTApp.Model.POCOs
             set { SetValue(value); }
         }
 
-        public virtual DateTime DeliveryDate
+        public virtual int ProductionTerm
         {
-            get { return GetValue<DateTime>(); }
+            get { return GetValue<int>(); }
             set { SetValue(value); }
         }
 
@@ -37,21 +42,21 @@ namespace HVTApp.Model.POCOs
             set { SetValue(value); }
         }
 
-        public int Amount => ProjectUnits.Count;
+        public int Amount => OfferUnits.Count;
 
-        public virtual List<ProjectUnit> ProjectUnits { get; set; } = new List<ProjectUnit>();
+        public virtual List<OfferUnit> OfferUnits { get; set; } = new List<OfferUnit>();
 
         private T GetValue<T>([CallerMemberName] string propertyName = null)
         {
-            var unit = ProjectUnits.First();
+            var unit = OfferUnits.First();
             return (T)unit.GetType().GetProperty(propertyName).GetValue(unit);
         }
 
         private void SetValue(object value, [CallerMemberName] string propertyName = null)
         {
-            var unit = ProjectUnits.First();
+            var unit = OfferUnits.First();
             var propertyInfo = unit.GetType().GetProperty(propertyName);
-            foreach (var offerUnit in ProjectUnits)
+            foreach (var offerUnit in OfferUnits)
                 propertyInfo.SetValue(offerUnit, value);
         }
 

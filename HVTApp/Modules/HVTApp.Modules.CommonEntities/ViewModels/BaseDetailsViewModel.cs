@@ -44,16 +44,13 @@ namespace HVTApp.UI.ViewModels
         {
         }
 
-        public async Task LoadAsync(Guid? id = null)
+        public virtual async Task LoadAsync(Guid? id = null)
         {
-            TEntity entity = null;
+            TEntity entity = (id == null)
+                ? Activator.CreateInstance<TEntity>()
+                : await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(id.Value);
 
-            if (id == null)
-                entity = Activator.CreateInstance<TEntity>();
-            else
-                entity = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(id.Value);
-
-            Item = (TWrapper) Activator.CreateInstance(typeof(TWrapper), entity);
+            Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity);
 
             await LoadOtherAsync();
         }
@@ -89,7 +86,7 @@ namespace HVTApp.UI.ViewModels
 
             EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
 
-            CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
+            OnCloseRequested(new DialogRequestCloseEventArgs(true));
         }
 
         protected virtual bool SaveCommand_CanExecute()
@@ -132,6 +129,11 @@ namespace HVTApp.UI.ViewModels
         public void Dispose()
         {
             UnitOfWork?.Dispose();
+        }
+
+        protected virtual void OnCloseRequested(DialogRequestCloseEventArgs e)
+        {
+            CloseRequested?.Invoke(this, e);
         }
     }
 }
