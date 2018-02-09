@@ -25,8 +25,8 @@ namespace HVTApp.UI.ViewModels
         where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
     {
         protected readonly IUnityContainer Container;
-        protected readonly IUnitOfWork UnitOfWork;
         protected readonly IEventAggregator EventAggregator;
+        protected IUnitOfWork UnitOfWork;
 
         private TWrapper _item;
 
@@ -42,6 +42,18 @@ namespace HVTApp.UI.ViewModels
 
         protected virtual void InitCommands()
         {
+        }
+
+        public async Task LoadAsync(TEntity entity)
+        {
+            Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity);
+            await LoadOtherAsync();
+        }
+        public async Task LoadAsync(TWrapper wrapper, IUnitOfWork unitOfWork)
+        {
+            UnitOfWork = unitOfWork;
+            Item = wrapper;
+            await LoadOtherAsync();
         }
 
         public virtual async Task LoadAsync(Guid? id = null)

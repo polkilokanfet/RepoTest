@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -15,9 +16,17 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class ProjectDetailsViewModel
     {
-        private ProjectUnitGroupWrapper _selectedProjectUnitGroupWrapper;
         public ObservableCollection<ProjectUnitGroupWrapper> ProjectUnitGroups { get; } = new ObservableCollection<ProjectUnitGroupWrapper>();
 
+        public ICommand EditProjectUnitGroupCommand { get; private set; }
+        public ICommand AddProjectUnitGroupCommand { get; private set; }
+        protected override void InitCommands()
+        {
+            EditProjectUnitGroupCommand = new DelegateCommand(EditProjectUnitGroupCommand_Execute, EditProjectUnitGroupCommand_CanExecute);
+            AddProjectUnitGroupCommand = new DelegateCommand(AddProjectUnitGroupCommand_Execute);
+        }
+
+        private ProjectUnitGroupWrapper _selectedProjectUnitGroupWrapper;
         public ProjectUnitGroupWrapper SelectedProjectUnitGroupWrapper
         {
             get { return _selectedProjectUnitGroupWrapper; }
@@ -29,10 +38,23 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
+        private List<ProjectUnit> _projectUnits;
+
         protected override async Task LoadOtherAsync()
         {
-            var projectUnits = (await UnitOfWork.GetRepository<ProjectUnit>().GetAllAsync()).Where(x => x.ProjectId == Item.Id);
-            foreach (var projectUnitGroup in projectUnits.ConvertToGroup())
+            _projectUnits = (await UnitOfWork.GetRepository<ProjectUnit>().GetAllAsync()).Where(x => x.ProjectId == Item.Id).ToList();
+            GetGroups();
+        }
+
+        private void GetGroups()
+        {
+            foreach (var projectUnitGroupWrapper in ProjectUnitGroups)
+            {
+                projectUnitGroupWrapper.PropertyChanged -= ProjectUnitGroupOnPropertyChanged;
+            }
+            ProjectUnitGroups.Clear();
+
+            foreach (var projectUnitGroup in _projectUnits.ConvertToGroup())
             {
                 var projectUnitGroupWrapper = new ProjectUnitGroupWrapper(projectUnitGroup);
                 ProjectUnitGroups.Add(projectUnitGroupWrapper);
@@ -40,24 +62,36 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
-        public ICommand EditProjectUnitGroupCommand { get; private set; }
-        public ICommand AddProjectUnitGroupCommand { get; private set; }
 
-        protected override void InitCommands()
+        private async void AddProjectUnitGroupCommand_Execute()
         {
-            EditProjectUnitGroupCommand = new DelegateCommand(EditProjectUnitGroupCommand_Execute, EditProjectUnitGroupCommand_CanExecute);
-            AddProjectUnitGroupCommand = new DelegateCommand(AddProjectUnitGroupCommand_Execute);
-        }
-
-        private void AddProjectUnitGroupCommand_Execute()
-        {
-            throw new NotImplementedException();
+            var projectUnit = new ProjectUnit {Project = Item.Model, ProjectId = Item.Model.Id};
+            var projectUnitGroup = new ProjectUnitGroup(new List<ProjectUnit> {projectUnit});
+            var updated = await Container.Resolve<IUpdateDetailsService>().UpdateDetails<ProjectUnitGroup, ProjectUnitGroupWrapper>(new ProjectUnitGroupWrapper(projectUnitGroup), UnitOfWork);
         }
 
         private async void EditProjectUnitGroupCommand_Execute()
         {
-            var id = SelectedProjectUnitGroupWrapper.ProjectUnits.First().Id;
-            await Container.Resolve<IUpdateDetailsService>().UpdateDetails<ProjectUnitGroup>(id);
+            var updated = await Container.Resolve<IUpdateDetailsService>().UpdateDetails<ProjectUnitGroup, ProjectUnitGroupWrapper>(SelectedProjectUnitGroupWrapper, UnitOfWork);
+            if (updated)
+            {
+                foreach (var projectUnitWrapper in SelectedProjectUnitGroupWrapper.ProjectUnits.AddedItems)
+                {
+                    _projectUnits.Add(projectUnitWrapper.Model);
+                    UnitOfWork.GetRepository<ProjectUnit>().Add(projectUnitWrapper.Model);
+                }
+                foreach (var projectUnitWrapper in SelectedProjectUnitGroupWrapper.ProjectUnits.RemovedItems)
+                {
+                    _projectUnits.Remove(projectUnitWrapper.Model);
+                    UnitOfWork.GetRepository<ProjectUnit>().Delete(projectUnitWrapper.Model);
+                }
+
+                GetGroups();
+            }
+            else
+            {
+                SelectedProjectUnitGroupWrapper.RejectChanges();
+            }
         }
 
         private bool EditProjectUnitGroupCommand_CanExecute()

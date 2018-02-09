@@ -1,37 +1,37 @@
-using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Extantions;
+using HVTApp.Services.GetProductService;
+using HVTApp.UI.Lookup;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
+using Microsoft.Practices.Unity;
+using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
     public partial class ProjectUnitGroupDetailsViewModel
     {
-        public override async Task LoadAsync(Guid? id = null)
+        protected override async Task LoadOtherAsync()
         {
-            if (id == null)
-            {
-                await base.LoadAsync(null);
-                return;
-            }
-
-            var projectUnitsGroups = (await UnitOfWork.GetRepository<ProjectUnit>().GetAllAsync()).ConvertToGroup();
-            var targetProjectUnitGroup = projectUnitsGroups.Single(x => x.ProjectUnits.Select(u => u.Id).Contains(id.Value));
-            Item = new ProjectUnitGroupWrapper(targetProjectUnitGroup);
-            Item.PropertyChanged += ItemOnPropertyChanged;
+            await Task.Run(() => Item.PropertyChanged += ItemOnPropertyChanged);
         }
 
         private void ItemOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName != nameof(Item.ProjectUnits))
-            {
-                Item.ProjectUnits.ForEach(x => x.Refresh());
-            }
+            //if (e.PropertyName != nameof(Item.ProjectUnits))
+            //    Item.ProjectUnits.ForEach(x =>
+            //    {
+            //        x.Product = Item.Product;
+            //        x.Facility = Item.Facility;
+            //        x.Project = Item.Project;
+            //        x.Cost = Item.Cost;
+            //        x.Producer = Item.Producer;
+            //        x.Refresh();
+            //    });
         }
 
         protected override async void SaveCommand_Execute()
@@ -39,5 +39,49 @@ namespace HVTApp.UI.ViewModels
             await UnitOfWork.SaveChangesAsync();
             OnCloseRequested(new DialogRequestCloseEventArgs(true));
         }
+
+        public ICommand SelectProductCommand { get; private set; }
+        public ICommand SelectFacilityCommand { get; private set; }
+        public ICommand SelectProducerCommand { get; private set; }
+        public ICommand SelectProjectCommand { get; private set; }
+
+
+        protected override void InitCommands()
+        {
+            SelectProductCommand = new DelegateCommand(SelectProduct_Execute);
+            SelectFacilityCommand = new DelegateCommand(SelectFacility_Execute);
+            SelectProducerCommand = new DelegateCommand(SelectProducer_Execute);
+            SelectProjectCommand = new DelegateCommand(SelectProject_Execute);
+        }
+
+        private async void SelectProduct_Execute()
+        {
+            var product = await Container.Resolve<IGetProductService>().GetProductAsync(Item.Product?.Model);
+            if (product == null || Equals(Item.Product?.Id, product.Id)) return;
+
+            var prod = await UnitOfWork.GetRepository<Product>().GetByIdAsync(product.Id);
+            Item.Product = new ProductWrapper(prod);
+            Item.ProductId = prod.Id;
+        }
+
+        private async void SelectProject_Execute()
+        {
+            var projects = await UnitOfWork.GetRepository<Project>().GetAllAsync();
+            SelectAndSetWrapper<Project, ProjectLookup, ProjectWrapper>(projects, nameof(Item.Project));
+        }
+
+        private async void SelectProducer_Execute()
+        {
+            var companies = await UnitOfWork.GetRepository<Company>().GetAllAsync();
+            var producers = companies.Where(x => x.ActivityFilds.Select(af => af.ActivityFieldEnum).Contains(ActivityFieldEnum.ProducerOfHighVoltageEquipment));
+            SelectAndSetWrapper<Company, CompanyLookup, CompanyWrapper>(producers, nameof(Item.Producer));
+        }
+
+        private async void SelectFacility_Execute()
+        {
+            var facilities = await UnitOfWork.GetRepository<Facility>().GetAllAsync();
+            SelectAndSetWrapper<Facility, FacilityLookup, FacilityWrapper>(facilities, nameof(Item.Facility));
+        }
+
     }
 }

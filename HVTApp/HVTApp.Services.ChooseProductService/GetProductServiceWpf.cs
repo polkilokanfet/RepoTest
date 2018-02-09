@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using HVTApp.DataAccess;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.GetProductService

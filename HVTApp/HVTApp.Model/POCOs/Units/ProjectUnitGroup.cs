@@ -13,6 +13,12 @@ namespace HVTApp.Model.POCOs
             ProjectUnits = projectUnits;
         }
 
+        public virtual Project Project
+        {
+            get { return GetValue<Project>(); }
+            set { SetValue(value); }
+        }
+
         public virtual Product Product
         {
             get { return GetValue<Product>(); }
@@ -22,6 +28,12 @@ namespace HVTApp.Model.POCOs
         public virtual Facility Facility
         {
             get { return GetValue<Facility>(); }
+            set { SetValue(value); }
+        }
+
+        public virtual Company Producer
+        {
+            get { return GetValue<Company>(); }
             set { SetValue(value); }
         }
 

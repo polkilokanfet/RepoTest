@@ -3500,6 +3500,12 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
+	    public ProjectWrapper Project 
+        {
+            get { return GetWrapper<ProjectWrapper>(); }
+            set { SetComplexValue<Project, ProjectWrapper>(Project, value); }
+        }
+
 	    public ProductWrapper Product 
         {
             get { return GetWrapper<ProductWrapper>(); }
@@ -3510,6 +3516,12 @@ namespace HVTApp.UI.Wrapper
         {
             get { return GetWrapper<FacilityWrapper>(); }
             set { SetComplexValue<Facility, FacilityWrapper>(Facility, value); }
+        }
+
+	    public CompanyWrapper Producer 
+        {
+            get { return GetWrapper<CompanyWrapper>(); }
+            set { SetComplexValue<Company, CompanyWrapper>(Producer, value); }
         }
 
         #endregion
@@ -3525,9 +3537,13 @@ namespace HVTApp.UI.Wrapper
         #endregion
         public override void InitializeComplexProperties()
         {
+            InitializeComplexProperty<ProjectWrapper>(nameof(Project), Model.Project == null ? null : new ProjectWrapper(Model.Project));
+
             InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
 
             InitializeComplexProperty<FacilityWrapper>(nameof(Facility), Model.Facility == null ? null : new FacilityWrapper(Model.Facility));
+
+            InitializeComplexProperty<CompanyWrapper>(nameof(Producer), Model.Producer == null ? null : new CompanyWrapper(Model.Producer));
 
         }
   

@@ -288,4 +288,9 @@ namespace HVTApp.DataAccess
         public ProductBlockRepository(DbContext context) : base(context) {}
     }
 
+    public partial class OfferUnitGroupRepository : BaseRepository<OfferUnitGroup>, IOfferUnitGroupRepository
+    {
+        public OfferUnitGroupRepository(DbContext context) : base(context) {}
+    }
+
 }

@@ -211,7 +211,7 @@ namespace HVTApp.UI.ViewModels
 	private void GenerateEntityWrapperDataServices(IEnumerable<Type> modelTypes)
 	{
 #>using System.Linq;
-using HVTApp.DataAccess;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Wrapper
@@ -244,7 +244,7 @@ namespace HVTApp.UI.Wrapper
 
 	private void GenerateWrapperDataService(IEnumerable<Type> modelTypes)
 	{
-#>using HVTApp.DataAccess;
+#>using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Wrapper
 {

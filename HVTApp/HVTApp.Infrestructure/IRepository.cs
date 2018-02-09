@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using HVTApp.Infrastructure;
 
-namespace HVTApp.DataAccess
+namespace HVTApp.Infrastructure
 {
     public interface IRepository<TEntity>
         where TEntity : class, IBaseEntity

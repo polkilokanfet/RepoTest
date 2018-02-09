@@ -1,4 +1,4 @@
-using HVTApp.DataAccess;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Wrapper
 {

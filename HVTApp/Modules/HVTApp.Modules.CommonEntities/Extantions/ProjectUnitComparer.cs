@@ -10,7 +10,8 @@ namespace HVTApp.UI.Extantions
         public bool Equals(ProjectUnit x, ProjectUnit y)
         {
             return y != null && 
-                   x != null && 
+                   x != null &&
+                   Equals(x.Project.Id, y.Project.Id) &&
                    Equals(x.Product.Id, y.Product.Id) &&
                    Equals(x.Facility.Id, y.Facility.Id) &&
                    Equals(x.DeliveryDate, y.DeliveryDate) &&

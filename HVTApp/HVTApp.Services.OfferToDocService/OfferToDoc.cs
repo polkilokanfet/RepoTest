@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows.Media;
-using HVTApp.DataAccess;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Converter;
 using HVTApp.UI.Wrapper;

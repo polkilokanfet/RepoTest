@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using HVTApp.DataAccess;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.AuthenticationService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;

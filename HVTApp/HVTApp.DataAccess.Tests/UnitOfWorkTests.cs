@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

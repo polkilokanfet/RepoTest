@@ -1,5 +1,5 @@
 using System.Linq;
-using HVTApp.DataAccess;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Wrapper

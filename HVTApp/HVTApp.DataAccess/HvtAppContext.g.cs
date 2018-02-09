@@ -66,6 +66,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new OfferUnitConfiguration());
             modelBuilder.Configurations.Add(new ProjectUnitGroupConfiguration());
             modelBuilder.Configurations.Add(new ProductBlockConfiguration());
+            modelBuilder.Configurations.Add(new OfferUnitGroupConfiguration());
 			#endregion
 
             base.OnModelCreating(modelBuilder);
@@ -129,6 +130,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<OfferUnit> OfferUnitDbSet { get; set; }
         public virtual DbSet<ProjectUnitGroup> ProjectUnitGroupDbSet { get; set; }
         public virtual DbSet<ProductBlock> ProductBlockDbSet { get; set; }
+        public virtual DbSet<OfferUnitGroup> OfferUnitGroupDbSet { get; set; }
 		#endregion
     }
 }

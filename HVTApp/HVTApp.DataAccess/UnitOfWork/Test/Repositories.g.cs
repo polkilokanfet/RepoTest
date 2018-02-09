@@ -288,4 +288,9 @@ namespace HVTApp.DataAccess
         public ProductBlockRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class OfferUnitGroupRepositoryTest : TestBaseRepository<OfferUnitGroup>, IOfferUnitGroupRepository
+    {
+        public OfferUnitGroupRepositoryTest(TestData testData) : base(testData) {}
+    }
+
 }

@@ -1318,8 +1318,10 @@ namespace HVTApp.UI.Lookup
 		}
 		protected override void RefreshLookups()
         {
-			 			Product?.Refresh(Entity.Product);
+			 			Project?.Refresh(Entity.Project);
+			Product?.Refresh(Entity.Product);
 			Facility?.Refresh(Entity.Facility);
+			Producer?.Refresh(Entity.Producer);
 		}
 		
         #region SimpleProperties
@@ -1336,9 +1338,13 @@ namespace HVTApp.UI.Lookup
         #endregion
 
         #region ComplexProperties
+	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
+
 	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
+
+	    public CompanyLookup Producer { get { return GetLookup<CompanyLookup>(); } }
 
         #endregion
 	}

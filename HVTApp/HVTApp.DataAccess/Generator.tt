@@ -29,8 +29,8 @@
   GenerateRepositories(modelTypes);
   SaveGeneratedCodeAsFile("Repositories.g.cs", "UnitOfWork/Repositories");
 
-  GenerateIUnitOfWork(modelTypes);
-  SaveGeneratedCodeAsFile("IUnitOfWork.g.cs", "UnitOfWork");
+  //GenerateIUnitOfWork(modelTypes);
+  //SaveGeneratedCodeAsFile("IUnitOfWork.g.cs", "UnitOfWork");
 
   GenerateUnitOfWork(modelTypes);
   SaveGeneratedCodeAsFile("UnitOfWork.g.cs", "UnitOfWork");

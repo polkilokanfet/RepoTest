@@ -73,4 +73,5 @@ namespace HVTApp.DataAccess
     public partial class OfferUnitConfiguration : EntityTypeConfiguration<OfferUnit> { }
     public partial class ProjectUnitGroupConfiguration : EntityTypeConfiguration<ProjectUnitGroup> { }
     public partial class ProductBlockConfiguration : EntityTypeConfiguration<ProductBlock> { }
+    public partial class OfferUnitGroupConfiguration : EntityTypeConfiguration<OfferUnitGroup> { }
 }

@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using HVTApp.DataAccess;
+﻿using HVTApp.DataAccess;
 using HVTApp.Services.OfferToDocService;
 using HVTApp.TestDataGenerator;
 using HVTApp.UI.Wrapper;
