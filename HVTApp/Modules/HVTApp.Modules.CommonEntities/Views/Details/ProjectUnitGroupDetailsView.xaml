@@ -59,7 +59,8 @@
             </Grid.ColumnDefinitions>
 
             <infg:XamDataGrid Grid.Column="0" 
-                              DataSource="{Binding Item.ProjectUnits}">
+                              DataSource="{Binding Item.ProjectUnits}"
+                              SelectedDataItem="{Binding SelectedProjectUnitWrapper}">
 
                 <infg:XamDataGrid.FieldLayouts>
                     <infg:FieldLayout>
@@ -67,7 +68,8 @@
                             <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
                             <infg:TextField Name="Product" Label="Оборудование"/>
                             <infg:DateTimeField Name="DeliveryDate" AllowEdit="True" Width="Auto"/>
-                            <infg:NumericField Name="Cost" Label="Стоимость" AllowEdit="True" Width="Auto"/>
+                            <infg:NumericField Name="Cost" Label="Стоимость" AllowEdit="True" Width="Auto" />
+                            <infg:NumericField Name="MarginalIncome" Label="МД, %" AllowEdit="True" Width="Auto" />
                         </infg:FieldLayout.Fields>
                     </infg:FieldLayout>
                 </infg:XamDataGrid.FieldLayouts>

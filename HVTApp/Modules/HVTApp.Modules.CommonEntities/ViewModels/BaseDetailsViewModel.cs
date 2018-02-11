@@ -49,6 +49,7 @@ namespace HVTApp.UI.ViewModels
             Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity);
             await LoadOtherAsync();
         }
+
         public async Task LoadAsync(TWrapper wrapper, IUnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
@@ -79,9 +80,14 @@ namespace HVTApp.UI.ViewModels
             protected set
             {
                 if (Equals(_item, value)) return;
-                if (_item != null) _item.PropertyChanged -= ItemOnPropertyChanged;
+
+                if (_item != null)
+                    _item.PropertyChanged -= ItemOnPropertyChanged;
+
                 _item = value;
-                if (_item != null) _item.PropertyChanged += ItemOnPropertyChanged;
+                if (_item != null)
+                    _item.PropertyChanged += ItemOnPropertyChanged;
+
                 ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }

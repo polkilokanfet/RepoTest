@@ -8,40 +8,41 @@ namespace HVTApp.UI.Wrapper
     {
         protected override void RunInConstructor()
         {
-            this.PropertyChanged += ActionPropertyChanged;
-            OnPropertyChanged(nameof(Cost));
+            //актуализируем стоимость
+            var prices = new List<Price>();
+            Price = Product.GetPrice(ref prices);
+
+            this.PropertyChanged += OnCostChanged;
         }
 
-        private void ActionPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void OnCostChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(Cost))
             {
-                var prices = new List<Price>();
-                var price = Product.GetPrice(ref prices);
-                MarginalIncome = (Math.Abs(Cost) > 0.001) ? 100 * (Cost - price) / Cost : 0;
-
+                OnPropertyChanged(nameof(MarginalIncome));
                 OnPropertyChanged(nameof(Total));
             }
         }
 
-        private double _marginalIncome;
+        public double Price { get; private set; }
+
         public double MarginalIncome
         {
-            get { return _marginalIncome; }
+            get
+            {
+                return (Math.Abs(Cost) > 0.001) 
+                    ? 100 * (Cost - Price) / Cost 
+                    : 0;
+            }
             set
             {
-                if (Equals(_marginalIncome, value)) return;
+                if (Equals(MarginalIncome, value)) return;
                 if (Math.Abs(value - 100) < 0.001) return;
-                _marginalIncome = value;
-
-                //актуализируем стоимость
-                var prices = new List<Price>();
-                var price = Product.GetPrice(ref prices);
-                Cost = price / (100 - _marginalIncome) * 100;
-
+                Cost = Price / (100 - value) * 100;
                 OnPropertyChanged();
             }
         }
+
 
         public double Total => Cost * Amount;
     }

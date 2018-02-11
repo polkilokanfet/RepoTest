@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -12,10 +13,35 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class ProjectUnitGroupDetailsViewModel
     {
+        private ProjectUnitWrapper _selectedProjectUnitWrapper;
+
         protected override async void SaveCommand_Execute()
         {
+            foreach (var addedItem in Item.ProjectUnits.AddedItems)
+                UnitOfWork.GetRepository<ProjectUnit>().Add(addedItem.Model);
+            foreach (var removedItem in Item.ProjectUnits.RemovedItems)
+                UnitOfWork.GetRepository<ProjectUnit>().Delete(removedItem.Model);
+            foreach (var modifiedItem in Item.ProjectUnits.ModifiedItems)
+                modifiedItem.AcceptChanges();
+
             await UnitOfWork.SaveChangesAsync();
             OnCloseRequested(new DialogRequestCloseEventArgs(true));
+        }
+
+        public ProjectUnitWrapper SelectedProjectUnitWrapper
+        {
+            get { return _selectedProjectUnitWrapper; }
+            set
+            {
+                _selectedProjectUnitWrapper = value;
+                CheckCommands();
+                OnPropertyChanged();
+            }
+        }
+
+        private void CheckCommands()
+        {
+            ((DelegateCommand)AddProjectUnitCommand).RaiseCanExecuteChanged();
         }
 
         public ICommand SelectProductCommand { get; private set; }
@@ -23,6 +49,7 @@ namespace HVTApp.UI.ViewModels
         public ICommand SelectProducerCommand { get; private set; }
         public ICommand SelectProjectCommand { get; private set; }
 
+        public ICommand AddProjectUnitCommand { get; private set; }
 
         protected override void InitCommands()
         {
@@ -30,6 +57,22 @@ namespace HVTApp.UI.ViewModels
             SelectFacilityCommand = new DelegateCommand(SelectFacility_Execute);
             SelectProducerCommand = new DelegateCommand(SelectProducer_Execute);
             SelectProjectCommand = new DelegateCommand(SelectProject_Execute);
+
+            AddProjectUnitCommand = new DelegateCommand(AddProjectUnitCommand_Execute);
+        }
+
+
+        private void AddProjectUnitCommand_Execute()
+        {
+            var projectUnit = new ProjectUnit()
+            {
+                Cost = SelectedProjectUnitWrapper.Model.Cost,
+                Product = SelectedProjectUnitWrapper.Model.Product,
+                Facility = SelectedProjectUnitWrapper.Model.Facility,
+                Cost = SelectedProjectUnitWrapper.Model.,
+                Cost = SelectedProjectUnitWrapper.Model.Cost,
+                Cost = SelectedProjectUnitWrapper.Model.Cost,
+            };
         }
 
         private async void SelectProduct_Execute()
@@ -60,6 +103,5 @@ namespace HVTApp.UI.ViewModels
             var facilities = await UnitOfWork.GetRepository<Facility>().GetAllAsync();
             SelectAndSetWrapper<Facility, FacilityLookup, FacilityWrapper>(facilities, nameof(Item.Facility));
         }
-
     }
 }
