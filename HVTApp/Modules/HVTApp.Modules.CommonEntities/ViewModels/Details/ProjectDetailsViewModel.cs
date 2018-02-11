@@ -85,8 +85,9 @@ namespace HVTApp.UI.ViewModels
                     _projectUnits.Remove(projectUnitWrapper.Model);
                     UnitOfWork.GetRepository<ProjectUnit>().Delete(projectUnitWrapper.Model);
                 }
-
+                
                 GetGroups();
+                ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
             }
             else
             {

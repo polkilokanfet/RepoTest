@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace HVTApp.UI.Wrapper
@@ -15,18 +16,11 @@ namespace HVTApp.UI.Wrapper
         {
             if (e.PropertyName == nameof(Cost))
             {
-                var price = Product.GetTotalPrice();
-                _marginalIncome = (Math.Abs(Cost) > 0.001) ? 100 * (Cost - price) / Cost : 0;
+                var prices = new List<Price>();
+                var price = Product.GetPrice(ref prices);
+                MarginalIncome = (Math.Abs(Cost) > 0.001) ? 100 * (Cost - price) / Cost : 0;
 
-                OnPropertyChanged(nameof(MarginalIncome));
                 OnPropertyChanged(nameof(Total));
-            }
-
-            if (e.PropertyName == nameof(MarginalIncome))
-            {
-                var price = Product.GetTotalPrice();
-                Cost = price / (100 - MarginalIncome) * 100;
-                var rrr = 1;
             }
         }
 
@@ -39,6 +33,12 @@ namespace HVTApp.UI.Wrapper
                 if (Equals(_marginalIncome, value)) return;
                 if (Math.Abs(value - 100) < 0.001) return;
                 _marginalIncome = value;
+
+                //актуализируем стоимость
+                var prices = new List<Price>();
+                var price = Product.GetPrice(ref prices);
+                Cost = price / (100 - _marginalIncome) * 100;
+
                 OnPropertyChanged();
             }
         }

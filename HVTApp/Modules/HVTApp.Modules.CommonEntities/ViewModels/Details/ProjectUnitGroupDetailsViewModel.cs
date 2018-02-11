@@ -1,13 +1,10 @@
-using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.GetProductService;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.Wrapper;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -15,25 +12,6 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class ProjectUnitGroupDetailsViewModel
     {
-        protected override async Task LoadOtherAsync()
-        {
-            await Task.Run(() => Item.PropertyChanged += ItemOnPropertyChanged);
-        }
-
-        private void ItemOnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            //if (e.PropertyName != nameof(Item.ProjectUnits))
-            //    Item.ProjectUnits.ForEach(x =>
-            //    {
-            //        x.Product = Item.Product;
-            //        x.Facility = Item.Facility;
-            //        x.Project = Item.Project;
-            //        x.Cost = Item.Cost;
-            //        x.Producer = Item.Producer;
-            //        x.Refresh();
-            //    });
-        }
-
         protected override async void SaveCommand_Execute()
         {
             await UnitOfWork.SaveChangesAsync();

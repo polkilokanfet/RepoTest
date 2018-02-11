@@ -11,6 +11,7 @@ namespace HVTApp.Model.POCOs
         public virtual List<Parameter> Parameters { get; set; } = new List<Parameter>();
         public virtual List<CostOnDate> Prices { get; set; } = new List<CostOnDate>();
         public string StructureCostNumber { get; set; }
+
         public string ParametersToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
