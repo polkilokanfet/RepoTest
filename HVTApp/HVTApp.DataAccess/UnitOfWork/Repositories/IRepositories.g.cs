@@ -1,5 +1,5 @@
-using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.DataAccess
 {
@@ -58,7 +58,6 @@ namespace HVTApp.DataAccess
     public partial interface ITenderTypeRepository : IRepository<TenderType> { }
     public partial interface IUserRepository : IRepository<User> { }
     public partial interface IOfferUnitRepository : IRepository<OfferUnit> { }
-    public partial interface IProjectUnitGroupRepository : IRepository<ProjectUnitGroup> { }
     public partial interface IProductBlockRepository : IRepository<ProductBlock> { }
     public partial interface IOfferUnitGroupRepository : IRepository<OfferUnitGroup> { }
 

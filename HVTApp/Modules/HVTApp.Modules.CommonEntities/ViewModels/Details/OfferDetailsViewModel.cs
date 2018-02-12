@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -12,16 +13,21 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class OfferDetailsViewModel
     {
-        public ObservableCollection<OfferUnitGroupWrapper> OfferUnitGroups { get; } = new ObservableCollection<OfferUnitGroupWrapper>();
+        public ObservableCollection<OfferUnitsGrouped> OfferUnitsGroupedCollection { get; } = new ObservableCollection<OfferUnitsGrouped>();
+
+        private List<OfferUnitWrapper> _offerUnitWrappers;
 
         protected override async Task LoadOtherAsync()
         {
-            var offerUnits = await UnitOfWork.GetRepository<OfferUnit>().GetAllAsync();
+            var offerUnits = (await UnitOfWork.GetRepository<OfferUnit>().GetAllAsync()).Where(x => x.OfferId == Item.Id);
             foreach (var offerUnitGroup in offerUnits.ConvertToGroup())
             {
-                var wrapper = new OfferUnitGroupWrapper(offerUnitGroup);
-                OfferUnitGroups.Add(wrapper);
-                wrapper.PropertyChanged += OfferUnitGroupOnPropertyChanged;
+                var wrappers = _offerUnitWrappers.Where(x => offerUnitGroup.OfferUnits.Contains(x.Model)).ToList();
+                OfferUnitsGroupedCollection.Add(new OfferUnitsGrouped(wrappers));
+                foreach (var offerUnitWrapper in wrappers)
+                {
+                    offerUnitWrapper.PropertyChanged += OfferUnitGroupOnPropertyChanged;
+                }
             }
         }
 
@@ -33,8 +39,8 @@ namespace HVTApp.UI.ViewModels
         protected override bool SaveCommand_CanExecute()
         {
             return base.SaveCommand_CanExecute() || (
-                   OfferUnitGroups.Any(x => x.IsChanged) &&
-                   OfferUnitGroups.All(x => x.IsValid));
+                   OfferUnitsGroupedCollection.SelectMany(x => x.UnitWrappers).Any(x => x.IsChanged) &&
+                   OfferUnitsGroupedCollection.SelectMany(x => x.UnitWrappers).All(x => x.IsValid));
         }
     }
 }

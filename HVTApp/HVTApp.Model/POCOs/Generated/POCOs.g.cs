@@ -282,12 +282,6 @@ namespace HVTApp.Model.POCOs
 		public virtual Guid? ProductId { get; set; }
 	}
 
-	public partial class ProjectUnitGroup
-	{
-		public virtual Guid? ProductId { get; set; }
-		public virtual Guid? FacilityId { get; set; }
-	}
-
 	public partial class ProductBlock
 	{
 	}

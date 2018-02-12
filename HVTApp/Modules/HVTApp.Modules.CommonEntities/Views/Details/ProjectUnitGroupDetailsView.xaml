@@ -5,6 +5,7 @@
               xmlns:editors="http://infragistics.com/Editors"
               xmlns:controls="clr-namespace:HVTApp.UI.Controls"
               xmlns:infg="http://infragistics.com/DataPresenter">
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -87,6 +88,7 @@
         </Grid>
 
     </Grid>
+    
 </inf:ViewBase>
 
 

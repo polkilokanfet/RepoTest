@@ -128,7 +128,7 @@
                                     Text="{Binding Item.Vat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
         </Grid>
 
-        <infWpf:XamDataGrid Grid.Row="1" DataSource="{Binding OfferUnitGroups}">
+        <infWpf:XamDataGrid Grid.Row="1" DataSource="{Binding OfferUnitsGroupedCollection}">
 
             <infWpf:XamDataGrid.FieldLayouts>
                 <infWpf:FieldLayout>

@@ -280,11 +280,6 @@ namespace HVTApp.UI.ViewModels
         public OfferUnitDetailsViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class ProjectUnitGroupDetailsViewModel : BaseDetailsViewModel<ProjectUnitGroupWrapper, ProjectUnitGroup, AfterSaveProjectUnitGroupEvent>
-    {
-        public ProjectUnitGroupDetailsViewModel(IUnityContainer container) : base(container) { }
-    }
-
     public partial class ProductBlockDetailsViewModel : BaseDetailsViewModel<ProductBlockWrapper, ProductBlock, AfterSaveProductBlockEvent>
     {
         public ProductBlockDetailsViewModel(IUnityContainer container) : base(container) { }

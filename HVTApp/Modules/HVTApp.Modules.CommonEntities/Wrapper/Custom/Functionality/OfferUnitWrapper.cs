@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using HVTApp.Model.POCOs;
+using HVTApp.UI.ViewModels;
 
 namespace HVTApp.UI.Wrapper
 {
-    public partial class OfferUnitWrapper : IProductUnit
+    public partial class OfferUnitWrapper : IProductUnit, IGroupingProduct
     {
         protected override void RunInConstructor()
         {

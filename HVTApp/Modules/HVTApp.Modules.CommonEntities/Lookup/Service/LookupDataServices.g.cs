@@ -279,11 +279,6 @@ namespace HVTApp.UI.Lookup
         public OfferUnitLookupDataService(HvtAppContext context) : base(context) { }
     }
 
-    public partial class ProjectUnitGroupLookupDataService : LookupDataService<ProjectUnitGroupLookup, ProjectUnitGroup>, IProjectUnitGroupLookupDataService
-    {
-        public ProjectUnitGroupLookupDataService(HvtAppContext context) : base(context) { }
-    }
-
     public partial class ProductBlockLookupDataService : LookupDataService<ProductBlockLookup, ProductBlock>, IProductBlockLookupDataService
     {
         public ProductBlockLookupDataService(HvtAppContext context) : base(context) { }

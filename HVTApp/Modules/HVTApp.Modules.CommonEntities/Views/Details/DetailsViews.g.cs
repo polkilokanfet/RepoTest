@@ -502,15 +502,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-    public partial class ProjectUnitGroupDetailsView : ViewBase
-    {
-        public ProjectUnitGroupDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectUnitGroupDetailsViewModel ProjectUnitGroupDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ProjectUnitGroupDetailsViewModel;
-        }
-    }
-
     public partial class ProductBlockDetailsView : ViewBase
     {
         public ProductBlockDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductBlockDetailsViewModel ProductBlockDetailsViewModel) : base(regionManager, eventAggregator)

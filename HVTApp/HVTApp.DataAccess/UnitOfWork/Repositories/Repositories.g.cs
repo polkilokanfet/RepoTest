@@ -278,11 +278,6 @@ namespace HVTApp.DataAccess
         public OfferUnitRepository(DbContext context) : base(context) {}
     }
 
-    public partial class ProjectUnitGroupRepository : BaseRepository<ProjectUnitGroup>, IProjectUnitGroupRepository
-    {
-        public ProjectUnitGroupRepository(DbContext context) : base(context) {}
-    }
-
     public partial class ProductBlockRepository : BaseRepository<ProductBlock>, IProductBlockRepository
     {
         public ProductBlockRepository(DbContext context) : base(context) {}

@@ -1311,43 +1311,6 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	public partial class ProjectUnitGroupLookup : LookupItem<ProjectUnitGroup>
-	{
-		public ProjectUnitGroupLookup(ProjectUnitGroup entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 			Project?.Refresh(Entity.Project);
-			Product?.Refresh(Entity.Product);
-			Facility?.Refresh(Entity.Facility);
-			Producer?.Refresh(Entity.Producer);
-		}
-		
-        #region SimpleProperties
-        public System.Nullable<System.Guid> ProductId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Nullable<System.Guid> FacilityId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.DateTime DeliveryDate => GetValue<System.DateTime>();
-
-        public System.Double Cost => GetValue<System.Double>();
-
-        public System.Int32 Amount => GetValue<System.Int32>();
-
-        #endregion
-
-        #region ComplexProperties
-	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
-
-	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
-
-	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
-
-	    public CompanyLookup Producer { get { return GetLookup<CompanyLookup>(); } }
-
-        #endregion
-	}
 	public partial class ProductBlockLookup : LookupItem<ProductBlock>
 	{
 		public ProductBlockLookup(ProductBlock entity) : base(entity) 

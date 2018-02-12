@@ -64,7 +64,6 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new TenderTypeConfiguration());
             modelBuilder.Configurations.Add(new UserConfiguration());
             modelBuilder.Configurations.Add(new OfferUnitConfiguration());
-            modelBuilder.Configurations.Add(new ProjectUnitGroupConfiguration());
             modelBuilder.Configurations.Add(new ProductBlockConfiguration());
             modelBuilder.Configurations.Add(new OfferUnitGroupConfiguration());
 			#endregion
@@ -128,7 +127,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<TenderType> TenderTypeDbSet { get; set; }
         public virtual DbSet<User> UserDbSet { get; set; }
         public virtual DbSet<OfferUnit> OfferUnitDbSet { get; set; }
-        public virtual DbSet<ProjectUnitGroup> ProjectUnitGroupDbSet { get; set; }
         public virtual DbSet<ProductBlock> ProductBlockDbSet { get; set; }
         public virtual DbSet<OfferUnitGroup> OfferUnitGroupDbSet { get; set; }
 		#endregion

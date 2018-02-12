@@ -64,6 +64,7 @@ namespace HVTApp.DataAccess
 	private void GenerateIRepositories(IEnumerable<Type> modelTypes)
 	{
 #>using HVTApp.Model.POCOs;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.DataAccess
 {

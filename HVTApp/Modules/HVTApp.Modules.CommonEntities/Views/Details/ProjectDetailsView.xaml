@@ -4,54 +4,61 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <Label Grid.Column="0" Grid.Row="0" Content="Название"/>
-        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
-        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+    <StackPanel>
+        <Menu>
+            <MenuItem Header="Grouping" Command="{Binding GroupingCommand}"/>
+        </Menu>
+        
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-            <infg:XamDataGrid Grid.Column="0" 
-                              DataSource="{Binding ProjectUnitGroups}"
-                              SelectedDataItem="{Binding SelectedProjectUnitGroupWrapper, Mode=TwoWay}">
-                
-                <infg:XamDataGrid.FieldLayouts>
-                    <infg:FieldLayout>
-                        <infg:FieldLayout.Fields>
-                            <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
-                            <infg:TextField Name="Product" Label="Оборудование"/>
-                            <infg:DateTimeField Name="DeliveryDate" AllowEdit="True" Width="Auto"/>
-                            <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
-                            <infg:NumericField Name="Cost" Label="Стоимость" AllowEdit="True" Width="Auto"/>
-                        </infg:FieldLayout.Fields>
-                    </infg:FieldLayout>
-                </infg:XamDataGrid.FieldLayouts>
-                
-            </infg:XamDataGrid>
+            <Label Grid.Column="0" Grid.Row="0" Content="Название"/>
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <StackPanel Grid.Column="1" Orientation="Vertical">
-                <Button Command="{Binding AddProjectUnitGroupCommand}" Margin="2"><TextBlock Text="+" Margin="5"></TextBlock></Button>
-                <Button Command="{Binding EditProjectUnitGroupCommand}" Margin="2"><TextBlock Text="~" Margin="5"></TextBlock></Button>
-            </StackPanel>
+            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <infg:XamDataGrid Grid.Column="0" 
+                                  DataSource="{Binding ProjectUnitsGroupedCollection}"
+                                  SelectedDataItem="{Binding SelectedProjectUnitsGrouped, Mode=TwoWay}">
+                    
+                    <infg:XamDataGrid.FieldLayouts>
+                        <infg:FieldLayout>
+                            <infg:FieldLayout.Fields>
+                                <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
+                                <infg:TextField Name="Product" Label="Оборудование"/>
+                                <infg:DateTimeField Name="DeliveryDate" AllowEdit="True" Width="Auto"/>
+                                <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
+                                <infg:NumericField Name="Cost" Label="Стоимость" AllowEdit="True" Width="Auto"/>
+                                <infg:NumericField Name="MarginalIncome" Label="МД, %" AllowEdit="True" Width="Auto"/>
+                            </infg:FieldLayout.Fields>
+                        </infg:FieldLayout>
+                    </infg:XamDataGrid.FieldLayouts>
+                
+                </infg:XamDataGrid>
+
+                <!--<StackPanel Grid.Column="1" Orientation="Vertical">
+                    <Button Command="{Binding AddProjectUnitGroupCommand}" Margin="2"><TextBlock Text="+" Margin="5"></TextBlock></Button>
+                    <Button Command="{Binding EditProjectUnitGroupCommand}" Margin="2"><TextBlock Text="~" Margin="5"></TextBlock></Button>
+                </StackPanel>-->
+            </Grid>
         </Grid>
-    </Grid>
-
+        
+    </StackPanel>
 </inf:ViewBase>
 
 

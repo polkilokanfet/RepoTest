@@ -998,24 +998,6 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class ProjectUnitGroupListView : ViewBase
-    {
-        public ProjectUnitGroupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectUnitGroupListViewModel ProjectUnitGroupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ProjectUnitGroupListViewModel;
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			var viewModel = (ProjectUnitGroupListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
-        }
-    }
-
-    [RibbonTab(typeof(TabCRUD))]
     public partial class ProductBlockListView : ViewBase
     {
         public ProductBlockListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductBlockListViewModel ProductBlockListViewModel) : base(regionManager, eventAggregator)

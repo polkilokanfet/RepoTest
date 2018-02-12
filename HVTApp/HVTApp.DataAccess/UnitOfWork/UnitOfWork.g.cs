@@ -68,7 +68,6 @@ namespace HVTApp.DataAccess
             TenderTypeRepository = new TenderTypeRepository(context);
             UserRepository = new UserRepository(context);
             OfferUnitRepository = new OfferUnitRepository(context);
-            ProjectUnitGroupRepository = new ProjectUnitGroupRepository(context);
             ProductBlockRepository = new ProductBlockRepository(context);
             OfferUnitGroupRepository = new OfferUnitGroupRepository(context);
 			#endregion
@@ -131,7 +130,6 @@ namespace HVTApp.DataAccess
         private ITenderTypeRepository TenderTypeRepository;
         private IUserRepository UserRepository;
         private IOfferUnitRepository OfferUnitRepository;
-        private IProjectUnitGroupRepository ProjectUnitGroupRepository;
         private IProductBlockRepository ProductBlockRepository;
         private IOfferUnitGroupRepository OfferUnitGroupRepository;
         #endregion
