@@ -46,6 +46,7 @@
                                 <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
                                 <infg:NumericField Name="Cost" Label="Стоимость" AllowEdit="True" Width="Auto"/>
                                 <infg:NumericField Name="MarginalIncome" Label="МД, %" AllowEdit="True" Width="Auto"/>
+                                <infg:TextField Name="PriceErrors" Label="PriceErrors" />
                             </infg:FieldLayout.Fields>
                         </infg:FieldLayout>
                     </infg:XamDataGrid.FieldLayouts>

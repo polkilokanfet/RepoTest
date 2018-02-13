@@ -7,23 +7,55 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class ProjectUnitWrapper : IGroupingProduct
     {
+        private DateTime _priceDate;
+
         protected override void RunInConstructor()
         {
-            //актуализируем стоимость
-            Price = Product.GetPrice();
-
+            PriceDate = DateTime.Today;
             this.PropertyChanged += OnCostChanged;
         }
 
         private void OnCostChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(Cost))
+                OnPropertyChanged(nameof(MarginalIncome));
+
+            if (e.PropertyName == nameof(Product))
             {
                 OnPropertyChanged(nameof(MarginalIncome));
+                OnPropertyChanged(nameof(PriceErrors));
             }
         }
 
-        public double Price { get; private set; }
+        public DateTime PriceDate
+        {
+            get { return _priceDate; }
+            set
+            {
+                if (Equals(_priceDate, value)) return;
+                _priceDate = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(MarginalIncome));
+                OnPropertyChanged(nameof(PriceErrors));
+            }
+        }
+
+        public double Price => Product.GetPrice(PriceDate);
+
+        public string PriceErrors
+        {
+            get
+            {
+                var blocks = Product.GetBlocksWithoutActualPriceOnDate(PriceDate);
+                string result = string.Empty;
+                foreach (var block in blocks)
+                {
+                    result += $"{block.DisplayMember}; ";
+                }
+                return result;
+            }
+        }
 
         public double MarginalIncome
         {

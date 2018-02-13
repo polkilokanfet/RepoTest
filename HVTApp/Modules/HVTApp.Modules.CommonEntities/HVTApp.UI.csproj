@@ -118,7 +118,6 @@
     <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\OfferUnitsGrouped.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Details\ProjectUnitGroupDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitsGrouped.cs" />
     <Compile Include="ViewModels\Details\UnitsGrouped.cs" />
     <Compile Include="ViewModels\IBaseListViewModel.cs" />

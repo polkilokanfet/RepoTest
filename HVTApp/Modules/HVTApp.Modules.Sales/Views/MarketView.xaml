@@ -12,9 +12,9 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <views:ProjectListView Name="ProjectListView" Grid.Row="0"/>
+        <views:ProjectListView Name="ProjectListView" Grid.Row="0" DataContext="{Binding ProjectListViewModel}"/>
         <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
-        <views:ProjectUnitGroupListView Name="ProjectUnitGroupListView" Grid.Row="2"/>
+        <views:ProjectUnitGroupListView Name="ProjectUnitListView" Grid.Row="2" DataContext="{Binding ProjectUnitListViewModel}"/>
 
     </Grid>
 

@@ -27,5 +27,10 @@ namespace HVTApp.UI.ViewModels
             get { return GetValue<DateTime>(); }
             set { SetValue(value); }
         }
+
+        public string PriceErrors
+        {
+            get { return GetValue<string>(); }
+        }
     }
 }

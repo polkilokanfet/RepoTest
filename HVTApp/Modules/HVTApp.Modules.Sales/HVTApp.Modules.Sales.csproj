@@ -113,9 +113,7 @@
     <Compile Include="Tabs\SalesCRUD.xaml.cs">
       <DependentUpon>SalesCRUD.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\MarketProjectListViewModel.cs" />
-    <Compile Include="ViewModels\MarketTenderListViewModel.cs" />
-    <Compile Include="ViewModels\MarketProjectUnitGroupListViewModel.cs" />
+    <Compile Include="ViewModels\MarketViewModel.cs" />
     <Compile Include="Views\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
     </Compile>

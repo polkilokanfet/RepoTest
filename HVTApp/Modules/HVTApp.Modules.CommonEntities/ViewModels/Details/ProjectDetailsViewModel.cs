@@ -97,6 +97,7 @@ namespace HVTApp.UI.ViewModels
             if (updated)
             {
                 var unit = await UnitOfWork.GetRepository<ProjectUnit>().GetByIdAsync(projectUnit.Id);
+
                 SelectedProjectUnitsGrouped.Facility = new FacilityWrapper(unit.Facility);
                 SelectedProjectUnitsGrouped.Product = new ProductWrapper(unit.Product);
             }
