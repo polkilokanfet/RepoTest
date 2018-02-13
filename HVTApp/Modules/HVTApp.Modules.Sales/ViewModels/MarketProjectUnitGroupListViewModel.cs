@@ -12,25 +12,25 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class MarketProjectUnitGroupListViewModel : ProjectUnitGroupListViewModel
     {
-        public MarketProjectUnitGroupListViewModel(IUnityContainer container) : base(container)
-        {
-            Container.Resolve<IEventAggregator>().GetEvent<AfterSelectProjectEvent>().Subscribe(OnProjectSelect);
-        }
+        //public MarketProjectUnitGroupListViewModel(IUnityContainer container) : base(container)
+        //{
+        //    //Container.Resolve<IEventAggregator>().GetEvent<AfterSelectProjectEvent>().Subscribe(OnProjectSelect);
+        //}
 
-        private Project _project;
+        //private Project _project;
 
-        private async void OnProjectSelect(PubSubEventArgs<Project> e)
-        {
-            if (!(e.Sender.GetType() == typeof(MarketProjectListViewModel))) return;
-            _project = e.Entity;
-            await LoadAsync();
-        }
+        //private async void OnProjectSelect(PubSubEventArgs<Project> e)
+        //{
+        //    if (!(e.Sender.GetType() == typeof(MarketProjectListViewModel))) return;
+        //    _project = e.Entity;
+        //    await LoadAsync();
+        //}
 
-        protected override async Task<IEnumerable<ProjectUnitGroup>> GetItems()
-        {
-            var projectUnits = await UnitOfWork.GetRepository<ProjectUnit>().GetAllAsNoTrackingAsync();
-            projectUnits = projectUnits.FindAll(x => Equals(x.ProjectId, _project.Id));
-            return projectUnits.ConvertToGroup();
-        }
+        //protected override async Task<IEnumerable<ProjectUnitGroup>> GetItems()
+        //{
+        //    var projectUnits = await UnitOfWork.GetRepository<ProjectUnit>().GetAllAsNoTrackingAsync();
+        //    projectUnits = projectUnits.FindAll(x => Equals(x.ProjectId, _project.Id));
+        //    return projectUnits.ConvertToGroup();
+        //}
     }
 }

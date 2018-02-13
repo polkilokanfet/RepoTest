@@ -286,11 +286,4 @@ namespace HVTApp.Model.POCOs
 	{
 	}
 
-	public partial class OfferUnitGroup
-	{
-		public virtual Guid? OfferId { get; set; }
-		public virtual Guid? ProductId { get; set; }
-		public virtual Guid? FacilityId { get; set; }
-	}
-
 }

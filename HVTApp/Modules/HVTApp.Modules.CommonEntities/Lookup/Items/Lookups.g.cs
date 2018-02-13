@@ -1327,40 +1327,4 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	public partial class OfferUnitGroupLookup : LookupItem<OfferUnitGroup>
-	{
-		public OfferUnitGroupLookup(OfferUnitGroup entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 			Offer?.Refresh(Entity.Offer);
-			Product?.Refresh(Entity.Product);
-			Facility?.Refresh(Entity.Facility);
-		}
-		
-        #region SimpleProperties
-        public System.Nullable<System.Guid> OfferId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Nullable<System.Guid> ProductId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Nullable<System.Guid> FacilityId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Int32 ProductionTerm => GetValue<System.Int32>();
-
-        public System.Double Cost => GetValue<System.Double>();
-
-        public System.Int32 Amount => GetValue<System.Int32>();
-
-        #endregion
-
-        #region ComplexProperties
-	    public OfferLookup Offer { get { return GetLookup<OfferLookup>(); } }
-
-	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
-
-	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
-
-        #endregion
-	}
 }

@@ -63,7 +63,6 @@ namespace HVTApp.DataAccess
             UserRepository = new UserRepositoryTest(testData);
             OfferUnitRepository = new OfferUnitRepositoryTest(testData);
             ProductBlockRepository = new ProductBlockRepositoryTest(testData);
-            OfferUnitGroupRepository = new OfferUnitGroupRepositoryTest(testData);
 			#endregion
         }
 
@@ -125,7 +124,6 @@ namespace HVTApp.DataAccess
         public IUserRepository UserRepository { get; }
         public IOfferUnitRepository OfferUnitRepository { get; }
         public IProductBlockRepository ProductBlockRepository { get; }
-        public IOfferUnitGroupRepository OfferUnitGroupRepository { get; }
         #endregion
     }
 }

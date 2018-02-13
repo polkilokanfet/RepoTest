@@ -294,7 +294,6 @@
     <Compile Include="Wrapper\Custom\Functionality\SalesUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ShipmentUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\SpecificationWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\OfferUnitGroupWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\TenderWrapper.cs" />
     <Compile Include="Wrapper\Custom\IProductWithCost.cs" />
     <Compile Include="Wrapper\Custom\Test\TestFriendAddressWrapper.cs" />

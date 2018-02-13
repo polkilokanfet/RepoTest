@@ -844,19 +844,4 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-    public partial class OfferUnitGroupWrapperDataService : EntityWrapperDataService<OfferUnitGroup, OfferUnitGroupWrapper>
-    {
-        public OfferUnitGroupWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-		
-		protected override OfferUnitGroupWrapper GenerateWrapper(OfferUnitGroup model)
-        {
-            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
-                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
-
-            var wrapper = new OfferUnitGroupWrapper(model);
-            ExistsWrappers.Add(wrapper);
-            return wrapper;
-        }
-    }
-
 }

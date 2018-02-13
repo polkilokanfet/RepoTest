@@ -68,7 +68,6 @@ namespace HVTApp.DataAccess
             context.UserDbSet.AddRange(testData.GetAll<User>());
             context.OfferUnitDbSet.AddRange(testData.GetAll<OfferUnit>());
             context.ProductBlockDbSet.AddRange(testData.GetAll<ProductBlock>());
-            context.OfferUnitGroupDbSet.AddRange(testData.GetAll<OfferUnitGroup>());
         }
     }
 }

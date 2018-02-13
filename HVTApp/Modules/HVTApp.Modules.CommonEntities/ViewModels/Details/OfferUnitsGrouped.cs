@@ -21,6 +21,6 @@ namespace HVTApp.UI.ViewModels
             set { SetValue(value); }
         }
 
-
+        public double Total => Cost * Amount;
     }
 }

@@ -19,12 +19,12 @@ namespace HVTApp.UI.ViewModels
 
         protected override async Task LoadOtherAsync()
         {
-            var offerUnits = (await UnitOfWork.GetRepository<OfferUnit>().GetAllAsync()).Where(x => x.OfferId == Item.Id);
-            foreach (var offerUnitGroup in offerUnits.ConvertToGroup())
+            _offerUnitWrappers = (await UnitOfWork.GetRepository<OfferUnit>().GetAllAsync())
+                .Where(x => x.OfferId == Item.Id).Select(x => new OfferUnitWrapper(x)).ToList();
+            foreach (var offerUnitsGrouped in _offerUnitWrappers.ConvertToGroup())
             {
-                var wrappers = _offerUnitWrappers.Where(x => offerUnitGroup.OfferUnits.Contains(x.Model)).ToList();
-                OfferUnitsGroupedCollection.Add(new OfferUnitsGrouped(wrappers));
-                foreach (var offerUnitWrapper in wrappers)
+                OfferUnitsGroupedCollection.Add(offerUnitsGrouped);
+                foreach (var offerUnitWrapper in offerUnitsGrouped.UnitWrappers)
                 {
                     offerUnitWrapper.PropertyChanged += OfferUnitGroupOnPropertyChanged;
                 }
