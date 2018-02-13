@@ -35,6 +35,11 @@ namespace HVTApp.UI.ViewModels
         public RegionDetailsViewModel(IUnityContainer container) : base(container) { }
     }
 
+    public partial class CalculatePriceTaskDetailsViewModel : BaseDetailsViewModel<CalculatePriceTaskWrapper, CalculatePriceTask, AfterSaveCalculatePriceTaskEvent>
+    {
+        public CalculatePriceTaskDetailsViewModel(IUnityContainer container) : base(container) { }
+    }
+
     public partial class AdditionalSalesUnitsDetailsViewModel : BaseDetailsViewModel<AdditionalSalesUnitsWrapper, AdditionalSalesUnits, AfterSaveAdditionalSalesUnitsEvent>
     {
         public AdditionalSalesUnitsDetailsViewModel(IUnityContainer container) : base(container) { }

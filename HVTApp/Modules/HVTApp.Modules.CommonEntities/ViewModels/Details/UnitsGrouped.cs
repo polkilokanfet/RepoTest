@@ -61,13 +61,12 @@ namespace HVTApp.UI.ViewModels
 
         protected void SetValue(object value, [CallerMemberName] string propertyName = null)
         {
-            if (Equals(GetValue<object>(propertyName), value))
-                return;
-
-            var unit = UnitWrappers.First();
-            var propertyInfo = unit.GetType().GetProperty(propertyName);
+            var propertyInfo = UnitWrappers.First().GetType().GetProperty(propertyName);
             foreach (var projectUnitWrapper in UnitWrappers)
             {
+                if(Equals(propertyInfo.GetValue(projectUnitWrapper), value))
+                    continue;
+
                 propertyInfo.SetValue(projectUnitWrapper, value);
                 OnPropertyChanged(propertyName);
             }

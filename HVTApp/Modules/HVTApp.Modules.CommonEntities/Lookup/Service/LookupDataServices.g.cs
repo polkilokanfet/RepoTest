@@ -34,6 +34,11 @@ namespace HVTApp.UI.Lookup
         public RegionLookupDataService(HvtAppContext context) : base(context) { }
     }
 
+    public partial class CalculatePriceTaskLookupDataService : LookupDataService<CalculatePriceTaskLookup, CalculatePriceTask>, ICalculatePriceTaskLookupDataService
+    {
+        public CalculatePriceTaskLookupDataService(HvtAppContext context) : base(context) { }
+    }
+
     public partial class AdditionalSalesUnitsLookupDataService : LookupDataService<AdditionalSalesUnitsLookup, AdditionalSalesUnits>, IAdditionalSalesUnitsLookupDataService
     {
         public AdditionalSalesUnitsLookupDataService(HvtAppContext context) : base(context) { }

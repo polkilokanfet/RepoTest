@@ -33,6 +33,11 @@ namespace HVTApp.DataAccess
         public RegionRepository(DbContext context) : base(context) {}
     }
 
+    public partial class CalculatePriceTaskRepository : BaseRepository<CalculatePriceTask>, ICalculatePriceTaskRepository
+    {
+        public CalculatePriceTaskRepository(DbContext context) : base(context) {}
+    }
+
     public partial class AdditionalSalesUnitsRepository : BaseRepository<AdditionalSalesUnits>, IAdditionalSalesUnitsRepository
     {
         public AdditionalSalesUnitsRepository(DbContext context) : base(context) {}

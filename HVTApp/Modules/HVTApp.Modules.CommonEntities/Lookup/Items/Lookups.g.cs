@@ -118,6 +118,30 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
+	public partial class CalculatePriceTaskLookup : LookupItem<CalculatePriceTask>
+	{
+		public CalculatePriceTaskLookup(CalculatePriceTask entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 			ProductBlock?.Refresh(Entity.ProductBlock);
+		}
+		
+        #region SimpleProperties
+        public System.DateTime PriceOnDate => GetValue<System.DateTime>();
+
+        public System.Boolean IsActual => GetValue<System.Boolean>();
+
+        public System.Nullable<System.Guid> ProductBlockId => GetValue<System.Nullable<System.Guid>>();
+
+        #endregion
+
+        #region ComplexProperties
+	    public ProductBlockLookup ProductBlock { get { return GetLookup<ProductBlockLookup>(); } }
+
+        #endregion
+	}
 	public partial class AdditionalSalesUnitsLookup : LookupItem<AdditionalSalesUnits>
 	{
 		public AdditionalSalesUnitsLookup(AdditionalSalesUnits entity) : base(entity) 

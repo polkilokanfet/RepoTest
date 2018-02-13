@@ -18,6 +18,7 @@ namespace HVTApp.DataAccess
             context.LocalityDbSet.AddRange(testData.GetAll<Locality>());
             context.LocalityTypeDbSet.AddRange(testData.GetAll<LocalityType>());
             context.RegionDbSet.AddRange(testData.GetAll<Region>());
+            context.CalculatePriceTaskDbSet.AddRange(testData.GetAll<CalculatePriceTask>());
             context.AdditionalSalesUnitsDbSet.AddRange(testData.GetAll<AdditionalSalesUnits>());
             context.BankDetailsDbSet.AddRange(testData.GetAll<BankDetails>());
             context.CompanyDbSet.AddRange(testData.GetAll<Company>());

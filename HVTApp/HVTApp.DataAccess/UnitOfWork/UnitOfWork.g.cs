@@ -19,6 +19,7 @@ namespace HVTApp.DataAccess
             LocalityRepository = new LocalityRepository(context);
             LocalityTypeRepository = new LocalityTypeRepository(context);
             RegionRepository = new RegionRepository(context);
+            CalculatePriceTaskRepository = new CalculatePriceTaskRepository(context);
             AdditionalSalesUnitsRepository = new AdditionalSalesUnitsRepository(context);
             BankDetailsRepository = new BankDetailsRepository(context);
             CompanyRepository = new CompanyRepository(context);
@@ -80,6 +81,7 @@ namespace HVTApp.DataAccess
         private ILocalityRepository LocalityRepository;
         private ILocalityTypeRepository LocalityTypeRepository;
         private IRegionRepository RegionRepository;
+        private ICalculatePriceTaskRepository CalculatePriceTaskRepository;
         private IAdditionalSalesUnitsRepository AdditionalSalesUnitsRepository;
         private IBankDetailsRepository BankDetailsRepository;
         private ICompanyRepository CompanyRepository;

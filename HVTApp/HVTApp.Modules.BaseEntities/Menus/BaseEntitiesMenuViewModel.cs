@@ -21,6 +21,7 @@ namespace HVTApp.Modules.BaseEntities.Menus
             rootProduct.Items.Add(new NavigationItem("Блоки", typeof(ProductBlockListView)));
 
             var rootPartPrices = new NavigationItem("Себестоимости", typeof(PartPriceListView));
+            rootPartPrices.Items.Add(new NavigationItem("Задание на расчет себеистоимости блока", typeof(CalculatePriceTaskListView)));
 
             Items.Add(rootFacility);
             Items.Add(rootCompany);

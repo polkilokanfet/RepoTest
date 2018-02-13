@@ -15,6 +15,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new LocalityConfiguration());
             modelBuilder.Configurations.Add(new LocalityTypeConfiguration());
             modelBuilder.Configurations.Add(new RegionConfiguration());
+            modelBuilder.Configurations.Add(new CalculatePriceTaskConfiguration());
             modelBuilder.Configurations.Add(new AdditionalSalesUnitsConfiguration());
             modelBuilder.Configurations.Add(new BankDetailsConfiguration());
             modelBuilder.Configurations.Add(new CompanyConfiguration());
@@ -77,6 +78,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<Locality> LocalityDbSet { get; set; }
         public virtual DbSet<LocalityType> LocalityTypeDbSet { get; set; }
         public virtual DbSet<Region> RegionDbSet { get; set; }
+        public virtual DbSet<CalculatePriceTask> CalculatePriceTaskDbSet { get; set; }
         public virtual DbSet<AdditionalSalesUnits> AdditionalSalesUnitsDbSet { get; set; }
         public virtual DbSet<BankDetails> BankDetailsDbSet { get; set; }
         public virtual DbSet<Company> CompanyDbSet { get; set; }

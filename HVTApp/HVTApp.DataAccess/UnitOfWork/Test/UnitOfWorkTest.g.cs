@@ -13,6 +13,7 @@ namespace HVTApp.DataAccess
             LocalityRepository = new LocalityRepositoryTest(testData);
             LocalityTypeRepository = new LocalityTypeRepositoryTest(testData);
             RegionRepository = new RegionRepositoryTest(testData);
+            CalculatePriceTaskRepository = new CalculatePriceTaskRepositoryTest(testData);
             AdditionalSalesUnitsRepository = new AdditionalSalesUnitsRepositoryTest(testData);
             BankDetailsRepository = new BankDetailsRepositoryTest(testData);
             CompanyRepository = new CompanyRepositoryTest(testData);
@@ -74,6 +75,7 @@ namespace HVTApp.DataAccess
         public ILocalityRepository LocalityRepository { get; }
         public ILocalityTypeRepository LocalityTypeRepository { get; }
         public IRegionRepository RegionRepository { get; }
+        public ICalculatePriceTaskRepository CalculatePriceTaskRepository { get; }
         public IAdditionalSalesUnitsRepository AdditionalSalesUnitsRepository { get; }
         public IBankDetailsRepository BankDetailsRepository { get; }
         public ICompanyRepository CompanyRepository { get; }

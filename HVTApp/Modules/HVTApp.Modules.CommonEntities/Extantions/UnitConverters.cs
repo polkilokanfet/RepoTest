@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.UI.ViewModels;
@@ -26,6 +27,13 @@ namespace HVTApp.UI.Extantions
                 yield return new OfferUnitsGrouped(wrappers.Where(x => group.Contains(x.Model)));
             }
         }
+    }
 
+    public static class DateExt
+    {
+        public static bool IsActual(this DateTime date, DateTime onDate)
+        {
+            return date.AddDays(90) > onDate;
+        }
     }
 }

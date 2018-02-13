@@ -12,6 +12,7 @@ namespace HVTApp.UI.Wrapper
             LocalityWrapperDataService = new LocalityWrapperDataService(unitOfWork);
             LocalityTypeWrapperDataService = new LocalityTypeWrapperDataService(unitOfWork);
             RegionWrapperDataService = new RegionWrapperDataService(unitOfWork);
+            CalculatePriceTaskWrapperDataService = new CalculatePriceTaskWrapperDataService(unitOfWork);
             AdditionalSalesUnitsWrapperDataService = new AdditionalSalesUnitsWrapperDataService(unitOfWork);
             BankDetailsWrapperDataService = new BankDetailsWrapperDataService(unitOfWork);
             CompanyWrapperDataService = new CompanyWrapperDataService(unitOfWork);
@@ -70,6 +71,7 @@ namespace HVTApp.UI.Wrapper
         public LocalityWrapperDataService LocalityWrapperDataService { get; }
         public LocalityTypeWrapperDataService LocalityTypeWrapperDataService { get; }
         public RegionWrapperDataService RegionWrapperDataService { get; }
+        public CalculatePriceTaskWrapperDataService CalculatePriceTaskWrapperDataService { get; }
         public AdditionalSalesUnitsWrapperDataService AdditionalSalesUnitsWrapperDataService { get; }
         public BankDetailsWrapperDataService BankDetailsWrapperDataService { get; }
         public CompanyWrapperDataService CompanyWrapperDataService { get; }

@@ -5,13 +5,27 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class ProductWrapper
     {
-        public double GetPrice(ref List<Price> prices, DateTime? date = null)
+        public IEnumerable<ProductBlockWrapper> GetBlocksWithoutActualPriceOnDate(DateTime date)
         {
-            var targetDate = date ?? DateTime.Today;
-            double sum = ProductBlock.GetPrice(ref prices, targetDate);
+            if (!ProductBlock.HasActualPriceOnDate(date))
+                yield return ProductBlock;
+
             foreach (var dependentProduct in DependentProducts)
             {
-                sum += dependentProduct.GetPrice(ref prices, targetDate);
+                foreach (var productBlockWrapper in dependentProduct.GetBlocksWithoutActualPriceOnDate(date))
+                {
+                    yield return productBlockWrapper;
+                }
+            }
+        }
+
+        public double GetPrice(DateTime? date = null)
+        {
+            var targetDate = date ?? DateTime.Today;
+            double sum = ProductBlock.GetPrice(targetDate);
+            foreach (var dependentProduct in DependentProducts)
+            {
+                sum += dependentProduct.GetPrice(targetDate);
             }
             return sum;
         }

@@ -116,6 +116,24 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
+    public partial class CalculatePriceTaskListView : ViewBase
+    {
+        public CalculatePriceTaskListView(IRegionManager regionManager, IEventAggregator eventAggregator, CalculatePriceTaskListViewModel CalculatePriceTaskListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = CalculatePriceTaskListViewModel;
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			var viewModel = (CalculatePriceTaskListViewModel) DataContext;
+            if (!viewModel.LoadedFlag)
+                await viewModel.LoadAsync();
+        }
+    }
+
+    [RibbonTab(typeof(TabCRUD))]
     public partial class AdditionalSalesUnitsListView : ViewBase
     {
         public AdditionalSalesUnitsListView(IRegionManager regionManager, IEventAggregator eventAggregator, AdditionalSalesUnitsListViewModel AdditionalSalesUnitsListViewModel) : base(regionManager, eventAggregator)

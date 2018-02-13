@@ -29,6 +29,11 @@ namespace HVTApp.Model.POCOs
 	{
 	}
 
+	public partial class CalculatePriceTask
+	{
+		public virtual Guid? ProductBlockId { get; set; }
+	}
+
 	public partial class AdditionalSalesUnits
 	{
 		public virtual Guid? AdditionalSalesUnitId { get; set; }

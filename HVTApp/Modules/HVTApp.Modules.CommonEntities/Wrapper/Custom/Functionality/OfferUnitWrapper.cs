@@ -10,8 +10,7 @@ namespace HVTApp.UI.Wrapper
         protected override void RunInConstructor()
         {
             //актуализируем стоимость
-            var prices = new List<Price>();
-            Price = Product.GetPrice(ref prices);
+            Price = Product.GetPrice();
 
             this.PropertyChanged += OnCostChanged;
         }

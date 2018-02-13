@@ -53,6 +53,7 @@
     <Compile Include="POCOs\Address\Locality.cs" />
     <Compile Include="POCOs\Address\LocalityType.cs" />
     <Compile Include="POCOs\Address\Region.cs" />
+    <Compile Include="POCOs\CalculatePriceTask.cs" />
     <Compile Include="POCOs\Generated\POCOs.g.cs" />
     <Compile Include="POCOs\ProductBlock.cs" />
     <Compile Include="POCOs\Units\AdditionalSalesUnits.cs" />

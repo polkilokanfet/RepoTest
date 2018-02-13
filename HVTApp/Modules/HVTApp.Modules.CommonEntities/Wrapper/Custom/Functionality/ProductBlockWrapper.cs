@@ -6,12 +6,26 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class ProductBlockWrapper
     {
-        public double GetPrice(ref List<Price> prices, DateTime date)
+        public bool HasActualPriceOnDate(DateTime date)
         {
-            var price = Prices.Where(x => x.Date <= date).OrderBy(x => x.Date).LastOrDefault()?.Model;
-            prices.Add(new Price(this.Model, price, date));
+            return Prices.Any(x => x.Date >= date.AddDays(-90));
+        }
+
+        public double GetPrice(DateTime date)
+        {
+            //ближайшая актуальная цена
+            var price = Prices.Where(x => x.Date >= date.AddDays(-90)).OrderBy(x => x.Date).LastOrDefault();
+            if (price != null) return price.Cost;
+
+            //ближайшая цена
+            price = Prices.FirstOrDefault();
+            foreach (var costOnDate in Prices)
+            {
+                if (Math.Abs(date.Ticks - costOnDate.Date.Ticks) < Math.Abs(date.Ticks - price.Date.Ticks))
+                    price = costOnDate;
+            }
+
             return price?.Cost ?? 0;
         }
-        
     }
 }

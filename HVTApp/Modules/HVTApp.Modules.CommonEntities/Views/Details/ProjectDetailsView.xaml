@@ -6,7 +6,8 @@
 
     <StackPanel>
         <Menu>
-            <MenuItem Header="Grouping" Command="{Binding GroupingCommand}"/>
+            <MenuItem Header="Edit" Command="{Binding EditCommand}"/>
+            <MenuItem Header="Grouping/Ungrouping" Command="{Binding GroupingCommand}"/>
         </Menu>
         
         <Grid>

@@ -94,6 +94,21 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
+    public partial class CalculatePriceTaskWrapperDataService : EntityWrapperDataService<CalculatePriceTask, CalculatePriceTaskWrapper>
+    {
+        public CalculatePriceTaskWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		
+		protected override CalculatePriceTaskWrapper GenerateWrapper(CalculatePriceTask model)
+        {
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new CalculatePriceTaskWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
+        }
+    }
+
     public partial class AdditionalSalesUnitsWrapperDataService : EntityWrapperDataService<AdditionalSalesUnits, AdditionalSalesUnitsWrapper>
     {
         public AdditionalSalesUnitsWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }

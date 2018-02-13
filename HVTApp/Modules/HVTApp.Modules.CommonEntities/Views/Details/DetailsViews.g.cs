@@ -61,6 +61,15 @@ namespace HVTApp.UI.Views
         }
     }
 
+    public partial class CalculatePriceTaskDetailsView : ViewBase
+    {
+        public CalculatePriceTaskDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CalculatePriceTaskDetailsViewModel CalculatePriceTaskDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = CalculatePriceTaskDetailsViewModel;
+        }
+    }
+
     public partial class AdditionalSalesUnitsDetailsView : ViewBase
     {
         public AdditionalSalesUnitsDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, AdditionalSalesUnitsDetailsViewModel AdditionalSalesUnitsDetailsViewModel) : base(regionManager, eventAggregator)

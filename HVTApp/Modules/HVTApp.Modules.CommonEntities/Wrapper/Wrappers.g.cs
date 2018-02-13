@@ -301,6 +301,61 @@ namespace HVTApp.UI.Wrapper
         }
 	}
 
+		public partial class CalculatePriceTaskWrapper : WrapperBase<CalculatePriceTask>
+	{
+	    public CalculatePriceTaskWrapper(CalculatePriceTask model) : base(model) { }
+
+	
+        #region SimpleProperties
+        public System.DateTime PriceOnDate
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime PriceOnDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(PriceOnDate));
+        public bool PriceOnDateIsChanged => GetIsChanged(nameof(PriceOnDate));
+
+        public System.Boolean IsActual
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
+        public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
+
+        public System.Nullable<System.Guid> ProductBlockId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ProductBlockIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductBlockId));
+        public bool ProductBlockIdIsChanged => GetIsChanged(nameof(ProductBlockId));
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region ComplexProperties
+	    public ProductBlockWrapper ProductBlock 
+        {
+            get { return GetWrapper<ProductBlockWrapper>(); }
+            set { SetComplexValue<ProductBlock, ProductBlockWrapper>(ProductBlock, value); }
+        }
+
+        #endregion
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlock), Model.ProductBlock == null ? null : new ProductBlockWrapper(Model.ProductBlock));
+
+        }
+	}
+
 		public partial class AdditionalSalesUnitsWrapper : WrapperBase<AdditionalSalesUnits>
 	{
 	    public AdditionalSalesUnitsWrapper(AdditionalSalesUnits model) : base(model) { }

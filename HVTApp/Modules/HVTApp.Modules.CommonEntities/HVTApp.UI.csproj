@@ -203,6 +203,9 @@
     <Compile Include="Views\List\AddressListView.xaml.cs">
       <DependentUpon>AddressListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\List\CalculatePriceTaskListView.xaml.cs">
+      <DependentUpon>CalculatePriceTaskListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\List\ContractListView.xaml.cs">
       <DependentUpon>ContractListView.xaml</DependentUpon>
     </Compile>
@@ -476,6 +479,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\List\AddressListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\List\CalculatePriceTaskListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
