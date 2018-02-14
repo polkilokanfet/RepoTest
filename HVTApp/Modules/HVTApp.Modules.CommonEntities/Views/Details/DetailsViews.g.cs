@@ -520,4 +520,13 @@ namespace HVTApp.UI.Views
         }
     }
 
+    public partial class ProductCostUnitDetailsView : ViewBase
+    {
+        public ProductCostUnitDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductCostUnitDetailsViewModel ProductCostUnitDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = ProductCostUnitDetailsViewModel;
+        }
+    }
+
 }

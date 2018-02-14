@@ -117,9 +117,9 @@ namespace HVTApp.Model.POCOs
 
 	public partial class ProjectUnit
 	{
+		public virtual Guid? ProductCostUnitId { get; set; }
 		public virtual Guid? ProjectId { get; set; }
 		public virtual Guid? FacilityId { get; set; }
-		public virtual Guid? ProductId { get; set; }
 		public virtual Guid? ProducerId { get; set; }
 	}
 
@@ -284,11 +284,16 @@ namespace HVTApp.Model.POCOs
 		public virtual Guid? OfferId { get; set; }
 		public virtual Guid? ProjectUnitId { get; set; }
 		public virtual Guid? FacilityId { get; set; }
-		public virtual Guid? ProductId { get; set; }
+		public virtual Guid? ProductCostUnitId { get; set; }
 	}
 
 	public partial class ProductBlock
 	{
+	}
+
+	public partial class CommonUnit
+	{
+		public virtual Guid? ProductId { get; set; }
 	}
 
 }

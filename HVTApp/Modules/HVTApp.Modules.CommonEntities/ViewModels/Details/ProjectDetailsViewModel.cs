@@ -63,23 +63,23 @@ namespace HVTApp.UI.ViewModels
 
         private void RefreshGroups()
         {
-            foreach (var projectUnitGroupWrapper in ProjectUnitsGroupedCollection)
-            {
-                projectUnitGroupWrapper.PropertyChanged -= ProjectUnitsGroupedOnPropertyChanged;
-            }
-            ProjectUnitsGroupedCollection.Clear();
+            //foreach (var projectUnitGroupWrapper in ProjectUnitsGroupedCollection)
+            //{
+            //    projectUnitGroupWrapper.PropertyChanged -= ProjectUnitsGroupedOnPropertyChanged;
+            //}
+            //ProjectUnitsGroupedCollection.Clear();
 
-            var projectUnitsGroupedCollection = _isGrouping
-                ? _projectUnitWrappers.ConvertToGroup()
-                : new List<ProjectUnitsGrouped>(_projectUnitWrappers.Select(x => new ProjectUnitsGrouped(new List<ProjectUnitWrapper>() {x})));
+            //var projectUnitsGroupedCollection = _isGrouping
+            //    ? _projectUnitWrappers.ConvertToGroup()
+            //    : new List<ProjectUnitsGrouped>(_projectUnitWrappers.Select(x => new ProjectUnitsGrouped(new List<ProjectUnitWrapper>() {x})));
 
-            foreach (var projectUnitsGrouped in projectUnitsGroupedCollection)
-            {
-                ProjectUnitsGroupedCollection.Add(projectUnitsGrouped);
-                projectUnitsGrouped.PropertyChanged += ProjectUnitsGroupedOnPropertyChanged;
-            }
+            //foreach (var projectUnitsGrouped in projectUnitsGroupedCollection)
+            //{
+            //    ProjectUnitsGroupedCollection.Add(projectUnitsGrouped);
+            //    projectUnitsGrouped.PropertyChanged += ProjectUnitsGroupedOnPropertyChanged;
+            //}
 
-            SelectedProjectUnitsGrouped = ProjectUnitsGroupedCollection.First();
+            //SelectedProjectUnitsGrouped = ProjectUnitsGroupedCollection.First();
         }
 
 
@@ -92,15 +92,15 @@ namespace HVTApp.UI.ViewModels
 
         private async void EditCommand_Execute()
         {
-            var projectUnit = SelectedProjectUnitsGrouped.UnitWrappers.First();
-            var updated = await Container.Resolve<IUpdateDetailsService>().UpdateDetails<ProjectUnit>(projectUnit.Id);
-            if (updated)
-            {
-                var unit = await UnitOfWork.GetRepository<ProjectUnit>().GetByIdAsync(projectUnit.Id);
+            //var projectUnit = SelectedProjectUnitsGrouped.UnitWrappers.First();
+            //var updated = await Container.Resolve<IUpdateDetailsService>().UpdateDetails<ProjectUnit>(projectUnit.Id);
+            //if (updated)
+            //{
+            //    var unit = await UnitOfWork.GetRepository<ProjectUnit>().GetByIdAsync(projectUnit.Id);
 
-                SelectedProjectUnitsGrouped.Facility = new FacilityWrapper(unit.Facility);
-                SelectedProjectUnitsGrouped.Product = new ProductWrapper(unit.Product);
-            }
+            //    SelectedProjectUnitsGrouped.Facility = new FacilityWrapper(unit.Facility);
+            //    SelectedProjectUnitsGrouped.Product = new ProductWrapper(unit.Product);
+            //}
         }
 
         private bool EditCommand_CanExecute()

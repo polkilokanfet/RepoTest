@@ -296,6 +296,11 @@ namespace HVTApp.UI
 			_selectService.Register<ProductBlockListView, ProductBlockLookup>();
             _updateDetailsService.Register<ProductBlock, ProductBlockDetailsView>();
 
+            Container.RegisterViewForNavigation<ProductCostUnitListView>();
+            //_dialogService.Register<ProductCostUnitDetailsViewModel, ProductCostUnitDetailsView>();
+			_selectService.Register<ProductCostUnitListView, ProductCostUnitLookup>();
+            _updateDetailsService.Register<CommonUnit, ProductCostUnitDetailsView>();
+
 		}
 	}
 }

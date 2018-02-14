@@ -12,15 +12,14 @@ namespace HVTApp.Model.POCOs
 
         public virtual Facility Facility { get; set; }
 
-        public virtual Product Product { get; set; }
-        public double Cost { get; set; }
+        public virtual CommonUnit CommonUnit { get; set; }
 
         public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
         public int ProductionTerm { get; set; } //срок производства
 
         public override string ToString()
         {
-            return "OfferUnit: " + Product.ToString();
+            return "OfferUnit: " + CommonUnit.Product.ToString();
         }
     }
 }

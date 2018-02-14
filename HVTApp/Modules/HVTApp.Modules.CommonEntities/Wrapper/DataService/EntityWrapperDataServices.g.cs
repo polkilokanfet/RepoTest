@@ -859,4 +859,19 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
+    public partial class ProductCostUnitWrapperDataService : EntityWrapperDataService<CommonUnit, ProductCostUnitWrapper>
+    {
+        public ProductCostUnitWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		
+		protected override ProductCostUnitWrapper GenerateWrapper(CommonUnit model)
+        {
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new ProductCostUnitWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
+        }
+    }
+
 }

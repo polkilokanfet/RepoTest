@@ -60,4 +60,5 @@ namespace HVTApp.UI.Events
 	public partial class AfterRemoveUserEvent : PubSubEvent<User> { }
 	public partial class AfterRemoveOfferUnitEvent : PubSubEvent<OfferUnit> { }
 	public partial class AfterRemoveProductBlockEvent : PubSubEvent<ProductBlock> { }
+	public partial class AfterRemoveProductCostUnitEvent : PubSubEvent<CommonUnit> { }
 }

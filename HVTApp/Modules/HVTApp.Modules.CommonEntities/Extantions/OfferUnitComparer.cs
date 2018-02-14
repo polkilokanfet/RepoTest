@@ -12,9 +12,9 @@ namespace HVTApp.UI.Extantions
             return x != null &&
                    y != null &&
                    Equals(x.Facility.Id, y.Facility.Id) &&
-                   Equals(x.Product.Id, y.Product.Id) &&
+                   Equals(x.CommonUnit.Product.Id, y.CommonUnit.Product.Id) &&
                    Equals(x.Offer.Id, y.Offer.Id) &&
-                   Equals(x.Cost, y.Cost);
+                   Equals(x.CommonUnit.Cost, y.CommonUnit.Cost);
         }
 
         public int GetHashCode(OfferUnit offerUnit)

@@ -7,13 +7,12 @@ namespace HVTApp.DataAccess
     {
         public OfferUnitConfiguration()
         {
-            HasRequired(x => x.Product).WithMany();
+            HasRequired(x => x.CommonUnit).WithOptional().WillCascadeOnDelete(true);
             HasRequired(x => x.Facility).WithMany();
             HasRequired(x => x.Offer).WithMany().HasForeignKey(x => x.OfferId);
 
             HasOptional(x => x.ProjectUnit).WithMany().HasForeignKey(x => x.ProjectUnitId);
 
-            Property(x => x.Cost).IsRequired();
             HasMany(x => x.PaymentsConditions).WithMany();
             Property(x => x.ProductionTerm).IsRequired();
         }

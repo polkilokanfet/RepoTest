@@ -1033,4 +1033,22 @@ namespace HVTApp.UI.Views
         }
     }
 
+    [RibbonTab(typeof(TabCRUD))]
+    public partial class ProductCostUnitListView : ViewBase
+    {
+        public ProductCostUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductCostUnitListViewModel ProductCostUnitListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = ProductCostUnitListViewModel;
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			var viewModel = (ProductCostUnitListViewModel) DataContext;
+            if (!viewModel.LoadedFlag)
+                await viewModel.LoadAsync();
+        }
+    }
+
 }

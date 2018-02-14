@@ -1263,6 +1263,14 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Nullable<System.Guid> ProductCostUnitId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ProductCostUnitIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductCostUnitId));
+        public bool ProductCostUnitIdIsChanged => GetIsChanged(nameof(ProductCostUnitId));
+
         public System.Nullable<System.Guid> ProjectId
         {
           get { return GetValue<System.Nullable<System.Guid>>(); }
@@ -1279,14 +1287,6 @@ namespace HVTApp.UI.Wrapper
         public System.Nullable<System.Guid> FacilityIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(FacilityId));
         public bool FacilityIdIsChanged => GetIsChanged(nameof(FacilityId));
 
-        public System.Nullable<System.Guid> ProductId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> ProductIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductId));
-        public bool ProductIdIsChanged => GetIsChanged(nameof(ProductId));
-
         public System.Nullable<System.Guid> ProducerId
         {
           get { return GetValue<System.Nullable<System.Guid>>(); }
@@ -1294,14 +1294,6 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Nullable<System.Guid> ProducerIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProducerId));
         public bool ProducerIdIsChanged => GetIsChanged(nameof(ProducerId));
-
-        public System.Double Cost
-        {
-          get { return GetValue<System.Double>(); }
-          set { SetValue(value); }
-        }
-        public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
-        public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
         public System.DateTime DeliveryDate
         {
@@ -1322,6 +1314,12 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
+	    public ProductCostUnitWrapper ProductCostUnit 
+        {
+            get { return GetWrapper<ProductCostUnitWrapper>(); }
+            set { SetComplexValue<CommonUnit, ProductCostUnitWrapper>(ProductCostUnit, value); }
+        }
+
 	    public ProjectWrapper Project 
         {
             get { return GetWrapper<ProjectWrapper>(); }
@@ -1332,12 +1330,6 @@ namespace HVTApp.UI.Wrapper
         {
             get { return GetWrapper<FacilityWrapper>(); }
             set { SetComplexValue<Facility, FacilityWrapper>(Facility, value); }
-        }
-
-	    public ProductWrapper Product 
-        {
-            get { return GetWrapper<ProductWrapper>(); }
-            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
         }
 
 	    public CompanyWrapper Producer 
@@ -1354,11 +1346,11 @@ namespace HVTApp.UI.Wrapper
         #endregion
         public override void InitializeComplexProperties()
         {
+            InitializeComplexProperty<ProductCostUnitWrapper>(nameof(ProductCostUnit), Model.CommonUnit == null ? null : new ProductCostUnitWrapper(Model.CommonUnit));
+
             InitializeComplexProperty<ProjectWrapper>(nameof(Project), Model.Project == null ? null : new ProjectWrapper(Model.Project));
 
             InitializeComplexProperty<FacilityWrapper>(nameof(Facility), Model.Facility == null ? null : new FacilityWrapper(Model.Facility));
-
-            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
 
             InitializeComplexProperty<CompanyWrapper>(nameof(Producer), Model.Producer == null ? null : new CompanyWrapper(Model.Producer));
 
@@ -3420,21 +3412,13 @@ namespace HVTApp.UI.Wrapper
         public System.Nullable<System.Guid> FacilityIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(FacilityId));
         public bool FacilityIdIsChanged => GetIsChanged(nameof(FacilityId));
 
-        public System.Nullable<System.Guid> ProductId
+        public System.Nullable<System.Guid> ProductCostUnitId
         {
           get { return GetValue<System.Nullable<System.Guid>>(); }
           set { SetValue(value); }
         }
-        public System.Nullable<System.Guid> ProductIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductId));
-        public bool ProductIdIsChanged => GetIsChanged(nameof(ProductId));
-
-        public System.Double Cost
-        {
-          get { return GetValue<System.Double>(); }
-          set { SetValue(value); }
-        }
-        public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
-        public bool CostIsChanged => GetIsChanged(nameof(Cost));
+        public System.Nullable<System.Guid> ProductCostUnitIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductCostUnitId));
+        public bool ProductCostUnitIdIsChanged => GetIsChanged(nameof(ProductCostUnitId));
 
         public System.Int32 ProductionTerm
         {
@@ -3473,10 +3457,10 @@ namespace HVTApp.UI.Wrapper
             set { SetComplexValue<Facility, FacilityWrapper>(Facility, value); }
         }
 
-	    public ProductWrapper Product 
+	    public ProductCostUnitWrapper ProductCostUnit 
         {
-            get { return GetWrapper<ProductWrapper>(); }
-            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
+            get { return GetWrapper<ProductCostUnitWrapper>(); }
+            set { SetComplexValue<CommonUnit, ProductCostUnitWrapper>(ProductCostUnit, value); }
         }
 
         #endregion
@@ -3493,7 +3477,7 @@ namespace HVTApp.UI.Wrapper
 
             InitializeComplexProperty<FacilityWrapper>(nameof(Facility), Model.Facility == null ? null : new FacilityWrapper(Model.Facility));
 
-            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
+            InitializeComplexProperty<ProductCostUnitWrapper>(nameof(ProductCostUnit), Model.CommonUnit == null ? null : new ProductCostUnitWrapper(Model.CommonUnit));
 
         }
   
@@ -3554,6 +3538,53 @@ namespace HVTApp.UI.Wrapper
           if (Model.Prices == null) throw new ArgumentException("Prices cannot be null");
           Prices = new ValidatableChangeTrackingCollection<CostOnDateWrapper>(Model.Prices.Select(e => new CostOnDateWrapper(e)));
           RegisterCollection(Prices, Model.Prices);
+
+        }
+	}
+
+		public partial class ProductCostUnitWrapper : WrapperBase<CommonUnit>
+	{
+	    public ProductCostUnitWrapper(CommonUnit model) : base(model) { }
+
+	
+        #region SimpleProperties
+        public System.Nullable<System.Guid> ProductId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ProductIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductId));
+        public bool ProductIdIsChanged => GetIsChanged(nameof(ProductId));
+
+        public System.Double Cost
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
+        public bool CostIsChanged => GetIsChanged(nameof(Cost));
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region ComplexProperties
+	    public ProductWrapper Product 
+        {
+            get { return GetWrapper<ProductWrapper>(); }
+            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
+        }
+
+        #endregion
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
 
         }
 	}

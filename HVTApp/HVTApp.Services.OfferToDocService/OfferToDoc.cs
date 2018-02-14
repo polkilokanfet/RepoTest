@@ -76,17 +76,17 @@ namespace HVTApp.Services.OfferToDocService
 
             ParagraphProperties parPropRight = docWriter.CreateParagraphProperties();
             parPropRight.Alignment = ParagraphAlignment.Right;
-            foreach (var groupUnit in offer.OfferUnits.ToGroupUnits())
-            {
-                docWriter.StartTableRow();
+            //foreach (var groupUnit in offer.OfferUnits.ToGroupUnits())
+            //{
+            //    docWriter.StartTableRow();
 
-                docWriter.TableCell(groupUnit.Product.DisplayMember, cellProps);
-                docWriter.TableCell($"{groupUnit.Amount:D}", cellProps, parPropRight);
-                docWriter.TableCell($"{groupUnit.Cost:C}", cellProps, parPropRight);
-                docWriter.TableCell($"{groupUnit.Amount * groupUnit.Cost:C}", cellProps, parPropRight);
+            //    docWriter.TableCell(groupUnit.Product.DisplayMember, cellProps);
+            //    docWriter.TableCell($"{groupUnit.Amount:D}", cellProps, parPropRight);
+            //    docWriter.TableCell($"{groupUnit.Cost:C}", cellProps, parPropRight);
+            //    docWriter.TableCell($"{groupUnit.Amount * groupUnit.Cost:C}", cellProps, parPropRight);
 
-                docWriter.EndTableRow();
-            }
+            //    docWriter.EndTableRow();
+            //}
 
             docWriter.StartTableRow();
             cellProps.ColumnSpan = 3;

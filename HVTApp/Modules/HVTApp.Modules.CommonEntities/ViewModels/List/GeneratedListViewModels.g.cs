@@ -291,4 +291,9 @@ namespace HVTApp.UI.ViewModels
         public ProductBlockListViewModel(IUnityContainer container) : base(container) { }
     }
 
+    public partial class ProductCostUnitListViewModel : BaseListViewModel<CommonUnit, ProductCostUnitLookup, AfterSaveProductCostUnitEvent, AfterSelectProductCostUnitEvent, AfterRemoveProductCostUnitEvent>
+    {
+        public ProductCostUnitListViewModel(IUnityContainer container) : base(container) { }
+    }
+
 }

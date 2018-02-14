@@ -119,6 +119,7 @@
     <Compile Include="ViewModels\Details\OfferUnitsGrouped.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitsGrouped.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\ProjectUnitWrapper.cs" />
     <Compile Include="ViewModels\Details\UnitsGrouped.cs" />
     <Compile Include="ViewModels\IBaseListViewModel.cs" />
     <Compile Include="Controls\ChooseItemControl.xaml.cs">
@@ -290,7 +291,7 @@
     <Compile Include="Wrapper\Custom\Functionality\ProductsUnitGroup.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProjectUnitGroupWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\ProjectUnitWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\ProductCostUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProjectWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\RegionWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\SalesUnitWrapper.cs" />

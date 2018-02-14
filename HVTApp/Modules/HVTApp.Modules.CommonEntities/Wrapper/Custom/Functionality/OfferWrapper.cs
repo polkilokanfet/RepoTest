@@ -44,11 +44,11 @@ namespace HVTApp.UI.Wrapper
 
         private void OfferUnitOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            if (Equals(propertyChangedEventArgs.PropertyName, nameof(OfferUnit.Cost)))
-            {
-                OnPropertyChanged(nameof(TotalCost));
-                OnPropertyChanged(nameof(TotalCostWithVat));
-            }
+            //if (Equals(propertyChangedEventArgs.PropertyName, nameof(OfferUnit.Cost)))
+            //{
+            //    OnPropertyChanged(nameof(TotalCost));
+            //    OnPropertyChanged(nameof(TotalCostWithVat));
+            //}
         }
     }
 }

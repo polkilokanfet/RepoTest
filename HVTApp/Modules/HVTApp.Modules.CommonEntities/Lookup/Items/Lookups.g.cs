@@ -506,33 +506,31 @@ namespace HVTApp.UI.Lookup
 		}
 		protected override void RefreshLookups()
         {
-			 			Project?.Refresh(Entity.Project);
+			 			ProductCostUnit?.Refresh(Entity.CommonUnit);
+			Project?.Refresh(Entity.Project);
 			Facility?.Refresh(Entity.Facility);
-			Product?.Refresh(Entity.Product);
 			Producer?.Refresh(Entity.Producer);
 		}
 		
         #region SimpleProperties
+        public System.Nullable<System.Guid> ProductCostUnitId => GetValue<System.Nullable<System.Guid>>();
+
         public System.Nullable<System.Guid> ProjectId => GetValue<System.Nullable<System.Guid>>();
 
         public System.Nullable<System.Guid> FacilityId => GetValue<System.Nullable<System.Guid>>();
 
-        public System.Nullable<System.Guid> ProductId => GetValue<System.Nullable<System.Guid>>();
-
         public System.Nullable<System.Guid> ProducerId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Double Cost => GetValue<System.Double>();
 
         public System.DateTime DeliveryDate => GetValue<System.DateTime>();
 
         #endregion
 
         #region ComplexProperties
+	    public ProductCostUnitLookup ProductCostUnit { get { return GetLookup<ProductCostUnitLookup>(); } }
+
 	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
 
 	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
-
-	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 	    public CompanyLookup Producer { get { return GetLookup<CompanyLookup>(); } }
 
@@ -1306,7 +1304,7 @@ namespace HVTApp.UI.Lookup
 			 			Offer?.Refresh(Entity.Offer);
 			ProjectUnit?.Refresh(Entity.ProjectUnit);
 			Facility?.Refresh(Entity.Facility);
-			Product?.Refresh(Entity.Product);
+			ProductCostUnit?.Refresh(Entity.CommonUnit);
 		}
 		
         #region SimpleProperties
@@ -1316,9 +1314,7 @@ namespace HVTApp.UI.Lookup
 
         public System.Nullable<System.Guid> FacilityId => GetValue<System.Nullable<System.Guid>>();
 
-        public System.Nullable<System.Guid> ProductId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Double Cost => GetValue<System.Double>();
+        public System.Nullable<System.Guid> ProductCostUnitId => GetValue<System.Nullable<System.Guid>>();
 
         public System.Int32 ProductionTerm => GetValue<System.Int32>();
 
@@ -1331,7 +1327,7 @@ namespace HVTApp.UI.Lookup
 
 	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
 
-	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
+	    public ProductCostUnitLookup ProductCostUnit { get { return GetLookup<ProductCostUnitLookup>(); } }
 
         #endregion
 	}
@@ -1348,6 +1344,28 @@ namespace HVTApp.UI.Lookup
         public System.String Name => GetValue<System.String>();
 
         public System.String StructureCostNumber => GetValue<System.String>();
+
+        #endregion
+	}
+	public partial class ProductCostUnitLookup : LookupItem<CommonUnit>
+	{
+		public ProductCostUnitLookup(CommonUnit entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 			Product?.Refresh(Entity.Product);
+		}
+		
+        #region SimpleProperties
+        public System.Nullable<System.Guid> ProductId => GetValue<System.Nullable<System.Guid>>();
+
+        public System.Double Cost => GetValue<System.Double>();
+
+        #endregion
+
+        #region ComplexProperties
+	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
         #endregion
 	}
