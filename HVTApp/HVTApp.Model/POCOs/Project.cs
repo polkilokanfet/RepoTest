@@ -8,11 +8,11 @@ namespace HVTApp.Model.POCOs
     {
         public string Name { get; set; }
         public virtual User Manager { get; set; }
-        public virtual List<CommonUnit> CommonUnits { get; set; }
+        public virtual List<SalesUnit> SalesUnits { get; set; }
 
         public override string ToString()
         {
-            return $"ProjectId: {Name}";
+            return $"Project: {Name}";
         }
     }
 }

@@ -131,21 +131,6 @@ namespace HVTApp.UI.ViewModels
         public ParameterRelationListViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class ProjectUnitListViewModel : BaseListViewModel<ProjectUnit, ProjectUnitLookup, AfterSaveProjectUnitEvent, AfterSelectProjectUnitEvent, AfterRemoveProjectUnitEvent>
-    {
-        public ProjectUnitListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-    public partial class ShipmentUnitListViewModel : BaseListViewModel<ShipmentUnit, ShipmentUnitLookup, AfterSaveShipmentUnitEvent, AfterSelectShipmentUnitEvent, AfterRemoveShipmentUnitEvent>
-    {
-        public ShipmentUnitListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-    public partial class ProductionUnitListViewModel : BaseListViewModel<ProductionUnit, ProductionUnitLookup, AfterSaveProductionUnitEvent, AfterSelectProductionUnitEvent, AfterRemoveProductionUnitEvent>
-    {
-        public ProductionUnitListViewModel(IUnityContainer container) : base(container) { }
-    }
-
     public partial class SalesUnitListViewModel : BaseListViewModel<SalesUnit, SalesUnitLookup, AfterSaveSalesUnitEvent, AfterSelectSalesUnitEvent, AfterRemoveSalesUnitEvent>
     {
         public SalesUnitListViewModel(IUnityContainer container) : base(container) { }
@@ -281,19 +266,9 @@ namespace HVTApp.UI.ViewModels
         public UserListViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class OfferUnitListViewModel : BaseListViewModel<OfferUnit, OfferUnitLookup, AfterSaveOfferUnitEvent, AfterSelectOfferUnitEvent, AfterRemoveOfferUnitEvent>
-    {
-        public OfferUnitListViewModel(IUnityContainer container) : base(container) { }
-    }
-
     public partial class ProductBlockListViewModel : BaseListViewModel<ProductBlock, ProductBlockLookup, AfterSaveProductBlockEvent, AfterSelectProductBlockEvent, AfterRemoveProductBlockEvent>
     {
         public ProductBlockListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-    public partial class ProductCostUnitListViewModel : BaseListViewModel<CommonUnit, ProductCostUnitLookup, AfterSaveProductCostUnitEvent, AfterSelectProductCostUnitEvent, AfterRemoveProductCostUnitEvent>
-    {
-        public ProductCostUnitListViewModel(IUnityContainer container) : base(container) { }
     }
 
 }

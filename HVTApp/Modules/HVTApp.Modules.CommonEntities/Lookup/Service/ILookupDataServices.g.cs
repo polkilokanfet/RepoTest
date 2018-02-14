@@ -25,9 +25,6 @@ namespace HVTApp.UI.Lookup
 	public interface IPaymentPlannedLookupDataService : ILookupDataService<PaymentPlannedLookup> { } 
 	public interface IPaymentActualLookupDataService : ILookupDataService<PaymentActualLookup> { } 
 	public interface IParameterRelationLookupDataService : ILookupDataService<ParameterRelationLookup> { } 
-	public interface IProjectUnitLookupDataService : ILookupDataService<ProjectUnitLookup> { } 
-	public interface IShipmentUnitLookupDataService : ILookupDataService<ShipmentUnitLookup> { } 
-	public interface IProductionUnitLookupDataService : ILookupDataService<ProductionUnitLookup> { } 
 	public interface ISalesUnitLookupDataService : ILookupDataService<SalesUnitLookup> { } 
 	public interface ITestFriendAddressLookupDataService : ILookupDataService<TestFriendAddressLookup> { } 
 	public interface ITestFriendLookupDataService : ILookupDataService<TestFriendLookup> { } 
@@ -55,7 +52,5 @@ namespace HVTApp.UI.Lookup
 	public interface ITenderLookupDataService : ILookupDataService<TenderLookup> { } 
 	public interface ITenderTypeLookupDataService : ILookupDataService<TenderTypeLookup> { } 
 	public interface IUserLookupDataService : ILookupDataService<UserLookup> { } 
-	public interface IOfferUnitLookupDataService : ILookupDataService<OfferUnitLookup> { } 
 	public interface IProductBlockLookupDataService : ILookupDataService<ProductBlockLookup> { } 
-	public interface IProductCostUnitLookupDataService : ILookupDataService<ProductCostUnitLookup> { } 
 }

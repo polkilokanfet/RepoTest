@@ -8,9 +8,9 @@ namespace HVTApp.DataAccess
         public OfferConfiguration()
         {
             HasRequired(x => x.Project).WithMany().HasForeignKey(x => x.ProjectId);
-            //HasRequired(x => x.Document).WithOptional();
             Property(x => x.ValidityDate).IsRequired();
             Property(x => x.Vat).IsRequired();
+            HasMany(x => x.SalesUnits).WithOptional().WillCascadeOnDelete(true);
         }
     }
 }

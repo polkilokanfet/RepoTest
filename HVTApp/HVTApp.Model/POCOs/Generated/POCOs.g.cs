@@ -115,30 +115,14 @@ namespace HVTApp.Model.POCOs
 	{
 	}
 
-	public partial class ProjectUnit
-	{
-		public virtual Guid? ProductCostUnitId { get; set; }
-		public virtual Guid? ProjectId { get; set; }
-		public virtual Guid? FacilityId { get; set; }
-		public virtual Guid? ProducerId { get; set; }
-	}
-
-	public partial class ShipmentUnit
-	{
-		public virtual Guid? AddressId { get; set; }
-	}
-
-	public partial class ProductionUnit
-	{
-		public virtual Guid? ProductId { get; set; }
-	}
-
 	public partial class SalesUnit
 	{
-		public virtual Guid? OfferUnitId { get; set; }
-		public virtual Guid? ProductionUnitId { get; set; }
-		public virtual Guid? ShipmentUnitId { get; set; }
+		public virtual Guid? FacilityId { get; set; }
+		public virtual Guid? ProducerId { get; set; }
+		public virtual Guid? OrderId { get; set; }
+		public virtual Guid? ProductId { get; set; }
 		public virtual Guid? SpecificationId { get; set; }
+		public virtual Guid? AddressId { get; set; }
 	}
 
 	public partial class TestFriendAddress
@@ -279,21 +263,8 @@ namespace HVTApp.Model.POCOs
 		public virtual Guid? EmployeeId { get; set; }
 	}
 
-	public partial class OfferUnit
-	{
-		public virtual Guid? OfferId { get; set; }
-		public virtual Guid? ProjectUnitId { get; set; }
-		public virtual Guid? FacilityId { get; set; }
-		public virtual Guid? ProductCostUnitId { get; set; }
-	}
-
 	public partial class ProductBlock
 	{
-	}
-
-	public partial class CommonUnit
-	{
-		public virtual Guid? ProductId { get; set; }
 	}
 
 }

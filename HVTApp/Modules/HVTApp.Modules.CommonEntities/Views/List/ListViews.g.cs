@@ -458,60 +458,6 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class ProjectUnitListView : ViewBase
-    {
-        public ProjectUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectUnitListViewModel ProjectUnitListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ProjectUnitListViewModel;
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			var viewModel = (ProjectUnitListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
-        }
-    }
-
-    [RibbonTab(typeof(TabCRUD))]
-    public partial class ShipmentUnitListView : ViewBase
-    {
-        public ShipmentUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, ShipmentUnitListViewModel ShipmentUnitListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ShipmentUnitListViewModel;
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			var viewModel = (ShipmentUnitListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
-        }
-    }
-
-    [RibbonTab(typeof(TabCRUD))]
-    public partial class ProductionUnitListView : ViewBase
-    {
-        public ProductionUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductionUnitListViewModel ProductionUnitListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ProductionUnitListViewModel;
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			var viewModel = (ProductionUnitListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
-        }
-    }
-
-    [RibbonTab(typeof(TabCRUD))]
     public partial class SalesUnitListView : ViewBase
     {
         public SalesUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, SalesUnitListViewModel SalesUnitListViewModel) : base(regionManager, eventAggregator)
@@ -998,24 +944,6 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class OfferUnitListView : ViewBase
-    {
-        public OfferUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, OfferUnitListViewModel OfferUnitListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = OfferUnitListViewModel;
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			var viewModel = (OfferUnitListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
-        }
-    }
-
-    [RibbonTab(typeof(TabCRUD))]
     public partial class ProductBlockListView : ViewBase
     {
         public ProductBlockListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductBlockListViewModel ProductBlockListViewModel) : base(regionManager, eventAggregator)
@@ -1028,24 +956,6 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
 			var viewModel = (ProductBlockListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
-        }
-    }
-
-    [RibbonTab(typeof(TabCRUD))]
-    public partial class ProductCostUnitListView : ViewBase
-    {
-        public ProductCostUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductCostUnitListViewModel ProductCostUnitListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ProductCostUnitListViewModel;
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			var viewModel = (ProductCostUnitListViewModel) DataContext;
             if (!viewModel.LoadedFlag)
                 await viewModel.LoadAsync();
         }

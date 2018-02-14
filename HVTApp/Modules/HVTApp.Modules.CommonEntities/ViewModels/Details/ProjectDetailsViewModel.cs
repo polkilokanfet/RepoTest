@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HVTApp.DataAccess.Annotations;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
@@ -17,10 +19,59 @@ using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
+        public class SalesUnitComparer : IEqualityComparer<SalesUnitWrapper>
+        {
+            public bool Equals(SalesUnitWrapper x, SalesUnitWrapper y)
+            {
+                return x != null &&
+                       y != null &&
+                       x.Product.Id == y.Product.Id &&
+                       x.Facility.Id == y.Facility.Id;
+
+            }
+
+            public int GetHashCode(SalesUnitWrapper salesUnitWrapper)
+            {
+                return salesUnitWrapper.Product.Id.GetHashCode() + salesUnitWrapper.Facility.Id.GetHashCode();
+            }
+        }
+
+    public class ProjectUnitGroup : IProjectUnit, INotifyPropertyChanged
+    {
+
+        public ProjectUnitGroup(IEnumerable<IProjectUnit> projectUnits)
+        {
+            ProjectUnits = new ObservableCollection<IProjectUnit>(projectUnits);
+            var unit = ProjectUnits.First();
+            Facility = unit.Facility;
+            Product = unit.Product;
+        }
+
+        public ObservableCollection<IProjectUnit> ProjectUnits { get; }
+
+        public FacilityWrapper Facility { get; set; }
+        public ProductWrapper Product { get; set; }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    public interface IProjectUnit
+    {
+        FacilityWrapper Facility { get; set; }
+        ProductWrapper Product { get; set; }
+    }
+
     public partial class ProjectDetailsViewModel
     {
-        public ObservableCollection<ProjectUnitsGrouped> ProjectUnitsGroupedCollection { get; } = new ObservableCollection<ProjectUnitsGrouped>();
-
+        public ObservableCollection<IProjectUnit> ProjectUnits { get; } = new ObservableCollection<IProjectUnit>();
+        public IProjectUnit SelectedProjectUnit { get; set; }
 
         public ICommand GroupingCommand { get; private set; }
         public ICommand EditCommand { get; private set; }
@@ -39,39 +90,32 @@ namespace HVTApp.UI.ViewModels
             RefreshGroups();
         }
 
-        private ProjectUnitsGrouped _selectedProjectUnitsGrouped;
-        public ProjectUnitsGrouped SelectedProjectUnitsGrouped
-        {
-            get { return _selectedProjectUnitsGrouped; }
-            set
-            {
-                if (Equals(_selectedProjectUnitsGrouped, value)) return;
-                _selectedProjectUnitsGrouped = value;
-                ((DelegateCommand)EditCommand).RaiseCanExecuteChanged();
-                OnPropertyChanged();
-            }
-        }
-
-        private List<ProjectUnitWrapper> _projectUnitWrappers;
 
         protected override async Task LoadOtherAsync()
         {
-            _projectUnitWrappers = (await UnitOfWork.GetRepository<ProjectUnit>().GetAllAsync())
-                .Where(x => x.ProjectId == Item.Id).Select(x => new ProjectUnitWrapper(x)).ToList();
-            RefreshGroups();
+            await Task.Run(() =>
+            {
+                ProjectUnits.Clear();
+                Item.SalesUnits.ForEach(ProjectUnits.Add);
+            });
         }
 
         private void RefreshGroups()
         {
-            //foreach (var projectUnitGroupWrapper in ProjectUnitsGroupedCollection)
-            //{
-            //    projectUnitGroupWrapper.PropertyChanged -= ProjectUnitsGroupedOnPropertyChanged;
-            //}
-            //ProjectUnitsGroupedCollection.Clear();
+            ProjectUnits.Clear();
+
+            var salesUnits = Item.SalesUnits;
+            var salesUnitsGrouped = salesUnits.GroupBy(x => x, new SalesUnitComparer());
+            foreach (var group in salesUnitsGrouped)
+            {
+                var projectUnitsGroup = new ProjectUnitGroup(group);
+                ProjectUnits.Add(projectUnitsGroup);
+            }
+
 
             //var projectUnitsGroupedCollection = _isGrouping
-            //    ? _projectUnitWrappers.ConvertToGroup()
-            //    : new List<ProjectUnitsGrouped>(_projectUnitWrappers.Select(x => new ProjectUnitsGrouped(new List<ProjectUnitWrapper>() {x})));
+            //    ? salesUnits.GroupBy(x => x, new ProjectUnitGroup.SalesUnitComparer())
+            //    : new List<ProjectUnitsGrouped>(_projectUnitWrappers.Select(x => new ProjectUnitsGrouped(new List<ProjectUnitWrapper>() { x })));
 
             //foreach (var projectUnitsGrouped in projectUnitsGroupedCollection)
             //{
@@ -105,7 +149,8 @@ namespace HVTApp.UI.ViewModels
 
         private bool EditCommand_CanExecute()
         {
-            return SelectedProjectUnitsGrouped != null;
+            //return SelectedProjectUnitsGrouped != null;
+            return true;
         }
 
         private void ProjectUnitsGroupedOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
@@ -113,11 +158,11 @@ namespace HVTApp.UI.ViewModels
             ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
         }
 
-        protected override bool SaveCommand_CanExecute()
-        {
-            return base.SaveCommand_CanExecute() ||
-                   (_projectUnitWrappers.Any(x => x.IsChanged) && _projectUnitWrappers.All(x => x.IsValid));
-        }
+        //protected override bool SaveCommand_CanExecute()
+        //{
+        //    return base.SaveCommand_CanExecute() ||
+        //           (_projectUnitWrappers.Any(x => x.IsChanged) && _projectUnitWrappers.All(x => x.IsValid));
+        //}
 
         protected override async void SaveCommand_Execute()
         {
@@ -138,23 +183,23 @@ namespace HVTApp.UI.ViewModels
             var result = false;
 
             var actualTasks = (await UnitOfWork.GetRepository<CalculatePriceTask>().GetAllAsync()).Where(x => x.IsActual).ToList();
-            foreach (var projectUnitWrapper in _projectUnitWrappers)
-            {
-                var blocks = projectUnitWrapper.Product.GetBlocksWithoutActualPriceOnDate(date);
-                foreach (var productBlockWrapper in blocks)
-                {
-                    if (actualTasks.Any(x => x.ProductBlockId == productBlockWrapper.Id && x.PriceOnDate.IsActual(date)))
-                        continue;
+            //foreach (var projectUnitWrapper in _projectUnitWrappers)
+            //{
+            //    var blocks = projectUnitWrapper.Product.GetBlocksWithoutActualPriceOnDate(date);
+            //    foreach (var productBlockWrapper in blocks)
+            //    {
+            //        if (actualTasks.Any(x => x.ProductBlockId == productBlockWrapper.Id && x.PriceOnDate.IsActual(date)))
+            //            continue;
 
-                    var task = new CalculatePriceTask
-                    {
-                        ProductBlock = productBlockWrapper.Model,
-                        PriceOnDate = date
-                    };
-                    UnitOfWork.GetRepository<CalculatePriceTask>().Add(task);
-                    result = true;
-                }
-            }
+            //        var task = new CalculatePriceTask
+            //        {
+            //            ProductBlock = productBlockWrapper.Model,
+            //            PriceOnDate = date
+            //        };
+            //        UnitOfWork.GetRepository<CalculatePriceTask>().Add(task);
+            //        result = true;
+            //    }
+            //}
             return result;
         }
     }

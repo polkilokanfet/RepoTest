@@ -232,33 +232,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-    public partial class ProjectUnitDetailsView : ViewBase
-    {
-        public ProjectUnitDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectUnitDetailsViewModel ProjectUnitDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ProjectUnitDetailsViewModel;
-        }
-    }
-
-    public partial class ShipmentUnitDetailsView : ViewBase
-    {
-        public ShipmentUnitDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ShipmentUnitDetailsViewModel ShipmentUnitDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ShipmentUnitDetailsViewModel;
-        }
-    }
-
-    public partial class ProductionUnitDetailsView : ViewBase
-    {
-        public ProductionUnitDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductionUnitDetailsViewModel ProductionUnitDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ProductionUnitDetailsViewModel;
-        }
-    }
-
     public partial class SalesUnitDetailsView : ViewBase
     {
         public SalesUnitDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, SalesUnitDetailsViewModel SalesUnitDetailsViewModel) : base(regionManager, eventAggregator)
@@ -502,30 +475,12 @@ namespace HVTApp.UI.Views
         }
     }
 
-    public partial class OfferUnitDetailsView : ViewBase
-    {
-        public OfferUnitDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, OfferUnitDetailsViewModel OfferUnitDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = OfferUnitDetailsViewModel;
-        }
-    }
-
     public partial class ProductBlockDetailsView : ViewBase
     {
         public ProductBlockDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductBlockDetailsViewModel ProductBlockDetailsViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = ProductBlockDetailsViewModel;
-        }
-    }
-
-    public partial class ProductCostUnitDetailsView : ViewBase
-    {
-        public ProductCostUnitDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductCostUnitDetailsViewModel ProductCostUnitDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ProductCostUnitDetailsViewModel;
         }
     }
 

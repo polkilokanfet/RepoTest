@@ -29,7 +29,7 @@
                     <!--<infg:TextField Name="Facility" Label="Объект" Converter="{StaticResource WrapperToStringConverter}"/>-->
                     <!--<infg:TextField Name="Product" Label="Оборудование" Converter="{StaticResource WrapperToStringConverter}"/>-->
                     <infg:NumericField Name="Amount" Label="Количество"/>
-                    <infg:NumericField Name="Cost" Label="Стоимость"/>
+                    <infg:NumericField Name="CostOfShipment" Label="Стоимость"/>
                     <infg:NumericField Name="Total" Label="Сумма"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>

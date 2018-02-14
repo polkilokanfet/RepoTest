@@ -1257,28 +1257,12 @@ namespace HVTApp.UI.Wrapper
         }
 	}
 
-		public partial class ProjectUnitWrapper : WrapperBase<ProjectUnit>
+		public partial class SalesUnitWrapper : WrapperBase<SalesUnit>
 	{
-	    public ProjectUnitWrapper(ProjectUnit model) : base(model) { }
+	    public SalesUnitWrapper(SalesUnit model) : base(model) { }
 
 	
         #region SimpleProperties
-        public System.Nullable<System.Guid> ProductCostUnitId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> ProductCostUnitIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductCostUnitId));
-        public bool ProductCostUnitIdIsChanged => GetIsChanged(nameof(ProductCostUnitId));
-
-        public System.Nullable<System.Guid> ProjectId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> ProjectIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProjectId));
-        public bool ProjectIdIsChanged => GetIsChanged(nameof(ProjectId));
-
         public System.Nullable<System.Guid> FacilityId
         {
           get { return GetValue<System.Nullable<System.Guid>>(); }
@@ -1287,177 +1271,14 @@ namespace HVTApp.UI.Wrapper
         public System.Nullable<System.Guid> FacilityIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(FacilityId));
         public bool FacilityIdIsChanged => GetIsChanged(nameof(FacilityId));
 
-        public System.Nullable<System.Guid> ProducerId
+        public System.Nullable<System.Guid> OrderId
         {
           get { return GetValue<System.Nullable<System.Guid>>(); }
           set { SetValue(value); }
         }
-        public System.Nullable<System.Guid> ProducerIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProducerId));
-        public bool ProducerIdIsChanged => GetIsChanged(nameof(ProducerId));
+        public System.Nullable<System.Guid> OrderIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(OrderId));
+        public bool OrderIdIsChanged => GetIsChanged(nameof(OrderId));
 
-        public System.DateTime DeliveryDate
-        {
-          get { return GetValue<System.DateTime>(); }
-          set { SetValue(value); }
-        }
-        public System.DateTime DeliveryDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(DeliveryDate));
-        public bool DeliveryDateIsChanged => GetIsChanged(nameof(DeliveryDate));
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-        #endregion
-
-        #region ComplexProperties
-	    public ProductCostUnitWrapper ProductCostUnit 
-        {
-            get { return GetWrapper<ProductCostUnitWrapper>(); }
-            set { SetComplexValue<CommonUnit, ProductCostUnitWrapper>(ProductCostUnit, value); }
-        }
-
-	    public ProjectWrapper Project 
-        {
-            get { return GetWrapper<ProjectWrapper>(); }
-            set { SetComplexValue<Project, ProjectWrapper>(Project, value); }
-        }
-
-	    public FacilityWrapper Facility 
-        {
-            get { return GetWrapper<FacilityWrapper>(); }
-            set { SetComplexValue<Facility, FacilityWrapper>(Facility, value); }
-        }
-
-	    public CompanyWrapper Producer 
-        {
-            get { return GetWrapper<CompanyWrapper>(); }
-            set { SetComplexValue<Company, CompanyWrapper>(Producer, value); }
-        }
-
-        #endregion
-
-        #region CollectionProperties
-        public IValidatableChangeTrackingCollection<PaymentConditionWrapper> PaymentsConditions { get; private set; }
-
-        #endregion
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<ProductCostUnitWrapper>(nameof(ProductCostUnit), Model.CommonUnit == null ? null : new ProductCostUnitWrapper(Model.CommonUnit));
-
-            InitializeComplexProperty<ProjectWrapper>(nameof(Project), Model.Project == null ? null : new ProjectWrapper(Model.Project));
-
-            InitializeComplexProperty<FacilityWrapper>(nameof(Facility), Model.Facility == null ? null : new FacilityWrapper(Model.Facility));
-
-            InitializeComplexProperty<CompanyWrapper>(nameof(Producer), Model.Producer == null ? null : new CompanyWrapper(Model.Producer));
-
-        }
-  
-        protected override void InitializeCollectionProperties()
-        {
-          if (Model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
-          PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(Model.PaymentsConditions.Select(e => new PaymentConditionWrapper(e)));
-          RegisterCollection(PaymentsConditions, Model.PaymentsConditions);
-
-        }
-	}
-
-		public partial class ShipmentUnitWrapper : WrapperBase<ShipmentUnit>
-	{
-	    public ShipmentUnitWrapper(ShipmentUnit model) : base(model) { }
-
-	
-        #region SimpleProperties
-        public System.Nullable<System.Guid> AddressId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> AddressIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(AddressId));
-        public bool AddressIdIsChanged => GetIsChanged(nameof(AddressId));
-
-        public System.Nullable<System.Int32> ExpectedDeliveryPeriod
-        {
-          get { return GetValue<System.Nullable<System.Int32>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Int32> ExpectedDeliveryPeriodOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(ExpectedDeliveryPeriod));
-        public bool ExpectedDeliveryPeriodIsChanged => GetIsChanged(nameof(ExpectedDeliveryPeriod));
-
-        public System.Double Cost
-        {
-          get { return GetValue<System.Double>(); }
-          set { SetValue(value); }
-        }
-        public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
-        public bool CostIsChanged => GetIsChanged(nameof(Cost));
-
-        public System.Nullable<System.DateTime> ShipmentDate
-        {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.DateTime> ShipmentDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(ShipmentDate));
-        public bool ShipmentDateIsChanged => GetIsChanged(nameof(ShipmentDate));
-
-        public System.Nullable<System.DateTime> ShipmentPlanDate
-        {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.DateTime> ShipmentPlanDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(ShipmentPlanDate));
-        public bool ShipmentPlanDateIsChanged => GetIsChanged(nameof(ShipmentPlanDate));
-
-        public System.Nullable<System.DateTime> RequiredDeliveryDate
-        {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.DateTime> RequiredDeliveryDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(RequiredDeliveryDate));
-        public bool RequiredDeliveryDateIsChanged => GetIsChanged(nameof(RequiredDeliveryDate));
-
-        public System.Nullable<System.DateTime> DeliveryDate
-        {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.DateTime> DeliveryDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DeliveryDate));
-        public bool DeliveryDateIsChanged => GetIsChanged(nameof(DeliveryDate));
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-        #endregion
-
-        #region ComplexProperties
-	    public AddressWrapper Address 
-        {
-            get { return GetWrapper<AddressWrapper>(); }
-            set { SetComplexValue<Address, AddressWrapper>(Address, value); }
-        }
-
-        #endregion
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<AddressWrapper>(nameof(Address), Model.Address == null ? null : new AddressWrapper(Model.Address));
-
-        }
-	}
-
-		public partial class ProductionUnitWrapper : WrapperBase<ProductionUnit>
-	{
-	    public ProductionUnitWrapper(ProductionUnit model) : base(model) { }
-
-	
-        #region SimpleProperties
         public System.Nullable<System.Guid> ProductId
         {
           get { return GetValue<System.Nullable<System.Guid>>(); }
@@ -1466,21 +1287,21 @@ namespace HVTApp.UI.Wrapper
         public System.Nullable<System.Guid> ProductIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductId));
         public bool ProductIdIsChanged => GetIsChanged(nameof(ProductId));
 
-        public System.Guid OrderId
+        public System.Nullable<System.Guid> SpecificationId
         {
-          get { return GetValue<System.Guid>(); }
+          get { return GetValue<System.Nullable<System.Guid>>(); }
           set { SetValue(value); }
         }
-        public System.Guid OrderIdOriginalValue => GetOriginalValue<System.Guid>(nameof(OrderId));
-        public bool OrderIdIsChanged => GetIsChanged(nameof(OrderId));
+        public System.Nullable<System.Guid> SpecificationIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(SpecificationId));
+        public bool SpecificationIdIsChanged => GetIsChanged(nameof(SpecificationId));
 
-        public System.Int32 OrderPosition
+        public System.Nullable<System.Guid> AddressId
         {
-          get { return GetValue<System.Int32>(); }
+          get { return GetValue<System.Nullable<System.Guid>>(); }
           set { SetValue(value); }
         }
-        public System.Int32 OrderPositionOriginalValue => GetOriginalValue<System.Int32>(nameof(OrderPosition));
-        public bool OrderPositionIsChanged => GetIsChanged(nameof(OrderPosition));
+        public System.Nullable<System.Guid> AddressIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(AddressId));
+        public bool AddressIdIsChanged => GetIsChanged(nameof(AddressId));
 
         public System.String SerialNumber
         {
@@ -1538,69 +1359,6 @@ namespace HVTApp.UI.Wrapper
         public System.Nullable<System.DateTime> EndProductionDateByPlanOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(EndProductionDateByPlan));
         public bool EndProductionDateByPlanIsChanged => GetIsChanged(nameof(EndProductionDateByPlan));
 
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-        #endregion
-
-        #region ComplexProperties
-	    public ProductWrapper Product 
-        {
-            get { return GetWrapper<ProductWrapper>(); }
-            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
-        }
-
-        #endregion
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
-
-        }
-	}
-
-		public partial class SalesUnitWrapper : WrapperBase<SalesUnit>
-	{
-	    public SalesUnitWrapper(SalesUnit model) : base(model) { }
-
-	
-        #region SimpleProperties
-        public System.Nullable<System.Guid> OfferUnitId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> OfferUnitIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(OfferUnitId));
-        public bool OfferUnitIdIsChanged => GetIsChanged(nameof(OfferUnitId));
-
-        public System.Nullable<System.Guid> ProductionUnitId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> ProductionUnitIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductionUnitId));
-        public bool ProductionUnitIdIsChanged => GetIsChanged(nameof(ProductionUnitId));
-
-        public System.Nullable<System.Guid> ShipmentUnitId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> ShipmentUnitIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ShipmentUnitId));
-        public bool ShipmentUnitIdIsChanged => GetIsChanged(nameof(ShipmentUnitId));
-
-        public System.Nullable<System.Guid> SpecificationId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> SpecificationIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(SpecificationId));
-        public bool SpecificationIdIsChanged => GetIsChanged(nameof(SpecificationId));
-
         public System.Double Cost
         {
           get { return GetValue<System.Double>(); }
@@ -1608,6 +1366,54 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
         public bool CostIsChanged => GetIsChanged(nameof(Cost));
+
+        public System.Nullable<System.Int32> ExpectedDeliveryPeriod
+        {
+          get { return GetValue<System.Nullable<System.Int32>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Int32> ExpectedDeliveryPeriodOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(ExpectedDeliveryPeriod));
+        public bool ExpectedDeliveryPeriodIsChanged => GetIsChanged(nameof(ExpectedDeliveryPeriod));
+
+        public System.Double CostOfShipment
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double CostOfShipmentOriginalValue => GetOriginalValue<System.Double>(nameof(CostOfShipment));
+        public bool CostOfShipmentIsChanged => GetIsChanged(nameof(CostOfShipment));
+
+        public System.Nullable<System.DateTime> ShipmentDate
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> ShipmentDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(ShipmentDate));
+        public bool ShipmentDateIsChanged => GetIsChanged(nameof(ShipmentDate));
+
+        public System.Nullable<System.DateTime> ShipmentPlanDate
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> ShipmentPlanDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(ShipmentPlanDate));
+        public bool ShipmentPlanDateIsChanged => GetIsChanged(nameof(ShipmentPlanDate));
+
+        public System.Nullable<System.DateTime> RequiredDeliveryDate
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> RequiredDeliveryDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(RequiredDeliveryDate));
+        public bool RequiredDeliveryDateIsChanged => GetIsChanged(nameof(RequiredDeliveryDate));
+
+        public System.Nullable<System.DateTime> DeliveryDate
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> DeliveryDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DeliveryDate));
+        public bool DeliveryDateIsChanged => GetIsChanged(nameof(DeliveryDate));
 
         public System.Nullable<System.DateTime> RealizationDate
         {
@@ -1628,28 +1434,40 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
-	    public OfferUnitWrapper OfferUnit 
+	    public FacilityWrapper Facility 
         {
-            get { return GetWrapper<OfferUnitWrapper>(); }
-            set { SetComplexValue<OfferUnit, OfferUnitWrapper>(OfferUnit, value); }
+            get { return GetWrapper<FacilityWrapper>(); }
+            set { SetComplexValue<Facility, FacilityWrapper>(Facility, value); }
         }
 
-	    public ProductionUnitWrapper ProductionUnit 
+	    public CompanyWrapper Producer 
         {
-            get { return GetWrapper<ProductionUnitWrapper>(); }
-            set { SetComplexValue<ProductionUnit, ProductionUnitWrapper>(ProductionUnit, value); }
+            get { return GetWrapper<CompanyWrapper>(); }
+            set { SetComplexValue<Company, CompanyWrapper>(Producer, value); }
         }
 
-	    public ShipmentUnitWrapper ShipmentUnit 
+	    public OrderWrapper Order 
         {
-            get { return GetWrapper<ShipmentUnitWrapper>(); }
-            set { SetComplexValue<ShipmentUnit, ShipmentUnitWrapper>(ShipmentUnit, value); }
+            get { return GetWrapper<OrderWrapper>(); }
+            set { SetComplexValue<Order, OrderWrapper>(Order, value); }
+        }
+
+	    public ProductWrapper Product 
+        {
+            get { return GetWrapper<ProductWrapper>(); }
+            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
         }
 
 	    public SpecificationWrapper Specification 
         {
             get { return GetWrapper<SpecificationWrapper>(); }
             set { SetComplexValue<Specification, SpecificationWrapper>(Specification, value); }
+        }
+
+	    public AddressWrapper Address 
+        {
+            get { return GetWrapper<AddressWrapper>(); }
+            set { SetComplexValue<Address, AddressWrapper>(Address, value); }
         }
 
         #endregion
@@ -1664,13 +1482,17 @@ namespace HVTApp.UI.Wrapper
         #endregion
         public override void InitializeComplexProperties()
         {
-            InitializeComplexProperty<OfferUnitWrapper>(nameof(OfferUnit), Model.OfferUnit == null ? null : new OfferUnitWrapper(Model.OfferUnit));
+            InitializeComplexProperty<FacilityWrapper>(nameof(Facility), Model.Facility == null ? null : new FacilityWrapper(Model.Facility));
 
-            InitializeComplexProperty<ProductionUnitWrapper>(nameof(ProductionUnit), Model.ProductionUnit == null ? null : new ProductionUnitWrapper(Model.ProductionUnit));
+            InitializeComplexProperty<CompanyWrapper>(nameof(Producer), Model.Producer == null ? null : new CompanyWrapper(Model.Producer));
 
-            InitializeComplexProperty<ShipmentUnitWrapper>(nameof(ShipmentUnit), Model.ShipmentUnit == null ? null : new ShipmentUnitWrapper(Model.ShipmentUnit));
+            InitializeComplexProperty<OrderWrapper>(nameof(Order), Model.Order == null ? null : new OrderWrapper(Model.Order));
+
+            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
 
             InitializeComplexProperty<SpecificationWrapper>(nameof(Specification), Model.Specification == null ? null : new SpecificationWrapper(Model.Specification));
+
+            InitializeComplexProperty<AddressWrapper>(nameof(Address), Model.Address == null ? null : new AddressWrapper(Model.Address));
 
         }
   
@@ -2695,6 +2517,8 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region CollectionProperties
+        public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
+
         public IValidatableChangeTrackingCollection<EmployeeWrapper> CopyToRecipients { get; private set; }
 
         #endregion
@@ -2718,6 +2542,10 @@ namespace HVTApp.UI.Wrapper
   
         protected override void InitializeCollectionProperties()
         {
+          if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
+          SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
+          RegisterCollection(SalesUnits, Model.SalesUnits);
+
           if (Model.CopyToRecipients == null) throw new ArgumentException("CopyToRecipients cannot be null");
           CopyToRecipients = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.CopyToRecipients.Select(e => new EmployeeWrapper(e)));
           RegisterCollection(CopyToRecipients, Model.CopyToRecipients);
@@ -2843,19 +2671,6 @@ namespace HVTApp.UI.Wrapper
         public bool IdIsChanged => GetIsChanged(nameof(Id));
 
         #endregion
-
-        #region CollectionProperties
-        public IValidatableChangeTrackingCollection<ProductionUnitWrapper> ProductionUnits { get; private set; }
-
-        #endregion
-  
-        protected override void InitializeCollectionProperties()
-        {
-          if (Model.ProductionUnits == null) throw new ArgumentException("ProductionUnits cannot be null");
-          ProductionUnits = new ValidatableChangeTrackingCollection<ProductionUnitWrapper>(Model.ProductionUnits.Select(e => new ProductionUnitWrapper(e)));
-          RegisterCollection(ProductionUnits, Model.ProductionUnits);
-
-        }
 	}
 
 		public partial class PaymentConditionWrapper : WrapperBase<PaymentCondition>
@@ -3064,9 +2879,22 @@ namespace HVTApp.UI.Wrapper
         }
 
         #endregion
+
+        #region CollectionProperties
+        public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
+
+        #endregion
         public override void InitializeComplexProperties()
         {
             InitializeComplexProperty<UserWrapper>(nameof(Manager), Model.Manager == null ? null : new UserWrapper(Model.Manager));
+
+        }
+  
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
+          SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
+          RegisterCollection(SalesUnits, Model.SalesUnits);
 
         }
 	}
@@ -3382,114 +3210,6 @@ namespace HVTApp.UI.Wrapper
         }
 	}
 
-		public partial class OfferUnitWrapper : WrapperBase<OfferUnit>
-	{
-	    public OfferUnitWrapper(OfferUnit model) : base(model) { }
-
-	
-        #region SimpleProperties
-        public System.Nullable<System.Guid> OfferId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> OfferIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(OfferId));
-        public bool OfferIdIsChanged => GetIsChanged(nameof(OfferId));
-
-        public System.Nullable<System.Guid> ProjectUnitId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> ProjectUnitIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProjectUnitId));
-        public bool ProjectUnitIdIsChanged => GetIsChanged(nameof(ProjectUnitId));
-
-        public System.Nullable<System.Guid> FacilityId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> FacilityIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(FacilityId));
-        public bool FacilityIdIsChanged => GetIsChanged(nameof(FacilityId));
-
-        public System.Nullable<System.Guid> ProductCostUnitId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> ProductCostUnitIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductCostUnitId));
-        public bool ProductCostUnitIdIsChanged => GetIsChanged(nameof(ProductCostUnitId));
-
-        public System.Int32 ProductionTerm
-        {
-          get { return GetValue<System.Int32>(); }
-          set { SetValue(value); }
-        }
-        public System.Int32 ProductionTermOriginalValue => GetOriginalValue<System.Int32>(nameof(ProductionTerm));
-        public bool ProductionTermIsChanged => GetIsChanged(nameof(ProductionTerm));
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-        #endregion
-
-        #region ComplexProperties
-	    public OfferWrapper Offer 
-        {
-            get { return GetWrapper<OfferWrapper>(); }
-            set { SetComplexValue<Offer, OfferWrapper>(Offer, value); }
-        }
-
-	    public ProjectUnitWrapper ProjectUnit 
-        {
-            get { return GetWrapper<ProjectUnitWrapper>(); }
-            set { SetComplexValue<ProjectUnit, ProjectUnitWrapper>(ProjectUnit, value); }
-        }
-
-	    public FacilityWrapper Facility 
-        {
-            get { return GetWrapper<FacilityWrapper>(); }
-            set { SetComplexValue<Facility, FacilityWrapper>(Facility, value); }
-        }
-
-	    public ProductCostUnitWrapper ProductCostUnit 
-        {
-            get { return GetWrapper<ProductCostUnitWrapper>(); }
-            set { SetComplexValue<CommonUnit, ProductCostUnitWrapper>(ProductCostUnit, value); }
-        }
-
-        #endregion
-
-        #region CollectionProperties
-        public IValidatableChangeTrackingCollection<PaymentConditionWrapper> PaymentsConditions { get; private set; }
-
-        #endregion
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<OfferWrapper>(nameof(Offer), Model.Offer == null ? null : new OfferWrapper(Model.Offer));
-
-            InitializeComplexProperty<ProjectUnitWrapper>(nameof(ProjectUnit), Model.ProjectUnit == null ? null : new ProjectUnitWrapper(Model.ProjectUnit));
-
-            InitializeComplexProperty<FacilityWrapper>(nameof(Facility), Model.Facility == null ? null : new FacilityWrapper(Model.Facility));
-
-            InitializeComplexProperty<ProductCostUnitWrapper>(nameof(ProductCostUnit), Model.CommonUnit == null ? null : new ProductCostUnitWrapper(Model.CommonUnit));
-
-        }
-  
-        protected override void InitializeCollectionProperties()
-        {
-          if (Model.PaymentsConditions == null) throw new ArgumentException("PaymentsConditions cannot be null");
-          PaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(Model.PaymentsConditions.Select(e => new PaymentConditionWrapper(e)));
-          RegisterCollection(PaymentsConditions, Model.PaymentsConditions);
-
-        }
-	}
-
 		public partial class ProductBlockWrapper : WrapperBase<ProductBlock>
 	{
 	    public ProductBlockWrapper(ProductBlock model) : base(model) { }
@@ -3538,53 +3258,6 @@ namespace HVTApp.UI.Wrapper
           if (Model.Prices == null) throw new ArgumentException("Prices cannot be null");
           Prices = new ValidatableChangeTrackingCollection<CostOnDateWrapper>(Model.Prices.Select(e => new CostOnDateWrapper(e)));
           RegisterCollection(Prices, Model.Prices);
-
-        }
-	}
-
-		public partial class ProductCostUnitWrapper : WrapperBase<CommonUnit>
-	{
-	    public ProductCostUnitWrapper(CommonUnit model) : base(model) { }
-
-	
-        #region SimpleProperties
-        public System.Nullable<System.Guid> ProductId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> ProductIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProductId));
-        public bool ProductIdIsChanged => GetIsChanged(nameof(ProductId));
-
-        public System.Double Cost
-        {
-          get { return GetValue<System.Double>(); }
-          set { SetValue(value); }
-        }
-        public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
-        public bool CostIsChanged => GetIsChanged(nameof(Cost));
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-        #endregion
-
-        #region ComplexProperties
-	    public ProductWrapper Product 
-        {
-            get { return GetWrapper<ProductWrapper>(); }
-            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
-        }
-
-        #endregion
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
 
         }
 	}

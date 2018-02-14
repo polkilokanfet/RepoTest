@@ -34,9 +34,6 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new PaymentPlannedConfiguration());
             modelBuilder.Configurations.Add(new PaymentActualConfiguration());
             modelBuilder.Configurations.Add(new ParameterRelationConfiguration());
-            modelBuilder.Configurations.Add(new ProjectUnitConfiguration());
-            modelBuilder.Configurations.Add(new ShipmentUnitConfiguration());
-            modelBuilder.Configurations.Add(new ProductionUnitConfiguration());
             modelBuilder.Configurations.Add(new SalesUnitConfiguration());
             modelBuilder.Configurations.Add(new TestFriendAddressConfiguration());
             modelBuilder.Configurations.Add(new TestFriendConfiguration());
@@ -64,9 +61,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new TenderConfiguration());
             modelBuilder.Configurations.Add(new TenderTypeConfiguration());
             modelBuilder.Configurations.Add(new UserConfiguration());
-            modelBuilder.Configurations.Add(new OfferUnitConfiguration());
             modelBuilder.Configurations.Add(new ProductBlockConfiguration());
-            modelBuilder.Configurations.Add(new ProductCostUnitConfiguration());
 			#endregion
 
             base.OnModelCreating(modelBuilder);
@@ -98,9 +93,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PaymentPlanned> PaymentPlannedDbSet { get; set; }
         public virtual DbSet<PaymentActual> PaymentActualDbSet { get; set; }
         public virtual DbSet<ParameterRelation> ParameterRelationDbSet { get; set; }
-        public virtual DbSet<ProjectUnit> ProjectUnitDbSet { get; set; }
-        public virtual DbSet<ShipmentUnit> ShipmentUnitDbSet { get; set; }
-        public virtual DbSet<ProductionUnit> ProductionUnitDbSet { get; set; }
         public virtual DbSet<SalesUnit> SalesUnitDbSet { get; set; }
         public virtual DbSet<TestFriendAddress> TestFriendAddressDbSet { get; set; }
         public virtual DbSet<TestFriend> TestFriendDbSet { get; set; }
@@ -128,9 +120,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<Tender> TenderDbSet { get; set; }
         public virtual DbSet<TenderType> TenderTypeDbSet { get; set; }
         public virtual DbSet<User> UserDbSet { get; set; }
-        public virtual DbSet<OfferUnit> OfferUnitDbSet { get; set; }
         public virtual DbSet<ProductBlock> ProductBlockDbSet { get; set; }
-        public virtual DbSet<CommonUnit> ProductCostUnitDbSet { get; set; }
 		#endregion
     }
 }

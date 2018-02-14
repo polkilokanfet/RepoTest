@@ -32,9 +32,6 @@ namespace HVTApp.DataAccess
             PaymentPlannedRepository = new PaymentPlannedRepositoryTest(testData);
             PaymentActualRepository = new PaymentActualRepositoryTest(testData);
             ParameterRelationRepository = new ParameterRelationRepositoryTest(testData);
-            ProjectUnitRepository = new ProjectUnitRepositoryTest(testData);
-            ShipmentUnitRepository = new ShipmentUnitRepositoryTest(testData);
-            ProductionUnitRepository = new ProductionUnitRepositoryTest(testData);
             SalesUnitRepository = new SalesUnitRepositoryTest(testData);
             TestFriendAddressRepository = new TestFriendAddressRepositoryTest(testData);
             TestFriendRepository = new TestFriendRepositoryTest(testData);
@@ -62,9 +59,7 @@ namespace HVTApp.DataAccess
             TenderRepository = new TenderRepositoryTest(testData);
             TenderTypeRepository = new TenderTypeRepositoryTest(testData);
             UserRepository = new UserRepositoryTest(testData);
-            OfferUnitRepository = new OfferUnitRepositoryTest(testData);
             ProductBlockRepository = new ProductBlockRepositoryTest(testData);
-            ProductCostUnitRepository = new ProductCostUnitRepositoryTest(testData);
 			#endregion
         }
 
@@ -95,9 +90,6 @@ namespace HVTApp.DataAccess
         public IPaymentPlannedRepository PaymentPlannedRepository { get; }
         public IPaymentActualRepository PaymentActualRepository { get; }
         public IParameterRelationRepository ParameterRelationRepository { get; }
-        public IProjectUnitRepository ProjectUnitRepository { get; }
-        public IShipmentUnitRepository ShipmentUnitRepository { get; }
-        public IProductionUnitRepository ProductionUnitRepository { get; }
         public ISalesUnitRepository SalesUnitRepository { get; }
         public ITestFriendAddressRepository TestFriendAddressRepository { get; }
         public ITestFriendRepository TestFriendRepository { get; }
@@ -125,9 +117,7 @@ namespace HVTApp.DataAccess
         public ITenderRepository TenderRepository { get; }
         public ITenderTypeRepository TenderTypeRepository { get; }
         public IUserRepository UserRepository { get; }
-        public IOfferUnitRepository OfferUnitRepository { get; }
         public IProductBlockRepository ProductBlockRepository { get; }
-        public IProductCostUnitRepository ProductCostUnitRepository { get; }
         #endregion
     }
 }

@@ -28,9 +28,6 @@ namespace HVTApp.UI.Events
 	public partial class AfterRemovePaymentPlannedEvent : PubSubEvent<PaymentPlanned> { }
 	public partial class AfterRemovePaymentActualEvent : PubSubEvent<PaymentActual> { }
 	public partial class AfterRemoveParameterRelationEvent : PubSubEvent<ParameterRelation> { }
-	public partial class AfterRemoveProjectUnitEvent : PubSubEvent<ProjectUnit> { }
-	public partial class AfterRemoveShipmentUnitEvent : PubSubEvent<ShipmentUnit> { }
-	public partial class AfterRemoveProductionUnitEvent : PubSubEvent<ProductionUnit> { }
 	public partial class AfterRemoveSalesUnitEvent : PubSubEvent<SalesUnit> { }
 	public partial class AfterRemoveTestFriendAddressEvent : PubSubEvent<TestFriendAddress> { }
 	public partial class AfterRemoveTestFriendEvent : PubSubEvent<TestFriend> { }
@@ -58,7 +55,5 @@ namespace HVTApp.UI.Events
 	public partial class AfterRemoveTenderEvent : PubSubEvent<Tender> { }
 	public partial class AfterRemoveTenderTypeEvent : PubSubEvent<TenderType> { }
 	public partial class AfterRemoveUserEvent : PubSubEvent<User> { }
-	public partial class AfterRemoveOfferUnitEvent : PubSubEvent<OfferUnit> { }
 	public partial class AfterRemoveProductBlockEvent : PubSubEvent<ProductBlock> { }
-	public partial class AfterRemoveProductCostUnitEvent : PubSubEvent<CommonUnit> { }
 }

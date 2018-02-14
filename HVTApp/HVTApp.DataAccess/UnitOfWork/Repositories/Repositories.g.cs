@@ -128,21 +128,6 @@ namespace HVTApp.DataAccess
         public ParameterRelationRepository(DbContext context) : base(context) {}
     }
 
-    public partial class ProjectUnitRepository : BaseRepository<ProjectUnit>, IProjectUnitRepository
-    {
-        public ProjectUnitRepository(DbContext context) : base(context) {}
-    }
-
-    public partial class ShipmentUnitRepository : BaseRepository<ShipmentUnit>, IShipmentUnitRepository
-    {
-        public ShipmentUnitRepository(DbContext context) : base(context) {}
-    }
-
-    public partial class ProductionUnitRepository : BaseRepository<ProductionUnit>, IProductionUnitRepository
-    {
-        public ProductionUnitRepository(DbContext context) : base(context) {}
-    }
-
     public partial class SalesUnitRepository : BaseRepository<SalesUnit>, ISalesUnitRepository
     {
         public SalesUnitRepository(DbContext context) : base(context) {}
@@ -278,19 +263,9 @@ namespace HVTApp.DataAccess
         public UserRepository(DbContext context) : base(context) {}
     }
 
-    public partial class OfferUnitRepository : BaseRepository<OfferUnit>, IOfferUnitRepository
-    {
-        public OfferUnitRepository(DbContext context) : base(context) {}
-    }
-
     public partial class ProductBlockRepository : BaseRepository<ProductBlock>, IProductBlockRepository
     {
         public ProductBlockRepository(DbContext context) : base(context) {}
-    }
-
-    public partial class ProductCostUnitRepository : BaseRepository<CommonUnit>, IProductCostUnitRepository
-    {
-        public ProductCostUnitRepository(DbContext context) : base(context) {}
     }
 
 }

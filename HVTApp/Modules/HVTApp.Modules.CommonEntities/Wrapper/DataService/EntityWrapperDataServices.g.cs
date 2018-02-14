@@ -379,51 +379,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-    public partial class ProjectUnitWrapperDataService : EntityWrapperDataService<ProjectUnit, ProjectUnitWrapper>
-    {
-        public ProjectUnitWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-		
-		protected override ProjectUnitWrapper GenerateWrapper(ProjectUnit model)
-        {
-            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
-                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
-
-            var wrapper = new ProjectUnitWrapper(model);
-            ExistsWrappers.Add(wrapper);
-            return wrapper;
-        }
-    }
-
-    public partial class ShipmentUnitWrapperDataService : EntityWrapperDataService<ShipmentUnit, ShipmentUnitWrapper>
-    {
-        public ShipmentUnitWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-		
-		protected override ShipmentUnitWrapper GenerateWrapper(ShipmentUnit model)
-        {
-            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
-                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
-
-            var wrapper = new ShipmentUnitWrapper(model);
-            ExistsWrappers.Add(wrapper);
-            return wrapper;
-        }
-    }
-
-    public partial class ProductionUnitWrapperDataService : EntityWrapperDataService<ProductionUnit, ProductionUnitWrapper>
-    {
-        public ProductionUnitWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-		
-		protected override ProductionUnitWrapper GenerateWrapper(ProductionUnit model)
-        {
-            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
-                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
-
-            var wrapper = new ProductionUnitWrapper(model);
-            ExistsWrappers.Add(wrapper);
-            return wrapper;
-        }
-    }
-
     public partial class SalesUnitWrapperDataService : EntityWrapperDataService<SalesUnit, SalesUnitWrapper>
     {
         public SalesUnitWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -829,21 +784,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-    public partial class OfferUnitWrapperDataService : EntityWrapperDataService<OfferUnit, OfferUnitWrapper>
-    {
-        public OfferUnitWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-		
-		protected override OfferUnitWrapper GenerateWrapper(OfferUnit model)
-        {
-            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
-                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
-
-            var wrapper = new OfferUnitWrapper(model);
-            ExistsWrappers.Add(wrapper);
-            return wrapper;
-        }
-    }
-
     public partial class ProductBlockWrapperDataService : EntityWrapperDataService<ProductBlock, ProductBlockWrapper>
     {
         public ProductBlockWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -854,21 +794,6 @@ namespace HVTApp.UI.Wrapper
                 return ExistsWrappers.Single(x => x.Model.Id == model.Id);
 
             var wrapper = new ProductBlockWrapper(model);
-            ExistsWrappers.Add(wrapper);
-            return wrapper;
-        }
-    }
-
-    public partial class ProductCostUnitWrapperDataService : EntityWrapperDataService<CommonUnit, ProductCostUnitWrapper>
-    {
-        public ProductCostUnitWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-		
-		protected override ProductCostUnitWrapper GenerateWrapper(CommonUnit model)
-        {
-            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
-                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
-
-            var wrapper = new ProductCostUnitWrapper(model);
             ExistsWrappers.Add(wrapper);
             return wrapper;
         }

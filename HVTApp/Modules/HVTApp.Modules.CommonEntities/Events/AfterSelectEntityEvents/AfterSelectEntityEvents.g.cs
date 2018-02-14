@@ -28,9 +28,6 @@ namespace HVTApp.UI.Events
 	public partial class AfterSelectPaymentPlannedEvent : PubSubEvent<PubSubEventArgs<PaymentPlanned>> { }
 	public partial class AfterSelectPaymentActualEvent : PubSubEvent<PubSubEventArgs<PaymentActual>> { }
 	public partial class AfterSelectParameterRelationEvent : PubSubEvent<PubSubEventArgs<ParameterRelation>> { }
-	public partial class AfterSelectProjectUnitEvent : PubSubEvent<PubSubEventArgs<ProjectUnit>> { }
-	public partial class AfterSelectShipmentUnitEvent : PubSubEvent<PubSubEventArgs<ShipmentUnit>> { }
-	public partial class AfterSelectProductionUnitEvent : PubSubEvent<PubSubEventArgs<ProductionUnit>> { }
 	public partial class AfterSelectSalesUnitEvent : PubSubEvent<PubSubEventArgs<SalesUnit>> { }
 	public partial class AfterSelectTestFriendAddressEvent : PubSubEvent<PubSubEventArgs<TestFriendAddress>> { }
 	public partial class AfterSelectTestFriendEvent : PubSubEvent<PubSubEventArgs<TestFriend>> { }
@@ -58,7 +55,5 @@ namespace HVTApp.UI.Events
 	public partial class AfterSelectTenderEvent : PubSubEvent<PubSubEventArgs<Tender>> { }
 	public partial class AfterSelectTenderTypeEvent : PubSubEvent<PubSubEventArgs<TenderType>> { }
 	public partial class AfterSelectUserEvent : PubSubEvent<PubSubEventArgs<User>> { }
-	public partial class AfterSelectOfferUnitEvent : PubSubEvent<PubSubEventArgs<OfferUnit>> { }
 	public partial class AfterSelectProductBlockEvent : PubSubEvent<PubSubEventArgs<ProductBlock>> { }
-	public partial class AfterSelectProductCostUnitEvent : PubSubEvent<PubSubEventArgs<CommonUnit>> { }
 }

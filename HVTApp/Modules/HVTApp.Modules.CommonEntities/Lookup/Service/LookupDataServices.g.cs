@@ -129,21 +129,6 @@ namespace HVTApp.UI.Lookup
         public ParameterRelationLookupDataService(HvtAppContext context) : base(context) { }
     }
 
-    public partial class ProjectUnitLookupDataService : LookupDataService<ProjectUnitLookup, ProjectUnit>, IProjectUnitLookupDataService
-    {
-        public ProjectUnitLookupDataService(HvtAppContext context) : base(context) { }
-    }
-
-    public partial class ShipmentUnitLookupDataService : LookupDataService<ShipmentUnitLookup, ShipmentUnit>, IShipmentUnitLookupDataService
-    {
-        public ShipmentUnitLookupDataService(HvtAppContext context) : base(context) { }
-    }
-
-    public partial class ProductionUnitLookupDataService : LookupDataService<ProductionUnitLookup, ProductionUnit>, IProductionUnitLookupDataService
-    {
-        public ProductionUnitLookupDataService(HvtAppContext context) : base(context) { }
-    }
-
     public partial class SalesUnitLookupDataService : LookupDataService<SalesUnitLookup, SalesUnit>, ISalesUnitLookupDataService
     {
         public SalesUnitLookupDataService(HvtAppContext context) : base(context) { }
@@ -279,19 +264,9 @@ namespace HVTApp.UI.Lookup
         public UserLookupDataService(HvtAppContext context) : base(context) { }
     }
 
-    public partial class OfferUnitLookupDataService : LookupDataService<OfferUnitLookup, OfferUnit>, IOfferUnitLookupDataService
-    {
-        public OfferUnitLookupDataService(HvtAppContext context) : base(context) { }
-    }
-
     public partial class ProductBlockLookupDataService : LookupDataService<ProductBlockLookup, ProductBlock>, IProductBlockLookupDataService
     {
         public ProductBlockLookupDataService(HvtAppContext context) : base(context) { }
-    }
-
-    public partial class ProductCostUnitLookupDataService : LookupDataService<ProductCostUnitLookup, CommonUnit>, IProductCostUnitLookupDataService
-    {
-        public ProductCostUnitLookupDataService(HvtAppContext context) : base(context) { }
     }
 
 }

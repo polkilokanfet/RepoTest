@@ -20,7 +20,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
-        <Label Content="Cost:"
+        <Label Content="CostOfShipment:"
                Grid.Column="0"
                HorizontalAlignment="Left"
                Margin="3"

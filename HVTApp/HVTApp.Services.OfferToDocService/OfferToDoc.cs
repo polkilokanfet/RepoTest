@@ -82,8 +82,8 @@ namespace HVTApp.Services.OfferToDocService
 
             //    docWriter.TableCell(groupUnit.Product.DisplayMember, cellProps);
             //    docWriter.TableCell($"{groupUnit.Amount:D}", cellProps, parPropRight);
-            //    docWriter.TableCell($"{groupUnit.Cost:C}", cellProps, parPropRight);
-            //    docWriter.TableCell($"{groupUnit.Amount * groupUnit.Cost:C}", cellProps, parPropRight);
+            //    docWriter.TableCell($"{groupUnit.CostOfShipment:C}", cellProps, parPropRight);
+            //    docWriter.TableCell($"{groupUnit.Amount * groupUnit.CostOfShipment:C}", cellProps, parPropRight);
 
             //    docWriter.EndTableRow();
             //}

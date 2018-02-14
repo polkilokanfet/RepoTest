@@ -10,7 +10,7 @@
                 <dataPresenter:FieldLayout.Fields>
                     <dataPresenter:TextField Name="Facility" Label="Facility"/>
                     <dataPresenter:TextField Name="Product" Label="Product"/>
-                    <dataPresenter:TextField Name="Cost" Label="Cost"/>
+                    <dataPresenter:TextField Name="CostOfShipment" Label="CostOfShipment"/>
                 </dataPresenter:FieldLayout.Fields>
             </dataPresenter:FieldLayout>
         </dataPresenter:XamDataGrid.FieldLayouts>

@@ -28,9 +28,7 @@ namespace HVTApp.UI.Wrapper
             }
         }
 
-        public List<OfferUnitWrapper> OfferUnits { get; set; }
-
-        //public double TotalCost => OfferUnits.Sum(x => x.Cost);
+        //public double TotalCost => OfferUnits.Sum(x => x.CostOfShipment);
         public double TotalCost => 0;
         public double TotalCostWithVat => TotalCost * (1 + Vat);
 
@@ -44,7 +42,7 @@ namespace HVTApp.UI.Wrapper
 
         private void OfferUnitOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            //if (Equals(propertyChangedEventArgs.PropertyName, nameof(OfferUnit.Cost)))
+            //if (Equals(propertyChangedEventArgs.PropertyName, nameof(OfferUnit.CostOfShipment)))
             //{
             //    OnPropertyChanged(nameof(TotalCost));
             //    OnPropertyChanged(nameof(TotalCostWithVat));

@@ -31,9 +31,6 @@ namespace HVTApp.UI.Wrapper
             PaymentPlannedWrapperDataService = new PaymentPlannedWrapperDataService(unitOfWork);
             PaymentActualWrapperDataService = new PaymentActualWrapperDataService(unitOfWork);
             ParameterRelationWrapperDataService = new ParameterRelationWrapperDataService(unitOfWork);
-            ProjectUnitWrapperDataService = new ProjectUnitWrapperDataService(unitOfWork);
-            ShipmentUnitWrapperDataService = new ShipmentUnitWrapperDataService(unitOfWork);
-            ProductionUnitWrapperDataService = new ProductionUnitWrapperDataService(unitOfWork);
             SalesUnitWrapperDataService = new SalesUnitWrapperDataService(unitOfWork);
             TestFriendAddressWrapperDataService = new TestFriendAddressWrapperDataService(unitOfWork);
             TestFriendWrapperDataService = new TestFriendWrapperDataService(unitOfWork);
@@ -61,9 +58,7 @@ namespace HVTApp.UI.Wrapper
             TenderWrapperDataService = new TenderWrapperDataService(unitOfWork);
             TenderTypeWrapperDataService = new TenderTypeWrapperDataService(unitOfWork);
             UserWrapperDataService = new UserWrapperDataService(unitOfWork);
-            OfferUnitWrapperDataService = new OfferUnitWrapperDataService(unitOfWork);
             ProductBlockWrapperDataService = new ProductBlockWrapperDataService(unitOfWork);
-            ProductCostUnitWrapperDataService = new ProductCostUnitWrapperDataService(unitOfWork);
         }
 
         public AddressWrapperDataService AddressWrapperDataService { get; }
@@ -91,9 +86,6 @@ namespace HVTApp.UI.Wrapper
         public PaymentPlannedWrapperDataService PaymentPlannedWrapperDataService { get; }
         public PaymentActualWrapperDataService PaymentActualWrapperDataService { get; }
         public ParameterRelationWrapperDataService ParameterRelationWrapperDataService { get; }
-        public ProjectUnitWrapperDataService ProjectUnitWrapperDataService { get; }
-        public ShipmentUnitWrapperDataService ShipmentUnitWrapperDataService { get; }
-        public ProductionUnitWrapperDataService ProductionUnitWrapperDataService { get; }
         public SalesUnitWrapperDataService SalesUnitWrapperDataService { get; }
         public TestFriendAddressWrapperDataService TestFriendAddressWrapperDataService { get; }
         public TestFriendWrapperDataService TestFriendWrapperDataService { get; }
@@ -121,8 +113,6 @@ namespace HVTApp.UI.Wrapper
         public TenderWrapperDataService TenderWrapperDataService { get; }
         public TenderTypeWrapperDataService TenderTypeWrapperDataService { get; }
         public UserWrapperDataService UserWrapperDataService { get; }
-        public OfferUnitWrapperDataService OfferUnitWrapperDataService { get; }
         public ProductBlockWrapperDataService ProductBlockWrapperDataService { get; }
-        public ProductCostUnitWrapperDataService ProductCostUnitWrapperDataService { get; }
     }
 }

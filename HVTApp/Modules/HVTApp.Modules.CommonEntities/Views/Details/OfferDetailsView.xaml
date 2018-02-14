@@ -138,7 +138,7 @@
                         <infWpf:TextField Name="Product" Label="Оборудование" />
                         <infWpf:NumericField Name="Amount" Label="Количество" Width="Auto"/>
                         <infWpf:NumericField Name="MarginalIncome" Label="МД, %" AllowEdit="True" Width="Auto"/>
-                        <infWpf:CurrencyField Name="Cost" Label="Стоимость" AllowEdit="True" Width="Auto"/>
+                        <infWpf:CurrencyField Name="CostOfShipment" Label="Стоимость" AllowEdit="True" Width="Auto"/>
                         <infWpf:CurrencyField Name="Total" Label="Сумма" Width="Auto"/>
                     </infWpf:FieldLayout.Fields>
                 </infWpf:FieldLayout>

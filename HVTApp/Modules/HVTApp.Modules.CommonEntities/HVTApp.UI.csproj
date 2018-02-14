@@ -100,7 +100,6 @@
     <Compile Include="Events\AfterSaveEntityEvents\AfterSaveEntityEvents.g.cs" />
     <Compile Include="Events\AfterSelectEntityEvents\AfterSelectEntityEvents.g.cs" />
     <Compile Include="Events\AfterSelectEntityEvents\PubSubEventArgs.cs" />
-    <Compile Include="Extantions\OfferUnitComparer.cs" />
     <Compile Include="Lookup\IProductUnitLookup.cs" />
     <Compile Include="Lookup\Items\Lookups.g.cs" />
     <Compile Include="Lookup\Service\ILookupDataServices.g.cs" />
@@ -113,13 +112,8 @@
     <Compile Include="ViewModels\BaseDetailsViewModel.cs" />
     <Compile Include="ViewModels\BaseListViewModel.cs" />
     <Compile Include="ViewModels\Details\GeneratedDetailsViewModels.g.cs" />
-    <Compile Include="ViewModels\Details\IGroupingProduct.cs" />
     <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Details\OfferUnitsGrouped.cs" />
-    <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Details\ProjectUnitsGrouped.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\ProjectUnitWrapper.cs" />
     <Compile Include="ViewModels\Details\UnitsGrouped.cs" />
     <Compile Include="ViewModels\IBaseListViewModel.cs" />
     <Compile Include="Controls\ChooseItemControl.xaml.cs">
@@ -166,7 +160,6 @@
     <Compile Include="ViewModels\List\GeneratedListViewModels.g.cs" />
     <Compile Include="ViewModels\List\PartPriceListViewModel.cs" />
     <Compile Include="ViewModels\List\ProjectUnitGroupListViewModel.cs" />
-    <Compile Include="Extantions\ProjectUnitComparer.cs" />
     <Compile Include="ViewModels\List\TenderUnitListViewModel.cs" />
     <Compile Include="Extantions\UnitConverters.cs" />
     <Compile Include="Views\Details\CompanyDetailsView.xaml.cs">
@@ -228,6 +221,9 @@
     <Compile Include="Views\List\ProjectUnitGroupListView.xaml.cs">
       <DependentUpon>ProjectUnitGroupListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\List\SalesUnitListView.xaml.cs">
+      <DependentUpon>SalesUnitListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\List\TenderListView.xaml.cs">
       <DependentUpon>TenderListView.xaml</DependentUpon>
     </Compile>
@@ -282,7 +278,6 @@
     <Compile Include="Wrapper\Custom\Functionality\CountryWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\DistrictWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\EmployeeWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\OfferUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\OfferWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ParameterWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\Price.cs" />
@@ -291,7 +286,6 @@
     <Compile Include="Wrapper\Custom\Functionality\ProductsUnitGroup.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProjectUnitGroupWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\ProductCostUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProjectWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\RegionWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\SalesUnitWrapper.cs" />
@@ -511,6 +505,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\List\ProjectUnitGroupListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\List\SalesUnitListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

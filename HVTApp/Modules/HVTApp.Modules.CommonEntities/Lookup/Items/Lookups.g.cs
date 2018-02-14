@@ -499,91 +499,31 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	public partial class ProjectUnitLookup : LookupItem<ProjectUnit>
+	public partial class SalesUnitLookup : LookupItem<SalesUnit>
 	{
-		public ProjectUnitLookup(ProjectUnit entity) : base(entity) 
+		public SalesUnitLookup(SalesUnit entity) : base(entity) 
 		{
 		}
 		protected override void RefreshLookups()
         {
-			 			ProductCostUnit?.Refresh(Entity.CommonUnit);
-			Project?.Refresh(Entity.Project);
-			Facility?.Refresh(Entity.Facility);
+			 			Facility?.Refresh(Entity.Facility);
 			Producer?.Refresh(Entity.Producer);
+			Order?.Refresh(Entity.Order);
+			Product?.Refresh(Entity.Product);
+			Specification?.Refresh(Entity.Specification);
+			Address?.Refresh(Entity.Address);
 		}
 		
         #region SimpleProperties
-        public System.Nullable<System.Guid> ProductCostUnitId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Nullable<System.Guid> ProjectId => GetValue<System.Nullable<System.Guid>>();
-
         public System.Nullable<System.Guid> FacilityId => GetValue<System.Nullable<System.Guid>>();
 
-        public System.Nullable<System.Guid> ProducerId => GetValue<System.Nullable<System.Guid>>();
+        public System.Nullable<System.Guid> OrderId => GetValue<System.Nullable<System.Guid>>();
 
-        public System.DateTime DeliveryDate => GetValue<System.DateTime>();
-
-        #endregion
-
-        #region ComplexProperties
-	    public ProductCostUnitLookup ProductCostUnit { get { return GetLookup<ProductCostUnitLookup>(); } }
-
-	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
-
-	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
-
-	    public CompanyLookup Producer { get { return GetLookup<CompanyLookup>(); } }
-
-        #endregion
-	}
-	public partial class ShipmentUnitLookup : LookupItem<ShipmentUnit>
-	{
-		public ShipmentUnitLookup(ShipmentUnit entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 			Address?.Refresh(Entity.Address);
-		}
-		
-        #region SimpleProperties
-        public System.Nullable<System.Guid> AddressId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Nullable<System.Int32> ExpectedDeliveryPeriod => GetValue<System.Nullable<System.Int32>>();
-
-        public System.Double Cost => GetValue<System.Double>();
-
-        public System.Nullable<System.DateTime> ShipmentDate => GetValue<System.Nullable<System.DateTime>>();
-
-        public System.Nullable<System.DateTime> ShipmentPlanDate => GetValue<System.Nullable<System.DateTime>>();
-
-        public System.Nullable<System.DateTime> RequiredDeliveryDate => GetValue<System.Nullable<System.DateTime>>();
-
-        public System.Nullable<System.DateTime> DeliveryDate => GetValue<System.Nullable<System.DateTime>>();
-
-        #endregion
-
-        #region ComplexProperties
-	    public AddressLookup Address { get { return GetLookup<AddressLookup>(); } }
-
-        #endregion
-	}
-	public partial class ProductionUnitLookup : LookupItem<ProductionUnit>
-	{
-		public ProductionUnitLookup(ProductionUnit entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 			Product?.Refresh(Entity.Product);
-		}
-		
-        #region SimpleProperties
         public System.Nullable<System.Guid> ProductId => GetValue<System.Nullable<System.Guid>>();
 
-        public System.Guid OrderId => GetValue<System.Guid>();
+        public System.Nullable<System.Guid> SpecificationId => GetValue<System.Nullable<System.Guid>>();
 
-        public System.Int32 OrderPosition => GetValue<System.Int32>();
+        public System.Nullable<System.Guid> AddressId => GetValue<System.Nullable<System.Guid>>();
 
         public System.String SerialNumber => GetValue<System.String>();
 
@@ -599,49 +539,36 @@ namespace HVTApp.UI.Lookup
 
         public System.Nullable<System.DateTime> EndProductionDateByPlan => GetValue<System.Nullable<System.DateTime>>();
 
-        #endregion
-
-        #region ComplexProperties
-	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
-
-        #endregion
-	}
-	public partial class SalesUnitLookup : LookupItem<SalesUnit>
-	{
-		public SalesUnitLookup(SalesUnit entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 			OfferUnit?.Refresh(Entity.OfferUnit);
-			ProductionUnit?.Refresh(Entity.ProductionUnit);
-			ShipmentUnit?.Refresh(Entity.ShipmentUnit);
-			Specification?.Refresh(Entity.Specification);
-		}
-		
-        #region SimpleProperties
-        public System.Nullable<System.Guid> OfferUnitId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Nullable<System.Guid> ProductionUnitId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Nullable<System.Guid> ShipmentUnitId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Nullable<System.Guid> SpecificationId => GetValue<System.Nullable<System.Guid>>();
-
         public System.Double Cost => GetValue<System.Double>();
+
+        public System.Nullable<System.Int32> ExpectedDeliveryPeriod => GetValue<System.Nullable<System.Int32>>();
+
+        public System.Double CostOfShipment => GetValue<System.Double>();
+
+        public System.Nullable<System.DateTime> ShipmentDate => GetValue<System.Nullable<System.DateTime>>();
+
+        public System.Nullable<System.DateTime> ShipmentPlanDate => GetValue<System.Nullable<System.DateTime>>();
+
+        public System.Nullable<System.DateTime> RequiredDeliveryDate => GetValue<System.Nullable<System.DateTime>>();
+
+        public System.Nullable<System.DateTime> DeliveryDate => GetValue<System.Nullable<System.DateTime>>();
 
         public System.Nullable<System.DateTime> RealizationDate => GetValue<System.Nullable<System.DateTime>>();
 
         #endregion
 
         #region ComplexProperties
-	    public OfferUnitLookup OfferUnit { get { return GetLookup<OfferUnitLookup>(); } }
+	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
 
-	    public ProductionUnitLookup ProductionUnit { get { return GetLookup<ProductionUnitLookup>(); } }
+	    public CompanyLookup Producer { get { return GetLookup<CompanyLookup>(); } }
 
-	    public ShipmentUnitLookup ShipmentUnit { get { return GetLookup<ShipmentUnitLookup>(); } }
+	    public OrderLookup Order { get { return GetLookup<OrderLookup>(); } }
+
+	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 	    public SpecificationLookup Specification { get { return GetLookup<SpecificationLookup>(); } }
+
+	    public AddressLookup Address { get { return GetLookup<AddressLookup>(); } }
 
         #endregion
 	}
@@ -1294,43 +1221,6 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	public partial class OfferUnitLookup : LookupItem<OfferUnit>
-	{
-		public OfferUnitLookup(OfferUnit entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 			Offer?.Refresh(Entity.Offer);
-			ProjectUnit?.Refresh(Entity.ProjectUnit);
-			Facility?.Refresh(Entity.Facility);
-			ProductCostUnit?.Refresh(Entity.CommonUnit);
-		}
-		
-        #region SimpleProperties
-        public System.Nullable<System.Guid> OfferId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Nullable<System.Guid> ProjectUnitId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Nullable<System.Guid> FacilityId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Nullable<System.Guid> ProductCostUnitId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Int32 ProductionTerm => GetValue<System.Int32>();
-
-        #endregion
-
-        #region ComplexProperties
-	    public OfferLookup Offer { get { return GetLookup<OfferLookup>(); } }
-
-	    public ProjectUnitLookup ProjectUnit { get { return GetLookup<ProjectUnitLookup>(); } }
-
-	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
-
-	    public ProductCostUnitLookup ProductCostUnit { get { return GetLookup<ProductCostUnitLookup>(); } }
-
-        #endregion
-	}
 	public partial class ProductBlockLookup : LookupItem<ProductBlock>
 	{
 		public ProductBlockLookup(ProductBlock entity) : base(entity) 
@@ -1344,28 +1234,6 @@ namespace HVTApp.UI.Lookup
         public System.String Name => GetValue<System.String>();
 
         public System.String StructureCostNumber => GetValue<System.String>();
-
-        #endregion
-	}
-	public partial class ProductCostUnitLookup : LookupItem<CommonUnit>
-	{
-		public ProductCostUnitLookup(CommonUnit entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 			Product?.Refresh(Entity.Product);
-		}
-		
-        #region SimpleProperties
-        public System.Nullable<System.Guid> ProductId => GetValue<System.Nullable<System.Guid>>();
-
-        public System.Double Cost => GetValue<System.Double>();
-
-        #endregion
-
-        #region ComplexProperties
-	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
         #endregion
 	}

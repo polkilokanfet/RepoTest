@@ -71,7 +71,6 @@
     <Compile Include="EntityTypeConfigurations\Custom\FacilityConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\FacilityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductBlockConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\ProductCostUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TenderTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TestHusbandConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Generated\Configurations.g.cs" />
@@ -82,7 +81,6 @@
     <Compile Include="EntityTypeConfigurations\Custom\RegionConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\LocalityConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\LocalityTypeConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\OfferUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PersonConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\OfferConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TenderConfiguration.cs" />
@@ -99,10 +97,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\ProductItemConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\OrderConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PaymentPlannedConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\ProductionUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\SalesUnitConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\ShipmentUnitConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\ProjectUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\RequiredDependentEquipmentsParametersConfiguration.cs" />
     <Compile Include="HvtAppDataBaseInitializer.g.cs" />
     <Compile Include="Properties\Annotations.cs" />

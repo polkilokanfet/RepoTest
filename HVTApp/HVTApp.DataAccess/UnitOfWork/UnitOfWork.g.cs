@@ -38,9 +38,6 @@ namespace HVTApp.DataAccess
             PaymentPlannedRepository = new PaymentPlannedRepository(context);
             PaymentActualRepository = new PaymentActualRepository(context);
             ParameterRelationRepository = new ParameterRelationRepository(context);
-            ProjectUnitRepository = new ProjectUnitRepository(context);
-            ShipmentUnitRepository = new ShipmentUnitRepository(context);
-            ProductionUnitRepository = new ProductionUnitRepository(context);
             SalesUnitRepository = new SalesUnitRepository(context);
             TestFriendAddressRepository = new TestFriendAddressRepository(context);
             TestFriendRepository = new TestFriendRepository(context);
@@ -68,9 +65,7 @@ namespace HVTApp.DataAccess
             TenderRepository = new TenderRepository(context);
             TenderTypeRepository = new TenderTypeRepository(context);
             UserRepository = new UserRepository(context);
-            OfferUnitRepository = new OfferUnitRepository(context);
             ProductBlockRepository = new ProductBlockRepository(context);
-            ProductCostUnitRepository = new ProductCostUnitRepository(context);
 			#endregion
         }
 
@@ -101,9 +96,6 @@ namespace HVTApp.DataAccess
         private IPaymentPlannedRepository PaymentPlannedRepository;
         private IPaymentActualRepository PaymentActualRepository;
         private IParameterRelationRepository ParameterRelationRepository;
-        private IProjectUnitRepository ProjectUnitRepository;
-        private IShipmentUnitRepository ShipmentUnitRepository;
-        private IProductionUnitRepository ProductionUnitRepository;
         private ISalesUnitRepository SalesUnitRepository;
         private ITestFriendAddressRepository TestFriendAddressRepository;
         private ITestFriendRepository TestFriendRepository;
@@ -131,9 +123,7 @@ namespace HVTApp.DataAccess
         private ITenderRepository TenderRepository;
         private ITenderTypeRepository TenderTypeRepository;
         private IUserRepository UserRepository;
-        private IOfferUnitRepository OfferUnitRepository;
         private IProductBlockRepository ProductBlockRepository;
-        private IProductCostUnitRepository ProductCostUnitRepository;
         #endregion
     }
 }

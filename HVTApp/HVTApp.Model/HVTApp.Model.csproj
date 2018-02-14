@@ -73,10 +73,6 @@
     <Compile Include="POCOs\Person.cs" />
     <Compile Include="POCOs\Payments.cs" />
     <Compile Include="POCOs\ParameterRelation.cs" />
-    <Compile Include="POCOs\Units\CommonUnit.cs" />
-    <Compile Include="POCOs\Units\ProjectUnit.cs" />
-    <Compile Include="POCOs\Units\ShipmentUnit.cs" />
-    <Compile Include="POCOs\Units\ProductionUnit.cs" />
     <Compile Include="POCOs\Units\SalesUnit.cs" />
     <Compile Include="POCOs\Test\TestFriendAddress.cs" />
     <Compile Include="POCOs\Test\TestFriend.cs" />
@@ -98,7 +94,6 @@
     <Compile Include="POCOs\Specification.cs" />
     <Compile Include="POCOs\Tender.cs" />
     <Compile Include="POCOs\User.cs" />
-    <Compile Include="POCOs\Units\OfferUnit.cs" />
     <Compile Include="Generator.cs">
       <DependentUpon>Generator.tt</DependentUpon>
       <AutoGen>True</AutoGen>

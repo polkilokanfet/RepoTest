@@ -14,7 +14,7 @@
 
         <views:ProjectListView Name="ProjectListView" Grid.Row="0" DataContext="{Binding ProjectListViewModel}"/>
         <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
-        <views:ProjectUnitGroupListView Name="ProjectUnitListView" Grid.Row="2" DataContext="{Binding ProjectUnitListViewModel}"/>
+        <views:SalesUnitListView Name="SalesUnitListView" Grid.Row="2" DataContext="{Binding SalesUnitListViewModel}"/>
 
     </Grid>
 

@@ -18,13 +18,13 @@
             <infg:FieldLayout Key="Product">
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Designation" Label="Наименование"/>
-                    <infg:TextField Name="StructureCostNumber" Label="StructureCostNumber"/>
+                    <infg:TextField Name="StructureCostOfShipmentNumber" Label="StructureCostOfShipmentNumber"/>
                     <infg:Field Name="Prices" IsExpandable="True" IsPrimary="True"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
             
             <infg:FieldLayout Key="Price" ParentFieldName="Prices" ParentFieldLayoutKey="Product">
-                <infg:NumericField Name="Cost" Label="Стоимость"/>
+                <infg:NumericField Name="CostOfShipment" Label="Стоимость"/>
                 <infg:DateTimeField Name="Date" Label="Дата"/>
             </infg:FieldLayout>
 

@@ -9,7 +9,6 @@ namespace HVTApp.DataAccess
         {
             Property(x => x.Number).IsRequired().HasMaxLength(10);
             Property(x => x.OpenOrderDate).IsRequired();
-            HasMany(x => x.ProductionUnits).WithOptional().HasForeignKey(x => x.OrderId);
         }
     }
 }

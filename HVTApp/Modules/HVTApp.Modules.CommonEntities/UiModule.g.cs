@@ -136,21 +136,6 @@ namespace HVTApp.UI
 			_selectService.Register<ParameterRelationListView, ParameterRelationLookup>();
             _updateDetailsService.Register<ParameterRelation, ParameterRelationDetailsView>();
 
-            Container.RegisterViewForNavigation<ProjectUnitListView>();
-            //_dialogService.Register<ProjectUnitDetailsViewModel, ProjectUnitDetailsView>();
-			_selectService.Register<ProjectUnitListView, ProjectUnitLookup>();
-            _updateDetailsService.Register<ProjectUnit, ProjectUnitDetailsView>();
-
-            Container.RegisterViewForNavigation<ShipmentUnitListView>();
-            //_dialogService.Register<ShipmentUnitDetailsViewModel, ShipmentUnitDetailsView>();
-			_selectService.Register<ShipmentUnitListView, ShipmentUnitLookup>();
-            _updateDetailsService.Register<ShipmentUnit, ShipmentUnitDetailsView>();
-
-            Container.RegisterViewForNavigation<ProductionUnitListView>();
-            //_dialogService.Register<ProductionUnitDetailsViewModel, ProductionUnitDetailsView>();
-			_selectService.Register<ProductionUnitListView, ProductionUnitLookup>();
-            _updateDetailsService.Register<ProductionUnit, ProductionUnitDetailsView>();
-
             Container.RegisterViewForNavigation<SalesUnitListView>();
             //_dialogService.Register<SalesUnitDetailsViewModel, SalesUnitDetailsView>();
 			_selectService.Register<SalesUnitListView, SalesUnitLookup>();
@@ -286,20 +271,10 @@ namespace HVTApp.UI
 			_selectService.Register<UserListView, UserLookup>();
             _updateDetailsService.Register<User, UserDetailsView>();
 
-            Container.RegisterViewForNavigation<OfferUnitListView>();
-            //_dialogService.Register<OfferUnitDetailsViewModel, OfferUnitDetailsView>();
-			_selectService.Register<OfferUnitListView, OfferUnitLookup>();
-            _updateDetailsService.Register<OfferUnit, OfferUnitDetailsView>();
-
             Container.RegisterViewForNavigation<ProductBlockListView>();
             //_dialogService.Register<ProductBlockDetailsViewModel, ProductBlockDetailsView>();
 			_selectService.Register<ProductBlockListView, ProductBlockLookup>();
             _updateDetailsService.Register<ProductBlock, ProductBlockDetailsView>();
-
-            Container.RegisterViewForNavigation<ProductCostUnitListView>();
-            //_dialogService.Register<ProductCostUnitDetailsViewModel, ProductCostUnitDetailsView>();
-			_selectService.Register<ProductCostUnitListView, ProductCostUnitLookup>();
-            _updateDetailsService.Register<CommonUnit, ProductCostUnitDetailsView>();
 
 		}
 	}

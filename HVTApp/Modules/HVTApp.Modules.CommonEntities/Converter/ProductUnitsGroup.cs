@@ -13,7 +13,7 @@ namespace HVTApp.UI.Converter
         public ProductUnitsGroup(IEnumerable<IProductUnit> productUnits)
         {
             ProductUnits = new List<IProductUnit>(productUnits);
-            //_marginalIncome = (1 - Product.GetPrice() / Cost) * 100;
+            //_marginalIncome = (1 - Product.GetPrice() / CostOfShipment) * 100;
         }
 
         public List<IProductUnit> ProductUnits { get; }
@@ -71,7 +71,7 @@ namespace HVTApp.UI.Converter
                 if (value >= 100) return;
 
                 _marginalIncome = value;
-                //Cost = Product.GetPrice() / (1 - value / 100);
+                //CostOfShipment = Product.GetPrice() / (1 - value / 100);
                 OnPropertyChanged();
             }
         }

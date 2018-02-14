@@ -19,8 +19,8 @@ namespace HVTApp.UI.Wrapper
         //        case nameof(this.Product):
         //            ProjectUnits.ForEach(x => x.Product = Product);
         //            break;
-        //        case nameof(this.Cost):
-        //            ProjectUnits.ForEach(x => x.Cost = Cost);
+        //        case nameof(this.CostOfShipment):
+        //            ProjectUnits.ForEach(x => x.CostOfShipment = CostOfShipment);
         //            break;
         //        case nameof(this.Facility):
         //            ProjectUnits.ForEach(x => x.Facility = Facility);

@@ -130,21 +130,6 @@ namespace HVTApp.UI.ViewModels
         public ParameterRelationDetailsViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class ProjectUnitDetailsViewModel : BaseDetailsViewModel<ProjectUnitWrapper, ProjectUnit, AfterSaveProjectUnitEvent>
-    {
-        public ProjectUnitDetailsViewModel(IUnityContainer container) : base(container) { }
-    }
-
-    public partial class ShipmentUnitDetailsViewModel : BaseDetailsViewModel<ShipmentUnitWrapper, ShipmentUnit, AfterSaveShipmentUnitEvent>
-    {
-        public ShipmentUnitDetailsViewModel(IUnityContainer container) : base(container) { }
-    }
-
-    public partial class ProductionUnitDetailsViewModel : BaseDetailsViewModel<ProductionUnitWrapper, ProductionUnit, AfterSaveProductionUnitEvent>
-    {
-        public ProductionUnitDetailsViewModel(IUnityContainer container) : base(container) { }
-    }
-
     public partial class SalesUnitDetailsViewModel : BaseDetailsViewModel<SalesUnitWrapper, SalesUnit, AfterSaveSalesUnitEvent>
     {
         public SalesUnitDetailsViewModel(IUnityContainer container) : base(container) { }
@@ -280,19 +265,9 @@ namespace HVTApp.UI.ViewModels
         public UserDetailsViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class OfferUnitDetailsViewModel : BaseDetailsViewModel<OfferUnitWrapper, OfferUnit, AfterSaveOfferUnitEvent>
-    {
-        public OfferUnitDetailsViewModel(IUnityContainer container) : base(container) { }
-    }
-
     public partial class ProductBlockDetailsViewModel : BaseDetailsViewModel<ProductBlockWrapper, ProductBlock, AfterSaveProductBlockEvent>
     {
         public ProductBlockDetailsViewModel(IUnityContainer container) : base(container) { }
-    }
-
-    public partial class ProductCostUnitDetailsViewModel : BaseDetailsViewModel<ProductCostUnitWrapper, CommonUnit, AfterSaveProductCostUnitEvent>
-    {
-        public ProductCostUnitDetailsViewModel(IUnityContainer container) : base(container) { }
     }
 
 }
