@@ -19,23 +19,6 @@ using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
-        public class SalesUnitComparer : IEqualityComparer<SalesUnitWrapper>
-        {
-            public bool Equals(SalesUnitWrapper x, SalesUnitWrapper y)
-            {
-                return x != null &&
-                       y != null &&
-                       x.Product.Id == y.Product.Id &&
-                       x.Facility.Id == y.Facility.Id;
-
-            }
-
-            public int GetHashCode(SalesUnitWrapper salesUnitWrapper)
-            {
-                return salesUnitWrapper.Product.Id.GetHashCode() + salesUnitWrapper.Facility.Id.GetHashCode();
-            }
-        }
-
     public class ProjectUnitGroup : IProjectUnit, INotifyPropertyChanged
     {
 
@@ -105,7 +88,11 @@ namespace HVTApp.UI.ViewModels
             ProjectUnits.Clear();
 
             var salesUnits = Item.SalesUnits;
-            var salesUnitsGrouped = salesUnits.GroupBy(x => x, new SalesUnitComparer());
+            var salesUnitsGrouped = salesUnits.GroupBy(x => x, new SalesUnitComparer(new []
+            {
+                nameof(SalesUnitWrapper.ProductId),
+                nameof(SalesUnitWrapper.FacilityId)
+            }));
             foreach (var group in salesUnitsGrouped)
             {
                 var projectUnitsGroup = new ProjectUnitGroup(group);
