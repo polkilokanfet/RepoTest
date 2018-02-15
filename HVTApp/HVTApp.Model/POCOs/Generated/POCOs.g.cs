@@ -3,6 +3,10 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
+	public partial class CommonOption
+	{
+	}
+
 	public partial class Address
 	{
 		public virtual Guid? LocalityId { get; set; }

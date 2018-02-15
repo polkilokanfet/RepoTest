@@ -5,10 +5,13 @@ namespace HVTApp.Model.POCOs
 {
     public partial class PaymentCondition : BaseEntity, IComparable<PaymentCondition>
     {
-        public double Part { get; set; } 
+        public double Part { get; set; }
         public int DaysToPoint { get; set; } // Дней до связанной с платежом точки.
         public virtual PaymentConditionPoint PaymentConditionPoint { get; set; } // Связанная с платежом точка.
+    }
 
+    public partial class PaymentCondition
+    {
         public override string ToString()
         {
             return $"PaymentConditionPoint: {PaymentConditionPoint}, DaysToPoint: {DaysToPoint}, Part: {Part}";

@@ -5,6 +5,11 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.ViewModels
 {
+    public partial class CommonOptionDetailsViewModel : BaseDetailsViewModel<CommonOptionWrapper, CommonOption, AfterSaveCommonOptionEvent>
+    {
+        public CommonOptionDetailsViewModel(IUnityContainer container) : base(container) { }
+    }
+
     public partial class AddressDetailsViewModel : BaseDetailsViewModel<AddressWrapper, Address, AfterSaveAddressEvent>
     {
         public AddressDetailsViewModel(IUnityContainer container) : base(container) { }

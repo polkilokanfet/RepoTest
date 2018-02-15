@@ -2,6 +2,26 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Lookup
 {
+	public partial class CommonOptionLookup : LookupItem<CommonOption>
+	{
+		public CommonOptionLookup(CommonOption entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 		}
+		
+        #region SimpleProperties
+        public System.Guid OurCompanyId => GetValue<System.Guid>();
+
+        public System.Int32 CalculationPriceTerm => GetValue<System.Int32>();
+
+        public System.Int32 StandartTermFromStartToEndProduction => GetValue<System.Int32>();
+
+        public System.Int32 StandartTermFromPickToEndProduction => GetValue<System.Int32>();
+
+        #endregion
+	}
 	public partial class AddressLookup : LookupItem<Address>
 	{
 		public AddressLookup(Address entity) : base(entity) 
@@ -516,6 +536,8 @@ namespace HVTApp.UI.Lookup
 		
         #region SimpleProperties
         public System.Nullable<System.Guid> FacilityId => GetValue<System.Nullable<System.Guid>>();
+
+        public System.Nullable<System.Guid> ProducerId => GetValue<System.Nullable<System.Guid>>();
 
         public System.Nullable<System.Guid> OrderId => GetValue<System.Nullable<System.Guid>>();
 

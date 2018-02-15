@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
@@ -12,26 +13,22 @@ namespace HVTApp.Modules.Sales.ViewModels
     public class MarketViewModel : BindableBase
     {
         public ProjectListViewModel ProjectListViewModel { get; }
-        public SalesUnitListViewModel SalesUnitListViewModel { get; }
+        public ProjectDetailsViewModel ProjectDetailsViewModel { get; }
 
         private readonly IUnitOfWork _unitOfWork;
 
-        public MarketViewModel(IUnitOfWork unitOfWork, ProjectListViewModel projectListViewModel, SalesUnitListViewModel salesUnitListViewModel)
+        public MarketViewModel(IUnitOfWork unitOfWork, ProjectListViewModel projectListViewModel, ProjectDetailsViewModel projectDetailsViewModel)
         {
             ProjectListViewModel = projectListViewModel;
-            SalesUnitListViewModel = salesUnitListViewModel;
+            ProjectDetailsViewModel = projectDetailsViewModel;
             _unitOfWork = unitOfWork;
 
-            ProjectListViewModel.PropertyChanged += ProjectListViewModelOnPropertyChanged;
+            ProjectListViewModel.SelectedLookupChanged += ProjectListViewModelOnSelectedLookupChanged;
         }
 
-        private async void ProjectListViewModelOnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        private async void ProjectListViewModelOnSelectedLookupChanged(ProjectLookup projectLookup)
         {
-            if (args.PropertyName != nameof(ProjectListViewModel.SelectedLookup)) return;
-
-            var salesUnits = ProjectListViewModel.SelectedLookup.Entity.SalesUnits;
-            await SalesUnitListViewModel.LoadAsync(salesUnits.Select(x => new SalesUnitLookup(x)));
-
+            await ProjectDetailsViewModel.LoadAsync(projectLookup.Entity);
         }
     }
 }

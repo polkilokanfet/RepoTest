@@ -3,6 +3,11 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
+    public partial class CommonOptionRepository : BaseRepository<CommonOption>, ICommonOptionRepository
+    {
+        public CommonOptionRepository(DbContext context) : base(context) {}
+    }
+
     public partial class AddressRepository : BaseRepository<Address>, IAddressRepository
     {
         public AddressRepository(DbContext context) : base(context) {}

@@ -21,7 +21,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
-        <Label Content="CostOfShipment:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+        <Label Content="Cost:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
         <infg:XamNumericEditor Grid.Row="0" Grid.Column="1"  
                                Value="{Binding Item.Cost}"/>
         

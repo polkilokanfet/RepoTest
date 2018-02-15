@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Linq;
 using Microsoft.Practices.Unity;
 using Prism.Unity;
 using HVTApp.Views;
@@ -11,6 +12,7 @@ using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.BaseEntities;
 using HVTApp.Modules.Production;
@@ -42,8 +44,16 @@ namespace HVTApp
             return Container.Resolve<MainWindow>();
         }
 
-        protected override void InitializeShell()
+        protected override async void InitializeShell()
         {
+            var commonOptions = await Container.Resolve<IUnitOfWork>().GetRepository<CommonOption>().GetAllAsync();
+            var commonOption = commonOptions.First();
+            CommonOptions.OurCompanyId = commonOption.OurCompanyId;
+            CommonOptions.CalculationPriceTerm = commonOption.CalculationPriceTerm;
+            CommonOptions.StandartPaymentsConditions = commonOption.StandartPaymentsConditions;
+            CommonOptions.StandartTermFromStartToEndProduction = commonOption.StandartTermFromStartToEndProduction;
+            CommonOptions.StandartTermFromPickToEndProduction = commonOption.StandartTermFromPickToEndProduction;
+
             //AuthenticationService authenticationService = (AuthenticationService)Container.Resolve<IAuthenticationService>();
             //if (!authenticationService.AuthenticationAsync())
             //    Application.Current.Shutdown();

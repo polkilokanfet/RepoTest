@@ -7,6 +7,15 @@ using System.Windows;
 
 namespace HVTApp.UI.Views
 {
+    public partial class CommonOptionDetailsView : ViewBase
+    {
+        public CommonOptionDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CommonOptionDetailsViewModel CommonOptionDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = CommonOptionDetailsViewModel;
+        }
+    }
+
     public partial class AddressDetailsView : ViewBase
     {
         public AddressDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, AddressDetailsViewModel AddressDetailsViewModel) : base(regionManager, eventAggregator)

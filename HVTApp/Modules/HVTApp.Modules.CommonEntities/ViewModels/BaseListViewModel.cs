@@ -92,9 +92,12 @@ namespace HVTApp.UI.ViewModels
                 _selectedLookup = value;
                 OnPropertyChanged();
                 InvalidateCommands();
+                SelectedLookupChanged?.Invoke(_selectedLookup);
                 Container.Resolve<IEventAggregator>().GetEvent<TAfterSelectEntityEvent>().Publish(new PubSubEventArgs<TEntity>(this, value?.Entity));
             }
         }
+
+        public event Action<TLookup> SelectedLookupChanged; 
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
 

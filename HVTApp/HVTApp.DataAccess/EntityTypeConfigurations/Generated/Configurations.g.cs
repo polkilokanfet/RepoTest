@@ -3,6 +3,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
+    public partial class CommonOptionConfiguration : EntityTypeConfiguration<CommonOption> { }
     public partial class AddressConfiguration : EntityTypeConfiguration<Address> { }
     public partial class CountryConfiguration : EntityTypeConfiguration<Country> { }
     public partial class DistrictConfiguration : EntityTypeConfiguration<District> { }

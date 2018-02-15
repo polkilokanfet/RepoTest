@@ -4,6 +4,11 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Lookup
 {
+    public partial class CommonOptionLookupDataService : LookupDataService<CommonOptionLookup, CommonOption>, ICommonOptionLookupDataService
+    {
+        public CommonOptionLookupDataService(HvtAppContext context) : base(context) { }
+    }
+
     public partial class AddressLookupDataService : LookupDataService<AddressLookup, Address>, IAddressLookupDataService
     {
         public AddressLookupDataService(HvtAppContext context) : base(context) { }

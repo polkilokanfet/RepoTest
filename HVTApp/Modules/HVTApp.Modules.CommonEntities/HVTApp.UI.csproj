@@ -112,8 +112,10 @@
     <Compile Include="ViewModels\BaseDetailsViewModel.cs" />
     <Compile Include="ViewModels\BaseListViewModel.cs" />
     <Compile Include="ViewModels\Details\GeneratedDetailsViewModels.g.cs" />
+    <Compile Include="ViewModels\Details\IProjectUnit.cs" />
     <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\ProjectUnitGroup.cs" />
     <Compile Include="ViewModels\Details\SalesUnitComparer.cs" />
     <Compile Include="ViewModels\Details\UnitsGrouped.cs" />
     <Compile Include="ViewModels\IBaseListViewModel.cs" />
@@ -213,6 +215,9 @@
     <Compile Include="Views\List\PaymentListView.xaml.cs">
       <DependentUpon>PaymentListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\List\PaymentPlannedListView.xaml.cs">
+      <DependentUpon>PaymentPlannedListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\List\ProductBlockListView.xaml.cs">
       <DependentUpon>ProductBlockListView.xaml</DependentUpon>
     </Compile>
@@ -283,14 +288,11 @@
     <Compile Include="Wrapper\Custom\Functionality\ParameterWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\Price.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductBlockWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\ProductionUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductsUnitGroup.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\ProjectUnitGroupWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProjectWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\RegionWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\SalesUnitWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\ShipmentUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\SpecificationWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\TenderWrapper.cs" />
     <Compile Include="Wrapper\Custom\IProductWithCost.cs" />
@@ -399,6 +401,10 @@
       <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
       <Name>HVTApp.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\HVTApp.Model.Services\HVTApp.Model.Services.csproj">
+      <Project>{11BFFD1C-4CE0-4B15-9B07-902DB9E0FF19}</Project>
+      <Name>HVTApp.Model.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\HVTApp.Model\HVTApp.Model.csproj">
       <Project>{350bdab0-b331-426f-a024-004c8539af17}</Project>
       <Name>HVTApp.Model</Name>
@@ -496,6 +502,10 @@
     <Page Include="Views\List\PaymentListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\PaymentPlannedListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\List\ProductBlockListView.xaml">
       <SubType>Designer</SubType>

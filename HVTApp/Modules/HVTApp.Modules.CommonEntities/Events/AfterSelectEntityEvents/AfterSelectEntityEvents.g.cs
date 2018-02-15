@@ -3,6 +3,7 @@ using Prism.Events;
 
 namespace HVTApp.UI.Events
 {
+	public partial class AfterSelectCommonOptionEvent : PubSubEvent<PubSubEventArgs<CommonOption>> { }
 	public partial class AfterSelectAddressEvent : PubSubEvent<PubSubEventArgs<Address>> { }
 	public partial class AfterSelectCountryEvent : PubSubEvent<PubSubEventArgs<Country>> { }
 	public partial class AfterSelectDistrictEvent : PubSubEvent<PubSubEventArgs<District>> { }

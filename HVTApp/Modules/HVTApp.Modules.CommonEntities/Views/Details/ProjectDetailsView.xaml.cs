@@ -2,5 +2,9 @@
 {
     public partial class ProjectDetailsView
     {
+        public ProjectDetailsView()
+        {
+            InitializeComponent();
+        }
     }
 }

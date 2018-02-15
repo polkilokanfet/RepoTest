@@ -6,6 +6,7 @@ namespace HVTApp.UI.Wrapper
     {
         public WrapperDataService(IUnitOfWork unitOfWork)
         {
+            CommonOptionWrapperDataService = new CommonOptionWrapperDataService(unitOfWork);
             AddressWrapperDataService = new AddressWrapperDataService(unitOfWork);
             CountryWrapperDataService = new CountryWrapperDataService(unitOfWork);
             DistrictWrapperDataService = new DistrictWrapperDataService(unitOfWork);
@@ -61,6 +62,7 @@ namespace HVTApp.UI.Wrapper
             ProductBlockWrapperDataService = new ProductBlockWrapperDataService(unitOfWork);
         }
 
+        public CommonOptionWrapperDataService CommonOptionWrapperDataService { get; }
         public AddressWrapperDataService AddressWrapperDataService { get; }
         public CountryWrapperDataService CountryWrapperDataService { get; }
         public DistrictWrapperDataService DistrictWrapperDataService { get; }

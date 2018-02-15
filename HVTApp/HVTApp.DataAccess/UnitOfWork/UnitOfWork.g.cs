@@ -13,6 +13,7 @@ namespace HVTApp.DataAccess
         {
             _context = context;
 			#region RepositoriesInit
+            CommonOptionRepository = new CommonOptionRepository(context);
             AddressRepository = new AddressRepository(context);
             CountryRepository = new CountryRepository(context);
             DistrictRepository = new DistrictRepository(context);
@@ -71,6 +72,7 @@ namespace HVTApp.DataAccess
 
 
         #region Repositories
+        private ICommonOptionRepository CommonOptionRepository;
         private IAddressRepository AddressRepository;
         private ICountryRepository CountryRepository;
         private IDistrictRepository DistrictRepository;

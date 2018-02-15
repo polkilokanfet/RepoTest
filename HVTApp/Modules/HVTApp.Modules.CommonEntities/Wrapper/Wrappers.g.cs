@@ -4,7 +4,69 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Wrapper
 {
-	public partial class AddressWrapper : WrapperBase<Address>
+	public partial class CommonOptionWrapper : WrapperBase<CommonOption>
+	{
+	    public CommonOptionWrapper(CommonOption model) : base(model) { }
+
+	
+        #region SimpleProperties
+        public System.Guid OurCompanyId
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid OurCompanyIdOriginalValue => GetOriginalValue<System.Guid>(nameof(OurCompanyId));
+        public bool OurCompanyIdIsChanged => GetIsChanged(nameof(OurCompanyId));
+
+        public System.Int32 CalculationPriceTerm
+        {
+          get { return GetValue<System.Int32>(); }
+          set { SetValue(value); }
+        }
+        public System.Int32 CalculationPriceTermOriginalValue => GetOriginalValue<System.Int32>(nameof(CalculationPriceTerm));
+        public bool CalculationPriceTermIsChanged => GetIsChanged(nameof(CalculationPriceTerm));
+
+        public System.Int32 StandartTermFromStartToEndProduction
+        {
+          get { return GetValue<System.Int32>(); }
+          set { SetValue(value); }
+        }
+        public System.Int32 StandartTermFromStartToEndProductionOriginalValue => GetOriginalValue<System.Int32>(nameof(StandartTermFromStartToEndProduction));
+        public bool StandartTermFromStartToEndProductionIsChanged => GetIsChanged(nameof(StandartTermFromStartToEndProduction));
+
+        public System.Int32 StandartTermFromPickToEndProduction
+        {
+          get { return GetValue<System.Int32>(); }
+          set { SetValue(value); }
+        }
+        public System.Int32 StandartTermFromPickToEndProductionOriginalValue => GetOriginalValue<System.Int32>(nameof(StandartTermFromPickToEndProduction));
+        public bool StandartTermFromPickToEndProductionIsChanged => GetIsChanged(nameof(StandartTermFromPickToEndProduction));
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region CollectionProperties
+        public IValidatableChangeTrackingCollection<PaymentConditionWrapper> StandartPaymentsConditions { get; private set; }
+
+        #endregion
+  
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.StandartPaymentsConditions == null) throw new ArgumentException("StandartPaymentsConditions cannot be null");
+          StandartPaymentsConditions = new ValidatableChangeTrackingCollection<PaymentConditionWrapper>(Model.StandartPaymentsConditions.Select(e => new PaymentConditionWrapper(e)));
+          RegisterCollection(StandartPaymentsConditions, Model.StandartPaymentsConditions);
+
+        }
+	}
+
+		public partial class AddressWrapper : WrapperBase<Address>
 	{
 	    public AddressWrapper(Address model) : base(model) { }
 
@@ -1270,6 +1332,14 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Nullable<System.Guid> FacilityIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(FacilityId));
         public bool FacilityIdIsChanged => GetIsChanged(nameof(FacilityId));
+
+        public System.Nullable<System.Guid> ProducerId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> ProducerIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(ProducerId));
+        public bool ProducerIdIsChanged => GetIsChanged(nameof(ProducerId));
 
         public System.Nullable<System.Guid> OrderId
         {

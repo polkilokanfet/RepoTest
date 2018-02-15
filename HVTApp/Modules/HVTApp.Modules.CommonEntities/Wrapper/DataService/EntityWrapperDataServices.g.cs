@@ -4,6 +4,21 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Wrapper
 {
+    public partial class CommonOptionWrapperDataService : EntityWrapperDataService<CommonOption, CommonOptionWrapper>
+    {
+        public CommonOptionWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		
+		protected override CommonOptionWrapper GenerateWrapper(CommonOption model)
+        {
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new CommonOptionWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
+        }
+    }
+
     public partial class AddressWrapperDataService : EntityWrapperDataService<Address, AddressWrapper>
     {
         public AddressWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }

@@ -3,29 +3,50 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.NetworkInformation;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.UI.ViewModels;
 
 namespace HVTApp.UI.Wrapper
 {
     public partial class SalesUnitWrapper : IProjectUnit
     {
+        public int Amount => 1;
+
         protected override void RunInConstructor()
         {
-            this.PropertyChanged += OnMarginalIncomeOnPropertyChanged;
-            this.PropertyChanged += OnMarginalIncomeInPercentChanged;
             this.PropertyChanged += OnSpecificationChanged;
 
             this.PaymentsActual.CollectionChanged += PaymentsActualOnCollectionChanged;
             this.PaymentsActual.PropertyChanged += PaymentActualOnChanged;
+
+            PriceDate = DateTime.Today;
+            this.PropertyChanged += OnCostChanged;
+            this.PropertyChanged += OnProductChanged;
         }
 
-
         #region OnEvents
+
+        private void OnProductChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Product))
+            {
+                OnPropertyChanged(nameof(MarginalIncome));
+                OnPropertyChanged(nameof(PriceErrors));
+            }
+        }
+
         //реакция на изменение стоимости
         private void OnCostChanged(object sender, PropertyChangedEventArgs e)
         {
-            ReloadPaymentsPlannedLight();
+            if (e.PropertyName == nameof(Cost))
+            {
+                OnPropertyChanged(nameof(MarginalIncome));
+                ReloadPaymentsPlannedLight();
+            }
+
         }
 
         /// <summary>
@@ -46,21 +67,6 @@ namespace HVTApp.UI.Wrapper
         private void PaymentsActualOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)
         {
             ReloadPaymentsPlannedLight();
-        }
-
-        private void OnMarginalIncomeOnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName != nameof(MarginalIncomeDate)) return;
-
-            OnPropertyChanged(nameof(MarginalIncome));
-            if (Math.Abs(Cost) > 0.00001)
-                MarginalIncomeInPercent = MarginalIncome / Cost * 100;
-        }
-
-        private void OnMarginalIncomeInPercentChanged(object sender, PropertyChangedEventArgs e)
-        {
-            //if (e.PropertyName == nameof(MarginalIncomeInPercent))
-            //    CostOfShipment = ProductionUnit.Product.GetPrice(MarginalIncomeDate) / (1 - MarginalIncomeInPercent / 100);
         }
 
         private void OnSpecificationChanged(object sender, PropertyChangedEventArgs e)
@@ -104,19 +110,19 @@ namespace HVTApp.UI.Wrapper
 
         DateTime GetPaymentDate(PaymentCondition condition)
         {
-                switch (condition.PaymentConditionPoint)
-                {
-                    //case PaymentConditionPoint.ProductionStart:
-                    //    return ProductionUnit.StartProductionDateCalculated.AddDays(condition.DaysToPoint);
-                    //case PaymentConditionPoint.ProductionEnd:
-                    //    return ProductionUnit.EndProductionDateCalculated.AddDays(condition.DaysToPoint);
-                    //case PaymentConditionPoint.Shipment:
-                    //    return ShipmentUnit.ShipmentDateCalculated.AddDays(condition.DaysToPoint);
-                    //case PaymentConditionPoint.Delivery:
-                    //    return ShipmentUnit.DeliveryDateCalculated.AddDays(condition.DaysToPoint);
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+            switch (condition.PaymentConditionPoint)
+            {
+                case PaymentConditionPoint.ProductionStart:
+                    return StartProductionDateCalculated.AddDays(condition.DaysToPoint);
+                case PaymentConditionPoint.ProductionEnd:
+                    return EndProductionDateCalculated.AddDays(condition.DaysToPoint);
+                case PaymentConditionPoint.Shipment:
+                    return ShipmentDateCalculated.AddDays(condition.DaysToPoint);
+                case PaymentConditionPoint.Delivery:
+                    return DeliveryDateCalculated.AddDays(condition.DaysToPoint);
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         /// <summary>
@@ -197,7 +203,9 @@ namespace HVTApp.UI.Wrapper
         /// <summary>
         /// Сумама, необходимая для начала производства
         /// </summary>
-        public double SumToStartProduction => PaymentsConditions.Where(x => x.PaymentConditionPoint == PaymentConditionPoint.ProductionStart && x.DaysToPoint <= 0).Sum(condition => Cost*condition.Part);
+        public double SumToStartProduction => PaymentsConditions.Where(x => 
+        x.PaymentConditionPoint == PaymentConditionPoint.ProductionStart && 
+        x.DaysToPoint <= 0).Sum(condition => Cost * condition.Part);
 
         /// <summary>
         /// Сумма, необходимая для отгрузки
@@ -211,20 +219,21 @@ namespace HVTApp.UI.Wrapper
 
         #region Dates
 
-        public DateTime OrderInTakeDate => DateTime.Today;//StartProductionDate ?? ProductionUnit.StartProductionDateCalculated;
+        public DateTime OrderInTakeDate => StartProductionDate ?? StartProductionDateCalculated;
 
         //дата достижения суммы
         private DateTime? AchiveSumDate(double sumToAchive)
         {
             IEnumerable<IPayment> paymentsActual = PaymentsActual.Select(x => x.Model as IPayment);
             IEnumerable<IPayment> paymentsPlanned = PaymentsPlanned.Select(x => x.Model as IPayment);
-            IEnumerable<IPayment> payments = paymentsActual.Concat(paymentsPlanned);
+            IEnumerable<IPayment> payments = paymentsActual.Concat(paymentsPlanned).OrderBy(x => x.Date);
 
             double sum = 0;
             foreach (var payment in payments)
             {
                 sum += payment.Sum;
-                if (sumToAchive <= sum) return payment.Date;
+                if (sumToAchive <= sum)
+                    return payment.Date;
             }
             return null;
         }
@@ -242,113 +251,171 @@ namespace HVTApp.UI.Wrapper
         /// <summary>
         /// Расчетная дата реализации.
         /// </summary>
-        public DateTime RealizationDateCalculated => DateTime.Today;//RealizationDate ?? ShipmentUnit.DeliveryDateCalculated;
+        public DateTime RealizationDateCalculated => RealizationDate ?? DeliveryDateCalculated;
+
+        /// <summary>
+        /// Расчетная дата начала производства.
+        /// </summary>
+        public DateTime StartProductionDateCalculated
+        {
+            get
+            {
+                if (StartProductionDate.HasValue) return StartProductionDate.Value;
+                //по исполнению условий, необходимых для запуска производства
+                if (StartProductionConditionsDoneDate.HasValue) return StartProductionConditionsDoneDate.Value;
+                //по дате спецификации
+                if (Specification != null) return Specification.Date;
+                //по дате реализации проекта
+                if (DeliveryDate != null)
+                    return DeliveryDate.Value.AddDays(-CommonOptions.StandartTermFromStartToEndProduction).GetTodayIfDateFromPastAndSkipWeekend();
+                throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
+        /// Расчетная дата окончания производства.
+        /// </summary>
+        public DateTime EndProductionDateCalculated
+        {
+            get
+            {
+                //    //по дате производства
+                //    if (EndProductionDate.HasValue) return EndProductionDate.Value;
+                //    //по дате комплектации
+                //    if (PickingDate.HasValue) return PickingDate.Value.AddDays(StandartTermFromPickToEndProduction);
+                //    //по сроку производства
+                //    return StartProductionDateCalculated.AddDays(StandartTermFromStartToEndProduction).GetTodayIfDateFromPastAndSkipWeekend();
+                throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
+        /// Расчетная дата отгрузки.
+        /// </summary>
+        public DateTime ShipmentDateCalculated
+        {
+            get
+            {
+                ////по реальной дате отгрузки
+                //if (ShipmentDate.HasValue) return ShipmentDate.Value;
+
+                ////по плановой дате отгрузки
+                //if (ShipmentPlanDate.HasValue)
+                //{
+                //    if (SalesUnit.ShippingConditionsDoneDate.HasValue )
+                //    {
+                //        if (ShipmentPlanDate.Value >= SalesUnit.ShippingConditionsDoneDate &&
+                //            ShipmentPlanDate.Value >= SalesUnit.ProductionUnit.EndProductionDateCalculated)
+                //            return ShipmentPlanDate.Value;
+                //    }
+                //    else
+                //    {
+                //        if (ShipmentPlanDate.Value >= SalesUnit.ProductionUnit.EndProductionDateCalculated)
+                //            return ShipmentPlanDate.Value;
+                //    }
+
+                //}
+
+                ////по дате исполнения условий для отгрузки
+                //if (SalesUnit.ShippingConditionsDoneDate.HasValue && 
+                //    SalesUnit.ShippingConditionsDoneDate >= SalesUnit.ProductionUnit.EndProductionDateCalculated)
+                //    return SalesUnit.ShippingConditionsDoneDate.Value.GetTodayIfDateFromPastAndSkipWeekend();
+
+                ////по дате окончания производства
+                //return SalesUnit.ProductionUnit.EndProductionDateCalculated.GetTodayIfDateFromPastAndSkipWeekend();
+                throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
+        /// Расчетная дата доставки.
+        /// </summary>
+        public DateTime DeliveryDateCalculated
+        {
+            get
+            {
+                //if (DeliveryDate.HasValue) return DeliveryDate.Value;
+                //return ShipmentDateCalculated.AddDays(DeliveryPeriodCalculated).GetTodayIfDateFromPastAndSkipWeekend();
+                throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
+        /// Расчетный срок доставки.
+        /// </summary>
+        public double DeliveryPeriodCalculated
+        {
+            get
+            {
+                //по ожидаемому сроку доставки
+                //if (ExpectedDeliveryPeriod.HasValue) return ExpectedDeliveryPeriod.Value;
+
+                ////по стандартному сроку доставки до адреса
+                //if (Address.Locality.StandartDeliveryPeriod.HasValue) return Address.Locality.StandartDeliveryPeriod.Value;
+
+                ////по стандартному сроку доставки до столицы региона
+                //if (Address.Locality.Region.Capital.StandartDeliveryPeriod.HasValue) return Address.Locality.Region.Capital.StandartDeliveryPeriod.Value;
+
+                ////по стандартному сроку доставки до столицы федерального округа
+                //if (Address.Locality.Region.District.Capital?.StandartDeliveryPeriod != null) return Address.Locality.Region.District.Capital.StandartDeliveryPeriod.Value;
+
+                ////по стандартному сроку доставки до столицы страны
+                //if (Address.Locality.Region.District.Country.Capital?.StandartDeliveryPeriod != null) return Address.Locality.Region.District.Country.Capital.StandartDeliveryPeriod.Value;
+
+                return 7;
+            }
+        }
+
 
         #endregion
 
         #region MarginalIncome
 
-        private DateTime? _marginalIncomeDate;
-
-        public DateTime? MarginalIncomeDate
+        private DateTime _priceDate;
+        public DateTime PriceDate
         {
-            get { return _marginalIncomeDate; }
+            get { return _priceDate; }
             set
             {
-                if (Equals(_marginalIncomeDate, value))
-                    return;
-                _marginalIncomeDate = value;
-                OnPropertyChanged(nameof(MarginalIncomeDate));
+                if (Equals(_priceDate, value)) return;
+                _priceDate = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(MarginalIncome));
+                OnPropertyChanged(nameof(PriceErrors));
             }
         }
 
-        /// <summary>
-        /// Маржинальный доход единицы
-        /// </summary>
-        public double MarginalIncome => 0;
-        //public double MarginalIncome => CostOfShipment - ProductionUnit.Product.GetPrice(MarginalIncomeDate);
+        public double Price => Product.GetPrice(PriceDate);
 
-        private double _marginalIncomeInPercent;
-
-        public double MarginalIncomeInPercent
+        public string PriceErrors
         {
-            get { return _marginalIncomeInPercent; }
+            get
+            {
+                var blocks = Product.GetBlocksWithoutActualPriceOnDate(PriceDate);
+                string result = string.Empty;
+                foreach (var block in blocks)
+                {
+                    result += $"{block.DisplayMember}; ";
+                }
+                return result;
+            }
+        }
+
+        public double MarginalIncome
+        {
+            get { return (Math.Abs(Cost) > 0.0001) ? 100 * (Cost - Price) / Cost: 0; }
             set
             {
-                //МД не должен быть 100% и более
-                if (value >= 100 || Math.Abs(_marginalIncomeInPercent - value) < 0.00001) return;
-
-                _marginalIncomeInPercent = value;
-                OnPropertyChanged(nameof(MarginalIncomeInPercent));
+                if (Equals(MarginalIncome, value)) return;
+                if (Math.Abs(value - 100) < 0.001) return;
+                Cost = Price / (100 - value) * 100;
+                OnPropertyChanged();
             }
         }
 
         #endregion
+
+
     }
-
-    //public partial class ProductCostUnitWrapper
-    //{
-    //    private DateTime _priceDate;
-
-    //    protected override void RunInConstructor()
-    //    {
-    //        PriceDate = DateTime.Today;
-    //        this.PropertyChanged += OnCostChanged;
-    //    }
-
-    //    private void OnCostChanged(object sender, PropertyChangedEventArgs e)
-    //    {
-    //        if (e.PropertyName == nameof(CostOfShipment))
-    //            OnPropertyChanged(nameof(MarginalIncome));
-
-    //        if (e.PropertyName == nameof(Product))
-    //        {
-    //            OnPropertyChanged(nameof(MarginalIncome));
-    //            OnPropertyChanged(nameof(PriceErrors));
-    //        }
-    //    }
-
-    //    public DateTime PriceDate
-    //    {
-    //        get { return _priceDate; }
-    //        set
-    //        {
-    //            if (Equals(_priceDate, value)) return;
-    //            _priceDate = value;
-    //            OnPropertyChanged();
-    //            OnPropertyChanged(nameof(Price));
-    //            OnPropertyChanged(nameof(MarginalIncome));
-    //            OnPropertyChanged(nameof(PriceErrors));
-    //        }
-    //    }
-
-    //    public double Price => Product.GetPrice(PriceDate);
-
-    //    public string PriceErrors
-    //    {
-    //        get
-    //        {
-    //            var blocks = Product.GetBlocksWithoutActualPriceOnDate(PriceDate);
-    //            string result = string.Empty;
-    //            foreach (var block in blocks)
-    //            {
-    //                result += $"{block.DisplayMember}; ";
-    //            }
-    //            return result;
-    //        }
-    //    }
-
-    //    public double MarginalIncome
-    //    {
-    //        get { return (Math.Abs(CostOfShipment) > 0.001) ? 100 * (CostOfShipment - Price) / CostOfShipment : 0; }
-    //        set
-    //        {
-    //            if (Equals(MarginalIncome, value)) return;
-    //            if (Math.Abs(value - 100) < 0.001) return;
-    //            CostOfShipment = Price / (100 - value) * 100;
-    //            OnPropertyChanged();
-    //        }
-    //    }
-    //}
-
 }

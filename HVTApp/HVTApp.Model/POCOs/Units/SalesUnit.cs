@@ -16,8 +16,8 @@ namespace HVTApp.Model.POCOs
         public virtual Product Product { get; set; }
         public string SerialNumber { get; set; }
 
-        public int PlannedTermFromStartToEndProduction { get; set; } = 120;
-        public int PlannedTermFromPickToEndProduction { get; set; } = 7;
+        public int PlannedTermFromStartToEndProduction { get; set; } = CommonOptions.StandartTermFromStartToEndProduction;
+        public int PlannedTermFromPickToEndProduction { get; set; } = CommonOptions.StandartTermFromPickToEndProduction;
 
         public DateTime? StartProductionDate { get; set; }
         public DateTime? PickingDate { get; set; }
@@ -32,7 +32,7 @@ namespace HVTApp.Model.POCOs
 
         public virtual Specification Specification { get; set; }
 
-        public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>();
+        public virtual List<PaymentCondition> PaymentsConditions { get; set; } = new List<PaymentCondition>(CommonOptions.StandartPaymentsConditions);
 
         public virtual List<PaymentActual> PaymentsActual { get; set; } = new List<PaymentActual>();
         public virtual List<PaymentPlanned> PaymentsPlanned { get; set; } = new List<PaymentPlanned>();

@@ -8,6 +8,24 @@ using System.Windows;
 namespace HVTApp.UI.Views
 {
     [RibbonTab(typeof(TabCRUD))]
+    public partial class CommonOptionListView : ViewBase
+    {
+        public CommonOptionListView(IRegionManager regionManager, IEventAggregator eventAggregator, CommonOptionListViewModel CommonOptionListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = CommonOptionListViewModel;
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			var viewModel = (CommonOptionListViewModel) DataContext;
+            if (!viewModel.LoadedFlag)
+                await viewModel.LoadAsync();
+        }
+    }
+
+    [RibbonTab(typeof(TabCRUD))]
     public partial class AddressListView : ViewBase
     {
         public AddressListView(IRegionManager regionManager, IEventAggregator eventAggregator, AddressListViewModel AddressListViewModel) : base(regionManager, eventAggregator)

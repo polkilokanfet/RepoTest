@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="POCOs\CommonOption.cs" />
+    <Compile Include="CommonOptions.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="POCOs\Address\Address.cs" />
     <Compile Include="POCOs\Address\Country.cs" />

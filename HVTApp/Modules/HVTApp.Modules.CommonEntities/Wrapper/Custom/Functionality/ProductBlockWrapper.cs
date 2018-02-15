@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Model;
 
 namespace HVTApp.UI.Wrapper
 {
@@ -8,13 +9,15 @@ namespace HVTApp.UI.Wrapper
     {
         public bool HasActualPriceOnDate(DateTime date)
         {
-            return Prices.Any(x => x.Date >= date.AddDays(-90));
+            var actualTerm = CommonOptions.CalculationPriceTerm;
+            return Prices.Any(x => x.Date >= date.AddDays(-actualTerm));
         }
 
         public double GetPrice(DateTime date)
         {
             //ближайшая актуальная цена
-            var price = Prices.Where(x => x.Date >= date.AddDays(-90)).OrderBy(x => x.Date).LastOrDefault();
+            var actualTerm = CommonOptions.CalculationPriceTerm;
+            var price = Prices.Where(x => x.Date >= date.AddDays(-actualTerm)).OrderBy(x => x.Date).LastOrDefault();
             if (price != null) return price.Cost;
 
             //ближайшая цена

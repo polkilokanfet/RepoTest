@@ -11,6 +11,11 @@ namespace HVTApp.UI
     {
 		private void RegisterViews()
         {
+            Container.RegisterViewForNavigation<CommonOptionListView>();
+            //_dialogService.Register<CommonOptionDetailsViewModel, CommonOptionDetailsView>();
+			_selectService.Register<CommonOptionListView, CommonOptionLookup>();
+            _updateDetailsService.Register<CommonOption, CommonOptionDetailsView>();
+
             Container.RegisterViewForNavigation<AddressListView>();
             //_dialogService.Register<AddressDetailsViewModel, AddressDetailsView>();
 			_selectService.Register<AddressListView, AddressLookup>();

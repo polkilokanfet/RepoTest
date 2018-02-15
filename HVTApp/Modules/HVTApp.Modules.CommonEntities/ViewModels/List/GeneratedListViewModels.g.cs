@@ -6,6 +6,11 @@ using HVTApp.UI.Lookup;
 
 namespace HVTApp.UI.ViewModels
 {
+    public partial class CommonOptionListViewModel : BaseListViewModel<CommonOption, CommonOptionLookup, AfterSaveCommonOptionEvent, AfterSelectCommonOptionEvent, AfterRemoveCommonOptionEvent>
+    {
+        public CommonOptionListViewModel(IUnityContainer container) : base(container) { }
+    }
+
     public partial class AddressListViewModel : BaseListViewModel<Address, AddressLookup, AfterSaveAddressEvent, AfterSelectAddressEvent, AfterRemoveAddressEvent>
     {
         public AddressListViewModel(IUnityContainer container) : base(container) { }

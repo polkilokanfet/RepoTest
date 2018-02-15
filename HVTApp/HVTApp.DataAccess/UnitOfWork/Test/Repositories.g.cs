@@ -3,6 +3,11 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
+    public partial class CommonOptionRepositoryTest : TestBaseRepository<CommonOption>, ICommonOptionRepository
+    {
+        public CommonOptionRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class AddressRepositoryTest : TestBaseRepository<Address>, IAddressRepository
     {
         public AddressRepositoryTest(TestData testData) : base(testData) {}

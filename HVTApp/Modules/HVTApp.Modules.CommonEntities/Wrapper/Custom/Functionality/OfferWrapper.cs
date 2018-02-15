@@ -8,15 +8,6 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class OfferWrapper
     {
-        //protected override void RunInConstructor()
-        //{
-        //    this.PropertyChanged += OnPropertyChanged;
-        //    foreach (var offerUnit in OfferUnits)
-        //    {
-        //        offerUnit.PropertyChanged += OfferUnitOnPropertyChanged;
-        //    }
-        //}
-
         public double VatProc
         {
             get { return this.Vat * 100; }
@@ -31,22 +22,5 @@ namespace HVTApp.UI.Wrapper
         //public double TotalCost => OfferUnits.Sum(x => x.CostOfShipment);
         public double TotalCost => 0;
         public double TotalCostWithVat => TotalCost * (1 + Vat);
-
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            if (Equals(propertyChangedEventArgs.PropertyName, nameof(Vat)))
-            {
-                OnPropertyChanged(nameof(TotalCostWithVat));
-            }
-        }
-
-        private void OfferUnitOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            //if (Equals(propertyChangedEventArgs.PropertyName, nameof(OfferUnit.CostOfShipment)))
-            //{
-            //    OnPropertyChanged(nameof(TotalCost));
-            //    OnPropertyChanged(nameof(TotalCostWithVat));
-            //}
-        }
     }
 }

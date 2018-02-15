@@ -188,6 +188,12 @@ namespace HVTApp.UI.Wrapper
                 UpdateOriginalValue(propertyName, currentValue?.Model, newValue?.Model); //обновляем список оригинальных значений.
                 propertyInfo.SetValue(Model, newValue?.Model); //устанавливаем в свойство модели новое значение.
 
+                //id - костыль
+                Guid id = Guid.Empty;
+                if (newValue != null)
+                    id = newValue.Model.Id;
+                this.GetType().GetProperty(propertyName + "Id").SetValue(this, id);
+
                 UnRegisterComplex(currentValue);
 
                 if (newValue != null)
