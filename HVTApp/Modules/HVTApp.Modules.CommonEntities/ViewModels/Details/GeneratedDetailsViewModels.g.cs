@@ -275,4 +275,9 @@ namespace HVTApp.UI.ViewModels
         public ProductBlockDetailsViewModel(IUnityContainer container) : base(container) { }
     }
 
+    public partial class PaymentConditionSetDetailsViewModel : BaseDetailsViewModel<PaymentConditionSetWrapper, PaymentConditionSet, AfterSavePaymentConditionSetEvent>
+    {
+        public PaymentConditionSetDetailsViewModel(IUnityContainer container) : base(container) { }
+    }
+
 }

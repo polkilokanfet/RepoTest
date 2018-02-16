@@ -57,4 +57,5 @@ namespace HVTApp.UI.Events
 	public partial class AfterRemoveTenderTypeEvent : PubSubEvent<TenderType> { }
 	public partial class AfterRemoveUserEvent : PubSubEvent<User> { }
 	public partial class AfterRemoveProductBlockEvent : PubSubEvent<ProductBlock> { }
+	public partial class AfterRemovePaymentConditionSetEvent : PubSubEvent<PaymentConditionSet> { }
 }

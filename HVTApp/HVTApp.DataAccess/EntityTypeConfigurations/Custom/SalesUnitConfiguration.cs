@@ -14,19 +14,19 @@ namespace HVTApp.DataAccess
             HasOptional(x => x.Order).WithMany().HasForeignKey(x => x.OrderId);
 
             Property(x => x.SerialNumber).IsOptional();
-            Property(x => x.PlannedTermFromStartToEndProduction).IsRequired();
-            Property(x => x.PlannedTermFromPickToEndProduction).IsRequired();
+            Property(x => x.PlannedTermFromStartToEndProduction).IsOptional();
+            Property(x => x.PlannedTermFromPickToEndProduction).IsOptional();
 
             Property(x => x.StartProductionDate).IsOptional();
             Property(x => x.PickingDate).IsOptional();
             Property(x => x.EndProductionDate).IsOptional();
-            Property(x => x.EndProductionDateByPlan).IsOptional();
 
             HasOptional(x => x.Specification).WithMany().HasForeignKey(x => x.SpecificationId);
 
             Property(x => x.Cost).IsRequired();
 
-            HasMany(x => x.PaymentsConditions).WithMany();
+            HasRequired(x => x.PaymentsConditionSet).WithMany().HasForeignKey(x => x.PaymentsConditionSetId);
+
             HasMany(x => x.PaymentsActual).WithRequired().HasForeignKey(x => x.SalesUnitId);
             HasMany(x => x.PaymentsPlanned).WithRequired().HasForeignKey(x => x.SalesUnitId);
             Property(x => x.RealizationDate).IsOptional();
@@ -36,7 +36,6 @@ namespace HVTApp.DataAccess
             Property(x => x.ExpectedDeliveryPeriod).IsOptional();
             Property(x => x.ShipmentDate).IsOptional();
             Property(x => x.ShipmentPlanDate).IsOptional();
-            Property(x => x.RequiredDeliveryDate).IsOptional();
             Property(x => x.DeliveryDate).IsOptional();
         }
     }

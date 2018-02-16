@@ -10,6 +10,6 @@ namespace HVTApp.Model.POCOs
         public int CalculationPriceTerm { get; set; } = 90;
         public int StandartTermFromStartToEndProduction { get; set; } = 120;
         public int StandartTermFromPickToEndProduction { get; set; } = 7;
-        public List<PaymentCondition> StandartPaymentsConditions { get; set; } = new List<PaymentCondition>();
+        public Guid StandartPaymentsConditionSetId { get; set; }
     }
 }

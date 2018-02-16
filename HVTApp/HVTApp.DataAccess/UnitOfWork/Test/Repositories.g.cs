@@ -273,4 +273,9 @@ namespace HVTApp.DataAccess
         public ProductBlockRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class PaymentConditionSetRepositoryTest : TestBaseRepository<PaymentConditionSet>, IPaymentConditionSetRepository
+    {
+        public PaymentConditionSetRepositoryTest(TestData testData) : base(testData) {}
+    }
+
 }

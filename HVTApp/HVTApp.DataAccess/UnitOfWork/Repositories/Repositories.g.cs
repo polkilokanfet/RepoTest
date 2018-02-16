@@ -273,4 +273,9 @@ namespace HVTApp.DataAccess
         public ProductBlockRepository(DbContext context) : base(context) {}
     }
 
+    public partial class PaymentConditionSetRepository : BaseRepository<PaymentConditionSet>, IPaymentConditionSetRepository
+    {
+        public PaymentConditionSetRepository(DbContext context) : base(context) {}
+    }
+
 }

@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.GetProductService;
+using HVTApp.UI.Events;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
@@ -9,12 +10,14 @@ using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
-    public partial class ProjectUnitDetailsViewModel
+    public class ProjectUnitDetailsViewModel : BaseDetailsViewModel<SalesUnitWrapper, SalesUnit, AfterSaveSalesUnitEvent>
     {
         public ICommand SelectProductCommand { get; private set; }
         public ICommand SelectFacilityCommand { get; private set; }
         public ICommand SelectProducerCommand { get; private set; }
         public ICommand SelectProjectCommand { get; private set; }
+
+        public ProjectUnitDetailsViewModel(IUnityContainer container) : base(container) { }
 
         protected override void InitCommands()
         {
@@ -31,13 +34,13 @@ namespace HVTApp.UI.ViewModels
 
             var prod = await UnitOfWork.GetRepository<Product>().GetByIdAsync(product.Id);
             Item.Product = new ProductWrapper(prod);
-            Item.ProductCostUnit.ProductId = prod.Id;
+            Item.ProductId = prod.Id;
         }
 
         private async void SelectProject_Execute()
         {
             var projects = await UnitOfWork.GetRepository<Project>().GetAllAsync();
-            SelectAndSetWrapper<Project, ProjectLookup, ProjectWrapper>(projects, nameof(Item.Project));
+            //SelectAndSetWrapper<Project, ProjectLookup, ProjectWrapper>(projects, nameof(Item.Project));
         }
 
         private async void SelectProducer_Execute()

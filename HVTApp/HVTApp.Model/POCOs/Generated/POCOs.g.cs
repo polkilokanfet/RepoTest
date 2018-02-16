@@ -123,9 +123,10 @@ namespace HVTApp.Model.POCOs
 	{
 		public virtual Guid? FacilityId { get; set; }
 		public virtual Guid? ProducerId { get; set; }
-		public virtual Guid? OrderId { get; set; }
 		public virtual Guid? ProductId { get; set; }
+		public virtual Guid? OrderId { get; set; }
 		public virtual Guid? SpecificationId { get; set; }
+		public virtual Guid? PaymentsConditionSetId { get; set; }
 		public virtual Guid? AddressId { get; set; }
 	}
 
@@ -268,6 +269,10 @@ namespace HVTApp.Model.POCOs
 	}
 
 	public partial class ProductBlock
+	{
+	}
+
+	public partial class PaymentConditionSet
 	{
 	}
 

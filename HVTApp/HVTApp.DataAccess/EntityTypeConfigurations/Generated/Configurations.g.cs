@@ -57,4 +57,5 @@ namespace HVTApp.DataAccess
     public partial class TenderTypeConfiguration : EntityTypeConfiguration<TenderType> { }
     public partial class UserConfiguration : EntityTypeConfiguration<User> { }
     public partial class ProductBlockConfiguration : EntityTypeConfiguration<ProductBlock> { }
+    public partial class PaymentConditionSetConfiguration : EntityTypeConfiguration<PaymentConditionSet> { }
 }

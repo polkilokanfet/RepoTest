@@ -10,6 +10,6 @@ namespace HVTApp.Model
         public static int CalculationPriceTerm { get; set; } = 90;
         public static int StandartTermFromStartToEndProduction { get; set; } = 120;
         public static int StandartTermFromPickToEndProduction { get; set; } = 7;
-        public static List<PaymentCondition> StandartPaymentsConditions { get; set; } = new List<PaymentCondition>();
+        public static Guid StandartPaymentsConditionSetId { get; set; }
     }
 }

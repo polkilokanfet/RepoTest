@@ -431,14 +431,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = <#=modelType.Name#>ListViewModel;
+			<#=modelType.Name#>ListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (<#=modelType.Name#>ListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((<#=modelType.Name#>ListViewModel)DataContext).LoadAsync();;
         }
     }
 

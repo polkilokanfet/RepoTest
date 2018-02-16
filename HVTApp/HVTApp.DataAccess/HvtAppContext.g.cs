@@ -63,6 +63,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new TenderTypeConfiguration());
             modelBuilder.Configurations.Add(new UserConfiguration());
             modelBuilder.Configurations.Add(new ProductBlockConfiguration());
+            modelBuilder.Configurations.Add(new PaymentConditionSetConfiguration());
 			#endregion
 
             base.OnModelCreating(modelBuilder);
@@ -123,6 +124,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<TenderType> TenderTypeDbSet { get; set; }
         public virtual DbSet<User> UserDbSet { get; set; }
         public virtual DbSet<ProductBlock> ProductBlockDbSet { get; set; }
+        public virtual DbSet<PaymentConditionSet> PaymentConditionSetDbSet { get; set; }
 		#endregion
     }
 }

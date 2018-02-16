@@ -1,11 +1,3 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using HVTApp.Model.POCOs;
-using HVTApp.UI.Events;
-using HVTApp.UI.Extantions;
-using Microsoft.Practices.Unity;
-using Prism.Events;
-
 namespace HVTApp.UI.ViewModels
 {
     public partial class ProjectUnitGroupListViewModel
@@ -18,7 +10,7 @@ namespace HVTApp.UI.ViewModels
 
         //protected override void SubscribesToEvents()
         //{
-        //    Container.Resolve<IEventAggregator>().GetEvent<AfterSaveProjectUnitEvent>().Subscribe(OnAfterSaveProjectUnitEvent);
+        //    _container.Resolve<IEventAggregator>().GetEvent<AfterSaveProjectUnitEvent>().Subscribe(OnAfterSaveProjectUnitEvent);
         //}
 
         //private async void OnAfterSaveProjectUnitEvent(ProjectUnit projectUnit)

@@ -814,4 +814,19 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
+    public partial class PaymentConditionSetWrapperDataService : EntityWrapperDataService<PaymentConditionSet, PaymentConditionSetWrapper>
+    {
+        public PaymentConditionSetWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		
+		protected override PaymentConditionSetWrapper GenerateWrapper(PaymentConditionSet model)
+        {
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new PaymentConditionSetWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
+        }
+    }
+
 }

@@ -10,8 +10,7 @@ namespace HVTApp.Infrastructure
         where TWrapper : class, IWrapper<TEntity>
     {
         TWrapper Item { get; }
-        Task LoadAsync(TEntity entity);
-        Task LoadAsync(TWrapper wrapper, IUnitOfWork unitOfWork);
+        Task LoadAsync(Guid id);
     }
 
     public interface ISavable

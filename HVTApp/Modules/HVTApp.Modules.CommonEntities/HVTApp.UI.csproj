@@ -115,6 +115,7 @@
     <Compile Include="ViewModels\Details\IProjectUnit.cs" />
     <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitGroup.cs" />
     <Compile Include="ViewModels\Details\SalesUnitComparer.cs" />
     <Compile Include="ViewModels\Details\UnitsGrouped.cs" />
@@ -162,9 +163,15 @@
     <Compile Include="ViewModels\List\CompanyListViewModel.cs" />
     <Compile Include="ViewModels\List\GeneratedListViewModels.g.cs" />
     <Compile Include="ViewModels\List\PartPriceListViewModel.cs" />
+    <Compile Include="ViewModels\List\PaymentPlannedListViewModel.cs" />
     <Compile Include="ViewModels\List\ProjectUnitGroupListViewModel.cs" />
+    <Compile Include="Views\Details\SalesUnitDetailsView.xaml.cs">
+      <DependentUpon>SalesUnitDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\List\SpecificationListView.xaml.cs">
+      <DependentUpon>SpecificationListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\List\TenderUnitListViewModel.cs" />
-    <Compile Include="Extantions\UnitConverters.cs" />
     <Compile Include="Views\Details\CompanyDetailsView.xaml.cs">
       <DependentUpon>CompanyDetailsView.xaml</DependentUpon>
     </Compile>
@@ -348,7 +355,6 @@
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.LocalityType.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.Measure.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.Offer.datasource" />
-    <None Include="Properties\DataSources\HVTApp.Model.POCOs.OfferUnit.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.Order.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.Parameter.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.ParameterGroup.datasource" />
@@ -359,13 +365,10 @@
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.PaymentPlanned.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.Person.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.Product.datasource" />
-    <None Include="Properties\DataSources\HVTApp.Model.POCOs.ProductionUnit.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.ProductRelation.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.Project.datasource" />
-    <None Include="Properties\DataSources\HVTApp.Model.POCOs.ProjectUnit.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.Region.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.SalesUnit.datasource" />
-    <None Include="Properties\DataSources\HVTApp.Model.POCOs.ShipmentUnit.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.Specification.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.StandartPaymentConditions.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.Tender.datasource" />
@@ -401,10 +404,6 @@
       <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
       <Name>HVTApp.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\HVTApp.Model.Services\HVTApp.Model.Services.csproj">
-      <Project>{11BFFD1C-4CE0-4B15-9B07-902DB9E0FF19}</Project>
-      <Name>HVTApp.Model.Services</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\HVTApp.Model\HVTApp.Model.csproj">
       <Project>{350bdab0-b331-426f-a024-004c8539af17}</Project>
       <Name>HVTApp.Model</Name>
@@ -438,6 +437,14 @@
     <Page Include="Tabs\TabCRUD.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Details\SalesUnitDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\List\SpecificationListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Details\CompanyDetailsView.xaml">
       <SubType>Designer</SubType>
@@ -583,7 +590,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Extantions\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

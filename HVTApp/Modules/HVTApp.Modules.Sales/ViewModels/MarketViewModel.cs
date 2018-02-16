@@ -15,20 +15,17 @@ namespace HVTApp.Modules.Sales.ViewModels
         public ProjectListViewModel ProjectListViewModel { get; }
         public ProjectDetailsViewModel ProjectDetailsViewModel { get; }
 
-        private readonly IUnitOfWork _unitOfWork;
-
-        public MarketViewModel(IUnitOfWork unitOfWork, ProjectListViewModel projectListViewModel, ProjectDetailsViewModel projectDetailsViewModel)
+        public MarketViewModel(ProjectListViewModel projectListViewModel, ProjectDetailsViewModel projectDetailsViewModel)
         {
             ProjectListViewModel = projectListViewModel;
             ProjectDetailsViewModel = projectDetailsViewModel;
-            _unitOfWork = unitOfWork;
 
             ProjectListViewModel.SelectedLookupChanged += ProjectListViewModelOnSelectedLookupChanged;
         }
 
         private async void ProjectListViewModelOnSelectedLookupChanged(ProjectLookup projectLookup)
         {
-            await ProjectDetailsViewModel.LoadAsync(projectLookup.Entity);
+            await ProjectDetailsViewModel.LoadAsync(projectLookup.Id);
         }
     }
 }

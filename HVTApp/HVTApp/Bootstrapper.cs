@@ -50,11 +50,11 @@ namespace HVTApp
             var commonOption = commonOptions.First();
             CommonOptions.OurCompanyId = commonOption.OurCompanyId;
             CommonOptions.CalculationPriceTerm = commonOption.CalculationPriceTerm;
-            CommonOptions.StandartPaymentsConditions = commonOption.StandartPaymentsConditions;
+            CommonOptions.StandartPaymentsConditionSetId = commonOption.StandartPaymentsConditionSetId;
             CommonOptions.StandartTermFromStartToEndProduction = commonOption.StandartTermFromStartToEndProduction;
             CommonOptions.StandartTermFromPickToEndProduction = commonOption.StandartTermFromPickToEndProduction;
 
-            //AuthenticationService authenticationService = (AuthenticationService)Container.Resolve<IAuthenticationService>();
+            //AuthenticationService authenticationService = (AuthenticationService)_container.Resolve<IAuthenticationService>();
             //if (!authenticationService.AuthenticationAsync())
             //    Application.Current.Shutdown();
 

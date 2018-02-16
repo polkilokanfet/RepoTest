@@ -281,6 +281,11 @@ namespace HVTApp.UI
 			_selectService.Register<ProductBlockListView, ProductBlockLookup>();
             _updateDetailsService.Register<ProductBlock, ProductBlockDetailsView>();
 
+            Container.RegisterViewForNavigation<PaymentConditionSetListView>();
+            //_dialogService.Register<PaymentConditionSetDetailsViewModel, PaymentConditionSetDetailsView>();
+			_selectService.Register<PaymentConditionSetListView, PaymentConditionSetLookup>();
+            _updateDetailsService.Register<PaymentConditionSet, PaymentConditionSetDetailsView>();
+
 		}
 	}
 }

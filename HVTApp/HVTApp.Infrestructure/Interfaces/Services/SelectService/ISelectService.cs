@@ -20,7 +20,7 @@ namespace HVTApp.Infrastructure.Interfaces.Services.SelectService
     public interface ISelectServiceViewModel<TItem> : IDialogRequestClose
         //where TItem : IBaseEntity
     {
-        Task LoadAsync(IEnumerable<TItem> entities);
+        void Load(IEnumerable<TItem> entities);
 
         TItem SelectedLookup { get; set; }
         ICommand SelectItemCommand { get; }

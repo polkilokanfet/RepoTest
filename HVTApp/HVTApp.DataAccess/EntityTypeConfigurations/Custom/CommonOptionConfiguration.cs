@@ -4,7 +4,6 @@ namespace HVTApp.DataAccess
     {
         public CommonOptionConfiguration()
         {
-            HasMany(x => x.StandartPaymentsConditions).WithOptional().WillCascadeOnDelete(false);
         }
     }
 }

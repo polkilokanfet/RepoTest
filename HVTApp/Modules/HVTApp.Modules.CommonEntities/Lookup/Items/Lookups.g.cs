@@ -20,6 +20,8 @@ namespace HVTApp.UI.Lookup
 
         public System.Int32 StandartTermFromPickToEndProduction => GetValue<System.Int32>();
 
+        public System.Guid StandartPaymentsConditionSetId => GetValue<System.Guid>();
+
         #endregion
 	}
 	public partial class AddressLookup : LookupItem<Address>
@@ -528,9 +530,10 @@ namespace HVTApp.UI.Lookup
         {
 			 			Facility?.Refresh(Entity.Facility);
 			Producer?.Refresh(Entity.Producer);
-			Order?.Refresh(Entity.Order);
 			Product?.Refresh(Entity.Product);
+			Order?.Refresh(Entity.Order);
 			Specification?.Refresh(Entity.Specification);
+			PaymentsConditionSet?.Refresh(Entity.PaymentsConditionSet);
 			Address?.Refresh(Entity.Address);
 		}
 		
@@ -539,27 +542,31 @@ namespace HVTApp.UI.Lookup
 
         public System.Nullable<System.Guid> ProducerId => GetValue<System.Nullable<System.Guid>>();
 
-        public System.Nullable<System.Guid> OrderId => GetValue<System.Nullable<System.Guid>>();
-
         public System.Nullable<System.Guid> ProductId => GetValue<System.Nullable<System.Guid>>();
+
+        public System.Nullable<System.Guid> OrderId => GetValue<System.Nullable<System.Guid>>();
 
         public System.Nullable<System.Guid> SpecificationId => GetValue<System.Nullable<System.Guid>>();
 
+        public System.Nullable<System.Guid> PaymentsConditionSetId => GetValue<System.Nullable<System.Guid>>();
+
         public System.Nullable<System.Guid> AddressId => GetValue<System.Nullable<System.Guid>>();
+
+        public System.DateTime DeliveryDateExpected => GetValue<System.DateTime>();
+
+        public System.Nullable<System.DateTime> RealizationDate => GetValue<System.Nullable<System.DateTime>>();
 
         public System.String SerialNumber => GetValue<System.String>();
 
-        public System.Int32 PlannedTermFromStartToEndProduction => GetValue<System.Int32>();
+        public System.Nullable<System.Int32> PlannedTermFromStartToEndProduction => GetValue<System.Nullable<System.Int32>>();
 
-        public System.Int32 PlannedTermFromPickToEndProduction => GetValue<System.Int32>();
+        public System.Nullable<System.Int32> PlannedTermFromPickToEndProduction => GetValue<System.Nullable<System.Int32>>();
 
         public System.Nullable<System.DateTime> StartProductionDate => GetValue<System.Nullable<System.DateTime>>();
 
         public System.Nullable<System.DateTime> PickingDate => GetValue<System.Nullable<System.DateTime>>();
 
         public System.Nullable<System.DateTime> EndProductionDate => GetValue<System.Nullable<System.DateTime>>();
-
-        public System.Nullable<System.DateTime> EndProductionDateByPlan => GetValue<System.Nullable<System.DateTime>>();
 
         public System.Double Cost => GetValue<System.Double>();
 
@@ -571,11 +578,7 @@ namespace HVTApp.UI.Lookup
 
         public System.Nullable<System.DateTime> ShipmentPlanDate => GetValue<System.Nullable<System.DateTime>>();
 
-        public System.Nullable<System.DateTime> RequiredDeliveryDate => GetValue<System.Nullable<System.DateTime>>();
-
         public System.Nullable<System.DateTime> DeliveryDate => GetValue<System.Nullable<System.DateTime>>();
-
-        public System.Nullable<System.DateTime> RealizationDate => GetValue<System.Nullable<System.DateTime>>();
 
         #endregion
 
@@ -584,11 +587,13 @@ namespace HVTApp.UI.Lookup
 
 	    public CompanyLookup Producer { get { return GetLookup<CompanyLookup>(); } }
 
-	    public OrderLookup Order { get { return GetLookup<OrderLookup>(); } }
-
 	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
+	    public OrderLookup Order { get { return GetLookup<OrderLookup>(); } }
+
 	    public SpecificationLookup Specification { get { return GetLookup<SpecificationLookup>(); } }
+
+	    public PaymentConditionSetLookup PaymentsConditionSet { get { return GetLookup<PaymentConditionSetLookup>(); } }
 
 	    public AddressLookup Address { get { return GetLookup<AddressLookup>(); } }
 
@@ -1256,6 +1261,20 @@ namespace HVTApp.UI.Lookup
         public System.String Name => GetValue<System.String>();
 
         public System.String StructureCostNumber => GetValue<System.String>();
+
+        #endregion
+	}
+	public partial class PaymentConditionSetLookup : LookupItem<PaymentConditionSet>
+	{
+		public PaymentConditionSetLookup(PaymentConditionSet entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 		}
+		
+        #region SimpleProperties
+        public System.String Name => GetValue<System.String>();
 
         #endregion
 	}

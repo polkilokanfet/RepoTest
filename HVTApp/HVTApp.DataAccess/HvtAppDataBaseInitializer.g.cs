@@ -66,6 +66,7 @@ namespace HVTApp.DataAccess
             context.TenderTypeDbSet.AddRange(testData.GetAll<TenderType>());
             context.UserDbSet.AddRange(testData.GetAll<User>());
             context.ProductBlockDbSet.AddRange(testData.GetAll<ProductBlock>());
+            context.PaymentConditionSetDbSet.AddRange(testData.GetAll<PaymentConditionSet>());
         }
     }
 }

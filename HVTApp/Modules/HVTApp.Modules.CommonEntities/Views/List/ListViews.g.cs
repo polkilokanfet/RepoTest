@@ -14,14 +14,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = CommonOptionListViewModel;
+			CommonOptionListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (CommonOptionListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((CommonOptionListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -32,14 +31,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = AddressListViewModel;
+			AddressListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (AddressListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((AddressListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -50,14 +48,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = CountryListViewModel;
+			CountryListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (CountryListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((CountryListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -68,14 +65,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = DistrictListViewModel;
+			DistrictListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (DistrictListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((DistrictListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -86,14 +82,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = LocalityListViewModel;
+			LocalityListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (LocalityListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((LocalityListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -104,14 +99,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = LocalityTypeListViewModel;
+			LocalityTypeListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (LocalityTypeListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((LocalityTypeListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -122,14 +116,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = RegionListViewModel;
+			RegionListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (RegionListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((RegionListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -140,14 +133,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = CalculatePriceTaskListViewModel;
+			CalculatePriceTaskListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (CalculatePriceTaskListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((CalculatePriceTaskListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -158,14 +150,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = AdditionalSalesUnitsListViewModel;
+			AdditionalSalesUnitsListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (AdditionalSalesUnitsListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((AdditionalSalesUnitsListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -176,14 +167,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = BankDetailsListViewModel;
+			BankDetailsListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (BankDetailsListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((BankDetailsListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -194,14 +184,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = CompanyListViewModel;
+			CompanyListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (CompanyListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((CompanyListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -212,14 +201,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = CompanyFormListViewModel;
+			CompanyFormListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (CompanyFormListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((CompanyFormListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -230,14 +218,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = DocumentsRegistrationDetailsListViewModel;
+			DocumentsRegistrationDetailsListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (DocumentsRegistrationDetailsListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((DocumentsRegistrationDetailsListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -248,14 +235,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = EmployeesPositionListViewModel;
+			EmployeesPositionListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (EmployeesPositionListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((EmployeesPositionListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -266,14 +252,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = FacilityTypeListViewModel;
+			FacilityTypeListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (FacilityTypeListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((FacilityTypeListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -284,14 +269,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = ActivityFieldListViewModel;
+			ActivityFieldListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (ActivityFieldListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((ActivityFieldListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -302,14 +286,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = ContractListViewModel;
+			ContractListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (ContractListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((ContractListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -320,14 +303,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = MeasureListViewModel;
+			MeasureListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (MeasureListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((MeasureListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -338,14 +320,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = ParameterListViewModel;
+			ParameterListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (ParameterListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((ParameterListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -356,14 +337,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = ParameterGroupListViewModel;
+			ParameterGroupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (ParameterGroupListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((ParameterGroupListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -374,14 +354,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = ProductRelationListViewModel;
+			ProductRelationListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (ProductRelationListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((ProductRelationListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -392,14 +371,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = StandartPaymentConditionsListViewModel;
+			StandartPaymentConditionsListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (StandartPaymentConditionsListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((StandartPaymentConditionsListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -410,14 +388,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = PersonListViewModel;
+			PersonListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (PersonListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((PersonListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -428,14 +405,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = PaymentPlannedListViewModel;
+			PaymentPlannedListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (PaymentPlannedListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((PaymentPlannedListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -446,14 +422,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = PaymentActualListViewModel;
+			PaymentActualListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (PaymentActualListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((PaymentActualListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -464,14 +439,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = ParameterRelationListViewModel;
+			ParameterRelationListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (ParameterRelationListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((ParameterRelationListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -482,14 +456,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = SalesUnitListViewModel;
+			SalesUnitListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (SalesUnitListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((SalesUnitListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -500,14 +473,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = TestFriendAddressListViewModel;
+			TestFriendAddressListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (TestFriendAddressListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((TestFriendAddressListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -518,14 +490,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = TestFriendListViewModel;
+			TestFriendListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (TestFriendListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((TestFriendListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -536,14 +507,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = TestFriendEmailListViewModel;
+			TestFriendEmailListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (TestFriendEmailListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((TestFriendEmailListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -554,14 +524,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = TestFriendGroupListViewModel;
+			TestFriendGroupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (TestFriendGroupListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((TestFriendGroupListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -572,14 +541,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = DocumentListViewModel;
+			DocumentListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (DocumentListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((DocumentListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -590,14 +558,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = TestEntityListViewModel;
+			TestEntityListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (TestEntityListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((TestEntityListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -608,14 +575,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = TestHusbandListViewModel;
+			TestHusbandListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (TestHusbandListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((TestHusbandListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -626,14 +592,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = TestWifeListViewModel;
+			TestWifeListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (TestWifeListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((TestWifeListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -644,14 +609,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = TestChildListViewModel;
+			TestChildListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (TestChildListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((TestChildListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -662,14 +626,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = CostOnDateListViewModel;
+			CostOnDateListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (CostOnDateListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((CostOnDateListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -680,14 +643,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = CostListViewModel;
+			CostListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (CostListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((CostListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -698,14 +660,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = CurrencyListViewModel;
+			CurrencyListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (CurrencyListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((CurrencyListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -716,14 +677,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = ExchangeCurrencyRateListViewModel;
+			ExchangeCurrencyRateListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (ExchangeCurrencyRateListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((ExchangeCurrencyRateListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -734,14 +694,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = ProductListViewModel;
+			ProductListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (ProductListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((ProductListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -752,14 +711,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = OfferListViewModel;
+			OfferListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (OfferListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((OfferListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -770,14 +728,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = EmployeeListViewModel;
+			EmployeeListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (EmployeeListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((EmployeeListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -788,14 +745,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = OrderListViewModel;
+			OrderListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (OrderListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((OrderListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -806,14 +762,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = PaymentConditionListViewModel;
+			PaymentConditionListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (PaymentConditionListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((PaymentConditionListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -824,14 +779,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = PaymentDocumentListViewModel;
+			PaymentDocumentListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (PaymentDocumentListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((PaymentDocumentListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -842,14 +796,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = FacilityListViewModel;
+			FacilityListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (FacilityListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((FacilityListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -860,14 +813,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = ProjectListViewModel;
+			ProjectListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (ProjectListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((ProjectListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -878,14 +830,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = UserRoleListViewModel;
+			UserRoleListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (UserRoleListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((UserRoleListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -896,14 +847,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = SpecificationListViewModel;
+			SpecificationListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (SpecificationListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((SpecificationListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -914,14 +864,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = TenderListViewModel;
+			TenderListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (TenderListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((TenderListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -932,14 +881,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = TenderTypeListViewModel;
+			TenderTypeListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (TenderTypeListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((TenderTypeListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -950,14 +898,13 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = UserListViewModel;
+			UserListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (UserListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((UserListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -968,14 +915,30 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = ProductBlockListViewModel;
+			ProductBlockListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			var viewModel = (ProductBlockListViewModel) DataContext;
-            if (!viewModel.LoadedFlag)
-                await viewModel.LoadAsync();
+			await ((ProductBlockListViewModel)DataContext).LoadAsync();;
+        }
+    }
+
+    [RibbonTab(typeof(TabCRUD))]
+    public partial class PaymentConditionSetListView : ViewBase
+    {
+        public PaymentConditionSetListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionSetListViewModel PaymentConditionSetListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = PaymentConditionSetListViewModel;
+			PaymentConditionSetListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((PaymentConditionSetListViewModel)DataContext).LoadAsync();;
         }
     }
 

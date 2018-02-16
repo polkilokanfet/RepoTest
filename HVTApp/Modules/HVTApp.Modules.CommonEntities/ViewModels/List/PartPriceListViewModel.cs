@@ -34,7 +34,7 @@ namespace HVTApp.UI.ViewModels
     //    {
     //        var costOnDate = new CostOnDate {Date = DateTime.Now};
     //        var wrapper = new CostOnDateWrapper(costOnDate);
-    //        var flag = Container.Resolve<IUpdateDetailsService>().UpdateDetails<CostOnDate, CostOnDateWrapper>(wrapper);
+    //        var flag = _container.Resolve<IUpdateDetailsService>().UpdateDetails<CostOnDate, CostOnDateWrapper>(wrapper);
 
     //        if (flag)
     //        {

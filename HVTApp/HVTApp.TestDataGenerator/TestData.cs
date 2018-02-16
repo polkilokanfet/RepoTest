@@ -159,14 +159,9 @@ namespace HVTApp.TestDataGenerator
         public PaymentCondition PaymentConditionAvans50;
         public PaymentCondition PaymentConditionDoplata50;
                 
-        public List<PaymentCondition> StandartPaymentConditions;
+        public PaymentConditionSet StandartPaymentConditionSet;
 
         public TestData()
-        {
-            ReGenerateAll();
-        }
-
-        public void ReGenerateAll()
         {
             var fields = this.GetType().GetFields();
             foreach (var fieldInfo in fields)
@@ -179,11 +174,6 @@ namespace HVTApp.TestDataGenerator
             {
                 methodInfo.Invoke(this, null);
             }
-        }
-
-        private void GenerateCommonOption()
-        {
-            CommonOption.Clone(new CommonOption { OurCompanyId = CompanyUetm.Id, StandartPaymentsConditions = StandartPaymentConditions});
         }
 
         private void GenerateCompanyForms()
@@ -444,32 +434,32 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateSalesUnits()
         {
-            SalesUnitVeb1101.Clone(new SalesUnit { Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "1", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentsConditions = StandartPaymentConditions, Address = AddressOfSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation });
-            SalesUnitVeb1102.Clone(new SalesUnit { Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "2", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentsConditions = StandartPaymentConditions, Address = AddressOfSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation }); 
+            SalesUnitVeb1101.Clone(new SalesUnit { Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "1", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentsConditionSet = StandartPaymentConditionSet, Address = AddressOfSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation });
+            SalesUnitVeb1102.Clone(new SalesUnit { Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "2", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentsConditionSet = StandartPaymentConditionSet, Address = AddressOfSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation }); 
 
-            SalesUnitZng1101.Clone(new SalesUnit { Product = ProductZng110, Order = OrderZng110, SerialNumber = "5", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentsConditions = StandartPaymentConditions,  Address = AddressOfSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation }); 
-            SalesUnitZng1102.Clone(new SalesUnit { Product = ProductZng110, Order = OrderZng110, SerialNumber = "6", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentsConditions = StandartPaymentConditions,  Address = AddressOfSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation }); 
-            SalesUnitZng1103.Clone(new SalesUnit { Product = ProductZng110, Order = OrderZng110, SerialNumber = "7", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentsConditions = StandartPaymentConditions,  Address = AddressOfSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation });
+            SalesUnitZng1101.Clone(new SalesUnit { Product = ProductZng110, Order = OrderZng110, SerialNumber = "5", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentsConditionSet = StandartPaymentConditionSet,  Address = AddressOfSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation }); 
+            SalesUnitZng1102.Clone(new SalesUnit { Product = ProductZng110, Order = OrderZng110, SerialNumber = "6", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentsConditionSet = StandartPaymentConditionSet,  Address = AddressOfSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation }); 
+            SalesUnitZng1103.Clone(new SalesUnit { Product = ProductZng110, Order = OrderZng110, SerialNumber = "7", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentsConditionSet = StandartPaymentConditionSet,  Address = AddressOfSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation });
 
-            ProjectSalesUnitVeb1101.Clone(new SalesUnit { Product = ProductVeb110, Cost = 3000000, Producer = CompanyUetm, PaymentsConditions = StandartPaymentConditions, Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200) }); ;
-            ProjectSalesUnitVeb1102.Clone(new SalesUnit { Product = ProductVeb110, Cost = 3000000, Producer = CompanyUetm, PaymentsConditions = StandartPaymentConditions, Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200) });;
+            ProjectSalesUnitVeb1101.Clone(new SalesUnit { Product = ProductVeb110, Cost = 3000000, Producer = CompanyUetm, PaymentsConditionSet = StandartPaymentConditionSet, Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200) }); ;
+            ProjectSalesUnitVeb1102.Clone(new SalesUnit { Product = ProductVeb110, Cost = 3000000, Producer = CompanyUetm, PaymentsConditionSet = StandartPaymentConditionSet, Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200) });;
 
-            ProjectSalesUnitZng1101.Clone(new SalesUnit { Product = ProductZng110, Cost = 500000 , Producer = CompanyUetm, PaymentsConditions = StandartPaymentConditions, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200) });
-            ProjectSalesUnitZng1102.Clone(new SalesUnit { Product = ProductZng110, Cost = 500000 , Producer = CompanyUetm, PaymentsConditions = StandartPaymentConditions, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200) });
-            ProjectSalesUnitZng1103.Clone(new SalesUnit { Product = ProductZng110, Cost = 500000 , Producer = CompanyUetm, PaymentsConditions = StandartPaymentConditions, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200) });
-            ProjectSalesUnitZng1104.Clone(new SalesUnit { Product = ProductZng110, Cost = 500000 , Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200), PaymentsConditions = StandartPaymentConditions });
-            ProjectSalesUnitZng1105.Clone(new SalesUnit { Product = ProductZng110, Cost = 500000 , Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200), PaymentsConditions = StandartPaymentConditions });
-            ProjectSalesUnitZng1106.Clone(new SalesUnit { Product = ProductZng110, Cost = 500000 , Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200), PaymentsConditions = StandartPaymentConditions });
+            ProjectSalesUnitZng1101.Clone(new SalesUnit { Product = ProductZng110, Cost = 500000 , Producer = CompanyUetm, PaymentsConditionSet = StandartPaymentConditionSet, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectSalesUnitZng1102.Clone(new SalesUnit { Product = ProductZng110, Cost = 500000 , Producer = CompanyUetm, PaymentsConditionSet = StandartPaymentConditionSet, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectSalesUnitZng1103.Clone(new SalesUnit { Product = ProductZng110, Cost = 500000 , Producer = CompanyUetm, PaymentsConditionSet = StandartPaymentConditionSet, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200) });
+            ProjectSalesUnitZng1104.Clone(new SalesUnit { Product = ProductZng110, Cost = 500000 , Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200), PaymentsConditionSet = StandartPaymentConditionSet });
+            ProjectSalesUnitZng1105.Clone(new SalesUnit { Product = ProductZng110, Cost = 500000 , Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200), PaymentsConditionSet = StandartPaymentConditionSet });
+            ProjectSalesUnitZng1106.Clone(new SalesUnit { Product = ProductZng110, Cost = 500000 , Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200), PaymentsConditionSet = StandartPaymentConditionSet });
 
-            OfferSalesUnitVeb1101.Clone(new SalesUnit { Product = ProductVeb110, Cost = 3100000, PlannedTermFromStartToEndProduction = 120, PaymentsConditions = StandartPaymentConditions, Facility = FacilityStation });
-            OfferSalesUnitVeb1102.Clone(new SalesUnit { Product = ProductVeb110, Cost = 3100000, PlannedTermFromStartToEndProduction = 120, PaymentsConditions = StandartPaymentConditions, Facility = FacilityStation });
+            OfferSalesUnitVeb1101.Clone(new SalesUnit { Product = ProductVeb110, Cost = 3100000, PlannedTermFromStartToEndProduction = 120, PaymentsConditionSet = StandartPaymentConditionSet, Facility = FacilityStation });
+            OfferSalesUnitVeb1102.Clone(new SalesUnit { Product = ProductVeb110, Cost = 3100000, PlannedTermFromStartToEndProduction = 120, PaymentsConditionSet = StandartPaymentConditionSet, Facility = FacilityStation });
                                                                                                  
-            OfferSalesUnitZng1101.Clone(new SalesUnit { Product = ProductZng110, Cost = 5500000, PlannedTermFromStartToEndProduction = 150, PaymentsConditions = StandartPaymentConditions, Facility = FacilitySubstation });
-            OfferSalesUnitZng1102.Clone(new SalesUnit { Product = ProductZng110, Cost = 5500000, PlannedTermFromStartToEndProduction = 150, PaymentsConditions = StandartPaymentConditions, Facility = FacilitySubstation });
-            OfferSalesUnitZng1103.Clone(new SalesUnit { Product = ProductZng110, Cost = 5500000, PlannedTermFromStartToEndProduction = 150, PaymentsConditions = StandartPaymentConditions, Facility = FacilitySubstation });
-            OfferSalesUnitZng1104.Clone(new SalesUnit { Product = ProductZng110, Cost = 5500000, PlannedTermFromStartToEndProduction = 150, PaymentsConditions = StandartPaymentConditions, Facility = FacilitySubstation});
-            OfferSalesUnitZng1105.Clone(new SalesUnit { Product = ProductZng110, Cost = 5500000, PlannedTermFromStartToEndProduction = 150, PaymentsConditions = StandartPaymentConditions, Facility = FacilitySubstation});
-            OfferSalesUnitZng1106.Clone(new SalesUnit { Product = ProductZng110, Cost = 5500000, PlannedTermFromStartToEndProduction = 150, PaymentsConditions = StandartPaymentConditions, Facility = FacilitySubstation });
+            OfferSalesUnitZng1101.Clone(new SalesUnit { Product = ProductZng110, Cost = 5500000, PlannedTermFromStartToEndProduction = 150, PaymentsConditionSet = StandartPaymentConditionSet, Facility = FacilitySubstation });
+            OfferSalesUnitZng1102.Clone(new SalesUnit { Product = ProductZng110, Cost = 5500000, PlannedTermFromStartToEndProduction = 150, PaymentsConditionSet = StandartPaymentConditionSet, Facility = FacilitySubstation });
+            OfferSalesUnitZng1103.Clone(new SalesUnit { Product = ProductZng110, Cost = 5500000, PlannedTermFromStartToEndProduction = 150, PaymentsConditionSet = StandartPaymentConditionSet, Facility = FacilitySubstation });
+            OfferSalesUnitZng1104.Clone(new SalesUnit { Product = ProductZng110, Cost = 5500000, PlannedTermFromStartToEndProduction = 150, PaymentsConditionSet = StandartPaymentConditionSet, Facility = FacilitySubstation});
+            OfferSalesUnitZng1105.Clone(new SalesUnit { Product = ProductZng110, Cost = 5500000, PlannedTermFromStartToEndProduction = 150, PaymentsConditionSet = StandartPaymentConditionSet, Facility = FacilitySubstation});
+            OfferSalesUnitZng1106.Clone(new SalesUnit { Product = ProductZng110, Cost = 5500000, PlannedTermFromStartToEndProduction = 150, PaymentsConditionSet = StandartPaymentConditionSet, Facility = FacilitySubstation });
         }
 
         private void GenerateOffers()
@@ -519,7 +509,13 @@ namespace HVTApp.TestDataGenerator
             PaymentConditionAvans50.Clone(new PaymentCondition { Part = 0.5, DaysToPoint = -10, PaymentConditionPoint = PaymentConditionPoint.ProductionStart });
             PaymentConditionDoplata50.Clone(new PaymentCondition { Part = 0.5, DaysToPoint = -14, PaymentConditionPoint = PaymentConditionPoint.ProductionEnd });
 
-            StandartPaymentConditions.AddRange(new[] { PaymentConditionAvans50, PaymentConditionDoplata50 });
+            StandartPaymentConditionSet.Clone(new PaymentConditionSet {PaymentConditions = new List<PaymentCondition> {PaymentConditionAvans50, PaymentConditionDoplata50} });
         }
+
+        private void GenerateCommonOption()
+        {
+            CommonOption.Clone(new CommonOption { OurCompanyId = CompanyUetm.Id, StandartPaymentsConditionSetId = StandartPaymentConditionSet.Id });
+        }
+
     }
 }

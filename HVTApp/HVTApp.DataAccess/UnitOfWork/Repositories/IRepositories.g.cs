@@ -57,5 +57,6 @@ namespace HVTApp.DataAccess
     public partial interface ITenderTypeRepository : IRepository<TenderType> { }
     public partial interface IUserRepository : IRepository<User> { }
     public partial interface IProductBlockRepository : IRepository<ProductBlock> { }
+    public partial interface IPaymentConditionSetRepository : IRepository<PaymentConditionSet> { }
 
 }

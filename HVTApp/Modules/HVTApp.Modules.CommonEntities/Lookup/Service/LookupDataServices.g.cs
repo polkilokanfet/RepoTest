@@ -274,4 +274,9 @@ namespace HVTApp.UI.Lookup
         public ProductBlockLookupDataService(HvtAppContext context) : base(context) { }
     }
 
+    public partial class PaymentConditionSetLookupDataService : LookupDataService<PaymentConditionSetLookup, PaymentConditionSet>, IPaymentConditionSetLookupDataService
+    {
+        public PaymentConditionSetLookupDataService(HvtAppContext context) : base(context) { }
+    }
+
 }

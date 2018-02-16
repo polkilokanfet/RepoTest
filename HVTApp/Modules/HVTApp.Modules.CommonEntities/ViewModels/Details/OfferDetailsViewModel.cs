@@ -1,12 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Threading.Tasks;
-using HVTApp.Model.POCOs;
-using HVTApp.UI.Extantions;
-using HVTApp.UI.Wrapper;
 using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels

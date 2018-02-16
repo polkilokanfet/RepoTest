@@ -12,9 +12,5 @@ namespace HVTApp.Infrastructure.Interfaces.Services
 
         Task<bool> UpdateDetails<TEntity>(Guid? id = null)
             where TEntity : class, IBaseEntity;
-
-        Task<bool> UpdateDetails<TEntety, TWrapper>(TWrapper wrapper, IUnitOfWork unitOfWork)
-            where TEntety : class, IBaseEntity
-            where TWrapper : class, IWrapper<TEntety>;
     }
 }

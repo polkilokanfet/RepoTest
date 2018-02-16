@@ -20,14 +20,14 @@ namespace HVTApp.Modules.BaseEntities
 
         protected override void RegisterTypes()
         {
-            //Container.RegisterViewForNavigation<CompanyListView>();
-            //Container.RegisterViewForNavigation<CompanyFormListView>();
-            //Container.RegisterViewForNavigation<ActivityFieldListView>();
-            //Container.RegisterViewForNavigation<ParameterListView>();
-            //Container.RegisterViewForNavigation<ParameterGroupListView>();
-            //Container.RegisterViewForNavigation<ProductListView>();
-            //Container.RegisterViewForNavigation<FacilityListView>();
-            //Container.RegisterViewForNavigation<FacilityTypeListView>();
+            //_container.RegisterViewForNavigation<CompanyListView>();
+            //_container.RegisterViewForNavigation<CompanyFormListView>();
+            //_container.RegisterViewForNavigation<ActivityFieldListView>();
+            //_container.RegisterViewForNavigation<ParameterListView>();
+            //_container.RegisterViewForNavigation<ParameterGroupListView>();
+            //_container.RegisterViewForNavigation<ProductListView>();
+            //_container.RegisterViewForNavigation<FacilityListView>();
+            //_container.RegisterViewForNavigation<FacilityTypeListView>();
 
             //_dialogService.Register<CompanyFormDetailsViewModel, CompanyFormDetailsView1>();
             //_dialogService.Register<CompanyDetailsViewModel, CompanyDetailsWindow>();

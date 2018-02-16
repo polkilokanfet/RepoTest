@@ -9,7 +9,6 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Events;
-using HVTApp.UI.Extantions;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
@@ -92,20 +91,11 @@ namespace HVTApp.UI.ViewModels
         {
             //var projectUnit = new ProjectUnit {Project = Item.Model, ProjectId = Item.Model.Id};
             //var projectUnitGroup = new ProjectUnitGroup(new List<ProjectUnit> {projectUnit});
-            //var updated = await Container.Resolve<IUpdateDetailsService>().UpdateDetails<ProjectUnitGroup, ProjectUnitGroupWrapper>(new ProjectUnitGroupWrapper(projectUnitGroup), UnitOfWork);
+            //var updated = await _container.Resolve<IUpdateDetailsService>().UpdateDetails<ProjectUnitGroup, ProjectUnitGroupWrapper>(new ProjectUnitGroupWrapper(projectUnitGroup), UnitOfWork);
         }
 
         private async void EditCommand_Execute()
         {
-            //var projectUnit = SelectedProjectUnitsGrouped.UnitWrappers.First();
-            //var updated = await Container.Resolve<IUpdateDetailsService>().UpdateDetails<ProjectUnit>(projectUnit.Id);
-            //if (updated)
-            //{
-            //    var unit = await UnitOfWork.GetRepository<ProjectUnit>().GetByIdAsync(projectUnit.Id);
-
-            //    SelectedProjectUnitsGrouped.Facility = new FacilityWrapper(unit.Facility);
-            //    SelectedProjectUnitsGrouped.Product = new ProductWrapper(unit.Product);
-            //}
         }
 
         private bool EditCommand_CanExecute()

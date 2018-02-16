@@ -493,4 +493,13 @@ namespace HVTApp.UI.Views
         }
     }
 
+    public partial class PaymentConditionSetDetailsView : ViewBase
+    {
+        public PaymentConditionSetDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionSetDetailsViewModel PaymentConditionSetDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = PaymentConditionSetDetailsViewModel;
+        }
+    }
+
 }

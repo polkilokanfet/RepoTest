@@ -39,7 +39,7 @@ namespace HVTApp.Services.SelectService
 
             var view = (Control)_container.Resolve(viewType);
             var viewModel = (ISelectServiceViewModel<TLookup>)view.DataContext;
-            viewModel.LoadAsync(items);
+            viewModel.Load(items);
 
             if (selectedItemId != null && items.Any(x => x.Id == selectedItemId))
                 viewModel.SelectedLookup = items.Single(x => x.Id == selectedItemId);
@@ -48,7 +48,8 @@ namespace HVTApp.Services.SelectService
             {
                 ContentControl = { Content = view },
                 CreateNewButton = { Command = viewModel.NewItemCommand },
-                SelectButton = { Command = viewModel.SelectItemCommand }
+                SelectButton = { Command = viewModel.SelectItemCommand },
+                Owner = Application.Current.MainWindow
             };
 
             EventHandler<DialogRequestCloseEventArgs> handler = null;
@@ -63,7 +64,6 @@ namespace HVTApp.Services.SelectService
 
             viewModel.CloseRequested += handler;
 
-            selectWindow.Owner = Application.Current.MainWindow;
             selectWindow.ShowDialog();
 
             return result;

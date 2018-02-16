@@ -67,6 +67,7 @@ namespace HVTApp.DataAccess
             TenderTypeRepository = new TenderTypeRepository(context);
             UserRepository = new UserRepository(context);
             ProductBlockRepository = new ProductBlockRepository(context);
+            PaymentConditionSetRepository = new PaymentConditionSetRepository(context);
 			#endregion
         }
 
@@ -126,6 +127,7 @@ namespace HVTApp.DataAccess
         private ITenderTypeRepository TenderTypeRepository;
         private IUserRepository UserRepository;
         private IProductBlockRepository ProductBlockRepository;
+        private IPaymentConditionSetRepository PaymentConditionSetRepository;
         #endregion
     }
 }
