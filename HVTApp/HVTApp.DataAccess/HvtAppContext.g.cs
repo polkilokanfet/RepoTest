@@ -78,7 +78,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<LocalityType> LocalityTypeDbSet { get; set; }
         public virtual DbSet<Region> RegionDbSet { get; set; }
         public virtual DbSet<CalculatePriceTask> CalculatePriceTaskDbSet { get; set; }
-        public virtual DbSet<AdditionalSalesUnits> AdditionalSalesUnitsDbSet { get; set; }
+        public virtual DbSet<SalesBlock> AdditionalSalesUnitsDbSet { get; set; }
         public virtual DbSet<BankDetails> BankDetailsDbSet { get; set; }
         public virtual DbSet<Company> CompanyDbSet { get; set; }
         public virtual DbSet<CompanyForm> CompanyFormDbSet { get; set; }

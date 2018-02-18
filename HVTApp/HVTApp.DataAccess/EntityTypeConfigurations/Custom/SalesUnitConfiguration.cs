@@ -7,6 +7,8 @@ namespace HVTApp.DataAccess
     {
         public SalesUnitConfiguration()
         {
+            HasMany(x => x.DependentSalesUnits).WithOptional().HasForeignKey(x => x.ParentSalesUnitId).WillCascadeOnDelete(false);
+
             HasRequired(x => x.Facility).WithMany().HasForeignKey(x => x.FacilityId);
             HasOptional(x => x.Producer).WithMany().HasForeignKey(x => x.ProducerId);
 
@@ -14,6 +16,7 @@ namespace HVTApp.DataAccess
             HasOptional(x => x.Order).WithMany().HasForeignKey(x => x.OrderId);
 
             Property(x => x.SerialNumber).IsOptional();
+            Property(x => x.OrderPosition).IsOptional();
             Property(x => x.PlannedTermFromStartToEndProduction).IsOptional();
             Property(x => x.PlannedTermFromPickToEndProduction).IsOptional();
 

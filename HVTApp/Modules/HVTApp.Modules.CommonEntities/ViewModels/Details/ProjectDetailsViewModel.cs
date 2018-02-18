@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -17,6 +18,20 @@ using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
+    public class ProjectUnitGroupViewModel : IDialogRequestClose
+    {
+        public ProjectUnitGroup ProjectUnitGroup { get; }
+
+        public ProjectUnitGroupViewModel(ProjectUnitGroup projectUnitGroup)
+        {
+            ProjectUnitGroup = projectUnitGroup;
+        }
+
+        public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
+    }
+
+
+
     public partial class ProjectDetailsViewModel
     {
         public ObservableCollection<IProjectUnit> ProjectUnits { get; } = new ObservableCollection<IProjectUnit>();
@@ -55,10 +70,12 @@ namespace HVTApp.UI.ViewModels
 
         protected override async Task LoadOtherAsync()
         {
-            ProjectUnits.Clear();
-            Item.SalesUnits.ForEach(ProjectUnits.Add);
-            RefreshGroups();
-            await Task.Run(() => {});
+            await Task.Factory.StartNew(() =>
+            {
+                ProjectUnits.Clear();
+                Item.SalesUnits.ForEach(ProjectUnits.Add);
+                RefreshGroups();
+            });
         }
 
         private void RefreshGroups()
@@ -94,14 +111,17 @@ namespace HVTApp.UI.ViewModels
             //var updated = await _container.Resolve<IUpdateDetailsService>().UpdateDetails<ProjectUnitGroup, ProjectUnitGroupWrapper>(new ProjectUnitGroupWrapper(projectUnitGroup), UnitOfWork);
         }
 
-        private async void EditCommand_Execute()
+        private void EditCommand_Execute()
         {
+            var projectUnitGroup = (ProjectUnitGroup)SelectedProjectUnit;
+            var projectUnitGroupViewModel = new ProjectUnitGroupViewModel(projectUnitGroup);
+            Container.Resolve<IDialogService>().ShowDialog(projectUnitGroupViewModel);
         }
 
         private bool EditCommand_CanExecute()
         {
-            //return SelectedProjectUnitsGrouped != null;
             return true;
+            return SelectedProjectUnit != null;
         }
 
         private void ProjectUnitsGroupedOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)

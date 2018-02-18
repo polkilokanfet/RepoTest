@@ -165,6 +165,9 @@
     <Compile Include="ViewModels\List\PartPriceListViewModel.cs" />
     <Compile Include="ViewModels\List\PaymentPlannedListViewModel.cs" />
     <Compile Include="ViewModels\List\ProjectUnitGroupListViewModel.cs" />
+    <Compile Include="Views\Details\ProjectUnitGroupWindow.xaml.cs">
+      <DependentUpon>ProjectUnitGroupWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Details\SalesUnitDetailsView.xaml.cs">
       <DependentUpon>SalesUnitDetailsView.xaml</DependentUpon>
     </Compile>
@@ -437,6 +440,10 @@
     <Page Include="Tabs\TabCRUD.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Details\ProjectUnitGroupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Details\SalesUnitDetailsView.xaml">
       <SubType>Designer</SubType>

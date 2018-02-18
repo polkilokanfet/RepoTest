@@ -38,7 +38,7 @@ namespace HVTApp.Model.POCOs
 		public virtual Guid? ProductBlockId { get; set; }
 	}
 
-	public partial class AdditionalSalesUnits
+	public partial class SalesBlock
 	{
 		public virtual Guid? AdditionalSalesUnitId { get; set; }
 	}

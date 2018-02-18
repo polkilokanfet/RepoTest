@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using HVTApp.UI.Wrapper;
 
@@ -10,5 +11,6 @@ namespace HVTApp.UI.ViewModels
         int Amount { get; }
         double Cost { get; set; }
         double MarginalIncome { get; set; }
+        DateTime DeliveryDateExpected { get; set; }
     }
 }

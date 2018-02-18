@@ -31,6 +31,12 @@ namespace HVTApp.UI.ViewModels
             {
                 result += salesUnitWrapper.GetType().GetProperty(propertyName).GetValue(salesUnitWrapper).GetHashCode();
             }
+
+            foreach (var dependentSalesUnit in salesUnitWrapper.DependentSalesUnits)
+            {
+                result += dependentSalesUnit.Product.Id.GetHashCode();
+            }
+
             return result;
         }
     }

@@ -59,7 +59,7 @@
     <Compile Include="POCOs\Generated\POCOs.g.cs" />
     <Compile Include="POCOs\PaymentConditionSet.cs" />
     <Compile Include="POCOs\ProductBlock.cs" />
-    <Compile Include="POCOs\Units\AdditionalSalesUnits.cs" />
+    <Compile Include="POCOs\SalesBlock.cs" />
     <Compile Include="POCOs\BankDetails.cs" />
     <Compile Include="POCOs\Company.cs" />
     <Compile Include="POCOs\CompanyForm.cs" />
@@ -76,7 +76,7 @@
     <Compile Include="POCOs\Person.cs" />
     <Compile Include="POCOs\Payments.cs" />
     <Compile Include="POCOs\ParameterRelation.cs" />
-    <Compile Include="POCOs\Units\SalesUnit.cs" />
+    <Compile Include="POCOs\SalesUnit.cs" />
     <Compile Include="POCOs\Test\TestFriendAddress.cs" />
     <Compile Include="POCOs\Test\TestFriend.cs" />
     <Compile Include="POCOs\Test\TestFriendEmail.cs" />

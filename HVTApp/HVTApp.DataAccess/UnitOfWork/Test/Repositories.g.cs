@@ -43,7 +43,7 @@ namespace HVTApp.DataAccess
         public CalculatePriceTaskRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class AdditionalSalesUnitsRepositoryTest : TestBaseRepository<AdditionalSalesUnits>, IAdditionalSalesUnitsRepository
+    public partial class AdditionalSalesUnitsRepositoryTest : TestBaseRepository<SalesBlock>, IAdditionalSalesUnitsRepository
     {
         public AdditionalSalesUnitsRepositoryTest(TestData testData) : base(testData) {}
     }

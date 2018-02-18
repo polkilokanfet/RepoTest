@@ -54,6 +54,12 @@ namespace HVTApp.UI.ViewModels
             set { SetValue(value); }
         }
 
+        public DateTime DeliveryDateExpected
+        {
+            get { return GetValue<DateTime>(); }
+            set { SetValue(value); }
+        }
+
         private T GetValue<T>([CallerMemberName] string propertyName = null)
         {
             var unit = ProjectUnits.First();
@@ -87,6 +93,7 @@ namespace HVTApp.UI.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
 
         #endregion
 

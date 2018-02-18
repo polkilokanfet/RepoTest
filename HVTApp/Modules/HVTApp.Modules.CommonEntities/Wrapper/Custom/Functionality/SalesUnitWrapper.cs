@@ -34,7 +34,7 @@ namespace HVTApp.UI.Wrapper
             if (e.PropertyName == nameof(PriceDate))
             {
                 OnPropertyChanged(nameof(MarginalIncome));
-                ReloadPaymentsPlannedLight();
+                //ReloadPaymentsPlannedLight();
             }
         }
 
@@ -53,7 +53,7 @@ namespace HVTApp.UI.Wrapper
             if (e.PropertyName == nameof(Cost))
             {
                 OnPropertyChanged(nameof(MarginalIncome));
-                ReloadPaymentsPlannedLight();
+                //ReloadPaymentsPlannedLight();
             }
         }
 
@@ -72,7 +72,9 @@ namespace HVTApp.UI.Wrapper
         private void OnSpecificationChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(Specification))
+            {
                 OnPropertyChanged(nameof(OrderInTakeDate));
+            }
         }
     }
 
@@ -124,7 +126,7 @@ namespace HVTApp.UI.Wrapper
             }
         }
 
-        public double Price => Product.GetPrice(PriceDate);
+        public double Price => Product.GetPrice(PriceDate) + DependentSalesUnits.Sum(dsu => dsu.Price);
 
         public string PriceErrors
         {

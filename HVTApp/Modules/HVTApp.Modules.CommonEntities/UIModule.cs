@@ -7,9 +7,11 @@ using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Views;
+using HVTApp.UI.Views.Details;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
+using ProjectUnitGroupWindow = HVTApp.UI.Views.ProjectUnitGroupWindow;
 
 namespace HVTApp.UI
 {
@@ -30,6 +32,7 @@ namespace HVTApp.UI
         protected override void RegisterTypes()
         {
             RegisterViews();
+            _dialogService.Register<ProjectUnitGroupViewModel, ProjectUnitGroupWindow>();
         }
 
         protected override void ResolveOutlookGroup()
