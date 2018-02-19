@@ -7,7 +7,6 @@ using System.Windows;
 
 namespace HVTApp.UI.Views
 {
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class CommonOptionListView : ViewBase
     {
@@ -24,7 +23,6 @@ namespace HVTApp.UI.Views
 			await ((CommonOptionListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class AddressListView : ViewBase
@@ -43,7 +41,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class CountryListView : ViewBase
     {
@@ -60,7 +57,6 @@ namespace HVTApp.UI.Views
 			await ((CountryListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class DistrictListView : ViewBase
@@ -79,7 +75,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class LocalityListView : ViewBase
     {
@@ -96,7 +91,6 @@ namespace HVTApp.UI.Views
 			await ((LocalityListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class LocalityTypeListView : ViewBase
@@ -115,7 +109,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class RegionListView : ViewBase
     {
@@ -132,7 +125,6 @@ namespace HVTApp.UI.Views
 			await ((RegionListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class CalculatePriceTaskListView : ViewBase
@@ -151,7 +143,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class SalesBlockListView : ViewBase
     {
@@ -168,7 +159,6 @@ namespace HVTApp.UI.Views
 			await ((SalesBlockListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class BankDetailsListView : ViewBase
@@ -187,7 +177,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class CompanyListView : ViewBase
     {
@@ -204,7 +193,6 @@ namespace HVTApp.UI.Views
 			await ((CompanyListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class CompanyFormListView : ViewBase
@@ -223,7 +211,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class DocumentsRegistrationDetailsListView : ViewBase
     {
@@ -240,7 +227,6 @@ namespace HVTApp.UI.Views
 			await ((DocumentsRegistrationDetailsListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class EmployeesPositionListView : ViewBase
@@ -259,7 +245,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class FacilityTypeListView : ViewBase
     {
@@ -276,7 +261,6 @@ namespace HVTApp.UI.Views
 			await ((FacilityTypeListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class ActivityFieldListView : ViewBase
@@ -295,7 +279,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class ContractListView : ViewBase
     {
@@ -312,7 +295,6 @@ namespace HVTApp.UI.Views
 			await ((ContractListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class MeasureListView : ViewBase
@@ -331,7 +313,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class ParameterListView : ViewBase
     {
@@ -348,7 +329,6 @@ namespace HVTApp.UI.Views
 			await ((ParameterListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class ParameterGroupListView : ViewBase
@@ -367,7 +347,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class ProductRelationListView : ViewBase
     {
@@ -384,7 +363,6 @@ namespace HVTApp.UI.Views
 			await ((ProductRelationListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class StandartPaymentConditionsListView : ViewBase
@@ -403,7 +381,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class PersonListView : ViewBase
     {
@@ -420,7 +397,6 @@ namespace HVTApp.UI.Views
 			await ((PersonListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class PaymentPlannedListView : ViewBase
@@ -439,7 +415,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class PaymentActualListView : ViewBase
     {
@@ -456,7 +431,6 @@ namespace HVTApp.UI.Views
 			await ((PaymentActualListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class ParameterRelationListView : ViewBase
@@ -475,7 +449,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class SalesUnitListView : ViewBase
     {
@@ -492,7 +465,6 @@ namespace HVTApp.UI.Views
 			await ((SalesUnitListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class TestFriendAddressListView : ViewBase
@@ -511,7 +483,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class TestFriendListView : ViewBase
     {
@@ -528,7 +499,6 @@ namespace HVTApp.UI.Views
 			await ((TestFriendListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class TestFriendEmailListView : ViewBase
@@ -547,7 +517,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class TestFriendGroupListView : ViewBase
     {
@@ -564,7 +533,6 @@ namespace HVTApp.UI.Views
 			await ((TestFriendGroupListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class DocumentListView : ViewBase
@@ -583,7 +551,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class TestEntityListView : ViewBase
     {
@@ -600,7 +567,6 @@ namespace HVTApp.UI.Views
 			await ((TestEntityListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class TestHusbandListView : ViewBase
@@ -619,7 +585,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class TestWifeListView : ViewBase
     {
@@ -636,7 +601,6 @@ namespace HVTApp.UI.Views
 			await ((TestWifeListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class TestChildListView : ViewBase
@@ -655,7 +619,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class CostOnDateListView : ViewBase
     {
@@ -672,7 +635,6 @@ namespace HVTApp.UI.Views
 			await ((CostOnDateListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class CostListView : ViewBase
@@ -691,7 +653,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class CurrencyListView : ViewBase
     {
@@ -708,7 +669,6 @@ namespace HVTApp.UI.Views
 			await ((CurrencyListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class ExchangeCurrencyRateListView : ViewBase
@@ -727,7 +687,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class ProductListView : ViewBase
     {
@@ -744,7 +703,6 @@ namespace HVTApp.UI.Views
 			await ((ProductListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class OfferListView : ViewBase
@@ -763,7 +721,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class EmployeeListView : ViewBase
     {
@@ -780,7 +737,6 @@ namespace HVTApp.UI.Views
 			await ((EmployeeListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class OrderListView : ViewBase
@@ -799,7 +755,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class PaymentConditionListView : ViewBase
     {
@@ -816,7 +771,6 @@ namespace HVTApp.UI.Views
 			await ((PaymentConditionListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class PaymentDocumentListView : ViewBase
@@ -835,7 +789,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class FacilityListView : ViewBase
     {
@@ -852,7 +805,6 @@ namespace HVTApp.UI.Views
 			await ((FacilityListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class ProjectListView : ViewBase
@@ -871,7 +823,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class UserRoleListView : ViewBase
     {
@@ -888,7 +839,6 @@ namespace HVTApp.UI.Views
 			await ((UserRoleListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class SpecificationListView : ViewBase
@@ -907,7 +857,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class TenderListView : ViewBase
     {
@@ -924,7 +873,6 @@ namespace HVTApp.UI.Views
 			await ((TenderListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class TenderTypeListView : ViewBase
@@ -943,7 +891,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class UserListView : ViewBase
     {
@@ -960,7 +907,6 @@ namespace HVTApp.UI.Views
 			await ((UserListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
     [RibbonTab(typeof(TabCRUD))]
     public partial class ProductBlockListView : ViewBase
@@ -979,7 +925,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     [RibbonTab(typeof(TabCRUD))]
     public partial class PaymentConditionSetListView : ViewBase
     {
@@ -996,6 +941,5 @@ namespace HVTApp.UI.Views
 			await ((PaymentConditionSetListViewModel)DataContext).LoadAsync();;
         }
     }
-
 
 }

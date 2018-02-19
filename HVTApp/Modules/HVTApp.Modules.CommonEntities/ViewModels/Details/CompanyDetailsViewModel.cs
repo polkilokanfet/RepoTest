@@ -19,11 +19,12 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitCommands()
         {
-            SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_ExecuteAsync);
-            RemoveParentCompanyCommand = new DelegateCommand(RemoveParentCompanyCommand_Execute);
+            SelectParentCompanyCommand1 = new DelegateCommand(SelectParentCompanyCommand_ExecuteAsync);
             AddActivityFieldCommand = new DelegateCommand(AddActivityFieldCommand_ExecuteAsync);
             RemoveActivityFieldCommand = new DelegateCommand(RemoveActivityFieldCommand_Execute, RemoveActivityFieldCommand_CanExecute);
         }
+
+        public ICommand SelectParentCompanyCommand1 { get; set; }
 
         public ICollection<CompanyFormWrapper> Forms { get; } = new ObservableCollection<CompanyFormWrapper>();
 
@@ -35,8 +36,6 @@ namespace HVTApp.UI.ViewModels
 
         #region Commands
 
-        public ICommand SelectParentCompanyCommand { get; private set; }
-        public ICommand RemoveParentCompanyCommand { get; private set; }
         public ICommand AddActivityFieldCommand { get; private set; }
         public ICommand RemoveActivityFieldCommand { get; private set; }
 
@@ -54,10 +53,10 @@ namespace HVTApp.UI.ViewModels
         private async void AddActivityFieldCommand_ExecuteAsync()
         {
             var exceptIds = Item.ActivityFilds.Select(x => x.Id);
-            var fields = (await UnitOfWork.GetRepository<ActivityField>().GetAllAsync()).Where(x => !exceptIds.Contains(x.Id)).Select(x => new ActivityFieldLookup(x));
+            var fields = (await UnitOfWork.GetRepository<ActivityField>().GetAllAsync()).Where(x => !exceptIds.Contains(x.Id));
             var field = Container.Resolve<ISelectService>().SelectItem(fields);
             if (field != null && !Item.ActivityFilds.Any(x => Equals(x.Id, field.Id)))
-                Item.ActivityFilds.Add(new ActivityFieldWrapper(field.Entity));
+                Item.ActivityFilds.Add(new ActivityFieldWrapper(field));
         }
 
         private void RemoveActivityFieldCommand_Execute()
@@ -86,7 +85,7 @@ namespace HVTApp.UI.ViewModels
             //возможные головные компании
             var possibleParents = companies.Except(exceptCompanies);
             //выбор одной из компаний
-            SelectAndSetWrapper<Company, CompanyLookup, CompanyWrapper>(possibleParents, nameof(Item.ParentCompany));
+            SelectAndSetWrapper<Company, CompanyWrapper>(possibleParents, nameof(Item.ParentCompany));
         }
 
         #endregion

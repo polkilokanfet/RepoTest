@@ -118,19 +118,17 @@ namespace HVTApp.UI.ViewModels
             ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
         }
 
-        protected void SelectAndSetWrapper<TEntity1, TLookup, TWrapper1>(IEnumerable<TEntity1> entities, string propertyName)
-            where TEntity1 : class, IBaseEntity
-            where TLookup : LookupItem<TEntity1>
-            where TWrapper1 : WrapperBase<TEntity1>
+        protected void SelectAndSetWrapper<TModel, TWrap>(IEnumerable<TModel> entities, string propertyName, Guid? selectedItemId = null)
+            where TModel : class, IBaseEntity
+            where TWrap : WrapperBase<TModel>
         {
-            var lookups = entities.Select(x => (TLookup)Activator.CreateInstance(typeof(TLookup), x));
-            var entity = Container.Resolve<ISelectService>().SelectItem(lookups);
-            var propertyValue = (TWrapper1)Item.GetType().GetProperty(propertyName).GetValue(Item);
+            var entity = Container.Resolve<ISelectService>().SelectItem(entities, selectedItemId);
+            var propertyValue = (TWrap)Item.GetType().GetProperty(propertyName).GetValue(Item);
             if (entity != null && !Equals(entity.Id, propertyValue?.Model.Id))
             {
-                var wrapper = (TWrapper1)Activator.CreateInstance(typeof(TWrapper1), entity.Entity);
+                var wrapper = (TWrap)Activator.CreateInstance(typeof(TWrap), entity);
                 Item.GetType().GetProperty(propertyName).SetValue(Item, wrapper);
-                Item.GetType().GetProperty(propertyName + "Id").SetValue(Item, entity.Entity.Id);
+                Item.GetType().GetProperty(propertyName + "Id").SetValue(Item, entity.Id);
             }
         }
 

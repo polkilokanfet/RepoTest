@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using HVTApp.DataAccess.Annotations;
 using HVTApp.Infrastructure;
+using HVTApp.UI.Lookup;
 using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.ViewModels
@@ -98,4 +99,56 @@ namespace HVTApp.UI.ViewModels
         #endregion
 
     }
+
+    public class ProjectUnitGroupLookup : IProjectUnitGroupLookup
+    {
+        public ProjectUnitGroupLookup(IEnumerable<SalesUnitLookup> salesUnitLookups)
+        {
+            SalesUnitLookups = new ObservableCollection<SalesUnitLookup>(salesUnitLookups);
+            foreach (var salesUnitLookup in SalesUnitLookups)
+            {
+                salesUnitLookup.PropertyChanged += ProjectUnitOnPropertyChanged;
+            }
+        }
+
+        private void ProjectUnitOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            OnPropertyChanged(String.Empty);
+        }
+
+        public ObservableCollection<SalesUnitLookup> SalesUnitLookups { get; }
+
+        public int Amount => SalesUnitLookups.Count;
+
+        public FacilityLookup Facility => GetValue<FacilityLookup>();
+
+        public ProductLookup Product => GetValue<ProductLookup>();
+
+        public double Cost => GetValue<double>();
+
+        public double MarginalIncome => GetValue<double>();
+
+        public DateTime DeliveryDateExpected => GetValue<DateTime>();
+
+        private T GetValue<T>([CallerMemberName] string propertyName = null)
+        {
+            var unit = SalesUnitLookups.First();
+            return (T)unit.GetType().GetProperty(propertyName).GetValue(unit);
+        }
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
+        #endregion
+
+    }
+
 }

@@ -14,6 +14,7 @@ namespace HVTApp.UI.ViewModels
         where TLookup : class, ILookupItemNavigation<TEntity>
     {
         Task LoadAsync();
+        void Load(IEnumerable<TEntity> entities);
         void Load(IEnumerable<TLookup> lookups);
 
         IEnumerable<TLookup> Lookups { get; }

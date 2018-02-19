@@ -9,20 +9,20 @@ namespace HVTApp.Infrastructure.Interfaces.Services.SelectService
 {
     public interface ISelectService
     {
-        void Register<TView, TLookup>() 
+        void Register<TView, TItem>() 
             where TView : Control 
-            where TLookup : class, ILookupItem;
+            where TItem : class, IBaseEntity;
 
-        TLookup SelectItem<TLookup>(IEnumerable<TLookup> items, Guid? selectedItemId = null) 
-            where TLookup : class, ILookupItem;
+        TItem SelectItem<TItem>(IEnumerable<TItem> items, Guid? selectedItemId = null) 
+            where TItem : class, IBaseEntity;
     }
 
     public interface ISelectServiceViewModel<TItem> : IDialogRequestClose
-        //where TItem : IBaseEntity
+        where TItem : IBaseEntity
     {
         void Load(IEnumerable<TItem> entities);
 
-        TItem SelectedLookup { get; set; }
+        TItem SelectedItem { get; set; }
         ICommand SelectItemCommand { get; }
         ICommand NewItemCommand { get; }
     }

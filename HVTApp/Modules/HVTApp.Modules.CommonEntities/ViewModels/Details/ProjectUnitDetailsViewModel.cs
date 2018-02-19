@@ -40,20 +40,20 @@ namespace HVTApp.UI.ViewModels
         private async void SelectProject_Execute()
         {
             var projects = await UnitOfWork.GetRepository<Project>().GetAllAsync();
-            //SelectAndSetWrapper<Project, ProjectLookup, ProjectWrapper>(projects, nameof(Item.Project));
+            //SelectAndSetWrapper<Project, ProjectWrapper>(projects, nameof(Item.Project));
         }
 
         private async void SelectProducer_Execute()
         {
             var companies = await UnitOfWork.GetRepository<Company>().GetAllAsync();
             var producers = companies.Where(x => x.ActivityFilds.Select(af => af.ActivityFieldEnum).Contains(ActivityFieldEnum.ProducerOfHighVoltageEquipment));
-            SelectAndSetWrapper<Company, CompanyLookup, CompanyWrapper>(producers, nameof(Item.Producer));
+            SelectAndSetWrapper<Company, CompanyWrapper>(producers, nameof(Item.Producer));
         }
 
         private async void SelectFacility_Execute()
         {
             var facilities = await UnitOfWork.GetRepository<Facility>().GetAllAsync();
-            SelectAndSetWrapper<Facility, FacilityLookup, FacilityWrapper>(facilities, nameof(Item.Facility));
+            SelectAndSetWrapper<Facility, FacilityWrapper>(facilities, nameof(Item.Facility));
         }
 
     }

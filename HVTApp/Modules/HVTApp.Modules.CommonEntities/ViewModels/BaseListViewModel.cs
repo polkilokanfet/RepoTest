@@ -21,7 +21,7 @@ using Prism.Mvvm;
 namespace HVTApp.UI.ViewModels
 {
     public abstract class BaseListViewModel<TEntity, TLookup, TAfterSaveEntityEvent, TAfterSelectEntityEvent, TAfterRemoveEntityEvent> :
-        BindableBase, IBaseListViewModel<TEntity, TLookup>, ISelectServiceViewModel<TLookup>, IDisposable
+        BindableBase, IBaseListViewModel<TEntity, TLookup>, ISelectServiceViewModel<TEntity>, IDisposable
         where TEntity : class, IBaseEntity
         where TLookup : class, ILookupItemNavigation<TEntity>
         where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
@@ -34,6 +34,7 @@ namespace HVTApp.UI.ViewModels
         protected readonly IMessageService MessageService;
 
         private TLookup _selectedLookup;
+        private TEntity _selectedEntity;
 
         protected BaseListViewModel(IUnityContainer container)
         {
@@ -60,6 +61,7 @@ namespace HVTApp.UI.ViewModels
         {
         }
 
+
         public TLookup SelectedLookup
         {
             get { return _selectedLookup; }
@@ -67,10 +69,24 @@ namespace HVTApp.UI.ViewModels
             {
                 if (Equals(_selectedLookup, value)) return;
                 _selectedLookup = value;
+                SelectedItem = _selectedLookup?.Entity;
                 OnPropertyChanged();
                 SelectedLookupChanged?.Invoke(_selectedLookup);
                 Container.Resolve<IEventAggregator>().GetEvent<TAfterSelectEntityEvent>().Publish(new PubSubEventArgs<TEntity>(this, value?.Entity));
                 InvalidateCommands();
+            }
+        }
+
+
+        public TEntity SelectedItem
+        {
+            get { return _selectedEntity; }
+            set
+            {
+                if (Equals(_selectedEntity, value)) return;
+                _selectedEntity = value;
+                SelectedLookup = _selectedLookup != null ? Lookups.Single(x => x.Entity.Id == _selectedEntity.Id) : null;
+                OnPropertyChanged();
             }
         }
 
@@ -89,9 +105,15 @@ namespace HVTApp.UI.ViewModels
             Loaded?.Invoke();
         }
 
+        public virtual void Load(IEnumerable<TEntity> entities)
+        {
+            var lookups = entities.Select(x => (TLookup)Activator.CreateInstance(typeof(TLookup), x));
+            Load(lookups);
+        }
+
         public virtual void Load(IEnumerable<TLookup> lookups)
         {
-            var lookupsCollection = (ICollection<TLookup>) Lookups;
+            var lookupsCollection = (ICollection<TLookup>)Lookups;
             lookupsCollection?.Clear();
             lookups.ForEach(lookupsCollection.Add);
             Loaded?.Invoke();

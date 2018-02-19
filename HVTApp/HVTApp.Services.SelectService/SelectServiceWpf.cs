@@ -20,29 +20,29 @@ namespace HVTApp.Services.SelectService
             _container = container;
         }
 
-        public void Register<TView, TLookup>() 
+        public void Register<TView, TItem>() 
             where TView : Control 
-            where TLookup : class, ILookupItem
+            where TItem : class, IBaseEntity
         {
-            if(Mappings.ContainsKey(typeof(TLookup)))
-                throw new ArgumentException($"Type {typeof(TLookup)} is already mapped to type {typeof(TView)}");
+            if(Mappings.ContainsKey(typeof(TItem)))
+                throw new ArgumentException($"Type {typeof(TItem)} is already mapped to type {typeof(TView)}");
 
-            Mappings.Add(typeof(TLookup), typeof(TView));
+            Mappings.Add(typeof(TItem), typeof(TView));
         }
 
-        public TLookup SelectItem<TLookup>(IEnumerable<TLookup> items, Guid? selectedItemId = null) 
-            where TLookup : class, ILookupItem
+        public TItem SelectItem<TItem>(IEnumerable<TItem> items, Guid? selectedItemId = null) 
+            where TItem : class, IBaseEntity
         {
-            TLookup result = null;
+            TItem result = null;
 
-            Type viewType = Mappings[typeof(TLookup)];
+            Type viewType = Mappings[typeof(TItem)];
 
             var view = (Control)_container.Resolve(viewType);
-            var viewModel = (ISelectServiceViewModel<TLookup>)view.DataContext;
+            var viewModel = (ISelectServiceViewModel<TItem>)view.DataContext;
             viewModel.Load(items);
 
             if (selectedItemId != null && items.Any(x => x.Id == selectedItemId))
-                viewModel.SelectedLookup = items.Single(x => x.Id == selectedItemId);
+                viewModel.SelectedItem = items.Single(x => x.Id == selectedItemId);
 
             var selectWindow = new SelectWindow
             {
@@ -58,7 +58,7 @@ namespace HVTApp.Services.SelectService
                 viewModel.CloseRequested -= handler;
 
                 if (args.DialogResult.HasValue && args.DialogResult.Value)
-                    result = viewModel.SelectedLookup;
+                    result = viewModel.SelectedItem;
                 selectWindow.Close();
             };
 

@@ -18,20 +18,6 @@ using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
-    public class ProjectUnitGroupViewModel : IDialogRequestClose
-    {
-        public ProjectUnitGroup ProjectUnitGroup { get; }
-
-        public ProjectUnitGroupViewModel(ProjectUnitGroup projectUnitGroup)
-        {
-            ProjectUnitGroup = projectUnitGroup;
-        }
-
-        public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
-    }
-
-
-
     public partial class ProjectDetailsViewModel
     {
         public ObservableCollection<IProjectUnit> ProjectUnits { get; } = new ObservableCollection<IProjectUnit>();
@@ -41,23 +27,11 @@ namespace HVTApp.UI.ViewModels
         public ICommand EditCommand { get; private set; }
         public ICommand AddProjectUnitGroupCommand { get; private set; }
 
-        public ICommand EditFacilityCommand { get; private set; }
-
         protected override void InitCommands()
         {
             GroupingCommand = new DelegateCommand(GroupingCommand_Execute);
             EditCommand = new DelegateCommand(EditCommand_Execute, EditCommand_CanExecute);
             AddProjectUnitGroupCommand = new DelegateCommand(AddProjectUnitGroupCommand_Execute);
-
-            EditFacilityCommand = new DelegateCommand(EditFacilityCommand_Execute);
-        }
-
-        private async void EditFacilityCommand_Execute()
-        {
-            var facilities = await UnitOfWork.GetRepository<Facility>().GetAllAsync();
-            var facilityLookup = Container.Resolve<ISelectService>().SelectItem(facilities.Select(x => new FacilityLookup(x)));
-            if (facilityLookup != null)
-                SelectedProjectUnit.Facility = new FacilityWrapper(facilityLookup.Entity);
         }
 
         private bool _isGrouping = true;
@@ -114,7 +88,7 @@ namespace HVTApp.UI.ViewModels
         private void EditCommand_Execute()
         {
             var projectUnitGroup = (ProjectUnitGroup)SelectedProjectUnit;
-            var projectUnitGroupViewModel = new ProjectUnitGroupViewModel(projectUnitGroup);
+            var projectUnitGroupViewModel = new ProjectUnitGroupViewModel(projectUnitGroup, Container);
             Container.Resolve<IDialogService>().ShowDialog(projectUnitGroupViewModel);
         }
 
@@ -124,7 +98,7 @@ namespace HVTApp.UI.ViewModels
             return SelectedProjectUnit != null;
         }
 
-        private void ProjectUnitsGroupedOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        private void InvalidateCommands()
         {
             ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
         }

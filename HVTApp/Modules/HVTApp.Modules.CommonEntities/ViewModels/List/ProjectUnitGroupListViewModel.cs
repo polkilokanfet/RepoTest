@@ -1,6 +1,6 @@
 namespace HVTApp.UI.ViewModels
 {
-    public partial class ProjectUnitGroupListViewModel
+    public partial class ProjectUnitGroupListViewModel //: BaseListViewModel<>
     {
         //protected override async Task<IEnumerable<ProjectUnitGroup>> GetItems()
         //{

@@ -113,10 +113,12 @@
     <Compile Include="ViewModels\BaseListViewModel.cs" />
     <Compile Include="ViewModels\Details\GeneratedDetailsViewModels.g.cs" />
     <Compile Include="ViewModels\Details\IProjectUnit.cs" />
+    <Compile Include="ViewModels\Details\IProjectUnitGroupLookup.cs" />
     <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitGroup.cs" />
+    <Compile Include="ViewModels\Details\ProjectUnitGroupViewModel.cs" />
     <Compile Include="ViewModels\Details\SalesUnitComparer.cs" />
     <Compile Include="ViewModels\Details\UnitsGrouped.cs" />
     <Compile Include="ViewModels\IBaseListViewModel.cs" />
