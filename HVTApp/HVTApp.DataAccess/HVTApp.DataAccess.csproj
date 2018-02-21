@@ -55,8 +55,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityTypeConfigurations\Custom\CalculatePriceTaskConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CommonOptionConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CostOnDateConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\DescribeProductBlockTaskConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\EmployeesPositionConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\BankDetailsConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\EmployeeConfiguration.cs" />

@@ -1,10 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HVTApp.UI.Wrapper
 {
     public partial class ProductWrapper
     {
+        public IEnumerable<ProductBlockWrapper> GetBlocksWithoutAnyPriceOnDate()
+        {
+            if (!ProductBlock.Prices.Any())
+                yield return ProductBlock;
+
+            foreach (var dependentProduct in DependentProducts)
+            {
+                foreach (var productBlockWrapper in dependentProduct.GetBlocksWithoutAnyPriceOnDate())
+                {
+                    yield return productBlockWrapper;
+                }
+            }
+        }
+
         public IEnumerable<ProductBlockWrapper> GetBlocksWithoutActualPriceOnDate(DateTime date)
         {
             if (!ProductBlock.HasActualPriceOnDate(date))

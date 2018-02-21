@@ -105,6 +105,8 @@
     <Compile Include="Lookup\Service\ILookupDataServices.g.cs" />
     <Compile Include="Lookup\Service\ILookupDataService.cs" />
     <Compile Include="Lookup\Service\LookupDataServices.g.cs" />
+    <Compile Include="Services\GenerateCalculatePriceTasksService\GenerateCalculatePriceTasksServiceRealization.cs" />
+    <Compile Include="Services\GenerateCalculatePriceTasksService\IGenerateCalculatePriceTasksService.cs" />
     <Compile Include="Tabs\TabPartPriceCRUD.xaml.cs">
       <DependentUpon>TabPartPriceCRUD.xaml</DependentUpon>
     </Compile>
@@ -172,6 +174,9 @@
     </Compile>
     <Compile Include="Views\Details\SalesUnitDetailsView.xaml.cs">
       <DependentUpon>SalesUnitDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\List\DescribeProductBlockTaskListView.xaml.cs">
+      <DependentUpon>DescribeProductBlockTaskListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\List\SpecificationListView.xaml.cs">
       <DependentUpon>SpecificationListView.xaml</DependentUpon>
@@ -451,6 +456,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Details\SalesUnitDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\List\DescribeProductBlockTaskListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

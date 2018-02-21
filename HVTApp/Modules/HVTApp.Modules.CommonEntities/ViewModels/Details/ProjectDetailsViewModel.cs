@@ -7,6 +7,7 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Converter;
 using HVTApp.UI.Events;
+using HVTApp.UI.Services;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -90,13 +91,13 @@ namespace HVTApp.UI.ViewModels
                 UnitOfWork.GetRepository<Project>().Add(Item.Model);
             Item.AcceptChanges();
 
+            await UnitOfWork.SaveChangesAsync();
+
+            //формируем задания на расчет
             foreach (var product in ProjectUnits.Select(x => x.Product))
             {
-                await Container.Resolve<IGenerateCalculatePriceTasksService>()
+                await Container.Resolve<IGenerateCalculatePriceTasksService>().GenerateCalculatePriceTasks(product, DateTime.Today, Item.Id);
             }
-            await GenerateCalculatePriceTasks(DateTime.Today);
-
-            await UnitOfWork.SaveChangesAsync();
 
             EventAggregator.GetEvent<AfterSaveProjectEvent>().Publish(Item.Model);
 

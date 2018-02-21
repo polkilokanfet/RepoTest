@@ -298,7 +298,7 @@ namespace HVTApp.UI.Wrapper
                 if (ExpectedDeliveryPeriod.HasValue) return ExpectedDeliveryPeriod.Value;
 
                 //по стандартному сроку доставки до адреса
-                if (Address.Locality.StandartDeliveryPeriod.HasValue) return Address.Locality.StandartDeliveryPeriod.Value;
+                //if (Address.Locality.StandartDeliveryPeriod.HasValue) return Address.Locality.StandartDeliveryPeriod.Value;
 
                 ////по стандартному сроку доставки до столицы региона
                 //if (Address.Locality.Region.Capital.StandartDeliveryPeriod.HasValue) return Address.Locality.Region.Capital.StandartDeliveryPeriod.Value;

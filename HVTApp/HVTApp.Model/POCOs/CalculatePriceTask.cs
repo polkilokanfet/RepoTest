@@ -6,9 +6,11 @@ namespace HVTApp.Model.POCOs
 {
     public partial class CalculatePriceTask : BaseEntity
     {
-        public DateTime PriceOnDate { get; set; }
+        public DateTime Date { get; set; }
         public virtual ProductBlock ProductBlock { get; set; }
         public bool IsActual { get; set; } = true;
-        public List<Guid> RequestMakers { get; set; } = new List<Guid>();
+        public List<Project> Projects { get; set; } = new List<Project>();
+        public List<Offer> Offers { get; set; } = new List<Offer>();
+        public List<Specification> Specifications { get; set; } = new List<Specification>();
     }
 }

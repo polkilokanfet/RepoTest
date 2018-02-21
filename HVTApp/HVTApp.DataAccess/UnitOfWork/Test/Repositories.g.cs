@@ -43,9 +43,14 @@ namespace HVTApp.DataAccess
         public CalculatePriceTaskRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class AdditionalSalesUnitsRepositoryTest : TestBaseRepository<SalesBlock>, IAdditionalSalesUnitsRepository
+    public partial class DescribeProductBlockTaskRepositoryTest : TestBaseRepository<DescribeProductBlockTask>, IDescribeProductBlockTaskRepository
     {
-        public AdditionalSalesUnitsRepositoryTest(TestData testData) : base(testData) {}
+        public DescribeProductBlockTaskRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class SalesBlockRepositoryTest : TestBaseRepository<SalesBlock>, ISalesBlockRepository
+    {
+        public SalesBlockRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class BankDetailsRepositoryTest : TestBaseRepository<BankDetails>, IBankDetailsRepository

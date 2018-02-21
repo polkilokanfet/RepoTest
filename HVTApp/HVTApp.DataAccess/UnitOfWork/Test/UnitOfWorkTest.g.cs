@@ -15,7 +15,8 @@ namespace HVTApp.DataAccess
             LocalityTypeRepository = new LocalityTypeRepositoryTest(testData);
             RegionRepository = new RegionRepositoryTest(testData);
             CalculatePriceTaskRepository = new CalculatePriceTaskRepositoryTest(testData);
-            AdditionalSalesUnitsRepository = new AdditionalSalesUnitsRepositoryTest(testData);
+            DescribeProductBlockTaskRepository = new DescribeProductBlockTaskRepositoryTest(testData);
+            SalesBlockRepository = new SalesBlockRepositoryTest(testData);
             BankDetailsRepository = new BankDetailsRepositoryTest(testData);
             CompanyRepository = new CompanyRepositoryTest(testData);
             CompanyFormRepository = new CompanyFormRepositoryTest(testData);
@@ -75,7 +76,8 @@ namespace HVTApp.DataAccess
         public ILocalityTypeRepository LocalityTypeRepository { get; }
         public IRegionRepository RegionRepository { get; }
         public ICalculatePriceTaskRepository CalculatePriceTaskRepository { get; }
-        public IAdditionalSalesUnitsRepository AdditionalSalesUnitsRepository { get; }
+        public IDescribeProductBlockTaskRepository DescribeProductBlockTaskRepository { get; }
+        public ISalesBlockRepository SalesBlockRepository { get; }
         public IBankDetailsRepository BankDetailsRepository { get; }
         public ICompanyRepository CompanyRepository { get; }
         public ICompanyFormRepository CompanyFormRepository { get; }

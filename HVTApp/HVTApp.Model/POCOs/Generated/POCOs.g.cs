@@ -38,9 +38,14 @@ namespace HVTApp.Model.POCOs
 		public virtual Guid? ProductBlockId { get; set; }
 	}
 
+	public partial class DescribeProductBlockTask
+	{
+		public virtual Guid? ProductBlockId { get; set; }
+		public virtual Guid? ProductId { get; set; }
+	}
+
 	public partial class SalesBlock
 	{
-		public virtual Guid? AdditionalSalesUnitId { get; set; }
 	}
 
 	public partial class BankDetails

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using HVTApp.Infrastructure;
@@ -53,10 +54,38 @@ namespace HVTApp.Services.GetProductService
             if (!_products.Contains(result))
             {
                 _unitOfWork.GetRepository<Product>().Add(result);
+                await GenerateDescribeProductBlockTasks(result);
                 await _unitOfWork.SaveChangesAsync();
             }
 
             return result;
+        }
+
+        private async Task GenerateDescribeProductBlockTasks(Product product)
+        {
+            var tasks = await _unitOfWork.GetRepository<DescribeProductBlockTask>().GetAllAsync();
+            var blocks = GetAllProductBlocks(product).Where(x => string.IsNullOrEmpty(x.StructureCostNumber));
+            foreach (var productBlock in blocks)
+            {
+                if (tasks.Any(x => x.ProductBlock.Id == productBlock.Id))
+                    continue;
+                var task = new DescribeProductBlockTask {Product = product, ProductId = product.Id, ProductBlock = productBlock, ProductBlockId = productBlock.Id};
+                _unitOfWork.GetRepository<DescribeProductBlockTask>().Add(task);
+            }
+        }
+
+        private IEnumerable<ProductBlock> GetAllProductBlocks(Product product)
+        {
+            yield return product.ProductBlock;
+
+            foreach (var dependentProduct in product.DependentProducts)
+            {
+                var dp = GetAllProductBlocks(dependentProduct);
+                foreach (var productBlock in dp)
+                {
+                    yield return productBlock;
+                }
+            }
         }
     }
 }

@@ -42,7 +42,7 @@ namespace HVTApp.UI.ViewModels
             var product = await _getProductService.GetProductAsync(ProjectUnitGroup.Product.Model);
             if (product != null && product.Id != ProjectUnitGroup.Product?.Id)
             {
-                ProjectUnitGroup.Product = new ProductWrapper(product);
+                ProjectUnitGroup.Product = new ProductWrapper(await _unitOfWork.GetRepository<Product>().GetByIdAsync(product.Id));
             }
         }
 

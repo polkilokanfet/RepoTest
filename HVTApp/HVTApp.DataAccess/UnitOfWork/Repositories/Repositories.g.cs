@@ -43,9 +43,14 @@ namespace HVTApp.DataAccess
         public CalculatePriceTaskRepository(DbContext context) : base(context) {}
     }
 
-    public partial class AdditionalSalesUnitsRepository : BaseRepository<SalesBlock>, IAdditionalSalesUnitsRepository
+    public partial class DescribeProductBlockTaskRepository : BaseRepository<DescribeProductBlockTask>, IDescribeProductBlockTaskRepository
     {
-        public AdditionalSalesUnitsRepository(DbContext context) : base(context) {}
+        public DescribeProductBlockTaskRepository(DbContext context) : base(context) {}
+    }
+
+    public partial class SalesBlockRepository : BaseRepository<SalesBlock>, ISalesBlockRepository
+    {
+        public SalesBlockRepository(DbContext context) : base(context) {}
     }
 
     public partial class BankDetailsRepository : BaseRepository<BankDetails>, IBankDetailsRepository

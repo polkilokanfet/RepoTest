@@ -21,6 +21,7 @@ namespace HVTApp.Modules.BaseEntities.Menus
             rootProduct.Items.Add(new NavigationItem("Блоки", typeof(ProductBlockListView)));
 
             var rootPartPrices = new NavigationItem("Себестоимости", typeof(PartPriceListView));
+            rootPartPrices.Items.Add(new NavigationItem("Описание блока", typeof(DescribeProductBlockTaskListView)));
             rootPartPrices.Items.Add(new NavigationItem("Задание на расчет себеистоимости блока", typeof(CalculatePriceTaskListView)));
 
             var rootContracts = new NavigationItem("Контракты", typeof(ContractListView));
@@ -30,6 +31,7 @@ namespace HVTApp.Modules.BaseEntities.Menus
             Items.Add(rootParameter);
             Items.Add(rootProduct);
             Items.Add(rootPartPrices);
+            Items.Add(rootContracts);
         }
     }
 }

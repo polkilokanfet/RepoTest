@@ -114,8 +114,12 @@
       <DependentUpon>SalesCRUD.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MarketViewModel.cs" />
+    <Compile Include="ViewModels\OitViewModel.cs" />
     <Compile Include="Views\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OitView.xaml.cs">
+      <DependentUpon>OitView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -172,6 +176,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MarketView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OitView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

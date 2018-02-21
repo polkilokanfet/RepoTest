@@ -11,6 +11,7 @@ namespace HVTApp.UI.Events
 	public partial class AfterSaveLocalityTypeEvent : PubSubEvent<LocalityType> { }
 	public partial class AfterSaveRegionEvent : PubSubEvent<Region> { }
 	public partial class AfterSaveCalculatePriceTaskEvent : PubSubEvent<CalculatePriceTask> { }
+	public partial class AfterSaveDescribeProductBlockTaskEvent : PubSubEvent<DescribeProductBlockTask> { }
 	public partial class AfterSaveSalesBlockEvent : PubSubEvent<SalesBlock> { }
 	public partial class AfterSaveBankDetailsEvent : PubSubEvent<BankDetails> { }
 	public partial class AfterSaveCompanyEvent : PubSubEvent<Company> { }

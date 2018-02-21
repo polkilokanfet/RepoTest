@@ -30,14 +30,14 @@ namespace HVTApp.Services.GenerateCalculatePriceTasksService
             var blocks = productWrapper.GetBlocksWithoutActualPriceOnDate(date);
             foreach (var productBlockWrapper in blocks)
             {
-                if (actualTasks.Any(x => x.ProductBlockId == productBlockWrapper.Id))
+                if (actualTasks.Any(x => x.ProductBlock.Id == productBlockWrapper.Id))
                     continue;
 
                 var task = new CalculatePriceTask
                 {
                     ProductBlockId = productBlockWrapper.Model.Id,
                     ProductBlock = productBlockWrapper.Model,
-                    PriceOnDate = date
+                    Date = date
                 };
 
                 _unitOfWork.GetRepository<CalculatePriceTask>().Add(task);
