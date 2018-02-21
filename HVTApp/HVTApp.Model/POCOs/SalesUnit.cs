@@ -17,7 +17,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return "SalesUnit: " + Product.ToString();
+            return $"SalesUnit: {Product} for {Facility}";
         }
     }
 

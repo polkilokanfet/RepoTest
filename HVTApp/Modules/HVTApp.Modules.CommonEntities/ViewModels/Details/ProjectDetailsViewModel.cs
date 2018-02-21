@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
-using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Converter;
 using HVTApp.UI.Events;
-using HVTApp.UI.Lookup;
-using HVTApp.UI.Wrapper;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -34,6 +28,17 @@ namespace HVTApp.UI.ViewModels
             AddProjectUnitGroupCommand = new DelegateCommand(AddProjectUnitGroupCommand_Execute);
         }
 
+        protected override async Task LoadOtherAsync()
+        {
+            await Task.Factory.StartNew(() =>
+            {
+                ProjectUnits.Clear();
+                ProjectUnits.AddRange(Item.SalesUnits);
+                RefreshGroups();
+            });
+        }
+
+
         private bool _isGrouping = true;
         private void GroupingCommand_Execute()
         {
@@ -41,39 +46,15 @@ namespace HVTApp.UI.ViewModels
             RefreshGroups();
         }
 
-
-        protected override async Task LoadOtherAsync()
-        {
-            await Task.Factory.StartNew(() =>
-            {
-                ProjectUnits.Clear();
-                Item.SalesUnits.ForEach(ProjectUnits.Add);
-                RefreshGroups();
-            });
-        }
-
         private void RefreshGroups()
         {
             ProjectUnits.Clear();
 
             if (_isGrouping)
-            {
-                var salesUnitsGrouped = Item.SalesUnits.GroupBy(x => x, new SalesUnitComparer(new[]
-                {
-                    nameof(SalesUnitWrapper.ProductId),
-                    nameof(SalesUnitWrapper.FacilityId),
-                    nameof(SalesUnitWrapper.Cost)
-                }));
+                ProjectUnits.AddRange(Item.SalesUnits.ToProjectUnitGroups());
+            else
+                ProjectUnits.AddRange(Item.SalesUnits);
 
-                foreach (var group in salesUnitsGrouped)
-                {
-                    var projectUnitsGroup = new ProjectUnitGroup(group);
-                    ProjectUnits.Add(projectUnitsGroup);
-                }
-                return;
-            }
-
-            Item.SalesUnits.ForEach(ProjectUnits.Add);
             OnPropertyChanged(nameof(SelectedProjectUnit));
         }
 
@@ -88,7 +69,7 @@ namespace HVTApp.UI.ViewModels
         private void EditCommand_Execute()
         {
             var projectUnitGroup = (ProjectUnitGroup)SelectedProjectUnit;
-            var projectUnitGroupViewModel = new ProjectUnitGroupViewModel(projectUnitGroup, Container);
+            var projectUnitGroupViewModel = new ProjectUnitGroupViewModel(projectUnitGroup, Container, UnitOfWork);
             Container.Resolve<IDialogService>().ShowDialog(projectUnitGroupViewModel);
         }
 
@@ -108,6 +89,11 @@ namespace HVTApp.UI.ViewModels
             if (await UnitOfWork.GetRepository<Project>().GetByIdAsync(Item.Model.Id) == null)
                 UnitOfWork.GetRepository<Project>().Add(Item.Model);
             Item.AcceptChanges();
+
+            foreach (var product in ProjectUnits.Select(x => x.Product))
+            {
+                await Container.Resolve<IGenerateCalculatePriceTasksService>()
+            }
             await GenerateCalculatePriceTasks(DateTime.Today);
 
             await UnitOfWork.SaveChangesAsync();
@@ -115,31 +101,6 @@ namespace HVTApp.UI.ViewModels
             EventAggregator.GetEvent<AfterSaveProjectEvent>().Publish(Item.Model);
 
             OnCloseRequested(new DialogRequestCloseEventArgs(true));
-        }
-
-        private async Task<bool> GenerateCalculatePriceTasks(DateTime date)
-        {
-            var result = false;
-
-            var actualTasks = (await UnitOfWork.GetRepository<CalculatePriceTask>().GetAllAsync()).Where(x => x.IsActual).ToList();
-            //foreach (var projectUnitWrapper in _projectUnitWrappers)
-            //{
-            //    var blocks = projectUnitWrapper.Product.GetBlocksWithoutActualPriceOnDate(date);
-            //    foreach (var productBlockWrapper in blocks)
-            //    {
-            //        if (actualTasks.Any(x => x.ProductBlockId == productBlockWrapper.Id && x.PriceOnDate.IsActual(date)))
-            //            continue;
-
-            //        var task = new CalculatePriceTask
-            //        {
-            //            ProductBlock = productBlockWrapper.Model,
-            //            PriceOnDate = date
-            //        };
-            //        UnitOfWork.GetRepository<CalculatePriceTask>().Add(task);
-            //        result = true;
-            //    }
-            //}
-            return result;
         }
     }
 }

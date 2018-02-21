@@ -8,7 +8,7 @@ namespace HVTApp.Model.POCOs
     {
         public string Name { get; set; }
         public virtual User Manager { get; set; }
-        public virtual List<SalesUnit> SalesUnits { get; set; }
+        public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
 
         public override string ToString()
         {

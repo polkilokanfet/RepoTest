@@ -32,7 +32,11 @@ namespace HVTApp.UI
         protected override void RegisterTypes()
         {
             RegisterViews();
+
             _dialogService.Register<ProjectUnitGroupViewModel, ProjectUnitGroupWindow>();
+
+            Container.RegisterViewForNavigation<PaymentPlannedListGeneratorView>();
+
         }
 
         protected override void ResolveOutlookGroup()

@@ -46,8 +46,14 @@ namespace HVTApp.UI.ViewModels
         public double Cost
         {
             get { return GetValue<double>(); }
-            set { SetValue(value); }
+            set
+            {
+                SetValue(value);
+                OnPropertyChanged(nameof(Total));
+            }
         }
+
+        public double Total => ProjectUnits.Sum(x => x.Cost);
 
         public double MarginalIncome
         {

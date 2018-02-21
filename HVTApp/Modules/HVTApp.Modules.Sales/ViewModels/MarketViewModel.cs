@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Converter;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
+using HVTApp.UI.Wrapper;
 using Prism.Mvvm;
 
 namespace HVTApp.Modules.Sales.ViewModels
@@ -13,19 +16,22 @@ namespace HVTApp.Modules.Sales.ViewModels
     public class MarketViewModel : BindableBase
     {
         public ProjectListViewModel ProjectListViewModel { get; }
-        public ProjectDetailsViewModel ProjectDetailsViewModel { get; }
+
+        public ObservableCollection<ProjectUnitGroup> ProjectUnitGroups { get; } = new ObservableCollection<ProjectUnitGroup>();
 
         public MarketViewModel(ProjectListViewModel projectListViewModel, ProjectDetailsViewModel projectDetailsViewModel)
         {
             ProjectListViewModel = projectListViewModel;
-            ProjectDetailsViewModel = projectDetailsViewModel;
 
             ProjectListViewModel.SelectedLookupChanged += ProjectListViewModelOnSelectedLookupChanged;
         }
 
-        private async void ProjectListViewModelOnSelectedLookupChanged(ProjectLookup projectLookup)
+
+
+        private void ProjectListViewModelOnSelectedLookupChanged(ProjectLookup projectLookup)
         {
-            await ProjectDetailsViewModel.LoadAsync(projectLookup.Id);
+            ProjectUnitGroups.Clear();
+            ProjectUnitGroups.AddRange(projectLookup.Entity.SalesUnits.Select(x => new SalesUnitWrapper(x)).ToProjectUnitGroups());
         }
     }
 }

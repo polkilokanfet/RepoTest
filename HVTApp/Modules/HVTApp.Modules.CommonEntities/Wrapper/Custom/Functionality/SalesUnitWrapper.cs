@@ -34,7 +34,6 @@ namespace HVTApp.UI.Wrapper
             if (e.PropertyName == nameof(PriceDate))
             {
                 OnPropertyChanged(nameof(MarginalIncome));
-                //ReloadPaymentsPlannedLight();
             }
         }
 
@@ -427,7 +426,13 @@ namespace HVTApp.UI.Wrapper
 
         private IEnumerable<PaymentPlanned> GetPlannedPayments(IEnumerable<PaymentCondition> conditions)
         {
-            return conditions.Select(condition => new PaymentPlanned { Sum = Cost * condition.Part, Date = GetPaymentDate(condition), Condition = condition });
+            return conditions.Select(condition => new PaymentPlanned
+            {
+                SalesUnitId = Model.Id,
+                Sum = Cost * condition.Part,
+                Date = GetPaymentDate(condition),
+                Condition = condition
+            });
         }
     }
 }

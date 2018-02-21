@@ -25,9 +25,9 @@ namespace HVTApp.UI.ViewModels
         public ICommand EditFacilityCommand { get; }
         public ICommand EditProductCommand { get; }
 
-        public ProjectUnitGroupViewModel(ProjectUnitGroup projectUnitGroup, IUnityContainer container)
+        public ProjectUnitGroupViewModel(ProjectUnitGroup projectUnitGroup, IUnityContainer container, IUnitOfWork unitOfWork)
         {
-            _unitOfWork = container.Resolve<IUnitOfWork>();
+            _unitOfWork = unitOfWork;
             _selectService = container.Resolve<ISelectService>();
             _getProductService = container.Resolve<IGetProductService>();
 

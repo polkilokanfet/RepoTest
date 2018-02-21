@@ -21,6 +21,7 @@ using HVTApp.Services.GetProductService;
 using HVTApp.Services.ChooseService;
 using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;
+using HVTApp.Services.GenerateCalculatePriceTasksService;
 using HVTApp.Services.MessageService;
 using HVTApp.Services.SelectService;
 using HVTApp.Services.UpdateDetailsService;
@@ -71,6 +72,7 @@ namespace HVTApp
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
             Container.RegisterType<ISelectService, SelectServiceWpf>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMessageService, MessageServiceWpf>();
+            Container.RegisterType<IGenerateCalculatePriceTasksService, GenerateCalculatePriceTasksServiceRealization>(new ContainerControlledLifetimeManager());
 
             Container.RegisterType<IProjectLookupDataService, ProjectLookupDataService>();
             Container.RegisterType<ICompanyLookupDataService, CompanyLookupDataService>();

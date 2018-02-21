@@ -119,7 +119,6 @@
     <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitGroup.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitGroupViewModel.cs" />
-    <Compile Include="ViewModels\Details\SalesUnitComparer.cs" />
     <Compile Include="ViewModels\Details\UnitsGrouped.cs" />
     <Compile Include="ViewModels\IBaseListViewModel.cs" />
     <Compile Include="Controls\ChooseItemControl.xaml.cs">
@@ -167,6 +166,7 @@
     <Compile Include="ViewModels\List\PartPriceListViewModel.cs" />
     <Compile Include="ViewModels\List\PaymentPlannedListViewModel.cs" />
     <Compile Include="ViewModels\List\ProjectUnitGroupListViewModel.cs" />
+    <Compile Include="ViewModels\PaymentPlannedListGeneratorViewModel.cs" />
     <Compile Include="Views\Details\ProjectUnitGroupWindow.xaml.cs">
       <DependentUpon>ProjectUnitGroupWindow.xaml</DependentUpon>
     </Compile>
@@ -284,6 +284,9 @@
     </Compile>
     <Compile Include="Views\List\ProjectUnitListView.xaml.cs">
       <DependentUpon>ProjectUnitListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PaymentPlannedListGeneratorView.xaml.cs">
+      <DependentUpon>PaymentPlannedListGeneratorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wrapper\Base\NotifyDataErrorInfoBase.cs" />
     <Compile Include="Wrapper\Base\ObservableWrapper.cs" />
@@ -592,6 +595,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\List\ProjectUnitListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PaymentPlannedListGeneratorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
