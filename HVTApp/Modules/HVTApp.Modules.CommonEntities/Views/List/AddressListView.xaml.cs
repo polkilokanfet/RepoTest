@@ -1,11 +1,6 @@
-﻿using System.Windows.Controls;
-
-namespace HVTApp.UI.Views.List
+﻿namespace HVTApp.UI.Views
 {
-    /// <summary>
-    /// Interaction logic for AddressListView
-    /// </summary>
-    public partial class AddressListView : UserControl
+    public partial class AddressListView 
     {
         public AddressListView()
         {

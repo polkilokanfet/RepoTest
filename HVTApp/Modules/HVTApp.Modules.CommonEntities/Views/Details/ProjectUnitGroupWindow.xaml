@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:HVTApp.UI.Controls"
         xmlns:editors="http://infragistics.com/Editors"
-        Title="ProjectUnitGroupWindow" 
+        Title="UnitGroupWindow" 
         SizeToContent="WidthAndHeight">
     
     <Grid>

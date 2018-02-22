@@ -1,4 +1,5 @@
-﻿using HVTApp.DataAccess;
+﻿using System.Threading.Tasks;
+using HVTApp.DataAccess;
 using HVTApp.Services.OfferToDocService;
 using HVTApp.TestDataGenerator;
 using HVTApp.UI.Wrapper;
@@ -10,13 +11,12 @@ namespace HVTApp.Services.OfferToDocServiceTests
     public class OfferToDocTests
     {
         [TestMethod()]
-        public void GenerateOfferDocTest()
+        public async Task GenerateOfferDocTest()
         {
             var testData = new TestData();
 
-            var offerWrapper = new OfferWrapper(testData.OfferMrsk); 
             var offerToDoc = new OfferToDoc(new UnitOfWorkTest(testData));
-            offerToDoc.GenerateOfferDocAsync(offerWrapper);
+            await offerToDoc.GenerateOfferDocAsync(testData.OfferMrsk.Id);
         }
     }
 }

@@ -55,7 +55,7 @@
                                         Grid.Row="0" 
                                         Item="{Binding Item.Author}"
                                         AddItemCommand="{Binding SelectAuthorCommand}" 
-                                        RemoveItemCommand="{Binding RemoveAuthorCommand}"/>
+                                        RemoveItemCommand="{Binding ClearAuthorCommand}"/>
         
             <Label Content="Comment:" Grid.Column="0" Grid.Row="1" />
             <TextBox Grid.Column="1"    
@@ -67,55 +67,55 @@
                                         Grid.Row="3"
                                         Item="{Binding Item.Project}"
                                         AddItemCommand="{Binding SelectProjectCommand}"
-                                        RemoveItemCommand="{Binding RemoveProjectCommand}"/>
+                                        RemoveItemCommand="{Binding ClearProjectCommand}"/>
         
             <Label Content="Recipient Employee:" Grid.Column="0" Grid.Row="4" />
             <controls:ChooseItemControl Grid.Column="1"    
                                         Grid.Row="4" 
                                         Item="{Binding Item.RecipientEmployee}" 
                                         AddItemCommand="{Binding SelectRecipientEmployeeCommand}" 
-                                        RemoveItemCommand="{Binding RemoveRecipientEmployeeCommand}"/>
+                                        RemoveItemCommand="{Binding ClearRecipientEmployeeCommand}"/>
         
             <Label Content="Recipient:" Grid.Column="0"   Grid.Row="5" />
             <controls:ChooseItemControl Grid.Column="1"    
                                         Grid.Row="5" 
                                         Item="{Binding Item.Recipient}" 
                                         AddItemCommand="{Binding SelectRecipientCommand}" 
-                                        RemoveItemCommand="{Binding RemoveRecipientCommand}"/>
+                                        RemoveItemCommand="{Binding ClearRecipientCommand}"/>
         
             <Label Content="Registration Details Of Recipient:" Grid.Column="0"   Grid.Row="6" />
             <controls:ChooseItemControl Grid.Column="1"    
                                         Grid.Row="6" 
                                         Item="{Binding Item.RegistrationDetailsOfRecipient}" 
                                         AddItemCommand="{Binding SelectRegistrationDetailsOfRecipientCommand}" 
-                                        RemoveItemCommand="{Binding RemoveRegistrationDetailsOfRecipientCommand}"/>
+                                        RemoveItemCommand="{Binding ClearRegistrationDetailsOfRecipientCommand}"/>
         
             <Label Content="Registration Details Of Sender:" Grid.Column="0"   Grid.Row="7" />
             <controls:ChooseItemControl Grid.Column="1"    
                                         Grid.Row="7" 
                                         Item="{Binding Item.RegistrationDetailsOfSender}" 
                                         AddItemCommand="{Binding SelectRegistrationDetailsOfSenderCommand}" 
-                                        RemoveItemCommand="{Binding RemoveRegistrationDetailsOfSenderCommand}"/>
+                                        RemoveItemCommand="{Binding ClearRegistrationDetailsOfSenderCommand}"/>
         
             <Label Content="Request Document:" Grid.Column="0"   Grid.Row="8" />
             <controls:ChooseItemControl Grid.Column="1"    
                                         Grid.Row="8" 
                                         Item="{Binding Item.RequestDocument}" 
                                         AddItemCommand="{Binding SelectRequestDocumentCommand}" 
-                                        RemoveItemCommand="{Binding RemoveRequestDocumentCommand}"/>
+                                        RemoveItemCommand="{Binding ClearRequestDocumentCommand}"/>
         
             <Label Content="Sender Employee:" Grid.Column="0"   Grid.Row="9" />
             <controls:ChooseItemControl Grid.Column="1"    
                                         Grid.Row="9" 
                                         Item="{Binding Item.SenderEmployee}" 
                                         AddItemCommand="{Binding SelectSenderEmployeeCommand}" 
-                                        RemoveItemCommand="{Binding RemoveSenderEmployeeCommand}"/>
+                                        RemoveItemCommand="{Binding ClearSenderEmployeeCommand}"/>
         
             <Label Content="Sender:" Grid.Column="0"   Grid.Row="10" />
             <controls:ChooseItemControl Grid.Column="1"    
                                         Grid.Row="10" Item="{Binding Item.Sender}" 
                                         AddItemCommand="{Binding SelectSenderCommand}" 
-                                        RemoveItemCommand="{Binding RemoveSenderCommand}"/>
+                                        RemoveItemCommand="{Binding ClearSenderCommand}"/>
         
             <Label Content="Validity Date:" Grid.Column="0"   Grid.Row="11" />
             <DatePicker Grid.Column="1"   
@@ -128,8 +128,7 @@
                                     Text="{Binding Item.Vat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
         </Grid>
 
-        <infWpf:XamDataGrid Grid.Row="1" 
-                            DataSource="{Binding OfferUnitsGroupedCollection}">
+        <infWpf:XamDataGrid Grid.Row="1" DataSource="{Binding OfferUnits}">
 
             <infWpf:XamDataGrid.FieldLayouts>
                 <infWpf:FieldLayout>
@@ -138,7 +137,7 @@
                         <infWpf:TextField Name="Product" Label="Оборудование" />
                         <infWpf:NumericField Name="Amount" Label="Количество" Width="Auto"/>
                         <infWpf:NumericField Name="MarginalIncome" Label="МД, %" AllowEdit="True" Width="Auto"/>
-                        <infWpf:CurrencyField Name="CostOfShipment" Label="Стоимость" AllowEdit="True" Width="Auto"/>
+                        <infWpf:CurrencyField Name="Cost" Label="Стоимость" AllowEdit="True" Width="Auto"/>
                         <infWpf:CurrencyField Name="Total" Label="Сумма" Width="Auto"/>
                     </infWpf:FieldLayout.Fields>
                 </infWpf:FieldLayout>

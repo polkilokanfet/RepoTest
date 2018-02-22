@@ -10,12 +10,11 @@ namespace HVTApp.Model.POCOs
     public partial class District : BaseEntity
     {
         public string Name { get; set; }
-        public virtual Guid CountryId { get; set; }
-        public virtual List<Region> Regions { get; set; }
+        public virtual Country Country { get; set; }
 
         public override string ToString()
         {
-            return Name;
+            return $"{Country}, {Name}";
         }
     }
 }

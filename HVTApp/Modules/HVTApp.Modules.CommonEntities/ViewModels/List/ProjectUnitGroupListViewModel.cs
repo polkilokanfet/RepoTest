@@ -2,7 +2,7 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class ProjectUnitGroupListViewModel //: BaseListViewModel<>
     {
-        //protected override async Task<IEnumerable<ProjectUnitGroup>> GetItems()
+        //protected override async Task<IEnumerable<UnitGroupGroup>> GetItems()
         //{
         //    var units = await UnitOfWork.GetRepository<ProjectUnit>().GetAllAsNoTrackingAsync();
         //    return units.ConvertToGroup();

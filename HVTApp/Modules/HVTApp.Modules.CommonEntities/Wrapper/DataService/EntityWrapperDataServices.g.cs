@@ -4,7 +4,6 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Wrapper
 {
-
     public partial class CommonOptionWrapperDataService : EntityWrapperDataService<CommonOption, CommonOptionWrapper>
     {
         public CommonOptionWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -19,7 +18,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class AddressWrapperDataService : EntityWrapperDataService<Address, AddressWrapper>
     {
@@ -36,7 +34,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class CountryWrapperDataService : EntityWrapperDataService<Country, CountryWrapper>
     {
         public CountryWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -51,7 +48,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class DistrictWrapperDataService : EntityWrapperDataService<District, DistrictWrapper>
     {
@@ -68,7 +64,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class LocalityWrapperDataService : EntityWrapperDataService<Locality, LocalityWrapper>
     {
         public LocalityWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -83,7 +78,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class LocalityTypeWrapperDataService : EntityWrapperDataService<LocalityType, LocalityTypeWrapper>
     {
@@ -100,7 +94,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class RegionWrapperDataService : EntityWrapperDataService<Region, RegionWrapper>
     {
         public RegionWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -115,7 +108,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class CalculatePriceTaskWrapperDataService : EntityWrapperDataService<CalculatePriceTask, CalculatePriceTaskWrapper>
     {
@@ -132,7 +124,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class DescribeProductBlockTaskWrapperDataService : EntityWrapperDataService<DescribeProductBlockTask, DescribeProductBlockTaskWrapper>
     {
         public DescribeProductBlockTaskWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -147,7 +138,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class SalesBlockWrapperDataService : EntityWrapperDataService<SalesBlock, SalesBlockWrapper>
     {
@@ -164,7 +154,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class BankDetailsWrapperDataService : EntityWrapperDataService<BankDetails, BankDetailsWrapper>
     {
         public BankDetailsWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -179,7 +168,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class CompanyWrapperDataService : EntityWrapperDataService<Company, CompanyWrapper>
     {
@@ -196,7 +184,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class CompanyFormWrapperDataService : EntityWrapperDataService<CompanyForm, CompanyFormWrapper>
     {
         public CompanyFormWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -211,7 +198,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class DocumentsRegistrationDetailsWrapperDataService : EntityWrapperDataService<DocumentsRegistrationDetails, DocumentsRegistrationDetailsWrapper>
     {
@@ -228,7 +214,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class EmployeesPositionWrapperDataService : EntityWrapperDataService<EmployeesPosition, EmployeesPositionWrapper>
     {
         public EmployeesPositionWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -243,7 +228,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class FacilityTypeWrapperDataService : EntityWrapperDataService<FacilityType, FacilityTypeWrapper>
     {
@@ -260,7 +244,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class ActivityFieldWrapperDataService : EntityWrapperDataService<ActivityField, ActivityFieldWrapper>
     {
         public ActivityFieldWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -275,7 +258,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class ContractWrapperDataService : EntityWrapperDataService<Contract, ContractWrapper>
     {
@@ -292,7 +274,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class MeasureWrapperDataService : EntityWrapperDataService<Measure, MeasureWrapper>
     {
         public MeasureWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -307,7 +288,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class ParameterWrapperDataService : EntityWrapperDataService<Parameter, ParameterWrapper>
     {
@@ -324,7 +304,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class ParameterGroupWrapperDataService : EntityWrapperDataService<ParameterGroup, ParameterGroupWrapper>
     {
         public ParameterGroupWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -339,7 +318,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class ProductRelationWrapperDataService : EntityWrapperDataService<ProductRelation, ProductRelationWrapper>
     {
@@ -356,7 +334,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class StandartPaymentConditionsWrapperDataService : EntityWrapperDataService<StandartPaymentConditions, StandartPaymentConditionsWrapper>
     {
         public StandartPaymentConditionsWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -371,7 +348,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class PersonWrapperDataService : EntityWrapperDataService<Person, PersonWrapper>
     {
@@ -388,7 +364,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class PaymentPlannedWrapperDataService : EntityWrapperDataService<PaymentPlanned, PaymentPlannedWrapper>
     {
         public PaymentPlannedWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -403,7 +378,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class PaymentActualWrapperDataService : EntityWrapperDataService<PaymentActual, PaymentActualWrapper>
     {
@@ -420,7 +394,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class ParameterRelationWrapperDataService : EntityWrapperDataService<ParameterRelation, ParameterRelationWrapper>
     {
         public ParameterRelationWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -436,22 +409,20 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
-    public partial class SalesUnitWrapperDataService : EntityWrapperDataService<SalesUnit, SalesUnitWrapper>
+    public partial class SalesUnitWrapperDataService : EntityWrapperDataService<SalesUnit, SalesUnitGroupWrapper>
     {
         public SalesUnitWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
-		protected override SalesUnitWrapper GenerateWrapper(SalesUnit model)
+		protected override SalesUnitGroupWrapper GenerateWrapper(SalesUnit model)
         {
             if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
                 return ExistsWrappers.Single(x => x.Model.Id == model.Id);
 
-            var wrapper = new SalesUnitWrapper(model);
+            var wrapper = new SalesUnitGroupWrapper(model);
             ExistsWrappers.Add(wrapper);
             return wrapper;
         }
     }
-
 
     public partial class TestFriendAddressWrapperDataService : EntityWrapperDataService<TestFriendAddress, TestFriendAddressWrapper>
     {
@@ -468,7 +439,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class TestFriendWrapperDataService : EntityWrapperDataService<TestFriend, TestFriendWrapper>
     {
         public TestFriendWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -483,7 +453,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class TestFriendEmailWrapperDataService : EntityWrapperDataService<TestFriendEmail, TestFriendEmailWrapper>
     {
@@ -500,7 +469,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class TestFriendGroupWrapperDataService : EntityWrapperDataService<TestFriendGroup, TestFriendGroupWrapper>
     {
         public TestFriendGroupWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -515,7 +483,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class DocumentWrapperDataService : EntityWrapperDataService<Document, DocumentWrapper>
     {
@@ -532,7 +499,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class TestEntityWrapperDataService : EntityWrapperDataService<TestEntity, TestEntityWrapper>
     {
         public TestEntityWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -547,7 +513,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class TestHusbandWrapperDataService : EntityWrapperDataService<TestHusband, TestHusbandWrapper>
     {
@@ -564,7 +529,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class TestWifeWrapperDataService : EntityWrapperDataService<TestWife, TestWifeWrapper>
     {
         public TestWifeWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -579,7 +543,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class TestChildWrapperDataService : EntityWrapperDataService<TestChild, TestChildWrapper>
     {
@@ -596,7 +559,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class CostOnDateWrapperDataService : EntityWrapperDataService<CostOnDate, CostOnDateWrapper>
     {
         public CostOnDateWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -611,7 +573,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class CostWrapperDataService : EntityWrapperDataService<Cost, CostWrapper>
     {
@@ -628,7 +589,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class CurrencyWrapperDataService : EntityWrapperDataService<Currency, CurrencyWrapper>
     {
         public CurrencyWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -643,7 +603,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class ExchangeCurrencyRateWrapperDataService : EntityWrapperDataService<ExchangeCurrencyRate, ExchangeCurrencyRateWrapper>
     {
@@ -660,7 +619,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class ProductWrapperDataService : EntityWrapperDataService<Product, ProductWrapper>
     {
         public ProductWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -675,7 +633,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class OfferWrapperDataService : EntityWrapperDataService<Offer, OfferWrapper>
     {
@@ -692,7 +649,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class EmployeeWrapperDataService : EntityWrapperDataService<Employee, EmployeeWrapper>
     {
         public EmployeeWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -707,7 +663,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class OrderWrapperDataService : EntityWrapperDataService<Order, OrderWrapper>
     {
@@ -724,7 +679,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class PaymentConditionWrapperDataService : EntityWrapperDataService<PaymentCondition, PaymentConditionWrapper>
     {
         public PaymentConditionWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -739,7 +693,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class PaymentDocumentWrapperDataService : EntityWrapperDataService<PaymentDocument, PaymentDocumentWrapper>
     {
@@ -756,7 +709,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class FacilityWrapperDataService : EntityWrapperDataService<Facility, FacilityWrapper>
     {
         public FacilityWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -771,7 +723,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class ProjectWrapperDataService : EntityWrapperDataService<Project, ProjectWrapper>
     {
@@ -788,7 +739,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class UserRoleWrapperDataService : EntityWrapperDataService<UserRole, UserRoleWrapper>
     {
         public UserRoleWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -803,7 +753,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class SpecificationWrapperDataService : EntityWrapperDataService<Specification, SpecificationWrapper>
     {
@@ -820,7 +769,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class TenderWrapperDataService : EntityWrapperDataService<Tender, TenderWrapper>
     {
         public TenderWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -835,7 +783,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class TenderTypeWrapperDataService : EntityWrapperDataService<TenderType, TenderTypeWrapper>
     {
@@ -852,7 +799,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class UserWrapperDataService : EntityWrapperDataService<User, UserWrapper>
     {
         public UserWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -867,7 +813,6 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
     public partial class ProductBlockWrapperDataService : EntityWrapperDataService<ProductBlock, ProductBlockWrapper>
     {
@@ -884,7 +829,6 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-
     public partial class PaymentConditionSetWrapperDataService : EntityWrapperDataService<PaymentConditionSet, PaymentConditionSetWrapper>
     {
         public PaymentConditionSetWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -899,6 +843,5 @@ namespace HVTApp.UI.Wrapper
             return wrapper;
         }
     }
-
 
 }

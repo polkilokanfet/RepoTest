@@ -13,6 +13,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -20,10 +22,12 @@
         </Grid.ColumnDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Название полное"/>
-        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" Text="{Binding Item.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+                 Text="{Binding Item.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Название сокращенное"/>
-        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
+                 Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Форма"/>
         <ComboBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
@@ -53,8 +57,17 @@
 			AddItemCommand="{Binding SelectParentCompanyCommand1}"
             RemoveItemCommand="{Binding ClearParentCompanyCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row="7" Content="Дочерние компании"/>
-        <ListView Grid.Column="1" Grid.Row="7" ItemsSource="{Binding Item.ChildCompanies}" IsEnabled="False"/>
+        <Label Grid.Column="0" Grid.Row ="8" Content="Адрес"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="8" 
+			Item="{Binding Item.AddressLegal}"
+			AddItemCommand="{Binding SelectAddressLegalCommand}"
+            RemoveItemCommand="{Binding ClearAddressLegalCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="9" Content="Адрес почтовый"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="9" 
+			Item="{Binding Item.AddressPost}"
+			AddItemCommand="{Binding SelectAddressPostCommand}"
+            RemoveItemCommand="{Binding ClearAddressPostCommand}"/>
 
     </Grid>
 </inf:ViewBase>

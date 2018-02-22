@@ -17,7 +17,7 @@ namespace HVTApp.Modules.Sales.ViewModels
     {
         public ProjectListViewModel ProjectListViewModel { get; }
 
-        public ObservableCollection<ProjectUnitGroup> ProjectUnitGroups { get; } = new ObservableCollection<ProjectUnitGroup>();
+        public ObservableCollection<UnitGroupGroup> ProjectUnitGroups { get; } = new ObservableCollection<UnitGroupGroup>();
 
         public MarketViewModel(ProjectListViewModel projectListViewModel, ProjectDetailsViewModel projectDetailsViewModel)
         {
@@ -31,7 +31,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         private void ProjectListViewModelOnSelectedLookupChanged(ProjectLookup projectLookup)
         {
             ProjectUnitGroups.Clear();
-            ProjectUnitGroups.AddRange(projectLookup.Entity.SalesUnits.Select(x => new SalesUnitWrapper(x)).ToProjectUnitGroups());
+            ProjectUnitGroups.AddRange(projectLookup.Entity.SalesUnits.Select(x => new SalesUnitGroupWrapper(x)).ToUnitGroups());
         }
     }
 }

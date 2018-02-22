@@ -8,7 +8,7 @@ namespace HVTApp.DataAccess
         public RegionConfiguration()
         {
             Property(x => x.Name).IsRequired().HasMaxLength(50);
-            HasMany(x => x.Localities).WithRequired().HasForeignKey(x => x.RegionId);
+            HasRequired(x => x.District).WithMany().HasForeignKey(x => x.DistrictId);
         }
     }
 }

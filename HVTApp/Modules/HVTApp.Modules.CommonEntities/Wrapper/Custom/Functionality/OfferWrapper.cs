@@ -19,8 +19,7 @@ namespace HVTApp.UI.Wrapper
             }
         }
 
-        //public double TotalCost => OfferUnits.Sum(x => x.CostOfShipment);
-        public double TotalCost => 0;
+        public double TotalCost => SalesUnits.Sum(x => x.Cost);
         public double TotalCostWithVat => TotalCost * (1 + Vat);
     }
 }

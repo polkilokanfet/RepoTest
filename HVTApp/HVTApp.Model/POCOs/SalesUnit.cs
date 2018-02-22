@@ -8,7 +8,7 @@ namespace HVTApp.Model.POCOs
     public partial class SalesUnit : BaseEntity
     {
         public Guid? ParentSalesUnitId { get; set; }
-        public virtual List<SalesUnit> DependentSalesUnits { get; set; }
+        public virtual List<SalesUnit> DependentSalesUnits { get; set; } = new List<SalesUnit>();
         public virtual Facility Facility { get; set; }
         public virtual DateTime DeliveryDateExpected { get; set; } =
             DateTime.Today.AddDays(CommonOptions.StandartTermFromStartToEndProduction + 30).SkipWeekend(); //требуемая дата поставки

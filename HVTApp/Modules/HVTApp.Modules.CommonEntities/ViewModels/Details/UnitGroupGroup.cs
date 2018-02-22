@@ -11,23 +11,21 @@ using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.ViewModels
 {
-    public class ProjectUnitGroup : IProjectUnit
+    public class UnitGroupGroup : IUnitGroup
     {
-        public ProjectUnitGroup(IEnumerable<IProjectUnit> projectUnits)
+        public UnitGroupGroup(IEnumerable<IUnitGroup> projectUnits)
         {
-            ProjectUnits = new ObservableCollection<IProjectUnit>(projectUnits);
+            ProjectUnits = new ObservableCollection<IUnitGroup>(projectUnits);
             foreach (var projectUnit in ProjectUnits)
             {
                 projectUnit.PropertyChanged += ProjectUnitOnPropertyChanged;
             }
         }
 
-        private void ProjectUnitOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            OnPropertyChanged(String.Empty);
-        }
 
-        public ObservableCollection<IProjectUnit> ProjectUnits { get; }
+        public ObservableCollection<IUnitGroup> ProjectUnits { get; }
+
+
 
         public int Amount => ProjectUnits.Count;
 
@@ -67,6 +65,14 @@ namespace HVTApp.UI.ViewModels
             set { SetValue(value); }
         }
 
+
+
+        private void ProjectUnitOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            OnPropertyChanged(String.Empty);
+        }
+
+        #region GetSetValue
         private T GetValue<T>([CallerMemberName] string propertyName = null)
         {
             var unit = ProjectUnits.First();
@@ -90,6 +96,7 @@ namespace HVTApp.UI.ViewModels
             if (changed)
                 OnPropertyChanged(propertyName);
         }
+        #endregion
 
         #region INotifyPropertyChanged
 

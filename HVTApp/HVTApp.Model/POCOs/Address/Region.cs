@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
@@ -10,12 +8,11 @@ namespace HVTApp.Model.POCOs
     public partial class Region : BaseEntity
     {
         public string Name { get; set; }
-        public virtual Guid DistrictId { get; set; }
-        public virtual List<Locality> Localities { get; set; } // Населенные пункты.
+        public virtual District District { get; set; }
 
         public override string ToString()
         {
-            return Name;
+            return $"{District}, {Name}";
         }
     }
 }

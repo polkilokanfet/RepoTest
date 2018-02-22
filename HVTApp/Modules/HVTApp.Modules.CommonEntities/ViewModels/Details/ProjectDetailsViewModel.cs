@@ -15,8 +15,17 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class ProjectDetailsViewModel
     {
-        public ObservableCollection<IProjectUnit> ProjectUnits { get; } = new ObservableCollection<IProjectUnit>();
-        public IProjectUnit SelectedProjectUnit { get; set; }
+        public ObservableCollection<IUnitGroup> ProjectUnits { get; } = new ObservableCollection<IUnitGroup>();
+
+        public IUnitGroup SelectedUnitGroup
+        {
+            get { return _selectedUnitGroup; }
+            set
+            {
+                _selectedUnitGroup = value;
+                InvalidateCommands();
+            }
+        }
 
         public ICommand GroupingCommand { get; private set; }
         public ICommand EditCommand { get; private set; }
@@ -39,8 +48,9 @@ namespace HVTApp.UI.ViewModels
             });
         }
 
-
+        private IUnitGroup _selectedUnitGroup;
         private bool _isGrouping = true;
+
         private void GroupingCommand_Execute()
         {
             _isGrouping = !_isGrouping;
@@ -52,32 +62,32 @@ namespace HVTApp.UI.ViewModels
             ProjectUnits.Clear();
 
             if (_isGrouping)
-                ProjectUnits.AddRange(Item.SalesUnits.ToProjectUnitGroups());
+                ProjectUnits.AddRange(Item.SalesUnits.ToUnitGroups());
             else
                 ProjectUnits.AddRange(Item.SalesUnits);
 
-            OnPropertyChanged(nameof(SelectedProjectUnit));
+            OnPropertyChanged(nameof(SelectedUnitGroup));
         }
 
 
         private async void AddProjectUnitGroupCommand_Execute()
         {
             //var projectUnit = new ProjectUnit {Project = Item.Model, ProjectId = Item.Model.Id};
-            //var projectUnitGroup = new ProjectUnitGroup(new List<ProjectUnit> {projectUnit});
-            //var updated = await _container.Resolve<IUpdateDetailsService>().UpdateDetails<ProjectUnitGroup, ProjectUnitGroupWrapper>(new ProjectUnitGroupWrapper(projectUnitGroup), UnitOfWork);
+            //var unitGroupGroup = new UnitGroupGroup(new List<ProjectUnit> {projectUnit});
+            //var updated = await _container.Resolve<IUpdateDetailsService>().UpdateDetails<UnitGroupGroup, ProjectUnitGroupWrapper>(new ProjectUnitGroupWrapper(unitGroupGroup), UnitOfWork);
         }
 
         private void EditCommand_Execute()
         {
-            var projectUnitGroup = (ProjectUnitGroup)SelectedProjectUnit;
+            var projectUnitGroup = (UnitGroupGroup)SelectedUnitGroup;
             var projectUnitGroupViewModel = new ProjectUnitGroupViewModel(projectUnitGroup, Container, UnitOfWork);
             Container.Resolve<IDialogService>().ShowDialog(projectUnitGroupViewModel);
         }
 
         private bool EditCommand_CanExecute()
         {
+            //return SelectedUnitGroup != null;
             return true;
-            return SelectedProjectUnit != null;
         }
 
         private void InvalidateCommands()

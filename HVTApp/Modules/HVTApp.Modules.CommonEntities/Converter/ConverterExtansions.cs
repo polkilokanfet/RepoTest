@@ -7,7 +7,7 @@ namespace HVTApp.UI.Converter
 {
     public static class ConverterExtansions
     {
-        public static IEnumerable<ProjectUnitGroup> ToProjectUnitGroups(this IEnumerable<SalesUnitWrapper> salesUnits)
+        public static IEnumerable<UnitGroupGroup> ToUnitGroups(this IEnumerable<SalesUnitGroupWrapper> salesUnits)
         {
             return salesUnits.ToList().GroupBy(x => new
             {
@@ -16,7 +16,7 @@ namespace HVTApp.UI.Converter
                 cost = x.Model.Cost,
                 dependentProducts = x.DependentSalesUnits.Sum(su => su.Product.Id.GetHashCode())
             }).
-            Select(x => new ProjectUnitGroup(x));
+            Select(x => new UnitGroupGroup(x));
         }
 
         public static IEnumerable<ProductUnitsGroup> ToGroupUnits(this IEnumerable<IProductUnit> productUnits)

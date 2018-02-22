@@ -37,7 +37,7 @@ namespace HVTApp.UI.ViewModels
             UnitOfWork.GetRepository<PaymentPlanned>().DeleteRange(currentPayments);
 
             var salesUnitWrappers = (await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync()).
-                Select(x => new SalesUnitWrapper(x)).ToList();
+                Select(x => new SalesUnitGroupWrapper(x)).ToList();
             salesUnitWrappers.ForEach(x => x.ReloadPaymentsPlannedFull());
 
             var salesUnits = await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync();

@@ -4,7 +4,7 @@ using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.ViewModels
 {
-    public interface IProjectUnit : INotifyPropertyChanged
+    public interface IUnitGroup : INotifyPropertyChanged
     {
         FacilityWrapper Facility { get; set; }
         ProductWrapper Product { get; set; }

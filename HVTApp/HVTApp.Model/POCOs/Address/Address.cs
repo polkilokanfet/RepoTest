@@ -9,7 +9,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return Locality.ToString() + "; " + Description;
+            return $"{Locality}, {Description}";
         }
 
     }

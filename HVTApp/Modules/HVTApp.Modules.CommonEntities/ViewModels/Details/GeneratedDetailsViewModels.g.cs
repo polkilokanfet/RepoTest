@@ -7,30 +7,23 @@ using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
-
     public partial class CommonOptionDetailsViewModel : BaseDetailsViewModel<CommonOptionWrapper, CommonOption, AfterSaveCommonOptionEvent>
     {
-
         public CommonOptionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class AddressDetailsViewModel : BaseDetailsViewModel<AddressWrapper, Address, AfterSaveAddressEvent>
     {
 		public ICommand SelectLocalityCommand { get; }
 		public ICommand ClearLocalityCommand { get; }
 
-
         public AddressDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectLocalityCommand = new DelegateCommand(SelectLocalityCommand_Execute);
 			ClearLocalityCommand = new DelegateCommand(ClearLocalityCommand_Execute);
-
 
 		}
 		private async void SelectLocalityCommand_Execute() 
@@ -45,45 +38,56 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class CountryDetailsViewModel : BaseDetailsViewModel<CountryWrapper, Country, AfterSaveCountryEvent>
     {
-
         public CountryDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class DistrictDetailsViewModel : BaseDetailsViewModel<DistrictWrapper, District, AfterSaveDistrictEvent>
     {
+		public ICommand SelectCountryCommand { get; }
+		public ICommand ClearCountryCommand { get; }
 
         public DistrictDetailsViewModel(IUnityContainer container) : base(container) 
 		{
+			SelectCountryCommand = new DelegateCommand(SelectCountryCommand_Execute);
+			ClearCountryCommand = new DelegateCommand(ClearCountryCommand_Execute);
 
+		}
+		private async void SelectCountryCommand_Execute() 
+		{
+            var entities = await UnitOfWork.GetRepository<Country>().GetAllAsync();
+            SelectAndSetWrapper<Country, CountryWrapper>(entities, nameof(Item.Country), Item.Country?.Id);
+		}
+
+		private void ClearCountryCommand_Execute() 
+		{
+		    Item.Country = null;
 		}
 
 
     }
-
 
     public partial class LocalityDetailsViewModel : BaseDetailsViewModel<LocalityWrapper, Locality, AfterSaveLocalityEvent>
     {
 		public ICommand SelectLocalityTypeCommand { get; }
 		public ICommand ClearLocalityTypeCommand { get; }
 
+		public ICommand SelectRegionCommand { get; }
+		public ICommand ClearRegionCommand { get; }
 
         public LocalityDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectLocalityTypeCommand = new DelegateCommand(SelectLocalityTypeCommand_Execute);
 			ClearLocalityTypeCommand = new DelegateCommand(ClearLocalityTypeCommand_Execute);
 
+			SelectRegionCommand = new DelegateCommand(SelectRegionCommand_Execute);
+			ClearRegionCommand = new DelegateCommand(ClearRegionCommand_Execute);
 
 		}
 		private async void SelectLocalityTypeCommand_Execute() 
@@ -97,46 +101,62 @@ namespace HVTApp.UI.ViewModels
 		    Item.LocalityType = null;
 		}
 
+		private async void SelectRegionCommand_Execute() 
+		{
+            var entities = await UnitOfWork.GetRepository<Region>().GetAllAsync();
+            SelectAndSetWrapper<Region, RegionWrapper>(entities, nameof(Item.Region), Item.Region?.Id);
+		}
+
+		private void ClearRegionCommand_Execute() 
+		{
+		    Item.Region = null;
+		}
 
 
     }
-
 
     public partial class LocalityTypeDetailsViewModel : BaseDetailsViewModel<LocalityTypeWrapper, LocalityType, AfterSaveLocalityTypeEvent>
     {
-
         public LocalityTypeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class RegionDetailsViewModel : BaseDetailsViewModel<RegionWrapper, Region, AfterSaveRegionEvent>
     {
+		public ICommand SelectDistrictCommand { get; }
+		public ICommand ClearDistrictCommand { get; }
 
         public RegionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
+			SelectDistrictCommand = new DelegateCommand(SelectDistrictCommand_Execute);
+			ClearDistrictCommand = new DelegateCommand(ClearDistrictCommand_Execute);
 
+		}
+		private async void SelectDistrictCommand_Execute() 
+		{
+            var entities = await UnitOfWork.GetRepository<District>().GetAllAsync();
+            SelectAndSetWrapper<District, DistrictWrapper>(entities, nameof(Item.District), Item.District?.Id);
+		}
+
+		private void ClearDistrictCommand_Execute() 
+		{
+		    Item.District = null;
 		}
 
 
     }
-
 
     public partial class CalculatePriceTaskDetailsViewModel : BaseDetailsViewModel<CalculatePriceTaskWrapper, CalculatePriceTask, AfterSaveCalculatePriceTaskEvent>
     {
 		public ICommand SelectProductBlockCommand { get; }
 		public ICommand ClearProductBlockCommand { get; }
 
-
         public CalculatePriceTaskDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectProductBlockCommand = new DelegateCommand(SelectProductBlockCommand_Execute);
 			ClearProductBlockCommand = new DelegateCommand(ClearProductBlockCommand_Execute);
-
 
 		}
 		private async void SelectProductBlockCommand_Execute() 
@@ -151,9 +171,7 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class DescribeProductBlockTaskDetailsViewModel : BaseDetailsViewModel<DescribeProductBlockTaskWrapper, DescribeProductBlockTask, AfterSaveDescribeProductBlockTaskEvent>
     {
@@ -163,7 +181,6 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectProductCommand { get; }
 		public ICommand ClearProductCommand { get; }
 
-
         public DescribeProductBlockTaskDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectProductBlockCommand = new DelegateCommand(SelectProductBlockCommand_Execute);
@@ -171,7 +188,6 @@ namespace HVTApp.UI.ViewModels
 
 			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
 			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
-
 
 		}
 		private async void SelectProductBlockCommand_Execute() 
@@ -197,33 +213,23 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class SalesBlockDetailsViewModel : BaseDetailsViewModel<SalesBlockWrapper, SalesBlock, AfterSaveSalesBlockEvent>
     {
-
         public SalesBlockDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class BankDetailsDetailsViewModel : BaseDetailsViewModel<BankDetailsWrapper, BankDetails, AfterSaveBankDetailsEvent>
     {
-
         public BankDetailsDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class CompanyDetailsViewModel : BaseDetailsViewModel<CompanyWrapper, Company, AfterSaveCompanyEvent>
     {
@@ -239,7 +245,6 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectAddressPostCommand { get; }
 		public ICommand ClearAddressPostCommand { get; }
 
-
         public CompanyDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectFormCommand = new DelegateCommand(SelectFormCommand_Execute);
@@ -253,7 +258,6 @@ namespace HVTApp.UI.ViewModels
 
 			SelectAddressPostCommand = new DelegateCommand(SelectAddressPostCommand_Execute);
 			ClearAddressPostCommand = new DelegateCommand(ClearAddressPostCommand_Execute);
-
 
 		}
 		private async void SelectFormCommand_Execute() 
@@ -301,81 +305,57 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class CompanyFormDetailsViewModel : BaseDetailsViewModel<CompanyFormWrapper, CompanyForm, AfterSaveCompanyFormEvent>
     {
-
         public CompanyFormDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class DocumentsRegistrationDetailsDetailsViewModel : BaseDetailsViewModel<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails, AfterSaveDocumentsRegistrationDetailsEvent>
     {
-
         public DocumentsRegistrationDetailsDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class EmployeesPositionDetailsViewModel : BaseDetailsViewModel<EmployeesPositionWrapper, EmployeesPosition, AfterSaveEmployeesPositionEvent>
     {
-
         public EmployeesPositionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class FacilityTypeDetailsViewModel : BaseDetailsViewModel<FacilityTypeWrapper, FacilityType, AfterSaveFacilityTypeEvent>
     {
-
         public FacilityTypeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class ActivityFieldDetailsViewModel : BaseDetailsViewModel<ActivityFieldWrapper, ActivityField, AfterSaveActivityFieldEvent>
     {
-
         public ActivityFieldDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class ContractDetailsViewModel : BaseDetailsViewModel<ContractWrapper, Contract, AfterSaveContractEvent>
     {
 		public ICommand SelectContragentCommand { get; }
 		public ICommand ClearContragentCommand { get; }
 
-
         public ContractDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectContragentCommand = new DelegateCommand(SelectContragentCommand_Execute);
 			ClearContragentCommand = new DelegateCommand(ClearContragentCommand_Execute);
-
 
 		}
 		private async void SelectContragentCommand_Execute() 
@@ -390,33 +370,25 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class MeasureDetailsViewModel : BaseDetailsViewModel<MeasureWrapper, Measure, AfterSaveMeasureEvent>
     {
-
         public MeasureDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class ParameterDetailsViewModel : BaseDetailsViewModel<ParameterWrapper, Parameter, AfterSaveParameterEvent>
     {
 		public ICommand SelectParameterGroupCommand { get; }
 		public ICommand ClearParameterGroupCommand { get; }
 
-
         public ParameterDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectParameterGroupCommand = new DelegateCommand(SelectParameterGroupCommand_Execute);
 			ClearParameterGroupCommand = new DelegateCommand(ClearParameterGroupCommand_Execute);
-
 
 		}
 		private async void SelectParameterGroupCommand_Execute() 
@@ -431,21 +403,17 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class ParameterGroupDetailsViewModel : BaseDetailsViewModel<ParameterGroupWrapper, ParameterGroup, AfterSaveParameterGroupEvent>
     {
 		public ICommand SelectMeasureCommand { get; }
 		public ICommand ClearMeasureCommand { get; }
 
-
         public ParameterGroupDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectMeasureCommand = new DelegateCommand(SelectMeasureCommand_Execute);
 			ClearMeasureCommand = new DelegateCommand(ClearMeasureCommand_Execute);
-
 
 		}
 		private async void SelectMeasureCommand_Execute() 
@@ -460,57 +428,41 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class ProductRelationDetailsViewModel : BaseDetailsViewModel<ProductRelationWrapper, ProductRelation, AfterSaveProductRelationEvent>
     {
-
         public ProductRelationDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class StandartPaymentConditionsDetailsViewModel : BaseDetailsViewModel<StandartPaymentConditionsWrapper, StandartPaymentConditions, AfterSaveStandartPaymentConditionsEvent>
     {
-
         public StandartPaymentConditionsDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class PersonDetailsViewModel : BaseDetailsViewModel<PersonWrapper, Person, AfterSavePersonEvent>
     {
-
         public PersonDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class PaymentPlannedDetailsViewModel : BaseDetailsViewModel<PaymentPlannedWrapper, PaymentPlanned, AfterSavePaymentPlannedEvent>
     {
 		public ICommand SelectConditionCommand { get; }
 		public ICommand ClearConditionCommand { get; }
 
-
         public PaymentPlannedDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectConditionCommand = new DelegateCommand(SelectConditionCommand_Execute);
 			ClearConditionCommand = new DelegateCommand(ClearConditionCommand_Execute);
-
 
 		}
 		private async void SelectConditionCommand_Execute() 
@@ -525,35 +477,25 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class PaymentActualDetailsViewModel : BaseDetailsViewModel<PaymentActualWrapper, PaymentActual, AfterSavePaymentActualEvent>
     {
-
         public PaymentActualDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class ParameterRelationDetailsViewModel : BaseDetailsViewModel<ParameterRelationWrapper, ParameterRelation, AfterSaveParameterRelationEvent>
     {
-
         public ParameterRelationDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
-
 
     }
 
-
-    public partial class SalesUnitDetailsViewModel : BaseDetailsViewModel<SalesUnitWrapper, SalesUnit, AfterSaveSalesUnitEvent>
+    public partial class SalesUnitDetailsViewModel : BaseDetailsViewModel<SalesUnitGroupWrapper, SalesUnit, AfterSaveSalesUnitEvent>
     {
 		public ICommand SelectFacilityCommand { get; }
 		public ICommand ClearFacilityCommand { get; }
@@ -575,7 +517,6 @@ namespace HVTApp.UI.ViewModels
 
 		public ICommand SelectAddressCommand { get; }
 		public ICommand ClearAddressCommand { get; }
-
 
         public SalesUnitDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -599,7 +540,6 @@ namespace HVTApp.UI.ViewModels
 
 			SelectAddressCommand = new DelegateCommand(SelectAddressCommand_Execute);
 			ClearAddressCommand = new DelegateCommand(ClearAddressCommand_Execute);
-
 
 		}
 		private async void SelectFacilityCommand_Execute() 
@@ -680,21 +620,15 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class TestFriendAddressDetailsViewModel : BaseDetailsViewModel<TestFriendAddressWrapper, TestFriendAddress, AfterSaveTestFriendAddressEvent>
     {
-
         public TestFriendAddressDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class TestFriendDetailsViewModel : BaseDetailsViewModel<TestFriendWrapper, TestFriend, AfterSaveTestFriendEvent>
     {
@@ -707,7 +641,6 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectTestFriendEmailGetCommand { get; }
 		public ICommand ClearTestFriendEmailGetCommand { get; }
 
-
         public TestFriendDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectTestFriendAddressCommand = new DelegateCommand(SelectTestFriendAddressCommand_Execute);
@@ -718,7 +651,6 @@ namespace HVTApp.UI.ViewModels
 
 			SelectTestFriendEmailGetCommand = new DelegateCommand(SelectTestFriendEmailGetCommand_Execute);
 			ClearTestFriendEmailGetCommand = new DelegateCommand(ClearTestFriendEmailGetCommand_Execute);
-
 
 		}
 		private async void SelectTestFriendAddressCommand_Execute() 
@@ -755,33 +687,23 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class TestFriendEmailDetailsViewModel : BaseDetailsViewModel<TestFriendEmailWrapper, TestFriendEmail, AfterSaveTestFriendEmailEvent>
     {
-
         public TestFriendEmailDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class TestFriendGroupDetailsViewModel : BaseDetailsViewModel<TestFriendGroupWrapper, TestFriendGroup, AfterSaveTestFriendGroupEvent>
     {
-
         public TestFriendGroupDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class DocumentDetailsViewModel : BaseDetailsViewModel<DocumentWrapper, Document, AfterSaveDocumentEvent>
     {
@@ -803,7 +725,6 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectRegistrationDetailsOfRecipientCommand { get; }
 		public ICommand ClearRegistrationDetailsOfRecipientCommand { get; }
 
-
         public DocumentDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectRequestDocumentCommand = new DelegateCommand(SelectRequestDocumentCommand_Execute);
@@ -823,7 +744,6 @@ namespace HVTApp.UI.ViewModels
 
 			SelectRegistrationDetailsOfRecipientCommand = new DelegateCommand(SelectRegistrationDetailsOfRecipientCommand_Execute);
 			ClearRegistrationDetailsOfRecipientCommand = new DelegateCommand(ClearRegistrationDetailsOfRecipientCommand_Execute);
-
 
 		}
 		private async void SelectRequestDocumentCommand_Execute() 
@@ -893,33 +813,25 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class TestEntityDetailsViewModel : BaseDetailsViewModel<TestEntityWrapper, TestEntity, AfterSaveTestEntityEvent>
     {
-
         public TestEntityDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class TestHusbandDetailsViewModel : BaseDetailsViewModel<TestHusbandWrapper, TestHusband, AfterSaveTestHusbandEvent>
     {
 		public ICommand SelectWifeCommand { get; }
 		public ICommand ClearWifeCommand { get; }
 
-
         public TestHusbandDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectWifeCommand = new DelegateCommand(SelectWifeCommand_Execute);
 			ClearWifeCommand = new DelegateCommand(ClearWifeCommand_Execute);
-
 
 		}
 		private async void SelectWifeCommand_Execute() 
@@ -934,21 +846,17 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class TestWifeDetailsViewModel : BaseDetailsViewModel<TestWifeWrapper, TestWife, AfterSaveTestWifeEvent>
     {
 		public ICommand SelectHusbandCommand { get; }
 		public ICommand ClearHusbandCommand { get; }
 
-
         public TestWifeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectHusbandCommand = new DelegateCommand(SelectHusbandCommand_Execute);
 			ClearHusbandCommand = new DelegateCommand(ClearHusbandCommand_Execute);
-
 
 		}
 		private async void SelectHusbandCommand_Execute() 
@@ -963,9 +871,7 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class TestChildDetailsViewModel : BaseDetailsViewModel<TestChildWrapper, TestChild, AfterSaveTestChildEvent>
     {
@@ -975,7 +881,6 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectWifeCommand { get; }
 		public ICommand ClearWifeCommand { get; }
 
-
         public TestChildDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectHusbandCommand = new DelegateCommand(SelectHusbandCommand_Execute);
@@ -983,7 +888,6 @@ namespace HVTApp.UI.ViewModels
 
 			SelectWifeCommand = new DelegateCommand(SelectWifeCommand_Execute);
 			ClearWifeCommand = new DelegateCommand(ClearWifeCommand_Execute);
-
 
 		}
 		private async void SelectHusbandCommand_Execute() 
@@ -1009,33 +913,25 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class CostOnDateDetailsViewModel : BaseDetailsViewModel<CostOnDateWrapper, CostOnDate, AfterSaveCostOnDateEvent>
     {
-
         public CostOnDateDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class CostDetailsViewModel : BaseDetailsViewModel<CostWrapper, Cost, AfterSaveCostEvent>
     {
 		public ICommand SelectCurrencyCommand { get; }
 		public ICommand ClearCurrencyCommand { get; }
 
-
         public CostDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectCurrencyCommand = new DelegateCommand(SelectCurrencyCommand_Execute);
 			ClearCurrencyCommand = new DelegateCommand(ClearCurrencyCommand_Execute);
-
 
 		}
 		private async void SelectCurrencyCommand_Execute() 
@@ -1050,21 +946,15 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class CurrencyDetailsViewModel : BaseDetailsViewModel<CurrencyWrapper, Currency, AfterSaveCurrencyEvent>
     {
-
         public CurrencyDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class ExchangeCurrencyRateDetailsViewModel : BaseDetailsViewModel<ExchangeCurrencyRateWrapper, ExchangeCurrencyRate, AfterSaveExchangeCurrencyRateEvent>
     {
@@ -1074,7 +964,6 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectSecondCurrencyCommand { get; }
 		public ICommand ClearSecondCurrencyCommand { get; }
 
-
         public ExchangeCurrencyRateDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectFirstCurrencyCommand = new DelegateCommand(SelectFirstCurrencyCommand_Execute);
@@ -1082,7 +971,6 @@ namespace HVTApp.UI.ViewModels
 
 			SelectSecondCurrencyCommand = new DelegateCommand(SelectSecondCurrencyCommand_Execute);
 			ClearSecondCurrencyCommand = new DelegateCommand(ClearSecondCurrencyCommand_Execute);
-
 
 		}
 		private async void SelectFirstCurrencyCommand_Execute() 
@@ -1108,21 +996,17 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class ProductDetailsViewModel : BaseDetailsViewModel<ProductWrapper, Product, AfterSaveProductEvent>
     {
 		public ICommand SelectProductBlockCommand { get; }
 		public ICommand ClearProductBlockCommand { get; }
 
-
         public ProductDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectProductBlockCommand = new DelegateCommand(SelectProductBlockCommand_Execute);
 			ClearProductBlockCommand = new DelegateCommand(ClearProductBlockCommand_Execute);
-
 
 		}
 		private async void SelectProductBlockCommand_Execute() 
@@ -1137,9 +1021,7 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class OfferDetailsViewModel : BaseDetailsViewModel<OfferWrapper, Offer, AfterSaveOfferEvent>
     {
@@ -1164,7 +1046,6 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectRegistrationDetailsOfRecipientCommand { get; }
 		public ICommand ClearRegistrationDetailsOfRecipientCommand { get; }
 
-
         public OfferDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectProjectCommand = new DelegateCommand(SelectProjectCommand_Execute);
@@ -1187,7 +1068,6 @@ namespace HVTApp.UI.ViewModels
 
 			SelectRegistrationDetailsOfRecipientCommand = new DelegateCommand(SelectRegistrationDetailsOfRecipientCommand_Execute);
 			ClearRegistrationDetailsOfRecipientCommand = new DelegateCommand(ClearRegistrationDetailsOfRecipientCommand_Execute);
-
 
 		}
 		private async void SelectProjectCommand_Execute() 
@@ -1268,9 +1148,7 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class EmployeeDetailsViewModel : BaseDetailsViewModel<EmployeeWrapper, Employee, AfterSaveEmployeeEvent>
     {
@@ -1280,7 +1158,6 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectPositionCommand { get; }
 		public ICommand ClearPositionCommand { get; }
 
-
         public EmployeeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectCompanyCommand = new DelegateCommand(SelectCompanyCommand_Execute);
@@ -1288,7 +1165,6 @@ namespace HVTApp.UI.ViewModels
 
 			SelectPositionCommand = new DelegateCommand(SelectPositionCommand_Execute);
 			ClearPositionCommand = new DelegateCommand(ClearPositionCommand_Execute);
-
 
 		}
 		private async void SelectCompanyCommand_Execute() 
@@ -1314,45 +1190,31 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class OrderDetailsViewModel : BaseDetailsViewModel<OrderWrapper, Order, AfterSaveOrderEvent>
     {
-
         public OrderDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class PaymentConditionDetailsViewModel : BaseDetailsViewModel<PaymentConditionWrapper, PaymentCondition, AfterSavePaymentConditionEvent>
     {
-
         public PaymentConditionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class PaymentDocumentDetailsViewModel : BaseDetailsViewModel<PaymentDocumentWrapper, PaymentDocument, AfterSavePaymentDocumentEvent>
     {
-
         public PaymentDocumentDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class FacilityDetailsViewModel : BaseDetailsViewModel<FacilityWrapper, Facility, AfterSaveFacilityEvent>
     {
@@ -1365,7 +1227,6 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectAddressCommand { get; }
 		public ICommand ClearAddressCommand { get; }
 
-
         public FacilityDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectTypeCommand = new DelegateCommand(SelectTypeCommand_Execute);
@@ -1376,7 +1237,6 @@ namespace HVTApp.UI.ViewModels
 
 			SelectAddressCommand = new DelegateCommand(SelectAddressCommand_Execute);
 			ClearAddressCommand = new DelegateCommand(ClearAddressCommand_Execute);
-
 
 		}
 		private async void SelectTypeCommand_Execute() 
@@ -1413,21 +1273,17 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class ProjectDetailsViewModel : BaseDetailsViewModel<ProjectWrapper, Project, AfterSaveProjectEvent>
     {
 		public ICommand SelectManagerCommand { get; }
 		public ICommand ClearManagerCommand { get; }
 
-
         public ProjectDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectManagerCommand = new DelegateCommand(SelectManagerCommand_Execute);
 			ClearManagerCommand = new DelegateCommand(ClearManagerCommand_Execute);
-
 
 		}
 		private async void SelectManagerCommand_Execute() 
@@ -1442,33 +1298,25 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class UserRoleDetailsViewModel : BaseDetailsViewModel<UserRoleWrapper, UserRole, AfterSaveUserRoleEvent>
     {
-
         public UserRoleDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class SpecificationDetailsViewModel : BaseDetailsViewModel<SpecificationWrapper, Specification, AfterSaveSpecificationEvent>
     {
 		public ICommand SelectContractCommand { get; }
 		public ICommand ClearContractCommand { get; }
 
-
         public SpecificationDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectContractCommand = new DelegateCommand(SelectContractCommand_Execute);
 			ClearContractCommand = new DelegateCommand(ClearContractCommand_Execute);
-
 
 		}
 		private async void SelectContractCommand_Execute() 
@@ -1483,9 +1331,7 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class TenderDetailsViewModel : BaseDetailsViewModel<TenderWrapper, Tender, AfterSaveTenderEvent>
     {
@@ -1495,7 +1341,6 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectWinnerCommand { get; }
 		public ICommand ClearWinnerCommand { get; }
 
-
         public TenderDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectProjectCommand = new DelegateCommand(SelectProjectCommand_Execute);
@@ -1503,7 +1348,6 @@ namespace HVTApp.UI.ViewModels
 
 			SelectWinnerCommand = new DelegateCommand(SelectWinnerCommand_Execute);
 			ClearWinnerCommand = new DelegateCommand(ClearWinnerCommand_Execute);
-
 
 		}
 		private async void SelectProjectCommand_Execute() 
@@ -1529,33 +1373,25 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class TenderTypeDetailsViewModel : BaseDetailsViewModel<TenderTypeWrapper, TenderType, AfterSaveTenderTypeEvent>
     {
-
         public TenderTypeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class UserDetailsViewModel : BaseDetailsViewModel<UserWrapper, User, AfterSaveUserEvent>
     {
 		public ICommand SelectEmployeeCommand { get; }
 		public ICommand ClearEmployeeCommand { get; }
 
-
         public UserDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			SelectEmployeeCommand = new DelegateCommand(SelectEmployeeCommand_Execute);
 			ClearEmployeeCommand = new DelegateCommand(ClearEmployeeCommand_Execute);
-
 
 		}
 		private async void SelectEmployeeCommand_Execute() 
@@ -1570,32 +1406,22 @@ namespace HVTApp.UI.ViewModels
 		}
 
 
-
     }
-
 
     public partial class ProductBlockDetailsViewModel : BaseDetailsViewModel<ProductBlockWrapper, ProductBlock, AfterSaveProductBlockEvent>
     {
-
         public ProductBlockDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
     public partial class PaymentConditionSetDetailsViewModel : BaseDetailsViewModel<PaymentConditionSetWrapper, PaymentConditionSet, AfterSavePaymentConditionSetEvent>
     {
-
         public PaymentConditionSetDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-
 		}
 
-
     }
-
 
 }

@@ -7,7 +7,6 @@ using System.Windows;
 
 namespace HVTApp.UI.Views
 {
-
     public partial class CommonOptionDetailsView : ViewBase
     {
         public CommonOptionDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CommonOptionDetailsViewModel CommonOptionDetailsViewModel) : base(regionManager, eventAggregator)
@@ -16,7 +15,6 @@ namespace HVTApp.UI.Views
             DataContext = CommonOptionDetailsViewModel;
         }
     }
-
 
     public partial class AddressDetailsView : ViewBase
     {
@@ -27,7 +25,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class CountryDetailsView : ViewBase
     {
         public CountryDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CountryDetailsViewModel CountryDetailsViewModel) : base(regionManager, eventAggregator)
@@ -36,7 +33,6 @@ namespace HVTApp.UI.Views
             DataContext = CountryDetailsViewModel;
         }
     }
-
 
     public partial class DistrictDetailsView : ViewBase
     {
@@ -47,7 +43,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class LocalityDetailsView : ViewBase
     {
         public LocalityDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, LocalityDetailsViewModel LocalityDetailsViewModel) : base(regionManager, eventAggregator)
@@ -56,7 +51,6 @@ namespace HVTApp.UI.Views
             DataContext = LocalityDetailsViewModel;
         }
     }
-
 
     public partial class LocalityTypeDetailsView : ViewBase
     {
@@ -67,7 +61,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class RegionDetailsView : ViewBase
     {
         public RegionDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, RegionDetailsViewModel RegionDetailsViewModel) : base(regionManager, eventAggregator)
@@ -76,7 +69,6 @@ namespace HVTApp.UI.Views
             DataContext = RegionDetailsViewModel;
         }
     }
-
 
     public partial class CalculatePriceTaskDetailsView : ViewBase
     {
@@ -87,7 +79,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class DescribeProductBlockTaskDetailsView : ViewBase
     {
         public DescribeProductBlockTaskDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DescribeProductBlockTaskDetailsViewModel DescribeProductBlockTaskDetailsViewModel) : base(regionManager, eventAggregator)
@@ -96,7 +87,6 @@ namespace HVTApp.UI.Views
             DataContext = DescribeProductBlockTaskDetailsViewModel;
         }
     }
-
 
     public partial class SalesBlockDetailsView : ViewBase
     {
@@ -107,7 +97,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class BankDetailsDetailsView : ViewBase
     {
         public BankDetailsDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, BankDetailsDetailsViewModel BankDetailsDetailsViewModel) : base(regionManager, eventAggregator)
@@ -116,7 +105,6 @@ namespace HVTApp.UI.Views
             DataContext = BankDetailsDetailsViewModel;
         }
     }
-
 
     public partial class CompanyDetailsView : ViewBase
     {
@@ -127,7 +115,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class CompanyFormDetailsView : ViewBase
     {
         public CompanyFormDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CompanyFormDetailsViewModel CompanyFormDetailsViewModel) : base(regionManager, eventAggregator)
@@ -136,7 +123,6 @@ namespace HVTApp.UI.Views
             DataContext = CompanyFormDetailsViewModel;
         }
     }
-
 
     public partial class DocumentsRegistrationDetailsDetailsView : ViewBase
     {
@@ -147,7 +133,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class EmployeesPositionDetailsView : ViewBase
     {
         public EmployeesPositionDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, EmployeesPositionDetailsViewModel EmployeesPositionDetailsViewModel) : base(regionManager, eventAggregator)
@@ -156,7 +141,6 @@ namespace HVTApp.UI.Views
             DataContext = EmployeesPositionDetailsViewModel;
         }
     }
-
 
     public partial class FacilityTypeDetailsView : ViewBase
     {
@@ -167,7 +151,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class ActivityFieldDetailsView : ViewBase
     {
         public ActivityFieldDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ActivityFieldDetailsViewModel ActivityFieldDetailsViewModel) : base(regionManager, eventAggregator)
@@ -176,7 +159,6 @@ namespace HVTApp.UI.Views
             DataContext = ActivityFieldDetailsViewModel;
         }
     }
-
 
     public partial class ContractDetailsView : ViewBase
     {
@@ -187,7 +169,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class MeasureDetailsView : ViewBase
     {
         public MeasureDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, MeasureDetailsViewModel MeasureDetailsViewModel) : base(regionManager, eventAggregator)
@@ -196,7 +177,6 @@ namespace HVTApp.UI.Views
             DataContext = MeasureDetailsViewModel;
         }
     }
-
 
     public partial class ParameterDetailsView : ViewBase
     {
@@ -207,7 +187,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class ParameterGroupDetailsView : ViewBase
     {
         public ParameterGroupDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ParameterGroupDetailsViewModel ParameterGroupDetailsViewModel) : base(regionManager, eventAggregator)
@@ -216,7 +195,6 @@ namespace HVTApp.UI.Views
             DataContext = ParameterGroupDetailsViewModel;
         }
     }
-
 
     public partial class ProductRelationDetailsView : ViewBase
     {
@@ -227,7 +205,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class StandartPaymentConditionsDetailsView : ViewBase
     {
         public StandartPaymentConditionsDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, StandartPaymentConditionsDetailsViewModel StandartPaymentConditionsDetailsViewModel) : base(regionManager, eventAggregator)
@@ -236,7 +213,6 @@ namespace HVTApp.UI.Views
             DataContext = StandartPaymentConditionsDetailsViewModel;
         }
     }
-
 
     public partial class PersonDetailsView : ViewBase
     {
@@ -247,7 +223,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class PaymentPlannedDetailsView : ViewBase
     {
         public PaymentPlannedDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentPlannedDetailsViewModel PaymentPlannedDetailsViewModel) : base(regionManager, eventAggregator)
@@ -256,7 +231,6 @@ namespace HVTApp.UI.Views
             DataContext = PaymentPlannedDetailsViewModel;
         }
     }
-
 
     public partial class PaymentActualDetailsView : ViewBase
     {
@@ -267,7 +241,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class ParameterRelationDetailsView : ViewBase
     {
         public ParameterRelationDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ParameterRelationDetailsViewModel ParameterRelationDetailsViewModel) : base(regionManager, eventAggregator)
@@ -276,7 +249,6 @@ namespace HVTApp.UI.Views
             DataContext = ParameterRelationDetailsViewModel;
         }
     }
-
 
     public partial class SalesUnitDetailsView : ViewBase
     {
@@ -287,7 +259,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class TestFriendAddressDetailsView : ViewBase
     {
         public TestFriendAddressDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendAddressDetailsViewModel TestFriendAddressDetailsViewModel) : base(regionManager, eventAggregator)
@@ -296,7 +267,6 @@ namespace HVTApp.UI.Views
             DataContext = TestFriendAddressDetailsViewModel;
         }
     }
-
 
     public partial class TestFriendDetailsView : ViewBase
     {
@@ -307,7 +277,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class TestFriendEmailDetailsView : ViewBase
     {
         public TestFriendEmailDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendEmailDetailsViewModel TestFriendEmailDetailsViewModel) : base(regionManager, eventAggregator)
@@ -316,7 +285,6 @@ namespace HVTApp.UI.Views
             DataContext = TestFriendEmailDetailsViewModel;
         }
     }
-
 
     public partial class TestFriendGroupDetailsView : ViewBase
     {
@@ -327,7 +295,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class DocumentDetailsView : ViewBase
     {
         public DocumentDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentDetailsViewModel DocumentDetailsViewModel) : base(regionManager, eventAggregator)
@@ -336,7 +303,6 @@ namespace HVTApp.UI.Views
             DataContext = DocumentDetailsViewModel;
         }
     }
-
 
     public partial class TestEntityDetailsView : ViewBase
     {
@@ -347,7 +313,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class TestHusbandDetailsView : ViewBase
     {
         public TestHusbandDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestHusbandDetailsViewModel TestHusbandDetailsViewModel) : base(regionManager, eventAggregator)
@@ -356,7 +321,6 @@ namespace HVTApp.UI.Views
             DataContext = TestHusbandDetailsViewModel;
         }
     }
-
 
     public partial class TestWifeDetailsView : ViewBase
     {
@@ -367,7 +331,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class TestChildDetailsView : ViewBase
     {
         public TestChildDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestChildDetailsViewModel TestChildDetailsViewModel) : base(regionManager, eventAggregator)
@@ -376,7 +339,6 @@ namespace HVTApp.UI.Views
             DataContext = TestChildDetailsViewModel;
         }
     }
-
 
     public partial class CostOnDateDetailsView : ViewBase
     {
@@ -387,7 +349,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class CostDetailsView : ViewBase
     {
         public CostDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CostDetailsViewModel CostDetailsViewModel) : base(regionManager, eventAggregator)
@@ -396,7 +357,6 @@ namespace HVTApp.UI.Views
             DataContext = CostDetailsViewModel;
         }
     }
-
 
     public partial class CurrencyDetailsView : ViewBase
     {
@@ -407,7 +367,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class ExchangeCurrencyRateDetailsView : ViewBase
     {
         public ExchangeCurrencyRateDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ExchangeCurrencyRateDetailsViewModel ExchangeCurrencyRateDetailsViewModel) : base(regionManager, eventAggregator)
@@ -416,7 +375,6 @@ namespace HVTApp.UI.Views
             DataContext = ExchangeCurrencyRateDetailsViewModel;
         }
     }
-
 
     public partial class ProductDetailsView : ViewBase
     {
@@ -427,7 +385,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class OfferDetailsView : ViewBase
     {
         public OfferDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, OfferDetailsViewModel OfferDetailsViewModel) : base(regionManager, eventAggregator)
@@ -436,7 +393,6 @@ namespace HVTApp.UI.Views
             DataContext = OfferDetailsViewModel;
         }
     }
-
 
     public partial class EmployeeDetailsView : ViewBase
     {
@@ -447,7 +403,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class OrderDetailsView : ViewBase
     {
         public OrderDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, OrderDetailsViewModel OrderDetailsViewModel) : base(regionManager, eventAggregator)
@@ -456,7 +411,6 @@ namespace HVTApp.UI.Views
             DataContext = OrderDetailsViewModel;
         }
     }
-
 
     public partial class PaymentConditionDetailsView : ViewBase
     {
@@ -467,7 +421,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class PaymentDocumentDetailsView : ViewBase
     {
         public PaymentDocumentDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentDocumentDetailsViewModel PaymentDocumentDetailsViewModel) : base(regionManager, eventAggregator)
@@ -476,7 +429,6 @@ namespace HVTApp.UI.Views
             DataContext = PaymentDocumentDetailsViewModel;
         }
     }
-
 
     public partial class FacilityDetailsView : ViewBase
     {
@@ -487,7 +439,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class ProjectDetailsView : ViewBase
     {
         public ProjectDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectDetailsViewModel ProjectDetailsViewModel) : base(regionManager, eventAggregator)
@@ -496,7 +447,6 @@ namespace HVTApp.UI.Views
             DataContext = ProjectDetailsViewModel;
         }
     }
-
 
     public partial class UserRoleDetailsView : ViewBase
     {
@@ -507,7 +457,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class SpecificationDetailsView : ViewBase
     {
         public SpecificationDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, SpecificationDetailsViewModel SpecificationDetailsViewModel) : base(regionManager, eventAggregator)
@@ -516,7 +465,6 @@ namespace HVTApp.UI.Views
             DataContext = SpecificationDetailsViewModel;
         }
     }
-
 
     public partial class TenderDetailsView : ViewBase
     {
@@ -527,7 +475,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class TenderTypeDetailsView : ViewBase
     {
         public TenderTypeDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderTypeDetailsViewModel TenderTypeDetailsViewModel) : base(regionManager, eventAggregator)
@@ -536,7 +483,6 @@ namespace HVTApp.UI.Views
             DataContext = TenderTypeDetailsViewModel;
         }
     }
-
 
     public partial class UserDetailsView : ViewBase
     {
@@ -547,7 +493,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class ProductBlockDetailsView : ViewBase
     {
         public ProductBlockDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductBlockDetailsViewModel ProductBlockDetailsViewModel) : base(regionManager, eventAggregator)
@@ -557,7 +502,6 @@ namespace HVTApp.UI.Views
         }
     }
 
-
     public partial class PaymentConditionSetDetailsView : ViewBase
     {
         public PaymentConditionSetDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionSetDetailsViewModel PaymentConditionSetDetailsViewModel) : base(regionManager, eventAggregator)
@@ -566,6 +510,5 @@ namespace HVTApp.UI.Views
             DataContext = PaymentConditionSetDetailsViewModel;
         }
     }
-
 
 }

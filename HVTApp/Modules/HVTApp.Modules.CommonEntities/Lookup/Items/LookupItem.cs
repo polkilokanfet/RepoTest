@@ -83,10 +83,12 @@ namespace HVTApp.UI.Lookup
         }
         #endregion
 
+        #region IComparable
         public virtual int CompareTo(object obj)
         {
             return ToString().CompareTo(obj.ToString());
         }
+        #endregion
 
     }
 }

@@ -205,25 +205,25 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateLocalities()
         {
-            LocalityMoscow.Clone(new Locality {LocalityType = LocalityTypeCity, Name = "Москва", RegionId = RegionMoskovskayaOblast.Id, IsCountryCapital = true, IsDistrictsCapital = true, IsRegionCapital = true});
-            LocalityEkaterinburg.Clone(new Locality {LocalityType = LocalityTypeCity, Name = "Екатеринбург", RegionId = RegionSverdlovskayaOblast.Id, IsDistrictsCapital = true, IsRegionCapital = true});
+            LocalityMoscow.Clone(new Locality {LocalityType = LocalityTypeCity, Name = "Москва", Region = RegionMoskovskayaOblast});
+            LocalityEkaterinburg.Clone(new Locality {LocalityType = LocalityTypeCity, Name = "Екатеринбург", Region = RegionSverdlovskayaOblast});
         }
 
         private void GenerateRegions()
         {
-            RegionMoskovskayaOblast.Clone(new Region {Name = "Московская область", Localities= new List<Locality> {LocalityMoscow}, DistrictId = DistrictCentr.Id});
-            RegionSverdlovskayaOblast.Clone(new Region {Name = "Свердловская область", Localities= new List<Locality> {LocalityEkaterinburg}, DistrictId = DistrictUral.Id});
+            RegionMoskovskayaOblast.Clone(new Region {Name = "Московская область", District = DistrictCentr});
+            RegionSverdlovskayaOblast.Clone(new Region {Name = "Свердловская область", District = DistrictUral});
         }
 
         private void GenerateDistricts()
         {
-            DistrictCentr.Clone(new District {CountryId = CountryRussia.Id, Name = "Центральный федеральный округ", Regions= new List<Region>() {RegionMoskovskayaOblast}});
-            DistrictUral.Clone(new District {CountryId = CountryRussia.Id, Name = "Уральский федеральный округ", Regions= new List<Region>() {RegionSverdlovskayaOblast}});
+            DistrictCentr.Clone(new District {Country = CountryRussia, Name = "Центральный федеральный округ"});
+            DistrictUral.Clone(new District {Country = CountryRussia, Name = "Уральский федеральный округ"});
         }
 
         private void GenerateCountries()
         {
-            CountryRussia.Clone(new Country {Name = "Россия", Districts= new List<District> {DistrictCentr, DistrictUral}});
+            CountryRussia.Clone(new Country {Name = "Россия"});
         }
 
         private void GenerateAddresses()

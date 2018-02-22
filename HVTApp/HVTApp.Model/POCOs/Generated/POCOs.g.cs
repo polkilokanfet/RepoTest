@@ -18,11 +18,13 @@ namespace HVTApp.Model.POCOs
 
 	public partial class District
 	{
+		public virtual Guid? CountryId { get; set; }
 	}
 
 	public partial class Locality
 	{
 		public virtual Guid? LocalityTypeId { get; set; }
+		public virtual Guid? RegionId { get; set; }
 	}
 
 	public partial class LocalityType
@@ -31,6 +33,7 @@ namespace HVTApp.Model.POCOs
 
 	public partial class Region
 	{
+		public virtual Guid? DistrictId { get; set; }
 	}
 
 	public partial class CalculatePriceTask

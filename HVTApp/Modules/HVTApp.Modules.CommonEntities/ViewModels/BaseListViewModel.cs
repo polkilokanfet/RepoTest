@@ -97,11 +97,9 @@ namespace HVTApp.UI.ViewModels
             var lookupsCollection = (ICollection<TLookup>)Lookups;
             lookupsCollection?.Clear();
 
-            var items = await GetItems();
-            foreach (var item in items)
-            {
-                lookupsCollection?.Add((TLookup)Activator.CreateInstance(typeof(TLookup), item));
-            }
+            var items = (await GetItems()).ToList();
+            var lookups = items.Select(x => (TLookup) Activator.CreateInstance(typeof(TLookup), x)).OrderBy(x => x);
+            lookups.ForEach(lookupsCollection.Add);
             Loaded?.Invoke();
         }
 
@@ -115,7 +113,7 @@ namespace HVTApp.UI.ViewModels
         {
             var lookupsCollection = (ICollection<TLookup>)Lookups;
             lookupsCollection?.Clear();
-            lookups.ForEach(lookupsCollection.Add);
+            lookups.OrderBy(x => x).ForEach(lookupsCollection.Add);
             Loaded?.Invoke();
         }
 

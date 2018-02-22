@@ -37,15 +37,18 @@ namespace HVTApp.Model.POCOs
             return DependentProducts.AllMembersAreSame(otherProduct.DependentProducts);
         }
 
-        public string PartsToString()
+        public string GetFullDescription()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append(ToString());
+            stringBuilder.Append(this.ToString());
+            stringBuilder.Append($" (параметры :: {ProductBlock.ParametersToString().ToLower()})");
             if (DependentProducts.Any())
             {
                 stringBuilder.Append(Environment.NewLine + "Составные части:");
                 foreach (var dependentProduct in DependentProducts)
-                    stringBuilder.Append(Environment.NewLine + dependentProduct.PartsToString());
+                {
+                    stringBuilder.Append(Environment.NewLine + dependentProduct.GetFullDescription());
+                }
             }
 
             return stringBuilder.ToString();

@@ -20,18 +20,18 @@ namespace HVTApp.UI.ViewModels
         private readonly ISelectService _selectService;
         private readonly IGetProductService _getProductService;
 
-        public ProjectUnitGroup ProjectUnitGroup { get; }
+        public UnitGroupGroup UnitGroupGroup { get; }
 
         public ICommand EditFacilityCommand { get; }
         public ICommand EditProductCommand { get; }
 
-        public ProjectUnitGroupViewModel(ProjectUnitGroup projectUnitGroup, IUnityContainer container, IUnitOfWork unitOfWork)
+        public ProjectUnitGroupViewModel(UnitGroupGroup unitGroupGroup, IUnityContainer container, IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _selectService = container.Resolve<ISelectService>();
             _getProductService = container.Resolve<IGetProductService>();
 
-            ProjectUnitGroup = projectUnitGroup;
+            UnitGroupGroup = unitGroupGroup;
 
             EditFacilityCommand = new DelegateCommand(EditFacilityCommand_Execute);
             EditProductCommand = new DelegateCommand(EditProductCommand_Execute);
@@ -39,10 +39,10 @@ namespace HVTApp.UI.ViewModels
 
         private async void EditProductCommand_Execute()
         {
-            var product = await _getProductService.GetProductAsync(ProjectUnitGroup.Product.Model);
-            if (product != null && product.Id != ProjectUnitGroup.Product?.Id)
+            var product = await _getProductService.GetProductAsync(UnitGroupGroup.Product.Model);
+            if (product != null && product.Id != UnitGroupGroup.Product?.Id)
             {
-                ProjectUnitGroup.Product = new ProductWrapper(await _unitOfWork.GetRepository<Product>().GetByIdAsync(product.Id));
+                UnitGroupGroup.Product = new ProductWrapper(await _unitOfWork.GetRepository<Product>().GetByIdAsync(product.Id));
             }
         }
 
@@ -50,9 +50,9 @@ namespace HVTApp.UI.ViewModels
         {
             var facilities = (await _unitOfWork.GetRepository<Facility>().GetAllAsync());
             var facility = _selectService.SelectItem(facilities);
-            if (facility != null && facility.Id != ProjectUnitGroup.Facility?.Id)
+            if (facility != null && facility.Id != UnitGroupGroup.Facility?.Id)
             {
-                ProjectUnitGroup.Facility = new FacilityWrapper(facility);
+                UnitGroupGroup.Facility = new FacilityWrapper(facility);
             }
         }
 
