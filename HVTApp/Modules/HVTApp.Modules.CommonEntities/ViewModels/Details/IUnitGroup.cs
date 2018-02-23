@@ -12,5 +12,6 @@ namespace HVTApp.UI.ViewModels
         double Cost { get; set; }
         double MarginalIncome { get; set; }
         DateTime DeliveryDateExpected { get; set; }
+        bool HasBlocksWithoutPrice { get; }
     }
 }

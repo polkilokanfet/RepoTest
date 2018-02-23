@@ -2,9 +2,5 @@
 {
     public partial class SpecificationListView
     {
-        public SpecificationListView()
-        {
-            InitializeComponent();
-        }
     }
 }

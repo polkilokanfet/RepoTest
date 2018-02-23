@@ -6,14 +6,14 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class ProductWrapper
     {
-        public IEnumerable<ProductBlockWrapper> GetBlocksWithoutAnyPriceOnDate()
+        public IEnumerable<ProductBlockWrapper> GetBlocksWithoutAnyPrice()
         {
             if (!ProductBlock.Prices.Any())
                 yield return ProductBlock;
 
             foreach (var dependentProduct in DependentProducts)
             {
-                foreach (var productBlockWrapper in dependentProduct.GetBlocksWithoutAnyPriceOnDate())
+                foreach (var productBlockWrapper in dependentProduct.GetBlocksWithoutAnyPrice())
                 {
                     yield return productBlockWrapper;
                 }

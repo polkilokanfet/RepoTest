@@ -13,25 +13,25 @@ using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
-    public class ProjectUnitGroupViewModel : IDialogRequestClose
+    public class UnitGroupViewModel : IDialogRequestClose
     {
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISelectService _selectService;
         private readonly IGetProductService _getProductService;
 
-        public UnitGroupGroup UnitGroupGroup { get; }
+        public UnitGroup UnitGroup { get; }
 
         public ICommand EditFacilityCommand { get; }
         public ICommand EditProductCommand { get; }
 
-        public ProjectUnitGroupViewModel(UnitGroupGroup unitGroupGroup, IUnityContainer container, IUnitOfWork unitOfWork)
+        public UnitGroupViewModel(UnitGroup unitGroup, IUnityContainer container, IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _selectService = container.Resolve<ISelectService>();
             _getProductService = container.Resolve<IGetProductService>();
 
-            UnitGroupGroup = unitGroupGroup;
+            UnitGroup = unitGroup;
 
             EditFacilityCommand = new DelegateCommand(EditFacilityCommand_Execute);
             EditProductCommand = new DelegateCommand(EditProductCommand_Execute);
@@ -39,10 +39,10 @@ namespace HVTApp.UI.ViewModels
 
         private async void EditProductCommand_Execute()
         {
-            var product = await _getProductService.GetProductAsync(UnitGroupGroup.Product.Model);
-            if (product != null && product.Id != UnitGroupGroup.Product?.Id)
+            var product = await _getProductService.GetProductAsync(UnitGroup.Product.Model);
+            if (product != null && product.Id != UnitGroup.Product?.Id)
             {
-                UnitGroupGroup.Product = new ProductWrapper(await _unitOfWork.GetRepository<Product>().GetByIdAsync(product.Id));
+                UnitGroup.Product = new ProductWrapper(await _unitOfWork.GetRepository<Product>().GetByIdAsync(product.Id));
             }
         }
 
@@ -50,9 +50,9 @@ namespace HVTApp.UI.ViewModels
         {
             var facilities = (await _unitOfWork.GetRepository<Facility>().GetAllAsync());
             var facility = _selectService.SelectItem(facilities);
-            if (facility != null && facility.Id != UnitGroupGroup.Facility?.Id)
+            if (facility != null && facility.Id != UnitGroup.Facility?.Id)
             {
-                UnitGroupGroup.Facility = new FacilityWrapper(facility);
+                UnitGroup.Facility = new FacilityWrapper(facility);
             }
         }
 

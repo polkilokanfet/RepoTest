@@ -17,8 +17,8 @@
             <infg:FieldLayout Key="Project">
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Проект"/>
-                    <infg:DateTimeField Name="RealizationDate" Label="Дата реализации"/>
-                    <infg:NumericField Name="Sum" Label="Сумма"/>
+                    <infg:DateTimeField Name="RealizationDate" Label="Дата реализации" Width="Auto"/>
+                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto"/>
 
                     <!--<infg:Field Name="ProjectUnits" Converter="{StaticResource ProductUnitsToProductGroupsConverter}" IsExpandable="True" IsPrimary="True"/>-->
                 </infg:FieldLayout.Fields>

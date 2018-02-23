@@ -25,7 +25,6 @@ namespace HVTApp.UI.Events
 	public partial class AfterSaveParameterEvent : PubSubEvent<Parameter> { }
 	public partial class AfterSaveParameterGroupEvent : PubSubEvent<ParameterGroup> { }
 	public partial class AfterSaveProductRelationEvent : PubSubEvent<ProductRelation> { }
-	public partial class AfterSaveStandartPaymentConditionsEvent : PubSubEvent<StandartPaymentConditions> { }
 	public partial class AfterSavePersonEvent : PubSubEvent<Person> { }
 	public partial class AfterSavePaymentPlannedEvent : PubSubEvent<PaymentPlanned> { }
 	public partial class AfterSavePaymentActualEvent : PubSubEvent<PaymentActual> { }
@@ -43,7 +42,7 @@ namespace HVTApp.UI.Events
 	public partial class AfterSaveCostOnDateEvent : PubSubEvent<CostOnDate> { }
 	public partial class AfterSaveCostEvent : PubSubEvent<Cost> { }
 	public partial class AfterSaveCurrencyEvent : PubSubEvent<Currency> { }
-	public partial class AfterSaveExchangeCurrencyRateEvent : PubSubEvent<ExchangeCurrencyRate> { }
+	public partial class AfterSaveExchangeCurrencyRateEvent : PubSubEvent<CurrencyExchangeRate> { }
 	public partial class AfterSaveProductEvent : PubSubEvent<Product> { }
 	public partial class AfterSaveOfferEvent : PubSubEvent<Offer> { }
 	public partial class AfterSaveEmployeeEvent : PubSubEvent<Employee> { }

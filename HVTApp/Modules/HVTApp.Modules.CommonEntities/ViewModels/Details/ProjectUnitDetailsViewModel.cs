@@ -10,7 +10,7 @@ using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
-    public class ProjectUnitDetailsViewModel : BaseDetailsViewModel<SalesUnitGroupWrapper, SalesUnit, AfterSaveSalesUnitEvent>
+    public class ProjectUnitDetailsViewModel : BaseDetailsViewModel<SalesUnitWrapper, SalesUnit, AfterSaveSalesUnitEvent>
     {
         public ICommand SelectProductCommand { get; private set; }
         public ICommand SelectFacilityCommand { get; private set; }

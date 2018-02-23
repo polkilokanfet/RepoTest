@@ -10,7 +10,7 @@ namespace HVTApp.Modules.Sales.ViewModels
     public class OitViewModel
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ObservableCollection<SalesUnitGroupWrapper> SalesUnits { get; } = new ObservableCollection<SalesUnitGroupWrapper>();
+        public ObservableCollection<SalesUnitWrapper> SalesUnits { get; } = new ObservableCollection<SalesUnitWrapper>();
 
         public OitViewModel(IUnitOfWork unitOfWork)
         {
@@ -20,7 +20,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         public async Task LoadAsync()
         {
             var salesUnits = await _unitOfWork.GetRepository<SalesUnit>().GetAllAsync();
-            SalesUnits.AddRange(salesUnits.Select(x => new SalesUnitGroupWrapper(x)));
+            SalesUnits.AddRange(salesUnits.Select(x => new SalesUnitWrapper(x)));
         }
     }
 }

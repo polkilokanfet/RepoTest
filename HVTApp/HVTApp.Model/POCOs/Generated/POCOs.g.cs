@@ -106,10 +106,6 @@ namespace HVTApp.Model.POCOs
 	{
 	}
 
-	public partial class StandartPaymentConditions
-	{
-	}
-
 	public partial class Person
 	{
 	}
@@ -200,7 +196,7 @@ namespace HVTApp.Model.POCOs
 	{
 	}
 
-	public partial class ExchangeCurrencyRate
+	public partial class CurrencyExchangeRate
 	{
 		public virtual Guid? FirstCurrencyId { get; set; }
 		public virtual Guid? SecondCurrencyId { get; set; }

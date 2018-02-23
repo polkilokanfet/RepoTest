@@ -22,7 +22,6 @@ namespace HVTApp.UI.Lookup
 	public interface IParameterLookupDataService : ILookupDataService<ParameterLookup> { } 
 	public interface IParameterGroupLookupDataService : ILookupDataService<ParameterGroupLookup> { } 
 	public interface IProductRelationLookupDataService : ILookupDataService<ProductRelationLookup> { } 
-	public interface IStandartPaymentConditionsLookupDataService : ILookupDataService<StandartPaymentConditionsLookup> { } 
 	public interface IPersonLookupDataService : ILookupDataService<PersonLookup> { } 
 	public interface IPaymentPlannedLookupDataService : ILookupDataService<PaymentPlannedLookup> { } 
 	public interface IPaymentActualLookupDataService : ILookupDataService<PaymentActualLookup> { } 

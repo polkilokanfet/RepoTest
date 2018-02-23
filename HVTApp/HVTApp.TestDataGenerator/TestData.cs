@@ -205,8 +205,8 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateLocalities()
         {
-            LocalityMoscow.Clone(new Locality {LocalityType = LocalityTypeCity, Name = "Москва", Region = RegionMoskovskayaOblast});
-            LocalityEkaterinburg.Clone(new Locality {LocalityType = LocalityTypeCity, Name = "Екатеринбург", Region = RegionSverdlovskayaOblast});
+            LocalityMoscow.Clone(new Locality {LocalityType = LocalityTypeCity, Name = "Москва", Region = RegionMoskovskayaOblast, IsCountryCapital = true, IsDistrictCapital = true, IsRegionCapital = true});
+            LocalityEkaterinburg.Clone(new Locality {LocalityType = LocalityTypeCity, Name = "Екатеринбург", Region = RegionSverdlovskayaOblast, IsDistrictCapital = true, IsRegionCapital = true});
         }
 
         private void GenerateRegions()
@@ -535,7 +535,7 @@ namespace HVTApp.TestDataGenerator
             PaymentConditionAvans50.Clone(new PaymentCondition {Part = 0.5, DaysToPoint = -10, PaymentConditionPoint = PaymentConditionPoint.ProductionStart});
             PaymentConditionDoplata50.Clone(new PaymentCondition {Part = 0.5, DaysToPoint = -14, PaymentConditionPoint = PaymentConditionPoint.ProductionEnd});
 
-            StandartPaymentConditionSet.Clone(new PaymentConditionSet {PaymentConditions = new List<PaymentCondition> {PaymentConditionAvans50, PaymentConditionDoplata50}});
+            StandartPaymentConditionSet.Clone(new PaymentConditionSet {PaymentConditions = new List<PaymentCondition> {PaymentConditionAvans50, PaymentConditionDoplata50}, Name = "50 на 50"});
         }
 
         private void GenerateCommonOption()

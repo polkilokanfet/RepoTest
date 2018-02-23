@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Converter;
@@ -15,12 +12,16 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class MarketViewModel : BindableBase
     {
+        private readonly IUnitOfWork _unitOfWork;
+
         public ProjectListViewModel ProjectListViewModel { get; }
 
-        public ObservableCollection<UnitGroupGroup> ProjectUnitGroups { get; } = new ObservableCollection<UnitGroupGroup>();
+        public ObservableCollection<UnitGroup> UnitGroups { get; } = new ObservableCollection<UnitGroup>();
+        public ObservableCollection<Tender> Tenders { get; } = new ObservableCollection<Tender>();
 
-        public MarketViewModel(ProjectListViewModel projectListViewModel, ProjectDetailsViewModel projectDetailsViewModel)
+        public MarketViewModel(ProjectListViewModel projectListViewModel, IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
             ProjectListViewModel = projectListViewModel;
 
             ProjectListViewModel.SelectedLookupChanged += ProjectListViewModelOnSelectedLookupChanged;
@@ -30,8 +31,11 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void ProjectListViewModelOnSelectedLookupChanged(ProjectLookup projectLookup)
         {
-            ProjectUnitGroups.Clear();
-            ProjectUnitGroups.AddRange(projectLookup.Entity.SalesUnits.Select(x => new SalesUnitGroupWrapper(x)).ToUnitGroups());
+            UnitGroups.Clear();
+            UnitGroups.AddRange(projectLookup.Entity.SalesUnits.Select(x => new SalesUnitWrapper(x)).ToUnitGroups());
+
+            Tenders.Clear();
+            Tenders.AddRange(_unitOfWork.GetRepository<Tender>().Find(x => x.Project.Id == projectLookup.Entity.Id));
         }
     }
 }

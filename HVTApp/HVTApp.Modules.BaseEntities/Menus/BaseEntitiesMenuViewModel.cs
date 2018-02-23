@@ -1,4 +1,6 @@
-﻿using HVTApp.Infrastructure;
+﻿using System;
+using System.Linq;
+using HVTApp.Infrastructure;
 using HVTApp.UI.Views;
 
 namespace HVTApp.Modules.BaseEntities.Menus
@@ -32,6 +34,16 @@ namespace HVTApp.Modules.BaseEntities.Menus
             Items.Add(rootProduct);
             Items.Add(rootPartPrices);
             Items.Add(rootContracts);
+
+            var uiAssembly = typeof(ContractListView).Assembly;
+            var views = uiAssembly.GetTypes().Where(x => String.Equals(x.Namespace, "HVTApp.UI.Views") && 
+                                                         !x.Name.Contains("Details") &&
+                                                         x.Name.Contains("View")).OrderBy(x => x.Name);
+            foreach (var view in views)
+            {
+                Items.Add(new NavigationItem(view.Name, view));
+            }
+
         }
     }
 }

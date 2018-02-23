@@ -34,7 +34,6 @@ namespace HVTApp.DataAccess
             context.ParameterDbSet.AddRange(testData.GetAll<Parameter>());
             context.ParameterGroupDbSet.AddRange(testData.GetAll<ParameterGroup>());
             context.ProductRelationDbSet.AddRange(testData.GetAll<ProductRelation>());
-            context.StandartPaymentConditionsDbSet.AddRange(testData.GetAll<StandartPaymentConditions>());
             context.PersonDbSet.AddRange(testData.GetAll<Person>());
             context.PaymentPlannedDbSet.AddRange(testData.GetAll<PaymentPlanned>());
             context.PaymentActualDbSet.AddRange(testData.GetAll<PaymentActual>());
@@ -52,7 +51,7 @@ namespace HVTApp.DataAccess
             context.CostOnDateDbSet.AddRange(testData.GetAll<CostOnDate>());
             context.CostDbSet.AddRange(testData.GetAll<Cost>());
             context.CurrencyDbSet.AddRange(testData.GetAll<Currency>());
-            context.ExchangeCurrencyRateDbSet.AddRange(testData.GetAll<ExchangeCurrencyRate>());
+            context.ExchangeCurrencyRateDbSet.AddRange(testData.GetAll<CurrencyExchangeRate>());
             context.ProductDbSet.AddRange(testData.GetAll<Product>());
             context.OfferDbSet.AddRange(testData.GetAll<Offer>());
             context.EmployeeDbSet.AddRange(testData.GetAll<Employee>());

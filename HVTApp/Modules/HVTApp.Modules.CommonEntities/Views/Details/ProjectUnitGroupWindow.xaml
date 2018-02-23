@@ -21,25 +21,25 @@
 
         <Label Content="Facility:" Grid.Column="0" Grid.Row="0" />
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
-                                    Item="{Binding ProjectUnitGroup.Facility, Mode=TwoWay}"
+                                    Item="{Binding UnitGroup.Facility, Mode=TwoWay}"
                                     AddItemCommand="{Binding EditFacilityCommand}"/>
         
         <Label Content="Product:" Grid.Column="0" Grid.Row="1" />
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
-                                    Item="{Binding ProjectUnitGroup.Product, Mode=TwoWay}"
+                                    Item="{Binding UnitGroup.Product, Mode=TwoWay}"
                                     AddItemCommand="{Binding EditProductCommand}"/>
 
         <Label Content="Cost:" Grid.Column="0" Grid.Row="2" />
         <editors:XamNumericEditor Grid.Column="1" Grid.Row="2" 
-                                  Value="{Binding ProjectUnitGroup.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding UnitGroup.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label Content="Delivery Date:" Grid.Column="0" Grid.Row="3" />
         <DatePicker Grid.Column="1" Grid.Row="3" 
-                    SelectedDate="{Binding ProjectUnitGroup.DeliveryDateExpected, Mode=TwoWay}" />
+                    SelectedDate="{Binding UnitGroup.DeliveryDateExpected, Mode=TwoWay}" />
 
         <Label Content="Producer:" Grid.Column="0" Grid.Row="4" />
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
-                                    Item="{Binding ProjectUnitGroup.Producer, Mode=TwoWay}" />
+                                    Item="{Binding UnitGroup.Producer, Mode=TwoWay}" />
 
 
     </Grid>

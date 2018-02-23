@@ -31,7 +31,6 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new ParameterConfiguration());
             modelBuilder.Configurations.Add(new ParameterGroupConfiguration());
             modelBuilder.Configurations.Add(new ProductRelationConfiguration());
-            modelBuilder.Configurations.Add(new StandartPaymentConditionsConfiguration());
             modelBuilder.Configurations.Add(new PersonConfiguration());
             modelBuilder.Configurations.Add(new PaymentPlannedConfiguration());
             modelBuilder.Configurations.Add(new PaymentActualConfiguration());
@@ -93,7 +92,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<Parameter> ParameterDbSet { get; set; }
         public virtual DbSet<ParameterGroup> ParameterGroupDbSet { get; set; }
         public virtual DbSet<ProductRelation> ProductRelationDbSet { get; set; }
-        public virtual DbSet<StandartPaymentConditions> StandartPaymentConditionsDbSet { get; set; }
         public virtual DbSet<Person> PersonDbSet { get; set; }
         public virtual DbSet<PaymentPlanned> PaymentPlannedDbSet { get; set; }
         public virtual DbSet<PaymentActual> PaymentActualDbSet { get; set; }
@@ -111,7 +109,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<CostOnDate> CostOnDateDbSet { get; set; }
         public virtual DbSet<Cost> CostDbSet { get; set; }
         public virtual DbSet<Currency> CurrencyDbSet { get; set; }
-        public virtual DbSet<ExchangeCurrencyRate> ExchangeCurrencyRateDbSet { get; set; }
+        public virtual DbSet<CurrencyExchangeRate> ExchangeCurrencyRateDbSet { get; set; }
         public virtual DbSet<Product> ProductDbSet { get; set; }
         public virtual DbSet<Offer> OfferDbSet { get; set; }
         public virtual DbSet<Employee> EmployeeDbSet { get; set; }

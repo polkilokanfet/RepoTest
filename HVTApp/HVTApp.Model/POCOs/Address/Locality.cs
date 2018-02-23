@@ -12,7 +12,12 @@ namespace HVTApp.Model.POCOs
         public virtual LocalityType LocalityType { get; set; }
         public virtual Region Region { get; set; }
 
+        public bool IsCountryCapital { get; set; } = false;
+        public bool IsDistrictCapital { get; set; } = false;
+        public bool IsRegionCapital { get; set; } = false;
+
         public double? StandartDeliveryPeriod { get; set; }
+        public double? DistanceToEkb { get; set; }
 
         public override string ToString()
         {

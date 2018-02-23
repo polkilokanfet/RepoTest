@@ -35,7 +35,6 @@ namespace HVTApp.DataAccess
             ParameterRepository = new ParameterRepository(context);
             ParameterGroupRepository = new ParameterGroupRepository(context);
             ProductRelationRepository = new ProductRelationRepository(context);
-            StandartPaymentConditionsRepository = new StandartPaymentConditionsRepository(context);
             PersonRepository = new PersonRepository(context);
             PaymentPlannedRepository = new PaymentPlannedRepository(context);
             PaymentActualRepository = new PaymentActualRepository(context);
@@ -96,7 +95,6 @@ namespace HVTApp.DataAccess
         private IParameterRepository ParameterRepository;
         private IParameterGroupRepository ParameterGroupRepository;
         private IProductRelationRepository ProductRelationRepository;
-        private IStandartPaymentConditionsRepository StandartPaymentConditionsRepository;
         private IPersonRepository PersonRepository;
         private IPaymentPlannedRepository PaymentPlannedRepository;
         private IPaymentActualRepository PaymentActualRepository;

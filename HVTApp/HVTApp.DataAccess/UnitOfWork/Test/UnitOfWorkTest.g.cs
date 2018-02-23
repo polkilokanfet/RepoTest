@@ -29,7 +29,6 @@ namespace HVTApp.DataAccess
             ParameterRepository = new ParameterRepositoryTest(testData);
             ParameterGroupRepository = new ParameterGroupRepositoryTest(testData);
             ProductRelationRepository = new ProductRelationRepositoryTest(testData);
-            StandartPaymentConditionsRepository = new StandartPaymentConditionsRepositoryTest(testData);
             PersonRepository = new PersonRepositoryTest(testData);
             PaymentPlannedRepository = new PaymentPlannedRepositoryTest(testData);
             PaymentActualRepository = new PaymentActualRepositoryTest(testData);
@@ -90,7 +89,6 @@ namespace HVTApp.DataAccess
         public IParameterRepository ParameterRepository { get; }
         public IParameterGroupRepository ParameterGroupRepository { get; }
         public IProductRelationRepository ProductRelationRepository { get; }
-        public IStandartPaymentConditionsRepository StandartPaymentConditionsRepository { get; }
         public IPersonRepository PersonRepository { get; }
         public IPaymentPlannedRepository PaymentPlannedRepository { get; }
         public IPaymentActualRepository PaymentActualRepository { get; }

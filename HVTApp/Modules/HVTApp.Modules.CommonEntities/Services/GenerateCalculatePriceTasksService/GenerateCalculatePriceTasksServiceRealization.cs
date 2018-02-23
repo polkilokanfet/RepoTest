@@ -27,7 +27,7 @@ namespace HVTApp.UI.Services
                 Where(x => x.IsActual).ToList();
 
             //блоки с неактуальной ценой или без цены вообще
-            var blocks = productWrapper.GetBlocksWithoutActualPriceOnDate(date).Union(productWrapper.GetBlocksWithoutAnyPriceOnDate());
+            var blocks = productWrapper.GetBlocksWithoutActualPriceOnDate(date).Union(productWrapper.GetBlocksWithoutAnyPrice());
             foreach (var productBlockWrapper in blocks)
             {
                 //если блок уже в задаче на расчет

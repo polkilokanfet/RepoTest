@@ -3,12 +3,12 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
-    public class PaymentConditionStandartConfiguration : EntityTypeConfiguration<StandartPaymentConditions>
+    public partial class PaymentConditionSetConfiguration : EntityTypeConfiguration<PaymentConditionSet>
     {
-        public PaymentConditionStandartConfiguration()
+        public PaymentConditionSetConfiguration()
         {
             Property(x => x.Name).IsRequired().HasMaxLength(75);
-            HasMany(x => x.PaymentsConditions).WithMany();
+            HasMany(x => x.PaymentConditions).WithMany();
         }
     }
 }

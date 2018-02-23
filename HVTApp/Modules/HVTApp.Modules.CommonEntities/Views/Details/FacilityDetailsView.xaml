@@ -1,0 +1,41 @@
+﻿<inf:ViewBase xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+              x:Class="HVTApp.UI.Views.FacilityDetailsView">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Row="0" Grid.Column="0" Content="Name:" />
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        
+        <Label Grid.Row="1" Grid.Column="0" Content="Type:" />
+        <controls:ChooseItemControl Grid.Row="1" Grid.Column="1" 
+                                    Item="{Binding Item.Type}"
+                                    AddItemCommand="{Binding SelectTypeCommand}"
+                                    RemoveItemCommand="{Binding ClearTypeCommand}"/>
+        
+        <Label Grid.Row="2" Grid.Column="0" Content="Owner Company:" />
+        <controls:ChooseItemControl Grid.Row="2" Grid.Column="1"
+                                    Item="{Binding Item.OwnerCompany}"
+                                    AddItemCommand="{Binding SelectOwnerCompanyCommand}"
+                                    RemoveItemCommand="{Binding ClearOwnerCompanyCommand}" />
+
+        <Label Grid.Row="3" Grid.Column="0" Content="Address:" />
+        <controls:ChooseItemControl Grid.Row="3" Grid.Column="1"
+                                    Item="{Binding Item.Address}"
+                                    AddItemCommand="{Binding SelectAddressCommand}"
+                                    RemoveItemCommand="{Binding ClearAddressCommand}" />
+
+    </Grid>
+
+</inf:ViewBase>

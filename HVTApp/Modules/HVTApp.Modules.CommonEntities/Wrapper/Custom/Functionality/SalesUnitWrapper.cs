@@ -11,7 +11,7 @@ using HVTApp.UI.ViewModels;
 namespace HVTApp.UI.Wrapper
 {
 
-    public partial class SalesUnitGroupWrapper : IUnitGroup
+    public partial class SalesUnitWrapper : IUnitGroup
     {
         public int Amount => 1;
 
@@ -40,6 +40,7 @@ namespace HVTApp.UI.Wrapper
         {
             if (e.PropertyName == nameof(Product))
             {
+                OnPropertyChanged(nameof(HasBlocksWithoutPrice));
                 OnPropertyChanged(nameof(MarginalIncome));
                 OnPropertyChanged(nameof(PriceErrors));
             }
@@ -77,7 +78,7 @@ namespace HVTApp.UI.Wrapper
     }
 
     //Sums
-    public partial class SalesUnitGroupWrapper : IUnitGroup
+    public partial class SalesUnitWrapper : IUnitGroup
     {
         /// <summary>
         /// Оплаченная сумма
@@ -107,7 +108,7 @@ namespace HVTApp.UI.Wrapper
     }
 
     //MarginalIncome
-    public partial class SalesUnitGroupWrapper : IUnitGroup
+    public partial class SalesUnitWrapper : IUnitGroup
     {
         private DateTime _priceDate;
         public DateTime PriceDate
@@ -126,21 +127,23 @@ namespace HVTApp.UI.Wrapper
 
         public double Price => Product.GetPrice(PriceDate) + DependentSalesUnits.Sum(dsu => dsu.Price);
 
+        public bool HasBlocksWithoutPrice => Product.GetBlocksWithoutAnyPrice().Any() || DependentSalesUnits.Any(x => x.HasBlocksWithoutPrice);
+
         public string PriceErrors
         {
             get
             {
-                var blocks = Product.GetBlocksWithoutAnyPriceOnDate();
+                var blocks = Product.GetBlocksWithoutAnyPrice();
                 string result = string.Empty;
                 foreach (var block in blocks)
                 {
-                    result += $"{block.DisplayMember} hasn't price!!!; ";
+                    result += $"{block.DisplayMember} has no price!!!; ";
                 }
 
                 blocks = Product.GetBlocksWithoutActualPriceOnDate(PriceDate);
                 foreach (var block in blocks)
                 {
-                    result += $"{block.DisplayMember} hasn't actual price; ";
+                    result += $"{block.DisplayMember} has no actual price; ";
                 }
                 return result;
             }
@@ -160,7 +163,7 @@ namespace HVTApp.UI.Wrapper
     }
 
     //Dates
-    public partial class SalesUnitGroupWrapper : IUnitGroup
+    public partial class SalesUnitWrapper : IUnitGroup
     {
         public DateTime OrderInTakeDate => StartProductionDate ?? StartProductionDateCalculated;
 
@@ -211,11 +214,13 @@ namespace HVTApp.UI.Wrapper
                 //по дате первого платежа
                 if (PaymentsActual.Any()) return PaymentsActual.OrderBy(x => x.Date).First().Date;
 
+                var productionTerm = this.PlannedTermFromStartToEndProduction ?? CommonOptions.StandartTermFromStartToEndProduction;
+
                 //по дате доставки оборудования на объект
-                if (DeliveryDate.HasValue) return DeliveryDate.Value.AddDays(-CommonOptions.StandartTermFromStartToEndProduction).GetTodayIfDateFromPastAndSkipWeekend();
+                if (DeliveryDate.HasValue) return DeliveryDate.Value.AddDays(-productionTerm).AddDays(-DeliveryPeriodCalculated).GetTodayIfDateFromPastAndSkipWeekend();
 
                 //по необходимой дате реализации проекта
-                return DeliveryDateExpected.AddDays(-CommonOptions.StandartTermFromStartToEndProduction).GetTodayIfDateFromPastAndSkipWeekend();
+                return DeliveryDateExpected.AddDays(-productionTerm).AddDays(-DeliveryPeriodCalculated).GetTodayIfDateFromPastAndSkipWeekend();
             }
         }
 
@@ -234,12 +239,11 @@ namespace HVTApp.UI.Wrapper
                 {
                     int days = this.PlannedTermFromPickToEndProduction ?? CommonOptions.StandartTermFromPickToEndProduction; 
                     return PickingDate.Value.AddDays(days).GetTodayIfDateFromPastAndSkipWeekend();
-                    
                 }
 
                 //по сроку производства
-                int daysToProduce = PlannedTermFromPickToEndProduction ?? CommonOptions.StandartTermFromStartToEndProduction;
-                return StartProductionDateCalculated.AddDays(daysToProduce).GetTodayIfDateFromPastAndSkipWeekend();
+                int productionTerm = PlannedTermFromPickToEndProduction ?? CommonOptions.StandartTermFromStartToEndProduction;
+                return StartProductionDateCalculated.AddDays(productionTerm).GetTodayIfDateFromPastAndSkipWeekend();
             }
         }
 
@@ -302,8 +306,11 @@ namespace HVTApp.UI.Wrapper
                 //по ожидаемому сроку доставки
                 if (ExpectedDeliveryPeriod.HasValue) return ExpectedDeliveryPeriod.Value;
 
-                ////по стандартному сроку доставки до адреса
-                //if (Address.Locality.StandartDeliveryPeriod.HasValue) return Address.Locality.StandartDeliveryPeriod.Value;
+                //по стандартному сроку доставки до адреса разгрузки
+                if (Address?.Locality.StandartDeliveryPeriod != null) return Address.Locality.StandartDeliveryPeriod.Value;
+
+                //по стандартному сроку доставки до адреса объекта
+                if (Facility.Address?.Locality.StandartDeliveryPeriod != null) return Facility.Address.Locality.StandartDeliveryPeriod.Value;
 
                 ////по стандартному сроку доставки до столицы региона
                 //if (Address.Locality.Region.Capital.StandartDeliveryPeriod.HasValue) return Address.Locality.Region.Capital.StandartDeliveryPeriod.Value;
@@ -320,7 +327,7 @@ namespace HVTApp.UI.Wrapper
     }
 
     //Payments
-    public partial class SalesUnitGroupWrapper : IUnitGroup
+    public partial class SalesUnitWrapper : IUnitGroup
     {
         /// <summary>
         /// Перезагрузка плановых платежей с сохранением информации о преждних платежах.

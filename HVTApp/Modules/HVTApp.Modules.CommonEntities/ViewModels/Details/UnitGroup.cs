@@ -11,23 +11,22 @@ using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.ViewModels
 {
-    public class UnitGroupGroup : IUnitGroup
+    public class UnitGroup : IUnitGroup
     {
-        public UnitGroupGroup(IEnumerable<IUnitGroup> projectUnits)
+
+        public ObservableCollection<IUnitGroup> UnitGroups { get; }
+
+        public UnitGroup(IEnumerable<IUnitGroup> projectUnits)
         {
-            ProjectUnits = new ObservableCollection<IUnitGroup>(projectUnits);
-            foreach (var projectUnit in ProjectUnits)
+            UnitGroups = new ObservableCollection<IUnitGroup>(projectUnits);
+            foreach (var projectUnit in UnitGroups)
             {
                 projectUnit.PropertyChanged += ProjectUnitOnPropertyChanged;
             }
         }
 
 
-        public ObservableCollection<IUnitGroup> ProjectUnits { get; }
-
-
-
-        public int Amount => ProjectUnits.Count;
+        public int Amount => UnitGroups.Count;
 
         public FacilityWrapper Facility
         {
@@ -41,6 +40,18 @@ namespace HVTApp.UI.ViewModels
             set { SetValue(value); }
         }
 
+        public DateTime DeliveryDateExpected
+        {
+            get { return GetValue<DateTime>(); }
+            set { SetValue(value); }
+        }
+
+        public double MarginalIncome
+        {
+            get { return GetValue<double>(); }
+            set { SetValue(value); }
+        }
+
         public double Cost
         {
             get { return GetValue<double>(); }
@@ -51,20 +62,11 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
-        public double Total => ProjectUnits.Sum(x => x.Cost);
+        public double Total => UnitGroups.Sum(x => x.Cost);
 
-        public double MarginalIncome
-        {
-            get { return GetValue<double>(); }
-            set { SetValue(value); }
-        }
+        public bool HasBlocksWithoutPrice => GetValue<bool>();
 
-        public DateTime DeliveryDateExpected
-        {
-            get { return GetValue<DateTime>(); }
-            set { SetValue(value); }
-        }
-
+        public CompanyWrapper Producer => GetValue<CompanyWrapper>();
 
 
         private void ProjectUnitOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
@@ -75,7 +77,7 @@ namespace HVTApp.UI.ViewModels
         #region GetSetValue
         private T GetValue<T>([CallerMemberName] string propertyName = null)
         {
-            var unit = ProjectUnits.First();
+            var unit = UnitGroups.First();
             return (T)unit.GetType().GetProperty(propertyName).GetValue(unit);
         }
 
@@ -83,7 +85,7 @@ namespace HVTApp.UI.ViewModels
         {
             bool changed = false;
 
-            foreach (var projectUnit in ProjectUnits)
+            foreach (var projectUnit in UnitGroups)
             {
                 var currentValue = projectUnit.GetType().GetProperty(propertyName).GetValue(projectUnit);
                 if (Equals(currentValue, value)) continue;
@@ -107,7 +109,6 @@ namespace HVTApp.UI.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
 
         #endregion
 

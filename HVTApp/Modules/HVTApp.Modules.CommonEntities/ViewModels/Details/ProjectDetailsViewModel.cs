@@ -73,14 +73,14 @@ namespace HVTApp.UI.ViewModels
         private async void AddProjectUnitGroupCommand_Execute()
         {
             //var projectUnit = new ProjectUnit {Project = Item.Model, ProjectId = Item.Model.Id};
-            //var unitGroupGroup = new UnitGroupGroup(new List<ProjectUnit> {projectUnit});
-            //var updated = await _container.Resolve<IUpdateDetailsService>().UpdateDetails<UnitGroupGroup, ProjectUnitGroupWrapper>(new ProjectUnitGroupWrapper(unitGroupGroup), UnitOfWork);
+            //var unitGroup = new UnitGroup(new List<ProjectUnit> {projectUnit});
+            //var updated = await _container.Resolve<IUpdateDetailsService>().UpdateDetails<UnitGroup, ProjectUnitGroupWrapper>(new ProjectUnitGroupWrapper(unitGroup), UnitOfWork);
         }
 
         private void EditCommand_Execute()
         {
-            var projectUnitGroup = (UnitGroupGroup)SelectedUnitGroup;
-            var projectUnitGroupViewModel = new ProjectUnitGroupViewModel(projectUnitGroup, Container, UnitOfWork);
+            var projectUnitGroup = (UnitGroup)SelectedUnitGroup;
+            var projectUnitGroupViewModel = new UnitGroupViewModel(projectUnitGroup, Container, UnitOfWork);
             Container.Resolve<IDialogService>().ShowDialog(projectUnitGroupViewModel);
         }
 

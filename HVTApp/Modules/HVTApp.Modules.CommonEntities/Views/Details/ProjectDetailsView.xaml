@@ -5,6 +5,7 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:controls="clr-namespace:HVTApp.UI.Controls">
 
+
     <StackPanel>
         <Menu>
             <MenuItem Header="Edit" Command="{Binding EditCommand}"/>
@@ -36,8 +37,25 @@
 
                 <infg:XamDataGrid Grid.Column="0" 
                                   DataSource="{Binding ProjectUnits}"
-                                  SelectedDataItem="{Binding SelectedProjectUnit, Mode=TwoWay}">
+                                  SelectedDataItem="{Binding SelectedUnitGroup, Mode=TwoWay}">
                     
+                    <infg:XamDataGrid.FieldLayoutSettings>
+                        <infg:FieldLayoutSettings HighlightAlternateRecords="False"
+                                                  AutoGenerateFields="False" />
+                    </infg:XamDataGrid.FieldLayoutSettings>
+
+                    <infg:XamDataGrid.Resources>
+                        <Style TargetType="{x:Type infg:DataRecordPresenter}">
+                            <Setter Property="Background" Value="GreenYellow"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Record.DataItem.HasBlocksWithoutPrice}" Value="True">
+                                    <Setter Property="Background" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                        
+                    </infg:XamDataGrid.Resources>
+
                     <infg:XamDataGrid.FieldLayouts>
                         <infg:FieldLayout>
                             <infg:FieldLayout.Fields>
@@ -48,6 +66,7 @@
                                 <infg:NumericField Name="MarginalIncome" Label="МД, %" AllowEdit="True" Width="Auto"/>
                                 <infg:NumericField Name="Cost" Label="Стоимость" AllowEdit="True" Width="Auto"/>
                                 <infg:NumericField Name="Total" Label="Сумма" Width="Auto"/>
+                                <infg:CheckBoxField Name="HasBlocksWithoutPrice" Label="Error" Width="Auto"/>
                                 <!--<infg:TextField Name="PriceErrors" Label="PriceErrors" />-->
                             </infg:FieldLayout.Fields>
                         </infg:FieldLayout>

@@ -113,11 +113,6 @@ namespace HVTApp.DataAccess
         public ProductRelationRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class StandartPaymentConditionsRepositoryTest : TestBaseRepository<StandartPaymentConditions>, IStandartPaymentConditionsRepository
-    {
-        public StandartPaymentConditionsRepositoryTest(TestData testData) : base(testData) {}
-    }
-
     public partial class PersonRepositoryTest : TestBaseRepository<Person>, IPersonRepository
     {
         public PersonRepositoryTest(TestData testData) : base(testData) {}
@@ -203,7 +198,7 @@ namespace HVTApp.DataAccess
         public CurrencyRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class ExchangeCurrencyRateRepositoryTest : TestBaseRepository<ExchangeCurrencyRate>, IExchangeCurrencyRateRepository
+    public partial class ExchangeCurrencyRateRepositoryTest : TestBaseRepository<CurrencyExchangeRate>, IExchangeCurrencyRateRepository
     {
         public ExchangeCurrencyRateRepositoryTest(TestData testData) : base(testData) {}
     }

@@ -3,34 +3,41 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
-              >
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition MinWidth="200"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition MinWidth="200"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Номер"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Item.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Grid.Row="0" Grid.Column="0" Content="Номер"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Item.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         
-        <Label Grid.Row="1" Grid.Column="0" Content="Дата"/>
-        <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Item.Date}"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="Дата"/>
+            <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Item.Date}"/>
         
-        <Label Grid.Row="2" Grid.Column="0" Content="Контрагент"/>
-        <controls:ChooseItemControl Grid.Row="2" Grid.Column="1"
-                                    Item="{Binding Item.Contragent}"
-                                    AddItemCommand="{Binding SelectContragentCommand}"
-                                    RemoveItemCommand="{Binding ClearContragentCommand}"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Контрагент"/>
+            <controls:ChooseItemControl Grid.Row="2" Grid.Column="1"
+                                        Item="{Binding Item.Contragent}"
+                                        AddItemCommand="{Binding SelectContragentCommand}"
+                                        RemoveItemCommand="{Binding ClearContragentCommand}"/>
+        </Grid>
+        
+        <infg:XamDataGrid Grid.Row="1" DataSource="{Binding Specifications}">
+            <infg:XamDataGrid.FieldLayoutSettings>
+                <infg:FieldLayoutSettings AutoGenerateFields="True"/>
+            </infg:XamDataGrid.FieldLayoutSettings>
+        </infg:XamDataGrid>
     </Grid>
 </inf:ViewBase>

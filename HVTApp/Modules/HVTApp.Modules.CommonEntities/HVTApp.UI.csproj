@@ -101,6 +101,7 @@
     <Compile Include="Events\AfterSelectEntityEvents\AfterSelectEntityEvents.g.cs" />
     <Compile Include="Events\AfterSelectEntityEvents\PubSubEventArgs.cs" />
     <Compile Include="Lookup\IProductUnitLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\SpecificationLookup.cs" />
     <Compile Include="Lookup\Items\Lookups.g.cs" />
     <Compile Include="Lookup\Service\ILookupDataServices.g.cs" />
     <Compile Include="Lookup\Service\ILookupDataService.cs" />
@@ -113,14 +114,16 @@
     <Compile Include="UiModule.g.cs" />
     <Compile Include="ViewModels\BaseDetailsViewModel.cs" />
     <Compile Include="ViewModels\BaseListViewModel.cs" />
+    <Compile Include="ViewModels\Details\ContractDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\GeneratedDetailsViewModels.g.cs" />
     <Compile Include="ViewModels\Details\IUnitGroup.cs" />
     <Compile Include="ViewModels\Details\IProjectUnitGroupLookup.cs" />
     <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Details\UnitGroupGroup.cs" />
-    <Compile Include="ViewModels\Details\ProjectUnitGroupViewModel.cs" />
+    <Compile Include="ViewModels\Details\SpecificationDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\UnitGroup.cs" />
+    <Compile Include="ViewModels\Details\UnitGroupViewModel.cs" />
     <Compile Include="ViewModels\Details\UnitsGrouped.cs" />
     <Compile Include="ViewModels\IBaseListViewModel.cs" />
     <Compile Include="Controls\ChooseItemControl.xaml.cs">
@@ -169,6 +172,9 @@
     <Compile Include="ViewModels\List\PaymentPlannedListViewModel.cs" />
     <Compile Include="ViewModels\List\ProjectUnitGroupListViewModel.cs" />
     <Compile Include="ViewModels\PaymentPlannedListGeneratorViewModel.cs" />
+    <Compile Include="Views\Details\FacilityDetailsView.xaml.cs">
+      <DependentUpon>FacilityDetailsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Details\ProjectUnitGroupWindow.xaml.cs">
       <DependentUpon>ProjectUnitGroupWindow.xaml</DependentUpon>
     </Compile>
@@ -177,6 +183,30 @@
     </Compile>
     <Compile Include="Views\List\DescribeProductBlockTaskListView.xaml.cs">
       <DependentUpon>DescribeProductBlockTaskListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\List\DocumentListView.xaml.cs">
+      <DependentUpon>DocumentListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\List\EmployeeListView.xaml.cs">
+      <DependentUpon>EmployeeListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\List\EmployeesPositionListView.xaml.cs">
+      <DependentUpon>EmployeesPositionListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\List\OrderListView.xaml.cs">
+      <DependentUpon>OrderListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\List\PaymentConditionListView.xaml.cs">
+      <DependentUpon>PaymentConditionListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\List\PaymentConditionSetListView.xaml.cs">
+      <DependentUpon>PaymentConditionSetListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\List\PaymentDocumentListView.xaml.cs">
+      <DependentUpon>PaymentDocumentListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\List\PersonListView.xaml.cs">
+      <DependentUpon>PersonListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\List\SpecificationListView.xaml.cs">
       <DependentUpon>SpecificationListView.xaml</DependentUpon>
@@ -290,6 +320,9 @@
     <Compile Include="Views\List\ProjectUnitListView.xaml.cs">
       <DependentUpon>ProjectUnitListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\List\UserListView.xaml.cs">
+      <DependentUpon>UserListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PaymentPlannedListGeneratorView.xaml.cs">
       <DependentUpon>PaymentPlannedListGeneratorView.xaml</DependentUpon>
     </Compile>
@@ -312,7 +345,7 @@
     <Compile Include="Wrapper\Custom\Functionality\ProductWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProjectWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\RegionWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\SalesUnitGroupWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\SalesUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\SpecificationWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\TenderWrapper.cs" />
     <Compile Include="Wrapper\Custom\IProductWithCost.cs" />
@@ -324,7 +357,7 @@
     <Compile Include="Wrapper\Custom\Validate\ContractWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\FacilityWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\SpecificationWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Validate\StandartPaymentConditionsWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Validate\PaymentConditionSetWrapper.cs" />
     <Compile Include="Wrapper\DataService\EntityWrapperDataServices.g.cs" />
     <Compile Include="Wrapper\DataService\IEntityWrapperDataService.cs" />
     <Compile Include="Wrapper\DataService\EntityWrapperDataService.cs" />
@@ -345,7 +378,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.ActivityField.datasource" />
-    <None Include="Properties\DataSources\HVTApp.Model.POCOs.AdditionalSalesUnits.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.Address.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.BankDetails.datasource" />
     <None Include="Properties\DataSources\HVTApp.Model.POCOs.Company.datasource" />
@@ -451,6 +483,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Details\FacilityDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Details\ProjectUnitGroupWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -460,6 +496,38 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\List\DescribeProductBlockTaskListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\List\DocumentListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\List\EmployeeListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\List\EmployeesPositionListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\List\OrderListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\List\PaymentConditionListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\List\PaymentConditionSetListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\List\PaymentDocumentListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\List\PersonListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -604,6 +672,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\List\ProjectUnitListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\List\UserListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

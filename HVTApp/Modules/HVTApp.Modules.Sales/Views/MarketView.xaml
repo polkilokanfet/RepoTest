@@ -12,10 +12,29 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <views:ProjectListView Name="ProjectListView" Grid.Row="0" DataContext="{Binding ProjectListViewModel}"/>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            
+            <views:ProjectListView Grid.Column="0" Name="ProjectListView" Grid.Row="0" DataContext="{Binding ProjectListViewModel}"/>
+            
+            <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Center"></GridSplitter>
+            
+            <infg:XamDataGrid Grid.Column="2" DataSource="{Binding Tenders}">
+                <infg:XamDataGrid.FieldLayoutSettings>
+                    <infg:FieldLayoutSettings AutoGenerateFields="True"/>
+                </infg:XamDataGrid.FieldLayoutSettings>
+            </infg:XamDataGrid>
+            
+        </Grid>
+        
         <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
-        <infg:XamDataGrid Grid.Row="2" 
-                          DataSource="{Binding ProjectUnitGroups}"
+        
+        <infg:XamDataGrid Grid.Row="2"
+                          DataSource="{Binding UnitGroups}"
                           SelectedDataItem="{Binding SelectedProjectUnit, Mode=TwoWay}">
 
             <infg:XamDataGrid.FieldLayouts>
@@ -27,6 +46,7 @@
                         <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
                         <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto"/>
                         <infg:NumericField Name="Total" Label="Сумма" Width="Auto"/>
+                        <infg:TextField Name="Producer" Label="Производитель" Width="Auto" />
                     </infg:FieldLayout.Fields>
                 </infg:FieldLayout>
             </infg:XamDataGrid.FieldLayouts>

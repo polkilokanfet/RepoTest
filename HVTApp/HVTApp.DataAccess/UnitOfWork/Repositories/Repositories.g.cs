@@ -113,11 +113,6 @@ namespace HVTApp.DataAccess
         public ProductRelationRepository(DbContext context) : base(context) {}
     }
 
-    public partial class StandartPaymentConditionsRepository : BaseRepository<StandartPaymentConditions>, IStandartPaymentConditionsRepository
-    {
-        public StandartPaymentConditionsRepository(DbContext context) : base(context) {}
-    }
-
     public partial class PersonRepository : BaseRepository<Person>, IPersonRepository
     {
         public PersonRepository(DbContext context) : base(context) {}
@@ -203,7 +198,7 @@ namespace HVTApp.DataAccess
         public CurrencyRepository(DbContext context) : base(context) {}
     }
 
-    public partial class ExchangeCurrencyRateRepository : BaseRepository<ExchangeCurrencyRate>, IExchangeCurrencyRateRepository
+    public partial class ExchangeCurrencyRateRepository : BaseRepository<CurrencyExchangeRate>, IExchangeCurrencyRateRepository
     {
         public ExchangeCurrencyRateRepository(DbContext context) : base(context) {}
     }

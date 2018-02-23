@@ -7,5 +7,10 @@ namespace HVTApp.Model.POCOs
     {
         public string RegistrationNumber { get; set; }
         public DateTime RegistrationDate { get; set; }
+
+        public override string ToString()
+        {
+            return $"№{RegistrationNumber} от {RegistrationDate.ToShortDateString()}";
+        }
     }
 }

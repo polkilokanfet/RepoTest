@@ -25,7 +25,6 @@ namespace HVTApp.DataAccess
     public partial class ParameterConfiguration : EntityTypeConfiguration<Parameter> { }
     public partial class ParameterGroupConfiguration : EntityTypeConfiguration<ParameterGroup> { }
     public partial class ProductRelationConfiguration : EntityTypeConfiguration<ProductRelation> { }
-    public partial class StandartPaymentConditionsConfiguration : EntityTypeConfiguration<StandartPaymentConditions> { }
     public partial class PersonConfiguration : EntityTypeConfiguration<Person> { }
     public partial class PaymentPlannedConfiguration : EntityTypeConfiguration<PaymentPlanned> { }
     public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }
@@ -43,7 +42,7 @@ namespace HVTApp.DataAccess
     public partial class CostOnDateConfiguration : EntityTypeConfiguration<CostOnDate> { }
     public partial class CostConfiguration : EntityTypeConfiguration<Cost> { }
     public partial class CurrencyConfiguration : EntityTypeConfiguration<Currency> { }
-    public partial class ExchangeCurrencyRateConfiguration : EntityTypeConfiguration<ExchangeCurrencyRate> { }
+    public partial class ExchangeCurrencyRateConfiguration : EntityTypeConfiguration<CurrencyExchangeRate> { }
     public partial class ProductConfiguration : EntityTypeConfiguration<Product> { }
     public partial class OfferConfiguration : EntityTypeConfiguration<Offer> { }
     public partial class EmployeeConfiguration : EntityTypeConfiguration<Employee> { }
