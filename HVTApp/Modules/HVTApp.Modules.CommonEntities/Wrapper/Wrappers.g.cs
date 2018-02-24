@@ -555,6 +555,200 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
+		public partial class CostWrapper : WrapperBase<Cost>
+	{
+	    public CostWrapper(Cost model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.Double Sum
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
+        public bool SumIsChanged => GetIsChanged(nameof(Sum));
+
+
+        public System.Nullable<System.Guid> CurrencyId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> CurrencyIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(CurrencyId));
+        public bool CurrencyIdIsChanged => GetIsChanged(nameof(CurrencyId));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public CurrencyWrapper Currency 
+        {
+            get { return GetWrapper<CurrencyWrapper>(); }
+            set { SetComplexValue<Currency, CurrencyWrapper>(Currency, value); }
+        }
+
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+
+            InitializeComplexProperty<CurrencyWrapper>(nameof(Currency), Model.Currency == null ? null : new CurrencyWrapper(Model.Currency));
+
+
+        }
+
+	}
+
+		public partial class CurrencyWrapper : WrapperBase<Currency>
+	{
+	    public CurrencyWrapper(Currency model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.String FullName
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String FullNameOriginalValue => GetOriginalValue<System.String>(nameof(FullName));
+        public bool FullNameIsChanged => GetIsChanged(nameof(FullName));
+
+
+        public System.String ShortName
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String ShortNameOriginalValue => GetOriginalValue<System.String>(nameof(ShortName));
+        public bool ShortNameIsChanged => GetIsChanged(nameof(ShortName));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+	}
+
+		public partial class CurrencyExchangeRateWrapper : WrapperBase<CurrencyExchangeRate>
+	{
+	    public CurrencyExchangeRateWrapper(CurrencyExchangeRate model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.DateTime Date
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
+        public bool DateIsChanged => GetIsChanged(nameof(Date));
+
+
+        public System.Double FirstCurrencyValue
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double FirstCurrencyValueOriginalValue => GetOriginalValue<System.Double>(nameof(FirstCurrencyValue));
+        public bool FirstCurrencyValueIsChanged => GetIsChanged(nameof(FirstCurrencyValue));
+
+
+        public System.Double SecondCurrencyValue
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double SecondCurrencyValueOriginalValue => GetOriginalValue<System.Double>(nameof(SecondCurrencyValue));
+        public bool SecondCurrencyValueIsChanged => GetIsChanged(nameof(SecondCurrencyValue));
+
+
+        public System.Nullable<System.Guid> FirstCurrencyId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> FirstCurrencyIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(FirstCurrencyId));
+        public bool FirstCurrencyIdIsChanged => GetIsChanged(nameof(FirstCurrencyId));
+
+
+        public System.Nullable<System.Guid> SecondCurrencyId
+        {
+          get { return GetValue<System.Nullable<System.Guid>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Guid> SecondCurrencyIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(SecondCurrencyId));
+        public bool SecondCurrencyIdIsChanged => GetIsChanged(nameof(SecondCurrencyId));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public CurrencyWrapper FirstCurrency 
+        {
+            get { return GetWrapper<CurrencyWrapper>(); }
+            set { SetComplexValue<Currency, CurrencyWrapper>(FirstCurrency, value); }
+        }
+
+
+	    public CurrencyWrapper SecondCurrency 
+        {
+            get { return GetWrapper<CurrencyWrapper>(); }
+            set { SetComplexValue<Currency, CurrencyWrapper>(SecondCurrency, value); }
+        }
+
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+
+            InitializeComplexProperty<CurrencyWrapper>(nameof(FirstCurrency), Model.FirstCurrency == null ? null : new CurrencyWrapper(Model.FirstCurrency));
+
+
+            InitializeComplexProperty<CurrencyWrapper>(nameof(SecondCurrency), Model.SecondCurrency == null ? null : new CurrencyWrapper(Model.SecondCurrency));
+
+
+        }
+
+	}
+
 		public partial class DescribeProductBlockTaskWrapper : WrapperBase<DescribeProductBlockTask>
 	{
 	    public DescribeProductBlockTaskWrapper(DescribeProductBlockTask model) : base(model) { }
@@ -2776,200 +2970,6 @@ namespace HVTApp.UI.Wrapper
 
 
         #endregion
-
-	}
-
-		public partial class CostWrapper : WrapperBase<Cost>
-	{
-	    public CostWrapper(Cost model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.Nullable<System.Guid> CurrencyId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> CurrencyIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(CurrencyId));
-        public bool CurrencyIdIsChanged => GetIsChanged(nameof(CurrencyId));
-
-
-        public System.Double Sum
-        {
-          get { return GetValue<System.Double>(); }
-          set { SetValue(value); }
-        }
-        public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
-        public bool SumIsChanged => GetIsChanged(nameof(Sum));
-
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-
-        #region ComplexProperties
-
-	    public CurrencyWrapper Currency 
-        {
-            get { return GetWrapper<CurrencyWrapper>(); }
-            set { SetComplexValue<Currency, CurrencyWrapper>(Currency, value); }
-        }
-
-
-        #endregion
-
-        public override void InitializeComplexProperties()
-        {
-
-            InitializeComplexProperty<CurrencyWrapper>(nameof(Currency), Model.Currency == null ? null : new CurrencyWrapper(Model.Currency));
-
-
-        }
-
-	}
-
-		public partial class CurrencyWrapper : WrapperBase<Currency>
-	{
-	    public CurrencyWrapper(Currency model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.String FullName
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String FullNameOriginalValue => GetOriginalValue<System.String>(nameof(FullName));
-        public bool FullNameIsChanged => GetIsChanged(nameof(FullName));
-
-
-        public System.String ShortName
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String ShortNameOriginalValue => GetOriginalValue<System.String>(nameof(ShortName));
-        public bool ShortNameIsChanged => GetIsChanged(nameof(ShortName));
-
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-	}
-
-		public partial class ExchangeCurrencyRateWrapper : WrapperBase<CurrencyExchangeRate>
-	{
-	    public ExchangeCurrencyRateWrapper(CurrencyExchangeRate model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.Nullable<System.Guid> FirstCurrencyId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> FirstCurrencyIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(FirstCurrencyId));
-        public bool FirstCurrencyIdIsChanged => GetIsChanged(nameof(FirstCurrencyId));
-
-
-        public System.Nullable<System.Guid> SecondCurrencyId
-        {
-          get { return GetValue<System.Nullable<System.Guid>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Guid> SecondCurrencyIdOriginalValue => GetOriginalValue<System.Nullable<System.Guid>>(nameof(SecondCurrencyId));
-        public bool SecondCurrencyIdIsChanged => GetIsChanged(nameof(SecondCurrencyId));
-
-
-        public System.DateTime Date
-        {
-          get { return GetValue<System.DateTime>(); }
-          set { SetValue(value); }
-        }
-        public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
-        public bool DateIsChanged => GetIsChanged(nameof(Date));
-
-
-        public System.Double FirstCurrencyValue
-        {
-          get { return GetValue<System.Double>(); }
-          set { SetValue(value); }
-        }
-        public System.Double FirstCurrencyValueOriginalValue => GetOriginalValue<System.Double>(nameof(FirstCurrencyValue));
-        public bool FirstCurrencyValueIsChanged => GetIsChanged(nameof(FirstCurrencyValue));
-
-
-        public System.Double SecondCurrencyValue
-        {
-          get { return GetValue<System.Double>(); }
-          set { SetValue(value); }
-        }
-        public System.Double SecondCurrencyValueOriginalValue => GetOriginalValue<System.Double>(nameof(SecondCurrencyValue));
-        public bool SecondCurrencyValueIsChanged => GetIsChanged(nameof(SecondCurrencyValue));
-
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-
-        #region ComplexProperties
-
-	    public CurrencyWrapper FirstCurrency 
-        {
-            get { return GetWrapper<CurrencyWrapper>(); }
-            set { SetComplexValue<Currency, CurrencyWrapper>(FirstCurrency, value); }
-        }
-
-
-	    public CurrencyWrapper SecondCurrency 
-        {
-            get { return GetWrapper<CurrencyWrapper>(); }
-            set { SetComplexValue<Currency, CurrencyWrapper>(SecondCurrency, value); }
-        }
-
-
-        #endregion
-
-        public override void InitializeComplexProperties()
-        {
-
-            InitializeComplexProperty<CurrencyWrapper>(nameof(FirstCurrency), Model.FirstCurrency == null ? null : new CurrencyWrapper(Model.FirstCurrency));
-
-
-            InitializeComplexProperty<CurrencyWrapper>(nameof(SecondCurrency), Model.SecondCurrency == null ? null : new CurrencyWrapper(Model.SecondCurrency));
-
-
-        }
 
 	}
 

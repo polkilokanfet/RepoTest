@@ -40,9 +40,9 @@ namespace HVTApp.UI.ViewModels
             InitCommands();
         }
 
-        protected virtual void InitCommands()
-        {
-        }
+        protected virtual void InitCommands() { }
+
+        protected virtual void InitGetMethods() { }
 
         public async Task LoadAsync(TEntity entity)
         {
@@ -58,9 +58,7 @@ namespace HVTApp.UI.ViewModels
             await LoadOtherAsync();
         }
 
-        protected virtual async Task LoadOtherAsync()
-        {
-        }
+        protected virtual async Task LoadOtherAsync() { }
 
         public ICommand SaveCommand { get; }
 

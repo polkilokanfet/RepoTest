@@ -88,6 +88,36 @@ namespace HVTApp.UI.Views
     }
 
 
+    public partial class CostDetailsView : ViewBase
+    {
+        public CostDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CostDetailsViewModel CostDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = CostDetailsViewModel;
+        }
+    }
+
+
+    public partial class CurrencyDetailsView : ViewBase
+    {
+        public CurrencyDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CurrencyDetailsViewModel CurrencyDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = CurrencyDetailsViewModel;
+        }
+    }
+
+
+    public partial class CurrencyExchangeRateDetailsView : ViewBase
+    {
+        public CurrencyExchangeRateDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CurrencyExchangeRateDetailsViewModel CurrencyExchangeRateDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = CurrencyExchangeRateDetailsViewModel;
+        }
+    }
+
+
     public partial class DescribeProductBlockTaskDetailsView : ViewBase
     {
         public DescribeProductBlockTaskDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DescribeProductBlockTaskDetailsViewModel DescribeProductBlockTaskDetailsViewModel) : base(regionManager, eventAggregator)
@@ -374,36 +404,6 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = CostOnDateDetailsViewModel;
-        }
-    }
-
-
-    public partial class CostDetailsView : ViewBase
-    {
-        public CostDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CostDetailsViewModel CostDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = CostDetailsViewModel;
-        }
-    }
-
-
-    public partial class CurrencyDetailsView : ViewBase
-    {
-        public CurrencyDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CurrencyDetailsViewModel CurrencyDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = CurrencyDetailsViewModel;
-        }
-    }
-
-
-    public partial class ExchangeCurrencyRateDetailsView : ViewBase
-    {
-        public ExchangeCurrencyRateDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ExchangeCurrencyRateDetailsViewModel ExchangeCurrencyRateDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ExchangeCurrencyRateDetailsViewModel;
         }
     }
 

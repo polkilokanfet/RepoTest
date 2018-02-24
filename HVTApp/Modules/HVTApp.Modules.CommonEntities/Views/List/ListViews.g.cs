@@ -153,6 +153,60 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
+    public partial class CostListView : ViewBase
+    {
+        public CostListView(IRegionManager regionManager, IEventAggregator eventAggregator, CostListViewModel CostListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = CostListViewModel;
+			CostListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((CostListViewModel)DataContext).LoadAsync();;
+        }
+    }
+
+
+    [RibbonTab(typeof(TabCRUD))]
+    public partial class CurrencyListView : ViewBase
+    {
+        public CurrencyListView(IRegionManager regionManager, IEventAggregator eventAggregator, CurrencyListViewModel CurrencyListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = CurrencyListViewModel;
+			CurrencyListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((CurrencyListViewModel)DataContext).LoadAsync();;
+        }
+    }
+
+
+    [RibbonTab(typeof(TabCRUD))]
+    public partial class CurrencyExchangeRateListView : ViewBase
+    {
+        public CurrencyExchangeRateListView(IRegionManager regionManager, IEventAggregator eventAggregator, CurrencyExchangeRateListViewModel CurrencyExchangeRateListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = CurrencyExchangeRateListViewModel;
+			CurrencyExchangeRateListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((CurrencyExchangeRateListViewModel)DataContext).LoadAsync();;
+        }
+    }
+
+
+    [RibbonTab(typeof(TabCRUD))]
     public partial class DescribeProductBlockTaskListView : ViewBase
     {
         public DescribeProductBlockTaskListView(IRegionManager regionManager, IEventAggregator eventAggregator, DescribeProductBlockTaskListViewModel DescribeProductBlockTaskListViewModel) : base(regionManager, eventAggregator)
@@ -670,60 +724,6 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
 			await ((CostOnDateListViewModel)DataContext).LoadAsync();;
-        }
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
-    public partial class CostListView : ViewBase
-    {
-        public CostListView(IRegionManager regionManager, IEventAggregator eventAggregator, CostListViewModel CostListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = CostListViewModel;
-			CostListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((CostListViewModel)DataContext).LoadAsync();;
-        }
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
-    public partial class CurrencyListView : ViewBase
-    {
-        public CurrencyListView(IRegionManager regionManager, IEventAggregator eventAggregator, CurrencyListViewModel CurrencyListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = CurrencyListViewModel;
-			CurrencyListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((CurrencyListViewModel)DataContext).LoadAsync();;
-        }
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
-    public partial class ExchangeCurrencyRateListView : ViewBase
-    {
-        public ExchangeCurrencyRateListView(IRegionManager regionManager, IEventAggregator eventAggregator, ExchangeCurrencyRateListViewModel ExchangeCurrencyRateListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ExchangeCurrencyRateListViewModel;
-			ExchangeCurrencyRateListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((ExchangeCurrencyRateListViewModel)DataContext).LoadAsync();;
         }
     }
 

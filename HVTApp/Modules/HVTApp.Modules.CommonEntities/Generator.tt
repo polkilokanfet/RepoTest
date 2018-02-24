@@ -191,6 +191,9 @@ using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using System.Windows.Input;
 using Prism.Commands;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System;
 
 namespace HVTApp.UI.ViewModels
 {
@@ -223,7 +226,8 @@ namespace HVTApp.UI.ViewModels
     {
 <#+		foreach(var propInfo in allComplexProperties)
         {
-#>		public ICommand Select<#=propInfo.Name#>Command { get; }
+#>		private Func<Task<List<<#=propInfo.PropertyType.Name#>>>> _getEntitiesForSelect<#=propInfo.Name#>Command;
+		public ICommand Select<#=propInfo.Name#>Command { get; }
 		public ICommand Clear<#=propInfo.Name#>Command { get; }
 
 <#+		}
@@ -232,18 +236,19 @@ namespace HVTApp.UI.ViewModels
 		{
 <#+		foreach(var propInfo in allComplexProperties)
         {
-#>			Select<#=propInfo.Name#>Command = new DelegateCommand(Select<#=propInfo.Name#>Command_Execute);
+#>          _getEntitiesForSelect<#=propInfo.Name#>Command = async () => { return await UnitOfWork.GetRepository<<#=propInfo.PropertyType.Name#>>().GetAllAsync(); };
+			Select<#=propInfo.Name#>Command = new DelegateCommand(Select<#=propInfo.Name#>Command_Execute);
 			Clear<#=propInfo.Name#>Command = new DelegateCommand(Clear<#=propInfo.Name#>Command_Execute);
 
 <#+		}
 #>
+			InitGetMethods();
 		}
 <#+		foreach(var propInfo in allComplexProperties)
         {
 #>		private async void Select<#=propInfo.Name#>Command_Execute() 
 		{
-            var entities = await UnitOfWork.GetRepository<<#=propInfo.PropertyType.Name#>>().GetAllAsync();
-            SelectAndSetWrapper<<#=propInfo.PropertyType.Name#>, <#=propInfo.PropertyType.Name#>Wrapper>(entities, nameof(Item.<#=propInfo.Name#>), Item.<#=propInfo.Name#>?.Id);
+            SelectAndSetWrapper<<#=propInfo.PropertyType.Name#>, <#=propInfo.PropertyType.Name#>Wrapper>(await _getEntitiesForSelect<#=propInfo.Name#>Command(), nameof(Item.<#=propInfo.Name#>), Item.<#=propInfo.Name#>?.Id);
 		}
 
 		private void Clear<#=propInfo.Name#>Command_Execute() 

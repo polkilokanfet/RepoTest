@@ -11,6 +11,9 @@ namespace HVTApp.UI.Events
 	public partial class AfterSaveLocalityTypeEvent : PubSubEvent<LocalityType> { }
 	public partial class AfterSaveRegionEvent : PubSubEvent<Region> { }
 	public partial class AfterSaveCalculatePriceTaskEvent : PubSubEvent<CalculatePriceTask> { }
+	public partial class AfterSaveCostEvent : PubSubEvent<Cost> { }
+	public partial class AfterSaveCurrencyEvent : PubSubEvent<Currency> { }
+	public partial class AfterSaveCurrencyExchangeRateEvent : PubSubEvent<CurrencyExchangeRate> { }
 	public partial class AfterSaveDescribeProductBlockTaskEvent : PubSubEvent<DescribeProductBlockTask> { }
 	public partial class AfterSaveSalesBlockEvent : PubSubEvent<SalesBlock> { }
 	public partial class AfterSaveBankDetailsEvent : PubSubEvent<BankDetails> { }
@@ -40,9 +43,6 @@ namespace HVTApp.UI.Events
 	public partial class AfterSaveTestWifeEvent : PubSubEvent<TestWife> { }
 	public partial class AfterSaveTestChildEvent : PubSubEvent<TestChild> { }
 	public partial class AfterSaveCostOnDateEvent : PubSubEvent<CostOnDate> { }
-	public partial class AfterSaveCostEvent : PubSubEvent<Cost> { }
-	public partial class AfterSaveCurrencyEvent : PubSubEvent<Currency> { }
-	public partial class AfterSaveExchangeCurrencyRateEvent : PubSubEvent<CurrencyExchangeRate> { }
 	public partial class AfterSaveProductEvent : PubSubEvent<Product> { }
 	public partial class AfterSaveOfferEvent : PubSubEvent<Offer> { }
 	public partial class AfterSaveEmployeeEvent : PubSubEvent<Employee> { }

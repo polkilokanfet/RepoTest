@@ -53,6 +53,24 @@ namespace HVTApp.UI.Lookup
     }
 
 
+    public partial class CostLookupDataService : LookupDataService<CostLookup, Cost>, ICostLookupDataService
+    {
+        public CostLookupDataService(HvtAppContext context) : base(context) { }
+    }
+
+
+    public partial class CurrencyLookupDataService : LookupDataService<CurrencyLookup, Currency>, ICurrencyLookupDataService
+    {
+        public CurrencyLookupDataService(HvtAppContext context) : base(context) { }
+    }
+
+
+    public partial class CurrencyExchangeRateLookupDataService : LookupDataService<CurrencyExchangeRateLookup, CurrencyExchangeRate>, ICurrencyExchangeRateLookupDataService
+    {
+        public CurrencyExchangeRateLookupDataService(HvtAppContext context) : base(context) { }
+    }
+
+
     public partial class DescribeProductBlockTaskLookupDataService : LookupDataService<DescribeProductBlockTaskLookup, DescribeProductBlockTask>, IDescribeProductBlockTaskLookupDataService
     {
         public DescribeProductBlockTaskLookupDataService(HvtAppContext context) : base(context) { }
@@ -224,24 +242,6 @@ namespace HVTApp.UI.Lookup
     public partial class CostOnDateLookupDataService : LookupDataService<CostOnDateLookup, CostOnDate>, ICostOnDateLookupDataService
     {
         public CostOnDateLookupDataService(HvtAppContext context) : base(context) { }
-    }
-
-
-    public partial class CostLookupDataService : LookupDataService<CostLookup, Cost>, ICostLookupDataService
-    {
-        public CostLookupDataService(HvtAppContext context) : base(context) { }
-    }
-
-
-    public partial class CurrencyLookupDataService : LookupDataService<CurrencyLookup, Currency>, ICurrencyLookupDataService
-    {
-        public CurrencyLookupDataService(HvtAppContext context) : base(context) { }
-    }
-
-
-    public partial class ExchangeCurrencyRateLookupDataService : LookupDataService<ExchangeCurrencyRateLookup, CurrencyExchangeRate>, IExchangeCurrencyRateLookupDataService
-    {
-        public ExchangeCurrencyRateLookupDataService(HvtAppContext context) : base(context) { }
     }
 
 

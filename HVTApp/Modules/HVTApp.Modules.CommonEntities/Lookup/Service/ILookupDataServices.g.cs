@@ -8,6 +8,9 @@ namespace HVTApp.UI.Lookup
 	public interface ILocalityTypeLookupDataService : ILookupDataService<LocalityTypeLookup> { } 
 	public interface IRegionLookupDataService : ILookupDataService<RegionLookup> { } 
 	public interface ICalculatePriceTaskLookupDataService : ILookupDataService<CalculatePriceTaskLookup> { } 
+	public interface ICostLookupDataService : ILookupDataService<CostLookup> { } 
+	public interface ICurrencyLookupDataService : ILookupDataService<CurrencyLookup> { } 
+	public interface ICurrencyExchangeRateLookupDataService : ILookupDataService<CurrencyExchangeRateLookup> { } 
 	public interface IDescribeProductBlockTaskLookupDataService : ILookupDataService<DescribeProductBlockTaskLookup> { } 
 	public interface ISalesBlockLookupDataService : ILookupDataService<SalesBlockLookup> { } 
 	public interface IBankDetailsLookupDataService : ILookupDataService<BankDetailsLookup> { } 
@@ -37,9 +40,6 @@ namespace HVTApp.UI.Lookup
 	public interface ITestWifeLookupDataService : ILookupDataService<TestWifeLookup> { } 
 	public interface ITestChildLookupDataService : ILookupDataService<TestChildLookup> { } 
 	public interface ICostOnDateLookupDataService : ILookupDataService<CostOnDateLookup> { } 
-	public interface ICostLookupDataService : ILookupDataService<CostLookup> { } 
-	public interface ICurrencyLookupDataService : ILookupDataService<CurrencyLookup> { } 
-	public interface IExchangeCurrencyRateLookupDataService : ILookupDataService<ExchangeCurrencyRateLookup> { } 
 	public interface IProductLookupDataService : ILookupDataService<ProductLookup> { } 
 	public interface IOfferLookupDataService : ILookupDataService<OfferLookup> { } 
 	public interface IEmployeeLookupDataService : ILookupDataService<EmployeeLookup> { } 

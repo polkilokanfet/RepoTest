@@ -60,6 +60,24 @@ namespace HVTApp.UI
             _updateDetailsService.Register<CalculatePriceTask, CalculatePriceTaskDetailsView>();
 
 
+            Container.RegisterViewForNavigation<CostListView>();
+            //_dialogService.Register<CostDetailsViewModel, CostDetailsView>();
+			_selectService.Register<CostListView, Cost>();
+            _updateDetailsService.Register<Cost, CostDetailsView>();
+
+
+            Container.RegisterViewForNavigation<CurrencyListView>();
+            //_dialogService.Register<CurrencyDetailsViewModel, CurrencyDetailsView>();
+			_selectService.Register<CurrencyListView, Currency>();
+            _updateDetailsService.Register<Currency, CurrencyDetailsView>();
+
+
+            Container.RegisterViewForNavigation<CurrencyExchangeRateListView>();
+            //_dialogService.Register<CurrencyExchangeRateDetailsViewModel, CurrencyExchangeRateDetailsView>();
+			_selectService.Register<CurrencyExchangeRateListView, CurrencyExchangeRate>();
+            _updateDetailsService.Register<CurrencyExchangeRate, CurrencyExchangeRateDetailsView>();
+
+
             Container.RegisterViewForNavigation<DescribeProductBlockTaskListView>();
             //_dialogService.Register<DescribeProductBlockTaskDetailsViewModel, DescribeProductBlockTaskDetailsView>();
 			_selectService.Register<DescribeProductBlockTaskListView, DescribeProductBlockTask>();
@@ -232,24 +250,6 @@ namespace HVTApp.UI
             //_dialogService.Register<CostOnDateDetailsViewModel, CostOnDateDetailsView>();
 			_selectService.Register<CostOnDateListView, CostOnDate>();
             _updateDetailsService.Register<CostOnDate, CostOnDateDetailsView>();
-
-
-            Container.RegisterViewForNavigation<CostListView>();
-            //_dialogService.Register<CostDetailsViewModel, CostDetailsView>();
-			_selectService.Register<CostListView, Cost>();
-            _updateDetailsService.Register<Cost, CostDetailsView>();
-
-
-            Container.RegisterViewForNavigation<CurrencyListView>();
-            //_dialogService.Register<CurrencyDetailsViewModel, CurrencyDetailsView>();
-			_selectService.Register<CurrencyListView, Currency>();
-            _updateDetailsService.Register<Currency, CurrencyDetailsView>();
-
-
-            Container.RegisterViewForNavigation<ExchangeCurrencyRateListView>();
-            //_dialogService.Register<ExchangeCurrencyRateDetailsViewModel, ExchangeCurrencyRateDetailsView>();
-			_selectService.Register<ExchangeCurrencyRateListView, CurrencyExchangeRate>();
-            _updateDetailsService.Register<CurrencyExchangeRate, ExchangeCurrencyRateDetailsView>();
 
 
             Container.RegisterViewForNavigation<ProductListView>();

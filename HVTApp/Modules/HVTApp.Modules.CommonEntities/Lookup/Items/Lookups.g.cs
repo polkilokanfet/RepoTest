@@ -269,6 +269,109 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	public partial class CostLookup : LookupItem<Cost>
+	{
+		public CostLookup(Cost entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+			Currency?.Refresh(Entity.Currency);
+
+		}
+		
+
+        #region SimpleProperties
+
+        public System.Double Sum => GetValue<System.Double>();
+
+
+        public System.Nullable<System.Guid> CurrencyId => GetValue<System.Nullable<System.Guid>>();
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public CurrencyLookup Currency { get { return GetLookup<CurrencyLookup>(); } }
+
+
+        #endregion
+
+	}
+
+	public partial class CurrencyLookup : LookupItem<Currency>
+	{
+		public CurrencyLookup(Currency entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+		}
+		
+
+        #region SimpleProperties
+
+        public System.String FullName => GetValue<System.String>();
+
+
+        public System.String ShortName => GetValue<System.String>();
+
+
+        #endregion
+
+	}
+
+	public partial class CurrencyExchangeRateLookup : LookupItem<CurrencyExchangeRate>
+	{
+		public CurrencyExchangeRateLookup(CurrencyExchangeRate entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+			FirstCurrency?.Refresh(Entity.FirstCurrency);
+
+			SecondCurrency?.Refresh(Entity.SecondCurrency);
+
+		}
+		
+
+        #region SimpleProperties
+
+        public System.DateTime Date => GetValue<System.DateTime>();
+
+
+        public System.Double FirstCurrencyValue => GetValue<System.Double>();
+
+
+        public System.Double SecondCurrencyValue => GetValue<System.Double>();
+
+
+        public System.Nullable<System.Guid> FirstCurrencyId => GetValue<System.Nullable<System.Guid>>();
+
+
+        public System.Nullable<System.Guid> SecondCurrencyId => GetValue<System.Nullable<System.Guid>>();
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public CurrencyLookup FirstCurrency { get { return GetLookup<CurrencyLookup>(); } }
+
+
+	    public CurrencyLookup SecondCurrency { get { return GetLookup<CurrencyLookup>(); } }
+
+
+        #endregion
+
+	}
+
 	public partial class DescribeProductBlockTaskLookup : LookupItem<DescribeProductBlockTask>
 	{
 		public DescribeProductBlockTaskLookup(DescribeProductBlockTask entity) : base(entity) 
@@ -1279,109 +1382,6 @@ namespace HVTApp.UI.Lookup
 
 
         public System.Double Cost => GetValue<System.Double>();
-
-
-        #endregion
-
-	}
-
-	public partial class CostLookup : LookupItem<Cost>
-	{
-		public CostLookup(Cost entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			Currency?.Refresh(Entity.Currency);
-
-		}
-		
-
-        #region SimpleProperties
-
-        public System.Nullable<System.Guid> CurrencyId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Double Sum => GetValue<System.Double>();
-
-
-        #endregion
-
-
-        #region ComplexProperties
-
-	    public CurrencyLookup Currency { get { return GetLookup<CurrencyLookup>(); } }
-
-
-        #endregion
-
-	}
-
-	public partial class CurrencyLookup : LookupItem<Currency>
-	{
-		public CurrencyLookup(Currency entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
-		
-
-        #region SimpleProperties
-
-        public System.String FullName => GetValue<System.String>();
-
-
-        public System.String ShortName => GetValue<System.String>();
-
-
-        #endregion
-
-	}
-
-	public partial class ExchangeCurrencyRateLookup : LookupItem<CurrencyExchangeRate>
-	{
-		public ExchangeCurrencyRateLookup(CurrencyExchangeRate entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			FirstCurrency?.Refresh(Entity.FirstCurrency);
-
-			SecondCurrency?.Refresh(Entity.SecondCurrency);
-
-		}
-		
-
-        #region SimpleProperties
-
-        public System.Nullable<System.Guid> FirstCurrencyId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> SecondCurrencyId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.DateTime Date => GetValue<System.DateTime>();
-
-
-        public System.Double FirstCurrencyValue => GetValue<System.Double>();
-
-
-        public System.Double SecondCurrencyValue => GetValue<System.Double>();
-
-
-        #endregion
-
-
-        #region ComplexProperties
-
-	    public CurrencyLookup FirstCurrency { get { return GetLookup<CurrencyLookup>(); } }
-
-
-	    public CurrencyLookup SecondCurrency { get { return GetLookup<CurrencyLookup>(); } }
 
 
         #endregion

@@ -133,6 +133,54 @@ namespace HVTApp.UI.Wrapper
     }
 
 
+    public partial class CostWrapperDataService : EntityWrapperDataService<Cost, CostWrapper>
+    {
+        public CostWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		
+		protected override CostWrapper GenerateWrapper(Cost model)
+        {
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new CostWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
+        }
+    }
+
+
+    public partial class CurrencyWrapperDataService : EntityWrapperDataService<Currency, CurrencyWrapper>
+    {
+        public CurrencyWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		
+		protected override CurrencyWrapper GenerateWrapper(Currency model)
+        {
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new CurrencyWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
+        }
+    }
+
+
+    public partial class CurrencyExchangeRateWrapperDataService : EntityWrapperDataService<CurrencyExchangeRate, CurrencyExchangeRateWrapper>
+    {
+        public CurrencyExchangeRateWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		
+		protected override CurrencyExchangeRateWrapper GenerateWrapper(CurrencyExchangeRate model)
+        {
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new CurrencyExchangeRateWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
+        }
+    }
+
+
     public partial class DescribeProductBlockTaskWrapperDataService : EntityWrapperDataService<DescribeProductBlockTask, DescribeProductBlockTaskWrapper>
     {
         public DescribeProductBlockTaskWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -591,54 +639,6 @@ namespace HVTApp.UI.Wrapper
                 return ExistsWrappers.Single(x => x.Model.Id == model.Id);
 
             var wrapper = new CostOnDateWrapper(model);
-            ExistsWrappers.Add(wrapper);
-            return wrapper;
-        }
-    }
-
-
-    public partial class CostWrapperDataService : EntityWrapperDataService<Cost, CostWrapper>
-    {
-        public CostWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-		
-		protected override CostWrapper GenerateWrapper(Cost model)
-        {
-            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
-                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
-
-            var wrapper = new CostWrapper(model);
-            ExistsWrappers.Add(wrapper);
-            return wrapper;
-        }
-    }
-
-
-    public partial class CurrencyWrapperDataService : EntityWrapperDataService<Currency, CurrencyWrapper>
-    {
-        public CurrencyWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-		
-		protected override CurrencyWrapper GenerateWrapper(Currency model)
-        {
-            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
-                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
-
-            var wrapper = new CurrencyWrapper(model);
-            ExistsWrappers.Add(wrapper);
-            return wrapper;
-        }
-    }
-
-
-    public partial class ExchangeCurrencyRateWrapperDataService : EntityWrapperDataService<CurrencyExchangeRate, ExchangeCurrencyRateWrapper>
-    {
-        public ExchangeCurrencyRateWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-		
-		protected override ExchangeCurrencyRateWrapper GenerateWrapper(CurrencyExchangeRate model)
-        {
-            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
-                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
-
-            var wrapper = new ExchangeCurrencyRateWrapper(model);
             ExistsWrappers.Add(wrapper);
             return wrapper;
         }

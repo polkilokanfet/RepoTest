@@ -54,7 +54,7 @@
         <Label Grid.Column="0" Grid.Row="6" Content="Головная компания"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
 			Item="{Binding Item.ParentCompany}"
-			AddItemCommand="{Binding SelectParentCompanyCommand1}"
+			AddItemCommand="{Binding SelectParentCompanyCommand}"
             RemoveItemCommand="{Binding ClearParentCompanyCommand}"/>
 
         <Label Grid.Column="0" Grid.Row ="8" Content="Адрес"/>

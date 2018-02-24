@@ -23,6 +23,12 @@ namespace HVTApp.UI.Wrapper
 
             CalculatePriceTaskWrapperDataService = new CalculatePriceTaskWrapperDataService(unitOfWork);
 
+            CostWrapperDataService = new CostWrapperDataService(unitOfWork);
+
+            CurrencyWrapperDataService = new CurrencyWrapperDataService(unitOfWork);
+
+            CurrencyExchangeRateWrapperDataService = new CurrencyExchangeRateWrapperDataService(unitOfWork);
+
             DescribeProductBlockTaskWrapperDataService = new DescribeProductBlockTaskWrapperDataService(unitOfWork);
 
             SalesBlockWrapperDataService = new SalesBlockWrapperDataService(unitOfWork);
@@ -81,12 +87,6 @@ namespace HVTApp.UI.Wrapper
 
             CostOnDateWrapperDataService = new CostOnDateWrapperDataService(unitOfWork);
 
-            CostWrapperDataService = new CostWrapperDataService(unitOfWork);
-
-            CurrencyWrapperDataService = new CurrencyWrapperDataService(unitOfWork);
-
-            ExchangeCurrencyRateWrapperDataService = new ExchangeCurrencyRateWrapperDataService(unitOfWork);
-
             ProductWrapperDataService = new ProductWrapperDataService(unitOfWork);
 
             OfferWrapperDataService = new OfferWrapperDataService(unitOfWork);
@@ -135,6 +135,12 @@ namespace HVTApp.UI.Wrapper
         public RegionWrapperDataService RegionWrapperDataService { get; }
 
         public CalculatePriceTaskWrapperDataService CalculatePriceTaskWrapperDataService { get; }
+
+        public CostWrapperDataService CostWrapperDataService { get; }
+
+        public CurrencyWrapperDataService CurrencyWrapperDataService { get; }
+
+        public CurrencyExchangeRateWrapperDataService CurrencyExchangeRateWrapperDataService { get; }
 
         public DescribeProductBlockTaskWrapperDataService DescribeProductBlockTaskWrapperDataService { get; }
 
@@ -193,12 +199,6 @@ namespace HVTApp.UI.Wrapper
         public TestChildWrapperDataService TestChildWrapperDataService { get; }
 
         public CostOnDateWrapperDataService CostOnDateWrapperDataService { get; }
-
-        public CostWrapperDataService CostWrapperDataService { get; }
-
-        public CurrencyWrapperDataService CurrencyWrapperDataService { get; }
-
-        public ExchangeCurrencyRateWrapperDataService ExchangeCurrencyRateWrapperDataService { get; }
 
         public ProductWrapperDataService ProductWrapperDataService { get; }
 

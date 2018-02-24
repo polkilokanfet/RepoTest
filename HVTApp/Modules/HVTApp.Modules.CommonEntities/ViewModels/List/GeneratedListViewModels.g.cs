@@ -55,6 +55,24 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class CostListViewModel : BaseListViewModel<Cost, CostLookup, AfterSaveCostEvent, AfterSelectCostEvent, AfterRemoveCostEvent>
+    {
+        public CostListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
+    public partial class CurrencyListViewModel : BaseListViewModel<Currency, CurrencyLookup, AfterSaveCurrencyEvent, AfterSelectCurrencyEvent, AfterRemoveCurrencyEvent>
+    {
+        public CurrencyListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
+    public partial class CurrencyExchangeRateListViewModel : BaseListViewModel<CurrencyExchangeRate, CurrencyExchangeRateLookup, AfterSaveCurrencyExchangeRateEvent, AfterSelectCurrencyExchangeRateEvent, AfterRemoveCurrencyExchangeRateEvent>
+    {
+        public CurrencyExchangeRateListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
     public partial class DescribeProductBlockTaskListViewModel : BaseListViewModel<DescribeProductBlockTask, DescribeProductBlockTaskLookup, AfterSaveDescribeProductBlockTaskEvent, AfterSelectDescribeProductBlockTaskEvent, AfterRemoveDescribeProductBlockTaskEvent>
     {
         public DescribeProductBlockTaskListViewModel(IUnityContainer container) : base(container) { }
@@ -226,24 +244,6 @@ namespace HVTApp.UI.ViewModels
     public partial class CostOnDateListViewModel : BaseListViewModel<CostOnDate, CostOnDateLookup, AfterSaveCostOnDateEvent, AfterSelectCostOnDateEvent, AfterRemoveCostOnDateEvent>
     {
         public CostOnDateListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-    public partial class CostListViewModel : BaseListViewModel<Cost, CostLookup, AfterSaveCostEvent, AfterSelectCostEvent, AfterRemoveCostEvent>
-    {
-        public CostListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-    public partial class CurrencyListViewModel : BaseListViewModel<Currency, CurrencyLookup, AfterSaveCurrencyEvent, AfterSelectCurrencyEvent, AfterRemoveCurrencyEvent>
-    {
-        public CurrencyListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-    public partial class ExchangeCurrencyRateListViewModel : BaseListViewModel<CurrencyExchangeRate, ExchangeCurrencyRateLookup, AfterSaveExchangeCurrencyRateEvent, AfterSelectExchangeCurrencyRateEvent, AfterRemoveExchangeCurrencyRateEvent>
-    {
-        public ExchangeCurrencyRateListViewModel(IUnityContainer container) : base(container) { }
     }
 
 

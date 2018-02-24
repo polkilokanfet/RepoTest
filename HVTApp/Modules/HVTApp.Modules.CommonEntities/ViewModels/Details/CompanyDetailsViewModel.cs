@@ -18,12 +18,9 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitCommands()
         {
-            SelectParentCompanyCommand1 = new DelegateCommand(SelectParentCompanyCommand_ExecuteAsync);
             AddActivityFieldCommand = new DelegateCommand(AddActivityFieldCommand_ExecuteAsync);
             RemoveActivityFieldCommand = new DelegateCommand(RemoveActivityFieldCommand_Execute, RemoveActivityFieldCommand_CanExecute);
         }
-
-        public ICommand SelectParentCompanyCommand1 { get; set; }
 
         public ICollection<CompanyFormWrapper> Forms { get; } = new ObservableCollection<CompanyFormWrapper>();
 
@@ -31,6 +28,18 @@ namespace HVTApp.UI.ViewModels
         {
             var forms = (await UnitOfWork.GetRepository<CompanyForm>().GetAllAsNoTrackingAsync()).Select(x => new CompanyFormWrapper(x));
             forms.ForEach(Forms.Add);
+        }
+
+        protected override void InitGetMethods()
+        {
+            _getEntitiesForSelectParentCompanyCommand = async () =>
+            {
+                var companies = await UnitOfWork.GetRepository<Company>().GetAllAsync();
+                //компании, которые не могут быть головной (дочерние и т.д.)
+                var exceptCompanies = companies.Where(x => Equals(x.ParentCompany?.Id, Item.Id)).Concat(new[] {Item.Model});
+                //возможные головные компании
+                return companies.Except(exceptCompanies).ToList();
+            };
         }
 
         #region Commands
@@ -67,26 +76,6 @@ namespace HVTApp.UI.ViewModels
         {
             return SelectedActivityField != null;
         }
-
-        private void RemoveParentCompanyCommand_Execute()
-        {
-            //если головная компания не назначена
-            if (Item.ParentCompany == null) return;
-            //удалаем головную компанию текущей компании
-            Item.ParentCompany = null;
-        }
-
-        private async void SelectParentCompanyCommand_ExecuteAsync()
-        {
-            var companies = await UnitOfWork.GetRepository<Company>().GetAllAsync();
-            //компании, которые не могут быть головной (дочерние и т.д.)
-            var exceptCompanies = companies.Where(x => Equals(x.ParentCompany?.Id, Item.Id)).Concat(new[] {Item.Model});
-            //возможные головные компании
-            var possibleParents = companies.Except(exceptCompanies);
-            //выбор одной из компаний
-            SelectAndSetWrapper<Company, CompanyWrapper>(possibleParents, nameof(Item.ParentCompany));
-        }
-
         #endregion
     }
 }
