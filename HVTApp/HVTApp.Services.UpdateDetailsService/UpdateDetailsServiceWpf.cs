@@ -27,14 +27,14 @@ namespace HVTApp.Services.UpdateDetailsService
             _dictionary.Add(typeof(TEntity), typeof(TDetailsView));
         }
 
-        public async Task<bool> UpdateDetails<TEntity>(Guid? id = null)
+        private async Task<bool> UpdateDetails<TEntity>(Func<ILoadable<TEntity>, Task> loadAsyncFunc)
             where TEntity : class, IBaseEntity
         {
             bool result = false;
 
             var detailsView = (Control)_container.Resolve(_dictionary[typeof(TEntity)]);
             var detailsViewModel = detailsView.DataContext;
-            await ((ILoadable)detailsViewModel).LoadAsync(id);
+            await loadAsyncFunc.Invoke((ILoadable<TEntity>)detailsViewModel);
 
             var updateDetailsWindow = new UpdateDetailsWindow
             {
@@ -56,6 +56,18 @@ namespace HVTApp.Services.UpdateDetailsService
             updateDetailsWindow.ShowDialog();
 
             return result;
+        }
+
+        public async Task<bool> UpdateDetails<TEntity>(Guid id)
+            where TEntity : class, IBaseEntity
+        {
+            return await UpdateDetails<TEntity>(detaisViewModel => detaisViewModel.LoadAsync(id));
+        }
+
+        public async Task<bool> UpdateDetails<TEntity>(TEntity entity)
+            where TEntity : class, IBaseEntity
+        {
+            return await UpdateDetails<TEntity>(detaisViewModel => detaisViewModel.LoadAsync(entity));
         }
     }
 }

@@ -143,7 +143,8 @@ namespace HVTApp.UI.ViewModels
 
         protected async void NewItemCommand_Execute()
         {
-            await Container.Resolve<IUpdateDetailsService>().UpdateDetails<TEntity>();
+            var entity = Activator.CreateInstance<TEntity>();
+            await Container.Resolve<IUpdateDetailsService>().UpdateDetails(entity);
         }
 
         protected virtual bool NewItemCommand_CanExecute()

@@ -44,28 +44,17 @@ namespace HVTApp.UI.ViewModels
         {
         }
 
+        public async Task LoadAsync(TEntity entity)
+        {
+            entity = (await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(entity.Id)) ?? entity;
+            Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity);
+            await LoadOtherAsync();
+        }
+
         public async Task LoadAsync(Guid id)
         {
             var entity = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(id);
             Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity);
-            await LoadOtherAsync();
-        }
-
-        public async Task LoadAsync(TWrapper wrapper, IUnitOfWork unitOfWork)
-        {
-            UnitOfWork = unitOfWork;
-            Item = wrapper;
-            await LoadOtherAsync();
-        }
-
-        public virtual async Task LoadAsync(Guid? id = null)
-        {
-            TEntity entity = (id == null)
-                ? Activator.CreateInstance<TEntity>()
-                : await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(id.Value);
-
-            Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity);
-
             await LoadOtherAsync();
         }
 
