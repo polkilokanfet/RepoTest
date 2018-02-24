@@ -9,11 +9,11 @@ namespace HVTApp.DataAccess
         {
             HasMany(x => x.DependentSalesUnits).WithOptional().HasForeignKey(x => x.ParentSalesUnitId).WillCascadeOnDelete(false);
 
-            HasRequired(x => x.Facility).WithMany().HasForeignKey(x => x.FacilityId);
-            HasOptional(x => x.Producer).WithMany().HasForeignKey(x => x.ProducerId);
+            HasRequired(x => x.Facility).WithMany();
+            HasOptional(x => x.Producer).WithMany();
 
-            HasRequired(x => x.Product).WithMany().HasForeignKey(x => x.ProductId);
-            HasOptional(x => x.Order).WithMany().HasForeignKey(x => x.OrderId);
+            HasRequired(x => x.Product).WithMany();
+            HasOptional(x => x.Order).WithMany();
 
             Property(x => x.SerialNumber).IsOptional();
             Property(x => x.OrderPosition).IsOptional();
@@ -24,11 +24,11 @@ namespace HVTApp.DataAccess
             Property(x => x.PickingDate).IsOptional();
             Property(x => x.EndProductionDate).IsOptional();
 
-            HasOptional(x => x.Specification).WithMany().HasForeignKey(x => x.SpecificationId);
+            HasOptional(x => x.Specification).WithMany();
 
             Property(x => x.Cost).IsRequired();
 
-            HasRequired(x => x.PaymentsConditionSet).WithMany().HasForeignKey(x => x.PaymentsConditionSetId);
+            HasRequired(x => x.PaymentsConditionSet).WithMany();
 
             HasMany(x => x.PaymentsActual).WithRequired().HasForeignKey(x => x.SalesUnitId);
             HasMany(x => x.PaymentsPlanned).WithRequired().HasForeignKey(x => x.SalesUnitId);

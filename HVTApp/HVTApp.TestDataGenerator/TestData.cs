@@ -511,7 +511,7 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateTenders()
         {
-            TenderMrsk.Clone(new Tender {ProjectId = ProjectSubstation.Id, Types = new List<TenderType> {TenderTypeProject} , Winner = CompanyUetm, Participants = new List<Company> {CompanyUetm, CompanyEnel}, DateOpen = DateTime.Today, DateClose = DateTime.Today.AddDays(7)});
+            TenderMrsk.Clone(new Tender {Project = ProjectSubstation, Types = new List<TenderType> {TenderTypeProject} , Winner = CompanyUetm, Participants = new List<Company> {CompanyUetm, CompanyEnel}, DateOpen = DateTime.Today, DateClose = DateTime.Today.AddDays(7)});
         }
 
         private void GenerateOrders()
@@ -527,7 +527,7 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateSpecifications()
         {
-            SpecificationMrsk1.Clone(new Specification {ContractId = ContractMrsk.Id, Date = ContractMrsk.Date, Number = "1", Vat = 0.18});
+            SpecificationMrsk1.Clone(new Specification {Contract = ContractMrsk, Date = ContractMrsk.Date, Number = "1", Vat = 0.18});
         }
 
         private void GeneratePaymentConditions()

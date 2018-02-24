@@ -34,7 +34,6 @@ namespace HVTApp.UI.ViewModels
 
             var prod = await UnitOfWork.GetRepository<Product>().GetByIdAsync(product.Id);
             Item.Product = new ProductWrapper(prod);
-            Item.ProductId = prod.Id;
         }
 
         private async void SelectProject_Execute()

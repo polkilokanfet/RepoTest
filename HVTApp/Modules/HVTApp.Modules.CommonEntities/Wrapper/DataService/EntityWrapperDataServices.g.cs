@@ -197,6 +197,38 @@ namespace HVTApp.UI.Wrapper
     }
 
 
+    public partial class PaymentConditionSetWrapperDataService : EntityWrapperDataService<PaymentConditionSet, PaymentConditionSetWrapper>
+    {
+        public PaymentConditionSetWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		
+		protected override PaymentConditionSetWrapper GenerateWrapper(PaymentConditionSet model)
+        {
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new PaymentConditionSetWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
+        }
+    }
+
+
+    public partial class ProductBlockWrapperDataService : EntityWrapperDataService<ProductBlock, ProductBlockWrapper>
+    {
+        public ProductBlockWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		
+		protected override ProductBlockWrapper GenerateWrapper(ProductBlock model)
+        {
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new ProductBlockWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
+        }
+    }
+
+
     public partial class SalesBlockWrapperDataService : EntityWrapperDataService<SalesBlock, SalesBlockWrapper>
     {
         public SalesBlockWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -847,38 +879,6 @@ namespace HVTApp.UI.Wrapper
                 return ExistsWrappers.Single(x => x.Model.Id == model.Id);
 
             var wrapper = new UserWrapper(model);
-            ExistsWrappers.Add(wrapper);
-            return wrapper;
-        }
-    }
-
-
-    public partial class ProductBlockWrapperDataService : EntityWrapperDataService<ProductBlock, ProductBlockWrapper>
-    {
-        public ProductBlockWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-		
-		protected override ProductBlockWrapper GenerateWrapper(ProductBlock model)
-        {
-            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
-                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
-
-            var wrapper = new ProductBlockWrapper(model);
-            ExistsWrappers.Add(wrapper);
-            return wrapper;
-        }
-    }
-
-
-    public partial class PaymentConditionSetWrapperDataService : EntityWrapperDataService<PaymentConditionSet, PaymentConditionSetWrapper>
-    {
-        public PaymentConditionSetWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-		
-		protected override PaymentConditionSetWrapper GenerateWrapper(PaymentConditionSet model)
-        {
-            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
-                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
-
-            var wrapper = new PaymentConditionSetWrapper(model);
             ExistsWrappers.Add(wrapper);
             return wrapper;
         }

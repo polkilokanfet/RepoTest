@@ -79,6 +79,18 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class PaymentConditionSetListViewModel : BaseListViewModel<PaymentConditionSet, PaymentConditionSetLookup, AfterSavePaymentConditionSetEvent, AfterSelectPaymentConditionSetEvent, AfterRemovePaymentConditionSetEvent>
+    {
+        public PaymentConditionSetListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
+    public partial class ProductBlockListViewModel : BaseListViewModel<ProductBlock, ProductBlockLookup, AfterSaveProductBlockEvent, AfterSelectProductBlockEvent, AfterRemoveProductBlockEvent>
+    {
+        public ProductBlockListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
     public partial class SalesBlockListViewModel : BaseListViewModel<SalesBlock, SalesBlockLookup, AfterSaveSalesBlockEvent, AfterSelectSalesBlockEvent, AfterRemoveSalesBlockEvent>
     {
         public SalesBlockListViewModel(IUnityContainer container) : base(container) { }
@@ -322,18 +334,6 @@ namespace HVTApp.UI.ViewModels
     public partial class UserListViewModel : BaseListViewModel<User, UserLookup, AfterSaveUserEvent, AfterSelectUserEvent, AfterRemoveUserEvent>
     {
         public UserListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-    public partial class ProductBlockListViewModel : BaseListViewModel<ProductBlock, ProductBlockLookup, AfterSaveProductBlockEvent, AfterSelectProductBlockEvent, AfterRemoveProductBlockEvent>
-    {
-        public ProductBlockListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-    public partial class PaymentConditionSetListViewModel : BaseListViewModel<PaymentConditionSet, PaymentConditionSetLookup, AfterSavePaymentConditionSetEvent, AfterSelectPaymentConditionSetEvent, AfterRemovePaymentConditionSetEvent>
-    {
-        public PaymentConditionSetListViewModel(IUnityContainer container) : base(container) { }
     }
 
 

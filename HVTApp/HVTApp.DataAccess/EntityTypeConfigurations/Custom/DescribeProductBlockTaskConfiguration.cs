@@ -4,8 +4,8 @@ namespace HVTApp.DataAccess
     {
         public DescribeProductBlockTaskConfiguration()
         {
-            HasRequired(x => x.Product).WithMany().HasForeignKey(x => x.ProductId).WillCascadeOnDelete(false);
-            HasRequired(x => x.ProductBlock).WithMany().HasForeignKey(x => x.ProductBlockId).WillCascadeOnDelete(false);
+            HasRequired(x => x.Product).WithMany().WillCascadeOnDelete(false);
+            HasRequired(x => x.ProductBlock).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

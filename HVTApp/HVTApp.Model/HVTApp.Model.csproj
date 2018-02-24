@@ -60,7 +60,6 @@
     <Compile Include="POCOs\Currency.cs" />
     <Compile Include="POCOs\CurrencyExchangeRate.cs" />
     <Compile Include="POCOs\DescribeProductBlockTask.cs" />
-    <Compile Include="POCOs\Generated\POCOs.g.cs" />
     <Compile Include="POCOs\PaymentConditionSet.cs" />
     <Compile Include="POCOs\ProductBlock.cs" />
     <Compile Include="POCOs\SalesBlock.cs" />
@@ -123,6 +122,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Generator.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="POCOs\Generated\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

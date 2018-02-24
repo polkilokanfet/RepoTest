@@ -12,8 +12,8 @@ namespace HVTApp.UI.Wrapper
             if (string.IsNullOrEmpty(Number))
                 yield return new ValidationResult("Не указан номер спецификации", new[] {nameof(Number)});
 
-            if (ContractId == Guid.Empty)
-                yield return new ValidationResult("Не указан контракт", new[] {nameof(ContractId)});
+            if (Contract == null)
+                yield return new ValidationResult("Не указан контракт", new[] {nameof(Contract)});
         }
     }
 }

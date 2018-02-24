@@ -31,6 +31,10 @@ namespace HVTApp.UI.Wrapper
 
             DescribeProductBlockTaskWrapperDataService = new DescribeProductBlockTaskWrapperDataService(unitOfWork);
 
+            PaymentConditionSetWrapperDataService = new PaymentConditionSetWrapperDataService(unitOfWork);
+
+            ProductBlockWrapperDataService = new ProductBlockWrapperDataService(unitOfWork);
+
             SalesBlockWrapperDataService = new SalesBlockWrapperDataService(unitOfWork);
 
             BankDetailsWrapperDataService = new BankDetailsWrapperDataService(unitOfWork);
@@ -113,10 +117,6 @@ namespace HVTApp.UI.Wrapper
 
             UserWrapperDataService = new UserWrapperDataService(unitOfWork);
 
-            ProductBlockWrapperDataService = new ProductBlockWrapperDataService(unitOfWork);
-
-            PaymentConditionSetWrapperDataService = new PaymentConditionSetWrapperDataService(unitOfWork);
-
         }
 
 
@@ -143,6 +143,10 @@ namespace HVTApp.UI.Wrapper
         public CurrencyExchangeRateWrapperDataService CurrencyExchangeRateWrapperDataService { get; }
 
         public DescribeProductBlockTaskWrapperDataService DescribeProductBlockTaskWrapperDataService { get; }
+
+        public PaymentConditionSetWrapperDataService PaymentConditionSetWrapperDataService { get; }
+
+        public ProductBlockWrapperDataService ProductBlockWrapperDataService { get; }
 
         public SalesBlockWrapperDataService SalesBlockWrapperDataService { get; }
 
@@ -225,10 +229,6 @@ namespace HVTApp.UI.Wrapper
         public TenderTypeWrapperDataService TenderTypeWrapperDataService { get; }
 
         public UserWrapperDataService UserWrapperDataService { get; }
-
-        public ProductBlockWrapperDataService ProductBlockWrapperDataService { get; }
-
-        public PaymentConditionSetWrapperDataService PaymentConditionSetWrapperDataService { get; }
 
     }
 }

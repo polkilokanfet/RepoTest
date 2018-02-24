@@ -128,6 +128,26 @@ namespace HVTApp.UI.Views
     }
 
 
+    public partial class PaymentConditionSetDetailsView : ViewBase
+    {
+        public PaymentConditionSetDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionSetDetailsViewModel PaymentConditionSetDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = PaymentConditionSetDetailsViewModel;
+        }
+    }
+
+
+    public partial class ProductBlockDetailsView : ViewBase
+    {
+        public ProductBlockDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductBlockDetailsViewModel ProductBlockDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = ProductBlockDetailsViewModel;
+        }
+    }
+
+
     public partial class SalesBlockDetailsView : ViewBase
     {
         public SalesBlockDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, SalesBlockDetailsViewModel SalesBlockDetailsViewModel) : base(regionManager, eventAggregator)
@@ -534,26 +554,6 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             DataContext = UserDetailsViewModel;
-        }
-    }
-
-
-    public partial class ProductBlockDetailsView : ViewBase
-    {
-        public ProductBlockDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductBlockDetailsViewModel ProductBlockDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ProductBlockDetailsViewModel;
-        }
-    }
-
-
-    public partial class PaymentConditionSetDetailsView : ViewBase
-    {
-        public PaymentConditionSetDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionSetDetailsViewModel PaymentConditionSetDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = PaymentConditionSetDetailsViewModel;
         }
     }
 

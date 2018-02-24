@@ -12,6 +12,8 @@ namespace HVTApp.UI.Lookup
 	public interface ICurrencyLookupDataService : ILookupDataService<CurrencyLookup> { } 
 	public interface ICurrencyExchangeRateLookupDataService : ILookupDataService<CurrencyExchangeRateLookup> { } 
 	public interface IDescribeProductBlockTaskLookupDataService : ILookupDataService<DescribeProductBlockTaskLookup> { } 
+	public interface IPaymentConditionSetLookupDataService : ILookupDataService<PaymentConditionSetLookup> { } 
+	public interface IProductBlockLookupDataService : ILookupDataService<ProductBlockLookup> { } 
 	public interface ISalesBlockLookupDataService : ILookupDataService<SalesBlockLookup> { } 
 	public interface IBankDetailsLookupDataService : ILookupDataService<BankDetailsLookup> { } 
 	public interface ICompanyLookupDataService : ILookupDataService<CompanyLookup> { } 
@@ -53,6 +55,4 @@ namespace HVTApp.UI.Lookup
 	public interface ITenderLookupDataService : ILookupDataService<TenderLookup> { } 
 	public interface ITenderTypeLookupDataService : ILookupDataService<TenderTypeLookup> { } 
 	public interface IUserLookupDataService : ILookupDataService<UserLookup> { } 
-	public interface IProductBlockLookupDataService : ILookupDataService<ProductBlockLookup> { } 
-	public interface IPaymentConditionSetLookupDataService : ILookupDataService<PaymentConditionSetLookup> { } 
 }

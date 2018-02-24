@@ -84,6 +84,18 @@ namespace HVTApp.UI
             _updateDetailsService.Register<DescribeProductBlockTask, DescribeProductBlockTaskDetailsView>();
 
 
+            Container.RegisterViewForNavigation<PaymentConditionSetListView>();
+            //_dialogService.Register<PaymentConditionSetDetailsViewModel, PaymentConditionSetDetailsView>();
+			_selectService.Register<PaymentConditionSetListView, PaymentConditionSet>();
+            _updateDetailsService.Register<PaymentConditionSet, PaymentConditionSetDetailsView>();
+
+
+            Container.RegisterViewForNavigation<ProductBlockListView>();
+            //_dialogService.Register<ProductBlockDetailsViewModel, ProductBlockDetailsView>();
+			_selectService.Register<ProductBlockListView, ProductBlock>();
+            _updateDetailsService.Register<ProductBlock, ProductBlockDetailsView>();
+
+
             Container.RegisterViewForNavigation<SalesBlockListView>();
             //_dialogService.Register<SalesBlockDetailsViewModel, SalesBlockDetailsView>();
 			_selectService.Register<SalesBlockListView, SalesBlock>();
@@ -328,18 +340,6 @@ namespace HVTApp.UI
             //_dialogService.Register<UserDetailsViewModel, UserDetailsView>();
 			_selectService.Register<UserListView, User>();
             _updateDetailsService.Register<User, UserDetailsView>();
-
-
-            Container.RegisterViewForNavigation<ProductBlockListView>();
-            //_dialogService.Register<ProductBlockDetailsViewModel, ProductBlockDetailsView>();
-			_selectService.Register<ProductBlockListView, ProductBlock>();
-            _updateDetailsService.Register<ProductBlock, ProductBlockDetailsView>();
-
-
-            Container.RegisterViewForNavigation<PaymentConditionSetListView>();
-            //_dialogService.Register<PaymentConditionSetDetailsViewModel, PaymentConditionSetDetailsView>();
-			_selectService.Register<PaymentConditionSetListView, PaymentConditionSet>();
-            _updateDetailsService.Register<PaymentConditionSet, PaymentConditionSetDetailsView>();
 
 
 		}

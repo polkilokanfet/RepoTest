@@ -115,7 +115,6 @@ namespace HVTApp.UI.ViewModels
             {
                 var wrapper = (TWrap)Activator.CreateInstance(typeof(TWrap), entity);
                 Item.GetType().GetProperty(propertyName).SetValue(Item, wrapper);
-                Item.GetType().GetProperty(propertyName + "Id").SetValue(Item, entity.Id);
             }
         }
 

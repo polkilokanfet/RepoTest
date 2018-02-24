@@ -69,7 +69,7 @@ namespace HVTApp.Services.GetProductService
             {
                 if (tasks.Any(x => x.ProductBlock.Id == productBlock.Id))
                     continue;
-                var task = new DescribeProductBlockTask {Product = product, ProductId = product.Id, ProductBlock = productBlock, ProductBlockId = productBlock.Id};
+                var task = new DescribeProductBlockTask {Product = product, ProductBlock = productBlock};
                 _unitOfWork.GetRepository<DescribeProductBlockTask>().Add(task);
             }
         }

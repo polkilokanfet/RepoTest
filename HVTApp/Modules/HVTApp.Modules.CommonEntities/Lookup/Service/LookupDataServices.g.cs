@@ -77,6 +77,18 @@ namespace HVTApp.UI.Lookup
     }
 
 
+    public partial class PaymentConditionSetLookupDataService : LookupDataService<PaymentConditionSetLookup, PaymentConditionSet>, IPaymentConditionSetLookupDataService
+    {
+        public PaymentConditionSetLookupDataService(HvtAppContext context) : base(context) { }
+    }
+
+
+    public partial class ProductBlockLookupDataService : LookupDataService<ProductBlockLookup, ProductBlock>, IProductBlockLookupDataService
+    {
+        public ProductBlockLookupDataService(HvtAppContext context) : base(context) { }
+    }
+
+
     public partial class SalesBlockLookupDataService : LookupDataService<SalesBlockLookup, SalesBlock>, ISalesBlockLookupDataService
     {
         public SalesBlockLookupDataService(HvtAppContext context) : base(context) { }
@@ -320,18 +332,6 @@ namespace HVTApp.UI.Lookup
     public partial class UserLookupDataService : LookupDataService<UserLookup, User>, IUserLookupDataService
     {
         public UserLookupDataService(HvtAppContext context) : base(context) { }
-    }
-
-
-    public partial class ProductBlockLookupDataService : LookupDataService<ProductBlockLookup, ProductBlock>, IProductBlockLookupDataService
-    {
-        public ProductBlockLookupDataService(HvtAppContext context) : base(context) { }
-    }
-
-
-    public partial class PaymentConditionSetLookupDataService : LookupDataService<PaymentConditionSetLookup, PaymentConditionSet>, IPaymentConditionSetLookupDataService
-    {
-        public PaymentConditionSetLookupDataService(HvtAppContext context) : base(context) { }
     }
 
 }

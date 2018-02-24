@@ -225,6 +225,42 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
+    public partial class PaymentConditionSetListView : ViewBase
+    {
+        public PaymentConditionSetListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionSetListViewModel PaymentConditionSetListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = PaymentConditionSetListViewModel;
+			PaymentConditionSetListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((PaymentConditionSetListViewModel)DataContext).LoadAsync();;
+        }
+    }
+
+
+    [RibbonTab(typeof(TabCRUD))]
+    public partial class ProductBlockListView : ViewBase
+    {
+        public ProductBlockListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductBlockListViewModel ProductBlockListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = ProductBlockListViewModel;
+			ProductBlockListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((ProductBlockListViewModel)DataContext).LoadAsync();;
+        }
+    }
+
+
+    [RibbonTab(typeof(TabCRUD))]
     public partial class SalesBlockListView : ViewBase
     {
         public SalesBlockListView(IRegionManager regionManager, IEventAggregator eventAggregator, SalesBlockListViewModel SalesBlockListViewModel) : base(regionManager, eventAggregator)
@@ -958,42 +994,6 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
 			await ((UserListViewModel)DataContext).LoadAsync();;
-        }
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
-    public partial class ProductBlockListView : ViewBase
-    {
-        public ProductBlockListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductBlockListViewModel ProductBlockListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ProductBlockListViewModel;
-			ProductBlockListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((ProductBlockListViewModel)DataContext).LoadAsync();;
-        }
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
-    public partial class PaymentConditionSetListView : ViewBase
-    {
-        public PaymentConditionSetListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionSetListViewModel PaymentConditionSetListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = PaymentConditionSetListViewModel;
-			PaymentConditionSetListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((PaymentConditionSetListViewModel)DataContext).LoadAsync();;
         }
     }
 

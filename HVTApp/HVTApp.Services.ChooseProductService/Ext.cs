@@ -15,7 +15,7 @@ namespace HVTApp.Services.GetProductService
             var result = targetParameters.ToList();
             foreach (var requiredParameter in requiredParameters)
             {
-                var toExcept = result.Where(x => Equals(x.ParameterGroupId, requiredParameter.ParameterGroup.Id))
+                var toExcept = result.Where(x => Equals(x.ParameterGroup.Id, requiredParameter.ParameterGroup.Id))
                     .Except(new List<Parameter> {requiredParameter});
                 result = result.Except(toExcept).ToList();
             }

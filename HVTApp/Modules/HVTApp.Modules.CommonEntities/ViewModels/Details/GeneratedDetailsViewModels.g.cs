@@ -365,6 +365,32 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class PaymentConditionSetDetailsViewModel : BaseDetailsViewModel<PaymentConditionSetWrapper, PaymentConditionSet, AfterSavePaymentConditionSetEvent>
+    {
+
+        public PaymentConditionSetDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+
+			InitGetMethods();
+		}
+
+
+    }
+
+
+    public partial class ProductBlockDetailsViewModel : BaseDetailsViewModel<ProductBlockWrapper, ProductBlock, AfterSaveProductBlockEvent>
+    {
+
+        public ProductBlockDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+
+			InitGetMethods();
+		}
+
+
+    }
+
+
     public partial class SalesBlockDetailsViewModel : BaseDetailsViewModel<SalesBlockWrapper, SalesBlock, AfterSaveSalesBlockEvent>
     {
 
@@ -1721,32 +1747,6 @@ namespace HVTApp.UI.ViewModels
 		    Item.Employee = null;
 		}
 
-
-
-    }
-
-
-    public partial class ProductBlockDetailsViewModel : BaseDetailsViewModel<ProductBlockWrapper, ProductBlock, AfterSaveProductBlockEvent>
-    {
-
-        public ProductBlockDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-
-			InitGetMethods();
-		}
-
-
-    }
-
-
-    public partial class PaymentConditionSetDetailsViewModel : BaseDetailsViewModel<PaymentConditionSetWrapper, PaymentConditionSet, AfterSavePaymentConditionSetEvent>
-    {
-
-        public PaymentConditionSetDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-
-			InitGetMethods();
-		}
 
 
     }

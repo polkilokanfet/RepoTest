@@ -7,7 +7,7 @@ namespace HVTApp.DataAccess
     {
         public ProductConfiguration()
         {
-            HasRequired(x => x.ProductBlock).WithMany().HasForeignKey(x => x.ProductBlockId);
+            HasRequired(x => x.ProductBlock).WithMany();
             Property(x => x.Designation).IsRequired().HasMaxLength(100);
             HasMany(x => x.DependentProducts).WithMany();
         }

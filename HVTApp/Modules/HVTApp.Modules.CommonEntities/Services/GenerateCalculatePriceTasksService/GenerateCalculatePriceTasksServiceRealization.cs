@@ -63,7 +63,6 @@ namespace HVTApp.UI.Services
                     var productBlock = await _unitOfWork.GetRepository<ProductBlock>().GetByIdAsync(productBlockWrapper.Id);
                     var task = new CalculatePriceTask
                     {
-                        ProductBlockId = productBlock.Id,
                         ProductBlock = productBlock,
                         Date = date
                     };

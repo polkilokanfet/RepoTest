@@ -7,13 +7,13 @@ namespace HVTApp.DataAccess
     {
         public TenderConfiguration()
         {
-            HasRequired(x => x.Project).WithMany().HasForeignKey(x => x.ProjectId);
+            HasRequired(x => x.Project).WithMany();
             HasMany(x => x.Types).WithMany();
             Property(x => x.DateOpen).IsRequired();
             Property(x => x.DateClose).IsRequired();
             Property(x => x.DateNotice).IsOptional();
             HasMany(x => x.Participants).WithMany();
-            HasOptional(x => x.Winner).WithMany().HasForeignKey(x => x.WinnerId);
+            HasOptional(x => x.Winner).WithMany();
         }
     }
 }

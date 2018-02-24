@@ -53,9 +53,6 @@ namespace HVTApp.UI.Lookup
         public System.String Description => GetValue<System.String>();
 
 
-        public System.Nullable<System.Guid> LocalityId => GetValue<System.Nullable<System.Guid>>();
-
-
         #endregion
 
 
@@ -106,9 +103,6 @@ namespace HVTApp.UI.Lookup
         public System.String Name => GetValue<System.String>();
 
 
-        public System.Nullable<System.Guid> CountryId => GetValue<System.Nullable<System.Guid>>();
-
-
         #endregion
 
 
@@ -154,12 +148,6 @@ namespace HVTApp.UI.Lookup
 
 
         public System.Nullable<System.Double> DistanceToEkb => GetValue<System.Nullable<System.Double>>();
-
-
-        public System.Nullable<System.Guid> LocalityTypeId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> RegionId => GetValue<System.Nullable<System.Guid>>();
 
 
         #endregion
@@ -218,9 +206,6 @@ namespace HVTApp.UI.Lookup
         public System.String Name => GetValue<System.String>();
 
 
-        public System.Nullable<System.Guid> DistrictId => GetValue<System.Nullable<System.Guid>>();
-
-
         #endregion
 
 
@@ -254,9 +239,6 @@ namespace HVTApp.UI.Lookup
         public System.Boolean IsActual => GetValue<System.Boolean>();
 
 
-        public System.Nullable<System.Guid> ProductBlockId => GetValue<System.Nullable<System.Guid>>();
-
-
         #endregion
 
 
@@ -285,9 +267,6 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
         public System.Double Sum => GetValue<System.Double>();
-
-
-        public System.Nullable<System.Guid> CurrencyId => GetValue<System.Nullable<System.Guid>>();
 
 
         #endregion
@@ -351,12 +330,6 @@ namespace HVTApp.UI.Lookup
         public System.Double SecondCurrencyValue => GetValue<System.Double>();
 
 
-        public System.Nullable<System.Guid> FirstCurrencyId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> SecondCurrencyId => GetValue<System.Nullable<System.Guid>>();
-
-
         #endregion
 
 
@@ -387,23 +360,55 @@ namespace HVTApp.UI.Lookup
 		}
 		
 
-        #region SimpleProperties
-
-        public System.Nullable<System.Guid> ProductBlockId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> ProductId => GetValue<System.Nullable<System.Guid>>();
-
-
-        #endregion
-
-
         #region ComplexProperties
 
 	    public ProductBlockLookup ProductBlock { get { return GetLookup<ProductBlockLookup>(); } }
 
 
 	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
+
+
+        #endregion
+
+	}
+
+	public partial class PaymentConditionSetLookup : LookupItem<PaymentConditionSet>
+	{
+		public PaymentConditionSetLookup(PaymentConditionSet entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+		}
+		
+
+        #region SimpleProperties
+
+        public System.String Name => GetValue<System.String>();
+
+
+        #endregion
+
+	}
+
+	public partial class ProductBlockLookup : LookupItem<ProductBlock>
+	{
+		public ProductBlockLookup(ProductBlock entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+		}
+		
+
+        #region SimpleProperties
+
+        public System.String Name => GetValue<System.String>();
+
+
+        public System.String StructureCostNumber => GetValue<System.String>();
 
 
         #endregion
@@ -471,18 +476,6 @@ namespace HVTApp.UI.Lookup
 		
 
         #region SimpleProperties
-
-        public System.Nullable<System.Guid> FormId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> ParentCompanyId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> AddressLegalId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> AddressPostId => GetValue<System.Nullable<System.Guid>>();
-
 
         public System.String FullName => GetValue<System.String>();
 
@@ -644,9 +637,6 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-        public System.Nullable<System.Guid> ContragentId => GetValue<System.Nullable<System.Guid>>();
-
-
         public System.String Number => GetValue<System.String>();
 
 
@@ -703,9 +693,6 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-        public System.Nullable<System.Guid> ParameterGroupId => GetValue<System.Nullable<System.Guid>>();
-
-
         public System.String Value => GetValue<System.String>();
 
 
@@ -735,9 +722,6 @@ namespace HVTApp.UI.Lookup
 		
 
         #region SimpleProperties
-
-        public System.Nullable<System.Guid> MeasureId => GetValue<System.Nullable<System.Guid>>();
-
 
         public System.String Name => GetValue<System.String>();
 
@@ -817,9 +801,6 @@ namespace HVTApp.UI.Lookup
 		
 
         #region SimpleProperties
-
-        public System.Nullable<System.Guid> ConditionId => GetValue<System.Nullable<System.Guid>>();
-
 
         public System.Guid SalesUnitId => GetValue<System.Guid>();
 
@@ -923,27 +904,6 @@ namespace HVTApp.UI.Lookup
 		
 
         #region SimpleProperties
-
-        public System.Nullable<System.Guid> FacilityId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> ProducerId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> ProductId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> OrderId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> SpecificationId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> PaymentsConditionSetId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> AddressId => GetValue<System.Nullable<System.Guid>>();
-
 
         public System.Nullable<System.Guid> ParentSalesUnitId => GetValue<System.Nullable<System.Guid>>();
 
@@ -1068,15 +1028,6 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-        public System.Nullable<System.Guid> TestFriendAddressId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> TestFriendGroupId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> TestFriendEmailGetId => GetValue<System.Nullable<System.Guid>>();
-
-
         public System.Int32 FriendGroupId => GetValue<System.Int32>();
 
 
@@ -1181,24 +1132,6 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-        public System.Nullable<System.Guid> RequestDocumentId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> AuthorId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> SenderEmployeeId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> RecipientEmployeeId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> RegistrationDetailsOfSenderId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> RegistrationDetailsOfRecipientId => GetValue<System.Nullable<System.Guid>>();
-
-
         public System.Guid SenderId => GetValue<System.Guid>();
 
 
@@ -1270,9 +1203,6 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-        public System.Nullable<System.Guid> WifeId => GetValue<System.Nullable<System.Guid>>();
-
-
         public System.String Name => GetValue<System.String>();
 
 
@@ -1302,9 +1232,6 @@ namespace HVTApp.UI.Lookup
 		
 
         #region SimpleProperties
-
-        public System.Nullable<System.Guid> HusbandId => GetValue<System.Nullable<System.Guid>>();
-
 
         public System.Int32 N => GetValue<System.Int32>();
 
@@ -1340,12 +1267,6 @@ namespace HVTApp.UI.Lookup
 		
 
         #region SimpleProperties
-
-        public System.Nullable<System.Guid> HusbandId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> WifeId => GetValue<System.Nullable<System.Guid>>();
-
 
         public System.String Name => GetValue<System.String>();
 
@@ -1403,9 +1324,6 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-        public System.Nullable<System.Guid> ProductBlockId => GetValue<System.Nullable<System.Guid>>();
-
-
         public System.String Designation => GetValue<System.String>();
 
 
@@ -1447,27 +1365,6 @@ namespace HVTApp.UI.Lookup
 		
 
         #region SimpleProperties
-
-        public System.Nullable<System.Guid> ProjectId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> RequestDocumentId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> AuthorId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> SenderEmployeeId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> RecipientEmployeeId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> RegistrationDetailsOfSenderId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> RegistrationDetailsOfRecipientId => GetValue<System.Nullable<System.Guid>>();
-
 
         public System.DateTime ValidityDate => GetValue<System.DateTime>();
 
@@ -1530,12 +1427,6 @@ namespace HVTApp.UI.Lookup
 		
 
         #region SimpleProperties
-
-        public System.Nullable<System.Guid> CompanyId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> PositionId => GetValue<System.Nullable<System.Guid>>();
-
 
         public System.Guid PersonId => GetValue<System.Guid>();
 
@@ -1655,15 +1546,6 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-        public System.Nullable<System.Guid> TypeId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> OwnerCompanyId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> AddressId => GetValue<System.Nullable<System.Guid>>();
-
-
         public System.String Name => GetValue<System.String>();
 
 
@@ -1699,9 +1581,6 @@ namespace HVTApp.UI.Lookup
 		
 
         #region SimpleProperties
-
-        public System.Nullable<System.Guid> ManagerId => GetValue<System.Nullable<System.Guid>>();
-
 
         public System.String Name => GetValue<System.String>();
 
@@ -1756,9 +1635,6 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-        public System.Nullable<System.Guid> ContractId => GetValue<System.Nullable<System.Guid>>();
-
-
         public System.String Number => GetValue<System.String>();
 
 
@@ -1796,12 +1672,6 @@ namespace HVTApp.UI.Lookup
 		
 
         #region SimpleProperties
-
-        public System.Nullable<System.Guid> ProjectId => GetValue<System.Nullable<System.Guid>>();
-
-
-        public System.Nullable<System.Guid> WinnerId => GetValue<System.Nullable<System.Guid>>();
-
 
         public System.DateTime DateOpen => GetValue<System.DateTime>();
 
@@ -1865,9 +1735,6 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-        public System.Nullable<System.Guid> EmployeeId => GetValue<System.Nullable<System.Guid>>();
-
-
         public System.String Login => GetValue<System.String>();
 
 
@@ -1886,49 +1753,6 @@ namespace HVTApp.UI.Lookup
         #region ComplexProperties
 
 	    public EmployeeLookup Employee { get { return GetLookup<EmployeeLookup>(); } }
-
-
-        #endregion
-
-	}
-
-	public partial class ProductBlockLookup : LookupItem<ProductBlock>
-	{
-		public ProductBlockLookup(ProductBlock entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
-		
-
-        #region SimpleProperties
-
-        public System.String Name => GetValue<System.String>();
-
-
-        public System.String StructureCostNumber => GetValue<System.String>();
-
-
-        #endregion
-
-	}
-
-	public partial class PaymentConditionSetLookup : LookupItem<PaymentConditionSet>
-	{
-		public PaymentConditionSetLookup(PaymentConditionSet entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
-		
-
-        #region SimpleProperties
-
-        public System.String Name => GetValue<System.String>();
 
 
         #endregion

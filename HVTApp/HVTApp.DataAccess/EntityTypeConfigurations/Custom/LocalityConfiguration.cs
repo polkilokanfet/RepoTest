@@ -9,8 +9,8 @@ namespace HVTApp.DataAccess
         {
             Property(x => x.Name).IsRequired().HasMaxLength(100);
             Property(x => x.StandartDeliveryPeriod).IsOptional();
-            HasRequired(x => x.LocalityType).WithMany().HasForeignKey(x => x.LocalityTypeId);
-            HasRequired(x => x.Region).WithMany().HasForeignKey(x => x.RegionId);
+            HasRequired(x => x.LocalityType).WithMany();
+            HasRequired(x => x.Region).WithMany();
         }
     }
 }

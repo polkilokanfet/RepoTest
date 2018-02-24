@@ -8,7 +8,7 @@ namespace HVTApp.DataAccess
         public ProjectConfiguration()
         {
             Property(x => x.Name).IsRequired().HasMaxLength(100);
-            HasRequired(x => x.Manager).WithMany().HasForeignKey(x => x.ManagerId);
+            HasRequired(x => x.Manager).WithMany();
         }
     }
 }
