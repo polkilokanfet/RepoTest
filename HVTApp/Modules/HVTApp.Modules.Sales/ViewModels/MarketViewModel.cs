@@ -18,6 +18,10 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public ObservableCollection<UnitGroup> UnitGroups { get; } = new ObservableCollection<UnitGroup>();
         public ObservableCollection<Tender> Tenders { get; } = new ObservableCollection<Tender>();
+        public ObservableCollection<Offer> Offers { get; } = new ObservableCollection<Offer>();
+
+        public Tender SelectedTender { get; set; }
+        public Offer SelectedOffer { get; set; }
 
         public MarketViewModel(ProjectListViewModel projectListViewModel, IUnitOfWork unitOfWork)
         {
@@ -36,6 +40,9 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             Tenders.Clear();
             Tenders.AddRange(_unitOfWork.GetRepository<Tender>().Find(x => x.Project.Id == projectLookup.Entity.Id));
+
+            Offers.Clear();
+            Offers.AddRange(_unitOfWork.GetRepository<Offer>().Find(x => x.Project.Id == projectLookup.Entity.Id));
         }
     }
 }

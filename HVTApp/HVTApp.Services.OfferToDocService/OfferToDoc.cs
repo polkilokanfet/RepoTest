@@ -22,7 +22,6 @@ namespace HVTApp.Services.OfferToDocService
         public async Task GenerateOfferDocAsync(Guid offerId)
         {
             var offer = new OfferWrapper(await _unitOfWork.GetRepository<Offer>().GetByIdAsync(offerId));
-            Person person = await _unitOfWork.GetRepository<Person>().GetByIdAsync(offer.RecipientEmployee.PersonId);
 
             string offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestOfferDocument.docx";
             WordDocumentWriter docWriter = WordDocumentWriter.Create(offerDocumentPath);
@@ -30,7 +29,7 @@ namespace HVTApp.Services.OfferToDocService
             docWriter.Paragraph("Получатель");
             docWriter.Paragraph($"должность: {offer.RecipientEmployee.Position.Name}");
             docWriter.Paragraph($"компания: {offer.RecipientEmployee.Company}");
-            docWriter.Paragraph($"Ф.И.О.: {person.Surname} {person.Name} {person.Patronymic}");
+            docWriter.Paragraph($"Ф.И.О.: {offer.RecipientEmployee.Person.Surname} {offer.RecipientEmployee.Person.Name} {offer.RecipientEmployee.Person.Patronymic}");
 
             docWriter.Paragraph($"Предложение на поставку оборудования по проекту: ''{offer.Project.Name}''");
             docWriter.Paragraph($"Срок действия ТКП: {offer.ValidityDate.ToShortDateString()}");

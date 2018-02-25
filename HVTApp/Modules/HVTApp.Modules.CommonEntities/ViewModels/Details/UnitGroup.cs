@@ -66,7 +66,11 @@ namespace HVTApp.UI.ViewModels
 
         public bool HasBlocksWithoutPrice => GetValue<bool>();
 
-        public CompanyWrapper Producer => GetValue<CompanyWrapper>();
+        public CompanyWrapper Producer
+        {
+            get { return GetValue<CompanyWrapper>(); }
+            set { SetValue(value); }
+        }
 
 
         private void ProjectUnitOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)

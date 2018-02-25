@@ -166,6 +166,8 @@ namespace HVTApp.UI.Wrapper
     public partial class SalesUnitWrapper : IUnitGroup
     {
         public DateTime OrderInTakeDate => StartProductionDate ?? StartProductionDateCalculated;
+        public int OrderInTakeYear => OrderInTakeDate.Year;
+        public int OrderInTakeMonth => OrderInTakeDate.Month;
 
         //дата достижения суммы
         private DateTime? AchiveSumDate(double sumToAchive)

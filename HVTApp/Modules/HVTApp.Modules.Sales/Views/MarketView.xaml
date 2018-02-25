@@ -14,21 +14,37 @@
 
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition />
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             
             <views:ProjectListView Grid.Column="0" Name="ProjectListView" Grid.Row="0" DataContext="{Binding ProjectListViewModel}"/>
             
             <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Center"></GridSplitter>
             
-            <infg:XamDataGrid Grid.Column="2" DataSource="{Binding Tenders}">
-                <infg:XamDataGrid.FieldLayoutSettings>
-                    <infg:FieldLayoutSettings AutoGenerateFields="True"/>
-                </infg:XamDataGrid.FieldLayoutSettings>
-            </infg:XamDataGrid>
-            
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <infg:XamDataGrid Grid.Row="0" DataSource="{Binding Tenders}" SelectedDataItem="{Binding SelectedTender, Mode=TwoWay}">
+                    <infg:XamDataGrid.FieldLayoutSettings>
+                        <infg:FieldLayoutSettings AutoGenerateFields="True"/>
+                    </infg:XamDataGrid.FieldLayoutSettings>
+                </infg:XamDataGrid>
+                
+                <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                
+                <infg:XamDataGrid Grid.Row="2" DataSource="{Binding Offers}" SelectedDataItem="{Binding SelectedOffer, Mode=TwoWay}">
+                    <infg:XamDataGrid.FieldLayoutSettings>
+                        <infg:FieldLayoutSettings AutoGenerateFields="True" />
+                    </infg:XamDataGrid.FieldLayoutSettings>
+                </infg:XamDataGrid>
+
+            </Grid>
         </Grid>
         
         <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>

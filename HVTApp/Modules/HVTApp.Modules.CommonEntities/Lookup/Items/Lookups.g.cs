@@ -1419,6 +1419,8 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
+			Person?.Refresh(Entity.Person);
+
 			Company?.Refresh(Entity.Company);
 
 			Position?.Refresh(Entity.Position);
@@ -1427,12 +1429,6 @@ namespace HVTApp.UI.Lookup
 		
 
         #region SimpleProperties
-
-        public System.Guid PersonId => GetValue<System.Guid>();
-
-
-        public System.Boolean IsActual => GetValue<System.Boolean>();
-
 
         public System.String PhoneNumber => GetValue<System.String>();
 
@@ -1444,6 +1440,9 @@ namespace HVTApp.UI.Lookup
 
 
         #region ComplexProperties
+
+	    public PersonLookup Person { get { return GetLookup<PersonLookup>(); } }
+
 
 	    public CompanyLookup Company { get { return GetLookup<CompanyLookup>(); } }
 

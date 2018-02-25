@@ -1588,25 +1588,6 @@ namespace HVTApp.UI.Wrapper
 
         #endregion
 
-
-        #region CollectionProperties
-
-        public IValidatableChangeTrackingCollection<EmployeeWrapper> Employees { get; private set; }
-
-
-        #endregion
-
-  
-        protected override void InitializeCollectionProperties()
-        {
-
-          if (Model.Employees == null) throw new ArgumentException("Employees cannot be null");
-          Employees = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.Employees.Select(e => new EmployeeWrapper(e)));
-          RegisterCollection(Employees, Model.Employees);
-
-
-        }
-
 	}
 
 		public partial class PaymentPlannedWrapper : WrapperBase<PaymentPlanned>
@@ -2987,24 +2968,6 @@ namespace HVTApp.UI.Wrapper
 
         #region SimpleProperties
 
-        public System.Guid PersonId
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid PersonIdOriginalValue => GetOriginalValue<System.Guid>(nameof(PersonId));
-        public bool PersonIdIsChanged => GetIsChanged(nameof(PersonId));
-
-
-        public System.Boolean IsActual
-        {
-          get { return GetValue<System.Boolean>(); }
-          set { SetValue(value); }
-        }
-        public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
-        public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
-
-
         public System.String PhoneNumber
         {
           get { return GetValue<System.String>(); }
@@ -3037,6 +3000,13 @@ namespace HVTApp.UI.Wrapper
 
         #region ComplexProperties
 
+	    public PersonWrapper Person 
+        {
+            get { return GetWrapper<PersonWrapper>(); }
+            set { SetComplexValue<Person, PersonWrapper>(Person, value); }
+        }
+
+
 	    public CompanyWrapper Company 
         {
             get { return GetWrapper<CompanyWrapper>(); }
@@ -3055,6 +3025,9 @@ namespace HVTApp.UI.Wrapper
 
         public override void InitializeComplexProperties()
         {
+
+            InitializeComplexProperty<PersonWrapper>(nameof(Person), Model.Person == null ? null : new PersonWrapper(Model.Person));
+
 
             InitializeComplexProperty<CompanyWrapper>(nameof(Company), Model.Company == null ? null : new CompanyWrapper(Model.Company));
 

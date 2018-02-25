@@ -3,10 +3,47 @@
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter">
+    
     <infg:XamDataGrid DataSource="{Binding SalesUnits}">
-        <infg:XamDataGrid.FieldLayoutSettings>
-            <infg:FieldLayoutSettings AutoGenerateFields="True"/>
-        </infg:XamDataGrid.FieldLayoutSettings>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Facility" Label="Facility" Width="Auto" />
+                    <infg:TextField Name="Product" Label="Product" Width="Auto" />
+                    
+                    <infg:TextField Name="ParentSalesUnitId" Label="ParentSalesUnitId" Width="Auto"/>
+                    <infg:TextField Name="OrderPosition" Label="OrderPosition" Width="Auto"/>
+                    <infg:TextField Name="SerialNumber" Label="SerialNumber" Width="Auto"/>
+
+                    <infg:NumericField Name="PlannedTermFromStartToEndProduction" Label="PlannedTermFromStartToEndProduction" Width="Auto"/>
+                    <infg:NumericField Name="PlannedTermFromPickToEndProduction" Label="PlannedTermFromPickToEndProduction" Width="Auto"/>
+                    <infg:NumericField Name="Cost" Label="Cost" Width="Auto"/>
+                    <infg:NumericField Name="ExpectedDeliveryPeriod" Label="ExpectedDeliveryPeriod" Width="Auto"/>
+                    <infg:NumericField Name="CostOfShipment" Label="CostOfShipment" Width="Auto"/>
+
+                    <infg:DateTimeField Name="DeliveryDateExpected" Label="DeliveryDateExpected" Width="Auto"/>
+                    <infg:DateTimeField Name="RealizationDate" Label="RealizationDate" Width="Auto"/>
+                    <infg:DateTimeField Name="StartProductionDate" Label="StartProductionDate" Width="Auto"/>
+                    <infg:DateTimeField Name="PickingDate" Label="PickingDate" Width="Auto"/>
+                    <infg:DateTimeField Name="EndProductionDate" Label="EndProductionDate" Width="Auto"/>
+                    <infg:DateTimeField Name="ShipmentDate" Label="ShipmentDate" Width="Auto"/>
+                    <infg:DateTimeField Name="ShipmentPlanDate" Label="ShipmentPlanDate" Width="Auto"/>
+                    <infg:DateTimeField Name="DeliveryDate" Label="DeliveryDate" Width="Auto"/>
+
+                    <infg:TextField Name="Producer" Label="Producer" Width="Auto" />
+                    <infg:TextField Name="Order" Label="Order" Width="Auto" />
+                    <infg:TextField Name="Specification" Label="Specification" Width="Auto" />
+                    <infg:TextField Name="PaymentsConditionSet" Label="PaymentsConditionSet" Width="Auto" />
+                    <infg:TextField Name="Address" Label="Address" Width="Auto" />
+
+                    <infg:TextField Name="OrderInTakeYear" Width="Auto"/>
+                    <infg:TextField Name="OrderInTakeMonth" Width="Auto"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
     </infg:XamDataGrid>
+
 </inf:ViewBase>
 

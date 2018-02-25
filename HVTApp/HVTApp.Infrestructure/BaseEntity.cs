@@ -19,6 +19,7 @@ namespace HVTApp.Infrastructure
             BaseEntity other = obj as BaseEntity;
             if (other == null) return false;
             if (Equals(this.Id, other.Id)) return true;
+            return base.Equals(obj);
 
             var allProperties = GetType().GetProperties().Where(x => !Equals(x.Name, nameof(Id))).ToList();
             var collectionProperties = allProperties.Where(p => p.PropertyType.GetInterfaces()
@@ -31,19 +32,19 @@ namespace HVTApp.Infrastructure
             return true;
         }
 
-        public override int GetHashCode()
-        {
-            var allProperties = GetType().GetProperties().Where(x => !Equals(x.Name, nameof(Id))).ToList();
-            var collectionProperties = allProperties.Where(p => p.PropertyType.GetInterfaces()
-                .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>))).ToList();
-            var otherProperties = allProperties.Except(collectionProperties).ToList();
-            int result = otherProperties.Sum(prop => prop.GetValue(this).GetHashCode());
-            foreach (var collectionProperty in collectionProperties)
-            {
-                var members = collectionProperty.GetValue(this) as ICollection<object>;
-                result += members.Sum(x => x.GetHashCode());
-            }
-            return result;
-        }
+        //public override int GetHashCode()
+        //{
+        //    var allProperties = GetType().GetProperties().Where(x => !Equals(x.Name, nameof(Id))).ToList();
+        //    var collectionProperties = allProperties.Where(p => p.PropertyType.GetInterfaces()
+        //        .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>))).ToList();
+        //    var otherProperties = allProperties.Except(collectionProperties).ToList();
+        //    int result = otherProperties.Sum(prop => prop.GetValue(this).GetHashCode());
+        //    foreach (var collectionProperty in collectionProperties)
+        //    {
+        //        var members = collectionProperty.GetValue(this) as ICollection<object>;
+        //        result += members.Sum(x => x.GetHashCode());
+        //    }
+        //    return result;
+        //}
     }
 }

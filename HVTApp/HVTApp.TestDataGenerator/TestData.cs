@@ -249,9 +249,9 @@ namespace HVTApp.TestDataGenerator
 
         private void GeneratePersons()
         {
-            PersonIvanov.Clone(new Person {Surname = "Иванов", Name = "Иван", Patronymic = "Иванович", IsMan = true, Employees= new List<Employee> {EmployeeIvanov}});
-            PersonPetrov.Clone(new Person {Surname = "Петров", Name = "Иван", Patronymic = "Иванович", IsMan = true, Employees= new List<Employee> {EmployeePetrov}});
-            PersonSidorov.Clone(new Person {Surname = "Сидоров", Name = "Иван", Patronymic = "Иванович", IsMan = true, Employees= new List<Employee> {EmployeeSidorov}});
+            PersonIvanov.Clone(new Person {Surname = "Иванов", Name = "Иван", Patronymic = "Иванович", IsMan = true });
+            PersonPetrov.Clone(new Person {Surname = "Петров", Name = "Иван", Patronymic = "Иванович", IsMan = true });
+            PersonSidorov.Clone(new Person {Surname = "Сидоров", Name = "Иван", Patronymic = "Иванович", IsMan = true });
         }
 
         private void GenerateEmployeesPositions()
@@ -261,9 +261,9 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateEmployees()
         {
-            EmployeeIvanov.Clone(new Employee {PersonId = PersonIvanov.Id, Position = EmployeesPositionDirector, Company = CompanyUetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true});
-            EmployeePetrov.Clone(new Employee {PersonId = PersonPetrov.Id, Position = EmployeesPositionDirector, Company = CompanyFsk, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true});
-            EmployeeSidorov.Clone(new Employee {PersonId = PersonSidorov.Id, Position = EmployeesPositionDirector, Company = CompanyEnel, Email = "iii@mail.ru", PhoneNumber = "326-36-36", IsActual = true});
+            EmployeeIvanov.Clone(new Employee {Person = PersonIvanov, Position = EmployeesPositionDirector, Company = CompanyUetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36"});
+            EmployeePetrov.Clone(new Employee {Person = PersonPetrov, Position = EmployeesPositionDirector, Company = CompanyFsk, Email = "iii@mail.ru", PhoneNumber = "326-36-36"});
+            EmployeeSidorov.Clone(new Employee {Person = PersonSidorov, Position = EmployeesPositionDirector, Company = CompanyEnel, Email = "iii@mail.ru", PhoneNumber = "326-36-36"});
         }
 
         private void GenerateUserRoles()

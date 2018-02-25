@@ -921,13 +921,12 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="PersonId" Label="PersonId" Width="Auto"/>
-                    <infg:TextField Name="IsActual" Label="IsActual" Width="Auto"/>
                     <infg:TextField Name="PhoneNumber" Label="PhoneNumber" Width="Auto"/>
                     <infg:TextField Name="Email" Label="Email" Width="Auto"/>
 
 
 
+                    <infg:TextField Name="Person" Label="Person" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Company" Label="Company" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Position" Label="Position" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
 

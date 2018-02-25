@@ -1431,6 +1431,10 @@ namespace HVTApp.UI.ViewModels
 
     public partial class EmployeeDetailsViewModel : BaseDetailsViewModel<EmployeeWrapper, Employee, AfterSaveEmployeeEvent>
     {
+		private Func<Task<List<Person>>> _getEntitiesForSelectPersonCommand;
+		public ICommand SelectPersonCommand { get; }
+		public ICommand ClearPersonCommand { get; }
+
 		private Func<Task<List<Company>>> _getEntitiesForSelectCompanyCommand;
 		public ICommand SelectCompanyCommand { get; }
 		public ICommand ClearCompanyCommand { get; }
@@ -1442,6 +1446,10 @@ namespace HVTApp.UI.ViewModels
 
         public EmployeeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
+          _getEntitiesForSelectPersonCommand = async () => { return await UnitOfWork.GetRepository<Person>().GetAllAsync(); };
+			SelectPersonCommand = new DelegateCommand(SelectPersonCommand_Execute);
+			ClearPersonCommand = new DelegateCommand(ClearPersonCommand_Execute);
+
           _getEntitiesForSelectCompanyCommand = async () => { return await UnitOfWork.GetRepository<Company>().GetAllAsync(); };
 			SelectCompanyCommand = new DelegateCommand(SelectCompanyCommand_Execute);
 			ClearCompanyCommand = new DelegateCommand(ClearCompanyCommand_Execute);
@@ -1453,6 +1461,16 @@ namespace HVTApp.UI.ViewModels
 
 			InitGetMethods();
 		}
+		private async void SelectPersonCommand_Execute() 
+		{
+            SelectAndSetWrapper<Person, PersonWrapper>(await _getEntitiesForSelectPersonCommand(), nameof(Item.Person), Item.Person?.Id);
+		}
+
+		private void ClearPersonCommand_Execute() 
+		{
+		    Item.Person = null;
+		}
+
 		private async void SelectCompanyCommand_Execute() 
 		{
             SelectAndSetWrapper<Company, CompanyWrapper>(await _getEntitiesForSelectCompanyCommand(), nameof(Item.Company), Item.Company?.Id);
