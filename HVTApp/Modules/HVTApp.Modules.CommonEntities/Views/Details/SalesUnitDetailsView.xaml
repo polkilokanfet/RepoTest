@@ -1,13 +1,15 @@
-﻿<inf:ViewBase
-             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-             x:Class="HVTApp.UI.Views.SalesUnitDetailsView">
-   
+﻿<inf:ViewBase x:Class="HVTApp.UI.Views.SalesUnitDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -32,71 +34,118 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Content="Address Id:" Grid.Column="0" Grid.Row="0"/>
-        <TextBox x:Name="addressIdTextBox" Grid.Column="1" Grid.Row="0" Text="{Binding AddressId, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="OrderPosition"/>
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+                 Text="{Binding Item.OrderPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Content="Cost:" Grid.Column="0" Grid.Row="1"/>
-        <TextBox x:Name="costTextBox" Grid.Column="1" Grid.Row="1" Text="{Binding Cost, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="SerialNumber"/>
+        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
+                 Text="{Binding Item.SerialNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Content="Cost Of Shipment:" Grid.Column="0" Grid.Row="2"/>
-        <TextBox x:Name="costOfShipmentTextBox" Grid.Column="1" Grid.Row="2" Text="{Binding CostOfShipment, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Cost"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
+                               Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
-        <Label Content="Delivery Date:" Grid.Column="0" Grid.Row="3"/>
-        <DatePicker x:Name="deliveryDateDatePicker" Grid.Column="1" Grid.Row="3" SelectedDate="{Binding DeliveryDate, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="CostOfShipment"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3" 
+                               Value="{Binding Item.CostOfShipment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
-        <Label Content="Delivery Date Expected:" Grid.Column="0" Grid.Row="4"/>
-        <DatePicker x:Name="deliveryDateExpectedDatePicker" Grid.Column="1" Grid.Row="4" SelectedDate="{Binding DeliveryDateExpected, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="PlannedTermFromStartToEndProduction"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="4"
+							   ValueType="core:Int32"
+                               Value="{Binding Item.PlannedTermFromStartToEndProduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
-        <Label Content="End Production Date:" Grid.Column="0" Grid.Row="5"/>
-        <DatePicker x:Name="endProductionDateDatePicker" Grid.Column="1" Grid.Row="5" SelectedDate="{Binding EndProductionDate, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="5" Content="PlannedTermFromPickToEndProduction"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="5"
+							   ValueType="core:Int32"
+                               Value="{Binding Item.PlannedTermFromPickToEndProduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
-        <Label Content="Expected Delivery Period:" Grid.Column="0" Grid.Row="6"/>
-        <TextBox x:Name="expectedDeliveryPeriodTextBox" Grid.Column="1" Grid.Row="6" Text="{Binding ExpectedDeliveryPeriod, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="6" Content="ExpectedDeliveryPeriod"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="6"
+							   ValueType="core:Int32"
+                               Value="{Binding Item.ExpectedDeliveryPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
-        <Label Content="Facility Id:" Grid.Column="0" Grid.Row="7"/>
-        <TextBox x:Name="facilityIdTextBox" Grid.Column="1" Grid.Row="7" Text="{Binding FacilityId, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="7" Content="DeliveryDateExpected"/>
+        <DatePicker Grid.Column="1" Grid.Row="7" 
+                    SelectedDate="{Binding Item.DeliveryDateExpected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Content="Order Id:" Grid.Column="0" Grid.Row="9"/>
-        <TextBox x:Name="orderIdTextBox" Grid.Column="1" Grid.Row="9" Text="{Binding OrderId, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="8" Content="RealizationDate"/>
+        <DatePicker Grid.Column="1" Grid.Row="8" 
+                    SelectedDate="{Binding Item.RealizationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Content="Payments Condition Set Id:" Grid.Column="0" Grid.Row="10"/>
-        <TextBox x:Name="paymentsConditionSetIdTextBox" Grid.Column="1" Grid.Row="10" Text="{Binding PaymentsConditionSetId, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="9" Content="StartProductionDate"/>
+        <DatePicker Grid.Column="1" Grid.Row="9" 
+                    SelectedDate="{Binding Item.StartProductionDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Content="Picking Date:" Grid.Column="0" Grid.Row="11"/>
-        <DatePicker x:Name="pickingDateDatePicker" Grid.Column="1" Grid.Row="11" SelectedDate="{Binding PickingDate, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="10" Content="PickingDate"/>
+        <DatePicker Grid.Column="1" Grid.Row="10" 
+                    SelectedDate="{Binding Item.PickingDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Content="Planned Term From Pick To End Production:" Grid.Column="0" Grid.Row="12"/>
-        <TextBox x:Name="plannedTermFromPickToEndProductionTextBox" Grid.Column="1" Grid.Row="12" Text="{Binding PlannedTermFromPickToEndProduction, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="11" Content="EndProductionDate"/>
+        <DatePicker Grid.Column="1" Grid.Row="11" 
+                    SelectedDate="{Binding Item.EndProductionDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Content="Planned Term From Start To End Production:" Grid.Column="0" Grid.Row="13"/>
-        <TextBox x:Name="plannedTermFromStartToEndProductionTextBox" Grid.Column="1" Grid.Row="13" Text="{Binding PlannedTermFromStartToEndProduction, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="12" Content="ShipmentDate"/>
+        <DatePicker Grid.Column="1" Grid.Row="12" 
+                    SelectedDate="{Binding Item.ShipmentDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Content="Producer Id:" Grid.Column="0" Grid.Row="14"/>
-        <TextBox x:Name="producerIdTextBox" Grid.Column="1" Grid.Row="14" Text="{Binding ProducerId, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="13" Content="ShipmentPlanDate"/>
+        <DatePicker Grid.Column="1" Grid.Row="13" 
+                    SelectedDate="{Binding Item.ShipmentPlanDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Content="Product Id:" Grid.Column="0" Grid.Row="15"/>
-        <TextBox x:Name="productIdTextBox" Grid.Column="1" Grid.Row="15" Text="{Binding ProductId, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="14" Content="DeliveryDate"/>
+        <DatePicker Grid.Column="1" Grid.Row="14" 
+                    SelectedDate="{Binding Item.DeliveryDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Content="Realization Date:" Grid.Column="0" Grid.Row="16"/>
-        <DatePicker x:Name="realizationDateDatePicker" Grid.Column="1" Grid.Row="16" SelectedDate="{Binding RealizationDate, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="15" Content="Facility"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="15" 
+                                    Item="{Binding Item.Facility}" 
+                                    AddItemCommand="{Binding SelectFacilityCommand}" 
+                                    RemoveItemCommand="{Binding ClearFacilityCommand}"/>
 
-        <Label Content="Serial Number:" Grid.Column="0" Grid.Row="17"/>
-        <TextBox x:Name="serialNumberTextBox" Grid.Column="1" Grid.Row="17" Text="{Binding SerialNumber, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="16" Content="Producer"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="16" 
+                                    Item="{Binding Item.Producer}" 
+                                    AddItemCommand="{Binding SelectProducerCommand}" 
+                                    RemoveItemCommand="{Binding ClearProducerCommand}"/>
 
-        <Label Content="Shipment Date:" Grid.Column="0" Grid.Row="18"/>
-        <DatePicker x:Name="shipmentDateDatePicker" Grid.Column="1" Grid.Row="18" SelectedDate="{Binding ShipmentDate, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="17" Content="Product"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="17" 
+                                    Item="{Binding Item.Product}" 
+                                    AddItemCommand="{Binding SelectProductCommand}" 
+                                    RemoveItemCommand="{Binding ClearProductCommand}"/>
 
-        <Label Content="Shipment Plan Date:" Grid.Column="0" Grid.Row="19"/>
-        <DatePicker x:Name="shipmentPlanDateDatePicker" Grid.Column="1" Grid.Row="19" SelectedDate="{Binding ShipmentPlanDate, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="18" Content="Order"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="18" 
+                                    Item="{Binding Item.Order}" 
+                                    AddItemCommand="{Binding SelectOrderCommand}" 
+                                    RemoveItemCommand="{Binding ClearOrderCommand}"/>
 
-        <Label Content="Specification Id:" Grid.Column="0" Grid.Row="20"/>
-        <TextBox x:Name="specificationIdTextBox" Grid.Column="1" Grid.Row="20" Text="{Binding SpecificationId, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="19" Content="Specification"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="19" 
+                                    Item="{Binding Item.Specification}" 
+                                    AddItemCommand="{Binding SelectSpecificationCommand}" 
+                                    RemoveItemCommand="{Binding ClearSpecificationCommand}"/>
 
-        <Label Content="Start Production Date:" Grid.Column="0" Grid.Row="21"/>
-        <DatePicker x:Name="startProductionDateDatePicker" Grid.Column="1" Grid.Row="21" SelectedDate="{Binding StartProductionDate, Mode=TwoWay}"/>
+        <Label Grid.Column="0" Grid.Row ="20" Content="PaymentsConditionSet"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="20" 
+                                    Item="{Binding Item.PaymentsConditionSet}" 
+                                    AddItemCommand="{Binding SelectPaymentsConditionSetCommand}" 
+                                    RemoveItemCommand="{Binding ClearPaymentsConditionSetCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="21" Content="Address"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="21" 
+                                    Item="{Binding Item.Address}" 
+                                    AddItemCommand="{Binding SelectAddressCommand}" 
+                                    RemoveItemCommand="{Binding ClearAddressCommand}"/>
+
+
+
     </Grid>
-
-
 </inf:ViewBase>

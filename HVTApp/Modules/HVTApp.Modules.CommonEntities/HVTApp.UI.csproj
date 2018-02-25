@@ -439,6 +439,24 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Generator.cs</LastGenOutput>
     </Content>
+    <Resource Include="GeneratorOfDetails.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GeneratorOfDetails.tt</DependentUpon>
+    </Resource>
+    <Content Include="GeneratorOfFields.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GeneratorOfFields.txt</LastGenOutput>
+    </Content>
+    <Content Include="GeneratorOfDetails.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GeneratorOfDetails.txt</LastGenOutput>
+    </Content>
+    <Resource Include="GeneratorOfFields.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GeneratorOfFields.tt</DependentUpon>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\HVTApp.DataAccess\HVTApp.DataAccess.csproj">

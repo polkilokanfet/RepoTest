@@ -1,0 +1,1142 @@
+﻿
+
+
+
+
+
+
+
+
+
+
+
+
+========================================== Fields for CommonOption ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="OurCompanyId" Label="OurCompanyId" Width="Auto"/>
+                    <infg:TextField Name="StandartPaymentsConditionSetId" Label="StandartPaymentsConditionSetId" Width="Auto"/>
+
+                    <infg:NumericField Name="CalculationPriceTerm" Label="CalculationPriceTerm" Width="Auto"/>
+                    <infg:NumericField Name="StandartTermFromStartToEndProduction" Label="StandartTermFromStartToEndProduction" Width="Auto"/>
+                    <infg:NumericField Name="StandartTermFromPickToEndProduction" Label="StandartTermFromPickToEndProduction" Width="Auto"/>
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Address ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Description" Label="Description" Width="Auto"/>
+
+
+
+                    <infg:TextField Name="Locality" Label="Locality" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Country ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for District ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+
+
+
+                    <infg:TextField Name="Country" Label="Country" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Locality ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+                    <infg:TextField Name="IsCountryCapital" Label="IsCountryCapital" Width="Auto"/>
+                    <infg:TextField Name="IsDistrictCapital" Label="IsDistrictCapital" Width="Auto"/>
+                    <infg:TextField Name="IsRegionCapital" Label="IsRegionCapital" Width="Auto"/>
+                    <infg:TextField Name="StandartDeliveryPeriod" Label="StandartDeliveryPeriod" Width="Auto"/>
+                    <infg:TextField Name="DistanceToEkb" Label="DistanceToEkb" Width="Auto"/>
+
+
+
+                    <infg:TextField Name="LocalityType" Label="LocalityType" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Region" Label="Region" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for LocalityType ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="FullName" Label="FullName" Width="Auto"/>
+                    <infg:TextField Name="ShortName" Label="ShortName" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Region ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+
+
+
+                    <infg:TextField Name="District" Label="District" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for CalculatePriceTask ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="IsActual" Label="IsActual" Width="Auto"/>
+
+
+                    <infg:DateTimeField Name="Date" Label="Date" Width="Auto"/>
+
+                    <infg:TextField Name="ProductBlock" Label="ProductBlock" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Cost ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+
+                    <infg:NumericField Name="Sum" Label="Sum" Width="Auto"/>
+
+
+                    <infg:TextField Name="Currency" Label="Currency" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Currency ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="FullName" Label="FullName" Width="Auto"/>
+                    <infg:TextField Name="ShortName" Label="ShortName" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for CurrencyExchangeRate ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+
+                    <infg:NumericField Name="FirstCurrencyValue" Label="FirstCurrencyValue" Width="Auto"/>
+                    <infg:NumericField Name="SecondCurrencyValue" Label="SecondCurrencyValue" Width="Auto"/>
+
+                    <infg:DateTimeField Name="Date" Label="Date" Width="Auto"/>
+
+                    <infg:TextField Name="FirstCurrency" Label="FirstCurrency" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="SecondCurrency" Label="SecondCurrency" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for DescribeProductBlockTask ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+
+
+
+                    <infg:TextField Name="ProductBlock" Label="ProductBlock" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Product" Label="Product" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for PaymentConditionSet ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for ProductBlock ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+                    <infg:TextField Name="StructureCostNumber" Label="StructureCostNumber" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for SalesBlock ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for BankDetails ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="BankName" Label="BankName" Width="Auto"/>
+                    <infg:TextField Name="BankIdentificationCode" Label="BankIdentificationCode" Width="Auto"/>
+                    <infg:TextField Name="CorrespondentAccount" Label="CorrespondentAccount" Width="Auto"/>
+                    <infg:TextField Name="CheckingAccount" Label="CheckingAccount" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Company ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="FullName" Label="FullName" Width="Auto"/>
+                    <infg:TextField Name="ShortName" Label="ShortName" Width="Auto"/>
+                    <infg:TextField Name="Inn" Label="Inn" Width="Auto"/>
+                    <infg:TextField Name="Kpp" Label="Kpp" Width="Auto"/>
+
+
+
+                    <infg:TextField Name="Form" Label="Form" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="ParentCompany" Label="ParentCompany" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="AddressLegal" Label="AddressLegal" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="AddressPost" Label="AddressPost" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for CompanyForm ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="FullName" Label="FullName" Width="Auto"/>
+                    <infg:TextField Name="ShortName" Label="ShortName" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for DocumentsRegistrationDetails ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="RegistrationNumber" Label="RegistrationNumber" Width="Auto"/>
+
+
+                    <infg:DateTimeField Name="RegistrationDate" Label="RegistrationDate" Width="Auto"/>
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for EmployeesPosition ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for FacilityType ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="FullName" Label="FullName" Width="Auto"/>
+                    <infg:TextField Name="ShortName" Label="ShortName" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for ActivityField ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+                    <infg:TextField Name="ActivityFieldEnum" Label="ActivityFieldEnum" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Contract ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Number" Label="Number" Width="Auto"/>
+
+
+                    <infg:DateTimeField Name="Date" Label="Date" Width="Auto"/>
+
+                    <infg:TextField Name="Contragent" Label="Contragent" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Measure ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="FullName" Label="FullName" Width="Auto"/>
+                    <infg:TextField Name="ShortName" Label="ShortName" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Parameter ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Value" Label="Value" Width="Auto"/>
+
+
+
+                    <infg:TextField Name="ParameterGroup" Label="ParameterGroup" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for ParameterGroup ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+
+
+
+                    <infg:TextField Name="Measure" Label="Measure" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for ProductRelation ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+
+                    <infg:NumericField Name="Count" Label="Count" Width="Auto"/>
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Person ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Surname" Label="Surname" Width="Auto"/>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+                    <infg:TextField Name="Patronymic" Label="Patronymic" Width="Auto"/>
+                    <infg:TextField Name="IsMan" Label="IsMan" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for PaymentPlanned ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="SalesUnitId" Label="SalesUnitId" Width="Auto"/>
+                    <infg:TextField Name="Comment" Label="Comment" Width="Auto"/>
+
+                    <infg:NumericField Name="Sum" Label="Sum" Width="Auto"/>
+
+                    <infg:DateTimeField Name="Date" Label="Date" Width="Auto"/>
+
+                    <infg:TextField Name="Condition" Label="Condition" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for PaymentActual ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="SalesUnitId" Label="SalesUnitId" Width="Auto"/>
+                    <infg:TextField Name="Comment" Label="Comment" Width="Auto"/>
+                    <infg:TextField Name="DocumentId" Label="DocumentId" Width="Auto"/>
+
+                    <infg:NumericField Name="Sum" Label="Sum" Width="Auto"/>
+
+                    <infg:DateTimeField Name="Date" Label="Date" Width="Auto"/>
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for ParameterRelation ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="ParameterId" Label="ParameterId" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for SalesUnit ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="ParentSalesUnitId" Label="ParentSalesUnitId" Width="Auto"/>
+                    <infg:TextField Name="OrderPosition" Label="OrderPosition" Width="Auto"/>
+                    <infg:TextField Name="SerialNumber" Label="SerialNumber" Width="Auto"/>
+
+                    <infg:NumericField Name="PlannedTermFromStartToEndProduction" Label="PlannedTermFromStartToEndProduction" Width="Auto"/>
+                    <infg:NumericField Name="PlannedTermFromPickToEndProduction" Label="PlannedTermFromPickToEndProduction" Width="Auto"/>
+                    <infg:NumericField Name="Cost" Label="Cost" Width="Auto"/>
+                    <infg:NumericField Name="ExpectedDeliveryPeriod" Label="ExpectedDeliveryPeriod" Width="Auto"/>
+                    <infg:NumericField Name="CostOfShipment" Label="CostOfShipment" Width="Auto"/>
+
+                    <infg:DateTimeField Name="DeliveryDateExpected" Label="DeliveryDateExpected" Width="Auto"/>
+                    <infg:DateTimeField Name="RealizationDate" Label="RealizationDate" Width="Auto"/>
+                    <infg:DateTimeField Name="StartProductionDate" Label="StartProductionDate" Width="Auto"/>
+                    <infg:DateTimeField Name="PickingDate" Label="PickingDate" Width="Auto"/>
+                    <infg:DateTimeField Name="EndProductionDate" Label="EndProductionDate" Width="Auto"/>
+                    <infg:DateTimeField Name="ShipmentDate" Label="ShipmentDate" Width="Auto"/>
+                    <infg:DateTimeField Name="ShipmentPlanDate" Label="ShipmentPlanDate" Width="Auto"/>
+                    <infg:DateTimeField Name="DeliveryDate" Label="DeliveryDate" Width="Auto"/>
+
+                    <infg:TextField Name="Facility" Label="Facility" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Producer" Label="Producer" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Product" Label="Product" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Order" Label="Order" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Specification" Label="Specification" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="PaymentsConditionSet" Label="PaymentsConditionSet" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Address" Label="Address" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for TestFriendAddress ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="City" Label="City" Width="Auto"/>
+                    <infg:TextField Name="Street" Label="Street" Width="Auto"/>
+                    <infg:TextField Name="StreetNumber" Label="StreetNumber" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for TestFriend ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="FirstName" Label="FirstName" Width="Auto"/>
+                    <infg:TextField Name="LastName" Label="LastName" Width="Auto"/>
+                    <infg:TextField Name="IsDeveloper" Label="IsDeveloper" Width="Auto"/>
+
+                    <infg:NumericField Name="FriendGroupId" Label="FriendGroupId" Width="Auto"/>
+                    <infg:NumericField Name="IdGet" Label="IdGet" Width="Auto"/>
+
+                    <infg:DateTimeField Name="Birthday" Label="Birthday" Width="Auto"/>
+
+                    <infg:TextField Name="TestFriendAddress" Label="TestFriendAddress" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="TestFriendGroup" Label="TestFriendGroup" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for TestFriendEmail ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Email" Label="Email" Width="Auto"/>
+                    <infg:TextField Name="Comment" Label="Comment" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for TestFriendGroup ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Document ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="SenderId" Label="SenderId" Width="Auto"/>
+                    <infg:TextField Name="RecipientId" Label="RecipientId" Width="Auto"/>
+                    <infg:TextField Name="Comment" Label="Comment" Width="Auto"/>
+
+
+
+                    <infg:TextField Name="RequestDocument" Label="RequestDocument" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Author" Label="Author" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="SenderEmployee" Label="SenderEmployee" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="RecipientEmployee" Label="RecipientEmployee" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="RegistrationDetailsOfSender" Label="RegistrationDetailsOfSender" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="RegistrationDetailsOfRecipient" Label="RegistrationDetailsOfRecipient" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for TestEntity ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for TestHusband ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+
+
+
+                    <infg:TextField Name="Wife" Label="Wife" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for TestWife ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+
+                    <infg:NumericField Name="N" Label="N" Width="Auto"/>
+
+
+                    <infg:TextField Name="Husband" Label="Husband" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for TestChild ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+
+
+
+                    <infg:TextField Name="Husband" Label="Husband" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Wife" Label="Wife" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for CostOnDate ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+
+                    <infg:NumericField Name="Cost" Label="Cost" Width="Auto"/>
+
+                    <infg:DateTimeField Name="Date" Label="Date" Width="Auto"/>
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Product ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Designation" Label="Designation" Width="Auto"/>
+
+
+
+                    <infg:TextField Name="ProductBlock" Label="ProductBlock" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Offer ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="SenderId" Label="SenderId" Width="Auto"/>
+                    <infg:TextField Name="RecipientId" Label="RecipientId" Width="Auto"/>
+                    <infg:TextField Name="Comment" Label="Comment" Width="Auto"/>
+
+                    <infg:NumericField Name="Vat" Label="Vat" Width="Auto"/>
+
+                    <infg:DateTimeField Name="ValidityDate" Label="ValidityDate" Width="Auto"/>
+
+                    <infg:TextField Name="Project" Label="Project" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="RequestDocument" Label="RequestDocument" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Author" Label="Author" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="SenderEmployee" Label="SenderEmployee" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="RecipientEmployee" Label="RecipientEmployee" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="RegistrationDetailsOfSender" Label="RegistrationDetailsOfSender" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="RegistrationDetailsOfRecipient" Label="RegistrationDetailsOfRecipient" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Employee ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="PersonId" Label="PersonId" Width="Auto"/>
+                    <infg:TextField Name="IsActual" Label="IsActual" Width="Auto"/>
+                    <infg:TextField Name="PhoneNumber" Label="PhoneNumber" Width="Auto"/>
+                    <infg:TextField Name="Email" Label="Email" Width="Auto"/>
+
+
+
+                    <infg:TextField Name="Company" Label="Company" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Position" Label="Position" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Order ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Number" Label="Number" Width="Auto"/>
+
+
+                    <infg:DateTimeField Name="OpenOrderDate" Label="OpenOrderDate" Width="Auto"/>
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for PaymentCondition ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="PaymentConditionPoint" Label="PaymentConditionPoint" Width="Auto"/>
+
+                    <infg:NumericField Name="Part" Label="Part" Width="Auto"/>
+                    <infg:NumericField Name="DaysToPoint" Label="DaysToPoint" Width="Auto"/>
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for PaymentDocument ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Number" Label="Number" Width="Auto"/>
+
+
+                    <infg:DateTimeField Name="Date" Label="Date" Width="Auto"/>
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Facility ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+
+
+
+                    <infg:TextField Name="Type" Label="Type" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="OwnerCompany" Label="OwnerCompany" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Address" Label="Address" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Project ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+
+
+
+                    <infg:TextField Name="Manager" Label="Manager" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for UserRole ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+                    <infg:TextField Name="Role" Label="Role" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Specification ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Number" Label="Number" Width="Auto"/>
+
+                    <infg:NumericField Name="Vat" Label="Vat" Width="Auto"/>
+
+                    <infg:DateTimeField Name="Date" Label="Date" Width="Auto"/>
+
+                    <infg:TextField Name="Contract" Label="Contract" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for Tender ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+
+
+                    <infg:DateTimeField Name="DateOpen" Label="DateOpen" Width="Auto"/>
+                    <infg:DateTimeField Name="DateClose" Label="DateClose" Width="Auto"/>
+                    <infg:DateTimeField Name="DateNotice" Label="DateNotice" Width="Auto"/>
+
+                    <infg:TextField Name="Project" Label="Project" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Winner" Label="Winner" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for TenderType ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto"/>
+                    <infg:TextField Name="Type" Label="Type" Width="Auto"/>
+
+
+
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for User ==========================================
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Login" Label="Login" Width="Auto"/>
+                    <infg:TextField Name="Password" Label="Password" Width="Auto"/>
+                    <infg:TextField Name="PersonalNumber" Label="PersonalNumber" Width="Auto"/>
+                    <infg:TextField Name="RoleCurrent" Label="RoleCurrent" Width="Auto"/>
+
+
+
+                    <infg:TextField Name="Employee" Label="Employee" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	
