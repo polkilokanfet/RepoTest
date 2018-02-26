@@ -37,21 +37,34 @@ namespace HVTApp.Model.POCOs
             return DependentProducts.AllMembersAreSame(otherProduct.DependentProducts);
         }
 
-        public string GetFullDescription()
+        public string GetFullDescription(int spaceCount = 0)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append(this.ToString());
-            stringBuilder.Append($" (параметры :: {ProductBlock.ParametersToString().ToLower()})");
+            stringBuilder.Append($"{this} (параметры :: {ProductBlock.ParametersToString().ToLower()})".AddSpacesBefore(spaceCount));
             if (DependentProducts.Any())
             {
-                stringBuilder.Append(Environment.NewLine + "Составные части:");
+                spaceCount++;
+                stringBuilder.Append(Environment.NewLine + "Составные части:".AddSpacesBefore(spaceCount));
                 foreach (var dependentProduct in DependentProducts)
                 {
-                    stringBuilder.Append(Environment.NewLine + dependentProduct.GetFullDescription());
+                    stringBuilder.Append(Environment.NewLine + dependentProduct.GetFullDescription(spaceCount).AddSpacesBefore(spaceCount));
                 }
             }
 
             return stringBuilder.ToString();
+        }
+    }
+
+    public static class StringExt
+    {
+        public static string AddSpacesBefore(this string targetString, int spaceCount)
+        {
+            var specesToAdd = string.Empty;
+            for (int i = 0; i < spaceCount; i++)
+            {
+                specesToAdd += "::";
+            }
+            return specesToAdd + targetString;
         }
     }
 }
