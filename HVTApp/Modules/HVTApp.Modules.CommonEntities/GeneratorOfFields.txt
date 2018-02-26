@@ -1,31 +1,24 @@
-﻿
+﻿========================================== Fields for CommonOption ==========================================
 
+    <infg:XamDataGrid x:Name="CommonOptionListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
 
-
-
-
-
-
-
-
-
-
-
-========================================== Fields for CommonOption ==========================================
-
-    <infg:XamDataGrid>
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="OurCompanyId" Label="OurCompanyId" Width="Auto"/>
                     <infg:TextField Name="StandartPaymentsConditionSetId" Label="StandartPaymentsConditionSetId" Width="Auto"/>
-
                     <infg:NumericField Name="CalculationPriceTerm" Label="CalculationPriceTerm" Width="Auto"/>
                     <infg:NumericField Name="StandartTermFromStartToEndProduction" Label="StandartTermFromStartToEndProduction" Width="Auto"/>
                     <infg:NumericField Name="StandartTermFromPickToEndProduction" Label="StandartTermFromPickToEndProduction" Width="Auto"/>
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -35,16 +28,22 @@
 
 	========================================== Fields for Address ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="AddressListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Description" Label="Description" Width="Auto"/>
-
-
-
                     <infg:TextField Name="Locality" Label="Locality" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -54,15 +53,21 @@
 
 	========================================== Fields for Country ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="CountryListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -72,16 +77,22 @@
 
 	========================================== Fields for District ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="DistrictListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto"/>
-
-
-
                     <infg:TextField Name="Country" Label="Country" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -91,7 +102,17 @@
 
 	========================================== Fields for Locality ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="LocalityListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
@@ -101,12 +122,8 @@
                     <infg:TextField Name="IsRegionCapital" Label="IsRegionCapital" Width="Auto"/>
                     <infg:TextField Name="StandartDeliveryPeriod" Label="StandartDeliveryPeriod" Width="Auto"/>
                     <infg:TextField Name="DistanceToEkb" Label="DistanceToEkb" Width="Auto"/>
-
-
-
                     <infg:TextField Name="LocalityType" Label="LocalityType" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Region" Label="Region" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -116,16 +133,22 @@
 
 	========================================== Fields for LocalityType ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="LocalityTypeListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="FullName" Label="FullName" Width="Auto"/>
                     <infg:TextField Name="ShortName" Label="ShortName" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -135,16 +158,22 @@
 
 	========================================== Fields for Region ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="RegionListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto"/>
-
-
-
                     <infg:TextField Name="District" Label="District" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -154,17 +183,23 @@
 
 	========================================== Fields for CalculatePriceTask ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="CalculatePriceTaskListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="IsActual" Label="IsActual" Width="Auto"/>
-
-
                     <infg:DateTimeField Name="Date" Label="Date" Width="Auto"/>
-
                     <infg:TextField Name="ProductBlock" Label="ProductBlock" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -174,16 +209,22 @@
 
 	========================================== Fields for Cost ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="CostListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-
                     <infg:NumericField Name="Sum" Label="Sum" Width="Auto"/>
-
-
                     <infg:TextField Name="Currency" Label="Currency" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -193,16 +234,22 @@
 
 	========================================== Fields for Currency ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="CurrencyListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="FullName" Label="FullName" Width="Auto"/>
                     <infg:TextField Name="ShortName" Label="ShortName" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -212,19 +259,25 @@
 
 	========================================== Fields for CurrencyExchangeRate ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="CurrencyExchangeRateListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-
                     <infg:NumericField Name="FirstCurrencyValue" Label="FirstCurrencyValue" Width="Auto"/>
                     <infg:NumericField Name="SecondCurrencyValue" Label="SecondCurrencyValue" Width="Auto"/>
-
                     <infg:DateTimeField Name="Date" Label="Date" Width="Auto"/>
-
                     <infg:TextField Name="FirstCurrency" Label="FirstCurrency" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="SecondCurrency" Label="SecondCurrency" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -234,16 +287,22 @@
 
 	========================================== Fields for DescribeProductBlockTask ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="DescribeProductBlockTaskListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-
-
-
                     <infg:TextField Name="ProductBlock" Label="ProductBlock" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Product" Label="Product" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -253,15 +312,21 @@
 
 	========================================== Fields for PaymentConditionSet ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="PaymentConditionSetListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -271,16 +336,22 @@
 
 	========================================== Fields for ProductBlock ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="ProductBlockListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto"/>
                     <infg:TextField Name="StructureCostNumber" Label="StructureCostNumber" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -290,14 +361,20 @@
 
 	========================================== Fields for SalesBlock ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="SalesBlockListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -307,7 +384,17 @@
 
 	========================================== Fields for BankDetails ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="BankDetailsListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
@@ -315,10 +402,6 @@
                     <infg:TextField Name="BankIdentificationCode" Label="BankIdentificationCode" Width="Auto"/>
                     <infg:TextField Name="CorrespondentAccount" Label="CorrespondentAccount" Width="Auto"/>
                     <infg:TextField Name="CheckingAccount" Label="CheckingAccount" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -328,7 +411,17 @@
 
 	========================================== Fields for Company ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="CompanyListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
@@ -336,14 +429,10 @@
                     <infg:TextField Name="ShortName" Label="ShortName" Width="Auto"/>
                     <infg:TextField Name="Inn" Label="Inn" Width="Auto"/>
                     <infg:TextField Name="Kpp" Label="Kpp" Width="Auto"/>
-
-
-
                     <infg:TextField Name="Form" Label="Form" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="ParentCompany" Label="ParentCompany" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="AddressLegal" Label="AddressLegal" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="AddressPost" Label="AddressPost" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -353,16 +442,22 @@
 
 	========================================== Fields for CompanyForm ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="CompanyFormListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="FullName" Label="FullName" Width="Auto"/>
                     <infg:TextField Name="ShortName" Label="ShortName" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -372,16 +467,22 @@
 
 	========================================== Fields for DocumentsRegistrationDetails ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="DocumentsRegistrationDetailsListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="RegistrationNumber" Label="RegistrationNumber" Width="Auto"/>
-
-
                     <infg:DateTimeField Name="RegistrationDate" Label="RegistrationDate" Width="Auto"/>
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -391,15 +492,21 @@
 
 	========================================== Fields for EmployeesPosition ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="EmployeesPositionListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -409,16 +516,22 @@
 
 	========================================== Fields for FacilityType ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="FacilityTypeListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="FullName" Label="FullName" Width="Auto"/>
                     <infg:TextField Name="ShortName" Label="ShortName" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -428,16 +541,22 @@
 
 	========================================== Fields for ActivityField ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="ActivityFieldListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto"/>
                     <infg:TextField Name="ActivityFieldEnum" Label="ActivityFieldEnum" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -447,17 +566,23 @@
 
 	========================================== Fields for Contract ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="ContractListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Number" Label="Number" Width="Auto"/>
-
-
                     <infg:DateTimeField Name="Date" Label="Date" Width="Auto"/>
-
                     <infg:TextField Name="Contragent" Label="Contragent" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -467,16 +592,22 @@
 
 	========================================== Fields for Measure ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="MeasureListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="FullName" Label="FullName" Width="Auto"/>
                     <infg:TextField Name="ShortName" Label="ShortName" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -486,16 +617,22 @@
 
 	========================================== Fields for Parameter ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="ParameterListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Value" Label="Value" Width="Auto"/>
-
-
-
                     <infg:TextField Name="ParameterGroup" Label="ParameterGroup" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -505,16 +642,22 @@
 
 	========================================== Fields for ParameterGroup ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="ParameterGroupListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto"/>
-
-
-
                     <infg:TextField Name="Measure" Label="Measure" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -524,15 +667,21 @@
 
 	========================================== Fields for ProductRelation ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="ProductRelationListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-
                     <infg:NumericField Name="Count" Label="Count" Width="Auto"/>
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -542,7 +691,17 @@
 
 	========================================== Fields for Person ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="PersonListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
@@ -550,10 +709,6 @@
                     <infg:TextField Name="Name" Label="Name" Width="Auto"/>
                     <infg:TextField Name="Patronymic" Label="Patronymic" Width="Auto"/>
                     <infg:TextField Name="IsMan" Label="IsMan" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -563,19 +718,25 @@
 
 	========================================== Fields for PaymentPlanned ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="PaymentPlannedListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="SalesUnitId" Label="SalesUnitId" Width="Auto"/>
                     <infg:TextField Name="Comment" Label="Comment" Width="Auto"/>
-
                     <infg:NumericField Name="Sum" Label="Sum" Width="Auto"/>
-
                     <infg:DateTimeField Name="Date" Label="Date" Width="Auto"/>
-
                     <infg:TextField Name="Condition" Label="Condition" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -585,19 +746,25 @@
 
 	========================================== Fields for PaymentActual ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="PaymentActualListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="SalesUnitId" Label="SalesUnitId" Width="Auto"/>
                     <infg:TextField Name="Comment" Label="Comment" Width="Auto"/>
                     <infg:TextField Name="DocumentId" Label="DocumentId" Width="Auto"/>
-
                     <infg:NumericField Name="Sum" Label="Sum" Width="Auto"/>
-
                     <infg:DateTimeField Name="Date" Label="Date" Width="Auto"/>
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -607,15 +774,21 @@
 
 	========================================== Fields for ParameterRelation ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="ParameterRelationListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="ParameterId" Label="ParameterId" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -625,20 +798,28 @@
 
 	========================================== Fields for SalesUnit ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="SalesUnitListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="ParentSalesUnitId" Label="ParentSalesUnitId" Width="Auto"/>
                     <infg:TextField Name="OrderPosition" Label="OrderPosition" Width="Auto"/>
                     <infg:TextField Name="SerialNumber" Label="SerialNumber" Width="Auto"/>
-
                     <infg:NumericField Name="PlannedTermFromStartToEndProduction" Label="PlannedTermFromStartToEndProduction" Width="Auto"/>
                     <infg:NumericField Name="PlannedTermFromPickToEndProduction" Label="PlannedTermFromPickToEndProduction" Width="Auto"/>
                     <infg:NumericField Name="Cost" Label="Cost" Width="Auto"/>
                     <infg:NumericField Name="ExpectedDeliveryPeriod" Label="ExpectedDeliveryPeriod" Width="Auto"/>
                     <infg:NumericField Name="CostOfShipment" Label="CostOfShipment" Width="Auto"/>
-
                     <infg:DateTimeField Name="DeliveryDateExpected" Label="DeliveryDateExpected" Width="Auto"/>
                     <infg:DateTimeField Name="RealizationDate" Label="RealizationDate" Width="Auto"/>
                     <infg:DateTimeField Name="StartProductionDate" Label="StartProductionDate" Width="Auto"/>
@@ -647,7 +828,6 @@
                     <infg:DateTimeField Name="ShipmentDate" Label="ShipmentDate" Width="Auto"/>
                     <infg:DateTimeField Name="ShipmentPlanDate" Label="ShipmentPlanDate" Width="Auto"/>
                     <infg:DateTimeField Name="DeliveryDate" Label="DeliveryDate" Width="Auto"/>
-
                     <infg:TextField Name="Facility" Label="Facility" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Producer" Label="Producer" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Product" Label="Product" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
@@ -655,7 +835,6 @@
                     <infg:TextField Name="Specification" Label="Specification" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="PaymentsConditionSet" Label="PaymentsConditionSet" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Address" Label="Address" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -665,17 +844,23 @@
 
 	========================================== Fields for TestFriendAddress ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="TestFriendAddressListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="City" Label="City" Width="Auto"/>
                     <infg:TextField Name="Street" Label="Street" Width="Auto"/>
                     <infg:TextField Name="StreetNumber" Label="StreetNumber" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -685,22 +870,28 @@
 
 	========================================== Fields for TestFriend ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="TestFriendListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="FirstName" Label="FirstName" Width="Auto"/>
                     <infg:TextField Name="LastName" Label="LastName" Width="Auto"/>
                     <infg:TextField Name="IsDeveloper" Label="IsDeveloper" Width="Auto"/>
-
                     <infg:NumericField Name="FriendGroupId" Label="FriendGroupId" Width="Auto"/>
                     <infg:NumericField Name="IdGet" Label="IdGet" Width="Auto"/>
-
                     <infg:DateTimeField Name="Birthday" Label="Birthday" Width="Auto"/>
-
                     <infg:TextField Name="TestFriendAddress" Label="TestFriendAddress" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="TestFriendGroup" Label="TestFriendGroup" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -710,16 +901,22 @@
 
 	========================================== Fields for TestFriendEmail ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="TestFriendEmailListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Email" Label="Email" Width="Auto"/>
                     <infg:TextField Name="Comment" Label="Comment" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -729,15 +926,21 @@
 
 	========================================== Fields for TestFriendGroup ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="TestFriendGroupListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -747,23 +950,29 @@
 
 	========================================== Fields for Document ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="DocumentListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="SenderId" Label="SenderId" Width="Auto"/>
                     <infg:TextField Name="RecipientId" Label="RecipientId" Width="Auto"/>
                     <infg:TextField Name="Comment" Label="Comment" Width="Auto"/>
-
-
-
                     <infg:TextField Name="RequestDocument" Label="RequestDocument" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Author" Label="Author" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="SenderEmployee" Label="SenderEmployee" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RecipientEmployee" Label="RecipientEmployee" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RegistrationDetailsOfSender" Label="RegistrationDetailsOfSender" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RegistrationDetailsOfRecipient" Label="RegistrationDetailsOfRecipient" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -773,15 +982,21 @@
 
 	========================================== Fields for TestEntity ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="TestEntityListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -791,16 +1006,22 @@
 
 	========================================== Fields for TestHusband ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="TestHusbandListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto"/>
-
-
-
                     <infg:TextField Name="Wife" Label="Wife" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -810,17 +1031,23 @@
 
 	========================================== Fields for TestWife ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="TestWifeListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto"/>
-
                     <infg:NumericField Name="N" Label="N" Width="Auto"/>
-
-
                     <infg:TextField Name="Husband" Label="Husband" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -830,17 +1057,23 @@
 
 	========================================== Fields for TestChild ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="TestChildListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto"/>
-
-
-
                     <infg:TextField Name="Husband" Label="Husband" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Wife" Label="Wife" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -850,16 +1083,22 @@
 
 	========================================== Fields for CostOnDate ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="CostOnDateListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-
                     <infg:NumericField Name="Cost" Label="Cost" Width="Auto"/>
-
                     <infg:DateTimeField Name="Date" Label="Date" Width="Auto"/>
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -869,16 +1108,22 @@
 
 	========================================== Fields for Product ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="ProductListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Designation" Label="Designation" Width="Auto"/>
-
-
-
                     <infg:TextField Name="ProductBlock" Label="ProductBlock" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -888,18 +1133,25 @@
 
 	========================================== Fields for Offer ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="OfferListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="SenderId" Label="SenderId" Width="Auto"/>
                     <infg:TextField Name="RecipientId" Label="RecipientId" Width="Auto"/>
                     <infg:TextField Name="Comment" Label="Comment" Width="Auto"/>
-
                     <infg:NumericField Name="Vat" Label="Vat" Width="Auto"/>
-
                     <infg:DateTimeField Name="ValidityDate" Label="ValidityDate" Width="Auto"/>
-
                     <infg:TextField Name="Project" Label="Project" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RequestDocument" Label="RequestDocument" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Author" Label="Author" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
@@ -907,7 +1159,6 @@
                     <infg:TextField Name="RecipientEmployee" Label="RecipientEmployee" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RegistrationDetailsOfSender" Label="RegistrationDetailsOfSender" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RegistrationDetailsOfRecipient" Label="RegistrationDetailsOfRecipient" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -917,19 +1168,25 @@
 
 	========================================== Fields for Employee ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="EmployeeListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="PhoneNumber" Label="PhoneNumber" Width="Auto"/>
                     <infg:TextField Name="Email" Label="Email" Width="Auto"/>
-
-
-
                     <infg:TextField Name="Person" Label="Person" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Company" Label="Company" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Position" Label="Position" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -939,16 +1196,22 @@
 
 	========================================== Fields for Order ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="OrderListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Number" Label="Number" Width="Auto"/>
-
-
                     <infg:DateTimeField Name="OpenOrderDate" Label="OpenOrderDate" Width="Auto"/>
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -958,17 +1221,23 @@
 
 	========================================== Fields for PaymentCondition ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="PaymentConditionListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="PaymentConditionPoint" Label="PaymentConditionPoint" Width="Auto"/>
-
                     <infg:NumericField Name="Part" Label="Part" Width="Auto"/>
                     <infg:NumericField Name="DaysToPoint" Label="DaysToPoint" Width="Auto"/>
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -978,16 +1247,22 @@
 
 	========================================== Fields for PaymentDocument ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="PaymentDocumentListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Number" Label="Number" Width="Auto"/>
-
-
                     <infg:DateTimeField Name="Date" Label="Date" Width="Auto"/>
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -997,18 +1272,24 @@
 
 	========================================== Fields for Facility ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="FacilityListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto"/>
-
-
-
                     <infg:TextField Name="Type" Label="Type" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="OwnerCompany" Label="OwnerCompany" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Address" Label="Address" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -1018,16 +1299,22 @@
 
 	========================================== Fields for Project ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="ProjectListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto"/>
-
-
-
                     <infg:TextField Name="Manager" Label="Manager" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -1037,16 +1324,22 @@
 
 	========================================== Fields for UserRole ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="UserRoleListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto"/>
                     <infg:TextField Name="Role" Label="Role" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -1056,18 +1349,24 @@
 
 	========================================== Fields for Specification ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="SpecificationListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Number" Label="Number" Width="Auto"/>
-
                     <infg:NumericField Name="Vat" Label="Vat" Width="Auto"/>
-
                     <infg:DateTimeField Name="Date" Label="Date" Width="Auto"/>
-
                     <infg:TextField Name="Contract" Label="Contract" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -1077,19 +1376,25 @@
 
 	========================================== Fields for Tender ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="TenderListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-
-
                     <infg:DateTimeField Name="DateOpen" Label="DateOpen" Width="Auto"/>
                     <infg:DateTimeField Name="DateClose" Label="DateClose" Width="Auto"/>
                     <infg:DateTimeField Name="DateNotice" Label="DateNotice" Width="Auto"/>
-
                     <infg:TextField Name="Project" Label="Project" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Winner" Label="Winner" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -1099,16 +1404,22 @@
 
 	========================================== Fields for TenderType ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="TenderTypeListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto"/>
                     <infg:TextField Name="Type" Label="Type" Width="Auto"/>
-
-
-
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -1118,7 +1429,17 @@
 
 	========================================== Fields for User ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="UserListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
@@ -1126,11 +1447,7 @@
                     <infg:TextField Name="Password" Label="Password" Width="Auto"/>
                     <infg:TextField Name="PersonalNumber" Label="PersonalNumber" Width="Auto"/>
                     <infg:TextField Name="RoleCurrent" Label="RoleCurrent" Width="Auto"/>
-
-
-
                     <infg:TextField Name="Employee" Label="Employee" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

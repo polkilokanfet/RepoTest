@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
@@ -16,12 +17,11 @@ using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
-using Prism.Mvvm;
 
 namespace HVTApp.UI.ViewModels
 {
     public abstract class BaseListViewModel<TEntity, TLookup, TAfterSaveEntityEvent, TAfterSelectEntityEvent, TAfterRemoveEntityEvent> :
-        BindableBase, IBaseListViewModel<TEntity, TLookup>, ISelectServiceViewModel<TEntity>, IDisposable
+        BindableBaseCanExportToExcel, IBaseListViewModel<TEntity, TLookup>, ISelectServiceViewModel<TEntity>, IDisposable
         where TEntity : class, IBaseEntity
         where TLookup : class, ILookupItemNavigation<TEntity>
         where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
@@ -36,7 +36,7 @@ namespace HVTApp.UI.ViewModels
         private TLookup _selectedLookup;
         private TEntity _selectedEntity;
 
-        protected BaseListViewModel(IUnityContainer container)
+        protected BaseListViewModel(IUnityContainer container) : base(container)
         {
             Container = container;
             UnitOfWork = Container.Resolve<IUnitOfWork>();
@@ -51,11 +51,13 @@ namespace HVTApp.UI.ViewModels
 
             SelectItemCommand = new DelegateCommand(SelectItemCommand_Execute, SelectItemCommand_CanExecute);
 
+
             Container.Resolve<IEventAggregator>().GetEvent<TAfterSaveEntityEvent>().Subscribe(OnAfterSaveEntity);
             Container.Resolve<IEventAggregator>().GetEvent<TAfterRemoveEntityEvent>().Subscribe(OnAfterRemoveEntity);
 
             SubscribesToEvents();
         }
+
 
         protected virtual void SubscribesToEvents()
         {
@@ -138,7 +140,6 @@ namespace HVTApp.UI.ViewModels
         public ICommand EditItemCommand { get; }
         public ICommand RemoveItemCommand { get; }
         public ICommand SelectItemCommand { get; }
-
 
 
         protected async void NewItemCommand_Execute()

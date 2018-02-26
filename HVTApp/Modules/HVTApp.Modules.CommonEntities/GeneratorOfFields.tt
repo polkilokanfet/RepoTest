@@ -57,7 +57,17 @@
 
 #>========================================== Fields for <#=modelType.Name#> ==========================================
 
-    <infg:XamDataGrid>
+    <infg:XamDataGrid x:Name="<#=modelType.Name#>ListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel"                                        
+                          Command="{Binding ExportToExcel}"
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                </MenuItem>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>

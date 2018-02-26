@@ -14,22 +14,32 @@ namespace HVTApp.Model.POCOs
     {
         public override string ToString()
         {
-            return $"PaymentConditionPoint: {PaymentConditionPoint}, DaysToPoint: {DaysToPoint}, Part: {Part}";
+            string daysName = DaysToPoint < 0 ? $"за {-DaysToPoint} дней до" : $"спустя {DaysToPoint} после";
+
+            string pointName = string.Empty;
+            switch (PaymentConditionPoint)
+            {
+                case (PaymentConditionPoint.ProductionStart):
+                    pointName = "начала производства";
+                    break;
+                case (PaymentConditionPoint.ProductionEnd):
+                    pointName = "окончания производства";
+                    break;
+                case (PaymentConditionPoint.Shipment):
+                    pointName = "отгрузки с предприятия";
+                    break;
+                case (PaymentConditionPoint.Delivery):
+                    pointName = "доставки";
+                    break;
+            }
+
+            return $"{Part * 100}% {daysName} {pointName}";
         }
 
         public int CompareTo(PaymentCondition other)
         {
-            if (this.PaymentConditionPoint > other.PaymentConditionPoint)
-                return 1;
-            if (this.PaymentConditionPoint < other.PaymentConditionPoint)
-                return -1;
-
-            if (this.DaysToPoint > other.DaysToPoint)
-                return 1;
-            if (this.DaysToPoint < other.DaysToPoint)
-                return -1;
-
-            return 0;
+            var result = this.PaymentConditionPoint.CompareTo(other.PaymentConditionPoint);
+            return result != 0 ? result : this.DaysToPoint.CompareTo(other.DaysToPoint);
         }
     }
 
