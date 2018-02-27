@@ -719,6 +719,109 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
+		public partial class NoteWrapper : WrapperBase<Note>
+	{
+	    public NoteWrapper(Note model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.DateTime Date
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
+        public bool DateIsChanged => GetIsChanged(nameof(Date));
+
+
+        public System.String Text
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String TextOriginalValue => GetOriginalValue<System.String>(nameof(Text));
+        public bool TextIsChanged => GetIsChanged(nameof(Text));
+
+
+        public System.Boolean IsImportant
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsImportantOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsImportant));
+        public bool IsImportantIsChanged => GetIsChanged(nameof(IsImportant));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+	}
+
+		public partial class OfferUnitWrapper 
+	{
+	    public OfferUnitWrapper(OfferUnit model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
+        public bool CostIsChanged => GetIsChanged(nameof(Cost));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+
+        #endregion
+
+
+        #region CollectionProperties
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+
+            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
+
+
+        }
+
+  
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.DependentProducts == null) throw new ArgumentException("DependentProducts cannot be null");
+          DependentProducts = new ValidatableChangeTrackingCollection<ProductWrapper>(Model.DependentProducts.Select(e => new ProductWrapper(e)));
+          RegisterCollection(DependentProducts, Model.DependentProducts);
+
+
+        }
+
+	}
+
 		public partial class PaymentConditionSetWrapper : WrapperBase<PaymentConditionSet>
 	{
 	    public PaymentConditionSetWrapper(PaymentConditionSet model) : base(model) { }
@@ -3331,6 +3434,9 @@ namespace HVTApp.UI.Wrapper
         public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
 
 
+        public IValidatableChangeTrackingCollection<NoteWrapper> Notes { get; private set; }
+
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -3348,6 +3454,11 @@ namespace HVTApp.UI.Wrapper
           if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
           SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
           RegisterCollection(SalesUnits, Model.SalesUnits);
+
+
+          if (Model.Notes == null) throw new ArgumentException("Notes cannot be null");
+          Notes = new ValidatableChangeTrackingCollection<NoteWrapper>(Model.Notes.Select(e => new NoteWrapper(e)));
+          RegisterCollection(Notes, Model.Notes);
 
 
         }

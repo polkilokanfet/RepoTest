@@ -84,6 +84,18 @@ namespace HVTApp.UI
             _updateDetailsService.Register<DescribeProductBlockTask, DescribeProductBlockTaskDetailsView>();
 
 
+            Container.RegisterViewForNavigation<NoteListView>();
+            //_dialogService.Register<NoteDetailsViewModel, NoteDetailsView>();
+			_selectService.Register<NoteListView, Note>();
+            _updateDetailsService.Register<Note, NoteDetailsView>();
+
+
+            Container.RegisterViewForNavigation<OfferUnitListView>();
+            //_dialogService.Register<OfferUnitDetailsViewModel, OfferUnitDetailsView>();
+			_selectService.Register<OfferUnitListView, OfferUnit>();
+            _updateDetailsService.Register<OfferUnit, OfferUnitDetailsView>();
+
+
             Container.RegisterViewForNavigation<PaymentConditionSetListView>();
             //_dialogService.Register<PaymentConditionSetDetailsViewModel, PaymentConditionSetDetailsView>();
 			_selectService.Register<PaymentConditionSetListView, PaymentConditionSet>();

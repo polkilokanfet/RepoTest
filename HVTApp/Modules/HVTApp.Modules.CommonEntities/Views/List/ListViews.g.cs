@@ -225,6 +225,42 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
+    public partial class NoteListView : ViewBase
+    {
+        public NoteListView(IRegionManager regionManager, IEventAggregator eventAggregator, NoteListViewModel NoteListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = NoteListViewModel;
+			NoteListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((NoteListViewModel)DataContext).LoadAsync();;
+        }
+    }
+
+
+    [RibbonTab(typeof(TabCRUD))]
+    public partial class OfferUnitListView : ViewBase
+    {
+        public OfferUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, OfferUnitListViewModel OfferUnitListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = OfferUnitListViewModel;
+			OfferUnitListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((OfferUnitListViewModel)DataContext).LoadAsync();;
+        }
+    }
+
+
+    [RibbonTab(typeof(TabCRUD))]
     public partial class PaymentConditionSetListView : ViewBase
     {
         public PaymentConditionSetListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionSetListViewModel PaymentConditionSetListViewModel) : base(regionManager, eventAggregator)

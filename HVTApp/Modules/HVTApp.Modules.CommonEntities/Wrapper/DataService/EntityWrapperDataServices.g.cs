@@ -197,6 +197,38 @@ namespace HVTApp.UI.Wrapper
     }
 
 
+    public partial class NoteWrapperDataService : EntityWrapperDataService<Note, NoteWrapper>
+    {
+        public NoteWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		
+		protected override NoteWrapper GenerateWrapper(Note model)
+        {
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new NoteWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
+        }
+    }
+
+
+    public partial class OfferUnitWrapperDataService : EntityWrapperDataService<OfferUnit, OfferUnitWrapper>
+    {
+        public OfferUnitWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		
+		protected override OfferUnitWrapper GenerateWrapper(OfferUnit model)
+        {
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new OfferUnitWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
+        }
+    }
+
+
     public partial class PaymentConditionSetWrapperDataService : EntityWrapperDataService<PaymentConditionSet, PaymentConditionSetWrapper>
     {
         public PaymentConditionSetWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }

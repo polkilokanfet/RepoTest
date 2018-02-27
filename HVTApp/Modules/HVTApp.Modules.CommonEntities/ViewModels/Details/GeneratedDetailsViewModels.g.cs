@@ -365,6 +365,50 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class NoteDetailsViewModel : BaseDetailsViewModel<NoteWrapper, Note, AfterSaveNoteEvent>
+    {
+
+        public NoteDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+
+			InitGetMethods();
+		}
+
+
+    }
+
+
+    public partial class OfferUnitDetailsViewModel : BaseDetailsViewModel<OfferUnitWrapper, OfferUnit, AfterSaveOfferUnitEvent>
+    {
+		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
+		public ICommand SelectProductCommand { get; }
+		public ICommand ClearProductCommand { get; }
+
+
+        public OfferUnitDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+          _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };
+			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
+			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
+
+
+			InitGetMethods();
+		}
+		private async void SelectProductCommand_Execute() 
+		{
+            SelectAndSetWrapper<Product, ProductWrapper>(await _getEntitiesForSelectProductCommand(), nameof(Item.Product), Item.Product?.Id);
+		}
+
+		private void ClearProductCommand_Execute() 
+		{
+		    Item.Product = null;
+		}
+
+
+
+    }
+
+
     public partial class PaymentConditionSetDetailsViewModel : BaseDetailsViewModel<PaymentConditionSetWrapper, PaymentConditionSet, AfterSavePaymentConditionSetEvent>
     {
 

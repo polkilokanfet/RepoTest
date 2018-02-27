@@ -121,6 +121,7 @@
     <Compile Include="ViewModels\Details\GeneratedDetailsViewModels.g.cs" />
     <Compile Include="ViewModels\Details\IUnitGroup.cs" />
     <Compile Include="ViewModels\Details\IProjectUnitGroupLookup.cs" />
+    <Compile Include="ViewModels\Details\IProductCostUnitWrapper.cs" />
     <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
@@ -340,6 +341,7 @@
     <Compile Include="Wrapper\Custom\Functionality\CountryWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\DistrictWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\EmployeeWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\OfferUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\OfferWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ParameterWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\PaymentActualWrapper.cs" />

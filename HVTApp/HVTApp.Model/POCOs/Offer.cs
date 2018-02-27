@@ -8,6 +8,6 @@ namespace HVTApp.Model.POCOs
         public virtual Project Project { get; set; }
         public DateTime ValidityDate { get; set; } // Дата до которой ТКП действительно.
         public double Vat { get; set; }
-        public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
+        public virtual List<OfferUnit> OfferUnits { get; set; } = new List<OfferUnit>();
     }
 }

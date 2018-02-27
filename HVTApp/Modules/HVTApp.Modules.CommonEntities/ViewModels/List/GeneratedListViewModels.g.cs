@@ -79,6 +79,18 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class NoteListViewModel : BaseListViewModel<Note, NoteLookup, AfterSaveNoteEvent, AfterSelectNoteEvent, AfterRemoveNoteEvent>
+    {
+        public NoteListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
+    public partial class OfferUnitListViewModel : BaseListViewModel<OfferUnit, OfferUnitLookup, AfterSaveOfferUnitEvent, AfterSelectOfferUnitEvent, AfterRemoveOfferUnitEvent>
+    {
+        public OfferUnitListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
     public partial class PaymentConditionSetListViewModel : BaseListViewModel<PaymentConditionSet, PaymentConditionSetLookup, AfterSavePaymentConditionSetEvent, AfterSelectPaymentConditionSetEvent, AfterRemovePaymentConditionSetEvent>
     {
         public PaymentConditionSetListViewModel(IUnityContainer container) : base(container) { }

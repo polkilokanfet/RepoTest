@@ -372,6 +372,62 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	public partial class NoteLookup : LookupItem<Note>
+	{
+		public NoteLookup(Note entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+		}
+		
+
+        #region SimpleProperties
+
+        public System.DateTime Date => GetValue<System.DateTime>();
+
+
+        public System.String Text => GetValue<System.String>();
+
+
+        public System.Boolean IsImportant => GetValue<System.Boolean>();
+
+
+        #endregion
+
+	}
+
+	public partial class OfferUnitLookup : LookupItem<OfferUnit>
+	{
+		public OfferUnitLookup(OfferUnit entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+			Product?.Refresh(Entity.Product);
+
+		}
+		
+
+        #region SimpleProperties
+
+        public System.Double Cost => GetValue<System.Double>();
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
+
+
+        #endregion
+
+	}
+
 	public partial class PaymentConditionSetLookup : LookupItem<PaymentConditionSet>
 	{
 		public PaymentConditionSetLookup(PaymentConditionSet entity) : base(entity) 

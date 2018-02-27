@@ -128,6 +128,26 @@ namespace HVTApp.UI.Views
     }
 
 
+    public partial class NoteDetailsView : ViewBase
+    {
+        public NoteDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, NoteDetailsViewModel NoteDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = NoteDetailsViewModel;
+        }
+    }
+
+
+    public partial class OfferUnitDetailsView : ViewBase
+    {
+        public OfferUnitDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, OfferUnitDetailsViewModel OfferUnitDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = OfferUnitDetailsViewModel;
+        }
+    }
+
+
     public partial class PaymentConditionSetDetailsView : ViewBase
     {
         public PaymentConditionSetDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionSetDetailsViewModel PaymentConditionSetDetailsViewModel) : base(regionManager, eventAggregator)

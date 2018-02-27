@@ -77,6 +77,18 @@ namespace HVTApp.UI.Lookup
     }
 
 
+    public partial class NoteLookupDataService : LookupDataService<NoteLookup, Note>, INoteLookupDataService
+    {
+        public NoteLookupDataService(HvtAppContext context) : base(context) { }
+    }
+
+
+    public partial class OfferUnitLookupDataService : LookupDataService<OfferUnitLookup, OfferUnit>, IOfferUnitLookupDataService
+    {
+        public OfferUnitLookupDataService(HvtAppContext context) : base(context) { }
+    }
+
+
     public partial class PaymentConditionSetLookupDataService : LookupDataService<PaymentConditionSetLookup, PaymentConditionSet>, IPaymentConditionSetLookupDataService
     {
         public PaymentConditionSetLookupDataService(HvtAppContext context) : base(context) { }

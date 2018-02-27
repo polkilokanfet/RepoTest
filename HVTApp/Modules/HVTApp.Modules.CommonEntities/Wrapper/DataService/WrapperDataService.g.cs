@@ -31,6 +31,10 @@ namespace HVTApp.UI.Wrapper
 
             DescribeProductBlockTaskWrapperDataService = new DescribeProductBlockTaskWrapperDataService(unitOfWork);
 
+            NoteWrapperDataService = new NoteWrapperDataService(unitOfWork);
+
+            OfferUnitWrapperDataService = new OfferUnitWrapperDataService(unitOfWork);
+
             PaymentConditionSetWrapperDataService = new PaymentConditionSetWrapperDataService(unitOfWork);
 
             ProductBlockWrapperDataService = new ProductBlockWrapperDataService(unitOfWork);
@@ -145,6 +149,10 @@ namespace HVTApp.UI.Wrapper
         public CurrencyExchangeRateWrapperDataService CurrencyExchangeRateWrapperDataService { get; }
 
         public DescribeProductBlockTaskWrapperDataService DescribeProductBlockTaskWrapperDataService { get; }
+
+        public NoteWrapperDataService NoteWrapperDataService { get; }
+
+        public OfferUnitWrapperDataService OfferUnitWrapperDataService { get; }
 
         public PaymentConditionSetWrapperDataService PaymentConditionSetWrapperDataService { get; }
 

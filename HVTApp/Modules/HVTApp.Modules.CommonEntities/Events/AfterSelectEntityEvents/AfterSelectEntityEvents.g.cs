@@ -15,6 +15,8 @@ namespace HVTApp.UI.Events
 	public partial class AfterSelectCurrencyEvent : PubSubEvent<PubSubEventArgs<Currency>> { }
 	public partial class AfterSelectCurrencyExchangeRateEvent : PubSubEvent<PubSubEventArgs<CurrencyExchangeRate>> { }
 	public partial class AfterSelectDescribeProductBlockTaskEvent : PubSubEvent<PubSubEventArgs<DescribeProductBlockTask>> { }
+	public partial class AfterSelectNoteEvent : PubSubEvent<PubSubEventArgs<Note>> { }
+	public partial class AfterSelectOfferUnitEvent : PubSubEvent<PubSubEventArgs<OfferUnit>> { }
 	public partial class AfterSelectPaymentConditionSetEvent : PubSubEvent<PubSubEventArgs<PaymentConditionSet>> { }
 	public partial class AfterSelectProductBlockEvent : PubSubEvent<PubSubEventArgs<ProductBlock>> { }
 	public partial class AfterSelectSalesBlockEvent : PubSubEvent<PubSubEventArgs<SalesBlock>> { }

@@ -60,6 +60,8 @@
     <Compile Include="POCOs\Currency.cs" />
     <Compile Include="POCOs\CurrencyExchangeRate.cs" />
     <Compile Include="POCOs\DescribeProductBlockTask.cs" />
+    <Compile Include="POCOs\Note.cs" />
+    <Compile Include="POCOs\OfferUnit.cs" />
     <Compile Include="POCOs\PaymentConditionSet.cs" />
     <Compile Include="POCOs\ProductBlock.cs" />
     <Compile Include="POCOs\SalesBlock.cs" />
