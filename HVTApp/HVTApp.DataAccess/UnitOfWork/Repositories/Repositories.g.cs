@@ -63,6 +63,16 @@ namespace HVTApp.DataAccess
         public DescribeProductBlockTaskRepository(DbContext context) : base(context) {}
     }
 
+    public partial class NoteRepository : BaseRepository<Note>, INoteRepository
+    {
+        public NoteRepository(DbContext context) : base(context) {}
+    }
+
+    public partial class OfferUnitRepository : BaseRepository<OfferUnit>, IOfferUnitRepository
+    {
+        public OfferUnitRepository(DbContext context) : base(context) {}
+    }
+
     public partial class PaymentConditionSetRepository : BaseRepository<PaymentConditionSet>, IPaymentConditionSetRepository
     {
         public PaymentConditionSetRepository(DbContext context) : base(context) {}
@@ -143,14 +153,14 @@ namespace HVTApp.DataAccess
         public PersonRepository(DbContext context) : base(context) {}
     }
 
-    public partial class PaymentPlannedRepository : BaseRepository<PaymentPlannedList>, IPaymentPlannedRepository
+    public partial class PaymentPlannedListRepository : BaseRepository<PaymentPlannedList>, IPaymentPlannedListRepository
     {
-        public PaymentPlannedRepository(DbContext context) : base(context) {}
+        public PaymentPlannedListRepository(DbContext context) : base(context) {}
     }
 
-    public partial class PaymentPlannedPartRepository : BaseRepository<PaymentPlanned>, IPaymentPlannedPartRepository
+    public partial class PaymentPlannedRepository : BaseRepository<PaymentPlanned>, IPaymentPlannedRepository
     {
-        public PaymentPlannedPartRepository(DbContext context) : base(context) {}
+        public PaymentPlannedRepository(DbContext context) : base(context) {}
     }
 
     public partial class PaymentActualRepository : BaseRepository<PaymentActual>, IPaymentActualRepository

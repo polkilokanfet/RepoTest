@@ -84,30 +84,30 @@ namespace HVTApp.Services.OfferToDocService
 
             string productsDetails = string.Empty;
             var rowNum = 0;
-            var groupedSalesUnits = offer.SalesUnits.ToUnitGroups().GroupBy(x => x.Facility);
-            foreach (var groupedSalesUnit in groupedSalesUnits)
-            {
-                docWriter.StartTableRow();
-                cellProps.ColumnSpan = 5;
-                docWriter.TableCell(groupedSalesUnit.Key.DisplayMember, cellProps);
-                docWriter.EndTableRow();
+            //var groupedSalesUnits = offer.SalesUnits.ToUnitGroups().GroupBy(x => x.Facility);
+            //foreach (var groupedSalesUnit in groupedSalesUnits)
+            //{
+            //    docWriter.StartTableRow();
+            //    cellProps.ColumnSpan = 5;
+            //    docWriter.TableCell(groupedSalesUnit.Key.DisplayMember, cellProps);
+            //    docWriter.EndTableRow();
 
-                cellProps.ColumnSpan = 1;
-                foreach (var groupUnit in groupedSalesUnit)
-                {
-                    rowNum++;
-                    docWriter.StartTableRow();
-                    docWriter.TableCell(rowNum.ToString(), cellProps);
-                    docWriter.TableCell(groupUnit.Product.DisplayMember, cellProps);
-                    docWriter.TableCell($"{groupUnit.Amount:D}", cellProps, parPropRight);
-                    docWriter.TableCell($"{groupUnit.Cost:C}", cellProps, parPropRight);
-                    docWriter.TableCell($"{groupUnit.Total:C}", cellProps, parPropRight);
-                    docWriter.EndTableRow();
+            //    cellProps.ColumnSpan = 1;
+            //    foreach (var groupUnit in groupedSalesUnit)
+            //    {
+            //        rowNum++;
+            //        docWriter.StartTableRow();
+            //        docWriter.TableCell(rowNum.ToString(), cellProps);
+            //        docWriter.TableCell(groupUnit.Product.DisplayMember, cellProps);
+            //        docWriter.TableCell($"{groupUnit.Amount:D}", cellProps, parPropRight);
+            //        docWriter.TableCell($"{groupUnit.Cost:C}", cellProps, parPropRight);
+            //        docWriter.TableCell($"{groupUnit.Total:C}", cellProps, parPropRight);
+            //        docWriter.EndTableRow();
 
-                    productsDetails += $"Позиция {rowNum}. {groupUnit.Product.Model.Designation}:" + Environment.NewLine;
-                    productsDetails += $"{groupUnit.Product.Model.GetFullDescription()}" + Environment.NewLine;
-                }
-            }
+            //        productsDetails += $"Позиция {rowNum}. {groupUnit.Product.Model.Designation}:" + Environment.NewLine;
+            //        productsDetails += $"{groupUnit.Product.Model.GetFullDescription()}" + Environment.NewLine;
+            //    }
+            //}
 
             cellProps.BackColor = Colors.Azure;
             docWriter.StartTableRow();

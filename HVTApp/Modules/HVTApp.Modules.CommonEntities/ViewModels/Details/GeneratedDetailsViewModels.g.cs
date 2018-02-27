@@ -384,12 +384,28 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectProductCommand { get; }
 		public ICommand ClearProductCommand { get; }
 
+		private Func<Task<List<Facility>>> _getEntitiesForSelectFacilityCommand;
+		public ICommand SelectFacilityCommand { get; }
+		public ICommand ClearFacilityCommand { get; }
+
+		private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
+		public ICommand SelectPaymentConditionSetCommand { get; }
+		public ICommand ClearPaymentConditionSetCommand { get; }
+
 
         public OfferUnitDetailsViewModel(IUnityContainer container) : base(container) 
 		{
           _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };
 			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
 			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
+
+          _getEntitiesForSelectFacilityCommand = async () => { return await UnitOfWork.GetRepository<Facility>().GetAllAsync(); };
+			SelectFacilityCommand = new DelegateCommand(SelectFacilityCommand_Execute);
+			ClearFacilityCommand = new DelegateCommand(ClearFacilityCommand_Execute);
+
+          _getEntitiesForSelectPaymentConditionSetCommand = async () => { return await UnitOfWork.GetRepository<PaymentConditionSet>().GetAllAsync(); };
+			SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute);
+			ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute);
 
 
 			InitGetMethods();
@@ -402,6 +418,26 @@ namespace HVTApp.UI.ViewModels
 		private void ClearProductCommand_Execute() 
 		{
 		    Item.Product = null;
+		}
+
+		private async void SelectFacilityCommand_Execute() 
+		{
+            SelectAndSetWrapper<Facility, FacilityWrapper>(await _getEntitiesForSelectFacilityCommand(), nameof(Item.Facility), Item.Facility?.Id);
+		}
+
+		private void ClearFacilityCommand_Execute() 
+		{
+		    Item.Facility = null;
+		}
+
+		private async void SelectPaymentConditionSetCommand_Execute() 
+		{
+            SelectAndSetWrapper<PaymentConditionSet, PaymentConditionSetWrapper>(await _getEntitiesForSelectPaymentConditionSetCommand(), nameof(Item.PaymentConditionSet), Item.PaymentConditionSet?.Id);
+		}
+
+		private void ClearPaymentConditionSetCommand_Execute() 
+		{
+		    Item.PaymentConditionSet = null;
 		}
 
 
@@ -815,17 +851,9 @@ namespace HVTApp.UI.ViewModels
 
     public partial class SalesUnitDetailsViewModel : BaseDetailsViewModel<SalesUnitWrapper, SalesUnit, AfterSaveSalesUnitEvent>
     {
-		private Func<Task<List<Facility>>> _getEntitiesForSelectFacilityCommand;
-		public ICommand SelectFacilityCommand { get; }
-		public ICommand ClearFacilityCommand { get; }
-
 		private Func<Task<List<Company>>> _getEntitiesForSelectProducerCommand;
 		public ICommand SelectProducerCommand { get; }
 		public ICommand ClearProducerCommand { get; }
-
-		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
-		public ICommand SelectProductCommand { get; }
-		public ICommand ClearProductCommand { get; }
 
 		private Func<Task<List<Order>>> _getEntitiesForSelectOrderCommand;
 		public ICommand SelectOrderCommand { get; }
@@ -843,20 +871,24 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectAddressCommand { get; }
 		public ICommand ClearAddressCommand { get; }
 
+		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
+		public ICommand SelectProductCommand { get; }
+		public ICommand ClearProductCommand { get; }
+
+		private Func<Task<List<Facility>>> _getEntitiesForSelectFacilityCommand;
+		public ICommand SelectFacilityCommand { get; }
+		public ICommand ClearFacilityCommand { get; }
+
+		private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
+		public ICommand SelectPaymentConditionSetCommand { get; }
+		public ICommand ClearPaymentConditionSetCommand { get; }
+
 
         public SalesUnitDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-          _getEntitiesForSelectFacilityCommand = async () => { return await UnitOfWork.GetRepository<Facility>().GetAllAsync(); };
-			SelectFacilityCommand = new DelegateCommand(SelectFacilityCommand_Execute);
-			ClearFacilityCommand = new DelegateCommand(ClearFacilityCommand_Execute);
-
           _getEntitiesForSelectProducerCommand = async () => { return await UnitOfWork.GetRepository<Company>().GetAllAsync(); };
 			SelectProducerCommand = new DelegateCommand(SelectProducerCommand_Execute);
 			ClearProducerCommand = new DelegateCommand(ClearProducerCommand_Execute);
-
-          _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };
-			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
-			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
 
           _getEntitiesForSelectOrderCommand = async () => { return await UnitOfWork.GetRepository<Order>().GetAllAsync(); };
 			SelectOrderCommand = new DelegateCommand(SelectOrderCommand_Execute);
@@ -874,19 +906,21 @@ namespace HVTApp.UI.ViewModels
 			SelectAddressCommand = new DelegateCommand(SelectAddressCommand_Execute);
 			ClearAddressCommand = new DelegateCommand(ClearAddressCommand_Execute);
 
+          _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };
+			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
+			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
+
+          _getEntitiesForSelectFacilityCommand = async () => { return await UnitOfWork.GetRepository<Facility>().GetAllAsync(); };
+			SelectFacilityCommand = new DelegateCommand(SelectFacilityCommand_Execute);
+			ClearFacilityCommand = new DelegateCommand(ClearFacilityCommand_Execute);
+
+          _getEntitiesForSelectPaymentConditionSetCommand = async () => { return await UnitOfWork.GetRepository<PaymentConditionSet>().GetAllAsync(); };
+			SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute);
+			ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute);
+
 
 			InitGetMethods();
 		}
-		private async void SelectFacilityCommand_Execute() 
-		{
-            SelectAndSetWrapper<Facility, FacilityWrapper>(await _getEntitiesForSelectFacilityCommand(), nameof(Item.Facility), Item.Facility?.Id);
-		}
-
-		private void ClearFacilityCommand_Execute() 
-		{
-		    Item.Facility = null;
-		}
-
 		private async void SelectProducerCommand_Execute() 
 		{
             SelectAndSetWrapper<Company, CompanyWrapper>(await _getEntitiesForSelectProducerCommand(), nameof(Item.Producer), Item.Producer?.Id);
@@ -895,16 +929,6 @@ namespace HVTApp.UI.ViewModels
 		private void ClearProducerCommand_Execute() 
 		{
 		    Item.Producer = null;
-		}
-
-		private async void SelectProductCommand_Execute() 
-		{
-            SelectAndSetWrapper<Product, ProductWrapper>(await _getEntitiesForSelectProductCommand(), nameof(Item.Product), Item.Product?.Id);
-		}
-
-		private void ClearProductCommand_Execute() 
-		{
-		    Item.Product = null;
 		}
 
 		private async void SelectOrderCommand_Execute() 
@@ -929,12 +953,12 @@ namespace HVTApp.UI.ViewModels
 
 		private async void SelectPaymentsConditionSetCommand_Execute() 
 		{
-            SelectAndSetWrapper<PaymentConditionSet, PaymentConditionSetWrapper>(await _getEntitiesForSelectPaymentsConditionSetCommand(), nameof(Item.PaymentsConditionSet), Item.PaymentsConditionSet?.Id);
+            SelectAndSetWrapper<PaymentConditionSet, PaymentConditionSetWrapper>(await _getEntitiesForSelectPaymentsConditionSetCommand(), nameof(Item.PaymentConditionSet), Item.PaymentConditionSet?.Id);
 		}
 
 		private void ClearPaymentsConditionSetCommand_Execute() 
 		{
-		    Item.PaymentsConditionSet = null;
+		    Item.PaymentConditionSet = null;
 		}
 
 		private async void SelectAddressCommand_Execute() 
@@ -945,6 +969,36 @@ namespace HVTApp.UI.ViewModels
 		private void ClearAddressCommand_Execute() 
 		{
 		    Item.Address = null;
+		}
+
+		private async void SelectProductCommand_Execute() 
+		{
+            SelectAndSetWrapper<Product, ProductWrapper>(await _getEntitiesForSelectProductCommand(), nameof(Item.Product), Item.Product?.Id);
+		}
+
+		private void ClearProductCommand_Execute() 
+		{
+		    Item.Product = null;
+		}
+
+		private async void SelectFacilityCommand_Execute() 
+		{
+            SelectAndSetWrapper<Facility, FacilityWrapper>(await _getEntitiesForSelectFacilityCommand(), nameof(Item.Facility), Item.Facility?.Id);
+		}
+
+		private void ClearFacilityCommand_Execute() 
+		{
+		    Item.Facility = null;
+		}
+
+		private async void SelectPaymentConditionSetCommand_Execute() 
+		{
+            SelectAndSetWrapper<PaymentConditionSet, PaymentConditionSetWrapper>(await _getEntitiesForSelectPaymentConditionSetCommand(), nameof(Item.PaymentConditionSet), Item.PaymentConditionSet?.Id);
+		}
+
+		private void ClearPaymentConditionSetCommand_Execute() 
+		{
+		    Item.PaymentConditionSet = null;
 		}
 
 

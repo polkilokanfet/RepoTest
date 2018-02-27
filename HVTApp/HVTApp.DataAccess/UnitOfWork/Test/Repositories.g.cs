@@ -63,6 +63,16 @@ namespace HVTApp.DataAccess
         public DescribeProductBlockTaskRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class NoteRepositoryTest : TestBaseRepository<Note>, INoteRepository
+    {
+        public NoteRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class OfferUnitRepositoryTest : TestBaseRepository<OfferUnit>, IOfferUnitRepository
+    {
+        public OfferUnitRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class PaymentConditionSetRepositoryTest : TestBaseRepository<PaymentConditionSet>, IPaymentConditionSetRepository
     {
         public PaymentConditionSetRepositoryTest(TestData testData) : base(testData) {}
@@ -143,14 +153,14 @@ namespace HVTApp.DataAccess
         public PersonRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class PaymentPlannedRepositoryTest : TestBaseRepository<PaymentPlannedList>, IPaymentPlannedRepository
+    public partial class PaymentPlannedListRepositoryTest : TestBaseRepository<PaymentPlannedList>, IPaymentPlannedListRepository
     {
-        public PaymentPlannedRepositoryTest(TestData testData) : base(testData) {}
+        public PaymentPlannedListRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class PaymentPlannedPartRepositoryTest : TestBaseRepository<PaymentPlanned>, IPaymentPlannedPartRepository
+    public partial class PaymentPlannedRepositoryTest : TestBaseRepository<PaymentPlanned>, IPaymentPlannedRepository
     {
-        public PaymentPlannedPartRepositoryTest(TestData testData) : base(testData) {}
+        public PaymentPlannedRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class PaymentActualRepositoryTest : TestBaseRepository<PaymentActual>, IPaymentActualRepository

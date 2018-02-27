@@ -25,6 +25,8 @@ namespace HVTApp.DataAccess
             CurrencyRepository = new CurrencyRepository(context);
             CurrencyExchangeRateRepository = new CurrencyExchangeRateRepository(context);
             DescribeProductBlockTaskRepository = new DescribeProductBlockTaskRepository(context);
+            NoteRepository = new NoteRepository(context);
+            OfferUnitRepository = new OfferUnitRepository(context);
             PaymentConditionSetRepository = new PaymentConditionSetRepository(context);
             ProductBlockRepository = new ProductBlockRepository(context);
             SalesBlockRepository = new SalesBlockRepository(context);
@@ -41,8 +43,8 @@ namespace HVTApp.DataAccess
             ParameterGroupRepository = new ParameterGroupRepository(context);
             ProductRelationRepository = new ProductRelationRepository(context);
             PersonRepository = new PersonRepository(context);
+            PaymentPlannedListRepository = new PaymentPlannedListRepository(context);
             PaymentPlannedRepository = new PaymentPlannedRepository(context);
-            PaymentPlannedPartRepository = new PaymentPlannedPartRepository(context);
             PaymentActualRepository = new PaymentActualRepository(context);
             ParameterRelationRepository = new ParameterRelationRepository(context);
             SalesUnitRepository = new SalesUnitRepository(context);
@@ -86,6 +88,8 @@ namespace HVTApp.DataAccess
         private ICurrencyRepository CurrencyRepository;
         private ICurrencyExchangeRateRepository CurrencyExchangeRateRepository;
         private IDescribeProductBlockTaskRepository DescribeProductBlockTaskRepository;
+        private INoteRepository NoteRepository;
+        private IOfferUnitRepository OfferUnitRepository;
         private IPaymentConditionSetRepository PaymentConditionSetRepository;
         private IProductBlockRepository ProductBlockRepository;
         private ISalesBlockRepository SalesBlockRepository;
@@ -102,8 +106,8 @@ namespace HVTApp.DataAccess
         private IParameterGroupRepository ParameterGroupRepository;
         private IProductRelationRepository ProductRelationRepository;
         private IPersonRepository PersonRepository;
+        private IPaymentPlannedListRepository PaymentPlannedListRepository;
         private IPaymentPlannedRepository PaymentPlannedRepository;
-        private IPaymentPlannedPartRepository PaymentPlannedPartRepository;
         private IPaymentActualRepository PaymentActualRepository;
         private IParameterRelationRepository ParameterRelationRepository;
         private ISalesUnitRepository SalesUnitRepository;

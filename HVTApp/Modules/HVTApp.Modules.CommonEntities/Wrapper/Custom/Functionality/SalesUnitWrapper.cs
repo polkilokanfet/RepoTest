@@ -12,7 +12,7 @@ using Microsoft.Practices.ObjectBuilder2;
 namespace HVTApp.UI.Wrapper
 {
 
-    public partial class SalesUnitWrapper : IUnitGroup
+    public partial class SalesUnitWrapper : ProductCostUnitWrapper<SalesUnit>, IUnitGroup
     {
         public int Amount => 1;
 
@@ -26,37 +26,6 @@ namespace HVTApp.UI.Wrapper
             this.PaymentsActual.PropertyChanged += PaymentActualOnChanged;
 
             PriceDate = DateTime.Today;
-            this.PropertyChanged += OnPriceDateChanged;
-            this.PropertyChanged += OnCostChanged;
-            this.PropertyChanged += OnProductChanged;
-        }
-
-        private void OnPriceDateChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(PriceDate))
-            {
-                OnPropertyChanged(nameof(MarginalIncome));
-            }
-        }
-
-        private void OnProductChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(Product))
-            {
-                OnPropertyChanged(nameof(HasBlocksWithoutPrice));
-                OnPropertyChanged(nameof(MarginalIncome));
-                OnPropertyChanged(nameof(PriceErrors));
-            }
-        }
-
-        //реакция на изменение стоимости
-        private void OnCostChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(Cost))
-            {
-                OnPropertyChanged(nameof(MarginalIncome));
-                //ReloadPaymentsPlannedLight();
-            }
         }
 
         // Реакция на изменение какого-либо совершенного платежа.
@@ -96,14 +65,14 @@ namespace HVTApp.UI.Wrapper
         /// <summary>
         /// Сумама, необходимая для начала производства
         /// </summary>
-        public double SumToStartProduction => PaymentsConditionSet.PaymentConditions.Where(x =>
+        public double SumToStartProduction => PaymentConditionSet.PaymentConditions.Where(x =>
                                               x.PaymentConditionPoint == PaymentConditionPoint.ProductionStart &&
                                               x.DaysToPoint <= 0).Sum(condition => Cost * condition.Part);
 
         /// <summary>
         /// Сумма, необходимая для отгрузки
         /// </summary>
-        public double SumToShipping => PaymentsConditionSet.PaymentConditions.Where(x => (
+        public double SumToShipping => PaymentConditionSet.PaymentConditions.Where(x => (
                                         x.PaymentConditionPoint == PaymentConditionPoint.ProductionStart) ||
                                        (x.PaymentConditionPoint == PaymentConditionPoint.ProductionEnd) ||
                                        (x.PaymentConditionPoint == PaymentConditionPoint.Shipment && x.DaysToPoint <= 0)).
@@ -113,56 +82,6 @@ namespace HVTApp.UI.Wrapper
     //MarginalIncome
     public partial class SalesUnitWrapper : IUnitGroup
     {
-        private DateTime _priceDate;
-        public DateTime PriceDate
-        {
-            get { return _priceDate; }
-            set
-            {
-                if (Equals(_priceDate, value)) return;
-                _priceDate = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(Price));
-                OnPropertyChanged(nameof(MarginalIncome));
-                OnPropertyChanged(nameof(PriceErrors));
-            }
-        }
-
-        public double Price => Product.GetPrice(PriceDate) + DependentSalesUnits.Sum(dsu => dsu.Price);
-
-        public bool HasBlocksWithoutPrice => Product.GetBlocksWithoutAnyPrice().Any() || DependentSalesUnits.Any(x => x.HasBlocksWithoutPrice);
-
-        public string PriceErrors
-        {
-            get
-            {
-                var blocks = Product.GetBlocksWithoutAnyPrice();
-                string result = string.Empty;
-                foreach (var block in blocks)
-                {
-                    result += $"{block.DisplayMember} has no price!!!; ";
-                }
-
-                blocks = Product.GetBlocksWithoutActualPriceOnDate(PriceDate);
-                foreach (var block in blocks)
-                {
-                    result += $"{block.DisplayMember} has no actual price; ";
-                }
-                return result;
-            }
-        }
-
-        public double MarginalIncome
-        {
-            get { return (Math.Abs(Cost) > 0.0001) ? 100 * (Cost - Price) / Cost : 0; }
-            set
-            {
-                if (Equals(MarginalIncome, value)) return;
-                if (Math.Abs(value - 100) < 0.001) return;
-                Cost = Price / (100 - value) * 100;
-                OnPropertyChanged();
-            }
-        }
     }
 
     //Dates
@@ -214,7 +133,7 @@ namespace HVTApp.UI.Wrapper
                 //по дате первого платежа
                 if (PaymentsActual.Any()) return PaymentsActual.OrderBy(x => x.Date).First().Date;
 
-                var productionTerm = this.PlannedTermFromStartToEndProduction ?? CommonOptions.StandartTermFromStartToEndProduction;
+                var productionTerm = this.ProductionTerm ?? CommonOptions.ProductionTerm;
 
                 //по дате доставки оборудования на объект
                 if (DeliveryDate.HasValue) return DeliveryDate.Value.AddDays(-productionTerm).AddDays(-DeliveryPeriodCalculated).GetTodayIfDateFromPastAndSkipWeekend();
@@ -237,12 +156,12 @@ namespace HVTApp.UI.Wrapper
                 //по дате комплектации
                 if (PickingDate.HasValue)
                 {
-                    int days = this.PlannedTermFromPickToEndProduction ?? CommonOptions.StandartTermFromPickToEndProduction; 
+                    int days = this.AssembleTerm ?? CommonOptions.AssembleTerm; 
                     return PickingDate.Value.AddDays(days).GetTodayIfDateFromPastAndSkipWeekend();
                 }
 
                 //по сроку производства
-                int productionTerm = PlannedTermFromPickToEndProduction ?? CommonOptions.StandartTermFromStartToEndProduction;
+                int productionTerm = AssembleTerm ?? CommonOptions.ProductionTerm;
                 return StartProductionDateCalculated.AddDays(productionTerm).GetTodayIfDateFromPastAndSkipWeekend();
             }
         }
@@ -387,7 +306,7 @@ namespace HVTApp.UI.Wrapper
         {
             get
             {
-                var conditions = PaymentsConditionSet.PaymentConditions.Select(x => x.Model).OrderByDescending(x => x).ToList();
+                var conditions = PaymentConditionSet.PaymentConditions.Select(x => x.Model).OrderByDescending(x => x).ToList();
                 var result = new List<PaymentCondition>();
 
                 if (Math.Abs(Cost) < 0.0001) return result;

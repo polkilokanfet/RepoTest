@@ -7,7 +7,13 @@ namespace HVTApp.DataAccess
     {
         public SalesUnitConfiguration()
         {
-            HasMany(x => x.DependentSalesUnits).WithOptional().HasForeignKey(x => x.ParentSalesUnitId).WillCascadeOnDelete(false);
+            HasRequired(x => x.Facility).WithMany();
+            HasRequired(x => x.Product).WithMany().WillCascadeOnDelete(false);
+            HasRequired(x => x.PaymentConditionSet).WithMany().WillCascadeOnDelete(false);
+
+            HasMany(x => x.DependentProducts).WithMany();
+            Property(x => x.ProductionTerm).IsOptional();
+            Property(x => x.Cost).IsRequired();
 
             HasRequired(x => x.Facility).WithMany();
             HasOptional(x => x.Producer).WithMany();
@@ -17,8 +23,8 @@ namespace HVTApp.DataAccess
 
             Property(x => x.SerialNumber).IsOptional();
             Property(x => x.OrderPosition).IsOptional();
-            Property(x => x.PlannedTermFromStartToEndProduction).IsOptional();
-            Property(x => x.PlannedTermFromPickToEndProduction).IsOptional();
+            Property(x => x.ProductionTerm).IsOptional();
+            Property(x => x.AssembleTerm).IsOptional();
 
             Property(x => x.StartProductionDate).IsOptional();
             Property(x => x.PickingDate).IsOptional();
@@ -27,8 +33,6 @@ namespace HVTApp.DataAccess
             HasOptional(x => x.Specification).WithMany();
 
             Property(x => x.Cost).IsRequired();
-
-            HasRequired(x => x.PaymentsConditionSet).WithMany();
 
             HasMany(x => x.PaymentsActual).WithRequired().HasForeignKey(x => x.SalesUnitId);
             HasMany(x => x.PaymentsPlannedSaved).WithRequired().HasForeignKey(x => x.SalesUnitId);

@@ -122,32 +122,31 @@ namespace HVTApp.TestDataGenerator
         public Product ProductZng110;
         public Product ProductBreakersDrive;
         public Product ProductZip1;
-
-        public SalesUnit ProjectSalesUnitVeb1101;
-        public SalesUnit ProjectSalesUnitVeb1102;
-        public SalesUnit ProjectSalesUnitZng1101;
-        public SalesUnit ProjectSalesUnitZng1102;
-        public SalesUnit ProjectSalesUnitZng1103;
-        public SalesUnit ProjectSalesUnitZng1104;
-        public SalesUnit ProjectSalesUnitZng1105;
-        public SalesUnit ProjectSalesUnitZng1106;
-        public SalesUnit ProjectSalesUnitZip1;
-
-        public SalesUnit OfferSalesUnitVeb1101;
-        public SalesUnit OfferSalesUnitVeb1102;
-        public SalesUnit OfferSalesUnitZng1101;
-        public SalesUnit OfferSalesUnitZng1102;
-        public SalesUnit OfferSalesUnitZng1103;
-        public SalesUnit OfferSalesUnitZng1104;
-        public SalesUnit OfferSalesUnitZng1105;
-        public SalesUnit OfferSalesUnitZng1106;
                
+        public SalesUnit SalesUnitVeb1101Full;
+        public SalesUnit SalesUnitVeb1102Full;
+                                         
+        public SalesUnit SalesUnitZng1101Full;
+        public SalesUnit SalesUnitZng1102Full;
+        public SalesUnit SalesUnitZng1103Full;
+
         public SalesUnit SalesUnitVeb1101;
         public SalesUnit SalesUnitVeb1102;
-
         public SalesUnit SalesUnitZng1101;
         public SalesUnit SalesUnitZng1102;
         public SalesUnit SalesUnitZng1103;
+        public SalesUnit SalesUnitZng1104;
+        public SalesUnit SalesUnitZng1105;
+        public SalesUnit SalesUnitZng1106;
+
+        public OfferUnit OfferUnitVeb1101;
+        public OfferUnit OfferUnitVeb1102;
+        public OfferUnit OfferUnitZng1101;
+        public OfferUnit OfferUnitZng1102;
+        public OfferUnit OfferUnitZng1103;
+        public OfferUnit OfferUnitZng1104;
+        public OfferUnit OfferUnitZng1105;
+        public OfferUnit OfferUnitZng1106;
                                 
         public Offer OfferMrsk;
                                
@@ -287,20 +286,25 @@ namespace HVTApp.TestDataGenerator
             ProjectSubstation.Clone(new Project {Name = "Реконструкция ПС Первая", Manager = UserIvanov});
             ProjectSubstation.SalesUnits = new List<SalesUnit>(new[]
             {
-                ProjectSalesUnitVeb1101,
-                ProjectSalesUnitVeb1102,
-                ProjectSalesUnitZng1101,
-                ProjectSalesUnitZng1102,
-                ProjectSalesUnitZng1103
+                SalesUnitVeb1101,
+                SalesUnitVeb1102,
+                SalesUnitZng1101,
+                SalesUnitZng1102,
+                SalesUnitZng1103
             });
 
             ProjectStation.Clone(new Project {Name = "Строительство Свердловской ТЭЦ", Manager = UserIvanov});
             ProjectStation.SalesUnits = new List<SalesUnit>(new[]
             {
-                ProjectSalesUnitZng1104,
-                ProjectSalesUnitZng1105,
-                ProjectSalesUnitZng1106
-            });
+                SalesUnitZng1104,
+                SalesUnitZng1105,
+                SalesUnitZng1106,
+                SalesUnitVeb1101Full,
+                SalesUnitVeb1102Full,
+                SalesUnitZng1101Full,
+                SalesUnitZng1102Full,
+                SalesUnitZng1103Full
+        });
 
         }
 
@@ -462,49 +466,51 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateSalesUnits()
         {
-            SalesUnitVeb1101.Clone(new SalesUnit {Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "1", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentsConditionSet = PaymentConditionSet50Na50, Address = AddressOfSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation});
-            SalesUnitVeb1102.Clone(new SalesUnit {Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "2", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentsConditionSet = PaymentConditionSet50Na50, Address = AddressOfSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation}); 
+            SalesUnitVeb1101Full.Clone(new SalesUnit {Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "1", ProductionTerm = 90, AssembleTerm = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50, Address = AddressOfSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation, DependentProducts = new List<Product> {ProductZip1} });
+            SalesUnitVeb1102Full.Clone(new SalesUnit {Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "2", ProductionTerm = 90, AssembleTerm = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50, Address = AddressOfSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation}); 
+                            
+            SalesUnitZng1101Full.Clone(new SalesUnit {Product = ProductZng110, Order = OrderZng110, SerialNumber = "5", ProductionTerm = 90, AssembleTerm = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50,  Address = AddressOfSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation}); 
+            SalesUnitZng1102Full.Clone(new SalesUnit {Product = ProductZng110, Order = OrderZng110, SerialNumber = "6", ProductionTerm = 90, AssembleTerm = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50,  Address = AddressOfSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation}); 
+            SalesUnitZng1103Full.Clone(new SalesUnit {Product = ProductZng110, Order = OrderZng110, SerialNumber = "7", ProductionTerm = 90, AssembleTerm = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50,  Address = AddressOfSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation});
 
-            SalesUnitZng1101.Clone(new SalesUnit {Product = ProductZng110, Order = OrderZng110, SerialNumber = "5", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentsConditionSet = PaymentConditionSet50Na50,  Address = AddressOfSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation}); 
-            SalesUnitZng1102.Clone(new SalesUnit {Product = ProductZng110, Order = OrderZng110, SerialNumber = "6", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentsConditionSet = PaymentConditionSet50Na50,  Address = AddressOfSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation}); 
-            SalesUnitZng1103.Clone(new SalesUnit {Product = ProductZng110, Order = OrderZng110, SerialNumber = "7", PlannedTermFromStartToEndProduction = 90, PlannedTermFromPickToEndProduction = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentsConditionSet = PaymentConditionSet50Na50,  Address = AddressOfSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation});
+            SalesUnitVeb1101.Clone(new SalesUnit {Product = ProductVeb110, Cost = 3000000, Producer = CompanyUetm, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200)}); ;
+            SalesUnitVeb1102.Clone(new SalesUnit {Product = ProductVeb110, Cost = 3000000, Producer = CompanyUetm, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200)});;
 
-            ProjectSalesUnitVeb1101.Clone(new SalesUnit {Product = ProductVeb110, Cost = 3000000, Producer = CompanyUetm, PaymentsConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200)}); ;
-            ProjectSalesUnitVeb1102.Clone(new SalesUnit {Product = ProductVeb110, Cost = 3000000, Producer = CompanyUetm, PaymentsConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200)});;
+            SalesUnitZng1101.Clone(new SalesUnit {Product = ProductZng110, Cost = 500000 , Producer = CompanyUetm, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200)});
+            SalesUnitZng1102.Clone(new SalesUnit {Product = ProductZng110, Cost = 500000 , Producer = CompanyUetm, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200)});
+            SalesUnitZng1103.Clone(new SalesUnit {Product = ProductZng110, Cost = 500000 , Producer = CompanyUetm, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200)});
+            SalesUnitZng1104.Clone(new SalesUnit {Product = ProductZng110, Cost = 500000 , Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200), PaymentConditionSet = PaymentConditionSet50Na50});
+            SalesUnitZng1105.Clone(new SalesUnit {Product = ProductZng110, Cost = 500000 , Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200), PaymentConditionSet = PaymentConditionSet50Na50});
+            SalesUnitZng1106.Clone(new SalesUnit {Product = ProductZng110, Cost = 500000, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200), PaymentConditionSet = PaymentConditionSet50Na50 });
 
-            ProjectSalesUnitZng1101.Clone(new SalesUnit {Product = ProductZng110, Cost = 500000 , Producer = CompanyUetm, PaymentsConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200)});
-            ProjectSalesUnitZng1102.Clone(new SalesUnit {Product = ProductZng110, Cost = 500000 , Producer = CompanyUetm, PaymentsConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200)});
-            ProjectSalesUnitZng1103.Clone(new SalesUnit {Product = ProductZng110, Cost = 500000 , Producer = CompanyUetm, PaymentsConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200)});
-            ProjectSalesUnitZng1104.Clone(new SalesUnit {Product = ProductZng110, Cost = 500000 , Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200), PaymentsConditionSet = PaymentConditionSet50Na50});
-            ProjectSalesUnitZng1105.Clone(new SalesUnit {Product = ProductZng110, Cost = 500000 , Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200), PaymentsConditionSet = PaymentConditionSet50Na50});
-            ProjectSalesUnitZng1106.Clone(new SalesUnit { Product = ProductZng110, Cost = 500000, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200), PaymentsConditionSet = PaymentConditionSet50Na50 });
+        }
 
-            ProjectSalesUnitZip1.Clone(new SalesUnit { Product = ProductZip1, Cost = 0, ParentSalesUnitId = ProjectSalesUnitVeb1101.Id, Producer = CompanyUetm, PaymentsConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200) }); ;
-
-            OfferSalesUnitVeb1101.Clone(new SalesUnit {Product = ProductVeb110, Cost = 3100000, PlannedTermFromStartToEndProduction = 120, PaymentsConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation});
-            OfferSalesUnitVeb1102.Clone(new SalesUnit {Product = ProductVeb110, Cost = 3100000, PlannedTermFromStartToEndProduction = 120, PaymentsConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation});
-                                                                                                 
-            OfferSalesUnitZng1101.Clone(new SalesUnit {Product = ProductZng110, Cost = 5500000, PlannedTermFromStartToEndProduction = 150, PaymentsConditionSet = PaymentConditionSet30Na70, Facility = FacilitySubstation});
-            OfferSalesUnitZng1102.Clone(new SalesUnit {Product = ProductZng110, Cost = 5500000, PlannedTermFromStartToEndProduction = 150, PaymentsConditionSet = PaymentConditionSet30Na70, Facility = FacilitySubstation});
-            OfferSalesUnitZng1103.Clone(new SalesUnit {Product = ProductZng110, Cost = 5500000, PlannedTermFromStartToEndProduction = 150, PaymentsConditionSet = PaymentConditionSet30Na70, Facility = FacilitySubstation});
-            OfferSalesUnitZng1104.Clone(new SalesUnit {Product = ProductZng110, Cost = 5500000, PlannedTermFromStartToEndProduction = 150, PaymentsConditionSet = PaymentConditionSet30Na70, Facility = FacilitySubstation});
-            OfferSalesUnitZng1105.Clone(new SalesUnit {Product = ProductZng110, Cost = 5500000, PlannedTermFromStartToEndProduction = 150, PaymentsConditionSet = PaymentConditionSet30Na70, Facility = FacilitySubstation});
-            OfferSalesUnitZng1106.Clone(new SalesUnit {Product = ProductZng110, Cost = 5500000, PlannedTermFromStartToEndProduction = 150, PaymentsConditionSet = PaymentConditionSet30Na70, Facility = FacilitySubstation});
+        private void GenerateOfferUnits()
+        {
+            OfferUnitVeb1101.Clone(new OfferUnit {Product = ProductVeb110, Cost = 3100000, ProductionTerm = 120, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation});
+            OfferUnitVeb1102.Clone(new OfferUnit {Product = ProductVeb110, Cost = 3100000, ProductionTerm = 120, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation});
+                                                                                       
+            OfferUnitZng1101.Clone(new OfferUnit {Product = ProductZng110, Cost = 550000, ProductionTerm = 150, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation});
+            OfferUnitZng1102.Clone(new OfferUnit {Product = ProductZng110, Cost = 550000, ProductionTerm = 150, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation});
+            OfferUnitZng1103.Clone(new OfferUnit {Product = ProductZng110, Cost = 550000, ProductionTerm = 150, PaymentConditionSet = PaymentConditionSet30Na70, Facility = FacilitySubstation});
+            OfferUnitZng1104.Clone(new OfferUnit {Product = ProductZng110, Cost = 550000, ProductionTerm = 150, PaymentConditionSet = PaymentConditionSet30Na70, Facility = FacilitySubstation});
+            OfferUnitZng1105.Clone(new OfferUnit {Product = ProductZng110, Cost = 550000, ProductionTerm = 150, PaymentConditionSet = PaymentConditionSet30Na70, Facility = FacilitySubstation});
+            OfferUnitZng1106.Clone(new OfferUnit {Product = ProductZng110, Cost = 550000, ProductionTerm = 150, PaymentConditionSet = PaymentConditionSet30Na70, Facility = FacilitySubstation});
         }
 
         private void GenerateOffers()
         {
             OfferMrsk.Clone(new Offer {Vat = 0.18, Project = ProjectSubstation, ValidityDate = DateTime.Today.AddDays(60), Author = EmployeeIvanov, SenderEmployee = EmployeeIvanov, RecipientEmployee = EmployeeSidorov, CopyToRecipients = new List<Employee> {EmployeePetrov}, RegistrationDetailsOfSender = new DocumentsRegistrationDetails {RegistrationNumber = "7412-17-0212", RegistrationDate = DateTime.Today}, RegistrationDetailsOfRecipient = new DocumentsRegistrationDetails {RegistrationNumber = "12f455", RegistrationDate = DateTime.Today.AddDays(-3)}});
-            OfferMrsk.SalesUnits = new List<SalesUnit>(new []
+            OfferMrsk.OfferUnits = new List<OfferUnit>(new []
             {
-               OfferSalesUnitVeb1101,
-               OfferSalesUnitVeb1102,
-               OfferSalesUnitZng1101,
-               OfferSalesUnitZng1102,
-               OfferSalesUnitZng1103,
-               OfferSalesUnitZng1104,
-               OfferSalesUnitZng1105,
-               OfferSalesUnitZng1106
+               OfferUnitVeb1101,
+               OfferUnitVeb1102,
+               OfferUnitZng1101,
+               OfferUnitZng1102,
+               OfferUnitZng1103,
+               OfferUnitZng1104,
+               OfferUnitZng1105,
+               OfferUnitZng1106
             });
         }
 

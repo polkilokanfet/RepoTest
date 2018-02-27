@@ -23,8 +23,8 @@
                     <infg:TextField Name="SerialNumber" Label="SerialNumber" Width="Auto"/>
                     <infg:TextField Name="Id" Label="Id" Width="Auto"/>
 
-                    <infg:NumericField Name="PlannedTermFromStartToEndProduction" Label="PlannedTermFromStartToEndProduction" Width="Auto"/>
-                    <infg:NumericField Name="PlannedTermFromPickToEndProduction" Label="PlannedTermFromPickToEndProduction" Width="Auto"/>
+                    <infg:NumericField Name="ProductionTerm" Label="ProductionTerm" Width="Auto"/>
+                    <infg:NumericField Name="AssembleTerm" Label="AssembleTerm" Width="Auto"/>
                     <infg:NumericField Name="Cost" Label="Cost" Width="Auto"/>
                     <infg:NumericField Name="ExpectedDeliveryPeriod" Label="ExpectedDeliveryPeriod" Width="Auto"/>
                     <infg:NumericField Name="CostOfShipment" Label="CostOfShipment" Width="Auto"/>

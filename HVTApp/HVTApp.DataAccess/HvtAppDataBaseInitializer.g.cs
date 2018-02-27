@@ -24,6 +24,8 @@ namespace HVTApp.DataAccess
             context.CurrencyDbSet.AddRange(testData.GetAll<Currency>());
             context.CurrencyExchangeRateDbSet.AddRange(testData.GetAll<CurrencyExchangeRate>());
             context.DescribeProductBlockTaskDbSet.AddRange(testData.GetAll<DescribeProductBlockTask>());
+            context.NoteDbSet.AddRange(testData.GetAll<Note>());
+            context.OfferUnitDbSet.AddRange(testData.GetAll<OfferUnit>());
             context.PaymentConditionSetDbSet.AddRange(testData.GetAll<PaymentConditionSet>());
             context.ProductBlockDbSet.AddRange(testData.GetAll<ProductBlock>());
             context.SalesBlockDbSet.AddRange(testData.GetAll<SalesBlock>());
@@ -40,8 +42,8 @@ namespace HVTApp.DataAccess
             context.ParameterGroupDbSet.AddRange(testData.GetAll<ParameterGroup>());
             context.ProductRelationDbSet.AddRange(testData.GetAll<ProductRelation>());
             context.PersonDbSet.AddRange(testData.GetAll<Person>());
-            context.PaymentPlannedDbSet.AddRange(testData.GetAll<PaymentPlannedList>());
-            context.PaymentPlannedPartDbSet.AddRange(testData.GetAll<PaymentPlanned>());
+            context.PaymentPlannedListDbSet.AddRange(testData.GetAll<PaymentPlannedList>());
+            context.PaymentPlannedDbSet.AddRange(testData.GetAll<PaymentPlanned>());
             context.PaymentActualDbSet.AddRange(testData.GetAll<PaymentActual>());
             context.ParameterRelationDbSet.AddRange(testData.GetAll<ParameterRelation>());
             context.SalesUnitDbSet.AddRange(testData.GetAll<SalesUnit>());

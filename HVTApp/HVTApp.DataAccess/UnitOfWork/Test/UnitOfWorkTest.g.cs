@@ -19,6 +19,8 @@ namespace HVTApp.DataAccess
             CurrencyRepository = new CurrencyRepositoryTest(testData);
             CurrencyExchangeRateRepository = new CurrencyExchangeRateRepositoryTest(testData);
             DescribeProductBlockTaskRepository = new DescribeProductBlockTaskRepositoryTest(testData);
+            NoteRepository = new NoteRepositoryTest(testData);
+            OfferUnitRepository = new OfferUnitRepositoryTest(testData);
             PaymentConditionSetRepository = new PaymentConditionSetRepositoryTest(testData);
             ProductBlockRepository = new ProductBlockRepositoryTest(testData);
             SalesBlockRepository = new SalesBlockRepositoryTest(testData);
@@ -35,8 +37,8 @@ namespace HVTApp.DataAccess
             ParameterGroupRepository = new ParameterGroupRepositoryTest(testData);
             ProductRelationRepository = new ProductRelationRepositoryTest(testData);
             PersonRepository = new PersonRepositoryTest(testData);
+            PaymentPlannedListRepository = new PaymentPlannedListRepositoryTest(testData);
             PaymentPlannedRepository = new PaymentPlannedRepositoryTest(testData);
-            PaymentPlannedPartRepository = new PaymentPlannedPartRepositoryTest(testData);
             PaymentActualRepository = new PaymentActualRepositoryTest(testData);
             ParameterRelationRepository = new ParameterRelationRepositoryTest(testData);
             SalesUnitRepository = new SalesUnitRepositoryTest(testData);
@@ -80,6 +82,8 @@ namespace HVTApp.DataAccess
         public ICurrencyRepository CurrencyRepository { get; }
         public ICurrencyExchangeRateRepository CurrencyExchangeRateRepository { get; }
         public IDescribeProductBlockTaskRepository DescribeProductBlockTaskRepository { get; }
+        public INoteRepository NoteRepository { get; }
+        public IOfferUnitRepository OfferUnitRepository { get; }
         public IPaymentConditionSetRepository PaymentConditionSetRepository { get; }
         public IProductBlockRepository ProductBlockRepository { get; }
         public ISalesBlockRepository SalesBlockRepository { get; }
@@ -96,8 +100,8 @@ namespace HVTApp.DataAccess
         public IParameterGroupRepository ParameterGroupRepository { get; }
         public IProductRelationRepository ProductRelationRepository { get; }
         public IPersonRepository PersonRepository { get; }
+        public IPaymentPlannedListRepository PaymentPlannedListRepository { get; }
         public IPaymentPlannedRepository PaymentPlannedRepository { get; }
-        public IPaymentPlannedPartRepository PaymentPlannedPartRepository { get; }
         public IPaymentActualRepository PaymentActualRepository { get; }
         public IParameterRelationRepository ParameterRelationRepository { get; }
         public ISalesUnitRepository SalesUnitRepository { get; }

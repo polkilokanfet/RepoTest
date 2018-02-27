@@ -14,7 +14,7 @@ namespace HVTApp.UI.ViewModels
         {
             await Task.Factory.StartNew(() =>
             {
-                OfferUnits.AddRange(Item.SalesUnits.ToUnitGroups());
+                //OfferUnits.AddRange(Item.SalesUnits.ToUnitGroups());
             });
         }
     }

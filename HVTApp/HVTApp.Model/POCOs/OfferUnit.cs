@@ -7,10 +7,12 @@ namespace HVTApp.Model.POCOs
     public class OfferUnit : BaseEntity, IProductCostUnit
     {
         public double Cost { get; set; }
-        public Product Product { get; set; }
-        public List<Product> DependentProducts { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual List<Product> DependentProducts { get; set; } = new List<Product>();
 
         public virtual Facility Facility { get; set; }
+        public virtual PaymentConditionSet PaymentConditionSet { get; set; }
+        public int? ProductionTerm { get; set; }
     }
 
     public interface IProductCostUnit : IBaseEntity

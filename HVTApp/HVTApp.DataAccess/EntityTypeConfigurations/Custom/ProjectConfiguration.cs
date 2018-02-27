@@ -9,7 +9,7 @@ namespace HVTApp.DataAccess
         {
             Property(x => x.Name).IsRequired().HasMaxLength(100);
             HasRequired(x => x.Manager).WithMany();
-            HasMany(x => x.SalesUnits).WithRequired();
+            HasMany(x => x.SalesUnits).WithRequired().WillCascadeOnDelete(false);
             HasMany(x => x.Notes).WithRequired();
         }
     }

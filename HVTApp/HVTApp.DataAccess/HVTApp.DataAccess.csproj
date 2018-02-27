@@ -73,6 +73,8 @@
     <Compile Include="EntityTypeConfigurations\Custom\ContractConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\FacilityConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\FacilityTypeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\OfferUnitConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\PaymentPlannedConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PaymentPlannedPartConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductBlockConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TenderTypeConfiguration.cs" />
@@ -100,7 +102,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\ProductConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductItemConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\OrderConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\PaymentPlannedConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\PaymentPlannedListConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\SalesUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\RequiredDependentEquipmentsParametersConfiguration.cs" />
     <Compile Include="HvtAppDataBaseInitializer.g.cs" />

@@ -5,13 +5,19 @@ using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Model.POCOs
 {
-    public partial class SalesUnit : BaseEntity
+    //Project information
+    public partial class SalesUnit : BaseEntity, IProductCostUnit
     {
-        public Guid? ParentSalesUnitId { get; set; }
-        public virtual List<SalesUnit> DependentSalesUnits { get; set; } = new List<SalesUnit>();
+        public double Cost { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual List<Product> DependentProducts { get; set; } = new List<Product>();
+
         public virtual Facility Facility { get; set; }
-        public virtual DateTime DeliveryDateExpected { get; set; } =
-            DateTime.Today.AddDays(CommonOptions.StandartTermFromStartToEndProduction + 30).SkipWeekend(); //требуемая дата поставки
+        public virtual PaymentConditionSet PaymentConditionSet { get; set; }
+        public int? ProductionTerm { get; set; }
+
+
+        public virtual DateTime DeliveryDateExpected { get; set; } = DateTime.Today.AddDays(CommonOptions.ProductionTerm + 30).SkipWeekend(); //требуемая дата поставки
         public virtual Company Producer { get; set; }
         public virtual DateTime? RealizationDate { get; set; }
 
@@ -22,15 +28,13 @@ namespace HVTApp.Model.POCOs
     }
 
     //Production information
-    public partial class SalesUnit : BaseEntity
+    public partial class SalesUnit 
     {
-        public virtual Product Product { get; set; }
         public virtual Order Order { get; set; }
         public string OrderPosition { get; set; }
         public string SerialNumber { get; set; }
 
-        public int? PlannedTermFromStartToEndProduction { get; set; }
-        public int? PlannedTermFromPickToEndProduction { get; set; }
+        public int? AssembleTerm { get; set; }
 
         public DateTime? StartProductionDate { get; set; }
         public DateTime? PickingDate { get; set; }
@@ -38,20 +42,16 @@ namespace HVTApp.Model.POCOs
     }
 
     //Commersial information
-    public partial class SalesUnit : BaseEntity
+    public partial class SalesUnit 
     {
-        public double Cost { get; set; }
-
         public virtual Specification Specification { get; set; }
-
-        public virtual PaymentConditionSet PaymentsConditionSet { get; set; }
 
         public virtual List<PaymentActual> PaymentsActual { get; set; } = new List<PaymentActual>();
         public virtual List<PaymentPlannedList> PaymentsPlannedSaved { get; set; } = new List<PaymentPlannedList>();
     }
 
     //Shipment information
-    public partial class SalesUnit : BaseEntity
+    public partial class SalesUnit 
     {
         public int? ExpectedDeliveryPeriod { get; set; }
         public virtual Address Address { get; set; }

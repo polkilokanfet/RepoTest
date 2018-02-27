@@ -15,6 +15,8 @@ namespace HVTApp.DataAccess
     public partial interface ICurrencyRepository : IRepository<Currency> { }
     public partial interface ICurrencyExchangeRateRepository : IRepository<CurrencyExchangeRate> { }
     public partial interface IDescribeProductBlockTaskRepository : IRepository<DescribeProductBlockTask> { }
+    public partial interface INoteRepository : IRepository<Note> { }
+    public partial interface IOfferUnitRepository : IRepository<OfferUnit> { }
     public partial interface IPaymentConditionSetRepository : IRepository<PaymentConditionSet> { }
     public partial interface IProductBlockRepository : IRepository<ProductBlock> { }
     public partial interface ISalesBlockRepository : IRepository<SalesBlock> { }
@@ -31,8 +33,8 @@ namespace HVTApp.DataAccess
     public partial interface IParameterGroupRepository : IRepository<ParameterGroup> { }
     public partial interface IProductRelationRepository : IRepository<ProductRelation> { }
     public partial interface IPersonRepository : IRepository<Person> { }
-    public partial interface IPaymentPlannedRepository : IRepository<PaymentPlannedList> { }
-    public partial interface IPaymentPlannedPartRepository : IRepository<PaymentPlanned> { }
+    public partial interface IPaymentPlannedListRepository : IRepository<PaymentPlannedList> { }
+    public partial interface IPaymentPlannedRepository : IRepository<PaymentPlanned> { }
     public partial interface IPaymentActualRepository : IRepository<PaymentActual> { }
     public partial interface IParameterRelationRepository : IRepository<ParameterRelation> { }
     public partial interface ISalesUnitRepository : IRepository<SalesUnit> { }

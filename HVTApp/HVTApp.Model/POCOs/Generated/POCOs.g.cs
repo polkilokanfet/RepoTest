@@ -41,10 +41,44 @@ namespace HVTApp.Model.POCOs
 		public virtual Guid? ProductBlockId { get; set; }
 	}
 
+	public partial class Cost
+	{
+		public virtual Guid? CurrencyId { get; set; }
+	}
+
+	public partial class Currency
+	{
+	}
+
+	public partial class CurrencyExchangeRate
+	{
+		public virtual Guid? FirstCurrencyId { get; set; }
+		public virtual Guid? SecondCurrencyId { get; set; }
+	}
+
 	public partial class DescribeProductBlockTask
 	{
 		public virtual Guid? ProductBlockId { get; set; }
 		public virtual Guid? ProductId { get; set; }
+	}
+
+	public partial class Note
+	{
+	}
+
+	public partial class OfferUnit
+	{
+		public virtual Guid? ProductId { get; set; }
+		public virtual Guid? FacilityId { get; set; }
+		public virtual Guid? PaymentConditionSetId { get; set; }
+	}
+
+	public partial class PaymentConditionSet
+	{
+	}
+
+	public partial class ProductBlock
+	{
 	}
 
 	public partial class SalesBlock
@@ -110,9 +144,13 @@ namespace HVTApp.Model.POCOs
 	{
 	}
 
-	public partial class PaymentPlanned
+	public partial class PaymentPlannedList
 	{
 		public virtual Guid? ConditionId { get; set; }
+	}
+
+	public partial class PaymentPlanned
+	{
 	}
 
 	public partial class PaymentActual
@@ -187,21 +225,6 @@ namespace HVTApp.Model.POCOs
 	{
 	}
 
-	public partial class Cost
-	{
-		public virtual Guid? CurrencyId { get; set; }
-	}
-
-	public partial class Currency
-	{
-	}
-
-	public partial class CurrencyExchangeRate
-	{
-		public virtual Guid? FirstCurrencyId { get; set; }
-		public virtual Guid? SecondCurrencyId { get; set; }
-	}
-
 	public partial class Product
 	{
 		public virtual Guid? ProductBlockId { get; set; }
@@ -220,6 +243,7 @@ namespace HVTApp.Model.POCOs
 
 	public partial class Employee
 	{
+		public virtual Guid? PersonId { get; set; }
 		public virtual Guid? CompanyId { get; set; }
 		public virtual Guid? PositionId { get; set; }
 	}
@@ -270,14 +294,6 @@ namespace HVTApp.Model.POCOs
 	public partial class User
 	{
 		public virtual Guid? EmployeeId { get; set; }
-	}
-
-	public partial class ProductBlock
-	{
-	}
-
-	public partial class PaymentConditionSet
-	{
 	}
 
 }

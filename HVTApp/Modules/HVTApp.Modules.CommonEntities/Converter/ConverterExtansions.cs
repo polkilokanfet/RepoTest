@@ -14,7 +14,7 @@ namespace HVTApp.UI.Converter
                 productId = x.Model.Product.Id,
                 facilityId = x.Model.Facility.Id,
                 cost = x.Model.Cost,
-                dependentProducts = x.DependentSalesUnits.Sum(su => su.Product.Id.GetHashCode())
+                dependentProducts = x.DependentProducts.Sum(p => p.Id.GetHashCode())
             }).
             Select(x => new UnitGroup(x));
         }

@@ -56,12 +56,12 @@
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3" 
                                Value="{Binding Item.CostOfShipment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="PlannedTermFromStartToEndProduction"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="ProductionTerm"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="4"
 							   ValueType="core:Int32"
                                Value="{Binding Item.PlannedTermFromStartToEndProduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="PlannedTermFromPickToEndProduction"/>
+        <Label Grid.Column="0" Grid.Row ="5" Content="AssembleTerm"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="5"
 							   ValueType="core:Int32"
                                Value="{Binding Item.PlannedTermFromPickToEndProduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
