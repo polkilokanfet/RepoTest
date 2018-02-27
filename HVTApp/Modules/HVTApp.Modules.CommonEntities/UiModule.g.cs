@@ -180,6 +180,12 @@ namespace HVTApp.UI
             _updateDetailsService.Register<Person, PersonDetailsView>();
 
 
+            Container.RegisterViewForNavigation<PaymentPlannedListListView>();
+            //_dialogService.Register<PaymentPlannedListDetailsViewModel, PaymentPlannedListDetailsView>();
+			_selectService.Register<PaymentPlannedListListView, PaymentPlannedList>();
+            _updateDetailsService.Register<PaymentPlannedList, PaymentPlannedListDetailsView>();
+
+
             Container.RegisterViewForNavigation<PaymentPlannedListView>();
             //_dialogService.Register<PaymentPlannedDetailsViewModel, PaymentPlannedDetailsView>();
 			_selectService.Register<PaymentPlannedListView, PaymentPlanned>();

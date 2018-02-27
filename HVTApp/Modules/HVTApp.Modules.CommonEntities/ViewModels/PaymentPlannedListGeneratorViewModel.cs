@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using HVTApp.DataAccess.Annotations;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Events;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.Wrapper;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -20,87 +12,81 @@ namespace HVTApp.UI.ViewModels
 {
     public class PaymentPlannedListGeneratorViewModel : BaseListViewModel<PaymentPlanned, PaymentPlannedLookup, AfterSavePaymentPlannedEvent, AfterSelectPaymentPlannedEvent, AfterRemovePaymentPlannedEvent>
     {
-        public ObservableCollection<PaymentPlannedGroup> Payments { get; } = new ObservableCollection<PaymentPlannedGroup>();
+        private PaymentPlannedWrapper _selectedPayment;
+        public ObservableCollection<PaymentPlannedWrapper> Payments { get; } = new ObservableCollection<PaymentPlannedWrapper>();
+
+        public PaymentPlannedWrapper SelectedPayment
+        {
+            get { return _selectedPayment; }
+            set
+            {
+                _selectedPayment = value;
+                ((DelegateCommand)DevidePaymentCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)RemovePaymentCommand).RaiseCanExecuteChanged();
+            }
+        }
 
         public ICommand GeneratePaymentsCommand { get; }
-        public new ICommand NewItemCommand { get; }
+        public ICommand SaveChangesCommand { get; }
+        public ICommand DevidePaymentCommand { get; }
+        public ICommand RemovePaymentCommand { get; }
 
         public PaymentPlannedListGeneratorViewModel(IUnityContainer container) : base(container)
         {
             GeneratePaymentsCommand = new DelegateCommand(GeneratePaymentsCommand_Execute);
-            NewItemCommand = new DelegateCommand(GeneratePaymentsCommand_Execute);
+            SaveChangesCommand = new DelegateCommand(SaveChangesCommand_Execute);
+            DevidePaymentCommand = new DelegateCommand(DevidePaymentCommand_Execute, DevidePaymentCommand_CanExecute);
+            RemovePaymentCommand = new DelegateCommand(RemovePaymentCommand_Execute, RemovePaymentCommand_CanExecute);
+        }
+
+        private void RemovePaymentCommand_Execute()
+        {
+            SelectedPayment.PaymentPlannedList.Payments.Remove(SelectedPayment);
+            Payments.Remove(SelectedPayment);
+            SelectedPayment = null;
+        }
+
+        private bool RemovePaymentCommand_CanExecute()
+        {
+            return SelectedPayment != null && SelectedPayment.PaymentPlannedList.Payments.Count > 1;
+        }
+
+        private bool DevidePaymentCommand_CanExecute()
+        {
+            return SelectedPayment != null;
+        }
+
+        private void DevidePaymentCommand_Execute()
+        {
+            var newPayment = new PaymentPlanned {Date = SelectedPayment.Date};
+            var newPaymentWrapper = new PaymentPlannedWrapper(newPayment) {PaymentPlannedList = SelectedPayment.PaymentPlannedList};
+            SelectedPayment.PaymentPlannedList.Payments.Add(newPaymentWrapper);
+            Payments.Insert(Payments.IndexOf(SelectedPayment) + 1, newPaymentWrapper);
         }
 
         private async void GeneratePaymentsCommand_Execute()
         {
-            var currentPayments = await UnitOfWork.GetRepository<PaymentPlanned>().GetAllAsync();
-            UnitOfWork.GetRepository<PaymentPlanned>().DeleteRange(currentPayments);
-
-            var salesUnitWrappers = (await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync()).
-                Select(x => new SalesUnitWrapper(x)).ToList();
-            salesUnitWrappers.ForEach(x => x.ReloadPaymentsPlannedFull());
-
             var salesUnits = await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync();
+            var salesUnitWrappers = salesUnits.Select(x => new SalesUnitWrapper(x)).ToList();
 
             Payments.Clear();
-            var groups = salesUnitWrappers.SelectMany(x => x.PaymentsPlanned).
-                Select(x => new {salesUnit = salesUnits.Single(su => su.Id == x.SalesUnitId), payment = x.Model}).
-                GroupBy(x => new
+            Payments.AddRange(salesUnitWrappers.SelectMany(x => x.PaymentPlannedWrappers).OrderBy(x => x.Date));
+        }
+
+        private async void SaveChangesCommand_Execute()
+        {
+            var paymentPlannedListWrappers = Payments.Select(x => x.PaymentPlannedList).Distinct().Where(x => x.IsChanged).ToList();
+            if (!paymentPlannedListWrappers.Any()) return;
+
+            foreach (var paymentPlannedListWrapper in paymentPlannedListWrappers)
+            {
+                if (!paymentPlannedListWrapper.SalesUnit.PaymentsPlannedSaved.Contains(paymentPlannedListWrapper))
                 {
-                    productId = x.salesUnit.Product.Id,
-                    facilityId = x.salesUnit.Facility.Id,
-                    cost = x.salesUnit.Cost,
-                    date = x.payment.Date,
-                    sum = x.payment.Sum,
-                    conditionId = x.payment.Condition.Id
-                }).Select(x => new PaymentPlannedGroup(x.Select(y => y.payment), x.Select(y => y.salesUnit).First()));
-            Payments.AddRange(groups);
-        }
-    }
-
-    public class PaymentPlannedGroup : INotifyPropertyChanged
-    {
-        private readonly List<PaymentPlanned> _payments;
-
-        public PaymentPlannedGroup(IEnumerable<PaymentPlanned> payments, SalesUnit salesUnit)
-        {
-            SalesUnit = salesUnit;
-            _payments = new List<PaymentPlanned>(payments);
-        }
-
-        public SalesUnit SalesUnit { get; }
-
-        public double Sum
-        {
-            get { return _payments.Sum(x => x.Sum); }
-            set
-            {
-                _payments.ForEach(x => x.Sum = value / _payments.Count);
-                OnPropertyChanged();
+                    paymentPlannedListWrapper.SalesUnit.PaymentsPlannedSaved.Add(paymentPlannedListWrapper);
+                }
             }
-        }
 
-        public int Amount => _payments.Count;
-
-        public DateTime DateTime
-        {
-            get { return _payments.First().Date; }
-            set
-            {
-                _payments.ForEach(x => x.Date = value);
-                OnPropertyChanged();
-            }
-        }
-
-        public PaymentCondition Condition => _payments.First().Condition;
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            await UnitOfWork.SaveChangesAsync();
         }
     }
 }

@@ -31,6 +31,7 @@ namespace HVTApp.UI.Events
 	public partial class AfterSaveParameterGroupEvent : PubSubEvent<ParameterGroup> { }
 	public partial class AfterSaveProductRelationEvent : PubSubEvent<ProductRelation> { }
 	public partial class AfterSavePersonEvent : PubSubEvent<Person> { }
+	public partial class AfterSavePaymentPlannedListEvent : PubSubEvent<PaymentPlannedList> { }
 	public partial class AfterSavePaymentPlannedEvent : PubSubEvent<PaymentPlanned> { }
 	public partial class AfterSavePaymentActualEvent : PubSubEvent<PaymentActual> { }
 	public partial class AfterSaveParameterRelationEvent : PubSubEvent<ParameterRelation> { }

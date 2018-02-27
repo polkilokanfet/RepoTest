@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
@@ -9,16 +10,21 @@ namespace HVTApp.Model.POCOs
         double Sum { get; }
     }
 
-    public partial class PaymentPlanned : BaseEntity, IPayment
+    public class PaymentPlannedList : BaseEntity
     {
         public virtual PaymentCondition Condition { get; set; }
         public virtual Guid SalesUnitId { get; set; }
+        public virtual List<PaymentPlanned> Payments { get; set; } = new List<PaymentPlanned>();
+    }
+
+    public class PaymentPlanned : BaseEntity
+    {
         public DateTime Date { get; set; }
         public double Sum { get; set; }
         public string Comment { get; set; }
     }
 
-    public partial class PaymentActual : BaseEntity, IPayment
+    public partial class PaymentActual : BaseEntity
     {
         public virtual Guid SalesUnitId { get; set; }
         public DateTime Date { get; set; }

@@ -7,7 +7,6 @@ namespace HVTApp.DataAccess
     {
         public PaymentConditionSetConfiguration()
         {
-            Property(x => x.Name).IsRequired().HasMaxLength(75);
             HasMany(x => x.PaymentConditions).WithMany();
         }
     }

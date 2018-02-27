@@ -699,14 +699,14 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-    public partial class PaymentPlannedDetailsViewModel : BaseDetailsViewModel<PaymentPlannedWrapper, PaymentPlanned, AfterSavePaymentPlannedEvent>
+    public partial class PaymentPlannedListDetailsViewModel : BaseDetailsViewModel<PaymentPlannedListWrapper, PaymentPlannedList, AfterSavePaymentPlannedListEvent>
     {
 		private Func<Task<List<PaymentCondition>>> _getEntitiesForSelectConditionCommand;
 		public ICommand SelectConditionCommand { get; }
 		public ICommand ClearConditionCommand { get; }
 
 
-        public PaymentPlannedDetailsViewModel(IUnityContainer container) : base(container) 
+        public PaymentPlannedListDetailsViewModel(IUnityContainer container) : base(container) 
 		{
           _getEntitiesForSelectConditionCommand = async () => { return await UnitOfWork.GetRepository<PaymentCondition>().GetAllAsync(); };
 			SelectConditionCommand = new DelegateCommand(SelectConditionCommand_Execute);
@@ -725,6 +725,19 @@ namespace HVTApp.UI.ViewModels
 		    Item.Condition = null;
 		}
 
+
+
+    }
+
+
+    public partial class PaymentPlannedDetailsViewModel : BaseDetailsViewModel<PaymentPlannedWrapper, PaymentPlanned, AfterSavePaymentPlannedEvent>
+    {
+
+        public PaymentPlannedDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+
+			InitGetMethods();
+		}
 
 
     }

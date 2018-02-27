@@ -513,6 +513,24 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
+    public partial class PaymentPlannedListListView : ViewBase
+    {
+        public PaymentPlannedListListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentPlannedListListViewModel PaymentPlannedListListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = PaymentPlannedListListViewModel;
+			PaymentPlannedListListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((PaymentPlannedListListViewModel)DataContext).LoadAsync();;
+        }
+    }
+
+
+    [RibbonTab(typeof(TabCRUD))]
     public partial class PaymentPlannedListView : ViewBase
     {
         public PaymentPlannedListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentPlannedListViewModel PaymentPlannedListViewModel) : base(regionManager, eventAggregator)

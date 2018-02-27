@@ -21,7 +21,12 @@ namespace HVTApp.DataAccess
             LocalityTypeRepository = new LocalityTypeRepository(context);
             RegionRepository = new RegionRepository(context);
             CalculatePriceTaskRepository = new CalculatePriceTaskRepository(context);
+            CostRepository = new CostRepository(context);
+            CurrencyRepository = new CurrencyRepository(context);
+            CurrencyExchangeRateRepository = new CurrencyExchangeRateRepository(context);
             DescribeProductBlockTaskRepository = new DescribeProductBlockTaskRepository(context);
+            PaymentConditionSetRepository = new PaymentConditionSetRepository(context);
+            ProductBlockRepository = new ProductBlockRepository(context);
             SalesBlockRepository = new SalesBlockRepository(context);
             BankDetailsRepository = new BankDetailsRepository(context);
             CompanyRepository = new CompanyRepository(context);
@@ -37,6 +42,7 @@ namespace HVTApp.DataAccess
             ProductRelationRepository = new ProductRelationRepository(context);
             PersonRepository = new PersonRepository(context);
             PaymentPlannedRepository = new PaymentPlannedRepository(context);
+            PaymentPlannedPartRepository = new PaymentPlannedPartRepository(context);
             PaymentActualRepository = new PaymentActualRepository(context);
             ParameterRelationRepository = new ParameterRelationRepository(context);
             SalesUnitRepository = new SalesUnitRepository(context);
@@ -50,9 +56,6 @@ namespace HVTApp.DataAccess
             TestWifeRepository = new TestWifeRepository(context);
             TestChildRepository = new TestChildRepository(context);
             CostOnDateRepository = new CostOnDateRepository(context);
-            CostRepository = new CostRepository(context);
-            CurrencyRepository = new CurrencyRepository(context);
-            ExchangeCurrencyRateRepository = new ExchangeCurrencyRateRepository(context);
             ProductRepository = new ProductRepository(context);
             OfferRepository = new OfferRepository(context);
             EmployeeRepository = new EmployeeRepository(context);
@@ -66,8 +69,6 @@ namespace HVTApp.DataAccess
             TenderRepository = new TenderRepository(context);
             TenderTypeRepository = new TenderTypeRepository(context);
             UserRepository = new UserRepository(context);
-            ProductBlockRepository = new ProductBlockRepository(context);
-            PaymentConditionSetRepository = new PaymentConditionSetRepository(context);
 			#endregion
         }
 
@@ -81,7 +82,12 @@ namespace HVTApp.DataAccess
         private ILocalityTypeRepository LocalityTypeRepository;
         private IRegionRepository RegionRepository;
         private ICalculatePriceTaskRepository CalculatePriceTaskRepository;
+        private ICostRepository CostRepository;
+        private ICurrencyRepository CurrencyRepository;
+        private ICurrencyExchangeRateRepository CurrencyExchangeRateRepository;
         private IDescribeProductBlockTaskRepository DescribeProductBlockTaskRepository;
+        private IPaymentConditionSetRepository PaymentConditionSetRepository;
+        private IProductBlockRepository ProductBlockRepository;
         private ISalesBlockRepository SalesBlockRepository;
         private IBankDetailsRepository BankDetailsRepository;
         private ICompanyRepository CompanyRepository;
@@ -97,6 +103,7 @@ namespace HVTApp.DataAccess
         private IProductRelationRepository ProductRelationRepository;
         private IPersonRepository PersonRepository;
         private IPaymentPlannedRepository PaymentPlannedRepository;
+        private IPaymentPlannedPartRepository PaymentPlannedPartRepository;
         private IPaymentActualRepository PaymentActualRepository;
         private IParameterRelationRepository ParameterRelationRepository;
         private ISalesUnitRepository SalesUnitRepository;
@@ -110,9 +117,6 @@ namespace HVTApp.DataAccess
         private ITestWifeRepository TestWifeRepository;
         private ITestChildRepository TestChildRepository;
         private ICostOnDateRepository CostOnDateRepository;
-        private ICostRepository CostRepository;
-        private ICurrencyRepository CurrencyRepository;
-        private IExchangeCurrencyRateRepository ExchangeCurrencyRateRepository;
         private IProductRepository ProductRepository;
         private IOfferRepository OfferRepository;
         private IEmployeeRepository EmployeeRepository;
@@ -126,8 +130,6 @@ namespace HVTApp.DataAccess
         private ITenderRepository TenderRepository;
         private ITenderTypeRepository TenderTypeRepository;
         private IUserRepository UserRepository;
-        private IProductBlockRepository ProductBlockRepository;
-        private IPaymentConditionSetRepository PaymentConditionSetRepository;
         #endregion
     }
 }

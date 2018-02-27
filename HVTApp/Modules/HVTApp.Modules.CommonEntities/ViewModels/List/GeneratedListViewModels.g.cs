@@ -175,6 +175,12 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class PaymentPlannedListListViewModel : BaseListViewModel<PaymentPlannedList, PaymentPlannedListLookup, AfterSavePaymentPlannedListEvent, AfterSelectPaymentPlannedListEvent, AfterRemovePaymentPlannedListEvent>
+    {
+        public PaymentPlannedListListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
     public partial class PaymentPlannedListViewModel : BaseListViewModel<PaymentPlanned, PaymentPlannedLookup, AfterSavePaymentPlannedEvent, AfterSelectPaymentPlannedEvent, AfterRemovePaymentPlannedEvent>
     {
         public PaymentPlannedListViewModel(IUnityContainer container) : base(container) { }

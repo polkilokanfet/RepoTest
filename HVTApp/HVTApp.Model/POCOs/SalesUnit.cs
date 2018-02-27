@@ -47,7 +47,7 @@ namespace HVTApp.Model.POCOs
         public virtual PaymentConditionSet PaymentsConditionSet { get; set; }
 
         public virtual List<PaymentActual> PaymentsActual { get; set; } = new List<PaymentActual>();
-        public virtual List<PaymentPlanned> PaymentsPlanned { get; set; } = new List<PaymentPlanned>();
+        public virtual List<PaymentPlannedList> PaymentsPlannedSaved { get; set; } = new List<PaymentPlannedList>();
     }
 
     //Shipment information

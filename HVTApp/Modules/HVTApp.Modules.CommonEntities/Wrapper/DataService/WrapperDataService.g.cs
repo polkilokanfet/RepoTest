@@ -63,6 +63,8 @@ namespace HVTApp.UI.Wrapper
 
             PersonWrapperDataService = new PersonWrapperDataService(unitOfWork);
 
+            PaymentPlannedListWrapperDataService = new PaymentPlannedListWrapperDataService(unitOfWork);
+
             PaymentPlannedWrapperDataService = new PaymentPlannedWrapperDataService(unitOfWork);
 
             PaymentActualWrapperDataService = new PaymentActualWrapperDataService(unitOfWork);
@@ -175,6 +177,8 @@ namespace HVTApp.UI.Wrapper
         public ProductRelationWrapperDataService ProductRelationWrapperDataService { get; }
 
         public PersonWrapperDataService PersonWrapperDataService { get; }
+
+        public PaymentPlannedListWrapperDataService PaymentPlannedListWrapperDataService { get; }
 
         public PaymentPlannedWrapperDataService PaymentPlannedWrapperDataService { get; }
 

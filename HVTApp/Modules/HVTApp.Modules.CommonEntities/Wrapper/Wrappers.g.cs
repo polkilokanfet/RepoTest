@@ -727,15 +727,6 @@ namespace HVTApp.UI.Wrapper
 
         #region SimpleProperties
 
-        public System.String Name
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
-        public bool NameIsChanged => GetIsChanged(nameof(Name));
-
-
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1590,9 +1581,9 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
-		public partial class PaymentPlannedWrapper : WrapperBase<PaymentPlanned>
+		public partial class PaymentPlannedListWrapper : WrapperBase<PaymentPlannedList>
 	{
-	    public PaymentPlannedWrapper(PaymentPlanned model) : base(model) { }
+	    public PaymentPlannedListWrapper(PaymentPlannedList model) : base(model) { }
 
 	
 
@@ -1606,6 +1597,66 @@ namespace HVTApp.UI.Wrapper
         public System.Guid SalesUnitIdOriginalValue => GetOriginalValue<System.Guid>(nameof(SalesUnitId));
         public bool SalesUnitIdIsChanged => GetIsChanged(nameof(SalesUnitId));
 
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public PaymentConditionWrapper Condition 
+        {
+            get { return GetWrapper<PaymentConditionWrapper>(); }
+            set { SetComplexValue<PaymentCondition, PaymentConditionWrapper>(Condition, value); }
+        }
+
+
+        #endregion
+
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<PaymentPlannedWrapper> Payments { get; private set; }
+
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+
+            InitializeComplexProperty<PaymentConditionWrapper>(nameof(Condition), Model.Condition == null ? null : new PaymentConditionWrapper(Model.Condition));
+
+
+        }
+
+  
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.Payments == null) throw new ArgumentException("Payments cannot be null");
+          Payments = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(Model.Payments.Select(e => new PaymentPlannedWrapper(e)));
+          RegisterCollection(Payments, Model.Payments);
+
+
+        }
+
+	}
+
+		public partial class PaymentPlannedWrapper : WrapperBase<PaymentPlanned>
+	{
+	    public PaymentPlannedWrapper(PaymentPlanned model) : base(model) { }
+
+	
+
+        #region SimpleProperties
 
         public System.DateTime Date
         {
@@ -1644,26 +1695,6 @@ namespace HVTApp.UI.Wrapper
 
 
         #endregion
-
-
-        #region ComplexProperties
-
-	    public PaymentConditionWrapper Condition 
-        {
-            get { return GetWrapper<PaymentConditionWrapper>(); }
-            set { SetComplexValue<PaymentCondition, PaymentConditionWrapper>(Condition, value); }
-        }
-
-
-        #endregion
-
-        public override void InitializeComplexProperties()
-        {
-
-            InitializeComplexProperty<PaymentConditionWrapper>(nameof(Condition), Model.Condition == null ? null : new PaymentConditionWrapper(Model.Condition));
-
-
-        }
 
 	}
 
@@ -2008,7 +2039,7 @@ namespace HVTApp.UI.Wrapper
         public IValidatableChangeTrackingCollection<PaymentActualWrapper> PaymentsActual { get; private set; }
 
 
-        public IValidatableChangeTrackingCollection<PaymentPlannedWrapper> PaymentsPlanned { get; private set; }
+        public IValidatableChangeTrackingCollection<PaymentPlannedListWrapper> PaymentsPlannedSaved { get; private set; }
 
 
         #endregion
@@ -2053,9 +2084,9 @@ namespace HVTApp.UI.Wrapper
           RegisterCollection(PaymentsActual, Model.PaymentsActual);
 
 
-          if (Model.PaymentsPlanned == null) throw new ArgumentException("PaymentsPlanned cannot be null");
-          PaymentsPlanned = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(Model.PaymentsPlanned.Select(e => new PaymentPlannedWrapper(e)));
-          RegisterCollection(PaymentsPlanned, Model.PaymentsPlanned);
+          if (Model.PaymentsPlannedSaved == null) throw new ArgumentException("PaymentsPlannedSaved cannot be null");
+          PaymentsPlannedSaved = new ValidatableChangeTrackingCollection<PaymentPlannedListWrapper>(Model.PaymentsPlannedSaved.Select(e => new PaymentPlannedListWrapper(e)));
+          RegisterCollection(PaymentsPlannedSaved, Model.PaymentsPlannedSaved);
 
 
         }

@@ -17,7 +17,12 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new LocalityTypeConfiguration());
             modelBuilder.Configurations.Add(new RegionConfiguration());
             modelBuilder.Configurations.Add(new CalculatePriceTaskConfiguration());
+            modelBuilder.Configurations.Add(new CostConfiguration());
+            modelBuilder.Configurations.Add(new CurrencyConfiguration());
+            modelBuilder.Configurations.Add(new CurrencyExchangeRateConfiguration());
             modelBuilder.Configurations.Add(new DescribeProductBlockTaskConfiguration());
+            modelBuilder.Configurations.Add(new PaymentConditionSetConfiguration());
+            modelBuilder.Configurations.Add(new ProductBlockConfiguration());
             modelBuilder.Configurations.Add(new SalesBlockConfiguration());
             modelBuilder.Configurations.Add(new BankDetailsConfiguration());
             modelBuilder.Configurations.Add(new CompanyConfiguration());
@@ -33,6 +38,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new ProductRelationConfiguration());
             modelBuilder.Configurations.Add(new PersonConfiguration());
             modelBuilder.Configurations.Add(new PaymentPlannedConfiguration());
+            modelBuilder.Configurations.Add(new PaymentPlannedPartConfiguration());
             modelBuilder.Configurations.Add(new PaymentActualConfiguration());
             modelBuilder.Configurations.Add(new ParameterRelationConfiguration());
             modelBuilder.Configurations.Add(new SalesUnitConfiguration());
@@ -46,9 +52,6 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new TestWifeConfiguration());
             modelBuilder.Configurations.Add(new TestChildConfiguration());
             modelBuilder.Configurations.Add(new CostOnDateConfiguration());
-            modelBuilder.Configurations.Add(new CostConfiguration());
-            modelBuilder.Configurations.Add(new CurrencyConfiguration());
-            modelBuilder.Configurations.Add(new ExchangeCurrencyRateConfiguration());
             modelBuilder.Configurations.Add(new ProductConfiguration());
             modelBuilder.Configurations.Add(new OfferConfiguration());
             modelBuilder.Configurations.Add(new EmployeeConfiguration());
@@ -62,8 +65,6 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new TenderConfiguration());
             modelBuilder.Configurations.Add(new TenderTypeConfiguration());
             modelBuilder.Configurations.Add(new UserConfiguration());
-            modelBuilder.Configurations.Add(new ProductBlockConfiguration());
-            modelBuilder.Configurations.Add(new PaymentConditionSetConfiguration());
 			#endregion
 
             base.OnModelCreating(modelBuilder);
@@ -78,7 +79,12 @@ namespace HVTApp.DataAccess
         public virtual DbSet<LocalityType> LocalityTypeDbSet { get; set; }
         public virtual DbSet<Region> RegionDbSet { get; set; }
         public virtual DbSet<CalculatePriceTask> CalculatePriceTaskDbSet { get; set; }
+        public virtual DbSet<Cost> CostDbSet { get; set; }
+        public virtual DbSet<Currency> CurrencyDbSet { get; set; }
+        public virtual DbSet<CurrencyExchangeRate> CurrencyExchangeRateDbSet { get; set; }
         public virtual DbSet<DescribeProductBlockTask> DescribeProductBlockTaskDbSet { get; set; }
+        public virtual DbSet<PaymentConditionSet> PaymentConditionSetDbSet { get; set; }
+        public virtual DbSet<ProductBlock> ProductBlockDbSet { get; set; }
         public virtual DbSet<SalesBlock> SalesBlockDbSet { get; set; }
         public virtual DbSet<BankDetails> BankDetailsDbSet { get; set; }
         public virtual DbSet<Company> CompanyDbSet { get; set; }
@@ -93,7 +99,8 @@ namespace HVTApp.DataAccess
         public virtual DbSet<ParameterGroup> ParameterGroupDbSet { get; set; }
         public virtual DbSet<ProductRelation> ProductRelationDbSet { get; set; }
         public virtual DbSet<Person> PersonDbSet { get; set; }
-        public virtual DbSet<PaymentPlanned> PaymentPlannedDbSet { get; set; }
+        public virtual DbSet<PaymentPlannedList> PaymentPlannedDbSet { get; set; }
+        public virtual DbSet<PaymentPlanned> PaymentPlannedPartDbSet { get; set; }
         public virtual DbSet<PaymentActual> PaymentActualDbSet { get; set; }
         public virtual DbSet<ParameterRelation> ParameterRelationDbSet { get; set; }
         public virtual DbSet<SalesUnit> SalesUnitDbSet { get; set; }
@@ -107,9 +114,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<TestWife> TestWifeDbSet { get; set; }
         public virtual DbSet<TestChild> TestChildDbSet { get; set; }
         public virtual DbSet<CostOnDate> CostOnDateDbSet { get; set; }
-        public virtual DbSet<Cost> CostDbSet { get; set; }
-        public virtual DbSet<Currency> CurrencyDbSet { get; set; }
-        public virtual DbSet<CurrencyExchangeRate> ExchangeCurrencyRateDbSet { get; set; }
         public virtual DbSet<Product> ProductDbSet { get; set; }
         public virtual DbSet<Offer> OfferDbSet { get; set; }
         public virtual DbSet<Employee> EmployeeDbSet { get; set; }
@@ -123,8 +127,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<Tender> TenderDbSet { get; set; }
         public virtual DbSet<TenderType> TenderTypeDbSet { get; set; }
         public virtual DbSet<User> UserDbSet { get; set; }
-        public virtual DbSet<ProductBlock> ProductBlockDbSet { get; set; }
-        public virtual DbSet<PaymentConditionSet> PaymentConditionSetDbSet { get; set; }
 		#endregion
     }
 }

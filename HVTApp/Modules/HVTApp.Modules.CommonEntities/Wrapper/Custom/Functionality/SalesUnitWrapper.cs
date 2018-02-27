@@ -7,6 +7,7 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.ViewModels;
+using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.UI.Wrapper
 {
@@ -17,6 +18,8 @@ namespace HVTApp.UI.Wrapper
 
         protected override void RunInConstructor()
         {
+            PaymentsPlannedSaved.ForEach(x => x.SalesUnit = this);
+
             this.PropertyChanged += OnSpecificationChanged;
 
             this.PaymentsActual.CollectionChanged += PaymentsActualOnCollectionChanged;
@@ -59,13 +62,13 @@ namespace HVTApp.UI.Wrapper
         // Реакция на изменение какого-либо совершенного платежа.
         private void PaymentActualOnChanged(object sender, PropertyChangedEventArgs e)
         {
-            ReloadPaymentsPlannedLight();
+            OnPropertyChanged(nameof(PaymentPlannedWrappers));
         }
 
         // Реакция на изменение коллекции совершенных платежей.
         private void PaymentsActualOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)
         {
-            ReloadPaymentsPlannedLight();
+            OnPropertyChanged(nameof(PaymentPlannedWrappers));
         }
 
         private void OnSpecificationChanged(object sender, PropertyChangedEventArgs e)
@@ -172,8 +175,8 @@ namespace HVTApp.UI.Wrapper
         //дата достижения суммы
         private DateTime? AchiveSumDate(double sumToAchive)
         {
-            IEnumerable<IPayment> paymentsActual = PaymentsActual.Select(x => x.Model as IPayment);
-            IEnumerable<IPayment> paymentsPlanned = PaymentsPlanned.Select(x => x.Model as IPayment);
+            IEnumerable<IPayment> paymentsActual = PaymentsActual.Select(x => new PaymentActualWrapper(x.Model));
+            IEnumerable<IPayment> paymentsPlanned = PaymentsPlannedSaved.SelectMany(x => x.Payments);
             IEnumerable<IPayment> payments = paymentsActual.Concat(paymentsPlanned).OrderBy(x => x.Date);
 
             double sum = 0;
@@ -195,11 +198,6 @@ namespace HVTApp.UI.Wrapper
         /// Дата исполнения условий для осуществления отгрузки
         /// </summary>
         public DateTime? ShippingConditionsDoneDate => AchiveSumDate(SumToShipping);
-
-        /// <summary>
-        /// Расчетная дата реализации.
-        /// </summary>
-        public DateTime RealizationDateCalculated => RealizationDate ?? DeliveryDateCalculated;
 
         /// <summary>
         /// Расчетная дата начала производства.
@@ -248,6 +246,11 @@ namespace HVTApp.UI.Wrapper
                 return StartProductionDateCalculated.AddDays(productionTerm).GetTodayIfDateFromPastAndSkipWeekend();
             }
         }
+
+        /// <summary>
+        /// Расчетная дата реализации.
+        /// </summary>
+        public DateTime RealizationDateCalculated => RealizationDate ?? DeliveryDateCalculated;
 
         /// <summary>
         /// Расчетная дата отгрузки.
@@ -332,60 +335,50 @@ namespace HVTApp.UI.Wrapper
     public partial class SalesUnitWrapper : IUnitGroup
     {
         /// <summary>
-        /// Перезагрузка плановых платежей с сохранением информации о преждних платежах.
+        /// Оставшиеся плановые платежи по условиям оплаты.
         /// </summary>
-        public void ReloadPaymentsPlannedLight()
+        public IEnumerable<PaymentPlannedListWrapper> PaymentPlannedListWrappersByConditionsToDone 
+            => GetPlannedPayments(this.PaymentConditionsToDone).Select(x => new PaymentPlannedListWrapper(x) {SalesUnit = this});
+
+        public IEnumerable<PaymentPlannedWrapper> PaymentPlannedWrappers
         {
-            //если еще нет плановых платежей
-            if (!PaymentsPlanned.Any())
+            get
             {
-                ReloadPaymentsPlannedFull();
-                return;
-            }
+                var paymentListsToDone = PaymentPlannedListWrappersByConditionsToDone.ToList();
+                var result = PaymentsPlannedSaved.Concat(paymentListsToDone).ToList();
 
-            //сортируем существующие плановые платежи в соответствии с датой платежа.
-            var paymentsPlanned = PaymentsPlanned.OrderByDescending(x => x.Date);
-            double rest = SumNotPaid;
-            foreach (var paymentPlanned in paymentsPlanned)
-            {
-                rest -= paymentPlanned.Sum;
-                if (rest >= 0) continue;
-
-                paymentPlanned.Sum += rest;
-                if (paymentPlanned.Sum <= 0) PaymentsPlanned.Remove(paymentPlanned);
-            }
-
-            //если закончились плановые платежи, а остаток оплаты еще не исчерпан
-            if (rest > 0)
-            {
-                var payments = GetPlannedPayments(PaymentConditionsToDone.OrderBy(x => x));
-                foreach (var paymentPlanned in payments)
+                foreach (var paymentListSaved in this.PaymentsPlannedSaved)
                 {
-                    rest -= paymentPlanned.Sum;
-                    if (rest >= 0)
+                    var paymentListToDone = paymentListsToDone.SingleOrDefault(x => x.Condition.Model.Equals(paymentListSaved.Condition.Model));
+                    if (paymentListToDone != null) //значит условие еще не исполнено
                     {
-                        PaymentsPlanned.Add(new PaymentPlannedWrapper(paymentPlanned));
-                        continue;
+                        CheckPaymentPlannedList(paymentListSaved);
+                        result.Remove(paymentListToDone);
                     }
-
-                    paymentPlanned.Sum += rest;
-                    PaymentsPlanned.Add(new PaymentPlannedWrapper(paymentPlanned));
-                    break;
+                    else
+                    {
+                        PaymentsPlannedSaved.Remove(paymentListSaved);
+                        result.Remove(paymentListSaved);
+                    }
                 }
+
+                return result.SelectMany(x => x.Payments);
             }
         }
 
-        /// <summary>
-        /// Полная перезагрузка плановых платежей
-        /// </summary>
-        public void ReloadPaymentsPlannedFull()
+        private void CheckPaymentPlannedList(PaymentPlannedListWrapper paymentPlannedListWrapper)
         {
-            PaymentsPlanned.Clear();
-            foreach (var payment in GetPlannedPayments(PaymentConditionsToDone))
+            var sum = Cost * paymentPlannedListWrapper.Condition.Part;
+            var sumToCheck = paymentPlannedListWrapper.Payments.Sum(x => x.Sum);
+
+            foreach (var paymentPlannedWrapper in paymentPlannedListWrapper.Payments)
             {
-                PaymentsPlanned.Add(new PaymentPlannedWrapper(payment));
+                if (Math.Abs(sum - sumToCheck) < 0.0001) return;
+                    paymentPlannedWrapper.Sum = paymentPlannedWrapper.Sum * sum / sumToCheck;
+                paymentPlannedWrapper.Date = paymentPlannedWrapper.Date.GetTodayIfDateFromPastAndSkipWeekend();
             }
         }
+
 
         /// <summary>
         /// Не исполненные платежные условия
@@ -421,6 +414,7 @@ namespace HVTApp.UI.Wrapper
             }
         }
 
+        //вернуть дату исходя из условия
         private DateTime GetPaymentDate(PaymentCondition condition)
         {
             switch (condition.PaymentConditionPoint)
@@ -438,13 +432,12 @@ namespace HVTApp.UI.Wrapper
             }
         }
 
-        private IEnumerable<PaymentPlanned> GetPlannedPayments(IEnumerable<PaymentCondition> conditions)
+        private IEnumerable<PaymentPlannedList> GetPlannedPayments(IEnumerable<PaymentCondition> conditions)
         {
-            return conditions.Select(condition => new PaymentPlanned
+            return conditions.Select(condition => new PaymentPlannedList
             {
                 SalesUnitId = Model.Id,
-                Sum = Cost * condition.Part,
-                Date = GetPaymentDate(condition),
+                Payments = new List<PaymentPlanned> { new PaymentPlanned { Sum = Cost * condition.Part, Date = GetPaymentDate(condition)} },
                 Condition = condition
             });
         }

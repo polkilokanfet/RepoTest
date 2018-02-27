@@ -382,14 +382,6 @@ namespace HVTApp.UI.Lookup
 			 
 		}
 		
-
-        #region SimpleProperties
-
-        public System.String Name => GetValue<System.String>();
-
-
-        #endregion
-
 	}
 
 	public partial class ProductBlockLookup : LookupItem<ProductBlock>
@@ -787,9 +779,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	public partial class PaymentPlannedLookup : LookupItem<PaymentPlanned>
+	public partial class PaymentPlannedListLookup : LookupItem<PaymentPlannedList>
 	{
-		public PaymentPlannedLookup(PaymentPlanned entity) : base(entity) 
+		public PaymentPlannedListLookup(PaymentPlannedList entity) : base(entity) 
 		{
 		}
 		protected override void RefreshLookups()
@@ -805,6 +797,31 @@ namespace HVTApp.UI.Lookup
         public System.Guid SalesUnitId => GetValue<System.Guid>();
 
 
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public PaymentConditionLookup Condition { get { return GetLookup<PaymentConditionLookup>(); } }
+
+
+        #endregion
+
+	}
+
+	public partial class PaymentPlannedLookup : LookupItem<PaymentPlanned>
+	{
+		public PaymentPlannedLookup(PaymentPlanned entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+		}
+		
+
+        #region SimpleProperties
+
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
@@ -812,14 +829,6 @@ namespace HVTApp.UI.Lookup
 
 
         public System.String Comment => GetValue<System.String>();
-
-
-        #endregion
-
-
-        #region ComplexProperties
-
-	    public PaymentConditionLookup Condition { get { return GetLookup<PaymentConditionLookup>(); } }
 
 
         #endregion

@@ -173,6 +173,12 @@ namespace HVTApp.UI.Lookup
     }
 
 
+    public partial class PaymentPlannedListLookupDataService : LookupDataService<PaymentPlannedListLookup, PaymentPlannedList>, IPaymentPlannedListLookupDataService
+    {
+        public PaymentPlannedListLookupDataService(HvtAppContext context) : base(context) { }
+    }
+
+
     public partial class PaymentPlannedLookupDataService : LookupDataService<PaymentPlannedLookup, PaymentPlanned>, IPaymentPlannedLookupDataService
     {
         public PaymentPlannedLookupDataService(HvtAppContext context) : base(context) { }

@@ -453,6 +453,22 @@ namespace HVTApp.UI.Wrapper
     }
 
 
+    public partial class PaymentPlannedListWrapperDataService : EntityWrapperDataService<PaymentPlannedList, PaymentPlannedListWrapper>
+    {
+        public PaymentPlannedListWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		
+		protected override PaymentPlannedListWrapper GenerateWrapper(PaymentPlannedList model)
+        {
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new PaymentPlannedListWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
+        }
+    }
+
+
     public partial class PaymentPlannedWrapperDataService : EntityWrapperDataService<PaymentPlanned, PaymentPlannedWrapper>
     {
         public PaymentPlannedWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }

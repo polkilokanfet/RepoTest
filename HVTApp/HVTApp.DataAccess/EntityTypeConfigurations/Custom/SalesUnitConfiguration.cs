@@ -31,7 +31,7 @@ namespace HVTApp.DataAccess
             HasRequired(x => x.PaymentsConditionSet).WithMany();
 
             HasMany(x => x.PaymentsActual).WithRequired().HasForeignKey(x => x.SalesUnitId);
-            HasMany(x => x.PaymentsPlanned).WithRequired().HasForeignKey(x => x.SalesUnitId);
+            HasMany(x => x.PaymentsPlannedSaved).WithRequired().HasForeignKey(x => x.SalesUnitId);
             Property(x => x.RealizationDate).IsOptional();
 
             HasOptional(x => x.Address).WithMany();

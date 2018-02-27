@@ -11,7 +11,12 @@ namespace HVTApp.DataAccess
     public partial class LocalityTypeConfiguration : EntityTypeConfiguration<LocalityType> { }
     public partial class RegionConfiguration : EntityTypeConfiguration<Region> { }
     public partial class CalculatePriceTaskConfiguration : EntityTypeConfiguration<CalculatePriceTask> { }
+    public partial class CostConfiguration : EntityTypeConfiguration<Cost> { }
+    public partial class CurrencyConfiguration : EntityTypeConfiguration<Currency> { }
+    public partial class CurrencyExchangeRateConfiguration : EntityTypeConfiguration<CurrencyExchangeRate> { }
     public partial class DescribeProductBlockTaskConfiguration : EntityTypeConfiguration<DescribeProductBlockTask> { }
+    public partial class PaymentConditionSetConfiguration : EntityTypeConfiguration<PaymentConditionSet> { }
+    public partial class ProductBlockConfiguration : EntityTypeConfiguration<ProductBlock> { }
     public partial class SalesBlockConfiguration : EntityTypeConfiguration<SalesBlock> { }
     public partial class BankDetailsConfiguration : EntityTypeConfiguration<BankDetails> { }
     public partial class CompanyConfiguration : EntityTypeConfiguration<Company> { }
@@ -26,7 +31,8 @@ namespace HVTApp.DataAccess
     public partial class ParameterGroupConfiguration : EntityTypeConfiguration<ParameterGroup> { }
     public partial class ProductRelationConfiguration : EntityTypeConfiguration<ProductRelation> { }
     public partial class PersonConfiguration : EntityTypeConfiguration<Person> { }
-    public partial class PaymentPlannedConfiguration : EntityTypeConfiguration<PaymentPlanned> { }
+    public partial class PaymentPlannedConfiguration : EntityTypeConfiguration<PaymentPlannedList> { }
+    public partial class PaymentPlannedPartConfiguration : EntityTypeConfiguration<PaymentPlanned> { }
     public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }
     public partial class ParameterRelationConfiguration : EntityTypeConfiguration<ParameterRelation> { }
     public partial class SalesUnitConfiguration : EntityTypeConfiguration<SalesUnit> { }
@@ -40,9 +46,6 @@ namespace HVTApp.DataAccess
     public partial class TestWifeConfiguration : EntityTypeConfiguration<TestWife> { }
     public partial class TestChildConfiguration : EntityTypeConfiguration<TestChild> { }
     public partial class CostOnDateConfiguration : EntityTypeConfiguration<CostOnDate> { }
-    public partial class CostConfiguration : EntityTypeConfiguration<Cost> { }
-    public partial class CurrencyConfiguration : EntityTypeConfiguration<Currency> { }
-    public partial class ExchangeCurrencyRateConfiguration : EntityTypeConfiguration<CurrencyExchangeRate> { }
     public partial class ProductConfiguration : EntityTypeConfiguration<Product> { }
     public partial class OfferConfiguration : EntityTypeConfiguration<Offer> { }
     public partial class EmployeeConfiguration : EntityTypeConfiguration<Employee> { }
@@ -56,6 +59,4 @@ namespace HVTApp.DataAccess
     public partial class TenderConfiguration : EntityTypeConfiguration<Tender> { }
     public partial class TenderTypeConfiguration : EntityTypeConfiguration<TenderType> { }
     public partial class UserConfiguration : EntityTypeConfiguration<User> { }
-    public partial class ProductBlockConfiguration : EntityTypeConfiguration<ProductBlock> { }
-    public partial class PaymentConditionSetConfiguration : EntityTypeConfiguration<PaymentConditionSet> { }
 }

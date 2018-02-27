@@ -43,9 +43,34 @@ namespace HVTApp.DataAccess
         public CalculatePriceTaskRepository(DbContext context) : base(context) {}
     }
 
+    public partial class CostRepository : BaseRepository<Cost>, ICostRepository
+    {
+        public CostRepository(DbContext context) : base(context) {}
+    }
+
+    public partial class CurrencyRepository : BaseRepository<Currency>, ICurrencyRepository
+    {
+        public CurrencyRepository(DbContext context) : base(context) {}
+    }
+
+    public partial class CurrencyExchangeRateRepository : BaseRepository<CurrencyExchangeRate>, ICurrencyExchangeRateRepository
+    {
+        public CurrencyExchangeRateRepository(DbContext context) : base(context) {}
+    }
+
     public partial class DescribeProductBlockTaskRepository : BaseRepository<DescribeProductBlockTask>, IDescribeProductBlockTaskRepository
     {
         public DescribeProductBlockTaskRepository(DbContext context) : base(context) {}
+    }
+
+    public partial class PaymentConditionSetRepository : BaseRepository<PaymentConditionSet>, IPaymentConditionSetRepository
+    {
+        public PaymentConditionSetRepository(DbContext context) : base(context) {}
+    }
+
+    public partial class ProductBlockRepository : BaseRepository<ProductBlock>, IProductBlockRepository
+    {
+        public ProductBlockRepository(DbContext context) : base(context) {}
     }
 
     public partial class SalesBlockRepository : BaseRepository<SalesBlock>, ISalesBlockRepository
@@ -118,9 +143,14 @@ namespace HVTApp.DataAccess
         public PersonRepository(DbContext context) : base(context) {}
     }
 
-    public partial class PaymentPlannedRepository : BaseRepository<PaymentPlanned>, IPaymentPlannedRepository
+    public partial class PaymentPlannedRepository : BaseRepository<PaymentPlannedList>, IPaymentPlannedRepository
     {
         public PaymentPlannedRepository(DbContext context) : base(context) {}
+    }
+
+    public partial class PaymentPlannedPartRepository : BaseRepository<PaymentPlanned>, IPaymentPlannedPartRepository
+    {
+        public PaymentPlannedPartRepository(DbContext context) : base(context) {}
     }
 
     public partial class PaymentActualRepository : BaseRepository<PaymentActual>, IPaymentActualRepository
@@ -188,21 +218,6 @@ namespace HVTApp.DataAccess
         public CostOnDateRepository(DbContext context) : base(context) {}
     }
 
-    public partial class CostRepository : BaseRepository<Cost>, ICostRepository
-    {
-        public CostRepository(DbContext context) : base(context) {}
-    }
-
-    public partial class CurrencyRepository : BaseRepository<Currency>, ICurrencyRepository
-    {
-        public CurrencyRepository(DbContext context) : base(context) {}
-    }
-
-    public partial class ExchangeCurrencyRateRepository : BaseRepository<CurrencyExchangeRate>, IExchangeCurrencyRateRepository
-    {
-        public ExchangeCurrencyRateRepository(DbContext context) : base(context) {}
-    }
-
     public partial class ProductRepository : BaseRepository<Product>, IProductRepository
     {
         public ProductRepository(DbContext context) : base(context) {}
@@ -266,16 +281,6 @@ namespace HVTApp.DataAccess
     public partial class UserRepository : BaseRepository<User>, IUserRepository
     {
         public UserRepository(DbContext context) : base(context) {}
-    }
-
-    public partial class ProductBlockRepository : BaseRepository<ProductBlock>, IProductBlockRepository
-    {
-        public ProductBlockRepository(DbContext context) : base(context) {}
-    }
-
-    public partial class PaymentConditionSetRepository : BaseRepository<PaymentConditionSet>, IPaymentConditionSetRepository
-    {
-        public PaymentConditionSetRepository(DbContext context) : base(context) {}
     }
 
 }

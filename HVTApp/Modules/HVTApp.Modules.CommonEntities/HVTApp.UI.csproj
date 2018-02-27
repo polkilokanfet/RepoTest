@@ -342,6 +342,9 @@
     <Compile Include="Wrapper\Custom\Functionality\EmployeeWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\OfferWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ParameterWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\PaymentActualWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\PaymentPlannedListWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\PaymentPlannedWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\Price.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductBlockWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductsUnitGroup.cs" />

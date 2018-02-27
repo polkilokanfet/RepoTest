@@ -288,6 +288,16 @@ namespace HVTApp.UI.Views
     }
 
 
+    public partial class PaymentPlannedListDetailsView : ViewBase
+    {
+        public PaymentPlannedListDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentPlannedListDetailsViewModel PaymentPlannedListDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = PaymentPlannedListDetailsViewModel;
+        }
+    }
+
+
     public partial class PaymentPlannedDetailsView : ViewBase
     {
         public PaymentPlannedDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentPlannedDetailsViewModel PaymentPlannedDetailsViewModel) : base(regionManager, eventAggregator)

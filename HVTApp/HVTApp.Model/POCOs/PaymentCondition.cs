@@ -14,7 +14,11 @@ namespace HVTApp.Model.POCOs
     {
         public override string ToString()
         {
-            string daysName = DaysToPoint < 0 ? $"за {-DaysToPoint} дней до" : $"спустя {DaysToPoint} после";
+            string dayName = "дней";
+            if (Math.Abs(DaysToPoint) == 1) dayName = "день";
+            if (Math.Abs(DaysToPoint) == 2 || Math.Abs(DaysToPoint) == 3 || Math.Abs(DaysToPoint) == 4) dayName = "дня";
+
+            string daysName = DaysToPoint < 0 ? $"за {-DaysToPoint} {dayName} до" : $"спустя {DaysToPoint} {dayName} после";
 
             string pointName = string.Empty;
             switch (PaymentConditionPoint)
@@ -40,6 +44,16 @@ namespace HVTApp.Model.POCOs
         {
             var result = this.PaymentConditionPoint.CompareTo(other.PaymentConditionPoint);
             return result != 0 ? result : this.DaysToPoint.CompareTo(other.DaysToPoint);
+        }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as PaymentCondition;
+            if (other == null) return false;
+            if (this.Id == other.Id) return true;
+            return Equals(this.PaymentConditionPoint, other.PaymentConditionPoint) &&
+                   Equals(this.DaysToPoint, other.DaysToPoint) &&
+                   Equals(this.Part, other.Part);
         }
     }
 
