@@ -19,6 +19,7 @@ namespace HVTApp.DataAccess
     public partial class OfferUnitConfiguration : EntityTypeConfiguration<OfferUnit> { }
     public partial class PaymentConditionSetConfiguration : EntityTypeConfiguration<PaymentConditionSet> { }
     public partial class ProductBlockConfiguration : EntityTypeConfiguration<ProductBlock> { }
+    public partial class ProductDependentConfiguration : EntityTypeConfiguration<ProductDependent> { }
     public partial class SalesBlockConfiguration : EntityTypeConfiguration<SalesBlock> { }
     public partial class BankDetailsConfiguration : EntityTypeConfiguration<BankDetails> { }
     public partial class CompanyConfiguration : EntityTypeConfiguration<Company> { }
@@ -38,6 +39,7 @@ namespace HVTApp.DataAccess
     public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }
     public partial class ParameterRelationConfiguration : EntityTypeConfiguration<ParameterRelation> { }
     public partial class SalesUnitConfiguration : EntityTypeConfiguration<SalesUnit> { }
+    public partial class ServiceConfiguration : EntityTypeConfiguration<Service> { }
     public partial class TestFriendAddressConfiguration : EntityTypeConfiguration<TestFriendAddress> { }
     public partial class TestFriendConfiguration : EntityTypeConfiguration<TestFriend> { }
     public partial class TestFriendEmailConfiguration : EntityTypeConfiguration<TestFriendEmail> { }

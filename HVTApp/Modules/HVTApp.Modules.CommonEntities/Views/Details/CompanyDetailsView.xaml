@@ -47,9 +47,9 @@
         <Label Grid.Column="0" Grid.Row ="5" Content="Сфера деятельности"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
             Items="{Binding Path=Item.ActivityFilds}"
-            SelectedItem="{Binding SelectedActivityField, Mode=TwoWay}"
-            AddItemCommand="{Binding AddActivityFieldCommand}"
-            RemoveItemCommand="{Binding RemoveActivityFieldCommand}"/>
+            SelectedItem="{Binding SelectedActivityFildsItem, Mode=TwoWay}"
+            AddItemCommand="{Binding AddInActivityFildsCommand}"
+            RemoveItemCommand="{Binding RemoveFromActivityFildsCommand}"/>
 
         <Label Grid.Column="0" Grid.Row="6" Content="Головная компания"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 

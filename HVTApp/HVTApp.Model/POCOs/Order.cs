@@ -8,5 +8,10 @@ namespace HVTApp.Model.POCOs
     {
         public string Number { get; set; }
         public DateTime OpenOrderDate { get; set; }
+
+        public override string ToString()
+        {
+            return $"з/з {Number}";
+        }
     }
 }

@@ -25,6 +25,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new OfferUnitConfiguration());
             modelBuilder.Configurations.Add(new PaymentConditionSetConfiguration());
             modelBuilder.Configurations.Add(new ProductBlockConfiguration());
+            modelBuilder.Configurations.Add(new ProductDependentConfiguration());
             modelBuilder.Configurations.Add(new SalesBlockConfiguration());
             modelBuilder.Configurations.Add(new BankDetailsConfiguration());
             modelBuilder.Configurations.Add(new CompanyConfiguration());
@@ -44,6 +45,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new PaymentActualConfiguration());
             modelBuilder.Configurations.Add(new ParameterRelationConfiguration());
             modelBuilder.Configurations.Add(new SalesUnitConfiguration());
+            modelBuilder.Configurations.Add(new ServiceConfiguration());
             modelBuilder.Configurations.Add(new TestFriendAddressConfiguration());
             modelBuilder.Configurations.Add(new TestFriendConfiguration());
             modelBuilder.Configurations.Add(new TestFriendEmailConfiguration());
@@ -89,6 +91,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<OfferUnit> OfferUnitDbSet { get; set; }
         public virtual DbSet<PaymentConditionSet> PaymentConditionSetDbSet { get; set; }
         public virtual DbSet<ProductBlock> ProductBlockDbSet { get; set; }
+        public virtual DbSet<ProductDependent> ProductDependentDbSet { get; set; }
         public virtual DbSet<SalesBlock> SalesBlockDbSet { get; set; }
         public virtual DbSet<BankDetails> BankDetailsDbSet { get; set; }
         public virtual DbSet<Company> CompanyDbSet { get; set; }
@@ -108,6 +111,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PaymentActual> PaymentActualDbSet { get; set; }
         public virtual DbSet<ParameterRelation> ParameterRelationDbSet { get; set; }
         public virtual DbSet<SalesUnit> SalesUnitDbSet { get; set; }
+        public virtual DbSet<Service> ServiceDbSet { get; set; }
         public virtual DbSet<TestFriendAddress> TestFriendAddressDbSet { get; set; }
         public virtual DbSet<TestFriend> TestFriendDbSet { get; set; }
         public virtual DbSet<TestFriendEmail> TestFriendEmailDbSet { get; set; }

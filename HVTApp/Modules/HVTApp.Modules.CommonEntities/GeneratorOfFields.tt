@@ -34,12 +34,16 @@
 		var allProperties = modelType.GetProperties().Where(x => !Equals(x.Name, "Id"));
 
 
-		//Простые double свойства
+		//все простые свойства
+		var allSimpleProperties = allProperties.Where(p => IsSimple(p.PropertyType)).ToList();
+		//string свойства
+		var stringProperties = allProperties.Where(p => Equals(p.PropertyType, typeof(string))).ToList();
+		//bool свойства
+		var boolProperties = allProperties.Where(p => Equals(p.PropertyType, typeof(bool)) || Equals(p.PropertyType, typeof(Nullable<bool>))).ToList();
+		//double свойства
 		var digitProperties = allProperties.Where(p => Equals(p.PropertyType, typeof(double)) || Equals(p.PropertyType, typeof(int)) || Equals(p.PropertyType, typeof(Nullable<int>))).ToList();
-		//Простые date свойства
+		//date свойства
 		var dateProperties = allProperties.Where(p => Equals(p.PropertyType, typeof(DateTime)) || Equals(p.PropertyType, typeof(Nullable<DateTime>))).ToList();
-		//Простые свойства
-		var allSimpleProperties = allProperties.Where(p => IsSimple(p.PropertyType)).Except(digitProperties).Except(dateProperties).ToList();
 
 		//Перечисления
 		var allCollectionProperties = allProperties.Except(allSimpleProperties)
@@ -50,10 +54,7 @@
 
 		//Сложные свойства
 		//var allComplexProperties = allProperties.Except(simpleProperties).Where(p => p.PropertyType.IsClass && !typeof(IEnumerable).IsAssignableFrom(p.PropertyType));
-		var allComplexProperties = allProperties.Except(allSimpleProperties).Except(allCollectionProperties).Except(digitProperties).Except(dateProperties).ToList();
-
-		var complexSetProperties = allComplexProperties.Where(p => p.CanWrite).ToList();
-		var complexGetProperties = allComplexProperties.Where(p => !p.CanWrite).ToList();
+		var complexProperties = allProperties.Except(allSimpleProperties).Except(allCollectionProperties).ToList();
 
 #>========================================== Fields for <#=modelType.Name#> ==========================================
 
@@ -61,10 +62,7 @@
         
         <infg:XamDataGrid.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="Export to Excel"                                        
-                          Command="{Binding ExportToExcel}"
-                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}">
-                </MenuItem>
+                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
             </ContextMenu>
         </infg:XamDataGrid.ContextMenu>
 
@@ -72,16 +70,11 @@
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
 <#+
-		GenerateFieldsForSimpleProperties(allSimpleProperties);
-#>
-<#+
-		GenerateFieldsForDigitProperties(digitProperties);
-#>
-<#+
-		GenerateFieldsForDateProperties(dateProperties);
-#>
-<#+
-		GenerateFieldsForComplexProperties(complexSetProperties);
+		GenerateFields(stringProperties, "TextField");
+		GenerateFields(digitProperties, "NumericField");
+		GenerateFields(dateProperties, "DateTimeField");
+		GenerateFields(boolProperties, "CheckBoxField");
+		GenerateFields(complexProperties, "TextField", "Converter=\"{StaticResource LookupToStringConverter}\"");
 		//GenerateCollectionComplexProperties(collectionComplexProperties);
 	#>
                 </infg:FieldLayout.Fields>
@@ -93,44 +86,18 @@
 
 	<#+
 	}
+
   //генерация свойств простых типов.
-  private void GenerateFieldsForSimpleProperties(IEnumerable<PropertyInfo> properties)
+  private void GenerateFields(IEnumerable<PropertyInfo> properties, string fieldName, string end = "")
   {
     foreach (var property in properties)
     {
-#>                    <infg:TextField Name="<#=property.Name#>" Label="<#=property.Name#>" Width="Auto"/>
+#>                    <infg:<#=fieldName#> Name="<#=property.Name#>" Label="<#=property.Name#>" Width="Auto" <#=end#>/>
 <#+ 
     }
   }
 
-  private void GenerateFieldsForDigitProperties(IEnumerable<PropertyInfo> properties)
-  {
-    foreach (var property in properties)
-    {
-#>                    <infg:NumericField Name="<#=property.Name#>" Label="<#=property.Name#>" Width="Auto"/>
-<#+ 
-    }
-  }
 
-  private void GenerateFieldsForDateProperties(IEnumerable<PropertyInfo> properties)
-  {
-    foreach (var property in properties)
-    {
-#>                    <infg:DateTimeField Name="<#=property.Name#>" Label="<#=property.Name#>" Width="Auto"/>
-<#+ 
-    }
-  }
-
-  private void GenerateFieldsForComplexProperties(IEnumerable<PropertyInfo> properties)
-  {
-    foreach (var property in properties)
-    {
-#>                    <infg:TextField Name="<#=property.Name#>" Label="<#=property.Name#>" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-<#+ 
-    }
-  }
-
-	
     //берем все классы модели.
     private IEnumerable<Type> GetModelTypes()
     {

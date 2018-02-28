@@ -83,6 +83,11 @@ namespace HVTApp.DataAccess
         public ProductBlockRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class ProductDependentRepositoryTest : TestBaseRepository<ProductDependent>, IProductDependentRepository
+    {
+        public ProductDependentRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class SalesBlockRepositoryTest : TestBaseRepository<SalesBlock>, ISalesBlockRepository
     {
         public SalesBlockRepositoryTest(TestData testData) : base(testData) {}
@@ -176,6 +181,11 @@ namespace HVTApp.DataAccess
     public partial class SalesUnitRepositoryTest : TestBaseRepository<SalesUnit>, ISalesUnitRepository
     {
         public SalesUnitRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class ServiceRepositoryTest : TestBaseRepository<Service>, IServiceRepository
+    {
+        public ServiceRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class TestFriendAddressRepositoryTest : TestBaseRepository<TestFriendAddress>, ITestFriendAddressRepository

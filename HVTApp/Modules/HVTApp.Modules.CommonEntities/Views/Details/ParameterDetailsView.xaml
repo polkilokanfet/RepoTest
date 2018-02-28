@@ -1,0 +1,39 @@
+﻿<inf:ViewBase x:Class="HVTApp.UI.Views.ParameterDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Value"/>
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+                 Text="{Binding Item.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="ParameterGroup"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
+                                    Item="{Binding Item.ParameterGroup}" 
+                                    AddItemCommand="{Binding SelectParameterGroupCommand}" 
+                                    RemoveItemCommand="{Binding ClearParameterGroupCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="ParameterRelations"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
+										 Items="{Binding Path=Item.ParameterRelations}"
+										 SelectedItem="{Binding SelectedParameterRelationsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInParameterRelationsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromParameterRelationsCommand}"/>
+
+
+    </Grid>
+</inf:ViewBase>

@@ -81,6 +81,11 @@ namespace HVTApp.Model.POCOs
 	{
 	}
 
+	public partial class ProductDependent
+	{
+		public virtual Guid? ProductId { get; set; }
+	}
+
 	public partial class SalesBlock
 	{
 	}
@@ -163,13 +168,17 @@ namespace HVTApp.Model.POCOs
 
 	public partial class SalesUnit
 	{
-		public virtual Guid? FacilityId { get; set; }
-		public virtual Guid? ProducerId { get; set; }
 		public virtual Guid? ProductId { get; set; }
+		public virtual Guid? FacilityId { get; set; }
+		public virtual Guid? PaymentConditionSetId { get; set; }
+		public virtual Guid? ProducerId { get; set; }
 		public virtual Guid? OrderId { get; set; }
 		public virtual Guid? SpecificationId { get; set; }
-		public virtual Guid? PaymentsConditionSetId { get; set; }
 		public virtual Guid? AddressId { get; set; }
+	}
+
+	public partial class Service
+	{
 	}
 
 	public partial class TestFriendAddress

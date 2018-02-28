@@ -29,6 +29,7 @@ namespace HVTApp.DataAccess
             OfferUnitRepository = new OfferUnitRepository(context);
             PaymentConditionSetRepository = new PaymentConditionSetRepository(context);
             ProductBlockRepository = new ProductBlockRepository(context);
+            ProductDependentRepository = new ProductDependentRepository(context);
             SalesBlockRepository = new SalesBlockRepository(context);
             BankDetailsRepository = new BankDetailsRepository(context);
             CompanyRepository = new CompanyRepository(context);
@@ -48,6 +49,7 @@ namespace HVTApp.DataAccess
             PaymentActualRepository = new PaymentActualRepository(context);
             ParameterRelationRepository = new ParameterRelationRepository(context);
             SalesUnitRepository = new SalesUnitRepository(context);
+            ServiceRepository = new ServiceRepository(context);
             TestFriendAddressRepository = new TestFriendAddressRepository(context);
             TestFriendRepository = new TestFriendRepository(context);
             TestFriendEmailRepository = new TestFriendEmailRepository(context);
@@ -92,6 +94,7 @@ namespace HVTApp.DataAccess
         private IOfferUnitRepository OfferUnitRepository;
         private IPaymentConditionSetRepository PaymentConditionSetRepository;
         private IProductBlockRepository ProductBlockRepository;
+        private IProductDependentRepository ProductDependentRepository;
         private ISalesBlockRepository SalesBlockRepository;
         private IBankDetailsRepository BankDetailsRepository;
         private ICompanyRepository CompanyRepository;
@@ -111,6 +114,7 @@ namespace HVTApp.DataAccess
         private IPaymentActualRepository PaymentActualRepository;
         private IParameterRelationRepository ParameterRelationRepository;
         private ISalesUnitRepository SalesUnitRepository;
+        private IServiceRepository ServiceRepository;
         private ITestFriendAddressRepository TestFriendAddressRepository;
         private ITestFriendRepository TestFriendRepository;
         private ITestFriendEmailRepository TestFriendEmailRepository;

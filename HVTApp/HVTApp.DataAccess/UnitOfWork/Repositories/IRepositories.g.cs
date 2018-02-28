@@ -19,6 +19,7 @@ namespace HVTApp.DataAccess
     public partial interface IOfferUnitRepository : IRepository<OfferUnit> { }
     public partial interface IPaymentConditionSetRepository : IRepository<PaymentConditionSet> { }
     public partial interface IProductBlockRepository : IRepository<ProductBlock> { }
+    public partial interface IProductDependentRepository : IRepository<ProductDependent> { }
     public partial interface ISalesBlockRepository : IRepository<SalesBlock> { }
     public partial interface IBankDetailsRepository : IRepository<BankDetails> { }
     public partial interface ICompanyRepository : IRepository<Company> { }
@@ -38,6 +39,7 @@ namespace HVTApp.DataAccess
     public partial interface IPaymentActualRepository : IRepository<PaymentActual> { }
     public partial interface IParameterRelationRepository : IRepository<ParameterRelation> { }
     public partial interface ISalesUnitRepository : IRepository<SalesUnit> { }
+    public partial interface IServiceRepository : IRepository<Service> { }
     public partial interface ITestFriendAddressRepository : IRepository<TestFriendAddress> { }
     public partial interface ITestFriendRepository : IRepository<TestFriend> { }
     public partial interface ITestFriendEmailRepository : IRepository<TestFriendEmail> { }

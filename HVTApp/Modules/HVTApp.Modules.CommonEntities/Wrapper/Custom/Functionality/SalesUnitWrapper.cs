@@ -12,7 +12,7 @@ using Microsoft.Practices.ObjectBuilder2;
 namespace HVTApp.UI.Wrapper
 {
 
-    public partial class SalesUnitWrapper : ProductCostUnitWrapper<SalesUnit>, IUnitGroup
+    public partial class SalesUnitWrapper : ProductCostDependentProductsWrapper<SalesUnit>, IUnitGroup
     {
         public int Amount => 1;
 

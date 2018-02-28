@@ -83,6 +83,11 @@ namespace HVTApp.DataAccess
         public ProductBlockRepository(DbContext context) : base(context) {}
     }
 
+    public partial class ProductDependentRepository : BaseRepository<ProductDependent>, IProductDependentRepository
+    {
+        public ProductDependentRepository(DbContext context) : base(context) {}
+    }
+
     public partial class SalesBlockRepository : BaseRepository<SalesBlock>, ISalesBlockRepository
     {
         public SalesBlockRepository(DbContext context) : base(context) {}
@@ -176,6 +181,11 @@ namespace HVTApp.DataAccess
     public partial class SalesUnitRepository : BaseRepository<SalesUnit>, ISalesUnitRepository
     {
         public SalesUnitRepository(DbContext context) : base(context) {}
+    }
+
+    public partial class ServiceRepository : BaseRepository<Service>, IServiceRepository
+    {
+        public ServiceRepository(DbContext context) : base(context) {}
     }
 
     public partial class TestFriendAddressRepository : BaseRepository<TestFriendAddress>, ITestFriendAddressRepository

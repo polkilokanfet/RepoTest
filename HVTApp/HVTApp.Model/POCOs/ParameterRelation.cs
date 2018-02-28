@@ -11,5 +11,15 @@ namespace HVTApp.Model.POCOs
     {
         public virtual Guid ParameterId { get; set; }
         public virtual List<Parameter> RequiredParameters { get; set; } = new List<Parameter>();
+
+        public override string ToString()
+        {
+            var result = "Обязятельные параметры: ";
+            foreach (var parameter in RequiredParameters)
+            {
+                result += $"{parameter.ToString().ToLower()}; ";
+            }
+            return result;
+        }
     }
 }

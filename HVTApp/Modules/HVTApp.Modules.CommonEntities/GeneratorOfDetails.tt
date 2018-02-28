@@ -88,13 +88,16 @@
 		GenerateDetailsForIntProperties(intProperties, ref rowNum);
 		GenerateDetailsForDateProperties(dateProperties, ref rowNum);
 		GenerateDetailsForComplexProperties(complexSetProperties, ref rowNum);
+		GenerateDetailsForCollectionComplexProperties(collectionComplexProperties, ref rowNum);
 #>
 
     </Grid>
 </inf:ViewBase>
 <#+
 	}
-  //генерация свойств простых типов.
+
+
+
   private void GenerateDetailsForStringProperties(IEnumerable<PropertyInfo> properties, ref int rowNum)
   {
     foreach (var property in properties)
@@ -123,7 +126,7 @@
     }
   }
 
-    private void GenerateDetailsForIntProperties(IEnumerable<PropertyInfo> properties, ref int rowNum)
+  private void GenerateDetailsForIntProperties(IEnumerable<PropertyInfo> properties, ref int rowNum)
   {
     foreach (var property in properties)
     {
@@ -162,6 +165,23 @@
                                     Item="{Binding Item.<#=property.Name#>}" 
                                     AddItemCommand="{Binding Select<#=property.Name#>Command}" 
                                     RemoveItemCommand="{Binding Clear<#=property.Name#>Command}"/>
+
+<#+ 
+		rowNum++;
+    }
+  }
+
+  private void GenerateDetailsForCollectionComplexProperties(IEnumerable<PropertyInfo> properties, ref int rowNum)
+  {
+    foreach (var property in properties)
+    {
+#>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Name#>"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="<#= rowNum #>"
+										 Items="{Binding Path=Item.<#=property.Name#>}"
+										 SelectedItem="{Binding Selected<#=property.Name#>Item, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddIn<#=property.Name#>Command}"
+										 RemoveItemCommand="{Binding RemoveFrom<#=property.Name#>Command}"/>
 
 <#+ 
 		rowNum++;

@@ -118,6 +118,19 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
+        protected void SelectAndAddInListWrapper<TModel, TWrap>(IEnumerable<TModel> entities, IList<TWrap> list,
+            Guid? selectedItemId = null)
+            where TModel : class, IBaseEntity
+            where TWrap : WrapperBase<TModel>
+        {
+            var entity = Container.Resolve<ISelectService>().SelectItem(entities, selectedItemId);
+            if (entity != null)
+            {
+                var wrapper = (TWrap) Activator.CreateInstance(typeof(TWrap), entity);
+                list.Add(wrapper);
+            }
+        }
+
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

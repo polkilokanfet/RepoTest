@@ -23,6 +23,7 @@ namespace HVTApp.DataAccess
             OfferUnitRepository = new OfferUnitRepositoryTest(testData);
             PaymentConditionSetRepository = new PaymentConditionSetRepositoryTest(testData);
             ProductBlockRepository = new ProductBlockRepositoryTest(testData);
+            ProductDependentRepository = new ProductDependentRepositoryTest(testData);
             SalesBlockRepository = new SalesBlockRepositoryTest(testData);
             BankDetailsRepository = new BankDetailsRepositoryTest(testData);
             CompanyRepository = new CompanyRepositoryTest(testData);
@@ -42,6 +43,7 @@ namespace HVTApp.DataAccess
             PaymentActualRepository = new PaymentActualRepositoryTest(testData);
             ParameterRelationRepository = new ParameterRelationRepositoryTest(testData);
             SalesUnitRepository = new SalesUnitRepositoryTest(testData);
+            ServiceRepository = new ServiceRepositoryTest(testData);
             TestFriendAddressRepository = new TestFriendAddressRepositoryTest(testData);
             TestFriendRepository = new TestFriendRepositoryTest(testData);
             TestFriendEmailRepository = new TestFriendEmailRepositoryTest(testData);
@@ -86,6 +88,7 @@ namespace HVTApp.DataAccess
         public IOfferUnitRepository OfferUnitRepository { get; }
         public IPaymentConditionSetRepository PaymentConditionSetRepository { get; }
         public IProductBlockRepository ProductBlockRepository { get; }
+        public IProductDependentRepository ProductDependentRepository { get; }
         public ISalesBlockRepository SalesBlockRepository { get; }
         public IBankDetailsRepository BankDetailsRepository { get; }
         public ICompanyRepository CompanyRepository { get; }
@@ -105,6 +108,7 @@ namespace HVTApp.DataAccess
         public IPaymentActualRepository PaymentActualRepository { get; }
         public IParameterRelationRepository ParameterRelationRepository { get; }
         public ISalesUnitRepository SalesUnitRepository { get; }
+        public IServiceRepository ServiceRepository { get; }
         public ITestFriendAddressRepository TestFriendAddressRepository { get; }
         public ITestFriendRepository TestFriendRepository { get; }
         public ITestFriendEmailRepository TestFriendEmailRepository { get; }
