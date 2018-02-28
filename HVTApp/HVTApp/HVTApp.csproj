@@ -237,7 +237,7 @@
       <Project>{3a8f0c30-a576-42fe-a232-c52e039276b4}</Project>
       <Name>HVTApp.Services.WpfAuthenticationService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Modules\HVTApp.Modules.CommonEntities\HVTApp.UI.csproj">
+    <ProjectReference Include="..\HVTApp.UI\HVTApp.UI.csproj">
       <Project>{984df0f0-471d-4e38-b701-9dfc536217a8}</Project>
       <Name>HVTApp.UI</Name>
     </ProjectReference>

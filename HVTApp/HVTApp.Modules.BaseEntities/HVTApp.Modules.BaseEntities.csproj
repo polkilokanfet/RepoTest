@@ -119,7 +119,7 @@
       <Project>{76518D16-6EA7-4B34-A308-E7AD991421BC}</Project>
       <Name>HVTApp.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Modules\HVTApp.Modules.CommonEntities\HVTApp.UI.csproj">
+    <ProjectReference Include="..\HVTApp.UI\HVTApp.UI.csproj">
       <Project>{984df0f0-471d-4e38-b701-9dfc536217a8}</Project>
       <Name>HVTApp.UI</Name>
     </ProjectReference>

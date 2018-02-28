@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.DataAccess", "HVTApp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.DataAccess.Tests", "HVTApp.DataAccess.Tests\HVTApp.DataAccess.Tests.csproj", "{06F27487-3C78-49AC-8E78-DD3E1B179AE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.UI", "Modules\HVTApp.Modules.CommonEntities\HVTApp.UI.csproj", "{984DF0F0-471D-4E38-B701-9DFC536217A8}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.DialogService", "HVTApp.Services.DialogService\HVTApp.Services.DialogService.csproj", "{EC872082-D2A4-499E-B589-AD5101E53145}"
@@ -56,6 +54,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.OfferToDocServiceTests", "HVTApp.Services.OfferToDocServiceTests\HVTApp.Services.OfferToDocServiceTests.csproj", "{E74D33E0-3995-4C57-9A3C-4B4D47D7B4A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.GetProductServiceTests", "HVTApp.Services.GetProductServiceTests\HVTApp.Services.GetProductServiceTests.csproj", "{A66E54A4-64EA-4245-8F5B-F7EB9FA771BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.UI", "HVTApp.UI\HVTApp.UI.csproj", "{984DF0F0-471D-4E38-B701-9DFC536217A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,10 +95,6 @@ Global
 		{06F27487-3C78-49AC-8E78-DD3E1B179AE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06F27487-3C78-49AC-8E78-DD3E1B179AE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06F27487-3C78-49AC-8E78-DD3E1B179AE7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{984DF0F0-471D-4E38-B701-9DFC536217A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{984DF0F0-471D-4E38-B701-9DFC536217A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{984DF0F0-471D-4E38-B701-9DFC536217A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{984DF0F0-471D-4E38-B701-9DFC536217A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EC872082-D2A4-499E-B589-AD5101E53145}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EC872082-D2A4-499E-B589-AD5101E53145}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC872082-D2A4-499E-B589-AD5101E53145}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -159,6 +155,10 @@ Global
 		{A66E54A4-64EA-4245-8F5B-F7EB9FA771BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A66E54A4-64EA-4245-8F5B-F7EB9FA771BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A66E54A4-64EA-4245-8F5B-F7EB9FA771BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{984DF0F0-471D-4E38-B701-9DFC536217A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{984DF0F0-471D-4E38-B701-9DFC536217A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{984DF0F0-471D-4E38-B701-9DFC536217A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{984DF0F0-471D-4E38-B701-9DFC536217A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -179,6 +179,9 @@
     <Compile Include="Views\Details\FacilityDetailsView.xaml.cs">
       <DependentUpon>FacilityDetailsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Details\OfferUnitDetailsView.xaml.cs">
+      <DependentUpon>OfferUnitDetailsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Details\ParameterDetailsView.xaml.cs">
       <DependentUpon>ParameterDetailsView.xaml</DependentUpon>
     </Compile>
@@ -478,23 +481,23 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\HVTApp.DataAccess\HVTApp.DataAccess.csproj">
+    <ProjectReference Include="..\HVTApp.DataAccess\HVTApp.DataAccess.csproj">
       <Project>{9cf80c25-c04b-46b3-8eb7-f45bc42d4ba2}</Project>
       <Name>HVTApp.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
+    <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
       <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
       <Name>HVTApp.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\HVTApp.Model\HVTApp.Model.csproj">
+    <ProjectReference Include="..\HVTApp.Model\HVTApp.Model.csproj">
       <Project>{350bdab0-b331-426f-a024-004c8539af17}</Project>
       <Name>HVTApp.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\HVTApp.Services.ChooseProductService\HVTApp.Services.GetProductService.csproj">
+    <ProjectReference Include="..\HVTApp.Services.ChooseProductService\HVTApp.Services.GetProductService.csproj">
       <Project>{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}</Project>
       <Name>HVTApp.Services.GetProductService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\HVTApp.Services.MessageService\HVTApp.Services.MessageService.csproj">
+    <ProjectReference Include="..\HVTApp.Services.MessageService\HVTApp.Services.MessageService.csproj">
       <Project>{7703A90A-E742-41B1-96CB-CD0F51E3F2B6}</Project>
       <Name>HVTApp.Services.MessageService</Name>
     </ProjectReference>
@@ -521,6 +524,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Details\FacilityDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Details\OfferUnitDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -68,8 +68,8 @@
       <Project>{350BDAB0-B331-426F-A024-004C8539AF17}</Project>
       <Name>HVTApp.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Modules\HVTApp.Modules.CommonEntities\HVTApp.UI.csproj">
-      <Project>{984DF0F0-471D-4E38-B701-9DFC536217A8}</Project>
+    <ProjectReference Include="..\HVTApp.UI\HVTApp.UI.csproj">
+      <Project>{984df0f0-471d-4e38-b701-9dfc536217a8}</Project>
       <Name>HVTApp.UI</Name>
     </ProjectReference>
   </ItemGroup>

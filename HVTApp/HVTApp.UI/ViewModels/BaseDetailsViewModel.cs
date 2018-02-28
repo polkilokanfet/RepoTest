@@ -44,6 +44,15 @@ namespace HVTApp.UI.ViewModels
 
         protected virtual void InitGetMethods() { }
 
+        private bool _saveHere = true;
+        public async Task LoadAsync(TWrapper wrapper, IUnitOfWork unitOfWork)
+        {
+            _saveHere = false;
+            Item = wrapper;
+            UnitOfWork = unitOfWork;
+            await LoadOtherAsync();
+        }
+
         public async Task LoadAsync(TEntity entity)
         {
             entity = (await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(entity.Id)) ?? entity;
@@ -85,12 +94,15 @@ namespace HVTApp.UI.ViewModels
 
         protected virtual async void SaveCommand_Execute()
         {
-            if (await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(Item.Model.Id) == null)
-                UnitOfWork.GetRepository<TEntity>().Add(Item.Model);
-            Item.AcceptChanges();
-            await UnitOfWork.SaveChangesAsync();
+            if (_saveHere)
+            {
+                if (await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(Item.Model.Id) == null)
+                    UnitOfWork.GetRepository<TEntity>().Add(Item.Model);
+                Item.AcceptChanges();
+                await UnitOfWork.SaveChangesAsync();
 
-            EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
+                EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
+            }
 
             OnCloseRequested(new DialogRequestCloseEventArgs(true));
         }

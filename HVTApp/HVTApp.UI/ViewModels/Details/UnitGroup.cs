@@ -5,28 +5,16 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using HVTApp.DataAccess.Annotations;
-using HVTApp.Infrastructure;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.ViewModels
 {
-    public class UnitGroup : IUnitGroup
+    public class UnitGroup : BaseUnitsGroup<SalesUnitWrapper>, IUnitGroup
     {
-
-        public ObservableCollection<IUnitGroup> UnitGroups { get; }
-
-        public UnitGroup(IEnumerable<IUnitGroup> projectUnits)
+        public UnitGroup(IEnumerable<SalesUnitWrapper> units) : base(units)
         {
-            UnitGroups = new ObservableCollection<IUnitGroup>(projectUnits);
-            foreach (var projectUnit in UnitGroups)
-            {
-                projectUnit.PropertyChanged += ProjectUnitOnPropertyChanged;
-            }
         }
-
-
-        public int Amount => UnitGroups.Count;
 
         public FacilityWrapper Facility
         {
@@ -62,7 +50,7 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
-        public double Total => UnitGroups.Sum(x => x.Cost);
+        public double Total => Groups.Sum(x => x.Cost);
 
         public bool HasBlocksWithoutPrice => GetValue<bool>();
 
@@ -71,7 +59,22 @@ namespace HVTApp.UI.ViewModels
             get { return GetValue<CompanyWrapper>(); }
             set { SetValue(value); }
         }
+    }
 
+    public class BaseUnitsGroup<TUnit> : INotifyPropertyChanged
+        where TUnit : INotifyPropertyChanged
+    {
+        public ObservableCollection<TUnit> Groups { get; }
+        public int Amount => Groups.Count;
+
+        public BaseUnitsGroup(IEnumerable<TUnit> units)
+        {
+            Groups = new ObservableCollection<TUnit>(units);
+            foreach (var projectUnit in Groups)
+            {
+                projectUnit.PropertyChanged += ProjectUnitOnPropertyChanged;
+            }
+        }
 
         private void ProjectUnitOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
@@ -79,23 +82,22 @@ namespace HVTApp.UI.ViewModels
         }
 
         #region GetSetValue
-        private T GetValue<T>([CallerMemberName] string propertyName = null)
+        protected T GetValue<T>([CallerMemberName] string propertyName = null)
         {
-            var unit = UnitGroups.First();
+            var unit = Groups.First();
             return (T)unit.GetType().GetProperty(propertyName).GetValue(unit);
         }
 
-        private void SetValue(object value, [CallerMemberName] string propertyName = null)
+        protected void SetValue(object value, [CallerMemberName] string propertyName = null)
         {
             bool changed = false;
 
-            foreach (var projectUnit in UnitGroups)
+            foreach (var projectUnit in Groups)
             {
                 var currentValue = projectUnit.GetType().GetProperty(propertyName).GetValue(projectUnit);
                 if (Equals(currentValue, value)) continue;
 
                 projectUnit.GetType().GetProperty(propertyName).SetValue(projectUnit, value);
-                projectUnit.GetType().GetProperty(propertyName + "Id")?.SetValue(projectUnit, ((IWrapper<IBaseEntity>)value).Model.Id);
                 changed = true;
             }
 
@@ -115,7 +117,7 @@ namespace HVTApp.UI.ViewModels
         }
 
         #endregion
-
+        
     }
 
     public class ProjectUnitGroupLookup : IProjectUnitGroupLookup

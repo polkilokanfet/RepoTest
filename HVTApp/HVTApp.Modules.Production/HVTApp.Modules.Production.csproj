@@ -126,6 +126,10 @@
       <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
       <Name>HVTApp.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.UI\HVTApp.UI.csproj">
+      <Project>{984df0f0-471d-4e38-b701-9dfc536217a8}</Project>
+      <Name>HVTApp.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\worker16.png" />

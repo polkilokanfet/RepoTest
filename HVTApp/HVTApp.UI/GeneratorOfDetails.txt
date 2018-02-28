@@ -1,4 +1,17 @@
-﻿========================================== Fields for CommonOption ==========================================
+﻿
+
+
+
+
+
+
+
+
+
+
+
+
+========================================== Details for CommonOption ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.CommonOptionDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -21,15 +34,18 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="CalculationPriceTerm"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0"
 							   ValueType="core:Int32"
                                Value="{Binding Item.CalculationPriceTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="StandartTermFromStartToEndProduction"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
 							   ValueType="core:Int32"
                                Value="{Binding Item.StandartTermFromStartToEndProduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="StandartTermFromPickToEndProduction"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2"
@@ -37,9 +53,10 @@
                                Value="{Binding Item.StandartTermFromPickToEndProduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Address ==========================================
+========================================== Details for Address ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.AddressDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -59,9 +76,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Description"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Locality"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -70,9 +89,10 @@
                                     RemoveItemCommand="{Binding ClearLocalityCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Country ==========================================
+========================================== Details for Country ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.CountryDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -91,14 +111,16 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for District ==========================================
+========================================== Details for District ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.DistrictDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -118,9 +140,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Country"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -129,9 +153,10 @@
                                     RemoveItemCommand="{Binding ClearCountryCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Locality ==========================================
+========================================== Details for Locality ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.LocalityDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -157,23 +182,28 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="StandartDeliveryPeriod"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
                                Value="{Binding Item.StandartDeliveryPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="DistanceToEkb"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
                                Value="{Binding Item.DistanceToEkb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
 
         <Label Grid.Column="0" Grid.Row ="3" Content="LocalityType"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.LocalityType}" 
                                     AddItemCommand="{Binding SelectLocalityTypeCommand}" 
                                     RemoveItemCommand="{Binding ClearLocalityTypeCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="4" Content="Region"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
@@ -182,9 +212,10 @@
                                     RemoveItemCommand="{Binding ClearRegionCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for LocalityType ==========================================
+========================================== Details for LocalityType ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.LocalityTypeDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -204,18 +235,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="FullName"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="ShortName"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Region ==========================================
+========================================== Details for Region ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.RegionDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -235,9 +269,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="District"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -246,9 +282,10 @@
                                     RemoveItemCommand="{Binding ClearDistrictCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for CalculatePriceTask ==========================================
+========================================== Details for CalculatePriceTask ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.CalculatePriceTaskDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -272,15 +309,18 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Date"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="ProductBlock"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.ProductBlock}" 
                                     AddItemCommand="{Binding SelectProductBlockCommand}" 
                                     RemoveItemCommand="{Binding ClearProductBlockCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Projects"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
@@ -289,12 +329,14 @@
 										 AddItemCommand="{Binding AddInProjectsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromProjectsCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="3" Content="Offers"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.Offers}"
 										 SelectedItem="{Binding SelectedOffersItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInOffersCommand}"
 										 RemoveItemCommand="{Binding RemoveFromOffersCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="4" Content="Specifications"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
@@ -304,9 +346,10 @@
 										 RemoveItemCommand="{Binding RemoveFromSpecificationsCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Cost ==========================================
+========================================== Details for Cost ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.CostDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -326,9 +369,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Sum"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0" 
                                Value="{Binding Item.Sum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Currency"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -337,9 +382,10 @@
                                     RemoveItemCommand="{Binding ClearCurrencyCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Currency ==========================================
+========================================== Details for Currency ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.CurrencyDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -359,18 +405,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="FullName"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="ShortName"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for CurrencyExchangeRate ==========================================
+========================================== Details for CurrencyExchangeRate ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.CurrencyExchangeRateDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -393,23 +442,28 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="FirstCurrencyValue"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0" 
                                Value="{Binding Item.FirstCurrencyValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="SecondCurrencyValue"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
                                Value="{Binding Item.SecondCurrencyValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="Date"/>
         <DatePicker Grid.Column="1" Grid.Row="2" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 
         <Label Grid.Column="0" Grid.Row ="3" Content="FirstCurrency"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.FirstCurrency}" 
                                     AddItemCommand="{Binding SelectFirstCurrencyCommand}" 
                                     RemoveItemCommand="{Binding ClearFirstCurrencyCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="4" Content="SecondCurrency"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
@@ -418,9 +472,10 @@
                                     RemoveItemCommand="{Binding ClearSecondCurrencyCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for DescribeProductBlockTask ==========================================
+========================================== Details for DescribeProductBlockTask ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.DescribeProductBlockTaskDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -440,11 +495,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="ProductBlock"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.ProductBlock}" 
                                     AddItemCommand="{Binding SelectProductBlockCommand}" 
                                     RemoveItemCommand="{Binding ClearProductBlockCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Product"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -453,9 +510,10 @@
                                     RemoveItemCommand="{Binding ClearProductCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Note ==========================================
+========================================== Details for Note ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.NoteDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -476,18 +534,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Text"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Date"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for OfferUnit ==========================================
+========================================== Details for OfferUnit ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.OfferUnitDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -511,14 +572,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Cost"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0" 
                                Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="ProductionTerm"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ProductionTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Product"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
@@ -526,17 +590,20 @@
                                     AddItemCommand="{Binding SelectProductCommand}" 
                                     RemoveItemCommand="{Binding ClearProductCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="3" Content="Facility"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.Facility}" 
                                     AddItemCommand="{Binding SelectFacilityCommand}" 
                                     RemoveItemCommand="{Binding ClearFacilityCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="4" Content="PaymentConditionSet"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.PaymentConditionSet}" 
                                     AddItemCommand="{Binding SelectPaymentConditionSetCommand}" 
                                     RemoveItemCommand="{Binding ClearPaymentConditionSetCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="5" Content="DependentProducts"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
@@ -546,9 +613,10 @@
 										 RemoveItemCommand="{Binding RemoveFromDependentProductsCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for PaymentConditionSet ==========================================
+========================================== Details for PaymentConditionSet ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.PaymentConditionSetDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -567,6 +635,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="PaymentConditions"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.PaymentConditions}"
@@ -575,9 +644,10 @@
 										 RemoveItemCommand="{Binding RemoveFromPaymentConditionsCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for ProductBlock ==========================================
+========================================== Details for ProductBlock ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.ProductBlockDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -599,13 +669,16 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="StructureCostNumber"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Parameters"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
@@ -613,6 +686,7 @@
 										 SelectedItem="{Binding SelectedParametersItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInParametersCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParametersCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Prices"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
@@ -622,9 +696,10 @@
 										 RemoveItemCommand="{Binding RemoveFromPricesCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for ProductDependent ==========================================
+========================================== Details for ProductDependent ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.ProductDependentDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -646,14 +721,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Cost"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0" 
                                Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Amount"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
 							   ValueType="core:Int32"
                                Value="{Binding Item.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Product"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
@@ -662,9 +740,10 @@
                                     RemoveItemCommand="{Binding ClearProductCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for SalesBlock ==========================================
+========================================== Details for SalesBlock ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.SalesBlockDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -684,12 +763,14 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="ParentSalesUnits"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.ParentSalesUnits}"
 										 SelectedItem="{Binding SelectedParentSalesUnitsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInParentSalesUnitsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParentSalesUnitsCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="ChildSalesUnits"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
@@ -699,9 +780,10 @@
 										 RemoveItemCommand="{Binding RemoveFromChildSalesUnitsCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for BankDetails ==========================================
+========================================== Details for BankDetails ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.BankDetailsDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -723,26 +805,31 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="BankName"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.BankName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="BankIdentificationCode"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.BankIdentificationCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="CorrespondentAccount"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.CorrespondentAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="3" Content="CheckingAccount"/>
         <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                  Text="{Binding Item.CheckingAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Company ==========================================
+========================================== Details for Company ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.CompanyDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -770,21 +857,26 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="FullName"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="ShortName"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="Inn"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.Inn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="3" Content="Kpp"/>
         <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                  Text="{Binding Item.Kpp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="4" Content="Form"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
@@ -792,11 +884,13 @@
                                     AddItemCommand="{Binding SelectFormCommand}" 
                                     RemoveItemCommand="{Binding ClearFormCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="5" Content="ParentCompany"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
                                     Item="{Binding Item.ParentCompany}" 
                                     AddItemCommand="{Binding SelectParentCompanyCommand}" 
                                     RemoveItemCommand="{Binding ClearParentCompanyCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="6" Content="AddressLegal"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
@@ -804,11 +898,13 @@
                                     AddItemCommand="{Binding SelectAddressLegalCommand}" 
                                     RemoveItemCommand="{Binding ClearAddressLegalCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="7" Content="AddressPost"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="7" 
                                     Item="{Binding Item.AddressPost}" 
                                     AddItemCommand="{Binding SelectAddressPostCommand}" 
                                     RemoveItemCommand="{Binding ClearAddressPostCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="8" Content="BankDetailsList"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="8"
@@ -816,6 +912,7 @@
 										 SelectedItem="{Binding SelectedBankDetailsListItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInBankDetailsListCommand}"
 										 RemoveItemCommand="{Binding RemoveFromBankDetailsListCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="9" Content="ActivityFilds"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="9"
@@ -825,9 +922,10 @@
 										 RemoveItemCommand="{Binding RemoveFromActivityFildsCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for CompanyForm ==========================================
+========================================== Details for CompanyForm ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.CompanyFormDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -847,18 +945,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="FullName"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="ShortName"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for DocumentsRegistrationDetails ==========================================
+========================================== Details for DocumentsRegistrationDetails ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.DocumentsRegistrationDetailsDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -878,18 +979,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="RegistrationNumber"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.RegistrationNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="RegistrationDate"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 
                     SelectedDate="{Binding Item.RegistrationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for EmployeesPosition ==========================================
+========================================== Details for EmployeesPosition ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.EmployeesPositionDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -908,14 +1012,16 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for FacilityType ==========================================
+========================================== Details for FacilityType ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.FacilityTypeDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -935,18 +1041,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="FullName"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="ShortName"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for ActivityField ==========================================
+========================================== Details for ActivityField ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.ActivityFieldDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -966,14 +1075,16 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Contract ==========================================
+========================================== Details for Contract ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.ContractDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -994,13 +1105,16 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Number"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="Date"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Contragent"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
@@ -1009,9 +1123,10 @@
                                     RemoveItemCommand="{Binding ClearContragentCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Measure ==========================================
+========================================== Details for Measure ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.MeasureDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1031,18 +1146,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="FullName"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="ShortName"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Parameter ==========================================
+========================================== Details for Parameter ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.ParameterDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1063,15 +1181,18 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Value"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="ParameterGroup"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.ParameterGroup}" 
                                     AddItemCommand="{Binding SelectParameterGroupCommand}" 
                                     RemoveItemCommand="{Binding ClearParameterGroupCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="ParameterRelations"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
@@ -1081,9 +1202,10 @@
 										 RemoveItemCommand="{Binding RemoveFromParameterRelationsCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for ParameterGroup ==========================================
+========================================== Details for ParameterGroup ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.ParameterGroupDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1103,9 +1225,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Measure"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -1114,9 +1238,10 @@
                                     RemoveItemCommand="{Binding ClearMeasureCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for ProductRelation ==========================================
+========================================== Details for ProductRelation ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.ProductRelationDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1137,10 +1262,12 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Count"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0"
 							   ValueType="core:Int32"
                                Value="{Binding Item.Count, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="ParentProductParameters"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
@@ -1148,6 +1275,7 @@
 										 SelectedItem="{Binding SelectedParentProductParametersItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInParentProductParametersCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParentProductParametersCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="ChildProductParameters"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
@@ -1157,9 +1285,10 @@
 										 RemoveItemCommand="{Binding RemoveFromChildProductParametersCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Person ==========================================
+========================================== Details for Person ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.PersonDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1181,22 +1310,26 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Surname"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Surname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Patronymic"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.Patronymic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for PaymentPlannedList ==========================================
+========================================== Details for PaymentPlannedList ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.PaymentPlannedListDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1217,11 +1350,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Condition"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.Condition}" 
                                     AddItemCommand="{Binding SelectConditionCommand}" 
                                     RemoveItemCommand="{Binding ClearConditionCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Payments"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
@@ -1231,9 +1366,10 @@
 										 RemoveItemCommand="{Binding RemoveFromPaymentsCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for PaymentPlanned ==========================================
+========================================== Details for PaymentPlanned ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.PaymentPlannedDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1254,22 +1390,26 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Comment"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="Sum"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
                                Value="{Binding Item.Sum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Date"/>
         <DatePicker Grid.Column="1" Grid.Row="2" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for PaymentActual ==========================================
+========================================== Details for PaymentActual ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.PaymentActualDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1292,22 +1432,26 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Comment"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="Sum"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
                                Value="{Binding Item.Sum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Date"/>
         <DatePicker Grid.Column="1" Grid.Row="2" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for ParameterRelation ==========================================
+========================================== Details for ParameterRelation ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.ParameterRelationDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1327,6 +1471,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="RequiredParameters"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.RequiredParameters}"
@@ -1335,9 +1480,10 @@
 										 RemoveItemCommand="{Binding RemoveFromRequiredParametersCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for SalesUnit ==========================================
+========================================== Details for SalesUnit ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.SalesUnitDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1380,68 +1526,84 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="OrderPosition"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.OrderPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="SerialNumber"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.SerialNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="Cost"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
                                Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
+
         <Label Grid.Column="0" Grid.Row ="3" Content="CostOfShipment"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3" 
                                Value="{Binding Item.CostOfShipment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
 
         <Label Grid.Column="0" Grid.Row ="4" Content="ProductionTerm"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="4"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ProductionTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
+
         <Label Grid.Column="0" Grid.Row ="5" Content="AssembleTerm"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="5"
 							   ValueType="core:Int32"
                                Value="{Binding Item.AssembleTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
 
         <Label Grid.Column="0" Grid.Row ="6" Content="ExpectedDeliveryPeriod"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="6"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ExpectedDeliveryPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
+
         <Label Grid.Column="0" Grid.Row ="7" Content="DeliveryDateExpected"/>
         <DatePicker Grid.Column="1" Grid.Row="7" 
                     SelectedDate="{Binding Item.DeliveryDateExpected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 
         <Label Grid.Column="0" Grid.Row ="8" Content="RealizationDate"/>
         <DatePicker Grid.Column="1" Grid.Row="8" 
                     SelectedDate="{Binding Item.RealizationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
+
         <Label Grid.Column="0" Grid.Row ="9" Content="StartProductionDate"/>
         <DatePicker Grid.Column="1" Grid.Row="9" 
                     SelectedDate="{Binding Item.StartProductionDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 
         <Label Grid.Column="0" Grid.Row ="10" Content="PickingDate"/>
         <DatePicker Grid.Column="1" Grid.Row="10" 
                     SelectedDate="{Binding Item.PickingDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
+
         <Label Grid.Column="0" Grid.Row ="11" Content="EndProductionDate"/>
         <DatePicker Grid.Column="1" Grid.Row="11" 
                     SelectedDate="{Binding Item.EndProductionDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 
         <Label Grid.Column="0" Grid.Row ="12" Content="ShipmentDate"/>
         <DatePicker Grid.Column="1" Grid.Row="12" 
                     SelectedDate="{Binding Item.ShipmentDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
+
         <Label Grid.Column="0" Grid.Row ="13" Content="ShipmentPlanDate"/>
         <DatePicker Grid.Column="1" Grid.Row="13" 
                     SelectedDate="{Binding Item.ShipmentPlanDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
+
         <Label Grid.Column="0" Grid.Row ="14" Content="DeliveryDate"/>
         <DatePicker Grid.Column="1" Grid.Row="14" 
                     SelectedDate="{Binding Item.DeliveryDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 
         <Label Grid.Column="0" Grid.Row ="15" Content="Product"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="15" 
@@ -1449,11 +1611,13 @@
                                     AddItemCommand="{Binding SelectProductCommand}" 
                                     RemoveItemCommand="{Binding ClearProductCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="16" Content="Facility"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="16" 
                                     Item="{Binding Item.Facility}" 
                                     AddItemCommand="{Binding SelectFacilityCommand}" 
                                     RemoveItemCommand="{Binding ClearFacilityCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="17" Content="PaymentConditionSet"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="17" 
@@ -1461,11 +1625,13 @@
                                     AddItemCommand="{Binding SelectPaymentConditionSetCommand}" 
                                     RemoveItemCommand="{Binding ClearPaymentConditionSetCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="18" Content="Producer"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="18" 
                                     Item="{Binding Item.Producer}" 
                                     AddItemCommand="{Binding SelectProducerCommand}" 
                                     RemoveItemCommand="{Binding ClearProducerCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="19" Content="Order"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="19" 
@@ -1473,17 +1639,20 @@
                                     AddItemCommand="{Binding SelectOrderCommand}" 
                                     RemoveItemCommand="{Binding ClearOrderCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="20" Content="Specification"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="20" 
                                     Item="{Binding Item.Specification}" 
                                     AddItemCommand="{Binding SelectSpecificationCommand}" 
                                     RemoveItemCommand="{Binding ClearSpecificationCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="21" Content="Address"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="21" 
                                     Item="{Binding Item.Address}" 
                                     AddItemCommand="{Binding SelectAddressCommand}" 
                                     RemoveItemCommand="{Binding ClearAddressCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="22" Content="DependentProducts"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="22"
@@ -1492,12 +1661,14 @@
 										 AddItemCommand="{Binding AddInDependentProductsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromDependentProductsCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="23" Content="PaymentsActual"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="23"
 										 Items="{Binding Path=Item.PaymentsActual}"
 										 SelectedItem="{Binding SelectedPaymentsActualItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPaymentsActualCommand}"
 										 RemoveItemCommand="{Binding RemoveFromPaymentsActualCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="24" Content="PaymentsPlannedSaved"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="24"
@@ -1507,9 +1678,10 @@
 										 RemoveItemCommand="{Binding RemoveFromPaymentsPlannedSavedCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Service ==========================================
+========================================== Details for Service ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.ServiceDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1528,14 +1700,16 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for TestFriendAddress ==========================================
+========================================== Details for TestFriendAddress ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.TestFriendAddressDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1556,22 +1730,26 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="City"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="Street"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="StreetNumber"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.StreetNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for TestFriend ==========================================
+========================================== Details for TestFriend ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.TestFriendDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1599,27 +1777,33 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="FirstName"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="LastName"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="FriendGroupId"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2"
 							   ValueType="core:Int32"
                                Value="{Binding Item.FriendGroupId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
+
         <Label Grid.Column="0" Grid.Row ="3" Content="IdGet"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3"
 							   ValueType="core:Int32"
                                Value="{Binding Item.IdGet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
+
         <Label Grid.Column="0" Grid.Row ="4" Content="Birthday"/>
         <DatePicker Grid.Column="1" Grid.Row="4" 
                     SelectedDate="{Binding Item.Birthday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 
         <Label Grid.Column="0" Grid.Row ="5" Content="TestFriendAddress"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
@@ -1627,11 +1811,13 @@
                                     AddItemCommand="{Binding SelectTestFriendAddressCommand}" 
                                     RemoveItemCommand="{Binding ClearTestFriendAddressCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="6" Content="TestFriendGroup"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
                                     Item="{Binding Item.TestFriendGroup}" 
                                     AddItemCommand="{Binding SelectTestFriendGroupCommand}" 
                                     RemoveItemCommand="{Binding ClearTestFriendGroupCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="7" Content="Emails"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="7"
@@ -1641,9 +1827,10 @@
 										 RemoveItemCommand="{Binding RemoveFromEmailsCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for TestFriendEmail ==========================================
+========================================== Details for TestFriendEmail ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.TestFriendEmailDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1663,18 +1850,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Email"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Comment"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for TestFriendGroup ==========================================
+========================================== Details for TestFriendGroup ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.TestFriendGroupDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1694,9 +1884,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="FriendTests"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
@@ -1706,9 +1898,10 @@
 										 RemoveItemCommand="{Binding RemoveFromFriendTestsCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Document ==========================================
+========================================== Details for Document ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.DocumentDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1736,9 +1929,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Comment"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="RequestDocument"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -1746,11 +1941,13 @@
                                     AddItemCommand="{Binding SelectRequestDocumentCommand}" 
                                     RemoveItemCommand="{Binding ClearRequestDocumentCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="Author"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.Author}" 
                                     AddItemCommand="{Binding SelectAuthorCommand}" 
                                     RemoveItemCommand="{Binding ClearAuthorCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="3" Content="SenderEmployee"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
@@ -1758,11 +1955,13 @@
                                     AddItemCommand="{Binding SelectSenderEmployeeCommand}" 
                                     RemoveItemCommand="{Binding ClearSenderEmployeeCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="4" Content="RecipientEmployee"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.RecipientEmployee}" 
                                     AddItemCommand="{Binding SelectRecipientEmployeeCommand}" 
                                     RemoveItemCommand="{Binding ClearRecipientEmployeeCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="5" Content="RegistrationDetailsOfSender"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
@@ -1770,11 +1969,13 @@
                                     AddItemCommand="{Binding SelectRegistrationDetailsOfSenderCommand}" 
                                     RemoveItemCommand="{Binding ClearRegistrationDetailsOfSenderCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="6" Content="RegistrationDetailsOfRecipient"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
                                     Item="{Binding Item.RegistrationDetailsOfRecipient}" 
                                     AddItemCommand="{Binding SelectRegistrationDetailsOfRecipientCommand}" 
                                     RemoveItemCommand="{Binding ClearRegistrationDetailsOfRecipientCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="7" Content="CopyToRecipients"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="7"
@@ -1784,9 +1985,10 @@
 										 RemoveItemCommand="{Binding RemoveFromCopyToRecipientsCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for TestEntity ==========================================
+========================================== Details for TestEntity ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.TestEntityDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1805,14 +2007,16 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for TestHusband ==========================================
+========================================== Details for TestHusband ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.TestHusbandDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1833,15 +2037,18 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Wife"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.Wife}" 
                                     AddItemCommand="{Binding SelectWifeCommand}" 
                                     RemoveItemCommand="{Binding ClearWifeCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Children"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
@@ -1851,9 +2058,10 @@
 										 RemoveItemCommand="{Binding RemoveFromChildrenCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for TestWife ==========================================
+========================================== Details for TestWife ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.TestWifeDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1874,14 +2082,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="N"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
 							   ValueType="core:Int32"
                                Value="{Binding Item.N, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Husband"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
@@ -1890,9 +2101,10 @@
                                     RemoveItemCommand="{Binding ClearHusbandCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for TestChild ==========================================
+========================================== Details for TestChild ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.TestChildDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1913,15 +2125,18 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Husband"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.Husband}" 
                                     AddItemCommand="{Binding SelectHusbandCommand}" 
                                     RemoveItemCommand="{Binding ClearHusbandCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Wife"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
@@ -1930,9 +2145,10 @@
                                     RemoveItemCommand="{Binding ClearWifeCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for CostOnDate ==========================================
+========================================== Details for CostOnDate ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.CostOnDateDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1952,18 +2168,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Cost"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0" 
                                Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Date"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Product ==========================================
+========================================== Details for Product ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.ProductDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -1984,15 +2203,18 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Designation"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Designation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="ProductBlock"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.ProductBlock}" 
                                     AddItemCommand="{Binding SelectProductBlockCommand}" 
                                     RemoveItemCommand="{Binding ClearProductBlockCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="DependentProducts"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
@@ -2002,9 +2224,10 @@
 										 RemoveItemCommand="{Binding RemoveFromDependentProductsCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Offer ==========================================
+========================================== Details for Offer ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.OfferDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -2036,17 +2259,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Comment"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Vat"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
                                Value="{Binding Item.Vat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="ValidityDate"/>
         <DatePicker Grid.Column="1" Grid.Row="2" 
                     SelectedDate="{Binding Item.ValidityDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Project"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
@@ -2054,11 +2281,13 @@
                                     AddItemCommand="{Binding SelectProjectCommand}" 
                                     RemoveItemCommand="{Binding ClearProjectCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="4" Content="RequestDocument"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.RequestDocument}" 
                                     AddItemCommand="{Binding SelectRequestDocumentCommand}" 
                                     RemoveItemCommand="{Binding ClearRequestDocumentCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="5" Content="Author"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
@@ -2066,11 +2295,13 @@
                                     AddItemCommand="{Binding SelectAuthorCommand}" 
                                     RemoveItemCommand="{Binding ClearAuthorCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="6" Content="SenderEmployee"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
                                     Item="{Binding Item.SenderEmployee}" 
                                     AddItemCommand="{Binding SelectSenderEmployeeCommand}" 
                                     RemoveItemCommand="{Binding ClearSenderEmployeeCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="7" Content="RecipientEmployee"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="7" 
@@ -2078,11 +2309,13 @@
                                     AddItemCommand="{Binding SelectRecipientEmployeeCommand}" 
                                     RemoveItemCommand="{Binding ClearRecipientEmployeeCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="8" Content="RegistrationDetailsOfSender"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="8" 
                                     Item="{Binding Item.RegistrationDetailsOfSender}" 
                                     AddItemCommand="{Binding SelectRegistrationDetailsOfSenderCommand}" 
                                     RemoveItemCommand="{Binding ClearRegistrationDetailsOfSenderCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="9" Content="RegistrationDetailsOfRecipient"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="9" 
@@ -2090,12 +2323,14 @@
                                     AddItemCommand="{Binding SelectRegistrationDetailsOfRecipientCommand}" 
                                     RemoveItemCommand="{Binding ClearRegistrationDetailsOfRecipientCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="10" Content="OfferUnits"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="10"
 										 Items="{Binding Path=Item.OfferUnits}"
 										 SelectedItem="{Binding SelectedOfferUnitsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInOfferUnitsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromOfferUnitsCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="11" Content="CopyToRecipients"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="11"
@@ -2105,9 +2340,10 @@
 										 RemoveItemCommand="{Binding RemoveFromCopyToRecipientsCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Employee ==========================================
+========================================== Details for Employee ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.EmployeeDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -2130,13 +2366,16 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="PhoneNumber"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="Email"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Person"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
@@ -2144,11 +2383,13 @@
                                     AddItemCommand="{Binding SelectPersonCommand}" 
                                     RemoveItemCommand="{Binding ClearPersonCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="3" Content="Company"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.Company}" 
                                     AddItemCommand="{Binding SelectCompanyCommand}" 
                                     RemoveItemCommand="{Binding ClearCompanyCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="4" Content="Position"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
@@ -2157,9 +2398,10 @@
                                     RemoveItemCommand="{Binding ClearPositionCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Order ==========================================
+========================================== Details for Order ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.OrderDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -2179,18 +2421,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Number"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="OpenOrderDate"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 
                     SelectedDate="{Binding Item.OpenOrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for PaymentCondition ==========================================
+========================================== Details for PaymentCondition ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.PaymentConditionDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -2211,9 +2456,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Part"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0" 
                                Value="{Binding Item.Part, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="DaysToPoint"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
@@ -2221,9 +2468,10 @@
                                Value="{Binding Item.DaysToPoint, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for PaymentDocument ==========================================
+========================================== Details for PaymentDocument ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.PaymentDocumentDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -2244,13 +2492,16 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Number"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="Date"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Payments"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
@@ -2260,9 +2511,10 @@
 										 RemoveItemCommand="{Binding RemoveFromPaymentsCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Facility ==========================================
+========================================== Details for Facility ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.FacilityDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -2284,9 +2536,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Type"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -2294,11 +2548,13 @@
                                     AddItemCommand="{Binding SelectTypeCommand}" 
                                     RemoveItemCommand="{Binding ClearTypeCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="OwnerCompany"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.OwnerCompany}" 
                                     AddItemCommand="{Binding SelectOwnerCompanyCommand}" 
                                     RemoveItemCommand="{Binding ClearOwnerCompanyCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Address"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
@@ -2307,9 +2563,10 @@
                                     RemoveItemCommand="{Binding ClearAddressCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Project ==========================================
+========================================== Details for Project ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.ProjectDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -2331,9 +2588,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Manager"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -2341,12 +2600,14 @@
                                     AddItemCommand="{Binding SelectManagerCommand}" 
                                     RemoveItemCommand="{Binding ClearManagerCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="SalesUnits"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.SalesUnits}"
 										 SelectedItem="{Binding SelectedSalesUnitsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInSalesUnitsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromSalesUnitsCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Notes"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
@@ -2356,9 +2617,10 @@
 										 RemoveItemCommand="{Binding RemoveFromNotesCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for UserRole ==========================================
+========================================== Details for UserRole ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.UserRoleDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -2378,14 +2640,16 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Specification ==========================================
+========================================== Details for Specification ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.SpecificationDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -2407,17 +2671,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Number"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Vat"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
                                Value="{Binding Item.Vat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="Date"/>
         <DatePicker Grid.Column="1" Grid.Row="2" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Contract"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
@@ -2426,9 +2694,10 @@
                                     RemoveItemCommand="{Binding ClearContractCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for Tender ==========================================
+========================================== Details for Tender ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.TenderDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -2453,17 +2722,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="DateOpen"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
                     SelectedDate="{Binding Item.DateOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="DateClose"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 
                     SelectedDate="{Binding Item.DateClose, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="DateNotice"/>
         <DatePicker Grid.Column="1" Grid.Row="2" 
                     SelectedDate="{Binding Item.DateNotice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Project"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
@@ -2471,11 +2744,13 @@
                                     AddItemCommand="{Binding SelectProjectCommand}" 
                                     RemoveItemCommand="{Binding ClearProjectCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="4" Content="Winner"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.Winner}" 
                                     AddItemCommand="{Binding SelectWinnerCommand}" 
                                     RemoveItemCommand="{Binding ClearWinnerCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="5" Content="Types"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
@@ -2483,6 +2758,7 @@
 										 SelectedItem="{Binding SelectedTypesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInTypesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromTypesCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="6" Content="Participants"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
@@ -2492,9 +2768,10 @@
 										 RemoveItemCommand="{Binding RemoveFromParticipantsCommand}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for TenderType ==========================================
+========================================== Details for TenderType ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.TenderTypeDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -2514,14 +2791,16 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
+
     </Grid>
 </inf:ViewBase>
-========================================== Fields for User ==========================================
+========================================== Details for User ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.UserDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -2545,13 +2824,16 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Login"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="PersonalNumber"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.PersonalNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Employee"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
@@ -2559,12 +2841,14 @@
                                     AddItemCommand="{Binding SelectEmployeeCommand}" 
                                     RemoveItemCommand="{Binding ClearEmployeeCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="3" Content="Roles"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.Roles}"
 										 SelectedItem="{Binding SelectedRolesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInRolesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromRolesCommand}"/>
+
 
 
     </Grid>

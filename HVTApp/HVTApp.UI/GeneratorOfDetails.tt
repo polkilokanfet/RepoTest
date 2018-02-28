@@ -1,6 +1,6 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
-<#@ assembly name="$(SolutionDir)\HVTApp.Model\bin\Debug\HVTApp.Infrastructure.dll" #>
+<#@ assembly name="$(SolutionDir)\HVTApp.Infrestructure\bin\Debug\HVTApp.Infrastructure.dll" #>
 <#@ assembly name="$(SolutionDir)\HVTApp.Model\bin\Debug\HVTApp.Model.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -58,7 +58,7 @@
 		var complexSetProperties = allComplexProperties.Where(p => p.CanWrite).ToList();
 		var complexGetProperties = allComplexProperties.Where(p => !p.CanWrite).ToList();
 
-#>========================================== Fields for <#=modelType.Name#> ==========================================
+#>========================================== Details for <#=modelType.Name#> ==========================================
 
 <inf:ViewBase x:Class="HVTApp.UI.Views.<#=modelType.Name#>DetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"

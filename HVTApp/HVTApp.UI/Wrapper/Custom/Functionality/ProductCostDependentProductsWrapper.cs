@@ -11,7 +11,7 @@ namespace HVTApp.UI.Wrapper
     public abstract class ProductCostWrapper<T> : WrapperBase<T>, IProductCostWrapper
         where T : class, IProductCost
     {
-        private DateTime _priceDate;
+        private DateTime _priceDate = DateTime.Today;
 
         public event Action ProductChanged;
         public event Action CostChanged;
@@ -25,8 +25,11 @@ namespace HVTApp.UI.Wrapper
             get { return GetWrapper<ProductWrapper>(); }
             set
             {
+                if (Equals(Product, value)) return;
+
                 SetComplexValue<Product, ProductWrapper>(Product, value);
-                if (!Equals(Product, value)) ProductChanged?.Invoke();
+                ProductChanged?.Invoke();
+                RisePropertyChangedEvents();
             }
         }
 
@@ -35,8 +38,11 @@ namespace HVTApp.UI.Wrapper
             get { return GetValue<double>(); }
             set
             {
+                if (Equals(Cost, value)) return;
+
                 SetValue(value);
-                if (!Equals(Cost, value)) CostChanged?.Invoke();
+                CostChanged?.Invoke();
+                RisePropertyChangedEvents();
             }
         }
 
