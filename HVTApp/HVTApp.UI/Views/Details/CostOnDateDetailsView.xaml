@@ -1,0 +1,25 @@
+﻿<inf:ViewBase 
+             xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"  
+             x:Class="HVTApp.UI.Views.CostOnDateDetailsView"
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition MinWidth="100" Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Стоимость"/>
+        <igWPF:XamNumericEditor Grid.Row="0" Grid.Column="1" 
+                                Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Дата"/>
+        <igWPF:XamDateTimeEditor Grid.Row="1" Grid.Column="1" 
+                                 Value="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+    </Grid>
+</inf:ViewBase>

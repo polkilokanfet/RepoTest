@@ -1,0 +1,19 @@
+﻿<inf:ViewBase x:Class="HVTApp.Modules.CommonEntities.Views.ParametersGroupsView"
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:infg="http://infragistics.com/DataPresenter"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Название"/>
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+    
+</inf:ViewBase>

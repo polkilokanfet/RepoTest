@@ -1,0 +1,35 @@
+﻿<inf:ViewBase 
+             x:Class="HVTApp.UI.Views.PartPriceListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             xmlns:infg="http://infragistics.com/DataPresenter"
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"             
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <infg:XamDataGrid>
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout Key="Product">
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Designation" Label="Наименование"/>
+                    <infg:TextField Name="StructureCostOfShipmentNumber" Label="StructureCostOfShipmentNumber"/>
+                    <infg:Field Name="Prices" IsExpandable="True" IsPrimary="True"/>
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+            
+            <infg:FieldLayout Key="Price" ParentFieldName="Prices" ParentFieldLayoutKey="Product">
+                <infg:NumericField Name="CostOfShipment" Label="Стоимость"/>
+                <infg:DateTimeField Name="Date" Label="Дата"/>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+</inf:ViewBase>

@@ -1,0 +1,32 @@
+﻿<inf:ViewBase
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:infg="http://infragistics.com/DataPresenter"
+             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+             x:Class="HVTApp.UI.Views.CompanyListView"
+             >
+
+    <infg:XamDataGrid>
+
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="FullName" Label="Полное наименование"/>
+                    <infg:TextField Name="ShortName" Label="Краткое наименование" Width="Auto"/>
+                    <infg:TextField Name="Form" Label="Форма" Converter="{StaticResource LookupToStringConverter}" Width="Auto"/>
+                    <infg:TextField Name="Inn" Label="ИНН" Width="Auto"/>
+                    <infg:TextField Name="ParentCompany" Label="Родительская компания" Converter="{StaticResource LookupToStringConverter}" Width="Auto"/>
+                    <!--<infg:TextField AlternateBinding="{Binding Form.ShortName}" BindingType="UseAlternateBinding" Label="Форм." Width="Auto"/>-->
+                    <!--<infg:TextField AlternateBinding="{Binding Form.FullName}" BindingType="UseAlternateBinding" Label="Форма" Width="Auto"/>-->
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+</inf:ViewBase>
+
+
+
+

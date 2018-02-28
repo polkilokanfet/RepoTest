@@ -1,0 +1,308 @@
+﻿<inf:ViewBase x:Class="HVTApp.UI.Views.ProjectDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+
+
+    <StackPanel>
+        <Menu>
+            <MenuItem Header="Edit" Command="{Binding EditCommand}"/>
+            <MenuItem Header="Group" Command="{Binding GroupingCommand}"/>
+        </Menu>
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" Content="Название"/>
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            
+            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <infg:XamDataGrid Grid.Column="0" 
+                                  DataSource="{Binding ProjectUnits}"
+                                  SelectedDataItem="{Binding SelectedUnitGroup, Mode=TwoWay}">
+                    
+                    <infg:XamDataGrid.FieldLayoutSettings>
+                        <infg:FieldLayoutSettings HighlightAlternateRecords="False"
+                                                  AutoGenerateFields="False" />
+                    </infg:XamDataGrid.FieldLayoutSettings>
+
+                    <infg:XamDataGrid.Resources>
+                        <Style TargetType="{x:Type infg:DataRecordPresenter}">
+                            <Setter Property="Background" Value="GreenYellow"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Record.DataItem.HasBlocksWithoutPrice}" Value="True">
+                                    <Setter Property="Background" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                        
+                    </infg:XamDataGrid.Resources>
+
+                    <infg:XamDataGrid.FieldLayouts>
+                        <infg:FieldLayout>
+                            <infg:FieldLayout.Fields>
+                                <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
+                                <infg:TextField Name="Product" Label="Оборудование"/>
+                                <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
+                                <infg:DateTimeField Name="DeliveryDateExpected" Label="Дата поставки" AllowEdit="True" Width="Auto"/>
+                                <infg:NumericField Name="MarginalIncome" Label="МД, %" AllowEdit="True" Width="Auto"/>
+                                <infg:NumericField Name="Cost" Label="Стоимость" AllowEdit="True" Width="Auto"/>
+                                <infg:NumericField Name="Total" Label="Сумма" Width="Auto"/>
+                                <!--<infg:CheckBoxField Name="HasBlocksWithoutPrice" Label="Error" Width="Auto"/>-->
+                                <!--<infg:TextField Name="PriceErrors" Label="PriceErrors" />-->
+                            </infg:FieldLayout.Fields>
+                        </infg:FieldLayout>
+                    </infg:XamDataGrid.FieldLayouts>
+                
+                </infg:XamDataGrid>
+
+                <!--<StackPanel Grid.Column="1" Orientation="Vertical">
+                    <Button Command="{Binding AddProjectUnitGroupCommand}" Margin="2"><TextBlock Text="+" Margin="5"></TextBlock></Button>
+                    <Button Command="{Binding EditProjectUnitGroupCommand}" Margin="2"><TextBlock Text="~" Margin="5"></TextBlock></Button>
+                </StackPanel>-->
+            </Grid>
+        </Grid>
+        
+    </StackPanel>
+</inf:ViewBase>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
