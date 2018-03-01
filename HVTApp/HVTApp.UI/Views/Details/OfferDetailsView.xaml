@@ -25,7 +25,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
 
@@ -101,34 +101,39 @@
 										 RemoveItemCommand="{Binding RemoveFromCopyToRecipientsCommand}"/>
 
         <infDP:XamDataGrid Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" 
-                           DataSource="{Binding Item.OfferUnits}"
-                           SelectedDataItem="{Binding SelectedOfferUnitsItem, Mode=TwoWay}">
+                           DataSource="{Binding OfferUnitsGroups}"
+                           SelectedDataItem="{Binding SelectedOfferUnitsGroup, Mode=TwoWay}">
+            
             <infDP:XamDataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Add new" Command="{Binding AddOfferUnitCommand}"/>
-                    <MenuItem Header="Edit" Command="{Binding EditOfferUnitCommand}"/>
+                    <MenuItem Header="Refresh" Command="{Binding RefreshOfferUnitsGroupsCommand}"/>
+                    <MenuItem Header="BlowUp" Command="{Binding BlowUpOfferUnitsGroupCommand}"/>
                     <Separator/>
-                    <MenuItem Header="Remove" Command="{Binding RemoveFromOfferUnitsCommand}"/>
+                    <MenuItem Header="Add" Command="{Binding AddOfferUnitsGroupCommand}"/>
+                    <MenuItem Header="Edit" Command="{Binding EditOfferUnitsGroupCommand}"/>
+                    <Separator/>
+                    <MenuItem Header="Remove" Command="{Binding RemoveOfferUnitsGroupCommand}"/>
                 </ContextMenu>
             </infDP:XamDataGrid.ContextMenu>
-
+            
             <infDP:XamDataGrid.FieldLayouts>
                 <infDP:FieldLayout>
                     <infDP:FieldLayout.Fields>
-                        
+
                         <infDP:TextField Name="Facility" Label="Объект" Width="Auto"/>
-                        <infDP:TextField Name="Product" Label="Оборудование" />
-                        <!--<infDP:NumericField Name="Amount" Label="Количество" Width="Auto"/>-->
+                        <infDP:TextField Name="Product" Label="Оборудование" Width="Auto"/>
+                        <infDP:NumericField Name="Amount" Label="Количество" Width="Auto"/>
                         <infDP:NumericField Name="MarginalIncome" Label="МД, %" AllowEdit="True" Width="Auto"/>
                         <infDP:CurrencyField Name="Cost" Label="Стоимость" AllowEdit="True" Width="Auto"/>
-                        <infDP:NumericField Name="ProductionTerm" Label="Срок" Width="Auto" />
+                        <infDP:NumericField Name="ProductionTerm" Label="Срок" AllowEdit="True" Width="Auto" />
+                        <infDP:CurrencyField Name="Total" Label="Сумма" Width="Auto"/>
                         <infDP:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto"/>
-                        <!--<infDP:CurrencyField Name="Total" Label="Сумма" Width="Auto"/>-->
-                        
+
                     </infDP:FieldLayout.Fields>
                 </infDP:FieldLayout>
             </infDP:XamDataGrid.FieldLayouts>
         </infDP:XamDataGrid>
+
 
     </Grid>
 </inf:ViewBase>

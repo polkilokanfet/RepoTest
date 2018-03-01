@@ -124,6 +124,7 @@
     <Compile Include="ViewModels\Details\IProductCostDependentProductsWrapper.cs" />
     <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\OfferUnitsGroupDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\SpecificationDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\UnitGroup.cs" />
@@ -181,6 +182,9 @@
     </Compile>
     <Compile Include="Views\Details\OfferUnitDetailsView.xaml.cs">
       <DependentUpon>OfferUnitDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Details\OfferUnitsGroupDetailsWindow.xaml.cs">
+      <DependentUpon>OfferUnitsGroupDetailsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Details\ParameterDetailsView.xaml.cs">
       <DependentUpon>ParameterDetailsView.xaml</DependentUpon>
@@ -528,6 +532,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Details\OfferUnitDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Details\OfferUnitsGroupDetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

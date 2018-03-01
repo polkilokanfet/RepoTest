@@ -50,7 +50,7 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
-        public double Total => Groups.Sum(x => x.Cost);
+        public double Total => Units.Sum(x => x.Cost);
 
         public bool HasBlocksWithoutPrice => GetValue<bool>();
 
@@ -64,13 +64,13 @@ namespace HVTApp.UI.ViewModels
     public class BaseUnitsGroup<TUnit> : INotifyPropertyChanged
         where TUnit : INotifyPropertyChanged
     {
-        public ObservableCollection<TUnit> Groups { get; }
-        public int Amount => Groups.Count;
+        public ObservableCollection<TUnit> Units { get; }
+        public int Amount => Units.Count;
 
         public BaseUnitsGroup(IEnumerable<TUnit> units)
         {
-            Groups = new ObservableCollection<TUnit>(units);
-            foreach (var projectUnit in Groups)
+            Units = new ObservableCollection<TUnit>(units);
+            foreach (var projectUnit in Units)
             {
                 projectUnit.PropertyChanged += ProjectUnitOnPropertyChanged;
             }
@@ -84,7 +84,7 @@ namespace HVTApp.UI.ViewModels
         #region GetSetValue
         protected T GetValue<T>([CallerMemberName] string propertyName = null)
         {
-            var unit = Groups.First();
+            var unit = Units.First();
             return (T)unit.GetType().GetProperty(propertyName).GetValue(unit);
         }
 
@@ -92,7 +92,7 @@ namespace HVTApp.UI.ViewModels
         {
             bool changed = false;
 
-            foreach (var projectUnit in Groups)
+            foreach (var projectUnit in Units)
             {
                 var currentValue = projectUnit.GetType().GetProperty(propertyName).GetValue(projectUnit);
                 if (Equals(currentValue, value)) continue;

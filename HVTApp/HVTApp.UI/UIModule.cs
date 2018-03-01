@@ -34,6 +34,7 @@ namespace HVTApp.UI
             RegisterViews();
 
             _dialogService.Register<UnitGroupViewModel, ProjectUnitGroupWindow>();
+            _dialogService.Register<OfferUnitsGroupDetailsViewModel, OfferUnitsGroupDetailsWindow>();
 
             Container.RegisterViewForNavigation<PaymentPlannedListGeneratorView>();
 

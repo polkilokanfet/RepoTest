@@ -7,7 +7,7 @@ using Prism.Regions;
 
 namespace HVTApp.Modules.Sales.Views
 {
-    [RibbonTab(typeof(SalesCRUD))]
+    //[RibbonTab(typeof(SalesCRUD))]
     public partial class MarketView
     {
         private readonly MarketViewModel _marketViewModel;
@@ -24,7 +24,7 @@ namespace HVTApp.Modules.Sales.Views
 
         private async void OnLoaded(object sender, RoutedEventArgs args)
         {
-            await _marketViewModel.ProjectListViewModel.LoadAsync();
+            await _marketViewModel.LoadAsync();
             this.Loaded -= OnLoaded;
         }
     }

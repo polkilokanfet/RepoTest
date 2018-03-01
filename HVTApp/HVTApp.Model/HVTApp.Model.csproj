@@ -65,6 +65,7 @@
     <Compile Include="POCOs\PaymentConditionSet.cs" />
     <Compile Include="POCOs\ProductBlock.cs" />
     <Compile Include="POCOs\ProductDependent.cs" />
+    <Compile Include="POCOs\ProductionTask.cs" />
     <Compile Include="POCOs\SalesBlock.cs" />
     <Compile Include="POCOs\BankDetails.cs" />
     <Compile Include="POCOs\Company.cs" />

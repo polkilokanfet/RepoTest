@@ -19,7 +19,7 @@ namespace HVTApp.Model.POCOs
         public Guid RecipientId { get; set; }
         public virtual Employee RecipientEmployee { get; set; }
 
-        public virtual List<Employee> CopyToRecipients { get; set; }
+        public virtual List<Employee> CopyToRecipients { get; set; } = new List<Employee>();
 
         public virtual DocumentsRegistrationDetails RegistrationDetailsOfSender { get; set; }
         public virtual DocumentsRegistrationDetails RegistrationDetailsOfRecipient { get; set; }

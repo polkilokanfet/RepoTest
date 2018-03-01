@@ -9,7 +9,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Wrapper
 {
-    public abstract class WrapperBase<TModel> : NotifyDataErrorInfoBase, IWrapper<TModel>
+    public abstract partial class WrapperBase<TModel> : NotifyDataErrorInfoBase, IWrapper<TModel>
         where TModel : class, IBaseEntity
     {
         protected readonly Dictionary<string, IWrapper<IBaseEntity>> OriginalWrappers = new Dictionary<string, IWrapper<IBaseEntity>>();
@@ -379,4 +379,13 @@ namespace HVTApp.UI.Wrapper
 
         public string DisplayMember => ToString();
     }
+
+    public abstract partial class WrapperBase : IComparable
+    {
+        public virtual int CompareTo(object obj)
+        {
+            return this.ToString().CompareTo(obj.ToString());
+        }
+    }
+
 }
