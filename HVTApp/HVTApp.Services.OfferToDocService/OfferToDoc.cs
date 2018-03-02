@@ -114,14 +114,14 @@ namespace HVTApp.Services.OfferToDocService
             cellProps.ColumnSpan = 4;
             docWriter.TableCell("Итого без НДС:", cellProps);
             cellProps.ColumnSpan = 1;
-            docWriter.TableCell($"{offer.TotalCost:C}", cellProps, parPropRight);
+            docWriter.TableCell($"{offer.Sum:C}", cellProps, parPropRight);
             docWriter.EndTableRow();
 
             docWriter.StartTableRow();
             cellProps.ColumnSpan = 4;
             docWriter.TableCell($"НДС ({offer.VatProc} %):", cellProps);
             cellProps.ColumnSpan = 1;
-            docWriter.TableCell($"{offer.TotalCost * offer.Vat:C}", cellProps, parPropRight);
+            docWriter.TableCell($"{offer.Sum * offer.Vat:C}", cellProps, parPropRight);
             docWriter.EndTableRow();
 
 
@@ -129,7 +129,7 @@ namespace HVTApp.Services.OfferToDocService
             cellProps.ColumnSpan = 4;
             docWriter.TableCell($"Итого с НДС:", cellProps);
             cellProps.ColumnSpan = 1;
-            docWriter.TableCell($"{offer.TotalCostWithVat:C}", cellProps, parPropRight);
+            docWriter.TableCell($"{offer.SumWithVat:C}", cellProps, parPropRight);
             docWriter.EndTableRow();
 
             docWriter.EndTable();

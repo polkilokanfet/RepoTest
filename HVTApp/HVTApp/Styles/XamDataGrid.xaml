@@ -19,6 +19,7 @@
                                           AllowDelete="False" 
                                           AllowFieldMoving="Yes" 
                                           AllowRecordFixing="Top"
+                                          HeaderPrefixAreaDisplayMode="FieldChooserButton"
                                           HighlightAlternateRecords="True"/>
             </Setter.Value>
         </Setter>

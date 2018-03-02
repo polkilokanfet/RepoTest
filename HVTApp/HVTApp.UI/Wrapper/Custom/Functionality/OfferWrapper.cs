@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Linq;
-using HVTApp.Model.POCOs;
+using HVTApp.UI.Converter;
+using HVTApp.UI.ViewModels;
 
 namespace HVTApp.UI.Wrapper
 {
     public partial class OfferWrapper
     {
+        public IEnumerable<OfferUnitsGroup> OfferUnitsGroups => OfferUnits.ToUnitGroups();
+
         public double VatProc
         {
             get { return this.Vat * 100; }
@@ -19,7 +20,7 @@ namespace HVTApp.UI.Wrapper
             }
         }
 
-        public double TotalCost => OfferUnits.Sum(x => x.Cost);
-        public double TotalCostWithVat => TotalCost * (1 + Vat);
+        public double Sum => OfferUnits.Sum(x => x.Cost);
+        public double SumWithVat => Sum * (1 + Vat);
     }
 }
