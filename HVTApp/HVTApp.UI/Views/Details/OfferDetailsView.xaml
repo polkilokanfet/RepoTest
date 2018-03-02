@@ -117,9 +117,8 @@
             </infDP:XamDataGrid.ContextMenu>
             
             <infDP:XamDataGrid.FieldLayouts>
-                <infDP:FieldLayout>
+                <infDP:FieldLayout Key="OfferUnitsGroup">
                     <infDP:FieldLayout.Fields>
-
                         <infDP:TextField Name="Facility" Label="Объект" Width="Auto"/>
                         <infDP:TextField Name="Product" Label="Оборудование" Width="Auto"/>
                         <infDP:NumericField Name="Amount" Label="Количество" Width="Auto"/>
@@ -128,9 +127,20 @@
                         <infDP:NumericField Name="ProductionTerm" Label="Срок" AllowEdit="True" Width="Auto" />
                         <infDP:CurrencyField Name="Total" Label="Сумма" Width="Auto"/>
                         <infDP:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto"/>
-
+                        <infDP:Field Name="DependentProducts" IsExpandable="True"/>
                     </infDP:FieldLayout.Fields>
                 </infDP:FieldLayout>
+
+                <infDP:FieldLayout ParentFieldName="DependentProducts" ParentFieldLayoutKey="OfferUnitsGroup">
+                    <infDP:FieldLayout.Fields>
+                        <infDP:TextField Name="Product" Label="Product"/>
+                        <infDP:NumericField Name="Amount" Label="Amount" Width="Auto" AllowEdit="True"/>
+                        <infDP:NumericField Name="MarginalIncome" Label="МД, %" AllowEdit="True" Width="Auto"/>
+                        <infDP:NumericField Name="Cost" Label="Cost" Width="Auto" AllowEdit="True"/>
+                        <infDP:CheckBoxField Name="IsIndependent" Label="IsIndependent" Width="Auto" AllowEdit="True"/>
+                    </infDP:FieldLayout.Fields>
+                </infDP:FieldLayout>
+
             </infDP:XamDataGrid.FieldLayouts>
         </infDP:XamDataGrid>
 

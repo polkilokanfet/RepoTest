@@ -26,7 +26,7 @@ namespace HVTApp.DataAccess.Tests
         }
 
         [TestMethod]
-        public async void CanAddSaveRemoveEntity()
+        public async Task CanAddSaveRemoveEntity()
         {
             var unitOfWork = new UnitOfWork(new HvtAppContext());
             //очищаем все записи
@@ -39,7 +39,7 @@ namespace HVTApp.DataAccess.Tests
             await unitOfWork.SaveChangesAsync();
 
             unitOfWork = new UnitOfWork(new HvtAppContext());
-            Assert.IsTrue(unitOfWork.GetRepository<TestFriendGroup>().Find(x => x.Name == testFriendGroup.Name).Count() == 1);
+            Assert.IsTrue((await unitOfWork.GetRepository<TestFriendGroup>().FindAsync(x => x.Name == testFriendGroup.Name)).Count == 1);
             
             //очищаем все записи
             unitOfWork.GetRepository<TestFriendGroup>().DeleteRange(await unitOfWork.GetRepository<TestFriendGroup>().GetAllAsync());

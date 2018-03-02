@@ -1,6 +1,6 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
-<#@ assembly name="$(SolutionDir)\HVTApp.Model\bin\Debug\HVTApp.Infrastructure.dll" #>
+<#@ assembly name="$(SolutionDir)\HVTApp.Infrestructure\bin\Debug\HVTApp.Infrastructure.dll" #>
 <#@ assembly name="$(SolutionDir)\HVTApp.Model\bin\Debug\HVTApp.Model.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -14,8 +14,8 @@
 <#
 	var modelTypes = GetModelTypes();
 
-    //GenerateWrappers(modelTypes);
-	//SaveGeneratedCodeAsFile("Wrappers.g.cs", "Wrapper");
+    GenerateWrappers(modelTypes);
+	SaveGeneratedCodeAsFile("Wrappers.g.cs", "Wrapper");
 
 	GenerateLookups(modelTypes);
 	SaveGeneratedCodeAsFile("Lookups.g.cs", "Lookup/Items");

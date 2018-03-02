@@ -89,6 +89,11 @@ namespace HVTApp.UI.Lookup
         public ProductDependentLookupDataService(HvtAppContext context) : base(context) { }
     }
 
+    public partial class ProductionTaskLookupDataService : LookupDataService<ProductionTaskLookup, ProductionTask>, IProductionTaskLookupDataService
+    {
+        public ProductionTaskLookupDataService(HvtAppContext context) : base(context) { }
+    }
+
     public partial class SalesBlockLookupDataService : LookupDataService<SalesBlockLookup, SalesBlock>, ISalesBlockLookupDataService
     {
         public SalesBlockLookupDataService(HvtAppContext context) : base(context) { }

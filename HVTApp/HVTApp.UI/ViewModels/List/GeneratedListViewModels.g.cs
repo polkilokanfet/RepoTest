@@ -91,6 +91,11 @@ namespace HVTApp.UI.ViewModels
         public ProductDependentListViewModel(IUnityContainer container) : base(container) { }
     }
 
+    public partial class ProductionTaskListViewModel : BaseListViewModel<ProductionTask, ProductionTaskLookup, AfterSaveProductionTaskEvent, AfterSelectProductionTaskEvent, AfterRemoveProductionTaskEvent>
+    {
+        public ProductionTaskListViewModel(IUnityContainer container) : base(container) { }
+    }
+
     public partial class SalesBlockListViewModel : BaseListViewModel<SalesBlock, SalesBlockLookup, AfterSaveSalesBlockEvent, AfterSelectSalesBlockEvent, AfterRemoveSalesBlockEvent>
     {
         public SalesBlockListViewModel(IUnityContainer container) : base(container) { }

@@ -348,10 +348,10 @@ namespace HVTApp.TestDataGenerator
             ParameterBreakerLiveTank.Clone(new Parameter {ParameterGroup = ParameterGroupBreakerType, Value = "Колонковый"});
             ParameterTransformatorCurrent.Clone(new Parameter {ParameterGroup = ParameterGroupTransformatorType, Value = "Тока"});
             ParameterTransformatorVoltage.Clone(new Parameter {ParameterGroup = ParameterGroupTransformatorType, Value = "Напряжения"});
-            ParameterVoltage35kV.Clone(new Parameter {ParameterGroup = ParameterGroupVoltage, Value = "35"});
-            ParameterVoltage110kV.Clone(new Parameter {ParameterGroup = ParameterGroupVoltage, Value = "110"});
-            ParameterVoltage220kV.Clone(new Parameter {ParameterGroup = ParameterGroupVoltage, Value = "220"});
-            ParameterVoltage500kV.Clone(new Parameter {ParameterGroup = ParameterGroupVoltage, Value = "500"});
+            ParameterVoltage35kV.Clone(new Parameter {ParameterGroup = ParameterGroupVoltage, Value = "35 кВ"});
+            ParameterVoltage110kV.Clone(new Parameter {ParameterGroup = ParameterGroupVoltage, Value = "110 кВ"});
+            ParameterVoltage220kV.Clone(new Parameter {ParameterGroup = ParameterGroupVoltage, Value = "220 кВ"});
+            ParameterVoltage500kV.Clone(new Parameter {ParameterGroup = ParameterGroupVoltage, Value = "500 кВ"});
             ParameterVoltage110V.Clone(new Parameter {ParameterGroup = ParameterGroupDrivesVoltage, Value = "110 В"});
             ParameterVoltage220V.Clone(new Parameter {ParameterGroup = ParameterGroupDrivesVoltage, Value = "220 В"});
 
@@ -473,8 +473,8 @@ namespace HVTApp.TestDataGenerator
             SalesUnitZng1102Full.Clone(new SalesUnit {Product = ProductZng110, Order = OrderZng110, SerialNumber = "6", ProductionTerm = 90, AssembleTerm = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50,  Address = AddressOfSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation}); 
             SalesUnitZng1103Full.Clone(new SalesUnit {Product = ProductZng110, Order = OrderZng110, SerialNumber = "7", ProductionTerm = 90, AssembleTerm = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50,  Address = AddressOfSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation});
 
-            SalesUnitVeb1101.Clone(new SalesUnit {Product = ProductVeb110, Cost = 3000000, Producer = CompanyUetm, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200)}); ;
-            SalesUnitVeb1102.Clone(new SalesUnit {Product = ProductVeb110, Cost = 3000000, Producer = CompanyUetm, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200)});;
+            SalesUnitVeb1101.Clone(new SalesUnit {Product = ProductVeb110, Cost = 3000000, Producer = CompanyUetm, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200)});
+            SalesUnitVeb1102.Clone(new SalesUnit {Product = ProductVeb110, Cost = 3000000, Producer = CompanyUetm, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200)});
 
             SalesUnitZng1101.Clone(new SalesUnit {Product = ProductZng110, Cost = 500000 , Producer = CompanyUetm, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200)});
             SalesUnitZng1102.Clone(new SalesUnit {Product = ProductZng110, Cost = 500000 , Producer = CompanyUetm, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation, DeliveryDate = DateTime.Today.AddDays(200)});
@@ -490,9 +490,10 @@ namespace HVTApp.TestDataGenerator
             OfferUnitVeb1101.Clone(new OfferUnit {Product = ProductVeb110, Cost = 3100000, ProductionTerm = 120, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation});
             OfferUnitVeb1102.Clone(new OfferUnit {Product = ProductVeb110, Cost = 3100000, ProductionTerm = 120, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation});
                                                                                        
-            OfferUnitZng1101.Clone(new OfferUnit {Product = ProductZng110, Cost = 550000, ProductionTerm = 150, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation});
-            OfferUnitZng1102.Clone(new OfferUnit {Product = ProductZng110, Cost = 550000, ProductionTerm = 150, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation});
-            OfferUnitZng1103.Clone(new OfferUnit {Product = ProductZng110, Cost = 550000, ProductionTerm = 150, PaymentConditionSet = PaymentConditionSet30Na70, Facility = FacilitySubstation});
+            OfferUnitZng1101.Clone(new OfferUnit {Product = ProductZng110, Cost = 550000, ProductionTerm = 180, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, DependentProducts = new List<ProductDependent> { new ProductDependent { Product = ProductZip1, Amount = 3, Cost = 10000 } } });
+            OfferUnitZng1102.Clone(new OfferUnit {Product = ProductZng110, Cost = 550000, ProductionTerm = 180, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, DependentProducts = new List<ProductDependent> { new ProductDependent { Product = ProductZip1, Amount = 2, Cost = 10000 } } });
+            OfferUnitZng1103.Clone(new OfferUnit {Product = ProductZng110, Cost = 550000, ProductionTerm = 180, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, DependentProducts = new List<ProductDependent> { new ProductDependent { Product = ProductZip1, Amount = 2, Cost = 10000 } } });
+
             OfferUnitZng1104.Clone(new OfferUnit {Product = ProductZng110, Cost = 550000, ProductionTerm = 150, PaymentConditionSet = PaymentConditionSet30Na70, Facility = FacilitySubstation});
             OfferUnitZng1105.Clone(new OfferUnit {Product = ProductZng110, Cost = 550000, ProductionTerm = 150, PaymentConditionSet = PaymentConditionSet30Na70, Facility = FacilitySubstation});
             OfferUnitZng1106.Clone(new OfferUnit {Product = ProductZng110, Cost = 550000, ProductionTerm = 150, PaymentConditionSet = PaymentConditionSet30Na70, Facility = FacilitySubstation});

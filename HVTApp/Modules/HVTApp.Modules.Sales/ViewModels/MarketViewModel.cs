@@ -52,8 +52,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             var projects = await _unitOfWork.GetRepository<Project>().GetAllAsync();
             var projectWrappers = projects.Select(x => new ProjectWrapper(x));
 
-            _offers.AddRange(_unitOfWork.GetRepository<Offer>().Find(x => projects.Contains(x.Project)).Select(x => new OfferWrapper(x)));
-            _tenders.AddRange(_unitOfWork.GetRepository<Tender>().Find(x => projects.Contains(x.Project)).Select(x => new TenderLookup(x)));
+            _offers.AddRange((await _unitOfWork.GetRepository<Offer>().FindAsync(x => projects.Contains(x.Project))).Select(x => new OfferWrapper(x)));
+            _tenders.AddRange((await _unitOfWork.GetRepository<Tender>().FindAsync(x => projects.Contains(x.Project))).Select(x => new TenderLookup(x)));
 
             Projects.Clear();
             Projects.AddRange(projectWrappers);

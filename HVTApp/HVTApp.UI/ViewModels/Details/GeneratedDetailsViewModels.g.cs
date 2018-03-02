@@ -678,6 +678,50 @@ namespace HVTApp.UI.ViewModels
 
     }
 
+    public partial class ProductionTaskDetailsViewModel : BaseDetailsViewModel<ProductionTaskWrapper, ProductionTask, AfterSaveProductionTaskEvent>
+    {
+		private Func<Task<List<SalesUnit>>> _getEntitiesForAddInSalesUnitsCommand;
+		public ICommand AddInSalesUnitsCommand { get; }
+		public ICommand RemoveFromSalesUnitsCommand { get; }
+		private SalesUnitWrapper _selectedSalesUnitsItem;
+		public SalesUnitWrapper SelectedSalesUnitsItem 
+		{ 
+			get { return _selectedSalesUnitsItem; }
+			set 
+			{ 
+				if (Equals(_selectedSalesUnitsItem, value)) return;
+				_selectedSalesUnitsItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromSalesUnitsCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+        public ProductionTaskDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			_getEntitiesForAddInSalesUnitsCommand = async () => { return await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync(); };;
+			AddInSalesUnitsCommand = new DelegateCommand(AddInSalesUnitsCommand_Execute);
+			RemoveFromSalesUnitsCommand = new DelegateCommand(RemoveFromSalesUnitsCommand_Execute, RemoveFromSalesUnitsCommand_CanExecute);
+
+			InitGetMethods();
+		}
+			private async void AddInSalesUnitsCommand_Execute()
+			{
+				SelectAndAddInListWrapper<SalesUnit, SalesUnitWrapper>(await _getEntitiesForAddInSalesUnitsCommand(), Item.SalesUnits);
+			}
+
+			private void RemoveFromSalesUnitsCommand_Execute()
+			{
+				Item.SalesUnits.Remove(SelectedSalesUnitsItem);
+			}
+
+			private bool RemoveFromSalesUnitsCommand_CanExecute()
+			{
+				return SelectedSalesUnitsItem != null;
+			}
+
+
+    }
+
     public partial class SalesBlockDetailsViewModel : BaseDetailsViewModel<SalesBlockWrapper, SalesBlock, AfterSaveSalesBlockEvent>
     {
 		private Func<Task<List<SalesUnit>>> _getEntitiesForAddInParentSalesUnitsCommand;

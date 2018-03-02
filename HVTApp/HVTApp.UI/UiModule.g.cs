@@ -96,6 +96,11 @@ namespace HVTApp.UI
 			_selectService.Register<ProductDependentListView, ProductDependent>();
             _updateDetailsService.Register<ProductDependent, ProductDependentDetailsView>();
 
+            Container.RegisterViewForNavigation<ProductionTaskListView>();
+            //_dialogService.Register<ProductionTaskDetailsViewModel, ProductionTaskDetailsView>();
+			_selectService.Register<ProductionTaskListView, ProductionTask>();
+            _updateDetailsService.Register<ProductionTask, ProductionTaskDetailsView>();
+
             Container.RegisterViewForNavigation<SalesBlockListView>();
             //_dialogService.Register<SalesBlockDetailsViewModel, SalesBlockDetailsView>();
 			_selectService.Register<SalesBlockListView, SalesBlock>();

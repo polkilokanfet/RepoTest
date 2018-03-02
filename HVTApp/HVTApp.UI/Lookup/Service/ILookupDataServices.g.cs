@@ -17,6 +17,7 @@ namespace HVTApp.UI.Lookup
 	public interface IPaymentConditionSetLookupDataService : ILookupDataService<PaymentConditionSetLookup> { } 
 	public interface IProductBlockLookupDataService : ILookupDataService<ProductBlockLookup> { } 
 	public interface IProductDependentLookupDataService : ILookupDataService<ProductDependentLookup> { } 
+	public interface IProductionTaskLookupDataService : ILookupDataService<ProductionTaskLookup> { } 
 	public interface ISalesBlockLookupDataService : ILookupDataService<SalesBlockLookup> { } 
 	public interface IBankDetailsLookupDataService : ILookupDataService<BankDetailsLookup> { } 
 	public interface ICompanyLookupDataService : ILookupDataService<CompanyLookup> { } 

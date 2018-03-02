@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
@@ -16,12 +19,15 @@ namespace HVTApp.UI.ViewModels
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISelectService _selectService;
         private readonly IGetProductService _getProductService;
+        private readonly IUpdateDetailsService _updateDetailsService;
 
         public OfferUnitsGroup OfferUnitsGroup { get; }
 
         public ICommand SelectFacilityCommand { get; }
         public ICommand SelectProductCommand { get; }
         public ICommand SelectPaymentConditionSetCommand { get; }
+
+        public ICommand AddInDependentProductsCommand { get; }
 
         public ICommand OkCommand { get; }
 
@@ -30,12 +36,15 @@ namespace HVTApp.UI.ViewModels
             _unitOfWork = unitOfWork;
             _selectService = container.Resolve<ISelectService>();
             _getProductService = container.Resolve<IGetProductService>();
+            _updateDetailsService = container.Resolve<IUpdateDetailsService>();
 
             OfferUnitsGroup = offerUnitsGroup;
 
             SelectFacilityCommand = new DelegateCommand(SelectFacilityCommand_Execute);
             SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
             SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute);
+
+            AddInDependentProductsCommand = new DelegateCommand(AddInDependentProductsCommand_Execute);
 
             OkCommand = new DelegateCommand(() => CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true)));
         }
@@ -61,11 +70,21 @@ namespace HVTApp.UI.ViewModels
 
         private async void SelectFacilityCommand_Execute()
         {
-            var facilities = (await _unitOfWork.GetRepository<Facility>().GetAllAsync());
+            var facilities = await _unitOfWork.GetRepository<Facility>().GetAllAsync();
             var facility = _selectService.SelectItem(facilities);
             if (facility != null && facility.Id != OfferUnitsGroup.Facility?.Id)
             {
                 OfferUnitsGroup.Facility = new FacilityWrapper(facility);
+            }
+        }
+
+        private async void AddInDependentProductsCommand_Execute()
+        {
+            var wrapper =  new ProductDependentWrapper(new ProductDependent());
+            var result = await _updateDetailsService.UpdateDetails<ProductDependent, ProductDependentWrapper>(wrapper, _unitOfWork);
+            if (result)
+            {
+                OfferUnitsGroup.DependentProducts.Add(wrapper);
             }
         }
 

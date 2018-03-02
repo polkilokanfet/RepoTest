@@ -345,6 +345,20 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
+	public partial class ProductionTaskLookup : LookupItem<ProductionTask>
+	{
+		public ProductionTaskLookup(ProductionTask entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 		}
+		
+        #region SimpleProperties
+        public System.DateTime DateTask => GetValue<System.DateTime>();
+
+        #endregion
+	}
 	public partial class SalesBlockLookup : LookupItem<SalesBlock>
 	{
 		public SalesBlockLookup(SalesBlock entity) : base(entity) 

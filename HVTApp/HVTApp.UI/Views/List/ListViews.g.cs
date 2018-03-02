@@ -297,6 +297,23 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
+    public partial class ProductionTaskListView : ViewBase
+    {
+        public ProductionTaskListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductionTaskListViewModel ProductionTaskListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = ProductionTaskListViewModel;
+			ProductionTaskListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((ProductionTaskListViewModel)DataContext).LoadAsync();;
+        }
+    }
+
+    [RibbonTab(typeof(TabCRUD))]
     public partial class SalesBlockListView : ViewBase
     {
         public SalesBlockListView(IRegionManager regionManager, IEventAggregator eventAggregator, SalesBlockListViewModel SalesBlockListViewModel) : base(regionManager, eventAggregator)

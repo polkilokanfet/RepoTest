@@ -259,6 +259,21 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
+    public partial class ProductionTaskWrapperDataService : EntityWrapperDataService<ProductionTask, ProductionTaskWrapper>
+    {
+        public ProductionTaskWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		
+		protected override ProductionTaskWrapper GenerateWrapper(ProductionTask model)
+        {
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new ProductionTaskWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
+        }
+    }
+
     public partial class SalesBlockWrapperDataService : EntityWrapperDataService<SalesBlock, SalesBlockWrapper>
     {
         public SalesBlockWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }

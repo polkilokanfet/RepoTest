@@ -638,6 +638,7 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
+
 	    public FacilityWrapper Facility 
         {
             get { return GetWrapper<FacilityWrapper>(); }
@@ -653,7 +654,6 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region CollectionProperties
-
         #endregion
         public override void InitializeComplexProperties()
         {
@@ -797,6 +797,44 @@ namespace HVTApp.UI.Wrapper
         public override void InitializeComplexProperties()
         {
             InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
+
+        }
+	}
+
+		public partial class ProductionTaskWrapper : WrapperBase<ProductionTask>
+	{
+	    public ProductionTaskWrapper(ProductionTask model) : base(model) { }
+
+	
+        #region SimpleProperties
+        public System.DateTime DateTask
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime DateTaskOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateTask));
+        public bool DateTaskIsChanged => GetIsChanged(nameof(DateTask));
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region CollectionProperties
+        public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
+
+        #endregion
+  
+        protected override void InitializeCollectionProperties()
+        {
+          if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
+          SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
+          RegisterCollection(SalesUnits, Model.SalesUnits);
 
         }
 	}
@@ -1733,6 +1771,7 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
+
 	    public FacilityWrapper Facility 
         {
             get { return GetWrapper<FacilityWrapper>(); }
@@ -1772,6 +1811,7 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region CollectionProperties
+
         public IValidatableChangeTrackingCollection<PaymentActualWrapper> PaymentsActual { get; private set; }
 
         public IValidatableChangeTrackingCollection<PaymentPlannedListWrapper> PaymentsPlannedSaved { get; private set; }

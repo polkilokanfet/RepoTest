@@ -38,7 +38,7 @@ namespace HVTApp.DataAccess
             return (await GetAllAsync()).Single(x => x.Id == id);
         }
 
-        public IEnumerable<TEntity> Find(Func<TEntity, bool> predicate)
+        public Task<List<TEntity>> FindAsync(Func<TEntity, bool> predicate)
         {
             throw new NotImplementedException();
         }

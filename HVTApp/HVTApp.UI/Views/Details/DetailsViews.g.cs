@@ -160,6 +160,15 @@ namespace HVTApp.UI.Views
         }
     }
 
+    public partial class ProductionTaskDetailsView : ViewBase
+    {
+        public ProductionTaskDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductionTaskDetailsViewModel ProductionTaskDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = ProductionTaskDetailsViewModel;
+        }
+    }
+
     public partial class SalesBlockDetailsView : ViewBase
     {
         public SalesBlockDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, SalesBlockDetailsViewModel SalesBlockDetailsViewModel) : base(regionManager, eventAggregator)

@@ -7,7 +7,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="Auto"/>
@@ -74,7 +74,7 @@
             
         </infg:XamDataGrid>
         
-        <GridSplitter Grid.Row="3" Height="5" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+        <GridSplitter Grid.Row="3" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
         
         <infg:XamDataGrid Grid.Row="4" 
                           DataSource="{Binding Tenders}" 

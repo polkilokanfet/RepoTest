@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -123,7 +125,7 @@ namespace HVTApp.UI.ViewModels
         {
             var viewModel = new OfferUnitsGroupDetailsViewModel(SelectedOfferUnitsGroup, Container, UnitOfWork);
             var flag = Container.Resolve<IDialogService>().ShowDialog(viewModel);
-            if (!flag.HasValue || flag.Value)
+            if (!flag.HasValue || !flag.Value)
             {
                 SelectedOfferUnitsGroup.Units.ForEach(x => x.RejectChanges());
             }
@@ -150,6 +152,46 @@ namespace HVTApp.UI.ViewModels
     {
         public OfferUnitsGroup(IEnumerable<OfferUnitWrapper> units) : base(units)
         {
+            DependentProducts = new ValidatableChangeTrackingCollection<ProductDependentWrapper>(units.First().DependentProducts);
+            DependentProducts.CollectionChanged += OnDeprndentProductsCollectionChanged;
+        }
+
+        private void OnDeprndentProductsCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        {
+            if (args.NewItems != null)
+            {
+                foreach (var newItem in args.NewItems)
+                {
+                    var product = (ProductDependentWrapper) newItem;
+                    foreach (var unit in Units)
+                    {
+                        unit.DependentProducts.Add(new ProductDependentWrapper(new ProductDependent()
+                        {
+                            Product = product.Product.Model,
+                            Amount = product.Amount,
+                            Cost = product.Cost,
+                            IsIndependent = product.IsIndependent
+                        }));
+                    }
+                }
+            }
+
+            if (args.OldItems != null)
+            {
+                foreach (var newItem in args.OldItems)
+                {
+                    var product = (ProductDependentWrapper) newItem;
+                    foreach (var unit in Units)
+                    {
+                        var target = unit.DependentProducts.First(x =>
+                            Equals(x.Product.Model, product.Product.Model) &&
+                            x.Amount == product.Amount &&
+                            Math.Abs(x.Cost - product.Cost) < 0.00001 &&
+                            x.IsIndependent == product.IsIndependent);
+                        unit.DependentProducts.Remove(target);
+                    }
+                }
+            }
         }
 
         public FacilityWrapper Facility
@@ -191,6 +233,8 @@ namespace HVTApp.UI.ViewModels
                 OnPropertyChanged(nameof(Total));
             }
         }
+
+        public IValidatableChangeTrackingCollection<ProductDependentWrapper> DependentProducts { get; }
 
         public double Total => Units.Sum(x => x.Cost);
 

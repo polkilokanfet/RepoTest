@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 
@@ -29,9 +30,9 @@ namespace HVTApp.DataAccess
             return await Context.Set<TEntity>().AsNoTracking().ToListAsync();
         }
 
-        public IEnumerable<TEntity> Find(Func<TEntity, bool> predicate)
+        public async Task<List<TEntity>> FindAsync(Func<TEntity, bool> predicate)
         {
-            return Context.Set<TEntity>().Where(predicate);
+            return await Task.Factory.StartNew<List<TEntity>>(() => Context.Set<TEntity>().Where(predicate).ToList());
         }
 
 
@@ -60,10 +61,5 @@ namespace HVTApp.DataAccess
         {
             return await Context.Set<TEntity>().FindAsync(id);
         }
-
-        //public TEntity GetById(Guid id)
-        //{
-        //    return Context.Set<TEntity>().Find(id);
-        //}
     }
 }

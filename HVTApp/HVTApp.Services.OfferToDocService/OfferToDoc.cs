@@ -84,30 +84,54 @@ namespace HVTApp.Services.OfferToDocService
 
             string productsDetails = string.Empty;
             var rowNum = 0;
-            //var groupedSalesUnits = offer.SalesUnits.ToUnitGroups().GroupBy(x => x.Facility);
-            //foreach (var groupedSalesUnit in groupedSalesUnits)
-            //{
-            //    docWriter.StartTableRow();
-            //    cellProps.ColumnSpan = 5;
-            //    docWriter.TableCell(groupedSalesUnit.Key.DisplayMember, cellProps);
-            //    docWriter.EndTableRow();
+            var offerUnitsGroupsOrdered = offer.OfferUnits.ToUnitGroups().GroupBy(x => x.Facility.Model);
+            foreach (var offerUnitsGroups in offerUnitsGroupsOrdered)
+            {
+                docWriter.StartTableRow();
+                cellProps.ColumnSpan = 5;
+                docWriter.TableCell(offerUnitsGroups.Key.ToString(), cellProps);
+                docWriter.EndTableRow();
 
-            //    cellProps.ColumnSpan = 1;
-            //    foreach (var groupUnit in groupedSalesUnit)
-            //    {
-            //        rowNum++;
-            //        docWriter.StartTableRow();
-            //        docWriter.TableCell(rowNum.ToString(), cellProps);
-            //        docWriter.TableCell(groupUnit.Product.DisplayMember, cellProps);
-            //        docWriter.TableCell($"{groupUnit.Amount:D}", cellProps, parPropRight);
-            //        docWriter.TableCell($"{groupUnit.Cost:C}", cellProps, parPropRight);
-            //        docWriter.TableCell($"{groupUnit.Total:C}", cellProps, parPropRight);
-            //        docWriter.EndTableRow();
+                cellProps.ColumnSpan = 1;
+                foreach (var offerUnitsGroup in offerUnitsGroups)
+                {
+                    rowNum++;
+                    docWriter.StartTableRow();
+                    docWriter.TableCell(rowNum.ToString(), cellProps);
+                    docWriter.TableCell(offerUnitsGroup.Product.DisplayMember, cellProps);
+                    docWriter.TableCell($"{offerUnitsGroup.Amount:D}", cellProps, parPropRight);
+                    docWriter.TableCell($"{offerUnitsGroup.Cost:C}", cellProps, parPropRight);
+                    docWriter.TableCell($"{offerUnitsGroup.Total:C}", cellProps, parPropRight);
+                    docWriter.EndTableRow();
 
-            //        productsDetails += $"Позиция {rowNum}. {groupUnit.Product.Model.Designation}:" + Environment.NewLine;
-            //        productsDetails += $"{groupUnit.Product.Model.GetFullDescription()}" + Environment.NewLine;
-            //    }
-            //}
+                    productsDetails += $"Позиция {rowNum}. {offerUnitsGroup.Product.Model.Designation}:" + Environment.NewLine;
+                    productsDetails += $"{offerUnitsGroup.Product.Model.GetFullDescription()}" + Environment.NewLine;
+
+                    //дополнительное оборудование
+                    if(!offerUnitsGroup.DependentProducts.Any()) continue;
+
+                    docWriter.StartTableRow();
+                    docWriter.TableCell("", cellProps);
+                    docWriter.TableCell("в составе каждого изделия:", cellProps);
+                    docWriter.TableCell("", cellProps);
+                    docWriter.TableCell("", cellProps);
+                    docWriter.TableCell("", cellProps);
+                    docWriter.EndTableRow();
+
+                    var rn = 0;
+                    foreach (var dependentProduct in offerUnitsGroup.DependentProducts)
+                    {
+                        rn++;
+                        docWriter.StartTableRow();
+                        docWriter.TableCell($"{rowNum}.{rn}.", cellProps);
+                        docWriter.TableCell(dependentProduct.Product.DisplayMember, cellProps);
+                        docWriter.TableCell($"{dependentProduct.Amount:D}", cellProps, parPropRight);
+                        docWriter.TableCell($"{dependentProduct.Cost:C}", cellProps, parPropRight);
+                        docWriter.TableCell($"{(dependentProduct.Amount * dependentProduct.Cost):C}", cellProps, parPropRight);
+                        docWriter.EndTableRow();
+                    }
+                }
+            }
 
             cellProps.BackColor = Colors.Azure;
             docWriter.StartTableRow();

@@ -23,6 +23,7 @@ namespace HVTApp.UI.Wrapper
             PaymentConditionSetWrapperDataService = new PaymentConditionSetWrapperDataService(unitOfWork);
             ProductBlockWrapperDataService = new ProductBlockWrapperDataService(unitOfWork);
             ProductDependentWrapperDataService = new ProductDependentWrapperDataService(unitOfWork);
+            ProductionTaskWrapperDataService = new ProductionTaskWrapperDataService(unitOfWork);
             SalesBlockWrapperDataService = new SalesBlockWrapperDataService(unitOfWork);
             BankDetailsWrapperDataService = new BankDetailsWrapperDataService(unitOfWork);
             CompanyWrapperDataService = new CompanyWrapperDataService(unitOfWork);
@@ -85,6 +86,7 @@ namespace HVTApp.UI.Wrapper
         public PaymentConditionSetWrapperDataService PaymentConditionSetWrapperDataService { get; }
         public ProductBlockWrapperDataService ProductBlockWrapperDataService { get; }
         public ProductDependentWrapperDataService ProductDependentWrapperDataService { get; }
+        public ProductionTaskWrapperDataService ProductionTaskWrapperDataService { get; }
         public SalesBlockWrapperDataService SalesBlockWrapperDataService { get; }
         public BankDetailsWrapperDataService BankDetailsWrapperDataService { get; }
         public CompanyWrapperDataService CompanyWrapperDataService { get; }
