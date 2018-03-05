@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,109 +12,120 @@ namespace HVTApp.Services.GetProductService.Tests
     public class PartSelectorTests
     {
         private List<ParameterGroup> _groups;
+        private List<Parameter> _parameters;
         private Parameter _breaker, _transformator, _drive, _drivesReducer;
         private Parameter _v110, _v220, _v500;
         private Parameter _c2500, _c3150, _c0001, _c0005;
         private Parameter _transCurrent, _transVoltage;
-        private PartSelector _partSelector;
-        private Part _preSelectedPart;
-        private ParameterGroup _current, _voltage, _eqType, _transformatorType;
+        private ProductBlockSelector _productBlockSelector;
+        private ProductBlock _preSelectedProductBlock;
+        private ParameterGroup _current = new ParameterGroup();
+        private ParameterGroup _voltage = new ParameterGroup();
+        private ParameterGroup _eqType = new ParameterGroup();
+        private ParameterGroup _transformatorType = new ParameterGroup();
 
         [TestInitialize]
         public void Init()
         {
-            _breaker = new Parameter() { Value = "выключатель" };
-            _transformator = new Parameter() { Value = "трансформатор" };
-            _drive = new Parameter() { Value = "привод выключателя" };
-            _drivesReducer = new Parameter() { Value = "редкутор" };
-            _eqType = new ParameterGroup().AddParameters(new[] { _breaker, _transformator, _drive, _drivesReducer });
+            _breaker = new Parameter { ParameterGroup = _eqType, Value = "выключатель" };
+            _transformator = new Parameter { ParameterGroup = _eqType, Value = "трансформатор" };
+            _drive = new Parameter { ParameterGroup = _eqType, Value = "привод выключателя" };
+            _drivesReducer = new Parameter { ParameterGroup = _eqType, Value = "редкутор" };
 
-            _v110 = new Parameter() { Value = "110кВ" }.AddRequiredPreviousParameters(new[] { _breaker });
-            _v220 = new Parameter() { Value = "220кВ" }.AddRequiredPreviousParameters(new[] { _breaker });
-            _v500 = new Parameter() { Value = "500кВ" }.AddRequiredPreviousParameters(new[] { _breaker });
-            _voltage = new ParameterGroup().AddParameters(new[] { _v110, _v220, _v500 });
+            _v110 = new Parameter { ParameterGroup = _voltage, Value = "110кВ" }.AddRequiredPreviousParameters(new[] { _breaker });
+            _v220 = new Parameter { ParameterGroup = _voltage, Value = "220кВ" }.AddRequiredPreviousParameters(new[] { _breaker });
+            _v500 = new Parameter { ParameterGroup = _voltage, Value = "500кВ" }.AddRequiredPreviousParameters(new[] { _breaker });
 
-            _c2500 = new Parameter() { Value = "2500А" }.AddRequiredPreviousParameters(new[] { _breaker, _v110 })
-                                                        .AddRequiredPreviousParameters(new[] { _breaker, _v220 });
-            _c3150 = new Parameter() { Value = "3150А" }.AddRequiredPreviousParameters(new[] { _breaker, _v110 })
-                                                        .AddRequiredPreviousParameters(new[] { _breaker, _v220 })
-                                                        .AddRequiredPreviousParameters(new[] { _breaker, _v500 });
-            _c0001 = new Parameter() { Value = "1А" }.AddRequiredPreviousParameters(new[] { _transformator });
-            _c0005 = new Parameter() { Value = "5А" }.AddRequiredPreviousParameters(new[] { _transformator });
-            _current = new ParameterGroup().AddParameters(new[] { _c2500, _c3150, _c0001, _c0005 });
+            _c2500 = new Parameter { ParameterGroup = _current, Value = "2500А" }.
+                AddRequiredPreviousParameters(new[] { _breaker, _v110 }).
+                AddRequiredPreviousParameters(new[] { _breaker, _v220 });
+            _c3150 = new Parameter { ParameterGroup = _current, Value = "3150А" }.
+                AddRequiredPreviousParameters(new[] { _breaker, _v110 }).
+                AddRequiredPreviousParameters(new[] { _breaker, _v220 }).
+                AddRequiredPreviousParameters(new[] { _breaker, _v500 });
+            _c0001 = new Parameter { ParameterGroup = _current, Value = "1А" }.AddRequiredPreviousParameters(new[] { _transformator });
+            _c0005 = new Parameter { ParameterGroup = _current, Value = "5А" }.AddRequiredPreviousParameters(new[] { _transformator });
 
-            _transCurrent = new Parameter() { Value = "TT" }.AddRequiredPreviousParameters(new[] { _transformator });
-            _transVoltage = new Parameter() { Value = "ТН" }.AddRequiredPreviousParameters(new[] { _transformator });
-            _transformatorType = new ParameterGroup().AddParameters(new[] {_transCurrent, _transVoltage});
+            _transCurrent = new Parameter { ParameterGroup = _transformatorType, Value = "TT" }.AddRequiredPreviousParameters(new[] { _transformator });
+            _transVoltage = new Parameter { ParameterGroup = _transformatorType, Value = "ТН" }.AddRequiredPreviousParameters(new[] { _transformator });
 
             _groups = new List<ParameterGroup> {_eqType, _voltage, _current, _transformatorType };
+            _parameters = new List<Parameter> {_breaker, _transformator, _drive, _drivesReducer, _v110, _v220, _v500, _c2500, _c3150, _c0001, _c0005, _transCurrent, _transVoltage};
 
-            _preSelectedPart = new Part {Parameters = new List<Parameter> {_breaker, _v500, _c3150} };
+            
 
-            _partSelector = new PartSelector(_groups.Select(x => x.Parameters), new List<Part>());
+
+
+
+
+
+            _preSelectedProductBlock = new ProductBlock {Parameters = new List<Parameter> {_breaker, _v500, _c3150} };
+
+            _productBlockSelector = new ProductBlockSelector(_parameters);
         }
 
         [TestMethod]
-        public void PartSelectorIncludsAllGroups()
+        public void ProductBlockSelectorIncludsAllGroups()
         {
-            Assert.IsTrue(_partSelector.ParameterSelectors.Count == _groups.Count);
+            Assert.IsTrue(_productBlockSelector.ParameterSelectors.Count == _groups.Count);
         }
 
         [TestMethod]
         public void PartSelectorDefaultProduct()
         {
-            List<Parameter> parameters = new List<Parameter> { _breaker, _v110, _c2500 };
-            Assert.IsTrue(_partSelector.SelectedParameters.AllMembersAreSame(parameters));
-            Assert.IsTrue(_partSelector.SelectedPart.Parameters.AllMembersAreSame(parameters));
+            var parameters = new List<Parameter> { _breaker, _v110, _c2500 };
+            Assert.IsTrue(_productBlockSelector.SelectedProductBlock.Parameters.AllMembersAreSame(parameters));
+            Assert.IsTrue(_productBlockSelector.ParameterSelectors.Select(x => x.SelectedParameterFlaged.Parameter).AllMembersAreSame(parameters));
         }
 
         [TestMethod]
-        public void PartSelectorRequiredParameters()
+        public void ProductBlockSelectorRequiredParameters()
         {
-            List<Parameter> requiredParameters = new List<Parameter> { _transformator, _c0005 };
-            PartSelector partSelector = new PartSelector(_groups.Select(x => x.Parameters), new List<Part>(), requiredParameters);
+            var requiredParameters = new List<Parameter> { _transformator, _c0005 };
+            var productBlockSelector = new ProductBlockSelector(_parameters);
 
             foreach (var requiredParameter in requiredParameters)
             {
                 //находим селектор
-                ParameterSelector parameterSelector = partSelector.ParameterSelectors.Single(x => x.ParametersFlaged.Select(p => p.Parameter).Contains(requiredParameter));
+                ParameterSelector parameterSelector = productBlockSelector.ParameterSelectors.Single(x => x.ParametersFlaged.Select(p => p.Parameter).Contains(requiredParameter));
                 Assert.AreEqual(parameterSelector.ParametersFlaged.Count, 1);
                 Assert.AreEqual(parameterSelector.SelectedParameterFlaged.Parameter, requiredParameter);
             }
 
-            Assert.IsTrue(partSelector.ParameterSelectors.Select(x => x.SelectedParameterFlaged).Where(x => x != null).All(x => x.IsActual));
+            Assert.IsTrue(productBlockSelector.ParameterSelectors.Select(x => x.SelectedParameterFlaged).Where(x => x != null).All(x => x.IsActual));
         }
 
         [TestMethod]
-        public void PartSelectorSelectParameter()
+        public void ProductBlockSelectorSelectParameter()
         {
-            List<Parameter> parameters = new List<Parameter> { _transformator, _c0001, _transCurrent };
+            var parameters = new List<Parameter> { _transformator, _c0001, _transCurrent };
             //находим селектор с типами оборудования
-            ParameterSelector parameterSelector = _partSelector.ParameterSelectors.Single(x => x.ParametersFlaged.Select(p => p.Parameter).AllMembersAreSame(_eqType.Parameters));
+            ParameterSelector parameterSelector = _productBlockSelector.ParameterSelectors.
+                Single(x => x.ParametersFlaged.Select(p => p.Parameter).All(p => Equals(p.ParameterGroup, _eqType)));
             parameterSelector.SelectedParameter = (_transformator);
 
-            Assert.IsTrue(_partSelector.SelectedParameters.AllMembersAreSame(parameters));
-            Assert.IsTrue(_partSelector.SelectedPart.Parameters.AllMembersAreSame(parameters));
+            Assert.IsTrue(_productBlockSelector.SelectedParameters.AllMembersAreSame(parameters));
+            Assert.IsTrue(_productBlockSelector.SelectedPart.Parameters.AllMembersAreSame(parameters));
 
             //находим селектор с токами
-            ParameterSelector parameterSelector2 = _partSelector.ParameterSelectors.Single(x => x.ParametersFlaged.Select(p => p.Parameter).AllMembersAreSame(_current.Parameters));
+            ParameterSelector parameterSelector2 = _productBlockSelector.ParameterSelectors.Single(x => x.ParametersFlaged.Select(p => p.Parameter).AllMembersAreSame(_current.Parameters));
             //актуальны параметры с током 1 и 5
             Assert.IsTrue(parameterSelector2.ParametersFlaged.Where(x => x.IsActual).Select(x => x.Parameter).AllMembersAreSame(new[] { _c0001, _c0005 }));
         }
 
         [TestMethod]
-        public void PartSelectorPreSelectedPart()
+        public void ProductBlockSelectorPreSelectedPart()
         {
-            PartSelector partSelector = new PartSelector(_groups.Select(x => x.Parameters), new List<Part> { _preSelectedPart }, null, _preSelectedPart);
+            PartSelector partSelector = new PartSelector(_groups.Select(x => x.Parameters), new List<Part> { _preSelectedProductBlock }, null, _preSelectedProductBlock);
 
-            Assert.AreEqual(_preSelectedPart, partSelector.SelectedPart);
-            Assert.IsTrue(_preSelectedPart.Parameters.AllMembersAreSame(partSelector.SelectedParameters));
+            Assert.AreEqual(_preSelectedProductBlock, partSelector.SelectedPart);
+            Assert.IsTrue(_preSelectedProductBlock.Parameters.AllMembersAreSame(partSelector.SelectedParameters));
         }
 
         [TestMethod]
-        public void PartSelectorActualParameters()
+        public void ProductBlockSelectorActualParameters()
         {
-            PartSelector partSelector = new PartSelector(_groups.Select(x => x.Parameters), new List<Part> { _preSelectedPart }, null, _preSelectedPart);
+            PartSelector partSelector = new PartSelector(_groups.Select(x => x.Parameters), new List<Part> { _preSelectedProductBlock }, null, _preSelectedProductBlock);
 
             //находим селектор с токами
             ParameterSelector parameterSelector = partSelector.ParameterSelectors.Single(x => x.ParametersFlaged.Select(p => p.Parameter).AllMembersAreSame(_current.Parameters));
@@ -127,7 +139,7 @@ namespace HVTApp.Services.GetProductService.Tests
         }
 
         [TestMethod]
-        public void PartSelectorCreateProducts()
+        public void ProductBlockSelectorCreateProducts()
         {
             List<Part> products = new List<Part>();
             PartSelector partSelector = new PartSelector(_groups.Select(x => x.Parameters), products);
@@ -149,7 +161,7 @@ namespace HVTApp.Services.GetProductService.Tests
 
         //когда прилетают неупоряноченные группы параметров
         [TestMethod]
-        public void PartSelectorDefaultProductNotOrderedParameters()
+        public void ProductBlockSelectorDefaultProductNotOrderedParameters()
         {
             List<Parameter> eqType = new List<Parameter>() {_breaker, _transformator};
             List<Parameter> voltage = new List<Parameter>() {_v110, _v220};

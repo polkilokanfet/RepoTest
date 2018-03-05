@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Castle.Core.Internal;
 using HVTApp.Model;
@@ -20,22 +21,25 @@ namespace HVTApp.Services.GetProductService.Tests
         [TestInitialize]
         public void Init()
         {
-            _parameterBreaker = new Parameter();
-            _parameterTransformator = new Parameter();
-            _groupEqType = new ParameterGroup().AddParameters(new[] { _parameterBreaker, _parameterTransformator });
+            _groupEqType = new ParameterGroup();
+            _parameterBreaker = new Parameter { ParameterGroup = _groupEqType };
+            _parameterTransformator = new Parameter { ParameterGroup = _groupEqType };
 
-            _parameterV110 = new Parameter().AddRequiredPreviousParameters(new[] { _parameterBreaker });
-            _parameterV220 = new Parameter().AddRequiredPreviousParameters(new[] { _parameterBreaker });
-            _parameterV500 = new Parameter().AddRequiredPreviousParameters(new[] { _parameterBreaker });
-            ParameterGroup voltage = new ParameterGroup().AddParameters(new[] { _parameterV110, _parameterV220, _parameterV500 });
+            var voltage = new ParameterGroup();
+            _parameterV110 = new Parameter {ParameterGroup = voltage}.AddRequiredPreviousParameters(new[] { _parameterBreaker });
+            _parameterV220 = new Parameter {ParameterGroup = voltage}.AddRequiredPreviousParameters(new[] { _parameterBreaker });
+            _parameterV500 = new Parameter {ParameterGroup = voltage}.AddRequiredPreviousParameters(new[] { _parameterBreaker });
 
-            _c2500 = new Parameter().AddRequiredPreviousParameters(new[] { _parameterBreaker, _parameterV110 })
-                                    .AddRequiredPreviousParameters(new[] { _parameterBreaker, _parameterV220 });
-            _c3150 = new Parameter().AddRequiredPreviousParameters(new[] { _parameterBreaker, _parameterV110 })
-                                    .AddRequiredPreviousParameters(new[] { _parameterBreaker, _parameterV220 })
-                                    .AddRequiredPreviousParameters(new[] { _parameterBreaker, _parameterV500 });
+            var current = new ParameterGroup();
+            _c2500 = new Parameter {ParameterGroup = current}.
+                AddRequiredPreviousParameters(new[] { _parameterBreaker, _parameterV110 }).
+                AddRequiredPreviousParameters(new[] { _parameterBreaker, _parameterV220 });
+            _c3150 = new Parameter {ParameterGroup = current}.
+                AddRequiredPreviousParameters(new[] { _parameterBreaker, _parameterV110 }).
+                AddRequiredPreviousParameters(new[] { _parameterBreaker, _parameterV220 }).
+                AddRequiredPreviousParameters(new[] { _parameterBreaker, _parameterV500 });
 
-            _parameterSelectorEqType = new ParameterSelector(_groupEqType.Parameters);
+            _parameterSelectorEqType = new ParameterSelector(new []{_parameterBreaker, _parameterTransformator}, null);
         }
 
         [TestMethod]
@@ -47,8 +51,8 @@ namespace HVTApp.Services.GetProductService.Tests
         [TestMethod]
         public void ParameterSelectorHasSelectedParameter()
         {
-            var parameters = _groupEqType.Parameters;
-            ParameterSelector parameterSelector = new ParameterSelector(parameters, parameters.Last());
+            var parameters = new List<Parameter> {_parameterBreaker, _parameterTransformator};
+            var parameterSelector = new ParameterSelector(parameters, null, parameters.Last());
             Assert.AreEqual(parameterSelector.SelectedParameterFlaged.Parameter, parameters.Last());
         }
 
@@ -57,15 +61,7 @@ namespace HVTApp.Services.GetProductService.Tests
         public void ParameterSelectorSelectedParameterException()
         {
             Assert.IsFalse(_parameterSelectorEqType.ParametersFlaged.Select(x => x.Parameter).Contains(_parameterV110));
-            _parameterSelectorEqType.SelectedParameter = (_parameterV110);
-        }
-
-        //[TestMethod]
-        [ExpectedException(typeof(ArgumentException), "Параметр не актуален")]
-        public void ParameterSelectorSelectedParameterIsNotActualException()
-        {
-            _parameterSelectorEqType.ParametersFlaged.ForEach(x => x.IsActual = false);
-            _parameterSelectorEqType.SelectedParameter = (_parameterSelectorEqType.ParametersFlaged.Last().Parameter);
+            _parameterSelectorEqType.SelectedParameterFlaged = new ParameterFlaged(_parameterV110, _parameterSelectorEqType);
         }
 
         [TestMethod]

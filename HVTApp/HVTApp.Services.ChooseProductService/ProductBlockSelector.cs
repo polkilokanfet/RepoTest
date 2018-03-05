@@ -12,11 +12,13 @@ namespace HVTApp.Services.GetProductService
     {
         public static IEnumerable<ProductBlock> ProductBlocks { get; set; } = new List<ProductBlock>();
 
-        public ProductBlockSelector(IEnumerable<Parameter> parameters, IEnumerable<Parameter> selectedParameters)
+        public ProductBlockSelector(IEnumerable<Parameter> parameters, IEnumerable<Parameter> selectedParameters = null)
         {
+            var selectedParams = selectedParameters ?? new List<Parameter>();
+
             //создаем селекторы параметров
             var parameterSelectors = GetGroupingParameters(parameters).
-                Select(x => new ParameterSelector(x, this, x.SingleOrDefault(selectedParameters.Contains)));
+                Select(x => new ParameterSelector(x, this, x.SingleOrDefault(selectedParams.Contains)));
             ParameterSelectors = new ObservableCollection<ParameterSelector>(parameterSelectors);
 
             //реакция на смену параметра в селекторе
@@ -28,7 +30,7 @@ namespace HVTApp.Services.GetProductService
                 };
 
             //необходимо взбодрить параметры (узнать кто актуален, а кто нет)
-            if (selectedParameters.Any())
+            if (selectedParams.Any())
                 OnSelectedParametersChanged(SelectedProductBlock.Parameters);
         }
 

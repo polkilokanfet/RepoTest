@@ -124,6 +124,7 @@
     <Compile Include="ViewModels\Details\IProductCostDependentProductsWrapper.cs" />
     <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\OfferUnitsGroup.cs" />
     <Compile Include="ViewModels\Details\OfferUnitsGroupDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\SpecificationDetailsViewModel.cs" />
