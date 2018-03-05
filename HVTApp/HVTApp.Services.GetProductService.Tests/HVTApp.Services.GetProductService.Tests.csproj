@@ -87,7 +87,6 @@
   <ItemGroup>
     <Compile Include="ParameterSelectorTests.cs" />
     <Compile Include="PartSelectorTests.cs" />
-    <Compile Include="ProductSelectorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -12,61 +12,81 @@ namespace HVTApp.Services.GetProductService.Tests
     public class ProductSelectorTests
     {
         private List<ParameterGroup> _groups;
+        private List<Parameter> _parameters;
         private Parameter _breaker, _transformator, _drive, _drivesReducer;
         private Parameter _v110, _v220, _v500;
         private Parameter _c2500, _c3150, _c0001, _c0005;
         private ParameterGroup _current, _voltage, _eqType;
 
-        private List<ProductsRelation> _requiredDependentEquipmentsParametersList;
-        private ProductsRelation _productsRelationTransformatorsToBreker, _productsRelationDriveToBreker, _productsRelationReducerToDrive;
+        private List<ProductRelation> _requiredDependentEquipmentsParametersList;
+        private ProductRelation _productsRelationTransformatorsToBreker, _productsRelationDriveToBreker, _productsRelationReducerToDrive;
         private ProductSelector _productSelector;
 
         [TestInitialize]
         public void Init()
         {
-            _breaker = new Parameter() { Value = "выключатель" };
-            _transformator = new Parameter() { Value = "трансформатор" };
-            _drive = new Parameter() {Value = "привод выключателя"};
-            _drivesReducer = new Parameter() {Value = "редуктор"};
-            _eqType = new ParameterGroup().AddParameters(new[] { _breaker, _transformator, _drive, _drivesReducer });
+            _breaker = new Parameter { ParameterGroup = _eqType, Value = "выключатель" };
+            _transformator = new Parameter { ParameterGroup = _eqType, Value = "трансформатор" };
+            _drive = new Parameter { ParameterGroup = _eqType, Value = "привод выключателя" };
+            _drivesReducer = new Parameter { ParameterGroup = _eqType, Value = "редуктор" };
 
-            _v110 = new Parameter() { Value = "110кВ" }.AddRequiredPreviousParameters(new[] { _breaker });
-            _v220 = new Parameter() { Value = "220кВ" }.AddRequiredPreviousParameters(new[] { _breaker });
-            _v500 = new Parameter() { Value = "500кВ" }.AddRequiredPreviousParameters(new[] { _breaker });
-            _voltage = new ParameterGroup().AddParameters(new[] { _v110, _v220, _v500 });
+            _v110 = new Parameter { ParameterGroup = _voltage, Value = "110кВ" }.
+                AddRequiredPreviousParameters(new[] { _breaker });
+            _v220 = new Parameter { ParameterGroup = _voltage, Value = "220кВ" }.
+                AddRequiredPreviousParameters(new[] { _breaker });
+            _v500 = new Parameter { ParameterGroup = _voltage, Value = "500кВ" }.
+                AddRequiredPreviousParameters(new[] { _breaker });
 
-            _c2500 = new Parameter() { Value = "2500А" }.AddRequiredPreviousParameters(new[] { _breaker, _v110 })
-                                                        .AddRequiredPreviousParameters(new[] { _breaker, _v220 });
-            _c3150 = new Parameter() { Value = "3150А" }.AddRequiredPreviousParameters(new[] { _breaker, _v110 })
-                                                        .AddRequiredPreviousParameters(new[] { _breaker, _v220 })
-                                                        .AddRequiredPreviousParameters(new[] { _breaker, _v500 });
-            _c0001 = new Parameter() { Value = "1А" }.AddRequiredPreviousParameters(new[] { _transformator });
-            _c0005 = new Parameter() { Value = "5А" }.AddRequiredPreviousParameters(new[] { _transformator });
-            _current = new ParameterGroup().AddParameters(new[] { _c2500, _c3150, _c0001, _c0005 });
+            _c2500 = new Parameter { ParameterGroup = _current, Value = "2500 А" }.
+                AddRequiredPreviousParameters(new[] { _breaker, _v110 }).
+                AddRequiredPreviousParameters(new[] { _breaker, _v220 });
+            _c3150 = new Parameter { ParameterGroup = _current, Value = "3150 А" }.
+                AddRequiredPreviousParameters(new[] { _breaker, _v110 }).
+                AddRequiredPreviousParameters(new[] { _breaker, _v220 }).
+                AddRequiredPreviousParameters(new[] { _breaker, _v500 });
+            _c0001 = new Parameter { ParameterGroup = _current, Value = "1 А" }.
+                AddRequiredPreviousParameters(new[] { _transformator });
+            _c0005 = new Parameter { ParameterGroup = _current, Value = "5 А" }.
+                AddRequiredPreviousParameters(new[] { _transformator });
+
+            _parameters = new List<Parameter>(new[]
+            {
+                _breaker, _transformator, _drive, _drivesReducer, _v110, _v220, _v500, _c2500, _c3150, _c0001, _c0005
+            });
+
+
+
+
 
             _groups = new List<ParameterGroup> { _eqType, _voltage, _current };
 
-            _productsRelationTransformatorsToBreker = new ProductsRelation
+            _productsRelationTransformatorsToBreker = new ProductRelation
             {
                 ParentProductParameters = new List<Parameter> { _breaker, _v110 },
                 ChildProductParameters = new List<Parameter> { _transformator },
                 Count = 6
             };
-            _productsRelationDriveToBreker = new ProductsRelation
+            _productsRelationDriveToBreker = new ProductRelation
             {
                 ParentProductParameters = new List<Parameter> { _breaker, _v110 },
                 ChildProductParameters = new List<Parameter> { _drive },
                 Count = 1
             };
-            _productsRelationReducerToDrive = new ProductsRelation
+            _productsRelationReducerToDrive = new ProductRelation
             {
                 ParentProductParameters = new List<Parameter> { _drive },
                 ChildProductParameters = new List<Parameter> { _drivesReducer },
                 Count = 3
             };
-            _requiredDependentEquipmentsParametersList = new List<ProductsRelation> { _productsRelationTransformatorsToBreker, _productsRelationDriveToBreker, _productsRelationReducerToDrive };
+            _requiredDependentEquipmentsParametersList = new List<ProductRelation>
+            {
+                _productsRelationTransformatorsToBreker,
+                _productsRelationDriveToBreker,
+                _productsRelationReducerToDrive
+            };
 
-            _productSelector = new ProductSelector(_groups, new List<Part>(), new List<Product>(), _requiredDependentEquipmentsParametersList);
+            _productSelector = new ProductSelector(_parameters, null);
+            ProductSelector.ProductRelations = _requiredDependentEquipmentsParametersList;
         }
 
         [TestMethod]
@@ -89,11 +109,11 @@ namespace HVTApp.Services.GetProductService.Tests
         public void ProductSelectorIncludesDependentProductSelectors()
         {
             //должен иметь зависимые продукты (выключатель: трансформаторы + привод)
-            Assert.AreEqual(_productSelector.ProductSelectors.Count(x => x.IsActual), _productsRelationTransformatorsToBreker.Count +
-                                                                         _productsRelationDriveToBreker.Count);
+            Assert.AreEqual(_productSelector.ProductSelectors.Count, 
+                _productsRelationTransformatorsToBreker.Count + _productsRelationDriveToBreker.Count);
 
             //должен иметь зависимые продукты (привод: редуктор)
-            ProductSelector driveProductSelector = _productSelector.ProductSelectors.Single(x => x.PartSelector.SelectedParameters.Contains(_drive));
+            var driveProductSelector = _productSelector.ProductSelectors.Single(x => x.PartSelector.SelectedParameters.Contains(_drive));
             Assert.AreEqual(driveProductSelector.ProductSelectors.Count, _productsRelationReducerToDrive.Count);
         }
 

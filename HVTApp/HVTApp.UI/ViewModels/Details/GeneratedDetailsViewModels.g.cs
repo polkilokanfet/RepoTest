@@ -460,6 +460,22 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<Task<List<Service>>> _getEntitiesForAddInServicesCommand;
+		public ICommand AddInServicesCommand { get; }
+		public ICommand RemoveFromServicesCommand { get; }
+		private ServiceWrapper _selectedServicesItem;
+		public ServiceWrapper SelectedServicesItem 
+		{ 
+			get { return _selectedServicesItem; }
+			set 
+			{ 
+				if (Equals(_selectedServicesItem, value)) return;
+				_selectedServicesItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromServicesCommand).RaiseCanExecuteChanged();
+			}
+		}
+
         public OfferUnitDetailsViewModel(IUnityContainer container) : base(container) 
 		{
             _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };
@@ -477,6 +493,10 @@ namespace HVTApp.UI.ViewModels
 			_getEntitiesForAddInDependentProductsCommand = async () => { return await UnitOfWork.GetRepository<ProductDependent>().GetAllAsync(); };;
 			AddInDependentProductsCommand = new DelegateCommand(AddInDependentProductsCommand_Execute);
 			RemoveFromDependentProductsCommand = new DelegateCommand(RemoveFromDependentProductsCommand_Execute, RemoveFromDependentProductsCommand_CanExecute);
+
+			_getEntitiesForAddInServicesCommand = async () => { return await UnitOfWork.GetRepository<Service>().GetAllAsync(); };;
+			AddInServicesCommand = new DelegateCommand(AddInServicesCommand_Execute);
+			RemoveFromServicesCommand = new DelegateCommand(RemoveFromServicesCommand_Execute, RemoveFromServicesCommand_CanExecute);
 
 			InitGetMethods();
 		}
@@ -523,6 +543,21 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromDependentProductsCommand_CanExecute()
 			{
 				return SelectedDependentProductsItem != null;
+			}
+
+			private async void AddInServicesCommand_Execute()
+			{
+				SelectAndAddInListWrapper<Service, ServiceWrapper>(await _getEntitiesForAddInServicesCommand(), Item.Services);
+			}
+
+			private void RemoveFromServicesCommand_Execute()
+			{
+				Item.Services.Remove(SelectedServicesItem);
+			}
+
+			private bool RemoveFromServicesCommand_CanExecute()
+			{
+				return SelectedServicesItem != null;
 			}
 
 
@@ -1389,6 +1424,22 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<Task<List<Service>>> _getEntitiesForAddInServicesCommand;
+		public ICommand AddInServicesCommand { get; }
+		public ICommand RemoveFromServicesCommand { get; }
+		private ServiceWrapper _selectedServicesItem;
+		public ServiceWrapper SelectedServicesItem 
+		{ 
+			get { return _selectedServicesItem; }
+			set 
+			{ 
+				if (Equals(_selectedServicesItem, value)) return;
+				_selectedServicesItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromServicesCommand).RaiseCanExecuteChanged();
+			}
+		}
+
 		private Func<Task<List<PaymentActual>>> _getEntitiesForAddInPaymentsActualCommand;
 		public ICommand AddInPaymentsActualCommand { get; }
 		public ICommand RemoveFromPaymentsActualCommand { get; }
@@ -1454,6 +1505,10 @@ namespace HVTApp.UI.ViewModels
 			_getEntitiesForAddInDependentProductsCommand = async () => { return await UnitOfWork.GetRepository<ProductDependent>().GetAllAsync(); };;
 			AddInDependentProductsCommand = new DelegateCommand(AddInDependentProductsCommand_Execute);
 			RemoveFromDependentProductsCommand = new DelegateCommand(RemoveFromDependentProductsCommand_Execute, RemoveFromDependentProductsCommand_CanExecute);
+
+			_getEntitiesForAddInServicesCommand = async () => { return await UnitOfWork.GetRepository<Service>().GetAllAsync(); };;
+			AddInServicesCommand = new DelegateCommand(AddInServicesCommand_Execute);
+			RemoveFromServicesCommand = new DelegateCommand(RemoveFromServicesCommand_Execute, RemoveFromServicesCommand_CanExecute);
 
 			_getEntitiesForAddInPaymentsActualCommand = async () => { return await UnitOfWork.GetRepository<PaymentActual>().GetAllAsync(); };;
 			AddInPaymentsActualCommand = new DelegateCommand(AddInPaymentsActualCommand_Execute);
@@ -1548,6 +1603,21 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromDependentProductsCommand_CanExecute()
 			{
 				return SelectedDependentProductsItem != null;
+			}
+
+			private async void AddInServicesCommand_Execute()
+			{
+				SelectAndAddInListWrapper<Service, ServiceWrapper>(await _getEntitiesForAddInServicesCommand(), Item.Services);
+			}
+
+			private void RemoveFromServicesCommand_Execute()
+			{
+				Item.Services.Remove(SelectedServicesItem);
+			}
+
+			private bool RemoveFromServicesCommand_CanExecute()
+			{
+				return SelectedServicesItem != null;
 			}
 
 			private async void AddInPaymentsActualCommand_Execute()

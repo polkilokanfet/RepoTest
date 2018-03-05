@@ -16,7 +16,7 @@ namespace HVTApp.UI.Converter
                 x.Model.Cost,
                 x.ProductionTerm,
                 x.Model.PaymentConditionSet,
-                dp = x.DependentProducts.Sum(d => d.Model.GetHashCode())
+                dp = x.DependentProducts.Sum(d => d.Model.Product.Id.GetHashCode() + d.Model.Amount.GetHashCode())
             }).Select(x => new OfferUnitsGroup(x));
         }
 

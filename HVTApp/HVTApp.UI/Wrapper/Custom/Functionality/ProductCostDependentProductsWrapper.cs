@@ -104,7 +104,7 @@ namespace HVTApp.UI.Wrapper
     }
 
     public abstract class ProductCostDependentProductsWrapper<T> : ProductCostWrapper<T>, IProductCostDependentProductsWrapper
-        where T : class, IProductCostDependentProducts
+        where T : class, IUnit
     {
         private IValidatableChangeTrackingCollection<ProductDependentWrapper> _dependentProducts;
 
@@ -123,8 +123,8 @@ namespace HVTApp.UI.Wrapper
             }
         }
 
-        public override double Price => Product.GetPrice(PriceDate) +
-            DependentProducts.Where(x => !x.IsIndependent).Sum(x => x.Product.GetPrice(PriceDate) * x.Amount);
+        public override double Price => Product.GetPrice(PriceDate) + 
+            DependentProducts.Sum(x => x.Product.GetPrice(PriceDate) * x.Amount);
 
         public override bool HasBlocksWithoutPrice => Product.GetBlocksWithoutAnyPrice().Any() ||
             DependentProducts.Any(x => x.Product.GetBlocksWithoutAnyPrice().Any());

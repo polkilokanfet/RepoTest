@@ -332,11 +332,7 @@ namespace HVTApp.UI.Lookup
 		}
 		
         #region SimpleProperties
-        public System.Double Cost => GetValue<System.Double>();
-
         public System.Int32 Amount => GetValue<System.Int32>();
-
-        public System.Boolean IsIndependent => GetValue<System.Boolean>();
 
         #endregion
 
@@ -764,6 +760,8 @@ namespace HVTApp.UI.Lookup
 		
         #region SimpleProperties
         public System.String Name => GetValue<System.String>();
+
+        public System.Int32 Amount => GetValue<System.Int32>();
 
         #endregion
 	}

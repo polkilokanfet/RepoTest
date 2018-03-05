@@ -125,9 +125,9 @@ namespace HVTApp.Services.OfferToDocService
                         docWriter.StartTableRow();
                         docWriter.TableCell($"{rowNum}.{rn}.", cellProps);
                         docWriter.TableCell(dependentProduct.Product.DisplayMember, cellProps);
-                        docWriter.TableCell($"{dependentProduct.Amount:D}", cellProps, parPropRight);
-                        docWriter.TableCell($"{dependentProduct.Cost:C}", cellProps, parPropRight);
-                        docWriter.TableCell($"{(dependentProduct.Amount * dependentProduct.Cost):C}", cellProps, parPropRight);
+                        docWriter.TableCell("", cellProps, parPropRight);
+                        docWriter.TableCell("", cellProps, parPropRight);
+                        docWriter.TableCell("", cellProps, parPropRight);
                         docWriter.EndTableRow();
                     }
                 }

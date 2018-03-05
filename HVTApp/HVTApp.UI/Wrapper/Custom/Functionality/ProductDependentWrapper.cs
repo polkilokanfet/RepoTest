@@ -2,8 +2,8 @@
 
 namespace HVTApp.UI.Wrapper
 {
-    public partial class ProductDependentWrapper : ProductCostWrapper<ProductDependent>
-    {
+    //public partial class ProductDependentWrapper : ProductCostWrapper<ProductDependent>
+    //{
         
-    }
+    //}
 }

@@ -638,7 +638,6 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
-
 	    public FacilityWrapper Facility 
         {
             get { return GetWrapper<FacilityWrapper>(); }
@@ -654,6 +653,9 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<ServiceWrapper> Services { get; private set; }
+
         #endregion
         public override void InitializeComplexProperties()
         {
@@ -670,6 +672,10 @@ namespace HVTApp.UI.Wrapper
           if (Model.DependentProducts == null) throw new ArgumentException("DependentProducts cannot be null");
           DependentProducts = new ValidatableChangeTrackingCollection<ProductDependentWrapper>(Model.DependentProducts.Select(e => new ProductDependentWrapper(e)));
           RegisterCollection(DependentProducts, Model.DependentProducts);
+
+          if (Model.Services == null) throw new ArgumentException("Services cannot be null");
+          Services = new ValidatableChangeTrackingCollection<ServiceWrapper>(Model.Services.Select(e => new ServiceWrapper(e)));
+          RegisterCollection(Services, Model.Services);
 
         }
 	}
@@ -756,15 +762,12 @@ namespace HVTApp.UI.Wrapper
         }
 	}
 
-		public partial class ProductDependentWrapper
+		public partial class ProductDependentWrapper : WrapperBase<ProductDependent>
 	{
 	    public ProductDependentWrapper(ProductDependent model) : base(model) { }
 
 	
         #region SimpleProperties
-        public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
-        public bool CostIsChanged => GetIsChanged(nameof(Cost));
-
         public System.Int32 Amount
         {
           get { return GetValue<System.Int32>(); }
@@ -772,14 +775,6 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Int32 AmountOriginalValue => GetOriginalValue<System.Int32>(nameof(Amount));
         public bool AmountIsChanged => GetIsChanged(nameof(Amount));
-
-        public System.Boolean IsIndependent
-        {
-          get { return GetValue<System.Boolean>(); }
-          set { SetValue(value); }
-        }
-        public System.Boolean IsIndependentOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsIndependent));
-        public bool IsIndependentIsChanged => GetIsChanged(nameof(IsIndependent));
 
         public System.Guid Id
         {
@@ -792,6 +787,11 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
+	    public ProductWrapper Product 
+        {
+            get { return GetWrapper<ProductWrapper>(); }
+            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
+        }
 
         #endregion
         public override void InitializeComplexProperties()
@@ -1771,7 +1771,6 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
-
 	    public FacilityWrapper Facility 
         {
             get { return GetWrapper<FacilityWrapper>(); }
@@ -1812,6 +1811,8 @@ namespace HVTApp.UI.Wrapper
 
         #region CollectionProperties
 
+        public IValidatableChangeTrackingCollection<ServiceWrapper> Services { get; private set; }
+
         public IValidatableChangeTrackingCollection<PaymentActualWrapper> PaymentsActual { get; private set; }
 
         public IValidatableChangeTrackingCollection<PaymentPlannedListWrapper> PaymentsPlannedSaved { get; private set; }
@@ -1841,6 +1842,10 @@ namespace HVTApp.UI.Wrapper
           DependentProducts = new ValidatableChangeTrackingCollection<ProductDependentWrapper>(Model.DependentProducts.Select(e => new ProductDependentWrapper(e)));
           RegisterCollection(DependentProducts, Model.DependentProducts);
 
+          if (Model.Services == null) throw new ArgumentException("Services cannot be null");
+          Services = new ValidatableChangeTrackingCollection<ServiceWrapper>(Model.Services.Select(e => new ServiceWrapper(e)));
+          RegisterCollection(Services, Model.Services);
+
           if (Model.PaymentsActual == null) throw new ArgumentException("PaymentsActual cannot be null");
           PaymentsActual = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(Model.PaymentsActual.Select(e => new PaymentActualWrapper(e)));
           RegisterCollection(PaymentsActual, Model.PaymentsActual);
@@ -1865,6 +1870,14 @@ namespace HVTApp.UI.Wrapper
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+        public System.Int32 Amount
+        {
+          get { return GetValue<System.Int32>(); }
+          set { SetValue(value); }
+        }
+        public System.Int32 AmountOriginalValue => GetOriginalValue<System.Int32>(nameof(Amount));
+        public bool AmountIsChanged => GetIsChanged(nameof(Amount));
 
         public System.Guid Id
         {

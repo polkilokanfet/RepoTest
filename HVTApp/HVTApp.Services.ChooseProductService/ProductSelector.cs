@@ -36,11 +36,12 @@ namespace HVTApp.Services.GetProductService
             }
         }
 
-        public ProductSelector(IEnumerable<Parameter> parameters, Product selectedProduct)
+        public ProductSelector(IEnumerable<Parameter> parameters, Product selectedProduct = null)
         {
             var selectedParameters = selectedProduct == null 
                 ? new List<Parameter>() 
-                : selectedProduct.ProductBlock.Parameters; 
+                : selectedProduct.ProductBlock.Parameters;
+
             ProductBlockSelector = new ProductBlockSelector(parameters, selectedParameters);
             ProductBlockSelector.SelectedParametersChanged += ProductBlockSelectorOnSelectedParametersChanged;
 

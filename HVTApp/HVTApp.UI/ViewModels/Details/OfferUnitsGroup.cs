@@ -24,7 +24,8 @@ namespace HVTApp.UI.ViewModels
             foreach (var productDependentWrapper in DependentProducts)
             {
                 var list = units.Select(x => x.DependentProducts.First(dp => 
-                    Equals(dp.Model.GetHashCode(), productDependentWrapper.Model.GetHashCode()))).ToList();
+                    Equals(dp.Model.Product.Id.GetHashCode() + dp.Amount.GetHashCode(), 
+                    productDependentWrapper.Model.Product.Id.GetHashCode() + productDependentWrapper.Amount.GetHashCode()))).ToList();
                 _dictionary.Add(productDependentWrapper, list);
             }
             DependentProducts.CollectionChanged += OnDependentProductsCollectionChanged;
@@ -34,9 +35,7 @@ namespace HVTApp.UI.ViewModels
         private void DependentProductOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (!Equals(e.PropertyName, nameof(ProductDependent.Product)) &&
-                !Equals(e.PropertyName, nameof(ProductDependent.Amount)) &&
-                !Equals(e.PropertyName, nameof(ProductDependent.Cost)) &&
-                !Equals(e.PropertyName, nameof(ProductDependent.IsIndependent)))
+                !Equals(e.PropertyName, nameof(ProductDependent.Amount)))
                 return;
 
             ProductDependentWrapper productDependentWrapper = (ProductDependentWrapper)sender;
@@ -65,9 +64,7 @@ namespace HVTApp.UI.ViewModels
                         var productDependentWrapper = new ProductDependentWrapper(new ProductDependent
                             {
                                 Product = product.Product.Model,
-                                Amount = product.Amount,
-                                Cost = product.Cost,
-                                IsIndependent = product.IsIndependent
+                                Amount = product.Amount
                             });
                         unit.DependentProducts.Add(productDependentWrapper);
                         productDependentWrapper.PropertyChanged += DependentProductOnPropertyChanged;
@@ -89,14 +86,6 @@ namespace HVTApp.UI.ViewModels
                     _dictionary.Remove(oldProduct);
                 }
             }
-        }
-
-        private ProductDependentWrapper GetTarget(IEnumerable<ProductDependentWrapper> enumerable, ProductDependentWrapper pdw)
-        {
-            return enumerable.First(x => Equals(x.Product.Model, pdw.Product.Model) &&
-                                    x.Amount == pdw.Amount &&
-                                    Math.Abs(x.Cost - pdw.Cost) < 0.00001 &&
-                                    x.IsIndependent == pdw.IsIndependent);
         }
 
         public FacilityWrapper Facility

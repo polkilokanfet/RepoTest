@@ -6,11 +6,12 @@ using HVTApp.Infrastructure.Extansions;
 namespace HVTApp.Model.POCOs
 {
     //Project information
-    public partial class SalesUnit : BaseEntity, IProductCostDependentProducts
+    public partial class SalesUnit : BaseEntity, IUnit
     {
         public double Cost { get; set; }
         public virtual Product Product { get; set; }
         public virtual List<ProductDependent> DependentProducts { get; set; } = new List<ProductDependent>();
+        public virtual List<Service> Services { get; set; } = new List<Service>();
 
         public virtual Facility Facility { get; set; }
         public virtual PaymentConditionSet PaymentConditionSet { get; set; }
