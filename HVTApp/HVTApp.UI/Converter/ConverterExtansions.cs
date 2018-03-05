@@ -15,7 +15,8 @@ namespace HVTApp.UI.Converter
                 x.Model.Facility,
                 x.Model.Cost,
                 x.ProductionTerm,
-                x.Model.PaymentConditionSet
+                x.Model.PaymentConditionSet,
+                dp = x.DependentProducts.Sum(d => d.Model.GetHashCode())
             }).Select(x => new OfferUnitsGroup(x));
         }
 
