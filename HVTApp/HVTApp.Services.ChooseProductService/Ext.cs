@@ -10,7 +10,7 @@ namespace HVTApp.Services.GetProductService
         /// Удаление из списка параметров, которые в одной группе с обязательными параметрами.
         /// </summary>
         /// <returns></returns>
-        public static IEnumerable<Parameter> RemoveUseLess(this IEnumerable<Parameter> targetParameters, IEnumerable<Parameter> requiredParameters)
+        public static IEnumerable<Parameter> RemoveUseless(this IEnumerable<Parameter> targetParameters, IEnumerable<Parameter> requiredParameters)
         {
             var result = targetParameters.ToList();
             foreach (var requiredParameter in requiredParameters)

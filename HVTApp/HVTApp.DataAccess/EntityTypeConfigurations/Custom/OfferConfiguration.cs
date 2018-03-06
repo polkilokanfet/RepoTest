@@ -1,9 +1,6 @@
-using System.Data.Entity.ModelConfiguration;
-using HVTApp.Model.POCOs;
-
 namespace HVTApp.DataAccess
 {
-    public partial class OfferConfiguration : EntityTypeConfiguration<Offer>
+    public partial class OfferConfiguration
     {
         public OfferConfiguration()
         {

@@ -57,10 +57,10 @@
     <Compile Include="GetProductServiceWpf.cs" />
     <Compile Include="Ext.cs" />
     <Compile Include="NotifyPropertyChanged.cs" />
-    <Compile Include="ParameterFlaged.cs" />
-    <Compile Include="ParameterSelector.cs" />
-    <Compile Include="ProductBlockSelector.cs" />
-    <Compile Include="ProductSelector.cs" />
+    <Compile Include="Selectors\ParameterFlaged.cs" />
+    <Compile Include="Selectors\ParameterSelector.cs" />
+    <Compile Include="Selectors\ProductBlockSelector.cs" />
+    <Compile Include="Selectors\ProductSelector.cs" />
     <Compile Include="ParametersEnumerableComparer.cs" />
     <Compile Include="SelectProductWindow.xaml.cs">
       <DependentUpon>SelectProductWindow.xaml</DependentUpon>

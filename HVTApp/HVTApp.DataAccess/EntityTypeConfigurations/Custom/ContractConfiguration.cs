@@ -1,9 +1,6 @@
-using System.Data.Entity.ModelConfiguration;
-using HVTApp.Model.POCOs;
-
 namespace HVTApp.DataAccess
 {
-    public partial class ContractConfiguration : EntityTypeConfiguration<Contract>
+    public partial class ContractConfiguration 
     {
         public ContractConfiguration()
         {

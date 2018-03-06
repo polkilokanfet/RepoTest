@@ -1,9 +1,6 @@
-using System.Data.Entity.ModelConfiguration;
-using HVTApp.Model.POCOs;
-
 namespace HVTApp.DataAccess
 {
-    public partial class PaymentPlannedListConfiguration : EntityTypeConfiguration<PaymentPlannedList>
+    public partial class PaymentPlannedListConfiguration
     {
         public PaymentPlannedListConfiguration()
         {

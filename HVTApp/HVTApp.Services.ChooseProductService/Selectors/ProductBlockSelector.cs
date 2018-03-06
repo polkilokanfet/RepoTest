@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 
@@ -23,11 +22,13 @@ namespace HVTApp.Services.GetProductService
 
             //реакция на смену параметра в селекторе
             foreach (var parameterSelector in ParameterSelectors)
+            {
                 parameterSelector.SelectedParameterFlagedChanged += parSel =>
                 {
                     OnSelectedParametersChanged(SelectedProductBlock.Parameters);
                     OnPropertyChanged(nameof(SelectedProductBlock));
                 };
+            }
 
             //необходимо взбодрить параметры (узнать кто актуален, а кто нет)
             if (selectedParams.Any())

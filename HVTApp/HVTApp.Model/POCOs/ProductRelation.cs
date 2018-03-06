@@ -10,6 +10,7 @@ namespace HVTApp.Model.POCOs
     {
         public virtual List<Parameter> ParentProductParameters { get; set; } = new List<Parameter>();
         public virtual List<Parameter> ChildProductParameters { get; set; } = new List<Parameter>();
-        public int Count { get; set; } = 1;
+        public int ChildProductsAmount { get; set; } = 1;
+        public bool IsUnique { get; set; } = true;
     }
 }

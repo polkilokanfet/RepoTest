@@ -75,7 +75,6 @@
     <Compile Include="EntityTypeConfigurations\Custom\FacilityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\OfferUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PaymentPlannedConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\PaymentPlannedPartConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductBlockConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TenderTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TestHusbandConfiguration.cs" />
@@ -93,18 +92,16 @@
     <Compile Include="EntityTypeConfigurations\Custom\ParameterConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ParameterGroupConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProjectConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\RequiredPreviousParametersConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\MeasureConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PaymentActualConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PaymentConditionConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PaymentConditionStandartConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PaymentDocumentConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\ProductItemConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\OrderConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\PaymentPlannedListConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\SalesUnitConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\RequiredDependentEquipmentsParametersConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ProductRelationConfiguration.cs" />
     <Compile Include="HvtAppDataBaseInitializer.g.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UnitOfWork\BaseRepository.cs" />

@@ -1,9 +1,6 @@
-using System.Data.Entity.ModelConfiguration;
-using HVTApp.Model.POCOs;
-
 namespace HVTApp.DataAccess
 {
-    public partial class AddressConfiguration : EntityTypeConfiguration<Address>
+    public partial class AddressConfiguration
     {
         public AddressConfiguration()
         {

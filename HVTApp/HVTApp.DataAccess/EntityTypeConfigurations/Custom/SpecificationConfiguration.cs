@@ -1,9 +1,6 @@
-using System.Data.Entity.ModelConfiguration;
-using HVTApp.Model.POCOs;
-
 namespace HVTApp.DataAccess
 {
-    public partial class SpecificationConfiguration : EntityTypeConfiguration<Specification>
+    public partial class SpecificationConfiguration 
     {
         public SpecificationConfiguration()
         {

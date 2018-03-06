@@ -1,9 +1,6 @@
-using System.Data.Entity.ModelConfiguration;
-using HVTApp.Model.POCOs;
-
 namespace HVTApp.DataAccess
 {
-    public partial class PaymentConditionSetConfiguration : EntityTypeConfiguration<PaymentConditionSet>
+    public partial class PaymentConditionSetConfiguration 
     {
         public PaymentConditionSetConfiguration()
         {

@@ -3,7 +3,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
-    public partial class DistrictConfiguration : EntityTypeConfiguration<District>
+    public partial class DistrictConfiguration
     {
         public DistrictConfiguration()
         {

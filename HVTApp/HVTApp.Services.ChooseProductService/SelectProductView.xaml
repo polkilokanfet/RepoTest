@@ -15,6 +15,7 @@
                    FontWeight="Bold"/>
             <Label Content="{Binding ProductBlockSelector.SelectedProductBlock, UpdateSourceTrigger=PropertyChanged}" 
                    HorizontalAlignment="Center"/>
+            <Label Content="{Binding Amount}"/>
 
             <ItemsControl ItemsSource="{Binding ProductBlockSelector.ParameterSelectors}">
                 <ItemsControl.ItemTemplate>

@@ -87,6 +87,7 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupEqType;
         public ParameterGroup ParameterGroupBreakerType;
         public ParameterGroup ParameterGroupTransformatorType;
+        public ParameterGroup ParameterGroupTransformatorCurrentType;
         public ParameterGroup ParameterGroupVoltage;
         public ParameterGroup ParameterGroupDrivesVoltage;
 
@@ -106,10 +107,12 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterVoltage500kV;
         public Parameter ParameterVoltage110V;
         public Parameter ParameterVoltage220V;
-
+        public Parameter ParameterTransformatorTrg110;
+        public Parameter ParameterTransformatorTvg110;
 
         public ProductRelation RequiredChildProductRelationDrive;
         public ProductRelation RequiredChildProductRelationBreakerBlock;
+        public ProductRelation RequiredChildProductRelationTvg110;
 
         public ProductBlock ProductBlockVgb35;
         public ProductBlock ProductBlockVeb110;
@@ -331,6 +334,7 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupZip.Clone(new ParameterGroup {Name = "Тип ЗИП"});
             ParameterGroupBreakerType.Clone(new ParameterGroup {Name = "Тип выключателя"});
             ParameterGroupTransformatorType.Clone(new ParameterGroup {Name = "Тип трансформатора"});
+            ParameterGroupTransformatorCurrentType.Clone(new ParameterGroup {Name = "Тип трансформатора тока"});
             ParameterGroupVoltage.Clone(new ParameterGroup {Name = "Номинальное напряжение", Measure = MeasureKv});
             ParameterGroupDrivesVoltage.Clone(new ParameterGroup {Name = "Номинальное напряжение двигателя завода пружин", Measure = MeasureKv});
         }
@@ -354,7 +358,8 @@ namespace HVTApp.TestDataGenerator
             ParameterVoltage500kV.Clone(new Parameter {ParameterGroup = ParameterGroupVoltage, Value = "500 кВ"});
             ParameterVoltage110V.Clone(new Parameter {ParameterGroup = ParameterGroupDrivesVoltage, Value = "110 В"});
             ParameterVoltage220V.Clone(new Parameter {ParameterGroup = ParameterGroupDrivesVoltage, Value = "220 В"});
-
+            ParameterTransformatorTrg110.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Отдельностоящий" });
+            ParameterTransformatorTvg110.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Встроенный" });
 
             ParameterZip1.AddRequiredPreviousParameters(new[] {ParameterDependentEquipment});
             ParameterBreakerDeadTank.AddRequiredPreviousParameters(new[] {ParameterBreaker});
@@ -364,7 +369,7 @@ namespace HVTApp.TestDataGenerator
             ParameterTransformatorVoltage.AddRequiredPreviousParameters(new[] {ParameterTransformator});
 
             ParameterVoltage35kV.AddRequiredPreviousParameters(new[] {ParameterBreaker})
-                                .AddRequiredPreviousParameters(new[] {ParameterTransformator, ParameterTransformatorCurrent});
+                                .AddRequiredPreviousParameters(new[] {ParameterTransformatorCurrent});
             ParameterVoltage110kV.AddRequiredPreviousParameters(new[] {ParameterBreaker})
                                  .AddRequiredPreviousParameters(new[] {ParameterTransformator}); 
             ParameterVoltage220kV.AddRequiredPreviousParameters(new[] {ParameterBreaker})
@@ -374,14 +379,30 @@ namespace HVTApp.TestDataGenerator
             ParameterVoltage110V.AddRequiredPreviousParameters(new[] {ParameterBrakersDrive});
 
             ParameterVoltage220V.AddRequiredPreviousParameters(new[] {ParameterBrakersDrive});
+
+            ParameterTransformatorTrg110.AddRequiredPreviousParameters(new[] { ParameterTransformatorCurrent });
+            ParameterTransformatorTvg110.AddRequiredPreviousParameters(new[] { ParameterTransformatorCurrent });
         }
 
         private void GenerateRequiredDependentEquipmentsParameters()
         {
-            RequiredChildProductRelationDrive.Clone(new ProductRelation {ParentProductParameters = new List<Parameter> {ParameterBreaker},
-                ChildProductParameters= new List<Parameter> {ParameterBrakersDrive}, Count = 1});
-            RequiredChildProductRelationBreakerBlock.Clone(new ProductRelation {ParentProductParameters = new List<Parameter> {ParameterBreakerBlock},
-                ChildProductParameters= new List<Parameter> {ParameterBreaker}, Count = 2});
+            RequiredChildProductRelationDrive.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> {ParameterBreaker},
+                ChildProductParameters= new List<Parameter> {ParameterBrakersDrive}, ChildProductsAmount = 1
+            });
+
+            RequiredChildProductRelationBreakerBlock.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> {ParameterBreakerBlock},
+                ChildProductParameters= new List<Parameter> {ParameterBreaker}, ChildProductsAmount = 2, IsUnique = true
+            });
+
+            RequiredChildProductRelationTvg110.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> {ParameterBreakerDeadTank},
+                ChildProductParameters= new List<Parameter> {ParameterTransformatorTvg110}, ChildProductsAmount = 3, IsUnique = false
+            });
         }
 
 

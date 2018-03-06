@@ -1,9 +1,6 @@
-using System.Data.Entity.ModelConfiguration;
-using HVTApp.Model.POCOs;
-
 namespace HVTApp.DataAccess
 {
-    public partial class ActivityFieldConfiguration : EntityTypeConfiguration<ActivityField>
+    public partial class ActivityFieldConfiguration
     {
         public ActivityFieldConfiguration()
         {

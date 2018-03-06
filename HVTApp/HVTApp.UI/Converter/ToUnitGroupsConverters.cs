@@ -5,7 +5,7 @@ using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.Converter
 {
-    public static class ConverterExtansions
+    public static class ToUnitGroupsConverters
     {
         public static IEnumerable<OfferUnitsGroup> ToUnitGroups(this IEnumerable<OfferUnitWrapper> offerUnitWrappers)
         {

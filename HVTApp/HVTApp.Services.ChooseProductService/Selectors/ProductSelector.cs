@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 
@@ -18,6 +17,7 @@ namespace HVTApp.Services.GetProductService
 
         public ProductBlockSelector ProductBlockSelector { get; }
         public ObservableCollection<ProductSelector> ProductSelectors { get; } = new ObservableCollection<ProductSelector>();
+        public int Amount { get; }
 
         public Product SelectedProduct
         {
@@ -26,7 +26,7 @@ namespace HVTApp.Services.GetProductService
                 var product = new Product
                 {
                     ProductBlock = ProductBlockSelector.SelectedProductBlock,
-                    DependentProducts = ProductSelectors.Select(x => x.SelectedProduct).ToList(),
+                    DependentProducts = ProductSelectors.Select(x => x.SelectedProduct).ToList()
                 };
                 product.Designation = product.ToString();
 
@@ -36,62 +36,80 @@ namespace HVTApp.Services.GetProductService
             }
         }
 
-        public ProductSelector(IEnumerable<Parameter> parameters, Product selectedProduct = null)
+        public ProductSelector(IEnumerable<Parameter> parameters, Product selectedProduct = null, int amount = 1)
         {
-            var selectedParameters = selectedProduct == null 
-                ? new List<Parameter>() 
-                : selectedProduct.ProductBlock.Parameters;
-
-            ProductBlockSelector = new ProductBlockSelector(parameters, selectedParameters);
+            Amount = amount;
+            ProductBlockSelector = new ProductBlockSelector(parameters, selectedProduct?.ProductBlock.Parameters);
             ProductBlockSelector.SelectedParametersChanged += ProductBlockSelectorOnSelectedParametersChanged;
 
-            if (selectedProduct != null)
-            {
-                foreach (var kvp in GetDictionaryOfMatching(selectedProduct))
-                {
-                    //редактируем список параметров
-                    var useFullParameters = Parameters.RemoveUseLess(kvp.Key.ChildProductParameters);
-                    var productSelector = new ProductSelector(useFullParameters, kvp.Value);
-                    ProductSelectors.Add(productSelector);
-                    productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
-                }
-            }
-            else
+            if (selectedProduct == null)
             {
                 //выбираем первый параметр базового селектора
                 ProductBlockSelector.SelectFirstParameter();
             }
+            else
+            {
+                foreach (var kvp in GetDictionaryOfMatching(selectedProduct))
+                {
+                    //редактируем список параметров
+                    var usefullParameters = Parameters.RemoveUseless(kvp.Key.ChildProductParameters);
+                    var productSelector = new ProductSelector(usefullParameters, kvp.Value);
+                    ProductSelectors.Add(productSelector);
+                    productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
+                }
+            }
         }
 
-        private IEnumerable<ProductRelation> GetActualProductRelations(IEnumerable<Parameter> forParameters = null)
+        private List<ProductRelation> GetActualProductRelations(IEnumerable<Parameter> forParameters = null)
         {
             var parameters = forParameters ?? ProductBlockSelector.SelectedProductBlock.Parameters;
-            return ProductRelations.Where(x => x.ParentProductParameters.AllContainsIn(parameters));
+            return ProductRelations.Where(x => x.ParentProductParameters.AllContainsIn(parameters)).ToList();
         }
 
         private void RefreshProductSelectors()
         {
-            var actualProductRelations = GetActualProductRelations().ToList();
-            var productSelectors = new List<ProductSelector>(ProductSelectors);
+            //загружаем актуальные связи продуктов, упорядоченные по количеству параметров, зависимого продукта
+            var actualProductRelations = GetActualProductRelations().OrderBy(x => x.ChildProductParameters.Count).ToList();
+            //упорядочиваем селектры продуктов по уменьшению количества параметров
+            var productSelectors = new List<ProductSelector>(ProductSelectors.
+                                   OrderByDescending(x => x.SelectedProduct.ProductBlock.Parameters.Count));
 
-            //удаление неактуальных селекторов
+            var relaitionsDictionary = new Dictionary<ProductRelation, int>();
+            foreach (var actualProductRelation in actualProductRelations)
+            {
+                relaitionsDictionary.Add(actualProductRelation, actualProductRelation.ChildProductsAmount);
+            }
+
+            //удаление неактуальных селекторов и чистка связей
             foreach (var productSelector in productSelectors)
             {
-                if (actualProductRelations.All(x => !x.ChildProductParameters.AllContainsIn(productSelector.ProductBlockSelector.SelectedProductBlock.Parameters)))
+                var relation = actualProductRelations.FirstOrDefault(x => x.ChildProductParameters.AllContainsIn(
+                               productSelector.ProductBlockSelector.SelectedProductBlock.Parameters));
+
+                if (relation == null)
                 {
                     ProductSelectors.Remove(productSelector);
                     productSelector.SelectedProductChanged -= ProductSelectorOnSelectedProductChanged;
+                }
+                else
+                {
+                    relaitionsDictionary[relation] -= productSelector.Amount;
+                    if (relaitionsDictionary[relation] == 0)
+                    {
+                        actualProductRelations.Remove(relation);
+                    }
                 }
             }
 
             //добавление новых актуальных селекторов
             foreach (var productRelation in actualProductRelations)
             {
-                if (ProductSelectors.Any(x => productRelation.ChildProductParameters.AllContainsIn(x.ProductBlockSelector.SelectedProductBlock.Parameters)))
-                    continue;
-                var productSelector = new ProductSelector(Parameters.RemoveUseLess(productRelation.ChildProductParameters), null);
-                ProductSelectors.Add(productSelector);
-                productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
+                for (int i = 0; i < productRelation.ChildProductsAmount; i++)
+                {
+                    var productSelector = new ProductSelector(Parameters.RemoveUseless(productRelation.ChildProductParameters));
+                    ProductSelectors.Add(productSelector);
+                    productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
+                }
             }
         }
 
@@ -117,29 +135,31 @@ namespace HVTApp.Services.GetProductService
         private Dictionary<ProductRelation, Product> GetDictionaryOfMatching(Product product)
         {
             var result = new Dictionary<ProductRelation, Product>();
-            GetActualProductRelations(product.ProductBlock.Parameters).ToList().ForEach(x => result.Add(x, null));
+            var actualProductRelations = GetActualProductRelations(product.ProductBlock.Parameters).ToList();
+            actualProductRelations.ForEach(x => result.Add(x, default(Product)));
 
-            var products = new List<Product>(product.DependentProducts);
+            var dependentProducts = new List<Product>(product.DependentProducts);
 
-            while (products.Any())
+            while (dependentProducts.Any())
             {
-                var product1 = products.First();
-                var searchZone = result.Where(x => x.Value == null);
-                var node = searchZone.FirstOrDefault(x => x.Key.ChildProductParameters.AllContainsIn(product1.ProductBlock.Parameters));
+                var dependentProduct = dependentProducts.First();
+                //возможно такой зависимый продукт уже добавлен
+                var node = result.Where(x => Equals(x.Value, default(Product))).
+                    FirstOrDefault(x => x.Key.ChildProductParameters.AllContainsIn(dependentProduct.ProductBlock.Parameters));
                 if (!Equals(node, default(KeyValuePair<ProductRelation, Product>)))
                 {
-                    result[node.Key] = product1;
-                    products.Remove(product1);
+                    result[node.Key] = dependentProduct;
+                    dependentProducts.Remove(dependentProduct);
                     continue;
                 }
 
-                node = result.FirstOrDefault(x => x.Key.ChildProductParameters.AllContainsIn(product1.ProductBlock.Parameters));
+                node = result.FirstOrDefault(x => x.Key.ChildProductParameters.AllContainsIn(dependentProduct.ProductBlock.Parameters));
 
                 if (!Equals(node, default(KeyValuePair<ProductRelation, Product>)))
                 {
-                    products.Add(result[node.Key]);
-                    result[node.Key] = product1;
-                    products.Remove(product1);
+                    dependentProducts.Add(result[node.Key]);
+                    result[node.Key] = dependentProduct;
+                    dependentProducts.Remove(dependentProduct);
                     continue;
                 }
 

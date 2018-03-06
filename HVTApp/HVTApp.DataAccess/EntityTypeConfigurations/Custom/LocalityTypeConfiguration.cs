@@ -1,9 +1,6 @@
-﻿using System.Data.Entity.ModelConfiguration;
-using HVTApp.Model.POCOs;
-
-namespace HVTApp.DataAccess
+﻿namespace HVTApp.DataAccess
 {
-    public partial class LocalityTypeConfiguration : EntityTypeConfiguration<LocalityType>
+    public partial class LocalityTypeConfiguration 
     {
         public LocalityTypeConfiguration()
         {
