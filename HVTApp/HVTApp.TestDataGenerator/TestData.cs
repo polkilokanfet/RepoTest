@@ -12,7 +12,7 @@ namespace HVTApp.TestDataGenerator
     {
         public IEnumerable<TData> GetAll<TData>()
         {
-            var fields = this.GetType().GetFields().Where(x => x.FieldType == typeof(TData)).ToList();
+            var fields = GetType().GetFields().Where(x => x.FieldType == typeof(TData)).ToList();
             foreach (var field in fields)
             {
                 yield return (TData) field.GetValue(this);
@@ -411,7 +411,7 @@ namespace HVTApp.TestDataGenerator
         {
             ProductBlockVgb35.Clone(new ProductBlock
             {
-                Name = "Block Выключатель баковый ВГБ-35",
+                Name = "Выключатель баковый ВГБ-35",
                 Parameters = new List<Parameter> {ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage35kV},
                 Prices = new List<CostOnDate> {new CostOnDate {Cost = 50, Date = DateTime.Today}},
                 StructureCostNumber = "StructureCostNumberVGB35",
@@ -419,7 +419,7 @@ namespace HVTApp.TestDataGenerator
 
             ProductBlockVeb110.Clone(new ProductBlock
             {
-                Name = "Block Выключатель баковый ВЭБ-110",
+                Name = "Выключатель баковый ВЭБ-110",
                 Parameters = new List<Parameter> {ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage110kV},
                 Prices = new List<CostOnDate> {new CostOnDate {Cost = 2000000, Date = DateTime.Today}},
                 StructureCostNumber = "StructureCostNumber3",
@@ -427,7 +427,7 @@ namespace HVTApp.TestDataGenerator
 
             ProductBlockZng110.Clone(new ProductBlock
             {
-                Name = "Block Трансформатор напряжения ЗНГ-110",
+                Name = "Трансформатор напряжения ЗНГ-110",
                 Parameters = new List<Parameter> {ParameterTransformator, ParameterTransformatorVoltage, ParameterVoltage110kV},
                 Prices = new List<CostOnDate> {new CostOnDate {Cost = 250000, Date = DateTime.Today}},
                 StructureCostNumber = "StructureCostNumber1"
@@ -435,7 +435,7 @@ namespace HVTApp.TestDataGenerator
 
             ProductBlockBreakersDrive.Clone(new ProductBlock
             {
-                Name = "Block Привод выключателя",
+                Name = "Привод выключателя",
                 Parameters = new List<Parameter> { ParameterBrakersDrive, ParameterVoltage220V },
                 Prices = new List<CostOnDate> { new CostOnDate { Cost = 200000, Date = DateTime.Today } },
                 StructureCostNumber = "StructureCostNumber4"
@@ -443,7 +443,7 @@ namespace HVTApp.TestDataGenerator
 
             ProductBlockZip1.Clone(new ProductBlock
             {
-                Name = "Block ЗИП №1",
+                Name = "Групповой комплект ЗИП №1",
                 Parameters = new List<Parameter> { ParameterDependentEquipment, ParameterZip1 },
                 Prices = new List<CostOnDate> { new CostOnDate { Cost = 5000, Date = DateTime.Today } },
                 StructureCostNumber = "StructureCostNumberZip1"

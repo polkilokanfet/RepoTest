@@ -9,8 +9,6 @@ namespace HVTApp.Services.GetProductService
 {
     public class ProductBlockSelector : NotifyPropertyChanged
     {
-        public static IEnumerable<ProductBlock> ProductBlocks { get; set; } = new List<ProductBlock>();
-
         public ProductBlockSelector(IEnumerable<Parameter> parameters, IEnumerable<Parameter> selectedParameters = null)
         {
             var selectedParams = selectedParameters ?? new List<Parameter>();
@@ -42,7 +40,7 @@ namespace HVTApp.Services.GetProductService
             get
             {
                 var selectedParameters = ParameterSelectors.Select(x => x.SelectedParameterFlaged).Where(x => x != null).Select(x => x.Parameter).ToList();
-                var result = ProductBlocks.FirstOrDefault(x => x.Parameters.AllMembersAreSame(selectedParameters));
+                var result = CommonData.ProductBlocks.FirstOrDefault(x => x.Parameters.AllMembersAreSame(selectedParameters));
                 return result ?? new ProductBlock {Parameters = selectedParameters};
             }
         }

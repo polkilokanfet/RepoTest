@@ -35,10 +35,8 @@ namespace HVTApp.Services.GetProductServiceTests.Selectors2
         public void ProductSelectorTest()
         {
             var testData = new TestData();
-            ProductSelector.Parameters = testData.GetAll<Parameter>();
-            var relations = testData.GetAll<ProductRelation>().ToList();
-            //relations.Remove(testData.RequiredChildProductRelationDrive);
-            ProductSelector.ProductRelations = relations;
+            CommonData.Parameters = testData.GetAll<Parameter>().ToList();
+            CommonData.ProductRelations = testData.GetAll<ProductRelation>().ToList();
 
             var productSelector = new ProductSelector();
         }

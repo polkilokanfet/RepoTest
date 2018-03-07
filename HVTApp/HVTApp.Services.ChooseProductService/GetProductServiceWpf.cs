@@ -7,14 +7,17 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.GetProductService
 {
+    public static class CommonData
+    {
+        public static List<Product> Products { get; set; }
+        public static List<ProductBlock> ProductBlocks { get; set; }
+        public static List<Parameter> Parameters { get; set; }
+        public static List<ProductRelation> ProductRelations { get; set; }
+    }
+
     public class GetProductServiceWpf : IGetProductService
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        private IList<Parameter> _parameters;
-        private IList<Product> _products;
-        private IList<ProductRelation> _productRelations;
-        private IList<ProductBlock> _productBlocks;
 
         public GetProductServiceWpf(IUnitOfWork unitOfWork)
         {
@@ -23,24 +26,24 @@ namespace HVTApp.Services.GetProductService
 
         public async Task LoadAsync()
         {
-            _parameters = await _unitOfWork.GetRepository<Parameter>().GetAllAsync();
-            _products = await _unitOfWork.GetRepository<Product>().GetAllAsync();
-            _productRelations = await _unitOfWork.GetRepository<ProductRelation>().GetAllAsync();
-            _productBlocks = await _unitOfWork.GetRepository<ProductBlock>().GetAllAsync();
+            CommonData.Parameters = await _unitOfWork.GetRepository<Parameter>().GetAllAsync();
+            CommonData.Products = await _unitOfWork.GetRepository<Product>().GetAllAsync();
+            CommonData.ProductRelations = await _unitOfWork.GetRepository<ProductRelation>().GetAllAsync();
+            CommonData.ProductBlocks = await _unitOfWork.GetRepository<ProductBlock>().GetAllAsync();
         }
 
         public async Task<Product> GetProductAsync(Product templateProduct = null)
         {
-            if (_parameters == null) await LoadAsync();
+            if (CommonData.Parameters == null)
+            {
+                await LoadAsync();
+            }
 
-            ProductSelector.Products = _products;
-            ProductSelector.ProductRelations = _productRelations;
-            ProductSelector.Parameters = _parameters;
+            var selectedProduct = templateProduct == null
+                ? null
+                : await _unitOfWork.GetRepository<Product>().GetByIdAsync(templateProduct.Id);
 
-            ProductBlockSelector.ProductBlocks = _productBlocks;
-
-
-            var productSelector = new ProductSelector(_parameters, templateProduct);
+            var productSelector = new ProductSelector(selectedProduct: selectedProduct);
             var window = new SelectProductWindow
             {
                 DataContext = productSelector,
@@ -51,7 +54,7 @@ namespace HVTApp.Services.GetProductService
             if (!window.DialogResult.HasValue || !window.DialogResult.Value) return templateProduct;
 
             var result = productSelector.SelectedProduct;
-            if (!_products.Contains(result))
+            if (!CommonData.Products.Contains(result))
             {
                 _unitOfWork.GetRepository<Product>().Add(result);
                 await GenerateDescribeProductBlockTasks(result);

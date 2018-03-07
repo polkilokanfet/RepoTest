@@ -9,12 +9,6 @@ namespace HVTApp.Services.GetProductService
 {
     public class ProductSelector : NotifyPropertyChanged
     {
-        #region StaticProps
-        public static IEnumerable<Product> Products { get; set; } = new List<Product>();
-        public static IEnumerable<ProductRelation> ProductRelations { get; set; } = new List<ProductRelation>();
-        public static IEnumerable<Parameter> Parameters { get; set; } = new List<Parameter>();
-        #endregion
-
         public ProductBlockSelector ProductBlockSelector { get; }
         public ObservableCollection<ProductSelector> ProductSelectors { get; } = new ObservableCollection<ProductSelector>();
         public int Amount { get; }
@@ -30,7 +24,7 @@ namespace HVTApp.Services.GetProductService
                 };
                 product.Designation = product.ToString();
 
-                var existsProduct = Products.SingleOrDefault(x => x.Equals(product));
+                var existsProduct = CommonData.Products.SingleOrDefault(x => x.Equals(product));
 
                 return existsProduct ?? product;
             }
@@ -38,7 +32,7 @@ namespace HVTApp.Services.GetProductService
 
         public ProductSelector(IEnumerable<Parameter> parameters = null, Product selectedProduct = null, int amount = 1)
         {
-            var prmtrs = parameters ?? Parameters;
+            var prmtrs = parameters ?? CommonData.Parameters;
 
             Amount = amount;
             ProductBlockSelector = new ProductBlockSelector(prmtrs, selectedProduct?.ProductBlock.Parameters);
@@ -54,7 +48,7 @@ namespace HVTApp.Services.GetProductService
                 foreach (var kvp in GetDictionaryOfMatching(selectedProduct))
                 {
                     //редактируем список параметров
-                    var usefullParameters = Parameters.GetUsefull(kvp.Key.ChildProductParameters);
+                    var usefullParameters = CommonData.Parameters.GetUsefull(kvp.Key.ChildProductParameters);
                     var productSelector = new ProductSelector(usefullParameters, kvp.Value);
                     ProductSelectors.Add(productSelector);
                     productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
@@ -65,7 +59,7 @@ namespace HVTApp.Services.GetProductService
         private List<ProductRelation> GetActualProductRelations(IEnumerable<Parameter> forParameters = null)
         {
             var parameters = forParameters ?? ProductBlockSelector.SelectedProductBlock.Parameters;
-            return ProductRelations.Where(x => x.ParentProductParameters.AllContainsIn(parameters)).ToList();
+            return CommonData.ProductRelations.Where(x => x.ParentProductParameters.AllContainsIn(parameters)).ToList();
         }
 
         private void RefreshProductSelectors()
@@ -108,7 +102,7 @@ namespace HVTApp.Services.GetProductService
             {
                 for (int i = 0; i < relaitionsDictionary[productRelation]; i++)
                 {
-                    var productSelector = new ProductSelector(Parameters.GetUsefull(productRelation.ChildProductParameters));
+                    var productSelector = new ProductSelector(CommonData.Parameters.GetUsefull(productRelation.ChildProductParameters));
                     ProductSelectors.Add(productSelector);
                     productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
                 }
