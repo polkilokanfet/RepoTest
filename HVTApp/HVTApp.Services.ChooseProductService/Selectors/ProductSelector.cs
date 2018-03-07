@@ -36,10 +36,12 @@ namespace HVTApp.Services.GetProductService
             }
         }
 
-        public ProductSelector(IEnumerable<Parameter> parameters, Product selectedProduct = null, int amount = 1)
+        public ProductSelector(IEnumerable<Parameter> parameters = null, Product selectedProduct = null, int amount = 1)
         {
+            var prmtrs = parameters ?? Parameters;
+
             Amount = amount;
-            ProductBlockSelector = new ProductBlockSelector(parameters, selectedProduct?.ProductBlock.Parameters);
+            ProductBlockSelector = new ProductBlockSelector(prmtrs, selectedProduct?.ProductBlock.Parameters);
             ProductBlockSelector.SelectedParametersChanged += ProductBlockSelectorOnSelectedParametersChanged;
 
             if (selectedProduct == null)
@@ -52,7 +54,7 @@ namespace HVTApp.Services.GetProductService
                 foreach (var kvp in GetDictionaryOfMatching(selectedProduct))
                 {
                     //редактируем список параметров
-                    var usefullParameters = Parameters.RemoveUseless(kvp.Key.ChildProductParameters);
+                    var usefullParameters = Parameters.GetUsefull(kvp.Key.ChildProductParameters);
                     var productSelector = new ProductSelector(usefullParameters, kvp.Value);
                     ProductSelectors.Add(productSelector);
                     productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
@@ -104,9 +106,9 @@ namespace HVTApp.Services.GetProductService
             //добавление новых актуальных селекторов
             foreach (var productRelation in actualProductRelations)
             {
-                for (int i = 0; i < productRelation.ChildProductsAmount; i++)
+                for (int i = 0; i < relaitionsDictionary[productRelation]; i++)
                 {
-                    var productSelector = new ProductSelector(Parameters.RemoveUseless(productRelation.ChildProductParameters));
+                    var productSelector = new ProductSelector(Parameters.GetUsefull(productRelation.ChildProductParameters));
                     ProductSelectors.Add(productSelector);
                     productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
                 }

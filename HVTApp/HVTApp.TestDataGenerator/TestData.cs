@@ -96,7 +96,7 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterBreaker;
         public Parameter ParameterTransformator;
         public Parameter ParameterBrakersDrive;
-        public Parameter ParameterBreakerBlock;
+        public Parameter ParameterKtpb;
         public Parameter ParameterBreakerDeadTank;
         public Parameter ParameterBreakerLiveTank;
         public Parameter ParameterTransformatorCurrent;
@@ -344,7 +344,7 @@ namespace HVTApp.TestDataGenerator
             ParameterBreaker.Clone(new Parameter {ParameterGroup = ParameterGroupEqType, Value = "Выключатель"});
             ParameterTransformator.Clone(new Parameter {ParameterGroup = ParameterGroupEqType, Value = "Трансформатор"});
             ParameterBrakersDrive.Clone(new Parameter {ParameterGroup = ParameterGroupEqType, Value = "Привод"});
-            ParameterBreakerBlock.Clone(new Parameter {ParameterGroup = ParameterGroupEqType, Value = "Блок выключателя"});
+            ParameterKtpb.Clone(new Parameter {ParameterGroup = ParameterGroupEqType, Value = "КТПБ"});
             ParameterDependentEquipment.Clone(new Parameter {ParameterGroup = ParameterGroupEqType, Value = "Дополнительная комплектация"});
 
             ParameterZip1.Clone(new Parameter {ParameterGroup = ParameterGroupZip, Value = "ЗИП №1"});
@@ -389,12 +389,12 @@ namespace HVTApp.TestDataGenerator
             RequiredChildProductRelationDrive.Clone(new ProductRelation
             {
                 ParentProductParameters = new List<Parameter> {ParameterBreaker},
-                ChildProductParameters= new List<Parameter> {ParameterBrakersDrive}, ChildProductsAmount = 1
+                ChildProductParameters= new List<Parameter> {ParameterBrakersDrive}, ChildProductsAmount = 1, IsUnique = false
             });
 
             RequiredChildProductRelationBreakerBlock.Clone(new ProductRelation
             {
-                ParentProductParameters = new List<Parameter> {ParameterBreakerBlock},
+                ParentProductParameters = new List<Parameter> {ParameterKtpb},
                 ChildProductParameters= new List<Parameter> {ParameterBreaker}, ChildProductsAmount = 2, IsUnique = true
             });
 

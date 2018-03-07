@@ -14,7 +14,7 @@ namespace HVTApp.Services.GetProductServiceTests.Selectors2
     public class ProductSelectorTests
     {
         [TestMethod]
-        public void ProductSelectorTest()
+        public void ProductBlockSelectorTest()
         {
             var testData = new TestData();
             var parameters = testData.GetAll<Parameter>().ToList();
@@ -29,6 +29,18 @@ namespace HVTApp.Services.GetProductServiceTests.Selectors2
             {
                 originParameterSelector.SelectedParameterFlaged = selectedParameterFlaged;
             }
+        }
+
+        [TestMethod]
+        public void ProductSelectorTest()
+        {
+            var testData = new TestData();
+            ProductSelector.Parameters = testData.GetAll<Parameter>();
+            var relations = testData.GetAll<ProductRelation>().ToList();
+            //relations.Remove(testData.RequiredChildProductRelationDrive);
+            ProductSelector.ProductRelations = relations;
+
+            var productSelector = new ProductSelector();
         }
 
         [TestMethod]
