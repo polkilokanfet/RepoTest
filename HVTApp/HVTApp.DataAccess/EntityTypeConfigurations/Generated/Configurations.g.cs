@@ -11,8 +11,7 @@ namespace HVTApp.DataAccess
     public partial class LocalityTypeConfiguration : EntityTypeConfiguration<LocalityType> { }
     public partial class RegionConfiguration : EntityTypeConfiguration<Region> { }
     public partial class CalculatePriceTaskConfiguration : EntityTypeConfiguration<CalculatePriceTask> { }
-    public partial class CostConfiguration : EntityTypeConfiguration<Cost> { }
-    public partial class CurrencyConfiguration : EntityTypeConfiguration<Currency> { }
+    public partial class SumConfiguration : EntityTypeConfiguration<Sum> { }
     public partial class CurrencyExchangeRateConfiguration : EntityTypeConfiguration<CurrencyExchangeRate> { }
     public partial class DescribeProductBlockTaskConfiguration : EntityTypeConfiguration<DescribeProductBlockTask> { }
     public partial class NoteConfiguration : EntityTypeConfiguration<Note> { }
@@ -20,6 +19,7 @@ namespace HVTApp.DataAccess
     public partial class PaymentConditionSetConfiguration : EntityTypeConfiguration<PaymentConditionSet> { }
     public partial class ProductBlockConfiguration : EntityTypeConfiguration<ProductBlock> { }
     public partial class ProductDependentConfiguration : EntityTypeConfiguration<ProductDependent> { }
+    public partial class ProductionTaskConfiguration : EntityTypeConfiguration<ProductionTask> { }
     public partial class SalesBlockConfiguration : EntityTypeConfiguration<SalesBlock> { }
     public partial class BankDetailsConfiguration : EntityTypeConfiguration<BankDetails> { }
     public partial class CompanyConfiguration : EntityTypeConfiguration<Company> { }
@@ -49,7 +49,7 @@ namespace HVTApp.DataAccess
     public partial class TestHusbandConfiguration : EntityTypeConfiguration<TestHusband> { }
     public partial class TestWifeConfiguration : EntityTypeConfiguration<TestWife> { }
     public partial class TestChildConfiguration : EntityTypeConfiguration<TestChild> { }
-    public partial class CostOnDateConfiguration : EntityTypeConfiguration<CostOnDate> { }
+    public partial class CostOnDateConfiguration : EntityTypeConfiguration<SumOnDate> { }
     public partial class ProductConfiguration : EntityTypeConfiguration<Product> { }
     public partial class OfferConfiguration : EntityTypeConfiguration<Offer> { }
     public partial class EmployeeConfiguration : EntityTypeConfiguration<Employee> { }

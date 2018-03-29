@@ -21,8 +21,7 @@ namespace HVTApp.DataAccess
             LocalityTypeRepository = new LocalityTypeRepository(context);
             RegionRepository = new RegionRepository(context);
             CalculatePriceTaskRepository = new CalculatePriceTaskRepository(context);
-            CostRepository = new CostRepository(context);
-            CurrencyRepository = new CurrencyRepository(context);
+            SumRepository = new SumRepository(context);
             CurrencyExchangeRateRepository = new CurrencyExchangeRateRepository(context);
             DescribeProductBlockTaskRepository = new DescribeProductBlockTaskRepository(context);
             NoteRepository = new NoteRepository(context);
@@ -30,6 +29,7 @@ namespace HVTApp.DataAccess
             PaymentConditionSetRepository = new PaymentConditionSetRepository(context);
             ProductBlockRepository = new ProductBlockRepository(context);
             ProductDependentRepository = new ProductDependentRepository(context);
+            ProductionTaskRepository = new ProductionTaskRepository(context);
             SalesBlockRepository = new SalesBlockRepository(context);
             BankDetailsRepository = new BankDetailsRepository(context);
             CompanyRepository = new CompanyRepository(context);
@@ -86,8 +86,7 @@ namespace HVTApp.DataAccess
         private ILocalityTypeRepository LocalityTypeRepository;
         private IRegionRepository RegionRepository;
         private ICalculatePriceTaskRepository CalculatePriceTaskRepository;
-        private ICostRepository CostRepository;
-        private ICurrencyRepository CurrencyRepository;
+        private ISumRepository SumRepository;
         private ICurrencyExchangeRateRepository CurrencyExchangeRateRepository;
         private IDescribeProductBlockTaskRepository DescribeProductBlockTaskRepository;
         private INoteRepository NoteRepository;
@@ -95,6 +94,7 @@ namespace HVTApp.DataAccess
         private IPaymentConditionSetRepository PaymentConditionSetRepository;
         private IProductBlockRepository ProductBlockRepository;
         private IProductDependentRepository ProductDependentRepository;
+        private IProductionTaskRepository ProductionTaskRepository;
         private ISalesBlockRepository SalesBlockRepository;
         private IBankDetailsRepository BankDetailsRepository;
         private ICompanyRepository CompanyRepository;

@@ -9,7 +9,7 @@ namespace HVTApp.Model.POCOs
     {
         public string Name { get; set; }
         public virtual List<Parameter> Parameters { get; set; } = new List<Parameter>();
-        public virtual List<CostOnDate> Prices { get; set; } = new List<CostOnDate>();
+        public virtual List<SumOnDate> Prices { get; set; } = new List<SumOnDate>();
         public string StructureCostNumber { get; set; }
 
         public string ParametersToString()

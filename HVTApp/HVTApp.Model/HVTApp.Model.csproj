@@ -56,7 +56,7 @@
     <Compile Include="POCOs\Address\LocalityType.cs" />
     <Compile Include="POCOs\Address\Region.cs" />
     <Compile Include="POCOs\CalculatePriceTask.cs" />
-    <Compile Include="POCOs\Cost.cs" />
+    <Compile Include="POCOs\Sum.cs" />
     <Compile Include="POCOs\Currency.cs" />
     <Compile Include="POCOs\CurrencyExchangeRate.cs" />
     <Compile Include="POCOs\DescribeProductBlockTask.cs" />
@@ -90,7 +90,7 @@
     <Compile Include="POCOs\Test\TestFriendGroup.cs" />
     <Compile Include="POCOs\Document.cs" />
     <Compile Include="POCOs\Test\TestEntity.cs" />
-    <Compile Include="POCOs\CostOnDate.cs" />
+    <Compile Include="POCOs\SumOnDate.cs" />
     <Compile Include="POCOs\Product.cs" />
     <Compile Include="POCOs\Offer.cs" />
     <Compile Include="POCOs\Employee.cs" />

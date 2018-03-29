@@ -44,14 +44,9 @@ namespace HVTApp.UI.Lookup
         public CalculatePriceTaskLookupDataService(HvtAppContext context) : base(context) { }
     }
 
-    public partial class CostLookupDataService : LookupDataService<CostLookup, Cost>, ICostLookupDataService
+    public partial class SumLookupDataService : LookupDataService<SumLookup, Sum>, ISumLookupDataService
     {
-        public CostLookupDataService(HvtAppContext context) : base(context) { }
-    }
-
-    public partial class CurrencyLookupDataService : LookupDataService<CurrencyLookup, Currency>, ICurrencyLookupDataService
-    {
-        public CurrencyLookupDataService(HvtAppContext context) : base(context) { }
+        public SumLookupDataService(HvtAppContext context) : base(context) { }
     }
 
     public partial class CurrencyExchangeRateLookupDataService : LookupDataService<CurrencyExchangeRateLookup, CurrencyExchangeRate>, ICurrencyExchangeRateLookupDataService
@@ -239,7 +234,7 @@ namespace HVTApp.UI.Lookup
         public TestChildLookupDataService(HvtAppContext context) : base(context) { }
     }
 
-    public partial class CostOnDateLookupDataService : LookupDataService<CostOnDateLookup, CostOnDate>, ICostOnDateLookupDataService
+    public partial class CostOnDateLookupDataService : LookupDataService<CostOnDateLookup, SumOnDate>, ICostOnDateLookupDataService
     {
         public CostOnDateLookupDataService(HvtAppContext context) : base(context) { }
     }

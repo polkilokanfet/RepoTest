@@ -41,19 +41,12 @@ namespace HVTApp.Model.POCOs
 		public virtual Guid? ProductBlockId { get; set; }
 	}
 
-	public partial class Cost
-	{
-		public virtual Guid? CurrencyId { get; set; }
-	}
-
-	public partial class Currency
+	public partial class Sum
 	{
 	}
 
 	public partial class CurrencyExchangeRate
 	{
-		public virtual Guid? FirstCurrencyId { get; set; }
-		public virtual Guid? SecondCurrencyId { get; set; }
 	}
 
 	public partial class DescribeProductBlockTask
@@ -84,6 +77,10 @@ namespace HVTApp.Model.POCOs
 	public partial class ProductDependent
 	{
 		public virtual Guid? ProductId { get; set; }
+	}
+
+	public partial class ProductionTask
+	{
 	}
 
 	public partial class SalesBlock

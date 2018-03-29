@@ -8,8 +8,7 @@ namespace HVTApp.UI.Lookup
 	public interface ILocalityTypeLookupDataService : ILookupDataService<LocalityTypeLookup> { } 
 	public interface IRegionLookupDataService : ILookupDataService<RegionLookup> { } 
 	public interface ICalculatePriceTaskLookupDataService : ILookupDataService<CalculatePriceTaskLookup> { } 
-	public interface ICostLookupDataService : ILookupDataService<CostLookup> { } 
-	public interface ICurrencyLookupDataService : ILookupDataService<CurrencyLookup> { } 
+	public interface ISumLookupDataService : ILookupDataService<SumLookup> { } 
 	public interface ICurrencyExchangeRateLookupDataService : ILookupDataService<CurrencyExchangeRateLookup> { } 
 	public interface IDescribeProductBlockTaskLookupDataService : ILookupDataService<DescribeProductBlockTaskLookup> { } 
 	public interface INoteLookupDataService : ILookupDataService<NoteLookup> { } 

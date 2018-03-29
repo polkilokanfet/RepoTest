@@ -295,36 +295,9 @@ namespace HVTApp.UI.ViewModels
 
     }
 
-    public partial class CostDetailsViewModel : BaseDetailsViewModel<CostWrapper, Cost, AfterSaveCostEvent>
+    public partial class SumDetailsViewModel : BaseDetailsViewModel<SumWrapper, Sum, AfterSaveSumEvent>
     {
-		private Func<Task<List<Currency>>> _getEntitiesForSelectCurrencyCommand;
-		public ICommand SelectCurrencyCommand { get; }
-		public ICommand ClearCurrencyCommand { get; }
-
-        public CostDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-            _getEntitiesForSelectCurrencyCommand = async () => { return await UnitOfWork.GetRepository<Currency>().GetAllAsync(); };
-			SelectCurrencyCommand = new DelegateCommand(SelectCurrencyCommand_Execute);
-			ClearCurrencyCommand = new DelegateCommand(ClearCurrencyCommand_Execute);
-
-			InitGetMethods();
-		}
-		private async void SelectCurrencyCommand_Execute() 
-		{
-            SelectAndSetWrapper<Currency, CurrencyWrapper>(await _getEntitiesForSelectCurrencyCommand(), nameof(Item.Currency), Item.Currency?.Id);
-		}
-
-		private void ClearCurrencyCommand_Execute() 
-		{
-		    Item.Currency = null;
-		}
-
-
-    }
-
-    public partial class CurrencyDetailsViewModel : BaseDetailsViewModel<CurrencyWrapper, Currency, AfterSaveCurrencyEvent>
-    {
-        public CurrencyDetailsViewModel(IUnityContainer container) : base(container) 
+        public SumDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			InitGetMethods();
 		}
@@ -333,46 +306,10 @@ namespace HVTApp.UI.ViewModels
 
     public partial class CurrencyExchangeRateDetailsViewModel : BaseDetailsViewModel<CurrencyExchangeRateWrapper, CurrencyExchangeRate, AfterSaveCurrencyExchangeRateEvent>
     {
-		private Func<Task<List<Currency>>> _getEntitiesForSelectFirstCurrencyCommand;
-		public ICommand SelectFirstCurrencyCommand { get; }
-		public ICommand ClearFirstCurrencyCommand { get; }
-
-		private Func<Task<List<Currency>>> _getEntitiesForSelectSecondCurrencyCommand;
-		public ICommand SelectSecondCurrencyCommand { get; }
-		public ICommand ClearSecondCurrencyCommand { get; }
-
         public CurrencyExchangeRateDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectFirstCurrencyCommand = async () => { return await UnitOfWork.GetRepository<Currency>().GetAllAsync(); };
-			SelectFirstCurrencyCommand = new DelegateCommand(SelectFirstCurrencyCommand_Execute);
-			ClearFirstCurrencyCommand = new DelegateCommand(ClearFirstCurrencyCommand_Execute);
-
-            _getEntitiesForSelectSecondCurrencyCommand = async () => { return await UnitOfWork.GetRepository<Currency>().GetAllAsync(); };
-			SelectSecondCurrencyCommand = new DelegateCommand(SelectSecondCurrencyCommand_Execute);
-			ClearSecondCurrencyCommand = new DelegateCommand(ClearSecondCurrencyCommand_Execute);
-
 			InitGetMethods();
 		}
-		private async void SelectFirstCurrencyCommand_Execute() 
-		{
-            SelectAndSetWrapper<Currency, CurrencyWrapper>(await _getEntitiesForSelectFirstCurrencyCommand(), nameof(Item.FirstCurrency), Item.FirstCurrency?.Id);
-		}
-
-		private void ClearFirstCurrencyCommand_Execute() 
-		{
-		    Item.FirstCurrency = null;
-		}
-
-		private async void SelectSecondCurrencyCommand_Execute() 
-		{
-            SelectAndSetWrapper<Currency, CurrencyWrapper>(await _getEntitiesForSelectSecondCurrencyCommand(), nameof(Item.SecondCurrency), Item.SecondCurrency?.Id);
-		}
-
-		private void ClearSecondCurrencyCommand_Execute() 
-		{
-		    Item.SecondCurrency = null;
-		}
-
 
     }
 
@@ -625,7 +562,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<Task<List<CostOnDate>>> _getEntitiesForAddInPricesCommand;
+		private Func<Task<List<SumOnDate>>> _getEntitiesForAddInPricesCommand;
 		public ICommand AddInPricesCommand { get; }
 		public ICommand RemoveFromPricesCommand { get; }
 		private CostOnDateWrapper _selectedPricesItem;
@@ -647,7 +584,7 @@ namespace HVTApp.UI.ViewModels
 			AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute);
 			RemoveFromParametersCommand = new DelegateCommand(RemoveFromParametersCommand_Execute, RemoveFromParametersCommand_CanExecute);
 
-			_getEntitiesForAddInPricesCommand = async () => { return await UnitOfWork.GetRepository<CostOnDate>().GetAllAsync(); };;
+			_getEntitiesForAddInPricesCommand = async () => { return await UnitOfWork.GetRepository<SumOnDate>().GetAllAsync(); };;
 			AddInPricesCommand = new DelegateCommand(AddInPricesCommand_Execute);
 			RemoveFromPricesCommand = new DelegateCommand(RemoveFromPricesCommand_Execute, RemoveFromPricesCommand_CanExecute);
 
@@ -670,7 +607,7 @@ namespace HVTApp.UI.ViewModels
 
 			private async void AddInPricesCommand_Execute()
 			{
-				SelectAndAddInListWrapper<CostOnDate, CostOnDateWrapper>(await _getEntitiesForAddInPricesCommand(), Item.Prices);
+				SelectAndAddInListWrapper<SumOnDate, CostOnDateWrapper>(await _getEntitiesForAddInPricesCommand(), Item.Prices);
 			}
 
 			private void RemoveFromPricesCommand_Execute()
@@ -2117,7 +2054,7 @@ namespace HVTApp.UI.ViewModels
 
     }
 
-    public partial class CostOnDateDetailsViewModel : BaseDetailsViewModel<CostOnDateWrapper, CostOnDate, AfterSaveCostOnDateEvent>
+    public partial class CostOnDateDetailsViewModel : BaseDetailsViewModel<CostOnDateWrapper, SumOnDate, AfterSaveCostOnDateEvent>
     {
         public CostOnDateDetailsViewModel(IUnityContainer container) : base(container) 
 		{

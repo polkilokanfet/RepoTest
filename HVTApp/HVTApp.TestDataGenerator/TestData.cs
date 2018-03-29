@@ -175,13 +175,13 @@ namespace HVTApp.TestDataGenerator
 
         public TestData()
         {
-            var fields = this.GetType().GetFields();
+            var fields = GetType().GetFields();
             foreach (var fieldInfo in fields)
             {
                 fieldInfo.SetValue(this, Activator.CreateInstance(fieldInfo.FieldType));
             }
 
-            var methods = this.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).Where(x => x.Name.Contains("Generate"));
+            var methods = GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).Where(x => x.Name.Contains("Generate"));
             foreach (var methodInfo in methods)
             {
                 methodInfo.Invoke(this, null);
@@ -413,7 +413,7 @@ namespace HVTApp.TestDataGenerator
             {
                 Name = "Выключатель баковый ВГБ-35",
                 Parameters = new List<Parameter> {ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage35kV},
-                Prices = new List<CostOnDate> {new CostOnDate {Cost = 50, Date = DateTime.Today}},
+                Prices = new List<SumOnDate> {new SumOnDate {Sum = new Sum {Value = 450000}, Date = DateTime.Today}},
                 StructureCostNumber = "StructureCostNumberVGB35",
             });
 
@@ -421,7 +421,7 @@ namespace HVTApp.TestDataGenerator
             {
                 Name = "Выключатель баковый ВЭБ-110",
                 Parameters = new List<Parameter> {ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage110kV},
-                Prices = new List<CostOnDate> {new CostOnDate {Cost = 2000000, Date = DateTime.Today}},
+                Prices = new List<SumOnDate> {new SumOnDate {Sum = new Sum { Value = 2000000 }, Date = DateTime.Today}},
                 StructureCostNumber = "StructureCostNumber3",
             });
 
@@ -429,7 +429,7 @@ namespace HVTApp.TestDataGenerator
             {
                 Name = "Трансформатор напряжения ЗНГ-110",
                 Parameters = new List<Parameter> {ParameterTransformator, ParameterTransformatorVoltage, ParameterVoltage110kV},
-                Prices = new List<CostOnDate> {new CostOnDate {Cost = 250000, Date = DateTime.Today}},
+                Prices = new List<SumOnDate> {new SumOnDate {Sum = new Sum { Value = 250000 }, Date = DateTime.Today}},
                 StructureCostNumber = "StructureCostNumber1"
             });
 
@@ -437,7 +437,7 @@ namespace HVTApp.TestDataGenerator
             {
                 Name = "Привод выключателя",
                 Parameters = new List<Parameter> { ParameterBrakersDrive, ParameterVoltage220V },
-                Prices = new List<CostOnDate> { new CostOnDate { Cost = 200000, Date = DateTime.Today } },
+                Prices = new List<SumOnDate> { new SumOnDate { Sum = new Sum { Value = 200000 }, Date = DateTime.Today } },
                 StructureCostNumber = "StructureCostNumber4"
             });
 
@@ -445,7 +445,7 @@ namespace HVTApp.TestDataGenerator
             {
                 Name = "Групповой комплект ЗИП №1",
                 Parameters = new List<Parameter> { ParameterDependentEquipment, ParameterZip1 },
-                Prices = new List<CostOnDate> { new CostOnDate { Cost = 5000, Date = DateTime.Today } },
+                Prices = new List<SumOnDate> { new SumOnDate { Sum = new Sum { Value = 5000 }, Date = DateTime.Today } },
                 StructureCostNumber = "StructureCostNumberZip1"
             });
         }

@@ -15,8 +15,7 @@ namespace HVTApp.DataAccess
             LocalityTypeRepository = new LocalityTypeRepositoryTest(testData);
             RegionRepository = new RegionRepositoryTest(testData);
             CalculatePriceTaskRepository = new CalculatePriceTaskRepositoryTest(testData);
-            CostRepository = new CostRepositoryTest(testData);
-            CurrencyRepository = new CurrencyRepositoryTest(testData);
+            SumRepository = new SumRepositoryTest(testData);
             CurrencyExchangeRateRepository = new CurrencyExchangeRateRepositoryTest(testData);
             DescribeProductBlockTaskRepository = new DescribeProductBlockTaskRepositoryTest(testData);
             NoteRepository = new NoteRepositoryTest(testData);
@@ -24,6 +23,7 @@ namespace HVTApp.DataAccess
             PaymentConditionSetRepository = new PaymentConditionSetRepositoryTest(testData);
             ProductBlockRepository = new ProductBlockRepositoryTest(testData);
             ProductDependentRepository = new ProductDependentRepositoryTest(testData);
+            ProductionTaskRepository = new ProductionTaskRepositoryTest(testData);
             SalesBlockRepository = new SalesBlockRepositoryTest(testData);
             BankDetailsRepository = new BankDetailsRepositoryTest(testData);
             CompanyRepository = new CompanyRepositoryTest(testData);
@@ -80,8 +80,7 @@ namespace HVTApp.DataAccess
         public ILocalityTypeRepository LocalityTypeRepository { get; }
         public IRegionRepository RegionRepository { get; }
         public ICalculatePriceTaskRepository CalculatePriceTaskRepository { get; }
-        public ICostRepository CostRepository { get; }
-        public ICurrencyRepository CurrencyRepository { get; }
+        public ISumRepository SumRepository { get; }
         public ICurrencyExchangeRateRepository CurrencyExchangeRateRepository { get; }
         public IDescribeProductBlockTaskRepository DescribeProductBlockTaskRepository { get; }
         public INoteRepository NoteRepository { get; }
@@ -89,6 +88,7 @@ namespace HVTApp.DataAccess
         public IPaymentConditionSetRepository PaymentConditionSetRepository { get; }
         public IProductBlockRepository ProductBlockRepository { get; }
         public IProductDependentRepository ProductDependentRepository { get; }
+        public IProductionTaskRepository ProductionTaskRepository { get; }
         public ISalesBlockRepository SalesBlockRepository { get; }
         public IBankDetailsRepository BankDetailsRepository { get; }
         public ICompanyRepository CompanyRepository { get; }

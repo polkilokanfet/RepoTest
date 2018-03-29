@@ -11,8 +11,7 @@ namespace HVTApp.UI.Events
 	public partial class AfterRemoveLocalityTypeEvent : PubSubEvent<LocalityType> { }
 	public partial class AfterRemoveRegionEvent : PubSubEvent<Region> { }
 	public partial class AfterRemoveCalculatePriceTaskEvent : PubSubEvent<CalculatePriceTask> { }
-	public partial class AfterRemoveCostEvent : PubSubEvent<Cost> { }
-	public partial class AfterRemoveCurrencyEvent : PubSubEvent<Currency> { }
+	public partial class AfterRemoveSumEvent : PubSubEvent<Sum> { }
 	public partial class AfterRemoveCurrencyExchangeRateEvent : PubSubEvent<CurrencyExchangeRate> { }
 	public partial class AfterRemoveDescribeProductBlockTaskEvent : PubSubEvent<DescribeProductBlockTask> { }
 	public partial class AfterRemoveNoteEvent : PubSubEvent<Note> { }
@@ -50,7 +49,7 @@ namespace HVTApp.UI.Events
 	public partial class AfterRemoveTestHusbandEvent : PubSubEvent<TestHusband> { }
 	public partial class AfterRemoveTestWifeEvent : PubSubEvent<TestWife> { }
 	public partial class AfterRemoveTestChildEvent : PubSubEvent<TestChild> { }
-	public partial class AfterRemoveCostOnDateEvent : PubSubEvent<CostOnDate> { }
+	public partial class AfterRemoveCostOnDateEvent : PubSubEvent<SumOnDate> { }
 	public partial class AfterRemoveProductEvent : PubSubEvent<Product> { }
 	public partial class AfterRemoveOfferEvent : PubSubEvent<Offer> { }
 	public partial class AfterRemoveEmployeeEvent : PubSubEvent<Employee> { }

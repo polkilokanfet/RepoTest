@@ -51,15 +51,10 @@ namespace HVTApp.UI
 			_selectService.Register<CalculatePriceTaskListView, CalculatePriceTask>();
             _updateDetailsService.Register<CalculatePriceTask, CalculatePriceTaskDetailsView>();
 
-            Container.RegisterViewForNavigation<CostListView>();
-            //_dialogService.Register<CostDetailsViewModel, CostDetailsView>();
-			_selectService.Register<CostListView, Cost>();
-            _updateDetailsService.Register<Cost, CostDetailsView>();
-
-            Container.RegisterViewForNavigation<CurrencyListView>();
-            //_dialogService.Register<CurrencyDetailsViewModel, CurrencyDetailsView>();
-			_selectService.Register<CurrencyListView, Currency>();
-            _updateDetailsService.Register<Currency, CurrencyDetailsView>();
+            Container.RegisterViewForNavigation<SumListView>();
+            //_dialogService.Register<SumDetailsViewModel, SumDetailsView>();
+			_selectService.Register<SumListView, Sum>();
+            _updateDetailsService.Register<Sum, SumDetailsView>();
 
             Container.RegisterViewForNavigation<CurrencyExchangeRateListView>();
             //_dialogService.Register<CurrencyExchangeRateDetailsViewModel, CurrencyExchangeRateDetailsView>();
@@ -248,8 +243,8 @@ namespace HVTApp.UI
 
             Container.RegisterViewForNavigation<CostOnDateListView>();
             //_dialogService.Register<CostOnDateDetailsViewModel, CostOnDateDetailsView>();
-			_selectService.Register<CostOnDateListView, CostOnDate>();
-            _updateDetailsService.Register<CostOnDate, CostOnDateDetailsView>();
+			_selectService.Register<CostOnDateListView, SumOnDate>();
+            _updateDetailsService.Register<SumOnDate, CostOnDateDetailsView>();
 
             Container.RegisterViewForNavigation<ProductListView>();
             //_dialogService.Register<ProductDetailsViewModel, ProductDetailsView>();

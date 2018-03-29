@@ -20,8 +20,7 @@ namespace HVTApp.DataAccess
             context.LocalityTypeDbSet.AddRange(testData.GetAll<LocalityType>());
             context.RegionDbSet.AddRange(testData.GetAll<Region>());
             context.CalculatePriceTaskDbSet.AddRange(testData.GetAll<CalculatePriceTask>());
-            context.CostDbSet.AddRange(testData.GetAll<Cost>());
-            context.CurrencyDbSet.AddRange(testData.GetAll<Currency>());
+            context.SumDbSet.AddRange(testData.GetAll<Sum>());
             context.CurrencyExchangeRateDbSet.AddRange(testData.GetAll<CurrencyExchangeRate>());
             context.DescribeProductBlockTaskDbSet.AddRange(testData.GetAll<DescribeProductBlockTask>());
             context.NoteDbSet.AddRange(testData.GetAll<Note>());
@@ -29,6 +28,7 @@ namespace HVTApp.DataAccess
             context.PaymentConditionSetDbSet.AddRange(testData.GetAll<PaymentConditionSet>());
             context.ProductBlockDbSet.AddRange(testData.GetAll<ProductBlock>());
             context.ProductDependentDbSet.AddRange(testData.GetAll<ProductDependent>());
+            context.ProductionTaskDbSet.AddRange(testData.GetAll<ProductionTask>());
             context.SalesBlockDbSet.AddRange(testData.GetAll<SalesBlock>());
             context.BankDetailsDbSet.AddRange(testData.GetAll<BankDetails>());
             context.CompanyDbSet.AddRange(testData.GetAll<Company>());
@@ -58,7 +58,7 @@ namespace HVTApp.DataAccess
             context.TestHusbandDbSet.AddRange(testData.GetAll<TestHusband>());
             context.TestWifeDbSet.AddRange(testData.GetAll<TestWife>());
             context.TestChildDbSet.AddRange(testData.GetAll<TestChild>());
-            context.CostOnDateDbSet.AddRange(testData.GetAll<CostOnDate>());
+            context.CostOnDateDbSet.AddRange(testData.GetAll<SumOnDate>());
             context.ProductDbSet.AddRange(testData.GetAll<Product>());
             context.OfferDbSet.AddRange(testData.GetAll<Offer>());
             context.EmployeeDbSet.AddRange(testData.GetAll<Employee>());

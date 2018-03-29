@@ -11,8 +11,7 @@ namespace HVTApp.DataAccess
     public partial interface ILocalityTypeRepository : IRepository<LocalityType> { }
     public partial interface IRegionRepository : IRepository<Region> { }
     public partial interface ICalculatePriceTaskRepository : IRepository<CalculatePriceTask> { }
-    public partial interface ICostRepository : IRepository<Cost> { }
-    public partial interface ICurrencyRepository : IRepository<Currency> { }
+    public partial interface ISumRepository : IRepository<Sum> { }
     public partial interface ICurrencyExchangeRateRepository : IRepository<CurrencyExchangeRate> { }
     public partial interface IDescribeProductBlockTaskRepository : IRepository<DescribeProductBlockTask> { }
     public partial interface INoteRepository : IRepository<Note> { }
@@ -20,6 +19,7 @@ namespace HVTApp.DataAccess
     public partial interface IPaymentConditionSetRepository : IRepository<PaymentConditionSet> { }
     public partial interface IProductBlockRepository : IRepository<ProductBlock> { }
     public partial interface IProductDependentRepository : IRepository<ProductDependent> { }
+    public partial interface IProductionTaskRepository : IRepository<ProductionTask> { }
     public partial interface ISalesBlockRepository : IRepository<SalesBlock> { }
     public partial interface IBankDetailsRepository : IRepository<BankDetails> { }
     public partial interface ICompanyRepository : IRepository<Company> { }
@@ -49,7 +49,7 @@ namespace HVTApp.DataAccess
     public partial interface ITestHusbandRepository : IRepository<TestHusband> { }
     public partial interface ITestWifeRepository : IRepository<TestWife> { }
     public partial interface ITestChildRepository : IRepository<TestChild> { }
-    public partial interface ICostOnDateRepository : IRepository<CostOnDate> { }
+    public partial interface ICostOnDateRepository : IRepository<SumOnDate> { }
     public partial interface IProductRepository : IRepository<Product> { }
     public partial interface IOfferRepository : IRepository<Offer> { }
     public partial interface IEmployeeRepository : IRepository<Employee> { }

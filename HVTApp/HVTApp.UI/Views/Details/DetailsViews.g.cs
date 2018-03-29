@@ -79,21 +79,12 @@ namespace HVTApp.UI.Views
         }
     }
 
-    public partial class CostDetailsView : ViewBase
+    public partial class SumDetailsView : ViewBase
     {
-        public CostDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CostDetailsViewModel CostDetailsViewModel) : base(regionManager, eventAggregator)
+        public SumDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, SumDetailsViewModel SumDetailsViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = CostDetailsViewModel;
-        }
-    }
-
-    public partial class CurrencyDetailsView : ViewBase
-    {
-        public CurrencyDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CurrencyDetailsViewModel CurrencyDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = CurrencyDetailsViewModel;
+            DataContext = SumDetailsViewModel;
         }
     }
 

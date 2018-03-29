@@ -11,8 +11,7 @@ namespace HVTApp.UI.Events
 	public partial class AfterSelectLocalityTypeEvent : PubSubEvent<PubSubEventArgs<LocalityType>> { }
 	public partial class AfterSelectRegionEvent : PubSubEvent<PubSubEventArgs<Region>> { }
 	public partial class AfterSelectCalculatePriceTaskEvent : PubSubEvent<PubSubEventArgs<CalculatePriceTask>> { }
-	public partial class AfterSelectCostEvent : PubSubEvent<PubSubEventArgs<Cost>> { }
-	public partial class AfterSelectCurrencyEvent : PubSubEvent<PubSubEventArgs<Currency>> { }
+	public partial class AfterSelectSumEvent : PubSubEvent<PubSubEventArgs<Sum>> { }
 	public partial class AfterSelectCurrencyExchangeRateEvent : PubSubEvent<PubSubEventArgs<CurrencyExchangeRate>> { }
 	public partial class AfterSelectDescribeProductBlockTaskEvent : PubSubEvent<PubSubEventArgs<DescribeProductBlockTask>> { }
 	public partial class AfterSelectNoteEvent : PubSubEvent<PubSubEventArgs<Note>> { }
@@ -50,7 +49,7 @@ namespace HVTApp.UI.Events
 	public partial class AfterSelectTestHusbandEvent : PubSubEvent<PubSubEventArgs<TestHusband>> { }
 	public partial class AfterSelectTestWifeEvent : PubSubEvent<PubSubEventArgs<TestWife>> { }
 	public partial class AfterSelectTestChildEvent : PubSubEvent<PubSubEventArgs<TestChild>> { }
-	public partial class AfterSelectCostOnDateEvent : PubSubEvent<PubSubEventArgs<CostOnDate>> { }
+	public partial class AfterSelectCostOnDateEvent : PubSubEvent<PubSubEventArgs<SumOnDate>> { }
 	public partial class AfterSelectProductEvent : PubSubEvent<PubSubEventArgs<Product>> { }
 	public partial class AfterSelectOfferEvent : PubSubEvent<PubSubEventArgs<Offer>> { }
 	public partial class AfterSelectEmployeeEvent : PubSubEvent<PubSubEventArgs<Employee>> { }

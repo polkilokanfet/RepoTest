@@ -43,14 +43,9 @@ namespace HVTApp.DataAccess
         public CalculatePriceTaskRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class CostRepositoryTest : TestBaseRepository<Cost>, ICostRepository
+    public partial class SumRepositoryTest : TestBaseRepository<Sum>, ISumRepository
     {
-        public CostRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class CurrencyRepositoryTest : TestBaseRepository<Currency>, ICurrencyRepository
-    {
-        public CurrencyRepositoryTest(TestData testData) : base(testData) {}
+        public SumRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class CurrencyExchangeRateRepositoryTest : TestBaseRepository<CurrencyExchangeRate>, ICurrencyExchangeRateRepository
@@ -86,6 +81,11 @@ namespace HVTApp.DataAccess
     public partial class ProductDependentRepositoryTest : TestBaseRepository<ProductDependent>, IProductDependentRepository
     {
         public ProductDependentRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class ProductionTaskRepositoryTest : TestBaseRepository<ProductionTask>, IProductionTaskRepository
+    {
+        public ProductionTaskRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class SalesBlockRepositoryTest : TestBaseRepository<SalesBlock>, ISalesBlockRepository
@@ -233,7 +233,7 @@ namespace HVTApp.DataAccess
         public TestChildRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class CostOnDateRepositoryTest : TestBaseRepository<CostOnDate>, ICostOnDateRepository
+    public partial class CostOnDateRepositoryTest : TestBaseRepository<SumOnDate>, ICostOnDateRepository
     {
         public CostOnDateRepositoryTest(TestData testData) : base(testData) {}
     }

@@ -144,36 +144,19 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class CostListView : ViewBase
+    public partial class SumListView : ViewBase
     {
-        public CostListView(IRegionManager regionManager, IEventAggregator eventAggregator, CostListViewModel CostListViewModel) : base(regionManager, eventAggregator)
+        public SumListView(IRegionManager regionManager, IEventAggregator eventAggregator, SumListViewModel SumListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = CostListViewModel;
-			CostListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            DataContext = SumListViewModel;
+			SumListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((CostListViewModel)DataContext).LoadAsync();;
-        }
-    }
-
-    [RibbonTab(typeof(TabCRUD))]
-    public partial class CurrencyListView : ViewBase
-    {
-        public CurrencyListView(IRegionManager regionManager, IEventAggregator eventAggregator, CurrencyListViewModel CurrencyListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = CurrencyListViewModel;
-			CurrencyListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((CurrencyListViewModel)DataContext).LoadAsync();;
+			await ((SumListViewModel)DataContext).LoadAsync();;
         }
     }
 

@@ -46,14 +46,9 @@ namespace HVTApp.UI.ViewModels
         public CalculatePriceTaskListViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class CostListViewModel : BaseListViewModel<Cost, CostLookup, AfterSaveCostEvent, AfterSelectCostEvent, AfterRemoveCostEvent>
+    public partial class SumListViewModel : BaseListViewModel<Sum, SumLookup, AfterSaveSumEvent, AfterSelectSumEvent, AfterRemoveSumEvent>
     {
-        public CostListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-    public partial class CurrencyListViewModel : BaseListViewModel<Currency, CurrencyLookup, AfterSaveCurrencyEvent, AfterSelectCurrencyEvent, AfterRemoveCurrencyEvent>
-    {
-        public CurrencyListViewModel(IUnityContainer container) : base(container) { }
+        public SumListViewModel(IUnityContainer container) : base(container) { }
     }
 
     public partial class CurrencyExchangeRateListViewModel : BaseListViewModel<CurrencyExchangeRate, CurrencyExchangeRateLookup, AfterSaveCurrencyExchangeRateEvent, AfterSelectCurrencyExchangeRateEvent, AfterRemoveCurrencyExchangeRateEvent>
@@ -241,7 +236,7 @@ namespace HVTApp.UI.ViewModels
         public TestChildListViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class CostOnDateListViewModel : BaseListViewModel<CostOnDate, CostOnDateLookup, AfterSaveCostOnDateEvent, AfterSelectCostOnDateEvent, AfterRemoveCostOnDateEvent>
+    public partial class CostOnDateListViewModel : BaseListViewModel<SumOnDate, CostOnDateLookup, AfterSaveCostOnDateEvent, AfterSelectCostOnDateEvent, AfterRemoveCostOnDateEvent>
     {
         public CostOnDateListViewModel(IUnityContainer container) : base(container) { }
     }

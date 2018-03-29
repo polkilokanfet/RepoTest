@@ -395,66 +395,35 @@ namespace HVTApp.UI.Wrapper
         }
 	}
 
-		public partial class CostWrapper : WrapperBase<Cost>
+		public partial class SumWrapper : WrapperBase<Sum>
 	{
-	    public CostWrapper(Cost model) : base(model) { }
+	    public SumWrapper(Sum model) : base(model) { }
 
 	
         #region SimpleProperties
-        public System.Double Sum
+        public HVTApp.Model.POCOs.SumType Type
         {
-          get { return GetValue<System.Double>(); }
+          get { return GetValue<HVTApp.Model.POCOs.SumType>(); }
           set { SetValue(value); }
         }
-        public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
-        public bool SumIsChanged => GetIsChanged(nameof(Sum));
+        public HVTApp.Model.POCOs.SumType TypeOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.SumType>(nameof(Type));
+        public bool TypeIsChanged => GetIsChanged(nameof(Type));
 
-        public System.Guid Id
+        public HVTApp.Model.POCOs.Currency Currency
         {
-          get { return GetValue<System.Guid>(); }
+          get { return GetValue<HVTApp.Model.POCOs.Currency>(); }
           set { SetValue(value); }
         }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
+        public HVTApp.Model.POCOs.Currency CurrencyOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.Currency>(nameof(Currency));
+        public bool CurrencyIsChanged => GetIsChanged(nameof(Currency));
 
-        #endregion
-
-        #region ComplexProperties
-	    public CurrencyWrapper Currency 
+        public System.Decimal Value
         {
-            get { return GetWrapper<CurrencyWrapper>(); }
-            set { SetComplexValue<Currency, CurrencyWrapper>(Currency, value); }
-        }
-
-        #endregion
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<CurrencyWrapper>(nameof(Currency), Model.Currency == null ? null : new CurrencyWrapper(Model.Currency));
-
-        }
-	}
-
-		public partial class CurrencyWrapper : WrapperBase<Currency>
-	{
-	    public CurrencyWrapper(Currency model) : base(model) { }
-
-	
-        #region SimpleProperties
-        public System.String FullName
-        {
-          get { return GetValue<System.String>(); }
+          get { return GetValue<System.Decimal>(); }
           set { SetValue(value); }
         }
-        public System.String FullNameOriginalValue => GetOriginalValue<System.String>(nameof(FullName));
-        public bool FullNameIsChanged => GetIsChanged(nameof(FullName));
-
-        public System.String ShortName
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String ShortNameOriginalValue => GetOriginalValue<System.String>(nameof(ShortName));
-        public bool ShortNameIsChanged => GetIsChanged(nameof(ShortName));
+        public System.Decimal ValueOriginalValue => GetOriginalValue<System.Decimal>(nameof(Value));
+        public bool ValueIsChanged => GetIsChanged(nameof(Value));
 
         public System.Guid Id
         {
@@ -481,6 +450,14 @@ namespace HVTApp.UI.Wrapper
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
+        public HVTApp.Model.POCOs.Currency FirstCurrency
+        {
+          get { return GetValue<HVTApp.Model.POCOs.Currency>(); }
+          set { SetValue(value); }
+        }
+        public HVTApp.Model.POCOs.Currency FirstCurrencyOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.Currency>(nameof(FirstCurrency));
+        public bool FirstCurrencyIsChanged => GetIsChanged(nameof(FirstCurrency));
+
         public System.Double FirstCurrencyValue
         {
           get { return GetValue<System.Double>(); }
@@ -488,6 +465,14 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Double FirstCurrencyValueOriginalValue => GetOriginalValue<System.Double>(nameof(FirstCurrencyValue));
         public bool FirstCurrencyValueIsChanged => GetIsChanged(nameof(FirstCurrencyValue));
+
+        public HVTApp.Model.POCOs.Currency SecondCurrency
+        {
+          get { return GetValue<HVTApp.Model.POCOs.Currency>(); }
+          set { SetValue(value); }
+        }
+        public HVTApp.Model.POCOs.Currency SecondCurrencyOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.Currency>(nameof(SecondCurrency));
+        public bool SecondCurrencyIsChanged => GetIsChanged(nameof(SecondCurrency));
 
         public System.Double SecondCurrencyValue
         {
@@ -506,28 +491,6 @@ namespace HVTApp.UI.Wrapper
         public bool IdIsChanged => GetIsChanged(nameof(Id));
 
         #endregion
-
-        #region ComplexProperties
-	    public CurrencyWrapper FirstCurrency 
-        {
-            get { return GetWrapper<CurrencyWrapper>(); }
-            set { SetComplexValue<Currency, CurrencyWrapper>(FirstCurrency, value); }
-        }
-
-	    public CurrencyWrapper SecondCurrency 
-        {
-            get { return GetWrapper<CurrencyWrapper>(); }
-            set { SetComplexValue<Currency, CurrencyWrapper>(SecondCurrency, value); }
-        }
-
-        #endregion
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<CurrencyWrapper>(nameof(FirstCurrency), Model.FirstCurrency == null ? null : new CurrencyWrapper(Model.FirstCurrency));
-
-            InitializeComplexProperty<CurrencyWrapper>(nameof(SecondCurrency), Model.SecondCurrency == null ? null : new CurrencyWrapper(Model.SecondCurrency));
-
-        }
 	}
 
 		public partial class DescribeProductBlockTaskWrapper : WrapperBase<DescribeProductBlockTask>
@@ -653,7 +616,6 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region CollectionProperties
-
         public IValidatableChangeTrackingCollection<ServiceWrapper> Services { get; private set; }
 
         #endregion
@@ -1364,13 +1326,21 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
-        public System.Int32 Count
+        public System.Int32 ChildProductsAmount
         {
           get { return GetValue<System.Int32>(); }
           set { SetValue(value); }
         }
-        public System.Int32 CountOriginalValue => GetOriginalValue<System.Int32>(nameof(Count));
-        public bool CountIsChanged => GetIsChanged(nameof(Count));
+        public System.Int32 ChildProductsAmountOriginalValue => GetOriginalValue<System.Int32>(nameof(ChildProductsAmount));
+        public bool ChildProductsAmountIsChanged => GetIsChanged(nameof(ChildProductsAmount));
+
+        public System.Boolean IsUnique
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean IsUniqueOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsUnique));
+        public bool IsUniqueIsChanged => GetIsChanged(nameof(IsUnique));
 
         public System.Guid Id
         {
@@ -1639,7 +1609,7 @@ namespace HVTApp.UI.Wrapper
         }
 	}
 
-		public partial class SalesUnitWrapper
+		public partial class SalesUnitWrapper 
 	{
 	    public SalesUnitWrapper(SalesUnit model) : base(model) { }
 
@@ -1810,7 +1780,6 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region CollectionProperties
-
         public IValidatableChangeTrackingCollection<ServiceWrapper> Services { get; private set; }
 
         public IValidatableChangeTrackingCollection<PaymentActualWrapper> PaymentsActual { get; private set; }
@@ -2380,9 +2349,9 @@ namespace HVTApp.UI.Wrapper
         }
 	}
 
-		public partial class CostOnDateWrapper : WrapperBase<CostOnDate>
+		public partial class CostOnDateWrapper : WrapperBase<SumOnDate>
 	{
-	    public CostOnDateWrapper(CostOnDate model) : base(model) { }
+	    public CostOnDateWrapper(SumOnDate model) : base(model) { }
 
 	
         #region SimpleProperties

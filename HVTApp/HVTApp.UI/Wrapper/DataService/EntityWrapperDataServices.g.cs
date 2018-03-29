@@ -124,31 +124,16 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-    public partial class CostWrapperDataService : EntityWrapperDataService<Cost, CostWrapper>
+    public partial class SumWrapperDataService : EntityWrapperDataService<Sum, SumWrapper>
     {
-        public CostWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+        public SumWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
-		protected override CostWrapper GenerateWrapper(Cost model)
+		protected override SumWrapper GenerateWrapper(Sum model)
         {
             if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
                 return ExistsWrappers.Single(x => x.Model.Id == model.Id);
 
-            var wrapper = new CostWrapper(model);
-            ExistsWrappers.Add(wrapper);
-            return wrapper;
-        }
-    }
-
-    public partial class CurrencyWrapperDataService : EntityWrapperDataService<Currency, CurrencyWrapper>
-    {
-        public CurrencyWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-		
-		protected override CurrencyWrapper GenerateWrapper(Currency model)
-        {
-            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
-                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
-
-            var wrapper = new CurrencyWrapper(model);
+            var wrapper = new SumWrapper(model);
             ExistsWrappers.Add(wrapper);
             return wrapper;
         }
@@ -709,11 +694,11 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-    public partial class CostOnDateWrapperDataService : EntityWrapperDataService<CostOnDate, CostOnDateWrapper>
+    public partial class CostOnDateWrapperDataService : EntityWrapperDataService<SumOnDate, CostOnDateWrapper>
     {
         public CostOnDateWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
-		protected override CostOnDateWrapper GenerateWrapper(CostOnDate model)
+		protected override CostOnDateWrapper GenerateWrapper(SumOnDate model)
         {
             if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
                 return ExistsWrappers.Single(x => x.Model.Id == model.Id);

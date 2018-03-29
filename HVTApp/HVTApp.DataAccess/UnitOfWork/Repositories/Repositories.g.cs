@@ -43,14 +43,9 @@ namespace HVTApp.DataAccess
         public CalculatePriceTaskRepository(DbContext context) : base(context) {}
     }
 
-    public partial class CostRepository : BaseRepository<Cost>, ICostRepository
+    public partial class SumRepository : BaseRepository<Sum>, ISumRepository
     {
-        public CostRepository(DbContext context) : base(context) {}
-    }
-
-    public partial class CurrencyRepository : BaseRepository<Currency>, ICurrencyRepository
-    {
-        public CurrencyRepository(DbContext context) : base(context) {}
+        public SumRepository(DbContext context) : base(context) {}
     }
 
     public partial class CurrencyExchangeRateRepository : BaseRepository<CurrencyExchangeRate>, ICurrencyExchangeRateRepository
@@ -86,6 +81,11 @@ namespace HVTApp.DataAccess
     public partial class ProductDependentRepository : BaseRepository<ProductDependent>, IProductDependentRepository
     {
         public ProductDependentRepository(DbContext context) : base(context) {}
+    }
+
+    public partial class ProductionTaskRepository : BaseRepository<ProductionTask>, IProductionTaskRepository
+    {
+        public ProductionTaskRepository(DbContext context) : base(context) {}
     }
 
     public partial class SalesBlockRepository : BaseRepository<SalesBlock>, ISalesBlockRepository
@@ -233,7 +233,7 @@ namespace HVTApp.DataAccess
         public TestChildRepository(DbContext context) : base(context) {}
     }
 
-    public partial class CostOnDateRepository : BaseRepository<CostOnDate>, ICostOnDateRepository
+    public partial class CostOnDateRepository : BaseRepository<SumOnDate>, ICostOnDateRepository
     {
         public CostOnDateRepository(DbContext context) : base(context) {}
     }

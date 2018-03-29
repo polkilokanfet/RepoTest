@@ -8,7 +8,7 @@ namespace HVTApp.UI.Wrapper
 {
     public class ProductsUnitGroup : ObservableCollection<IProductWithCost>
     {
-        public CostWrapper Cost => this.First().Cost;
+        public SumWrapper Cost => this.First().Cost;
 
         public ProductsUnitGroup(IEnumerable<IProductWithCost> units) : base(units)
         {
@@ -32,7 +32,7 @@ namespace HVTApp.UI.Wrapper
             {
                 foreach (var unitsGroupedByCurrency in unitsGroupedByProduct.GroupBy(x => x.Cost.Currency)) //по валюте
                 {
-                    foreach (var unitsGroupedBySum in unitsGroupedByCurrency.GroupBy(x => x.Cost.Sum)) //по сумме
+                    foreach (var unitsGroupedBySum in unitsGroupedByCurrency.GroupBy(x => x.Cost.Value)) //по сумме
                     {
                         var unitGroup = new ProductsUnitGroup(unitsGroupedBySum);
                         this.Add(unitGroup);

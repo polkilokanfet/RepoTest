@@ -14,8 +14,7 @@ namespace HVTApp.UI.Wrapper
             LocalityTypeWrapperDataService = new LocalityTypeWrapperDataService(unitOfWork);
             RegionWrapperDataService = new RegionWrapperDataService(unitOfWork);
             CalculatePriceTaskWrapperDataService = new CalculatePriceTaskWrapperDataService(unitOfWork);
-            CostWrapperDataService = new CostWrapperDataService(unitOfWork);
-            CurrencyWrapperDataService = new CurrencyWrapperDataService(unitOfWork);
+            SumWrapperDataService = new SumWrapperDataService(unitOfWork);
             CurrencyExchangeRateWrapperDataService = new CurrencyExchangeRateWrapperDataService(unitOfWork);
             DescribeProductBlockTaskWrapperDataService = new DescribeProductBlockTaskWrapperDataService(unitOfWork);
             NoteWrapperDataService = new NoteWrapperDataService(unitOfWork);
@@ -77,8 +76,7 @@ namespace HVTApp.UI.Wrapper
         public LocalityTypeWrapperDataService LocalityTypeWrapperDataService { get; }
         public RegionWrapperDataService RegionWrapperDataService { get; }
         public CalculatePriceTaskWrapperDataService CalculatePriceTaskWrapperDataService { get; }
-        public CostWrapperDataService CostWrapperDataService { get; }
-        public CurrencyWrapperDataService CurrencyWrapperDataService { get; }
+        public SumWrapperDataService SumWrapperDataService { get; }
         public CurrencyExchangeRateWrapperDataService CurrencyExchangeRateWrapperDataService { get; }
         public DescribeProductBlockTaskWrapperDataService DescribeProductBlockTaskWrapperDataService { get; }
         public NoteWrapperDataService NoteWrapperDataService { get; }

@@ -5,24 +5,24 @@ namespace HVTApp.UI.Wrapper
 {
     public class Price
     {
-        public Price(ProductBlock productBlock, CostOnDate costOnDate, DateTime targetDate)
+        public Price(ProductBlock productBlock, SumOnDate sumOnDate, DateTime targetDate)
         {
             ProductBlock = productBlock;
-            CostOnDate = costOnDate;
+            SumOnDate = sumOnDate;
             TargetDate = targetDate;
 
-            if (CostOnDate == null)
+            if (SumOnDate == null)
             {
                 Status = PriceStatus.Miss;
             }
             else
             {
-                Status = CostOnDate.Date.AddDays(90) > targetDate ? PriceStatus.Actual : PriceStatus.NotActual;
+                Status = SumOnDate.Date.AddDays(90) > targetDate ? PriceStatus.Actual : PriceStatus.NotActual;
             }
         }
 
         public ProductBlock ProductBlock { get; }
-        public CostOnDate CostOnDate { get; }
+        public SumOnDate SumOnDate { get; }
         public DateTime TargetDate { get; }
         public PriceStatus Status { get; }
 

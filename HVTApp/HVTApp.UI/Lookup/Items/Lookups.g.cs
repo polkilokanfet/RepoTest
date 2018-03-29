@@ -169,29 +169,9 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	public partial class CostLookup : LookupItem<Cost>
+	public partial class SumLookup : LookupItem<Sum>
 	{
-		public CostLookup(Cost entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 			Currency?.Refresh(Entity.Currency);
-		}
-		
-        #region SimpleProperties
-        public System.Double Sum => GetValue<System.Double>();
-
-        #endregion
-
-        #region ComplexProperties
-	    public CurrencyLookup Currency { get { return GetLookup<CurrencyLookup>(); } }
-
-        #endregion
-	}
-	public partial class CurrencyLookup : LookupItem<Currency>
-	{
-		public CurrencyLookup(Currency entity) : base(entity) 
+		public SumLookup(Sum entity) : base(entity) 
 		{
 		}
 		protected override void RefreshLookups()
@@ -199,9 +179,11 @@ namespace HVTApp.UI.Lookup
 			 		}
 		
         #region SimpleProperties
-        public System.String FullName => GetValue<System.String>();
+        public HVTApp.Model.POCOs.SumType Type => GetValue<HVTApp.Model.POCOs.SumType>();
 
-        public System.String ShortName => GetValue<System.String>();
+        public HVTApp.Model.POCOs.Currency Currency => GetValue<HVTApp.Model.POCOs.Currency>();
+
+        public System.Decimal Value => GetValue<System.Decimal>();
 
         #endregion
 	}
@@ -212,23 +194,18 @@ namespace HVTApp.UI.Lookup
 		}
 		protected override void RefreshLookups()
         {
-			 			FirstCurrency?.Refresh(Entity.FirstCurrency);
-			SecondCurrency?.Refresh(Entity.SecondCurrency);
-		}
+			 		}
 		
         #region SimpleProperties
         public System.DateTime Date => GetValue<System.DateTime>();
 
+        public HVTApp.Model.POCOs.Currency FirstCurrency => GetValue<HVTApp.Model.POCOs.Currency>();
+
         public System.Double FirstCurrencyValue => GetValue<System.Double>();
 
+        public HVTApp.Model.POCOs.Currency SecondCurrency => GetValue<HVTApp.Model.POCOs.Currency>();
+
         public System.Double SecondCurrencyValue => GetValue<System.Double>();
-
-        #endregion
-
-        #region ComplexProperties
-	    public CurrencyLookup FirstCurrency { get { return GetLookup<CurrencyLookup>(); } }
-
-	    public CurrencyLookup SecondCurrency { get { return GetLookup<CurrencyLookup>(); } }
 
         #endregion
 	}
@@ -585,7 +562,9 @@ namespace HVTApp.UI.Lookup
 			 		}
 		
         #region SimpleProperties
-        public System.Int32 Count => GetValue<System.Int32>();
+        public System.Int32 ChildProductsAmount => GetValue<System.Int32>();
+
+        public System.Boolean IsUnique => GetValue<System.Boolean>();
 
         #endregion
 	}
@@ -967,9 +946,9 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	public partial class CostOnDateLookup : LookupItem<CostOnDate>
+	public partial class CostOnDateLookup : LookupItem<SumOnDate>
 	{
-		public CostOnDateLookup(CostOnDate entity) : base(entity) 
+		public CostOnDateLookup(SumOnDate entity) : base(entity) 
 		{
 		}
 		protected override void RefreshLookups()
