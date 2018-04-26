@@ -9,6 +9,7 @@ namespace HVTApp.Services.GetProductService
 {
     public class ProductSelector : NotifyPropertyChanged
     {
+        private readonly AllProductParameters _allProductParameters;
         public ProductBlockSelector ProductBlockSelector { get; }
         public ObservableCollection<ProductSelector> ProductSelectors { get; } = new ObservableCollection<ProductSelector>();
         public int Amount { get; }
@@ -24,18 +25,20 @@ namespace HVTApp.Services.GetProductService
                 };
                 product.Designation = product.ToString();
 
-                var existsProduct = CommonData.Products.SingleOrDefault(x => x.Equals(product));
+                var existsProduct = _allProductParameters.Products.SingleOrDefault(x => x.Equals(product));
 
                 return existsProduct ?? product;
             }
         }
 
-        public ProductSelector(IEnumerable<Parameter> parameters = null, Product selectedProduct = null, int amount = 1)
+        public ProductSelector(AllProductParameters allProductParameters, IEnumerable<Parameter> parameters = null, Product selectedProduct = null, int amount = 1)
         {
-            var prmtrs = parameters ?? CommonData.Parameters;
+            if(allProductParameters == null) throw new ArgumentNullException(nameof(allProductParameters));
+            _allProductParameters = allProductParameters;
+            parameters = parameters ?? allProductParameters.Parameters;
 
             Amount = amount;
-            ProductBlockSelector = new ProductBlockSelector(prmtrs, selectedProduct?.ProductBlock.Parameters);
+            ProductBlockSelector = new ProductBlockSelector(_allProductParameters, parameters, selectedProduct?.ProductBlock.Parameters);
             ProductBlockSelector.SelectedParametersChanged += ProductBlockSelectorOnSelectedParametersChanged;
 
             if (selectedProduct == null)
@@ -48,8 +51,8 @@ namespace HVTApp.Services.GetProductService
                 foreach (var kvp in GetDictionaryOfMatching(selectedProduct))
                 {
                     //редактируем список параметров
-                    var usefullParameters = CommonData.Parameters.GetUsefull(kvp.Key.ChildProductParameters);
-                    var productSelector = new ProductSelector(usefullParameters, kvp.Value);
+                    var usefullParameters = allProductParameters.Parameters.GetUsefull(kvp.Key.ChildProductParameters);
+                    var productSelector = new ProductSelector(allProductParameters, usefullParameters, kvp.Value);
                     ProductSelectors.Add(productSelector);
                     productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
                 }
@@ -59,7 +62,7 @@ namespace HVTApp.Services.GetProductService
         private List<ProductRelation> GetActualProductRelations(IEnumerable<Parameter> forParameters = null)
         {
             var parameters = forParameters ?? ProductBlockSelector.SelectedProductBlock.Parameters;
-            return CommonData.ProductRelations.Where(x => x.ParentProductParameters.AllContainsIn(parameters)).ToList();
+            return _allProductParameters.ProductRelations.Where(x => x.ParentProductParameters.AllContainsIn(parameters)).ToList();
         }
 
         private void RefreshProductSelectors()
@@ -102,7 +105,8 @@ namespace HVTApp.Services.GetProductService
             {
                 for (int i = 0; i < relaitionsDictionary[productRelation]; i++)
                 {
-                    var productSelector = new ProductSelector(CommonData.Parameters.GetUsefull(productRelation.ChildProductParameters));
+                    var productSelector = new ProductSelector(_allProductParameters, 
+                        _allProductParameters.Parameters.GetUsefull(productRelation.ChildProductParameters));
                     ProductSelectors.Add(productSelector);
                     productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
                 }
@@ -116,7 +120,7 @@ namespace HVTApp.Services.GetProductService
         }
 
         //реакция на изменение продуктового блока
-        private void ProductBlockSelectorOnSelectedParametersChanged(IEnumerable<Parameter> parameters)
+        private void ProductBlockSelectorOnSelectedParametersChanged()
         {
             RefreshProductSelectors();
             OnSelectedProductChanged();

@@ -18,8 +18,9 @@ namespace HVTApp.Services.GetProductServiceTests.Selectors2
         {
             var testData = new TestData();
             var parameters = testData.GetAll<Parameter>().ToList();
+            var allProductParameters = new AllProductParameters(null, null, parameters, null);
 
-            var productBlockSelector = new ProductBlockSelector(parameters);
+            var productBlockSelector = new ProductBlockSelector(allProductParameters, parameters);
 
             var originParameters = parameters.Where(x => !x.ParameterRelations.Any());
             var originParameterSelector = productBlockSelector.ParameterSelectors.
@@ -35,10 +36,13 @@ namespace HVTApp.Services.GetProductServiceTests.Selectors2
         public void ProductSelectorTest()
         {
             var testData = new TestData();
-            CommonData.Parameters = testData.GetAll<Parameter>().ToList();
-            CommonData.ProductRelations = testData.GetAll<ProductRelation>().ToList();
+            var products = testData.GetAll<Product>().ToList();
+            var productBlocks = testData.GetAll<ProductBlock>().ToList();
+            var parameters = testData.GetAll<Parameter>().ToList();
+            var productRelations = testData.GetAll<ProductRelation>().ToList();
+            AllProductParameters allProductParameters = new AllProductParameters(products, productBlocks, parameters, productRelations);
 
-            var productSelector = new ProductSelector();
+            var productSelector = new ProductSelector(allProductParameters);
         }
 
         [TestMethod]

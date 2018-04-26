@@ -12,10 +12,7 @@ namespace HVTApp.Services.GetProductService
         private readonly IUnitOfWork _unitOfWork;
         private bool _loaded = false;
 
-        private List<Product> _products;
-        private List<ProductBlock> _productBlocks;
-        private List<Parameter> _parameters;
-        private List<ProductRelation> _productRelations;
+        private AllProductParameters _allProductParameters;
 
         public GetProductServiceWpf(IUnitOfWork unitOfWork)
         {
@@ -24,24 +21,27 @@ namespace HVTApp.Services.GetProductService
 
         public async Task LoadAsync()
         {
-            _parameters = await _unitOfWork.GetRepository<Parameter>().GetAllAsync();
-            _products = await _unitOfWork.GetRepository<Product>().GetAllAsync();
-            _productRelations = await _unitOfWork.GetRepository<ProductRelation>().GetAllAsync();
-            _productBlocks = await _unitOfWork.GetRepository<ProductBlock>().GetAllAsync();
+            if (_loaded) return;
+
+            var parameters = await _unitOfWork.GetRepository<Parameter>().GetAllAsync();
+            var products = await _unitOfWork.GetRepository<Product>().GetAllAsync();
+            var productRelations = await _unitOfWork.GetRepository<ProductRelation>().GetAllAsync();
+            var productBlocks = await _unitOfWork.GetRepository<ProductBlock>().GetAllAsync();
+
+            _allProductParameters = new AllProductParameters(products, productBlocks, parameters, productRelations);
 
             _loaded = true;
         }
 
         public async Task<Product> GetProductAsync(Product originProduct = null)
         {
-            if (!_loaded)
-                await LoadAsync();
+            await LoadAsync();
 
             var selectedProduct = originProduct == null
                 ? null
                 : await _unitOfWork.GetRepository<Product>().GetByIdAsync(originProduct.Id);
 
-            var productSelector = new ProductSelector(selectedProduct: selectedProduct);
+            var productSelector = new ProductSelector(_allProductParameters, null, selectedProduct);
             var window = new SelectProductWindow
             {
                 DataContext = productSelector,
@@ -52,7 +52,7 @@ namespace HVTApp.Services.GetProductService
             if (!window.DialogResult.HasValue || !window.DialogResult.Value) return originProduct;
 
             var result = productSelector.SelectedProduct;
-            if (!_products.Contains(result))
+            if (!_allProductParameters.Products.Contains(result))
             {
                 _unitOfWork.GetRepository<Product>().Add(result);
                 await GenerateDescribeProductBlockTasks(result);
@@ -88,5 +88,21 @@ namespace HVTApp.Services.GetProductService
                 }
             }
         }
+    }
+
+    public class AllProductParameters
+    {
+        public AllProductParameters(List<Product> products, List<ProductBlock> productBlocks, List<Parameter> parameters, List<ProductRelation> productRelations)
+        {
+            Products = products;
+            ProductBlocks = productBlocks;
+            Parameters = parameters;
+            ProductRelations = productRelations;
+        }
+
+        public List<Product> Products { get; }
+        public List<ProductBlock> ProductBlocks { get; }
+        public List<Parameter> Parameters { get; }
+        public List<ProductRelation> ProductRelations { get; }
     }
 }

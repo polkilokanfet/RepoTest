@@ -9,8 +9,33 @@ namespace HVTApp.Services.GetProductService
 {
     public class ProductBlockSelector : NotifyPropertyChanged
     {
-        public ProductBlockSelector(IEnumerable<Parameter> parameters, IEnumerable<Parameter> selectedParameters = null)
+        #region fields
+        private readonly AllProductParameters _allProductParameters;
+        #endregion
+
+        #region props
+
+        public ObservableCollection<ParameterSelector> ParameterSelectors { get; }
+        public ProductBlock SelectedProductBlock
         {
+            get
+            {
+                var selectedParameters = ParameterSelectors.Select(x => x.SelectedParameterFlaged)
+                    .Where(x => x != null).Select(x => x.Parameter).ToList();
+                var result = _allProductParameters.ProductBlocks
+                    .SingleOrDefault(x => x.Parameters.AllMembersAreSame(selectedParameters));
+                return result ?? new ProductBlock { Parameters = selectedParameters };
+            }
+        }
+
+        #endregion
+
+        #region ctor
+
+        public ProductBlockSelector(AllProductParameters allProductParameters, IEnumerable<Parameter> parameters, 
+            IEnumerable<Parameter> selectedParameters = null)
+        {
+            _allProductParameters = allProductParameters;
             var selectedParams = selectedParameters ?? new List<Parameter>();
 
             //создаем селекторы параметров
@@ -21,29 +46,28 @@ namespace HVTApp.Services.GetProductService
             //реакция на смену параметра в селекторе
             foreach (var parameterSelector in ParameterSelectors)
             {
-                parameterSelector.SelectedParameterFlagedChanged += parSel =>
+                parameterSelector.SelectedParameterFlagedChanged += () =>
                 {
-                    OnSelectedParametersChanged(SelectedProductBlock.Parameters);
+                    OnSelectedParametersChanged();
                     OnPropertyChanged(nameof(SelectedProductBlock));
                 };
             }
 
             //необходимо взбодрить параметры (узнать кто актуален, а кто нет)
             if (selectedParams.Any())
-                OnSelectedParametersChanged(SelectedProductBlock.Parameters);
+                OnSelectedParametersChanged();
         }
 
+        #endregion
 
-        public ObservableCollection<ParameterSelector> ParameterSelectors { get; }
-        public ProductBlock SelectedProductBlock
+        #region events
+        public event Action SelectedParametersChanged;
+
+        protected void OnSelectedParametersChanged()
         {
-            get
-            {
-                var selectedParameters = ParameterSelectors.Select(x => x.SelectedParameterFlaged).Where(x => x != null).Select(x => x.Parameter).ToList();
-                var result = CommonData.ProductBlocks.FirstOrDefault(x => x.Parameters.AllMembersAreSame(selectedParameters));
-                return result ?? new ProductBlock {Parameters = selectedParameters};
-            }
+            SelectedParametersChanged?.Invoke();
         }
+        #endregion
 
 
         //группировка параметрам по группе и упорядочивание их
@@ -64,14 +88,5 @@ namespace HVTApp.Services.GetProductService
             var parameterSelector = ParameterSelectors.Single(x => x.ParametersFlaged.Contains(selectedParameterFlaged));
             parameterSelector.SelectedParameterFlaged = selectedParameterFlaged;
         }
-
-        #region events
-        public event Action<IEnumerable<Parameter>> SelectedParametersChanged;
-
-        protected void OnSelectedParametersChanged(IEnumerable<Parameter> parameters)
-        {
-            SelectedParametersChanged?.Invoke(parameters);
-        }
-        #endregion
     }
 }

@@ -8,14 +8,17 @@ namespace HVTApp.Services.GetProductService
 {
     public class ParameterSelector : NotifyPropertyChanged
     {
-        /// <summary>
-        /// Родительский селектор
-        /// </summary>
-        public ProductBlockSelector ProductBlockSelector { get; }
-        public bool IsActual => ParametersFlaged.Any(x => x.IsActual);
-        public string GroupName { get; }
-
+        #region fields
         private ParameterFlaged _selectedParameterFlaged;
+        #endregion
+
+        #region props
+
+        public ProductBlockSelector ProductBlockSelector { get; }
+
+        public bool IsActual => ParametersFlaged.Any(x => x.IsActual);
+        public string GroupName => ParametersFlaged.First().Parameter.ParameterGroup.Name;
+
         public ParameterFlaged SelectedParameterFlaged
         {
             get { return _selectedParameterFlaged; }
@@ -23,18 +26,21 @@ namespace HVTApp.Services.GetProductService
             {
                 if (Equals(_selectedParameterFlaged, value)) return;
                 _selectedParameterFlaged = value;
+                value.IsSelected = true;
                 OnPropertyChanged();
-                OnSelectedParameterFlagedChanged(this);
+                SelectedParameterFlagedChanged?.Invoke();
             }
         }
 
         public ObservableCollection<ParameterFlaged> ParametersFlaged { get; }
+        #endregion
 
-        public ParameterSelector(IEnumerable<Parameter> parameters, ProductBlockSelector productBlockSelector, Parameter selectedParameter = null)
+        #region ctor
+        public ParameterSelector(IEnumerable<Parameter> parameters, ProductBlockSelector productBlockSelector, 
+            Parameter selectedParameter = null)
         {
+            if(productBlockSelector == null) throw new ArgumentNullException(nameof(productBlockSelector));
             ProductBlockSelector = productBlockSelector;
-
-            GroupName = parameters.First().ParameterGroup.ToString();
 
             var parametersFlaged = parameters.Select(x => new ParameterFlaged(x, this, Equals(x, selectedParameter)));
             ParametersFlaged = new ObservableCollection<ParameterFlaged>(parametersFlaged);
@@ -46,32 +52,19 @@ namespace HVTApp.Services.GetProductService
             foreach (var parameterFlaged in ParametersFlaged)
                 parameterFlaged.IsActualChanged += ParameterFlagedOnIsActualChanged;
         }
+        #endregion
+
+        #region events
+        public event Action SelectedParameterFlagedChanged;
+        #endregion
 
         //реакция на изменение актуальности параметра
-        private void ParameterFlagedOnIsActualChanged(ParameterFlaged parameterFlaged)
+        private void ParameterFlagedOnIsActualChanged()
         {
-            if (parameterFlaged.IsActual)
-            {
-                if (SelectedParameterFlaged == null || !SelectedParameterFlaged.IsActual)
-                    SelectedParameterFlaged = ParametersFlaged.First(x => x.IsActual);
-            }
-            else
-            {
-                if (SelectedParameterFlaged != null && !SelectedParameterFlaged.IsActual)
-                    SelectedParameterFlaged = ParametersFlaged.FirstOrDefault(x => x.IsActual);
-            }
-
+            if(SelectedParameterFlaged == null || !SelectedParameterFlaged.IsActual)
+                SelectedParameterFlaged = ParametersFlaged.FirstOrDefault(x => x.IsActual);
             OnPropertyChanged(nameof(IsActual));
         }
 
-
-        #region events
-        public event Action<ParameterSelector> SelectedParameterFlagedChanged;
-
-        protected virtual void OnSelectedParameterFlagedChanged(ParameterSelector parameterSelector)
-        {
-            SelectedParameterFlagedChanged?.Invoke(parameterSelector);
-        }
-        #endregion
     }
 }

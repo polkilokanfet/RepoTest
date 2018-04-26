@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Model.POCOs
 {
@@ -18,13 +17,6 @@ namespace HVTApp.Model.POCOs
         public override string ToString()
         {
             return $"{ParameterGroup.Name}: {Value}";
-        }
-
-        public bool IsActual(IEnumerable<Parameter> parameters)
-        {
-            if (!ParameterRelations.Any()) return true;
-
-            return ParameterRelations.Any(x => x.RequiredParameters.AllContainsIn(parameters));
         }
 
         public int CompareTo(object obj)
