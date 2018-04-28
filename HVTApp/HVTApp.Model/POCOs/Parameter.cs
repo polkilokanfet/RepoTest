@@ -14,6 +14,8 @@ namespace HVTApp.Model.POCOs
 
     public partial class Parameter : IComparable
     {
+        public bool IsOrigin => !ParameterRelations.Any();
+
         public override string ToString()
         {
             return $"{ParameterGroup.Name}: {Value}";

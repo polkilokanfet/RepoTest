@@ -39,7 +39,7 @@ namespace HVTApp.Services.GetProductService
 
             Amount = amount;
             ProductBlockSelector = new ProductBlockSelector(_allProductParameters, parameters, selectedProduct?.ProductBlock.Parameters);
-            ProductBlockSelector.SelectedParametersChanged += ProductBlockSelectorOnSelectedParametersChanged;
+            ProductBlockSelector.SelectedProductBlockChanged += ProductBlockSelectorOnSelectedParametersChanged;
 
             if (selectedProduct == null)
             {
@@ -120,7 +120,7 @@ namespace HVTApp.Services.GetProductService
         }
 
         //реакция на изменение продуктового блока
-        private void ProductBlockSelectorOnSelectedParametersChanged()
+        private void ProductBlockSelectorOnSelectedParametersChanged(ProductBlockSelector productBlockSelector)
         {
             RefreshProductSelectors();
             OnSelectedProductChanged();

@@ -61,7 +61,7 @@ namespace HVTApp.Services.GetProductService.Tests
         public void ParameterSelectorSelectedParameterException()
         {
             Assert.IsFalse(_parameterSelectorEqType.ParametersFlaged.Select(x => x.Parameter).Contains(_parameterV110));
-            _parameterSelectorEqType.SelectedParameterFlaged = new ParameterFlaged(_parameterV110, _parameterSelectorEqType);
+            _parameterSelectorEqType.SelectedParameterFlaged = new ParameterFlaged(_parameterV110, null);
         }
 
         [TestMethod]

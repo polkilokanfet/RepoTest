@@ -10,21 +10,24 @@ namespace HVTApp.Services.GetProductService
     public class ProductBlockSelector : NotifyPropertyChanged
     {
         #region fields
-        private readonly AllProductParameters _allProductParameters;
+
+        private ProductBlock _selectedProductBlock;
+       
         #endregion
 
         #region props
 
         public ObservableCollection<ParameterSelector> ParameterSelectors { get; }
+
         public ProductBlock SelectedProductBlock
         {
-            get
+            get { return _selectedProductBlock; }
+            set
             {
-                var selectedParameters = ParameterSelectors.Select(x => x.SelectedParameterFlaged)
-                    .Where(x => x != null).Select(x => x.Parameter).ToList();
-                var result = _allProductParameters.ProductBlocks
-                    .SingleOrDefault(x => x.Parameters.AllMembersAreSame(selectedParameters));
-                return result ?? new ProductBlock { Parameters = selectedParameters };
+                if (Equals(_selectedProductBlock, value)) return;
+                _selectedProductBlock = value;
+                SelectedProductBlockChanged?.Invoke(this);
+                OnPropertyChanged();
             }
         }
 
@@ -33,40 +36,36 @@ namespace HVTApp.Services.GetProductService
         #region ctor
 
         public ProductBlockSelector(AllProductParameters allProductParameters, IEnumerable<Parameter> parameters, 
-            IEnumerable<Parameter> selectedParameters = null)
+            IEnumerable<Parameter> selectedParameters2 = null)
         {
-            _allProductParameters = allProductParameters;
-            var selectedParams = selectedParameters ?? new List<Parameter>();
+            var selectedParams = selectedParameters2 ?? new List<Parameter>();
 
             //создаем селекторы параметров
-            var parameterSelectors = GetGroupingParameters(parameters).
-                Select(x => new ParameterSelector(x, this, x.SingleOrDefault(selectedParams.Contains)));
-            ParameterSelectors = new ObservableCollection<ParameterSelector>(parameterSelectors);
+            ParameterSelectors = new ObservableCollection<ParameterSelector>(GetGroupingParameters(parameters).
+                Select(x => new ParameterSelector(x, this, x.SingleOrDefault(selectedParams.Contains))));
 
             //реакция на смену параметра в селекторе
             foreach (var parameterSelector in ParameterSelectors)
             {
-                parameterSelector.SelectedParameterFlagedChanged += () =>
+                parameterSelector.SelectedParameterFlagedChanged += (ps) =>
                 {
-                    OnSelectedParametersChanged();
-                    OnPropertyChanged(nameof(SelectedProductBlock));
+                    var selectedParameters = ParameterSelectors.Select(x => x.SelectedParameterFlaged)
+                        .Where(x => x != null).Select(x => x.Parameter).ToList();
+                    if (SelectedProductBlock.Parameters.AllMembersAreSame(selectedParameters)) return;
+
+                    var result = allProductParameters.ProductBlocks
+                        .SingleOrDefault(x => x.Parameters.AllMembersAreSame(selectedParameters));
+                    SelectedProductBlock = result ?? new ProductBlock {Parameters = selectedParameters};
                 };
             }
-
-            //необходимо взбодрить параметры (узнать кто актуален, а кто нет)
-            if (selectedParams.Any())
-                OnSelectedParametersChanged();
         }
 
         #endregion
 
         #region events
-        public event Action SelectedParametersChanged;
 
-        protected void OnSelectedParametersChanged()
-        {
-            SelectedParametersChanged?.Invoke();
-        }
+        public event Action<ProductBlockSelector> SelectedProductBlockChanged;
+
         #endregion
 
 
