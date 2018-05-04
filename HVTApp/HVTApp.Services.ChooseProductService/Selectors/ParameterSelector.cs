@@ -26,8 +26,8 @@ namespace HVTApp.Services.GetProductService
             {
                 if (Equals(_selectedParameterFlaged, value)) return;
                 _selectedParameterFlaged = value;
-                OnPropertyChanged();
                 SelectedParameterFlagedChanged?.Invoke(this);
+                OnPropertyChanged();
             }
         }
 
@@ -37,21 +37,16 @@ namespace HVTApp.Services.GetProductService
 
         #region ctor
 
-        public ParameterSelector(IEnumerable<Parameter> parameters, ProductBlockSelector productBlockSelector, 
-            Parameter selectedParameter = null)
+        public ParameterSelector(IEnumerable<Parameter> parameters, ProductBlockSelector productBlockSelector)
         {
             if(productBlockSelector == null) throw new ArgumentNullException(nameof(productBlockSelector));
-
             ParametersFlaged = new ObservableCollection<ParameterFlaged>(
                 parameters.Select(x => new ParameterFlaged(x, productBlockSelector)));
-
-            if (selectedParameter != null)
-                SelectedParameterFlaged = ParametersFlaged.Single(x => Equals(x.Parameter, selectedParameter));
 
             //реакция на изменение актуальности параметра
             foreach (var parameterFlaged in ParametersFlaged)
             {
-                parameterFlaged.IsActualChanged += pf =>
+                parameterFlaged.IsActualChanged += parameter =>
                 {
                     if (SelectedParameterFlaged == null || !SelectedParameterFlaged.IsActual)
                         SelectedParameterFlaged = ParametersFlaged.FirstOrDefault(x => x.IsActual);

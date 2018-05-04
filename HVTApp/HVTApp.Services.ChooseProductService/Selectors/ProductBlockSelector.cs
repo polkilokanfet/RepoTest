@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Documents;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 
@@ -12,7 +13,15 @@ namespace HVTApp.Services.GetProductService
         #region fields
 
         private ProductBlock _selectedProductBlock;
-       
+        private List<ProductBlock> _productBlocks;
+
+        #endregion
+
+        #region private props
+
+        private List<Parameter> SelectedParameters => ParameterSelectors.Select(x => x.SelectedParameterFlaged)
+            .Where(x => x != null).Select(x => x.Parameter).ToList();
+
         #endregion
 
         #region props
@@ -21,13 +30,10 @@ namespace HVTApp.Services.GetProductService
 
         public ProductBlock SelectedProductBlock
         {
-            get { return _selectedProductBlock; }
-            set
+            get
             {
-                if (Equals(_selectedProductBlock, value)) return;
-                _selectedProductBlock = value;
-                SelectedProductBlockChanged?.Invoke(this);
-                OnPropertyChanged();
+                var result = _productBlocks.SingleOrDefault(x => x.Parameters.AllMembersAreSame(SelectedParameters));
+                return result ?? new ProductBlock { Parameters = SelectedParameters };
             }
         }
 
@@ -35,27 +41,21 @@ namespace HVTApp.Services.GetProductService
 
         #region ctor
 
-        public ProductBlockSelector(AllProductParameters allProductParameters, IEnumerable<Parameter> parameters, 
-            IEnumerable<Parameter> selectedParameters2 = null)
+        public ProductBlockSelector(IEnumerable<Parameter> parameters, List<ProductBlock> productBlocks = null,
+            ProductBlock selectedProductBlock = null)
         {
-            var selectedParams = selectedParameters2 ?? new List<Parameter>();
-
             //создаем селекторы параметров
-            ParameterSelectors = new ObservableCollection<ParameterSelector>(GetGroupingParameters(parameters).
-                Select(x => new ParameterSelector(x, this, x.SingleOrDefault(selectedParams.Contains))));
+            ParameterSelectors = new ObservableCollection<ParameterSelector>(
+                GetGroupingParameters(parameters).Select(x => new ParameterSelector(x, this)));
 
             //реакция на смену параметра в селекторе
+            _productBlocks = productBlocks ?? new List<ProductBlock>();
             foreach (var parameterSelector in ParameterSelectors)
             {
                 parameterSelector.SelectedParameterFlagedChanged += (ps) =>
                 {
-                    var selectedParameters = ParameterSelectors.Select(x => x.SelectedParameterFlaged)
-                        .Where(x => x != null).Select(x => x.Parameter).ToList();
-                    if (SelectedProductBlock.Parameters.AllMembersAreSame(selectedParameters)) return;
-
-                    var result = allProductParameters.ProductBlocks
-                        .SingleOrDefault(x => x.Parameters.AllMembersAreSame(selectedParameters));
-                    SelectedProductBlock = result ?? new ProductBlock {Parameters = selectedParameters};
+                    SelectedProductBlockChanged?.Invoke(this);
+                    OnPropertyChanged(nameof(SelectedProductBlock));
                 };
             }
         }

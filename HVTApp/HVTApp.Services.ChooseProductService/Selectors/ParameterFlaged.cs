@@ -35,9 +35,12 @@ namespace HVTApp.Services.GetProductService
 
         public ParameterFlaged(Parameter parameter, ProductBlockSelector productBlockSelector)
         {
+            if(parameter == null) throw new ArgumentNullException(nameof(parameter));
             Parameter = parameter;
             _isActual = Parameter.IsOrigin;
 
+            //подписываемся на событие изменения выбранных параметров
+            if(productBlockSelector == null) throw new ArgumentNullException(nameof(productBlockSelector));
             productBlockSelector.SelectedProductBlockChanged += pbs =>
             {
                 IsActual = Parameter.IsOrigin || 

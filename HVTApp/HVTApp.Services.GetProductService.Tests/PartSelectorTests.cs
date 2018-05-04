@@ -12,7 +12,6 @@ namespace HVTApp.Services.GetProductService.Tests
     {
         private List<ParameterGroup> _groups;
         private List<Parameter> _parameters;
-        private AllProductParameters _allProductParameters;
         private Parameter _breaker, _transformator, _drive, _drivesReducer;
         private Parameter _v110, _v220, _v500;
         private Parameter _c2500, _c3150, _c0001, _c0005;
@@ -60,9 +59,8 @@ namespace HVTApp.Services.GetProductService.Tests
 
 
             _preSelectedProductBlock = new ProductBlock {Parameters = new List<Parameter> {_breaker, _v500, _c3150} };
-            _allProductParameters = new AllProductParameters(null, null, _parameters, null);
 
-            _productBlockSelector = new ProductBlockSelector(_allProductParameters, _parameters);
+            _productBlockSelector = new ProductBlockSelector(_parameters);
         }
 
         [TestMethod]
@@ -83,7 +81,7 @@ namespace HVTApp.Services.GetProductService.Tests
         public void ProductBlockSelectorRequiredParameters()
         {
             var requiredParameters = new List<Parameter> { _transformator, _c0005 };
-            var productBlockSelector = new ProductBlockSelector(_allProductParameters, _parameters);
+            var productBlockSelector = new ProductBlockSelector(_parameters);
 
             foreach (var requiredParameter in requiredParameters)
             {
@@ -117,7 +115,7 @@ namespace HVTApp.Services.GetProductService.Tests
         [TestMethod]
         public void ProductBlockSelectorPreSelectedPart()
         {
-            ProductBlockSelector productBlockSelector = new ProductBlockSelector(_allProductParameters, _parameters, _preSelectedProductBlock.Parameters);
+            ProductBlockSelector productBlockSelector = new ProductBlockSelector(_parameters, selectedParameters2: _preSelectedProductBlock.Parameters);
 
             Assert.AreEqual(_preSelectedProductBlock, productBlockSelector.SelectedProductBlock);
             Assert.IsTrue(_preSelectedProductBlock.Parameters.AllMembersAreSame(productBlockSelector.SelectedProductBlock.Parameters));
@@ -126,7 +124,7 @@ namespace HVTApp.Services.GetProductService.Tests
         [TestMethod]
         public void ProductBlockSelectorActualParameters()
         {
-            ProductBlockSelector productBlockSelector = new ProductBlockSelector(_allProductParameters, _parameters, _preSelectedProductBlock.Parameters);
+            ProductBlockSelector productBlockSelector = new ProductBlockSelector(_parameters, selectedParameters2: _preSelectedProductBlock.Parameters);
 
             //находим селектор с токами
             var currentSelector = GetParameterSelector(productBlockSelector, _current);
@@ -150,7 +148,7 @@ namespace HVTApp.Services.GetProductService.Tests
             var parametersList = new List<List<Parameter>> {current, voltage, eqType};
 
             var parameters = new List<Parameter> { _breaker, _v110, _c2500 };
-            var productBlockSelector = new ProductBlockSelector(_allProductParameters, _parameters);
+            var productBlockSelector = new ProductBlockSelector(_parameters);
 
             Assert.IsTrue(productBlockSelector.ParameterSelectors.Select(x => x.SelectedParameterFlaged.Parameter).AllMembersAreSame(parameters));
             Assert.IsTrue(productBlockSelector.SelectedProductBlock.Parameters.AllMembersAreSame(parameters));

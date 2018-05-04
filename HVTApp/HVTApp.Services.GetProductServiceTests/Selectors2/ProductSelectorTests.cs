@@ -18,9 +18,8 @@ namespace HVTApp.Services.GetProductServiceTests.Selectors2
         {
             var testData = new TestData();
             var parameters = testData.GetAll<Parameter>().ToList();
-            var allProductParameters = new AllProductParameters(null, null, parameters, null);
 
-            var productBlockSelector = new ProductBlockSelector(allProductParameters, parameters);
+            var productBlockSelector = new ProductBlockSelector(parameters, testData.GetAll<ProductBlock>().ToList());
 
             var originParameters = parameters.Where(x => !x.ParameterRelations.Any());
             var originParameterSelector = productBlockSelector.ParameterSelectors.
