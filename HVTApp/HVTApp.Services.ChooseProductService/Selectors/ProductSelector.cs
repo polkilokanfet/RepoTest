@@ -38,7 +38,7 @@ namespace HVTApp.Services.GetProductService
             parameters = parameters ?? allProductParameters.Parameters;
 
             Amount = amount;
-            ProductBlockSelector = new ProductBlockSelector(parameters, _allProductParameters.ProductBlocks, selectedProduct?.ProductBlock.Parameters);
+            ProductBlockSelector = new ProductBlockSelector(parameters, _allProductParameters.ProductBlocks, selectedProduct?.ProductBlock);
             ProductBlockSelector.SelectedProductBlockChanged += ProductBlockSelectorOnSelectedParametersChanged;
 
             if (selectedProduct == null)

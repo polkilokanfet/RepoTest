@@ -115,7 +115,7 @@ namespace HVTApp.Services.GetProductService.Tests
         [TestMethod]
         public void ProductBlockSelectorPreSelectedPart()
         {
-            ProductBlockSelector productBlockSelector = new ProductBlockSelector(_parameters, selectedParameters2: _preSelectedProductBlock.Parameters);
+            ProductBlockSelector productBlockSelector = new ProductBlockSelector(_parameters, selectedProductBlock: _preSelectedProductBlock);
 
             Assert.AreEqual(_preSelectedProductBlock, productBlockSelector.SelectedProductBlock);
             Assert.IsTrue(_preSelectedProductBlock.Parameters.AllMembersAreSame(productBlockSelector.SelectedProductBlock.Parameters));
@@ -124,7 +124,7 @@ namespace HVTApp.Services.GetProductService.Tests
         [TestMethod]
         public void ProductBlockSelectorActualParameters()
         {
-            ProductBlockSelector productBlockSelector = new ProductBlockSelector(_parameters, selectedParameters2: _preSelectedProductBlock.Parameters);
+            ProductBlockSelector productBlockSelector = new ProductBlockSelector(_parameters, selectedProductBlock: _preSelectedProductBlock);
 
             //находим селектор с токами
             var currentSelector = GetParameterSelector(productBlockSelector, _current);

@@ -39,7 +39,7 @@ namespace HVTApp.Services.GetProductService.Tests
                 AddRequiredPreviousParameters(new[] { _parameterBreaker, _parameterV220 }).
                 AddRequiredPreviousParameters(new[] { _parameterBreaker, _parameterV500 });
 
-            _parameterSelectorEqType = new ParameterSelector(new []{_parameterBreaker, _parameterTransformator}, null);
+            _parameterSelectorEqType = new ParameterSelector(new []{_parameterBreaker, _parameterTransformator});
         }
 
         [TestMethod]
@@ -49,19 +49,11 @@ namespace HVTApp.Services.GetProductService.Tests
         }
 
         [TestMethod]
-        public void ParameterSelectorHasSelectedParameter()
-        {
-            var parameters = new List<Parameter> {_parameterBreaker, _parameterTransformator};
-            var parameterSelector = new ParameterSelector(parameters, null, parameters.Last());
-            Assert.AreEqual(parameterSelector.SelectedParameterFlaged.Parameter, parameters.Last());
-        }
-
-        [TestMethod]
         [ExpectedException(typeof(ArgumentException), "Выбран параметр не из списка.")]
         public void ParameterSelectorSelectedParameterException()
         {
             Assert.IsFalse(_parameterSelectorEqType.ParametersFlaged.Select(x => x.Parameter).Contains(_parameterV110));
-            _parameterSelectorEqType.SelectedParameterFlaged = new ParameterFlaged(_parameterV110, null);
+            _parameterSelectorEqType.SelectedParameterFlaged = new ParameterFlaged(_parameterV110);
         }
 
         [TestMethod]

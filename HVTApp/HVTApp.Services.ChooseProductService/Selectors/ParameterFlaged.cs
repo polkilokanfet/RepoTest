@@ -33,19 +33,11 @@ namespace HVTApp.Services.GetProductService
 
         #region ctor
 
-        public ParameterFlaged(Parameter parameter, ProductBlockSelector productBlockSelector)
+        public ParameterFlaged(Parameter parameter)
         {
             if(parameter == null) throw new ArgumentNullException(nameof(parameter));
             Parameter = parameter;
             _isActual = Parameter.IsOrigin;
-
-            //подписываемся на событие изменения выбранных параметров
-            if(productBlockSelector == null) throw new ArgumentNullException(nameof(productBlockSelector));
-            productBlockSelector.SelectedProductBlockChanged += pbs =>
-            {
-                IsActual = Parameter.IsOrigin || 
-                    Parameter.ParameterRelations.Any(x => x.RequiredParameters.AllContainsIn(pbs.SelectedProductBlock.Parameters));
-            };
         }
 
         #endregion
