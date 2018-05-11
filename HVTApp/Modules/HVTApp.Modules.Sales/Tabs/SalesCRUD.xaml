@@ -9,6 +9,7 @@
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewProjectCommand}"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditProjectCommand}"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveProjectCommand}"/>
+        <infRib:ButtonTool Caption="Оборудование" Command="{Binding GetProductCommand}"/>
     </infRib:RibbonGroup>
     <infRib:RibbonGroup Caption="Тендер">
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewTenderCommand}"/>

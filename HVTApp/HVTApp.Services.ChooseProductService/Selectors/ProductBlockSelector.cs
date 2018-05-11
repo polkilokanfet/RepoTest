@@ -10,17 +10,13 @@ namespace HVTApp.Services.GetProductService
     public class ProductBlockSelector : NotifyPropertyChanged
     {
         #region fields
-
         private ProductBlock _selectedProductBlock;
         private readonly List<ProductBlock> _existsProductBlocks;
-
         #endregion
 
         #region private props
-
         private List<Parameter> SelectedParameters => ParameterSelectors.Select(x => x.SelectedParameterFlaged)
             .Where(x => x != null).Select(x => x.Parameter).ToList();
-
         #endregion
 
         #region props
@@ -49,6 +45,10 @@ namespace HVTApp.Services.GetProductService
                     selector.SelectedParameterFlaged = selector.ParametersFlaged.Single(p => p.Parameter.Equals(parameter));
                 }
                 parameterSelectors.ForEach(ps => ps.SelectedParameterFlagedChanged += OnSelectedParameterChanged);
+
+                OnSelectedParameterChanged(null);
+
+                _selectedProductBlock = value;
 
                 OnPropertyChanged();
                 SelectedProductBlockChanged?.Invoke(this);
@@ -111,13 +111,6 @@ namespace HVTApp.Services.GetProductService
                 parameterFlaged.IsActual = parameterFlaged.Parameter.IsOrigin ||
                     parameterFlaged.Parameter.ParameterRelations.
                     Any(x => x.RequiredParameters.AllContainsIn(SelectedProductBlock.Parameters));
-            }
-
-            //актуализация выбранных параметров
-            foreach (var selector in ParameterSelectors)
-            {
-                if (selector.SelectedParameterFlaged == null || !selector.SelectedParameterFlaged.IsActual)
-                    selector.SelectedParameterFlaged = selector.ParametersFlaged.FirstOrDefault(p => p.IsActual);
             }
 
             SelectedProductBlockChanged?.Invoke(this);

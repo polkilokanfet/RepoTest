@@ -39,9 +39,9 @@ namespace HVTApp.Services.GetProductServiceTests.Selectors2
             var productBlocks = testData.GetAll<ProductBlock>().ToList();
             var parameters = testData.GetAll<Parameter>().ToList();
             var productRelations = testData.GetAll<ProductRelation>().ToList();
-            AllProductParameters allProductParameters = new AllProductParameters(products, productBlocks, parameters, productRelations);
+            ProductsBlocksParameters productsBlocksParameters = new ProductsBlocksParameters(products, productBlocks, parameters, productRelations);
 
-            var productSelector = new ProductSelector(allProductParameters);
+            var productSelector = new ProductSelector(productsBlocksParameters);
         }
 
         [TestMethod]

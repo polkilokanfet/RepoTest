@@ -9,7 +9,7 @@ namespace HVTApp.Services.GetProductService
 {
     public class ProductSelector : NotifyPropertyChanged
     {
-        private readonly AllProductParameters _allProductParameters;
+        private readonly ProductsBlocksParameters _productsBlocksParameters;
         public ProductBlockSelector ProductBlockSelector { get; }
         public ObservableCollection<ProductSelector> ProductSelectors { get; } = new ObservableCollection<ProductSelector>();
         public int Amount { get; }
@@ -25,21 +25,27 @@ namespace HVTApp.Services.GetProductService
                 };
                 product.Designation = product.ToString();
 
-                var existsProduct = _allProductParameters.Products.SingleOrDefault(x => x.Equals(product));
+                var existsProduct = _productsBlocksParameters.Products.SingleOrDefault(x => x.Equals(product));
 
                 return existsProduct ?? product;
             }
         }
 
-        public ProductSelector(AllProductParameters allProductParameters, IEnumerable<Parameter> parameters = null, Product selectedProduct = null, int amount = 1)
+        public ProductSelector(ProductsBlocksParameters productsBlocksParameters, IEnumerable<Parameter> parameters = null, 
+            Product selectedProduct = null, int amount = 1)
         {
-            if(allProductParameters == null) throw new ArgumentNullException(nameof(allProductParameters));
-            _allProductParameters = allProductParameters;
-            parameters = parameters ?? allProductParameters.Parameters;
+            if(productsBlocksParameters == null) throw new ArgumentNullException(nameof(productsBlocksParameters));
+            _productsBlocksParameters = productsBlocksParameters;
+            if (parameters == null) parameters = productsBlocksParameters.Parameters;
 
             Amount = amount;
-            ProductBlockSelector = new ProductBlockSelector(parameters, _allProductParameters.ProductBlocks, selectedProduct?.ProductBlock);
-            ProductBlockSelector.SelectedProductBlockChanged += ProductBlockSelectorOnSelectedParametersChanged;
+            ProductBlockSelector = new ProductBlockSelector(parameters, _productsBlocksParameters.ProductBlocks, selectedProduct?.ProductBlock);
+            ProductBlockSelector.SelectedProductBlockChanged += bs =>
+            {
+                RefreshProductSelectors();
+                OnSelectedProductChanged();
+                OnPropertyChanged(nameof(SelectedProduct));
+            };
 
             if (selectedProduct == null)
             {
@@ -51,8 +57,8 @@ namespace HVTApp.Services.GetProductService
                 foreach (var kvp in GetDictionaryOfMatching(selectedProduct))
                 {
                     //редактируем список параметров
-                    var usefullParameters = allProductParameters.Parameters.GetUsefull(kvp.Key.ChildProductParameters);
-                    var productSelector = new ProductSelector(allProductParameters, usefullParameters, kvp.Value);
+                    var usefullParameters = productsBlocksParameters.Parameters.GetUsefull(kvp.Key.ChildProductParameters);
+                    var productSelector = new ProductSelector(productsBlocksParameters, usefullParameters, kvp.Value);
                     ProductSelectors.Add(productSelector);
                     productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
                 }
@@ -62,7 +68,7 @@ namespace HVTApp.Services.GetProductService
         private List<ProductRelation> GetActualProductRelations(IEnumerable<Parameter> forParameters = null)
         {
             var parameters = forParameters ?? ProductBlockSelector.SelectedProductBlock.Parameters;
-            return _allProductParameters.ProductRelations.Where(x => x.ParentProductParameters.AllContainsIn(parameters)).ToList();
+            return _productsBlocksParameters.ProductRelations.Where(x => x.ParentProductParameters.AllContainsIn(parameters)).ToList();
         }
 
         private void RefreshProductSelectors()
@@ -105,8 +111,8 @@ namespace HVTApp.Services.GetProductService
             {
                 for (int i = 0; i < relaitionsDictionary[productRelation]; i++)
                 {
-                    var productSelector = new ProductSelector(_allProductParameters, 
-                        _allProductParameters.Parameters.GetUsefull(productRelation.ChildProductParameters));
+                    var productSelector = new ProductSelector(_productsBlocksParameters, 
+                        _productsBlocksParameters.Parameters.GetUsefull(productRelation.ChildProductParameters));
                     ProductSelectors.Add(productSelector);
                     productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
                 }
@@ -119,16 +125,8 @@ namespace HVTApp.Services.GetProductService
             OnPropertyChanged(nameof(SelectedProduct));
         }
 
-        //реакция на изменение продуктового блока
-        private void ProductBlockSelectorOnSelectedParametersChanged(ProductBlockSelector productBlockSelector)
-        {
-            RefreshProductSelectors();
-            OnSelectedProductChanged();
-            OnPropertyChanged(nameof(SelectedProduct));
-        }
-
         /// <summary>
-        /// поиск соответствий между дочерними продуктами и связями
+        /// Поиск соответствий между дочерними продуктами и связями.
         /// </summary>
         /// <param name="product"></param>
         /// <returns></returns>

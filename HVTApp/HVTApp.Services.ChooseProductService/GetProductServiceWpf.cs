@@ -12,7 +12,7 @@ namespace HVTApp.Services.GetProductService
         private readonly IUnitOfWork _unitOfWork;
         private bool _loaded = false;
 
-        private AllProductParameters _allProductParameters;
+        private ProductsBlocksParameters _productsBlocksParameters;
 
         public GetProductServiceWpf(IUnitOfWork unitOfWork)
         {
@@ -28,7 +28,7 @@ namespace HVTApp.Services.GetProductService
             var productRelations = await _unitOfWork.GetRepository<ProductRelation>().GetAllAsync();
             var productBlocks = await _unitOfWork.GetRepository<ProductBlock>().GetAllAsync();
 
-            _allProductParameters = new AllProductParameters(products, productBlocks, parameters, productRelations);
+            _productsBlocksParameters = new ProductsBlocksParameters(products, productBlocks, parameters, productRelations);
 
             _loaded = true;
         }
@@ -41,7 +41,7 @@ namespace HVTApp.Services.GetProductService
                 ? null
                 : await _unitOfWork.GetRepository<Product>().GetByIdAsync(originProduct.Id);
 
-            var productSelector = new ProductSelector(_allProductParameters, null, selectedProduct);
+            var productSelector = new ProductSelector(_productsBlocksParameters, null, selectedProduct);
             var window = new SelectProductWindow
             {
                 DataContext = productSelector,
@@ -52,7 +52,7 @@ namespace HVTApp.Services.GetProductService
             if (!window.DialogResult.HasValue || !window.DialogResult.Value) return originProduct;
 
             var result = productSelector.SelectedProduct;
-            if (!_allProductParameters.Products.Contains(result))
+            if (!_productsBlocksParameters.Products.Contains(result))
             {
                 _unitOfWork.GetRepository<Product>().Add(result);
                 await GenerateDescribeProductBlockTasks(result);
@@ -90,9 +90,9 @@ namespace HVTApp.Services.GetProductService
         }
     }
 
-    public class AllProductParameters
+    public class ProductsBlocksParameters
     {
-        public AllProductParameters(List<Product> products, List<ProductBlock> productBlocks, List<Parameter> parameters, List<ProductRelation> productRelations)
+        public ProductsBlocksParameters(List<Product> products, List<ProductBlock> productBlocks, List<Parameter> parameters, List<ProductRelation> productRelations)
         {
             Products = products;
             ProductBlocks = productBlocks;

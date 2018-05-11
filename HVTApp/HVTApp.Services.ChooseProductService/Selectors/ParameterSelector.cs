@@ -46,6 +46,10 @@ namespace HVTApp.Services.GetProductService
             {
                 parameterFlaged.IsActualChanged += parameter =>
                 {
+                    //актуализация выбранных параметров
+                    if (SelectedParameterFlaged == null || !SelectedParameterFlaged.IsActual)
+                        SelectedParameterFlaged = ParametersFlaged.FirstOrDefault(p => p.IsActual);
+
                     OnPropertyChanged(nameof(IsActual));
                 };
             }

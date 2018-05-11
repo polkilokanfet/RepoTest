@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.Services.GetProductService;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.Wrapper;
+using Prism.Commands;
 using Prism.Mvvm;
 
 namespace HVTApp.Modules.Sales.ViewModels
@@ -13,11 +17,14 @@ namespace HVTApp.Modules.Sales.ViewModels
     public class MarketViewModel : BindableBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IGetProductService _getProductService;
 
         public ObservableCollection<ProjectWrapper> Projects { get; } = new ObservableCollection<ProjectWrapper>();
 
         public ObservableCollection<OfferWrapper> Offers { get; } = new ObservableCollection<OfferWrapper>();
         public ObservableCollection<TenderLookup> Tenders { get; } = new ObservableCollection<TenderLookup>();
+
+        public ICommand GetProductCommand { get; }
 
         private readonly List<OfferWrapper> _offers = new List<OfferWrapper>();
         private readonly List<TenderLookup> _tenders = new List<TenderLookup>();
@@ -42,9 +49,19 @@ namespace HVTApp.Modules.Sales.ViewModels
         public OfferWrapper SelectedOffer { get; set; }
         public TenderLookup SelectedTender { get; set; }
 
-        public MarketViewModel(IUnitOfWork unitOfWork)
+        public MarketViewModel(IUnitOfWork unitOfWork, IGetProductService getProductService)
         {
             _unitOfWork = unitOfWork;
+            _getProductService = getProductService;
+
+            GetProductCommand = new DelegateCommand(GetProductCommandExecute);
+        }
+
+        private async void GetProductCommandExecute()
+        {
+            var products = await _unitOfWork.GetRepository<Product>().GetAllAsync();
+            var i = new Random().Next(products.Count);
+            await _getProductService.GetProductAsync(products[i]);
         }
 
         public async Task LoadAsync()
