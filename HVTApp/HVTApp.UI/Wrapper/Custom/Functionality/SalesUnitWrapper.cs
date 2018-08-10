@@ -50,7 +50,7 @@ namespace HVTApp.UI.Wrapper
     }
 
     //Sums
-    public partial class SalesUnitWrapper : IUnitGroup
+    public partial class SalesUnitWrapper
     {
         /// <summary>
         /// Оплаченная сумма
@@ -80,12 +80,12 @@ namespace HVTApp.UI.Wrapper
     }
 
     //MarginalIncome
-    public partial class SalesUnitWrapper : IUnitGroup
+    public partial class SalesUnitWrapper 
     {
     }
 
     //Dates
-    public partial class SalesUnitWrapper : IUnitGroup
+    public partial class SalesUnitWrapper 
     {
         public DateTime OrderInTakeDate => StartProductionDate ?? StartProductionDateCalculated;
         public int OrderInTakeYear => OrderInTakeDate.Year;
@@ -251,7 +251,7 @@ namespace HVTApp.UI.Wrapper
     }
 
     //Payments
-    public partial class SalesUnitWrapper : IUnitGroup
+    public partial class SalesUnitWrapper
     {
         /// <summary>
         /// Оставшиеся плановые платежи по условиям оплаты.
@@ -360,5 +360,8 @@ namespace HVTApp.UI.Wrapper
                 Condition = condition
             });
         }
+
+        public double MarginalIncome { get; set; }
+        public bool HasBlocksWithoutPrice { get; }
     }
 }

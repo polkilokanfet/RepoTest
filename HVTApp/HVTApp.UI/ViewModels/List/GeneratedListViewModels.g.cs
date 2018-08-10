@@ -236,9 +236,9 @@ namespace HVTApp.UI.ViewModels
         public TestChildListViewModel(IUnityContainer container) : base(container) { }
     }
 
-    public partial class CostOnDateListViewModel : BaseListViewModel<SumOnDate, CostOnDateLookup, AfterSaveCostOnDateEvent, AfterSelectCostOnDateEvent, AfterRemoveCostOnDateEvent>
+    public partial class SumOnDateListViewModel : BaseListViewModel<SumOnDate, SumOnDateLookup, AfterSaveSumOnDateEvent, AfterSelectSumOnDateEvent, AfterRemoveSumOnDateEvent>
     {
-        public CostOnDateListViewModel(IUnityContainer container) : base(container) { }
+        public SumOnDateListViewModel(IUnityContainer container) : base(container) { }
     }
 
     public partial class ProductListViewModel : BaseListViewModel<Product, ProductLookup, AfterSaveProductEvent, AfterSelectProductEvent, AfterRemoveProductEvent>

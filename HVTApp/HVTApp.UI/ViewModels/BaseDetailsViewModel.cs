@@ -27,7 +27,6 @@ namespace HVTApp.UI.ViewModels
         protected readonly IUnityContainer Container;
         protected readonly IEventAggregator EventAggregator;
         protected IUnitOfWork UnitOfWork;
-
         private TWrapper _item;
 
         protected BaseDetailsViewModel(IUnityContainer container)
@@ -37,12 +36,14 @@ namespace HVTApp.UI.ViewModels
             EventAggregator = Container.Resolve<IEventAggregator>();
 
             SaveCommand = new DelegateCommand(SaveCommand_Execute, SaveCommand_CanExecute);
-            InitCommands();
+            InitSpecialCommands();
+            InitDefaultGetMethods();
+            InitSpecialGetMethods();
         }
 
-        protected virtual void InitCommands() { }
-
-        protected virtual void InitGetMethods() { }
+        protected virtual void InitSpecialCommands() { }
+        protected virtual void InitDefaultGetMethods() { }
+        protected virtual void InitSpecialGetMethods() { }
 
         private bool _saveHere = true;
         public async Task LoadAsync(TWrapper wrapper, IUnitOfWork unitOfWork)
@@ -55,7 +56,7 @@ namespace HVTApp.UI.ViewModels
 
         public async Task LoadAsync(TEntity entity)
         {
-            entity = (await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(entity.Id)) ?? entity;
+            entity = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(entity.Id) ?? entity;
             Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity);
             await LoadOtherAsync();
         }

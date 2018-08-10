@@ -241,10 +241,10 @@ namespace HVTApp.UI
 			_selectService.Register<TestChildListView, TestChild>();
             _updateDetailsService.Register<TestChild, TestChildDetailsView>();
 
-            Container.RegisterViewForNavigation<CostOnDateListView>();
-            //_dialogService.Register<CostOnDateDetailsViewModel, CostOnDateDetailsView>();
-			_selectService.Register<CostOnDateListView, SumOnDate>();
-            _updateDetailsService.Register<SumOnDate, CostOnDateDetailsView>();
+            Container.RegisterViewForNavigation<SumOnDateListView>();
+            //_dialogService.Register<SumOnDateDetailsViewModel, SumOnDateDetailsView>();
+			_selectService.Register<SumOnDateListView, SumOnDate>();
+            _updateDetailsService.Register<SumOnDate, SumOnDateDetailsView>();
 
             Container.RegisterViewForNavigation<ProductListView>();
             //_dialogService.Register<ProductDetailsViewModel, ProductDetailsView>();

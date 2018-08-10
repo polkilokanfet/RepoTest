@@ -46,7 +46,7 @@ namespace HVTApp.UI.Lookup
 	public interface ITestHusbandLookupDataService : ILookupDataService<TestHusbandLookup> { } 
 	public interface ITestWifeLookupDataService : ILookupDataService<TestWifeLookup> { } 
 	public interface ITestChildLookupDataService : ILookupDataService<TestChildLookup> { } 
-	public interface ICostOnDateLookupDataService : ILookupDataService<CostOnDateLookup> { } 
+	public interface ISumOnDateLookupDataService : ILookupDataService<SumOnDateLookup> { } 
 	public interface IProductLookupDataService : ILookupDataService<ProductLookup> { } 
 	public interface IOfferLookupDataService : ILookupDataService<OfferLookup> { } 
 	public interface IEmployeeLookupDataService : ILookupDataService<EmployeeLookup> { } 

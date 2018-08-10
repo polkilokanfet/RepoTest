@@ -41,7 +41,7 @@ namespace HVTApp.UI.ViewModels
         public ICommand BlowUpOfferUnitsGroupCommand { get; private set; }
 
 
-        protected override void InitCommands()
+        protected override void InitSpecialCommands()
         {
             AddOfferUnitsGroupCommand = new DelegateCommand(AddOfferUnitsGroupCommand_Execute);
             EditOfferUnitsGroupCommand = new DelegateCommand(EditOfferUnitsGroupCommand_Execute, EditOfferUnitsGroupCommand_CanExecute);

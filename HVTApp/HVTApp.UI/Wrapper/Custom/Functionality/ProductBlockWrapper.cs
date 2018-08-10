@@ -18,7 +18,7 @@ namespace HVTApp.UI.Wrapper
             //ближайшая актуальная цена
             var actualTerm = CommonOptions.CalculationPriceTerm;
             var price = Prices.Where(x => x.Date >= date.AddDays(-actualTerm)).OrderBy(x => x.Date).LastOrDefault();
-            if (price != null) return price.Cost;
+            //if (price != null) return price.Cost;
 
             //ближайшая цена
             price = Prices.FirstOrDefault();
@@ -28,7 +28,8 @@ namespace HVTApp.UI.Wrapper
                     price = costOnDate;
             }
 
-            return price?.Cost ?? 0;
+            //return price?.Cost ?? 0;
+            return 0;
         }
     }
 }

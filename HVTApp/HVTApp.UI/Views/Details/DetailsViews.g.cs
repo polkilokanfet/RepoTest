@@ -421,12 +421,12 @@ namespace HVTApp.UI.Views
         }
     }
 
-    public partial class CostOnDateDetailsView : ViewBase
+    public partial class SumOnDateDetailsView : ViewBase
     {
-        public CostOnDateDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CostOnDateDetailsViewModel CostOnDateDetailsViewModel) : base(regionManager, eventAggregator)
+        public SumOnDateDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, SumOnDateDetailsViewModel SumOnDateDetailsViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = CostOnDateDetailsViewModel;
+            DataContext = SumOnDateDetailsViewModel;
         }
     }
 

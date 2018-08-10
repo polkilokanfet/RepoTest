@@ -31,7 +31,7 @@ namespace HVTApp.UI.ViewModels
         public ICommand EditCommand { get; private set; }
         public ICommand AddProjectUnitGroupCommand { get; private set; }
 
-        protected override void InitCommands()
+        protected override void InitSpecialCommands()
         {
             GroupingCommand = new DelegateCommand(GroupingCommand_Execute);
             EditCommand = new DelegateCommand(EditCommand_Execute, EditCommand_CanExecute);

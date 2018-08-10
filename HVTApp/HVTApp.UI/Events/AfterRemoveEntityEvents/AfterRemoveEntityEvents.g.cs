@@ -49,7 +49,7 @@ namespace HVTApp.UI.Events
 	public partial class AfterRemoveTestHusbandEvent : PubSubEvent<TestHusband> { }
 	public partial class AfterRemoveTestWifeEvent : PubSubEvent<TestWife> { }
 	public partial class AfterRemoveTestChildEvent : PubSubEvent<TestChild> { }
-	public partial class AfterRemoveCostOnDateEvent : PubSubEvent<SumOnDate> { }
+	public partial class AfterRemoveSumOnDateEvent : PubSubEvent<SumOnDate> { }
 	public partial class AfterRemoveProductEvent : PubSubEvent<Product> { }
 	public partial class AfterRemoveOfferEvent : PubSubEvent<Offer> { }
 	public partial class AfterRemoveEmployeeEvent : PubSubEvent<Employee> { }

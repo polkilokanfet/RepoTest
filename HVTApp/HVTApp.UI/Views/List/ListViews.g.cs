@@ -790,19 +790,19 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class CostOnDateListView : ViewBase
+    public partial class SumOnDateListView : ViewBase
     {
-        public CostOnDateListView(IRegionManager regionManager, IEventAggregator eventAggregator, CostOnDateListViewModel CostOnDateListViewModel) : base(regionManager, eventAggregator)
+        public SumOnDateListView(IRegionManager regionManager, IEventAggregator eventAggregator, SumOnDateListViewModel SumOnDateListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = CostOnDateListViewModel;
-			CostOnDateListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            DataContext = SumOnDateListViewModel;
+			SumOnDateListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((CostOnDateListViewModel)DataContext).LoadAsync();;
+			await ((SumOnDateListViewModel)DataContext).LoadAsync();;
         }
     }
 

@@ -234,9 +234,9 @@ namespace HVTApp.UI.Lookup
         public TestChildLookupDataService(HvtAppContext context) : base(context) { }
     }
 
-    public partial class CostOnDateLookupDataService : LookupDataService<CostOnDateLookup, SumOnDate>, ICostOnDateLookupDataService
+    public partial class SumOnDateLookupDataService : LookupDataService<SumOnDateLookup, SumOnDate>, ISumOnDateLookupDataService
     {
-        public CostOnDateLookupDataService(HvtAppContext context) : base(context) { }
+        public SumOnDateLookupDataService(HvtAppContext context) : base(context) { }
     }
 
     public partial class ProductLookupDataService : LookupDataService<ProductLookup, Product>, IProductLookupDataService

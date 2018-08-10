@@ -525,6 +525,8 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
         public System.String Value => GetValue<System.String>();
 
+        public System.Boolean IsOrigin => GetValue<System.Boolean>();
+
         #endregion
 
         #region ComplexProperties
@@ -946,19 +948,23 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 	}
-	public partial class CostOnDateLookup : LookupItem<SumOnDate>
+	public partial class SumOnDateLookup : LookupItem<SumOnDate>
 	{
-		public CostOnDateLookup(SumOnDate entity) : base(entity) 
+		public SumOnDateLookup(SumOnDate entity) : base(entity) 
 		{
 		}
 		protected override void RefreshLookups()
         {
-			 		}
+			 			Sum?.Refresh(Entity.Sum);
+		}
 		
         #region SimpleProperties
         public System.DateTime Date => GetValue<System.DateTime>();
 
-        public System.Double Cost => GetValue<System.Double>();
+        #endregion
+
+        #region ComplexProperties
+	    public SumLookup Sum { get { return GetLookup<SumLookup>(); } }
 
         #endregion
 	}

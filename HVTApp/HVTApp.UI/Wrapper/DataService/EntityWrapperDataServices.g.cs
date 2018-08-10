@@ -694,16 +694,16 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-    public partial class CostOnDateWrapperDataService : EntityWrapperDataService<SumOnDate, CostOnDateWrapper>
+    public partial class SumOnDateWrapperDataService : EntityWrapperDataService<SumOnDate, SumOnDateWrapper>
     {
-        public CostOnDateWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+        public SumOnDateWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 		
-		protected override CostOnDateWrapper GenerateWrapper(SumOnDate model)
+		protected override SumOnDateWrapper GenerateWrapper(SumOnDate model)
         {
             if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
                 return ExistsWrappers.Single(x => x.Model.Id == model.Id);
 
-            var wrapper = new CostOnDateWrapper(model);
+            var wrapper = new SumOnDateWrapper(model);
             ExistsWrappers.Add(wrapper);
             return wrapper;
         }

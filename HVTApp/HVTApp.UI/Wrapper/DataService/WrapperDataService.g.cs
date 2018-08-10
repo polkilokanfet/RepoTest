@@ -52,7 +52,7 @@ namespace HVTApp.UI.Wrapper
             TestHusbandWrapperDataService = new TestHusbandWrapperDataService(unitOfWork);
             TestWifeWrapperDataService = new TestWifeWrapperDataService(unitOfWork);
             TestChildWrapperDataService = new TestChildWrapperDataService(unitOfWork);
-            CostOnDateWrapperDataService = new CostOnDateWrapperDataService(unitOfWork);
+            SumOnDateWrapperDataService = new SumOnDateWrapperDataService(unitOfWork);
             ProductWrapperDataService = new ProductWrapperDataService(unitOfWork);
             OfferWrapperDataService = new OfferWrapperDataService(unitOfWork);
             EmployeeWrapperDataService = new EmployeeWrapperDataService(unitOfWork);
@@ -114,7 +114,7 @@ namespace HVTApp.UI.Wrapper
         public TestHusbandWrapperDataService TestHusbandWrapperDataService { get; }
         public TestWifeWrapperDataService TestWifeWrapperDataService { get; }
         public TestChildWrapperDataService TestChildWrapperDataService { get; }
-        public CostOnDateWrapperDataService CostOnDateWrapperDataService { get; }
+        public SumOnDateWrapperDataService SumOnDateWrapperDataService { get; }
         public ProductWrapperDataService ProductWrapperDataService { get; }
         public OfferWrapperDataService OfferWrapperDataService { get; }
         public EmployeeWrapperDataService EmployeeWrapperDataService { get; }

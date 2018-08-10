@@ -19,7 +19,7 @@ namespace HVTApp.UI.ViewModels
 
         public ProjectUnitDetailsViewModel(IUnityContainer container) : base(container) { }
 
-        protected override void InitCommands()
+        protected override void InitSpecialCommands()
         {
             SelectProductCommand = new DelegateCommand(SelectProduct_Execute);
             SelectFacilityCommand = new DelegateCommand(SelectFacility_Execute);

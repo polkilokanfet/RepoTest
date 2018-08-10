@@ -14,7 +14,11 @@ namespace HVTApp.UI.ViewModels
     {
         public CommonOptionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -27,11 +31,15 @@ namespace HVTApp.UI.ViewModels
 
         public AddressDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectLocalityCommand = async () => { return await UnitOfWork.GetRepository<Locality>().GetAllAsync(); };
 			SelectLocalityCommand = new DelegateCommand(SelectLocalityCommand_Execute);
 			ClearLocalityCommand = new DelegateCommand(ClearLocalityCommand_Execute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectLocalityCommand = async () => { return await UnitOfWork.GetRepository<Locality>().GetAllAsync(); };
 		}
 		private async void SelectLocalityCommand_Execute() 
 		{
@@ -50,7 +58,11 @@ namespace HVTApp.UI.ViewModels
     {
         public CountryDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -63,11 +75,15 @@ namespace HVTApp.UI.ViewModels
 
         public DistrictDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectCountryCommand = async () => { return await UnitOfWork.GetRepository<Country>().GetAllAsync(); };
 			SelectCountryCommand = new DelegateCommand(SelectCountryCommand_Execute);
 			ClearCountryCommand = new DelegateCommand(ClearCountryCommand_Execute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectCountryCommand = async () => { return await UnitOfWork.GetRepository<Country>().GetAllAsync(); };
 		}
 		private async void SelectCountryCommand_Execute() 
 		{
@@ -94,15 +110,19 @@ namespace HVTApp.UI.ViewModels
 
         public LocalityDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectLocalityTypeCommand = async () => { return await UnitOfWork.GetRepository<LocalityType>().GetAllAsync(); };
 			SelectLocalityTypeCommand = new DelegateCommand(SelectLocalityTypeCommand_Execute);
 			ClearLocalityTypeCommand = new DelegateCommand(ClearLocalityTypeCommand_Execute);
 
-            _getEntitiesForSelectRegionCommand = async () => { return await UnitOfWork.GetRepository<Region>().GetAllAsync(); };
 			SelectRegionCommand = new DelegateCommand(SelectRegionCommand_Execute);
 			ClearRegionCommand = new DelegateCommand(ClearRegionCommand_Execute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectLocalityTypeCommand = async () => { return await UnitOfWork.GetRepository<LocalityType>().GetAllAsync(); };
+            _getEntitiesForSelectRegionCommand = async () => { return await UnitOfWork.GetRepository<Region>().GetAllAsync(); };
 		}
 		private async void SelectLocalityTypeCommand_Execute() 
 		{
@@ -131,7 +151,11 @@ namespace HVTApp.UI.ViewModels
     {
         public LocalityTypeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -144,11 +168,15 @@ namespace HVTApp.UI.ViewModels
 
         public RegionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectDistrictCommand = async () => { return await UnitOfWork.GetRepository<District>().GetAllAsync(); };
 			SelectDistrictCommand = new DelegateCommand(SelectDistrictCommand_Execute);
 			ClearDistrictCommand = new DelegateCommand(ClearDistrictCommand_Execute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectDistrictCommand = async () => { return await UnitOfWork.GetRepository<District>().GetAllAsync(); };
 		}
 		private async void SelectDistrictCommand_Execute() 
 		{
@@ -219,23 +247,27 @@ namespace HVTApp.UI.ViewModels
 
         public CalculatePriceTaskDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectProductBlockCommand = async () => { return await UnitOfWork.GetRepository<ProductBlock>().GetAllAsync(); };
 			SelectProductBlockCommand = new DelegateCommand(SelectProductBlockCommand_Execute);
 			ClearProductBlockCommand = new DelegateCommand(ClearProductBlockCommand_Execute);
 
-			_getEntitiesForAddInProjectsCommand = async () => { return await UnitOfWork.GetRepository<Project>().GetAllAsync(); };;
 			AddInProjectsCommand = new DelegateCommand(AddInProjectsCommand_Execute);
 			RemoveFromProjectsCommand = new DelegateCommand(RemoveFromProjectsCommand_Execute, RemoveFromProjectsCommand_CanExecute);
 
-			_getEntitiesForAddInOffersCommand = async () => { return await UnitOfWork.GetRepository<Offer>().GetAllAsync(); };;
 			AddInOffersCommand = new DelegateCommand(AddInOffersCommand_Execute);
 			RemoveFromOffersCommand = new DelegateCommand(RemoveFromOffersCommand_Execute, RemoveFromOffersCommand_CanExecute);
 
-			_getEntitiesForAddInSpecificationsCommand = async () => { return await UnitOfWork.GetRepository<Specification>().GetAllAsync(); };;
 			AddInSpecificationsCommand = new DelegateCommand(AddInSpecificationsCommand_Execute);
 			RemoveFromSpecificationsCommand = new DelegateCommand(RemoveFromSpecificationsCommand_Execute, RemoveFromSpecificationsCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectProductBlockCommand = async () => { return await UnitOfWork.GetRepository<ProductBlock>().GetAllAsync(); };
+			_getEntitiesForAddInProjectsCommand = async () => { return await UnitOfWork.GetRepository<Project>().GetAllAsync(); };;
+			_getEntitiesForAddInOffersCommand = async () => { return await UnitOfWork.GetRepository<Offer>().GetAllAsync(); };;
+			_getEntitiesForAddInSpecificationsCommand = async () => { return await UnitOfWork.GetRepository<Specification>().GetAllAsync(); };;
 		}
 		private async void SelectProductBlockCommand_Execute() 
 		{
@@ -299,7 +331,11 @@ namespace HVTApp.UI.ViewModels
     {
         public SumDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -308,7 +344,11 @@ namespace HVTApp.UI.ViewModels
     {
         public CurrencyExchangeRateDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -325,15 +365,19 @@ namespace HVTApp.UI.ViewModels
 
         public DescribeProductBlockTaskDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectProductBlockCommand = async () => { return await UnitOfWork.GetRepository<ProductBlock>().GetAllAsync(); };
 			SelectProductBlockCommand = new DelegateCommand(SelectProductBlockCommand_Execute);
 			ClearProductBlockCommand = new DelegateCommand(ClearProductBlockCommand_Execute);
 
-            _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };
 			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
 			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectProductBlockCommand = async () => { return await UnitOfWork.GetRepository<ProductBlock>().GetAllAsync(); };
+            _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };
 		}
 		private async void SelectProductBlockCommand_Execute() 
 		{
@@ -362,7 +406,11 @@ namespace HVTApp.UI.ViewModels
     {
         public NoteDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -415,27 +463,31 @@ namespace HVTApp.UI.ViewModels
 
         public OfferUnitDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };
 			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
 			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
 
-            _getEntitiesForSelectFacilityCommand = async () => { return await UnitOfWork.GetRepository<Facility>().GetAllAsync(); };
 			SelectFacilityCommand = new DelegateCommand(SelectFacilityCommand_Execute);
 			ClearFacilityCommand = new DelegateCommand(ClearFacilityCommand_Execute);
 
-            _getEntitiesForSelectPaymentConditionSetCommand = async () => { return await UnitOfWork.GetRepository<PaymentConditionSet>().GetAllAsync(); };
 			SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute);
 			ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute);
 
-			_getEntitiesForAddInDependentProductsCommand = async () => { return await UnitOfWork.GetRepository<ProductDependent>().GetAllAsync(); };;
 			AddInDependentProductsCommand = new DelegateCommand(AddInDependentProductsCommand_Execute);
 			RemoveFromDependentProductsCommand = new DelegateCommand(RemoveFromDependentProductsCommand_Execute, RemoveFromDependentProductsCommand_CanExecute);
 
-			_getEntitiesForAddInServicesCommand = async () => { return await UnitOfWork.GetRepository<Service>().GetAllAsync(); };;
 			AddInServicesCommand = new DelegateCommand(AddInServicesCommand_Execute);
 			RemoveFromServicesCommand = new DelegateCommand(RemoveFromServicesCommand_Execute, RemoveFromServicesCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };
+            _getEntitiesForSelectFacilityCommand = async () => { return await UnitOfWork.GetRepository<Facility>().GetAllAsync(); };
+            _getEntitiesForSelectPaymentConditionSetCommand = async () => { return await UnitOfWork.GetRepository<PaymentConditionSet>().GetAllAsync(); };
+			_getEntitiesForAddInDependentProductsCommand = async () => { return await UnitOfWork.GetRepository<ProductDependent>().GetAllAsync(); };;
+			_getEntitiesForAddInServicesCommand = async () => { return await UnitOfWork.GetRepository<Service>().GetAllAsync(); };;
 		}
 		private async void SelectProductCommand_Execute() 
 		{
@@ -520,11 +572,15 @@ namespace HVTApp.UI.ViewModels
 
         public PaymentConditionSetDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			_getEntitiesForAddInPaymentConditionsCommand = async () => { return await UnitOfWork.GetRepository<PaymentCondition>().GetAllAsync(); };;
 			AddInPaymentConditionsCommand = new DelegateCommand(AddInPaymentConditionsCommand_Execute);
 			RemoveFromPaymentConditionsCommand = new DelegateCommand(RemoveFromPaymentConditionsCommand_Execute, RemoveFromPaymentConditionsCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+			_getEntitiesForAddInPaymentConditionsCommand = async () => { return await UnitOfWork.GetRepository<PaymentCondition>().GetAllAsync(); };;
 		}
 			private async void AddInPaymentConditionsCommand_Execute()
 			{
@@ -565,8 +621,8 @@ namespace HVTApp.UI.ViewModels
 		private Func<Task<List<SumOnDate>>> _getEntitiesForAddInPricesCommand;
 		public ICommand AddInPricesCommand { get; }
 		public ICommand RemoveFromPricesCommand { get; }
-		private CostOnDateWrapper _selectedPricesItem;
-		public CostOnDateWrapper SelectedPricesItem 
+		private SumOnDateWrapper _selectedPricesItem;
+		public SumOnDateWrapper SelectedPricesItem 
 		{ 
 			get { return _selectedPricesItem; }
 			set 
@@ -580,15 +636,19 @@ namespace HVTApp.UI.ViewModels
 
         public ProductBlockDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			_getEntitiesForAddInParametersCommand = async () => { return await UnitOfWork.GetRepository<Parameter>().GetAllAsync(); };;
 			AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute);
 			RemoveFromParametersCommand = new DelegateCommand(RemoveFromParametersCommand_Execute, RemoveFromParametersCommand_CanExecute);
 
-			_getEntitiesForAddInPricesCommand = async () => { return await UnitOfWork.GetRepository<SumOnDate>().GetAllAsync(); };;
 			AddInPricesCommand = new DelegateCommand(AddInPricesCommand_Execute);
 			RemoveFromPricesCommand = new DelegateCommand(RemoveFromPricesCommand_Execute, RemoveFromPricesCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+			_getEntitiesForAddInParametersCommand = async () => { return await UnitOfWork.GetRepository<Parameter>().GetAllAsync(); };;
+			_getEntitiesForAddInPricesCommand = async () => { return await UnitOfWork.GetRepository<SumOnDate>().GetAllAsync(); };;
 		}
 			private async void AddInParametersCommand_Execute()
 			{
@@ -607,7 +667,7 @@ namespace HVTApp.UI.ViewModels
 
 			private async void AddInPricesCommand_Execute()
 			{
-				SelectAndAddInListWrapper<SumOnDate, CostOnDateWrapper>(await _getEntitiesForAddInPricesCommand(), Item.Prices);
+				SelectAndAddInListWrapper<SumOnDate, SumOnDateWrapper>(await _getEntitiesForAddInPricesCommand(), Item.Prices);
 			}
 
 			private void RemoveFromPricesCommand_Execute()
@@ -631,11 +691,15 @@ namespace HVTApp.UI.ViewModels
 
         public ProductDependentDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };
 			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
 			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };
 		}
 		private async void SelectProductCommand_Execute() 
 		{
@@ -670,11 +734,15 @@ namespace HVTApp.UI.ViewModels
 
         public ProductionTaskDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			_getEntitiesForAddInSalesUnitsCommand = async () => { return await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync(); };;
 			AddInSalesUnitsCommand = new DelegateCommand(AddInSalesUnitsCommand_Execute);
 			RemoveFromSalesUnitsCommand = new DelegateCommand(RemoveFromSalesUnitsCommand_Execute, RemoveFromSalesUnitsCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+			_getEntitiesForAddInSalesUnitsCommand = async () => { return await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync(); };;
 		}
 			private async void AddInSalesUnitsCommand_Execute()
 			{
@@ -730,15 +798,19 @@ namespace HVTApp.UI.ViewModels
 
         public SalesBlockDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			_getEntitiesForAddInParentSalesUnitsCommand = async () => { return await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync(); };;
 			AddInParentSalesUnitsCommand = new DelegateCommand(AddInParentSalesUnitsCommand_Execute);
 			RemoveFromParentSalesUnitsCommand = new DelegateCommand(RemoveFromParentSalesUnitsCommand_Execute, RemoveFromParentSalesUnitsCommand_CanExecute);
 
-			_getEntitiesForAddInChildSalesUnitsCommand = async () => { return await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync(); };;
 			AddInChildSalesUnitsCommand = new DelegateCommand(AddInChildSalesUnitsCommand_Execute);
 			RemoveFromChildSalesUnitsCommand = new DelegateCommand(RemoveFromChildSalesUnitsCommand_Execute, RemoveFromChildSalesUnitsCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+			_getEntitiesForAddInParentSalesUnitsCommand = async () => { return await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync(); };;
+			_getEntitiesForAddInChildSalesUnitsCommand = async () => { return await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync(); };;
 		}
 			private async void AddInParentSalesUnitsCommand_Execute()
 			{
@@ -777,7 +849,11 @@ namespace HVTApp.UI.ViewModels
     {
         public BankDetailsDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -834,31 +910,35 @@ namespace HVTApp.UI.ViewModels
 
         public CompanyDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectFormCommand = async () => { return await UnitOfWork.GetRepository<CompanyForm>().GetAllAsync(); };
 			SelectFormCommand = new DelegateCommand(SelectFormCommand_Execute);
 			ClearFormCommand = new DelegateCommand(ClearFormCommand_Execute);
 
-            _getEntitiesForSelectParentCompanyCommand = async () => { return await UnitOfWork.GetRepository<Company>().GetAllAsync(); };
 			SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_Execute);
 			ClearParentCompanyCommand = new DelegateCommand(ClearParentCompanyCommand_Execute);
 
-            _getEntitiesForSelectAddressLegalCommand = async () => { return await UnitOfWork.GetRepository<Address>().GetAllAsync(); };
 			SelectAddressLegalCommand = new DelegateCommand(SelectAddressLegalCommand_Execute);
 			ClearAddressLegalCommand = new DelegateCommand(ClearAddressLegalCommand_Execute);
 
-            _getEntitiesForSelectAddressPostCommand = async () => { return await UnitOfWork.GetRepository<Address>().GetAllAsync(); };
 			SelectAddressPostCommand = new DelegateCommand(SelectAddressPostCommand_Execute);
 			ClearAddressPostCommand = new DelegateCommand(ClearAddressPostCommand_Execute);
 
-			_getEntitiesForAddInBankDetailsListCommand = async () => { return await UnitOfWork.GetRepository<BankDetails>().GetAllAsync(); };;
 			AddInBankDetailsListCommand = new DelegateCommand(AddInBankDetailsListCommand_Execute);
 			RemoveFromBankDetailsListCommand = new DelegateCommand(RemoveFromBankDetailsListCommand_Execute, RemoveFromBankDetailsListCommand_CanExecute);
 
-			_getEntitiesForAddInActivityFildsCommand = async () => { return await UnitOfWork.GetRepository<ActivityField>().GetAllAsync(); };;
 			AddInActivityFildsCommand = new DelegateCommand(AddInActivityFildsCommand_Execute);
 			RemoveFromActivityFildsCommand = new DelegateCommand(RemoveFromActivityFildsCommand_Execute, RemoveFromActivityFildsCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectFormCommand = async () => { return await UnitOfWork.GetRepository<CompanyForm>().GetAllAsync(); };
+            _getEntitiesForSelectParentCompanyCommand = async () => { return await UnitOfWork.GetRepository<Company>().GetAllAsync(); };
+            _getEntitiesForSelectAddressLegalCommand = async () => { return await UnitOfWork.GetRepository<Address>().GetAllAsync(); };
+            _getEntitiesForSelectAddressPostCommand = async () => { return await UnitOfWork.GetRepository<Address>().GetAllAsync(); };
+			_getEntitiesForAddInBankDetailsListCommand = async () => { return await UnitOfWork.GetRepository<BankDetails>().GetAllAsync(); };;
+			_getEntitiesForAddInActivityFildsCommand = async () => { return await UnitOfWork.GetRepository<ActivityField>().GetAllAsync(); };;
 		}
 		private async void SelectFormCommand_Execute() 
 		{
@@ -937,7 +1017,11 @@ namespace HVTApp.UI.ViewModels
     {
         public CompanyFormDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -946,7 +1030,11 @@ namespace HVTApp.UI.ViewModels
     {
         public DocumentsRegistrationDetailsDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -955,7 +1043,11 @@ namespace HVTApp.UI.ViewModels
     {
         public EmployeesPositionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -964,7 +1056,11 @@ namespace HVTApp.UI.ViewModels
     {
         public FacilityTypeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -973,7 +1069,11 @@ namespace HVTApp.UI.ViewModels
     {
         public ActivityFieldDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -986,11 +1086,15 @@ namespace HVTApp.UI.ViewModels
 
         public ContractDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectContragentCommand = async () => { return await UnitOfWork.GetRepository<Company>().GetAllAsync(); };
 			SelectContragentCommand = new DelegateCommand(SelectContragentCommand_Execute);
 			ClearContragentCommand = new DelegateCommand(ClearContragentCommand_Execute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectContragentCommand = async () => { return await UnitOfWork.GetRepository<Company>().GetAllAsync(); };
 		}
 		private async void SelectContragentCommand_Execute() 
 		{
@@ -1009,7 +1113,11 @@ namespace HVTApp.UI.ViewModels
     {
         public MeasureDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -1038,15 +1146,19 @@ namespace HVTApp.UI.ViewModels
 
         public ParameterDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectParameterGroupCommand = async () => { return await UnitOfWork.GetRepository<ParameterGroup>().GetAllAsync(); };
 			SelectParameterGroupCommand = new DelegateCommand(SelectParameterGroupCommand_Execute);
 			ClearParameterGroupCommand = new DelegateCommand(ClearParameterGroupCommand_Execute);
 
-			_getEntitiesForAddInParameterRelationsCommand = async () => { return await UnitOfWork.GetRepository<ParameterRelation>().GetAllAsync(); };;
 			AddInParameterRelationsCommand = new DelegateCommand(AddInParameterRelationsCommand_Execute);
 			RemoveFromParameterRelationsCommand = new DelegateCommand(RemoveFromParameterRelationsCommand_Execute, RemoveFromParameterRelationsCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectParameterGroupCommand = async () => { return await UnitOfWork.GetRepository<ParameterGroup>().GetAllAsync(); };
+			_getEntitiesForAddInParameterRelationsCommand = async () => { return await UnitOfWork.GetRepository<ParameterRelation>().GetAllAsync(); };;
 		}
 		private async void SelectParameterGroupCommand_Execute() 
 		{
@@ -1084,11 +1196,15 @@ namespace HVTApp.UI.ViewModels
 
         public ParameterGroupDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectMeasureCommand = async () => { return await UnitOfWork.GetRepository<Measure>().GetAllAsync(); };
 			SelectMeasureCommand = new DelegateCommand(SelectMeasureCommand_Execute);
 			ClearMeasureCommand = new DelegateCommand(ClearMeasureCommand_Execute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectMeasureCommand = async () => { return await UnitOfWork.GetRepository<Measure>().GetAllAsync(); };
 		}
 		private async void SelectMeasureCommand_Execute() 
 		{
@@ -1139,15 +1255,19 @@ namespace HVTApp.UI.ViewModels
 
         public ProductRelationDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			_getEntitiesForAddInParentProductParametersCommand = async () => { return await UnitOfWork.GetRepository<Parameter>().GetAllAsync(); };;
 			AddInParentProductParametersCommand = new DelegateCommand(AddInParentProductParametersCommand_Execute);
 			RemoveFromParentProductParametersCommand = new DelegateCommand(RemoveFromParentProductParametersCommand_Execute, RemoveFromParentProductParametersCommand_CanExecute);
 
-			_getEntitiesForAddInChildProductParametersCommand = async () => { return await UnitOfWork.GetRepository<Parameter>().GetAllAsync(); };;
 			AddInChildProductParametersCommand = new DelegateCommand(AddInChildProductParametersCommand_Execute);
 			RemoveFromChildProductParametersCommand = new DelegateCommand(RemoveFromChildProductParametersCommand_Execute, RemoveFromChildProductParametersCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+			_getEntitiesForAddInParentProductParametersCommand = async () => { return await UnitOfWork.GetRepository<Parameter>().GetAllAsync(); };;
+			_getEntitiesForAddInChildProductParametersCommand = async () => { return await UnitOfWork.GetRepository<Parameter>().GetAllAsync(); };;
 		}
 			private async void AddInParentProductParametersCommand_Execute()
 			{
@@ -1186,7 +1306,11 @@ namespace HVTApp.UI.ViewModels
     {
         public PersonDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -1215,15 +1339,19 @@ namespace HVTApp.UI.ViewModels
 
         public PaymentPlannedListDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectConditionCommand = async () => { return await UnitOfWork.GetRepository<PaymentCondition>().GetAllAsync(); };
 			SelectConditionCommand = new DelegateCommand(SelectConditionCommand_Execute);
 			ClearConditionCommand = new DelegateCommand(ClearConditionCommand_Execute);
 
-			_getEntitiesForAddInPaymentsCommand = async () => { return await UnitOfWork.GetRepository<PaymentPlanned>().GetAllAsync(); };;
 			AddInPaymentsCommand = new DelegateCommand(AddInPaymentsCommand_Execute);
 			RemoveFromPaymentsCommand = new DelegateCommand(RemoveFromPaymentsCommand_Execute, RemoveFromPaymentsCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectConditionCommand = async () => { return await UnitOfWork.GetRepository<PaymentCondition>().GetAllAsync(); };
+			_getEntitiesForAddInPaymentsCommand = async () => { return await UnitOfWork.GetRepository<PaymentPlanned>().GetAllAsync(); };;
 		}
 		private async void SelectConditionCommand_Execute() 
 		{
@@ -1257,7 +1385,11 @@ namespace HVTApp.UI.ViewModels
     {
         public PaymentPlannedDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -1266,7 +1398,11 @@ namespace HVTApp.UI.ViewModels
     {
         public PaymentActualDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -1291,11 +1427,15 @@ namespace HVTApp.UI.ViewModels
 
         public ParameterRelationDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			_getEntitiesForAddInRequiredParametersCommand = async () => { return await UnitOfWork.GetRepository<Parameter>().GetAllAsync(); };;
 			AddInRequiredParametersCommand = new DelegateCommand(AddInRequiredParametersCommand_Execute);
 			RemoveFromRequiredParametersCommand = new DelegateCommand(RemoveFromRequiredParametersCommand_Execute, RemoveFromRequiredParametersCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+			_getEntitiesForAddInRequiredParametersCommand = async () => { return await UnitOfWork.GetRepository<Parameter>().GetAllAsync(); };;
 		}
 			private async void AddInRequiredParametersCommand_Execute()
 			{
@@ -1411,51 +1551,55 @@ namespace HVTApp.UI.ViewModels
 
         public SalesUnitDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };
 			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
 			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
 
-            _getEntitiesForSelectFacilityCommand = async () => { return await UnitOfWork.GetRepository<Facility>().GetAllAsync(); };
 			SelectFacilityCommand = new DelegateCommand(SelectFacilityCommand_Execute);
 			ClearFacilityCommand = new DelegateCommand(ClearFacilityCommand_Execute);
 
-            _getEntitiesForSelectPaymentConditionSetCommand = async () => { return await UnitOfWork.GetRepository<PaymentConditionSet>().GetAllAsync(); };
 			SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute);
 			ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute);
 
-            _getEntitiesForSelectProducerCommand = async () => { return await UnitOfWork.GetRepository<Company>().GetAllAsync(); };
 			SelectProducerCommand = new DelegateCommand(SelectProducerCommand_Execute);
 			ClearProducerCommand = new DelegateCommand(ClearProducerCommand_Execute);
 
-            _getEntitiesForSelectOrderCommand = async () => { return await UnitOfWork.GetRepository<Order>().GetAllAsync(); };
 			SelectOrderCommand = new DelegateCommand(SelectOrderCommand_Execute);
 			ClearOrderCommand = new DelegateCommand(ClearOrderCommand_Execute);
 
-            _getEntitiesForSelectSpecificationCommand = async () => { return await UnitOfWork.GetRepository<Specification>().GetAllAsync(); };
 			SelectSpecificationCommand = new DelegateCommand(SelectSpecificationCommand_Execute);
 			ClearSpecificationCommand = new DelegateCommand(ClearSpecificationCommand_Execute);
 
-            _getEntitiesForSelectAddressCommand = async () => { return await UnitOfWork.GetRepository<Address>().GetAllAsync(); };
 			SelectAddressCommand = new DelegateCommand(SelectAddressCommand_Execute);
 			ClearAddressCommand = new DelegateCommand(ClearAddressCommand_Execute);
 
-			_getEntitiesForAddInDependentProductsCommand = async () => { return await UnitOfWork.GetRepository<ProductDependent>().GetAllAsync(); };;
 			AddInDependentProductsCommand = new DelegateCommand(AddInDependentProductsCommand_Execute);
 			RemoveFromDependentProductsCommand = new DelegateCommand(RemoveFromDependentProductsCommand_Execute, RemoveFromDependentProductsCommand_CanExecute);
 
-			_getEntitiesForAddInServicesCommand = async () => { return await UnitOfWork.GetRepository<Service>().GetAllAsync(); };;
 			AddInServicesCommand = new DelegateCommand(AddInServicesCommand_Execute);
 			RemoveFromServicesCommand = new DelegateCommand(RemoveFromServicesCommand_Execute, RemoveFromServicesCommand_CanExecute);
 
-			_getEntitiesForAddInPaymentsActualCommand = async () => { return await UnitOfWork.GetRepository<PaymentActual>().GetAllAsync(); };;
 			AddInPaymentsActualCommand = new DelegateCommand(AddInPaymentsActualCommand_Execute);
 			RemoveFromPaymentsActualCommand = new DelegateCommand(RemoveFromPaymentsActualCommand_Execute, RemoveFromPaymentsActualCommand_CanExecute);
 
-			_getEntitiesForAddInPaymentsPlannedSavedCommand = async () => { return await UnitOfWork.GetRepository<PaymentPlannedList>().GetAllAsync(); };;
 			AddInPaymentsPlannedSavedCommand = new DelegateCommand(AddInPaymentsPlannedSavedCommand_Execute);
 			RemoveFromPaymentsPlannedSavedCommand = new DelegateCommand(RemoveFromPaymentsPlannedSavedCommand_Execute, RemoveFromPaymentsPlannedSavedCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };
+            _getEntitiesForSelectFacilityCommand = async () => { return await UnitOfWork.GetRepository<Facility>().GetAllAsync(); };
+            _getEntitiesForSelectPaymentConditionSetCommand = async () => { return await UnitOfWork.GetRepository<PaymentConditionSet>().GetAllAsync(); };
+            _getEntitiesForSelectProducerCommand = async () => { return await UnitOfWork.GetRepository<Company>().GetAllAsync(); };
+            _getEntitiesForSelectOrderCommand = async () => { return await UnitOfWork.GetRepository<Order>().GetAllAsync(); };
+            _getEntitiesForSelectSpecificationCommand = async () => { return await UnitOfWork.GetRepository<Specification>().GetAllAsync(); };
+            _getEntitiesForSelectAddressCommand = async () => { return await UnitOfWork.GetRepository<Address>().GetAllAsync(); };
+			_getEntitiesForAddInDependentProductsCommand = async () => { return await UnitOfWork.GetRepository<ProductDependent>().GetAllAsync(); };;
+			_getEntitiesForAddInServicesCommand = async () => { return await UnitOfWork.GetRepository<Service>().GetAllAsync(); };;
+			_getEntitiesForAddInPaymentsActualCommand = async () => { return await UnitOfWork.GetRepository<PaymentActual>().GetAllAsync(); };;
+			_getEntitiesForAddInPaymentsPlannedSavedCommand = async () => { return await UnitOfWork.GetRepository<PaymentPlannedList>().GetAllAsync(); };;
 		}
 		private async void SelectProductCommand_Execute() 
 		{
@@ -1594,7 +1738,11 @@ namespace HVTApp.UI.ViewModels
     {
         public ServiceDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -1603,7 +1751,11 @@ namespace HVTApp.UI.ViewModels
     {
         public TestFriendAddressDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -1640,23 +1792,27 @@ namespace HVTApp.UI.ViewModels
 
         public TestFriendDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectTestFriendAddressCommand = async () => { return await UnitOfWork.GetRepository<TestFriendAddress>().GetAllAsync(); };
 			SelectTestFriendAddressCommand = new DelegateCommand(SelectTestFriendAddressCommand_Execute);
 			ClearTestFriendAddressCommand = new DelegateCommand(ClearTestFriendAddressCommand_Execute);
 
-            _getEntitiesForSelectTestFriendGroupCommand = async () => { return await UnitOfWork.GetRepository<TestFriendGroup>().GetAllAsync(); };
 			SelectTestFriendGroupCommand = new DelegateCommand(SelectTestFriendGroupCommand_Execute);
 			ClearTestFriendGroupCommand = new DelegateCommand(ClearTestFriendGroupCommand_Execute);
 
-            _getEntitiesForSelectTestFriendEmailGetCommand = async () => { return await UnitOfWork.GetRepository<TestFriendEmail>().GetAllAsync(); };
 			SelectTestFriendEmailGetCommand = new DelegateCommand(SelectTestFriendEmailGetCommand_Execute);
 			ClearTestFriendEmailGetCommand = new DelegateCommand(ClearTestFriendEmailGetCommand_Execute);
 
-			_getEntitiesForAddInEmailsCommand = async () => { return await UnitOfWork.GetRepository<TestFriendEmail>().GetAllAsync(); };;
 			AddInEmailsCommand = new DelegateCommand(AddInEmailsCommand_Execute);
 			RemoveFromEmailsCommand = new DelegateCommand(RemoveFromEmailsCommand_Execute, RemoveFromEmailsCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectTestFriendAddressCommand = async () => { return await UnitOfWork.GetRepository<TestFriendAddress>().GetAllAsync(); };
+            _getEntitiesForSelectTestFriendGroupCommand = async () => { return await UnitOfWork.GetRepository<TestFriendGroup>().GetAllAsync(); };
+            _getEntitiesForSelectTestFriendEmailGetCommand = async () => { return await UnitOfWork.GetRepository<TestFriendEmail>().GetAllAsync(); };
+			_getEntitiesForAddInEmailsCommand = async () => { return await UnitOfWork.GetRepository<TestFriendEmail>().GetAllAsync(); };;
 		}
 		private async void SelectTestFriendAddressCommand_Execute() 
 		{
@@ -1710,7 +1866,11 @@ namespace HVTApp.UI.ViewModels
     {
         public TestFriendEmailDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -1735,11 +1895,15 @@ namespace HVTApp.UI.ViewModels
 
         public TestFriendGroupDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			_getEntitiesForAddInFriendTestsCommand = async () => { return await UnitOfWork.GetRepository<TestFriend>().GetAllAsync(); };;
 			AddInFriendTestsCommand = new DelegateCommand(AddInFriendTestsCommand_Execute);
 			RemoveFromFriendTestsCommand = new DelegateCommand(RemoveFromFriendTestsCommand_Execute, RemoveFromFriendTestsCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+			_getEntitiesForAddInFriendTestsCommand = async () => { return await UnitOfWork.GetRepository<TestFriend>().GetAllAsync(); };;
 		}
 			private async void AddInFriendTestsCommand_Execute()
 			{
@@ -1803,35 +1967,39 @@ namespace HVTApp.UI.ViewModels
 
         public DocumentDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectRequestDocumentCommand = async () => { return await UnitOfWork.GetRepository<Document>().GetAllAsync(); };
 			SelectRequestDocumentCommand = new DelegateCommand(SelectRequestDocumentCommand_Execute);
 			ClearRequestDocumentCommand = new DelegateCommand(ClearRequestDocumentCommand_Execute);
 
-            _getEntitiesForSelectAuthorCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };
 			SelectAuthorCommand = new DelegateCommand(SelectAuthorCommand_Execute);
 			ClearAuthorCommand = new DelegateCommand(ClearAuthorCommand_Execute);
 
-            _getEntitiesForSelectSenderEmployeeCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };
 			SelectSenderEmployeeCommand = new DelegateCommand(SelectSenderEmployeeCommand_Execute);
 			ClearSenderEmployeeCommand = new DelegateCommand(ClearSenderEmployeeCommand_Execute);
 
-            _getEntitiesForSelectRecipientEmployeeCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };
 			SelectRecipientEmployeeCommand = new DelegateCommand(SelectRecipientEmployeeCommand_Execute);
 			ClearRecipientEmployeeCommand = new DelegateCommand(ClearRecipientEmployeeCommand_Execute);
 
-            _getEntitiesForSelectRegistrationDetailsOfSenderCommand = async () => { return await UnitOfWork.GetRepository<DocumentsRegistrationDetails>().GetAllAsync(); };
 			SelectRegistrationDetailsOfSenderCommand = new DelegateCommand(SelectRegistrationDetailsOfSenderCommand_Execute);
 			ClearRegistrationDetailsOfSenderCommand = new DelegateCommand(ClearRegistrationDetailsOfSenderCommand_Execute);
 
-            _getEntitiesForSelectRegistrationDetailsOfRecipientCommand = async () => { return await UnitOfWork.GetRepository<DocumentsRegistrationDetails>().GetAllAsync(); };
 			SelectRegistrationDetailsOfRecipientCommand = new DelegateCommand(SelectRegistrationDetailsOfRecipientCommand_Execute);
 			ClearRegistrationDetailsOfRecipientCommand = new DelegateCommand(ClearRegistrationDetailsOfRecipientCommand_Execute);
 
-			_getEntitiesForAddInCopyToRecipientsCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };;
 			AddInCopyToRecipientsCommand = new DelegateCommand(AddInCopyToRecipientsCommand_Execute);
 			RemoveFromCopyToRecipientsCommand = new DelegateCommand(RemoveFromCopyToRecipientsCommand_Execute, RemoveFromCopyToRecipientsCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectRequestDocumentCommand = async () => { return await UnitOfWork.GetRepository<Document>().GetAllAsync(); };
+            _getEntitiesForSelectAuthorCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };
+            _getEntitiesForSelectSenderEmployeeCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };
+            _getEntitiesForSelectRecipientEmployeeCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };
+            _getEntitiesForSelectRegistrationDetailsOfSenderCommand = async () => { return await UnitOfWork.GetRepository<DocumentsRegistrationDetails>().GetAllAsync(); };
+            _getEntitiesForSelectRegistrationDetailsOfRecipientCommand = async () => { return await UnitOfWork.GetRepository<DocumentsRegistrationDetails>().GetAllAsync(); };
+			_getEntitiesForAddInCopyToRecipientsCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };;
 		}
 		private async void SelectRequestDocumentCommand_Execute() 
 		{
@@ -1915,7 +2083,11 @@ namespace HVTApp.UI.ViewModels
     {
         public TestEntityDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -1944,15 +2116,19 @@ namespace HVTApp.UI.ViewModels
 
         public TestHusbandDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectWifeCommand = async () => { return await UnitOfWork.GetRepository<TestWife>().GetAllAsync(); };
 			SelectWifeCommand = new DelegateCommand(SelectWifeCommand_Execute);
 			ClearWifeCommand = new DelegateCommand(ClearWifeCommand_Execute);
 
-			_getEntitiesForAddInChildrenCommand = async () => { return await UnitOfWork.GetRepository<TestChild>().GetAllAsync(); };;
 			AddInChildrenCommand = new DelegateCommand(AddInChildrenCommand_Execute);
 			RemoveFromChildrenCommand = new DelegateCommand(RemoveFromChildrenCommand_Execute, RemoveFromChildrenCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectWifeCommand = async () => { return await UnitOfWork.GetRepository<TestWife>().GetAllAsync(); };
+			_getEntitiesForAddInChildrenCommand = async () => { return await UnitOfWork.GetRepository<TestChild>().GetAllAsync(); };;
 		}
 		private async void SelectWifeCommand_Execute() 
 		{
@@ -1990,11 +2166,15 @@ namespace HVTApp.UI.ViewModels
 
         public TestWifeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectHusbandCommand = async () => { return await UnitOfWork.GetRepository<TestHusband>().GetAllAsync(); };
 			SelectHusbandCommand = new DelegateCommand(SelectHusbandCommand_Execute);
 			ClearHusbandCommand = new DelegateCommand(ClearHusbandCommand_Execute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectHusbandCommand = async () => { return await UnitOfWork.GetRepository<TestHusband>().GetAllAsync(); };
 		}
 		private async void SelectHusbandCommand_Execute() 
 		{
@@ -2021,15 +2201,19 @@ namespace HVTApp.UI.ViewModels
 
         public TestChildDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectHusbandCommand = async () => { return await UnitOfWork.GetRepository<TestHusband>().GetAllAsync(); };
 			SelectHusbandCommand = new DelegateCommand(SelectHusbandCommand_Execute);
 			ClearHusbandCommand = new DelegateCommand(ClearHusbandCommand_Execute);
 
-            _getEntitiesForSelectWifeCommand = async () => { return await UnitOfWork.GetRepository<TestWife>().GetAllAsync(); };
 			SelectWifeCommand = new DelegateCommand(SelectWifeCommand_Execute);
 			ClearWifeCommand = new DelegateCommand(ClearWifeCommand_Execute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectHusbandCommand = async () => { return await UnitOfWork.GetRepository<TestHusband>().GetAllAsync(); };
+            _getEntitiesForSelectWifeCommand = async () => { return await UnitOfWork.GetRepository<TestWife>().GetAllAsync(); };
 		}
 		private async void SelectHusbandCommand_Execute() 
 		{
@@ -2054,12 +2238,34 @@ namespace HVTApp.UI.ViewModels
 
     }
 
-    public partial class CostOnDateDetailsViewModel : BaseDetailsViewModel<CostOnDateWrapper, SumOnDate, AfterSaveCostOnDateEvent>
+    public partial class SumOnDateDetailsViewModel : BaseDetailsViewModel<SumOnDateWrapper, SumOnDate, AfterSaveSumOnDateEvent>
     {
-        public CostOnDateDetailsViewModel(IUnityContainer container) : base(container) 
+		private Func<Task<List<Sum>>> _getEntitiesForSelectSumCommand;
+		public ICommand SelectSumCommand { get; }
+		public ICommand ClearSumCommand { get; }
+
+        public SumOnDateDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+			SelectSumCommand = new DelegateCommand(SelectSumCommand_Execute);
+			ClearSumCommand = new DelegateCommand(ClearSumCommand_Execute);
+
 		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectSumCommand = async () => { return await UnitOfWork.GetRepository<Sum>().GetAllAsync(); };
+		}
+		private async void SelectSumCommand_Execute() 
+		{
+            SelectAndSetWrapper<Sum, SumWrapper>(await _getEntitiesForSelectSumCommand(), nameof(Item.Sum), Item.Sum?.Id);
+		}
+
+		private void ClearSumCommand_Execute() 
+		{
+		    Item.Sum = null;
+		}
+
 
     }
 
@@ -2087,15 +2293,19 @@ namespace HVTApp.UI.ViewModels
 
         public ProductDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectProductBlockCommand = async () => { return await UnitOfWork.GetRepository<ProductBlock>().GetAllAsync(); };
 			SelectProductBlockCommand = new DelegateCommand(SelectProductBlockCommand_Execute);
 			ClearProductBlockCommand = new DelegateCommand(ClearProductBlockCommand_Execute);
 
-			_getEntitiesForAddInDependentProductsCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };;
 			AddInDependentProductsCommand = new DelegateCommand(AddInDependentProductsCommand_Execute);
 			RemoveFromDependentProductsCommand = new DelegateCommand(RemoveFromDependentProductsCommand_Execute, RemoveFromDependentProductsCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectProductBlockCommand = async () => { return await UnitOfWork.GetRepository<ProductBlock>().GetAllAsync(); };
+			_getEntitiesForAddInDependentProductsCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };;
 		}
 		private async void SelectProductBlockCommand_Execute() 
 		{
@@ -2189,43 +2399,47 @@ namespace HVTApp.UI.ViewModels
 
         public OfferDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectProjectCommand = async () => { return await UnitOfWork.GetRepository<Project>().GetAllAsync(); };
 			SelectProjectCommand = new DelegateCommand(SelectProjectCommand_Execute);
 			ClearProjectCommand = new DelegateCommand(ClearProjectCommand_Execute);
 
-            _getEntitiesForSelectRequestDocumentCommand = async () => { return await UnitOfWork.GetRepository<Document>().GetAllAsync(); };
 			SelectRequestDocumentCommand = new DelegateCommand(SelectRequestDocumentCommand_Execute);
 			ClearRequestDocumentCommand = new DelegateCommand(ClearRequestDocumentCommand_Execute);
 
-            _getEntitiesForSelectAuthorCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };
 			SelectAuthorCommand = new DelegateCommand(SelectAuthorCommand_Execute);
 			ClearAuthorCommand = new DelegateCommand(ClearAuthorCommand_Execute);
 
-            _getEntitiesForSelectSenderEmployeeCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };
 			SelectSenderEmployeeCommand = new DelegateCommand(SelectSenderEmployeeCommand_Execute);
 			ClearSenderEmployeeCommand = new DelegateCommand(ClearSenderEmployeeCommand_Execute);
 
-            _getEntitiesForSelectRecipientEmployeeCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };
 			SelectRecipientEmployeeCommand = new DelegateCommand(SelectRecipientEmployeeCommand_Execute);
 			ClearRecipientEmployeeCommand = new DelegateCommand(ClearRecipientEmployeeCommand_Execute);
 
-            _getEntitiesForSelectRegistrationDetailsOfSenderCommand = async () => { return await UnitOfWork.GetRepository<DocumentsRegistrationDetails>().GetAllAsync(); };
 			SelectRegistrationDetailsOfSenderCommand = new DelegateCommand(SelectRegistrationDetailsOfSenderCommand_Execute);
 			ClearRegistrationDetailsOfSenderCommand = new DelegateCommand(ClearRegistrationDetailsOfSenderCommand_Execute);
 
-            _getEntitiesForSelectRegistrationDetailsOfRecipientCommand = async () => { return await UnitOfWork.GetRepository<DocumentsRegistrationDetails>().GetAllAsync(); };
 			SelectRegistrationDetailsOfRecipientCommand = new DelegateCommand(SelectRegistrationDetailsOfRecipientCommand_Execute);
 			ClearRegistrationDetailsOfRecipientCommand = new DelegateCommand(ClearRegistrationDetailsOfRecipientCommand_Execute);
 
-			_getEntitiesForAddInOfferUnitsCommand = async () => { return await UnitOfWork.GetRepository<OfferUnit>().GetAllAsync(); };;
 			AddInOfferUnitsCommand = new DelegateCommand(AddInOfferUnitsCommand_Execute);
 			RemoveFromOfferUnitsCommand = new DelegateCommand(RemoveFromOfferUnitsCommand_Execute, RemoveFromOfferUnitsCommand_CanExecute);
 
-			_getEntitiesForAddInCopyToRecipientsCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };;
 			AddInCopyToRecipientsCommand = new DelegateCommand(AddInCopyToRecipientsCommand_Execute);
 			RemoveFromCopyToRecipientsCommand = new DelegateCommand(RemoveFromCopyToRecipientsCommand_Execute, RemoveFromCopyToRecipientsCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectProjectCommand = async () => { return await UnitOfWork.GetRepository<Project>().GetAllAsync(); };
+            _getEntitiesForSelectRequestDocumentCommand = async () => { return await UnitOfWork.GetRepository<Document>().GetAllAsync(); };
+            _getEntitiesForSelectAuthorCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };
+            _getEntitiesForSelectSenderEmployeeCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };
+            _getEntitiesForSelectRecipientEmployeeCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };
+            _getEntitiesForSelectRegistrationDetailsOfSenderCommand = async () => { return await UnitOfWork.GetRepository<DocumentsRegistrationDetails>().GetAllAsync(); };
+            _getEntitiesForSelectRegistrationDetailsOfRecipientCommand = async () => { return await UnitOfWork.GetRepository<DocumentsRegistrationDetails>().GetAllAsync(); };
+			_getEntitiesForAddInOfferUnitsCommand = async () => { return await UnitOfWork.GetRepository<OfferUnit>().GetAllAsync(); };;
+			_getEntitiesForAddInCopyToRecipientsCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };;
 		}
 		private async void SelectProjectCommand_Execute() 
 		{
@@ -2346,19 +2560,23 @@ namespace HVTApp.UI.ViewModels
 
         public EmployeeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectPersonCommand = async () => { return await UnitOfWork.GetRepository<Person>().GetAllAsync(); };
 			SelectPersonCommand = new DelegateCommand(SelectPersonCommand_Execute);
 			ClearPersonCommand = new DelegateCommand(ClearPersonCommand_Execute);
 
-            _getEntitiesForSelectCompanyCommand = async () => { return await UnitOfWork.GetRepository<Company>().GetAllAsync(); };
 			SelectCompanyCommand = new DelegateCommand(SelectCompanyCommand_Execute);
 			ClearCompanyCommand = new DelegateCommand(ClearCompanyCommand_Execute);
 
-            _getEntitiesForSelectPositionCommand = async () => { return await UnitOfWork.GetRepository<EmployeesPosition>().GetAllAsync(); };
 			SelectPositionCommand = new DelegateCommand(SelectPositionCommand_Execute);
 			ClearPositionCommand = new DelegateCommand(ClearPositionCommand_Execute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectPersonCommand = async () => { return await UnitOfWork.GetRepository<Person>().GetAllAsync(); };
+            _getEntitiesForSelectCompanyCommand = async () => { return await UnitOfWork.GetRepository<Company>().GetAllAsync(); };
+            _getEntitiesForSelectPositionCommand = async () => { return await UnitOfWork.GetRepository<EmployeesPosition>().GetAllAsync(); };
 		}
 		private async void SelectPersonCommand_Execute() 
 		{
@@ -2397,7 +2615,11 @@ namespace HVTApp.UI.ViewModels
     {
         public OrderDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -2406,7 +2628,11 @@ namespace HVTApp.UI.ViewModels
     {
         public PaymentConditionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -2431,11 +2657,15 @@ namespace HVTApp.UI.ViewModels
 
         public PaymentDocumentDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			_getEntitiesForAddInPaymentsCommand = async () => { return await UnitOfWork.GetRepository<PaymentActual>().GetAllAsync(); };;
 			AddInPaymentsCommand = new DelegateCommand(AddInPaymentsCommand_Execute);
 			RemoveFromPaymentsCommand = new DelegateCommand(RemoveFromPaymentsCommand_Execute, RemoveFromPaymentsCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+			_getEntitiesForAddInPaymentsCommand = async () => { return await UnitOfWork.GetRepository<PaymentActual>().GetAllAsync(); };;
 		}
 			private async void AddInPaymentsCommand_Execute()
 			{
@@ -2471,19 +2701,23 @@ namespace HVTApp.UI.ViewModels
 
         public FacilityDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectTypeCommand = async () => { return await UnitOfWork.GetRepository<FacilityType>().GetAllAsync(); };
 			SelectTypeCommand = new DelegateCommand(SelectTypeCommand_Execute);
 			ClearTypeCommand = new DelegateCommand(ClearTypeCommand_Execute);
 
-            _getEntitiesForSelectOwnerCompanyCommand = async () => { return await UnitOfWork.GetRepository<Company>().GetAllAsync(); };
 			SelectOwnerCompanyCommand = new DelegateCommand(SelectOwnerCompanyCommand_Execute);
 			ClearOwnerCompanyCommand = new DelegateCommand(ClearOwnerCompanyCommand_Execute);
 
-            _getEntitiesForSelectAddressCommand = async () => { return await UnitOfWork.GetRepository<Address>().GetAllAsync(); };
 			SelectAddressCommand = new DelegateCommand(SelectAddressCommand_Execute);
 			ClearAddressCommand = new DelegateCommand(ClearAddressCommand_Execute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectTypeCommand = async () => { return await UnitOfWork.GetRepository<FacilityType>().GetAllAsync(); };
+            _getEntitiesForSelectOwnerCompanyCommand = async () => { return await UnitOfWork.GetRepository<Company>().GetAllAsync(); };
+            _getEntitiesForSelectAddressCommand = async () => { return await UnitOfWork.GetRepository<Address>().GetAllAsync(); };
 		}
 		private async void SelectTypeCommand_Execute() 
 		{
@@ -2558,19 +2792,23 @@ namespace HVTApp.UI.ViewModels
 
         public ProjectDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectManagerCommand = async () => { return await UnitOfWork.GetRepository<User>().GetAllAsync(); };
 			SelectManagerCommand = new DelegateCommand(SelectManagerCommand_Execute);
 			ClearManagerCommand = new DelegateCommand(ClearManagerCommand_Execute);
 
-			_getEntitiesForAddInSalesUnitsCommand = async () => { return await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync(); };;
 			AddInSalesUnitsCommand = new DelegateCommand(AddInSalesUnitsCommand_Execute);
 			RemoveFromSalesUnitsCommand = new DelegateCommand(RemoveFromSalesUnitsCommand_Execute, RemoveFromSalesUnitsCommand_CanExecute);
 
-			_getEntitiesForAddInNotesCommand = async () => { return await UnitOfWork.GetRepository<Note>().GetAllAsync(); };;
 			AddInNotesCommand = new DelegateCommand(AddInNotesCommand_Execute);
 			RemoveFromNotesCommand = new DelegateCommand(RemoveFromNotesCommand_Execute, RemoveFromNotesCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectManagerCommand = async () => { return await UnitOfWork.GetRepository<User>().GetAllAsync(); };
+			_getEntitiesForAddInSalesUnitsCommand = async () => { return await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync(); };;
+			_getEntitiesForAddInNotesCommand = async () => { return await UnitOfWork.GetRepository<Note>().GetAllAsync(); };;
 		}
 		private async void SelectManagerCommand_Execute() 
 		{
@@ -2619,7 +2857,11 @@ namespace HVTApp.UI.ViewModels
     {
         public UserRoleDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -2632,11 +2874,15 @@ namespace HVTApp.UI.ViewModels
 
         public SpecificationDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectContractCommand = async () => { return await UnitOfWork.GetRepository<Contract>().GetAllAsync(); };
 			SelectContractCommand = new DelegateCommand(SelectContractCommand_Execute);
 			ClearContractCommand = new DelegateCommand(ClearContractCommand_Execute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectContractCommand = async () => { return await UnitOfWork.GetRepository<Contract>().GetAllAsync(); };
 		}
 		private async void SelectContractCommand_Execute() 
 		{
@@ -2695,23 +2941,27 @@ namespace HVTApp.UI.ViewModels
 
         public TenderDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectProjectCommand = async () => { return await UnitOfWork.GetRepository<Project>().GetAllAsync(); };
 			SelectProjectCommand = new DelegateCommand(SelectProjectCommand_Execute);
 			ClearProjectCommand = new DelegateCommand(ClearProjectCommand_Execute);
 
-            _getEntitiesForSelectWinnerCommand = async () => { return await UnitOfWork.GetRepository<Company>().GetAllAsync(); };
 			SelectWinnerCommand = new DelegateCommand(SelectWinnerCommand_Execute);
 			ClearWinnerCommand = new DelegateCommand(ClearWinnerCommand_Execute);
 
-			_getEntitiesForAddInTypesCommand = async () => { return await UnitOfWork.GetRepository<TenderType>().GetAllAsync(); };;
 			AddInTypesCommand = new DelegateCommand(AddInTypesCommand_Execute);
 			RemoveFromTypesCommand = new DelegateCommand(RemoveFromTypesCommand_Execute, RemoveFromTypesCommand_CanExecute);
 
-			_getEntitiesForAddInParticipantsCommand = async () => { return await UnitOfWork.GetRepository<Company>().GetAllAsync(); };;
 			AddInParticipantsCommand = new DelegateCommand(AddInParticipantsCommand_Execute);
 			RemoveFromParticipantsCommand = new DelegateCommand(RemoveFromParticipantsCommand_Execute, RemoveFromParticipantsCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectProjectCommand = async () => { return await UnitOfWork.GetRepository<Project>().GetAllAsync(); };
+            _getEntitiesForSelectWinnerCommand = async () => { return await UnitOfWork.GetRepository<Company>().GetAllAsync(); };
+			_getEntitiesForAddInTypesCommand = async () => { return await UnitOfWork.GetRepository<TenderType>().GetAllAsync(); };;
+			_getEntitiesForAddInParticipantsCommand = async () => { return await UnitOfWork.GetRepository<Company>().GetAllAsync(); };;
 		}
 		private async void SelectProjectCommand_Execute() 
 		{
@@ -2770,7 +3020,11 @@ namespace HVTApp.UI.ViewModels
     {
         public TenderTypeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
 		}
 
     }
@@ -2799,15 +3053,19 @@ namespace HVTApp.UI.ViewModels
 
         public UserDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-            _getEntitiesForSelectEmployeeCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };
 			SelectEmployeeCommand = new DelegateCommand(SelectEmployeeCommand_Execute);
 			ClearEmployeeCommand = new DelegateCommand(ClearEmployeeCommand_Execute);
 
-			_getEntitiesForAddInRolesCommand = async () => { return await UnitOfWork.GetRepository<UserRole>().GetAllAsync(); };;
 			AddInRolesCommand = new DelegateCommand(AddInRolesCommand_Execute);
 			RemoveFromRolesCommand = new DelegateCommand(RemoveFromRolesCommand_Execute, RemoveFromRolesCommand_CanExecute);
 
-			InitGetMethods();
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectEmployeeCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };
+			_getEntitiesForAddInRolesCommand = async () => { return await UnitOfWork.GetRepository<UserRole>().GetAllAsync(); };;
 		}
 		private async void SelectEmployeeCommand_Execute() 
 		{

@@ -601,6 +601,12 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
+	    public ProductWrapper Product 
+        {
+            get { return GetWrapper<ProductWrapper>(); }
+            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
+        }
+
 	    public FacilityWrapper Facility 
         {
             get { return GetWrapper<FacilityWrapper>(); }
@@ -616,6 +622,8 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region CollectionProperties
+        public IValidatableChangeTrackingCollection<ProductDependentWrapper> DependentProducts { get; private set; }
+
         public IValidatableChangeTrackingCollection<ServiceWrapper> Services { get; private set; }
 
         #endregion
@@ -707,7 +715,7 @@ namespace HVTApp.UI.Wrapper
         #region CollectionProperties
         public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
 
-        public IValidatableChangeTrackingCollection<CostOnDateWrapper> Prices { get; private set; }
+        public IValidatableChangeTrackingCollection<SumOnDateWrapper> Prices { get; private set; }
 
         #endregion
   
@@ -718,7 +726,7 @@ namespace HVTApp.UI.Wrapper
           RegisterCollection(Parameters, Model.Parameters);
 
           if (Model.Prices == null) throw new ArgumentException("Prices cannot be null");
-          Prices = new ValidatableChangeTrackingCollection<CostOnDateWrapper>(Model.Prices.Select(e => new CostOnDateWrapper(e)));
+          Prices = new ValidatableChangeTrackingCollection<SumOnDateWrapper>(Model.Prices.Select(e => new SumOnDateWrapper(e)));
           RegisterCollection(Prices, Model.Prices);
 
         }
@@ -1266,6 +1274,11 @@ namespace HVTApp.UI.Wrapper
         public IValidatableChangeTrackingCollection<ParameterRelationWrapper> ParameterRelations { get; private set; }
 
         #endregion
+
+        #region GetProperties
+        public System.Boolean IsOrigin => GetValue<System.Boolean>(); 
+
+        #endregion
         public override void InitializeComplexProperties()
         {
             InitializeComplexProperty<ParameterGroupWrapper>(nameof(ParameterGroup), Model.ParameterGroup == null ? null : new ParameterGroupWrapper(Model.ParameterGroup));
@@ -1741,6 +1754,7 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
+
 	    public FacilityWrapper Facility 
         {
             get { return GetWrapper<FacilityWrapper>(); }
@@ -1780,6 +1794,7 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region CollectionProperties
+
         public IValidatableChangeTrackingCollection<ServiceWrapper> Services { get; private set; }
 
         public IValidatableChangeTrackingCollection<PaymentActualWrapper> PaymentsActual { get; private set; }
@@ -2349,9 +2364,9 @@ namespace HVTApp.UI.Wrapper
         }
 	}
 
-		public partial class CostOnDateWrapper : WrapperBase<SumOnDate>
+		public partial class SumOnDateWrapper : WrapperBase<SumOnDate>
 	{
-	    public CostOnDateWrapper(SumOnDate model) : base(model) { }
+	    public SumOnDateWrapper(SumOnDate model) : base(model) { }
 
 	
         #region SimpleProperties
@@ -2363,14 +2378,6 @@ namespace HVTApp.UI.Wrapper
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
-        public System.Double Cost
-        {
-          get { return GetValue<System.Double>(); }
-          set { SetValue(value); }
-        }
-        public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
-        public bool CostIsChanged => GetIsChanged(nameof(Cost));
-
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2380,6 +2387,20 @@ namespace HVTApp.UI.Wrapper
         public bool IdIsChanged => GetIsChanged(nameof(Id));
 
         #endregion
+
+        #region ComplexProperties
+	    public SumWrapper Sum 
+        {
+            get { return GetWrapper<SumWrapper>(); }
+            set { SetComplexValue<Sum, SumWrapper>(Sum, value); }
+        }
+
+        #endregion
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<SumWrapper>(nameof(Sum), Model.Sum == null ? null : new SumWrapper(Model.Sum));
+
+        }
 	}
 
 		public partial class ProductWrapper : WrapperBase<Product>

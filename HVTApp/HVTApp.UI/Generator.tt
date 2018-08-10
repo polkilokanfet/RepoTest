@@ -261,8 +261,7 @@ namespace HVTApp.UI.ViewModels
 <#+		
 		foreach(var propInfo in allComplexProperties)
         {
-#>            _getEntitiesForSelect<#=propInfo.Name#>Command = async () => { return await UnitOfWork.GetRepository<<#=propInfo.PropertyType.Name#>>().GetAllAsync(); };
-			Select<#=propInfo.Name#>Command = new DelegateCommand(Select<#=propInfo.Name#>Command_Execute);
+#>			Select<#=propInfo.Name#>Command = new DelegateCommand(Select<#=propInfo.Name#>Command_Execute);
 			Clear<#=propInfo.Name#>Command = new DelegateCommand(Clear<#=propInfo.Name#>Command_Execute);
 
 <#+		}
@@ -272,16 +271,36 @@ namespace HVTApp.UI.ViewModels
 			var itemType = propInfo.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
 			var propertyName = propInfo.Name;
 
-#>			_getEntitiesForAddIn<#=propertyName#>Command = async () => { return await UnitOfWork.GetRepository<<#=itemType#>>().GetAllAsync(); };;
-			AddIn<#=propertyName#>Command = new DelegateCommand(AddIn<#=propertyName#>Command_Execute);
+#>			AddIn<#=propertyName#>Command = new DelegateCommand(AddIn<#=propertyName#>Command_Execute);
 			RemoveFrom<#=propertyName#>Command = new DelegateCommand(RemoveFrom<#=propertyName#>Command_Execute, RemoveFrom<#=propertyName#>Command_CanExecute);
 
 <#+		}
+#>		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+<#+		
+		foreach(var propInfo in allComplexProperties)
+        {
+#>            _getEntitiesForSelect<#=propInfo.Name#>Command = async () => { return await UnitOfWork.GetRepository<<#=propInfo.PropertyType.Name#>>().GetAllAsync(); };
+<#+		}
+
+		foreach(var propInfo in allCollectionProperties)
+        {
+			var itemType = propInfo.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
+			var propertyName = propInfo.Name;
+
+#>			_getEntitiesForAddIn<#=propertyName#>Command = async () => { return await UnitOfWork.GetRepository<<#=itemType#>>().GetAllAsync(); };;
+<#+		}
 
 #>
-			InitGetMethods();
 		}
-<#+		foreach(var propInfo in allComplexProperties)
+<#+		
+
+
+
+foreach(var propInfo in allComplexProperties)
         {
 #>		private async void Select<#=propInfo.Name#>Command_Execute() 
 		{

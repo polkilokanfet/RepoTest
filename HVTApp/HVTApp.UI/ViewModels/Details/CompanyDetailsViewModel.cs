@@ -5,7 +5,7 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class CompanyDetailsViewModel
     {
-        protected override void InitGetMethods()
+        protected override void InitSpecialGetMethods()
         {
             _getEntitiesForSelectParentCompanyCommand = async () =>
             {
