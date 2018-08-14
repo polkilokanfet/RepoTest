@@ -45,15 +45,6 @@ namespace HVTApp.UI.ViewModels
         protected virtual void InitDefaultGetMethods() { }
         protected virtual void InitSpecialGetMethods() { }
 
-        private bool _saveHere = true;
-        public async Task LoadAsync(TWrapper wrapper, IUnitOfWork unitOfWork)
-        {
-            _saveHere = false;
-            Item = wrapper;
-            UnitOfWork = unitOfWork;
-            await LoadOtherAsync();
-        }
-
         public async Task LoadAsync(TEntity entity)
         {
             entity = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(entity.Id) ?? entity;
@@ -95,16 +86,16 @@ namespace HVTApp.UI.ViewModels
 
         protected virtual async void SaveCommand_Execute()
         {
-            if (_saveHere)
-            {
-                if (await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(Item.Model.Id) == null)
-                    UnitOfWork.GetRepository<TEntity>().Add(Item.Model);
-                Item.AcceptChanges();
-                await UnitOfWork.SaveChangesAsync();
+            //добавляем сущность, если ее не существовало
+            if (await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(Item.Model.Id) == null)
+                UnitOfWork.GetRepository<TEntity>().Add(Item.Model);
 
-                EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
-            }
+            Item.AcceptChanges();
+            await UnitOfWork.SaveChangesAsync();
 
+            EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
+
+            //запрашиваем закрытие окна
             OnCloseRequested(new DialogRequestCloseEventArgs(true));
         }
 
@@ -118,7 +109,7 @@ namespace HVTApp.UI.ViewModels
             ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
         }
 
-        protected void SelectAndSetWrapper<TModel, TWrap>(IEnumerable<TModel> entities, string propertyName, Guid? selectedItemId = null)
+        protected async void SelectAndSetWrapper<TModel, TWrap>(IEnumerable<TModel> entities, string propertyName, Guid? selectedItemId = null)
             where TModel : class, IBaseEntity
             where TWrap : WrapperBase<TModel>
         {
@@ -126,12 +117,13 @@ namespace HVTApp.UI.ViewModels
             var propertyValue = (TWrap)Item.GetType().GetProperty(propertyName).GetValue(Item);
             if (entity != null && !Equals(entity.Id, propertyValue?.Model.Id))
             {
+                entity = await UnitOfWork.GetRepository<TModel>().GetByIdAsync(entity.Id);
                 var wrapper = (TWrap)Activator.CreateInstance(typeof(TWrap), entity);
                 Item.GetType().GetProperty(propertyName).SetValue(Item, wrapper);
             }
         }
 
-        protected void SelectAndAddInListWrapper<TModel, TWrap>(IEnumerable<TModel> entities, IList<TWrap> list,
+        protected async void SelectAndAddInListWrapper<TModel, TWrap>(IEnumerable<TModel> entities, IList<TWrap> list,
             Guid? selectedItemId = null)
             where TModel : class, IBaseEntity
             where TWrap : WrapperBase<TModel>
@@ -139,6 +131,7 @@ namespace HVTApp.UI.ViewModels
             var entity = Container.Resolve<ISelectService>().SelectItem(entities, selectedItemId);
             if (entity != null)
             {
+                entity = await UnitOfWork.GetRepository<TModel>().GetByIdAsync(entity.Id);
                 var wrapper = (TWrap) Activator.CreateInstance(typeof(TWrap), entity);
                 list.Add(wrapper);
             }

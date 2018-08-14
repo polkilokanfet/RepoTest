@@ -5,7 +5,7 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 
 namespace HVTApp.Infrastructure
 {
-    public interface IDetailsViewModel<TWrapper, TEntity> : ILoadableWrap<TEntity, TWrapper>, ISavable, IDialogRequestClose
+    public interface IDetailsViewModel<TWrapper, TEntity> : ILoadable<TEntity>, ISavable, IDialogRequestClose
         where TEntity : class, IBaseEntity
         where TWrapper : class, IWrapper<TEntity>
     {
@@ -23,12 +23,4 @@ namespace HVTApp.Infrastructure
         Task LoadAsync(Guid id);
         Task LoadAsync(TEntity entity);
     }
-
-    public interface ILoadableWrap<TEntity, TWrapper> : ILoadable<TEntity>
-    where TEntity : class, IBaseEntity
-    where TWrapper : class, IWrapper<TEntity>
-    {
-        Task LoadAsync(TWrapper wrapper, IUnitOfWork unitOfWork);
-    }
-
 }

@@ -30,11 +30,16 @@
                  Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Форма"/>
-        <ComboBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+        <!--<ComboBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                   ItemsSource="{Binding Forms, Mode=OneWay}"
                   DisplayMemberPath="DisplayMember"
                   SelectedValuePath="Id"
-                  SelectedValue="{Binding Item.FormId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                  SelectedValue="{Binding Item.FormId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
+			                        Item="{Binding Item.Form}"
+			                        AddItemCommand="{Binding SelectFormCommand}"
+                                    RemoveItemCommand="{Binding ClearFormCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="3" Content="ИНН"/>
         <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
