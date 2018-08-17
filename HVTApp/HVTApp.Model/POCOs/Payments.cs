@@ -24,7 +24,7 @@ namespace HVTApp.Model.POCOs
         public string Comment { get; set; }
     }
 
-    public partial class PaymentActual : BaseEntity
+    public class PaymentActual : BaseEntity
     {
         public virtual Guid SalesUnitId { get; set; }
         public DateTime Date { get; set; }

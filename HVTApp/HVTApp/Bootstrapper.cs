@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using Prism.Unity;
 using HVTApp.Views;
@@ -45,19 +46,26 @@ namespace HVTApp
 
         protected override async void InitializeShell()
         {
+            //await SetCommonOptions();
+
+            await Container.Resolve<IAuthenticationService>().AuthenticationAsync();
+            Application.Current.MainWindow.Show();
+        }
+
+        /// <summary>
+        /// Установка общих приложений для всех (наша компания, стандартный срок изготовления и т.д.)
+        /// </summary>
+        /// <returns></returns>
+        private async Task SetCommonOptions()
+        {
             var commonOptions = await Container.Resolve<IUnitOfWork>().GetRepository<CommonOption>().GetAllAsync();
             var commonOption = commonOptions.First();
+
             CommonOptions.OurCompanyId = commonOption.OurCompanyId;
             CommonOptions.CalculationPriceTerm = commonOption.CalculationPriceTerm;
             CommonOptions.StandartPaymentsConditionSetId = commonOption.StandartPaymentsConditionSetId;
             CommonOptions.ProductionTerm = commonOption.StandartTermFromStartToEndProduction;
             CommonOptions.AssembleTerm = commonOption.StandartTermFromPickToEndProduction;
-
-            //AuthenticationService authenticationService = (AuthenticationService)_container.Resolve<IAuthenticationService>();
-            //if (!authenticationService.AuthenticationAsync())
-            //    Application.Current.Shutdown();
-
-            Application.Current.MainWindow.Show();
         }
 
         protected override void ConfigureContainer()
@@ -85,6 +93,7 @@ namespace HVTApp
             Container.RegisterType<IGetProductService, GetProductServiceWpf>();
         }
 
+        private IModuleCatalog _moduleCatalog;
         protected override IModuleCatalog CreateModuleCatalog()
         {
             var catalog = new ModuleCatalog();
@@ -94,6 +103,7 @@ namespace HVTApp
             catalog.AddModule(typeof(BaseEntitiesModule));
             catalog.AddModule(typeof(ProductionModule));
 
+            _moduleCatalog = catalog;
             return catalog;
         }
 

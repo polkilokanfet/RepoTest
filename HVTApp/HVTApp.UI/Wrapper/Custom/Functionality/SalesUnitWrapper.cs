@@ -360,8 +360,5 @@ namespace HVTApp.UI.Wrapper
                 Condition = condition
             });
         }
-
-        public double MarginalIncome { get; set; }
-        public bool HasBlocksWithoutPrice { get; }
     }
 }
