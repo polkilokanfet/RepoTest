@@ -22,11 +22,6 @@ namespace HVTApp.Services.WpfAuthenticationService
         public AuthenticationWindowModel(List<User> users)
         {
             _users = users;
-
-            User = null;
-
-            Roles = new ObservableCollection<UserRole>();
-
             OkCommand = new DelegateCommand(OkCommand_Execute, OkCommand_CanExecute);
         }
 
@@ -62,9 +57,9 @@ namespace HVTApp.Services.WpfAuthenticationService
             }
         }
 
-        public ObservableCollection<UserRole> Roles { get; set; }
+        public ObservableCollection<UserRole> Roles { get; set; } = new ObservableCollection<UserRole>();
 
-        public User User { get; private set; }
+        public User User { get; private set; } = null;
         public ICommand OkCommand { get; }
 
 
@@ -83,7 +78,7 @@ namespace HVTApp.Services.WpfAuthenticationService
 
         private void CheckUser()
         {
-            Guid password = Guid.Empty;
+            var password = Guid.Empty;
             if (!String.IsNullOrEmpty(_password))
                 password = StringToGuidService.StringToGuidService.GetHashString(_password);
             User = _users.FirstOrDefault(x => x.Login == Login && x.Password == password);

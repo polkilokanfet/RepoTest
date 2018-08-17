@@ -353,7 +353,6 @@
     <Compile Include="Wrapper\Base\TrackingCollections\ValidatableChangeTrackingCollection.cs" />
     <Compile Include="Wrapper\Base\WrapperBase.cs" />
     <Compile Include="Converter\UnitsToGroupConverter.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\CompanyWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ContractWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\CountryWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\DistrictWrapper.cs" />
@@ -367,7 +366,6 @@
     <Compile Include="Wrapper\Custom\Functionality\Price.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductBlockWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductCostDependentProductsWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\ProductDependentWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductsUnitGroup.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProjectWrapper.cs" />

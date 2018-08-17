@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -11,6 +12,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Model.POCOs;
 using HVTApp.Services.MessageService;
 using HVTApp.UI.Events;
 using Microsoft.Practices.ObjectBuilder2;
@@ -20,6 +22,17 @@ using Prism.Events;
 
 namespace HVTApp.UI.ViewModels
 {
+    [AttributeUsage(AttributeTargets.Class)]
+    public class RoleToUpdateAttribute : Attribute
+    {
+        public Role[] Roles { get; }
+
+        public RoleToUpdateAttribute(params Role[] roleses)
+        {
+            Roles = roleses;
+        }
+    }
+
     public abstract class BaseListViewModel<TEntity, TLookup, TAfterSaveEntityEvent, TAfterSelectEntityEvent, TAfterRemoveEntityEvent> :
         BindableBaseCanExportToExcel, IBaseListViewModel<TEntity, TLookup>, ISelectServiceViewModel<TEntity>, IDisposable
         where TEntity : class, IBaseEntity
@@ -150,6 +163,15 @@ namespace HVTApp.UI.ViewModels
 
         protected virtual bool NewItemCommand_CanExecute()
         {
+            var attrs = Attribute.GetCustomAttributes(this.GetType());
+            foreach (var attr in attrs)
+            {
+                var attribute = attr as RoleToUpdateAttribute;
+                if (attribute != null && attribute.Roles.Contains(Role.Admin))
+                {
+                    return false;
+                }
+            }
             return true;
         }
 
