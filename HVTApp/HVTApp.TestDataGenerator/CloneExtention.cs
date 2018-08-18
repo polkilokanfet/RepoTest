@@ -7,7 +7,7 @@ namespace HVTApp.TestDataGenerator
             var props = first.GetType().GetProperties();
             foreach (var propertyInfo in props)
             {
-                if (propertyInfo.Name == "Id") continue;
+                if (propertyInfo.Name == "Id" || !propertyInfo.CanWrite) continue;
                 var value = propertyInfo.GetValue(second);
                 propertyInfo.SetValue(first, value);
             }

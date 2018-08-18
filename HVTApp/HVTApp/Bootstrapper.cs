@@ -1,8 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
-using Prism.Unity;
 using HVTApp.Views;
 using System.Windows;
 using HVTApp.DataAccess;
@@ -31,9 +29,11 @@ using HVTApp.UI.Services;
 using HVTApp.UI.Wrapper;
 using Infragistics.Windows.OutlookBar;
 using Infragistics.Windows.Ribbon;
+using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Modularity;
 using Prism.Regions;
+using Prism.Unity;
 
 namespace HVTApp
 {
@@ -46,14 +46,14 @@ namespace HVTApp
 
         protected override async void InitializeShell()
         {
-            //await SetCommonOptions();
+            await SetCommonOptions();
 
-            await Container.Resolve<IAuthenticationService>().AuthenticationAsync();
+            //await Container.Resolve<IAuthenticationService>().AuthenticationAsync();
             Application.Current.MainWindow.Show();
         }
 
         /// <summary>
-        /// Установка общих приложений для всех (наша компания, стандартный срок изготовления и т.д.)
+        /// Установка общих опций для всех (наша компания, стандартный срок изготовления и т.д.)
         /// </summary>
         /// <returns></returns>
         private async Task SetCommonOptions()
@@ -71,7 +71,7 @@ namespace HVTApp
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-
+            
             Container.RegisterType<IEventAggregator, EventAggregator>(new ContainerControlledLifetimeManager());
             Container.RegisterType<DbContext, HvtAppContext>();
             Container.RegisterType<IUnitOfWork, UnitOfWork>();
@@ -93,7 +93,6 @@ namespace HVTApp
             Container.RegisterType<IGetProductService, GetProductServiceWpf>();
         }
 
-        private IModuleCatalog _moduleCatalog;
         protected override IModuleCatalog CreateModuleCatalog()
         {
             var catalog = new ModuleCatalog();
@@ -103,7 +102,6 @@ namespace HVTApp
             catalog.AddModule(typeof(BaseEntitiesModule));
             catalog.AddModule(typeof(ProductionModule));
 
-            _moduleCatalog = catalog;
             return catalog;
         }
 
