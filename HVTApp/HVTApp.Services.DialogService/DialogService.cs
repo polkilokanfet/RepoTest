@@ -10,7 +10,7 @@ namespace HVTApp.Services.DialogService
         private readonly Window _owner;
         public Dictionary<Type, Type> Mappings { get; }
 
-        public DialogService(Window owner)
+        public DialogService(Window owner = null)
         {
             _owner = owner;
             Mappings = new Dictionary<Type, Type>();
@@ -46,8 +46,10 @@ namespace HVTApp.Services.DialogService
             viewModel.CloseRequested += handler;
 
             dialog.DataContext = viewModel;
-            dialog.Owner = _owner;
-            //dialog.Owner = Application.Current.MainWindow;
+            //if (Application.Current.MainWindow != null && Application.Current.MainWindow.ShowActivated)
+            //   dialog.Owner = Application.Current.MainWindow; 
+            //if (_owner != null)
+            //    dialog.Owner = _owner;
 
             return dialog.ShowDialog();
         }

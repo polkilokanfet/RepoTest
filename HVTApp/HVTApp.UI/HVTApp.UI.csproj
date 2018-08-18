@@ -178,6 +178,7 @@
     <Compile Include="ViewModels\List\PaymentPlannedListViewModel.cs" />
     <Compile Include="ViewModels\List\ProjectUnitGroupListViewModel.cs" />
     <Compile Include="ViewModels\PaymentPlannedListGeneratorViewModel.cs" />
+    <Compile Include="ViewModels\RoleToUpdateAttribute.cs" />
     <Compile Include="Views\Details\FacilityDetailsView.xaml.cs">
       <DependentUpon>FacilityDetailsView.xaml</DependentUpon>
     </Compile>

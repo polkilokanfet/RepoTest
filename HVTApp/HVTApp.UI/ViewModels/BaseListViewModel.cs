@@ -22,17 +22,6 @@ using Prism.Events;
 
 namespace HVTApp.UI.ViewModels
 {
-    [AttributeUsage(AttributeTargets.Class)]
-    public class RoleToUpdateAttribute : Attribute
-    {
-        public Role[] Roles { get; }
-
-        public RoleToUpdateAttribute(params Role[] roleses)
-        {
-            Roles = roleses;
-        }
-    }
-
     public abstract class BaseListViewModel<TEntity, TLookup, TAfterSaveEntityEvent, TAfterSelectEntityEvent, TAfterRemoveEntityEvent> :
         BindableBaseCanExportToExcel, IBaseListViewModel<TEntity, TLookup>, ISelectServiceViewModel<TEntity>, IDisposable
         where TEntity : class, IBaseEntity

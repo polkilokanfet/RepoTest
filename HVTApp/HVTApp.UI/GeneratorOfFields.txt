@@ -245,9 +245,9 @@
     </infg:XamDataGrid>
 
 
-	========================================== Fields for CostLookup ==========================================
+	========================================== Fields for SumLookup ==========================================
 
-    <infg:XamDataGrid x:Name="CostLookupListGrid">
+    <infg:XamDataGrid x:Name="SumLookupListGrid">
         
         <infg:XamDataGrid.ContextMenu>
             <ContextMenu>
@@ -258,33 +258,6 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
-                    <infg:NumericField Name="Sum" Label="Sum" Width="Auto" />
-                    <infg:TextField Name="Currency" Label="Currency" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
-                </infg:FieldLayout.Fields>
-            </infg:FieldLayout>
-
-        </infg:XamDataGrid.FieldLayouts>
-    </infg:XamDataGrid>
-
-
-	========================================== Fields for CurrencyLookup ==========================================
-
-    <infg:XamDataGrid x:Name="CurrencyLookupListGrid">
-        
-        <infg:XamDataGrid.ContextMenu>
-            <ContextMenu>
-                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-            </ContextMenu>
-        </infg:XamDataGrid.ContextMenu>
-
-        <infg:XamDataGrid.FieldLayouts>
-            <infg:FieldLayout>
-                <infg:FieldLayout.Fields>
-                    <infg:TextField Name="FullName" Label="FullName" Width="Auto" />
-                    <infg:TextField Name="ShortName" Label="ShortName" Width="Auto" />
                     <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
                     <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
 
@@ -312,8 +285,6 @@
                     <infg:NumericField Name="FirstCurrencyValue" Label="FirstCurrencyValue" Width="Auto" />
                     <infg:NumericField Name="SecondCurrencyValue" Label="SecondCurrencyValue" Width="Auto" />
                     <infg:DateTimeField Name="Date" Label="Date" Width="Auto" />
-                    <infg:TextField Name="FirstCurrency" Label="FirstCurrency" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="SecondCurrency" Label="SecondCurrency" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
 
                 </infg:FieldLayout.Fields>
@@ -464,10 +435,32 @@
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
-                    <infg:NumericField Name="Cost" Label="Cost" Width="Auto" />
                     <infg:NumericField Name="Amount" Label="Amount" Width="Auto" />
-                    <infg:CheckBoxField Name="IsIndependent" Label="IsIndependent" Width="Auto" />
                     <infg:TextField Name="Product" Label="Product" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+
+	========================================== Fields for ProductionTaskLookup ==========================================
+
+    <infg:XamDataGrid x:Name="ProductionTaskLookupListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
+                    <infg:DateTimeField Name="DateTask" Label="DateTask" Width="Auto" />
                     <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
 
                 </infg:FieldLayout.Fields>
@@ -747,6 +740,7 @@
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Value" Label="Value" Width="Auto" />
                     <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
+                    <infg:CheckBoxField Name="IsOrigin" Label="IsOrigin" Width="Auto" />
                     <infg:TextField Name="ParameterGroup" Label="ParameterGroup" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
 
@@ -796,7 +790,8 @@
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
-                    <infg:NumericField Name="Count" Label="Count" Width="Auto" />
+                    <infg:NumericField Name="ChildProductsAmount" Label="ChildProductsAmount" Width="Auto" />
+                    <infg:CheckBoxField Name="IsUnique" Label="IsUnique" Width="Auto" />
                     <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
 
                 </infg:FieldLayout.Fields>
@@ -992,6 +987,7 @@
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto" />
                     <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
+                    <infg:NumericField Name="Amount" Label="Amount" Width="Auto" />
                     <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
 
                 </infg:FieldLayout.Fields>
@@ -1239,9 +1235,9 @@
     </infg:XamDataGrid>
 
 
-	========================================== Fields for CostOnDateLookup ==========================================
+	========================================== Fields for SumOnDateLookup ==========================================
 
-    <infg:XamDataGrid x:Name="CostOnDateLookupListGrid">
+    <infg:XamDataGrid x:Name="SumOnDateLookupListGrid">
         
         <infg:XamDataGrid.ContextMenu>
             <ContextMenu>
@@ -1253,8 +1249,8 @@
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
-                    <infg:NumericField Name="Cost" Label="Cost" Width="Auto" />
                     <infg:DateTimeField Name="Date" Label="Date" Width="Auto" />
+                    <infg:TextField Name="Sum" Label="Sum" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
 
                 </infg:FieldLayout.Fields>
@@ -1305,6 +1301,7 @@
                     <infg:TextField Name="Comment" Label="Comment" Width="Auto" />
                     <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
                     <infg:NumericField Name="Vat" Label="Vat" Width="Auto" />
+                    <infg:NumericField Name="Sum" Label="Sum" Width="Auto" />
                     <infg:DateTimeField Name="ValidityDate" Label="ValidityDate" Width="Auto" />
                     <infg:TextField Name="Project" Label="Project" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RequestDocument" Label="RequestDocument" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
@@ -1313,6 +1310,7 @@
                     <infg:TextField Name="RecipientEmployee" Label="RecipientEmployee" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RegistrationDetailsOfSender" Label="RegistrationDetailsOfSender" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RegistrationDetailsOfRecipient" Label="RegistrationDetailsOfRecipient" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Company" Label="Company" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
 
                 </infg:FieldLayout.Fields>
@@ -1516,6 +1514,7 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Type" Label="Type" Width="Auto" />
                     <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
                     <infg:DateTimeField Name="DateOpen" Label="DateOpen" Width="Auto" />
                     <infg:DateTimeField Name="DateClose" Label="DateClose" Width="Auto" />

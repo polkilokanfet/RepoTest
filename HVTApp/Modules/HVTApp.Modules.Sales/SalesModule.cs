@@ -10,7 +10,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Sales
 {
-    [RoleToUpdate(Role.Admin, Role.DataBaseFiller)]
+    [RoleToUpdate(Role.Admin, Role.SalesManager)]
     public class SalesModule : ModuleBase
     {
         private readonly IDialogService _dialogService;

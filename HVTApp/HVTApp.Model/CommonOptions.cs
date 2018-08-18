@@ -12,6 +12,6 @@ namespace HVTApp.Model
         public static int AssembleTerm { get; set; } = 7;
         public static Guid StandartPaymentsConditionSetId { get; set; }
 
-        public static User User { get; } = new User() {RoleCurrent = Role.Admin};
+        public static User User { get; set; }
     }
 }
