@@ -1,0 +1,31 @@
+<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              x:Class="HVTApp.UI.Views.DistrictLookupListView">
+
+    <infg:XamDataGrid x:Name="DistrictLookupListGrid">
+        
+        <infg:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+            </ContextMenu>
+        </infg:XamDataGrid.ContextMenu>
+
+        <infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto" />
+                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
+                    <infg:TextField Name="Country" Label="Country" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
+                </infg:FieldLayout.Fields>
+            </infg:FieldLayout>
+
+        </infg:XamDataGrid.FieldLayouts>
+    </infg:XamDataGrid>
+
+</inf:ViewBase>
+
+	

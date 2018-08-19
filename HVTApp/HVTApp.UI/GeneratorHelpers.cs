@@ -43,7 +43,8 @@ namespace HVTApp.UI
 
         public static IEnumerable<Type> GetModelTypesLookups()
         {
-            return typeof(AddressLookup).Assembly.GetTypes().Where(p => p.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ILookupItemNavigation<>)));
+            return typeof(AddressLookup).Assembly.GetTypes().
+                Where(p => !p.IsAbstract && p.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ILookupItemNavigation<>)));
         }
 
         /// <summary>

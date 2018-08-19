@@ -9,13 +9,13 @@ namespace HVTApp.Modules.Sales.Menus
         protected override void GenerateMenu()
         {
             var root = new NavigationItem("Рынок", typeof(MarketView));
-            root.Items.Add(new NavigationItem("Проекты", typeof(ProjectListView)));
-            root.Items.Add(new NavigationItem("Позиции", typeof(SalesUnitListView)));
-            root.Items.Add(new NavigationItem("Тендеры", typeof(TenderListView)));
-            root.Items.Add(new NavigationItem("ТКП", typeof(OfferListView)));
-            root.Items.Add(new NavigationItem("Контракты", typeof(ContractListView)));
-            root.Items.Add(new NavigationItem("Спецификации", typeof(SpecificationListView)));
-            root.Items.Add(new NavigationItem("Плановые платежи", typeof(PaymentPlannedListView)));
+            root.Items.Add(new NavigationItem("Проекты", typeof(ProjectLookupListView)));
+            root.Items.Add(new NavigationItem("Позиции", typeof(SalesUnitLookupListView)));
+            root.Items.Add(new NavigationItem("Тендеры", typeof(TenderLookupListView)));
+            root.Items.Add(new NavigationItem("ТКП", typeof(OfferLookupListView)));
+            root.Items.Add(new NavigationItem("Контракты", typeof(ContractLookupListView)));
+            root.Items.Add(new NavigationItem("Спецификации", typeof(SpecificationLookupListView)));
+            root.Items.Add(new NavigationItem("Плановые платежи", typeof(PaymentPlannedLookupListView)));
             root.Items.Add(new NavigationItem("Плановые платежи 2", typeof(PaymentPlannedListGeneratorView)));
             root.Items.Add(new NavigationItem("OIT", typeof(OitView)));
 

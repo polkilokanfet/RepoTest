@@ -17,20 +17,21 @@
 <#
 	var modelTypes = GeneratorHelpers.GetModelTypesLookups();
 
-    GenerateFields(modelTypes);
+    GenerateViews(modelTypes);
 
 #><#+
 
-    private void GenerateFields(IEnumerable<Type> modelTypes)
+    private void GenerateViews(IEnumerable<Type> modelTypes)
     {
         foreach(var modelType in modelTypes)
         {
-            GenerateField(modelType);
+            GenerateView(modelType);
+			SaveGeneratedCodeAsFile(modelType.Name + "ListView.xaml", "Views/List");
         }
     }
 
 
-	private void GenerateField(Type modelType)
+	private void GenerateView(Type modelType)
 	{
 #><inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

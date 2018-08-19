@@ -205,36 +205,6 @@
     <Compile Include="Views\Details\SalesUnitDetailsView.xaml.cs">
       <DependentUpon>SalesUnitDetailsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\List\DescribeProductBlockTaskListView.xaml.cs">
-      <DependentUpon>DescribeProductBlockTaskListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\DocumentListView.xaml.cs">
-      <DependentUpon>DocumentListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\EmployeeListView.xaml.cs">
-      <DependentUpon>EmployeeListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\EmployeesPositionListView.xaml.cs">
-      <DependentUpon>EmployeesPositionListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\OrderListView.xaml.cs">
-      <DependentUpon>OrderListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\PaymentConditionListView.xaml.cs">
-      <DependentUpon>PaymentConditionListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\PaymentConditionSetListView.xaml.cs">
-      <DependentUpon>PaymentConditionSetListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\PaymentDocumentListView.xaml.cs">
-      <DependentUpon>PaymentDocumentListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\PersonListView.xaml.cs">
-      <DependentUpon>PersonListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\SpecificationListView.xaml.cs">
-      <DependentUpon>SpecificationListView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\List\TenderUnitListViewModel.cs" />
     <Compile Include="Views\Details\CompanyDetailsView.xaml.cs">
       <DependentUpon>CompanyDetailsView.xaml</DependentUpon>
@@ -267,43 +237,7 @@
     <Compile Include="Views\Details\TenderUnitGroupDetailsView.xaml.cs">
       <DependentUpon>TenderUnitGroupDetailsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\List\AddressListView.xaml.cs">
-      <DependentUpon>AddressListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\CalculatePriceTaskListView.xaml.cs">
-      <DependentUpon>CalculatePriceTaskListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\ContractListView.xaml.cs">
-      <DependentUpon>ContractListView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\List\ListViews.g.cs" />
-    <Compile Include="Views\List\OfferListView.xaml.cs">
-      <DependentUpon>OfferListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\PartPriceListView.xaml.cs">
-      <DependentUpon>PartPriceListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\PaymentListView.xaml.cs">
-      <DependentUpon>PaymentListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\PaymentPlannedListView.xaml.cs">
-      <DependentUpon>PaymentPlannedListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\ProductBlockListView.xaml.cs">
-      <DependentUpon>ProductBlockListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\ProjectListView.xaml.cs">
-      <DependentUpon>ProjectListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\ProjectUnitGroupListView.xaml.cs">
-      <DependentUpon>ProjectUnitGroupListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\SalesUnitListView.xaml.cs">
-      <DependentUpon>SalesUnitListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\TenderListView.xaml.cs">
-      <DependentUpon>TenderListView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\Details\CompanyDetailsViewModel.cs" />
     <Compile Include="Views\Details\ProductUnitDetailsView.xaml.cs">
       <DependentUpon>ProductUnitDetailsView.xaml</DependentUpon>
@@ -311,41 +245,11 @@
     <Compile Include="Views\Details\ProjectDetailsView.xaml.cs">
       <DependentUpon>ProjectDetailsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\List\ActivityFieldListView.xaml.cs">
-      <DependentUpon>ActivityFieldListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\CompanyListView.xaml.cs">
-      <DependentUpon>CompanyListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\CompanyFormListView.xaml.cs">
-      <DependentUpon>CompanyFormListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\FacilityListView.xaml.cs">
-      <DependentUpon>FacilityListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\FacilityTypeListView.xaml.cs">
-      <DependentUpon>FacilityTypeListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\ParameterGroupListView.xaml.cs">
-      <DependentUpon>ParameterGroupListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\ParameterListView.xaml.cs">
-      <DependentUpon>ParameterListView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Details\ProductDetailsView.xaml.cs">
       <DependentUpon>ProductDetailsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\List\ProductListView.xaml.cs">
-      <DependentUpon>ProductListView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Details\OfferDetailsView.xaml.cs">
       <DependentUpon>OfferDetailsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\ProjectUnitListView.xaml.cs">
-      <DependentUpon>ProjectUnitListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\List\UserListView.xaml.cs">
-      <DependentUpon>UserListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PaymentPlannedListGeneratorView.xaml.cs">
       <DependentUpon>PaymentPlannedListGeneratorView.xaml</DependentUpon>
@@ -745,46 +649,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\List\DescribeProductBlockTaskListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\DocumentListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\EmployeeListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\EmployeesPositionListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\OrderListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\PaymentConditionListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\PaymentConditionSetListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\PaymentDocumentListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\PersonListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\SpecificationListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Details\CompanyDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -825,54 +689,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\List\AddressListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\CalculatePriceTaskListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\ContractListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\List\OfferListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\List\PartPriceListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\PaymentListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\List\PaymentPlannedListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\ProductBlockListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\ProjectListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\List\ProjectUnitGroupListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\SalesUnitListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\TenderListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Details\ProductUnitDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -881,39 +697,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\List\ActivityFieldListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\CompanyListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\CompanyFormListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\FacilityListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\FacilityTypeListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\ParameterGroupListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\ParameterListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Details\ProductDetailsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\ProductListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -921,13 +705,245 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\List\ProjectUnitListView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\List\ActivityFieldLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\List\UserListView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\List\AddressLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\BankDetailsLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\CalculatePriceTaskLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\CommonOptionLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\CompanyFormLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\CompanyLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\ContractLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\CountryLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\CurrencyExchangeRateLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\DescribeProductBlockTaskLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\DistrictLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\DocumentLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\DocumentsRegistrationDetailsLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\EmployeeLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\EmployeesPositionLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\FacilityLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\FacilityTypeLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\LocalityLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\LocalityTypeLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\MeasureLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\NoteLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\OfferLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\OfferUnitLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\OrderLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\ParameterGroupLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\ParameterLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\ParameterRelationLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\PaymentActualLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\PaymentConditionLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\PaymentConditionSetLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\PaymentDocumentLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\PaymentPlannedListLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\PaymentPlannedLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\PersonLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\ProductBlockLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\ProductDependentLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\ProductionTaskLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\ProductLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\ProductRelationLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\ProjectLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\RegionLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\SalesBlockLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\SalesUnitLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\ServiceLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\SpecificationLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\SumLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\SumOnDateLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\TenderLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\TenderTypeLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\TestChildLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\TestEntityLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\TestFriendAddressLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\TestFriendEmailLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\TestFriendGroupLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\TestFriendLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\TestHusbandLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\TestWifeLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\UserLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\UserRoleLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\PaymentPlannedListGeneratorView.xaml">
       <SubType>Designer</SubType>
