@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Lookup;
 using HVTApp.UI.Views;
 
 namespace HVTApp.UI
@@ -38,6 +39,11 @@ namespace HVTApp.UI
             var ns = typeof(Address).Namespace;
             //return typeof(Address).Assembly.GetTypes().Where(x => !x.IsAbstract && !x.IsEnum && x.Namespace == ns && !x.Name.Contains("<"));
             return typeof(Address).Assembly.GetTypes().Where(x => x.GetBaseTypes().Contains(typeof(BaseEntity)));
+        }
+
+        public static IEnumerable<Type> GetModelTypesLookups()
+        {
+            return typeof(AddressLookup).Assembly.GetTypes().Where(p => p.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ILookupItemNavigation<>)));
         }
 
         /// <summary>
@@ -84,6 +90,18 @@ namespace HVTApp.UI
         public static IEnumerable<PropertyInfo> StringProperties(this Type type)
         {
             return GetProps(type).Where(p => p.PropertyType == typeof(string));
+        }
+
+        /// <summary>
+        /// Получить числовые свойства
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static IEnumerable<PropertyInfo> DigitProperties(this Type type)
+        {
+            var propsInt = type.SimpleProperties<int>();
+            var propsDouble = type.SimpleProperties<double>();
+            return propsInt.Union(propsDouble);
         }
 
         /// <summary>
