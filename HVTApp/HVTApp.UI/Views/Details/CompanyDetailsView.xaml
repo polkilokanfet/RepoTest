@@ -1,8 +1,11 @@
-﻿<inf:ViewBase x:Class="HVTApp.UI.Views.CompanyDetailsView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+<inf:ViewBase x:Class="HVTApp.UI.Views.CompanyDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -21,58 +24,60 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Название полное"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Наименование"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Название сокращенное"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Сокращенное наименование"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Форма"/>
-        <!--<ComboBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
-                  ItemsSource="{Binding Forms, Mode=OneWay}"
-                  DisplayMemberPath="DisplayMember"
-                  SelectedValuePath="Id"
-                  SelectedValue="{Binding Item.FormId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
-			                        Item="{Binding Item.Form}"
-			                        AddItemCommand="{Binding SelectFormCommand}"
-                                    RemoveItemCommand="{Binding ClearFormCommand}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="3" Content="ИНН"/>
-        <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="2" Content="ИНН"/>
+        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.Inn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="КПП"/>
-        <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="3" Content="КПП"/>
+        <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                  Text="{Binding Item.Kpp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="Сфера деятельности"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
-            Items="{Binding Path=Item.ActivityFilds}"
-            SelectedItem="{Binding SelectedActivityFildsItem, Mode=TwoWay}"
-            AddItemCommand="{Binding AddInActivityFildsCommand}"
-            RemoveItemCommand="{Binding RemoveFromActivityFildsCommand}"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="Организационная форма"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
+                                    Item="{Binding Item.Form}" 
+                                    AddItemCommand="{Binding SelectFormCommand}" 
+                                    RemoveItemCommand="{Binding ClearFormCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row="6" Content="Головная компания"/>
+        <Label Grid.Column="0" Grid.Row ="5" Content="Родительская компания"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
+                                    Item="{Binding Item.ParentCompany}" 
+                                    AddItemCommand="{Binding SelectParentCompanyCommand}" 
+                                    RemoveItemCommand="{Binding ClearParentCompanyCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="6" Content="Юридический адрес"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
-			Item="{Binding Item.ParentCompany}"
-			AddItemCommand="{Binding SelectParentCompanyCommand}"
-            RemoveItemCommand="{Binding ClearParentCompanyCommand}"/>
+                                    Item="{Binding Item.AddressLegal}" 
+                                    AddItemCommand="{Binding SelectAddressLegalCommand}" 
+                                    RemoveItemCommand="{Binding ClearAddressLegalCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row ="8" Content="Адрес"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="8" 
-			Item="{Binding Item.AddressLegal}"
-			AddItemCommand="{Binding SelectAddressLegalCommand}"
-            RemoveItemCommand="{Binding ClearAddressLegalCommand}"/>
+        <Label Grid.Column="0" Grid.Row ="7" Content="Почтовый адрес"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="7" 
+                                    Item="{Binding Item.AddressPost}" 
+                                    AddItemCommand="{Binding SelectAddressPostCommand}" 
+                                    RemoveItemCommand="{Binding ClearAddressPostCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row ="9" Content="Адрес почтовый"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="9" 
-			Item="{Binding Item.AddressPost}"
-			AddItemCommand="{Binding SelectAddressPostCommand}"
-            RemoveItemCommand="{Binding ClearAddressPostCommand}"/>
+        <Label Grid.Column="0" Grid.Row ="8" Content="Банковские реквизиты"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="8"
+										 Items="{Binding Path=Item.BankDetailsList}"
+										 SelectedItem="{Binding SelectedBankDetailsListItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInBankDetailsListCommand}"
+										 RemoveItemCommand="{Binding RemoveFromBankDetailsListCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="9" Content="Сферы деятельности"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="9"
+										 Items="{Binding Path=Item.ActivityFilds}"
+										 SelectedItem="{Binding SelectedActivityFildsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInActivityFildsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromActivityFildsCommand}"/>
+
 
     </Grid>
 </inf:ViewBase>

@@ -24,7 +24,7 @@
         foreach(var modelType in modelTypes)
         {
             GenerateField(modelType);
-			SaveGeneratedCodeAsFile(modelType.Name + ".xaml", "ddd");
+			SaveGeneratedCodeAsFile(modelType.Name + "DetailsView.xaml", "Views/Details");
         }
     }
 
@@ -36,9 +36,7 @@
 		var complexSetProperties = modelType.AllComplexProperties().Where(p => p.CanWrite).ToList();
 		var complexGetProperties = modelType.AllComplexProperties().Where(p => !p.CanWrite).ToList();
 
-#>========================================== Details for <#=modelType.Name#> ==========================================
-
-<inf:ViewBase x:Class="HVTApp.UI.Views.<#=modelType.Name#>DetailsView"
+#><inf:ViewBase x:Class="HVTApp.UI.Views.<#=modelType.Name#>DetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

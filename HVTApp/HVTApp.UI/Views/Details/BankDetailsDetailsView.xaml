@@ -1,0 +1,39 @@
+<inf:ViewBase x:Class="HVTApp.UI.Views.BankDetailsDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="BankName"/>
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+                 Text="{Binding Item.BankName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="BankIdentificationCode"/>
+        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
+                 Text="{Binding Item.BankIdentificationCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="CorrespondentAccount"/>
+        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+                 Text="{Binding Item.CorrespondentAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="CheckingAccount"/>
+        <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
+                 Text="{Binding Item.CheckingAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+
+    </Grid>
+</inf:ViewBase>

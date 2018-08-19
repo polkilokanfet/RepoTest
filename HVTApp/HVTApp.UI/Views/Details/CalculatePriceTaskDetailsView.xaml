@@ -1,0 +1,56 @@
+<inf:ViewBase x:Class="HVTApp.UI.Views.CalculatePriceTaskDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Date"/>
+        <DatePicker Grid.Column="1" Grid.Row="0" 
+                    SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="ProductBlock"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
+                                    Item="{Binding Item.ProductBlock}" 
+                                    AddItemCommand="{Binding SelectProductBlockCommand}" 
+                                    RemoveItemCommand="{Binding ClearProductBlockCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Projects"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
+										 Items="{Binding Path=Item.Projects}"
+										 SelectedItem="{Binding SelectedProjectsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInProjectsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromProjectsCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Offers"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
+										 Items="{Binding Path=Item.Offers}"
+										 SelectedItem="{Binding SelectedOffersItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInOffersCommand}"
+										 RemoveItemCommand="{Binding RemoveFromOffersCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Specifications"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
+										 Items="{Binding Path=Item.Specifications}"
+										 SelectedItem="{Binding SelectedSpecificationsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInSpecificationsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromSpecificationsCommand}"/>
+
+
+    </Grid>
+</inf:ViewBase>

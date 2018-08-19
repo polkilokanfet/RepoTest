@@ -4,7 +4,7 @@
     {
         public EmployeeDetailsView()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
     }
 }

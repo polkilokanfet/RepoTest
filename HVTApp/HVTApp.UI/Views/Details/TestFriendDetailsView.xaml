@@ -1,0 +1,70 @@
+<inf:ViewBase x:Class="HVTApp.UI.Views.TestFriendDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="FirstName"/>
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+                 Text="{Binding Item.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="LastName"/>
+        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
+                 Text="{Binding Item.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="FriendGroupId"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2"
+							   ValueType="core:Int32"
+                               Value="{Binding Item.FriendGroupId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="IdGet"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3"
+							   ValueType="core:Int32"
+                               Value="{Binding Item.IdGet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Birthday"/>
+        <DatePicker Grid.Column="1" Grid.Row="4" 
+                    SelectedDate="{Binding Item.Birthday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Grid.Column="0" Grid.Row ="5" Content="TestFriendAddress"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
+                                    Item="{Binding Item.TestFriendAddress}" 
+                                    AddItemCommand="{Binding SelectTestFriendAddressCommand}" 
+                                    RemoveItemCommand="{Binding ClearTestFriendAddressCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="6" Content="TestFriendGroup"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
+                                    Item="{Binding Item.TestFriendGroup}" 
+                                    AddItemCommand="{Binding SelectTestFriendGroupCommand}" 
+                                    RemoveItemCommand="{Binding ClearTestFriendGroupCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="7" Content="Emails"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="7"
+										 Items="{Binding Path=Item.Emails}"
+										 SelectedItem="{Binding SelectedEmailsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInEmailsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromEmailsCommand}"/>
+
+
+    </Grid>
+</inf:ViewBase>

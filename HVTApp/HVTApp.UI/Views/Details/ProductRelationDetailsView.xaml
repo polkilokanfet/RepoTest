@@ -1,0 +1,42 @@
+<inf:ViewBase x:Class="HVTApp.UI.Views.ProductRelationDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="ChildProductsAmount"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0"
+							   ValueType="core:Int32"
+                               Value="{Binding Item.ChildProductsAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="ParentProductParameters"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
+										 Items="{Binding Path=Item.ParentProductParameters}"
+										 SelectedItem="{Binding SelectedParentProductParametersItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInParentProductParametersCommand}"
+										 RemoveItemCommand="{Binding RemoveFromParentProductParametersCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="ChildProductParameters"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
+										 Items="{Binding Path=Item.ChildProductParameters}"
+										 SelectedItem="{Binding SelectedChildProductParametersItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInChildProductParametersCommand}"
+										 RemoveItemCommand="{Binding RemoveFromChildProductParametersCommand}"/>
+
+
+    </Grid>
+</inf:ViewBase>
