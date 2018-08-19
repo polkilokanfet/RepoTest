@@ -49,7 +49,7 @@ namespace HVTApp.DataAccess
     public partial interface ITestHusbandRepository : IRepository<TestHusband> { }
     public partial interface ITestWifeRepository : IRepository<TestWife> { }
     public partial interface ITestChildRepository : IRepository<TestChild> { }
-    public partial interface ICostOnDateRepository : IRepository<SumOnDate> { }
+    public partial interface ISumOnDateRepository : IRepository<SumOnDate> { }
     public partial interface IProductRepository : IRepository<Product> { }
     public partial interface IOfferRepository : IRepository<Offer> { }
     public partial interface IEmployeeRepository : IRepository<Employee> { }

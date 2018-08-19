@@ -233,9 +233,9 @@ namespace HVTApp.DataAccess
         public TestChildRepository(DbContext context) : base(context) {}
     }
 
-    public partial class CostOnDateRepository : BaseRepository<SumOnDate>, ICostOnDateRepository
+    public partial class SumOnDateRepository : BaseRepository<SumOnDate>, ISumOnDateRepository
     {
-        public CostOnDateRepository(DbContext context) : base(context) {}
+        public SumOnDateRepository(DbContext context) : base(context) {}
     }
 
     public partial class ProductRepository : BaseRepository<Product>, IProductRepository

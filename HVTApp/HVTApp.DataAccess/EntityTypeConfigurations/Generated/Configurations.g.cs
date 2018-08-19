@@ -49,7 +49,7 @@ namespace HVTApp.DataAccess
     public partial class TestHusbandConfiguration : EntityTypeConfiguration<TestHusband> { }
     public partial class TestWifeConfiguration : EntityTypeConfiguration<TestWife> { }
     public partial class TestChildConfiguration : EntityTypeConfiguration<TestChild> { }
-    public partial class CostOnDateConfiguration : EntityTypeConfiguration<SumOnDate> { }
+    public partial class SumOnDateConfiguration : EntityTypeConfiguration<SumOnDate> { }
     public partial class ProductConfiguration : EntityTypeConfiguration<Product> { }
     public partial class OfferConfiguration : EntityTypeConfiguration<Offer> { }
     public partial class EmployeeConfiguration : EntityTypeConfiguration<Employee> { }

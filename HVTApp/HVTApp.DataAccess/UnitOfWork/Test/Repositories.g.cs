@@ -233,9 +233,9 @@ namespace HVTApp.DataAccess
         public TestChildRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class CostOnDateRepositoryTest : TestBaseRepository<SumOnDate>, ICostOnDateRepository
+    public partial class SumOnDateRepositoryTest : TestBaseRepository<SumOnDate>, ISumOnDateRepository
     {
-        public CostOnDateRepositoryTest(TestData testData) : base(testData) {}
+        public SumOnDateRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class ProductRepositoryTest : TestBaseRepository<Product>, IProductRepository

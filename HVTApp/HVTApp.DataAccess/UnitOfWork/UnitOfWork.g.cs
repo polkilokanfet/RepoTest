@@ -59,7 +59,7 @@ namespace HVTApp.DataAccess
             TestHusbandRepository = new TestHusbandRepository(context);
             TestWifeRepository = new TestWifeRepository(context);
             TestChildRepository = new TestChildRepository(context);
-            CostOnDateRepository = new CostOnDateRepository(context);
+            SumOnDateRepository = new SumOnDateRepository(context);
             ProductRepository = new ProductRepository(context);
             OfferRepository = new OfferRepository(context);
             EmployeeRepository = new EmployeeRepository(context);
@@ -124,7 +124,7 @@ namespace HVTApp.DataAccess
         private ITestHusbandRepository TestHusbandRepository;
         private ITestWifeRepository TestWifeRepository;
         private ITestChildRepository TestChildRepository;
-        private ICostOnDateRepository CostOnDateRepository;
+        private ISumOnDateRepository SumOnDateRepository;
         private IProductRepository ProductRepository;
         private IOfferRepository OfferRepository;
         private IEmployeeRepository EmployeeRepository;

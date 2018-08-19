@@ -371,23 +371,23 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Generator.cs</LastGenOutput>
     </Content>
-    <Resource Include="GeneratorOfDetails.txt">
+    <Resource Include="GeneratorDetailsViews.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GeneratorOfDetails.tt</DependentUpon>
+      <DependentUpon>GeneratorDetailsViews.tt</DependentUpon>
     </Resource>
-    <Content Include="GeneratorOfFields.tt">
+    <Content Include="GeneratorListViews.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>GeneratorOfFields.txt</LastGenOutput>
+      <LastGenOutput>GeneratorListViews.txt</LastGenOutput>
     </Content>
-    <Content Include="GeneratorOfDetails.tt">
+    <Content Include="GeneratorDetailsViews.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>GeneratorOfDetails.txt</LastGenOutput>
+      <LastGenOutput>GeneratorDetailsViews.txt</LastGenOutput>
     </Content>
-    <Resource Include="GeneratorOfFields.txt">
+    <Resource Include="GeneratorListViews.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GeneratorOfFields.tt</DependentUpon>
+      <DependentUpon>GeneratorListViews.tt</DependentUpon>
     </Resource>
   </ItemGroup>
   <ItemGroup>

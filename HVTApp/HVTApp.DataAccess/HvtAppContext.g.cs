@@ -55,7 +55,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new TestHusbandConfiguration());
             modelBuilder.Configurations.Add(new TestWifeConfiguration());
             modelBuilder.Configurations.Add(new TestChildConfiguration());
-            modelBuilder.Configurations.Add(new CostOnDateConfiguration());
+            modelBuilder.Configurations.Add(new SumOnDateConfiguration());
             modelBuilder.Configurations.Add(new ProductConfiguration());
             modelBuilder.Configurations.Add(new OfferConfiguration());
             modelBuilder.Configurations.Add(new EmployeeConfiguration());
@@ -121,7 +121,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<TestHusband> TestHusbandDbSet { get; set; }
         public virtual DbSet<TestWife> TestWifeDbSet { get; set; }
         public virtual DbSet<TestChild> TestChildDbSet { get; set; }
-        public virtual DbSet<SumOnDate> CostOnDateDbSet { get; set; }
+        public virtual DbSet<SumOnDate> SumOnDateDbSet { get; set; }
         public virtual DbSet<Product> ProductDbSet { get; set; }
         public virtual DbSet<Offer> OfferDbSet { get; set; }
         public virtual DbSet<Employee> EmployeeDbSet { get; set; }
