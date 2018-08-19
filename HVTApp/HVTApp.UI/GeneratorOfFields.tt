@@ -1,7 +1,7 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
-<#@ assembly name="$(SolutionDir)\HVTApp\bin\Debug\HVTApp.Infrastructure.dll" #>
 <#@ assembly name="$(SolutionDir)\HVTApp.Model\bin\Debug\HVTApp.Model.dll" #>
+<#@ assembly name="$(SolutionDir)\HVTApp.Infrestructure\bin\Debug\HVTApp.Infrastructure.dll" #>
 <#@ assembly name="$(SolutionDir)\HVTApp.UI\bin\Debug\HVTApp.UI.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>

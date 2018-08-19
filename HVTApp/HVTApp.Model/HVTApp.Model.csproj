@@ -59,6 +59,7 @@
     <Compile Include="POCOs\Address\LocalityType.cs" />
     <Compile Include="POCOs\Address\Region.cs" />
     <Compile Include="POCOs\CalculatePriceTask.cs" />
+    <Compile Include="POCOs\Designate.cs" />
     <Compile Include="POCOs\Sum.cs" />
     <Compile Include="POCOs\Currency.cs" />
     <Compile Include="POCOs\CurrencyExchangeRate.cs" />

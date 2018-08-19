@@ -102,6 +102,8 @@
     <Compile Include="Events\AfterSaveEntityEvents\AfterSaveEntityEvents.g.cs" />
     <Compile Include="Events\AfterSelectEntityEvents\AfterSelectEntityEvents.g.cs" />
     <Compile Include="Events\AfterSelectEntityEvents\PubSubEventArgs.cs" />
+    <Compile Include="Ext.cs" />
+    <Compile Include="GeneratorHelpers.cs" />
     <Compile Include="Lookup\IProductUnitLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SpecificationLookup.cs" />
     <Compile Include="Lookup\Items\Lookups.g.cs" />

@@ -77,7 +77,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attrubutes\Designate.cs" />
     <Compile Include="Attrubutes\DesignationAttribute.cs" />
     <Compile Include="BaseEntity.cs" />
     <Compile Include="BaseMenuViewModel.cs" />

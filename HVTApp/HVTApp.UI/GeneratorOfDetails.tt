@@ -1,7 +1,8 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
-<#@ assembly name="$(SolutionDir)\HVTApp.Infrestructure\bin\Debug\HVTApp.Infrastructure.dll" #>
 <#@ assembly name="$(SolutionDir)\HVTApp.Model\bin\Debug\HVTApp.Model.dll" #>
+<#@ assembly name="$(SolutionDir)\HVTApp.Infrestructure\bin\Debug\HVTApp.Infrastructure.dll" #>
+<#@ assembly name="$(SolutionDir)\HVTApp.UI\bin\Debug\HVTApp.UI.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.IO" #>
@@ -10,9 +11,10 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="HVTApp.Model.POCOs" #>
 <#@ import namespace="HVTApp.Infrastructure" #>
+<#@ import namespace="HVTApp.UI" #>
 <#@ output extension=".txt" #>
 <#
-	var modelTypes = GetModelTypes();
+	var modelTypes = GeneratorHelpers.GetModelTypesForDetails();
     GenerateDetails(modelTypes);
 
 #><#+
@@ -26,37 +28,12 @@
     }
 
 
-
-
 	private void GenerateField(Type modelType)
 	{
 		var allProperties = modelType.GetProperties().Where(x => !Equals(x.Name, "Id"));
-
-
-		//Простые int свойства
-		var intProperties = allProperties.Where(p => Equals(p.PropertyType, typeof(int)) || Equals(p.PropertyType, typeof(Nullable<int>))).ToList();
-		//Простые double свойства
-		var doubleProperties = allProperties.Where(p => Equals(p.PropertyType, typeof(double)) || Equals(p.PropertyType, typeof(Nullable<double>))).ToList();
-		//Простые date свойства
-		var dateProperties = allProperties.Where(p => Equals(p.PropertyType, typeof(DateTime)) || Equals(p.PropertyType, typeof(Nullable<DateTime>))).ToList();
-		//Простые string свойства
-		var stringProperties = allProperties.Where(p => Equals(p.PropertyType, typeof(string))).ToList();
-		//Простые свойства
-		var allSimpleProperties = allProperties.Where(p => IsSimple(p.PropertyType)).Except(doubleProperties).Except(dateProperties).ToList();
-
-		//Перечисления
-		var allCollectionProperties = allProperties.Except(allSimpleProperties)
-				.Where(p => p.PropertyType.GetInterfaces()
-				.Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)));
-
-		var collectionComplexProperties = allCollectionProperties.Where(x => !CollectionMemberTypeIsSimple(x.PropertyType)).ToList();
-
-		//Сложные свойства
-		//var allComplexProperties = allProperties.Except(simpleProperties).Where(p => p.PropertyType.IsClass && !typeof(IEnumerable).IsAssignableFrom(p.PropertyType));
-		var allComplexProperties = allProperties.Except(allSimpleProperties).Except(allCollectionProperties).Except(doubleProperties).Except(dateProperties).ToList();
-
-		var complexSetProperties = allComplexProperties.Where(p => p.CanWrite).ToList();
-		var complexGetProperties = allComplexProperties.Where(p => !p.CanWrite).ToList();
+		
+		var complexSetProperties = modelType.AllComplexProperties().Where(p => p.CanWrite).ToList();
+		var complexGetProperties = modelType.AllComplexProperties().Where(p => !p.CanWrite).ToList();
 
 #>========================================== Details for <#=modelType.Name#> ==========================================
 
@@ -83,12 +60,12 @@
 
 <#+
 		int rowNum = 0;
-		GenerateDetailsForStringProperties(stringProperties, ref rowNum);
-		GenerateDetailsForDoubleProperties(doubleProperties, ref rowNum);
-		GenerateDetailsForIntProperties(intProperties, ref rowNum);
-		GenerateDetailsForDateProperties(dateProperties, ref rowNum);
+		GenerateDetailsForStringProperties(modelType.StringProperties(), ref rowNum);
+		GenerateDetailsForIntProperties(modelType.SimpleProperties<int>(), ref rowNum);
+		GenerateDetailsForDoubleProperties(modelType.SimpleProperties<double>(), ref rowNum);
+		GenerateDetailsForDateProperties(modelType.SimpleProperties<DateTime>(), ref rowNum);
 		GenerateDetailsForComplexProperties(complexSetProperties, ref rowNum);
-		GenerateDetailsForCollectionComplexProperties(collectionComplexProperties, ref rowNum);
+		GenerateDetailsForCollectionComplexProperties(modelType.CollectionComplexProperties(), ref rowNum);
 #>
 
     </Grid>
@@ -103,7 +80,7 @@
     foreach (var property in properties)
     {
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Name#>"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>"/>
         <TextBox Grid.Column="1" Grid.Row="<#= rowNum #>" MinWidth="200" 
                  Text="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
@@ -117,7 +94,7 @@
     foreach (var property in properties)
     {
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Name#>"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="<#= rowNum #>" 
                                Value="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
@@ -131,7 +108,7 @@
     foreach (var property in properties)
     {
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Name#>"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="<#= rowNum #>"
 							   ValueType="core:Int32"
                                Value="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
@@ -146,7 +123,7 @@
     foreach (var property in properties)
     {
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Name#>"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>"/>
         <DatePicker Grid.Column="1" Grid.Row="<#= rowNum #>" 
                     SelectedDate="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
@@ -160,7 +137,7 @@
     foreach (var property in properties)
     {
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Name#>"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="<#= rowNum #>" 
                                     Item="{Binding Item.<#=property.Name#>}" 
                                     AddItemCommand="{Binding Select<#=property.Name#>Command}" 
@@ -176,7 +153,7 @@
     foreach (var property in properties)
     {
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Name#>"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="<#= rowNum #>"
 										 Items="{Binding Path=Item.<#=property.Name#>}"
 										 SelectedItem="{Binding Selected<#=property.Name#>Item, Mode=TwoWay}"
@@ -187,59 +164,4 @@
 		rowNum++;
     }
   }
-
-	
-    //берем все классы модели.
-    private IEnumerable<Type> GetModelTypes()
-    {
-        var ns = typeof(Address).Namespace;
-        //return typeof(Address).Assembly.GetTypes().Where(x => !x.IsAbstract && !x.IsEnum && x.Namespace == ns && !x.Name.Contains("<"));
-        return typeof(Address).Assembly.GetTypes().Where(x => GetBaseTypes(x).Contains(typeof(BaseEntity)));
-    }
-    
-	private IEnumerable<Type> GetBaseTypes(Type type)
-        {
-            List<Type> result = new List<Type>();
-            while (type.BaseType != null)
-            {
-                result.Add(type.BaseType);
-                type = type.BaseType;
-            }
-            return result;
-        }
-
-
-    //тип простой
-    private bool IsSimple(Type type)
-    {
-        return type.IsValueType || type == typeof (string);
-    }
-
-    //коллекция простых типов?
-    private bool CollectionMemberTypeIsSimple(Type genericCollectionType)
-    {
-        var tt = genericCollectionType.GetInterfaces();
-        var t = genericCollectionType.GetInterfaces()
-            .First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof (ICollection<>))
-            .GetGenericArguments()[0];
-
-        return IsSimple(t);
-    }
-    
-    //возвращаем имя типа
-    private string GetTypeName(Type type)
-    {
-        if (type.IsGenericType)
-        {
-            var genericArguments = type.GetGenericArguments().Select(t => GetTypeName(t)).ToArray();
-            var typeDefinition = type.GetGenericTypeDefinition().FullName;
-            typeDefinition = typeDefinition.Substring(0, typeDefinition.IndexOf('`'));
-            return string.Format("{0}<{1}>", typeDefinition, string.Join(",", genericArguments));
-        }
-        else
-        {
-            return type.FullName;
-        }
-    }
-
 #>
