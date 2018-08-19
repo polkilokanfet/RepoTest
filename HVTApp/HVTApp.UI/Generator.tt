@@ -78,17 +78,6 @@ namespace HVTApp.UI.Lookup
 
 	private void GenerateLookup(Type modelType)
 	{
-		var allProperties = modelType.GetProperties();
-		var allSimpleProperties = allProperties.Where(p => IsSimple(p.PropertyType));
-				
-		//Перечисления
-		var allCollectionProperties = allProperties.Except(allSimpleProperties)
-				.Where(p => p.PropertyType.GetInterfaces()
-				.Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)));
-
-		//Сложные свойства
-		var allComplexProperties = allProperties.Except(allSimpleProperties).Except(allCollectionProperties);
-
 #>
 	public partial class <#=modelType.Name#>Lookup : LookupItem<<#=modelType.Name#>>
 	{
@@ -97,12 +86,12 @@ namespace HVTApp.UI.Lookup
 		}
 		protected override void RefreshLookups()
         {
-			 <#+ GenerateRefreshComplexLookupProperties(allComplexProperties);#>
+			 <#+ GenerateRefreshComplexLookupProperties(modelType.AllComplexProperties());#>
 		}
 		<#+
 
-		GenerateSimpleLookupProperties(allSimpleProperties.Where(x => x.Name != "Id"));
-		GenerateComplexLookupProperties(allComplexProperties);
+		GenerateSimpleLookupProperties(modelType.AllSimpleProperties().Where(x => x.Name != "Id"));
+		GenerateComplexLookupProperties(modelType.AllComplexProperties());
 
 		#>
 	}
@@ -212,22 +201,11 @@ namespace HVTApp.UI.ViewModels
 
     private void GenerateDetailsViewModel(Type modelType)
 	{
-		var allProperties = modelType.GetProperties();
-		var allSimpleProperties = allProperties.Where(p => IsSimple(p.PropertyType));
-				
-		//Перечисления
-		var allCollectionProperties = allProperties.Except(allSimpleProperties)
-				.Where(p => p.PropertyType.GetInterfaces()
-				.Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)));
-
-		//Сложные свойства
-		var allComplexProperties = allProperties.Except(allSimpleProperties).Except(allCollectionProperties);
-
 #>
     public partial class <#=modelType.Name#>DetailsViewModel : BaseDetailsViewModel<<#=modelType.Name#>Wrapper, <#=modelType.Name#>, AfterSave<#=modelType.Name#>Event>
     {
 <#+		
-		foreach(var propInfo in allComplexProperties)
+		foreach(var propInfo in modelType.AllComplexProperties())
         {
 #>		private Func<Task<List<<#=propInfo.PropertyType.Name#>>>> _getEntitiesForSelect<#=propInfo.Name#>Command;
 		public ICommand Select<#=propInfo.Name#>Command { get; }
@@ -235,7 +213,7 @@ namespace HVTApp.UI.ViewModels
 
 <#+		}
 
-		foreach(var propInfo in allCollectionProperties)
+		foreach(var propInfo in modelType.AllCollectionProperties())
         {
 			var itemType = propInfo.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
 			var propertyName = propInfo.Name;
@@ -261,14 +239,14 @@ namespace HVTApp.UI.ViewModels
         public <#=modelType.Name#>DetailsViewModel(IUnityContainer container) : base(container) 
 		{
 <#+		
-		foreach(var propInfo in allComplexProperties)
+		foreach(var propInfo in modelType.AllComplexProperties())
         {
 #>			Select<#=propInfo.Name#>Command = new DelegateCommand(Select<#=propInfo.Name#>Command_Execute);
 			Clear<#=propInfo.Name#>Command = new DelegateCommand(Clear<#=propInfo.Name#>Command_Execute);
 
 <#+		}
 
-		foreach(var propInfo in allCollectionProperties)
+		foreach(var propInfo in modelType.AllCollectionProperties())
         {
 			var itemType = propInfo.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
 			var propertyName = propInfo.Name;
@@ -283,12 +261,12 @@ namespace HVTApp.UI.ViewModels
         protected override void InitDefaultGetMethods()
 		{
 <#+		
-		foreach(var propInfo in allComplexProperties)
+		foreach(var propInfo in modelType.AllComplexProperties())
         {
 #>            _getEntitiesForSelect<#=propInfo.Name#>Command = async () => { return await UnitOfWork.GetRepository<<#=propInfo.PropertyType.Name#>>().GetAllAsync(); };
 <#+		}
 
-		foreach(var propInfo in allCollectionProperties)
+		foreach(var propInfo in modelType.AllCollectionProperties())
         {
 			var itemType = propInfo.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
 			var propertyName = propInfo.Name;
@@ -302,7 +280,7 @@ namespace HVTApp.UI.ViewModels
 
 
 
-foreach(var propInfo in allComplexProperties)
+foreach(var propInfo in modelType.AllComplexProperties())
         {
 #>		private async void Select<#=propInfo.Name#>Command_Execute() 
 		{
@@ -321,7 +299,7 @@ foreach(var propInfo in allComplexProperties)
 
 <#+		}
 
-		foreach(var propInfo in allCollectionProperties)
+		foreach(var propInfo in modelType.AllCollectionProperties())
         {
 			var itemType = propInfo.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
 			var propertyName = propInfo.Name;
@@ -350,6 +328,7 @@ foreach(var propInfo in allComplexProperties)
 <#+
 
 	}
+
 
 	private void GenerateEntityWrapperDataServices(IEnumerable<Type> modelTypes)
 	{

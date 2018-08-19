@@ -1,4 +1,4 @@
-﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="$(SolutionDir)\HVTApp.Model\bin\Debug\HVTApp.Model.dll" #>
 <#@ assembly name="$(SolutionDir)\HVTApp.Infrestructure\bin\Debug\HVTApp.Infrastructure.dll" #>
@@ -24,6 +24,7 @@
         foreach(var modelType in modelTypes)
         {
             GenerateField(modelType);
+			SaveGeneratedCodeAsFile(modelType.Name + ".xaml", "ddd");
         }
     }
 
@@ -164,4 +165,17 @@
 		rowNum++;
     }
   }
+
+    //сохранение сгенерированного кода в отдельный файл.
+    private void SaveGeneratedCodeAsFile(string fileName, string filePath)
+    {
+		string directoryName = Path.GetDirectoryName(Host.TemplateFile);
+        string dir = Path.Combine(directoryName, filePath);
+  
+        string outputFilePath = Path.Combine(dir, fileName);
+        File.WriteAllText(outputFilePath, GenerationEnvironment.ToString()); 
+ 
+        GenerationEnvironment.Clear();
+    }
+
 #>
