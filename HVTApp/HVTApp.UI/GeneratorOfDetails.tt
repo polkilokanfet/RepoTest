@@ -14,7 +14,7 @@
 <#@ import namespace="HVTApp.UI" #>
 <#@ output extension=".txt" #>
 <#
-	var modelTypes = GeneratorHelpers.GetModelTypesForDetails();
+	var modelTypes = GeneratorHelpers.GetModelTypesPocos();
     GenerateDetails(modelTypes);
 
 #><#+

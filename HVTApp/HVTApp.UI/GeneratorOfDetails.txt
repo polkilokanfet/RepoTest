@@ -860,7 +860,7 @@
                  Text="{Binding Item.Kpp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Юридическая форма компании"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="Организационная форма"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.Form}" 
                                     AddItemCommand="{Binding SelectFormCommand}" 

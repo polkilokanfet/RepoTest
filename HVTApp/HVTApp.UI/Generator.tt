@@ -1,7 +1,8 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
-<#@ assembly name="$(SolutionDir)\HVTApp.Infrestructure\bin\Debug\HVTApp.Infrastructure.dll" #>
 <#@ assembly name="$(SolutionDir)\HVTApp.Model\bin\Debug\HVTApp.Model.dll" #>
+<#@ assembly name="$(SolutionDir)\HVTApp.Infrestructure\bin\Debug\HVTApp.Infrastructure.dll" #>
+<#@ assembly name="$(SolutionDir)\HVTApp.UI\bin\Debug\HVTApp.UI.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.IO" #>
@@ -10,9 +11,10 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="HVTApp.Model.POCOs" #>
 <#@ import namespace="HVTApp.Infrastructure" #>
+<#@ import namespace="HVTApp.UI" #>
 <#@ output extension=".cs" #>
 <#
-	var modelTypes = GetModelTypes();
+	var modelTypes = GeneratorHelpers.GetModelTypesPocos();;
 
     GenerateWrappers(modelTypes);
 	SaveGeneratedCodeAsFile("Wrappers.g.cs", "Wrapper");
@@ -309,7 +311,12 @@ foreach(var propInfo in allComplexProperties)
 
 		private void Clear<#=propInfo.Name#>Command_Execute() 
 		{
-		    Item.<#=propInfo.Name#> = null;
+		<#+ if (propInfo.CanWrite)
+			{
+				#>Item.<#=propInfo.Name#> = null;<#+
+			} 
+		#>
+		    
 		}
 
 <#+		}
@@ -644,26 +651,7 @@ namespace HVTApp.UI.Wrapper
 
 	<#+
 	}
-	
-    //берем все классы модели.
-    private IEnumerable<Type> GetModelTypes()
-    {
-        var ns = typeof(Address).Namespace;
-        //return typeof(Address).Assembly.GetTypes().Where(x => !x.IsAbstract && !x.IsEnum && x.Namespace == ns && !x.Name.Contains("<"));
-        return typeof(Address).Assembly.GetTypes().Where(x => GetBaseTypes(x).Contains(typeof(BaseEntity)));
-    }
-    
-	private IEnumerable<Type> GetBaseTypes(Type type)
-        {
-            List<Type> result = new List<Type>();
-            while (type.BaseType != null)
-            {
-                result.Add(type.BaseType);
-                type = type.BaseType;
-            }
-            return result;
-        }
-
+	   
 
     //тип простой
     private bool IsSimple(Type type)

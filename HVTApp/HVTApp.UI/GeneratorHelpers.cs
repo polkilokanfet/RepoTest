@@ -15,7 +15,7 @@ namespace HVTApp.UI
         /// Все типы для генерации окон с деталями.
         /// </summary>
         /// <returns></returns>
-        public static IEnumerable<Type> GetModelTypesForDetails()
+        public static IEnumerable<Type> GetModelTypesPocos()
         {
             var ns = typeof(Address).Namespace;
             //return typeof(Address).Assembly.GetTypes().Where(x => !x.IsAbstract && !x.IsEnum && x.Namespace == ns && !x.Name.Contains("<"));
@@ -81,7 +81,8 @@ namespace HVTApp.UI
 
         public static IEnumerable<PropertyInfo> AllSimpleProperties(this Type type)
         {
-            return GetPropsWithoutId(type).Where(p => p.PropertyType.IsSimple()).Except(type.SimpleProperties<double>()).Except(type.SimpleProperties<DateTime>());
+            //return GetPropsWithoutId(type).Where(p => p.PropertyType.IsSimple()).Except(type.SimpleProperties<double>()).Except(type.SimpleProperties<DateTime>());
+            return GetPropsWithoutId(type).Where(p => p.PropertyType.IsSimple());
         }
 
 
