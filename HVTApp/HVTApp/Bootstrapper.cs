@@ -1,8 +1,8 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
-using Prism.Unity;
 using HVTApp.Views;
 using System.Windows;
 using HVTApp.DataAccess;
@@ -28,12 +28,15 @@ using HVTApp.Services.UpdateDetailsService;
 using HVTApp.UI;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.Services;
+using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Infragistics.Windows.OutlookBar;
 using Infragistics.Windows.Ribbon;
+using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Modularity;
 using Prism.Regions;
+using Prism.Unity;
 
 namespace HVTApp
 {
@@ -41,19 +44,24 @@ namespace HVTApp
     {
         protected override DependencyObject CreateShell()
         {
-            return Container.Resolve<MainWindow>();
+            var mainWindow = Container.Resolve<MainWindow>();
+            Application.Current.MainWindow = mainWindow;
+            //Завершить приложение при закрытии главного окна.
+            Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+            return mainWindow;
         }
 
         protected override async void InitializeShell()
         {
-            //await SetCommonOptions();
+            await SetCommonOptions();
 
-            await Container.Resolve<IAuthenticationService>().AuthenticationAsync();
+            //await Container.Resolve<IAuthenticationService>().AuthenticationAsync();
+
             Application.Current.MainWindow.Show();
         }
 
         /// <summary>
-        /// Установка общих приложений для всех (наша компания, стандартный срок изготовления и т.д.)
+        /// Установка общих опций для всех (наша компания, стандартный срок изготовления и т.д.)
         /// </summary>
         /// <returns></returns>
         private async Task SetCommonOptions()
@@ -71,7 +79,7 @@ namespace HVTApp
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-
+            
             Container.RegisterType<IEventAggregator, EventAggregator>(new ContainerControlledLifetimeManager());
             Container.RegisterType<DbContext, HvtAppContext>();
             Container.RegisterType<IUnitOfWork, UnitOfWork>();
@@ -93,17 +101,16 @@ namespace HVTApp
             Container.RegisterType<IGetProductService, GetProductServiceWpf>();
         }
 
-        private IModuleCatalog _moduleCatalog;
         protected override IModuleCatalog CreateModuleCatalog()
         {
             var catalog = new ModuleCatalog();
 
             catalog.AddModule(typeof(UiModule));
-            catalog.AddModule(typeof(SalesModule));
-            catalog.AddModule(typeof(BaseEntitiesModule));
-            catalog.AddModule(typeof(ProductionModule));
 
-            _moduleCatalog = catalog;
+            AddModuleIfInRole(catalog, typeof(SalesModule));
+            AddModuleIfInRole(catalog, typeof(BaseEntitiesModule));
+            AddModuleIfInRole(catalog, typeof(ProductionModule));
+
             return catalog;
         }
 
@@ -120,6 +127,21 @@ namespace HVTApp
             IRegionBehaviorFactory behaviors = base.ConfigureDefaultRegionBehaviors();
             behaviors.AddIfMissing(XamRibbonRegionBehavior.BehaviorKey, typeof(XamRibbonRegionBehavior));
             return behaviors;
+        }
+
+
+        /// <summary>
+        /// Загрузка модулей на основе ролей
+        /// </summary>
+        /// <param name="catalog"></param>
+        /// <param name="moduleType"></param>
+        private void AddModuleIfInRole(ModuleCatalog catalog, Type moduleType)
+        {
+            catalog.AddModule(moduleType);
+
+            //var attr = (RoleToUpdateAttribute)(moduleType.GetCustomAttribute(typeof(RoleToUpdateAttribute), true));
+            //if (attr != null && attr.Roles.Contains(CommonOptions.User.RoleCurrent))
+            //    catalog.AddModule(moduleType);
         }
     }
 }

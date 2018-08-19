@@ -1,11 +1,13 @@
 using System;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attrubutes;
 
 namespace HVTApp.Model.POCOs
 {
     /// <summary>
     /// Населенный пункт.
     /// </summary>
+    [Designation("Населенный пункт")]
     public partial class Locality : BaseEntity
     {
         public string Name { get; set; }

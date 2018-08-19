@@ -1,4 +1,4 @@
-﻿<inf:ViewBase x:Class="HVTApp.UI.Views.PaymentConditionSetDetailsView"
+<inf:ViewBase x:Class="HVTApp.UI.Views.PaymentConditionSetDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

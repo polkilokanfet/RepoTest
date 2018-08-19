@@ -1,4 +1,4 @@
-﻿<inf:ViewBase x:Class="HVTApp.UI.Views.SalesUnitDetailsView"
+<inf:ViewBase x:Class="HVTApp.UI.Views.SalesUnitDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -37,6 +37,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="OrderPosition"/>
@@ -47,28 +48,28 @@
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.SerialNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Cost"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
-                               Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
-
-        <Label Grid.Column="0" Grid.Row ="3" Content="CostOfShipment"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3" 
-                               Value="{Binding Item.CostOfShipment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
-
-        <Label Grid.Column="0" Grid.Row ="4" Content="ProductionTerm"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="4"
+        <Label Grid.Column="0" Grid.Row ="2" Content="ProductionTerm"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ProductionTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="AssembleTerm"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="5"
+        <Label Grid.Column="0" Grid.Row ="3" Content="AssembleTerm"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3"
 							   ValueType="core:Int32"
                                Value="{Binding Item.AssembleTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
-        <Label Grid.Column="0" Grid.Row ="6" Content="ExpectedDeliveryPeriod"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="6"
+        <Label Grid.Column="0" Grid.Row ="4" Content="ExpectedDeliveryPeriod"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="4"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ExpectedDeliveryPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
+        <Label Grid.Column="0" Grid.Row ="5" Content="Cost"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="5" 
+                               Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
+        <Label Grid.Column="0" Grid.Row ="6" Content="CostOfShipment"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="6" 
+                               Value="{Binding Item.CostOfShipment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
         <Label Grid.Column="0" Grid.Row ="7" Content="DeliveryDateExpected"/>
         <DatePicker Grid.Column="1" Grid.Row="7" 
@@ -108,7 +109,7 @@
                                     AddItemCommand="{Binding SelectProductCommand}" 
                                     RemoveItemCommand="{Binding ClearProductCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row ="16" Content="Facility"/>
+        <Label Grid.Column="0" Grid.Row ="16" Content="Объект"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="16" 
                                     Item="{Binding Item.Facility}" 
                                     AddItemCommand="{Binding SelectFacilityCommand}" 
@@ -120,7 +121,7 @@
                                     AddItemCommand="{Binding SelectPaymentConditionSetCommand}" 
                                     RemoveItemCommand="{Binding ClearPaymentConditionSetCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row ="18" Content="Producer"/>
+        <Label Grid.Column="0" Grid.Row ="18" Content="Компания"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="18" 
                                     Item="{Binding Item.Producer}" 
                                     AddItemCommand="{Binding SelectProducerCommand}" 
@@ -132,13 +133,13 @@
                                     AddItemCommand="{Binding SelectOrderCommand}" 
                                     RemoveItemCommand="{Binding ClearOrderCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row ="20" Content="Specification"/>
+        <Label Grid.Column="0" Grid.Row ="20" Content="Спецификация"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="20" 
                                     Item="{Binding Item.Specification}" 
                                     AddItemCommand="{Binding SelectSpecificationCommand}" 
                                     RemoveItemCommand="{Binding ClearSpecificationCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row ="21" Content="Address"/>
+        <Label Grid.Column="0" Grid.Row ="21" Content="Адрес"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="21" 
                                     Item="{Binding Item.Address}" 
                                     AddItemCommand="{Binding SelectAddressCommand}" 
@@ -151,15 +152,22 @@
 										 AddItemCommand="{Binding AddInDependentProductsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromDependentProductsCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row ="23" Content="PaymentsActual"/>
+        <Label Grid.Column="0" Grid.Row ="23" Content="Services"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="23"
+										 Items="{Binding Path=Item.Services}"
+										 SelectedItem="{Binding SelectedServicesItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInServicesCommand}"
+										 RemoveItemCommand="{Binding RemoveFromServicesCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="24" Content="PaymentsActual"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="24"
 										 Items="{Binding Path=Item.PaymentsActual}"
 										 SelectedItem="{Binding SelectedPaymentsActualItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPaymentsActualCommand}"
 										 RemoveItemCommand="{Binding RemoveFromPaymentsActualCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row ="24" Content="PaymentsPlannedSaved"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="24"
+        <Label Grid.Column="0" Grid.Row ="25" Content="PaymentsPlannedSaved"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="25"
 										 Items="{Binding Path=Item.PaymentsPlannedSaved}"
 										 SelectedItem="{Binding SelectedPaymentsPlannedSavedItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPaymentsPlannedSavedCommand}"

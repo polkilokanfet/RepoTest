@@ -1,0 +1,76 @@
+<inf:ViewBase x:Class="HVTApp.UI.Views.DocumentDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Comment"/>
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+                 Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="RequestDocument"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
+                                    Item="{Binding Item.RequestDocument}" 
+                                    AddItemCommand="{Binding SelectRequestDocumentCommand}" 
+                                    RemoveItemCommand="{Binding ClearRequestDocumentCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Author"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
+                                    Item="{Binding Item.Author}" 
+                                    AddItemCommand="{Binding SelectAuthorCommand}" 
+                                    RemoveItemCommand="{Binding ClearAuthorCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="SenderEmployee"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
+                                    Item="{Binding Item.SenderEmployee}" 
+                                    AddItemCommand="{Binding SelectSenderEmployeeCommand}" 
+                                    RemoveItemCommand="{Binding ClearSenderEmployeeCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="RecipientEmployee"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
+                                    Item="{Binding Item.RecipientEmployee}" 
+                                    AddItemCommand="{Binding SelectRecipientEmployeeCommand}" 
+                                    RemoveItemCommand="{Binding ClearRecipientEmployeeCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="5" Content="RegistrationDetailsOfSender"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
+                                    Item="{Binding Item.RegistrationDetailsOfSender}" 
+                                    AddItemCommand="{Binding SelectRegistrationDetailsOfSenderCommand}" 
+                                    RemoveItemCommand="{Binding ClearRegistrationDetailsOfSenderCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="6" Content="RegistrationDetailsOfRecipient"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
+                                    Item="{Binding Item.RegistrationDetailsOfRecipient}" 
+                                    AddItemCommand="{Binding SelectRegistrationDetailsOfRecipientCommand}" 
+                                    RemoveItemCommand="{Binding ClearRegistrationDetailsOfRecipientCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="7" Content="CopyToRecipients"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="7"
+										 Items="{Binding Path=Item.CopyToRecipients}"
+										 SelectedItem="{Binding SelectedCopyToRecipientsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInCopyToRecipientsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromCopyToRecipientsCommand}"/>
+
+
+    </Grid>
+</inf:ViewBase>

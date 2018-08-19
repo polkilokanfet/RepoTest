@@ -1,10 +1,12 @@
 ﻿using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attrubutes;
 
 namespace HVTApp.Model.POCOs
 {
     /// <summary>
     /// Сфера деятельности компании.
     /// </summary>
+    [Designation("Сфера деятельности")]
     public partial class ActivityField : BaseEntity
     {
         public string Name { get; set; }

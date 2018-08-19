@@ -48,7 +48,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearLocalityCommand_Execute() 
 		{
-		    Item.Locality = null;
+		Item.Locality = null;		    
 		}
 
 
@@ -92,7 +92,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearCountryCommand_Execute() 
 		{
-		    Item.Country = null;
+		Item.Country = null;		    
 		}
 
 
@@ -131,7 +131,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearLocalityTypeCommand_Execute() 
 		{
-		    Item.LocalityType = null;
+		Item.LocalityType = null;		    
 		}
 
 		private async void SelectRegionCommand_Execute() 
@@ -141,7 +141,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRegionCommand_Execute() 
 		{
-		    Item.Region = null;
+		Item.Region = null;		    
 		}
 
 
@@ -185,7 +185,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearDistrictCommand_Execute() 
 		{
-		    Item.District = null;
+		Item.District = null;		    
 		}
 
 
@@ -276,7 +276,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductBlockCommand_Execute() 
 		{
-		    Item.ProductBlock = null;
+		Item.ProductBlock = null;		    
 		}
 
 			private async void AddInProjectsCommand_Execute()
@@ -386,7 +386,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductBlockCommand_Execute() 
 		{
-		    Item.ProductBlock = null;
+		Item.ProductBlock = null;		    
 		}
 
 		private async void SelectProductCommand_Execute() 
@@ -396,7 +396,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductCommand_Execute() 
 		{
-		    Item.Product = null;
+		Item.Product = null;		    
 		}
 
 
@@ -496,7 +496,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductCommand_Execute() 
 		{
-		    Item.Product = null;
+		Item.Product = null;		    
 		}
 
 		private async void SelectFacilityCommand_Execute() 
@@ -506,7 +506,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearFacilityCommand_Execute() 
 		{
-		    Item.Facility = null;
+		Item.Facility = null;		    
 		}
 
 		private async void SelectPaymentConditionSetCommand_Execute() 
@@ -516,7 +516,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearPaymentConditionSetCommand_Execute() 
 		{
-		    Item.PaymentConditionSet = null;
+		Item.PaymentConditionSet = null;		    
 		}
 
 			private async void AddInDependentProductsCommand_Execute()
@@ -708,7 +708,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductCommand_Execute() 
 		{
-		    Item.Product = null;
+		Item.Product = null;		    
 		}
 
 
@@ -947,7 +947,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearFormCommand_Execute() 
 		{
-		    Item.Form = null;
+		Item.Form = null;		    
 		}
 
 		private async void SelectParentCompanyCommand_Execute() 
@@ -957,7 +957,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearParentCompanyCommand_Execute() 
 		{
-		    Item.ParentCompany = null;
+		Item.ParentCompany = null;		    
 		}
 
 		private async void SelectAddressLegalCommand_Execute() 
@@ -967,7 +967,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearAddressLegalCommand_Execute() 
 		{
-		    Item.AddressLegal = null;
+		Item.AddressLegal = null;		    
 		}
 
 		private async void SelectAddressPostCommand_Execute() 
@@ -977,7 +977,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearAddressPostCommand_Execute() 
 		{
-		    Item.AddressPost = null;
+		Item.AddressPost = null;		    
 		}
 
 			private async void AddInBankDetailsListCommand_Execute()
@@ -1103,7 +1103,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearContragentCommand_Execute() 
 		{
-		    Item.Contragent = null;
+		Item.Contragent = null;		    
 		}
 
 
@@ -1167,7 +1167,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearParameterGroupCommand_Execute() 
 		{
-		    Item.ParameterGroup = null;
+		Item.ParameterGroup = null;		    
 		}
 
 			private async void AddInParameterRelationsCommand_Execute()
@@ -1213,7 +1213,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearMeasureCommand_Execute() 
 		{
-		    Item.Measure = null;
+		Item.Measure = null;		    
 		}
 
 
@@ -1360,7 +1360,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearConditionCommand_Execute() 
 		{
-		    Item.Condition = null;
+		Item.Condition = null;		    
 		}
 
 			private async void AddInPaymentsCommand_Execute()
@@ -1608,7 +1608,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductCommand_Execute() 
 		{
-		    Item.Product = null;
+		Item.Product = null;		    
 		}
 
 		private async void SelectFacilityCommand_Execute() 
@@ -1618,7 +1618,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearFacilityCommand_Execute() 
 		{
-		    Item.Facility = null;
+		Item.Facility = null;		    
 		}
 
 		private async void SelectPaymentConditionSetCommand_Execute() 
@@ -1628,7 +1628,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearPaymentConditionSetCommand_Execute() 
 		{
-		    Item.PaymentConditionSet = null;
+		Item.PaymentConditionSet = null;		    
 		}
 
 		private async void SelectProducerCommand_Execute() 
@@ -1638,7 +1638,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProducerCommand_Execute() 
 		{
-		    Item.Producer = null;
+		Item.Producer = null;		    
 		}
 
 		private async void SelectOrderCommand_Execute() 
@@ -1648,7 +1648,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearOrderCommand_Execute() 
 		{
-		    Item.Order = null;
+		Item.Order = null;		    
 		}
 
 		private async void SelectSpecificationCommand_Execute() 
@@ -1658,7 +1658,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearSpecificationCommand_Execute() 
 		{
-		    Item.Specification = null;
+		Item.Specification = null;		    
 		}
 
 		private async void SelectAddressCommand_Execute() 
@@ -1668,7 +1668,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearAddressCommand_Execute() 
 		{
-		    Item.Address = null;
+		Item.Address = null;		    
 		}
 
 			private async void AddInDependentProductsCommand_Execute()
@@ -1821,7 +1821,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearTestFriendAddressCommand_Execute() 
 		{
-		    Item.TestFriendAddress = null;
+		Item.TestFriendAddress = null;		    
 		}
 
 		private async void SelectTestFriendGroupCommand_Execute() 
@@ -1831,7 +1831,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearTestFriendGroupCommand_Execute() 
 		{
-		    Item.TestFriendGroup = null;
+		Item.TestFriendGroup = null;		    
 		}
 
 		private async void SelectTestFriendEmailGetCommand_Execute() 
@@ -1841,7 +1841,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearTestFriendEmailGetCommand_Execute() 
 		{
-		    //Item.TestFriendEmailGet = null;
+				    
 		}
 
 			private async void AddInEmailsCommand_Execute()
@@ -2008,7 +2008,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRequestDocumentCommand_Execute() 
 		{
-		    Item.RequestDocument = null;
+		Item.RequestDocument = null;		    
 		}
 
 		private async void SelectAuthorCommand_Execute() 
@@ -2018,7 +2018,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearAuthorCommand_Execute() 
 		{
-		    Item.Author = null;
+		Item.Author = null;		    
 		}
 
 		private async void SelectSenderEmployeeCommand_Execute() 
@@ -2028,7 +2028,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearSenderEmployeeCommand_Execute() 
 		{
-		    Item.SenderEmployee = null;
+		Item.SenderEmployee = null;		    
 		}
 
 		private async void SelectRecipientEmployeeCommand_Execute() 
@@ -2038,7 +2038,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRecipientEmployeeCommand_Execute() 
 		{
-		    Item.RecipientEmployee = null;
+		Item.RecipientEmployee = null;		    
 		}
 
 		private async void SelectRegistrationDetailsOfSenderCommand_Execute() 
@@ -2048,7 +2048,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRegistrationDetailsOfSenderCommand_Execute() 
 		{
-		    Item.RegistrationDetailsOfSender = null;
+		Item.RegistrationDetailsOfSender = null;		    
 		}
 
 		private async void SelectRegistrationDetailsOfRecipientCommand_Execute() 
@@ -2058,7 +2058,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRegistrationDetailsOfRecipientCommand_Execute() 
 		{
-		    Item.RegistrationDetailsOfRecipient = null;
+		Item.RegistrationDetailsOfRecipient = null;		    
 		}
 
 			private async void AddInCopyToRecipientsCommand_Execute()
@@ -2137,7 +2137,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearWifeCommand_Execute() 
 		{
-		    Item.Wife = null;
+		Item.Wife = null;		    
 		}
 
 			private async void AddInChildrenCommand_Execute()
@@ -2183,7 +2183,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearHusbandCommand_Execute() 
 		{
-		    Item.Husband = null;
+		Item.Husband = null;		    
 		}
 
 
@@ -2222,7 +2222,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearHusbandCommand_Execute() 
 		{
-		    Item.Husband = null;
+		Item.Husband = null;		    
 		}
 
 		private async void SelectWifeCommand_Execute() 
@@ -2232,7 +2232,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearWifeCommand_Execute() 
 		{
-		    Item.Wife = null;
+		Item.Wife = null;		    
 		}
 
 
@@ -2263,7 +2263,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearSumCommand_Execute() 
 		{
-		    Item.Sum = null;
+		Item.Sum = null;		    
 		}
 
 
@@ -2314,7 +2314,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductBlockCommand_Execute() 
 		{
-		    Item.ProductBlock = null;
+		Item.ProductBlock = null;		    
 		}
 
 			private async void AddInDependentProductsCommand_Execute()
@@ -2448,7 +2448,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProjectCommand_Execute() 
 		{
-		    Item.Project = null;
+		Item.Project = null;		    
 		}
 
 		private async void SelectRequestDocumentCommand_Execute() 
@@ -2458,7 +2458,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRequestDocumentCommand_Execute() 
 		{
-		    Item.RequestDocument = null;
+		Item.RequestDocument = null;		    
 		}
 
 		private async void SelectAuthorCommand_Execute() 
@@ -2468,7 +2468,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearAuthorCommand_Execute() 
 		{
-		    Item.Author = null;
+		Item.Author = null;		    
 		}
 
 		private async void SelectSenderEmployeeCommand_Execute() 
@@ -2478,7 +2478,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearSenderEmployeeCommand_Execute() 
 		{
-		    Item.SenderEmployee = null;
+		Item.SenderEmployee = null;		    
 		}
 
 		private async void SelectRecipientEmployeeCommand_Execute() 
@@ -2488,7 +2488,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRecipientEmployeeCommand_Execute() 
 		{
-		    Item.RecipientEmployee = null;
+		Item.RecipientEmployee = null;		    
 		}
 
 		private async void SelectRegistrationDetailsOfSenderCommand_Execute() 
@@ -2498,7 +2498,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRegistrationDetailsOfSenderCommand_Execute() 
 		{
-		    Item.RegistrationDetailsOfSender = null;
+		Item.RegistrationDetailsOfSender = null;		    
 		}
 
 		private async void SelectRegistrationDetailsOfRecipientCommand_Execute() 
@@ -2508,7 +2508,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRegistrationDetailsOfRecipientCommand_Execute() 
 		{
-		    Item.RegistrationDetailsOfRecipient = null;
+		Item.RegistrationDetailsOfRecipient = null;		    
 		}
 
 			private async void AddInOfferUnitsCommand_Execute()
@@ -2585,7 +2585,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearPersonCommand_Execute() 
 		{
-		    Item.Person = null;
+		Item.Person = null;		    
 		}
 
 		private async void SelectCompanyCommand_Execute() 
@@ -2595,7 +2595,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearCompanyCommand_Execute() 
 		{
-		    Item.Company = null;
+		Item.Company = null;		    
 		}
 
 		private async void SelectPositionCommand_Execute() 
@@ -2605,7 +2605,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearPositionCommand_Execute() 
 		{
-		    Item.Position = null;
+		Item.Position = null;		    
 		}
 
 
@@ -2726,7 +2726,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearTypeCommand_Execute() 
 		{
-		    Item.Type = null;
+		Item.Type = null;		    
 		}
 
 		private async void SelectOwnerCompanyCommand_Execute() 
@@ -2736,7 +2736,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearOwnerCompanyCommand_Execute() 
 		{
-		    Item.OwnerCompany = null;
+		Item.OwnerCompany = null;		    
 		}
 
 		private async void SelectAddressCommand_Execute() 
@@ -2746,7 +2746,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearAddressCommand_Execute() 
 		{
-		    Item.Address = null;
+		Item.Address = null;		    
 		}
 
 
@@ -2817,7 +2817,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearManagerCommand_Execute() 
 		{
-		    Item.Manager = null;
+		Item.Manager = null;		    
 		}
 
 			private async void AddInSalesUnitsCommand_Execute()
@@ -2891,7 +2891,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearContractCommand_Execute() 
 		{
-		    Item.Contract = null;
+		Item.Contract = null;		    
 		}
 
 
@@ -2970,7 +2970,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProjectCommand_Execute() 
 		{
-		    Item.Project = null;
+		Item.Project = null;		    
 		}
 
 		private async void SelectWinnerCommand_Execute() 
@@ -2980,7 +2980,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearWinnerCommand_Execute() 
 		{
-		    Item.Winner = null;
+		Item.Winner = null;		    
 		}
 
 			private async void AddInTypesCommand_Execute()
@@ -3074,7 +3074,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearEmployeeCommand_Execute() 
 		{
-		    Item.Employee = null;
+		Item.Employee = null;		    
 		}
 
 			private async void AddInRolesCommand_Execute()

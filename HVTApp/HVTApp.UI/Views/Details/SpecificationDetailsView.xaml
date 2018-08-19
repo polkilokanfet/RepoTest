@@ -1,53 +1,41 @@
-﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<inf:ViewBase x:Class="HVTApp.UI.Views.SpecificationDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
-              xmlns:editors="http://infragistics.com/Editors"
-              xmlns:dataPresenter="http://infragistics.com/DataPresenter"
-              x:Class="HVTApp.UI.Views.SpecificationDetailsView">
-
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
-        <Grid>
-            <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" MinWidth="200"/>
-            </Grid.ColumnDefinitions>
-            
-            <Label Grid.Row="0" Grid.Column="0" Content="Договор:" />
-            <controls:ChooseItemControl Grid.Row="0" Grid.Column="1"
-                                        Item="{Binding Item.Contract}"
-                                        AddItemCommand="{Binding SelectContractCommand}"
-                                        RemoveItemCommand="{Binding ClearContractCommand}"/>
-            
-            <Label Grid.Row="1" Grid.Column="0" Content="Номер:" />
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Item.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            
-            <Label Grid.Row="2" Grid.Column="0" Content="Дата:" />
-            <DatePicker Grid.Row="2" Grid.Column="1" SelectedDate="{Binding Item.Date, Mode=TwoWay}"/>
-            
-            <Label Grid.Row="3" Grid.Column="0" Content="НДС, %:" />
-            <editors:XamNumericEditor Grid.Row="3" Grid.Column="1" Value="{Binding Item.Vat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            
-        </Grid>
 
-        <dataPresenter:XamDataGrid Grid.Row="1" DataSource="{Binding UnitGroups}">
-            <dataPresenter:XamDataGrid.FieldLayoutSettings>
-                <dataPresenter:FieldLayoutSettings AutoGenerateFields="True"/>
-            </dataPresenter:XamDataGrid.FieldLayoutSettings>
-        </dataPresenter:XamDataGrid>
-        
+        <Label Grid.Column="0" Grid.Row ="0" Content="№"/>
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+                 Text="{Binding Item.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="НДС"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
+                               Value="{Binding Item.Vat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Дата"/>
+        <DatePicker Grid.Column="1" Grid.Row="2" 
+                    SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Контракт"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
+                                    Item="{Binding Item.Contract}" 
+                                    AddItemCommand="{Binding SelectContractCommand}" 
+                                    RemoveItemCommand="{Binding ClearContractCommand}"/>
+
+
     </Grid>
-
 </inf:ViewBase>

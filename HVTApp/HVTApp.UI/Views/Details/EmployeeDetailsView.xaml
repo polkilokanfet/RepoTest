@@ -1,7 +1,50 @@
-﻿<UserControl x:Class="HVTApp.UI.Views.Details.EmployeeDetailsView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<inf:ViewBase x:Class="HVTApp.UI.Views.EmployeeDetailsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  xmlns:infDP="http://infragistics.com/DataPresenter"
+			  xmlns:infE="http://infragistics.com/Editors"
+			  xmlns:core="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="PhoneNumber"/>
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+                 Text="{Binding Item.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Email"/>
+        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
+                 Text="{Binding Item.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Person"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
+                                    Item="{Binding Item.Person}" 
+                                    AddItemCommand="{Binding SelectPersonCommand}" 
+                                    RemoveItemCommand="{Binding ClearPersonCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Компания"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
+                                    Item="{Binding Item.Company}" 
+                                    AddItemCommand="{Binding SelectCompanyCommand}" 
+                                    RemoveItemCommand="{Binding ClearCompanyCommand}"/>
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Position"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
+                                    Item="{Binding Item.Position}" 
+                                    AddItemCommand="{Binding SelectPositionCommand}" 
+                                    RemoveItemCommand="{Binding ClearPositionCommand}"/>
+
+
     </Grid>
-</UserControl>
+</inf:ViewBase>
