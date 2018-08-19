@@ -485,9 +485,9 @@ namespace HVTApp.UI
         foreach(var modelType in modelTypes)
         {
  #>
-            Container.RegisterViewForNavigation<<#=modelType.Name#>ListView>();
+            Container.RegisterViewForNavigation<<#=modelType.Name#>LookupListView>();
             //_dialogService.Register<<#=modelType.Name#>DetailsViewModel, <#=modelType.Name#>DetailsView>();
-			_selectService.Register<<#=modelType.Name#>ListView, <#=modelType.Name#>>();
+			_selectService.Register<<#=modelType.Name#>LookupListView, <#=modelType.Name#>>();
             _updateDetailsService.Register<<#=modelType.Name#>, <#=modelType.Name#>DetailsView>();
 
 <#+
@@ -547,9 +547,9 @@ namespace HVTApp.UI.Views
         {
  #>
     [RibbonTab(typeof(TabCRUD))]
-    public partial class <#=modelType.Name#>ListView : ViewBase
+    public partial class <#=modelType.Name#>LookupListView : ViewBase
     {
-        public <#=modelType.Name#>ListView(IRegionManager regionManager, IEventAggregator eventAggregator, <#=modelType.Name#>ListViewModel <#=modelType.Name#>ListViewModel) : base(regionManager, eventAggregator)
+        public <#=modelType.Name#>LookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, <#=modelType.Name#>ListViewModel <#=modelType.Name#>ListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = <#=modelType.Name#>ListViewModel;

@@ -8,9 +8,9 @@ using System.Windows;
 namespace HVTApp.UI.Views
 {
     [RibbonTab(typeof(TabCRUD))]
-    public partial class CommonOptionListView : ViewBase
+    public partial class CommonOptionLookupListView : ViewBase
     {
-        public CommonOptionListView(IRegionManager regionManager, IEventAggregator eventAggregator, CommonOptionListViewModel CommonOptionListViewModel) : base(regionManager, eventAggregator)
+        public CommonOptionLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, CommonOptionListViewModel CommonOptionListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = CommonOptionListViewModel;
@@ -25,9 +25,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class AddressListView : ViewBase
+    public partial class AddressLookupListView : ViewBase
     {
-        public AddressListView(IRegionManager regionManager, IEventAggregator eventAggregator, AddressListViewModel AddressListViewModel) : base(regionManager, eventAggregator)
+        public AddressLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, AddressListViewModel AddressListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = AddressListViewModel;
@@ -42,9 +42,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class CountryListView : ViewBase
+    public partial class CountryLookupListView : ViewBase
     {
-        public CountryListView(IRegionManager regionManager, IEventAggregator eventAggregator, CountryListViewModel CountryListViewModel) : base(regionManager, eventAggregator)
+        public CountryLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, CountryListViewModel CountryListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = CountryListViewModel;
@@ -59,9 +59,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class DistrictListView : ViewBase
+    public partial class DistrictLookupListView : ViewBase
     {
-        public DistrictListView(IRegionManager regionManager, IEventAggregator eventAggregator, DistrictListViewModel DistrictListViewModel) : base(regionManager, eventAggregator)
+        public DistrictLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, DistrictListViewModel DistrictListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = DistrictListViewModel;
@@ -76,9 +76,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class LocalityListView : ViewBase
+    public partial class LocalityLookupListView : ViewBase
     {
-        public LocalityListView(IRegionManager regionManager, IEventAggregator eventAggregator, LocalityListViewModel LocalityListViewModel) : base(regionManager, eventAggregator)
+        public LocalityLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, LocalityListViewModel LocalityListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = LocalityListViewModel;
@@ -93,9 +93,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class LocalityTypeListView : ViewBase
+    public partial class LocalityTypeLookupListView : ViewBase
     {
-        public LocalityTypeListView(IRegionManager regionManager, IEventAggregator eventAggregator, LocalityTypeListViewModel LocalityTypeListViewModel) : base(regionManager, eventAggregator)
+        public LocalityTypeLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, LocalityTypeListViewModel LocalityTypeListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = LocalityTypeListViewModel;
@@ -110,9 +110,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class RegionListView : ViewBase
+    public partial class RegionLookupListView : ViewBase
     {
-        public RegionListView(IRegionManager regionManager, IEventAggregator eventAggregator, RegionListViewModel RegionListViewModel) : base(regionManager, eventAggregator)
+        public RegionLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, RegionListViewModel RegionListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = RegionListViewModel;
@@ -127,9 +127,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class CalculatePriceTaskListView : ViewBase
+    public partial class CalculatePriceTaskLookupListView : ViewBase
     {
-        public CalculatePriceTaskListView(IRegionManager regionManager, IEventAggregator eventAggregator, CalculatePriceTaskListViewModel CalculatePriceTaskListViewModel) : base(regionManager, eventAggregator)
+        public CalculatePriceTaskLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, CalculatePriceTaskListViewModel CalculatePriceTaskListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = CalculatePriceTaskListViewModel;
@@ -144,9 +144,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class SumListView : ViewBase
+    public partial class SumLookupListView : ViewBase
     {
-        public SumListView(IRegionManager regionManager, IEventAggregator eventAggregator, SumListViewModel SumListViewModel) : base(regionManager, eventAggregator)
+        public SumLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, SumListViewModel SumListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = SumListViewModel;
@@ -161,9 +161,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class CurrencyExchangeRateListView : ViewBase
+    public partial class CurrencyExchangeRateLookupListView : ViewBase
     {
-        public CurrencyExchangeRateListView(IRegionManager regionManager, IEventAggregator eventAggregator, CurrencyExchangeRateListViewModel CurrencyExchangeRateListViewModel) : base(regionManager, eventAggregator)
+        public CurrencyExchangeRateLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, CurrencyExchangeRateListViewModel CurrencyExchangeRateListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = CurrencyExchangeRateListViewModel;
@@ -178,9 +178,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class DescribeProductBlockTaskListView : ViewBase
+    public partial class DescribeProductBlockTaskLookupListView : ViewBase
     {
-        public DescribeProductBlockTaskListView(IRegionManager regionManager, IEventAggregator eventAggregator, DescribeProductBlockTaskListViewModel DescribeProductBlockTaskListViewModel) : base(regionManager, eventAggregator)
+        public DescribeProductBlockTaskLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, DescribeProductBlockTaskListViewModel DescribeProductBlockTaskListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = DescribeProductBlockTaskListViewModel;
@@ -195,9 +195,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class NoteListView : ViewBase
+    public partial class NoteLookupListView : ViewBase
     {
-        public NoteListView(IRegionManager regionManager, IEventAggregator eventAggregator, NoteListViewModel NoteListViewModel) : base(regionManager, eventAggregator)
+        public NoteLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, NoteListViewModel NoteListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = NoteListViewModel;
@@ -212,9 +212,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class OfferUnitListView : ViewBase
+    public partial class OfferUnitLookupListView : ViewBase
     {
-        public OfferUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, OfferUnitListViewModel OfferUnitListViewModel) : base(regionManager, eventAggregator)
+        public OfferUnitLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, OfferUnitListViewModel OfferUnitListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = OfferUnitListViewModel;
@@ -229,9 +229,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class PaymentConditionSetListView : ViewBase
+    public partial class PaymentConditionSetLookupListView : ViewBase
     {
-        public PaymentConditionSetListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionSetListViewModel PaymentConditionSetListViewModel) : base(regionManager, eventAggregator)
+        public PaymentConditionSetLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionSetListViewModel PaymentConditionSetListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = PaymentConditionSetListViewModel;
@@ -246,9 +246,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class ProductBlockListView : ViewBase
+    public partial class ProductBlockLookupListView : ViewBase
     {
-        public ProductBlockListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductBlockListViewModel ProductBlockListViewModel) : base(regionManager, eventAggregator)
+        public ProductBlockLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductBlockListViewModel ProductBlockListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = ProductBlockListViewModel;
@@ -263,9 +263,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class ProductDependentListView : ViewBase
+    public partial class ProductDependentLookupListView : ViewBase
     {
-        public ProductDependentListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductDependentListViewModel ProductDependentListViewModel) : base(regionManager, eventAggregator)
+        public ProductDependentLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductDependentListViewModel ProductDependentListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = ProductDependentListViewModel;
@@ -280,9 +280,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class ProductionTaskListView : ViewBase
+    public partial class ProductionTaskLookupListView : ViewBase
     {
-        public ProductionTaskListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductionTaskListViewModel ProductionTaskListViewModel) : base(regionManager, eventAggregator)
+        public ProductionTaskLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductionTaskListViewModel ProductionTaskListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = ProductionTaskListViewModel;
@@ -297,9 +297,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class SalesBlockListView : ViewBase
+    public partial class SalesBlockLookupListView : ViewBase
     {
-        public SalesBlockListView(IRegionManager regionManager, IEventAggregator eventAggregator, SalesBlockListViewModel SalesBlockListViewModel) : base(regionManager, eventAggregator)
+        public SalesBlockLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, SalesBlockListViewModel SalesBlockListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = SalesBlockListViewModel;
@@ -314,9 +314,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class BankDetailsListView : ViewBase
+    public partial class BankDetailsLookupListView : ViewBase
     {
-        public BankDetailsListView(IRegionManager regionManager, IEventAggregator eventAggregator, BankDetailsListViewModel BankDetailsListViewModel) : base(regionManager, eventAggregator)
+        public BankDetailsLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, BankDetailsListViewModel BankDetailsListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = BankDetailsListViewModel;
@@ -331,9 +331,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class CompanyListView : ViewBase
+    public partial class CompanyLookupListView : ViewBase
     {
-        public CompanyListView(IRegionManager regionManager, IEventAggregator eventAggregator, CompanyListViewModel CompanyListViewModel) : base(regionManager, eventAggregator)
+        public CompanyLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, CompanyListViewModel CompanyListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = CompanyListViewModel;
@@ -348,9 +348,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class CompanyFormListView : ViewBase
+    public partial class CompanyFormLookupListView : ViewBase
     {
-        public CompanyFormListView(IRegionManager regionManager, IEventAggregator eventAggregator, CompanyFormListViewModel CompanyFormListViewModel) : base(regionManager, eventAggregator)
+        public CompanyFormLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, CompanyFormListViewModel CompanyFormListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = CompanyFormListViewModel;
@@ -365,9 +365,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class DocumentsRegistrationDetailsListView : ViewBase
+    public partial class DocumentsRegistrationDetailsLookupListView : ViewBase
     {
-        public DocumentsRegistrationDetailsListView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentsRegistrationDetailsListViewModel DocumentsRegistrationDetailsListViewModel) : base(regionManager, eventAggregator)
+        public DocumentsRegistrationDetailsLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentsRegistrationDetailsListViewModel DocumentsRegistrationDetailsListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = DocumentsRegistrationDetailsListViewModel;
@@ -382,9 +382,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class EmployeesPositionListView : ViewBase
+    public partial class EmployeesPositionLookupListView : ViewBase
     {
-        public EmployeesPositionListView(IRegionManager regionManager, IEventAggregator eventAggregator, EmployeesPositionListViewModel EmployeesPositionListViewModel) : base(regionManager, eventAggregator)
+        public EmployeesPositionLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, EmployeesPositionListViewModel EmployeesPositionListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = EmployeesPositionListViewModel;
@@ -399,9 +399,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class FacilityTypeListView : ViewBase
+    public partial class FacilityTypeLookupListView : ViewBase
     {
-        public FacilityTypeListView(IRegionManager regionManager, IEventAggregator eventAggregator, FacilityTypeListViewModel FacilityTypeListViewModel) : base(regionManager, eventAggregator)
+        public FacilityTypeLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, FacilityTypeListViewModel FacilityTypeListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = FacilityTypeListViewModel;
@@ -416,9 +416,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class ActivityFieldListView : ViewBase
+    public partial class ActivityFieldLookupListView : ViewBase
     {
-        public ActivityFieldListView(IRegionManager regionManager, IEventAggregator eventAggregator, ActivityFieldListViewModel ActivityFieldListViewModel) : base(regionManager, eventAggregator)
+        public ActivityFieldLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ActivityFieldListViewModel ActivityFieldListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = ActivityFieldListViewModel;
@@ -433,9 +433,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class ContractListView : ViewBase
+    public partial class ContractLookupListView : ViewBase
     {
-        public ContractListView(IRegionManager regionManager, IEventAggregator eventAggregator, ContractListViewModel ContractListViewModel) : base(regionManager, eventAggregator)
+        public ContractLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ContractListViewModel ContractListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = ContractListViewModel;
@@ -450,9 +450,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class MeasureListView : ViewBase
+    public partial class MeasureLookupListView : ViewBase
     {
-        public MeasureListView(IRegionManager regionManager, IEventAggregator eventAggregator, MeasureListViewModel MeasureListViewModel) : base(regionManager, eventAggregator)
+        public MeasureLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, MeasureListViewModel MeasureListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = MeasureListViewModel;
@@ -467,9 +467,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class ParameterListView : ViewBase
+    public partial class ParameterLookupListView : ViewBase
     {
-        public ParameterListView(IRegionManager regionManager, IEventAggregator eventAggregator, ParameterListViewModel ParameterListViewModel) : base(regionManager, eventAggregator)
+        public ParameterLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ParameterListViewModel ParameterListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = ParameterListViewModel;
@@ -484,9 +484,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class ParameterGroupListView : ViewBase
+    public partial class ParameterGroupLookupListView : ViewBase
     {
-        public ParameterGroupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ParameterGroupListViewModel ParameterGroupListViewModel) : base(regionManager, eventAggregator)
+        public ParameterGroupLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ParameterGroupListViewModel ParameterGroupListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = ParameterGroupListViewModel;
@@ -501,9 +501,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class ProductRelationListView : ViewBase
+    public partial class ProductRelationLookupListView : ViewBase
     {
-        public ProductRelationListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductRelationListViewModel ProductRelationListViewModel) : base(regionManager, eventAggregator)
+        public ProductRelationLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductRelationListViewModel ProductRelationListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = ProductRelationListViewModel;
@@ -518,9 +518,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class PersonListView : ViewBase
+    public partial class PersonLookupListView : ViewBase
     {
-        public PersonListView(IRegionManager regionManager, IEventAggregator eventAggregator, PersonListViewModel PersonListViewModel) : base(regionManager, eventAggregator)
+        public PersonLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, PersonListViewModel PersonListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = PersonListViewModel;
@@ -535,9 +535,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class PaymentPlannedListListView : ViewBase
+    public partial class PaymentPlannedListLookupListView : ViewBase
     {
-        public PaymentPlannedListListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentPlannedListListViewModel PaymentPlannedListListViewModel) : base(regionManager, eventAggregator)
+        public PaymentPlannedListLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentPlannedListListViewModel PaymentPlannedListListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = PaymentPlannedListListViewModel;
@@ -552,9 +552,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class PaymentPlannedListView : ViewBase
+    public partial class PaymentPlannedLookupListView : ViewBase
     {
-        public PaymentPlannedListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentPlannedListViewModel PaymentPlannedListViewModel) : base(regionManager, eventAggregator)
+        public PaymentPlannedLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentPlannedListViewModel PaymentPlannedListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = PaymentPlannedListViewModel;
@@ -569,9 +569,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class PaymentActualListView : ViewBase
+    public partial class PaymentActualLookupListView : ViewBase
     {
-        public PaymentActualListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentActualListViewModel PaymentActualListViewModel) : base(regionManager, eventAggregator)
+        public PaymentActualLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentActualListViewModel PaymentActualListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = PaymentActualListViewModel;
@@ -586,9 +586,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class ParameterRelationListView : ViewBase
+    public partial class ParameterRelationLookupListView : ViewBase
     {
-        public ParameterRelationListView(IRegionManager regionManager, IEventAggregator eventAggregator, ParameterRelationListViewModel ParameterRelationListViewModel) : base(regionManager, eventAggregator)
+        public ParameterRelationLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ParameterRelationListViewModel ParameterRelationListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = ParameterRelationListViewModel;
@@ -603,9 +603,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class SalesUnitListView : ViewBase
+    public partial class SalesUnitLookupListView : ViewBase
     {
-        public SalesUnitListView(IRegionManager regionManager, IEventAggregator eventAggregator, SalesUnitListViewModel SalesUnitListViewModel) : base(regionManager, eventAggregator)
+        public SalesUnitLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, SalesUnitListViewModel SalesUnitListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = SalesUnitListViewModel;
@@ -620,9 +620,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class ServiceListView : ViewBase
+    public partial class ServiceLookupListView : ViewBase
     {
-        public ServiceListView(IRegionManager regionManager, IEventAggregator eventAggregator, ServiceListViewModel ServiceListViewModel) : base(regionManager, eventAggregator)
+        public ServiceLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ServiceListViewModel ServiceListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = ServiceListViewModel;
@@ -637,9 +637,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class TestFriendAddressListView : ViewBase
+    public partial class TestFriendAddressLookupListView : ViewBase
     {
-        public TestFriendAddressListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendAddressListViewModel TestFriendAddressListViewModel) : base(regionManager, eventAggregator)
+        public TestFriendAddressLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendAddressListViewModel TestFriendAddressListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = TestFriendAddressListViewModel;
@@ -654,9 +654,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class TestFriendListView : ViewBase
+    public partial class TestFriendLookupListView : ViewBase
     {
-        public TestFriendListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendListViewModel TestFriendListViewModel) : base(regionManager, eventAggregator)
+        public TestFriendLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendListViewModel TestFriendListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = TestFriendListViewModel;
@@ -671,9 +671,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class TestFriendEmailListView : ViewBase
+    public partial class TestFriendEmailLookupListView : ViewBase
     {
-        public TestFriendEmailListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendEmailListViewModel TestFriendEmailListViewModel) : base(regionManager, eventAggregator)
+        public TestFriendEmailLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendEmailListViewModel TestFriendEmailListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = TestFriendEmailListViewModel;
@@ -688,9 +688,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class TestFriendGroupListView : ViewBase
+    public partial class TestFriendGroupLookupListView : ViewBase
     {
-        public TestFriendGroupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendGroupListViewModel TestFriendGroupListViewModel) : base(regionManager, eventAggregator)
+        public TestFriendGroupLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendGroupListViewModel TestFriendGroupListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = TestFriendGroupListViewModel;
@@ -705,9 +705,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class DocumentListView : ViewBase
+    public partial class DocumentLookupListView : ViewBase
     {
-        public DocumentListView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentListViewModel DocumentListViewModel) : base(regionManager, eventAggregator)
+        public DocumentLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentListViewModel DocumentListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = DocumentListViewModel;
@@ -722,9 +722,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class TestEntityListView : ViewBase
+    public partial class TestEntityLookupListView : ViewBase
     {
-        public TestEntityListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestEntityListViewModel TestEntityListViewModel) : base(regionManager, eventAggregator)
+        public TestEntityLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestEntityListViewModel TestEntityListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = TestEntityListViewModel;
@@ -739,9 +739,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class TestHusbandListView : ViewBase
+    public partial class TestHusbandLookupListView : ViewBase
     {
-        public TestHusbandListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestHusbandListViewModel TestHusbandListViewModel) : base(regionManager, eventAggregator)
+        public TestHusbandLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestHusbandListViewModel TestHusbandListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = TestHusbandListViewModel;
@@ -756,9 +756,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class TestWifeListView : ViewBase
+    public partial class TestWifeLookupListView : ViewBase
     {
-        public TestWifeListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestWifeListViewModel TestWifeListViewModel) : base(regionManager, eventAggregator)
+        public TestWifeLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestWifeListViewModel TestWifeListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = TestWifeListViewModel;
@@ -773,9 +773,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class TestChildListView : ViewBase
+    public partial class TestChildLookupListView : ViewBase
     {
-        public TestChildListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestChildListViewModel TestChildListViewModel) : base(regionManager, eventAggregator)
+        public TestChildLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestChildListViewModel TestChildListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = TestChildListViewModel;
@@ -790,9 +790,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class SumOnDateListView : ViewBase
+    public partial class SumOnDateLookupListView : ViewBase
     {
-        public SumOnDateListView(IRegionManager regionManager, IEventAggregator eventAggregator, SumOnDateListViewModel SumOnDateListViewModel) : base(regionManager, eventAggregator)
+        public SumOnDateLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, SumOnDateListViewModel SumOnDateListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = SumOnDateListViewModel;
@@ -807,9 +807,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class ProductListView : ViewBase
+    public partial class ProductLookupListView : ViewBase
     {
-        public ProductListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductListViewModel ProductListViewModel) : base(regionManager, eventAggregator)
+        public ProductLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductListViewModel ProductListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = ProductListViewModel;
@@ -824,9 +824,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class OfferListView : ViewBase
+    public partial class OfferLookupListView : ViewBase
     {
-        public OfferListView(IRegionManager regionManager, IEventAggregator eventAggregator, OfferListViewModel OfferListViewModel) : base(regionManager, eventAggregator)
+        public OfferLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, OfferListViewModel OfferListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = OfferListViewModel;
@@ -841,9 +841,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class EmployeeListView : ViewBase
+    public partial class EmployeeLookupListView : ViewBase
     {
-        public EmployeeListView(IRegionManager regionManager, IEventAggregator eventAggregator, EmployeeListViewModel EmployeeListViewModel) : base(regionManager, eventAggregator)
+        public EmployeeLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, EmployeeListViewModel EmployeeListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = EmployeeListViewModel;
@@ -858,9 +858,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class OrderListView : ViewBase
+    public partial class OrderLookupListView : ViewBase
     {
-        public OrderListView(IRegionManager regionManager, IEventAggregator eventAggregator, OrderListViewModel OrderListViewModel) : base(regionManager, eventAggregator)
+        public OrderLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, OrderListViewModel OrderListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = OrderListViewModel;
@@ -875,9 +875,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class PaymentConditionListView : ViewBase
+    public partial class PaymentConditionLookupListView : ViewBase
     {
-        public PaymentConditionListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionListViewModel PaymentConditionListViewModel) : base(regionManager, eventAggregator)
+        public PaymentConditionLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionListViewModel PaymentConditionListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = PaymentConditionListViewModel;
@@ -892,9 +892,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class PaymentDocumentListView : ViewBase
+    public partial class PaymentDocumentLookupListView : ViewBase
     {
-        public PaymentDocumentListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentDocumentListViewModel PaymentDocumentListViewModel) : base(regionManager, eventAggregator)
+        public PaymentDocumentLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentDocumentListViewModel PaymentDocumentListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = PaymentDocumentListViewModel;
@@ -909,9 +909,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class FacilityListView : ViewBase
+    public partial class FacilityLookupListView : ViewBase
     {
-        public FacilityListView(IRegionManager regionManager, IEventAggregator eventAggregator, FacilityListViewModel FacilityListViewModel) : base(regionManager, eventAggregator)
+        public FacilityLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, FacilityListViewModel FacilityListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = FacilityListViewModel;
@@ -926,9 +926,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class ProjectListView : ViewBase
+    public partial class ProjectLookupListView : ViewBase
     {
-        public ProjectListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectListViewModel ProjectListViewModel) : base(regionManager, eventAggregator)
+        public ProjectLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectListViewModel ProjectListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = ProjectListViewModel;
@@ -943,9 +943,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class UserRoleListView : ViewBase
+    public partial class UserRoleLookupListView : ViewBase
     {
-        public UserRoleListView(IRegionManager regionManager, IEventAggregator eventAggregator, UserRoleListViewModel UserRoleListViewModel) : base(regionManager, eventAggregator)
+        public UserRoleLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, UserRoleListViewModel UserRoleListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = UserRoleListViewModel;
@@ -960,9 +960,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class SpecificationListView : ViewBase
+    public partial class SpecificationLookupListView : ViewBase
     {
-        public SpecificationListView(IRegionManager regionManager, IEventAggregator eventAggregator, SpecificationListViewModel SpecificationListViewModel) : base(regionManager, eventAggregator)
+        public SpecificationLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, SpecificationListViewModel SpecificationListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = SpecificationListViewModel;
@@ -977,9 +977,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class TenderListView : ViewBase
+    public partial class TenderLookupListView : ViewBase
     {
-        public TenderListView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderListViewModel TenderListViewModel) : base(regionManager, eventAggregator)
+        public TenderLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderListViewModel TenderListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = TenderListViewModel;
@@ -994,9 +994,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class TenderTypeListView : ViewBase
+    public partial class TenderTypeLookupListView : ViewBase
     {
-        public TenderTypeListView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderTypeListViewModel TenderTypeListViewModel) : base(regionManager, eventAggregator)
+        public TenderTypeLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderTypeListViewModel TenderTypeListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = TenderTypeListViewModel;
@@ -1011,9 +1011,9 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-    public partial class UserListView : ViewBase
+    public partial class UserLookupListView : ViewBase
     {
-        public UserListView(IRegionManager regionManager, IEventAggregator eventAggregator, UserListViewModel UserListViewModel) : base(regionManager, eventAggregator)
+        public UserLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, UserListViewModel UserListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = UserListViewModel;
