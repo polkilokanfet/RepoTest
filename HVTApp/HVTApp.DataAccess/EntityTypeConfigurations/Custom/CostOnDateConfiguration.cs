@@ -4,8 +4,8 @@ namespace HVTApp.DataAccess
     {
         public CostOnDateConfiguration()
         {
-            HasRequired(x => x.Sum).WithOptional();
-            Property(x => x.Date).IsRequired();
+            //HasRequired(x => x.Sum).WithOptional();
+            //Property(x => x.Date).IsRequired();
         }
     }
 }
