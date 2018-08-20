@@ -17,8 +17,7 @@
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="FullName" Label="Полное наименование" Width="Auto" />
                     <infg:TextField Name="ShortName" Label="Сокращенное наименование" Width="Auto" />
-                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
-                    <infg:TextField Name="Entity" Label="Организационная форма" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="DisplayMember" Label="Отображение" Width="Auto" />
 
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>

@@ -5,6 +5,7 @@ using HVTApp.Infrastructure.Attrubutes;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Компания")]
+    [DesignationPlural("Компании")]
     public partial class Company : BaseEntity
     {
         [Designation("Наименование")]
@@ -29,9 +30,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Юридический адрес")]
         public virtual Address AddressLegal { get; set; }
 
+        [NotForListView]
         [Designation("Почтовый адрес")]
         public virtual Address AddressPost { get; set; }
-
 
         [Designation("Банковские реквизиты")]
         public virtual List<BankDetails> BankDetailsList { get; set; } = new List<BankDetails>();

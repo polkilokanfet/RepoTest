@@ -534,11 +534,12 @@ namespace HVTApp.UI.Views
 	private void GenerateListViews(IEnumerable<Type> modelTypes)
 	{
 #>using HVTApp.Infrastructure;
-using HVTApp.UI.Tabs;
+using HVTApp.Infrastructure.Attrubutes;
+using System.Windows;
 using Prism.Events;
 using Prism.Regions;
+using HVTApp.UI.Tabs;
 using HVTApp.UI.ViewModels;
-using System.Windows;
 
 namespace HVTApp.UI.Views
 {
@@ -547,6 +548,7 @@ namespace HVTApp.UI.Views
         {
  #>
     [RibbonTab(typeof(TabCRUD))]
+	[DesignationPlural("<#=modelType.DesignationPlural()#>")]
     public partial class <#=modelType.Name#>LookupListView : ViewBase
     {
         public <#=modelType.Name#>LookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, <#=modelType.Name#>ListViewModel <#=modelType.Name#>ListViewModel) : base(regionManager, eventAggregator)

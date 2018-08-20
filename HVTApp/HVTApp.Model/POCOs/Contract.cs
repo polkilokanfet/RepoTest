@@ -5,6 +5,7 @@ using HVTApp.Infrastructure.Attrubutes;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Контракт")]
+    [DesignationPlural("Контракты")]
     public partial class Contract : BaseEntity
     {
         [Designation("№")]

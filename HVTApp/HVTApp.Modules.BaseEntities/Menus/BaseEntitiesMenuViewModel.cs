@@ -2,6 +2,7 @@
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.UI.Views;
+using HVTApp.UI;
 
 namespace HVTApp.Modules.BaseEntities.Menus
 {
@@ -10,12 +11,14 @@ namespace HVTApp.Modules.BaseEntities.Menus
         protected override void GenerateMenu()
         {
             var views = typeof(ContractLookupListView).Assembly.GetTypes()
-                .Where(x => String.Equals(x.Namespace, typeof(CompanyLookupListView).Namespace) && 
-                !x.Name.Contains("Details") && x.Name.Contains("ListView")).OrderBy(x => x.Name);
+                .Where(x => 
+                            String.Equals(x.Namespace, typeof(CompanyLookupListView).Namespace) && 
+                            x.Name.Contains("LookupListView")).OrderBy(x => x.DesignationPlural());
 
             foreach (var view in views)
             {
-                Items.Add(new NavigationItem(view.Name, view));
+                Items.AddToNavigate(view);
+                //Items.Add(new NavigationItem(view.Name, view));
             }
 
         }

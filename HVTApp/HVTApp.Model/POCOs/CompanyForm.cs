@@ -4,6 +4,7 @@ using HVTApp.Infrastructure.Attrubutes;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Организационная форма")]
+    [DesignationPlural("Организационные формы")]
     public partial class CompanyForm : BaseEntity
     {
         [Designation("Полное наименование")]

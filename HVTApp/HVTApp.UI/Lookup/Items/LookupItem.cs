@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using HVTApp.DataAccess.Annotations;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attrubutes;
 
 namespace HVTApp.UI.Lookup
 {
@@ -21,6 +22,7 @@ namespace HVTApp.UI.Lookup
         public TEntity Entity { get; private set; }
 
         private string _displayMember;
+        [Designation("Отображение")]
         public string DisplayMember
         {
             get { return _displayMember; }

@@ -4,6 +4,7 @@ using HVTApp.Infrastructure.Attrubutes;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Адрес")]
+    [DesignationPlural("Адреса")]
     public partial class Address : BaseEntity
     {
         [Designation("Описание")]

@@ -17,7 +17,7 @@
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="OrderPosition" Label="OrderPosition" Width="Auto" />
                     <infg:TextField Name="SerialNumber" Label="SerialNumber" Width="Auto" />
-                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
+                    <infg:TextField Name="DisplayMember" Label="Отображение" Width="Auto" />
                     <infg:NumericField Name="ProductionTerm" Label="ProductionTerm" Width="Auto" />
                     <infg:NumericField Name="AssembleTerm" Label="AssembleTerm" Width="Auto" />
                     <infg:NumericField Name="ExpectedDeliveryPeriod" Label="ExpectedDeliveryPeriod" Width="Auto" />
@@ -38,7 +38,6 @@
                     <infg:TextField Name="Order" Label="Order" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Specification" Label="Спецификация" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Address" Label="Адрес" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
 
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>

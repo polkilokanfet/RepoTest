@@ -17,7 +17,7 @@
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="FirstName" Label="FirstName" Width="Auto" />
                     <infg:TextField Name="LastName" Label="LastName" Width="Auto" />
-                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
+                    <infg:TextField Name="DisplayMember" Label="Отображение" Width="Auto" />
                     <infg:NumericField Name="FriendGroupId" Label="FriendGroupId" Width="Auto" />
                     <infg:NumericField Name="IdGet" Label="IdGet" Width="Auto" />
                     <infg:DateTimeField Name="Birthday" Label="Birthday" Width="Auto" />
@@ -25,7 +25,6 @@
                     <infg:TextField Name="TestFriendAddress" Label="TestFriendAddress" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="TestFriendGroup" Label="TestFriendGroup" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="TestFriendEmailGet" Label="TestFriendEmailGet" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
 
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>

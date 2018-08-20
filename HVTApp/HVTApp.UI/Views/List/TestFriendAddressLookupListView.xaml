@@ -18,8 +18,7 @@
                     <infg:TextField Name="City" Label="City" Width="Auto" />
                     <infg:TextField Name="Street" Label="Street" Width="Auto" />
                     <infg:TextField Name="StreetNumber" Label="StreetNumber" Width="Auto" />
-                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
-                    <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="DisplayMember" Label="Отображение" Width="Auto" />
 
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>

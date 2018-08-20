@@ -51,11 +51,11 @@
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
 <#+
-		GenerateFields(modelType.StringProperties(), "TextField");
-		GenerateFields(modelType.DigitProperties() , "NumericField");
-		GenerateFields(modelType.SimpleProperties<DateTime>(), "DateTimeField");
-		GenerateFields(modelType.SimpleProperties<bool>(), "CheckBoxField");
-		GenerateFields(modelType.AllComplexProperties(), "TextField", "Converter=\"{StaticResource LookupToStringConverter}\"");
+		GenerateFields(modelType.GetPropertiesForListViews().StringProperties(), "TextField");
+		GenerateFields(modelType.GetPropertiesForListViews().DigitProperties() , "NumericField");
+		GenerateFields(modelType.GetPropertiesForListViews().SimpleProperties<DateTime>(), "DateTimeField");
+		GenerateFields(modelType.GetPropertiesForListViews().SimpleProperties<bool>(), "CheckBoxField");
+		GenerateFields(modelType.GetPropertiesForListViews().AllComplexProperties(), "TextField", "Converter=\"{StaticResource LookupToStringConverter}\"");
 		//GenerateCollectionComplexProperties(collectionComplexProperties);
 	#>
                 </infg:FieldLayout.Fields>

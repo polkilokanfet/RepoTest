@@ -1,35 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attrubutes;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
-using HVTApp.UI.Views;
 
 namespace HVTApp.UI
 {
     public static class GeneratorHelpers
     {
-
-        //сохранение сгенерированного кода в отдельный файл.
-        public static void SaveGeneratedCodeAsFile(string textToWrite, string host, string fileName = "ccc.txt", string filePath = "ddd")
-        {
-            string directoryName = Path.GetDirectoryName(host);
-
-            string dir = Path.Combine(directoryName, filePath);
-
-            string outputFilePath = Path.Combine(dir, fileName);
-
-            File.WriteAllText(outputFilePath, textToWrite);
-
-            //GenerationEnvironment.Clear();
-        }
-
-
         /// <summary>
         /// Все типы для генерации окон с деталями.
         /// </summary>
@@ -44,7 +25,21 @@ namespace HVTApp.UI
         public static IEnumerable<Type> GetModelTypesLookups()
         {
             return typeof(AddressLookup).Assembly.GetTypes().
-                Where(p => !p.IsAbstract && p.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ILookupItemNavigation<>)));
+                Where(p => !p.IsAbstract && p.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ILookupItemNavigation<>))).
+                OrderBy(x => x.Name);
+        }
+
+        public static IEnumerable<PropertyInfo> GetPropertiesForListViews(this Type typeLookup)
+        {
+            //свойства со спец.атрибутом
+            Type entityType = typeLookup.GetProperty(nameof(ILookupItemNavigation<IBaseEntity>.Entity)).PropertyType;
+            var names = entityType.GetProperties()
+                    .Where(x => x.GetCustomAttribute<NotForListViewAttribute>() != null)
+                    .Select(x => x.Name);
+
+            return typeLookup.GetProperties().Where(x => !names.Contains(x.Name) && 
+                                                         x.Name != nameof(ILookupItemNavigation<IBaseEntity>.Entity) &&
+                                                         x.Name != nameof(ILookupItemNavigation<IBaseEntity>.Id));
         }
 
         /// <summary>
@@ -63,7 +58,11 @@ namespace HVTApp.UI
             return result;
         }
 
-        //возвращаем имя типа
+        /// <summary>
+        /// возвращаем имя типа
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static string GetTypeName(Type type)
         {
             if (!type.IsGenericType) return type.FullName;
@@ -94,6 +93,18 @@ namespace HVTApp.UI
         }
 
         /// <summary>
+        /// Получить свойства string
+        /// </summary>
+        /// <param name="propertyInfos"></param>
+        /// <returns></returns>
+        public static IEnumerable<PropertyInfo> StringProperties(this IEnumerable<PropertyInfo> propertyInfos)
+        {
+            return propertyInfos.Where(p => p.PropertyType == typeof(string));
+        }
+
+
+
+        /// <summary>
         /// Получить числовые свойства
         /// </summary>
         /// <param name="type"></param>
@@ -104,6 +115,14 @@ namespace HVTApp.UI
             var propsDouble = type.SimpleProperties<double>();
             return propsInt.Union(propsDouble);
         }
+
+        public static IEnumerable<PropertyInfo> DigitProperties(this IEnumerable<PropertyInfo> propertyInfos)
+        {
+            var propsInt = propertyInfos.SimpleProperties<int>();
+            var propsDouble = propertyInfos.SimpleProperties<double>();
+            return propsInt.Union(propsDouble);
+        }
+
 
         /// <summary>
         /// Получить простые свойства (int, double, DateTime)
@@ -117,16 +136,33 @@ namespace HVTApp.UI
             return GetProps(type).Where(p => p.PropertyType == typeof(T) || p.PropertyType == typeof(T?));
         }
 
+        public static IEnumerable<PropertyInfo> SimpleProperties<T>(this IEnumerable<PropertyInfo> propertyInfos)
+            where T : struct
+        {
+            return propertyInfos.Where(p => p.PropertyType == typeof(T) || p.PropertyType == typeof(T?));
+        }
+
         public static IEnumerable<PropertyInfo> AllSimpleProperties(this Type type)
         {
             //return GetProps(type).Where(p => p.PropertyType.IsSimple()).Except(type.SimpleProperties<double>()).Except(type.SimpleProperties<DateTime>());
             return GetProps(type).Where(p => p.PropertyType.IsSimple());
         }
 
+        public static IEnumerable<PropertyInfo> AllSimpleProperties(this IEnumerable<PropertyInfo> propertyInfos)
+        {
+            return propertyInfos.Where(p => p.PropertyType.IsSimple());
+        }
+
 
         public static IEnumerable<PropertyInfo> AllCollectionProperties(this Type type)
         {
             return GetProps(type).Except(type.AllSimpleProperties())
+                    .Where(p => p.PropertyType.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)));
+        }
+
+        public static IEnumerable<PropertyInfo> AllCollectionProperties(this IEnumerable<PropertyInfo> propertyInfos)
+        {
+            return propertyInfos.Except(propertyInfos.AllSimpleProperties())
                     .Where(p => p.PropertyType.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)));
         }
 
@@ -141,12 +177,14 @@ namespace HVTApp.UI
             return GetProps(type).Except(type.AllSimpleProperties()).Except(type.AllCollectionProperties()).Except(type.SimpleProperties<double>()).Except(type.SimpleProperties<DateTime>());
         }
 
-        //public static IEnumerable<PropertyInfo> MyClass(this Type type)
-        //{
-        //    var properties = type.GetProperties().Where(x => !Equals(x.Name, "Id"));
-        //    var complexSetProperties = allComplexProperties.Where(p => p.CanWrite).ToList();
-        //    var complexGetProperties = allComplexProperties.Where(p => !p.CanWrite).ToList();
-        //}
+        public static IEnumerable<PropertyInfo> AllComplexProperties(this IEnumerable<PropertyInfo> propertyInfos)
+        {
+            return propertyInfos
+                .Except(propertyInfos.AllSimpleProperties())
+                .Except(propertyInfos.AllCollectionProperties())
+                .Except(propertyInfos.SimpleProperties<double>())
+                .Except(propertyInfos.SimpleProperties<DateTime>());
+        }
 
         /// <summary>
         /// Простой ли тип
