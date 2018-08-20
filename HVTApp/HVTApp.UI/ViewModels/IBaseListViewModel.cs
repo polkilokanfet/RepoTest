@@ -26,5 +26,6 @@ namespace HVTApp.UI.ViewModels
         ICommand SelectItemCommand { get; }
 
         event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
+        event Action Loaded;
     }
 }
