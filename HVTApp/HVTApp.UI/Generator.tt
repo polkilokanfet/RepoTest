@@ -53,7 +53,7 @@
 	SaveGeneratedCodeAsFile("ListViews.g.cs", "Views/List");
 
 	GenerateDetailsViews(modelTypes);
-	SaveGeneratedCodeAsFile("DetailsViews.g.cs", "Views/Details");
+	SaveGeneratedCodeAsFile("DetailsViews.g.cs", "Views/Details/cs");
 
 	GenerateRegistrations(modelTypes);
 	SaveGeneratedCodeAsFile("UiModule.g.cs", "");

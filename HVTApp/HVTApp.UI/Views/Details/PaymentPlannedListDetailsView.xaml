@@ -17,11 +17,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Condition"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.Condition}" 
                                     AddItemCommand="{Binding SelectConditionCommand}" 
                                     RemoveItemCommand="{Binding ClearConditionCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Payments"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
@@ -29,6 +31,7 @@
 										 SelectedItem="{Binding SelectedPaymentsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPaymentsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromPaymentsCommand}"/>
+
 
 
     </Grid>

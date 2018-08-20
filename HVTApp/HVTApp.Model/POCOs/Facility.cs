@@ -17,6 +17,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Владелец")]
         public virtual Company OwnerCompany { get; set; }
 
+        [Designation("Местоположение")]
         public virtual Address Address { get; set; }
 
         public override string ToString()

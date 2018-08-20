@@ -18,9 +18,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Value"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="ParameterGroup"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -28,12 +30,14 @@
                                     AddItemCommand="{Binding SelectParameterGroupCommand}" 
                                     RemoveItemCommand="{Binding ClearParameterGroupCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="ParameterRelations"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.ParameterRelations}"
 										 SelectedItem="{Binding SelectedParameterRelationsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInParameterRelationsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParameterRelationsCommand}"/>
+
 
 
     </Grid>

@@ -15,12 +15,14 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="PaymentConditions"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.PaymentConditions}"
 										 SelectedItem="{Binding SelectedPaymentConditionsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPaymentConditionsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromPaymentConditionsCommand}"/>
+
 
 
     </Grid>

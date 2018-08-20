@@ -16,6 +16,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="ParentSalesUnits"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.ParentSalesUnits}"
@@ -23,12 +24,14 @@
 										 AddItemCommand="{Binding AddInParentSalesUnitsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParentSalesUnitsCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="ChildSalesUnits"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
 										 Items="{Binding Path=Item.ChildSalesUnits}"
 										 SelectedItem="{Binding SelectedChildSalesUnitsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInChildSalesUnitsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromChildSalesUnitsCommand}"/>
+
 
 
     </Grid>

@@ -21,14 +21,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="ProductionTerm"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ProductionTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="Cost"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
                                Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Product"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
@@ -36,17 +39,20 @@
                                     AddItemCommand="{Binding SelectProductCommand}" 
                                     RemoveItemCommand="{Binding ClearProductCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="3" Content="Объект"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.Facility}" 
                                     AddItemCommand="{Binding SelectFacilityCommand}" 
                                     RemoveItemCommand="{Binding ClearFacilityCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="4" Content="PaymentConditionSet"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.PaymentConditionSet}" 
                                     AddItemCommand="{Binding SelectPaymentConditionSetCommand}" 
                                     RemoveItemCommand="{Binding ClearPaymentConditionSetCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="5" Content="DependentProducts"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
@@ -55,12 +61,14 @@
 										 AddItemCommand="{Binding AddInDependentProductsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromDependentProductsCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="6" Content="Services"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
 										 Items="{Binding Path=Item.Services}"
 										 SelectedItem="{Binding SelectedServicesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInServicesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromServicesCommand}"/>
+
 
 
     </Grid>

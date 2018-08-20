@@ -5,7 +5,7 @@ using HVTApp.UI.Lookup;
 
 namespace HVTApp.UI
 {
-    public static class Ext
+    public static class DesignationExt
     {
         public static string Designation(this PropertyInfo propertyInfo)
         {

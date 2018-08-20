@@ -601,12 +601,6 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
-        public ProductWrapper Product
-        {
-            get { return GetWrapper<ProductWrapper>(); }
-            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
-        }
-
         public FacilityWrapper Facility
         {
             get { return GetWrapper<FacilityWrapper>(); }
@@ -622,8 +616,6 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region CollectionProperties
-        public IValidatableChangeTrackingCollection<ProductDependentWrapper> DependentProducts { get; private set; }
-
         public IValidatableChangeTrackingCollection<ServiceWrapper> Services { get; private set; }
 
         #endregion

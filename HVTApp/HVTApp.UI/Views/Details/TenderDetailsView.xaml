@@ -21,17 +21,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="DateOpen"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
                     SelectedDate="{Binding Item.DateOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="DateClose"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 
                     SelectedDate="{Binding Item.DateClose, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="DateNotice"/>
         <DatePicker Grid.Column="1" Grid.Row="2" 
                     SelectedDate="{Binding Item.DateNotice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Project"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
@@ -39,11 +43,13 @@
                                     AddItemCommand="{Binding SelectProjectCommand}" 
                                     RemoveItemCommand="{Binding ClearProjectCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="4" Content="Компания"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.Winner}" 
                                     AddItemCommand="{Binding SelectWinnerCommand}" 
                                     RemoveItemCommand="{Binding ClearWinnerCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="5" Content="Types"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
@@ -52,12 +58,14 @@
 										 AddItemCommand="{Binding AddInTypesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromTypesCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="6" Content="Participants"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
 										 Items="{Binding Path=Item.Participants}"
 										 SelectedItem="{Binding SelectedParticipantsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInParticipantsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParticipantsCommand}"/>
+
 
 
     </Grid>
