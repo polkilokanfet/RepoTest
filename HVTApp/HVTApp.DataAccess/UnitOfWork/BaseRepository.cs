@@ -32,7 +32,7 @@ namespace HVTApp.DataAccess
 
         public async Task<List<TEntity>> FindAsync(Func<TEntity, bool> predicate)
         {
-            return await Task.Factory.StartNew<List<TEntity>>(() => Context.Set<TEntity>().Where(predicate).ToList());
+            return await Task.Factory.StartNew(() => Context.Set<TEntity>().Where(predicate).ToList());
         }
 
 

@@ -181,7 +181,7 @@ namespace HVTApp.UI.ViewModels
             {
                 UnitOfWork.GetRepository<TEntity>().Delete(entityToRemove);
                 await UnitOfWork.SaveChangesAsync();
-                (Lookups as ICollection<TLookup>)?.Remove(SelectedLookup);
+                LookupsCollection.Remove(SelectedLookup);
             }
             catch (DbUpdateException e)
             {

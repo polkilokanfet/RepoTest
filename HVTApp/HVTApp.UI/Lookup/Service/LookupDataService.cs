@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
@@ -18,11 +19,15 @@ namespace HVTApp.UI.Lookup
             Context = context;
         }
 
+        private static TLookup GetLookup(TEntity entity)
+        {
+            return (TLookup)Activator.CreateInstance(typeof(TLookup), entity);
+        }
+
         public async Task<TLookup> GetLookupById(Guid id)
         {
             var entity = await Context.Set<TEntity>().FindAsync(id);
-            var lookup = Activator.CreateInstance<TLookup>();
-            //lookup.Id = entity.Id;
+            var lookup = GetLookup(entity);
             lookup.DisplayMember = GenerateDisplayMember(entity);
             return lookup;
         }
@@ -33,8 +38,7 @@ namespace HVTApp.UI.Lookup
             var lookups = new List<TLookup>();
             foreach (var entity in entities)
             {
-                var lookup = Activator.CreateInstance<TLookup>();
-                //lookup.Id = entity.Id;
+                var lookup = GetLookup(entity);
                 lookup.DisplayMember = GenerateDisplayMember(entity);
                 lookups.Add(lookup);
             }

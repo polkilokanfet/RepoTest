@@ -105,6 +105,7 @@
     <Compile Include="Extantions\DesignationExt.cs" />
     <Compile Include="GeneratorHelpers.cs" />
     <Compile Include="Lookup\IProductUnitLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\AddressLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SpecificationLookup.cs" />
     <Compile Include="Lookup\Items\Lookups.g.cs" />
     <Compile Include="Lookup\Service\ILookupDataServices.g.cs" />
@@ -152,7 +153,6 @@
     <Compile Include="Lookup\Items\Custom\TenderLookup.cs" />
     <Compile Include="Lookup\Service\Custom\CompanyLookupDataService.cs" />
     <Compile Include="Lookup\Service\LookupDataService.cs" />
-    <Compile Include="Lookup\Service\Custom\ProjectLookupDataService.cs" />
     <Compile Include="UiModule.cs" />
     <Compile Include="Converter\ProductUnitsGroup.cs" />
     <Compile Include="Converter\ProductUnitsToFacilitiesNamesConverter.cs" />

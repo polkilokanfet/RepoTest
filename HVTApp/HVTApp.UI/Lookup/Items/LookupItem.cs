@@ -15,6 +15,7 @@ namespace HVTApp.UI.Lookup
         protected LookupItem(TEntity entity)
         {
             Entity = entity;
+            DisplayMember = Entity.ToString();
         }
 
         public Guid Id => GetValue<Guid>();

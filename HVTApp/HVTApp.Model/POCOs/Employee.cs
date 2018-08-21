@@ -1,14 +1,25 @@
-﻿using System;
-using HVTApp.Infrastructure;
+﻿using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attrubutes;
 
 namespace HVTApp.Model.POCOs
 {
-    public partial class Employee : BaseEntity
+    [Designation("Сотрудник")]
+    [DesignationPlural("Сотрудники")]
+    public class Employee : BaseEntity
     {
+        [Designation("Персона")]
         public virtual Person Person { get; set; }
+
+        [Designation("Телефон")]
         public string PhoneNumber { get; set; }
+
+        [Designation("e-mail")]
         public string Email { get; set; }
+
+        [Designation("Компания")]
         public virtual Company Company { get; set; }
+
+        [Designation("Должность")]
         public virtual EmployeesPosition Position { get; set; }
 
         public override string ToString()
