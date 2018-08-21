@@ -1,16 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using HVTApp.DataAccess;
 using HVTApp.DataAccess.Annotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
-using HVTApp.UI.Lookup;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -45,18 +42,22 @@ namespace HVTApp.UI.ViewModels
         protected virtual void InitDefaultGetMethods() { }
         protected virtual void InitSpecialGetMethods() { }
 
+        private static TWrapper GetWrapper(TEntity entity)
+        {
+            return (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity);
+        }
+
         public async Task LoadAsync(TEntity entity)
         {
             entity = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(entity.Id) ?? entity;
-            Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity);
+            Item = GetWrapper(entity);
             await LoadOtherAsync();
         }
 
         public async Task LoadAsync(Guid id)
         {
             var entity = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(id);
-            Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity);
-            await LoadOtherAsync();
+            await LoadAsync(entity);
         }
 
         protected virtual async Task LoadOtherAsync() { }
@@ -70,18 +71,18 @@ namespace HVTApp.UI.ViewModels
             {
                 if (Equals(_item, value)) return;
 
-                if (_item != null)
-                    _item.PropertyChanged -= ItemOnPropertyChanged;
-
+                if (_item != null) _item.PropertyChanged -= ItemOnPropertyChanged;
                 _item = value;
-                if (_item != null)
-                    _item.PropertyChanged += ItemOnPropertyChanged;
+                if (_item != null) _item.PropertyChanged += ItemOnPropertyChanged;
 
                 ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
 
+        /// <summary>
+        /// Событие, бросаемое для закрытия окна
+        /// </summary>
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
 
         protected virtual async void SaveCommand_Execute()
@@ -104,6 +105,11 @@ namespace HVTApp.UI.ViewModels
             return Item != null && Item.IsChanged && Item.IsValid;
         }
 
+        /// <summary>
+        /// Реакция на изменение любого свойства Item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="propertyChangedEventArgs"></param>
         private void ItemOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
@@ -123,8 +129,7 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
-        protected async void SelectAndAddInListWrapper<TModel, TWrap>(IEnumerable<TModel> entities, IList<TWrap> list,
-            Guid? selectedItemId = null)
+        protected async void SelectAndAddInListWrapper<TModel, TWrap>(IEnumerable<TModel> entities, IList<TWrap> list, Guid? selectedItemId = null)
             where TModel : class, IBaseEntity
             where TWrap : WrapperBase<TModel>
         {
