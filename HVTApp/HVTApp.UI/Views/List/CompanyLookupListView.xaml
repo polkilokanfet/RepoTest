@@ -8,7 +8,9 @@
         
         <infg:XamDataGrid.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                <MenuItem Header="Export to Excel" 
+                          Command="{Binding ExportToExcel}" 
+                          CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
             </ContextMenu>
         </infg:XamDataGrid.ContextMenu>
 

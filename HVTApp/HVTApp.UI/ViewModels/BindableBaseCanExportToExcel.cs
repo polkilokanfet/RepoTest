@@ -51,8 +51,7 @@ namespace HVTApp.UI.ViewModels
             {
                 try
                 {
-                    var p = new Process();
-                    p.StartInfo.FileName = fileName;
+                    var p = new Process {StartInfo = {FileName = fileName}};
                     p.Start();
                 }
                 catch (Exception ex)

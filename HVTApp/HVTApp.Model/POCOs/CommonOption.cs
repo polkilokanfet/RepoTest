@@ -4,7 +4,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public partial class CommonOption : BaseEntity
+    public class CommonOption : BaseEntity
     {
         public Guid OurCompanyId { get; set; }
         public int CalculationPriceTerm { get; set; } = 90;
