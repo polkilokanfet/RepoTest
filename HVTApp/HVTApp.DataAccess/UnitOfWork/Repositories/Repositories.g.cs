@@ -278,6 +278,11 @@ namespace HVTApp.DataAccess
         public ProjectRepository(DbContext context) : base(context) {}
     }
 
+    public partial class ProjectUnitRepository : BaseRepository<ProjectUnit>, IProjectUnitRepository
+    {
+        public ProjectUnitRepository(DbContext context) : base(context) {}
+    }
+
     public partial class UserRoleRepository : BaseRepository<UserRole>, IUserRoleRepository
     {
         public UserRoleRepository(DbContext context) : base(context) {}

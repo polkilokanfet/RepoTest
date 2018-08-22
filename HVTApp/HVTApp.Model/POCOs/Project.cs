@@ -15,6 +15,8 @@ namespace HVTApp.Model.POCOs
 
         public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
 
+
+
         [Designation("Заметки")]
         public virtual List<Note> Notes { get; set; } = new List<Note>();
 

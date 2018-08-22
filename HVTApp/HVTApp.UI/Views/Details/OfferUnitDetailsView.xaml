@@ -22,18 +22,18 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="ProductionTerm"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Срок производства"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ProductionTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Cost"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Стоимость"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
                                Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Product"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Продукт"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.Product}" 
                                     AddItemCommand="{Binding SelectProductCommand}" 
@@ -47,7 +47,7 @@
                                     RemoveItemCommand="{Binding ClearFacilityCommand}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="PaymentConditionSet"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="Условия оплаты"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.PaymentConditionSet}" 
                                     AddItemCommand="{Binding SelectPaymentConditionSetCommand}" 

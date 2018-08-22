@@ -58,6 +58,7 @@ namespace HVTApp.DataAccess
     public partial interface IPaymentDocumentRepository : IRepository<PaymentDocument> { }
     public partial interface IFacilityRepository : IRepository<Facility> { }
     public partial interface IProjectRepository : IRepository<Project> { }
+    public partial interface IProjectUnitRepository : IRepository<ProjectUnit> { }
     public partial interface IUserRoleRepository : IRepository<UserRole> { }
     public partial interface ISpecificationRepository : IRepository<Specification> { }
     public partial interface ITenderRepository : IRepository<Tender> { }

@@ -67,6 +67,7 @@ namespace HVTApp.DataAccess
             context.PaymentDocumentDbSet.AddRange(testData.GetAll<PaymentDocument>());
             context.FacilityDbSet.AddRange(testData.GetAll<Facility>());
             context.ProjectDbSet.AddRange(testData.GetAll<Project>());
+            context.ProjectUnitDbSet.AddRange(testData.GetAll<ProjectUnit>());
             context.UserRoleDbSet.AddRange(testData.GetAll<UserRole>());
             context.SpecificationDbSet.AddRange(testData.GetAll<Specification>());
             context.TenderDbSet.AddRange(testData.GetAll<Tender>());

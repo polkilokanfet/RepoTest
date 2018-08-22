@@ -58,6 +58,7 @@ namespace HVTApp.DataAccess
     public partial class PaymentDocumentConfiguration : EntityTypeConfiguration<PaymentDocument> { }
     public partial class FacilityConfiguration : EntityTypeConfiguration<Facility> { }
     public partial class ProjectConfiguration : EntityTypeConfiguration<Project> { }
+    public partial class ProjectUnitConfiguration : EntityTypeConfiguration<ProjectUnit> { }
     public partial class UserRoleConfiguration : EntityTypeConfiguration<UserRole> { }
     public partial class SpecificationConfiguration : EntityTypeConfiguration<Specification> { }
     public partial class TenderConfiguration : EntityTypeConfiguration<Tender> { }
