@@ -55,6 +55,7 @@ namespace HVTApp.UI.Lookup
 	public interface IPaymentDocumentLookupDataService : ILookupDataService<PaymentDocumentLookup> { } 
 	public interface IFacilityLookupDataService : ILookupDataService<FacilityLookup> { } 
 	public interface IProjectLookupDataService : ILookupDataService<ProjectLookup> { } 
+	public interface IProjectUnitLookupDataService : ILookupDataService<ProjectUnitLookup> { } 
 	public interface IUserRoleLookupDataService : ILookupDataService<UserRoleLookup> { } 
 	public interface ISpecificationLookupDataService : ILookupDataService<SpecificationLookup> { } 
 	public interface ITenderLookupDataService : ILookupDataService<TenderLookup> { } 

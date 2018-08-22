@@ -117,6 +117,8 @@ namespace HVTApp.UI.Wrapper
 
             ProjectWrapperDataService = new ProjectWrapperDataService(unitOfWork);
 
+            ProjectUnitWrapperDataService = new ProjectUnitWrapperDataService(unitOfWork);
+
             UserRoleWrapperDataService = new UserRoleWrapperDataService(unitOfWork);
 
             SpecificationWrapperDataService = new SpecificationWrapperDataService(unitOfWork);
@@ -239,6 +241,8 @@ namespace HVTApp.UI.Wrapper
         public FacilityWrapperDataService FacilityWrapperDataService { get; }
 
         public ProjectWrapperDataService ProjectWrapperDataService { get; }
+
+        public ProjectUnitWrapperDataService ProjectUnitWrapperDataService { get; }
 
         public UserRoleWrapperDataService UserRoleWrapperDataService { get; }
 

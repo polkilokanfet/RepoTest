@@ -22,7 +22,7 @@ namespace HVTApp.Model.POCOs
         public Role RoleCurrent { get; set; }
 
         [Designation("Роли")]
-        public virtual List<UserRole> Roles { get; set; }
+        public virtual List<UserRole> Roles { get; set; } = new List<UserRole>();
 
         [Designation("Сотрудник")]
         public virtual Employee Employee { get; set; }

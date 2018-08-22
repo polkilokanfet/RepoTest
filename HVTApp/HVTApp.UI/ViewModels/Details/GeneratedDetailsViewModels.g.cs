@@ -3130,6 +3130,42 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class ProjectUnitDetailsViewModel : BaseDetailsViewModel<ProjectUnitWrapper, ProjectUnit, AfterSaveProjectUnitEvent>
+    {
+		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
+		public ICommand SelectProductCommand { get; }
+		public ICommand ClearProductCommand { get; }
+
+
+        public ProjectUnitDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
+			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
+
+		}
+
+
+        protected override void InitDefaultGetMethods()
+		{
+            _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };
+
+		}
+		private async void SelectProductCommand_Execute() 
+		{
+            SelectAndSetWrapper<Product, ProductWrapper>(await _getEntitiesForSelectProductCommand(), nameof(Item.Product), Item.Product?.Id);
+		}
+
+		private void ClearProductCommand_Execute() 
+		{
+		Item.Product = null;
+		    
+		}
+
+
+
+    }
+
+
     public partial class UserRoleDetailsViewModel : BaseDetailsViewModel<UserRoleWrapper, UserRole, AfterSaveUserRoleEvent>
     {
 

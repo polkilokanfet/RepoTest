@@ -551,6 +551,11 @@ namespace HVTApp.UI.Views
 	[DesignationPlural("<#=modelType.DesignationPlural()#>")]
     public partial class <#=modelType.Name#>LookupListView : ViewBase
     {
+        public <#=modelType.Name#>LookupListView()
+        {
+            InitializeComponent();
+        }
+
         public <#=modelType.Name#>LookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, <#=modelType.Name#>ListViewModel <#=modelType.Name#>ListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();

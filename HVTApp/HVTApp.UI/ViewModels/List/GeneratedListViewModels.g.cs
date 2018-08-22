@@ -337,6 +337,12 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class ProjectUnitListViewModel : BaseListViewModel<ProjectUnit, ProjectUnitLookup, AfterSaveProjectUnitEvent, AfterSelectProjectUnitEvent, AfterRemoveProjectUnitEvent>
+    {
+        public ProjectUnitListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
     public partial class UserRoleListViewModel : BaseListViewModel<UserRole, UserRoleLookup, AfterSaveUserRoleEvent, AfterSelectUserRoleEvent, AfterRemoveUserRoleEvent>
     {
         public UserRoleListViewModel(IUnityContainer container) : base(container) { }

@@ -296,13 +296,10 @@ namespace HVTApp.UI.Lookup
         public HVTApp.Model.POCOs.Currency FirstCurrency => GetValue<HVTApp.Model.POCOs.Currency>();
 
 
-        public System.Double FirstCurrencyValue => GetValue<System.Double>();
-
-
         public HVTApp.Model.POCOs.Currency SecondCurrency => GetValue<HVTApp.Model.POCOs.Currency>();
 
 
-        public System.Double SecondCurrencyValue => GetValue<System.Double>();
+        public System.Double ExchangeRate => GetValue<System.Double>();
 
 
         #endregion
@@ -1715,6 +1712,36 @@ namespace HVTApp.UI.Lookup
         #region ComplexProperties
 
 	    public UserLookup Manager { get { return GetLookup<UserLookup>(); } }
+
+
+        #endregion
+
+	}
+
+	public partial class ProjectUnitLookup : LookupItem<ProjectUnit>
+	{
+		public ProjectUnitLookup(ProjectUnit entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+			Product?.Refresh(Entity.Product);
+
+		}
+		
+
+        #region SimpleProperties
+
+        public System.Double Cost => GetValue<System.Double>();
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 
         #endregion

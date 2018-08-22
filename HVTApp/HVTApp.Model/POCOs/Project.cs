@@ -13,7 +13,13 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return $"Project: {Name}";
+            return $"{Name}";
         }
+    }
+
+    public class ProjectUnit : BaseEntity
+    {
+        public Product Product { get; set; }
+        public double Cost { get; set; }
     }
 }

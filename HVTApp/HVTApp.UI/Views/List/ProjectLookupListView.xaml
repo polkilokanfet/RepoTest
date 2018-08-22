@@ -3,7 +3,7 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               x:Class="HVTApp.UI.Views.ProjectLookupListView">
-
+    
     <infg:XamDataGrid x:Name="ProjectLookupListGrid">
         
         <infg:XamDataGrid.ContextMenu>

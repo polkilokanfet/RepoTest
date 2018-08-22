@@ -885,6 +885,22 @@ namespace HVTApp.UI.Wrapper
     }
 
 
+    public partial class ProjectUnitWrapperDataService : EntityWrapperDataService<ProjectUnit, ProjectUnitWrapper>
+    {
+        public ProjectUnitWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+		
+		protected override ProjectUnitWrapper GenerateWrapper(ProjectUnit model)
+        {
+            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
+                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
+
+            var wrapper = new ProjectUnitWrapper(model);
+            ExistsWrappers.Add(wrapper);
+            return wrapper;
+        }
+    }
+
+
     public partial class UserRoleWrapperDataService : EntityWrapperDataService<UserRole, UserRoleWrapper>
     {
         public UserRoleWrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }

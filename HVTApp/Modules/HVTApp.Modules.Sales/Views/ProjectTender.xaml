@@ -1,0 +1,17 @@
+﻿<inf:ViewBase x:Class="HVTApp.Modules.Sales.Views.ProjectTender"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:local="clr-namespace:HVTApp.Modules.Sales.Views"
+              xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <views:ProjectLookupListView Name="ProjectListView" Grid.Column="0"/>
+        <views:SalesUnitLookupListView Name="SalesUnitListView" Grid.Column="1"/>
+        
+    </Grid>
+</inf:ViewBase>
