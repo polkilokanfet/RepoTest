@@ -19,12 +19,12 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Название"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Manager"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Менеджер"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.Manager}" 
                                     AddItemCommand="{Binding SelectManagerCommand}" 
@@ -39,7 +39,7 @@
 										 RemoveItemCommand="{Binding RemoveFromSalesUnitsCommand}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Notes"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Заметки"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.Notes}"
 										 SelectedItem="{Binding SelectedNotesItem, Mode=TwoWay}"

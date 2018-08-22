@@ -20,7 +20,7 @@
                     <infg:DateTimeField Name="DateOpen" Label="DateOpen" Width="Auto" />
                     <infg:DateTimeField Name="DateClose" Label="DateClose" Width="Auto" />
                     <infg:DateTimeField Name="DateNotice" Label="DateNotice" Width="Auto" />
-                    <infg:TextField Name="Project" Label="Project" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Project" Label="Проект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Winner" Label="Компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
 
                 </infg:FieldLayout.Fields>

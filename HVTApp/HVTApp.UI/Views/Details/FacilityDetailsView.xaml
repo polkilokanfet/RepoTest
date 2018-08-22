@@ -24,7 +24,7 @@
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Type"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Тип объекта"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.Type}" 
                                     AddItemCommand="{Binding SelectTypeCommand}" 
@@ -38,7 +38,7 @@
                                     RemoveItemCommand="{Binding ClearOwnerCompanyCommand}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Адрес"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Местоположение"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.Address}" 
                                     AddItemCommand="{Binding SelectAddressCommand}" 

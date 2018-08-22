@@ -19,17 +19,17 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Surname"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Фамилия"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Surname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Name"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Имя"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Patronymic"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Отчество"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.Patronymic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 

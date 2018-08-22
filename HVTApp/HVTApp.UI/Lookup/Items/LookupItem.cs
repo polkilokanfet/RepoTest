@@ -34,7 +34,12 @@ namespace HVTApp.UI.Lookup
         {
             Entity = entity;
             RefreshLookups();
-            OnPropertyChanged("");
+            Refresh();
+        }
+
+        public void Refresh()
+        {
+            OnPropertyChanged(String.Empty);
         }
 
         protected abstract void RefreshLookups();

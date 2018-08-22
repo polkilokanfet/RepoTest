@@ -21,24 +21,24 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Login"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Логин"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="PersonalNumber"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Шифр"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.PersonalNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Employee"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Сотрудник"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.Employee}" 
                                     AddItemCommand="{Binding SelectEmployeeCommand}" 
                                     RemoveItemCommand="{Binding ClearEmployeeCommand}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Roles"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Роли"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.Roles}"
 										 SelectedItem="{Binding SelectedRolesItem, Mode=TwoWay}"

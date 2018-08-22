@@ -5,13 +5,13 @@
               xmlns:local="clr-namespace:HVTApp.Modules.Sales.Views"
               xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        
-        <views:ProjectLookupListView Name="ProjectListView" Grid.Column="0"/>
-        <views:SalesUnitLookupListView Name="SalesUnitListView" Grid.Column="1"/>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <views:ProjectLookupListView Name="ProjectListView" Grid.Row="0"/>
+        <views:SalesUnitLookupListView Name="SalesUnitListView" Grid.Row="1"/>
+
     </Grid>
 </inf:ViewBase>
