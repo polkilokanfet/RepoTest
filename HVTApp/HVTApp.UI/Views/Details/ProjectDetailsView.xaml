@@ -15,9 +15,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -33,32 +30,8 @@
                                     RemoveItemCommand="{Binding ClearManagerCommand}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Проектные единицы"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Заметки"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
-										 Items="{Binding Path=Item.SalesUnits}"
-										 SelectedItem="{Binding SelectedSalesUnitsItem, Mode=TwoWay}"
-										 AddItemCommand="{Binding AddInSalesUnitsCommand}"
-										 RemoveItemCommand="{Binding RemoveFromSalesUnitsCommand}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="3" Content="ТКП"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
-										 Items="{Binding Path=Item.Offers}"
-										 SelectedItem="{Binding SelectedOffersItem, Mode=TwoWay}"
-										 AddItemCommand="{Binding AddInOffersCommand}"
-										 RemoveItemCommand="{Binding RemoveFromOffersCommand}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="4" Content="Тендеры"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
-										 Items="{Binding Path=Item.Tenders}"
-										 SelectedItem="{Binding SelectedTendersItem, Mode=TwoWay}"
-										 AddItemCommand="{Binding AddInTendersCommand}"
-										 RemoveItemCommand="{Binding RemoveFromTendersCommand}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="5" Content="Заметки"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
 										 Items="{Binding Path=Item.Notes}"
 										 SelectedItem="{Binding SelectedNotesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInNotesCommand}"

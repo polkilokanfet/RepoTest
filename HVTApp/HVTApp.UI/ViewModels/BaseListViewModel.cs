@@ -107,7 +107,7 @@ namespace HVTApp.UI.ViewModels
         {
             LookupsCollection.Clear();
             SelectedLookup = null;
-            var lookups = (await GetItems()).Select(GetLookup).OrderBy(x => x);
+            var lookups = await GetLookups();
             lookups.ForEach(LookupsCollection.Add);
             Loaded?.Invoke();
         }
@@ -135,9 +135,15 @@ namespace HVTApp.UI.ViewModels
 
 
 
-        protected virtual async Task<IEnumerable<TEntity>> GetItems()
+        private async Task<IEnumerable<TEntity>> GetItems()
         {
             return await UnitOfWork.GetRepository<TEntity>().GetAllAsNoTrackingAsync();
+        }
+
+
+        protected virtual async Task<IEnumerable<TLookup>> GetLookups()
+        {
+            return (await GetItems()).Select(GetLookup).OrderBy(x => x);
         }
 
         #region Commands

@@ -180,6 +180,7 @@
     <Compile Include="ViewModels\List\GeneratedListViewModels.g.cs" />
     <Compile Include="ViewModels\List\PartPriceListViewModel.cs" />
     <Compile Include="ViewModels\List\PaymentPlannedListViewModel.cs" />
+    <Compile Include="ViewModels\List\ProjectListViewModel.cs" />
     <Compile Include="ViewModels\List\ProjectUnitGroupListViewModel.cs" />
     <Compile Include="ViewModels\PaymentPlannedListGeneratorViewModel.cs" />
     <Compile Include="ViewModels\RoleToUpdateAttribute.cs" />

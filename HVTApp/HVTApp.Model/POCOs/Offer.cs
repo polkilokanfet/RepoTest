@@ -16,7 +16,5 @@ namespace HVTApp.Model.POCOs
 
         [Designation("ÍÄÑ")]
         public double Vat { get; set; }
-
-        public virtual List<OfferUnit> OfferUnits { get; set; } = new List<OfferUnit>();
     }
 }

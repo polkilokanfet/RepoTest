@@ -21,28 +21,25 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             ProjectListViewModel.SelectedLookupChanged += project =>
             {
-                var salesUnitLookups = project.Entity.SalesUnits.Select(x => new SalesUnitLookup(x));
-                UnitLookupListViewModel.Load(salesUnitLookups);
-
-                var offerLookups = project.Entity.Offers.Select(x => new OfferLookup(x));
-                OfferListViewModel.Load(offerLookups);
+                UnitLookupListViewModel.Load(project.SalesUnits);
+                OfferListViewModel.Load(project.Offers);
             };
 
             OfferListViewModel.SelectedLookupChanged += offer =>
             {
-                var lookups = offer?.Entity.OfferUnits.Select(x => new OfferUnitLookup(x));
-                UnitLookupListViewModel.Load(lookups);
+                //var lookups = offer?.Entity.OfferUnits.Select(x => new OfferUnitLookup(x));
+                //UnitLookupListViewModel.Load(lookups);
             };
 
             eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>
             {
-                var proj = ProjectListViewModel.Lookups.SingleOrDefault(x => x.Entity.SalesUnits.Contains(salesUnit));
+                //var proj = ProjectListViewModel.Lookups.SingleOrDefault(x => x.Entity.SalesUnits.Contains(salesUnit));
 
-                //костыль для синхронизации сущностей
-                proj?.Entity.SalesUnits.Remove(salesUnit);
-                proj?.Entity.SalesUnits.Add(salesUnit);
+                ////костыль для синхронизации сущностей
+                //proj?.Entity.SalesUnits.Remove(salesUnit);
+                //proj?.Entity.SalesUnits.Add(salesUnit);
 
-                proj?.Refresh();
+                //proj?.Refresh();
             });
         }
 

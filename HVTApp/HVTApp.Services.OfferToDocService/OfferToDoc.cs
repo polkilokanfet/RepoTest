@@ -19,152 +19,157 @@ namespace HVTApp.Services.OfferToDocService
             _unitOfWork = unitOfWork;
         }
 
-        public async Task GenerateOfferDocAsync(Guid offerId)
+        public Task GenerateOfferDocAsync(Guid offerId)
         {
-            var offer = new OfferWrapper(await _unitOfWork.GetRepository<Offer>().GetByIdAsync(offerId));
-
-            string offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestOfferDocument.docx";
-            WordDocumentWriter docWriter = WordDocumentWriter.Create(offerDocumentPath);
-            docWriter.StartDocument();
-            docWriter.Paragraph("Получатель");
-            docWriter.Paragraph($"должность: {offer.RecipientEmployee.Position.Name}");
-            docWriter.Paragraph($"компания: {offer.RecipientEmployee.Company}");
-            docWriter.Paragraph($"Ф.И.О.: {offer.RecipientEmployee.Person.Surname} {offer.RecipientEmployee.Person.Name} {offer.RecipientEmployee.Person.Patronymic}");
-
-            docWriter.Paragraph($"Предложение на поставку оборудования по проекту: ''{offer.Project.Name}''");
-            docWriter.Paragraph($"Срок действия ТКП: {offer.ValidityDate.ToShortDateString()}");
-
-
-            //Table
-            // Create border properties for Table
-            TableBorderProperties borderProps = docWriter.CreateTableBorderProperties();
-            borderProps.Color = Colors.Black;
-            borderProps.Style = TableBorderStyle.Double;
-
-            // Create table properties
-            TableProperties tableProps = docWriter.CreateTableProperties();
-            tableProps.Alignment = ParagraphAlignment.Left;
-            tableProps.BorderProperties.Color = borderProps.Color;
-            tableProps.BorderProperties.Style = borderProps.Style;
-
-            // Create table row properties
-            TableRowProperties rowProps = docWriter.CreateTableRowProperties();
-
-            // Create table cell properties
-            TableCellProperties cellProps = docWriter.CreateTableCellProperties();
-            cellProps.BorderProperties = borderProps;
-
-            docWriter.StartTable(5, tableProps);
-
-            rowProps.IsHeaderRow = true;
-            docWriter.StartTableRow(rowProps);
-            cellProps.BackColor = Colors.Azure;
-            ParagraphProperties paraProps = docWriter.CreateParagraphProperties();
-            paraProps.Alignment = ParagraphAlignment.Left;
-
-            docWriter.TableCell("№", cellProps, paraProps);
-            docWriter.TableCell("Оборудование", cellProps, paraProps);
-            docWriter.TableCell("Кол.", cellProps, paraProps);
-            docWriter.TableCell("Стоимость, руб.", cellProps, paraProps);
-            docWriter.TableCell("Сумма, руб.", cellProps, paraProps);
-
-            // End the Table Row
-            docWriter.EndTableRow();
-
-            // Reset the cell properties, so that the 
-            // cell properties are different from the header cells.
-            cellProps.Reset();
-            cellProps.BackColor = Colors.White;
-            cellProps.VerticalAlignment = TableCellVerticalAlignment.Top;
-            // Reset the row properties
-            rowProps.Reset();
-
-            ParagraphProperties parPropRight = docWriter.CreateParagraphProperties();
-            parPropRight.Alignment = ParagraphAlignment.Right;
-
-            string productsDetails = string.Empty;
-            var rowNum = 0;
-            var offerUnitsGroupsOrdered = offer.OfferUnits.ToUnitGroups().GroupBy(x => x.Facility.Model);
-            foreach (var offerUnitsGroups in offerUnitsGroupsOrdered)
-            {
-                docWriter.StartTableRow();
-                cellProps.ColumnSpan = 5;
-                docWriter.TableCell(offerUnitsGroups.Key.ToString(), cellProps);
-                docWriter.EndTableRow();
-
-                cellProps.ColumnSpan = 1;
-                foreach (var offerUnitsGroup in offerUnitsGroups)
-                {
-                    rowNum++;
-                    docWriter.StartTableRow();
-                    docWriter.TableCell(rowNum.ToString(), cellProps);
-                    docWriter.TableCell(offerUnitsGroup.Product.DisplayMember, cellProps);
-                    docWriter.TableCell($"{offerUnitsGroup.Amount:D}", cellProps, parPropRight);
-                    docWriter.TableCell($"{offerUnitsGroup.Cost:C}", cellProps, parPropRight);
-                    docWriter.TableCell($"{offerUnitsGroup.Total:C}", cellProps, parPropRight);
-                    docWriter.EndTableRow();
-
-                    productsDetails += $"Позиция {rowNum}. {offerUnitsGroup.Product.Model.Designation}:" + Environment.NewLine;
-                    productsDetails += $"{offerUnitsGroup.Product.Model.GetFullDescription()}" + Environment.NewLine;
-
-                    //дополнительное оборудование
-                    if(!offerUnitsGroup.DependentProducts.Any()) continue;
-
-                    docWriter.StartTableRow();
-                    docWriter.TableCell("", cellProps);
-                    docWriter.TableCell("в составе каждого изделия:", cellProps);
-                    docWriter.TableCell("", cellProps);
-                    docWriter.TableCell("", cellProps);
-                    docWriter.TableCell("", cellProps);
-                    docWriter.EndTableRow();
-
-                    var rn = 0;
-                    foreach (var dependentProduct in offerUnitsGroup.DependentProducts)
-                    {
-                        rn++;
-                        docWriter.StartTableRow();
-                        docWriter.TableCell($"{rowNum}.{rn}.", cellProps);
-                        docWriter.TableCell(dependentProduct.Product.DisplayMember, cellProps);
-                        docWriter.TableCell("", cellProps, parPropRight);
-                        docWriter.TableCell("", cellProps, parPropRight);
-                        docWriter.TableCell("", cellProps, parPropRight);
-                        docWriter.EndTableRow();
-                    }
-                }
-            }
-
-            cellProps.BackColor = Colors.Azure;
-            docWriter.StartTableRow();
-            cellProps.ColumnSpan = 4;
-            docWriter.TableCell("Итого без НДС:", cellProps);
-            cellProps.ColumnSpan = 1;
-            docWriter.TableCell($"{offer.Sum:C}", cellProps, parPropRight);
-            docWriter.EndTableRow();
-
-            docWriter.StartTableRow();
-            cellProps.ColumnSpan = 4;
-            docWriter.TableCell($"НДС ({offer.VatProc} %):", cellProps);
-            cellProps.ColumnSpan = 1;
-            docWriter.TableCell($"{offer.Sum * offer.Vat:C}", cellProps, parPropRight);
-            docWriter.EndTableRow();
-
-
-            docWriter.StartTableRow();
-            cellProps.ColumnSpan = 4;
-            docWriter.TableCell($"Итого с НДС:", cellProps);
-            cellProps.ColumnSpan = 1;
-            docWriter.TableCell($"{offer.SumWithVat:C}", cellProps, parPropRight);
-            docWriter.EndTableRow();
-
-            docWriter.EndTable();
-
-            docWriter.Paragraph("Параметры оборудования (по табличным позициям):");
-            docWriter.Paragraph(productsDetails);
-
-            docWriter.EndDocument();
-            docWriter.Close();
-            System.Diagnostics.Process.Start(offerDocumentPath);
-
+            throw new NotImplementedException();
         }
+
+        //public async Task GenerateOfferDocAsync(Guid offerId)
+        //{
+        //    var offer = new OfferWrapper(await _unitOfWork.GetRepository<Offer>().GetByIdAsync(offerId));
+
+        //    string offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestOfferDocument.docx";
+        //    WordDocumentWriter docWriter = WordDocumentWriter.Create(offerDocumentPath);
+        //    docWriter.StartDocument();
+        //    docWriter.Paragraph("Получатель");
+        //    docWriter.Paragraph($"должность: {offer.RecipientEmployee.Position.Name}");
+        //    docWriter.Paragraph($"компания: {offer.RecipientEmployee.Company}");
+        //    docWriter.Paragraph($"Ф.И.О.: {offer.RecipientEmployee.Person.Surname} {offer.RecipientEmployee.Person.Name} {offer.RecipientEmployee.Person.Patronymic}");
+
+        //    docWriter.Paragraph($"Предложение на поставку оборудования по проекту: ''{offer.Project.Name}''");
+        //    docWriter.Paragraph($"Срок действия ТКП: {offer.ValidityDate.ToShortDateString()}");
+
+
+        //    //Table
+        //    // Create border properties for Table
+        //    TableBorderProperties borderProps = docWriter.CreateTableBorderProperties();
+        //    borderProps.Color = Colors.Black;
+        //    borderProps.Style = TableBorderStyle.Double;
+
+        //    // Create table properties
+        //    TableProperties tableProps = docWriter.CreateTableProperties();
+        //    tableProps.Alignment = ParagraphAlignment.Left;
+        //    tableProps.BorderProperties.Color = borderProps.Color;
+        //    tableProps.BorderProperties.Style = borderProps.Style;
+
+        //    // Create table row properties
+        //    TableRowProperties rowProps = docWriter.CreateTableRowProperties();
+
+        //    // Create table cell properties
+        //    TableCellProperties cellProps = docWriter.CreateTableCellProperties();
+        //    cellProps.BorderProperties = borderProps;
+
+        //    docWriter.StartTable(5, tableProps);
+
+        //    rowProps.IsHeaderRow = true;
+        //    docWriter.StartTableRow(rowProps);
+        //    cellProps.BackColor = Colors.Azure;
+        //    ParagraphProperties paraProps = docWriter.CreateParagraphProperties();
+        //    paraProps.Alignment = ParagraphAlignment.Left;
+
+        //    docWriter.TableCell("№", cellProps, paraProps);
+        //    docWriter.TableCell("Оборудование", cellProps, paraProps);
+        //    docWriter.TableCell("Кол.", cellProps, paraProps);
+        //    docWriter.TableCell("Стоимость, руб.", cellProps, paraProps);
+        //    docWriter.TableCell("Сумма, руб.", cellProps, paraProps);
+
+        //    // End the Table Row
+        //    docWriter.EndTableRow();
+
+        //    // Reset the cell properties, so that the 
+        //    // cell properties are different from the header cells.
+        //    cellProps.Reset();
+        //    cellProps.BackColor = Colors.White;
+        //    cellProps.VerticalAlignment = TableCellVerticalAlignment.Top;
+        //    // Reset the row properties
+        //    rowProps.Reset();
+
+        //    ParagraphProperties parPropRight = docWriter.CreateParagraphProperties();
+        //    parPropRight.Alignment = ParagraphAlignment.Right;
+
+        //    string productsDetails = string.Empty;
+        //    var rowNum = 0;
+        //    var offerUnitsGroupsOrdered = offer.OfferUnits.ToUnitGroups().GroupBy(x => x.Facility.Model);
+        //    foreach (var offerUnitsGroups in offerUnitsGroupsOrdered)
+        //    {
+        //        docWriter.StartTableRow();
+        //        cellProps.ColumnSpan = 5;
+        //        docWriter.TableCell(offerUnitsGroups.Key.ToString(), cellProps);
+        //        docWriter.EndTableRow();
+
+        //        cellProps.ColumnSpan = 1;
+        //        foreach (var offerUnitsGroup in offerUnitsGroups)
+        //        {
+        //            rowNum++;
+        //            docWriter.StartTableRow();
+        //            docWriter.TableCell(rowNum.ToString(), cellProps);
+        //            docWriter.TableCell(offerUnitsGroup.Product.DisplayMember, cellProps);
+        //            docWriter.TableCell($"{offerUnitsGroup.Amount:D}", cellProps, parPropRight);
+        //            docWriter.TableCell($"{offerUnitsGroup.Cost:C}", cellProps, parPropRight);
+        //            docWriter.TableCell($"{offerUnitsGroup.Total:C}", cellProps, parPropRight);
+        //            docWriter.EndTableRow();
+
+        //            productsDetails += $"Позиция {rowNum}. {offerUnitsGroup.Product.Model.Designation}:" + Environment.NewLine;
+        //            productsDetails += $"{offerUnitsGroup.Product.Model.GetFullDescription()}" + Environment.NewLine;
+
+        //            //дополнительное оборудование
+        //            if(!offerUnitsGroup.DependentProducts.Any()) continue;
+
+        //            docWriter.StartTableRow();
+        //            docWriter.TableCell("", cellProps);
+        //            docWriter.TableCell("в составе каждого изделия:", cellProps);
+        //            docWriter.TableCell("", cellProps);
+        //            docWriter.TableCell("", cellProps);
+        //            docWriter.TableCell("", cellProps);
+        //            docWriter.EndTableRow();
+
+        //            var rn = 0;
+        //            foreach (var dependentProduct in offerUnitsGroup.DependentProducts)
+        //            {
+        //                rn++;
+        //                docWriter.StartTableRow();
+        //                docWriter.TableCell($"{rowNum}.{rn}.", cellProps);
+        //                docWriter.TableCell(dependentProduct.Product.DisplayMember, cellProps);
+        //                docWriter.TableCell("", cellProps, parPropRight);
+        //                docWriter.TableCell("", cellProps, parPropRight);
+        //                docWriter.TableCell("", cellProps, parPropRight);
+        //                docWriter.EndTableRow();
+        //            }
+        //        }
+        //    }
+
+        //    cellProps.BackColor = Colors.Azure;
+        //    docWriter.StartTableRow();
+        //    cellProps.ColumnSpan = 4;
+        //    docWriter.TableCell("Итого без НДС:", cellProps);
+        //    cellProps.ColumnSpan = 1;
+        //    docWriter.TableCell($"{offer.Sum:C}", cellProps, parPropRight);
+        //    docWriter.EndTableRow();
+
+        //    docWriter.StartTableRow();
+        //    cellProps.ColumnSpan = 4;
+        //    docWriter.TableCell($"НДС ({offer.VatProc} %):", cellProps);
+        //    cellProps.ColumnSpan = 1;
+        //    docWriter.TableCell($"{offer.Sum * offer.Vat:C}", cellProps, parPropRight);
+        //    docWriter.EndTableRow();
+
+
+        //    docWriter.StartTableRow();
+        //    cellProps.ColumnSpan = 4;
+        //    docWriter.TableCell($"Итого с НДС:", cellProps);
+        //    cellProps.ColumnSpan = 1;
+        //    docWriter.TableCell($"{offer.SumWithVat:C}", cellProps, parPropRight);
+        //    docWriter.EndTableRow();
+
+        //    docWriter.EndTable();
+
+        //    docWriter.Paragraph("Параметры оборудования (по табличным позициям):");
+        //    docWriter.Paragraph(productsDetails);
+
+        //    docWriter.EndDocument();
+        //    docWriter.Close();
+        //    System.Diagnostics.Process.Start(offerDocumentPath);
+
+        //}
     }
 }

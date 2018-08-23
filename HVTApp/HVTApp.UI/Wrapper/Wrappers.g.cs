@@ -1627,7 +1627,7 @@ namespace HVTApp.UI.Wrapper
         }
 	}
 
-		public partial class SalesUnitWrapper
+		public partial class SalesUnitWrapper 
 	{
 	    public SalesUnitWrapper(SalesUnit model) : base(model) { }
 
@@ -2589,8 +2589,6 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region CollectionProperties
-        public IValidatableChangeTrackingCollection<OfferUnitWrapper> OfferUnits { get; private set; }
-
         public IValidatableChangeTrackingCollection<EmployeeWrapper> CopyToRecipients { get; private set; }
 
         #endregion
@@ -2614,10 +2612,6 @@ namespace HVTApp.UI.Wrapper
   
         protected override void InitializeCollectionProperties()
         {
-          if (Model.OfferUnits == null) throw new ArgumentException("OfferUnits cannot be null");
-          OfferUnits = new ValidatableChangeTrackingCollection<OfferUnitWrapper>(Model.OfferUnits.Select(e => new OfferUnitWrapper(e)));
-          RegisterCollection(OfferUnits, Model.OfferUnits);
-
           if (Model.CopyToRecipients == null) throw new ArgumentException("CopyToRecipients cannot be null");
           CopyToRecipients = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.CopyToRecipients.Select(e => new EmployeeWrapper(e)));
           RegisterCollection(CopyToRecipients, Model.CopyToRecipients);
@@ -2897,12 +2891,6 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region CollectionProperties
-        public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
-
-        public IValidatableChangeTrackingCollection<OfferWrapper> Offers { get; private set; }
-
-        public IValidatableChangeTrackingCollection<TenderWrapper> Tenders { get; private set; }
-
         public IValidatableChangeTrackingCollection<NoteWrapper> Notes { get; private set; }
 
         #endregion
@@ -2914,18 +2902,6 @@ namespace HVTApp.UI.Wrapper
   
         protected override void InitializeCollectionProperties()
         {
-          if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
-          SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
-          RegisterCollection(SalesUnits, Model.SalesUnits);
-
-          if (Model.Offers == null) throw new ArgumentException("Offers cannot be null");
-          Offers = new ValidatableChangeTrackingCollection<OfferWrapper>(Model.Offers.Select(e => new OfferWrapper(e)));
-          RegisterCollection(Offers, Model.Offers);
-
-          if (Model.Tenders == null) throw new ArgumentException("Tenders cannot be null");
-          Tenders = new ValidatableChangeTrackingCollection<TenderWrapper>(Model.Tenders.Select(e => new TenderWrapper(e)));
-          RegisterCollection(Tenders, Model.Tenders);
-
           if (Model.Notes == null) throw new ArgumentException("Notes cannot be null");
           Notes = new ValidatableChangeTrackingCollection<NoteWrapper>(Model.Notes.Select(e => new NoteWrapper(e)));
           RegisterCollection(Notes, Model.Notes);

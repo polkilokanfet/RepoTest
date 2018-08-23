@@ -2419,22 +2419,6 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectRegistrationDetailsOfRecipientCommand { get; }
 		public ICommand ClearRegistrationDetailsOfRecipientCommand { get; }
 
-		private Func<Task<List<OfferUnit>>> _getEntitiesForAddInOfferUnitsCommand;
-		public ICommand AddInOfferUnitsCommand { get; }
-		public ICommand RemoveFromOfferUnitsCommand { get; }
-		private OfferUnitWrapper _selectedOfferUnitsItem;
-		public OfferUnitWrapper SelectedOfferUnitsItem 
-		{ 
-			get { return _selectedOfferUnitsItem; }
-			set 
-			{ 
-				if (Equals(_selectedOfferUnitsItem, value)) return;
-				_selectedOfferUnitsItem = value;
-				OnPropertyChanged();
-				((DelegateCommand)RemoveFromOfferUnitsCommand).RaiseCanExecuteChanged();
-			}
-		}
-
 		private Func<Task<List<Employee>>> _getEntitiesForAddInCopyToRecipientsCommand;
 		public ICommand AddInCopyToRecipientsCommand { get; }
 		public ICommand RemoveFromCopyToRecipientsCommand { get; }
@@ -2474,9 +2458,6 @@ namespace HVTApp.UI.ViewModels
 			SelectRegistrationDetailsOfRecipientCommand = new DelegateCommand(SelectRegistrationDetailsOfRecipientCommand_Execute);
 			ClearRegistrationDetailsOfRecipientCommand = new DelegateCommand(ClearRegistrationDetailsOfRecipientCommand_Execute);
 
-			AddInOfferUnitsCommand = new DelegateCommand(AddInOfferUnitsCommand_Execute);
-			RemoveFromOfferUnitsCommand = new DelegateCommand(RemoveFromOfferUnitsCommand_Execute, RemoveFromOfferUnitsCommand_CanExecute);
-
 			AddInCopyToRecipientsCommand = new DelegateCommand(AddInCopyToRecipientsCommand_Execute);
 			RemoveFromCopyToRecipientsCommand = new DelegateCommand(RemoveFromCopyToRecipientsCommand_Execute, RemoveFromCopyToRecipientsCommand_CanExecute);
 
@@ -2492,7 +2473,6 @@ namespace HVTApp.UI.ViewModels
             _getEntitiesForSelectRecipientEmployeeCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };
             _getEntitiesForSelectRegistrationDetailsOfSenderCommand = async () => { return await UnitOfWork.GetRepository<DocumentsRegistrationDetails>().GetAllAsync(); };
             _getEntitiesForSelectRegistrationDetailsOfRecipientCommand = async () => { return await UnitOfWork.GetRepository<DocumentsRegistrationDetails>().GetAllAsync(); };
-			_getEntitiesForAddInOfferUnitsCommand = async () => { return await UnitOfWork.GetRepository<OfferUnit>().GetAllAsync(); };;
 			_getEntitiesForAddInCopyToRecipientsCommand = async () => { return await UnitOfWork.GetRepository<Employee>().GetAllAsync(); };;
 		}
 		private async void SelectProjectCommand_Execute() 
@@ -2564,21 +2544,6 @@ namespace HVTApp.UI.ViewModels
 		{
 		Item.RegistrationDetailsOfRecipient = null;		    
 		}
-
-			private async void AddInOfferUnitsCommand_Execute()
-			{
-				SelectAndAddInListWrapper<OfferUnit, OfferUnitWrapper>(await _getEntitiesForAddInOfferUnitsCommand(), Item.OfferUnits);
-			}
-
-			private void RemoveFromOfferUnitsCommand_Execute()
-			{
-				Item.OfferUnits.Remove(SelectedOfferUnitsItem);
-			}
-
-			private bool RemoveFromOfferUnitsCommand_CanExecute()
-			{
-				return SelectedOfferUnitsItem != null;
-			}
 
 			private async void AddInCopyToRecipientsCommand_Execute()
 			{
@@ -2812,54 +2777,6 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectManagerCommand { get; }
 		public ICommand ClearManagerCommand { get; }
 
-		private Func<Task<List<SalesUnit>>> _getEntitiesForAddInSalesUnitsCommand;
-		public ICommand AddInSalesUnitsCommand { get; }
-		public ICommand RemoveFromSalesUnitsCommand { get; }
-		private SalesUnitWrapper _selectedSalesUnitsItem;
-		public SalesUnitWrapper SelectedSalesUnitsItem 
-		{ 
-			get { return _selectedSalesUnitsItem; }
-			set 
-			{ 
-				if (Equals(_selectedSalesUnitsItem, value)) return;
-				_selectedSalesUnitsItem = value;
-				OnPropertyChanged();
-				((DelegateCommand)RemoveFromSalesUnitsCommand).RaiseCanExecuteChanged();
-			}
-		}
-
-		private Func<Task<List<Offer>>> _getEntitiesForAddInOffersCommand;
-		public ICommand AddInOffersCommand { get; }
-		public ICommand RemoveFromOffersCommand { get; }
-		private OfferWrapper _selectedOffersItem;
-		public OfferWrapper SelectedOffersItem 
-		{ 
-			get { return _selectedOffersItem; }
-			set 
-			{ 
-				if (Equals(_selectedOffersItem, value)) return;
-				_selectedOffersItem = value;
-				OnPropertyChanged();
-				((DelegateCommand)RemoveFromOffersCommand).RaiseCanExecuteChanged();
-			}
-		}
-
-		private Func<Task<List<Tender>>> _getEntitiesForAddInTendersCommand;
-		public ICommand AddInTendersCommand { get; }
-		public ICommand RemoveFromTendersCommand { get; }
-		private TenderWrapper _selectedTendersItem;
-		public TenderWrapper SelectedTendersItem 
-		{ 
-			get { return _selectedTendersItem; }
-			set 
-			{ 
-				if (Equals(_selectedTendersItem, value)) return;
-				_selectedTendersItem = value;
-				OnPropertyChanged();
-				((DelegateCommand)RemoveFromTendersCommand).RaiseCanExecuteChanged();
-			}
-		}
-
 		private Func<Task<List<Note>>> _getEntitiesForAddInNotesCommand;
 		public ICommand AddInNotesCommand { get; }
 		public ICommand RemoveFromNotesCommand { get; }
@@ -2881,15 +2798,6 @@ namespace HVTApp.UI.ViewModels
 			SelectManagerCommand = new DelegateCommand(SelectManagerCommand_Execute);
 			ClearManagerCommand = new DelegateCommand(ClearManagerCommand_Execute);
 
-			AddInSalesUnitsCommand = new DelegateCommand(AddInSalesUnitsCommand_Execute);
-			RemoveFromSalesUnitsCommand = new DelegateCommand(RemoveFromSalesUnitsCommand_Execute, RemoveFromSalesUnitsCommand_CanExecute);
-
-			AddInOffersCommand = new DelegateCommand(AddInOffersCommand_Execute);
-			RemoveFromOffersCommand = new DelegateCommand(RemoveFromOffersCommand_Execute, RemoveFromOffersCommand_CanExecute);
-
-			AddInTendersCommand = new DelegateCommand(AddInTendersCommand_Execute);
-			RemoveFromTendersCommand = new DelegateCommand(RemoveFromTendersCommand_Execute, RemoveFromTendersCommand_CanExecute);
-
 			AddInNotesCommand = new DelegateCommand(AddInNotesCommand_Execute);
 			RemoveFromNotesCommand = new DelegateCommand(RemoveFromNotesCommand_Execute, RemoveFromNotesCommand_CanExecute);
 
@@ -2899,9 +2807,6 @@ namespace HVTApp.UI.ViewModels
         protected override void InitDefaultGetMethods()
 		{
             _getEntitiesForSelectManagerCommand = async () => { return await UnitOfWork.GetRepository<User>().GetAllAsync(); };
-			_getEntitiesForAddInSalesUnitsCommand = async () => { return await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync(); };;
-			_getEntitiesForAddInOffersCommand = async () => { return await UnitOfWork.GetRepository<Offer>().GetAllAsync(); };;
-			_getEntitiesForAddInTendersCommand = async () => { return await UnitOfWork.GetRepository<Tender>().GetAllAsync(); };;
 			_getEntitiesForAddInNotesCommand = async () => { return await UnitOfWork.GetRepository<Note>().GetAllAsync(); };;
 		}
 		private async void SelectManagerCommand_Execute() 
@@ -2913,51 +2818,6 @@ namespace HVTApp.UI.ViewModels
 		{
 		Item.Manager = null;		    
 		}
-
-			private async void AddInSalesUnitsCommand_Execute()
-			{
-				SelectAndAddInListWrapper<SalesUnit, SalesUnitWrapper>(await _getEntitiesForAddInSalesUnitsCommand(), Item.SalesUnits);
-			}
-
-			private void RemoveFromSalesUnitsCommand_Execute()
-			{
-				Item.SalesUnits.Remove(SelectedSalesUnitsItem);
-			}
-
-			private bool RemoveFromSalesUnitsCommand_CanExecute()
-			{
-				return SelectedSalesUnitsItem != null;
-			}
-
-			private async void AddInOffersCommand_Execute()
-			{
-				SelectAndAddInListWrapper<Offer, OfferWrapper>(await _getEntitiesForAddInOffersCommand(), Item.Offers);
-			}
-
-			private void RemoveFromOffersCommand_Execute()
-			{
-				Item.Offers.Remove(SelectedOffersItem);
-			}
-
-			private bool RemoveFromOffersCommand_CanExecute()
-			{
-				return SelectedOffersItem != null;
-			}
-
-			private async void AddInTendersCommand_Execute()
-			{
-				SelectAndAddInListWrapper<Tender, TenderWrapper>(await _getEntitiesForAddInTendersCommand(), Item.Tenders);
-			}
-
-			private void RemoveFromTendersCommand_Execute()
-			{
-				Item.Tenders.Remove(SelectedTendersItem);
-			}
-
-			private bool RemoveFromTendersCommand_CanExecute()
-			{
-				return SelectedTendersItem != null;
-			}
 
 			private async void AddInNotesCommand_Execute()
 			{
