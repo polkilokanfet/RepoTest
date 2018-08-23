@@ -286,11 +286,6 @@ namespace HVTApp.UI
 			_selectService.Register<ProjectLookupListView, Project>();
             _updateDetailsService.Register<Project, ProjectDetailsView>();
 
-            Container.RegisterViewForNavigation<ProjectUnitLookupListView>();
-            //_dialogService.Register<ProjectUnitDetailsViewModel, ProjectUnitDetailsView>();
-			_selectService.Register<ProjectUnitLookupListView, ProjectUnit>();
-            _updateDetailsService.Register<ProjectUnit, ProjectUnitDetailsView>();
-
             Container.RegisterViewForNavigation<UserRoleLookupListView>();
             //_dialogService.Register<UserRoleDetailsViewModel, UserRoleDetailsView>();
 			_selectService.Register<UserRoleLookupListView, UserRole>();

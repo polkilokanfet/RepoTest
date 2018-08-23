@@ -417,6 +417,10 @@ namespace HVTApp.UI.ViewModels
 
     public partial class OfferUnitDetailsViewModel : BaseDetailsViewModel<OfferUnitWrapper, OfferUnit, AfterSaveOfferUnitEvent>
     {
+		private Func<Task<List<Offer>>> _getEntitiesForSelectOfferCommand;
+		public ICommand SelectOfferCommand { get; }
+		public ICommand ClearOfferCommand { get; }
+
 		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
 		public ICommand SelectProductCommand { get; }
 		public ICommand ClearProductCommand { get; }
@@ -463,6 +467,9 @@ namespace HVTApp.UI.ViewModels
 
         public OfferUnitDetailsViewModel(IUnityContainer container) : base(container) 
 		{
+			SelectOfferCommand = new DelegateCommand(SelectOfferCommand_Execute);
+			ClearOfferCommand = new DelegateCommand(ClearOfferCommand_Execute);
+
 			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
 			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
 
@@ -483,12 +490,23 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+            _getEntitiesForSelectOfferCommand = async () => { return await UnitOfWork.GetRepository<Offer>().GetAllAsync(); };
             _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };
             _getEntitiesForSelectFacilityCommand = async () => { return await UnitOfWork.GetRepository<Facility>().GetAllAsync(); };
             _getEntitiesForSelectPaymentConditionSetCommand = async () => { return await UnitOfWork.GetRepository<PaymentConditionSet>().GetAllAsync(); };
 			_getEntitiesForAddInDependentProductsCommand = async () => { return await UnitOfWork.GetRepository<ProductDependent>().GetAllAsync(); };;
 			_getEntitiesForAddInServicesCommand = async () => { return await UnitOfWork.GetRepository<Service>().GetAllAsync(); };;
 		}
+		private async void SelectOfferCommand_Execute() 
+		{
+            SelectAndSetWrapper<Offer, OfferWrapper>(await _getEntitiesForSelectOfferCommand(), nameof(Item.Offer), Item.Offer?.Id);
+		}
+
+		private void ClearOfferCommand_Execute() 
+		{
+		Item.Offer = null;		    
+		}
+
 		private async void SelectProductCommand_Execute() 
 		{
             SelectAndSetWrapper<Product, ProductWrapper>(await _getEntitiesForSelectProductCommand(), nameof(Item.Product), Item.Product?.Id);
@@ -1457,6 +1475,10 @@ namespace HVTApp.UI.ViewModels
 
     public partial class SalesUnitDetailsViewModel : BaseDetailsViewModel<SalesUnitWrapper, SalesUnit, AfterSaveSalesUnitEvent>
     {
+		private Func<Task<List<Project>>> _getEntitiesForSelectProjectCommand;
+		public ICommand SelectProjectCommand { get; }
+		public ICommand ClearProjectCommand { get; }
+
 		private Func<Task<List<Company>>> _getEntitiesForSelectProducerCommand;
 		public ICommand SelectProducerCommand { get; }
 		public ICommand ClearProducerCommand { get; }
@@ -1472,6 +1494,10 @@ namespace HVTApp.UI.ViewModels
 		private Func<Task<List<Address>>> _getEntitiesForSelectAddressCommand;
 		public ICommand SelectAddressCommand { get; }
 		public ICommand ClearAddressCommand { get; }
+
+		private Func<Task<List<Offer>>> _getEntitiesForSelectOfferCommand;
+		public ICommand SelectOfferCommand { get; }
+		public ICommand ClearOfferCommand { get; }
 
 		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
 		public ICommand SelectProductCommand { get; }
@@ -1551,6 +1577,9 @@ namespace HVTApp.UI.ViewModels
 
         public SalesUnitDetailsViewModel(IUnityContainer container) : base(container) 
 		{
+			SelectProjectCommand = new DelegateCommand(SelectProjectCommand_Execute);
+			ClearProjectCommand = new DelegateCommand(ClearProjectCommand_Execute);
+
 			SelectProducerCommand = new DelegateCommand(SelectProducerCommand_Execute);
 			ClearProducerCommand = new DelegateCommand(ClearProducerCommand_Execute);
 
@@ -1562,6 +1591,9 @@ namespace HVTApp.UI.ViewModels
 
 			SelectAddressCommand = new DelegateCommand(SelectAddressCommand_Execute);
 			ClearAddressCommand = new DelegateCommand(ClearAddressCommand_Execute);
+
+			SelectOfferCommand = new DelegateCommand(SelectOfferCommand_Execute);
+			ClearOfferCommand = new DelegateCommand(ClearOfferCommand_Execute);
 
 			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
 			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
@@ -1589,10 +1621,12 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+            _getEntitiesForSelectProjectCommand = async () => { return await UnitOfWork.GetRepository<Project>().GetAllAsync(); };
             _getEntitiesForSelectProducerCommand = async () => { return await UnitOfWork.GetRepository<Company>().GetAllAsync(); };
             _getEntitiesForSelectOrderCommand = async () => { return await UnitOfWork.GetRepository<Order>().GetAllAsync(); };
             _getEntitiesForSelectSpecificationCommand = async () => { return await UnitOfWork.GetRepository<Specification>().GetAllAsync(); };
             _getEntitiesForSelectAddressCommand = async () => { return await UnitOfWork.GetRepository<Address>().GetAllAsync(); };
+            _getEntitiesForSelectOfferCommand = async () => { return await UnitOfWork.GetRepository<Offer>().GetAllAsync(); };
             _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };
             _getEntitiesForSelectFacilityCommand = async () => { return await UnitOfWork.GetRepository<Facility>().GetAllAsync(); };
             _getEntitiesForSelectPaymentConditionSetCommand = async () => { return await UnitOfWork.GetRepository<PaymentConditionSet>().GetAllAsync(); };
@@ -1601,6 +1635,16 @@ namespace HVTApp.UI.ViewModels
 			_getEntitiesForAddInDependentProductsCommand = async () => { return await UnitOfWork.GetRepository<ProductDependent>().GetAllAsync(); };;
 			_getEntitiesForAddInServicesCommand = async () => { return await UnitOfWork.GetRepository<Service>().GetAllAsync(); };;
 		}
+		private async void SelectProjectCommand_Execute() 
+		{
+            SelectAndSetWrapper<Project, ProjectWrapper>(await _getEntitiesForSelectProjectCommand(), nameof(Item.Project), Item.Project?.Id);
+		}
+
+		private void ClearProjectCommand_Execute() 
+		{
+		Item.Project = null;		    
+		}
+
 		private async void SelectProducerCommand_Execute() 
 		{
             SelectAndSetWrapper<Company, CompanyWrapper>(await _getEntitiesForSelectProducerCommand(), nameof(Item.Producer), Item.Producer?.Id);
@@ -1639,6 +1683,16 @@ namespace HVTApp.UI.ViewModels
 		private void ClearAddressCommand_Execute() 
 		{
 		Item.Address = null;		    
+		}
+
+		private async void SelectOfferCommand_Execute() 
+		{
+            SelectAndSetWrapper<Offer, OfferWrapper>(await _getEntitiesForSelectOfferCommand(), nameof(Item.Offer), Item.Offer?.Id);
+		}
+
+		private void ClearOfferCommand_Execute() 
+		{
+		Item.Offer = null;		    
 		}
 
 		private async void SelectProductCommand_Execute() 
@@ -2774,6 +2828,38 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<Task<List<Offer>>> _getEntitiesForAddInOffersCommand;
+		public ICommand AddInOffersCommand { get; }
+		public ICommand RemoveFromOffersCommand { get; }
+		private OfferWrapper _selectedOffersItem;
+		public OfferWrapper SelectedOffersItem 
+		{ 
+			get { return _selectedOffersItem; }
+			set 
+			{ 
+				if (Equals(_selectedOffersItem, value)) return;
+				_selectedOffersItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromOffersCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+		private Func<Task<List<Tender>>> _getEntitiesForAddInTendersCommand;
+		public ICommand AddInTendersCommand { get; }
+		public ICommand RemoveFromTendersCommand { get; }
+		private TenderWrapper _selectedTendersItem;
+		public TenderWrapper SelectedTendersItem 
+		{ 
+			get { return _selectedTendersItem; }
+			set 
+			{ 
+				if (Equals(_selectedTendersItem, value)) return;
+				_selectedTendersItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromTendersCommand).RaiseCanExecuteChanged();
+			}
+		}
+
 		private Func<Task<List<Note>>> _getEntitiesForAddInNotesCommand;
 		public ICommand AddInNotesCommand { get; }
 		public ICommand RemoveFromNotesCommand { get; }
@@ -2798,6 +2884,12 @@ namespace HVTApp.UI.ViewModels
 			AddInSalesUnitsCommand = new DelegateCommand(AddInSalesUnitsCommand_Execute);
 			RemoveFromSalesUnitsCommand = new DelegateCommand(RemoveFromSalesUnitsCommand_Execute, RemoveFromSalesUnitsCommand_CanExecute);
 
+			AddInOffersCommand = new DelegateCommand(AddInOffersCommand_Execute);
+			RemoveFromOffersCommand = new DelegateCommand(RemoveFromOffersCommand_Execute, RemoveFromOffersCommand_CanExecute);
+
+			AddInTendersCommand = new DelegateCommand(AddInTendersCommand_Execute);
+			RemoveFromTendersCommand = new DelegateCommand(RemoveFromTendersCommand_Execute, RemoveFromTendersCommand_CanExecute);
+
 			AddInNotesCommand = new DelegateCommand(AddInNotesCommand_Execute);
 			RemoveFromNotesCommand = new DelegateCommand(RemoveFromNotesCommand_Execute, RemoveFromNotesCommand_CanExecute);
 
@@ -2808,6 +2900,8 @@ namespace HVTApp.UI.ViewModels
 		{
             _getEntitiesForSelectManagerCommand = async () => { return await UnitOfWork.GetRepository<User>().GetAllAsync(); };
 			_getEntitiesForAddInSalesUnitsCommand = async () => { return await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync(); };;
+			_getEntitiesForAddInOffersCommand = async () => { return await UnitOfWork.GetRepository<Offer>().GetAllAsync(); };;
+			_getEntitiesForAddInTendersCommand = async () => { return await UnitOfWork.GetRepository<Tender>().GetAllAsync(); };;
 			_getEntitiesForAddInNotesCommand = async () => { return await UnitOfWork.GetRepository<Note>().GetAllAsync(); };;
 		}
 		private async void SelectManagerCommand_Execute() 
@@ -2835,6 +2929,36 @@ namespace HVTApp.UI.ViewModels
 				return SelectedSalesUnitsItem != null;
 			}
 
+			private async void AddInOffersCommand_Execute()
+			{
+				SelectAndAddInListWrapper<Offer, OfferWrapper>(await _getEntitiesForAddInOffersCommand(), Item.Offers);
+			}
+
+			private void RemoveFromOffersCommand_Execute()
+			{
+				Item.Offers.Remove(SelectedOffersItem);
+			}
+
+			private bool RemoveFromOffersCommand_CanExecute()
+			{
+				return SelectedOffersItem != null;
+			}
+
+			private async void AddInTendersCommand_Execute()
+			{
+				SelectAndAddInListWrapper<Tender, TenderWrapper>(await _getEntitiesForAddInTendersCommand(), Item.Tenders);
+			}
+
+			private void RemoveFromTendersCommand_Execute()
+			{
+				Item.Tenders.Remove(SelectedTendersItem);
+			}
+
+			private bool RemoveFromTendersCommand_CanExecute()
+			{
+				return SelectedTendersItem != null;
+			}
+
 			private async void AddInNotesCommand_Execute()
 			{
 				SelectAndAddInListWrapper<Note, NoteWrapper>(await _getEntitiesForAddInNotesCommand(), Item.Notes);
@@ -2849,37 +2973,6 @@ namespace HVTApp.UI.ViewModels
 			{
 				return SelectedNotesItem != null;
 			}
-
-
-    }
-
-    public partial class ProjectUnitDetailsViewModel : BaseDetailsViewModel<ProjectUnitWrapper, ProjectUnit, AfterSaveProjectUnitEvent>
-    {
-		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
-		public ICommand SelectProductCommand { get; }
-		public ICommand ClearProductCommand { get; }
-
-        public ProjectUnitDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
-			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
-
-		}
-
-
-        protected override void InitDefaultGetMethods()
-		{
-            _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.GetRepository<Product>().GetAllAsync(); };
-		}
-		private async void SelectProductCommand_Execute() 
-		{
-            SelectAndSetWrapper<Product, ProductWrapper>(await _getEntitiesForSelectProductCommand(), nameof(Item.Product), Item.Product?.Id);
-		}
-
-		private void ClearProductCommand_Execute() 
-		{
-		Item.Product = null;		    
-		}
 
 
     }

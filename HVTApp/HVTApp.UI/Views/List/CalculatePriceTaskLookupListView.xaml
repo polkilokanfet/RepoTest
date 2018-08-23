@@ -15,7 +15,6 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="DisplayMember" Label="Отображение" Width="Auto" />
                     <infg:DateTimeField Name="Date" Label="Date" Width="Auto" />
                     <infg:CheckBoxField Name="IsActual" Label="IsActual" Width="Auto" />
                     <infg:TextField Name="ProductBlock" Label="ProductBlock" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>

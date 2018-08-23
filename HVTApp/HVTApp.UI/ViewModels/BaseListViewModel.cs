@@ -106,6 +106,7 @@ namespace HVTApp.UI.ViewModels
         public virtual async Task LoadAsync()
         {
             LookupsCollection.Clear();
+            SelectedLookup = null;
             var lookups = (await GetItems()).Select(GetLookup).OrderBy(x => x);
             lookups.ForEach(LookupsCollection.Add);
             Loaded?.Invoke();
@@ -119,6 +120,7 @@ namespace HVTApp.UI.ViewModels
         public virtual void Load(IEnumerable<TLookup> lookups)
         {
             LookupsCollection.Clear();
+            SelectedLookup = null;
             lookups.OrderBy(x => x).ForEach(LookupsCollection.Add);
             Loaded?.Invoke();
         }

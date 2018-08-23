@@ -16,9 +16,9 @@
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Название" Width="Auto" />
-                    <infg:TextField Name="DisplayMember" Label="Отображение" Width="Auto" />
                     <infg:NumericField Name="Sum" Label="Сумма проекта" Width="Auto" />
                     <infg:DateTimeField Name="RealizationDate" Label="Дата поставки" Width="Auto" />
+                    <infg:DateTimeField Name="TenderDate" Label="Тендер" Width="Auto" />
                     <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
 
                 </infg:FieldLayout.Fields>

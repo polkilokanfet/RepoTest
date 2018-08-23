@@ -11,6 +11,10 @@ namespace HVTApp.Model.POCOs
         [Designation("Стоимость")]
         public double Cost { get; set; }
 
+        [Designation("ТКП")]
+        public virtual Offer Offer { get; set; }
+
+
         [Designation("Продукт")]
         public virtual Product Product { get; set; }
 

@@ -62,7 +62,6 @@ namespace HVTApp.DataAccess
             PaymentDocumentRepository = new PaymentDocumentRepositoryTest(testData);
             FacilityRepository = new FacilityRepositoryTest(testData);
             ProjectRepository = new ProjectRepositoryTest(testData);
-            ProjectUnitRepository = new ProjectUnitRepositoryTest(testData);
             UserRoleRepository = new UserRoleRepositoryTest(testData);
             SpecificationRepository = new SpecificationRepositoryTest(testData);
             TenderRepository = new TenderRepositoryTest(testData);
@@ -128,7 +127,6 @@ namespace HVTApp.DataAccess
         public IPaymentDocumentRepository PaymentDocumentRepository { get; }
         public IFacilityRepository FacilityRepository { get; }
         public IProjectRepository ProjectRepository { get; }
-        public IProjectUnitRepository ProjectUnitRepository { get; }
         public IUserRoleRepository UserRoleRepository { get; }
         public ISpecificationRepository SpecificationRepository { get; }
         public ITenderRepository TenderRepository { get; }

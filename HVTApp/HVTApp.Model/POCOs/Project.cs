@@ -5,6 +5,7 @@ using HVTApp.Infrastructure.Attrubutes;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Проект")]
+    [DesignationPlural("Проекты")]
     public class Project : BaseEntity
     {
         [Designation("Название")]
@@ -13,9 +14,14 @@ namespace HVTApp.Model.POCOs
         [Designation("Менеджер")]
         public virtual User Manager { get; set; }
 
+        [Designation("Проектные единицы")]
         public virtual List<SalesUnit> SalesUnits { get; set; } = new List<SalesUnit>();
 
+        [Designation("ТКП")]
+        public virtual List<Offer> Offers { get; set; } = new List<Offer>();
 
+        [Designation("Тендеры")]
+        public virtual List<Tender> Tenders { get; set; } = new List<Tender>();
 
         [Designation("Заметки")]
         public virtual List<Note> Notes { get; set; } = new List<Note>();
@@ -26,9 +32,4 @@ namespace HVTApp.Model.POCOs
         }
     }
 
-    public class ProjectUnit : BaseEntity
-    {
-        public Product Product { get; set; }
-        public double Cost { get; set; }
-    }
 }

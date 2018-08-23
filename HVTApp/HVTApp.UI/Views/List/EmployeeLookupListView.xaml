@@ -17,7 +17,6 @@
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="PhoneNumber" Label="Телефон" Width="Auto" />
                     <infg:TextField Name="Email" Label="e-mail" Width="Auto" />
-                    <infg:TextField Name="DisplayMember" Label="Отображение" Width="Auto" />
                     <infg:TextField Name="Person" Label="Персона" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Company" Label="Компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Position" Label="Должность" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>

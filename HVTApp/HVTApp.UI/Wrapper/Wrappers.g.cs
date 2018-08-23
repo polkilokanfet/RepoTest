@@ -571,6 +571,11 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.Double Cost
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
         public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
         public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
@@ -593,6 +598,18 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
+	    public OfferWrapper Offer 
+        {
+            get { return GetWrapper<OfferWrapper>(); }
+            set { SetComplexValue<Offer, OfferWrapper>(Offer, value); }
+        }
+
+	    public ProductWrapper Product 
+        {
+            get { return GetWrapper<ProductWrapper>(); }
+            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
+        }
+
 	    public FacilityWrapper Facility 
         {
             get { return GetWrapper<FacilityWrapper>(); }
@@ -608,11 +625,15 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region CollectionProperties
+        public IValidatableChangeTrackingCollection<ProductDependentWrapper> DependentProducts { get; private set; }
+
         public IValidatableChangeTrackingCollection<ServiceWrapper> Services { get; private set; }
 
         #endregion
         public override void InitializeComplexProperties()
         {
+            InitializeComplexProperty<OfferWrapper>(nameof(Offer), Model.Offer == null ? null : new OfferWrapper(Model.Offer));
+
             InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
 
             InitializeComplexProperty<FacilityWrapper>(nameof(Facility), Model.Facility == null ? null : new FacilityWrapper(Model.Facility));
@@ -1716,6 +1737,11 @@ namespace HVTApp.UI.Wrapper
         public System.Nullable<System.DateTime> DeliveryDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DeliveryDate));
         public bool DeliveryDateIsChanged => GetIsChanged(nameof(DeliveryDate));
 
+        public System.Double Cost
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
         public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
         public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
@@ -1738,6 +1764,12 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
+	    public ProjectWrapper Project 
+        {
+            get { return GetWrapper<ProjectWrapper>(); }
+            set { SetComplexValue<Project, ProjectWrapper>(Project, value); }
+        }
+
 	    public CompanyWrapper Producer 
         {
             get { return GetWrapper<CompanyWrapper>(); }
@@ -1760,6 +1792,18 @@ namespace HVTApp.UI.Wrapper
         {
             get { return GetWrapper<AddressWrapper>(); }
             set { SetComplexValue<Address, AddressWrapper>(Address, value); }
+        }
+
+	    public OfferWrapper Offer 
+        {
+            get { return GetWrapper<OfferWrapper>(); }
+            set { SetComplexValue<Offer, OfferWrapper>(Offer, value); }
+        }
+
+	    public ProductWrapper Product 
+        {
+            get { return GetWrapper<ProductWrapper>(); }
+            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
         }
 
 	    public FacilityWrapper Facility 
@@ -1788,6 +1832,8 @@ namespace HVTApp.UI.Wrapper
         #endregion
         public override void InitializeComplexProperties()
         {
+            InitializeComplexProperty<ProjectWrapper>(nameof(Project), Model.Project == null ? null : new ProjectWrapper(Model.Project));
+
             InitializeComplexProperty<CompanyWrapper>(nameof(Producer), Model.Producer == null ? null : new CompanyWrapper(Model.Producer));
 
             InitializeComplexProperty<OrderWrapper>(nameof(Order), Model.Order == null ? null : new OrderWrapper(Model.Order));
@@ -1795,6 +1841,8 @@ namespace HVTApp.UI.Wrapper
             InitializeComplexProperty<SpecificationWrapper>(nameof(Specification), Model.Specification == null ? null : new SpecificationWrapper(Model.Specification));
 
             InitializeComplexProperty<AddressWrapper>(nameof(Address), Model.Address == null ? null : new AddressWrapper(Model.Address));
+
+            InitializeComplexProperty<OfferWrapper>(nameof(Offer), Model.Offer == null ? null : new OfferWrapper(Model.Offer));
 
             InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
 
@@ -2851,6 +2899,10 @@ namespace HVTApp.UI.Wrapper
         #region CollectionProperties
         public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
 
+        public IValidatableChangeTrackingCollection<OfferWrapper> Offers { get; private set; }
+
+        public IValidatableChangeTrackingCollection<TenderWrapper> Tenders { get; private set; }
+
         public IValidatableChangeTrackingCollection<NoteWrapper> Notes { get; private set; }
 
         #endregion
@@ -2866,48 +2918,17 @@ namespace HVTApp.UI.Wrapper
           SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
           RegisterCollection(SalesUnits, Model.SalesUnits);
 
+          if (Model.Offers == null) throw new ArgumentException("Offers cannot be null");
+          Offers = new ValidatableChangeTrackingCollection<OfferWrapper>(Model.Offers.Select(e => new OfferWrapper(e)));
+          RegisterCollection(Offers, Model.Offers);
+
+          if (Model.Tenders == null) throw new ArgumentException("Tenders cannot be null");
+          Tenders = new ValidatableChangeTrackingCollection<TenderWrapper>(Model.Tenders.Select(e => new TenderWrapper(e)));
+          RegisterCollection(Tenders, Model.Tenders);
+
           if (Model.Notes == null) throw new ArgumentException("Notes cannot be null");
           Notes = new ValidatableChangeTrackingCollection<NoteWrapper>(Model.Notes.Select(e => new NoteWrapper(e)));
           RegisterCollection(Notes, Model.Notes);
-
-        }
-	}
-
-		public partial class ProjectUnitWrapper : WrapperBase<ProjectUnit>
-	{
-	    public ProjectUnitWrapper(ProjectUnit model) : base(model) { }
-
-	
-        #region SimpleProperties
-        public System.Double Cost
-        {
-          get { return GetValue<System.Double>(); }
-          set { SetValue(value); }
-        }
-        public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
-        public bool CostIsChanged => GetIsChanged(nameof(Cost));
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-        #endregion
-
-        #region ComplexProperties
-	    public ProductWrapper Product 
-        {
-            get { return GetWrapper<ProductWrapper>(); }
-            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
-        }
-
-        #endregion
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
 
         }
 	}

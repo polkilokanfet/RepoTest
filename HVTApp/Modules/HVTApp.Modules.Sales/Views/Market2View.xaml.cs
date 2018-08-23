@@ -6,18 +6,21 @@ using Prism.Regions;
 
 namespace HVTApp.Modules.Sales.Views
 {
-    public partial class ProjectTender : ViewBase
+    public partial class Market2View : ViewBase
     {
-        private readonly ProjectTenderViewModel _viewModel;
+        private readonly Market2ViewModel _viewModel;
 
-        public ProjectTender(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectTenderViewModel viewModel) : base(regionManager, eventAggregator)
+        public Market2View(IRegionManager regionManager, IEventAggregator eventAggregator, Market2ViewModel viewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
 
             _viewModel = viewModel;
+
             this.DataContext = _viewModel;
             this.ProjectListView.DataContext = _viewModel.ProjectListViewModel;
             this.SalesUnitListView.DataContext = _viewModel.SalesUnitListViewModel;
+            this.OfferListView.DataContext = _viewModel.OfferListViewModel;
+
             this.Loaded += OnLoaded;
         }
 

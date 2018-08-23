@@ -15,7 +15,6 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="DisplayMember" Label="Отображение" Width="Auto" />
                     <infg:NumericField Name="ChildProductsAmount" Label="ChildProductsAmount" Width="Auto" />
                     <infg:CheckBoxField Name="IsUnique" Label="IsUnique" Width="Auto" />
 

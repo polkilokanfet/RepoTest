@@ -17,7 +17,6 @@
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="FullName" Label="FullName" Width="Auto" />
                     <infg:TextField Name="ShortName" Label="ShortName" Width="Auto" />
-                    <infg:TextField Name="DisplayMember" Label="Отображение" Width="Auto" />
 
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>

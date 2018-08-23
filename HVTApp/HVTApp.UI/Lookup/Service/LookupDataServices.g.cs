@@ -279,11 +279,6 @@ namespace HVTApp.UI.Lookup
         public ProjectLookupDataService(HvtAppContext context) : base(context) { }
     }
 
-    public partial class ProjectUnitLookupDataService : LookupDataService<ProjectUnitLookup, ProjectUnit>, IProjectUnitLookupDataService
-    {
-        public ProjectUnitLookupDataService(HvtAppContext context) : base(context) { }
-    }
-
     public partial class UserRoleLookupDataService : LookupDataService<UserRoleLookup, UserRole>, IUserRoleLookupDataService
     {
         public UserRoleLookupDataService(HvtAppContext context) : base(context) { }

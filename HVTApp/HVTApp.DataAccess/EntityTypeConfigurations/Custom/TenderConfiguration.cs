@@ -4,7 +4,7 @@ namespace HVTApp.DataAccess
     {
         public TenderConfiguration()
         {
-            HasRequired(x => x.Project).WithMany();
+            HasRequired(x => x.Project).WithMany(x => x.Tenders);
             HasMany(x => x.Types).WithMany();
             Property(x => x.DateOpen).IsRequired();
             Property(x => x.DateClose).IsRequired();

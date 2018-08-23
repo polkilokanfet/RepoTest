@@ -9,7 +9,7 @@ namespace HVTApp.Modules.Sales.Menus
         protected override void GenerateMenu()
         {
             var root = new NavigationItem("Рынок", typeof(MarketView));
-            root.Items.Add(new NavigationItem("Проект - тендер", typeof(ProjectTender)));
+            root.Items.Add(new NavigationItem("Проект - тендер", typeof(Market2View)));
             root.Items.Add(new NavigationItem("Проекты", typeof(ProjectLookupListView)));
             root.Items.Add(new NavigationItem("Позиции", typeof(SalesUnitLookupListView)));
             root.Items.Add(new NavigationItem("Тендеры", typeof(TenderLookupListView)));

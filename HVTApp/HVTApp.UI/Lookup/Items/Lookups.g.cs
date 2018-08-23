@@ -250,7 +250,8 @@ namespace HVTApp.UI.Lookup
 		}
 		protected override void RefreshLookups()
         {
-			 			Product?.Refresh(Entity.Product);
+			 			Offer?.Refresh(Entity.Offer);
+			Product?.Refresh(Entity.Product);
 			Facility?.Refresh(Entity.Facility);
 			PaymentConditionSet?.Refresh(Entity.PaymentConditionSet);
 		}
@@ -263,6 +264,8 @@ namespace HVTApp.UI.Lookup
         #endregion
 
         #region ComplexProperties
+	    public OfferLookup Offer { get { return GetLookup<OfferLookup>(); } }
+
 	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
@@ -669,10 +672,12 @@ namespace HVTApp.UI.Lookup
 		}
 		protected override void RefreshLookups()
         {
-			 			Producer?.Refresh(Entity.Producer);
+			 			Project?.Refresh(Entity.Project);
+			Producer?.Refresh(Entity.Producer);
 			Order?.Refresh(Entity.Order);
 			Specification?.Refresh(Entity.Specification);
 			Address?.Refresh(Entity.Address);
+			Offer?.Refresh(Entity.Offer);
 			Product?.Refresh(Entity.Product);
 			Facility?.Refresh(Entity.Facility);
 			PaymentConditionSet?.Refresh(Entity.PaymentConditionSet);
@@ -712,6 +717,8 @@ namespace HVTApp.UI.Lookup
         #endregion
 
         #region ComplexProperties
+	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
+
 	    public CompanyLookup Producer { get { return GetLookup<CompanyLookup>(); } }
 
 	    public OrderLookup Order { get { return GetLookup<OrderLookup>(); } }
@@ -719,6 +726,8 @@ namespace HVTApp.UI.Lookup
 	    public SpecificationLookup Specification { get { return GetLookup<SpecificationLookup>(); } }
 
 	    public AddressLookup Address { get { return GetLookup<AddressLookup>(); } }
+
+	    public OfferLookup Offer { get { return GetLookup<OfferLookup>(); } }
 
 	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
@@ -1153,26 +1162,6 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 	    public UserLookup Manager { get { return GetLookup<UserLookup>(); } }
-
-        #endregion
-	}
-	public partial class ProjectUnitLookup : LookupItem<ProjectUnit>
-	{
-		public ProjectUnitLookup(ProjectUnit entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 			Product?.Refresh(Entity.Product);
-		}
-		
-        #region SimpleProperties
-        public System.Double Cost => GetValue<System.Double>();
-
-        #endregion
-
-        #region ComplexProperties
-	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
         #endregion
 	}

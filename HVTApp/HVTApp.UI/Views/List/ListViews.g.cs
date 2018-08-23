@@ -1251,7 +1251,7 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-	[DesignationPlural("Project")]
+	[DesignationPlural("Проекты")]
     public partial class ProjectLookupListView : ViewBase
     {
         public ProjectLookupListView()
@@ -1270,29 +1270,6 @@ namespace HVTApp.UI.Views
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
 			await ((ProjectListViewModel)DataContext).LoadAsync();;
-        }
-    }
-
-    [RibbonTab(typeof(TabCRUD))]
-	[DesignationPlural("ProjectUnit")]
-    public partial class ProjectUnitLookupListView : ViewBase
-    {
-        public ProjectUnitLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public ProjectUnitLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectUnitListViewModel ProjectUnitListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ProjectUnitListViewModel;
-			ProjectUnitListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((ProjectUnitListViewModel)DataContext).LoadAsync();;
         }
     }
 
@@ -1343,7 +1320,7 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-	[DesignationPlural("Tender")]
+	[DesignationPlural("Тендеры")]
     public partial class TenderLookupListView : ViewBase
     {
         public TenderLookupListView()

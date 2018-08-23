@@ -61,7 +61,6 @@ namespace HVTApp.UI.Wrapper
             PaymentDocumentWrapperDataService = new PaymentDocumentWrapperDataService(unitOfWork);
             FacilityWrapperDataService = new FacilityWrapperDataService(unitOfWork);
             ProjectWrapperDataService = new ProjectWrapperDataService(unitOfWork);
-            ProjectUnitWrapperDataService = new ProjectUnitWrapperDataService(unitOfWork);
             UserRoleWrapperDataService = new UserRoleWrapperDataService(unitOfWork);
             SpecificationWrapperDataService = new SpecificationWrapperDataService(unitOfWork);
             TenderWrapperDataService = new TenderWrapperDataService(unitOfWork);
@@ -124,7 +123,6 @@ namespace HVTApp.UI.Wrapper
         public PaymentDocumentWrapperDataService PaymentDocumentWrapperDataService { get; }
         public FacilityWrapperDataService FacilityWrapperDataService { get; }
         public ProjectWrapperDataService ProjectWrapperDataService { get; }
-        public ProjectUnitWrapperDataService ProjectUnitWrapperDataService { get; }
         public UserRoleWrapperDataService UserRoleWrapperDataService { get; }
         public SpecificationWrapperDataService SpecificationWrapperDataService { get; }
         public TenderWrapperDataService TenderWrapperDataService { get; }

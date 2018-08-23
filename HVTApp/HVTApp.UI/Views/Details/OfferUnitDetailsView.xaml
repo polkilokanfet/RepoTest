@@ -19,6 +19,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -33,37 +34,44 @@
                                Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Продукт"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="ТКП"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
+                                    Item="{Binding Item.Offer}" 
+                                    AddItemCommand="{Binding SelectOfferCommand}" 
+                                    RemoveItemCommand="{Binding ClearOfferCommand}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Продукт"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.Product}" 
                                     AddItemCommand="{Binding SelectProductCommand}" 
                                     RemoveItemCommand="{Binding ClearProductCommand}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Объект"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
+        <Label Grid.Column="0" Grid.Row ="4" Content="Объект"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.Facility}" 
                                     AddItemCommand="{Binding SelectFacilityCommand}" 
                                     RemoveItemCommand="{Binding ClearFacilityCommand}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Условия оплаты"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
+        <Label Grid.Column="0" Grid.Row ="5" Content="Условия оплаты"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
                                     Item="{Binding Item.PaymentConditionSet}" 
                                     AddItemCommand="{Binding SelectPaymentConditionSetCommand}" 
                                     RemoveItemCommand="{Binding ClearPaymentConditionSetCommand}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="DependentProducts"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
+        <Label Grid.Column="0" Grid.Row ="6" Content="DependentProducts"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
 										 Items="{Binding Path=Item.DependentProducts}"
 										 SelectedItem="{Binding SelectedDependentProductsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInDependentProductsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromDependentProductsCommand}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="6" Content="Services"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
+        <Label Grid.Column="0" Grid.Row ="7" Content="Services"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="7"
 										 Items="{Binding Path=Item.Services}"
 										 SelectedItem="{Binding SelectedServicesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInServicesCommand}"

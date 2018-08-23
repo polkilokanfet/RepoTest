@@ -22,17 +22,17 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="DateOpen"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Открытие"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
                     SelectedDate="{Binding Item.DateOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="DateClose"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Закрытие"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 
                     SelectedDate="{Binding Item.DateClose, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="DateNotice"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Итоги"/>
         <DatePicker Grid.Column="1" Grid.Row="2" 
                     SelectedDate="{Binding Item.DateNotice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
@@ -44,14 +44,14 @@
                                     RemoveItemCommand="{Binding ClearProjectCommand}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Компания"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="Победитель"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.Winner}" 
                                     AddItemCommand="{Binding SelectWinnerCommand}" 
                                     RemoveItemCommand="{Binding ClearWinnerCommand}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="Types"/>
+        <Label Grid.Column="0" Grid.Row ="5" Content="Типы"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
 										 Items="{Binding Path=Item.Types}"
 										 SelectedItem="{Binding SelectedTypesItem, Mode=TwoWay}"
@@ -59,7 +59,7 @@
 										 RemoveItemCommand="{Binding RemoveFromTypesCommand}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="6" Content="Participants"/>
+        <Label Grid.Column="0" Grid.Row ="6" Content="Участники"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
 										 Items="{Binding Path=Item.Participants}"
 										 SelectedItem="{Binding SelectedParticipantsItem, Mode=TwoWay}"

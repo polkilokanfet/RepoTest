@@ -15,7 +15,6 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="DisplayMember" Label="Отображение" Width="Auto" />
                     <infg:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" />
                     <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" />
                     <infg:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>

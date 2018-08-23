@@ -19,7 +19,6 @@
                     <infg:TextField Name="ShortName" Label="Сокращенное наименование" Width="Auto" />
                     <infg:TextField Name="Inn" Label="ИНН" Width="Auto" />
                     <infg:TextField Name="Kpp" Label="КПП" Width="Auto" />
-                    <infg:TextField Name="DisplayMember" Label="Отображение" Width="Auto" />
                     <infg:TextField Name="Form" Label="Организационная форма" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="ParentCompany" Label="Родительская компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="AddressLegal" Label="Юридический адрес" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>

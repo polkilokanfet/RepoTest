@@ -16,7 +16,6 @@
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto" />
-                    <infg:TextField Name="DisplayMember" Label="Отображение" Width="Auto" />
                     <infg:TextField Name="District" Label="District" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
 
                 </infg:FieldLayout.Fields>

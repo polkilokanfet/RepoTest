@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using HVTApp.Infrastructure.Attrubutes;
+using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Lookup
 {
@@ -11,6 +12,10 @@ namespace HVTApp.UI.Lookup
 
         [Designation("Дата поставки")]
         public DateTime RealizationDate => Entity.SalesUnits.Select(x => x.DeliveryDateExpected).Min();
+
+        [Designation("Тендер")]
+        public DateTime? TenderDate
+            => Entity.Tenders.SingleOrDefault(x => x.Types.Any(tp => tp.Type == TenderTypeEnum.ToSupply))?.DateClose;
 
         public override int CompareTo(object obj)
         {

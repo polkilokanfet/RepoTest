@@ -68,7 +68,6 @@ namespace HVTApp.DataAccess
             PaymentDocumentRepository = new PaymentDocumentRepository(context);
             FacilityRepository = new FacilityRepository(context);
             ProjectRepository = new ProjectRepository(context);
-            ProjectUnitRepository = new ProjectUnitRepository(context);
             UserRoleRepository = new UserRoleRepository(context);
             SpecificationRepository = new SpecificationRepository(context);
             TenderRepository = new TenderRepository(context);
@@ -134,7 +133,6 @@ namespace HVTApp.DataAccess
         private IPaymentDocumentRepository PaymentDocumentRepository;
         private IFacilityRepository FacilityRepository;
         private IProjectRepository ProjectRepository;
-        private IProjectUnitRepository ProjectUnitRepository;
         private IUserRoleRepository UserRoleRepository;
         private ISpecificationRepository SpecificationRepository;
         private ITenderRepository TenderRepository;

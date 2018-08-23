@@ -192,6 +192,9 @@
     <Compile Include="Views\Details\Custom\ProjectUnitGroupWindow.xaml.cs">
       <DependentUpon>ProjectUnitGroupWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\List\Custom\UnitListView.xaml.cs">
+      <DependentUpon>UnitListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\List\ListViews.g.cs" />
     <Compile Include="ViewModels\Details\CompanyDetailsViewModel.cs" />
     <Compile Include="Views\PaymentPlannedListGeneratorView.xaml.cs">
@@ -667,6 +670,10 @@
     <Page Include="Views\List\CurrencyExchangeRateLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\Custom\UnitListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\List\DescribeProductBlockTaskLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>

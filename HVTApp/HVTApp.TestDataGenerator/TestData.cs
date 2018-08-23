@@ -159,10 +159,13 @@ namespace HVTApp.TestDataGenerator
         public Contract ContractMrsk;
                 
         public Specification SpecificationMrsk1;
-                
+
         public TenderType TenderTypeProject;
-                
+        public TenderType TenderTypeWork;
+        public TenderType TenderTypeSuply;
+
         public Tender TenderMrsk;
+        public Tender Tender2;
 
         public PaymentCondition PaymentConditionAvans50;
         public PaymentCondition PaymentConditionDoplata50;
@@ -538,18 +541,21 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateTenderTypes()
         {
-            TenderTypeProject.Clone(new TenderType {Name = "Проектно-изыскательные работы", Type = TenderTypeEnum.ToProject});
+            TenderTypeProject.Clone(new TenderType { Name = "Проект", Type = TenderTypeEnum.ToProject });
+            TenderTypeWork.Clone(new TenderType { Name = "Работы", Type = TenderTypeEnum.ToWork });
+            TenderTypeSuply.Clone(new TenderType { Name = "Поставка", Type = TenderTypeEnum.ToSupply });
         }
 
         private void GenerateTenders()
         {
-            TenderMrsk.Clone(new Tender {Project = ProjectSubstation, Types = new List<TenderType> {TenderTypeProject} , Winner = CompanyUetm, Participants = new List<Company> {CompanyUetm, CompanyEnel}, DateOpen = DateTime.Today, DateClose = DateTime.Today.AddDays(7)});
+            TenderMrsk.Clone(new Tender { Project = ProjectSubstation, Types = new List<TenderType> { TenderTypeProject }, Winner = CompanyUetm, Participants = new List<Company> { CompanyUetm, CompanyEnel }, DateOpen = DateTime.Today, DateClose = DateTime.Today.AddDays(7) });
+            Tender2.Clone(new Tender { Project = ProjectStation, Types = new List<TenderType> { TenderTypeProject, TenderTypeSuply, TenderTypeWork }, Winner = CompanyUetm, Participants = new List<Company> { CompanyUetm, CompanyEnel }, DateOpen = DateTime.Today, DateClose = DateTime.Today.AddDays(7) });
         }
 
         private void GenerateOrders()
         {
             OrderVeb110.Clone(new Order {Number = "8012-17", OpenOrderDate = DateTime.Today});
-            OrderZng110.Clone(new Order {Number = "8011-15", OpenOrderDate = DateTime.Today.AddDays(-50)});
+            OrderZng110.Clone(new Order {Number = "8111-15", OpenOrderDate = DateTime.Today.AddDays(-50)});
         }
 
         private void GenerateContracts()

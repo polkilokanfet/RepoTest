@@ -26,5 +26,10 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Сотрудник")]
         public virtual Employee Employee { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Employee.Person} ({Employee.Position})";
+        }
     }
 }

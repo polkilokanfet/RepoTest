@@ -64,7 +64,6 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new PaymentDocumentConfiguration());
             modelBuilder.Configurations.Add(new FacilityConfiguration());
             modelBuilder.Configurations.Add(new ProjectConfiguration());
-            modelBuilder.Configurations.Add(new ProjectUnitConfiguration());
             modelBuilder.Configurations.Add(new UserRoleConfiguration());
             modelBuilder.Configurations.Add(new SpecificationConfiguration());
             modelBuilder.Configurations.Add(new TenderConfiguration());
@@ -131,7 +130,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PaymentDocument> PaymentDocumentDbSet { get; set; }
         public virtual DbSet<Facility> FacilityDbSet { get; set; }
         public virtual DbSet<Project> ProjectDbSet { get; set; }
-        public virtual DbSet<ProjectUnit> ProjectUnitDbSet { get; set; }
         public virtual DbSet<UserRole> UserRoleDbSet { get; set; }
         public virtual DbSet<Specification> SpecificationDbSet { get; set; }
         public virtual DbSet<Tender> TenderDbSet { get; set; }
