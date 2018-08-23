@@ -24,7 +24,7 @@
             
         </Grid>
         
-        <views:SalesUnitLookupListView Name="SalesUnitListView" Grid.Row="1"/>
+        <views:UnitListView Name="UnitListView" Grid.Row="1"/>
 
     </Grid>
 </inf:ViewBase>

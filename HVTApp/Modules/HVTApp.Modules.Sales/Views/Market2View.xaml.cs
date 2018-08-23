@@ -18,8 +18,8 @@ namespace HVTApp.Modules.Sales.Views
 
             this.DataContext = _viewModel;
             this.ProjectListView.DataContext = _viewModel.ProjectListViewModel;
-            this.SalesUnitListView.DataContext = _viewModel.SalesUnitListViewModel;
             this.OfferListView.DataContext = _viewModel.OfferListViewModel;
+            this.UnitListView.DataContext = _viewModel.UnitLookupListViewModel;
 
             this.Loaded += OnLoaded;
         }

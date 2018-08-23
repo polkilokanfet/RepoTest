@@ -10,22 +10,28 @@ namespace HVTApp.Modules.Sales.ViewModels
     {
         public ProjectListViewModel ProjectListViewModel { get; }
         public OfferListViewModel OfferListViewModel { get; }
-        public SalesUnitListViewModel SalesUnitListViewModel { get; }
+        public UnitLookupListViewModel UnitLookupListViewModel { get; }
 
-        public Market2ViewModel(ProjectListViewModel projectListViewModel, OfferListViewModel offerListViewModel, SalesUnitListViewModel salesUnitListViewModel, 
+        public Market2ViewModel(ProjectListViewModel projectListViewModel, OfferListViewModel offerListViewModel, UnitLookupListViewModel unitLookupListViewModel, 
             IEventAggregator eventAggregator)
         {
             ProjectListViewModel = projectListViewModel;
             OfferListViewModel = offerListViewModel;
-            SalesUnitListViewModel = salesUnitListViewModel;
+            UnitLookupListViewModel = unitLookupListViewModel;
 
             ProjectListViewModel.SelectedLookupChanged += project =>
             {
                 var salesUnitLookups = project.Entity.SalesUnits.Select(x => new SalesUnitLookup(x));
-                SalesUnitListViewModel.Load(salesUnitLookups);
+                UnitLookupListViewModel.Load(salesUnitLookups);
 
                 var offerLookups = project.Entity.Offers.Select(x => new OfferLookup(x));
                 OfferListViewModel.Load(offerLookups);
+            };
+
+            OfferListViewModel.SelectedLookupChanged += offer =>
+            {
+                var lookups = offer?.Entity.OfferUnits.Select(x => new OfferUnitLookup(x));
+                UnitLookupListViewModel.Load(lookups);
             };
 
             eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>

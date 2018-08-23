@@ -106,6 +106,8 @@
     <Compile Include="GeneratorHelpers.cs" />
     <Compile Include="Lookup\IProductUnitLookup.cs" />
     <Compile Include="Lookup\Items\Custom\AddressLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\OfferUnitLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SpecificationLookup.cs" />
     <Compile Include="Lookup\Items\Lookups.g.cs" />
     <Compile Include="Lookup\Service\ILookupDataServices.g.cs" />
@@ -192,6 +194,7 @@
     <Compile Include="Views\Details\Custom\ProjectUnitGroupWindow.xaml.cs">
       <DependentUpon>ProjectUnitGroupWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Lookup\Items\Custom\IUnitLookup.cs" />
     <Compile Include="Views\List\Custom\UnitListView.xaml.cs">
       <DependentUpon>UnitListView.xaml</DependentUpon>
     </Compile>
