@@ -28,7 +28,7 @@
 	SaveGeneratedCodeAsFile("GeneratedListViewModels.g.cs", "ViewModels/List");
 
 	GenerateListViews(GeneratorHelpers.GetModelTypesPocos());
-	SaveGeneratedCodeAsFile("ListViews.g.cs", "Views/List");
+	SaveGeneratedCodeAsFile("ListViews.g.cs", "Views/List/cs");
 
 
     GenerateViews(GeneratorHelpers.GetModelTypesLookups());
