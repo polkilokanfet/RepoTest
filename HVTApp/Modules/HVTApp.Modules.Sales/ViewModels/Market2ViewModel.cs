@@ -12,8 +12,9 @@ namespace HVTApp.Modules.Sales.ViewModels
         public OfferListViewModel OfferListViewModel { get; }
         public UnitLookupListViewModel UnitLookupListViewModel { get; }
 
-        public Market2ViewModel(ProjectListViewModel projectListViewModel, OfferListViewModel offerListViewModel, UnitLookupListViewModel unitLookupListViewModel, 
-            IEventAggregator eventAggregator)
+        public Market2ViewModel(ProjectListViewModel projectListViewModel, OfferListViewModel offerListViewModel, 
+            UnitLookupListViewModel unitLookupListViewModel, IEventAggregator eventAggregator, 
+            OfferUnitLookupDataService offerUnitLookupDataService)
         {
             ProjectListViewModel = projectListViewModel;
             OfferListViewModel = offerListViewModel;
@@ -27,20 +28,10 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             OfferListViewModel.SelectedLookupChanged += offer =>
             {
-                //var lookups = offer?.Entity.OfferUnits.Select(x => new OfferUnitLookup(x));
-                //UnitLookupListViewModel.Load(lookups);
+                //if (offer == null) return;
+                //UnitLookupListViewModel.Load(offer.OfferUnits);
             };
 
-            eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Subscribe(salesUnit =>
-            {
-                //var proj = ProjectListViewModel.Lookups.SingleOrDefault(x => x.Entity.SalesUnits.Contains(salesUnit));
-
-                ////костыль для синхронизации сущностей
-                //proj?.Entity.SalesUnits.Remove(salesUnit);
-                //proj?.Entity.SalesUnits.Add(salesUnit);
-
-                //proj?.Refresh();
-            });
         }
 
     }
