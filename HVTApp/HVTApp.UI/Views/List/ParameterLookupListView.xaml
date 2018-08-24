@@ -18,7 +18,6 @@
                     <infg:TextField Name="Value" Label="Value" Width="Auto" />
                     <infg:CheckBoxField Name="IsOrigin" Label="IsOrigin" Width="Auto" />
                     <infg:TextField Name="ParameterGroup" Label="ParameterGroup" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

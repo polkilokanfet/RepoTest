@@ -7,6 +7,7 @@ namespace HVTApp.Model.POCOs
     /// Объект поставки.
     /// </summary>
     [Designation("Объект")]
+    [DesignationPlural("Объекты")]
     public partial class Facility : BaseEntity
     {
         [Designation("Название")]

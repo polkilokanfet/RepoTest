@@ -26,7 +26,6 @@
                     <infg:TextField Name="RegistrationDetailsOfSender" Label="Исходящий" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RegistrationDetailsOfRecipient" Label="Входящий" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Company" Label="Company" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

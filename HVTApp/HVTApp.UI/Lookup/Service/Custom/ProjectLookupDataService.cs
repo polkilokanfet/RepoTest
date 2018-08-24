@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using HVTApp.DataAccess;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Lookup

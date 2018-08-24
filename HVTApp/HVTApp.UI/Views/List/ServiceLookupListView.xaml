@@ -17,7 +17,6 @@
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto" />
                     <infg:NumericField Name="Amount" Label="Amount" Width="Auto" />
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

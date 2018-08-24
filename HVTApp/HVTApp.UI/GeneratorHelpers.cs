@@ -64,7 +64,7 @@ namespace HVTApp.UI
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static string GetTypeName(Type type)
+        public static string GetTypeName(this Type type)
         {
             if (!type.IsGenericType) return type.FullName;
 

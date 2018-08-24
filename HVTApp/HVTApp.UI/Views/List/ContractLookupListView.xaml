@@ -18,7 +18,6 @@
                     <infg:TextField Name="Number" Label="№" Width="Auto" />
                     <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />
                     <infg:TextField Name="Contragent" Label="Контрагент" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

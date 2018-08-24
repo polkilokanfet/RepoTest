@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Runtime.Remoting.Contexts;
 using System.Threading.Tasks;
-using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Lookup

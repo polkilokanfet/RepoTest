@@ -1228,7 +1228,7 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-	[DesignationPlural("Facility")]
+	[DesignationPlural("Объекты")]
     public partial class FacilityLookupListView : ViewBase
     {
         public FacilityLookupListView()

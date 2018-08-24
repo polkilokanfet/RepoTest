@@ -24,7 +24,6 @@
                     <infg:TextField Name="TestFriendAddress" Label="TestFriendAddress" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="TestFriendGroup" Label="TestFriendGroup" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="TestFriendEmailGet" Label="TestFriendEmailGet" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

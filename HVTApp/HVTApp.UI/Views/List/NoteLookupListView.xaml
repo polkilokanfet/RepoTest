@@ -18,7 +18,6 @@
                     <infg:TextField Name="Text" Label="Text" Width="Auto" />
                     <infg:DateTimeField Name="Date" Label="Date" Width="Auto" />
                     <infg:CheckBoxField Name="IsImportant" Label="IsImportant" Width="Auto" />
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

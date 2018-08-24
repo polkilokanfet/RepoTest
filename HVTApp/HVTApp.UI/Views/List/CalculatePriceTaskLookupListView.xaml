@@ -18,7 +18,6 @@
                     <infg:DateTimeField Name="Date" Label="Date" Width="Auto" />
                     <infg:CheckBoxField Name="IsActual" Label="IsActual" Width="Auto" />
                     <infg:TextField Name="ProductBlock" Label="ProductBlock" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

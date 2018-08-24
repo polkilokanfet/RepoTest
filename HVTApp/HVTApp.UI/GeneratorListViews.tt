@@ -15,11 +15,245 @@
 <#@ import namespace="HVTApp.UI" #>
 <#@ output extension=".txt" #>
 <#
-	var modelTypes = GeneratorHelpers.GetModelTypesLookups();
+	GenerateLookups(GeneratorHelpers.GetModelTypesPocos());
+	SaveGeneratedCodeAsFile("Lookups.g.cs", "Lookup/Items");
 
-    GenerateViews(modelTypes);
+	GenerateLookupDataServiceInterfaces(GeneratorHelpers.GetModelTypesPocos());
+	SaveGeneratedCodeAsFile("ILookupDataServices.g.cs", "Lookup/Service");
+
+	GenerateLookupDataServices(GeneratorHelpers.GetModelTypesPocos());
+	SaveGeneratedCodeAsFile("LookupDataServices.g.cs", "Lookup/Service");
+
+    GenerateListViewModels(GeneratorHelpers.GetModelTypesPocos());
+	SaveGeneratedCodeAsFile("GeneratedListViewModels.g.cs", "ViewModels/List");
+
+	GenerateListViews(GeneratorHelpers.GetModelTypesPocos());
+	SaveGeneratedCodeAsFile("ListViews.g.cs", "Views/List");
+
+
+    GenerateViews(GeneratorHelpers.GetModelTypesLookups());
 
 #><#+
+    private void GenerateLookups(IEnumerable<Type> modelTypes)
+    {
+#>using HVTApp.Model.POCOs;
+
+namespace HVTApp.UI.Lookup
+{
+<#+
+        foreach(var modelType in modelTypes)
+        {
+            GenerateLookup(modelType);
+        }
+#>}
+<#+
+    }
+
+	private void GenerateLookup(Type modelType)
+	{
+#>
+	public partial class <#=modelType.Name#>Lookup : LookupItem<<#=modelType.Name#>>
+	{
+		public <#=modelType.Name#>Lookup(<#=modelType.Name#> entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 <#+ GenerateRefreshComplexLookupProperties(modelType.AllComplexProperties());#>
+		}
+		<#+
+
+		GenerateSimpleLookupProperties(modelType.AllSimpleProperties().Where(x => x.Name != "Id"));
+		GenerateComplexLookupProperties(modelType.AllComplexProperties());
+
+		#>
+	}
+<#+
+	}
+
+  private void GenerateSimpleLookupProperties(IEnumerable<PropertyInfo> properties)
+  {
+  	if (!properties.Any())
+		return;
+#>
+
+        #region SimpleProperties
+<#+ 
+    foreach (var property in properties)
+    {
+      var propertyType = property.PropertyType.GetTypeName();
+      var propertyName = property.Name;
+#>
+        public <#=propertyType#> <#=propertyName#> => GetValue<<#=propertyType#>>();
+
+<#+ 
+    }
+#>
+        #endregion
+<#+
+  }
+
+  private void GenerateComplexLookupProperties(IEnumerable<PropertyInfo> properties)
+  {
+  	if (!properties.Any())
+		return;
+#>
+
+        #region ComplexProperties
+<#+ 
+
+    foreach (var property in properties)
+    {
+      var propertyType = property.PropertyType.Name;
+      var propertyName = property.Name;
+#>
+	    public <#= propertyType #>Lookup <#= propertyName #> { get { return GetLookup<<#= propertyType #>Lookup>(); } }
+
+<#+   
+    }
+#>
+        #endregion
+<#+
+  }
+
+  private void GenerateRefreshComplexLookupProperties(IEnumerable<PropertyInfo> properties)
+  {
+  	if (!properties.Any()) return;
+
+    foreach (var property in properties)
+    {
+      var propertyType = property.PropertyType.Name;
+      var propertyName = property.Name;
+#>
+			<#= propertyName #>?.Refresh(Entity.<#= propertyName #>);
+<#+
+    }
+  }
+
+    private void GenerateLookupDataServiceInterfaces(IEnumerable<Type> modelTypes)
+    {
+#>namespace HVTApp.UI.Lookup
+{
+<#+
+        foreach(var modelType in modelTypes)
+        {
+            GenerateLookupDataServiceInterface(modelType);
+        }
+#>}
+<#+
+    }
+
+	private void GenerateLookupDataServiceInterface(Type modelType)
+	{
+#>	public interface I<#=modelType.Name#>LookupDataService : ILookupDataService<<#=modelType.Name#>Lookup> { } 
+<#+
+	}
+
+
+    private void GenerateLookupDataServices(IEnumerable<Type> modelTypes)
+    {
+#>using System;
+using HVTApp.Infrastructure;
+using HVTApp.Model.POCOs;
+
+namespace HVTApp.UI.Lookup
+{
+<#+
+        foreach(var modelType in modelTypes)
+        {
+            GenerateLookupDataService(modelType);
+        }
+#>}
+<#+
+    }
+
+	private void GenerateLookupDataService(Type modelType)
+	{
+#>
+    public partial class <#=modelType.Name#>LookupDataService : LookupDataService<<#=modelType.Name#>Lookup, <#=modelType.Name#>>, I<#=modelType.Name#>LookupDataService
+    {
+        public <#=modelType.Name#>LookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+    }
+
+<#+
+	}
+
+
+    private void GenerateListViewModels(IEnumerable<Type> modelTypes)
+	{
+#>using HVTApp.Model.POCOs;
+using HVTApp.UI.Events;
+using HVTApp.UI.Wrapper;
+using Microsoft.Practices.Unity;
+using HVTApp.UI.Lookup;
+
+namespace HVTApp.UI.ViewModels
+{
+<#+
+        foreach(var modelType in modelTypes)
+        {
+#>
+    public partial class <#=modelType.Name#>ListViewModel : BaseListViewModel<<#=modelType.Name#>, <#=modelType.Name#>Lookup, AfterSave<#=modelType.Name#>Event, AfterSelect<#=modelType.Name#>Event, AfterRemove<#=modelType.Name#>Event,  <#=modelType.Name#>LookupDataService>
+    {
+        public <#=modelType.Name#>ListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+<#+
+        }
+#>
+}
+<#+
+	}
+	
+
+
+	private void GenerateListViews(IEnumerable<Type> modelTypes)
+	{
+#>using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attrubutes;
+using System.Windows;
+using Prism.Events;
+using Prism.Regions;
+using HVTApp.UI.Tabs;
+using HVTApp.UI.ViewModels;
+
+namespace HVTApp.UI.Views
+{
+<#+
+        foreach(var modelType in modelTypes)
+        {
+ #>
+    [RibbonTab(typeof(TabCRUD))]
+	[DesignationPlural("<#=modelType.DesignationPlural()#>")]
+    public partial class <#=modelType.Name#>LookupListView : ViewBase
+    {
+        public <#=modelType.Name#>LookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public <#=modelType.Name#>LookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, <#=modelType.Name#>ListViewModel <#=modelType.Name#>ListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = <#=modelType.Name#>ListViewModel;
+			<#=modelType.Name#>ListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((<#=modelType.Name#>ListViewModel)DataContext).LoadAsync();;
+        }
+    }
+
+<#+
+        }
+ #>
+}
+<#+
+	}
+
+
 
     private void GenerateViews(IEnumerable<Type> modelTypes)
     {

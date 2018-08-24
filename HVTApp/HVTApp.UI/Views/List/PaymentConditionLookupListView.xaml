@@ -17,7 +17,6 @@
                 <infg:FieldLayout.Fields>
                     <infg:NumericField Name="DaysToPoint" Label="DaysToPoint" Width="Auto" />
                     <infg:NumericField Name="Part" Label="Part" Width="Auto" />
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

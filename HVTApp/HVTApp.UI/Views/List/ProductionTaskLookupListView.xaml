@@ -16,7 +16,6 @@
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:DateTimeField Name="DateTask" Label="DateTask" Width="Auto" />
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
