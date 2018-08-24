@@ -10,23 +10,13 @@ namespace HVTApp.UI.ViewModels
     {
         protected override async Task<IEnumerable<ProjectLookup>> GetLookups()
         {
-            var projectLookups = await base.GetLookups();
-            foreach (var projectLookup in projectLookups)
-            {
-                projectLookup.SalesUnits = (await UnitOfWork.GetRepository<SalesUnit>()
-                    .FindAsync(x => Equals(x.Project, projectLookup.Entity)))
-                    .Select(x => new SalesUnitLookup(x)).ToList();
+            var projects = await UnitOfWork.GetRepository<Project>().GetAllAsNoTrackingAsync();
+            var salesUnits = await UnitOfWork.GetRepository<SalesUnit>().GetAllAsNoTrackingAsync();
+            var tenders = await UnitOfWork.GetRepository<Tender>().GetAllAsNoTrackingAsync();
+            var offers = await UnitOfWork.GetRepository<Offer>().GetAllAsNoTrackingAsync();
 
-                projectLookup.Tenders = (await UnitOfWork.GetRepository<Tender>()
-                    .FindAsync(x => Equals(x.Project, projectLookup.Entity)))
-                    .Select(x => new TenderLookup(x)).ToList();
-
-                projectLookup.Offers = (await UnitOfWork.GetRepository<Offer>()
-                    .FindAsync(x => Equals(x.Project, projectLookup.Entity)))
-                    .Select(x => new OfferLookup(x)).ToList();
-            }
-
-            return projectLookups;
+            return projects.Select(x => new ProjectLookup(x, salesUnits.Where(su => Equals(su.Project, x)),
+                tenders.Where(t => Equals(t.Project, x)), offers.Where(o => Equals(o.Project, x))));
         }
     }
 }
