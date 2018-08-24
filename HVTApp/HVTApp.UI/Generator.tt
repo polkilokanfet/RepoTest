@@ -122,7 +122,7 @@ namespace HVTApp.UI.Lookup
     private void GenerateLookupDataServices(IEnumerable<Type> modelTypes)
     {
 #>using System;
-using HVTApp.DataAccess;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Lookup
@@ -141,7 +141,7 @@ namespace HVTApp.UI.Lookup
 #>
     public partial class <#=modelType.Name#>LookupDataService : LookupDataService<<#=modelType.Name#>Lookup, <#=modelType.Name#>>, I<#=modelType.Name#>LookupDataService
     {
-        public <#=modelType.Name#>LookupDataService(HvtAppContext context) : base(context) { }
+        public <#=modelType.Name#>LookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
     }
 
 <#+

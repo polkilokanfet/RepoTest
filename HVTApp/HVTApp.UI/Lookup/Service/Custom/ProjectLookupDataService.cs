@@ -11,10 +11,10 @@ namespace HVTApp.UI.Lookup
     {
         public override async Task<IEnumerable<ProjectLookup>> GetAllLookupsAsync()
         {
-            var projects = await Context.Set<Project>().AsNoTracking().ToListAsync();
-            var salesUnits = await Context.Set<SalesUnit>().AsNoTracking().ToListAsync();
-            var tenders = await Context.Set<Tender>().AsNoTracking().ToListAsync();
-            var offers = await Context.Set<Offer>().AsNoTracking().ToListAsync();
+            var projects = await UnitOfWork.GetRepository<Project>().GetAllAsNoTrackingAsync();
+            var salesUnits = await UnitOfWork.GetRepository<SalesUnit>().GetAllAsNoTrackingAsync();
+            var tenders = await UnitOfWork.GetRepository<Tender>().GetAllAsNoTrackingAsync();
+            var offers = await UnitOfWork.GetRepository<Offer>().GetAllAsNoTrackingAsync();
 
             return projects.Select(x => new ProjectLookup(x, salesUnits.Where(su => Equals(su.Project, x)),
                 tenders.Where(t => Equals(t.Project, x)), offers.Where(o => Equals(o.Project, x))));

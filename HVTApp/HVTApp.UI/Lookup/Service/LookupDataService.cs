@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Threading.Tasks;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
@@ -12,11 +13,11 @@ namespace HVTApp.UI.Lookup
         where TEntity : class, IBaseEntity
         where TLookup : class, ILookupItemNavigation<TEntity>
     {
-        protected readonly HvtAppContext Context;
+        protected readonly IUnitOfWork UnitOfWork;
 
-        protected LookupDataService(HvtAppContext context)
+        protected LookupDataService(IUnitOfWork unitOfWork)
         {
-            Context = context;
+            UnitOfWork = unitOfWork;
         }
 
         protected virtual TLookup GetLookup(TEntity entity)
@@ -26,7 +27,7 @@ namespace HVTApp.UI.Lookup
 
         public async Task<TLookup> GetLookupById(Guid id)
         {
-            var entity = await Context.Set<TEntity>().FindAsync(id);
+            var entity = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(id);
             var lookup = GetLookup(entity);
             lookup.DisplayMember = GenerateDisplayMember(entity);
             return lookup;
@@ -34,7 +35,7 @@ namespace HVTApp.UI.Lookup
 
         public virtual async Task<IEnumerable<TLookup>> GetAllLookupsAsync()
         {
-            var entities = await Context.Set<TEntity>().AsNoTracking().ToListAsync();
+            var entities = await UnitOfWork.GetRepository<TEntity>().GetAllAsNoTrackingAsync();
             var lookups = new List<TLookup>();
             foreach (var entity in entities)
             {
@@ -52,17 +53,17 @@ namespace HVTApp.UI.Lookup
 
         public void Delete(TLookup lookup)
         {
-            Context.Set<TEntity>().Remove(lookup.Entity);
+             UnitOfWork.GetRepository<TEntity>().Delete(lookup.Entity);
         }
 
         public async Task<int> SaveChangesAsync()
         {
-            return await Context.SaveChangesAsync();
+            return await UnitOfWork.SaveChangesAsync();
         }
 
         public void Dispose()
         {
-            Context?.Dispose();
+            UnitOfWork?.Dispose();
         }
     }
 }
