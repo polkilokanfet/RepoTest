@@ -10,7 +10,7 @@ namespace HVTApp.UI.Lookup
 {
     public abstract class LookupDataService<TLookup, TEntity> : ILookupDataService<TLookup> 
         where TEntity : class, IBaseEntity
-        where TLookup : class, ILookupItem
+        where TLookup : class, ILookupItemNavigation<TEntity>
     {
         protected readonly HvtAppContext Context;
 
@@ -19,7 +19,7 @@ namespace HVTApp.UI.Lookup
             Context = context;
         }
 
-        private static TLookup GetLookup(TEntity entity)
+        protected virtual TLookup GetLookup(TEntity entity)
         {
             return (TLookup)Activator.CreateInstance(typeof(TLookup), entity);
         }
@@ -48,6 +48,16 @@ namespace HVTApp.UI.Lookup
         public virtual string GenerateDisplayMember(TEntity entity)
         {
             return entity.ToString();
+        }
+
+        public void Delete(TLookup lookup)
+        {
+            Context.Set<TEntity>().Remove(lookup.Entity);
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await Context.SaveChangesAsync();
         }
 
         public void Dispose()

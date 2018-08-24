@@ -162,7 +162,7 @@ namespace HVTApp.UI.ViewModels
         foreach(var modelType in modelTypes)
         {
 #>
-    public partial class <#=modelType.Name#>ListViewModel : BaseListViewModel<<#=modelType.Name#>, <#=modelType.Name#>Lookup, AfterSave<#=modelType.Name#>Event, AfterSelect<#=modelType.Name#>Event, AfterRemove<#=modelType.Name#>Event>
+    public partial class <#=modelType.Name#>ListViewModel : BaseListViewModel<<#=modelType.Name#>, <#=modelType.Name#>Lookup, AfterSave<#=modelType.Name#>Event, AfterSelect<#=modelType.Name#>Event, AfterRemove<#=modelType.Name#>Event,  <#=modelType.Name#>LookupDataService>
     {
         public <#=modelType.Name#>ListViewModel(IUnityContainer container) : base(container) { }
     }

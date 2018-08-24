@@ -110,6 +110,7 @@
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SpecificationLookup.cs" />
     <Compile Include="Lookup\Items\Lookups.g.cs" />
+    <Compile Include="Lookup\Service\Custom\ProjectLookupDataService.cs" />
     <Compile Include="Lookup\Service\ILookupDataServices.g.cs" />
     <Compile Include="Lookup\Service\ILookupDataService.cs" />
     <Compile Include="Lookup\Service\LookupDataServices.g.cs" />

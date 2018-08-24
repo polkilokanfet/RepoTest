@@ -13,6 +13,7 @@ using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.MessageService;
 using HVTApp.UI.Events;
+using HVTApp.UI.Lookup;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -20,16 +21,17 @@ using Prism.Events;
 
 namespace HVTApp.UI.ViewModels
 {
-    public abstract class BaseListViewModel<TEntity, TLookup, TAfterSaveEntityEvent, TAfterSelectEntityEvent, TAfterRemoveEntityEvent> :
+    public abstract class BaseListViewModel<TEntity, TLookup, TAfterSaveEntityEvent, TAfterSelectEntityEvent, TAfterRemoveEntityEvent, TLookupDataService> :
         BindableBaseCanExportToExcel, IBaseListViewModel<TEntity, TLookup>, ISelectServiceViewModel<TEntity>, IDisposable
         where TEntity : class, IBaseEntity
         where TLookup : class, ILookupItemNavigation<TEntity>
+        where TLookupDataService : class, ILookupDataService<TLookup>
         where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
         where TAfterRemoveEntityEvent : PubSubEvent<TEntity>, new()
         where TAfterSelectEntityEvent : PubSubEvent<PubSubEventArgs<TEntity>>, new()
     {
         protected readonly IUnityContainer Container;
-        protected readonly IUnitOfWork UnitOfWork;
+        protected readonly ILookupDataService<TLookup> UnitOfWork;
         protected readonly IDialogService DialogService;
         protected readonly IMessageService MessageService;
         protected readonly IEventAggregator EventAggregator;
@@ -40,7 +42,7 @@ namespace HVTApp.UI.ViewModels
         protected BaseListViewModel(IUnityContainer container) : base(container)
         {
             Container = container;
-            UnitOfWork = Container.Resolve<IUnitOfWork>();
+            UnitOfWork = Container.Resolve<TLookupDataService>();
             DialogService = Container.Resolve<IDialogService>();
             MessageService = Container.Resolve<IMessageService>();
             EventAggregator = Container.Resolve<IEventAggregator>();
@@ -137,13 +139,15 @@ namespace HVTApp.UI.ViewModels
 
         private async Task<IEnumerable<TEntity>> GetItems()
         {
-            return await UnitOfWork.GetRepository<TEntity>().GetAllAsNoTrackingAsync();
+            throw new NotImplementedException();
+            //return await UnitOfWork.GetRepository<TEntity>().GetAllAsNoTrackingAsync();
         }
 
 
         protected virtual async Task<IEnumerable<TLookup>> GetLookups()
         {
-            return (await GetItems()).Select(GetLookup).OrderBy(x => x);
+            return await UnitOfWork.GetAllLookupsAsync();
+            //return (await GetItems()).Select(GetLookup).OrderBy(x => x);
         }
 
         #region Commands
@@ -162,7 +166,7 @@ namespace HVTApp.UI.ViewModels
 
         protected virtual bool NewItemCommand_CanExecute()
         {
-            var attribute = this.GetType().GetCustomAttribute<RoleToUpdateAttribute>();
+            var attribute = GetType().GetCustomAttribute<RoleToUpdateAttribute>();
             return attribute == null || !attribute.Roles.Contains(Role.Admin);
         }
 
@@ -182,12 +186,12 @@ namespace HVTApp.UI.ViewModels
             var dr = MessageService.ShowYesNoMessageDialog("Удалить", $"Вы действительно хотите удалить '{SelectedLookup.DisplayMember}'?");
             if (dr != MessageDialogResult.Yes) return;
 
-            var entityToRemove = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(SelectedLookup.Id);
+            var entityToRemove = await UnitOfWork.GetLookupById(SelectedLookup.Id);
             if (entityToRemove == null) return;
 
             try
             {
-                UnitOfWork.GetRepository<TEntity>().Delete(entityToRemove);
+                UnitOfWork.Delete(entityToRemove);
                 await UnitOfWork.SaveChangesAsync();
                 LookupsCollection.Remove(SelectedLookup);
             }
@@ -201,7 +205,7 @@ namespace HVTApp.UI.ViewModels
                 MessageService.ShowYesNoMessageDialog("DbUpdateException", ex.Message);
             }
 
-            EventAggregator.GetEvent<TAfterRemoveEntityEvent>().Publish(entityToRemove);
+            EventAggregator.GetEvent<TAfterRemoveEntityEvent>().Publish(entityToRemove.Entity);
         }
 
         protected virtual bool RemoveItemCommand_CanExecute()
@@ -244,9 +248,9 @@ namespace HVTApp.UI.ViewModels
             }
 
             //добавление несуществующего айтема
-            var newEntity = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(entity.Id);
-            lookup = GetLookup(newEntity);
-            lookup.Refresh(newEntity);
+            var newEntity = await UnitOfWork.GetLookupById(entity.Id);
+            lookup = GetLookup(newEntity.Entity);
+            lookup.Refresh(newEntity.Entity);
             LookupsCollection.Add(lookup);
 
             //выбор добавленного айтема
