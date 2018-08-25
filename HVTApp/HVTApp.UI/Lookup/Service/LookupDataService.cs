@@ -1,40 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Threading.Tasks;
-using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Lookup
 {
     public abstract class LookupDataService<TLookup, TEntity> : ILookupDataService<TLookup> 
         where TEntity : class, IBaseEntity
-        where TLookup : class, ILookupItem
+        where TLookup : class, ILookupItemNavigation<TEntity>
     {
-        protected readonly HvtAppContext Context;
+        protected readonly IUnitOfWork UnitOfWork;
 
-        protected LookupDataService(HvtAppContext context)
+        protected LookupDataService(IUnitOfWork unitOfWork)
         {
-            Context = context;
+            UnitOfWork = unitOfWork;
+        }
+
+        protected virtual TLookup GetLookup(TEntity entity)
+        {
+            return (TLookup)Activator.CreateInstance(typeof(TLookup), entity);
         }
 
         public async Task<TLookup> GetLookupById(Guid id)
         {
-            var entity = await Context.Set<TEntity>().FindAsync(id);
-            var lookup = Activator.CreateInstance<TLookup>();
-            //lookup.Id = entity.Id;
+            var entity = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(id);
+            var lookup = GetLookup(entity);
             lookup.DisplayMember = GenerateDisplayMember(entity);
             return lookup;
         }
 
         public virtual async Task<IEnumerable<TLookup>> GetAllLookupsAsync()
         {
-            var entities = await Context.Set<TEntity>().AsNoTracking().ToListAsync();
+            var entities = await UnitOfWork.GetRepository<TEntity>().GetAllAsNoTrackingAsync();
             var lookups = new List<TLookup>();
             foreach (var entity in entities)
             {
-                var lookup = Activator.CreateInstance<TLookup>();
-                //lookup.Id = entity.Id;
+                var lookup = GetLookup(entity);
                 lookup.DisplayMember = GenerateDisplayMember(entity);
                 lookups.Add(lookup);
             }
@@ -46,9 +47,19 @@ namespace HVTApp.UI.Lookup
             return entity.ToString();
         }
 
+        public void Delete(TLookup lookup)
+        {
+             UnitOfWork.GetRepository<TEntity>().Delete(lookup.Entity);
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await UnitOfWork.SaveChangesAsync();
+        }
+
         public void Dispose()
         {
-            Context?.Dispose();
+            UnitOfWork?.Dispose();
         }
     }
 }

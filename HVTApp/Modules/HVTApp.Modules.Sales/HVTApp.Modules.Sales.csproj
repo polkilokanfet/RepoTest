@@ -115,11 +115,15 @@
     </Compile>
     <Compile Include="ViewModels\MarketViewModel.cs" />
     <Compile Include="ViewModels\OitViewModel.cs" />
+    <Compile Include="ViewModels\Market2ViewModel.cs" />
     <Compile Include="Views\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OitView.xaml.cs">
       <DependentUpon>OitView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Market2View.xaml.cs">
+      <DependentUpon>Market2View.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -180,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OitView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Market2View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

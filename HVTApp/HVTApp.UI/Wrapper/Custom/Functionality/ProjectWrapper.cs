@@ -6,6 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class ProjectWrapper
     {
-        public IEnumerable<UnitGroup> UnitGroups => SalesUnits.ToUnitGroups();
+        //public IEnumerable<UnitGroup> UnitGroups => SalesUnits.ToUnitGroups();
+        public IEnumerable<UnitGroup> UnitGroups { get; set; }
     }
 }

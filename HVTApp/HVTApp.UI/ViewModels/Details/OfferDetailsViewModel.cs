@@ -61,7 +61,7 @@ namespace HVTApp.UI.ViewModels
             var result = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Предупреждение", "Вы действительно хотите удалить?");
             if (result != MessageDialogResult.Yes) return;
             UnitOfWork.GetRepository<OfferUnit>().DeleteRange(SelectedOfferUnitsGroup.Units.Select(x => x.Model));
-            SelectedOfferUnitsGroup.Units.ForEach(x => Item.OfferUnits.Remove(x));
+            //SelectedOfferUnitsGroup.Units.ForEach(x => Item.OfferUnits.Remove(x));
             OfferUnitsGroups.Remove(SelectedOfferUnitsGroup);
         }
 
@@ -106,9 +106,9 @@ namespace HVTApp.UI.ViewModels
             var flag = Container.Resolve<IDialogService>().ShowDialog(viewModel);
             if (flag.HasValue && flag.Value)
             {
-                offerUnitsGroup.Units.ForEach(Item.OfferUnits.Add);
-                OfferUnitsGroups.Add(offerUnitsGroup);
-                SelectedOfferUnitsGroup = offerUnitsGroup;
+                //offerUnitsGroup.Units.ForEach(Item.OfferUnits.Add);
+                //OfferUnitsGroups.Add(offerUnitsGroup);
+                //SelectedOfferUnitsGroup = offerUnitsGroup;
             }
         }
 
@@ -138,9 +138,9 @@ namespace HVTApp.UI.ViewModels
 
         private void GroupingOfferUnits()
         {
-            var groups = Item.OfferUnits.ToUnitGroups();
-            OfferUnitsGroups.Clear();
-            OfferUnitsGroups.AddRange(groups);
+            //var groups = Item.OfferUnits.ToUnitGroups();
+            //OfferUnitsGroups.Clear();
+            //OfferUnitsGroups.AddRange(groups);
         }
 
     }

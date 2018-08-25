@@ -1,16 +1,35 @@
 using System;
 using System.Collections.Generic;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attrubutes;
 
 namespace HVTApp.Model.POCOs
 {
-    public partial class User : BaseEntity
+    [Designation("Пользователь")]
+    [DesignationPlural("Пользователи")]
+    public class User : BaseEntity
     {
+        [Designation("Логин")]
         public string Login { get; set; }
+
+        [Designation("Пароль")]
         public Guid Password { get; set; }
+
+        [Designation("Шифр")]
         public string PersonalNumber { get; set; }
+
+        [Designation("Текущая роль")]
         public Role RoleCurrent { get; set; }
-        public virtual List<UserRole> Roles { get; set; }
+
+        [Designation("Роли")]
+        public virtual List<UserRole> Roles { get; set; } = new List<UserRole>();
+
+        [Designation("Сотрудник")]
         public virtual Employee Employee { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Employee.Person} ({Employee.Position})";
+        }
     }
 }

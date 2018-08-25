@@ -15,12 +15,8 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
-                    <infg:NumericField Name="FirstCurrencyValue" Label="FirstCurrencyValue" Width="Auto" />
-                    <infg:NumericField Name="SecondCurrencyValue" Label="SecondCurrencyValue" Width="Auto" />
-                    <infg:DateTimeField Name="Date" Label="Date" Width="Auto" />
-                    <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
+                    <infg:NumericField Name="ExchangeRate" Label="Валюта 1 / Валюта 2" Width="Auto" />
+                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

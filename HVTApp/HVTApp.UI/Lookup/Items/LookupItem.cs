@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using HVTApp.DataAccess.Annotations;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attrubutes;
 
 namespace HVTApp.UI.Lookup
 {
@@ -14,6 +15,7 @@ namespace HVTApp.UI.Lookup
         protected LookupItem(TEntity entity)
         {
             Entity = entity;
+            DisplayMember = Entity.ToString();
         }
 
         public Guid Id => GetValue<Guid>();
@@ -21,6 +23,7 @@ namespace HVTApp.UI.Lookup
         public TEntity Entity { get; private set; }
 
         private string _displayMember;
+        [Designation("Отображение")]
         public string DisplayMember
         {
             get { return _displayMember; }
@@ -31,7 +34,12 @@ namespace HVTApp.UI.Lookup
         {
             Entity = entity;
             RefreshLookups();
-            OnPropertyChanged("");
+            Refresh();
+        }
+
+        public void Refresh()
+        {
+            OnPropertyChanged(String.Empty);
         }
 
         protected abstract void RefreshLookups();

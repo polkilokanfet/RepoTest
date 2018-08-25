@@ -15,16 +15,13 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="Comment" Label="Comment" Width="Auto" />
-                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
-                    <infg:TextField Name="RequestDocument" Label="RequestDocument" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Author" Label="Author" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="SenderEmployee" Label="SenderEmployee" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="RecipientEmployee" Label="RecipientEmployee" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="RegistrationDetailsOfSender" Label="RegistrationDetailsOfSender" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="RegistrationDetailsOfRecipient" Label="RegistrationDetailsOfRecipient" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
+                    <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />
+                    <infg:TextField Name="RequestDocument" Label="Запрос" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Author" Label="Автор" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="SenderEmployee" Label="Отправитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="RecipientEmployee" Label="Получатель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="RegistrationDetailsOfSender" Label="Исходящий" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="RegistrationDetailsOfRecipient" Label="Входящий" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

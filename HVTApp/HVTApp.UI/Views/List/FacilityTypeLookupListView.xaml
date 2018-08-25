@@ -15,11 +15,8 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="FullName" Label="FullName" Width="Auto" />
-                    <infg:TextField Name="ShortName" Label="ShortName" Width="Auto" />
-                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
-                    <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
+                    <infg:TextField Name="FullName" Label="Наименование" Width="Auto" />
+                    <infg:TextField Name="ShortName" Label="Сокращенное наименование" Width="Auto" />
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

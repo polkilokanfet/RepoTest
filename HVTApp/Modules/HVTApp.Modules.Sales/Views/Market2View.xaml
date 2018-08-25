@@ -1,0 +1,30 @@
+﻿<inf:ViewBase x:Class="HVTApp.Modules.Sales.Views.Market2View"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:local="clr-namespace:HVTApp.Modules.Sales.Views"
+              xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+        
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <views:ProjectLookupListView Name="ProjectListView" Grid.Column="0"/>
+            <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+            <views:OfferLookupListView Name="OfferListView" Grid.Column="2"/>
+            
+        </Grid>
+        
+        <views:UnitListView Name="UnitListView" Grid.Row="1"/>
+
+    </Grid>
+</inf:ViewBase>

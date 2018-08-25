@@ -17,20 +17,24 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="N"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
 							   ValueType="core:Int32"
                                Value="{Binding Item.N, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="Husband"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.Husband}" 
                                     AddItemCommand="{Binding SelectHusbandCommand}" 
                                     RemoveItemCommand="{Binding ClearHusbandCommand}"/>
+
 
 
     </Grid>

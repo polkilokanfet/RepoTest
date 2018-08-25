@@ -10,5 +10,7 @@ namespace HVTApp.UI.Lookup
     {
         Task<TLookup> GetLookupById(Guid id);
         Task<IEnumerable<TLookup>> GetAllLookupsAsync();
+        void Delete(TLookup lookup);
+        Task<int> SaveChangesAsync();
     }
 }

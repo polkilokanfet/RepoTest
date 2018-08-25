@@ -1,13 +1,19 @@
 using System;
-using System.Collections.Generic;
+using HVTApp.Infrastructure.Attrubutes;
 
 namespace HVTApp.Model.POCOs
 {
-    public partial class Offer : Document
+    [Designation("ТКП")]
+    [DesignationPlural("ТКП")]
+    public class Offer : Document
     {
+        [Designation("Проект")]
         public virtual Project Project { get; set; }
-        public DateTime ValidityDate { get; set; } // Дата до которой ТКП действительно.
+
+        [Designation("Срок действия")]
+        public DateTime ValidityDate { get; set; }
+
+        [Designation("НДС")]
         public double Vat { get; set; }
-        public virtual List<OfferUnit> OfferUnits { get; set; } = new List<OfferUnit>();
     }
 }

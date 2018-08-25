@@ -7,7 +7,6 @@ namespace HVTApp.DataAccess
             HasRequired(x => x.Project).WithMany();
             Property(x => x.ValidityDate).IsRequired();
             Property(x => x.Vat).IsRequired();
-            HasMany(x => x.OfferUnits).WithRequired().WillCascadeOnDelete(false);
         }
     }
 }

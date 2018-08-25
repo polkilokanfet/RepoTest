@@ -16,12 +16,9 @@
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Название" Width="Auto" />
-                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
-                    <infg:TextField Name="Type" Label="Type" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Type" Label="Тип объекта" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="OwnerCompany" Label="Владелец" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Address" Label="Адрес" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Entity" Label="Объект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
+                    <infg:TextField Name="Address" Label="Местоположение" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

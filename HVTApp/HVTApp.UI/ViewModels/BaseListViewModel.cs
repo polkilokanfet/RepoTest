@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Runtime.CompilerServices;
+using System.Reflection;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -15,6 +13,7 @@ using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.MessageService;
 using HVTApp.UI.Events;
+using HVTApp.UI.Lookup;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -22,28 +21,31 @@ using Prism.Events;
 
 namespace HVTApp.UI.ViewModels
 {
-    public abstract class BaseListViewModel<TEntity, TLookup, TAfterSaveEntityEvent, TAfterSelectEntityEvent, TAfterRemoveEntityEvent> :
+    public abstract class BaseListViewModel<TEntity, TLookup, TAfterSaveEntityEvent, TAfterSelectEntityEvent, TAfterRemoveEntityEvent, TLookupDataService> :
         BindableBaseCanExportToExcel, IBaseListViewModel<TEntity, TLookup>, ISelectServiceViewModel<TEntity>, IDisposable
         where TEntity : class, IBaseEntity
         where TLookup : class, ILookupItemNavigation<TEntity>
+        where TLookupDataService : class, ILookupDataService<TLookup>
         where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
-        where TAfterSelectEntityEvent : PubSubEvent<PubSubEventArgs<TEntity>>, new()
         where TAfterRemoveEntityEvent : PubSubEvent<TEntity>, new()
+        where TAfterSelectEntityEvent : PubSubEvent<PubSubEventArgs<TEntity>>, new()
     {
         protected readonly IUnityContainer Container;
-        protected readonly IUnitOfWork UnitOfWork;
+        protected readonly ILookupDataService<TLookup> UnitOfWork;
         protected readonly IDialogService DialogService;
         protected readonly IMessageService MessageService;
+        protected readonly IEventAggregator EventAggregator;
 
         private TLookup _selectedLookup;
-        private TEntity _selectedEntity;
+        private TEntity _selectedItem;
 
         protected BaseListViewModel(IUnityContainer container) : base(container)
         {
             Container = container;
-            UnitOfWork = Container.Resolve<IUnitOfWork>();
+            UnitOfWork = Container.Resolve<TLookupDataService>();
             DialogService = Container.Resolve<IDialogService>();
             MessageService = Container.Resolve<IMessageService>();
+            EventAggregator = Container.Resolve<IEventAggregator>();
 
             Lookups = new ObservableCollection<TLookup>();
 
@@ -53,14 +55,15 @@ namespace HVTApp.UI.ViewModels
 
             SelectItemCommand = new DelegateCommand(SelectItemCommand_Execute, SelectItemCommand_CanExecute);
 
-
-            Container.Resolve<IEventAggregator>().GetEvent<TAfterSaveEntityEvent>().Subscribe(OnAfterSaveEntity);
-            Container.Resolve<IEventAggregator>().GetEvent<TAfterRemoveEntityEvent>().Subscribe(OnAfterRemoveEntity);
+            EventAggregator.GetEvent<TAfterSaveEntityEvent>().Subscribe(OnAfterSaveEntity);
+            EventAggregator.GetEvent<TAfterRemoveEntityEvent>().Subscribe(OnAfterRemoveEntity);
 
             SubscribesToEvents();
         }
 
-
+        /// <summary>
+        /// Подписка на события. Запуск в конце конструктора.
+        /// </summary>
         protected virtual void SubscribesToEvents()
         {
         }
@@ -76,7 +79,7 @@ namespace HVTApp.UI.ViewModels
                 SelectedItem = _selectedLookup?.Entity;
                 OnPropertyChanged();
                 SelectedLookupChanged?.Invoke(_selectedLookup);
-                Container.Resolve<IEventAggregator>().GetEvent<TAfterSelectEntityEvent>().Publish(new PubSubEventArgs<TEntity>(this, value?.Entity));
+                EventAggregator.GetEvent<TAfterSelectEntityEvent>().Publish(new PubSubEventArgs<TEntity>(this, value?.Entity));
                 InvalidateCommands();
             }
         }
@@ -84,40 +87,43 @@ namespace HVTApp.UI.ViewModels
 
         public TEntity SelectedItem
         {
-            get { return _selectedEntity; }
+            get { return _selectedItem; }
             set
             {
-                if (Equals(_selectedEntity, value)) return;
-                _selectedEntity = value;
-                SelectedLookup = _selectedLookup != null ? Lookups.Single(x => x.Entity.Id == _selectedEntity.Id) : null;
+                if (Equals(_selectedItem, value)) return;
+                _selectedItem = value;
+                SelectedLookup = _selectedLookup != null ? Lookups.Single(x => x.Entity.Id == _selectedItem.Id) : null;
                 OnPropertyChanged();
             }
         }
 
         public IEnumerable<TLookup> Lookups { get; }
+        private ICollection<TLookup> LookupsCollection => (ICollection<TLookup>)Lookups;
+
+        private static TLookup GetLookup(TEntity entity)
+        {
+            return (TLookup) Activator.CreateInstance(typeof(TLookup), entity);
+        }
 
         public virtual async Task LoadAsync()
         {
-            var lookupsCollection = (ICollection<TLookup>)Lookups;
-            lookupsCollection?.Clear();
-
-            var items = (await GetItems()).ToList();
-            var lookups = items.Select(x => (TLookup) Activator.CreateInstance(typeof(TLookup), x)).OrderBy(x => x);
-            lookups.ForEach(lookupsCollection.Add);
+            LookupsCollection.Clear();
+            SelectedLookup = null;
+            var lookups = await GetLookups();
+            lookups.ForEach(LookupsCollection.Add);
             Loaded?.Invoke();
         }
 
         public virtual void Load(IEnumerable<TEntity> entities)
         {
-            var lookups = entities.Select(x => (TLookup)Activator.CreateInstance(typeof(TLookup), x));
-            Load(lookups);
+            Load(entities.Select(GetLookup));
         }
 
         public virtual void Load(IEnumerable<TLookup> lookups)
         {
-            var lookupsCollection = (ICollection<TLookup>)Lookups;
-            lookupsCollection?.Clear();
-            lookups.OrderBy(x => x).ForEach(lookupsCollection.Add);
+            LookupsCollection.Clear();
+            SelectedLookup = null;
+            lookups.OrderBy(x => x).ForEach(LookupsCollection.Add);
             Loaded?.Invoke();
         }
 
@@ -131,9 +137,17 @@ namespace HVTApp.UI.ViewModels
 
 
 
-        protected virtual async Task<IEnumerable<TEntity>> GetItems()
+        private async Task<IEnumerable<TEntity>> GetItems()
         {
-            return await UnitOfWork.GetRepository<TEntity>().GetAllAsNoTrackingAsync();
+            throw new NotImplementedException();
+            //return await UnitOfWork.GetRepository<TEntity>().GetAllAsNoTrackingAsync();
+        }
+
+
+        protected virtual async Task<IEnumerable<TLookup>> GetLookups()
+        {
+            return await UnitOfWork.GetAllLookupsAsync();
+            //return (await GetItems()).Select(GetLookup).OrderBy(x => x);
         }
 
         #region Commands
@@ -152,16 +166,8 @@ namespace HVTApp.UI.ViewModels
 
         protected virtual bool NewItemCommand_CanExecute()
         {
-            var attrs = Attribute.GetCustomAttributes(this.GetType());
-            foreach (var attr in attrs)
-            {
-                var attribute = attr as RoleToUpdateAttribute;
-                if (attribute != null && attribute.Roles.Contains(Role.Admin))
-                {
-                    return false;
-                }
-            }
-            return true;
+            var attribute = GetType().GetCustomAttribute<RoleToUpdateAttribute>();
+            return attribute == null || !attribute.Roles.Contains(Role.Admin);
         }
 
 
@@ -177,18 +183,17 @@ namespace HVTApp.UI.ViewModels
 
         protected async void RemoveItemCommand_ExecuteAsync()
         {
-            if (MessageService.ShowYesNoMessageDialog("Удалить",
-                    $"Вы действительно хотите удалить '{SelectedLookup.DisplayMember}'?") != MessageDialogResult.Yes)
-                return;
+            var dr = MessageService.ShowYesNoMessageDialog("Удалить", $"Вы действительно хотите удалить '{SelectedLookup.DisplayMember}'?");
+            if (dr != MessageDialogResult.Yes) return;
 
-            var entityToRemove = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(SelectedLookup.Id);
+            var entityToRemove = await UnitOfWork.GetLookupById(SelectedLookup.Id);
             if (entityToRemove == null) return;
 
             try
             {
-                UnitOfWork.GetRepository<TEntity>().Delete(entityToRemove);
+                UnitOfWork.Delete(entityToRemove);
                 await UnitOfWork.SaveChangesAsync();
-                (Lookups as ICollection<TLookup>)?.Remove(SelectedLookup);
+                LookupsCollection.Remove(SelectedLookup);
             }
             catch (DbUpdateException e)
             {
@@ -200,7 +205,7 @@ namespace HVTApp.UI.ViewModels
                 MessageService.ShowYesNoMessageDialog("DbUpdateException", ex.Message);
             }
 
-            Container.Resolve<IEventAggregator>().GetEvent<TAfterRemoveEntityEvent>().Publish(entityToRemove);
+            EventAggregator.GetEvent<TAfterRemoveEntityEvent>().Publish(entityToRemove.Entity);
         }
 
         protected virtual bool RemoveItemCommand_CanExecute()
@@ -228,7 +233,10 @@ namespace HVTApp.UI.ViewModels
         }
         #endregion
 
-        //реакция на корректировку айтема или на создание нового
+        /// <summary>
+        /// реакция на корректировку айтема или на создание нового
+        /// </summary>
+        /// <param name="entity"></param>
         protected virtual async void OnAfterSaveEntity(TEntity entity)
         {
             //обновление существующего айтема
@@ -240,10 +248,10 @@ namespace HVTApp.UI.ViewModels
             }
 
             //добавление несуществующего айтема
-            var newEntity = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(entity.Id);
-            lookup = (TLookup)Activator.CreateInstance(typeof(TLookup), newEntity);
-            lookup.Refresh(newEntity);
-            ((ICollection<TLookup>)Lookups).Add(lookup);
+            var newEntity = await UnitOfWork.GetLookupById(entity.Id);
+            lookup = GetLookup(newEntity.Entity);
+            lookup.Refresh(newEntity.Entity);
+            LookupsCollection.Add(lookup);
 
             //выбор добавленного айтема
             SelectedLookup = lookup;
@@ -254,7 +262,7 @@ namespace HVTApp.UI.ViewModels
             var lookup = Lookups.SingleOrDefault(x => x.Id == entity.Id);
             if (lookup != null)
             {
-                ((ICollection<TLookup>) Lookups).Remove(lookup);
+                LookupsCollection.Remove(lookup);
                 SelectedLookup = null;
             }
         }

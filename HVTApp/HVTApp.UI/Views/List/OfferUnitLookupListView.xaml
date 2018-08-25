@@ -15,14 +15,12 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
-                    <infg:NumericField Name="ProductionTerm" Label="ProductionTerm" Width="Auto" />
-                    <infg:NumericField Name="Cost" Label="Cost" Width="Auto" />
-                    <infg:TextField Name="Product" Label="Product" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" />
+                    <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" />
+                    <infg:TextField Name="Offer" Label="ТКП" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="PaymentConditionSet" Label="PaymentConditionSet" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
+                    <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

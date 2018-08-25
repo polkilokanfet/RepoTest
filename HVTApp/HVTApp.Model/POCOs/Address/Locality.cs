@@ -1,4 +1,3 @@
-using System;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attrubutes;
 
@@ -23,7 +22,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return $"{Region}, {LocalityType.ShortName} {Name}";
+            return $"{LocalityType.ShortName} {Name}";
         }
     }
 }

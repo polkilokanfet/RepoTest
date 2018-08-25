@@ -16,14 +16,11 @@
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Type" Label="Type" Width="Auto" />
-                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
-                    <infg:DateTimeField Name="DateOpen" Label="DateOpen" Width="Auto" />
-                    <infg:DateTimeField Name="DateClose" Label="DateClose" Width="Auto" />
-                    <infg:DateTimeField Name="DateNotice" Label="DateNotice" Width="Auto" />
-                    <infg:TextField Name="Project" Label="Project" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Winner" Label="Компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
+                    <infg:DateTimeField Name="DateOpen" Label="Открытие" Width="Auto" />
+                    <infg:DateTimeField Name="DateClose" Label="Закрытие" Width="Auto" />
+                    <infg:DateTimeField Name="DateNotice" Label="Итоги" Width="Auto" />
+                    <infg:TextField Name="Project" Label="Проект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Winner" Label="Победитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

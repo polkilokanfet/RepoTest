@@ -1,5 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Documents;
 using System.Windows.Input;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Events;
@@ -10,7 +12,7 @@ using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
-    public class PaymentPlannedListGeneratorViewModel : BaseListViewModel<PaymentPlanned, PaymentPlannedLookup, AfterSavePaymentPlannedEvent, AfterSelectPaymentPlannedEvent, AfterRemovePaymentPlannedEvent>
+    public class PaymentPlannedListGeneratorViewModel : BaseListViewModel<PaymentPlanned, PaymentPlannedLookup, AfterSavePaymentPlannedEvent, AfterSelectPaymentPlannedEvent, AfterRemovePaymentPlannedEvent, PaymentPlannedLookupDataService>
     {
         private PaymentPlannedWrapper _selectedPayment;
         public ObservableCollection<PaymentPlannedWrapper> Payments { get; } = new ObservableCollection<PaymentPlannedWrapper>();
@@ -66,8 +68,9 @@ namespace HVTApp.UI.ViewModels
 
         private async void GeneratePaymentsCommand_Execute()
         {
-            var salesUnits = await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync();
-            var salesUnitWrappers = salesUnits.Select(x => new SalesUnitWrapper(x)).ToList();
+            var salesUnits = await UnitOfWork.GetAllLookupsAsync();
+            //var salesUnitWrappers = salesUnits.Select(x => new SalesUnitWrapper(x)).ToList();
+            var salesUnitWrappers = new List<SalesUnitWrapper>();
 
             Payments.Clear();
             Payments.AddRange(salesUnitWrappers.SelectMany(x => x.PaymentPlannedWrappers).OrderBy(x => x.Date));

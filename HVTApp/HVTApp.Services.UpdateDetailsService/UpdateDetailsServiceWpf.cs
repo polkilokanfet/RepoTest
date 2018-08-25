@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attrubutes;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using Microsoft.Practices.Unity;
@@ -40,7 +42,8 @@ namespace HVTApp.Services.UpdateDetailsService
             {
                 ContentControl = { Content = detailsView },
                 SaveButton = { Command = ((ISavable)detailsViewModel).SaveCommand },
-                Owner = Application.Current.MainWindow
+                Owner = Application.Current.MainWindow,
+                Title = GetTitle(typeof(TEntity))
             };
 
             EventHandler<DialogRequestCloseEventArgs> handler = null;
@@ -68,6 +71,13 @@ namespace HVTApp.Services.UpdateDetailsService
             where TEntity : class, IBaseEntity
         {
             return await UpdateDetails<TEntity>(detaisViewModel => detaisViewModel.LoadAsync(entity));
+        }
+
+        public string GetTitle(Type type)
+        {
+            var attr = type.GetCustomAttribute<DesignationAttribute>();
+            var des = attr != null ? attr.Designation : type.Name;
+            return $"Редактирование ({des})";
         }
     }
 }

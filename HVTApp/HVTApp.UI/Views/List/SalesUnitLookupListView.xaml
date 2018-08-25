@@ -15,31 +15,30 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="OrderPosition" Label="OrderPosition" Width="Auto" />
-                    <infg:TextField Name="SerialNumber" Label="SerialNumber" Width="Auto" />
-                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
-                    <infg:NumericField Name="ProductionTerm" Label="ProductionTerm" Width="Auto" />
-                    <infg:NumericField Name="AssembleTerm" Label="AssembleTerm" Width="Auto" />
-                    <infg:NumericField Name="ExpectedDeliveryPeriod" Label="ExpectedDeliveryPeriod" Width="Auto" />
-                    <infg:NumericField Name="Cost" Label="Cost" Width="Auto" />
-                    <infg:NumericField Name="CostOfShipment" Label="CostOfShipment" Width="Auto" />
-                    <infg:DateTimeField Name="DeliveryDateExpected" Label="DeliveryDateExpected" Width="Auto" />
-                    <infg:DateTimeField Name="RealizationDate" Label="RealizationDate" Width="Auto" />
-                    <infg:DateTimeField Name="StartProductionDate" Label="StartProductionDate" Width="Auto" />
-                    <infg:DateTimeField Name="PickingDate" Label="PickingDate" Width="Auto" />
-                    <infg:DateTimeField Name="EndProductionDate" Label="EndProductionDate" Width="Auto" />
-                    <infg:DateTimeField Name="ShipmentDate" Label="ShipmentDate" Width="Auto" />
-                    <infg:DateTimeField Name="ShipmentPlanDate" Label="ShipmentPlanDate" Width="Auto" />
-                    <infg:DateTimeField Name="DeliveryDate" Label="DeliveryDate" Width="Auto" />
-                    <infg:TextField Name="Product" Label="Product" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="PaymentConditionSet" Label="PaymentConditionSet" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Producer" Label="Компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Order" Label="Order" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="OrderPosition" Label="Позиция" Width="Auto" />
+                    <infg:TextField Name="SerialNumber" Label="Номер" Width="Auto" />
+                    <infg:NumericField Name="AssembleTerm" Label="Срок сборки" Width="Auto" />
+                    <infg:NumericField Name="ExpectedDeliveryPeriod" Label="Срок доставки" Width="Auto" />
+                    <infg:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" />
+                    <infg:NumericField Name="CostOfShipment" Label="Стоимость доставки" Width="Auto" />
+                    <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" />
+                    <infg:DateTimeField Name="DeliveryDateExpected" Label="Требуемая дата поставки" Width="Auto" />
+                    <infg:DateTimeField Name="RealizationDate" Label="Дата реализации" Width="Auto" />
+                    <infg:DateTimeField Name="StartProductionDate" Label="Дата начала производства" Width="Auto" />
+                    <infg:DateTimeField Name="PickingDate" Label="Дата комплектации" Width="Auto" />
+                    <infg:DateTimeField Name="EndProductionDate" Label="Дата окончания производства" Width="Auto" />
+                    <infg:DateTimeField Name="ShipmentDate" Label="Дата отгрузки" Width="Auto" />
+                    <infg:DateTimeField Name="ShipmentPlanDate" Label="Дата отгрузки" Width="Auto" />
+                    <infg:DateTimeField Name="DeliveryDate" Label="Дата поставки" Width="Auto" />
+                    <infg:TextField Name="Project" Label="Проект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Producer" Label="Производитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Order" Label="Заказ" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Specification" Label="Спецификация" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Address" Label="Адрес" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
+                    <infg:TextField Name="Address" Label="Адрес доставки" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Offer" Label="ТКП" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

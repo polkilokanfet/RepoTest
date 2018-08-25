@@ -15,11 +15,8 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
                     <infg:DateTimeField Name="Date" Label="Date" Width="Auto" />
                     <infg:TextField Name="Sum" Label="Sum" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

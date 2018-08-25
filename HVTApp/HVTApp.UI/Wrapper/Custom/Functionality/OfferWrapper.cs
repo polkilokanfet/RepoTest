@@ -7,7 +7,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class OfferWrapper
     {
-        public IEnumerable<OfferUnitsGroup> OfferUnitsGroups => OfferUnits.ToUnitGroups();
+        //public IEnumerable<OfferUnitsGroup> OfferUnitsGroups => OfferUnits.ToUnitGroups();
 
         public double VatProc
         {
@@ -17,11 +17,11 @@ namespace HVTApp.UI.Wrapper
                 if (value < 0) return;
                 this.Vat = value / 100;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(SumWithVat));
+                //OnPropertyChanged(nameof(SumWithVat));
             }
         }
 
-        public double Sum => OfferUnits.Sum(x => x.Cost);
-        public double SumWithVat => Sum * (1 + Vat);
+        //public double Sum => OfferUnits.Sum(x => x.Cost);
+        //public double SumWithVat => Sum * (1 + Vat);
     }
 }

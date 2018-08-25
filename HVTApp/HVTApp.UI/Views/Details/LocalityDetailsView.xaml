@@ -22,17 +22,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="StandartDeliveryPeriod"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
                                Value="{Binding Item.StandartDeliveryPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="DistanceToEkb"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
                                Value="{Binding Item.DistanceToEkb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
 
         <Label Grid.Column="0" Grid.Row ="3" Content="LocalityType"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
@@ -40,11 +44,13 @@
                                     AddItemCommand="{Binding SelectLocalityTypeCommand}" 
                                     RemoveItemCommand="{Binding ClearLocalityTypeCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="4" Content="Region"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.Region}" 
                                     AddItemCommand="{Binding SelectRegionCommand}" 
                                     RemoveItemCommand="{Binding ClearRegionCommand}"/>
+
 
 
     </Grid>

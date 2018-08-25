@@ -17,9 +17,6 @@
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Email" Label="Email" Width="Auto" />
                     <infg:TextField Name="Comment" Label="Comment" Width="Auto" />
-                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
-                    <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

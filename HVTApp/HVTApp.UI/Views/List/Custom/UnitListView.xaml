@@ -1,11 +1,11 @@
-<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              x:Class="HVTApp.UI.Views.LookupItem`1ListView">
+              x:Class="HVTApp.UI.Views.UnitListView">
 
-    <infg:XamDataGrid x:Name="LookupItem`1ListGrid">
-        
+    <infg:XamDataGrid x:Name="UnitListGrid">
+
         <infg:XamDataGrid.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
@@ -15,9 +15,9 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
-                    <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
+                    <infg:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" />
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
@@ -25,5 +25,3 @@
     </infg:XamDataGrid>
 
 </inf:ViewBase>
-
-	

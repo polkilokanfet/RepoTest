@@ -16,20 +16,18 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="FirstCurrencyValue"/>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Валюта 1 / Валюта 2"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0" 
-                               Value="{Binding Item.FirstCurrencyValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                               Value="{Binding Item.ExchangeRate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="SecondCurrencyValue"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
-                               Value="{Binding Item.SecondCurrencyValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Date"/>
-        <DatePicker Grid.Column="1" Grid.Row="2" 
+        <Label Grid.Column="0" Grid.Row ="1" Content="Дата"/>
+        <DatePicker Grid.Column="1" Grid.Row="1" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 
 
     </Grid>

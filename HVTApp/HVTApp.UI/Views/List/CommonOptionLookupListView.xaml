@@ -15,12 +15,9 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
                     <infg:NumericField Name="CalculationPriceTerm" Label="CalculationPriceTerm" Width="Auto" />
                     <infg:NumericField Name="StandartTermFromStartToEndProduction" Label="StandartTermFromStartToEndProduction" Width="Auto" />
                     <infg:NumericField Name="StandartTermFromPickToEndProduction" Label="StandartTermFromPickToEndProduction" Width="Auto" />
-                    <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attrubutes;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using Microsoft.Practices.Unity;
@@ -49,7 +51,8 @@ namespace HVTApp.Services.SelectService
                 ContentControl = { Content = view },
                 CreateNewButton = { Command = viewModel.NewItemCommand },
                 SelectButton = { Command = viewModel.SelectItemCommand },
-                Owner = Application.Current.MainWindow
+                Owner = Application.Current.MainWindow,
+                Title = GetTitle(typeof(TItem))
             };
 
             EventHandler<DialogRequestCloseEventArgs> handler = null;
@@ -68,5 +71,13 @@ namespace HVTApp.Services.SelectService
 
             return result;
         }
+
+        public string GetTitle(Type type)
+        {
+            var attr = type.GetCustomAttribute<DesignationAttribute>();
+            var des = attr != null ? attr.Designation : type.Name;
+            return $"Выбор ({des})";
+        }
+
     }
 }

@@ -38,126 +38,151 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="OrderPosition"/>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Позиция"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.OrderPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="SerialNumber"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Номер"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.SerialNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="ProductionTerm"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2"
-							   ValueType="core:Int32"
-                               Value="{Binding Item.ProductionTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="AssembleTerm"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3"
+        <Label Grid.Column="0" Grid.Row ="2" Content="Срок сборки"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2"
 							   ValueType="core:Int32"
                                Value="{Binding Item.AssembleTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="ExpectedDeliveryPeriod"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="4"
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Срок доставки"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ExpectedDeliveryPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="Cost"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="5" 
-                               Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
-        <Label Grid.Column="0" Grid.Row ="6" Content="CostOfShipment"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="6" 
+        <Label Grid.Column="0" Grid.Row ="4" Content="Срок производства"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="4"
+							   ValueType="core:Int32"
+                               Value="{Binding Item.ProductionTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
+
+        <Label Grid.Column="0" Grid.Row ="5" Content="Стоимость доставки"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="5" 
                                Value="{Binding Item.CostOfShipment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
-        <Label Grid.Column="0" Grid.Row ="7" Content="DeliveryDateExpected"/>
+
+        <Label Grid.Column="0" Grid.Row ="6" Content="Стоимость"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="6" 
+                               Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+
+
+        <Label Grid.Column="0" Grid.Row ="7" Content="Требуемая дата поставки"/>
         <DatePicker Grid.Column="1" Grid.Row="7" 
                     SelectedDate="{Binding Item.DeliveryDateExpected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Grid.Column="0" Grid.Row ="8" Content="RealizationDate"/>
+
+        <Label Grid.Column="0" Grid.Row ="8" Content="Дата реализации"/>
         <DatePicker Grid.Column="1" Grid.Row="8" 
                     SelectedDate="{Binding Item.RealizationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Grid.Column="0" Grid.Row ="9" Content="StartProductionDate"/>
+
+        <Label Grid.Column="0" Grid.Row ="9" Content="Дата начала производства"/>
         <DatePicker Grid.Column="1" Grid.Row="9" 
                     SelectedDate="{Binding Item.StartProductionDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Grid.Column="0" Grid.Row ="10" Content="PickingDate"/>
+
+        <Label Grid.Column="0" Grid.Row ="10" Content="Дата комплектации"/>
         <DatePicker Grid.Column="1" Grid.Row="10" 
                     SelectedDate="{Binding Item.PickingDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Grid.Column="0" Grid.Row ="11" Content="EndProductionDate"/>
+
+        <Label Grid.Column="0" Grid.Row ="11" Content="Дата окончания производства"/>
         <DatePicker Grid.Column="1" Grid.Row="11" 
                     SelectedDate="{Binding Item.EndProductionDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Grid.Column="0" Grid.Row ="12" Content="ShipmentDate"/>
+
+        <Label Grid.Column="0" Grid.Row ="12" Content="Дата отгрузки"/>
         <DatePicker Grid.Column="1" Grid.Row="12" 
                     SelectedDate="{Binding Item.ShipmentDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Grid.Column="0" Grid.Row ="13" Content="ShipmentPlanDate"/>
+
+        <Label Grid.Column="0" Grid.Row ="13" Content="Дата отгрузки"/>
         <DatePicker Grid.Column="1" Grid.Row="13" 
                     SelectedDate="{Binding Item.ShipmentPlanDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Grid.Column="0" Grid.Row ="14" Content="DeliveryDate"/>
+
+        <Label Grid.Column="0" Grid.Row ="14" Content="Дата поставки"/>
         <DatePicker Grid.Column="1" Grid.Row="14" 
                     SelectedDate="{Binding Item.DeliveryDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Grid.Column="0" Grid.Row ="15" Content="Product"/>
+
+        <Label Grid.Column="0" Grid.Row ="15" Content="Проект"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="15" 
-                                    Item="{Binding Item.Product}" 
-                                    AddItemCommand="{Binding SelectProductCommand}" 
-                                    RemoveItemCommand="{Binding ClearProductCommand}"/>
+                                    Item="{Binding Item.Project}" 
+                                    AddItemCommand="{Binding SelectProjectCommand}" 
+                                    RemoveItemCommand="{Binding ClearProjectCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row ="16" Content="Объект"/>
+
+        <Label Grid.Column="0" Grid.Row ="16" Content="Производитель"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="16" 
-                                    Item="{Binding Item.Facility}" 
-                                    AddItemCommand="{Binding SelectFacilityCommand}" 
-                                    RemoveItemCommand="{Binding ClearFacilityCommand}"/>
-
-        <Label Grid.Column="0" Grid.Row ="17" Content="PaymentConditionSet"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="17" 
-                                    Item="{Binding Item.PaymentConditionSet}" 
-                                    AddItemCommand="{Binding SelectPaymentConditionSetCommand}" 
-                                    RemoveItemCommand="{Binding ClearPaymentConditionSetCommand}"/>
-
-        <Label Grid.Column="0" Grid.Row ="18" Content="Компания"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="18" 
                                     Item="{Binding Item.Producer}" 
                                     AddItemCommand="{Binding SelectProducerCommand}" 
                                     RemoveItemCommand="{Binding ClearProducerCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row ="19" Content="Order"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="19" 
+
+        <Label Grid.Column="0" Grid.Row ="17" Content="Заказ"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="17" 
                                     Item="{Binding Item.Order}" 
                                     AddItemCommand="{Binding SelectOrderCommand}" 
                                     RemoveItemCommand="{Binding ClearOrderCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row ="20" Content="Спецификация"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="20" 
+
+        <Label Grid.Column="0" Grid.Row ="18" Content="Спецификация"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="18" 
                                     Item="{Binding Item.Specification}" 
                                     AddItemCommand="{Binding SelectSpecificationCommand}" 
                                     RemoveItemCommand="{Binding ClearSpecificationCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row ="21" Content="Адрес"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="21" 
+
+        <Label Grid.Column="0" Grid.Row ="19" Content="Адрес доставки"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="19" 
                                     Item="{Binding Item.Address}" 
                                     AddItemCommand="{Binding SelectAddressCommand}" 
                                     RemoveItemCommand="{Binding ClearAddressCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row ="22" Content="DependentProducts"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="22"
-										 Items="{Binding Path=Item.DependentProducts}"
-										 SelectedItem="{Binding SelectedDependentProductsItem, Mode=TwoWay}"
-										 AddItemCommand="{Binding AddInDependentProductsCommand}"
-										 RemoveItemCommand="{Binding RemoveFromDependentProductsCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row ="23" Content="Services"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="23"
-										 Items="{Binding Path=Item.Services}"
-										 SelectedItem="{Binding SelectedServicesItem, Mode=TwoWay}"
-										 AddItemCommand="{Binding AddInServicesCommand}"
-										 RemoveItemCommand="{Binding RemoveFromServicesCommand}"/>
+        <Label Grid.Column="0" Grid.Row ="20" Content="ТКП"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="20" 
+                                    Item="{Binding Item.Offer}" 
+                                    AddItemCommand="{Binding SelectOfferCommand}" 
+                                    RemoveItemCommand="{Binding ClearOfferCommand}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="21" Content="Продукт"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="21" 
+                                    Item="{Binding Item.Product}" 
+                                    AddItemCommand="{Binding SelectProductCommand}" 
+                                    RemoveItemCommand="{Binding ClearProductCommand}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="22" Content="Объект"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="22" 
+                                    Item="{Binding Item.Facility}" 
+                                    AddItemCommand="{Binding SelectFacilityCommand}" 
+                                    RemoveItemCommand="{Binding ClearFacilityCommand}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="23" Content="Условия оплаты"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="23" 
+                                    Item="{Binding Item.PaymentConditionSet}" 
+                                    AddItemCommand="{Binding SelectPaymentConditionSetCommand}" 
+                                    RemoveItemCommand="{Binding ClearPaymentConditionSetCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="24" Content="PaymentsActual"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="24"
@@ -166,12 +191,30 @@
 										 AddItemCommand="{Binding AddInPaymentsActualCommand}"
 										 RemoveItemCommand="{Binding RemoveFromPaymentsActualCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="25" Content="PaymentsPlannedSaved"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="25"
 										 Items="{Binding Path=Item.PaymentsPlannedSaved}"
 										 SelectedItem="{Binding SelectedPaymentsPlannedSavedItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPaymentsPlannedSavedCommand}"
 										 RemoveItemCommand="{Binding RemoveFromPaymentsPlannedSavedCommand}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="26" Content="DependentProducts"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="26"
+										 Items="{Binding Path=Item.DependentProducts}"
+										 SelectedItem="{Binding SelectedDependentProductsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInDependentProductsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromDependentProductsCommand}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="27" Content="Services"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="27"
+										 Items="{Binding Path=Item.Services}"
+										 SelectedItem="{Binding SelectedServicesItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInServicesCommand}"
+										 RemoveItemCommand="{Binding RemoveFromServicesCommand}"/>
+
 
 
     </Grid>

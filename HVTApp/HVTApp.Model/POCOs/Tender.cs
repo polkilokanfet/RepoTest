@@ -1,17 +1,33 @@
 using System;
 using System.Collections.Generic;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attrubutes;
 
 namespace HVTApp.Model.POCOs
 {
-    public partial class Tender : BaseEntity
+    [Designation("Тендер")]
+    [DesignationPlural("Тендеры")]
+    public class Tender : BaseEntity
     {
+        [Designation("Проект")]
         public virtual Project Project { get; set; }
+
+        [Designation("Типы")]
         public virtual List<TenderType> Types { get; set; } = new List<TenderType>();
+
+        [Designation("Открытие")]
         public DateTime DateOpen { get; set; }
+
+        [Designation("Закрытие")]
         public DateTime DateClose { get; set; }
+
+        [Designation("Итоги")]
         public DateTime? DateNotice { get; set; }
-        public virtual List<Company> Participants { get; set; } = new List<Company>(); //участники
+
+        [Designation("Участники")]
+        public virtual List<Company> Participants { get; set; } = new List<Company>();
+
+        [Designation("Победитель")]
         public virtual Company Winner { get; set; }
 
         public override string ToString()
@@ -20,7 +36,7 @@ namespace HVTApp.Model.POCOs
         }
     }
 
-    public partial class TenderType : BaseEntity
+    public class TenderType : BaseEntity
     {
         public string Name { get; set; }
         public TenderTypeEnum Type { get; set; }

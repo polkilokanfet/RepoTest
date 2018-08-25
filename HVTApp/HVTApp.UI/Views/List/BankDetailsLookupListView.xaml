@@ -19,9 +19,6 @@
                     <infg:TextField Name="BankIdentificationCode" Label="BankIdentificationCode" Width="Auto" />
                     <infg:TextField Name="CorrespondentAccount" Label="CorrespondentAccount" Width="Auto" />
                     <infg:TextField Name="CheckingAccount" Label="CheckingAccount" Width="Auto" />
-                    <infg:TextField Name="DisplayMember" Label="DisplayMember" Width="Auto" />
-                    <infg:TextField Name="Entity" Label="Entity" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

@@ -8,9 +8,9 @@ namespace HVTApp.UI.ViewModels
     {
         public Role[] Roles { get; }
 
-        public RoleToUpdateAttribute(params Role[] roleses)
+        public RoleToUpdateAttribute(params Role[] roles)
         {
-            Roles = roleses;
+            Roles = roles;
         }
     }
 }

@@ -17,9 +17,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Designation"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Designation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="ProductBlock"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -27,12 +29,14 @@
                                     AddItemCommand="{Binding SelectProductBlockCommand}" 
                                     RemoveItemCommand="{Binding ClearProductBlockCommand}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="DependentProducts"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.DependentProducts}"
 										 SelectedItem="{Binding SelectedDependentProductsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInDependentProductsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromDependentProductsCommand}"/>
+
 
 
     </Grid>

@@ -8,6 +8,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.UI.Converter;
 using HVTApp.UI.Events;
 using HVTApp.UI.Services;
+using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -40,12 +41,10 @@ namespace HVTApp.UI.ViewModels
 
         protected override async Task LoadOtherAsync()
         {
-            await Task.Factory.StartNew(() =>
-            {
-                ProjectUnits.Clear();
-                ProjectUnits.AddRange(Item.SalesUnits);
-                RefreshGroups();
-            });
+            ProjectUnits.Clear();
+            var salesUnits = await UnitOfWork.GetRepository<SalesUnit>().FindAsync(x => Equals(x.Project, Item.Model));
+            ProjectUnits.AddRange(salesUnits.Select(x => new SalesUnitWrapper(x)));
+            RefreshGroups();
         }
 
         private IUnitGroup _selectedUnitGroup;
@@ -61,10 +60,10 @@ namespace HVTApp.UI.ViewModels
         {
             ProjectUnits.Clear();
 
-            if (_isGrouping)
-                ProjectUnits.AddRange(Item.SalesUnits.ToUnitGroups());
-            else
-                ProjectUnits.AddRange(Item.SalesUnits);
+            //if (_isGrouping)
+            //    ProjectUnits.AddRange(Item.SalesUnits.ToUnitGroups());
+            //else
+            //    ProjectUnits.AddRange(Item.SalesUnits);
 
             OnPropertyChanged(nameof(SelectedUnitGroup));
         }
@@ -72,9 +71,6 @@ namespace HVTApp.UI.ViewModels
 
         private async void AddProjectUnitGroupCommand_Execute()
         {
-            //var projectUnit = new ProjectUnit {Project = Item.Model, ProjectId = Item.Model.Id};
-            //var unitGroup = new UnitGroup(new List<ProjectUnit> {projectUnit});
-            //var updated = await _container.Resolve<IUpdateDetailsService>().UpdateDetails<UnitGroup, ProjectUnitGroupWrapper>(new ProjectUnitGroupWrapper(unitGroup), UnitOfWork);
         }
 
         private void EditCommand_Execute()

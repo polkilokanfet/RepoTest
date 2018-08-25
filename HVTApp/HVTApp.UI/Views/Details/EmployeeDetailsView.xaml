@@ -19,19 +19,23 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="PhoneNumber"/>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Телефон"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Email"/>
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="e-mail"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Person"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Персона"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.Person}" 
                                     AddItemCommand="{Binding SelectPersonCommand}" 
                                     RemoveItemCommand="{Binding ClearPersonCommand}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Компания"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
@@ -39,11 +43,13 @@
                                     AddItemCommand="{Binding SelectCompanyCommand}" 
                                     RemoveItemCommand="{Binding ClearCompanyCommand}"/>
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Position"/>
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Должность"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.Position}" 
                                     AddItemCommand="{Binding SelectPositionCommand}" 
                                     RemoveItemCommand="{Binding ClearPositionCommand}"/>
+
 
 
     </Grid>

@@ -201,11 +201,9 @@ namespace HVTApp.UI.Lookup
 
         public HVTApp.Model.POCOs.Currency FirstCurrency => GetValue<HVTApp.Model.POCOs.Currency>();
 
-        public System.Double FirstCurrencyValue => GetValue<System.Double>();
-
         public HVTApp.Model.POCOs.Currency SecondCurrency => GetValue<HVTApp.Model.POCOs.Currency>();
 
-        public System.Double SecondCurrencyValue => GetValue<System.Double>();
+        public System.Double ExchangeRate => GetValue<System.Double>();
 
         #endregion
 	}
@@ -252,7 +250,8 @@ namespace HVTApp.UI.Lookup
 		}
 		protected override void RefreshLookups()
         {
-			 			Product?.Refresh(Entity.Product);
+			 			Offer?.Refresh(Entity.Offer);
+			Product?.Refresh(Entity.Product);
 			Facility?.Refresh(Entity.Facility);
 			PaymentConditionSet?.Refresh(Entity.PaymentConditionSet);
 		}
@@ -265,6 +264,8 @@ namespace HVTApp.UI.Lookup
         #endregion
 
         #region ComplexProperties
+	    public OfferLookup Offer { get { return GetLookup<OfferLookup>(); } }
+
 	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
@@ -671,20 +672,18 @@ namespace HVTApp.UI.Lookup
 		}
 		protected override void RefreshLookups()
         {
-			 			Product?.Refresh(Entity.Product);
-			Facility?.Refresh(Entity.Facility);
-			PaymentConditionSet?.Refresh(Entity.PaymentConditionSet);
+			 			Project?.Refresh(Entity.Project);
 			Producer?.Refresh(Entity.Producer);
 			Order?.Refresh(Entity.Order);
 			Specification?.Refresh(Entity.Specification);
 			Address?.Refresh(Entity.Address);
+			Offer?.Refresh(Entity.Offer);
+			Product?.Refresh(Entity.Product);
+			Facility?.Refresh(Entity.Facility);
+			PaymentConditionSet?.Refresh(Entity.PaymentConditionSet);
 		}
 		
         #region SimpleProperties
-        public System.Double Cost => GetValue<System.Double>();
-
-        public System.Nullable<System.Int32> ProductionTerm => GetValue<System.Nullable<System.Int32>>();
-
         public System.DateTime DeliveryDateExpected => GetValue<System.DateTime>();
 
         public System.Nullable<System.DateTime> RealizationDate => GetValue<System.Nullable<System.DateTime>>();
@@ -711,14 +710,14 @@ namespace HVTApp.UI.Lookup
 
         public System.Nullable<System.DateTime> DeliveryDate => GetValue<System.Nullable<System.DateTime>>();
 
+        public System.Double Cost => GetValue<System.Double>();
+
+        public System.Nullable<System.Int32> ProductionTerm => GetValue<System.Nullable<System.Int32>>();
+
         #endregion
 
         #region ComplexProperties
-	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
-
-	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
-
-	    public PaymentConditionSetLookup PaymentConditionSet { get { return GetLookup<PaymentConditionSetLookup>(); } }
+	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
 
 	    public CompanyLookup Producer { get { return GetLookup<CompanyLookup>(); } }
 
@@ -727,6 +726,14 @@ namespace HVTApp.UI.Lookup
 	    public SpecificationLookup Specification { get { return GetLookup<SpecificationLookup>(); } }
 
 	    public AddressLookup Address { get { return GetLookup<AddressLookup>(); } }
+
+	    public OfferLookup Offer { get { return GetLookup<OfferLookup>(); } }
+
+	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
+
+	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
+
+	    public PaymentConditionSetLookup PaymentConditionSet { get { return GetLookup<PaymentConditionSetLookup>(); } }
 
         #endregion
 	}
