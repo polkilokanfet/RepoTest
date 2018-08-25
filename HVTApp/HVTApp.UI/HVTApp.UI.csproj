@@ -247,11 +247,12 @@
     <Compile Include="Wrapper\Custom\Validate\FacilityWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\SpecificationWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\PaymentConditionSetWrapper.cs" />
-    <Compile Include="Wrapper\DataService\EntityWrapperDataServices.g.cs" />
-    <Compile Include="Wrapper\DataService\IEntityWrapperDataService.cs" />
-    <Compile Include="Wrapper\DataService\EntityWrapperDataService.cs" />
+    <Compile Include="Wrapper\DataService\IWrapperDataService.cs" />
+    <Compile Include="Wrapper\DataService\IWrapperRepository.cs" />
+    <Compile Include="Wrapper\DataService\WrapperRepository.cs" />
     <Compile Include="Wrapper\DataService\WrapperDataService.cs" />
     <Compile Include="Wrapper\DataService\WrapperDataService.g.cs" />
+    <Compile Include="Wrapper\DataService\WrapperRepositories.g.cs" />
     <Compile Include="Wrapper\IProductUnit.cs" />
     <Compile Include="Generator.cs">
       <DependentUpon>Generator.tt</DependentUpon>

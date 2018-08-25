@@ -19,8 +19,8 @@
     GenerateWrappers(modelTypes);
 	SaveGeneratedCodeAsFile("Wrappers.g.cs", "Wrapper");
 
-	GenerateEntityWrapperDataServices(modelTypes);
-	SaveGeneratedCodeAsFile("EntityWrapperDataServices.g.cs", "Wrapper/DataService");
+	GenerateWrapperRepositories(modelTypes);
+	SaveGeneratedCodeAsFile("WrapperRepositories.g.cs", "Wrapper/DataService");
 
 	GenerateWrapperDataService(modelTypes);
 	SaveGeneratedCodeAsFile("WrapperDataService.g.cs", "Wrapper/DataService");
@@ -32,7 +32,7 @@
 <#+
 
 
-	private void GenerateEntityWrapperDataServices(IEnumerable<Type> modelTypes)
+	private void GenerateWrapperRepositories(IEnumerable<Type> modelTypes)
 	{
 #>using System.Linq;
 using HVTApp.Infrastructure;
@@ -44,19 +44,9 @@ namespace HVTApp.UI.Wrapper
         foreach(var modelType in modelTypes)
         {
  #>
-    public partial class <#=modelType.Name#>WrapperDataService : EntityWrapperDataService<<#=modelType.Name#>, <#=modelType.Name#>Wrapper>
+    public partial class <#=modelType.Name#>WrapperRepository : WrapperRepository<<#=modelType.Name#>, <#=modelType.Name#>Wrapper>
     {
-        public <#=modelType.Name#>WrapperDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-		
-		protected override <#=modelType.Name#>Wrapper GenerateWrapper(<#=modelType.Name#> model)
-        {
-            if (ExistsWrappers.Any(x => x.Model.Id == model.Id))
-                return ExistsWrappers.Single(x => x.Model.Id == model.Id);
-
-            var wrapper = new <#=modelType.Name#>Wrapper(model);
-            ExistsWrappers.Add(wrapper);
-            return wrapper;
-        }
+        public <#=modelType.Name#>WrapperRepository(IUnitOfWork unitOfWork) : base(unitOfWork) { }
     }
 
 <#+
@@ -80,7 +70,7 @@ namespace HVTApp.UI.Wrapper
         foreach(var modelType in modelTypes)
         {
 #>
-            <#=modelType.Name#>WrapperDataService = new <#=modelType.Name#>WrapperDataService(unitOfWork);
+            <#=modelType.Name#>WrapperRepository = new <#=modelType.Name#>WrapperRepository(unitOfWork);
 <#+
         }
 #>
@@ -90,7 +80,7 @@ namespace HVTApp.UI.Wrapper
         foreach(var modelType in modelTypes)
         {
 #>
-        public <#=modelType.Name#>WrapperDataService <#=modelType.Name#>WrapperDataService { get; }
+        private <#=modelType.Name#>WrapperRepository <#=modelType.Name#>WrapperRepository;
 <#+
         }
 #>
