@@ -18,6 +18,7 @@ namespace HVTApp.UI.ViewModels
     {
         private OfferUnitsGroup _selectedOfferUnitsGroup;
         public ObservableCollection<OfferUnitsGroup> OfferUnitsGroups { get; } = new ObservableCollection<OfferUnitsGroup>();
+        public ObservableCollection<OfferUnitWrapper> OfferUnits { get; } = new ObservableCollection<OfferUnitWrapper>();
 
         public OfferUnitsGroup SelectedOfferUnitsGroup
         {
@@ -130,10 +131,11 @@ namespace HVTApp.UI.ViewModels
 
         protected override async Task LoadOtherAsync()
         {
-            await Task.Factory.StartNew(() =>
-            {
-                GroupingOfferUnits();
-            });
+            await Task.Factory.StartNew(() => { GroupingOfferUnits(); });
+
+            var offerUnits = await UnitOfWork.GetRepository<OfferUnit>().FindAsync(x => Equals(x.Offer, Item.Model));
+            OfferUnits.AddRange(offerUnits.Select(x => new OfferUnitWrapper(x)));
+
         }
 
         private void GroupingOfferUnits()

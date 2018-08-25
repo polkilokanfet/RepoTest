@@ -97,6 +97,9 @@
     <Compile Include="Controls\SaveButtonControl.xaml.cs">
       <DependentUpon>SaveButtonControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\UnitListControl.xaml.cs">
+      <DependentUpon>UnitListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converter\ToUnitGroupsConverters.cs" />
     <Compile Include="Events\AfterRemoveEntityEvents\AfterRemoveEntityEvents.g.cs" />
     <Compile Include="Events\AfterSaveEntityEvents\AfterSaveEntityEvents.g.cs" />
@@ -375,6 +378,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\SaveButtonControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UnitListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

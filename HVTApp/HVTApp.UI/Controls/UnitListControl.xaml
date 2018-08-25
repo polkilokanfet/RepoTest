@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="HVTApp.UI.Controls.UnitListControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:HVTApp.UI.Controls"
+             xmlns:dataPresenter="http://infragistics.com/DataPresenter"
+             x:Name="Root">
+    
+    <dataPresenter:XamDataGrid x:Name="UnitListGrid"
+                               DataSource="{Binding Units, ElementName=Root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                               SelectedDataItem="{Binding SelectedUnit, ElementName=Root}">
+
+        <!--<dataPresenter:XamDataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+            </ContextMenu>
+        </dataPresenter:XamDataGrid.ContextMenu>-->
+
+        <dataPresenter:XamDataGrid.FieldLayouts>
+            <dataPresenter:FieldLayout>
+                <dataPresenter:FieldLayout.Fields>
+                    <dataPresenter:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
+                    <dataPresenter:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
+                    <dataPresenter:NumericField Name="Cost" Label="Стоимость" Width="Auto" />
+                    <dataPresenter:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" />
+                    <dataPresenter:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
+                </dataPresenter:FieldLayout.Fields>
+            </dataPresenter:FieldLayout>
+
+        </dataPresenter:XamDataGrid.FieldLayouts>
+    </dataPresenter:XamDataGrid>
+    
+</UserControl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
