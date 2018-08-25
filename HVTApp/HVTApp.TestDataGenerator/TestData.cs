@@ -38,9 +38,10 @@ namespace HVTApp.TestDataGenerator
         public ActivityField ActivityFieldBuilder;
         public ActivityField ActivityFieldElectricityTransmission;
         public ActivityField ActivityFieldElectricityGeneration;
-                
+
         public LocalityType LocalityTypeCity;
-                
+        public LocalityType LocalityVillage;
+
         public Locality LocalityMoscow;
         public Locality LocalityEkaterinburg;
                 
@@ -49,15 +50,17 @@ namespace HVTApp.TestDataGenerator
                 
         public District DistrictCentr;
         public District DistrictUral;
-                
+
         public Country CountryRussia;
-                
-        public Address AddressOfUetm;
-        public Address AddressOfStation;
-        public Address AddressOfSubstation;
-                
+        public Country CountryUsa;
+
+        public Address AddressUetm;
+        public Address AddressStation;
+        public Address AddressSubstation;
+
         public EmployeesPosition EmployeesPositionDirector;
-                
+        public EmployeesPosition EmployeesPositionManager;
+
         public Person PersonIvanov;
         public Person PersonPetrov;
         public Person PersonSidorov;
@@ -69,9 +72,10 @@ namespace HVTApp.TestDataGenerator
         public UserRole UserRoleDataBaseFiller;
         public UserRole UserRoleAdmin;
         public UserRole UserRoleSalesManager;
-                
+
         public User UserIvanov;
-                
+        public User UserPetrov;
+
         public Project ProjectSubstation;
         public Project ProjectStation;
 
@@ -155,10 +159,12 @@ namespace HVTApp.TestDataGenerator
                                
         public Order OrderVeb110;
         public Order OrderZng110;
-                
+
         public Contract ContractMrsk;
-                
+        public Contract ContractFsk;
+
         public Specification SpecificationMrsk1;
+        public Specification SpecificationFsk;
 
         public TenderType TenderTypeProject;
         public TenderType TenderTypeWork;
@@ -209,7 +215,8 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateLocalityTypes()
         {
-            LocalityTypeCity.Clone(new LocalityType {FullName = "Город", ShortName = "г."});
+            LocalityTypeCity.Clone(new LocalityType { FullName = "Город", ShortName = "г." });
+            LocalityVillage.Clone(new LocalityType { FullName = "Деревня", ShortName = "д." });
         }
 
         private void GenerateLocalities()
@@ -232,14 +239,15 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateCountries()
         {
-            CountryRussia.Clone(new Country {Name = "Россия"});
+            CountryRussia.Clone(new Country { Name = "Россия" });
+            CountryUsa.Clone(new Country { Name = "США" });
         }
 
         private void GenerateAddresses()
         {
-            AddressOfUetm.Clone(new Address {Description = "ул.Фронтовых бригад, д.22", Locality = LocalityEkaterinburg});
-            AddressOfStation.Clone(new Address {Description = "ул.Станционная, 5", Locality = LocalityEkaterinburg});
-            AddressOfSubstation.Clone(new Address {Description = "ул.ПодСтанционная, 25", Locality = LocalityMoscow});
+            AddressUetm.Clone(new Address {Description = "ул.Фронтовых бригад, д.22", Locality = LocalityEkaterinburg});
+            AddressStation.Clone(new Address {Description = "ул.Станционная, 5", Locality = LocalityEkaterinburg});
+            AddressSubstation.Clone(new Address {Description = "ул.ПодСтанционная, 25", Locality = LocalityMoscow});
         }
 
         private void GenerateBankDetails()
@@ -249,7 +257,7 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateCompanies()
         {
-            CompanyUetm.Clone(new Company {FullName = "Уралэлектротяжмаш", ShortName = "УЭТМ", Inn = "23658", Form = CompanyFormAo, AddressLegal = AddressOfUetm, BankDetailsList= new List<BankDetails> {BankDetailsOfUetm}, ActivityFilds= new List<ActivityField> {ActivityFieldProducerOfHvt}});
+            CompanyUetm.Clone(new Company {FullName = "Уралэлектротяжмаш", ShortName = "УЭТМ", Inn = "23658", Form = CompanyFormAo, AddressLegal = AddressUetm, BankDetailsList= new List<BankDetails> {BankDetailsOfUetm}, ActivityFilds= new List<ActivityField> {ActivityFieldProducerOfHvt}});
             CompanyRosseti.Clone(new Company {FullName = "Россети", ShortName = "Россети", Inn = "23659", Form = CompanyFormPao, ActivityFilds= new List<ActivityField> {ActivityFieldElectricityTransmission}});
             CompanyFsk.Clone(new Company {FullName = "Федеральная сетевая компания", ShortName = "ФСК", Inn = "26658", Form = CompanyFormPao, ActivityFilds= new List<ActivityField> {ActivityFieldElectricityTransmission}, ParentCompany = CompanyRosseti});
             CompanyMrsk.Clone(new Company {FullName = "Межрегиональные распределительные сети", Inn = "23358", ShortName = "МРСК", Form = CompanyFormPao, ActivityFilds= new List<ActivityField> {ActivityFieldElectricityTransmission}, ParentCompany = CompanyRosseti});
@@ -265,14 +273,15 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateEmployeesPositions()
         {
-            EmployeesPositionDirector.Clone(new EmployeesPosition {Name = "Директор"});
+            EmployeesPositionDirector.Clone(new EmployeesPosition { Name = "Директор" });
+            EmployeesPositionManager.Clone(new EmployeesPosition { Name = "Менеджер" });
         }
 
         private void GenerateEmployees()
         {
-            EmployeeIvanov.Clone(new Employee {Person = PersonIvanov, Position = EmployeesPositionDirector, Company = CompanyUetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36"});
-            EmployeePetrov.Clone(new Employee {Person = PersonPetrov, Position = EmployeesPositionDirector, Company = CompanyFsk, Email = "iii@mail.ru", PhoneNumber = "326-36-36"});
-            EmployeeSidorov.Clone(new Employee {Person = PersonSidorov, Position = EmployeesPositionDirector, Company = CompanyEnel, Email = "iii@mail.ru", PhoneNumber = "326-36-36"});
+            EmployeeIvanov.Clone(new Employee {Person = PersonIvanov, Position = EmployeesPositionManager, Company = CompanyUetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36"});
+            EmployeePetrov.Clone(new Employee {Person = PersonPetrov, Position = EmployeesPositionDirector, Company = CompanyFsk, Email = "pii@mail.ru", PhoneNumber = "326-36-37"});
+            EmployeeSidorov.Clone(new Employee {Person = PersonSidorov, Position = EmployeesPositionDirector, Company = CompanyEnel, Email = "sii@mail.ru", PhoneNumber = "326-36-38"});
         }
 
         private void GenerateUserRoles()
@@ -284,7 +293,8 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateUsers()
         {
-            UserIvanov.Clone(new User {Login = "1", Password = StringToGuidService.GetHashString("1"), Employee = EmployeeIvanov, PersonalNumber = "333", Roles= new List<UserRole> {UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager}});
+            UserIvanov.Clone(new User { Login = "1", Password = StringToGuidService.GetHashString("1"), Employee = EmployeeIvanov, PersonalNumber = "1", Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager } });
+            UserPetrov.Clone(new User { Login = "2", Password = StringToGuidService.GetHashString("2"), Employee = EmployeePetrov, PersonalNumber = "2", Roles = new List<UserRole> { UserRoleDataBaseFiller } });
         }
 
         private void GenerateProjects()
@@ -301,8 +311,8 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateFacilities()
         {
-            FacilitySubstation.Clone(new Facility {Name = "Первая", Type = FacilityTypeSubStation, OwnerCompany = CompanyMrsk, Address = AddressOfSubstation});
-            FacilityStation.Clone(new Facility {Name = "Свердловская", Type = FacilityTypeStation, OwnerCompany = CompanyEnel, Address = AddressOfStation});
+            FacilitySubstation.Clone(new Facility {Name = "Первая", Type = FacilityTypeSubStation, OwnerCompany = CompanyMrsk, Address = AddressSubstation});
+            FacilityStation.Clone(new Facility {Name = "Свердловская", Type = FacilityTypeStation, OwnerCompany = CompanyEnel, Address = AddressStation});
         }
 
         private void GenerateMeasures()
@@ -469,12 +479,12 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateSalesUnits()
         {
-            SalesUnitVeb1101Full.Clone(new SalesUnit {Project = ProjectStation, Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "1", ProductionTerm = 90, AssembleTerm = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50, Address = AddressOfSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation, DependentProducts = new List<ProductDependent> {new ProductDependent {Product = ProductZip1, Amount = 2 } } });
-            SalesUnitVeb1102Full.Clone(new SalesUnit { Project = ProjectStation, Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "2", ProductionTerm = 90, AssembleTerm = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50, Address = AddressOfSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation, DependentProducts = new List<ProductDependent> { new ProductDependent { Product = ProductZip1, Amount = 3 }}}); 
+            SalesUnitVeb1101Full.Clone(new SalesUnit {Project = ProjectStation, Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "1", ProductionTerm = 90, AssembleTerm = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50, Address = AddressSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation, DependentProducts = new List<ProductDependent> {new ProductDependent {Product = ProductZip1, Amount = 2 } } });
+            SalesUnitVeb1102Full.Clone(new SalesUnit { Project = ProjectStation, Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "2", ProductionTerm = 90, AssembleTerm = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50, Address = AddressSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation, DependentProducts = new List<ProductDependent> { new ProductDependent { Product = ProductZip1, Amount = 3 }}}); 
             
-            SalesUnitZng1101Full.Clone(new SalesUnit { Project = ProjectStation, Product = ProductZng110, Order = OrderZng110, SerialNumber = "5", ProductionTerm = 90, AssembleTerm = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50,  Address = AddressOfSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation}); 
-            SalesUnitZng1102Full.Clone(new SalesUnit { Project = ProjectStation, Product = ProductZng110, Order = OrderZng110, SerialNumber = "6", ProductionTerm = 90, AssembleTerm = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50,  Address = AddressOfSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation}); 
-            SalesUnitZng1103Full.Clone(new SalesUnit { Project = ProjectStation, Product = ProductZng110, Order = OrderZng110, SerialNumber = "7", ProductionTerm = 90, AssembleTerm = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50,  Address = AddressOfSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation});
+            SalesUnitZng1101Full.Clone(new SalesUnit { Project = ProjectStation, Product = ProductZng110, Order = OrderZng110, SerialNumber = "5", ProductionTerm = 90, AssembleTerm = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50,  Address = AddressSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation}); 
+            SalesUnitZng1102Full.Clone(new SalesUnit { Project = ProjectStation, Product = ProductZng110, Order = OrderZng110, SerialNumber = "6", ProductionTerm = 90, AssembleTerm = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50,  Address = AddressSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation}); 
+            SalesUnitZng1103Full.Clone(new SalesUnit { Project = ProjectStation, Product = ProductZng110, Order = OrderZng110, SerialNumber = "7", ProductionTerm = 90, AssembleTerm = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50,  Address = AddressSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilitySubstation});
 
             SalesUnitVeb1101.Clone(new SalesUnit { Project = ProjectSubstation, Product = ProductVeb110, Cost = 3000000, Producer = CompanyUetm, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200)});
             SalesUnitVeb1102.Clone(new SalesUnit { Project = ProjectSubstation, Product = ProductVeb110, Cost = 3000000, Producer = CompanyUetm, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, DeliveryDate = DateTime.Today.AddDays(200)});
@@ -528,12 +538,14 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateContracts()
         {
-            ContractMrsk.Clone(new Contract {Contragent = CompanyMrsk, Date = DateTime.Today, Number = "0401-17-0001"});
+            ContractMrsk.Clone(new Contract { Contragent = CompanyMrsk, Date = DateTime.Today, Number = "0401-17-0001" });
+            ContractFsk.Clone(new Contract { Contragent = CompanyFsk, Date = DateTime.Today, Number = "0401-17-0002" });
         }
 
         private void GenerateSpecifications()
         {
-            SpecificationMrsk1.Clone(new Specification {Contract = ContractMrsk, Date = ContractMrsk.Date, Number = "1", Vat = 0.18});
+            SpecificationMrsk1.Clone(new Specification { Contract = ContractMrsk, Date = ContractMrsk.Date, Number = "1", Vat = 0.18 });
+            SpecificationFsk.Clone(new Specification { Contract = ContractFsk, Date = ContractMrsk.Date, Number = "1", Vat = 0.18 });
         }
 
         private void GeneratePaymentConditions()

@@ -36,6 +36,8 @@ namespace HVTApp.Model.POCOs
         }
     }
 
+    [Designation("Тип тендера")]
+    [DesignationPlural("Типы тендера")]
     public class TenderType : BaseEntity
     {
         public string Name { get; set; }

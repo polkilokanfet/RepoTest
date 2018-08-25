@@ -104,7 +104,8 @@
                                   Grid.Column="0"
                                   Grid.ColumnSpan="2"
                                   UnitsGroups="{Binding OfferUnits, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ProductUnitsToProductGroupsConverter}}"
-                                  SelectedUnitsGroup="{Binding SelectedOfferUnits, Mode=OneWayToSource, Converter={StaticResource ProductGroupToProductUnitsConverter}}"/>
+                                  SelectedUnitsGroup="{Binding SelectedOfferUnits, Mode=OneWayToSource, Converter={StaticResource ProductGroupToProductUnitsConverter}}"
+                                  ChangeFacilityCommand="{Binding ChangeFacilityCommand}"/>
 
 
 

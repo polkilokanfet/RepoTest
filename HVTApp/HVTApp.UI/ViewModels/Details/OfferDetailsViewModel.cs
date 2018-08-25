@@ -1,9 +1,11 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
+using Microsoft.Practices.Unity;
 using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
@@ -13,9 +15,26 @@ namespace HVTApp.UI.ViewModels
         public ValidatableChangeTrackingCollection<OfferUnitWrapper> OfferUnits { get; private set; }
         public IEnumerable<IProductUnit> SelectedOfferUnits { get; set; }
 
+        public ICommand ChangeFacilityCommand { get; private set; }
+
 
         protected override void InitSpecialCommands()
         {
+            ChangeFacilityCommand = new DelegateCommand(ChangeFacilityCommand_Execute);
+            OnPropertyChanged(nameof(ChangeFacilityCommand));
+        }
+
+        private async void ChangeFacilityCommand_Execute()
+        {
+            var facilities = await UnitOfWork.GetRepository<Facility>().GetAllAsync();
+            var facility = Container.Resolve<ISelectService>().SelectItem(facilities);
+            if (facility == null) return;
+            var facilityWrapper = new FacilityWrapper(facility);
+            foreach (var offerUnit in OfferUnits)
+            {
+                offerUnit.Facility = facilityWrapper;
+            }
+            OnPropertyChanged(nameof(OfferUnits));
         }
 
         protected override async Task LoadOtherAsync()

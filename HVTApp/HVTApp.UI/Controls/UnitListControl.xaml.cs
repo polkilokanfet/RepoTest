@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using HVTApp.UI.Converter;
-using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.Controls
 {
@@ -31,6 +31,17 @@ namespace HVTApp.UI.Controls
         {
             get { return (IProductUnitsGroup) GetValue(SelectedUnitsGroupProperty); }
             set { SetValue(SelectedUnitsGroupProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty ChangeFacilityCommandProperty = DependencyProperty.Register(
+            "ChangeFacilityCommand", typeof(ICommand), typeof(UnitListControl), new PropertyMetadata(default(ICommand)));
+
+        public ICommand ChangeFacilityCommand
+        {
+            get { return (ICommand) GetValue(ChangeFacilityCommandProperty); }
+            set { SetValue(ChangeFacilityCommandProperty, value); }
         }
     }
 }
