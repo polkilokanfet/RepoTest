@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using HVTApp.UI.Converter;
 using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.Controls
@@ -12,24 +13,24 @@ namespace HVTApp.UI.Controls
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty UnitsProperty = DependencyProperty.Register(
-            "Units", typeof(IEnumerable<IProductUnit>), typeof(UnitListControl), new PropertyMetadata(default(IEnumerable<IProductUnit>)));
+        public static readonly DependencyProperty UnitsGroupsProperty = DependencyProperty.Register(
+            "UnitsGroups", typeof(IEnumerable<IProductUnitsGroup>), typeof(UnitListControl), new PropertyMetadata(default(IEnumerable<IProductUnitsGroup>)));
 
-        public IEnumerable<IProductUnit> Units
+        public IEnumerable<IProductUnitsGroup> UnitsGroups
         {
-            get { return (IEnumerable<IProductUnit>) GetValue(UnitsProperty); }
-            set { SetValue(UnitsProperty, value); }
+            get { return (IEnumerable<IProductUnitsGroup>) GetValue(UnitsGroupsProperty); }
+            set { SetValue(UnitsGroupsProperty, value); }
         }
 
 
 
-        public static readonly DependencyProperty SelectedUnitProperty = DependencyProperty.Register(
-            "SelectedUnit", typeof(IProductUnit), typeof(UnitListControl), new PropertyMetadata(default(IProductUnit)));
+        public static readonly DependencyProperty SelectedUnitsGroupProperty = DependencyProperty.Register(
+            "SelectedUnitsGroup", typeof(IProductUnitsGroup), typeof(UnitListControl), new PropertyMetadata(default(IProductUnitsGroup)));
 
-        public IProductUnit SelectedUnit
+        public IProductUnitsGroup SelectedUnitsGroup
         {
-            get { return (IProductUnit) GetValue(SelectedUnitProperty); }
-            set { SetValue(SelectedUnitProperty, value); }
+            get { return (IProductUnitsGroup) GetValue(SelectedUnitsGroupProperty); }
+            set { SetValue(SelectedUnitsGroupProperty, value); }
         }
     }
 }

@@ -6,8 +6,8 @@
              x:Name="Root">
     
     <dataPresenter:XamDataGrid x:Name="UnitListGrid"
-                               DataSource="{Binding Units, ElementName=Root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                               SelectedDataItem="{Binding SelectedUnit, ElementName=Root}">
+                               DataSource="{Binding UnitsGroups, ElementName=Root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                               SelectedDataItem="{Binding SelectedUnitsGroup, ElementName=Root}">
 
         <!--<dataPresenter:XamDataGrid.ContextMenu>
             <ContextMenu>
@@ -20,9 +20,10 @@
                 <dataPresenter:FieldLayout.Fields>
                     <dataPresenter:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
                     <dataPresenter:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
+                    <dataPresenter:NumericField Name="Amount" Label="Кол." Width="Auto" />
                     <dataPresenter:NumericField Name="Cost" Label="Стоимость" Width="Auto" />
-                    <dataPresenter:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" />
-                    <dataPresenter:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
+                    <!--<dataPresenter:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" />
+                    <dataPresenter:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />-->
                 </dataPresenter:FieldLayout.Fields>
             </dataPresenter:FieldLayout>
 

@@ -12,13 +12,15 @@ namespace HVTApp.UI.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null) return null;
+
             var productUnits = value as IEnumerable<IProductUnit>;
-            if (productUnits == null) throw new ArgumentException();
+            if (productUnits == null) throw new ArgumentException("В конвертер переданы не юниты!");
 
             //Группируем по ключу: продукт + объект + стоимость
             var groups = productUnits.GroupBy(x => new ProductGrouper
             {
-                Product=x.Product,
+                Product = x.Product,
                 Facility = x.Facility,
                 Cost = x.Cost
             }, new Comparer());
@@ -28,9 +30,15 @@ namespace HVTApp.UI.Converter
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            if (value == null) return null;
+
+            var productUnitGroups = value as IEnumerable<ProductUnitsGroup>;
+            if (productUnitGroups == null) throw new ArgumentException("В конвертер переданы не группы!");
+            return productUnitGroups.SelectMany(x => x.ProductUnits);
         }
     }
+
+
 
     internal class ProductGrouper
     {

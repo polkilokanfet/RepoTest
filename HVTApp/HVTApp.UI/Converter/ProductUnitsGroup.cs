@@ -7,7 +7,18 @@ using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.Converter
 {
-    public class ProductUnitsGroup : INotifyPropertyChanged
+    public interface IProductUnitsGroup
+    {
+        List<IProductUnit> ProductUnits { get; }
+        FacilityWrapper Facility { get; set; }
+        ProductWrapper Product { get; set; }
+        double Cost { get; set; }
+        int Amount { get; }
+        double Total { get; }
+        double MarginalIncome { get; set; }
+    }
+
+    public class ProductUnitsGroup : INotifyPropertyChanged, IProductUnitsGroup
     {
         private double _marginalIncome;
         public ProductUnitsGroup(IEnumerable<IProductUnit> productUnits)

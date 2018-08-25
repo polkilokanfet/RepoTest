@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,8 +18,19 @@ namespace HVTApp.UI.ViewModels
     public partial class OfferDetailsViewModel
     {
         private OfferUnitsGroup _selectedOfferUnitsGroup;
+        private IEnumerable<IProductUnit> _selectedOfferUnits;
         public ObservableCollection<OfferUnitsGroup> OfferUnitsGroups { get; } = new ObservableCollection<OfferUnitsGroup>();
         public ObservableCollection<OfferUnitWrapper> OfferUnits { get; } = new ObservableCollection<OfferUnitWrapper>();
+
+        public IEnumerable<IProductUnit> SelectedOfferUnits
+        {
+            get { return _selectedOfferUnits; }
+            set
+            {
+                _selectedOfferUnits = value;
+                
+            }
+        }
 
         public OfferUnitsGroup SelectedOfferUnitsGroup
         {
@@ -135,7 +147,7 @@ namespace HVTApp.UI.ViewModels
 
             var offerUnits = await UnitOfWork.GetRepository<OfferUnit>().FindAsync(x => Equals(x.Offer, Item.Model));
             OfferUnits.AddRange(offerUnits.Select(x => new OfferUnitWrapper(x)));
-
+            OnPropertyChanged(nameof(OfferUnits));
         }
 
         private void GroupingOfferUnits()
