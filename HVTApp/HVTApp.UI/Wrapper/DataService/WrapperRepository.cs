@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 
@@ -21,21 +22,19 @@ namespace HVTApp.UI.Wrapper
             var models = await UnitOfWork.GetRepository<TModel>().GetAllAsync();
             var result = new List<TWrapper>();
             foreach (var model in models)
-            {
-                var wrapper = GenerateWrapper(model);
-                result.Add(wrapper);
-            }
+                result.Add(await GenerateWrapper(model));
             return result;
         }
 
         public async Task<TWrapper> GetByIdAsync(Guid id)
         {
-            return GenerateWrapper(await UnitOfWork.GetRepository<TModel>().GetByIdAsync(id));
+            var model = await UnitOfWork.GetRepository<TModel>().GetByIdAsync(id);
+            return await GenerateWrapper(model);
         }
 
-        protected virtual TWrapper GenerateWrapper(TModel model)
+        protected virtual async Task<TWrapper> GenerateWrapper(TModel model)
         {
-            return Activator.CreateInstance(typeof(TWrapper), model) as TWrapper;
+            return await Task.Factory.StartNew(() => Activator.CreateInstance(typeof(TWrapper), model) as TWrapper);
         }
 
         public void Delete(TWrapper wrapper)

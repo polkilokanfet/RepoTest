@@ -58,19 +58,19 @@ namespace HVTApp.UI.Wrapper
 
 	private void GenerateWrapperDataService(IEnumerable<Type> modelTypes)
 	{
-#>using HVTApp.Infrastructure;
+#>using System.Data.Entity;
 
 namespace HVTApp.UI.Wrapper
 {
     public partial class WrapperDataService
     {
-        public WrapperDataService(IUnitOfWork unitOfWork)
+        public WrapperDataService(DbContext context) : base(context)
         {
 <#+
         foreach(var modelType in modelTypes)
         {
 #>
-            <#=modelType.Name#>WrapperRepository = new <#=modelType.Name#>WrapperRepository(unitOfWork);
+            <#=modelType.Name#>WrapperRepository = new <#=modelType.Name#>WrapperRepository(this);
 <#+
         }
 #>

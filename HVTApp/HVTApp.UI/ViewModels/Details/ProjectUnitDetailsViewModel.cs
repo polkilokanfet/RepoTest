@@ -32,26 +32,26 @@ namespace HVTApp.UI.ViewModels
             var product = await Container.Resolve<IGetProductService>().GetProductAsync(Item.Product?.Model);
             if (product == null || Equals(Item.Product?.Id, product.Id)) return;
 
-            var prod = await UnitOfWork.GetRepository<Product>().GetByIdAsync(product.Id);
+            var prod = await WrapperDataService.GetRepository<Product>().GetByIdAsync(product.Id);
             Item.Product = new ProductWrapper(prod);
         }
 
         private async void SelectProject_Execute()
         {
-            var projects = await UnitOfWork.GetRepository<Project>().GetAllAsync();
+            var projects = await WrapperDataService.GetRepository<Project>().GetAllAsync();
             //SelectAndSetWrapper<Project, ProjectWrapper>(projects, nameof(Item.Project));
         }
 
         private async void SelectProducer_Execute()
         {
-            var companies = await UnitOfWork.GetRepository<Company>().GetAllAsync();
+            var companies = await WrapperDataService.GetRepository<Company>().GetAllAsync();
             var producers = companies.Where(x => x.ActivityFilds.Select(af => af.ActivityFieldEnum).Contains(ActivityFieldEnum.ProducerOfHighVoltageEquipment));
             SelectAndSetWrapper<Company, CompanyWrapper>(producers, nameof(Item.Producer));
         }
 
         private async void SelectFacility_Execute()
         {
-            var facilities = await UnitOfWork.GetRepository<Facility>().GetAllAsync();
+            var facilities = await WrapperDataService.GetRepository<Facility>().GetAllAsync();
             SelectAndSetWrapper<Facility, FacilityWrapper>(facilities, nameof(Item.Facility));
         }
 

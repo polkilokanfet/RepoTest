@@ -11,11 +11,11 @@ namespace HVTApp.UI.ViewModels
     {
         public ObservableCollection<UnitGroup> UnitGroups { get; } = new ObservableCollection<UnitGroup>();
 
-        protected override async Task LoadOtherAsync()
-        {
-            var groups = (await UnitOfWork.GetRepository<SalesUnit>().FindAsync(x => x.Specification?.Id == Item.Id)).
-                Select(x => new SalesUnitWrapper(x)).ToUnitGroups();
-            UnitGroups.AddRange(groups);
-        }
+        //protected override async Task LoadOtherAsync()
+        //{
+        //    var groups = (await WrapperDataService.GetRepository<SalesUnit>().FindAsync(x => x.Specification?.Id == Item.Id)).
+        //        Select(x => new SalesUnitWrapper(x)).ToUnitGroups();
+        //    UnitGroups.AddRange(groups);
+        //}
     }
 }

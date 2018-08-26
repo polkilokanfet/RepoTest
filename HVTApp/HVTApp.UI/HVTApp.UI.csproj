@@ -249,6 +249,7 @@
     <Compile Include="Wrapper\Custom\Validate\PaymentConditionSetWrapper.cs" />
     <Compile Include="Wrapper\DataService\IWrapperDataService.cs" />
     <Compile Include="Wrapper\DataService\IWrapperRepository.cs" />
+    <Compile Include="Wrapper\DataService\CustomRepositories\OfferWrapperRepository.cs" />
     <Compile Include="Wrapper\DataService\WrapperRepository.cs" />
     <Compile Include="Wrapper\DataService\WrapperDataService.cs" />
     <Compile Include="Wrapper\DataService\WrapperDataService.g.cs" />

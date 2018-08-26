@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
@@ -26,7 +24,7 @@ namespace HVTApp.UI.ViewModels
 
         private async void ChangeFacilityCommand_Execute()
         {
-            var facilities = await UnitOfWork.GetRepository<Facility>().GetAllAsync();
+            var facilities = await WrapperDataService.GetRepository<Facility>().GetAllAsync();
             var facility = Container.Resolve<ISelectService>().SelectItem(facilities);
             if (facility == null) return;
             var facilityWrapper = new FacilityWrapper(facility);
@@ -35,25 +33,6 @@ namespace HVTApp.UI.ViewModels
                 offerUnit.Facility = facilityWrapper;
             }
             OnPropertyChanged(nameof(OfferUnits));
-        }
-
-        protected override async Task LoadOtherAsync()
-        {
-            var offerUnits = await UnitOfWork.GetRepository<OfferUnit>().FindAsync(x => Equals(x.Offer, Item.Model));
-            OfferUnits = new ValidatableChangeTrackingCollection<OfferUnitWrapper>(offerUnits.Select(x => new OfferUnitWrapper(x)));
-            OnPropertyChanged(nameof(OfferUnits));
-            foreach (var offerUnit in OfferUnits)
-            {
-                offerUnit.PropertyChanged += (sender, args) =>
-                {
-                    ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
-                };
-            }
-        }
-
-        protected override bool SaveCommand_CanExecute()
-        {
-            return base.SaveCommand_CanExecute() || OfferUnits.IsChanged || OfferUnits.Any(x => x.IsChanged);
         }
     }
 }

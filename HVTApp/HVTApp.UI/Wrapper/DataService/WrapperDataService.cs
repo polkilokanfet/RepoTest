@@ -1,12 +1,13 @@
 ﻿using System.Linq;
 using System.Reflection;
+using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Wrapper
 {
-    public partial class WrapperDataService : IWrapperDataService
+    public partial class WrapperDataService : UnitOfWork, IWrapperDataService
     {
-        public IWrapperRepository<TModel, TWrapper> GetWrapperRepository<TModel, TWrapper>() 
+        public IWrapperRepository<TModel, TWrapper> GetRepository<TModel, TWrapper>() 
             where TModel : class, IBaseEntity 
             where TWrapper : class, IWrapper<TModel>
         {

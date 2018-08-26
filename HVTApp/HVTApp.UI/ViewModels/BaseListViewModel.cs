@@ -140,7 +140,7 @@ namespace HVTApp.UI.ViewModels
         private async Task<IEnumerable<TEntity>> GetItems()
         {
             throw new NotImplementedException();
-            //return await UnitOfWork.GetRepository<TEntity>().GetAllAsNoTrackingAsync();
+            //return await WrapperDataService.GetRepository<TEntity>().GetAllAsNoTrackingAsync();
         }
 
 

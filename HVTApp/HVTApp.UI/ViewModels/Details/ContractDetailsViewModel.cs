@@ -8,9 +8,9 @@ namespace HVTApp.UI.ViewModels
     {
         public ObservableCollection<Specification> Specifications { get; } = new ObservableCollection<Specification>();
 
-        protected override async Task LoadOtherAsync()
-        {
-            Specifications.AddRange(await UnitOfWork.GetRepository<Specification>().FindAsync(x => x.Contract.Id == Item.Id));
-        }
+        //protected override async Task LoadOtherAsync()
+        //{
+        //    Specifications.AddRange(await WrapperDataService.GetRepository<Specification>().FindAsync(x => x.Contract.Id == Item.Id));
+        //}
     }
 }

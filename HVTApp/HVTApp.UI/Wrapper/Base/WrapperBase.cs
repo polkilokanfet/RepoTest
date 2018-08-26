@@ -279,9 +279,16 @@ namespace HVTApp.UI.Wrapper
             RegisterTrackingObject(wrapper);
         }
 
+        /// <summary>
+        /// Регистрация коллекции и синхронизация ее с моделью.
+        /// </summary>
+        /// <typeparam name="TWrapperCollection">Тип обертки</typeparam>
+        /// <typeparam name="TModelOfItem">Тип модели</typeparam>
+        /// <param name="wrapperCollection">Коллекция оберток</param>
+        /// <param name="modelCollection">Коллекция моделей</param>
         protected void RegisterCollection<TWrapperCollection, TModelOfItem>(
-            IValidatableChangeTrackingCollection<TWrapperCollection> wrapperCollection, 
-            List<TModelOfItem> modelCollection) 
+            IValidatableChangeTrackingCollection<TWrapperCollection> wrapperCollection,
+            List<TModelOfItem> modelCollection)
 
             where TModelOfItem : class, IBaseEntity
             where TWrapperCollection : WrapperBase<TModelOfItem>
@@ -292,6 +299,13 @@ namespace HVTApp.UI.Wrapper
                 modelCollection.AddRange(wrapperCollection.Select(w => w.Model));
                 Validate();
             };
+            RegisterTrackingObject(wrapperCollection);
+        }
+
+        protected void RegisterCollectionWithoutSynch<TWrapperCollection>(IValidatableChangeTrackingCollection<TWrapperCollection> wrapperCollection)
+            where TWrapperCollection : IWrapper<IBaseEntity>
+        {
+            wrapperCollection.CollectionChanged += (s, e) => { Validate(); };
             RegisterTrackingObject(wrapperCollection);
         }
 
