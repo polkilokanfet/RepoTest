@@ -5,7 +5,8 @@
 			  xmlns:infDP="http://infragistics.com/DataPresenter"
 			  xmlns:infE="http://infragistics.com/Editors"
 			  xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -18,27 +19,31 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Название"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Название" Visibility="{Binding NameVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
-                 Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding NameVisibility, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Тип объекта"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Тип объекта" Visibility="{Binding TypeVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.Type}" 
                                     AddItemCommand="{Binding SelectTypeCommand}" 
-                                    RemoveItemCommand="{Binding ClearTypeCommand}"/>
+                                    RemoveItemCommand="{Binding ClearTypeCommand}"
+									Visibility="{Binding TypeVisibility, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Владелец"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Владелец" Visibility="{Binding OwnerCompanyVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.OwnerCompany}" 
                                     AddItemCommand="{Binding SelectOwnerCompanyCommand}" 
-                                    RemoveItemCommand="{Binding ClearOwnerCompanyCommand}"/>
+                                    RemoveItemCommand="{Binding ClearOwnerCompanyCommand}"
+									Visibility="{Binding OwnerCompanyVisibility, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Местоположение"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Местоположение" Visibility="{Binding AddressVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.Address}" 
                                     AddItemCommand="{Binding SelectAddressCommand}" 
-                                    RemoveItemCommand="{Binding ClearAddressCommand}"/>
+                                    RemoveItemCommand="{Binding ClearAddressCommand}"
+									Visibility="{Binding AddressVisibility, ElementName=Root}"/>
 
 
     </Grid>

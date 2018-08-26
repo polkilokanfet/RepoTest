@@ -5,7 +5,8 @@
 			  xmlns:infDP="http://infragistics.com/DataPresenter"
 			  xmlns:infE="http://infragistics.com/Editors"
 			  xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -16,12 +17,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="RequiredParameters"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="RequiredParameters" Visibility="{Binding RequiredParametersVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.RequiredParameters}"
 										 SelectedItem="{Binding SelectedRequiredParametersItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInRequiredParametersCommand}"
-										 RemoveItemCommand="{Binding RemoveFromRequiredParametersCommand}"/>
+										 RemoveItemCommand="{Binding RemoveFromRequiredParametersCommand}"
+										 Visibility="{Binding RequiredParametersVisibility, ElementName=Root}"/>
 
 
     </Grid>

@@ -5,7 +5,8 @@
 			  xmlns:infDP="http://infragistics.com/DataPresenter"
 			  xmlns:infE="http://infragistics.com/Editors"
 			  xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -22,29 +23,34 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Name" Visibility="{Binding NameVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
-                 Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding NameVisibility, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="StandartDeliveryPeriod"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="StandartDeliveryPeriod" Visibility="{Binding StandartDeliveryPeriodVisibility, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
-                               Value="{Binding Item.StandartDeliveryPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                               Value="{Binding Item.StandartDeliveryPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding StandartDeliveryPeriodVisibility, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="DistanceToEkb"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="DistanceToEkb" Visibility="{Binding DistanceToEkbVisibility, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
-                               Value="{Binding Item.DistanceToEkb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                               Value="{Binding Item.DistanceToEkb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding DistanceToEkbVisibility, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="LocalityType"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="LocalityType" Visibility="{Binding LocalityTypeVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.LocalityType}" 
                                     AddItemCommand="{Binding SelectLocalityTypeCommand}" 
-                                    RemoveItemCommand="{Binding ClearLocalityTypeCommand}"/>
+                                    RemoveItemCommand="{Binding ClearLocalityTypeCommand}"
+									Visibility="{Binding LocalityTypeVisibility, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Region"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="Region" Visibility="{Binding RegionVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.Region}" 
                                     AddItemCommand="{Binding SelectRegionCommand}" 
-                                    RemoveItemCommand="{Binding ClearRegionCommand}"/>
+                                    RemoveItemCommand="{Binding ClearRegionCommand}"
+									Visibility="{Binding RegionVisibility, ElementName=Root}"/>
 
 
     </Grid>

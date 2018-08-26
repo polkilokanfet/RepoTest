@@ -276,6 +276,9 @@ namespace HVTApp.UI.Views
 <#+
         foreach(var modelType in modelTypes)
         {
+
+			var allProperties = modelType.GetProperties().Where(x => !Equals(x.Name, "Id"));
+		
  #>
     public partial class <#=modelType.Name#>DetailsView : ViewBase
     {
@@ -284,7 +287,24 @@ namespace HVTApp.UI.Views
             InitializeComponent();
             DataContext = <#=modelType.Name#>DetailsViewModel;
         }
-    }
+
+<#+ 
+			foreach(var propInfo in allProperties)
+            {
+ #>
+
+        public static readonly DependencyProperty <#=propInfo.Name#>VisibilityProperty = DependencyProperty.Register("<#=propInfo.Name#>Visibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility <#=propInfo.Name#>Visibility
+        {
+            get { return (Visibility) GetValue(<#=propInfo.Name#>VisibilityProperty); }
+            set { SetValue(<#=propInfo.Name#>VisibilityProperty, value); }
+        }
+
+<#+ 
+			}
+
+ #>
+	}
 
 <#+
         }
@@ -318,7 +338,8 @@ namespace HVTApp.UI.Views
 			  xmlns:infDP="http://infragistics.com/DataPresenter"
 			  xmlns:infE="http://infragistics.com/Editors"
 			  xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -354,9 +375,10 @@ namespace HVTApp.UI.Views
     foreach (var property in properties)
     {
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="<#= rowNum #>" MinWidth="200" 
-                 Text="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
 
 <#+ 
 		rowNum++;
@@ -368,9 +390,10 @@ namespace HVTApp.UI.Views
     foreach (var property in properties)
     {
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="<#= rowNum #>" 
-                               Value="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                               Value="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
 
 <#+ 
 		rowNum++;
@@ -382,10 +405,11 @@ namespace HVTApp.UI.Views
     foreach (var property in properties)
     {
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="<#= rowNum #>"
 							   ValueType="core:Int32"
-                               Value="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                               Value="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
 
 <#+ 
 		rowNum++;
@@ -397,9 +421,10 @@ namespace HVTApp.UI.Views
     foreach (var property in properties)
     {
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="<#= rowNum #>" 
-                    SelectedDate="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    SelectedDate="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
 
 <#+ 
 		rowNum++;
@@ -411,11 +436,12 @@ namespace HVTApp.UI.Views
     foreach (var property in properties)
     {
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="<#= rowNum #>" 
                                     Item="{Binding Item.<#=property.Name#>}" 
                                     AddItemCommand="{Binding Select<#=property.Name#>Command}" 
-                                    RemoveItemCommand="{Binding Clear<#=property.Name#>Command}"/>
+                                    RemoveItemCommand="{Binding Clear<#=property.Name#>Command}"
+									Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
 
 <#+ 
 		rowNum++;
@@ -427,12 +453,13 @@ namespace HVTApp.UI.Views
     foreach (var property in properties)
     {
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="<#= rowNum #>"
 										 Items="{Binding Path=Item.<#=property.Name#>}"
 										 SelectedItem="{Binding Selected<#=property.Name#>Item, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddIn<#=property.Name#>Command}"
-										 RemoveItemCommand="{Binding RemoveFrom<#=property.Name#>Command}"/>
+										 RemoveItemCommand="{Binding RemoveFrom<#=property.Name#>Command}"
+										 Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
 
 <#+ 
 		rowNum++;

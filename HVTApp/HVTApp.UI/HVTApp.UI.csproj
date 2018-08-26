@@ -135,6 +135,7 @@
     <Compile Include="ViewModels\Details\IProductCostDependentProductsWrapper.cs" />
     <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\OfferUnitsDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\OfferUnitsGroup.cs" />
     <Compile Include="ViewModels\Details\OfferUnitsGroupDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="ViewModels\Details\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModels\List\CompanyListViewModel.cs" />
     <Compile Include="ViewModels\List\Generated\ListViewModels.g.cs" />
+    <Compile Include="ViewModels\List\OfferListViewModel.cs" />
     <Compile Include="ViewModels\List\PartPriceListViewModel.cs" />
     <Compile Include="ViewModels\List\PaymentPlannedListViewModel.cs" />
     <Compile Include="ViewModels\List\ProjectListViewModel.cs" />
@@ -193,6 +195,9 @@
     <Compile Include="ViewModels\RoleToUpdateAttribute.cs" />
     <Compile Include="ViewModels\List\TenderUnitListViewModel.cs" />
     <Compile Include="Views\Details\cs\DetailsViews.g.cs" />
+    <Compile Include="Views\Details\Custom\OfferUnitsDetailsView.xaml.cs">
+      <DependentUpon>OfferUnitsDetailsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Details\Custom\OfferUnitsGroupDetailsWindow.xaml.cs">
       <DependentUpon>OfferUnitsGroupDetailsWindow.xaml</DependentUpon>
     </Compile>
@@ -437,6 +442,10 @@
     <Page Include="Views\Details\CurrencyExchangeRateDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Details\Custom\OfferUnitsDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Details\DescribeProductBlockTaskDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -28,6 +28,7 @@ namespace HVTApp.UI
         {
             RegisterViews();
 
+            _dialogService.Register<OfferUnitsDetailsViewModel, OfferUnitsDetailsView>();
             _dialogService.Register<UnitGroupViewModel, ProjectUnitGroupWindow>();
             _dialogService.Register<OfferUnitsGroupDetailsViewModel, OfferUnitsGroupDetailsWindow>();
 

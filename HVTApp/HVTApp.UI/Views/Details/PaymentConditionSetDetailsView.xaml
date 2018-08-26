@@ -5,7 +5,8 @@
 			  xmlns:infDP="http://infragistics.com/DataPresenter"
 			  xmlns:infE="http://infragistics.com/Editors"
 			  xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -15,12 +16,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="PaymentConditions"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="PaymentConditions" Visibility="{Binding PaymentConditionsVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.PaymentConditions}"
 										 SelectedItem="{Binding SelectedPaymentConditionsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPaymentConditionsCommand}"
-										 RemoveItemCommand="{Binding RemoveFromPaymentConditionsCommand}"/>
+										 RemoveItemCommand="{Binding RemoveFromPaymentConditionsCommand}"
+										 Visibility="{Binding PaymentConditionsVisibility, ElementName=Root}"/>
 
 
     </Grid>
