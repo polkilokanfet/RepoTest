@@ -128,7 +128,7 @@ namespace HVTApp.UI.ViewModels
 <#+		
 		foreach(var propInfo in modelType.AllComplexProperties())
         {
-#>            _getEntitiesForSelect<#=propInfo.Name#>Command = async () => { return await UnitOfWork.GetRepository<<#=propInfo.PropertyType.Name#>>().GetAllAsync(); };
+#>            _getEntitiesForSelect<#=propInfo.Name#>Command = async () => { return await WrapperDataService.GetRepository<<#=propInfo.PropertyType.Name#>>().GetAllAsync(); };
 <#+		}
 
 		foreach(var propInfo in modelType.AllCollectionProperties())
@@ -136,7 +136,7 @@ namespace HVTApp.UI.ViewModels
 			var itemType = propInfo.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
 			var propertyName = propInfo.Name;
 
-#>			_getEntitiesForAddIn<#=propertyName#>Command = async () => { return await UnitOfWork.GetRepository<<#=itemType#>>().GetAllAsync(); };;
+#>			_getEntitiesForAddIn<#=propertyName#>Command = async () => { return await WrapperDataService.GetRepository<<#=itemType#>>().GetAllAsync(); };;
 <#+		}
 
 #>

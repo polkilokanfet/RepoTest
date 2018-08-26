@@ -16,18 +16,15 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="District"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.District}" 
                                     AddItemCommand="{Binding SelectDistrictCommand}" 
                                     RemoveItemCommand="{Binding ClearDistrictCommand}"/>
-
 
 
     </Grid>

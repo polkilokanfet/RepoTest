@@ -1627,12 +1627,28 @@ namespace HVTApp.UI.Wrapper
         }
 	}
 
-		public partial class SalesUnitWrapper 
+		public partial class SalesUnitWrapper
 	{
 	    public SalesUnitWrapper(SalesUnit model) : base(model) { }
 
 	
         #region SimpleProperties
+        public System.Double Cost
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
+        public bool CostIsChanged => GetIsChanged(nameof(Cost));
+
+        public System.Nullable<System.Int32> ProductionTerm
+        {
+          get { return GetValue<System.Nullable<System.Int32>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Int32> ProductionTermOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(ProductionTerm));
+        public bool ProductionTermIsChanged => GetIsChanged(nameof(ProductionTerm));
+
         public System.DateTime DeliveryDateExpected
         {
           get { return GetValue<System.DateTime>(); }
@@ -1737,22 +1753,6 @@ namespace HVTApp.UI.Wrapper
         public System.Nullable<System.DateTime> DeliveryDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(DeliveryDate));
         public bool DeliveryDateIsChanged => GetIsChanged(nameof(DeliveryDate));
 
-        public System.Double Cost
-        {
-          get { return GetValue<System.Double>(); }
-          set { SetValue(value); }
-        }
-        public System.Double CostOriginalValue => GetOriginalValue<System.Double>(nameof(Cost));
-        public bool CostIsChanged => GetIsChanged(nameof(Cost));
-
-        public System.Nullable<System.Int32> ProductionTerm
-        {
-          get { return GetValue<System.Nullable<System.Int32>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.Int32> ProductionTermOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(ProductionTerm));
-        public bool ProductionTermIsChanged => GetIsChanged(nameof(ProductionTerm));
-
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -1764,6 +1764,24 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
+	    public ProductWrapper Product 
+        {
+            get { return GetWrapper<ProductWrapper>(); }
+            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
+        }
+
+	    public FacilityWrapper Facility 
+        {
+            get { return GetWrapper<FacilityWrapper>(); }
+            set { SetComplexValue<Facility, FacilityWrapper>(Facility, value); }
+        }
+
+	    public PaymentConditionSetWrapper PaymentConditionSet 
+        {
+            get { return GetWrapper<PaymentConditionSetWrapper>(); }
+            set { SetComplexValue<PaymentConditionSet, PaymentConditionSetWrapper>(PaymentConditionSet, value); }
+        }
+
 	    public ProjectWrapper Project 
         {
             get { return GetWrapper<ProjectWrapper>(); }
@@ -1794,44 +1812,26 @@ namespace HVTApp.UI.Wrapper
             set { SetComplexValue<Address, AddressWrapper>(Address, value); }
         }
 
-	    public OfferWrapper Offer 
-        {
-            get { return GetWrapper<OfferWrapper>(); }
-            set { SetComplexValue<Offer, OfferWrapper>(Offer, value); }
-        }
-
-	    public ProductWrapper Product 
-        {
-            get { return GetWrapper<ProductWrapper>(); }
-            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
-        }
-
-	    public FacilityWrapper Facility 
-        {
-            get { return GetWrapper<FacilityWrapper>(); }
-            set { SetComplexValue<Facility, FacilityWrapper>(Facility, value); }
-        }
-
-	    public PaymentConditionSetWrapper PaymentConditionSet 
-        {
-            get { return GetWrapper<PaymentConditionSetWrapper>(); }
-            set { SetComplexValue<PaymentConditionSet, PaymentConditionSetWrapper>(PaymentConditionSet, value); }
-        }
-
         #endregion
 
         #region CollectionProperties
-        public IValidatableChangeTrackingCollection<PaymentActualWrapper> PaymentsActual { get; private set; }
-
-        public IValidatableChangeTrackingCollection<PaymentPlannedListWrapper> PaymentsPlannedSaved { get; private set; }
-
         public IValidatableChangeTrackingCollection<ProductDependentWrapper> DependentProducts { get; private set; }
 
         public IValidatableChangeTrackingCollection<ServiceWrapper> Services { get; private set; }
 
+        public IValidatableChangeTrackingCollection<PaymentActualWrapper> PaymentsActual { get; private set; }
+
+        public IValidatableChangeTrackingCollection<PaymentPlannedListWrapper> PaymentsPlannedSaved { get; private set; }
+
         #endregion
         public override void InitializeComplexProperties()
         {
+            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
+
+            InitializeComplexProperty<FacilityWrapper>(nameof(Facility), Model.Facility == null ? null : new FacilityWrapper(Model.Facility));
+
+            InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetWrapper(Model.PaymentConditionSet));
+
             InitializeComplexProperty<ProjectWrapper>(nameof(Project), Model.Project == null ? null : new ProjectWrapper(Model.Project));
 
             InitializeComplexProperty<CompanyWrapper>(nameof(Producer), Model.Producer == null ? null : new CompanyWrapper(Model.Producer));
@@ -1842,26 +1842,10 @@ namespace HVTApp.UI.Wrapper
 
             InitializeComplexProperty<AddressWrapper>(nameof(Address), Model.Address == null ? null : new AddressWrapper(Model.Address));
 
-            InitializeComplexProperty<OfferWrapper>(nameof(Offer), Model.Offer == null ? null : new OfferWrapper(Model.Offer));
-
-            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
-
-            InitializeComplexProperty<FacilityWrapper>(nameof(Facility), Model.Facility == null ? null : new FacilityWrapper(Model.Facility));
-
-            InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetWrapper(Model.PaymentConditionSet));
-
         }
   
         protected override void InitializeCollectionProperties()
         {
-          if (Model.PaymentsActual == null) throw new ArgumentException("PaymentsActual cannot be null");
-          PaymentsActual = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(Model.PaymentsActual.Select(e => new PaymentActualWrapper(e)));
-          RegisterCollection(PaymentsActual, Model.PaymentsActual);
-
-          if (Model.PaymentsPlannedSaved == null) throw new ArgumentException("PaymentsPlannedSaved cannot be null");
-          PaymentsPlannedSaved = new ValidatableChangeTrackingCollection<PaymentPlannedListWrapper>(Model.PaymentsPlannedSaved.Select(e => new PaymentPlannedListWrapper(e)));
-          RegisterCollection(PaymentsPlannedSaved, Model.PaymentsPlannedSaved);
-
           if (Model.DependentProducts == null) throw new ArgumentException("DependentProducts cannot be null");
           DependentProducts = new ValidatableChangeTrackingCollection<ProductDependentWrapper>(Model.DependentProducts.Select(e => new ProductDependentWrapper(e)));
           RegisterCollection(DependentProducts, Model.DependentProducts);
@@ -1869,6 +1853,14 @@ namespace HVTApp.UI.Wrapper
           if (Model.Services == null) throw new ArgumentException("Services cannot be null");
           Services = new ValidatableChangeTrackingCollection<ServiceWrapper>(Model.Services.Select(e => new ServiceWrapper(e)));
           RegisterCollection(Services, Model.Services);
+
+          if (Model.PaymentsActual == null) throw new ArgumentException("PaymentsActual cannot be null");
+          PaymentsActual = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(Model.PaymentsActual.Select(e => new PaymentActualWrapper(e)));
+          RegisterCollection(PaymentsActual, Model.PaymentsActual);
+
+          if (Model.PaymentsPlannedSaved == null) throw new ArgumentException("PaymentsPlannedSaved cannot be null");
+          PaymentsPlannedSaved = new ValidatableChangeTrackingCollection<PaymentPlannedListWrapper>(Model.PaymentsPlannedSaved.Select(e => new PaymentPlannedListWrapper(e)));
+          RegisterCollection(PaymentsPlannedSaved, Model.PaymentsPlannedSaved);
 
         }
 	}

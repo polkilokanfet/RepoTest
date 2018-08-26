@@ -16,20 +16,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="ProductBlock"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.ProductBlock}" 
                                     AddItemCommand="{Binding SelectProductBlockCommand}" 
                                     RemoveItemCommand="{Binding ClearProductBlockCommand}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="1" Content="Product"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.Product}" 
                                     AddItemCommand="{Binding SelectProductCommand}" 
                                     RemoveItemCommand="{Binding ClearProductCommand}"/>
-
 
 
     </Grid>

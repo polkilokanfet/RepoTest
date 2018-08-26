@@ -18,12 +18,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="ChildProductsAmount"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ChildProductsAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="ParentProductParameters"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
@@ -32,14 +30,12 @@
 										 AddItemCommand="{Binding AddInParentProductParametersCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParentProductParametersCommand}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="ChildProductParameters"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.ChildProductParameters}"
 										 SelectedItem="{Binding SelectedChildProductParametersItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInChildProductParametersCommand}"
 										 RemoveItemCommand="{Binding RemoveFromChildProductParametersCommand}"/>
-
 
 
     </Grid>

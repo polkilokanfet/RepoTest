@@ -24,11 +24,9 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Комментарий"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Запрос"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -36,13 +34,11 @@
                                     AddItemCommand="{Binding SelectRequestDocumentCommand}" 
                                     RemoveItemCommand="{Binding ClearRequestDocumentCommand}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="Автор"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.Author}" 
                                     AddItemCommand="{Binding SelectAuthorCommand}" 
                                     RemoveItemCommand="{Binding ClearAuthorCommand}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Отправитель"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
@@ -50,13 +46,11 @@
                                     AddItemCommand="{Binding SelectSenderEmployeeCommand}" 
                                     RemoveItemCommand="{Binding ClearSenderEmployeeCommand}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="4" Content="Получатель"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.RecipientEmployee}" 
                                     AddItemCommand="{Binding SelectRecipientEmployeeCommand}" 
                                     RemoveItemCommand="{Binding ClearRecipientEmployeeCommand}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="5" Content="Исходящий"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
@@ -64,13 +58,11 @@
                                     AddItemCommand="{Binding SelectRegistrationDetailsOfSenderCommand}" 
                                     RemoveItemCommand="{Binding ClearRegistrationDetailsOfSenderCommand}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="6" Content="Входящий"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
                                     Item="{Binding Item.RegistrationDetailsOfRecipient}" 
                                     AddItemCommand="{Binding SelectRegistrationDetailsOfRecipientCommand}" 
                                     RemoveItemCommand="{Binding ClearRegistrationDetailsOfRecipientCommand}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="7" Content="Копия"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="7"
@@ -78,7 +70,6 @@
 										 SelectedItem="{Binding SelectedCopyToRecipientsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInCopyToRecipientsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromCopyToRecipientsCommand}"/>
-
 
 
     </Grid>

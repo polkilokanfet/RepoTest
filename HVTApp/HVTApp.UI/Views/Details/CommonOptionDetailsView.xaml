@@ -19,24 +19,20 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="CalculationPriceTerm"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0"
 							   ValueType="core:Int32"
                                Value="{Binding Item.CalculationPriceTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="StandartTermFromStartToEndProduction"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
 							   ValueType="core:Int32"
                                Value="{Binding Item.StandartTermFromStartToEndProduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="StandartTermFromPickToEndProduction"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2"
 							   ValueType="core:Int32"
                                Value="{Binding Item.StandartTermFromPickToEndProduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
-
 
 
     </Grid>

@@ -35,7 +35,7 @@
                     <infg:TextField Name="Order" Label="Заказ" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Specification" Label="Спецификация" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Address" Label="Адрес доставки" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Offer" Label="ТКП" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Offer" Label="Offer" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>

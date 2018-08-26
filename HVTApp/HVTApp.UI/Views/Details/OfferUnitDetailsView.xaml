@@ -22,17 +22,14 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Срок производства"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ProductionTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
-
         <Label Grid.Column="0" Grid.Row ="1" Content="Стоимость"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
                                Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
-
 
         <Label Grid.Column="0" Grid.Row ="2" Content="ТКП"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
@@ -40,13 +37,11 @@
                                     AddItemCommand="{Binding SelectOfferCommand}" 
                                     RemoveItemCommand="{Binding ClearOfferCommand}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="3" Content="Продукт"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.Product}" 
                                     AddItemCommand="{Binding SelectProductCommand}" 
                                     RemoveItemCommand="{Binding ClearProductCommand}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="4" Content="Объект"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
@@ -54,13 +49,11 @@
                                     AddItemCommand="{Binding SelectFacilityCommand}" 
                                     RemoveItemCommand="{Binding ClearFacilityCommand}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="5" Content="Условия оплаты"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
                                     Item="{Binding Item.PaymentConditionSet}" 
                                     AddItemCommand="{Binding SelectPaymentConditionSetCommand}" 
                                     RemoveItemCommand="{Binding ClearPaymentConditionSetCommand}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="6" Content="DependentProducts"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
@@ -69,14 +62,12 @@
 										 AddItemCommand="{Binding AddInDependentProductsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromDependentProductsCommand}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="7" Content="Services"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="7"
 										 Items="{Binding Path=Item.Services}"
 										 SelectedItem="{Binding SelectedServicesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInServicesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromServicesCommand}"/>
-
 
 
     </Grid>

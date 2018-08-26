@@ -11,6 +11,8 @@ namespace HVTApp.UI.Wrapper
     {
         Task<IEnumerable<TWrapper>> GetAllAsync();
         Task<TWrapper> GetByIdAsync(Guid id);
+        Task<List<TWrapper>> FindAsync(Func<TWrapper, bool> predicate);
+
         void Delete(TWrapper wrapper);
         void Add(TWrapper wrapper);
     }

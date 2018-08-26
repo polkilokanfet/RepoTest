@@ -46,7 +46,7 @@ namespace HVTApp.UI.Wrapper
  #>
     public partial class <#=modelType.Name#>WrapperRepository : WrapperRepository<<#=modelType.Name#>, <#=modelType.Name#>Wrapper>
     {
-        public <#=modelType.Name#>WrapperRepository(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+        public <#=modelType.Name#>WrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
     }
 
 <#+

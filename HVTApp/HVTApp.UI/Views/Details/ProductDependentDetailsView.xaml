@@ -16,19 +16,16 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Amount"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0"
 							   ValueType="core:Int32"
                                Value="{Binding Item.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Product"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.Product}" 
                                     AddItemCommand="{Binding SelectProductCommand}" 
                                     RemoveItemCommand="{Binding ClearProductCommand}"/>
-
 
 
     </Grid>

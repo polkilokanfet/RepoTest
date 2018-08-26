@@ -8,8 +8,8 @@ namespace HVTApp.UI.Wrapper
     {
         protected override async Task<OfferWrapper> GenerateWrapper(Offer offer)
         {
-            var offerUnits = await UnitOfWork.GetRepository<OfferUnit>().FindAsync(x => Equals(x.Offer, offer));
-            return new OfferWrapper(offer, offerUnits.Select(x => new OfferUnitWrapper(x)));
+            var offerUnits = await UnitOfWorkWrapper.GetWrapperRepository<OfferUnit, OfferUnitWrapper>().FindAsync(x => Equals(x.Offer.Model, offer));
+            return new OfferWrapper(offer, offerUnits);
         }
     }
 }

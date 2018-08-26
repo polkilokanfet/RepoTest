@@ -18,26 +18,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="BankName"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.BankName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="BankIdentificationCode"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.BankIdentificationCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="CorrespondentAccount"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.CorrespondentAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="3" Content="CheckingAccount"/>
         <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                  Text="{Binding Item.CheckingAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
 
 
     </Grid>

@@ -1,18 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Events;
 using HVTApp.UI.Wrapper;
@@ -1490,6 +1475,18 @@ namespace HVTApp.UI.ViewModels
 
     public partial class SalesUnitDetailsViewModel : BaseDetailsViewModel<SalesUnitWrapper, SalesUnit, AfterSaveSalesUnitEvent>
     {
+		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
+		public ICommand SelectProductCommand { get; }
+		public ICommand ClearProductCommand { get; }
+
+		private Func<Task<List<Facility>>> _getEntitiesForSelectFacilityCommand;
+		public ICommand SelectFacilityCommand { get; }
+		public ICommand ClearFacilityCommand { get; }
+
+		private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
+		public ICommand SelectPaymentConditionSetCommand { get; }
+		public ICommand ClearPaymentConditionSetCommand { get; }
+
 		private Func<Task<List<Project>>> _getEntitiesForSelectProjectCommand;
 		public ICommand SelectProjectCommand { get; }
 		public ICommand ClearProjectCommand { get; }
@@ -1509,54 +1506,6 @@ namespace HVTApp.UI.ViewModels
 		private Func<Task<List<Address>>> _getEntitiesForSelectAddressCommand;
 		public ICommand SelectAddressCommand { get; }
 		public ICommand ClearAddressCommand { get; }
-
-		private Func<Task<List<Offer>>> _getEntitiesForSelectOfferCommand;
-		public ICommand SelectOfferCommand { get; }
-		public ICommand ClearOfferCommand { get; }
-
-		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
-		public ICommand SelectProductCommand { get; }
-		public ICommand ClearProductCommand { get; }
-
-		private Func<Task<List<Facility>>> _getEntitiesForSelectFacilityCommand;
-		public ICommand SelectFacilityCommand { get; }
-		public ICommand ClearFacilityCommand { get; }
-
-		private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
-		public ICommand SelectPaymentConditionSetCommand { get; }
-		public ICommand ClearPaymentConditionSetCommand { get; }
-
-		private Func<Task<List<PaymentActual>>> _getEntitiesForAddInPaymentsActualCommand;
-		public ICommand AddInPaymentsActualCommand { get; }
-		public ICommand RemoveFromPaymentsActualCommand { get; }
-		private PaymentActualWrapper _selectedPaymentsActualItem;
-		public PaymentActualWrapper SelectedPaymentsActualItem 
-		{ 
-			get { return _selectedPaymentsActualItem; }
-			set 
-			{ 
-				if (Equals(_selectedPaymentsActualItem, value)) return;
-				_selectedPaymentsActualItem = value;
-				OnPropertyChanged();
-				((DelegateCommand)RemoveFromPaymentsActualCommand).RaiseCanExecuteChanged();
-			}
-		}
-
-		private Func<Task<List<PaymentPlannedList>>> _getEntitiesForAddInPaymentsPlannedSavedCommand;
-		public ICommand AddInPaymentsPlannedSavedCommand { get; }
-		public ICommand RemoveFromPaymentsPlannedSavedCommand { get; }
-		private PaymentPlannedListWrapper _selectedPaymentsPlannedSavedItem;
-		public PaymentPlannedListWrapper SelectedPaymentsPlannedSavedItem 
-		{ 
-			get { return _selectedPaymentsPlannedSavedItem; }
-			set 
-			{ 
-				if (Equals(_selectedPaymentsPlannedSavedItem, value)) return;
-				_selectedPaymentsPlannedSavedItem = value;
-				OnPropertyChanged();
-				((DelegateCommand)RemoveFromPaymentsPlannedSavedCommand).RaiseCanExecuteChanged();
-			}
-		}
 
 		private Func<Task<List<ProductDependent>>> _getEntitiesForAddInDependentProductsCommand;
 		public ICommand AddInDependentProductsCommand { get; }
@@ -1590,8 +1539,49 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+		private Func<Task<List<PaymentActual>>> _getEntitiesForAddInPaymentsActualCommand;
+		public ICommand AddInPaymentsActualCommand { get; }
+		public ICommand RemoveFromPaymentsActualCommand { get; }
+		private PaymentActualWrapper _selectedPaymentsActualItem;
+		public PaymentActualWrapper SelectedPaymentsActualItem 
+		{ 
+			get { return _selectedPaymentsActualItem; }
+			set 
+			{ 
+				if (Equals(_selectedPaymentsActualItem, value)) return;
+				_selectedPaymentsActualItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromPaymentsActualCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+		private Func<Task<List<PaymentPlannedList>>> _getEntitiesForAddInPaymentsPlannedSavedCommand;
+		public ICommand AddInPaymentsPlannedSavedCommand { get; }
+		public ICommand RemoveFromPaymentsPlannedSavedCommand { get; }
+		private PaymentPlannedListWrapper _selectedPaymentsPlannedSavedItem;
+		public PaymentPlannedListWrapper SelectedPaymentsPlannedSavedItem 
+		{ 
+			get { return _selectedPaymentsPlannedSavedItem; }
+			set 
+			{ 
+				if (Equals(_selectedPaymentsPlannedSavedItem, value)) return;
+				_selectedPaymentsPlannedSavedItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromPaymentsPlannedSavedCommand).RaiseCanExecuteChanged();
+			}
+		}
+
         public SalesUnitDetailsViewModel(IUnityContainer container) : base(container) 
 		{
+			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
+			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
+
+			SelectFacilityCommand = new DelegateCommand(SelectFacilityCommand_Execute);
+			ClearFacilityCommand = new DelegateCommand(ClearFacilityCommand_Execute);
+
+			SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute);
+			ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute);
+
 			SelectProjectCommand = new DelegateCommand(SelectProjectCommand_Execute);
 			ClearProjectCommand = new DelegateCommand(ClearProjectCommand_Execute);
 
@@ -1607,17 +1597,11 @@ namespace HVTApp.UI.ViewModels
 			SelectAddressCommand = new DelegateCommand(SelectAddressCommand_Execute);
 			ClearAddressCommand = new DelegateCommand(ClearAddressCommand_Execute);
 
-			SelectOfferCommand = new DelegateCommand(SelectOfferCommand_Execute);
-			ClearOfferCommand = new DelegateCommand(ClearOfferCommand_Execute);
+			AddInDependentProductsCommand = new DelegateCommand(AddInDependentProductsCommand_Execute);
+			RemoveFromDependentProductsCommand = new DelegateCommand(RemoveFromDependentProductsCommand_Execute, RemoveFromDependentProductsCommand_CanExecute);
 
-			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
-			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
-
-			SelectFacilityCommand = new DelegateCommand(SelectFacilityCommand_Execute);
-			ClearFacilityCommand = new DelegateCommand(ClearFacilityCommand_Execute);
-
-			SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute);
-			ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute);
+			AddInServicesCommand = new DelegateCommand(AddInServicesCommand_Execute);
+			RemoveFromServicesCommand = new DelegateCommand(RemoveFromServicesCommand_Execute, RemoveFromServicesCommand_CanExecute);
 
 			AddInPaymentsActualCommand = new DelegateCommand(AddInPaymentsActualCommand_Execute);
 			RemoveFromPaymentsActualCommand = new DelegateCommand(RemoveFromPaymentsActualCommand_Execute, RemoveFromPaymentsActualCommand_CanExecute);
@@ -1625,31 +1609,54 @@ namespace HVTApp.UI.ViewModels
 			AddInPaymentsPlannedSavedCommand = new DelegateCommand(AddInPaymentsPlannedSavedCommand_Execute);
 			RemoveFromPaymentsPlannedSavedCommand = new DelegateCommand(RemoveFromPaymentsPlannedSavedCommand_Execute, RemoveFromPaymentsPlannedSavedCommand_CanExecute);
 
-			AddInDependentProductsCommand = new DelegateCommand(AddInDependentProductsCommand_Execute);
-			RemoveFromDependentProductsCommand = new DelegateCommand(RemoveFromDependentProductsCommand_Execute, RemoveFromDependentProductsCommand_CanExecute);
-
-			AddInServicesCommand = new DelegateCommand(AddInServicesCommand_Execute);
-			RemoveFromServicesCommand = new DelegateCommand(RemoveFromServicesCommand_Execute, RemoveFromServicesCommand_CanExecute);
-
 		}
 
 
         protected override void InitDefaultGetMethods()
 		{
+            _getEntitiesForSelectProductCommand = async () => { return await WrapperDataService.GetRepository<Product>().GetAllAsync(); };
+            _getEntitiesForSelectFacilityCommand = async () => { return await WrapperDataService.GetRepository<Facility>().GetAllAsync(); };
+            _getEntitiesForSelectPaymentConditionSetCommand = async () => { return await WrapperDataService.GetRepository<PaymentConditionSet>().GetAllAsync(); };
             _getEntitiesForSelectProjectCommand = async () => { return await WrapperDataService.GetRepository<Project>().GetAllAsync(); };
             _getEntitiesForSelectProducerCommand = async () => { return await WrapperDataService.GetRepository<Company>().GetAllAsync(); };
             _getEntitiesForSelectOrderCommand = async () => { return await WrapperDataService.GetRepository<Order>().GetAllAsync(); };
             _getEntitiesForSelectSpecificationCommand = async () => { return await WrapperDataService.GetRepository<Specification>().GetAllAsync(); };
             _getEntitiesForSelectAddressCommand = async () => { return await WrapperDataService.GetRepository<Address>().GetAllAsync(); };
-            _getEntitiesForSelectOfferCommand = async () => { return await WrapperDataService.GetRepository<Offer>().GetAllAsync(); };
-            _getEntitiesForSelectProductCommand = async () => { return await WrapperDataService.GetRepository<Product>().GetAllAsync(); };
-            _getEntitiesForSelectFacilityCommand = async () => { return await WrapperDataService.GetRepository<Facility>().GetAllAsync(); };
-            _getEntitiesForSelectPaymentConditionSetCommand = async () => { return await WrapperDataService.GetRepository<PaymentConditionSet>().GetAllAsync(); };
-			_getEntitiesForAddInPaymentsActualCommand = async () => { return await WrapperDataService.GetRepository<PaymentActual>().GetAllAsync(); };;
-			_getEntitiesForAddInPaymentsPlannedSavedCommand = async () => { return await WrapperDataService.GetRepository<PaymentPlannedList>().GetAllAsync(); };;
 			_getEntitiesForAddInDependentProductsCommand = async () => { return await WrapperDataService.GetRepository<ProductDependent>().GetAllAsync(); };;
 			_getEntitiesForAddInServicesCommand = async () => { return await WrapperDataService.GetRepository<Service>().GetAllAsync(); };;
+			_getEntitiesForAddInPaymentsActualCommand = async () => { return await WrapperDataService.GetRepository<PaymentActual>().GetAllAsync(); };;
+			_getEntitiesForAddInPaymentsPlannedSavedCommand = async () => { return await WrapperDataService.GetRepository<PaymentPlannedList>().GetAllAsync(); };;
 		}
+		private async void SelectProductCommand_Execute() 
+		{
+            SelectAndSetWrapper<Product, ProductWrapper>(await _getEntitiesForSelectProductCommand(), nameof(Item.Product), Item.Product?.Id);
+		}
+
+		private void ClearProductCommand_Execute() 
+		{
+		Item.Product = null;		    
+		}
+
+		private async void SelectFacilityCommand_Execute() 
+		{
+            SelectAndSetWrapper<Facility, FacilityWrapper>(await _getEntitiesForSelectFacilityCommand(), nameof(Item.Facility), Item.Facility?.Id);
+		}
+
+		private void ClearFacilityCommand_Execute() 
+		{
+		Item.Facility = null;		    
+		}
+
+		private async void SelectPaymentConditionSetCommand_Execute() 
+		{
+            SelectAndSetWrapper<PaymentConditionSet, PaymentConditionSetWrapper>(await _getEntitiesForSelectPaymentConditionSetCommand(), nameof(Item.PaymentConditionSet), Item.PaymentConditionSet?.Id);
+		}
+
+		private void ClearPaymentConditionSetCommand_Execute() 
+		{
+		Item.PaymentConditionSet = null;		    
+		}
+
 		private async void SelectProjectCommand_Execute() 
 		{
             SelectAndSetWrapper<Project, ProjectWrapper>(await _getEntitiesForSelectProjectCommand(), nameof(Item.Project), Item.Project?.Id);
@@ -1700,45 +1707,35 @@ namespace HVTApp.UI.ViewModels
 		Item.Address = null;		    
 		}
 
-		private async void SelectOfferCommand_Execute() 
-		{
-            SelectAndSetWrapper<Offer, OfferWrapper>(await _getEntitiesForSelectOfferCommand(), nameof(Item.Offer), Item.Offer?.Id);
-		}
+			private async void AddInDependentProductsCommand_Execute()
+			{
+				SelectAndAddInListWrapper<ProductDependent, ProductDependentWrapper>(await _getEntitiesForAddInDependentProductsCommand(), Item.DependentProducts);
+			}
 
-		private void ClearOfferCommand_Execute() 
-		{
-		Item.Offer = null;		    
-		}
+			private void RemoveFromDependentProductsCommand_Execute()
+			{
+				Item.DependentProducts.Remove(SelectedDependentProductsItem);
+			}
 
-		private async void SelectProductCommand_Execute() 
-		{
-            SelectAndSetWrapper<Product, ProductWrapper>(await _getEntitiesForSelectProductCommand(), nameof(Item.Product), Item.Product?.Id);
-		}
+			private bool RemoveFromDependentProductsCommand_CanExecute()
+			{
+				return SelectedDependentProductsItem != null;
+			}
 
-		private void ClearProductCommand_Execute() 
-		{
-		Item.Product = null;		    
-		}
+			private async void AddInServicesCommand_Execute()
+			{
+				SelectAndAddInListWrapper<Service, ServiceWrapper>(await _getEntitiesForAddInServicesCommand(), Item.Services);
+			}
 
-		private async void SelectFacilityCommand_Execute() 
-		{
-            SelectAndSetWrapper<Facility, FacilityWrapper>(await _getEntitiesForSelectFacilityCommand(), nameof(Item.Facility), Item.Facility?.Id);
-		}
+			private void RemoveFromServicesCommand_Execute()
+			{
+				Item.Services.Remove(SelectedServicesItem);
+			}
 
-		private void ClearFacilityCommand_Execute() 
-		{
-		Item.Facility = null;		    
-		}
-
-		private async void SelectPaymentConditionSetCommand_Execute() 
-		{
-            SelectAndSetWrapper<PaymentConditionSet, PaymentConditionSetWrapper>(await _getEntitiesForSelectPaymentConditionSetCommand(), nameof(Item.PaymentConditionSet), Item.PaymentConditionSet?.Id);
-		}
-
-		private void ClearPaymentConditionSetCommand_Execute() 
-		{
-		Item.PaymentConditionSet = null;		    
-		}
+			private bool RemoveFromServicesCommand_CanExecute()
+			{
+				return SelectedServicesItem != null;
+			}
 
 			private async void AddInPaymentsActualCommand_Execute()
 			{
@@ -1768,36 +1765,6 @@ namespace HVTApp.UI.ViewModels
 			private bool RemoveFromPaymentsPlannedSavedCommand_CanExecute()
 			{
 				return SelectedPaymentsPlannedSavedItem != null;
-			}
-
-			private async void AddInDependentProductsCommand_Execute()
-			{
-				SelectAndAddInListWrapper<ProductDependent, ProductDependentWrapper>(await _getEntitiesForAddInDependentProductsCommand(), Item.DependentProducts);
-			}
-
-			private void RemoveFromDependentProductsCommand_Execute()
-			{
-				Item.DependentProducts.Remove(SelectedDependentProductsItem);
-			}
-
-			private bool RemoveFromDependentProductsCommand_CanExecute()
-			{
-				return SelectedDependentProductsItem != null;
-			}
-
-			private async void AddInServicesCommand_Execute()
-			{
-				SelectAndAddInListWrapper<Service, ServiceWrapper>(await _getEntitiesForAddInServicesCommand(), Item.Services);
-			}
-
-			private void RemoveFromServicesCommand_Execute()
-			{
-				Item.Services.Remove(SelectedServicesItem);
-			}
-
-			private bool RemoveFromServicesCommand_CanExecute()
-			{
-				return SelectedServicesItem != null;
 			}
 
 

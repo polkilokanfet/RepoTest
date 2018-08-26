@@ -10,25 +10,33 @@ namespace HVTApp.UI.Wrapper
         where TModel : class, IBaseEntity 
         where TWrapper : class, IWrapper<TModel>
     {
-        protected readonly IUnitOfWork UnitOfWork;
+        protected readonly IUnitOfWorkWrapper UnitOfWorkWrapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        protected WrapperRepository(IUnitOfWork unitOfWork)
+        protected WrapperRepository(IWrapperDataService unitOfWork)
         {
-            UnitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
+            UnitOfWorkWrapper = unitOfWork;
         }
 
         public virtual async Task<IEnumerable<TWrapper>> GetAllAsync()
         {
-            var models = await UnitOfWork.GetRepository<TModel>().GetAllAsync();
+            var models = await _unitOfWork.GetRepository<TModel>().GetAllAsync();
             var result = new List<TWrapper>();
             foreach (var model in models)
                 result.Add(await GenerateWrapper(model));
             return result;
         }
 
+        public async Task<List<TWrapper>> FindAsync(Func<TWrapper, bool> predicate)
+        {
+            var wrappers = await GetAllAsync();
+            return wrappers.Where(predicate).ToList();
+        }
+
         public async Task<TWrapper> GetByIdAsync(Guid id)
         {
-            var model = await UnitOfWork.GetRepository<TModel>().GetByIdAsync(id);
+            var model = await _unitOfWork.GetRepository<TModel>().GetByIdAsync(id);
             return await GenerateWrapper(model);
         }
 
@@ -39,19 +47,19 @@ namespace HVTApp.UI.Wrapper
 
         public void Delete(TWrapper wrapper)
         {
-            UnitOfWork.GetRepository<TModel>().Delete(wrapper.Model);
+            _unitOfWork.GetRepository<TModel>().Delete(wrapper.Model);
         }
 
         public void Add(TWrapper wrapper)
         {
-            UnitOfWork.GetRepository<TModel>().Add(wrapper.Model);
+            _unitOfWork.GetRepository<TModel>().Add(wrapper.Model);
         }
 
 
 
         public void Dispose()
         {
-            UnitOfWork?.Dispose();
+            _unitOfWork?.Dispose();
         }
     }
 }

@@ -49,12 +49,12 @@ namespace HVTApp.UI.ViewModels
 
         public async Task LoadAsync(TEntity entity)
         {
-            Item = await WrapperDataService.GetRepository<TEntity, TWrapper>().GetByIdAsync(entity.Id); ;
+            Item = await WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().GetByIdAsync(entity.Id); ;
         }
 
         public async Task LoadAsync(Guid id)
         {
-            Item = await WrapperDataService.GetRepository<TEntity, TWrapper>().GetByIdAsync(id);
+            Item = await WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().GetByIdAsync(id);
         }
 
         //protected virtual async Task LoadOtherAsync() { }
@@ -85,8 +85,8 @@ namespace HVTApp.UI.ViewModels
         protected virtual async void SaveCommand_Execute()
         {
             //добавляем сущность, если ее не существовало
-            if (await WrapperDataService.GetRepository<TEntity, TWrapper>().GetByIdAsync(Item.Model.Id) == null)
-                WrapperDataService.GetRepository<TEntity, TWrapper>().Add(Item);
+            if (await WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().GetByIdAsync(Item.Model.Id) == null)
+                WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().Add(Item);
 
             Item.AcceptChanges();
             await WrapperDataService.SaveChangesAsync();
@@ -125,7 +125,7 @@ namespace HVTApp.UI.ViewModels
             //замена текущего значения новым
             if (entity != null && !Equals(entity.Id, propertyValue?.Model.Id))
             {
-                var wrapper = await WrapperDataService.GetRepository<TModel, TWrap>().GetByIdAsync(entity.Id);
+                var wrapper = await WrapperDataService.GetWrapperRepository<TModel, TWrap>().GetByIdAsync(entity.Id);
                 Item.GetType().GetProperty(propertyName).SetValue(Item, wrapper);
             }
         }
@@ -137,7 +137,7 @@ namespace HVTApp.UI.ViewModels
             var entity = Container.Resolve<ISelectService>().SelectItem(entities, selectedItemId);
             if (entity != null)
             {
-                var wrapper = await WrapperDataService.GetRepository<TModel, TWrap>().GetByIdAsync(entity.Id);
+                var wrapper = await WrapperDataService.GetWrapperRepository<TModel, TWrap>().GetByIdAsync(entity.Id);
                 list.Add(wrapper);
             }
         }

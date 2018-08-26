@@ -16,18 +16,15 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Date"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Sum"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.Sum}" 
                                     AddItemCommand="{Binding SelectSumCommand}" 
                                     RemoveItemCommand="{Binding ClearSumCommand}"/>
-
 
 
     </Grid>

@@ -24,26 +24,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Наименование"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Сокращенное наименование"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="ИНН"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.Inn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="3" Content="КПП"/>
         <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                  Text="{Binding Item.Kpp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="4" Content="Организационная форма"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
@@ -51,13 +46,11 @@
                                     AddItemCommand="{Binding SelectFormCommand}" 
                                     RemoveItemCommand="{Binding ClearFormCommand}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="5" Content="Родительская компания"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
                                     Item="{Binding Item.ParentCompany}" 
                                     AddItemCommand="{Binding SelectParentCompanyCommand}" 
                                     RemoveItemCommand="{Binding ClearParentCompanyCommand}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="6" Content="Юридический адрес"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
@@ -65,13 +58,11 @@
                                     AddItemCommand="{Binding SelectAddressLegalCommand}" 
                                     RemoveItemCommand="{Binding ClearAddressLegalCommand}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="7" Content="Почтовый адрес"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="7" 
                                     Item="{Binding Item.AddressPost}" 
                                     AddItemCommand="{Binding SelectAddressPostCommand}" 
                                     RemoveItemCommand="{Binding ClearAddressPostCommand}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="8" Content="Банковские реквизиты"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="8"
@@ -80,14 +71,12 @@
 										 AddItemCommand="{Binding AddInBankDetailsListCommand}"
 										 RemoveItemCommand="{Binding RemoveFromBankDetailsListCommand}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="9" Content="Сферы деятельности"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="9"
 										 Items="{Binding Path=Item.ActivityFilds}"
 										 SelectedItem="{Binding SelectedActivityFildsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInActivityFildsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromActivityFildsCommand}"/>
-
 
 
     </Grid>

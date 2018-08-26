@@ -1113,7 +1113,7 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-	[DesignationPlural("Предложения")]
+	[DesignationPlural("ТКП")]
     public partial class OfferLookupListView : ViewBase
     {
         public OfferLookupListView()
@@ -1343,7 +1343,7 @@ namespace HVTApp.UI.Views
     }
 
     [RibbonTab(typeof(TabCRUD))]
-	[DesignationPlural("TenderType")]
+	[DesignationPlural("Типы тендера")]
     public partial class TenderTypeLookupListView : ViewBase
     {
         public TenderTypeLookupListView()

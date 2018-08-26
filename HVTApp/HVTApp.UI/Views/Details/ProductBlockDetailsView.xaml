@@ -18,16 +18,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="1" Content="StructureCostNumber"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Parameters"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
@@ -36,14 +33,12 @@
 										 AddItemCommand="{Binding AddInParametersCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParametersCommand}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="3" Content="Prices"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.Prices}"
 										 SelectedItem="{Binding SelectedPricesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPricesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromPricesCommand}"/>
-
 
 
     </Grid>
