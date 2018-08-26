@@ -64,9 +64,7 @@ namespace HVTApp.UI.ViewModels
         /// <summary>
         /// Подписка на события. Запуск в конце конструктора.
         /// </summary>
-        protected virtual void SubscribesToEvents()
-        {
-        }
+        protected virtual void SubscribesToEvents() { }
 
 
         public TLookup SelectedLookup
@@ -100,9 +98,9 @@ namespace HVTApp.UI.ViewModels
         public IEnumerable<TLookup> Lookups { get; }
         private ICollection<TLookup> LookupsCollection => (ICollection<TLookup>)Lookups;
 
-        private static TLookup GetLookup(TEntity entity)
+        private async Task<TLookup> GetLookup(TEntity entity)
         {
-            return (TLookup) Activator.CreateInstance(typeof(TLookup), entity);
+            return await UnitOfWork.GetLookupById(entity.Id);
         }
 
         public virtual async Task LoadAsync()
@@ -114,9 +112,12 @@ namespace HVTApp.UI.ViewModels
             Loaded?.Invoke();
         }
 
-        public virtual void Load(IEnumerable<TEntity> entities)
+        public virtual async void Load(IEnumerable<TEntity> entities)
         {
-            Load(entities.Select(GetLookup));
+            var lookups = new List<TLookup>();
+            foreach (var entity in entities)
+                lookups.Add(await GetLookup(entity));
+            Load(lookups);
         }
 
         public virtual void Load(IEnumerable<TLookup> lookups)
@@ -135,19 +136,9 @@ namespace HVTApp.UI.ViewModels
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
 
-
-
-        private async Task<IEnumerable<TEntity>> GetItems()
-        {
-            throw new NotImplementedException();
-            //return await WrapperDataService.GetWrapperRepository<TEntity>().GetAllAsNoTrackingAsync();
-        }
-
-
         protected virtual async Task<IEnumerable<TLookup>> GetLookups()
         {
             return await UnitOfWork.GetAllLookupsAsync();
-            //return (await GetItems()).Select(GetLookup).OrderBy(x => x);
         }
 
         #region Commands
@@ -249,7 +240,7 @@ namespace HVTApp.UI.ViewModels
 
             //добавление несуществующего айтема
             var newEntity = await UnitOfWork.GetLookupById(entity.Id);
-            lookup = GetLookup(newEntity.Entity);
+            lookup = await GetLookup(newEntity.Entity);
             lookup.Refresh(newEntity.Entity);
             LookupsCollection.Add(lookup);
 

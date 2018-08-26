@@ -49,7 +49,15 @@ namespace HVTApp.UI.ViewModels
 
         public async Task LoadAsync(TEntity entity)
         {
-            Item = await WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().GetByIdAsync(entity.Id); ;
+            //если создаём, а не редактируем
+            if (await WrapperDataService.GetRepository<TEntity>().GetByIdAsync(entity.Id) == null)
+            {
+                Item = (TWrapper) Activator.CreateInstance(typeof(TWrapper), entity);
+                return;
+            }
+
+            //если редактируем
+            Item = await WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().GetByIdAsync(entity.Id);
         }
 
         public async Task LoadAsync(Guid id)
@@ -85,7 +93,7 @@ namespace HVTApp.UI.ViewModels
         protected virtual async void SaveCommand_Execute()
         {
             //добавляем сущность, если ее не существовало
-            if (await WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().GetByIdAsync(Item.Model.Id) == null)
+            if (await WrapperDataService.GetRepository<TEntity>().GetByIdAsync(Item.Model.Id) == null)
                 WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().Add(Item);
 
             Item.AcceptChanges();

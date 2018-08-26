@@ -22,7 +22,6 @@ namespace HVTApp.UI.Lookup
             if (offer == null) return null;
             var offerUnits = await UnitOfWork.GetRepository<OfferUnit>().FindAsync(x => Equals(offer, x.Offer));
             return new OfferLookup(offer, offerUnits);
-
         }
     }
 }

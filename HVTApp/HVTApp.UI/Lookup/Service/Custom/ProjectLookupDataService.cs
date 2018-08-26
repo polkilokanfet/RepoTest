@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,13 +11,25 @@ namespace HVTApp.UI.Lookup
         public override async Task<IEnumerable<ProjectLookup>> GetAllLookupsAsync()
         {
             var projects = await UnitOfWork.GetRepository<Project>().GetAllAsNoTrackingAsync();
-            var salesUnits = await UnitOfWork.GetRepository<SalesUnit>().GetAllAsNoTrackingAsync();
+            var units = await UnitOfWork.GetRepository<SalesUnit>().GetAllAsNoTrackingAsync();
             var tenders = await UnitOfWork.GetRepository<Tender>().GetAllAsNoTrackingAsync();
             var offers = await UnitOfWork.GetRepository<Offer>().GetAllAsNoTrackingAsync();
 
-            return projects.Select(x => new ProjectLookup(x, salesUnits.Where(su => Equals(su.Project, x)),
-                tenders.Where(t => Equals(t.Project, x)), offers.Where(o => Equals(o.Project, x))));
+            return projects.Select(project => new ProjectLookup(project, units.Where(u => Equals(u.Project, project)), 
+                                                                         tenders.Where(t => Equals(t.Project, project)), 
+                                                                         offers.Where(o => Equals(o.Project, project))));
+        }
 
+        public override async Task<ProjectLookup> GetLookupById(Guid id)
+        {
+            var project = await UnitOfWork.GetRepository<Project>().GetByIdAsync(id);
+            if (project == null) return null;
+
+            var units = await UnitOfWork.GetRepository<SalesUnit>().FindAsync(x => Equals(project, x.Project));
+            var tenders = await UnitOfWork.GetRepository<Tender>().FindAsync(x => Equals(project, x.Project));
+            var offers = await UnitOfWork.GetRepository<Offer>().FindAsync(x => Equals(project, x.Project));
+
+            return new ProjectLookup(project, units, tenders, offers);
         }
     }
 }
