@@ -105,9 +105,7 @@
                                   Grid.ColumnSpan="2"
                                   UnitsGroups="{Binding Item.OfferUnits, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ProductUnitsToProductGroupsConverter}}"
                                   SelectedUnitsGroup="{Binding SelectedOfferUnits, Mode=OneWayToSource, Converter={StaticResource ProductGroupToProductUnitsConverter}}"
-                                  ChangeFacilityCommand="{Binding ChangeFacilityCommand}"/>
-
-
+                                  ChangeCommand="{Binding ChangeFacilityCommand}"/>
 
     </Grid>
 </inf:ViewBase>

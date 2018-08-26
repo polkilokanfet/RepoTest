@@ -4,36 +4,29 @@
              xmlns:local="clr-namespace:HVTApp.UI.Controls"
              xmlns:dataPresenter="http://infragistics.com/DataPresenter"
              x:Name="Root">
-    
-    <dataPresenter:XamDataGrid x:Name="UnitListGrid"
-                               DataSource="{Binding UnitsGroups, ElementName=Root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                               SelectedDataItem="{Binding SelectedUnitsGroup, ElementName=Root}">
+    <StackPanel>
+        <Button Command="{Binding ChangeCommand, ElementName=Root}" Content="Изменить"/>
+        <dataPresenter:XamDataGrid x:Name="UnitListGrid"
+                                   DataSource="{Binding UnitsGroups, ElementName=Root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                   SelectedDataItem="{Binding SelectedUnitsGroup, ElementName=Root}">
+           
+            <dataPresenter:XamDataGrid.FieldLayouts>
+                <dataPresenter:FieldLayout>
+                    <dataPresenter:FieldLayout.Fields>
+                        <dataPresenter:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
+                        <dataPresenter:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
+                        <dataPresenter:NumericField Name="Amount" Label="Кол." Width="Auto" />
+                        <dataPresenter:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" />
+                        <dataPresenter:NumericField Name="Total" Label="Сумма" Width="Auto"/>
+                        
+                        <!--<dataPresenter:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" />
+                        <dataPresenter:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />-->
+                    </dataPresenter:FieldLayout.Fields>
+                </dataPresenter:FieldLayout>
 
-        <dataPresenter:XamDataGrid.ContextMenu>
-            <ContextMenu>
-                <!--<MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}" />-->
-                <MenuItem Header="Изменить объект" Command="{Binding ChangeFacilityCommand, ElementName=Root}"/>
-
-            </ContextMenu>
-        </dataPresenter:XamDataGrid.ContextMenu>
-
-        <dataPresenter:XamDataGrid.FieldLayouts>
-            <dataPresenter:FieldLayout>
-                <dataPresenter:FieldLayout.Fields>
-                    <dataPresenter:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
-                    <dataPresenter:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
-                    <dataPresenter:NumericField Name="Amount" Label="Кол." Width="Auto" />
-                    <dataPresenter:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" />
-                    <dataPresenter:NumericField Name="Total" Label="Сумма" Width="Auto"/>
-                    
-                    <!--<dataPresenter:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" />
-                    <dataPresenter:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />-->
-                </dataPresenter:FieldLayout.Fields>
-            </dataPresenter:FieldLayout>
-
-        </dataPresenter:XamDataGrid.FieldLayouts>
-    </dataPresenter:XamDataGrid>
-    
+            </dataPresenter:XamDataGrid.FieldLayouts>
+        </dataPresenter:XamDataGrid>
+    </StackPanel>
 </UserControl>
 
 

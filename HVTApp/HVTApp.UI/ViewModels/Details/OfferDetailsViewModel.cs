@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
@@ -10,16 +12,23 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class OfferDetailsViewModel
     {
-        public ValidatableChangeTrackingCollection<OfferUnitWrapper> OfferUnits { get; private set; }
-        public IEnumerable<IProductUnit> SelectedOfferUnits { get; set; }
+        private IEnumerable<IProductUnit> _selectedOfferUnits;
+        public IEnumerable<IProductUnit> SelectedOfferUnits
+        {
+            get { return _selectedOfferUnits; }
+            set
+            {
+                _selectedOfferUnits = value;
+                ((DelegateCommand)ChangeFacilityCommand).RaiseCanExecuteChanged();
+            }
+        }
 
         public ICommand ChangeFacilityCommand { get; private set; }
 
 
         protected override void InitSpecialCommands()
         {
-            ChangeFacilityCommand = new DelegateCommand(ChangeFacilityCommand_Execute);
-            OnPropertyChanged(nameof(ChangeFacilityCommand));
+            ChangeFacilityCommand = new DelegateCommand(ChangeFacilityCommand_Execute, () => SelectedOfferUnits!= null && SelectedOfferUnits.Any());
         }
 
         private async void ChangeFacilityCommand_Execute()
@@ -27,12 +36,11 @@ namespace HVTApp.UI.ViewModels
             var facilities = await WrapperDataService.GetRepository<Facility>().GetAllAsync();
             var facility = await Container.Resolve<ISelectService>().SelectItem(facilities);
             if (facility == null) return;
-            var facilityWrapper = new FacilityWrapper(facility);
-            foreach (var offerUnit in OfferUnits)
-            {
+            var facilityWrapper = await WrapperDataService.GetWrapperRepository<Facility, FacilityWrapper>().GetByIdAsync(facility.Id);
+            foreach (var offerUnit in SelectedOfferUnits)
                 offerUnit.Facility = facilityWrapper;
-            }
-            OnPropertyChanged(nameof(OfferUnits));
+
+            OnPropertyChanged(nameof(Item));
         }
     }
 }

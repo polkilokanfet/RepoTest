@@ -35,13 +35,14 @@ namespace HVTApp.UI.Controls
 
 
 
-        public static readonly DependencyProperty ChangeFacilityCommandProperty = DependencyProperty.Register(
-            "ChangeFacilityCommand", typeof(ICommand), typeof(UnitListControl), new PropertyMetadata(default(ICommand)));
 
-        public ICommand ChangeFacilityCommand
+        public static readonly DependencyProperty ChangeCommandProperty = DependencyProperty.Register(
+            "ChangeCommand", typeof(ICommand), typeof(UnitListControl), new PropertyMetadata(default(ICommand)));
+
+        public ICommand ChangeCommand
         {
-            get { return (ICommand) GetValue(ChangeFacilityCommandProperty); }
-            set { SetValue(ChangeFacilityCommandProperty, value); }
+            get { return (ICommand) GetValue(ChangeCommandProperty); }
+            set { SetValue(ChangeCommandProperty, value); }
         }
     }
 }

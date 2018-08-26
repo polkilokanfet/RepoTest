@@ -18,8 +18,10 @@ namespace HVTApp.Model.POCOs
         [Designation("Продукт")]
         public virtual Product Product { get; set; }
 
+        [Designation("Зависимое оборудование")]
         public virtual List<ProductDependent> DependentProducts { get; set; } = new List<ProductDependent>();
 
+        [Designation("Услуги")]
         public virtual List<Service> Services { get; set; } = new List<Service>();
 
         [Designation("Объект")]
