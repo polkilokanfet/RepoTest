@@ -25,7 +25,7 @@ namespace HVTApp.UI.ViewModels
         private async void ChangeFacilityCommand_Execute()
         {
             var facilities = await WrapperDataService.GetRepository<Facility>().GetAllAsync();
-            var facility = Container.Resolve<ISelectService>().SelectItem(facilities);
+            var facility = await Container.Resolve<ISelectService>().SelectItem(facilities);
             if (facility == null) return;
             var facilityWrapper = new FacilityWrapper(facility);
             foreach (var offerUnit in OfferUnits)

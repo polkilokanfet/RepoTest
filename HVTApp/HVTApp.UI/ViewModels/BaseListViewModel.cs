@@ -112,7 +112,7 @@ namespace HVTApp.UI.ViewModels
             Loaded?.Invoke();
         }
 
-        public virtual async void Load(IEnumerable<TEntity> entities)
+        public virtual async Task Load(IEnumerable<TEntity> entities)
         {
             var lookups = new List<TLookup>();
             foreach (var entity in entities)
@@ -120,7 +120,7 @@ namespace HVTApp.UI.ViewModels
             Load(lookups);
         }
 
-        public virtual void Load(IEnumerable<TLookup> lookups)
+        public void Load(IEnumerable<TLookup> lookups)
         {
             LookupsCollection.Clear();
             SelectedLookup = null;

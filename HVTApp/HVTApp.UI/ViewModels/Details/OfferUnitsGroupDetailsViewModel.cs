@@ -52,7 +52,7 @@ namespace HVTApp.UI.ViewModels
         private async void SelectPaymentConditionSetCommand_Execute()
         {
             var sets = await _unitOfWork.GetRepository<PaymentConditionSet>().GetAllAsync();
-            var set = _selectService.SelectItem(sets);
+            var set = await _selectService.SelectItem(sets);
             if (set != null && set.Id != OfferUnitsGroup.PaymentConditionSet?.Id)
             {
                 OfferUnitsGroup.PaymentConditionSet = new PaymentConditionSetWrapper(set);
@@ -71,7 +71,7 @@ namespace HVTApp.UI.ViewModels
         private async void SelectFacilityCommand_Execute()
         {
             var facilities = await _unitOfWork.GetRepository<Facility>().GetAllAsync();
-            var facility = _selectService.SelectItem(facilities);
+            var facility = await _selectService.SelectItem(facilities);
             if (facility != null && facility.Id != OfferUnitsGroup.Facility?.Id)
             {
                 OfferUnitsGroup.Facility = new FacilityWrapper(facility);
