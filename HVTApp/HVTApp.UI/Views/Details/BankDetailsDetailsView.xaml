@@ -5,7 +5,8 @@
 			  xmlns:infDP="http://infragistics.com/DataPresenter"
 			  xmlns:infE="http://infragistics.com/Editors"
 			  xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -18,21 +19,25 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="BankName"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="BankName" Visibility="{Binding BankNameVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
-                 Text="{Binding Item.BankName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Item.BankName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding BankNameVisibility, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="BankIdentificationCode"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="BankIdentificationCode" Visibility="{Binding BankIdentificationCodeVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
-                 Text="{Binding Item.BankIdentificationCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Item.BankIdentificationCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding BankIdentificationCodeVisibility, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="CorrespondentAccount"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="CorrespondentAccount" Visibility="{Binding CorrespondentAccountVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
-                 Text="{Binding Item.CorrespondentAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Item.CorrespondentAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding CorrespondentAccountVisibility, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="CheckingAccount"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="CheckingAccount" Visibility="{Binding CheckingAccountVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
-                 Text="{Binding Item.CheckingAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Item.CheckingAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding CheckingAccountVisibility, ElementName=Root}"/>
 
 
     </Grid>

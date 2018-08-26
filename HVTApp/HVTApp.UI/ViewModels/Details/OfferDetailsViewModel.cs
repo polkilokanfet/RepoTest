@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
@@ -33,6 +34,9 @@ namespace HVTApp.UI.ViewModels
 
         private async void ChangeFacilityCommand_Execute()
         {
+            var vw = Container.Resolve<OfferUnitsDetailsViewModel>();
+            Container.Resolve<IDialogService>().ShowDialog(vw);
+
             var facilities = await WrapperDataService.GetRepository<Facility>().GetAllAsync();
             var facility = await Container.Resolve<ISelectService>().SelectItem(facilities);
             if (facility == null) return;

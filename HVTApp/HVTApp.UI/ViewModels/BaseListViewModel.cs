@@ -148,11 +148,17 @@ namespace HVTApp.UI.ViewModels
         public ICommand RemoveItemCommand { get; }
         public ICommand SelectItemCommand { get; }
 
-
+        /// <summary>
+        /// Генерация нового айтема (при создании нового).
+        /// </summary>
+        /// <returns></returns>
+        protected virtual TEntity GetNewItem()
+        {
+            return Activator.CreateInstance<TEntity>();
+        }
         protected async void NewItemCommand_Execute()
         {
-            var entity = Activator.CreateInstance<TEntity>();
-            await Container.Resolve<IUpdateDetailsService>().UpdateDetails(entity);
+            await Container.Resolve<IUpdateDetailsService>().UpdateDetails(GetNewItem());
         }
 
         protected virtual bool NewItemCommand_CanExecute()

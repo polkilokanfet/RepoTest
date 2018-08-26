@@ -5,7 +5,8 @@
 			  xmlns:infDP="http://infragistics.com/DataPresenter"
 			  xmlns:infE="http://infragistics.com/Editors"
 			  xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -16,16 +17,18 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="DateTask"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="DateTask" Visibility="{Binding DateTaskVisibility, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
-                    SelectedDate="{Binding Item.DateTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    SelectedDate="{Binding Item.DateTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding DateTaskVisibility, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="SalesUnits"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="SalesUnits" Visibility="{Binding SalesUnitsVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
 										 Items="{Binding Path=Item.SalesUnits}"
 										 SelectedItem="{Binding SelectedSalesUnitsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInSalesUnitsCommand}"
-										 RemoveItemCommand="{Binding RemoveFromSalesUnitsCommand}"/>
+										 RemoveItemCommand="{Binding RemoveFromSalesUnitsCommand}"
+										 Visibility="{Binding SalesUnitsVisibility, ElementName=Root}"/>
 
 
     </Grid>
