@@ -129,7 +129,7 @@
     <Compile Include="ViewModels\BaseListViewModel.cs" />
     <Compile Include="ViewModels\BindableBaseCanExportToExcel.cs" />
     <Compile Include="ViewModels\Details\ContractDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Details\GeneratedDetailsViewModels.g.cs" />
+    <Compile Include="ViewModels\Details\Generated\DetailsViewModels.g.cs" />
     <Compile Include="ViewModels\Details\IUnitGroup.cs" />
     <Compile Include="ViewModels\Details\IProjectUnitGroupLookup.cs" />
     <Compile Include="ViewModels\Details\IProductCostDependentProductsWrapper.cs" />
@@ -183,7 +183,7 @@
     </Compile>
     <Compile Include="ViewModels\Details\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModels\List\CompanyListViewModel.cs" />
-    <Compile Include="ViewModels\List\GeneratedListViewModels.g.cs" />
+    <Compile Include="ViewModels\List\Generated\ListViewModels.g.cs" />
     <Compile Include="ViewModels\List\PartPriceListViewModel.cs" />
     <Compile Include="ViewModels\List\PaymentPlannedListViewModel.cs" />
     <Compile Include="ViewModels\List\ProjectListViewModel.cs" />

@@ -17,7 +17,7 @@
 	var modelTypes = GeneratorHelpers.GetModelTypesPocos();
 
 	GenerateDetailsViewModels(modelTypes);
-	SaveGeneratedCodeAsFile("GeneratedDetailsViewModels.g.cs", "ViewModels/Details");
+	SaveGeneratedCodeAsFile("DetailsViewModels.g.cs", "ViewModels/Details/Generated");
 
 	GenerateAfterSaveEntityEvents(modelTypes);
 	SaveGeneratedCodeAsFile("AfterSaveEntityEvents.g.cs", "Events/AfterSaveEntityEvents");

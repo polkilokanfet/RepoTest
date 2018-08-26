@@ -25,9 +25,9 @@ namespace HVTApp.UI.Lookup
             var project = await UnitOfWork.GetRepository<Project>().GetByIdAsync(id);
             if (project == null) return null;
 
-            var units = await UnitOfWork.GetRepository<SalesUnit>().FindAsync(x => Equals(project, x.Project));
-            var tenders = await UnitOfWork.GetRepository<Tender>().FindAsync(x => Equals(project, x.Project));
-            var offers = await UnitOfWork.GetRepository<Offer>().FindAsync(x => Equals(project, x.Project));
+            var units = UnitOfWork.GetRepository<SalesUnit>().Find(x => Equals(project, x.Project));
+            var tenders = UnitOfWork.GetRepository<Tender>().Find(x => Equals(project, x.Project));
+            var offers = UnitOfWork.GetRepository<Offer>().Find(x => Equals(project, x.Project));
 
             return new ProjectLookup(project, units, tenders, offers);
         }
