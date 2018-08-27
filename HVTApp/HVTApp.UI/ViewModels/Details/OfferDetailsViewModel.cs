@@ -1,14 +1,11 @@
-using System.Collections.ObjectModel;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
-using HVTApp.Services.MessageService;
-using HVTApp.UI.Converter;
 using HVTApp.UI.Wrapper;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -16,132 +13,38 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class OfferDetailsViewModel
     {
-        private OfferUnitsGroup _selectedOfferUnitsGroup;
-        public ObservableCollection<OfferUnitsGroup> OfferUnitsGroups { get; } = new ObservableCollection<OfferUnitsGroup>();
-
-        public OfferUnitsGroup SelectedOfferUnitsGroup
+        private IEnumerable<IProductUnit> _selectedOfferUnits;
+        public IEnumerable<IProductUnit> SelectedOfferUnits
         {
-            get { return _selectedOfferUnitsGroup; }
+            get { return _selectedOfferUnits; }
             set
             {
-                if (Equals(_selectedOfferUnitsGroup, value)) return;
-                _selectedOfferUnitsGroup = value;
-                OnPropertyChanged();
-                ((DelegateCommand)EditOfferUnitsGroupCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)BlowUpOfferUnitsGroupCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)RemoveOfferUnitsGroupCommand).RaiseCanExecuteChanged();
+                _selectedOfferUnits = value;
+                ((DelegateCommand)ChangeFacilityCommand).RaiseCanExecuteChanged();
             }
         }
 
-        public ICommand AddOfferUnitsGroupCommand { get; private set; }
-        public ICommand EditOfferUnitsGroupCommand { get; private set; }
-        public ICommand RemoveOfferUnitsGroupCommand { get; private set; }
-
-        public ICommand RefreshOfferUnitsGroupsCommand { get; private set; }
-        public ICommand BlowUpOfferUnitsGroupCommand { get; private set; }
+        public ICommand ChangeFacilityCommand { get; private set; }
 
 
         protected override void InitSpecialCommands()
         {
-            AddOfferUnitsGroupCommand = new DelegateCommand(AddOfferUnitsGroupCommand_Execute);
-            EditOfferUnitsGroupCommand = new DelegateCommand(EditOfferUnitsGroupCommand_Execute, EditOfferUnitsGroupCommand_CanExecute);
-            RemoveOfferUnitsGroupCommand = new DelegateCommand(RemoveOfferUnitsGroupCommand_Execute, RemoveOfferUnitsGroupCommand_CanExecute);
-
-            BlowUpOfferUnitsGroupCommand = new DelegateCommand(BlowUpOfferUnitsGroup_Execute, BlowUpOfferUnitsGroup_CanExecute);
-            RefreshOfferUnitsGroupsCommand = new DelegateCommand(RefreshOfferUnitsGroupsCommand_Execute);
+            ChangeFacilityCommand = new DelegateCommand(ChangeFacilityCommand_Execute, () => SelectedOfferUnits!= null && SelectedOfferUnits.Any());
         }
 
-        private bool RemoveOfferUnitsGroupCommand_CanExecute()
+        private async void ChangeFacilityCommand_Execute()
         {
-            return SelectedOfferUnitsGroup != null;
+            var vw = Container.Resolve<OfferUnitsDetailsViewModel>();
+            Container.Resolve<IDialogService>().ShowDialog(vw);
+
+            var facilities = await WrapperDataService.GetRepository<Facility>().GetAllAsync();
+            var facility = await Container.Resolve<ISelectService>().SelectItem(facilities);
+            if (facility == null) return;
+            var facilityWrapper = await WrapperDataService.GetWrapperRepository<Facility, FacilityWrapper>().GetByIdAsync(facility.Id);
+            foreach (var offerUnit in SelectedOfferUnits)
+                offerUnit.Facility = facilityWrapper;
+
+            OnPropertyChanged(nameof(Item));
         }
-
-        private void RemoveOfferUnitsGroupCommand_Execute()
-        {
-            var result = Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Предупреждение", "Вы действительно хотите удалить?");
-            if (result != MessageDialogResult.Yes) return;
-            UnitOfWork.GetRepository<OfferUnit>().DeleteRange(SelectedOfferUnitsGroup.Units.Select(x => x.Model));
-            //SelectedOfferUnitsGroup.Units.ForEach(x => Item.OfferUnits.Remove(x));
-            OfferUnitsGroups.Remove(SelectedOfferUnitsGroup);
-        }
-
-
-        private void RefreshOfferUnitsGroupsCommand_Execute()
-        {
-            GroupingOfferUnits();
-        }
-
-
-        private bool BlowUpOfferUnitsGroup_CanExecute()
-        {
-            return SelectedOfferUnitsGroup != null;
-        }
-
-        private void BlowUpOfferUnitsGroup_Execute()
-        {
-            var ind = OfferUnitsGroups.IndexOf(SelectedOfferUnitsGroup);
-            OfferUnitsGroups.Remove(SelectedOfferUnitsGroup);
-            foreach (var offerUnitWrapper in SelectedOfferUnitsGroup.Units)
-            {
-                OfferUnitsGroups.Insert(ind, new OfferUnitsGroup(new []{offerUnitWrapper}));
-            }
-            SelectedOfferUnitsGroup = OfferUnitsGroups[ind];
-        }
-
-
-        private void AddOfferUnitsGroupCommand_Execute()
-        {
-            var offerUnitTempl = SelectedOfferUnitsGroup ?? OfferUnitsGroups.FirstOrDefault();
-            var offerUnitsGroup = new OfferUnitsGroup(new []{ new OfferUnitWrapper(new OfferUnit()) } );
-            if (offerUnitTempl != null)
-            {
-                offerUnitsGroup.Product = offerUnitTempl.Product;
-                offerUnitsGroup.Cost = offerUnitTempl.Cost;
-                offerUnitsGroup.Facility = offerUnitTempl.Facility;
-                offerUnitsGroup.ProductionTerm = offerUnitTempl.ProductionTerm;
-                offerUnitsGroup.PaymentConditionSet = offerUnitTempl.PaymentConditionSet;
-            }
-
-            var viewModel = new OfferUnitsGroupDetailsViewModel(offerUnitsGroup, Container, UnitOfWork);
-            var flag = Container.Resolve<IDialogService>().ShowDialog(viewModel);
-            if (flag.HasValue && flag.Value)
-            {
-                //offerUnitsGroup.Units.ForEach(Item.OfferUnits.Add);
-                //OfferUnitsGroups.Add(offerUnitsGroup);
-                //SelectedOfferUnitsGroup = offerUnitsGroup;
-            }
-        }
-
-
-        private bool EditOfferUnitsGroupCommand_CanExecute()
-        {
-            return SelectedOfferUnitsGroup != null;
-        }
-
-        private void EditOfferUnitsGroupCommand_Execute()
-        {
-            var viewModel = new OfferUnitsGroupDetailsViewModel(SelectedOfferUnitsGroup, Container, UnitOfWork);
-            var flag = Container.Resolve<IDialogService>().ShowDialog(viewModel);
-            if (!flag.HasValue || !flag.Value)
-            {
-                SelectedOfferUnitsGroup.Units.ForEach(x => x.RejectChanges());
-            }
-        }
-
-        protected override async Task LoadOtherAsync()
-        {
-            await Task.Factory.StartNew(() =>
-            {
-                GroupingOfferUnits();
-            });
-        }
-
-        private void GroupingOfferUnits()
-        {
-            //var groups = Item.OfferUnits.ToUnitGroups();
-            //OfferUnitsGroups.Clear();
-            //OfferUnitsGroups.AddRange(groups);
-        }
-
     }
 }

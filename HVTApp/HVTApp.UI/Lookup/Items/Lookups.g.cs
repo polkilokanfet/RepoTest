@@ -672,18 +672,21 @@ namespace HVTApp.UI.Lookup
 		}
 		protected override void RefreshLookups()
         {
-			 			Project?.Refresh(Entity.Project);
+			 			Product?.Refresh(Entity.Product);
+			Facility?.Refresh(Entity.Facility);
+			PaymentConditionSet?.Refresh(Entity.PaymentConditionSet);
+			Project?.Refresh(Entity.Project);
 			Producer?.Refresh(Entity.Producer);
 			Order?.Refresh(Entity.Order);
 			Specification?.Refresh(Entity.Specification);
 			Address?.Refresh(Entity.Address);
-			Offer?.Refresh(Entity.Offer);
-			Product?.Refresh(Entity.Product);
-			Facility?.Refresh(Entity.Facility);
-			PaymentConditionSet?.Refresh(Entity.PaymentConditionSet);
 		}
 		
         #region SimpleProperties
+        public System.Double Cost => GetValue<System.Double>();
+
+        public System.Nullable<System.Int32> ProductionTerm => GetValue<System.Nullable<System.Int32>>();
+
         public System.DateTime DeliveryDateExpected => GetValue<System.DateTime>();
 
         public System.Nullable<System.DateTime> RealizationDate => GetValue<System.Nullable<System.DateTime>>();
@@ -710,13 +713,15 @@ namespace HVTApp.UI.Lookup
 
         public System.Nullable<System.DateTime> DeliveryDate => GetValue<System.Nullable<System.DateTime>>();
 
-        public System.Double Cost => GetValue<System.Double>();
-
-        public System.Nullable<System.Int32> ProductionTerm => GetValue<System.Nullable<System.Int32>>();
-
         #endregion
 
         #region ComplexProperties
+	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
+
+	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
+
+	    public PaymentConditionSetLookup PaymentConditionSet { get { return GetLookup<PaymentConditionSetLookup>(); } }
+
 	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
 
 	    public CompanyLookup Producer { get { return GetLookup<CompanyLookup>(); } }
@@ -726,14 +731,6 @@ namespace HVTApp.UI.Lookup
 	    public SpecificationLookup Specification { get { return GetLookup<SpecificationLookup>(); } }
 
 	    public AddressLookup Address { get { return GetLookup<AddressLookup>(); } }
-
-	    public OfferLookup Offer { get { return GetLookup<OfferLookup>(); } }
-
-	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
-
-	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
-
-	    public PaymentConditionSetLookup PaymentConditionSet { get { return GetLookup<PaymentConditionSetLookup>(); } }
 
         #endregion
 	}

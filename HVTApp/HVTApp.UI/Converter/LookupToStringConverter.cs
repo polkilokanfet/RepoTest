@@ -10,7 +10,7 @@ namespace HVTApp.UI.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null) return "-";
+            if (value == null) return String.Empty;
             return value.ToString();
             return ((ILookupItem) value).DisplayMember;
         }

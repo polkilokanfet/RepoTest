@@ -24,7 +24,13 @@ namespace HVTApp.UI.Lookup
         public double Sum => SalesUnits.Sum(x => x.Cost);
 
         [Designation("Дата поставки")]
-        public DateTime RealizationDate => SalesUnits.Select(x => x.DeliveryDateExpected).Min();
+        public DateTime RealizationDate
+        {
+            get
+            {
+                return SalesUnits.Any() ? SalesUnits.Select(x => x.DeliveryDateExpected).Min() : DateTime.Today.AddMonths(6);
+            }
+        }
 
         [Designation("Тендер")]
         public DateTime? TenderDate

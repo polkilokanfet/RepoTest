@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Converter;
 using HVTApp.UI.Events;
 using HVTApp.UI.Services;
 using HVTApp.UI.Wrapper;
@@ -39,13 +38,13 @@ namespace HVTApp.UI.ViewModels
             AddProjectUnitGroupCommand = new DelegateCommand(AddProjectUnitGroupCommand_Execute);
         }
 
-        protected override async Task LoadOtherAsync()
-        {
-            ProjectUnits.Clear();
-            var salesUnits = await UnitOfWork.GetRepository<SalesUnit>().FindAsync(x => Equals(x.Project, Item.Model));
-            ProjectUnits.AddRange(salesUnits.Select(x => new SalesUnitWrapper(x)));
-            RefreshGroups();
-        }
+        //protected override async Task LoadOtherAsync()
+        //{
+        //    ProjectUnits.Clear();
+        //    var salesUnits = await WrapperDataService.GetRepository<SalesUnit>().FindAsync(x => Equals(x.Project, Item.Model));
+        //    ProjectUnits.AddRange(salesUnits.Select(x => new SalesUnitWrapper(x)));
+        //    RefreshGroups();
+        //}
 
         private IUnitGroup _selectedUnitGroup;
         private bool _isGrouping = true;
@@ -76,7 +75,7 @@ namespace HVTApp.UI.ViewModels
         private void EditCommand_Execute()
         {
             var projectUnitGroup = (UnitGroup)SelectedUnitGroup;
-            var projectUnitGroupViewModel = new UnitGroupViewModel(projectUnitGroup, Container, UnitOfWork);
+            var projectUnitGroupViewModel = new UnitGroupViewModel(projectUnitGroup, Container, WrapperDataService);
             Container.Resolve<IDialogService>().ShowDialog(projectUnitGroupViewModel);
         }
 
@@ -93,11 +92,11 @@ namespace HVTApp.UI.ViewModels
 
         protected override async void SaveCommand_Execute()
         {
-            if (await UnitOfWork.GetRepository<Project>().GetByIdAsync(Item.Model.Id) == null)
-                UnitOfWork.GetRepository<Project>().Add(Item.Model);
+            if (await WrapperDataService.GetRepository<Project>().GetByIdAsync(Item.Model.Id) == null)
+                WrapperDataService.GetRepository<Project>().Add(Item.Model);
             Item.AcceptChanges();
 
-            await UnitOfWork.SaveChangesAsync();
+            await WrapperDataService.SaveChangesAsync();
 
             //формируем задания на расчет
             foreach (var product in ProjectUnits.Select(x => x.Product))

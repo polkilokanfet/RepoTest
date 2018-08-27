@@ -5,7 +5,8 @@
 			  xmlns:infDP="http://infragistics.com/DataPresenter"
 			  xmlns:infE="http://infragistics.com/Editors"
 			  xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -16,18 +17,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="Описание"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Описание" Visibility="{Binding DescriptionVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
-                 Text="{Binding Item.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Item.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding DescriptionVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="Населенный пункт"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Населенный пункт" Visibility="{Binding LocalityVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.Locality}" 
                                     AddItemCommand="{Binding SelectLocalityCommand}" 
-                                    RemoveItemCommand="{Binding ClearLocalityCommand}"/>
-
+                                    RemoveItemCommand="{Binding ClearLocalityCommand}"
+									Visibility="{Binding LocalityVisibility, ElementName=Root}"/>
 
 
     </Grid>

@@ -5,7 +5,8 @@
 			  xmlns:infDP="http://infragistics.com/DataPresenter"
 			  xmlns:infE="http://infragistics.com/Editors"
 			  xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -18,32 +19,31 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Name" Visibility="{Binding NameVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
-                 Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding NameVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="StructureCostNumber"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="StructureCostNumber" Visibility="{Binding StructureCostNumberVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
-                 Text="{Binding Item.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Item.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding StructureCostNumberVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="Parameters"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Parameters" Visibility="{Binding ParametersVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.Parameters}"
 										 SelectedItem="{Binding SelectedParametersItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInParametersCommand}"
-										 RemoveItemCommand="{Binding RemoveFromParametersCommand}"/>
+										 RemoveItemCommand="{Binding RemoveFromParametersCommand}"
+										 Visibility="{Binding ParametersVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="3" Content="Prices"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Prices" Visibility="{Binding PricesVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.Prices}"
 										 SelectedItem="{Binding SelectedPricesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPricesCommand}"
-										 RemoveItemCommand="{Binding RemoveFromPricesCommand}"/>
-
+										 RemoveItemCommand="{Binding RemoveFromPricesCommand}"
+										 Visibility="{Binding PricesVisibility, ElementName=Root}"/>
 
 
     </Grid>

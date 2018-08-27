@@ -5,7 +5,8 @@
 			  xmlns:infDP="http://infragistics.com/DataPresenter"
 			  xmlns:infE="http://infragistics.com/Editors"
 			  xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -20,42 +21,41 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="Date"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Date" Visibility="{Binding DateVisibility, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
-                    SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding DateVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="ProductBlock"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="ProductBlock" Visibility="{Binding ProductBlockVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.ProductBlock}" 
                                     AddItemCommand="{Binding SelectProductBlockCommand}" 
-                                    RemoveItemCommand="{Binding ClearProductBlockCommand}"/>
+                                    RemoveItemCommand="{Binding ClearProductBlockCommand}"
+									Visibility="{Binding ProductBlockVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="Projects"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Projects" Visibility="{Binding ProjectsVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.Projects}"
 										 SelectedItem="{Binding SelectedProjectsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInProjectsCommand}"
-										 RemoveItemCommand="{Binding RemoveFromProjectsCommand}"/>
+										 RemoveItemCommand="{Binding RemoveFromProjectsCommand}"
+										 Visibility="{Binding ProjectsVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="3" Content="Offers"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Offers" Visibility="{Binding OffersVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.Offers}"
 										 SelectedItem="{Binding SelectedOffersItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInOffersCommand}"
-										 RemoveItemCommand="{Binding RemoveFromOffersCommand}"/>
+										 RemoveItemCommand="{Binding RemoveFromOffersCommand}"
+										 Visibility="{Binding OffersVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="4" Content="Specifications"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="Specifications" Visibility="{Binding SpecificationsVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
 										 Items="{Binding Path=Item.Specifications}"
 										 SelectedItem="{Binding SelectedSpecificationsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInSpecificationsCommand}"
-										 RemoveItemCommand="{Binding RemoveFromSpecificationsCommand}"/>
-
+										 RemoveItemCommand="{Binding RemoveFromSpecificationsCommand}"
+										 Visibility="{Binding SpecificationsVisibility, ElementName=Root}"/>
 
 
     </Grid>

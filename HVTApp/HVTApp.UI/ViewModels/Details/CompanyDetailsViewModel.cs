@@ -9,7 +9,7 @@ namespace HVTApp.UI.ViewModels
         {
             _getEntitiesForSelectParentCompanyCommand = async () =>
             {
-                var companies = await UnitOfWork.GetRepository<Company>().GetAllAsync();
+                var companies = await WrapperDataService.GetRepository<Company>().GetAllAsync();
                 //компании, которые не могут быть головной (дочерние и т.д.)
                 var exceptCompanies = companies.Where(x => Equals(x.ParentCompany?.Id, Item.Id)).Concat(new[] {Item.Model});
                 //возможные головные компании
@@ -19,7 +19,7 @@ namespace HVTApp.UI.ViewModels
             _getEntitiesForAddInActivityFildsCommand = async () =>
             {
                 var exceptIds = Item.ActivityFilds.Select(x => x.Id);
-                return (await UnitOfWork.GetRepository<ActivityField>().GetAllAsync()).Where(x => !exceptIds.Contains(x.Id)).ToList();
+                return (await WrapperDataService.GetRepository<ActivityField>().GetAllAsync()).Where(x => !exceptIds.Contains(x.Id)).ToList();
             };
         }
     }

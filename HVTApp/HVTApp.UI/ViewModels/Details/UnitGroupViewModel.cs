@@ -49,7 +49,7 @@ namespace HVTApp.UI.ViewModels
         private async void EditFacilityCommand_Execute()
         {
             var facilities = (await _unitOfWork.GetRepository<Facility>().GetAllAsync());
-            var facility = _selectService.SelectItem(facilities);
+            var facility = await _selectService.SelectItem(facilities);
             if (facility != null && facility.Id != UnitGroup.Facility?.Id)
             {
                 UnitGroup.Facility = new FacilityWrapper(facility);

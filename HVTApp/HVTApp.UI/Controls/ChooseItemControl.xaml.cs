@@ -11,6 +11,8 @@ namespace HVTApp.UI.Controls
             InitializeComponent();
         }
 
+        #region Item       
+
         public static readonly DependencyProperty ItemProperty = DependencyProperty.Register(
             "Item", typeof (object), typeof (ChooseItemControl), new PropertyMetadata(default(object)));
 
@@ -19,6 +21,10 @@ namespace HVTApp.UI.Controls
             get { return (object) GetValue(ItemProperty); }
             set { SetValue(ItemProperty, value); }
         }
+
+        #endregion
+
+        #region AddItem       
 
         public static readonly DependencyProperty AddItemCommandProperty = DependencyProperty.Register(
             "AddItemCommand", typeof (ICommand), typeof (ChooseItemControl), new PropertyMetadata(default(ICommand)));
@@ -29,6 +35,10 @@ namespace HVTApp.UI.Controls
             set { SetValue(AddItemCommandProperty, value); }
         }
 
+        #endregion
+
+        #region RemoveItem       
+
         public static readonly DependencyProperty RemoveItemCommandProperty = DependencyProperty.Register(
             "RemoveItemCommand", typeof (ICommand), typeof (ChooseItemControl), new PropertyMetadata(default(ICommand)));
 
@@ -37,6 +47,10 @@ namespace HVTApp.UI.Controls
             get { return (ICommand) GetValue(RemoveItemCommandProperty); }
             set { SetValue(RemoveItemCommandProperty, value); }
         }
+
+        #endregion
+
+        #region ItemChanged       
 
         public static readonly RoutedEvent ItemChangedEvent = EventManager.RegisterRoutedEvent(
             "ItemChanged", RoutingStrategy.Bubble, typeof (RoutedPropertyChangedEventHandler<object>),
@@ -48,5 +62,6 @@ namespace HVTApp.UI.Controls
             remove { RemoveHandler(ItemChangedEvent, value); }
         }
 
+        #endregion
     }
 }

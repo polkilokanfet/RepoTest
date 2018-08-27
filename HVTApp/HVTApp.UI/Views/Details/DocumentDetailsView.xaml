@@ -5,7 +5,8 @@
 			  xmlns:infDP="http://infragistics.com/DataPresenter"
 			  xmlns:infE="http://infragistics.com/Editors"
 			  xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -24,61 +25,60 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="Комментарий"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Комментарий" Visibility="{Binding CommentVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
-                 Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding CommentVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="Запрос"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Запрос" Visibility="{Binding RequestDocumentVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.RequestDocument}" 
                                     AddItemCommand="{Binding SelectRequestDocumentCommand}" 
-                                    RemoveItemCommand="{Binding ClearRequestDocumentCommand}"/>
+                                    RemoveItemCommand="{Binding ClearRequestDocumentCommand}"
+									Visibility="{Binding RequestDocumentVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="Автор"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Автор" Visibility="{Binding AuthorVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.Author}" 
                                     AddItemCommand="{Binding SelectAuthorCommand}" 
-                                    RemoveItemCommand="{Binding ClearAuthorCommand}"/>
+                                    RemoveItemCommand="{Binding ClearAuthorCommand}"
+									Visibility="{Binding AuthorVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="3" Content="Отправитель"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Отправитель" Visibility="{Binding SenderEmployeeVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.SenderEmployee}" 
                                     AddItemCommand="{Binding SelectSenderEmployeeCommand}" 
-                                    RemoveItemCommand="{Binding ClearSenderEmployeeCommand}"/>
+                                    RemoveItemCommand="{Binding ClearSenderEmployeeCommand}"
+									Visibility="{Binding SenderEmployeeVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="4" Content="Получатель"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="Получатель" Visibility="{Binding RecipientEmployeeVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.RecipientEmployee}" 
                                     AddItemCommand="{Binding SelectRecipientEmployeeCommand}" 
-                                    RemoveItemCommand="{Binding ClearRecipientEmployeeCommand}"/>
+                                    RemoveItemCommand="{Binding ClearRecipientEmployeeCommand}"
+									Visibility="{Binding RecipientEmployeeVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="5" Content="Исходящий"/>
+        <Label Grid.Column="0" Grid.Row ="5" Content="Исходящий" Visibility="{Binding RegistrationDetailsOfSenderVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
                                     Item="{Binding Item.RegistrationDetailsOfSender}" 
                                     AddItemCommand="{Binding SelectRegistrationDetailsOfSenderCommand}" 
-                                    RemoveItemCommand="{Binding ClearRegistrationDetailsOfSenderCommand}"/>
+                                    RemoveItemCommand="{Binding ClearRegistrationDetailsOfSenderCommand}"
+									Visibility="{Binding RegistrationDetailsOfSenderVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="6" Content="Входящий"/>
+        <Label Grid.Column="0" Grid.Row ="6" Content="Входящий" Visibility="{Binding RegistrationDetailsOfRecipientVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
                                     Item="{Binding Item.RegistrationDetailsOfRecipient}" 
                                     AddItemCommand="{Binding SelectRegistrationDetailsOfRecipientCommand}" 
-                                    RemoveItemCommand="{Binding ClearRegistrationDetailsOfRecipientCommand}"/>
+                                    RemoveItemCommand="{Binding ClearRegistrationDetailsOfRecipientCommand}"
+									Visibility="{Binding RegistrationDetailsOfRecipientVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="7" Content="Копия"/>
+        <Label Grid.Column="0" Grid.Row ="7" Content="Копия" Visibility="{Binding CopyToRecipientsVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="7"
 										 Items="{Binding Path=Item.CopyToRecipients}"
 										 SelectedItem="{Binding SelectedCopyToRecipientsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInCopyToRecipientsCommand}"
-										 RemoveItemCommand="{Binding RemoveFromCopyToRecipientsCommand}"/>
-
+										 RemoveItemCommand="{Binding RemoveFromCopyToRecipientsCommand}"
+										 Visibility="{Binding CopyToRecipientsVisibility, ElementName=Root}"/>
 
 
     </Grid>

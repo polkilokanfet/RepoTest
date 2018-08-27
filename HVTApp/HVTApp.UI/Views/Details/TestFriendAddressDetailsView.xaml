@@ -5,7 +5,8 @@
 			  xmlns:infDP="http://infragistics.com/DataPresenter"
 			  xmlns:infE="http://infragistics.com/Editors"
 			  xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -17,21 +18,20 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="City"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="City" Visibility="{Binding CityVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
-                 Text="{Binding Item.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Item.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding CityVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="Street"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Street" Visibility="{Binding StreetVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
-                 Text="{Binding Item.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Item.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding StreetVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="StreetNumber"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="StreetNumber" Visibility="{Binding StreetNumberVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
-                 Text="{Binding Item.StreetNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
+                 Text="{Binding Item.StreetNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding StreetNumberVisibility, ElementName=Root}"/>
 
 
     </Grid>

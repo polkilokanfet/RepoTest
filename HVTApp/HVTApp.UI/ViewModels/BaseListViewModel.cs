@@ -64,9 +64,7 @@ namespace HVTApp.UI.ViewModels
         /// <summary>
         /// Подписка на события. Запуск в конце конструктора.
         /// </summary>
-        protected virtual void SubscribesToEvents()
-        {
-        }
+        protected virtual void SubscribesToEvents() { }
 
 
         public TLookup SelectedLookup
@@ -100,9 +98,9 @@ namespace HVTApp.UI.ViewModels
         public IEnumerable<TLookup> Lookups { get; }
         private ICollection<TLookup> LookupsCollection => (ICollection<TLookup>)Lookups;
 
-        private static TLookup GetLookup(TEntity entity)
+        private async Task<TLookup> GetLookup(TEntity entity)
         {
-            return (TLookup) Activator.CreateInstance(typeof(TLookup), entity);
+            return await UnitOfWork.GetLookupById(entity.Id);
         }
 
         public virtual async Task LoadAsync()
@@ -114,12 +112,15 @@ namespace HVTApp.UI.ViewModels
             Loaded?.Invoke();
         }
 
-        public virtual void Load(IEnumerable<TEntity> entities)
+        public virtual async Task Load(IEnumerable<TEntity> entities)
         {
-            Load(entities.Select(GetLookup));
+            var lookups = new List<TLookup>();
+            foreach (var entity in entities)
+                lookups.Add(await GetLookup(entity));
+            Load(lookups);
         }
 
-        public virtual void Load(IEnumerable<TLookup> lookups)
+        public void Load(IEnumerable<TLookup> lookups)
         {
             LookupsCollection.Clear();
             SelectedLookup = null;
@@ -135,19 +136,9 @@ namespace HVTApp.UI.ViewModels
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
 
-
-
-        private async Task<IEnumerable<TEntity>> GetItems()
-        {
-            throw new NotImplementedException();
-            //return await UnitOfWork.GetRepository<TEntity>().GetAllAsNoTrackingAsync();
-        }
-
-
         protected virtual async Task<IEnumerable<TLookup>> GetLookups()
         {
             return await UnitOfWork.GetAllLookupsAsync();
-            //return (await GetItems()).Select(GetLookup).OrderBy(x => x);
         }
 
         #region Commands
@@ -157,11 +148,17 @@ namespace HVTApp.UI.ViewModels
         public ICommand RemoveItemCommand { get; }
         public ICommand SelectItemCommand { get; }
 
-
+        /// <summary>
+        /// Генерация нового айтема (при создании нового).
+        /// </summary>
+        /// <returns></returns>
+        protected virtual TEntity GetNewItem()
+        {
+            return Activator.CreateInstance<TEntity>();
+        }
         protected async void NewItemCommand_Execute()
         {
-            var entity = Activator.CreateInstance<TEntity>();
-            await Container.Resolve<IUpdateDetailsService>().UpdateDetails(entity);
+            await Container.Resolve<IUpdateDetailsService>().UpdateDetails(GetNewItem());
         }
 
         protected virtual bool NewItemCommand_CanExecute()
@@ -249,7 +246,7 @@ namespace HVTApp.UI.ViewModels
 
             //добавление несуществующего айтема
             var newEntity = await UnitOfWork.GetLookupById(entity.Id);
-            lookup = GetLookup(newEntity.Entity);
+            lookup = await GetLookup(newEntity.Entity);
             lookup.Refresh(newEntity.Entity);
             LookupsCollection.Add(lookup);
 

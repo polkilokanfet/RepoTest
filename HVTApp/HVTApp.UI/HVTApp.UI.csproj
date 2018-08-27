@@ -97,6 +97,10 @@
     <Compile Include="Controls\SaveButtonControl.xaml.cs">
       <DependentUpon>SaveButtonControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\UnitListControl.xaml.cs">
+      <DependentUpon>UnitListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\ProductGroupToProductUnitsConverter.cs" />
     <Compile Include="Converter\ToUnitGroupsConverters.cs" />
     <Compile Include="Events\AfterRemoveEntityEvents\AfterRemoveEntityEvents.g.cs" />
     <Compile Include="Events\AfterSaveEntityEvents\AfterSaveEntityEvents.g.cs" />
@@ -125,12 +129,13 @@
     <Compile Include="ViewModels\BaseListViewModel.cs" />
     <Compile Include="ViewModels\BindableBaseCanExportToExcel.cs" />
     <Compile Include="ViewModels\Details\ContractDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Details\GeneratedDetailsViewModels.g.cs" />
+    <Compile Include="ViewModels\Details\Generated\DetailsViewModels.g.cs" />
     <Compile Include="ViewModels\Details\IUnitGroup.cs" />
     <Compile Include="ViewModels\Details\IProjectUnitGroupLookup.cs" />
     <Compile Include="ViewModels\Details\IProductCostDependentProductsWrapper.cs" />
     <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Details\OfferUnitsDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\OfferUnitsGroup.cs" />
     <Compile Include="ViewModels\Details\OfferUnitsGroupDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
@@ -179,7 +184,8 @@
     </Compile>
     <Compile Include="ViewModels\Details\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModels\List\CompanyListViewModel.cs" />
-    <Compile Include="ViewModels\List\GeneratedListViewModels.g.cs" />
+    <Compile Include="ViewModels\List\Generated\ListViewModels.g.cs" />
+    <Compile Include="ViewModels\List\OfferListViewModel.cs" />
     <Compile Include="ViewModels\List\PartPriceListViewModel.cs" />
     <Compile Include="ViewModels\List\PaymentPlannedListViewModel.cs" />
     <Compile Include="ViewModels\List\ProjectListViewModel.cs" />
@@ -189,6 +195,9 @@
     <Compile Include="ViewModels\RoleToUpdateAttribute.cs" />
     <Compile Include="ViewModels\List\TenderUnitListViewModel.cs" />
     <Compile Include="Views\Details\cs\DetailsViews.g.cs" />
+    <Compile Include="Views\Details\Custom\OfferUnitsDetailsView.xaml.cs">
+      <DependentUpon>OfferUnitsDetailsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Details\Custom\OfferUnitsGroupDetailsWindow.xaml.cs">
       <DependentUpon>OfferUnitsGroupDetailsWindow.xaml</DependentUpon>
     </Compile>
@@ -241,13 +250,17 @@
     <Compile Include="Wrapper\Custom\Validate\CompanyWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\ContractWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\FacilityWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Validate\OfferUnitWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Validate\SalesUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\SpecificationWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\PaymentConditionSetWrapper.cs" />
-    <Compile Include="Wrapper\DataService\EntityWrapperDataServices.g.cs" />
-    <Compile Include="Wrapper\DataService\IEntityWrapperDataService.cs" />
-    <Compile Include="Wrapper\DataService\EntityWrapperDataService.cs" />
+    <Compile Include="Wrapper\DataService\IWrapperDataService.cs" />
+    <Compile Include="Wrapper\DataService\IWrapperRepository.cs" />
+    <Compile Include="Wrapper\DataService\CustomRepositories\OfferWrapperRepository.cs" />
+    <Compile Include="Wrapper\DataService\WrapperRepository.cs" />
     <Compile Include="Wrapper\DataService\WrapperDataService.cs" />
     <Compile Include="Wrapper\DataService\WrapperDataService.g.cs" />
+    <Compile Include="Wrapper\DataService\WrapperRepositories.g.cs" />
     <Compile Include="Wrapper\IProductUnit.cs" />
     <Compile Include="Generator.cs">
       <DependentUpon>Generator.tt</DependentUpon>
@@ -378,6 +391,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\UnitListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Tabs\TabPartPriceCRUD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -425,6 +442,10 @@
     <Page Include="Views\Details\CurrencyExchangeRateDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Details\Custom\OfferUnitsDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Details\DescribeProductBlockTaskDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>

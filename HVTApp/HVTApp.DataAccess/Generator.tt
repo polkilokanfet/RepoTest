@@ -233,7 +233,7 @@ namespace HVTApp.DataAccess
 	foreach (var modelType in modelTypes)
     {
 #>
-        private I<#=modelType.Name#>Repository <#=modelType.Name#>Repository;
+        protected I<#=modelType.Name#>Repository <#=modelType.Name#>Repository;
 <#+
 	}
 #>

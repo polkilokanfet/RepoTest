@@ -5,7 +5,8 @@
 			  xmlns:infDP="http://infragistics.com/DataPresenter"
 			  xmlns:infE="http://infragistics.com/Editors"
 			  xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -17,26 +18,25 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="Название"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Название" Visibility="{Binding NameVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
-                 Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding NameVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="Менеджер"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Менеджер" Visibility="{Binding ManagerVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.Manager}" 
                                     AddItemCommand="{Binding SelectManagerCommand}" 
-                                    RemoveItemCommand="{Binding ClearManagerCommand}"/>
+                                    RemoveItemCommand="{Binding ClearManagerCommand}"
+									Visibility="{Binding ManagerVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="Заметки"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Заметки" Visibility="{Binding NotesVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.Notes}"
 										 SelectedItem="{Binding SelectedNotesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInNotesCommand}"
-										 RemoveItemCommand="{Binding RemoveFromNotesCommand}"/>
-
+										 RemoveItemCommand="{Binding RemoveFromNotesCommand}"
+										 Visibility="{Binding NotesVisibility, ElementName=Root}"/>
 
 
     </Grid>

@@ -21,7 +21,7 @@ namespace HVTApp.UI.Lookup
             return (TLookup)Activator.CreateInstance(typeof(TLookup), entity);
         }
 
-        public async Task<TLookup> GetLookupById(Guid id)
+        public virtual async Task<TLookup> GetLookupById(Guid id)
         {
             var entity = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(id);
             var lookup = GetLookup(entity);

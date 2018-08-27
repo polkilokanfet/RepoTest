@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using HVTApp.UI.Events;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
@@ -14,22 +15,29 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public Market2ViewModel(ProjectListViewModel projectListViewModel, OfferListViewModel offerListViewModel, 
             UnitLookupListViewModel unitLookupListViewModel, IEventAggregator eventAggregator, 
-            OfferUnitLookupDataService offerUnitLookupDataService)
+            OfferLookupDataService offerLookupDataService)
         {
             ProjectListViewModel = projectListViewModel;
             OfferListViewModel = offerListViewModel;
             UnitLookupListViewModel = unitLookupListViewModel;
 
-            ProjectListViewModel.SelectedLookupChanged += project =>
+            ProjectListViewModel.SelectedLookupChanged += async project =>
             {
                 UnitLookupListViewModel.Load(project.SalesUnits);
                 OfferListViewModel.Load(project.Offers);
+                foreach (var offerLookup in project.Offers)
+                {
+                    if (offerLookup.OfferUnits == null)
+                    {
+                        offerLookup.OfferUnits = (await offerLookupDataService.GetLookupById(offerLookup.Id)).OfferUnits.ToList();
+                    }
+                }
             };
 
             OfferListViewModel.SelectedLookupChanged += offer =>
             {
-                //if (offer == null) return;
-                //UnitLookupListViewModel.Load(offer.OfferUnits);
+                if (offer == null) return;
+                UnitLookupListViewModel.Load(offer.OfferUnits);
             };
 
         }

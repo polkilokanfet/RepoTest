@@ -1,132 +1,132 @@
-using HVTApp.Infrastructure;
+using System.Data.Entity;
 
 namespace HVTApp.UI.Wrapper
 {
     public partial class WrapperDataService
     {
-        public WrapperDataService(IUnitOfWork unitOfWork)
+        public WrapperDataService(DbContext context) : base(context)
         {
-            CommonOptionWrapperDataService = new CommonOptionWrapperDataService(unitOfWork);
-            AddressWrapperDataService = new AddressWrapperDataService(unitOfWork);
-            CountryWrapperDataService = new CountryWrapperDataService(unitOfWork);
-            DistrictWrapperDataService = new DistrictWrapperDataService(unitOfWork);
-            LocalityWrapperDataService = new LocalityWrapperDataService(unitOfWork);
-            LocalityTypeWrapperDataService = new LocalityTypeWrapperDataService(unitOfWork);
-            RegionWrapperDataService = new RegionWrapperDataService(unitOfWork);
-            CalculatePriceTaskWrapperDataService = new CalculatePriceTaskWrapperDataService(unitOfWork);
-            SumWrapperDataService = new SumWrapperDataService(unitOfWork);
-            CurrencyExchangeRateWrapperDataService = new CurrencyExchangeRateWrapperDataService(unitOfWork);
-            DescribeProductBlockTaskWrapperDataService = new DescribeProductBlockTaskWrapperDataService(unitOfWork);
-            NoteWrapperDataService = new NoteWrapperDataService(unitOfWork);
-            OfferUnitWrapperDataService = new OfferUnitWrapperDataService(unitOfWork);
-            PaymentConditionSetWrapperDataService = new PaymentConditionSetWrapperDataService(unitOfWork);
-            ProductBlockWrapperDataService = new ProductBlockWrapperDataService(unitOfWork);
-            ProductDependentWrapperDataService = new ProductDependentWrapperDataService(unitOfWork);
-            ProductionTaskWrapperDataService = new ProductionTaskWrapperDataService(unitOfWork);
-            SalesBlockWrapperDataService = new SalesBlockWrapperDataService(unitOfWork);
-            BankDetailsWrapperDataService = new BankDetailsWrapperDataService(unitOfWork);
-            CompanyWrapperDataService = new CompanyWrapperDataService(unitOfWork);
-            CompanyFormWrapperDataService = new CompanyFormWrapperDataService(unitOfWork);
-            DocumentsRegistrationDetailsWrapperDataService = new DocumentsRegistrationDetailsWrapperDataService(unitOfWork);
-            EmployeesPositionWrapperDataService = new EmployeesPositionWrapperDataService(unitOfWork);
-            FacilityTypeWrapperDataService = new FacilityTypeWrapperDataService(unitOfWork);
-            ActivityFieldWrapperDataService = new ActivityFieldWrapperDataService(unitOfWork);
-            ContractWrapperDataService = new ContractWrapperDataService(unitOfWork);
-            MeasureWrapperDataService = new MeasureWrapperDataService(unitOfWork);
-            ParameterWrapperDataService = new ParameterWrapperDataService(unitOfWork);
-            ParameterGroupWrapperDataService = new ParameterGroupWrapperDataService(unitOfWork);
-            ProductRelationWrapperDataService = new ProductRelationWrapperDataService(unitOfWork);
-            PersonWrapperDataService = new PersonWrapperDataService(unitOfWork);
-            PaymentPlannedListWrapperDataService = new PaymentPlannedListWrapperDataService(unitOfWork);
-            PaymentPlannedWrapperDataService = new PaymentPlannedWrapperDataService(unitOfWork);
-            PaymentActualWrapperDataService = new PaymentActualWrapperDataService(unitOfWork);
-            ParameterRelationWrapperDataService = new ParameterRelationWrapperDataService(unitOfWork);
-            SalesUnitWrapperDataService = new SalesUnitWrapperDataService(unitOfWork);
-            ServiceWrapperDataService = new ServiceWrapperDataService(unitOfWork);
-            TestFriendAddressWrapperDataService = new TestFriendAddressWrapperDataService(unitOfWork);
-            TestFriendWrapperDataService = new TestFriendWrapperDataService(unitOfWork);
-            TestFriendEmailWrapperDataService = new TestFriendEmailWrapperDataService(unitOfWork);
-            TestFriendGroupWrapperDataService = new TestFriendGroupWrapperDataService(unitOfWork);
-            DocumentWrapperDataService = new DocumentWrapperDataService(unitOfWork);
-            TestEntityWrapperDataService = new TestEntityWrapperDataService(unitOfWork);
-            TestHusbandWrapperDataService = new TestHusbandWrapperDataService(unitOfWork);
-            TestWifeWrapperDataService = new TestWifeWrapperDataService(unitOfWork);
-            TestChildWrapperDataService = new TestChildWrapperDataService(unitOfWork);
-            SumOnDateWrapperDataService = new SumOnDateWrapperDataService(unitOfWork);
-            ProductWrapperDataService = new ProductWrapperDataService(unitOfWork);
-            OfferWrapperDataService = new OfferWrapperDataService(unitOfWork);
-            EmployeeWrapperDataService = new EmployeeWrapperDataService(unitOfWork);
-            OrderWrapperDataService = new OrderWrapperDataService(unitOfWork);
-            PaymentConditionWrapperDataService = new PaymentConditionWrapperDataService(unitOfWork);
-            PaymentDocumentWrapperDataService = new PaymentDocumentWrapperDataService(unitOfWork);
-            FacilityWrapperDataService = new FacilityWrapperDataService(unitOfWork);
-            ProjectWrapperDataService = new ProjectWrapperDataService(unitOfWork);
-            UserRoleWrapperDataService = new UserRoleWrapperDataService(unitOfWork);
-            SpecificationWrapperDataService = new SpecificationWrapperDataService(unitOfWork);
-            TenderWrapperDataService = new TenderWrapperDataService(unitOfWork);
-            TenderTypeWrapperDataService = new TenderTypeWrapperDataService(unitOfWork);
-            UserWrapperDataService = new UserWrapperDataService(unitOfWork);
+            CommonOptionWrapperRepository = new CommonOptionWrapperRepository(this);
+            AddressWrapperRepository = new AddressWrapperRepository(this);
+            CountryWrapperRepository = new CountryWrapperRepository(this);
+            DistrictWrapperRepository = new DistrictWrapperRepository(this);
+            LocalityWrapperRepository = new LocalityWrapperRepository(this);
+            LocalityTypeWrapperRepository = new LocalityTypeWrapperRepository(this);
+            RegionWrapperRepository = new RegionWrapperRepository(this);
+            CalculatePriceTaskWrapperRepository = new CalculatePriceTaskWrapperRepository(this);
+            SumWrapperRepository = new SumWrapperRepository(this);
+            CurrencyExchangeRateWrapperRepository = new CurrencyExchangeRateWrapperRepository(this);
+            DescribeProductBlockTaskWrapperRepository = new DescribeProductBlockTaskWrapperRepository(this);
+            NoteWrapperRepository = new NoteWrapperRepository(this);
+            OfferUnitWrapperRepository = new OfferUnitWrapperRepository(this);
+            PaymentConditionSetWrapperRepository = new PaymentConditionSetWrapperRepository(this);
+            ProductBlockWrapperRepository = new ProductBlockWrapperRepository(this);
+            ProductDependentWrapperRepository = new ProductDependentWrapperRepository(this);
+            ProductionTaskWrapperRepository = new ProductionTaskWrapperRepository(this);
+            SalesBlockWrapperRepository = new SalesBlockWrapperRepository(this);
+            BankDetailsWrapperRepository = new BankDetailsWrapperRepository(this);
+            CompanyWrapperRepository = new CompanyWrapperRepository(this);
+            CompanyFormWrapperRepository = new CompanyFormWrapperRepository(this);
+            DocumentsRegistrationDetailsWrapperRepository = new DocumentsRegistrationDetailsWrapperRepository(this);
+            EmployeesPositionWrapperRepository = new EmployeesPositionWrapperRepository(this);
+            FacilityTypeWrapperRepository = new FacilityTypeWrapperRepository(this);
+            ActivityFieldWrapperRepository = new ActivityFieldWrapperRepository(this);
+            ContractWrapperRepository = new ContractWrapperRepository(this);
+            MeasureWrapperRepository = new MeasureWrapperRepository(this);
+            ParameterWrapperRepository = new ParameterWrapperRepository(this);
+            ParameterGroupWrapperRepository = new ParameterGroupWrapperRepository(this);
+            ProductRelationWrapperRepository = new ProductRelationWrapperRepository(this);
+            PersonWrapperRepository = new PersonWrapperRepository(this);
+            PaymentPlannedListWrapperRepository = new PaymentPlannedListWrapperRepository(this);
+            PaymentPlannedWrapperRepository = new PaymentPlannedWrapperRepository(this);
+            PaymentActualWrapperRepository = new PaymentActualWrapperRepository(this);
+            ParameterRelationWrapperRepository = new ParameterRelationWrapperRepository(this);
+            SalesUnitWrapperRepository = new SalesUnitWrapperRepository(this);
+            ServiceWrapperRepository = new ServiceWrapperRepository(this);
+            TestFriendAddressWrapperRepository = new TestFriendAddressWrapperRepository(this);
+            TestFriendWrapperRepository = new TestFriendWrapperRepository(this);
+            TestFriendEmailWrapperRepository = new TestFriendEmailWrapperRepository(this);
+            TestFriendGroupWrapperRepository = new TestFriendGroupWrapperRepository(this);
+            DocumentWrapperRepository = new DocumentWrapperRepository(this);
+            TestEntityWrapperRepository = new TestEntityWrapperRepository(this);
+            TestHusbandWrapperRepository = new TestHusbandWrapperRepository(this);
+            TestWifeWrapperRepository = new TestWifeWrapperRepository(this);
+            TestChildWrapperRepository = new TestChildWrapperRepository(this);
+            SumOnDateWrapperRepository = new SumOnDateWrapperRepository(this);
+            ProductWrapperRepository = new ProductWrapperRepository(this);
+            OfferWrapperRepository = new OfferWrapperRepository(this);
+            EmployeeWrapperRepository = new EmployeeWrapperRepository(this);
+            OrderWrapperRepository = new OrderWrapperRepository(this);
+            PaymentConditionWrapperRepository = new PaymentConditionWrapperRepository(this);
+            PaymentDocumentWrapperRepository = new PaymentDocumentWrapperRepository(this);
+            FacilityWrapperRepository = new FacilityWrapperRepository(this);
+            ProjectWrapperRepository = new ProjectWrapperRepository(this);
+            UserRoleWrapperRepository = new UserRoleWrapperRepository(this);
+            SpecificationWrapperRepository = new SpecificationWrapperRepository(this);
+            TenderWrapperRepository = new TenderWrapperRepository(this);
+            TenderTypeWrapperRepository = new TenderTypeWrapperRepository(this);
+            UserWrapperRepository = new UserWrapperRepository(this);
         }
 
-        public CommonOptionWrapperDataService CommonOptionWrapperDataService { get; }
-        public AddressWrapperDataService AddressWrapperDataService { get; }
-        public CountryWrapperDataService CountryWrapperDataService { get; }
-        public DistrictWrapperDataService DistrictWrapperDataService { get; }
-        public LocalityWrapperDataService LocalityWrapperDataService { get; }
-        public LocalityTypeWrapperDataService LocalityTypeWrapperDataService { get; }
-        public RegionWrapperDataService RegionWrapperDataService { get; }
-        public CalculatePriceTaskWrapperDataService CalculatePriceTaskWrapperDataService { get; }
-        public SumWrapperDataService SumWrapperDataService { get; }
-        public CurrencyExchangeRateWrapperDataService CurrencyExchangeRateWrapperDataService { get; }
-        public DescribeProductBlockTaskWrapperDataService DescribeProductBlockTaskWrapperDataService { get; }
-        public NoteWrapperDataService NoteWrapperDataService { get; }
-        public OfferUnitWrapperDataService OfferUnitWrapperDataService { get; }
-        public PaymentConditionSetWrapperDataService PaymentConditionSetWrapperDataService { get; }
-        public ProductBlockWrapperDataService ProductBlockWrapperDataService { get; }
-        public ProductDependentWrapperDataService ProductDependentWrapperDataService { get; }
-        public ProductionTaskWrapperDataService ProductionTaskWrapperDataService { get; }
-        public SalesBlockWrapperDataService SalesBlockWrapperDataService { get; }
-        public BankDetailsWrapperDataService BankDetailsWrapperDataService { get; }
-        public CompanyWrapperDataService CompanyWrapperDataService { get; }
-        public CompanyFormWrapperDataService CompanyFormWrapperDataService { get; }
-        public DocumentsRegistrationDetailsWrapperDataService DocumentsRegistrationDetailsWrapperDataService { get; }
-        public EmployeesPositionWrapperDataService EmployeesPositionWrapperDataService { get; }
-        public FacilityTypeWrapperDataService FacilityTypeWrapperDataService { get; }
-        public ActivityFieldWrapperDataService ActivityFieldWrapperDataService { get; }
-        public ContractWrapperDataService ContractWrapperDataService { get; }
-        public MeasureWrapperDataService MeasureWrapperDataService { get; }
-        public ParameterWrapperDataService ParameterWrapperDataService { get; }
-        public ParameterGroupWrapperDataService ParameterGroupWrapperDataService { get; }
-        public ProductRelationWrapperDataService ProductRelationWrapperDataService { get; }
-        public PersonWrapperDataService PersonWrapperDataService { get; }
-        public PaymentPlannedListWrapperDataService PaymentPlannedListWrapperDataService { get; }
-        public PaymentPlannedWrapperDataService PaymentPlannedWrapperDataService { get; }
-        public PaymentActualWrapperDataService PaymentActualWrapperDataService { get; }
-        public ParameterRelationWrapperDataService ParameterRelationWrapperDataService { get; }
-        public SalesUnitWrapperDataService SalesUnitWrapperDataService { get; }
-        public ServiceWrapperDataService ServiceWrapperDataService { get; }
-        public TestFriendAddressWrapperDataService TestFriendAddressWrapperDataService { get; }
-        public TestFriendWrapperDataService TestFriendWrapperDataService { get; }
-        public TestFriendEmailWrapperDataService TestFriendEmailWrapperDataService { get; }
-        public TestFriendGroupWrapperDataService TestFriendGroupWrapperDataService { get; }
-        public DocumentWrapperDataService DocumentWrapperDataService { get; }
-        public TestEntityWrapperDataService TestEntityWrapperDataService { get; }
-        public TestHusbandWrapperDataService TestHusbandWrapperDataService { get; }
-        public TestWifeWrapperDataService TestWifeWrapperDataService { get; }
-        public TestChildWrapperDataService TestChildWrapperDataService { get; }
-        public SumOnDateWrapperDataService SumOnDateWrapperDataService { get; }
-        public ProductWrapperDataService ProductWrapperDataService { get; }
-        public OfferWrapperDataService OfferWrapperDataService { get; }
-        public EmployeeWrapperDataService EmployeeWrapperDataService { get; }
-        public OrderWrapperDataService OrderWrapperDataService { get; }
-        public PaymentConditionWrapperDataService PaymentConditionWrapperDataService { get; }
-        public PaymentDocumentWrapperDataService PaymentDocumentWrapperDataService { get; }
-        public FacilityWrapperDataService FacilityWrapperDataService { get; }
-        public ProjectWrapperDataService ProjectWrapperDataService { get; }
-        public UserRoleWrapperDataService UserRoleWrapperDataService { get; }
-        public SpecificationWrapperDataService SpecificationWrapperDataService { get; }
-        public TenderWrapperDataService TenderWrapperDataService { get; }
-        public TenderTypeWrapperDataService TenderTypeWrapperDataService { get; }
-        public UserWrapperDataService UserWrapperDataService { get; }
+        private CommonOptionWrapperRepository CommonOptionWrapperRepository;
+        private AddressWrapperRepository AddressWrapperRepository;
+        private CountryWrapperRepository CountryWrapperRepository;
+        private DistrictWrapperRepository DistrictWrapperRepository;
+        private LocalityWrapperRepository LocalityWrapperRepository;
+        private LocalityTypeWrapperRepository LocalityTypeWrapperRepository;
+        private RegionWrapperRepository RegionWrapperRepository;
+        private CalculatePriceTaskWrapperRepository CalculatePriceTaskWrapperRepository;
+        private SumWrapperRepository SumWrapperRepository;
+        private CurrencyExchangeRateWrapperRepository CurrencyExchangeRateWrapperRepository;
+        private DescribeProductBlockTaskWrapperRepository DescribeProductBlockTaskWrapperRepository;
+        private NoteWrapperRepository NoteWrapperRepository;
+        private OfferUnitWrapperRepository OfferUnitWrapperRepository;
+        private PaymentConditionSetWrapperRepository PaymentConditionSetWrapperRepository;
+        private ProductBlockWrapperRepository ProductBlockWrapperRepository;
+        private ProductDependentWrapperRepository ProductDependentWrapperRepository;
+        private ProductionTaskWrapperRepository ProductionTaskWrapperRepository;
+        private SalesBlockWrapperRepository SalesBlockWrapperRepository;
+        private BankDetailsWrapperRepository BankDetailsWrapperRepository;
+        private CompanyWrapperRepository CompanyWrapperRepository;
+        private CompanyFormWrapperRepository CompanyFormWrapperRepository;
+        private DocumentsRegistrationDetailsWrapperRepository DocumentsRegistrationDetailsWrapperRepository;
+        private EmployeesPositionWrapperRepository EmployeesPositionWrapperRepository;
+        private FacilityTypeWrapperRepository FacilityTypeWrapperRepository;
+        private ActivityFieldWrapperRepository ActivityFieldWrapperRepository;
+        private ContractWrapperRepository ContractWrapperRepository;
+        private MeasureWrapperRepository MeasureWrapperRepository;
+        private ParameterWrapperRepository ParameterWrapperRepository;
+        private ParameterGroupWrapperRepository ParameterGroupWrapperRepository;
+        private ProductRelationWrapperRepository ProductRelationWrapperRepository;
+        private PersonWrapperRepository PersonWrapperRepository;
+        private PaymentPlannedListWrapperRepository PaymentPlannedListWrapperRepository;
+        private PaymentPlannedWrapperRepository PaymentPlannedWrapperRepository;
+        private PaymentActualWrapperRepository PaymentActualWrapperRepository;
+        private ParameterRelationWrapperRepository ParameterRelationWrapperRepository;
+        private SalesUnitWrapperRepository SalesUnitWrapperRepository;
+        private ServiceWrapperRepository ServiceWrapperRepository;
+        private TestFriendAddressWrapperRepository TestFriendAddressWrapperRepository;
+        private TestFriendWrapperRepository TestFriendWrapperRepository;
+        private TestFriendEmailWrapperRepository TestFriendEmailWrapperRepository;
+        private TestFriendGroupWrapperRepository TestFriendGroupWrapperRepository;
+        private DocumentWrapperRepository DocumentWrapperRepository;
+        private TestEntityWrapperRepository TestEntityWrapperRepository;
+        private TestHusbandWrapperRepository TestHusbandWrapperRepository;
+        private TestWifeWrapperRepository TestWifeWrapperRepository;
+        private TestChildWrapperRepository TestChildWrapperRepository;
+        private SumOnDateWrapperRepository SumOnDateWrapperRepository;
+        private ProductWrapperRepository ProductWrapperRepository;
+        private OfferWrapperRepository OfferWrapperRepository;
+        private EmployeeWrapperRepository EmployeeWrapperRepository;
+        private OrderWrapperRepository OrderWrapperRepository;
+        private PaymentConditionWrapperRepository PaymentConditionWrapperRepository;
+        private PaymentDocumentWrapperRepository PaymentDocumentWrapperRepository;
+        private FacilityWrapperRepository FacilityWrapperRepository;
+        private ProjectWrapperRepository ProjectWrapperRepository;
+        private UserRoleWrapperRepository UserRoleWrapperRepository;
+        private SpecificationWrapperRepository SpecificationWrapperRepository;
+        private TenderWrapperRepository TenderWrapperRepository;
+        private TenderTypeWrapperRepository TenderTypeWrapperRepository;
+        private UserWrapperRepository UserWrapperRepository;
     }
 }

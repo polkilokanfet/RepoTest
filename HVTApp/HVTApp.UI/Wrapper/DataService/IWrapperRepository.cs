@@ -5,11 +5,15 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Wrapper
 {
-    public interface IEntityWrapperDataService<TModel, TWrapper> : IDisposable
+    public interface IWrapperRepository<TModel, TWrapper> : IDisposable
         where TModel : class, IBaseEntity
         where TWrapper : IWrapper<TModel>
     {
         Task<IEnumerable<TWrapper>> GetAllAsync();
         Task<TWrapper> GetByIdAsync(Guid id);
+        Task<List<TWrapper>> FindAsync(Func<TWrapper, bool> predicate);
+
+        void Delete(TWrapper wrapper);
+        void Add(TWrapper wrapper);
     }
 }

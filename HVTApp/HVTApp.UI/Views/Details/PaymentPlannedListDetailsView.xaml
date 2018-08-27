@@ -5,7 +5,8 @@
 			  xmlns:infDP="http://infragistics.com/DataPresenter"
 			  xmlns:infE="http://infragistics.com/Editors"
 			  xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -17,21 +18,20 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="Condition"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Condition" Visibility="{Binding ConditionVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.Condition}" 
                                     AddItemCommand="{Binding SelectConditionCommand}" 
-                                    RemoveItemCommand="{Binding ClearConditionCommand}"/>
+                                    RemoveItemCommand="{Binding ClearConditionCommand}"
+									Visibility="{Binding ConditionVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="Payments"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Payments" Visibility="{Binding PaymentsVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
 										 Items="{Binding Path=Item.Payments}"
 										 SelectedItem="{Binding SelectedPaymentsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPaymentsCommand}"
-										 RemoveItemCommand="{Binding RemoveFromPaymentsCommand}"/>
-
+										 RemoveItemCommand="{Binding RemoveFromPaymentsCommand}"
+										 Visibility="{Binding PaymentsVisibility, ElementName=Root}"/>
 
 
     </Grid>

@@ -5,7 +5,8 @@
 			  xmlns:infDP="http://infragistics.com/DataPresenter"
 			  xmlns:infE="http://infragistics.com/Editors"
 			  xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -18,26 +19,25 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="Value"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Value" Visibility="{Binding ValueVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
-                 Text="{Binding Item.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Item.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding ValueVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="ParameterGroup"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="ParameterGroup" Visibility="{Binding ParameterGroupVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.ParameterGroup}" 
                                     AddItemCommand="{Binding SelectParameterGroupCommand}" 
-                                    RemoveItemCommand="{Binding ClearParameterGroupCommand}"/>
+                                    RemoveItemCommand="{Binding ClearParameterGroupCommand}"
+									Visibility="{Binding ParameterGroupVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="ParameterRelations"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="ParameterRelations" Visibility="{Binding ParameterRelationsVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.ParameterRelations}"
 										 SelectedItem="{Binding SelectedParameterRelationsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInParameterRelationsCommand}"
-										 RemoveItemCommand="{Binding RemoveFromParameterRelationsCommand}"/>
-
+										 RemoveItemCommand="{Binding RemoveFromParameterRelationsCommand}"
+										 Visibility="{Binding ParameterRelationsVisibility, ElementName=Root}"/>
 
 
     </Grid>

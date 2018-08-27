@@ -4,7 +4,7 @@ namespace HVTApp.UI.ViewModels
     {
         //protected override async Task<IEnumerable<UnitGroup>> GetItems()
         //{
-        //    var units = await UnitOfWork.GetRepository<ProjectUnit>().GetAllAsNoTrackingAsync();
+        //    var units = await WrapperDataService.GetRepository<ProjectUnit>().GetAllAsNoTrackingAsync();
         //    return units.ConvertToGroup();
         //}
 

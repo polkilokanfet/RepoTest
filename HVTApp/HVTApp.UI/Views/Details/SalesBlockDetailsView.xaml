@@ -5,7 +5,8 @@
 			  xmlns:infDP="http://infragistics.com/DataPresenter"
 			  xmlns:infE="http://infragistics.com/Editors"
 			  xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -16,22 +17,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="ParentSalesUnits"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="ParentSalesUnits" Visibility="{Binding ParentSalesUnitsVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.ParentSalesUnits}"
 										 SelectedItem="{Binding SelectedParentSalesUnitsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInParentSalesUnitsCommand}"
-										 RemoveItemCommand="{Binding RemoveFromParentSalesUnitsCommand}"/>
+										 RemoveItemCommand="{Binding RemoveFromParentSalesUnitsCommand}"
+										 Visibility="{Binding ParentSalesUnitsVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="ChildSalesUnits"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="ChildSalesUnits" Visibility="{Binding ChildSalesUnitsVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
 										 Items="{Binding Path=Item.ChildSalesUnits}"
 										 SelectedItem="{Binding SelectedChildSalesUnitsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInChildSalesUnitsCommand}"
-										 RemoveItemCommand="{Binding RemoveFromChildSalesUnitsCommand}"/>
-
+										 RemoveItemCommand="{Binding RemoveFromChildSalesUnitsCommand}"
+										 Visibility="{Binding ChildSalesUnitsVisibility, ElementName=Root}"/>
 
 
     </Grid>

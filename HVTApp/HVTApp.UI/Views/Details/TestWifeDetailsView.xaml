@@ -5,7 +5,8 @@
 			  xmlns:infDP="http://infragistics.com/DataPresenter"
 			  xmlns:infE="http://infragistics.com/Editors"
 			  xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls">
+              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
+			  x:Name="Root">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -17,24 +18,23 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="Name"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Name" Visibility="{Binding NameVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
-                 Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding NameVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="N"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="N" Visibility="{Binding NVisibility, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
 							   ValueType="core:Int32"
-                               Value="{Binding Item.N, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                               Value="{Binding Item.N, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding NVisibility, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="Husband"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Husband" Visibility="{Binding HusbandVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.Husband}" 
                                     AddItemCommand="{Binding SelectHusbandCommand}" 
-                                    RemoveItemCommand="{Binding ClearHusbandCommand}"/>
-
+                                    RemoveItemCommand="{Binding ClearHusbandCommand}"
+									Visibility="{Binding HusbandVisibility, ElementName=Root}"/>
 
 
     </Grid>

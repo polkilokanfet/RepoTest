@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attrubutes;
 using HVTApp.Infrastructure.Extansions;
 
@@ -7,8 +8,29 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Единица продаж")]
     [DesignationPlural("Единицы продаж")]
-    public class SalesUnit : OfferUnit
+    public class SalesUnit : BaseEntity, IUnit
     {
+        [Designation("Стоимость")]
+        public double Cost { get; set; }
+
+
+        [Designation("Продукт")]
+        public virtual Product Product { get; set; }
+
+        public virtual List<ProductDependent> DependentProducts { get; set; } = new List<ProductDependent>();
+
+        public virtual List<Service> Services { get; set; } = new List<Service>();
+
+        [Designation("Объект")]
+        public virtual Facility Facility { get; set; }
+
+        [Designation("Условия оплаты")]
+        public virtual PaymentConditionSet PaymentConditionSet { get; set; }
+
+        [Designation("Срок производства")]
+        public int? ProductionTerm { get; set; }
+
+
         #region Проект
         [Designation("Проект")]
         public virtual Project Project { get; set; }

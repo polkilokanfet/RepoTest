@@ -92,7 +92,7 @@ namespace HVTApp
             Container.RegisterType<ICompanyLookupDataService, CompanyLookupDataService>();
             Container.RegisterType<ICompanyFormLookupDataService, CompanyFormLookupDataService>();
 
-            Container.RegisterType<WrapperDataService>();
+            Container.RegisterType<IWrapperDataService, WrapperDataService>();
 
             Container.RegisterType<IUpdateDetailsService, UpdateDetailsServiceWpf>(new ContainerControlledLifetimeManager());
 
