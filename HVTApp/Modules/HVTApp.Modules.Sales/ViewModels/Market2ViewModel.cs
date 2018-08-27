@@ -9,11 +9,11 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class Market2ViewModel
     {
-        public ProjectListViewModel ProjectListViewModel { get; }
-        public OfferListViewModel OfferListViewModel { get; }
+        public ProjectLookupListViewModel ProjectListViewModel { get; }
+        public OfferLookupListViewModel OfferListViewModel { get; }
         public UnitLookupListViewModel UnitLookupListViewModel { get; }
 
-        public Market2ViewModel(ProjectListViewModel projectListViewModel, OfferListViewModel offerListViewModel, 
+        public Market2ViewModel(ProjectLookupListViewModel projectListViewModel, OfferLookupListViewModel offerListViewModel, 
             UnitLookupListViewModel unitLookupListViewModel, IEventAggregator eventAggregator, 
             OfferLookupDataService offerLookupDataService)
         {

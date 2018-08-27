@@ -3,7 +3,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.ViewModels
 {
-    public partial class OfferListViewModel
+    public partial class OfferLookupListViewModel
     {
         protected override Offer GetNewItem()
         {

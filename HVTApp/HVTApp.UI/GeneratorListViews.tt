@@ -27,7 +27,7 @@
     GenerateListViewModels(GeneratorHelpers.GetModelTypesPocos());
 	SaveGeneratedCodeAsFile("ListViewModels.g.cs", "ViewModels/List/Generated");
 
-	GenerateListViewsCs(GeneratorHelpers.GetModelTypesPocos());
+	GenerateListViewsCs(GeneratorHelpers.GetModelTypesLookups());
 	SaveGeneratedCodeAsFile("ListViews.g.cs", "Views/List/cs");
 
 
@@ -193,9 +193,9 @@ namespace HVTApp.UI.ViewModels
         foreach(var modelType in modelTypes)
         {
 #>
-    public partial class <#=modelType.Name#>ListViewModel : BaseListViewModel<<#=modelType.Name#>, <#=modelType.Name#>Lookup, AfterSave<#=modelType.Name#>Event, AfterSelect<#=modelType.Name#>Event, AfterRemove<#=modelType.Name#>Event,  <#=modelType.Name#>LookupDataService>
+    public partial class <#=modelType.Name#>LookupListViewModel : BaseListViewModel<<#=modelType.Name#>, <#=modelType.Name#>Lookup, AfterSave<#=modelType.Name#>Event, AfterSelect<#=modelType.Name#>Event, AfterRemove<#=modelType.Name#>Event,  <#=modelType.Name#>LookupDataService>
     {
-        public <#=modelType.Name#>ListViewModel(IUnityContainer container) : base(container) { }
+        public <#=modelType.Name#>LookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
 <#+
@@ -226,14 +226,14 @@ namespace HVTApp.UI.Views
 #>
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("<#=modelType.DesignationPlural()#>")]
-    public partial class <#=modelType.Name#>LookupListView : ViewBase
+    public partial class <#=modelType.Name#>ListView : ViewBase
     {
-        public <#=modelType.Name#>LookupListView()
+        public <#=modelType.Name#>ListView()
         {
             InitializeComponent();
         }
 
-        public <#=modelType.Name#>LookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, <#=modelType.Name#>ListViewModel <#=modelType.Name#>ListViewModel) : base(regionManager, eventAggregator)
+        public <#=modelType.Name#>ListView(IRegionManager regionManager, IEventAggregator eventAggregator, <#=modelType.Name#>ListViewModel <#=modelType.Name#>ListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = <#=modelType.Name#>ListViewModel;
@@ -254,8 +254,8 @@ namespace HVTApp.UI.Views
 #>
         public System.Windows.Visibility <#=prop.Name#>Visibility
         {
-            get { return <#=modelType.Name#>LookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.<#=modelType.Name#>.<#=prop.Name#>)].Visibility; }
-            set { <#=modelType.Name#>LookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.<#=modelType.Name#>.<#=prop.Name#>)].Visibility = value; }
+            get { return <#=modelType.Name#>ListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.<#=modelType.Name#>.<#=prop.Name#>)].Visibility; }
+            set { <#=modelType.Name#>ListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.<#=modelType.Name#>.<#=prop.Name#>)].Visibility = value; }
         }
 
 <#+		}

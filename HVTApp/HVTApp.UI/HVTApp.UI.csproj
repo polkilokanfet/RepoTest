@@ -185,10 +185,9 @@
     <Compile Include="ViewModels\Details\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModels\List\CompanyListViewModel.cs" />
     <Compile Include="ViewModels\List\Generated\ListViewModels.g.cs" />
-    <Compile Include="ViewModels\List\OfferListViewModel.cs" />
+    <Compile Include="ViewModels\List\OfferLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\PartPriceListViewModel.cs" />
     <Compile Include="ViewModels\List\PaymentPlannedListViewModel.cs" />
-    <Compile Include="ViewModels\List\ProjectListViewModel.cs" />
     <Compile Include="ViewModels\List\ProjectUnitGroupListViewModel.cs" />
     <Compile Include="ViewModels\List\UnitLookupListViewModel.cs" />
     <Compile Include="ViewModels\PaymentPlannedListGeneratorViewModel.cs" />
