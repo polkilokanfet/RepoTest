@@ -1,3 +1,18 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Events;
 using HVTApp.UI.Wrapper;
@@ -10,8 +25,10 @@ using System;
 
 namespace HVTApp.UI.ViewModels
 {
+
     public partial class CommonOptionDetailsViewModel : BaseDetailsViewModel<CommonOptionWrapper, CommonOption, AfterSaveCommonOptionEvent>
     {
+
         public CommonOptionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -19,20 +36,24 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
 
+
     }
+
 
     public partial class AddressDetailsViewModel : BaseDetailsViewModel<AddressWrapper, Address, AfterSaveAddressEvent>
     {
 		private Func<Task<List<Locality>>> _getEntitiesForSelectLocalityCommand;
-		public ICommand SelectLocalityCommand { get; }
-		public ICommand ClearLocalityCommand { get; }
+		public ICommand SelectLocalityCommand { get; private set; }
+		public ICommand ClearLocalityCommand { get; private set; }
+
 
         public AddressDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectLocalityCommand = new DelegateCommand(SelectLocalityCommand_Execute);
-			ClearLocalityCommand = new DelegateCommand(ClearLocalityCommand_Execute);
+			if (SelectLocalityCommand == null) SelectLocalityCommand = new DelegateCommand(SelectLocalityCommand_Execute);
+			if (ClearLocalityCommand == null) ClearLocalityCommand = new DelegateCommand(ClearLocalityCommand_Execute);
 
 		}
 
@@ -40,6 +61,7 @@ namespace HVTApp.UI.ViewModels
         protected override void InitDefaultGetMethods()
 		{
             _getEntitiesForSelectLocalityCommand = async () => { return await WrapperDataService.GetRepository<Locality>().GetAllAsync(); };
+
 		}
 		private async void SelectLocalityCommand_Execute() 
 		{
@@ -48,14 +70,18 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearLocalityCommand_Execute() 
 		{
-		Item.Locality = null;		    
+		Item.Locality = null;
+		    
 		}
+
 
 
     }
 
+
     public partial class CountryDetailsViewModel : BaseDetailsViewModel<CountryWrapper, Country, AfterSaveCountryEvent>
     {
+
         public CountryDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -63,20 +89,24 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
 
+
     }
+
 
     public partial class DistrictDetailsViewModel : BaseDetailsViewModel<DistrictWrapper, District, AfterSaveDistrictEvent>
     {
 		private Func<Task<List<Country>>> _getEntitiesForSelectCountryCommand;
-		public ICommand SelectCountryCommand { get; }
-		public ICommand ClearCountryCommand { get; }
+		public ICommand SelectCountryCommand { get; private set; }
+		public ICommand ClearCountryCommand { get; private set; }
+
 
         public DistrictDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectCountryCommand = new DelegateCommand(SelectCountryCommand_Execute);
-			ClearCountryCommand = new DelegateCommand(ClearCountryCommand_Execute);
+			if (SelectCountryCommand == null) SelectCountryCommand = new DelegateCommand(SelectCountryCommand_Execute);
+			if (ClearCountryCommand == null) ClearCountryCommand = new DelegateCommand(ClearCountryCommand_Execute);
 
 		}
 
@@ -84,6 +114,7 @@ namespace HVTApp.UI.ViewModels
         protected override void InitDefaultGetMethods()
 		{
             _getEntitiesForSelectCountryCommand = async () => { return await WrapperDataService.GetRepository<Country>().GetAllAsync(); };
+
 		}
 		private async void SelectCountryCommand_Execute() 
 		{
@@ -92,29 +123,33 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearCountryCommand_Execute() 
 		{
-		Item.Country = null;		    
+		Item.Country = null;
+		    
 		}
+
 
 
     }
 
+
     public partial class LocalityDetailsViewModel : BaseDetailsViewModel<LocalityWrapper, Locality, AfterSaveLocalityEvent>
     {
 		private Func<Task<List<LocalityType>>> _getEntitiesForSelectLocalityTypeCommand;
-		public ICommand SelectLocalityTypeCommand { get; }
-		public ICommand ClearLocalityTypeCommand { get; }
+		public ICommand SelectLocalityTypeCommand { get; private set; }
+		public ICommand ClearLocalityTypeCommand { get; private set; }
 
 		private Func<Task<List<Region>>> _getEntitiesForSelectRegionCommand;
-		public ICommand SelectRegionCommand { get; }
-		public ICommand ClearRegionCommand { get; }
+		public ICommand SelectRegionCommand { get; private set; }
+		public ICommand ClearRegionCommand { get; private set; }
+
 
         public LocalityDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectLocalityTypeCommand = new DelegateCommand(SelectLocalityTypeCommand_Execute);
-			ClearLocalityTypeCommand = new DelegateCommand(ClearLocalityTypeCommand_Execute);
+			if (SelectLocalityTypeCommand == null) SelectLocalityTypeCommand = new DelegateCommand(SelectLocalityTypeCommand_Execute);
+			if (ClearLocalityTypeCommand == null) ClearLocalityTypeCommand = new DelegateCommand(ClearLocalityTypeCommand_Execute);
 
-			SelectRegionCommand = new DelegateCommand(SelectRegionCommand_Execute);
-			ClearRegionCommand = new DelegateCommand(ClearRegionCommand_Execute);
+			if (SelectRegionCommand == null) SelectRegionCommand = new DelegateCommand(SelectRegionCommand_Execute);
+			if (ClearRegionCommand == null) ClearRegionCommand = new DelegateCommand(ClearRegionCommand_Execute);
 
 		}
 
@@ -123,6 +158,7 @@ namespace HVTApp.UI.ViewModels
 		{
             _getEntitiesForSelectLocalityTypeCommand = async () => { return await WrapperDataService.GetRepository<LocalityType>().GetAllAsync(); };
             _getEntitiesForSelectRegionCommand = async () => { return await WrapperDataService.GetRepository<Region>().GetAllAsync(); };
+
 		}
 		private async void SelectLocalityTypeCommand_Execute() 
 		{
@@ -131,7 +167,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearLocalityTypeCommand_Execute() 
 		{
-		Item.LocalityType = null;		    
+		Item.LocalityType = null;
+		    
 		}
 
 		private async void SelectRegionCommand_Execute() 
@@ -141,14 +178,18 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRegionCommand_Execute() 
 		{
-		Item.Region = null;		    
+		Item.Region = null;
+		    
 		}
+
 
 
     }
 
+
     public partial class LocalityTypeDetailsViewModel : BaseDetailsViewModel<LocalityTypeWrapper, LocalityType, AfterSaveLocalityTypeEvent>
     {
+
         public LocalityTypeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -156,20 +197,24 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
 
+
     }
+
 
     public partial class RegionDetailsViewModel : BaseDetailsViewModel<RegionWrapper, Region, AfterSaveRegionEvent>
     {
 		private Func<Task<List<District>>> _getEntitiesForSelectDistrictCommand;
-		public ICommand SelectDistrictCommand { get; }
-		public ICommand ClearDistrictCommand { get; }
+		public ICommand SelectDistrictCommand { get; private set; }
+		public ICommand ClearDistrictCommand { get; private set; }
+
 
         public RegionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectDistrictCommand = new DelegateCommand(SelectDistrictCommand_Execute);
-			ClearDistrictCommand = new DelegateCommand(ClearDistrictCommand_Execute);
+			if (SelectDistrictCommand == null) SelectDistrictCommand = new DelegateCommand(SelectDistrictCommand_Execute);
+			if (ClearDistrictCommand == null) ClearDistrictCommand = new DelegateCommand(ClearDistrictCommand_Execute);
 
 		}
 
@@ -177,6 +222,7 @@ namespace HVTApp.UI.ViewModels
         protected override void InitDefaultGetMethods()
 		{
             _getEntitiesForSelectDistrictCommand = async () => { return await WrapperDataService.GetRepository<District>().GetAllAsync(); };
+
 		}
 		private async void SelectDistrictCommand_Execute() 
 		{
@@ -185,17 +231,20 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearDistrictCommand_Execute() 
 		{
-		Item.District = null;		    
+		Item.District = null;
+		    
 		}
+
 
 
     }
 
+
     public partial class CalculatePriceTaskDetailsViewModel : BaseDetailsViewModel<CalculatePriceTaskWrapper, CalculatePriceTask, AfterSaveCalculatePriceTaskEvent>
     {
 		private Func<Task<List<ProductBlock>>> _getEntitiesForSelectProductBlockCommand;
-		public ICommand SelectProductBlockCommand { get; }
-		public ICommand ClearProductBlockCommand { get; }
+		public ICommand SelectProductBlockCommand { get; private set; }
+		public ICommand ClearProductBlockCommand { get; private set; }
 
 		private Func<Task<List<Project>>> _getEntitiesForAddInProjectsCommand;
 		public ICommand AddInProjectsCommand { get; }
@@ -245,10 +294,11 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public CalculatePriceTaskDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectProductBlockCommand = new DelegateCommand(SelectProductBlockCommand_Execute);
-			ClearProductBlockCommand = new DelegateCommand(ClearProductBlockCommand_Execute);
+			if (SelectProductBlockCommand == null) SelectProductBlockCommand = new DelegateCommand(SelectProductBlockCommand_Execute);
+			if (ClearProductBlockCommand == null) ClearProductBlockCommand = new DelegateCommand(ClearProductBlockCommand_Execute);
 
 			AddInProjectsCommand = new DelegateCommand(AddInProjectsCommand_Execute);
 			RemoveFromProjectsCommand = new DelegateCommand(RemoveFromProjectsCommand_Execute, RemoveFromProjectsCommand_CanExecute);
@@ -268,6 +318,7 @@ namespace HVTApp.UI.ViewModels
 			_getEntitiesForAddInProjectsCommand = async () => { return await WrapperDataService.GetRepository<Project>().GetAllAsync(); };;
 			_getEntitiesForAddInOffersCommand = async () => { return await WrapperDataService.GetRepository<Offer>().GetAllAsync(); };;
 			_getEntitiesForAddInSpecificationsCommand = async () => { return await WrapperDataService.GetRepository<Specification>().GetAllAsync(); };;
+
 		}
 		private async void SelectProductBlockCommand_Execute() 
 		{
@@ -276,7 +327,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductBlockCommand_Execute() 
 		{
-		Item.ProductBlock = null;		    
+		Item.ProductBlock = null;
+		    
 		}
 
 			private async void AddInProjectsCommand_Execute()
@@ -325,10 +377,13 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class SumDetailsViewModel : BaseDetailsViewModel<SumWrapper, Sum, AfterSaveSumEvent>
     {
+
         public SumDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -336,12 +391,16 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
+
 
     }
 
+
     public partial class CurrencyExchangeRateDetailsViewModel : BaseDetailsViewModel<CurrencyExchangeRateWrapper, CurrencyExchangeRate, AfterSaveCurrencyExchangeRateEvent>
     {
+
         public CurrencyExchangeRateDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -349,27 +408,31 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
 
+
     }
+
 
     public partial class DescribeProductBlockTaskDetailsViewModel : BaseDetailsViewModel<DescribeProductBlockTaskWrapper, DescribeProductBlockTask, AfterSaveDescribeProductBlockTaskEvent>
     {
 		private Func<Task<List<ProductBlock>>> _getEntitiesForSelectProductBlockCommand;
-		public ICommand SelectProductBlockCommand { get; }
-		public ICommand ClearProductBlockCommand { get; }
+		public ICommand SelectProductBlockCommand { get; private set; }
+		public ICommand ClearProductBlockCommand { get; private set; }
 
 		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
-		public ICommand SelectProductCommand { get; }
-		public ICommand ClearProductCommand { get; }
+		public ICommand SelectProductCommand { get; private set; }
+		public ICommand ClearProductCommand { get; private set; }
+
 
         public DescribeProductBlockTaskDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectProductBlockCommand = new DelegateCommand(SelectProductBlockCommand_Execute);
-			ClearProductBlockCommand = new DelegateCommand(ClearProductBlockCommand_Execute);
+			if (SelectProductBlockCommand == null) SelectProductBlockCommand = new DelegateCommand(SelectProductBlockCommand_Execute);
+			if (ClearProductBlockCommand == null) ClearProductBlockCommand = new DelegateCommand(ClearProductBlockCommand_Execute);
 
-			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
-			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
+			if (SelectProductCommand == null) SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
+			if (ClearProductCommand == null) ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
 
 		}
 
@@ -378,6 +441,7 @@ namespace HVTApp.UI.ViewModels
 		{
             _getEntitiesForSelectProductBlockCommand = async () => { return await WrapperDataService.GetRepository<ProductBlock>().GetAllAsync(); };
             _getEntitiesForSelectProductCommand = async () => { return await WrapperDataService.GetRepository<Product>().GetAllAsync(); };
+
 		}
 		private async void SelectProductBlockCommand_Execute() 
 		{
@@ -386,7 +450,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductBlockCommand_Execute() 
 		{
-		Item.ProductBlock = null;		    
+		Item.ProductBlock = null;
+		    
 		}
 
 		private async void SelectProductCommand_Execute() 
@@ -396,14 +461,18 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductCommand_Execute() 
 		{
-		Item.Product = null;		    
+		Item.Product = null;
+		    
 		}
+
 
 
     }
 
+
     public partial class NoteDetailsViewModel : BaseDetailsViewModel<NoteWrapper, Note, AfterSaveNoteEvent>
     {
+
         public NoteDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -411,27 +480,30 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
 
+
     }
+
 
     public partial class OfferUnitDetailsViewModel : BaseDetailsViewModel<OfferUnitWrapper, OfferUnit, AfterSaveOfferUnitEvent>
     {
 		private Func<Task<List<Offer>>> _getEntitiesForSelectOfferCommand;
-		public ICommand SelectOfferCommand { get; }
-		public ICommand ClearOfferCommand { get; }
+		public ICommand SelectOfferCommand { get; private set; }
+		public ICommand ClearOfferCommand { get; private set; }
 
 		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
-		public ICommand SelectProductCommand { get; }
-		public ICommand ClearProductCommand { get; }
+		public ICommand SelectProductCommand { get; private set; }
+		public ICommand ClearProductCommand { get; private set; }
 
 		private Func<Task<List<Facility>>> _getEntitiesForSelectFacilityCommand;
-		public ICommand SelectFacilityCommand { get; }
-		public ICommand ClearFacilityCommand { get; }
+		public ICommand SelectFacilityCommand { get; private set; }
+		public ICommand ClearFacilityCommand { get; private set; }
 
 		private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
-		public ICommand SelectPaymentConditionSetCommand { get; }
-		public ICommand ClearPaymentConditionSetCommand { get; }
+		public ICommand SelectPaymentConditionSetCommand { get; private set; }
+		public ICommand ClearPaymentConditionSetCommand { get; private set; }
 
 		private Func<Task<List<ProductDependent>>> _getEntitiesForAddInDependentProductsCommand;
 		public ICommand AddInDependentProductsCommand { get; }
@@ -465,19 +537,20 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public OfferUnitDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectOfferCommand = new DelegateCommand(SelectOfferCommand_Execute);
-			ClearOfferCommand = new DelegateCommand(ClearOfferCommand_Execute);
+			if (SelectOfferCommand == null) SelectOfferCommand = new DelegateCommand(SelectOfferCommand_Execute);
+			if (ClearOfferCommand == null) ClearOfferCommand = new DelegateCommand(ClearOfferCommand_Execute);
 
-			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
-			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
+			if (SelectProductCommand == null) SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
+			if (ClearProductCommand == null) ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
 
-			SelectFacilityCommand = new DelegateCommand(SelectFacilityCommand_Execute);
-			ClearFacilityCommand = new DelegateCommand(ClearFacilityCommand_Execute);
+			if (SelectFacilityCommand == null) SelectFacilityCommand = new DelegateCommand(SelectFacilityCommand_Execute);
+			if (ClearFacilityCommand == null) ClearFacilityCommand = new DelegateCommand(ClearFacilityCommand_Execute);
 
-			SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute);
-			ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute);
+			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute);
+			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute);
 
 			AddInDependentProductsCommand = new DelegateCommand(AddInDependentProductsCommand_Execute);
 			RemoveFromDependentProductsCommand = new DelegateCommand(RemoveFromDependentProductsCommand_Execute, RemoveFromDependentProductsCommand_CanExecute);
@@ -496,6 +569,7 @@ namespace HVTApp.UI.ViewModels
             _getEntitiesForSelectPaymentConditionSetCommand = async () => { return await WrapperDataService.GetRepository<PaymentConditionSet>().GetAllAsync(); };
 			_getEntitiesForAddInDependentProductsCommand = async () => { return await WrapperDataService.GetRepository<ProductDependent>().GetAllAsync(); };;
 			_getEntitiesForAddInServicesCommand = async () => { return await WrapperDataService.GetRepository<Service>().GetAllAsync(); };;
+
 		}
 		private async void SelectOfferCommand_Execute() 
 		{
@@ -504,7 +578,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearOfferCommand_Execute() 
 		{
-		Item.Offer = null;		    
+		Item.Offer = null;
+		    
 		}
 
 		private async void SelectProductCommand_Execute() 
@@ -514,7 +589,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductCommand_Execute() 
 		{
-		Item.Product = null;		    
+		Item.Product = null;
+		    
 		}
 
 		private async void SelectFacilityCommand_Execute() 
@@ -524,7 +600,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearFacilityCommand_Execute() 
 		{
-		Item.Facility = null;		    
+		Item.Facility = null;
+		    
 		}
 
 		private async void SelectPaymentConditionSetCommand_Execute() 
@@ -534,7 +611,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearPaymentConditionSetCommand_Execute() 
 		{
-		Item.PaymentConditionSet = null;		    
+		Item.PaymentConditionSet = null;
+		    
 		}
 
 			private async void AddInDependentProductsCommand_Execute()
@@ -568,7 +646,9 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class PaymentConditionSetDetailsViewModel : BaseDetailsViewModel<PaymentConditionSetWrapper, PaymentConditionSet, AfterSavePaymentConditionSetEvent>
     {
@@ -588,6 +668,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public PaymentConditionSetDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			AddInPaymentConditionsCommand = new DelegateCommand(AddInPaymentConditionsCommand_Execute);
@@ -599,6 +680,7 @@ namespace HVTApp.UI.ViewModels
         protected override void InitDefaultGetMethods()
 		{
 			_getEntitiesForAddInPaymentConditionsCommand = async () => { return await WrapperDataService.GetRepository<PaymentCondition>().GetAllAsync(); };;
+
 		}
 			private async void AddInPaymentConditionsCommand_Execute()
 			{
@@ -616,7 +698,9 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class ProductBlockDetailsViewModel : BaseDetailsViewModel<ProductBlockWrapper, ProductBlock, AfterSaveProductBlockEvent>
     {
@@ -652,6 +736,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public ProductBlockDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute);
@@ -667,6 +752,7 @@ namespace HVTApp.UI.ViewModels
 		{
 			_getEntitiesForAddInParametersCommand = async () => { return await WrapperDataService.GetRepository<Parameter>().GetAllAsync(); };;
 			_getEntitiesForAddInPricesCommand = async () => { return await WrapperDataService.GetRepository<SumOnDate>().GetAllAsync(); };;
+
 		}
 			private async void AddInParametersCommand_Execute()
 			{
@@ -699,18 +785,21 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class ProductDependentDetailsViewModel : BaseDetailsViewModel<ProductDependentWrapper, ProductDependent, AfterSaveProductDependentEvent>
     {
 		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
-		public ICommand SelectProductCommand { get; }
-		public ICommand ClearProductCommand { get; }
+		public ICommand SelectProductCommand { get; private set; }
+		public ICommand ClearProductCommand { get; private set; }
+
 
         public ProductDependentDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
-			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
+			if (SelectProductCommand == null) SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
+			if (ClearProductCommand == null) ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
 
 		}
 
@@ -718,6 +807,7 @@ namespace HVTApp.UI.ViewModels
         protected override void InitDefaultGetMethods()
 		{
             _getEntitiesForSelectProductCommand = async () => { return await WrapperDataService.GetRepository<Product>().GetAllAsync(); };
+
 		}
 		private async void SelectProductCommand_Execute() 
 		{
@@ -726,11 +816,14 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductCommand_Execute() 
 		{
-		Item.Product = null;		    
+		Item.Product = null;
+		    
 		}
 
 
+
     }
+
 
     public partial class ProductionTaskDetailsViewModel : BaseDetailsViewModel<ProductionTaskWrapper, ProductionTask, AfterSaveProductionTaskEvent>
     {
@@ -750,6 +843,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public ProductionTaskDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			AddInSalesUnitsCommand = new DelegateCommand(AddInSalesUnitsCommand_Execute);
@@ -761,6 +855,7 @@ namespace HVTApp.UI.ViewModels
         protected override void InitDefaultGetMethods()
 		{
 			_getEntitiesForAddInSalesUnitsCommand = async () => { return await WrapperDataService.GetRepository<SalesUnit>().GetAllAsync(); };;
+
 		}
 			private async void AddInSalesUnitsCommand_Execute()
 			{
@@ -778,7 +873,9 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class SalesBlockDetailsViewModel : BaseDetailsViewModel<SalesBlockWrapper, SalesBlock, AfterSaveSalesBlockEvent>
     {
@@ -814,6 +911,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public SalesBlockDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			AddInParentSalesUnitsCommand = new DelegateCommand(AddInParentSalesUnitsCommand_Execute);
@@ -829,6 +927,7 @@ namespace HVTApp.UI.ViewModels
 		{
 			_getEntitiesForAddInParentSalesUnitsCommand = async () => { return await WrapperDataService.GetRepository<SalesUnit>().GetAllAsync(); };;
 			_getEntitiesForAddInChildSalesUnitsCommand = async () => { return await WrapperDataService.GetRepository<SalesUnit>().GetAllAsync(); };;
+
 		}
 			private async void AddInParentSalesUnitsCommand_Execute()
 			{
@@ -861,10 +960,13 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class BankDetailsDetailsViewModel : BaseDetailsViewModel<BankDetailsWrapper, BankDetails, AfterSaveBankDetailsEvent>
     {
+
         public BankDetailsDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -872,27 +974,30 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
 
+
     }
+
 
     public partial class CompanyDetailsViewModel : BaseDetailsViewModel<CompanyWrapper, Company, AfterSaveCompanyEvent>
     {
 		private Func<Task<List<CompanyForm>>> _getEntitiesForSelectFormCommand;
-		public ICommand SelectFormCommand { get; }
-		public ICommand ClearFormCommand { get; }
+		public ICommand SelectFormCommand { get; private set; }
+		public ICommand ClearFormCommand { get; private set; }
 
 		private Func<Task<List<Company>>> _getEntitiesForSelectParentCompanyCommand;
-		public ICommand SelectParentCompanyCommand { get; }
-		public ICommand ClearParentCompanyCommand { get; }
+		public ICommand SelectParentCompanyCommand { get; private set; }
+		public ICommand ClearParentCompanyCommand { get; private set; }
 
 		private Func<Task<List<Address>>> _getEntitiesForSelectAddressLegalCommand;
-		public ICommand SelectAddressLegalCommand { get; }
-		public ICommand ClearAddressLegalCommand { get; }
+		public ICommand SelectAddressLegalCommand { get; private set; }
+		public ICommand ClearAddressLegalCommand { get; private set; }
 
 		private Func<Task<List<Address>>> _getEntitiesForSelectAddressPostCommand;
-		public ICommand SelectAddressPostCommand { get; }
-		public ICommand ClearAddressPostCommand { get; }
+		public ICommand SelectAddressPostCommand { get; private set; }
+		public ICommand ClearAddressPostCommand { get; private set; }
 
 		private Func<Task<List<BankDetails>>> _getEntitiesForAddInBankDetailsListCommand;
 		public ICommand AddInBankDetailsListCommand { get; }
@@ -926,19 +1031,20 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public CompanyDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectFormCommand = new DelegateCommand(SelectFormCommand_Execute);
-			ClearFormCommand = new DelegateCommand(ClearFormCommand_Execute);
+			if (SelectFormCommand == null) SelectFormCommand = new DelegateCommand(SelectFormCommand_Execute);
+			if (ClearFormCommand == null) ClearFormCommand = new DelegateCommand(ClearFormCommand_Execute);
 
-			SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_Execute);
-			ClearParentCompanyCommand = new DelegateCommand(ClearParentCompanyCommand_Execute);
+			if (SelectParentCompanyCommand == null) SelectParentCompanyCommand = new DelegateCommand(SelectParentCompanyCommand_Execute);
+			if (ClearParentCompanyCommand == null) ClearParentCompanyCommand = new DelegateCommand(ClearParentCompanyCommand_Execute);
 
-			SelectAddressLegalCommand = new DelegateCommand(SelectAddressLegalCommand_Execute);
-			ClearAddressLegalCommand = new DelegateCommand(ClearAddressLegalCommand_Execute);
+			if (SelectAddressLegalCommand == null) SelectAddressLegalCommand = new DelegateCommand(SelectAddressLegalCommand_Execute);
+			if (ClearAddressLegalCommand == null) ClearAddressLegalCommand = new DelegateCommand(ClearAddressLegalCommand_Execute);
 
-			SelectAddressPostCommand = new DelegateCommand(SelectAddressPostCommand_Execute);
-			ClearAddressPostCommand = new DelegateCommand(ClearAddressPostCommand_Execute);
+			if (SelectAddressPostCommand == null) SelectAddressPostCommand = new DelegateCommand(SelectAddressPostCommand_Execute);
+			if (ClearAddressPostCommand == null) ClearAddressPostCommand = new DelegateCommand(ClearAddressPostCommand_Execute);
 
 			AddInBankDetailsListCommand = new DelegateCommand(AddInBankDetailsListCommand_Execute);
 			RemoveFromBankDetailsListCommand = new DelegateCommand(RemoveFromBankDetailsListCommand_Execute, RemoveFromBankDetailsListCommand_CanExecute);
@@ -957,6 +1063,7 @@ namespace HVTApp.UI.ViewModels
             _getEntitiesForSelectAddressPostCommand = async () => { return await WrapperDataService.GetRepository<Address>().GetAllAsync(); };
 			_getEntitiesForAddInBankDetailsListCommand = async () => { return await WrapperDataService.GetRepository<BankDetails>().GetAllAsync(); };;
 			_getEntitiesForAddInActivityFildsCommand = async () => { return await WrapperDataService.GetRepository<ActivityField>().GetAllAsync(); };;
+
 		}
 		private async void SelectFormCommand_Execute() 
 		{
@@ -965,7 +1072,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearFormCommand_Execute() 
 		{
-		Item.Form = null;		    
+		Item.Form = null;
+		    
 		}
 
 		private async void SelectParentCompanyCommand_Execute() 
@@ -975,7 +1083,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearParentCompanyCommand_Execute() 
 		{
-		Item.ParentCompany = null;		    
+		Item.ParentCompany = null;
+		    
 		}
 
 		private async void SelectAddressLegalCommand_Execute() 
@@ -985,7 +1094,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearAddressLegalCommand_Execute() 
 		{
-		Item.AddressLegal = null;		    
+		Item.AddressLegal = null;
+		    
 		}
 
 		private async void SelectAddressPostCommand_Execute() 
@@ -995,7 +1105,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearAddressPostCommand_Execute() 
 		{
-		Item.AddressPost = null;		    
+		Item.AddressPost = null;
+		    
 		}
 
 			private async void AddInBankDetailsListCommand_Execute()
@@ -1029,10 +1140,13 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class CompanyFormDetailsViewModel : BaseDetailsViewModel<CompanyFormWrapper, CompanyForm, AfterSaveCompanyFormEvent>
     {
+
         public CompanyFormDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -1040,12 +1154,16 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
+
 
     }
 
+
     public partial class DocumentsRegistrationDetailsDetailsViewModel : BaseDetailsViewModel<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails, AfterSaveDocumentsRegistrationDetailsEvent>
     {
+
         public DocumentsRegistrationDetailsDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -1053,12 +1171,16 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
+
 
     }
 
+
     public partial class EmployeesPositionDetailsViewModel : BaseDetailsViewModel<EmployeesPositionWrapper, EmployeesPosition, AfterSaveEmployeesPositionEvent>
     {
+
         public EmployeesPositionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -1066,12 +1188,16 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
+
 
     }
 
+
     public partial class FacilityTypeDetailsViewModel : BaseDetailsViewModel<FacilityTypeWrapper, FacilityType, AfterSaveFacilityTypeEvent>
     {
+
         public FacilityTypeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -1079,12 +1205,16 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
+
 
     }
 
+
     public partial class ActivityFieldDetailsViewModel : BaseDetailsViewModel<ActivityFieldWrapper, ActivityField, AfterSaveActivityFieldEvent>
     {
+
         public ActivityFieldDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -1092,20 +1222,24 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
 
+
     }
+
 
     public partial class ContractDetailsViewModel : BaseDetailsViewModel<ContractWrapper, Contract, AfterSaveContractEvent>
     {
 		private Func<Task<List<Company>>> _getEntitiesForSelectContragentCommand;
-		public ICommand SelectContragentCommand { get; }
-		public ICommand ClearContragentCommand { get; }
+		public ICommand SelectContragentCommand { get; private set; }
+		public ICommand ClearContragentCommand { get; private set; }
+
 
         public ContractDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectContragentCommand = new DelegateCommand(SelectContragentCommand_Execute);
-			ClearContragentCommand = new DelegateCommand(ClearContragentCommand_Execute);
+			if (SelectContragentCommand == null) SelectContragentCommand = new DelegateCommand(SelectContragentCommand_Execute);
+			if (ClearContragentCommand == null) ClearContragentCommand = new DelegateCommand(ClearContragentCommand_Execute);
 
 		}
 
@@ -1113,6 +1247,7 @@ namespace HVTApp.UI.ViewModels
         protected override void InitDefaultGetMethods()
 		{
             _getEntitiesForSelectContragentCommand = async () => { return await WrapperDataService.GetRepository<Company>().GetAllAsync(); };
+
 		}
 		private async void SelectContragentCommand_Execute() 
 		{
@@ -1121,14 +1256,18 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearContragentCommand_Execute() 
 		{
-		Item.Contragent = null;		    
+		Item.Contragent = null;
+		    
 		}
+
 
 
     }
 
+
     public partial class MeasureDetailsViewModel : BaseDetailsViewModel<MeasureWrapper, Measure, AfterSaveMeasureEvent>
     {
+
         public MeasureDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -1136,15 +1275,18 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
 
+
     }
+
 
     public partial class ParameterDetailsViewModel : BaseDetailsViewModel<ParameterWrapper, Parameter, AfterSaveParameterEvent>
     {
 		private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectParameterGroupCommand;
-		public ICommand SelectParameterGroupCommand { get; }
-		public ICommand ClearParameterGroupCommand { get; }
+		public ICommand SelectParameterGroupCommand { get; private set; }
+		public ICommand ClearParameterGroupCommand { get; private set; }
 
 		private Func<Task<List<ParameterRelation>>> _getEntitiesForAddInParameterRelationsCommand;
 		public ICommand AddInParameterRelationsCommand { get; }
@@ -1162,10 +1304,11 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public ParameterDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectParameterGroupCommand = new DelegateCommand(SelectParameterGroupCommand_Execute);
-			ClearParameterGroupCommand = new DelegateCommand(ClearParameterGroupCommand_Execute);
+			if (SelectParameterGroupCommand == null) SelectParameterGroupCommand = new DelegateCommand(SelectParameterGroupCommand_Execute);
+			if (ClearParameterGroupCommand == null) ClearParameterGroupCommand = new DelegateCommand(ClearParameterGroupCommand_Execute);
 
 			AddInParameterRelationsCommand = new DelegateCommand(AddInParameterRelationsCommand_Execute);
 			RemoveFromParameterRelationsCommand = new DelegateCommand(RemoveFromParameterRelationsCommand_Execute, RemoveFromParameterRelationsCommand_CanExecute);
@@ -1177,6 +1320,7 @@ namespace HVTApp.UI.ViewModels
 		{
             _getEntitiesForSelectParameterGroupCommand = async () => { return await WrapperDataService.GetRepository<ParameterGroup>().GetAllAsync(); };
 			_getEntitiesForAddInParameterRelationsCommand = async () => { return await WrapperDataService.GetRepository<ParameterRelation>().GetAllAsync(); };;
+
 		}
 		private async void SelectParameterGroupCommand_Execute() 
 		{
@@ -1185,7 +1329,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearParameterGroupCommand_Execute() 
 		{
-		Item.ParameterGroup = null;		    
+		Item.ParameterGroup = null;
+		    
 		}
 
 			private async void AddInParameterRelationsCommand_Execute()
@@ -1204,18 +1349,21 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class ParameterGroupDetailsViewModel : BaseDetailsViewModel<ParameterGroupWrapper, ParameterGroup, AfterSaveParameterGroupEvent>
     {
 		private Func<Task<List<Measure>>> _getEntitiesForSelectMeasureCommand;
-		public ICommand SelectMeasureCommand { get; }
-		public ICommand ClearMeasureCommand { get; }
+		public ICommand SelectMeasureCommand { get; private set; }
+		public ICommand ClearMeasureCommand { get; private set; }
+
 
         public ParameterGroupDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectMeasureCommand = new DelegateCommand(SelectMeasureCommand_Execute);
-			ClearMeasureCommand = new DelegateCommand(ClearMeasureCommand_Execute);
+			if (SelectMeasureCommand == null) SelectMeasureCommand = new DelegateCommand(SelectMeasureCommand_Execute);
+			if (ClearMeasureCommand == null) ClearMeasureCommand = new DelegateCommand(ClearMeasureCommand_Execute);
 
 		}
 
@@ -1223,6 +1371,7 @@ namespace HVTApp.UI.ViewModels
         protected override void InitDefaultGetMethods()
 		{
             _getEntitiesForSelectMeasureCommand = async () => { return await WrapperDataService.GetRepository<Measure>().GetAllAsync(); };
+
 		}
 		private async void SelectMeasureCommand_Execute() 
 		{
@@ -1231,11 +1380,14 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearMeasureCommand_Execute() 
 		{
-		Item.Measure = null;		    
+		Item.Measure = null;
+		    
 		}
 
 
+
     }
+
 
     public partial class ProductRelationDetailsViewModel : BaseDetailsViewModel<ProductRelationWrapper, ProductRelation, AfterSaveProductRelationEvent>
     {
@@ -1271,6 +1423,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public ProductRelationDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			AddInParentProductParametersCommand = new DelegateCommand(AddInParentProductParametersCommand_Execute);
@@ -1286,6 +1439,7 @@ namespace HVTApp.UI.ViewModels
 		{
 			_getEntitiesForAddInParentProductParametersCommand = async () => { return await WrapperDataService.GetRepository<Parameter>().GetAllAsync(); };;
 			_getEntitiesForAddInChildProductParametersCommand = async () => { return await WrapperDataService.GetRepository<Parameter>().GetAllAsync(); };;
+
 		}
 			private async void AddInParentProductParametersCommand_Execute()
 			{
@@ -1318,10 +1472,13 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class PersonDetailsViewModel : BaseDetailsViewModel<PersonWrapper, Person, AfterSavePersonEvent>
     {
+
         public PersonDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -1329,15 +1486,18 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
 
+
     }
+
 
     public partial class PaymentPlannedListDetailsViewModel : BaseDetailsViewModel<PaymentPlannedListWrapper, PaymentPlannedList, AfterSavePaymentPlannedListEvent>
     {
 		private Func<Task<List<PaymentCondition>>> _getEntitiesForSelectConditionCommand;
-		public ICommand SelectConditionCommand { get; }
-		public ICommand ClearConditionCommand { get; }
+		public ICommand SelectConditionCommand { get; private set; }
+		public ICommand ClearConditionCommand { get; private set; }
 
 		private Func<Task<List<PaymentPlanned>>> _getEntitiesForAddInPaymentsCommand;
 		public ICommand AddInPaymentsCommand { get; }
@@ -1355,10 +1515,11 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public PaymentPlannedListDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectConditionCommand = new DelegateCommand(SelectConditionCommand_Execute);
-			ClearConditionCommand = new DelegateCommand(ClearConditionCommand_Execute);
+			if (SelectConditionCommand == null) SelectConditionCommand = new DelegateCommand(SelectConditionCommand_Execute);
+			if (ClearConditionCommand == null) ClearConditionCommand = new DelegateCommand(ClearConditionCommand_Execute);
 
 			AddInPaymentsCommand = new DelegateCommand(AddInPaymentsCommand_Execute);
 			RemoveFromPaymentsCommand = new DelegateCommand(RemoveFromPaymentsCommand_Execute, RemoveFromPaymentsCommand_CanExecute);
@@ -1370,6 +1531,7 @@ namespace HVTApp.UI.ViewModels
 		{
             _getEntitiesForSelectConditionCommand = async () => { return await WrapperDataService.GetRepository<PaymentCondition>().GetAllAsync(); };
 			_getEntitiesForAddInPaymentsCommand = async () => { return await WrapperDataService.GetRepository<PaymentPlanned>().GetAllAsync(); };;
+
 		}
 		private async void SelectConditionCommand_Execute() 
 		{
@@ -1378,7 +1540,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearConditionCommand_Execute() 
 		{
-		Item.Condition = null;		    
+		Item.Condition = null;
+		    
 		}
 
 			private async void AddInPaymentsCommand_Execute()
@@ -1397,10 +1560,13 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class PaymentPlannedDetailsViewModel : BaseDetailsViewModel<PaymentPlannedWrapper, PaymentPlanned, AfterSavePaymentPlannedEvent>
     {
+
         public PaymentPlannedDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -1408,12 +1574,16 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
+
 
     }
 
+
     public partial class PaymentActualDetailsViewModel : BaseDetailsViewModel<PaymentActualWrapper, PaymentActual, AfterSavePaymentActualEvent>
     {
+
         public PaymentActualDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -1421,9 +1591,12 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
 
+
     }
+
 
     public partial class ParameterRelationDetailsViewModel : BaseDetailsViewModel<ParameterRelationWrapper, ParameterRelation, AfterSaveParameterRelationEvent>
     {
@@ -1443,6 +1616,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public ParameterRelationDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			AddInRequiredParametersCommand = new DelegateCommand(AddInRequiredParametersCommand_Execute);
@@ -1454,6 +1628,7 @@ namespace HVTApp.UI.ViewModels
         protected override void InitDefaultGetMethods()
 		{
 			_getEntitiesForAddInRequiredParametersCommand = async () => { return await WrapperDataService.GetRepository<Parameter>().GetAllAsync(); };;
+
 		}
 			private async void AddInRequiredParametersCommand_Execute()
 			{
@@ -1471,41 +1646,43 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class SalesUnitDetailsViewModel : BaseDetailsViewModel<SalesUnitWrapper, SalesUnit, AfterSaveSalesUnitEvent>
     {
 		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
-		public ICommand SelectProductCommand { get; }
-		public ICommand ClearProductCommand { get; }
+		public ICommand SelectProductCommand { get; private set; }
+		public ICommand ClearProductCommand { get; private set; }
 
 		private Func<Task<List<Facility>>> _getEntitiesForSelectFacilityCommand;
-		public ICommand SelectFacilityCommand { get; }
-		public ICommand ClearFacilityCommand { get; }
+		public ICommand SelectFacilityCommand { get; private set; }
+		public ICommand ClearFacilityCommand { get; private set; }
 
 		private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
-		public ICommand SelectPaymentConditionSetCommand { get; }
-		public ICommand ClearPaymentConditionSetCommand { get; }
+		public ICommand SelectPaymentConditionSetCommand { get; private set; }
+		public ICommand ClearPaymentConditionSetCommand { get; private set; }
 
 		private Func<Task<List<Project>>> _getEntitiesForSelectProjectCommand;
-		public ICommand SelectProjectCommand { get; }
-		public ICommand ClearProjectCommand { get; }
+		public ICommand SelectProjectCommand { get; private set; }
+		public ICommand ClearProjectCommand { get; private set; }
 
 		private Func<Task<List<Company>>> _getEntitiesForSelectProducerCommand;
-		public ICommand SelectProducerCommand { get; }
-		public ICommand ClearProducerCommand { get; }
+		public ICommand SelectProducerCommand { get; private set; }
+		public ICommand ClearProducerCommand { get; private set; }
 
 		private Func<Task<List<Order>>> _getEntitiesForSelectOrderCommand;
-		public ICommand SelectOrderCommand { get; }
-		public ICommand ClearOrderCommand { get; }
+		public ICommand SelectOrderCommand { get; private set; }
+		public ICommand ClearOrderCommand { get; private set; }
 
 		private Func<Task<List<Specification>>> _getEntitiesForSelectSpecificationCommand;
-		public ICommand SelectSpecificationCommand { get; }
-		public ICommand ClearSpecificationCommand { get; }
+		public ICommand SelectSpecificationCommand { get; private set; }
+		public ICommand ClearSpecificationCommand { get; private set; }
 
 		private Func<Task<List<Address>>> _getEntitiesForSelectAddressCommand;
-		public ICommand SelectAddressCommand { get; }
-		public ICommand ClearAddressCommand { get; }
+		public ICommand SelectAddressCommand { get; private set; }
+		public ICommand ClearAddressCommand { get; private set; }
 
 		private Func<Task<List<ProductDependent>>> _getEntitiesForAddInDependentProductsCommand;
 		public ICommand AddInDependentProductsCommand { get; }
@@ -1571,31 +1748,32 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public SalesUnitDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
-			ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
+			if (SelectProductCommand == null) SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
+			if (ClearProductCommand == null) ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute);
 
-			SelectFacilityCommand = new DelegateCommand(SelectFacilityCommand_Execute);
-			ClearFacilityCommand = new DelegateCommand(ClearFacilityCommand_Execute);
+			if (SelectFacilityCommand == null) SelectFacilityCommand = new DelegateCommand(SelectFacilityCommand_Execute);
+			if (ClearFacilityCommand == null) ClearFacilityCommand = new DelegateCommand(ClearFacilityCommand_Execute);
 
-			SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute);
-			ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute);
+			if (SelectPaymentConditionSetCommand == null) SelectPaymentConditionSetCommand = new DelegateCommand(SelectPaymentConditionSetCommand_Execute);
+			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute);
 
-			SelectProjectCommand = new DelegateCommand(SelectProjectCommand_Execute);
-			ClearProjectCommand = new DelegateCommand(ClearProjectCommand_Execute);
+			if (SelectProjectCommand == null) SelectProjectCommand = new DelegateCommand(SelectProjectCommand_Execute);
+			if (ClearProjectCommand == null) ClearProjectCommand = new DelegateCommand(ClearProjectCommand_Execute);
 
-			SelectProducerCommand = new DelegateCommand(SelectProducerCommand_Execute);
-			ClearProducerCommand = new DelegateCommand(ClearProducerCommand_Execute);
+			if (SelectProducerCommand == null) SelectProducerCommand = new DelegateCommand(SelectProducerCommand_Execute);
+			if (ClearProducerCommand == null) ClearProducerCommand = new DelegateCommand(ClearProducerCommand_Execute);
 
-			SelectOrderCommand = new DelegateCommand(SelectOrderCommand_Execute);
-			ClearOrderCommand = new DelegateCommand(ClearOrderCommand_Execute);
+			if (SelectOrderCommand == null) SelectOrderCommand = new DelegateCommand(SelectOrderCommand_Execute);
+			if (ClearOrderCommand == null) ClearOrderCommand = new DelegateCommand(ClearOrderCommand_Execute);
 
-			SelectSpecificationCommand = new DelegateCommand(SelectSpecificationCommand_Execute);
-			ClearSpecificationCommand = new DelegateCommand(ClearSpecificationCommand_Execute);
+			if (SelectSpecificationCommand == null) SelectSpecificationCommand = new DelegateCommand(SelectSpecificationCommand_Execute);
+			if (ClearSpecificationCommand == null) ClearSpecificationCommand = new DelegateCommand(ClearSpecificationCommand_Execute);
 
-			SelectAddressCommand = new DelegateCommand(SelectAddressCommand_Execute);
-			ClearAddressCommand = new DelegateCommand(ClearAddressCommand_Execute);
+			if (SelectAddressCommand == null) SelectAddressCommand = new DelegateCommand(SelectAddressCommand_Execute);
+			if (ClearAddressCommand == null) ClearAddressCommand = new DelegateCommand(ClearAddressCommand_Execute);
 
 			AddInDependentProductsCommand = new DelegateCommand(AddInDependentProductsCommand_Execute);
 			RemoveFromDependentProductsCommand = new DelegateCommand(RemoveFromDependentProductsCommand_Execute, RemoveFromDependentProductsCommand_CanExecute);
@@ -1626,6 +1804,7 @@ namespace HVTApp.UI.ViewModels
 			_getEntitiesForAddInServicesCommand = async () => { return await WrapperDataService.GetRepository<Service>().GetAllAsync(); };;
 			_getEntitiesForAddInPaymentsActualCommand = async () => { return await WrapperDataService.GetRepository<PaymentActual>().GetAllAsync(); };;
 			_getEntitiesForAddInPaymentsPlannedSavedCommand = async () => { return await WrapperDataService.GetRepository<PaymentPlannedList>().GetAllAsync(); };;
+
 		}
 		private async void SelectProductCommand_Execute() 
 		{
@@ -1634,7 +1813,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductCommand_Execute() 
 		{
-		Item.Product = null;		    
+		Item.Product = null;
+		    
 		}
 
 		private async void SelectFacilityCommand_Execute() 
@@ -1644,7 +1824,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearFacilityCommand_Execute() 
 		{
-		Item.Facility = null;		    
+		Item.Facility = null;
+		    
 		}
 
 		private async void SelectPaymentConditionSetCommand_Execute() 
@@ -1654,7 +1835,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearPaymentConditionSetCommand_Execute() 
 		{
-		Item.PaymentConditionSet = null;		    
+		Item.PaymentConditionSet = null;
+		    
 		}
 
 		private async void SelectProjectCommand_Execute() 
@@ -1664,7 +1846,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProjectCommand_Execute() 
 		{
-		Item.Project = null;		    
+		Item.Project = null;
+		    
 		}
 
 		private async void SelectProducerCommand_Execute() 
@@ -1674,7 +1857,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProducerCommand_Execute() 
 		{
-		Item.Producer = null;		    
+		Item.Producer = null;
+		    
 		}
 
 		private async void SelectOrderCommand_Execute() 
@@ -1684,7 +1868,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearOrderCommand_Execute() 
 		{
-		Item.Order = null;		    
+		Item.Order = null;
+		    
 		}
 
 		private async void SelectSpecificationCommand_Execute() 
@@ -1694,7 +1879,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearSpecificationCommand_Execute() 
 		{
-		Item.Specification = null;		    
+		Item.Specification = null;
+		    
 		}
 
 		private async void SelectAddressCommand_Execute() 
@@ -1704,7 +1890,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearAddressCommand_Execute() 
 		{
-		Item.Address = null;		    
+		Item.Address = null;
+		    
 		}
 
 			private async void AddInDependentProductsCommand_Execute()
@@ -1768,10 +1955,13 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class ServiceDetailsViewModel : BaseDetailsViewModel<ServiceWrapper, Service, AfterSaveServiceEvent>
     {
+
         public ServiceDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -1779,12 +1969,16 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
+
 
     }
 
+
     public partial class TestFriendAddressDetailsViewModel : BaseDetailsViewModel<TestFriendAddressWrapper, TestFriendAddress, AfterSaveTestFriendAddressEvent>
     {
+
         public TestFriendAddressDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -1792,23 +1986,26 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
 
+
     }
+
 
     public partial class TestFriendDetailsViewModel : BaseDetailsViewModel<TestFriendWrapper, TestFriend, AfterSaveTestFriendEvent>
     {
 		private Func<Task<List<TestFriendAddress>>> _getEntitiesForSelectTestFriendAddressCommand;
-		public ICommand SelectTestFriendAddressCommand { get; }
-		public ICommand ClearTestFriendAddressCommand { get; }
+		public ICommand SelectTestFriendAddressCommand { get; private set; }
+		public ICommand ClearTestFriendAddressCommand { get; private set; }
 
 		private Func<Task<List<TestFriendGroup>>> _getEntitiesForSelectTestFriendGroupCommand;
-		public ICommand SelectTestFriendGroupCommand { get; }
-		public ICommand ClearTestFriendGroupCommand { get; }
+		public ICommand SelectTestFriendGroupCommand { get; private set; }
+		public ICommand ClearTestFriendGroupCommand { get; private set; }
 
 		private Func<Task<List<TestFriendEmail>>> _getEntitiesForSelectTestFriendEmailGetCommand;
-		public ICommand SelectTestFriendEmailGetCommand { get; }
-		public ICommand ClearTestFriendEmailGetCommand { get; }
+		public ICommand SelectTestFriendEmailGetCommand { get; private set; }
+		public ICommand ClearTestFriendEmailGetCommand { get; private set; }
 
 		private Func<Task<List<TestFriendEmail>>> _getEntitiesForAddInEmailsCommand;
 		public ICommand AddInEmailsCommand { get; }
@@ -1826,16 +2023,17 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public TestFriendDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectTestFriendAddressCommand = new DelegateCommand(SelectTestFriendAddressCommand_Execute);
-			ClearTestFriendAddressCommand = new DelegateCommand(ClearTestFriendAddressCommand_Execute);
+			if (SelectTestFriendAddressCommand == null) SelectTestFriendAddressCommand = new DelegateCommand(SelectTestFriendAddressCommand_Execute);
+			if (ClearTestFriendAddressCommand == null) ClearTestFriendAddressCommand = new DelegateCommand(ClearTestFriendAddressCommand_Execute);
 
-			SelectTestFriendGroupCommand = new DelegateCommand(SelectTestFriendGroupCommand_Execute);
-			ClearTestFriendGroupCommand = new DelegateCommand(ClearTestFriendGroupCommand_Execute);
+			if (SelectTestFriendGroupCommand == null) SelectTestFriendGroupCommand = new DelegateCommand(SelectTestFriendGroupCommand_Execute);
+			if (ClearTestFriendGroupCommand == null) ClearTestFriendGroupCommand = new DelegateCommand(ClearTestFriendGroupCommand_Execute);
 
-			SelectTestFriendEmailGetCommand = new DelegateCommand(SelectTestFriendEmailGetCommand_Execute);
-			ClearTestFriendEmailGetCommand = new DelegateCommand(ClearTestFriendEmailGetCommand_Execute);
+			if (SelectTestFriendEmailGetCommand == null) SelectTestFriendEmailGetCommand = new DelegateCommand(SelectTestFriendEmailGetCommand_Execute);
+			if (ClearTestFriendEmailGetCommand == null) ClearTestFriendEmailGetCommand = new DelegateCommand(ClearTestFriendEmailGetCommand_Execute);
 
 			AddInEmailsCommand = new DelegateCommand(AddInEmailsCommand_Execute);
 			RemoveFromEmailsCommand = new DelegateCommand(RemoveFromEmailsCommand_Execute, RemoveFromEmailsCommand_CanExecute);
@@ -1849,6 +2047,7 @@ namespace HVTApp.UI.ViewModels
             _getEntitiesForSelectTestFriendGroupCommand = async () => { return await WrapperDataService.GetRepository<TestFriendGroup>().GetAllAsync(); };
             _getEntitiesForSelectTestFriendEmailGetCommand = async () => { return await WrapperDataService.GetRepository<TestFriendEmail>().GetAllAsync(); };
 			_getEntitiesForAddInEmailsCommand = async () => { return await WrapperDataService.GetRepository<TestFriendEmail>().GetAllAsync(); };;
+
 		}
 		private async void SelectTestFriendAddressCommand_Execute() 
 		{
@@ -1857,7 +2056,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearTestFriendAddressCommand_Execute() 
 		{
-		Item.TestFriendAddress = null;		    
+		Item.TestFriendAddress = null;
+		    
 		}
 
 		private async void SelectTestFriendGroupCommand_Execute() 
@@ -1867,7 +2067,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearTestFriendGroupCommand_Execute() 
 		{
-		Item.TestFriendGroup = null;		    
+		Item.TestFriendGroup = null;
+		    
 		}
 
 		private async void SelectTestFriendEmailGetCommand_Execute() 
@@ -1877,7 +2078,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearTestFriendEmailGetCommand_Execute() 
 		{
-				    
+		
+		    
 		}
 
 			private async void AddInEmailsCommand_Execute()
@@ -1896,10 +2098,13 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class TestFriendEmailDetailsViewModel : BaseDetailsViewModel<TestFriendEmailWrapper, TestFriendEmail, AfterSaveTestFriendEmailEvent>
     {
+
         public TestFriendEmailDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -1907,9 +2112,12 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
 
+
     }
+
 
     public partial class TestFriendGroupDetailsViewModel : BaseDetailsViewModel<TestFriendGroupWrapper, TestFriendGroup, AfterSaveTestFriendGroupEvent>
     {
@@ -1929,6 +2137,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public TestFriendGroupDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			AddInFriendTestsCommand = new DelegateCommand(AddInFriendTestsCommand_Execute);
@@ -1940,6 +2149,7 @@ namespace HVTApp.UI.ViewModels
         protected override void InitDefaultGetMethods()
 		{
 			_getEntitiesForAddInFriendTestsCommand = async () => { return await WrapperDataService.GetRepository<TestFriend>().GetAllAsync(); };;
+
 		}
 			private async void AddInFriendTestsCommand_Execute()
 			{
@@ -1957,33 +2167,35 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class DocumentDetailsViewModel : BaseDetailsViewModel<DocumentWrapper, Document, AfterSaveDocumentEvent>
     {
 		private Func<Task<List<Document>>> _getEntitiesForSelectRequestDocumentCommand;
-		public ICommand SelectRequestDocumentCommand { get; }
-		public ICommand ClearRequestDocumentCommand { get; }
+		public ICommand SelectRequestDocumentCommand { get; private set; }
+		public ICommand ClearRequestDocumentCommand { get; private set; }
 
 		private Func<Task<List<Employee>>> _getEntitiesForSelectAuthorCommand;
-		public ICommand SelectAuthorCommand { get; }
-		public ICommand ClearAuthorCommand { get; }
+		public ICommand SelectAuthorCommand { get; private set; }
+		public ICommand ClearAuthorCommand { get; private set; }
 
 		private Func<Task<List<Employee>>> _getEntitiesForSelectSenderEmployeeCommand;
-		public ICommand SelectSenderEmployeeCommand { get; }
-		public ICommand ClearSenderEmployeeCommand { get; }
+		public ICommand SelectSenderEmployeeCommand { get; private set; }
+		public ICommand ClearSenderEmployeeCommand { get; private set; }
 
 		private Func<Task<List<Employee>>> _getEntitiesForSelectRecipientEmployeeCommand;
-		public ICommand SelectRecipientEmployeeCommand { get; }
-		public ICommand ClearRecipientEmployeeCommand { get; }
+		public ICommand SelectRecipientEmployeeCommand { get; private set; }
+		public ICommand ClearRecipientEmployeeCommand { get; private set; }
 
 		private Func<Task<List<DocumentsRegistrationDetails>>> _getEntitiesForSelectRegistrationDetailsOfSenderCommand;
-		public ICommand SelectRegistrationDetailsOfSenderCommand { get; }
-		public ICommand ClearRegistrationDetailsOfSenderCommand { get; }
+		public ICommand SelectRegistrationDetailsOfSenderCommand { get; private set; }
+		public ICommand ClearRegistrationDetailsOfSenderCommand { get; private set; }
 
 		private Func<Task<List<DocumentsRegistrationDetails>>> _getEntitiesForSelectRegistrationDetailsOfRecipientCommand;
-		public ICommand SelectRegistrationDetailsOfRecipientCommand { get; }
-		public ICommand ClearRegistrationDetailsOfRecipientCommand { get; }
+		public ICommand SelectRegistrationDetailsOfRecipientCommand { get; private set; }
+		public ICommand ClearRegistrationDetailsOfRecipientCommand { get; private set; }
 
 		private Func<Task<List<Employee>>> _getEntitiesForAddInCopyToRecipientsCommand;
 		public ICommand AddInCopyToRecipientsCommand { get; }
@@ -2001,25 +2213,26 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public DocumentDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectRequestDocumentCommand = new DelegateCommand(SelectRequestDocumentCommand_Execute);
-			ClearRequestDocumentCommand = new DelegateCommand(ClearRequestDocumentCommand_Execute);
+			if (SelectRequestDocumentCommand == null) SelectRequestDocumentCommand = new DelegateCommand(SelectRequestDocumentCommand_Execute);
+			if (ClearRequestDocumentCommand == null) ClearRequestDocumentCommand = new DelegateCommand(ClearRequestDocumentCommand_Execute);
 
-			SelectAuthorCommand = new DelegateCommand(SelectAuthorCommand_Execute);
-			ClearAuthorCommand = new DelegateCommand(ClearAuthorCommand_Execute);
+			if (SelectAuthorCommand == null) SelectAuthorCommand = new DelegateCommand(SelectAuthorCommand_Execute);
+			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateCommand(ClearAuthorCommand_Execute);
 
-			SelectSenderEmployeeCommand = new DelegateCommand(SelectSenderEmployeeCommand_Execute);
-			ClearSenderEmployeeCommand = new DelegateCommand(ClearSenderEmployeeCommand_Execute);
+			if (SelectSenderEmployeeCommand == null) SelectSenderEmployeeCommand = new DelegateCommand(SelectSenderEmployeeCommand_Execute);
+			if (ClearSenderEmployeeCommand == null) ClearSenderEmployeeCommand = new DelegateCommand(ClearSenderEmployeeCommand_Execute);
 
-			SelectRecipientEmployeeCommand = new DelegateCommand(SelectRecipientEmployeeCommand_Execute);
-			ClearRecipientEmployeeCommand = new DelegateCommand(ClearRecipientEmployeeCommand_Execute);
+			if (SelectRecipientEmployeeCommand == null) SelectRecipientEmployeeCommand = new DelegateCommand(SelectRecipientEmployeeCommand_Execute);
+			if (ClearRecipientEmployeeCommand == null) ClearRecipientEmployeeCommand = new DelegateCommand(ClearRecipientEmployeeCommand_Execute);
 
-			SelectRegistrationDetailsOfSenderCommand = new DelegateCommand(SelectRegistrationDetailsOfSenderCommand_Execute);
-			ClearRegistrationDetailsOfSenderCommand = new DelegateCommand(ClearRegistrationDetailsOfSenderCommand_Execute);
+			if (SelectRegistrationDetailsOfSenderCommand == null) SelectRegistrationDetailsOfSenderCommand = new DelegateCommand(SelectRegistrationDetailsOfSenderCommand_Execute);
+			if (ClearRegistrationDetailsOfSenderCommand == null) ClearRegistrationDetailsOfSenderCommand = new DelegateCommand(ClearRegistrationDetailsOfSenderCommand_Execute);
 
-			SelectRegistrationDetailsOfRecipientCommand = new DelegateCommand(SelectRegistrationDetailsOfRecipientCommand_Execute);
-			ClearRegistrationDetailsOfRecipientCommand = new DelegateCommand(ClearRegistrationDetailsOfRecipientCommand_Execute);
+			if (SelectRegistrationDetailsOfRecipientCommand == null) SelectRegistrationDetailsOfRecipientCommand = new DelegateCommand(SelectRegistrationDetailsOfRecipientCommand_Execute);
+			if (ClearRegistrationDetailsOfRecipientCommand == null) ClearRegistrationDetailsOfRecipientCommand = new DelegateCommand(ClearRegistrationDetailsOfRecipientCommand_Execute);
 
 			AddInCopyToRecipientsCommand = new DelegateCommand(AddInCopyToRecipientsCommand_Execute);
 			RemoveFromCopyToRecipientsCommand = new DelegateCommand(RemoveFromCopyToRecipientsCommand_Execute, RemoveFromCopyToRecipientsCommand_CanExecute);
@@ -2036,6 +2249,7 @@ namespace HVTApp.UI.ViewModels
             _getEntitiesForSelectRegistrationDetailsOfSenderCommand = async () => { return await WrapperDataService.GetRepository<DocumentsRegistrationDetails>().GetAllAsync(); };
             _getEntitiesForSelectRegistrationDetailsOfRecipientCommand = async () => { return await WrapperDataService.GetRepository<DocumentsRegistrationDetails>().GetAllAsync(); };
 			_getEntitiesForAddInCopyToRecipientsCommand = async () => { return await WrapperDataService.GetRepository<Employee>().GetAllAsync(); };;
+
 		}
 		private async void SelectRequestDocumentCommand_Execute() 
 		{
@@ -2044,7 +2258,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRequestDocumentCommand_Execute() 
 		{
-		Item.RequestDocument = null;		    
+		Item.RequestDocument = null;
+		    
 		}
 
 		private async void SelectAuthorCommand_Execute() 
@@ -2054,7 +2269,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearAuthorCommand_Execute() 
 		{
-		Item.Author = null;		    
+		Item.Author = null;
+		    
 		}
 
 		private async void SelectSenderEmployeeCommand_Execute() 
@@ -2064,7 +2280,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearSenderEmployeeCommand_Execute() 
 		{
-		Item.SenderEmployee = null;		    
+		Item.SenderEmployee = null;
+		    
 		}
 
 		private async void SelectRecipientEmployeeCommand_Execute() 
@@ -2074,7 +2291,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRecipientEmployeeCommand_Execute() 
 		{
-		Item.RecipientEmployee = null;		    
+		Item.RecipientEmployee = null;
+		    
 		}
 
 		private async void SelectRegistrationDetailsOfSenderCommand_Execute() 
@@ -2084,7 +2302,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRegistrationDetailsOfSenderCommand_Execute() 
 		{
-		Item.RegistrationDetailsOfSender = null;		    
+		Item.RegistrationDetailsOfSender = null;
+		    
 		}
 
 		private async void SelectRegistrationDetailsOfRecipientCommand_Execute() 
@@ -2094,7 +2313,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRegistrationDetailsOfRecipientCommand_Execute() 
 		{
-		Item.RegistrationDetailsOfRecipient = null;		    
+		Item.RegistrationDetailsOfRecipient = null;
+		    
 		}
 
 			private async void AddInCopyToRecipientsCommand_Execute()
@@ -2113,10 +2333,13 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class TestEntityDetailsViewModel : BaseDetailsViewModel<TestEntityWrapper, TestEntity, AfterSaveTestEntityEvent>
     {
+
         public TestEntityDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -2124,15 +2347,18 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
 
+
     }
+
 
     public partial class TestHusbandDetailsViewModel : BaseDetailsViewModel<TestHusbandWrapper, TestHusband, AfterSaveTestHusbandEvent>
     {
 		private Func<Task<List<TestWife>>> _getEntitiesForSelectWifeCommand;
-		public ICommand SelectWifeCommand { get; }
-		public ICommand ClearWifeCommand { get; }
+		public ICommand SelectWifeCommand { get; private set; }
+		public ICommand ClearWifeCommand { get; private set; }
 
 		private Func<Task<List<TestChild>>> _getEntitiesForAddInChildrenCommand;
 		public ICommand AddInChildrenCommand { get; }
@@ -2150,10 +2376,11 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public TestHusbandDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectWifeCommand = new DelegateCommand(SelectWifeCommand_Execute);
-			ClearWifeCommand = new DelegateCommand(ClearWifeCommand_Execute);
+			if (SelectWifeCommand == null) SelectWifeCommand = new DelegateCommand(SelectWifeCommand_Execute);
+			if (ClearWifeCommand == null) ClearWifeCommand = new DelegateCommand(ClearWifeCommand_Execute);
 
 			AddInChildrenCommand = new DelegateCommand(AddInChildrenCommand_Execute);
 			RemoveFromChildrenCommand = new DelegateCommand(RemoveFromChildrenCommand_Execute, RemoveFromChildrenCommand_CanExecute);
@@ -2165,6 +2392,7 @@ namespace HVTApp.UI.ViewModels
 		{
             _getEntitiesForSelectWifeCommand = async () => { return await WrapperDataService.GetRepository<TestWife>().GetAllAsync(); };
 			_getEntitiesForAddInChildrenCommand = async () => { return await WrapperDataService.GetRepository<TestChild>().GetAllAsync(); };;
+
 		}
 		private async void SelectWifeCommand_Execute() 
 		{
@@ -2173,7 +2401,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearWifeCommand_Execute() 
 		{
-		Item.Wife = null;		    
+		Item.Wife = null;
+		    
 		}
 
 			private async void AddInChildrenCommand_Execute()
@@ -2192,18 +2421,21 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class TestWifeDetailsViewModel : BaseDetailsViewModel<TestWifeWrapper, TestWife, AfterSaveTestWifeEvent>
     {
 		private Func<Task<List<TestHusband>>> _getEntitiesForSelectHusbandCommand;
-		public ICommand SelectHusbandCommand { get; }
-		public ICommand ClearHusbandCommand { get; }
+		public ICommand SelectHusbandCommand { get; private set; }
+		public ICommand ClearHusbandCommand { get; private set; }
+
 
         public TestWifeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectHusbandCommand = new DelegateCommand(SelectHusbandCommand_Execute);
-			ClearHusbandCommand = new DelegateCommand(ClearHusbandCommand_Execute);
+			if (SelectHusbandCommand == null) SelectHusbandCommand = new DelegateCommand(SelectHusbandCommand_Execute);
+			if (ClearHusbandCommand == null) ClearHusbandCommand = new DelegateCommand(ClearHusbandCommand_Execute);
 
 		}
 
@@ -2211,6 +2443,7 @@ namespace HVTApp.UI.ViewModels
         protected override void InitDefaultGetMethods()
 		{
             _getEntitiesForSelectHusbandCommand = async () => { return await WrapperDataService.GetRepository<TestHusband>().GetAllAsync(); };
+
 		}
 		private async void SelectHusbandCommand_Execute() 
 		{
@@ -2219,29 +2452,33 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearHusbandCommand_Execute() 
 		{
-		Item.Husband = null;		    
+		Item.Husband = null;
+		    
 		}
+
 
 
     }
 
+
     public partial class TestChildDetailsViewModel : BaseDetailsViewModel<TestChildWrapper, TestChild, AfterSaveTestChildEvent>
     {
 		private Func<Task<List<TestHusband>>> _getEntitiesForSelectHusbandCommand;
-		public ICommand SelectHusbandCommand { get; }
-		public ICommand ClearHusbandCommand { get; }
+		public ICommand SelectHusbandCommand { get; private set; }
+		public ICommand ClearHusbandCommand { get; private set; }
 
 		private Func<Task<List<TestWife>>> _getEntitiesForSelectWifeCommand;
-		public ICommand SelectWifeCommand { get; }
-		public ICommand ClearWifeCommand { get; }
+		public ICommand SelectWifeCommand { get; private set; }
+		public ICommand ClearWifeCommand { get; private set; }
+
 
         public TestChildDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectHusbandCommand = new DelegateCommand(SelectHusbandCommand_Execute);
-			ClearHusbandCommand = new DelegateCommand(ClearHusbandCommand_Execute);
+			if (SelectHusbandCommand == null) SelectHusbandCommand = new DelegateCommand(SelectHusbandCommand_Execute);
+			if (ClearHusbandCommand == null) ClearHusbandCommand = new DelegateCommand(ClearHusbandCommand_Execute);
 
-			SelectWifeCommand = new DelegateCommand(SelectWifeCommand_Execute);
-			ClearWifeCommand = new DelegateCommand(ClearWifeCommand_Execute);
+			if (SelectWifeCommand == null) SelectWifeCommand = new DelegateCommand(SelectWifeCommand_Execute);
+			if (ClearWifeCommand == null) ClearWifeCommand = new DelegateCommand(ClearWifeCommand_Execute);
 
 		}
 
@@ -2250,6 +2487,7 @@ namespace HVTApp.UI.ViewModels
 		{
             _getEntitiesForSelectHusbandCommand = async () => { return await WrapperDataService.GetRepository<TestHusband>().GetAllAsync(); };
             _getEntitiesForSelectWifeCommand = async () => { return await WrapperDataService.GetRepository<TestWife>().GetAllAsync(); };
+
 		}
 		private async void SelectHusbandCommand_Execute() 
 		{
@@ -2258,7 +2496,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearHusbandCommand_Execute() 
 		{
-		Item.Husband = null;		    
+		Item.Husband = null;
+		    
 		}
 
 		private async void SelectWifeCommand_Execute() 
@@ -2268,22 +2507,26 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearWifeCommand_Execute() 
 		{
-		Item.Wife = null;		    
+		Item.Wife = null;
+		    
 		}
+
 
 
     }
 
+
     public partial class SumOnDateDetailsViewModel : BaseDetailsViewModel<SumOnDateWrapper, SumOnDate, AfterSaveSumOnDateEvent>
     {
 		private Func<Task<List<Sum>>> _getEntitiesForSelectSumCommand;
-		public ICommand SelectSumCommand { get; }
-		public ICommand ClearSumCommand { get; }
+		public ICommand SelectSumCommand { get; private set; }
+		public ICommand ClearSumCommand { get; private set; }
+
 
         public SumOnDateDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectSumCommand = new DelegateCommand(SelectSumCommand_Execute);
-			ClearSumCommand = new DelegateCommand(ClearSumCommand_Execute);
+			if (SelectSumCommand == null) SelectSumCommand = new DelegateCommand(SelectSumCommand_Execute);
+			if (ClearSumCommand == null) ClearSumCommand = new DelegateCommand(ClearSumCommand_Execute);
 
 		}
 
@@ -2291,6 +2534,7 @@ namespace HVTApp.UI.ViewModels
         protected override void InitDefaultGetMethods()
 		{
             _getEntitiesForSelectSumCommand = async () => { return await WrapperDataService.GetRepository<Sum>().GetAllAsync(); };
+
 		}
 		private async void SelectSumCommand_Execute() 
 		{
@@ -2299,17 +2543,20 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearSumCommand_Execute() 
 		{
-		Item.Sum = null;		    
+		Item.Sum = null;
+		    
 		}
+
 
 
     }
 
+
     public partial class ProductDetailsViewModel : BaseDetailsViewModel<ProductWrapper, Product, AfterSaveProductEvent>
     {
 		private Func<Task<List<ProductBlock>>> _getEntitiesForSelectProductBlockCommand;
-		public ICommand SelectProductBlockCommand { get; }
-		public ICommand ClearProductBlockCommand { get; }
+		public ICommand SelectProductBlockCommand { get; private set; }
+		public ICommand ClearProductBlockCommand { get; private set; }
 
 		private Func<Task<List<Product>>> _getEntitiesForAddInDependentProductsCommand;
 		public ICommand AddInDependentProductsCommand { get; }
@@ -2327,10 +2574,11 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public ProductDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectProductBlockCommand = new DelegateCommand(SelectProductBlockCommand_Execute);
-			ClearProductBlockCommand = new DelegateCommand(ClearProductBlockCommand_Execute);
+			if (SelectProductBlockCommand == null) SelectProductBlockCommand = new DelegateCommand(SelectProductBlockCommand_Execute);
+			if (ClearProductBlockCommand == null) ClearProductBlockCommand = new DelegateCommand(ClearProductBlockCommand_Execute);
 
 			AddInDependentProductsCommand = new DelegateCommand(AddInDependentProductsCommand_Execute);
 			RemoveFromDependentProductsCommand = new DelegateCommand(RemoveFromDependentProductsCommand_Execute, RemoveFromDependentProductsCommand_CanExecute);
@@ -2342,6 +2590,7 @@ namespace HVTApp.UI.ViewModels
 		{
             _getEntitiesForSelectProductBlockCommand = async () => { return await WrapperDataService.GetRepository<ProductBlock>().GetAllAsync(); };
 			_getEntitiesForAddInDependentProductsCommand = async () => { return await WrapperDataService.GetRepository<Product>().GetAllAsync(); };;
+
 		}
 		private async void SelectProductBlockCommand_Execute() 
 		{
@@ -2350,7 +2599,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductBlockCommand_Execute() 
 		{
-		Item.ProductBlock = null;		    
+		Item.ProductBlock = null;
+		    
 		}
 
 			private async void AddInDependentProductsCommand_Execute()
@@ -2369,37 +2619,39 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class OfferDetailsViewModel : BaseDetailsViewModel<OfferWrapper, Offer, AfterSaveOfferEvent>
     {
 		private Func<Task<List<Project>>> _getEntitiesForSelectProjectCommand;
-		public ICommand SelectProjectCommand { get; }
-		public ICommand ClearProjectCommand { get; }
+		public ICommand SelectProjectCommand { get; private set; }
+		public ICommand ClearProjectCommand { get; private set; }
 
 		private Func<Task<List<Document>>> _getEntitiesForSelectRequestDocumentCommand;
-		public ICommand SelectRequestDocumentCommand { get; }
-		public ICommand ClearRequestDocumentCommand { get; }
+		public ICommand SelectRequestDocumentCommand { get; private set; }
+		public ICommand ClearRequestDocumentCommand { get; private set; }
 
 		private Func<Task<List<Employee>>> _getEntitiesForSelectAuthorCommand;
-		public ICommand SelectAuthorCommand { get; }
-		public ICommand ClearAuthorCommand { get; }
+		public ICommand SelectAuthorCommand { get; private set; }
+		public ICommand ClearAuthorCommand { get; private set; }
 
 		private Func<Task<List<Employee>>> _getEntitiesForSelectSenderEmployeeCommand;
-		public ICommand SelectSenderEmployeeCommand { get; }
-		public ICommand ClearSenderEmployeeCommand { get; }
+		public ICommand SelectSenderEmployeeCommand { get; private set; }
+		public ICommand ClearSenderEmployeeCommand { get; private set; }
 
 		private Func<Task<List<Employee>>> _getEntitiesForSelectRecipientEmployeeCommand;
-		public ICommand SelectRecipientEmployeeCommand { get; }
-		public ICommand ClearRecipientEmployeeCommand { get; }
+		public ICommand SelectRecipientEmployeeCommand { get; private set; }
+		public ICommand ClearRecipientEmployeeCommand { get; private set; }
 
 		private Func<Task<List<DocumentsRegistrationDetails>>> _getEntitiesForSelectRegistrationDetailsOfSenderCommand;
-		public ICommand SelectRegistrationDetailsOfSenderCommand { get; }
-		public ICommand ClearRegistrationDetailsOfSenderCommand { get; }
+		public ICommand SelectRegistrationDetailsOfSenderCommand { get; private set; }
+		public ICommand ClearRegistrationDetailsOfSenderCommand { get; private set; }
 
 		private Func<Task<List<DocumentsRegistrationDetails>>> _getEntitiesForSelectRegistrationDetailsOfRecipientCommand;
-		public ICommand SelectRegistrationDetailsOfRecipientCommand { get; }
-		public ICommand ClearRegistrationDetailsOfRecipientCommand { get; }
+		public ICommand SelectRegistrationDetailsOfRecipientCommand { get; private set; }
+		public ICommand ClearRegistrationDetailsOfRecipientCommand { get; private set; }
 
 		private Func<Task<List<Employee>>> _getEntitiesForAddInCopyToRecipientsCommand;
 		public ICommand AddInCopyToRecipientsCommand { get; }
@@ -2417,28 +2669,29 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public OfferDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectProjectCommand = new DelegateCommand(SelectProjectCommand_Execute);
-			ClearProjectCommand = new DelegateCommand(ClearProjectCommand_Execute);
+			if (SelectProjectCommand == null) SelectProjectCommand = new DelegateCommand(SelectProjectCommand_Execute);
+			if (ClearProjectCommand == null) ClearProjectCommand = new DelegateCommand(ClearProjectCommand_Execute);
 
-			SelectRequestDocumentCommand = new DelegateCommand(SelectRequestDocumentCommand_Execute);
-			ClearRequestDocumentCommand = new DelegateCommand(ClearRequestDocumentCommand_Execute);
+			if (SelectRequestDocumentCommand == null) SelectRequestDocumentCommand = new DelegateCommand(SelectRequestDocumentCommand_Execute);
+			if (ClearRequestDocumentCommand == null) ClearRequestDocumentCommand = new DelegateCommand(ClearRequestDocumentCommand_Execute);
 
-			SelectAuthorCommand = new DelegateCommand(SelectAuthorCommand_Execute);
-			ClearAuthorCommand = new DelegateCommand(ClearAuthorCommand_Execute);
+			if (SelectAuthorCommand == null) SelectAuthorCommand = new DelegateCommand(SelectAuthorCommand_Execute);
+			if (ClearAuthorCommand == null) ClearAuthorCommand = new DelegateCommand(ClearAuthorCommand_Execute);
 
-			SelectSenderEmployeeCommand = new DelegateCommand(SelectSenderEmployeeCommand_Execute);
-			ClearSenderEmployeeCommand = new DelegateCommand(ClearSenderEmployeeCommand_Execute);
+			if (SelectSenderEmployeeCommand == null) SelectSenderEmployeeCommand = new DelegateCommand(SelectSenderEmployeeCommand_Execute);
+			if (ClearSenderEmployeeCommand == null) ClearSenderEmployeeCommand = new DelegateCommand(ClearSenderEmployeeCommand_Execute);
 
-			SelectRecipientEmployeeCommand = new DelegateCommand(SelectRecipientEmployeeCommand_Execute);
-			ClearRecipientEmployeeCommand = new DelegateCommand(ClearRecipientEmployeeCommand_Execute);
+			if (SelectRecipientEmployeeCommand == null) SelectRecipientEmployeeCommand = new DelegateCommand(SelectRecipientEmployeeCommand_Execute);
+			if (ClearRecipientEmployeeCommand == null) ClearRecipientEmployeeCommand = new DelegateCommand(ClearRecipientEmployeeCommand_Execute);
 
-			SelectRegistrationDetailsOfSenderCommand = new DelegateCommand(SelectRegistrationDetailsOfSenderCommand_Execute);
-			ClearRegistrationDetailsOfSenderCommand = new DelegateCommand(ClearRegistrationDetailsOfSenderCommand_Execute);
+			if (SelectRegistrationDetailsOfSenderCommand == null) SelectRegistrationDetailsOfSenderCommand = new DelegateCommand(SelectRegistrationDetailsOfSenderCommand_Execute);
+			if (ClearRegistrationDetailsOfSenderCommand == null) ClearRegistrationDetailsOfSenderCommand = new DelegateCommand(ClearRegistrationDetailsOfSenderCommand_Execute);
 
-			SelectRegistrationDetailsOfRecipientCommand = new DelegateCommand(SelectRegistrationDetailsOfRecipientCommand_Execute);
-			ClearRegistrationDetailsOfRecipientCommand = new DelegateCommand(ClearRegistrationDetailsOfRecipientCommand_Execute);
+			if (SelectRegistrationDetailsOfRecipientCommand == null) SelectRegistrationDetailsOfRecipientCommand = new DelegateCommand(SelectRegistrationDetailsOfRecipientCommand_Execute);
+			if (ClearRegistrationDetailsOfRecipientCommand == null) ClearRegistrationDetailsOfRecipientCommand = new DelegateCommand(ClearRegistrationDetailsOfRecipientCommand_Execute);
 
 			AddInCopyToRecipientsCommand = new DelegateCommand(AddInCopyToRecipientsCommand_Execute);
 			RemoveFromCopyToRecipientsCommand = new DelegateCommand(RemoveFromCopyToRecipientsCommand_Execute, RemoveFromCopyToRecipientsCommand_CanExecute);
@@ -2456,6 +2709,7 @@ namespace HVTApp.UI.ViewModels
             _getEntitiesForSelectRegistrationDetailsOfSenderCommand = async () => { return await WrapperDataService.GetRepository<DocumentsRegistrationDetails>().GetAllAsync(); };
             _getEntitiesForSelectRegistrationDetailsOfRecipientCommand = async () => { return await WrapperDataService.GetRepository<DocumentsRegistrationDetails>().GetAllAsync(); };
 			_getEntitiesForAddInCopyToRecipientsCommand = async () => { return await WrapperDataService.GetRepository<Employee>().GetAllAsync(); };;
+
 		}
 		private async void SelectProjectCommand_Execute() 
 		{
@@ -2464,7 +2718,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProjectCommand_Execute() 
 		{
-		Item.Project = null;		    
+		Item.Project = null;
+		    
 		}
 
 		private async void SelectRequestDocumentCommand_Execute() 
@@ -2474,7 +2729,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRequestDocumentCommand_Execute() 
 		{
-		Item.RequestDocument = null;		    
+		Item.RequestDocument = null;
+		    
 		}
 
 		private async void SelectAuthorCommand_Execute() 
@@ -2484,7 +2740,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearAuthorCommand_Execute() 
 		{
-		Item.Author = null;		    
+		Item.Author = null;
+		    
 		}
 
 		private async void SelectSenderEmployeeCommand_Execute() 
@@ -2494,7 +2751,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearSenderEmployeeCommand_Execute() 
 		{
-		Item.SenderEmployee = null;		    
+		Item.SenderEmployee = null;
+		    
 		}
 
 		private async void SelectRecipientEmployeeCommand_Execute() 
@@ -2504,7 +2762,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRecipientEmployeeCommand_Execute() 
 		{
-		Item.RecipientEmployee = null;		    
+		Item.RecipientEmployee = null;
+		    
 		}
 
 		private async void SelectRegistrationDetailsOfSenderCommand_Execute() 
@@ -2514,7 +2773,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRegistrationDetailsOfSenderCommand_Execute() 
 		{
-		Item.RegistrationDetailsOfSender = null;		    
+		Item.RegistrationDetailsOfSender = null;
+		    
 		}
 
 		private async void SelectRegistrationDetailsOfRecipientCommand_Execute() 
@@ -2524,7 +2784,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRegistrationDetailsOfRecipientCommand_Execute() 
 		{
-		Item.RegistrationDetailsOfRecipient = null;		    
+		Item.RegistrationDetailsOfRecipient = null;
+		    
 		}
 
 			private async void AddInCopyToRecipientsCommand_Execute()
@@ -2543,32 +2804,35 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class EmployeeDetailsViewModel : BaseDetailsViewModel<EmployeeWrapper, Employee, AfterSaveEmployeeEvent>
     {
 		private Func<Task<List<Person>>> _getEntitiesForSelectPersonCommand;
-		public ICommand SelectPersonCommand { get; }
-		public ICommand ClearPersonCommand { get; }
+		public ICommand SelectPersonCommand { get; private set; }
+		public ICommand ClearPersonCommand { get; private set; }
 
 		private Func<Task<List<Company>>> _getEntitiesForSelectCompanyCommand;
-		public ICommand SelectCompanyCommand { get; }
-		public ICommand ClearCompanyCommand { get; }
+		public ICommand SelectCompanyCommand { get; private set; }
+		public ICommand ClearCompanyCommand { get; private set; }
 
 		private Func<Task<List<EmployeesPosition>>> _getEntitiesForSelectPositionCommand;
-		public ICommand SelectPositionCommand { get; }
-		public ICommand ClearPositionCommand { get; }
+		public ICommand SelectPositionCommand { get; private set; }
+		public ICommand ClearPositionCommand { get; private set; }
+
 
         public EmployeeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectPersonCommand = new DelegateCommand(SelectPersonCommand_Execute);
-			ClearPersonCommand = new DelegateCommand(ClearPersonCommand_Execute);
+			if (SelectPersonCommand == null) SelectPersonCommand = new DelegateCommand(SelectPersonCommand_Execute);
+			if (ClearPersonCommand == null) ClearPersonCommand = new DelegateCommand(ClearPersonCommand_Execute);
 
-			SelectCompanyCommand = new DelegateCommand(SelectCompanyCommand_Execute);
-			ClearCompanyCommand = new DelegateCommand(ClearCompanyCommand_Execute);
+			if (SelectCompanyCommand == null) SelectCompanyCommand = new DelegateCommand(SelectCompanyCommand_Execute);
+			if (ClearCompanyCommand == null) ClearCompanyCommand = new DelegateCommand(ClearCompanyCommand_Execute);
 
-			SelectPositionCommand = new DelegateCommand(SelectPositionCommand_Execute);
-			ClearPositionCommand = new DelegateCommand(ClearPositionCommand_Execute);
+			if (SelectPositionCommand == null) SelectPositionCommand = new DelegateCommand(SelectPositionCommand_Execute);
+			if (ClearPositionCommand == null) ClearPositionCommand = new DelegateCommand(ClearPositionCommand_Execute);
 
 		}
 
@@ -2578,6 +2842,7 @@ namespace HVTApp.UI.ViewModels
             _getEntitiesForSelectPersonCommand = async () => { return await WrapperDataService.GetRepository<Person>().GetAllAsync(); };
             _getEntitiesForSelectCompanyCommand = async () => { return await WrapperDataService.GetRepository<Company>().GetAllAsync(); };
             _getEntitiesForSelectPositionCommand = async () => { return await WrapperDataService.GetRepository<EmployeesPosition>().GetAllAsync(); };
+
 		}
 		private async void SelectPersonCommand_Execute() 
 		{
@@ -2586,7 +2851,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearPersonCommand_Execute() 
 		{
-		Item.Person = null;		    
+		Item.Person = null;
+		    
 		}
 
 		private async void SelectCompanyCommand_Execute() 
@@ -2596,7 +2862,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearCompanyCommand_Execute() 
 		{
-		Item.Company = null;		    
+		Item.Company = null;
+		    
 		}
 
 		private async void SelectPositionCommand_Execute() 
@@ -2606,14 +2873,18 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearPositionCommand_Execute() 
 		{
-		Item.Position = null;		    
+		Item.Position = null;
+		    
 		}
+
 
 
     }
 
+
     public partial class OrderDetailsViewModel : BaseDetailsViewModel<OrderWrapper, Order, AfterSaveOrderEvent>
     {
+
         public OrderDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -2621,12 +2892,16 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
+
 
     }
 
+
     public partial class PaymentConditionDetailsViewModel : BaseDetailsViewModel<PaymentConditionWrapper, PaymentCondition, AfterSavePaymentConditionEvent>
     {
+
         public PaymentConditionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -2634,9 +2909,12 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
 
+
     }
+
 
     public partial class PaymentDocumentDetailsViewModel : BaseDetailsViewModel<PaymentDocumentWrapper, PaymentDocument, AfterSavePaymentDocumentEvent>
     {
@@ -2656,6 +2934,7 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public PaymentDocumentDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			AddInPaymentsCommand = new DelegateCommand(AddInPaymentsCommand_Execute);
@@ -2667,6 +2946,7 @@ namespace HVTApp.UI.ViewModels
         protected override void InitDefaultGetMethods()
 		{
 			_getEntitiesForAddInPaymentsCommand = async () => { return await WrapperDataService.GetRepository<PaymentActual>().GetAllAsync(); };;
+
 		}
 			private async void AddInPaymentsCommand_Execute()
 			{
@@ -2684,32 +2964,35 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class FacilityDetailsViewModel : BaseDetailsViewModel<FacilityWrapper, Facility, AfterSaveFacilityEvent>
     {
 		private Func<Task<List<FacilityType>>> _getEntitiesForSelectTypeCommand;
-		public ICommand SelectTypeCommand { get; }
-		public ICommand ClearTypeCommand { get; }
+		public ICommand SelectTypeCommand { get; private set; }
+		public ICommand ClearTypeCommand { get; private set; }
 
 		private Func<Task<List<Company>>> _getEntitiesForSelectOwnerCompanyCommand;
-		public ICommand SelectOwnerCompanyCommand { get; }
-		public ICommand ClearOwnerCompanyCommand { get; }
+		public ICommand SelectOwnerCompanyCommand { get; private set; }
+		public ICommand ClearOwnerCompanyCommand { get; private set; }
 
 		private Func<Task<List<Address>>> _getEntitiesForSelectAddressCommand;
-		public ICommand SelectAddressCommand { get; }
-		public ICommand ClearAddressCommand { get; }
+		public ICommand SelectAddressCommand { get; private set; }
+		public ICommand ClearAddressCommand { get; private set; }
+
 
         public FacilityDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectTypeCommand = new DelegateCommand(SelectTypeCommand_Execute);
-			ClearTypeCommand = new DelegateCommand(ClearTypeCommand_Execute);
+			if (SelectTypeCommand == null) SelectTypeCommand = new DelegateCommand(SelectTypeCommand_Execute);
+			if (ClearTypeCommand == null) ClearTypeCommand = new DelegateCommand(ClearTypeCommand_Execute);
 
-			SelectOwnerCompanyCommand = new DelegateCommand(SelectOwnerCompanyCommand_Execute);
-			ClearOwnerCompanyCommand = new DelegateCommand(ClearOwnerCompanyCommand_Execute);
+			if (SelectOwnerCompanyCommand == null) SelectOwnerCompanyCommand = new DelegateCommand(SelectOwnerCompanyCommand_Execute);
+			if (ClearOwnerCompanyCommand == null) ClearOwnerCompanyCommand = new DelegateCommand(ClearOwnerCompanyCommand_Execute);
 
-			SelectAddressCommand = new DelegateCommand(SelectAddressCommand_Execute);
-			ClearAddressCommand = new DelegateCommand(ClearAddressCommand_Execute);
+			if (SelectAddressCommand == null) SelectAddressCommand = new DelegateCommand(SelectAddressCommand_Execute);
+			if (ClearAddressCommand == null) ClearAddressCommand = new DelegateCommand(ClearAddressCommand_Execute);
 
 		}
 
@@ -2719,6 +3002,7 @@ namespace HVTApp.UI.ViewModels
             _getEntitiesForSelectTypeCommand = async () => { return await WrapperDataService.GetRepository<FacilityType>().GetAllAsync(); };
             _getEntitiesForSelectOwnerCompanyCommand = async () => { return await WrapperDataService.GetRepository<Company>().GetAllAsync(); };
             _getEntitiesForSelectAddressCommand = async () => { return await WrapperDataService.GetRepository<Address>().GetAllAsync(); };
+
 		}
 		private async void SelectTypeCommand_Execute() 
 		{
@@ -2727,7 +3011,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearTypeCommand_Execute() 
 		{
-		Item.Type = null;		    
+		Item.Type = null;
+		    
 		}
 
 		private async void SelectOwnerCompanyCommand_Execute() 
@@ -2737,7 +3022,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearOwnerCompanyCommand_Execute() 
 		{
-		Item.OwnerCompany = null;		    
+		Item.OwnerCompany = null;
+		    
 		}
 
 		private async void SelectAddressCommand_Execute() 
@@ -2747,17 +3033,20 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearAddressCommand_Execute() 
 		{
-		Item.Address = null;		    
+		Item.Address = null;
+		    
 		}
+
 
 
     }
 
+
     public partial class ProjectDetailsViewModel : BaseDetailsViewModel<ProjectWrapper, Project, AfterSaveProjectEvent>
     {
 		private Func<Task<List<User>>> _getEntitiesForSelectManagerCommand;
-		public ICommand SelectManagerCommand { get; }
-		public ICommand ClearManagerCommand { get; }
+		public ICommand SelectManagerCommand { get; private set; }
+		public ICommand ClearManagerCommand { get; private set; }
 
 		private Func<Task<List<Note>>> _getEntitiesForAddInNotesCommand;
 		public ICommand AddInNotesCommand { get; }
@@ -2775,10 +3064,11 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public ProjectDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectManagerCommand = new DelegateCommand(SelectManagerCommand_Execute);
-			ClearManagerCommand = new DelegateCommand(ClearManagerCommand_Execute);
+			if (SelectManagerCommand == null) SelectManagerCommand = new DelegateCommand(SelectManagerCommand_Execute);
+			if (ClearManagerCommand == null) ClearManagerCommand = new DelegateCommand(ClearManagerCommand_Execute);
 
 			AddInNotesCommand = new DelegateCommand(AddInNotesCommand_Execute);
 			RemoveFromNotesCommand = new DelegateCommand(RemoveFromNotesCommand_Execute, RemoveFromNotesCommand_CanExecute);
@@ -2790,6 +3080,7 @@ namespace HVTApp.UI.ViewModels
 		{
             _getEntitiesForSelectManagerCommand = async () => { return await WrapperDataService.GetRepository<User>().GetAllAsync(); };
 			_getEntitiesForAddInNotesCommand = async () => { return await WrapperDataService.GetRepository<Note>().GetAllAsync(); };;
+
 		}
 		private async void SelectManagerCommand_Execute() 
 		{
@@ -2798,7 +3089,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearManagerCommand_Execute() 
 		{
-		Item.Manager = null;		    
+		Item.Manager = null;
+		    
 		}
 
 			private async void AddInNotesCommand_Execute()
@@ -2817,10 +3109,13 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class UserRoleDetailsViewModel : BaseDetailsViewModel<UserRoleWrapper, UserRole, AfterSaveUserRoleEvent>
     {
+
         public UserRoleDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -2828,20 +3123,24 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
 
+
     }
+
 
     public partial class SpecificationDetailsViewModel : BaseDetailsViewModel<SpecificationWrapper, Specification, AfterSaveSpecificationEvent>
     {
 		private Func<Task<List<Contract>>> _getEntitiesForSelectContractCommand;
-		public ICommand SelectContractCommand { get; }
-		public ICommand ClearContractCommand { get; }
+		public ICommand SelectContractCommand { get; private set; }
+		public ICommand ClearContractCommand { get; private set; }
+
 
         public SpecificationDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectContractCommand = new DelegateCommand(SelectContractCommand_Execute);
-			ClearContractCommand = new DelegateCommand(ClearContractCommand_Execute);
+			if (SelectContractCommand == null) SelectContractCommand = new DelegateCommand(SelectContractCommand_Execute);
+			if (ClearContractCommand == null) ClearContractCommand = new DelegateCommand(ClearContractCommand_Execute);
 
 		}
 
@@ -2849,6 +3148,7 @@ namespace HVTApp.UI.ViewModels
         protected override void InitDefaultGetMethods()
 		{
             _getEntitiesForSelectContractCommand = async () => { return await WrapperDataService.GetRepository<Contract>().GetAllAsync(); };
+
 		}
 		private async void SelectContractCommand_Execute() 
 		{
@@ -2857,21 +3157,24 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearContractCommand_Execute() 
 		{
-		Item.Contract = null;		    
+		Item.Contract = null;
+		    
 		}
+
 
 
     }
 
+
     public partial class TenderDetailsViewModel : BaseDetailsViewModel<TenderWrapper, Tender, AfterSaveTenderEvent>
     {
 		private Func<Task<List<Project>>> _getEntitiesForSelectProjectCommand;
-		public ICommand SelectProjectCommand { get; }
-		public ICommand ClearProjectCommand { get; }
+		public ICommand SelectProjectCommand { get; private set; }
+		public ICommand ClearProjectCommand { get; private set; }
 
 		private Func<Task<List<Company>>> _getEntitiesForSelectWinnerCommand;
-		public ICommand SelectWinnerCommand { get; }
-		public ICommand ClearWinnerCommand { get; }
+		public ICommand SelectWinnerCommand { get; private set; }
+		public ICommand ClearWinnerCommand { get; private set; }
 
 		private Func<Task<List<TenderType>>> _getEntitiesForAddInTypesCommand;
 		public ICommand AddInTypesCommand { get; }
@@ -2905,13 +3208,14 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public TenderDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectProjectCommand = new DelegateCommand(SelectProjectCommand_Execute);
-			ClearProjectCommand = new DelegateCommand(ClearProjectCommand_Execute);
+			if (SelectProjectCommand == null) SelectProjectCommand = new DelegateCommand(SelectProjectCommand_Execute);
+			if (ClearProjectCommand == null) ClearProjectCommand = new DelegateCommand(ClearProjectCommand_Execute);
 
-			SelectWinnerCommand = new DelegateCommand(SelectWinnerCommand_Execute);
-			ClearWinnerCommand = new DelegateCommand(ClearWinnerCommand_Execute);
+			if (SelectWinnerCommand == null) SelectWinnerCommand = new DelegateCommand(SelectWinnerCommand_Execute);
+			if (ClearWinnerCommand == null) ClearWinnerCommand = new DelegateCommand(ClearWinnerCommand_Execute);
 
 			AddInTypesCommand = new DelegateCommand(AddInTypesCommand_Execute);
 			RemoveFromTypesCommand = new DelegateCommand(RemoveFromTypesCommand_Execute, RemoveFromTypesCommand_CanExecute);
@@ -2928,6 +3232,7 @@ namespace HVTApp.UI.ViewModels
             _getEntitiesForSelectWinnerCommand = async () => { return await WrapperDataService.GetRepository<Company>().GetAllAsync(); };
 			_getEntitiesForAddInTypesCommand = async () => { return await WrapperDataService.GetRepository<TenderType>().GetAllAsync(); };;
 			_getEntitiesForAddInParticipantsCommand = async () => { return await WrapperDataService.GetRepository<Company>().GetAllAsync(); };;
+
 		}
 		private async void SelectProjectCommand_Execute() 
 		{
@@ -2936,7 +3241,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProjectCommand_Execute() 
 		{
-		Item.Project = null;		    
+		Item.Project = null;
+		    
 		}
 
 		private async void SelectWinnerCommand_Execute() 
@@ -2946,7 +3252,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearWinnerCommand_Execute() 
 		{
-		Item.Winner = null;		    
+		Item.Winner = null;
+		    
 		}
 
 			private async void AddInTypesCommand_Execute()
@@ -2980,10 +3287,13 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
     public partial class TenderTypeDetailsViewModel : BaseDetailsViewModel<TenderTypeWrapper, TenderType, AfterSaveTenderTypeEvent>
     {
+
         public TenderTypeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
@@ -2991,15 +3301,18 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitDefaultGetMethods()
 		{
+
 		}
 
+
     }
+
 
     public partial class UserDetailsViewModel : BaseDetailsViewModel<UserWrapper, User, AfterSaveUserEvent>
     {
 		private Func<Task<List<Employee>>> _getEntitiesForSelectEmployeeCommand;
-		public ICommand SelectEmployeeCommand { get; }
-		public ICommand ClearEmployeeCommand { get; }
+		public ICommand SelectEmployeeCommand { get; private set; }
+		public ICommand ClearEmployeeCommand { get; private set; }
 
 		private Func<Task<List<UserRole>>> _getEntitiesForAddInRolesCommand;
 		public ICommand AddInRolesCommand { get; }
@@ -3017,10 +3330,11 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
+
         public UserDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			SelectEmployeeCommand = new DelegateCommand(SelectEmployeeCommand_Execute);
-			ClearEmployeeCommand = new DelegateCommand(ClearEmployeeCommand_Execute);
+			if (SelectEmployeeCommand == null) SelectEmployeeCommand = new DelegateCommand(SelectEmployeeCommand_Execute);
+			if (ClearEmployeeCommand == null) ClearEmployeeCommand = new DelegateCommand(ClearEmployeeCommand_Execute);
 
 			AddInRolesCommand = new DelegateCommand(AddInRolesCommand_Execute);
 			RemoveFromRolesCommand = new DelegateCommand(RemoveFromRolesCommand_Execute, RemoveFromRolesCommand_CanExecute);
@@ -3032,6 +3346,7 @@ namespace HVTApp.UI.ViewModels
 		{
             _getEntitiesForSelectEmployeeCommand = async () => { return await WrapperDataService.GetRepository<Employee>().GetAllAsync(); };
 			_getEntitiesForAddInRolesCommand = async () => { return await WrapperDataService.GetRepository<UserRole>().GetAllAsync(); };;
+
 		}
 		private async void SelectEmployeeCommand_Execute() 
 		{
@@ -3040,7 +3355,8 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearEmployeeCommand_Execute() 
 		{
-		Item.Employee = null;		    
+		Item.Employee = null;
+		    
 		}
 
 			private async void AddInRolesCommand_Execute()
@@ -3059,6 +3375,8 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
+
     }
+
 
 }

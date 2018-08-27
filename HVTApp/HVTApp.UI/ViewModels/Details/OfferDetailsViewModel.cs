@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model.POCOs;
@@ -34,15 +35,18 @@ namespace HVTApp.UI.ViewModels
 
         private async void ChangeFacilityCommand_Execute()
         {
-            var vw = Container.Resolve<OfferUnitsDetailsViewModel>();
-            Container.Resolve<IDialogService>().ShowDialog(vw);
+            //var vw = Container.Resolve<OfferUnitsDetailsViewModel>();
+            //Container.Resolve<IDialogService>().ShowDialog(vw);
 
-            var facilities = await WrapperDataService.GetRepository<Facility>().GetAllAsync();
-            var facility = await Container.Resolve<ISelectService>().SelectItem(facilities);
-            if (facility == null) return;
-            var facilityWrapper = await WrapperDataService.GetWrapperRepository<Facility, FacilityWrapper>().GetByIdAsync(facility.Id);
-            foreach (var offerUnit in SelectedOfferUnits)
-                offerUnit.Facility = facilityWrapper;
+            //var facilities = await WrapperDataService.GetRepository<Facility>().GetAllAsync();
+            //var facility = await Container.Resolve<ISelectService>().SelectItem(facilities);
+            //if (facility == null) return;
+            //var facilityWrapper = await WrapperDataService.GetWrapperRepository<Facility, FacilityWrapper>().GetByIdAsync(facility.Id);
+            //foreach (var offerUnit in SelectedOfferUnits)
+            //    offerUnit.Facility = facilityWrapper;
+
+            var offerUnit = (OfferUnitWrapper)SelectedOfferUnits.First();
+            await Container.Resolve<IUpdateDetailsService>().UpdateDetails(offerUnit.Model);
 
             OnPropertyChanged(nameof(Item));
         }

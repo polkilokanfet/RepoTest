@@ -18,12 +18,14 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Condition" Visibility="{Binding ConditionVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.Condition}" 
                                     AddItemCommand="{Binding SelectConditionCommand}" 
                                     RemoveItemCommand="{Binding ClearConditionCommand}"
 									Visibility="{Binding ConditionVisibility, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Payments" Visibility="{Binding PaymentsVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
@@ -32,6 +34,7 @@
 										 AddItemCommand="{Binding AddInPaymentsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromPaymentsCommand}"
 										 Visibility="{Binding PaymentsVisibility, ElementName=Root}"/>
+
 
 
     </Grid>

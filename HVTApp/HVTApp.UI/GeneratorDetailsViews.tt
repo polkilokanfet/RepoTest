@@ -34,7 +34,7 @@
 
 
 
-    GenerateDetails(modelTypes);
+    GenerateDetailsViewsXaml(modelTypes);
 
 #><#+
 
@@ -73,8 +73,8 @@ namespace HVTApp.UI.ViewModels
 		foreach(var propInfo in modelType.AllComplexProperties())
         {
 #>		private Func<Task<List<<#=propInfo.PropertyType.Name#>>>> _getEntitiesForSelect<#=propInfo.Name#>Command;
-		public ICommand Select<#=propInfo.Name#>Command { get; }
-		public ICommand Clear<#=propInfo.Name#>Command { get; }
+		public ICommand Select<#=propInfo.Name#>Command { get; private set; }
+		public ICommand Clear<#=propInfo.Name#>Command { get; private set; }
 
 <#+		}
 
@@ -106,8 +106,8 @@ namespace HVTApp.UI.ViewModels
 <#+		
 		foreach(var propInfo in modelType.AllComplexProperties())
         {
-#>			Select<#=propInfo.Name#>Command = new DelegateCommand(Select<#=propInfo.Name#>Command_Execute);
-			Clear<#=propInfo.Name#>Command = new DelegateCommand(Clear<#=propInfo.Name#>Command_Execute);
+#>			if (Select<#=propInfo.Name#>Command == null) Select<#=propInfo.Name#>Command = new DelegateCommand(Select<#=propInfo.Name#>Command_Execute);
+			if (Clear<#=propInfo.Name#>Command == null) Clear<#=propInfo.Name#>Command = new DelegateCommand(Clear<#=propInfo.Name#>Command_Execute);
 
 <#+		}
 
@@ -314,7 +314,7 @@ namespace HVTApp.UI.Views
 	}
 
 
-    private void GenerateDetails(IEnumerable<Type> modelTypes)
+    private void GenerateDetailsViewsXaml(IEnumerable<Type> modelTypes)
     {
         foreach(var modelType in modelTypes)
         {

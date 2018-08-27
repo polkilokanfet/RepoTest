@@ -17,10 +17,12 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Name" Visibility="{Binding NameVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding NameVisibility, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Country" Visibility="{Binding CountryVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -28,6 +30,7 @@
                                     AddItemCommand="{Binding SelectCountryCommand}" 
                                     RemoveItemCommand="{Binding ClearCountryCommand}"
 									Visibility="{Binding CountryVisibility, ElementName=Root}"/>
+
 
 
     </Grid>

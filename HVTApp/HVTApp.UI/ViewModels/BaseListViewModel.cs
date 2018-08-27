@@ -66,7 +66,9 @@ namespace HVTApp.UI.ViewModels
         /// </summary>
         protected virtual void SubscribesToEvents() { }
 
-
+        /// <summary>
+        /// Выбранный Lookup
+        /// </summary>
         public TLookup SelectedLookup
         {
             get { return _selectedLookup; }
@@ -82,7 +84,9 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
-
+        /// <summary>
+        /// Выбранный Item.
+        /// </summary>
         public TEntity SelectedItem
         {
             get { return _selectedItem; }
@@ -103,7 +107,21 @@ namespace HVTApp.UI.ViewModels
             return await UnitOfWork.GetLookupById(entity.Id);
         }
 
-        public virtual async Task LoadAsync()
+        /// <summary>
+        /// Возвращает все Lookup'ы. Используется в LoadAsync().
+        /// </summary>
+        /// <returns></returns>
+        protected virtual async Task<IEnumerable<TLookup>> GetLookups()
+        {
+            return await UnitOfWork.GetAllLookupsAsync();
+        }
+
+        /// <summary>
+        /// Загрузка всех Lookup'ов.
+        /// Возможно влиять на Lookup'ы через GetLookups.
+        /// </summary>
+        /// <returns></returns>
+        public async Task LoadAsync()
         {
             LookupsCollection.Clear();
             SelectedLookup = null;
@@ -112,7 +130,7 @@ namespace HVTApp.UI.ViewModels
             Loaded?.Invoke();
         }
 
-        public virtual async Task Load(IEnumerable<TEntity> entities)
+        public async Task Load(IEnumerable<TEntity> entities)
         {
             var lookups = new List<TLookup>();
             foreach (var entity in entities)
@@ -135,11 +153,6 @@ namespace HVTApp.UI.ViewModels
         public event Action<TLookup> SelectedLookupChanged; 
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
-
-        protected virtual async Task<IEnumerable<TLookup>> GetLookups()
-        {
-            return await UnitOfWork.GetAllLookupsAsync();
-        }
 
         #region Commands
 

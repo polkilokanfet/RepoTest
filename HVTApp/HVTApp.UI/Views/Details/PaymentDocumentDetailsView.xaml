@@ -18,15 +18,18 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Number" Visibility="{Binding NumberVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding NumberVisibility, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="Date" Visibility="{Binding DateVisibility, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding DateVisibility, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Payments" Visibility="{Binding PaymentsVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
@@ -35,6 +38,7 @@
 										 AddItemCommand="{Binding AddInPaymentsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromPaymentsCommand}"
 										 Visibility="{Binding PaymentsVisibility, ElementName=Root}"/>
+
 
 
     </Grid>

@@ -19,7 +19,7 @@
             </Grid.ColumnDefinitions>
 
             <views:ProjectLookupListView Name="ProjectListView" Grid.Column="0"/>
-            <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
             <views:OfferLookupListView Name="OfferListView" Grid.Column="2"/>
             
         </Grid>

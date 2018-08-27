@@ -17,15 +17,18 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="FullName" Visibility="{Binding FullNameVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding FullNameVisibility, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="ShortName" Visibility="{Binding ShortNameVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding ShortNameVisibility, ElementName=Root}"/>
+
 
 
     </Grid>
