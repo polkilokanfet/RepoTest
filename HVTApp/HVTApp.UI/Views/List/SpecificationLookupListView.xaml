@@ -19,6 +19,7 @@
                     <infg:NumericField Name="Vat" Label="НДС" Width="Auto" />
                     <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />
                     <infg:TextField Name="Contract" Label="Контракт" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

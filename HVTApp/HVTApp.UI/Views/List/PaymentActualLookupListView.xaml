@@ -18,6 +18,7 @@
                     <infg:TextField Name="Comment" Label="Comment" Width="Auto" />
                     <infg:NumericField Name="Sum" Label="Sum" Width="Auto" />
                     <infg:DateTimeField Name="Date" Label="Date" Width="Auto" />
+
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

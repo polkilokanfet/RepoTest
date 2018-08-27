@@ -17,6 +17,7 @@
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Number" Label="Number" Width="Auto" />
                     <infg:DateTimeField Name="Date" Label="Date" Width="Auto" />
+
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

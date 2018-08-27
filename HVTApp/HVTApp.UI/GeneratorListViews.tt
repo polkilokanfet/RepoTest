@@ -27,11 +27,11 @@
     GenerateListViewModels(GeneratorHelpers.GetModelTypesPocos());
 	SaveGeneratedCodeAsFile("ListViewModels.g.cs", "ViewModels/List/Generated");
 
-	GenerateListViews(GeneratorHelpers.GetModelTypesPocos());
+	GenerateListViewsCs(GeneratorHelpers.GetModelTypesPocos());
 	SaveGeneratedCodeAsFile("ListViews.g.cs", "Views/List/cs");
 
 
-    GenerateViews(GeneratorHelpers.GetModelTypesLookups());
+    GenerateListViewsXaml(GeneratorHelpers.GetModelTypesLookups());
 
 #><#+
     private void GenerateLookups(IEnumerable<Type> modelTypes)
@@ -207,7 +207,7 @@ namespace HVTApp.UI.ViewModels
 	
 
 
-	private void GenerateListViews(IEnumerable<Type> modelTypes)
+	private void GenerateListViewsCs(IEnumerable<Type> modelTypes)
 	{
 #>using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attrubutes;
@@ -216,13 +216,14 @@ using Prism.Events;
 using Prism.Regions;
 using HVTApp.UI.Tabs;
 using HVTApp.UI.ViewModels;
+using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Views
 {
 <#+
         foreach(var modelType in modelTypes)
         {
- #>
+#>
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("<#=modelType.DesignationPlural()#>")]
     public partial class <#=modelType.Name#>LookupListView : ViewBase
@@ -244,6 +245,23 @@ namespace HVTApp.UI.Views
         {
 			await ((<#=modelType.Name#>ListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+<#+		var props = modelType.AllSimpleProperties().Where(x => x.Name != "Id").Union(modelType.AllComplexProperties());
+		foreach(var prop in props)
+        {
+#>
+        public System.Windows.Visibility <#=prop.Name#>Visibility
+        {
+            get { return <#=modelType.Name#>LookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.<#=modelType.Name#>.<#=prop.Name#>)].Visibility; }
+            set { <#=modelType.Name#>LookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.<#=modelType.Name#>.<#=prop.Name#>)].Visibility = value; }
+        }
+
+<#+		}
+#>
+
+		#endregion
     }
 
 <#+
@@ -255,7 +273,7 @@ namespace HVTApp.UI.Views
 
 
 
-    private void GenerateViews(IEnumerable<Type> modelTypes)
+    private void GenerateListViewsXaml(IEnumerable<Type> modelTypes)
     {
         foreach(var modelType in modelTypes)
         {

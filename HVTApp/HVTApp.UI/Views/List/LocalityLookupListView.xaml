@@ -23,6 +23,7 @@
                     <infg:CheckBoxField Name="IsRegionCapital" Label="IsRegionCapital" Width="Auto" />
                     <infg:TextField Name="LocalityType" Label="LocalityType" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Region" Label="Region" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

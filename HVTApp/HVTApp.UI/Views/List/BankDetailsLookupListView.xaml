@@ -19,6 +19,7 @@
                     <infg:TextField Name="BankIdentificationCode" Label="BankIdentificationCode" Width="Auto" />
                     <infg:TextField Name="CorrespondentAccount" Label="CorrespondentAccount" Width="Auto" />
                     <infg:TextField Name="CheckingAccount" Label="CheckingAccount" Width="Auto" />
+
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

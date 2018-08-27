@@ -21,6 +21,17 @@ namespace HVTApp.Modules.Sales.Views
             this.OfferListView.DataContext = _viewModel.OfferListViewModel;
             this.UnitListView.DataContext = _viewModel.UnitLookupListViewModel;
 
+            ProjectListView.ManagerVisibility = Visibility.Collapsed;
+
+            OfferListView.AuthorVisibility = Visibility.Collapsed;
+            OfferListView.ProjectVisibility = Visibility.Collapsed;
+            OfferListView.RegistrationDetailsOfRecipientVisibility = Visibility.Collapsed;
+            OfferListView.RegistrationDetailsOfSenderVisibility = Visibility.Collapsed;
+            OfferListView.RecipientEmployeeVisibility = Visibility.Collapsed;
+            OfferListView.SenderEmployeeVisibility = Visibility.Collapsed;
+            OfferListView.VatVisibility = Visibility.Collapsed;
+            OfferListView.RequestDocumentVisibility = Visibility.Collapsed;
+
             this.Loaded += OnLoaded;
         }
 

@@ -22,6 +22,7 @@
                     <infg:TextField Name="Form" Label="Организационная форма" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="ParentCompany" Label="Родительская компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="AddressLegal" Label="Юридический адрес" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

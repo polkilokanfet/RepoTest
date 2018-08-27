@@ -5,9 +5,11 @@ using Prism.Events;
 using Prism.Regions;
 using HVTApp.UI.Tabs;
 using HVTApp.UI.ViewModels;
+using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Views
 {
+
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("CommonOption")]
     public partial class CommonOptionLookupListView : ViewBase
@@ -29,7 +31,49 @@ namespace HVTApp.UI.Views
         {
 			await ((CommonOptionListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility OurCompanyIdVisibility
+        {
+            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CommonOption.OurCompanyId)].Visibility; }
+            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CommonOption.OurCompanyId)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CalculationPriceTermVisibility
+        {
+            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CommonOption.CalculationPriceTerm)].Visibility; }
+            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CommonOption.CalculationPriceTerm)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility StandartTermFromStartToEndProductionVisibility
+        {
+            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CommonOption.StandartTermFromStartToEndProduction)].Visibility; }
+            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CommonOption.StandartTermFromStartToEndProduction)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility StandartTermFromPickToEndProductionVisibility
+        {
+            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CommonOption.StandartTermFromPickToEndProduction)].Visibility; }
+            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CommonOption.StandartTermFromPickToEndProduction)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility StandartPaymentsConditionSetIdVisibility
+        {
+            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CommonOption.StandartPaymentsConditionSetId)].Visibility; }
+            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CommonOption.StandartPaymentsConditionSetId)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Адреса")]
@@ -52,7 +96,28 @@ namespace HVTApp.UI.Views
         {
 			await ((AddressListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility DescriptionVisibility
+        {
+            get { return AddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Address.Description)].Visibility; }
+            set { AddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Address.Description)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility LocalityVisibility
+        {
+            get { return AddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Address.Locality)].Visibility; }
+            set { AddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Address.Locality)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Country")]
@@ -75,7 +140,21 @@ namespace HVTApp.UI.Views
         {
 			await ((CountryListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return CountryLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Country.Name)].Visibility; }
+            set { CountryLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Country.Name)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("District")]
@@ -98,7 +177,28 @@ namespace HVTApp.UI.Views
         {
 			await ((DistrictListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return DistrictLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.District.Name)].Visibility; }
+            set { DistrictLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.District.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CountryVisibility
+        {
+            get { return DistrictLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.District.Country)].Visibility; }
+            set { DistrictLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.District.Country)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Locality")]
@@ -121,7 +221,70 @@ namespace HVTApp.UI.Views
         {
 			await ((LocalityListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Locality.Name)].Visibility; }
+            set { LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Locality.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsCountryCapitalVisibility
+        {
+            get { return LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Locality.IsCountryCapital)].Visibility; }
+            set { LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Locality.IsCountryCapital)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsDistrictCapitalVisibility
+        {
+            get { return LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Locality.IsDistrictCapital)].Visibility; }
+            set { LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Locality.IsDistrictCapital)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsRegionCapitalVisibility
+        {
+            get { return LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Locality.IsRegionCapital)].Visibility; }
+            set { LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Locality.IsRegionCapital)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility StandartDeliveryPeriodVisibility
+        {
+            get { return LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Locality.StandartDeliveryPeriod)].Visibility; }
+            set { LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Locality.StandartDeliveryPeriod)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DistanceToEkbVisibility
+        {
+            get { return LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Locality.DistanceToEkb)].Visibility; }
+            set { LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Locality.DistanceToEkb)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility LocalityTypeVisibility
+        {
+            get { return LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Locality.LocalityType)].Visibility; }
+            set { LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Locality.LocalityType)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RegionVisibility
+        {
+            get { return LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Locality.Region)].Visibility; }
+            set { LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Locality.Region)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("LocalityType")]
@@ -144,7 +307,28 @@ namespace HVTApp.UI.Views
         {
 			await ((LocalityTypeListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility FullNameVisibility
+        {
+            get { return LocalityTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.LocalityType.FullName)].Visibility; }
+            set { LocalityTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.LocalityType.FullName)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ShortNameVisibility
+        {
+            get { return LocalityTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.LocalityType.ShortName)].Visibility; }
+            set { LocalityTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.LocalityType.ShortName)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Region")]
@@ -167,7 +351,28 @@ namespace HVTApp.UI.Views
         {
 			await ((RegionListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return RegionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Region.Name)].Visibility; }
+            set { RegionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Region.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DistrictVisibility
+        {
+            get { return RegionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Region.District)].Visibility; }
+            set { RegionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Region.District)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("CalculatePriceTask")]
@@ -190,7 +395,35 @@ namespace HVTApp.UI.Views
         {
 			await ((CalculatePriceTaskListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility DateVisibility
+        {
+            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CalculatePriceTask.Date)].Visibility; }
+            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CalculatePriceTask.Date)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsActualVisibility
+        {
+            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CalculatePriceTask.IsActual)].Visibility; }
+            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CalculatePriceTask.IsActual)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ProductBlockVisibility
+        {
+            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CalculatePriceTask.ProductBlock)].Visibility; }
+            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CalculatePriceTask.ProductBlock)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Sum")]
@@ -213,7 +446,35 @@ namespace HVTApp.UI.Views
         {
 			await ((SumListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility TypeVisibility
+        {
+            get { return SumLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Sum.Type)].Visibility; }
+            set { SumLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Sum.Type)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CurrencyVisibility
+        {
+            get { return SumLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Sum.Currency)].Visibility; }
+            set { SumLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Sum.Currency)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ValueVisibility
+        {
+            get { return SumLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Sum.Value)].Visibility; }
+            set { SumLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Sum.Value)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Курсы обмена валют")]
@@ -236,7 +497,42 @@ namespace HVTApp.UI.Views
         {
 			await ((CurrencyExchangeRateListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility DateVisibility
+        {
+            get { return CurrencyExchangeRateLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CurrencyExchangeRate.Date)].Visibility; }
+            set { CurrencyExchangeRateLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CurrencyExchangeRate.Date)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility FirstCurrencyVisibility
+        {
+            get { return CurrencyExchangeRateLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CurrencyExchangeRate.FirstCurrency)].Visibility; }
+            set { CurrencyExchangeRateLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CurrencyExchangeRate.FirstCurrency)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SecondCurrencyVisibility
+        {
+            get { return CurrencyExchangeRateLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CurrencyExchangeRate.SecondCurrency)].Visibility; }
+            set { CurrencyExchangeRateLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CurrencyExchangeRate.SecondCurrency)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ExchangeRateVisibility
+        {
+            get { return CurrencyExchangeRateLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CurrencyExchangeRate.ExchangeRate)].Visibility; }
+            set { CurrencyExchangeRateLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CurrencyExchangeRate.ExchangeRate)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("DescribeProductBlockTask")]
@@ -259,7 +555,28 @@ namespace HVTApp.UI.Views
         {
 			await ((DescribeProductBlockTaskListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility ProductBlockVisibility
+        {
+            get { return DescribeProductBlockTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.DescribeProductBlockTask.ProductBlock)].Visibility; }
+            set { DescribeProductBlockTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.DescribeProductBlockTask.ProductBlock)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ProductVisibility
+        {
+            get { return DescribeProductBlockTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.DescribeProductBlockTask.Product)].Visibility; }
+            set { DescribeProductBlockTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.DescribeProductBlockTask.Product)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Note")]
@@ -282,7 +599,35 @@ namespace HVTApp.UI.Views
         {
 			await ((NoteListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility DateVisibility
+        {
+            get { return NoteLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Note.Date)].Visibility; }
+            set { NoteLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Note.Date)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility TextVisibility
+        {
+            get { return NoteLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Note.Text)].Visibility; }
+            set { NoteLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Note.Text)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsImportantVisibility
+        {
+            get { return NoteLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Note.IsImportant)].Visibility; }
+            set { NoteLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Note.IsImportant)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Единицы ТКП")]
@@ -305,7 +650,56 @@ namespace HVTApp.UI.Views
         {
 			await ((OfferUnitListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility CostVisibility
+        {
+            get { return OfferUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.OfferUnit.Cost)].Visibility; }
+            set { OfferUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.OfferUnit.Cost)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ProductionTermVisibility
+        {
+            get { return OfferUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.OfferUnit.ProductionTerm)].Visibility; }
+            set { OfferUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.OfferUnit.ProductionTerm)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility OfferVisibility
+        {
+            get { return OfferUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.OfferUnit.Offer)].Visibility; }
+            set { OfferUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.OfferUnit.Offer)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ProductVisibility
+        {
+            get { return OfferUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.OfferUnit.Product)].Visibility; }
+            set { OfferUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.OfferUnit.Product)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility FacilityVisibility
+        {
+            get { return OfferUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.OfferUnit.Facility)].Visibility; }
+            set { OfferUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.OfferUnit.Facility)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PaymentConditionSetVisibility
+        {
+            get { return OfferUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.OfferUnit.PaymentConditionSet)].Visibility; }
+            set { OfferUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.OfferUnit.PaymentConditionSet)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("PaymentConditionSet")]
@@ -328,7 +722,14 @@ namespace HVTApp.UI.Views
         {
 			await ((PaymentConditionSetListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("ProductBlock")]
@@ -351,7 +752,28 @@ namespace HVTApp.UI.Views
         {
 			await ((ProductBlockListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ProductBlock.Name)].Visibility; }
+            set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ProductBlock.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility StructureCostNumberVisibility
+        {
+            get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ProductBlock.StructureCostNumber)].Visibility; }
+            set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ProductBlock.StructureCostNumber)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("ProductDependent")]
@@ -374,7 +796,28 @@ namespace HVTApp.UI.Views
         {
 			await ((ProductDependentListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility AmountVisibility
+        {
+            get { return ProductDependentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ProductDependent.Amount)].Visibility; }
+            set { ProductDependentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ProductDependent.Amount)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ProductVisibility
+        {
+            get { return ProductDependentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ProductDependent.Product)].Visibility; }
+            set { ProductDependentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ProductDependent.Product)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("ProductionTask")]
@@ -397,7 +840,21 @@ namespace HVTApp.UI.Views
         {
 			await ((ProductionTaskListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility DateTaskVisibility
+        {
+            get { return ProductionTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ProductionTask.DateTask)].Visibility; }
+            set { ProductionTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ProductionTask.DateTask)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("SalesBlock")]
@@ -420,7 +877,14 @@ namespace HVTApp.UI.Views
         {
 			await ((SalesBlockListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("BankDetails")]
@@ -443,7 +907,42 @@ namespace HVTApp.UI.Views
         {
 			await ((BankDetailsListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility BankNameVisibility
+        {
+            get { return BankDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.BankDetails.BankName)].Visibility; }
+            set { BankDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.BankDetails.BankName)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility BankIdentificationCodeVisibility
+        {
+            get { return BankDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.BankDetails.BankIdentificationCode)].Visibility; }
+            set { BankDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.BankDetails.BankIdentificationCode)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CorrespondentAccountVisibility
+        {
+            get { return BankDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.BankDetails.CorrespondentAccount)].Visibility; }
+            set { BankDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.BankDetails.CorrespondentAccount)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CheckingAccountVisibility
+        {
+            get { return BankDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.BankDetails.CheckingAccount)].Visibility; }
+            set { BankDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.BankDetails.CheckingAccount)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Компании")]
@@ -466,7 +965,70 @@ namespace HVTApp.UI.Views
         {
 			await ((CompanyListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility FullNameVisibility
+        {
+            get { return CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Company.FullName)].Visibility; }
+            set { CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Company.FullName)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ShortNameVisibility
+        {
+            get { return CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Company.ShortName)].Visibility; }
+            set { CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Company.ShortName)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility InnVisibility
+        {
+            get { return CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Company.Inn)].Visibility; }
+            set { CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Company.Inn)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility KppVisibility
+        {
+            get { return CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Company.Kpp)].Visibility; }
+            set { CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Company.Kpp)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility FormVisibility
+        {
+            get { return CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Company.Form)].Visibility; }
+            set { CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Company.Form)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ParentCompanyVisibility
+        {
+            get { return CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Company.ParentCompany)].Visibility; }
+            set { CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Company.ParentCompany)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility AddressLegalVisibility
+        {
+            get { return CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Company.AddressLegal)].Visibility; }
+            set { CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Company.AddressLegal)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility AddressPostVisibility
+        {
+            get { return CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Company.AddressPost)].Visibility; }
+            set { CompanyLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Company.AddressPost)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Организационные формы")]
@@ -489,7 +1051,28 @@ namespace HVTApp.UI.Views
         {
 			await ((CompanyFormListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility FullNameVisibility
+        {
+            get { return CompanyFormLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CompanyForm.FullName)].Visibility; }
+            set { CompanyFormLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CompanyForm.FullName)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ShortNameVisibility
+        {
+            get { return CompanyFormLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CompanyForm.ShortName)].Visibility; }
+            set { CompanyFormLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.CompanyForm.ShortName)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("DocumentsRegistrationDetails")]
@@ -512,7 +1095,28 @@ namespace HVTApp.UI.Views
         {
 			await ((DocumentsRegistrationDetailsListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility RegistrationNumberVisibility
+        {
+            get { return DocumentsRegistrationDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.DocumentsRegistrationDetails.RegistrationNumber)].Visibility; }
+            set { DocumentsRegistrationDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.DocumentsRegistrationDetails.RegistrationNumber)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RegistrationDateVisibility
+        {
+            get { return DocumentsRegistrationDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.DocumentsRegistrationDetails.RegistrationDate)].Visibility; }
+            set { DocumentsRegistrationDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.DocumentsRegistrationDetails.RegistrationDate)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("EmployeesPosition")]
@@ -535,7 +1139,21 @@ namespace HVTApp.UI.Views
         {
 			await ((EmployeesPositionListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return EmployeesPositionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.EmployeesPosition.Name)].Visibility; }
+            set { EmployeesPositionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.EmployeesPosition.Name)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("FacilityType")]
@@ -558,7 +1176,28 @@ namespace HVTApp.UI.Views
         {
 			await ((FacilityTypeListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility FullNameVisibility
+        {
+            get { return FacilityTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.FacilityType.FullName)].Visibility; }
+            set { FacilityTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.FacilityType.FullName)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ShortNameVisibility
+        {
+            get { return FacilityTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.FacilityType.ShortName)].Visibility; }
+            set { FacilityTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.FacilityType.ShortName)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("ActivityField")]
@@ -581,7 +1220,28 @@ namespace HVTApp.UI.Views
         {
 			await ((ActivityFieldListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return ActivityFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ActivityField.Name)].Visibility; }
+            set { ActivityFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ActivityField.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ActivityFieldEnumVisibility
+        {
+            get { return ActivityFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ActivityField.ActivityFieldEnum)].Visibility; }
+            set { ActivityFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ActivityField.ActivityFieldEnum)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Контракты")]
@@ -604,7 +1264,35 @@ namespace HVTApp.UI.Views
         {
 			await ((ContractListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NumberVisibility
+        {
+            get { return ContractLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Contract.Number)].Visibility; }
+            set { ContractLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Contract.Number)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DateVisibility
+        {
+            get { return ContractLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Contract.Date)].Visibility; }
+            set { ContractLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Contract.Date)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ContragentVisibility
+        {
+            get { return ContractLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Contract.Contragent)].Visibility; }
+            set { ContractLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Contract.Contragent)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Measure")]
@@ -627,7 +1315,28 @@ namespace HVTApp.UI.Views
         {
 			await ((MeasureListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility FullNameVisibility
+        {
+            get { return MeasureLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Measure.FullName)].Visibility; }
+            set { MeasureLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Measure.FullName)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ShortNameVisibility
+        {
+            get { return MeasureLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Measure.ShortName)].Visibility; }
+            set { MeasureLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Measure.ShortName)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Parameter")]
@@ -650,7 +1359,35 @@ namespace HVTApp.UI.Views
         {
 			await ((ParameterListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility ValueVisibility
+        {
+            get { return ParameterLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Parameter.Value)].Visibility; }
+            set { ParameterLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Parameter.Value)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsOriginVisibility
+        {
+            get { return ParameterLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Parameter.IsOrigin)].Visibility; }
+            set { ParameterLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Parameter.IsOrigin)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ParameterGroupVisibility
+        {
+            get { return ParameterLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Parameter.ParameterGroup)].Visibility; }
+            set { ParameterLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Parameter.ParameterGroup)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("ParameterGroup")]
@@ -673,7 +1410,28 @@ namespace HVTApp.UI.Views
         {
 			await ((ParameterGroupListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return ParameterGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ParameterGroup.Name)].Visibility; }
+            set { ParameterGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ParameterGroup.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility MeasureVisibility
+        {
+            get { return ParameterGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ParameterGroup.Measure)].Visibility; }
+            set { ParameterGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ParameterGroup.Measure)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("ProductRelation")]
@@ -696,7 +1454,28 @@ namespace HVTApp.UI.Views
         {
 			await ((ProductRelationListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility ChildProductsAmountVisibility
+        {
+            get { return ProductRelationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ProductRelation.ChildProductsAmount)].Visibility; }
+            set { ProductRelationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ProductRelation.ChildProductsAmount)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsUniqueVisibility
+        {
+            get { return ProductRelationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ProductRelation.IsUnique)].Visibility; }
+            set { ProductRelationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ProductRelation.IsUnique)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Персоны")]
@@ -719,7 +1498,42 @@ namespace HVTApp.UI.Views
         {
 			await ((PersonListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility SurnameVisibility
+        {
+            get { return PersonLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Person.Surname)].Visibility; }
+            set { PersonLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Person.Surname)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return PersonLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Person.Name)].Visibility; }
+            set { PersonLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Person.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PatronymicVisibility
+        {
+            get { return PersonLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Person.Patronymic)].Visibility; }
+            set { PersonLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Person.Patronymic)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsManVisibility
+        {
+            get { return PersonLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Person.IsMan)].Visibility; }
+            set { PersonLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Person.IsMan)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("PaymentPlannedList")]
@@ -742,7 +1556,28 @@ namespace HVTApp.UI.Views
         {
 			await ((PaymentPlannedListListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility SalesUnitIdVisibility
+        {
+            get { return PaymentPlannedListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentPlannedList.SalesUnitId)].Visibility; }
+            set { PaymentPlannedListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentPlannedList.SalesUnitId)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ConditionVisibility
+        {
+            get { return PaymentPlannedListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentPlannedList.Condition)].Visibility; }
+            set { PaymentPlannedListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentPlannedList.Condition)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("PaymentPlanned")]
@@ -765,7 +1600,35 @@ namespace HVTApp.UI.Views
         {
 			await ((PaymentPlannedListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility DateVisibility
+        {
+            get { return PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentPlanned.Date)].Visibility; }
+            set { PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentPlanned.Date)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SumVisibility
+        {
+            get { return PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentPlanned.Sum)].Visibility; }
+            set { PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentPlanned.Sum)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CommentVisibility
+        {
+            get { return PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentPlanned.Comment)].Visibility; }
+            set { PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentPlanned.Comment)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("PaymentActual")]
@@ -788,7 +1651,49 @@ namespace HVTApp.UI.Views
         {
 			await ((PaymentActualListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility SalesUnitIdVisibility
+        {
+            get { return PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentActual.SalesUnitId)].Visibility; }
+            set { PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentActual.SalesUnitId)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DateVisibility
+        {
+            get { return PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentActual.Date)].Visibility; }
+            set { PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentActual.Date)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SumVisibility
+        {
+            get { return PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentActual.Sum)].Visibility; }
+            set { PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentActual.Sum)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CommentVisibility
+        {
+            get { return PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentActual.Comment)].Visibility; }
+            set { PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentActual.Comment)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DocumentIdVisibility
+        {
+            get { return PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentActual.DocumentId)].Visibility; }
+            set { PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentActual.DocumentId)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("ParameterRelation")]
@@ -811,7 +1716,21 @@ namespace HVTApp.UI.Views
         {
 			await ((ParameterRelationListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility ParameterIdVisibility
+        {
+            get { return ParameterRelationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ParameterRelation.ParameterId)].Visibility; }
+            set { ParameterRelationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.ParameterRelation.ParameterId)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Единицы продаж")]
@@ -834,7 +1753,175 @@ namespace HVTApp.UI.Views
         {
 			await ((SalesUnitListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility CostVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.Cost)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.Cost)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ProductionTermVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.ProductionTerm)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.ProductionTerm)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DeliveryDateExpectedVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.DeliveryDateExpected)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.DeliveryDateExpected)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RealizationDateVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.RealizationDate)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.RealizationDate)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility OrderPositionVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.OrderPosition)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.OrderPosition)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SerialNumberVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.SerialNumber)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.SerialNumber)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility AssembleTermVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.AssembleTerm)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.AssembleTerm)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility StartProductionDateVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.StartProductionDate)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.StartProductionDate)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PickingDateVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.PickingDate)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.PickingDate)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EndProductionDateVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.EndProductionDate)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.EndProductionDate)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ExpectedDeliveryPeriodVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.ExpectedDeliveryPeriod)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.ExpectedDeliveryPeriod)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CostOfShipmentVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.CostOfShipment)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.CostOfShipment)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ShipmentDateVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.ShipmentDate)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.ShipmentDate)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ShipmentPlanDateVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.ShipmentPlanDate)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.ShipmentPlanDate)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DeliveryDateVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.DeliveryDate)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.DeliveryDate)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ProductVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.Product)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.Product)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility FacilityVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.Facility)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.Facility)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PaymentConditionSetVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.PaymentConditionSet)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.PaymentConditionSet)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ProjectVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.Project)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.Project)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ProducerVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.Producer)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.Producer)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility OrderVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.Order)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.Order)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SpecificationVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.Specification)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.Specification)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility AddressVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.Address)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SalesUnit.Address)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Service")]
@@ -857,7 +1944,28 @@ namespace HVTApp.UI.Views
         {
 			await ((ServiceListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return ServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Service.Name)].Visibility; }
+            set { ServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Service.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility AmountVisibility
+        {
+            get { return ServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Service.Amount)].Visibility; }
+            set { ServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Service.Amount)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("TestFriendAddress")]
@@ -880,7 +1988,35 @@ namespace HVTApp.UI.Views
         {
 			await ((TestFriendAddressListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility CityVisibility
+        {
+            get { return TestFriendAddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriendAddress.City)].Visibility; }
+            set { TestFriendAddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriendAddress.City)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility StreetVisibility
+        {
+            get { return TestFriendAddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriendAddress.Street)].Visibility; }
+            set { TestFriendAddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriendAddress.Street)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility StreetNumberVisibility
+        {
+            get { return TestFriendAddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriendAddress.StreetNumber)].Visibility; }
+            set { TestFriendAddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriendAddress.StreetNumber)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("TestFriend")]
@@ -903,7 +2039,77 @@ namespace HVTApp.UI.Views
         {
 			await ((TestFriendListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility FriendGroupIdVisibility
+        {
+            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriend.FriendGroupId)].Visibility; }
+            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriend.FriendGroupId)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility FirstNameVisibility
+        {
+            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriend.FirstName)].Visibility; }
+            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriend.FirstName)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility LastNameVisibility
+        {
+            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriend.LastName)].Visibility; }
+            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriend.LastName)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility BirthdayVisibility
+        {
+            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriend.Birthday)].Visibility; }
+            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriend.Birthday)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsDeveloperVisibility
+        {
+            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriend.IsDeveloper)].Visibility; }
+            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriend.IsDeveloper)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IdGetVisibility
+        {
+            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriend.IdGet)].Visibility; }
+            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriend.IdGet)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility TestFriendAddressVisibility
+        {
+            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriend.TestFriendAddress)].Visibility; }
+            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriend.TestFriendAddress)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility TestFriendGroupVisibility
+        {
+            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriend.TestFriendGroup)].Visibility; }
+            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriend.TestFriendGroup)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility TestFriendEmailGetVisibility
+        {
+            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriend.TestFriendEmailGet)].Visibility; }
+            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriend.TestFriendEmailGet)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("TestFriendEmail")]
@@ -926,7 +2132,28 @@ namespace HVTApp.UI.Views
         {
 			await ((TestFriendEmailListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility EmailVisibility
+        {
+            get { return TestFriendEmailLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriendEmail.Email)].Visibility; }
+            set { TestFriendEmailLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriendEmail.Email)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CommentVisibility
+        {
+            get { return TestFriendEmailLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriendEmail.Comment)].Visibility; }
+            set { TestFriendEmailLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriendEmail.Comment)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("TestFriendGroup")]
@@ -949,7 +2176,21 @@ namespace HVTApp.UI.Views
         {
 			await ((TestFriendGroupListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return TestFriendGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriendGroup.Name)].Visibility; }
+            set { TestFriendGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestFriendGroup.Name)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Document")]
@@ -972,7 +2213,77 @@ namespace HVTApp.UI.Views
         {
 			await ((DocumentListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility SenderIdVisibility
+        {
+            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Document.SenderId)].Visibility; }
+            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Document.SenderId)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RecipientIdVisibility
+        {
+            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Document.RecipientId)].Visibility; }
+            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Document.RecipientId)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CommentVisibility
+        {
+            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Document.Comment)].Visibility; }
+            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Document.Comment)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RequestDocumentVisibility
+        {
+            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Document.RequestDocument)].Visibility; }
+            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Document.RequestDocument)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility AuthorVisibility
+        {
+            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Document.Author)].Visibility; }
+            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Document.Author)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SenderEmployeeVisibility
+        {
+            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Document.SenderEmployee)].Visibility; }
+            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Document.SenderEmployee)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RecipientEmployeeVisibility
+        {
+            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Document.RecipientEmployee)].Visibility; }
+            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Document.RecipientEmployee)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RegistrationDetailsOfSenderVisibility
+        {
+            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Document.RegistrationDetailsOfSender)].Visibility; }
+            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Document.RegistrationDetailsOfSender)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RegistrationDetailsOfRecipientVisibility
+        {
+            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Document.RegistrationDetailsOfRecipient)].Visibility; }
+            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Document.RegistrationDetailsOfRecipient)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("TestEntity")]
@@ -995,7 +2306,21 @@ namespace HVTApp.UI.Views
         {
 			await ((TestEntityListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return TestEntityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestEntity.Name)].Visibility; }
+            set { TestEntityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestEntity.Name)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("TestHusband")]
@@ -1018,7 +2343,28 @@ namespace HVTApp.UI.Views
         {
 			await ((TestHusbandListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return TestHusbandLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestHusband.Name)].Visibility; }
+            set { TestHusbandLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestHusband.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility WifeVisibility
+        {
+            get { return TestHusbandLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestHusband.Wife)].Visibility; }
+            set { TestHusbandLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestHusband.Wife)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("TestWife")]
@@ -1041,7 +2387,35 @@ namespace HVTApp.UI.Views
         {
 			await ((TestWifeListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NVisibility
+        {
+            get { return TestWifeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestWife.N)].Visibility; }
+            set { TestWifeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestWife.N)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return TestWifeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestWife.Name)].Visibility; }
+            set { TestWifeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestWife.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility HusbandVisibility
+        {
+            get { return TestWifeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestWife.Husband)].Visibility; }
+            set { TestWifeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestWife.Husband)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("TestChild")]
@@ -1064,7 +2438,35 @@ namespace HVTApp.UI.Views
         {
 			await ((TestChildListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return TestChildLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestChild.Name)].Visibility; }
+            set { TestChildLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestChild.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility HusbandVisibility
+        {
+            get { return TestChildLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestChild.Husband)].Visibility; }
+            set { TestChildLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestChild.Husband)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility WifeVisibility
+        {
+            get { return TestChildLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestChild.Wife)].Visibility; }
+            set { TestChildLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TestChild.Wife)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("SumOnDate")]
@@ -1087,7 +2489,28 @@ namespace HVTApp.UI.Views
         {
 			await ((SumOnDateListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility DateVisibility
+        {
+            get { return SumOnDateLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SumOnDate.Date)].Visibility; }
+            set { SumOnDateLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SumOnDate.Date)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SumVisibility
+        {
+            get { return SumOnDateLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SumOnDate.Sum)].Visibility; }
+            set { SumOnDateLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.SumOnDate.Sum)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Product")]
@@ -1110,7 +2533,28 @@ namespace HVTApp.UI.Views
         {
 			await ((ProductListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility DesignationVisibility
+        {
+            get { return ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Product.Designation)].Visibility; }
+            set { ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Product.Designation)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ProductBlockVisibility
+        {
+            get { return ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Product.ProductBlock)].Visibility; }
+            set { ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Product.ProductBlock)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("ТКП")]
@@ -1133,7 +2577,98 @@ namespace HVTApp.UI.Views
         {
 			await ((OfferListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility ValidityDateVisibility
+        {
+            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.ValidityDate)].Visibility; }
+            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.ValidityDate)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility VatVisibility
+        {
+            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.Vat)].Visibility; }
+            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.Vat)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SenderIdVisibility
+        {
+            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.SenderId)].Visibility; }
+            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.SenderId)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RecipientIdVisibility
+        {
+            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.RecipientId)].Visibility; }
+            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.RecipientId)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CommentVisibility
+        {
+            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.Comment)].Visibility; }
+            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.Comment)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ProjectVisibility
+        {
+            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.Project)].Visibility; }
+            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.Project)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RequestDocumentVisibility
+        {
+            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.RequestDocument)].Visibility; }
+            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.RequestDocument)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility AuthorVisibility
+        {
+            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.Author)].Visibility; }
+            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.Author)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SenderEmployeeVisibility
+        {
+            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.SenderEmployee)].Visibility; }
+            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.SenderEmployee)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RecipientEmployeeVisibility
+        {
+            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.RecipientEmployee)].Visibility; }
+            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.RecipientEmployee)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RegistrationDetailsOfSenderVisibility
+        {
+            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.RegistrationDetailsOfSender)].Visibility; }
+            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.RegistrationDetailsOfSender)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RegistrationDetailsOfRecipientVisibility
+        {
+            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.RegistrationDetailsOfRecipient)].Visibility; }
+            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Offer.RegistrationDetailsOfRecipient)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Сотрудники")]
@@ -1156,7 +2691,49 @@ namespace HVTApp.UI.Views
         {
 			await ((EmployeeListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility PhoneNumberVisibility
+        {
+            get { return EmployeeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Employee.PhoneNumber)].Visibility; }
+            set { EmployeeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Employee.PhoneNumber)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EmailVisibility
+        {
+            get { return EmployeeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Employee.Email)].Visibility; }
+            set { EmployeeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Employee.Email)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PersonVisibility
+        {
+            get { return EmployeeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Employee.Person)].Visibility; }
+            set { EmployeeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Employee.Person)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CompanyVisibility
+        {
+            get { return EmployeeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Employee.Company)].Visibility; }
+            set { EmployeeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Employee.Company)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PositionVisibility
+        {
+            get { return EmployeeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Employee.Position)].Visibility; }
+            set { EmployeeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Employee.Position)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Order")]
@@ -1179,7 +2756,28 @@ namespace HVTApp.UI.Views
         {
 			await ((OrderListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NumberVisibility
+        {
+            get { return OrderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Order.Number)].Visibility; }
+            set { OrderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Order.Number)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility OpenOrderDateVisibility
+        {
+            get { return OrderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Order.OpenOrderDate)].Visibility; }
+            set { OrderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Order.OpenOrderDate)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("PaymentCondition")]
@@ -1202,7 +2800,35 @@ namespace HVTApp.UI.Views
         {
 			await ((PaymentConditionListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility PartVisibility
+        {
+            get { return PaymentConditionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentCondition.Part)].Visibility; }
+            set { PaymentConditionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentCondition.Part)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DaysToPointVisibility
+        {
+            get { return PaymentConditionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentCondition.DaysToPoint)].Visibility; }
+            set { PaymentConditionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentCondition.DaysToPoint)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PaymentConditionPointVisibility
+        {
+            get { return PaymentConditionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentCondition.PaymentConditionPoint)].Visibility; }
+            set { PaymentConditionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentCondition.PaymentConditionPoint)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("PaymentDocument")]
@@ -1225,7 +2851,28 @@ namespace HVTApp.UI.Views
         {
 			await ((PaymentDocumentListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NumberVisibility
+        {
+            get { return PaymentDocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentDocument.Number)].Visibility; }
+            set { PaymentDocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentDocument.Number)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DateVisibility
+        {
+            get { return PaymentDocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentDocument.Date)].Visibility; }
+            set { PaymentDocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.PaymentDocument.Date)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Объекты")]
@@ -1248,7 +2895,42 @@ namespace HVTApp.UI.Views
         {
 			await ((FacilityListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return FacilityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Facility.Name)].Visibility; }
+            set { FacilityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Facility.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility TypeVisibility
+        {
+            get { return FacilityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Facility.Type)].Visibility; }
+            set { FacilityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Facility.Type)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility OwnerCompanyVisibility
+        {
+            get { return FacilityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Facility.OwnerCompany)].Visibility; }
+            set { FacilityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Facility.OwnerCompany)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility AddressVisibility
+        {
+            get { return FacilityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Facility.Address)].Visibility; }
+            set { FacilityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Facility.Address)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Проекты")]
@@ -1271,7 +2953,28 @@ namespace HVTApp.UI.Views
         {
 			await ((ProjectListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Project.Name)].Visibility; }
+            set { ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Project.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ManagerVisibility
+        {
+            get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Project.Manager)].Visibility; }
+            set { ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Project.Manager)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("UserRole")]
@@ -1294,7 +2997,28 @@ namespace HVTApp.UI.Views
         {
 			await ((UserRoleListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return UserRoleLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.UserRole.Name)].Visibility; }
+            set { UserRoleLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.UserRole.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RoleVisibility
+        {
+            get { return UserRoleLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.UserRole.Role)].Visibility; }
+            set { UserRoleLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.UserRole.Role)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Specification")]
@@ -1317,7 +3041,42 @@ namespace HVTApp.UI.Views
         {
 			await ((SpecificationListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NumberVisibility
+        {
+            get { return SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Specification.Number)].Visibility; }
+            set { SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Specification.Number)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DateVisibility
+        {
+            get { return SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Specification.Date)].Visibility; }
+            set { SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Specification.Date)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility VatVisibility
+        {
+            get { return SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Specification.Vat)].Visibility; }
+            set { SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Specification.Vat)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ContractVisibility
+        {
+            get { return SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Specification.Contract)].Visibility; }
+            set { SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Specification.Contract)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Тендеры")]
@@ -1340,7 +3099,49 @@ namespace HVTApp.UI.Views
         {
 			await ((TenderListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility DateOpenVisibility
+        {
+            get { return TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Tender.DateOpen)].Visibility; }
+            set { TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Tender.DateOpen)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DateCloseVisibility
+        {
+            get { return TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Tender.DateClose)].Visibility; }
+            set { TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Tender.DateClose)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DateNoticeVisibility
+        {
+            get { return TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Tender.DateNotice)].Visibility; }
+            set { TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Tender.DateNotice)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ProjectVisibility
+        {
+            get { return TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Tender.Project)].Visibility; }
+            set { TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Tender.Project)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility WinnerVisibility
+        {
+            get { return TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Tender.Winner)].Visibility; }
+            set { TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.Tender.Winner)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Типы тендера")]
@@ -1363,7 +3164,28 @@ namespace HVTApp.UI.Views
         {
 			await ((TenderTypeListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return TenderTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TenderType.Name)].Visibility; }
+            set { TenderTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TenderType.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility TypeVisibility
+        {
+            get { return TenderTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TenderType.Type)].Visibility; }
+            set { TenderTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.TenderType.Type)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("Пользователи")]
@@ -1386,6 +3208,48 @@ namespace HVTApp.UI.Views
         {
 			await ((UserListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility LoginVisibility
+        {
+            get { return UserLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.User.Login)].Visibility; }
+            set { UserLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.User.Login)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PasswordVisibility
+        {
+            get { return UserLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.User.Password)].Visibility; }
+            set { UserLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.User.Password)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility PersonalNumberVisibility
+        {
+            get { return UserLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.User.PersonalNumber)].Visibility; }
+            set { UserLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.User.PersonalNumber)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RoleCurrentVisibility
+        {
+            get { return UserLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.User.RoleCurrent)].Visibility; }
+            set { UserLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.User.RoleCurrent)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EmployeeVisibility
+        {
+            get { return UserLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.User.Employee)].Visibility; }
+            set { UserLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.Model.POCOs.User.Employee)].Visibility = value; }
+        }
+
+
+
+		#endregion
     }
+
 
 }
