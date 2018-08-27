@@ -1,5 +1,6 @@
-﻿using System;
-using HVTApp.Services.MessageService;
+﻿using HVTApp.Model.POCOs;
+using HVTApp.Services.GetProductService;
+using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -9,12 +10,17 @@ namespace HVTApp.UI.ViewModels
     {
         protected override void InitSpecialCommands()
         {
-            SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute1);
+            SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);
         }
 
-        private void SelectProductCommand_Execute1()
+        private async void SelectProductCommand_Execute()
         {
-            Container.Resolve<IMessageService>().ShowYesNoMessageDialog("test", "test");
+            var product = await Container.Resolve<IGetProductService>().GetProductAsync(Item.Model.Product);
+            if (product != null)
+            {
+                product = await WrapperDataService.GetRepository<Product>().GetByIdAsync(product.Id);
+                Item.Product = new ProductWrapper(product);
+            }
         }
     }
 }
