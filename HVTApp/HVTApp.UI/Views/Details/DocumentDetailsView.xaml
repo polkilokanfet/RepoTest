@@ -25,12 +25,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Комментарий" Visibility="{Binding CommentVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding CommentVisibility, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Запрос" Visibility="{Binding RequestDocumentVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -39,14 +37,12 @@
                                     RemoveItemCommand="{Binding ClearRequestDocumentCommand}"
 									Visibility="{Binding RequestDocumentVisibility, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="Автор" Visibility="{Binding AuthorVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.Author}" 
                                     AddItemCommand="{Binding SelectAuthorCommand}" 
                                     RemoveItemCommand="{Binding ClearAuthorCommand}"
 									Visibility="{Binding AuthorVisibility, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Отправитель" Visibility="{Binding SenderEmployeeVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
@@ -55,14 +51,12 @@
                                     RemoveItemCommand="{Binding ClearSenderEmployeeCommand}"
 									Visibility="{Binding SenderEmployeeVisibility, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="4" Content="Получатель" Visibility="{Binding RecipientEmployeeVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.RecipientEmployee}" 
                                     AddItemCommand="{Binding SelectRecipientEmployeeCommand}" 
                                     RemoveItemCommand="{Binding ClearRecipientEmployeeCommand}"
 									Visibility="{Binding RecipientEmployeeVisibility, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="5" Content="Исходящий" Visibility="{Binding RegistrationDetailsOfSenderVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
@@ -71,14 +65,12 @@
                                     RemoveItemCommand="{Binding ClearRegistrationDetailsOfSenderCommand}"
 									Visibility="{Binding RegistrationDetailsOfSenderVisibility, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="6" Content="Входящий" Visibility="{Binding RegistrationDetailsOfRecipientVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
                                     Item="{Binding Item.RegistrationDetailsOfRecipient}" 
                                     AddItemCommand="{Binding SelectRegistrationDetailsOfRecipientCommand}" 
                                     RemoveItemCommand="{Binding ClearRegistrationDetailsOfRecipientCommand}"
 									Visibility="{Binding RegistrationDetailsOfRecipientVisibility, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="7" Content="Копия" Visibility="{Binding CopyToRecipientsVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="7"
@@ -87,7 +79,6 @@
 										 AddItemCommand="{Binding AddInCopyToRecipientsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromCopyToRecipientsCommand}"
 										 Visibility="{Binding CopyToRecipientsVisibility, ElementName=Root}"/>
-
 
 
     </Grid>

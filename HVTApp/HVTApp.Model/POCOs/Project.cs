@@ -11,7 +11,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Название")]
         public string Name { get; set; }
 
-        [Designation("Менеджер")]
+        [Designation("Менеджер"), NotUpdate(Role.SalesManager)]
         public virtual User Manager { get; set; }
 
         [Designation("Заметки")]

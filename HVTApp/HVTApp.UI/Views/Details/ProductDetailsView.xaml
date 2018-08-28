@@ -18,12 +18,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Designation" Visibility="{Binding DesignationVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Designation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding DesignationVisibility, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="ProductBlock" Visibility="{Binding ProductBlockVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -32,7 +30,6 @@
                                     RemoveItemCommand="{Binding ClearProductBlockCommand}"
 									Visibility="{Binding ProductBlockVisibility, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="DependentProducts" Visibility="{Binding DependentProductsVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.DependentProducts}"
@@ -40,7 +37,6 @@
 										 AddItemCommand="{Binding AddInDependentProductsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromDependentProductsCommand}"
 										 Visibility="{Binding DependentProductsVisibility, ElementName=Root}"/>
-
 
 
     </Grid>

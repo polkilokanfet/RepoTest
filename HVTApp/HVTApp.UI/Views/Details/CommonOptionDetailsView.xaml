@@ -20,13 +20,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="CalculationPriceTerm" Visibility="{Binding CalculationPriceTermVisibility, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0"
 							   ValueType="core:Int32"
                                Value="{Binding Item.CalculationPriceTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding CalculationPriceTermVisibility, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="StandartTermFromStartToEndProduction" Visibility="{Binding StandartTermFromStartToEndProductionVisibility, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
@@ -34,13 +32,11 @@
                                Value="{Binding Item.StandartTermFromStartToEndProduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding StandartTermFromStartToEndProductionVisibility, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="StandartTermFromPickToEndProduction" Visibility="{Binding StandartTermFromPickToEndProductionVisibility, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2"
 							   ValueType="core:Int32"
                                Value="{Binding Item.StandartTermFromPickToEndProduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding StandartTermFromPickToEndProductionVisibility, ElementName=Root}"/>
-
 
 
     </Grid>

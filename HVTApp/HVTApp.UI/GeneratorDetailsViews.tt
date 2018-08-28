@@ -255,6 +255,11 @@ using Prism.Events;
 using Prism.Regions;
 using HVTApp.UI.ViewModels;
 using System.Windows;
+using HVTApp.Infrastructure.Attrubutes;
+using HVTApp.Model;
+using HVTApp.Model.POCOs;
+using System.Reflection;
+using System.Linq;
 
 namespace HVTApp.UI.Views
 {
@@ -269,14 +274,33 @@ namespace HVTApp.UI.Views
     {
         public <#=modelType.Name#>DetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, <#=modelType.Name#>DetailsViewModel <#=modelType.Name#>DetailsViewModel) : base(regionManager, eventAggregator)
         {
-            InitializeComponent();
+            SetVisibilityProps();
+			InitializeComponent();
             DataContext = <#=modelType.Name#>DetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            NotUpdateAttribute attr;
+
+<#+ 
+			foreach(var propInfo in allProperties)
+            {
+#>
+            attr = typeof(<#=modelType.FullName#>).GetProperty(nameof(<#=modelType.FullName#>.<#=propInfo.Name#>)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                <#=propInfo.Name#>Visibility = Visibility.Collapsed;
+
+<#+ 
+			}
+#>
+
         }
 
 <#+ 
 			foreach(var propInfo in allProperties)
             {
- #>
+#>
 
         public static readonly DependencyProperty <#=propInfo.Name#>VisibilityProperty = DependencyProperty.Register("<#=propInfo.Name#>Visibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
         public Visibility <#=propInfo.Name#>Visibility
@@ -287,8 +311,7 @@ namespace HVTApp.UI.Views
 
 <#+ 
 			}
-
- #>
+#>
 	}
 
 <#+

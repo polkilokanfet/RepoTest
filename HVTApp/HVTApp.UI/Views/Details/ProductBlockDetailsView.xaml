@@ -19,18 +19,15 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Name" Visibility="{Binding NameVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding NameVisibility, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="1" Content="StructureCostNumber" Visibility="{Binding StructureCostNumberVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding StructureCostNumberVisibility, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Parameters" Visibility="{Binding ParametersVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
@@ -40,7 +37,6 @@
 										 RemoveItemCommand="{Binding RemoveFromParametersCommand}"
 										 Visibility="{Binding ParametersVisibility, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="3" Content="Prices" Visibility="{Binding PricesVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.Prices}"
@@ -48,7 +44,6 @@
 										 AddItemCommand="{Binding AddInPricesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromPricesCommand}"
 										 Visibility="{Binding PricesVisibility, ElementName=Root}"/>
-
 
 
     </Grid>

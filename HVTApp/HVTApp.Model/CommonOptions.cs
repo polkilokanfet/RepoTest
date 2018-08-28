@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Model
@@ -12,6 +13,6 @@ namespace HVTApp.Model
         public static int AssembleTerm { get; set; } = 7;
         public static Guid StandartPaymentsConditionSetId { get; set; }
 
-        public static User User { get; set; }
+        public static User User { get; set; } = new User {RoleCurrent = Role.SalesManager};
     }
 }

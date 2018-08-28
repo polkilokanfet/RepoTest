@@ -1760,7 +1760,7 @@ namespace HVTApp.UI.Lookup
         public System.String Name => GetValue<System.String>();
 
 
-        public HVTApp.Model.POCOs.Role Role => GetValue<HVTApp.Model.POCOs.Role>();
+        public HVTApp.Infrastructure.Role Role => GetValue<HVTApp.Infrastructure.Role>();
 
 
         #endregion
@@ -1891,7 +1891,7 @@ namespace HVTApp.UI.Lookup
         public System.String PersonalNumber => GetValue<System.String>();
 
 
-        public HVTApp.Model.POCOs.Role RoleCurrent => GetValue<HVTApp.Model.POCOs.Role>();
+        public HVTApp.Infrastructure.Role RoleCurrent => GetValue<HVTApp.Infrastructure.Role>();
 
 
         #endregion
