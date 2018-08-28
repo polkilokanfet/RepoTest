@@ -1,18 +1,22 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Lookup
 {
     public partial class OfferLookup
     {
-        public OfferLookup(Offer offer, IEnumerable<OfferUnit> offerUnits) : base(offer)
+        public override async Task LoadOther(IUnitOfWork unitOfWork)
         {
-            OfferUnits = offerUnits.Select(x => new OfferUnitLookup(x)).ToList();
+            OfferUnits = unitOfWork.GetRepository<OfferUnit>().Find(x => Equals(this.Entity, x.Offer)).Select(x => new OfferUnitLookup(x)).ToList();
+            foreach (var offerUnitLookup in OfferUnits)
+                await offerUnitLookup.LoadOther(unitOfWork);
         }
 
-        public CompanyLookup Company => new CompanyLookup(Entity.RecipientEmployee.Company);
-
         public List<OfferUnitLookup> OfferUnits { get; set; }
+
+        public CompanyLookup Company => new CompanyLookup(Entity.RecipientEmployee.Company);
     }
 }

@@ -16,26 +16,28 @@ namespace HVTApp.UI.Lookup
             UnitOfWork = unitOfWork;
         }
 
-        protected virtual TLookup GetLookup(TEntity entity)
+        protected async Task<TLookup> GetLookup(TEntity entity)
         {
-            return (TLookup)Activator.CreateInstance(typeof(TLookup), entity);
+            var lookup = (TLookup)Activator.CreateInstance(typeof(TLookup), entity);
+            await lookup.LoadOther(UnitOfWork);
+            return lookup;
         }
 
-        public virtual async Task<TLookup> GetLookupById(Guid id)
+        public async Task<TLookup> GetLookupById(Guid id)
         {
             var entity = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(id);
-            var lookup = GetLookup(entity);
+            var lookup = await GetLookup(entity);
             lookup.DisplayMember = GenerateDisplayMember(entity);
             return lookup;
         }
 
-        public virtual async Task<IEnumerable<TLookup>> GetAllLookupsAsync()
+        public async Task<IEnumerable<TLookup>> GetAllLookupsAsync()
         {
             var entities = await UnitOfWork.GetRepository<TEntity>().GetAllAsNoTrackingAsync();
             var lookups = new List<TLookup>();
             foreach (var entity in entities)
             {
-                var lookup = GetLookup(entity);
+                var lookup = await GetLookup(entity);
                 lookup.DisplayMember = GenerateDisplayMember(entity);
                 lookups.Add(lookup);
             }

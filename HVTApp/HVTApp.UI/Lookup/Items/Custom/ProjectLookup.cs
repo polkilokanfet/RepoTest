@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using HVTApp.DataAccess;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attrubutes;
 using HVTApp.Model.POCOs;
 
@@ -8,12 +11,19 @@ namespace HVTApp.UI.Lookup
 {
     public partial class ProjectLookup
     {
-        public ProjectLookup(Project project, IEnumerable<SalesUnit> salesUnits, IEnumerable<Tender> tenders,
-                             IEnumerable<Offer> offers) : base(project)
+        public override async Task LoadOther(IUnitOfWork unitOfWork)
         {
-            SalesUnits = salesUnits.Select(x => new SalesUnitLookup(x)).ToList();
-            Tenders = tenders.Select(x => new TenderLookup(x)).ToList();
-            Offers = offers.Select(x => new OfferLookup(x)).ToList();
+            SalesUnits = unitOfWork.GetRepository<SalesUnit>().Find(x => Equals(this.Entity, x.Project)).Select(x => new SalesUnitLookup(x)).ToList();
+            foreach (var salesUnitLookup in SalesUnits)
+                await salesUnitLookup.LoadOther(unitOfWork);
+
+            Tenders = unitOfWork.GetRepository<Tender>().Find(x => Equals(this.Entity, x.Project)).Select(x => new TenderLookup(x)).ToList();
+            foreach (var tenderLookup in Tenders)
+                await tenderLookup.LoadOther(unitOfWork);
+
+            Offers = unitOfWork.GetRepository<Offer>().Find(x => Equals(this.Entity, x.Project)).Select(x => new OfferLookup(x)).ToList();
+            foreach (var offerLookup in Offers)
+                await offerLookup.LoadOther(unitOfWork);
         }
 
         public List<SalesUnitLookup> SalesUnits { get; set; }
