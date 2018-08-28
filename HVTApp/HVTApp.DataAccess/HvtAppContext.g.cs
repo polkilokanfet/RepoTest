@@ -9,6 +9,7 @@ namespace HVTApp.DataAccess
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 			#region Configurations
+            modelBuilder.Configurations.Add(new ProjectTypeConfiguration());
             modelBuilder.Configurations.Add(new CommonOptionConfiguration());
             modelBuilder.Configurations.Add(new AddressConfiguration());
             modelBuilder.Configurations.Add(new CountryConfiguration());
@@ -75,6 +76,7 @@ namespace HVTApp.DataAccess
         }
 
 		#region DbSets
+        public virtual DbSet<ProjectType> ProjectTypeDbSet { get; set; }
         public virtual DbSet<CommonOption> CommonOptionDbSet { get; set; }
         public virtual DbSet<Address> AddressDbSet { get; set; }
         public virtual DbSet<Country> CountryDbSet { get; set; }

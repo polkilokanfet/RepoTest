@@ -12,6 +12,12 @@ namespace HVTApp.UI
 		private void RegisterViews()
         {
 
+            Container.RegisterViewForNavigation<ProjectTypeLookupListView>();
+            //_dialogService.Register<ProjectTypeDetailsViewModel, ProjectTypeDetailsView>();
+            _selectService.Register<ProjectTypeLookupListView, ProjectType>();
+            _updateDetailsService.Register<ProjectType, ProjectTypeDetailsView>();
+
+
             Container.RegisterViewForNavigation<CommonOptionLookupListView>();
             //_dialogService.Register<CommonOptionDetailsViewModel, CommonOptionDetailsView>();
 			_selectService.Register<CommonOptionLookupListView, CommonOption>();

@@ -12,6 +12,7 @@ namespace HVTApp.DataAccess
         {
             TestData testData = new TestData();
 
+            context.ProjectTypeDbSet.AddRange(testData.GetAll<ProjectType>());
             context.CommonOptionDbSet.AddRange(testData.GetAll<CommonOption>());
             context.AddressDbSet.AddRange(testData.GetAll<Address>());
             context.CountryDbSet.AddRange(testData.GetAll<Country>());

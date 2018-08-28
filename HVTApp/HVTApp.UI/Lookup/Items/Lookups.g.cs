@@ -19,6 +19,26 @@ using HVTApp.Model.POCOs;
 namespace HVTApp.UI.Lookup
 {
 
+	public partial class ProjectTypeLookup : LookupItem<ProjectType>
+	{
+		public ProjectTypeLookup(ProjectType entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+		}
+		
+
+        #region SimpleProperties
+
+        public System.String Name => GetValue<System.String>();
+
+
+        #endregion
+
+	}
+
 	public partial class CommonOptionLookup : LookupItem<CommonOption>
 	{
 		public CommonOptionLookup(CommonOption entity) : base(entity) 
@@ -1722,6 +1742,8 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
+			ProjectType?.Refresh(Entity.ProjectType);
+
 			Manager?.Refresh(Entity.Manager);
 
 		}
@@ -1736,6 +1758,9 @@ namespace HVTApp.UI.Lookup
 
 
         #region ComplexProperties
+
+	    public ProjectTypeLookup ProjectType { get { return GetLookup<ProjectTypeLookup>(); } }
+
 
 	    public UserLookup Manager { get { return GetLookup<UserLookup>(); } }
 

@@ -13,6 +13,7 @@ namespace HVTApp.DataAccess
         {
             _context = context;
 			#region RepositoriesInit
+            ProjectTypeRepository = new ProjectTypeRepository(context);
             CommonOptionRepository = new CommonOptionRepository(context);
             AddressRepository = new AddressRepository(context);
             CountryRepository = new CountryRepository(context);
@@ -78,6 +79,7 @@ namespace HVTApp.DataAccess
 
 
         #region Repositories
+        protected IProjectTypeRepository ProjectTypeRepository;
         protected ICommonOptionRepository CommonOptionRepository;
         protected IAddressRepository AddressRepository;
         protected ICountryRepository CountryRepository;

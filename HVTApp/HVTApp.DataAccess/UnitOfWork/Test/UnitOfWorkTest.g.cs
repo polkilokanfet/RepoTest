@@ -7,6 +7,7 @@ namespace HVTApp.DataAccess
         public UnitOfWorkTest(TestData testData)
         {
 			#region RepositoriesInit
+            ProjectTypeRepository = new ProjectTypeRepositoryTest(testData);
             CommonOptionRepository = new CommonOptionRepositoryTest(testData);
             AddressRepository = new AddressRepositoryTest(testData);
             CountryRepository = new CountryRepositoryTest(testData);
@@ -72,6 +73,7 @@ namespace HVTApp.DataAccess
 
 
         #region Repositories
+        public IProjectTypeRepository ProjectTypeRepository { get; }
         public ICommonOptionRepository CommonOptionRepository { get; }
         public IAddressRepository AddressRepository { get; }
         public ICountryRepository CountryRepository { get; }

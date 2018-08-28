@@ -19,7 +19,37 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Wrapper
 {
-	public partial class CommonOptionWrapper : WrapperBase<CommonOption>
+	public partial class ProjectTypeWrapper : WrapperBase<ProjectType>
+	{
+	    public ProjectTypeWrapper(ProjectType model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+	}
+
+		public partial class CommonOptionWrapper : WrapperBase<CommonOption>
 	{
 	    public CommonOptionWrapper(CommonOption model) : base(model) { }
 
@@ -707,7 +737,7 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
-		public partial class OfferUnitWrapper 
+		public partial class OfferUnitWrapper
 	{
 	    public OfferUnitWrapper(OfferUnit model) : base(model) { }
 
@@ -3587,6 +3617,13 @@ namespace HVTApp.UI.Wrapper
 
         #region ComplexProperties
 
+	    public ProjectTypeWrapper ProjectType 
+        {
+            get { return GetWrapper<ProjectTypeWrapper>(); }
+            set { SetComplexValue<ProjectType, ProjectTypeWrapper>(ProjectType, value); }
+        }
+
+
 	    public UserWrapper Manager 
         {
             get { return GetWrapper<UserWrapper>(); }
@@ -3606,6 +3643,9 @@ namespace HVTApp.UI.Wrapper
 
         public override void InitializeComplexProperties()
         {
+
+            InitializeComplexProperty<ProjectTypeWrapper>(nameof(ProjectType), Model.ProjectType == null ? null : new ProjectTypeWrapper(Model.ProjectType));
+
 
             InitializeComplexProperty<UserWrapper>(nameof(Manager), Model.Manager == null ? null : new UserWrapper(Model.Manager));
 

@@ -7,6 +7,12 @@ using HVTApp.UI.Lookup;
 namespace HVTApp.UI.ViewModels
 {
 
+    public partial class ProjectTypeLookupListViewModel : BaseListViewModel<ProjectType, ProjectTypeLookup, AfterSaveProjectTypeEvent, AfterSelectProjectTypeEvent, AfterRemoveProjectTypeEvent,  ProjectTypeLookupDataService>
+    {
+        public ProjectTypeLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
     public partial class CommonOptionLookupListViewModel : BaseListViewModel<CommonOption, CommonOptionLookup, AfterSaveCommonOptionEvent, AfterSelectCommonOptionEvent, AfterRemoveCommonOptionEvent,  CommonOptionLookupDataService>
     {
         public CommonOptionLookupListViewModel(IUnityContainer container) : base(container) { }

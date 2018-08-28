@@ -3,6 +3,7 @@ using Prism.Events;
 
 namespace HVTApp.UI.Events
 {
+	public partial class AfterRemoveProjectTypeEvent : PubSubEvent<ProjectType> { }
 	public partial class AfterRemoveCommonOptionEvent : PubSubEvent<CommonOption> { }
 	public partial class AfterRemoveAddressEvent : PubSubEvent<Address> { }
 	public partial class AfterRemoveCountryEvent : PubSubEvent<Country> { }

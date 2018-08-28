@@ -5,6 +5,12 @@ using HVTApp.Model.POCOs;
 namespace HVTApp.UI.Wrapper
 {
 
+    public partial class ProjectTypeWrapperRepository : WrapperRepository<ProjectType, ProjectTypeWrapper>
+    {
+        public ProjectTypeWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
+    }
+
+
     public partial class CommonOptionWrapperRepository : WrapperRepository<CommonOption, CommonOptionWrapper>
     {
         public CommonOptionWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }

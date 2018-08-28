@@ -5,6 +5,12 @@ using HVTApp.Model.POCOs;
 namespace HVTApp.UI.Lookup
 {
 
+    public partial class ProjectTypeLookupDataService : LookupDataService<ProjectTypeLookup, ProjectType>, IProjectTypeLookupDataService
+    {
+        public ProjectTypeLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+    }
+
+
     public partial class CommonOptionLookupDataService : LookupDataService<CommonOptionLookup, CommonOption>, ICommonOptionLookupDataService
     {
         public CommonOptionLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }

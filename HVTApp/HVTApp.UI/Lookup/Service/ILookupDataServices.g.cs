@@ -1,5 +1,6 @@
 namespace HVTApp.UI.Lookup
 {
+	public interface IProjectTypeLookupDataService : ILookupDataService<ProjectTypeLookup> { } 
 	public interface ICommonOptionLookupDataService : ILookupDataService<CommonOptionLookup> { } 
 	public interface IAddressLookupDataService : ILookupDataService<AddressLookup> { } 
 	public interface ICountryLookupDataService : ILookupDataService<CountryLookup> { } 

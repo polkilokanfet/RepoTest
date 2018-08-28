@@ -2768,6 +2768,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility ProjectTypeVisibility
+        {
+            get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.ProjectType)].Visibility; }
+            set { ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.ProjectType)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility ManagerVisibility
         {
             get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Manager)].Visibility; }
@@ -2779,6 +2786,57 @@ namespace HVTApp.UI.Views
         {
             get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Entity)].Visibility; }
             set { ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD))]
+	[DesignationPlural("ProjectTypeLookup")]
+    public partial class ProjectTypeLookupListView : ViewBase
+    {
+        public ProjectTypeLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public ProjectTypeLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectTypeLookupListViewModel ProjectTypeLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = ProjectTypeLookupListViewModel;
+			ProjectTypeLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((ProjectTypeLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return ProjectTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectTypeLookup.Name)].Visibility; }
+            set { ProjectTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectTypeLookup.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return ProjectTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectTypeLookup.DisplayMember)].Visibility; }
+            set { ProjectTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectTypeLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return ProjectTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectTypeLookup.Entity)].Visibility; }
+            set { ProjectTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectTypeLookup.Entity)].Visibility = value; }
         }
 
 

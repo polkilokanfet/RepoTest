@@ -2,9 +2,9 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              x:Class="HVTApp.UI.Views.ProjectLookupListView">
+              x:Class="HVTApp.UI.Views.ProjectTypeLookupListView">
 
-    <infg:XamDataGrid x:Name="ProjectLookupListGrid">
+    <infg:XamDataGrid x:Name="ProjectTypeLookupListGrid">
         
         <infg:XamDataGrid.ContextMenu>
             <ContextMenu>
@@ -16,11 +16,6 @@
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Название" Width="Auto" />
-                    <infg:NumericField Name="Sum" Label="Сумма проекта" Width="Auto" />
-                    <infg:DateTimeField Name="RealizationDate" Label="Дата поставки" Width="Auto" />
-                    <infg:DateTimeField Name="TenderDate" Label="Тендер" Width="Auto" />
-                    <infg:TextField Name="ProjectType" Label="Тип проекта" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
 
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>

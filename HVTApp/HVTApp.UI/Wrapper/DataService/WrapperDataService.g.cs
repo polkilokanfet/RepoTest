@@ -7,6 +7,8 @@ namespace HVTApp.UI.Wrapper
         public WrapperDataService(DbContext context) : base(context)
         {
 
+            ProjectTypeWrapperRepository = new ProjectTypeWrapperRepository(this);
+
             CommonOptionWrapperRepository = new CommonOptionWrapperRepository(this);
 
             AddressWrapperRepository = new AddressWrapperRepository(this);
@@ -129,6 +131,8 @@ namespace HVTApp.UI.Wrapper
 
         }
 
+
+        private ProjectTypeWrapperRepository ProjectTypeWrapperRepository;
 
         private CommonOptionWrapperRepository CommonOptionWrapperRepository;
 

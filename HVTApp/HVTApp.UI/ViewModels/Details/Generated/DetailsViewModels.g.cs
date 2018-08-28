@@ -10,6 +10,15 @@ using System;
 
 namespace HVTApp.UI.ViewModels
 {
+    public partial class ProjectTypeDetailsViewModel : BaseDetailsViewModel<ProjectTypeWrapper, ProjectType, AfterSaveProjectTypeEvent>
+    {
+        public ProjectTypeDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
+
+
+    }
+
     public partial class CommonOptionDetailsViewModel : BaseDetailsViewModel<CommonOptionWrapper, CommonOption, AfterSaveCommonOptionEvent>
     {
         public CommonOptionDetailsViewModel(IUnityContainer container) : base(container) 
@@ -2625,6 +2634,10 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ProjectDetailsViewModel : BaseDetailsViewModel<ProjectWrapper, Project, AfterSaveProjectEvent>
     {
+		private Func<Task<List<ProjectType>>> _getEntitiesForSelectProjectTypeCommand;
+		public ICommand SelectProjectTypeCommand { get; private set; }
+		public ICommand ClearProjectTypeCommand { get; private set; }
+
 		private Func<Task<List<User>>> _getEntitiesForSelectManagerCommand;
 		public ICommand SelectManagerCommand { get; private set; }
 		public ICommand ClearManagerCommand { get; private set; }
@@ -2648,6 +2661,11 @@ namespace HVTApp.UI.ViewModels
         public ProjectDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
+			if (_getEntitiesForSelectProjectTypeCommand == null) _getEntitiesForSelectProjectTypeCommand = async () => { return await WrapperDataService.GetRepository<ProjectType>().GetAllAsync(); };
+			if (SelectProjectTypeCommand == null) SelectProjectTypeCommand = new DelegateCommand(SelectProjectTypeCommand_Execute_Default);
+			if (ClearProjectTypeCommand == null) ClearProjectTypeCommand = new DelegateCommand(ClearProjectTypeCommand_Execute_Default);
+
+			
 			if (_getEntitiesForSelectManagerCommand == null) _getEntitiesForSelectManagerCommand = async () => { return await WrapperDataService.GetRepository<User>().GetAllAsync(); };
 			if (SelectManagerCommand == null) SelectManagerCommand = new DelegateCommand(SelectManagerCommand_Execute_Default);
 			if (ClearManagerCommand == null) ClearManagerCommand = new DelegateCommand(ClearManagerCommand_Execute_Default);
@@ -2657,6 +2675,16 @@ namespace HVTApp.UI.ViewModels
 			if (AddInNotesCommand == null) AddInNotesCommand = new DelegateCommand(AddInNotesCommand_Execute_Default);
 			if (RemoveFromNotesCommand == null) RemoveFromNotesCommand = new DelegateCommand(RemoveFromNotesCommand_Execute_Default, RemoveFromNotesCommand_CanExecute_Default);
 
+		}
+
+		private async void SelectProjectTypeCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ProjectType, ProjectTypeWrapper>(await _getEntitiesForSelectProjectTypeCommand(), nameof(Item.ProjectType), Item.ProjectType?.Id);
+		}
+
+		private void ClearProjectTypeCommand_Execute_Default() 
+		{
+						Item.ProjectType = null;		    
 		}
 
 		private async void SelectManagerCommand_Execute_Default() 

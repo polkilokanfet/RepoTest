@@ -12,6 +12,36 @@ using System.Linq;
 
 namespace HVTApp.UI.Views
 {
+    public partial class ProjectTypeDetailsView : ViewBase
+    {
+        public ProjectTypeDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectTypeDetailsViewModel ProjectTypeDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = ProjectTypeDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            NotUpdateAttribute attr;
+
+            attr = typeof(HVTApp.Model.POCOs.ProjectType).GetProperty(nameof(HVTApp.Model.POCOs.ProjectType.Name)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                NameVisibility = Visibility.Collapsed;
+
+
+        }
+
+
+        public static readonly DependencyProperty NameVisibilityProperty = DependencyProperty.Register("NameVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility NameVisibility
+        {
+            get { return (Visibility) GetValue(NameVisibilityProperty); }
+            set { SetValue(NameVisibilityProperty, value); }
+        }
+
+	}
+
     public partial class CommonOptionDetailsView : ViewBase
     {
         public CommonOptionDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CommonOptionDetailsViewModel CommonOptionDetailsViewModel) : base(regionManager, eventAggregator)
@@ -3581,6 +3611,10 @@ namespace HVTApp.UI.Views
             if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
                 NameVisibility = Visibility.Collapsed;
 
+            attr = typeof(HVTApp.Model.POCOs.Project).GetProperty(nameof(HVTApp.Model.POCOs.Project.ProjectType)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                ProjectTypeVisibility = Visibility.Collapsed;
+
             attr = typeof(HVTApp.Model.POCOs.Project).GetProperty(nameof(HVTApp.Model.POCOs.Project.Manager)).GetCustomAttribute<NotUpdateAttribute>();
             if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
                 ManagerVisibility = Visibility.Collapsed;
@@ -3598,6 +3632,14 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(NameVisibilityProperty); }
             set { SetValue(NameVisibilityProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty ProjectTypeVisibilityProperty = DependencyProperty.Register("ProjectTypeVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility ProjectTypeVisibility
+        {
+            get { return (Visibility) GetValue(ProjectTypeVisibilityProperty); }
+            set { SetValue(ProjectTypeVisibilityProperty, value); }
         }
 
 

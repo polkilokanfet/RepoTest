@@ -77,6 +77,8 @@ namespace HVTApp.TestDataGenerator
         public User UserIvanov;
         public User UserPetrov;
 
+        public ProjectType ProjectTypeReconstruction;
+
         public Project ProjectSubstation;
         public Project ProjectStation;
 
@@ -298,10 +300,15 @@ namespace HVTApp.TestDataGenerator
             UserPetrov.Clone(new User { Login = "2", Password = StringToGuidService.GetHashString("2"), Employee = EmployeePetrov, PersonalNumber = "2", Roles = new List<UserRole> { UserRoleDataBaseFiller } });
         }
 
+        private void GenerateProjectTypess()
+        {
+            ProjectTypeReconstruction.Clone(new ProjectType { Name = "Реконструкция" });
+        }
+
         private void GenerateProjects()
         {
-            ProjectSubstation.Clone(new Project {Name = "Реконструкция ПС Первая", Manager = UserIvanov});
-            ProjectStation.Clone(new Project {Name = "Строительство Свердловской ТЭЦ", Manager = UserIvanov});
+            ProjectSubstation.Clone(new Project { Name = "Реконструкция ПС Первая", Manager = UserIvanov, ProjectType = ProjectTypeReconstruction});
+            ProjectStation.Clone(new Project { Name = "Строительство Свердловской ТЭЦ", Manager = UserIvanov });
         }
 
         private void GenerateFacilityTypes()

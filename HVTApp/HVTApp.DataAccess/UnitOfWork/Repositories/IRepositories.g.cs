@@ -3,6 +3,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.DataAccess
 {
+    public partial interface IProjectTypeRepository : IRepository<ProjectType> { }
     public partial interface ICommonOptionRepository : IRepository<CommonOption> { }
     public partial interface IAddressRepository : IRepository<Address> { }
     public partial interface ICountryRepository : IRepository<Country> { }

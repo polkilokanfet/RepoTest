@@ -309,7 +309,7 @@ namespace HVTApp.UI.Views
 		GenerateFields(modelType.GetPropertiesForListViews().SimpleProperties<bool>(), "CheckBoxField");
 		GenerateFields(modelType.GetPropertiesForListViews().AllComplexProperties(), "TextField", "Converter=\"{StaticResource LookupToStringConverter}\"");
 		//GenerateCollectionComplexProperties(collectionComplexProperties);
-	#>
+#>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 
