@@ -94,17 +94,17 @@ namespace HVTApp.UI.Wrapper
         //дата достижения суммы
         private DateTime? AchiveSumDate(double sumToAchive)
         {
-            //IEnumerable<IPayment> paymentsActual = PaymentsActual.Select(x => new PaymentWrapper(x.Model));
-            //IEnumerable<IPayment> paymentsPlanned = PaymentsPlannedSaved.SelectMany(x => x.PaymentsActual);
-            //IEnumerable<IPayment> payments = paymentsActual.Concat(paymentsPlanned).OrderBy(x => x.Date);
+            IEnumerable<IPayment> paymentsActual = PaymentsActual.Select(x => new PaymentActualWrapper(x.Model));
+            IEnumerable<IPayment> paymentsPlanned = PaymentsPlannedSaved.SelectMany(x => x.PaymentsActual);
+            IEnumerable<IPayment> payments = paymentsActual.Concat(paymentsPlanned).OrderBy(x => x.Date);
 
-            //double sum = 0;
-            //foreach (var payment in payments)
-            //{
-            //    sum += payment.Sum;
-            //    if (sumToAchive <= sum)
-            //        return payment.Date;
-            //}
+            double sum = 0;
+            foreach (var payment in payments)
+            {
+                sum += payment.Sum;
+                if (sumToAchive <= sum)
+                    return payment.Date;
+            }
             return null;
         }
 

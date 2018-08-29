@@ -19,10 +19,20 @@ namespace HVTApp.UI.Lookup
             foreach (var paymentActualLookup in PaymentsActual)
                 await paymentActualLookup.LoadOther(unitOfWork);
 
+            PaymentsPlanned = Entity.PaymentsPlanned.Select(x => new PaymentPlannedLookup(x)).ToList();
+            foreach (var paymentPlannedLookup in PaymentsPlanned)
+                await paymentPlannedLookup.LoadOther(unitOfWork);
+
             await PaymentConditionSet.LoadOther(unitOfWork);
         }
 
         public List<PaymentActualLookup> PaymentsActual { get; set; }
+        public List<PaymentPlannedLookup> PaymentsPlanned { get; set; }
+
+        /// <summary>
+        /// Все платежи (совершенные + плановые).
+        /// </summary>
+        public IEnumerable<IPayment> Payments => PaymentsActual.Select(x => (IPayment)x.Entity).Union(PaymentsPlannedByConditions);
 
         #region Суммы
 
@@ -62,8 +72,11 @@ namespace HVTApp.UI.Lookup
 
         #region Даты
 
+        [Designation("ОИТ")]
         public DateTime OrderInTakeDate => StartProductionDate ?? StartProductionDateCalculated;
+        [Designation("Год")]
         public int OrderInTakeYear => OrderInTakeDate.Year;
+        [Designation("Месяц")]
         public int OrderInTakeMonth => OrderInTakeDate.Month;
 
         /// <summary>
@@ -73,20 +86,11 @@ namespace HVTApp.UI.Lookup
         /// <returns></returns>
         private DateTime? AchiveSumDate(double sumToAchive)
         {
-            IEnumerable<IPayment> paymentsActual = PaymentsActual.Select(x => x.Entity);
-            //IEnumerable<IPayment> paymentsPlanned = PaymentsPlannedSaved.SelectMany(x => x.Payments);
-            //IEnumerable<IPayment> payments = paymentsActual.Concat(paymentsPlanned).OrderBy(x => x.Date);
-
-            //TODO:
-            //доделать плановые платежи
-            IEnumerable<IPayment> payments = paymentsActual.OrderBy(x => x.Date);
-
             double sum = 0;
-            foreach (var payment in payments)
+            foreach (var payment in PaymentsActual.OrderBy(x => x.Date))
             {
                 sum += payment.Sum;
-                if (sumToAchive <= sum)
-                    return payment.Date;
+                if (sumToAchive <= sum) return payment.Date;
             }
             return null;
         }
@@ -104,7 +108,7 @@ namespace HVTApp.UI.Lookup
         /// <summary>
         /// Расчетная дата начала производства.
         /// </summary>
-        [Designation("Расчетная дата производства")]
+        [Designation("Начало произчодства (расч.)")]
         public DateTime StartProductionDateCalculated
         {
             get
@@ -130,6 +134,7 @@ namespace HVTApp.UI.Lookup
         /// <summary>
         /// Расчетная дата окончания производства.
         /// </summary>
+        [Designation("Окончание произчодства (расч.)")]
         public DateTime EndProductionDateCalculated
         {
             get
@@ -239,6 +244,29 @@ namespace HVTApp.UI.Lookup
         #region Платежи
 
         /// <summary>
+        /// Дата по условию.
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
+        private DateTime GetPaymentDate(PaymentCondition condition)
+        {
+            switch (condition.PaymentConditionPoint)
+            {
+                case PaymentConditionPoint.ProductionStart:
+                    return StartProductionDateCalculated.AddDays(condition.DaysToPoint);
+                case PaymentConditionPoint.ProductionEnd:
+                    return EndProductionDateCalculated.AddDays(condition.DaysToPoint);
+                case PaymentConditionPoint.Shipment:
+                    return ShipmentDateCalculated.AddDays(condition.DaysToPoint);
+                case PaymentConditionPoint.Delivery:
+                    return DeliveryDateCalculated.AddDays(condition.DaysToPoint);
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+
+        /// <summary>
         /// Не исполненные платежные условия
         /// </summary>
         [Designation("Не исполненные платежные условия")]
@@ -278,8 +306,16 @@ namespace HVTApp.UI.Lookup
             }
         }
 
-
-
+        /// <summary>
+        /// Плановые платежи по условиям.
+        /// </summary>
+        public IEnumerable<PaymentPlanned> PaymentsPlannedByConditions =>
+            PaymentConditionsToDone.Select(x => new PaymentPlanned
+            {
+                Date = GetPaymentDate(x),
+                Condition = x,
+                Sum = Cost * x.Part
+            });
 
         #endregion
 
