@@ -12,6 +12,126 @@ using System.Linq;
 
 namespace HVTApp.UI.Views
 {
+    public partial class PaymentActualDetailsView : ViewBase
+    {
+        public PaymentActualDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentActualDetailsViewModel PaymentActualDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = PaymentActualDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            NotUpdateAttribute attr;
+
+            attr = typeof(HVTApp.Model.POCOs.PaymentActual).GetProperty(nameof(HVTApp.Model.POCOs.PaymentActual.Date)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                DateVisibility = Visibility.Collapsed;
+
+            attr = typeof(HVTApp.Model.POCOs.PaymentActual).GetProperty(nameof(HVTApp.Model.POCOs.PaymentActual.Sum)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                SumVisibility = Visibility.Collapsed;
+
+            attr = typeof(HVTApp.Model.POCOs.PaymentActual).GetProperty(nameof(HVTApp.Model.POCOs.PaymentActual.Comment)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                CommentVisibility = Visibility.Collapsed;
+
+
+        }
+
+
+        public static readonly DependencyProperty DateVisibilityProperty = DependencyProperty.Register("DateVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility DateVisibility
+        {
+            get { return (Visibility) GetValue(DateVisibilityProperty); }
+            set { SetValue(DateVisibilityProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty SumVisibilityProperty = DependencyProperty.Register("SumVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility SumVisibility
+        {
+            get { return (Visibility) GetValue(SumVisibilityProperty); }
+            set { SetValue(SumVisibilityProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty CommentVisibilityProperty = DependencyProperty.Register("CommentVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility CommentVisibility
+        {
+            get { return (Visibility) GetValue(CommentVisibilityProperty); }
+            set { SetValue(CommentVisibilityProperty, value); }
+        }
+
+	}
+
+    public partial class PaymentPlannedDetailsView : ViewBase
+    {
+        public PaymentPlannedDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentPlannedDetailsViewModel PaymentPlannedDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = PaymentPlannedDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            NotUpdateAttribute attr;
+
+            attr = typeof(HVTApp.Model.POCOs.PaymentPlanned).GetProperty(nameof(HVTApp.Model.POCOs.PaymentPlanned.Date)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                DateVisibility = Visibility.Collapsed;
+
+            attr = typeof(HVTApp.Model.POCOs.PaymentPlanned).GetProperty(nameof(HVTApp.Model.POCOs.PaymentPlanned.Sum)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                SumVisibility = Visibility.Collapsed;
+
+            attr = typeof(HVTApp.Model.POCOs.PaymentPlanned).GetProperty(nameof(HVTApp.Model.POCOs.PaymentPlanned.Comment)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                CommentVisibility = Visibility.Collapsed;
+
+            attr = typeof(HVTApp.Model.POCOs.PaymentPlanned).GetProperty(nameof(HVTApp.Model.POCOs.PaymentPlanned.Condition)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                ConditionVisibility = Visibility.Collapsed;
+
+
+        }
+
+
+        public static readonly DependencyProperty DateVisibilityProperty = DependencyProperty.Register("DateVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility DateVisibility
+        {
+            get { return (Visibility) GetValue(DateVisibilityProperty); }
+            set { SetValue(DateVisibilityProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty SumVisibilityProperty = DependencyProperty.Register("SumVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility SumVisibility
+        {
+            get { return (Visibility) GetValue(SumVisibilityProperty); }
+            set { SetValue(SumVisibilityProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty CommentVisibilityProperty = DependencyProperty.Register("CommentVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility CommentVisibility
+        {
+            get { return (Visibility) GetValue(CommentVisibilityProperty); }
+            set { SetValue(CommentVisibilityProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty ConditionVisibilityProperty = DependencyProperty.Register("ConditionVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility ConditionVisibility
+        {
+            get { return (Visibility) GetValue(ConditionVisibilityProperty); }
+            set { SetValue(ConditionVisibilityProperty, value); }
+        }
+
+	}
+
     public partial class ProjectTypeDetailsView : ViewBase
     {
         public ProjectTypeDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectTypeDetailsViewModel ProjectTypeDetailsViewModel) : base(regionManager, eventAggregator)
@@ -1812,110 +1932,6 @@ namespace HVTApp.UI.Views
 
 	}
 
-    public partial class PaymentPlannedListDetailsView : ViewBase
-    {
-        public PaymentPlannedListDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentPlannedListDetailsViewModel PaymentPlannedListDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = PaymentPlannedListDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            NotUpdateAttribute attr;
-
-            attr = typeof(HVTApp.Model.POCOs.PaymentPlannedList).GetProperty(nameof(HVTApp.Model.POCOs.PaymentPlannedList.Condition)).GetCustomAttribute<NotUpdateAttribute>();
-            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-                ConditionVisibility = Visibility.Collapsed;
-
-            attr = typeof(HVTApp.Model.POCOs.PaymentPlannedList).GetProperty(nameof(HVTApp.Model.POCOs.PaymentPlannedList.Payments)).GetCustomAttribute<NotUpdateAttribute>();
-            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-                PaymentsVisibility = Visibility.Collapsed;
-
-
-        }
-
-
-        public static readonly DependencyProperty ConditionVisibilityProperty = DependencyProperty.Register("ConditionVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility ConditionVisibility
-        {
-            get { return (Visibility) GetValue(ConditionVisibilityProperty); }
-            set { SetValue(ConditionVisibilityProperty, value); }
-        }
-
-
-        public static readonly DependencyProperty SalesUnitIdVisibilityProperty = DependencyProperty.Register("SalesUnitIdVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility SalesUnitIdVisibility
-        {
-            get { return (Visibility) GetValue(SalesUnitIdVisibilityProperty); }
-            set { SetValue(SalesUnitIdVisibilityProperty, value); }
-        }
-
-
-        public static readonly DependencyProperty PaymentsVisibilityProperty = DependencyProperty.Register("PaymentsVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility PaymentsVisibility
-        {
-            get { return (Visibility) GetValue(PaymentsVisibilityProperty); }
-            set { SetValue(PaymentsVisibilityProperty, value); }
-        }
-
-	}
-
-    public partial class PaymentDetailsView : ViewBase
-    {
-        public PaymentDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentDetailsViewModel PaymentDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = PaymentDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            NotUpdateAttribute attr;
-
-            attr = typeof(HVTApp.Model.POCOs.Payment).GetProperty(nameof(HVTApp.Model.POCOs.Payment.Date)).GetCustomAttribute<NotUpdateAttribute>();
-            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-                DateVisibility = Visibility.Collapsed;
-
-            attr = typeof(HVTApp.Model.POCOs.Payment).GetProperty(nameof(HVTApp.Model.POCOs.Payment.Sum)).GetCustomAttribute<NotUpdateAttribute>();
-            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-                SumVisibility = Visibility.Collapsed;
-
-            attr = typeof(HVTApp.Model.POCOs.Payment).GetProperty(nameof(HVTApp.Model.POCOs.Payment.Comment)).GetCustomAttribute<NotUpdateAttribute>();
-            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-                CommentVisibility = Visibility.Collapsed;
-
-
-        }
-
-
-        public static readonly DependencyProperty DateVisibilityProperty = DependencyProperty.Register("DateVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility DateVisibility
-        {
-            get { return (Visibility) GetValue(DateVisibilityProperty); }
-            set { SetValue(DateVisibilityProperty, value); }
-        }
-
-
-        public static readonly DependencyProperty SumVisibilityProperty = DependencyProperty.Register("SumVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility SumVisibility
-        {
-            get { return (Visibility) GetValue(SumVisibilityProperty); }
-            set { SetValue(SumVisibilityProperty, value); }
-        }
-
-
-        public static readonly DependencyProperty CommentVisibilityProperty = DependencyProperty.Register("CommentVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility CommentVisibility
-        {
-            get { return (Visibility) GetValue(CommentVisibilityProperty); }
-            set { SetValue(CommentVisibilityProperty, value); }
-        }
-
-	}
-
     public partial class ParameterRelationDetailsView : ViewBase
     {
         public ParameterRelationDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ParameterRelationDetailsViewModel ParameterRelationDetailsViewModel) : base(regionManager, eventAggregator)
@@ -2047,13 +2063,13 @@ namespace HVTApp.UI.Views
             if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
                 SpecificationVisibility = Visibility.Collapsed;
 
-            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.Payments)).GetCustomAttribute<NotUpdateAttribute>();
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.PaymentsActual)).GetCustomAttribute<NotUpdateAttribute>();
             if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-                PaymentsVisibility = Visibility.Collapsed;
+                PaymentsActualVisibility = Visibility.Collapsed;
 
-            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.PaymentsPlannedSaved)).GetCustomAttribute<NotUpdateAttribute>();
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.PaymentsPlanned)).GetCustomAttribute<NotUpdateAttribute>();
             if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-                PaymentsPlannedSavedVisibility = Visibility.Collapsed;
+                PaymentsPlannedVisibility = Visibility.Collapsed;
 
             attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.ExpectedDeliveryPeriod)).GetCustomAttribute<NotUpdateAttribute>();
             if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
@@ -2235,19 +2251,19 @@ namespace HVTApp.UI.Views
         }
 
 
-        public static readonly DependencyProperty PaymentsVisibilityProperty = DependencyProperty.Register("PaymentsVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility PaymentsVisibility
+        public static readonly DependencyProperty PaymentsActualVisibilityProperty = DependencyProperty.Register("PaymentsActualVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility PaymentsActualVisibility
         {
-            get { return (Visibility) GetValue(PaymentsVisibilityProperty); }
-            set { SetValue(PaymentsVisibilityProperty, value); }
+            get { return (Visibility) GetValue(PaymentsActualVisibilityProperty); }
+            set { SetValue(PaymentsActualVisibilityProperty, value); }
         }
 
 
-        public static readonly DependencyProperty PaymentsPlannedSavedVisibilityProperty = DependencyProperty.Register("PaymentsPlannedSavedVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility PaymentsPlannedSavedVisibility
+        public static readonly DependencyProperty PaymentsPlannedVisibilityProperty = DependencyProperty.Register("PaymentsPlannedVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility PaymentsPlannedVisibility
         {
-            get { return (Visibility) GetValue(PaymentsPlannedSavedVisibilityProperty); }
-            set { SetValue(PaymentsPlannedSavedVisibilityProperty, value); }
+            get { return (Visibility) GetValue(PaymentsPlannedVisibilityProperty); }
+            set { SetValue(PaymentsPlannedVisibilityProperty, value); }
         }
 
 

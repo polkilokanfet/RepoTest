@@ -13,6 +13,8 @@ namespace HVTApp.DataAccess
         {
             _context = context;
 			#region RepositoriesInit
+            PaymentActualRepository = new PaymentActualRepository(context);
+            PaymentPlannedRepository = new PaymentPlannedRepository(context);
             ProjectTypeRepository = new ProjectTypeRepository(context);
             CommonOptionRepository = new CommonOptionRepository(context);
             AddressRepository = new AddressRepository(context);
@@ -45,8 +47,6 @@ namespace HVTApp.DataAccess
             ParameterGroupRepository = new ParameterGroupRepository(context);
             ProductRelationRepository = new ProductRelationRepository(context);
             PersonRepository = new PersonRepository(context);
-            PaymentPlannedListRepository = new PaymentPlannedListRepository(context);
-            PaymentRepository = new PaymentRepository(context);
             ParameterRelationRepository = new ParameterRelationRepository(context);
             SalesUnitRepository = new SalesUnitRepository(context);
             ServiceRepository = new ServiceRepository(context);
@@ -78,6 +78,8 @@ namespace HVTApp.DataAccess
 
 
         #region Repositories
+        protected IPaymentActualRepository PaymentActualRepository;
+        protected IPaymentPlannedRepository PaymentPlannedRepository;
         protected IProjectTypeRepository ProjectTypeRepository;
         protected ICommonOptionRepository CommonOptionRepository;
         protected IAddressRepository AddressRepository;
@@ -110,8 +112,6 @@ namespace HVTApp.DataAccess
         protected IParameterGroupRepository ParameterGroupRepository;
         protected IProductRelationRepository ProductRelationRepository;
         protected IPersonRepository PersonRepository;
-        protected IPaymentPlannedListRepository PaymentPlannedListRepository;
-        protected IPaymentRepository PaymentRepository;
         protected IParameterRelationRepository ParameterRelationRepository;
         protected ISalesUnitRepository SalesUnitRepository;
         protected IServiceRepository ServiceRepository;

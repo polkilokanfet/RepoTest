@@ -7,6 +7,8 @@ namespace HVTApp.DataAccess
         public UnitOfWorkTest(TestData testData)
         {
 			#region RepositoriesInit
+            PaymentActualRepository = new PaymentActualRepositoryTest(testData);
+            PaymentPlannedRepository = new PaymentPlannedRepositoryTest(testData);
             ProjectTypeRepository = new ProjectTypeRepositoryTest(testData);
             CommonOptionRepository = new CommonOptionRepositoryTest(testData);
             AddressRepository = new AddressRepositoryTest(testData);
@@ -39,8 +41,6 @@ namespace HVTApp.DataAccess
             ParameterGroupRepository = new ParameterGroupRepositoryTest(testData);
             ProductRelationRepository = new ProductRelationRepositoryTest(testData);
             PersonRepository = new PersonRepositoryTest(testData);
-            PaymentPlannedListRepository = new PaymentPlannedListRepositoryTest(testData);
-            PaymentRepository = new PaymentRepositoryTest(testData);
             ParameterRelationRepository = new ParameterRelationRepositoryTest(testData);
             SalesUnitRepository = new SalesUnitRepositoryTest(testData);
             ServiceRepository = new ServiceRepositoryTest(testData);
@@ -72,6 +72,8 @@ namespace HVTApp.DataAccess
 
 
         #region Repositories
+        public IPaymentActualRepository PaymentActualRepository { get; }
+        public IPaymentPlannedRepository PaymentPlannedRepository { get; }
         public IProjectTypeRepository ProjectTypeRepository { get; }
         public ICommonOptionRepository CommonOptionRepository { get; }
         public IAddressRepository AddressRepository { get; }
@@ -104,8 +106,6 @@ namespace HVTApp.DataAccess
         public IParameterGroupRepository ParameterGroupRepository { get; }
         public IProductRelationRepository ProductRelationRepository { get; }
         public IPersonRepository PersonRepository { get; }
-        public IPaymentPlannedListRepository PaymentPlannedListRepository { get; }
-        public IPaymentRepository PaymentRepository { get; }
         public IParameterRelationRepository ParameterRelationRepository { get; }
         public ISalesUnitRepository SalesUnitRepository { get; }
         public IServiceRepository ServiceRepository { get; }

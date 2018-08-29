@@ -101,7 +101,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\PaymentDocumentConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\OrderConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\Custom\PaymentPlannedListConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\PaymentPlannedConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\SalesUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductRelationConfiguration.cs" />
     <Compile Include="HvtAppDataBaseInitializer.g.cs" />

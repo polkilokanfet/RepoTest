@@ -171,19 +171,17 @@ namespace HVTApp.TestDataGenerator
 
         public PaymentDocument PaymentDocument1;
 
-        public PaymentPlannedList PaymentPlannedList1;
+        public PaymentActual PaymentActual1;
+        public PaymentActual PaymentActual2;
+        public PaymentActual PaymentActual3;
+        public PaymentActual PaymentActual4;
+        public PaymentActual PaymentActual5;
 
-        public Payment Payment1;
-        public Payment Payment2;
-        public Payment Payment3;
-        public Payment Payment4;
-        public Payment Payment5;
-
-        public Payment Payment21;
-        public Payment Payment22;
-        public Payment Payment23;
-        public Payment Payment24;
-        public Payment Payment25;
+        public PaymentPlanned PaymentPlanned1;
+        public PaymentPlanned PaymentPlanned2;
+        public PaymentPlanned PaymentPlanned3;
+        public PaymentPlanned PaymentPlanned4;
+        public PaymentPlanned PaymentPlanned5;
 
         public TenderType TenderTypeProject;
         public TenderType TenderTypeWork;
@@ -501,34 +499,32 @@ namespace HVTApp.TestDataGenerator
             });
         }
 
-        private void GeneratePayments()
-        {
-            Payment1.Clone(new Payment { Sum = 350000, Date = DateTime.Today });
-            Payment2.Clone(new Payment { Sum = 360000, Date = DateTime.Today });
-            Payment3.Clone(new Payment { Sum = 370000, Date = DateTime.Today });
-            Payment4.Clone(new Payment { Sum = 380000, Date = DateTime.Today });
-            Payment5.Clone(new Payment { Sum = 390000, Date = DateTime.Today });
-
-            Payment21.Clone(new Payment { Sum = 350000, Date = DateTime.Today.AddDays(10) });
-            Payment22.Clone(new Payment { Sum = 360000, Date = DateTime.Today.AddDays(20) });
-            Payment23.Clone(new Payment { Sum = 370000, Date = DateTime.Today.AddDays(30) });
-            Payment24.Clone(new Payment { Sum = 380000, Date = DateTime.Today.AddDays(40) });
-            Payment25.Clone(new Payment { Sum = 390000, Date = DateTime.Today.AddDays(50) });
-        }
-
         private void GeneratePaymentDocuments()
         {
-            PaymentDocument1.Clone(new PaymentDocument {Number = "№1", Date = DateTime.Today, Payments = new List<Payment> { Payment1, Payment2, Payment3, Payment4, Payment5 } });
+            PaymentDocument1.Clone(new PaymentDocument {Number = "№1", Date = DateTime.Today, Payments = new List<PaymentActual> { PaymentActual1, PaymentActual2, PaymentActual3, PaymentActual4, PaymentActual5 } });
         }
 
-        private void GeneratePaymentPlannedLists()
+        private void GeneratePaymentsActual()
         {
-            PaymentPlannedList1.Clone(new PaymentPlannedList {Condition = PaymentConditionDoplata50, Payments = new List<Payment> {Payment21, Payment22, Payment23, Payment24, Payment25} });
+            PaymentActual1.Clone(new PaymentActual { Sum = 350000, Date = DateTime.Today });
+            PaymentActual2.Clone(new PaymentActual { Sum = 360000, Date = DateTime.Today });
+            PaymentActual3.Clone(new PaymentActual { Sum = 370000, Date = DateTime.Today });
+            PaymentActual4.Clone(new PaymentActual { Sum = 380000, Date = DateTime.Today });
+            PaymentActual5.Clone(new PaymentActual { Sum = 390000, Date = DateTime.Today });
+        }
+
+        private void GeneratePaymentsPlanned()
+        {
+            PaymentPlanned1.Clone(new PaymentPlanned { Sum = 250000, Date = DateTime.Today.AddDays(10), Condition = PaymentConditionDoplata50 });
+            PaymentPlanned2.Clone(new PaymentPlanned { Sum = 260000, Date = DateTime.Today.AddDays(20), Condition = PaymentConditionDoplata50 });
+            PaymentPlanned3.Clone(new PaymentPlanned { Sum = 270000, Date = DateTime.Today.AddDays(30), Condition = PaymentConditionDoplata50 });
+            PaymentPlanned4.Clone(new PaymentPlanned { Sum = 280000, Date = DateTime.Today.AddDays(40), Condition = PaymentConditionDoplata50 });
+            PaymentPlanned5.Clone(new PaymentPlanned { Sum = 290000, Date = DateTime.Today.AddDays(50), Condition = PaymentConditionDoplata50 });
         }
 
         private void GenerateSalesUnits()
         {
-            SalesUnitVeb1101Full.Clone(new SalesUnit {Project = ProjectStation, Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "1", ProductionTerm = 90, AssembleTerm = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50, Address = AddressSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilityStation, DependentProducts = new List<ProductDependent> {new ProductDependent {Product = ProductZip1, Amount = 2 } }, Payments = new List<Payment> { Payment1, Payment2, Payment3, Payment4, Payment5 }, PaymentsPlannedSaved = new List<PaymentPlannedList> {PaymentPlannedList1} });
+            SalesUnitVeb1101Full.Clone(new SalesUnit {Project = ProjectStation, Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "1", ProductionTerm = 90, AssembleTerm = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50, Address = AddressSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilityStation, DependentProducts = new List<ProductDependent> {new ProductDependent {Product = ProductZip1, Amount = 2 } }, PaymentsActual = new List<PaymentActual> { PaymentActual1, PaymentActual2, PaymentActual3, PaymentActual4, PaymentActual5 }, PaymentsPlanned = new List<PaymentPlanned> {PaymentPlanned1, PaymentPlanned2, PaymentPlanned3, PaymentPlanned4, PaymentPlanned5} });
             SalesUnitVeb1102Full.Clone(new SalesUnit { Project = ProjectStation, Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "2", ProductionTerm = 90, AssembleTerm = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50, Address = AddressSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilityStation, DependentProducts = new List<ProductDependent> { new ProductDependent { Product = ProductZip1, Amount = 3 }}}); 
             
             SalesUnitZng1101Full.Clone(new SalesUnit { Project = ProjectStation, Product = ProductZng110, Order = OrderZng110, SerialNumber = "5", ProductionTerm = 90, AssembleTerm = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50,  Address = AddressSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilityStation }); 

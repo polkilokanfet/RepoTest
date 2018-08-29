@@ -49,6 +49,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="POCOs\IPayment.cs" />
+    <Compile Include="POCOs\PaymentActual.cs" />
+    <Compile Include="POCOs\PaymentPlanned.cs" />
+    <Compile Include="POCOs\PaymentType.cs" />
     <Compile Include="POCOs\ProjectType.cs" />
     <Compile Include="RoleAccessAttribute.cs" />
     <Compile Include="POCOs\CommonOption.cs" />
@@ -85,7 +89,6 @@
     <Compile Include="POCOs\ParameterGroup.cs" />
     <Compile Include="POCOs\ProductRelation.cs" />
     <Compile Include="POCOs\Person.cs" />
-    <Compile Include="POCOs\Payments.cs" />
     <Compile Include="POCOs\ParameterRelation.cs" />
     <Compile Include="POCOs\SalesUnit.cs" />
     <Compile Include="POCOs\Service.cs" />

@@ -77,10 +77,10 @@ namespace HVTApp.Model.POCOs
         public virtual Specification Specification { get; set; }
 
         [Designation("Совершённые платежи"), NotUpdate(Role.SalesManager | Role.Director)]
-        public virtual List<Payment> Payments { get; set; } = new List<Payment>();
+        public virtual List<PaymentActual> PaymentsActual { get; set; } = new List<PaymentActual>();
 
         [Designation("Планируемые платежи")]
-        public virtual List<PaymentPlannedList> PaymentsPlannedSaved { get; set; } = new List<PaymentPlannedList>();
+        public virtual List<PaymentPlanned> PaymentsPlanned { get; set; } = new List<PaymentPlanned>();
 
         #endregion
 

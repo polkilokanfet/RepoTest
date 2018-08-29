@@ -1985,6 +1985,71 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
+	[DesignationPlural("PaymentActualLookup")]
+    public partial class PaymentActualLookupListView : ViewBase
+    {
+        public PaymentActualLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public PaymentActualLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentActualLookupListViewModel PaymentActualLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = PaymentActualLookupListViewModel;
+			PaymentActualLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((PaymentActualLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility DateVisibility
+        {
+            get { return PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentActualLookup.Date)].Visibility; }
+            set { PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentActualLookup.Date)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SumVisibility
+        {
+            get { return PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentActualLookup.Sum)].Visibility; }
+            set { PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentActualLookup.Sum)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CommentVisibility
+        {
+            get { return PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentActualLookup.Comment)].Visibility; }
+            set { PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentActualLookup.Comment)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentActualLookup.DisplayMember)].Visibility; }
+            set { PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentActualLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentActualLookup.Entity)].Visibility; }
+            set { PaymentActualLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentActualLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("PaymentConditionLookup")]
     public partial class PaymentConditionLookupListView : ViewBase
     {
@@ -2152,25 +2217,25 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[DesignationPlural("PaymentLookup")]
-    public partial class PaymentLookupListView : ViewBase
+	[DesignationPlural("PaymentPlannedLookup")]
+    public partial class PaymentPlannedLookupListView : ViewBase
     {
-        public PaymentLookupListView()
+        public PaymentPlannedLookupListView()
         {
             InitializeComponent();
         }
 
-        public PaymentLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentLookupListViewModel PaymentLookupListViewModel) : base(regionManager, eventAggregator)
+        public PaymentPlannedLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentPlannedLookupListViewModel PaymentPlannedLookupListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = PaymentLookupListViewModel;
-			PaymentLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            DataContext = PaymentPlannedLookupListViewModel;
+			PaymentPlannedLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((PaymentLookupListViewModel)DataContext).LoadAsync();;
+			await ((PaymentPlannedLookupListViewModel)DataContext).LoadAsync();;
         }
 
 		#region VisibilityProps
@@ -2178,94 +2243,43 @@ namespace HVTApp.UI.Views
 
         public System.Windows.Visibility DateVisibility
         {
-            get { return PaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentLookup.Date)].Visibility; }
-            set { PaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentLookup.Date)].Visibility = value; }
+            get { return PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedLookup.Date)].Visibility; }
+            set { PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedLookup.Date)].Visibility = value; }
         }
 
 
         public System.Windows.Visibility SumVisibility
         {
-            get { return PaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentLookup.Sum)].Visibility; }
-            set { PaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentLookup.Sum)].Visibility = value; }
+            get { return PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedLookup.Sum)].Visibility; }
+            set { PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedLookup.Sum)].Visibility = value; }
         }
 
 
         public System.Windows.Visibility CommentVisibility
         {
-            get { return PaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentLookup.Comment)].Visibility; }
-            set { PaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentLookup.Comment)].Visibility = value; }
+            get { return PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedLookup.Comment)].Visibility; }
+            set { PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedLookup.Comment)].Visibility = value; }
         }
 
 
         public System.Windows.Visibility DisplayMemberVisibility
         {
-            get { return PaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentLookup.DisplayMember)].Visibility; }
-            set { PaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return PaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentLookup.Entity)].Visibility; }
-            set { PaymentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentLookup.Entity)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
-	[DesignationPlural("PaymentPlannedListLookup")]
-    public partial class PaymentPlannedListLookupListView : ViewBase
-    {
-        public PaymentPlannedListLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public PaymentPlannedListLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentPlannedListLookupListViewModel PaymentPlannedListLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = PaymentPlannedListLookupListViewModel;
-			PaymentPlannedListLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((PaymentPlannedListLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility SalesUnitIdVisibility
-        {
-            get { return PaymentPlannedListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedListLookup.SalesUnitId)].Visibility; }
-            set { PaymentPlannedListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedListLookup.SalesUnitId)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return PaymentPlannedListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedListLookup.DisplayMember)].Visibility; }
-            set { PaymentPlannedListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedListLookup.DisplayMember)].Visibility = value; }
+            get { return PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedLookup.DisplayMember)].Visibility; }
+            set { PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedLookup.DisplayMember)].Visibility = value; }
         }
 
 
         public System.Windows.Visibility ConditionVisibility
         {
-            get { return PaymentPlannedListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedListLookup.Condition)].Visibility; }
-            set { PaymentPlannedListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedListLookup.Condition)].Visibility = value; }
+            get { return PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedLookup.Condition)].Visibility; }
+            set { PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedLookup.Condition)].Visibility = value; }
         }
 
 
         public System.Windows.Visibility EntityVisibility
         {
-            get { return PaymentPlannedListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedListLookup.Entity)].Visibility; }
-            set { PaymentPlannedListLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedListLookup.Entity)].Visibility = value; }
+            get { return PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedLookup.Entity)].Visibility; }
+            set { PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedLookup.Entity)].Visibility = value; }
         }
 
 

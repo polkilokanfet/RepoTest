@@ -10,6 +10,43 @@ using System;
 
 namespace HVTApp.UI.ViewModels
 {
+    public partial class PaymentActualDetailsViewModel : BaseDetailsViewModel<PaymentActualWrapper, PaymentActual, AfterSavePaymentActualEvent>
+    {
+        public PaymentActualDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
+
+
+    }
+
+    public partial class PaymentPlannedDetailsViewModel : BaseDetailsViewModel<PaymentPlannedWrapper, PaymentPlanned, AfterSavePaymentPlannedEvent>
+    {
+		private Func<Task<List<PaymentCondition>>> _getEntitiesForSelectConditionCommand;
+		public ICommand SelectConditionCommand { get; private set; }
+		public ICommand ClearConditionCommand { get; private set; }
+
+        public PaymentPlannedDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectConditionCommand == null) _getEntitiesForSelectConditionCommand = async () => { return await WrapperDataService.GetRepository<PaymentCondition>().GetAllAsync(); };
+			if (SelectConditionCommand == null) SelectConditionCommand = new DelegateCommand(SelectConditionCommand_Execute_Default);
+			if (ClearConditionCommand == null) ClearConditionCommand = new DelegateCommand(ClearConditionCommand_Execute_Default);
+
+		}
+
+		private async void SelectConditionCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<PaymentCondition, PaymentConditionWrapper>(await _getEntitiesForSelectConditionCommand(), nameof(Item.Condition), Item.Condition?.Id);
+		}
+
+		private void ClearConditionCommand_Execute_Default() 
+		{
+						Item.Condition = null;		    
+		}
+
+
+    }
+
     public partial class ProjectTypeDetailsViewModel : BaseDetailsViewModel<ProjectTypeWrapper, ProjectType, AfterSaveProjectTypeEvent>
     {
         public ProjectTypeDetailsViewModel(IUnityContainer container) : base(container) 
@@ -1254,79 +1291,6 @@ namespace HVTApp.UI.ViewModels
 
     }
 
-    public partial class PaymentPlannedListDetailsViewModel : BaseDetailsViewModel<PaymentPlannedListWrapper, PaymentPlannedList, AfterSavePaymentPlannedListEvent>
-    {
-		private Func<Task<List<PaymentCondition>>> _getEntitiesForSelectConditionCommand;
-		public ICommand SelectConditionCommand { get; private set; }
-		public ICommand ClearConditionCommand { get; private set; }
-
-		private Func<Task<List<Payment>>> _getEntitiesForAddInPaymentsCommand;
-		public ICommand AddInPaymentsCommand { get; }
-		public ICommand RemoveFromPaymentsCommand { get; }
-		private PaymentWrapper _selectedPaymentsItem;
-		public PaymentWrapper SelectedPaymentsItem 
-		{ 
-			get { return _selectedPaymentsItem; }
-			set 
-			{ 
-				if (Equals(_selectedPaymentsItem, value)) return;
-				_selectedPaymentsItem = value;
-				OnPropertyChanged();
-				((DelegateCommand)RemoveFromPaymentsCommand).RaiseCanExecuteChanged();
-			}
-		}
-
-        public PaymentPlannedListDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-			
-			if (_getEntitiesForSelectConditionCommand == null) _getEntitiesForSelectConditionCommand = async () => { return await WrapperDataService.GetRepository<PaymentCondition>().GetAllAsync(); };
-			if (SelectConditionCommand == null) SelectConditionCommand = new DelegateCommand(SelectConditionCommand_Execute_Default);
-			if (ClearConditionCommand == null) ClearConditionCommand = new DelegateCommand(ClearConditionCommand_Execute_Default);
-
-			
-			if (_getEntitiesForAddInPaymentsCommand == null) _getEntitiesForAddInPaymentsCommand = async () => { return await WrapperDataService.GetRepository<Payment>().GetAllAsync(); };;
-			if (AddInPaymentsCommand == null) AddInPaymentsCommand = new DelegateCommand(AddInPaymentsCommand_Execute_Default);
-			if (RemoveFromPaymentsCommand == null) RemoveFromPaymentsCommand = new DelegateCommand(RemoveFromPaymentsCommand_Execute_Default, RemoveFromPaymentsCommand_CanExecute_Default);
-
-		}
-
-		private async void SelectConditionCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<PaymentCondition, PaymentConditionWrapper>(await _getEntitiesForSelectConditionCommand(), nameof(Item.Condition), Item.Condition?.Id);
-		}
-
-		private void ClearConditionCommand_Execute_Default() 
-		{
-						Item.Condition = null;		    
-		}
-
-			private async void AddInPaymentsCommand_Execute_Default()
-			{
-				SelectAndAddInListWrapper<Payment, PaymentWrapper>(await _getEntitiesForAddInPaymentsCommand(), Item.Payments);
-			}
-
-			private void RemoveFromPaymentsCommand_Execute_Default()
-			{
-				Item.Payments.Remove(SelectedPaymentsItem);
-			}
-
-			private bool RemoveFromPaymentsCommand_CanExecute_Default()
-			{
-				return SelectedPaymentsItem != null;
-			}
-
-
-    }
-
-    public partial class PaymentDetailsViewModel : BaseDetailsViewModel<PaymentWrapper, Payment, AfterSavePaymentEvent>
-    {
-        public PaymentDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-		}
-
-
-    }
-
     public partial class ParameterRelationDetailsViewModel : BaseDetailsViewModel<ParameterRelationWrapper, ParameterRelation, AfterSaveParameterRelationEvent>
     {
 		private Func<Task<List<Parameter>>> _getEntitiesForAddInRequiredParametersCommand;
@@ -1438,35 +1402,35 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-		private Func<Task<List<Payment>>> _getEntitiesForAddInPaymentsCommand;
-		public ICommand AddInPaymentsCommand { get; }
-		public ICommand RemoveFromPaymentsCommand { get; }
-		private PaymentWrapper _selectedPaymentsItem;
-		public PaymentWrapper SelectedPaymentsItem 
+		private Func<Task<List<PaymentActual>>> _getEntitiesForAddInPaymentsActualCommand;
+		public ICommand AddInPaymentsActualCommand { get; }
+		public ICommand RemoveFromPaymentsActualCommand { get; }
+		private PaymentActualWrapper _selectedPaymentsActualItem;
+		public PaymentActualWrapper SelectedPaymentsActualItem 
 		{ 
-			get { return _selectedPaymentsItem; }
+			get { return _selectedPaymentsActualItem; }
 			set 
 			{ 
-				if (Equals(_selectedPaymentsItem, value)) return;
-				_selectedPaymentsItem = value;
+				if (Equals(_selectedPaymentsActualItem, value)) return;
+				_selectedPaymentsActualItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromPaymentsCommand).RaiseCanExecuteChanged();
+				((DelegateCommand)RemoveFromPaymentsActualCommand).RaiseCanExecuteChanged();
 			}
 		}
 
-		private Func<Task<List<PaymentPlannedList>>> _getEntitiesForAddInPaymentsPlannedSavedCommand;
-		public ICommand AddInPaymentsPlannedSavedCommand { get; }
-		public ICommand RemoveFromPaymentsPlannedSavedCommand { get; }
-		private PaymentPlannedListWrapper _selectedPaymentsPlannedSavedItem;
-		public PaymentPlannedListWrapper SelectedPaymentsPlannedSavedItem 
+		private Func<Task<List<PaymentPlanned>>> _getEntitiesForAddInPaymentsPlannedCommand;
+		public ICommand AddInPaymentsPlannedCommand { get; }
+		public ICommand RemoveFromPaymentsPlannedCommand { get; }
+		private PaymentPlannedWrapper _selectedPaymentsPlannedItem;
+		public PaymentPlannedWrapper SelectedPaymentsPlannedItem 
 		{ 
-			get { return _selectedPaymentsPlannedSavedItem; }
+			get { return _selectedPaymentsPlannedItem; }
 			set 
 			{ 
-				if (Equals(_selectedPaymentsPlannedSavedItem, value)) return;
-				_selectedPaymentsPlannedSavedItem = value;
+				if (Equals(_selectedPaymentsPlannedItem, value)) return;
+				_selectedPaymentsPlannedItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromPaymentsPlannedSavedCommand).RaiseCanExecuteChanged();
+				((DelegateCommand)RemoveFromPaymentsPlannedCommand).RaiseCanExecuteChanged();
 			}
 		}
 
@@ -1523,14 +1487,14 @@ namespace HVTApp.UI.ViewModels
 			if (RemoveFromServicesCommand == null) RemoveFromServicesCommand = new DelegateCommand(RemoveFromServicesCommand_Execute_Default, RemoveFromServicesCommand_CanExecute_Default);
 
 			
-			if (_getEntitiesForAddInPaymentsCommand == null) _getEntitiesForAddInPaymentsCommand = async () => { return await WrapperDataService.GetRepository<Payment>().GetAllAsync(); };;
-			if (AddInPaymentsCommand == null) AddInPaymentsCommand = new DelegateCommand(AddInPaymentsCommand_Execute_Default);
-			if (RemoveFromPaymentsCommand == null) RemoveFromPaymentsCommand = new DelegateCommand(RemoveFromPaymentsCommand_Execute_Default, RemoveFromPaymentsCommand_CanExecute_Default);
+			if (_getEntitiesForAddInPaymentsActualCommand == null) _getEntitiesForAddInPaymentsActualCommand = async () => { return await WrapperDataService.GetRepository<PaymentActual>().GetAllAsync(); };;
+			if (AddInPaymentsActualCommand == null) AddInPaymentsActualCommand = new DelegateCommand(AddInPaymentsActualCommand_Execute_Default);
+			if (RemoveFromPaymentsActualCommand == null) RemoveFromPaymentsActualCommand = new DelegateCommand(RemoveFromPaymentsActualCommand_Execute_Default, RemoveFromPaymentsActualCommand_CanExecute_Default);
 
 			
-			if (_getEntitiesForAddInPaymentsPlannedSavedCommand == null) _getEntitiesForAddInPaymentsPlannedSavedCommand = async () => { return await WrapperDataService.GetRepository<PaymentPlannedList>().GetAllAsync(); };;
-			if (AddInPaymentsPlannedSavedCommand == null) AddInPaymentsPlannedSavedCommand = new DelegateCommand(AddInPaymentsPlannedSavedCommand_Execute_Default);
-			if (RemoveFromPaymentsPlannedSavedCommand == null) RemoveFromPaymentsPlannedSavedCommand = new DelegateCommand(RemoveFromPaymentsPlannedSavedCommand_Execute_Default, RemoveFromPaymentsPlannedSavedCommand_CanExecute_Default);
+			if (_getEntitiesForAddInPaymentsPlannedCommand == null) _getEntitiesForAddInPaymentsPlannedCommand = async () => { return await WrapperDataService.GetRepository<PaymentPlanned>().GetAllAsync(); };;
+			if (AddInPaymentsPlannedCommand == null) AddInPaymentsPlannedCommand = new DelegateCommand(AddInPaymentsPlannedCommand_Execute_Default);
+			if (RemoveFromPaymentsPlannedCommand == null) RemoveFromPaymentsPlannedCommand = new DelegateCommand(RemoveFromPaymentsPlannedCommand_Execute_Default, RemoveFromPaymentsPlannedCommand_CanExecute_Default);
 
 		}
 
@@ -1644,34 +1608,34 @@ namespace HVTApp.UI.ViewModels
 				return SelectedServicesItem != null;
 			}
 
-			private async void AddInPaymentsCommand_Execute_Default()
+			private async void AddInPaymentsActualCommand_Execute_Default()
 			{
-				SelectAndAddInListWrapper<Payment, PaymentWrapper>(await _getEntitiesForAddInPaymentsCommand(), Item.Payments);
+				SelectAndAddInListWrapper<PaymentActual, PaymentActualWrapper>(await _getEntitiesForAddInPaymentsActualCommand(), Item.PaymentsActual);
 			}
 
-			private void RemoveFromPaymentsCommand_Execute_Default()
+			private void RemoveFromPaymentsActualCommand_Execute_Default()
 			{
-				Item.Payments.Remove(SelectedPaymentsItem);
+				Item.PaymentsActual.Remove(SelectedPaymentsActualItem);
 			}
 
-			private bool RemoveFromPaymentsCommand_CanExecute_Default()
+			private bool RemoveFromPaymentsActualCommand_CanExecute_Default()
 			{
-				return SelectedPaymentsItem != null;
+				return SelectedPaymentsActualItem != null;
 			}
 
-			private async void AddInPaymentsPlannedSavedCommand_Execute_Default()
+			private async void AddInPaymentsPlannedCommand_Execute_Default()
 			{
-				SelectAndAddInListWrapper<PaymentPlannedList, PaymentPlannedListWrapper>(await _getEntitiesForAddInPaymentsPlannedSavedCommand(), Item.PaymentsPlannedSaved);
+				SelectAndAddInListWrapper<PaymentPlanned, PaymentPlannedWrapper>(await _getEntitiesForAddInPaymentsPlannedCommand(), Item.PaymentsPlanned);
 			}
 
-			private void RemoveFromPaymentsPlannedSavedCommand_Execute_Default()
+			private void RemoveFromPaymentsPlannedCommand_Execute_Default()
 			{
-				Item.PaymentsPlannedSaved.Remove(SelectedPaymentsPlannedSavedItem);
+				Item.PaymentsPlanned.Remove(SelectedPaymentsPlannedItem);
 			}
 
-			private bool RemoveFromPaymentsPlannedSavedCommand_CanExecute_Default()
+			private bool RemoveFromPaymentsPlannedCommand_CanExecute_Default()
 			{
-				return SelectedPaymentsPlannedSavedItem != null;
+				return SelectedPaymentsPlannedItem != null;
 			}
 
 
@@ -2514,11 +2478,11 @@ namespace HVTApp.UI.ViewModels
 
     public partial class PaymentDocumentDetailsViewModel : BaseDetailsViewModel<PaymentDocumentWrapper, PaymentDocument, AfterSavePaymentDocumentEvent>
     {
-		private Func<Task<List<Payment>>> _getEntitiesForAddInPaymentsCommand;
+		private Func<Task<List<PaymentActual>>> _getEntitiesForAddInPaymentsCommand;
 		public ICommand AddInPaymentsCommand { get; }
 		public ICommand RemoveFromPaymentsCommand { get; }
-		private PaymentWrapper _selectedPaymentsItem;
-		public PaymentWrapper SelectedPaymentsItem 
+		private PaymentActualWrapper _selectedPaymentsItem;
+		public PaymentActualWrapper SelectedPaymentsItem 
 		{ 
 			get { return _selectedPaymentsItem; }
 			set 
@@ -2533,7 +2497,7 @@ namespace HVTApp.UI.ViewModels
         public PaymentDocumentDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
-			if (_getEntitiesForAddInPaymentsCommand == null) _getEntitiesForAddInPaymentsCommand = async () => { return await WrapperDataService.GetRepository<Payment>().GetAllAsync(); };;
+			if (_getEntitiesForAddInPaymentsCommand == null) _getEntitiesForAddInPaymentsCommand = async () => { return await WrapperDataService.GetRepository<PaymentActual>().GetAllAsync(); };;
 			if (AddInPaymentsCommand == null) AddInPaymentsCommand = new DelegateCommand(AddInPaymentsCommand_Execute_Default);
 			if (RemoveFromPaymentsCommand == null) RemoveFromPaymentsCommand = new DelegateCommand(RemoveFromPaymentsCommand_Execute_Default, RemoveFromPaymentsCommand_CanExecute_Default);
 
@@ -2541,7 +2505,7 @@ namespace HVTApp.UI.ViewModels
 
 			private async void AddInPaymentsCommand_Execute_Default()
 			{
-				SelectAndAddInListWrapper<Payment, PaymentWrapper>(await _getEntitiesForAddInPaymentsCommand(), Item.Payments);
+				SelectAndAddInListWrapper<PaymentActual, PaymentActualWrapper>(await _getEntitiesForAddInPaymentsCommand(), Item.Payments);
 			}
 
 			private void RemoveFromPaymentsCommand_Execute_Default()

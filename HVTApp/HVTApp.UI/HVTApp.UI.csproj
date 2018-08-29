@@ -239,7 +239,6 @@
     <Compile Include="Wrapper\Custom\Functionality\ProductWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProjectWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\RegionWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\SalesUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\SpecificationWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\TenderWrapper.cs" />
     <Compile Include="Wrapper\Custom\IProductWithCost.cs" />
@@ -543,10 +542,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Details\PaymentPlannedListDetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Details\PersonDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -796,10 +791,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\List\PaymentLookupListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\List\PaymentPlannedListLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

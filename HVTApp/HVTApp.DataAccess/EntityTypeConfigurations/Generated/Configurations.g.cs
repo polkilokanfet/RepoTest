@@ -3,6 +3,8 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
+    public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }
+    public partial class PaymentPlannedConfiguration : EntityTypeConfiguration<PaymentPlanned> { }
     public partial class ProjectTypeConfiguration : EntityTypeConfiguration<ProjectType> { }
     public partial class CommonOptionConfiguration : EntityTypeConfiguration<CommonOption> { }
     public partial class AddressConfiguration : EntityTypeConfiguration<Address> { }
@@ -35,8 +37,6 @@ namespace HVTApp.DataAccess
     public partial class ParameterGroupConfiguration : EntityTypeConfiguration<ParameterGroup> { }
     public partial class ProductRelationConfiguration : EntityTypeConfiguration<ProductRelation> { }
     public partial class PersonConfiguration : EntityTypeConfiguration<Person> { }
-    public partial class PaymentPlannedListConfiguration : EntityTypeConfiguration<PaymentPlannedList> { }
-    public partial class PaymentConfiguration : EntityTypeConfiguration<Payment> { }
     public partial class ParameterRelationConfiguration : EntityTypeConfiguration<ParameterRelation> { }
     public partial class SalesUnitConfiguration : EntityTypeConfiguration<SalesUnit> { }
     public partial class ServiceConfiguration : EntityTypeConfiguration<Service> { }

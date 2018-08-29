@@ -5,6 +5,18 @@ using HVTApp.Model.POCOs;
 namespace HVTApp.UI.Lookup
 {
 
+    public partial class PaymentActualLookupDataService : LookupDataService<PaymentActualLookup, PaymentActual>, IPaymentActualLookupDataService
+    {
+        public PaymentActualLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+    }
+
+
+    public partial class PaymentPlannedLookupDataService : LookupDataService<PaymentPlannedLookup, PaymentPlanned>, IPaymentPlannedLookupDataService
+    {
+        public PaymentPlannedLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+    }
+
+
     public partial class ProjectTypeLookupDataService : LookupDataService<ProjectTypeLookup, ProjectType>, IProjectTypeLookupDataService
     {
         public ProjectTypeLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -194,18 +206,6 @@ namespace HVTApp.UI.Lookup
     public partial class PersonLookupDataService : LookupDataService<PersonLookup, Person>, IPersonLookupDataService
     {
         public PersonLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-    }
-
-
-    public partial class PaymentPlannedListLookupDataService : LookupDataService<PaymentPlannedListLookup, PaymentPlannedList>, IPaymentPlannedListLookupDataService
-    {
-        public PaymentPlannedListLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-    }
-
-
-    public partial class PaymentLookupDataService : LookupDataService<PaymentLookup, Payment>, IPaymentLookupDataService
-    {
-        public PaymentLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
     }
 
 

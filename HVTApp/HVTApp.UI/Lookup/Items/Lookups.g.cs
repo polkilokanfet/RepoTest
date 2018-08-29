@@ -19,6 +19,68 @@ using HVTApp.Model.POCOs;
 namespace HVTApp.UI.Lookup
 {
 
+	public partial class PaymentActualLookup : LookupItem<PaymentActual>
+	{
+		public PaymentActualLookup(PaymentActual entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+		}
+		
+
+        #region SimpleProperties
+
+        public System.DateTime Date => GetValue<System.DateTime>();
+
+
+        public System.Double Sum => GetValue<System.Double>();
+
+
+        public System.String Comment => GetValue<System.String>();
+
+
+        #endregion
+
+	}
+
+	public partial class PaymentPlannedLookup : LookupItem<PaymentPlanned>
+	{
+		public PaymentPlannedLookup(PaymentPlanned entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+			Condition?.Refresh(Entity.Condition);
+
+		}
+		
+
+        #region SimpleProperties
+
+        public System.DateTime Date => GetValue<System.DateTime>();
+
+
+        public System.Double Sum => GetValue<System.Double>();
+
+
+        public System.String Comment => GetValue<System.String>();
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public PaymentConditionLookup Condition { get { return GetLookup<PaymentConditionLookup>(); } }
+
+
+        #endregion
+
+	}
+
 	public partial class ProjectTypeLookup : LookupItem<ProjectType>
 	{
 		public ProjectTypeLookup(ProjectType entity) : base(entity) 
@@ -900,62 +962,6 @@ namespace HVTApp.UI.Lookup
 
 
         public System.Boolean IsMan => GetValue<System.Boolean>();
-
-
-        #endregion
-
-	}
-
-	public partial class PaymentPlannedListLookup : LookupItem<PaymentPlannedList>
-	{
-		public PaymentPlannedListLookup(PaymentPlannedList entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			Condition?.Refresh(Entity.Condition);
-
-		}
-		
-
-        #region SimpleProperties
-
-        public System.Guid SalesUnitId => GetValue<System.Guid>();
-
-
-        #endregion
-
-
-        #region ComplexProperties
-
-	    public PaymentConditionLookup Condition { get { return GetLookup<PaymentConditionLookup>(); } }
-
-
-        #endregion
-
-	}
-
-	public partial class PaymentLookup : LookupItem<Payment>
-	{
-		public PaymentLookup(Payment entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
-		
-
-        #region SimpleProperties
-
-        public System.DateTime Date => GetValue<System.DateTime>();
-
-
-        public System.Double Sum => GetValue<System.Double>();
-
-
-        public System.String Comment => GetValue<System.String>();
 
 
         #endregion

@@ -12,6 +12,8 @@ namespace HVTApp.DataAccess
         {
             TestData testData = new TestData();
 
+            context.PaymentActualDbSet.AddRange(testData.GetAll<PaymentActual>());
+            context.PaymentPlannedDbSet.AddRange(testData.GetAll<PaymentPlanned>());
             context.ProjectTypeDbSet.AddRange(testData.GetAll<ProjectType>());
             context.CommonOptionDbSet.AddRange(testData.GetAll<CommonOption>());
             context.AddressDbSet.AddRange(testData.GetAll<Address>());
@@ -44,8 +46,6 @@ namespace HVTApp.DataAccess
             context.ParameterGroupDbSet.AddRange(testData.GetAll<ParameterGroup>());
             context.ProductRelationDbSet.AddRange(testData.GetAll<ProductRelation>());
             context.PersonDbSet.AddRange(testData.GetAll<Person>());
-            context.PaymentPlannedListDbSet.AddRange(testData.GetAll<PaymentPlannedList>());
-            context.PaymentDbSet.AddRange(testData.GetAll<Payment>());
             context.ParameterRelationDbSet.AddRange(testData.GetAll<ParameterRelation>());
             context.SalesUnitDbSet.AddRange(testData.GetAll<SalesUnit>());
             context.ServiceDbSet.AddRange(testData.GetAll<Service>());

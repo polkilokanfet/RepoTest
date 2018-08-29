@@ -7,6 +7,10 @@ namespace HVTApp.UI.Wrapper
         public WrapperDataService(DbContext context) : base(context)
         {
 
+            PaymentActualWrapperRepository = new PaymentActualWrapperRepository(this);
+
+            PaymentPlannedWrapperRepository = new PaymentPlannedWrapperRepository(this);
+
             ProjectTypeWrapperRepository = new ProjectTypeWrapperRepository(this);
 
             CommonOptionWrapperRepository = new CommonOptionWrapperRepository(this);
@@ -71,10 +75,6 @@ namespace HVTApp.UI.Wrapper
 
             PersonWrapperRepository = new PersonWrapperRepository(this);
 
-            PaymentPlannedListWrapperRepository = new PaymentPlannedListWrapperRepository(this);
-
-            PaymentWrapperRepository = new PaymentWrapperRepository(this);
-
             ParameterRelationWrapperRepository = new ParameterRelationWrapperRepository(this);
 
             SalesUnitWrapperRepository = new SalesUnitWrapperRepository(this);
@@ -129,6 +129,10 @@ namespace HVTApp.UI.Wrapper
 
         }
 
+
+        private PaymentActualWrapperRepository PaymentActualWrapperRepository;
+
+        private PaymentPlannedWrapperRepository PaymentPlannedWrapperRepository;
 
         private ProjectTypeWrapperRepository ProjectTypeWrapperRepository;
 
@@ -193,10 +197,6 @@ namespace HVTApp.UI.Wrapper
         private ProductRelationWrapperRepository ProductRelationWrapperRepository;
 
         private PersonWrapperRepository PersonWrapperRepository;
-
-        private PaymentPlannedListWrapperRepository PaymentPlannedListWrapperRepository;
-
-        private PaymentWrapperRepository PaymentWrapperRepository;
 
         private ParameterRelationWrapperRepository ParameterRelationWrapperRepository;
 

@@ -3,6 +3,16 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
+    public partial class PaymentActualRepositoryTest : TestBaseRepository<PaymentActual>, IPaymentActualRepository
+    {
+        public PaymentActualRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class PaymentPlannedRepositoryTest : TestBaseRepository<PaymentPlanned>, IPaymentPlannedRepository
+    {
+        public PaymentPlannedRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class ProjectTypeRepositoryTest : TestBaseRepository<ProjectType>, IProjectTypeRepository
     {
         public ProjectTypeRepositoryTest(TestData testData) : base(testData) {}
@@ -161,16 +171,6 @@ namespace HVTApp.DataAccess
     public partial class PersonRepositoryTest : TestBaseRepository<Person>, IPersonRepository
     {
         public PersonRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class PaymentPlannedListRepositoryTest : TestBaseRepository<PaymentPlannedList>, IPaymentPlannedListRepository
-    {
-        public PaymentPlannedListRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class PaymentRepositoryTest : TestBaseRepository<Payment>, IPaymentRepository
-    {
-        public PaymentRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class ParameterRelationRepositoryTest : TestBaseRepository<ParameterRelation>, IParameterRelationRepository

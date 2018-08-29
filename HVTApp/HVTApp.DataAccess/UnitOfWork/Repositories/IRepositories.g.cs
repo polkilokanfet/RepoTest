@@ -3,6 +3,8 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.DataAccess
 {
+    public partial interface IPaymentActualRepository : IRepository<PaymentActual> { }
+    public partial interface IPaymentPlannedRepository : IRepository<PaymentPlanned> { }
     public partial interface IProjectTypeRepository : IRepository<ProjectType> { }
     public partial interface ICommonOptionRepository : IRepository<CommonOption> { }
     public partial interface IAddressRepository : IRepository<Address> { }
@@ -35,8 +37,6 @@ namespace HVTApp.DataAccess
     public partial interface IParameterGroupRepository : IRepository<ParameterGroup> { }
     public partial interface IProductRelationRepository : IRepository<ProductRelation> { }
     public partial interface IPersonRepository : IRepository<Person> { }
-    public partial interface IPaymentPlannedListRepository : IRepository<PaymentPlannedList> { }
-    public partial interface IPaymentRepository : IRepository<Payment> { }
     public partial interface IParameterRelationRepository : IRepository<ParameterRelation> { }
     public partial interface ISalesUnitRepository : IRepository<SalesUnit> { }
     public partial interface IServiceRepository : IRepository<Service> { }

@@ -15,14 +15,14 @@ namespace HVTApp.UI.Lookup
     {
         public override async Task LoadOther(IUnitOfWork unitOfWork)
         {
-            PaymentsActual = Entity.Payments.Select(x => new PaymentLookup(x)).ToList();
+            PaymentsActual = Entity.PaymentsActual.Select(x => new PaymentActualLookup(x)).ToList();
             foreach (var paymentActualLookup in PaymentsActual)
                 await paymentActualLookup.LoadOther(unitOfWork);
 
             await PaymentConditionSet.LoadOther(unitOfWork);
         }
 
-        public List<PaymentLookup> PaymentsActual { get; set; }
+        public List<PaymentActualLookup> PaymentsActual { get; set; }
 
         #region Суммы
 

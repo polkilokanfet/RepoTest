@@ -5,6 +5,18 @@ using HVTApp.Model.POCOs;
 namespace HVTApp.UI.Wrapper
 {
 
+    public partial class PaymentActualWrapperRepository : WrapperRepository<PaymentActual, PaymentActualWrapper>
+    {
+        public PaymentActualWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
+    }
+
+
+    public partial class PaymentPlannedWrapperRepository : WrapperRepository<PaymentPlanned, PaymentPlannedWrapper>
+    {
+        public PaymentPlannedWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
+    }
+
+
     public partial class ProjectTypeWrapperRepository : WrapperRepository<ProjectType, ProjectTypeWrapper>
     {
         public ProjectTypeWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
@@ -194,18 +206,6 @@ namespace HVTApp.UI.Wrapper
     public partial class PersonWrapperRepository : WrapperRepository<Person, PersonWrapper>
     {
         public PersonWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
-    }
-
-
-    public partial class PaymentPlannedListWrapperRepository : WrapperRepository<PaymentPlannedList, PaymentPlannedListWrapper>
-    {
-        public PaymentPlannedListWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
-    }
-
-
-    public partial class PaymentWrapperRepository : WrapperRepository<Payment, PaymentWrapper>
-    {
-        public PaymentWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
     }
 
 

@@ -3,6 +3,8 @@ using Prism.Events;
 
 namespace HVTApp.UI.Events
 {
+	public partial class AfterSavePaymentActualEvent : PubSubEvent<PaymentActual> { }
+	public partial class AfterSavePaymentPlannedEvent : PubSubEvent<PaymentPlanned> { }
 	public partial class AfterSaveProjectTypeEvent : PubSubEvent<ProjectType> { }
 	public partial class AfterSaveCommonOptionEvent : PubSubEvent<CommonOption> { }
 	public partial class AfterSaveAddressEvent : PubSubEvent<Address> { }
@@ -35,8 +37,6 @@ namespace HVTApp.UI.Events
 	public partial class AfterSaveParameterGroupEvent : PubSubEvent<ParameterGroup> { }
 	public partial class AfterSaveProductRelationEvent : PubSubEvent<ProductRelation> { }
 	public partial class AfterSavePersonEvent : PubSubEvent<Person> { }
-	public partial class AfterSavePaymentPlannedListEvent : PubSubEvent<PaymentPlannedList> { }
-	public partial class AfterSavePaymentEvent : PubSubEvent<Payment> { }
 	public partial class AfterSaveParameterRelationEvent : PubSubEvent<ParameterRelation> { }
 	public partial class AfterSaveSalesUnitEvent : PubSubEvent<SalesUnit> { }
 	public partial class AfterSaveServiceEvent : PubSubEvent<Service> { }

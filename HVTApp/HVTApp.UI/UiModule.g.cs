@@ -12,6 +12,18 @@ namespace HVTApp.UI
 		private void RegisterViews()
         {
 
+            Container.RegisterViewForNavigation<PaymentActualLookupListView>();
+            //_dialogService.Register<PaymentActualDetailsViewModel, PaymentActualDetailsView>();
+			_selectService.Register<PaymentActualLookupListView, PaymentActual>();
+            _updateDetailsService.Register<PaymentActual, PaymentActualDetailsView>();
+
+
+            Container.RegisterViewForNavigation<PaymentPlannedLookupListView>();
+            //_dialogService.Register<PaymentPlannedDetailsViewModel, PaymentPlannedDetailsView>();
+			_selectService.Register<PaymentPlannedLookupListView, PaymentPlanned>();
+            _updateDetailsService.Register<PaymentPlanned, PaymentPlannedDetailsView>();
+
+
             Container.RegisterViewForNavigation<ProjectTypeLookupListView>();
             //_dialogService.Register<ProjectTypeDetailsViewModel, ProjectTypeDetailsView>();
 			_selectService.Register<ProjectTypeLookupListView, ProjectType>();
@@ -202,18 +214,6 @@ namespace HVTApp.UI
             //_dialogService.Register<PersonDetailsViewModel, PersonDetailsView>();
 			_selectService.Register<PersonLookupListView, Person>();
             _updateDetailsService.Register<Person, PersonDetailsView>();
-
-
-            Container.RegisterViewForNavigation<PaymentPlannedListLookupListView>();
-            //_dialogService.Register<PaymentPlannedListDetailsViewModel, PaymentPlannedListDetailsView>();
-			_selectService.Register<PaymentPlannedListLookupListView, PaymentPlannedList>();
-            _updateDetailsService.Register<PaymentPlannedList, PaymentPlannedListDetailsView>();
-
-
-            Container.RegisterViewForNavigation<PaymentLookupListView>();
-            //_dialogService.Register<PaymentDetailsViewModel, PaymentDetailsView>();
-			_selectService.Register<PaymentLookupListView, Payment>();
-            _updateDetailsService.Register<Payment, PaymentDetailsView>();
 
 
             Container.RegisterViewForNavigation<ParameterRelationLookupListView>();

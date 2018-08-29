@@ -22,8 +22,8 @@ namespace HVTApp.UI.Wrapper
 
             this.PropertyChanged += OnSpecificationChanged;
 
-            this.Payments.CollectionChanged += PaymentsActualOnCollectionChanged;
-            this.Payments.PropertyChanged += PaymentActualOnChanged;
+            this.PaymentsActual.CollectionChanged += PaymentsActualOnCollectionChanged;
+            this.PaymentsActual.PropertyChanged += PaymentActualOnChanged;
 
             PriceDate = DateTime.Today;
         }
@@ -55,7 +55,7 @@ namespace HVTApp.UI.Wrapper
         /// <summary>
         /// Оплаченная сумма
         /// </summary>
-        public double SumPaid => Payments.Sum(x => x.Sum);
+        public double SumPaid => PaymentsActual.Sum(x => x.Sum);
 
         /// <summary>
         /// Неоплаченная сумма
@@ -95,7 +95,7 @@ namespace HVTApp.UI.Wrapper
         private DateTime? AchiveSumDate(double sumToAchive)
         {
             //IEnumerable<IPayment> paymentsActual = PaymentsActual.Select(x => new PaymentWrapper(x.Model));
-            //IEnumerable<IPayment> paymentsPlanned = PaymentsPlannedSaved.SelectMany(x => x.Payments);
+            //IEnumerable<IPayment> paymentsPlanned = PaymentsPlannedSaved.SelectMany(x => x.PaymentsActual);
             //IEnumerable<IPayment> payments = paymentsActual.Concat(paymentsPlanned).OrderBy(x => x.Date);
 
             //double sum = 0;
@@ -131,7 +131,7 @@ namespace HVTApp.UI.Wrapper
                 if (StartProductionConditionsDoneDate.HasValue) return StartProductionConditionsDoneDate.Value;
 
                 //по дате первого платежа
-                if (Payments.Any()) return Payments.OrderBy(x => x.Date).First().Date;
+                if (PaymentsActual.Any()) return PaymentsActual.OrderBy(x => x.Date).First().Date;
 
                 var productionTerm = this.ProductionTerm ?? CommonOptions.ProductionTerm;
 
@@ -250,7 +250,7 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-    //Payments
+    //PaymentsActual
     public partial class SalesUnitWrapper
     {
         /// <summary>
@@ -281,16 +281,16 @@ namespace HVTApp.UI.Wrapper
                     }
                 }
 
-                return result.SelectMany(x => x.Payments);
+                return result.SelectMany(x => x.PaymentsActual);
             }
         }
 
         private void CheckPaymentPlannedList(PaymentPlannedListWrapper paymentPlannedListWrapper)
         {
             var sum = Cost * paymentPlannedListWrapper.Condition.Part;
-            var sumToCheck = paymentPlannedListWrapper.Payments.Sum(x => x.Sum);
+            var sumToCheck = paymentPlannedListWrapper.PaymentsActual.Sum(x => x.Sum);
 
-            foreach (var paymentPlannedWrapper in paymentPlannedListWrapper.Payments)
+            foreach (var paymentPlannedWrapper in paymentPlannedListWrapper.PaymentsActual)
             {
                 if (Math.Abs(sum - sumToCheck) < 0.0001) return;
                     paymentPlannedWrapper.Sum = paymentPlannedWrapper.Sum * sum / sumToCheck;
@@ -355,7 +355,7 @@ namespace HVTApp.UI.Wrapper
         {
             return conditions.Select(condition => new PaymentPlannedList
             {
-                Payments = new List<Payment> { new Payment { Sum = Cost * condition.Part, Date = GetPaymentDate(condition)} },
+                PaymentsActual = new List<PaymentActual> { new PaymentActual { Sum = Cost * condition.Part, Date = GetPaymentDate(condition)} },
                 Condition = condition
             });
         }
