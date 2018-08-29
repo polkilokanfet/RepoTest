@@ -17,6 +17,7 @@
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto" />
                     <infg:TextField Name="Wife" Label="Wife" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

@@ -27,11 +27,11 @@
     GenerateListViewModels(GeneratorHelpers.GetModelTypesPocos());
 	SaveGeneratedCodeAsFile("ListViewModels.g.cs", "ViewModels/List/Generated");
 
-	GenerateListViews(GeneratorHelpers.GetModelTypesPocos());
+	GenerateListViewsCs(GeneratorHelpers.GetModelTypesLookups());
 	SaveGeneratedCodeAsFile("ListViews.g.cs", "Views/List/cs");
 
 
-    GenerateViews(GeneratorHelpers.GetModelTypesLookups());
+    GenerateListViewsXaml(GeneratorHelpers.GetModelTypesLookups());
 
 #><#+
     private void GenerateLookups(IEnumerable<Type> modelTypes)
@@ -193,9 +193,9 @@ namespace HVTApp.UI.ViewModels
         foreach(var modelType in modelTypes)
         {
 #>
-    public partial class <#=modelType.Name#>ListViewModel : BaseListViewModel<<#=modelType.Name#>, <#=modelType.Name#>Lookup, AfterSave<#=modelType.Name#>Event, AfterSelect<#=modelType.Name#>Event, AfterRemove<#=modelType.Name#>Event,  <#=modelType.Name#>LookupDataService>
+    public partial class <#=modelType.Name#>LookupListViewModel : BaseListViewModel<<#=modelType.Name#>, <#=modelType.Name#>Lookup, AfterSave<#=modelType.Name#>Event, AfterSelect<#=modelType.Name#>Event, AfterRemove<#=modelType.Name#>Event,  <#=modelType.Name#>LookupDataService>
     {
-        public <#=modelType.Name#>ListViewModel(IUnityContainer container) : base(container) { }
+        public <#=modelType.Name#>LookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
 <#+
@@ -207,7 +207,7 @@ namespace HVTApp.UI.ViewModels
 	
 
 
-	private void GenerateListViews(IEnumerable<Type> modelTypes)
+	private void GenerateListViewsCs(IEnumerable<Type> modelTypes)
 	{
 #>using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attrubutes;
@@ -216,23 +216,24 @@ using Prism.Events;
 using Prism.Regions;
 using HVTApp.UI.Tabs;
 using HVTApp.UI.ViewModels;
+using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Views
 {
 <#+
         foreach(var modelType in modelTypes)
         {
- #>
+#>
     [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("<#=modelType.DesignationPlural()#>")]
-    public partial class <#=modelType.Name#>LookupListView : ViewBase
+    public partial class <#=modelType.Name#>ListView : ViewBase
     {
-        public <#=modelType.Name#>LookupListView()
+        public <#=modelType.Name#>ListView()
         {
             InitializeComponent();
         }
 
-        public <#=modelType.Name#>LookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, <#=modelType.Name#>ListViewModel <#=modelType.Name#>ListViewModel) : base(regionManager, eventAggregator)
+        public <#=modelType.Name#>ListView(IRegionManager regionManager, IEventAggregator eventAggregator, <#=modelType.Name#>ListViewModel <#=modelType.Name#>ListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
             DataContext = <#=modelType.Name#>ListViewModel;
@@ -244,6 +245,23 @@ namespace HVTApp.UI.Views
         {
 			await ((<#=modelType.Name#>ListViewModel)DataContext).LoadAsync();;
         }
+
+		#region VisibilityProps
+
+<#+		var props = modelType.AllSimpleProperties().Where(x => x.Name != "Id").Union(modelType.AllComplexProperties());
+		foreach(var prop in props)
+        {
+#>
+        public System.Windows.Visibility <#=prop.Name#>Visibility
+        {
+            get { return <#=modelType.Name#>ListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.<#=modelType.Name#>.<#=prop.Name#>)].Visibility; }
+            set { <#=modelType.Name#>ListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.<#=modelType.Name#>.<#=prop.Name#>)].Visibility = value; }
+        }
+
+<#+		}
+#>
+
+		#endregion
     }
 
 <#+
@@ -255,7 +273,7 @@ namespace HVTApp.UI.Views
 
 
 
-    private void GenerateViews(IEnumerable<Type> modelTypes)
+    private void GenerateListViewsXaml(IEnumerable<Type> modelTypes)
     {
         foreach(var modelType in modelTypes)
         {
@@ -291,7 +309,7 @@ namespace HVTApp.UI.Views
 		GenerateFields(modelType.GetPropertiesForListViews().SimpleProperties<bool>(), "CheckBoxField");
 		GenerateFields(modelType.GetPropertiesForListViews().AllComplexProperties(), "TextField", "Converter=\"{StaticResource LookupToStringConverter}\"");
 		//GenerateCollectionComplexProperties(collectionComplexProperties);
-	#>
+#>
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

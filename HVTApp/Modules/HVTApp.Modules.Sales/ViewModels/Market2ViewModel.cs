@@ -1,37 +1,24 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using HVTApp.UI.Events;
-using HVTApp.UI.Lookup;
-using HVTApp.UI.ViewModels;
-using Prism.Events;
+﻿using HVTApp.UI.ViewModels;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class Market2ViewModel
+    public class Market2ViewModel : ProjectLookupListViewModel
     {
-        public ProjectListViewModel ProjectListViewModel { get; }
-        public OfferListViewModel OfferListViewModel { get; }
+        public OfferLookupListViewModel OfferListViewModel { get; }
         public UnitLookupListViewModel UnitLookupListViewModel { get; }
 
-        public Market2ViewModel(ProjectListViewModel projectListViewModel, OfferListViewModel offerListViewModel, 
-            UnitLookupListViewModel unitLookupListViewModel, IEventAggregator eventAggregator, 
-            OfferLookupDataService offerLookupDataService)
+        public Market2ViewModel(IUnityContainer container, 
+                                OfferLookupListViewModel offerListViewModel, 
+                                UnitLookupListViewModel unitLookupListViewModel) : base(container)
         {
-            ProjectListViewModel = projectListViewModel;
             OfferListViewModel = offerListViewModel;
             UnitLookupListViewModel = unitLookupListViewModel;
 
-            ProjectListViewModel.SelectedLookupChanged += async project =>
+            this.SelectedLookupChanged += project =>
             {
                 UnitLookupListViewModel.Load(project.SalesUnits);
                 OfferListViewModel.Load(project.Offers);
-                foreach (var offerLookup in project.Offers)
-                {
-                    if (offerLookup.OfferUnits == null)
-                    {
-                        offerLookup.OfferUnits = (await offerLookupDataService.GetLookupById(offerLookup.Id)).OfferUnits.ToList();
-                    }
-                }
             };
 
             OfferListViewModel.SelectedLookupChanged += offer =>
@@ -39,8 +26,6 @@ namespace HVTApp.Modules.Sales.ViewModels
                 if (offer == null) return;
                 UnitLookupListViewModel.Load(offer.OfferUnits);
             };
-
         }
-
     }
 }

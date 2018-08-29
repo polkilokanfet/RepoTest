@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using HVTApp.DataAccess.Annotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attrubutes;
@@ -30,6 +31,10 @@ namespace HVTApp.UI.Lookup
             set { SetValue(ref _displayMember, value); }
         }
 
+        /// <summary>
+        /// Обновить Lookup
+        /// </summary>
+        /// <param name="entity">Основание для обновления.</param>
         public void Refresh(TEntity entity)
         {
             Entity = entity;
@@ -60,20 +65,19 @@ namespace HVTApp.UI.Lookup
         protected TLookup GetLookup<TLookup>([CallerMemberName] string propertyName = null)
             where TLookup : class 
         {
+            //значение свойства в Entity
             var value = Entity.GetType().GetProperty(propertyName).GetValue(Entity);
             if (Equals(value, null))
                 return null;
 
+            //если значение свойства уже содержится в словаре
             if (_lookups.ContainsKey(propertyName))
-            {
                 return (TLookup)_lookups[propertyName];
-            }
-            else
-            {
-                var lookup = (TLookup) Activator.CreateInstance(typeof(TLookup), value);
-                _lookups.Add(propertyName, lookup);
-                return lookup;
-            }
+
+            //добавление значения свойства в словарь
+            var lookup = (TLookup) Activator.CreateInstance(typeof(TLookup), value);
+            _lookups.Add(propertyName, lookup);
+            return lookup;
         }
 
         public override string ToString()
@@ -96,6 +100,12 @@ namespace HVTApp.UI.Lookup
         {
             return ToString().CompareTo(obj.ToString());
         }
+
+        public virtual async Task LoadOther(IUnitOfWork unitOfWork)
+        {
+            
+        }
+
         #endregion
 
     }

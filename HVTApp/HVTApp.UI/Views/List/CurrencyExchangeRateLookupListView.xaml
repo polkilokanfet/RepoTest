@@ -17,6 +17,7 @@
                 <infg:FieldLayout.Fields>
                     <infg:NumericField Name="ExchangeRate" Label="Валюта 1 / Валюта 2" Width="Auto" />
                     <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />
+
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

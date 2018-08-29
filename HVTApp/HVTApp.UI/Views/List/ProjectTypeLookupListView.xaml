@@ -2,9 +2,9 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              x:Class="HVTApp.UI.Views.PaymentPlannedListLookupListView">
+              x:Class="HVTApp.UI.Views.ProjectTypeLookupListView">
 
-    <infg:XamDataGrid x:Name="PaymentPlannedListLookupListGrid">
+    <infg:XamDataGrid x:Name="ProjectTypeLookupListGrid">
         
         <infg:XamDataGrid.ContextMenu>
             <ContextMenu>
@@ -15,7 +15,8 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="Condition" Label="Condition" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Name" Label="Название" Width="Auto" />
+
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

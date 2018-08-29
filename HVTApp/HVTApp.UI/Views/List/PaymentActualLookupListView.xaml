@@ -15,9 +15,10 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="Comment" Label="Comment" Width="Auto" />
-                    <infg:NumericField Name="Sum" Label="Sum" Width="Auto" />
-                    <infg:DateTimeField Name="Date" Label="Date" Width="Auto" />
+                    <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />
+                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" />
+                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />
+
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

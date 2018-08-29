@@ -3,6 +3,21 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.DataAccess
 {
+    public partial class PaymentActualRepository : BaseRepository<PaymentActual>, IPaymentActualRepository
+    {
+        public PaymentActualRepository(DbContext context) : base(context) {}
+    }
+
+    public partial class PaymentPlannedRepository : BaseRepository<PaymentPlanned>, IPaymentPlannedRepository
+    {
+        public PaymentPlannedRepository(DbContext context) : base(context) {}
+    }
+
+    public partial class ProjectTypeRepository : BaseRepository<ProjectType>, IProjectTypeRepository
+    {
+        public ProjectTypeRepository(DbContext context) : base(context) {}
+    }
+
     public partial class CommonOptionRepository : BaseRepository<CommonOption>, ICommonOptionRepository
     {
         public CommonOptionRepository(DbContext context) : base(context) {}
@@ -156,21 +171,6 @@ namespace HVTApp.DataAccess
     public partial class PersonRepository : BaseRepository<Person>, IPersonRepository
     {
         public PersonRepository(DbContext context) : base(context) {}
-    }
-
-    public partial class PaymentPlannedListRepository : BaseRepository<PaymentPlannedList>, IPaymentPlannedListRepository
-    {
-        public PaymentPlannedListRepository(DbContext context) : base(context) {}
-    }
-
-    public partial class PaymentPlannedRepository : BaseRepository<PaymentPlanned>, IPaymentPlannedRepository
-    {
-        public PaymentPlannedRepository(DbContext context) : base(context) {}
-    }
-
-    public partial class PaymentActualRepository : BaseRepository<PaymentActual>, IPaymentActualRepository
-    {
-        public PaymentActualRepository(DbContext context) : base(context) {}
     }
 
     public partial class ParameterRelationRepository : BaseRepository<ParameterRelation>, IParameterRelationRepository

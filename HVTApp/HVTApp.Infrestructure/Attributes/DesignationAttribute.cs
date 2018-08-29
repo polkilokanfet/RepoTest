@@ -1,7 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace HVTApp.Infrastructure.Attrubutes
 {
+    [AttributeUsage(AttributeTargets.Property)]
+    public class NotUpdateAttribute : Attribute
+    {
+        public IEnumerable<Role> RolesCantUpdate { get; }
+
+        public NotUpdateAttribute(params Role[] rolesCantUpdate)
+        {
+            RolesCantUpdate = rolesCantUpdate;
+        }
+    }
+
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
     public class DesignationAttribute : Attribute
     {

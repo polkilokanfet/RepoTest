@@ -3,6 +3,9 @@ using Prism.Events;
 
 namespace HVTApp.UI.Events
 {
+	public partial class AfterSelectPaymentActualEvent : PubSubEvent<PubSubEventArgs<PaymentActual>> { }
+	public partial class AfterSelectPaymentPlannedEvent : PubSubEvent<PubSubEventArgs<PaymentPlanned>> { }
+	public partial class AfterSelectProjectTypeEvent : PubSubEvent<PubSubEventArgs<ProjectType>> { }
 	public partial class AfterSelectCommonOptionEvent : PubSubEvent<PubSubEventArgs<CommonOption>> { }
 	public partial class AfterSelectAddressEvent : PubSubEvent<PubSubEventArgs<Address>> { }
 	public partial class AfterSelectCountryEvent : PubSubEvent<PubSubEventArgs<Country>> { }
@@ -34,9 +37,6 @@ namespace HVTApp.UI.Events
 	public partial class AfterSelectParameterGroupEvent : PubSubEvent<PubSubEventArgs<ParameterGroup>> { }
 	public partial class AfterSelectProductRelationEvent : PubSubEvent<PubSubEventArgs<ProductRelation>> { }
 	public partial class AfterSelectPersonEvent : PubSubEvent<PubSubEventArgs<Person>> { }
-	public partial class AfterSelectPaymentPlannedListEvent : PubSubEvent<PubSubEventArgs<PaymentPlannedList>> { }
-	public partial class AfterSelectPaymentPlannedEvent : PubSubEvent<PubSubEventArgs<PaymentPlanned>> { }
-	public partial class AfterSelectPaymentActualEvent : PubSubEvent<PubSubEventArgs<PaymentActual>> { }
 	public partial class AfterSelectParameterRelationEvent : PubSubEvent<PubSubEventArgs<ParameterRelation>> { }
 	public partial class AfterSelectSalesUnitEvent : PubSubEvent<PubSubEventArgs<SalesUnit>> { }
 	public partial class AfterSelectServiceEvent : PubSubEvent<PubSubEventArgs<Service>> { }

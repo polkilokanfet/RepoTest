@@ -1,0 +1,17 @@
+using System;
+using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attrubutes;
+
+namespace HVTApp.Model.POCOs
+{
+    [Designation("Платеж совершенный")]
+    public class PaymentActual : BaseEntity, IPayment
+    {
+        [Designation("Дата")]
+        public DateTime Date { get; set; }
+        [Designation("Сумма")]
+        public double Sum { get; set; }
+        [Designation("Комментарий")]
+        public string Comment { get; set; }
+    }
+}

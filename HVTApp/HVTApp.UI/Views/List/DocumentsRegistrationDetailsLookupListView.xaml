@@ -17,6 +17,7 @@
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="RegistrationNumber" Label="RegistrationNumber" Width="Auto" />
                     <infg:DateTimeField Name="RegistrationDate" Label="RegistrationDate" Width="Auto" />
+
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>
 

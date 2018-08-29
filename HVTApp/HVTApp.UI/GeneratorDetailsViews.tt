@@ -34,7 +34,7 @@
 
 
 
-    GenerateDetails(modelTypes);
+    GenerateDetailsViewsXaml(modelTypes);
 
 #><#+
 
@@ -73,8 +73,8 @@ namespace HVTApp.UI.ViewModels
 		foreach(var propInfo in modelType.AllComplexProperties())
         {
 #>		private Func<Task<List<<#=propInfo.PropertyType.Name#>>>> _getEntitiesForSelect<#=propInfo.Name#>Command;
-		public ICommand Select<#=propInfo.Name#>Command { get; }
-		public ICommand Clear<#=propInfo.Name#>Command { get; }
+		public ICommand Select<#=propInfo.Name#>Command { get; private set; }
+		public ICommand Clear<#=propInfo.Name#>Command { get; private set; }
 
 <#+		}
 
@@ -106,8 +106,10 @@ namespace HVTApp.UI.ViewModels
 <#+		
 		foreach(var propInfo in modelType.AllComplexProperties())
         {
-#>			Select<#=propInfo.Name#>Command = new DelegateCommand(Select<#=propInfo.Name#>Command_Execute);
-			Clear<#=propInfo.Name#>Command = new DelegateCommand(Clear<#=propInfo.Name#>Command_Execute);
+#>			
+			if (_getEntitiesForSelect<#=propInfo.Name#>Command == null) _getEntitiesForSelect<#=propInfo.Name#>Command = async () => { return await WrapperDataService.GetRepository<<#=propInfo.PropertyType.Name#>>().GetAllAsync(); };
+			if (Select<#=propInfo.Name#>Command == null) Select<#=propInfo.Name#>Command = new DelegateCommand(Select<#=propInfo.Name#>Command_Execute_Default);
+			if (Clear<#=propInfo.Name#>Command == null) Clear<#=propInfo.Name#>Command = new DelegateCommand(Clear<#=propInfo.Name#>Command_Execute_Default);
 
 <#+		}
 
@@ -116,47 +118,30 @@ namespace HVTApp.UI.ViewModels
 			var itemType = propInfo.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
 			var propertyName = propInfo.Name;
 
-#>			AddIn<#=propertyName#>Command = new DelegateCommand(AddIn<#=propertyName#>Command_Execute);
-			RemoveFrom<#=propertyName#>Command = new DelegateCommand(RemoveFrom<#=propertyName#>Command_Execute, RemoveFrom<#=propertyName#>Command_CanExecute);
+#>			
+			if (_getEntitiesForAddIn<#=propertyName#>Command == null) _getEntitiesForAddIn<#=propertyName#>Command = async () => { return await WrapperDataService.GetRepository<<#=itemType#>>().GetAllAsync(); };;
+			if (AddIn<#=propertyName#>Command == null) AddIn<#=propertyName#>Command = new DelegateCommand(AddIn<#=propertyName#>Command_Execute_Default);
+			if (RemoveFrom<#=propertyName#>Command == null) RemoveFrom<#=propertyName#>Command = new DelegateCommand(RemoveFrom<#=propertyName#>Command_Execute_Default, RemoveFrom<#=propertyName#>Command_CanExecute_Default);
 
 <#+		}
 #>		}
 
-
-        protected override void InitDefaultGetMethods()
-		{
 <#+		
+
+
+
 		foreach(var propInfo in modelType.AllComplexProperties())
         {
-#>            _getEntitiesForSelect<#=propInfo.Name#>Command = async () => { return await WrapperDataService.GetRepository<<#=propInfo.PropertyType.Name#>>().GetAllAsync(); };
-<#+		}
-
-		foreach(var propInfo in modelType.AllCollectionProperties())
-        {
-			var itemType = propInfo.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
-			var propertyName = propInfo.Name;
-
-#>			_getEntitiesForAddIn<#=propertyName#>Command = async () => { return await WrapperDataService.GetRepository<<#=itemType#>>().GetAllAsync(); };;
-<#+		}
-
-#>
-		}
-<#+		
-
-
-
-foreach(var propInfo in modelType.AllComplexProperties())
-        {
-#>		private async void Select<#=propInfo.Name#>Command_Execute() 
+#>		private async void Select<#=propInfo.Name#>Command_Execute_Default() 
 		{
             SelectAndSetWrapper<<#=propInfo.PropertyType.Name#>, <#=propInfo.PropertyType.Name#>Wrapper>(await _getEntitiesForSelect<#=propInfo.Name#>Command(), nameof(Item.<#=propInfo.Name#>), Item.<#=propInfo.Name#>?.Id);
 		}
 
-		private void Clear<#=propInfo.Name#>Command_Execute() 
+		private void Clear<#=propInfo.Name#>Command_Execute_Default() 
 		{
 		<#+ if (propInfo.CanWrite)
 			{
-				#>Item.<#=propInfo.Name#> = null;<#+
+#>				Item.<#=propInfo.Name#> = null;<#+
 			} 
 		#>
 		    
@@ -169,17 +154,17 @@ foreach(var propInfo in modelType.AllComplexProperties())
 			var itemType = propInfo.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
 			var propertyName = propInfo.Name;
 
-#>			private async void AddIn<#=propertyName#>Command_Execute()
+#>			private async void AddIn<#=propertyName#>Command_Execute_Default()
 			{
 				SelectAndAddInListWrapper<<#=itemType#>, <#=itemType#>Wrapper>(await _getEntitiesForAddIn<#=propertyName#>Command(), Item.<#=propertyName#>);
 			}
 
-			private void RemoveFrom<#=propertyName#>Command_Execute()
+			private void RemoveFrom<#=propertyName#>Command_Execute_Default()
 			{
 				Item.<#=propertyName#>.Remove(Selected<#=propertyName#>Item);
 			}
 
-			private bool RemoveFrom<#=propertyName#>Command_CanExecute()
+			private bool RemoveFrom<#=propertyName#>Command_CanExecute_Default()
 			{
 				return Selected<#=propertyName#>Item != null;
 			}
@@ -270,6 +255,11 @@ using Prism.Events;
 using Prism.Regions;
 using HVTApp.UI.ViewModels;
 using System.Windows;
+using HVTApp.Infrastructure.Attrubutes;
+using HVTApp.Model;
+using HVTApp.Model.POCOs;
+using System.Reflection;
+using System.Linq;
 
 namespace HVTApp.UI.Views
 {
@@ -284,14 +274,33 @@ namespace HVTApp.UI.Views
     {
         public <#=modelType.Name#>DetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, <#=modelType.Name#>DetailsViewModel <#=modelType.Name#>DetailsViewModel) : base(regionManager, eventAggregator)
         {
-            InitializeComponent();
+            SetVisibilityProps();
+			InitializeComponent();
             DataContext = <#=modelType.Name#>DetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            NotUpdateAttribute attr;
+
+<#+ 
+			foreach(var propInfo in allProperties)
+            {
+#>
+            attr = typeof(<#=modelType.FullName#>).GetProperty(nameof(<#=modelType.FullName#>.<#=propInfo.Name#>)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                <#=propInfo.Name#>Visibility = Visibility.Collapsed;
+
+<#+ 
+			}
+#>
+
         }
 
 <#+ 
 			foreach(var propInfo in allProperties)
             {
- #>
+#>
 
         public static readonly DependencyProperty <#=propInfo.Name#>VisibilityProperty = DependencyProperty.Register("<#=propInfo.Name#>Visibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
         public Visibility <#=propInfo.Name#>Visibility
@@ -302,8 +311,7 @@ namespace HVTApp.UI.Views
 
 <#+ 
 			}
-
- #>
+#>
 	}
 
 <#+
@@ -314,7 +322,7 @@ namespace HVTApp.UI.Views
 	}
 
 
-    private void GenerateDetails(IEnumerable<Type> modelTypes)
+    private void GenerateDetailsViewsXaml(IEnumerable<Type> modelTypes)
     {
         foreach(var modelType in modelTypes)
         {

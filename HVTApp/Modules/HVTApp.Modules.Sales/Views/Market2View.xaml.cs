@@ -17,16 +17,27 @@ namespace HVTApp.Modules.Sales.Views
             _viewModel = viewModel;
 
             this.DataContext = _viewModel;
-            this.ProjectListView.DataContext = _viewModel.ProjectListViewModel;
+            this.ProjectListView.DataContext = _viewModel;
             this.OfferListView.DataContext = _viewModel.OfferListViewModel;
             this.UnitListView.DataContext = _viewModel.UnitLookupListViewModel;
+
+            ProjectListView.ManagerVisibility = Visibility.Collapsed;
+
+            OfferListView.AuthorVisibility = Visibility.Collapsed;
+            OfferListView.ProjectVisibility = Visibility.Collapsed;
+            OfferListView.RegistrationDetailsOfRecipientVisibility = Visibility.Collapsed;
+            OfferListView.RegistrationDetailsOfSenderVisibility = Visibility.Collapsed;
+            OfferListView.RecipientEmployeeVisibility = Visibility.Collapsed;
+            OfferListView.SenderEmployeeVisibility = Visibility.Collapsed;
+            OfferListView.VatVisibility = Visibility.Collapsed;
+            OfferListView.RequestDocumentVisibility = Visibility.Collapsed;
 
             this.Loaded += OnLoaded;
         }
 
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            await _viewModel.ProjectListViewModel.LoadAsync();
+            await _viewModel.LoadAsync();
             this.Loaded -= OnLoaded;
         }
     }

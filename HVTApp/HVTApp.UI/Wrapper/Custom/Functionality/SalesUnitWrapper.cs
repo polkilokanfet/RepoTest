@@ -18,7 +18,7 @@ namespace HVTApp.UI.Wrapper
 
         protected override void RunInConstructor()
         {
-            PaymentsPlannedSaved.ForEach(x => x.SalesUnit = this);
+            //PaymentsPlannedSaved.ForEach(x => x.SalesUnit = this);
 
             this.PropertyChanged += OnSpecificationChanged;
 
@@ -95,7 +95,7 @@ namespace HVTApp.UI.Wrapper
         private DateTime? AchiveSumDate(double sumToAchive)
         {
             IEnumerable<IPayment> paymentsActual = PaymentsActual.Select(x => new PaymentActualWrapper(x.Model));
-            IEnumerable<IPayment> paymentsPlanned = PaymentsPlannedSaved.SelectMany(x => x.Payments);
+            IEnumerable<IPayment> paymentsPlanned = PaymentsPlannedSaved.SelectMany(x => x.PaymentsActual);
             IEnumerable<IPayment> payments = paymentsActual.Concat(paymentsPlanned).OrderBy(x => x.Date);
 
             double sum = 0;
@@ -250,16 +250,16 @@ namespace HVTApp.UI.Wrapper
         }
     }
 
-    //Payments
+    //PaymentsActual
     public partial class SalesUnitWrapper
     {
         /// <summary>
         /// Оставшиеся плановые платежи по условиям оплаты.
         /// </summary>
         public IEnumerable<PaymentPlannedListWrapper> PaymentPlannedListWrappersByConditionsToDone 
-            => GetPlannedPayments(this.PaymentConditionsToDone).Select(x => new PaymentPlannedListWrapper(x) {SalesUnit = this});
+            => GetPlannedPayments(this.PaymentConditionsToDone).Select(x => new PaymentPlannedListWrapper(x));
 
-        public IEnumerable<PaymentPlannedWrapper> PaymentPlannedWrappers
+        public IEnumerable<PaymentWrapper> PaymentPlannedWrappers
         {
             get
             {
@@ -281,16 +281,16 @@ namespace HVTApp.UI.Wrapper
                     }
                 }
 
-                return result.SelectMany(x => x.Payments);
+                return result.SelectMany(x => x.PaymentsActual);
             }
         }
 
         private void CheckPaymentPlannedList(PaymentPlannedListWrapper paymentPlannedListWrapper)
         {
             var sum = Cost * paymentPlannedListWrapper.Condition.Part;
-            var sumToCheck = paymentPlannedListWrapper.Payments.Sum(x => x.Sum);
+            var sumToCheck = paymentPlannedListWrapper.PaymentsActual.Sum(x => x.Sum);
 
-            foreach (var paymentPlannedWrapper in paymentPlannedListWrapper.Payments)
+            foreach (var paymentPlannedWrapper in paymentPlannedListWrapper.PaymentsActual)
             {
                 if (Math.Abs(sum - sumToCheck) < 0.0001) return;
                     paymentPlannedWrapper.Sum = paymentPlannedWrapper.Sum * sum / sumToCheck;
@@ -355,8 +355,7 @@ namespace HVTApp.UI.Wrapper
         {
             return conditions.Select(condition => new PaymentPlannedList
             {
-                SalesUnitId = Model.Id,
-                Payments = new List<PaymentPlanned> { new PaymentPlanned { Sum = Cost * condition.Part, Date = GetPaymentDate(condition)} },
+                PaymentsActual = new List<PaymentActual> { new PaymentActual { Sum = Cost * condition.Part, Date = GetPaymentDate(condition)} },
                 Condition = condition
             });
         }

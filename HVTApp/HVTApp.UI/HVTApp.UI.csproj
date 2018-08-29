@@ -111,6 +111,7 @@
     <Compile Include="Lookup\IProductUnitLookup.cs" />
     <Compile Include="Lookup\Items\Custom\AddressLookup.cs" />
     <Compile Include="Lookup\Items\Custom\OfferUnitLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\PaymentConditionSetLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SpecificationLookup.cs" />
     <Compile Include="Lookup\Items\Lookups.g.cs" />
@@ -185,10 +186,9 @@
     <Compile Include="ViewModels\Details\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModels\List\CompanyListViewModel.cs" />
     <Compile Include="ViewModels\List\Generated\ListViewModels.g.cs" />
-    <Compile Include="ViewModels\List\OfferListViewModel.cs" />
+    <Compile Include="ViewModels\List\OfferLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\PartPriceListViewModel.cs" />
     <Compile Include="ViewModels\List\PaymentPlannedListViewModel.cs" />
-    <Compile Include="ViewModels\List\ProjectListViewModel.cs" />
     <Compile Include="ViewModels\List\ProjectUnitGroupListViewModel.cs" />
     <Compile Include="ViewModels\List\UnitLookupListViewModel.cs" />
     <Compile Include="ViewModels\PaymentPlannedListGeneratorViewModel.cs" />
@@ -239,7 +239,6 @@
     <Compile Include="Wrapper\Custom\Functionality\ProductWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProjectWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\RegionWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\SalesUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\SpecificationWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\TenderWrapper.cs" />
     <Compile Include="Wrapper\Custom\IProductWithCost.cs" />
@@ -543,10 +542,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Details\PaymentPlannedListDetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Details\PersonDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -580,6 +575,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Details\Custom\ProjectUnitGroupWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Details\ProjectTypeDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -791,7 +790,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\List\PaymentPlannedListLookupListView.xaml">
+    <Page Include="Views\List\PaymentLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -824,6 +823,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\List\ProjectLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\ProjectTypeLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

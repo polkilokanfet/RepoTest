@@ -176,7 +176,7 @@
                                     RemoveItemCommand="{Binding ClearAddressCommand}"
 									Visibility="{Binding AddressVisibility, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="23" Content="DependentProducts" Visibility="{Binding DependentProductsVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="23" Content="Зависимые продукты" Visibility="{Binding DependentProductsVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="23"
 										 Items="{Binding Path=Item.DependentProducts}"
 										 SelectedItem="{Binding SelectedDependentProductsItem, Mode=TwoWay}"
@@ -192,7 +192,7 @@
 										 RemoveItemCommand="{Binding RemoveFromServicesCommand}"
 										 Visibility="{Binding ServicesVisibility, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="25" Content="PaymentsActual" Visibility="{Binding PaymentsActualVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="25" Content="Совершённые платежи" Visibility="{Binding PaymentsActualVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="25"
 										 Items="{Binding Path=Item.PaymentsActual}"
 										 SelectedItem="{Binding SelectedPaymentsActualItem, Mode=TwoWay}"
@@ -200,13 +200,13 @@
 										 RemoveItemCommand="{Binding RemoveFromPaymentsActualCommand}"
 										 Visibility="{Binding PaymentsActualVisibility, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="26" Content="PaymentsPlannedSaved" Visibility="{Binding PaymentsPlannedSavedVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="26" Content="Планируемые платежи" Visibility="{Binding PaymentsPlannedVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="26"
-										 Items="{Binding Path=Item.PaymentsPlannedSaved}"
-										 SelectedItem="{Binding SelectedPaymentsPlannedSavedItem, Mode=TwoWay}"
-										 AddItemCommand="{Binding AddInPaymentsPlannedSavedCommand}"
-										 RemoveItemCommand="{Binding RemoveFromPaymentsPlannedSavedCommand}"
-										 Visibility="{Binding PaymentsPlannedSavedVisibility, ElementName=Root}"/>
+										 Items="{Binding Path=Item.PaymentsPlanned}"
+										 SelectedItem="{Binding SelectedPaymentsPlannedItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInPaymentsPlannedCommand}"
+										 RemoveItemCommand="{Binding RemoveFromPaymentsPlannedCommand}"
+										 Visibility="{Binding PaymentsPlannedVisibility, ElementName=Root}"/>
 
 
     </Grid>

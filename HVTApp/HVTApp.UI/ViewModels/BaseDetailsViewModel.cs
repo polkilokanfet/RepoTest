@@ -34,12 +34,16 @@ namespace HVTApp.UI.ViewModels
 
             SaveCommand = new DelegateCommand(SaveCommand_Execute, SaveCommand_CanExecute);
             InitSpecialCommands();
-            InitDefaultGetMethods();
             InitSpecialGetMethods();
         }
 
+        /// <summary>
+        /// Инициализация нестандартных команд.
+        /// </summary>
         protected virtual void InitSpecialCommands() { }
-        protected virtual void InitDefaultGetMethods() { }
+        /// <summary>
+        /// Инициализация нестандартных Get-методов.
+        /// </summary>
         protected virtual void InitSpecialGetMethods() { }
 
         private static TWrapper GetWrapper(TEntity entity)

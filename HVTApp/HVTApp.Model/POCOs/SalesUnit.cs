@@ -17,6 +17,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Продукт")]
         public virtual Product Product { get; set; }
 
+        [Designation("Зависимые продукты")]
         public virtual List<ProductDependent> DependentProducts { get; set; } = new List<ProductDependent>();
 
         public virtual List<Service> Services { get; set; } = new List<Service>();
@@ -75,8 +76,11 @@ namespace HVTApp.Model.POCOs
         [Designation("Спецификация")]
         public virtual Specification Specification { get; set; }
 
+        [Designation("Совершённые платежи"), NotUpdate(Role.SalesManager | Role.Director)]
         public virtual List<PaymentActual> PaymentsActual { get; set; } = new List<PaymentActual>();
-        public virtual List<PaymentPlannedList> PaymentsPlannedSaved { get; set; } = new List<PaymentPlannedList>();
+
+        [Designation("Планируемые платежи")]
+        public virtual List<PaymentPlanned> PaymentsPlanned { get; set; } = new List<PaymentPlanned>();
 
         #endregion
 
