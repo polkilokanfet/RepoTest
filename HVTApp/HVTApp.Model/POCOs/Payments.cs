@@ -13,26 +13,15 @@ namespace HVTApp.Model.POCOs
     public class PaymentPlannedList : BaseEntity
     {
         public virtual PaymentCondition Condition { get; set; }
-        public virtual Guid SalesUnitId { get; set; }
-        public virtual List<PaymentPlanned> Payments { get; set; } = new List<PaymentPlanned>();
+        public virtual List<Payment> Payments { get; set; } = new List<Payment>();
     }
 
-    public class PaymentPlanned : BaseEntity
+    public class Payment : BaseEntity, IPayment
     {
         public DateTime Date { get; set; }
         public double Sum { get; set; }
         public string Comment { get; set; }
     }
-
-    public class PaymentActual : BaseEntity
-    {
-        public virtual Guid SalesUnitId { get; set; }
-        public DateTime Date { get; set; }
-        public double Sum { get; set; }
-        public string Comment { get; set; }
-        public virtual Guid DocumentId { get; set; }
-    }
-
 
     public enum PaymentType
     {

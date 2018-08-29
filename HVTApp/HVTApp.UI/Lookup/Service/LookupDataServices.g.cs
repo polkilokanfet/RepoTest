@@ -203,15 +203,9 @@ namespace HVTApp.UI.Lookup
     }
 
 
-    public partial class PaymentPlannedLookupDataService : LookupDataService<PaymentPlannedLookup, PaymentPlanned>, IPaymentPlannedLookupDataService
+    public partial class PaymentLookupDataService : LookupDataService<PaymentLookup, Payment>, IPaymentLookupDataService
     {
-        public PaymentPlannedLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-    }
-
-
-    public partial class PaymentActualLookupDataService : LookupDataService<PaymentActualLookup, PaymentActual>, IPaymentActualLookupDataService
-    {
-        public PaymentActualLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+        public PaymentLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
     }
 
 

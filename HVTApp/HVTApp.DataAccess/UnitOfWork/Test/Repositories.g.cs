@@ -168,14 +168,9 @@ namespace HVTApp.DataAccess
         public PaymentPlannedListRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class PaymentPlannedRepositoryTest : TestBaseRepository<PaymentPlanned>, IPaymentPlannedRepository
+    public partial class PaymentRepositoryTest : TestBaseRepository<Payment>, IPaymentRepository
     {
-        public PaymentPlannedRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class PaymentActualRepositoryTest : TestBaseRepository<PaymentActual>, IPaymentActualRepository
-    {
-        public PaymentActualRepositoryTest(TestData testData) : base(testData) {}
+        public PaymentRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class ParameterRelationRepositoryTest : TestBaseRepository<ParameterRelation>, IParameterRelationRepository

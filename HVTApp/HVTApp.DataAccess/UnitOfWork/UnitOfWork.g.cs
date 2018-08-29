@@ -46,8 +46,7 @@ namespace HVTApp.DataAccess
             ProductRelationRepository = new ProductRelationRepository(context);
             PersonRepository = new PersonRepository(context);
             PaymentPlannedListRepository = new PaymentPlannedListRepository(context);
-            PaymentPlannedRepository = new PaymentPlannedRepository(context);
-            PaymentActualRepository = new PaymentActualRepository(context);
+            PaymentRepository = new PaymentRepository(context);
             ParameterRelationRepository = new ParameterRelationRepository(context);
             SalesUnitRepository = new SalesUnitRepository(context);
             ServiceRepository = new ServiceRepository(context);
@@ -112,8 +111,7 @@ namespace HVTApp.DataAccess
         protected IProductRelationRepository ProductRelationRepository;
         protected IPersonRepository PersonRepository;
         protected IPaymentPlannedListRepository PaymentPlannedListRepository;
-        protected IPaymentPlannedRepository PaymentPlannedRepository;
-        protected IPaymentActualRepository PaymentActualRepository;
+        protected IPaymentRepository PaymentRepository;
         protected IParameterRelationRepository ParameterRelationRepository;
         protected ISalesUnitRepository SalesUnitRepository;
         protected IServiceRepository ServiceRepository;

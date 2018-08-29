@@ -45,8 +45,7 @@ namespace HVTApp.DataAccess
             context.ProductRelationDbSet.AddRange(testData.GetAll<ProductRelation>());
             context.PersonDbSet.AddRange(testData.GetAll<Person>());
             context.PaymentPlannedListDbSet.AddRange(testData.GetAll<PaymentPlannedList>());
-            context.PaymentPlannedDbSet.AddRange(testData.GetAll<PaymentPlanned>());
-            context.PaymentActualDbSet.AddRange(testData.GetAll<PaymentActual>());
+            context.PaymentDbSet.AddRange(testData.GetAll<Payment>());
             context.ParameterRelationDbSet.AddRange(testData.GetAll<ParameterRelation>());
             context.SalesUnitDbSet.AddRange(testData.GetAll<SalesUnit>());
             context.ServiceDbSet.AddRange(testData.GetAll<Service>());

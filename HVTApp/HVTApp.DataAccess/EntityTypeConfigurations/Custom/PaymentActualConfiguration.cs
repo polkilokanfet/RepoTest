@@ -1,8 +1,8 @@
 namespace HVTApp.DataAccess
 {
-    public partial class PaymentActualConfiguration
+    public partial class PaymentConfiguration
     {
-        public PaymentActualConfiguration()
+        public PaymentConfiguration()
         {
             Property(x => x.Date).IsRequired();
             Property(x => x.Sum).IsRequired();

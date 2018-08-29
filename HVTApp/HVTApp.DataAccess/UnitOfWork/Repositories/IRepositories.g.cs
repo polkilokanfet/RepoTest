@@ -36,8 +36,7 @@ namespace HVTApp.DataAccess
     public partial interface IProductRelationRepository : IRepository<ProductRelation> { }
     public partial interface IPersonRepository : IRepository<Person> { }
     public partial interface IPaymentPlannedListRepository : IRepository<PaymentPlannedList> { }
-    public partial interface IPaymentPlannedRepository : IRepository<PaymentPlanned> { }
-    public partial interface IPaymentActualRepository : IRepository<PaymentActual> { }
+    public partial interface IPaymentRepository : IRepository<Payment> { }
     public partial interface IParameterRelationRepository : IRepository<ParameterRelation> { }
     public partial interface ISalesUnitRepository : IRepository<SalesUnit> { }
     public partial interface IServiceRepository : IRepository<Service> { }

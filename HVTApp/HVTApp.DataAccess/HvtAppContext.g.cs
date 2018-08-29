@@ -42,8 +42,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new ProductRelationConfiguration());
             modelBuilder.Configurations.Add(new PersonConfiguration());
             modelBuilder.Configurations.Add(new PaymentPlannedListConfiguration());
-            modelBuilder.Configurations.Add(new PaymentPlannedConfiguration());
-            modelBuilder.Configurations.Add(new PaymentActualConfiguration());
+            modelBuilder.Configurations.Add(new PaymentConfiguration());
             modelBuilder.Configurations.Add(new ParameterRelationConfiguration());
             modelBuilder.Configurations.Add(new SalesUnitConfiguration());
             modelBuilder.Configurations.Add(new ServiceConfiguration());
@@ -109,8 +108,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<ProductRelation> ProductRelationDbSet { get; set; }
         public virtual DbSet<Person> PersonDbSet { get; set; }
         public virtual DbSet<PaymentPlannedList> PaymentPlannedListDbSet { get; set; }
-        public virtual DbSet<PaymentPlanned> PaymentPlannedDbSet { get; set; }
-        public virtual DbSet<PaymentActual> PaymentActualDbSet { get; set; }
+        public virtual DbSet<Payment> PaymentDbSet { get; set; }
         public virtual DbSet<ParameterRelation> ParameterRelationDbSet { get; set; }
         public virtual DbSet<SalesUnit> SalesUnitDbSet { get; set; }
         public virtual DbSet<Service> ServiceDbSet { get; set; }

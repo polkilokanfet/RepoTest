@@ -111,6 +111,7 @@
     <Compile Include="Lookup\IProductUnitLookup.cs" />
     <Compile Include="Lookup\Items\Custom\AddressLookup.cs" />
     <Compile Include="Lookup\Items\Custom\OfferUnitLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\PaymentConditionSetLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SpecificationLookup.cs" />
     <Compile Include="Lookup\Items\Lookups.g.cs" />
@@ -791,6 +792,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\List\PaymentDocumentLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\PaymentLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -203,15 +203,9 @@ namespace HVTApp.UI.Wrapper
     }
 
 
-    public partial class PaymentPlannedWrapperRepository : WrapperRepository<PaymentPlanned, PaymentPlannedWrapper>
+    public partial class PaymentWrapperRepository : WrapperRepository<Payment, PaymentWrapper>
     {
-        public PaymentPlannedWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
-    }
-
-
-    public partial class PaymentActualWrapperRepository : WrapperRepository<PaymentActual, PaymentActualWrapper>
-    {
-        public PaymentActualWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
+        public PaymentWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
     }
 
 

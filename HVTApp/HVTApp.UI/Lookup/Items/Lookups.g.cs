@@ -936,9 +936,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	public partial class PaymentPlannedLookup : LookupItem<PaymentPlanned>
+	public partial class PaymentLookup : LookupItem<Payment>
 	{
-		public PaymentPlannedLookup(PaymentPlanned entity) : base(entity) 
+		public PaymentLookup(Payment entity) : base(entity) 
 		{
 		}
 		protected override void RefreshLookups()
@@ -956,38 +956,6 @@ namespace HVTApp.UI.Lookup
 
 
         public System.String Comment => GetValue<System.String>();
-
-
-        #endregion
-
-	}
-
-	public partial class PaymentActualLookup : LookupItem<PaymentActual>
-	{
-		public PaymentActualLookup(PaymentActual entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
-		
-
-        #region SimpleProperties
-
-        public System.Guid SalesUnitId => GetValue<System.Guid>();
-
-
-        public System.DateTime Date => GetValue<System.DateTime>();
-
-
-        public System.Double Sum => GetValue<System.Double>();
-
-
-        public System.String Comment => GetValue<System.String>();
-
-
-        public System.Guid DocumentId => GetValue<System.Guid>();
 
 
         #endregion

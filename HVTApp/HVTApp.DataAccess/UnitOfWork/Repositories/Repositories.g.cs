@@ -168,14 +168,9 @@ namespace HVTApp.DataAccess
         public PaymentPlannedListRepository(DbContext context) : base(context) {}
     }
 
-    public partial class PaymentPlannedRepository : BaseRepository<PaymentPlanned>, IPaymentPlannedRepository
+    public partial class PaymentRepository : BaseRepository<Payment>, IPaymentRepository
     {
-        public PaymentPlannedRepository(DbContext context) : base(context) {}
-    }
-
-    public partial class PaymentActualRepository : BaseRepository<PaymentActual>, IPaymentActualRepository
-    {
-        public PaymentActualRepository(DbContext context) : base(context) {}
+        public PaymentRepository(DbContext context) : base(context) {}
     }
 
     public partial class ParameterRelationRepository : BaseRepository<ParameterRelation>, IParameterRelationRepository

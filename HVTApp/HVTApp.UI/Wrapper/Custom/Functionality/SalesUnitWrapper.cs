@@ -18,12 +18,12 @@ namespace HVTApp.UI.Wrapper
 
         protected override void RunInConstructor()
         {
-            PaymentsPlannedSaved.ForEach(x => x.SalesUnit = this);
+            //PaymentsPlannedSaved.ForEach(x => x.SalesUnit = this);
 
             this.PropertyChanged += OnSpecificationChanged;
 
-            this.PaymentsActual.CollectionChanged += PaymentsActualOnCollectionChanged;
-            this.PaymentsActual.PropertyChanged += PaymentActualOnChanged;
+            this.Payments.CollectionChanged += PaymentsActualOnCollectionChanged;
+            this.Payments.PropertyChanged += PaymentActualOnChanged;
 
             PriceDate = DateTime.Today;
         }
@@ -55,7 +55,7 @@ namespace HVTApp.UI.Wrapper
         /// <summary>
         /// Оплаченная сумма
         /// </summary>
-        public double SumPaid => PaymentsActual.Sum(x => x.Sum);
+        public double SumPaid => Payments.Sum(x => x.Sum);
 
         /// <summary>
         /// Неоплаченная сумма
@@ -94,17 +94,17 @@ namespace HVTApp.UI.Wrapper
         //дата достижения суммы
         private DateTime? AchiveSumDate(double sumToAchive)
         {
-            IEnumerable<IPayment> paymentsActual = PaymentsActual.Select(x => new PaymentActualWrapper(x.Model));
-            IEnumerable<IPayment> paymentsPlanned = PaymentsPlannedSaved.SelectMany(x => x.Payments);
-            IEnumerable<IPayment> payments = paymentsActual.Concat(paymentsPlanned).OrderBy(x => x.Date);
+            //IEnumerable<IPayment> paymentsActual = PaymentsActual.Select(x => new PaymentWrapper(x.Model));
+            //IEnumerable<IPayment> paymentsPlanned = PaymentsPlannedSaved.SelectMany(x => x.Payments);
+            //IEnumerable<IPayment> payments = paymentsActual.Concat(paymentsPlanned).OrderBy(x => x.Date);
 
-            double sum = 0;
-            foreach (var payment in payments)
-            {
-                sum += payment.Sum;
-                if (sumToAchive <= sum)
-                    return payment.Date;
-            }
+            //double sum = 0;
+            //foreach (var payment in payments)
+            //{
+            //    sum += payment.Sum;
+            //    if (sumToAchive <= sum)
+            //        return payment.Date;
+            //}
             return null;
         }
 
@@ -131,7 +131,7 @@ namespace HVTApp.UI.Wrapper
                 if (StartProductionConditionsDoneDate.HasValue) return StartProductionConditionsDoneDate.Value;
 
                 //по дате первого платежа
-                if (PaymentsActual.Any()) return PaymentsActual.OrderBy(x => x.Date).First().Date;
+                if (Payments.Any()) return Payments.OrderBy(x => x.Date).First().Date;
 
                 var productionTerm = this.ProductionTerm ?? CommonOptions.ProductionTerm;
 
@@ -257,9 +257,9 @@ namespace HVTApp.UI.Wrapper
         /// Оставшиеся плановые платежи по условиям оплаты.
         /// </summary>
         public IEnumerable<PaymentPlannedListWrapper> PaymentPlannedListWrappersByConditionsToDone 
-            => GetPlannedPayments(this.PaymentConditionsToDone).Select(x => new PaymentPlannedListWrapper(x) {SalesUnit = this});
+            => GetPlannedPayments(this.PaymentConditionsToDone).Select(x => new PaymentPlannedListWrapper(x));
 
-        public IEnumerable<PaymentPlannedWrapper> PaymentPlannedWrappers
+        public IEnumerable<PaymentWrapper> PaymentPlannedWrappers
         {
             get
             {
@@ -355,8 +355,7 @@ namespace HVTApp.UI.Wrapper
         {
             return conditions.Select(condition => new PaymentPlannedList
             {
-                SalesUnitId = Model.Id,
-                Payments = new List<PaymentPlanned> { new PaymentPlanned { Sum = Cost * condition.Part, Date = GetPaymentDate(condition)} },
+                Payments = new List<Payment> { new Payment { Sum = Cost * condition.Part, Date = GetPaymentDate(condition)} },
                 Condition = condition
             });
         }

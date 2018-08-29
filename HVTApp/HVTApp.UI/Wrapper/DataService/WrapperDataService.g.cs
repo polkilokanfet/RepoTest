@@ -73,9 +73,7 @@ namespace HVTApp.UI.Wrapper
 
             PaymentPlannedListWrapperRepository = new PaymentPlannedListWrapperRepository(this);
 
-            PaymentPlannedWrapperRepository = new PaymentPlannedWrapperRepository(this);
-
-            PaymentActualWrapperRepository = new PaymentActualWrapperRepository(this);
+            PaymentWrapperRepository = new PaymentWrapperRepository(this);
 
             ParameterRelationWrapperRepository = new ParameterRelationWrapperRepository(this);
 
@@ -198,9 +196,7 @@ namespace HVTApp.UI.Wrapper
 
         private PaymentPlannedListWrapperRepository PaymentPlannedListWrapperRepository;
 
-        private PaymentPlannedWrapperRepository PaymentPlannedWrapperRepository;
-
-        private PaymentActualWrapperRepository PaymentActualWrapperRepository;
+        private PaymentWrapperRepository PaymentWrapperRepository;
 
         private ParameterRelationWrapperRepository ParameterRelationWrapperRepository;
 
