@@ -10,6 +10,7 @@ namespace HVTApp.Modules.Sales.Menus
         {
             var root = new NavigationItem("Рынок", typeof(MarketView));
             root.Items.Add(new NavigationItem("Проект/ТКП", typeof(Market2View)));
+            root.Items.Add(new NavigationItem("ТКП", typeof(OffersView)));
             root.Items.Add(new NavigationItem("Поступления", typeof(PaymentsPlannedView)));
             root.Items.Add(new NavigationItem("Проекты", typeof(ProjectLookupListView)));
             root.Items.Add(new NavigationItem("Позиции", typeof(SalesUnitLookupListView)));

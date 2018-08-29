@@ -122,6 +122,9 @@
     <Compile Include="Lookup\Service\LookupDataServices.g.cs" />
     <Compile Include="Services\GenerateCalculatePriceTasksService\GenerateCalculatePriceTasksServiceRealization.cs" />
     <Compile Include="Services\GenerateCalculatePriceTasksService\IGenerateCalculatePriceTasksService.cs" />
+    <Compile Include="Tabs\TabOffer.xaml.cs">
+      <DependentUpon>TabOffer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\TabPartPriceCRUD.xaml.cs">
       <DependentUpon>TabPartPriceCRUD.xaml</DependentUpon>
     </Compile>
@@ -393,6 +396,10 @@
     <Page Include="Controls\UnitListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\TabOffer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Tabs\TabPartPriceCRUD.xaml">
       <SubType>Designer</SubType>

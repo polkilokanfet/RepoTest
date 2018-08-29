@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attrubutes;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Lookup
@@ -15,8 +16,11 @@ namespace HVTApp.UI.Lookup
                 await offerUnitLookup.LoadOther(unitOfWork);
         }
 
-        public List<OfferUnitLookup> OfferUnits { get; set; }
+        public List<OfferUnitLookup> OfferUnits { get; private set; }
 
+        [Designation("Компания")]
         public CompanyLookup Company => new CompanyLookup(Entity.RecipientEmployee.Company);
+
+        public double? Sum => OfferUnits?.Sum(x => x.Cost);
     }
 }

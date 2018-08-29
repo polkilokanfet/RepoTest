@@ -114,11 +114,15 @@
       <DependentUpon>SalesCRUD.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MarketViewModel.cs" />
+    <Compile Include="ViewModels\OffersViewModel.cs" />
     <Compile Include="ViewModels\OitViewModel.cs" />
     <Compile Include="ViewModels\Market2ViewModel.cs" />
     <Compile Include="ViewModels\PaymentsPlannedViewModel.cs" />
     <Compile Include="Views\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OffersView.xaml.cs">
+      <DependentUpon>OffersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OitView.xaml.cs">
       <DependentUpon>OitView.xaml</DependentUpon>
@@ -165,6 +169,10 @@
       <Project>{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}</Project>
       <Name>HVTApp.Services.GetProductService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\HVTApp.Services.OfferToDocService\HVTApp.Services.OfferToDocService.csproj">
+      <Project>{463FB05E-E997-4975-AE8F-7406A4390FCD}</Project>
+      <Name>HVTApp.Services.OfferToDocService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\HVTApp.UI\HVTApp.UI.csproj">
       <Project>{984df0f0-471d-4e38-b701-9dfc536217a8}</Project>
       <Name>HVTApp.UI</Name>
@@ -184,6 +192,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MarketView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OffersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

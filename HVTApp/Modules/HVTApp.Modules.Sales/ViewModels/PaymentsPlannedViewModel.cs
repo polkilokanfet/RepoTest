@@ -12,7 +12,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class PaymentsPlannedViewModel : SalesUnitLookupListViewModel
     {
-        public ObservableCollection<PaymentPlannedLookup> PaymentPlannedLookups = new ObservableCollection<PaymentPlannedLookup>();
+        public ObservableCollection<PaymentPlannedLookup> PaymentPlannedLookups { get; } = new ObservableCollection<PaymentPlannedLookup>();
             
 
         public PaymentsPlannedViewModel(IUnityContainer container) : base(container)
@@ -23,24 +23,9 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             await LoadAsync();
 
-            var lookups = Lookups.SelectMany(x => x.PaymentsPlannedByConditions)
-                .Select(x => new PaymentPlannedLookup(x)).ToList();
+            var lookups = Lookups.SelectMany(x => x.PaymentsPlannedByConditions).Select(x => new PaymentPlannedLookup(x)).ToList();
             PaymentPlannedLookups.AddRange(lookups);
-            OnPropertyChanged(nameof(PaymentPlannedLookups));
         }
 
-    }
-
-    public class PaymentViewModel
-    {
-        public double Sum { get; set; }
-        public DateTime Date { get; set; }
-        public PaymentCondition Condition { get; set; }
-        public string Comment { get; set; }
-
-        public PaymentViewModel(IPayment payment)
-        {
-            
-        }
     }
 }

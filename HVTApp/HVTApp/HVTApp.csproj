@@ -226,6 +226,10 @@
       <Project>{7703a90a-e742-41b1-96cb-cd0f51e3f2b6}</Project>
       <Name>HVTApp.Services.MessageService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Services.OfferToDocService\HVTApp.Services.OfferToDocService.csproj">
+      <Project>{463FB05E-E997-4975-AE8F-7406A4390FCD}</Project>
+      <Name>HVTApp.Services.OfferToDocService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Services.SelectService\HVTApp.Services.SelectService.csproj">
       <Project>{903EF15D-0826-4E21-AC44-24A869938521}</Project>
       <Name>HVTApp.Services.SelectService</Name>

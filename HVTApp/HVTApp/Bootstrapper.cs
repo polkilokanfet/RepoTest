@@ -23,6 +23,7 @@ using HVTApp.Services.ChooseService;
 using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;
 using HVTApp.Services.MessageService;
+using HVTApp.Services.OfferToDocService;
 using HVTApp.Services.SelectService;
 using HVTApp.Services.UpdateDetailsService;
 using HVTApp.UI;
@@ -99,6 +100,7 @@ namespace HVTApp
             Container.RegisterInstance(typeof(IDialogService), new DialogService((Window)Shell));
             Container.RegisterInstance(typeof(IChooseService), new ChooseService((Window)Shell));
             Container.RegisterType<IGetProductService, GetProductServiceWpf>();
+            Container.RegisterType<IOfferToDoc, OfferToDoc>();
         }
 
         protected override IModuleCatalog CreateModuleCatalog()

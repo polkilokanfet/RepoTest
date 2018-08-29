@@ -12,10 +12,9 @@
             <dataPresenter:FieldLayout>
                 <dataPresenter:FieldLayout.Fields>
                     <dataPresenter:NumericField Name="Sum" Label="Сумма" Width="Auto" />
-                    <!--<dataPresenter:DateTimeField Name="Date" Label="Дата" Width="Auto" />
+                    <dataPresenter:DateTimeField Name="Date" Label="Дата" Width="Auto" />
                     <dataPresenter:TextField Name="Condition" Label="Связанное условие" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <dataPresenter:TextField Name="Condition" Label="Связанное условие" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <dataPresenter:TextField Name="Comment" Label="Комментарий" Width="Auto" />-->
+                    <dataPresenter:TextField Name="Comment" Label="Комментарий" Width="Auto" />
                 </dataPresenter:FieldLayout.Fields>
             </dataPresenter:FieldLayout>
         </dataPresenter:XamDataGrid.FieldLayouts>
