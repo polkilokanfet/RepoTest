@@ -39,6 +39,8 @@ namespace HVTApp.Services.GetProductService
 
         public ParameterSelector(IEnumerable<Parameter> parameters)
         {
+            if(parameters == null) throw new ArgumentNullException(nameof(parameters));
+
             ParametersFlaged = new ObservableCollection<ParameterFlaged>(parameters.Select(x => new ParameterFlaged(x)));
 
             //реакция на изменение актуальности параметра
@@ -49,7 +51,7 @@ namespace HVTApp.Services.GetProductService
                     //актуализация выбранных параметров
                     if (SelectedParameterFlaged == null || !SelectedParameterFlaged.IsActual)
                         SelectedParameterFlaged = ParametersFlaged.FirstOrDefault(p => p.IsActual);
-
+                    //проверка актуальности селектора
                     OnPropertyChanged(nameof(IsActual));
                 };
             }

@@ -74,16 +74,22 @@ namespace HVTApp.Services.GetProductService
             if (selectedProductBlock != null) SelectedProductBlock = selectedProductBlock;
         }
 
-
         #endregion
 
         #region events
 
+        /// <summary>
+        /// Событие изменения выбранного блока.
+        /// </summary>
         public event Action<ProductBlockSelector> SelectedProductBlockChanged;
 
         #endregion
 
-        //группировка параметрам по группе и упорядочивание их
+        /// <summary>
+        /// группировка параметров по группе и упорядочивание их
+        /// </summary>
+        /// <param name="parameters">параметры</param>
+        /// <returns></returns>
         private IEnumerable<IEnumerable<Parameter>> GetGroupingParameters(IEnumerable<Parameter> parameters)
         {
             var groups = parameters.GroupBy(x => x.ParameterGroup).OrderBy(x => x, new ParametersEnumerableComparer());

@@ -8,8 +8,8 @@
 
     <ScrollViewer>
         <StackPanel>
-            <Button Content="Ok" Click="ButtonBase_OnClick"/>
             <local:SelectProductView DataContext="{Binding}"/>
+            <Button Content="Ok" Click="ButtonBase_OnClick"/>
         </StackPanel>
     </ScrollViewer>
 </Window>

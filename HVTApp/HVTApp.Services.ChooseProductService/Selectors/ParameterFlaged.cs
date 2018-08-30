@@ -1,6 +1,4 @@
 using System;
-using System.Linq;
-using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.GetProductService
@@ -17,6 +15,9 @@ namespace HVTApp.Services.GetProductService
 
         public Parameter Parameter { get; }
 
+        /// <summary>
+        /// Флаг актуальности параметра.
+        /// </summary>
         public bool IsActual
         {
             get { return _isActual; }

@@ -10,8 +10,6 @@ namespace HVTApp.Services.GetProductService
     public class GetProductServiceWpf : IGetProductService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private bool _loaded = false;
-
         private ProductsBlocksParameters _productsBlocksParameters;
 
         public GetProductServiceWpf(IUnitOfWork unitOfWork)
@@ -21,16 +19,12 @@ namespace HVTApp.Services.GetProductService
 
         public async Task LoadAsync()
         {
-            if (_loaded) return;
-
             var parameters = await _unitOfWork.GetRepository<Parameter>().GetAllAsync();
             var products = await _unitOfWork.GetRepository<Product>().GetAllAsync();
             var productRelations = await _unitOfWork.GetRepository<ProductRelation>().GetAllAsync();
             var productBlocks = await _unitOfWork.GetRepository<ProductBlock>().GetAllAsync();
 
             _productsBlocksParameters = new ProductsBlocksParameters(products, productBlocks, parameters, productRelations);
-
-            _loaded = true;
         }
 
         public async Task<Product> GetProductAsync(Product originProduct = null)
@@ -49,9 +43,13 @@ namespace HVTApp.Services.GetProductService
             };
             window.ShowDialog();
 
+            //выходим, если пользователь отменил выбор продукта.
             if (!window.DialogResult.HasValue || !window.DialogResult.Value) return originProduct;
 
             var result = productSelector.SelectedProduct;
+
+            await AddIfMissed(result);
+            //если выбранного продукта нет в базе
             if (!_productsBlocksParameters.Products.Contains(result))
             {
                 _unitOfWork.GetRepository<Product>().Add(result);
@@ -60,6 +58,19 @@ namespace HVTApp.Services.GetProductService
             }
 
             return result;
+        }
+
+        private async Task AddIfMissed(Product product)
+        {
+            foreach (var dependentProduct in product.DependentProducts)
+            {
+                await AddIfMissed(dependentProduct);
+            }
+
+            if (await _unitOfWork.GetRepository<Product>().GetByIdAsync(product.Id) == null)
+            {
+                _unitOfWork.GetRepository<Product>().Add(product);
+            }
         }
 
         private async Task GenerateDescribeProductBlockTasks(Product product)
