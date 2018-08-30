@@ -5,6 +5,11 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
+    public class ProductType : BaseEntity
+    {
+        public string Name { get; set; }
+    }
+
     public partial class ProductBlock : BaseEntity
     {
         public string Name { get; set; }

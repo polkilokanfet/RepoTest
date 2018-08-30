@@ -117,6 +117,10 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterTransformatorTrg110;
         public Parameter ParameterTransformatorTvg110;
 
+        public ProductDesignation ProductDesignationVgb35;
+        public ProductDesignation ProductDesignationVeb110;
+        public ProductDesignation ProductDesignationZng110;
+
         public ProductRelation RequiredChildProductRelationDrive;
         public ProductRelation RequiredChildProductRelationBreakerBlock;
         public ProductRelation RequiredChildProductRelationTvg110;
@@ -419,7 +423,12 @@ namespace HVTApp.TestDataGenerator
             });
         }
 
-
+        private void GenerateProductDesignations()
+        {
+            ProductDesignationVgb35.Clone(new ProductDesignation { Designation = "ВГБ-110", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage35kV } });
+            ProductDesignationVeb110.Clone(new ProductDesignation { Designation = "ВЭБ-110", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV } });
+            ProductDesignationZng110.Clone(new ProductDesignation { Designation = "ЗНГ-110", Parameters = new List<Parameter> { ParameterTransformatorVoltage, ParameterVoltage110kV } });
+        }
 
         private void GenerateProductBlocs()
         {

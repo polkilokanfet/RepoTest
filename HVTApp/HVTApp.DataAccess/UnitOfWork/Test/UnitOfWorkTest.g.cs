@@ -24,6 +24,8 @@ namespace HVTApp.DataAccess
             NoteRepository = new NoteRepositoryTest(testData);
             OfferUnitRepository = new OfferUnitRepositoryTest(testData);
             PaymentConditionSetRepository = new PaymentConditionSetRepositoryTest(testData);
+            ProductDesignationRepository = new ProductDesignationRepositoryTest(testData);
+            ProductTypeRepository = new ProductTypeRepositoryTest(testData);
             ProductBlockRepository = new ProductBlockRepositoryTest(testData);
             ProductDependentRepository = new ProductDependentRepositoryTest(testData);
             ProductionTaskRepository = new ProductionTaskRepositoryTest(testData);
@@ -89,6 +91,8 @@ namespace HVTApp.DataAccess
         public INoteRepository NoteRepository { get; }
         public IOfferUnitRepository OfferUnitRepository { get; }
         public IPaymentConditionSetRepository PaymentConditionSetRepository { get; }
+        public IProductDesignationRepository ProductDesignationRepository { get; }
+        public IProductTypeRepository ProductTypeRepository { get; }
         public IProductBlockRepository ProductBlockRepository { get; }
         public IProductDependentRepository ProductDependentRepository { get; }
         public IProductionTaskRepository ProductionTaskRepository { get; }

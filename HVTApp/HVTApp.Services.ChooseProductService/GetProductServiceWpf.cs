@@ -4,17 +4,20 @@ using System.Threading.Tasks;
 using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.Services.ProductDesignationService;
 
 namespace HVTApp.Services.GetProductService
 {
     public class GetProductServiceWpf : IGetProductService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IProductDesignationService _productDesignationService;
         private Bank _bank;
 
-        public GetProductServiceWpf(IUnitOfWork unitOfWork)
+        public GetProductServiceWpf(IUnitOfWork unitOfWork, IProductDesignationService productDesignationService)
         {
             _unitOfWork = unitOfWork;
+            _productDesignationService = productDesignationService;
         }
 
         public async Task LoadAsync()
@@ -35,7 +38,7 @@ namespace HVTApp.Services.GetProductService
                 ? null
                 : await _unitOfWork.GetRepository<Product>().GetByIdAsync(originProduct.Id);
 
-            var productSelector = new ProductSelector(_bank, null, selectedProduct);
+            var productSelector = new ProductSelector(_bank, _productDesignationService, null, selectedProduct);
             var window = new SelectProductWindow
             {
                 DataContext = productSelector,

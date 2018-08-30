@@ -230,6 +230,10 @@
       <Project>{463FB05E-E997-4975-AE8F-7406A4390FCD}</Project>
       <Name>HVTApp.Services.OfferToDocService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Services.ProductDesignationService\HVTApp.Services.ProductDesignationService.csproj">
+      <Project>{0C7AD837-18EE-435F-BD72-5FC8C03FF9A7}</Project>
+      <Name>HVTApp.Services.ProductDesignationService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Services.SelectService\HVTApp.Services.SelectService.csproj">
       <Project>{903EF15D-0826-4E21-AC44-24A869938521}</Project>
       <Name>HVTApp.Services.SelectService</Name>

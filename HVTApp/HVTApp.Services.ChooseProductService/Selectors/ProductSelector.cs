@@ -4,12 +4,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
+using HVTApp.Services.ProductDesignationService;
 
 namespace HVTApp.Services.GetProductService
 {
     public class ProductSelector : NotifyPropertyChanged
     {
         private readonly Bank _bank;
+        private readonly IProductDesignationService _productDesignationService;
         public ProductBlockSelector ProductBlockSelector { get; }
         public ObservableCollection<ProductSelector> ProductSelectors { get; } = new ObservableCollection<ProductSelector>();
         public int Amount { get; }
@@ -23,18 +25,22 @@ namespace HVTApp.Services.GetProductService
                     ProductBlock = ProductBlockSelector.SelectedProductBlock,
                     DependentProducts = ProductSelectors.Select(x => x.SelectedProduct).ToList()
                 };
-                product.Designation = product.ToString();
+                product.Designation = _productDesignationService.GetDesignation(product);
 
                 var existsProduct = _bank.Products.SingleOrDefault(x => x.Equals(product));
+                if (existsProduct != null)
+                    existsProduct.Designation = _productDesignationService.GetDesignation(existsProduct);
 
                 return existsProduct ?? product;
             }
         }
 
-        public ProductSelector(Bank bank, IEnumerable<Parameter> parameters = null, Product selectedProduct = null, int amount = 1)
+        public ProductSelector(Bank bank, IProductDesignationService productDesignationService, 
+            IEnumerable<Parameter> parameters = null, Product selectedProduct = null, int amount = 1)
         {
             if(bank == null) throw new ArgumentNullException(nameof(bank));
             _bank = bank;
+            _productDesignationService = productDesignationService;
 
             parameters = parameters ?? bank.Parameters;
 
@@ -58,7 +64,7 @@ namespace HVTApp.Services.GetProductService
                 {
                     //редактируем список параметров
                     var usefullParameters = bank.Parameters.GetUsefull(kvp.Key.ChildProductParameters);
-                    var productSelector = new ProductSelector(bank, usefullParameters, kvp.Value);
+                    var productSelector = new ProductSelector(bank, _productDesignationService, usefullParameters, kvp.Value);
                     ProductSelectors.Add(productSelector);
                     productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
                 }
@@ -111,7 +117,7 @@ namespace HVTApp.Services.GetProductService
             {
                 for (int i = 0; i < relaitionsDictionary[productRelation]; i++)
                 {
-                    var productSelector = new ProductSelector(_bank, 
+                    var productSelector = new ProductSelector(_bank, _productDesignationService,
                         _bank.Parameters.GetUsefull(productRelation.ChildProductParameters));
                     ProductSelectors.Add(productSelector);
                     productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;

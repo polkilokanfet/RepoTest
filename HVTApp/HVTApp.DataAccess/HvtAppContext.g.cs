@@ -26,6 +26,8 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new NoteConfiguration());
             modelBuilder.Configurations.Add(new OfferUnitConfiguration());
             modelBuilder.Configurations.Add(new PaymentConditionSetConfiguration());
+            modelBuilder.Configurations.Add(new ProductDesignationConfiguration());
+            modelBuilder.Configurations.Add(new ProductTypeConfiguration());
             modelBuilder.Configurations.Add(new ProductBlockConfiguration());
             modelBuilder.Configurations.Add(new ProductDependentConfiguration());
             modelBuilder.Configurations.Add(new ProductionTaskConfiguration());
@@ -92,6 +94,8 @@ namespace HVTApp.DataAccess
         public virtual DbSet<Note> NoteDbSet { get; set; }
         public virtual DbSet<OfferUnit> OfferUnitDbSet { get; set; }
         public virtual DbSet<PaymentConditionSet> PaymentConditionSetDbSet { get; set; }
+        public virtual DbSet<ProductDesignation> ProductDesignationDbSet { get; set; }
+        public virtual DbSet<ProductType> ProductTypeDbSet { get; set; }
         public virtual DbSet<ProductBlock> ProductBlockDbSet { get; set; }
         public virtual DbSet<ProductDependent> ProductDependentDbSet { get; set; }
         public virtual DbSet<ProductionTask> ProductionTaskDbSet { get; set; }

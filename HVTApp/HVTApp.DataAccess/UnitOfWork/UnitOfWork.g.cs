@@ -30,6 +30,8 @@ namespace HVTApp.DataAccess
             NoteRepository = new NoteRepository(context);
             OfferUnitRepository = new OfferUnitRepository(context);
             PaymentConditionSetRepository = new PaymentConditionSetRepository(context);
+            ProductDesignationRepository = new ProductDesignationRepository(context);
+            ProductTypeRepository = new ProductTypeRepository(context);
             ProductBlockRepository = new ProductBlockRepository(context);
             ProductDependentRepository = new ProductDependentRepository(context);
             ProductionTaskRepository = new ProductionTaskRepository(context);
@@ -95,6 +97,8 @@ namespace HVTApp.DataAccess
         protected INoteRepository NoteRepository;
         protected IOfferUnitRepository OfferUnitRepository;
         protected IPaymentConditionSetRepository PaymentConditionSetRepository;
+        protected IProductDesignationRepository ProductDesignationRepository;
+        protected IProductTypeRepository ProductTypeRepository;
         protected IProductBlockRepository ProductBlockRepository;
         protected IProductDependentRepository ProductDependentRepository;
         protected IProductionTaskRepository ProductionTaskRepository;

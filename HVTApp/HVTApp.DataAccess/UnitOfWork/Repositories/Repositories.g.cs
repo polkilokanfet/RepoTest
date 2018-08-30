@@ -88,6 +88,16 @@ namespace HVTApp.DataAccess
         public PaymentConditionSetRepository(DbContext context) : base(context) {}
     }
 
+    public partial class ProductDesignationRepository : BaseRepository<ProductDesignation>, IProductDesignationRepository
+    {
+        public ProductDesignationRepository(DbContext context) : base(context) {}
+    }
+
+    public partial class ProductTypeRepository : BaseRepository<ProductType>, IProductTypeRepository
+    {
+        public ProductTypeRepository(DbContext context) : base(context) {}
+    }
+
     public partial class ProductBlockRepository : BaseRepository<ProductBlock>, IProductBlockRepository
     {
         public ProductBlockRepository(DbContext context) : base(context) {}
