@@ -5,6 +5,7 @@ namespace HVTApp.DataAccess
         public ProductBlockConfiguration()
         {
             HasMany(x => x.Parameters).WithMany();
+            HasMany(x => x.Prices).WithOptional();
         }
     }
 }

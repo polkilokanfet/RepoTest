@@ -48,7 +48,7 @@ namespace HVTApp.Services.GetProductService
             {
                 parameterFlaged.IsActualChanged += parameter =>
                 {
-                    //актуализация выбранных параметров
+                    //актуализация выбранного параметра
                     if (SelectedParameterFlaged == null || !SelectedParameterFlaged.IsActual)
                         SelectedParameterFlaged = ParametersFlaged.FirstOrDefault(p => p.IsActual);
                     //проверка актуальности селектора

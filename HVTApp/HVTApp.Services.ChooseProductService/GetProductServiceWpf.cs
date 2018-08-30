@@ -10,7 +10,7 @@ namespace HVTApp.Services.GetProductService
     public class GetProductServiceWpf : IGetProductService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private ProductsBlocksParameters _productsBlocksParameters;
+        private Bank _bank;
 
         public GetProductServiceWpf(IUnitOfWork unitOfWork)
         {
@@ -24,7 +24,7 @@ namespace HVTApp.Services.GetProductService
             var productRelations = await _unitOfWork.GetRepository<ProductRelation>().GetAllAsync();
             var productBlocks = await _unitOfWork.GetRepository<ProductBlock>().GetAllAsync();
 
-            _productsBlocksParameters = new ProductsBlocksParameters(products, productBlocks, parameters, productRelations);
+            _bank = new Bank(products, productBlocks, parameters, productRelations);
         }
 
         public async Task<Product> GetProductAsync(Product originProduct = null)
@@ -35,7 +35,7 @@ namespace HVTApp.Services.GetProductService
                 ? null
                 : await _unitOfWork.GetRepository<Product>().GetByIdAsync(originProduct.Id);
 
-            var productSelector = new ProductSelector(_productsBlocksParameters, null, selectedProduct);
+            var productSelector = new ProductSelector(_bank, null, selectedProduct);
             var window = new SelectProductWindow
             {
                 DataContext = productSelector,
@@ -48,9 +48,8 @@ namespace HVTApp.Services.GetProductService
 
             var result = productSelector.SelectedProduct;
 
-            await AddIfMissed(result);
             //если выбранного продукта нет в базе
-            if (!_productsBlocksParameters.Products.Contains(result))
+            if (!_bank.Products.Contains(result))
             {
                 _unitOfWork.GetRepository<Product>().Add(result);
                 await GenerateDescribeProductBlockTasks(result);
@@ -58,19 +57,6 @@ namespace HVTApp.Services.GetProductService
             }
 
             return result;
-        }
-
-        private async Task AddIfMissed(Product product)
-        {
-            foreach (var dependentProduct in product.DependentProducts)
-            {
-                await AddIfMissed(dependentProduct);
-            }
-
-            if (await _unitOfWork.GetRepository<Product>().GetByIdAsync(product.Id) == null)
-            {
-                _unitOfWork.GetRepository<Product>().Add(product);
-            }
         }
 
         private async Task GenerateDescribeProductBlockTasks(Product product)
@@ -101,9 +87,12 @@ namespace HVTApp.Services.GetProductService
         }
     }
 
-    public class ProductsBlocksParameters
+    /// <summary>
+    /// Хранилище параметров и т.д.
+    /// </summary>
+    public class Bank
     {
-        public ProductsBlocksParameters(List<Product> products, List<ProductBlock> productBlocks, List<Parameter> parameters, List<ProductRelation> productRelations)
+        public Bank(List<Product> products, List<ProductBlock> productBlocks, List<Parameter> parameters, List<ProductRelation> productRelations)
         {
             Products = products;
             ProductBlocks = productBlocks;

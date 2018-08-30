@@ -15,40 +15,70 @@ namespace HVTApp.Services.GetProductService
         #endregion
 
         #region private props
-        private List<Parameter> SelectedParameters => ParameterSelectors.Select(x => x.SelectedParameterFlaged)
-            .Where(x => x != null).Select(x => x.Parameter).ToList();
+        private List<Parameter> SelectedParameters => ParameterSelectors.Select(x => x.SelectedParameterFlaged).Where(x => x != null).Select(x => x.Parameter).ToList();
         #endregion
 
         #region props
 
         public ObservableCollection<ParameterSelector> ParameterSelectors { get; }
 
+        /// <summary>
+        /// Выбранный блок
+        /// </summary>
         public ProductBlock SelectedProductBlock
         {
             get
             {
+                //если все выбранные параметры совпадают
                 if (_selectedProductBlock != null && SelectedParameters.AllMembersAreSame(_selectedProductBlock.Parameters))
                     return _selectedProductBlock;
+
+                //поиск в существующих блоках
                 var result = _existsProductBlocks.SingleOrDefault(x => x.Parameters.AllMembersAreSame(SelectedParameters));
-                _selectedProductBlock = result ?? new ProductBlock { Parameters = SelectedParameters };
+                if (result != null)
+                {
+                    _selectedProductBlock = result;
+                    return _selectedProductBlock;
+                }
+
+                //создание нового блока
+                _selectedProductBlock = new ProductBlock { Parameters = SelectedParameters };
+                _selectedProductBlock.Name = _selectedProductBlock.ParametersToString();
+                _selectedProductBlock.StructureCostNumber = "blank";
+                _existsProductBlocks.Add(_selectedProductBlock);
                 return _selectedProductBlock;
             }
             set
             {
-                if (SelectedParameters.AllMembersAreSame(value.Parameters)) return;
+                var blockNew = value;
+                if(blockNew == null) throw new ArgumentNullException(nameof(blockNew));
+
+                //если совпадают выбранные параметры и параметры нового блока
+                if (SelectedParameters.AllMembersAreSame(blockNew.Parameters)) return;
+
+
                 var parameterSelectors = ParameterSelectors.ToList();
+                //отписываемся от событий выбора нового параметра
                 parameterSelectors.ForEach(ps => ps.SelectedParameterFlagedChanged -= OnSelectedParameterChanged);
+                //обнуляем выбранные параметры
                 parameterSelectors.ForEach(ps => ps.SelectedParameterFlaged = null);
-                foreach (var parameter in value.Parameters)
+
+                //назначение в каждый селектор необходимого параметра
+                foreach (var parameter in blockNew.Parameters)
                 {
+                    //поиск селектора
                     var selector = ParameterSelectors.Single(ps => ps.ParametersFlaged.Select(x => x.Parameter).Contains(parameter));
+                    //выбор параметра
                     selector.SelectedParameterFlaged = selector.ParametersFlaged.Single(p => p.Parameter.Equals(parameter));
+                    selector.SelectedParameterFlaged.IsActual = true;
                 }
+
+                //подписываемся на события выбора нового параметра в каждом селекторе
                 parameterSelectors.ForEach(ps => ps.SelectedParameterFlagedChanged += OnSelectedParameterChanged);
 
                 OnSelectedParameterChanged(null);
 
-                _selectedProductBlock = value;
+                _selectedProductBlock = blockNew;
 
                 OnPropertyChanged();
                 SelectedProductBlockChanged?.Invoke(this);
@@ -71,7 +101,13 @@ namespace HVTApp.Services.GetProductService
             //реакция на смену параметра в селекторе
             ParameterSelectors.ToList().ForEach(ps => ps.SelectedParameterFlagedChanged += OnSelectedParameterChanged);
 
-            if (selectedProductBlock != null) SelectedProductBlock = selectedProductBlock;
+            //если есть выбранный блок
+            if (selectedProductBlock != null)
+            {
+                if(!selectedProductBlock.Parameters.AllContainsIn(parameters))
+                    throw new ArgumentException("Параметры блока не соответствуют возможным параметрам.");
+                SelectedProductBlock = selectedProductBlock;
+            }
         }
 
         #endregion
@@ -99,15 +135,26 @@ namespace HVTApp.Services.GetProductService
             }
         }
 
-        //выбор первого базового параметра
+        /// <summary>
+        /// Выбор первого базового параметра.
+        /// </summary>
         public void SelectFirstParameter()
         {
+            //все параметры
             var parametersFlaged = ParameterSelectors.SelectMany(x => x.ParametersFlaged);
+
+            //параметр, у которого нет родительских параметров
             var selectedParameterFlaged = parametersFlaged.First(x => !x.Parameter.ParameterRelations.Any());
+
+            //поиск селектора, содержащего такой праметр и назначение параметра
             var parameterSelector = ParameterSelectors.Single(x => x.ParametersFlaged.Contains(selectedParameterFlaged));
             parameterSelector.SelectedParameterFlaged = selectedParameterFlaged;
         }
 
+        /// <summary>
+        /// Реакция на изменение выбранного параметра в селекторе.
+        /// </summary>
+        /// <param name="parameterSelector"></param>
         private void OnSelectedParameterChanged(ParameterSelector parameterSelector)
         {
             //перепроверка актуальности параметров
@@ -116,7 +163,7 @@ namespace HVTApp.Services.GetProductService
             {
                 parameterFlaged.IsActual = parameterFlaged.Parameter.IsOrigin ||
                     parameterFlaged.Parameter.ParameterRelations.
-                    Any(x => x.RequiredParameters.AllContainsIn(SelectedProductBlock.Parameters));
+                    Any(x => x.RequiredParameters.AllContainsIn(SelectedParameters));
             }
 
             SelectedProductBlockChanged?.Invoke(this);
