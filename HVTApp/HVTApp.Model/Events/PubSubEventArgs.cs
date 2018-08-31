@@ -1,4 +1,4 @@
-namespace HVTApp.UI.Events
+namespace HVTApp.Model.Events
 {
     public class PubSubEventArgs<TEntity>
     {

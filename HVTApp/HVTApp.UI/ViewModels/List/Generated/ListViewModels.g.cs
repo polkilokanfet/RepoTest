@@ -1,6 +1,5 @@
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Events;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Events;
 using Microsoft.Practices.Unity;
 using HVTApp.UI.Lookup;
 

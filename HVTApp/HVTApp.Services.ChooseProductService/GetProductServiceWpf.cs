@@ -2,6 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using HVTApp.Infrastructure;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.ProductDesignationService;
 using Prism.Events;
@@ -52,6 +53,7 @@ namespace HVTApp.Services.GetProductService
             {
                 _unitOfWork.GetRepository<Product>().Add(result);
                 await _unitOfWork.SaveChangesAsync();
+                _eventAggregator.GetEvent<AfterSaveProductEvent>().Publish(result);
             }
 
             return result;

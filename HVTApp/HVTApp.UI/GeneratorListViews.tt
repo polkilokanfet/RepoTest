@@ -182,8 +182,7 @@ namespace HVTApp.UI.Lookup
     private void GenerateListViewModels(IEnumerable<Type> modelTypes)
 	{
 #>using HVTApp.Model.POCOs;
-using HVTApp.UI.Events;
-using HVTApp.UI.Wrapper;
+using HVTApp.Model.Events;
 using Microsoft.Practices.Unity;
 using HVTApp.UI.Lookup;
 

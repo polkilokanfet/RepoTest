@@ -1,7 +1,7 @@
 using HVTApp.Model.POCOs;
 using Prism.Events;
 
-namespace HVTApp.UI.Events
+namespace HVTApp.Model.Events
 {
 	public partial class AfterSelectPaymentActualEvent : PubSubEvent<PubSubEventArgs<PaymentActual>> { }
 	public partial class AfterSelectPaymentPlannedEvent : PubSubEvent<PubSubEventArgs<PaymentPlanned>> { }

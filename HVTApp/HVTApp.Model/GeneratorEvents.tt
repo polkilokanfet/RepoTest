@@ -1,0 +1,113 @@
+<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(SolutionDir)\HVTApp.Model\bin\Debug\HVTApp.Model.dll" #>
+<#@ assembly name="$(SolutionDir)\HVTApp.Infrestructure\bin\Debug\HVTApp.Infrastructure.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="HVTApp.Model.POCOs" #>
+<#@ import namespace="HVTApp.Infrastructure" #>
+<#@ import namespace="HVTApp.Model" #>
+<#@ output extension=".txt" #>
+<#
+	var modelTypes = GeneratorHelpers.GetModelTypesPocos();
+
+	GenerateAfterSaveEntityEvents(modelTypes);
+	SaveGeneratedCodeAsFile("AfterSaveEntityEvents.g.cs", "Events");
+
+	GenerateAfterRemoveEntityEvents(modelTypes);
+	SaveGeneratedCodeAsFile("AfterRemoveEntityEvents.g.cs", "Events");
+
+	GenerateAfterSelectEntityEvents(modelTypes);
+	SaveGeneratedCodeAsFile("AfterSelectEntityEvents.g.cs", "Events");
+
+#><#+
+
+
+
+
+    private void GenerateAfterSaveEntityEvents(IEnumerable<Type> modelTypes)
+    {
+#>using HVTApp.Model.POCOs;
+using Prism.Events;
+
+namespace HVTApp.Model.Events
+{
+<#+
+        foreach(var modelType in modelTypes)
+        {
+            GenerateAfterSaveEntityEvent(modelType);
+        }
+#>}
+<#+
+    }
+
+	private void GenerateAfterSaveEntityEvent(Type modelType)
+	{
+#>	public partial class AfterSave<#=modelType.Name#>Event : PubSubEvent<<#=modelType.Name#>> { }
+<#+
+	}
+
+
+    private void GenerateAfterRemoveEntityEvents(IEnumerable<Type> modelTypes)
+    {
+#>using HVTApp.Model.POCOs;
+using Prism.Events;
+
+namespace HVTApp.Model.Events
+{
+<#+
+        foreach(var modelType in modelTypes)
+        {
+            GenerateAfterRemoveEntityEvent(modelType);
+        }
+#>}
+<#+
+    }
+
+	private void GenerateAfterRemoveEntityEvent(Type modelType)
+	{
+#>	public partial class AfterRemove<#=modelType.Name#>Event : PubSubEvent<<#=modelType.Name#>> { }
+<#+
+	}
+
+
+    private void GenerateAfterSelectEntityEvents(IEnumerable<Type> modelTypes)
+    {
+#>using HVTApp.Model.POCOs;
+using Prism.Events;
+
+namespace HVTApp.Model.Events
+{
+<#+
+        foreach(var modelType in modelTypes)
+        {
+            GenerateAfterSelectEntityEvent(modelType);
+        }
+#>}
+<#+
+    }
+
+	private void GenerateAfterSelectEntityEvent(Type modelType)
+	{
+#>	public partial class AfterSelect<#=modelType.Name#>Event : PubSubEvent<PubSubEventArgs<<#=modelType.Name#>>> { }
+<#+
+	}
+
+
+    //сохранение сгенерированного кода в отдельный файл.
+    private void SaveGeneratedCodeAsFile(string fileName, string filePath)
+    {
+		string directoryName = Path.GetDirectoryName(Host.TemplateFile);
+        string dir = Path.Combine(directoryName, filePath);
+  
+        string outputFilePath = Path.Combine(dir, fileName);
+        File.WriteAllText(outputFilePath, GenerationEnvironment.ToString()); 
+ 
+        GenerationEnvironment.Clear();
+    }
+
+#>

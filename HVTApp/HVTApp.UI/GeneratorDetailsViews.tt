@@ -19,20 +19,8 @@
 	GenerateDetailsViewModels(modelTypes);
 	SaveGeneratedCodeAsFile("DetailsViewModels.g.cs", "ViewModels/Details/Generated");
 
-	GenerateAfterSaveEntityEvents(modelTypes);
-	SaveGeneratedCodeAsFile("AfterSaveEntityEvents.g.cs", "Events/AfterSaveEntityEvents");
-
-	GenerateAfterRemoveEntityEvents(modelTypes);
-	SaveGeneratedCodeAsFile("AfterRemoveEntityEvents.g.cs", "Events/AfterRemoveEntityEvents");
-
-	GenerateAfterSelectEntityEvents(modelTypes);
-	SaveGeneratedCodeAsFile("AfterSelectEntityEvents.g.cs", "Events/AfterSelectEntityEvents");
-
 	GenerateDetailsViews(modelTypes);
 	SaveGeneratedCodeAsFile("DetailsViews.g.cs", "Views/Details/cs");
-
-
-
 
     GenerateDetailsViewsXaml(modelTypes);
 
@@ -42,8 +30,8 @@
     private void GenerateDetailsViewModels(IEnumerable<Type> modelTypes)
 	{
 #>using HVTApp.Model.POCOs;
-using HVTApp.UI.Events;
 using HVTApp.UI.Wrapper;
+using HVTApp.Model.Events;
 using Microsoft.Practices.Unity;
 using System.Windows.Input;
 using Prism.Commands;
@@ -179,73 +167,6 @@ namespace HVTApp.UI.ViewModels
 
 	}
 
-    private void GenerateAfterSaveEntityEvents(IEnumerable<Type> modelTypes)
-    {
-#>using HVTApp.Model.POCOs;
-using Prism.Events;
-
-namespace HVTApp.UI.Events
-{
-<#+
-        foreach(var modelType in modelTypes)
-        {
-            GenerateAfterSaveEntityEvent(modelType);
-        }
-#>}
-<#+
-    }
-
-	private void GenerateAfterSaveEntityEvent(Type modelType)
-	{
-#>	public partial class AfterSave<#=modelType.Name#>Event : PubSubEvent<<#=modelType.Name#>> { }
-<#+
-	}
-
-
-    private void GenerateAfterRemoveEntityEvents(IEnumerable<Type> modelTypes)
-    {
-#>using HVTApp.Model.POCOs;
-using Prism.Events;
-
-namespace HVTApp.UI.Events
-{
-<#+
-        foreach(var modelType in modelTypes)
-        {
-            GenerateAfterRemoveEntityEvent(modelType);
-        }
-#>}
-<#+
-    }
-
-	private void GenerateAfterRemoveEntityEvent(Type modelType)
-	{
-#>	public partial class AfterRemove<#=modelType.Name#>Event : PubSubEvent<<#=modelType.Name#>> { }
-<#+
-	}
-
-
-    private void GenerateAfterSelectEntityEvents(IEnumerable<Type> modelTypes)
-    {
-#>using HVTApp.Model.POCOs;
-using Prism.Events;
-
-namespace HVTApp.UI.Events
-{
-<#+
-        foreach(var modelType in modelTypes)
-        {
-            GenerateAfterSelectEntityEvent(modelType);
-        }
-#>}
-<#+
-    }
-
-	private void GenerateAfterSelectEntityEvent(Type modelType)
-	{
-#>	public partial class AfterSelect<#=modelType.Name#>Event : PubSubEvent<PubSubEventArgs<<#=modelType.Name#>>> { }
-<#+
-	}
 
 	private void GenerateDetailsViews(IEnumerable<Type> modelTypes)
 	{

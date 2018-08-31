@@ -4,7 +4,6 @@ using System.Linq;
 using System.Windows.Documents;
 using System.Windows.Input;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Events;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;

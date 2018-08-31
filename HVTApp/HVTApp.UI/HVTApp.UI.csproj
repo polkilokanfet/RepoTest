@@ -102,10 +102,6 @@
     </Compile>
     <Compile Include="Converter\ProductGroupToProductUnitsConverter.cs" />
     <Compile Include="Converter\ToUnitGroupsConverters.cs" />
-    <Compile Include="Events\AfterRemoveEntityEvents\AfterRemoveEntityEvents.g.cs" />
-    <Compile Include="Events\AfterSaveEntityEvents\AfterSaveEntityEvents.g.cs" />
-    <Compile Include="Events\AfterSelectEntityEvents\AfterSelectEntityEvents.g.cs" />
-    <Compile Include="Events\AfterSelectEntityEvents\PubSubEventArgs.cs" />
     <Compile Include="Extantions\DesignationExt.cs" />
     <Compile Include="GeneratorHelpers.cs" />
     <Compile Include="Lookup\IProductUnitLookup.cs" />

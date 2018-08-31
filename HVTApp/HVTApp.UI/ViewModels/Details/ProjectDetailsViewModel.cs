@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Events;
 using HVTApp.UI.Services;
-using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 

@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Events;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;

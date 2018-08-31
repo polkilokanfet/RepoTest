@@ -49,6 +49,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\AfterRemoveEntityEvents.g.cs" />
+    <Compile Include="Events\AfterSaveEntityEvents.g.cs" />
+    <Compile Include="Events\AfterSelectEntityEvents.g.cs" />
+    <Compile Include="Events\PubSubEventArgs.cs" />
+    <Compile Include="GeneratorHelpers.cs" />
     <Compile Include="POCOs\IPayment.cs" />
     <Compile Include="POCOs\PaymentActual.cs" />
     <Compile Include="POCOs\PaymentPlanned.cs" />
@@ -135,6 +140,15 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Generator.cs</LastGenOutput>
     </Content>
+    <Content Include="GeneratorEvents.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GeneratorEvents.txt</LastGenOutput>
+    </Content>
+    <Resource Include="GeneratorEvents.txt">
+      <DependentUpon>GeneratorEvents.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="POCOs\Generated\" />
