@@ -29,6 +29,8 @@ namespace HVTApp.DataAccess
             context.NoteDbSet.AddRange(testData.GetAll<Note>());
             context.OfferUnitDbSet.AddRange(testData.GetAll<OfferUnit>());
             context.PaymentConditionSetDbSet.AddRange(testData.GetAll<PaymentConditionSet>());
+            context.ProductDesignationDbSet.AddRange(testData.GetAll<ProductDesignation>());
+            context.ProductTypeDbSet.AddRange(testData.GetAll<ProductType>());
             context.ProductBlockDbSet.AddRange(testData.GetAll<ProductBlock>());
             context.ProductDependentDbSet.AddRange(testData.GetAll<ProductDependent>());
             context.ProductionTaskDbSet.AddRange(testData.GetAll<ProductionTask>());

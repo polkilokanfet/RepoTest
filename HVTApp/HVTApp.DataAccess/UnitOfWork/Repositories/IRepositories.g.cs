@@ -20,6 +20,8 @@ namespace HVTApp.DataAccess
     public partial interface INoteRepository : IRepository<Note> { }
     public partial interface IOfferUnitRepository : IRepository<OfferUnit> { }
     public partial interface IPaymentConditionSetRepository : IRepository<PaymentConditionSet> { }
+    public partial interface IProductDesignationRepository : IRepository<ProductDesignation> { }
+    public partial interface IProductTypeRepository : IRepository<ProductType> { }
     public partial interface IProductBlockRepository : IRepository<ProductBlock> { }
     public partial interface IProductDependentRepository : IRepository<ProductDependent> { }
     public partial interface IProductionTaskRepository : IRepository<ProductionTask> { }

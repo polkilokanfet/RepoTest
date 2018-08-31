@@ -77,6 +77,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\NoteConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\OfferUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductBlockConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ProductDesignationConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProjectTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TenderTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TestHusbandConfiguration.cs" />
