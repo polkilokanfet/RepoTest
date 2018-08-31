@@ -97,6 +97,7 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupTransformatorCurrentType;
         public ParameterGroup ParameterGroupVoltage;
         public ParameterGroup ParameterGroupDrivesVoltage;
+        public ParameterGroup ParameterGroupIsolation;
 
         public Parameter ParameterDependentEquipment;
         public Parameter ParameterZip1;
@@ -364,7 +365,8 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupTransformatorType.Clone(new ParameterGroup {Name = "Тип трансформатора"});
             ParameterGroupTransformatorCurrentType.Clone(new ParameterGroup {Name = "Тип трансформатора тока"});
             ParameterGroupVoltage.Clone(new ParameterGroup {Name = "Номинальное напряжение", Measure = MeasureKv});
-            ParameterGroupDrivesVoltage.Clone(new ParameterGroup {Name = "Номинальное напряжение двигателя завода пружин", Measure = MeasureKv});
+            ParameterGroupDrivesVoltage.Clone(new ParameterGroup { Name = "Номинальное напряжение двигателя завода пружин", Measure = MeasureKv });
+            ParameterGroupIsolation.Clone(new ParameterGroup { Name = "Длина пути утечки" });
         }
 
         private void GenerateParameters()
