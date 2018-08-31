@@ -2270,6 +2270,10 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ProductDetailsViewModel : BaseDetailsViewModel<ProductWrapper, Product, AfterSaveProductEvent>
     {
+		private Func<Task<List<ProductType>>> _getEntitiesForSelectProductTypeCommand;
+		public ICommand SelectProductTypeCommand { get; private set; }
+		public ICommand ClearProductTypeCommand { get; private set; }
+
 		private Func<Task<List<ProductBlock>>> _getEntitiesForSelectProductBlockCommand;
 		public ICommand SelectProductBlockCommand { get; private set; }
 		public ICommand ClearProductBlockCommand { get; private set; }
@@ -2293,6 +2297,11 @@ namespace HVTApp.UI.ViewModels
         public ProductDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
+			if (_getEntitiesForSelectProductTypeCommand == null) _getEntitiesForSelectProductTypeCommand = async () => { return await WrapperDataService.GetRepository<ProductType>().GetAllAsync(); };
+			if (SelectProductTypeCommand == null) SelectProductTypeCommand = new DelegateCommand(SelectProductTypeCommand_Execute_Default);
+			if (ClearProductTypeCommand == null) ClearProductTypeCommand = new DelegateCommand(ClearProductTypeCommand_Execute_Default);
+
+			
 			if (_getEntitiesForSelectProductBlockCommand == null) _getEntitiesForSelectProductBlockCommand = async () => { return await WrapperDataService.GetRepository<ProductBlock>().GetAllAsync(); };
 			if (SelectProductBlockCommand == null) SelectProductBlockCommand = new DelegateCommand(SelectProductBlockCommand_Execute_Default);
 			if (ClearProductBlockCommand == null) ClearProductBlockCommand = new DelegateCommand(ClearProductBlockCommand_Execute_Default);
@@ -2302,6 +2311,16 @@ namespace HVTApp.UI.ViewModels
 			if (AddInDependentProductsCommand == null) AddInDependentProductsCommand = new DelegateCommand(AddInDependentProductsCommand_Execute_Default);
 			if (RemoveFromDependentProductsCommand == null) RemoveFromDependentProductsCommand = new DelegateCommand(RemoveFromDependentProductsCommand_Execute_Default, RemoveFromDependentProductsCommand_CanExecute_Default);
 
+		}
+
+		private async void SelectProductTypeCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ProductType, ProductTypeWrapper>(await _getEntitiesForSelectProductTypeCommand(), nameof(Item.ProductType), Item.ProductType?.Id);
+		}
+
+		private void ClearProductTypeCommand_Execute_Default() 
+		{
+						Item.ProductType = null;		    
 		}
 
 		private async void SelectProductBlockCommand_Execute_Default() 

@@ -3156,15 +3156,6 @@ namespace HVTApp.UI.Wrapper
         public bool DesignationSpecialIsChanged => GetIsChanged(nameof(DesignationSpecial));
 
 
-        public System.String ProductType
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String ProductTypeOriginalValue => GetOriginalValue<System.String>(nameof(ProductType));
-        public bool ProductTypeIsChanged => GetIsChanged(nameof(ProductType));
-
-
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3178,6 +3169,13 @@ namespace HVTApp.UI.Wrapper
 
 
         #region ComplexProperties
+
+	    public ProductTypeWrapper ProductType 
+        {
+            get { return GetWrapper<ProductTypeWrapper>(); }
+            set { SetComplexValue<ProductType, ProductTypeWrapper>(ProductType, value); }
+        }
+
 
 	    public ProductBlockWrapper ProductBlock 
         {
@@ -3198,6 +3196,9 @@ namespace HVTApp.UI.Wrapper
 
         public override void InitializeComplexProperties()
         {
+
+            InitializeComplexProperty<ProductTypeWrapper>(nameof(ProductType), Model.ProductType == null ? null : new ProductTypeWrapper(Model.ProductType));
+
 
             InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlock), Model.ProductBlock == null ? null : new ProductBlockWrapper(Model.ProductBlock));
 

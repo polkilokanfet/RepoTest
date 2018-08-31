@@ -85,6 +85,7 @@ namespace HVTApp.DataAccess
 	{
 #>using System.Data.Entity;
 using HVTApp.Model.POCOs;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.DataAccess
 {
@@ -94,7 +95,12 @@ namespace HVTApp.DataAccess
 #>
     public partial class <#=modelType.Name#>Repository : BaseRepository<<#=modelType.Name#>>, I<#=modelType.Name#>Repository
     {
-        public <#=modelType.Name#>Repository(DbContext context) : base(context) {}
+        IUnityContainer _container;
+
+		public <#=modelType.Name#>Repository(DbContext context, IUnityContainer container) : base(context) 
+		{
+			_container = container;
+		}
     }
 
 <#+
@@ -204,7 +210,7 @@ namespace HVTApp.DataAccess
 #>using System.Data.Entity;
 using System.Linq;
 using HVTApp.Infrastructure;
-
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.DataAccess
 {
@@ -212,7 +218,7 @@ namespace HVTApp.DataAccess
     {
         private readonly DbContext _context;
 
-        public UnitOfWork(DbContext context)
+        public UnitOfWork(DbContext context, IUnityContainer container)
         {
             _context = context;
 			#region RepositoriesInit
@@ -220,7 +226,7 @@ namespace HVTApp.DataAccess
 	foreach (var modelType in modelTypes)
     {
 #>
-            <#=modelType.Name#>Repository = new <#=modelType.Name#>Repository(context);
+            <#=modelType.Name#>Repository = new <#=modelType.Name#>Repository(context, container);
 <#+
 	}
 #>

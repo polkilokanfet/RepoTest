@@ -1,10 +1,11 @@
 using System.Data.Entity;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Wrapper
 {
     public partial class WrapperDataService
     {
-        public WrapperDataService(DbContext context) : base(context)
+        public WrapperDataService(DbContext context, IUnityContainer container) : base(context, container)
         {
 
             PaymentActualWrapperRepository = new PaymentActualWrapperRepository(this);

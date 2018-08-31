@@ -26,7 +26,8 @@ namespace HVTApp.Services.GetProductService
                     ProductBlock = ProductBlockSelector.SelectedProductBlock,
                     DependentProducts = ProductSelectors.Select(x => x.SelectedProduct).ToList()
                 };
-                //product.Designation = _designator.GetDesignation(product);
+                product.Designation = _designator.GetDesignation(product);
+                product.ProductType = _designator.GetProductType(product);
 
                 var existsProduct = _bank.Products.SingleOrDefault(x => x.Equals(product));
 

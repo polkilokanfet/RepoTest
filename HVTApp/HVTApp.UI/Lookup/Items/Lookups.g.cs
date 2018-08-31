@@ -1521,6 +1521,8 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
+			ProductType?.Refresh(Entity.ProductType);
+
 			ProductBlock?.Refresh(Entity.ProductBlock);
 
 		}
@@ -1534,13 +1536,13 @@ namespace HVTApp.UI.Lookup
         public System.String DesignationSpecial => GetValue<System.String>();
 
 
-        public System.String ProductType => GetValue<System.String>();
-
-
         #endregion
 
 
         #region ComplexProperties
+
+	    public ProductTypeLookup ProductType { get { return GetLookup<ProductTypeLookup>(); } }
+
 
 	    public ProductBlockLookup ProductBlock { get { return GetLookup<ProductBlockLookup>(); } }
 

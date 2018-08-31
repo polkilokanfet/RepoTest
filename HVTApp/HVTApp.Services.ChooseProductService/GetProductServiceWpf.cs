@@ -4,6 +4,7 @@ using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.ProductDesignationService;
+using Prism.Events;
 
 namespace HVTApp.Services.GetProductService
 {
@@ -11,12 +12,14 @@ namespace HVTApp.Services.GetProductService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IProductDesignationService _designator;
+        private readonly IEventAggregator _eventAggregator;
         private Bank _bank;
 
-        public GetProductServiceWpf(IUnitOfWork unitOfWork, IProductDesignationService designator)
+        public GetProductServiceWpf(IUnitOfWork unitOfWork, IProductDesignationService designator, IEventAggregator eventAggregator)
         {
             _unitOfWork = unitOfWork;
             _designator = designator;
+            _eventAggregator = eventAggregator;
         }
 
         public async Task LoadAsync()
