@@ -10,12 +10,16 @@ namespace HVTApp.Services.GetProductService
     public class ProductBlockSelector : NotifyPropertyChanged
     {
         #region fields
+
         private ProductBlock _selectedProductBlock;
         private readonly List<ProductBlock> _existsProductBlocks;
+
         #endregion
 
         #region private props
+
         private List<Parameter> SelectedParameters => ParameterSelectors.Select(x => x.SelectedParameterFlaged).Where(x => x != null).Select(x => x.Parameter).ToList();
+
         #endregion
 
         #region props
@@ -38,7 +42,7 @@ namespace HVTApp.Services.GetProductService
                 if (result != null)
                 {
                     _selectedProductBlock = result;
-                    return _selectedProductBlock;
+                    return result;
                 }
 
                 //создание нового блока
@@ -50,11 +54,11 @@ namespace HVTApp.Services.GetProductService
             }
             set
             {
-                var blockNew = value;
-                if(blockNew == null) throw new ArgumentNullException(nameof(blockNew));
+                var blockToSet = value;
+                if(blockToSet == null) throw new ArgumentNullException(nameof(blockToSet));
 
                 //если совпадают выбранные параметры и параметры нового блока
-                if (SelectedParameters.AllMembersAreSame(blockNew.Parameters)) return;
+                if (SelectedParameters.AllMembersAreSame(blockToSet.Parameters)) return;
 
 
                 var parameterSelectors = ParameterSelectors.ToList();
@@ -64,7 +68,7 @@ namespace HVTApp.Services.GetProductService
                 parameterSelectors.ForEach(ps => ps.SelectedParameterFlaged = null);
 
                 //назначение в каждый селектор необходимого параметра
-                foreach (var parameter in blockNew.Parameters)
+                foreach (var parameter in blockToSet.Parameters)
                 {
                     //поиск селектора
                     var selector = ParameterSelectors.Single(ps => ps.ParametersFlaged.Select(x => x.Parameter).Contains(parameter));
@@ -78,7 +82,7 @@ namespace HVTApp.Services.GetProductService
 
                 OnSelectedParameterChanged(null);
 
-                _selectedProductBlock = blockNew;
+                _selectedProductBlock = blockToSet;
 
                 OnPropertyChanged();
                 SelectedProductBlockChanged?.Invoke(this);
@@ -89,16 +93,16 @@ namespace HVTApp.Services.GetProductService
 
         #region ctor
 
-        public ProductBlockSelector(IEnumerable<Parameter> parameters, List<ProductBlock> existsProductBlocks = null,
+        public ProductBlockSelector(IEnumerable<Parameter> parameters, List<ProductBlock> existsProductBlocks,
             ProductBlock selectedProductBlock = null)
         {
-            _existsProductBlocks = existsProductBlocks ?? new List<ProductBlock>();
+            _existsProductBlocks = existsProductBlocks;
 
             //создаем селекторы параметров
-            ParameterSelectors = new ObservableCollection<ParameterSelector>(
-                GetGroupingParameters(parameters).Select(x => new ParameterSelector(x)));
+            var groupedParameters = GetGroupingParameters(parameters).Select(x => new ParameterSelector(x));
+            ParameterSelectors = new ObservableCollection<ParameterSelector>(groupedParameters);
 
-            //реакция на смену параметра в селекторе
+            //подписка на смену параметра в селекторе
             ParameterSelectors.ToList().ForEach(ps => ps.SelectedParameterFlagedChanged += OnSelectedParameterChanged);
 
             //если есть выбранный блок

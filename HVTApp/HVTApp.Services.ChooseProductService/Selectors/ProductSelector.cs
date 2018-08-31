@@ -12,6 +12,7 @@ namespace HVTApp.Services.GetProductService
     {
         private readonly Bank _bank;
         private readonly IProductDesignationService _designator;
+
         public ProductBlockSelector ProductBlockSelector { get; }
         public ObservableCollection<ProductSelector> ProductSelectors { get; } = new ObservableCollection<ProductSelector>();
         public int Amount { get; }
@@ -33,14 +34,13 @@ namespace HVTApp.Services.GetProductService
             }
         }
 
-        public ProductSelector(Bank bank, IProductDesignationService designator, 
-            IEnumerable<Parameter> parameters = null, Product selectedProduct = null, int amount = 1)
+        public ProductSelector(Bank bank, IProductDesignationService designator, IEnumerable<Parameter> parameters, 
+                               Product selectedProduct = null, int amount = 1)
         {
-            if(bank == null) throw new ArgumentNullException(nameof(bank));
+            if (bank == null) throw new ArgumentNullException(nameof(bank));
+            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
             _bank = bank;
             _designator = designator;
-
-            parameters = parameters ?? bank.Parameters;
 
             Amount = amount;
             ProductBlockSelector = new ProductBlockSelector(parameters, _bank.ProductBlocks, selectedProduct?.ProductBlock);
@@ -172,7 +172,9 @@ namespace HVTApp.Services.GetProductService
         }
 
         #region events
+
         public event Action SelectedProductChanged;
+
         #endregion
     }
 }

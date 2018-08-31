@@ -53,6 +53,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bank.cs" />
     <Compile Include="BooleanToVisibilityConverter.cs" />
     <Compile Include="GetProductServiceWpf.cs" />
     <Compile Include="Ext.cs" />
