@@ -3,8 +3,8 @@ using HVTApp.Infrastructure.Attrubutes;
 
 namespace HVTApp.Model.POCOs
 {
-    [Designation("Тип проекта"), DesignationPlural("Типы проекта")]
-    public class ProjectType : BaseEntity
+    [Designation("Тип продукта")]
+    public class ProductType : BaseEntity
     {
         [Designation("Название")]
         public string Name { get; set; }

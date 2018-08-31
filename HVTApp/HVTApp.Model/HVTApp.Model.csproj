@@ -54,6 +54,8 @@
     <Compile Include="POCOs\PaymentPlanned.cs" />
     <Compile Include="POCOs\PaymentType.cs" />
     <Compile Include="POCOs\ProductDesignation.cs" />
+    <Compile Include="POCOs\ProductType.cs" />
+    <Compile Include="POCOs\ProductTypeDesignation.cs" />
     <Compile Include="POCOs\ProjectType.cs" />
     <Compile Include="RoleAccessAttribute.cs" />
     <Compile Include="POCOs\CommonOption.cs" />

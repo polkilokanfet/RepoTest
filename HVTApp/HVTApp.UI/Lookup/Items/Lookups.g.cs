@@ -81,6 +81,48 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	public partial class ProductDesignationLookup : LookupItem<ProductDesignation>
+	{
+		public ProductDesignationLookup(ProductDesignation entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+		}
+		
+
+        #region SimpleProperties
+
+        public System.String Designation => GetValue<System.String>();
+
+
+        #endregion
+
+	}
+
+	public partial class ProductTypeDesignationLookup : LookupItem<ProductTypeDesignation>
+	{
+		public ProductTypeDesignationLookup(ProductTypeDesignation entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+			ProductType?.Refresh(Entity.ProductType);
+
+		}
+		
+
+        #region ComplexProperties
+
+	    public ProductTypeLookup ProductType { get { return GetLookup<ProductTypeLookup>(); } }
+
+
+        #endregion
+
+	}
+
 	public partial class ProjectTypeLookup : LookupItem<ProjectType>
 	{
 		public ProjectTypeLookup(ProjectType entity) : base(entity) 
@@ -515,6 +557,26 @@ namespace HVTApp.UI.Lookup
 			 
 		}
 		
+	}
+
+	public partial class ProductTypeLookup : LookupItem<ProductType>
+	{
+		public ProductTypeLookup(ProductType entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+		}
+		
+
+        #region SimpleProperties
+
+        public System.String Name => GetValue<System.String>();
+
+
+        #endregion
+
 	}
 
 	public partial class ProductBlockLookup : LookupItem<ProductBlock>
@@ -1459,6 +1521,8 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
+			ProductType?.Refresh(Entity.ProductType);
+
 			ProductBlock?.Refresh(Entity.ProductBlock);
 
 		}
@@ -1469,10 +1533,16 @@ namespace HVTApp.UI.Lookup
         public System.String Designation => GetValue<System.String>();
 
 
+        public System.String DesignationSpecial => GetValue<System.String>();
+
+
         #endregion
 
 
         #region ComplexProperties
+
+	    public ProductTypeLookup ProductType { get { return GetLookup<ProductTypeLookup>(); } }
+
 
 	    public ProductBlockLookup ProductBlock { get { return GetLookup<ProductBlockLookup>(); } }
 

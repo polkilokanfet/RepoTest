@@ -41,14 +41,14 @@ namespace HVTApp.Services.GetProductServiceTests.Selectors2
             var productRelations = testData.GetAll<ProductRelation>().ToList();
             Bank bank = new Bank(products, productBlocks, parameters, productRelations);
 
-            var productSelector = new ProductSelector(bank);
+            //var productSelector = new ProductSelector(bank);
         }
 
         [TestMethod]
         public async Task GetProductServiceTest()
         {
-            var getProductService = new GetProductServiceWpf(new UnitOfWorkTest(new TestData()));
-            await getProductService.GetProductAsync();
+            //var getProductService = new GetProductServiceWpf(new UnitOfWorkTest(new TestData()));
+            //await getProductService.GetProductAsync();
         }
     }
 }

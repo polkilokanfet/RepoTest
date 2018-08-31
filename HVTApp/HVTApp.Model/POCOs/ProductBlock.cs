@@ -2,19 +2,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attrubutes;
 
 namespace HVTApp.Model.POCOs
 {
-    public class ProductType : BaseEntity
-    {
-        public string Name { get; set; }
-    }
-
+    [Designation("Блок")]
     public partial class ProductBlock : BaseEntity
     {
+        [Designation("Название")]
         public string Name { get; set; }
+
+        [Designation("Параметры")]
         public virtual List<Parameter> Parameters { get; set; } = new List<Parameter>();
+
+        [Designation("Себестоимости")]
         public virtual List<SumOnDate> Prices { get; set; } = new List<SumOnDate>();
+
+        [Designation("Сралчахвост")]
         public string StructureCostNumber { get; set; }
 
         public string ParametersToString()

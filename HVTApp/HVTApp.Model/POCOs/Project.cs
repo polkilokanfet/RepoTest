@@ -11,7 +11,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Название")]
         public string Name { get; set; }
 
-        public ProjectType ProjectType { get; set; }
+        public virtual ProjectType ProjectType { get; set; }
 
         [Designation("Менеджер"), NotUpdate(Role.SalesManager)]
         public virtual User Manager { get; set; }

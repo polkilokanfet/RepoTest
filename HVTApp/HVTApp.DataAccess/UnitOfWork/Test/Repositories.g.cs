@@ -13,6 +13,16 @@ namespace HVTApp.DataAccess
         public PaymentPlannedRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class ProductDesignationRepositoryTest : TestBaseRepository<ProductDesignation>, IProductDesignationRepository
+    {
+        public ProductDesignationRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class ProductTypeDesignationRepositoryTest : TestBaseRepository<ProductTypeDesignation>, IProductTypeDesignationRepository
+    {
+        public ProductTypeDesignationRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class ProjectTypeRepositoryTest : TestBaseRepository<ProjectType>, IProjectTypeRepository
     {
         public ProjectTypeRepositoryTest(TestData testData) : base(testData) {}
@@ -86,11 +96,6 @@ namespace HVTApp.DataAccess
     public partial class PaymentConditionSetRepositoryTest : TestBaseRepository<PaymentConditionSet>, IPaymentConditionSetRepository
     {
         public PaymentConditionSetRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class ProductDesignationRepositoryTest : TestBaseRepository<ProductDesignation>, IProductDesignationRepository
-    {
-        public ProductDesignationRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class ProductTypeRepositoryTest : TestBaseRepository<ProductType>, IProductTypeRepository

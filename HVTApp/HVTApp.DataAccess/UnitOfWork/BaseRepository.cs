@@ -23,13 +23,13 @@ namespace HVTApp.DataAccess
             return await Context.Set<TEntity>().ToListAsync();
         }
 
-        public async Task<List<TEntity>> GetAllAsNoTrackingAsync()
+        public virtual async Task<List<TEntity>> GetAllAsNoTrackingAsync()
         {
             Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
             return await Context.Set<TEntity>().AsNoTracking().ToListAsync();
         }
 
-        public List<TEntity> Find(Func<TEntity, bool> predicate)
+        public virtual List<TEntity> Find(Func<TEntity, bool> predicate)
         {
             return Context.Set<TEntity>().Where(predicate).ToList();
         }
@@ -56,7 +56,7 @@ namespace HVTApp.DataAccess
             Context.Set<TEntity>().RemoveRange(entities);
         }
 
-        public async Task<TEntity> GetByIdAsync(Guid id)
+        public virtual async Task<TEntity> GetByIdAsync(Guid id)
         {
             return await Context.Set<TEntity>().FindAsync(id);
         }

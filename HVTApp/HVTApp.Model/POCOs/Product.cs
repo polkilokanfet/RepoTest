@@ -3,24 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attrubutes;
 using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Model.POCOs
 {
+    [Designation("Продукт"), DesignationPlural("Продукты")]
     public partial class Product : BaseEntity
     {
+        [Designation("Обозначение")]
         public string Designation { get; set; }
 
+        [Designation("Специальное обозначение")]
+        public string DesignationSpecial { get; set; }
+
+        [Designation("Тип")]
+        public ProductType ProductType { get; set; }
+
+        [Designation("Блок")]
         public virtual ProductBlock ProductBlock { get; set; }
 
+        [Designation("Продукты в составе")]
         public virtual List<Product> DependentProducts { get; set; } = new List<Product>();
-    }
 
-    public partial class Product
-    {
+
+
         public override string ToString()
         {
-            return string.IsNullOrEmpty(Designation) ? ProductBlock.ToString() : Designation;
+            if (!string.IsNullOrEmpty(DesignationSpecial)) return DesignationSpecial;
+            if (!string.IsNullOrEmpty(Designation)) return Designation;
+            return ProductBlock.ToString();
         }
 
         public override bool Equals(object obj)

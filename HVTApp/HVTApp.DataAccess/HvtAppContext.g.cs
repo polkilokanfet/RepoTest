@@ -11,6 +11,8 @@ namespace HVTApp.DataAccess
 			#region Configurations
             modelBuilder.Configurations.Add(new PaymentActualConfiguration());
             modelBuilder.Configurations.Add(new PaymentPlannedConfiguration());
+            modelBuilder.Configurations.Add(new ProductDesignationConfiguration());
+            modelBuilder.Configurations.Add(new ProductTypeDesignationConfiguration());
             modelBuilder.Configurations.Add(new ProjectTypeConfiguration());
             modelBuilder.Configurations.Add(new CommonOptionConfiguration());
             modelBuilder.Configurations.Add(new AddressConfiguration());
@@ -26,7 +28,6 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new NoteConfiguration());
             modelBuilder.Configurations.Add(new OfferUnitConfiguration());
             modelBuilder.Configurations.Add(new PaymentConditionSetConfiguration());
-            modelBuilder.Configurations.Add(new ProductDesignationConfiguration());
             modelBuilder.Configurations.Add(new ProductTypeConfiguration());
             modelBuilder.Configurations.Add(new ProductBlockConfiguration());
             modelBuilder.Configurations.Add(new ProductDependentConfiguration());
@@ -79,6 +80,8 @@ namespace HVTApp.DataAccess
 		#region DbSets
         public virtual DbSet<PaymentActual> PaymentActualDbSet { get; set; }
         public virtual DbSet<PaymentPlanned> PaymentPlannedDbSet { get; set; }
+        public virtual DbSet<ProductDesignation> ProductDesignationDbSet { get; set; }
+        public virtual DbSet<ProductTypeDesignation> ProductTypeDesignationDbSet { get; set; }
         public virtual DbSet<ProjectType> ProjectTypeDbSet { get; set; }
         public virtual DbSet<CommonOption> CommonOptionDbSet { get; set; }
         public virtual DbSet<Address> AddressDbSet { get; set; }
@@ -94,7 +97,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<Note> NoteDbSet { get; set; }
         public virtual DbSet<OfferUnit> OfferUnitDbSet { get; set; }
         public virtual DbSet<PaymentConditionSet> PaymentConditionSetDbSet { get; set; }
-        public virtual DbSet<ProductDesignation> ProductDesignationDbSet { get; set; }
         public virtual DbSet<ProductType> ProductTypeDbSet { get; set; }
         public virtual DbSet<ProductBlock> ProductBlockDbSet { get; set; }
         public virtual DbSet<ProductDependent> ProductDependentDbSet { get; set; }

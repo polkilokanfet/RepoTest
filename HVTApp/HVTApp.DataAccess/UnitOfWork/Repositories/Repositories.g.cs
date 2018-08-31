@@ -1,5 +1,6 @@
 using System.Data.Entity;
 using HVTApp.Model.POCOs;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.DataAccess
 {
@@ -11,6 +12,16 @@ namespace HVTApp.DataAccess
     public partial class PaymentPlannedRepository : BaseRepository<PaymentPlanned>, IPaymentPlannedRepository
     {
         public PaymentPlannedRepository(DbContext context) : base(context) {}
+    }
+
+    public partial class ProductDesignationRepository : BaseRepository<ProductDesignation>, IProductDesignationRepository
+    {
+        public ProductDesignationRepository(DbContext context) : base(context) {}
+    }
+
+    public partial class ProductTypeDesignationRepository : BaseRepository<ProductTypeDesignation>, IProductTypeDesignationRepository
+    {
+        public ProductTypeDesignationRepository(DbContext context) : base(context) {}
     }
 
     public partial class ProjectTypeRepository : BaseRepository<ProjectType>, IProjectTypeRepository
@@ -86,11 +97,6 @@ namespace HVTApp.DataAccess
     public partial class PaymentConditionSetRepository : BaseRepository<PaymentConditionSet>, IPaymentConditionSetRepository
     {
         public PaymentConditionSetRepository(DbContext context) : base(context) {}
-    }
-
-    public partial class ProductDesignationRepository : BaseRepository<ProductDesignation>, IProductDesignationRepository
-    {
-        public ProductDesignationRepository(DbContext context) : base(context) {}
     }
 
     public partial class ProductTypeRepository : BaseRepository<ProductType>, IProductTypeRepository
@@ -250,7 +256,11 @@ namespace HVTApp.DataAccess
 
     public partial class ProductRepository : BaseRepository<Product>, IProductRepository
     {
-        public ProductRepository(DbContext context) : base(context) {}
+        private readonly IUnityContainer _container;
+        public ProductRepository(DbContext context, IUnityContainer container) : base(context)
+        {
+            _container = container;
+        }
     }
 
     public partial class OfferRepository : BaseRepository<Offer>, IOfferRepository

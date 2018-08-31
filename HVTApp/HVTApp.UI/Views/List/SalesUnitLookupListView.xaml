@@ -17,8 +17,8 @@
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="OrderPosition" Label="Позиция" Width="Auto" />
                     <infg:TextField Name="SerialNumber" Label="Номер" Width="Auto" />
-                    <infg:NumericField Name="OrderInTakeYear" Label="OrderInTakeYear" Width="Auto" />
-                    <infg:NumericField Name="OrderInTakeMonth" Label="OrderInTakeMonth" Width="Auto" />
+                    <infg:NumericField Name="OrderInTakeYear" Label="Год" Width="Auto" />
+                    <infg:NumericField Name="OrderInTakeMonth" Label="Месяц" Width="Auto" />
                     <infg:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" />
                     <infg:NumericField Name="AssembleTerm" Label="Срок сборки" Width="Auto" />
                     <infg:NumericField Name="ExpectedDeliveryPeriod" Label="Срок доставки" Width="Auto" />
@@ -29,11 +29,11 @@
                     <infg:NumericField Name="DeliveryPeriodCalculated" Label="DeliveryPeriodCalculated" Width="Auto" />
                     <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" />
                     <infg:NumericField Name="CostOfShipment" Label="Стоимость доставки" Width="Auto" />
-                    <infg:DateTimeField Name="OrderInTakeDate" Label="OrderInTakeDate" Width="Auto" />
+                    <infg:DateTimeField Name="OrderInTakeDate" Label="ОИТ" Width="Auto" />
                     <infg:DateTimeField Name="StartProductionConditionsDoneDate" Label="StartProductionConditionsDoneDate" Width="Auto" />
                     <infg:DateTimeField Name="ShippingConditionsDoneDate" Label="ShippingConditionsDoneDate" Width="Auto" />
-                    <infg:DateTimeField Name="StartProductionDateCalculated" Label="Расчетная дата производства" Width="Auto" />
-                    <infg:DateTimeField Name="EndProductionDateCalculated" Label="EndProductionDateCalculated" Width="Auto" />
+                    <infg:DateTimeField Name="StartProductionDateCalculated" Label="Начало произчодства (расч.)" Width="Auto" />
+                    <infg:DateTimeField Name="EndProductionDateCalculated" Label="Окончание произчодства (расч.)" Width="Auto" />
                     <infg:DateTimeField Name="RealizationDateCalculated" Label="RealizationDateCalculated" Width="Auto" />
                     <infg:DateTimeField Name="ShipmentDateCalculated" Label="ShipmentDateCalculated" Width="Auto" />
                     <infg:DateTimeField Name="DeliveryDateCalculated" Label="DeliveryDateCalculated" Width="Auto" />
@@ -45,6 +45,8 @@
                     <infg:DateTimeField Name="ShipmentDate" Label="Дата отгрузки" Width="Auto" />
                     <infg:DateTimeField Name="ShipmentPlanDate" Label="Дата отгрузки" Width="Auto" />
                     <infg:DateTimeField Name="DeliveryDate" Label="Дата поставки" Width="Auto" />
+                    <infg:TextField Name="Payments" Label="Payments" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="PaymentsPlannedByConditions" Label="PaymentsPlannedByConditions" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>

@@ -2,6 +2,8 @@ namespace HVTApp.UI.Lookup
 {
 	public interface IPaymentActualLookupDataService : ILookupDataService<PaymentActualLookup> { } 
 	public interface IPaymentPlannedLookupDataService : ILookupDataService<PaymentPlannedLookup> { } 
+	public interface IProductDesignationLookupDataService : ILookupDataService<ProductDesignationLookup> { } 
+	public interface IProductTypeDesignationLookupDataService : ILookupDataService<ProductTypeDesignationLookup> { } 
 	public interface IProjectTypeLookupDataService : ILookupDataService<ProjectTypeLookup> { } 
 	public interface ICommonOptionLookupDataService : ILookupDataService<CommonOptionLookup> { } 
 	public interface IAddressLookupDataService : ILookupDataService<AddressLookup> { } 
@@ -17,6 +19,7 @@ namespace HVTApp.UI.Lookup
 	public interface INoteLookupDataService : ILookupDataService<NoteLookup> { } 
 	public interface IOfferUnitLookupDataService : ILookupDataService<OfferUnitLookup> { } 
 	public interface IPaymentConditionSetLookupDataService : ILookupDataService<PaymentConditionSetLookup> { } 
+	public interface IProductTypeLookupDataService : ILookupDataService<ProductTypeLookup> { } 
 	public interface IProductBlockLookupDataService : ILookupDataService<ProductBlockLookup> { } 
 	public interface IProductDependentLookupDataService : ILookupDataService<ProductDependentLookup> { } 
 	public interface IProductionTaskLookupDataService : ILookupDataService<ProductionTaskLookup> { } 

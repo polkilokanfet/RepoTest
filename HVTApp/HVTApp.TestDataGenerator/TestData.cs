@@ -117,6 +117,16 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterTransformatorTrg110;
         public Parameter ParameterTransformatorTvg110;
 
+        public ProductType ProductTypeDeadTankBreaker;
+        public ProductType ProductTypeLiveTankBreaker;
+        public ProductType ProductTypeCurrentTransformer;
+        public ProductType ProductTypeVoltageTransformer;
+
+        public ProductTypeDesignation ProductTypeDesignationDeadTankBreaker;
+        public ProductTypeDesignation ProductTypeDesignationLiveTankBreaker;
+        public ProductTypeDesignation ProductTypeDesignationCurrentTransformer;
+        public ProductTypeDesignation ProductTypeDesignationVoltageTransformer;
+
         public ProductDesignation ProductDesignationVgb35;
         public ProductDesignation ProductDesignationVeb110;
         public ProductDesignation ProductDesignationZng110;
@@ -423,11 +433,27 @@ namespace HVTApp.TestDataGenerator
             });
         }
 
+        private void GenerateProductTypes()
+        {
+            ProductTypeDeadTankBreaker.Clone(new ProductType {Name = "Выключатель баковый"});
+            ProductTypeLiveTankBreaker.Clone(new ProductType { Name = "Выключатель колонковый" });
+            ProductTypeCurrentTransformer.Clone(new ProductType { Name = "Трансформатор тока" });
+            ProductTypeVoltageTransformer.Clone(new ProductType { Name = "Трансформатор напряжения" });
+        }
+
+        private void GenerateProductTypeDesignations()
+        {
+            ProductTypeDesignationDeadTankBreaker.Clone(new ProductTypeDesignation {ProductType = ProductTypeDeadTankBreaker, Parameters = new List<Parameter> { ParameterBreaker, ParameterBreakerDeadTank } });
+            ProductTypeDesignationLiveTankBreaker.Clone(new ProductTypeDesignation { ProductType = ProductTypeLiveTankBreaker, Parameters = new List<Parameter> { ParameterBreaker, ParameterBreakerLiveTank } });
+            ProductTypeDesignationCurrentTransformer.Clone(new ProductTypeDesignation { ProductType = ProductTypeCurrentTransformer, Parameters = new List<Parameter> { ParameterTransformator, ParameterTransformatorCurrent } });
+            ProductTypeDesignationVoltageTransformer.Clone(new ProductTypeDesignation { ProductType = ProductTypeVoltageTransformer, Parameters = new List<Parameter> { ParameterTransformator, ParameterTransformatorVoltage } });
+        }
+
         private void GenerateProductDesignations()
         {
-            ProductDesignationVgb35.Clone(new ProductDesignation { Designation = "ВГБ-110", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage35kV } });
-            ProductDesignationVeb110.Clone(new ProductDesignation { Designation = "ВЭБ-110", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV } });
-            ProductDesignationZng110.Clone(new ProductDesignation { Designation = "ЗНГ-110", Parameters = new List<Parameter> { ParameterTransformatorVoltage, ParameterVoltage110kV } });
+            ProductDesignationVgb35.Clone(new ProductDesignation { Designation = "ВГБ-УЭТМ-110", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage35kV } });
+            ProductDesignationVeb110.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-110", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV } });
+            ProductDesignationZng110.Clone(new ProductDesignation { Designation = "ЗНГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformatorVoltage, ParameterVoltage110kV } });
         }
 
         private void GenerateProductBlocs()
@@ -477,33 +503,33 @@ namespace HVTApp.TestDataGenerator
         {
             ProductVgb35.Clone(new Product
             {
-                Designation = "Выключатель баковый ВГБ-35",
+                DesignationSpecial = "Выключатель баковый ВГБ-35",
                 ProductBlock = ProductBlockVgb35,
                 DependentProducts = new List<Product> {ProductBreakersDrive}
             });
 
             ProductVeb110.Clone(new Product
             {
-                Designation = "Выключатель баковый ВЭБ-110",
+                DesignationSpecial = "Выключатель баковый ВЭБ-110",
                 ProductBlock = ProductBlockVeb110,
                 DependentProducts = new List<Product> {ProductBreakersDrive}
             });
 
             ProductZng110.Clone(new Product
             {
-                Designation = "Трансформатор напряжения ЗНГ-110",
+                DesignationSpecial = "Трансформатор напряжения ЗНГ-110",
                 ProductBlock = ProductBlockZng110
             });
 
             ProductBreakersDrive.Clone(new Product
             {
-                Designation = "Привод выключателя",
+                DesignationSpecial = "Привод выключателя",
                 ProductBlock = ProductBlockBreakersDrive
             });
 
             ProductZip1.Clone(new Product
             {
-                Designation = "ЗиП №1",
+                DesignationSpecial = "ЗиП №1",
                 ProductBlock = ProductBlockZip1
             });
         }

@@ -128,7 +128,9 @@ namespace HVTApp.Services.GetProductService
         /// <returns></returns>
         private IEnumerable<IEnumerable<Parameter>> GetGroupingParameters(IEnumerable<Parameter> parameters)
         {
-            var groups = parameters.GroupBy(x => x.ParameterGroup).OrderBy(x => x, new ParametersEnumerableComparer());
+            //группировка параметров по группам и упорядочивание их.
+            var groups = parameters.GroupBy(x => x.ParameterGroup.Id).
+                                    OrderBy(x => x, new ParametersEnumerableComparer());
             foreach (var group in groups)
             {
                 yield return group.OrderBy(x => x.Value);
@@ -146,7 +148,7 @@ namespace HVTApp.Services.GetProductService
             //параметр, у которого нет родительских параметров
             var selectedParameterFlaged = parametersFlaged.First(x => !x.Parameter.ParameterRelations.Any());
 
-            //поиск селектора, содержащего такой праметр и назначение параметра
+            //поиск селектора, содержащего такой параметр и назначение параметра
             var parameterSelector = ParameterSelectors.Single(x => x.ParametersFlaged.Contains(selectedParameterFlaged));
             parameterSelector.SelectedParameterFlaged = selectedParameterFlaged;
         }

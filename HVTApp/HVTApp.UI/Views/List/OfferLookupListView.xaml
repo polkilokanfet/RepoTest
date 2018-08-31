@@ -17,6 +17,7 @@
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />
                     <infg:NumericField Name="Vat" Label="НДС" Width="Auto" />
+                    <infg:NumericField Name="Sum" Label="Sum" Width="Auto" />
                     <infg:DateTimeField Name="ValidityDate" Label="Срок действия" Width="Auto" />
                     <infg:TextField Name="Project" Label="Проект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RequestDocument" Label="Запрос" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
@@ -25,7 +26,7 @@
                     <infg:TextField Name="RecipientEmployee" Label="Получатель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RegistrationDetailsOfSender" Label="Исходящий" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RegistrationDetailsOfRecipient" Label="Входящий" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Company" Label="Company" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Company" Label="Компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
 
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>

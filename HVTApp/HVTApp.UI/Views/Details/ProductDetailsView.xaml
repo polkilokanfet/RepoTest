@@ -16,22 +16,36 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Designation" Visibility="{Binding DesignationVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Обозначение" Visibility="{Binding DesignationVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Designation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding DesignationVisibility, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="ProductBlock" Visibility="{Binding ProductBlockVisibility, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
+        <Label Grid.Column="0" Grid.Row ="1" Content="Специальное обозначение" Visibility="{Binding DesignationSpecialVisibility, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
+                 Text="{Binding Item.DesignationSpecial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding DesignationSpecialVisibility, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Тип" Visibility="{Binding ProductTypeVisibility, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
+                                    Item="{Binding Item.ProductType}" 
+                                    AddItemCommand="{Binding SelectProductTypeCommand}" 
+                                    RemoveItemCommand="{Binding ClearProductTypeCommand}"
+									Visibility="{Binding ProductTypeVisibility, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Блок" Visibility="{Binding ProductBlockVisibility, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.ProductBlock}" 
                                     AddItemCommand="{Binding SelectProductBlockCommand}" 
                                     RemoveItemCommand="{Binding ClearProductBlockCommand}"
 									Visibility="{Binding ProductBlockVisibility, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="DependentProducts" Visibility="{Binding DependentProductsVisibility, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
+        <Label Grid.Column="0" Grid.Row ="4" Content="Продукты в составе" Visibility="{Binding DependentProductsVisibility, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
 										 Items="{Binding Path=Item.DependentProducts}"
 										 SelectedItem="{Binding SelectedDependentProductsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInDependentProductsCommand}"

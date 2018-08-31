@@ -47,6 +47,115 @@ namespace HVTApp.UI.ViewModels
 
     }
 
+    public partial class ProductDesignationDetailsViewModel : BaseDetailsViewModel<ProductDesignationWrapper, ProductDesignation, AfterSaveProductDesignationEvent>
+    {
+		private Func<Task<List<Parameter>>> _getEntitiesForAddInParametersCommand;
+		public ICommand AddInParametersCommand { get; }
+		public ICommand RemoveFromParametersCommand { get; }
+		private ParameterWrapper _selectedParametersItem;
+		public ParameterWrapper SelectedParametersItem 
+		{ 
+			get { return _selectedParametersItem; }
+			set 
+			{ 
+				if (Equals(_selectedParametersItem, value)) return;
+				_selectedParametersItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromParametersCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+        public ProductDesignationDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = async () => { return await WrapperDataService.GetRepository<Parameter>().GetAllAsync(); };;
+			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute_Default);
+			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
+
+		}
+
+			private async void AddInParametersCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<Parameter, ParameterWrapper>(await _getEntitiesForAddInParametersCommand(), Item.Parameters);
+			}
+
+			private void RemoveFromParametersCommand_Execute_Default()
+			{
+				Item.Parameters.Remove(SelectedParametersItem);
+			}
+
+			private bool RemoveFromParametersCommand_CanExecute_Default()
+			{
+				return SelectedParametersItem != null;
+			}
+
+
+    }
+
+    public partial class ProductTypeDesignationDetailsViewModel : BaseDetailsViewModel<ProductTypeDesignationWrapper, ProductTypeDesignation, AfterSaveProductTypeDesignationEvent>
+    {
+		private Func<Task<List<ProductType>>> _getEntitiesForSelectProductTypeCommand;
+		public ICommand SelectProductTypeCommand { get; private set; }
+		public ICommand ClearProductTypeCommand { get; private set; }
+
+		private Func<Task<List<Parameter>>> _getEntitiesForAddInParametersCommand;
+		public ICommand AddInParametersCommand { get; }
+		public ICommand RemoveFromParametersCommand { get; }
+		private ParameterWrapper _selectedParametersItem;
+		public ParameterWrapper SelectedParametersItem 
+		{ 
+			get { return _selectedParametersItem; }
+			set 
+			{ 
+				if (Equals(_selectedParametersItem, value)) return;
+				_selectedParametersItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromParametersCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+        public ProductTypeDesignationDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectProductTypeCommand == null) _getEntitiesForSelectProductTypeCommand = async () => { return await WrapperDataService.GetRepository<ProductType>().GetAllAsync(); };
+			if (SelectProductTypeCommand == null) SelectProductTypeCommand = new DelegateCommand(SelectProductTypeCommand_Execute_Default);
+			if (ClearProductTypeCommand == null) ClearProductTypeCommand = new DelegateCommand(ClearProductTypeCommand_Execute_Default);
+
+			
+			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = async () => { return await WrapperDataService.GetRepository<Parameter>().GetAllAsync(); };;
+			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute_Default);
+			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
+
+		}
+
+		private async void SelectProductTypeCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ProductType, ProductTypeWrapper>(await _getEntitiesForSelectProductTypeCommand(), nameof(Item.ProductType), Item.ProductType?.Id);
+		}
+
+		private void ClearProductTypeCommand_Execute_Default() 
+		{
+						Item.ProductType = null;		    
+		}
+
+			private async void AddInParametersCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<Parameter, ParameterWrapper>(await _getEntitiesForAddInParametersCommand(), Item.Parameters);
+			}
+
+			private void RemoveFromParametersCommand_Execute_Default()
+			{
+				Item.Parameters.Remove(SelectedParametersItem);
+			}
+
+			private bool RemoveFromParametersCommand_CanExecute_Default()
+			{
+				return SelectedParametersItem != null;
+			}
+
+
+    }
+
     public partial class ProjectTypeDetailsViewModel : BaseDetailsViewModel<ProjectTypeWrapper, ProjectType, AfterSaveProjectTypeEvent>
     {
         public ProjectTypeDetailsViewModel(IUnityContainer container) : base(container) 
@@ -622,6 +731,15 @@ namespace HVTApp.UI.ViewModels
 			{
 				return SelectedPaymentConditionsItem != null;
 			}
+
+
+    }
+
+    public partial class ProductTypeDetailsViewModel : BaseDetailsViewModel<ProductTypeWrapper, ProductType, AfterSaveProductTypeEvent>
+    {
+        public ProductTypeDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
 
 
     }
@@ -2152,6 +2270,10 @@ namespace HVTApp.UI.ViewModels
 
     public partial class ProductDetailsViewModel : BaseDetailsViewModel<ProductWrapper, Product, AfterSaveProductEvent>
     {
+		private Func<Task<List<ProductType>>> _getEntitiesForSelectProductTypeCommand;
+		public ICommand SelectProductTypeCommand { get; private set; }
+		public ICommand ClearProductTypeCommand { get; private set; }
+
 		private Func<Task<List<ProductBlock>>> _getEntitiesForSelectProductBlockCommand;
 		public ICommand SelectProductBlockCommand { get; private set; }
 		public ICommand ClearProductBlockCommand { get; private set; }
@@ -2175,6 +2297,11 @@ namespace HVTApp.UI.ViewModels
         public ProductDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
+			if (_getEntitiesForSelectProductTypeCommand == null) _getEntitiesForSelectProductTypeCommand = async () => { return await WrapperDataService.GetRepository<ProductType>().GetAllAsync(); };
+			if (SelectProductTypeCommand == null) SelectProductTypeCommand = new DelegateCommand(SelectProductTypeCommand_Execute_Default);
+			if (ClearProductTypeCommand == null) ClearProductTypeCommand = new DelegateCommand(ClearProductTypeCommand_Execute_Default);
+
+			
 			if (_getEntitiesForSelectProductBlockCommand == null) _getEntitiesForSelectProductBlockCommand = async () => { return await WrapperDataService.GetRepository<ProductBlock>().GetAllAsync(); };
 			if (SelectProductBlockCommand == null) SelectProductBlockCommand = new DelegateCommand(SelectProductBlockCommand_Execute_Default);
 			if (ClearProductBlockCommand == null) ClearProductBlockCommand = new DelegateCommand(ClearProductBlockCommand_Execute_Default);
@@ -2184,6 +2311,16 @@ namespace HVTApp.UI.ViewModels
 			if (AddInDependentProductsCommand == null) AddInDependentProductsCommand = new DelegateCommand(AddInDependentProductsCommand_Execute_Default);
 			if (RemoveFromDependentProductsCommand == null) RemoveFromDependentProductsCommand = new DelegateCommand(RemoveFromDependentProductsCommand_Execute_Default, RemoveFromDependentProductsCommand_CanExecute_Default);
 
+		}
+
+		private async void SelectProductTypeCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ProductType, ProductTypeWrapper>(await _getEntitiesForSelectProductTypeCommand(), nameof(Item.ProductType), Item.ProductType?.Id);
+		}
+
+		private void ClearProductTypeCommand_Execute_Default() 
+		{
+						Item.ProductType = null;		    
 		}
 
 		private async void SelectProductBlockCommand_Execute_Default() 

@@ -5,6 +5,8 @@ namespace HVTApp.DataAccess
 {
     public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }
     public partial class PaymentPlannedConfiguration : EntityTypeConfiguration<PaymentPlanned> { }
+    public partial class ProductDesignationConfiguration : EntityTypeConfiguration<ProductDesignation> { }
+    public partial class ProductTypeDesignationConfiguration : EntityTypeConfiguration<ProductTypeDesignation> { }
     public partial class ProjectTypeConfiguration : EntityTypeConfiguration<ProjectType> { }
     public partial class CommonOptionConfiguration : EntityTypeConfiguration<CommonOption> { }
     public partial class AddressConfiguration : EntityTypeConfiguration<Address> { }
@@ -20,7 +22,6 @@ namespace HVTApp.DataAccess
     public partial class NoteConfiguration : EntityTypeConfiguration<Note> { }
     public partial class OfferUnitConfiguration : EntityTypeConfiguration<OfferUnit> { }
     public partial class PaymentConditionSetConfiguration : EntityTypeConfiguration<PaymentConditionSet> { }
-    public partial class ProductDesignationConfiguration : EntityTypeConfiguration<ProductDesignation> { }
     public partial class ProductTypeConfiguration : EntityTypeConfiguration<ProductType> { }
     public partial class ProductBlockConfiguration : EntityTypeConfiguration<ProductBlock> { }
     public partial class ProductDependentConfiguration : EntityTypeConfiguration<ProductDependent> { }

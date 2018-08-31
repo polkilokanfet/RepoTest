@@ -5,6 +5,8 @@ namespace HVTApp.DataAccess
 {
     public partial interface IPaymentActualRepository : IRepository<PaymentActual> { }
     public partial interface IPaymentPlannedRepository : IRepository<PaymentPlanned> { }
+    public partial interface IProductDesignationRepository : IRepository<ProductDesignation> { }
+    public partial interface IProductTypeDesignationRepository : IRepository<ProductTypeDesignation> { }
     public partial interface IProjectTypeRepository : IRepository<ProjectType> { }
     public partial interface ICommonOptionRepository : IRepository<CommonOption> { }
     public partial interface IAddressRepository : IRepository<Address> { }
@@ -20,7 +22,6 @@ namespace HVTApp.DataAccess
     public partial interface INoteRepository : IRepository<Note> { }
     public partial interface IOfferUnitRepository : IRepository<OfferUnit> { }
     public partial interface IPaymentConditionSetRepository : IRepository<PaymentConditionSet> { }
-    public partial interface IProductDesignationRepository : IRepository<ProductDesignation> { }
     public partial interface IProductTypeRepository : IRepository<ProductType> { }
     public partial interface IProductBlockRepository : IRepository<ProductBlock> { }
     public partial interface IProductDependentRepository : IRepository<ProductDependent> { }

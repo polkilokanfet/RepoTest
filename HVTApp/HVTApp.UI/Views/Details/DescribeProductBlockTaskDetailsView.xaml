@@ -24,7 +24,7 @@
                                     RemoveItemCommand="{Binding ClearProductBlockCommand}"
 									Visibility="{Binding ProductBlockVisibility, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Product" Visibility="{Binding ProductVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Продукт" Visibility="{Binding ProductVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.Product}" 
                                     AddItemCommand="{Binding SelectProductCommand}" 

@@ -55,7 +55,7 @@ namespace HVTApp.Services.GetProductService
             if (!_bank.Products.Contains(result))
             {
                 _unitOfWork.GetRepository<Product>().Add(result);
-                await GenerateDescribeProductBlockTasks(result);
+                //await GenerateDescribeProductBlockTasks(result);
                 await _unitOfWork.SaveChangesAsync();
             }
 

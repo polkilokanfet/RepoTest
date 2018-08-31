@@ -2,9 +2,9 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              x:Class="HVTApp.UI.Views.ProductLookupListView">
+              x:Class="HVTApp.UI.Views.ProductTypeLookupListView">
 
-    <infg:XamDataGrid x:Name="ProductLookupListGrid">
+    <infg:XamDataGrid x:Name="ProductTypeLookupListGrid">
         
         <infg:XamDataGrid.ContextMenu>
             <ContextMenu>
@@ -15,10 +15,7 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="Designation" Label="Обозначение" Width="Auto" />
-                    <infg:TextField Name="DesignationSpecial" Label="Специальное обозначение" Width="Auto" />
-                    <infg:TextField Name="ProductType" Label="Тип" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="ProductBlock" Label="Блок" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto" />
 
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>

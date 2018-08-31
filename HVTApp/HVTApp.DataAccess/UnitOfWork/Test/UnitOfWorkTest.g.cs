@@ -9,6 +9,8 @@ namespace HVTApp.DataAccess
 			#region RepositoriesInit
             PaymentActualRepository = new PaymentActualRepositoryTest(testData);
             PaymentPlannedRepository = new PaymentPlannedRepositoryTest(testData);
+            ProductDesignationRepository = new ProductDesignationRepositoryTest(testData);
+            ProductTypeDesignationRepository = new ProductTypeDesignationRepositoryTest(testData);
             ProjectTypeRepository = new ProjectTypeRepositoryTest(testData);
             CommonOptionRepository = new CommonOptionRepositoryTest(testData);
             AddressRepository = new AddressRepositoryTest(testData);
@@ -24,7 +26,6 @@ namespace HVTApp.DataAccess
             NoteRepository = new NoteRepositoryTest(testData);
             OfferUnitRepository = new OfferUnitRepositoryTest(testData);
             PaymentConditionSetRepository = new PaymentConditionSetRepositoryTest(testData);
-            ProductDesignationRepository = new ProductDesignationRepositoryTest(testData);
             ProductTypeRepository = new ProductTypeRepositoryTest(testData);
             ProductBlockRepository = new ProductBlockRepositoryTest(testData);
             ProductDependentRepository = new ProductDependentRepositoryTest(testData);
@@ -76,6 +77,8 @@ namespace HVTApp.DataAccess
         #region Repositories
         public IPaymentActualRepository PaymentActualRepository { get; }
         public IPaymentPlannedRepository PaymentPlannedRepository { get; }
+        public IProductDesignationRepository ProductDesignationRepository { get; }
+        public IProductTypeDesignationRepository ProductTypeDesignationRepository { get; }
         public IProjectTypeRepository ProjectTypeRepository { get; }
         public ICommonOptionRepository CommonOptionRepository { get; }
         public IAddressRepository AddressRepository { get; }
@@ -91,7 +94,6 @@ namespace HVTApp.DataAccess
         public INoteRepository NoteRepository { get; }
         public IOfferUnitRepository OfferUnitRepository { get; }
         public IPaymentConditionSetRepository PaymentConditionSetRepository { get; }
-        public IProductDesignationRepository ProductDesignationRepository { get; }
         public IProductTypeRepository ProductTypeRepository { get; }
         public IProductBlockRepository ProductBlockRepository { get; }
         public IProductDependentRepository ProductDependentRepository { get; }

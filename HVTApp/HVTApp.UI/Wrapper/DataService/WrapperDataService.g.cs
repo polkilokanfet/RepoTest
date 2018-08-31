@@ -1,15 +1,20 @@
 using System.Data.Entity;
+using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Wrapper
 {
     public partial class WrapperDataService
     {
-        public WrapperDataService(DbContext context) : base(context)
+        public WrapperDataService(DbContext context, IUnityContainer container) : base(context, container)
         {
 
             PaymentActualWrapperRepository = new PaymentActualWrapperRepository(this);
 
             PaymentPlannedWrapperRepository = new PaymentPlannedWrapperRepository(this);
+
+            ProductDesignationWrapperRepository = new ProductDesignationWrapperRepository(this);
+
+            ProductTypeDesignationWrapperRepository = new ProductTypeDesignationWrapperRepository(this);
 
             ProjectTypeWrapperRepository = new ProjectTypeWrapperRepository(this);
 
@@ -40,6 +45,8 @@ namespace HVTApp.UI.Wrapper
             OfferUnitWrapperRepository = new OfferUnitWrapperRepository(this);
 
             PaymentConditionSetWrapperRepository = new PaymentConditionSetWrapperRepository(this);
+
+            ProductTypeWrapperRepository = new ProductTypeWrapperRepository(this);
 
             ProductBlockWrapperRepository = new ProductBlockWrapperRepository(this);
 
@@ -134,6 +141,10 @@ namespace HVTApp.UI.Wrapper
 
         private PaymentPlannedWrapperRepository PaymentPlannedWrapperRepository;
 
+        private ProductDesignationWrapperRepository ProductDesignationWrapperRepository;
+
+        private ProductTypeDesignationWrapperRepository ProductTypeDesignationWrapperRepository;
+
         private ProjectTypeWrapperRepository ProjectTypeWrapperRepository;
 
         private CommonOptionWrapperRepository CommonOptionWrapperRepository;
@@ -163,6 +174,8 @@ namespace HVTApp.UI.Wrapper
         private OfferUnitWrapperRepository OfferUnitWrapperRepository;
 
         private PaymentConditionSetWrapperRepository PaymentConditionSetWrapperRepository;
+
+        private ProductTypeWrapperRepository ProductTypeWrapperRepository;
 
         private ProductBlockWrapperRepository ProductBlockWrapperRepository;
 
