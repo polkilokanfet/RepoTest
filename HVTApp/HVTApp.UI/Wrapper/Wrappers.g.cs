@@ -184,6 +184,36 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
+		public partial class ProductTypeWrapper : WrapperBase<ProductType>
+	{
+	    public ProductTypeWrapper(ProductType model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+	}
+
 		public partial class ProductTypeDesignationWrapper : WrapperBase<ProductTypeDesignation>
 	{
 	    public ProductTypeDesignationWrapper(ProductTypeDesignation model) : base(model) { }
@@ -1115,36 +1145,6 @@ namespace HVTApp.UI.Wrapper
 
 
         }
-
-	}
-
-		public partial class ProductTypeWrapper : WrapperBase<ProductType>
-	{
-	    public ProductTypeWrapper(ProductType model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.String Name
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
-        public bool NameIsChanged => GetIsChanged(nameof(Name));
-
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
 
 	}
 
@@ -3156,6 +3156,15 @@ namespace HVTApp.UI.Wrapper
         public bool DesignationSpecialIsChanged => GetIsChanged(nameof(DesignationSpecial));
 
 
+        public System.String ProductType
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String ProductTypeOriginalValue => GetOriginalValue<System.String>(nameof(ProductType));
+        public bool ProductTypeIsChanged => GetIsChanged(nameof(ProductType));
+
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3169,13 +3178,6 @@ namespace HVTApp.UI.Wrapper
 
 
         #region ComplexProperties
-
-	    public ProductTypeWrapper ProductType 
-        {
-            get { return GetWrapper<ProductTypeWrapper>(); }
-            set { SetComplexValue<ProductType, ProductTypeWrapper>(ProductType, value); }
-        }
-
 
 	    public ProductBlockWrapper ProductBlock 
         {
@@ -3196,9 +3198,6 @@ namespace HVTApp.UI.Wrapper
 
         public override void InitializeComplexProperties()
         {
-
-            InitializeComplexProperty<ProductTypeWrapper>(nameof(ProductType), Model.ProductType == null ? null : new ProductTypeWrapper(Model.ProductType));
-
 
             InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlock), Model.ProductBlock == null ? null : new ProductBlockWrapper(Model.ProductBlock));
 

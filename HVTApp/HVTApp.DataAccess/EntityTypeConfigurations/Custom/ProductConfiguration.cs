@@ -5,8 +5,8 @@ namespace HVTApp.DataAccess
         public ProductConfiguration()
         {
             HasRequired(x => x.ProductBlock).WithMany();
-            Property(x => x.DesignationSpecial).IsOptional();
             HasMany(x => x.DependentProducts).WithMany();
+            Property(x => x.DesignationSpecial).IsOptional();
 
             Ignore(x => x.Designation);
             Ignore(x => x.ProductType);

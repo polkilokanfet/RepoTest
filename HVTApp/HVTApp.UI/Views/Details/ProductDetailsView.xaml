@@ -31,11 +31,9 @@
 				 Visibility="{Binding DesignationSpecialVisibility, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Тип" Visibility="{Binding ProductTypeVisibility, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
-                                    Item="{Binding Item.ProductType}" 
-                                    AddItemCommand="{Binding SelectProductTypeCommand}" 
-                                    RemoveItemCommand="{Binding ClearProductTypeCommand}"
-									Visibility="{Binding ProductTypeVisibility, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+                 Text="{Binding Item.ProductType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding ProductTypeVisibility, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Блок" Visibility="{Binding ProductBlockVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 

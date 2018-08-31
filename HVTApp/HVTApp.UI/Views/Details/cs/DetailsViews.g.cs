@@ -174,6 +174,36 @@ namespace HVTApp.UI.Views
 
 	}
 
+    public partial class ProductTypeDetailsView : ViewBase
+    {
+        public ProductTypeDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductTypeDetailsViewModel ProductTypeDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = ProductTypeDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            NotUpdateAttribute attr;
+
+            attr = typeof(HVTApp.Model.POCOs.ProductType).GetProperty(nameof(HVTApp.Model.POCOs.ProductType.Name)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                NameVisibility = Visibility.Collapsed;
+
+
+        }
+
+
+        public static readonly DependencyProperty NameVisibilityProperty = DependencyProperty.Register("NameVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility NameVisibility
+        {
+            get { return (Visibility) GetValue(NameVisibilityProperty); }
+            set { SetValue(NameVisibilityProperty, value); }
+        }
+
+	}
+
     public partial class ProductTypeDesignationDetailsView : ViewBase
     {
         public ProductTypeDesignationDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductTypeDesignationDetailsViewModel ProductTypeDesignationDetailsViewModel) : base(regionManager, eventAggregator)
@@ -1082,36 +1112,6 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(PaymentConditionsVisibilityProperty); }
             set { SetValue(PaymentConditionsVisibilityProperty, value); }
-        }
-
-	}
-
-    public partial class ProductTypeDetailsView : ViewBase
-    {
-        public ProductTypeDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductTypeDetailsViewModel ProductTypeDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = ProductTypeDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            NotUpdateAttribute attr;
-
-            attr = typeof(HVTApp.Model.POCOs.ProductType).GetProperty(nameof(HVTApp.Model.POCOs.ProductType.Name)).GetCustomAttribute<NotUpdateAttribute>();
-            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-                NameVisibility = Visibility.Collapsed;
-
-
-        }
-
-
-        public static readonly DependencyProperty NameVisibilityProperty = DependencyProperty.Register("NameVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility NameVisibility
-        {
-            get { return (Visibility) GetValue(NameVisibilityProperty); }
-            set { SetValue(NameVisibilityProperty, value); }
         }
 
 	}

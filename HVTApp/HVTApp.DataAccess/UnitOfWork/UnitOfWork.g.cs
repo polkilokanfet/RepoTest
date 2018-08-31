@@ -1,7 +1,6 @@
 using System.Data.Entity;
 using System.Linq;
 using HVTApp.Infrastructure;
-using Microsoft.Practices.Unity;
 
 
 namespace HVTApp.DataAccess
@@ -10,13 +9,14 @@ namespace HVTApp.DataAccess
     {
         private readonly DbContext _context;
 
-        public UnitOfWork(DbContext context, IUnityContainer container)
+        public UnitOfWork(DbContext context)
         {
             _context = context;
 			#region RepositoriesInit
             PaymentActualRepository = new PaymentActualRepository(context);
             PaymentPlannedRepository = new PaymentPlannedRepository(context);
             ProductDesignationRepository = new ProductDesignationRepository(context);
+            ProductTypeRepository = new ProductTypeRepository(context);
             ProductTypeDesignationRepository = new ProductTypeDesignationRepository(context);
             ProjectTypeRepository = new ProjectTypeRepository(context);
             CommonOptionRepository = new CommonOptionRepository(context);
@@ -33,7 +33,6 @@ namespace HVTApp.DataAccess
             NoteRepository = new NoteRepository(context);
             OfferUnitRepository = new OfferUnitRepository(context);
             PaymentConditionSetRepository = new PaymentConditionSetRepository(context);
-            ProductTypeRepository = new ProductTypeRepository(context);
             ProductBlockRepository = new ProductBlockRepository(context);
             ProductDependentRepository = new ProductDependentRepository(context);
             ProductionTaskRepository = new ProductionTaskRepository(context);
@@ -64,7 +63,7 @@ namespace HVTApp.DataAccess
             TestWifeRepository = new TestWifeRepository(context);
             TestChildRepository = new TestChildRepository(context);
             SumOnDateRepository = new SumOnDateRepository(context);
-            ProductRepository = container.Resolve<ProductRepository>();
+            ProductRepository = new ProductRepository(context);
             OfferRepository = new OfferRepository(context);
             EmployeeRepository = new EmployeeRepository(context);
             OrderRepository = new OrderRepository(context);
@@ -85,6 +84,7 @@ namespace HVTApp.DataAccess
         protected IPaymentActualRepository PaymentActualRepository;
         protected IPaymentPlannedRepository PaymentPlannedRepository;
         protected IProductDesignationRepository ProductDesignationRepository;
+        protected IProductTypeRepository ProductTypeRepository;
         protected IProductTypeDesignationRepository ProductTypeDesignationRepository;
         protected IProjectTypeRepository ProjectTypeRepository;
         protected ICommonOptionRepository CommonOptionRepository;
@@ -101,7 +101,6 @@ namespace HVTApp.DataAccess
         protected INoteRepository NoteRepository;
         protected IOfferUnitRepository OfferUnitRepository;
         protected IPaymentConditionSetRepository PaymentConditionSetRepository;
-        protected IProductTypeRepository ProductTypeRepository;
         protected IProductBlockRepository ProductBlockRepository;
         protected IProductDependentRepository ProductDependentRepository;
         protected IProductionTaskRepository ProductionTaskRepository;

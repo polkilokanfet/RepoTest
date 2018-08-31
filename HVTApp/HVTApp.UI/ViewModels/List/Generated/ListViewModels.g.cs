@@ -25,6 +25,12 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class ProductTypeLookupListViewModel : BaseListViewModel<ProductType, ProductTypeLookup, AfterSaveProductTypeEvent, AfterSelectProductTypeEvent, AfterRemoveProductTypeEvent,  ProductTypeLookupDataService>
+    {
+        public ProductTypeLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
     public partial class ProductTypeDesignationLookupListViewModel : BaseListViewModel<ProductTypeDesignation, ProductTypeDesignationLookup, AfterSaveProductTypeDesignationEvent, AfterSelectProductTypeDesignationEvent, AfterRemoveProductTypeDesignationEvent,  ProductTypeDesignationLookupDataService>
     {
         public ProductTypeDesignationLookupListViewModel(IUnityContainer container) : base(container) { }
@@ -118,12 +124,6 @@ namespace HVTApp.UI.ViewModels
     public partial class PaymentConditionSetLookupListViewModel : BaseListViewModel<PaymentConditionSet, PaymentConditionSetLookup, AfterSavePaymentConditionSetEvent, AfterSelectPaymentConditionSetEvent, AfterRemovePaymentConditionSetEvent,  PaymentConditionSetLookupDataService>
     {
         public PaymentConditionSetLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-    public partial class ProductTypeLookupListViewModel : BaseListViewModel<ProductType, ProductTypeLookup, AfterSaveProductTypeEvent, AfterSelectProductTypeEvent, AfterRemoveProductTypeEvent,  ProductTypeLookupDataService>
-    {
-        public ProductTypeLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
 

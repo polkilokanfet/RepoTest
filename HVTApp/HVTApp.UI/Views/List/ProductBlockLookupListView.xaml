@@ -15,8 +15,8 @@
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
-                    <infg:TextField Name="Name" Label="Name" Width="Auto" />
-                    <infg:TextField Name="StructureCostNumber" Label="StructureCostNumber" Width="Auto" />
+                    <infg:TextField Name="Name" Label="Название" Width="Auto" />
+                    <infg:TextField Name="StructureCostNumber" Label="Сралчахвост" Width="Auto" />
 
                 </infg:FieldLayout.Fields>
             </infg:FieldLayout>

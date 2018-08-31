@@ -23,6 +23,12 @@ namespace HVTApp.UI.Wrapper
     }
 
 
+    public partial class ProductTypeWrapperRepository : WrapperRepository<ProductType, ProductTypeWrapper>
+    {
+        public ProductTypeWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
+    }
+
+
     public partial class ProductTypeDesignationWrapperRepository : WrapperRepository<ProductTypeDesignation, ProductTypeDesignationWrapper>
     {
         public ProductTypeDesignationWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
@@ -116,12 +122,6 @@ namespace HVTApp.UI.Wrapper
     public partial class PaymentConditionSetWrapperRepository : WrapperRepository<PaymentConditionSet, PaymentConditionSetWrapper>
     {
         public PaymentConditionSetWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
-    }
-
-
-    public partial class ProductTypeWrapperRepository : WrapperRepository<ProductType, ProductTypeWrapper>
-    {
-        public ProductTypeWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
     }
 
 

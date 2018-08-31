@@ -24,16 +24,22 @@ namespace HVTApp.UI
             _updateDetailsService.Register<PaymentPlanned, PaymentPlannedDetailsView>();
 
 
-   //         Container.RegisterViewForNavigation<ProductDesignationLookupListView>();
-   //         //_dialogService.Register<ProductDesignationDetailsViewModel, ProductDesignationDetailsView>();
-			//_selectService.Register<ProductDesignationLookupListView, ProductDesignation>();
-   //         _updateDetailsService.Register<ProductDesignation, ProductDesignationDetailsView>();
+            Container.RegisterViewForNavigation<ProductDesignationLookupListView>();
+            //_dialogService.Register<ProductDesignationDetailsViewModel, ProductDesignationDetailsView>();
+			_selectService.Register<ProductDesignationLookupListView, ProductDesignation>();
+            _updateDetailsService.Register<ProductDesignation, ProductDesignationDetailsView>();
 
 
-   //         Container.RegisterViewForNavigation<ProductTypeDesignationLookupListView>();
-   //         //_dialogService.Register<ProductTypeDesignationDetailsViewModel, ProductTypeDesignationDetailsView>();
-			//_selectService.Register<ProductTypeDesignationLookupListView, ProductTypeDesignation>();
-   //         _updateDetailsService.Register<ProductTypeDesignation, ProductTypeDesignationDetailsView>();
+            Container.RegisterViewForNavigation<ProductTypeLookupListView>();
+            //_dialogService.Register<ProductTypeDetailsViewModel, ProductTypeDetailsView>();
+			_selectService.Register<ProductTypeLookupListView, ProductType>();
+            _updateDetailsService.Register<ProductType, ProductTypeDetailsView>();
+
+
+            Container.RegisterViewForNavigation<ProductTypeDesignationLookupListView>();
+            //_dialogService.Register<ProductTypeDesignationDetailsViewModel, ProductTypeDesignationDetailsView>();
+			_selectService.Register<ProductTypeDesignationLookupListView, ProductTypeDesignation>();
+            _updateDetailsService.Register<ProductTypeDesignation, ProductTypeDesignationDetailsView>();
 
 
             Container.RegisterViewForNavigation<ProjectTypeLookupListView>();
@@ -124,12 +130,6 @@ namespace HVTApp.UI
             //_dialogService.Register<PaymentConditionSetDetailsViewModel, PaymentConditionSetDetailsView>();
 			_selectService.Register<PaymentConditionSetLookupListView, PaymentConditionSet>();
             _updateDetailsService.Register<PaymentConditionSet, PaymentConditionSetDetailsView>();
-
-
-   //         Container.RegisterViewForNavigation<ProductTypeLookupListView>();
-   //         //_dialogService.Register<ProductTypeDetailsViewModel, ProductTypeDetailsView>();
-			//_selectService.Register<ProductTypeLookupListView, ProductType>();
-   //         _updateDetailsService.Register<ProductType, ProductTypeDetailsView>();
 
 
             Container.RegisterViewForNavigation<ProductBlockLookupListView>();

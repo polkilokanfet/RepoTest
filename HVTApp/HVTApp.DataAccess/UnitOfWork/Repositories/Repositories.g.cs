@@ -1,6 +1,5 @@
 using System.Data.Entity;
 using HVTApp.Model.POCOs;
-using Microsoft.Practices.Unity;
 
 namespace HVTApp.DataAccess
 {
@@ -17,6 +16,11 @@ namespace HVTApp.DataAccess
     public partial class ProductDesignationRepository : BaseRepository<ProductDesignation>, IProductDesignationRepository
     {
         public ProductDesignationRepository(DbContext context) : base(context) {}
+    }
+
+    public partial class ProductTypeRepository : BaseRepository<ProductType>, IProductTypeRepository
+    {
+        public ProductTypeRepository(DbContext context) : base(context) {}
     }
 
     public partial class ProductTypeDesignationRepository : BaseRepository<ProductTypeDesignation>, IProductTypeDesignationRepository
@@ -97,11 +101,6 @@ namespace HVTApp.DataAccess
     public partial class PaymentConditionSetRepository : BaseRepository<PaymentConditionSet>, IPaymentConditionSetRepository
     {
         public PaymentConditionSetRepository(DbContext context) : base(context) {}
-    }
-
-    public partial class ProductTypeRepository : BaseRepository<ProductType>, IProductTypeRepository
-    {
-        public ProductTypeRepository(DbContext context) : base(context) {}
     }
 
     public partial class ProductBlockRepository : BaseRepository<ProductBlock>, IProductBlockRepository
@@ -256,11 +255,7 @@ namespace HVTApp.DataAccess
 
     public partial class ProductRepository : BaseRepository<Product>, IProductRepository
     {
-        private readonly IUnityContainer _container;
-        public ProductRepository(DbContext context, IUnityContainer container) : base(context)
-        {
-            _container = container;
-        }
+        public ProductRepository(DbContext context) : base(context) {}
     }
 
     public partial class OfferRepository : BaseRepository<Offer>, IOfferRepository

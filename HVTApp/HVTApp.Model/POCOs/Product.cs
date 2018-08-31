@@ -18,7 +18,7 @@ namespace HVTApp.Model.POCOs
         public string DesignationSpecial { get; set; }
 
         [Designation("Тип")]
-        public ProductType ProductType { get; set; }
+        public string ProductType { get; set; }
 
         [Designation("Блок")]
         public virtual ProductBlock ProductBlock { get; set; }

@@ -1,11 +1,10 @@
 using System.Data.Entity;
-using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.Wrapper
 {
     public partial class WrapperDataService
     {
-        public WrapperDataService(DbContext context, IUnityContainer container) : base(context, container)
+        public WrapperDataService(DbContext context) : base(context)
         {
 
             PaymentActualWrapperRepository = new PaymentActualWrapperRepository(this);
@@ -13,6 +12,8 @@ namespace HVTApp.UI.Wrapper
             PaymentPlannedWrapperRepository = new PaymentPlannedWrapperRepository(this);
 
             ProductDesignationWrapperRepository = new ProductDesignationWrapperRepository(this);
+
+            ProductTypeWrapperRepository = new ProductTypeWrapperRepository(this);
 
             ProductTypeDesignationWrapperRepository = new ProductTypeDesignationWrapperRepository(this);
 
@@ -45,8 +46,6 @@ namespace HVTApp.UI.Wrapper
             OfferUnitWrapperRepository = new OfferUnitWrapperRepository(this);
 
             PaymentConditionSetWrapperRepository = new PaymentConditionSetWrapperRepository(this);
-
-            ProductTypeWrapperRepository = new ProductTypeWrapperRepository(this);
 
             ProductBlockWrapperRepository = new ProductBlockWrapperRepository(this);
 
@@ -143,6 +142,8 @@ namespace HVTApp.UI.Wrapper
 
         private ProductDesignationWrapperRepository ProductDesignationWrapperRepository;
 
+        private ProductTypeWrapperRepository ProductTypeWrapperRepository;
+
         private ProductTypeDesignationWrapperRepository ProductTypeDesignationWrapperRepository;
 
         private ProjectTypeWrapperRepository ProjectTypeWrapperRepository;
@@ -174,8 +175,6 @@ namespace HVTApp.UI.Wrapper
         private OfferUnitWrapperRepository OfferUnitWrapperRepository;
 
         private PaymentConditionSetWrapperRepository PaymentConditionSetWrapperRepository;
-
-        private ProductTypeWrapperRepository ProductTypeWrapperRepository;
 
         private ProductBlockWrapperRepository ProductBlockWrapperRepository;
 

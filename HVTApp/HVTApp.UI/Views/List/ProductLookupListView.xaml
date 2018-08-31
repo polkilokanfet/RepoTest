@@ -17,7 +17,7 @@
                 <infg:FieldLayout.Fields>
                     <infg:TextField Name="Designation" Label="Обозначение" Width="Auto" />
                     <infg:TextField Name="DesignationSpecial" Label="Специальное обозначение" Width="Auto" />
-                    <infg:TextField Name="ProductType" Label="Тип" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="ProductType" Label="Тип" Width="Auto" />
                     <infg:TextField Name="ProductBlock" Label="Блок" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
 
                 </infg:FieldLayout.Fields>

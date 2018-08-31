@@ -2624,17 +2624,17 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductLookup.DisplayMember)].Visibility; }
-            set { ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductLookup.DisplayMember)].Visibility = value; }
-        }
-
-
         public System.Windows.Visibility ProductTypeVisibility
         {
             get { return ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductLookup.ProductType)].Visibility; }
             set { ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductLookup.ProductType)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductLookup.DisplayMember)].Visibility; }
+            set { ProductLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductLookup.DisplayMember)].Visibility = value; }
         }
 
 

@@ -23,6 +23,12 @@ namespace HVTApp.UI.Lookup
     }
 
 
+    public partial class ProductTypeLookupDataService : LookupDataService<ProductTypeLookup, ProductType>, IProductTypeLookupDataService
+    {
+        public ProductTypeLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+    }
+
+
     public partial class ProductTypeDesignationLookupDataService : LookupDataService<ProductTypeDesignationLookup, ProductTypeDesignation>, IProductTypeDesignationLookupDataService
     {
         public ProductTypeDesignationLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -116,12 +122,6 @@ namespace HVTApp.UI.Lookup
     public partial class PaymentConditionSetLookupDataService : LookupDataService<PaymentConditionSetLookup, PaymentConditionSet>, IPaymentConditionSetLookupDataService
     {
         public PaymentConditionSetLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-    }
-
-
-    public partial class ProductTypeLookupDataService : LookupDataService<ProductTypeLookup, ProductType>, IProductTypeLookupDataService
-    {
-        public ProductTypeLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
     }
 
 
