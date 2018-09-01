@@ -12,5 +12,6 @@ namespace HVTApp.UI.Lookup
         Task<IEnumerable<TLookup>> GetAllLookupsAsync();
         void Delete(TLookup lookup);
         Task<int> SaveChangesAsync();
+        void Reload(TLookup lookup);
     }
 }

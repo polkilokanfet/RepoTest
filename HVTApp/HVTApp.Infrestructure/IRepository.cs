@@ -17,5 +17,7 @@ namespace HVTApp.Infrastructure
 
         void Delete(TEntity entity);
         void DeleteRange(IEnumerable<TEntity> entities);
+
+        void Reload(TEntity entity);
     }
 }

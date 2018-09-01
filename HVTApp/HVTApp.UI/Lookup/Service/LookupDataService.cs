@@ -63,5 +63,11 @@ namespace HVTApp.UI.Lookup
         {
             UnitOfWork?.Dispose();
         }
+
+        public void Reload(TLookup lookup)
+        {
+            UnitOfWork.GetRepository<TEntity>().Reload(lookup.Entity);
+            lookup.Refresh(lookup.Entity);
+        }
     }
 }
