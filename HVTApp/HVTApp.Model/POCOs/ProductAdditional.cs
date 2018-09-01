@@ -1,14 +1,12 @@
-using System;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
     /// <summary>
-    /// Зависимое оборудование (например привод в выключателе).
+    /// Добавленное оборудование к основному (например ЗИП к выключателю).
     /// </summary>
-    public class ProductDependent : BaseEntity
+    public class ProductAdditional: BaseEntity
     {
-        public virtual Guid MainProductId { get; set; }
         public virtual Product Product { get; set; }
         public int Amount { get; set; } = 1;
 
@@ -16,7 +14,7 @@ namespace HVTApp.Model.POCOs
         {
             if (base.Equals(obj)) return true;
 
-            var otherProductDependent = obj as ProductDependent;
+            var otherProductDependent = obj as ProductAdditional;
             if (otherProductDependent == null) return false;
 
             if (this.Amount != otherProductDependent.Amount) return false;

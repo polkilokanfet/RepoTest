@@ -8,6 +8,7 @@ using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Model.POCOs
 {
+
     [Designation("Продукт"), DesignationPlural("Продукты")]
     public partial class Product : BaseEntity
     {
@@ -24,7 +25,7 @@ namespace HVTApp.Model.POCOs
         public virtual ProductBlock ProductBlock { get; set; }
 
         [Designation("Продукты в составе")]
-        public virtual List<Product> DependentProducts { get; set; } = new List<Product>();
+        public virtual List<ProductDependent> DependentProducts { get; set; } = new List<ProductDependent>();
 
 
 
@@ -43,7 +44,9 @@ namespace HVTApp.Model.POCOs
             if (otherProduct == null) return false;
 
             //если составные части не совпадают
-            if (!Equals(this.ProductBlock, otherProduct.ProductBlock)) return false;
+            if (!this.ProductBlock.Equals(otherProduct.ProductBlock)) return false;
+
+            var fff = DependentProducts.AllMembersAreSame(otherProduct.DependentProducts);
 
             //если зависимые продукты не совпадают / совпадают
             return DependentProducts.AllMembersAreSame(otherProduct.DependentProducts);
@@ -59,7 +62,7 @@ namespace HVTApp.Model.POCOs
                 stringBuilder.Append(Environment.NewLine + "Составные части:".AddSpacesBefore(spaceCount));
                 foreach (var dependentProduct in DependentProducts)
                 {
-                    stringBuilder.Append(Environment.NewLine + dependentProduct.GetFullDescription(spaceCount).AddSpacesBefore(spaceCount));
+                    stringBuilder.Append(Environment.NewLine + dependentProduct.Product.GetFullDescription(spaceCount).AddSpacesBefore(spaceCount));
                 }
             }
 

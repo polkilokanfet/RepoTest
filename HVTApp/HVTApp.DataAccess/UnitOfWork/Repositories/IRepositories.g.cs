@@ -5,6 +5,7 @@ namespace HVTApp.DataAccess
 {
     public partial interface IPaymentActualRepository : IRepository<PaymentActual> { }
     public partial interface IPaymentPlannedRepository : IRepository<PaymentPlanned> { }
+    public partial interface IProductAdditionalRepository : IRepository<ProductAdditional> { }
     public partial interface IProductDesignationRepository : IRepository<ProductDesignation> { }
     public partial interface IProductTypeRepository : IRepository<ProductType> { }
     public partial interface IProductTypeDesignationRepository : IRepository<ProductTypeDesignation> { }

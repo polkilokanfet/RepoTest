@@ -80,11 +80,11 @@ namespace HVTApp.UI.ViewModels
 
         private async void AddInDependentProductsCommand_Execute()
         {
-            var pd = new ProductDependent();
+            var pd = new ProductAdditional();
             var result = await _updateDetailsService.UpdateDetails(pd);
             if (result)
             {
-                OfferUnitsGroup.DependentProducts.Add(new ProductDependentWrapper(pd));
+                OfferUnitsGroup.DependentProducts.Add(new ProductAdditionalWrapper(pd));
             }
         }
 

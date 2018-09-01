@@ -10,7 +10,7 @@
     <GroupBox Header="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}" Margin="10">
         <StackPanel Orientation="Vertical">
 
-            <Label Content="{Binding Amount}" HorizontalAlignment="Center"/>
+            <!--<Label Content="{Binding Amount}" HorizontalAlignment="Center"/>-->
 
             <ItemsControl ItemsSource="{Binding ProductBlockSelector.ParameterSelectors}">
                 <ItemsControl.ItemTemplate>

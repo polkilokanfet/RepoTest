@@ -5,6 +5,7 @@ namespace HVTApp.Model.Events
 {
 	public partial class AfterRemovePaymentActualEvent : PubSubEvent<PaymentActual> { }
 	public partial class AfterRemovePaymentPlannedEvent : PubSubEvent<PaymentPlanned> { }
+	public partial class AfterRemoveProductAdditionalEvent : PubSubEvent<ProductAdditional> { }
 	public partial class AfterRemoveProductDesignationEvent : PubSubEvent<ProductDesignation> { }
 	public partial class AfterRemoveProductTypeEvent : PubSubEvent<ProductType> { }
 	public partial class AfterRemoveProductTypeDesignationEvent : PubSubEvent<ProductTypeDesignation> { }

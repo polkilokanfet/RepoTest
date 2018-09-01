@@ -11,8 +11,8 @@ namespace HVTApp.UI.ViewModels
 {
     public class OfferUnitsGroup : BaseUnitsGroup<OfferUnitWrapper>
     {
-        private readonly Dictionary<ProductDependentWrapper, List<ProductDependentWrapper>> _dictionary = 
-            new Dictionary<ProductDependentWrapper, List<ProductDependentWrapper>>();
+        private readonly Dictionary<ProductAdditionalWrapper, List<ProductAdditionalWrapper>> _dictionary = 
+            new Dictionary<ProductAdditionalWrapper, List<ProductAdditionalWrapper>>();
 
         public OfferUnitsGroup(IEnumerable<OfferUnitWrapper> units) : base(units)
         {
@@ -20,7 +20,7 @@ namespace HVTApp.UI.ViewModels
                 throw new ArgumentNullException(nameof(units));
 
             var dependentProducts = units.First().DependentProducts;
-            DependentProducts = new ValidatableChangeTrackingCollection<ProductDependentWrapper>(dependentProducts);
+            DependentProducts = new ValidatableChangeTrackingCollection<ProductAdditionalWrapper>(dependentProducts);
             foreach (var productDependentWrapper in DependentProducts)
             {
                 var list = units.Select(x => x.DependentProducts.First(dp => 
@@ -38,7 +38,7 @@ namespace HVTApp.UI.ViewModels
                 !Equals(e.PropertyName, nameof(ProductDependent.Amount)))
                 return;
 
-            ProductDependentWrapper productDependentWrapper = (ProductDependentWrapper)sender;
+            var productDependentWrapper = (ProductAdditionalWrapper)sender;
             var propInfo = sender.GetType().GetProperty(e.PropertyName);
             var value = propInfo.GetValue(sender);
             foreach (var target in _dictionary[productDependentWrapper])
@@ -57,11 +57,11 @@ namespace HVTApp.UI.ViewModels
             {
                 foreach (var newItem in args.NewItems)
                 {
-                    var product = (ProductDependentWrapper) newItem;
-                    _dictionary.Add(product, new List<ProductDependentWrapper>());
+                    var product = (ProductAdditionalWrapper) newItem;
+                    _dictionary.Add(product, new List<ProductAdditionalWrapper>());
                     foreach (var unit in Units)
                     {
-                        var productDependentWrapper = new ProductDependentWrapper(new ProductDependent
+                        var productDependentWrapper = new ProductAdditionalWrapper(new ProductAdditional
                             {
                                 Product = product.Product.Model,
                                 Amount = product.Amount
@@ -77,7 +77,7 @@ namespace HVTApp.UI.ViewModels
             {
                 foreach (var oldItem in args.OldItems)
                 {
-                    var oldProduct = (ProductDependentWrapper) oldItem;
+                    var oldProduct = (ProductAdditionalWrapper) oldItem;
                     foreach (var target in _dictionary[oldProduct])
                     {
                         Units.Single(x => x.DependentProducts.Contains(target)).DependentProducts.Remove(target);
@@ -128,7 +128,7 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
-        public IValidatableChangeTrackingCollection<ProductDependentWrapper> DependentProducts { get; }
+        public IValidatableChangeTrackingCollection<ProductAdditionalWrapper> DependentProducts { get; }
 
         public double Total => Units.Sum(x => x.Cost);
 

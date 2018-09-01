@@ -19,7 +19,7 @@ namespace HVTApp.Model.POCOs
         public virtual Product Product { get; set; }
 
         [Designation("Зависимое оборудование")]
-        public virtual List<ProductDependent> DependentProducts { get; set; } = new List<ProductDependent>();
+        public virtual List<ProductAdditional> DependentProducts { get; set; } = new List<ProductAdditional>();
 
         [Designation("Услуги")]
         public virtual List<Service> Services { get; set; } = new List<Service>();
@@ -36,7 +36,7 @@ namespace HVTApp.Model.POCOs
 
     public interface IUnit : IProductCost
     {
-        List<ProductDependent> DependentProducts { get; }
+        List<ProductAdditional> DependentProducts { get; }
         List<Service> Services { get; }
     }
 

@@ -1,4 +1,4 @@
-<inf:ViewBase x:Class="HVTApp.UI.Views.DistrictDetailsView"
+<inf:ViewBase x:Class="HVTApp.UI.Views.ProductAdditionalDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -18,18 +18,19 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Name" Visibility="{Binding NameVisibility, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
-                 Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding NameVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Amount" Visibility="{Binding AmountVisibility, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0"
+							   ValueType="core:Int32"
+                               Value="{Binding Item.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding AmountVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Country" Visibility="{Binding CountryVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Продукт" Visibility="{Binding ProductVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
-                                    Item="{Binding Item.Country}" 
-                                    AddItemCommand="{Binding SelectCountryCommand}" 
-                                    RemoveItemCommand="{Binding ClearCountryCommand}"
-									Visibility="{Binding CountryVisibility, ElementName=Root}"/>
+                                    Item="{Binding Item.Product}" 
+                                    AddItemCommand="{Binding SelectProductCommand}" 
+                                    RemoveItemCommand="{Binding ClearProductCommand}"
+									Visibility="{Binding ProductVisibility, ElementName=Root}"/>
 
 
 

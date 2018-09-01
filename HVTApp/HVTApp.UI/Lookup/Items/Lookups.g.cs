@@ -81,6 +81,36 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	public partial class ProductAdditionalLookup : LookupItem<ProductAdditional>
+	{
+		public ProductAdditionalLookup(ProductAdditional entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+			Product?.Refresh(Entity.Product);
+
+		}
+		
+
+        #region SimpleProperties
+
+        public System.Int32 Amount => GetValue<System.Int32>();
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
+
+
+        #endregion
+
+	}
+
 	public partial class ProductDesignationLookup : LookupItem<ProductDesignation>
 	{
 		public ProductDesignationLookup(ProductDesignation entity) : base(entity) 
@@ -616,6 +646,9 @@ namespace HVTApp.UI.Lookup
 		
 
         #region SimpleProperties
+
+        public System.Guid MainProductId => GetValue<System.Guid>();
+
 
         public System.Int32 Amount => GetValue<System.Int32>();
 

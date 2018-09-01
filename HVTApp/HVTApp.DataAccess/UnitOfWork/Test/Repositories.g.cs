@@ -13,6 +13,11 @@ namespace HVTApp.DataAccess
         public PaymentPlannedRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class ProductAdditionalRepositoryTest : TestBaseRepository<ProductAdditional>, IProductAdditionalRepository
+    {
+        public ProductAdditionalRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class ProductDesignationRepositoryTest : TestBaseRepository<ProductDesignation>, IProductDesignationRepository
     {
         public ProductDesignationRepositoryTest(TestData testData) : base(testData) {}

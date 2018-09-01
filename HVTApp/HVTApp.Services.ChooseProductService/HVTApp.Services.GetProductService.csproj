@@ -61,6 +61,7 @@
     <Compile Include="Selectors\ParameterFlaged.cs" />
     <Compile Include="Selectors\ParameterSelector.cs" />
     <Compile Include="Selectors\ProductBlockSelector.cs" />
+    <Compile Include="Selectors\ProductComparer.cs" />
     <Compile Include="Selectors\ProductSelector.cs" />
     <Compile Include="ParametersEnumerableComparer.cs" />
     <Compile Include="SelectProductWindow.xaml.cs">

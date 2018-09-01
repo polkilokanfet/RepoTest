@@ -5,6 +5,7 @@ namespace HVTApp.DataAccess
 {
     public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }
     public partial class PaymentPlannedConfiguration : EntityTypeConfiguration<PaymentPlanned> { }
+    public partial class ProductAdditionalConfiguration : EntityTypeConfiguration<ProductAdditional> { }
     public partial class ProductDesignationConfiguration : EntityTypeConfiguration<ProductDesignation> { }
     public partial class ProductTypeConfiguration : EntityTypeConfiguration<ProductType> { }
     public partial class ProductTypeDesignationConfiguration : EntityTypeConfiguration<ProductTypeDesignation> { }

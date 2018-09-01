@@ -24,6 +24,16 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class ProductAdditionalRepository : BaseRepository<ProductAdditional>, IProductAdditionalRepository
+    {
+        IUnityContainer _container;
+
+		public ProductAdditionalRepository(DbContext context, IUnityContainer container) : base(context) 
+		{
+			_container = container;
+		}
+    }
+
     public partial class ProductDesignationRepository : BaseRepository<ProductDesignation>, IProductDesignationRepository
     {
         IUnityContainer _container;

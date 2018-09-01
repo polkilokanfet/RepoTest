@@ -21,10 +21,12 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Date" Visibility="{Binding DateVisibility, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding DateVisibility, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Блок" Visibility="{Binding ProductBlockVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -32,6 +34,7 @@
                                     AddItemCommand="{Binding SelectProductBlockCommand}" 
                                     RemoveItemCommand="{Binding ClearProductBlockCommand}"
 									Visibility="{Binding ProductBlockVisibility, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Projects" Visibility="{Binding ProjectsVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
@@ -41,6 +44,7 @@
 										 RemoveItemCommand="{Binding RemoveFromProjectsCommand}"
 										 Visibility="{Binding ProjectsVisibility, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="3" Content="Offers" Visibility="{Binding OffersVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.Offers}"
@@ -49,6 +53,7 @@
 										 RemoveItemCommand="{Binding RemoveFromOffersCommand}"
 										 Visibility="{Binding OffersVisibility, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="4" Content="Specifications" Visibility="{Binding SpecificationsVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
 										 Items="{Binding Path=Item.Specifications}"
@@ -56,6 +61,7 @@
 										 AddItemCommand="{Binding AddInSpecificationsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromSpecificationsCommand}"
 										 Visibility="{Binding SpecificationsVisibility, ElementName=Root}"/>
+
 
 
     </Grid>

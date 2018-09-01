@@ -17,6 +17,12 @@ namespace HVTApp.UI.Lookup
     }
 
 
+    public partial class ProductAdditionalLookupDataService : LookupDataService<ProductAdditionalLookup, ProductAdditional>, IProductAdditionalLookupDataService
+    {
+        public ProductAdditionalLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+    }
+
+
     public partial class ProductDesignationLookupDataService : LookupDataService<ProductDesignationLookup, ProductDesignation>, IProductDesignationLookupDataService
     {
         public ProductDesignationLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }

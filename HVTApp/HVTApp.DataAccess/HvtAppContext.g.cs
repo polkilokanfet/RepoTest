@@ -11,6 +11,7 @@ namespace HVTApp.DataAccess
 			#region Configurations
             modelBuilder.Configurations.Add(new PaymentActualConfiguration());
             modelBuilder.Configurations.Add(new PaymentPlannedConfiguration());
+            modelBuilder.Configurations.Add(new ProductAdditionalConfiguration());
             modelBuilder.Configurations.Add(new ProductDesignationConfiguration());
             modelBuilder.Configurations.Add(new ProductTypeConfiguration());
             modelBuilder.Configurations.Add(new ProductTypeDesignationConfiguration());
@@ -80,6 +81,7 @@ namespace HVTApp.DataAccess
 		#region DbSets
         public virtual DbSet<PaymentActual> PaymentActualDbSet { get; set; }
         public virtual DbSet<PaymentPlanned> PaymentPlannedDbSet { get; set; }
+        public virtual DbSet<ProductAdditional> ProductAdditionalDbSet { get; set; }
         public virtual DbSet<ProductDesignation> ProductDesignationDbSet { get; set; }
         public virtual DbSet<ProductType> ProductTypeDbSet { get; set; }
         public virtual DbSet<ProductTypeDesignation> ProductTypeDesignationDbSet { get; set; }

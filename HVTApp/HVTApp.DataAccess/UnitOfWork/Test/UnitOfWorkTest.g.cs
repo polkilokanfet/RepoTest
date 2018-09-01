@@ -9,6 +9,7 @@ namespace HVTApp.DataAccess
 			#region RepositoriesInit
             PaymentActualRepository = new PaymentActualRepositoryTest(testData);
             PaymentPlannedRepository = new PaymentPlannedRepositoryTest(testData);
+            ProductAdditionalRepository = new ProductAdditionalRepositoryTest(testData);
             ProductDesignationRepository = new ProductDesignationRepositoryTest(testData);
             ProductTypeRepository = new ProductTypeRepositoryTest(testData);
             ProductTypeDesignationRepository = new ProductTypeDesignationRepositoryTest(testData);
@@ -77,6 +78,7 @@ namespace HVTApp.DataAccess
         #region Repositories
         public IPaymentActualRepository PaymentActualRepository { get; }
         public IPaymentPlannedRepository PaymentPlannedRepository { get; }
+        public IProductAdditionalRepository ProductAdditionalRepository { get; }
         public IProductDesignationRepository ProductDesignationRepository { get; }
         public IProductTypeRepository ProductTypeRepository { get; }
         public IProductTypeDesignationRepository ProductTypeDesignationRepository { get; }

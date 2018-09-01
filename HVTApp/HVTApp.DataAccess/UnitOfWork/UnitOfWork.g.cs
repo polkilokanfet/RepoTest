@@ -1,4 +1,6 @@
 using System.Data.Entity;
+using System.Linq;
+using HVTApp.Infrastructure;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.DataAccess
@@ -13,6 +15,7 @@ namespace HVTApp.DataAccess
 			#region RepositoriesInit
             PaymentActualRepository = new PaymentActualRepository(context, container);
             PaymentPlannedRepository = new PaymentPlannedRepository(context, container);
+            ProductAdditionalRepository = new ProductAdditionalRepository(context, container);
             ProductDesignationRepository = new ProductDesignationRepository(context, container);
             ProductTypeRepository = new ProductTypeRepository(context, container);
             ProductTypeDesignationRepository = new ProductTypeDesignationRepository(context, container);
@@ -81,6 +84,7 @@ namespace HVTApp.DataAccess
         #region Repositories
         protected IPaymentActualRepository PaymentActualRepository;
         protected IPaymentPlannedRepository PaymentPlannedRepository;
+        protected IProductAdditionalRepository ProductAdditionalRepository;
         protected IProductDesignationRepository ProductDesignationRepository;
         protected IProductTypeRepository ProductTypeRepository;
         protected IProductTypeDesignationRepository ProductTypeDesignationRepository;

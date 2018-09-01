@@ -6,12 +6,14 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class ProductWrapper
     {
+        IEnumerable<ProductWrapper> DepPrpds => DependentProducts.Select(x => x.Product);
+
         public IEnumerable<ProductBlockWrapper> GetBlocksWithoutAnyPrice()
         {
             if (!ProductBlock.Prices.Any())
                 yield return ProductBlock;
 
-            foreach (var dependentProduct in DependentProducts)
+            foreach (var dependentProduct in DepPrpds)
             {
                 foreach (var productBlockWrapper in dependentProduct.GetBlocksWithoutAnyPrice())
                 {
@@ -25,7 +27,7 @@ namespace HVTApp.UI.Wrapper
             if (!ProductBlock.HasActualPriceOnDate(date))
                 yield return ProductBlock;
 
-            foreach (var dependentProduct in DependentProducts)
+            foreach (var dependentProduct in DepPrpds)
             {
                 foreach (var productBlockWrapper in dependentProduct.GetBlocksWithoutActualPriceOnDate(date))
                 {
@@ -40,7 +42,7 @@ namespace HVTApp.UI.Wrapper
             double sum = ProductBlock.GetPrice(targetDate);
             foreach (var dependentProduct in DependentProducts)
             {
-                sum += dependentProduct.GetPrice(targetDate);
+                sum += dependentProduct.Product.GetPrice(targetDate) * dependentProduct.Amount;
             }
             return sum;
         }
