@@ -16,6 +16,7 @@ namespace HVTApp.Services.GetProductService
         public ProductBlockSelector ProductBlockSelector { get; }
         public ObservableCollection<ProductSelector> ProductSelectors { get; } = new ObservableCollection<ProductSelector>();
         public int Amount { get; }
+        public bool HasDependentProducts => ProductSelectors.Any();
 
         public Product SelectedProduct
         {
@@ -122,6 +123,8 @@ namespace HVTApp.Services.GetProductService
                     productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
                 }
             }
+
+            OnPropertyChanged(nameof(HasDependentProducts));
         }
 
         //реакция на изменение дочернего продукта

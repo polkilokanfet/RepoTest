@@ -7,28 +7,21 @@
         <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></local:BooleanToVisibilityConverter>
     </UserControl.Resources>
 
-    <Border BorderThickness="1" BorderBrush="Black" Margin="2">
+    <GroupBox Header="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}" Margin="10">
         <StackPanel Orientation="Vertical">
 
-            <Label Content="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"
-                   HorizontalAlignment="Center"
-                   FontWeight="Bold"/>
-            <Label Content="{Binding ProductBlockSelector.SelectedProductBlock, UpdateSourceTrigger=PropertyChanged}" 
-                   HorizontalAlignment="Center"/>
-            <Label Content="{Binding Amount}"/>
+            <Label Content="{Binding Amount}" HorizontalAlignment="Center"/>
 
             <ItemsControl ItemsSource="{Binding ProductBlockSelector.ParameterSelectors}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid Visibility="{Binding IsActual, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Grid Visibility="{Binding IsActual, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             
-                            <Label Content="{Binding GroupName}"
-                                   HorizontalAlignment="Right" 
-                                   Grid.Column="0"/>
+                            <Label Content="{Binding GroupName}" HorizontalAlignment="Right" Grid.Column="0"/>
                             <ComboBox ItemsSource="{Binding ParametersFlaged}"
                                       SelectedItem="{Binding SelectedParameterFlaged, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       HorizontalAlignment="Left"
@@ -46,19 +39,21 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            
-            
-            <Label Content="Дочерние блоки оборудования:" 
-                   HorizontalAlignment="Center"
-                   FontStyle="Italic"/>
-            <ItemsControl ItemsSource="{Binding ProductSelectors}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <local:SelectProductView DataContext="{Binding}"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            
+
+            <GroupBox Header="Дочернее оборудование:"
+                      Visibility="{Binding HasDependentProducts, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+                <ItemsControl ItemsSource="{Binding ProductSelectors}"
+                              HorizontalAlignment="Center">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:SelectProductView DataContext="{Binding}" HorizontalAlignment="Center" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                
+            </GroupBox>
+
         </StackPanel>
-    </Border>
+    </GroupBox>
 </UserControl>
