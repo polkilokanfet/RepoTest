@@ -839,6 +839,16 @@ namespace HVTApp.UI.Views
             NotUpdateAttribute attr;
 
 
+            attr = typeof(HVTApp.Model.POCOs.CalculatePriceTask).GetProperty(nameof(HVTApp.Model.POCOs.CalculatePriceTask.Status)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                StatusVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.CalculatePriceTask).GetProperty(nameof(HVTApp.Model.POCOs.CalculatePriceTask.Sum)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                SumVisibility = Visibility.Collapsed;
+
+
             attr = typeof(HVTApp.Model.POCOs.CalculatePriceTask).GetProperty(nameof(HVTApp.Model.POCOs.CalculatePriceTask.Date)).GetCustomAttribute<NotUpdateAttribute>();
             if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
                 DateVisibility = Visibility.Collapsed;
@@ -847,11 +857,6 @@ namespace HVTApp.UI.Views
             attr = typeof(HVTApp.Model.POCOs.CalculatePriceTask).GetProperty(nameof(HVTApp.Model.POCOs.CalculatePriceTask.ProductBlock)).GetCustomAttribute<NotUpdateAttribute>();
             if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
                 ProductBlockVisibility = Visibility.Collapsed;
-
-
-            attr = typeof(HVTApp.Model.POCOs.CalculatePriceTask).GetProperty(nameof(HVTApp.Model.POCOs.CalculatePriceTask.IsActual)).GetCustomAttribute<NotUpdateAttribute>();
-            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-                IsActualVisibility = Visibility.Collapsed;
 
 
             attr = typeof(HVTApp.Model.POCOs.CalculatePriceTask).GetProperty(nameof(HVTApp.Model.POCOs.CalculatePriceTask.Projects)).GetCustomAttribute<NotUpdateAttribute>();
@@ -874,6 +879,24 @@ namespace HVTApp.UI.Views
 
 
 
+        public static readonly DependencyProperty StatusVisibilityProperty = DependencyProperty.Register("StatusVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility StatusVisibility
+        {
+            get { return (Visibility) GetValue(StatusVisibilityProperty); }
+            set { SetValue(StatusVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty SumVisibilityProperty = DependencyProperty.Register("SumVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility SumVisibility
+        {
+            get { return (Visibility) GetValue(SumVisibilityProperty); }
+            set { SetValue(SumVisibilityProperty, value); }
+        }
+
+
+
         public static readonly DependencyProperty DateVisibilityProperty = DependencyProperty.Register("DateVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
         public Visibility DateVisibility
         {
@@ -888,15 +911,6 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(ProductBlockVisibilityProperty); }
             set { SetValue(ProductBlockVisibilityProperty, value); }
-        }
-
-
-
-        public static readonly DependencyProperty IsActualVisibilityProperty = DependencyProperty.Register("IsActualVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility IsActualVisibility
-        {
-            get { return (Visibility) GetValue(IsActualVisibilityProperty); }
-            set { SetValue(IsActualVisibilityProperty, value); }
         }
 
 

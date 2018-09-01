@@ -244,17 +244,52 @@ namespace HVTApp.UI.Views
 		#region VisibilityProps
 
 
+        public System.Windows.Visibility StatusStringVisibility
+        {
+            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.StatusString)].Visibility; }
+            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.StatusString)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ProjectsVisibility
+        {
+            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Projects)].Visibility; }
+            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Projects)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility OffersVisibility
+        {
+            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Offers)].Visibility; }
+            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Offers)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SpecificationsVisibility
+        {
+            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Specifications)].Visibility; }
+            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Specifications)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility StatusVisibility
+        {
+            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Status)].Visibility; }
+            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Status)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SumVisibility
+        {
+            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Sum)].Visibility; }
+            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Sum)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility DateVisibility
         {
             get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Date)].Visibility; }
             set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Date)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility IsActualVisibility
-        {
-            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.IsActual)].Visibility; }
-            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.IsActual)].Visibility = value; }
         }
 
 
@@ -3672,17 +3707,17 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return SumOnDateLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SumOnDateLookup.DisplayMember)].Visibility; }
-            set { SumOnDateLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SumOnDateLookup.DisplayMember)].Visibility = value; }
-        }
-
-
         public System.Windows.Visibility SumVisibility
         {
             get { return SumOnDateLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SumOnDateLookup.Sum)].Visibility; }
             set { SumOnDateLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SumOnDateLookup.Sum)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return SumOnDateLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SumOnDateLookup.DisplayMember)].Visibility; }
+            set { SumOnDateLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SumOnDateLookup.DisplayMember)].Visibility = value; }
         }
 
 

@@ -480,7 +480,7 @@ namespace HVTApp.TestDataGenerator
             {
                 Name = "Блок Трансформатор напряжения ЗНГ-110",
                 Parameters = new List<Parameter> {ParameterTransformator, ParameterTransformatorVoltage, ParameterVoltage110kV},
-                Prices = new List<SumOnDate> {new SumOnDate {Sum = 250000, Date = DateTime.Today}},
+                Prices = new List<SumOnDate> {new SumOnDate {Sum = 250000, Date = DateTime.Today.AddDays(-95)}},
                 StructureCostNumber = "StructureCostNumber1"
             });
 

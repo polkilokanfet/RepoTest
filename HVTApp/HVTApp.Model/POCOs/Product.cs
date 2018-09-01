@@ -46,11 +46,24 @@ namespace HVTApp.Model.POCOs
             //если составные части не совпадают
             if (!this.ProductBlock.Equals(otherProduct.ProductBlock)) return false;
 
-            var fff = DependentProducts.AllMembersAreSame(otherProduct.DependentProducts);
-
             //если зависимые продукты не совпадают / совпадают
             return DependentProducts.AllMembersAreSame(otherProduct.DependentProducts);
         }
+
+        public IEnumerable<ProductBlock> GetBlocks()
+        {
+            var result = new List<ProductBlock>();
+            result.Add(ProductBlock);
+            foreach (var dependentProduct in DependentProducts)
+            {
+                for (int i = 0; i < dependentProduct.Amount; i++)
+                {
+                    result.AddRange(dependentProduct.Product.GetBlocks());
+                }
+            }
+            return result;
+        }
+
 
         public string GetFullDescription(int spaceCount = 0)
         {

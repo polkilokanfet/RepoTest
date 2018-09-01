@@ -423,10 +423,13 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+        public HVTApp.Model.POCOs.CalculatePriceTaskStatus Status => GetValue<HVTApp.Model.POCOs.CalculatePriceTaskStatus>();
+
+
+        public System.Double Sum => GetValue<System.Double>();
+
+
         public System.DateTime Date => GetValue<System.DateTime>();
-
-
-        public System.Boolean IsActual => GetValue<System.Boolean>();
 
 
         #endregion

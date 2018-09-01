@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using HVTApp.Views;
 using System.Windows;
@@ -30,8 +29,6 @@ using HVTApp.Services.SelectService;
 using HVTApp.Services.UpdateDetailsService;
 using HVTApp.UI;
 using HVTApp.UI.Lookup;
-using HVTApp.UI.Services;
-using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Infragistics.Windows.OutlookBar;
 using Infragistics.Windows.Ribbon;
@@ -73,7 +70,7 @@ namespace HVTApp
             var commonOption = commonOptions.First();
 
             CommonOptions.OurCompanyId = commonOption.OurCompanyId;
-            CommonOptions.CalculationPriceTerm = commonOption.CalculationPriceTerm;
+            CommonOptions.ActualPriceTerm = commonOption.CalculationPriceTerm;
             CommonOptions.StandartPaymentsConditionSetId = commonOption.StandartPaymentsConditionSetId;
             CommonOptions.ProductionTerm = commonOption.StandartTermFromStartToEndProduction;
             CommonOptions.AssembleTerm = commonOption.StandartTermFromPickToEndProduction;
@@ -89,7 +86,6 @@ namespace HVTApp
             Container.RegisterType<IAuthenticationService, AuthenticationService>();
             Container.RegisterType<ISelectService, SelectServiceWpf>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IMessageService, MessageServiceWpf>();
-            Container.RegisterType<IGenerateCalculatePriceTasksService, GenerateCalculatePriceTasksServiceRealization>(new ContainerControlledLifetimeManager());
 
             Container.RegisterType<IProjectLookupDataService, ProjectLookupDataService>();
             Container.RegisterType<ICompanyLookupDataService, CompanyLookupDataService>();

@@ -596,6 +596,22 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public HVTApp.Model.POCOs.CalculatePriceTaskStatus Status
+        {
+          get { return GetValue<HVTApp.Model.POCOs.CalculatePriceTaskStatus>(); }
+          set { SetValue(value); }
+        }
+        public HVTApp.Model.POCOs.CalculatePriceTaskStatus StatusOriginalValue => GetOriginalValue<HVTApp.Model.POCOs.CalculatePriceTaskStatus>(nameof(Status));
+        public bool StatusIsChanged => GetIsChanged(nameof(Status));
+
+        public System.Double Sum
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
+        public bool SumIsChanged => GetIsChanged(nameof(Sum));
+
         public System.DateTime Date
         {
           get { return GetValue<System.DateTime>(); }
@@ -603,14 +619,6 @@ namespace HVTApp.UI.Wrapper
         }
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
-
-        public System.Boolean IsActual
-        {
-          get { return GetValue<System.Boolean>(); }
-          set { SetValue(value); }
-        }
-        public System.Boolean IsActualOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsActual));
-        public bool IsActualIsChanged => GetIsChanged(nameof(IsActual));
 
         public System.Guid Id
         {
