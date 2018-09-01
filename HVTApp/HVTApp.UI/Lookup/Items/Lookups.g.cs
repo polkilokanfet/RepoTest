@@ -1524,8 +1524,6 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Sum?.Refresh(Entity.Sum);
-
 		}
 		
 
@@ -1534,12 +1532,7 @@ namespace HVTApp.UI.Lookup
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
-        #endregion
-
-
-        #region ComplexProperties
-
-	    public SumLookup Sum { get { return GetLookup<SumLookup>(); } }
+        public System.Double Sum => GetValue<System.Double>();
 
 
         #endregion

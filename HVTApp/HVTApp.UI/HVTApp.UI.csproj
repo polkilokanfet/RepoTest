@@ -375,6 +375,10 @@
       <Project>{7703A90A-E742-41B1-96CB-CD0F51E3F2B6}</Project>
       <Name>HVTApp.Services.MessageService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Services.PriceService\HVTApp.Services.PriceService.csproj">
+      <Project>{A241858E-B7B3-42A1-A04F-FE39E55145E6}</Project>
+      <Name>HVTApp.Services.PriceService</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\ChooseItemControl.xaml">

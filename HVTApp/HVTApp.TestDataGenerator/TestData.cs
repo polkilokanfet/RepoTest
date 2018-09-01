@@ -462,41 +462,41 @@ namespace HVTApp.TestDataGenerator
         {
             ProductBlockVgb35.Clone(new ProductBlock
             {
-                Name = "Выключатель баковый ВГБ-35",
+                Name = "Блок Выключатель баковый ВГБ-35",
                 Parameters = new List<Parameter> {ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage35kV},
-                Prices = new List<SumOnDate> {new SumOnDate {Sum = new Sum {Value = 450000}, Date = DateTime.Today}},
+                Prices = new List<SumOnDate> {new SumOnDate {Sum = 450000, Date = DateTime.Today}},
                 StructureCostNumber = "StructureCostNumberVGB35",
             });
 
             ProductBlockVeb110.Clone(new ProductBlock
             {
-                Name = "Выключатель баковый ВЭБ-110",
+                Name = "Блок Выключатель баковый ВЭБ-110",
                 Parameters = new List<Parameter> {ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage110kV},
-                Prices = new List<SumOnDate> {new SumOnDate {Sum = new Sum { Value = 2000000 }, Date = DateTime.Today}},
+                Prices = new List<SumOnDate> {new SumOnDate {Sum = 2000000, Date = DateTime.Today}},
                 StructureCostNumber = "StructureCostNumber3",
             });
 
             ProductBlockZng110.Clone(new ProductBlock
             {
-                Name = "Трансформатор напряжения ЗНГ-110",
+                Name = "Блок Трансформатор напряжения ЗНГ-110",
                 Parameters = new List<Parameter> {ParameterTransformator, ParameterTransformatorVoltage, ParameterVoltage110kV},
-                Prices = new List<SumOnDate> {new SumOnDate {Sum = new Sum { Value = 250000 }, Date = DateTime.Today}},
+                Prices = new List<SumOnDate> {new SumOnDate {Sum = 250000, Date = DateTime.Today}},
                 StructureCostNumber = "StructureCostNumber1"
             });
 
             ProductBlockBreakersDrive.Clone(new ProductBlock
             {
-                Name = "Привод выключателя",
+                Name = "Блок Привод выключателя",
                 Parameters = new List<Parameter> { ParameterBrakersDrive, ParameterVoltage220V },
-                Prices = new List<SumOnDate> { new SumOnDate { Sum = new Sum { Value = 200000 }, Date = DateTime.Today } },
+                Prices = new List<SumOnDate> { new SumOnDate { Sum = 200000, Date = DateTime.Today } },
                 StructureCostNumber = "StructureCostNumber4"
             });
 
             ProductBlockZip1.Clone(new ProductBlock
             {
-                Name = "Групповой комплект ЗИП №1",
+                Name = "Блок Групповой комплект ЗИП №1",
                 Parameters = new List<Parameter> { ParameterDependentEquipment, ParameterZip1 },
-                Prices = new List<SumOnDate> { new SumOnDate { Sum = new Sum { Value = 5000 }, Date = DateTime.Today } },
+                Prices = new List<SumOnDate> { new SumOnDate { Sum = 2500, Date = DateTime.Today } },
                 StructureCostNumber = "StructureCostNumberZip1"
             });
         }

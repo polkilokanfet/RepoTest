@@ -16,6 +16,7 @@
                         <dataPresenter:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
                         <dataPresenter:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
                         <dataPresenter:NumericField Name="Amount" Label="Кол." Width="Auto" />
+                        <dataPresenter:NumericField Name="MarginalIncome" Label="МД" Width="Auto" AllowEdit="True" />
                         <dataPresenter:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" />
                         <dataPresenter:NumericField Name="Total" Label="Сумма" Width="Auto"/>
                         

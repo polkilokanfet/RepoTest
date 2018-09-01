@@ -2480,29 +2480,9 @@ namespace HVTApp.UI.ViewModels
 
     public partial class SumOnDateDetailsViewModel : BaseDetailsViewModel<SumOnDateWrapper, SumOnDate, AfterSaveSumOnDateEvent>
     {
-		private Func<Task<List<Sum>>> _getEntitiesForSelectSumCommand;
-		public ICommand SelectSumCommand { get; private set; }
-		public ICommand ClearSumCommand { get; private set; }
-
 
         public SumOnDateDetailsViewModel(IUnityContainer container) : base(container) 
 		{
-			
-			if (_getEntitiesForSelectSumCommand == null) _getEntitiesForSelectSumCommand = async () => { return await WrapperDataService.GetRepository<Sum>().GetAllAsync(); };
-			if (SelectSumCommand == null) SelectSumCommand = new DelegateCommand(SelectSumCommand_Execute_Default);
-			if (ClearSumCommand == null) ClearSumCommand = new DelegateCommand(ClearSumCommand_Execute_Default);
-
-		}
-
-		private async void SelectSumCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<Sum, SumWrapper>(await _getEntitiesForSelectSumCommand(), nameof(Item.Sum), Item.Sum?.Id);
-		}
-
-		private void ClearSumCommand_Execute_Default() 
-		{
-						Item.Sum = null;
-		    
 		}
 
 

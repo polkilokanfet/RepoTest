@@ -24,6 +24,7 @@ using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;
 using HVTApp.Services.MessageService;
 using HVTApp.Services.OfferToDocService;
+using HVTApp.Services.PriceService;
 using HVTApp.Services.ProductDesignationService;
 using HVTApp.Services.SelectService;
 using HVTApp.Services.UpdateDetailsService;
@@ -103,6 +104,7 @@ namespace HVTApp
             Container.RegisterType<IGetProductService, GetProductServiceWpf>();
             Container.RegisterType<IOfferToDoc, OfferToDoc>();
             Container.RegisterType<IProductDesignationService, ProductDesignator>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IPriceService, PriceService>();
         }
 
         protected override IModuleCatalog CreateModuleCatalog()

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.GetProductService
@@ -14,13 +13,6 @@ namespace HVTApp.Services.GetProductService
         public int GetHashCode(Product product)
         {
             return 0;
-            int result = 0;
-            foreach (var dp in product.DependentProducts.Select(x => x.Product))
-            {
-                result += GetHashCode(dp);
-            }
-            result += product.ProductBlock.Parameters.Sum(x => x.GetHashCode());
-            return result;
         }
     }
 }

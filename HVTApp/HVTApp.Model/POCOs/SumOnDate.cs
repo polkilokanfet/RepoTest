@@ -9,6 +9,6 @@ namespace HVTApp.Model.POCOs
     public class SumOnDate : BaseEntity
     {
         public DateTime Date { get; set; }
-        public virtual Sum Sum { get; set; }
+        public double Sum { get; set; }
     }
 }

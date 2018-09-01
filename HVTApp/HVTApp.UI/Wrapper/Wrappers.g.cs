@@ -2527,6 +2527,14 @@ namespace HVTApp.UI.Wrapper
         public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
+        public System.Double Sum
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
+        public bool SumIsChanged => GetIsChanged(nameof(Sum));
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2536,20 +2544,6 @@ namespace HVTApp.UI.Wrapper
         public bool IdIsChanged => GetIsChanged(nameof(Id));
 
         #endregion
-
-        #region ComplexProperties
-	    public SumWrapper Sum 
-        {
-            get { return GetWrapper<SumWrapper>(); }
-            set { SetComplexValue<Sum, SumWrapper>(Sum, value); }
-        }
-
-        #endregion
-        public override void InitializeComplexProperties()
-        {
-            InitializeComplexProperty<SumWrapper>(nameof(Sum), Model.Sum == null ? null : new SumWrapper(Model.Sum));
-
-        }
 	}
 
 		public partial class ProductWrapper : WrapperBase<Product>

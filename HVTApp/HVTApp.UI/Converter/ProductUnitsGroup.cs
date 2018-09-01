@@ -21,10 +21,17 @@ namespace HVTApp.UI.Converter
     public class ProductUnitsGroup : INotifyPropertyChanged, IProductUnitsGroup
     {
         private double _marginalIncome;
+
+        public int Amount => ProductUnits.Count;
+        public double Price => ProductUnits.First().Price;
+        public double Total => Cost * Amount;
+
+
         public ProductUnitsGroup(IEnumerable<IProductUnit> productUnits)
         {
             ProductUnits = new List<IProductUnit>(productUnits);
-            //_marginalIncome = (1 - Product.GetPrice() / CostOfShipment) * 100;
+
+            ProductUnits.First().PriceChanged += () => { MarginalIncome = (1 - Price / Cost) * 100; };
         }
 
         public List<IProductUnit> ProductUnits { get; }
@@ -60,18 +67,10 @@ namespace HVTApp.UI.Converter
                 if (value < 0) return;
 
                 ProductUnits.ForEach(x => x.Cost = value);
-                //MarginalIncome = (1 - Product.GetPrice() / value) * 100;
+                MarginalIncome = (1 - Price / value) * 100;
                 OnPropertyChanged();
             }
         }
-
-
-
-
-        public int Amount => ProductUnits.Count;
-        public double Total => Cost * Amount;
-
-
 
         public double MarginalIncome
         {
@@ -82,13 +81,10 @@ namespace HVTApp.UI.Converter
                 if (value >= 100) return;
 
                 _marginalIncome = value;
-                //CostOfShipment = Product.GetPrice() / (1 - value / 100);
+                Cost = Price / (1 - value / 100);
                 OnPropertyChanged();
             }
         }
-
-
-
 
 
         public event PropertyChangedEventHandler PropertyChanged;
