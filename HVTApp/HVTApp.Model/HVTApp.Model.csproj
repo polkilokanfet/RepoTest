@@ -54,11 +54,12 @@
     <Compile Include="Events\AfterSelectEntityEvents.g.cs" />
     <Compile Include="Events\PubSubEventArgs.cs" />
     <Compile Include="GeneratorHelpers.cs" />
+    <Compile Include="POCOs\CreateNewProductTask.cs" />
     <Compile Include="POCOs\IPayment.cs" />
     <Compile Include="POCOs\PaymentActual.cs" />
     <Compile Include="POCOs\PaymentPlanned.cs" />
     <Compile Include="POCOs\PaymentType.cs" />
-    <Compile Include="POCOs\ProductAdditional.cs" />
+    <Compile Include="POCOs\ProductIncluded.cs" />
     <Compile Include="POCOs\ProductDesignation.cs" />
     <Compile Include="POCOs\ProductType.cs" />
     <Compile Include="POCOs\ProductTypeDesignation.cs" />

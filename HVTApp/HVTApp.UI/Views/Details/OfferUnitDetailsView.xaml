@@ -69,13 +69,13 @@
 									Visibility="{Binding PaymentConditionSetVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="6" Content="Зависимое оборудование" Visibility="{Binding DependentProductsVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="6" Content="Включенные продукты" Visibility="{Binding ProductsIncludedVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
-										 Items="{Binding Path=Item.DependentProducts}"
-										 SelectedItem="{Binding SelectedDependentProductsItem, Mode=TwoWay}"
-										 AddItemCommand="{Binding AddInDependentProductsCommand}"
-										 RemoveItemCommand="{Binding RemoveFromDependentProductsCommand}"
-										 Visibility="{Binding DependentProductsVisibility, ElementName=Root}"/>
+										 Items="{Binding Path=Item.ProductsIncluded}"
+										 SelectedItem="{Binding SelectedProductsIncludedItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInProductsIncludedCommand}"
+										 RemoveItemCommand="{Binding RemoveFromProductsIncludedCommand}"
+										 Visibility="{Binding ProductsIncludedVisibility, ElementName=Root}"/>
 
 
         <Label Grid.Column="0" Grid.Row ="7" Content="Услуги" Visibility="{Binding ServicesVisibility, ElementName=Root}"/>

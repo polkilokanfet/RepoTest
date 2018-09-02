@@ -16,12 +16,12 @@ namespace HVTApp.Model.POCOs
         {
             if (base.Equals(obj)) return true;
 
-            var otherProductDependent = obj as ProductDependent;
-            if (otherProductDependent == null) return false;
+            var other = obj as ProductDependent;
+            if (other == null) return false;
 
-            if (this.Amount != otherProductDependent.Amount) return false;
+            if (this.Amount != other.Amount) return false;
 
-            return this.Product.Equals(otherProductDependent.Product);
+            return this.Product.Equals(other.Product);
         }
     }
 }

@@ -680,6 +680,71 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
+	[DesignationPlural("CreateNewProductTaskLookup")]
+    public partial class CreateNewProductTaskLookupListView : ViewBase
+    {
+        public CreateNewProductTaskLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public CreateNewProductTaskLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, CreateNewProductTaskLookupListViewModel CreateNewProductTaskLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = CreateNewProductTaskLookupListViewModel;
+			CreateNewProductTaskLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((CreateNewProductTaskLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility DesignationVisibility
+        {
+            get { return CreateNewProductTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CreateNewProductTaskLookup.Designation)].Visibility; }
+            set { CreateNewProductTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CreateNewProductTaskLookup.Designation)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility StructureCostNumberVisibility
+        {
+            get { return CreateNewProductTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CreateNewProductTaskLookup.StructureCostNumber)].Visibility; }
+            set { CreateNewProductTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CreateNewProductTaskLookup.StructureCostNumber)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return CreateNewProductTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CreateNewProductTaskLookup.DisplayMember)].Visibility; }
+            set { CreateNewProductTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CreateNewProductTaskLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ProductVisibility
+        {
+            get { return CreateNewProductTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CreateNewProductTaskLookup.Product)].Visibility; }
+            set { CreateNewProductTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CreateNewProductTaskLookup.Product)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return CreateNewProductTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CreateNewProductTaskLookup.Entity)].Visibility; }
+            set { CreateNewProductTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CreateNewProductTaskLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("CurrencyExchangeRateLookup")]
     public partial class CurrencyExchangeRateLookupListView : ViewBase
     {
@@ -2410,64 +2475,6 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[DesignationPlural("ProductAdditionalLookup")]
-    public partial class ProductAdditionalLookupListView : ViewBase
-    {
-        public ProductAdditionalLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public ProductAdditionalLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductAdditionalLookupListViewModel ProductAdditionalLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ProductAdditionalLookupListViewModel;
-			ProductAdditionalLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((ProductAdditionalLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility AmountVisibility
-        {
-            get { return ProductAdditionalLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductAdditionalLookup.Amount)].Visibility; }
-            set { ProductAdditionalLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductAdditionalLookup.Amount)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return ProductAdditionalLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductAdditionalLookup.DisplayMember)].Visibility; }
-            set { ProductAdditionalLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductAdditionalLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility ProductVisibility
-        {
-            get { return ProductAdditionalLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductAdditionalLookup.Product)].Visibility; }
-            set { ProductAdditionalLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductAdditionalLookup.Product)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return ProductAdditionalLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductAdditionalLookup.Entity)].Visibility; }
-            set { ProductAdditionalLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductAdditionalLookup.Entity)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("ProductBlockLookup")]
     public partial class ProductBlockLookupListView : ViewBase
     {
@@ -2633,6 +2640,64 @@ namespace HVTApp.UI.Views
         {
             get { return ProductDesignationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductDesignationLookup.Entity)].Visibility; }
             set { ProductDesignationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductDesignationLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD))]
+	[DesignationPlural("ProductIncludedLookup")]
+    public partial class ProductIncludedLookupListView : ViewBase
+    {
+        public ProductIncludedLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public ProductIncludedLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductIncludedLookupListViewModel ProductIncludedLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = ProductIncludedLookupListViewModel;
+			ProductIncludedLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((ProductIncludedLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility AmountVisibility
+        {
+            get { return ProductIncludedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductIncludedLookup.Amount)].Visibility; }
+            set { ProductIncludedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductIncludedLookup.Amount)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return ProductIncludedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductIncludedLookup.DisplayMember)].Visibility; }
+            set { ProductIncludedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductIncludedLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ProductVisibility
+        {
+            get { return ProductIncludedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductIncludedLookup.Product)].Visibility; }
+            set { ProductIncludedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductIncludedLookup.Product)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return ProductIncludedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductIncludedLookup.Entity)].Visibility; }
+            set { ProductIncludedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductIncludedLookup.Entity)].Visibility = value; }
         }
 
 

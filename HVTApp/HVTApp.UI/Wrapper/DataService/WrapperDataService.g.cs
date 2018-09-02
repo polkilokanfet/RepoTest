@@ -7,9 +7,10 @@ namespace HVTApp.UI.Wrapper
     {
         public WrapperDataService(DbContext context, IUnityContainer container) : base(context, container)
         {
+            CreateNewProductTaskWrapperRepository = new CreateNewProductTaskWrapperRepository(this);
             PaymentActualWrapperRepository = new PaymentActualWrapperRepository(this);
             PaymentPlannedWrapperRepository = new PaymentPlannedWrapperRepository(this);
-            ProductAdditionalWrapperRepository = new ProductAdditionalWrapperRepository(this);
+            ProductIncludedWrapperRepository = new ProductIncludedWrapperRepository(this);
             ProductDesignationWrapperRepository = new ProductDesignationWrapperRepository(this);
             ProductTypeWrapperRepository = new ProductTypeWrapperRepository(this);
             ProductTypeDesignationWrapperRepository = new ProductTypeDesignationWrapperRepository(this);
@@ -73,9 +74,10 @@ namespace HVTApp.UI.Wrapper
             UserWrapperRepository = new UserWrapperRepository(this);
         }
 
+        private CreateNewProductTaskWrapperRepository CreateNewProductTaskWrapperRepository;
         private PaymentActualWrapperRepository PaymentActualWrapperRepository;
         private PaymentPlannedWrapperRepository PaymentPlannedWrapperRepository;
-        private ProductAdditionalWrapperRepository ProductAdditionalWrapperRepository;
+        private ProductIncludedWrapperRepository ProductIncludedWrapperRepository;
         private ProductDesignationWrapperRepository ProductDesignationWrapperRepository;
         private ProductTypeWrapperRepository ProductTypeWrapperRepository;
         private ProductTypeDesignationWrapperRepository ProductTypeDesignationWrapperRepository;

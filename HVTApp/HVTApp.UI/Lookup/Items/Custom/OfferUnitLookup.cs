@@ -9,11 +9,11 @@ namespace HVTApp.UI.Lookup
     {
         public override async Task LoadOther(IUnitOfWork unitOfWork)
         {
-            DependentProducts = Entity.DependentProducts.Select(x => new ProductAdditionalLookup(x)).ToList();
+            DependentProducts = Entity.ProductsIncluded.Select(x => new ProductIncludedLookup(x)).ToList();
             foreach (var productDependentLookup in DependentProducts)
                 await productDependentLookup.LoadOther(unitOfWork);
         }
 
-        public List<ProductAdditionalLookup> DependentProducts { get; private set; }
+        public List<ProductIncludedLookup> DependentProducts { get; private set; }
     }
 }

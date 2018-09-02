@@ -11,6 +11,11 @@ namespace HVTApp.UI
     {
 		private void RegisterViews()
         {
+            Container.RegisterViewForNavigation<CreateNewProductTaskLookupListView>();
+            //_dialogService.Register<CreateNewProductTaskDetailsViewModel, CreateNewProductTaskDetailsView>();
+			_selectService.Register<CreateNewProductTaskLookupListView, CreateNewProductTask>();
+            _updateDetailsService.Register<CreateNewProductTask, CreateNewProductTaskDetailsView>();
+
             Container.RegisterViewForNavigation<PaymentActualLookupListView>();
             //_dialogService.Register<PaymentActualDetailsViewModel, PaymentActualDetailsView>();
 			_selectService.Register<PaymentActualLookupListView, PaymentActual>();
@@ -21,10 +26,10 @@ namespace HVTApp.UI
 			_selectService.Register<PaymentPlannedLookupListView, PaymentPlanned>();
             _updateDetailsService.Register<PaymentPlanned, PaymentPlannedDetailsView>();
 
-            Container.RegisterViewForNavigation<ProductAdditionalLookupListView>();
-            //_dialogService.Register<ProductAdditionalDetailsViewModel, ProductAdditionalDetailsView>();
-			_selectService.Register<ProductAdditionalLookupListView, ProductAdditional>();
-            _updateDetailsService.Register<ProductAdditional, ProductAdditionalDetailsView>();
+            Container.RegisterViewForNavigation<ProductIncludedLookupListView>();
+            //_dialogService.Register<ProductIncludedDetailsViewModel, ProductIncludedDetailsView>();
+			_selectService.Register<ProductIncludedLookupListView, ProductIncluded>();
+            _updateDetailsService.Register<ProductIncluded, ProductIncludedDetailsView>();
 
             Container.RegisterViewForNavigation<ProductDesignationLookupListView>();
             //_dialogService.Register<ProductDesignationDetailsViewModel, ProductDesignationDetailsView>();

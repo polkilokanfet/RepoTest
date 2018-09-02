@@ -31,8 +31,9 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            if (!string.IsNullOrEmpty(DesignationSpecial)) return DesignationSpecial;
-            if (!string.IsNullOrEmpty(Designation)) return Designation;
+            string type = ProductType == null ? String.Empty : $"{ProductType} ";
+            if (!string.IsNullOrEmpty(DesignationSpecial)) return $"{type}{DesignationSpecial}";
+            if (!string.IsNullOrEmpty(Designation)) return $"{type}{Designation}"; ;
             return ProductBlock.ToString();
         }
 
@@ -50,10 +51,13 @@ namespace HVTApp.Model.POCOs
             return DependentProducts.AllMembersAreSame(otherProduct.DependentProducts);
         }
 
+        /// <summary>
+        /// Возвращает все блоки оборудования
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<ProductBlock> GetBlocks()
         {
-            var result = new List<ProductBlock>();
-            result.Add(ProductBlock);
+            var result = new List<ProductBlock> {ProductBlock};
             foreach (var dependentProduct in DependentProducts)
             {
                 for (int i = 0; i < dependentProduct.Amount; i++)

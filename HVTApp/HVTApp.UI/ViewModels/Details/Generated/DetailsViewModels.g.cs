@@ -26,6 +26,38 @@ using System;
 namespace HVTApp.UI.ViewModels
 {
 
+    public partial class CreateNewProductTaskDetailsViewModel : BaseDetailsViewModel<CreateNewProductTaskWrapper, CreateNewProductTask, AfterSaveCreateNewProductTaskEvent>
+    {
+		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
+		public ICommand SelectProductCommand { get; private set; }
+		public ICommand ClearProductCommand { get; private set; }
+
+
+        public CreateNewProductTaskDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForSelectProductCommand == null) _getEntitiesForSelectProductCommand = async () => { return await WrapperDataService.GetRepository<Product>().GetAllAsync(); };
+			if (SelectProductCommand == null) SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute_Default);
+			if (ClearProductCommand == null) ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute_Default);
+
+		}
+
+		private async void SelectProductCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<Product, ProductWrapper>(await _getEntitiesForSelectProductCommand(), nameof(Item.Product), Item.Product?.Id);
+		}
+
+		private void ClearProductCommand_Execute_Default() 
+		{
+						Item.Product = null;
+		    
+		}
+
+
+
+    }
+
+
     public partial class PaymentActualDetailsViewModel : BaseDetailsViewModel<PaymentActualWrapper, PaymentActual, AfterSavePaymentActualEvent>
     {
 
@@ -70,14 +102,14 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-    public partial class ProductAdditionalDetailsViewModel : BaseDetailsViewModel<ProductAdditionalWrapper, ProductAdditional, AfterSaveProductAdditionalEvent>
+    public partial class ProductIncludedDetailsViewModel : BaseDetailsViewModel<ProductIncludedWrapper, ProductIncluded, AfterSaveProductIncludedEvent>
     {
 		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
 		public ICommand SelectProductCommand { get; private set; }
 		public ICommand ClearProductCommand { get; private set; }
 
 
-        public ProductAdditionalDetailsViewModel(IUnityContainer container) : base(container) 
+        public ProductIncludedDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
 			if (_getEntitiesForSelectProductCommand == null) _getEntitiesForSelectProductCommand = async () => { return await WrapperDataService.GetRepository<Product>().GetAllAsync(); };
@@ -672,19 +704,19 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectPaymentConditionSetCommand { get; private set; }
 		public ICommand ClearPaymentConditionSetCommand { get; private set; }
 
-		private Func<Task<List<ProductAdditional>>> _getEntitiesForAddInDependentProductsCommand;
-		public ICommand AddInDependentProductsCommand { get; }
-		public ICommand RemoveFromDependentProductsCommand { get; }
-		private ProductAdditionalWrapper _selectedDependentProductsItem;
-		public ProductAdditionalWrapper SelectedDependentProductsItem 
+		private Func<Task<List<ProductIncluded>>> _getEntitiesForAddInProductsIncludedCommand;
+		public ICommand AddInProductsIncludedCommand { get; }
+		public ICommand RemoveFromProductsIncludedCommand { get; }
+		private ProductIncludedWrapper _selectedProductsIncludedItem;
+		public ProductIncludedWrapper SelectedProductsIncludedItem 
 		{ 
-			get { return _selectedDependentProductsItem; }
+			get { return _selectedProductsIncludedItem; }
 			set 
 			{ 
-				if (Equals(_selectedDependentProductsItem, value)) return;
-				_selectedDependentProductsItem = value;
+				if (Equals(_selectedProductsIncludedItem, value)) return;
+				_selectedProductsIncludedItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromDependentProductsCommand).RaiseCanExecuteChanged();
+				((DelegateCommand)RemoveFromProductsIncludedCommand).RaiseCanExecuteChanged();
 			}
 		}
 
@@ -728,9 +760,9 @@ namespace HVTApp.UI.ViewModels
 			if (ClearPaymentConditionSetCommand == null) ClearPaymentConditionSetCommand = new DelegateCommand(ClearPaymentConditionSetCommand_Execute_Default);
 
 			
-			if (_getEntitiesForAddInDependentProductsCommand == null) _getEntitiesForAddInDependentProductsCommand = async () => { return await WrapperDataService.GetRepository<ProductAdditional>().GetAllAsync(); };;
-			if (AddInDependentProductsCommand == null) AddInDependentProductsCommand = new DelegateCommand(AddInDependentProductsCommand_Execute_Default);
-			if (RemoveFromDependentProductsCommand == null) RemoveFromDependentProductsCommand = new DelegateCommand(RemoveFromDependentProductsCommand_Execute_Default, RemoveFromDependentProductsCommand_CanExecute_Default);
+			if (_getEntitiesForAddInProductsIncludedCommand == null) _getEntitiesForAddInProductsIncludedCommand = async () => { return await WrapperDataService.GetRepository<ProductIncluded>().GetAllAsync(); };;
+			if (AddInProductsIncludedCommand == null) AddInProductsIncludedCommand = new DelegateCommand(AddInProductsIncludedCommand_Execute_Default);
+			if (RemoveFromProductsIncludedCommand == null) RemoveFromProductsIncludedCommand = new DelegateCommand(RemoveFromProductsIncludedCommand_Execute_Default, RemoveFromProductsIncludedCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInServicesCommand == null) _getEntitiesForAddInServicesCommand = async () => { return await WrapperDataService.GetRepository<Service>().GetAllAsync(); };;
@@ -783,19 +815,19 @@ namespace HVTApp.UI.ViewModels
 		    
 		}
 
-			private async void AddInDependentProductsCommand_Execute_Default()
+			private async void AddInProductsIncludedCommand_Execute_Default()
 			{
-				SelectAndAddInListWrapper<ProductAdditional, ProductAdditionalWrapper>(await _getEntitiesForAddInDependentProductsCommand(), Item.DependentProducts);
+				SelectAndAddInListWrapper<ProductIncluded, ProductIncludedWrapper>(await _getEntitiesForAddInProductsIncludedCommand(), Item.ProductsIncluded);
 			}
 
-			private void RemoveFromDependentProductsCommand_Execute_Default()
+			private void RemoveFromProductsIncludedCommand_Execute_Default()
 			{
-				Item.DependentProducts.Remove(SelectedDependentProductsItem);
+				Item.ProductsIncluded.Remove(SelectedProductsIncludedItem);
 			}
 
-			private bool RemoveFromDependentProductsCommand_CanExecute_Default()
+			private bool RemoveFromProductsIncludedCommand_CanExecute_Default()
 			{
-				return SelectedDependentProductsItem != null;
+				return SelectedProductsIncludedItem != null;
 			}
 
 			private async void AddInServicesCommand_Execute_Default()
@@ -1672,19 +1704,19 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectAddressCommand { get; private set; }
 		public ICommand ClearAddressCommand { get; private set; }
 
-		private Func<Task<List<ProductAdditional>>> _getEntitiesForAddInDependentProductsCommand;
-		public ICommand AddInDependentProductsCommand { get; }
-		public ICommand RemoveFromDependentProductsCommand { get; }
-		private ProductAdditionalWrapper _selectedDependentProductsItem;
-		public ProductAdditionalWrapper SelectedDependentProductsItem 
+		private Func<Task<List<ProductIncluded>>> _getEntitiesForAddInProductsIncludedCommand;
+		public ICommand AddInProductsIncludedCommand { get; }
+		public ICommand RemoveFromProductsIncludedCommand { get; }
+		private ProductIncludedWrapper _selectedProductsIncludedItem;
+		public ProductIncludedWrapper SelectedProductsIncludedItem 
 		{ 
-			get { return _selectedDependentProductsItem; }
+			get { return _selectedProductsIncludedItem; }
 			set 
 			{ 
-				if (Equals(_selectedDependentProductsItem, value)) return;
-				_selectedDependentProductsItem = value;
+				if (Equals(_selectedProductsIncludedItem, value)) return;
+				_selectedProductsIncludedItem = value;
 				OnPropertyChanged();
-				((DelegateCommand)RemoveFromDependentProductsCommand).RaiseCanExecuteChanged();
+				((DelegateCommand)RemoveFromProductsIncludedCommand).RaiseCanExecuteChanged();
 			}
 		}
 
@@ -1780,9 +1812,9 @@ namespace HVTApp.UI.ViewModels
 			if (ClearAddressCommand == null) ClearAddressCommand = new DelegateCommand(ClearAddressCommand_Execute_Default);
 
 			
-			if (_getEntitiesForAddInDependentProductsCommand == null) _getEntitiesForAddInDependentProductsCommand = async () => { return await WrapperDataService.GetRepository<ProductAdditional>().GetAllAsync(); };;
-			if (AddInDependentProductsCommand == null) AddInDependentProductsCommand = new DelegateCommand(AddInDependentProductsCommand_Execute_Default);
-			if (RemoveFromDependentProductsCommand == null) RemoveFromDependentProductsCommand = new DelegateCommand(RemoveFromDependentProductsCommand_Execute_Default, RemoveFromDependentProductsCommand_CanExecute_Default);
+			if (_getEntitiesForAddInProductsIncludedCommand == null) _getEntitiesForAddInProductsIncludedCommand = async () => { return await WrapperDataService.GetRepository<ProductIncluded>().GetAllAsync(); };;
+			if (AddInProductsIncludedCommand == null) AddInProductsIncludedCommand = new DelegateCommand(AddInProductsIncludedCommand_Execute_Default);
+			if (RemoveFromProductsIncludedCommand == null) RemoveFromProductsIncludedCommand = new DelegateCommand(RemoveFromProductsIncludedCommand_Execute_Default, RemoveFromProductsIncludedCommand_CanExecute_Default);
 
 			
 			if (_getEntitiesForAddInServicesCommand == null) _getEntitiesForAddInServicesCommand = async () => { return await WrapperDataService.GetRepository<Service>().GetAllAsync(); };;
@@ -1889,19 +1921,19 @@ namespace HVTApp.UI.ViewModels
 		    
 		}
 
-			private async void AddInDependentProductsCommand_Execute_Default()
+			private async void AddInProductsIncludedCommand_Execute_Default()
 			{
-				SelectAndAddInListWrapper<ProductAdditional, ProductAdditionalWrapper>(await _getEntitiesForAddInDependentProductsCommand(), Item.DependentProducts);
+				SelectAndAddInListWrapper<ProductIncluded, ProductIncludedWrapper>(await _getEntitiesForAddInProductsIncludedCommand(), Item.ProductsIncluded);
 			}
 
-			private void RemoveFromDependentProductsCommand_Execute_Default()
+			private void RemoveFromProductsIncludedCommand_Execute_Default()
 			{
-				Item.DependentProducts.Remove(SelectedDependentProductsItem);
+				Item.ProductsIncluded.Remove(SelectedProductsIncludedItem);
 			}
 
-			private bool RemoveFromDependentProductsCommand_CanExecute_Default()
+			private bool RemoveFromProductsIncludedCommand_CanExecute_Default()
 			{
-				return SelectedDependentProductsItem != null;
+				return SelectedProductsIncludedItem != null;
 			}
 
 			private async void AddInServicesCommand_Execute_Default()

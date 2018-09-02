@@ -78,6 +78,8 @@ namespace HVTApp.Services.GetProductService
             {
                 foreach (var kvp in GetDictionaryOfMatching(selectedProduct))
                 {
+                    if (Equals(kvp.Value, default(IEnumerable<Product>)))
+                        continue;
                     foreach (var product in kvp.Value)
                     {
                         //редактируем список параметров

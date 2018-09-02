@@ -4,7 +4,54 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Wrapper
 {
-	public partial class PaymentActualWrapper : WrapperBase<PaymentActual>
+	public partial class CreateNewProductTaskWrapper : WrapperBase<CreateNewProductTask>
+	{
+	    public CreateNewProductTaskWrapper(CreateNewProductTask model) : base(model) { }
+
+	
+        #region SimpleProperties
+        public System.String Designation
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String DesignationOriginalValue => GetOriginalValue<System.String>(nameof(Designation));
+        public bool DesignationIsChanged => GetIsChanged(nameof(Designation));
+
+        public System.String StructureCostNumber
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String StructureCostNumberOriginalValue => GetOriginalValue<System.String>(nameof(StructureCostNumber));
+        public bool StructureCostNumberIsChanged => GetIsChanged(nameof(StructureCostNumber));
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
+
+        #region ComplexProperties
+	    public ProductWrapper Product 
+        {
+            get { return GetWrapper<ProductWrapper>(); }
+            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
+        }
+
+        #endregion
+        public override void InitializeComplexProperties()
+        {
+            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
+
+        }
+	}
+
+		public partial class PaymentActualWrapper : WrapperBase<PaymentActual>
 	{
 	    public PaymentActualWrapper(PaymentActual model) : base(model) { }
 
@@ -100,9 +147,9 @@ namespace HVTApp.UI.Wrapper
         }
 	}
 
-		public partial class ProductAdditionalWrapper : WrapperBase<ProductAdditional>
+		public partial class ProductIncludedWrapper : WrapperBase<ProductIncluded>
 	{
-	    public ProductAdditionalWrapper(ProductAdditional model) : base(model) { }
+	    public ProductIncludedWrapper(ProductIncluded model) : base(model) { }
 
 	
         #region SimpleProperties
@@ -277,6 +324,14 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.DateTime Date
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
+        public bool DateIsChanged => GetIsChanged(nameof(Date));
+
         public System.Guid OurCompanyId
         {
           get { return GetValue<System.Guid>(); }
@@ -285,13 +340,13 @@ namespace HVTApp.UI.Wrapper
         public System.Guid OurCompanyIdOriginalValue => GetOriginalValue<System.Guid>(nameof(OurCompanyId));
         public bool OurCompanyIdIsChanged => GetIsChanged(nameof(OurCompanyId));
 
-        public System.Int32 CalculationPriceTerm
+        public System.Int32 ActualPriceTerm
         {
           get { return GetValue<System.Int32>(); }
           set { SetValue(value); }
         }
-        public System.Int32 CalculationPriceTermOriginalValue => GetOriginalValue<System.Int32>(nameof(CalculationPriceTerm));
-        public bool CalculationPriceTermIsChanged => GetIsChanged(nameof(CalculationPriceTerm));
+        public System.Int32 ActualPriceTermOriginalValue => GetOriginalValue<System.Int32>(nameof(ActualPriceTerm));
+        public bool ActualPriceTermIsChanged => GetIsChanged(nameof(ActualPriceTerm));
 
         public System.Int32 StandartTermFromStartToEndProduction
         {
@@ -900,7 +955,7 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region CollectionProperties
-        public IValidatableChangeTrackingCollection<ProductAdditionalWrapper> DependentProducts { get; private set; }
+        public IValidatableChangeTrackingCollection<ProductIncludedWrapper> ProductsIncluded { get; private set; }
 
         public IValidatableChangeTrackingCollection<ServiceWrapper> Services { get; private set; }
 
@@ -919,9 +974,9 @@ namespace HVTApp.UI.Wrapper
   
         protected override void InitializeCollectionProperties()
         {
-          if (Model.DependentProducts == null) throw new ArgumentException("DependentProducts cannot be null");
-          DependentProducts = new ValidatableChangeTrackingCollection<ProductAdditionalWrapper>(Model.DependentProducts.Select(e => new ProductAdditionalWrapper(e)));
-          RegisterCollection(DependentProducts, Model.DependentProducts);
+          if (Model.ProductsIncluded == null) throw new ArgumentException("ProductsIncluded cannot be null");
+          ProductsIncluded = new ValidatableChangeTrackingCollection<ProductIncludedWrapper>(Model.ProductsIncluded.Select(e => new ProductIncludedWrapper(e)));
+          RegisterCollection(ProductsIncluded, Model.ProductsIncluded);
 
           if (Model.Services == null) throw new ArgumentException("Services cannot be null");
           Services = new ValidatableChangeTrackingCollection<ServiceWrapper>(Model.Services.Select(e => new ServiceWrapper(e)));
@@ -1948,7 +2003,7 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region CollectionProperties
-        public IValidatableChangeTrackingCollection<ProductAdditionalWrapper> DependentProducts { get; private set; }
+        public IValidatableChangeTrackingCollection<ProductIncludedWrapper> ProductsIncluded { get; private set; }
 
         public IValidatableChangeTrackingCollection<ServiceWrapper> Services { get; private set; }
 
@@ -1979,9 +2034,9 @@ namespace HVTApp.UI.Wrapper
   
         protected override void InitializeCollectionProperties()
         {
-          if (Model.DependentProducts == null) throw new ArgumentException("DependentProducts cannot be null");
-          DependentProducts = new ValidatableChangeTrackingCollection<ProductAdditionalWrapper>(Model.DependentProducts.Select(e => new ProductAdditionalWrapper(e)));
-          RegisterCollection(DependentProducts, Model.DependentProducts);
+          if (Model.ProductsIncluded == null) throw new ArgumentException("ProductsIncluded cannot be null");
+          ProductsIncluded = new ValidatableChangeTrackingCollection<ProductIncludedWrapper>(Model.ProductsIncluded.Select(e => new ProductIncludedWrapper(e)));
+          RegisterCollection(ProductsIncluded, Model.ProductsIncluded);
 
           if (Model.Services == null) throw new ArgumentException("Services cannot be null");
           Services = new ValidatableChangeTrackingCollection<ServiceWrapper>(Model.Services.Select(e => new ServiceWrapper(e)));

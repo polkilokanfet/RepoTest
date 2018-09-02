@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
@@ -80,11 +78,11 @@ namespace HVTApp.UI.ViewModels
 
         private async void AddInDependentProductsCommand_Execute()
         {
-            var pd = new ProductAdditional();
+            var pd = new ProductIncluded();
             var result = await _updateDetailsService.UpdateDetails(pd);
             if (result)
             {
-                OfferUnitsGroup.DependentProducts.Add(new ProductAdditionalWrapper(pd));
+                OfferUnitsGroup.ProductsIncluded.Add(new ProductIncludedWrapper(pd));
             }
         }
 

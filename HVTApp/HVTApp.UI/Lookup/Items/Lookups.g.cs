@@ -19,6 +19,39 @@ using HVTApp.Model.POCOs;
 namespace HVTApp.UI.Lookup
 {
 
+	public partial class CreateNewProductTaskLookup : LookupItem<CreateNewProductTask>
+	{
+		public CreateNewProductTaskLookup(CreateNewProductTask entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+			Product?.Refresh(Entity.Product);
+
+		}
+		
+
+        #region SimpleProperties
+
+        public System.String Designation => GetValue<System.String>();
+
+
+        public System.String StructureCostNumber => GetValue<System.String>();
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
+
+
+        #endregion
+
+	}
+
 	public partial class PaymentActualLookup : LookupItem<PaymentActual>
 	{
 		public PaymentActualLookup(PaymentActual entity) : base(entity) 
@@ -81,9 +114,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	public partial class ProductAdditionalLookup : LookupItem<ProductAdditional>
+	public partial class ProductIncludedLookup : LookupItem<ProductIncluded>
 	{
-		public ProductAdditionalLookup(ProductAdditional entity) : base(entity) 
+		public ProductIncludedLookup(ProductIncluded entity) : base(entity) 
 		{
 		}
 		protected override void RefreshLookups()

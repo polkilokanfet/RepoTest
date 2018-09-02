@@ -3,7 +3,7 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
-              x:Class="HVTApp.UI.Views.ProductAdditionalLookupListView">
+              x:Class="HVTApp.UI.Views.CreateNewProductTaskLookupListView">
 
     <inf:ViewBase.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></converters:BooleanToVisibilityConverter>
@@ -19,7 +19,7 @@
             <Label.Style>
                 <Style>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=ProductAdditionalLookupListGrid, Path=Visibility}" Value="Visible">
+                    <DataTrigger Binding="{Binding ElementName=CreateNewProductTaskLookupListGrid, Path=Visibility}" Value="Visible">
                         <Setter Property="Label.Height" Value="0"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -28,7 +28,7 @@
         </Label>
        
 
-		<infg:XamDataGrid x:Name="ProductAdditionalLookupListGrid" Grid.Row="1" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<infg:XamDataGrid x:Name="CreateNewProductTaskLookupListGrid" Grid.Row="1" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.ContextMenu>
 				<ContextMenu>
@@ -39,7 +39,8 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:NumericField Name="Amount" Label="Amount" Width="Auto" />
+                    <infg:TextField Name="Designation" Label="Обозначение" Width="Auto" />
+                    <infg:TextField Name="StructureCostNumber" Label="Сралчахвост" Width="Auto" />
                     <infg:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
 
 					</infg:FieldLayout.Fields>

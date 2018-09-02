@@ -7,9 +7,10 @@ namespace HVTApp.DataAccess
         public UnitOfWorkTest(TestData testData)
         {
 			#region RepositoriesInit
+            CreateNewProductTaskRepository = new CreateNewProductTaskRepositoryTest(testData);
             PaymentActualRepository = new PaymentActualRepositoryTest(testData);
             PaymentPlannedRepository = new PaymentPlannedRepositoryTest(testData);
-            ProductAdditionalRepository = new ProductAdditionalRepositoryTest(testData);
+            ProductIncludedRepository = new ProductIncludedRepositoryTest(testData);
             ProductDesignationRepository = new ProductDesignationRepositoryTest(testData);
             ProductTypeRepository = new ProductTypeRepositoryTest(testData);
             ProductTypeDesignationRepository = new ProductTypeDesignationRepositoryTest(testData);
@@ -76,9 +77,10 @@ namespace HVTApp.DataAccess
 
 
         #region Repositories
+        public ICreateNewProductTaskRepository CreateNewProductTaskRepository { get; }
         public IPaymentActualRepository PaymentActualRepository { get; }
         public IPaymentPlannedRepository PaymentPlannedRepository { get; }
-        public IProductAdditionalRepository ProductAdditionalRepository { get; }
+        public IProductIncludedRepository ProductIncludedRepository { get; }
         public IProductDesignationRepository ProductDesignationRepository { get; }
         public IProductTypeRepository ProductTypeRepository { get; }
         public IProductTypeDesignationRepository ProductTypeDesignationRepository { get; }

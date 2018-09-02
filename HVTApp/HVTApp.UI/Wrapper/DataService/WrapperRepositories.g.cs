@@ -4,6 +4,11 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Wrapper
 {
+    public partial class CreateNewProductTaskWrapperRepository : WrapperRepository<CreateNewProductTask, CreateNewProductTaskWrapper>
+    {
+        public CreateNewProductTaskWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
+    }
+
     public partial class PaymentActualWrapperRepository : WrapperRepository<PaymentActual, PaymentActualWrapper>
     {
         public PaymentActualWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
@@ -14,9 +19,9 @@ namespace HVTApp.UI.Wrapper
         public PaymentPlannedWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
     }
 
-    public partial class ProductAdditionalWrapperRepository : WrapperRepository<ProductAdditional, ProductAdditionalWrapper>
+    public partial class ProductIncludedWrapperRepository : WrapperRepository<ProductIncluded, ProductIncludedWrapper>
     {
-        public ProductAdditionalWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
+        public ProductIncludedWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
     }
 
     public partial class ProductDesignationWrapperRepository : WrapperRepository<ProductDesignation, ProductDesignationWrapper>

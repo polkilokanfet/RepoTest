@@ -18,14 +18,15 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="CalculationPriceTerm" Visibility="{Binding CalculationPriceTermVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="ActualPriceTerm" Visibility="{Binding ActualPriceTermVisibility, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0"
 							   ValueType="core:Int32"
-                               Value="{Binding Item.CalculationPriceTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding CalculationPriceTermVisibility, ElementName=Root}"/>
+                               Value="{Binding Item.ActualPriceTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding ActualPriceTermVisibility, ElementName=Root}"/>
 
 
         <Label Grid.Column="0" Grid.Row ="1" Content="StandartTermFromStartToEndProduction" Visibility="{Binding StandartTermFromStartToEndProductionVisibility, ElementName=Root}"/>
@@ -40,6 +41,12 @@
 							   ValueType="core:Int32"
                                Value="{Binding Item.StandartTermFromPickToEndProduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding StandartTermFromPickToEndProductionVisibility, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Date" Visibility="{Binding DateVisibility, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="3" 
+                    SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding DateVisibility, ElementName=Root}"/>
 
 
 

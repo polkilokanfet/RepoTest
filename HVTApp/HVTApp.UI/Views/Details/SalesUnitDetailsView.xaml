@@ -200,13 +200,13 @@
 									Visibility="{Binding AddressVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="23" Content="Зависимые продукты" Visibility="{Binding DependentProductsVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="23" Content="Включенные продукты" Visibility="{Binding ProductsIncludedVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="23"
-										 Items="{Binding Path=Item.DependentProducts}"
-										 SelectedItem="{Binding SelectedDependentProductsItem, Mode=TwoWay}"
-										 AddItemCommand="{Binding AddInDependentProductsCommand}"
-										 RemoveItemCommand="{Binding RemoveFromDependentProductsCommand}"
-										 Visibility="{Binding DependentProductsVisibility, ElementName=Root}"/>
+										 Items="{Binding Path=Item.ProductsIncluded}"
+										 SelectedItem="{Binding SelectedProductsIncludedItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInProductsIncludedCommand}"
+										 RemoveItemCommand="{Binding RemoveFromProductsIncludedCommand}"
+										 Visibility="{Binding ProductsIncludedVisibility, ElementName=Root}"/>
 
 
         <Label Grid.Column="0" Grid.Row ="24" Content="Services" Visibility="{Binding ServicesVisibility, ElementName=Root}"/>
