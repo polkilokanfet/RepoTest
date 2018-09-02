@@ -206,10 +206,13 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+        public System.DateTime Date => GetValue<System.DateTime>();
+
+
         public System.Guid OurCompanyId => GetValue<System.Guid>();
 
 
-        public System.Int32 CalculationPriceTerm => GetValue<System.Int32>();
+        public System.Int32 ActualPriceTerm => GetValue<System.Int32>();
 
 
         public System.Int32 StandartTermFromStartToEndProduction => GetValue<System.Int32>();

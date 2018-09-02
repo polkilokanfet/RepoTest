@@ -1,10 +1,11 @@
 ﻿<UserControl x:Class="HVTApp.Services.GetProductService.SelectProductView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
              xmlns:local="clr-namespace:HVTApp.Services.GetProductService">
 
     <UserControl.Resources>
-        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></local:BooleanToVisibilityConverter>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></converters:BooleanToVisibilityConverter>
     </UserControl.Resources>
 
     <GroupBox Header="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}" Margin="10">

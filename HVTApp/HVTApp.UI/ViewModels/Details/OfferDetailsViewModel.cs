@@ -5,6 +5,7 @@ using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.PriceService;
 using HVTApp.UI.Wrapper;
@@ -38,7 +39,7 @@ namespace HVTApp.UI.ViewModels
             var priceService = Container.Resolve<IPriceService>();
             foreach (var offerUnit in Item.OfferUnits)
             {
-                offerUnit.Price = priceService.GetPrice(offerUnit.Product.Model, DateTime.Today);
+                offerUnit.Price = priceService.GetPrice(offerUnit.Product.Model, DateTime.Today, CommonOptions.ActualPriceTerm);
             }
         }
 

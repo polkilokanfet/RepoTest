@@ -2,27 +2,52 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
               x:Class="HVTApp.UI.Views.TestEntityLookupListView">
 
-    <infg:XamDataGrid x:Name="TestEntityLookupListGrid">
-        
-        <infg:XamDataGrid.ContextMenu>
-            <ContextMenu>
-                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-            </ContextMenu>
-        </infg:XamDataGrid.ContextMenu>
+    <inf:ViewBase.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></converters:BooleanToVisibilityConverter>
+    </inf:ViewBase.Resources>
 
-        <infg:XamDataGrid.FieldLayouts>
-            <infg:FieldLayout>
-                <infg:FieldLayout.Fields>
+    <Grid>
+         <Grid.RowDefinitions>
+             <RowDefinition Height="Auto"/>
+             <RowDefinition Height="*"/>
+         </Grid.RowDefinitions>
+         
+        <Label Grid.Row="0" Content="Загрузка..." VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=TestEntityLookupListGrid, Path=Visibility}" Value="Visible">
+                        <Setter Property="Label.Height" Value="0"/>
+                    </DataTrigger>
+                </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+       
+
+		<infg:XamDataGrid x:Name="TestEntityLookupListGrid" Grid.Row="1" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+        
+			<infg:XamDataGrid.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+				</ContextMenu>
+			</infg:XamDataGrid.ContextMenu>
+
+			<infg:XamDataGrid.FieldLayouts>
+				<infg:FieldLayout>
+					<infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto" />
 
-                </infg:FieldLayout.Fields>
-            </infg:FieldLayout>
+					</infg:FieldLayout.Fields>
+				</infg:FieldLayout>
 
-        </infg:XamDataGrid.FieldLayouts>
-    </infg:XamDataGrid>
+			</infg:XamDataGrid.FieldLayouts>
+		</infg:XamDataGrid>
 
+    </Grid>
 </inf:ViewBase>
 
 	

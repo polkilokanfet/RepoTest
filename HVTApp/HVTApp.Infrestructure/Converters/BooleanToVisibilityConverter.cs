@@ -2,14 +2,14 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace HVTApp.Services.GetProductService
+namespace HVTApp.Infrastructure.Converters
 {
     [ValueConversion(typeof(bool), typeof(System.Windows.Visibility))]
     public class BooleanToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var val = value != null && (bool) value;
+            var val = value != null && (bool)value;
             return val ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
         }
 

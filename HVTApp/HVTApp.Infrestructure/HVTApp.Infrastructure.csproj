@@ -83,6 +83,7 @@
     <Compile Include="Behaviors\ChangeBehavior.cs" />
     <Compile Include="Behaviors\DataGridChangeBehavior.cs" />
     <Compile Include="Commands.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\DatePickerOriginalValueConverter.cs" />
     <Compile Include="Extansions\EnumerableExtansions.cs" />
     <Compile Include="Extansions\DateExtansions.cs" />

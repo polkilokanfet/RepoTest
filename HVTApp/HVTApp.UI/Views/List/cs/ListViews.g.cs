@@ -344,6 +344,13 @@ namespace HVTApp.UI.Views
 		#region VisibilityProps
 
 
+        public System.Windows.Visibility DateVisibility
+        {
+            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.Date)].Visibility; }
+            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.Date)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility OurCompanyIdVisibility
         {
             get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.OurCompanyId)].Visibility; }
@@ -351,10 +358,10 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility CalculationPriceTermVisibility
+        public System.Windows.Visibility ActualPriceTermVisibility
         {
-            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.CalculationPriceTerm)].Visibility; }
-            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.CalculationPriceTerm)].Visibility = value; }
+            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.ActualPriceTerm)].Visibility; }
+            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.ActualPriceTerm)].Visibility = value; }
         }
 
 

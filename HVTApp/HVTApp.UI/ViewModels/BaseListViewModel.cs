@@ -38,6 +38,7 @@ namespace HVTApp.UI.ViewModels
 
         private TLookup _selectedLookup;
         private TEntity _selectedItem;
+        private bool _isLoaded = false;
 
         protected BaseListViewModel(IUnityContainer container) : base(container)
         {
@@ -60,7 +61,20 @@ namespace HVTApp.UI.ViewModels
             EventAggregator.GetEvent<TAfterSaveEntityEvent>().Subscribe(OnAfterSaveEntity);
             EventAggregator.GetEvent<TAfterRemoveEntityEvent>().Subscribe(OnAfterRemoveEntity);
 
+            this.LoadBegin += () => IsLoaded = false;
+            this.Loaded += () => IsLoaded = true;
+
             SubscribesToEvents();
+        }
+
+        public bool IsLoaded
+        {
+            get { return _isLoaded; }
+            private set
+            {
+                _isLoaded = value;
+                OnPropertyChanged();
+            }
         }
 
         /// <summary>
@@ -125,6 +139,7 @@ namespace HVTApp.UI.ViewModels
         /// <returns></returns>
         public async Task LoadAsync()
         {
+            LoadBegin?.Invoke();
             LookupsCollection.Clear();
             SelectedLookup = null;
             var lookups = await GetLookups();
@@ -142,6 +157,8 @@ namespace HVTApp.UI.ViewModels
 
         public void Load(IEnumerable<TLookup> lookups)
         {
+            LoadBegin?.Invoke();
+            IsLoaded = false;
             LookupsCollection.Clear();
             SelectedLookup = null;
             lookups.OrderBy(x => x).ForEach(LookupsCollection.Add);
@@ -149,6 +166,7 @@ namespace HVTApp.UI.ViewModels
         }
 
 
+        private event Action LoadBegin;
 
         public event Action Loaded;
 

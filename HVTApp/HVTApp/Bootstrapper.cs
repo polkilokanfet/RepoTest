@@ -70,7 +70,7 @@ namespace HVTApp
             var commonOption = commonOptions.First();
 
             CommonOptions.OurCompanyId = commonOption.OurCompanyId;
-            CommonOptions.ActualPriceTerm = commonOption.CalculationPriceTerm;
+            CommonOptions.ActualPriceTerm = commonOption.ActualPriceTerm;
             CommonOptions.StandartPaymentsConditionSetId = commonOption.StandartPaymentsConditionSetId;
             CommonOptions.ProductionTerm = commonOption.StandartTermFromStartToEndProduction;
             CommonOptions.AssembleTerm = commonOption.StandartTermFromPickToEndProduction;

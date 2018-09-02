@@ -389,7 +389,7 @@ namespace HVTApp.UI.Views
                 OurCompanyIdVisibility = Visibility.Collapsed;
 
 
-            attr = typeof(HVTApp.Model.POCOs.CommonOption).GetProperty(nameof(HVTApp.Model.POCOs.CommonOption.CalculationPriceTerm)).GetCustomAttribute<NotUpdateAttribute>();
+            attr = typeof(HVTApp.Model.POCOs.CommonOption).GetProperty(nameof(HVTApp.Model.POCOs.CommonOption.ActualPriceTerm)).GetCustomAttribute<NotUpdateAttribute>();
             if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
                 CalculationPriceTermVisibility = Visibility.Collapsed;
 
