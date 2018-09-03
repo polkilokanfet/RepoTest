@@ -21,15 +21,25 @@ namespace HVTApp.Infrastructure
             if (Equals(this.Id, other.Id)) return true;
             return base.Equals(obj);
 
-            var allProperties = GetType().GetProperties().Where(x => !Equals(x.Name, nameof(Id))).ToList();
-            var collectionProperties = allProperties.Where(p => p.PropertyType.GetInterfaces()
-                .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>))).ToList();
-            var otherProperties = allProperties.Except(collectionProperties).ToList();
+            //var allProperties = GetType().GetProperties().Where(x => !Equals(x.Name, nameof(Id))).ToList();
+            //var collectionProperties = allProperties.Where(p => p.PropertyType.GetInterfaces()
+            //    .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>))).ToList();
+            //var otherProperties = allProperties.Except(collectionProperties).ToList();
 
-            if (otherProperties.Any(prop => !Equals(prop.GetValue(this), prop.GetValue(other)))) return false;
-            if (collectionProperties.Any(collProp => !((ICollection<object>)collProp.GetValue(this)).AllMembersAreSame((ICollection<object>)collProp.GetValue(other)))) return false;
+            //if (otherProperties.Any(prop => !Equals(prop.GetValue(this), prop.GetValue(other)))) return false;
+            //if (collectionProperties.Any(collProp => !((ICollection<object>)collProp.GetValue(this)).AllMembersAreSame((ICollection<object>)collProp.GetValue(other)))) return false;
 
-            return true;
+            //return true;
+        }
+
+        protected bool Equals(BaseEntity other)
+        {
+            return Id.Equals(other.Id);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
 
         //public override int GetHashCode()

@@ -3,6 +3,32 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
+	public partial class PaymentActual
+	{
+	}
+
+	public partial class PaymentPlanned
+	{
+		public virtual Guid? ConditionId { get; set; }
+	}
+
+	public partial class ProductDesignation
+	{
+	}
+
+	public partial class ProductType
+	{
+	}
+
+	public partial class ProductTypeDesignation
+	{
+		public virtual Guid? ProductTypeId { get; set; }
+	}
+
+	public partial class ProjectType
+	{
+	}
+
 	public partial class CommonOption
 	{
 	}
@@ -61,6 +87,7 @@ namespace HVTApp.Model.POCOs
 
 	public partial class OfferUnit
 	{
+		public virtual Guid? OfferId { get; set; }
 		public virtual Guid? ProductId { get; set; }
 		public virtual Guid? FacilityId { get; set; }
 		public virtual Guid? PaymentConditionSetId { get; set; }
@@ -146,19 +173,6 @@ namespace HVTApp.Model.POCOs
 	{
 	}
 
-	public partial class PaymentPlannedList
-	{
-		public virtual Guid? ConditionId { get; set; }
-	}
-
-	public partial class PaymentPlanned
-	{
-	}
-
-	public partial class PaymentActual
-	{
-	}
-
 	public partial class ParameterRelation
 	{
 	}
@@ -168,6 +182,7 @@ namespace HVTApp.Model.POCOs
 		public virtual Guid? ProductId { get; set; }
 		public virtual Guid? FacilityId { get; set; }
 		public virtual Guid? PaymentConditionSetId { get; set; }
+		public virtual Guid? ProjectId { get; set; }
 		public virtual Guid? ProducerId { get; set; }
 		public virtual Guid? OrderId { get; set; }
 		public virtual Guid? SpecificationId { get; set; }
@@ -227,12 +242,14 @@ namespace HVTApp.Model.POCOs
 		public virtual Guid? WifeId { get; set; }
 	}
 
-	public partial class CostOnDate
+	public partial class SumOnDate
 	{
+		public virtual Guid? SumId { get; set; }
 	}
 
 	public partial class Product
 	{
+		public virtual Guid? ProductTypeId { get; set; }
 		public virtual Guid? ProductBlockId { get; set; }
 	}
 
@@ -275,6 +292,7 @@ namespace HVTApp.Model.POCOs
 
 	public partial class Project
 	{
+		public virtual Guid? ProjectTypeId { get; set; }
 		public virtual Guid? ManagerId { get; set; }
 	}
 

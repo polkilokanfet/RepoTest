@@ -1,10 +1,26 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 using HVTApp.Model.POCOs;
 using Prism.Events;
 
 namespace HVTApp.Model.Events
 {
+	public partial class AfterSaveCreateNewProductTaskEvent : PubSubEvent<CreateNewProductTask> { }
 	public partial class AfterSavePaymentActualEvent : PubSubEvent<PaymentActual> { }
 	public partial class AfterSavePaymentPlannedEvent : PubSubEvent<PaymentPlanned> { }
+	public partial class AfterSaveProductIncludedEvent : PubSubEvent<ProductIncluded> { }
 	public partial class AfterSaveProductDesignationEvent : PubSubEvent<ProductDesignation> { }
 	public partial class AfterSaveProductTypeEvent : PubSubEvent<ProductType> { }
 	public partial class AfterSaveProductTypeDesignationEvent : PubSubEvent<ProductTypeDesignation> { }

@@ -453,7 +453,7 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateProductDesignations()
         {
-            ProductDesignationVgb35.Clone(new ProductDesignation { Designation = "ВГБ-УЭТМ-110", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage35kV } });
+            ProductDesignationVgb35.Clone(new ProductDesignation { Designation = "ВГБ-УЭТМ-35", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage35kV } });
             ProductDesignationVeb110.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-110", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV } });
             ProductDesignationZng110.Clone(new ProductDesignation { Designation = "ЗНГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformatorVoltage, ParameterVoltage110kV } });
         }
@@ -462,41 +462,41 @@ namespace HVTApp.TestDataGenerator
         {
             ProductBlockVgb35.Clone(new ProductBlock
             {
-                Name = "Выключатель баковый ВГБ-35",
+                Name = "Блок Выключатель баковый ВГБ-35",
                 Parameters = new List<Parameter> {ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage35kV},
-                Prices = new List<SumOnDate> {new SumOnDate {Sum = new Sum {Value = 450000}, Date = DateTime.Today}},
+                Prices = new List<SumOnDate> {new SumOnDate {Sum = 450000, Date = DateTime.Today}},
                 StructureCostNumber = "StructureCostNumberVGB35",
             });
 
             ProductBlockVeb110.Clone(new ProductBlock
             {
-                Name = "Выключатель баковый ВЭБ-110",
+                Name = "Блок Выключатель баковый ВЭБ-110",
                 Parameters = new List<Parameter> {ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage110kV},
-                Prices = new List<SumOnDate> {new SumOnDate {Sum = new Sum { Value = 2000000 }, Date = DateTime.Today}},
+                Prices = new List<SumOnDate> {new SumOnDate {Sum = 2000000, Date = DateTime.Today}},
                 StructureCostNumber = "StructureCostNumber3",
             });
 
             ProductBlockZng110.Clone(new ProductBlock
             {
-                Name = "Трансформатор напряжения ЗНГ-110",
+                Name = "Блок Трансформатор напряжения ЗНГ-110",
                 Parameters = new List<Parameter> {ParameterTransformator, ParameterTransformatorVoltage, ParameterVoltage110kV},
-                Prices = new List<SumOnDate> {new SumOnDate {Sum = new Sum { Value = 250000 }, Date = DateTime.Today}},
+                Prices = new List<SumOnDate> {new SumOnDate {Sum = 250000, Date = DateTime.Today.AddDays(-95)}},
                 StructureCostNumber = "StructureCostNumber1"
             });
 
             ProductBlockBreakersDrive.Clone(new ProductBlock
             {
-                Name = "Привод выключателя",
+                Name = "Блок Привод выключателя",
                 Parameters = new List<Parameter> { ParameterBrakersDrive, ParameterVoltage220V },
-                Prices = new List<SumOnDate> { new SumOnDate { Sum = new Sum { Value = 200000 }, Date = DateTime.Today } },
+                Prices = new List<SumOnDate> { new SumOnDate { Sum = 200000, Date = DateTime.Today } },
                 StructureCostNumber = "StructureCostNumber4"
             });
 
             ProductBlockZip1.Clone(new ProductBlock
             {
-                Name = "Групповой комплект ЗИП №1",
+                Name = "Блок Групповой комплект ЗИП №1",
                 Parameters = new List<Parameter> { ParameterDependentEquipment, ParameterZip1 },
-                Prices = new List<SumOnDate> { new SumOnDate { Sum = new Sum { Value = 5000 }, Date = DateTime.Today } },
+                Prices = new List<SumOnDate> { new SumOnDate { Sum = 2500, Date = DateTime.Today } },
                 StructureCostNumber = "StructureCostNumberZip1"
             });
         }
@@ -505,16 +505,16 @@ namespace HVTApp.TestDataGenerator
         {
             ProductVgb35.Clone(new Product
             {
-                DesignationSpecial = "Выключатель баковый ВГБ-35",
+                DesignationSpecial = "ВГБ-35",
                 ProductBlock = ProductBlockVgb35,
-                DependentProducts = new List<Product> {ProductBreakersDrive}
+                DependentProducts = new List<ProductDependent> { new ProductDependent {Product = ProductBreakersDrive}  }
             });
 
             ProductVeb110.Clone(new Product
             {
-                DesignationSpecial = "Выключатель баковый ВЭБ-110",
+                DesignationSpecial = "ВЭБ-110",
                 ProductBlock = ProductBlockVeb110,
-                DependentProducts = new List<Product> {ProductBreakersDrive}
+                DependentProducts = new List<ProductDependent> { new ProductDependent { Product = ProductBreakersDrive } }
             });
 
             ProductZng110.Clone(new Product
@@ -561,8 +561,8 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateSalesUnits()
         {
-            SalesUnitVeb1101Full.Clone(new SalesUnit {Project = ProjectStation, Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "1", ProductionTerm = 90, AssembleTerm = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50, Address = AddressSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilityStation, DependentProducts = new List<ProductDependent> {new ProductDependent {Product = ProductZip1, Amount = 2 } }, PaymentsActual = new List<PaymentActual> { PaymentActual1, PaymentActual2, PaymentActual3, PaymentActual4, PaymentActual5 }, PaymentsPlanned = new List<PaymentPlanned> {PaymentPlanned1, PaymentPlanned2, PaymentPlanned3, PaymentPlanned4, PaymentPlanned5} });
-            SalesUnitVeb1102Full.Clone(new SalesUnit { Project = ProjectStation, Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "2", ProductionTerm = 90, AssembleTerm = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50, Address = AddressSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilityStation, DependentProducts = new List<ProductDependent> { new ProductDependent { Product = ProductZip1, Amount = 3 }}}); 
+            SalesUnitVeb1101Full.Clone(new SalesUnit {Project = ProjectStation, Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "1", ProductionTerm = 90, AssembleTerm = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50, Address = AddressSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilityStation, ProductsIncluded = new List<ProductIncluded> {new ProductIncluded { Product = ProductZip1, Amount = 2 } }, PaymentsActual = new List<PaymentActual> { PaymentActual1, PaymentActual2, PaymentActual3, PaymentActual4, PaymentActual5 }, PaymentsPlanned = new List<PaymentPlanned> {PaymentPlanned1, PaymentPlanned2, PaymentPlanned3, PaymentPlanned4, PaymentPlanned5} });
+            SalesUnitVeb1102Full.Clone(new SalesUnit { Project = ProjectStation, Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "2", ProductionTerm = 90, AssembleTerm = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50, Address = AddressSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilityStation, ProductsIncluded = new List<ProductIncluded> { new ProductIncluded { Product = ProductZip1, Amount = 3 }}}); 
             
             SalesUnitZng1101Full.Clone(new SalesUnit { Project = ProjectStation, Product = ProductZng110, Order = OrderZng110, SerialNumber = "5", ProductionTerm = 90, AssembleTerm = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50,  Address = AddressSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilityStation }); 
             SalesUnitZng1102Full.Clone(new SalesUnit { Project = ProjectStation, Product = ProductZng110, Order = OrderZng110, SerialNumber = "6", ProductionTerm = 90, AssembleTerm = 7, Cost = 450000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50,  Address = AddressSubstation, CostOfShipment = 110, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilityStation }); 
@@ -585,9 +585,9 @@ namespace HVTApp.TestDataGenerator
             OfferUnitVeb1101.Clone(new OfferUnit {Offer = OfferMrsk, Product = ProductVeb110, Cost = 3100000, ProductionTerm = 120, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation});
             OfferUnitVeb1102.Clone(new OfferUnit {Offer = OfferMrsk, Product = ProductVeb110, Cost = 3100000, ProductionTerm = 120, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation});
                                                                                     
-            OfferUnitZng1101.Clone(new OfferUnit {Offer = OfferMrsk, Product = ProductZng110, Cost = 550000, ProductionTerm = 180, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, DependentProducts = new List<ProductDependent> { new ProductDependent { Product = ProductZip1, Amount = 3 } } });
-            OfferUnitZng1102.Clone(new OfferUnit {Offer = OfferMrsk, Product = ProductZng110, Cost = 550000, ProductionTerm = 180, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, DependentProducts = new List<ProductDependent> { new ProductDependent { Product = ProductZip1, Amount = 2 } } });
-            OfferUnitZng1103.Clone(new OfferUnit {Offer = OfferMrsk, Product = ProductZng110, Cost = 550000, ProductionTerm = 180, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, DependentProducts = new List<ProductDependent> { new ProductDependent { Product = ProductZip1, Amount = 2 } } });
+            OfferUnitZng1101.Clone(new OfferUnit {Offer = OfferMrsk, Product = ProductZng110, Cost = 550000, ProductionTerm = 180, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, ProductsIncluded = new List<ProductIncluded> { new ProductIncluded { Product = ProductZip1, Amount = 3 } } });
+            OfferUnitZng1102.Clone(new OfferUnit {Offer = OfferMrsk, Product = ProductZng110, Cost = 550000, ProductionTerm = 180, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, ProductsIncluded = new List<ProductIncluded> { new ProductIncluded { Product = ProductZip1, Amount = 2 } } });
+            OfferUnitZng1103.Clone(new OfferUnit {Offer = OfferMrsk, Product = ProductZng110, Cost = 550000, ProductionTerm = 180, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, ProductsIncluded = new List<ProductIncluded> { new ProductIncluded { Product = ProductZip1, Amount = 2 } } });
                                           
             OfferUnitZng1104.Clone(new OfferUnit {Offer = OfferMrsk, Product = ProductZng110, Cost = 550000, ProductionTerm = 150, PaymentConditionSet = PaymentConditionSet30Na70, Facility = FacilitySubstation});
             OfferUnitZng1105.Clone(new OfferUnit {Offer = OfferMrsk, Product = ProductZng110, Cost = 550000, ProductionTerm = 150, PaymentConditionSet = PaymentConditionSet30Na70, Facility = FacilitySubstation});

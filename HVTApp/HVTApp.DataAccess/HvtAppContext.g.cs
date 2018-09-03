@@ -9,8 +9,10 @@ namespace HVTApp.DataAccess
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 			#region Configurations
+            modelBuilder.Configurations.Add(new CreateNewProductTaskConfiguration());
             modelBuilder.Configurations.Add(new PaymentActualConfiguration());
             modelBuilder.Configurations.Add(new PaymentPlannedConfiguration());
+            modelBuilder.Configurations.Add(new ProductIncludedConfiguration());
             modelBuilder.Configurations.Add(new ProductDesignationConfiguration());
             modelBuilder.Configurations.Add(new ProductTypeConfiguration());
             modelBuilder.Configurations.Add(new ProductTypeDesignationConfiguration());
@@ -78,8 +80,10 @@ namespace HVTApp.DataAccess
         }
 
 		#region DbSets
+        public virtual DbSet<CreateNewProductTask> CreateNewProductTaskDbSet { get; set; }
         public virtual DbSet<PaymentActual> PaymentActualDbSet { get; set; }
         public virtual DbSet<PaymentPlanned> PaymentPlannedDbSet { get; set; }
+        public virtual DbSet<ProductIncluded> ProductIncludedDbSet { get; set; }
         public virtual DbSet<ProductDesignation> ProductDesignationDbSet { get; set; }
         public virtual DbSet<ProductType> ProductTypeDbSet { get; set; }
         public virtual DbSet<ProductTypeDesignation> ProductTypeDesignationDbSet { get; set; }

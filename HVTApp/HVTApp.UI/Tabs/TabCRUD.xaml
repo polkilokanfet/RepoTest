@@ -12,7 +12,7 @@
     </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Обновление">
-        <infRib:ButtonTool Caption="Refresh" Command="{Binding RefreshCommand}"/>
+        <infRib:ButtonTool Caption="Обновить" Command="{Binding RefreshCommand}"/>
     </infRib:RibbonGroup>
     
 </inf:RibbonTabItemWithViewModel>

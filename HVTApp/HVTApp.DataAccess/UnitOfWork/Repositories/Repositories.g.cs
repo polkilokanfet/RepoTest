@@ -4,6 +4,16 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.DataAccess
 {
+    public partial class CreateNewProductTaskRepository : BaseRepository<CreateNewProductTask>, ICreateNewProductTaskRepository
+    {
+        IUnityContainer _container;
+
+		public CreateNewProductTaskRepository(DbContext context, IUnityContainer container) : base(context) 
+		{
+			_container = container;
+		}
+    }
+
     public partial class PaymentActualRepository : BaseRepository<PaymentActual>, IPaymentActualRepository
     {
         IUnityContainer _container;
@@ -19,6 +29,16 @@ namespace HVTApp.DataAccess
         IUnityContainer _container;
 
 		public PaymentPlannedRepository(DbContext context, IUnityContainer container) : base(context) 
+		{
+			_container = container;
+		}
+    }
+
+    public partial class ProductIncludedRepository : BaseRepository<ProductIncluded>, IProductIncludedRepository
+    {
+        IUnityContainer _container;
+
+		public ProductIncludedRepository(DbContext context, IUnityContainer container) : base(context) 
 		{
 			_container = container;
 		}

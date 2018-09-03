@@ -8,6 +8,7 @@ using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Model.POCOs
 {
+
     [Designation("Продукт"), DesignationPlural("Продукты")]
     public partial class Product : BaseEntity
     {
@@ -24,14 +25,15 @@ namespace HVTApp.Model.POCOs
         public virtual ProductBlock ProductBlock { get; set; }
 
         [Designation("Продукты в составе")]
-        public virtual List<Product> DependentProducts { get; set; } = new List<Product>();
+        public virtual List<ProductDependent> DependentProducts { get; set; } = new List<ProductDependent>();
 
 
 
         public override string ToString()
         {
-            if (!string.IsNullOrEmpty(DesignationSpecial)) return DesignationSpecial;
-            if (!string.IsNullOrEmpty(Designation)) return Designation;
+            string type = ProductType == null ? String.Empty : $"{ProductType} ";
+            if (!string.IsNullOrEmpty(DesignationSpecial)) return $"{type}{DesignationSpecial}";
+            if (!string.IsNullOrEmpty(Designation)) return $"{type}{Designation}"; ;
             return ProductBlock.ToString();
         }
 
@@ -43,11 +45,29 @@ namespace HVTApp.Model.POCOs
             if (otherProduct == null) return false;
 
             //если составные части не совпадают
-            if (!Equals(this.ProductBlock, otherProduct.ProductBlock)) return false;
+            if (!this.ProductBlock.Equals(otherProduct.ProductBlock)) return false;
 
             //если зависимые продукты не совпадают / совпадают
             return DependentProducts.AllMembersAreSame(otherProduct.DependentProducts);
         }
+
+        /// <summary>
+        /// Возвращает все блоки оборудования
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ProductBlock> GetBlocks()
+        {
+            var result = new List<ProductBlock> {ProductBlock};
+            foreach (var dependentProduct in DependentProducts)
+            {
+                for (int i = 0; i < dependentProduct.Amount; i++)
+                {
+                    result.AddRange(dependentProduct.Product.GetBlocks());
+                }
+            }
+            return result;
+        }
+
 
         public string GetFullDescription(int spaceCount = 0)
         {
@@ -59,7 +79,7 @@ namespace HVTApp.Model.POCOs
                 stringBuilder.Append(Environment.NewLine + "Составные части:".AddSpacesBefore(spaceCount));
                 foreach (var dependentProduct in DependentProducts)
                 {
-                    stringBuilder.Append(Environment.NewLine + dependentProduct.GetFullDescription(spaceCount).AddSpacesBefore(spaceCount));
+                    stringBuilder.Append(Environment.NewLine + dependentProduct.Product.GetFullDescription(spaceCount).AddSpacesBefore(spaceCount));
                 }
             }
 

@@ -11,25 +11,25 @@ namespace HVTApp.UI.ViewModels
 {
     public class OfferUnitsGroup : BaseUnitsGroup<OfferUnitWrapper>
     {
-        private readonly Dictionary<ProductDependentWrapper, List<ProductDependentWrapper>> _dictionary = 
-            new Dictionary<ProductDependentWrapper, List<ProductDependentWrapper>>();
+        private readonly Dictionary<ProductIncludedWrapper, List<ProductIncludedWrapper>> _dictionary = 
+            new Dictionary<ProductIncludedWrapper, List<ProductIncludedWrapper>>();
 
         public OfferUnitsGroup(IEnumerable<OfferUnitWrapper> units) : base(units)
         {
             if(units == null || !units.Any())
                 throw new ArgumentNullException(nameof(units));
 
-            var dependentProducts = units.First().DependentProducts;
-            DependentProducts = new ValidatableChangeTrackingCollection<ProductDependentWrapper>(dependentProducts);
-            foreach (var productDependentWrapper in DependentProducts)
+            var dependentProducts = units.First().ProductsIncluded;
+            ProductsIncluded = new ValidatableChangeTrackingCollection<ProductIncludedWrapper>(dependentProducts);
+            foreach (var productDependentWrapper in ProductsIncluded)
             {
-                var list = units.Select(x => x.DependentProducts.First(dp => 
+                var list = units.Select(x => x.ProductsIncluded.First(dp => 
                     Equals(dp.Model.Product.Id.GetHashCode() + dp.Amount.GetHashCode(), 
                     productDependentWrapper.Model.Product.Id.GetHashCode() + productDependentWrapper.Amount.GetHashCode()))).ToList();
                 _dictionary.Add(productDependentWrapper, list);
             }
-            DependentProducts.CollectionChanged += OnDependentProductsCollectionChanged;
-            DependentProducts.ForEach(x => x.PropertyChanged += DependentProductOnPropertyChanged);
+            ProductsIncluded.CollectionChanged += OnProductsIncludedCollectionChanged;
+            ProductsIncluded.ForEach(x => x.PropertyChanged += DependentProductOnPropertyChanged);
         }
 
         private void DependentProductOnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -38,7 +38,7 @@ namespace HVTApp.UI.ViewModels
                 !Equals(e.PropertyName, nameof(ProductDependent.Amount)))
                 return;
 
-            ProductDependentWrapper productDependentWrapper = (ProductDependentWrapper)sender;
+            var productDependentWrapper = (ProductIncludedWrapper)sender;
             var propInfo = sender.GetType().GetProperty(e.PropertyName);
             var value = propInfo.GetValue(sender);
             foreach (var target in _dictionary[productDependentWrapper])
@@ -51,22 +51,22 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
-        private void OnDependentProductsCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        private void OnProductsIncludedCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
             if (args.NewItems != null)
             {
                 foreach (var newItem in args.NewItems)
                 {
-                    var product = (ProductDependentWrapper) newItem;
-                    _dictionary.Add(product, new List<ProductDependentWrapper>());
+                    var product = (ProductIncludedWrapper) newItem;
+                    _dictionary.Add(product, new List<ProductIncludedWrapper>());
                     foreach (var unit in Units)
                     {
-                        var productDependentWrapper = new ProductDependentWrapper(new ProductDependent
+                        var productDependentWrapper = new ProductIncludedWrapper(new ProductIncluded
                             {
                                 Product = product.Product.Model,
                                 Amount = product.Amount
                             });
-                        unit.DependentProducts.Add(productDependentWrapper);
+                        unit.ProductsIncluded.Add(productDependentWrapper);
                         productDependentWrapper.PropertyChanged += DependentProductOnPropertyChanged;
                         _dictionary[product].Add(productDependentWrapper);
                     }
@@ -77,10 +77,10 @@ namespace HVTApp.UI.ViewModels
             {
                 foreach (var oldItem in args.OldItems)
                 {
-                    var oldProduct = (ProductDependentWrapper) oldItem;
+                    var oldProduct = (ProductIncludedWrapper) oldItem;
                     foreach (var target in _dictionary[oldProduct])
                     {
-                        Units.Single(x => x.DependentProducts.Contains(target)).DependentProducts.Remove(target);
+                        Units.Single(x => x.ProductsIncluded.Contains(target)).ProductsIncluded.Remove(target);
                         target.PropertyChanged -= DependentProductOnPropertyChanged;
                     }
                     _dictionary.Remove(oldProduct);
@@ -128,7 +128,7 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
-        public IValidatableChangeTrackingCollection<ProductDependentWrapper> DependentProducts { get; }
+        public IValidatableChangeTrackingCollection<ProductIncludedWrapper> ProductsIncluded { get; }
 
         public double Total => Units.Sum(x => x.Cost);
 

@@ -31,7 +31,7 @@ namespace HVTApp.UI.Lookup
             return lookup;
         }
 
-        public async Task<IEnumerable<TLookup>> GetAllLookupsAsync()
+        public virtual async Task<IEnumerable<TLookup>> GetAllLookupsAsync()
         {
             var entities = await UnitOfWork.GetRepository<TEntity>().GetAllAsNoTrackingAsync();
             var lookups = new List<TLookup>();
@@ -62,6 +62,12 @@ namespace HVTApp.UI.Lookup
         public void Dispose()
         {
             UnitOfWork?.Dispose();
+        }
+
+        public void Reload(TLookup lookup)
+        {
+            UnitOfWork.GetRepository<TEntity>().Reload(lookup.Entity);
+            lookup.Refresh(lookup.Entity);
         }
     }
 }

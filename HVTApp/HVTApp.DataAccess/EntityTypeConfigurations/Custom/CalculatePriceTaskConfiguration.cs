@@ -4,11 +4,13 @@ namespace HVTApp.DataAccess
     {
         public CalculatePriceTaskConfiguration()
         {
-            Property(x => x.Date).IsRequired();
-            HasRequired(x => x.ProductBlock).WithMany();
-            HasMany(x => x.Projects).WithMany();
-            HasMany(x => x.Offers).WithMany();
-            HasMany(x => x.Specifications).WithMany();
+            Ignore(x => x.Status);
+            Ignore(x => x.Sum);
+            Ignore(x => x.Date);
+            Ignore(x => x.ProductBlock);
+            Ignore(x => x.Projects);
+            Ignore(x => x.Offers);
+            Ignore(x => x.Specifications);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
@@ -59,6 +60,12 @@ namespace HVTApp.DataAccess
         public virtual async Task<TEntity> GetByIdAsync(Guid id)
         {
             return await Context.Set<TEntity>().FindAsync(id);
+        }
+
+        public void Reload(TEntity entity)
+        {
+            //var entry = Context.Entry(entity);
+            //entry.Reload();
         }
     }
 }

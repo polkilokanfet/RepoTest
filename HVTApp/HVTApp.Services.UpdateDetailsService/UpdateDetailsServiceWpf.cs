@@ -73,7 +73,7 @@ namespace HVTApp.Services.UpdateDetailsService
             return await UpdateDetails<TEntity>(detaisViewModel => detaisViewModel.LoadAsync(entity));
         }
 
-        public string GetTitle(Type type)
+        string GetTitle(Type type)
         {
             var attr = type.GetCustomAttribute<DesignationAttribute>();
             var des = attr != null ? attr.Designation : type.Name;

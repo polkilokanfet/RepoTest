@@ -19,11 +19,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="ChildProductsAmount" Visibility="{Binding ChildProductsAmountVisibility, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ChildProductsAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding ChildProductsAmountVisibility, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="ParentProductParameters" Visibility="{Binding ParentProductParametersVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
@@ -33,6 +35,7 @@
 										 RemoveItemCommand="{Binding RemoveFromParentProductParametersCommand}"
 										 Visibility="{Binding ParentProductParametersVisibility, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="ChildProductParameters" Visibility="{Binding ChildProductParametersVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.ChildProductParameters}"
@@ -40,6 +43,7 @@
 										 AddItemCommand="{Binding AddInChildProductParametersCommand}"
 										 RemoveItemCommand="{Binding RemoveFromChildProductParametersCommand}"
 										 Visibility="{Binding ChildProductParametersVisibility, ElementName=Root}"/>
+
 
 
     </Grid>

@@ -5,6 +5,12 @@ using HVTApp.Model.POCOs;
 namespace HVTApp.UI.Lookup
 {
 
+    public partial class CreateNewProductTaskLookupDataService : LookupDataService<CreateNewProductTaskLookup, CreateNewProductTask>, ICreateNewProductTaskLookupDataService
+    {
+        public CreateNewProductTaskLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+    }
+
+
     public partial class PaymentActualLookupDataService : LookupDataService<PaymentActualLookup, PaymentActual>, IPaymentActualLookupDataService
     {
         public PaymentActualLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
@@ -14,6 +20,12 @@ namespace HVTApp.UI.Lookup
     public partial class PaymentPlannedLookupDataService : LookupDataService<PaymentPlannedLookup, PaymentPlanned>, IPaymentPlannedLookupDataService
     {
         public PaymentPlannedLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+    }
+
+
+    public partial class ProductIncludedLookupDataService : LookupDataService<ProductIncludedLookup, ProductIncluded>, IProductIncludedLookupDataService
+    {
+        public ProductIncludedLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
     }
 
 

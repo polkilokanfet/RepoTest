@@ -62,14 +62,17 @@ namespace HVTApp.UI.ViewModels
 
             //если редактируем
             Item = await WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().GetByIdAsync(entity.Id);
+
+            AfterLoading();
         }
 
         public async Task LoadAsync(Guid id)
         {
             Item = await WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().GetByIdAsync(id);
+            AfterLoading();
         }
 
-        //protected virtual async Task LoadOtherAsync() { }
+        protected virtual void AfterLoading() { }
 
         public ICommand SaveCommand { get; }
 

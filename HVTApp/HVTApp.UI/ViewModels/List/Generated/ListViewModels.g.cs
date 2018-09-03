@@ -6,6 +6,12 @@ using HVTApp.UI.Lookup;
 namespace HVTApp.UI.ViewModels
 {
 
+    public partial class CreateNewProductTaskLookupListViewModel : BaseListViewModel<CreateNewProductTask, CreateNewProductTaskLookup, AfterSaveCreateNewProductTaskEvent, AfterSelectCreateNewProductTaskEvent, AfterRemoveCreateNewProductTaskEvent,  CreateNewProductTaskLookupDataService>
+    {
+        public CreateNewProductTaskLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
     public partial class PaymentActualLookupListViewModel : BaseListViewModel<PaymentActual, PaymentActualLookup, AfterSavePaymentActualEvent, AfterSelectPaymentActualEvent, AfterRemovePaymentActualEvent,  PaymentActualLookupDataService>
     {
         public PaymentActualLookupListViewModel(IUnityContainer container) : base(container) { }
@@ -15,6 +21,12 @@ namespace HVTApp.UI.ViewModels
     public partial class PaymentPlannedLookupListViewModel : BaseListViewModel<PaymentPlanned, PaymentPlannedLookup, AfterSavePaymentPlannedEvent, AfterSelectPaymentPlannedEvent, AfterRemovePaymentPlannedEvent,  PaymentPlannedLookupDataService>
     {
         public PaymentPlannedLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
+    public partial class ProductIncludedLookupListViewModel : BaseListViewModel<ProductIncluded, ProductIncludedLookup, AfterSaveProductIncludedEvent, AfterSelectProductIncludedEvent, AfterRemoveProductIncludedEvent,  ProductIncludedLookupDataService>
+    {
+        public ProductIncludedLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
 

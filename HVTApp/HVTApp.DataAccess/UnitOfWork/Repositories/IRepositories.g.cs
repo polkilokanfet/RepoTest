@@ -3,8 +3,10 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.DataAccess
 {
+    public partial interface ICreateNewProductTaskRepository : IRepository<CreateNewProductTask> { }
     public partial interface IPaymentActualRepository : IRepository<PaymentActual> { }
     public partial interface IPaymentPlannedRepository : IRepository<PaymentPlanned> { }
+    public partial interface IProductIncludedRepository : IRepository<ProductIncluded> { }
     public partial interface IProductDesignationRepository : IRepository<ProductDesignation> { }
     public partial interface IProductTypeRepository : IRepository<ProductType> { }
     public partial interface IProductTypeDesignationRepository : IRepository<ProductTypeDesignation> { }

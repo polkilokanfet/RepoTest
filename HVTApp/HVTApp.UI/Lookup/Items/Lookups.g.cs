@@ -19,6 +19,39 @@ using HVTApp.Model.POCOs;
 namespace HVTApp.UI.Lookup
 {
 
+	public partial class CreateNewProductTaskLookup : LookupItem<CreateNewProductTask>
+	{
+		public CreateNewProductTaskLookup(CreateNewProductTask entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+			Product?.Refresh(Entity.Product);
+
+		}
+		
+
+        #region SimpleProperties
+
+        public System.String Designation => GetValue<System.String>();
+
+
+        public System.String StructureCostNumber => GetValue<System.String>();
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
+
+
+        #endregion
+
+	}
+
 	public partial class PaymentActualLookup : LookupItem<PaymentActual>
 	{
 		public PaymentActualLookup(PaymentActual entity) : base(entity) 
@@ -75,6 +108,36 @@ namespace HVTApp.UI.Lookup
         #region ComplexProperties
 
 	    public PaymentConditionLookup Condition { get { return GetLookup<PaymentConditionLookup>(); } }
+
+
+        #endregion
+
+	}
+
+	public partial class ProductIncludedLookup : LookupItem<ProductIncluded>
+	{
+		public ProductIncludedLookup(ProductIncluded entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+			Product?.Refresh(Entity.Product);
+
+		}
+		
+
+        #region SimpleProperties
+
+        public System.Int32 Amount => GetValue<System.Int32>();
+
+
+        #endregion
+
+
+        #region ComplexProperties
+
+	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 
         #endregion
@@ -176,10 +239,13 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+        public System.DateTime Date => GetValue<System.DateTime>();
+
+
         public System.Guid OurCompanyId => GetValue<System.Guid>();
 
 
-        public System.Int32 CalculationPriceTerm => GetValue<System.Int32>();
+        public System.Int32 ActualPriceTerm => GetValue<System.Int32>();
 
 
         public System.Int32 StandartTermFromStartToEndProduction => GetValue<System.Int32>();
@@ -393,10 +459,13 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+        public HVTApp.Model.POCOs.CalculatePriceTaskStatus Status => GetValue<HVTApp.Model.POCOs.CalculatePriceTaskStatus>();
+
+
+        public System.Double Sum => GetValue<System.Double>();
+
+
         public System.DateTime Date => GetValue<System.DateTime>();
-
-
-        public System.Boolean IsActual => GetValue<System.Boolean>();
 
 
         #endregion
@@ -616,6 +685,9 @@ namespace HVTApp.UI.Lookup
 		
 
         #region SimpleProperties
+
+        public System.Guid MainProductId => GetValue<System.Guid>();
+
 
         public System.Int32 Amount => GetValue<System.Int32>();
 
@@ -1491,8 +1563,6 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Sum?.Refresh(Entity.Sum);
-
 		}
 		
 
@@ -1501,12 +1571,7 @@ namespace HVTApp.UI.Lookup
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
-        #endregion
-
-
-        #region ComplexProperties
-
-	    public SumLookup Sum { get { return GetLookup<SumLookup>(); } }
+        public System.Double Sum => GetValue<System.Double>();
 
 
         #endregion

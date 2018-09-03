@@ -15,6 +15,10 @@ namespace HVTApp.UI.Lookup
     {
         public override async Task LoadOther(IUnitOfWork unitOfWork)
         {
+            //ProductDependents = Entity.ProductsIncluded.Select(x => new ProductDependentLookup(x)).ToList();
+            //foreach (var productDependent in ProductDependents)
+            //    await productDependent.LoadOther(unitOfWork);
+
             PaymentsActual = Entity.PaymentsActual.Select(x => new PaymentActualLookup(x)).ToList();
             foreach (var paymentActualLookup in PaymentsActual)
                 await paymentActualLookup.LoadOther(unitOfWork);
@@ -26,6 +30,7 @@ namespace HVTApp.UI.Lookup
             await PaymentConditionSet.LoadOther(unitOfWork);
         }
 
+        //public List<> ProductDependents { get; set; }
         public List<PaymentActualLookup> PaymentsActual { get; set; }
         public List<PaymentPlannedLookup> PaymentsPlanned { get; set; }
 

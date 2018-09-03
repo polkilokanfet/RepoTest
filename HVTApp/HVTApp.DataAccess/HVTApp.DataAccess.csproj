@@ -75,6 +75,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\CalculatePriceTaskConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CommonOptionConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\CostOnDateConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\CreateNewProductTaskConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\DescribeProductBlockTaskConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\EmployeesPositionConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\BankDetailsConfiguration.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\NoteConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\OfferUnitConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductBlockConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ProductDependentConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductDesignationConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProjectTypeConfiguration.cs" />
