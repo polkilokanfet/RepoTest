@@ -1,15 +1,18 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using HVTApp.DataAccess.Annotations;
 using HVTApp.UI.Wrapper;
+using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.UI.Converter
 {
     public interface IProductUnitsGroup
     {
         List<IProductUnit> ProductUnits { get; }
+        ObservableCollection<IProductUnitsGroup> Groups { get; }
         FacilityWrapper Facility { get; set; }
         ProductWrapper Product { get; set; }
         double Cost { get; set; }
@@ -20,21 +23,23 @@ namespace HVTApp.UI.Converter
 
     public class ProductUnitsGroup : INotifyPropertyChanged, IProductUnitsGroup
     {
+        public ProductUnitsGroup(IEnumerable<IProductUnit> productUnits)
+        {
+            ProductUnits = productUnits.ToList();
+            if (ProductUnits.Count > 1)
+                Groups.AddRange(ProductUnits.Select(x => new ProductUnitsGroup(new List<IProductUnit> {x})));
+
+            ProductUnits.First().PriceChanged += () => { MarginalIncome = (1 - Price / Cost) * 100; };
+        }
+
         private double _marginalIncome;
 
         public int Amount => ProductUnits.Count;
         public double Price => ProductUnits.First().Price;
         public double Total => Cost * Amount;
 
-
-        public ProductUnitsGroup(IEnumerable<IProductUnit> productUnits)
-        {
-            ProductUnits = new List<IProductUnit>(productUnits);
-
-            ProductUnits.First().PriceChanged += () => { MarginalIncome = (1 - Price / Cost) * 100; };
-        }
-
         public List<IProductUnit> ProductUnits { get; }
+        public ObservableCollection<IProductUnitsGroup> Groups { get; } = new ObservableCollection<IProductUnitsGroup>();
 
         public FacilityWrapper Facility
         {
@@ -42,6 +47,7 @@ namespace HVTApp.UI.Converter
             set
             {
                 if(Equals(Facility, value)) return;
+                Groups.ForEach(x => x.Facility = value);
                 ProductUnits.ForEach(x => x.Facility = value);
                 OnPropertyChanged();
             }
@@ -53,6 +59,7 @@ namespace HVTApp.UI.Converter
             set
             {
                 if (Equals(Product, value)) return;
+                Groups.ForEach(x => x.Product = value);
                 ProductUnits.ForEach(x => x.Product = value);
                 OnPropertyChanged();
             }
@@ -66,6 +73,7 @@ namespace HVTApp.UI.Converter
                 if (Equals(value, Cost)) return;
                 if (value < 0) return;
 
+                Groups.ForEach(x => x.Cost = value);
                 ProductUnits.ForEach(x => x.Cost = value);
                 MarginalIncome = (1 - Price / value) * 100;
                 OnPropertyChanged();
@@ -86,6 +94,7 @@ namespace HVTApp.UI.Converter
             }
         }
 
+        #region INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -94,5 +103,7 @@ namespace HVTApp.UI.Converter
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        #endregion
     }
 }

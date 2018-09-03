@@ -5,12 +5,19 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 
 namespace HVTApp.Infrastructure
 {
-    public interface IDetailsViewModel<TWrapper, TEntity> : ILoadable<TEntity>, ISavable, IDialogRequestClose
+    public interface IDetailsViewModel<TWrapper, TEntity> : ILoadable<TEntity>, IViewModelWithEntity<TEntity>, ISavable, IDialogRequestClose
         where TEntity : class, IBaseEntity
         where TWrapper : class, IWrapper<TEntity>
     {
         TWrapper Item { get; }
     }
+
+    public interface IViewModelWithEntity<out TEntity>
+    where TEntity : class, IBaseEntity
+    {
+        TEntity Entity { get; }
+    }
+
 
     public interface ISavable
     {

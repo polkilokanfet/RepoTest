@@ -46,22 +46,14 @@ namespace HVTApp.UI.ViewModels
         /// </summary>
         protected virtual void InitSpecialGetMethods() { }
 
-        private static TWrapper GetWrapper(TEntity entity)
-        {
-            return (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity);
-        }
-
         public async Task LoadAsync(TEntity entity)
         {
             //если создаём, а не редактируем
             if (await WrapperDataService.GetRepository<TEntity>().GetByIdAsync(entity.Id) == null)
-            {
                 Item = (TWrapper) Activator.CreateInstance(typeof(TWrapper), entity);
-                return;
-            }
-
-            //если редактируем
-            Item = await WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().GetByIdAsync(entity.Id);
+            else
+                //если редактируем
+                Item = await WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().GetByIdAsync(entity.Id);
 
             AfterLoading();
         }
@@ -75,6 +67,8 @@ namespace HVTApp.UI.ViewModels
         protected virtual void AfterLoading() { }
 
         public ICommand SaveCommand { get; }
+
+        public TEntity Entity => Item.Model;
 
         public TWrapper Item
         {

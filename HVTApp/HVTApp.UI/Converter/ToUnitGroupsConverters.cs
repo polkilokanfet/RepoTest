@@ -7,6 +7,16 @@ namespace HVTApp.UI.Converter
 {
     public static class ToUnitGroupsConverters
     {
+        public static IEnumerable<IProductUnitsGroup> ToProductUnitGroups(this IEnumerable<IProductUnit> offerUnitWrappers)
+        {
+            return offerUnitWrappers.GroupBy(x => new
+            {
+                ProductId = x.Product.Model.Id,
+                FacilityId = x.Facility.Model.Id,
+                Cost = x.Cost
+            }).Select(x => new ProductUnitsGroup(x));
+        }
+
         public static IEnumerable<OfferUnitsGroup> ToUnitGroups(this IEnumerable<OfferUnitWrapper> offerUnitWrappers)
         {
             return offerUnitWrappers.GroupBy(x => new

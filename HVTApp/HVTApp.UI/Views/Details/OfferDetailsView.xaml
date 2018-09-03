@@ -104,9 +104,9 @@
         <controls:UnitListControl Grid.Row="11"
                                   Grid.Column="0"
                                   Grid.ColumnSpan="2"
-                                  UnitsGroups="{Binding Item.OfferUnits, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ProductUnitsToProductGroupsConverter}}"
-                                  SelectedUnitsGroup="{Binding SelectedOfferUnits, Mode=OneWayToSource, Converter={StaticResource ProductGroupToProductUnitsConverter}}"
-                                  ChangeCommand="{Binding ChangeFacilityCommand}" />
+                                  UnitsGroups="{Binding Groups}"
+                                  SelectedUnitsGroup="{Binding SelectedGroup, Mode=OneWayToSource}"
+                                  ChangeCommand="{Binding ChangeCommand}"/>
 
 
 

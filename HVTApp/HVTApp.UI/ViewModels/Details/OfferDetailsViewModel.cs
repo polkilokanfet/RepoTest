@@ -1,13 +1,13 @@
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services;
-using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.PriceService;
+using HVTApp.UI.Converter;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -16,49 +16,59 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class OfferDetailsViewModel
     {
-        private IEnumerable<IProductUnit> _selectedOfferUnits;
-        public IEnumerable<IProductUnit> SelectedOfferUnits
+        private IProductUnitsGroup _selectedGroup;
+
+        public IProductUnitsGroup SelectedGroup
         {
-            get { return _selectedOfferUnits; }
+            get { return _selectedGroup; }
             set
             {
-                _selectedOfferUnits = value;
-                ((DelegateCommand)ChangeFacilityCommand).RaiseCanExecuteChanged();
+                if (Equals(_selectedGroup, value)) return;
+                _selectedGroup = value;
+                ((DelegateCommand)ChangeCommand).RaiseCanExecuteChanged();
+                OnPropertyChanged();
             }
         }
 
-        public ICommand ChangeFacilityCommand { get; private set; }
+        public ObservableCollection<IProductUnitsGroup> Groups { get; } = new ObservableCollection<IProductUnitsGroup>();
+
+        public ICommand ChangeCommand { get; private set; }
 
         protected override void InitSpecialCommands()
         {
-            ChangeFacilityCommand = new DelegateCommand(ChangeFacilityCommand_Execute, () => SelectedOfferUnits!= null && SelectedOfferUnits.Any());
+            ChangeCommand = new DelegateCommand(ChangeCommand_Execute, () => SelectedGroup != null);
         }
 
         protected override void AfterLoading()
         {
+            RefreshGroups();
+
             var priceService = Container.Resolve<IPriceService>();
             foreach (var offerUnit in Item.OfferUnits)
-            {
                 offerUnit.Price = priceService.GetPrice(offerUnit.Product.Model, DateTime.Today, CommonOptions.ActualPriceTerm);
-            }
         }
 
-        private async void ChangeFacilityCommand_Execute()
+        private void RefreshGroups()
         {
-            //var vw = Container.Resolve<OfferUnitsDetailsViewModel>();
-            //Container.Resolve<IDialogService>().ShowDialog(vw);
+            Groups.Clear();
+            Groups.AddRange(Item.OfferUnits.ToProductUnitGroups());
+        }
 
-            //var facilities = await WrapperDataService.GetRepository<Facility>().GetAllAsync();
-            //var facility = await Container.Resolve<ISelectService>().SelectItem(facilities);
-            //if (facility == null) return;
-            //var facilityWrapper = await WrapperDataService.GetWrapperRepository<Facility, FacilityWrapper>().GetByIdAsync(facility.Id);
-            //foreach (var offerUnit in SelectedOfferUnits)
-            //    offerUnit.Facility = facilityWrapper;
+        private async void ChangeCommand_Execute()
+        {
+            var entity = ((OfferUnitWrapper) SelectedGroup.ProductUnits.First()).Model;
+            entity = await Container.Resolve<IUpdateDetailsService>().GetEntity(entity);
 
-            var offerUnit = (OfferUnitWrapper)SelectedOfferUnits.First();
-            await Container.Resolve<IUpdateDetailsService>().UpdateDetails(offerUnit.Model);
+            if (entity == null) return;
 
-            OnPropertyChanged(nameof(Item));
+            foreach (var productUnit in SelectedGroup.ProductUnits)
+            {
+                productUnit.Facility = new FacilityWrapper(await WrapperDataService.GetRepository<Facility>().GetByIdAsync(entity.Facility.Id));
+                productUnit.Product = new ProductWrapper(await WrapperDataService.GetRepository<Product>().GetByIdAsync(entity.Product.Id));
+                productUnit.Cost = entity.Cost;
+            }
+
+            RefreshGroups();
         }
     }
 }

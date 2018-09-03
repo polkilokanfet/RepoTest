@@ -4,14 +4,21 @@
              xmlns:local="clr-namespace:HVTApp.UI.Controls"
              xmlns:dataPresenter="http://infragistics.com/DataPresenter"
              x:Name="Root">
-    <StackPanel>
-        <Button Command="{Binding ChangeCommand, ElementName=Root}" Content="Изменить"/>
+    <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Right">
+            <Button Command="{Binding ChangeCommand, ElementName=Root}" Content="Добавить"/>
+            <Button Command="{Binding ChangeCommand, ElementName=Root}" Content="Изменить"/>
+            <Button Command="{Binding ChangeCommand, ElementName=Root}" Content="Удалить"/>
+        </StackPanel>
         <dataPresenter:XamDataGrid x:Name="UnitListGrid"
                                    DataSource="{Binding UnitsGroups, ElementName=Root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                    SelectedDataItem="{Binding SelectedUnitsGroup, ElementName=Root}">
+            
+            <!--<dataPresenter:FieldSettings AllowRecordFiltering="False"></dataPresenter:FieldSettings>-->
            
             <dataPresenter:XamDataGrid.FieldLayouts>
-                <dataPresenter:FieldLayout>
+
+                <dataPresenter:FieldLayout Key="ParentGroup">
                     <dataPresenter:FieldLayout.Fields>
                         <dataPresenter:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
                         <dataPresenter:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
@@ -19,16 +26,124 @@
                         <dataPresenter:NumericField Name="MarginalIncome" Label="МД" Width="Auto" AllowEdit="True" />
                         <dataPresenter:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" />
                         <dataPresenter:NumericField Name="Total" Label="Сумма" Width="Auto"/>
-                        
+                        <dataPresenter:Field Name="Groups" IsExpandable="True"/>
                         <!--<dataPresenter:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" />
                         <dataPresenter:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />-->
                     </dataPresenter:FieldLayout.Fields>
                 </dataPresenter:FieldLayout>
 
+                <!--<dataPresenter:FieldLayout ParentFieldLayoutKey="Project" ParentFieldName="Groups">
+                    <dataPresenter:FieldLayout.Fields>
+                        <dataPresenter:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
+                        <dataPresenter:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
+                        <dataPresenter:NumericField Name="Amount" Label="Кол." Width="Auto" />
+                        <dataPresenter:NumericField Name="MarginalIncome" Label="МД" Width="Auto" AllowEdit="True" />
+                        <dataPresenter:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" />
+                        <dataPresenter:NumericField Name="Total" Label="Сумма" Width="Auto"/>
+                    </dataPresenter:FieldLayout.Fields>
+                </dataPresenter:FieldLayout>-->
+
+
             </dataPresenter:XamDataGrid.FieldLayouts>
         </dataPresenter:XamDataGrid>
-    </StackPanel>
+    </DockPanel>
 </UserControl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

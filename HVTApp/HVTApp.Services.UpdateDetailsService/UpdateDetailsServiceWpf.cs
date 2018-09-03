@@ -26,7 +26,34 @@ namespace HVTApp.Services.UpdateDetailsService
             where TEntity : class, IBaseEntity
             where TDetailsView : Control
         {
+            if(_dictionary.ContainsKey(typeof(TEntity)))
+                throw new ArgumentException("Такой тип уже зарегистрирован в словаре.");
+
             _dictionary.Add(typeof(TEntity), typeof(TDetailsView));
+        }
+
+        /// <summary>
+        /// Редактирование деталей
+        /// </summary>
+        /// <typeparam name="TEntity">Тип сущности</typeparam>
+        /// <param name="id">ИД сущности</param>
+        /// <returns></returns>
+        public async Task<bool> UpdateDetails<TEntity>(Guid id)
+            where TEntity : class, IBaseEntity
+        {
+            return await UpdateDetails<TEntity>(detaisViewModel => detaisViewModel.LoadAsync(id));
+        }
+
+        /// <summary>
+        /// Редактирование деталей
+        /// </summary>
+        /// <typeparam name="TEntity">Тип сущности</typeparam>
+        /// <param name="entity">Сущность</param>
+        /// <returns></returns>
+        public async Task<bool> UpdateDetails<TEntity>(TEntity entity)
+            where TEntity : class, IBaseEntity
+        {
+            return await UpdateDetails<TEntity>(detaisViewModel => detaisViewModel.LoadAsync(entity));
         }
 
         private async Task<bool> UpdateDetails<TEntity>(Func<ILoadable<TEntity>, Task> loadAsyncFunc)
@@ -34,8 +61,11 @@ namespace HVTApp.Services.UpdateDetailsService
         {
             bool result = false;
 
+            //достаем из словаря соответствующий View
             var detailsView = (Control)_container.Resolve(_dictionary[typeof(TEntity)]);
+            //ViewModel подтягивается из контекста View
             var detailsViewModel = detailsView.DataContext;
+            //загрузка данных в ViewModel
             await loadAsyncFunc.Invoke((ILoadable<TEntity>)detailsViewModel);
 
             var updateDetailsWindow = new UpdateDetailsWindow
@@ -61,16 +91,32 @@ namespace HVTApp.Services.UpdateDetailsService
             return result;
         }
 
-        public async Task<bool> UpdateDetails<TEntity>(Guid id)
+        /// <summary>
+        /// Изменить сущность не сохраняя ее.
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task<TEntity> GetEntity<TEntity>(TEntity entity)
             where TEntity : class, IBaseEntity
         {
-            return await UpdateDetails<TEntity>(detaisViewModel => detaisViewModel.LoadAsync(id));
-        }
+            //достаем из словаря соответствующий View
+            var detailsView = (Control)_container.Resolve(_dictionary[typeof(TEntity)]);
+            //ViewModel подтягивается из контекста View
+            var detailsViewModel = detailsView.DataContext;
+            //загрузка данных в ViewModel
+            await ((ILoadable<TEntity>)detailsViewModel).LoadAsync(entity);
 
-        public async Task<bool> UpdateDetails<TEntity>(TEntity entity)
-            where TEntity : class, IBaseEntity
-        {
-            return await UpdateDetails<TEntity>(detaisViewModel => detaisViewModel.LoadAsync(entity));
+            var getEntityWindow = new GetEntityWindow
+            {
+                ContentControl = { Content = detailsView },
+                Owner = Application.Current.MainWindow,
+                Title = GetTitle(typeof(TEntity))
+            };
+
+            getEntityWindow.ShowDialog();
+
+            return getEntityWindow.Result ? ((IViewModelWithEntity<TEntity>)detailsViewModel).Entity : null;
         }
 
         string GetTitle(Type type)
