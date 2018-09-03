@@ -15,12 +15,12 @@
              <RowDefinition Height="*"/>
          </Grid.RowDefinitions>
          
-        <Label Grid.Row="0" Content="Загрузка..." VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Label Grid.Row="0" Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label.Style>
                 <Style>
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding ElementName=RegionLookupListGrid, Path=Visibility}" Value="Visible">
-                        <Setter Property="Label.Height" Value="0"/>
+                        <Setter Property="Label.Visibility" Value="Collapsed"/>
                     </DataTrigger>
                 </Style.Triggers>
                 </Style>

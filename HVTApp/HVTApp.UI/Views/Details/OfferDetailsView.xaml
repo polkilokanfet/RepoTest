@@ -106,7 +106,11 @@
                                   Grid.ColumnSpan="2"
                                   UnitsGroups="{Binding Groups}"
                                   SelectedUnitsGroup="{Binding SelectedGroup, Mode=OneWayToSource}"
-                                  ChangeCommand="{Binding ChangeCommand}"/>
+                                  AddCommand="{Binding AddCommand}"
+                                  RemoveCommand="{Binding RemoveCommand}"
+                                  RefreshCommand="{Binding RefreshCommand}"
+                                  ChangeFacilityCommand="{Binding ChangeFacilityCommand}"
+                                  ChangeProductCommand="{Binding ChangeProductCommand}" />
 
 
 

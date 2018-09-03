@@ -4,24 +4,66 @@
              xmlns:local="clr-namespace:HVTApp.UI.Controls"
              xmlns:dataPresenter="http://infragistics.com/DataPresenter"
              x:Name="Root">
+    
+    <UserControl.Resources>
+        <Style x:Key="FacilityCellStyle"
+               TargetType="{x:Type dataPresenter:CellValuePresenter}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type dataPresenter:CellValuePresenter}">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="..."
+                                    Command="{Binding ChangeFacilityCommand, ElementName=Root}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Record.DataItem}" />
+                            <TextBlock Text="{TemplateBinding Value}"
+                                       VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ProductCellStyle"
+               TargetType="{x:Type dataPresenter:CellValuePresenter}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type dataPresenter:CellValuePresenter}">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="..."
+                                    Command="{Binding ChangeProductCommand, ElementName=Root}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Record.DataItem}" />
+                            <TextBlock Text="{TemplateBinding Value}"
+                                       VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
     <DockPanel LastChildFill="True">
         <StackPanel DockPanel.Dock="Right">
-            <Button Command="{Binding ChangeCommand, ElementName=Root}" Content="Добавить"/>
-            <Button Command="{Binding ChangeCommand, ElementName=Root}" Content="Изменить"/>
-            <Button Command="{Binding ChangeCommand, ElementName=Root}" Content="Удалить"/>
+            <Button Command="{Binding AddCommand, ElementName=Root}" Content="+"/>
+            <Button Command="{Binding RemoveCommand, ElementName=Root}" Content="-"/>
+            <Button Command="{Binding RefreshCommand, ElementName=Root}" Content="O"/>
         </StackPanel>
         <dataPresenter:XamDataGrid x:Name="UnitListGrid"
                                    DataSource="{Binding UnitsGroups, ElementName=Root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                    SelectedDataItem="{Binding SelectedUnitsGroup, ElementName=Root}">
-            
-            <!--<dataPresenter:FieldSettings AllowRecordFiltering="False"></dataPresenter:FieldSettings>-->
-           
+                       
             <dataPresenter:XamDataGrid.FieldLayouts>
 
                 <dataPresenter:FieldLayout Key="ParentGroup">
                     <dataPresenter:FieldLayout.Fields>
-                        <dataPresenter:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
-                        <dataPresenter:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
+                        <dataPresenter:Field Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
+                            <dataPresenter:Field.Settings>
+                                <dataPresenter:FieldSettings CellValuePresenterStyle="{StaticResource FacilityCellStyle}"/>
+                            </dataPresenter:Field.Settings>
+                        </dataPresenter:Field>
+                        <dataPresenter:Field Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
+                            <dataPresenter:Field.Settings>
+                                <dataPresenter:FieldSettings CellValuePresenterStyle="{StaticResource ProductCellStyle}"/>
+                            </dataPresenter:Field.Settings>
+                        </dataPresenter:Field>
                         <dataPresenter:NumericField Name="Amount" Label="Кол." Width="Auto" />
                         <dataPresenter:NumericField Name="MarginalIncome" Label="МД" Width="Auto" AllowEdit="True" />
                         <dataPresenter:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" />
