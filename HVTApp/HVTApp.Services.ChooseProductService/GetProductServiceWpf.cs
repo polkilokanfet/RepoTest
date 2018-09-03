@@ -73,16 +73,14 @@ namespace HVTApp.Services.GetProductService
         private async Task<Product> CreateNewProduct()
         {
             //создаем задание
-            var block = new ProductBlock();
-            var product = new Product {ProductBlock = block};
-            var tsk = new CreateNewProductTask {Product = product};
+            var tsk = new CreateNewProductTask();
 
             //если пользователь отменил создание - возвращаем null.
             if (!await _container.Resolve<IUpdateDetailsService>().UpdateDetails(tsk))
                 return null;
 
             //создаем новый параметр для включения его в базу
-            var parameter = new Parameter {Value = tsk.Designation};
+            var parameter = new Parameter {Value = tsk.Designation };
             //ищем главную группу
             var parentGroup = _bank.Parameters.First(x => !x.ParameterRelations.Any()).ParameterGroup;
             //ищем родительский параметр для созданного
@@ -92,20 +90,22 @@ namespace HVTApp.Services.GetProductService
             //если такого нет, создаем его
             if (parentParameter == null)
             {
-                parameter.ParameterGroup = new ParameterGroup {Name = "Обозначение"};
                 parentParameter = new Parameter {ParameterGroup = parentGroup, Value = "Новое оборудование"};
+                parameter.ParameterGroup = new ParameterGroup {Name = "Обозначение"};
             }
             else
             {
-                parentParameter.ParameterGroup = _bank.Parameters.Select(x => x.ParameterGroup).Distinct().Single(x => x.Name == "Обозначение");
+                parameter.ParameterGroup = _bank.Parameters.Select(x => x.ParameterGroup).Distinct().Single(x => x.Name == "Обозначение");
             }
             parameter.ParameterRelations.Add(new ParameterRelation {ParameterId = parameter.Id, RequiredParameters = new List<Parameter> {parentParameter} });
 
-            block.StructureCostNumber = tsk.StructureCostNumber;
-            block.Name = tsk.Designation;
-            block.Parameters.Add(parameter);
+            var product = new Product {ProductBlock = new ProductBlock {Parameters = new List<Parameter> {parentParameter, parameter} }};
+            product.ProductBlock.StructureCostNumber = tsk.StructureCostNumber;
+            product.ProductBlock.Name = tsk.Designation;
 
-            //_unitOfWork.GetRepository<CreateNewProductTask>().Add(tsk);
+            tsk = await _unitOfWork.GetRepository<CreateNewProductTask>().GetByIdAsync(tsk.Id);
+            tsk.Product = product;
+
             await _unitOfWork.SaveChangesAsync();
 
             return product;

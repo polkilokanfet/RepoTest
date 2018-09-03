@@ -6,7 +6,7 @@ namespace HVTApp.DataAccess
         {
             Property(x => x.Designation).IsRequired();
             Property(x => x.StructureCostNumber).IsRequired();
-            HasRequired(x => x.Product).WithOptional();
+            HasOptional(x => x.Product);
         }
     }
 }
