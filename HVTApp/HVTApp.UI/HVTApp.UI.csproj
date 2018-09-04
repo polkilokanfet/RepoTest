@@ -144,6 +144,7 @@
     <Compile Include="ViewModels\Details\UnitGroup.cs" />
     <Compile Include="ViewModels\Details\UnitGroupViewModel.cs" />
     <Compile Include="ViewModels\Details\UnitsGrouped.cs" />
+    <Compile Include="ViewModels\Details\WrapperWithUnitsViewModel.cs" />
     <Compile Include="ViewModels\IBaseListViewModel.cs" />
     <Compile Include="Controls\ChooseItemControl.xaml.cs">
       <DependentUpon>ChooseItemControl.xaml</DependentUpon>

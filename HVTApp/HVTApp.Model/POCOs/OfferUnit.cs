@@ -38,10 +38,12 @@ namespace HVTApp.Model.POCOs
     {
         List<ProductIncluded> ProductsIncluded { get; }
         List<Service> Services { get; }
+        PaymentConditionSet PaymentConditionSet { get; set; }
     }
 
     public interface IProductCost : IBaseEntity
     {
+        Facility Facility { get; set; }
         Product Product { get; set; }
         double Cost { get; set; }
     }
