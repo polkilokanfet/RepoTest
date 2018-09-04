@@ -9,7 +9,7 @@ using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.UI.Converter
 {
-    public class ProductUnitsGroup : INotifyPropertyChanged, IProductUnitsGroup
+    public class ProductUnitsGroup : IProductUnitsGroup, INotifyPropertyChanged
     {
         public ProductUnitsGroup(IEnumerable<IProductUnit> productUnits)
         {

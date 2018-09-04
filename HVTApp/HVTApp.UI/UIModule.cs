@@ -31,9 +31,6 @@ namespace HVTApp.UI
             _updateDetailsService.ReRegister<Offer, OfferView>();
             _updateDetailsService.ReRegister<Project, ProjectView>();
 
-            _dialogService.Register<OfferUnitsDetailsViewModel, OfferUnitsDetailsView>();
-            _dialogService.Register<UnitGroupViewModel, ProjectUnitGroupWindow>();
-            _dialogService.Register<OfferUnitsGroupDetailsViewModel, OfferUnitsGroupDetailsWindow>();
 
             Container.RegisterViewForNavigation<PaymentPlannedListGeneratorView>();
 
