@@ -42,12 +42,27 @@ namespace HVTApp.UI.Lookup
         }
 
         [Designation("Тендер")]
-        public DateTime? TenderDate
-            => Tenders.SingleOrDefault(x => x.Entity.Types.Any(tp => tp.Type == TenderTypeEnum.ToSupply))?.DateClose;
+        public DateTime? TenderDate => Tenders.SingleOrDefault(x => x.Entity.Types.Any(tp => tp.Type == TenderTypeEnum.ToSupply))?.DateClose;
+
+        [Designation("Объекты")]
+        public List<FacilityLookup> Facilities => SalesUnits?.Select(x => x.Facility).Distinct(new FacilityComparer()).ToList();
 
         public override int CompareTo(object obj)
         {
             return RealizationDate.CompareTo(((ProjectLookup)obj).RealizationDate);
+        }
+
+        internal class FacilityComparer : IEqualityComparer<FacilityLookup>
+        {
+            public bool Equals(FacilityLookup x, FacilityLookup y)
+            {
+                return x.Id == y.Id;
+            }
+
+            public int GetHashCode(FacilityLookup obj)
+            {
+                return 0;
+            }
         }
     }
 }

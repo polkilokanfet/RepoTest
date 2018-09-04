@@ -8,7 +8,8 @@
         <ResourceDictionary>
             <system:Double x:Key="DefaultFontSize">18</system:Double>
             <converters:DatePickerOriginalValueConverter x:Key="DatePickerOriginalValueConverter"/>
-            <converters2:LookupToStringConverter x:Key="LookupToStringConverter"/>
+            <converters2:LookupToStringConverter x:Key="LookupToStringConverter" />
+            <converters2:LookupsToStringConverter x:Key="LookupsToStringConverter" />
             <converters2:WrapperToStringConverter x:Key="WrapperToStringConverter"/>
             <converters2:WrappersToStringConverter x:Key="WrappersToStringConverter"/>
             <converters2:UnitsToGroupsConverter x:Key="ProductUnitsToProductGroupsConverter" />
