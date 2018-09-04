@@ -201,6 +201,9 @@
     <Compile Include="Views\Details\Custom\OfferUnitsGroupDetailsWindow.xaml.cs">
       <DependentUpon>OfferUnitsGroupDetailsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Details\Custom\OfferView.xaml.cs">
+      <DependentUpon>OfferView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Details\Custom\ProjectUnitGroupDetailsView.xaml.cs">
       <DependentUpon>ProjectUnitGroupDetailsView.xaml</DependentUpon>
     </Compile>
@@ -455,6 +458,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Details\Custom\OfferUnitsDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Details\Custom\OfferView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

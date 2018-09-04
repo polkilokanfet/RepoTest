@@ -19,12 +19,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Value" Visibility="{Binding ValueVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding ValueVisibility, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="ParameterGroup" Visibility="{Binding ParameterGroupVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -33,7 +31,6 @@
                                     RemoveItemCommand="{Binding ClearParameterGroupCommand}"
 									Visibility="{Binding ParameterGroupVisibility, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="ParameterRelations" Visibility="{Binding ParameterRelationsVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.ParameterRelations}"
@@ -41,7 +38,6 @@
 										 AddItemCommand="{Binding AddInParameterRelationsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParameterRelationsCommand}"
 										 Visibility="{Binding ParameterRelationsVisibility, ElementName=Root}"/>
-
 
 
     </Grid>

@@ -32,6 +32,16 @@ namespace HVTApp.Services.UpdateDetailsService
             _dictionary.Add(typeof(TEntity), typeof(TDetailsView));
         }
 
+        public void ReRegister<TEntity, TDetailsView>() 
+            where TEntity : class, IBaseEntity 
+            where TDetailsView : Control
+        {
+            if(!_dictionary.ContainsKey(typeof(TEntity)))
+                throw new ArgumentException("Такой тип не зарегистрирован в словаре.");
+
+            _dictionary[typeof(TEntity)] = typeof(TDetailsView);
+        }
+
         /// <summary>
         /// Редактирование деталей
         /// </summary>

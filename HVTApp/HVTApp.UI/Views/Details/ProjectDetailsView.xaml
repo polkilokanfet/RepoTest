@@ -19,12 +19,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Название" Visibility="{Binding NameVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding NameVisibility, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Тип проекта" Visibility="{Binding ProjectTypeVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -33,14 +31,12 @@
                                     RemoveItemCommand="{Binding ClearProjectTypeCommand}"
 									Visibility="{Binding ProjectTypeVisibility, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="Менеджер" Visibility="{Binding ManagerVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.Manager}" 
                                     AddItemCommand="{Binding SelectManagerCommand}" 
                                     RemoveItemCommand="{Binding ClearManagerCommand}"
 									Visibility="{Binding ManagerVisibility, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Заметки" Visibility="{Binding NotesVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
@@ -49,7 +45,6 @@
 										 AddItemCommand="{Binding AddInNotesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromNotesCommand}"
 										 Visibility="{Binding NotesVisibility, ElementName=Root}"/>
-
 
 
     </Grid>

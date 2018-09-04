@@ -25,8 +25,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row ="0" Content="Комментарий" Visibility="{Binding CommentVisibility, ElementName=Root}"/>
@@ -35,7 +34,7 @@
 				 Visibility="{Binding CommentVisibility, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="1" Content="НДС" Visibility="{Binding VatVisibility, ElementName=Root}"/>
-        <infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
                                Value="{Binding Item.Vat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VatVisibility, ElementName=Root}"/>
 
@@ -100,19 +99,6 @@
 										 AddItemCommand="{Binding AddInCopyToRecipientsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromCopyToRecipientsCommand}"
 										 Visibility="{Binding CopyToRecipientsVisibility, ElementName=Root}"/>
-
-        <controls:UnitListControl Grid.Row="11"
-                                  Grid.Column="0"
-                                  Grid.ColumnSpan="2"
-                                  UnitsGroups="{Binding Groups}"
-                                  SelectedUnitsGroup="{Binding SelectedGroup, Mode=OneWayToSource}"
-                                  AddCommand="{Binding AddCommand}"
-                                  RemoveCommand="{Binding RemoveCommand}"
-                                  RefreshCommand="{Binding RefreshCommand}"
-                                  ChangeFacilityCommand="{Binding ChangeFacilityCommand}"
-                                  ChangeProductCommand="{Binding ChangeProductCommand}"
-                                  ChangePaymentsCommand = "{Binding ChangePaymentsCommand}"/>
-
 
 
     </Grid>

@@ -23,19 +23,16 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Срок производства" Visibility="{Binding ProductionTermVisibility, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ProductionTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding ProductionTermVisibility, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="1" Content="Стоимость" Visibility="{Binding CostVisibility, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
                                Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding CostVisibility, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="2" Content="ТКП" Visibility="{Binding OfferVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
@@ -44,14 +41,12 @@
                                     RemoveItemCommand="{Binding ClearOfferCommand}"
 									Visibility="{Binding OfferVisibility, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="3" Content="Продукт" Visibility="{Binding ProductVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.Product}" 
                                     AddItemCommand="{Binding SelectProductCommand}" 
                                     RemoveItemCommand="{Binding ClearProductCommand}"
 									Visibility="{Binding ProductVisibility, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="4" Content="Объект" Visibility="{Binding FacilityVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
@@ -60,14 +55,12 @@
                                     RemoveItemCommand="{Binding ClearFacilityCommand}"
 									Visibility="{Binding FacilityVisibility, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="5" Content="Условия оплаты" Visibility="{Binding PaymentConditionSetVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
                                     Item="{Binding Item.PaymentConditionSet}" 
                                     AddItemCommand="{Binding SelectPaymentConditionSetCommand}" 
                                     RemoveItemCommand="{Binding ClearPaymentConditionSetCommand}"
 									Visibility="{Binding PaymentConditionSetVisibility, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="6" Content="Включенные продукты" Visibility="{Binding ProductsIncludedVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
@@ -77,7 +70,6 @@
 										 RemoveItemCommand="{Binding RemoveFromProductsIncludedCommand}"
 										 Visibility="{Binding ProductsIncludedVisibility, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="7" Content="Услуги" Visibility="{Binding ServicesVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="7"
 										 Items="{Binding Path=Item.Services}"
@@ -85,7 +77,6 @@
 										 AddItemCommand="{Binding AddInServicesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromServicesCommand}"
 										 Visibility="{Binding ServicesVisibility, ElementName=Root}"/>
-
 
 
     </Grid>
