@@ -11,7 +11,7 @@ namespace HVTApp.UI.Views
         public ProjectView(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            var projectViewModel = container.Resolve<ProjectViewModel>();
+            var projectViewModel = container.Resolve<ProjectDetailsViewModel>();
             var detailsView = container.Resolve<ProjectDetailsView>();
             detailsView.DataContext = projectViewModel;
             DetailsControl.Content = detailsView;

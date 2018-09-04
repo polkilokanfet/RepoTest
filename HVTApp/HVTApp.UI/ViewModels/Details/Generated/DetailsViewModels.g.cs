@@ -2388,7 +2388,7 @@ namespace HVTApp.UI.ViewModels
 
     }
 
-    public partial class OfferDetailsViewModel : BaseDetailsViewModel<OfferWrapper, Offer, AfterSaveOfferEvent>
+    public partial class OfferDetailsViewModel
     {
 		private Func<Task<List<Project>>> _getEntitiesForSelectProjectCommand;
 		public ICommand SelectProjectCommand { get; private set; }
@@ -2761,7 +2761,7 @@ namespace HVTApp.UI.ViewModels
 
     }
 
-    public partial class ProjectDetailsViewModel : BaseDetailsViewModel<ProjectWrapper, Project, AfterSaveProjectEvent>
+    public partial class ProjectDetailsViewModel 
     {
 		private Func<Task<List<ProjectType>>> _getEntitiesForSelectProjectTypeCommand;
 		public ICommand SelectProjectTypeCommand { get; private set; }
