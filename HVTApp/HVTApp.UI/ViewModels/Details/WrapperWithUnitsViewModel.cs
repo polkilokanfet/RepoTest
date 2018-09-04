@@ -132,10 +132,5 @@ namespace HVTApp.UI.ViewModels
             Groups.Clear();
             Groups.AddRange(Item.Units.ToProductUnitGroups());
         }
-
-        protected override bool SaveCommand_CanExecute()
-        {
-            return base.SaveCommand_CanExecute() && Item.Units.IsChanged && Item.Units.IsValid;
-        }
     }
 }

@@ -13,6 +13,7 @@ namespace HVTApp.UI.Wrapper
         public ProjectWrapper(Project project, IEnumerable<SalesUnitWrapper> units) : this(project)
         {
             Units = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(units);
+            RegisterCollectionWithoutSynch(Units);
         }
     }
 }
