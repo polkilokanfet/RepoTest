@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Attrubutes;
+using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;

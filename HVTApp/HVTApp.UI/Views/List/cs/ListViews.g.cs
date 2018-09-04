@@ -1,6 +1,6 @@
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Attrubutes;
 using System.Windows;
+using HVTApp.Infrastructure.Attributes;
 using Prism.Events;
 using Prism.Regions;
 using HVTApp.UI.Tabs;

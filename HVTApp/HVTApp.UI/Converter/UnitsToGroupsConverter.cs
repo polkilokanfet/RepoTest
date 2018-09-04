@@ -7,14 +7,14 @@ using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.Converter
 {
-    [ValueConversion(typeof(IEnumerable<IProductUnit>), typeof(IEnumerable<ProductUnitsGroup>))]
-    public class ProductUnitsToProductGroupsConverter : IValueConverter
+    [ValueConversion(typeof(IEnumerable<IUnit>), typeof(IEnumerable<UnitsGroup>))]
+    public class UnitsToGroupsConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null) return null;
 
-            var productUnits = value as IEnumerable<IProductUnit>;
+            var productUnits = value as IEnumerable<IUnit>;
             if (productUnits == null) throw new ArgumentException("В конвертер переданы не юниты!");
 
             //Группируем по ключу: продукт + объект + стоимость
@@ -25,14 +25,14 @@ namespace HVTApp.UI.Converter
                 Cost = x.Cost
             }, new Comparer());
 
-            return groups.Select(group => new ProductUnitsGroup(group)).ToList();
+            return groups.Select(group => new UnitsGroup(group)).ToList();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null) return null;
 
-            var productUnitGroups = value as IEnumerable<ProductUnitsGroup>;
+            var productUnitGroups = value as IEnumerable<UnitsGroup>;
             if (productUnitGroups == null) throw new ArgumentException("В конвертер переданы не группы!");
             return productUnitGroups.SelectMany(x => x.ProductUnits);
         }
@@ -59,4 +59,22 @@ namespace HVTApp.UI.Converter
             return obj.Product.Id.GetHashCode() + obj.Facility.Id.GetHashCode() + obj.Cost.GetHashCode();
         }
     }
+
+    [ValueConversion(typeof(IEnumerable<IUnit>), typeof(IUnitsGroup))]
+    public class ProductGroupToProductUnitsConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null) return null;
+            var group = value as IUnitsGroup;
+            if (group == null) throw new ArgumentException("В конвертер передано чё-то не то!!!");
+            return group.ProductUnits;
+        }
+    }
+
 }

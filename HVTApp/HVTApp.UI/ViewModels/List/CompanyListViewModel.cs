@@ -1,4 +1,5 @@
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attributes;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.ViewModels

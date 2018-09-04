@@ -4,11 +4,11 @@ using Prism.Events;
 using Prism.Regions;
 using HVTApp.UI.ViewModels;
 using System.Windows;
-using HVTApp.Infrastructure.Attrubutes;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using System.Reflection;
 using System.Linq;
+using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.UI.Views
 {

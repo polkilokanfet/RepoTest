@@ -1,8 +1,6 @@
 using System;
-using HVTApp.Infrastructure;
-using HVTApp.Model.POCOs;
 
-namespace HVTApp.UI.ViewModels
+namespace HVTApp.Infrastructure.Attributes
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class RoleToUpdateAttribute : Attribute

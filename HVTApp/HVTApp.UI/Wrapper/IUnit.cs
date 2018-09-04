@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Wrapper
 {
-    public interface IProductUnit : IValidatableChangeTracking
+    public interface IUnit : IValidatableChangeTracking
     {
         ProductWrapper Product { get; set; }
         FacilityWrapper Facility { get; set; }

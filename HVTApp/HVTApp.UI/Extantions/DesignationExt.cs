@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Attrubutes;
+using HVTApp.Infrastructure.Attributes;
 using HVTApp.UI.Lookup;
 
 namespace HVTApp.UI

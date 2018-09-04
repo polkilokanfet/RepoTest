@@ -22,10 +22,10 @@ namespace HVTApp.UI.ViewModels
         where TEntity : class, IBaseEntity
         where TWrapper : class, IWrapper<TEntity>, IWrapperWithUnits<TUnitWrapper>
         where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
-        where TUnit : class, IBaseEntity, IUnit
-        where TUnitWrapper : class, IProductUnit, IWrapper<TUnit>
+        where TUnit : class, IBaseEntity, IUnitPoco
+        where TUnitWrapper : class, IUnit, IWrapper<TUnit>
     {
-        private IProductUnitsGroup _selectedGroup;
+        private IUnitsGroup _selectedGroup;
 
         protected WrapperWithUnitsViewModel(IUnityContainer container) : base(container)
         {
@@ -34,7 +34,7 @@ namespace HVTApp.UI.ViewModels
         /// <summary>
         /// Выбранная группа.
         /// </summary>
-        public IProductUnitsGroup SelectedGroup
+        public IUnitsGroup SelectedGroup
         {
             get { return _selectedGroup; }
             set
@@ -49,7 +49,7 @@ namespace HVTApp.UI.ViewModels
         /// <summary>
         /// Группы
         /// </summary>
-        public ObservableCollection<IProductUnitsGroup> Groups { get; } = new ObservableCollection<IProductUnitsGroup>();
+        public ObservableCollection<IUnitsGroup> Groups { get; } = new ObservableCollection<IUnitsGroup>();
 
         public ICommand AddCommand { get; private set; }
         public ICommand RemoveCommand { get; private set; }
@@ -63,9 +63,9 @@ namespace HVTApp.UI.ViewModels
             AddCommand = new DelegateCommand(AddCommand_Execute);
             RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => SelectedGroup != null);
             RefreshCommand = new DelegateCommand(RefreshCommand_Execute);
-            ChangeFacilityCommand = new DelegateCommand<IProductUnitsGroup>(ChangeFacilityCommand_Execute);
-            ChangeProductCommand = new DelegateCommand<IProductUnitsGroup>(ChangeProductCommand_Execute);
-            ChangePaymentsCommand = new DelegateCommand<IProductUnitsGroup>(ChangePaymentsCommand_Execute);
+            ChangeFacilityCommand = new DelegateCommand<IUnitsGroup>(ChangeFacilityCommand_Execute);
+            ChangeProductCommand = new DelegateCommand<IUnitsGroup>(ChangeProductCommand_Execute);
+            ChangePaymentsCommand = new DelegateCommand<IUnitsGroup>(ChangePaymentsCommand_Execute);
         }
 
         protected abstract void AddCommand_Execute();
@@ -90,7 +90,7 @@ namespace HVTApp.UI.ViewModels
             SelectedGroup = null;
         }
 
-        private async void ChangeProductCommand_Execute(IProductUnitsGroup group)
+        private async void ChangeProductCommand_Execute(IUnitsGroup group)
         {
             var product = await Container.Resolve<IGetProductService>().GetProductAsync(group.Product?.Model);
             if (product == null || product.Id == group.Product.Id) return;
@@ -98,7 +98,7 @@ namespace HVTApp.UI.ViewModels
             RefreshPrices();
         }
 
-        private async void ChangeFacilityCommand_Execute(IProductUnitsGroup group)
+        private async void ChangeFacilityCommand_Execute(IUnitsGroup group)
         {
             var facilities = await WrapperDataService.GetRepository<Facility>().GetAllAsNoTrackingAsync();
             var facility = await Container.Resolve<ISelectService>().SelectItem(facilities, group.Facility?.Id);
@@ -106,7 +106,7 @@ namespace HVTApp.UI.ViewModels
             group.Facility = await WrapperDataService.GetWrapperRepository<Facility, FacilityWrapper>().GetByIdAsync(facility.Id);
         }
 
-        private async void ChangePaymentsCommand_Execute(IProductUnitsGroup group)
+        private async void ChangePaymentsCommand_Execute(IUnitsGroup group)
         {
             var sets = await WrapperDataService.GetRepository<PaymentConditionSet>().GetAllAsNoTrackingAsync();
             var set = await Container.Resolve<ISelectService>().SelectItem(sets, group.PaymentConditionSet?.Id);

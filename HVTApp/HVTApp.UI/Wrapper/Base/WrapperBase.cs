@@ -33,8 +33,6 @@ namespace HVTApp.UI.Wrapper
             InitializeCollectionProperties();
 
             Validate();
-
-            RunInConstructor();
         }
 
         #region InitializeProperties
@@ -375,12 +373,6 @@ namespace HVTApp.UI.Wrapper
             yield break;
         }
 
-
-        /// <summary>
-        /// Запустить в конструкторе.
-        /// </summary>
-        protected virtual void RunInConstructor() { }
-
         public override string ToString()
         {
             return Model.ToString();
@@ -390,11 +382,9 @@ namespace HVTApp.UI.Wrapper
         {
             OnPropertyChanged(string.Empty);
         }
-
-        public string DisplayMember => ToString();
     }
 
-    public abstract partial class WrapperBase : IComparable
+    public abstract partial class WrapperBase<TModel> : IComparable
     {
         public virtual int CompareTo(object obj)
         {

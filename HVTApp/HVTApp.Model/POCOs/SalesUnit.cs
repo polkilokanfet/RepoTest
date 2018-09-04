@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Attrubutes;
+using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Model.POCOs
 {
     [Designation("Единица продаж")]
     [DesignationPlural("Единицы продаж")]
-    public class SalesUnit : BaseEntity, IUnit
+    public class SalesUnit : BaseEntity, IUnitPoco
     {
         [Designation("Стоимость")]
         public double Cost { get; set; }

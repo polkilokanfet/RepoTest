@@ -4,18 +4,17 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using HVTApp.DataAccess.Annotations;
-using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 
-namespace HVTApp.UI.Converter
+namespace HVTApp.UI.Wrapper
 {
-    public class ProductUnitsGroup : IProductUnitsGroup, INotifyPropertyChanged
+    public class UnitsGroup : IUnitsGroup, INotifyPropertyChanged
     {
-        public ProductUnitsGroup(IEnumerable<IProductUnit> productUnits)
+        public UnitsGroup(IEnumerable<IUnit> productUnits)
         {
             ProductUnits = productUnits.ToList();
             if (ProductUnits.Count > 1)
-                Groups.AddRange(ProductUnits.Select(x => new ProductUnitsGroup(new List<IProductUnit> {x})));
+                Groups.AddRange(ProductUnits.Select(x => new UnitsGroup(new List<IUnit> {x})));
 
             ProductUnits.First().PriceChanged += () => { MarginalIncome = (1 - Price / Cost) * 100; };
         }
@@ -26,8 +25,8 @@ namespace HVTApp.UI.Converter
         public double Price => ProductUnits.First().Price;
         public double Total => Cost * Amount;
 
-        public List<IProductUnit> ProductUnits { get; }
-        public ObservableCollection<IProductUnitsGroup> Groups { get; } = new ObservableCollection<IProductUnitsGroup>();
+        public List<IUnit> ProductUnits { get; }
+        public ObservableCollection<IUnitsGroup> Groups { get; } = new ObservableCollection<IUnitsGroup>();
 
         public FacilityWrapper Facility
         {
