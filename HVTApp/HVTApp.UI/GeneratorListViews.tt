@@ -209,7 +209,7 @@ namespace HVTApp.UI.ViewModels
 	private void GenerateListViewsCs(IEnumerable<Type> modelTypes)
 	{
 #>using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Attrubutes;
+using HVTApp.Infrastructure.Attributes;
 using System.Windows;
 using Prism.Events;
 using Prism.Regions;
