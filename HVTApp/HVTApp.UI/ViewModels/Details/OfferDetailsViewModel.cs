@@ -21,6 +21,9 @@ namespace HVTApp.UI.ViewModels
     {
         private IProductUnitsGroup _selectedGroup;
 
+        /// <summary>
+        /// Выбранная группа.
+        /// </summary>
         public IProductUnitsGroup SelectedGroup
         {
             get { return _selectedGroup; }
@@ -33,6 +36,9 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Группы
+        /// </summary>
         public ObservableCollection<IProductUnitsGroup> Groups { get; } = new ObservableCollection<IProductUnitsGroup>();
 
         public ICommand AddCommand { get; private set; }
@@ -40,6 +46,7 @@ namespace HVTApp.UI.ViewModels
         public ICommand RefreshCommand { get; private set; }
         public ICommand ChangeFacilityCommand { get; private set; }
         public ICommand ChangeProductCommand { get; private set; }
+        public ICommand ChangePaymentsCommand { get; private set; }
 
         protected override void InitSpecialCommands()
         {
@@ -48,6 +55,7 @@ namespace HVTApp.UI.ViewModels
             RefreshCommand = new DelegateCommand(RefreshCommand_Execute);
             ChangeFacilityCommand = new DelegateCommand<IProductUnitsGroup>(ChangeFacilityCommand_Execute);
             ChangeProductCommand = new DelegateCommand<IProductUnitsGroup>(ChangeProductCommand_Execute);
+            ChangePaymentsCommand = new DelegateCommand<IProductUnitsGroup>(ChangePaymentsCommand_Execute);
         }
 
         private async void AddCommand_Execute()
@@ -66,6 +74,7 @@ namespace HVTApp.UI.ViewModels
         private void RefreshCommand_Execute()
         {
             RefreshGroups();
+            RefreshPrices();
         }
 
         private void RemoveCommand_Execute()
@@ -96,6 +105,14 @@ namespace HVTApp.UI.ViewModels
             var facility = await Container.Resolve<ISelectService>().SelectItem(facilities, group.Facility?.Id);
             if (facility == null) return;
             group.Facility = await WrapperDataService.GetWrapperRepository<Facility, FacilityWrapper>().GetByIdAsync(facility.Id);
+        }
+
+        private async void ChangePaymentsCommand_Execute(IProductUnitsGroup group)
+        {
+            var sets = await WrapperDataService.GetRepository<PaymentConditionSet>().GetAllAsNoTrackingAsync();
+            var set = await Container.Resolve<ISelectService>().SelectItem(sets, group.PaymentConditionSet?.Id);
+            if (set == null) return;
+            group.PaymentConditionSet = await WrapperDataService.GetWrapperRepository<PaymentConditionSet, PaymentConditionSetWrapper>().GetByIdAsync(set.Id);
         }
 
         protected override void AfterLoading()

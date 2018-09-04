@@ -13,7 +13,9 @@ namespace HVTApp.UI.Converter
             {
                 ProductId = x.Product.Model.Id,
                 FacilityId = x.Facility.Model.Id,
-                Cost = x.Cost
+                Cost = x.Cost,
+                Term = x.ProductionTerm,
+                Payments = x.PaymentConditionSet.Id
             }).Select(x => new ProductUnitsGroup(x));
         }
 

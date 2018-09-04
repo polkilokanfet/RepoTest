@@ -6,7 +6,7 @@ using HVTApp.UI.Converter;
 
 namespace HVTApp.UI.Controls
 {
-    public partial class UnitListControl : UserControl
+    public partial class UnitListControl
     {
         public UnitListControl()
         {
@@ -88,6 +88,17 @@ namespace HVTApp.UI.Controls
         {
             get { return (ICommand) GetValue(RefreshCommandProperty); }
             set { SetValue(RefreshCommandProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty ChangePaymentsCommandProperty = DependencyProperty.Register(
+            "ChangePaymentsCommand", typeof(ICommand), typeof(UnitListControl), new PropertyMetadata(default(ICommand)));
+
+        public ICommand ChangePaymentsCommand
+        {
+            get { return (ICommand) GetValue(ChangePaymentsCommandProperty); }
+            set { SetValue(ChangePaymentsCommandProperty, value); }
         }
     }
 }

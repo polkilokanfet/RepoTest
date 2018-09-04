@@ -110,7 +110,8 @@
                                   RemoveCommand="{Binding RemoveCommand}"
                                   RefreshCommand="{Binding RefreshCommand}"
                                   ChangeFacilityCommand="{Binding ChangeFacilityCommand}"
-                                  ChangeProductCommand="{Binding ChangeProductCommand}" />
+                                  ChangeProductCommand="{Binding ChangeProductCommand}"
+                                  ChangePaymentsCommand = "{Binding ChangePaymentsCommand}"/>
 
 
 

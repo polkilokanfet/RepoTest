@@ -15,10 +15,12 @@ namespace HVTApp.UI.Converter
         ObservableCollection<IProductUnitsGroup> Groups { get; }
         FacilityWrapper Facility { get; set; }
         ProductWrapper Product { get; set; }
+        PaymentConditionSetWrapper PaymentConditionSet { get; set; }
         double Cost { get; set; }
         int Amount { get; }
         double Total { get; }
         double MarginalIncome { get; set; }
+        int? ProductionTerm { get; set; }
     }
 
     public class ProductUnitsGroup : INotifyPropertyChanged, IProductUnitsGroup
@@ -76,6 +78,7 @@ namespace HVTApp.UI.Converter
                 Groups.ForEach(x => x.Cost = value);
                 ProductUnits.ForEach(x => x.Cost = value);
                 MarginalIncome = (1 - Price / value) * 100;
+                OnPropertyChanged(nameof(Total));
                 OnPropertyChanged();
             }
         }
@@ -93,6 +96,35 @@ namespace HVTApp.UI.Converter
                 OnPropertyChanged();
             }
         }
+
+        public PaymentConditionSetWrapper PaymentConditionSet
+        {
+            get { return ProductUnits.First().PaymentConditionSet; }
+            set
+            {
+                if (Equals(value, PaymentConditionSet)) return;
+                Groups.ForEach(x => x.PaymentConditionSet = value);
+                ProductUnits.ForEach(x => x.PaymentConditionSet = value);
+                OnPropertyChanged();
+            }
+        }
+
+
+
+        public int? ProductionTerm
+        {
+            get { return ProductUnits.First().ProductionTerm; }
+            set
+            {
+                if (Equals(value, ProductionTerm)) return;
+                if (value < 0) return;
+                Groups.ForEach(x => x.ProductionTerm = value);
+                ProductUnits.ForEach(x => x.ProductionTerm = value);
+                OnPropertyChanged();
+            }
+        }
+
+
 
         #region INotifyPropertyChanged
 

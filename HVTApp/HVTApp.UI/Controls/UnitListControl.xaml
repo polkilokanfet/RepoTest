@@ -6,6 +6,7 @@
              x:Name="Root">
     
     <UserControl.Resources>
+        
         <Style x:Key="FacilityCellStyle"
                TargetType="{x:Type dataPresenter:CellValuePresenter}">
             <Setter Property="Template">
@@ -22,6 +23,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
         <Style x:Key="ProductCellStyle"
                TargetType="{x:Type dataPresenter:CellValuePresenter}">
             <Setter Property="Template">
@@ -38,6 +40,24 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <Style x:Key="PaymentsCellStyle"
+               TargetType="{x:Type dataPresenter:CellValuePresenter}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type dataPresenter:CellValuePresenter}">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="..."
+                                    Command="{Binding ChangePaymentsCommand, ElementName=Root}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Record.DataItem}" />
+                            <TextBlock Text="{TemplateBinding Value}"
+                                       VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
     </UserControl.Resources>
     
     <DockPanel LastChildFill="True">
@@ -69,8 +89,13 @@
                         <dataPresenter:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" />
                         <dataPresenter:NumericField Name="Total" Label="Сумма" Width="Auto"/>
                         <dataPresenter:Field Name="Groups" IsExpandable="True"/>
-                        <!--<dataPresenter:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" />
-                        <dataPresenter:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />-->
+                        <dataPresenter:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" AllowEdit="True"/>
+                        <dataPresenter:Field Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
+                            <dataPresenter:Field.Settings>
+                                <dataPresenter:FieldSettings CellValuePresenterStyle="{StaticResource PaymentsCellStyle}"/>
+                            </dataPresenter:Field.Settings>
+                        </dataPresenter:Field>
+
                     </dataPresenter:FieldLayout.Fields>
                 </dataPresenter:FieldLayout>
 
