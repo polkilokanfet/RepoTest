@@ -100,6 +100,7 @@
     <Compile Include="Controls\UnitListControl.xaml.cs">
       <DependentUpon>UnitListControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\IProductUnitsGroup.cs" />
     <Compile Include="Converter\ProductGroupToProductUnitsConverter.cs" />
     <Compile Include="Converter\ToUnitGroupsConverters.cs" />
     <Compile Include="Extantions\DesignationExt.cs" />
@@ -211,6 +212,9 @@
       <DependentUpon>ProjectUnitGroupWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Lookup\Items\Custom\IUnitLookup.cs" />
+    <Compile Include="Views\Details\Custom\ProjectView.xaml.cs">
+      <DependentUpon>ProjectView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\List\Custom\UnitListView.xaml.cs">
       <DependentUpon>UnitListView.xaml</DependentUpon>
     </Compile>
@@ -253,9 +257,10 @@
     <Compile Include="Wrapper\Custom\Validate\ContractWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\FacilityWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\OfferUnitWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Validate\SalesUnitWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\SalesUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\SpecificationWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\PaymentConditionSetWrapper.cs" />
+    <Compile Include="Wrapper\DataService\CustomRepositories\ProjectWrapperRepository.cs" />
     <Compile Include="Wrapper\DataService\IWrapperDataService.cs" />
     <Compile Include="Wrapper\DataService\IWrapperRepository.cs" />
     <Compile Include="Wrapper\DataService\CustomRepositories\OfferWrapperRepository.cs" />
@@ -269,6 +274,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Wrapper\IWrapperWithUnits.cs" />
     <Compile Include="Wrapper\Wrappers.g.cs" />
     <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -462,6 +468,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Details\Custom\OfferView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Details\Custom\ProjectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

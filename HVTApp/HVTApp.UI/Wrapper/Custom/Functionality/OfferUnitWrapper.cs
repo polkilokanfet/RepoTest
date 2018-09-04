@@ -3,7 +3,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Wrapper
 {
-    public partial class OfferUnitWrapper : IProductUnit //: ProductCostDependentProductsWrapper<OfferUnit>, IProductUnit
+    public partial class OfferUnitWrapper : IProductUnit
     {
         private double _price;
 

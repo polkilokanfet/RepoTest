@@ -1,19 +1,16 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Converter;
-using HVTApp.UI.ViewModels;
 
 namespace HVTApp.UI.Wrapper
 {
-    public partial class OfferWrapper
+    public partial class OfferWrapper : IWrapperWithUnits<OfferUnitWrapper>
     {
-        public ValidatableChangeTrackingCollection<OfferUnitWrapper> OfferUnits { get; }
+        public ValidatableChangeTrackingCollection<OfferUnitWrapper> Units { get; }
 
         public OfferWrapper(Offer offer, IEnumerable<OfferUnitWrapper> offerUnitWrappers) : this(offer)
         {
-            OfferUnits = new ValidatableChangeTrackingCollection<OfferUnitWrapper>(offerUnitWrappers);
-            RegisterCollectionWithoutSynch(OfferUnits);
+            Units = new ValidatableChangeTrackingCollection<OfferUnitWrapper>(offerUnitWrappers);
+            RegisterCollectionWithoutSynch(Units);
         }
 
         public double VatProc

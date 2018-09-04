@@ -10,11 +10,11 @@ namespace HVTApp.UI.Views
         public OfferView(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            var offerDetailsViewModel = container.Resolve<OfferDetailsViewModel>();
+            var offerViewModel = container.Resolve<OfferViewModel>();
             var offerDetailsView = container.Resolve<OfferDetailsView>();
-            offerDetailsView.DataContext = offerDetailsViewModel;
+            offerDetailsView.DataContext = offerViewModel;
             DetailsControl.Content = offerDetailsView;
-            this.DataContext = offerDetailsViewModel;
+            this.DataContext = offerViewModel;
         }
     }
 }

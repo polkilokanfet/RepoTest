@@ -9,20 +9,6 @@ using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.UI.Converter
 {
-    public interface IProductUnitsGroup
-    {
-        List<IProductUnit> ProductUnits { get; }
-        ObservableCollection<IProductUnitsGroup> Groups { get; }
-        FacilityWrapper Facility { get; set; }
-        ProductWrapper Product { get; set; }
-        PaymentConditionSetWrapper PaymentConditionSet { get; set; }
-        double Cost { get; set; }
-        int Amount { get; }
-        double Total { get; }
-        double MarginalIncome { get; set; }
-        int? ProductionTerm { get; set; }
-    }
-
     public class ProductUnitsGroup : INotifyPropertyChanged, IProductUnitsGroup
     {
         public ProductUnitsGroup(IEnumerable<IProductUnit> productUnits)
