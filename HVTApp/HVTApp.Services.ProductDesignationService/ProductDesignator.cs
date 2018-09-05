@@ -10,11 +10,13 @@ namespace HVTApp.Services.ProductDesignationService
     {
         private readonly IEnumerable<ProductDesignation> _productDesignations;
         private readonly IEnumerable<ProductTypeDesignation> _productTypeDesignations;
+        private readonly IEnumerable<ProductBlockIsService> _blockIsServices;
 
         public ProductDesignator(IUnitOfWork unitOfWork)
         {
             _productDesignations = unitOfWork.GetRepository<ProductDesignation>().Find(x => x != null);
             _productTypeDesignations = unitOfWork.GetRepository<ProductTypeDesignation>().Find(x => x != null);
+            _blockIsServices = unitOfWork.GetRepository<ProductBlockIsService>().Find(x => x != null);
         }
 
         public string GetDesignation(Product product)
@@ -29,6 +31,11 @@ namespace HVTApp.Services.ProductDesignationService
             var designations = _productTypeDesignations.Where(pd => pd.Parameters.AllContainsIn(product.ProductBlock.Parameters)).ToList();
             if (designations.Any()) return designations.OrderBy(x => x.Parameters.Count).Last().ProductType;
             return null;
+        }
+
+        public bool IsService(ProductBlock block)
+        {
+            return _blockIsServices.Any(x => x.Parameters.AllContainsIn(block.Parameters));
         }
     }
 }

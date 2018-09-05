@@ -3,7 +3,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Wrapper
 {
-    public interface IUnit : IValidatableChangeTracking
+    public interface IUnit : IUnitWithProductsIncluded, IValidatableChangeTracking
     {
         ProductWrapper Product { get; set; }
         FacilityWrapper Facility { get; set; }
@@ -11,7 +11,10 @@ namespace HVTApp.UI.Wrapper
         double Cost { get; set; }
         double Price { get; set; }
         int? ProductionTerm { get; set; }
+    }
 
-        event Action PriceChanged;
+    public interface IUnitWithProductsIncluded
+    {
+        IValidatableChangeTrackingCollection<ProductIncludedWrapper> ProductsIncluded { get; }
     }
 }

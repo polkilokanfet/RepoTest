@@ -1,67 +1,118 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using HVTApp.DataAccess.Annotations;
+using HVTApp.Model.POCOs;
 using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.UI.Wrapper
 {
     public class UnitsGroup : IUnitsGroup, INotifyPropertyChanged
     {
-        public UnitsGroup(IEnumerable<IUnit> productUnits)
+        public UnitsGroup(IEnumerable<IUnit> units)
         {
-            ProductUnits = productUnits.ToList();
-            if (ProductUnits.Count > 1)
-                Groups.AddRange(ProductUnits.Select(x => new UnitsGroup(new List<IUnit> {x})));
+            Units = units.ToList();
+            if (Units.Count > 1)
+                Groups.AddRange(Units.Select(x => new UnitsGroup(new List<IUnit> {x})));
 
-            ProductUnits.First().PriceChanged += () => { MarginalIncome = (1 - Price / Cost) * 100; };
+            ProductsIncluded = new ValidatableChangeTrackingCollection<ProductIncludedWrapper>(Units.First().ProductsIncluded);
+            ProductsIncluded.CollectionChanged += (sender, args) =>
+            {
+                IEnumerable<IUnitWithProductsIncluded> unts = Units;
+                if (Groups.Any()) unts = Groups;
+
+                switch (args.Action)
+                {
+                        
+                    case NotifyCollectionChangedAction.Add:
+                        foreach (var unit in unts)
+                        {
+                            foreach (var newPrInc in args.NewItems)
+                            {
+                                var prInc = (ProductIncludedWrapper)newPrInc;
+                                var newPrIncWrap = new ProductIncludedWrapper(new ProductIncluded {Product = prInc.Product.Model, Amount = prInc.Amount});
+                                unit.ProductsIncluded.Add(newPrIncWrap);
+                            }
+                        }
+                        break;
+
+                    case NotifyCollectionChangedAction.Remove:
+                        foreach (var unit in unts)
+                        {
+                            foreach (var oldPrInc in args.OldItems)
+                            {
+                                var prInc = (ProductIncludedWrapper)oldPrInc;
+                                var oldPrIncWrap = unit.ProductsIncluded.First(x => x.Amount == prInc.Amount && x.Product.Id == prInc.Product.Id);
+                                unit.ProductsIncluded.Remove(oldPrIncWrap);
+                            }
+                        }
+                        break;
+                }
+            };
         }
 
         private double _marginalIncome;
+        private double _price;
 
-        public int Amount => ProductUnits.Count;
-        public double Price => ProductUnits.First().Price;
+        public int Amount => Units.Count;
         public double Total => Cost * Amount;
 
-        public List<IUnit> ProductUnits { get; }
+        public List<IUnit> Units { get; }
         public ObservableCollection<IUnitsGroup> Groups { get; } = new ObservableCollection<IUnitsGroup>();
 
         public FacilityWrapper Facility
         {
-            get { return ProductUnits.First().Facility; }
+            get { return Units.First().Facility; }
             set
             {
                 if(Equals(Facility, value)) return;
                 Groups.ForEach(x => x.Facility = value);
-                ProductUnits.ForEach(x => x.Facility = value);
+                Units.ForEach(x => x.Facility = value);
                 OnPropertyChanged();
             }
         }
 
         public ProductWrapper Product
         {
-            get { return ProductUnits.First().Product; }
+            get { return Units.First().Product; }
             set
             {
                 if (Equals(Product, value)) return;
                 Groups.ForEach(x => x.Product = value);
-                ProductUnits.ForEach(x => x.Product = value);
+                Units.ForEach(x => x.Product = value);
+                OnPropertyChanged();
+            }
+        }
+
+        public IValidatableChangeTrackingCollection<ProductIncludedWrapper> ProductsIncluded { get; }
+
+        public double Price
+        {
+            get { return _price; }
+            set
+            {
+                if (Math.Abs(_price - value) < 0.0001) return;
+                _price = value;
+                MarginalIncome = (1 - Price / Cost) * 100;
+                Groups.ForEach(x => x.Price = value);
                 OnPropertyChanged();
             }
         }
 
         public double Cost
         {
-            get { return ProductUnits.First().Cost; }
+            get { return Units.First().Cost; }
             set
             {
                 if (Equals(value, Cost)) return;
                 if (value < 0) return;
 
                 Groups.ForEach(x => x.Cost = value);
-                ProductUnits.ForEach(x => x.Cost = value);
+                Units.ForEach(x => x.Cost = value);
                 MarginalIncome = (1 - Price / value) * 100;
                 OnPropertyChanged(nameof(Total));
                 OnPropertyChanged();
@@ -84,12 +135,12 @@ namespace HVTApp.UI.Wrapper
 
         public PaymentConditionSetWrapper PaymentConditionSet
         {
-            get { return ProductUnits.First().PaymentConditionSet; }
+            get { return Units.First().PaymentConditionSet; }
             set
             {
                 if (Equals(value, PaymentConditionSet)) return;
                 Groups.ForEach(x => x.PaymentConditionSet = value);
-                ProductUnits.ForEach(x => x.PaymentConditionSet = value);
+                Units.ForEach(x => x.PaymentConditionSet = value);
                 OnPropertyChanged();
             }
         }
@@ -98,13 +149,13 @@ namespace HVTApp.UI.Wrapper
 
         public int? ProductionTerm
         {
-            get { return ProductUnits.First().ProductionTerm; }
+            get { return Units.First().ProductionTerm; }
             set
             {
                 if (Equals(value, ProductionTerm)) return;
                 if (value < 0) return;
                 Groups.ForEach(x => x.ProductionTerm = value);
-                ProductUnits.ForEach(x => x.ProductionTerm = value);
+                Units.ForEach(x => x.ProductionTerm = value);
                 OnPropertyChanged();
             }
         }

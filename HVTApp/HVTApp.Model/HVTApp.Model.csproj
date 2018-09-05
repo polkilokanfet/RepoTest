@@ -59,6 +59,7 @@
     <Compile Include="POCOs\PaymentActual.cs" />
     <Compile Include="POCOs\PaymentPlanned.cs" />
     <Compile Include="POCOs\PaymentType.cs" />
+    <Compile Include="POCOs\ProductBlockIsService.cs" />
     <Compile Include="POCOs\ProductIncluded.cs" />
     <Compile Include="POCOs\ProductDesignation.cs" />
     <Compile Include="POCOs\ProductType.cs" />

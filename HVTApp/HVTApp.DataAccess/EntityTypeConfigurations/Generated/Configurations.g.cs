@@ -6,6 +6,7 @@ namespace HVTApp.DataAccess
     public partial class CreateNewProductTaskConfiguration : EntityTypeConfiguration<CreateNewProductTask> { }
     public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }
     public partial class PaymentPlannedConfiguration : EntityTypeConfiguration<PaymentPlanned> { }
+    public partial class ProductBlockIsServiceConfiguration : EntityTypeConfiguration<ProductBlockIsService> { }
     public partial class ProductIncludedConfiguration : EntityTypeConfiguration<ProductIncluded> { }
     public partial class ProductDesignationConfiguration : EntityTypeConfiguration<ProductDesignation> { }
     public partial class ProductTypeConfiguration : EntityTypeConfiguration<ProductType> { }

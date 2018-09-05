@@ -12,11 +12,14 @@
         <ContentControl DockPanel.Dock="Top" Name="DetailsControl"/>
         <controls:UnitListControl UnitsGroups="{Binding Groups}"
                                   SelectedUnitsGroup="{Binding SelectedGroup, Mode=OneWayToSource}"
+                                  SelectedProductIncluded="{Binding SelectedProductIncluded, Mode=OneWayToSource}"
                                   AddCommand="{Binding AddCommand}"
                                   RemoveCommand="{Binding RemoveCommand}"
                                   RefreshCommand="{Binding RefreshCommand}"
                                   ChangeFacilityCommand="{Binding ChangeFacilityCommand}"
                                   ChangeProductCommand="{Binding ChangeProductCommand}"
-                                  ChangePaymentsCommand = "{Binding ChangePaymentsCommand}"/>
+                                  ChangePaymentsCommand="{Binding ChangePaymentsCommand}"
+                                  AddProductIncludedCommand="{Binding AddProductIncludedCommand}"
+                                  RemoveProductIncludedCommand ="{Binding RemoveProductIncludedCommand}"/>
     </DockPanel>
 </inf:ViewBase>

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -26,6 +27,7 @@ namespace HVTApp.UI.ViewModels
         where TUnitWrapper : class, IUnit, IWrapper<TUnit>
     {
         private IUnitsGroup _selectedGroup;
+        private ProductIncludedWrapper _selectedProductIncluded;
 
         protected WrapperWithUnitsViewModel(IUnityContainer container) : base(container)
         {
@@ -42,6 +44,19 @@ namespace HVTApp.UI.ViewModels
                 if (Equals(_selectedGroup, value)) return;
                 _selectedGroup = value;
                 ((DelegateCommand) RemoveCommand)?.RaiseCanExecuteChanged();
+                ((DelegateCommand)AddProductIncludedCommand)?.RaiseCanExecuteChanged();
+                OnPropertyChanged();
+            }
+        }
+
+        public ProductIncludedWrapper SelectedProductIncluded
+        {
+            get { return _selectedProductIncluded; }
+            set
+            {
+                if (Equals(_selectedProductIncluded, value)) return;
+                _selectedProductIncluded = value;
+                ((DelegateCommand)RemoveProductIncludedCommand)?.RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
@@ -58,6 +73,10 @@ namespace HVTApp.UI.ViewModels
         public ICommand ChangeProductCommand { get; private set; }
         public ICommand ChangePaymentsCommand { get; private set; }
 
+        public ICommand AddProductIncludedCommand { get; private set; }
+        public ICommand RemoveProductIncludedCommand { get; private set; }
+
+
         protected override void InitSpecialCommands()
         {
             AddCommand = new DelegateCommand(AddCommand_Execute);
@@ -66,6 +85,27 @@ namespace HVTApp.UI.ViewModels
             ChangeFacilityCommand = new DelegateCommand<IUnitsGroup>(ChangeFacilityCommand_Execute);
             ChangeProductCommand = new DelegateCommand<IUnitsGroup>(ChangeProductCommand_Execute);
             ChangePaymentsCommand = new DelegateCommand<IUnitsGroup>(ChangePaymentsCommand_Execute);
+
+            AddProductIncludedCommand = new DelegateCommand(AddProductIncludedCommand_Execute, () => SelectedGroup != null);
+            RemoveProductIncludedCommand = new DelegateCommand(RemoveProductIncludedCommand_Execute, () => SelectedProductIncluded != null);
+        }
+
+        private async void AddProductIncludedCommand_Execute()
+        {
+            var productIncluded = new ProductIncluded();
+            productIncluded = await Container.Resolve<IUpdateDetailsService>().GetEntity(productIncluded);
+            if (productIncluded == null) return;
+            productIncluded.Product = await WrapperDataService.GetRepository<Product>().GetByIdAsync(productIncluded.Product.Id);
+            SelectedGroup.ProductsIncluded.Add(new ProductIncludedWrapper(productIncluded));
+            RefreshPrice(SelectedGroup);
+        }
+
+        private void RemoveProductIncludedCommand_Execute()
+        {
+            if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
+                return;
+            SelectedGroup.ProductsIncluded.Remove(SelectedProductIncluded);
+            RefreshPrice(SelectedGroup);
         }
 
         protected abstract void AddCommand_Execute();
@@ -81,7 +121,7 @@ namespace HVTApp.UI.ViewModels
             if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
                 return;
 
-            foreach (var unit in SelectedGroup.ProductUnits)
+            foreach (var unit in SelectedGroup.Units)
             {
                 Item.Units.Remove((TUnitWrapper) unit);
                 WrapperDataService.GetWrapperRepository<TUnit, TUnitWrapper>().Delete((TUnitWrapper)unit);
@@ -95,7 +135,7 @@ namespace HVTApp.UI.ViewModels
             var product = await Container.Resolve<IGetProductService>().GetProductAsync(group.Product?.Model);
             if (product == null || product.Id == group.Product.Id) return;
             group.Product = await WrapperDataService.GetWrapperRepository<Product, ProductWrapper>().GetByIdAsync(product.Id);
-            RefreshPrices();
+            RefreshPrice(SelectedGroup);
         }
 
         private async void ChangeFacilityCommand_Execute(IUnitsGroup group)
@@ -122,9 +162,21 @@ namespace HVTApp.UI.ViewModels
 
         private void RefreshPrices()
         {
+            foreach (var group in Groups)
+            {
+                RefreshPrice(group);
+            }
+        }
+
+        private void RefreshPrice(IUnitsGroup group)
+        {
             var priceService = Container.Resolve<IPriceService>();
-            foreach (var unit in Item.Units)
-                unit.Price = priceService.GetPrice(unit.Product.Model, DateTime.Today, CommonOptions.ActualPriceTerm);
+            var price = priceService.GetPrice(group.Product.Model, DateTime.Today, CommonOptions.ActualPriceTerm);
+            foreach (var productIncluded in group.ProductsIncluded)
+            {
+                price += productIncluded.Amount * priceService.GetPrice(productIncluded.Product.Model, DateTime.Today, CommonOptions.ActualPriceTerm);
+            }
+            group.Price = price;
         }
 
         private void RefreshGroups()

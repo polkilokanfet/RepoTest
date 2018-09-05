@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using HVTApp.Model.POCOs;
 using HVTApp.UI.Converter;
 using HVTApp.UI.Wrapper;
 
@@ -12,6 +13,7 @@ namespace HVTApp.UI.Controls
         public UnitListControl()
         {
             InitializeComponent();
+            ProductsIncludedGroupBox.Visibility = Visibility.Collapsed;
         }
 
         public static readonly DependencyProperty UnitsGroupsProperty = DependencyProperty.Register(
@@ -35,6 +37,37 @@ namespace HVTApp.UI.Controls
         }
 
 
+
+        public static readonly DependencyProperty SelectedProductIncludedProperty = DependencyProperty.Register(
+            "SelectedProductIncluded", typeof(ProductIncludedWrapper), typeof(UnitListControl), new PropertyMetadata(default(ProductIncludedWrapper)));
+
+        public ProductIncludedWrapper SelectedProductIncluded
+        {
+            get { return (ProductIncludedWrapper) GetValue(SelectedProductIncludedProperty); }
+            set { SetValue(SelectedProductIncludedProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty AddProductIncludedCommandProperty = DependencyProperty.Register(
+            "AddProductIncludedCommand", typeof(ICommand), typeof(UnitListControl), new PropertyMetadata(default(ICommand)));
+
+        public ICommand AddProductIncludedCommand
+        {
+            get { return (ICommand) GetValue(AddProductIncludedCommandProperty); }
+            set { SetValue(AddProductIncludedCommandProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty RemoveProductIncludedCommandProperty = DependencyProperty.Register(
+            "RemoveProductIncludedCommand", typeof(ICommand), typeof(UnitListControl), new PropertyMetadata(default(ICommand)));
+
+        public ICommand RemoveProductIncludedCommand
+        {
+            get { return (ICommand) GetValue(RemoveProductIncludedCommandProperty); }
+            set { SetValue(RemoveProductIncludedCommandProperty, value); }
+        }
 
 
         public static readonly DependencyProperty ChangeFacilityCommandProperty = DependencyProperty.Register(
@@ -100,6 +133,19 @@ namespace HVTApp.UI.Controls
         {
             get { return (ICommand) GetValue(ChangePaymentsCommandProperty); }
             set { SetValue(ChangePaymentsCommandProperty, value); }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            switch (ProductsIncludedGroupBox.Visibility)
+            {
+                case Visibility.Collapsed:
+                    ProductsIncludedGroupBox.Visibility = Visibility.Visible;
+                    return;
+                case Visibility.Visible:
+                    ProductsIncludedGroupBox.Visibility = Visibility.Collapsed;
+                    break;
+            }
         }
     }
 }

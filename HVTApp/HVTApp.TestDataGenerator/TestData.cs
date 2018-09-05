@@ -90,6 +90,7 @@ namespace HVTApp.TestDataGenerator
                 
         public Measure MeasureKv;
 
+        public ParameterGroup ParameterGroupProductType;
         public ParameterGroup ParameterGroupZip;
         public ParameterGroup ParameterGroupEqType;
         public ParameterGroup ParameterGroupBreakerType;
@@ -99,7 +100,10 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupDrivesVoltage;
         public ParameterGroup ParameterGroupIsolation;
 
+        public Parameter ParameterMainEquipment;
         public Parameter ParameterDependentEquipment;
+        public Parameter ParameterService;
+        public Parameter ParameterNewEquipment;
         public Parameter ParameterZip1;
         public Parameter ParameterBreaker;
         public Parameter ParameterTransformator;
@@ -147,6 +151,8 @@ namespace HVTApp.TestDataGenerator
         public Product ProductZng110;
         public Product ProductBreakersDrive;
         public Product ProductZip1;
+
+        public ProductBlockIsService ProductBlockIsService;
                
         public SalesUnit SalesUnitVeb1101Full;
         public SalesUnit SalesUnitVeb1102Full;
@@ -359,7 +365,8 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateParameterGroups()
         {
-            ParameterGroupEqType.Clone(new ParameterGroup {Name = "Тип оборудования"});
+            ParameterGroupProductType.Clone(new ParameterGroup { Name = "Тип продукта" });
+            ParameterGroupEqType.Clone(new ParameterGroup { Name = "Тип оборудования" });
             ParameterGroupZip.Clone(new ParameterGroup {Name = "Тип ЗИП"});
             ParameterGroupBreakerType.Clone(new ParameterGroup {Name = "Тип выключателя"});
             ParameterGroupTransformatorType.Clone(new ParameterGroup {Name = "Тип трансформатора"});
@@ -371,11 +378,15 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateParameters()
         {
+            ParameterMainEquipment.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование главное" });
+            ParameterDependentEquipment.Clone(new Parameter {ParameterGroup = ParameterGroupProductType, Value = "Оборудование дополнительное"});
+            ParameterService.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Услуга" });
+            ParameterNewEquipment.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование новое" });
+
             ParameterBreaker.Clone(new Parameter {ParameterGroup = ParameterGroupEqType, Value = "Выключатель"});
             ParameterTransformator.Clone(new Parameter {ParameterGroup = ParameterGroupEqType, Value = "Трансформатор"});
             ParameterBrakersDrive.Clone(new Parameter {ParameterGroup = ParameterGroupEqType, Value = "Привод"});
             ParameterKtpb.Clone(new Parameter {ParameterGroup = ParameterGroupEqType, Value = "КТПБ"});
-            ParameterDependentEquipment.Clone(new Parameter {ParameterGroup = ParameterGroupEqType, Value = "Дополнительная комплектация"});
 
             ParameterZip1.Clone(new Parameter {ParameterGroup = ParameterGroupZip, Value = "ЗИП №1"});
             ParameterBreakerDeadTank.Clone(new Parameter {ParameterGroup = ParameterGroupBreakerType, Value = "Баковый"});
@@ -391,27 +402,33 @@ namespace HVTApp.TestDataGenerator
             ParameterTransformatorTrg110.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Отдельностоящий" });
             ParameterTransformatorTvg110.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Встроенный" });
 
-            ParameterZip1.AddRequiredPreviousParameters(new[] {ParameterDependentEquipment});
-            ParameterBreakerDeadTank.AddRequiredPreviousParameters(new[] {ParameterBreaker});
-            ParameterBreakerLiveTank.AddRequiredPreviousParameters(new[] {ParameterBreaker});
 
-            ParameterTransformatorCurrent.AddRequiredPreviousParameters(new[] {ParameterTransformator});
-            ParameterTransformatorVoltage.AddRequiredPreviousParameters(new[] {ParameterTransformator});
+            ParameterBreaker.AddRequiredPreviousParameters(ParameterMainEquipment);
+            ParameterTransformator.AddRequiredPreviousParameters(ParameterMainEquipment);
+            ParameterBrakersDrive.AddRequiredPreviousParameters(ParameterMainEquipment);
+            ParameterKtpb.AddRequiredPreviousParameters(ParameterMainEquipment);
 
-            ParameterVoltage35kV.AddRequiredPreviousParameters(new[] {ParameterBreaker})
-                                .AddRequiredPreviousParameters(new[] {ParameterTransformatorCurrent});
-            ParameterVoltage110kV.AddRequiredPreviousParameters(new[] {ParameterBreaker})
-                                 .AddRequiredPreviousParameters(new[] {ParameterTransformator}); 
-            ParameterVoltage220kV.AddRequiredPreviousParameters(new[] {ParameterBreaker})
-                                 .AddRequiredPreviousParameters(new[] {ParameterTransformator}); 
-            ParameterVoltage500kV.AddRequiredPreviousParameters(new[] {ParameterBreaker, ParameterBreakerLiveTank});
+            ParameterBreakerDeadTank.AddRequiredPreviousParameters(ParameterBreaker);
+            ParameterBreakerLiveTank.AddRequiredPreviousParameters(ParameterBreaker);
+            ParameterZip1.AddRequiredPreviousParameters(ParameterDependentEquipment);
 
-            ParameterVoltage110V.AddRequiredPreviousParameters(new[] {ParameterBrakersDrive});
+            ParameterTransformatorCurrent.AddRequiredPreviousParameters(ParameterTransformator);
+            ParameterTransformatorVoltage.AddRequiredPreviousParameters(ParameterTransformator);
 
-            ParameterVoltage220V.AddRequiredPreviousParameters(new[] {ParameterBrakersDrive});
+            ParameterVoltage35kV.AddRequiredPreviousParameters(ParameterBreaker)
+                                .AddRequiredPreviousParameters(ParameterTransformatorCurrent);
+            ParameterVoltage110kV.AddRequiredPreviousParameters(ParameterBreaker)
+                                 .AddRequiredPreviousParameters(ParameterTransformator); 
+            ParameterVoltage220kV.AddRequiredPreviousParameters(ParameterBreaker)
+                                 .AddRequiredPreviousParameters(ParameterTransformator); 
+            ParameterVoltage500kV.AddRequiredPreviousParameters(ParameterBreaker, ParameterBreakerLiveTank);
 
-            ParameterTransformatorTrg110.AddRequiredPreviousParameters(new[] { ParameterTransformatorCurrent });
-            ParameterTransformatorTvg110.AddRequiredPreviousParameters(new[] { ParameterTransformatorCurrent });
+            ParameterVoltage110V.AddRequiredPreviousParameters(ParameterBrakersDrive);
+
+            ParameterVoltage220V.AddRequiredPreviousParameters(ParameterBrakersDrive);
+
+            ParameterTransformatorTrg110.AddRequiredPreviousParameters(ParameterTransformatorCurrent);
+            ParameterTransformatorTvg110.AddRequiredPreviousParameters(ParameterTransformatorCurrent);
         }
 
         private void GenerateRequiredDependentEquipmentsParameters()
@@ -463,7 +480,7 @@ namespace HVTApp.TestDataGenerator
             ProductBlockVgb35.Clone(new ProductBlock
             {
                 Name = "Блок Выключатель баковый ВГБ-35",
-                Parameters = new List<Parameter> {ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage35kV},
+                Parameters = new List<Parameter> { ParameterMainEquipment, ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage35kV},
                 Prices = new List<SumOnDate> {new SumOnDate {Sum = 450000, Date = DateTime.Today}},
                 StructureCostNumber = "StructureCostNumberVGB35",
             });
@@ -471,7 +488,7 @@ namespace HVTApp.TestDataGenerator
             ProductBlockVeb110.Clone(new ProductBlock
             {
                 Name = "Блок Выключатель баковый ВЭБ-110",
-                Parameters = new List<Parameter> {ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage110kV},
+                Parameters = new List<Parameter> {ParameterMainEquipment, ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage110kV},
                 Prices = new List<SumOnDate> {new SumOnDate {Sum = 2000000, Date = DateTime.Today}},
                 StructureCostNumber = "StructureCostNumber3",
             });
@@ -479,7 +496,7 @@ namespace HVTApp.TestDataGenerator
             ProductBlockZng110.Clone(new ProductBlock
             {
                 Name = "Блок Трансформатор напряжения ЗНГ-110",
-                Parameters = new List<Parameter> {ParameterTransformator, ParameterTransformatorVoltage, ParameterVoltage110kV},
+                Parameters = new List<Parameter> { ParameterMainEquipment, ParameterTransformator, ParameterTransformatorVoltage, ParameterVoltage110kV},
                 Prices = new List<SumOnDate> {new SumOnDate {Sum = 250000, Date = DateTime.Today.AddDays(-95)}},
                 StructureCostNumber = "StructureCostNumber1"
             });
@@ -487,7 +504,7 @@ namespace HVTApp.TestDataGenerator
             ProductBlockBreakersDrive.Clone(new ProductBlock
             {
                 Name = "Блок Привод выключателя",
-                Parameters = new List<Parameter> { ParameterBrakersDrive, ParameterVoltage220V },
+                Parameters = new List<Parameter> { ParameterMainEquipment, ParameterBrakersDrive, ParameterVoltage220V },
                 Prices = new List<SumOnDate> { new SumOnDate { Sum = 200000, Date = DateTime.Today } },
                 StructureCostNumber = "StructureCostNumber4"
             });
@@ -559,6 +576,11 @@ namespace HVTApp.TestDataGenerator
             PaymentPlanned5.Clone(new PaymentPlanned { Sum = 290000, Date = DateTime.Today.AddDays(50), Condition = PaymentConditionDoplata50 });
         }
 
+        private void GenerateProductBlockIsService()
+        {
+            ProductBlockIsService.Clone(new ProductBlockIsService {Parameters = new List<Parameter>() {ParameterService} });
+        }
+
         private void GenerateSalesUnits()
         {
             SalesUnitVeb1101Full.Clone(new SalesUnit {Project = ProjectStation, Product = ProductVeb110, Order = OrderVeb110, SerialNumber = "1", ProductionTerm = 90, AssembleTerm = 7, Cost = 3000000, Specification = SpecificationMrsk1, PaymentConditionSet = PaymentConditionSet50Na50, Address = AddressSubstation, CostOfShipment = 100, DeliveryDate = DateTime.Today.AddDays(180), Facility = FacilityStation, ProductsIncluded = new List<ProductIncluded> {new ProductIncluded { Product = ProductZip1, Amount = 2 } }, PaymentsActual = new List<PaymentActual> { PaymentActual1, PaymentActual2, PaymentActual3, PaymentActual4, PaymentActual5 }, PaymentsPlanned = new List<PaymentPlanned> {PaymentPlanned1, PaymentPlanned2, PaymentPlanned3, PaymentPlanned4, PaymentPlanned5} });
@@ -582,9 +604,9 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateOfferUnits()
         {
-            OfferUnitVeb1101.Clone(new OfferUnit {Offer = OfferMrsk, Product = ProductVeb110, Cost = 3100000, ProductionTerm = 120, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation});
-            OfferUnitVeb1102.Clone(new OfferUnit {Offer = OfferMrsk, Product = ProductVeb110, Cost = 3100000, ProductionTerm = 120, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation});
-                                                                                    
+            OfferUnitVeb1101.Clone(new OfferUnit {Offer = OfferMrsk, Product = ProductVeb110, Cost = 3100000, ProductionTerm = 120, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation, ProductsIncluded = new List<ProductIncluded> { new ProductIncluded { Product = ProductZip1, Amount = 3 } } });
+            OfferUnitVeb1102.Clone(new OfferUnit {Offer = OfferMrsk, Product = ProductVeb110, Cost = 3100000, ProductionTerm = 120, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation, ProductsIncluded = new List<ProductIncluded> { new ProductIncluded { Product = ProductZip1, Amount = 3 } } });
+
             OfferUnitZng1101.Clone(new OfferUnit {Offer = OfferMrsk, Product = ProductZng110, Cost = 550000, ProductionTerm = 180, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, ProductsIncluded = new List<ProductIncluded> { new ProductIncluded { Product = ProductZip1, Amount = 3 } } });
             OfferUnitZng1102.Clone(new OfferUnit {Offer = OfferMrsk, Product = ProductZng110, Cost = 550000, ProductionTerm = 180, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, ProductsIncluded = new List<ProductIncluded> { new ProductIncluded { Product = ProductZip1, Amount = 2 } } });
             OfferUnitZng1103.Clone(new OfferUnit {Offer = OfferMrsk, Product = ProductZng110, Cost = 550000, ProductionTerm = 180, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, ProductsIncluded = new List<ProductIncluded> { new ProductIncluded { Product = ProductZip1, Amount = 2 } } });

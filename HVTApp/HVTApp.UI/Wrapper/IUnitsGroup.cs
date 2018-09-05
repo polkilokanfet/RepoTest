@@ -3,14 +3,15 @@ using System.Collections.ObjectModel;
 
 namespace HVTApp.UI.Wrapper
 {
-    public interface IUnitsGroup
+    public interface IUnitsGroup : IUnitWithProductsIncluded
     {
-        List<IUnit> ProductUnits { get; }
+        List<IUnit> Units { get; }
         ObservableCollection<IUnitsGroup> Groups { get; }
         FacilityWrapper Facility { get; set; }
         ProductWrapper Product { get; set; }
         PaymentConditionSetWrapper PaymentConditionSet { get; set; }
         double Cost { get; set; }
+        double Price { set; }
         int Amount { get; }
         double Total { get; }
         double MarginalIncome { get; set; }

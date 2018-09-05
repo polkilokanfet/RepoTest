@@ -6,5 +6,6 @@ namespace HVTApp.Services.ProductDesignationService
     {
         string GetDesignation(Product product);
         ProductType GetProductType(Product product);
+        bool IsService(ProductBlock block);
     }
 }

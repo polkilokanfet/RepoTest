@@ -126,7 +126,6 @@
     <Compile Include="ViewModels\BindableBaseCanExportToExcel.cs" />
     <Compile Include="ViewModels\Details\ContractDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\Generated\DetailsViewModels.g.cs" />
-    <Compile Include="ViewModels\Details\IProjectUnitGroupLookup.cs" />
     <Compile Include="ViewModels\Details\IProductCostDependentProductsWrapper.cs" />
     <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
@@ -813,6 +812,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\List\PersonLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\List\ProductBlockIsServiceLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

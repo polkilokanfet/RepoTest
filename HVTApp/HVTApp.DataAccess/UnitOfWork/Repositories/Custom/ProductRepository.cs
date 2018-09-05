@@ -10,45 +10,39 @@ namespace HVTApp.DataAccess
 {
     public partial class ProductRepository : BaseRepository<Product>, IProductRepository
     {
-        public override async Task<List<Product>> GetAllAsync()
+        private Product Designate(Product product)
         {
             var designator = _container.Resolve<IProductDesignationService>();
-            var products = await base.GetAllAsync();
-            products.ForEach(x => x.Designate(designator, Context));
+            product.Designation = product.DesignationSpecial ?? designator.GetDesignation(product);
+            product.ProductType = designator.GetProductType(product);
+            return product;
+        }
+
+        private List<Product> Designate(List<Product> products)
+        {
+            products.ForEach(x => Designate(x));
             return products;
+        }
+
+        public override async Task<List<Product>> GetAllAsync()
+        {
+            return Designate(await base.GetAllAsync());
         }
 
         public override async Task<List<Product>> GetAllAsNoTrackingAsync()
         {
-            var designator = _container.Resolve<IProductDesignationService>();
-            var products = await base.GetAllAsNoTrackingAsync();
-            products.ForEach(x => x.Designate(designator, Context));
-            return products;
+            return Designate(await base.GetAllAsNoTrackingAsync());
         }
 
         public override List<Product> Find(Func<Product, bool> predicate)
         {
-            var designator = _container.Resolve<IProductDesignationService>();
-            var products = base.Find(predicate);
-            products.ForEach(x => x.Designate(designator, Context));
-            return products;
+            return Designate(base.Find(predicate));
         }
 
         public override async Task<Product> GetByIdAsync(Guid id)
         {
-            var designator = _container.Resolve<IProductDesignationService>();
-            return (await base.GetByIdAsync(id))?.Designate(designator, Context);
-        }
-    }
-
-    public static class ProductRepositoryExt
-    {
-        public static Product Designate(this Product product, IProductDesignationService designator, DbContext context)
-        {
-            product.Designation = product.DesignationSpecial ?? designator.GetDesignation(product);
-            var productType = designator.GetProductType(product);
-            if (productType != null) product.ProductType = productType;
-            return product;
+            var product = (await base.GetByIdAsync(id));
+            return product != null ? Designate(product) : null;
         }
     }
 }

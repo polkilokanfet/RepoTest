@@ -2496,6 +2496,50 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
+	[DesignationPlural("ProductBlockIsServiceLookup")]
+    public partial class ProductBlockIsServiceLookupListView : ViewBase
+    {
+        public ProductBlockIsServiceLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public ProductBlockIsServiceLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductBlockIsServiceLookupListViewModel ProductBlockIsServiceLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = ProductBlockIsServiceLookupListViewModel;
+			ProductBlockIsServiceLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((ProductBlockIsServiceLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return ProductBlockIsServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockIsServiceLookup.DisplayMember)].Visibility; }
+            set { ProductBlockIsServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockIsServiceLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return ProductBlockIsServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockIsServiceLookup.Entity)].Visibility; }
+            set { ProductBlockIsServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockIsServiceLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("ProductBlockLookup")]
     public partial class ProductBlockLookupListView : ViewBase
     {
@@ -2531,6 +2575,13 @@ namespace HVTApp.UI.Views
         {
             get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.StructureCostNumber)].Visibility; }
             set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.StructureCostNumber)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsServiceVisibility
+        {
+            get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.IsService)].Visibility; }
+            set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.IsService)].Visibility = value; }
         }
 
 

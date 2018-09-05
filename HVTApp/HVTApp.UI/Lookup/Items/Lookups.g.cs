@@ -114,6 +114,18 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	public partial class ProductBlockIsServiceLookup : LookupItem<ProductBlockIsService>
+	{
+		public ProductBlockIsServiceLookup(ProductBlockIsService entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+		}
+		
+	}
+
 	public partial class ProductIncludedLookup : LookupItem<ProductIncluded>
 	{
 		public ProductIncludedLookup(ProductIncluded entity) : base(entity) 
@@ -665,6 +677,9 @@ namespace HVTApp.UI.Lookup
 
 
         public System.String StructureCostNumber => GetValue<System.String>();
+
+
+        public System.Boolean IsService => GetValue<System.Boolean>();
 
 
         #endregion

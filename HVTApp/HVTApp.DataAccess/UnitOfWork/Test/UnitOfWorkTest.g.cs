@@ -10,6 +10,7 @@ namespace HVTApp.DataAccess
             CreateNewProductTaskRepository = new CreateNewProductTaskRepositoryTest(testData);
             PaymentActualRepository = new PaymentActualRepositoryTest(testData);
             PaymentPlannedRepository = new PaymentPlannedRepositoryTest(testData);
+            ProductBlockIsServiceRepository = new ProductBlockIsServiceRepositoryTest(testData);
             ProductIncludedRepository = new ProductIncludedRepositoryTest(testData);
             ProductDesignationRepository = new ProductDesignationRepositoryTest(testData);
             ProductTypeRepository = new ProductTypeRepositoryTest(testData);
@@ -80,6 +81,7 @@ namespace HVTApp.DataAccess
         public ICreateNewProductTaskRepository CreateNewProductTaskRepository { get; }
         public IPaymentActualRepository PaymentActualRepository { get; }
         public IPaymentPlannedRepository PaymentPlannedRepository { get; }
+        public IProductBlockIsServiceRepository ProductBlockIsServiceRepository { get; }
         public IProductIncludedRepository ProductIncludedRepository { get; }
         public IProductDesignationRepository ProductDesignationRepository { get; }
         public IProductTypeRepository ProductTypeRepository { get; }

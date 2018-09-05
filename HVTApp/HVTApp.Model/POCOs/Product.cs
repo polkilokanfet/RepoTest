@@ -27,8 +27,6 @@ namespace HVTApp.Model.POCOs
         [Designation("Продукты в составе")]
         public virtual List<ProductDependent> DependentProducts { get; set; } = new List<ProductDependent>();
 
-
-
         public override string ToString()
         {
             string type = ProductType == null ? String.Empty : $"{ProductType} ";

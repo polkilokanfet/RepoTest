@@ -23,6 +23,12 @@ namespace HVTApp.UI.Lookup
     }
 
 
+    public partial class ProductBlockIsServiceLookupDataService : LookupDataService<ProductBlockIsServiceLookup, ProductBlockIsService>, IProductBlockIsServiceLookupDataService
+    {
+        public ProductBlockIsServiceLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+    }
+
+
     public partial class ProductIncludedLookupDataService : LookupDataService<ProductIncludedLookup, ProductIncluded>, IProductIncludedLookupDataService
     {
         public ProductIncludedLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
