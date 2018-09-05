@@ -2,12 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media;
-using HVTApp.Infrastructure;
-using HVTApp.Model.POCOs;
-using HVTApp.UI.Converter;
-using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
-using HVTApp.UI.Wrapper;
 using Infragistics.Documents.Word;
 
 namespace HVTApp.Services.OfferToDocService
@@ -40,16 +35,9 @@ namespace HVTApp.Services.OfferToDocService
 
             //Table
             // Create border properties for Table
-            TableBorderProperties borderProps = docWriter.CreateTableBorderProperties();
-            borderProps.Color = Colors.Black;
-            borderProps.Style = TableBorderStyle.Double;
-
+            TableBorderProperties borderProps = GetTableBorderProperties(docWriter);
             // Create table properties
-            TableProperties tableProps = docWriter.CreateTableProperties();
-            tableProps.Alignment = ParagraphAlignment.Left;
-            tableProps.BorderProperties.Color = borderProps.Color;
-            tableProps.BorderProperties.Style = borderProps.Style;
-
+            TableProperties tableProps = GetTableProperties(docWriter, borderProps);
             // Create table row properties
             TableRowProperties rowProps = docWriter.CreateTableRowProperties();
 
@@ -57,27 +45,20 @@ namespace HVTApp.Services.OfferToDocService
             TableCellProperties cellProps = docWriter.CreateTableCellProperties();
             cellProps.BorderProperties = borderProps;
 
-            docWriter.StartTable(5, tableProps);
+            docWriter.StartTable(6, tableProps);
 
             rowProps.IsHeaderRow = true;
-            docWriter.StartTableRow(rowProps);
-            cellProps.BackColor = Colors.Azure;
-            ParagraphProperties paraProps = docWriter.CreateParagraphProperties();
-            paraProps.Alignment = ParagraphAlignment.Left;
+            cellProps.BackColor = Colors.AliceBlue;
+            ParagraphProperties paragraphProps = docWriter.CreateParagraphProperties();
+            paragraphProps.Alignment = ParagraphAlignment.Left;
 
-            docWriter.TableCell("№", cellProps, paraProps);
-            docWriter.TableCell("Оборудование", cellProps, paraProps);
-            docWriter.TableCell("Кол.", cellProps, paraProps);
-            docWriter.TableCell("Стоимость, руб.", cellProps, paraProps);
-            docWriter.TableCell("Сумма, руб.", cellProps, paraProps);
+            Font fontHeader = docWriter.CreateFont();
+            fontHeader.Bold = true;
 
-            // End the Table Row
-            docWriter.EndTableRow();
+            docWriter.TableRow(cellProps, rowProps, paragraphProps, fontHeader, "№", "Тип оборудования", "Обозначение", "Кол.", "Стоимость, руб.", "Сумма, руб.");
 
-            // Reset the cell properties, so that the 
-            // cell properties are different from the header cells.
+            // Reset the cell properties, so that the cell properties are different from the header cells.
             cellProps.Reset();
-            cellProps.BackColor = Colors.White;
             cellProps.VerticalAlignment = TableCellVerticalAlignment.Top;
             // Reset the row properties
             rowProps.Reset();
@@ -91,8 +72,8 @@ namespace HVTApp.Services.OfferToDocService
             foreach (var offerUnitsGroups in offerUnitsGroupsOrdered)
             {
                 docWriter.StartTableRow();
-                cellProps.ColumnSpan = 5;
-                docWriter.TableCell(offerUnitsGroups.Key.ToString(), cellProps);
+                cellProps.ColumnSpan = 6;
+                docWriter.TableCell(offerUnitsGroups.Key.ToString(), cellProps); //объект
                 docWriter.EndTableRow();
 
                 cellProps.ColumnSpan = 1;
@@ -100,74 +81,90 @@ namespace HVTApp.Services.OfferToDocService
                 {
                     rowNum++;
                     docWriter.StartTableRow();
-                    docWriter.TableCell(rowNum.ToString(), cellProps);
-                    docWriter.TableCell(offerUnitsGroup.Product.ToString(), cellProps);
-                    docWriter.TableCell($"{offerUnitsGroup.Amount:D}", cellProps, parPropRight);
-                    docWriter.TableCell($"{offerUnitsGroup.Cost:C}", cellProps, parPropRight);
-                    docWriter.TableCell($"{offerUnitsGroup.Total:C}", cellProps, parPropRight);
+                    docWriter.TableCell(rowNum.ToString(), cellProps);                              //номер строки
+                    docWriter.TableCell(offerUnitsGroup.Product.ProductType?.Name, cellProps);      //тип оборудования
+                    docWriter.TableCell(offerUnitsGroup.Product.ToString(), cellProps);             //обозначение
+                    docWriter.TableCell($"{offerUnitsGroup.Amount:D}", cellProps, parPropRight);    //колличество
+                    docWriter.TableCell($"{offerUnitsGroup.Cost:C}", cellProps, parPropRight);      //стоимость
+                    docWriter.TableCell($"{offerUnitsGroup.Total:C}", cellProps, parPropRight);     //сумма
                     docWriter.EndTableRow();
 
                     productsDetails += $"Позиция {rowNum}. {offerUnitsGroup.Product}:" + Environment.NewLine;
-                    productsDetails += $"{offerUnitsGroup.Product.Model.GetFullDescription()}" + Environment.NewLine;
+                    productsDetails += $"Условия оплаты: {offerUnitsGroup.PaymentConditionSet}" + Environment.NewLine;
+                    productsDetails += $"Технические харрактеристики: {offerUnitsGroup.Product.Model.GetFullDescription()}" + Environment.NewLine + Environment.NewLine;
 
                     //дополнительное оборудование
                     if (!offerUnitsGroup.ProductsIncluded.Any()) continue;
 
-                    docWriter.StartTableRow();
-                    docWriter.TableCell("", cellProps);
-                    docWriter.TableCell("в составе каждого изделия:", cellProps);
-                    docWriter.TableCell("", cellProps);
-                    docWriter.TableCell("", cellProps);
-                    docWriter.TableCell("", cellProps);
-                    docWriter.EndTableRow();
+                    Font fontSmall = docWriter.CreateFont();
+                    fontSmall.Size = 10;
+                    docWriter.TableRow(cellProps, null, null, fontSmall, "-", "в составе каждого изделия:", "-", "-", "-", "-");
 
                     var rn = 0;
                     foreach (var dependentProduct in offerUnitsGroup.ProductsIncluded)
                     {
                         rn++;
                         docWriter.StartTableRow();
-                        docWriter.TableCell($"{rowNum}.{rn}.", cellProps);
-                        docWriter.TableCell(dependentProduct.Product.ToString(), cellProps);
-                        docWriter.TableCell(dependentProduct.Amount.ToString(), cellProps, parPropRight);
-                        docWriter.TableCell("", cellProps, parPropRight);
-                        docWriter.TableCell("", cellProps, parPropRight);
+                        docWriter.TableCell($"{rowNum}.{rn}.", cellProps, null, fontSmall);
+                        docWriter.TableCell(dependentProduct.Product.ProductType?.Name, cellProps, null, fontSmall);
+                        docWriter.TableCell(dependentProduct.Product.ToString(), cellProps, null, fontSmall);
+                        docWriter.TableCell(dependentProduct.Amount.ToString(), cellProps, parPropRight, fontSmall);
+                        docWriter.TableCell("-", cellProps, parPropRight, fontSmall);
+                        docWriter.TableCell("-", cellProps, parPropRight, fontSmall);
                         docWriter.EndTableRow();
                     }
                 }
             }
 
-            cellProps.BackColor = Colors.Azure;
+            cellProps.BackColor = Colors.AliceBlue;
             docWriter.StartTableRow();
-            cellProps.ColumnSpan = 4;
-            docWriter.TableCell("Итого без НДС:", cellProps);
+            cellProps.ColumnSpan = 5;
+            docWriter.TableCell("Итого без НДС:", cellProps, null, fontHeader);
             cellProps.ColumnSpan = 1;
-            docWriter.TableCell($"{offer.Sum:C}", cellProps, parPropRight);
+            docWriter.TableCell($"{offer.Sum:C}", cellProps, parPropRight, fontHeader);
             docWriter.EndTableRow();
 
             docWriter.StartTableRow();
-            cellProps.ColumnSpan = 4;
-            docWriter.TableCell($"НДС ({offer.Vat * 100} %):", cellProps);
+            cellProps.ColumnSpan = 5;
+            docWriter.TableCell($"НДС ({offer.Vat * 100} %):", cellProps, null, fontHeader);
             cellProps.ColumnSpan = 1;
-            docWriter.TableCell($"{offer.Sum * offer.Vat:C}", cellProps, parPropRight);
+            docWriter.TableCell($"{offer.Sum * offer.Vat:C}", cellProps, parPropRight, fontHeader);
             docWriter.EndTableRow();
 
 
             docWriter.StartTableRow();
-            cellProps.ColumnSpan = 4;
-            docWriter.TableCell($"Итого с НДС:", cellProps);
+            cellProps.ColumnSpan = 5;
+            docWriter.TableCell($"Итого с НДС:", cellProps, null, fontHeader);
             cellProps.ColumnSpan = 1;
-            docWriter.TableCell($"{offer.Sum * (1 + offer.Vat):C}", cellProps, parPropRight);
+            docWriter.TableCell($"{offer.Sum * (1 + offer.Vat):C}", cellProps, parPropRight, fontHeader);
             docWriter.EndTableRow();
 
             docWriter.EndTable();
 
-            docWriter.Paragraph("Параметры оборудования (по табличным позициям):");
+            docWriter.Paragraph("Деталировка условий поставки оборудования (в соответствии с позициями таблицы):", null, fontHeader);
             docWriter.Paragraph(productsDetails);
 
             docWriter.EndDocument();
             docWriter.Close();
             System.Diagnostics.Process.Start(offerDocumentPath);
 
+        }
+
+        private TableBorderProperties GetTableBorderProperties(WordDocumentWriter docWriter)
+        {
+            var borderProps = docWriter.CreateTableBorderProperties();
+            borderProps.Color = Colors.Black;
+            borderProps.Style = TableBorderStyle.Single;
+            return borderProps;
+        }
+
+        private TableProperties GetTableProperties(WordDocumentWriter docWriter, TableBorderProperties borderProps)
+        {
+            var tableProps = docWriter.CreateTableProperties();
+            tableProps.Alignment = ParagraphAlignment.Left;
+            tableProps.BorderProperties.Color = borderProps.Color;
+            tableProps.BorderProperties.Style = borderProps.Style;
+            return tableProps;
         }
     }
 }

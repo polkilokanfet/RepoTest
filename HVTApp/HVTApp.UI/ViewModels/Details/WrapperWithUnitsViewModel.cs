@@ -170,6 +170,7 @@ namespace HVTApp.UI.ViewModels
 
         private void RefreshPrice(IUnitsGroup group)
         {
+            if (group == null) return;
             var priceService = Container.Resolve<IPriceService>();
             var price = priceService.GetPrice(group.Product.Model, DateTime.Today, CommonOptions.ActualPriceTerm);
             foreach (var productIncluded in group.ProductsIncluded)
