@@ -17,6 +17,7 @@
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewOfferCommand}"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditOfferCommand}"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveOfferCommand}"/>
+        <infRib:ButtonTool Caption="Печать" Command="{Binding PrintOfferCommand}"/>
     </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Тендер">

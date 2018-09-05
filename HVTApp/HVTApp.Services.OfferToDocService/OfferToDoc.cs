@@ -6,6 +6,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Converter;
 using HVTApp.UI.Lookup;
+using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Infragistics.Documents.Word;
 
@@ -13,16 +14,17 @@ namespace HVTApp.Services.OfferToDocService
 {
     public class OfferToDoc : IOfferToDoc
     {
-        private readonly OfferLookupDataService _dataService;
+        private readonly OfferDetailsViewModel _offerViewModel;
 
-        public OfferToDoc(OfferLookupDataService dataService)
+        public OfferToDoc(OfferDetailsViewModel offerViewModel)
         {
-            _dataService = dataService;
+            _offerViewModel = offerViewModel;
         }
 
         public async Task PrintOfferAsync(Guid offerId)
         {
-            var offer = await _dataService.GetLookupById(offerId);
+            await _offerViewModel.LoadAsync(offerId);
+            var offer = _offerViewModel.Item;
 
             string offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestOfferDocument.docx";
             WordDocumentWriter docWriter = WordDocumentWriter.Create(offerDocumentPath);
@@ -85,7 +87,7 @@ namespace HVTApp.Services.OfferToDocService
 
             string productsDetails = string.Empty;
             var rowNum = 0;
-            var offerUnitsGroupsOrdered = offer.OfferUnits.GroupBy(x => x.Facility.Entity);
+            var offerUnitsGroupsOrdered = _offerViewModel.Groups.GroupBy(x => x.Facility.Model);
             foreach (var offerUnitsGroups in offerUnitsGroupsOrdered)
             {
                 docWriter.StartTableRow();
@@ -99,19 +101,17 @@ namespace HVTApp.Services.OfferToDocService
                     rowNum++;
                     docWriter.StartTableRow();
                     docWriter.TableCell(rowNum.ToString(), cellProps);
-                    docWriter.TableCell(offerUnitsGroup.Product.DisplayMember, cellProps);
-                    //docWriter.TableCell($"{offerUnitsGroup.Amount:D}", cellProps, parPropRight);
-                    docWriter.TableCell($"1", cellProps, parPropRight);
+                    docWriter.TableCell(offerUnitsGroup.Product.ToString(), cellProps);
+                    docWriter.TableCell($"{offerUnitsGroup.Amount:D}", cellProps, parPropRight);
                     docWriter.TableCell($"{offerUnitsGroup.Cost:C}", cellProps, parPropRight);
-                    //docWriter.TableCell($"{offerUnitsGroup.Total:C}", cellProps, parPropRight);
-                    docWriter.TableCell($"2", cellProps, parPropRight);
+                    docWriter.TableCell($"{offerUnitsGroup.Total:C}", cellProps, parPropRight);
                     docWriter.EndTableRow();
 
-                    productsDetails += $"Позиция {rowNum}. {offerUnitsGroup.Product.DisplayMember}:" + Environment.NewLine;
-                    //productsDetails += $"{offerUnitsGroup.Product.Model.GetFullDescription()}" + Environment.NewLine;
+                    productsDetails += $"Позиция {rowNum}. {offerUnitsGroup.Product}:" + Environment.NewLine;
+                    productsDetails += $"{offerUnitsGroup.Product.Model.GetFullDescription()}" + Environment.NewLine;
 
                     //дополнительное оборудование
-                    if (!offerUnitsGroup.DependentProducts.Any()) continue;
+                    if (!offerUnitsGroup.ProductsIncluded.Any()) continue;
 
                     docWriter.StartTableRow();
                     docWriter.TableCell("", cellProps);
@@ -122,13 +122,13 @@ namespace HVTApp.Services.OfferToDocService
                     docWriter.EndTableRow();
 
                     var rn = 0;
-                    foreach (var dependentProduct in offerUnitsGroup.DependentProducts)
+                    foreach (var dependentProduct in offerUnitsGroup.ProductsIncluded)
                     {
                         rn++;
                         docWriter.StartTableRow();
                         docWriter.TableCell($"{rowNum}.{rn}.", cellProps);
-                        docWriter.TableCell(dependentProduct.Product.DisplayMember, cellProps);
-                        docWriter.TableCell("", cellProps, parPropRight);
+                        docWriter.TableCell(dependentProduct.Product.ToString(), cellProps);
+                        docWriter.TableCell(dependentProduct.Amount.ToString(), cellProps, parPropRight);
                         docWriter.TableCell("", cellProps, parPropRight);
                         docWriter.TableCell("", cellProps, parPropRight);
                         docWriter.EndTableRow();

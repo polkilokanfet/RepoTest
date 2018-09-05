@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Wrapper
@@ -25,7 +26,7 @@ namespace HVTApp.UI.Wrapper
             }
         }
 
-        //public double Sum => OfferUnits.Sum(x => x.Cost);
-        //public double SumWithVat => Sum * (1 + Vat);
+        public double Sum => Units.Sum(x => x.Cost);
+        public double SumWithVat => Sum * (1 + Vat);
     }
 }
