@@ -216,6 +216,41 @@ namespace HVTApp.UI.Views
 	}
 
 
+    public partial class ProductBlockIsServiceDetailsView : ViewBase
+    {
+        public ProductBlockIsServiceDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductBlockIsServiceDetailsViewModel ProductBlockIsServiceDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = ProductBlockIsServiceDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            NotUpdateAttribute attr;
+
+
+            attr = typeof(HVTApp.Model.POCOs.ProductBlockIsService).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlockIsService.Parameters)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                ParametersVisibility = Visibility.Collapsed;
+
+
+
+        }
+
+
+
+        public static readonly DependencyProperty ParametersVisibilityProperty = DependencyProperty.Register("ParametersVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility ParametersVisibility
+        {
+            get { return (Visibility) GetValue(ParametersVisibilityProperty); }
+            set { SetValue(ParametersVisibilityProperty, value); }
+        }
+
+
+	}
+
+
     public partial class ProductIncludedDetailsView : ViewBase
     {
         public ProductIncludedDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductIncludedDetailsViewModel ProductIncludedDetailsViewModel) : base(regionManager, eventAggregator)
@@ -1475,6 +1510,11 @@ namespace HVTApp.UI.Views
                 StructureCostNumberVisibility = Visibility.Collapsed;
 
 
+            attr = typeof(HVTApp.Model.POCOs.ProductBlock).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlock.IsService)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                IsServiceVisibility = Visibility.Collapsed;
+
+
 
         }
 
@@ -1512,6 +1552,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(StructureCostNumberVisibilityProperty); }
             set { SetValue(StructureCostNumberVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty IsServiceVisibilityProperty = DependencyProperty.Register("IsServiceVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility IsServiceVisibility
+        {
+            get { return (Visibility) GetValue(IsServiceVisibilityProperty); }
+            set { SetValue(IsServiceVisibilityProperty, value); }
         }
 
 

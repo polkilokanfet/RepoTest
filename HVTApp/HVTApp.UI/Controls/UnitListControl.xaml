@@ -64,18 +64,11 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
     
         <GroupBox Grid.Column="0" Header="Оборудование">
             <DockPanel LastChildFill="True">
-                <GroupBox DockPanel.Dock="Right">
-                    <StackPanel>
-                        <Button Command="{Binding AddCommand, ElementName=Root}" Content="+"/>
-                        <Button Command="{Binding RemoveCommand, ElementName=Root}" Content="-"/>
-                        <Button Command="{Binding RefreshCommand, ElementName=Root}" Content="O"/>
-                        <Button Content="Д" Click="Button_Click"/>
-                    </StackPanel>
-                </GroupBox>
                 <dataPresenter:XamDataGrid x:Name="UnitListGrid"
                                            DataSource="{Binding UnitsGroups, ElementName=Root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                            SelectedDataItem="{Binding SelectedUnitsGroup, ElementName=Root}">
@@ -126,12 +119,31 @@
             </DockPanel>
         </GroupBox>
         
-        <GroupBox Grid.Column="1" Header="Включено в стоимость" Name="ProductsIncludedGroupBox">
-            <DockPanel LastChildFill="True">
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <GroupBox Grid.Row="0">
+                <StackPanel>
+                    <Button Command="{Binding AddCommand, ElementName=Root}" Content="+"/>
+                    <Button Command="{Binding RemoveCommand, ElementName=Root}" Content="-"/>
+                    <Button Command="{Binding RefreshCommand, ElementName=Root}" Content="~"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Grid.Row="1">
                 <StackPanel DockPanel.Dock="Right">
+                    <Button Content="S" Click="Button_Click"/>
                     <Button Command="{Binding AddProductIncludedCommand, ElementName=Root}" Content="+"/>
                     <Button Command="{Binding RemoveProductIncludedCommand, ElementName=Root}" Content="-"/>
                 </StackPanel>
+            </GroupBox>
+        </Grid>
+        
+        <GroupBox Grid.Column="2" Header="Включено в стоимость" Name="ProductsIncludedGroupBox">
+            <DockPanel LastChildFill="True">
                 <dataPresenter:XamDataGrid x:Name="ProductsIncludedListGrid"
                                            DataSource="{Binding Path=SelectedDataItem.ProductsIncluded, ElementName=UnitListGrid, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                            SelectedDataItem="{Binding SelectedProductIncluded, ElementName=Root}">
