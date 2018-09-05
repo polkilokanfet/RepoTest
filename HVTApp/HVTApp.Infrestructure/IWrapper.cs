@@ -7,7 +7,6 @@ namespace HVTApp.Infrastructure
         where TModel : class, IBaseEntity
     {
         TModel Model { get; }
-        string DisplayMember { get; }
         void Refresh();
     }
 

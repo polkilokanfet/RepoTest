@@ -209,7 +209,7 @@ namespace HVTApp.UI.ViewModels
 	private void GenerateListViewsCs(IEnumerable<Type> modelTypes)
 	{
 #>using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Attrubutes;
+using HVTApp.Infrastructure.Attributes;
 using System.Windows;
 using Prism.Events;
 using Prism.Regions;
@@ -247,7 +247,7 @@ namespace HVTApp.UI.Views
 
 		#region VisibilityProps
 
-<#+		var props = modelType.AllSimpleProperties().Where(x => x.Name != "Id").Union(modelType.AllComplexProperties());
+<#+		var props = modelType.AllSimpleProperties().Where(x => x.Name != "Id").Union(modelType.AllComplexProperties()).Union(modelType.AllCollectionProperties());
 		foreach(var prop in props)
         {
 #>
@@ -331,7 +331,7 @@ namespace HVTApp.UI.Views
 		GenerateFields(modelType.GetPropertiesForListViews().SimpleProperties<DateTime>(), "DateTimeField");
 		GenerateFields(modelType.GetPropertiesForListViews().SimpleProperties<bool>(), "CheckBoxField");
 		GenerateFields(modelType.GetPropertiesForListViews().AllComplexProperties(), "TextField", "Converter=\"{StaticResource LookupToStringConverter}\"");
-		//GenerateCollectionComplexProperties(collectionComplexProperties);
+		GenerateFields(modelType.GetPropertiesForListViews().AllCollectionProperties(), "TextField", "Converter=\"{StaticResource LookupsToStringConverter}\"");
 #>
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

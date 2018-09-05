@@ -11,8 +11,8 @@ namespace HVTApp.UI.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null) return "-";
-            return ((IWrapper<IBaseEntity>)value).DisplayMember;
+            var wrapper = value as IWrapper<IBaseEntity>;
+            return wrapper?.ToString() ?? String.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HVTApp.Infrastructure.Attrubutes
+namespace HVTApp.Infrastructure.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class NotUpdateAttribute : Attribute

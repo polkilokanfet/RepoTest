@@ -70,13 +70,13 @@ namespace HVTApp.UI.Wrapper
                 string result = string.Empty;
                 foreach (var block in blocks)
                 {
-                    result += $"{block.DisplayMember} has no price!!!; ";
+                    result += $"{block} has no price!!!; ";
                 }
 
                 blocks = Product.GetBlocksWithoutActualPriceOnDate(PriceDate);
                 foreach (var block in blocks)
                 {
-                    result += $"{block.DisplayMember} has no actual price; ";
+                    result += $"{block} has no actual price; ";
                 }
                 return result;
             }
@@ -104,7 +104,7 @@ namespace HVTApp.UI.Wrapper
     }
 
     public abstract class ProductCostDependentProductsWrapper<T> : ProductCostWrapper<T>, IProductCostDependentProductsWrapper
-        where T : class, IUnit
+        where T : class, IUnitPoco
     {
         private IValidatableChangeTrackingCollection<ProductDependentWrapper> _dependentProducts;
 

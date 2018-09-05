@@ -19,7 +19,7 @@ namespace HVTApp.UI.ViewModels
             unit.PaymentConditionSet = await WrapperDataService.GetRepository<PaymentConditionSet>().GetByIdAsync(unit.PaymentConditionSet.Id);
 
             var wrapper = new SalesUnitWrapper(unit);
-            Groups.Add(new ProductUnitsGroup(new[] { wrapper }));
+            Groups.Add(new UnitsGroup(new[] { wrapper }));
             Item.Units.Add(wrapper);
             WrapperDataService.GetRepository<SalesUnit>().Add(unit);
         }

@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\DesignationAttribute.cs" />
+    <Compile Include="Attributes\RoleToUpdateAttribute.cs" />
     <Compile Include="BaseEntity.cs" />
     <Compile Include="BaseMenuViewModel.cs" />
     <Compile Include="Behaviors\ChangeBehavior.cs" />

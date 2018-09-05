@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Attrubutes;
+using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.Model.POCOs
 {

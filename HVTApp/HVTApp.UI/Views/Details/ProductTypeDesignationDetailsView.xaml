@@ -17,12 +17,14 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Тип продукта" Visibility="{Binding ProductTypeVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.ProductType}" 
                                     AddItemCommand="{Binding SelectProductTypeCommand}" 
                                     RemoveItemCommand="{Binding ClearProductTypeCommand}"
 									Visibility="{Binding ProductTypeVisibility, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Parameters" Visibility="{Binding ParametersVisibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
@@ -31,6 +33,7 @@
 										 AddItemCommand="{Binding AddInParametersCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParametersCommand}"
 										 Visibility="{Binding ParametersVisibility, ElementName=Root}"/>
+
 
 
     </Grid>

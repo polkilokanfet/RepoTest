@@ -22,6 +22,9 @@ namespace HVTApp.Modules.Sales.Views
             this.UnitListView.DataContext = _viewModel.UnitLookupListViewModel;
 
             ProjectListView.ManagerVisibility = Visibility.Collapsed;
+            ProjectListView.OffersVisibility = Visibility.Collapsed;
+            ProjectListView.TendersVisibility = Visibility.Collapsed;
+            ProjectListView.SalesUnitsVisibility = Visibility.Collapsed;
 
             OfferListView.AuthorVisibility = Visibility.Collapsed;
             OfferListView.ProjectVisibility = Visibility.Collapsed;

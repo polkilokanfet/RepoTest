@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Attrubutes;
+using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.Model.POCOs
 {
     [Designation("Единица ТКП")]
     [DesignationPlural("Единицы ТКП")]
-    public class OfferUnit : BaseEntity, IUnit
+    public class OfferUnit : BaseEntity, IUnitPoco
     {
         [Designation("Стоимость")]
         public double Cost { get; set; }
@@ -34,7 +34,7 @@ namespace HVTApp.Model.POCOs
         public int? ProductionTerm { get; set; }
     }
 
-    public interface IUnit : IProductCost
+    public interface IUnitPoco : IProductCost
     {
         List<ProductIncluded> ProductsIncluded { get; }
         List<Service> Services { get; }

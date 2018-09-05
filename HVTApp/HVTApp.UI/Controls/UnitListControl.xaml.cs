@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using HVTApp.UI.Converter;
+using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.Controls
 {
@@ -14,22 +15,22 @@ namespace HVTApp.UI.Controls
         }
 
         public static readonly DependencyProperty UnitsGroupsProperty = DependencyProperty.Register(
-            "UnitsGroups", typeof(IEnumerable<IProductUnitsGroup>), typeof(UnitListControl), new PropertyMetadata(default(IEnumerable<IProductUnitsGroup>)));
+            "UnitsGroups", typeof(IEnumerable<IUnitsGroup>), typeof(UnitListControl), new PropertyMetadata(default(IEnumerable<IUnitsGroup>)));
 
-        public IEnumerable<IProductUnitsGroup> UnitsGroups
+        public IEnumerable<IUnitsGroup> UnitsGroups
         {
-            get { return (IEnumerable<IProductUnitsGroup>) GetValue(UnitsGroupsProperty); }
+            get { return (IEnumerable<IUnitsGroup>) GetValue(UnitsGroupsProperty); }
             set { SetValue(UnitsGroupsProperty, value); }
         }
 
 
 
         public static readonly DependencyProperty SelectedUnitsGroupProperty = DependencyProperty.Register(
-            "SelectedUnitsGroup", typeof(IProductUnitsGroup), typeof(UnitListControl), new PropertyMetadata(default(IProductUnitsGroup)));
+            "SelectedUnitsGroup", typeof(IUnitsGroup), typeof(UnitListControl), new PropertyMetadata(default(IUnitsGroup)));
 
-        public IProductUnitsGroup SelectedUnitsGroup
+        public IUnitsGroup SelectedUnitsGroup
         {
-            get { return (IProductUnitsGroup) GetValue(SelectedUnitsGroupProperty); }
+            get { return (IUnitsGroup) GetValue(SelectedUnitsGroupProperty); }
             set { SetValue(SelectedUnitsGroupProperty, value); }
         }
 

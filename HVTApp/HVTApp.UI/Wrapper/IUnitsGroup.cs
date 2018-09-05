@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using HVTApp.UI.Wrapper;
 
-namespace HVTApp.UI.Converter
+namespace HVTApp.UI.Wrapper
 {
-    public interface IProductUnitsGroup
+    public interface IUnitsGroup
     {
-        List<IProductUnit> ProductUnits { get; }
-        ObservableCollection<IProductUnitsGroup> Groups { get; }
+        List<IUnit> ProductUnits { get; }
+        ObservableCollection<IUnitsGroup> Groups { get; }
         FacilityWrapper Facility { get; set; }
         ProductWrapper Product { get; set; }
         PaymentConditionSetWrapper PaymentConditionSet { get; set; }
