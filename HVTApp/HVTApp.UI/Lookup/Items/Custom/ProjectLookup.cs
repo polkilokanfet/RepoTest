@@ -23,11 +23,16 @@ namespace HVTApp.UI.Lookup
             Offers = unitOfWork.GetRepository<Offer>().Find(x => Equals(this.Entity, x.Project)).Select(x => new OfferLookup(x)).ToList();
             foreach (var offerLookup in Offers)
                 await offerLookup.LoadOther(unitOfWork);
+            
+            Notes = Entity.Notes.Select(x => new NoteLookup(x)).OrderByDescending(x => x.Date).ToList();
+            foreach (var note in Notes)
+                await note.LoadOther(unitOfWork);
         }
 
         public List<SalesUnitLookup> SalesUnits { get; set; }
         public List<TenderLookup> Tenders { get; set; }
-        public List<OfferLookup> Offers { get; set; } 
+        public List<OfferLookup> Offers { get; set; }
+        public List<NoteLookup> Notes { get; set; }
 
         [Designation("Сумма проекта")]
         public double Sum => SalesUnits.Sum(x => x.Cost);

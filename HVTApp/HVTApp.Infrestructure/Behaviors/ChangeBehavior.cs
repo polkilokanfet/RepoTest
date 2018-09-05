@@ -70,8 +70,7 @@ namespace HVTApp.Infrastructure.Behaviors
                     if (binding != null)
                     {
                         var bindingPath = binding.Path.Path;
-                        BindingOperations.SetBinding(d, IsChangedProperty, 
-                            new Binding(bindingPath + "IsChanged"));
+                        BindingOperations.SetBinding(d, IsChangedProperty, new Binding(bindingPath + "IsChanged"));
 
                         CreateOriginalValueBinding(d, bindingPath + "OriginalValue");
                     }

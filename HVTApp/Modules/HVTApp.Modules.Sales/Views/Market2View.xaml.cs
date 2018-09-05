@@ -1,11 +1,14 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Modules.Sales.Tabs;
 using HVTApp.Modules.Sales.ViewModels;
 using Prism.Events;
 using Prism.Regions;
 
 namespace HVTApp.Modules.Sales.Views
 {
+    [RibbonTab(typeof(SalesCRUD))]
     public partial class Market2View : ViewBase
     {
         private readonly Market2ViewModel _viewModel;
@@ -20,6 +23,7 @@ namespace HVTApp.Modules.Sales.Views
             this.ProjectListView.DataContext = _viewModel;
             this.OfferListView.DataContext = _viewModel.OfferListViewModel;
             this.UnitListView.DataContext = _viewModel.UnitLookupListViewModel;
+            this.NotesListView.DataContext = _viewModel.NoteLookupListViewModel;
 
             ProjectListView.ManagerVisibility = Visibility.Collapsed;
             ProjectListView.OffersVisibility = Visibility.Collapsed;

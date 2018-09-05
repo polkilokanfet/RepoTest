@@ -4,21 +4,25 @@
              xmlns:infRib="http://infragistics.com/Ribbon" 
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              x:Class="HVTApp.Modules.Sales.Tabs.SalesCRUD"
-             Header="Продажи">
+             Header="Рынок">
+    
     <infRib:RibbonGroup Caption="Проект">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding NewProjectCommand}"/>
-        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditProjectCommand}"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveProjectCommand}"/>
+        <infRib:ButtonTool Caption="Создать" Command="{Binding NewItemCommand}"/>
+        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditItemCommand}"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveItemCommand}"/>
         <infRib:ButtonTool Caption="Оборудование" Command="{Binding GetProductCommand}"/>
     </infRib:RibbonGroup>
-    <infRib:RibbonGroup Caption="Тендер">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding NewTenderCommand}"/>
-        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditTenderCommand}"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveTenderCommand}"/>
-    </infRib:RibbonGroup>
+    
     <infRib:RibbonGroup Caption="ТКП">
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewOfferCommand}"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditOfferCommand}"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveOfferCommand}"/>
     </infRib:RibbonGroup>
+    
+    <infRib:RibbonGroup Caption="Тендер">
+        <infRib:ButtonTool Caption="Создать" Command="{Binding NewTenderCommand}"/>
+        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditTenderCommand}"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveTenderCommand}"/>
+    </infRib:RibbonGroup>
+    
 </inf:RibbonTabItemWithViewModel>

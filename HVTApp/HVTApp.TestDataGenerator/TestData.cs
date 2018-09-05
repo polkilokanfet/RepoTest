@@ -220,6 +220,11 @@ namespace HVTApp.TestDataGenerator
         public PaymentConditionSet PaymentConditionSet50Na50;
         public PaymentConditionSet PaymentConditionSet30Na70;
 
+        public Note Note1;
+        public Note Note2;
+        public Note Note3;
+        public Note Note4;
+
         public TestData()
         {
             var fields = GetType().GetFields();
@@ -342,8 +347,8 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateProjects()
         {
-            ProjectSubstation.Clone(new Project { Name = "Реконструкция ПС Первая", Manager = UserIvanov, ProjectType = ProjectTypeReconstruction});
-            ProjectStation.Clone(new Project { Name = "Строительство Свердловской ТЭЦ", Manager = UserIvanov });
+            ProjectSubstation.Clone(new Project { Name = "Реконструкция ПС Первая", Manager = UserIvanov, ProjectType = ProjectTypeReconstruction, Notes = new List<Note> {Note1, Note2} });
+            ProjectStation.Clone(new Project { Name = "Строительство Свердловской ТЭЦ", Manager = UserIvanov, ProjectType = ProjectTypeReconstruction, Notes = new List<Note> { Note3, Note4 } });
         }
 
         private void GenerateFacilityTypes()
@@ -668,6 +673,14 @@ namespace HVTApp.TestDataGenerator
         private void GenerateCommonOption()
         {
             CommonOption.Clone(new CommonOption {OurCompanyId = CompanyUetm.Id, StandartPaymentsConditionSetId = PaymentConditionSet50Na50.Id});
+        }
+
+        private void GenerateNotes()
+        {
+            Note1.Clone(new Note {Date = DateTime.Today.AddDays(-10), Text = "Заметка 1"});
+            Note2.Clone(new Note {Date = DateTime.Today.AddDays(-20), Text = "Заметка 2"});
+            Note3.Clone(new Note {Date = DateTime.Today.AddDays(-30), Text = "Заметка 3"});
+            Note4.Clone(new Note {Date = DateTime.Today.AddDays(-40), Text = "Заметка 4"});
         }
 
     }

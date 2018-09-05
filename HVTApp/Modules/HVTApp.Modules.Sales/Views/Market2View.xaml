@@ -7,6 +7,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
@@ -18,13 +19,38 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
-            <views:ProjectLookupListView Name="ProjectListView" Grid.Column="0"/>
+            <GroupBox Header="Проекты" Grid.Column="0">
+                <views:ProjectLookupListView Name="ProjectListView"/>
+            </GroupBox>
+            
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
-            <views:OfferLookupListView Name="OfferListView" Grid.Column="2"/>
+            
+            <GroupBox Header="ТКП" Grid.Column="2">
+                <views:OfferLookupListView Name="OfferListView"/>
+            </GroupBox>
             
         </Grid>
         
-        <views:UnitListView Name="UnitListView" Grid.Row="1"/>
+        <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" VerticalAlignment="Center"></GridSplitter>
+        
+        <Grid Grid.Row="2">
+        
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
 
+            <GroupBox Header="Оборудование" Grid.Column="0">
+                <views:UnitListView Name="UnitListView"/>
+            </GroupBox>
+            
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+            
+            <GroupBox Header="Заметки" Grid.Column="2">
+                <views:NoteLookupListView Name="NotesListView"/>
+            </GroupBox>
+            
+        </Grid>
     </Grid>
 </inf:ViewBase>

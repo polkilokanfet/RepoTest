@@ -6,12 +6,6 @@
 
     <infg:XamDataGrid x:Name="UnitListGrid">
 
-        <infg:XamDataGrid.ContextMenu>
-            <ContextMenu>
-                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-            </ContextMenu>
-        </infg:XamDataGrid.ContextMenu>
-
         <infg:XamDataGrid.FieldLayouts>
             <infg:FieldLayout>
                 <infg:FieldLayout.Fields>
