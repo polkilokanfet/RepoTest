@@ -34,7 +34,7 @@ namespace HVTApp.UI.Converter
 
             var productUnitGroups = value as IEnumerable<UnitsGroup>;
             if (productUnitGroups == null) throw new ArgumentException("В конвертер переданы не группы!");
-            return productUnitGroups.SelectMany(x => x.ProductUnits);
+            return productUnitGroups.SelectMany(x => x.Units);
         }
     }
 
@@ -73,7 +73,7 @@ namespace HVTApp.UI.Converter
             if (value == null) return null;
             var group = value as IUnitsGroup;
             if (group == null) throw new ArgumentException("В конвертер передано чё-то не то!!!");
-            return group.ProductUnits;
+            return group.Units;
         }
     }
 

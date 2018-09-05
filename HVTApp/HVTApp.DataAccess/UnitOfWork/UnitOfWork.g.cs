@@ -16,6 +16,7 @@ namespace HVTApp.DataAccess
             CreateNewProductTaskRepository = new CreateNewProductTaskRepository(context, container);
             PaymentActualRepository = new PaymentActualRepository(context, container);
             PaymentPlannedRepository = new PaymentPlannedRepository(context, container);
+            ProductBlockIsServiceRepository = new ProductBlockIsServiceRepository(context, container);
             ProductIncludedRepository = new ProductIncludedRepository(context, container);
             ProductDesignationRepository = new ProductDesignationRepository(context, container);
             ProductTypeRepository = new ProductTypeRepository(context, container);
@@ -86,6 +87,7 @@ namespace HVTApp.DataAccess
         protected ICreateNewProductTaskRepository CreateNewProductTaskRepository;
         protected IPaymentActualRepository PaymentActualRepository;
         protected IPaymentPlannedRepository PaymentPlannedRepository;
+        protected IProductBlockIsServiceRepository ProductBlockIsServiceRepository;
         protected IProductIncludedRepository ProductIncludedRepository;
         protected IProductDesignationRepository ProductDesignationRepository;
         protected IProductTypeRepository ProductTypeRepository;

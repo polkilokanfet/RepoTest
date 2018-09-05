@@ -3,7 +3,7 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
-              x:Class="HVTApp.UI.Views.ProductBlockLookupListView">
+              x:Class="HVTApp.UI.Views.ProductBlockIsServiceLookupListView">
 
     <inf:ViewBase.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></converters:BooleanToVisibilityConverter>
@@ -19,7 +19,7 @@
             <Label.Style>
                 <Style>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=ProductBlockLookupListGrid, Path=Visibility}" Value="Visible">
+                    <DataTrigger Binding="{Binding ElementName=ProductBlockIsServiceLookupListGrid, Path=Visibility}" Value="Visible">
                         <Setter Property="Label.Visibility" Value="Collapsed"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -28,7 +28,7 @@
         </Label>
        
 
-		<infg:XamDataGrid x:Name="ProductBlockLookupListGrid" Grid.Row="1" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<infg:XamDataGrid x:Name="ProductBlockIsServiceLookupListGrid" Grid.Row="1" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.ContextMenu>
 				<ContextMenu>
@@ -39,9 +39,6 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Name" Label="Название" Width="Auto" />
-                    <infg:TextField Name="StructureCostNumber" Label="Сралчахвост" Width="Auto" />
-                    <infg:CheckBoxField Name="IsService" Label="Услуга" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -22,6 +22,10 @@ namespace HVTApp.Model.POCOs
         [Designation("Сралчахвост")]
         public string StructureCostNumber { get; set; }
 
+        [Designation("Услуга")]
+        public bool IsService { get; set; } = false;
+
+
         public override bool Equals(object obj)
         {
             if (base.Equals(obj)) return true;

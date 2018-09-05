@@ -6,6 +6,9 @@ namespace HVTApp.DataAccess
         {
             HasMany(x => x.Parameters).WithMany();
             HasMany(x => x.Prices).WithOptional();
+
+            Ignore(x => x.IsService);
         }
+
     }
 }
