@@ -8,6 +8,8 @@ namespace HVTApp.DataAccess
             Property(x => x.Part).IsRequired();
             Property(x => x.Comment).IsOptional().HasMaxLength(100);
             HasRequired(x => x.Condition).WithMany();
+
+            Ignore(x => x.DateCalculated);
         }
     }
 }

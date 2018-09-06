@@ -14,6 +14,8 @@ namespace HVTApp.UI.Lookup
 {
     public partial class SalesUnitLookup : IUnitLookup
     {
+        private List<PaymentConditionPart> _paymentConditionParts;
+
         public override async Task LoadOther(IUnitOfWork unitOfWork)
         {
             ProductsIncluded = Entity.ProductsIncluded.Select(x => new ProductIncludedLookup(x)).ToList();
@@ -283,42 +285,115 @@ namespace HVTApp.UI.Lookup
         /// Неисполненные платежные условия
         /// </summary>
         [Designation("Неисполненные платежные условия")]
-        private IEnumerable<PaymentCondition> PaymentConditionsToDone
+        private IEnumerable<PaymentCondition> PaymentConditionsToDone => GeneratePaymentConditionsToDone();
+
+        private IEnumerable<PaymentCondition> GeneratePaymentConditionsToDone()
+        {
+            var result = new List<PaymentCondition>();
+
+            if (_paymentConditionParts == null)
+            {
+                _paymentConditionParts = new List<PaymentConditionPart>();
+            }
+            _paymentConditionParts.Clear();
+
+            //если стоимость нулевая или нечего платить - выходим
+            if (Cost < 0.00001 || SumNotPaid < 0.00001) return result;
+
+            //берем все условия и упорядочиваем их
+            var conditions = PaymentConditionSet.PaymentConditions.Select(x => x.Entity).OrderByDescending(x => x).ToList();
+
+            //неоплаченная часть
+            var rest = SumNotPaid / Cost;
+
+            //добавление в результат неисполненных условий
+            foreach (var condition in conditions)
+            {
+                rest -= condition.Part;
+                //если осталось неоплаченное - условие проходит
+                if (rest >= 0)
+                {
+                    result.Add(condition);
+                    continue;
+                }
+
+                var newCondition = new PaymentCondition
+                {
+                    DaysToPoint = condition.DaysToPoint,
+                    PaymentConditionPoint = condition.PaymentConditionPoint,
+                    Part = condition.Part + rest
+                };
+                if (newCondition.Part > 0)
+                {
+                    result.Add(newCondition);
+                    _paymentConditionParts.Add(new PaymentConditionPart(condition, newCondition));
+                }
+            }
+            //возвращаем упорядоченные условия
+            return result.OrderBy(x => x);
+        }
+
+        /// <summary>
+        /// Актуальные плановые платежи
+        /// </summary>
+        public IEnumerable<PaymentPlanned> PaymentsPlannedActual
         {
             get
             {
-                var result = new List<PaymentCondition>();
-
-                //если стоимость нулевая или нечего платить - выходим
-                if (Cost < 0.00001 || SumNotPaid < 0.00001) return result;
-
-                //берем все условия и упорядочиваем их
-                var conditions = PaymentConditionSet.PaymentConditions.Select(x => x.Entity).OrderByDescending(x => x).ToList();
-
-                //неоплаченная часть
-                var rest = SumNotPaid / Cost;
-
-                //добавление в результат неисполненных условий
-                foreach (var condition in conditions)
+                var remove = new List<PaymentPlanned>();
+                foreach (var payment in Entity.PaymentsPlanned)
                 {
-                    rest -= condition.Part;
-                    //если осталось неоплаченное - условие проходит
-                    if (rest >= 0)
+                    if (PaymentConditionsToDone.Contains(payment.Condition))
                     {
-                        result.Add(condition);
+                        yield return payment;
                         continue;
                     }
-
-                    var newCondition = new PaymentCondition
+                    if (PaymentConditionParts.Select(x => x.Origin).Contains(payment.Condition))
                     {
-                        DaysToPoint = condition.DaysToPoint,
-                        PaymentConditionPoint = condition.PaymentConditionPoint,
-                        Part = condition.Part + rest
-                    };
-                    if (newCondition.Part > 0) result.Add(newCondition);
+                        var payment1 = payment;
+                        var pcp = PaymentConditionParts.Single(x => Equals(x.Origin, payment1.Condition));
+                        payment.Part = payment.Part * pcp.Part.Part;
+                        yield return payment;
+                        continue;
+                    }
+                    remove.Add(payment);
                 }
-                //возвращаем упорядоченные условия
-                return result.OrderBy(x => x);
+                remove.ForEach(x => Entity.PaymentsPlanned.Remove(x));
+            }
+        }
+
+        public IEnumerable<PaymentPlannedLookup> PaymentsPlannedActualLookups
+            => PaymentsPlanned.Where(x => PaymentsPlannedActual.Contains(x.Entity));
+
+        /// <summary>
+        /// частично неисполненные условия
+        /// </summary>
+        private List<PaymentConditionPart> PaymentConditionParts
+        {
+            get
+            {
+                if (_paymentConditionParts == null)
+                {
+                    _paymentConditionParts = new List<PaymentConditionPart>();
+                    GeneratePaymentConditionsToDone();
+                }
+                return _paymentConditionParts;
+                
+            }
+        }
+
+        /// <summary>
+        /// Связка: платежное условие + насколько оно не исполнено
+        /// </summary>
+        class PaymentConditionPart
+        {
+            public PaymentCondition Origin { get; }
+            public PaymentCondition Part { get; }
+
+            public PaymentConditionPart(PaymentCondition origin, PaymentCondition part)
+            {
+                Origin = origin;
+                Part = part;
             }
         }
 
@@ -349,11 +424,11 @@ namespace HVTApp.UI.Lookup
             {
                 //генерируем плановые платежи по условиям контракта
                 //исключаем из них платежи с условиями, содержащимися в сохраненных
-                var conditions = PaymentsPlanned.Select(x => x.Condition.Id);
+                var conditions = PaymentsPlannedActual.Select(x => x.Condition.Id);
                 var generated = PaymentsPlannedByConditions.Where(x => !conditions.Contains(x.Condition.Id));
 
                 //возвращаем упорядоченное объединение последовательностей
-                return PaymentsPlanned.Union(generated).OrderBy(x => x.Date);
+                return PaymentsPlannedActualLookups.Union(generated).OrderBy(x => x.Date);
             }
             
         }

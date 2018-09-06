@@ -57,7 +57,7 @@ namespace HVTApp.Modules.Sales.ViewModels
                 //сгенерированные платежи
                 var lookup = new SalesUnitLookup(salesUnitWrapper.Model);
                 await lookup.LoadOther(UnitOfWork);
-                var paymentLookupsToAdd = lookup.PaymentPlannedWithSaved.Except(lookup.PaymentsPlanned);
+                var paymentLookupsToAdd = lookup.PaymentPlannedWithSaved.Except(lookup.PaymentsPlannedActualLookups);
                 foreach (var paymentPlannedLookup in paymentLookupsToAdd)
                 {
                     Payments.Add(new PaymentWrapper(new PaymentPlannedWrapper(paymentPlannedLookup.Entity), salesUnitWrapper, false));
