@@ -29,6 +29,7 @@ namespace HVTApp.Modules.Sales.Views
             ProjectListView.OffersVisibility = Visibility.Collapsed;
             ProjectListView.TendersVisibility = Visibility.Collapsed;
             ProjectListView.SalesUnitsVisibility = Visibility.Collapsed;
+            ProjectListView.NotesVisibility = Visibility.Collapsed;
 
             OfferListView.AuthorVisibility = Visibility.Collapsed;
             OfferListView.ProjectVisibility = Visibility.Collapsed;

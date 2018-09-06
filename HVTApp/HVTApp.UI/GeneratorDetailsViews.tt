@@ -349,6 +349,14 @@ namespace HVTApp.UI.Views
 
 		if (property.IsType<bool>() || property.IsType<bool?>())
 		{
+#>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="<#= rowNum #>" MinWidth="200" 
+                  IsChecked="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
+
+<#+ 
+			rowNum++;
 		}
 
 		if (property.IsComplex())

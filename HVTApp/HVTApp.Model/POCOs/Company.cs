@@ -6,12 +6,12 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Компания")]
     [DesignationPlural("Компании")]
-    public partial class Company : BaseEntity
+    public class Company : BaseEntity
     {
         [Designation("Наименование")]
         public string FullName { get; set; }
 
-        [Designation("Сокращенное наименование")]
+        [Designation("Сокращенное наименование"), OrderStatus(OrderStatus.Highest)]
         public string ShortName { get; set; }
 
         [Designation("ИНН")]
@@ -20,7 +20,7 @@ namespace HVTApp.Model.POCOs
         [Designation("КПП")]
         public string Kpp { get; set; }
 
-
+        [OrderStatus(OrderStatus.High)]
         public virtual CompanyForm Form { get; set; }
 
         [Designation("Родительская компания")]
@@ -34,7 +34,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Почтовый адрес")]
         public virtual Address AddressPost { get; set; }
 
-        [Designation("Банковские реквизиты")]
+        [Designation("Банковские реквизиты"), OrderStatus(OrderStatus.Low)]
         public virtual List<BankDetails> BankDetailsList { get; set; } = new List<BankDetails>();
 
         [Designation("Сферы деятельности")]

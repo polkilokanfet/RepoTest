@@ -36,8 +36,14 @@
 							   Visibility="{Binding ChildProductsAmountVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="ParentProductParameters" Visibility="{Binding ParentProductParametersVisibility, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
+        <Label Grid.Column="0" Grid.Row ="2" Content="IsUnique" Visibility="{Binding IsUniqueVisibility, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+                  IsChecked="{Binding Item.IsUnique, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding IsUniqueVisibility, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="ParentProductParameters" Visibility="{Binding ParentProductParametersVisibility, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.ParentProductParameters}"
 										 SelectedItem="{Binding SelectedParentProductParametersItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInParentProductParametersCommand}"

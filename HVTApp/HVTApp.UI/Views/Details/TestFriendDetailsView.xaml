@@ -54,22 +54,28 @@
 							   Visibility="{Binding FriendGroupIdVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="LastName" Visibility="{Binding LastNameVisibility, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="4" Content="IsDeveloper" Visibility="{Binding IsDeveloperVisibility, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
+                  IsChecked="{Binding Item.IsDeveloper, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding IsDeveloperVisibility, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="5" Content="LastName" Visibility="{Binding LastNameVisibility, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="5" MinWidth="200" 
                  Text="{Binding Item.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding LastNameVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="TestFriendAddress" Visibility="{Binding TestFriendAddressVisibility, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
+        <Label Grid.Column="0" Grid.Row ="6" Content="TestFriendAddress" Visibility="{Binding TestFriendAddressVisibility, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
                                     Item="{Binding Item.TestFriendAddress}" 
                                     AddItemCommand="{Binding SelectTestFriendAddressCommand}" 
                                     RemoveItemCommand="{Binding ClearTestFriendAddressCommand}"
 									Visibility="{Binding TestFriendAddressVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="6" Content="TestFriendGroup" Visibility="{Binding TestFriendGroupVisibility, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
+        <Label Grid.Column="0" Grid.Row ="7" Content="TestFriendGroup" Visibility="{Binding TestFriendGroupVisibility, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="7" 
                                     Item="{Binding Item.TestFriendGroup}" 
                                     AddItemCommand="{Binding SelectTestFriendGroupCommand}" 
                                     RemoveItemCommand="{Binding ClearTestFriendGroupCommand}"

@@ -51,6 +51,12 @@
 				 Visibility="{Binding StructureCostNumberVisibility, ElementName=Root}"/>
 
 
+        <Label Grid.Column="0" Grid.Row ="4" Content="Услуга" Visibility="{Binding IsServiceVisibility, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
+                  IsChecked="{Binding Item.IsService, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding IsServiceVisibility, ElementName=Root}"/>
+
+
 
     </Grid>
 </inf:ViewBase>
