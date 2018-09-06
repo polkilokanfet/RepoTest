@@ -28,10 +28,13 @@
 				 Visibility="{Binding LoginVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Шифр" Visibility="{Binding PersonalNumberVisibility, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
-                 Text="{Binding Item.PersonalNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding PersonalNumberVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Роли" Visibility="{Binding RolesVisibility, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
+										 Items="{Binding Path=Item.Roles}"
+										 SelectedItem="{Binding SelectedRolesItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInRolesCommand}"
+										 RemoveItemCommand="{Binding RemoveFromRolesCommand}"
+										 Visibility="{Binding RolesVisibility, ElementName=Root}"/>
 
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Сотрудник" Visibility="{Binding EmployeeVisibility, ElementName=Root}"/>
@@ -42,13 +45,10 @@
 									Visibility="{Binding EmployeeVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Роли" Visibility="{Binding RolesVisibility, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
-										 Items="{Binding Path=Item.Roles}"
-										 SelectedItem="{Binding SelectedRolesItem, Mode=TwoWay}"
-										 AddItemCommand="{Binding AddInRolesCommand}"
-										 RemoveItemCommand="{Binding RemoveFromRolesCommand}"
-										 Visibility="{Binding RolesVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Шифр" Visibility="{Binding PersonalNumberVisibility, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
+                 Text="{Binding Item.PersonalNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding PersonalNumberVisibility, ElementName=Root}"/>
 
 
 

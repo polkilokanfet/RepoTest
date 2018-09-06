@@ -108,6 +108,11 @@ namespace HVTApp.UI
                                                          OrderBy(x => x, new PropOrderComparer());
         }
 
+        public static IEnumerable<PropertyInfo> GetPropertiesForDetailView(this Type type)
+        {
+            return type.GetProperties().Where(x => x.CanWrite).OrderBy(x => x, new PropOrderComparer());
+        }
+
         /// <summary>
         /// Собирает все базовые типы, от которого наследуется этот
         /// </summary>

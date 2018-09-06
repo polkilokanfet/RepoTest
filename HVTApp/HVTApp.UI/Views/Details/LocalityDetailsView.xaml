@@ -24,38 +24,38 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Name" Visibility="{Binding NameVisibility, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
-                 Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding NameVisibility, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="StandartDeliveryPeriod" Visibility="{Binding StandartDeliveryPeriodVisibility, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
-                               Value="{Binding Item.StandartDeliveryPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding StandartDeliveryPeriodVisibility, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="DistanceToEkb" Visibility="{Binding DistanceToEkbVisibility, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
+        <Label Grid.Column="0" Grid.Row ="0" Content="DistanceToEkb" Visibility="{Binding DistanceToEkbVisibility, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0" 
                                Value="{Binding Item.DistanceToEkb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding DistanceToEkbVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="LocalityType" Visibility="{Binding LocalityTypeVisibility, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
+        <Label Grid.Column="0" Grid.Row ="1" Content="LocalityType" Visibility="{Binding LocalityTypeVisibility, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.LocalityType}" 
                                     AddItemCommand="{Binding SelectLocalityTypeCommand}" 
                                     RemoveItemCommand="{Binding ClearLocalityTypeCommand}"
 									Visibility="{Binding LocalityTypeVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Region" Visibility="{Binding RegionVisibility, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
+        <Label Grid.Column="0" Grid.Row ="2" Content="Name" Visibility="{Binding NameVisibility, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+                 Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding NameVisibility, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Region" Visibility="{Binding RegionVisibility, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.Region}" 
                                     AddItemCommand="{Binding SelectRegionCommand}" 
                                     RemoveItemCommand="{Binding ClearRegionCommand}"
 									Visibility="{Binding RegionVisibility, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="StandartDeliveryPeriod" Visibility="{Binding StandartDeliveryPeriodVisibility, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="4" 
+                               Value="{Binding Item.StandartDeliveryPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding StandartDeliveryPeriodVisibility, ElementName=Root}"/>
 
 
 

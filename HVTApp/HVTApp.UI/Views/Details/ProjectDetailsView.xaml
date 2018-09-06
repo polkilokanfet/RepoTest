@@ -26,20 +26,20 @@
 				 Visibility="{Binding NameVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Тип проекта" Visibility="{Binding ProjectTypeVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Менеджер" Visibility="{Binding ManagerVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
-                                    Item="{Binding Item.ProjectType}" 
-                                    AddItemCommand="{Binding SelectProjectTypeCommand}" 
-                                    RemoveItemCommand="{Binding ClearProjectTypeCommand}"
-									Visibility="{Binding ProjectTypeVisibility, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="Менеджер" Visibility="{Binding ManagerVisibility, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.Manager}" 
                                     AddItemCommand="{Binding SelectManagerCommand}" 
                                     RemoveItemCommand="{Binding ClearManagerCommand}"
 									Visibility="{Binding ManagerVisibility, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Тип проекта" Visibility="{Binding ProjectTypeVisibility, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
+                                    Item="{Binding Item.ProjectType}" 
+                                    AddItemCommand="{Binding SelectProjectTypeCommand}" 
+                                    RemoveItemCommand="{Binding ClearProjectTypeCommand}"
+									Visibility="{Binding ProjectTypeVisibility, ElementName=Root}"/>
 
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Заметки" Visibility="{Binding NotesVisibility, ElementName=Root}"/>

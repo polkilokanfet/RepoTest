@@ -29,11 +29,10 @@
 							   Visibility="{Binding ActualPriceTermVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="StandartTermFromStartToEndProduction" Visibility="{Binding StandartTermFromStartToEndProductionVisibility, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
-							   ValueType="core:Int32"
-                               Value="{Binding Item.StandartTermFromStartToEndProduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding StandartTermFromStartToEndProductionVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Date" Visibility="{Binding DateVisibility, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="1" 
+                    SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding DateVisibility, ElementName=Root}"/>
 
 
         <Label Grid.Column="0" Grid.Row ="2" Content="StandartTermFromPickToEndProduction" Visibility="{Binding StandartTermFromPickToEndProductionVisibility, ElementName=Root}"/>
@@ -43,10 +42,11 @@
 							   Visibility="{Binding StandartTermFromPickToEndProductionVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Date" Visibility="{Binding DateVisibility, ElementName=Root}"/>
-        <DatePicker Grid.Column="1" Grid.Row="3" 
-                    SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding DateVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="StandartTermFromStartToEndProduction" Visibility="{Binding StandartTermFromStartToEndProductionVisibility, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3"
+							   ValueType="core:Int32"
+                               Value="{Binding Item.StandartTermFromStartToEndProduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding StandartTermFromStartToEndProductionVisibility, ElementName=Root}"/>
 
 
 

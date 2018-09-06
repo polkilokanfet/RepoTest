@@ -21,40 +21,40 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Телефон" Visibility="{Binding PhoneNumberVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="e-mail" Visibility="{Binding EmailVisibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
-                 Text="{Binding Item.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding PhoneNumberVisibility, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="e-mail" Visibility="{Binding EmailVisibility, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding EmailVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Персона" Visibility="{Binding PersonVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Должность" Visibility="{Binding PositionVisibility, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
+                                    Item="{Binding Item.Position}" 
+                                    AddItemCommand="{Binding SelectPositionCommand}" 
+                                    RemoveItemCommand="{Binding ClearPositionCommand}"
+									Visibility="{Binding PositionVisibility, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Компания" Visibility="{Binding CompanyVisibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
-                                    Item="{Binding Item.Person}" 
-                                    AddItemCommand="{Binding SelectPersonCommand}" 
-                                    RemoveItemCommand="{Binding ClearPersonCommand}"
-									Visibility="{Binding PersonVisibility, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="3" Content="Компания" Visibility="{Binding CompanyVisibility, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.Company}" 
                                     AddItemCommand="{Binding SelectCompanyCommand}" 
                                     RemoveItemCommand="{Binding ClearCompanyCommand}"
 									Visibility="{Binding CompanyVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Должность" Visibility="{Binding PositionVisibility, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
-                                    Item="{Binding Item.Position}" 
-                                    AddItemCommand="{Binding SelectPositionCommand}" 
-                                    RemoveItemCommand="{Binding ClearPositionCommand}"
-									Visibility="{Binding PositionVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Персона" Visibility="{Binding PersonVisibility, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
+                                    Item="{Binding Item.Person}" 
+                                    AddItemCommand="{Binding SelectPersonCommand}" 
+                                    RemoveItemCommand="{Binding ClearPersonCommand}"
+									Visibility="{Binding PersonVisibility, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Телефон" Visibility="{Binding PhoneNumberVisibility, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
+                 Text="{Binding Item.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding PhoneNumberVisibility, ElementName=Root}"/>
 
 
 

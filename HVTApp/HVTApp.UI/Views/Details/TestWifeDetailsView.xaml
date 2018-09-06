@@ -19,10 +19,12 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Name" Visibility="{Binding NameVisibility, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
-                 Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding NameVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Husband" Visibility="{Binding HusbandVisibility, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
+                                    Item="{Binding Item.Husband}" 
+                                    AddItemCommand="{Binding SelectHusbandCommand}" 
+                                    RemoveItemCommand="{Binding ClearHusbandCommand}"
+									Visibility="{Binding HusbandVisibility, ElementName=Root}"/>
 
 
         <Label Grid.Column="0" Grid.Row ="1" Content="N" Visibility="{Binding NVisibility, ElementName=Root}"/>
@@ -32,12 +34,10 @@
 							   Visibility="{Binding NVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Husband" Visibility="{Binding HusbandVisibility, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
-                                    Item="{Binding Item.Husband}" 
-                                    AddItemCommand="{Binding SelectHusbandCommand}" 
-                                    RemoveItemCommand="{Binding ClearHusbandCommand}"
-									Visibility="{Binding HusbandVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Name" Visibility="{Binding NameVisibility, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+                 Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding NameVisibility, ElementName=Root}"/>
 
 
 

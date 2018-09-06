@@ -26,36 +26,38 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="FirstName" Visibility="{Binding FirstNameVisibility, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="0" Content="Birthday" Visibility="{Binding BirthdayVisibility, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="0" 
+                    SelectedDate="{Binding Item.Birthday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding BirthdayVisibility, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Emails" Visibility="{Binding EmailsVisibility, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
+										 Items="{Binding Path=Item.Emails}"
+										 SelectedItem="{Binding SelectedEmailsItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInEmailsCommand}"
+										 RemoveItemCommand="{Binding RemoveFromEmailsCommand}"
+										 Visibility="{Binding EmailsVisibility, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="FirstName" Visibility="{Binding FirstNameVisibility, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding FirstNameVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="LastName" Visibility="{Binding LastNameVisibility, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
-                 Text="{Binding Item.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding LastNameVisibility, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="FriendGroupId" Visibility="{Binding FriendGroupIdVisibility, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2"
+        <Label Grid.Column="0" Grid.Row ="3" Content="FriendGroupId" Visibility="{Binding FriendGroupIdVisibility, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3"
 							   ValueType="core:Int32"
                                Value="{Binding Item.FriendGroupId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding FriendGroupIdVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="IdGet" Visibility="{Binding IdGetVisibility, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3"
-							   ValueType="core:Int32"
-                               Value="{Binding Item.IdGet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding IdGetVisibility, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="4" Content="Birthday" Visibility="{Binding BirthdayVisibility, ElementName=Root}"/>
-        <DatePicker Grid.Column="1" Grid.Row="4" 
-                    SelectedDate="{Binding Item.Birthday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding BirthdayVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="LastName" Visibility="{Binding LastNameVisibility, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
+                 Text="{Binding Item.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding LastNameVisibility, ElementName=Root}"/>
 
 
         <Label Grid.Column="0" Grid.Row ="5" Content="TestFriendAddress" Visibility="{Binding TestFriendAddressVisibility, ElementName=Root}"/>
@@ -72,15 +74,6 @@
                                     AddItemCommand="{Binding SelectTestFriendGroupCommand}" 
                                     RemoveItemCommand="{Binding ClearTestFriendGroupCommand}"
 									Visibility="{Binding TestFriendGroupVisibility, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="7" Content="Emails" Visibility="{Binding EmailsVisibility, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="7"
-										 Items="{Binding Path=Item.Emails}"
-										 SelectedItem="{Binding SelectedEmailsItem, Mode=TwoWay}"
-										 AddItemCommand="{Binding AddInEmailsCommand}"
-										 RemoveItemCommand="{Binding RemoveFromEmailsCommand}"
-										 Visibility="{Binding EmailsVisibility, ElementName=Root}"/>
 
 
 

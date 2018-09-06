@@ -284,12 +284,10 @@ namespace HVTApp.UI.Views
 
 <#+
 		int rowNum = 0;
-		GenerateDetailsForStringProperties(modelType.StringProperties(), ref rowNum);
-		GenerateDetailsForIntProperties(modelType.SimpleProperties<int>(), ref rowNum);
-		GenerateDetailsForDoubleProperties(modelType.SimpleProperties<double>(), ref rowNum);
-		GenerateDetailsForDateProperties(modelType.SimpleProperties<DateTime>(), ref rowNum);
-		GenerateDetailsForComplexProperties(complexSetProperties, ref rowNum);
-		GenerateDetailsForCollectionComplexProperties(modelType.CollectionComplexProperties(), ref rowNum);
+		foreach(var property in modelType.GetPropertiesForDetailView())
+        {
+			GenerateRow(property, ref rowNum);
+		}
 #>
 
     </Grid>
@@ -297,12 +295,11 @@ namespace HVTApp.UI.Views
 <#+
 	}
 
+	  private void GenerateRow(PropertyInfo property, ref int rowNum)
+	  {
 
-
-  private void GenerateDetailsForStringProperties(IEnumerable<PropertyInfo> properties, ref int rowNum)
-  {
-    foreach (var property in properties)
-    {
+		if (property.IsType<string>())
+		{
 #>
         <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="<#= rowNum #>" MinWidth="200" 
@@ -310,29 +307,11 @@ namespace HVTApp.UI.Views
 				 Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
 
 <#+ 
-		rowNum++;
-    }
-  }
+			rowNum++;
+		}
 
-  private void GenerateDetailsForDoubleProperties(IEnumerable<PropertyInfo> properties, ref int rowNum)
-  {
-    foreach (var property in properties)
-    {
-#>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="<#= rowNum #>" 
-                               Value="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
-
-<#+ 
-		rowNum++;
-    }
-  }
-
-  private void GenerateDetailsForIntProperties(IEnumerable<PropertyInfo> properties, ref int rowNum)
-  {
-    foreach (var property in properties)
-    {
+		if (property.IsType<int>() || property.IsType<int?>())
+		{
 #>
         <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="<#= rowNum #>"
@@ -342,13 +321,22 @@ namespace HVTApp.UI.Views
 
 <#+ 
 		rowNum++;
-    }
-  }
+		}
 
-  private void GenerateDetailsForDateProperties(IEnumerable<PropertyInfo> properties, ref int rowNum)
-  {
-    foreach (var property in properties)
-    {
+		if (property.IsType<double>() || property.IsType<double?>())
+		{
+#>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="<#= rowNum #>" 
+                               Value="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
+
+<#+ 
+		rowNum++;
+		}
+
+		if (property.IsType<DateTime>() || property.IsType<DateTime?>())
+		{
 #>
         <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="<#= rowNum #>" 
@@ -357,13 +345,14 @@ namespace HVTApp.UI.Views
 
 <#+ 
 		rowNum++;
-    }
-  }
+		}
 
-  private void GenerateDetailsForComplexProperties(IEnumerable<PropertyInfo> properties, ref int rowNum)
-  {
-    foreach (var property in properties)
-    {
+		if (property.IsType<bool>() || property.IsType<bool?>())
+		{
+		}
+
+		if (property.IsComplex())
+		{
 #>
         <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="<#= rowNum #>" 
@@ -374,13 +363,10 @@ namespace HVTApp.UI.Views
 
 <#+ 
 		rowNum++;
-    }
-  }
+		}
 
-  private void GenerateDetailsForCollectionComplexProperties(IEnumerable<PropertyInfo> properties, ref int rowNum)
-  {
-    foreach (var property in properties)
-    {
+		if (property.IsCollection())
+		{
 #>
         <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="<#= rowNum #>"
@@ -392,8 +378,9 @@ namespace HVTApp.UI.Views
 
 <#+ 
 		rowNum++;
-    }
-  }
+		}
+
+	  }
 
     //сохранение сгенерированного кода в отдельный файл.
     private void SaveGeneratedCodeAsFile(string fileName, string filePath)
