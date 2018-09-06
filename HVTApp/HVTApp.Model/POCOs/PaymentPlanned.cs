@@ -9,11 +9,14 @@ namespace HVTApp.Model.POCOs
     {
         [Designation("Дата")]
         public DateTime Date { get; set; }
+
         [Designation("Сумма")]
         public double Sum { get; set; }
-        [Designation("Комментарий")]
+
+        [Designation("Комментарий"), OrderStatus(OrderStatus.Lowest)]
         public string Comment { get; set; }
-        [Designation("Связанное условие")]
+
+        [Designation("Связанное условие"), OrderStatus(OrderStatus.Low)]
         public virtual PaymentCondition Condition { get; set; }
     }
 }

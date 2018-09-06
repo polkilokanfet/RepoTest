@@ -45,7 +45,6 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectPersonEvent : PubSubEvent<PubSubEventArgs<Person>> { }
 	public partial class AfterSelectParameterRelationEvent : PubSubEvent<PubSubEventArgs<ParameterRelation>> { }
 	public partial class AfterSelectSalesUnitEvent : PubSubEvent<PubSubEventArgs<SalesUnit>> { }
-	public partial class AfterSelectServiceEvent : PubSubEvent<PubSubEventArgs<Service>> { }
 	public partial class AfterSelectTestFriendAddressEvent : PubSubEvent<PubSubEventArgs<TestFriendAddress>> { }
 	public partial class AfterSelectTestFriendEvent : PubSubEvent<PubSubEventArgs<TestFriend>> { }
 	public partial class AfterSelectTestFriendEmailEvent : PubSubEvent<PubSubEventArgs<TestFriendEmail>> { }

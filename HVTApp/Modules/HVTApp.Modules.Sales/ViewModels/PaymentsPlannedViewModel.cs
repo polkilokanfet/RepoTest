@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
@@ -23,7 +20,8 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             await LoadAsync();
 
-            var lookups = Lookups.SelectMany(x => x.PaymentsPlannedByConditions).Select(x => new PaymentPlannedLookup(x)).ToList();
+            var lookups = Lookups.SelectMany(x => x.PaymentsPlannedByConditions).
+                                  Select(x => new PaymentPlannedLookup(x)).ToList();
             PaymentPlannedLookups.AddRange(lookups);
         }
 

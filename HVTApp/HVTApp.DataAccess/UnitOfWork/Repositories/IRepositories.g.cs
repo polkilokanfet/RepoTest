@@ -45,7 +45,6 @@ namespace HVTApp.DataAccess
     public partial interface IPersonRepository : IRepository<Person> { }
     public partial interface IParameterRelationRepository : IRepository<ParameterRelation> { }
     public partial interface ISalesUnitRepository : IRepository<SalesUnit> { }
-    public partial interface IServiceRepository : IRepository<Service> { }
     public partial interface ITestFriendAddressRepository : IRepository<TestFriendAddress> { }
     public partial interface ITestFriendRepository : IRepository<TestFriend> { }
     public partial interface ITestFriendEmailRepository : IRepository<TestFriendEmail> { }

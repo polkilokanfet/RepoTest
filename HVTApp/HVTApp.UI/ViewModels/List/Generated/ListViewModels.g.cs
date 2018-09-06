@@ -258,12 +258,6 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-    public partial class ServiceLookupListViewModel : BaseListViewModel<Service, ServiceLookup, AfterSaveServiceEvent, AfterSelectServiceEvent, AfterRemoveServiceEvent,  ServiceLookupDataService>
-    {
-        public ServiceLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
     public partial class TestFriendAddressLookupListViewModel : BaseListViewModel<TestFriendAddress, TestFriendAddressLookup, AfterSaveTestFriendAddressEvent, AfterSelectTestFriendAddressEvent, AfterRemoveTestFriendAddressEvent,  TestFriendAddressLookupDataService>
     {
         public TestFriendAddressLookupListViewModel(IUnityContainer container) : base(container) { }

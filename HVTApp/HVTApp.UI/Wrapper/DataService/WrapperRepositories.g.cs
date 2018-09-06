@@ -257,12 +257,6 @@ namespace HVTApp.UI.Wrapper
     }
 
 
-    public partial class ServiceWrapperRepository : WrapperRepository<Service, ServiceWrapper>
-    {
-        public ServiceWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
-    }
-
-
     public partial class TestFriendAddressWrapperRepository : WrapperRepository<TestFriendAddress, TestFriendAddressWrapper>
     {
         public TestFriendAddressWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }

@@ -55,7 +55,6 @@ namespace HVTApp.DataAccess
             PersonRepository = new PersonRepository(context, container);
             ParameterRelationRepository = new ParameterRelationRepository(context, container);
             SalesUnitRepository = new SalesUnitRepository(context, container);
-            ServiceRepository = new ServiceRepository(context, container);
             TestFriendAddressRepository = new TestFriendAddressRepository(context, container);
             TestFriendRepository = new TestFriendRepository(context, container);
             TestFriendEmailRepository = new TestFriendEmailRepository(context, container);
@@ -126,7 +125,6 @@ namespace HVTApp.DataAccess
         protected IPersonRepository PersonRepository;
         protected IParameterRelationRepository ParameterRelationRepository;
         protected ISalesUnitRepository SalesUnitRepository;
-        protected IServiceRepository ServiceRepository;
         protected ITestFriendAddressRepository TestFriendAddressRepository;
         protected ITestFriendRepository TestFriendRepository;
         protected ITestFriendEmailRepository TestFriendEmailRepository;

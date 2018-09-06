@@ -213,11 +213,6 @@ namespace HVTApp.DataAccess
         public SalesUnitRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class ServiceRepositoryTest : TestBaseRepository<Service>, IServiceRepository
-    {
-        public ServiceRepositoryTest(TestData testData) : base(testData) {}
-    }
-
     public partial class TestFriendAddressRepositoryTest : TestBaseRepository<TestFriendAddress>, ITestFriendAddressRepository
     {
         public TestFriendAddressRepositoryTest(TestData testData) : base(testData) {}

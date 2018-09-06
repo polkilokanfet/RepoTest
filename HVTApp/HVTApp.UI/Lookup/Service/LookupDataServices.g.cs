@@ -257,12 +257,6 @@ namespace HVTApp.UI.Lookup
     }
 
 
-    public partial class ServiceLookupDataService : LookupDataService<ServiceLookup, Service>, IServiceLookupDataService
-    {
-        public ServiceLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-    }
-
-
     public partial class TestFriendAddressLookupDataService : LookupDataService<TestFriendAddressLookup, TestFriendAddress>, ITestFriendAddressLookupDataService
     {
         public TestFriendAddressLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }

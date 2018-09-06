@@ -54,7 +54,6 @@ namespace HVTApp.DataAccess
             context.PersonDbSet.AddRange(testData.GetAll<Person>());
             context.ParameterRelationDbSet.AddRange(testData.GetAll<ParameterRelation>());
             context.SalesUnitDbSet.AddRange(testData.GetAll<SalesUnit>());
-            context.ServiceDbSet.AddRange(testData.GetAll<Service>());
             context.TestFriendAddressDbSet.AddRange(testData.GetAll<TestFriendAddress>());
             context.TestFriendDbSet.AddRange(testData.GetAll<TestFriend>());
             context.TestFriendEmailDbSet.AddRange(testData.GetAll<TestFriendEmail>());

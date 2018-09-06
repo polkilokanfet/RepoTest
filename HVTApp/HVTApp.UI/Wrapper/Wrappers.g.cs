@@ -1235,9 +1235,6 @@ namespace HVTApp.UI.Wrapper
         public IValidatableChangeTrackingCollection<ProductIncludedWrapper> ProductsIncluded { get; private set; }
 
 
-        public IValidatableChangeTrackingCollection<ServiceWrapper> Services { get; private set; }
-
-
         #endregion
 
         public override void InitializeComplexProperties()
@@ -1264,11 +1261,6 @@ namespace HVTApp.UI.Wrapper
           if (Model.ProductsIncluded == null) throw new ArgumentException("ProductsIncluded cannot be null");
           ProductsIncluded = new ValidatableChangeTrackingCollection<ProductIncludedWrapper>(Model.ProductsIncluded.Select(e => new ProductIncludedWrapper(e)));
           RegisterCollection(ProductsIncluded, Model.ProductsIncluded);
-
-
-          if (Model.Services == null) throw new ArgumentException("Services cannot be null");
-          Services = new ValidatableChangeTrackingCollection<ServiceWrapper>(Model.Services.Select(e => new ServiceWrapper(e)));
-          RegisterCollection(Services, Model.Services);
 
 
         }
@@ -2541,9 +2533,6 @@ namespace HVTApp.UI.Wrapper
         public IValidatableChangeTrackingCollection<ProductIncludedWrapper> ProductsIncluded { get; private set; }
 
 
-        public IValidatableChangeTrackingCollection<ServiceWrapper> Services { get; private set; }
-
-
         public IValidatableChangeTrackingCollection<PaymentActualWrapper> PaymentsActual { get; private set; }
 
 
@@ -2590,11 +2579,6 @@ namespace HVTApp.UI.Wrapper
           RegisterCollection(ProductsIncluded, Model.ProductsIncluded);
 
 
-          if (Model.Services == null) throw new ArgumentException("Services cannot be null");
-          Services = new ValidatableChangeTrackingCollection<ServiceWrapper>(Model.Services.Select(e => new ServiceWrapper(e)));
-          RegisterCollection(Services, Model.Services);
-
-
           if (Model.PaymentsActual == null) throw new ArgumentException("PaymentsActual cannot be null");
           PaymentsActual = new ValidatableChangeTrackingCollection<PaymentActualWrapper>(Model.PaymentsActual.Select(e => new PaymentActualWrapper(e)));
           RegisterCollection(PaymentsActual, Model.PaymentsActual);
@@ -2606,45 +2590,6 @@ namespace HVTApp.UI.Wrapper
 
 
         }
-
-	}
-
-		public partial class ServiceWrapper : WrapperBase<Service>
-	{
-	    public ServiceWrapper(Service model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.String Name
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
-        public bool NameIsChanged => GetIsChanged(nameof(Name));
-
-
-        public System.Int32 Amount
-        {
-          get { return GetValue<System.Int32>(); }
-          set { SetValue(value); }
-        }
-        public System.Int32 AmountOriginalValue => GetOriginalValue<System.Int32>(nameof(Amount));
-        public bool AmountIsChanged => GetIsChanged(nameof(Amount));
-
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
 
 	}
 

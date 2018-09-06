@@ -108,7 +108,7 @@ namespace HVTApp.UI.Lookup
         public System.Double Sum => GetValue<System.Double>();
 
 
-		[OrderStatus(OrderStatus.Normal)]
+		[OrderStatus(OrderStatus.Lowest)]
         public System.String Comment => GetValue<System.String>();
 
 
@@ -117,7 +117,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(OrderStatus.Normal)]
+		[OrderStatus(OrderStatus.Low)]
 	    public PaymentConditionLookup Condition { get { return GetLookup<PaymentConditionLookup>(); } }
 
 
@@ -878,7 +878,7 @@ namespace HVTApp.UI.Lookup
         public System.String FullName => GetValue<System.String>();
 
 
-		[OrderStatus(OrderStatus.Normal)]
+		[OrderStatus(OrderStatus.Highest)]
         public System.String ShortName => GetValue<System.String>();
 
 
@@ -895,7 +895,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(OrderStatus.Normal)]
+		[OrderStatus(OrderStatus.High)]
 	    public CompanyFormLookup Form { get { return GetLookup<CompanyFormLookup>(); } }
 
 
@@ -1368,31 +1368,6 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(OrderStatus.Normal)]
 	    public AddressLookup Address { get { return GetLookup<AddressLookup>(); } }
-
-
-        #endregion
-
-	}
-
-	public partial class ServiceLookup : LookupItem<Service>
-	{
-		public ServiceLookup(Service entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
-		
-
-        #region SimpleProperties
-
-		[OrderStatus(OrderStatus.Normal)]
-        public System.String Name => GetValue<System.String>();
-
-
-		[OrderStatus(OrderStatus.Normal)]
-        public System.Int32 Amount => GetValue<System.Int32>();
 
 
         #endregion

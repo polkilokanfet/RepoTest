@@ -3668,61 +3668,10 @@ namespace HVTApp.UI.Views
         }
 
 
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
-	[DesignationPlural("ServiceLookup")]
-    public partial class ServiceLookupListView : ViewBase
-    {
-        public ServiceLookupListView()
+        public System.Windows.Visibility ProductsIncludedVisibility
         {
-            InitializeComponent();
-        }
-
-        public ServiceLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ServiceLookupListViewModel ServiceLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ServiceLookupListViewModel;
-			ServiceLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((ServiceLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility NameVisibility
-        {
-            get { return ServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ServiceLookup.Name)].Visibility; }
-            set { ServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ServiceLookup.Name)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility AmountVisibility
-        {
-            get { return ServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ServiceLookup.Amount)].Visibility; }
-            set { ServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ServiceLookup.Amount)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return ServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ServiceLookup.DisplayMember)].Visibility; }
-            set { ServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ServiceLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return ServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ServiceLookup.Entity)].Visibility; }
-            set { ServiceLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ServiceLookup.Entity)].Visibility = value; }
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.ProductsIncluded)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.ProductsIncluded)].Visibility = value; }
         }
 
 

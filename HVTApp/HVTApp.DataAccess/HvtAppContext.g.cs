@@ -51,7 +51,6 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new PersonConfiguration());
             modelBuilder.Configurations.Add(new ParameterRelationConfiguration());
             modelBuilder.Configurations.Add(new SalesUnitConfiguration());
-            modelBuilder.Configurations.Add(new ServiceConfiguration());
             modelBuilder.Configurations.Add(new TestFriendAddressConfiguration());
             modelBuilder.Configurations.Add(new TestFriendConfiguration());
             modelBuilder.Configurations.Add(new TestFriendEmailConfiguration());
@@ -123,7 +122,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<Person> PersonDbSet { get; set; }
         public virtual DbSet<ParameterRelation> ParameterRelationDbSet { get; set; }
         public virtual DbSet<SalesUnit> SalesUnitDbSet { get; set; }
-        public virtual DbSet<Service> ServiceDbSet { get; set; }
         public virtual DbSet<TestFriendAddress> TestFriendAddressDbSet { get; set; }
         public virtual DbSet<TestFriend> TestFriendDbSet { get; set; }
         public virtual DbSet<TestFriendEmail> TestFriendEmailDbSet { get; set; }

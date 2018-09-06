@@ -424,16 +424,6 @@ namespace HVTApp.DataAccess
 		}
     }
 
-    public partial class ServiceRepository : BaseRepository<Service>, IServiceRepository
-    {
-        IUnityContainer _container;
-
-		public ServiceRepository(DbContext context, IUnityContainer container) : base(context) 
-		{
-			_container = container;
-		}
-    }
-
     public partial class TestFriendAddressRepository : BaseRepository<TestFriendAddress>, ITestFriendAddressRepository
     {
         IUnityContainer _container;

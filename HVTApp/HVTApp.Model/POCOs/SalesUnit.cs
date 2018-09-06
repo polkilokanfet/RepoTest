@@ -20,8 +20,6 @@ namespace HVTApp.Model.POCOs
         [Designation("Включенные продукты")]
         public virtual List<ProductIncluded> ProductsIncluded { get; set; } = new List<ProductIncluded>();
 
-        public virtual List<Service> Services { get; set; } = new List<Service>();
-
         [Designation("Объект"), OrderStatus(OrderStatus.Highest)]
         public virtual Facility Facility { get; set; }
 

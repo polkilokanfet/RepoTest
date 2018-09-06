@@ -20,7 +20,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -76,15 +75,6 @@
                                     AddItemCommand="{Binding SelectPaymentConditionSetCommand}" 
                                     RemoveItemCommand="{Binding ClearPaymentConditionSetCommand}"
 									Visibility="{Binding PaymentConditionSetVisibility, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="7" Content="Услуги" Visibility="{Binding ServicesVisibility, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="7"
-										 Items="{Binding Path=Item.Services}"
-										 SelectedItem="{Binding SelectedServicesItem, Mode=TwoWay}"
-										 AddItemCommand="{Binding AddInServicesCommand}"
-										 RemoveItemCommand="{Binding RemoveFromServicesCommand}"
-										 Visibility="{Binding ServicesVisibility, ElementName=Root}"/>
 
 
 

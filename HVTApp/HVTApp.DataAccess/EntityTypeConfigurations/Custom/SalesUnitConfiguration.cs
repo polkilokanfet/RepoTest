@@ -9,7 +9,6 @@ namespace HVTApp.DataAccess
             HasRequired(x => x.PaymentConditionSet).WithMany().WillCascadeOnDelete(false);
 
             HasMany(x => x.ProductsIncluded).WithOptional();
-            HasMany(x => x.Services).WithOptional();
             Property(x => x.ProductionTerm).IsOptional();
             Property(x => x.Cost).IsRequired();
 

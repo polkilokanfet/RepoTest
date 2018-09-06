@@ -15,9 +15,9 @@ namespace HVTApp.UI.Lookup
     {
         public override async Task LoadOther(IUnitOfWork unitOfWork)
         {
-            //ProductDependents = Entity.ProductsIncluded.Select(x => new ProductDependentLookup(x)).ToList();
-            //foreach (var productDependent in ProductDependents)
-            //    await productDependent.LoadOther(unitOfWork);
+            ProductsIncluded = Entity.ProductsIncluded.Select(x => new ProductIncludedLookup(x)).ToList();
+            foreach (var productIncluded in ProductsIncluded)
+                await productIncluded.LoadOther(unitOfWork);
 
             PaymentsActual = Entity.PaymentsActual.Select(x => new PaymentActualLookup(x)).ToList();
             foreach (var paymentActualLookup in PaymentsActual)
@@ -30,9 +30,14 @@ namespace HVTApp.UI.Lookup
             await PaymentConditionSet.LoadOther(unitOfWork);
         }
 
-        //public List<> ProductDependents { get; set; }
+        [Designation("Совершённые платежи")]
         public List<PaymentActualLookup> PaymentsActual { get; set; }
+
+        [Designation("Планируемые платежи")]
         public List<PaymentPlannedLookup> PaymentsPlanned { get; set; }
+
+        [Designation("Включенные в стоимость продукты")]
+        public List<ProductIncludedLookup> ProductsIncluded { get; set; }
 
         /// <summary>
         /// Все платежи (совершенные + плановые).
@@ -57,7 +62,7 @@ namespace HVTApp.UI.Lookup
         /// <summary>
         /// Сумама, необходимая для начала производства
         /// </summary>
-        [Designation("Для старта производства")]
+        [Designation("Сумма старта производства")]
         public double SumToStartProduction => PaymentConditionSet.PaymentConditions.Where(x =>
                                               x.PaymentConditionPoint == PaymentConditionPoint.ProductionStart &&
                                               x.DaysToPoint <= 0).Sum(condition => Cost * condition.Part);
@@ -65,7 +70,7 @@ namespace HVTApp.UI.Lookup
         /// <summary>
         /// Сумма, необходимая для отгрузки
         /// </summary>
-        [Designation("Для отгрузки")]
+        [Designation("Сумма отгрузки")]
         public double SumToShipping => PaymentConditionSet.PaymentConditions.Where(x => (
                                         x.PaymentConditionPoint == PaymentConditionPoint.ProductionStart) ||
                                        (x.PaymentConditionPoint == PaymentConditionPoint.ProductionEnd) ||

@@ -21,9 +21,6 @@ namespace HVTApp.Model.POCOs
         [Designation("Включенные продукты")]
         public virtual List<ProductIncluded> ProductsIncluded { get; set; } = new List<ProductIncluded>();
 
-        [Designation("Услуги")]
-        public virtual List<Service> Services { get; set; } = new List<Service>();
-
         [Designation("Объект")]
         public virtual Facility Facility { get; set; }
 
@@ -37,7 +34,6 @@ namespace HVTApp.Model.POCOs
     public interface IUnitPoco : IProductCost
     {
         List<ProductIncluded> ProductsIncluded { get; }
-        List<Service> Services { get; }
         PaymentConditionSet PaymentConditionSet { get; set; }
     }
 

@@ -1342,11 +1342,6 @@ namespace HVTApp.UI.Views
                 ProductsIncludedVisibility = Visibility.Collapsed;
 
 
-            attr = typeof(HVTApp.Model.POCOs.OfferUnit).GetProperty(nameof(HVTApp.Model.POCOs.OfferUnit.Services)).GetCustomAttribute<NotUpdateAttribute>();
-            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-                ServicesVisibility = Visibility.Collapsed;
-
-
             attr = typeof(HVTApp.Model.POCOs.OfferUnit).GetProperty(nameof(HVTApp.Model.POCOs.OfferUnit.Facility)).GetCustomAttribute<NotUpdateAttribute>();
             if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
                 FacilityVisibility = Visibility.Collapsed;
@@ -1399,15 +1394,6 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(ProductsIncludedVisibilityProperty); }
             set { SetValue(ProductsIncludedVisibilityProperty, value); }
-        }
-
-
-
-        public static readonly DependencyProperty ServicesVisibilityProperty = DependencyProperty.Register("ServicesVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility ServicesVisibility
-        {
-            get { return (Visibility) GetValue(ServicesVisibilityProperty); }
-            set { SetValue(ServicesVisibilityProperty, value); }
         }
 
 
@@ -2667,11 +2653,6 @@ namespace HVTApp.UI.Views
                 ProductsIncludedVisibility = Visibility.Collapsed;
 
 
-            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.Services)).GetCustomAttribute<NotUpdateAttribute>();
-            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-                ServicesVisibility = Visibility.Collapsed;
-
-
             attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.Facility)).GetCustomAttribute<NotUpdateAttribute>();
             if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
                 FacilityVisibility = Visibility.Collapsed;
@@ -2815,15 +2796,6 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(ProductsIncludedVisibilityProperty); }
             set { SetValue(ProductsIncludedVisibilityProperty, value); }
-        }
-
-
-
-        public static readonly DependencyProperty ServicesVisibilityProperty = DependencyProperty.Register("ServicesVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility ServicesVisibility
-        {
-            get { return (Visibility) GetValue(ServicesVisibilityProperty); }
-            set { SetValue(ServicesVisibilityProperty, value); }
         }
 
 
@@ -3031,55 +3003,6 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(DeliveryDateVisibilityProperty); }
             set { SetValue(DeliveryDateVisibilityProperty, value); }
-        }
-
-
-	}
-
-
-    public partial class ServiceDetailsView : ViewBase
-    {
-        public ServiceDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ServiceDetailsViewModel ServiceDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = ServiceDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            NotUpdateAttribute attr;
-
-
-            attr = typeof(HVTApp.Model.POCOs.Service).GetProperty(nameof(HVTApp.Model.POCOs.Service.Name)).GetCustomAttribute<NotUpdateAttribute>();
-            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-                NameVisibility = Visibility.Collapsed;
-
-
-            attr = typeof(HVTApp.Model.POCOs.Service).GetProperty(nameof(HVTApp.Model.POCOs.Service.Amount)).GetCustomAttribute<NotUpdateAttribute>();
-            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-                AmountVisibility = Visibility.Collapsed;
-
-
-
-        }
-
-
-
-        public static readonly DependencyProperty NameVisibilityProperty = DependencyProperty.Register("NameVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility NameVisibility
-        {
-            get { return (Visibility) GetValue(NameVisibilityProperty); }
-            set { SetValue(NameVisibilityProperty, value); }
-        }
-
-
-
-        public static readonly DependencyProperty AmountVisibilityProperty = DependencyProperty.Register("AmountVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility AmountVisibility
-        {
-            get { return (Visibility) GetValue(AmountVisibilityProperty); }
-            set { SetValue(AmountVisibilityProperty, value); }
         }
 
 

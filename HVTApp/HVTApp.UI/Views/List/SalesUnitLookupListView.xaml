@@ -55,8 +55,6 @@
                     <infg:TextField Name="OrderPosition" Label="Позиция" Width="Auto" />
                     <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Payments" Label="Payments" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="PaymentsActual" Label="Совершённые платежи" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="PaymentsPlanned" Label="Планируемые платежи" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="PaymentsPlannedByConditions" Label="PaymentsPlannedByConditions" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:DateTimeField Name="PickingDate" Label="Дата комплектации" Width="Auto" />
                     <infg:TextField Name="Producer" Label="Производитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
@@ -72,15 +70,18 @@
                     <infg:TextField Name="Specification" Label="Спецификация" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:DateTimeField Name="StartProductionConditionsDoneDate" Label="StartProductionConditionsDoneDate" Width="Auto" />
                     <infg:DateTimeField Name="StartProductionDate" Label="Дата начала производства" Width="Auto" />
+                    <infg:TextField Name="ProductsIncluded" Label="Включенные продукты" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:NumericField Name="OrderInTakeYear" Label="Год" Width="Auto" />
-                    <infg:NumericField Name="SumToShipping" Label="Для отгрузки" Width="Auto" />
-                    <infg:NumericField Name="SumToStartProduction" Label="Для старта производства" Width="Auto" />
                     <infg:NumericField Name="OrderInTakeMonth" Label="Месяц" Width="Auto" />
                     <infg:DateTimeField Name="StartProductionDateCalculated" Label="Начало произчодства (расч.)" Width="Auto" />
                     <infg:NumericField Name="SumNotPaid" Label="Неоплачено" Width="Auto" />
                     <infg:DateTimeField Name="OrderInTakeDate" Label="ОИТ" Width="Auto" />
                     <infg:DateTimeField Name="EndProductionDateCalculated" Label="Окончание произчодства (расч.)" Width="Auto" />
                     <infg:NumericField Name="SumPaid" Label="Оплачено" Width="Auto" />
+                    <infg:TextField Name="PaymentsPlanned" Label="Планируемые платежи" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="PaymentsActual" Label="Совершённые платежи" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:NumericField Name="SumToShipping" Label="Сумма отгрузки" Width="Auto" />
+                    <infg:NumericField Name="SumToStartProduction" Label="Сумма старта производства" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

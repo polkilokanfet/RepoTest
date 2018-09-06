@@ -42,7 +42,6 @@ namespace HVTApp.UI.Lookup
 	public interface IPersonLookupDataService : ILookupDataService<PersonLookup> { } 
 	public interface IParameterRelationLookupDataService : ILookupDataService<ParameterRelationLookup> { } 
 	public interface ISalesUnitLookupDataService : ILookupDataService<SalesUnitLookup> { } 
-	public interface IServiceLookupDataService : ILookupDataService<ServiceLookup> { } 
 	public interface ITestFriendAddressLookupDataService : ILookupDataService<TestFriendAddressLookup> { } 
 	public interface ITestFriendLookupDataService : ILookupDataService<TestFriendLookup> { } 
 	public interface ITestFriendEmailLookupDataService : ILookupDataService<TestFriendEmailLookup> { } 

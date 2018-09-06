@@ -102,7 +102,6 @@
     <Compile Include="POCOs\Person.cs" />
     <Compile Include="POCOs\ParameterRelation.cs" />
     <Compile Include="POCOs\SalesUnit.cs" />
-    <Compile Include="POCOs\Service.cs" />
     <Compile Include="POCOs\Test\TestFriendAddress.cs" />
     <Compile Include="POCOs\Test\TestFriend.cs" />
     <Compile Include="POCOs\Test\TestFriendEmail.cs" />

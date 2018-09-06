@@ -18,8 +18,6 @@ namespace HVTApp.Modules.Sales.Menus
             root.Items.Add(new NavigationItem("ТКП", typeof(OfferLookupListView)));
             root.Items.Add(new NavigationItem("Контракты", typeof(ContractLookupListView)));
             root.Items.Add(new NavigationItem("Спецификации", typeof(SpecificationLookupListView)));
-            root.Items.Add(new NavigationItem("Плановые платежи 2", typeof(PaymentPlannedListGeneratorView)));
-            root.Items.Add(new NavigationItem("OIT", typeof(OitView)));
 
             Items.Add(root);
         }

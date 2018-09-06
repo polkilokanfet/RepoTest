@@ -92,8 +92,6 @@ namespace HVTApp.UI.Wrapper
 
             SalesUnitWrapperRepository = new SalesUnitWrapperRepository(this);
 
-            ServiceWrapperRepository = new ServiceWrapperRepository(this);
-
             TestFriendAddressWrapperRepository = new TestFriendAddressWrapperRepository(this);
 
             TestFriendWrapperRepository = new TestFriendWrapperRepository(this);
@@ -226,8 +224,6 @@ namespace HVTApp.UI.Wrapper
         private ParameterRelationWrapperRepository ParameterRelationWrapperRepository;
 
         private SalesUnitWrapperRepository SalesUnitWrapperRepository;
-
-        private ServiceWrapperRepository ServiceWrapperRepository;
 
         private TestFriendAddressWrapperRepository TestFriendAddressWrapperRepository;
 

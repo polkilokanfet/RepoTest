@@ -23,7 +23,6 @@ namespace HVTApp.Modules.Sales
         protected override void RegisterTypes()
         {
             Container.RegisterViewForNavigation<MarketView>();
-            Container.RegisterViewForNavigation<OitView>();
             Container.RegisterViewForNavigation<Market2View>();
             Container.RegisterViewForNavigation<PaymentsPlannedView>();
             Container.RegisterViewForNavigation<OffersView>();

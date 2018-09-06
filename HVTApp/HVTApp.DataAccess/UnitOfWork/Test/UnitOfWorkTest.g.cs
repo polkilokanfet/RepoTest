@@ -49,7 +49,6 @@ namespace HVTApp.DataAccess
             PersonRepository = new PersonRepositoryTest(testData);
             ParameterRelationRepository = new ParameterRelationRepositoryTest(testData);
             SalesUnitRepository = new SalesUnitRepositoryTest(testData);
-            ServiceRepository = new ServiceRepositoryTest(testData);
             TestFriendAddressRepository = new TestFriendAddressRepositoryTest(testData);
             TestFriendRepository = new TestFriendRepositoryTest(testData);
             TestFriendEmailRepository = new TestFriendEmailRepositoryTest(testData);
@@ -120,7 +119,6 @@ namespace HVTApp.DataAccess
         public IPersonRepository PersonRepository { get; }
         public IParameterRelationRepository ParameterRelationRepository { get; }
         public ISalesUnitRepository SalesUnitRepository { get; }
-        public IServiceRepository ServiceRepository { get; }
         public ITestFriendAddressRepository TestFriendAddressRepository { get; }
         public ITestFriendRepository TestFriendRepository { get; }
         public ITestFriendEmailRepository TestFriendEmailRepository { get; }
