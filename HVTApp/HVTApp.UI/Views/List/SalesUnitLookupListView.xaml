@@ -54,6 +54,7 @@
                     <infg:TextField Name="Order" Label="Заказ" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="OrderPosition" Label="Позиция" Width="Auto" />
                     <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="PaymentPlannedWithSaved" Label="PaymentPlannedWithSaved" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Payments" Label="Payments" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="PaymentsPlannedByConditions" Label="PaymentsPlannedByConditions" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:DateTimeField Name="PickingDate" Label="Дата комплектации" Width="Auto" />

@@ -105,7 +105,7 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(OrderStatus.Normal)]
-        public System.Double Sum => GetValue<System.Double>();
+        public System.Double Part => GetValue<System.Double>();
 
 
 		[OrderStatus(OrderStatus.Lowest)]

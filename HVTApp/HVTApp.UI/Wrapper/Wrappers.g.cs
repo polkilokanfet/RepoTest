@@ -143,13 +143,13 @@ namespace HVTApp.UI.Wrapper
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
 
-        public System.Double Sum
+        public System.Double Part
         {
           get { return GetValue<System.Double>(); }
           set { SetValue(value); }
         }
-        public System.Double SumOriginalValue => GetOriginalValue<System.Double>(nameof(Sum));
-        public bool SumIsChanged => GetIsChanged(nameof(Sum));
+        public System.Double PartOriginalValue => GetOriginalValue<System.Double>(nameof(Part));
+        public bool PartIsChanged => GetIsChanged(nameof(Part));
 
 
         public System.String Comment

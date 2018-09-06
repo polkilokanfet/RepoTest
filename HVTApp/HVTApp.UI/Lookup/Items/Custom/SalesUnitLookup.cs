@@ -8,6 +8,7 @@ using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
+using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.UI.Lookup
 {
@@ -31,18 +32,18 @@ namespace HVTApp.UI.Lookup
         }
 
         [Designation("Совершённые платежи")]
-        public List<PaymentActualLookup> PaymentsActual { get; set; }
+        public List<PaymentActualLookup> PaymentsActual { get; private set; }
 
         [Designation("Планируемые платежи")]
-        public List<PaymentPlannedLookup> PaymentsPlanned { get; set; }
+        public List<PaymentPlannedLookup> PaymentsPlanned { get; private set; }
 
         [Designation("Включенные в стоимость продукты")]
-        public List<ProductIncludedLookup> ProductsIncluded { get; set; }
+        public List<ProductIncludedLookup> ProductsIncluded { get; private set; }
 
         /// <summary>
         /// Все платежи (совершенные + плановые).
         /// </summary>
-        public IEnumerable<IPayment> Payments => PaymentsActual.Select(x => (IPayment)x.Entity).Union(PaymentsPlannedByConditions);
+        public IEnumerable<IPayment> Payments => PaymentsActual.Cast<IPayment>().Union(PaymentsPlannedByConditions);
 
         #region Суммы
 
@@ -317,15 +318,45 @@ namespace HVTApp.UI.Lookup
         }
 
         /// <summary>
-        /// Плановые платежи по условиям.
+        /// Плановые платежи по условиям (расчетные).
         /// </summary>
-        public IEnumerable<PaymentPlanned> PaymentsPlannedByConditions =>
-            PaymentConditionsToDone.Select(x => new PaymentPlanned
+        [Designation("Расчетные плановые платежи")]
+        public IEnumerable<PaymentPlannedLookup> PaymentsPlannedByConditions
+        {
+            get
             {
-                Date = GetPaymentDate(x),
-                Condition = x,
-                Sum = Cost * x.Part
-            });
+                var paymentsPlanned = PaymentConditionsToDone.Select(x => new PaymentPlanned
+                {
+                    Date = GetPaymentDate(x),
+                    Condition = x,
+                    Part = x.Part
+                });
+                return paymentsPlanned.Select(x => new PaymentPlannedLookup(x) {Sum = Cost * x.Part});
+            }
+        }
+
+        /// <summary>
+        /// Плановые платежи (сохраненные + сгенерированные)
+        /// </summary>
+        public IEnumerable<PaymentPlannedLookup> PaymentPlannedWithSaved
+        {
+            get
+            {
+                //получаем сохраненные платежи
+                var saved = PaymentsPlanned;
+                //проставляем в них суммы
+                saved.ForEach(x => x.Sum = Cost * x.Part);
+
+                //генерируем плановые платежи по условиям контракта
+                //исключаем из них платежи с условиями, содержащимися в сохраненных
+                var conditions = saved.Select(x => x.Condition.Id);
+                var generated = PaymentsPlannedByConditions.Where(x => !conditions.Contains(x.Condition.Id));
+
+                //возвращаем упорядоченное объединение последовательностей
+                return saved.Union(generated).OrderBy(x => x.Date);
+            }
+            
+        }
 
         #endregion
 

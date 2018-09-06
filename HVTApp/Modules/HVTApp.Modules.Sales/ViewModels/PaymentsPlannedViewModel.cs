@@ -20,8 +20,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             await LoadAsync();
 
-            var lookups = Lookups.SelectMany(x => x.PaymentsPlannedByConditions).
-                                  Select(x => new PaymentPlannedLookup(x)).ToList();
+            var lookups = Lookups.SelectMany(x => x.PaymentsPlannedByConditions).ToList();
             PaymentPlannedLookups.AddRange(lookups);
         }
 

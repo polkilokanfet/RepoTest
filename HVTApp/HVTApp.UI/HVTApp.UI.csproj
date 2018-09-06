@@ -97,6 +97,8 @@
     <Compile Include="Controls\UnitListControl.xaml.cs">
       <DependentUpon>UnitListControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Lookup\Items\Custom\PaymentActualLookup.cs" />
+    <Compile Include="Lookup\Items\Custom\PaymentPlannedLookup.cs" />
     <Compile Include="Services\IOfferToDoc.cs" />
     <Compile Include="Wrapper\IUnitsGroup.cs" />
     <Compile Include="Converter\ToUnitGroupsConverters.cs" />

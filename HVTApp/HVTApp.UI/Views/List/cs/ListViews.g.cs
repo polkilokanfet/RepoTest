@@ -3591,6 +3591,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility PaymentPlannedWithSavedVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.PaymentPlannedWithSaved)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.PaymentPlannedWithSaved)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility ProductVisibility
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.Product)].Visibility; }

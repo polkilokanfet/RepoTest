@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
-using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Lookup
 {

@@ -39,10 +39,10 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />
-                    <infg:TextField Name="Condition" Label="Связанное условие" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />
-                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" />
+                    <infg:NumericField Name="Sum" Label="Sum" Width="Auto" />
+                    <infg:TextField Name="Condition" Label="Связанное условие" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

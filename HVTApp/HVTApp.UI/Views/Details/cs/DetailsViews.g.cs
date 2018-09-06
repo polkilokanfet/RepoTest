@@ -158,7 +158,7 @@ namespace HVTApp.UI.Views
                 DateVisibility = Visibility.Collapsed;
 
 
-            attr = typeof(HVTApp.Model.POCOs.PaymentPlanned).GetProperty(nameof(HVTApp.Model.POCOs.PaymentPlanned.Sum)).GetCustomAttribute<NotUpdateAttribute>();
+            attr = typeof(HVTApp.Model.POCOs.PaymentPlanned).GetProperty(nameof(HVTApp.Model.POCOs.PaymentPlanned.Part)).GetCustomAttribute<NotUpdateAttribute>();
             if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
                 SumVisibility = Visibility.Collapsed;
 

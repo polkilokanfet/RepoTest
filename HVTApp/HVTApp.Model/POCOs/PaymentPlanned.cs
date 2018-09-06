@@ -5,13 +5,13 @@ using HVTApp.Infrastructure.Attributes;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Платеж плановый")]
-    public class PaymentPlanned : BaseEntity, IPayment
+    public class PaymentPlanned : BaseEntity
     {
         [Designation("Дата")]
         public DateTime Date { get; set; }
 
-        [Designation("Сумма")]
-        public double Sum { get; set; }
+        [Designation("Часть")]
+        public double Part { get; set; }
 
         [Designation("Комментарий"), OrderStatus(OrderStatus.Lowest)]
         public string Comment { get; set; }

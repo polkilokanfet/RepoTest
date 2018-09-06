@@ -117,6 +117,7 @@
     <Compile Include="ViewModels\OffersViewModel.cs" />
     <Compile Include="ViewModels\Market2ViewModel.cs" />
     <Compile Include="ViewModels\PaymentsPlannedViewModel.cs" />
+    <Compile Include="ViewModels\PaymentsViewModel.cs" />
     <Compile Include="Views\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
     </Compile>

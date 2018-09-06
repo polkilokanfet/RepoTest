@@ -574,11 +574,11 @@ namespace HVTApp.TestDataGenerator
 
         private void GeneratePaymentsPlanned()
         {
-            PaymentPlanned1.Clone(new PaymentPlanned { Sum = 250000, Date = DateTime.Today.AddDays(10), Condition = PaymentConditionDoplata50 });
-            PaymentPlanned2.Clone(new PaymentPlanned { Sum = 260000, Date = DateTime.Today.AddDays(20), Condition = PaymentConditionDoplata50 });
-            PaymentPlanned3.Clone(new PaymentPlanned { Sum = 270000, Date = DateTime.Today.AddDays(30), Condition = PaymentConditionDoplata50 });
-            PaymentPlanned4.Clone(new PaymentPlanned { Sum = 280000, Date = DateTime.Today.AddDays(40), Condition = PaymentConditionDoplata50 });
-            PaymentPlanned5.Clone(new PaymentPlanned { Sum = 290000, Date = DateTime.Today.AddDays(50), Condition = PaymentConditionDoplata50 });
+            PaymentPlanned1.Clone(new PaymentPlanned { Part = 250000, Date = DateTime.Today.AddDays(10), Condition = PaymentConditionDoplata50 });
+            PaymentPlanned2.Clone(new PaymentPlanned { Part = 260000, Date = DateTime.Today.AddDays(20), Condition = PaymentConditionDoplata50 });
+            PaymentPlanned3.Clone(new PaymentPlanned { Part = 270000, Date = DateTime.Today.AddDays(30), Condition = PaymentConditionDoplata50 });
+            PaymentPlanned4.Clone(new PaymentPlanned { Part = 280000, Date = DateTime.Today.AddDays(40), Condition = PaymentConditionDoplata50 });
+            PaymentPlanned5.Clone(new PaymentPlanned { Part = 290000, Date = DateTime.Today.AddDays(50), Condition = PaymentConditionDoplata50 });
         }
 
         private void GenerateProductBlockIsService()

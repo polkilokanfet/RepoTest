@@ -1,7 +1,4 @@
-﻿using System;
-using HVTApp.Model.POCOs;
-
-namespace HVTApp.UI.Wrapper
+﻿namespace HVTApp.UI.Wrapper
 {
     public partial class OfferUnitWrapper : IUnit
     {
