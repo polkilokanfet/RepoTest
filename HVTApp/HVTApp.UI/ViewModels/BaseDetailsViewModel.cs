@@ -33,7 +33,7 @@ namespace HVTApp.UI.ViewModels
             EventAggregator = Container.Resolve<IEventAggregator>();
 
             SaveCommand = new DelegateCommand(SaveCommand_Execute, SaveCommand_CanExecute);
-            OkCommand = new DelegateCommand(OkCommand_Execute, SaveCommand_CanExecute);
+            OkCommand = new DelegateCommand(OkCommand_Execute, OkCommand_CanExecute);
 
             InitSpecialCommands();
             InitSpecialGetMethods();
@@ -95,10 +95,15 @@ namespace HVTApp.UI.ViewModels
         /// </summary>
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
 
-        protected virtual async void OkCommand_Execute()
+        protected virtual void OkCommand_Execute()
         {
             //запрашиваем закрытие окна
             OnCloseRequested(new DialogRequestCloseEventArgs(true));
+        }
+
+        protected virtual bool OkCommand_CanExecute()
+        {
+            return Item != null && Item.IsValid;
         }
 
         protected virtual async void SaveCommand_Execute()
