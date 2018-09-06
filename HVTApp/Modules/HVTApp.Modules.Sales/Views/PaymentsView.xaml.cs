@@ -1,0 +1,27 @@
+﻿using System;
+using System.Windows;
+using HVTApp.Modules.Sales.ViewModels;
+using Prism.Events;
+using Prism.Regions;
+
+namespace HVTApp.Modules.Sales.Views
+{
+    public partial class PaymentsView
+    {
+        private readonly PaymentsViewModel _paymentsViewModel;
+
+        public PaymentsView(PaymentsViewModel paymentsViewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
+        {
+            _paymentsViewModel = paymentsViewModel;
+            InitializeComponent();
+            this.DataContext = _paymentsViewModel;
+            this.Loaded += OnLoaded;
+        }
+
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            await _paymentsViewModel.LoadAsync();
+            this.Loaded -= OnLoaded;
+        }
+    }
+}

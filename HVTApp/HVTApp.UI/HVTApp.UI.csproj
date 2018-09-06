@@ -202,9 +202,6 @@
     </Compile>
     <Compile Include="Views\List\cs\ListViews.g.cs" />
     <Compile Include="ViewModels\Details\CompanyDetailsViewModel.cs" />
-    <Compile Include="Views\PaymentPlannedListGeneratorView.xaml.cs">
-      <DependentUpon>PaymentPlannedListGeneratorView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Wrapper\Base\NotifyDataErrorInfoBase.cs" />
     <Compile Include="Wrapper\Base\ObservableWrapper.cs" />
     <Compile Include="Wrapper\Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
@@ -937,10 +934,6 @@
     <Page Include="Views\List\UserRoleLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\PaymentPlannedListGeneratorView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

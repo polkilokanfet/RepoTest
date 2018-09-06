@@ -27,6 +27,8 @@ namespace HVTApp.UI.Lookup
             PaymentsPlanned = Entity.PaymentsPlanned.Select(x => new PaymentPlannedLookup(x)).ToList();
             foreach (var paymentPlannedLookup in PaymentsPlanned)
                 await paymentPlannedLookup.LoadOther(unitOfWork);
+            //проставляем в сохраненных платежах суммы
+            PaymentsPlanned.ForEach(x => x.Sum = Cost * x.Part * x.Condition.Part);
 
             await PaymentConditionSet.LoadOther(unitOfWork);
         }
@@ -278,27 +280,29 @@ namespace HVTApp.UI.Lookup
 
 
         /// <summary>
-        /// Не исполненные платежные условия
+        /// Неисполненные платежные условия
         /// </summary>
-        [Designation("Не исполненные платежные условия")]
+        [Designation("Неисполненные платежные условия")]
         private IEnumerable<PaymentCondition> PaymentConditionsToDone
         {
             get
             {
-                //берем все условия и упорядочиваем их
-                var conditions = PaymentConditionSet.PaymentConditions.Select(x => x.Entity).OrderByDescending(x => x).ToList();
-
                 var result = new List<PaymentCondition>();
 
-                //если стоимость нулевая - выходим
-                if (Math.Abs(Cost) < 0.0001) return result;
+                //если стоимость нулевая или нечего платить - выходим
+                if (Cost < 0.00001 || SumNotPaid < 0.00001) return result;
+
+                //берем все условия и упорядочиваем их
+                var conditions = PaymentConditionSet.PaymentConditions.Select(x => x.Entity).OrderByDescending(x => x).ToList();
 
                 //неоплаченная часть
                 var rest = SumNotPaid / Cost;
 
+                //добавление в результат неисполненных условий
                 foreach (var condition in conditions)
                 {
                     rest -= condition.Part;
+                    //если осталось неоплаченное - условие проходит
                     if (rest >= 0)
                     {
                         result.Add(condition);
@@ -313,6 +317,7 @@ namespace HVTApp.UI.Lookup
                     };
                     if (newCondition.Part > 0) result.Add(newCondition);
                 }
+                //возвращаем упорядоченные условия
                 return result.OrderBy(x => x);
             }
         }
@@ -320,7 +325,7 @@ namespace HVTApp.UI.Lookup
         /// <summary>
         /// Плановые платежи по условиям (расчетные).
         /// </summary>
-        [Designation("Расчетные плановые платежи")]
+        [Designation("Расчетные остаточные платежи")]
         public IEnumerable<PaymentPlannedLookup> PaymentsPlannedByConditions
         {
             get
@@ -342,18 +347,13 @@ namespace HVTApp.UI.Lookup
         {
             get
             {
-                //получаем сохраненные платежи
-                var saved = PaymentsPlanned;
-                //проставляем в них суммы
-                saved.ForEach(x => x.Sum = Cost * x.Part);
-
                 //генерируем плановые платежи по условиям контракта
                 //исключаем из них платежи с условиями, содержащимися в сохраненных
-                var conditions = saved.Select(x => x.Condition.Id);
+                var conditions = PaymentsPlanned.Select(x => x.Condition.Id);
                 var generated = PaymentsPlannedByConditions.Where(x => !conditions.Contains(x.Condition.Id));
 
                 //возвращаем упорядоченное объединение последовательностей
-                return saved.Union(generated).OrderBy(x => x.Date);
+                return PaymentsPlanned.Union(generated).OrderBy(x => x.Date);
             }
             
         }

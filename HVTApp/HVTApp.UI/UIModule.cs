@@ -30,10 +30,6 @@ namespace HVTApp.UI
             RegisterViews();
             _updateDetailsService.ReRegister<Offer, OfferView>();
             _updateDetailsService.ReRegister<Project, ProjectView>();
-
-
-            Container.RegisterViewForNavigation<PaymentPlannedListGeneratorView>();
-
         }
 
         protected override void ResolveOutlookGroup()
