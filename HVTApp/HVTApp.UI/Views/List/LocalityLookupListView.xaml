@@ -39,14 +39,14 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Name" Label="Name" Width="Auto" />
-                    <infg:NumericField Name="StandartDeliveryPeriod" Label="StandartDeliveryPeriod" Width="Auto" />
                     <infg:NumericField Name="DistanceToEkb" Label="DistanceToEkb" Width="Auto" />
                     <infg:CheckBoxField Name="IsCountryCapital" Label="IsCountryCapital" Width="Auto" />
                     <infg:CheckBoxField Name="IsDistrictCapital" Label="IsDistrictCapital" Width="Auto" />
                     <infg:CheckBoxField Name="IsRegionCapital" Label="IsRegionCapital" Width="Auto" />
                     <infg:TextField Name="LocalityType" Label="LocalityType" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto" />
                     <infg:TextField Name="Region" Label="Region" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:NumericField Name="StandartDeliveryPeriod" Label="StandartDeliveryPeriod" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

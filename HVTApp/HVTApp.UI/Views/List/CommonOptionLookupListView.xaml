@@ -40,9 +40,9 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
                     <infg:NumericField Name="ActualPriceTerm" Label="ActualPriceTerm" Width="Auto" />
-                    <infg:NumericField Name="StandartTermFromStartToEndProduction" Label="StandartTermFromStartToEndProduction" Width="Auto" />
-                    <infg:NumericField Name="StandartTermFromPickToEndProduction" Label="StandartTermFromPickToEndProduction" Width="Auto" />
                     <infg:DateTimeField Name="Date" Label="Date" Width="Auto" />
+                    <infg:NumericField Name="StandartTermFromPickToEndProduction" Label="StandartTermFromPickToEndProduction" Width="Auto" />
+                    <infg:NumericField Name="StandartTermFromStartToEndProduction" Label="StandartTermFromStartToEndProduction" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

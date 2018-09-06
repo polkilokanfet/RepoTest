@@ -8,7 +8,7 @@ namespace HVTApp.Model.POCOs
     [DesignationPlural("Проекты")]
     public class Project : BaseEntity
     {
-        [Designation("Название")]
+        [Designation("Название"), OrderStatus(OrderStatus.High)]
         public string Name { get; set; }
 
         public virtual ProjectType ProjectType { get; set; }
@@ -16,7 +16,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Менеджер"), NotUpdate(Role.SalesManager)]
         public virtual User Manager { get; set; }
 
-        [Designation("Заметки")]
+        [Designation("Заметки"), OrderStatus(OrderStatus.Low)]
         public virtual List<Note> Notes { get; set; } = new List<Note>();
 
         public override string ToString()

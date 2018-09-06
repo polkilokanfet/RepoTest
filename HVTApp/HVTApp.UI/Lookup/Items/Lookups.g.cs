@@ -15,6 +15,7 @@
 
 
 using HVTApp.Model.POCOs;
+using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.UI.Lookup
 {
@@ -34,9 +35,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Designation => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String StructureCostNumber => GetValue<System.String>();
 
 
@@ -45,6 +48,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 
@@ -65,12 +69,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Double Sum => GetValue<System.Double>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Comment => GetValue<System.String>();
 
 
@@ -93,12 +100,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Double Sum => GetValue<System.Double>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Comment => GetValue<System.String>();
 
 
@@ -107,6 +117,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public PaymentConditionLookup Condition { get { return GetLookup<PaymentConditionLookup>(); } }
 
 
@@ -141,6 +152,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Int32 Amount => GetValue<System.Int32>();
 
 
@@ -149,6 +161,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 
@@ -169,6 +182,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Designation => GetValue<System.String>();
 
 
@@ -189,6 +203,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -211,6 +226,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public ProductTypeLookup ProductType { get { return GetLookup<ProductTypeLookup>(); } }
 
 
@@ -231,6 +247,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -251,21 +268,27 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Guid OurCompanyId => GetValue<System.Guid>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Int32 ActualPriceTerm => GetValue<System.Int32>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Int32 StandartTermFromStartToEndProduction => GetValue<System.Int32>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Int32 StandartTermFromPickToEndProduction => GetValue<System.Int32>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Guid StandartPaymentsConditionSetId => GetValue<System.Guid>();
 
 
@@ -288,6 +311,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Description => GetValue<System.String>();
 
 
@@ -296,6 +320,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public LocalityLookup Locality { get { return GetLookup<LocalityLookup>(); } }
 
 
@@ -316,6 +341,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -338,6 +364,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -346,6 +373,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public CountryLookup Country { get { return GetLookup<CountryLookup>(); } }
 
 
@@ -370,21 +398,27 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Boolean IsCountryCapital => GetValue<System.Boolean>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Boolean IsDistrictCapital => GetValue<System.Boolean>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Boolean IsRegionCapital => GetValue<System.Boolean>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.Double> StandartDeliveryPeriod => GetValue<System.Nullable<System.Double>>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.Double> DistanceToEkb => GetValue<System.Nullable<System.Double>>();
 
 
@@ -393,9 +427,11 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public LocalityTypeLookup LocalityType { get { return GetLookup<LocalityTypeLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public RegionLookup Region { get { return GetLookup<RegionLookup>(); } }
 
 
@@ -416,9 +452,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String FullName => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String ShortName => GetValue<System.String>();
 
 
@@ -441,6 +479,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -449,6 +488,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public DistrictLookup District { get { return GetLookup<DistrictLookup>(); } }
 
 
@@ -471,12 +511,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public HVTApp.Model.POCOs.CalculatePriceTaskStatus Status => GetValue<HVTApp.Model.POCOs.CalculatePriceTaskStatus>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Double Sum => GetValue<System.Double>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
@@ -485,6 +528,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public ProductBlockLookup ProductBlock { get { return GetLookup<ProductBlockLookup>(); } }
 
 
@@ -505,12 +549,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public HVTApp.Model.POCOs.SumType Type => GetValue<HVTApp.Model.POCOs.SumType>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public HVTApp.Model.POCOs.Currency Currency => GetValue<HVTApp.Model.POCOs.Currency>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Decimal Value => GetValue<System.Decimal>();
 
 
@@ -531,15 +578,19 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public HVTApp.Model.POCOs.Currency FirstCurrency => GetValue<HVTApp.Model.POCOs.Currency>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public HVTApp.Model.POCOs.Currency SecondCurrency => GetValue<HVTApp.Model.POCOs.Currency>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Double ExchangeRate => GetValue<System.Double>();
 
 
@@ -564,9 +615,11 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public ProductBlockLookup ProductBlock { get { return GetLookup<ProductBlockLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 
@@ -587,12 +640,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Text => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Boolean IsImportant => GetValue<System.Boolean>();
 
 
@@ -621,9 +677,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Double Cost => GetValue<System.Double>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.Int32> ProductionTerm => GetValue<System.Nullable<System.Int32>>();
 
 
@@ -632,15 +690,19 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public OfferLookup Offer { get { return GetLookup<OfferLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public PaymentConditionSetLookup PaymentConditionSet { get { return GetLookup<PaymentConditionSetLookup>(); } }
 
 
@@ -673,12 +735,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String StructureCostNumber => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Boolean IsService => GetValue<System.Boolean>();
 
 
@@ -701,9 +766,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Guid MainProductId => GetValue<System.Guid>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Int32 Amount => GetValue<System.Int32>();
 
 
@@ -712,6 +779,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 
@@ -732,6 +800,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.DateTime DateTask => GetValue<System.DateTime>();
 
 
@@ -764,15 +833,19 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String BankName => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String BankIdentificationCode => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String CorrespondentAccount => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String CheckingAccount => GetValue<System.String>();
 
 
@@ -801,15 +874,19 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String FullName => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String ShortName => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Inn => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Kpp => GetValue<System.String>();
 
 
@@ -818,15 +895,19 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public CompanyFormLookup Form { get { return GetLookup<CompanyFormLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public CompanyLookup ParentCompany { get { return GetLookup<CompanyLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public AddressLookup AddressLegal { get { return GetLookup<AddressLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public AddressLookup AddressPost { get { return GetLookup<AddressLookup>(); } }
 
 
@@ -847,9 +928,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String FullName => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String ShortName => GetValue<System.String>();
 
 
@@ -870,9 +953,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String RegistrationNumber => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.DateTime RegistrationDate => GetValue<System.DateTime>();
 
 
@@ -893,6 +978,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -913,9 +999,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String FullName => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String ShortName => GetValue<System.String>();
 
 
@@ -936,9 +1024,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public HVTApp.Model.POCOs.ActivityFieldEnum ActivityFieldEnum => GetValue<HVTApp.Model.POCOs.ActivityFieldEnum>();
 
 
@@ -961,9 +1051,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Number => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
@@ -972,6 +1064,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public CompanyLookup Contragent { get { return GetLookup<CompanyLookup>(); } }
 
 
@@ -992,9 +1085,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String FullName => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String ShortName => GetValue<System.String>();
 
 
@@ -1017,9 +1112,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Value => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Boolean IsOrigin => GetValue<System.Boolean>();
 
 
@@ -1028,6 +1125,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public ParameterGroupLookup ParameterGroup { get { return GetLookup<ParameterGroupLookup>(); } }
 
 
@@ -1050,6 +1148,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -1058,6 +1157,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public MeasureLookup Measure { get { return GetLookup<MeasureLookup>(); } }
 
 
@@ -1078,9 +1178,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Int32 ChildProductsAmount => GetValue<System.Int32>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Boolean IsUnique => GetValue<System.Boolean>();
 
 
@@ -1101,15 +1203,19 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Surname => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Patronymic => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Boolean IsMan => GetValue<System.Boolean>();
 
 
@@ -1130,6 +1236,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Guid ParameterId => GetValue<System.Guid>();
 
 
@@ -1166,48 +1273,63 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Double Cost => GetValue<System.Double>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.Int32> ProductionTerm => GetValue<System.Nullable<System.Int32>>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.DateTime DeliveryDateExpected => GetValue<System.DateTime>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.DateTime> RealizationDate => GetValue<System.Nullable<System.DateTime>>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String OrderPosition => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String SerialNumber => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.Int32> AssembleTerm => GetValue<System.Nullable<System.Int32>>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.DateTime> StartProductionDate => GetValue<System.Nullable<System.DateTime>>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.DateTime> PickingDate => GetValue<System.Nullable<System.DateTime>>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.DateTime> EndProductionDate => GetValue<System.Nullable<System.DateTime>>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.Int32> ExpectedDeliveryPeriod => GetValue<System.Nullable<System.Int32>>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Double CostOfShipment => GetValue<System.Double>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.DateTime> ShipmentDate => GetValue<System.Nullable<System.DateTime>>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.DateTime> ShipmentPlanDate => GetValue<System.Nullable<System.DateTime>>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.DateTime> DeliveryDate => GetValue<System.Nullable<System.DateTime>>();
 
 
@@ -1216,27 +1338,35 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.High)]
 	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Highest)]
 	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public PaymentConditionSetLookup PaymentConditionSet { get { return GetLookup<PaymentConditionSetLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public CompanyLookup Producer { get { return GetLookup<CompanyLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public OrderLookup Order { get { return GetLookup<OrderLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public SpecificationLookup Specification { get { return GetLookup<SpecificationLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public AddressLookup Address { get { return GetLookup<AddressLookup>(); } }
 
 
@@ -1257,9 +1387,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Int32 Amount => GetValue<System.Int32>();
 
 
@@ -1280,12 +1412,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String City => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Street => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String StreetNumber => GetValue<System.String>();
 
 
@@ -1312,21 +1447,27 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Int32 FriendGroupId => GetValue<System.Int32>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String FirstName => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String LastName => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.DateTime> Birthday => GetValue<System.Nullable<System.DateTime>>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Boolean IsDeveloper => GetValue<System.Boolean>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Int32 IdGet => GetValue<System.Int32>();
 
 
@@ -1335,12 +1476,15 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public TestFriendAddressLookup TestFriendAddress { get { return GetLookup<TestFriendAddressLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public TestFriendGroupLookup TestFriendGroup { get { return GetLookup<TestFriendGroupLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public TestFriendEmailLookup TestFriendEmailGet { get { return GetLookup<TestFriendEmailLookup>(); } }
 
 
@@ -1361,9 +1505,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Email => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Comment => GetValue<System.String>();
 
 
@@ -1384,6 +1530,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -1416,12 +1563,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Guid SenderId => GetValue<System.Guid>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Guid RecipientId => GetValue<System.Guid>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Comment => GetValue<System.String>();
 
 
@@ -1430,21 +1580,27 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public DocumentLookup RequestDocument { get { return GetLookup<DocumentLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public EmployeeLookup Author { get { return GetLookup<EmployeeLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public EmployeeLookup SenderEmployee { get { return GetLookup<EmployeeLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public EmployeeLookup RecipientEmployee { get { return GetLookup<EmployeeLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public DocumentsRegistrationDetailsLookup RegistrationDetailsOfSender { get { return GetLookup<DocumentsRegistrationDetailsLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public DocumentsRegistrationDetailsLookup RegistrationDetailsOfRecipient { get { return GetLookup<DocumentsRegistrationDetailsLookup>(); } }
 
 
@@ -1465,6 +1621,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -1487,6 +1644,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -1495,6 +1653,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public TestWifeLookup Wife { get { return GetLookup<TestWifeLookup>(); } }
 
 
@@ -1517,9 +1676,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Int32 N => GetValue<System.Int32>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -1528,6 +1689,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public TestHusbandLookup Husband { get { return GetLookup<TestHusbandLookup>(); } }
 
 
@@ -1552,6 +1714,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -1560,9 +1723,11 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public TestHusbandLookup Husband { get { return GetLookup<TestHusbandLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public TestWifeLookup Wife { get { return GetLookup<TestWifeLookup>(); } }
 
 
@@ -1583,9 +1748,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Double Sum => GetValue<System.Double>();
 
 
@@ -1610,9 +1777,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Designation => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String DesignationSpecial => GetValue<System.String>();
 
 
@@ -1621,9 +1790,11 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public ProductTypeLookup ProductType { get { return GetLookup<ProductTypeLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public ProductBlockLookup ProductBlock { get { return GetLookup<ProductBlockLookup>(); } }
 
 
@@ -1658,18 +1829,23 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.DateTime ValidityDate => GetValue<System.DateTime>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Double Vat => GetValue<System.Double>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Guid SenderId => GetValue<System.Guid>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Guid RecipientId => GetValue<System.Guid>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Comment => GetValue<System.String>();
 
 
@@ -1678,24 +1854,31 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public DocumentLookup RequestDocument { get { return GetLookup<DocumentLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public EmployeeLookup Author { get { return GetLookup<EmployeeLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public EmployeeLookup SenderEmployee { get { return GetLookup<EmployeeLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public EmployeeLookup RecipientEmployee { get { return GetLookup<EmployeeLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public DocumentsRegistrationDetailsLookup RegistrationDetailsOfSender { get { return GetLookup<DocumentsRegistrationDetailsLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public DocumentsRegistrationDetailsLookup RegistrationDetailsOfRecipient { get { return GetLookup<DocumentsRegistrationDetailsLookup>(); } }
 
 
@@ -1722,9 +1905,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String PhoneNumber => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Email => GetValue<System.String>();
 
 
@@ -1733,12 +1918,15 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public PersonLookup Person { get { return GetLookup<PersonLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public CompanyLookup Company { get { return GetLookup<CompanyLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public EmployeesPositionLookup Position { get { return GetLookup<EmployeesPositionLookup>(); } }
 
 
@@ -1759,9 +1947,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Number => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.DateTime OpenOrderDate => GetValue<System.DateTime>();
 
 
@@ -1782,12 +1972,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Double Part => GetValue<System.Double>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Int32 DaysToPoint => GetValue<System.Int32>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public HVTApp.Model.POCOs.PaymentConditionPoint PaymentConditionPoint => GetValue<HVTApp.Model.POCOs.PaymentConditionPoint>();
 
 
@@ -1808,9 +2001,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Number => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
@@ -1837,6 +2032,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -1845,12 +2041,15 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public FacilityTypeLookup Type { get { return GetLookup<FacilityTypeLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public CompanyLookup OwnerCompany { get { return GetLookup<CompanyLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public AddressLookup Address { get { return GetLookup<AddressLookup>(); } }
 
 
@@ -1875,6 +2074,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.High)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -1883,9 +2083,11 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public ProjectTypeLookup ProjectType { get { return GetLookup<ProjectTypeLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public UserLookup Manager { get { return GetLookup<UserLookup>(); } }
 
 
@@ -1906,9 +2108,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public HVTApp.Infrastructure.Role Role => GetValue<HVTApp.Infrastructure.Role>();
 
 
@@ -1931,12 +2135,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Number => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Double Vat => GetValue<System.Double>();
 
 
@@ -1945,6 +2152,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public ContractLookup Contract { get { return GetLookup<ContractLookup>(); } }
 
 
@@ -1969,12 +2177,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.DateTime DateOpen => GetValue<System.DateTime>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.DateTime DateClose => GetValue<System.DateTime>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.DateTime> DateNotice => GetValue<System.Nullable<System.DateTime>>();
 
 
@@ -1983,9 +2194,11 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
 
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public CompanyLookup Winner { get { return GetLookup<CompanyLookup>(); } }
 
 
@@ -2006,9 +2219,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Name => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public HVTApp.Model.POCOs.TenderTypeEnum Type => GetValue<HVTApp.Model.POCOs.TenderTypeEnum>();
 
 
@@ -2031,15 +2246,19 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String Login => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.Guid Password => GetValue<System.Guid>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public System.String PersonalNumber => GetValue<System.String>();
 
 
+		[OrderStatus(OrderStatus.Normal)]
         public HVTApp.Infrastructure.Role RoleCurrent => GetValue<HVTApp.Infrastructure.Role>();
 
 
@@ -2048,6 +2267,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(OrderStatus.Normal)]
 	    public EmployeeLookup Employee { get { return GetLookup<EmployeeLookup>(); } }
 
 

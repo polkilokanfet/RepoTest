@@ -39,8 +39,8 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Name" Label="Name" Width="Auto" />
                     <infg:TextField Name="Country" Label="Country" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

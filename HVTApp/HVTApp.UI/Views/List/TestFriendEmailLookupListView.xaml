@@ -39,8 +39,8 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Email" Label="Email" Width="Auto" />
                     <infg:TextField Name="Comment" Label="Comment" Width="Auto" />
+                    <infg:TextField Name="Email" Label="Email" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

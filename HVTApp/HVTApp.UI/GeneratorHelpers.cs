@@ -9,15 +9,79 @@ using HVTApp.UI.Lookup;
 
 namespace HVTApp.UI
 {
+    class PropOrderComparer : IComparer<PropertyInfo>
+    {
+        public int Compare(PropertyInfo x, PropertyInfo y)
+        {
+            if (x == null) throw new ArgumentNullException();
+            if (y == null) throw new ArgumentNullException();
+
+            int result = (int)x.OrderStatus() - (int)y.OrderStatus();
+            if (result != 0) return result;
+
+            return x.Designation().CompareTo(y.Designation());
+        }
+    }
+
     public static class GeneratorHelpers
     {
+
+        #region IsType
+
+        public static bool IsType<T>(this PropertyInfo property)
+        {
+            return typeof(T) == property.PropertyType;
+        }
+
+        /// <summary>
+        /// Простой ли тип
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsSimple(this Type type)
+        {
+            return type.IsValueType || type == typeof(string);
+        }
+
+        public static bool IsCollection(this Type type)
+        {
+            return type.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>));
+        }
+
+        public static bool IsCollection(this PropertyInfo property)
+        {
+            return property.PropertyType.IsCollection();
+        }
+
+        public static bool IsComplex(this PropertyInfo property)
+        {
+            return property.PropertyType.IsComplex();
+        }
+
+        public static bool IsComplex(this Type type)
+        {
+            return !type.IsSimple() && !type.IsCollection();
+        }
+
+        //коллекция простых типов?
+        private static bool CollectionMemberTypeIsSimple(Type genericCollectionType)
+        {
+            var t = genericCollectionType.GetInterfaces()
+                .First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>))
+                .GetGenericArguments()[0];
+
+            return IsSimple(t);
+        }
+
+        #endregion
+
         /// <summary>
         /// Все типы для генерации окон с деталями.
         /// </summary>
         /// <returns></returns>
         public static IEnumerable<Type> GetModelTypesPocos()
         {
-            var ns = typeof(Address).Namespace;
+            //var ns = typeof(Address).Namespace;
             //return typeof(Address).Assembly.GetTypes().Where(x => !x.IsAbstract && !x.IsEnum && x.Namespace == ns && !x.Name.Contains("<"));
             return typeof(Address).Assembly.GetTypes().Where(x => x.GetBaseTypes().Contains(typeof(BaseEntity)));
         }
@@ -32,15 +96,16 @@ namespace HVTApp.UI
         public static IEnumerable<PropertyInfo> GetPropertiesForListViews(this Type typeLookup)
         {
             //свойства со спец.атрибутом
-            Type entityType = typeLookup.GetProperty(nameof(ILookupItemNavigation<IBaseEntity>.Entity)).PropertyType;
-            var names = entityType.GetProperties()
+            var entityType = typeLookup.GetProperty(nameof(ILookupItemNavigation<IBaseEntity>.Entity)).PropertyType;
+            var dontShowPropNames = entityType.GetProperties()
                     .Where(x => x.GetCustomAttribute<NotForListViewAttribute>() != null)
                     .Select(x => x.Name);
 
-            return typeLookup.GetProperties().Where(x => !names.Contains(x.Name) &&
+            return typeLookup.GetProperties().Where(x => !dontShowPropNames.Contains(x.Name) &&
                                                          x.Name != nameof(ILookupItemNavigation<IBaseEntity>.Entity) &&
                                                          x.Name != nameof(ILookupItemNavigation<IBaseEntity>.DisplayMember) &&
-                                                         x.Name != nameof(ILookupItemNavigation<IBaseEntity>.Id));
+                                                         x.Name != nameof(ILookupItemNavigation<IBaseEntity>.Id)).
+                                                         OrderBy(x => x, new PropOrderComparer());
         }
 
         /// <summary>
@@ -187,28 +252,13 @@ namespace HVTApp.UI
                 .Except(propertyInfos.SimpleProperties<DateTime>());
         }
 
-        /// <summary>
-        /// Простой ли тип
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static bool IsSimple(this Type type)
-        {
-            return type.IsValueType || type == typeof(string);
-        }
-
-        //коллекция простых типов?
-        private static bool CollectionMemberTypeIsSimple(Type genericCollectionType)
-        {
-            var t = genericCollectionType.GetInterfaces()
-                .First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>))
-                .GetGenericArguments()[0];
-
-            return IsSimple(t);
-        }
-
-
         #endregion
+
+        public static OrderStatus OrderStatus(this PropertyInfo property)
+        {
+            var attr = property.GetCustomAttribute<OrderStatusAttribute>();
+            return attr?.OrderStatus ?? Infrastructure.Attributes.OrderStatus.Normal;
+        }
 
     }
 }

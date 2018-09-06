@@ -14,7 +14,7 @@ namespace HVTApp.Model.POCOs
         public double Cost { get; set; }
 
 
-        [Designation("Продукт")]
+        [Designation("Продукт"), OrderStatus(OrderStatus.High)]
         public virtual Product Product { get; set; }
 
         [Designation("Включенные продукты")]
@@ -22,7 +22,7 @@ namespace HVTApp.Model.POCOs
 
         public virtual List<Service> Services { get; set; } = new List<Service>();
 
-        [Designation("Объект")]
+        [Designation("Объект"), OrderStatus(OrderStatus.Highest)]
         public virtual Facility Facility { get; set; }
 
         [Designation("Условия оплаты")]

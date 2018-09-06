@@ -37,6 +37,7 @@
     private void GenerateLookups(IEnumerable<Type> modelTypes)
     {
 #>using HVTApp.Model.POCOs;
+using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.UI.Lookup
 {
@@ -84,6 +85,7 @@ namespace HVTApp.UI.Lookup
       var propertyType = property.PropertyType.GetTypeName();
       var propertyName = property.Name;
 #>
+		[OrderStatus(OrderStatus.<#=property.OrderStatus().ToString()#>)]
         public <#=propertyType#> <#=propertyName#> => GetValue<<#=propertyType#>>();
 
 <#+ 
@@ -107,6 +109,7 @@ namespace HVTApp.UI.Lookup
       var propertyType = property.PropertyType.Name;
       var propertyName = property.Name;
 #>
+		[OrderStatus(OrderStatus.<#=property.OrderStatus().ToString()#>)]
 	    public <#= propertyType #>Lookup <#= propertyName #> { get { return GetLookup<<#= propertyType #>Lookup>(); } }
 
 <#+   
@@ -326,12 +329,10 @@ namespace HVTApp.UI.Views
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
 <#+
-		GenerateFields(modelType.GetPropertiesForListViews().StringProperties(), "TextField");
-		GenerateFields(modelType.GetPropertiesForListViews().DigitProperties() , "NumericField");
-		GenerateFields(modelType.GetPropertiesForListViews().SimpleProperties<DateTime>(), "DateTimeField");
-		GenerateFields(modelType.GetPropertiesForListViews().SimpleProperties<bool>(), "CheckBoxField");
-		GenerateFields(modelType.GetPropertiesForListViews().AllComplexProperties(), "TextField", "Converter=\"{StaticResource LookupToStringConverter}\"");
-		GenerateFields(modelType.GetPropertiesForListViews().AllCollectionProperties(), "TextField", "Converter=\"{StaticResource LookupsToStringConverter}\"");
+		foreach(var prop in modelType.GetPropertiesForListViews())
+        {
+			GenerateField(prop);
+		}
 #>
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
@@ -345,14 +346,52 @@ namespace HVTApp.UI.Views
 	<#+
 	}
 
-  //генерация полей таблицы.
-  private void GenerateFields(IEnumerable<PropertyInfo> properties, string fieldName, string end = "")
+	//генерация поля таблицы.
+	private void GenerateField(PropertyInfo property)
   {
-    foreach (var property in properties)
+	string fieldName = string.Empty;
+	string end = "";
+
+	if (property.IsType<string>())
     {
+		fieldName = "TextField";
+		end = "";
+	}
+
+	if (property.IsType<int>() || property.IsType<int?>() || property.IsType<double>() || property.IsType<double?>())
+    {
+		fieldName = "NumericField";
+		end = "";
+	}
+
+	if (property.IsType<DateTime>() || property.IsType<DateTime?>())
+    {
+		fieldName = "DateTimeField";
+		end = "";
+	}
+
+	if (property.IsType<bool>() || property.IsType<bool?>())
+    {
+		fieldName = "CheckBoxField";
+		end = "";
+	}
+
+	if (property.IsComplex())
+    {
+		fieldName = "TextField";
+		end = "Converter=\"{StaticResource LookupToStringConverter}\"";
+	}
+
+		if (property.IsCollection())
+    {
+		fieldName = "TextField";
+		end = "Converter=\"{StaticResource LookupsToStringConverter}\"";
+	}
+
+	if(fieldName == string.Empty) return;
+
 #>                    <infg:<#=fieldName#> Name="<#=property.Name#>" Label="<#=property.DesignationLookup()#>" Width="Auto" <#=end#>/>
 <#+ 
-    }
   }
 
       //сохранение сгенерированного кода в отдельный файл.

@@ -39,10 +39,10 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="BankName" Label="BankName" Width="Auto" />
                     <infg:TextField Name="BankIdentificationCode" Label="BankIdentificationCode" Width="Auto" />
-                    <infg:TextField Name="CorrespondentAccount" Label="CorrespondentAccount" Width="Auto" />
+                    <infg:TextField Name="BankName" Label="BankName" Width="Auto" />
                     <infg:TextField Name="CheckingAccount" Label="CheckingAccount" Width="Auto" />
+                    <infg:TextField Name="CorrespondentAccount" Label="CorrespondentAccount" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
