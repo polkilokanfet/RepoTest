@@ -93,7 +93,7 @@ namespace HVTApp.UI.ViewModels
         private async void AddProductIncludedCommand_Execute()
         {
             var productIncluded = new ProductIncluded();
-            productIncluded = await Container.Resolve<IUpdateDetailsService>().GetEntity(productIncluded);
+            productIncluded = await Container.Resolve<IUpdateDetailsService>().UpdateDetailsWithoutSaving(productIncluded);
             if (productIncluded == null) return;
             productIncluded.Product = await WrapperDataService.GetRepository<Product>().GetByIdAsync(productIncluded.Product.Id);
             SelectedGroup.ProductsIncluded.Add(new ProductIncludedWrapper(productIncluded));

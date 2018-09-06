@@ -22,6 +22,7 @@ namespace HVTApp.Infrastructure
     public interface ISavable
     {
         ICommand SaveCommand { get; }
+        ICommand OkCommand { get; }
     }
 
     public interface ILoadable<TEntity>

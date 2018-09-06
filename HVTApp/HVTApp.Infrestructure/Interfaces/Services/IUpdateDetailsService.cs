@@ -25,7 +25,7 @@ namespace HVTApp.Infrastructure.Interfaces.Services
         Task<bool> UpdateDetails<TEntity>(TEntity entity)
             where TEntity : class, IBaseEntity;
 
-        Task<TEntity> GetEntity<TEntity>(TEntity entity)
+        Task<TEntity> UpdateDetailsWithoutSaving<TEntity>(TEntity entity)
             where TEntity : class, IBaseEntity;
     }
 }

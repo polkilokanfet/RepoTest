@@ -65,6 +65,7 @@ namespace HVTApp.UI.ViewModels
             this.LoadBegin += () => IsLoaded = false;
             this.Loaded += () => IsLoaded = true;
 
+            InitSpecialCommands();
             SubscribesToEvents();
         }
 
@@ -77,6 +78,8 @@ namespace HVTApp.UI.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        protected virtual void InitSpecialCommands() { }
 
         /// <summary>
         /// Подписка на события. Запуск в конце конструктора.

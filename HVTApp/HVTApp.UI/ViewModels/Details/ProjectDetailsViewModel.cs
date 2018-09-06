@@ -11,7 +11,7 @@ namespace HVTApp.UI.ViewModels
     {
         protected override async void AddCommand_Execute()
         {
-            var unit = await Container.Resolve<IUpdateDetailsService>().GetEntity(new SalesUnit { Project = Item.Model });
+            var unit = await Container.Resolve<IUpdateDetailsService>().UpdateDetailsWithoutSaving(new SalesUnit { Project = Item.Model });
             if (unit == null) return;
 
             unit.Product = await WrapperDataService.GetRepository<Product>().GetByIdAsync(unit.Product.Id);

@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using HVTApp.Services.OfferToDocService;
+using HVTApp.UI.Services;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -30,7 +31,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             NewOfferCommand = OfferListViewModel.NewItemCommand;
             EditOfferCommand = OfferListViewModel.EditItemCommand;
             RemoveOfferCommand = OfferListViewModel.RemoveItemCommand;
-            PrintOfferCommand = new DelegateCommand(async () => await container.Resolve<IOfferToDoc>().PrintOfferAsync(OfferListViewModel.SelectedItem.Id));
+            PrintOfferCommand = OfferListViewModel.PrintOfferCommand;
 
             this.SelectedLookupChanged += project =>
             {

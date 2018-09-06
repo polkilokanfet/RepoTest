@@ -29,6 +29,7 @@ using HVTApp.Services.SelectService;
 using HVTApp.Services.UpdateDetailsService;
 using HVTApp.UI;
 using HVTApp.UI.Lookup;
+using HVTApp.UI.Services;
 using HVTApp.UI.Wrapper;
 using Infragistics.Windows.OutlookBar;
 using Infragistics.Windows.Ribbon;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace HVTApp.Services.OfferToDocService
+namespace HVTApp.UI.Services
 {
     public interface IOfferToDoc
     {

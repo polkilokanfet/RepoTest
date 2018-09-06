@@ -97,6 +97,7 @@
     <Compile Include="Controls\UnitListControl.xaml.cs">
       <DependentUpon>UnitListControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\IOfferToDoc.cs" />
     <Compile Include="Wrapper\IUnitsGroup.cs" />
     <Compile Include="Converter\ToUnitGroupsConverters.cs" />
     <Compile Include="Extantions\DesignationExt.cs" />

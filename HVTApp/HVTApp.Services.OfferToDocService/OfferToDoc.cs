@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using HVTApp.UI.Services;
 using HVTApp.UI.ViewModels;
 using Infragistics.Documents.Word;
 

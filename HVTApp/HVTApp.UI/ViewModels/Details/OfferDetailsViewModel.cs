@@ -1,9 +1,12 @@
+using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Converter;
+using HVTApp.UI.Services;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
+using Prism.Commands;
 
 namespace HVTApp.UI.ViewModels
 {
@@ -11,7 +14,7 @@ namespace HVTApp.UI.ViewModels
     {
         protected override async void AddCommand_Execute()
         {
-            var unit = await Container.Resolve<IUpdateDetailsService>().GetEntity(new OfferUnit { Offer = Item.Model });
+            var unit = await Container.Resolve<IUpdateDetailsService>().UpdateDetailsWithoutSaving(new OfferUnit { Offer = Item.Model });
             if (unit == null) return;
 
             unit.Product = await WrapperDataService.GetRepository<Product>().GetByIdAsync(unit.Product.Id);

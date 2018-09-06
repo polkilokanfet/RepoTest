@@ -107,9 +107,11 @@ namespace HVTApp.Services.UpdateDetailsService
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task<TEntity> GetEntity<TEntity>(TEntity entity)
+        public async Task<TEntity> UpdateDetailsWithoutSaving<TEntity>(TEntity entity)
             where TEntity : class, IBaseEntity
         {
+            var result = false;
+
             //достаем из словаря соответствующий View
             var detailsView = (Control)_container.Resolve(_dictionary[typeof(TEntity)]);
             //ViewModel подтягивается из контекста View
@@ -117,16 +119,29 @@ namespace HVTApp.Services.UpdateDetailsService
             //загрузка данных в ViewModel
             await ((ILoadable<TEntity>)detailsViewModel).LoadAsync(entity);
 
-            var getEntityWindow = new GetEntityWindow
+            var updateDetailsWindow = new UpdateDetailsWindow
             {
                 ContentControl = { Content = detailsView },
+                SaveButton = { Command = ((ISavable)detailsViewModel).OkCommand },
                 Owner = Application.Current.MainWindow,
                 Title = GetTitle(typeof(TEntity))
             };
 
-            getEntityWindow.ShowDialog();
+            updateDetailsWindow.SaveButton.Content = "Ok";
 
-            return getEntityWindow.Result ? ((IViewModelWithEntity<TEntity>)detailsViewModel).Entity : null;
+            EventHandler<DialogRequestCloseEventArgs> handler = null;
+            handler = (sender, args) =>
+            {
+                ((IDialogRequestClose)detailsViewModel).CloseRequested -= handler;
+                if (args.DialogResult.HasValue && args.DialogResult.Value) result = true;
+                updateDetailsWindow.Close();
+            };
+
+            ((IDialogRequestClose)detailsViewModel).CloseRequested += handler;
+
+            updateDetailsWindow.ShowDialog();
+
+            return result ? ((IViewModelWithEntity<TEntity>)detailsViewModel).Entity : null;
         }
 
         string GetTitle(Type type)

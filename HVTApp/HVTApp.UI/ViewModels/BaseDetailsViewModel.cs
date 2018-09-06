@@ -33,6 +33,8 @@ namespace HVTApp.UI.ViewModels
             EventAggregator = Container.Resolve<IEventAggregator>();
 
             SaveCommand = new DelegateCommand(SaveCommand_Execute, SaveCommand_CanExecute);
+            OkCommand = new DelegateCommand(OkCommand_Execute, SaveCommand_CanExecute);
+
             InitSpecialCommands();
             InitSpecialGetMethods();
         }
@@ -67,6 +69,7 @@ namespace HVTApp.UI.ViewModels
         protected virtual void AfterLoading() { }
 
         public ICommand SaveCommand { get; }
+        public ICommand OkCommand { get; }
 
         public TEntity Entity => Item.Model;
 
@@ -82,6 +85,7 @@ namespace HVTApp.UI.ViewModels
                 if (_item != null) _item.PropertyChanged += ItemOnPropertyChanged;
 
                 ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
@@ -90,6 +94,12 @@ namespace HVTApp.UI.ViewModels
         /// Событие, бросаемое для закрытия окна
         /// </summary>
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;
+
+        protected virtual async void OkCommand_Execute()
+        {
+            //запрашиваем закрытие окна
+            OnCloseRequested(new DialogRequestCloseEventArgs(true));
+        }
 
         protected virtual async void SaveCommand_Execute()
         {
@@ -119,6 +129,7 @@ namespace HVTApp.UI.ViewModels
         private void ItemOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
         }
 
         protected async void SelectAndSetWrapper<TModel, TWrap>(IEnumerable<TModel> entities, string propertyName, Guid? selectedItemId = null)
