@@ -158,9 +158,14 @@ namespace HVTApp.UI.Views
                 DateVisibility = Visibility.Collapsed;
 
 
+            attr = typeof(HVTApp.Model.POCOs.PaymentPlanned).GetProperty(nameof(HVTApp.Model.POCOs.PaymentPlanned.DateCalculated)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                DateCalculatedVisibility = Visibility.Collapsed;
+
+
             attr = typeof(HVTApp.Model.POCOs.PaymentPlanned).GetProperty(nameof(HVTApp.Model.POCOs.PaymentPlanned.Part)).GetCustomAttribute<NotUpdateAttribute>();
             if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-                SumVisibility = Visibility.Collapsed;
+                PartVisibility = Visibility.Collapsed;
 
 
             attr = typeof(HVTApp.Model.POCOs.PaymentPlanned).GetProperty(nameof(HVTApp.Model.POCOs.PaymentPlanned.Comment)).GetCustomAttribute<NotUpdateAttribute>();
@@ -187,11 +192,20 @@ namespace HVTApp.UI.Views
 
 
 
-        public static readonly DependencyProperty SumVisibilityProperty = DependencyProperty.Register("SumVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility SumVisibility
+        public static readonly DependencyProperty DateCalculatedVisibilityProperty = DependencyProperty.Register("DateCalculatedVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility DateCalculatedVisibility
         {
-            get { return (Visibility) GetValue(SumVisibilityProperty); }
-            set { SetValue(SumVisibilityProperty, value); }
+            get { return (Visibility) GetValue(DateCalculatedVisibilityProperty); }
+            set { SetValue(DateCalculatedVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty PartVisibilityProperty = DependencyProperty.Register("PartVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility PartVisibility
+        {
+            get { return (Visibility) GetValue(PartVisibilityProperty); }
+            set { SetValue(PartVisibilityProperty, value); }
         }
 
 
@@ -2768,6 +2782,91 @@ namespace HVTApp.UI.Views
                 DeliveryDateVisibility = Visibility.Collapsed;
 
 
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.SumPaid)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                SumPaidVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.SumNotPaid)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                SumNotPaidVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.SumToStartProduction)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                SumToStartProductionVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.SumToShipping)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                SumToShippingVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.OrderInTakeDate)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                OrderInTakeDateVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.OrderInTakeYear)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                OrderInTakeYearVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.OrderInTakeMonth)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                OrderInTakeMonthVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.StartProductionConditionsDoneDate)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                StartProductionConditionsDoneDateVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.ShippingConditionsDoneDate)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                ShippingConditionsDoneDateVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.StartProductionDateCalculated)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                StartProductionDateCalculatedVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.EndProductionDateCalculated)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                EndProductionDateCalculatedVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.RealizationDateCalculated)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                RealizationDateCalculatedVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.ShipmentDateCalculated)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                ShipmentDateCalculatedVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.DeliveryDateCalculated)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                DeliveryDateCalculatedVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.DeliveryPeriodCalculated)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                DeliveryPeriodCalculatedVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.PaymentsPlannedActual)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                PaymentsPlannedActualVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.PaymentsPlannedGenerated)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                PaymentsPlannedGeneratedVisibility = Visibility.Collapsed;
+
+
 
         }
 
@@ -3003,6 +3102,159 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(DeliveryDateVisibilityProperty); }
             set { SetValue(DeliveryDateVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty SumPaidVisibilityProperty = DependencyProperty.Register("SumPaidVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility SumPaidVisibility
+        {
+            get { return (Visibility) GetValue(SumPaidVisibilityProperty); }
+            set { SetValue(SumPaidVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty SumNotPaidVisibilityProperty = DependencyProperty.Register("SumNotPaidVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility SumNotPaidVisibility
+        {
+            get { return (Visibility) GetValue(SumNotPaidVisibilityProperty); }
+            set { SetValue(SumNotPaidVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty SumToStartProductionVisibilityProperty = DependencyProperty.Register("SumToStartProductionVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility SumToStartProductionVisibility
+        {
+            get { return (Visibility) GetValue(SumToStartProductionVisibilityProperty); }
+            set { SetValue(SumToStartProductionVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty SumToShippingVisibilityProperty = DependencyProperty.Register("SumToShippingVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility SumToShippingVisibility
+        {
+            get { return (Visibility) GetValue(SumToShippingVisibilityProperty); }
+            set { SetValue(SumToShippingVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty OrderInTakeDateVisibilityProperty = DependencyProperty.Register("OrderInTakeDateVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility OrderInTakeDateVisibility
+        {
+            get { return (Visibility) GetValue(OrderInTakeDateVisibilityProperty); }
+            set { SetValue(OrderInTakeDateVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty OrderInTakeYearVisibilityProperty = DependencyProperty.Register("OrderInTakeYearVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility OrderInTakeYearVisibility
+        {
+            get { return (Visibility) GetValue(OrderInTakeYearVisibilityProperty); }
+            set { SetValue(OrderInTakeYearVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty OrderInTakeMonthVisibilityProperty = DependencyProperty.Register("OrderInTakeMonthVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility OrderInTakeMonthVisibility
+        {
+            get { return (Visibility) GetValue(OrderInTakeMonthVisibilityProperty); }
+            set { SetValue(OrderInTakeMonthVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty StartProductionConditionsDoneDateVisibilityProperty = DependencyProperty.Register("StartProductionConditionsDoneDateVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility StartProductionConditionsDoneDateVisibility
+        {
+            get { return (Visibility) GetValue(StartProductionConditionsDoneDateVisibilityProperty); }
+            set { SetValue(StartProductionConditionsDoneDateVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty ShippingConditionsDoneDateVisibilityProperty = DependencyProperty.Register("ShippingConditionsDoneDateVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility ShippingConditionsDoneDateVisibility
+        {
+            get { return (Visibility) GetValue(ShippingConditionsDoneDateVisibilityProperty); }
+            set { SetValue(ShippingConditionsDoneDateVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty StartProductionDateCalculatedVisibilityProperty = DependencyProperty.Register("StartProductionDateCalculatedVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility StartProductionDateCalculatedVisibility
+        {
+            get { return (Visibility) GetValue(StartProductionDateCalculatedVisibilityProperty); }
+            set { SetValue(StartProductionDateCalculatedVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty EndProductionDateCalculatedVisibilityProperty = DependencyProperty.Register("EndProductionDateCalculatedVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility EndProductionDateCalculatedVisibility
+        {
+            get { return (Visibility) GetValue(EndProductionDateCalculatedVisibilityProperty); }
+            set { SetValue(EndProductionDateCalculatedVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty RealizationDateCalculatedVisibilityProperty = DependencyProperty.Register("RealizationDateCalculatedVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility RealizationDateCalculatedVisibility
+        {
+            get { return (Visibility) GetValue(RealizationDateCalculatedVisibilityProperty); }
+            set { SetValue(RealizationDateCalculatedVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty ShipmentDateCalculatedVisibilityProperty = DependencyProperty.Register("ShipmentDateCalculatedVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility ShipmentDateCalculatedVisibility
+        {
+            get { return (Visibility) GetValue(ShipmentDateCalculatedVisibilityProperty); }
+            set { SetValue(ShipmentDateCalculatedVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty DeliveryDateCalculatedVisibilityProperty = DependencyProperty.Register("DeliveryDateCalculatedVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility DeliveryDateCalculatedVisibility
+        {
+            get { return (Visibility) GetValue(DeliveryDateCalculatedVisibilityProperty); }
+            set { SetValue(DeliveryDateCalculatedVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty DeliveryPeriodCalculatedVisibilityProperty = DependencyProperty.Register("DeliveryPeriodCalculatedVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility DeliveryPeriodCalculatedVisibility
+        {
+            get { return (Visibility) GetValue(DeliveryPeriodCalculatedVisibilityProperty); }
+            set { SetValue(DeliveryPeriodCalculatedVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty PaymentsPlannedActualVisibilityProperty = DependencyProperty.Register("PaymentsPlannedActualVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility PaymentsPlannedActualVisibility
+        {
+            get { return (Visibility) GetValue(PaymentsPlannedActualVisibilityProperty); }
+            set { SetValue(PaymentsPlannedActualVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty PaymentsPlannedGeneratedVisibilityProperty = DependencyProperty.Register("PaymentsPlannedGeneratedVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility PaymentsPlannedGeneratedVisibility
+        {
+            get { return (Visibility) GetValue(PaymentsPlannedGeneratedVisibilityProperty); }
+            set { SetValue(PaymentsPlannedGeneratedVisibilityProperty, value); }
         }
 
 

@@ -143,6 +143,15 @@ namespace HVTApp.UI.Wrapper
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
 
+        public System.DateTime DateCalculated
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime DateCalculatedOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateCalculated));
+        public bool DateCalculatedIsChanged => GetIsChanged(nameof(DateCalculated));
+
+
         public System.Double Part
         {
           get { return GetValue<System.Double>(); }
@@ -2539,6 +2548,62 @@ namespace HVTApp.UI.Wrapper
         public IValidatableChangeTrackingCollection<PaymentPlannedWrapper> PaymentsPlanned { get; private set; }
 
 
+        public IValidatableChangeTrackingCollection<PaymentPlannedWrapper> PaymentsPlannedActual { get; private set; }
+
+
+        public IValidatableChangeTrackingCollection<PaymentPlannedWrapper> PaymentsPlannedGenerated { get; private set; }
+
+
+        #endregion
+
+
+        #region GetProperties
+
+        public System.Double SumPaid => GetValue<System.Double>(); 
+
+
+        public System.Double SumNotPaid => GetValue<System.Double>(); 
+
+
+        public System.Double SumToStartProduction => GetValue<System.Double>(); 
+
+
+        public System.Double SumToShipping => GetValue<System.Double>(); 
+
+
+        public System.DateTime OrderInTakeDate => GetValue<System.DateTime>(); 
+
+
+        public System.Int32 OrderInTakeYear => GetValue<System.Int32>(); 
+
+
+        public System.Int32 OrderInTakeMonth => GetValue<System.Int32>(); 
+
+
+        public System.Nullable<System.DateTime> StartProductionConditionsDoneDate => GetValue<System.Nullable<System.DateTime>>(); 
+
+
+        public System.Nullable<System.DateTime> ShippingConditionsDoneDate => GetValue<System.Nullable<System.DateTime>>(); 
+
+
+        public System.DateTime StartProductionDateCalculated => GetValue<System.DateTime>(); 
+
+
+        public System.DateTime EndProductionDateCalculated => GetValue<System.DateTime>(); 
+
+
+        public System.DateTime RealizationDateCalculated => GetValue<System.DateTime>(); 
+
+
+        public System.DateTime ShipmentDateCalculated => GetValue<System.DateTime>(); 
+
+
+        public System.DateTime DeliveryDateCalculated => GetValue<System.DateTime>(); 
+
+
+        public System.Double DeliveryPeriodCalculated => GetValue<System.Double>(); 
+
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -2587,6 +2652,16 @@ namespace HVTApp.UI.Wrapper
           if (Model.PaymentsPlanned == null) throw new ArgumentException("PaymentsPlanned cannot be null");
           PaymentsPlanned = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(Model.PaymentsPlanned.Select(e => new PaymentPlannedWrapper(e)));
           RegisterCollection(PaymentsPlanned, Model.PaymentsPlanned);
+
+
+          if (Model.PaymentsPlannedActual == null) throw new ArgumentException("PaymentsPlannedActual cannot be null");
+          PaymentsPlannedActual = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(Model.PaymentsPlannedActual.Select(e => new PaymentPlannedWrapper(e)));
+          RegisterCollection(PaymentsPlannedActual, Model.PaymentsPlannedActual);
+
+
+          if (Model.PaymentsPlannedGenerated == null) throw new ArgumentException("PaymentsPlannedGenerated cannot be null");
+          PaymentsPlannedGenerated = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(Model.PaymentsPlannedGenerated.Select(e => new PaymentPlannedWrapper(e)));
+          RegisterCollection(PaymentsPlannedGenerated, Model.PaymentsPlannedGenerated);
 
 
         }

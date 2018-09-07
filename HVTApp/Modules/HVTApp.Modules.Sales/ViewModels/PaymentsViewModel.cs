@@ -5,19 +5,23 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using HVTApp.DataAccess.Annotations;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.Wrapper;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
+using Prism.Commands;
+using Prism.Mvvm;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class PaymentsViewModel : NotifyPropertyChanged
+    public class PaymentsViewModel : BindableBase
     {
         private readonly IUnityContainer _container;
-        private IUnitOfWork UnitOfWork { get; }
+        private IUnitOfWork UnitOfWork;
         private IValidatableChangeTrackingCollection<SalesUnitWrapper> _salesUnitWrappers;
         private bool _isLoaded = false;
         public ObservableCollection<PaymentWrapper> Payments { get; } = new ObservableCollection<PaymentWrapper>();
@@ -32,44 +36,131 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
+        public ICommand SaveCommand { get; set; }
+        public ICommand RefreshCommand { get; set; }
+        public ICommand RemoveCommand { get; set; }
+        public ICommand ReloadCommand { get; set; }
+
         public PaymentsViewModel(IUnityContainer container)
         {
             _container = container;
-            UnitOfWork = container.Resolve<IUnitOfWork>();
+
+            SaveCommand = new DelegateCommand(SaveCommand_Execute, () => _salesUnitWrappers != null && _salesUnitWrappers.IsChanged && _salesUnitWrappers.IsValid);
+            ReloadCommand = new DelegateCommand(ReloadCommand_Execute);
+            RefreshCommand = new DelegateCommand(RefreshPayments);
+        }
+
+        private async void ReloadCommand_Execute()
+        {
+            await LoadAsync();
+        }
+
+        private async void SaveCommand_Execute()
+        {
+            _salesUnitWrappers.AcceptChanges();
+            await UnitOfWork.SaveChangesAsync();
         }
 
         public async Task LoadAsync()
         {
+            IsLoaded = false;
+            UnitOfWork = _container.Resolve<IUnitOfWork>();
+
             //загружаем все юниты
             var salesUnitWrappers = (await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync()).Select(x => new SalesUnitWrapper(x));
-
+            
             //фиксируем их в коллекции для отслеживания изменений
             _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(salesUnitWrappers);
 
-            foreach (var salesUnitWrapper in _salesUnitWrappers)
-            {
-                //платежи, находящиеся в юните
-                foreach (var paymentPlannedWrapper in salesUnitWrapper.PaymentsPlanned)
-                {
-                    Payments.Add(new PaymentWrapper(paymentPlannedWrapper, salesUnitWrapper, true));
-                }
+            //подписка на изменение
+            _salesUnitWrappers.PropertyChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+            _salesUnitWrappers.CollectionChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
 
-                //сгенерированные платежи
-                var lookup = new SalesUnitLookup(salesUnitWrapper.Model);
-                await lookup.LoadOther(UnitOfWork);
-                var paymentLookupsToAdd = lookup.PaymentPlannedWithSaved.Except(lookup.PaymentsPlannedActualLookups);
-                foreach (var paymentPlannedLookup in paymentLookupsToAdd)
-                {
-                    Payments.Add(new PaymentWrapper(new PaymentPlannedWrapper(paymentPlannedLookup.Entity), salesUnitWrapper, false));
-                }
-            }
+
+            //актуализация плановых поступлений
+            _salesUnitWrappers.ForEach(Actualization);
+
+            RefreshPayments();
 
             IsLoaded = true;
         }
 
+        private void RefreshPayments()
+        {
+            var payments = new List<PaymentWrapper>();
+            foreach (var salesUnitWrapper in _salesUnitWrappers)
+            {
+                payments.AddRange(GetPayments(salesUnitWrapper));
+            }
+            Payments.Clear();
+            Payments.AddRange(payments.OrderBy(x => x.PaymentPlannedWrapper.Date));
+        }
+
+        private void Actualization(SalesUnitWrapper salesUnitWrapper)
+        {
+            var paymentsWrappers = salesUnitWrapper.PaymentsPlanned;
+            var paymentsActual = salesUnitWrapper.Model.PaymentsPlannedActual;
+            var remove = new List<PaymentPlannedWrapper>();
+            foreach (var paymentWrapper in paymentsWrappers)
+            {
+                var paymentActual = paymentsActual.SingleOrDefault(x => x.Id == paymentWrapper.Id);
+                if (paymentActual == null)
+                {
+                    remove.Add(paymentWrapper);
+                    UnitOfWork.GetRepository<PaymentPlanned>().Delete(paymentWrapper.Model);
+                    continue;
+                }
+
+                paymentWrapper.Date = paymentActual.Date;
+                paymentWrapper.Part = paymentActual.Part;
+            }
+            remove.ForEach(x => salesUnitWrapper.PaymentsPlanned.Remove(x));
+        }
+
+        private IEnumerable<PaymentWrapper> GetPayments(SalesUnitWrapper salesUnitWrapper)
+        {
+            //платежи, находящиеся в юните
+            foreach (var paymentPlannedWrapper in salesUnitWrapper.PaymentsPlanned)
+            {
+                yield return new PaymentWrapper(paymentPlannedWrapper, salesUnitWrapper, true);
+            }
+
+            //платежи сгенерированные
+            foreach (var ppg in salesUnitWrapper.PaymentsPlannedGenerated)
+            {
+                yield return new PaymentWrapper(ppg, salesUnitWrapper, false);
+            }
+        }
     }
 
-    public class PaymentWrapper : NotifyPropertyChanged
+    public class PaymentsGroup : BindableBase
+    {
+        private readonly List<PaymentWrapper> _payments;
+        private DateTime _date;
+
+        public int Amount => _payments.Count;
+
+        public DateTime Date
+        {
+            get { return _date; }
+            set
+            {
+                if (Equals(_date, value)) return;
+                if (value < DateTime.Today) return;
+                _date = value;
+                _payments.ForEach(x => x.PaymentPlannedWrapper.Date = value);
+                OnPropertyChanged();
+            }
+        }
+
+
+        public PaymentsGroup(IEnumerable<PaymentWrapper> payments)
+        {
+            _payments = payments.ToList();
+        }
+    }
+
+    public class PaymentWrapper : BindableBase
     {
         private bool _willSave;
 
@@ -132,16 +223,4 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
     }
-
-    public class NotifyPropertyChanged : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
-
 }

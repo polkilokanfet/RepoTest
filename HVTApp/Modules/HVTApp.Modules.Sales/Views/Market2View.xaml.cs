@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Modules.Sales.Tabs;
 using HVTApp.Modules.Sales.ViewModels;

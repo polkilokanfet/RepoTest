@@ -14,7 +14,7 @@ namespace HVTApp.Model.POCOs
         public DateTime DateCalculated { get; set; }
 
         [Designation("Часть")]
-        public double Part { get; set; }
+        public double Part { get; set; } = 1;
 
         [Designation("Комментарий"), OrderStatus(OrderStatus.Lowest)]
         public string Comment { get; set; }

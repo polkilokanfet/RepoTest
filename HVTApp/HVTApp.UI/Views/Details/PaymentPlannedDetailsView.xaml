@@ -17,6 +17,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -26,22 +27,28 @@
 					Visibility="{Binding DateVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Сумма" Visibility="{Binding SumVisibility, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
-                               Value="{Binding Item.Sum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding SumVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Дата расчетная" Visibility="{Binding DateCalculatedVisibility, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="1" 
+                    SelectedDate="{Binding Item.DateCalculated, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding DateCalculatedVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Связанное условие" Visibility="{Binding ConditionVisibility, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
+        <Label Grid.Column="0" Grid.Row ="2" Content="Часть" Visibility="{Binding PartVisibility, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
+                               Value="{Binding Item.Part, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding PartVisibility, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Связанное условие" Visibility="{Binding ConditionVisibility, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.Condition}" 
                                     AddItemCommand="{Binding SelectConditionCommand}" 
                                     RemoveItemCommand="{Binding ClearConditionCommand}"
 									Visibility="{Binding ConditionVisibility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Комментарий" Visibility="{Binding CommentVisibility, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="4" Content="Комментарий" Visibility="{Binding CommentVisibility, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding CommentVisibility, ElementName=Root}"/>
 

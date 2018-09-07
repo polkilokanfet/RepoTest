@@ -1,11 +1,13 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
+using HVTApp.Infrastructure;
+using HVTApp.Modules.Sales.Tabs;
 using HVTApp.Modules.Sales.ViewModels;
 using Prism.Events;
 using Prism.Regions;
 
 namespace HVTApp.Modules.Sales.Views
 {
+    [RibbonTab(typeof(PaymentsTab))]
     public partial class PaymentsView
     {
         private readonly PaymentsViewModel _paymentsViewModel;

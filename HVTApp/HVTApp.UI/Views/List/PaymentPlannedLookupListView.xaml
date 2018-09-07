@@ -40,6 +40,8 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
                     <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />
+                    <infg:DateTimeField Name="DateCalculated" Label="Дата расчетная" Width="Auto" />
+                    <infg:NumericField Name="Part" Label="Часть" Width="Auto" />
                     <infg:NumericField Name="Sum" Label="Sum" Width="Auto" />
                     <infg:TextField Name="Condition" Label="Связанное условие" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />

@@ -105,6 +105,10 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(OrderStatus.Normal)]
+        public System.DateTime DateCalculated => GetValue<System.DateTime>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
         public System.Double Part => GetValue<System.Double>();
 
 
@@ -1331,6 +1335,66 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.DateTime> DeliveryDate => GetValue<System.Nullable<System.DateTime>>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.Double SumPaid => GetValue<System.Double>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.Double SumNotPaid => GetValue<System.Double>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.Double SumToStartProduction => GetValue<System.Double>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.Double SumToShipping => GetValue<System.Double>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.DateTime OrderInTakeDate => GetValue<System.DateTime>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.Int32 OrderInTakeYear => GetValue<System.Int32>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.Int32 OrderInTakeMonth => GetValue<System.Int32>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.Nullable<System.DateTime> StartProductionConditionsDoneDate => GetValue<System.Nullable<System.DateTime>>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.Nullable<System.DateTime> ShippingConditionsDoneDate => GetValue<System.Nullable<System.DateTime>>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.DateTime StartProductionDateCalculated => GetValue<System.DateTime>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.DateTime EndProductionDateCalculated => GetValue<System.DateTime>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.DateTime RealizationDateCalculated => GetValue<System.DateTime>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.DateTime ShipmentDateCalculated => GetValue<System.DateTime>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.DateTime DeliveryDateCalculated => GetValue<System.DateTime>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.Double DeliveryPeriodCalculated => GetValue<System.Double>();
 
 
         #endregion

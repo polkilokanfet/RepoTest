@@ -19,7 +19,7 @@
             <Label.Style>
                 <Style>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=PaymentListGrid, Path=Visibility}" Value="Visible">
+                    <DataTrigger Binding="{Binding ElementName=PaymentsListGrid, Path=Visibility}" Value="Visible">
                         <Setter Property="Label.Visibility" Value="Collapsed"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -43,13 +43,15 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
                         
+                        <infg:TextField AlternateBinding="{Binding Path=SalesUnit.Id}" BindingType="UseAlternateBinding" Label="Id" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Path=SalesUnit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>                        
                         <infg:TextField AlternateBinding="{Binding SalesUnit.Product}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                         <infg:DateTimeField AlternateBinding="{Binding PaymentPlannedWrapper.Date, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Дата" Width="Auto" AllowEdit="True"/>
                         <infg:NumericField AlternateBinding="{Binding PaymentPlannedWrapper.Sum}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto"/>
+                        <infg:NumericField AlternateBinding="{Binding PaymentPlannedWrapper.Part}" BindingType="UseAlternateBinding" Label="Part" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding PaymentPlannedWrapper.Condition}" BindingType="UseAlternateBinding" Label="Условия" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                         <infg:TextField AlternateBinding="{Binding PaymentPlannedWrapper.Comment}" BindingType="UseAlternateBinding" Label="Комментарий" Width="Auto" AllowEdit="True"/>
-
+                        <infg:CheckBoxField Name="WillSave" Label="?"/>
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 
