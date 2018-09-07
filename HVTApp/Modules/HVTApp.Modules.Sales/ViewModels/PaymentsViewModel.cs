@@ -94,6 +94,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
 
             payments = payments.OrderBy(x => x.PaymentPlannedWrapper.Date).ToList();
+                var ppp = payments.Where(x => x.WillSave).ToList();
 
             var groups = payments.GroupBy(x => new
             {
@@ -134,15 +135,16 @@ namespace HVTApp.Modules.Sales.ViewModels
         private IEnumerable<PaymentWrapper> GetPayments(SalesUnitWrapper salesUnitWrapper)
         {
             //платежи, находящиеся в юните
-            foreach (var paymentPlannedWrapper in salesUnitWrapper.PaymentsPlanned)
+            foreach (var ppw in salesUnitWrapper.PaymentsPlanned)
             {
-                yield return new PaymentWrapper(paymentPlannedWrapper, salesUnitWrapper, true);
+                yield return new PaymentWrapper(ppw, salesUnitWrapper, true);
             }
 
             //платежи сгенерированные
-            foreach (var ppg in salesUnitWrapper.PaymentsPlannedGenerated)
+            //необходимо брать именно из Model (актуально)
+            foreach (var ppg in salesUnitWrapper.Model.PaymentsPlannedGenerated)
             {
-                yield return new PaymentWrapper(ppg, salesUnitWrapper, false);
+                yield return new PaymentWrapper(new PaymentPlannedWrapper(ppg), salesUnitWrapper, false);
             }
         }
     }
@@ -157,6 +159,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         public double Sum => Amount * SalesUnit.Cost;
 
         public SalesUnitWrapper SalesUnit { get; set; }
+        public PaymentConditionWrapper Condition { get; }
 
         public DateTime Date
         {
@@ -180,6 +183,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             _payments = payments.ToList();
             _date = payments.First().PaymentPlannedWrapper.Date;
+            Condition = payments.First().PaymentPlannedWrapper.Condition;
             SalesUnit = payments.First().SalesUnit;
 
 

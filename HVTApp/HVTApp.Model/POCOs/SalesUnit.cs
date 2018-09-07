@@ -205,7 +205,7 @@ namespace HVTApp.Model.POCOs
         /// <summary>
         /// –асчетна€ дата начала производства.
         /// </summary>
-        [Designation("Ќачало произчодства (расч.)"), NotMapped]
+        [Designation("Ќачало производства (расч.)"), NotMapped]
         public DateTime StartProductionDateCalculated
         {
             get
@@ -363,54 +363,6 @@ namespace HVTApp.Model.POCOs
                     return DeliveryDateCalculated.AddDays(condition.DaysToPoint);
                 default:
                     throw new ArgumentOutOfRangeException();
-            }
-        }
-
-
-        /// <summary>
-        /// Ќеисполненные платежные услови€
-        /// </summary>
-        [Designation("Ќеисполненные платежные услови€"), NotMapped]
-        private List<PaymentCondition> PaymentConditionsToDone
-        {
-            get
-            {
-                var result = new List<PaymentCondition>();
-
-                //если стоимость нулева€ или нечего платить - выходим
-                if (Cost < 0.00001 || SumNotPaid < 0.00001) return result;
-
-                //берем все услови€ и упор€дочиваем их
-                var conditions = PaymentConditionSet.PaymentConditions.OrderByDescending(x => x).ToList();
-
-                //неоплаченна€ часть
-                var rest = SumNotPaid / Cost;
-
-                //добавление в результат неисполненных условий
-                foreach (var condition in conditions)
-                {
-                    rest -= condition.Part;
-                    //если осталось неоплаченное - условие проходит
-                    if (rest >= 0)
-                    {
-                        result.Add(condition);
-                        continue;
-                    }
-
-                    var newCondition = new PaymentCondition
-                    {
-                        DaysToPoint = condition.DaysToPoint,
-                        PaymentConditionPoint = condition.PaymentConditionPoint,
-                        Part = condition.Part + rest
-                    };
-                    if (newCondition.Part > 0)
-                    {
-                        result.Add(newCondition);
-                    }
-                }
-                //возвращаем упор€доченные услови€
-                return result.OrderBy(x => x).ToList();
-
             }
         }
 
