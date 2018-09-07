@@ -24,7 +24,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         private IUnitOfWork UnitOfWork;
         private IValidatableChangeTrackingCollection<SalesUnitWrapper> _salesUnitWrappers;
         private bool _isLoaded = false;
-        public ObservableCollection<PaymentWrapper> Payments { get; } = new ObservableCollection<PaymentWrapper>();
+        public ObservableCollection<PaymentsGroup> PaymentsGroups { get; } = new ObservableCollection<PaymentsGroup>();
 
         public bool IsLoaded
         {
@@ -92,8 +92,22 @@ namespace HVTApp.Modules.Sales.ViewModels
             {
                 payments.AddRange(GetPayments(salesUnitWrapper));
             }
-            Payments.Clear();
-            Payments.AddRange(payments.OrderBy(x => x.PaymentPlannedWrapper.Date));
+
+            payments = payments.OrderBy(x => x.PaymentPlannedWrapper.Date).ToList();
+
+            var groups = payments.GroupBy(x => new
+            {
+                ProjectId = x.SalesUnit.Project.Id,
+                ProductId = x.SalesUnit.Product.Id,
+                FacilityId = x.SalesUnit.Facility.Id,
+                Cost = x.SalesUnit.Cost,
+                Part = x.PaymentPlannedWrapper.Part,
+                Date = x.PaymentPlannedWrapper.Date,
+                ConditionId = x.PaymentPlannedWrapper.Condition.Id
+            });
+
+            PaymentsGroups.Clear();
+            PaymentsGroups.AddRange(groups.Select(x => new PaymentsGroup(x)));
         }
 
         private void Actualization(SalesUnitWrapper salesUnitWrapper)
@@ -140,6 +154,10 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public int Amount => _payments.Count;
 
+        public double Sum => Amount * SalesUnit.Cost;
+
+        public SalesUnitWrapper SalesUnit { get; set; }
+
         public DateTime Date
         {
             get { return _date; }
@@ -148,15 +166,25 @@ namespace HVTApp.Modules.Sales.ViewModels
                 if (Equals(_date, value)) return;
                 if (value < DateTime.Today) return;
                 _date = value;
-                _payments.ForEach(x => x.PaymentPlannedWrapper.Date = value);
+                if(Groups.Any())
+                    Groups.ForEach(x => x.Date = value);
+                else
+                    _payments.ForEach(x => x.PaymentPlannedWrapper.Date = value);
                 OnPropertyChanged();
             }
         }
 
+        public ObservableCollection<PaymentsGroup> Groups { get; } = new ObservableCollection<PaymentsGroup>();
 
         public PaymentsGroup(IEnumerable<PaymentWrapper> payments)
         {
             _payments = payments.ToList();
+            _date = payments.First().PaymentPlannedWrapper.Date;
+            SalesUnit = payments.First().SalesUnit;
+
+
+            if(payments.Count() > 1)
+                Groups.AddRange(payments.Select(x => new PaymentsGroup(new List<PaymentWrapper> {x})));
         }
     }
 
