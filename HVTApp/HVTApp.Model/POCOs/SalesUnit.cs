@@ -182,10 +182,20 @@ namespace HVTApp.Model.POCOs
                 sum += payment.Sum;
                 if (sumToAchive <= sum) return payment.Date;
             }
+
+            var dic = PaymentConditionsDictionary;
             foreach (var payment in PaymentsPlannedActual.OrderBy(x => x.Date))
             {
+                //если пропущены какие-то услови€ перед сохраненными - выйти
+                if (!Equals(dic.First(x => x.Value < 1).Key, payment.Condition))
+                {
+                    return null;
+                }
+
                 sum += payment.Part * payment.Condition.Part * Cost;
                 if (sumToAchive <= sum) return payment.Date;
+
+                dic[payment.Condition] += payment.Part;
             }
             return null;
         }
@@ -216,15 +226,15 @@ namespace HVTApp.Model.POCOs
                 if (StartProductionConditionsDoneDate.HasValue) return StartProductionConditionsDoneDate.Value;
 
                 //по дате первого платежа
-                if (PaymentsActual.Any()) return PaymentsActual.OrderBy(x => x.Date).First().Date;
+                if (PaymentsActual.Any()) return PaymentsActual.Select(x => x.Date).Min();
 
                 var productionTerm = this.ProductionTerm ?? CommonOptions.ProductionTerm;
 
                 //по дате доставки оборудовани€ на объект
-                if (DeliveryDate.HasValue) return DeliveryDate.Value.AddDays(-productionTerm).AddDays(-DeliveryPeriodCalculated).GetTodayIfDateFromPastAndSkipWeekend();
+                if (DeliveryDate.HasValue) return DeliveryDate.Value.AddDays(-productionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend();
 
                 //по необходимой дате реализации проекта
-                return DeliveryDateExpected.AddDays(-productionTerm).AddDays(-DeliveryPeriodCalculated).GetTodayIfDateFromPastAndSkipWeekend();
+                return DeliveryDateExpected.AddDays(-productionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend();
             }
         }
 
@@ -243,12 +253,12 @@ namespace HVTApp.Model.POCOs
                 if (PickingDate.HasValue)
                 {
                     var assembleTerm = this.AssembleTerm ?? CommonOptions.AssembleTerm;
-                    return PickingDate.Value.AddDays(assembleTerm).GetTodayIfDateFromPastAndSkipWeekend();
+                    return PickingDate.Value.AddDays(assembleTerm).SkipPastAndWeekend();
                 }
 
                 //по сроку производства
                 var productionTerm = this.ProductionTerm ?? CommonOptions.ProductionTerm;
-                return StartProductionDateCalculated.AddDays(productionTerm).GetTodayIfDateFromPastAndSkipWeekend();
+                return StartProductionDateCalculated.AddDays(productionTerm).SkipPastAndWeekend();
             }
         }
 
@@ -289,10 +299,10 @@ namespace HVTApp.Model.POCOs
                 //по дате исполнени€ условий дл€ отгрузки
                 if (ShippingConditionsDoneDate.HasValue &&
                     ShippingConditionsDoneDate >= EndProductionDateCalculated)
-                    return ShippingConditionsDoneDate.Value.GetTodayIfDateFromPastAndSkipWeekend();
+                    return ShippingConditionsDoneDate.Value.SkipPastAndWeekend();
 
                 //по дате окончани€ производства
-                return EndProductionDateCalculated.GetTodayIfDateFromPastAndSkipWeekend();
+                return EndProductionDateCalculated.SkipPastAndWeekend();
             }
         }
 
@@ -305,7 +315,7 @@ namespace HVTApp.Model.POCOs
             get
             {
                 if (DeliveryDate.HasValue) return DeliveryDate.Value;
-                return ShipmentDateCalculated.AddDays(DeliveryPeriodCalculated).GetTodayIfDateFromPastAndSkipWeekend();
+                return ShipmentDateCalculated.AddDays(DeliveryPeriodCalculated).SkipPastAndWeekend();
             }
         }
 
@@ -443,8 +453,7 @@ namespace HVTApp.Model.POCOs
 
                             Id = payment.Id,
                             Condition = payment.Condition,
-                            //Comment = payment.Comment,
-                            Comment = "актуальный плановый платеж",
+                            Comment = payment.Comment,
                             DateCalculated = payment.DateCalculated
                         });
                     }
@@ -461,8 +470,12 @@ namespace HVTApp.Model.POCOs
         {
             get
             {
-                var sumPlanned = PaymentsPlannedActual.Sum(x => x.Part * x.Condition.Part * Cost);
-                var dictionary = GetConditionsDictionary(SumPaid + sumPlanned);
+                var dictionary = PaymentConditionsDictionary;
+                foreach (var paymentPlanned in PaymentsPlannedActual)
+                {
+                    dictionary[paymentPlanned.Condition] += paymentPlanned.Part;
+                }
+                
                 var result = new List<PaymentPlanned>();
                 foreach (var conditions in dictionary)
                 {
@@ -474,7 +487,7 @@ namespace HVTApp.Model.POCOs
                         Condition = conditions.Key,
                         Date = GetPaymentDate(conditions.Key),
                         Part = 1 - conditions.Value,
-                        Comment = "—генерированный платеж"
+                        //Comment = "—генерированный платеж"
                     });
                 }
                 return result;

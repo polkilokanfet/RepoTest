@@ -9,7 +9,7 @@ namespace HVTApp.Infrastructure.Extansions
         /// </summary>
         /// <param name="date">Проверяемая дата.</param>
         /// <returns></returns>
-        public static DateTime GetTodayIfDateToEarly(this DateTime date)
+        public static DateTime SkipPast(this DateTime date)
         {
             if (date >= DateTime.Today) return date;
             return DateTime.Today;
@@ -34,9 +34,9 @@ namespace HVTApp.Infrastructure.Extansions
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public static DateTime GetTodayIfDateFromPastAndSkipWeekend(this DateTime date)
+        public static DateTime SkipPastAndWeekend(this DateTime date)
         {
-            return GetTodayIfDateToEarly(SkipWeekend(date));
+            return SkipPast(SkipWeekend(date));
         }
     }
 }
