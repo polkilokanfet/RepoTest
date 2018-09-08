@@ -31,7 +31,8 @@
         <infg:XamDataGrid x:Name="PaymentsListGrid"
                           Grid.Row="1"
                           Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}"
-                          DataSource="{Binding PaymentsGroups}">
+                          DataSource="{Binding PaymentsGroups}"
+                          SelectedDataItem="{Binding SelectedGroup}">
 
             <infg:XamDataGrid.ContextMenu>
 				<ContextMenu>
@@ -50,6 +51,7 @@
                         <infg:DateTimeField Name="Sum" Label="Сумма" Width="Auto"/>
                         <infg:TextField Name="Condition" Label="Условие" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                         <infg:Field Name="Groups" IsExpandable="True"/>
+                        <infg:CheckBoxField Name="WillSave" Label="?"/>
                         
                         <!--<infg:TextField AlternateBinding="{Binding Path=SalesUnit.Id}" BindingType="UseAlternateBinding" Label="Id" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Path=SalesUnit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>                        
@@ -59,7 +61,7 @@
                         <infg:NumericField AlternateBinding="{Binding PaymentPlannedWrapper.Part}" BindingType="UseAlternateBinding" Label="Part" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding PaymentPlannedWrapper.Condition}" BindingType="UseAlternateBinding" Label="Условия" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                         <infg:TextField AlternateBinding="{Binding PaymentPlannedWrapper.Comment}" BindingType="UseAlternateBinding" Label="Комментарий" Width="Auto" AllowEdit="True"/>
-                        <infg:CheckBoxField Name="WillSave" Label="?"/>-->
+                        -->
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
 
