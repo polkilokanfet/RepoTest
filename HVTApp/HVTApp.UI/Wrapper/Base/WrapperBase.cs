@@ -364,13 +364,36 @@ namespace HVTApp.UI.Wrapper
         }
 
         /// <summary>
-        /// Для валидации не по атрибутам, а в классе.
+        /// Валидация.
         /// </summary>
         /// <param name="validationContext"></param>
         /// <returns></returns>
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            yield break;
+            var modelType = Model.GetType();
+            var props = modelType.GetProperties();
+            foreach (var prop in props)
+            {
+                //обязательные поля
+                var reqAttr = prop.GetCustomAttribute<RequiredAttribute>();
+                if (reqAttr != null || (prop.PropertyType == typeof(String) && (string) prop.GetValue(Model) == string.Empty))
+                {
+                    if (prop.GetValue(Model) == null)
+                    {
+                        yield return new ValidationResult($"{prop.Name} не может быть пустым.", new[] {prop.Name});
+                    }
+                }
+
+                //поля с ограничением на длину строки
+                if (prop.PropertyType == typeof(String))
+                {
+                    var lenghAttr = prop.GetCustomAttribute<MaxLengthAttribute>();
+                    if (lenghAttr != null && prop.GetValue(Model) != null && ((String)prop.GetValue(Model)).Count() > lenghAttr.Length)
+                    {
+                        yield return new ValidationResult($"количество символов в поле {prop.Name} не может превышать {lenghAttr.Length}.", new[] { prop.Name });
+                    }
+                }
+            }
         }
 
         public override string ToString()
