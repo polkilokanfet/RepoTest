@@ -654,7 +654,7 @@ namespace HVTApp.TestDataGenerator
         private void GenerateSpecifications()
         {
             SpecificationMrsk1.Clone(new Specification { Contract = ContractMrsk, Date = ContractMrsk.Date, Number = "1", Vat = 0.18 });
-            SpecificationFsk.Clone(new Specification { Contract = ContractFsk, Date = ContractMrsk.Date, Number = "1", Vat = 0.18 });
+            SpecificationFsk.Clone(new Specification { Contract = ContractFsk, Date = ContractFsk.Date, Number = "1", Vat = 0.18 });
         }
 
         private void GeneratePaymentConditions()

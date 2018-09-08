@@ -1,0 +1,55 @@
+﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
+              x:Class="HVTApp.Modules.Price.Views.PricesView">
+
+    <inf:ViewBase.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></converters:BooleanToVisibilityConverter>
+    </inf:ViewBase.Resources>
+
+    <Grid>
+         <Grid.RowDefinitions>
+             <RowDefinition Height="Auto"/>
+             <RowDefinition Height="*"/>
+         </Grid.RowDefinitions>
+         
+        <Label Grid.Row="0" Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=PricesListGrid, Path=Visibility}" Value="Visible">
+                        <Setter Property="Label.Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+       
+
+		<infg:XamDataGrid x:Name="PricesListGrid" 
+                          Grid.Row="1"
+                          DataSource="{Binding PriceTasks}"
+                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+        
+			<infg:XamDataGrid.FieldLayouts>
+				<infg:FieldLayout>
+					<infg:FieldLayout.Fields>
+                        
+                    <infg:TextField Name="Block" Label="Блок" Width="Auto"/>
+                    <infg:NumericField Name="SpecificationsCount" Label="Спецификации" Width="Auto" />
+                    <infg:NumericField Name="OffersCount" Label="ТКП" Width="Auto" />
+                    <infg:NumericField Name="ProjectsCount" Label="Проекты" Width="Auto" />
+                    <infg:NumericField Name="Price" Label="Прайс" Width="Auto" AllowEdit="True"/>
+                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
+                    <infg:CheckBoxField Name="IsPriceless" Label="Без прайса" Width="Auto" />
+
+					</infg:FieldLayout.Fields>
+				</infg:FieldLayout>
+
+			</infg:XamDataGrid.FieldLayouts>
+		</infg:XamDataGrid>
+
+    </Grid>
+</inf:ViewBase>

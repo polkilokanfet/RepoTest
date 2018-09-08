@@ -23,11 +23,13 @@ namespace HVTApp.Modules.Sales.ViewModels
         public Market2ViewModel(IUnityContainer container) : base(container)
         {
             _container = container;
+
+            //контексты
             OfferListViewModel = container.Resolve<OfferLookupListViewModel>();
             UnitLookupListViewModel = container.Resolve<UnitLookupListViewModel>();
             NoteLookupListViewModel = container.Resolve<NoteLookupListViewModel>();
 
-
+            //привязываем команды к соответствующим моделям
             NewOfferCommand = OfferListViewModel.NewItemCommand;
             EditOfferCommand = OfferListViewModel.EditItemCommand;
             RemoveOfferCommand = OfferListViewModel.RemoveItemCommand;

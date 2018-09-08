@@ -175,14 +175,10 @@
       <DependentUpon>TabCRUD.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Details\ProjectDetailsViewModel.cs" />
-    <Compile Include="ViewModels\List\CalculatePriceTaskLookupListView.cs" />
     <Compile Include="ViewModels\List\CompanyListViewModel.cs" />
     <Compile Include="ViewModels\List\Generated\ListViewModels.g.cs" />
     <Compile Include="ViewModels\List\OfferLookupListViewModel.cs" />
-    <Compile Include="ViewModels\List\PartPriceListViewModel.cs" />
-    <Compile Include="ViewModels\List\PaymentPlannedListViewModel.cs" />
     <Compile Include="ViewModels\List\UnitLookupListViewModel.cs" />
-    <Compile Include="ViewModels\List\TenderUnitListViewModel.cs" />
     <Compile Include="Views\Details\cs\DetailsViews.g.cs" />
     <Compile Include="Views\Details\Custom\OfferView.xaml.cs">
       <DependentUpon>OfferView.xaml</DependentUpon>

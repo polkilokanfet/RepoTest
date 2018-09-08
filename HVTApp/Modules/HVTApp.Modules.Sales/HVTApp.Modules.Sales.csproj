@@ -93,7 +93,7 @@
       <DependentUpon>SalesMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\SalesMenuViewModel.cs" />
-    <Compile Include="Menus\TabProjects.xaml.cs">
+    <Compile Include="Tabs\TabProjects.xaml.cs">
       <DependentUpon>TabProjects.xaml</DependentUpon>
     </Compile>
     <Compile Include="SalesModule.cs" />
@@ -119,7 +119,6 @@
     <Compile Include="ViewModels\MarketViewModel.cs" />
     <Compile Include="ViewModels\OffersViewModel.cs" />
     <Compile Include="ViewModels\Market2ViewModel.cs" />
-    <Compile Include="ViewModels\PaymentsPlannedViewModel.cs" />
     <Compile Include="ViewModels\Payments\PaymentsGroup.cs" />
     <Compile Include="ViewModels\Payments\PaymentsViewModel.cs" />
     <Compile Include="ViewModels\Payments\PaymentWrapper.cs" />
@@ -131,9 +130,6 @@
     </Compile>
     <Compile Include="Views\Market2View.xaml.cs">
       <DependentUpon>Market2View.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PaymentsPlannedView.xaml.cs">
-      <DependentUpon>PaymentsPlannedView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PaymentsView.xaml.cs">
       <DependentUpon>PaymentsView.xaml</DependentUpon>
@@ -188,7 +184,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Menus\TabProjects.xaml">
+    <Page Include="Tabs\TabProjects.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -209,10 +205,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Market2View.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\PaymentsPlannedView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

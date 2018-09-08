@@ -15,6 +15,7 @@ using HVTApp.Infrastructure.Prism;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.BaseEntities;
+using HVTApp.Modules.Price;
 using HVTApp.Modules.Production;
 using HVTApp.Modules.Sales;
 using HVTApp.Services.GetProductService;
@@ -113,6 +114,7 @@ namespace HVTApp
             AddModuleIfInRole(catalog, typeof(SalesModule));
             AddModuleIfInRole(catalog, typeof(BaseEntitiesModule));
             AddModuleIfInRole(catalog, typeof(ProductionModule));
+            AddModuleIfInRole(catalog, typeof(PriceModule));
 
             return catalog;
         }

@@ -14,7 +14,8 @@ namespace HVTApp.Modules.Sales.Menus
             this.DataContext = viewModel;
         }
 
-        public Uri DefaultViewUri {
+        public Uri DefaultViewUri
+        {
             get
             {
                 var node = _xamDataTree.SelectionSettings.SelectedNodes[0];

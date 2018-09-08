@@ -19,7 +19,6 @@ namespace HVTApp.Modules.Sales
         {
             Container.RegisterViewForNavigation<MarketView>();
             Container.RegisterViewForNavigation<Market2View>();
-            Container.RegisterViewForNavigation<PaymentsPlannedView>();
             Container.RegisterViewForNavigation<PaymentsView>();
             Container.RegisterViewForNavigation<OffersView>();
         }

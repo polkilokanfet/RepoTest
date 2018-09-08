@@ -18,12 +18,16 @@ namespace HVTApp.Modules.Sales.Views
 
             _viewModel = viewModel;
 
+            //назначаем контексты
             this.DataContext = _viewModel;
             this.ProjectListView.DataContext = _viewModel;
             this.OfferListView.DataContext = _viewModel.OfferListViewModel;
             this.UnitListView.DataContext = _viewModel.UnitLookupListViewModel;
             this.NotesListView.DataContext = _viewModel.NoteLookupListViewModel;
 
+            #region ClearViews
+
+            
             ProjectListView.ManagerVisibility = Visibility.Collapsed;
             ProjectListView.OffersVisibility = Visibility.Collapsed;
             ProjectListView.TendersVisibility = Visibility.Collapsed;
@@ -38,6 +42,8 @@ namespace HVTApp.Modules.Sales.Views
             OfferListView.SenderEmployeeVisibility = Visibility.Collapsed;
             OfferListView.VatVisibility = Visibility.Collapsed;
             OfferListView.RequestDocumentVisibility = Visibility.Collapsed;
+
+            #endregion
 
             this.Loaded += OnLoaded;
         }

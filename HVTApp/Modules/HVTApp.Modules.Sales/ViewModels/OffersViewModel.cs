@@ -9,12 +9,6 @@ namespace HVTApp.Modules.Sales.ViewModels
     {
         public OffersViewModel(IUnityContainer container) : base(container)
         {
-            PrintOfferCommand = new DelegateCommand(PrintOfferCommand_Execute);
-        }
-
-        private async void PrintOfferCommand_Execute()
-        {
-            await Container.Resolve<IOfferToDoc>().PrintOfferAsync(SelectedLookup.Id);
         }
     }
 }
