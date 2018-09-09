@@ -62,11 +62,17 @@ namespace HVTApp.Model.POCOs
         [Designation("Срок сборки")]
         public int? AssembleTerm { get; set; }
 
+        [Designation("Сигнал менеджера о производстве")]
+        public DateTime? SignalToStartProduction { get; set; }
+
         [Designation("Дата начала производства")]
         public DateTime? StartProductionDate { get; set; }
 
         [Designation("Дата комплектации")]
         public DateTime? PickingDate { get; set; }
+
+        [Designation("Плановая дата окончания производства")]
+        public DateTime? EndProductionPlanDate { get; set; }
 
         [Designation("Дата окончания производства")]
         public DateTime? EndProductionDate { get; set; }
@@ -99,7 +105,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Дата отгрузки")]
         public virtual DateTime? ShipmentDate { get; set; }
 
-        [Designation("Дата отгрузки")]
+        [Designation("Дата плановой отгрузки")]
         public virtual DateTime? ShipmentPlanDate { get; set; }
 
         [Designation("Дата поставки")]
@@ -222,6 +228,9 @@ namespace HVTApp.Model.POCOs
             {
                 if (StartProductionDate.HasValue) return StartProductionDate.Value;
 
+                //по сигналу менеджера
+                if (SignalToStartProduction.HasValue) return SignalToStartProduction.Value;
+
                 //по исполнению условий, необходимых для запуска производства
                 if (StartProductionConditionsDoneDate.HasValue) return StartProductionConditionsDoneDate.Value;
 
@@ -255,6 +264,9 @@ namespace HVTApp.Model.POCOs
                     var assembleTerm = this.AssembleTerm ?? CommonOptions.AssembleTerm;
                     return PickingDate.Value.AddDays(assembleTerm).SkipPastAndWeekend();
                 }
+
+                //по дате размещения в производстве (план)
+                if (EndProductionPlanDate.HasValue) return EndProductionPlanDate.Value;
 
                 //по сроку производства
                 var productionTerm = this.ProductionTerm ?? CommonOptions.ProductionTerm;

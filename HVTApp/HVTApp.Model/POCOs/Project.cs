@@ -11,7 +11,11 @@ namespace HVTApp.Model.POCOs
         [Designation("Название"), OrderStatus(OrderStatus.High)]
         public string Name { get; set; }
 
+        [Designation("Тип проекта")]
         public virtual ProjectType ProjectType { get; set; }
+
+        [Designation("Высокая вероятность поставки")]
+        public bool HighProbability { get; set; } = true;
 
         [Designation("Менеджер"), NotUpdate(Role.SalesManager)]
         public virtual User Manager { get; set; }

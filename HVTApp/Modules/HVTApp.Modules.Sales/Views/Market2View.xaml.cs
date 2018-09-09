@@ -42,6 +42,7 @@ namespace HVTApp.Modules.Sales.Views
             OfferListView.SenderEmployeeVisibility = Visibility.Collapsed;
             OfferListView.VatVisibility = Visibility.Collapsed;
             OfferListView.RequestDocumentVisibility = Visibility.Collapsed;
+            OfferListView.OfferUnitsVisibility = Visibility.Collapsed;
 
             #endregion
 

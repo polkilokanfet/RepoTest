@@ -19,7 +19,10 @@ namespace HVTApp.Modules.Sales.Menus
             root.Items.Add(new NavigationItem("Контракты", typeof(ContractLookupListView)));
             root.Items.Add(new NavigationItem("Спецификации", typeof(SpecificationLookupListView)));
 
+            var production = new NavigationItem("Производство", typeof(ProductionView));
+
             Items.Add(root);
+            Items.Add(production);
         }
     }
 }

@@ -47,8 +47,8 @@
                         <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>                        
                         <infg:TextField AlternateBinding="{Binding SalesUnit.Product}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                         <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
-                        <infg:DateTimeField Name="Amount" Label="Количество" Width="Auto"/>
-                        <infg:DateTimeField Name="Sum" Label="Сумма" Width="Auto"/>
+                        <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
+                        <infg:NumericField Name="Sum" Label="Сумма" Width="Auto"/>
                         <infg:TextField Name="Condition" Label="Условие" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                         <infg:Field Name="Groups" IsExpandable="True"/>
                         <infg:CheckBoxField Name="WillSave" Label="?"/>

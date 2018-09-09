@@ -122,6 +122,7 @@
     <Compile Include="ViewModels\Payments\PaymentsGroup.cs" />
     <Compile Include="ViewModels\Payments\PaymentsViewModel.cs" />
     <Compile Include="ViewModels\Payments\PaymentWrapper.cs" />
+    <Compile Include="ViewModels\ProductionViewModel.cs" />
     <Compile Include="Views\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
     </Compile>
@@ -130,6 +131,9 @@
     </Compile>
     <Compile Include="Views\Market2View.xaml.cs">
       <DependentUpon>Market2View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProductionView.xaml.cs">
+      <DependentUpon>ProductionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PaymentsView.xaml.cs">
       <DependentUpon>PaymentsView.xaml</DependentUpon>
@@ -207,6 +211,10 @@
     <Page Include="Views\Market2View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProductionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\PaymentsView.xaml">
       <SubType>Designer</SubType>
