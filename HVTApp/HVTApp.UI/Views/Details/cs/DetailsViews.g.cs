@@ -1490,9 +1490,14 @@ namespace HVTApp.UI.Views
             NotUpdateAttribute attr;
 
 
-            attr = typeof(HVTApp.Model.POCOs.ProductBlock).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlock.Name)).GetCustomAttribute<NotUpdateAttribute>();
+            attr = typeof(HVTApp.Model.POCOs.ProductBlock).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlock.Designation)).GetCustomAttribute<NotUpdateAttribute>();
             if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-                NameVisibility = Visibility.Collapsed;
+                DesignationVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.ProductBlock).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlock.DesignationSpecial)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                DesignationSpecialVisibility = Visibility.Collapsed;
 
 
             attr = typeof(HVTApp.Model.POCOs.ProductBlock).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlock.Parameters)).GetCustomAttribute<NotUpdateAttribute>();
@@ -1515,16 +1520,30 @@ namespace HVTApp.UI.Views
                 IsServiceVisibility = Visibility.Collapsed;
 
 
+            attr = typeof(HVTApp.Model.POCOs.ProductBlock).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlock.LastPriceDate)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                LastPriceDateVisibility = Visibility.Collapsed;
+
+
 
         }
 
 
 
-        public static readonly DependencyProperty NameVisibilityProperty = DependencyProperty.Register("NameVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility NameVisibility
+        public static readonly DependencyProperty DesignationVisibilityProperty = DependencyProperty.Register("DesignationVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility DesignationVisibility
         {
-            get { return (Visibility) GetValue(NameVisibilityProperty); }
-            set { SetValue(NameVisibilityProperty, value); }
+            get { return (Visibility) GetValue(DesignationVisibilityProperty); }
+            set { SetValue(DesignationVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty DesignationSpecialVisibilityProperty = DependencyProperty.Register("DesignationSpecialVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility DesignationSpecialVisibility
+        {
+            get { return (Visibility) GetValue(DesignationSpecialVisibilityProperty); }
+            set { SetValue(DesignationSpecialVisibilityProperty, value); }
         }
 
 
@@ -1561,6 +1580,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(IsServiceVisibilityProperty); }
             set { SetValue(IsServiceVisibilityProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty LastPriceDateVisibilityProperty = DependencyProperty.Register("LastPriceDateVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility LastPriceDateVisibility
+        {
+            get { return (Visibility) GetValue(LastPriceDateVisibilityProperty); }
+            set { SetValue(LastPriceDateVisibilityProperty, value); }
         }
 
 

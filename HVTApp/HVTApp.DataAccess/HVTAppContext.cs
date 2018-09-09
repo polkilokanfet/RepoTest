@@ -1,6 +1,4 @@
-﻿using HVTApp.Model.POCOs;
-
-namespace HVTApp.DataAccess
+﻿namespace HVTApp.DataAccess
 {
     using System.Data.Entity;
 

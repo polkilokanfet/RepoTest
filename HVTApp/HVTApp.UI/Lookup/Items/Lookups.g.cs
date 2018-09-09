@@ -740,7 +740,11 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(OrderStatus.Normal)]
-        public System.String Name => GetValue<System.String>();
+        public System.String Designation => GetValue<System.String>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.String DesignationSpecial => GetValue<System.String>();
 
 
 		[OrderStatus(OrderStatus.Normal)]
@@ -749,6 +753,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(OrderStatus.Normal)]
         public System.Boolean IsService => GetValue<System.Boolean>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.Nullable<System.DateTime> LastPriceDate => GetValue<System.Nullable<System.DateTime>>();
 
 
         #endregion

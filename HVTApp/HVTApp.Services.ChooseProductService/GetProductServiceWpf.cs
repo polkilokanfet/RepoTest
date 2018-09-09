@@ -101,7 +101,7 @@ namespace HVTApp.Services.GetProductService
 
             var product = new Product {ProductBlock = new ProductBlock {Parameters = new List<Parameter> {parentParameter, parameter} }};
             product.ProductBlock.StructureCostNumber = tsk.StructureCostNumber;
-            product.ProductBlock.Name = tsk.Designation;
+            product.ProductBlock.DesignationSpecial = tsk.Designation;
 
             tsk = await _unitOfWork.GetRepository<CreateNewProductTask>().GetByIdAsync(tsk.Id);
             tsk.Product = product;

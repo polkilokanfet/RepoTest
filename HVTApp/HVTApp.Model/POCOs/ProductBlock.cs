@@ -12,8 +12,11 @@ namespace HVTApp.Model.POCOs
     [Designation("Блок")]
     public partial class ProductBlock : BaseEntity
     {
-        [Designation("Название")]
-        public string Name { get; set; }
+        [Designation("Обозначение"), NotMapped]
+        public string Designation { get; set; }
+
+        [Designation("Специальное обозначение")]
+        public string DesignationSpecial { get; set; }
 
         [Designation("Параметры")]
         public virtual List<Parameter> Parameters { get; set; } = new List<Parameter>();
@@ -52,7 +55,9 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return !string.IsNullOrEmpty(Name) ? Name : ParametersToString();
+            if (DesignationSpecial != null) return DesignationSpecial;
+            if (Designation != null) return Designation;
+            return ParametersToString();
         }
     }
 }

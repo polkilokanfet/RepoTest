@@ -72,7 +72,7 @@
                     <infg:TextField Name="Specification" Label="Спецификация" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:DateTimeField Name="StartProductionConditionsDoneDate" Label="Дата исполнения условий для начала производства" Width="Auto" />
                     <infg:DateTimeField Name="StartProductionDate" Label="Дата начала производства" Width="Auto" />
-                    <infg:DateTimeField Name="StartProductionDateCalculated" Label="Начало произчодства (расч.)" Width="Auto" />
+                    <infg:DateTimeField Name="StartProductionDateCalculated" Label="Начало производства (расч.)" Width="Auto" />
                     <infg:NumericField Name="SumNotPaid" Label="Неоплачено" Width="Auto" />
                     <infg:NumericField Name="SumPaid" Label="Оплачено" Width="Auto" />
                     <infg:NumericField Name="SumToShipping" Label="Сумма отгрузки" Width="Auto" />

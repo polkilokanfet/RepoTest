@@ -47,7 +47,7 @@ namespace HVTApp.Services.GetProductService
 
                 //создание нового блока
                 _selectedProductBlock = new ProductBlock { Parameters = SelectedParameters };
-                _selectedProductBlock.Name = _selectedProductBlock.ParametersToString();
+                _selectedProductBlock.DesignationSpecial = _selectedProductBlock.ParametersToString();
                 _selectedProductBlock.StructureCostNumber = "blank";
                 _existsProductBlocks.Add(_selectedProductBlock);
                 return _selectedProductBlock;

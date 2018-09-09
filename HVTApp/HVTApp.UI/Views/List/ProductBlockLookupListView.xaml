@@ -39,8 +39,10 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
+                    <infg:TextField Name="Designation" Label="Обозначение" Width="Auto" />
+                    <infg:TextField Name="DesignationSpecial" Label="Специальное обозначение" Width="Auto" />
                     <infg:CheckBoxField Name="IsService" Label="Услуга" Width="Auto" />
-                    <infg:TextField Name="Name" Label="Название" Width="Auto" />
+                    <infg:DateTimeField Name="LastPriceDate" Label="Дата последнего прайса" Width="Auto" />
                     <infg:TextField Name="StructureCostNumber" Label="Сралчахвост" Width="Auto" />
 
 					</infg:FieldLayout.Fields>

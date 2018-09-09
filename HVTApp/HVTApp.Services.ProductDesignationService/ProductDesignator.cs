@@ -19,16 +19,16 @@ namespace HVTApp.Services.ProductDesignationService
             _blockIsServices = unitOfWork.GetRepository<ProductBlockIsService>().Find(x => x != null);
         }
 
-        public string GetDesignation(Product product)
+        public string GetDesignation(ProductBlock block)
         {
-            var designations = _productDesignations.Where(pd => pd.Parameters.AllContainsIn(product.ProductBlock.Parameters)).ToList();
+            var designations = _productDesignations.Where(pd => pd.Parameters.AllContainsIn(block.Parameters)).ToList();
             if (designations.Any()) return designations.OrderBy(x => x.Parameters.Count).Last().Designation;
-            return product.ProductBlock.ParametersToString();
+            return block.ParametersToString();
         }
 
-        public ProductType GetProductType(Product product)
+        public ProductType GetProductType(ProductBlock block)
         {
-            var designations = _productTypeDesignations.Where(pd => pd.Parameters.AllContainsIn(product.ProductBlock.Parameters)).ToList();
+            var designations = _productTypeDesignations.Where(pd => pd.Parameters.AllContainsIn(block.Parameters)).ToList();
             if (designations.Any()) return designations.OrderBy(x => x.Parameters.Count).Last().ProductType;
             return null;
         }
@@ -36,6 +36,18 @@ namespace HVTApp.Services.ProductDesignationService
         public bool IsService(ProductBlock block)
         {
             return _blockIsServices.Any(x => x.Parameters.AllContainsIn(block.Parameters));
+        }
+
+
+
+        public string GetDesignation(Product product)
+        {
+            return GetDesignation(product.ProductBlock);
+        }
+
+        public ProductType GetProductType(Product product)
+        {
+            return GetProductType(product.ProductBlock);
         }
     }
 }

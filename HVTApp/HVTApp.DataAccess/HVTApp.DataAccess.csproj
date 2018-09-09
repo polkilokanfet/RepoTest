@@ -103,6 +103,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\TestHusbandConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Generated\Configurations.g.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ParameterRelationConfiguration.cs" />
+    <Compile Include="Extansions.cs" />
     <Compile Include="HvtAppContext.g.cs" />
     <Compile Include="HVTAppDataBaseInitializer.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\SpecificationConfiguration.cs" />
@@ -130,8 +131,10 @@
     <Compile Include="UnitOfWork\BaseRepository.cs" />
     <Compile Include="HVTAppContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitOfWork\Repositories\Custom\OfferUnitRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductBlockRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\Custom\SalesUnitRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\IRepositories.g.cs" />
     <Compile Include="UnitOfWork\Repositories\Repositories.g.cs" />
     <Compile Include="UnitOfWork\TestBaseRepository.cs" />

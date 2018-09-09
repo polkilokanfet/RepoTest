@@ -2578,10 +2578,17 @@ namespace HVTApp.UI.Views
 		#region VisibilityProps
 
 
-        public System.Windows.Visibility NameVisibility
+        public System.Windows.Visibility DesignationVisibility
         {
-            get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.Name)].Visibility; }
-            set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.Name)].Visibility = value; }
+            get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.Designation)].Visibility; }
+            set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.Designation)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DesignationSpecialVisibility
+        {
+            get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.DesignationSpecial)].Visibility; }
+            set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.DesignationSpecial)].Visibility = value; }
         }
 
 
@@ -2596,6 +2603,13 @@ namespace HVTApp.UI.Views
         {
             get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.IsService)].Visibility; }
             set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.IsService)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility LastPriceDateVisibility
+        {
+            get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.LastPriceDate)].Visibility; }
+            set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.LastPriceDate)].Visibility = value; }
         }
 
 

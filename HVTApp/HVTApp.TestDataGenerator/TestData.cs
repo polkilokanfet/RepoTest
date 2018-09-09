@@ -119,8 +119,8 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterVoltage500kV;
         public Parameter ParameterVoltage110V;
         public Parameter ParameterVoltage220V;
-        public Parameter ParameterTransformatorTrg110;
-        public Parameter ParameterTransformatorTvg110;
+        public Parameter ParameterTransformatorBuiltOut;
+        public Parameter ParameterTransformatorBuiltIn;
 
         public ProductType ProductTypeDeadTankBreaker;
         public ProductType ProductTypeLiveTankBreaker;
@@ -135,6 +135,12 @@ namespace HVTApp.TestDataGenerator
         public ProductDesignation ProductDesignationVgb35;
         public ProductDesignation ProductDesignationVeb110;
         public ProductDesignation ProductDesignationZng110;
+        public ProductDesignation ProductDesignationVeb220;
+        public ProductDesignation ProductDesignationZng220;
+        public ProductDesignation ProductDesignationTvg110;
+        public ProductDesignation ProductDesignationTvg220;
+        public ProductDesignation ProductDesignationTrg110;
+        public ProductDesignation ProductDesignationTrg220;
 
         public ProductRelation RequiredChildProductRelationDrive;
         public ProductRelation RequiredChildProductRelationBreakerBlock;
@@ -404,8 +410,8 @@ namespace HVTApp.TestDataGenerator
             ParameterVoltage500kV.Clone(new Parameter {ParameterGroup = ParameterGroupVoltage, Value = "500 кВ"});
             ParameterVoltage110V.Clone(new Parameter {ParameterGroup = ParameterGroupDrivesVoltage, Value = "110 В"});
             ParameterVoltage220V.Clone(new Parameter {ParameterGroup = ParameterGroupDrivesVoltage, Value = "220 В"});
-            ParameterTransformatorTrg110.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Отдельностоящий" });
-            ParameterTransformatorTvg110.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Встроенный" });
+            ParameterTransformatorBuiltOut.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Отдельностоящий" });
+            ParameterTransformatorBuiltIn.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Встроенный" });
 
 
             ParameterBreaker.AddRequiredPreviousParameters(ParameterMainEquipment);
@@ -432,8 +438,8 @@ namespace HVTApp.TestDataGenerator
 
             ParameterVoltage220V.AddRequiredPreviousParameters(ParameterBrakersDrive);
 
-            ParameterTransformatorTrg110.AddRequiredPreviousParameters(ParameterTransformatorCurrent);
-            ParameterTransformatorTvg110.AddRequiredPreviousParameters(ParameterTransformatorCurrent);
+            ParameterTransformatorBuiltOut.AddRequiredPreviousParameters(ParameterTransformatorCurrent);
+            ParameterTransformatorBuiltIn.AddRequiredPreviousParameters(ParameterTransformatorCurrent);
         }
 
         private void GenerateRequiredDependentEquipmentsParameters()
@@ -453,7 +459,7 @@ namespace HVTApp.TestDataGenerator
             RequiredChildProductRelationTvg110.Clone(new ProductRelation
             {
                 ParentProductParameters = new List<Parameter> {ParameterBreakerDeadTank},
-                ChildProductParameters= new List<Parameter> {ParameterTransformatorTvg110}, ChildProductsAmount = 3, IsUnique = false
+                ChildProductParameters= new List<Parameter> {ParameterTransformatorBuiltIn}, ChildProductsAmount = 3, IsUnique = false
             });
         }
 
@@ -477,14 +483,20 @@ namespace HVTApp.TestDataGenerator
         {
             ProductDesignationVgb35.Clone(new ProductDesignation { Designation = "ВГБ-УЭТМ-35", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage35kV } });
             ProductDesignationVeb110.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-110", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV } });
+            ProductDesignationVeb220.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-220", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage220kV } }); 
             ProductDesignationZng110.Clone(new ProductDesignation { Designation = "ЗНГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformatorVoltage, ParameterVoltage110kV } });
+            ProductDesignationZng220.Clone(new ProductDesignation { Designation = "ЗНГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformatorVoltage, ParameterVoltage220kV } });
+            ProductDesignationTvg110.Clone(new ProductDesignation { Designation = "ТВГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformatorCurrent, ParameterTransformatorBuiltIn, ParameterVoltage110kV } });
+            ProductDesignationTvg220.Clone(new ProductDesignation { Designation = "ТВГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformatorCurrent, ParameterTransformatorBuiltIn, ParameterVoltage220kV } });
+            ProductDesignationTrg110.Clone(new ProductDesignation { Designation = "ТРГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformatorCurrent, ParameterTransformatorBuiltOut, ParameterVoltage110kV } });
+            ProductDesignationTrg220.Clone(new ProductDesignation { Designation = "ТРГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformatorCurrent, ParameterTransformatorBuiltOut, ParameterVoltage220kV } });
         }
 
         private void GenerateProductBlocs()
         {
             ProductBlockVgb35.Clone(new ProductBlock
             {
-                Name = "Блок Выключатель баковый ВГБ-35",
+                //DesignationSpecial = "Блок Выключатель баковый ВГБ-35",
                 Parameters = new List<Parameter> { ParameterMainEquipment, ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage35kV},
                 Prices = new List<SumOnDate> {new SumOnDate {Sum = 450000, Date = DateTime.Today}},
                 StructureCostNumber = "StructureCostNumberVGB35",
@@ -492,7 +504,7 @@ namespace HVTApp.TestDataGenerator
 
             ProductBlockVeb110.Clone(new ProductBlock
             {
-                Name = "Блок Выключатель баковый ВЭБ-110",
+                //DesignationSpecial = "Блок Выключатель баковый ВЭБ-110",
                 Parameters = new List<Parameter> {ParameterMainEquipment, ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage110kV},
                 Prices = new List<SumOnDate> {new SumOnDate {Sum = 2000000, Date = DateTime.Today}},
                 StructureCostNumber = "StructureCostNumber3",
@@ -500,7 +512,7 @@ namespace HVTApp.TestDataGenerator
 
             ProductBlockZng110.Clone(new ProductBlock
             {
-                Name = "Блок Трансформатор напряжения ЗНГ-110",
+                //DesignationSpecial = "Блок Трансформатор напряжения ЗНГ-110",
                 Parameters = new List<Parameter> { ParameterMainEquipment, ParameterTransformator, ParameterTransformatorVoltage, ParameterVoltage110kV},
                 Prices = new List<SumOnDate> {new SumOnDate {Sum = 250000, Date = DateTime.Today.AddDays(-95)}},
                 StructureCostNumber = "StructureCostNumber1"
@@ -508,7 +520,7 @@ namespace HVTApp.TestDataGenerator
 
             ProductBlockBreakersDrive.Clone(new ProductBlock
             {
-                Name = "Блок Привод выключателя",
+                DesignationSpecial = "Блок Привод выключателя",
                 Parameters = new List<Parameter> { ParameterMainEquipment, ParameterBrakersDrive, ParameterVoltage220V },
                 Prices = new List<SumOnDate> { new SumOnDate { Sum = 200000, Date = DateTime.Today } },
                 StructureCostNumber = "StructureCostNumber4"
@@ -516,7 +528,7 @@ namespace HVTApp.TestDataGenerator
 
             ProductBlockZip1.Clone(new ProductBlock
             {
-                Name = "Блок Групповой комплект ЗИП №1",
+                DesignationSpecial = "Блок Групповой комплект ЗИП №1",
                 Parameters = new List<Parameter> { ParameterDependentEquipment, ParameterZip1 },
                 Prices = new List<SumOnDate> { new SumOnDate { Sum = 2500, Date = DateTime.Today } },
                 StructureCostNumber = "StructureCostNumberZip1"
@@ -527,33 +539,33 @@ namespace HVTApp.TestDataGenerator
         {
             ProductVgb35.Clone(new Product
             {
-                DesignationSpecial = "ВГБ-35",
+                //DesignationSpecial = "ВГБ-35",
                 ProductBlock = ProductBlockVgb35,
                 DependentProducts = new List<ProductDependent> { new ProductDependent {Product = ProductBreakersDrive}  }
             });
 
             ProductVeb110.Clone(new Product
             {
-                DesignationSpecial = "ВЭБ-110",
+                //DesignationSpecial = "ВЭБ-110",
                 ProductBlock = ProductBlockVeb110,
                 DependentProducts = new List<ProductDependent> { new ProductDependent { Product = ProductBreakersDrive } }
             });
 
             ProductZng110.Clone(new Product
             {
-                DesignationSpecial = "Трансформатор напряжения ЗНГ-110",
+                //DesignationSpecial = "Трансформатор напряжения ЗНГ-110",
                 ProductBlock = ProductBlockZng110
             });
 
             ProductBreakersDrive.Clone(new Product
             {
-                DesignationSpecial = "Привод выключателя",
+                //DesignationSpecial = "Привод выключателя",
                 ProductBlock = ProductBlockBreakersDrive
             });
 
             ProductZip1.Clone(new Product
             {
-                DesignationSpecial = "ЗиП №1",
+                //DesignationSpecial = "ЗиП №1",
                 ProductBlock = ProductBlockZip1
             });
         }

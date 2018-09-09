@@ -8,7 +8,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.DataAccess
 {
-    public partial class ProductRepository : BaseRepository<Product>, IProductRepository
+    public partial class ProductRepository
     {
         private Product Designate(Product product)
         {
