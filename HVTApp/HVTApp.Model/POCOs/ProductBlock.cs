@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
@@ -25,6 +27,8 @@ namespace HVTApp.Model.POCOs
         [Designation("Услуга")]
         public bool IsService { get; set; } = false;
 
+        [Designation("Дата последнего прайса"), NotMapped]
+        public DateTime? LastPriceDate => Prices.Max(x => x.Date);
 
         public override bool Equals(object obj)
         {
@@ -39,7 +43,7 @@ namespace HVTApp.Model.POCOs
         public string ParametersToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            foreach (var parameter in Parameters.OrderBy(x => x))
+            foreach (var parameter in Parameters.OrderBy(x => this.GetWeight(x)))
                 stringBuilder.Append($"{parameter.ParameterGroup}: {parameter.Value}; ");
 
             return stringBuilder.ToString();

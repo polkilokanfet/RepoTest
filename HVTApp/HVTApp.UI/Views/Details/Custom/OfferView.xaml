@@ -20,6 +20,7 @@
                                   ChangeProductCommand="{Binding ChangeProductCommand}"
                                   ChangePaymentsCommand="{Binding ChangePaymentsCommand}"
                                   AddProductIncludedCommand="{Binding AddProductIncludedCommand}"
-                                  RemoveProductIncludedCommand ="{Binding RemoveProductIncludedCommand}"/>
+                                  RemoveProductIncludedCommand ="{Binding RemoveProductIncludedCommand}"
+                                  PriceErrors="{Binding PriceErrors}"/>
     </DockPanel>
 </inf:ViewBase>

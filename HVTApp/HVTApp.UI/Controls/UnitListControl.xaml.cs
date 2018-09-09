@@ -135,6 +135,16 @@ namespace HVTApp.UI.Controls
             set { SetValue(ChangePaymentsCommandProperty, value); }
         }
 
+
+        public static readonly DependencyProperty PriceErrorsProperty = DependencyProperty.Register(
+            "PriceErrors", typeof(string), typeof(UnitListControl), new PropertyMetadata(default(string)));
+
+        public string PriceErrors
+        {
+            get { return (string) GetValue(PriceErrorsProperty); }
+            set { SetValue(PriceErrorsProperty, value); }
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             switch (ProductsIncludedGroupBox.Visibility)

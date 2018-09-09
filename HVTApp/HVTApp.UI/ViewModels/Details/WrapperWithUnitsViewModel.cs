@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
-using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -46,6 +49,7 @@ namespace HVTApp.UI.ViewModels
                 ((DelegateCommand) RemoveCommand)?.RaiseCanExecuteChanged();
                 ((DelegateCommand)AddProductIncludedCommand)?.RaiseCanExecuteChanged();
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(PriceErrors));
             }
         }
 
@@ -97,23 +101,23 @@ namespace HVTApp.UI.ViewModels
             if (productIncluded == null) return;
             productIncluded.Product = await WrapperDataService.GetRepository<Product>().GetByIdAsync(productIncluded.Product.Id);
             SelectedGroup.ProductsIncluded.Add(new ProductIncludedWrapper(productIncluded));
-            RefreshPrice(SelectedGroup);
+            await RefreshPrice(SelectedGroup);
         }
 
-        private void RemoveProductIncludedCommand_Execute()
+        private async void RemoveProductIncludedCommand_Execute()
         {
             if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
                 return;
             SelectedGroup.ProductsIncluded.Remove(SelectedProductIncluded);
-            RefreshPrice(SelectedGroup);
+            await RefreshPrice(SelectedGroup);
         }
 
         protected abstract void AddCommand_Execute();
 
-        private void RefreshCommand_Execute()
+        private async void RefreshCommand_Execute()
         {
             RefreshGroups();
-            RefreshPrices();
+            await RefreshPrices();
         }
 
         private void RemoveCommand_Execute()
@@ -135,7 +139,7 @@ namespace HVTApp.UI.ViewModels
             var product = await Container.Resolve<IGetProductService>().GetProductAsync(group.Product?.Model);
             if (product == null || product.Id == group.Product.Id) return;
             group.Product = await WrapperDataService.GetWrapperRepository<Product, ProductWrapper>().GetByIdAsync(product.Id);
-            RefreshPrice(SelectedGroup);
+            await RefreshPrice(SelectedGroup);
         }
 
         private async void ChangeFacilityCommand_Execute(IUnitsGroup group)
@@ -154,30 +158,63 @@ namespace HVTApp.UI.ViewModels
             group.PaymentConditionSet = await WrapperDataService.GetWrapperRepository<PaymentConditionSet, PaymentConditionSetWrapper>().GetByIdAsync(set.Id);
         }
 
-        protected override void AfterLoading()
+        protected override async Task AfterLoading()
         {
             RefreshGroups();
-            RefreshPrices();
+            await RefreshPrices();
         }
 
-        private void RefreshPrices()
+        private async Task RefreshPrices()
         {
             foreach (var group in Groups)
             {
-                RefreshPrice(group);
+                await RefreshPrice(group);
             }
         }
 
-        private void RefreshPrice(IUnitsGroup group)
+        private readonly PriceErrors _priceErrors = new PriceErrors();
+
+        public string PriceErrors
+        {
+            get
+            {
+                var blocks = new List<ProductBlock>();
+                if (SelectedGroup == null)
+                {
+                    foreach (var unitsGroup in Groups)
+                    {
+                        blocks.AddRange(unitsGroup.Product.Model.GetBlocks());
+                        foreach (var pi in unitsGroup.ProductsIncluded)
+                        {
+                            blocks.AddRange(pi.Product.Model.GetBlocks());
+                        }
+                    }
+                }
+                else
+                {
+                    blocks.AddRange(SelectedGroup.Product.Model.GetBlocks());
+                    foreach (var pi in SelectedGroup.ProductsIncluded)
+                    {
+                        blocks.AddRange(pi.Product.Model.GetBlocks());
+                    }
+                }
+
+                return _priceErrors.Print(blocks);
+            }
+        }
+
+        private async Task RefreshPrice(IUnitsGroup group)
         {
             if (group == null) return;
+
             var priceService = Container.Resolve<IPriceService>();
-            var price = priceService.GetPrice(group.Product.Model, DateTime.Today, CommonOptions.ActualPriceTerm);
+            var price = await priceService.GetPrice(group.Product.Model, DateTime.Today, CommonOptions.ActualPriceTerm, _priceErrors);
             foreach (var productIncluded in group.ProductsIncluded)
             {
-                price += productIncluded.Amount * priceService.GetPrice(productIncluded.Product.Model, DateTime.Today, CommonOptions.ActualPriceTerm);
+                price += productIncluded.Amount * await priceService.GetPrice(productIncluded.Product.Model, DateTime.Today, CommonOptions.ActualPriceTerm, _priceErrors);
             }
             group.Price = price;
+            OnPropertyChanged(nameof(PriceErrors));
         }
 
         private void RefreshGroups()
