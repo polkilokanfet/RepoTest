@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.Events;
@@ -35,6 +36,13 @@ namespace HVTApp.UI.ViewModels
             Groups.Add(new UnitsGroup(new[] { wrapper }));
             Item.Units.Add(wrapper);
             WrapperDataService.GetRepository<OfferUnit>().Add(unit);
+        }
+
+        protected override DateTime GetDate()
+        {
+            if (Item.RegistrationDetailsOfSender != null)
+                return Item.RegistrationDetailsOfSender.RegistrationDate;
+            return DateTime.Today;
         }
     }
 }

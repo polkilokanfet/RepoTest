@@ -102,7 +102,7 @@ namespace HVTApp
             Container.RegisterType<IGetProductService, GetProductServiceWpf>();
             Container.RegisterType<IOfferToDoc, OfferToDoc>();
             Container.RegisterType<IProductDesignationService, ProductDesignator>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IPriceService, PriceService>();
+            Container.RegisterType<IPriceService, PriceService>(new ContainerControlledLifetimeManager());
         }
 
         protected override IModuleCatalog CreateModuleCatalog()

@@ -1,4 +1,6 @@
-﻿using HVTApp.Infrastructure.Interfaces.Services;
+﻿using System;
+using System.Linq;
+using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Converter;
@@ -22,6 +24,14 @@ namespace HVTApp.UI.ViewModels
             Groups.Add(new UnitsGroup(new[] { wrapper }));
             Item.Units.Add(wrapper);
             WrapperDataService.GetRepository<SalesUnit>().Add(unit);
+        }
+
+        protected override DateTime GetDate()
+        {
+            var oitDate = Item.Units.Min(x => x.OrderInTakeDate);
+            if (oitDate < DateTime.Today)
+                return oitDate;
+            return DateTime.Today;
         }
     }
 }

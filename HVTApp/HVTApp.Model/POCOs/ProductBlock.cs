@@ -43,7 +43,7 @@ namespace HVTApp.Model.POCOs
         public string ParametersToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            foreach (var parameter in Parameters.OrderBy(x => this.GetWeight(x)))
+            foreach (var parameter in Parameters.OrderBy(this.GetWeight))
                 stringBuilder.Append($"{parameter.ParameterGroup}: {parameter.Value}; ");
 
             return stringBuilder.ToString();

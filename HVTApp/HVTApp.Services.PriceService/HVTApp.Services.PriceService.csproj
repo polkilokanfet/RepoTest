@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IPriceService.cs" />
+    <Compile Include="PriceErrors.cs" />
+    <Compile Include="PriceErrorType.cs" />
     <Compile Include="PriceService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

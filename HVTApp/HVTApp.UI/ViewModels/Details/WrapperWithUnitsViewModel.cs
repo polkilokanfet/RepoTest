@@ -101,7 +101,7 @@ namespace HVTApp.UI.ViewModels
             if (productIncluded == null) return;
             productIncluded.Product = await WrapperDataService.GetRepository<Product>().GetByIdAsync(productIncluded.Product.Id);
             SelectedGroup.ProductsIncluded.Add(new ProductIncludedWrapper(productIncluded));
-            await RefreshPrice(SelectedGroup);
+            await RefreshPrices();
         }
 
         private async void RemoveProductIncludedCommand_Execute()
@@ -109,7 +109,7 @@ namespace HVTApp.UI.ViewModels
             if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
                 return;
             SelectedGroup.ProductsIncluded.Remove(SelectedProductIncluded);
-            await RefreshPrice(SelectedGroup);
+            await RefreshPrices();
         }
 
         protected abstract void AddCommand_Execute();
@@ -139,7 +139,7 @@ namespace HVTApp.UI.ViewModels
             var product = await Container.Resolve<IGetProductService>().GetProductAsync(group.Product?.Model);
             if (product == null || product.Id == group.Product.Id) return;
             group.Product = await WrapperDataService.GetWrapperRepository<Product, ProductWrapper>().GetByIdAsync(product.Id);
-            await RefreshPrice(SelectedGroup);
+            await RefreshPrices();
         }
 
         private async void ChangeFacilityCommand_Execute(IUnitsGroup group)
@@ -167,9 +167,7 @@ namespace HVTApp.UI.ViewModels
         private async Task RefreshPrices()
         {
             foreach (var group in Groups)
-            {
                 await RefreshPrice(group);
-            }
         }
 
         private readonly PriceErrors _priceErrors = new PriceErrors();
@@ -203,12 +201,18 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Возвращает дату для расчета прайса.
+        /// </summary>
+        /// <returns></returns>
+        protected abstract DateTime GetDate();
+
         private async Task RefreshPrice(IUnitsGroup group)
         {
             if (group == null) return;
 
             var priceService = Container.Resolve<IPriceService>();
-            var price = await priceService.GetPrice(group.Product.Model, DateTime.Today, CommonOptions.ActualPriceTerm, _priceErrors);
+            var price = await priceService.GetPrice(group.Product.Model, GetDate(), CommonOptions.ActualPriceTerm, _priceErrors);
             foreach (var productIncluded in group.ProductsIncluded)
             {
                 price += productIncluded.Amount * await priceService.GetPrice(productIncluded.Product.Model, DateTime.Today, CommonOptions.ActualPriceTerm, _priceErrors);
