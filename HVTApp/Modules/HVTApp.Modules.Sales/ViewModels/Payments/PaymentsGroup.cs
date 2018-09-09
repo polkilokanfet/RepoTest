@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
@@ -16,6 +17,8 @@ namespace HVTApp.Modules.Sales.ViewModels
         private DateTime _date;
         private bool _willSave;
 
+        public IEnumerable<Guid> Ids => _payments.Select(x => x.PaymentPlannedWrapper.Id);
+
         public int Amount => _payments.Count;
 
         public double Sum => Amount * SalesUnit.Cost;
@@ -28,10 +31,14 @@ namespace HVTApp.Modules.Sales.ViewModels
             get { return _willSave; }
             private set
             {
+                if (Equals(_willSave, value)) return;
                 _willSave = value;
+                WillSaveChanged?.Invoke(this);
                 OnPropertyChanged();
             }
         }
+
+        public event Action<PaymentsGroup> WillSaveChanged; 
 
         public DateTime Date
         {
@@ -45,28 +52,49 @@ namespace HVTApp.Modules.Sales.ViewModels
                     Groups.ForEach(x => x.Date = value);
                 else
                     _payments.ForEach(x => x.PaymentPlannedWrapper.Date = value);
+                DateChanged?.Invoke(this);
                 OnPropertyChanged();
             }
         }
+
+        public event Action<PaymentsGroup> DateChanged; 
 
         public ObservableCollection<PaymentsGroup> Groups { get; } = new ObservableCollection<PaymentsGroup>();
 
         public PaymentsGroup(IEnumerable<PaymentWrapper> payments)
         {
             _payments = payments.ToList();
-            _date = payments.First().PaymentPlannedWrapper.Date;
-            WillSave = payments.First().WillSave;
-            Condition = payments.First().PaymentPlannedWrapper.Condition;
-            SalesUnit = payments.First().SalesUnit;
+            _date = _payments.First().PaymentPlannedWrapper.Date;
+            WillSave = _payments.First().WillSave;
+            Condition = _payments.First().PaymentPlannedWrapper.Condition;
+            SalesUnit = _payments.First().SalesUnit;
 
 
-            if(payments.Count() > 1)
-                Groups.AddRange(payments.Select(x => new PaymentsGroup(new List<PaymentWrapper> {x})));
-
-            foreach (var paymentWrapper in _payments)
+            if (_payments.Count > 1)
             {
-                paymentWrapper.PropertyChanged += (sender, args) => WillSave = _payments.All(x => x.WillSave);
+                Groups.AddRange(_payments.Select(x => new PaymentsGroup(new List<PaymentWrapper> {x})));
+                Groups.ForEach(x => x.DateChanged += OnGroupDateChanged);
             }
+
+            _payments.ForEach(x => x.PropertyChanged += OnPaymentPropertyChanged);
+        }
+
+        private void OnPaymentPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            WillSave = _payments.All(x => x.WillSave);
+        }
+
+        private void OnGroupDateChanged(PaymentsGroup group)
+        {
+            if(group.Date != Date)
+                DateChanged?.Invoke(group);
+        }
+
+        public void RemoveSubscribes()
+        {
+            Groups.ForEach(x => x.DateChanged -= OnGroupDateChanged);
+            _payments.ForEach(x => x.PropertyChanged -= OnPaymentPropertyChanged);
+            _payments.ForEach(x => x.UnSubskribe());
         }
 
         public void RemovePayments(IUnitOfWork unitOfWork)
@@ -78,13 +106,7 @@ namespace HVTApp.Modules.Sales.ViewModels
                 return;
             }
 
-            foreach (var paymentWrapper in _payments)
-            {
-                paymentWrapper.PaymentPlannedWrapper.RejectChanges();
-                if (paymentWrapper.SalesUnit.PaymentsPlanned.Contains(paymentWrapper.PaymentPlannedWrapper))
-                    paymentWrapper.SalesUnit.PaymentsPlanned.Remove(paymentWrapper.PaymentPlannedWrapper);
-                unitOfWork.GetRepository<PaymentPlanned>().Delete(paymentWrapper.PaymentPlannedWrapper.Model);
-            }
+            _payments.ForEach(x => x.Remove(unitOfWork));
             WillSave = false;
         }
     }

@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
@@ -28,6 +30,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             {
                 _selectedGroup = value;
                 ((DelegateCommand)RemoveCommand).RaiseCanExecuteChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -58,6 +61,9 @@ namespace HVTApp.Modules.Sales.ViewModels
             RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => SelectedGroup != null && SelectedGroup.WillSave);
         }
 
+        //необходимо для отслеживания изначально сохраненных платежей
+        private List<PaymentPlanned> _originPaymentPlanneds;
+
         public async Task LoadAsync()
         {
             IsLoaded = false;
@@ -74,6 +80,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             _salesUnitWrappers.PropertyChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
             _salesUnitWrappers.CollectionChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
 
+            _originPaymentPlanneds = _salesUnitWrappers.SelectMany(x => x.PaymentsPlanned).Select(x => x.Model).ToList();
 
             //актуализация плановых поступлений
             _salesUnitWrappers.ForEach(Actualization);
@@ -81,31 +88,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             RefreshPayments();
 
             IsLoaded = true;
-        }
-
-        private void RefreshPayments()
-        {
-            var payments = new List<PaymentWrapper>();
-            foreach (var salesUnitWrapper in _salesUnitWrappers)
-            {
-                payments.AddRange(GetPayments(salesUnitWrapper));
-            }
-
-            payments = payments.OrderBy(x => x.PaymentPlannedWrapper.Date).ToList();
-            var groups = payments.GroupBy(x => new
-            {
-                ProjectId = x.SalesUnit.Project.Id,
-                ProductId = x.SalesUnit.Product.Id,
-                FacilityId = x.SalesUnit.Facility.Id,
-                Cost = x.SalesUnit.Cost,
-                Part = x.PaymentPlannedWrapper.Part,
-                Date = x.PaymentPlannedWrapper.Date,
-                ConditionId = x.PaymentPlannedWrapper.Condition.Id,
-                WillSave = x.WillSave
-            });
-
-            PaymentsGroups.Clear();
-            PaymentsGroups.AddRange(groups.Select(x => new PaymentsGroup(x)));
         }
 
         private void Actualization(SalesUnitWrapper salesUnitWrapper)
@@ -129,19 +111,53 @@ namespace HVTApp.Modules.Sales.ViewModels
             remove.ForEach(x => salesUnitWrapper.PaymentsPlanned.Remove(x));
         }
 
+        private void RefreshPayments()
+        {
+            var payments = new List<PaymentWrapper>();
+            foreach (var salesUnitWrapper in _salesUnitWrappers)
+            {
+                payments.AddRange(GetPayments(salesUnitWrapper));
+            }
+
+            payments = payments.OrderBy(x => x.PaymentPlannedWrapper.Date).ToList();
+            var groups = payments.GroupBy(x => new
+            {
+                ProjectId = x.SalesUnit.Project.Id,
+                ProductId = x.SalesUnit.Product.Id,
+                FacilityId = x.SalesUnit.Facility.Id,
+                Cost = x.SalesUnit.Cost,
+                Part = x.PaymentPlannedWrapper.Part,
+                Date = x.PaymentPlannedWrapper.Date,
+                ConditionId = x.PaymentPlannedWrapper.Condition.Id,
+                WillSave = x.WillSave
+            });
+
+            PaymentsGroups.ForEach(x => x.DateChanged -= OnGroupDateChanged);
+            PaymentsGroups.ForEach(x => x.RemoveSubscribes());
+            PaymentsGroups.Clear();
+            PaymentsGroups.AddRange(groups.Select(x => new PaymentsGroup(x)));
+            PaymentsGroups.ForEach(x => x.DateChanged += OnGroupDateChanged);
+        }
+
+        private void OnGroupDateChanged(PaymentsGroup paymentsGroup)
+        {
+            RefreshPayments();
+            SelectedGroup = PaymentsGroups.SingleOrDefault(x => x.Ids.AllMembersAreSame(paymentsGroup.Ids));
+        }
+
         private IEnumerable<PaymentWrapper> GetPayments(SalesUnitWrapper salesUnitWrapper)
         {
             //платежи, находящиеся в юните
             foreach (var ppw in salesUnitWrapper.PaymentsPlanned)
             {
-                yield return new PaymentWrapper(ppw, salesUnitWrapper, true);
+                yield return new PaymentWrapper(ppw, salesUnitWrapper, _originPaymentPlanneds.Contains(ppw.Model), true);
             }
 
             //платежи сгенерированные
             //необходимо брать именно из Model (актуально)
             foreach (var ppg in salesUnitWrapper.Model.PaymentsPlannedGenerated)
             {
-                yield return new PaymentWrapper(new PaymentPlannedWrapper(ppg), salesUnitWrapper, false);
+                yield return new PaymentWrapper(new PaymentPlannedWrapper(ppg), salesUnitWrapper, _originPaymentPlanneds.Contains(ppg), false);
             }
         }
 

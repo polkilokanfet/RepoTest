@@ -1,4 +1,7 @@
 using System.ComponentModel;
+using System.Linq;
+using HVTApp.Infrastructure;
+using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 using Prism.Mvvm;
 
@@ -29,11 +32,11 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
-        public PaymentWrapper(PaymentPlannedWrapper paymentPlannedWrapper, SalesUnitWrapper salesUnit, bool inUnit)
+        public PaymentWrapper(PaymentPlannedWrapper paymentPlannedWrapper, SalesUnitWrapper salesUnit, bool inUnit, bool willSave)
         {
             SalesUnit = salesUnit;
             this.InUnit = inUnit;
-            WillSave = inUnit;
+            WillSave = willSave;
             PaymentPlannedWrapper = paymentPlannedWrapper;
 
             PaymentPlannedWrapper.Sum = paymentPlannedWrapper.Part * paymentPlannedWrapper.Condition.Part * SalesUnit.Cost;
@@ -65,6 +68,22 @@ namespace HVTApp.Modules.Sales.ViewModels
                     WillSave = false;
                 }
             }
+        }
+
+        public void Remove(IUnitOfWork unitOfWork)
+        {
+            PaymentPlannedWrapper.RejectChanges();
+
+            if (SalesUnit.PaymentsPlanned.Contains(PaymentPlannedWrapper))
+                SalesUnit.PaymentsPlanned.Remove(PaymentPlannedWrapper);
+
+            if(unitOfWork.GetRepository<PaymentPlanned>().Find(x => Equals(x, PaymentPlannedWrapper.Model)).Any())
+                unitOfWork.GetRepository<PaymentPlanned>().Delete(PaymentPlannedWrapper.Model);
+        }
+
+        public void UnSubskribe()
+        {
+            PaymentPlannedWrapper.PropertyChanged -= PaymentPlannedWrapperOnPropertyChanged;
         }
     }
 }

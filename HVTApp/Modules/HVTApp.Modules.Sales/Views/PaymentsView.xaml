@@ -32,7 +32,7 @@
                           Grid.Row="1"
                           Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}"
                           DataSource="{Binding PaymentsGroups}"
-                          SelectedDataItem="{Binding SelectedGroup}">
+                          SelectedDataItem="{Binding SelectedGroup, Mode=TwoWay}">
 
             <infg:XamDataGrid.ContextMenu>
 				<ContextMenu>
