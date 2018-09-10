@@ -97,9 +97,18 @@
     <Compile Include="Controls\UnitListControl.xaml.cs">
       <DependentUpon>UnitListControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Groups\PaymentsGroup.cs" />
+    <Compile Include="Groups\PaymentWrapper.cs" />
+    <Compile Include="Groups\ProductUnitsGroup.cs" />
+    <Compile Include="Groups\ShipmentUnitsGroup.cs" />
     <Compile Include="Lookup\Items\Custom\PaymentActualLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PaymentPlannedLookup.cs" />
     <Compile Include="Services\IOfferToDoc.cs" />
+    <Compile Include="ViewModels\Details\OrderDetailsViewModel.cs" />
+    <Compile Include="Views\Details\Custom\OrderView.xaml.cs">
+      <DependentUpon>OrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wrapper\Custom\Functionality\OrderWrapper.cs" />
     <Compile Include="Wrapper\IUnitsGroup.cs" />
     <Compile Include="Converter\ToUnitGroupsConverters.cs" />
     <Compile Include="Extantions\DesignationExt.cs" />
@@ -428,6 +437,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Details\CurrencyExchangeRateDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Details\Custom\OrderView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

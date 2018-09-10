@@ -28,6 +28,7 @@ namespace HVTApp.UI
             RegisterViews();
             _updateDetailsService.ReRegister<Offer, OfferView>();
             _updateDetailsService.ReRegister<Project, ProjectView>();
+            _updateDetailsService.ReRegister<Order, OrderView>();
         }
 
         protected override void ResolveOutlookGroup()

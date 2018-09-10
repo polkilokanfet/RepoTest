@@ -5,7 +5,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 using Prism.Mvvm;
 
-namespace HVTApp.Modules.Sales.ViewModels
+namespace HVTApp.UI.Groups
 {
     public class PaymentWrapper : BindableBase
     {

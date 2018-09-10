@@ -1,0 +1,94 @@
+﻿<inf:ViewBase x:Class="HVTApp.UI.Views.OrderView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infDp="http://infragistics.com/DataPresenter"
+              x:Name="Root">
+    
+    <DockPanel LastChildFill="True">
+        <ContentControl DockPanel.Dock="Top" Name="DetailsControl"/>
+        <StackPanel Orientation="Vertical">
+            
+            <Button Content="Добавить оборудование в заказ" Command="{Binding AddCommand}"/>
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+            
+                <GroupBox Grid.Row="0" Header="Оборудование в заказе">
+                    <infDp:XamDataGrid x:Name="RealListGrid"
+                                          DataSource="{Binding RealGroups}"
+                                          SelectedDataItem="{Binding SelectedRealGroup, Mode=TwoWay}">
+
+                        <infDp:XamDataGrid.FieldLayouts>
+                            <infDp:FieldLayout>
+                                <infDp:FieldLayout.Fields>
+
+                                    <infDp:TextField Name="Facility" Label="Объект" Width="Auto"/>
+                                    <infDp:TextField Name="ProductType" Label="Тип" Width="Auto"/>
+                                    <infDp:TextField Name="ProductDesignation" Label="Обозначение" Width="Auto"/>
+                                    <infDp:NumericField Name="Amount" Label="Количество" Width="Auto"/>
+                                    <infDp:TextField Name="Company" Label="Контрагент" Width="Auto"/>
+                                    <infDp:TextField Name="Specification" Label="Сп.№" Width="Auto"/>
+                                    <infDp:TextField Name="Contract" Label="Договор" Width="Auto"/>
+                                    <infDp:DateTimeField Name="EndProductionDate" Label="Дата производства" Width="Auto"/>
+                                    <infDp:Field Name="Groups" IsExpandable="True"/>
+
+                                </infDp:FieldLayout.Fields>
+                            </infDp:FieldLayout>
+
+                        </infDp:XamDataGrid.FieldLayouts>
+                    </infDp:XamDataGrid>
+                </GroupBox>
+
+                <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
+
+                <GroupBox Grid.Row="2" Header="Оборудование не включенное в заказы">
+                    <infDp:XamDataGrid x:Name="PotentialListGrid"
+                                          DataSource="{Binding PotentialGroups}"
+                                          SelectedDataItem="{Binding SelectedPotentialGroup, Mode=TwoWay}">
+
+                        <infDp:XamDataGrid.FieldLayouts>
+                            <infDp:FieldLayout>
+                                <infDp:FieldLayout.Fields>
+
+                                    <infDp:TextField Name="Facility" Label="Объект" Width="Auto"/>
+                                    <infDp:TextField Name="ProductType" Label="Тип" Width="Auto"/>
+                                    <infDp:TextField Name="ProductDesignation" Label="Обозначение" Width="Auto"/>
+                                    <infDp:NumericField Name="Amount" Label="Количество" Width="Auto"/>
+                                    <infDp:TextField Name="Company" Label="Контрагент" Width="Auto"/>
+                                    <infDp:TextField Name="Specification" Label="Сп.№" Width="Auto"/>
+                                    <infDp:TextField Name="Contract" Label="Договор" Width="Auto"/>
+                                    <infDp:DateTimeField Name="EndProductionDate" Label="Дата производства" Width="Auto"/>
+                                    <infDp:Field Name="Groups" IsExpandable="True"/>
+
+                                </infDp:FieldLayout.Fields>
+                            </infDp:FieldLayout>
+
+                        </infDp:XamDataGrid.FieldLayouts>
+                    </infDp:XamDataGrid>
+                </GroupBox>
+
+
+            </Grid>
+        </StackPanel>
+    </DockPanel>
+</inf:ViewBase>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

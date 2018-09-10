@@ -125,12 +125,9 @@
     <Compile Include="ViewModels\MarketViewModel.cs" />
     <Compile Include="ViewModels\OffersViewModel.cs" />
     <Compile Include="ViewModels\Market2ViewModel.cs" />
-    <Compile Include="ViewModels\Groups\PaymentsGroup.cs" />
     <Compile Include="ViewModels\PaymentsViewModel.cs" />
-    <Compile Include="ViewModels\Groups\PaymentWrapper.cs" />
     <Compile Include="ViewModels\ProductionViewModel.cs" />
     <Compile Include="ViewModels\ProjectsViewModel.cs" />
-    <Compile Include="ViewModels\Groups\ShipmentUnitsGroup.cs" />
     <Compile Include="ViewModels\ShippingViewModel.cs" />
     <Compile Include="Views\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>

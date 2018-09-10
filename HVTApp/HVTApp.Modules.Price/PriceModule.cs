@@ -16,6 +16,7 @@ namespace HVTApp.Modules.Price
         protected override void RegisterTypes()
         {
             Container.RegisterViewForNavigation<PricesView>();
+            Container.RegisterViewForNavigation<ProductionPlanView>();
         }
 
         protected override void ResolveOutlookGroup()

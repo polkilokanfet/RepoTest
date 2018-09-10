@@ -20,13 +20,13 @@ namespace HVTApp.UI
 
             Container.RegisterViewForNavigation<DocumentIncomingNumberLookupListView>();
             //_dialogService.Register<DocumentIncomingNumberDetailsViewModel, DocumentIncomingNumberDetailsView>();
-            _selectService.Register<DocumentIncomingNumberLookupListView, DocumentIncomingNumber>();
+			_selectService.Register<DocumentIncomingNumberLookupListView, DocumentIncomingNumber>();
             _updateDetailsService.Register<DocumentIncomingNumber, DocumentIncomingNumberDetailsView>();
 
 
             Container.RegisterViewForNavigation<DocumentOutgoingNumberLookupListView>();
             //_dialogService.Register<DocumentOutgoingNumberDetailsViewModel, DocumentOutgoingNumberDetailsView>();
-            _selectService.Register<DocumentOutgoingNumberLookupListView, DocumentOutgoingNumber>();
+			_selectService.Register<DocumentOutgoingNumberLookupListView, DocumentOutgoingNumber>();
             _updateDetailsService.Register<DocumentOutgoingNumber, DocumentOutgoingNumberDetailsView>();
 
 

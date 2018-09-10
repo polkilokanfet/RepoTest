@@ -7,7 +7,7 @@ using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Prism.Mvvm;
 
-namespace HVTApp.Modules.Sales.ViewModels
+namespace HVTApp.UI.Groups
 {
     public class ShipmentUnitsGroup : BindableBase
     {
@@ -53,5 +53,21 @@ namespace HVTApp.Modules.Sales.ViewModels
                 Groups.AddRange(_units.Select(x => new ShipmentUnitsGroup(new[] { x })));
             }
         }
+
+        public static IEnumerable<ShipmentUnitsGroup> Grouping(IEnumerable<SalesUnitWrapper> units)
+        {
+            var groups = units.GroupBy(x => new
+            {
+                Facility = x.Facility.Id,
+                Product = x.Product.Id,
+                Order = x.Order?.Id,
+                Project = x.Project.Id,
+                Specification = x.Specification?.Id,
+                ShipmentDateCalculated = x.ShipmentDateCalculated
+            }).OrderBy(x => x.Key.ShipmentDateCalculated);
+
+            return groups.Select(x => new ShipmentUnitsGroup(x));
+        }
+
     }
 }

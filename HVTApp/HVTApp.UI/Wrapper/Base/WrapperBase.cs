@@ -32,6 +32,8 @@ namespace HVTApp.UI.Wrapper
             InitializeComplexProperties();
             InitializeCollectionProperties();
 
+            InitializeOther();
+
             Validate();
         }
 
@@ -46,6 +48,8 @@ namespace HVTApp.UI.Wrapper
         /// Инициализация свойств сложных (не примитивных) типов.
         /// </summary>
         public virtual void InitializeComplexProperties() { }
+
+        public virtual void InitializeOther() { }
 
         #endregion
 

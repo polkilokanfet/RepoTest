@@ -65,6 +65,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Сигнал менеджера о производстве")]
         public DateTime? SignalToStartProduction { get; set; }
 
+        [Designation("Дата размещения в производстве")]
+        public DateTime? SignalToStartProductionDone { get; set; }
+
         [Designation("Дата начала производства")]
         public DateTime? StartProductionDate { get; set; }
 

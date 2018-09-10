@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
@@ -11,7 +10,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return $"з/з {Number}";
+            return $"{Number}";
         }
     }
 }

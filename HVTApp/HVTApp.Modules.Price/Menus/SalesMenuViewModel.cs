@@ -7,8 +7,11 @@ namespace HVTApp.Modules.Price.Menus
     {
         protected override void GenerateMenu()
         {
-            var root = new NavigationItem("Задачи", typeof(PricesView));
-            Items.Add(root);
+            var tsks = new NavigationItem("Задачи", typeof(PricesView));
+            var prodPlan = new NavigationItem("План производства", typeof(ProductionPlanView));
+
+            Items.Add(tsks);
+            Items.Add(prodPlan);
         }
     }
 }

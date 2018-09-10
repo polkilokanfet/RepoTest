@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
@@ -45,27 +46,12 @@ namespace HVTApp.Modules.Sales.ViewModels
             _salesUnits.ForEach(x => x.PropertyChanged += OnSalesUnitPropertyChanged);
 
             Groups.Clear();
-            Groups.AddRange(Grouping(_salesUnits));
+            Groups.AddRange(ShipmentUnitsGroup.Grouping(_salesUnits));
         }
 
         private void OnSalesUnitPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
-        }
-
-        private IEnumerable<ShipmentUnitsGroup> Grouping(IEnumerable<SalesUnitWrapper> units)
-        {
-            var groups = units.GroupBy(x => new
-            {
-                Facility = x.Facility.Id,
-                Product = x.Product.Id,
-                Order = x.Order?.Id,
-                Project = x.Project.Id,
-                Specification = x.Specification?.Id,
-                ShipmentDateCalculated = x.ShipmentDateCalculated
-            }).OrderBy(x => x.Key.ShipmentDateCalculated);
-
-            return groups.Select(x => new ShipmentUnitsGroup(x));
         }
     }
 }

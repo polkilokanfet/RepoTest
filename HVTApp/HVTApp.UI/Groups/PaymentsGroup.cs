@@ -4,12 +4,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
-using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Prism.Mvvm;
 
-namespace HVTApp.Modules.Sales.ViewModels
+namespace HVTApp.UI.Groups
 {
     public class PaymentsGroup : BindableBase
     {

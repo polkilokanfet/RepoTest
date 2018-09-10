@@ -6,6 +6,7 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;

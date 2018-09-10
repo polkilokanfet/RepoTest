@@ -2478,6 +2478,15 @@ namespace HVTApp.UI.Wrapper
         public bool SignalToStartProductionIsChanged => GetIsChanged(nameof(SignalToStartProduction));
 
 
+        public System.Nullable<System.DateTime> SignalToStartProductionDone
+        {
+          get { return GetValue<System.Nullable<System.DateTime>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.DateTime> SignalToStartProductionDoneOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(SignalToStartProductionDone));
+        public bool SignalToStartProductionDoneIsChanged => GetIsChanged(nameof(SignalToStartProductionDone));
+
+
         public System.Nullable<System.DateTime> StartProductionDate
         {
           get { return GetValue<System.Nullable<System.DateTime>>(); }

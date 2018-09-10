@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +6,7 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
-using Microsoft.Practices.ObjectBuilder2;
+using HVTApp.UI.Groups;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -59,7 +58,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             if (ms.ShowYesNoMessageDialog("Размещение в производстве", q) != MessageDialogResult.Yes) return;
 
             //размещение в производстве
-            SelectedPotentialGroup.ProdutGroup();
+            SelectedPotentialGroup.ProductingGroup();
             await UnitOfWork.SaveChangesAsync();
 
             //работа с видами
@@ -96,68 +95,11 @@ namespace HVTApp.Modules.Sales.ViewModels
             var potential = _allSalesUnits.Except(production).Where(x => !x.IsLoosen && x.Project.HighProbability);
 
             ProductionGroups.Clear();
-            ProductionGroups.AddRange(Grouping(production));
+            ProductionGroups.AddRange(ProductUnitsGroup.Grouping(production));
 
             PotentialGroups.Clear();
-            PotentialGroups.AddRange(Grouping(potential));
+            PotentialGroups.AddRange(ProductUnitsGroup.Grouping(potential));
         }
 
-        private IEnumerable<ProductUnitsGroup> Grouping(IEnumerable<SalesUnit> units)
-        {
-            var groups = units.GroupBy(x => new
-            {
-                x.Facility,
-                x.Product,
-                x.Order,
-                x.Project,
-                x.Specification,
-                x.EndProductionDateCalculated
-            }).OrderBy(x => x.Key.EndProductionDateCalculated);
-
-            return groups.Select(x => new ProductUnitsGroup(x));
-        }
-    }
-
-    public class ProductUnitsGroup
-    {
-        private readonly List<SalesUnit> _units;
-        private readonly SalesUnit _unit;
-
-        public Facility Facility => _unit.Facility;
-        public ProductType ProductType => _unit.Product.ProductType;
-        public string ProductDesignation => _unit.Product.Designation;
-        public int Amount => _units.Count;
-        public string Order => _unit.Order?.Number;
-        public Company Company => _unit.Specification?.Contract.Contragent;
-        public string Specification => _unit.Specification?.Number;
-        public string Contract => _unit.Specification?.Contract.Number;
-        public DateTime EndProductionDate => _unit.EndProductionDateCalculated;
-
-        public ObservableCollection<ProductUnitsGroup> Groups { get; } = new ObservableCollection<ProductUnitsGroup>();
-
-        public ProductUnitsGroup(IEnumerable<SalesUnit> units)
-        {
-            _units = units.ToList();
-            _unit = _units.First();
-
-            if (_units.Count > 1)
-            {
-                Groups.AddRange(_units.Select(x => new ProductUnitsGroup(new[] {x})));
-            }
-        }
-
-        public void ProdutGroup()
-        {
-            if (Groups.Any())
-            {
-                Groups.ForEach(x => x.ProdutGroup());
-                return;
-            }
-
-            foreach (var unit in _units)
-            {
-                unit.SignalToStartProduction = DateTime.Today;
-            }
-        }
     }
 }

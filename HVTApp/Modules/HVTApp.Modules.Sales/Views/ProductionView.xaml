@@ -93,7 +93,6 @@
                                 <infg:TextField Name="ProductType" Label="Тип" Width="Auto"/>
                                 <infg:TextField Name="ProductDesignation" Label="Обозначение" Width="Auto"/>
                                 <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
-                                <!--<infg:TextField Name="Order" Label="З/з" Width="Auto"/>-->
                                 <infg:TextField Name="Company" Label="Контрагент" Width="Auto"/>
                                 <infg:TextField Name="Specification" Label="Сп.№" Width="Auto"/>
                                 <infg:TextField Name="Contract" Label="Договор" Width="Auto"/>
