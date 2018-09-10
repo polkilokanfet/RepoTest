@@ -93,6 +93,9 @@
       <DependentUpon>SalesMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\SalesMenuViewModel.cs" />
+    <Compile Include="Tabs\ShippingTab.xaml.cs">
+      <DependentUpon>ShippingTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\ProductionTab.xaml.cs">
       <DependentUpon>ProductionTab.xaml</DependentUpon>
     </Compile>
@@ -122,12 +125,21 @@
     <Compile Include="ViewModels\MarketViewModel.cs" />
     <Compile Include="ViewModels\OffersViewModel.cs" />
     <Compile Include="ViewModels\Market2ViewModel.cs" />
-    <Compile Include="ViewModels\Payments\PaymentsGroup.cs" />
-    <Compile Include="ViewModels\Payments\PaymentsViewModel.cs" />
-    <Compile Include="ViewModels\Payments\PaymentWrapper.cs" />
+    <Compile Include="ViewModels\Groups\PaymentsGroup.cs" />
+    <Compile Include="ViewModels\PaymentsViewModel.cs" />
+    <Compile Include="ViewModels\Groups\PaymentWrapper.cs" />
     <Compile Include="ViewModels\ProductionViewModel.cs" />
+    <Compile Include="ViewModels\ProjectsViewModel.cs" />
+    <Compile Include="ViewModels\Groups\ShipmentUnitsGroup.cs" />
+    <Compile Include="ViewModels\ShippingViewModel.cs" />
     <Compile Include="Views\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShippingView.xaml.cs">
+      <DependentUpon>ShippingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProjectsView.xaml.cs">
+      <DependentUpon>ProjectsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OffersView.xaml.cs">
       <DependentUpon>OffersView.xaml</DependentUpon>
@@ -191,6 +203,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Tabs\ShippingTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Tabs\ProductionTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -210,6 +226,14 @@
     <Page Include="Views\MarketView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShippingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ProjectsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\OffersView.xaml">
       <SubType>Designer</SubType>

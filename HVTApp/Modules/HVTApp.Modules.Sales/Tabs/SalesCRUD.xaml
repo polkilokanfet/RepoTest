@@ -6,24 +6,30 @@
              x:Class="HVTApp.Modules.Sales.Tabs.SalesCRUD"
              Header="Рынок">
     
-    <infRib:RibbonGroup Caption="Проект">
+    <infRib:RibbonGroup Caption="Проекты">
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewItemCommand}"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditItemCommand}"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveItemCommand}"/>
-        <infRib:ButtonTool Caption="Оборудование" Command="{Binding GetProductCommand}"/>
+        <!--<infRib:ButtonTool Caption="Оборудование" Command="{Binding GetProductCommand}"/>-->
     </infRib:RibbonGroup>
     
-    <infRib:RibbonGroup Caption="ТКП">
+    <infRib:RibbonGroup Caption="Предложения">
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewOfferCommand}"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditOfferCommand}"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveOfferCommand}"/>
         <infRib:ButtonTool Caption="Печать" Command="{Binding PrintOfferCommand}"/>
     </infRib:RibbonGroup>
-    
-    <infRib:RibbonGroup Caption="Тендер">
+
+    <infRib:RibbonGroup Caption="Конкурсы">
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewTenderCommand}"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditTenderCommand}"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveTenderCommand}"/>
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Заметки">
+        <infRib:ButtonTool Caption="Создать" Command="{Binding NewNoteCommand}"/>
+        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditNoteCommand}"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveNoteCommand}"/>
     </infRib:RibbonGroup>
     
 </inf:RibbonTabItemWithViewModel>

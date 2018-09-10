@@ -15,10 +15,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class PaymentsViewModel : LoadableBindableBase
     {
-        private readonly IUnityContainer _container;
-        private IUnitOfWork _unitOfWork;
         private IValidatableChangeTrackingCollection<SalesUnitWrapper> _salesUnitWrappers;
-        private bool _isLoaded = false;
         private PaymentsGroup _selectedGroup;
 
         public PaymentsGroup SelectedGroup
@@ -39,10 +36,8 @@ namespace HVTApp.Modules.Sales.ViewModels
         public ICommand RemoveCommand { get; set; }
         public ICommand ReloadCommand { get; set; }
 
-        public PaymentsViewModel(IUnityContainer container)
+        public PaymentsViewModel(IUnityContainer container) : base(container)
         {
-            _container = container;
-
             SaveCommand = new DelegateCommand(SaveCommand_Execute, () => _salesUnitWrappers != null && _salesUnitWrappers.IsChanged && _salesUnitWrappers.IsValid);
             ReloadCommand = new DelegateCommand(ReloadCommand_Execute);
             RefreshCommand = new DelegateCommand(RefreshPayments);
@@ -54,10 +49,10 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         protected override async Task LoadedAsyncMethod()
         {
-            _unitOfWork = _container.Resolve<IUnitOfWork>();
+            UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             //загружаем все юниты
-            var salesUnitWrappers = (await _unitOfWork.GetRepository<SalesUnit>().GetAllAsync()).Select(x => new SalesUnitWrapper(x));
+            var salesUnitWrappers = (await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync()).Select(x => new SalesUnitWrapper(x));
             
             //фиксируем их в коллекции для отслеживания изменений
             _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(salesUnitWrappers);
@@ -85,7 +80,7 @@ namespace HVTApp.Modules.Sales.ViewModels
                 if (paymentActual == null)
                 {
                     remove.Add(paymentWrapper);
-                    _unitOfWork.GetRepository<PaymentPlanned>().Delete(paymentWrapper.Model);
+                    UnitOfWork.GetRepository<PaymentPlanned>().Delete(paymentWrapper.Model);
                     continue;
                 }
 
@@ -150,7 +145,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void RemoveCommand_Execute()
         {
-            SelectedGroup.RemovePayments(_unitOfWork);
+            SelectedGroup.RemovePayments(UnitOfWork);
             RefreshPayments();
         }
 
@@ -162,7 +157,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         private async void SaveCommand_Execute()
         {
             _salesUnitWrappers.AcceptChanges();
-            await _unitOfWork.SaveChangesAsync();
+            await UnitOfWork.SaveChangesAsync();
         }
 
         #endregion

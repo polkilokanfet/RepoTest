@@ -12,13 +12,23 @@ namespace HVTApp.Modules.Sales.ViewModels
         private readonly IUnityContainer _container;
 
         public OfferLookupListViewModel OfferListViewModel { get; }
-        public UnitLookupListViewModel UnitLookupListViewModel { get; }
-        public NoteLookupListViewModel NoteLookupListViewModel { get; }
+        public TenderLookupListViewModel TenderListViewModel { get; }
+        public UnitLookupListViewModel UnitListViewModel { get; }
+        public NoteLookupListViewModel NoteListViewModel { get; }
 
         public ICommand NewOfferCommand { get; }
         public ICommand EditOfferCommand { get; }
         public ICommand RemoveOfferCommand { get; }
         public ICommand PrintOfferCommand { get; }
+
+        public ICommand NewNoteCommand { get; }
+        public ICommand EditNoteCommand { get; }
+        public ICommand RemoveNoteCommand { get; }
+
+        public ICommand NewTenderCommand { get; }
+        public ICommand EditTenderCommand { get; }
+        public ICommand RemoveTenderCommand { get; }
+
 
         public Market2ViewModel(IUnityContainer container) : base(container)
         {
@@ -26,8 +36,9 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             //контексты
             OfferListViewModel = container.Resolve<OfferLookupListViewModel>();
-            UnitLookupListViewModel = container.Resolve<UnitLookupListViewModel>();
-            NoteLookupListViewModel = container.Resolve<NoteLookupListViewModel>();
+            TenderListViewModel = container.Resolve<TenderLookupListViewModel>();
+            UnitListViewModel = container.Resolve<UnitLookupListViewModel>();
+            NoteListViewModel = container.Resolve<NoteLookupListViewModel>();
 
             //привязываем команды к соответствующим моделям
             NewOfferCommand = OfferListViewModel.NewItemCommand;
@@ -35,17 +46,27 @@ namespace HVTApp.Modules.Sales.ViewModels
             RemoveOfferCommand = OfferListViewModel.RemoveItemCommand;
             PrintOfferCommand = OfferListViewModel.PrintOfferCommand;
 
-            this.SelectedLookupChanged += project =>
+            NewTenderCommand = TenderListViewModel.NewItemCommand;
+            EditTenderCommand = TenderListViewModel.EditItemCommand;
+            RemoveTenderCommand = TenderListViewModel.RemoveItemCommand;
+
+            NewNoteCommand = NoteListViewModel.NewItemCommand;
+            EditNoteCommand = NoteListViewModel.EditItemCommand;
+            RemoveNoteCommand = NoteListViewModel.RemoveItemCommand;
+
+            //реакция на смену выбранного проекта
+            SelectedLookupChanged += project =>
             {
-                UnitLookupListViewModel.Load(project.SalesUnits);
+                UnitListViewModel.Load(project.SalesUnits);
                 OfferListViewModel.Load(project.Offers);
-                NoteLookupListViewModel.Load(project.Notes);
+                TenderListViewModel.Load(project.Tenders);
+                NoteListViewModel.Load(project.Notes);
             };
 
             OfferListViewModel.SelectedLookupChanged += offer =>
             {
                 if (offer == null) return;
-                UnitLookupListViewModel.Load(offer.OfferUnits);
+                UnitListViewModel.Load(offer.OfferUnits);
             };
         }
     }

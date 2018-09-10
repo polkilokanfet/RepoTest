@@ -6,7 +6,7 @@
               xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -14,9 +14,9 @@
         <Grid Grid.Row="0">
         
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <GroupBox Header="Проекты" Grid.Column="0">
@@ -25,9 +25,23 @@
             
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
             
-            <GroupBox Header="ТКП" Grid.Column="2">
-                <views:OfferLookupListView Name="OfferListView"/>
-            </GroupBox>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <GroupBox Grid.Row="0" Header="Предложения">
+                    <views:OfferLookupListView Name="OfferListView"/>
+                </GroupBox>
+                
+                <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
+                
+                <GroupBox Grid.Row="2" Header="Конкурсы">
+                    <views:TenderLookupListView Name="TenderListView"/>
+                </GroupBox>
+            </Grid>
             
         </Grid>
         

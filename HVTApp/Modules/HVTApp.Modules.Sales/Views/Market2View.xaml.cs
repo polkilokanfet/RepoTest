@@ -12,7 +12,7 @@ namespace HVTApp.Modules.Sales.Views
     {
         private readonly Market2ViewModel _viewModel;
 
-        public Market2View(IRegionManager regionManager, IEventAggregator eventAggregator, Market2ViewModel viewModel) : base(regionManager, eventAggregator)
+        public Market2View(Market2ViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
 
@@ -22,8 +22,9 @@ namespace HVTApp.Modules.Sales.Views
             this.DataContext = _viewModel;
             this.ProjectListView.DataContext = _viewModel;
             this.OfferListView.DataContext = _viewModel.OfferListViewModel;
-            this.UnitListView.DataContext = _viewModel.UnitLookupListViewModel;
-            this.NotesListView.DataContext = _viewModel.NoteLookupListViewModel;
+            this.TenderListView.DataContext = _viewModel.TenderListViewModel;
+            this.UnitListView.DataContext = _viewModel.UnitListViewModel;
+            this.NotesListView.DataContext = _viewModel.NoteListViewModel;
 
             #region ClearViews
 

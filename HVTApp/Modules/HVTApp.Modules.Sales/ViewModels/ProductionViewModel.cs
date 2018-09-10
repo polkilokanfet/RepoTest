@@ -15,16 +15,14 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class ProductionViewModel : LoadableBindableBase
     {
-        private readonly IUnityContainer _container;
-        private IUnitOfWork _unitOfWork;
         private List<SalesUnit> _allSalesUnits;
-        private UnutsGroup _selectedPotentialGroup;
-        private UnutsGroup _selectedProductionGroup;
+        private ProductUnitsGroup _selectedPotentialGroup;
+        private ProductUnitsGroup _selectedProductionGroup;
 
-        public ObservableCollection<UnutsGroup> ProductionGroups { get; } = new ObservableCollection<UnutsGroup>();
-        public ObservableCollection<UnutsGroup> PotentialGroups { get; } = new ObservableCollection<UnutsGroup>();
+        public ObservableCollection<ProductUnitsGroup> ProductionGroups { get; } = new ObservableCollection<ProductUnitsGroup>();
+        public ObservableCollection<ProductUnitsGroup> PotentialGroups { get; } = new ObservableCollection<ProductUnitsGroup>();
 
-        public UnutsGroup SelectedProductionGroup
+        public ProductUnitsGroup SelectedProductionGroup
         {
             get { return _selectedProductionGroup; }
             set
@@ -34,7 +32,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
-        public UnutsGroup SelectedPotentialGroup
+        public ProductUnitsGroup SelectedPotentialGroup
         {
             get { return _selectedPotentialGroup; }
             set
@@ -47,9 +45,8 @@ namespace HVTApp.Modules.Sales.ViewModels
         public ICommand ProductUnitCommand { get; }
         public ICommand ReloadCommand { get; }
 
-        public ProductionViewModel(IUnityContainer container)
+        public ProductionViewModel(IUnityContainer container) : base(container)
         {
-            _container = container;
             ProductUnitCommand = new DelegateCommand(ProductUnitCommand_Execute, () => SelectedPotentialGroup != null);
             ReloadCommand = new DelegateCommand(async () => await LoadAsync());
         }
@@ -57,13 +54,13 @@ namespace HVTApp.Modules.Sales.ViewModels
         private async void ProductUnitCommand_Execute()
         {
             //подтверждение
-            var ms = _container.Resolve<IMessageService>();
-            var q = "Подтвердить намеряние разместить оборудование в производстве?";
+            var ms = Container.Resolve<IMessageService>();
+            var q = "Подтвердить намерение разместить оборудование в производстве?";
             if (ms.ShowYesNoMessageDialog("Размещение в производстве", q) != MessageDialogResult.Yes) return;
 
             //размещение в производстве
             SelectedPotentialGroup.ProdutGroup();
-            await _unitOfWork.SaveChangesAsync();
+            await UnitOfWork.SaveChangesAsync();
 
             //работа с видами
             ProductionGroups.Add(SelectedPotentialGroup);
@@ -74,7 +71,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
             else
             {
-                List<UnutsGroup> remove = new List<UnutsGroup>();
+                List<ProductUnitsGroup> remove = new List<ProductUnitsGroup>();
                 foreach (var potentialGroup in PotentialGroups)
                 {
                     if (potentialGroup.Groups.Contains(SelectedPotentialGroup))
@@ -92,8 +89,8 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         protected override async Task LoadedAsyncMethod()
         {
-            _unitOfWork = _container.Resolve<IUnitOfWork>();
-            _allSalesUnits = await _unitOfWork.GetRepository<SalesUnit>().GetAllAsync();
+            UnitOfWork = Container.Resolve<IUnitOfWork>();
+            _allSalesUnits = await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync();
 
             var production = _allSalesUnits.Where(x => x.SignalToStartProduction != null).ToList();
             var potential = _allSalesUnits.Except(production).Where(x => !x.IsLoosen && x.Project.HighProbability);
@@ -105,7 +102,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             PotentialGroups.AddRange(Grouping(potential));
         }
 
-        private IEnumerable<UnutsGroup> Grouping(IEnumerable<SalesUnit> units)
+        private IEnumerable<ProductUnitsGroup> Grouping(IEnumerable<SalesUnit> units)
         {
             var groups = units.GroupBy(x => new
             {
@@ -117,11 +114,11 @@ namespace HVTApp.Modules.Sales.ViewModels
                 x.EndProductionDateCalculated
             }).OrderBy(x => x.Key.EndProductionDateCalculated);
 
-            return groups.Select(x => new UnutsGroup(x));
+            return groups.Select(x => new ProductUnitsGroup(x));
         }
     }
 
-    public class UnutsGroup
+    public class ProductUnitsGroup
     {
         private readonly List<SalesUnit> _units;
         private readonly SalesUnit _unit;
@@ -136,16 +133,16 @@ namespace HVTApp.Modules.Sales.ViewModels
         public string Contract => _unit.Specification?.Contract.Number;
         public DateTime EndProductionDate => _unit.EndProductionDateCalculated;
 
-        public ObservableCollection<UnutsGroup> Groups { get; } = new ObservableCollection<UnutsGroup>();
+        public ObservableCollection<ProductUnitsGroup> Groups { get; } = new ObservableCollection<ProductUnitsGroup>();
 
-        public UnutsGroup(IEnumerable<SalesUnit> units)
+        public ProductUnitsGroup(IEnumerable<SalesUnit> units)
         {
             _units = units.ToList();
             _unit = _units.First();
 
             if (_units.Count > 1)
             {
-                Groups.AddRange(_units.Select(x => new UnutsGroup(new[] {x})));
+                Groups.AddRange(_units.Select(x => new ProductUnitsGroup(new[] {x})));
             }
         }
 
