@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using HVTApp.DataAccess.Annotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
@@ -12,11 +10,12 @@ using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Mvvm;
 
 namespace HVTApp.UI.ViewModels
 {
     public abstract class BaseDetailsViewModel<TWrapper, TEntity, TAfterSaveEntityEvent> : 
-        IDetailsViewModel<TWrapper, TEntity>, INotifyPropertyChanged, IDisposable
+        BindableBase, IDetailsViewModel<TWrapper, TEntity>, IDisposable
         where TEntity : class, IBaseEntity
         where TWrapper : class, IWrapper<TEntity>
         where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
@@ -167,16 +166,6 @@ namespace HVTApp.UI.ViewModels
             }
         }
 
-
-        #region INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
 
         public void Dispose()
         {

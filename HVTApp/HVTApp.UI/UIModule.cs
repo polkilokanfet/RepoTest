@@ -1,4 +1,5 @@
-﻿using HVTApp.Infrastructure.Interfaces.Services;
+﻿using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
@@ -29,6 +30,8 @@ namespace HVTApp.UI
             _updateDetailsService.ReRegister<Offer, OfferView>();
             _updateDetailsService.ReRegister<Project, ProjectView>();
             _updateDetailsService.ReRegister<Order, OrderView>();
+
+            Container.RegisterViewForNavigation<OfferView>();
         }
 
         protected override void ResolveOutlookGroup()

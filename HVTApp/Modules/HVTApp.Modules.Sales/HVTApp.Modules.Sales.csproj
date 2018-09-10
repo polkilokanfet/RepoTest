@@ -132,6 +132,9 @@
     <Compile Include="Views\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\OfferRedactorView.xaml.cs">
+      <DependentUpon>OfferRedactorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ShippingView.xaml.cs">
       <DependentUpon>ShippingView.xaml</DependentUpon>
     </Compile>
@@ -223,6 +226,10 @@
     <Page Include="Views\MarketView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OfferRedactorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ShippingView.xaml">
       <Generator>MSBuild:Compile</Generator>

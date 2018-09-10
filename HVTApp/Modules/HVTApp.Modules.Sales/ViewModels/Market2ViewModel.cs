@@ -1,15 +1,20 @@
 ﻿using System.Windows.Input;
-using HVTApp.Services.OfferToDocService;
-using HVTApp.UI.Services;
+using HVTApp.Infrastructure;
+using HVTApp.Model.POCOs;
+using HVTApp.Modules.Sales.Views;
 using HVTApp.UI.ViewModels;
+using HVTApp.UI.Views;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Regions;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
     public class Market2ViewModel : ProjectLookupListViewModel
     {
         private readonly IUnityContainer _container;
+
+        public Offer SelectedOffer => OfferListViewModel?.SelectedItem;
 
         public OfferLookupListViewModel OfferListViewModel { get; }
         public TenderLookupListViewModel TenderListViewModel { get; }
@@ -29,10 +34,12 @@ namespace HVTApp.Modules.Sales.ViewModels
         public ICommand EditTenderCommand { get; }
         public ICommand RemoveTenderCommand { get; }
 
+        private readonly IRegionManager _regionManager;
 
         public Market2ViewModel(IUnityContainer container) : base(container)
         {
             _container = container;
+            _regionManager = Container.Resolve<IRegionManager>();
 
             //контексты
             OfferListViewModel = container.Resolve<OfferLookupListViewModel>();
@@ -42,7 +49,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             //привязываем команды к соответствующим моделям
             NewOfferCommand = OfferListViewModel.NewItemCommand;
-            EditOfferCommand = OfferListViewModel.EditItemCommand;
+            EditOfferCommand = new DelegateCommand(EditOfferCommand_Execute, () => SelectedOffer != null);
             RemoveOfferCommand = OfferListViewModel.RemoveItemCommand;
             PrintOfferCommand = OfferListViewModel.PrintOfferCommand;
 
@@ -67,7 +74,19 @@ namespace HVTApp.Modules.Sales.ViewModels
             {
                 if (offer == null) return;
                 UnitListViewModel.Load(offer.OfferUnits);
+                ((DelegateCommand)EditOfferCommand).RaiseCanExecuteChanged();
             };
+        }
+
+        private void EditOfferCommand_Execute()
+        {
+            //var mainRegion = _regionManager.Regions[RegionNames.ContentRegion];
+            //mainRegion.NavigationService.Journal.GoBack();
+
+            var prms = new NavigationParameters();
+            prms.Add("offer", SelectedOffer);
+            _regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(OfferView).FullName, prms);
+            
         }
     }
 }

@@ -24,6 +24,7 @@ namespace HVTApp.Modules.Sales
             Container.RegisterViewForNavigation<OffersView>();
             Container.RegisterViewForNavigation<ProductionView>();
             Container.RegisterViewForNavigation<ShippingView>();
+            Container.RegisterViewForNavigation<OfferRedactorView>();
         }
 
         protected override void ResolveOutlookGroup()

@@ -1,0 +1,12 @@
+﻿<inf:ViewBase x:Class="HVTApp.Modules.Sales.Views.OfferRedactorView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:local="clr-namespace:HVTApp.Modules.Sales.Views"
+              xmlns:dataPresenter="http://infragistics.com/DataPresenter"
+              xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI">
+
+    <ContentControl DataContext="{Binding}" x:Name="ContentControl"/>
+
+</inf:ViewBase>
+

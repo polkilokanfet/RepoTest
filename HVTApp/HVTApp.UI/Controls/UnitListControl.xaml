@@ -171,10 +171,9 @@
 
         </Grid>
         
-        <StackPanel Grid.Row="1" HorizontalAlignment="Left">
-            <Label Content="Ошибки при расчете себестоимости:" HorizontalAlignment="Left"/>
+        <GroupBox Grid.Row="1" Header="Ошибки при расчете себестоимости:">
             <TextBlock Text="{Binding PriceErrors, ElementName=Root}"/>
-        </StackPanel>
+        </GroupBox>
         
     </Grid>
 </UserControl>
