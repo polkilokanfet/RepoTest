@@ -4,6 +4,8 @@ using Prism.Events;
 namespace HVTApp.Model.Events
 {
 	public partial class AfterRemoveCreateNewProductTaskEvent : PubSubEvent<CreateNewProductTask> { }
+	public partial class AfterRemoveDocumentIncomingNumberEvent : PubSubEvent<DocumentIncomingNumber> { }
+	public partial class AfterRemoveDocumentOutgoingNumberEvent : PubSubEvent<DocumentOutgoingNumber> { }
 	public partial class AfterRemovePaymentActualEvent : PubSubEvent<PaymentActual> { }
 	public partial class AfterRemovePaymentPlannedEvent : PubSubEvent<PaymentPlanned> { }
 	public partial class AfterRemoveProductBlockIsServiceEvent : PubSubEvent<ProductBlockIsService> { }

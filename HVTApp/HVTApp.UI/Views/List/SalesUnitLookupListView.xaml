@@ -51,7 +51,9 @@
                     <infg:NumericField Name="DeliveryPeriodCalculated" Label="Расчетный срок доставки" Width="Auto" />
                     <infg:DateTimeField Name="EndProductionDate" Label="Дата окончания производства" Width="Auto" />
                     <infg:DateTimeField Name="EndProductionDateCalculated" Label="Окончание производства (расч.)" Width="Auto" />
+                    <infg:DateTimeField Name="EndProductionPlanDate" Label="Плановая дата окончания производства" Width="Auto" />
                     <infg:NumericField Name="ExpectedDeliveryPeriod" Label="Срок доставки" Width="Auto" />
+                    <infg:CheckBoxField Name="IsLoosen" Label="Проиграно" Width="Auto" />
                     <infg:TextField Name="Order" Label="Заказ" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:DateTimeField Name="OrderInTakeDate" Label="ОИТ" Width="Auto" />
                     <infg:NumericField Name="OrderInTakeMonth" Label="Месяц" Width="Auto" />
@@ -67,8 +69,9 @@
                     <infg:TextField Name="SerialNumber" Label="Номер" Width="Auto" />
                     <infg:DateTimeField Name="ShipmentDate" Label="Дата отгрузки" Width="Auto" />
                     <infg:DateTimeField Name="ShipmentDateCalculated" Label="Расчетная дата отгрузки" Width="Auto" />
-                    <infg:DateTimeField Name="ShipmentPlanDate" Label="Дата отгрузки" Width="Auto" />
+                    <infg:DateTimeField Name="ShipmentPlanDate" Label="Дата плановой отгрузки" Width="Auto" />
                     <infg:DateTimeField Name="ShippingConditionsDoneDate" Label="Дата исполнения условий для отгрузки" Width="Auto" />
+                    <infg:DateTimeField Name="SignalToStartProduction" Label="Сигнал менеджера о производстве" Width="Auto" />
                     <infg:TextField Name="Specification" Label="Спецификация" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:DateTimeField Name="StartProductionConditionsDoneDate" Label="Дата исполнения условий для начала производства" Width="Auto" />
                     <infg:DateTimeField Name="StartProductionDate" Label="Дата начала производства" Width="Auto" />

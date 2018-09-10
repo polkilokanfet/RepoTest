@@ -8,6 +8,8 @@ namespace HVTApp.DataAccess
         {
 			#region RepositoriesInit
             CreateNewProductTaskRepository = new CreateNewProductTaskRepositoryTest(testData);
+            DocumentIncomingNumberRepository = new DocumentIncomingNumberRepositoryTest(testData);
+            DocumentOutgoingNumberRepository = new DocumentOutgoingNumberRepositoryTest(testData);
             PaymentActualRepository = new PaymentActualRepositoryTest(testData);
             PaymentPlannedRepository = new PaymentPlannedRepositoryTest(testData);
             ProductBlockIsServiceRepository = new ProductBlockIsServiceRepositoryTest(testData);
@@ -78,6 +80,8 @@ namespace HVTApp.DataAccess
 
         #region Repositories
         public ICreateNewProductTaskRepository CreateNewProductTaskRepository { get; }
+        public IDocumentIncomingNumberRepository DocumentIncomingNumberRepository { get; }
+        public IDocumentOutgoingNumberRepository DocumentOutgoingNumberRepository { get; }
         public IPaymentActualRepository PaymentActualRepository { get; }
         public IPaymentPlannedRepository PaymentPlannedRepository { get; }
         public IProductBlockIsServiceRepository ProductBlockIsServiceRepository { get; }

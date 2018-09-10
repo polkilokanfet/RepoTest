@@ -10,6 +10,8 @@ namespace HVTApp.DataAccess
         {
 			#region Configurations
             modelBuilder.Configurations.Add(new CreateNewProductTaskConfiguration());
+            modelBuilder.Configurations.Add(new DocumentIncomingNumberConfiguration());
+            modelBuilder.Configurations.Add(new DocumentOutgoingNumberConfiguration());
             modelBuilder.Configurations.Add(new PaymentActualConfiguration());
             modelBuilder.Configurations.Add(new PaymentPlannedConfiguration());
             modelBuilder.Configurations.Add(new ProductBlockIsServiceConfiguration());
@@ -81,6 +83,8 @@ namespace HVTApp.DataAccess
 
 		#region DbSets
         public virtual DbSet<CreateNewProductTask> CreateNewProductTaskDbSet { get; set; }
+        public virtual DbSet<DocumentIncomingNumber> DocumentIncomingNumberDbSet { get; set; }
+        public virtual DbSet<DocumentOutgoingNumber> DocumentOutgoingNumberDbSet { get; set; }
         public virtual DbSet<PaymentActual> PaymentActualDbSet { get; set; }
         public virtual DbSet<PaymentPlanned> PaymentPlannedDbSet { get; set; }
         public virtual DbSet<ProductBlockIsService> ProductBlockIsServiceDbSet { get; set; }

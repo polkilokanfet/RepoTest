@@ -41,6 +41,7 @@
 					<infg:FieldLayout.Fields>
                     <infg:TextField Name="Facilities" Label="Объекты" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Name" Label="Название" Width="Auto" />
+                    <infg:CheckBoxField Name="HighProbability" Label="Высокая вероятность поставки" Width="Auto" />
                     <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="ProjectType" Label="Тип проекта" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:DateTimeField Name="RealizationDate" Label="Дата поставки" Width="Auto" />

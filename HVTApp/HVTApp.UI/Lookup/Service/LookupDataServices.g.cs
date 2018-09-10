@@ -11,6 +11,18 @@ namespace HVTApp.UI.Lookup
     }
 
 
+    public partial class DocumentIncomingNumberLookupDataService : LookupDataService<DocumentIncomingNumberLookup, DocumentIncomingNumber>, IDocumentIncomingNumberLookupDataService
+    {
+        public DocumentIncomingNumberLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+    }
+
+
+    public partial class DocumentOutgoingNumberLookupDataService : LookupDataService<DocumentOutgoingNumberLookup, DocumentOutgoingNumber>, IDocumentOutgoingNumberLookupDataService
+    {
+        public DocumentOutgoingNumberLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+    }
+
+
     public partial class PaymentActualLookupDataService : LookupDataService<PaymentActualLookup, PaymentActual>, IPaymentActualLookupDataService
     {
         public PaymentActualLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }

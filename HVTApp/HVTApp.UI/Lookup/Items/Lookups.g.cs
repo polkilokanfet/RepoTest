@@ -56,6 +56,48 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	public partial class DocumentIncomingNumberLookup : LookupItem<DocumentIncomingNumber>
+	{
+		public DocumentIncomingNumberLookup(DocumentIncomingNumber entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.Int32 Num => GetValue<System.Int32>();
+
+
+        #endregion
+
+	}
+
+	public partial class DocumentOutgoingNumberLookup : LookupItem<DocumentOutgoingNumber>
+	{
+		public DocumentOutgoingNumberLookup(DocumentOutgoingNumber entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.Int32 Num => GetValue<System.Int32>();
+
+
+        #endregion
+
+	}
+
 	public partial class PaymentActualLookup : LookupItem<PaymentActual>
 	{
 		public PaymentActualLookup(PaymentActual entity) : base(entity) 
@@ -1314,11 +1356,19 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(OrderStatus.Normal)]
+        public System.Nullable<System.DateTime> SignalToStartProduction => GetValue<System.Nullable<System.DateTime>>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.DateTime> StartProductionDate => GetValue<System.Nullable<System.DateTime>>();
 
 
 		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.DateTime> PickingDate => GetValue<System.Nullable<System.DateTime>>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.Nullable<System.DateTime> EndProductionPlanDate => GetValue<System.Nullable<System.DateTime>>();
 
 
 		[OrderStatus(OrderStatus.Normal)]
@@ -1343,6 +1393,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.DateTime> DeliveryDate => GetValue<System.Nullable<System.DateTime>>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.Boolean IsLoosen => GetValue<System.Boolean>();
 
 
 		[OrderStatus(OrderStatus.Normal)]
@@ -2123,6 +2177,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(OrderStatus.High)]
         public System.String Name => GetValue<System.String>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
+        public System.Boolean HighProbability => GetValue<System.Boolean>();
 
 
         #endregion

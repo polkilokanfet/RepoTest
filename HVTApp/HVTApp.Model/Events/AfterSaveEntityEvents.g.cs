@@ -4,6 +4,8 @@ using Prism.Events;
 namespace HVTApp.Model.Events
 {
 	public partial class AfterSaveCreateNewProductTaskEvent : PubSubEvent<CreateNewProductTask> { }
+	public partial class AfterSaveDocumentIncomingNumberEvent : PubSubEvent<DocumentIncomingNumber> { }
+	public partial class AfterSaveDocumentOutgoingNumberEvent : PubSubEvent<DocumentOutgoingNumber> { }
 	public partial class AfterSavePaymentActualEvent : PubSubEvent<PaymentActual> { }
 	public partial class AfterSavePaymentPlannedEvent : PubSubEvent<PaymentPlanned> { }
 	public partial class AfterSaveProductBlockIsServiceEvent : PubSubEvent<ProductBlockIsService> { }

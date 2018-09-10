@@ -933,6 +933,57 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
+	[DesignationPlural("DocumentIncomingNumberLookup")]
+    public partial class DocumentIncomingNumberLookupListView : ViewBase
+    {
+        public DocumentIncomingNumberLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public DocumentIncomingNumberLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentIncomingNumberLookupListViewModel DocumentIncomingNumberLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = DocumentIncomingNumberLookupListViewModel;
+			DocumentIncomingNumberLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((DocumentIncomingNumberLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NumVisibility
+        {
+            get { return DocumentIncomingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentIncomingNumberLookup.Num)].Visibility; }
+            set { DocumentIncomingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentIncomingNumberLookup.Num)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return DocumentIncomingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentIncomingNumberLookup.DisplayMember)].Visibility; }
+            set { DocumentIncomingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentIncomingNumberLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return DocumentIncomingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentIncomingNumberLookup.Entity)].Visibility; }
+            set { DocumentIncomingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentIncomingNumberLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD))]
 	[DesignationPlural("DocumentLookup")]
     public partial class DocumentLookupListView : ViewBase
     {
@@ -1031,6 +1082,57 @@ namespace HVTApp.UI.Views
         {
             get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.Entity)].Visibility; }
             set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD))]
+	[DesignationPlural("DocumentOutgoingNumberLookup")]
+    public partial class DocumentOutgoingNumberLookupListView : ViewBase
+    {
+        public DocumentOutgoingNumberLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public DocumentOutgoingNumberLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentOutgoingNumberLookupListViewModel DocumentOutgoingNumberLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = DocumentOutgoingNumberLookupListViewModel;
+			DocumentOutgoingNumberLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((DocumentOutgoingNumberLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NumVisibility
+        {
+            get { return DocumentOutgoingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentOutgoingNumberLookup.Num)].Visibility; }
+            set { DocumentOutgoingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentOutgoingNumberLookup.Num)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return DocumentOutgoingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentOutgoingNumberLookup.DisplayMember)].Visibility; }
+            set { DocumentOutgoingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentOutgoingNumberLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return DocumentOutgoingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentOutgoingNumberLookup.Entity)].Visibility; }
+            set { DocumentOutgoingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentOutgoingNumberLookup.Entity)].Visibility = value; }
         }
 
 
@@ -3121,6 +3223,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility HighProbabilityVisibility
+        {
+            get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.HighProbability)].Visibility; }
+            set { ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.HighProbability)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility SumVisibility
         {
             get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Sum)].Visibility; }
@@ -3437,6 +3546,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility SignalToStartProductionVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.SignalToStartProduction)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.SignalToStartProduction)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility StartProductionDateVisibility
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.StartProductionDate)].Visibility; }
@@ -3448,6 +3564,13 @@ namespace HVTApp.UI.Views
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.PickingDate)].Visibility; }
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.PickingDate)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EndProductionPlanDateVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.EndProductionPlanDate)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.EndProductionPlanDate)].Visibility = value; }
         }
 
 
@@ -3490,6 +3613,13 @@ namespace HVTApp.UI.Views
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.DeliveryDate)].Visibility; }
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.DeliveryDate)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsLoosenVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.IsLoosen)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.IsLoosen)].Visibility = value; }
         }
 
 
