@@ -7,7 +7,7 @@ using Prism.Regions;
 
 namespace HVTApp.Modules.Sales.Views
 {
-    [RibbonTab(typeof(PaymentsTab))]
+    [RibbonTab(typeof(ProductionTab))]
     public partial class ProductionView
     {
         private readonly ProductionViewModel _productionViewModel;

@@ -113,6 +113,7 @@
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IViewBase.cs" />
     <Compile Include="IWrapper.cs" />
+    <Compile Include="LoadableBindableBase.cs" />
     <Compile Include="MessageDialogResult.cs" />
     <Compile Include="NavigationAwareViewModelBase.cs" />
     <Compile Include="NavigationItem.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="RibbonTabItemWithViewModel.cs" />
     <Compile Include="RibbonTabAttribute.cs" />
     <Compile Include="Role.cs" />
+    <Compile Include="Services\IMessageService.cs" />
     <Compile Include="UnityExtensions.cs" />
     <Compile Include="ViewBase.cs" />
   </ItemGroup>

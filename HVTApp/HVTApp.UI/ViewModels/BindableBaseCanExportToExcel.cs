@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
-using HVTApp.Services.MessageService;
+using HVTApp.Infrastructure.Services;
 using Infragistics.Documents.Excel;
 using Infragistics.Windows.DataPresenter;
 using Infragistics.Windows.DataPresenter.ExcelExporter;

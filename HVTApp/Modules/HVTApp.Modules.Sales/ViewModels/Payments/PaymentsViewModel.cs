@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,11 +10,10 @@ using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
-using Prism.Mvvm;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class PaymentsViewModel : BindableBase
+    public class PaymentsViewModel : LoadableBindableBase
     {
         private readonly IUnityContainer _container;
         private IUnitOfWork _unitOfWork;
@@ -36,16 +34,6 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public ObservableCollection<PaymentsGroup> PaymentsGroups { get; } = new ObservableCollection<PaymentsGroup>();
 
-        public bool IsLoaded
-        {
-            get { return _isLoaded; }
-            set
-            {
-                _isLoaded = value;
-                OnPropertyChanged();
-            }
-        }
-
         public ICommand SaveCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
         public ICommand RemoveCommand { get; set; }
@@ -64,10 +52,8 @@ namespace HVTApp.Modules.Sales.ViewModels
         //необходимо для отслеживания изначально сохраненных платежей
         private List<PaymentPlanned> _originPaymentPlanneds;
 
-        public async Task LoadAsync()
+        protected override async Task LoadedAsyncMethod()
         {
-            IsLoaded = false;
-
             _unitOfWork = _container.Resolve<IUnitOfWork>();
 
             //загружаем все юниты
@@ -86,8 +72,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             _salesUnitWrappers.ForEach(Actualization);
 
             RefreshPayments();
-
-            IsLoaded = true;
         }
 
         private void Actualization(SalesUnitWrapper salesUnitWrapper)

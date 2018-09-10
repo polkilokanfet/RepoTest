@@ -19,7 +19,7 @@
             <Label.Style>
                 <Style>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=ProductionListGrid, Path=Visibility}" Value="Visible">
+                    <DataTrigger Binding="{Binding ElementName=ContentGrid, Path=Visibility}" Value="Visible">
                         <Setter Property="Label.Visibility" Value="Collapsed"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -28,38 +28,86 @@
         </Label>
        
 
-        <infg:XamDataGrid x:Name="ProductionListGrid"
-                          Grid.Row="1"
-                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}"
-                          DataSource="{Binding Groups}"
-                          SelectedDataItem="{Binding SelectedGroup}">
+        <Grid Grid.Row="1" 
+              Name="ContentGrid" 
+              Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <GroupBox Grid.Row="0" Header="Оборудование в производстве">
+                <infg:XamDataGrid x:Name="ProductionListGrid"
+                                  
+                                  DataSource="{Binding ProductionGroups}"
+                                  SelectedDataItem="{Binding SelectedProductionGroup, Mode=TwoWay}">
 
-            <infg:XamDataGrid.ContextMenu>
-				<ContextMenu>
-					<MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-				</ContextMenu>
-			</infg:XamDataGrid.ContextMenu>
+                    <infg:XamDataGrid.ContextMenu>
+				        <ContextMenu>
+					        <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+				        </ContextMenu>
+			        </infg:XamDataGrid.ContextMenu>
 
-			<infg:XamDataGrid.FieldLayouts>
-				<infg:FieldLayout>
-					<infg:FieldLayout.Fields>
+			        <infg:XamDataGrid.FieldLayouts>
+				        <infg:FieldLayout>
+					        <infg:FieldLayout.Fields>
                         
-                        <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
-                        <infg:TextField Name="ProductType" Label="Тип" Width="Auto"/>
-                        <infg:TextField Name="ProductDesignation" Label="Обозначение" Width="Auto"/>
-                        <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
-                        <infg:TextField Name="Order" Label="З/з" Width="Auto"/>
-                        <infg:TextField Name="Company" Label="Контрагент" Width="Auto"/>
-                        <infg:TextField Name="Specification" Label="Сп.№" Width="Auto"/>
-                        <infg:TextField Name="Contract" Label="Договор" Width="Auto"/>
-                        <infg:DateTimeField Name="EndProductionDate" Label="Дата производства" Width="Auto"/>
-                        <infg:Field Name="Groups" IsExpandable="True"/>
+                                <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
+                                <infg:TextField Name="ProductType" Label="Тип" Width="Auto"/>
+                                <infg:TextField Name="ProductDesignation" Label="Обозначение" Width="Auto"/>
+                                <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
+                                <infg:TextField Name="Order" Label="З/з" Width="Auto"/>
+                                <infg:TextField Name="Company" Label="Контрагент" Width="Auto"/>
+                                <infg:TextField Name="Specification" Label="Сп.№" Width="Auto"/>
+                                <infg:TextField Name="Contract" Label="Договор" Width="Auto"/>
+                                <infg:DateTimeField Name="EndProductionDate" Label="Дата производства" Width="Auto"/>
+                                <infg:Field Name="Groups" IsExpandable="True"/>
 
-                    </infg:FieldLayout.Fields>
-				</infg:FieldLayout>
+                            </infg:FieldLayout.Fields>
+				        </infg:FieldLayout>
 
-			</infg:XamDataGrid.FieldLayouts>
-		</infg:XamDataGrid>
+			        </infg:XamDataGrid.FieldLayouts>
+		        </infg:XamDataGrid>
+            </GroupBox>
+            
+            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
+
+            <GroupBox Grid.Row="2" Header="Потенциальное">
+                <infg:XamDataGrid x:Name="PotentialListGrid"
+                                  DataSource="{Binding PotentialGroups}"
+                                  SelectedDataItem="{Binding SelectedPotentialGroup, Mode=TwoWay}">
+
+                    <infg:XamDataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                        </ContextMenu>
+                    </infg:XamDataGrid.ContextMenu>
+
+                    <infg:XamDataGrid.FieldLayouts>
+                        <infg:FieldLayout>
+                            <infg:FieldLayout.Fields>
+
+                                <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
+                                <infg:TextField Name="ProductType" Label="Тип" Width="Auto"/>
+                                <infg:TextField Name="ProductDesignation" Label="Обозначение" Width="Auto"/>
+                                <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
+                                <!--<infg:TextField Name="Order" Label="З/з" Width="Auto"/>-->
+                                <infg:TextField Name="Company" Label="Контрагент" Width="Auto"/>
+                                <infg:TextField Name="Specification" Label="Сп.№" Width="Auto"/>
+                                <infg:TextField Name="Contract" Label="Договор" Width="Auto"/>
+                                <infg:DateTimeField Name="EndProductionDate" Label="Дата производства" Width="Auto"/>
+                                <infg:Field Name="Groups" IsExpandable="True"/>
+
+                            </infg:FieldLayout.Fields>
+                        </infg:FieldLayout>
+
+                    </infg:XamDataGrid.FieldLayouts>
+                </infg:XamDataGrid>
+            </GroupBox>
+
+        </Grid>
 
     </Grid>
 </inf:ViewBase>

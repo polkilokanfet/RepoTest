@@ -93,6 +93,9 @@
       <DependentUpon>SalesMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\SalesMenuViewModel.cs" />
+    <Compile Include="Tabs\ProductionTab.xaml.cs">
+      <DependentUpon>ProductionTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\TabProjects.xaml.cs">
       <DependentUpon>TabProjects.xaml</DependentUpon>
     </Compile>
@@ -187,6 +190,10 @@
     <Page Include="Menus\SalesMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\ProductionTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Tabs\TabProjects.xaml">
       <SubType>Designer</SubType>

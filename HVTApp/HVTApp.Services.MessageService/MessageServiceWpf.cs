@@ -1,5 +1,6 @@
 using System.Windows;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Services;
 
 namespace HVTApp.Services.MessageService
 {

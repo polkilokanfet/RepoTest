@@ -113,6 +113,9 @@ namespace HVTApp.Model.POCOs
 
         #endregion
 
+        [NotMapped, Designation("Проиграно")]
+        public bool IsLoosen => Producer != null && Producer.Id != CommonOptions.OurCompanyId;
+
         public override string ToString()
         {
             return $"{Product} для {Facility}";
