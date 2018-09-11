@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Views;
 using HVTApp.UI.ViewModels;
-using HVTApp.UI.Views;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Regions;
@@ -16,16 +17,20 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class Market2ViewModel : ProjectLookupListViewModel
     {
-        private readonly IUnityContainer _container;
-
-        public Offer SelectedOffer => OfferListViewModel?.SelectedItem;
+        #region ViewModels
 
         public OfferLookupListViewModel OfferListViewModel { get; }
         public TenderLookupListViewModel TenderListViewModel { get; }
         public UnitLookupListViewModel UnitListViewModel { get; }
         public NoteLookupListViewModel NoteListViewModel { get; }
 
-        public ICommand NewOfferCommand { get; }
+        #endregion
+
+        #region ICommand
+
+        public ICommand NewProjectCommand { get; }
+        public ICommand EditProjectCommand { get; }
+
         public ICommand NewOfferByProjectCommand { get; }
         public ICommand NewOfferByOfferCommand { get; }
         public ICommand EditOfferCommand { get; }
@@ -40,13 +45,13 @@ namespace HVTApp.Modules.Sales.ViewModels
         public ICommand EditTenderCommand { get; }
         public ICommand RemoveTenderCommand { get; }
 
-        private readonly IRegionManager _regionManager;
+
+        #endregion
+
+        #region Ctor
 
         public Market2ViewModel(IUnityContainer container) : base(container)
         {
-            _container = container;
-            _regionManager = Container.Resolve<IRegionManager>();
-
             //контексты
             OfferListViewModel = container.Resolve<OfferLookupListViewModel>();
             TenderListViewModel = container.Resolve<TenderLookupListViewModel>();
@@ -54,12 +59,14 @@ namespace HVTApp.Modules.Sales.ViewModels
             NoteListViewModel = container.Resolve<NoteLookupListViewModel>();
 
             //привязываем команды к соответствующим моделям
-            NewOfferCommand = OfferListViewModel.NewItemCommand;
-            EditOfferCommand = new DelegateCommand(EditOfferCommand_Execute, () => SelectedOffer != null);
+            NewProjectCommand = new DelegateCommand(NewProjectCommand_Execute);
+            EditProjectCommand = new DelegateCommand(EditProjectCommand_Execute, () => SelectedItem != null);
+
+            EditOfferCommand = new DelegateCommand(EditOfferCommand_Execute, () => OfferListViewModel?.SelectedItem != null);
             RemoveOfferCommand = OfferListViewModel.RemoveItemCommand;
             PrintOfferCommand = OfferListViewModel.PrintOfferCommand;
-            NewOfferByProjectCommand = new DelegateCommand(NewOfferByProjectCommand_Execute);
-            NewOfferByOfferCommand = new DelegateCommand(NewOfferByOfferCommand_Execute);
+            NewOfferByProjectCommand = new DelegateCommand(NewOfferByProjectCommand_Execute, () => SelectedItem != null);
+            NewOfferByOfferCommand = new DelegateCommand(NewOfferByOfferCommand_Execute, () => OfferListViewModel?.SelectedItem != null);
 
             NewTenderCommand = TenderListViewModel.NewItemCommand;
             EditTenderCommand = TenderListViewModel.EditItemCommand;
@@ -76,6 +83,11 @@ namespace HVTApp.Modules.Sales.ViewModels
                 OfferListViewModel.Load(project.Offers);
                 TenderListViewModel.Load(project.Tenders);
                 NoteListViewModel.Load(project.Notes);
+
+                ((DelegateCommand)EditProjectCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)EditOfferCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)NewOfferByProjectCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)NewOfferByOfferCommand).RaiseCanExecuteChanged();
             };
 
             OfferListViewModel.SelectedLookupChanged += offer =>
@@ -83,48 +95,43 @@ namespace HVTApp.Modules.Sales.ViewModels
                 if (offer == null) return;
                 UnitListViewModel.Load(offer.OfferUnits);
                 ((DelegateCommand)EditOfferCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)NewOfferByOfferCommand).RaiseCanExecuteChanged();
             };
         }
 
+        private void EditProjectCommand_Execute()
+        {
+            RegionManager.RequestNavigateContentRegion<ProjectView>(new NavigationParameters { {"prj", SelectedItem} });
+        }
+
+        private void NewProjectCommand_Execute()
+        {
+            RegionManager.RequestNavigateContentRegion<ProjectView>(new NavigationParameters());
+        }
+
+        #endregion
+
+        #region OfferCommands
+
+        /// <summary>
+        /// ТКП по существующему ТКП
+        /// </summary>
         private void NewOfferByOfferCommand_Execute()
         {
-            var offer = new Offer
-            {
-                ValidityDate = DateTime.Today.AddDays(90),
-                Project = SelectedOffer.Project,
-                RecipientEmployee = SelectedOffer.RecipientEmployee,
-                RecipientId = SelectedOffer.RecipientId,
-                Author = SelectedOffer.Author,
-                SenderEmployee = SelectedOffer.SenderEmployee,
-                SenderId = SelectedOffer.SenderId,
-                Vat = SelectedOffer.Vat
-            };
-
-            var units = new List<OfferUnit>();
-            foreach (var unit in OfferListViewModel.SelectedLookup.OfferUnits.Select(x => x.Entity))
-            {
-                var offerUnit = new OfferUnit
-                {
-                    Cost = unit.Cost,
-                    Facility = unit.Facility,
-                    Product = unit.Product, Offer = offer,
-                    PaymentConditionSet = unit.PaymentConditionSet,
-                    ProductionTerm = unit.ProductionTerm
-                };
-                units.Add(offerUnit);
-            }
-
-            var prms = new NavigationParameters {{"offer", offer}, {"units", units}};
-            _regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(OfferView).FullName, prms);
-            
+            var prms = new NavigationParameters {{"offer", OfferListViewModel.SelectedItem}, {"units", OfferListViewModel.SelectedLookup.OfferUnits.Select(x => x.Entity)}};
+            RegionManager.RequestNavigateContentRegion<OfferView>(prms);
         }
 
+        /// <summary>
+        /// ТКП по проекту
+        /// </summary>
         private void NewOfferByProjectCommand_Execute()
         {
             var offer = new Offer
             {
                 Project = SelectedItem,
-                ValidityDate = DateTime.Today.AddDays(90)
+                ValidityDate = DateTime.Today.AddDays(90),
+                Author = CommonOptions.User.Employee
             };
 
             var units = new List<OfferUnit>();
@@ -142,18 +149,21 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
 
             var prms = new NavigationParameters {{"offer", offer}, {"units", units}};
-            _regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(OfferView).FullName, prms);
+            RegionManager.RequestNavigateContentRegion<OfferView>(prms);
         }
 
+        /// <summary>
+        /// Изменить ТКП
+        /// </summary>
         private void EditOfferCommand_Execute()
         {
-            //var mainRegion = _regionManager.Regions[RegionNames.ContentRegion];
-            //mainRegion.NavigationService.Journal.GoBack();
-
-            var prms = new NavigationParameters();
-            prms.Add("offer", SelectedOffer);
-            _regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(OfferView).FullName, prms);
+            var prms = new NavigationParameters {{"offer", OfferListViewModel.SelectedItem}};
+            RegionManager.RequestNavigateContentRegion<OfferView>(prms);
             
         }
+        
+
+        #endregion
+
     }
 }

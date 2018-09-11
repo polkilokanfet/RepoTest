@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure.Interfaces.Services;
-using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
@@ -16,7 +14,7 @@ namespace HVTApp.UI.ViewModels
     {
         protected override async void AddCommand_Execute()
         {
-            var offerUnit = new OfferUnit {Offer = Item.Model, Facility = Groups?.First().Facility.Model};
+            var offerUnit = new OfferUnit {Offer = Item.Model, Facility = Groups?.FirstOrDefault()?.Facility.Model};
             if (SelectedGroup != null)
             {
                 offerUnit.Cost = SelectedGroup.Cost;
@@ -55,47 +53,49 @@ namespace HVTApp.UI.ViewModels
         /// <returns></returns>
         public async Task LoadAsync(Offer offer, IEnumerable<OfferUnit> offerUnits)
         {
+            WrapperDataService?.Dispose();
+            WrapperDataService = Container.Resolve<IWrapperDataService>();
+
+            var products = (await WrapperDataService.GetWrapperRepository<Product, ProductWrapper>().GetAllAsync()).ToList();
+            var conditions = (await WrapperDataService.GetWrapperRepository<PaymentConditionSet, PaymentConditionSetWrapper>().GetAllAsync()).ToList();
+            var facilities = (await WrapperDataService.GetWrapperRepository<Facility, FacilityWrapper>().GetAllAsync()).ToList();
+
             Item = new OfferWrapper(new Offer(), new List<OfferUnitWrapper>());
 
-            if (offer.Author != null)
-                Item.Author = await WrapperDataService.GetWrapperRepository<Employee, EmployeeWrapper>().GetByIdAsync(offer.Author.Id);
-            if (offer.Author != null)
-                Item.Project = await WrapperDataService.GetWrapperRepository<Project, ProjectWrapper>().GetByIdAsync(offer.Project.Id);
-            if (offer.RecipientEmployee != null)
-                Item.RecipientEmployee = await WrapperDataService.GetWrapperRepository<Employee, EmployeeWrapper>().GetByIdAsync(offer.RecipientEmployee.Id);
-            if (offer.SenderEmployee != null)
-                Item.SenderEmployee = await WrapperDataService.GetWrapperRepository<Employee, EmployeeWrapper>().GetByIdAsync(offer.SenderEmployee.Id);
-            //if (offer.RegistrationDetailsOfRecipient != null)
-            //    Item.RegistrationDetailsOfRecipient = await WrapperDataService.GetWrapperRepository<DocumentsRegistrationDetails, DocumentsRegistrationDetailsWrapper>().GetByIdAsync(offer.RegistrationDetailsOfRecipient.Id);
-            //if (offer.RegistrationDetailsOfSender != null)
-            //    Item.RegistrationDetailsOfSender = await WrapperDataService.GetWrapperRepository<DocumentsRegistrationDetails, DocumentsRegistrationDetailsWrapper>().GetByIdAsync(offer.RegistrationDetailsOfSender.Id);
-            if (offer.RequestDocument != null)
-                Item.RequestDocument = await WrapperDataService.GetWrapperRepository<Document, DocumentWrapper>().GetByIdAsync(offer.RequestDocument.Id);
+            if (offer.Author != null) Item.Author = await WrapperDataService.GetWrapperRepository<Employee, EmployeeWrapper>().GetByIdAsync(offer.Author.Id);
+            if (offer.Author != null) Item.Project = await WrapperDataService.GetWrapperRepository<Project, ProjectWrapper>().GetByIdAsync(offer.Project.Id);
+            if (offer.RecipientEmployee != null) Item.RecipientEmployee = await WrapperDataService.GetWrapperRepository<Employee, EmployeeWrapper>().GetByIdAsync(offer.RecipientEmployee.Id);
+            if (offer.SenderEmployee != null) Item.SenderEmployee = await WrapperDataService.GetWrapperRepository<Employee, EmployeeWrapper>().GetByIdAsync(offer.SenderEmployee.Id);
+            if (offer.RequestDocument != null) Item.RequestDocument = await WrapperDataService.GetWrapperRepository<Document, DocumentWrapper>().GetByIdAsync(offer.RequestDocument.Id);
+
             Item.Comment = offer.Comment;
             Item.Vat = offer.Vat;
             Item.ValidityDate = offer.ValidityDate;
 
-            Item.Units.AddRange(offerUnits.Select(x => new OfferUnitWrapper(x)));
+            foreach (var offerUnit in offerUnits)
+            {
+                var wrap = new OfferUnitWrapper(new OfferUnit())
+                {
+                    Product = products.Single(x => x.Id == offerUnit.Product.Id),
+                    PaymentConditionSet = conditions.Single(x => x.Id == offerUnit.PaymentConditionSet.Id),
+                    Facility = facilities.Single(x => x.Id == offerUnit.Facility.Id),
+                    Cost = offerUnit.Cost,
+                    ProductionTerm = offerUnit.ProductionTerm
+                };
+                wrap.Model.Offer = Item.Model;
+                foreach (var productIncluded in offerUnit.ProductsIncluded)
+                {
+                    var pi = new ProductIncludedWrapper(new ProductIncluded())
+                    {
+                        Product = products.Single(x => x.Id == productIncluded.Product.Id),
+                        Amount = productIncluded.Amount
+                    };
+                    wrap.ProductsIncluded.Add(pi);
+                }
+                Item.Units.Add(wrap);
+            }
+
             await AfterLoading();
-        }
-
-        protected override async void SaveCommand_Execute()
-        {
-            //добавляем сущность, если ее не существовало
-            if (await WrapperDataService.GetRepository<Offer>().GetByIdAsync(Item.Model.Id) == null)
-                WrapperDataService.GetWrapperRepository<Offer, OfferWrapper>().Add(Item);
-
-            //добавляем созданные юниты и удаляем удаленные
-            //WrapperDataService.GetRepository<OfferUnit>().AddRange(Item.Units.AddedItems.Select(x => x.Model));
-            //WrapperDataService.GetRepository<OfferUnit>().DeleteRange(Item.Units.RemovedItems.Select(x => x.Model));
-
-            Item.AcceptChanges();
-            await WrapperDataService.SaveChangesAsync();
-
-            EventAggregator.GetEvent<AfterSaveOfferEvent>().Publish(Item.Model);
-
-            //запрашиваем закрытие окна
-            OnCloseRequested(new DialogRequestCloseEventArgs(true));
         }
     }
 }

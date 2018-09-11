@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 
@@ -28,7 +29,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Копия")]
         public virtual List<Employee> CopyToRecipients { get; set; } = new List<Employee>();
 
-        [Designation("Исходящий")]
+        [Designation("Исходящий"), Required]
         public virtual DocumentsRegistrationDetails RegistrationDetailsOfSender { get; set; }
 
         [Designation("Входящий")]

@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.GetProductService;
 using HVTApp.Services.PriceService;
@@ -16,6 +19,7 @@ using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Regions;
 
 namespace HVTApp.UI.ViewModels
 {
@@ -233,6 +237,31 @@ namespace HVTApp.UI.ViewModels
             }
             group.Price = price;
             OnPropertyChanged(nameof(PriceErrors));
+        }
+
+        protected override async void SaveCommand_Execute()
+        {
+            //добавляем сущность, если ее не существовало
+            if (await WrapperDataService.GetRepository<TEntity>().GetByIdAsync(Item.Model.Id) == null)
+                WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().Add(Item);
+
+            //добавляем созданные юниты и удаляем удаленные
+            WrapperDataService.GetRepository<TUnit>().AddRange(Item.Units.AddedItems.Select(x => x.Model));
+            WrapperDataService.GetRepository<TUnit>().DeleteRange(Item.Units.RemovedItems.Select(x => x.Model));
+
+            Item.AcceptChanges();
+            await WrapperDataService.SaveChangesAsync();
+
+            EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
+
+            //запрашиваем закрытие окна
+            OnCloseRequested(new DialogRequestCloseEventArgs(true));
+        }
+
+
+        protected override bool SaveCommand_CanExecute()
+        {
+            return base.SaveCommand_CanExecute() && Item.Units.Any();
         }
     }
 

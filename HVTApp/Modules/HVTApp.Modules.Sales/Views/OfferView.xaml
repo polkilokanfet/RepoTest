@@ -3,17 +3,32 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
-              xmlns:controls1="clr-namespace:HVTApp.UI.Controls;assembly=HVTApp.UI"
+              xmlns:controls="clr-namespace:HVTApp.Modules.Sales.Controls"
               x:Name="Root">
     
-    <DockPanel LastChildFill="True">
-        <views:OfferDetailsView DockPanel.Dock="Top" DataContext="{Binding}" x:Name="OfferDetailsView"/>
-        <controls1:UnitListControl UnitsGroups="{Binding Groups}"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <ScrollViewer Grid.Row="0">
+            <views:OfferDetailsView DockPanel.Dock="Top" 
+                                    DataContext="{Binding}" 
+                                    x:Name="OfferDetailsView"
+                                    AuthorVisibility="Collapsed"/>
+        </ScrollViewer>
+        
+        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
+        
+        <controls:UnitListControl Grid.Row="2" 
+                                  UnitsGroups="{Binding Groups}"
                                   SelectedUnitsGroup="{Binding SelectedGroup, Mode=OneWayToSource}"
                                   SelectedProductIncluded="{Binding SelectedProductIncluded, Mode=OneWayToSource}"
                                   ChangeFacilityCommand="{Binding ChangeFacilityCommand}"
                                   ChangeProductCommand="{Binding ChangeProductCommand}"
                                   ChangePaymentsCommand="{Binding ChangePaymentsCommand}"
                                   PriceErrors="{Binding PriceErrors}"/>
-    </DockPanel>
+    </Grid>
 </inf:ViewBase>

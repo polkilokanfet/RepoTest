@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using HVTApp.Model.POCOs;
-using HVTApp.UI.Converter;
 using HVTApp.UI.Wrapper;
 
-namespace HVTApp.UI.Controls
+namespace HVTApp.Modules.Sales.Controls
 {
     public partial class UnitListControl
     {
@@ -48,27 +45,6 @@ namespace HVTApp.UI.Controls
 
 
 
-        public static readonly DependencyProperty AddProductIncludedCommandProperty = DependencyProperty.Register(
-            "AddProductIncludedCommand", typeof(ICommand), typeof(UnitListControl), new PropertyMetadata(default(ICommand)));
-
-        public ICommand AddProductIncludedCommand
-        {
-            get { return (ICommand) GetValue(AddProductIncludedCommandProperty); }
-            set { SetValue(AddProductIncludedCommandProperty, value); }
-        }
-
-
-
-        public static readonly DependencyProperty RemoveProductIncludedCommandProperty = DependencyProperty.Register(
-            "RemoveProductIncludedCommand", typeof(ICommand), typeof(UnitListControl), new PropertyMetadata(default(ICommand)));
-
-        public ICommand RemoveProductIncludedCommand
-        {
-            get { return (ICommand) GetValue(RemoveProductIncludedCommandProperty); }
-            set { SetValue(RemoveProductIncludedCommandProperty, value); }
-        }
-
-
         public static readonly DependencyProperty ChangeFacilityCommandProperty = DependencyProperty.Register(
             "ChangeFacilityCommand", typeof(ICommand), typeof(UnitListControl), new PropertyMetadata(default(ICommand)));
 
@@ -89,40 +65,6 @@ namespace HVTApp.UI.Controls
             get { return (ICommand) GetValue(ChangeProductCommandProperty); }
             set { SetValue(ChangeProductCommandProperty, value); }
         }
-
-
-        public static readonly DependencyProperty AddCommandProperty = DependencyProperty.Register(
-            "AddCommand", typeof(ICommand), typeof(UnitListControl), new PropertyMetadata(default(ICommand)));
-
-        public ICommand AddCommand
-        {
-            get { return (ICommand) GetValue(AddCommandProperty); }
-            set { SetValue(AddCommandProperty, value); }
-        }
-
-
-
-
-        public static readonly DependencyProperty RemoveCommandProperty = DependencyProperty.Register(
-            "RemoveCommand", typeof(ICommand), typeof(UnitListControl), new PropertyMetadata(default(ICommand)));
-
-        public ICommand RemoveCommand
-        {
-            get { return (ICommand) GetValue(RemoveCommandProperty); }
-            set { SetValue(RemoveCommandProperty, value); }
-        }
-
-
-
-        public static readonly DependencyProperty RefreshCommandProperty = DependencyProperty.Register(
-            "RefreshCommand", typeof(ICommand), typeof(UnitListControl), new PropertyMetadata(default(ICommand)));
-
-        public ICommand RefreshCommand
-        {
-            get { return (ICommand) GetValue(RefreshCommandProperty); }
-            set { SetValue(RefreshCommandProperty, value); }
-        }
-
 
 
         public static readonly DependencyProperty ChangePaymentsCommandProperty = DependencyProperty.Register(

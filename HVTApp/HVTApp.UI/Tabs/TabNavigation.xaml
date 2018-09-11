@@ -1,0 +1,14 @@
+﻿<inf:RibbonTabItemWithViewModel xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                xmlns:infRib="http://infragistics.com/Ribbon" 
+                                xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+                                x:Class="HVTApp.UI.Tabs.TabNavigation"
+                                x:Name="Root"
+                                Header="Навигация">
+    
+    <infRib:RibbonGroup Caption="">
+        <infRib:ButtonTool Caption="Назад" Command="{Binding GoForwardCommand, ElementName=Root}"/>
+        <infRib:ButtonTool Caption="Вперед" Command="{Binding GoBackCommand, ElementName=Root}"/>
+    </infRib:RibbonGroup>
+    
+</inf:RibbonTabItemWithViewModel>

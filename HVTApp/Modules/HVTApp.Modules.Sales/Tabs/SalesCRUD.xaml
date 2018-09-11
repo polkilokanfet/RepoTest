@@ -7,18 +7,17 @@
              Header="Рынок">
     
     <infRib:RibbonGroup Caption="Проекты">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding NewItemCommand}"/>
-        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditItemCommand}"/>
+        <infRib:ButtonTool Caption="Создать" Command="{Binding NewProjectCommand}"/>
+        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditProjectCommand}"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveItemCommand}"/>
     </infRib:RibbonGroup>
     
-    <infRib:RibbonGroup Caption="Предложения">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding NewOfferCommand}"/>
+    <infRib:RibbonGroup Caption="Технико-коммерческое предложение">
+        <infRib:ButtonTool Caption="Создать (по проекту)" Command="{Binding NewOfferByProjectCommand}"/>
+        <infRib:ButtonTool Caption="Создать (по ТКП)" Command="{Binding NewOfferByOfferCommand}"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditOfferCommand}"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveOfferCommand}"/>
         <infRib:ButtonTool Caption="Печать" Command="{Binding PrintOfferCommand}"/>
-        <infRib:ButtonTool Caption="Создать по проекту" Command="{Binding NewOfferByProjectCommand}"/>
-        <infRib:ButtonTool Caption="Создать по ТКП" Command="{Binding NewOfferByOfferCommand}"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Конкурсы">

@@ -12,20 +12,18 @@ using Prism.Mvvm;
 
 namespace HVTApp.UI.ViewModels
 {
-    public abstract class BindableBaseCanExportToExcel : BindableBase
+    public abstract class BindableBaseCanExportToExcel : ViewModelBase
     {
-        private readonly IUnityContainer _container;
         public ICommand ExportToExcel { get; }
 
-        protected BindableBaseCanExportToExcel(IUnityContainer container)
+        protected BindableBaseCanExportToExcel(IUnityContainer container) : base(container)
         {
-            _container = container;
             ExportToExcel = new DelegateCommand<XamDataGrid>(ExportToExcel_Execute);
         }
 
         private void ExportToExcel_Execute(XamDataGrid grid)
         {
-            var messageService = _container.Resolve<IMessageService>();
+            var messageService = Container.Resolve<IMessageService>();
 
             string fileName = GetUnusedFileName();
             if (string.IsNullOrEmpty(fileName))
@@ -67,6 +65,7 @@ namespace HVTApp.UI.ViewModels
 
         private string GetUnusedFileName()
         {
+            return Guid.NewGuid().ToString();
             for (int i = 1; i < 5000; i++)
             {
                 string fileName = "DataPresenterExportToExcelTest" + i.ToString() + ".xlsx";

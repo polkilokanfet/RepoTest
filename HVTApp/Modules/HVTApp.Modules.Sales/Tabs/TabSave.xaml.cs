@@ -1,6 +1,6 @@
 ﻿using HVTApp.Infrastructure;
 
-namespace HVTApp.UI.Tabs
+namespace HVTApp.Modules.Sales.Tabs
 {
     public partial class TabSave : RibbonTabItemWithViewModel
     {

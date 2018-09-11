@@ -89,6 +89,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\UnitListControl.xaml.cs">
+      <DependentUpon>UnitListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Menus\SalesMenu.xaml.cs">
       <DependentUpon>SalesMenu.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,9 @@
     </Compile>
     <Compile Include="Tabs\SalesCRUD.xaml.cs">
       <DependentUpon>SalesCRUD.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\TabSave.xaml.cs">
+      <DependentUpon>TabSave.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MarketViewModel.cs" />
     <Compile Include="ViewModels\OffersViewModel.cs" />
@@ -208,6 +214,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\UnitListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Menus\SalesMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -235,6 +245,10 @@
     <Page Include="Tabs\SalesCRUD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\TabSave.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MarketView.xaml">
       <SubType>Designer</SubType>

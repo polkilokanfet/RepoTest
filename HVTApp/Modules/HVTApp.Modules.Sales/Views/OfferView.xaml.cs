@@ -8,6 +8,7 @@ using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
+using TabSave = HVTApp.Modules.Sales.Tabs.TabSave;
 
 namespace HVTApp.Modules.Sales.Views
 {

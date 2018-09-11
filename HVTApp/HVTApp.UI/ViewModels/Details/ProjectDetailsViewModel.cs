@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using HVTApp.Infrastructure.Interfaces.Services;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Converter;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 
@@ -24,6 +25,12 @@ namespace HVTApp.UI.ViewModels
             Groups.Add(new UnitsGroup(new[] { wrapper }));
             Item.Units.Add(wrapper);
             WrapperDataService.GetRepository<SalesUnit>().Add(unit);
+        }
+
+        protected override async Task AfterLoading()
+        {
+            await base.AfterLoading();
+            if (Item.Manager == null) Item.Manager = await WrapperDataService.GetWrapperRepository<User, UserWrapper>().GetByIdAsync(CommonOptions.User.Id);
         }
 
         protected override DateTime GetDate()

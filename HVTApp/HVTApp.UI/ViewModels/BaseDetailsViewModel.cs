@@ -15,19 +15,17 @@ using Prism.Mvvm;
 namespace HVTApp.UI.ViewModels
 {
     public abstract class BaseDetailsViewModel<TWrapper, TEntity, TAfterSaveEntityEvent> : 
-        BindableBase, IDetailsViewModel<TWrapper, TEntity>, IDisposable
+        ViewModelBase, IDetailsViewModel<TWrapper, TEntity>, IDisposable
         where TEntity : class, IBaseEntity
         where TWrapper : class, IWrapper<TEntity>
         where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
     {
-        protected readonly IUnityContainer Container;
         protected readonly IEventAggregator EventAggregator;
         protected IWrapperDataService WrapperDataService;
         private TWrapper _item;
 
-        protected BaseDetailsViewModel(IUnityContainer container)
+        protected BaseDetailsViewModel(IUnityContainer container) : base(container)
         {
-            Container = container;
             WrapperDataService = Container.Resolve<IWrapperDataService>();
             EventAggregator = Container.Resolve<IEventAggregator>();
 
@@ -49,6 +47,9 @@ namespace HVTApp.UI.ViewModels
 
         public async Task LoadAsync(TEntity entity)
         {
+            WrapperDataService?.Dispose();
+            WrapperDataService = Container.Resolve<IWrapperDataService>();
+
             //если создаём, а не редактируем
             if (await WrapperDataService.GetRepository<TEntity>().GetByIdAsync(entity.Id) == null)
                 Item = (TWrapper) Activator.CreateInstance(typeof(TWrapper), entity);
@@ -61,6 +62,8 @@ namespace HVTApp.UI.ViewModels
 
         public async Task LoadAsync(Guid id)
         {
+            WrapperDataService?.Dispose();
+            WrapperDataService = Container.Resolve<IWrapperDataService>();
             Item = await WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().GetByIdAsync(id);
             await AfterLoading();
         }
