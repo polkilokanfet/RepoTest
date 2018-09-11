@@ -9,7 +9,7 @@ using Prism.Regions;
 
 namespace HVTApp.Modules.Sales.Views
 {
-    [RibbonTab(typeof(TabSave)), RibbonTab(typeof(ProductionTab))]
+    [RibbonTab(typeof(TabSave)), RibbonTab(typeof(TabCrudUnits))]
     public partial class ProjectView
     {
         private readonly ProjectDetailsViewModel _projectViewModel;
