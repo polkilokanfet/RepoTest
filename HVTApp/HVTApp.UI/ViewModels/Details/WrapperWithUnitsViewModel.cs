@@ -68,6 +68,11 @@ namespace HVTApp.UI.ViewModels
         /// </summary>
         public ObservableCollection<IUnitsGroup> Groups { get; } = new ObservableCollection<IUnitsGroup>();
 
+        #region Commands
+
+        
+        #region ICommand
+
         public ICommand AddCommand { get; private set; }
         public ICommand RemoveCommand { get; private set; }
         public ICommand RefreshCommand { get; private set; }
@@ -78,6 +83,7 @@ namespace HVTApp.UI.ViewModels
         public ICommand AddProductIncludedCommand { get; private set; }
         public ICommand RemoveProductIncludedCommand { get; private set; }
 
+        #endregion
 
         protected override void InitSpecialCommands()
         {
@@ -156,10 +162,20 @@ namespace HVTApp.UI.ViewModels
             group.PaymentConditionSet = await WrapperDataService.GetWrapperRepository<PaymentConditionSet, PaymentConditionSetWrapper>().GetByIdAsync(set.Id);
         }
 
+
+        #endregion
+
+
         protected override async Task AfterLoading()
         {
             RefreshGroups();
             await RefreshPrices();
+        }
+
+        private void RefreshGroups()
+        {
+            Groups.Clear();
+            Groups.AddRange(Item.Units.ToProductUnitGroups());
         }
 
         private async Task RefreshPrices()
@@ -218,11 +234,6 @@ namespace HVTApp.UI.ViewModels
             group.Price = price;
             OnPropertyChanged(nameof(PriceErrors));
         }
-
-        private void RefreshGroups()
-        {
-            Groups.Clear();
-            Groups.AddRange(Item.Units.ToProductUnitGroups());
-        }
     }
+
 }

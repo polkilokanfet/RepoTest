@@ -40,5 +40,25 @@ namespace HVTApp.DataAccess.Tests
             var companies = await repository.GetAllAsync();
             Assert.IsTrue(companies.Contains(testData.CompanyFsk));
         }
+
+        [TestMethod]
+        public async Task Test1()
+        {
+            var wife = new TestWife();
+            var unitOfWork1 = new UnitOfWork(new HvtAppContext());
+            unitOfWork1.GetRepository<TestWife>().Add(wife);
+            unitOfWork1.SaveChanges();
+            wife = await unitOfWork1.GetRepository<TestWife>().GetByIdAsync(wife.Id);
+
+            var husband = new TestHusband();
+            var unitOfWork2 = new UnitOfWork(new HvtAppContext());
+            unitOfWork2.GetRepository<TestHusband>().Add(husband);
+            unitOfWork2.SaveChanges();
+            husband = await unitOfWork2.GetRepository<TestHusband>().GetByIdAsync(husband.Id);
+
+            husband.Wife = wife;
+            unitOfWork2.SaveChanges();
+        }
+
     }
 }

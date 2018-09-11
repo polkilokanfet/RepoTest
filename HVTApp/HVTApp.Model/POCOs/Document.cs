@@ -6,7 +6,7 @@ using HVTApp.Infrastructure.Attributes;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Документ")]
-    public class Document : BaseEntity
+    public partial class Document : BaseEntity
     {
         /// <summary>
         /// Запрос, ответ на который дан настоящим документом.

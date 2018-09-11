@@ -4,7 +4,7 @@ using HVTApp.Infrastructure.Attributes;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Тип продукта")]
-    public class ProductType : BaseEntity
+    public partial class ProductType : BaseEntity
     {
         [Designation("Название")]
         public string Name { get; set; }

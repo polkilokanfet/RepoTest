@@ -10,7 +10,6 @@
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewItemCommand}"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditItemCommand}"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveItemCommand}"/>
-        <!--<infRib:ButtonTool Caption="Оборудование" Command="{Binding GetProductCommand}"/>-->
     </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Предложения">
@@ -18,6 +17,8 @@
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditOfferCommand}"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveOfferCommand}"/>
         <infRib:ButtonTool Caption="Печать" Command="{Binding PrintOfferCommand}"/>
+        <infRib:ButtonTool Caption="Создать по проекту" Command="{Binding NewOfferByProjectCommand}"/>
+        <infRib:ButtonTool Caption="Создать по ТКП" Command="{Binding NewOfferByOfferCommand}"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Конкурсы">

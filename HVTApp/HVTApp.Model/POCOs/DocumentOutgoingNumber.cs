@@ -2,7 +2,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class DocumentOutgoingNumber : BaseEntity
+    public partial class DocumentOutgoingNumber : BaseEntity
     {
         public int Num { get; set; }
     }

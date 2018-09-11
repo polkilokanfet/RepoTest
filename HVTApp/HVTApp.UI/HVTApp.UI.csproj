@@ -104,6 +104,9 @@
     <Compile Include="Lookup\Items\Custom\PaymentActualLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PaymentPlannedLookup.cs" />
     <Compile Include="Services\IOfferToDoc.cs" />
+    <Compile Include="Tabs\TabSave.xaml.cs">
+      <DependentUpon>TabSave.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\Details\OrderDetailsViewModel.cs" />
     <Compile Include="Views\Details\Custom\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
@@ -189,9 +192,6 @@
     <Compile Include="ViewModels\List\OfferLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\UnitLookupListViewModel.cs" />
     <Compile Include="Views\Details\cs\DetailsViews.g.cs" />
-    <Compile Include="Views\Details\Custom\OfferView.xaml.cs">
-      <DependentUpon>OfferView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Details\Custom\ProjectUnitGroupDetailsView.xaml.cs">
       <DependentUpon>ProjectUnitGroupDetailsView.xaml</DependentUpon>
     </Compile>
@@ -199,9 +199,6 @@
       <DependentUpon>ProjectUnitGroupWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Lookup\Items\Custom\IUnitLookup.cs" />
-    <Compile Include="Views\Details\Custom\ProjectView.xaml.cs">
-      <DependentUpon>ProjectView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\List\Custom\UnitListView.xaml.cs">
       <DependentUpon>UnitListView.xaml</DependentUpon>
     </Compile>
@@ -384,6 +381,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Tabs\TabSave.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Tabs\TabOffer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -443,14 +444,6 @@
     <Page Include="Views\Details\Custom\OrderView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Details\Custom\OfferView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Details\Custom\ProjectView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Details\DescribeProductBlockTaskDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>

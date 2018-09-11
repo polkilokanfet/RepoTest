@@ -8,4 +8,11 @@ namespace HVTApp.DataAccess
             HasMany(x => x.Children).WithRequired(x => x.Husband);
         }
     }
+
+    public partial class TestWifeConfiguration
+    {
+        public TestWifeConfiguration()
+        {
+        }
+    }
 }

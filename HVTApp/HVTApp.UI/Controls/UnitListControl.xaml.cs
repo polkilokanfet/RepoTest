@@ -13,7 +13,6 @@ namespace HVTApp.UI.Controls
         public UnitListControl()
         {
             InitializeComponent();
-            ProductsIncludedGroupBox.Visibility = Visibility.Collapsed;
         }
 
         public static readonly DependencyProperty UnitsGroupsProperty = DependencyProperty.Register(
@@ -143,19 +142,6 @@ namespace HVTApp.UI.Controls
         {
             get { return (string) GetValue(PriceErrorsProperty); }
             set { SetValue(PriceErrorsProperty, value); }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            switch (ProductsIncludedGroupBox.Visibility)
-            {
-                case Visibility.Collapsed:
-                    ProductsIncludedGroupBox.Visibility = Visibility.Visible;
-                    return;
-                case Visibility.Visible:
-                    ProductsIncludedGroupBox.Visibility = Visibility.Collapsed;
-                    break;
-            }
         }
     }
 }

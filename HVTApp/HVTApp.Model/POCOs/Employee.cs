@@ -5,7 +5,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Сотрудник")]
     [DesignationPlural("Сотрудники")]
-    public class Employee : BaseEntity
+    public partial class Employee : BaseEntity
     {
         [Designation("Персона")]
         public virtual Person Person { get; set; }

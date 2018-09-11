@@ -7,7 +7,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Тендер")]
     [DesignationPlural("Тендеры")]
-    public class Tender : BaseEntity
+    public partial class Tender : BaseEntity
     {
         [Designation("Проект")]
         public virtual Project Project { get; set; }
@@ -38,7 +38,7 @@ namespace HVTApp.Model.POCOs
 
     [Designation("Тип тендера")]
     [DesignationPlural("Типы тендера")]
-    public class TenderType : BaseEntity
+    public partial class TenderType : BaseEntity
     {
         public string Name { get; set; }
         public TenderTypeEnum Type { get; set; }

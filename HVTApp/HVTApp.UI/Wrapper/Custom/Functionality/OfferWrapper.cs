@@ -6,7 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class OfferWrapper : IWrapperWithUnits<OfferUnitWrapper>
     {
-        public ValidatableChangeTrackingCollection<OfferUnitWrapper> Units { get; }
+        public ValidatableChangeTrackingCollection<OfferUnitWrapper> Units { get; set; }
 
         public OfferWrapper(Offer offer, IEnumerable<OfferUnitWrapper> offerUnitWrappers) : this(offer)
         {

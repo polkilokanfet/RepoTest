@@ -9,6 +9,10 @@ namespace HVTApp.DataAccess
     {
         private readonly DbContext _context;
 
+        public UnitOfWork(DbContext context) : this(context, new UnityContainer())
+        {
+            
+        }
         public UnitOfWork(DbContext context, IUnityContainer container)
         {
             _context = context;

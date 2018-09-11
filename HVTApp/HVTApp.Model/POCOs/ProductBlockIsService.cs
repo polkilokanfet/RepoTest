@@ -5,7 +5,7 @@ using HVTApp.Infrastructure.Attributes;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Признаки услуги")]
-    public class ProductBlockIsService : BaseEntity
+    public partial class ProductBlockIsService : BaseEntity
     {
         public virtual List<Parameter> Parameters { get; set; }
     }

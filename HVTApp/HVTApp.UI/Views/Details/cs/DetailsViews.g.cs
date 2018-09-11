@@ -15,6 +15,11 @@ namespace HVTApp.UI.Views
 
     public partial class CreateNewProductTaskDetailsView : ViewBase
     {
+        public CreateNewProductTaskDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public CreateNewProductTaskDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CreateNewProductTaskDetailsViewModel CreateNewProductTaskDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -78,6 +83,11 @@ namespace HVTApp.UI.Views
 
     public partial class DocumentIncomingNumberDetailsView : ViewBase
     {
+        public DocumentIncomingNumberDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public DocumentIncomingNumberDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentIncomingNumberDetailsViewModel DocumentIncomingNumberDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -113,6 +123,11 @@ namespace HVTApp.UI.Views
 
     public partial class DocumentOutgoingNumberDetailsView : ViewBase
     {
+        public DocumentOutgoingNumberDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public DocumentOutgoingNumberDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentOutgoingNumberDetailsViewModel DocumentOutgoingNumberDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -148,6 +163,11 @@ namespace HVTApp.UI.Views
 
     public partial class PaymentActualDetailsView : ViewBase
     {
+        public PaymentActualDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public PaymentActualDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentActualDetailsViewModel PaymentActualDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -211,6 +231,11 @@ namespace HVTApp.UI.Views
 
     public partial class PaymentPlannedDetailsView : ViewBase
     {
+        public PaymentPlannedDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public PaymentPlannedDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentPlannedDetailsViewModel PaymentPlannedDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -302,6 +327,11 @@ namespace HVTApp.UI.Views
 
     public partial class ProductBlockIsServiceDetailsView : ViewBase
     {
+        public ProductBlockIsServiceDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public ProductBlockIsServiceDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductBlockIsServiceDetailsViewModel ProductBlockIsServiceDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -337,6 +367,11 @@ namespace HVTApp.UI.Views
 
     public partial class ProductIncludedDetailsView : ViewBase
     {
+        public ProductIncludedDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public ProductIncludedDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductIncludedDetailsViewModel ProductIncludedDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -386,6 +421,11 @@ namespace HVTApp.UI.Views
 
     public partial class ProductDesignationDetailsView : ViewBase
     {
+        public ProductDesignationDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public ProductDesignationDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductDesignationDetailsViewModel ProductDesignationDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -435,6 +475,11 @@ namespace HVTApp.UI.Views
 
     public partial class ProductTypeDetailsView : ViewBase
     {
+        public ProductTypeDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public ProductTypeDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductTypeDetailsViewModel ProductTypeDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -470,6 +515,11 @@ namespace HVTApp.UI.Views
 
     public partial class ProductTypeDesignationDetailsView : ViewBase
     {
+        public ProductTypeDesignationDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public ProductTypeDesignationDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductTypeDesignationDetailsViewModel ProductTypeDesignationDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -519,6 +569,11 @@ namespace HVTApp.UI.Views
 
     public partial class ProjectTypeDetailsView : ViewBase
     {
+        public ProjectTypeDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public ProjectTypeDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectTypeDetailsViewModel ProjectTypeDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -554,6 +609,11 @@ namespace HVTApp.UI.Views
 
     public partial class CommonOptionDetailsView : ViewBase
     {
+        public CommonOptionDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public CommonOptionDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CommonOptionDetailsViewModel CommonOptionDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -659,6 +719,11 @@ namespace HVTApp.UI.Views
 
     public partial class AddressDetailsView : ViewBase
     {
+        public AddressDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public AddressDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, AddressDetailsViewModel AddressDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -708,6 +773,11 @@ namespace HVTApp.UI.Views
 
     public partial class CountryDetailsView : ViewBase
     {
+        public CountryDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public CountryDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CountryDetailsViewModel CountryDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -743,6 +813,11 @@ namespace HVTApp.UI.Views
 
     public partial class DistrictDetailsView : ViewBase
     {
+        public DistrictDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public DistrictDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DistrictDetailsViewModel DistrictDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -792,6 +867,11 @@ namespace HVTApp.UI.Views
 
     public partial class LocalityDetailsView : ViewBase
     {
+        public LocalityDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public LocalityDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, LocalityDetailsViewModel LocalityDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -925,6 +1005,11 @@ namespace HVTApp.UI.Views
 
     public partial class LocalityTypeDetailsView : ViewBase
     {
+        public LocalityTypeDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public LocalityTypeDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, LocalityTypeDetailsViewModel LocalityTypeDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -974,6 +1059,11 @@ namespace HVTApp.UI.Views
 
     public partial class RegionDetailsView : ViewBase
     {
+        public RegionDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public RegionDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, RegionDetailsViewModel RegionDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -1023,6 +1113,11 @@ namespace HVTApp.UI.Views
 
     public partial class CalculatePriceTaskDetailsView : ViewBase
     {
+        public CalculatePriceTaskDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public CalculatePriceTaskDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CalculatePriceTaskDetailsViewModel CalculatePriceTaskDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -1142,6 +1237,11 @@ namespace HVTApp.UI.Views
 
     public partial class SumDetailsView : ViewBase
     {
+        public SumDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public SumDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, SumDetailsViewModel SumDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -1205,6 +1305,11 @@ namespace HVTApp.UI.Views
 
     public partial class CurrencyExchangeRateDetailsView : ViewBase
     {
+        public CurrencyExchangeRateDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public CurrencyExchangeRateDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CurrencyExchangeRateDetailsViewModel CurrencyExchangeRateDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -1282,6 +1387,11 @@ namespace HVTApp.UI.Views
 
     public partial class DescribeProductBlockTaskDetailsView : ViewBase
     {
+        public DescribeProductBlockTaskDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public DescribeProductBlockTaskDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DescribeProductBlockTaskDetailsViewModel DescribeProductBlockTaskDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -1331,6 +1441,11 @@ namespace HVTApp.UI.Views
 
     public partial class NoteDetailsView : ViewBase
     {
+        public NoteDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public NoteDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, NoteDetailsViewModel NoteDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -1394,6 +1509,11 @@ namespace HVTApp.UI.Views
 
     public partial class OfferUnitDetailsView : ViewBase
     {
+        public OfferUnitDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public OfferUnitDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, OfferUnitDetailsViewModel OfferUnitDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -1513,6 +1633,11 @@ namespace HVTApp.UI.Views
 
     public partial class PaymentConditionSetDetailsView : ViewBase
     {
+        public PaymentConditionSetDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public PaymentConditionSetDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionSetDetailsViewModel PaymentConditionSetDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -1548,6 +1673,11 @@ namespace HVTApp.UI.Views
 
     public partial class ProductBlockDetailsView : ViewBase
     {
+        public ProductBlockDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public ProductBlockDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductBlockDetailsViewModel ProductBlockDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -1667,6 +1797,11 @@ namespace HVTApp.UI.Views
 
     public partial class ProductDependentDetailsView : ViewBase
     {
+        public ProductDependentDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public ProductDependentDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductDependentDetailsViewModel ProductDependentDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -1730,6 +1865,11 @@ namespace HVTApp.UI.Views
 
     public partial class ProductionTaskDetailsView : ViewBase
     {
+        public ProductionTaskDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public ProductionTaskDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductionTaskDetailsViewModel ProductionTaskDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -1779,6 +1919,11 @@ namespace HVTApp.UI.Views
 
     public partial class SalesBlockDetailsView : ViewBase
     {
+        public SalesBlockDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public SalesBlockDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, SalesBlockDetailsViewModel SalesBlockDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -1828,6 +1973,11 @@ namespace HVTApp.UI.Views
 
     public partial class BankDetailsDetailsView : ViewBase
     {
+        public BankDetailsDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public BankDetailsDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, BankDetailsDetailsViewModel BankDetailsDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -1905,6 +2055,11 @@ namespace HVTApp.UI.Views
 
     public partial class CompanyDetailsView : ViewBase
     {
+        public CompanyDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public CompanyDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CompanyDetailsViewModel CompanyDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -2066,6 +2221,11 @@ namespace HVTApp.UI.Views
 
     public partial class CompanyFormDetailsView : ViewBase
     {
+        public CompanyFormDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public CompanyFormDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, CompanyFormDetailsViewModel CompanyFormDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -2115,6 +2275,11 @@ namespace HVTApp.UI.Views
 
     public partial class DocumentsRegistrationDetailsDetailsView : ViewBase
     {
+        public DocumentsRegistrationDetailsDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public DocumentsRegistrationDetailsDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentsRegistrationDetailsDetailsViewModel DocumentsRegistrationDetailsDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -2164,6 +2329,11 @@ namespace HVTApp.UI.Views
 
     public partial class EmployeesPositionDetailsView : ViewBase
     {
+        public EmployeesPositionDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public EmployeesPositionDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, EmployeesPositionDetailsViewModel EmployeesPositionDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -2199,6 +2369,11 @@ namespace HVTApp.UI.Views
 
     public partial class FacilityTypeDetailsView : ViewBase
     {
+        public FacilityTypeDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public FacilityTypeDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, FacilityTypeDetailsViewModel FacilityTypeDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -2248,6 +2423,11 @@ namespace HVTApp.UI.Views
 
     public partial class ActivityFieldDetailsView : ViewBase
     {
+        public ActivityFieldDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public ActivityFieldDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ActivityFieldDetailsViewModel ActivityFieldDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -2297,6 +2477,11 @@ namespace HVTApp.UI.Views
 
     public partial class ContractDetailsView : ViewBase
     {
+        public ContractDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public ContractDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ContractDetailsViewModel ContractDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -2360,6 +2545,11 @@ namespace HVTApp.UI.Views
 
     public partial class MeasureDetailsView : ViewBase
     {
+        public MeasureDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public MeasureDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, MeasureDetailsViewModel MeasureDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -2409,6 +2599,11 @@ namespace HVTApp.UI.Views
 
     public partial class ParameterDetailsView : ViewBase
     {
+        public ParameterDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public ParameterDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ParameterDetailsViewModel ParameterDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -2486,6 +2681,11 @@ namespace HVTApp.UI.Views
 
     public partial class ParameterGroupDetailsView : ViewBase
     {
+        public ParameterGroupDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public ParameterGroupDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ParameterGroupDetailsViewModel ParameterGroupDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -2535,6 +2735,11 @@ namespace HVTApp.UI.Views
 
     public partial class ProductRelationDetailsView : ViewBase
     {
+        public ProductRelationDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public ProductRelationDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductRelationDetailsViewModel ProductRelationDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -2612,6 +2817,11 @@ namespace HVTApp.UI.Views
 
     public partial class PersonDetailsView : ViewBase
     {
+        public PersonDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public PersonDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PersonDetailsViewModel PersonDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -2689,6 +2899,11 @@ namespace HVTApp.UI.Views
 
     public partial class ParameterRelationDetailsView : ViewBase
     {
+        public ParameterRelationDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public ParameterRelationDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ParameterRelationDetailsViewModel ParameterRelationDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -2738,6 +2953,11 @@ namespace HVTApp.UI.Views
 
     public partial class SalesUnitDetailsView : ViewBase
     {
+        public SalesUnitDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public SalesUnitDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, SalesUnitDetailsViewModel SalesUnitDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -2823,6 +3043,11 @@ namespace HVTApp.UI.Views
             attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.SignalToStartProduction)).GetCustomAttribute<NotUpdateAttribute>();
             if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
                 SignalToStartProductionVisibility = Visibility.Collapsed;
+
+
+            attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.SignalToStartProductionDone)).GetCustomAttribute<NotUpdateAttribute>();
+            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+                SignalToStartProductionDoneVisibility = Visibility.Collapsed;
 
 
             attr = typeof(HVTApp.Model.POCOs.SalesUnit).GetProperty(nameof(HVTApp.Model.POCOs.SalesUnit.StartProductionDate)).GetCustomAttribute<NotUpdateAttribute>();
@@ -3120,6 +3345,15 @@ namespace HVTApp.UI.Views
 
 
 
+        public static readonly DependencyProperty SignalToStartProductionDoneVisibilityProperty = DependencyProperty.Register("SignalToStartProductionDoneVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility SignalToStartProductionDoneVisibility
+        {
+            get { return (Visibility) GetValue(SignalToStartProductionDoneVisibilityProperty); }
+            set { SetValue(SignalToStartProductionDoneVisibilityProperty, value); }
+        }
+
+
+
         public static readonly DependencyProperty StartProductionDateVisibilityProperty = DependencyProperty.Register("StartProductionDateVisibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
         public Visibility StartProductionDateVisibility
         {
@@ -3403,6 +3637,11 @@ namespace HVTApp.UI.Views
 
     public partial class TestFriendAddressDetailsView : ViewBase
     {
+        public TestFriendAddressDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public TestFriendAddressDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendAddressDetailsViewModel TestFriendAddressDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -3466,6 +3705,11 @@ namespace HVTApp.UI.Views
 
     public partial class TestFriendDetailsView : ViewBase
     {
+        public TestFriendDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public TestFriendDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendDetailsViewModel TestFriendDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -3627,6 +3871,11 @@ namespace HVTApp.UI.Views
 
     public partial class TestFriendEmailDetailsView : ViewBase
     {
+        public TestFriendEmailDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public TestFriendEmailDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendEmailDetailsViewModel TestFriendEmailDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -3676,6 +3925,11 @@ namespace HVTApp.UI.Views
 
     public partial class TestFriendGroupDetailsView : ViewBase
     {
+        public TestFriendGroupDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public TestFriendGroupDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendGroupDetailsViewModel TestFriendGroupDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -3725,6 +3979,11 @@ namespace HVTApp.UI.Views
 
     public partial class DocumentDetailsView : ViewBase
     {
+        public DocumentDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public DocumentDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentDetailsViewModel DocumentDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -3886,6 +4145,11 @@ namespace HVTApp.UI.Views
 
     public partial class TestEntityDetailsView : ViewBase
     {
+        public TestEntityDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public TestEntityDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestEntityDetailsViewModel TestEntityDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -3921,6 +4185,11 @@ namespace HVTApp.UI.Views
 
     public partial class TestHusbandDetailsView : ViewBase
     {
+        public TestHusbandDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public TestHusbandDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestHusbandDetailsViewModel TestHusbandDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -3984,6 +4253,11 @@ namespace HVTApp.UI.Views
 
     public partial class TestWifeDetailsView : ViewBase
     {
+        public TestWifeDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public TestWifeDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestWifeDetailsViewModel TestWifeDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -4047,6 +4321,11 @@ namespace HVTApp.UI.Views
 
     public partial class TestChildDetailsView : ViewBase
     {
+        public TestChildDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public TestChildDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestChildDetailsViewModel TestChildDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -4110,6 +4389,11 @@ namespace HVTApp.UI.Views
 
     public partial class SumOnDateDetailsView : ViewBase
     {
+        public SumOnDateDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public SumOnDateDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, SumOnDateDetailsViewModel SumOnDateDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -4159,6 +4443,11 @@ namespace HVTApp.UI.Views
 
     public partial class ProductDetailsView : ViewBase
     {
+        public ProductDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public ProductDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductDetailsViewModel ProductDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -4250,6 +4539,11 @@ namespace HVTApp.UI.Views
 
     public partial class OfferDetailsView : ViewBase
     {
+        public OfferDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public OfferDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, OfferDetailsViewModel OfferDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -4453,6 +4747,11 @@ namespace HVTApp.UI.Views
 
     public partial class EmployeeDetailsView : ViewBase
     {
+        public EmployeeDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public EmployeeDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, EmployeeDetailsViewModel EmployeeDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -4544,6 +4843,11 @@ namespace HVTApp.UI.Views
 
     public partial class OrderDetailsView : ViewBase
     {
+        public OrderDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public OrderDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, OrderDetailsViewModel OrderDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -4593,6 +4897,11 @@ namespace HVTApp.UI.Views
 
     public partial class PaymentConditionDetailsView : ViewBase
     {
+        public PaymentConditionDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public PaymentConditionDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentConditionDetailsViewModel PaymentConditionDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -4656,6 +4965,11 @@ namespace HVTApp.UI.Views
 
     public partial class PaymentDocumentDetailsView : ViewBase
     {
+        public PaymentDocumentDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public PaymentDocumentDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, PaymentDocumentDetailsViewModel PaymentDocumentDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -4719,6 +5033,11 @@ namespace HVTApp.UI.Views
 
     public partial class FacilityDetailsView : ViewBase
     {
+        public FacilityDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public FacilityDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, FacilityDetailsViewModel FacilityDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -4796,6 +5115,11 @@ namespace HVTApp.UI.Views
 
     public partial class ProjectDetailsView : ViewBase
     {
+        public ProjectDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public ProjectDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, ProjectDetailsViewModel ProjectDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -4887,6 +5211,11 @@ namespace HVTApp.UI.Views
 
     public partial class UserRoleDetailsView : ViewBase
     {
+        public UserRoleDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public UserRoleDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, UserRoleDetailsViewModel UserRoleDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -4936,6 +5265,11 @@ namespace HVTApp.UI.Views
 
     public partial class SpecificationDetailsView : ViewBase
     {
+        public SpecificationDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public SpecificationDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, SpecificationDetailsViewModel SpecificationDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -5013,6 +5347,11 @@ namespace HVTApp.UI.Views
 
     public partial class TenderDetailsView : ViewBase
     {
+        public TenderDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public TenderDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderDetailsViewModel TenderDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -5132,6 +5471,11 @@ namespace HVTApp.UI.Views
 
     public partial class TenderTypeDetailsView : ViewBase
     {
+        public TenderTypeDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public TenderTypeDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TenderTypeDetailsViewModel TenderTypeDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
@@ -5181,6 +5525,11 @@ namespace HVTApp.UI.Views
 
     public partial class UserDetailsView : ViewBase
     {
+        public UserDetailsView()
+        {
+			InitializeComponent();
+        }
+
         public UserDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, UserDetailsViewModel UserDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();

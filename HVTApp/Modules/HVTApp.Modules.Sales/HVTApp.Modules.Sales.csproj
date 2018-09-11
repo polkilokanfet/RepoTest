@@ -93,6 +93,9 @@
       <DependentUpon>SalesMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\SalesMenuViewModel.cs" />
+    <Compile Include="Tabs\TabCrudUnits.xaml.cs">
+      <DependentUpon>TabCrudUnits.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\ShippingTab.xaml.cs">
       <DependentUpon>ShippingTab.xaml</DependentUpon>
     </Compile>
@@ -134,6 +137,12 @@
     </Compile>
     <Compile Include="Views\OfferRedactorView.xaml.cs">
       <DependentUpon>OfferRedactorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OfferView.xaml.cs">
+      <DependentUpon>OfferView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProjectView.xaml.cs">
+      <DependentUpon>ProjectView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShippingView.xaml.cs">
       <DependentUpon>ShippingView.xaml</DependentUpon>
@@ -203,6 +212,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Tabs\TabCrudUnits.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Tabs\ShippingTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -228,6 +241,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OfferRedactorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OfferView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ProjectView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

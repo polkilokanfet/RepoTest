@@ -5,7 +5,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("ТКП")]
     [DesignationPlural("ТКП")]
-    public class Offer : Document
+    public partial class Offer : Document
     {
         [Designation("Проект")]
         public virtual Project Project { get; set; }

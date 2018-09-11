@@ -3,7 +3,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class ProductDesignation : BaseEntity
+    public partial class ProductDesignation : BaseEntity
     {
         public string Designation { get; set; }
         public virtual List<Parameter> Parameters { get; set; }

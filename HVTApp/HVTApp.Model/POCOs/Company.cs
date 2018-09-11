@@ -6,7 +6,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Компания")]
     [DesignationPlural("Компании")]
-    public class Company : BaseEntity
+    public partial class Company : BaseEntity
     {
         [Designation("Наименование")]
         public string FullName { get; set; }

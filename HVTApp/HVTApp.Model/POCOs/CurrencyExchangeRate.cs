@@ -9,7 +9,7 @@ namespace HVTApp.Model.POCOs
     /// </summary>
     [Designation("Курс обмена валют")]
     [DesignationPlural("Курсы обмена валют")]
-    public class CurrencyExchangeRate : BaseEntity
+    public partial class CurrencyExchangeRate : BaseEntity
     {
         [Designation("Дата")]
         public DateTime Date { get; set; }

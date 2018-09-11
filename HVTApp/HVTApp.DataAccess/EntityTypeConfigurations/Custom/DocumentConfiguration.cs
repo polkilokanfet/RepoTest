@@ -14,7 +14,7 @@ namespace HVTApp.DataAccess
             HasMany(x => x.CopyToRecipients).WithMany();
 
             HasRequired(x => x.RegistrationDetailsOfSender).WithMany().WillCascadeOnDelete(false);
-            HasRequired(x => x.RegistrationDetailsOfRecipient).WithMany().WillCascadeOnDelete(false);
+            HasOptional(x => x.RegistrationDetailsOfRecipient).WithMany().WillCascadeOnDelete(false);
 
             Property(x => x.Comment).IsOptional().HasMaxLength(100);
         }

@@ -1,16 +1,14 @@
-﻿<inf:ViewBase x:Class="HVTApp.UI.Views.ProjectView"
+﻿<inf:ViewBase x:Class="HVTApp.Modules.Sales.Views.ProjectView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:infDP="http://infragistics.com/DataPresenter"
-			  xmlns:infE="http://infragistics.com/Editors"
-			  xmlns:core="clr-namespace:System;assembly=mscorlib"
-              xmlns:controls="clr-namespace:HVTApp.UI.Controls"
-			  x:Name="Root">
+              xmlns:views1="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
+              xmlns:controls1="clr-namespace:HVTApp.UI.Controls;assembly=HVTApp.UI"
+              x:Name="Root">
 
     <DockPanel LastChildFill="True">
-        <ContentControl DockPanel.Dock="Top" Name="DetailsControl"/>
-        <controls:UnitListControl UnitsGroups="{Binding Groups}"
+        <views1:ProjectDetailsView DockPanel.Dock="Top" DataContext="{Binding}" x:Name="ProjectDetailsView" ManagerVisibility="Collapsed"/>
+        <controls1:UnitListControl UnitsGroups="{Binding Groups}"
                                   SelectedUnitsGroup="{Binding SelectedGroup, Mode=OneWayToSource}"
                                   SelectedProductIncluded="{Binding SelectedProductIncluded, Mode=OneWayToSource}"
                                   AddCommand="{Binding AddCommand}"

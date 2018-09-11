@@ -10,7 +10,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Единица продаж")]
     [DesignationPlural("Единицы продаж")]
-    public class SalesUnit : BaseEntity, IUnitPoco
+    public partial class SalesUnit : BaseEntity, IUnitPoco
     {
         #region Model
 

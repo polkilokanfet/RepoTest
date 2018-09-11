@@ -6,7 +6,7 @@ namespace HVTApp.Model.POCOs
     /// <summary>
     /// Зависимое оборудование (например привод в выключателе).
     /// </summary>
-    public class ProductDependent : BaseEntity
+    public partial class ProductDependent : BaseEntity
     {
         public virtual Guid MainProductId { get; set; }
         public virtual Product Product { get; set; }

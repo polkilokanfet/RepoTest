@@ -7,7 +7,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class Note : BaseEntity
+    public partial class Note : BaseEntity
     {
         public DateTime Date { get; set; }
         public string Text { get; set; }

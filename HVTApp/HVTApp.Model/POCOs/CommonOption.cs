@@ -3,7 +3,7 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public class CommonOption : BaseEntity
+    public partial class CommonOption : BaseEntity
     {
         public DateTime Date { get; set; } = DateTime.Today;
         public Guid OurCompanyId { get; set; }

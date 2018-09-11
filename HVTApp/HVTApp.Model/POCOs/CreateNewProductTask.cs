@@ -4,7 +4,7 @@ using HVTApp.Infrastructure.Attributes;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Задание на создание нового продукта")]
-    public class CreateNewProductTask : BaseEntity
+    public partial class CreateNewProductTask : BaseEntity
     {
         [Designation("Обозначение")]
         public string Designation { get; set; }

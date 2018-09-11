@@ -3,6 +3,19 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
+	public partial class CreateNewProductTask
+	{
+		public virtual Guid? ProductId { get; set; }
+	}
+
+	public partial class DocumentIncomingNumber
+	{
+	}
+
+	public partial class DocumentOutgoingNumber
+	{
+	}
+
 	public partial class PaymentActual
 	{
 	}
@@ -10,6 +23,15 @@ namespace HVTApp.Model.POCOs
 	public partial class PaymentPlanned
 	{
 		public virtual Guid? ConditionId { get; set; }
+	}
+
+	public partial class ProductBlockIsService
+	{
+	}
+
+	public partial class ProductIncluded
+	{
+		public virtual Guid? ProductId { get; set; }
 	}
 
 	public partial class ProductDesignation
@@ -189,10 +211,6 @@ namespace HVTApp.Model.POCOs
 		public virtual Guid? AddressId { get; set; }
 	}
 
-	public partial class Service
-	{
-	}
-
 	public partial class TestFriendAddress
 	{
 	}
@@ -244,7 +262,6 @@ namespace HVTApp.Model.POCOs
 
 	public partial class SumOnDate
 	{
-		public virtual Guid? SumId { get; set; }
 	}
 
 	public partial class Product

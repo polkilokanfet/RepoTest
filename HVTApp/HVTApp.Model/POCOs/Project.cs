@@ -6,7 +6,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Проект")]
     [DesignationPlural("Проекты")]
-    public class Project : BaseEntity
+    public partial class Project : BaseEntity
     {
         [Designation("Название"), OrderStatus(OrderStatus.High)]
         public string Name { get; set; }

@@ -5,7 +5,7 @@ using HVTApp.Infrastructure.Attributes;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Платеж совершенный")]
-    public class PaymentActual : BaseEntity
+    public partial class PaymentActual : BaseEntity
     {
         [Designation("Дата")]
         public DateTime Date { get; set; }

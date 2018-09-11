@@ -4,7 +4,7 @@ using HVTApp.Infrastructure.Attributes;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Тип проекта"), DesignationPlural("Типы проекта")]
-    public class ProjectType : BaseEntity
+    public partial class ProjectType : BaseEntity
     {
         [Designation("Название")]
         public string Name { get; set; }

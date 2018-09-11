@@ -7,7 +7,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Пользователь")]
     [DesignationPlural("Пользователи")]
-    public class User : BaseEntity
+    public partial class User : BaseEntity
     {
         [Designation("Логин")]
         public string Login { get; set; }

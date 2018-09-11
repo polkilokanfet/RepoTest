@@ -6,7 +6,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Единица ТКП")]
     [DesignationPlural("Единицы ТКП")]
-    public class OfferUnit : BaseEntity, IUnitPoco
+    public partial class OfferUnit : BaseEntity, IUnitPoco
     {
         [Designation("Стоимость")]
         public double Cost { get; set; }

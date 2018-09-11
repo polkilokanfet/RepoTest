@@ -193,6 +193,11 @@ namespace HVTApp.UI.Views
  #>
     public partial class <#=modelType.Name#>DetailsView : ViewBase
     {
+        public <#=modelType.Name#>DetailsView()
+        {
+			InitializeComponent();
+        }
+
         public <#=modelType.Name#>DetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, <#=modelType.Name#>DetailsViewModel <#=modelType.Name#>DetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();

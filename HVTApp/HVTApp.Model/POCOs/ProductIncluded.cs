@@ -5,7 +5,7 @@ namespace HVTApp.Model.POCOs
     /// <summary>
     /// Добавленное оборудование к основному (например ЗИП к выключателю).
     /// </summary>
-    public class ProductIncluded: BaseEntity
+    public partial class ProductIncluded: BaseEntity
     {
         public virtual Product Product { get; set; }
         public int Amount { get; set; } = 1;

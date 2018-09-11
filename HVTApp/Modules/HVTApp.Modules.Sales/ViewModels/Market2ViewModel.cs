@@ -1,4 +1,7 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Views;
@@ -7,6 +10,7 @@ using HVTApp.UI.Views;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Regions;
+using OfferView = HVTApp.Modules.Sales.Views.OfferView;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
@@ -22,6 +26,8 @@ namespace HVTApp.Modules.Sales.ViewModels
         public NoteLookupListViewModel NoteListViewModel { get; }
 
         public ICommand NewOfferCommand { get; }
+        public ICommand NewOfferByProjectCommand { get; }
+        public ICommand NewOfferByOfferCommand { get; }
         public ICommand EditOfferCommand { get; }
         public ICommand RemoveOfferCommand { get; }
         public ICommand PrintOfferCommand { get; }
@@ -52,6 +58,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             EditOfferCommand = new DelegateCommand(EditOfferCommand_Execute, () => SelectedOffer != null);
             RemoveOfferCommand = OfferListViewModel.RemoveItemCommand;
             PrintOfferCommand = OfferListViewModel.PrintOfferCommand;
+            NewOfferByProjectCommand = new DelegateCommand(NewOfferByProjectCommand_Execute);
+            NewOfferByOfferCommand = new DelegateCommand(NewOfferByOfferCommand_Execute);
 
             NewTenderCommand = TenderListViewModel.NewItemCommand;
             EditTenderCommand = TenderListViewModel.EditItemCommand;
@@ -76,6 +84,65 @@ namespace HVTApp.Modules.Sales.ViewModels
                 UnitListViewModel.Load(offer.OfferUnits);
                 ((DelegateCommand)EditOfferCommand).RaiseCanExecuteChanged();
             };
+        }
+
+        private void NewOfferByOfferCommand_Execute()
+        {
+            var offer = new Offer
+            {
+                ValidityDate = DateTime.Today.AddDays(90),
+                Project = SelectedOffer.Project,
+                RecipientEmployee = SelectedOffer.RecipientEmployee,
+                RecipientId = SelectedOffer.RecipientId,
+                Author = SelectedOffer.Author,
+                SenderEmployee = SelectedOffer.SenderEmployee,
+                SenderId = SelectedOffer.SenderId,
+                Vat = SelectedOffer.Vat
+            };
+
+            var units = new List<OfferUnit>();
+            foreach (var unit in OfferListViewModel.SelectedLookup.OfferUnits.Select(x => x.Entity))
+            {
+                var offerUnit = new OfferUnit
+                {
+                    Cost = unit.Cost,
+                    Facility = unit.Facility,
+                    Product = unit.Product, Offer = offer,
+                    PaymentConditionSet = unit.PaymentConditionSet,
+                    ProductionTerm = unit.ProductionTerm
+                };
+                units.Add(offerUnit);
+            }
+
+            var prms = new NavigationParameters {{"offer", offer}, {"units", units}};
+            _regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(OfferView).FullName, prms);
+            
+        }
+
+        private void NewOfferByProjectCommand_Execute()
+        {
+            var offer = new Offer
+            {
+                Project = SelectedItem,
+                ValidityDate = DateTime.Today.AddDays(90)
+            };
+
+            var units = new List<OfferUnit>();
+            foreach (var unit in SelectedLookup.SalesUnits.Select(x => x.Entity))
+            {
+                var offerUnit = new OfferUnit
+                {
+                    Cost = unit.Cost,
+                    Facility = unit.Facility,
+                    Product = unit.Product, Offer = offer,
+                    PaymentConditionSet = unit.PaymentConditionSet,
+                    ProductionTerm = unit.ProductionTerm
+                };
+                units.Add(offerUnit);
+            }
+
+            var prms = new NavigationParameters {{"offer", offer}, {"units", units}};
+            _regionManager.RequestNavigate(RegionNames.ContentRegion, typeof(OfferView).FullName, prms);
         }
 
         private void EditOfferCommand_Execute()

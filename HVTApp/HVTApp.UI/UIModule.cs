@@ -1,10 +1,7 @@
-﻿using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Interfaces.Services;
+﻿using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
-using HVTApp.Model.POCOs;
-using HVTApp.UI.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
 
@@ -27,11 +24,6 @@ namespace HVTApp.UI
         protected override void RegisterTypes()
         {
             RegisterViews();
-            _updateDetailsService.ReRegister<Offer, OfferView>();
-            _updateDetailsService.ReRegister<Project, ProjectView>();
-            _updateDetailsService.ReRegister<Order, OrderView>();
-
-            Container.RegisterViewForNavigation<OfferView>();
         }
 
         protected override void ResolveOutlookGroup()

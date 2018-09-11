@@ -1,10 +1,9 @@
-﻿using System.Windows.Controls;
-using HVTApp.UI.ViewModels;
+﻿using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
 
-namespace HVTApp.UI.Views
+namespace HVTApp.Modules.Sales.Views
 {
     public partial class ProjectView
     {
@@ -12,9 +11,6 @@ namespace HVTApp.UI.Views
         {
             InitializeComponent();
             var projectViewModel = container.Resolve<ProjectDetailsViewModel>();
-            var detailsView = container.Resolve<ProjectDetailsView>();
-            detailsView.DataContext = projectViewModel;
-            DetailsControl.Content = detailsView;
             this.DataContext = projectViewModel;
         }
     }
