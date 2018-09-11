@@ -19,22 +19,22 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Date" Visibility="{Binding DateVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Date" Visibility="{Binding VisibilityDate, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding DateVisibility, ElementName=Root}"/>
+					Visibility="{Binding VisibilityDate, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="IsImportant" Visibility="{Binding IsImportantVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="IsImportant" Visibility="{Binding VisibilityIsImportant, ElementName=Root}"/>
         <CheckBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                   IsChecked="{Binding Item.IsImportant, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				  Visibility="{Binding IsImportantVisibility, ElementName=Root}"/>
+				  Visibility="{Binding VisibilityIsImportant, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Text" Visibility="{Binding TextVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Text" Visibility="{Binding VisibilityText, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding TextVisibility, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityText, ElementName=Root}"/>
 
 
 

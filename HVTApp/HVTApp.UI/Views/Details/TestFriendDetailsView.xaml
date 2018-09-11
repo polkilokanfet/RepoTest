@@ -26,60 +26,60 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Birthday" Visibility="{Binding BirthdayVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Birthday" Visibility="{Binding VisibilityBirthday, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
                     SelectedDate="{Binding Item.Birthday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding BirthdayVisibility, ElementName=Root}"/>
+					Visibility="{Binding VisibilityBirthday, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Emails" Visibility="{Binding EmailsVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Emails" Visibility="{Binding VisibilityEmails, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
 										 Items="{Binding Path=Item.Emails}"
 										 SelectedItem="{Binding SelectedEmailsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInEmailsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromEmailsCommand}"
-										 Visibility="{Binding EmailsVisibility, ElementName=Root}"/>
+										 Visibility="{Binding VisibilityEmails, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="FirstName" Visibility="{Binding FirstNameVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="FirstName" Visibility="{Binding VisibilityFirstName, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding FirstNameVisibility, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityFirstName, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="FriendGroupId" Visibility="{Binding FriendGroupIdVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="FriendGroupId" Visibility="{Binding VisibilityFriendGroupId, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3"
 							   ValueType="core:Int32"
                                Value="{Binding Item.FriendGroupId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding FriendGroupIdVisibility, ElementName=Root}"/>
+							   Visibility="{Binding VisibilityFriendGroupId, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="IsDeveloper" Visibility="{Binding IsDeveloperVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="IsDeveloper" Visibility="{Binding VisibilityIsDeveloper, ElementName=Root}"/>
         <CheckBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
                   IsChecked="{Binding Item.IsDeveloper, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				  Visibility="{Binding IsDeveloperVisibility, ElementName=Root}"/>
+				  Visibility="{Binding VisibilityIsDeveloper, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="LastName" Visibility="{Binding LastNameVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="5" Content="LastName" Visibility="{Binding VisibilityLastName, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="5" MinWidth="200" 
                  Text="{Binding Item.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding LastNameVisibility, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityLastName, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="6" Content="TestFriendAddress" Visibility="{Binding TestFriendAddressVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="6" Content="TestFriendAddress" Visibility="{Binding VisibilityTestFriendAddress, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
                                     Item="{Binding Item.TestFriendAddress}" 
                                     AddItemCommand="{Binding SelectTestFriendAddressCommand}" 
                                     RemoveItemCommand="{Binding ClearTestFriendAddressCommand}"
-									Visibility="{Binding TestFriendAddressVisibility, ElementName=Root}"/>
+									Visibility="{Binding VisibilityTestFriendAddress, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="7" Content="TestFriendGroup" Visibility="{Binding TestFriendGroupVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="7" Content="TestFriendGroup" Visibility="{Binding VisibilityTestFriendGroup, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="7" 
                                     Item="{Binding Item.TestFriendGroup}" 
                                     AddItemCommand="{Binding SelectTestFriendGroupCommand}" 
                                     RemoveItemCommand="{Binding ClearTestFriendGroupCommand}"
-									Visibility="{Binding TestFriendGroupVisibility, ElementName=Root}"/>
+									Visibility="{Binding VisibilityTestFriendGroup, ElementName=Root}"/>
 
 
 

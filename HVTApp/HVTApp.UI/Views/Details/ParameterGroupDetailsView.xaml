@@ -18,18 +18,18 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Measure" Visibility="{Binding MeasureVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Measure" Visibility="{Binding VisibilityMeasure, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.Measure}" 
                                     AddItemCommand="{Binding SelectMeasureCommand}" 
                                     RemoveItemCommand="{Binding ClearMeasureCommand}"
-									Visibility="{Binding MeasureVisibility, ElementName=Root}"/>
+									Visibility="{Binding VisibilityMeasure, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Name" Visibility="{Binding NameVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Name" Visibility="{Binding VisibilityName, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding NameVisibility, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityName, ElementName=Root}"/>
 
 
 

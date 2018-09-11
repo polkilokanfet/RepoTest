@@ -23,51 +23,51 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Блок" Visibility="{Binding ProductBlockVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Блок" Visibility="{Binding VisibilityProductBlock, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.ProductBlock}" 
                                     AddItemCommand="{Binding SelectProductBlockCommand}" 
                                     RemoveItemCommand="{Binding ClearProductBlockCommand}"
-									Visibility="{Binding ProductBlockVisibility, ElementName=Root}"/>
+									Visibility="{Binding VisibilityProductBlock, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Дата" Visibility="{Binding DateVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Дата" Visibility="{Binding VisibilityDate, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding DateVisibility, ElementName=Root}"/>
+					Visibility="{Binding VisibilityDate, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Проекты" Visibility="{Binding ProjectsVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Проекты" Visibility="{Binding VisibilityProjects, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.Projects}"
 										 SelectedItem="{Binding SelectedProjectsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInProjectsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromProjectsCommand}"
-										 Visibility="{Binding ProjectsVisibility, ElementName=Root}"/>
+										 Visibility="{Binding VisibilityProjects, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Спецификации" Visibility="{Binding SpecificationsVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Спецификации" Visibility="{Binding VisibilitySpecifications, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.Specifications}"
 										 SelectedItem="{Binding SelectedSpecificationsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInSpecificationsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromSpecificationsCommand}"
-										 Visibility="{Binding SpecificationsVisibility, ElementName=Root}"/>
+										 Visibility="{Binding VisibilitySpecifications, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Сумма" Visibility="{Binding SumVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="Сумма" Visibility="{Binding VisibilitySum, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="4" 
                                Value="{Binding Item.Sum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding SumVisibility, ElementName=Root}"/>
+							   Visibility="{Binding VisibilitySum, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="ТКП" Visibility="{Binding OffersVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="5" Content="ТКП" Visibility="{Binding VisibilityOffers, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
 										 Items="{Binding Path=Item.Offers}"
 										 SelectedItem="{Binding SelectedOffersItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInOffersCommand}"
 										 RemoveItemCommand="{Binding RemoveFromOffersCommand}"
-										 Visibility="{Binding OffersVisibility, ElementName=Root}"/>
+										 Visibility="{Binding VisibilityOffers, ElementName=Root}"/>
 
 
 

@@ -21,36 +21,36 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Дата" Visibility="{Binding DateVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Дата" Visibility="{Binding VisibilityDate, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding DateVisibility, ElementName=Root}"/>
+					Visibility="{Binding VisibilityDate, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Дата расчетная" Visibility="{Binding DateCalculatedVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Дата расчетная" Visibility="{Binding VisibilityDateCalculated, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 
                     SelectedDate="{Binding Item.DateCalculated, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding DateCalculatedVisibility, ElementName=Root}"/>
+					Visibility="{Binding VisibilityDateCalculated, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Часть" Visibility="{Binding PartVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Часть" Visibility="{Binding VisibilityPart, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
                                Value="{Binding Item.Part, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding PartVisibility, ElementName=Root}"/>
+							   Visibility="{Binding VisibilityPart, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Связанное условие" Visibility="{Binding ConditionVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Связанное условие" Visibility="{Binding VisibilityCondition, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.Condition}" 
                                     AddItemCommand="{Binding SelectConditionCommand}" 
                                     RemoveItemCommand="{Binding ClearConditionCommand}"
-									Visibility="{Binding ConditionVisibility, ElementName=Root}"/>
+									Visibility="{Binding VisibilityCondition, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Комментарий" Visibility="{Binding CommentVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="Комментарий" Visibility="{Binding VisibilityComment, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding CommentVisibility, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityComment, ElementName=Root}"/>
 
 
 

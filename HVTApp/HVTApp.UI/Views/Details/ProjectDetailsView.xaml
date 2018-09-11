@@ -21,41 +21,41 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Название" Visibility="{Binding NameVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Название" Visibility="{Binding VisibilityName, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding NameVisibility, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityName, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Высокая вероятность поставки" Visibility="{Binding HighProbabilityVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Высокая вероятность поставки" Visibility="{Binding VisibilityHighProbability, ElementName=Root}"/>
         <CheckBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                   IsChecked="{Binding Item.HighProbability, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				  Visibility="{Binding HighProbabilityVisibility, ElementName=Root}"/>
+				  Visibility="{Binding VisibilityHighProbability, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Менеджер" Visibility="{Binding ManagerVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Менеджер" Visibility="{Binding VisibilityManager, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.Manager}" 
                                     AddItemCommand="{Binding SelectManagerCommand}" 
                                     RemoveItemCommand="{Binding ClearManagerCommand}"
-									Visibility="{Binding ManagerVisibility, ElementName=Root}"/>
+									Visibility="{Binding VisibilityManager, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Тип проекта" Visibility="{Binding ProjectTypeVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Тип проекта" Visibility="{Binding VisibilityProjectType, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.ProjectType}" 
                                     AddItemCommand="{Binding SelectProjectTypeCommand}" 
                                     RemoveItemCommand="{Binding ClearProjectTypeCommand}"
-									Visibility="{Binding ProjectTypeVisibility, ElementName=Root}"/>
+									Visibility="{Binding VisibilityProjectType, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Заметки" Visibility="{Binding NotesVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="Заметки" Visibility="{Binding VisibilityNotes, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
 										 Items="{Binding Path=Item.Notes}"
 										 SelectedItem="{Binding SelectedNotesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInNotesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromNotesCommand}"
-										 Visibility="{Binding NotesVisibility, ElementName=Root}"/>
+										 Visibility="{Binding VisibilityNotes, ElementName=Root}"/>
 
 
 

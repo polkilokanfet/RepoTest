@@ -19,25 +19,25 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Date" Visibility="{Binding DateVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Date" Visibility="{Binding VisibilityDate, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding DateVisibility, ElementName=Root}"/>
+					Visibility="{Binding VisibilityDate, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Number" Visibility="{Binding NumberVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Number" Visibility="{Binding VisibilityNumber, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding NumberVisibility, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityNumber, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Payments" Visibility="{Binding PaymentsVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Payments" Visibility="{Binding VisibilityPayments, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.Payments}"
 										 SelectedItem="{Binding SelectedPaymentsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPaymentsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromPaymentsCommand}"
-										 Visibility="{Binding PaymentsVisibility, ElementName=Root}"/>
+										 Visibility="{Binding VisibilityPayments, ElementName=Root}"/>
 
 
 

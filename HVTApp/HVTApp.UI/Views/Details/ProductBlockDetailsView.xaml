@@ -23,46 +23,46 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Обозначение" Visibility="{Binding DesignationVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Обозначение" Visibility="{Binding VisibilityDesignation, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Designation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding DesignationVisibility, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityDesignation, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Параметры" Visibility="{Binding ParametersVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Параметры" Visibility="{Binding VisibilityParameters, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
 										 Items="{Binding Path=Item.Parameters}"
 										 SelectedItem="{Binding SelectedParametersItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInParametersCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParametersCommand}"
-										 Visibility="{Binding ParametersVisibility, ElementName=Root}"/>
+										 Visibility="{Binding VisibilityParameters, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Себестоимости" Visibility="{Binding PricesVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Себестоимости" Visibility="{Binding VisibilityPrices, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.Prices}"
 										 SelectedItem="{Binding SelectedPricesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInPricesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromPricesCommand}"
-										 Visibility="{Binding PricesVisibility, ElementName=Root}"/>
+										 Visibility="{Binding VisibilityPrices, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Специальное обозначение" Visibility="{Binding DesignationSpecialVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Специальное обозначение" Visibility="{Binding VisibilityDesignationSpecial, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                  Text="{Binding Item.DesignationSpecial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding DesignationSpecialVisibility, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityDesignationSpecial, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Сралчахвост" Visibility="{Binding StructureCostNumberVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="Сралчахвост" Visibility="{Binding VisibilityStructureCostNumber, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
                  Text="{Binding Item.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding StructureCostNumberVisibility, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityStructureCostNumber, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="Услуга" Visibility="{Binding IsServiceVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="5" Content="Услуга" Visibility="{Binding VisibilityIsService, ElementName=Root}"/>
         <CheckBox Grid.Column="1" Grid.Row="5" MinWidth="200" 
                   IsChecked="{Binding Item.IsService, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				  Visibility="{Binding IsServiceVisibility, ElementName=Root}"/>
+				  Visibility="{Binding VisibilityIsService, ElementName=Root}"/>
 
 
 

@@ -23,58 +23,58 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Включенные продукты" Visibility="{Binding ProductsIncludedVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Включенные продукты" Visibility="{Binding VisibilityProductsIncluded, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.ProductsIncluded}"
 										 SelectedItem="{Binding SelectedProductsIncludedItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInProductsIncludedCommand}"
 										 RemoveItemCommand="{Binding RemoveFromProductsIncludedCommand}"
-										 Visibility="{Binding ProductsIncludedVisibility, ElementName=Root}"/>
+										 Visibility="{Binding VisibilityProductsIncluded, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Объект" Visibility="{Binding FacilityVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Объект" Visibility="{Binding VisibilityFacility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.Facility}" 
                                     AddItemCommand="{Binding SelectFacilityCommand}" 
                                     RemoveItemCommand="{Binding ClearFacilityCommand}"
-									Visibility="{Binding FacilityVisibility, ElementName=Root}"/>
+									Visibility="{Binding VisibilityFacility, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Продукт" Visibility="{Binding ProductVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Продукт" Visibility="{Binding VisibilityProduct, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.Product}" 
                                     AddItemCommand="{Binding SelectProductCommand}" 
                                     RemoveItemCommand="{Binding ClearProductCommand}"
-									Visibility="{Binding ProductVisibility, ElementName=Root}"/>
+									Visibility="{Binding VisibilityProduct, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Срок производства" Visibility="{Binding ProductionTermVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Срок производства" Visibility="{Binding VisibilityProductionTerm, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ProductionTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding ProductionTermVisibility, ElementName=Root}"/>
+							   Visibility="{Binding VisibilityProductionTerm, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Стоимость" Visibility="{Binding CostVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="Стоимость" Visibility="{Binding VisibilityCost, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="4" 
                                Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding CostVisibility, ElementName=Root}"/>
+							   Visibility="{Binding VisibilityCost, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="ТКП" Visibility="{Binding OfferVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="5" Content="ТКП" Visibility="{Binding VisibilityOffer, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
                                     Item="{Binding Item.Offer}" 
                                     AddItemCommand="{Binding SelectOfferCommand}" 
                                     RemoveItemCommand="{Binding ClearOfferCommand}"
-									Visibility="{Binding OfferVisibility, ElementName=Root}"/>
+									Visibility="{Binding VisibilityOffer, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="6" Content="Условия оплаты" Visibility="{Binding PaymentConditionSetVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="6" Content="Условия оплаты" Visibility="{Binding VisibilityPaymentConditionSet, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
                                     Item="{Binding Item.PaymentConditionSet}" 
                                     AddItemCommand="{Binding SelectPaymentConditionSetCommand}" 
                                     RemoveItemCommand="{Binding ClearPaymentConditionSetCommand}"
-									Visibility="{Binding PaymentConditionSetVisibility, ElementName=Root}"/>
+									Visibility="{Binding VisibilityPaymentConditionSet, ElementName=Root}"/>
 
 
 

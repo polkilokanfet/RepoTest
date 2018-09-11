@@ -215,7 +215,7 @@ namespace HVTApp.UI.Views
 #>
             attr = typeof(<#=modelType.FullName#>).GetProperty(nameof(<#=modelType.FullName#>.<#=propInfo.Name#>)).GetCustomAttribute<NotUpdateAttribute>();
             if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-                <#=propInfo.Name#>Visibility = Visibility.Collapsed;
+                Visibility<#=propInfo.Name#> = Visibility.Collapsed;
 
 <#+ 
 			}
@@ -228,8 +228,8 @@ namespace HVTApp.UI.Views
             {
 #>
 
-        public static readonly DependencyProperty <#=propInfo.Name#>VisibilityProperty = DependencyProperty.Register("<#=propInfo.Name#>Visibility", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility <#=propInfo.Name#>Visibility
+        public static readonly DependencyProperty <#=propInfo.Name#>VisibilityProperty = DependencyProperty.Register("Visibility<#=propInfo.Name#>", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility Visibility<#=propInfo.Name#>
         {
             get { return (Visibility) GetValue(<#=propInfo.Name#>VisibilityProperty); }
             set { SetValue(<#=propInfo.Name#>VisibilityProperty, value); }
@@ -306,10 +306,10 @@ namespace HVTApp.UI.Views
 		if (property.IsType<string>())
 		{
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding Visibility<#=property.Name#>, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="<#= rowNum #>" MinWidth="200" 
                  Text="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
+				 Visibility="{Binding Visibility<#=property.Name#>, ElementName=Root}"/>
 
 <#+ 
 			rowNum++;
@@ -318,11 +318,11 @@ namespace HVTApp.UI.Views
 		if (property.IsType<int>() || property.IsType<int?>())
 		{
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding Visibility<#=property.Name#>, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="<#= rowNum #>"
 							   ValueType="core:Int32"
                                Value="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
+							   Visibility="{Binding Visibility<#=property.Name#>, ElementName=Root}"/>
 
 <#+ 
 		rowNum++;
@@ -331,10 +331,10 @@ namespace HVTApp.UI.Views
 		if (property.IsType<double>() || property.IsType<double?>())
 		{
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding Visibility<#=property.Name#>, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="<#= rowNum #>" 
                                Value="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
+							   Visibility="{Binding Visibility<#=property.Name#>, ElementName=Root}"/>
 
 <#+ 
 		rowNum++;
@@ -343,10 +343,10 @@ namespace HVTApp.UI.Views
 		if (property.IsType<DateTime>() || property.IsType<DateTime?>())
 		{
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding Visibility<#=property.Name#>, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="<#= rowNum #>" 
                     SelectedDate="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
+					Visibility="{Binding Visibility<#=property.Name#>, ElementName=Root}"/>
 
 <#+ 
 		rowNum++;
@@ -355,10 +355,10 @@ namespace HVTApp.UI.Views
 		if (property.IsType<bool>() || property.IsType<bool?>())
 		{
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding Visibility<#=property.Name#>, ElementName=Root}"/>
         <CheckBox Grid.Column="1" Grid.Row="<#= rowNum #>" MinWidth="200" 
                   IsChecked="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				  Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
+				  Visibility="{Binding Visibility<#=property.Name#>, ElementName=Root}"/>
 
 <#+ 
 			rowNum++;
@@ -367,12 +367,12 @@ namespace HVTApp.UI.Views
 		if (property.IsComplex())
 		{
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding Visibility<#=property.Name#>, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="<#= rowNum #>" 
                                     Item="{Binding Item.<#=property.Name#>}" 
                                     AddItemCommand="{Binding Select<#=property.Name#>Command}" 
                                     RemoveItemCommand="{Binding Clear<#=property.Name#>Command}"
-									Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
+									Visibility="{Binding Visibility<#=property.Name#>, ElementName=Root}"/>
 
 <#+ 
 		rowNum++;
@@ -381,13 +381,13 @@ namespace HVTApp.UI.Views
 		if (property.IsCollection())
 		{
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding Visibility<#=property.Name#>, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="<#= rowNum #>"
 										 Items="{Binding Path=Item.<#=property.Name#>}"
 										 SelectedItem="{Binding Selected<#=property.Name#>Item, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddIn<#=property.Name#>Command}"
 										 RemoveItemCommand="{Binding RemoveFrom<#=property.Name#>Command}"
-										 Visibility="{Binding <#=property.Name#>Visibility, ElementName=Root}"/>
+										 Visibility="{Binding Visibility<#=property.Name#>, ElementName=Root}"/>
 
 <#+ 
 		rowNum++;

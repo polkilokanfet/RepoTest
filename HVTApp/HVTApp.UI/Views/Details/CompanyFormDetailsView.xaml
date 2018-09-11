@@ -18,16 +18,16 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Полное наименование" Visibility="{Binding FullNameVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Полное наименование" Visibility="{Binding VisibilityFullName, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding FullNameVisibility, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityFullName, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Сокращенное наименование" Visibility="{Binding ShortNameVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Сокращенное наименование" Visibility="{Binding VisibilityShortName, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding ShortNameVisibility, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityShortName, ElementName=Root}"/>
 
 
 

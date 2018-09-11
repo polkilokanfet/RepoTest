@@ -17,7 +17,7 @@
             <views:OfferDetailsView DockPanel.Dock="Top" 
                                     DataContext="{Binding}" 
                                     x:Name="OfferDetailsView"
-                                    AuthorVisibility="Collapsed"/>
+                                    VisibilityAuthor="Collapsed"/>
         </ScrollViewer>
         
         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>

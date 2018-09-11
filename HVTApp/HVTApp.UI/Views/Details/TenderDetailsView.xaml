@@ -23,56 +23,56 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Закрытие" Visibility="{Binding DateCloseVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Закрытие" Visibility="{Binding VisibilityDateClose, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
                     SelectedDate="{Binding Item.DateClose, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding DateCloseVisibility, ElementName=Root}"/>
+					Visibility="{Binding VisibilityDateClose, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Итоги" Visibility="{Binding DateNoticeVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Итоги" Visibility="{Binding VisibilityDateNotice, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 
                     SelectedDate="{Binding Item.DateNotice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding DateNoticeVisibility, ElementName=Root}"/>
+					Visibility="{Binding VisibilityDateNotice, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Открытие" Visibility="{Binding DateOpenVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Открытие" Visibility="{Binding VisibilityDateOpen, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="2" 
                     SelectedDate="{Binding Item.DateOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding DateOpenVisibility, ElementName=Root}"/>
+					Visibility="{Binding VisibilityDateOpen, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Победитель" Visibility="{Binding WinnerVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Победитель" Visibility="{Binding VisibilityWinner, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.Winner}" 
                                     AddItemCommand="{Binding SelectWinnerCommand}" 
                                     RemoveItemCommand="{Binding ClearWinnerCommand}"
-									Visibility="{Binding WinnerVisibility, ElementName=Root}"/>
+									Visibility="{Binding VisibilityWinner, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="Проект" Visibility="{Binding ProjectVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="Проект" Visibility="{Binding VisibilityProject, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.Project}" 
                                     AddItemCommand="{Binding SelectProjectCommand}" 
                                     RemoveItemCommand="{Binding ClearProjectCommand}"
-									Visibility="{Binding ProjectVisibility, ElementName=Root}"/>
+									Visibility="{Binding VisibilityProject, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="Типы" Visibility="{Binding TypesVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="5" Content="Типы" Visibility="{Binding VisibilityTypes, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
 										 Items="{Binding Path=Item.Types}"
 										 SelectedItem="{Binding SelectedTypesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInTypesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromTypesCommand}"
-										 Visibility="{Binding TypesVisibility, ElementName=Root}"/>
+										 Visibility="{Binding VisibilityTypes, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="6" Content="Участники" Visibility="{Binding ParticipantsVisibility, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="6" Content="Участники" Visibility="{Binding VisibilityParticipants, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="6"
 										 Items="{Binding Path=Item.Participants}"
 										 SelectedItem="{Binding SelectedParticipantsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInParticipantsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParticipantsCommand}"
-										 Visibility="{Binding ParticipantsVisibility, ElementName=Root}"/>
+										 Visibility="{Binding VisibilityParticipants, ElementName=Root}"/>
 
 
 
