@@ -18,6 +18,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Husband" Visibility="{Binding VisibilityHusbandTestChild, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.Husband}" 
@@ -25,10 +26,12 @@
                                     RemoveItemCommand="{Binding ClearHusbandCommand}"
 									Visibility="{Binding VisibilityHusbandTestChild, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="Name" Visibility="{Binding VisibilityNameTestChild, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameTestChild, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Wife" Visibility="{Binding VisibilityWifeTestChild, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
@@ -36,6 +39,7 @@
                                     AddItemCommand="{Binding SelectWifeCommand}" 
                                     RemoveItemCommand="{Binding ClearWifeCommand}"
 									Visibility="{Binding VisibilityWifeTestChild, ElementName=Root}"/>
+
 
 
     </Grid>

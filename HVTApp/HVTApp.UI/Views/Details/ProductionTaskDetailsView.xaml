@@ -17,10 +17,12 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="DateTask" Visibility="{Binding VisibilityDateTaskProductionTask, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
                     SelectedDate="{Binding Item.DateTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityDateTaskProductionTask, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="SalesUnits" Visibility="{Binding VisibilitySalesUnitsProductionTask, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
@@ -29,6 +31,7 @@
 										 AddItemCommand="{Binding AddInSalesUnitsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromSalesUnitsCommand}"
 										 Visibility="{Binding VisibilitySalesUnitsProductionTask, ElementName=Root}"/>
+
 
 
     </Grid>

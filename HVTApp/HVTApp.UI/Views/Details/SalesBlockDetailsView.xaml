@@ -17,6 +17,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="ChildSalesUnits" Visibility="{Binding VisibilityChildSalesUnitsSalesBlock, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.ChildSalesUnits}"
@@ -25,6 +26,7 @@
 										 RemoveItemCommand="{Binding RemoveFromChildSalesUnitsCommand}"
 										 Visibility="{Binding VisibilityChildSalesUnitsSalesBlock, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="ParentSalesUnits" Visibility="{Binding VisibilityParentSalesUnitsSalesBlock, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
 										 Items="{Binding Path=Item.ParentSalesUnits}"
@@ -32,6 +34,7 @@
 										 AddItemCommand="{Binding AddInParentSalesUnitsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParentSalesUnitsCommand}"
 										 Visibility="{Binding VisibilityParentSalesUnitsSalesBlock, ElementName=Root}"/>
+
 
 
     </Grid>

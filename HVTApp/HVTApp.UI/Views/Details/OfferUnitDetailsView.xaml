@@ -22,6 +22,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Включенные продукты" Visibility="{Binding VisibilityProductsIncludedOfferUnit, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.ProductsIncluded}"
@@ -30,12 +31,14 @@
 										 RemoveItemCommand="{Binding RemoveFromProductsIncludedCommand}"
 										 Visibility="{Binding VisibilityProductsIncludedOfferUnit, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="Объект" Visibility="{Binding VisibilityFacilityOfferUnit, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.Facility}" 
                                     AddItemCommand="{Binding SelectFacilityCommand}" 
                                     RemoveItemCommand="{Binding ClearFacilityCommand}"
 									Visibility="{Binding VisibilityFacilityOfferUnit, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Продукт" Visibility="{Binding VisibilityProductOfferUnit, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
@@ -44,16 +47,19 @@
                                     RemoveItemCommand="{Binding ClearProductCommand}"
 									Visibility="{Binding VisibilityProductOfferUnit, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="3" Content="Срок производства" Visibility="{Binding VisibilityProductionTermOfferUnitOfferUnit, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ProductionTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityProductionTermOfferUnitOfferUnit, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="4" Content="Стоимость" Visibility="{Binding VisibilityCostOfferUnitOfferUnit, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="4" 
                                Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityCostOfferUnitOfferUnit, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="5" Content="ТКП" Visibility="{Binding VisibilityOfferOfferUnit, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
@@ -62,12 +68,14 @@
                                     RemoveItemCommand="{Binding ClearOfferCommand}"
 									Visibility="{Binding VisibilityOfferOfferUnit, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="6" Content="Условия оплаты" Visibility="{Binding VisibilityPaymentConditionSetOfferUnit, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
                                     Item="{Binding Item.PaymentConditionSet}" 
                                     AddItemCommand="{Binding SelectPaymentConditionSetCommand}" 
                                     RemoveItemCommand="{Binding ClearPaymentConditionSetCommand}"
 									Visibility="{Binding VisibilityPaymentConditionSetOfferUnit, ElementName=Root}"/>
+
 
 
     </Grid>

@@ -16,6 +16,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="PaymentConditions" Visibility="{Binding VisibilityPaymentConditionsPaymentConditionSet, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.PaymentConditions}"
@@ -23,6 +24,7 @@
 										 AddItemCommand="{Binding AddInPaymentConditionsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromPaymentConditionsCommand}"
 										 Visibility="{Binding VisibilityPaymentConditionsPaymentConditionSet, ElementName=Root}"/>
+
 
 
     </Grid>

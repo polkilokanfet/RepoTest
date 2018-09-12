@@ -653,8 +653,8 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateOrders()
         {
-            OrderVeb110.Clone(new Order {Number = "8012-17", OpenOrderDate = DateTime.Today});
-            OrderZng110.Clone(new Order {Number = "8111-15", OpenOrderDate = DateTime.Today.AddDays(-50)});
+            OrderVeb110.Clone(new Order {Number = "8012-17", DateOpen = DateTime.Today});
+            OrderZng110.Clone(new Order {Number = "8111-15", DateOpen = DateTime.Today.AddDays(-50)});
         }
 
         private void GenerateContracts()

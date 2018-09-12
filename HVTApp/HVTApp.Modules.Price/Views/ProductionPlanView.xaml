@@ -3,6 +3,7 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
+              xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
               x:Class="HVTApp.Modules.Price.Views.ProductionPlanView">
 
     <inf:ViewBase.Resources>
@@ -28,20 +29,24 @@
         </Label>
 
 
-        <Grid Grid.Row="1" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid x:Name="ContentGrid" 
+              Grid.Row="1" 
+              Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             
             <GroupBox Grid.Column="0" Header="Производственный план">
-                <Grid Name="ContentGrid" >
+                <Grid>
             
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
             
                     <GroupBox Grid.Row="0" Header="Оборудование в производстве">
@@ -69,7 +74,6 @@
                                         <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
                                         <infg:DateTimeField AlternateBinding="{Binding Unit.DeliveryDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto"/>
                                         <infg:DateTimeField AlternateBinding="{Binding Unit.EndProductionPlanDate}" BindingType="UseAlternateBinding" Label="Плановая" Width="Auto"/>
-
                                         <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
                                         <infg:Field Name="Groups" IsExpandable="True"/>
 
@@ -80,12 +84,12 @@
 		                </infg:XamDataGrid>
                     </GroupBox>
             
-                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
+                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="3"/>
 
                     <GroupBox Grid.Row="2" Header="Оборудование для размещения">
                         <infg:XamDataGrid x:Name="PotentialListGrid"
                                           DataSource="{Binding GroupsToPlan}"
-                                          SelectedDataItem="{Binding SelectedGroupsToPlan, Mode=TwoWay}">
+                                          SelectedDataItem="{Binding SelectedGroupToPlan, Mode=TwoWay}">
 
                             <infg:XamDataGrid.ContextMenu>
                                 <ContextMenu>
@@ -119,31 +123,10 @@
                 </Grid>
             </GroupBox>
             
-            <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" Width="3"/>
+            <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center"  Width="3"/>
             
             <GroupBox Grid.Column="2" Header="Заказы">
-                <infg:XamDataGrid x:Name="OrdersListGrid"
-                                  DataSource="{Binding Orders}"
-                                  SelectedDataItem="{Binding SelectedOrder, Mode=TwoWay}">
-
-                    <infg:XamDataGrid.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-                        </ContextMenu>
-                    </infg:XamDataGrid.ContextMenu>
-
-                    <infg:XamDataGrid.FieldLayouts>
-                        <infg:FieldLayout>
-                            <infg:FieldLayout.Fields>
-
-                                <infg:TextField Name="Amount" Label="Заказ" Width="Auto"/>
-                                <infg:Field Name="Groups" IsExpandable="True"/>
-
-                            </infg:FieldLayout.Fields>
-                        </infg:FieldLayout>
-
-                    </infg:XamDataGrid.FieldLayouts>
-                </infg:XamDataGrid>
+                <views:OrderLookupListView DataContext="{Binding OrderListViewModel}"/>
             </GroupBox>
             
         </Grid>

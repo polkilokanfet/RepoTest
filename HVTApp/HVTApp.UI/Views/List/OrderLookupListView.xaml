@@ -39,8 +39,8 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
+                    <infg:DateTimeField Name="DateOpen" Label="DateOpen" Width="Auto" />
                     <infg:TextField Name="Number" Label="Number" Width="Auto" />
-                    <infg:DateTimeField Name="OpenOrderDate" Label="OpenOrderDate" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

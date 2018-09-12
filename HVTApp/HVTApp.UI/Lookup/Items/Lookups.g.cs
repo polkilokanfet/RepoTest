@@ -2061,7 +2061,7 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(OrderStatus.Normal)]
-        public System.DateTime OpenOrderDate => GetValue<System.DateTime>();
+        public System.DateTime DateOpen => GetValue<System.DateTime>();
 
 
         #endregion
