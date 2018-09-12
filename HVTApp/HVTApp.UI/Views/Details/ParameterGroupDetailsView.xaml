@@ -17,20 +17,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="Measure" Visibility="{Binding VisibilityMeasure, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Measure" Visibility="{Binding VisibilityMeasureParameterGroup, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.Measure}" 
                                     AddItemCommand="{Binding SelectMeasureCommand}" 
                                     RemoveItemCommand="{Binding ClearMeasureCommand}"
-									Visibility="{Binding VisibilityMeasure, ElementName=Root}"/>
+									Visibility="{Binding VisibilityMeasureParameterGroup, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="Name" Visibility="{Binding VisibilityName, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Name" Visibility="{Binding VisibilityNameParameterGroup, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityName, ElementName=Root}"/>
-
+				 Visibility="{Binding VisibilityNameParameterGroup, ElementName=Root}"/>
 
 
     </Grid>

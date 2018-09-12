@@ -21,35 +21,30 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="Логин" Visibility="{Binding VisibilityLogin, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Логин" Visibility="{Binding VisibilityLoginUser, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityLogin, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityLoginUser, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="Роли" Visibility="{Binding VisibilityRoles, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Роли" Visibility="{Binding VisibilityRolesUser, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
 										 Items="{Binding Path=Item.Roles}"
 										 SelectedItem="{Binding SelectedRolesItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInRolesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromRolesCommand}"
-										 Visibility="{Binding VisibilityRoles, ElementName=Root}"/>
+										 Visibility="{Binding VisibilityRolesUser, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="Сотрудник" Visibility="{Binding VisibilityEmployee, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Сотрудник" Visibility="{Binding VisibilityEmployeeUser, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.Employee}" 
                                     AddItemCommand="{Binding SelectEmployeeCommand}" 
                                     RemoveItemCommand="{Binding ClearEmployeeCommand}"
-									Visibility="{Binding VisibilityEmployee, ElementName=Root}"/>
+									Visibility="{Binding VisibilityEmployeeUser, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="3" Content="Шифр" Visibility="{Binding VisibilityPersonalNumber, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Шифр" Visibility="{Binding VisibilityPersonalNumberUser, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                  Text="{Binding Item.PersonalNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityPersonalNumber, ElementName=Root}"/>
-
+				 Visibility="{Binding VisibilityPersonalNumberUser, ElementName=Root}"/>
 
 
     </Grid>

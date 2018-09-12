@@ -18,24 +18,20 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="City" Visibility="{Binding VisibilityCity, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="City" Visibility="{Binding VisibilityCityTestFriendAddress, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityCity, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityCityTestFriendAddress, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="Street" Visibility="{Binding VisibilityStreet, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Street" Visibility="{Binding VisibilityStreetTestFriendAddress, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityStreet, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityStreetTestFriendAddress, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="StreetNumber" Visibility="{Binding VisibilityStreetNumber, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="StreetNumber" Visibility="{Binding VisibilityStreetNumberTestFriendAddress, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.StreetNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityStreetNumber, ElementName=Root}"/>
-
+				 Visibility="{Binding VisibilityStreetNumberTestFriendAddress, ElementName=Root}"/>
 
 
     </Grid>

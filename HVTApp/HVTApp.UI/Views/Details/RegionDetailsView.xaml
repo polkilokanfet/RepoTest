@@ -17,20 +17,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="District" Visibility="{Binding VisibilityDistrict, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="District" Visibility="{Binding VisibilityDistrictRegion, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.District}" 
                                     AddItemCommand="{Binding SelectDistrictCommand}" 
                                     RemoveItemCommand="{Binding ClearDistrictCommand}"
-									Visibility="{Binding VisibilityDistrict, ElementName=Root}"/>
+									Visibility="{Binding VisibilityDistrictRegion, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="Name" Visibility="{Binding VisibilityName, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Name" Visibility="{Binding VisibilityNameRegion, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityName, ElementName=Root}"/>
-
+				 Visibility="{Binding VisibilityNameRegion, ElementName=Root}"/>
 
 
     </Grid>

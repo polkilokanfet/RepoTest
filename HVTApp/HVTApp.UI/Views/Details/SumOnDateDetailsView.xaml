@@ -17,18 +17,15 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="Date" Visibility="{Binding VisibilityDate, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Date" Visibility="{Binding VisibilityDateSumOnDate, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="0" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding VisibilityDate, ElementName=Root}"/>
+					Visibility="{Binding VisibilityDateSumOnDate, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="Sum" Visibility="{Binding VisibilitySum, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Sum" Visibility="{Binding VisibilitySumSumOnDateSumOnDate, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
                                Value="{Binding Item.Sum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding VisibilitySum, ElementName=Root}"/>
-
+							   Visibility="{Binding VisibilitySumSumOnDateSumOnDate, ElementName=Root}"/>
 
 
     </Grid>

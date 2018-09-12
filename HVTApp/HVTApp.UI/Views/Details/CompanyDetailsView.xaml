@@ -25,80 +25,69 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="Сокращенное наименование" Visibility="{Binding VisibilityShortName, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Сокращенное наименование" Visibility="{Binding VisibilityShortNameCompany, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityShortName, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityShortNameCompany, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="Организационная форма" Visibility="{Binding VisibilityForm, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Организационная форма" Visibility="{Binding VisibilityFormCompany, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.Form}" 
                                     AddItemCommand="{Binding SelectFormCommand}" 
                                     RemoveItemCommand="{Binding ClearFormCommand}"
-									Visibility="{Binding VisibilityForm, ElementName=Root}"/>
+									Visibility="{Binding VisibilityFormCompany, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="ИНН" Visibility="{Binding VisibilityInn, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="ИНН" Visibility="{Binding VisibilityInnCompany, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.Inn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityInn, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityInnCompany, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="3" Content="КПП" Visibility="{Binding VisibilityKpp, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="КПП" Visibility="{Binding VisibilityKppCompany, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                  Text="{Binding Item.Kpp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityKpp, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityKppCompany, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="4" Content="Наименование" Visibility="{Binding VisibilityFullName, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="Наименование" Visibility="{Binding VisibilityFullNameCompany, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
                  Text="{Binding Item.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityFullName, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityFullNameCompany, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="5" Content="Почтовый адрес" Visibility="{Binding VisibilityAddressPost, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="5" Content="Почтовый адрес" Visibility="{Binding VisibilityAddressPostCompany, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
                                     Item="{Binding Item.AddressPost}" 
                                     AddItemCommand="{Binding SelectAddressPostCommand}" 
                                     RemoveItemCommand="{Binding ClearAddressPostCommand}"
-									Visibility="{Binding VisibilityAddressPost, ElementName=Root}"/>
+									Visibility="{Binding VisibilityAddressPostCompany, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="6" Content="Родительская компания" Visibility="{Binding VisibilityParentCompany, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="6" Content="Родительская компания" Visibility="{Binding VisibilityParentCompanyCompany, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
                                     Item="{Binding Item.ParentCompany}" 
                                     AddItemCommand="{Binding SelectParentCompanyCommand}" 
                                     RemoveItemCommand="{Binding ClearParentCompanyCommand}"
-									Visibility="{Binding VisibilityParentCompany, ElementName=Root}"/>
+									Visibility="{Binding VisibilityParentCompanyCompany, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="7" Content="Сферы деятельности" Visibility="{Binding VisibilityActivityFilds, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="7" Content="Сферы деятельности" Visibility="{Binding VisibilityActivityFildsCompany, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="7"
 										 Items="{Binding Path=Item.ActivityFilds}"
 										 SelectedItem="{Binding SelectedActivityFildsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInActivityFildsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromActivityFildsCommand}"
-										 Visibility="{Binding VisibilityActivityFilds, ElementName=Root}"/>
+										 Visibility="{Binding VisibilityActivityFildsCompany, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="8" Content="Юридический адрес" Visibility="{Binding VisibilityAddressLegal, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="8" Content="Юридический адрес" Visibility="{Binding VisibilityAddressLegalCompany, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="8" 
                                     Item="{Binding Item.AddressLegal}" 
                                     AddItemCommand="{Binding SelectAddressLegalCommand}" 
                                     RemoveItemCommand="{Binding ClearAddressLegalCommand}"
-									Visibility="{Binding VisibilityAddressLegal, ElementName=Root}"/>
+									Visibility="{Binding VisibilityAddressLegalCompany, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="9" Content="Банковские реквизиты" Visibility="{Binding VisibilityBankDetailsList, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="9" Content="Банковские реквизиты" Visibility="{Binding VisibilityBankDetailsListCompany, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="9"
 										 Items="{Binding Path=Item.BankDetailsList}"
 										 SelectedItem="{Binding SelectedBankDetailsListItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInBankDetailsListCommand}"
 										 RemoveItemCommand="{Binding RemoveFromBankDetailsListCommand}"
-										 Visibility="{Binding VisibilityBankDetailsList, ElementName=Root}"/>
-
+										 Visibility="{Binding VisibilityBankDetailsListCompany, ElementName=Root}"/>
 
 
     </Grid>

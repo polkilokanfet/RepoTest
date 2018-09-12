@@ -17,18 +17,15 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="Наименование" Visibility="{Binding VisibilityFullName, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Наименование" Visibility="{Binding VisibilityFullNameFacilityType, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityFullName, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityFullNameFacilityType, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="Сокращенное наименование" Visibility="{Binding VisibilityShortName, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Сокращенное наименование" Visibility="{Binding VisibilityShortNameFacilityType, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityShortName, ElementName=Root}"/>
-
+				 Visibility="{Binding VisibilityShortNameFacilityType, ElementName=Root}"/>
 
 
     </Grid>

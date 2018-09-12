@@ -23,58 +23,49 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="DistanceToEkb" Visibility="{Binding VisibilityDistanceToEkb, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="DistanceToEkb" Visibility="{Binding VisibilityDistanceToEkbLocalityLocality, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0" 
                                Value="{Binding Item.DistanceToEkb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding VisibilityDistanceToEkb, ElementName=Root}"/>
+							   Visibility="{Binding VisibilityDistanceToEkbLocalityLocality, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="IsCountryCapital" Visibility="{Binding VisibilityIsCountryCapital, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="IsCountryCapital" Visibility="{Binding VisibilityIsCountryCapitalLocality, ElementName=Root}"/>
         <CheckBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                   IsChecked="{Binding Item.IsCountryCapital, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				  Visibility="{Binding VisibilityIsCountryCapital, ElementName=Root}"/>
+				  Visibility="{Binding VisibilityIsCountryCapitalLocality, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="IsDistrictCapital" Visibility="{Binding VisibilityIsDistrictCapital, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="IsDistrictCapital" Visibility="{Binding VisibilityIsDistrictCapitalLocality, ElementName=Root}"/>
         <CheckBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                   IsChecked="{Binding Item.IsDistrictCapital, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				  Visibility="{Binding VisibilityIsDistrictCapital, ElementName=Root}"/>
+				  Visibility="{Binding VisibilityIsDistrictCapitalLocality, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="3" Content="IsRegionCapital" Visibility="{Binding VisibilityIsRegionCapital, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="IsRegionCapital" Visibility="{Binding VisibilityIsRegionCapitalLocality, ElementName=Root}"/>
         <CheckBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                   IsChecked="{Binding Item.IsRegionCapital, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				  Visibility="{Binding VisibilityIsRegionCapital, ElementName=Root}"/>
+				  Visibility="{Binding VisibilityIsRegionCapitalLocality, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="4" Content="LocalityType" Visibility="{Binding VisibilityLocalityType, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="LocalityType" Visibility="{Binding VisibilityLocalityTypeLocality, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
                                     Item="{Binding Item.LocalityType}" 
                                     AddItemCommand="{Binding SelectLocalityTypeCommand}" 
                                     RemoveItemCommand="{Binding ClearLocalityTypeCommand}"
-									Visibility="{Binding VisibilityLocalityType, ElementName=Root}"/>
+									Visibility="{Binding VisibilityLocalityTypeLocality, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="5" Content="Name" Visibility="{Binding VisibilityName, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="5" Content="Name" Visibility="{Binding VisibilityNameLocality, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="5" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityName, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityNameLocality, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="6" Content="Region" Visibility="{Binding VisibilityRegion, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="6" Content="Region" Visibility="{Binding VisibilityRegionLocality, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
                                     Item="{Binding Item.Region}" 
                                     AddItemCommand="{Binding SelectRegionCommand}" 
                                     RemoveItemCommand="{Binding ClearRegionCommand}"
-									Visibility="{Binding VisibilityRegion, ElementName=Root}"/>
+									Visibility="{Binding VisibilityRegionLocality, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="7" Content="StandartDeliveryPeriod" Visibility="{Binding VisibilityStandartDeliveryPeriod, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="7" Content="StandartDeliveryPeriod" Visibility="{Binding VisibilityStandartDeliveryPeriodLocalityLocality, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="7" 
                                Value="{Binding Item.StandartDeliveryPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding VisibilityStandartDeliveryPeriod, ElementName=Root}"/>
-
+							   Visibility="{Binding VisibilityStandartDeliveryPeriodLocalityLocality, ElementName=Root}"/>
 
 
     </Grid>

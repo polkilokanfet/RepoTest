@@ -19,37 +19,32 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="ChildProductParameters" Visibility="{Binding VisibilityChildProductParameters, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="ChildProductParameters" Visibility="{Binding VisibilityChildProductParametersProductRelation, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.ChildProductParameters}"
 										 SelectedItem="{Binding SelectedChildProductParametersItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInChildProductParametersCommand}"
 										 RemoveItemCommand="{Binding RemoveFromChildProductParametersCommand}"
-										 Visibility="{Binding VisibilityChildProductParameters, ElementName=Root}"/>
+										 Visibility="{Binding VisibilityChildProductParametersProductRelation, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="ChildProductsAmount" Visibility="{Binding VisibilityChildProductsAmount, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="ChildProductsAmount" Visibility="{Binding VisibilityChildProductsAmountProductRelationProductRelation, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ChildProductsAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding VisibilityChildProductsAmount, ElementName=Root}"/>
+							   Visibility="{Binding VisibilityChildProductsAmountProductRelationProductRelation, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="IsUnique" Visibility="{Binding VisibilityIsUnique, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="IsUnique" Visibility="{Binding VisibilityIsUniqueProductRelation, ElementName=Root}"/>
         <CheckBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                   IsChecked="{Binding Item.IsUnique, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				  Visibility="{Binding VisibilityIsUnique, ElementName=Root}"/>
+				  Visibility="{Binding VisibilityIsUniqueProductRelation, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="3" Content="ParentProductParameters" Visibility="{Binding VisibilityParentProductParameters, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="ParentProductParameters" Visibility="{Binding VisibilityParentProductParametersProductRelation, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.ParentProductParameters}"
 										 SelectedItem="{Binding SelectedParentProductParametersItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInParentProductParametersCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParentProductParametersCommand}"
-										 Visibility="{Binding VisibilityParentProductParameters, ElementName=Root}"/>
-
+										 Visibility="{Binding VisibilityParentProductParametersProductRelation, ElementName=Root}"/>
 
 
     </Grid>

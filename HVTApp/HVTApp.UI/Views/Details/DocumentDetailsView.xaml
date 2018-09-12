@@ -25,69 +25,60 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <Label Grid.Column="0" Grid.Row ="0" Content="Автор" Visibility="{Binding VisibilityAuthor, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Автор" Visibility="{Binding VisibilityAuthorDocument, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.Author}" 
                                     AddItemCommand="{Binding SelectAuthorCommand}" 
                                     RemoveItemCommand="{Binding ClearAuthorCommand}"
-									Visibility="{Binding VisibilityAuthor, ElementName=Root}"/>
+									Visibility="{Binding VisibilityAuthorDocument, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="Входящий" Visibility="{Binding VisibilityRegistrationDetailsOfRecipient, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Входящий" Visibility="{Binding VisibilityRegistrationDetailsOfRecipientDocument, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.RegistrationDetailsOfRecipient}" 
                                     AddItemCommand="{Binding SelectRegistrationDetailsOfRecipientCommand}" 
                                     RemoveItemCommand="{Binding ClearRegistrationDetailsOfRecipientCommand}"
-									Visibility="{Binding VisibilityRegistrationDetailsOfRecipient, ElementName=Root}"/>
+									Visibility="{Binding VisibilityRegistrationDetailsOfRecipientDocument, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="Запрос" Visibility="{Binding VisibilityRequestDocument, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Запрос" Visibility="{Binding VisibilityRequestDocumentDocument, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.RequestDocument}" 
                                     AddItemCommand="{Binding SelectRequestDocumentCommand}" 
                                     RemoveItemCommand="{Binding ClearRequestDocumentCommand}"
-									Visibility="{Binding VisibilityRequestDocument, ElementName=Root}"/>
+									Visibility="{Binding VisibilityRequestDocumentDocument, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="3" Content="Исходящий" Visibility="{Binding VisibilityRegistrationDetailsOfSender, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Исходящий" Visibility="{Binding VisibilityRegistrationDetailsOfSenderDocument, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.RegistrationDetailsOfSender}" 
                                     AddItemCommand="{Binding SelectRegistrationDetailsOfSenderCommand}" 
                                     RemoveItemCommand="{Binding ClearRegistrationDetailsOfSenderCommand}"
-									Visibility="{Binding VisibilityRegistrationDetailsOfSender, ElementName=Root}"/>
+									Visibility="{Binding VisibilityRegistrationDetailsOfSenderDocument, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="4" Content="Комментарий" Visibility="{Binding VisibilityComment, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="4" Content="Комментарий" Visibility="{Binding VisibilityCommentDocument, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="4" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityComment, ElementName=Root}"/>
+				 Visibility="{Binding VisibilityCommentDocument, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="5" Content="Копия" Visibility="{Binding VisibilityCopyToRecipients, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="5" Content="Копия" Visibility="{Binding VisibilityCopyToRecipientsDocument, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="5"
 										 Items="{Binding Path=Item.CopyToRecipients}"
 										 SelectedItem="{Binding SelectedCopyToRecipientsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInCopyToRecipientsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromCopyToRecipientsCommand}"
-										 Visibility="{Binding VisibilityCopyToRecipients, ElementName=Root}"/>
+										 Visibility="{Binding VisibilityCopyToRecipientsDocument, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="6" Content="Отправитель" Visibility="{Binding VisibilitySenderEmployee, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="6" Content="Отправитель" Visibility="{Binding VisibilitySenderEmployeeDocument, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
                                     Item="{Binding Item.SenderEmployee}" 
                                     AddItemCommand="{Binding SelectSenderEmployeeCommand}" 
                                     RemoveItemCommand="{Binding ClearSenderEmployeeCommand}"
-									Visibility="{Binding VisibilitySenderEmployee, ElementName=Root}"/>
+									Visibility="{Binding VisibilitySenderEmployeeDocument, ElementName=Root}"/>
 
-
-        <Label Grid.Column="0" Grid.Row ="7" Content="Получатель" Visibility="{Binding VisibilityRecipientEmployee, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="7" Content="Получатель" Visibility="{Binding VisibilityRecipientEmployeeDocument, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="7" 
                                     Item="{Binding Item.RecipientEmployee}" 
                                     AddItemCommand="{Binding SelectRecipientEmployeeCommand}" 
                                     RemoveItemCommand="{Binding ClearRecipientEmployeeCommand}"
-									Visibility="{Binding VisibilityRecipientEmployee, ElementName=Root}"/>
-
+									Visibility="{Binding VisibilityRecipientEmployeeDocument, ElementName=Root}"/>
 
 
     </Grid>
