@@ -26,63 +26,105 @@
                 </Style>
             </Label.Style>
         </Label>
-       
 
-        <Grid Grid.Row="1" 
-              Name="ContentGrid" 
-              Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+        <Grid Grid.Row="1" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
             
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+            <GroupBox Grid.Column="0" Header="Производственный план">
+                <Grid Name="ContentGrid" >
             
-            <GroupBox Grid.Row="0" Header="Оборудование в производстве">
-                <infg:XamDataGrid x:Name="ProductionListGrid"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+            
+                    <GroupBox Grid.Row="0" Header="Оборудование в производстве">
+                        <infg:XamDataGrid x:Name="ProductionListGrid"
                                   
-                                  DataSource="{Binding GroupsInPlan}"
-                                  SelectedDataItem="{Binding SelectedGroupInPlan, Mode=TwoWay}">
+                                          DataSource="{Binding GroupsInPlan}"
+                                          SelectedDataItem="{Binding SelectedGroupInPlan, Mode=TwoWay}">
 
-                    <infg:XamDataGrid.ContextMenu>
-				        <ContextMenu>
-					        <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-				        </ContextMenu>
-			        </infg:XamDataGrid.ContextMenu>
+                            <infg:XamDataGrid.ContextMenu>
+				                <ContextMenu>
+					                <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+				                </ContextMenu>
+			                </infg:XamDataGrid.ContextMenu>
 
-			        <infg:XamDataGrid.FieldLayouts>
-				        <infg:FieldLayout>
-					        <infg:FieldLayout.Fields>
+			                <infg:XamDataGrid.FieldLayouts>
+				                <infg:FieldLayout>
+					                <infg:FieldLayout.Fields>
 
-                                <!--<infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
-                                <infg:TextField AlternateBinding="{Binding SalesUnit.Product}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>-->
+                                        <infg:TextField AlternateBinding="{Binding Unit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding Unit.Product.Type}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding Unit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding Unit.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding Unit.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
+                                        <infg:DateTimeField AlternateBinding="{Binding Unit.DeliveryDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto"/>
+                                        <infg:DateTimeField AlternateBinding="{Binding Unit.EndProductionPlanDate}" BindingType="UseAlternateBinding" Label="Плановая" Width="Auto"/>
 
-                                <infg:TextField AlternateBinding="{Binding Unit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
-                                <infg:TextField AlternateBinding="{Binding Unit.Product.Type}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
-                                <infg:TextField AlternateBinding="{Binding Unit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
-                                <infg:TextField AlternateBinding="{Binding Unit.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
-                                <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
-                                <infg:TextField AlternateBinding="{Binding Unit.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
-                                <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                                <infg:DateTimeField AlternateBinding="{Binding Unit.EndProductionDate}" BindingType="UseAlternateBinding" Label="Дата производства" Width="Auto"/>
-                                <infg:NumericField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
+                                        <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
+                                        <infg:Field Name="Groups" IsExpandable="True"/>
 
-                                <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
-                                <infg:Field Name="Groups" IsExpandable="True"/>
+                                    </infg:FieldLayout.Fields>
+				                </infg:FieldLayout>
 
-                            </infg:FieldLayout.Fields>
-				        </infg:FieldLayout>
+			                </infg:XamDataGrid.FieldLayouts>
+		                </infg:XamDataGrid>
+                    </GroupBox>
+            
+                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
 
-			        </infg:XamDataGrid.FieldLayouts>
-		        </infg:XamDataGrid>
+                    <GroupBox Grid.Row="2" Header="Оборудование для размещения">
+                        <infg:XamDataGrid x:Name="PotentialListGrid"
+                                          DataSource="{Binding GroupsToPlan}"
+                                          SelectedDataItem="{Binding SelectedGroupsToPlan, Mode=TwoWay}">
+
+                            <infg:XamDataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                                </ContextMenu>
+                            </infg:XamDataGrid.ContextMenu>
+
+                            <infg:XamDataGrid.FieldLayouts>
+                                <infg:FieldLayout>
+                                    <infg:FieldLayout.Fields>
+
+                                        <infg:TextField AlternateBinding="{Binding Unit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding Unit.Product.Type}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding Unit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding Unit.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
+                                        <infg:DateTimeField AlternateBinding="{Binding Unit.DeliveryDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto"/>
+                                        <infg:DateTimeField Name="Date" Label="Плановая" Width="Auto" AllowEdit="True"/>
+
+                                        <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
+                                        <infg:Field Name="Groups" IsExpandable="True"/>
+
+                                    </infg:FieldLayout.Fields>
+                                </infg:FieldLayout>
+
+                            </infg:XamDataGrid.FieldLayouts>
+                        </infg:XamDataGrid>
+                    </GroupBox>
+
+                </Grid>
             </GroupBox>
             
-            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
-
-            <GroupBox Grid.Row="2" Header="Оборудование для размещения">
-                <infg:XamDataGrid x:Name="PotentialListGrid"
-                                  DataSource="{Binding GroupsToPlan}"
-                                  SelectedDataItem="{Binding SelectedGroupsToPlan, Mode=TwoWay}">
+            <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" Width="3"/>
+            
+            <GroupBox Grid.Column="2" Header="Заказы">
+                <infg:XamDataGrid x:Name="OrdersListGrid"
+                                  DataSource="{Binding Orders}"
+                                  SelectedDataItem="{Binding SelectedOrder, Mode=TwoWay}">
 
                     <infg:XamDataGrid.ContextMenu>
                         <ContextMenu>
@@ -94,17 +136,7 @@
                         <infg:FieldLayout>
                             <infg:FieldLayout.Fields>
 
-                                <infg:TextField AlternateBinding="{Binding Unit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
-                                <infg:TextField AlternateBinding="{Binding Unit.Product.Type}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
-                                <infg:TextField AlternateBinding="{Binding Unit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
-                                <!--<infg:TextField AlternateBinding="{Binding Unit.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>-->
-                                <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
-                                <infg:TextField AlternateBinding="{Binding Unit.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
-                                <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                                <infg:DateTimeField AlternateBinding="{Binding Unit.EndProductionDate}" BindingType="UseAlternateBinding" Label="Дата производства" Width="Auto"/>
-                                <infg:NumericField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
-
-                                <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
+                                <infg:TextField Name="Amount" Label="Заказ" Width="Auto"/>
                                 <infg:Field Name="Groups" IsExpandable="True"/>
 
                             </infg:FieldLayout.Fields>
@@ -113,8 +145,9 @@
                     </infg:XamDataGrid.FieldLayouts>
                 </infg:XamDataGrid>
             </GroupBox>
-
+            
         </Grid>
+        
 
     </Grid>
 </inf:ViewBase>

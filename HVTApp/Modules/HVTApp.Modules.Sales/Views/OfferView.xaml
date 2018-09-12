@@ -22,13 +22,7 @@
         
         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
         
-        <controls:OfferUnitListControl Grid.Row="2" 
-                                       SalesUnitsGroups="{Binding Groups}"
-                                       SelectedUnitsGroup="{Binding SelectedGroup, Mode=OneWayToSource}"
-                                       SelectedProductIncluded="{Binding SelectedProductIncluded, Mode=OneWayToSource}"
-                                       ChangeFacilityCommand="{Binding ChangeFacilityCommand}"
-                                       ChangeProductCommand="{Binding ChangeProductCommand}"
-                                       ChangePaymentsCommand="{Binding ChangePaymentsCommand}"
-                                       PriceErrors="{Binding PriceErrors}"/>
+        <controls:OfferUnitListControl Grid.Row="2" DataContext="{Binding}"/>
+        
     </Grid>
 </inf:ViewBase>

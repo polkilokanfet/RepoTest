@@ -22,13 +22,6 @@
 
         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3" />
 
-        <controls:SalesUnitListControl Grid.Row="2"
-                                  UnitsGroups="{Binding Groups}"
-                                  SelectedUnitsGroup="{Binding SelectedGroup, Mode=OneWayToSource}"
-                                  SelectedProductIncluded="{Binding SelectedProductIncluded, Mode=OneWayToSource}"
-                                  ChangeFacilityCommand="{Binding ChangeFacilityCommand}"
-                                  ChangeProductCommand="{Binding ChangeProductCommand}"
-                                  ChangePaymentsCommand="{Binding ChangePaymentsCommand}"
-                                  PriceErrors="{Binding PriceErrors}" />
+        <controls:SalesUnitListControl Grid.Row="2" DataContext="{Binding}"/>
     </Grid>
 </inf:ViewBase>
