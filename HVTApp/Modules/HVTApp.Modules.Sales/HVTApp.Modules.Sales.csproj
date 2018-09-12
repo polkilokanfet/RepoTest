@@ -134,6 +134,8 @@
     <Compile Include="ViewModels\MarketViewModel.cs" />
     <Compile Include="ViewModels\OffersViewModel.cs" />
     <Compile Include="ViewModels\Market2ViewModel.cs" />
+    <Compile Include="ViewModels\OfferUnitsViewModel.cs" />
+    <Compile Include="ViewModels\OfferViewModel.cs" />
     <Compile Include="ViewModels\PaymentsViewModel.cs" />
     <Compile Include="ViewModels\ProductionViewModel.cs" />
     <Compile Include="ViewModels\ProjectsViewModel.cs" />
@@ -143,6 +145,9 @@
     </Compile>
     <Compile Include="Views\OfferRedactorView.xaml.cs">
       <DependentUpon>OfferRedactorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OfferUnitsWindow.xaml.cs">
+      <DependentUpon>OfferUnitsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OfferView.xaml.cs">
       <DependentUpon>OfferView.xaml</DependentUpon>
@@ -257,6 +262,10 @@
     <Page Include="Views\OfferRedactorView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OfferUnitsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OfferView.xaml">
       <Generator>MSBuild:Compile</Generator>

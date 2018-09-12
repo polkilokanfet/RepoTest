@@ -798,6 +798,10 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(OrderStatus.Normal)]
+        public System.Double Weight => GetValue<System.Double>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.DateTime> LastPriceDate => GetValue<System.Nullable<System.DateTime>>();
 
 
@@ -1360,6 +1364,10 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(OrderStatus.Normal)]
+        public System.Nullable<System.DateTime> SignalToStartProductionDone => GetValue<System.Nullable<System.DateTime>>();
+
+
+		[OrderStatus(OrderStatus.Normal)]
         public System.Nullable<System.DateTime> StartProductionDate => GetValue<System.Nullable<System.DateTime>>();
 
 
@@ -1380,7 +1388,7 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(OrderStatus.Normal)]
-        public System.Double CostOfShipment => GetValue<System.Double>();
+        public System.Nullable<System.Int32> ExpectedDeliveryPeriodCalculated => GetValue<System.Nullable<System.Int32>>();
 
 
 		[OrderStatus(OrderStatus.Normal)]

@@ -201,27 +201,28 @@
                                Value="{Binding Item.ExpectedDeliveryPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityExpectedDeliveryPeriodSalesUnitSalesUnit, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="23" Content="Срок производства" Visibility="{Binding VisibilityProductionTermSalesUnitSalesUnit, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="23" Content="Срок доставки расчетный" Visibility="{Binding VisibilityExpectedDeliveryPeriodCalculatedSalesUnitSalesUnit, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="23"
+							   ValueType="core:Int32"
+                               Value="{Binding Item.ExpectedDeliveryPeriodCalculated, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding VisibilityExpectedDeliveryPeriodCalculatedSalesUnitSalesUnit, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="24" Content="Срок производства" Visibility="{Binding VisibilityProductionTermSalesUnitSalesUnit, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="24"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ProductionTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityProductionTermSalesUnitSalesUnit, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="24" Content="Срок сборки" Visibility="{Binding VisibilityAssembleTermSalesUnitSalesUnit, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="24"
+        <Label Grid.Column="0" Grid.Row ="25" Content="Срок сборки" Visibility="{Binding VisibilityAssembleTermSalesUnitSalesUnit, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="25"
 							   ValueType="core:Int32"
                                Value="{Binding Item.AssembleTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityAssembleTermSalesUnitSalesUnit, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="25" Content="Стоимость" Visibility="{Binding VisibilityCostSalesUnitSalesUnit, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="25" 
+        <Label Grid.Column="0" Grid.Row ="26" Content="Стоимость" Visibility="{Binding VisibilityCostSalesUnitSalesUnit, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="26" 
                                Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityCostSalesUnitSalesUnit, ElementName=Root}"/>
-
-        <Label Grid.Column="0" Grid.Row ="26" Content="Стоимость доставки" Visibility="{Binding VisibilityCostOfShipmentSalesUnitSalesUnit, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="26" 
-                               Value="{Binding Item.CostOfShipment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding VisibilityCostOfShipmentSalesUnitSalesUnit, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="27" Content="Требуемая дата поставки" Visibility="{Binding VisibilityDeliveryDateExpectedSalesUnit, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="27" 

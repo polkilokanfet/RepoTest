@@ -1,18 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 using HVTApp.Model.Events;
@@ -25,13 +10,11 @@ using System;
 
 namespace HVTApp.UI.ViewModels
 {
-
     public partial class CreateNewProductTaskDetailsViewModel : BaseDetailsViewModel<CreateNewProductTaskWrapper, CreateNewProductTask, AfterSaveCreateNewProductTaskEvent>
     {
 		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
 		public ICommand SelectProductCommand { get; private set; }
 		public ICommand ClearProductCommand { get; private set; }
-
 
         public CreateNewProductTaskDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -49,57 +32,44 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductCommand_Execute_Default() 
 		{
-						Item.Product = null;
-		    
+						Item.Product = null;		    
 		}
-
 
 
     }
 
-
     public partial class DocumentIncomingNumberDetailsViewModel : BaseDetailsViewModel<DocumentIncomingNumberWrapper, DocumentIncomingNumber, AfterSaveDocumentIncomingNumberEvent>
     {
-
         public DocumentIncomingNumberDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class DocumentOutgoingNumberDetailsViewModel : BaseDetailsViewModel<DocumentOutgoingNumberWrapper, DocumentOutgoingNumber, AfterSaveDocumentOutgoingNumberEvent>
     {
-
         public DocumentOutgoingNumberDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class PaymentActualDetailsViewModel : BaseDetailsViewModel<PaymentActualWrapper, PaymentActual, AfterSavePaymentActualEvent>
     {
-
         public PaymentActualDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class PaymentPlannedDetailsViewModel : BaseDetailsViewModel<PaymentPlannedWrapper, PaymentPlanned, AfterSavePaymentPlannedEvent>
     {
 		private Func<Task<List<PaymentCondition>>> _getEntitiesForSelectConditionCommand;
 		public ICommand SelectConditionCommand { get; private set; }
 		public ICommand ClearConditionCommand { get; private set; }
-
 
         public PaymentPlannedDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -117,14 +87,11 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearConditionCommand_Execute_Default() 
 		{
-						Item.Condition = null;
-		    
+						Item.Condition = null;		    
 		}
 
 
-
     }
-
 
     public partial class ProductBlockIsServiceDetailsViewModel : BaseDetailsViewModel<ProductBlockIsServiceWrapper, ProductBlockIsService, AfterSaveProductBlockIsServiceEvent>
     {
@@ -143,7 +110,6 @@ namespace HVTApp.UI.ViewModels
 				((DelegateCommand)RemoveFromParametersCommand).RaiseCanExecuteChanged();
 			}
 		}
-
 
         public ProductBlockIsServiceDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -170,16 +136,13 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class ProductIncludedDetailsViewModel : BaseDetailsViewModel<ProductIncludedWrapper, ProductIncluded, AfterSaveProductIncludedEvent>
     {
 		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
 		public ICommand SelectProductCommand { get; private set; }
 		public ICommand ClearProductCommand { get; private set; }
-
 
         public ProductIncludedDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -197,14 +160,11 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductCommand_Execute_Default() 
 		{
-						Item.Product = null;
-		    
+						Item.Product = null;		    
 		}
 
 
-
     }
-
 
     public partial class ProductDesignationDetailsViewModel : BaseDetailsViewModel<ProductDesignationWrapper, ProductDesignation, AfterSaveProductDesignationEvent>
     {
@@ -223,7 +183,6 @@ namespace HVTApp.UI.ViewModels
 				((DelegateCommand)RemoveFromParametersCommand).RaiseCanExecuteChanged();
 			}
 		}
-
 
         public ProductDesignationDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -250,21 +209,16 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class ProductTypeDetailsViewModel : BaseDetailsViewModel<ProductTypeWrapper, ProductType, AfterSaveProductTypeEvent>
     {
-
         public ProductTypeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class ProductTypeDesignationDetailsViewModel : BaseDetailsViewModel<ProductTypeDesignationWrapper, ProductTypeDesignation, AfterSaveProductTypeDesignationEvent>
     {
@@ -288,7 +242,6 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-
         public ProductTypeDesignationDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
@@ -310,8 +263,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductTypeCommand_Execute_Default() 
 		{
-						Item.ProductType = null;
-		    
+						Item.ProductType = null;		    
 		}
 
 			private async void AddInParametersCommand_Execute_Default()
@@ -330,40 +282,31 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class ProjectTypeDetailsViewModel : BaseDetailsViewModel<ProjectTypeWrapper, ProjectType, AfterSaveProjectTypeEvent>
     {
-
         public ProjectTypeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class CommonOptionDetailsViewModel : BaseDetailsViewModel<CommonOptionWrapper, CommonOption, AfterSaveCommonOptionEvent>
     {
-
         public CommonOptionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class AddressDetailsViewModel : BaseDetailsViewModel<AddressWrapper, Address, AfterSaveAddressEvent>
     {
 		private Func<Task<List<Locality>>> _getEntitiesForSelectLocalityCommand;
 		public ICommand SelectLocalityCommand { get; private set; }
 		public ICommand ClearLocalityCommand { get; private set; }
-
 
         public AddressDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -381,33 +324,26 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearLocalityCommand_Execute_Default() 
 		{
-						Item.Locality = null;
-		    
+						Item.Locality = null;		    
 		}
-
 
 
     }
 
-
     public partial class CountryDetailsViewModel : BaseDetailsViewModel<CountryWrapper, Country, AfterSaveCountryEvent>
     {
-
         public CountryDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class DistrictDetailsViewModel : BaseDetailsViewModel<DistrictWrapper, District, AfterSaveDistrictEvent>
     {
 		private Func<Task<List<Country>>> _getEntitiesForSelectCountryCommand;
 		public ICommand SelectCountryCommand { get; private set; }
 		public ICommand ClearCountryCommand { get; private set; }
-
 
         public DistrictDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -425,14 +361,11 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearCountryCommand_Execute_Default() 
 		{
-						Item.Country = null;
-		    
+						Item.Country = null;		    
 		}
 
 
-
     }
-
 
     public partial class LocalityDetailsViewModel : BaseDetailsViewModel<LocalityWrapper, Locality, AfterSaveLocalityEvent>
     {
@@ -443,7 +376,6 @@ namespace HVTApp.UI.ViewModels
 		private Func<Task<List<Region>>> _getEntitiesForSelectRegionCommand;
 		public ICommand SelectRegionCommand { get; private set; }
 		public ICommand ClearRegionCommand { get; private set; }
-
 
         public LocalityDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -466,8 +398,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearLocalityTypeCommand_Execute_Default() 
 		{
-						Item.LocalityType = null;
-		    
+						Item.LocalityType = null;		    
 		}
 
 		private async void SelectRegionCommand_Execute_Default() 
@@ -477,33 +408,26 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRegionCommand_Execute_Default() 
 		{
-						Item.Region = null;
-		    
+						Item.Region = null;		    
 		}
-
 
 
     }
 
-
     public partial class LocalityTypeDetailsViewModel : BaseDetailsViewModel<LocalityTypeWrapper, LocalityType, AfterSaveLocalityTypeEvent>
     {
-
         public LocalityTypeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class RegionDetailsViewModel : BaseDetailsViewModel<RegionWrapper, Region, AfterSaveRegionEvent>
     {
 		private Func<Task<List<District>>> _getEntitiesForSelectDistrictCommand;
 		public ICommand SelectDistrictCommand { get; private set; }
 		public ICommand ClearDistrictCommand { get; private set; }
-
 
         public RegionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -521,14 +445,11 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearDistrictCommand_Execute_Default() 
 		{
-						Item.District = null;
-		    
+						Item.District = null;		    
 		}
 
 
-
     }
-
 
     public partial class CalculatePriceTaskDetailsViewModel : BaseDetailsViewModel<CalculatePriceTaskWrapper, CalculatePriceTask, AfterSaveCalculatePriceTaskEvent>
     {
@@ -584,7 +505,6 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-
         public CalculatePriceTaskDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
@@ -616,8 +536,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductBlockCommand_Execute_Default() 
 		{
-						Item.ProductBlock = null;
-		    
+						Item.ProductBlock = null;		    
 		}
 
 			private async void AddInProjectsCommand_Execute_Default()
@@ -666,33 +585,25 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class SumDetailsViewModel : BaseDetailsViewModel<SumWrapper, Sum, AfterSaveSumEvent>
     {
-
         public SumDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class CurrencyExchangeRateDetailsViewModel : BaseDetailsViewModel<CurrencyExchangeRateWrapper, CurrencyExchangeRate, AfterSaveCurrencyExchangeRateEvent>
     {
-
         public CurrencyExchangeRateDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class DescribeProductBlockTaskDetailsViewModel : BaseDetailsViewModel<DescribeProductBlockTaskWrapper, DescribeProductBlockTask, AfterSaveDescribeProductBlockTaskEvent>
     {
@@ -703,7 +614,6 @@ namespace HVTApp.UI.ViewModels
 		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
 		public ICommand SelectProductCommand { get; private set; }
 		public ICommand ClearProductCommand { get; private set; }
-
 
         public DescribeProductBlockTaskDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -726,8 +636,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductBlockCommand_Execute_Default() 
 		{
-						Item.ProductBlock = null;
-		    
+						Item.ProductBlock = null;		    
 		}
 
 		private async void SelectProductCommand_Execute_Default() 
@@ -737,26 +646,20 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductCommand_Execute_Default() 
 		{
-						Item.Product = null;
-		    
+						Item.Product = null;		    
 		}
-
 
 
     }
 
-
     public partial class NoteDetailsViewModel : BaseDetailsViewModel<NoteWrapper, Note, AfterSaveNoteEvent>
     {
-
         public NoteDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class OfferUnitDetailsViewModel : BaseDetailsViewModel<OfferUnitWrapper, OfferUnit, AfterSaveOfferUnitEvent>
     {
@@ -791,7 +694,6 @@ namespace HVTApp.UI.ViewModels
 				((DelegateCommand)RemoveFromProductsIncludedCommand).RaiseCanExecuteChanged();
 			}
 		}
-
 
         public OfferUnitDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -829,8 +731,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearOfferCommand_Execute_Default() 
 		{
-						Item.Offer = null;
-		    
+						Item.Offer = null;		    
 		}
 
 		private async void SelectProductCommand_Execute_Default() 
@@ -840,8 +741,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductCommand_Execute_Default() 
 		{
-						Item.Product = null;
-		    
+						Item.Product = null;		    
 		}
 
 		private async void SelectFacilityCommand_Execute_Default() 
@@ -851,8 +751,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearFacilityCommand_Execute_Default() 
 		{
-						Item.Facility = null;
-		    
+						Item.Facility = null;		    
 		}
 
 		private async void SelectPaymentConditionSetCommand_Execute_Default() 
@@ -862,8 +761,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearPaymentConditionSetCommand_Execute_Default() 
 		{
-						Item.PaymentConditionSet = null;
-		    
+						Item.PaymentConditionSet = null;		    
 		}
 
 			private async void AddInProductsIncludedCommand_Execute_Default()
@@ -882,9 +780,7 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class PaymentConditionSetDetailsViewModel : BaseDetailsViewModel<PaymentConditionSetWrapper, PaymentConditionSet, AfterSavePaymentConditionSetEvent>
     {
@@ -903,7 +799,6 @@ namespace HVTApp.UI.ViewModels
 				((DelegateCommand)RemoveFromPaymentConditionsCommand).RaiseCanExecuteChanged();
 			}
 		}
-
 
         public PaymentConditionSetDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -930,9 +825,7 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class ProductBlockDetailsViewModel : BaseDetailsViewModel<ProductBlockWrapper, ProductBlock, AfterSaveProductBlockEvent>
     {
@@ -967,7 +860,6 @@ namespace HVTApp.UI.ViewModels
 				((DelegateCommand)RemoveFromPricesCommand).RaiseCanExecuteChanged();
 			}
 		}
-
 
         public ProductBlockDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -1014,16 +906,13 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class ProductDependentDetailsViewModel : BaseDetailsViewModel<ProductDependentWrapper, ProductDependent, AfterSaveProductDependentEvent>
     {
 		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
 		public ICommand SelectProductCommand { get; private set; }
 		public ICommand ClearProductCommand { get; private set; }
-
 
         public ProductDependentDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -1041,14 +930,11 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductCommand_Execute_Default() 
 		{
-						Item.Product = null;
-		    
+						Item.Product = null;		    
 		}
 
 
-
     }
-
 
     public partial class ProductionTaskDetailsViewModel : BaseDetailsViewModel<ProductionTaskWrapper, ProductionTask, AfterSaveProductionTaskEvent>
     {
@@ -1067,7 +953,6 @@ namespace HVTApp.UI.ViewModels
 				((DelegateCommand)RemoveFromSalesUnitsCommand).RaiseCanExecuteChanged();
 			}
 		}
-
 
         public ProductionTaskDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -1094,9 +979,7 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class SalesBlockDetailsViewModel : BaseDetailsViewModel<SalesBlockWrapper, SalesBlock, AfterSaveSalesBlockEvent>
     {
@@ -1131,7 +1014,6 @@ namespace HVTApp.UI.ViewModels
 				((DelegateCommand)RemoveFromChildSalesUnitsCommand).RaiseCanExecuteChanged();
 			}
 		}
-
 
         public SalesBlockDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -1178,21 +1060,16 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class BankDetailsDetailsViewModel : BaseDetailsViewModel<BankDetailsWrapper, BankDetails, AfterSaveBankDetailsEvent>
     {
-
         public BankDetailsDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class CompanyDetailsViewModel : BaseDetailsViewModel<CompanyWrapper, Company, AfterSaveCompanyEvent>
     {
@@ -1244,7 +1121,6 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-
         public CompanyDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
@@ -1286,8 +1162,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearFormCommand_Execute_Default() 
 		{
-						Item.Form = null;
-		    
+						Item.Form = null;		    
 		}
 
 		private async void SelectParentCompanyCommand_Execute_Default() 
@@ -1297,8 +1172,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearParentCompanyCommand_Execute_Default() 
 		{
-						Item.ParentCompany = null;
-		    
+						Item.ParentCompany = null;		    
 		}
 
 		private async void SelectAddressLegalCommand_Execute_Default() 
@@ -1308,8 +1182,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearAddressLegalCommand_Execute_Default() 
 		{
-						Item.AddressLegal = null;
-		    
+						Item.AddressLegal = null;		    
 		}
 
 		private async void SelectAddressPostCommand_Execute_Default() 
@@ -1319,8 +1192,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearAddressPostCommand_Execute_Default() 
 		{
-						Item.AddressPost = null;
-		    
+						Item.AddressPost = null;		    
 		}
 
 			private async void AddInBankDetailsListCommand_Execute_Default()
@@ -1354,76 +1226,58 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class CompanyFormDetailsViewModel : BaseDetailsViewModel<CompanyFormWrapper, CompanyForm, AfterSaveCompanyFormEvent>
     {
-
         public CompanyFormDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class DocumentsRegistrationDetailsDetailsViewModel : BaseDetailsViewModel<DocumentsRegistrationDetailsWrapper, DocumentsRegistrationDetails, AfterSaveDocumentsRegistrationDetailsEvent>
     {
-
         public DocumentsRegistrationDetailsDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class EmployeesPositionDetailsViewModel : BaseDetailsViewModel<EmployeesPositionWrapper, EmployeesPosition, AfterSaveEmployeesPositionEvent>
     {
-
         public EmployeesPositionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class FacilityTypeDetailsViewModel : BaseDetailsViewModel<FacilityTypeWrapper, FacilityType, AfterSaveFacilityTypeEvent>
     {
-
         public FacilityTypeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class ActivityFieldDetailsViewModel : BaseDetailsViewModel<ActivityFieldWrapper, ActivityField, AfterSaveActivityFieldEvent>
     {
-
         public ActivityFieldDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class ContractDetailsViewModel : BaseDetailsViewModel<ContractWrapper, Contract, AfterSaveContractEvent>
     {
 		private Func<Task<List<Company>>> _getEntitiesForSelectContragentCommand;
 		public ICommand SelectContragentCommand { get; private set; }
 		public ICommand ClearContragentCommand { get; private set; }
-
 
         public ContractDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -1441,26 +1295,20 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearContragentCommand_Execute_Default() 
 		{
-						Item.Contragent = null;
-		    
+						Item.Contragent = null;		    
 		}
-
 
 
     }
 
-
     public partial class MeasureDetailsViewModel : BaseDetailsViewModel<MeasureWrapper, Measure, AfterSaveMeasureEvent>
     {
-
         public MeasureDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class ParameterDetailsViewModel : BaseDetailsViewModel<ParameterWrapper, Parameter, AfterSaveParameterEvent>
     {
@@ -1484,7 +1332,6 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-
         public ParameterDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
@@ -1506,8 +1353,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearParameterGroupCommand_Execute_Default() 
 		{
-						Item.ParameterGroup = null;
-		    
+						Item.ParameterGroup = null;		    
 		}
 
 			private async void AddInParameterRelationsCommand_Execute_Default()
@@ -1526,16 +1372,13 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class ParameterGroupDetailsViewModel : BaseDetailsViewModel<ParameterGroupWrapper, ParameterGroup, AfterSaveParameterGroupEvent>
     {
 		private Func<Task<List<Measure>>> _getEntitiesForSelectMeasureCommand;
 		public ICommand SelectMeasureCommand { get; private set; }
 		public ICommand ClearMeasureCommand { get; private set; }
-
 
         public ParameterGroupDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -1553,14 +1396,11 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearMeasureCommand_Execute_Default() 
 		{
-						Item.Measure = null;
-		    
+						Item.Measure = null;		    
 		}
 
 
-
     }
-
 
     public partial class ProductRelationDetailsViewModel : BaseDetailsViewModel<ProductRelationWrapper, ProductRelation, AfterSaveProductRelationEvent>
     {
@@ -1595,7 +1435,6 @@ namespace HVTApp.UI.ViewModels
 				((DelegateCommand)RemoveFromChildProductParametersCommand).RaiseCanExecuteChanged();
 			}
 		}
-
 
         public ProductRelationDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -1642,21 +1481,16 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class PersonDetailsViewModel : BaseDetailsViewModel<PersonWrapper, Person, AfterSavePersonEvent>
     {
-
         public PersonDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class ParameterRelationDetailsViewModel : BaseDetailsViewModel<ParameterRelationWrapper, ParameterRelation, AfterSaveParameterRelationEvent>
     {
@@ -1675,7 +1509,6 @@ namespace HVTApp.UI.ViewModels
 				((DelegateCommand)RemoveFromRequiredParametersCommand).RaiseCanExecuteChanged();
 			}
 		}
-
 
         public ParameterRelationDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -1702,9 +1535,7 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class SalesUnitDetailsViewModel : BaseDetailsViewModel<SalesUnitWrapper, SalesUnit, AfterSaveSalesUnitEvent>
     {
@@ -1820,7 +1651,6 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-
         public SalesUnitDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
@@ -1897,8 +1727,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductCommand_Execute_Default() 
 		{
-						Item.Product = null;
-		    
+						Item.Product = null;		    
 		}
 
 		private async void SelectFacilityCommand_Execute_Default() 
@@ -1908,8 +1737,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearFacilityCommand_Execute_Default() 
 		{
-						Item.Facility = null;
-		    
+						Item.Facility = null;		    
 		}
 
 		private async void SelectPaymentConditionSetCommand_Execute_Default() 
@@ -1919,8 +1747,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearPaymentConditionSetCommand_Execute_Default() 
 		{
-						Item.PaymentConditionSet = null;
-		    
+						Item.PaymentConditionSet = null;		    
 		}
 
 		private async void SelectProjectCommand_Execute_Default() 
@@ -1930,8 +1757,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProjectCommand_Execute_Default() 
 		{
-						Item.Project = null;
-		    
+						Item.Project = null;		    
 		}
 
 		private async void SelectProducerCommand_Execute_Default() 
@@ -1941,8 +1767,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProducerCommand_Execute_Default() 
 		{
-						Item.Producer = null;
-		    
+						Item.Producer = null;		    
 		}
 
 		private async void SelectOrderCommand_Execute_Default() 
@@ -1952,8 +1777,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearOrderCommand_Execute_Default() 
 		{
-						Item.Order = null;
-		    
+						Item.Order = null;		    
 		}
 
 		private async void SelectSpecificationCommand_Execute_Default() 
@@ -1963,8 +1787,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearSpecificationCommand_Execute_Default() 
 		{
-						Item.Specification = null;
-		    
+						Item.Specification = null;		    
 		}
 
 		private async void SelectAddressCommand_Execute_Default() 
@@ -1974,8 +1797,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearAddressCommand_Execute_Default() 
 		{
-						Item.Address = null;
-		    
+						Item.Address = null;		    
 		}
 
 			private async void AddInProductsIncludedCommand_Execute_Default()
@@ -2054,21 +1876,16 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class TestFriendAddressDetailsViewModel : BaseDetailsViewModel<TestFriendAddressWrapper, TestFriendAddress, AfterSaveTestFriendAddressEvent>
     {
-
         public TestFriendAddressDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class TestFriendDetailsViewModel : BaseDetailsViewModel<TestFriendWrapper, TestFriend, AfterSaveTestFriendEvent>
     {
@@ -2099,7 +1916,6 @@ namespace HVTApp.UI.ViewModels
 				((DelegateCommand)RemoveFromEmailsCommand).RaiseCanExecuteChanged();
 			}
 		}
-
 
         public TestFriendDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -2132,8 +1948,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearTestFriendAddressCommand_Execute_Default() 
 		{
-						Item.TestFriendAddress = null;
-		    
+						Item.TestFriendAddress = null;		    
 		}
 
 		private async void SelectTestFriendGroupCommand_Execute_Default() 
@@ -2143,8 +1958,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearTestFriendGroupCommand_Execute_Default() 
 		{
-						Item.TestFriendGroup = null;
-		    
+						Item.TestFriendGroup = null;		    
 		}
 
 		private async void SelectTestFriendEmailGetCommand_Execute_Default() 
@@ -2154,8 +1968,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearTestFriendEmailGetCommand_Execute_Default() 
 		{
-		
-		    
+				    
 		}
 
 			private async void AddInEmailsCommand_Execute_Default()
@@ -2174,21 +1987,16 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class TestFriendEmailDetailsViewModel : BaseDetailsViewModel<TestFriendEmailWrapper, TestFriendEmail, AfterSaveTestFriendEmailEvent>
     {
-
         public TestFriendEmailDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class TestFriendGroupDetailsViewModel : BaseDetailsViewModel<TestFriendGroupWrapper, TestFriendGroup, AfterSaveTestFriendGroupEvent>
     {
@@ -2207,7 +2015,6 @@ namespace HVTApp.UI.ViewModels
 				((DelegateCommand)RemoveFromFriendTestsCommand).RaiseCanExecuteChanged();
 			}
 		}
-
 
         public TestFriendGroupDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -2234,9 +2041,7 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class DocumentDetailsViewModel : BaseDetailsViewModel<DocumentWrapper, Document, AfterSaveDocumentEvent>
     {
@@ -2279,7 +2084,6 @@ namespace HVTApp.UI.ViewModels
 				((DelegateCommand)RemoveFromCopyToRecipientsCommand).RaiseCanExecuteChanged();
 			}
 		}
-
 
         public DocumentDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -2327,8 +2131,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRequestDocumentCommand_Execute_Default() 
 		{
-						Item.RequestDocument = null;
-		    
+						Item.RequestDocument = null;		    
 		}
 
 		private async void SelectAuthorCommand_Execute_Default() 
@@ -2338,8 +2141,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearAuthorCommand_Execute_Default() 
 		{
-						Item.Author = null;
-		    
+						Item.Author = null;		    
 		}
 
 		private async void SelectSenderEmployeeCommand_Execute_Default() 
@@ -2349,8 +2151,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearSenderEmployeeCommand_Execute_Default() 
 		{
-						Item.SenderEmployee = null;
-		    
+						Item.SenderEmployee = null;		    
 		}
 
 		private async void SelectRecipientEmployeeCommand_Execute_Default() 
@@ -2360,8 +2161,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRecipientEmployeeCommand_Execute_Default() 
 		{
-						Item.RecipientEmployee = null;
-		    
+						Item.RecipientEmployee = null;		    
 		}
 
 		private async void SelectRegistrationDetailsOfSenderCommand_Execute_Default() 
@@ -2371,8 +2171,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRegistrationDetailsOfSenderCommand_Execute_Default() 
 		{
-						Item.RegistrationDetailsOfSender = null;
-		    
+						Item.RegistrationDetailsOfSender = null;		    
 		}
 
 		private async void SelectRegistrationDetailsOfRecipientCommand_Execute_Default() 
@@ -2382,8 +2181,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRegistrationDetailsOfRecipientCommand_Execute_Default() 
 		{
-						Item.RegistrationDetailsOfRecipient = null;
-		    
+						Item.RegistrationDetailsOfRecipient = null;		    
 		}
 
 			private async void AddInCopyToRecipientsCommand_Execute_Default()
@@ -2402,21 +2200,16 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class TestEntityDetailsViewModel : BaseDetailsViewModel<TestEntityWrapper, TestEntity, AfterSaveTestEntityEvent>
     {
-
         public TestEntityDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class TestHusbandDetailsViewModel : BaseDetailsViewModel<TestHusbandWrapper, TestHusband, AfterSaveTestHusbandEvent>
     {
@@ -2440,7 +2233,6 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-
         public TestHusbandDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
@@ -2462,8 +2254,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearWifeCommand_Execute_Default() 
 		{
-						Item.Wife = null;
-		    
+						Item.Wife = null;		    
 		}
 
 			private async void AddInChildrenCommand_Execute_Default()
@@ -2482,16 +2273,13 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class TestWifeDetailsViewModel : BaseDetailsViewModel<TestWifeWrapper, TestWife, AfterSaveTestWifeEvent>
     {
 		private Func<Task<List<TestHusband>>> _getEntitiesForSelectHusbandCommand;
 		public ICommand SelectHusbandCommand { get; private set; }
 		public ICommand ClearHusbandCommand { get; private set; }
-
 
         public TestWifeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -2509,14 +2297,11 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearHusbandCommand_Execute_Default() 
 		{
-						Item.Husband = null;
-		    
+						Item.Husband = null;		    
 		}
 
 
-
     }
-
 
     public partial class TestChildDetailsViewModel : BaseDetailsViewModel<TestChildWrapper, TestChild, AfterSaveTestChildEvent>
     {
@@ -2527,7 +2312,6 @@ namespace HVTApp.UI.ViewModels
 		private Func<Task<List<TestWife>>> _getEntitiesForSelectWifeCommand;
 		public ICommand SelectWifeCommand { get; private set; }
 		public ICommand ClearWifeCommand { get; private set; }
-
 
         public TestChildDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -2550,8 +2334,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearHusbandCommand_Execute_Default() 
 		{
-						Item.Husband = null;
-		    
+						Item.Husband = null;		    
 		}
 
 		private async void SelectWifeCommand_Execute_Default() 
@@ -2561,26 +2344,20 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearWifeCommand_Execute_Default() 
 		{
-						Item.Wife = null;
-		    
+						Item.Wife = null;		    
 		}
-
 
 
     }
 
-
     public partial class SumOnDateDetailsViewModel : BaseDetailsViewModel<SumOnDateWrapper, SumOnDate, AfterSaveSumOnDateEvent>
     {
-
         public SumOnDateDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class ProductDetailsViewModel : BaseDetailsViewModel<ProductWrapper, Product, AfterSaveProductEvent>
     {
@@ -2608,7 +2385,6 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-
         public ProductDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
@@ -2635,8 +2411,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductTypeCommand_Execute_Default() 
 		{
-						Item.ProductType = null;
-		    
+						Item.ProductType = null;		    
 		}
 
 		private async void SelectProductBlockCommand_Execute_Default() 
@@ -2646,8 +2421,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProductBlockCommand_Execute_Default() 
 		{
-						Item.ProductBlock = null;
-		    
+						Item.ProductBlock = null;		    
 		}
 
 			private async void AddInDependentProductsCommand_Execute_Default()
@@ -2666,9 +2440,7 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class OfferDetailsViewModel 
     {
@@ -2715,7 +2487,6 @@ namespace HVTApp.UI.ViewModels
 				((DelegateCommand)RemoveFromCopyToRecipientsCommand).RaiseCanExecuteChanged();
 			}
 		}
-
 
         public OfferDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -2768,8 +2539,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProjectCommand_Execute_Default() 
 		{
-						Item.Project = null;
-		    
+						Item.Project = null;		    
 		}
 
 		private async void SelectRequestDocumentCommand_Execute_Default() 
@@ -2779,8 +2549,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRequestDocumentCommand_Execute_Default() 
 		{
-						Item.RequestDocument = null;
-		    
+						Item.RequestDocument = null;		    
 		}
 
 		private async void SelectAuthorCommand_Execute_Default() 
@@ -2790,8 +2559,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearAuthorCommand_Execute_Default() 
 		{
-						Item.Author = null;
-		    
+						Item.Author = null;		    
 		}
 
 		private async void SelectSenderEmployeeCommand_Execute_Default() 
@@ -2801,8 +2569,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearSenderEmployeeCommand_Execute_Default() 
 		{
-						Item.SenderEmployee = null;
-		    
+						Item.SenderEmployee = null;		    
 		}
 
 		private async void SelectRecipientEmployeeCommand_Execute_Default() 
@@ -2812,8 +2579,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRecipientEmployeeCommand_Execute_Default() 
 		{
-						Item.RecipientEmployee = null;
-		    
+						Item.RecipientEmployee = null;		    
 		}
 
 		private async void SelectRegistrationDetailsOfSenderCommand_Execute_Default() 
@@ -2823,8 +2589,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRegistrationDetailsOfSenderCommand_Execute_Default() 
 		{
-						Item.RegistrationDetailsOfSender = null;
-		    
+						Item.RegistrationDetailsOfSender = null;		    
 		}
 
 		private async void SelectRegistrationDetailsOfRecipientCommand_Execute_Default() 
@@ -2834,8 +2599,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearRegistrationDetailsOfRecipientCommand_Execute_Default() 
 		{
-						Item.RegistrationDetailsOfRecipient = null;
-		    
+						Item.RegistrationDetailsOfRecipient = null;		    
 		}
 
 			private async void AddInCopyToRecipientsCommand_Execute_Default()
@@ -2854,9 +2618,7 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class EmployeeDetailsViewModel : BaseDetailsViewModel<EmployeeWrapper, Employee, AfterSaveEmployeeEvent>
     {
@@ -2871,7 +2633,6 @@ namespace HVTApp.UI.ViewModels
 		private Func<Task<List<EmployeesPosition>>> _getEntitiesForSelectPositionCommand;
 		public ICommand SelectPositionCommand { get; private set; }
 		public ICommand ClearPositionCommand { get; private set; }
-
 
         public EmployeeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -2899,8 +2660,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearPersonCommand_Execute_Default() 
 		{
-						Item.Person = null;
-		    
+						Item.Person = null;		    
 		}
 
 		private async void SelectCompanyCommand_Execute_Default() 
@@ -2910,8 +2670,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearCompanyCommand_Execute_Default() 
 		{
-						Item.Company = null;
-		    
+						Item.Company = null;		    
 		}
 
 		private async void SelectPositionCommand_Execute_Default() 
@@ -2921,38 +2680,29 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearPositionCommand_Execute_Default() 
 		{
-						Item.Position = null;
-		    
+						Item.Position = null;		    
 		}
-
 
 
     }
 
-
     public partial class OrderDetailsViewModel : BaseDetailsViewModel<OrderWrapper, Order, AfterSaveOrderEvent>
     {
-
         public OrderDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class PaymentConditionDetailsViewModel : BaseDetailsViewModel<PaymentConditionWrapper, PaymentCondition, AfterSavePaymentConditionEvent>
     {
-
         public PaymentConditionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class PaymentDocumentDetailsViewModel : BaseDetailsViewModel<PaymentDocumentWrapper, PaymentDocument, AfterSavePaymentDocumentEvent>
     {
@@ -2971,7 +2721,6 @@ namespace HVTApp.UI.ViewModels
 				((DelegateCommand)RemoveFromPaymentsCommand).RaiseCanExecuteChanged();
 			}
 		}
-
 
         public PaymentDocumentDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -2998,9 +2747,7 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class FacilityDetailsViewModel : BaseDetailsViewModel<FacilityWrapper, Facility, AfterSaveFacilityEvent>
     {
@@ -3015,7 +2762,6 @@ namespace HVTApp.UI.ViewModels
 		private Func<Task<List<Address>>> _getEntitiesForSelectAddressCommand;
 		public ICommand SelectAddressCommand { get; private set; }
 		public ICommand ClearAddressCommand { get; private set; }
-
 
         public FacilityDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -3043,8 +2789,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearTypeCommand_Execute_Default() 
 		{
-						Item.Type = null;
-		    
+						Item.Type = null;		    
 		}
 
 		private async void SelectOwnerCompanyCommand_Execute_Default() 
@@ -3054,8 +2799,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearOwnerCompanyCommand_Execute_Default() 
 		{
-						Item.OwnerCompany = null;
-		    
+						Item.OwnerCompany = null;		    
 		}
 
 		private async void SelectAddressCommand_Execute_Default() 
@@ -3065,14 +2809,11 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearAddressCommand_Execute_Default() 
 		{
-						Item.Address = null;
-		    
+						Item.Address = null;		    
 		}
 
 
-
     }
-
 
     public partial class ProjectDetailsViewModel 
     {
@@ -3100,7 +2841,6 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-
         public ProjectDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
@@ -3127,8 +2867,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProjectTypeCommand_Execute_Default() 
 		{
-						Item.ProjectType = null;
-		    
+						Item.ProjectType = null;		    
 		}
 
 		private async void SelectManagerCommand_Execute_Default() 
@@ -3138,8 +2877,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearManagerCommand_Execute_Default() 
 		{
-						Item.Manager = null;
-		    
+						Item.Manager = null;		    
 		}
 
 			private async void AddInNotesCommand_Execute_Default()
@@ -3158,28 +2896,22 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class UserRoleDetailsViewModel : BaseDetailsViewModel<UserRoleWrapper, UserRole, AfterSaveUserRoleEvent>
     {
-
         public UserRoleDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class SpecificationDetailsViewModel : BaseDetailsViewModel<SpecificationWrapper, Specification, AfterSaveSpecificationEvent>
     {
 		private Func<Task<List<Contract>>> _getEntitiesForSelectContractCommand;
 		public ICommand SelectContractCommand { get; private set; }
 		public ICommand ClearContractCommand { get; private set; }
-
 
         public SpecificationDetailsViewModel(IUnityContainer container) : base(container) 
 		{
@@ -3197,14 +2929,11 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearContractCommand_Execute_Default() 
 		{
-						Item.Contract = null;
-		    
+						Item.Contract = null;		    
 		}
 
 
-
     }
-
 
     public partial class TenderDetailsViewModel : BaseDetailsViewModel<TenderWrapper, Tender, AfterSaveTenderEvent>
     {
@@ -3248,7 +2977,6 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-
         public TenderDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
@@ -3280,8 +3008,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearProjectCommand_Execute_Default() 
 		{
-						Item.Project = null;
-		    
+						Item.Project = null;		    
 		}
 
 		private async void SelectWinnerCommand_Execute_Default() 
@@ -3291,8 +3018,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearWinnerCommand_Execute_Default() 
 		{
-						Item.Winner = null;
-		    
+						Item.Winner = null;		    
 		}
 
 			private async void AddInTypesCommand_Execute_Default()
@@ -3326,21 +3052,16 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
     public partial class TenderTypeDetailsViewModel : BaseDetailsViewModel<TenderTypeWrapper, TenderType, AfterSaveTenderTypeEvent>
     {
-
         public TenderTypeDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 		}
 
 
-
     }
-
 
     public partial class UserDetailsViewModel : BaseDetailsViewModel<UserWrapper, User, AfterSaveUserEvent>
     {
@@ -3364,7 +3085,6 @@ namespace HVTApp.UI.ViewModels
 			}
 		}
 
-
         public UserDetailsViewModel(IUnityContainer container) : base(container) 
 		{
 			
@@ -3386,8 +3106,7 @@ namespace HVTApp.UI.ViewModels
 
 		private void ClearEmployeeCommand_Execute_Default() 
 		{
-						Item.Employee = null;
-		    
+						Item.Employee = null;		    
 		}
 
 			private async void AddInRolesCommand_Execute_Default()
@@ -3406,8 +3125,6 @@ namespace HVTApp.UI.ViewModels
 			}
 
 
-
     }
-
 
 }

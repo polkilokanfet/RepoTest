@@ -39,7 +39,7 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:NumericField Name="DistanceToEkb" Label="DistanceToEkb" Width="Auto" />
+                    <infg:NumericField Name="DistanceToEkb" Label="Расстояние до екатеринбурга" Width="Auto" />
                     <infg:CheckBoxField Name="IsCountryCapital" Label="IsCountryCapital" Width="Auto" />
                     <infg:CheckBoxField Name="IsDistrictCapital" Label="IsDistrictCapital" Width="Auto" />
                     <infg:CheckBoxField Name="IsRegionCapital" Label="IsRegionCapital" Width="Auto" />

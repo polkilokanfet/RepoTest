@@ -3,6 +3,7 @@ using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Tabs;
+using HVTApp.Modules.Sales.ViewModels;
 using HVTApp.UI.Tabs;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
@@ -15,12 +16,12 @@ namespace HVTApp.Modules.Sales.Views
     [RibbonTab(typeof(TabSave)), RibbonTab(typeof(TabCrudUnits))]
     public partial class OfferView
     {
-        private readonly OfferDetailsViewModel _viewModel;
+        private readonly OfferViewModel _viewModel;
 
         public OfferView(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            _viewModel = container.Resolve<OfferDetailsViewModel>();
+            _viewModel = container.Resolve<OfferViewModel>();
             this.DataContext = _viewModel;
         }
 

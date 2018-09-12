@@ -36,7 +36,6 @@ namespace HVTApp.DataAccess
             Property(x => x.RealizationDate).IsOptional();
 
             HasOptional(x => x.Address).WithMany();
-            Property(x => x.CostOfShipment).IsRequired();
             Property(x => x.ExpectedDeliveryPeriod).IsOptional();
             Property(x => x.ShipmentDate).IsOptional();
             Property(x => x.ShipmentPlanDate).IsOptional();

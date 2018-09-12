@@ -8,6 +8,12 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class OfferUnitDetailsViewModel
     {
+        public void Load(OfferUnitWrapper unit, IWrapperDataService wrapperDataService)
+        {
+            this.WrapperDataService = wrapperDataService;
+            Item = unit;
+        }
+
         protected override void InitSpecialCommands()
         {
             SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);

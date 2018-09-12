@@ -105,9 +105,6 @@ namespace HVTApp.Model.POCOs
         [Designation("Адрес доставки")]
         public virtual Address Address { get; set; }
 
-        [Designation("Стоимость доставки")]
-        public double CostOfShipment { get; set; } = 0;
-
         [Designation("Дата отгрузки")]
         public virtual DateTime? ShipmentDate { get; set; }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
@@ -6,7 +7,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Единица ТКП")]
     [DesignationPlural("Единицы ТКП")]
-    public partial class OfferUnit : BaseEntity, IUnitPoco
+    public partial class OfferUnit : BaseEntity, IUnitPoco, ICloneable
     {
         [Designation("Стоимость")]
         public double Cost { get; set; }
@@ -29,6 +30,11 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Срок производства")]
         public int? ProductionTerm { get; set; }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 
     public interface IUnitPoco : IProductCost

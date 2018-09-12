@@ -1,4 +1,6 @@
-﻿namespace HVTApp.UI.Wrapper
+﻿using System;
+
+namespace HVTApp.UI.Wrapper
 {
     public partial class OfferUnitWrapper : IUnit
     {

@@ -182,7 +182,7 @@ namespace HVTApp.UI.ViewModels
             Groups.AddRange(Item.Units.ToProductUnitGroups());
         }
 
-        private async Task RefreshPrices()
+        protected async Task RefreshPrices()
         {
             foreach (var group in Groups)
                 await RefreshPrice(group);

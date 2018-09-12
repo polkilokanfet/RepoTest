@@ -2708,6 +2708,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility WeightVisibility
+        {
+            get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.Weight)].Visibility; }
+            set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.Weight)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility LastPriceDateVisibility
         {
             get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.LastPriceDate)].Visibility; }
@@ -3553,6 +3560,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility SignalToStartProductionDoneVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.SignalToStartProductionDone)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.SignalToStartProductionDone)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility StartProductionDateVisibility
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.StartProductionDate)].Visibility; }
@@ -3588,10 +3602,10 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility CostOfShipmentVisibility
+        public System.Windows.Visibility ExpectedDeliveryPeriodCalculatedVisibility
         {
-            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.CostOfShipment)].Visibility; }
-            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.CostOfShipment)].Visibility = value; }
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.ExpectedDeliveryPeriodCalculated)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.ExpectedDeliveryPeriodCalculated)].Visibility = value; }
         }
 
 

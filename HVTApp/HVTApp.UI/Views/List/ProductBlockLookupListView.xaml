@@ -44,6 +44,7 @@
                     <infg:CheckBoxField Name="IsService" Label="Услуга" Width="Auto" />
                     <infg:DateTimeField Name="LastPriceDate" Label="Дата последнего прайса" Width="Auto" />
                     <infg:TextField Name="StructureCostNumber" Label="Сралчахвост" Width="Auto" />
+                    <infg:NumericField Name="Weight" Label="Вес" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

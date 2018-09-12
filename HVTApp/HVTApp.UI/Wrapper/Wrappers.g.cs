@@ -1420,6 +1420,15 @@ namespace HVTApp.UI.Wrapper
         public bool IsServiceIsChanged => GetIsChanged(nameof(IsService));
 
 
+        public System.Double Weight
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double WeightOriginalValue => GetOriginalValue<System.Double>(nameof(Weight));
+        public bool WeightIsChanged => GetIsChanged(nameof(Weight));
+
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2532,13 +2541,13 @@ namespace HVTApp.UI.Wrapper
         public bool ExpectedDeliveryPeriodIsChanged => GetIsChanged(nameof(ExpectedDeliveryPeriod));
 
 
-        public System.Double CostOfShipment
+        public System.Nullable<System.Int32> ExpectedDeliveryPeriodCalculated
         {
-          get { return GetValue<System.Double>(); }
+          get { return GetValue<System.Nullable<System.Int32>>(); }
           set { SetValue(value); }
         }
-        public System.Double CostOfShipmentOriginalValue => GetOriginalValue<System.Double>(nameof(CostOfShipment));
-        public bool CostOfShipmentIsChanged => GetIsChanged(nameof(CostOfShipment));
+        public System.Nullable<System.Int32> ExpectedDeliveryPeriodCalculatedOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(ExpectedDeliveryPeriodCalculated));
+        public bool ExpectedDeliveryPeriodCalculatedIsChanged => GetIsChanged(nameof(ExpectedDeliveryPeriodCalculated));
 
 
         public System.Nullable<System.DateTime> ShipmentDate

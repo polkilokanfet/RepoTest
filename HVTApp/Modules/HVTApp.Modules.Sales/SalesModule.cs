@@ -1,8 +1,10 @@
 ﻿using Prism.Regions;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.Sales.Menus;
+using HVTApp.Modules.Sales.ViewModels;
 using HVTApp.Modules.Sales.Views;
 using Microsoft.Practices.Unity;
 
@@ -27,6 +29,8 @@ namespace HVTApp.Modules.Sales
             Container.RegisterViewForNavigation<OfferRedactorView>();
             Container.RegisterViewForNavigation<OfferView>();
             Container.RegisterViewForNavigation<ProjectView>();
+
+            Container.Resolve<IDialogService>().Register<OfferUnitsViewModel, OfferUnitsWindow>();
         }
 
         protected override void ResolveOutlookGroup()
