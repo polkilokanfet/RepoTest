@@ -6,11 +6,10 @@
              xmlns:igs="http://schemas.infragistics.com/xaml"
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              x:Class="HVTApp.Modules.BaseEntities.Menus.BaseEntitiesMenu"
-             Header="CommonEntities">
-    <igs:XamDataTree 
-        Name="_xamDataTree"
-        ItemsSource="{Binding Items}"
-        prism:XamDataTreeItemSelected.Command="{x:Static Member=inf:Commands.NavigateCommand}">
+             Header="Справочник">
+    <igs:XamDataTree Name="_xamDataTree"
+                     ItemsSource="{Binding Items}"
+                     prism:XamDataTreeItemSelected.Command="{x:Static Member=inf:Commands.NavigateCommand}">
         <igs:XamDataTree.GlobalNodeLayouts>
             <igs:NodeLayout Key="ItemsLayout" 
                             TargetTypeName="NavigationItem" 

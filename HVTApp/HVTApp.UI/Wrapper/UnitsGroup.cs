@@ -148,7 +148,8 @@ namespace HVTApp.UI.Wrapper
 
         protected void SetValue(object value, [CallerMemberName] string propertyName = null)
         {
-            if (Equals(Facility, value))
+            var old = this.GetType().GetProperty(propertyName).GetValue(this);
+            if (Equals(old, value))
                 return;
 
             if (Groups.Any())

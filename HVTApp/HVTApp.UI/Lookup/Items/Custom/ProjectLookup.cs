@@ -29,13 +29,13 @@ namespace HVTApp.UI.Lookup
                 await note.LoadOther(unitOfWork);
         }
 
-        [OrderStatus(OrderStatus.Low)]
+        //[OrderStatus(OrderStatus.Low)]
         public List<SalesUnitLookup> SalesUnits { get; set; }
-        [OrderStatus(OrderStatus.Low)]
+        //[OrderStatus(OrderStatus.Low)]
         public List<TenderLookup> Tenders { get; set; }
-        [OrderStatus(OrderStatus.Low)]
+        //[OrderStatus(OrderStatus.Low)]
         public List<OfferLookup> Offers { get; set; }
-        [OrderStatus(OrderStatus.Low)]
+        //[OrderStatus(OrderStatus.Low)]
         public List<NoteLookup> Notes { get; set; }
 
         [Designation("Сумма проекта")]
@@ -53,7 +53,7 @@ namespace HVTApp.UI.Lookup
         [Designation("Тендер")]
         public DateTime? TenderDate => Tenders.SingleOrDefault(x => x.Entity.Types.Any(tp => tp.Type == TenderTypeEnum.ToSupply))?.DateClose;
 
-        [Designation("Объекты"), OrderStatus(OrderStatus.Highest)]
+        [Designation("Объекты"), OrderStatus(10)]
         public List<FacilityLookup> Facilities => SalesUnits?.Select(x => x.Facility).Distinct(new FacilityComparer()).ToList();
 
         public override int CompareTo(object obj)
