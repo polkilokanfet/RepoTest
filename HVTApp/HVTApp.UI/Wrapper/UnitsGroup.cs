@@ -2,59 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using HVTApp.DataAccess.Annotations;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.ObjectBuilder2;
+using Prism.Mvvm;
 
 namespace HVTApp.UI.Wrapper
 {
-    public class UnitsGroup : IUnitsGroup, INotifyPropertyChanged
+    public class UnitsGroup : BindableBase, IUnitsGroup
     {
-        public UnitsGroup(IEnumerable<IUnit> units)
-        {
-            Units = units.ToList();
-            if (Units.Count > 1)
-                Groups.AddRange(Units.Select(x => new UnitsGroup(new List<IUnit> {x})));
-
-            ProductsIncluded = new ValidatableChangeTrackingCollection<ProductIncludedWrapper>(Units.First().ProductsIncluded);
-            ProductsIncluded.CollectionChanged += (sender, args) =>
-            {
-                IEnumerable<IUnitWithProductsIncluded> unts = Units;
-                if (Groups.Any()) unts = Groups;
-
-                switch (args.Action)
-                {
-                        
-                    case NotifyCollectionChangedAction.Add:
-                        foreach (var unit in unts)
-                        {
-                            foreach (var newPrInc in args.NewItems)
-                            {
-                                var prInc = (ProductIncludedWrapper)newPrInc;
-                                var newPrIncWrap = new ProductIncludedWrapper(new ProductIncluded {Product = prInc.Product.Model, Amount = prInc.Amount});
-                                unit.ProductsIncluded.Add(newPrIncWrap);
-                            }
-                        }
-                        break;
-
-                    case NotifyCollectionChangedAction.Remove:
-                        foreach (var unit in unts)
-                        {
-                            foreach (var oldPrInc in args.OldItems)
-                            {
-                                var prInc = (ProductIncludedWrapper)oldPrInc;
-                                var oldPrIncWrap = unit.ProductsIncluded.First(x => x.Amount == prInc.Amount && x.Product.Id == prInc.Product.Id);
-                                unit.ProductsIncluded.Remove(oldPrIncWrap);
-                            }
-                        }
-                        break;
-                }
-            };
-        }
-
         private double _marginalIncome;
         private double _price;
 
@@ -67,25 +24,19 @@ namespace HVTApp.UI.Wrapper
         public FacilityWrapper Facility
         {
             get { return Units.First().Facility; }
-            set
-            {
-                if(Equals(Facility, value)) return;
-                Groups.ForEach(x => x.Facility = value);
-                Units.ForEach(x => x.Facility = value);
-                OnPropertyChanged();
-            }
+            set { SetValue(value); }
         }
 
         public ProductWrapper Product
         {
             get { return Units.First().Product; }
-            set
-            {
-                if (Equals(Product, value)) return;
-                Groups.ForEach(x => x.Product = value);
-                Units.ForEach(x => x.Product = value);
-                OnPropertyChanged();
-            }
+            set { SetValue(value); }
+        }
+
+        public PaymentConditionSetWrapper PaymentConditionSet
+        {
+            get { return Units.First().PaymentConditionSet; }
+            set { SetValue(value); }
         }
 
         public IValidatableChangeTrackingCollection<ProductIncludedWrapper> ProductsIncluded { get; }
@@ -133,45 +84,108 @@ namespace HVTApp.UI.Wrapper
             }
         }
 
-        public PaymentConditionSetWrapper PaymentConditionSet
-        {
-            get { return Units.First().PaymentConditionSet; }
-            set
-            {
-                if (Equals(value, PaymentConditionSet)) return;
-                Groups.ForEach(x => x.PaymentConditionSet = value);
-                Units.ForEach(x => x.PaymentConditionSet = value);
-                OnPropertyChanged();
-            }
-        }
-
-
-
         public int? ProductionTerm
         {
             get { return Units.First().ProductionTerm; }
             set
             {
-                if (Equals(value, ProductionTerm)) return;
-                if (value < 0) return;
-                Groups.ForEach(x => x.ProductionTerm = value);
-                Units.ForEach(x => x.ProductionTerm = value);
-                OnPropertyChanged();
+                if (value.HasValue && value < 0)
+                    return;
+                SetValue(value);
             }
         }
 
 
 
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public UnitsGroup(IEnumerable<IUnit> units)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Units = units.ToList();
+            if (Units.Count > 1)
+            {
+                GenerateGroups();
+            }
+
+            ProductsIncluded = new ValidatableChangeTrackingCollection<ProductIncludedWrapper>(Units.First().ProductsIncluded);
+            ProductsIncluded.CollectionChanged += (sender, args) =>
+            {
+                IEnumerable<IUnitWithProductsIncluded> unts = Units;
+                if (Groups.Any()) unts = Groups;
+
+                switch (args.Action)
+                {
+                        
+                    case NotifyCollectionChangedAction.Add:
+                        foreach (var unit in unts)
+                        {
+                            foreach (var newPrInc in args.NewItems)
+                            {
+                                var prInc = (ProductIncludedWrapper)newPrInc;
+                                var newPrIncWrap = new ProductIncludedWrapper(new ProductIncluded {Product = prInc.Product.Model, Amount = prInc.Amount});
+                                unit.ProductsIncluded.Add(newPrIncWrap);
+                            }
+                        }
+                        break;
+
+                    case NotifyCollectionChangedAction.Remove:
+                        foreach (var unit in unts)
+                        {
+                            foreach (var oldPrInc in args.OldItems)
+                            {
+                                var prInc = (ProductIncludedWrapper)oldPrInc;
+                                var oldPrIncWrap = unit.ProductsIncluded.First(x => x.Amount == prInc.Amount && x.Product.Id == prInc.Product.Id);
+                                unit.ProductsIncluded.Remove(oldPrIncWrap);
+                            }
+                        }
+                        break;
+                }
+            };
         }
 
-        #endregion
+        protected virtual void GenerateGroups()
+        {
+            Groups.AddRange(Units.Select(x => new UnitsGroup(new List<IUnit> {x})));
+        }
+
+        protected void SetValue(object value, [CallerMemberName] string propertyName = null)
+        {
+            if (Equals(Facility, value))
+                return;
+
+            if (Groups.Any())
+            {
+                foreach (var unitsGroup in Groups)
+                {
+                    var property = unitsGroup.GetType().GetProperty(propertyName);
+                    property.SetValue(unitsGroup, value);
+                }
+            }
+            else
+            {
+                foreach (var unit in Units)
+                {
+                    var property = unit.GetType().GetProperty(propertyName);
+                    property.SetValue(unit, value);
+                }
+            }
+            OnPropertyChanged(propertyName);
+        }
+    }
+
+    public class UnitsDatedGroup : UnitsGroup, IUnitsDatedGroup
+    {
+        public DateTime DeliveryDateExpected
+        {
+            get { return ((IUnitDated)Units.First()).DeliveryDateExpected; }
+            set { SetValue(value); }
+        }
+
+        public UnitsDatedGroup(IEnumerable<IUnitDated> units) : base(units)
+        {
+        }
+
+        protected override void GenerateGroups()
+        {
+            Groups.AddRange(Units.Select(x => new UnitsDatedGroup(new List<IUnitDated> { (IUnitDated)x })));
+        }
     }
 }

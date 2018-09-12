@@ -5,26 +5,26 @@ using HVTApp.UI.Wrapper;
 
 namespace HVTApp.Modules.Sales.Controls
 {
-    public partial class UnitListControl
+    public partial class OfferUnitListControl
     {
-        public UnitListControl()
+        public OfferUnitListControl()
         {
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty UnitsGroupsProperty = DependencyProperty.Register(
-            "UnitsGroups", typeof(IEnumerable<IUnitsGroup>), typeof(UnitListControl), new PropertyMetadata(default(IEnumerable<IUnitsGroup>)));
+        public static readonly DependencyProperty SalesUnitsGroupsProperty = DependencyProperty.Register(
+            "SalesUnitsGroups", typeof(IEnumerable<IUnitsGroup>), typeof(SalesUnitListControl), new PropertyMetadata(default(IEnumerable<IUnitsGroup>)));
 
-        public IEnumerable<IUnitsGroup> UnitsGroups
+        public IEnumerable<IUnitsGroup> SalesUnitsGroups
         {
-            get { return (IEnumerable<IUnitsGroup>) GetValue(UnitsGroupsProperty); }
-            set { SetValue(UnitsGroupsProperty, value); }
+            get { return (IEnumerable<IUnitsGroup>) GetValue(SalesUnitsGroupsProperty); }
+            set { SetValue(SalesUnitsGroupsProperty, value); }
         }
 
 
 
         public static readonly DependencyProperty SelectedUnitsGroupProperty = DependencyProperty.Register(
-            "SelectedUnitsGroup", typeof(IUnitsGroup), typeof(UnitListControl), new PropertyMetadata(default(IUnitsGroup)));
+            "SelectedUnitsGroup", typeof(IUnitsGroup), typeof(SalesUnitListControl), new PropertyMetadata(default(IUnitsGroup)));
 
         public IUnitsGroup SelectedUnitsGroup
         {
@@ -35,7 +35,7 @@ namespace HVTApp.Modules.Sales.Controls
 
 
         public static readonly DependencyProperty SelectedProductIncludedProperty = DependencyProperty.Register(
-            "SelectedProductIncluded", typeof(ProductIncludedWrapper), typeof(UnitListControl), new PropertyMetadata(default(ProductIncludedWrapper)));
+            "SelectedProductIncluded", typeof(ProductIncludedWrapper), typeof(SalesUnitListControl), new PropertyMetadata(default(ProductIncludedWrapper)));
 
         public ProductIncludedWrapper SelectedProductIncluded
         {
@@ -46,7 +46,7 @@ namespace HVTApp.Modules.Sales.Controls
 
 
         public static readonly DependencyProperty ChangeFacilityCommandProperty = DependencyProperty.Register(
-            "ChangeFacilityCommand", typeof(ICommand), typeof(UnitListControl), new PropertyMetadata(default(ICommand)));
+            "ChangeFacilityCommand", typeof(ICommand), typeof(SalesUnitListControl), new PropertyMetadata(default(ICommand)));
 
         public ICommand ChangeFacilityCommand
         {
@@ -58,7 +58,7 @@ namespace HVTApp.Modules.Sales.Controls
 
 
         public static readonly DependencyProperty ChangeProductCommandProperty = DependencyProperty.Register(
-            "ChangeProductCommand", typeof(ICommand), typeof(UnitListControl), new PropertyMetadata(default(ICommand)));
+            "ChangeProductCommand", typeof(ICommand), typeof(SalesUnitListControl), new PropertyMetadata(default(ICommand)));
 
         public ICommand ChangeProductCommand
         {
@@ -68,7 +68,7 @@ namespace HVTApp.Modules.Sales.Controls
 
 
         public static readonly DependencyProperty ChangePaymentsCommandProperty = DependencyProperty.Register(
-            "ChangePaymentsCommand", typeof(ICommand), typeof(UnitListControl), new PropertyMetadata(default(ICommand)));
+            "ChangePaymentsCommand", typeof(ICommand), typeof(SalesUnitListControl), new PropertyMetadata(default(ICommand)));
 
         public ICommand ChangePaymentsCommand
         {
@@ -78,7 +78,7 @@ namespace HVTApp.Modules.Sales.Controls
 
 
         public static readonly DependencyProperty PriceErrorsProperty = DependencyProperty.Register(
-            "PriceErrors", typeof(string), typeof(UnitListControl), new PropertyMetadata(default(string)));
+            "PriceErrors", typeof(string), typeof(SalesUnitListControl), new PropertyMetadata(default(string)));
 
         public string PriceErrors
         {

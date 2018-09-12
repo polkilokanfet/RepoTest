@@ -10,7 +10,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Единица продаж")]
     [DesignationPlural("Единицы продаж")]
-    public partial class SalesUnit : BaseEntity, IUnitPoco
+    public partial class SalesUnit : BaseEntity, IUnitPoco, ICloneable
     {
         #region Model
 
@@ -39,7 +39,7 @@ namespace HVTApp.Model.POCOs
         public virtual Project Project { get; set; }
 
         [Designation("Требуемая дата поставки")]
-        public virtual DateTime DeliveryDateExpected { get; set; } = DateTime.Today.AddDays(CommonOptions.ProductionTerm + 30).SkipWeekend(); //требуемая дата поставки
+        public virtual DateTime DeliveryDateExpected { get; set; } = DateTime.Today.AddDays(CommonOptions.ProductionTerm + 120).SkipWeekend(); //требуемая дата поставки
 
         [Designation("Производитель")]
         public virtual Company Producer { get; set; }
@@ -499,6 +499,11 @@ namespace HVTApp.Model.POCOs
                 }
                 return result;
             }
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
 
         #endregion

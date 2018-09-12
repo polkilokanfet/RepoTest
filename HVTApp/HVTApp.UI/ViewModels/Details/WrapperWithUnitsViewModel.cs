@@ -23,15 +23,16 @@ using Prism.Regions;
 
 namespace HVTApp.UI.ViewModels
 {
-    public abstract class WrapperWithUnitsViewModel<TWrapper, TEntity, TUnit, TUnitWrapper, TAfterSaveEntityEvent> :
+    public abstract class WrapperWithUnitsViewModel<TUnitGroup, TWrapper, TEntity, TUnit, TUnitWrapper, TAfterSaveEntityEvent> :
         BaseDetailsViewModel<TWrapper, TEntity, TAfterSaveEntityEvent>
         where TEntity : class, IBaseEntity
         where TWrapper : class, IWrapper<TEntity>, IWrapperWithUnits<TUnitWrapper>
         where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
         where TUnit : class, IBaseEntity, IUnitPoco
         where TUnitWrapper : class, IUnit, IWrapper<TUnit>
+        where TUnitGroup : class, IUnitsGroup
     {
-        private IUnitsGroup _selectedGroup;
+        private TUnitGroup _selectedGroup;
         private ProductIncludedWrapper _selectedProductIncluded;
 
         protected WrapperWithUnitsViewModel(IUnityContainer container) : base(container)
@@ -41,7 +42,7 @@ namespace HVTApp.UI.ViewModels
         /// <summary>
         /// Выбранная группа.
         /// </summary>
-        public IUnitsGroup SelectedGroup
+        public TUnitGroup SelectedGroup
         {
             get { return _selectedGroup; }
             set
@@ -70,7 +71,7 @@ namespace HVTApp.UI.ViewModels
         /// <summary>
         /// Группы
         /// </summary>
-        public ObservableCollection<IUnitsGroup> Groups { get; } = new ObservableCollection<IUnitsGroup>();
+        public ObservableCollection<TUnitGroup> Groups { get; } = new ObservableCollection<TUnitGroup>();
 
         #region Commands
 
@@ -94,9 +95,9 @@ namespace HVTApp.UI.ViewModels
             AddCommand = new DelegateCommand(AddCommand_Execute);
             RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => SelectedGroup != null);
             RefreshCommand = new DelegateCommand(RefreshCommand_Execute);
-            ChangeFacilityCommand = new DelegateCommand<IUnitsGroup>(ChangeFacilityCommand_Execute);
-            ChangeProductCommand = new DelegateCommand<IUnitsGroup>(ChangeProductCommand_Execute);
-            ChangePaymentsCommand = new DelegateCommand<IUnitsGroup>(ChangePaymentsCommand_Execute);
+            ChangeFacilityCommand = new DelegateCommand<TUnitGroup>(ChangeFacilityCommand_Execute);
+            ChangeProductCommand = new DelegateCommand<TUnitGroup>(ChangeProductCommand_Execute);
+            ChangePaymentsCommand = new DelegateCommand<TUnitGroup>(ChangePaymentsCommand_Execute);
 
             AddProductIncludedCommand = new DelegateCommand(AddProductIncludedCommand_Execute, () => SelectedGroup != null);
             RemoveProductIncludedCommand = new DelegateCommand(RemoveProductIncludedCommand_Execute, () => SelectedProductIncluded != null);
@@ -142,7 +143,7 @@ namespace HVTApp.UI.ViewModels
             SelectedGroup = null;
         }
 
-        private async void ChangeProductCommand_Execute(IUnitsGroup group)
+        private async void ChangeProductCommand_Execute(TUnitGroup group)
         {
             var product = await Container.Resolve<IGetProductService>().GetProductAsync(group.Product?.Model);
             if (product == null || product.Id == group.Product.Id) return;
@@ -150,7 +151,7 @@ namespace HVTApp.UI.ViewModels
             await RefreshPrices();
         }
 
-        private async void ChangeFacilityCommand_Execute(IUnitsGroup group)
+        private async void ChangeFacilityCommand_Execute(TUnitGroup group)
         {
             var facilities = await WrapperDataService.GetRepository<Facility>().GetAllAsNoTrackingAsync();
             var facility = await Container.Resolve<ISelectService>().SelectItem(facilities, group.Facility?.Id);
@@ -158,7 +159,7 @@ namespace HVTApp.UI.ViewModels
             group.Facility = await WrapperDataService.GetWrapperRepository<Facility, FacilityWrapper>().GetByIdAsync(facility.Id);
         }
 
-        private async void ChangePaymentsCommand_Execute(IUnitsGroup group)
+        private async void ChangePaymentsCommand_Execute(TUnitGroup group)
         {
             var sets = await WrapperDataService.GetRepository<PaymentConditionSet>().GetAllAsNoTrackingAsync();
             var set = await Container.Resolve<ISelectService>().SelectItem(sets, group.PaymentConditionSet?.Id);
@@ -176,10 +177,15 @@ namespace HVTApp.UI.ViewModels
             await RefreshPrices();
         }
 
+        protected abstract IEnumerable<TUnitGroup> GetGroups();
+        //{
+        //    return Item.Units.ToProductUnitGroups();
+        //}
+
         private void RefreshGroups()
         {
             Groups.Clear();
-            Groups.AddRange(Item.Units.ToProductUnitGroups());
+            Groups.AddRange(GetGroups());
         }
 
         protected async Task RefreshPrices()
@@ -225,7 +231,7 @@ namespace HVTApp.UI.ViewModels
         /// <returns></returns>
         protected abstract DateTime GetDate();
 
-        private async Task RefreshPrice(IUnitsGroup group)
+        private async Task RefreshPrice(TUnitGroup group)
         {
             if (group == null) return;
 

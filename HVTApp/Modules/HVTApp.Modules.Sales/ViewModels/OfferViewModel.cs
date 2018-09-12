@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Converter;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
@@ -15,6 +15,11 @@ namespace HVTApp.Modules.Sales.ViewModels
     {
         public OfferViewModel(IUnityContainer container) : base(container)
         {
+        }
+
+        protected override IEnumerable<IUnitsGroup> GetGroups()
+        {
+            return Item.Units.ToProductUnitGroups();
         }
 
         protected override async void AddCommand_Execute()

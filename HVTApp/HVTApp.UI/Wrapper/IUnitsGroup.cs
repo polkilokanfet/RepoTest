@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -17,4 +18,10 @@ namespace HVTApp.UI.Wrapper
         double MarginalIncome { get; set; }
         int? ProductionTerm { get; set; }
     }
+
+    public interface IUnitsDatedGroup : IUnitsGroup
+    {
+        DateTime DeliveryDateExpected { get; set; }
+    }
+
 }

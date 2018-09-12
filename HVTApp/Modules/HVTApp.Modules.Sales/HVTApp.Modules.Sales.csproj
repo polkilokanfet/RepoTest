@@ -89,8 +89,11 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\UnitListControl.xaml.cs">
-      <DependentUpon>UnitListControl.xaml</DependentUpon>
+    <Compile Include="Controls\OfferUnitListControl.xaml.cs">
+      <DependentUpon>OfferUnitListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SalesUnitListControl.xaml.cs">
+      <DependentUpon>SalesUnitListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\SalesMenu.xaml.cs">
       <DependentUpon>SalesMenu.xaml</DependentUpon>
@@ -134,6 +137,8 @@
     <Compile Include="ViewModels\MarketViewModel.cs" />
     <Compile Include="ViewModels\OffersViewModel.cs" />
     <Compile Include="ViewModels\Market2ViewModel.cs" />
+    <Compile Include="ViewModels\ProjectViewModel.cs" />
+    <Compile Include="ViewModels\SalesUnitsViewModel.cs" />
     <Compile Include="ViewModels\OfferUnitsViewModel.cs" />
     <Compile Include="ViewModels\OfferViewModel.cs" />
     <Compile Include="ViewModels\PaymentsViewModel.cs" />
@@ -145,6 +150,9 @@
     </Compile>
     <Compile Include="Views\OfferRedactorView.xaml.cs">
       <DependentUpon>OfferRedactorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SalesUnitsWindow.xaml.cs">
+      <DependentUpon>SalesUnitsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OfferUnitsWindow.xaml.cs">
       <DependentUpon>OfferUnitsWindow.xaml</DependentUpon>
@@ -219,7 +227,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\UnitListControl.xaml">
+    <Page Include="Controls\OfferUnitListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\SalesUnitListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -260,6 +272,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OfferRedactorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SalesUnitsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

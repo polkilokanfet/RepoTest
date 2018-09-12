@@ -31,6 +31,7 @@ namespace HVTApp.Modules.Sales
             Container.RegisterViewForNavigation<ProjectView>();
 
             Container.Resolve<IDialogService>().Register<OfferUnitsViewModel, OfferUnitsWindow>();
+            Container.Resolve<IDialogService>().Register<SalesUnitsViewModel, SalesUnitsWindow>();
         }
 
         protected override void ResolveOutlookGroup()

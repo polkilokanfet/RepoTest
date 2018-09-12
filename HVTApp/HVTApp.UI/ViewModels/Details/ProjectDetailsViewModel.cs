@@ -1,44 +1,27 @@
 ﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using HVTApp.Infrastructure.Interfaces.Services;
-using HVTApp.Model;
+using System.Collections.Generic;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Converter;
 using HVTApp.UI.Wrapper;
-using Microsoft.Practices.Unity;
 
 namespace HVTApp.UI.ViewModels
 {
-    public partial class ProjectDetailsViewModel : WrapperWithUnitsViewModel<ProjectWrapper, Project, SalesUnit, SalesUnitWrapper, AfterSaveProjectEvent>
+    public partial class ProjectDetailsViewModel : WrapperWithUnitsViewModel<IUnitsDatedGroup, ProjectWrapper, Project, SalesUnit, SalesUnitWrapper, AfterSaveProjectEvent>
     {
-        protected override async void AddCommand_Execute()
+        protected override void AddCommand_Execute()
         {
-            var unit = await Container.Resolve<IUpdateDetailsService>().UpdateDetailsWithoutSaving(new SalesUnit { Project = Item.Model });
-            if (unit == null) return;
-
-            unit.Product = await WrapperDataService.GetRepository<Product>().GetByIdAsync(unit.Product.Id);
-            unit.Facility = await WrapperDataService.GetRepository<Facility>().GetByIdAsync(unit.Facility.Id);
-            unit.PaymentConditionSet = await WrapperDataService.GetRepository<PaymentConditionSet>().GetByIdAsync(unit.PaymentConditionSet.Id);
-
-            var wrapper = new SalesUnitWrapper(unit);
-            Groups.Add(new UnitsGroup(new[] { wrapper }));
-            Item.Units.Add(wrapper);
-            WrapperDataService.GetRepository<SalesUnit>().Add(unit);
+            throw new NotImplementedException();
         }
 
-        protected override async Task AfterLoading()
+        protected override IEnumerable<IUnitsDatedGroup> GetGroups()
         {
-            await base.AfterLoading();
-            if (Item.Manager == null) Item.Manager = await WrapperDataService.GetWrapperRepository<User, UserWrapper>().GetByIdAsync(CommonOptions.User.Id);
+            throw new NotImplementedException();
         }
 
         protected override DateTime GetDate()
         {
-            var oitDate = Item.Units.Min(x => x.OrderInTakeDate);
-            if (oitDate < DateTime.Today)
-                return oitDate;
-            return DateTime.Today;
+            throw new NotImplementedException();
         }
     }
 }

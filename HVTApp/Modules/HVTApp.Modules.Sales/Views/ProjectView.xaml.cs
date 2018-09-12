@@ -2,6 +2,7 @@
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Tabs;
+using HVTApp.Modules.Sales.ViewModels;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Events;
@@ -12,11 +13,11 @@ namespace HVTApp.Modules.Sales.Views
     [RibbonTab(typeof(TabSave)), RibbonTab(typeof(TabCrudUnits))]
     public partial class ProjectView
     {
-        private readonly ProjectDetailsViewModel _projectViewModel;
+        private readonly ProjectViewModel _projectViewModel;
         public ProjectView(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            _projectViewModel = container.Resolve<ProjectDetailsViewModel>();
+            _projectViewModel = container.Resolve<ProjectViewModel>();
             this.DataContext = _projectViewModel;
         }
 
