@@ -99,6 +99,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Срок доставки")]
         public int? ExpectedDeliveryPeriod { get; set; }
 
+        [Designation("Срок доставки расчетный"), NotMapped]
+        public int? ExpectedDeliveryPeriodCalculated { get; set; }
+
         [Designation("Адрес доставки")]
         public virtual Address Address { get; set; }
 
@@ -348,20 +351,9 @@ namespace HVTApp.Model.POCOs
                 //по ожидаемому сроку доставки
                 if (ExpectedDeliveryPeriod.HasValue) return ExpectedDeliveryPeriod.Value;
 
-                //по стандартному сроку доставки до адреса разгрузки
-                if (Address?.Locality.StandartDeliveryPeriod != null) return Address.Locality.StandartDeliveryPeriod.Value;
-
-                //по стандартному сроку доставки до адреса объекта
-                if (Facility.Address?.Locality.StandartDeliveryPeriod != null) return Facility.Address.Locality.StandartDeliveryPeriod.Value;
-
-                ////по стандартному сроку доставки до столицы региона
-                //if (Address.Locality.Region.Capital.StandartDeliveryPeriod.HasValue) return Address.Locality.Region.Capital.StandartDeliveryPeriod.Value;
-
-                ////по стандартному сроку доставки до столицы федерального округа
-                //if (Address.Locality.Region.District.Capital?.StandartDeliveryPeriod != null) return Address.Locality.Region.District.Capital.StandartDeliveryPeriod.Value;
-
-                ////по стандартному сроку доставки до столицы страны
-                //if (Address.Locality.Region.District.Country.Capital?.StandartDeliveryPeriod != null) return Address.Locality.Region.District.Country.Capital.StandartDeliveryPeriod.Value;
+                //по расчетному
+                if (ExpectedDeliveryPeriodCalculated.HasValue)
+                    return ExpectedDeliveryPeriodCalculated.Value;
 
                 return 7;
             }

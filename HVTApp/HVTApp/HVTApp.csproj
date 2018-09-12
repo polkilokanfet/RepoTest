@@ -246,6 +246,10 @@
       <Project>{903EF15D-0826-4E21-AC44-24A869938521}</Project>
       <Name>HVTApp.Services.SelectService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Services.ShippingService\HVTApp.Services.ShippingService.csproj">
+      <Project>{3473BFDE-DE19-492A-9647-710715C9ACC7}</Project>
+      <Name>HVTApp.Services.ShippingService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Services.UpdateDetailsService\HVTApp.Services.UpdateDetailsService.csproj">
       <Project>{AF8C5039-A97F-4C1A-B3A7-C325639D02CF}</Project>
       <Name>HVTApp.Services.UpdateDetailsService</Name>

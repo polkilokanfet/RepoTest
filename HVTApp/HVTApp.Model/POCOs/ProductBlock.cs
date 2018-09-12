@@ -30,6 +30,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Услуга")]
         public bool IsService { get; set; } = false;
 
+        [Designation("Вес")]
+        public double Weight { get; set; }
+
         [Designation("Дата последнего прайса"), NotMapped]
         public DateTime? LastPriceDate => Prices.Max(x => x.Date);
 

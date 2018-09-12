@@ -129,6 +129,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Services\IShippingService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">

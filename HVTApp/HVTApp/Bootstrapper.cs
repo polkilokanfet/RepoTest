@@ -15,6 +15,7 @@ using HVTApp.Infrastructure.Prism;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.Modules.BaseEntities;
 using HVTApp.Modules.Price;
 using HVTApp.Modules.Production;
@@ -28,6 +29,7 @@ using HVTApp.Services.OfferToDocService;
 using HVTApp.Services.PriceService;
 using HVTApp.Services.ProductDesignationService;
 using HVTApp.Services.SelectService;
+using HVTApp.Services.ShippingService;
 using HVTApp.Services.UpdateDetailsService;
 using HVTApp.UI;
 using HVTApp.UI.Lookup;
@@ -104,6 +106,7 @@ namespace HVTApp
             Container.RegisterType<IOfferToDoc, OfferToDoc>();
             Container.RegisterType<IProductDesignationService, ProductDesignator>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IPriceService, PriceService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IShippingService, ShippService>(new ContainerControlledLifetimeManager());
         }
 
         protected override IModuleCatalog CreateModuleCatalog()

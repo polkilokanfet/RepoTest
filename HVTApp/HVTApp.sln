@@ -63,6 +63,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.PriceServic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Modules.Price", "HVTApp.Modules.Price\HVTApp.Modules.Price.csproj", "{F3D1ADB0-2385-47F2-AF88-5C605E63EC79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.ShippingService", "HVTApp.Services.ShippingService\HVTApp.Services.ShippingService.csproj", "{3473BFDE-DE19-492A-9647-710715C9ACC7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -177,6 +179,10 @@ Global
 		{F3D1ADB0-2385-47F2-AF88-5C605E63EC79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3D1ADB0-2385-47F2-AF88-5C605E63EC79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3D1ADB0-2385-47F2-AF88-5C605E63EC79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3473BFDE-DE19-492A-9647-710715C9ACC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3473BFDE-DE19-492A-9647-710715C9ACC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3473BFDE-DE19-492A-9647-710715C9ACC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3473BFDE-DE19-492A-9647-710715C9ACC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -203,5 +209,6 @@ Global
 		{0C7AD837-18EE-435F-BD72-5FC8C03FF9A7} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
 		{A241858E-B7B3-42A1-A04F-FE39E55145E6} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
 		{F3D1ADB0-2385-47F2-AF88-5C605E63EC79} = {D89A3693-4C45-45D7-B52B-B3A58C52B3E2}
+		{3473BFDE-DE19-492A-9647-710715C9ACC7} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
 	EndGlobalSection
 EndGlobal

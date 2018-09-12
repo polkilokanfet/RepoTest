@@ -270,7 +270,7 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateLocalities()
         {
-            LocalityMoscow.Clone(new Locality {LocalityType = LocalityTypeCity, Name = "Москва", Region = RegionMoskovskayaOblast, IsCountryCapital = true, IsDistrictCapital = true, IsRegionCapital = true});
+            LocalityMoscow.Clone(new Locality {LocalityType = LocalityTypeCity, Name = "Москва", Region = RegionMoskovskayaOblast, IsCountryCapital = true, IsDistrictCapital = true, IsRegionCapital = true, DistanceToEkb = 2000});
             LocalityEkaterinburg.Clone(new Locality {LocalityType = LocalityTypeCity, Name = "Екатеринбург", Region = RegionSverdlovskayaOblast, IsDistrictCapital = true, IsRegionCapital = true});
         }
 

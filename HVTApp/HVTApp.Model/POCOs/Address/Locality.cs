@@ -18,6 +18,8 @@ namespace HVTApp.Model.POCOs
         public bool IsRegionCapital { get; set; } = false;
 
         public double? StandartDeliveryPeriod { get; set; }
+
+        [Designation("Расстояние до екатеринбурга")]
         public double? DistanceToEkb { get; set; }
 
         public override string ToString()
