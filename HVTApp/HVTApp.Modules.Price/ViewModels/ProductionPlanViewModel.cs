@@ -62,11 +62,6 @@ namespace HVTApp.Modules.Price.ViewModels
         {
             //откатываем недозаполненные
             _unitsToPlan.Where(x => !x.SignalToStartProduction.HasValue).ToList().ForEach(x => x.RejectChanges());
-            foreach (var unit in _unitsToPlan.Where(x => x.Order != null))
-            {
-                unit.Model.Order = _orders.Single(x => x.Id == unit.Order.Id);
-            }
-
             await UnitOfWork.SaveChangesAsync();
             await LoadedAsyncMethod();
         }

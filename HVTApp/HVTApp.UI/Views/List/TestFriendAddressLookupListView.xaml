@@ -39,9 +39,9 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="City" Label="City" Width="Auto" />
-                    <infg:TextField Name="Street" Label="Street" Width="Auto" />
                     <infg:TextField Name="StreetNumber" Label="StreetNumber" Width="Auto" />
+                    <infg:TextField Name="Street" Label="Street" Width="Auto" />
+                    <infg:TextField Name="City" Label="City" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

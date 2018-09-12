@@ -105,7 +105,7 @@ namespace HVTApp.UI
                                                          x.Name != nameof(ILookupItemNavigation<IBaseEntity>.Entity) &&
                                                          x.Name != nameof(ILookupItemNavigation<IBaseEntity>.DisplayMember) &&
                                                          x.Name != nameof(ILookupItemNavigation<IBaseEntity>.Id)).
-                                                         OrderBy(x => x, new PropOrderComparer());
+                                                         OrderByDescending(x => x, new PropOrderComparer());
         }
 
         public static IEnumerable<PropertyInfo> GetPropertiesForDetailView(this Type type)
@@ -259,10 +259,10 @@ namespace HVTApp.UI
 
         #endregion
 
-        public static OrderStatus OrderStatus(this PropertyInfo property)
+        public static int OrderStatus(this PropertyInfo property)
         {
             var attr = property.GetCustomAttribute<OrderStatusAttribute>();
-            return attr?.OrderStatus ?? Infrastructure.Attributes.OrderStatus.Normal;
+            return attr?.OrderStatus ?? 1;
         }
 
     }

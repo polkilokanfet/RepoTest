@@ -111,6 +111,7 @@
     </Compile>
     <Compile Include="Menus\SalesMenuViewModel.cs" />
     <Compile Include="PriceModule.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -124,18 +125,26 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Tabs\TabSave.xaml.cs">
+      <DependentUpon>TabSave.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\TabProductionPlan.xaml.cs">
       <DependentUpon>TabProductionPlan.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tabs\TabPriceTasks.xaml.cs">
       <DependentUpon>TabPriceTasks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\DatesGroup.cs" />
+    <Compile Include="ViewModels\DatesViewModel.cs" />
     <Compile Include="ViewModels\PricesViewModel.cs" />
     <Compile Include="ViewModels\PriceTask.cs" />
     <Compile Include="ViewModels\ProductionGroup.cs" />
     <Compile Include="ViewModels\ProductionPlanViewModel.cs" />
     <Compile Include="Views\PricesView.xaml.cs">
       <DependentUpon>PricesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DatesView.xaml.cs">
+      <DependentUpon>DatesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProductionPlanView.xaml.cs">
       <DependentUpon>ProductionPlanView.xaml</DependentUpon>
@@ -172,6 +181,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Tabs\TabSave.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Tabs\TabProductionPlan.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -183,6 +196,10 @@
     <Page Include="Views\PricesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DatesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ProductionPlanView.xaml">
       <Generator>MSBuild:Compile</Generator>

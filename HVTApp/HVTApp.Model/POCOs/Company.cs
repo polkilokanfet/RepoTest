@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 
@@ -11,7 +12,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Наименование")]
         public string FullName { get; set; }
 
-        [Designation("Сокращенное наименование"), OrderStatus(OrderStatus.Highest)]
+        [Designation("Сокращенное наименование"), OrderStatus(10)]
         public string ShortName { get; set; }
 
         [Designation("ИНН")]
@@ -20,7 +21,7 @@ namespace HVTApp.Model.POCOs
         [Designation("КПП")]
         public string Kpp { get; set; }
 
-        [OrderStatus(OrderStatus.High)]
+        [Required, OrderStatus(5)]
         public virtual CompanyForm Form { get; set; }
 
         [Designation("Родительская компания")]
@@ -34,7 +35,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Почтовый адрес")]
         public virtual Address AddressPost { get; set; }
 
-        [Designation("Банковские реквизиты"), OrderStatus(OrderStatus.Low)]
+        [Designation("Банковские реквизиты"), OrderStatus(-10)]
         public virtual List<BankDetails> BankDetailsList { get; set; } = new List<BankDetails>();
 
         [Designation("Сферы деятельности")]
