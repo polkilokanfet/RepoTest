@@ -13,7 +13,7 @@
                     <ControlTemplate TargetType="{x:Type dp:CellValuePresenter}">
                         <StackPanel Orientation="Horizontal">
                             <Button Content="..."
-                                    Command="{Binding ChangeFacilityCommand, ElementName=Root}"
+                                    Command="{Binding ChangeFacilityCommand}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Record.DataItem}" />
                             <TextBlock Text="{TemplateBinding Value}"
                                        VerticalAlignment="Center" />
@@ -30,7 +30,7 @@
                     <ControlTemplate TargetType="{x:Type dp:CellValuePresenter}">
                         <StackPanel Orientation="Horizontal">
                             <Button Content="..."
-                                    Command="{Binding ChangeProductCommand, ElementName=Root}"
+                                    Command="{Binding ChangeProductCommand}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Record.DataItem}" />
                             <TextBlock Text="{TemplateBinding Value}"
                                        VerticalAlignment="Center" />
@@ -47,7 +47,7 @@
                     <ControlTemplate TargetType="{x:Type dp:CellValuePresenter}">
                         <StackPanel Orientation="Horizontal">
                             <Button Content="..."
-                                    Command="{Binding ChangePaymentsCommand, ElementName=Root}"
+                                    Command="{Binding ChangePaymentsCommand}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Record.DataItem}" />
                             <TextBlock Text="{TemplateBinding Value}"
                                        VerticalAlignment="Center" />
@@ -77,8 +77,8 @@
             <GroupBox Grid.Column="0" Header="Оборудование">
                 
                 <dp:XamDataGrid x:Name="UnitListGrid"
-                                            DataSource="{Binding UnitsGroups, ElementName=Root, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            SelectedDataItem="{Binding SelectedUnitsGroup, ElementName=Root}">
+                                DataSource="{Binding Groups, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedDataItem="{Binding SelectedGroup, Mode=TwoWay}">
                        
                     <dp:XamDataGrid.FieldLayouts>
 
@@ -119,7 +119,7 @@
             <GroupBox Grid.Column="2" Header="Включено в стоимость" Name="ProductsIncludedGroupBox">
                 <dp:XamDataGrid x:Name="ProductsIncludedListGrid"
                                             DataSource="{Binding Path=SelectedDataItem.ProductsIncluded, ElementName=UnitListGrid, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                            SelectedDataItem="{Binding SelectedProductIncluded, ElementName=Root}">
+                                            SelectedDataItem="{Binding SelectedProductIncluded}">
 
                     <dp:XamDataGrid.FieldLayouts>
 
@@ -139,7 +139,7 @@
         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
         
         <GroupBox Grid.Row="2" Header="Ошибки при расчете себестоимости:">
-            <TextBlock Text="{Binding PriceErrors, ElementName=Root}"/>
+            <TextBlock Text="{Binding PriceErrors}"/>
         </GroupBox>
         
     </Grid>

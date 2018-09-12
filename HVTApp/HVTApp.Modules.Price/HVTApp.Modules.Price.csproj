@@ -132,6 +132,7 @@
     </Compile>
     <Compile Include="ViewModels\PricesViewModel.cs" />
     <Compile Include="ViewModels\PriceTask.cs" />
+    <Compile Include="ViewModels\ProductionGroup.cs" />
     <Compile Include="ViewModels\ProductionPlanViewModel.cs" />
     <Compile Include="Views\PricesView.xaml.cs">
       <DependentUpon>PricesView.xaml</DependentUpon>

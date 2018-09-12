@@ -9,7 +9,6 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -19,14 +18,30 @@ namespace HVTApp.Modules.Price.ViewModels
     {
         private List<SalesUnitWrapper> _unitsToPlan;
         private ProductionGroup _selectedGroupToPlan;
+        private Order _selectedOrder;
 
         public ObservableCollection<ProductionGroup> GroupsInPlan { get; } = new ObservableCollection<ProductionGroup>();
         public ObservableCollection<ProductionGroup> GroupsToPlan { get; } = new ObservableCollection<ProductionGroup>();
+        public ObservableCollection<Order> Orders { get; } = new ObservableCollection<Order>();
+
+        public Order SelectedOrder
+        {
+            get { return _selectedOrder; }
+            set
+            {
+                _selectedOrder = value;
+                ((DelegateCommand)SetInPlanCommand).RaiseCanExecuteChanged();
+            }
+        }
 
         public ProductionGroup SelectedGroupToPlan
         {
             get { return _selectedGroupToPlan; }
-            set { _selectedGroupToPlan = value; }
+            set
+            {
+                _selectedGroupToPlan = value;
+                ((DelegateCommand)SetInPlanCommand).RaiseCanExecuteChanged();
+            }
         }
 
         public ICommand SaveCommand { get; }
@@ -34,7 +49,10 @@ namespace HVTApp.Modules.Price.ViewModels
 
         public ProductionPlanViewModel(IUnityContainer container) : base(container)
         {
-            SaveCommand = new DelegateCommand(async () => await UnitOfWork.SaveChangesAsync(), (() => _unitsToPlan != null && _unitsToPlan.Any(x => x.IsChanged)));
+            Action save = async () => await UnitOfWork.SaveChangesAsync();
+            Func<bool> canSave = () => _unitsToPlan != null && _unitsToPlan.Any(x => x.IsChanged);
+            SaveCommand = new DelegateCommand(save, canSave);
+            
             SetInPlanCommand = new DelegateCommand(SetInPlanCommand_Execute, SetInPlanCommand_CanExecute);
         }
 
@@ -76,70 +94,15 @@ namespace HVTApp.Modules.Price.ViewModels
 
             GroupsToPlan.Clear();
             GroupsToPlan.AddRange(ProductionGroup.Grouping(_unitsToPlan));
+
+            var orders = await UnitOfWork.GetRepository<Order>().GetAllAsNoTrackingAsync();
+            Orders.Clear();
+            Orders.AddRange(orders.OrderBy(x => x.OpenOrderDate));
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
-        }
-    }
-
-    public class ProductionGroup
-    {
-        private readonly List<SalesUnitWrapper> _units;
-        private DateTime? _date;
-
-        public SalesUnitWrapper Unit => _units.First();
-        public int Amount => _units.Count;
-
-        public DateTime? Date
-        {
-            get { return _date; }
-            set
-            {
-                if (_date == value) return;
-                _date = value;
-                if (Groups.Any())
-                {
-                    Groups.ForEach(x => x.Date = value);
-                }
-                else
-                {
-                    _units.ForEach(x => x.EndProductionPlanDate = value);
-                }
-            }
-        }
-
-        public ObservableCollection<ProductionGroup> Groups { get; } = new ObservableCollection<ProductionGroup>();
-
-        public ProductionGroup(IEnumerable<SalesUnitWrapper> units)
-        {
-            _units = units.ToList();
-        }
-
-        public static IEnumerable<ProductionGroup> Grouping(IEnumerable<SalesUnitWrapper> units)
-        {
-            var groups = units.GroupBy(x => new
-            {
-                Facility = x.Facility.Id,
-                Product = x.Product.Id,
-                Order = x.Order?.Id,
-                Project = x.Project.Id,
-                Specification = x.Specification?.Id,
-                x.EndProductionPlanDate
-            }).OrderBy(x => x.Key.EndProductionPlanDate);
-
-            return groups.Select(x => new ProductionGroup(x));
-        }
-
-        public void SetSignalToStartProductionDone()
-        {
-            if (Groups.Any())
-            {
-                Groups.ForEach(x => x.SetSignalToStartProductionDone());
-                return;
-            }
-            _units.ForEach(x => x.SignalToStartProductionDone = DateTime.Today);
         }
     }
 }
