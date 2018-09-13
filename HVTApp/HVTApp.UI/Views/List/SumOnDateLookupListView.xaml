@@ -39,8 +39,8 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:DateTimeField Name="Date" Label="Date" Width="Auto" />
                     <infg:NumericField Name="Sum" Label="Sum" Width="Auto" />
+                    <infg:DateTimeField Name="Date" Label="Date" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

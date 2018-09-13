@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using HVTApp.Infrastructure;
@@ -18,16 +19,16 @@ namespace HVTApp.Model.POCOs
         public double Cost { get; set; }
 
 
-        [Designation("Продукт"), OrderStatus(OrderStatus.High)]
+        [Designation("Продукт"), OrderStatus(50)]
         public virtual Product Product { get; set; }
 
         [Designation("Включенные продукты")]
         public virtual List<ProductIncluded> ProductsIncluded { get; set; } = new List<ProductIncluded>();
 
-        [Designation("Объект"), OrderStatus(OrderStatus.Highest)]
+        [Designation("Объект"), OrderStatus(51), Required]
         public virtual Facility Facility { get; set; }
 
-        [Designation("Условия оплаты")]
+        [Designation("Условия оплаты"), Required]
         public virtual PaymentConditionSet PaymentConditionSet { get; set; }
 
         [Designation("Срок производства")]
@@ -35,10 +36,10 @@ namespace HVTApp.Model.POCOs
 
 
         #region Проект
-        [Designation("Проект")]
+        [Designation("Проект"), OrderStatus(52), Required]
         public virtual Project Project { get; set; }
 
-        [Designation("Требуемая дата поставки")]
+        [Designation("Требуемая дата поставки"), Required]
         public virtual DateTime DeliveryDateExpected { get; set; } = DateTime.Today.AddDays(CommonOptions.ProductionTerm + 120).SkipWeekend(); //требуемая дата поставки
 
         [Designation("Производитель")]
@@ -99,6 +100,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Срок доставки")]
         public int? ExpectedDeliveryPeriod { get; set; }
 
+        //берется из сервиса (по местонахождению объекта)
         [Designation("Срок доставки расчетный"), NotMapped]
         public int? ExpectedDeliveryPeriodCalculated { get; set; }
 
@@ -115,6 +117,12 @@ namespace HVTApp.Model.POCOs
         public virtual DateTime? DeliveryDate { get; set; }
 
         #endregion
+
+        [NotMapped, Designation("Разрешение на редактирование стоимости")]
+        public bool AllowEditCost => Specification == null;
+
+        [NotMapped, Designation("Разрешение на редактирование техники")]
+        public bool AllowEditProduct => SignalToStartProduction == null;
 
         [NotMapped, Designation("Проиграно")]
         public bool IsLoosen => Producer != null && Producer.Id != CommonOptions.OurCompanyId;
@@ -352,7 +360,7 @@ namespace HVTApp.Model.POCOs
                 if (ExpectedDeliveryPeriodCalculated.HasValue)
                     return ExpectedDeliveryPeriodCalculated.Value;
 
-                return 7;
+                return 3;
             }
         }
 

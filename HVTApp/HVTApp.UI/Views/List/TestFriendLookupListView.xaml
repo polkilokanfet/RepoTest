@@ -39,15 +39,15 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:DateTimeField Name="Birthday" Label="Birthday" Width="Auto" />
-                    <infg:TextField Name="FirstName" Label="FirstName" Width="Auto" />
-                    <infg:NumericField Name="FriendGroupId" Label="FriendGroupId" Width="Auto" />
-                    <infg:NumericField Name="IdGet" Label="IdGet" Width="Auto" />
-                    <infg:CheckBoxField Name="IsDeveloper" Label="IsDeveloper" Width="Auto" />
-                    <infg:TextField Name="LastName" Label="LastName" Width="Auto" />
-                    <infg:TextField Name="TestFriendAddress" Label="TestFriendAddress" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="TestFriendEmailGet" Label="TestFriendEmailGet" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="TestFriendGroup" Label="TestFriendGroup" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="TestFriendEmailGet" Label="TestFriendEmailGet" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="TestFriendAddress" Label="TestFriendAddress" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="LastName" Label="LastName" Width="Auto" />
+                    <infg:CheckBoxField Name="IsDeveloper" Label="IsDeveloper" Width="Auto" />
+                    <infg:NumericField Name="IdGet" Label="IdGet" Width="Auto" />
+                    <infg:NumericField Name="FriendGroupId" Label="FriendGroupId" Width="Auto" />
+                    <infg:TextField Name="FirstName" Label="FirstName" Width="Auto" />
+                    <infg:DateTimeField Name="Birthday" Label="Birthday" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

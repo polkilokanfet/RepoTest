@@ -136,7 +136,7 @@
             
         </Grid>
         
-        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
+        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="3"/>
         
         <GroupBox Grid.Row="2" Header="Ошибки при расчете себестоимости:">
             <TextBlock Text="{Binding PriceErrors}"/>

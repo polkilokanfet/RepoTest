@@ -8,7 +8,11 @@
     <infRib:RibbonGroup Caption="Действия">
         <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}"/>
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}"/>
-        <infRib:ButtonTool Caption="Разместить" Command="{Binding SetToPlanCommand}"/>
+        <infRib:ButtonTool Caption="Разместить" Command="{Binding SetInPlanCommand}"/>
+    </infRib:RibbonGroup>
+    <infRib:RibbonGroup Caption="Заказы">
+        <infRib:ButtonTool Caption="Создать" Command="{Binding NewOrderCommand}"/>
+        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditOrderCommand}"/>
     </infRib:RibbonGroup>
         
 </inf:RibbonTabItemWithViewModel>

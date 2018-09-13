@@ -5,7 +5,7 @@ namespace HVTApp.DataAccess
         public OrderConfiguration()
         {
             Property(x => x.Number).IsRequired().HasMaxLength(10);
-            Property(x => x.OpenOrderDate).IsRequired();
+            Property(x => x.DateOpen).IsRequired();
         }
     }
 }

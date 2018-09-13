@@ -5,7 +5,7 @@
                     xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
                     xmlns:infPrism="clr-namespace:HVTApp.Infrastructure.Prism;assembly=HVTApp.Infrastructure"
                     x:Class="HVTApp.Modules.Price.Menus.SalesMenu"
-                    Header="Прайсы">
+                    Header="План и учет">
 
     <igs:XamDataTree Name="_xamDataTree"
                      ItemsSource="{Binding Items}"

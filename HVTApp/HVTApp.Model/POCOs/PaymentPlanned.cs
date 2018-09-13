@@ -16,17 +16,10 @@ namespace HVTApp.Model.POCOs
         [Designation("Часть")]
         public double Part { get; set; } = 1;
 
-        [Designation("Комментарий"), OrderStatus(OrderStatus.Lowest)]
+        [Designation("Комментарий"), OrderStatus(-10)]
         public string Comment { get; set; }
 
-        [Designation("Связанное условие"), OrderStatus(OrderStatus.Low)]
+        [Designation("Связанное условие"), OrderStatus(-5)]
         public virtual PaymentCondition Condition { get; set; }
-
-        //[Designation("Связанная точка условия"), OrderStatus(OrderStatus.Low)]
-        //public PaymentConditionPoint ConditionPoint { get; set; }
-        //[Designation("Дней до точки"), OrderStatus(OrderStatus.Low)]
-        //public int DaysToPoint { get; set; }
-        //[Designation("Часть по условию"), OrderStatus(OrderStatus.Low)]
-        //public double ConditionPart { get; set; }
     }
 }

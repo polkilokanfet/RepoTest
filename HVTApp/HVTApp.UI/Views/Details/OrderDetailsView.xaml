@@ -17,15 +17,18 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Number" Visibility="{Binding VisibilityNumberOrder, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="DateOpen" Visibility="{Binding VisibilityDateOpenOrder, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="0" 
+                    SelectedDate="{Binding Item.DateOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityDateOpenOrder, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Number" Visibility="{Binding VisibilityNumberOrder, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNumberOrder, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="OpenOrderDate" Visibility="{Binding VisibilityOpenOrderDateOrder, ElementName=Root}"/>
-        <DatePicker Grid.Column="1" Grid.Row="1" 
-                    SelectedDate="{Binding Item.OpenOrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding VisibilityOpenOrderDateOrder, ElementName=Root}"/>
 
 
     </Grid>

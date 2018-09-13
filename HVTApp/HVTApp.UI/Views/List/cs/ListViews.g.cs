@@ -2014,10 +2014,10 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility OpenOrderDateVisibility
+        public System.Windows.Visibility DateOpenVisibility
         {
-            get { return OrderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OrderLookup.OpenOrderDate)].Visibility; }
-            set { OrderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OrderLookup.OpenOrderDate)].Visibility = value; }
+            get { return OrderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OrderLookup.DateOpen)].Visibility; }
+            set { OrderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OrderLookup.DateOpen)].Visibility = value; }
         }
 
 
@@ -3627,6 +3627,20 @@ namespace HVTApp.UI.Views
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.DeliveryDate)].Visibility; }
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.DeliveryDate)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility AllowEditCostVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.AllowEditCost)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.AllowEditCost)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility AllowEditProductVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.AllowEditProduct)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.AllowEditProduct)].Visibility = value; }
         }
 
 
