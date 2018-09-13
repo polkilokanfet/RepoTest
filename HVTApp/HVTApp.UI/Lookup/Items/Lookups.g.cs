@@ -1416,6 +1416,10 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
+        public System.Boolean IsPaid => GetValue<System.Boolean>();
+
+
+		[OrderStatus(1)]
         public System.Double SumPaid => GetValue<System.Double>();
 
 
@@ -2118,12 +2122,12 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(10)]
         public System.String Number => GetValue<System.String>();
 
 
-		[OrderStatus(1)]
-        public System.DateTime Date => GetValue<System.DateTime>();
+		[OrderStatus(20)]
+        public System.Nullable<System.DateTime> Date => GetValue<System.Nullable<System.DateTime>>();
 
 
         #endregion
@@ -2256,15 +2260,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(10)]
         public System.String Number => GetValue<System.String>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(9)]
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(7)]
         public System.Double Vat => GetValue<System.Double>();
 
 
@@ -2273,7 +2277,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(8)]
 	    public ContractLookup Contract { get { return GetLookup<ContractLookup>(); } }
 
 

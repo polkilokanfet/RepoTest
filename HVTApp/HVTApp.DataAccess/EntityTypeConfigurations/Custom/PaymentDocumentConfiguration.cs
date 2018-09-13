@@ -4,8 +4,7 @@ namespace HVTApp.DataAccess
     {
         public PaymentDocumentConfiguration()
         {
-            Property(x => x.Number).IsOptional().HasMaxLength(25);
-            Property(x => x.Date).IsRequired();
+            Property(x => x.Number).IsOptional();
         }
     }
 }

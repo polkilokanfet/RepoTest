@@ -30,10 +30,10 @@ namespace HVTApp.Services.GetProductService
 
         public async Task LoadAsync()
         {
-            var parameters = await _unitOfWork.GetRepository<Parameter>().GetAllAsync();
-            var products = await _unitOfWork.GetRepository<Product>().GetAllAsync();
-            var productRelations = await _unitOfWork.GetRepository<ProductRelation>().GetAllAsync();
-            var productBlocks = await _unitOfWork.GetRepository<ProductBlock>().GetAllAsync();
+            var parameters = await _unitOfWork.Repository<Parameter>().GetAllAsync();
+            var products = await _unitOfWork.Repository<Product>().GetAllAsync();
+            var productRelations = await _unitOfWork.Repository<ProductRelation>().GetAllAsync();
+            var productBlocks = await _unitOfWork.Repository<ProductBlock>().GetAllAsync();
 
             _bank = new Bank(products, productBlocks, parameters, productRelations);
         }
@@ -62,7 +62,7 @@ namespace HVTApp.Services.GetProductService
             //если выбранного продукта нет в базе
             if (!_bank.Products.Contains(result))
             {
-                _unitOfWork.GetRepository<Product>().Add(result);
+                _unitOfWork.Repository<Product>().Add(result);
                 await _unitOfWork.SaveChangesAsync();
                 _eventAggregator.GetEvent<AfterSaveProductEvent>().Publish(result);
             }
@@ -103,7 +103,7 @@ namespace HVTApp.Services.GetProductService
             product.ProductBlock.StructureCostNumber = tsk.StructureCostNumber;
             product.ProductBlock.DesignationSpecial = tsk.Designation;
 
-            tsk = await _unitOfWork.GetRepository<CreateNewProductTask>().GetByIdAsync(tsk.Id);
+            tsk = await _unitOfWork.Repository<CreateNewProductTask>().GetByIdAsync(tsk.Id);
             tsk.Product = product;
 
             await _unitOfWork.SaveChangesAsync();

@@ -25,7 +25,7 @@ namespace HVTApp.UI.Lookup
 
         public async Task<TLookup> GetLookupById(Guid id)
         {
-            var entity = await UnitOfWork.GetRepository<TEntity>().GetByIdAsync(id);
+            var entity = await UnitOfWork.Repository<TEntity>().GetByIdAsync(id);
             var lookup = await GetLookup(entity);
             lookup.DisplayMember = GenerateDisplayMember(entity);
             return lookup;
@@ -33,7 +33,7 @@ namespace HVTApp.UI.Lookup
 
         public virtual async Task<IEnumerable<TLookup>> GetAllLookupsAsync()
         {
-            var entities = await UnitOfWork.GetRepository<TEntity>().GetAllAsNoTrackingAsync();
+            var entities = await UnitOfWork.Repository<TEntity>().GetAllAsNoTrackingAsync();
             var lookups = new List<TLookup>();
             foreach (var entity in entities)
             {
@@ -51,7 +51,7 @@ namespace HVTApp.UI.Lookup
 
         public void Delete(TLookup lookup)
         {
-             UnitOfWork.GetRepository<TEntity>().Delete(lookup.Entity);
+             UnitOfWork.Repository<TEntity>().Delete(lookup.Entity);
         }
 
         public async Task<int> SaveChangesAsync()
@@ -66,7 +66,7 @@ namespace HVTApp.UI.Lookup
 
         public void Reload(TLookup lookup)
         {
-            UnitOfWork.GetRepository<TEntity>().Reload(lookup.Entity);
+            UnitOfWork.Repository<TEntity>().Reload(lookup.Entity);
             lookup.Refresh(lookup.Entity);
         }
     }

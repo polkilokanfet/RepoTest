@@ -95,7 +95,7 @@ namespace HVTApp.UI.ViewModels
 		foreach(var propInfo in modelType.AllComplexProperties())
         {
 #>			
-			if (_getEntitiesForSelect<#=propInfo.Name#>Command == null) _getEntitiesForSelect<#=propInfo.Name#>Command = async () => { return await WrapperDataService.GetRepository<<#=propInfo.PropertyType.Name#>>().GetAllAsync(); };
+			if (_getEntitiesForSelect<#=propInfo.Name#>Command == null) _getEntitiesForSelect<#=propInfo.Name#>Command = async () => { return await WrapperDataService.Repository<<#=propInfo.PropertyType.Name#>>().GetAllAsync(); };
 			if (Select<#=propInfo.Name#>Command == null) Select<#=propInfo.Name#>Command = new DelegateCommand(Select<#=propInfo.Name#>Command_Execute_Default);
 			if (Clear<#=propInfo.Name#>Command == null) Clear<#=propInfo.Name#>Command = new DelegateCommand(Clear<#=propInfo.Name#>Command_Execute_Default);
 
@@ -107,7 +107,7 @@ namespace HVTApp.UI.ViewModels
 			var propertyName = propInfo.Name;
 
 #>			
-			if (_getEntitiesForAddIn<#=propertyName#>Command == null) _getEntitiesForAddIn<#=propertyName#>Command = async () => { return await WrapperDataService.GetRepository<<#=itemType#>>().GetAllAsync(); };;
+			if (_getEntitiesForAddIn<#=propertyName#>Command == null) _getEntitiesForAddIn<#=propertyName#>Command = async () => { return await WrapperDataService.Repository<<#=itemType#>>().GetAllAsync(); };;
 			if (AddIn<#=propertyName#>Command == null) AddIn<#=propertyName#>Command = new DelegateCommand(AddIn<#=propertyName#>Command_Execute_Default);
 			if (RemoveFrom<#=propertyName#>Command == null) RemoveFrom<#=propertyName#>Command = new DelegateCommand(RemoveFrom<#=propertyName#>Command_Execute_Default, RemoveFrom<#=propertyName#>Command_CanExecute_Default);
 

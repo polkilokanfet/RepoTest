@@ -22,7 +22,7 @@ namespace HVTApp.Services.WpfAuthenticationService
 
         public async Task<bool> AuthenticationAsync()
         {
-            var users = await _unitOfWork.GetRepository<User>().GetAllAsync();
+            var users = await _unitOfWork.Repository<User>().GetAllAsync();
             var authenticationWindowModel = new AuthenticationWindowModel(users);
             bool? result = _dialogService.ShowDialog(authenticationWindowModel);
             if (result.HasValue && result.Value)

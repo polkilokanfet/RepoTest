@@ -13,7 +13,7 @@ namespace HVTApp.Services.ShippingService
 
         public ShippService(IUnitOfWork unitOfWork)
         {
-            _localities = unitOfWork.GetRepository<Locality>().Find(x => true);
+            _localities = unitOfWork.Repository<Locality>().Find(x => true);
         }
 
         public void SetShippingTerm(SalesUnit salesUnit)

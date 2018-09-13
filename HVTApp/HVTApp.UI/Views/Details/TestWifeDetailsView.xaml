@@ -18,7 +18,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Husband" Visibility="{Binding VisibilityHusbandTestWife, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.Husband}" 
@@ -26,19 +25,16 @@
                                     RemoveItemCommand="{Binding ClearHusbandCommand}"
 									Visibility="{Binding VisibilityHusbandTestWife, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="1" Content="N" Visibility="{Binding VisibilityNTestWifeTestWife, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
 							   ValueType="core:Int32"
                                Value="{Binding Item.N, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityNTestWifeTestWife, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="Name" Visibility="{Binding VisibilityNameTestWife, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameTestWife, ElementName=Root}"/>
-
 
 
     </Grid>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 
@@ -7,20 +8,21 @@ namespace HVTApp.Model.POCOs
     [Designation("Спецификация")]
     public partial class Specification : BaseEntity
     {
-        [Designation("№")]
+        [Designation("№"), Required, MaxLength(10), OrderStatus(10)]
         public string Number { get; set; }
 
-        [Designation("Дата")]
+        [Designation("Дата"), Required, OrderStatus(9)]
         public DateTime Date { get; set; }
 
-        [Designation("НДС")]
-        public double Vat { get; set; } //НДС
+        [Designation("НДС"), Required, OrderStatus(7)]
+        public double Vat { get; set; }
 
+        [Designation("Договор"), Required, OrderStatus(8)]
         public virtual Contract Contract { get; set; }
 
         public override string ToString()
         {
-            return $"Спецификация №{Number} от {Date.ToShortDateString()} к договору №{Contract.Number} от {Contract.Date.ToShortDateString()}";
+            return Number;
         }
     }
 }

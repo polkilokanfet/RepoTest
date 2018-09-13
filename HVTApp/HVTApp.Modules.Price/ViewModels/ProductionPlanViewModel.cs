@@ -76,7 +76,7 @@ namespace HVTApp.Modules.Price.ViewModels
             //фиксируем дату действия и заказ
             SelectedGroupToPlan.SetSignalToStartProductionDone();
             //подменяем заказ
-            SelectedGroupToPlan.Order = new OrderWrapper(await UnitOfWork.GetRepository<Order>().GetByIdAsync(SelectedOrder.Id));
+            SelectedGroupToPlan.Order = new OrderWrapper(await UnitOfWork.Repository<Order>().GetByIdAsync(SelectedOrder.Id));
 
             //переносим заказ в план производства
             GroupsInPlan.Add(SelectedGroupToPlan);
@@ -98,8 +98,8 @@ namespace HVTApp.Modules.Price.ViewModels
             _unitsToPlan?.ForEach(x => x.PropertyChanged -= OnPropertyChanged);
 
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            var units = await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync();
-            _orders = await UnitOfWork.GetRepository<Order>().GetAllAsync();
+            var units = await UnitOfWork.Repository<SalesUnit>().GetAllAsync();
+            _orders = await UnitOfWork.Repository<Order>().GetAllAsync();
 
             var unitsInPlan = units.Where(x => x.SignalToStartProductionDone != null).ToList();
             _unitsToPlan = units.Except(unitsInPlan).Where(x => x.SignalToStartProduction != null).Select(x => new SalesUnitWrapper(x)).ToList();

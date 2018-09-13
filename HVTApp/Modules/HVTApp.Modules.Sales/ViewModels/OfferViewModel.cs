@@ -73,7 +73,6 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// <returns></returns>
         public async Task LoadAsync(Offer offer, IEnumerable<OfferUnit> offerUnits)
         {
-            WrapperDataService?.Dispose();
             WrapperDataService = Container.Resolve<IWrapperDataService>();
 
             var products = (await WrapperDataService.GetWrapperRepository<Product, ProductWrapper>().GetAllAsync()).ToList();

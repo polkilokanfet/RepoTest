@@ -38,7 +38,7 @@ namespace HVTApp.Modules.Price.ViewModels
         public async Task LoadAsync()
         {
             _unitOfWork = Container.Resolve<IUnitOfWork>();
-            var units = await _unitOfWork.GetRepository<SalesUnit>().GetAllAsync();
+            var units = await _unitOfWork.Repository<SalesUnit>().GetAllAsync();
             units = units.Where(x => !x.DeliveryDate.HasValue || 
                                      !x.EndProductionDate.HasValue ||
                                      !x.PickingDate.HasValue ||

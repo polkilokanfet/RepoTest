@@ -31,6 +31,9 @@ namespace HVTApp.Modules.Sales.ViewModels
         public ICommand NewProjectCommand { get; }
         public ICommand EditProjectCommand { get; }
 
+        public ICommand NewSpecificationCommand { get; }
+
+
         public ICommand NewOfferByProjectCommand { get; }
         public ICommand NewOfferByOfferCommand { get; }
         public ICommand EditOfferCommand { get; }
@@ -61,6 +64,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             //привязываем команды к соответствующим моделям
             NewProjectCommand = new DelegateCommand(NewProjectCommand_Execute);
             EditProjectCommand = new DelegateCommand(EditProjectCommand_Execute, () => SelectedItem != null);
+
+            NewSpecificationCommand = new DelegateCommand(NewSpecificationCommand_Execute);
 
             EditOfferCommand = new DelegateCommand(EditOfferCommand_Execute, () => OfferListViewModel?.SelectedItem != null);
             RemoveOfferCommand = OfferListViewModel.RemoveItemCommand;
@@ -97,6 +102,14 @@ namespace HVTApp.Modules.Sales.ViewModels
                 ((DelegateCommand)EditOfferCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)NewOfferByOfferCommand).RaiseCanExecuteChanged();
             };
+        }
+
+        private void NewSpecificationCommand_Execute()
+        {
+            var specification = new Specification { Date = DateTime.Today };
+            var units = SelectedLookup.SalesUnits.Select(x => x.Entity);
+            var prms = new NavigationParameters { { "specification", specification }, { "units", units } };
+            RegionManager.RequestNavigateContentRegion<SpecificationView>(prms);
         }
 
         private void EditProjectCommand_Execute()

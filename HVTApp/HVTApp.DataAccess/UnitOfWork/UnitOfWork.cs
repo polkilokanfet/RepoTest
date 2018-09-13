@@ -10,7 +10,7 @@ namespace HVTApp.DataAccess
 {
     public partial class UnitOfWork : IUnitOfWork
     {
-        public IRepository<T> GetRepository<T>() where T : class, IBaseEntity
+        public IRepository<T> Repository<T>() where T : class, IBaseEntity
         {
             var repositoryFieldInfo = this.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
                                                     .Single(x => typeof(IRepository<T>).IsAssignableFrom(x.FieldType));

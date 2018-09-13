@@ -143,6 +143,8 @@ namespace HVTApp.Model.POCOs
         //public IEnumerable<IPayment> Payments => PaymentsActual.Cast<IPayment>().Union(PaymentsPlannedByConditions);
 
         #region Суммы
+        [Designation("Оплачено?"), NotMapped]
+        public bool IsPaid => Math.Abs(SumNotPaid) < 0.0000001;
 
         /// <summary>
         /// Оплаченная сумма

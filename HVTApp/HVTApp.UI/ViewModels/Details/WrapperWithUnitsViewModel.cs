@@ -108,7 +108,7 @@ namespace HVTApp.UI.ViewModels
             var productIncluded = new ProductIncluded();
             productIncluded = await Container.Resolve<IUpdateDetailsService>().UpdateDetailsWithoutSaving(productIncluded);
             if (productIncluded == null) return;
-            productIncluded.Product = await WrapperDataService.GetRepository<Product>().GetByIdAsync(productIncluded.Product.Id);
+            productIncluded.Product = await WrapperDataService.Repository<Product>().GetByIdAsync(productIncluded.Product.Id);
             SelectedGroup.ProductsIncluded.Add(new ProductIncludedWrapper(productIncluded));
             await RefreshPrices();
         }
@@ -153,7 +153,7 @@ namespace HVTApp.UI.ViewModels
 
         private async void ChangeFacilityCommand_Execute(TUnitGroup group)
         {
-            var facilities = await WrapperDataService.GetRepository<Facility>().GetAllAsNoTrackingAsync();
+            var facilities = await WrapperDataService.Repository<Facility>().GetAllAsNoTrackingAsync();
             var facility = await Container.Resolve<ISelectService>().SelectItem(facilities, group.Facility?.Id);
             if (facility == null) return;
             group.Facility = await WrapperDataService.GetWrapperRepository<Facility, FacilityWrapper>().GetByIdAsync(facility.Id);
@@ -161,7 +161,7 @@ namespace HVTApp.UI.ViewModels
 
         private async void ChangePaymentsCommand_Execute(TUnitGroup group)
         {
-            var sets = await WrapperDataService.GetRepository<PaymentConditionSet>().GetAllAsNoTrackingAsync();
+            var sets = await WrapperDataService.Repository<PaymentConditionSet>().GetAllAsNoTrackingAsync();
             var set = await Container.Resolve<ISelectService>().SelectItem(sets, group.PaymentConditionSet?.Id);
             if (set == null) return;
             group.PaymentConditionSet = await WrapperDataService.GetWrapperRepository<PaymentConditionSet, PaymentConditionSetWrapper>().GetByIdAsync(set.Id);
@@ -248,12 +248,12 @@ namespace HVTApp.UI.ViewModels
         protected override async void SaveCommand_Execute()
         {
             //добавл€ем сущность, если ее не существовало
-            if (await WrapperDataService.GetRepository<TEntity>().GetByIdAsync(Item.Model.Id) == null)
+            if (await WrapperDataService.Repository<TEntity>().GetByIdAsync(Item.Model.Id) == null)
                 WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().Add(Item);
 
             //добавл€ем созданные юниты и удал€ем удаленные
-            WrapperDataService.GetRepository<TUnit>().AddRange(Item.Units.AddedItems.Select(x => x.Model));
-            WrapperDataService.GetRepository<TUnit>().DeleteRange(Item.Units.RemovedItems.Select(x => x.Model));
+            WrapperDataService.Repository<TUnit>().AddRange(Item.Units.AddedItems.Select(x => x.Model));
+            WrapperDataService.Repository<TUnit>().DeleteRange(Item.Units.RemovedItems.Select(x => x.Model));
 
             Item.AcceptChanges();
             await WrapperDataService.SaveChangesAsync();

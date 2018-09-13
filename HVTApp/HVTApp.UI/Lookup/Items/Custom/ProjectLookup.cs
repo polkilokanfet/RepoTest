@@ -12,15 +12,15 @@ namespace HVTApp.UI.Lookup
     {
         public override async Task LoadOther(IUnitOfWork unitOfWork)
         {
-            SalesUnits = unitOfWork.GetRepository<SalesUnit>().Find(x => Equals(this.Entity, x.Project)).Select(x => new SalesUnitLookup(x)).ToList();
+            SalesUnits = unitOfWork.Repository<SalesUnit>().Find(x => Equals(this.Entity, x.Project)).Select(x => new SalesUnitLookup(x)).ToList();
             foreach (var salesUnitLookup in SalesUnits)
                 await salesUnitLookup.LoadOther(unitOfWork);
 
-            Tenders = unitOfWork.GetRepository<Tender>().Find(x => Equals(this.Entity, x.Project)).Select(x => new TenderLookup(x)).ToList();
+            Tenders = unitOfWork.Repository<Tender>().Find(x => Equals(this.Entity, x.Project)).Select(x => new TenderLookup(x)).ToList();
             foreach (var tenderLookup in Tenders)
                 await tenderLookup.LoadOther(unitOfWork);
 
-            Offers = unitOfWork.GetRepository<Offer>().Find(x => Equals(this.Entity, x.Project)).Select(x => new OfferLookup(x)).ToList();
+            Offers = unitOfWork.Repository<Offer>().Find(x => Equals(this.Entity, x.Project)).Select(x => new OfferLookup(x)).ToList();
             foreach (var offerLookup in Offers)
                 await offerLookup.LoadOther(unitOfWork);
             

@@ -53,7 +53,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             //загружаем все юниты
-            var salesUnitWrappers = (await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync()).Select(x => new SalesUnitWrapper(x));
+            var salesUnitWrappers = (await UnitOfWork.Repository<SalesUnit>().GetAllAsync()).Select(x => new SalesUnitWrapper(x));
             
             //фиксируем их в коллекции для отслеживания изменений
             _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(salesUnitWrappers);
@@ -81,7 +81,7 @@ namespace HVTApp.Modules.Sales.ViewModels
                 if (paymentActual == null)
                 {
                     remove.Add(paymentWrapper);
-                    UnitOfWork.GetRepository<PaymentPlanned>().Delete(paymentWrapper.Model);
+                    UnitOfWork.Repository<PaymentPlanned>().Delete(paymentWrapper.Model);
                     continue;
                 }
 

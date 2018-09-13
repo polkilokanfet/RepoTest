@@ -51,7 +51,7 @@ namespace HVTApp.UI.ViewModels
             WrapperDataService = Container.Resolve<IWrapperDataService>();
 
             //если создаём, а не редактируем
-            if (await WrapperDataService.GetRepository<TEntity>().GetByIdAsync(entity.Id) == null)
+            if (await WrapperDataService.Repository<TEntity>().GetByIdAsync(entity.Id) == null)
                 Item = (TWrapper) Activator.CreateInstance(typeof(TWrapper), entity);
             else
                 //если редактируем
@@ -111,7 +111,7 @@ namespace HVTApp.UI.ViewModels
         protected virtual async void SaveCommand_Execute()
         {
             //добавляем сущность, если ее не существовало
-            if (await WrapperDataService.GetRepository<TEntity>().GetByIdAsync(Item.Model.Id) == null)
+            if (await WrapperDataService.Repository<TEntity>().GetByIdAsync(Item.Model.Id) == null)
                 WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().Add(Item);
 
             Item.AcceptChanges();
