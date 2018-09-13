@@ -77,8 +77,8 @@ namespace HVTApp.UI.Groups
             if (SalesUnit.PaymentsPlanned.Contains(PaymentPlannedWrapper))
                 SalesUnit.PaymentsPlanned.Remove(PaymentPlannedWrapper);
 
-            if(unitOfWork.GetRepository<PaymentPlanned>().Find(x => Equals(x, PaymentPlannedWrapper.Model)).Any())
-                unitOfWork.GetRepository<PaymentPlanned>().Delete(PaymentPlannedWrapper.Model);
+            if(unitOfWork.Repository<PaymentPlanned>().Find(x => Equals(x, PaymentPlannedWrapper.Model)).Any())
+                unitOfWork.Repository<PaymentPlanned>().Delete(PaymentPlannedWrapper.Model);
         }
 
         public void UnSubskribe()

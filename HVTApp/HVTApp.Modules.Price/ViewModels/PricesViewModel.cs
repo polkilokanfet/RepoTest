@@ -41,9 +41,9 @@ namespace HVTApp.Modules.Price.ViewModels
         {
             _unitOfWork = _container.Resolve<IUnitOfWork>();
 
-            var salesUnits = await _unitOfWork.GetRepository<SalesUnit>().GetAllAsync();
-            var offerUnits = await _unitOfWork.GetRepository<OfferUnit>().GetAllAsync();
-            var blocks = await _unitOfWork.GetRepository<ProductBlock>().GetAllAsync();
+            var salesUnits = await _unitOfWork.Repository<SalesUnit>().GetAllAsync();
+            var offerUnits = await _unitOfWork.Repository<OfferUnit>().GetAllAsync();
+            var blocks = await _unitOfWork.Repository<ProductBlock>().GetAllAsync();
             
             var blocksList = new List<PriceTask>();
 

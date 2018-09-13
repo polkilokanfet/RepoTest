@@ -57,6 +57,7 @@
       <HintPath>..\HVTApp.UI\bin\Debug\InfragisticsWPF4.DataPresenter.ExcelExporter.v15.1.dll</HintPath>
     </Reference>
     <Reference Include="InfragisticsWPF4.DataPresenter.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Editors.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.OutlookBar.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.Ribbon.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
@@ -101,6 +102,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -125,6 +128,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Tabs\TabPaymentDocuments.xaml.cs">
+      <DependentUpon>TabPaymentDocuments.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\TabSave.xaml.cs">
       <DependentUpon>TabSave.xaml</DependentUpon>
     </Compile>
@@ -136,6 +142,7 @@
     </Compile>
     <Compile Include="ViewModels\DatesGroup.cs" />
     <Compile Include="ViewModels\DatesViewModel.cs" />
+    <Compile Include="ViewModels\PaymentDocumentsViewModel.cs" />
     <Compile Include="ViewModels\PricesViewModel.cs" />
     <Compile Include="ViewModels\PriceTask.cs" />
     <Compile Include="ViewModels\ProductionGroup.cs" />
@@ -145,6 +152,9 @@
     </Compile>
     <Compile Include="Views\DatesView.xaml.cs">
       <DependentUpon>DatesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PaymentDocumentsView.xaml.cs">
+      <DependentUpon>PaymentDocumentsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProductionPlanView.xaml.cs">
       <DependentUpon>ProductionPlanView.xaml</DependentUpon>
@@ -181,6 +191,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Tabs\TabPaymentDocuments.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Tabs\TabSave.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -198,6 +212,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DatesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PaymentDocumentsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

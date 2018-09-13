@@ -17,7 +17,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="FriendTests" Visibility="{Binding VisibilityFriendTestsTestFriendGroup, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.FriendTests}"
@@ -26,12 +25,10 @@
 										 RemoveItemCommand="{Binding RemoveFromFriendTestsCommand}"
 										 Visibility="{Binding VisibilityFriendTestsTestFriendGroup, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="1" Content="Name" Visibility="{Binding VisibilityNameTestFriendGroup, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameTestFriendGroup, ElementName=Root}"/>
-
 
 
     </Grid>

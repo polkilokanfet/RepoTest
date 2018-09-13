@@ -21,7 +21,7 @@ namespace HVTApp.UI.Wrapper
 
         public virtual async Task<IEnumerable<TWrapper>> GetAllAsync()
         {
-            var models = await _unitOfWork.GetRepository<TModel>().GetAllAsync();
+            var models = await _unitOfWork.Repository<TModel>().GetAllAsync();
             var result = new List<TWrapper>();
             foreach (var model in models)
                 result.Add(await GenerateWrapper(model));
@@ -36,7 +36,7 @@ namespace HVTApp.UI.Wrapper
 
         public async Task<TWrapper> GetByIdAsync(Guid id)
         {
-            var model = await _unitOfWork.GetRepository<TModel>().GetByIdAsync(id);
+            var model = await _unitOfWork.Repository<TModel>().GetByIdAsync(id);
             return await GenerateWrapper(model);
         }
 
@@ -47,12 +47,12 @@ namespace HVTApp.UI.Wrapper
 
         public void Delete(TWrapper wrapper)
         {
-            _unitOfWork.GetRepository<TModel>().Delete(wrapper.Model);
+            _unitOfWork.Repository<TModel>().Delete(wrapper.Model);
         }
 
         public void Add(TWrapper wrapper)
         {
-            _unitOfWork.GetRepository<TModel>().Add(wrapper.Model);
+            _unitOfWork.Repository<TModel>().Add(wrapper.Model);
         }
 
 

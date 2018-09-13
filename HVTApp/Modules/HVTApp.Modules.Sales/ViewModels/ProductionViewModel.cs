@@ -89,7 +89,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         protected override async Task LoadedAsyncMethod()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            _allSalesUnits = await UnitOfWork.GetRepository<SalesUnit>().GetAllAsync();
+            _allSalesUnits = await UnitOfWork.Repository<SalesUnit>().GetAllAsync();
 
             var production = _allSalesUnits.Where(x => x.SignalToStartProduction != null).ToList();
             var potential = _allSalesUnits.Except(production).Where(x => !x.IsLoosen && x.Project.HighProbability);

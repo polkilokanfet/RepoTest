@@ -18,6 +18,7 @@ namespace HVTApp.Modules.Price
             Container.RegisterViewForNavigation<PricesView>();
             Container.RegisterViewForNavigation<ProductionPlanView>();
             Container.RegisterViewForNavigation<DatesView>();
+            Container.RegisterViewForNavigation<PaymentDocumentsView>();
         }
 
         protected override void ResolveOutlookGroup()

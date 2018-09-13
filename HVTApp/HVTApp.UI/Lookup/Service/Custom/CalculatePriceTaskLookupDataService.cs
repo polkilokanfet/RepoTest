@@ -13,9 +13,9 @@ namespace HVTApp.UI.Lookup
         {
             var result = new List<CalculatePriceTaskLookup>();
 
-            var blocks = await UnitOfWork.GetRepository<ProductBlock>().GetAllAsNoTrackingAsync();
-            var salesUnits = await UnitOfWork.GetRepository<SalesUnit>().GetAllAsNoTrackingAsync();
-            var offerUnits = await UnitOfWork.GetRepository<OfferUnit>().GetAllAsNoTrackingAsync();
+            var blocks = await UnitOfWork.Repository<ProductBlock>().GetAllAsNoTrackingAsync();
+            var salesUnits = await UnitOfWork.Repository<SalesUnit>().GetAllAsNoTrackingAsync();
+            var offerUnits = await UnitOfWork.Repository<OfferUnit>().GetAllAsNoTrackingAsync();
 
             var pricelessBlocks = blocks.Where(x => !x.Prices.Any());
             var notActualBlocks = blocks.Where(x => x.Prices.Any() && x.Prices.Select(p => p.Date).Max().AddDays(CommonOptions.ActualPriceTerm) < DateTime.Today);

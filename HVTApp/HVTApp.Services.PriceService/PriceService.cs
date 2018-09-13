@@ -83,7 +83,7 @@ namespace HVTApp.Services.PriceService
         /// <returns></returns>
         private async Task<ProductBlock> GetAnalogWithPrice(ProductBlock targetBlock)
         {
-            var blocks = await _unitOfWork.GetRepository<ProductBlock>().GetAllAsync();
+            var blocks = await _unitOfWork.Repository<ProductBlock>().GetAllAsync();
             targetBlock = blocks.Single(x => x.Id == targetBlock.Id);
             blocks.Remove(targetBlock);
 

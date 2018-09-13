@@ -17,7 +17,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="RequiredParameters" Visibility="{Binding VisibilityRequiredParametersParameterRelation, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.RequiredParameters}"
@@ -25,7 +24,6 @@
 										 AddItemCommand="{Binding AddInRequiredParametersCommand}"
 										 RemoveItemCommand="{Binding RemoveFromRequiredParametersCommand}"
 										 Visibility="{Binding VisibilityRequiredParametersParameterRelation, ElementName=Root}"/>
-
 
 
     </Grid>

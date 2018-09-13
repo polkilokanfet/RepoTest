@@ -16,6 +16,6 @@ namespace HVTApp.Infrastructure
         /// </summary>
         /// <typeparam name="T">Тип сущности из репозитория</typeparam>
         /// <returns></returns>
-        IRepository<T> GetRepository<T>() where T : class, IBaseEntity;
+        IRepository<T> Repository<T>() where T : class, IBaseEntity;
     }
 }

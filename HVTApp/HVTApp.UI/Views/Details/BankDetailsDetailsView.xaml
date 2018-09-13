@@ -19,30 +19,25 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="BankIdentificationCode" Visibility="{Binding VisibilityBankIdentificationCodeBankDetails, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.BankIdentificationCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityBankIdentificationCodeBankDetails, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="BankName" Visibility="{Binding VisibilityBankNameBankDetails, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.BankName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityBankNameBankDetails, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="CheckingAccount" Visibility="{Binding VisibilityCheckingAccountBankDetails, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.CheckingAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCheckingAccountBankDetails, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="3" Content="CorrespondentAccount" Visibility="{Binding VisibilityCorrespondentAccountBankDetails, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                  Text="{Binding Item.CorrespondentAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCorrespondentAccountBankDetails, ElementName=Root}"/>
-
 
 
     </Grid>

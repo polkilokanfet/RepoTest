@@ -71,7 +71,7 @@ namespace HVTApp
         /// <returns></returns>
         private async Task SetCommonOptions()
         {
-            var commonOptions = await Container.Resolve<IUnitOfWork>().GetRepository<CommonOption>().GetAllAsync();
+            var commonOptions = await Container.Resolve<IUnitOfWork>().Repository<CommonOption>().GetAllAsync();
             var commonOption = commonOptions.First();
 
             CommonOptions.OurCompanyId = commonOption.OurCompanyId;

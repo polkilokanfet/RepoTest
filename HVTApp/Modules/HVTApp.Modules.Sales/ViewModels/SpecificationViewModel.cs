@@ -97,8 +97,8 @@ namespace HVTApp.Modules.Sales.ViewModels
         protected override async void SaveCommand_Execute()
         {
             //добавляем сущность, если ее не существовало
-            if (await WrapperDataService.GetRepository<Specification>().GetByIdAsync(Item.Model.Id) == null)
-                WrapperDataService.GetRepository<Specification>().Add(Item.Model);
+            if (await WrapperDataService.Repository<Specification>().GetByIdAsync(Item.Model.Id) == null)
+                WrapperDataService.Repository<Specification>().Add(Item.Model);
 
             //фиксируем спецификацию
             Item.Units.ForEach(x => x.Model.Specification = Item.Model);

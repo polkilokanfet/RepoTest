@@ -11,7 +11,7 @@ namespace HVTApp.UI.Lookup
     {
         public override async Task LoadOther(IUnitOfWork unitOfWork)
         {
-            OfferUnits = unitOfWork.GetRepository<OfferUnit>().Find(x => Equals(this.Entity, x.Offer)).Select(x => new OfferUnitLookup(x)).ToList();
+            OfferUnits = unitOfWork.Repository<OfferUnit>().Find(x => Equals(this.Entity, x.Offer)).Select(x => new OfferUnitLookup(x)).ToList();
             foreach (var offerUnitLookup in OfferUnits)
                 await offerUnitLookup.LoadOther(unitOfWork);
         }
