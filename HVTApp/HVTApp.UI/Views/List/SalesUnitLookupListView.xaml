@@ -71,6 +71,7 @@
                     <infg:NumericField Name="OrderInTakeMonth" Label="Месяц" Width="Auto" />
                     <infg:DateTimeField Name="OrderInTakeDate" Label="ОИТ" Width="Auto" />
                     <infg:TextField Name="Order" Label="Заказ" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:CheckBoxField Name="IsPaid" Label="Оплачено?" Width="Auto" />
                     <infg:CheckBoxField Name="IsLoosen" Label="Проиграно" Width="Auto" />
                     <infg:NumericField Name="ExpectedDeliveryPeriodCalculated" Label="Срок доставки расчетный" Width="Auto" />
                     <infg:NumericField Name="ExpectedDeliveryPeriod" Label="Срок доставки" Width="Auto" />

@@ -17,19 +17,22 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Блок" Visibility="{Binding VisibilityProductBlockDescribeProductBlockTask, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Продукт" Visibility="{Binding VisibilityProductDescribeProductBlockTask, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
+                                    Item="{Binding Item.Product}" 
+                                    AddItemCommand="{Binding SelectProductCommand}" 
+                                    RemoveItemCommand="{Binding ClearProductCommand}"
+									Visibility="{Binding VisibilityProductDescribeProductBlockTask, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Блок" Visibility="{Binding VisibilityProductBlockDescribeProductBlockTask, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
                                     Item="{Binding Item.ProductBlock}" 
                                     AddItemCommand="{Binding SelectProductBlockCommand}" 
                                     RemoveItemCommand="{Binding ClearProductBlockCommand}"
 									Visibility="{Binding VisibilityProductBlockDescribeProductBlockTask, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Продукт" Visibility="{Binding VisibilityProductDescribeProductBlockTask, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
-                                    Item="{Binding Item.Product}" 
-                                    AddItemCommand="{Binding SelectProductCommand}" 
-                                    RemoveItemCommand="{Binding ClearProductCommand}"
-									Visibility="{Binding VisibilityProductDescribeProductBlockTask, ElementName=Root}"/>
 
 
     </Grid>

@@ -39,10 +39,10 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:NumericField Name="Vat" Label="НДС" Width="Auto" />
                     <infg:TextField Name="Number" Label="№" Width="Auto" />
                     <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />
                     <infg:TextField Name="Contract" Label="Договор" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:NumericField Name="Vat" Label="НДС" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -15,14 +15,14 @@ namespace HVTApp.Model.POCOs
     {
         #region Model
 
-        [Designation("Стоимость")]
+        [Designation("Стоимость"), Required, OrderStatus(45)]
         public double Cost { get; set; }
 
 
-        [Designation("Продукт"), OrderStatus(50)]
+        [Designation("Продукт"), Required, OrderStatus(50)]
         public virtual Product Product { get; set; }
 
-        [Designation("Включенные продукты")]
+        [Designation("Включенные продукты"), Required]
         public virtual List<ProductIncluded> ProductsIncluded { get; set; } = new List<ProductIncluded>();
 
         [Designation("Объект"), OrderStatus(51), Required]

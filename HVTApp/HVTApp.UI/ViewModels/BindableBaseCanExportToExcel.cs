@@ -65,10 +65,9 @@ namespace HVTApp.UI.ViewModels
 
         private string GetUnusedFileName()
         {
-            return Guid.NewGuid().ToString();
-            for (int i = 1; i < 5000; i++)
+            for (int i = 1; i < 50000; i++)
             {
-                string fileName = "DataPresenterExportToExcelTest" + i.ToString() + ".xlsx";
+                string fileName = "ExportToExcel" + i.ToString() + ".xlsx";
                 if (false == System.IO.File.Exists(fileName))
                     return fileName;
             }

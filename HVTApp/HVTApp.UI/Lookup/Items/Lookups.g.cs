@@ -366,7 +366,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(5)]
 	    public LocalityLookup Locality { get { return GetLookup<LocalityLookup>(); } }
 
 
@@ -410,7 +410,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(10)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -444,7 +444,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(10)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -461,10 +461,6 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.Double> StandartDeliveryPeriod => GetValue<System.Nullable<System.Double>>();
-
-
-		[OrderStatus(1)]
         public System.Nullable<System.Double> DistanceToEkb => GetValue<System.Nullable<System.Double>>();
 
 
@@ -473,11 +469,11 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(9)]
 	    public LocalityTypeLookup LocalityType { get { return GetLookup<LocalityTypeLookup>(); } }
 
 
-		[OrderStatus(1)]
+		[OrderStatus(8)]
 	    public RegionLookup Region { get { return GetLookup<RegionLookup>(); } }
 
 
@@ -498,7 +494,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(2)]
         public System.String FullName => GetValue<System.String>();
 
 
@@ -525,7 +521,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(2)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -2127,7 +2123,7 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(20)]
-        public System.Nullable<System.DateTime> Date => GetValue<System.Nullable<System.DateTime>>();
+        public System.DateTime Date => GetValue<System.DateTime>();
 
 
         #endregion

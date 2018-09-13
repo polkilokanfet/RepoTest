@@ -6,7 +6,7 @@ namespace HVTApp.DataAccess
 
     public partial class HvtAppContext
     {
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected void AddConfigurations(DbModelBuilder modelBuilder)
         {
 			#region Configurations
             modelBuilder.Configurations.Add(new CreateNewProductTaskConfiguration());
@@ -77,8 +77,6 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new TenderTypeConfiguration());
             modelBuilder.Configurations.Add(new UserConfiguration());
 			#endregion
-
-            base.OnModelCreating(modelBuilder);
         }
 
 		#region DbSets

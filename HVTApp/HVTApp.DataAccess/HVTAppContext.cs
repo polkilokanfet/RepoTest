@@ -1,4 +1,6 @@
-﻿namespace HVTApp.DataAccess
+﻿using System.Data.Entity.ModelConfiguration.Conventions;
+
+namespace HVTApp.DataAccess
 {
     using System.Data.Entity;
 
@@ -8,5 +10,14 @@
         {
             Database.SetInitializer(new HvtAppDataBaseInitializer());
         }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //таблицы в базе не плюрализованы
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            AddConfigurations(modelBuilder);
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }

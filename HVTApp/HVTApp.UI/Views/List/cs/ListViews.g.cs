@@ -1512,13 +1512,6 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility StandartDeliveryPeriodVisibility
-        {
-            get { return LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LocalityLookup.StandartDeliveryPeriod)].Visibility; }
-            set { LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LocalityLookup.StandartDeliveryPeriod)].Visibility = value; }
-        }
-
-
         public System.Windows.Visibility DistanceToEkbVisibility
         {
             get { return LocalityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LocalityLookup.DistanceToEkb)].Visibility; }
@@ -3648,6 +3641,13 @@ namespace HVTApp.UI.Views
         {
             get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.IsLoosen)].Visibility; }
             set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.IsLoosen)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility IsPaidVisibility
+        {
+            get { return SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.IsPaid)].Visibility; }
+            set { SalesUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesUnitLookup.IsPaid)].Visibility = value; }
         }
 
 

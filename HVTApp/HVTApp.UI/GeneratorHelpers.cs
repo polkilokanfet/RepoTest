@@ -110,7 +110,7 @@ namespace HVTApp.UI
 
         public static IEnumerable<PropertyInfo> GetPropertiesForDetailView(this Type type)
         {
-            return type.GetProperties().Where(x => x.CanWrite).OrderBy(x => x, new PropOrderComparer());
+            return type.GetProperties().Where(x => x.CanWrite).OrderByDescending(x => x, new PropOrderComparer());
         }
 
         /// <summary>

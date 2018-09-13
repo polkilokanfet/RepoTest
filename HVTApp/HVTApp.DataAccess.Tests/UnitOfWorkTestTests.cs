@@ -41,24 +41,24 @@ namespace HVTApp.DataAccess.Tests
             Assert.IsTrue(companies.Contains(testData.CompanyFsk));
         }
 
-        [TestMethod]
-        public async Task Test1()
-        {
-            var wife = new TestWife();
-            var unitOfWork1 = new UnitOfWork(new HvtAppContext());
-            unitOfWork1.Repository<TestWife>().Add(wife);
-            unitOfWork1.SaveChanges();
-            wife = await unitOfWork1.Repository<TestWife>().GetByIdAsync(wife.Id);
+        //[TestMethod]
+        //public async Task Test1()
+        //{
+        //    var wife = new TestWife();
+        //    var unitOfWork1 = new UnitOfWork(new HvtAppContext(), null);
+        //    unitOfWork1.Repository<TestWife>().Add(wife);
+        //    unitOfWork1.SaveChanges();
+        //    wife = await unitOfWork1.Repository<TestWife>().GetByIdAsync(wife.Id);
 
-            var husband = new TestHusband();
-            var unitOfWork2 = new UnitOfWork(new HvtAppContext());
-            unitOfWork2.Repository<TestHusband>().Add(husband);
-            unitOfWork2.SaveChanges();
-            husband = await unitOfWork2.Repository<TestHusband>().GetByIdAsync(husband.Id);
+        //    var husband = new TestHusband();
+        //    var unitOfWork2 = new UnitOfWork(new HvtAppContext(), null);
+        //    unitOfWork2.Repository<TestHusband>().Add(husband);
+        //    unitOfWork2.SaveChanges();
+        //    husband = await unitOfWork2.Repository<TestHusband>().GetByIdAsync(husband.Id);
 
-            husband.Wife = wife;
-            unitOfWork2.SaveChanges();
-        }
+        //    husband.Wife = wife;
+        //    unitOfWork2.SaveChanges();
+        //}
 
     }
 }

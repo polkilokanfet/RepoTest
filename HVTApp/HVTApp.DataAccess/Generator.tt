@@ -144,7 +144,7 @@ namespace HVTApp.DataAccess
 
     public partial class HvtAppContext
     {
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected void AddConfigurations(DbModelBuilder modelBuilder)
         {
 			#region Configurations
 <#+ 
@@ -156,8 +156,6 @@ namespace HVTApp.DataAccess
 	}
 #>
 			#endregion
-
-            base.OnModelCreating(modelBuilder);
         }
 
 		#region DbSets

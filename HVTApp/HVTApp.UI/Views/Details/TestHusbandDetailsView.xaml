@@ -18,25 +18,29 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Children" Visibility="{Binding VisibilityChildrenTestHusband, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
-										 Items="{Binding Path=Item.Children}"
-										 SelectedItem="{Binding SelectedChildrenItem, Mode=TwoWay}"
-										 AddItemCommand="{Binding AddInChildrenCommand}"
-										 RemoveItemCommand="{Binding RemoveFromChildrenCommand}"
-										 Visibility="{Binding VisibilityChildrenTestHusband, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Wife" Visibility="{Binding VisibilityWifeTestHusband, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
+                                    Item="{Binding Item.Wife}" 
+                                    AddItemCommand="{Binding SelectWifeCommand}" 
+                                    RemoveItemCommand="{Binding ClearWifeCommand}"
+									Visibility="{Binding VisibilityWifeTestHusband, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Name" Visibility="{Binding VisibilityNameTestHusband, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameTestHusband, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Wife" Visibility="{Binding VisibilityWifeTestHusband, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
-                                    Item="{Binding Item.Wife}" 
-                                    AddItemCommand="{Binding SelectWifeCommand}" 
-                                    RemoveItemCommand="{Binding ClearWifeCommand}"
-									Visibility="{Binding VisibilityWifeTestHusband, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="Children" Visibility="{Binding VisibilityChildrenTestHusband, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
+										 Items="{Binding Path=Item.Children}"
+										 SelectedItem="{Binding SelectedChildrenItem, Mode=TwoWay}"
+										 AddItemCommand="{Binding AddInChildrenCommand}"
+										 RemoveItemCommand="{Binding RemoveFromChildrenCommand}"
+										 Visibility="{Binding VisibilityChildrenTestHusband, ElementName=Root}"/>
+
 
 
     </Grid>
