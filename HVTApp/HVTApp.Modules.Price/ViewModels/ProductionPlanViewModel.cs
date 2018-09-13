@@ -11,122 +11,131 @@ using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
 namespace HVTApp.Modules.Price.ViewModels
 {
-    public class ProductionPlanViewModel : LoadableBindableBase
+    public class ProductionPlanViewModel : OrderLookupListViewModel
     {
-        private List<SalesUnitWrapper> _unitsToPlan;
-        private List<Order> _orders;
-        private ProductionGroup _selectedGroupToPlan;
+        private IUnitOfWork _unitOfWork;
 
-        public OrderLookupListViewModel OrderListViewModel { get; private set; }
-        public ObservableCollection<ProductionGroup> GroupsInPlan { get; } = new ObservableCollection<ProductionGroup>();
-        public ObservableCollection<ProductionGroup> GroupsToPlan { get; } = new ObservableCollection<ProductionGroup>();
+        private IValidatableChangeTrackingCollection<SalesUnitWrapper> _salesUnitsWrappers;
+        private ProductionGroup _selectedGroupPotential;
 
-        public Order SelectedOrder => OrderListViewModel.SelectedItem;
+        public ObservableCollection<ProductionGroup> GroupsInOrder { get; } = new ObservableCollection<ProductionGroup>();
+        public ObservableCollection<ProductionGroup> GroupsPotential { get; } = new ObservableCollection<ProductionGroup>();
 
-        public ProductionGroup SelectedGroupToPlan
+        public ProductionGroup SelectedGroupPotential
         {
-            get { return _selectedGroupToPlan; }
+            get { return _selectedGroupPotential; }
             set
             {
-                _selectedGroupToPlan = value;
-                ((DelegateCommand)SetInPlanCommand).RaiseCanExecuteChanged();
+                if (Equals(_selectedGroupPotential, value)) return;
+                _selectedGroupPotential = value;
+                ((DelegateCommand)AddInOrderCommand).RaiseCanExecuteChanged();
+                OnPropertyChanged();
             }
         }
 
         public ICommand ReloadCommand { get; }
         public ICommand SaveCommand { get; }
-        public ICommand SetInPlanCommand { get; }
-        public ICommand NewOrderCommand { get; }
-        public ICommand EditOrderCommand { get; }
+        public ICommand AddInOrderCommand { get; }
 
         public ProductionPlanViewModel(IUnityContainer container) : base(container)
         {
-            OrderListViewModel = Container.Resolve<OrderLookupListViewModel>();
-
-            Func<bool> canSave = () => _unitsToPlan != null && _unitsToPlan.Any(x => x.IsChanged);
+            Func<bool> canSave = () => _salesUnitsWrappers != null && _salesUnitsWrappers.IsChanged && _salesUnitsWrappers.IsValid;
             SaveCommand = new DelegateCommand(SaveCommand_Execute, canSave);
             
-            SetInPlanCommand = new DelegateCommand(SetInPlanCommand_Execute, SetInPlanCommand_CanExecute);
-            ReloadCommand = new DelegateCommand(async () => await LoadedAsyncMethod());
-
-            NewOrderCommand = OrderListViewModel.NewItemCommand;
-            EditOrderCommand = OrderListViewModel.EditItemCommand;
+            AddInOrderCommand = new DelegateCommand(AddInOrderCommand_Execute, AddInOrderCommand_CanExecute);
+            ReloadCommand = new DelegateCommand(async () => await LoadAsync());
         }
 
         private async void SaveCommand_Execute()
         {
-            //откатываем недозаполненные
-            _unitsToPlan.Where(x => !x.SignalToStartProduction.HasValue).ToList().ForEach(x => x.RejectChanges());
-            await UnitOfWork.SaveChangesAsync();
-            await LoadedAsyncMethod();
+            _salesUnitsWrappers.AcceptChanges();
+            await _unitOfWork.SaveChangesAsync();
         }
 
-        private bool SetInPlanCommand_CanExecute()
+        private bool AddInOrderCommand_CanExecute()
         {
-            return SelectedGroupToPlan?.Unit.EndProductionPlanDate != null && SelectedOrder != null;
+            return SelectedGroupPotential != null && SelectedItem != null;
         }
 
-        private async void SetInPlanCommand_Execute()
+        private async void AddInOrderCommand_Execute()
         {
             //фиксируем дату действия и заказ
-            SelectedGroupToPlan.SetSignalToStartProductionDone();
+            SelectedGroupPotential.SetSignalToStartProductionDone();
             //подменяем заказ
-            SelectedGroupToPlan.Order = new OrderWrapper(await UnitOfWork.Repository<Order>().GetByIdAsync(SelectedOrder.Id));
-
-            //переносим заказ в план производства
-            GroupsInPlan.Add(SelectedGroupToPlan);
-            if (GroupsToPlan.Contains(SelectedGroupToPlan))
+            SelectedGroupPotential.Order = new OrderWrapper(await _unitOfWork.Repository<Order>().GetByIdAsync(SelectedItem.Id));
+            //ставим предполагаемую дату производства
+            SelectedGroupPotential.Date = SelectedGroupPotential.Unit.DeliveryDateExpected;
+            //ставим позиции заказа
+            int pos = 1;
+            if (SelectedGroupPotential.Groups.Any())
             {
-                GroupsToPlan.Remove(SelectedGroupToPlan);
+                foreach (var productionGroup in SelectedGroupPotential.Groups)
+                {
+                    productionGroup.Position = (pos++).ToString();
+                }
             }
             else
             {
-                var group = GroupsToPlan.Single(x => x.Groups.Contains(SelectedGroupToPlan));
-                group.Groups.Remove(SelectedGroupToPlan);
+                SelectedGroupPotential.Position = (pos).ToString();
+            }
+
+            //переносим заказ в план производства
+            GroupsInOrder.Add(SelectedGroupPotential);
+            if (GroupsPotential.Contains(SelectedGroupPotential))
+            {
+                GroupsPotential.Remove(SelectedGroupPotential);
+            }
+            else
+            {
+                //удаляем в подгруппах
+                var group = GroupsPotential.Single(x => x.Groups.Contains(SelectedGroupPotential));
+                group.Groups.Remove(SelectedGroupPotential);
                 if (!group.Groups.Any())
-                    GroupsToPlan.Remove(group);
+                    GroupsPotential.Remove(group);
             }
         }
 
-        protected override async Task LoadedAsyncMethod()
+
+        protected override async Task<IEnumerable<OrderLookup>> GetLookups()
         {
-            _unitsToPlan?.ForEach(x => x.PropertyChanged -= OnPropertyChanged);
+            _salesUnitsWrappers?.ForEach(x => x.PropertyChanged -= OnPropertyChanged);
 
-            UnitOfWork = Container.Resolve<IUnitOfWork>();
-            var units = await UnitOfWork.Repository<SalesUnit>().GetAllAsync();
-            _orders = await UnitOfWork.Repository<Order>().GetAllAsync();
+            _unitOfWork = Container.Resolve<IUnitOfWork>();
+            _salesUnitsWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper>((await _unitOfWork.Repository<SalesUnit>().GetAllAsync()).Select(x => new SalesUnitWrapper(x)));
+            _salesUnitsWrappers?.ForEach(x => x.PropertyChanged += OnPropertyChanged);
 
-            var unitsInPlan = units.Where(x => x.SignalToStartProductionDone != null).ToList();
-            _unitsToPlan = units.Except(unitsInPlan).Where(x => x.SignalToStartProduction != null).Select(x => new SalesUnitWrapper(x)).ToList();
-            _unitsToPlan?.ForEach(x => x.PropertyChanged += OnPropertyChanged);
+            var unitsInPlan = _salesUnitsWrappers.Where(x => x.SignalToStartProductionDone != null).ToList();
+            var unitsToPlan = _salesUnitsWrappers.Except(unitsInPlan).Where(x => x.SignalToStartProduction != null);
 
-            GroupsInPlan.Clear();
-            GroupsInPlan.AddRange(ProductionGroup.Grouping(unitsInPlan.Select(x => new SalesUnitWrapper(x))));
+            this.SelectedLookupChanged += OnSelectedOrderChanged;
 
-            GroupsToPlan.Clear();
-            GroupsToPlan.AddRange(ProductionGroup.Grouping(_unitsToPlan));
+            GroupsPotential.Clear();
+            GroupsPotential.AddRange(ProductionGroup.Grouping(unitsToPlan));
 
-            OrderListViewModel.SelectedLookupChanged += OrderListViewModelOnSelectedLookupChanged;
-            await OrderListViewModel.LoadAsync();
-
-            ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)SetInPlanCommand).RaiseCanExecuteChanged();
+            return await base.GetLookups();
         }
 
-        private void OrderListViewModelOnSelectedLookupChanged(OrderLookup orderLookup)
+        private void OnSelectedOrderChanged(OrderLookup orderLookup)
         {
-            ((DelegateCommand)SetInPlanCommand).RaiseCanExecuteChanged();
+            GroupsInOrder.Clear();
+            if (SelectedItem == null) return;
+
+            var unitsInOrder = _salesUnitsWrappers.Where(x => x.Order != null && x.Order.Id == SelectedItem.Id);
+            GroupsInOrder.AddRange(ProductionGroup.Grouping(unitsInOrder));
+
+            ((DelegateCommand)AddInOrderCommand).RaiseCanExecuteChanged();
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
-            ((DelegateCommand)SetInPlanCommand).RaiseCanExecuteChanged();
+            ((DelegateCommand)AddInOrderCommand).RaiseCanExecuteChanged();
         }
     }
 }

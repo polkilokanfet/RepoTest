@@ -78,13 +78,14 @@ namespace HVTApp.Modules.Price.ViewModels
             this.SelectedLookupChanged += lookup => Refresh();
         }
 
-        private void AddPaymentCommand_Execute()
+        private async void AddPaymentCommand_Execute()
         {
             double sum = DockSum;
             DateTime date = DockDate;
 
             var payment = new Payment(SelectedUnit);
-            _paymentDocuments.Single(x => x.Id == SelectedItem.Id);
+            var doc = await _unitOfWork.Repository<PaymentDocument>().GetByIdAsync(SelectedItem.Id);
+            doc.Payments.Add(payment.PaymentActual.Model);
             SelectedItem.Payments.Add(payment.PaymentActual.Model);
             Payments.Add(payment);
             Potential.Remove(SelectedUnit);

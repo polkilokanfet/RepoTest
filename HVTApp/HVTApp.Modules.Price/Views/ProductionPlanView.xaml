@@ -2,13 +2,8 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
               xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
               x:Class="HVTApp.Modules.Price.Views.ProductionPlanView">
-
-    <inf:ViewBase.Resources>
-        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></converters:BooleanToVisibilityConverter>
-    </inf:ViewBase.Resources>
 
     <Grid>
          <Grid.RowDefinitions>
@@ -33,13 +28,18 @@
               Grid.Row="1" 
               Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+             
+            <GroupBox Grid.Column="0" Header="Заводские заказы">
+                <views:OrderLookupListView DataContext="{Binding}"/>
+            </GroupBox>
             
-            <GroupBox Grid.Column="0" Header="Производственный план">
+            <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center"  Width="3"/>
+           
+            <GroupBox Grid.Column="2" Header="Производственный план">
                 <Grid>
             
                     <Grid.RowDefinitions>
@@ -49,11 +49,10 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
             
-                    <GroupBox Grid.Row="0" Header="Оборудование в производстве">
+                    <GroupBox Grid.Row="0" Header="Оборудование в заказе">
                         <infg:XamDataGrid x:Name="ProductionListGrid"
-                                  
-                                          DataSource="{Binding GroupsInPlan}"
-                                          SelectedDataItem="{Binding SelectedGroupInPlan, Mode=TwoWay}">
+                                          DataSource="{Binding GroupsInOrder}"
+                                          SelectedDataItem="{Binding SelectedGroupInOrder, Mode=TwoWay}">
 
                             <infg:XamDataGrid.ContextMenu>
 				                <ContextMenu>
@@ -67,13 +66,14 @@
 
                                         <infg:TextField AlternateBinding="{Binding Unit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
                                         <infg:TextField AlternateBinding="{Binding Unit.Product.Type}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
-                                        <infg:TextField AlternateBinding="{Binding Unit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding Unit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="*"/>
                                         <infg:TextField AlternateBinding="{Binding Unit.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding Position, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto" AllowEdit="True"/>
                                         <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                                         <infg:TextField AlternateBinding="{Binding Unit.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                                         <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
                                         <infg:DateTimeField AlternateBinding="{Binding Unit.DeliveryDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto"/>
-                                        <infg:DateTimeField AlternateBinding="{Binding Unit.EndProductionPlanDate}" BindingType="UseAlternateBinding" Label="Плановая" Width="Auto"/>
+                                        <infg:DateTimeField AlternateBinding="{Binding Date, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Плановая" Width="Auto" AllowEdit="True"/>
                                         <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
                                         <infg:Field Name="Groups" IsExpandable="True"/>
 
@@ -88,8 +88,8 @@
 
                     <GroupBox Grid.Row="2" Header="Оборудование для размещения">
                         <infg:XamDataGrid x:Name="PotentialListGrid"
-                                          DataSource="{Binding GroupsToPlan}"
-                                          SelectedDataItem="{Binding SelectedGroupToPlan, Mode=TwoWay}">
+                                          DataSource="{Binding GroupsPotential}"
+                                          SelectedDataItem="{Binding SelectedGroupPotential, Mode=TwoWay}">
 
                             <infg:XamDataGrid.ContextMenu>
                                 <ContextMenu>
@@ -103,13 +103,11 @@
 
                                         <infg:TextField AlternateBinding="{Binding Unit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
                                         <infg:TextField AlternateBinding="{Binding Unit.Product.Type}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
-                                        <infg:TextField AlternateBinding="{Binding Unit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding Unit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="*"/>
                                         <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                                         <infg:TextField AlternateBinding="{Binding Unit.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                                         <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
                                         <infg:DateTimeField AlternateBinding="{Binding Unit.DeliveryDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto"/>
-                                        <infg:DateTimeField Name="Date" Label="Плановая" Width="Auto" AllowEdit="True"/>
-
                                         <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
                                         <infg:Field Name="Groups" IsExpandable="True"/>
 
@@ -121,12 +119,6 @@
                     </GroupBox>
 
                 </Grid>
-            </GroupBox>
-            
-            <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center"  Width="3"/>
-            
-            <GroupBox Grid.Column="2" Header="Заказы">
-                <views:OrderLookupListView DataContext="{Binding OrderListViewModel}"/>
             </GroupBox>
             
         </Grid>

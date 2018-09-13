@@ -12,7 +12,6 @@ namespace HVTApp.Modules.Price.ViewModels
     public class ProductionGroup : BindableBase
     {
         private readonly List<SalesUnitWrapper> _units;
-        private DateTime? _date;
         private OrderWrapper _order;
 
         public SalesUnitWrapper Unit => _units.First();
@@ -20,18 +19,17 @@ namespace HVTApp.Modules.Price.ViewModels
 
         public DateTime? Date
         {
-            get { return _date; }
+            get { return Unit.EndProductionDate; }
             set
             {
-                if (_date == value) return;
-                _date = value;
+                if (Date == value) return;
                 if (Groups.Any())
                 {
                     Groups.ForEach(x => x.Date = value);
                 }
                 else
                 {
-                    _units.ForEach(x => x.EndProductionPlanDate = value);
+                    Unit.EndProductionDate = value;
                 }
                 OnPropertyChanged();
             }
@@ -39,19 +37,29 @@ namespace HVTApp.Modules.Price.ViewModels
 
         public OrderWrapper Order
         {
-            get { return _order; }
+            get { return Unit.Order; }
             set
             {
-                if(Equals(_order, value)) return;
-                _order = value;
+                if(Equals(Order, value)) return;
                 if (Groups.Any())
                 {
                     Groups.ForEach(x => x.Order = value);
                 }
                 else
                 {
-                    _units.ForEach(x => x.Order = value);
+                    Unit.Order = value;
                 }
+                OnPropertyChanged();
+            }
+        }
+
+        public string Position
+        {
+            get { return Groups.Any() ? "..." : Unit.OrderPosition; }
+            set
+            {
+                if (Groups.Any()) return;
+                Unit.OrderPosition = value;
                 OnPropertyChanged();
             }
         }
