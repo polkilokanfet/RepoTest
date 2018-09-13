@@ -15,7 +15,7 @@ namespace HVTApp.Model.POCOs
         public string Number { get; set; }
 
         [Designation("Дата"), NotMapped, OrderStatus(20)]
-        public DateTime? Date => Payments.First()?.Date;
+        public DateTime Date => Payments.Any() ? Payments.First().Date : DateTime.Today;
 
         [Designation("Части платежа"), Required]
         public virtual List<PaymentActual> Payments { get; set; } = new List<PaymentActual>();

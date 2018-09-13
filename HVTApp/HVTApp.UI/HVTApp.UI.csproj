@@ -107,6 +107,7 @@
       <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wrapper\Custom\Functionality\OrderWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Validate\SalesUnitWrapper.cs" />
     <Compile Include="Wrapper\IUnitsGroup.cs" />
     <Compile Include="Converter\ToUnitGroupsConverters.cs" />
     <Compile Include="Extantions\DesignationExt.cs" />

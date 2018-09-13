@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace HVTApp.UI.Wrapper
+﻿namespace HVTApp.UI.Wrapper
 {
     public partial class FacilityWrapper
     {

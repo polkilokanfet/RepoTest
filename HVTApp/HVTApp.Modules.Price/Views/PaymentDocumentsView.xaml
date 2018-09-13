@@ -86,8 +86,9 @@
                                             <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                                             <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                                             <infg:TextField AlternateBinding="{Binding SalesUnit.Specification.Contract.Number}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                                            <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" AllowEdit="True"/>
-
+                                            <infg:NumericField AlternateBinding="{Binding Sum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BindingType="UseAlternateBinding" Label="Сумма" Width="Auto" AllowEdit="True"/>
+                                            <infg:NumericField AlternateBinding="{Binding SumNotPaid}" BindingType="UseAlternateBinding" Label="Остаток" Width="Auto"/>
+                                            
                                         </infg:FieldLayout.Fields>
 				                    </infg:FieldLayout>
 
@@ -118,7 +119,7 @@
                                         <infg:TextField AlternateBinding="{Binding Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                                         <infg:TextField AlternateBinding="{Binding Specification.Number}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                                         <infg:TextField AlternateBinding="{Binding Specification.Contract.Number}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                                        <!--<infg:Field Name="Groups" IsExpandable="True"/>-->
+                                        <infg:NumericField AlternateBinding="{Binding SumNotPaid}" BindingType="UseAlternateBinding" Label="Остаток" Width="Auto"/>
 
                                     </infg:FieldLayout.Fields>
                                 </infg:FieldLayout>

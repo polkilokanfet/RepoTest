@@ -13,12 +13,14 @@ using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Mvvm;
 
 namespace HVTApp.Modules.Price.ViewModels
 {
     public class PaymentDocumentsViewModel : PaymentDocumentLookupListViewModel
     {
         private IValidatableChangeTrackingCollection<SalesUnitWrapper> _salesUnitWrappers;
+        private IValidatableChangeTrackingCollection<PaymentDocumentWrapper> _paymentDocuments;
         private IUnitOfWork _unitOfWork;
         private SalesUnitWrapper _selectedUnit;
 
@@ -30,6 +32,7 @@ namespace HVTApp.Modules.Price.ViewModels
             get { return _selectedUnit; }
             set
             {
+                if (Equals(_selectedUnit, value)) return;
                 _selectedUnit = value;
                 ((DelegateCommand)AddPaymentCommand).RaiseCanExecuteChanged();
                 OnPropertyChanged();
@@ -38,35 +41,28 @@ namespace HVTApp.Modules.Price.ViewModels
 
         public DateTime DockDate
         {
-            get { return Payments.Any() ? Payments.First().Date : DateTime.Today; }
+            get { return Payments.Any() ? Payments.First().PaymentActual.Date : DateTime.Today; }
             set
             {
-                Payments.ForEach(x => x.Date = value);
+                Payments.ForEach(x => x.PaymentActual.Date = value);
                 OnPropertyChanged();
             }
         }
 
         public double DockSum
         {
-            get { return Payments.Any() ? Payments.Sum(x => x.Sum) : 0 ; }
+            get { return Payments.Any() ? Payments.Sum(x => x.PaymentActual.Sum) : 0; }
             set
             {
-                if (Math.Abs(DockSum - value) < 0.000001) return;
                 if (value < 0) return;
-                if(!Payments.Any()) return;
+                if (!Payments.Any()) return;
 
                 //неоплаченное без учета текущего платежа
-                var notPaid = Payments.Sum(x => x.SalesUnit.SumNotPaid) + Payments.Sum(x => x.Sum);
+                var notPaid = Payments.Sum(x => x.SalesUnit.SumNotPaid) + Payments.Sum(x => x.PaymentActual.Sum);
 
                 if (value > notPaid) return;
 
-                //Payments.ForEach(x => x.Sum = value * (x.SalesUnit.SumNotPaid / notPaid) ); 
-
-                foreach (var payment in Payments)
-                {
-                    var np = payment.SalesUnit.SumNotPaid + payment.Sum;
-                    payment.Sum = value * np / notPaid;
-                }
+                Payments.ForEach(x => x.PaymentActual.Sum = value * ((x.SalesUnit.SumNotPaid + x.PaymentActual.Sum) / notPaid));
             }
         }
 
@@ -82,18 +78,31 @@ namespace HVTApp.Modules.Price.ViewModels
             this.SelectedLookupChanged += lookup => Refresh();
         }
 
+        private void AddPaymentCommand_Execute()
+        {
+            double sum = DockSum;
+            DateTime date = DockDate;
+
+            var payment = new Payment(SelectedUnit);
+            _paymentDocuments.Single(x => x.Id == SelectedItem.Id);
+            SelectedItem.Payments.Add(payment.PaymentActual.Model);
+            Payments.Add(payment);
+            Potential.Remove(SelectedUnit);
+            SelectedUnit = null;
+
+            DockSum = sum;
+            DockDate = date;
+        }
+
         private bool AddPaymentCommand_CanExecute()
         {
             return SelectedItem != null && SelectedUnit != null;
         }
 
-        private void AddPaymentCommand_Execute()
+        private async void SaveCommand_Execute()
         {
-            double sum = DockSum;
-            Payments.Add(new Payment(new PaymentActual(), SelectedUnit));
-            Potential.Remove(SelectedUnit);
-            SelectedUnit = null;
-            DockSum = sum;
+            _salesUnitWrappers.AcceptChanges();
+            await _unitOfWork.SaveChangesAsync();
         }
 
         private bool SaveCommand_CanExecute()
@@ -102,12 +111,6 @@ namespace HVTApp.Modules.Price.ViewModels
                    _salesUnitWrappers.IsChanged && 
                    _salesUnitWrappers.IsValid &&
                    _unitOfWork != null;
-        }
-
-        private async void SaveCommand_Execute()
-        {
-            _salesUnitWrappers.AcceptChanges();
-            await _unitOfWork.SaveChangesAsync();
         }
 
         protected override async Task<IEnumerable<PaymentDocumentLookup>> GetLookups()
@@ -119,11 +122,20 @@ namespace HVTApp.Modules.Price.ViewModels
             _unitOfWork = Container.Resolve<IUnitOfWork>();
             _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(
                 (await _unitOfWork.Repository<SalesUnit>().GetAllAsync()).Select(x => new SalesUnitWrapper(x)));
+            _paymentDocuments = new ValidatableChangeTrackingCollection<PaymentDocumentWrapper>(
+                (await _unitOfWork.Repository<PaymentDocument>().GetAllAsync()).Select(x => new PaymentDocumentWrapper(x)));
 
             //отслеживаем их изменения
-            _salesUnitWrappers.PropertyChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+            _salesUnitWrappers.PropertyChanged += SalesUnitWrappersOnPropertyChanged;
 
             return await base.GetLookups();
+        }
+
+        private void SalesUnitWrappersOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+            OnPropertyChanged(nameof(DockSum));
+            OnPropertyChanged(nameof(DockDate));
         }
 
         private void Refresh()
@@ -138,12 +150,12 @@ namespace HVTApp.Modules.Price.ViewModels
             //заполняем платежи
             foreach (var paymentActual in SelectedItem.Payments)
             {
-                var salesUnitWrapper = _salesUnitWrappers.Single(x => x.PaymentsActual.Select(p => p.Id).Contains(paymentActual.Id));
-                var pa = salesUnitWrapper.PaymentsActual.Single(x => x.Id == paymentActual.Id).Model;
-                Payments.Add(new Payment(pa, salesUnitWrapper));
+                var paymentActualWrapper = _salesUnitWrappers.SelectMany(x => x.PaymentsActual).Single(x => x.Id == paymentActual.Id);
+                var salesUnitWrapper = _salesUnitWrappers.Single(x => x.PaymentsActual.Contains(paymentActualWrapper));
+                Payments.Add(new Payment(salesUnitWrapper, paymentActualWrapper));
             }
 
-            //формируем список потенциального оборудования (исключая то, что в платеже)
+            //формируем список потенциального оборудования (исключая то, что в выбранном платеже)
             var units = _salesUnitWrappers.Where(x => !x.IsPaid && !Payments.Select(p => p.SalesUnit).Contains(x)).OrderBy(x => x.OrderInTakeDate);
             Potential.AddRange(units);
 
@@ -152,28 +164,46 @@ namespace HVTApp.Modules.Price.ViewModels
         }
     }
 
-    public class Payment : PaymentActualWrapper
+    public class Payment : BindableBase
     {
+        private double _sum;
+        public PaymentActualWrapper PaymentActual { get; }
         public SalesUnitWrapper SalesUnit { get; }
+        public double SumNotPaid => SalesUnit.SumNotPaid;
 
-        public Payment(PaymentActual model, SalesUnitWrapper salesUnit) : base(model)
+        public double Sum
         {
-            SalesUnit = salesUnit;
-            if(salesUnit.PaymentsActual.Select(x => x.Id).Contains(model.Id))
-                this.PropertyChanged += OnPropertyChanged;
-            else
-                salesUnit.PaymentsActual.Add(this);
+            get { return PaymentActual.Sum; }
+            set
+            {
+                if (Equals(value, Sum)) return;
+                if (value < 0) return;
+                if (value > SalesUnit.SumNotPaid + Sum) return;
+                PaymentActual.Sum = value;
+                OnPropertyChanged();
+            }
         }
 
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        public Payment(SalesUnitWrapper salesUnit)
         {
-            string propertyName = args.PropertyName;
-            if (!this.GetType().GetProperty(propertyName).CanWrite) return;
-            var other = SalesUnit.PaymentsActual.Single(x => x.Id == this.Id);
-            var thisVal = this.GetType().GetProperty(propertyName).GetValue(this);
-            var otherVal = other.GetType().GetProperty(propertyName).GetValue(other);
-            if(Equals(thisVal, otherVal)) return;
-            other.GetType().GetProperty(propertyName).SetValue(other, thisVal);
+            var paymentActual = new PaymentActualWrapper(new PaymentActual());
+            salesUnit.PaymentsActual.Add(paymentActual);
+            SalesUnit = salesUnit;
+            PaymentActual = paymentActual;
+            PaymentActual.PropertyChanged += PaymentActualOnPropertyChanged;
+        }
+
+        public Payment(SalesUnitWrapper salesUnit, PaymentActualWrapper paymentActual)
+        {
+            SalesUnit = salesUnit;
+            PaymentActual = paymentActual;
+            PaymentActual.PropertyChanged += PaymentActualOnPropertyChanged;
+        }
+
+        private void PaymentActualOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            OnPropertyChanged(nameof(SumNotPaid));
+            OnPropertyChanged(nameof(Sum));
         }
     }
 }
