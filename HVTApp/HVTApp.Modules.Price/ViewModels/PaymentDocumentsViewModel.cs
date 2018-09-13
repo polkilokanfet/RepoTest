@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -20,8 +21,6 @@ namespace HVTApp.Modules.Price.ViewModels
         private IValidatableChangeTrackingCollection<SalesUnitWrapper> _salesUnitWrappers;
         private IUnitOfWork _unitOfWork;
         private SalesUnitWrapper _selectedUnit;
-        private DateTime _dockDate;
-        private double _dockSum;
 
         public ObservableCollection<Payment> Payments { get; } = new ObservableCollection<Payment>();
         public ObservableCollection<SalesUnitWrapper> Potential { get; } = new ObservableCollection<SalesUnitWrapper>();
@@ -122,7 +121,7 @@ namespace HVTApp.Modules.Price.ViewModels
                 (await _unitOfWork.Repository<SalesUnit>().GetAllAsync()).Select(x => new SalesUnitWrapper(x)));
 
             //отслеживаем их изменения
-            _salesUnitWrappers.PropertyChanged += (sender, args) => ((DelegateCommand) SaveCommand).RaiseCanExecuteChanged();
+            _salesUnitWrappers.PropertyChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
 
             return await base.GetLookups();
         }
@@ -160,6 +159,21 @@ namespace HVTApp.Modules.Price.ViewModels
         public Payment(PaymentActual model, SalesUnitWrapper salesUnit) : base(model)
         {
             SalesUnit = salesUnit;
+            if(salesUnit.PaymentsActual.Select(x => x.Id).Contains(model.Id))
+                this.PropertyChanged += OnPropertyChanged;
+            else
+                salesUnit.PaymentsActual.Add(this);
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            string propertyName = args.PropertyName;
+            if (!this.GetType().GetProperty(propertyName).CanWrite) return;
+            var other = SalesUnit.PaymentsActual.Single(x => x.Id == this.Id);
+            var thisVal = this.GetType().GetProperty(propertyName).GetValue(this);
+            var otherVal = other.GetType().GetProperty(propertyName).GetValue(other);
+            if(Equals(thisVal, otherVal)) return;
+            other.GetType().GetProperty(propertyName).SetValue(other, thisVal);
         }
     }
 }
