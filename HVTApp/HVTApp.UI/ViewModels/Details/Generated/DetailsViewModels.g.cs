@@ -2907,7 +2907,7 @@ namespace HVTApp.UI.ViewModels
 
     }
 
-    public partial class SpecificationDetailsViewModel : BaseDetailsViewModel<SpecificationWrapper, Specification, AfterSaveSpecificationEvent>
+    public partial class SpecificationDetailsViewModel 
     {
 		private Func<Task<List<Contract>>> _getEntitiesForSelectContractCommand;
 		public ICommand SelectContractCommand { get; private set; }

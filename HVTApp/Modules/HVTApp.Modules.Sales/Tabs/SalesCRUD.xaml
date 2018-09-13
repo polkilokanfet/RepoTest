@@ -5,11 +5,15 @@
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              x:Class="HVTApp.Modules.Sales.Tabs.SalesCRUD"
              Header="Рынок">
-    
+
     <infRib:RibbonGroup Caption="Проекты">
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewProjectCommand}"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditProjectCommand}"/>
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveItemCommand}"/>
+    </infRib:RibbonGroup>
+
+    <infRib:RibbonGroup Caption="Спецификации">
+        <infRib:ButtonTool Caption="Создать" Command="{Binding NewSpecificationCommand}"/>
     </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Технико-коммерческое предложение">

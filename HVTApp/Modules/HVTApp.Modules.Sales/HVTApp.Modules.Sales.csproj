@@ -145,11 +145,19 @@
     <Compile Include="ViewModels\ProductionViewModel.cs" />
     <Compile Include="ViewModels\ProjectsViewModel.cs" />
     <Compile Include="ViewModels\ShippingViewModel.cs" />
+    <Compile Include="ViewModels\SpecificationsViewModel.cs" />
+    <Compile Include="ViewModels\SpecificationViewModel.cs" />
     <Compile Include="Views\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OfferRedactorView.xaml.cs">
       <DependentUpon>OfferRedactorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SpecificationView.xaml.cs">
+      <DependentUpon>SpecificationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SpecificationsView.xaml.cs">
+      <DependentUpon>SpecificationsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SalesUnitsWindow.xaml.cs">
       <DependentUpon>SalesUnitsWindow.xaml</DependentUpon>
@@ -272,6 +280,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OfferRedactorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SpecificationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SpecificationsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
