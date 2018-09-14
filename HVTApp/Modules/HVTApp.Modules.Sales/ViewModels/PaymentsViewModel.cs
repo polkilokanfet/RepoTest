@@ -122,7 +122,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         private void OnGroupDateChanged(PaymentsGroup paymentsGroup)
         {
             RefreshPayments();
-            SelectedGroup = PaymentsGroups.SingleOrDefault(x => x.Ids.AllMembersAreSame(paymentsGroup.Ids));
+            SelectedGroup = PaymentsGroups.SingleOrDefault(x => x.Ids.MembersAreSame(paymentsGroup.Ids));
         }
 
         private IEnumerable<PaymentWrapper> GetPayments(SalesUnitWrapper salesUnitWrapper)

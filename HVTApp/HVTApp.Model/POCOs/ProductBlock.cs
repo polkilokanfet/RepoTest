@@ -34,22 +34,22 @@ namespace HVTApp.Model.POCOs
         public double Weight { get; set; }
 
         [Designation("Дата последнего прайса"), NotMapped]
-        public DateTime? LastPriceDate => Prices.Max(x => x.Date);
+        public DateTime? LastPriceDate => Prices.Any() ? Prices.Max(x => x.Date) : default(DateTime?);
 
-        public override bool Equals(object obj)
+        public override bool Equals(object other)
         {
-            if (base.Equals(obj)) return true;
+            return base.Equals(other) || Equals(other as ProductBlock);
+        }
 
-            var otherBlock = obj as ProductBlock;
-            if (otherBlock == null) return false;
-
-            return this.Parameters.AllMembersAreSame(otherBlock.Parameters);
+        protected bool Equals(ProductBlock other)
+        {
+            return other != null && this.Parameters.MembersAreSame(other.Parameters);
         }
 
         public string ParametersToString()
         {
-            StringBuilder stringBuilder = new StringBuilder();
-            foreach (var parameter in Parameters.OrderBy(this.GetWeight))
+            var stringBuilder = new StringBuilder();
+            foreach (var parameter in Parameters.OrderByDescending(this.GetWeight))
                 stringBuilder.Append($"{parameter.ParameterGroup}: {parameter.Value}; ");
 
             return stringBuilder.ToString();

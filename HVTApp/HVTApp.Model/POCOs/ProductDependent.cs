@@ -12,16 +12,14 @@ namespace HVTApp.Model.POCOs
         public virtual Product Product { get; set; }
         public int Amount { get; set; } = 1;
 
-        public override bool Equals(object obj)
+        public override bool Equals(object other)
         {
-            if (base.Equals(obj)) return true;
+            return base.Equals(other) || Equals(other as ProductDependent);
+        }
 
-            var other = obj as ProductDependent;
-            if (other == null) return false;
-
-            if (this.Amount != other.Amount) return false;
-
-            return this.Product.Equals(other.Product);
+        protected bool Equals(ProductDependent other)
+        {
+            return Amount == other?.Amount && this.Product.Equals(other.Product);
         }
     }
 }

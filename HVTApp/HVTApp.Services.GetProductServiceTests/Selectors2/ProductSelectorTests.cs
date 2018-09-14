@@ -23,7 +23,7 @@ namespace HVTApp.Services.GetProductServiceTests.Selectors2
 
             var originParameters = parameters.Where(x => !x.ParameterRelations.Any());
             var originParameterSelector = productBlockSelector.ParameterSelectors.
-                Single(x => x.ParametersFlaged.Select(p => p.Parameter).AllMembersAreSame(originParameters));
+                Single(x => x.ParametersFlaged.Select(p => p.Parameter).MembersAreSame(originParameters));
 
             foreach (var selectedParameterFlaged in originParameterSelector.ParametersFlaged)
             {

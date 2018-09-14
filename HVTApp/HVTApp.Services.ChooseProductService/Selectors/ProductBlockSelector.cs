@@ -34,11 +34,11 @@ namespace HVTApp.Services.GetProductService
             get
             {
                 //если все выбранные параметры совпадают
-                if (_selectedProductBlock != null && SelectedParameters.AllMembersAreSame(_selectedProductBlock.Parameters))
+                if (_selectedProductBlock != null && SelectedParameters.MembersAreSame(_selectedProductBlock.Parameters))
                     return _selectedProductBlock;
 
                 //поиск в существующих блоках
-                var result = _existsProductBlocks.SingleOrDefault(x => x.Parameters.AllMembersAreSame(SelectedParameters));
+                var result = _existsProductBlocks.SingleOrDefault(x => x.Parameters.MembersAreSame(SelectedParameters));
                 if (result != null)
                 {
                     _selectedProductBlock = result;
@@ -58,7 +58,7 @@ namespace HVTApp.Services.GetProductService
                 if(blockToSet == null) throw new ArgumentNullException(nameof(blockToSet));
 
                 //если совпадают выбранные параметры и параметры нового блока
-                if (SelectedParameters.AllMembersAreSame(blockToSet.Parameters)) return;
+                if (SelectedParameters.MembersAreSame(blockToSet.Parameters)) return;
 
 
                 var parameterSelectors = ParameterSelectors.ToList();

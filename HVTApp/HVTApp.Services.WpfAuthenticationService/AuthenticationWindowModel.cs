@@ -6,7 +6,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
-using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using Prism.Commands;
 
@@ -70,7 +69,6 @@ namespace HVTApp.Services.WpfAuthenticationService
 
         private void OkCommand_Execute()
         {
-            //CurrentUser.User = User;
             CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
         }
 
@@ -87,8 +85,9 @@ namespace HVTApp.Services.WpfAuthenticationService
             SelectedRole = null;
             if (User != null)
             {
-                foreach (var role in User.Roles)
+                foreach (var role in User.Roles.OrderBy(x => x.Role))
                     Roles.Add(role);
+
                 if (User.Roles.Count > 0)
                 {
                     SelectedRole = User.Roles[0];

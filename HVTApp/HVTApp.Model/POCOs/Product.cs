@@ -31,22 +31,24 @@ namespace HVTApp.Model.POCOs
         {
             string type = ProductType == null ? String.Empty : $"{ProductType} ";
             if (!string.IsNullOrEmpty(DesignationSpecial)) return $"{type}{DesignationSpecial}";
-            if (!string.IsNullOrEmpty(Designation)) return $"{type}{Designation}"; ;
+            if (!string.IsNullOrEmpty(Designation)) return $"{type}{Designation}";
             return ProductBlock.ToString();
         }
 
         public override bool Equals(object obj)
         {
-            if (base.Equals(obj)) return true;
+            return base.Equals(obj) || Equals(obj as Product);
+        }
 
-            var otherProduct = obj as Product;
-            if (otherProduct == null) return false;
+        protected bool Equals(Product other)
+        {
+            if (other == null) return false;
 
             //если составные части не совпадают
-            if (!this.ProductBlock.Equals(otherProduct.ProductBlock)) return false;
+            if (!this.ProductBlock.Equals(other.ProductBlock)) return false;
 
             //если зависимые продукты не совпадают / совпадают
-            return DependentProducts.AllMembersAreSame(otherProduct.DependentProducts);
+            return DependentProducts.MembersAreSame(other.DependentProducts);
         }
 
         /// <summary>

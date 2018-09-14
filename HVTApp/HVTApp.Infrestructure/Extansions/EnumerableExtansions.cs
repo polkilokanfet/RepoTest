@@ -6,7 +6,14 @@ namespace HVTApp.Infrastructure.Extansions
 {
     public static class EnumerableExtansions
     {
-        public static bool AllMembersAreSame<T>(this IEnumerable<T> first, IEnumerable<T> second)
+        /// <summary>
+        /// Члены коллекций совпадают.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        public static bool MembersAreSame<T>(this IEnumerable<T> first, IEnumerable<T> second)
         {
             var firstList = first as IList<T> ?? first.ToList();
             var secondList = second as T[] ?? second.ToArray();
