@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Model.POCOs;
@@ -263,6 +264,35 @@ namespace HVTApp.UI
         {
             var attr = property.GetCustomAttribute<OrderStatusAttribute>();
             return attr?.OrderStatus ?? 1;
+        }
+
+
+        private static IEnumerable<AllowEditAttribute> GetAllowEditAttributes(this Type type)
+        {
+            var atrs = type.GetCustomAttributes<AllowEditAttribute>().ToList();
+            foreach (var atr in atrs)
+            {
+                yield return atr;
+            }
+
+            if(!atrs.SelectMany(x => x.Roles).Contains(Role.Admin))
+                yield return new AllowEditAttribute(Role.Admin);
+        }
+
+        public static IEnumerable<Role> GetAllowEditRoles(this Type type)
+        {
+            return type.GetAllowEditAttributes().SelectMany(x => x.Roles);
+        }
+
+
+        public static string GetAllowEdit(this Type type)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (var attribute in type.GetAllowEditAttributes())
+            {
+                sb.Append(attribute.ToString());
+            }
+            return sb.ToString();
         }
 
     }

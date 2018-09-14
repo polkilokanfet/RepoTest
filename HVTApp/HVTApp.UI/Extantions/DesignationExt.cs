@@ -15,6 +15,11 @@ namespace HVTApp.UI
             var attr = type.GetCustomAttribute<DesignationPluralAttribute>();
             return attr != null ? attr.Designation : type.Name;
         }
+        public static string DesignationSingle(this Type type)
+        {
+            var attr = type.GetCustomAttribute<DesignationAttribute>();
+            return attr != null ? attr.Designation : type.Name;
+        }
 
         public static string Designation(this PropertyInfo propertyInfo)
         {
@@ -41,10 +46,8 @@ namespace HVTApp.UI
         public static void AddToNavigate(this ObservableCollection<NavigationItem> collection, Type typeView)
         {
             var design = typeView.Name;
-            var attr = typeView.GetCustomAttribute<DesignationPluralAttribute>();
-            if (attr != null)
-                design = attr.Designation;
-
+            var attr = typeView.GetCustomAttribute<DesignationAttribute>();
+            if (attr != null) design = attr.Designation;
 
             var item = new NavigationItem(design, typeView);
             collection.Add(item);

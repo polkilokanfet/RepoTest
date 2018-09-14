@@ -12,6 +12,7 @@ using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.UI.Lookup;
 using Microsoft.Practices.ObjectBuilder2;
@@ -30,11 +31,12 @@ namespace HVTApp.UI.ViewModels
         where TAfterRemoveEntityEvent : PubSubEvent<TEntity>, new()
         where TAfterSelectEntityEvent : PubSubEvent<PubSubEventArgs<TEntity>>, new()
     {
-        protected readonly IUnityContainer Container;
         protected ILookupDataService<TLookup> LookupDataService;
         protected readonly IDialogService DialogService;
         protected readonly IMessageService MessageService;
         protected readonly IEventAggregator EventAggregator;
+
+        protected bool AllowEdit => typeof(TEntity).GetAllowEditRoles().Contains(CommonOptions.User.RoleCurrent);
 
         private TLookup _selectedLookup;
         private TEntity _selectedItem;
@@ -42,7 +44,6 @@ namespace HVTApp.UI.ViewModels
 
         protected BaseListViewModel(IUnityContainer container) : base(container)
         {
-            Container = container;
             LookupDataService = Container.Resolve<TLookupDataService>();
             DialogService = Container.Resolve<IDialogService>();
             MessageService = Container.Resolve<IMessageService>();
@@ -200,8 +201,7 @@ namespace HVTApp.UI.ViewModels
 
         protected virtual bool NewItemCommand_CanExecute()
         {
-            var attribute = GetType().GetCustomAttribute<RoleToUpdateAttribute>();
-            return attribute == null || !attribute.Roles.Contains(Role.Admin);
+            return AllowEdit;
         }
 
 
@@ -212,7 +212,7 @@ namespace HVTApp.UI.ViewModels
 
         protected virtual bool EditItemCommand_CanExecute()
         {
-            return !Equals(SelectedLookup, default(TLookup));
+            return AllowEdit && !Equals(SelectedLookup, default(TLookup));
         }
 
         protected async void RemoveItemCommand_ExecuteAsync()
@@ -244,7 +244,7 @@ namespace HVTApp.UI.ViewModels
 
         protected virtual bool RemoveItemCommand_CanExecute()
         {
-            return !Equals(SelectedLookup, default(TLookup));
+            return AllowEdit && !Equals(SelectedLookup, default(TLookup));
         }
 
         private void SelectItemCommand_Execute()

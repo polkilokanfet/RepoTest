@@ -83,7 +83,7 @@
     <Compile Include="Attributes\NotForListViewAttribute.cs" />
     <Compile Include="Attributes\NotUpdateAttribute.cs" />
     <Compile Include="Attributes\OrderStatusAttribute.cs" />
-    <Compile Include="Attributes\RoleToUpdateAttribute.cs" />
+    <Compile Include="Attributes\AllowEditAttribute.cs" />
     <Compile Include="BaseEntity.cs" />
     <Compile Include="BaseMenuViewModel.cs" />
     <Compile Include="Behaviors\ChangeBehavior.cs" />

@@ -16,10 +16,14 @@
 
 using HVTApp.Model.POCOs;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Lookup
 {
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Задание на создание нового продукта")]
 	public partial class CreateNewProductTaskLookup : LookupItem<CreateNewProductTask>
 	{
 		public CreateNewProductTaskLookup(CreateNewProductTask entity) : base(entity) 
@@ -56,6 +60,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("DocumentIncomingNumber")]
 	public partial class DocumentIncomingNumberLookup : LookupItem<DocumentIncomingNumber>
 	{
 		public DocumentIncomingNumberLookup(DocumentIncomingNumber entity) : base(entity) 
@@ -77,6 +84,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("DocumentOutgoingNumber")]
 	public partial class DocumentOutgoingNumberLookup : LookupItem<DocumentOutgoingNumber>
 	{
 		public DocumentOutgoingNumberLookup(DocumentOutgoingNumber entity) : base(entity) 
@@ -98,6 +108,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Платеж совершенный")]
 	public partial class PaymentActualLookup : LookupItem<PaymentActual>
 	{
 		public PaymentActualLookup(PaymentActual entity) : base(entity) 
@@ -127,6 +140,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Платеж плановый")]
 	public partial class PaymentPlannedLookup : LookupItem<PaymentPlanned>
 	{
 		public PaymentPlannedLookup(PaymentPlanned entity) : base(entity) 
@@ -171,6 +187,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Признаки услуги")]
 	public partial class ProductBlockIsServiceLookup : LookupItem<ProductBlockIsService>
 	{
 		public ProductBlockIsServiceLookup(ProductBlockIsService entity) : base(entity) 
@@ -183,6 +202,9 @@ namespace HVTApp.UI.Lookup
 		
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("ProductIncluded")]
 	public partial class ProductIncludedLookup : LookupItem<ProductIncluded>
 	{
 		public ProductIncludedLookup(ProductIncluded entity) : base(entity) 
@@ -215,6 +237,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("ProductDesignation")]
 	public partial class ProductDesignationLookup : LookupItem<ProductDesignation>
 	{
 		public ProductDesignationLookup(ProductDesignation entity) : base(entity) 
@@ -236,6 +261,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Тип продукта")]
 	public partial class ProductTypeLookup : LookupItem<ProductType>
 	{
 		public ProductTypeLookup(ProductType entity) : base(entity) 
@@ -257,6 +285,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("ProductTypeDesignation")]
 	public partial class ProductTypeDesignationLookup : LookupItem<ProductTypeDesignation>
 	{
 		public ProductTypeDesignationLookup(ProductTypeDesignation entity) : base(entity) 
@@ -280,6 +311,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Тип проекта")]
 	public partial class ProjectTypeLookup : LookupItem<ProjectType>
 	{
 		public ProjectTypeLookup(ProjectType entity) : base(entity) 
@@ -301,6 +335,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("CommonOption")]
 	public partial class CommonOptionLookup : LookupItem<CommonOption>
 	{
 		public CommonOptionLookup(CommonOption entity) : base(entity) 
@@ -342,6 +379,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Адрес")]
 	public partial class AddressLookup : LookupItem<Address>
 	{
 		public AddressLookup(Address entity) : base(entity) 
@@ -374,6 +414,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Страна")]
 	public partial class CountryLookup : LookupItem<Country>
 	{
 		public CountryLookup(Country entity) : base(entity) 
@@ -395,6 +438,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Округ")]
 	public partial class DistrictLookup : LookupItem<District>
 	{
 		public DistrictLookup(District entity) : base(entity) 
@@ -427,6 +473,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Населенный пункт")]
 	public partial class LocalityLookup : LookupItem<Locality>
 	{
 		public LocalityLookup(Locality entity) : base(entity) 
@@ -481,6 +530,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Тип населенного пункта")]
 	public partial class LocalityTypeLookup : LookupItem<LocalityType>
 	{
 		public LocalityTypeLookup(LocalityType entity) : base(entity) 
@@ -506,6 +558,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Регион")]
 	public partial class RegionLookup : LookupItem<Region>
 	{
 		public RegionLookup(Region entity) : base(entity) 
@@ -538,6 +593,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Задание на расчет себестоимости")]
 	public partial class CalculatePriceTaskLookup : LookupItem<CalculatePriceTask>
 	{
 		public CalculatePriceTaskLookup(CalculatePriceTask entity) : base(entity) 
@@ -578,6 +636,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Sum")]
 	public partial class SumLookup : LookupItem<Sum>
 	{
 		public SumLookup(Sum entity) : base(entity) 
@@ -607,6 +668,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Курс обмена валют")]
 	public partial class CurrencyExchangeRateLookup : LookupItem<CurrencyExchangeRate>
 	{
 		public CurrencyExchangeRateLookup(CurrencyExchangeRate entity) : base(entity) 
@@ -640,6 +704,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("DescribeProductBlockTask")]
 	public partial class DescribeProductBlockTaskLookup : LookupItem<DescribeProductBlockTask>
 	{
 		public DescribeProductBlockTaskLookup(DescribeProductBlockTask entity) : base(entity) 
@@ -669,6 +736,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Note")]
 	public partial class NoteLookup : LookupItem<Note>
 	{
 		public NoteLookup(Note entity) : base(entity) 
@@ -698,6 +768,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Единица ТКП")]
 	public partial class OfferUnitLookup : LookupItem<OfferUnit>
 	{
 		public OfferUnitLookup(OfferUnit entity) : base(entity) 
@@ -752,6 +825,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("PaymentConditionSet")]
 	public partial class PaymentConditionSetLookup : LookupItem<PaymentConditionSet>
 	{
 		public PaymentConditionSetLookup(PaymentConditionSet entity) : base(entity) 
@@ -764,6 +840,9 @@ namespace HVTApp.UI.Lookup
 		
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Блок")]
 	public partial class ProductBlockLookup : LookupItem<ProductBlock>
 	{
 		public ProductBlockLookup(ProductBlock entity) : base(entity) 
@@ -805,6 +884,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("ProductDependent")]
 	public partial class ProductDependentLookup : LookupItem<ProductDependent>
 	{
 		public ProductDependentLookup(ProductDependent entity) : base(entity) 
@@ -841,6 +923,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("ProductionTask")]
 	public partial class ProductionTaskLookup : LookupItem<ProductionTask>
 	{
 		public ProductionTaskLookup(ProductionTask entity) : base(entity) 
@@ -862,6 +947,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("SalesBlock")]
 	public partial class SalesBlockLookup : LookupItem<SalesBlock>
 	{
 		public SalesBlockLookup(SalesBlock entity) : base(entity) 
@@ -874,6 +962,9 @@ namespace HVTApp.UI.Lookup
 		
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Банковские реквизиты")]
 	public partial class BankDetailsLookup : LookupItem<BankDetails>
 	{
 		public BankDetailsLookup(BankDetails entity) : base(entity) 
@@ -887,19 +978,19 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(5)]
         public System.String BankName => GetValue<System.String>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(4)]
         public System.String BankIdentificationCode => GetValue<System.String>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(3)]
         public System.String CorrespondentAccount => GetValue<System.String>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(2)]
         public System.String CheckingAccount => GetValue<System.String>();
 
 
@@ -907,6 +998,11 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.DataBaseFiller)]
+[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Компания")]
 	public partial class CompanyLookup : LookupItem<Company>
 	{
 		public CompanyLookup(Company entity) : base(entity) 
@@ -969,6 +1065,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Организационная форма")]
 	public partial class CompanyFormLookup : LookupItem<CompanyForm>
 	{
 		public CompanyFormLookup(CompanyForm entity) : base(entity) 
@@ -994,6 +1093,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("DocumentsRegistrationDetails")]
 	public partial class DocumentsRegistrationDetailsLookup : LookupItem<DocumentsRegistrationDetails>
 	{
 		public DocumentsRegistrationDetailsLookup(DocumentsRegistrationDetails entity) : base(entity) 
@@ -1019,6 +1121,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("EmployeesPosition")]
 	public partial class EmployeesPositionLookup : LookupItem<EmployeesPosition>
 	{
 		public EmployeesPositionLookup(EmployeesPosition entity) : base(entity) 
@@ -1040,6 +1145,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Тип объекта")]
 	public partial class FacilityTypeLookup : LookupItem<FacilityType>
 	{
 		public FacilityTypeLookup(FacilityType entity) : base(entity) 
@@ -1065,6 +1173,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Сфера деятельности")]
 	public partial class ActivityFieldLookup : LookupItem<ActivityField>
 	{
 		public ActivityFieldLookup(ActivityField entity) : base(entity) 
@@ -1078,7 +1189,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(10)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -1090,6 +1201,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Контракт")]
 	public partial class ContractLookup : LookupItem<Contract>
 	{
 		public ContractLookup(Contract entity) : base(entity) 
@@ -1126,6 +1240,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Measure")]
 	public partial class MeasureLookup : LookupItem<Measure>
 	{
 		public MeasureLookup(Measure entity) : base(entity) 
@@ -1151,6 +1268,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Parameter")]
 	public partial class ParameterLookup : LookupItem<Parameter>
 	{
 		public ParameterLookup(Parameter entity) : base(entity) 
@@ -1187,6 +1307,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("ParameterGroup")]
 	public partial class ParameterGroupLookup : LookupItem<ParameterGroup>
 	{
 		public ParameterGroupLookup(ParameterGroup entity) : base(entity) 
@@ -1219,6 +1342,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("ProductRelation")]
 	public partial class ProductRelationLookup : LookupItem<ProductRelation>
 	{
 		public ProductRelationLookup(ProductRelation entity) : base(entity) 
@@ -1244,6 +1370,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Персона")]
 	public partial class PersonLookup : LookupItem<Person>
 	{
 		public PersonLookup(Person entity) : base(entity) 
@@ -1277,6 +1406,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("ParameterRelation")]
 	public partial class ParameterRelationLookup : LookupItem<ParameterRelation>
 	{
 		public ParameterRelationLookup(ParameterRelation entity) : base(entity) 
@@ -1298,6 +1430,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Единица продаж")]
 	public partial class SalesUnitLookup : LookupItem<SalesUnit>
 	{
 		public SalesUnitLookup(SalesUnit entity) : base(entity) 
@@ -1327,7 +1462,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(45)]
         public System.Double Cost => GetValue<System.Double>();
 
 
@@ -1516,6 +1651,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("TestFriendAddress")]
 	public partial class TestFriendAddressLookup : LookupItem<TestFriendAddress>
 	{
 		public TestFriendAddressLookup(TestFriendAddress entity) : base(entity) 
@@ -1545,6 +1683,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("TestFriend")]
 	public partial class TestFriendLookup : LookupItem<TestFriend>
 	{
 		public TestFriendLookup(TestFriend entity) : base(entity) 
@@ -1609,6 +1750,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("TestFriendEmail")]
 	public partial class TestFriendEmailLookup : LookupItem<TestFriendEmail>
 	{
 		public TestFriendEmailLookup(TestFriendEmail entity) : base(entity) 
@@ -1634,6 +1778,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("TestFriendGroup")]
 	public partial class TestFriendGroupLookup : LookupItem<TestFriendGroup>
 	{
 		public TestFriendGroupLookup(TestFriendGroup entity) : base(entity) 
@@ -1655,6 +1802,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Документ")]
 	public partial class DocumentLookup : LookupItem<Document>
 	{
 		public DocumentLookup(Document entity) : base(entity) 
@@ -1725,6 +1875,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("TestEntity")]
 	public partial class TestEntityLookup : LookupItem<TestEntity>
 	{
 		public TestEntityLookup(TestEntity entity) : base(entity) 
@@ -1746,6 +1899,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("TestHusband")]
 	public partial class TestHusbandLookup : LookupItem<TestHusband>
 	{
 		public TestHusbandLookup(TestHusband entity) : base(entity) 
@@ -1778,6 +1934,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("TestWife")]
 	public partial class TestWifeLookup : LookupItem<TestWife>
 	{
 		public TestWifeLookup(TestWife entity) : base(entity) 
@@ -1814,6 +1973,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("TestChild")]
 	public partial class TestChildLookup : LookupItem<TestChild>
 	{
 		public TestChildLookup(TestChild entity) : base(entity) 
@@ -1852,6 +2014,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("SumOnDate")]
 	public partial class SumOnDateLookup : LookupItem<SumOnDate>
 	{
 		public SumOnDateLookup(SumOnDate entity) : base(entity) 
@@ -1877,6 +2042,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Продукт")]
 	public partial class ProductLookup : LookupItem<Product>
 	{
 		public ProductLookup(Product entity) : base(entity) 
@@ -1919,6 +2087,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("ТКП")]
 	public partial class OfferLookup : LookupItem<Offer>
 	{
 		public OfferLookup(Offer entity) : base(entity) 
@@ -2003,6 +2174,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Сотрудник")]
 	public partial class EmployeeLookup : LookupItem<Employee>
 	{
 		public EmployeeLookup(Employee entity) : base(entity) 
@@ -2051,6 +2225,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Заводской заказ")]
 	public partial class OrderLookup : LookupItem<Order>
 	{
 		public OrderLookup(Order entity) : base(entity) 
@@ -2076,6 +2253,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("PaymentCondition")]
 	public partial class PaymentConditionLookup : LookupItem<PaymentCondition>
 	{
 		public PaymentConditionLookup(PaymentCondition entity) : base(entity) 
@@ -2105,6 +2285,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Платежный документ")]
 	public partial class PaymentDocumentLookup : LookupItem<PaymentDocument>
 	{
 		public PaymentDocumentLookup(PaymentDocument entity) : base(entity) 
@@ -2130,6 +2313,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Объект")]
 	public partial class FacilityLookup : LookupItem<Facility>
 	{
 		public FacilityLookup(Facility entity) : base(entity) 
@@ -2174,6 +2360,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Проект")]
 	public partial class ProjectLookup : LookupItem<Project>
 	{
 		public ProjectLookup(Project entity) : base(entity) 
@@ -2216,6 +2405,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("UserRole")]
 	public partial class UserRoleLookup : LookupItem<UserRole>
 	{
 		public UserRoleLookup(UserRole entity) : base(entity) 
@@ -2241,6 +2433,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Спецификация")]
 	public partial class SpecificationLookup : LookupItem<Specification>
 	{
 		public SpecificationLookup(Specification entity) : base(entity) 
@@ -2281,6 +2476,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Тендер")]
 	public partial class TenderLookup : LookupItem<Tender>
 	{
 		public TenderLookup(Tender entity) : base(entity) 
@@ -2327,6 +2525,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Тип тендера")]
 	public partial class TenderTypeLookup : LookupItem<TenderType>
 	{
 		public TenderTypeLookup(TenderType entity) : base(entity) 
@@ -2352,6 +2553,9 @@ namespace HVTApp.UI.Lookup
 
 	}
 
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Пользователь")]
 	public partial class UserLookup : LookupItem<User>
 	{
 		public UserLookup(User entity) : base(entity) 

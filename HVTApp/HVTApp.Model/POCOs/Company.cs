@@ -7,6 +7,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Компания")]
     [DesignationPlural("Компании")]
+    [AllowEdit(Role.SalesManager, Role.DataBaseFiller)]
     public partial class Company : BaseEntity
     {
         [Designation("Наименование")]

@@ -120,6 +120,10 @@
       <Project>{76518D16-6EA7-4B34-A308-E7AD991421BC}</Project>
       <Name>HVTApp.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Model\HVTApp.Model.csproj">
+      <Project>{350bdab0-b331-426f-a024-004c8539af17}</Project>
+      <Name>HVTApp.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.UI\HVTApp.UI.csproj">
       <Project>{984df0f0-471d-4e38-b701-9dfc536217a8}</Project>
       <Name>HVTApp.UI</Name>

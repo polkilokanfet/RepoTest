@@ -38,6 +38,7 @@
     {
 #>using HVTApp.Model.POCOs;
 using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Lookup
 {
@@ -53,6 +54,8 @@ namespace HVTApp.UI.Lookup
 	private void GenerateLookup(Type modelType)
 	{
 #>
+	<#=modelType.GetAllowEdit()#>
+	[Designation("<#=modelType.DesignationSingle()#>")]
 	public partial class <#=modelType.Name#>Lookup : LookupItem<<#=modelType.Name#>>
 	{
 		public <#=modelType.Name#>Lookup(<#=modelType.Name#> entity) : base(entity) 
@@ -188,6 +191,8 @@ namespace HVTApp.UI.Lookup
 using HVTApp.Model.Events;
 using Microsoft.Practices.Unity;
 using HVTApp.UI.Lookup;
+using HVTApp.Infrastructure.Attributes;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.ViewModels
 {
@@ -195,7 +200,7 @@ namespace HVTApp.UI.ViewModels
         foreach(var modelType in modelTypes)
         {
 #>
-    public partial class <#=modelType.Name#>LookupListViewModel : BaseListViewModel<<#=modelType.Name#>, <#=modelType.Name#>Lookup, AfterSave<#=modelType.Name#>Event, AfterSelect<#=modelType.Name#>Event, AfterRemove<#=modelType.Name#>Event,  <#=modelType.Name#>LookupDataService>
+	public partial class <#=modelType.Name#>LookupListViewModel : BaseListViewModel<<#=modelType.Name#>, <#=modelType.Name#>Lookup, AfterSave<#=modelType.Name#>Event, AfterSelect<#=modelType.Name#>Event, AfterRemove<#=modelType.Name#>Event,  <#=modelType.Name#>LookupDataService>
     {
         public <#=modelType.Name#>LookupListViewModel(IUnityContainer container) : base(container) { }
     }
@@ -220,6 +225,7 @@ using HVTApp.UI.Tabs;
 using HVTApp.UI.ViewModels;
 using HVTApp.Model.POCOs;
 
+
 namespace HVTApp.UI.Views
 {
 <#+
@@ -227,7 +233,9 @@ namespace HVTApp.UI.Views
         {
 #>
     [RibbonTab(typeof(TabCRUD))]
+	[Designation("<#=modelType.DesignationSingle()#>")]
 	[DesignationPlural("<#=modelType.DesignationPlural()#>")]
+	<#=modelType.GetAllowEdit()#>
     public partial class <#=modelType.Name#>ListView : ViewBase
     {
         public <#=modelType.Name#>ListView()
