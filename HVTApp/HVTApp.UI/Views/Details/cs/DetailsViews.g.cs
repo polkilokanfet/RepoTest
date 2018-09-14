@@ -50,7 +50,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDesignationCreateNewProductTask
         {
             get { return (Visibility) GetValue(VisibilityDesignationCreateNewProductTaskProperty); }
-            set { SetValue(VisibilityDesignationCreateNewProductTaskProperty, value); }
+            set { SetValue(VisibilityDesignationCreateNewProductTaskProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -58,7 +58,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityStructureCostNumberCreateNewProductTask
         {
             get { return (Visibility) GetValue(VisibilityStructureCostNumberCreateNewProductTaskProperty); }
-            set { SetValue(VisibilityStructureCostNumberCreateNewProductTaskProperty, value); }
+            set { SetValue(VisibilityStructureCostNumberCreateNewProductTaskProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -66,7 +66,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProductCreateNewProductTask
         {
             get { return (Visibility) GetValue(VisibilityProductCreateNewProductTaskProperty); }
-            set { SetValue(VisibilityProductCreateNewProductTaskProperty, value); }
+            set { SetValue(VisibilityProductCreateNewProductTaskProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -101,7 +101,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNumDocumentIncomingNumber
         {
             get { return (Visibility) GetValue(VisibilityNumDocumentIncomingNumberProperty); }
-            set { SetValue(VisibilityNumDocumentIncomingNumberProperty, value); }
+            set { SetValue(VisibilityNumDocumentIncomingNumberProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -136,7 +136,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNumDocumentOutgoingNumber
         {
             get { return (Visibility) GetValue(VisibilityNumDocumentOutgoingNumberProperty); }
-            set { SetValue(VisibilityNumDocumentOutgoingNumberProperty, value); }
+            set { SetValue(VisibilityNumDocumentOutgoingNumberProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -179,7 +179,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDatePaymentActual
         {
             get { return (Visibility) GetValue(VisibilityDatePaymentActualProperty); }
-            set { SetValue(VisibilityDatePaymentActualProperty, value); }
+            set { SetValue(VisibilityDatePaymentActualProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -187,7 +187,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySumPaymentActual
         {
             get { return (Visibility) GetValue(VisibilitySumPaymentActualProperty); }
-            set { SetValue(VisibilitySumPaymentActualProperty, value); }
+            set { SetValue(VisibilitySumPaymentActualProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -195,7 +195,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityCommentPaymentActual
         {
             get { return (Visibility) GetValue(VisibilityCommentPaymentActualProperty); }
-            set { SetValue(VisibilityCommentPaymentActualProperty, value); }
+            set { SetValue(VisibilityCommentPaymentActualProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -246,7 +246,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDatePaymentPlanned
         {
             get { return (Visibility) GetValue(VisibilityDatePaymentPlannedProperty); }
-            set { SetValue(VisibilityDatePaymentPlannedProperty, value); }
+            set { SetValue(VisibilityDatePaymentPlannedProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -254,7 +254,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDateCalculatedPaymentPlanned
         {
             get { return (Visibility) GetValue(VisibilityDateCalculatedPaymentPlannedProperty); }
-            set { SetValue(VisibilityDateCalculatedPaymentPlannedProperty, value); }
+            set { SetValue(VisibilityDateCalculatedPaymentPlannedProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -262,7 +262,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPartPaymentPlanned
         {
             get { return (Visibility) GetValue(VisibilityPartPaymentPlannedProperty); }
-            set { SetValue(VisibilityPartPaymentPlannedProperty, value); }
+            set { SetValue(VisibilityPartPaymentPlannedProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -270,7 +270,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityCommentPaymentPlanned
         {
             get { return (Visibility) GetValue(VisibilityCommentPaymentPlannedProperty); }
-            set { SetValue(VisibilityCommentPaymentPlannedProperty, value); }
+            set { SetValue(VisibilityCommentPaymentPlannedProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -278,7 +278,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityConditionPaymentPlanned
         {
             get { return (Visibility) GetValue(VisibilityConditionPaymentPlannedProperty); }
-            set { SetValue(VisibilityConditionPaymentPlannedProperty, value); }
+            set { SetValue(VisibilityConditionPaymentPlannedProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -313,7 +313,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityParametersProductBlockIsService
         {
             get { return (Visibility) GetValue(VisibilityParametersProductBlockIsServiceProperty); }
-            set { SetValue(VisibilityParametersProductBlockIsServiceProperty, value); }
+            set { SetValue(VisibilityParametersProductBlockIsServiceProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -352,7 +352,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProductProductIncluded
         {
             get { return (Visibility) GetValue(VisibilityProductProductIncludedProperty); }
-            set { SetValue(VisibilityProductProductIncludedProperty, value); }
+            set { SetValue(VisibilityProductProductIncludedProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -360,7 +360,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityAmountProductIncluded
         {
             get { return (Visibility) GetValue(VisibilityAmountProductIncludedProperty); }
-            set { SetValue(VisibilityAmountProductIncludedProperty, value); }
+            set { SetValue(VisibilityAmountProductIncludedProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -399,7 +399,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDesignationProductDesignation
         {
             get { return (Visibility) GetValue(VisibilityDesignationProductDesignationProperty); }
-            set { SetValue(VisibilityDesignationProductDesignationProperty, value); }
+            set { SetValue(VisibilityDesignationProductDesignationProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -407,7 +407,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityParametersProductDesignation
         {
             get { return (Visibility) GetValue(VisibilityParametersProductDesignationProperty); }
-            set { SetValue(VisibilityParametersProductDesignationProperty, value); }
+            set { SetValue(VisibilityParametersProductDesignationProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -442,7 +442,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNameProductType
         {
             get { return (Visibility) GetValue(VisibilityNameProductTypeProperty); }
-            set { SetValue(VisibilityNameProductTypeProperty, value); }
+            set { SetValue(VisibilityNameProductTypeProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -481,7 +481,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProductTypeProductTypeDesignation
         {
             get { return (Visibility) GetValue(VisibilityProductTypeProductTypeDesignationProperty); }
-            set { SetValue(VisibilityProductTypeProductTypeDesignationProperty, value); }
+            set { SetValue(VisibilityProductTypeProductTypeDesignationProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -489,7 +489,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityParametersProductTypeDesignation
         {
             get { return (Visibility) GetValue(VisibilityParametersProductTypeDesignationProperty); }
-            set { SetValue(VisibilityParametersProductTypeDesignationProperty, value); }
+            set { SetValue(VisibilityParametersProductTypeDesignationProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -524,7 +524,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNameProjectType
         {
             get { return (Visibility) GetValue(VisibilityNameProjectTypeProperty); }
-            set { SetValue(VisibilityNameProjectTypeProperty, value); }
+            set { SetValue(VisibilityNameProjectTypeProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -579,7 +579,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDateCommonOption
         {
             get { return (Visibility) GetValue(VisibilityDateCommonOptionProperty); }
-            set { SetValue(VisibilityDateCommonOptionProperty, value); }
+            set { SetValue(VisibilityDateCommonOptionProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -587,7 +587,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityOurCompanyIdCommonOption
         {
             get { return (Visibility) GetValue(VisibilityOurCompanyIdCommonOptionProperty); }
-            set { SetValue(VisibilityOurCompanyIdCommonOptionProperty, value); }
+            set { SetValue(VisibilityOurCompanyIdCommonOptionProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -595,7 +595,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityActualPriceTermCommonOption
         {
             get { return (Visibility) GetValue(VisibilityActualPriceTermCommonOptionProperty); }
-            set { SetValue(VisibilityActualPriceTermCommonOptionProperty, value); }
+            set { SetValue(VisibilityActualPriceTermCommonOptionProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -603,7 +603,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityStandartTermFromStartToEndProductionCommonOption
         {
             get { return (Visibility) GetValue(VisibilityStandartTermFromStartToEndProductionCommonOptionProperty); }
-            set { SetValue(VisibilityStandartTermFromStartToEndProductionCommonOptionProperty, value); }
+            set { SetValue(VisibilityStandartTermFromStartToEndProductionCommonOptionProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -611,7 +611,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityStandartTermFromPickToEndProductionCommonOption
         {
             get { return (Visibility) GetValue(VisibilityStandartTermFromPickToEndProductionCommonOptionProperty); }
-            set { SetValue(VisibilityStandartTermFromPickToEndProductionCommonOptionProperty, value); }
+            set { SetValue(VisibilityStandartTermFromPickToEndProductionCommonOptionProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -619,7 +619,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityStandartPaymentsConditionSetIdCommonOption
         {
             get { return (Visibility) GetValue(VisibilityStandartPaymentsConditionSetIdCommonOptionProperty); }
-            set { SetValue(VisibilityStandartPaymentsConditionSetIdCommonOptionProperty, value); }
+            set { SetValue(VisibilityStandartPaymentsConditionSetIdCommonOptionProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -658,7 +658,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDescriptionAddress
         {
             get { return (Visibility) GetValue(VisibilityDescriptionAddressProperty); }
-            set { SetValue(VisibilityDescriptionAddressProperty, value); }
+            set { SetValue(VisibilityDescriptionAddressProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -666,7 +666,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityLocalityAddress
         {
             get { return (Visibility) GetValue(VisibilityLocalityAddressProperty); }
-            set { SetValue(VisibilityLocalityAddressProperty, value); }
+            set { SetValue(VisibilityLocalityAddressProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -701,7 +701,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNameCountry
         {
             get { return (Visibility) GetValue(VisibilityNameCountryProperty); }
-            set { SetValue(VisibilityNameCountryProperty, value); }
+            set { SetValue(VisibilityNameCountryProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -740,7 +740,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNameDistrict
         {
             get { return (Visibility) GetValue(VisibilityNameDistrictProperty); }
-            set { SetValue(VisibilityNameDistrictProperty, value); }
+            set { SetValue(VisibilityNameDistrictProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -748,7 +748,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityCountryDistrict
         {
             get { return (Visibility) GetValue(VisibilityCountryDistrictProperty); }
-            set { SetValue(VisibilityCountryDistrictProperty, value); }
+            set { SetValue(VisibilityCountryDistrictProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -807,7 +807,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNameLocality
         {
             get { return (Visibility) GetValue(VisibilityNameLocalityProperty); }
-            set { SetValue(VisibilityNameLocalityProperty, value); }
+            set { SetValue(VisibilityNameLocalityProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -815,7 +815,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityLocalityTypeLocality
         {
             get { return (Visibility) GetValue(VisibilityLocalityTypeLocalityProperty); }
-            set { SetValue(VisibilityLocalityTypeLocalityProperty, value); }
+            set { SetValue(VisibilityLocalityTypeLocalityProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -823,7 +823,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRegionLocality
         {
             get { return (Visibility) GetValue(VisibilityRegionLocalityProperty); }
-            set { SetValue(VisibilityRegionLocalityProperty, value); }
+            set { SetValue(VisibilityRegionLocalityProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -831,7 +831,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityIsCountryCapitalLocality
         {
             get { return (Visibility) GetValue(VisibilityIsCountryCapitalLocalityProperty); }
-            set { SetValue(VisibilityIsCountryCapitalLocalityProperty, value); }
+            set { SetValue(VisibilityIsCountryCapitalLocalityProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -839,7 +839,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityIsDistrictCapitalLocality
         {
             get { return (Visibility) GetValue(VisibilityIsDistrictCapitalLocalityProperty); }
-            set { SetValue(VisibilityIsDistrictCapitalLocalityProperty, value); }
+            set { SetValue(VisibilityIsDistrictCapitalLocalityProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -847,7 +847,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityIsRegionCapitalLocality
         {
             get { return (Visibility) GetValue(VisibilityIsRegionCapitalLocalityProperty); }
-            set { SetValue(VisibilityIsRegionCapitalLocalityProperty, value); }
+            set { SetValue(VisibilityIsRegionCapitalLocalityProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -855,7 +855,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDistanceToEkbLocality
         {
             get { return (Visibility) GetValue(VisibilityDistanceToEkbLocalityProperty); }
-            set { SetValue(VisibilityDistanceToEkbLocalityProperty, value); }
+            set { SetValue(VisibilityDistanceToEkbLocalityProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -894,7 +894,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityFullNameLocalityType
         {
             get { return (Visibility) GetValue(VisibilityFullNameLocalityTypeProperty); }
-            set { SetValue(VisibilityFullNameLocalityTypeProperty, value); }
+            set { SetValue(VisibilityFullNameLocalityTypeProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -902,7 +902,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityShortNameLocalityType
         {
             get { return (Visibility) GetValue(VisibilityShortNameLocalityTypeProperty); }
-            set { SetValue(VisibilityShortNameLocalityTypeProperty, value); }
+            set { SetValue(VisibilityShortNameLocalityTypeProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -941,7 +941,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNameRegion
         {
             get { return (Visibility) GetValue(VisibilityNameRegionProperty); }
-            set { SetValue(VisibilityNameRegionProperty, value); }
+            set { SetValue(VisibilityNameRegionProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -949,7 +949,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDistrictRegion
         {
             get { return (Visibility) GetValue(VisibilityDistrictRegionProperty); }
-            set { SetValue(VisibilityDistrictRegionProperty, value); }
+            set { SetValue(VisibilityDistrictRegionProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -1008,7 +1008,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityStatusCalculatePriceTask
         {
             get { return (Visibility) GetValue(VisibilityStatusCalculatePriceTaskProperty); }
-            set { SetValue(VisibilityStatusCalculatePriceTaskProperty, value); }
+            set { SetValue(VisibilityStatusCalculatePriceTaskProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1016,7 +1016,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySumCalculatePriceTask
         {
             get { return (Visibility) GetValue(VisibilitySumCalculatePriceTaskProperty); }
-            set { SetValue(VisibilitySumCalculatePriceTaskProperty, value); }
+            set { SetValue(VisibilitySumCalculatePriceTaskProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1024,7 +1024,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDateCalculatePriceTask
         {
             get { return (Visibility) GetValue(VisibilityDateCalculatePriceTaskProperty); }
-            set { SetValue(VisibilityDateCalculatePriceTaskProperty, value); }
+            set { SetValue(VisibilityDateCalculatePriceTaskProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1032,7 +1032,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProductBlockCalculatePriceTask
         {
             get { return (Visibility) GetValue(VisibilityProductBlockCalculatePriceTaskProperty); }
-            set { SetValue(VisibilityProductBlockCalculatePriceTaskProperty, value); }
+            set { SetValue(VisibilityProductBlockCalculatePriceTaskProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1040,7 +1040,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProjectsCalculatePriceTask
         {
             get { return (Visibility) GetValue(VisibilityProjectsCalculatePriceTaskProperty); }
-            set { SetValue(VisibilityProjectsCalculatePriceTaskProperty, value); }
+            set { SetValue(VisibilityProjectsCalculatePriceTaskProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1048,7 +1048,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityOffersCalculatePriceTask
         {
             get { return (Visibility) GetValue(VisibilityOffersCalculatePriceTaskProperty); }
-            set { SetValue(VisibilityOffersCalculatePriceTaskProperty, value); }
+            set { SetValue(VisibilityOffersCalculatePriceTaskProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1056,7 +1056,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySpecificationsCalculatePriceTask
         {
             get { return (Visibility) GetValue(VisibilitySpecificationsCalculatePriceTaskProperty); }
-            set { SetValue(VisibilitySpecificationsCalculatePriceTaskProperty, value); }
+            set { SetValue(VisibilitySpecificationsCalculatePriceTaskProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -1099,7 +1099,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityTypeSum
         {
             get { return (Visibility) GetValue(VisibilityTypeSumProperty); }
-            set { SetValue(VisibilityTypeSumProperty, value); }
+            set { SetValue(VisibilityTypeSumProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1107,7 +1107,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityCurrencySum
         {
             get { return (Visibility) GetValue(VisibilityCurrencySumProperty); }
-            set { SetValue(VisibilityCurrencySumProperty, value); }
+            set { SetValue(VisibilityCurrencySumProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1115,7 +1115,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityValueSum
         {
             get { return (Visibility) GetValue(VisibilityValueSumProperty); }
-            set { SetValue(VisibilityValueSumProperty, value); }
+            set { SetValue(VisibilityValueSumProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -1162,7 +1162,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDateCurrencyExchangeRate
         {
             get { return (Visibility) GetValue(VisibilityDateCurrencyExchangeRateProperty); }
-            set { SetValue(VisibilityDateCurrencyExchangeRateProperty, value); }
+            set { SetValue(VisibilityDateCurrencyExchangeRateProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1170,7 +1170,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityFirstCurrencyCurrencyExchangeRate
         {
             get { return (Visibility) GetValue(VisibilityFirstCurrencyCurrencyExchangeRateProperty); }
-            set { SetValue(VisibilityFirstCurrencyCurrencyExchangeRateProperty, value); }
+            set { SetValue(VisibilityFirstCurrencyCurrencyExchangeRateProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1178,7 +1178,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySecondCurrencyCurrencyExchangeRate
         {
             get { return (Visibility) GetValue(VisibilitySecondCurrencyCurrencyExchangeRateProperty); }
-            set { SetValue(VisibilitySecondCurrencyCurrencyExchangeRateProperty, value); }
+            set { SetValue(VisibilitySecondCurrencyCurrencyExchangeRateProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1186,7 +1186,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityExchangeRateCurrencyExchangeRate
         {
             get { return (Visibility) GetValue(VisibilityExchangeRateCurrencyExchangeRateProperty); }
-            set { SetValue(VisibilityExchangeRateCurrencyExchangeRateProperty, value); }
+            set { SetValue(VisibilityExchangeRateCurrencyExchangeRateProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -1225,7 +1225,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProductBlockDescribeProductBlockTask
         {
             get { return (Visibility) GetValue(VisibilityProductBlockDescribeProductBlockTaskProperty); }
-            set { SetValue(VisibilityProductBlockDescribeProductBlockTaskProperty, value); }
+            set { SetValue(VisibilityProductBlockDescribeProductBlockTaskProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1233,7 +1233,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProductDescribeProductBlockTask
         {
             get { return (Visibility) GetValue(VisibilityProductDescribeProductBlockTaskProperty); }
-            set { SetValue(VisibilityProductDescribeProductBlockTaskProperty, value); }
+            set { SetValue(VisibilityProductDescribeProductBlockTaskProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -1276,7 +1276,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDateNote
         {
             get { return (Visibility) GetValue(VisibilityDateNoteProperty); }
-            set { SetValue(VisibilityDateNoteProperty, value); }
+            set { SetValue(VisibilityDateNoteProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1284,7 +1284,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityTextNote
         {
             get { return (Visibility) GetValue(VisibilityTextNoteProperty); }
-            set { SetValue(VisibilityTextNoteProperty, value); }
+            set { SetValue(VisibilityTextNoteProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1292,7 +1292,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityIsImportantNote
         {
             get { return (Visibility) GetValue(VisibilityIsImportantNoteProperty); }
-            set { SetValue(VisibilityIsImportantNoteProperty, value); }
+            set { SetValue(VisibilityIsImportantNoteProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -1351,7 +1351,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityCostOfferUnit
         {
             get { return (Visibility) GetValue(VisibilityCostOfferUnitProperty); }
-            set { SetValue(VisibilityCostOfferUnitProperty, value); }
+            set { SetValue(VisibilityCostOfferUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1359,7 +1359,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityOfferOfferUnit
         {
             get { return (Visibility) GetValue(VisibilityOfferOfferUnitProperty); }
-            set { SetValue(VisibilityOfferOfferUnitProperty, value); }
+            set { SetValue(VisibilityOfferOfferUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1367,7 +1367,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProductOfferUnit
         {
             get { return (Visibility) GetValue(VisibilityProductOfferUnitProperty); }
-            set { SetValue(VisibilityProductOfferUnitProperty, value); }
+            set { SetValue(VisibilityProductOfferUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1375,7 +1375,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProductsIncludedOfferUnit
         {
             get { return (Visibility) GetValue(VisibilityProductsIncludedOfferUnitProperty); }
-            set { SetValue(VisibilityProductsIncludedOfferUnitProperty, value); }
+            set { SetValue(VisibilityProductsIncludedOfferUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1383,7 +1383,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityFacilityOfferUnit
         {
             get { return (Visibility) GetValue(VisibilityFacilityOfferUnitProperty); }
-            set { SetValue(VisibilityFacilityOfferUnitProperty, value); }
+            set { SetValue(VisibilityFacilityOfferUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1391,7 +1391,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPaymentConditionSetOfferUnit
         {
             get { return (Visibility) GetValue(VisibilityPaymentConditionSetOfferUnitProperty); }
-            set { SetValue(VisibilityPaymentConditionSetOfferUnitProperty, value); }
+            set { SetValue(VisibilityPaymentConditionSetOfferUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1399,7 +1399,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProductionTermOfferUnit
         {
             get { return (Visibility) GetValue(VisibilityProductionTermOfferUnitProperty); }
-            set { SetValue(VisibilityProductionTermOfferUnitProperty, value); }
+            set { SetValue(VisibilityProductionTermOfferUnitProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -1434,7 +1434,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPaymentConditionsPaymentConditionSet
         {
             get { return (Visibility) GetValue(VisibilityPaymentConditionsPaymentConditionSetProperty); }
-            set { SetValue(VisibilityPaymentConditionsPaymentConditionSetProperty, value); }
+            set { SetValue(VisibilityPaymentConditionsPaymentConditionSetProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -1497,7 +1497,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDesignationProductBlock
         {
             get { return (Visibility) GetValue(VisibilityDesignationProductBlockProperty); }
-            set { SetValue(VisibilityDesignationProductBlockProperty, value); }
+            set { SetValue(VisibilityDesignationProductBlockProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1505,7 +1505,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDesignationSpecialProductBlock
         {
             get { return (Visibility) GetValue(VisibilityDesignationSpecialProductBlockProperty); }
-            set { SetValue(VisibilityDesignationSpecialProductBlockProperty, value); }
+            set { SetValue(VisibilityDesignationSpecialProductBlockProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1513,7 +1513,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityParametersProductBlock
         {
             get { return (Visibility) GetValue(VisibilityParametersProductBlockProperty); }
-            set { SetValue(VisibilityParametersProductBlockProperty, value); }
+            set { SetValue(VisibilityParametersProductBlockProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1521,7 +1521,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPricesProductBlock
         {
             get { return (Visibility) GetValue(VisibilityPricesProductBlockProperty); }
-            set { SetValue(VisibilityPricesProductBlockProperty, value); }
+            set { SetValue(VisibilityPricesProductBlockProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1529,7 +1529,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityStructureCostNumberProductBlock
         {
             get { return (Visibility) GetValue(VisibilityStructureCostNumberProductBlockProperty); }
-            set { SetValue(VisibilityStructureCostNumberProductBlockProperty, value); }
+            set { SetValue(VisibilityStructureCostNumberProductBlockProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1537,7 +1537,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityIsServiceProductBlock
         {
             get { return (Visibility) GetValue(VisibilityIsServiceProductBlockProperty); }
-            set { SetValue(VisibilityIsServiceProductBlockProperty, value); }
+            set { SetValue(VisibilityIsServiceProductBlockProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1545,7 +1545,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityWeightProductBlock
         {
             get { return (Visibility) GetValue(VisibilityWeightProductBlockProperty); }
-            set { SetValue(VisibilityWeightProductBlockProperty, value); }
+            set { SetValue(VisibilityWeightProductBlockProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1553,7 +1553,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityLastPriceDateProductBlock
         {
             get { return (Visibility) GetValue(VisibilityLastPriceDateProductBlockProperty); }
-            set { SetValue(VisibilityLastPriceDateProductBlockProperty, value); }
+            set { SetValue(VisibilityLastPriceDateProductBlockProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -1596,7 +1596,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityMainProductIdProductDependent
         {
             get { return (Visibility) GetValue(VisibilityMainProductIdProductDependentProperty); }
-            set { SetValue(VisibilityMainProductIdProductDependentProperty, value); }
+            set { SetValue(VisibilityMainProductIdProductDependentProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1604,7 +1604,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProductProductDependent
         {
             get { return (Visibility) GetValue(VisibilityProductProductDependentProperty); }
-            set { SetValue(VisibilityProductProductDependentProperty, value); }
+            set { SetValue(VisibilityProductProductDependentProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1612,7 +1612,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityAmountProductDependent
         {
             get { return (Visibility) GetValue(VisibilityAmountProductDependentProperty); }
-            set { SetValue(VisibilityAmountProductDependentProperty, value); }
+            set { SetValue(VisibilityAmountProductDependentProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -1651,7 +1651,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDateTaskProductionTask
         {
             get { return (Visibility) GetValue(VisibilityDateTaskProductionTaskProperty); }
-            set { SetValue(VisibilityDateTaskProductionTaskProperty, value); }
+            set { SetValue(VisibilityDateTaskProductionTaskProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1659,7 +1659,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySalesUnitsProductionTask
         {
             get { return (Visibility) GetValue(VisibilitySalesUnitsProductionTaskProperty); }
-            set { SetValue(VisibilitySalesUnitsProductionTaskProperty, value); }
+            set { SetValue(VisibilitySalesUnitsProductionTaskProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -1698,7 +1698,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityParentSalesUnitsSalesBlock
         {
             get { return (Visibility) GetValue(VisibilityParentSalesUnitsSalesBlockProperty); }
-            set { SetValue(VisibilityParentSalesUnitsSalesBlockProperty, value); }
+            set { SetValue(VisibilityParentSalesUnitsSalesBlockProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1706,7 +1706,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityChildSalesUnitsSalesBlock
         {
             get { return (Visibility) GetValue(VisibilityChildSalesUnitsSalesBlockProperty); }
-            set { SetValue(VisibilityChildSalesUnitsSalesBlockProperty, value); }
+            set { SetValue(VisibilityChildSalesUnitsSalesBlockProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -1753,7 +1753,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityBankNameBankDetails
         {
             get { return (Visibility) GetValue(VisibilityBankNameBankDetailsProperty); }
-            set { SetValue(VisibilityBankNameBankDetailsProperty, value); }
+            set { SetValue(VisibilityBankNameBankDetailsProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1761,7 +1761,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityBankIdentificationCodeBankDetails
         {
             get { return (Visibility) GetValue(VisibilityBankIdentificationCodeBankDetailsProperty); }
-            set { SetValue(VisibilityBankIdentificationCodeBankDetailsProperty, value); }
+            set { SetValue(VisibilityBankIdentificationCodeBankDetailsProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1769,7 +1769,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityCorrespondentAccountBankDetails
         {
             get { return (Visibility) GetValue(VisibilityCorrespondentAccountBankDetailsProperty); }
-            set { SetValue(VisibilityCorrespondentAccountBankDetailsProperty, value); }
+            set { SetValue(VisibilityCorrespondentAccountBankDetailsProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1777,7 +1777,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityCheckingAccountBankDetails
         {
             get { return (Visibility) GetValue(VisibilityCheckingAccountBankDetailsProperty); }
-            set { SetValue(VisibilityCheckingAccountBankDetailsProperty, value); }
+            set { SetValue(VisibilityCheckingAccountBankDetailsProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -1848,7 +1848,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityFullNameCompany
         {
             get { return (Visibility) GetValue(VisibilityFullNameCompanyProperty); }
-            set { SetValue(VisibilityFullNameCompanyProperty, value); }
+            set { SetValue(VisibilityFullNameCompanyProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1856,7 +1856,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityShortNameCompany
         {
             get { return (Visibility) GetValue(VisibilityShortNameCompanyProperty); }
-            set { SetValue(VisibilityShortNameCompanyProperty, value); }
+            set { SetValue(VisibilityShortNameCompanyProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1864,7 +1864,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityInnCompany
         {
             get { return (Visibility) GetValue(VisibilityInnCompanyProperty); }
-            set { SetValue(VisibilityInnCompanyProperty, value); }
+            set { SetValue(VisibilityInnCompanyProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1872,7 +1872,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityKppCompany
         {
             get { return (Visibility) GetValue(VisibilityKppCompanyProperty); }
-            set { SetValue(VisibilityKppCompanyProperty, value); }
+            set { SetValue(VisibilityKppCompanyProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1880,7 +1880,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityFormCompany
         {
             get { return (Visibility) GetValue(VisibilityFormCompanyProperty); }
-            set { SetValue(VisibilityFormCompanyProperty, value); }
+            set { SetValue(VisibilityFormCompanyProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1888,7 +1888,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityParentCompanyCompany
         {
             get { return (Visibility) GetValue(VisibilityParentCompanyCompanyProperty); }
-            set { SetValue(VisibilityParentCompanyCompanyProperty, value); }
+            set { SetValue(VisibilityParentCompanyCompanyProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1896,7 +1896,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityAddressLegalCompany
         {
             get { return (Visibility) GetValue(VisibilityAddressLegalCompanyProperty); }
-            set { SetValue(VisibilityAddressLegalCompanyProperty, value); }
+            set { SetValue(VisibilityAddressLegalCompanyProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1904,7 +1904,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityAddressPostCompany
         {
             get { return (Visibility) GetValue(VisibilityAddressPostCompanyProperty); }
-            set { SetValue(VisibilityAddressPostCompanyProperty, value); }
+            set { SetValue(VisibilityAddressPostCompanyProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1912,7 +1912,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityBankDetailsListCompany
         {
             get { return (Visibility) GetValue(VisibilityBankDetailsListCompanyProperty); }
-            set { SetValue(VisibilityBankDetailsListCompanyProperty, value); }
+            set { SetValue(VisibilityBankDetailsListCompanyProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1920,7 +1920,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityActivityFildsCompany
         {
             get { return (Visibility) GetValue(VisibilityActivityFildsCompanyProperty); }
-            set { SetValue(VisibilityActivityFildsCompanyProperty, value); }
+            set { SetValue(VisibilityActivityFildsCompanyProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -1959,7 +1959,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityFullNameCompanyForm
         {
             get { return (Visibility) GetValue(VisibilityFullNameCompanyFormProperty); }
-            set { SetValue(VisibilityFullNameCompanyFormProperty, value); }
+            set { SetValue(VisibilityFullNameCompanyFormProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1967,7 +1967,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityShortNameCompanyForm
         {
             get { return (Visibility) GetValue(VisibilityShortNameCompanyFormProperty); }
-            set { SetValue(VisibilityShortNameCompanyFormProperty, value); }
+            set { SetValue(VisibilityShortNameCompanyFormProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -2006,7 +2006,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRegistrationNumberDocumentsRegistrationDetails
         {
             get { return (Visibility) GetValue(VisibilityRegistrationNumberDocumentsRegistrationDetailsProperty); }
-            set { SetValue(VisibilityRegistrationNumberDocumentsRegistrationDetailsProperty, value); }
+            set { SetValue(VisibilityRegistrationNumberDocumentsRegistrationDetailsProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2014,7 +2014,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRegistrationDateDocumentsRegistrationDetails
         {
             get { return (Visibility) GetValue(VisibilityRegistrationDateDocumentsRegistrationDetailsProperty); }
-            set { SetValue(VisibilityRegistrationDateDocumentsRegistrationDetailsProperty, value); }
+            set { SetValue(VisibilityRegistrationDateDocumentsRegistrationDetailsProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -2049,7 +2049,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNameEmployeesPosition
         {
             get { return (Visibility) GetValue(VisibilityNameEmployeesPositionProperty); }
-            set { SetValue(VisibilityNameEmployeesPositionProperty, value); }
+            set { SetValue(VisibilityNameEmployeesPositionProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -2088,7 +2088,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityFullNameFacilityType
         {
             get { return (Visibility) GetValue(VisibilityFullNameFacilityTypeProperty); }
-            set { SetValue(VisibilityFullNameFacilityTypeProperty, value); }
+            set { SetValue(VisibilityFullNameFacilityTypeProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2096,7 +2096,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityShortNameFacilityType
         {
             get { return (Visibility) GetValue(VisibilityShortNameFacilityTypeProperty); }
-            set { SetValue(VisibilityShortNameFacilityTypeProperty, value); }
+            set { SetValue(VisibilityShortNameFacilityTypeProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -2135,7 +2135,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNameActivityField
         {
             get { return (Visibility) GetValue(VisibilityNameActivityFieldProperty); }
-            set { SetValue(VisibilityNameActivityFieldProperty, value); }
+            set { SetValue(VisibilityNameActivityFieldProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2143,7 +2143,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityActivityFieldEnumActivityField
         {
             get { return (Visibility) GetValue(VisibilityActivityFieldEnumActivityFieldProperty); }
-            set { SetValue(VisibilityActivityFieldEnumActivityFieldProperty, value); }
+            set { SetValue(VisibilityActivityFieldEnumActivityFieldProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -2186,7 +2186,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNumberContract
         {
             get { return (Visibility) GetValue(VisibilityNumberContractProperty); }
-            set { SetValue(VisibilityNumberContractProperty, value); }
+            set { SetValue(VisibilityNumberContractProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2194,7 +2194,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDateContract
         {
             get { return (Visibility) GetValue(VisibilityDateContractProperty); }
-            set { SetValue(VisibilityDateContractProperty, value); }
+            set { SetValue(VisibilityDateContractProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2202,7 +2202,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityContragentContract
         {
             get { return (Visibility) GetValue(VisibilityContragentContractProperty); }
-            set { SetValue(VisibilityContragentContractProperty, value); }
+            set { SetValue(VisibilityContragentContractProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -2241,7 +2241,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityFullNameMeasure
         {
             get { return (Visibility) GetValue(VisibilityFullNameMeasureProperty); }
-            set { SetValue(VisibilityFullNameMeasureProperty, value); }
+            set { SetValue(VisibilityFullNameMeasureProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2249,7 +2249,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityShortNameMeasure
         {
             get { return (Visibility) GetValue(VisibilityShortNameMeasureProperty); }
-            set { SetValue(VisibilityShortNameMeasureProperty, value); }
+            set { SetValue(VisibilityShortNameMeasureProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -2296,7 +2296,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityParameterGroupParameter
         {
             get { return (Visibility) GetValue(VisibilityParameterGroupParameterProperty); }
-            set { SetValue(VisibilityParameterGroupParameterProperty, value); }
+            set { SetValue(VisibilityParameterGroupParameterProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2304,7 +2304,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityValueParameter
         {
             get { return (Visibility) GetValue(VisibilityValueParameterProperty); }
-            set { SetValue(VisibilityValueParameterProperty, value); }
+            set { SetValue(VisibilityValueParameterProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2312,7 +2312,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityParameterRelationsParameter
         {
             get { return (Visibility) GetValue(VisibilityParameterRelationsParameterProperty); }
-            set { SetValue(VisibilityParameterRelationsParameterProperty, value); }
+            set { SetValue(VisibilityParameterRelationsParameterProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2320,7 +2320,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityIsOriginParameter
         {
             get { return (Visibility) GetValue(VisibilityIsOriginParameterProperty); }
-            set { SetValue(VisibilityIsOriginParameterProperty, value); }
+            set { SetValue(VisibilityIsOriginParameterProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -2359,7 +2359,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNameParameterGroup
         {
             get { return (Visibility) GetValue(VisibilityNameParameterGroupProperty); }
-            set { SetValue(VisibilityNameParameterGroupProperty, value); }
+            set { SetValue(VisibilityNameParameterGroupProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2367,7 +2367,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityMeasureParameterGroup
         {
             get { return (Visibility) GetValue(VisibilityMeasureParameterGroupProperty); }
-            set { SetValue(VisibilityMeasureParameterGroupProperty, value); }
+            set { SetValue(VisibilityMeasureParameterGroupProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -2414,7 +2414,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityParentProductParametersProductRelation
         {
             get { return (Visibility) GetValue(VisibilityParentProductParametersProductRelationProperty); }
-            set { SetValue(VisibilityParentProductParametersProductRelationProperty, value); }
+            set { SetValue(VisibilityParentProductParametersProductRelationProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2422,7 +2422,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityChildProductParametersProductRelation
         {
             get { return (Visibility) GetValue(VisibilityChildProductParametersProductRelationProperty); }
-            set { SetValue(VisibilityChildProductParametersProductRelationProperty, value); }
+            set { SetValue(VisibilityChildProductParametersProductRelationProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2430,7 +2430,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityChildProductsAmountProductRelation
         {
             get { return (Visibility) GetValue(VisibilityChildProductsAmountProductRelationProperty); }
-            set { SetValue(VisibilityChildProductsAmountProductRelationProperty, value); }
+            set { SetValue(VisibilityChildProductsAmountProductRelationProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2438,7 +2438,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityIsUniqueProductRelation
         {
             get { return (Visibility) GetValue(VisibilityIsUniqueProductRelationProperty); }
-            set { SetValue(VisibilityIsUniqueProductRelationProperty, value); }
+            set { SetValue(VisibilityIsUniqueProductRelationProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -2485,7 +2485,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySurnamePerson
         {
             get { return (Visibility) GetValue(VisibilitySurnamePersonProperty); }
-            set { SetValue(VisibilitySurnamePersonProperty, value); }
+            set { SetValue(VisibilitySurnamePersonProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2493,7 +2493,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNamePerson
         {
             get { return (Visibility) GetValue(VisibilityNamePersonProperty); }
-            set { SetValue(VisibilityNamePersonProperty, value); }
+            set { SetValue(VisibilityNamePersonProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2501,7 +2501,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPatronymicPerson
         {
             get { return (Visibility) GetValue(VisibilityPatronymicPersonProperty); }
-            set { SetValue(VisibilityPatronymicPersonProperty, value); }
+            set { SetValue(VisibilityPatronymicPersonProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2509,7 +2509,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityIsManPerson
         {
             get { return (Visibility) GetValue(VisibilityIsManPersonProperty); }
-            set { SetValue(VisibilityIsManPersonProperty, value); }
+            set { SetValue(VisibilityIsManPersonProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -2548,7 +2548,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityParameterIdParameterRelation
         {
             get { return (Visibility) GetValue(VisibilityParameterIdParameterRelationProperty); }
-            set { SetValue(VisibilityParameterIdParameterRelationProperty, value); }
+            set { SetValue(VisibilityParameterIdParameterRelationProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2556,7 +2556,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRequiredParametersParameterRelation
         {
             get { return (Visibility) GetValue(VisibilityRequiredParametersParameterRelationProperty); }
-            set { SetValue(VisibilityRequiredParametersParameterRelationProperty, value); }
+            set { SetValue(VisibilityRequiredParametersParameterRelationProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -2787,7 +2787,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityCostSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityCostSalesUnitProperty); }
-            set { SetValue(VisibilityCostSalesUnitProperty, value); }
+            set { SetValue(VisibilityCostSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2795,7 +2795,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProductSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityProductSalesUnitProperty); }
-            set { SetValue(VisibilityProductSalesUnitProperty, value); }
+            set { SetValue(VisibilityProductSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2803,7 +2803,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProductsIncludedSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityProductsIncludedSalesUnitProperty); }
-            set { SetValue(VisibilityProductsIncludedSalesUnitProperty, value); }
+            set { SetValue(VisibilityProductsIncludedSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2811,7 +2811,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityFacilitySalesUnit
         {
             get { return (Visibility) GetValue(VisibilityFacilitySalesUnitProperty); }
-            set { SetValue(VisibilityFacilitySalesUnitProperty, value); }
+            set { SetValue(VisibilityFacilitySalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2819,7 +2819,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPaymentConditionSetSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityPaymentConditionSetSalesUnitProperty); }
-            set { SetValue(VisibilityPaymentConditionSetSalesUnitProperty, value); }
+            set { SetValue(VisibilityPaymentConditionSetSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2827,7 +2827,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProductionTermSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityProductionTermSalesUnitProperty); }
-            set { SetValue(VisibilityProductionTermSalesUnitProperty, value); }
+            set { SetValue(VisibilityProductionTermSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2835,7 +2835,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProjectSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityProjectSalesUnitProperty); }
-            set { SetValue(VisibilityProjectSalesUnitProperty, value); }
+            set { SetValue(VisibilityProjectSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2843,7 +2843,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDeliveryDateExpectedSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityDeliveryDateExpectedSalesUnitProperty); }
-            set { SetValue(VisibilityDeliveryDateExpectedSalesUnitProperty, value); }
+            set { SetValue(VisibilityDeliveryDateExpectedSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2851,7 +2851,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProducerSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityProducerSalesUnitProperty); }
-            set { SetValue(VisibilityProducerSalesUnitProperty, value); }
+            set { SetValue(VisibilityProducerSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2859,7 +2859,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRealizationDateSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityRealizationDateSalesUnitProperty); }
-            set { SetValue(VisibilityRealizationDateSalesUnitProperty, value); }
+            set { SetValue(VisibilityRealizationDateSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2867,7 +2867,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityOrderSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityOrderSalesUnitProperty); }
-            set { SetValue(VisibilityOrderSalesUnitProperty, value); }
+            set { SetValue(VisibilityOrderSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2875,7 +2875,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityOrderPositionSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityOrderPositionSalesUnitProperty); }
-            set { SetValue(VisibilityOrderPositionSalesUnitProperty, value); }
+            set { SetValue(VisibilityOrderPositionSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2883,7 +2883,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySerialNumberSalesUnit
         {
             get { return (Visibility) GetValue(VisibilitySerialNumberSalesUnitProperty); }
-            set { SetValue(VisibilitySerialNumberSalesUnitProperty, value); }
+            set { SetValue(VisibilitySerialNumberSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2891,7 +2891,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityAssembleTermSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityAssembleTermSalesUnitProperty); }
-            set { SetValue(VisibilityAssembleTermSalesUnitProperty, value); }
+            set { SetValue(VisibilityAssembleTermSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2899,7 +2899,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySignalToStartProductionSalesUnit
         {
             get { return (Visibility) GetValue(VisibilitySignalToStartProductionSalesUnitProperty); }
-            set { SetValue(VisibilitySignalToStartProductionSalesUnitProperty, value); }
+            set { SetValue(VisibilitySignalToStartProductionSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2907,7 +2907,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySignalToStartProductionDoneSalesUnit
         {
             get { return (Visibility) GetValue(VisibilitySignalToStartProductionDoneSalesUnitProperty); }
-            set { SetValue(VisibilitySignalToStartProductionDoneSalesUnitProperty, value); }
+            set { SetValue(VisibilitySignalToStartProductionDoneSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2915,7 +2915,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityStartProductionDateSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityStartProductionDateSalesUnitProperty); }
-            set { SetValue(VisibilityStartProductionDateSalesUnitProperty, value); }
+            set { SetValue(VisibilityStartProductionDateSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2923,7 +2923,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPickingDateSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityPickingDateSalesUnitProperty); }
-            set { SetValue(VisibilityPickingDateSalesUnitProperty, value); }
+            set { SetValue(VisibilityPickingDateSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2931,7 +2931,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityEndProductionPlanDateSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityEndProductionPlanDateSalesUnitProperty); }
-            set { SetValue(VisibilityEndProductionPlanDateSalesUnitProperty, value); }
+            set { SetValue(VisibilityEndProductionPlanDateSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2939,7 +2939,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityEndProductionDateSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityEndProductionDateSalesUnitProperty); }
-            set { SetValue(VisibilityEndProductionDateSalesUnitProperty, value); }
+            set { SetValue(VisibilityEndProductionDateSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2947,7 +2947,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySpecificationSalesUnit
         {
             get { return (Visibility) GetValue(VisibilitySpecificationSalesUnitProperty); }
-            set { SetValue(VisibilitySpecificationSalesUnitProperty, value); }
+            set { SetValue(VisibilitySpecificationSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2955,7 +2955,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPaymentsActualSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityPaymentsActualSalesUnitProperty); }
-            set { SetValue(VisibilityPaymentsActualSalesUnitProperty, value); }
+            set { SetValue(VisibilityPaymentsActualSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2963,7 +2963,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPaymentsPlannedSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityPaymentsPlannedSalesUnitProperty); }
-            set { SetValue(VisibilityPaymentsPlannedSalesUnitProperty, value); }
+            set { SetValue(VisibilityPaymentsPlannedSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2971,7 +2971,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityExpectedDeliveryPeriodSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityExpectedDeliveryPeriodSalesUnitProperty); }
-            set { SetValue(VisibilityExpectedDeliveryPeriodSalesUnitProperty, value); }
+            set { SetValue(VisibilityExpectedDeliveryPeriodSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2979,7 +2979,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityExpectedDeliveryPeriodCalculatedSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityExpectedDeliveryPeriodCalculatedSalesUnitProperty); }
-            set { SetValue(VisibilityExpectedDeliveryPeriodCalculatedSalesUnitProperty, value); }
+            set { SetValue(VisibilityExpectedDeliveryPeriodCalculatedSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2987,7 +2987,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityAddressSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityAddressSalesUnitProperty); }
-            set { SetValue(VisibilityAddressSalesUnitProperty, value); }
+            set { SetValue(VisibilityAddressSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2995,7 +2995,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityShipmentDateSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityShipmentDateSalesUnitProperty); }
-            set { SetValue(VisibilityShipmentDateSalesUnitProperty, value); }
+            set { SetValue(VisibilityShipmentDateSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3003,7 +3003,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityShipmentPlanDateSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityShipmentPlanDateSalesUnitProperty); }
-            set { SetValue(VisibilityShipmentPlanDateSalesUnitProperty, value); }
+            set { SetValue(VisibilityShipmentPlanDateSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3011,7 +3011,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDeliveryDateSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityDeliveryDateSalesUnitProperty); }
-            set { SetValue(VisibilityDeliveryDateSalesUnitProperty, value); }
+            set { SetValue(VisibilityDeliveryDateSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3019,7 +3019,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityAllowEditCostSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityAllowEditCostSalesUnitProperty); }
-            set { SetValue(VisibilityAllowEditCostSalesUnitProperty, value); }
+            set { SetValue(VisibilityAllowEditCostSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3027,7 +3027,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityAllowEditProductSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityAllowEditProductSalesUnitProperty); }
-            set { SetValue(VisibilityAllowEditProductSalesUnitProperty, value); }
+            set { SetValue(VisibilityAllowEditProductSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3035,7 +3035,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityIsLoosenSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityIsLoosenSalesUnitProperty); }
-            set { SetValue(VisibilityIsLoosenSalesUnitProperty, value); }
+            set { SetValue(VisibilityIsLoosenSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3043,7 +3043,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityIsPaidSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityIsPaidSalesUnitProperty); }
-            set { SetValue(VisibilityIsPaidSalesUnitProperty, value); }
+            set { SetValue(VisibilityIsPaidSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3051,7 +3051,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySumPaidSalesUnit
         {
             get { return (Visibility) GetValue(VisibilitySumPaidSalesUnitProperty); }
-            set { SetValue(VisibilitySumPaidSalesUnitProperty, value); }
+            set { SetValue(VisibilitySumPaidSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3059,7 +3059,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySumNotPaidSalesUnit
         {
             get { return (Visibility) GetValue(VisibilitySumNotPaidSalesUnitProperty); }
-            set { SetValue(VisibilitySumNotPaidSalesUnitProperty, value); }
+            set { SetValue(VisibilitySumNotPaidSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3067,7 +3067,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySumToStartProductionSalesUnit
         {
             get { return (Visibility) GetValue(VisibilitySumToStartProductionSalesUnitProperty); }
-            set { SetValue(VisibilitySumToStartProductionSalesUnitProperty, value); }
+            set { SetValue(VisibilitySumToStartProductionSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3075,7 +3075,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySumToShippingSalesUnit
         {
             get { return (Visibility) GetValue(VisibilitySumToShippingSalesUnitProperty); }
-            set { SetValue(VisibilitySumToShippingSalesUnitProperty, value); }
+            set { SetValue(VisibilitySumToShippingSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3083,7 +3083,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityOrderInTakeDateSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityOrderInTakeDateSalesUnitProperty); }
-            set { SetValue(VisibilityOrderInTakeDateSalesUnitProperty, value); }
+            set { SetValue(VisibilityOrderInTakeDateSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3091,7 +3091,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityOrderInTakeYearSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityOrderInTakeYearSalesUnitProperty); }
-            set { SetValue(VisibilityOrderInTakeYearSalesUnitProperty, value); }
+            set { SetValue(VisibilityOrderInTakeYearSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3099,7 +3099,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityOrderInTakeMonthSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityOrderInTakeMonthSalesUnitProperty); }
-            set { SetValue(VisibilityOrderInTakeMonthSalesUnitProperty, value); }
+            set { SetValue(VisibilityOrderInTakeMonthSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3107,7 +3107,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityStartProductionConditionsDoneDateSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityStartProductionConditionsDoneDateSalesUnitProperty); }
-            set { SetValue(VisibilityStartProductionConditionsDoneDateSalesUnitProperty, value); }
+            set { SetValue(VisibilityStartProductionConditionsDoneDateSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3115,7 +3115,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityShippingConditionsDoneDateSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityShippingConditionsDoneDateSalesUnitProperty); }
-            set { SetValue(VisibilityShippingConditionsDoneDateSalesUnitProperty, value); }
+            set { SetValue(VisibilityShippingConditionsDoneDateSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3123,7 +3123,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityStartProductionDateCalculatedSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityStartProductionDateCalculatedSalesUnitProperty); }
-            set { SetValue(VisibilityStartProductionDateCalculatedSalesUnitProperty, value); }
+            set { SetValue(VisibilityStartProductionDateCalculatedSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3131,7 +3131,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityEndProductionDateCalculatedSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityEndProductionDateCalculatedSalesUnitProperty); }
-            set { SetValue(VisibilityEndProductionDateCalculatedSalesUnitProperty, value); }
+            set { SetValue(VisibilityEndProductionDateCalculatedSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3139,7 +3139,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRealizationDateCalculatedSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityRealizationDateCalculatedSalesUnitProperty); }
-            set { SetValue(VisibilityRealizationDateCalculatedSalesUnitProperty, value); }
+            set { SetValue(VisibilityRealizationDateCalculatedSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3147,7 +3147,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityShipmentDateCalculatedSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityShipmentDateCalculatedSalesUnitProperty); }
-            set { SetValue(VisibilityShipmentDateCalculatedSalesUnitProperty, value); }
+            set { SetValue(VisibilityShipmentDateCalculatedSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3155,7 +3155,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDeliveryDateCalculatedSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityDeliveryDateCalculatedSalesUnitProperty); }
-            set { SetValue(VisibilityDeliveryDateCalculatedSalesUnitProperty, value); }
+            set { SetValue(VisibilityDeliveryDateCalculatedSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3163,7 +3163,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDeliveryPeriodCalculatedSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityDeliveryPeriodCalculatedSalesUnitProperty); }
-            set { SetValue(VisibilityDeliveryPeriodCalculatedSalesUnitProperty, value); }
+            set { SetValue(VisibilityDeliveryPeriodCalculatedSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3171,7 +3171,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPaymentsPlannedActualSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityPaymentsPlannedActualSalesUnitProperty); }
-            set { SetValue(VisibilityPaymentsPlannedActualSalesUnitProperty, value); }
+            set { SetValue(VisibilityPaymentsPlannedActualSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3179,7 +3179,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPaymentsPlannedGeneratedSalesUnit
         {
             get { return (Visibility) GetValue(VisibilityPaymentsPlannedGeneratedSalesUnitProperty); }
-            set { SetValue(VisibilityPaymentsPlannedGeneratedSalesUnitProperty, value); }
+            set { SetValue(VisibilityPaymentsPlannedGeneratedSalesUnitProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -3222,7 +3222,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityCityTestFriendAddress
         {
             get { return (Visibility) GetValue(VisibilityCityTestFriendAddressProperty); }
-            set { SetValue(VisibilityCityTestFriendAddressProperty, value); }
+            set { SetValue(VisibilityCityTestFriendAddressProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3230,7 +3230,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityStreetTestFriendAddress
         {
             get { return (Visibility) GetValue(VisibilityStreetTestFriendAddressProperty); }
-            set { SetValue(VisibilityStreetTestFriendAddressProperty, value); }
+            set { SetValue(VisibilityStreetTestFriendAddressProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3238,7 +3238,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityStreetNumberTestFriendAddress
         {
             get { return (Visibility) GetValue(VisibilityStreetNumberTestFriendAddressProperty); }
-            set { SetValue(VisibilityStreetNumberTestFriendAddressProperty, value); }
+            set { SetValue(VisibilityStreetNumberTestFriendAddressProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -3309,7 +3309,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityFriendGroupIdTestFriend
         {
             get { return (Visibility) GetValue(VisibilityFriendGroupIdTestFriendProperty); }
-            set { SetValue(VisibilityFriendGroupIdTestFriendProperty, value); }
+            set { SetValue(VisibilityFriendGroupIdTestFriendProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3317,7 +3317,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityFirstNameTestFriend
         {
             get { return (Visibility) GetValue(VisibilityFirstNameTestFriendProperty); }
-            set { SetValue(VisibilityFirstNameTestFriendProperty, value); }
+            set { SetValue(VisibilityFirstNameTestFriendProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3325,7 +3325,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityLastNameTestFriend
         {
             get { return (Visibility) GetValue(VisibilityLastNameTestFriendProperty); }
-            set { SetValue(VisibilityLastNameTestFriendProperty, value); }
+            set { SetValue(VisibilityLastNameTestFriendProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3333,7 +3333,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityBirthdayTestFriend
         {
             get { return (Visibility) GetValue(VisibilityBirthdayTestFriendProperty); }
-            set { SetValue(VisibilityBirthdayTestFriendProperty, value); }
+            set { SetValue(VisibilityBirthdayTestFriendProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3341,7 +3341,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityIsDeveloperTestFriend
         {
             get { return (Visibility) GetValue(VisibilityIsDeveloperTestFriendProperty); }
-            set { SetValue(VisibilityIsDeveloperTestFriendProperty, value); }
+            set { SetValue(VisibilityIsDeveloperTestFriendProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3349,7 +3349,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityTestFriendAddressTestFriend
         {
             get { return (Visibility) GetValue(VisibilityTestFriendAddressTestFriendProperty); }
-            set { SetValue(VisibilityTestFriendAddressTestFriendProperty, value); }
+            set { SetValue(VisibilityTestFriendAddressTestFriendProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3357,7 +3357,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityTestFriendGroupTestFriend
         {
             get { return (Visibility) GetValue(VisibilityTestFriendGroupTestFriendProperty); }
-            set { SetValue(VisibilityTestFriendGroupTestFriendProperty, value); }
+            set { SetValue(VisibilityTestFriendGroupTestFriendProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3365,7 +3365,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityEmailsTestFriend
         {
             get { return (Visibility) GetValue(VisibilityEmailsTestFriendProperty); }
-            set { SetValue(VisibilityEmailsTestFriendProperty, value); }
+            set { SetValue(VisibilityEmailsTestFriendProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3373,7 +3373,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityIdGetTestFriend
         {
             get { return (Visibility) GetValue(VisibilityIdGetTestFriendProperty); }
-            set { SetValue(VisibilityIdGetTestFriendProperty, value); }
+            set { SetValue(VisibilityIdGetTestFriendProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3381,7 +3381,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityTestFriendEmailGetTestFriend
         {
             get { return (Visibility) GetValue(VisibilityTestFriendEmailGetTestFriendProperty); }
-            set { SetValue(VisibilityTestFriendEmailGetTestFriendProperty, value); }
+            set { SetValue(VisibilityTestFriendEmailGetTestFriendProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -3420,7 +3420,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityEmailTestFriendEmail
         {
             get { return (Visibility) GetValue(VisibilityEmailTestFriendEmailProperty); }
-            set { SetValue(VisibilityEmailTestFriendEmailProperty, value); }
+            set { SetValue(VisibilityEmailTestFriendEmailProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3428,7 +3428,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityCommentTestFriendEmail
         {
             get { return (Visibility) GetValue(VisibilityCommentTestFriendEmailProperty); }
-            set { SetValue(VisibilityCommentTestFriendEmailProperty, value); }
+            set { SetValue(VisibilityCommentTestFriendEmailProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -3467,7 +3467,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNameTestFriendGroup
         {
             get { return (Visibility) GetValue(VisibilityNameTestFriendGroupProperty); }
-            set { SetValue(VisibilityNameTestFriendGroupProperty, value); }
+            set { SetValue(VisibilityNameTestFriendGroupProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3475,7 +3475,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityFriendTestsTestFriendGroup
         {
             get { return (Visibility) GetValue(VisibilityFriendTestsTestFriendGroupProperty); }
-            set { SetValue(VisibilityFriendTestsTestFriendGroupProperty, value); }
+            set { SetValue(VisibilityFriendTestsTestFriendGroupProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -3546,7 +3546,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRequestDocumentDocument
         {
             get { return (Visibility) GetValue(VisibilityRequestDocumentDocumentProperty); }
-            set { SetValue(VisibilityRequestDocumentDocumentProperty, value); }
+            set { SetValue(VisibilityRequestDocumentDocumentProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3554,7 +3554,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityAuthorDocument
         {
             get { return (Visibility) GetValue(VisibilityAuthorDocumentProperty); }
-            set { SetValue(VisibilityAuthorDocumentProperty, value); }
+            set { SetValue(VisibilityAuthorDocumentProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3562,7 +3562,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySenderIdDocument
         {
             get { return (Visibility) GetValue(VisibilitySenderIdDocumentProperty); }
-            set { SetValue(VisibilitySenderIdDocumentProperty, value); }
+            set { SetValue(VisibilitySenderIdDocumentProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3570,7 +3570,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySenderEmployeeDocument
         {
             get { return (Visibility) GetValue(VisibilitySenderEmployeeDocumentProperty); }
-            set { SetValue(VisibilitySenderEmployeeDocumentProperty, value); }
+            set { SetValue(VisibilitySenderEmployeeDocumentProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3578,7 +3578,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRecipientIdDocument
         {
             get { return (Visibility) GetValue(VisibilityRecipientIdDocumentProperty); }
-            set { SetValue(VisibilityRecipientIdDocumentProperty, value); }
+            set { SetValue(VisibilityRecipientIdDocumentProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3586,7 +3586,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRecipientEmployeeDocument
         {
             get { return (Visibility) GetValue(VisibilityRecipientEmployeeDocumentProperty); }
-            set { SetValue(VisibilityRecipientEmployeeDocumentProperty, value); }
+            set { SetValue(VisibilityRecipientEmployeeDocumentProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3594,7 +3594,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityCopyToRecipientsDocument
         {
             get { return (Visibility) GetValue(VisibilityCopyToRecipientsDocumentProperty); }
-            set { SetValue(VisibilityCopyToRecipientsDocumentProperty, value); }
+            set { SetValue(VisibilityCopyToRecipientsDocumentProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3602,7 +3602,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRegistrationDetailsOfSenderDocument
         {
             get { return (Visibility) GetValue(VisibilityRegistrationDetailsOfSenderDocumentProperty); }
-            set { SetValue(VisibilityRegistrationDetailsOfSenderDocumentProperty, value); }
+            set { SetValue(VisibilityRegistrationDetailsOfSenderDocumentProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3610,7 +3610,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRegistrationDetailsOfRecipientDocument
         {
             get { return (Visibility) GetValue(VisibilityRegistrationDetailsOfRecipientDocumentProperty); }
-            set { SetValue(VisibilityRegistrationDetailsOfRecipientDocumentProperty, value); }
+            set { SetValue(VisibilityRegistrationDetailsOfRecipientDocumentProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3618,7 +3618,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityCommentDocument
         {
             get { return (Visibility) GetValue(VisibilityCommentDocumentProperty); }
-            set { SetValue(VisibilityCommentDocumentProperty, value); }
+            set { SetValue(VisibilityCommentDocumentProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -3653,7 +3653,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNameTestEntity
         {
             get { return (Visibility) GetValue(VisibilityNameTestEntityProperty); }
-            set { SetValue(VisibilityNameTestEntityProperty, value); }
+            set { SetValue(VisibilityNameTestEntityProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -3696,7 +3696,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityWifeTestHusband
         {
             get { return (Visibility) GetValue(VisibilityWifeTestHusbandProperty); }
-            set { SetValue(VisibilityWifeTestHusbandProperty, value); }
+            set { SetValue(VisibilityWifeTestHusbandProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3704,7 +3704,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityChildrenTestHusband
         {
             get { return (Visibility) GetValue(VisibilityChildrenTestHusbandProperty); }
-            set { SetValue(VisibilityChildrenTestHusbandProperty, value); }
+            set { SetValue(VisibilityChildrenTestHusbandProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3712,7 +3712,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNameTestHusband
         {
             get { return (Visibility) GetValue(VisibilityNameTestHusbandProperty); }
-            set { SetValue(VisibilityNameTestHusbandProperty, value); }
+            set { SetValue(VisibilityNameTestHusbandProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -3755,7 +3755,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNTestWife
         {
             get { return (Visibility) GetValue(VisibilityNTestWifeProperty); }
-            set { SetValue(VisibilityNTestWifeProperty, value); }
+            set { SetValue(VisibilityNTestWifeProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3763,7 +3763,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityHusbandTestWife
         {
             get { return (Visibility) GetValue(VisibilityHusbandTestWifeProperty); }
-            set { SetValue(VisibilityHusbandTestWifeProperty, value); }
+            set { SetValue(VisibilityHusbandTestWifeProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3771,7 +3771,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNameTestWife
         {
             get { return (Visibility) GetValue(VisibilityNameTestWifeProperty); }
-            set { SetValue(VisibilityNameTestWifeProperty, value); }
+            set { SetValue(VisibilityNameTestWifeProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -3814,7 +3814,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityHusbandTestChild
         {
             get { return (Visibility) GetValue(VisibilityHusbandTestChildProperty); }
-            set { SetValue(VisibilityHusbandTestChildProperty, value); }
+            set { SetValue(VisibilityHusbandTestChildProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3822,7 +3822,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityWifeTestChild
         {
             get { return (Visibility) GetValue(VisibilityWifeTestChildProperty); }
-            set { SetValue(VisibilityWifeTestChildProperty, value); }
+            set { SetValue(VisibilityWifeTestChildProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3830,7 +3830,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNameTestChild
         {
             get { return (Visibility) GetValue(VisibilityNameTestChildProperty); }
-            set { SetValue(VisibilityNameTestChildProperty, value); }
+            set { SetValue(VisibilityNameTestChildProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -3869,7 +3869,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDateSumOnDate
         {
             get { return (Visibility) GetValue(VisibilityDateSumOnDateProperty); }
-            set { SetValue(VisibilityDateSumOnDateProperty, value); }
+            set { SetValue(VisibilityDateSumOnDateProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3877,7 +3877,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySumSumOnDate
         {
             get { return (Visibility) GetValue(VisibilitySumSumOnDateProperty); }
-            set { SetValue(VisibilitySumSumOnDateProperty, value); }
+            set { SetValue(VisibilitySumSumOnDateProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -3928,7 +3928,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDesignationProduct
         {
             get { return (Visibility) GetValue(VisibilityDesignationProductProperty); }
-            set { SetValue(VisibilityDesignationProductProperty, value); }
+            set { SetValue(VisibilityDesignationProductProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3936,7 +3936,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDesignationSpecialProduct
         {
             get { return (Visibility) GetValue(VisibilityDesignationSpecialProductProperty); }
-            set { SetValue(VisibilityDesignationSpecialProductProperty, value); }
+            set { SetValue(VisibilityDesignationSpecialProductProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3944,7 +3944,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProductTypeProduct
         {
             get { return (Visibility) GetValue(VisibilityProductTypeProductProperty); }
-            set { SetValue(VisibilityProductTypeProductProperty, value); }
+            set { SetValue(VisibilityProductTypeProductProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3952,7 +3952,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProductBlockProduct
         {
             get { return (Visibility) GetValue(VisibilityProductBlockProductProperty); }
-            set { SetValue(VisibilityProductBlockProductProperty, value); }
+            set { SetValue(VisibilityProductBlockProductProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3960,7 +3960,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDependentProductsProduct
         {
             get { return (Visibility) GetValue(VisibilityDependentProductsProductProperty); }
-            set { SetValue(VisibilityDependentProductsProductProperty, value); }
+            set { SetValue(VisibilityDependentProductsProductProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -4043,7 +4043,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProjectOffer
         {
             get { return (Visibility) GetValue(VisibilityProjectOfferProperty); }
-            set { SetValue(VisibilityProjectOfferProperty, value); }
+            set { SetValue(VisibilityProjectOfferProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4051,7 +4051,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityValidityDateOffer
         {
             get { return (Visibility) GetValue(VisibilityValidityDateOfferProperty); }
-            set { SetValue(VisibilityValidityDateOfferProperty, value); }
+            set { SetValue(VisibilityValidityDateOfferProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4059,7 +4059,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityVatOffer
         {
             get { return (Visibility) GetValue(VisibilityVatOfferProperty); }
-            set { SetValue(VisibilityVatOfferProperty, value); }
+            set { SetValue(VisibilityVatOfferProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4067,7 +4067,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRequestDocumentOffer
         {
             get { return (Visibility) GetValue(VisibilityRequestDocumentOfferProperty); }
-            set { SetValue(VisibilityRequestDocumentOfferProperty, value); }
+            set { SetValue(VisibilityRequestDocumentOfferProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4075,7 +4075,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityAuthorOffer
         {
             get { return (Visibility) GetValue(VisibilityAuthorOfferProperty); }
-            set { SetValue(VisibilityAuthorOfferProperty, value); }
+            set { SetValue(VisibilityAuthorOfferProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4083,7 +4083,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySenderIdOffer
         {
             get { return (Visibility) GetValue(VisibilitySenderIdOfferProperty); }
-            set { SetValue(VisibilitySenderIdOfferProperty, value); }
+            set { SetValue(VisibilitySenderIdOfferProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4091,7 +4091,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilitySenderEmployeeOffer
         {
             get { return (Visibility) GetValue(VisibilitySenderEmployeeOfferProperty); }
-            set { SetValue(VisibilitySenderEmployeeOfferProperty, value); }
+            set { SetValue(VisibilitySenderEmployeeOfferProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4099,7 +4099,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRecipientIdOffer
         {
             get { return (Visibility) GetValue(VisibilityRecipientIdOfferProperty); }
-            set { SetValue(VisibilityRecipientIdOfferProperty, value); }
+            set { SetValue(VisibilityRecipientIdOfferProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4107,7 +4107,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRecipientEmployeeOffer
         {
             get { return (Visibility) GetValue(VisibilityRecipientEmployeeOfferProperty); }
-            set { SetValue(VisibilityRecipientEmployeeOfferProperty, value); }
+            set { SetValue(VisibilityRecipientEmployeeOfferProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4115,7 +4115,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityCopyToRecipientsOffer
         {
             get { return (Visibility) GetValue(VisibilityCopyToRecipientsOfferProperty); }
-            set { SetValue(VisibilityCopyToRecipientsOfferProperty, value); }
+            set { SetValue(VisibilityCopyToRecipientsOfferProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4123,7 +4123,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRegistrationDetailsOfSenderOffer
         {
             get { return (Visibility) GetValue(VisibilityRegistrationDetailsOfSenderOfferProperty); }
-            set { SetValue(VisibilityRegistrationDetailsOfSenderOfferProperty, value); }
+            set { SetValue(VisibilityRegistrationDetailsOfSenderOfferProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4131,7 +4131,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRegistrationDetailsOfRecipientOffer
         {
             get { return (Visibility) GetValue(VisibilityRegistrationDetailsOfRecipientOfferProperty); }
-            set { SetValue(VisibilityRegistrationDetailsOfRecipientOfferProperty, value); }
+            set { SetValue(VisibilityRegistrationDetailsOfRecipientOfferProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4139,7 +4139,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityCommentOffer
         {
             get { return (Visibility) GetValue(VisibilityCommentOfferProperty); }
-            set { SetValue(VisibilityCommentOfferProperty, value); }
+            set { SetValue(VisibilityCommentOfferProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -4190,7 +4190,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPersonEmployee
         {
             get { return (Visibility) GetValue(VisibilityPersonEmployeeProperty); }
-            set { SetValue(VisibilityPersonEmployeeProperty, value); }
+            set { SetValue(VisibilityPersonEmployeeProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4198,7 +4198,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPhoneNumberEmployee
         {
             get { return (Visibility) GetValue(VisibilityPhoneNumberEmployeeProperty); }
-            set { SetValue(VisibilityPhoneNumberEmployeeProperty, value); }
+            set { SetValue(VisibilityPhoneNumberEmployeeProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4206,7 +4206,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityEmailEmployee
         {
             get { return (Visibility) GetValue(VisibilityEmailEmployeeProperty); }
-            set { SetValue(VisibilityEmailEmployeeProperty, value); }
+            set { SetValue(VisibilityEmailEmployeeProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4214,7 +4214,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityCompanyEmployee
         {
             get { return (Visibility) GetValue(VisibilityCompanyEmployeeProperty); }
-            set { SetValue(VisibilityCompanyEmployeeProperty, value); }
+            set { SetValue(VisibilityCompanyEmployeeProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4222,7 +4222,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPositionEmployee
         {
             get { return (Visibility) GetValue(VisibilityPositionEmployeeProperty); }
-            set { SetValue(VisibilityPositionEmployeeProperty, value); }
+            set { SetValue(VisibilityPositionEmployeeProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -4261,7 +4261,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNumberOrder
         {
             get { return (Visibility) GetValue(VisibilityNumberOrderProperty); }
-            set { SetValue(VisibilityNumberOrderProperty, value); }
+            set { SetValue(VisibilityNumberOrderProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4269,7 +4269,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDateOpenOrder
         {
             get { return (Visibility) GetValue(VisibilityDateOpenOrderProperty); }
-            set { SetValue(VisibilityDateOpenOrderProperty, value); }
+            set { SetValue(VisibilityDateOpenOrderProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -4312,7 +4312,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPartPaymentCondition
         {
             get { return (Visibility) GetValue(VisibilityPartPaymentConditionProperty); }
-            set { SetValue(VisibilityPartPaymentConditionProperty, value); }
+            set { SetValue(VisibilityPartPaymentConditionProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4320,7 +4320,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDaysToPointPaymentCondition
         {
             get { return (Visibility) GetValue(VisibilityDaysToPointPaymentConditionProperty); }
-            set { SetValue(VisibilityDaysToPointPaymentConditionProperty, value); }
+            set { SetValue(VisibilityDaysToPointPaymentConditionProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4328,7 +4328,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPaymentConditionPointPaymentCondition
         {
             get { return (Visibility) GetValue(VisibilityPaymentConditionPointPaymentConditionProperty); }
-            set { SetValue(VisibilityPaymentConditionPointPaymentConditionProperty, value); }
+            set { SetValue(VisibilityPaymentConditionPointPaymentConditionProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -4371,7 +4371,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNumberPaymentDocument
         {
             get { return (Visibility) GetValue(VisibilityNumberPaymentDocumentProperty); }
-            set { SetValue(VisibilityNumberPaymentDocumentProperty, value); }
+            set { SetValue(VisibilityNumberPaymentDocumentProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4379,7 +4379,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDatePaymentDocument
         {
             get { return (Visibility) GetValue(VisibilityDatePaymentDocumentProperty); }
-            set { SetValue(VisibilityDatePaymentDocumentProperty, value); }
+            set { SetValue(VisibilityDatePaymentDocumentProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4387,7 +4387,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPaymentsPaymentDocument
         {
             get { return (Visibility) GetValue(VisibilityPaymentsPaymentDocumentProperty); }
-            set { SetValue(VisibilityPaymentsPaymentDocumentProperty, value); }
+            set { SetValue(VisibilityPaymentsPaymentDocumentProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -4434,7 +4434,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNameFacility
         {
             get { return (Visibility) GetValue(VisibilityNameFacilityProperty); }
-            set { SetValue(VisibilityNameFacilityProperty, value); }
+            set { SetValue(VisibilityNameFacilityProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4442,7 +4442,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityTypeFacility
         {
             get { return (Visibility) GetValue(VisibilityTypeFacilityProperty); }
-            set { SetValue(VisibilityTypeFacilityProperty, value); }
+            set { SetValue(VisibilityTypeFacilityProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4450,7 +4450,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityOwnerCompanyFacility
         {
             get { return (Visibility) GetValue(VisibilityOwnerCompanyFacilityProperty); }
-            set { SetValue(VisibilityOwnerCompanyFacilityProperty, value); }
+            set { SetValue(VisibilityOwnerCompanyFacilityProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4458,7 +4458,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityAddressFacility
         {
             get { return (Visibility) GetValue(VisibilityAddressFacilityProperty); }
-            set { SetValue(VisibilityAddressFacilityProperty, value); }
+            set { SetValue(VisibilityAddressFacilityProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -4509,7 +4509,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNameProject
         {
             get { return (Visibility) GetValue(VisibilityNameProjectProperty); }
-            set { SetValue(VisibilityNameProjectProperty, value); }
+            set { SetValue(VisibilityNameProjectProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4517,7 +4517,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProjectTypeProject
         {
             get { return (Visibility) GetValue(VisibilityProjectTypeProjectProperty); }
-            set { SetValue(VisibilityProjectTypeProjectProperty, value); }
+            set { SetValue(VisibilityProjectTypeProjectProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4525,7 +4525,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityHighProbabilityProject
         {
             get { return (Visibility) GetValue(VisibilityHighProbabilityProjectProperty); }
-            set { SetValue(VisibilityHighProbabilityProjectProperty, value); }
+            set { SetValue(VisibilityHighProbabilityProjectProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4533,7 +4533,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityManagerProject
         {
             get { return (Visibility) GetValue(VisibilityManagerProjectProperty); }
-            set { SetValue(VisibilityManagerProjectProperty, value); }
+            set { SetValue(VisibilityManagerProjectProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4541,7 +4541,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNotesProject
         {
             get { return (Visibility) GetValue(VisibilityNotesProjectProperty); }
-            set { SetValue(VisibilityNotesProjectProperty, value); }
+            set { SetValue(VisibilityNotesProjectProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -4580,7 +4580,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNameUserRole
         {
             get { return (Visibility) GetValue(VisibilityNameUserRoleProperty); }
-            set { SetValue(VisibilityNameUserRoleProperty, value); }
+            set { SetValue(VisibilityNameUserRoleProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4588,7 +4588,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRoleUserRole
         {
             get { return (Visibility) GetValue(VisibilityRoleUserRoleProperty); }
-            set { SetValue(VisibilityRoleUserRoleProperty, value); }
+            set { SetValue(VisibilityRoleUserRoleProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -4635,7 +4635,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNumberSpecification
         {
             get { return (Visibility) GetValue(VisibilityNumberSpecificationProperty); }
-            set { SetValue(VisibilityNumberSpecificationProperty, value); }
+            set { SetValue(VisibilityNumberSpecificationProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4643,7 +4643,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDateSpecification
         {
             get { return (Visibility) GetValue(VisibilityDateSpecificationProperty); }
-            set { SetValue(VisibilityDateSpecificationProperty, value); }
+            set { SetValue(VisibilityDateSpecificationProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4651,7 +4651,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityVatSpecification
         {
             get { return (Visibility) GetValue(VisibilityVatSpecificationProperty); }
-            set { SetValue(VisibilityVatSpecificationProperty, value); }
+            set { SetValue(VisibilityVatSpecificationProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4659,7 +4659,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityContractSpecification
         {
             get { return (Visibility) GetValue(VisibilityContractSpecificationProperty); }
-            set { SetValue(VisibilityContractSpecificationProperty, value); }
+            set { SetValue(VisibilityContractSpecificationProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -4718,7 +4718,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityProjectTender
         {
             get { return (Visibility) GetValue(VisibilityProjectTenderProperty); }
-            set { SetValue(VisibilityProjectTenderProperty, value); }
+            set { SetValue(VisibilityProjectTenderProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4726,7 +4726,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityTypesTender
         {
             get { return (Visibility) GetValue(VisibilityTypesTenderProperty); }
-            set { SetValue(VisibilityTypesTenderProperty, value); }
+            set { SetValue(VisibilityTypesTenderProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4734,7 +4734,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDateOpenTender
         {
             get { return (Visibility) GetValue(VisibilityDateOpenTenderProperty); }
-            set { SetValue(VisibilityDateOpenTenderProperty, value); }
+            set { SetValue(VisibilityDateOpenTenderProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4742,7 +4742,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDateCloseTender
         {
             get { return (Visibility) GetValue(VisibilityDateCloseTenderProperty); }
-            set { SetValue(VisibilityDateCloseTenderProperty, value); }
+            set { SetValue(VisibilityDateCloseTenderProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4750,7 +4750,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityDateNoticeTender
         {
             get { return (Visibility) GetValue(VisibilityDateNoticeTenderProperty); }
-            set { SetValue(VisibilityDateNoticeTenderProperty, value); }
+            set { SetValue(VisibilityDateNoticeTenderProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4758,7 +4758,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityParticipantsTender
         {
             get { return (Visibility) GetValue(VisibilityParticipantsTenderProperty); }
-            set { SetValue(VisibilityParticipantsTenderProperty, value); }
+            set { SetValue(VisibilityParticipantsTenderProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4766,7 +4766,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityWinnerTender
         {
             get { return (Visibility) GetValue(VisibilityWinnerTenderProperty); }
-            set { SetValue(VisibilityWinnerTenderProperty, value); }
+            set { SetValue(VisibilityWinnerTenderProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -4805,7 +4805,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityNameTenderType
         {
             get { return (Visibility) GetValue(VisibilityNameTenderTypeProperty); }
-            set { SetValue(VisibilityNameTenderTypeProperty, value); }
+            set { SetValue(VisibilityNameTenderTypeProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4813,7 +4813,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityTypeTenderType
         {
             get { return (Visibility) GetValue(VisibilityTypeTenderTypeProperty); }
-            set { SetValue(VisibilityTypeTenderTypeProperty, value); }
+            set { SetValue(VisibilityTypeTenderTypeProperty, value); OnPropertyChanged(); }
         }
 
 	}
@@ -4868,7 +4868,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityLoginUser
         {
             get { return (Visibility) GetValue(VisibilityLoginUserProperty); }
-            set { SetValue(VisibilityLoginUserProperty, value); }
+            set { SetValue(VisibilityLoginUserProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4876,7 +4876,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPasswordUser
         {
             get { return (Visibility) GetValue(VisibilityPasswordUserProperty); }
-            set { SetValue(VisibilityPasswordUserProperty, value); }
+            set { SetValue(VisibilityPasswordUserProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4884,7 +4884,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityPersonalNumberUser
         {
             get { return (Visibility) GetValue(VisibilityPersonalNumberUserProperty); }
-            set { SetValue(VisibilityPersonalNumberUserProperty, value); }
+            set { SetValue(VisibilityPersonalNumberUserProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4892,7 +4892,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRoleCurrentUser
         {
             get { return (Visibility) GetValue(VisibilityRoleCurrentUserProperty); }
-            set { SetValue(VisibilityRoleCurrentUserProperty, value); }
+            set { SetValue(VisibilityRoleCurrentUserProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4900,7 +4900,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityRolesUser
         {
             get { return (Visibility) GetValue(VisibilityRolesUserProperty); }
-            set { SetValue(VisibilityRolesUserProperty, value); }
+            set { SetValue(VisibilityRolesUserProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4908,7 +4908,7 @@ namespace HVTApp.UI.Views
         public Visibility VisibilityEmployeeUser
         {
             get { return (Visibility) GetValue(VisibilityEmployeeUserProperty); }
-            set { SetValue(VisibilityEmployeeUserProperty, value); }
+            set { SetValue(VisibilityEmployeeUserProperty, value); OnPropertyChanged(); }
         }
 
 	}

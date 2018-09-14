@@ -14,9 +14,9 @@
         </Grid.RowDefinitions>
         
         <ScrollViewer Grid.Row="0">
-            <views:OfferDetailsView DockPanel.Dock="Top" 
+            <views:OfferDetailsView x:Name="OfferDetailsView"
+                                    DockPanel.Dock="Top" 
                                     DataContext="{Binding}" 
-                                    x:Name="OfferDetailsView"
                                     VisibilityAuthorOffer="Collapsed"/>
         </ScrollViewer>
         

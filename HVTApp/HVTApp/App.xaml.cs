@@ -15,7 +15,7 @@ namespace HVTApp
             //Disable shutdown when the dialog closes
             Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
-            //CommonOptions.User = await (new Auth()).GetCurrentUser();
+            CommonOptions.User = await (new Auth()).GetCurrentUser();
 
             var bootstrapper = new Bootstrapper();
             bootstrapper.Run();

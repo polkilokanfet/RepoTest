@@ -16,11 +16,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Num" Visibility="{Binding VisibilityNumDocumentOutgoingNumberDocumentOutgoingNumber, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Num" Visibility="{Binding VisibilityNumDocumentOutgoingNumber, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0"
 							   ValueType="core:Int32"
                                Value="{Binding Item.Num, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding VisibilityNumDocumentOutgoingNumberDocumentOutgoingNumber, ElementName=Root}"/>
+							   Visibility="{Binding VisibilityNumDocumentOutgoingNumber, ElementName=Root}"/>
 
 
     </Grid>

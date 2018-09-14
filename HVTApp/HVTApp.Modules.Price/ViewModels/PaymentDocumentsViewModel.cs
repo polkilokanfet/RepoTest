@@ -167,7 +167,6 @@ namespace HVTApp.Modules.Price.ViewModels
 
     public class Payment : BindableBase
     {
-        private double _sum;
         public PaymentActualWrapper PaymentActual { get; }
         public SalesUnitWrapper SalesUnit { get; }
         public double SumNotPaid => SalesUnit.SumNotPaid;

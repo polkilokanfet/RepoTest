@@ -86,10 +86,10 @@
                                     RemoveItemCommand="{Binding ClearProductCommand}"
 									Visibility="{Binding VisibilityProductSalesUnit, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Стоимость" Visibility="{Binding VisibilityCostSalesUnitSalesUnit, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Стоимость" Visibility="{Binding VisibilityCostSalesUnit, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3" 
                                Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding VisibilityCostSalesUnitSalesUnit, ElementName=Root}"/>
+							   Visibility="{Binding VisibilityCostSalesUnit, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="4" Content="Условия оплаты" Visibility="{Binding VisibilityPaymentConditionSetSalesUnit, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
@@ -103,29 +103,29 @@
                     SelectedDate="{Binding Item.DeliveryDateExpected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityDeliveryDateExpectedSalesUnit, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="6" Content="Срок сборки" Visibility="{Binding VisibilityAssembleTermSalesUnitSalesUnit, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="6" Content="Срок сборки" Visibility="{Binding VisibilityAssembleTermSalesUnit, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="6"
 							   ValueType="core:Int32"
                                Value="{Binding Item.AssembleTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding VisibilityAssembleTermSalesUnitSalesUnit, ElementName=Root}"/>
+							   Visibility="{Binding VisibilityAssembleTermSalesUnit, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="7" Content="Срок производства" Visibility="{Binding VisibilityProductionTermSalesUnitSalesUnit, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="7" Content="Срок производства" Visibility="{Binding VisibilityProductionTermSalesUnit, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="7"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ProductionTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding VisibilityProductionTermSalesUnitSalesUnit, ElementName=Root}"/>
+							   Visibility="{Binding VisibilityProductionTermSalesUnit, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="8" Content="Срок доставки расчетный" Visibility="{Binding VisibilityExpectedDeliveryPeriodCalculatedSalesUnitSalesUnit, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="8" Content="Срок доставки расчетный" Visibility="{Binding VisibilityExpectedDeliveryPeriodCalculatedSalesUnit, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="8"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ExpectedDeliveryPeriodCalculated, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding VisibilityExpectedDeliveryPeriodCalculatedSalesUnitSalesUnit, ElementName=Root}"/>
+							   Visibility="{Binding VisibilityExpectedDeliveryPeriodCalculatedSalesUnit, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="9" Content="Срок доставки" Visibility="{Binding VisibilityExpectedDeliveryPeriodSalesUnitSalesUnit, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="9" Content="Срок доставки" Visibility="{Binding VisibilityExpectedDeliveryPeriodSalesUnit, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="9"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ExpectedDeliveryPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding VisibilityExpectedDeliveryPeriodSalesUnitSalesUnit, ElementName=Root}"/>
+							   Visibility="{Binding VisibilityExpectedDeliveryPeriodSalesUnit, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="10" Content="Спецификация" Visibility="{Binding VisibilitySpecificationSalesUnit, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="10" 

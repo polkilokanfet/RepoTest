@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Controls;
+using HVTApp.Infrastructure.Annotations;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 
 namespace HVTApp.Infrastructure
 {
-    public class ViewBase : UserControl, IViewBase, INavigationAware
+    public class ViewBase : UserControl, IViewBase, INavigationAware, INotifyPropertyChanged
     {
         public IRegionManager RegionManager { get; }
         public IEventAggregator EventAggregator { get; }
@@ -62,8 +65,17 @@ namespace HVTApp.Infrastructure
         #endregion
 
         //костыль: чтобы не выскакивала ошибка при автогенерации Views
-        public virtual void InitializeComponent()
+        //public virtual void InitializeComponent()
+        //{
+        //}
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -20,10 +20,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Часть" Visibility="{Binding VisibilityPartPaymentPlannedPaymentPlanned, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Часть" Visibility="{Binding VisibilityPartPaymentPlanned, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0" 
                                Value="{Binding Item.Part, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding VisibilityPartPaymentPlannedPaymentPlanned, ElementName=Root}"/>
+							   Visibility="{Binding VisibilityPartPaymentPlanned, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Дата расчетная" Visibility="{Binding VisibilityDateCalculatedPaymentPlanned, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 

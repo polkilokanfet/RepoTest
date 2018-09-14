@@ -7,7 +7,8 @@
         SizeToContent="WidthAndHeight">
     
     <StackPanel>
-        <views:OfferUnitDetailsView VisibilityOfferOfferUnit="Collapsed" DataContext="{Binding ViewModel}"/>
+        <views:OfferUnitDetailsView DataContext="{Binding ViewModel}" 
+                                    VisibilityOfferOfferUnit="Collapsed"/>
         <StackPanel Orientation="Horizontal">
             <Label Content="Количество"/>
             <igWPF:XamNumericEditor Value="{Binding Amount}" ValueType="core:Int32"/>

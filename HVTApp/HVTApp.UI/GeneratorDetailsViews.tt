@@ -232,7 +232,7 @@ namespace HVTApp.UI.Views
         public Visibility Visibility<#=propInfo.Name#><#=modelType.Name#>
         {
             get { return (Visibility) GetValue(Visibility<#=propInfo.Name#><#=modelType.Name#>Property); }
-            set { SetValue(Visibility<#=propInfo.Name#><#=modelType.Name#>Property, value); }
+            set { SetValue(Visibility<#=propInfo.Name#><#=modelType.Name#>Property, value); OnPropertyChanged(); }
         }
 
 <#+ 
@@ -318,11 +318,11 @@ namespace HVTApp.UI.Views
 		if (property.IsType<int>() || property.IsType<int?>())
 		{
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding Visibility<#=property.Name#><#=modelType.Name#><#=modelType.Name#>, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding Visibility<#=property.Name#><#=modelType.Name#>, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="<#= rowNum #>"
 							   ValueType="core:Int32"
                                Value="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding Visibility<#=property.Name#><#=modelType.Name#><#=modelType.Name#>, ElementName=Root}"/>
+							   Visibility="{Binding Visibility<#=property.Name#><#=modelType.Name#>, ElementName=Root}"/>
 
 <#+ 
 		rowNum++;
@@ -331,10 +331,10 @@ namespace HVTApp.UI.Views
 		if (property.IsType<double>() || property.IsType<double?>())
 		{
 #>
-        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding Visibility<#=property.Name#><#=modelType.Name#><#=modelType.Name#>, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="<#= rowNum #>" Content="<#=property.Designation()#>" Visibility="{Binding Visibility<#=property.Name#><#=modelType.Name#>, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="<#= rowNum #>" 
                                Value="{Binding Item.<#=property.Name#>, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding Visibility<#=property.Name#><#=modelType.Name#><#=modelType.Name#>, ElementName=Root}"/>
+							   Visibility="{Binding Visibility<#=property.Name#><#=modelType.Name#>, ElementName=Root}"/>
 
 <#+ 
 		rowNum++;

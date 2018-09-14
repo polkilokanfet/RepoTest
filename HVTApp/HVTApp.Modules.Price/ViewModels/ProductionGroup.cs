@@ -12,7 +12,6 @@ namespace HVTApp.Modules.Price.ViewModels
     public class ProductionGroup : BindableBase
     {
         private readonly List<SalesUnitWrapper> _units;
-        private OrderWrapper _order;
 
         public SalesUnitWrapper Unit => _units.First();
         public int Amount => _units.Count;

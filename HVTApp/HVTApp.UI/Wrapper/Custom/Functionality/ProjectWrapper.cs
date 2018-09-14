@@ -5,7 +5,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class ProjectWrapper : IWrapperWithUnits<SalesUnitWrapper>
     {
-        public ValidatableChangeTrackingCollection<SalesUnitWrapper> Units { get; }
+        public ValidatableChangeTrackingCollection<SalesUnitWrapper> Units { get; } = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(new List<SalesUnitWrapper>());
 
         public ProjectWrapper(Project project, IEnumerable<SalesUnitWrapper> units) : this(project)
         {

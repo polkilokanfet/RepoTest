@@ -36,16 +36,16 @@
                                     RemoveItemCommand="{Binding ClearOfferCommand}"
 									Visibility="{Binding VisibilityOfferOfferUnit, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Стоимость" Visibility="{Binding VisibilityCostOfferUnitOfferUnit, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="2" Content="Стоимость" Visibility="{Binding VisibilityCostOfferUnit, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
                                Value="{Binding Item.Cost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding VisibilityCostOfferUnitOfferUnit, ElementName=Root}"/>
+							   Visibility="{Binding VisibilityCostOfferUnit, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Срок производства" Visibility="{Binding VisibilityProductionTermOfferUnitOfferUnit, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="Срок производства" Visibility="{Binding VisibilityProductionTermOfferUnit, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="3"
 							   ValueType="core:Int32"
                                Value="{Binding Item.ProductionTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding VisibilityProductionTermOfferUnitOfferUnit, ElementName=Root}"/>
+							   Visibility="{Binding VisibilityProductionTermOfferUnit, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="4" Content="Продукт" Visibility="{Binding VisibilityProductOfferUnit, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 

@@ -23,11 +23,11 @@
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameTestWife, ElementName=Root}"/>
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="N" Visibility="{Binding VisibilityNTestWifeTestWife, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="N" Visibility="{Binding VisibilityNTestWife, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
 							   ValueType="core:Int32"
                                Value="{Binding Item.N, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding VisibilityNTestWifeTestWife, ElementName=Root}"/>
+							   Visibility="{Binding VisibilityNTestWife, ElementName=Root}"/>
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Husband" Visibility="{Binding VisibilityHusbandTestWife, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
