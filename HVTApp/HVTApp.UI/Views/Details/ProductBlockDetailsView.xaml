@@ -23,24 +23,20 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Услуга" Visibility="{Binding VisibilityIsServiceProductBlock, ElementName=Root}"/>
         <CheckBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                   IsChecked="{Binding Item.IsService, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityIsServiceProductBlock, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Сралчахвост" Visibility="{Binding VisibilityStructureCostNumberProductBlock, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityStructureCostNumberProductBlock, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="2" Content="Специальное обозначение" Visibility="{Binding VisibilityDesignationSpecialProductBlock, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Text="{Binding Item.DesignationSpecial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityDesignationSpecialProductBlock, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="3" Content="Себестоимости" Visibility="{Binding VisibilityPricesProductBlock, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
@@ -50,7 +46,6 @@
 										 RemoveItemCommand="{Binding RemoveFromPricesCommand}"
 										 Visibility="{Binding VisibilityPricesProductBlock, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="4" Content="Параметры" Visibility="{Binding VisibilityParametersProductBlock, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
 										 Items="{Binding Path=Item.Parameters}"
@@ -59,18 +54,15 @@
 										 RemoveItemCommand="{Binding RemoveFromParametersCommand}"
 										 Visibility="{Binding VisibilityParametersProductBlock, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="5" Content="Обозначение" Visibility="{Binding VisibilityDesignationProductBlock, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="5" MinWidth="200" 
                  Text="{Binding Item.Designation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityDesignationProductBlock, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="6" Content="Вес" Visibility="{Binding VisibilityWeightProductBlockProductBlock, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="6" 
                                Value="{Binding Item.Weight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityWeightProductBlockProductBlock, ElementName=Root}"/>
-
 
 
     </Grid>

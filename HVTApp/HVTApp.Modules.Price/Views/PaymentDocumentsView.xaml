@@ -28,9 +28,9 @@
               Grid.Row="1" 
               Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             
             <GroupBox Grid.Column="0" Header="Платежные документы">
@@ -81,7 +81,7 @@
 					                    <infg:FieldLayout.Fields>
 
                                             <infg:TextField AlternateBinding="{Binding SalesUnit.Facility}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
-                                            <infg:TextField AlternateBinding="{Binding SalesUnit.Product.Type}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
+                                            <infg:TextField AlternateBinding="{Binding SalesUnit.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
                                             <infg:TextField AlternateBinding="{Binding SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
                                             <infg:TextField AlternateBinding="{Binding SalesUnit.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
                                             <infg:TextField AlternateBinding="{Binding SalesUnit.OrderPosition}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto"/>
@@ -116,7 +116,7 @@
                                     <infg:FieldLayout.Fields>
 
                                         <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
-                                        <infg:TextField AlternateBinding="{Binding Product.Type}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
                                         <infg:TextField AlternateBinding="{Binding Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
                                             <infg:TextField AlternateBinding="{Binding SalesUnit.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
                                             <infg:TextField AlternateBinding="{Binding SalesUnit.OrderPosition}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto"/>

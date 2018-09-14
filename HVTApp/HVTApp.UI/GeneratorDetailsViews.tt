@@ -207,15 +207,15 @@ namespace HVTApp.UI.Views
 
         private void SetVisibilityProps()
         {
-            NotUpdateAttribute attr;
+            //NotUpdateAttribute attr;
 
 <#+ 
 			foreach(var propInfo in allProperties)
             {
 #>
-            attr = typeof(<#=modelType.FullName#>).GetProperty(nameof(<#=modelType.FullName#>.<#=propInfo.Name#>)).GetCustomAttribute<NotUpdateAttribute>();
-            if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-                Visibility<#=propInfo.Name#><#=modelType.Name#> = Visibility.Collapsed;
+            //attr = typeof(<#=modelType.FullName#>).GetProperty(nameof(<#=modelType.FullName#>.<#=propInfo.Name#>)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    Visibility<#=propInfo.Name#><#=modelType.Name#> = Visibility.Collapsed;
 
 <#+ 
 			}

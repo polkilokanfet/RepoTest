@@ -44,13 +44,13 @@
 					<infg:FieldLayout.Fields>
 
                         <infg:TextField AlternateBinding="{Binding Unit.Facility}" BindingType="UseAlternateBinding" Label="Объект" Width="Auto"/>
-                        <infg:TextField AlternateBinding="{Binding Unit.Product.Type}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Unit.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Unit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Unit.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Unit.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
-                        <infg:TextField Name="OrderPosition" Label="Поз." Width="Auto" AllowEdit="True"/>
+                        <infg:TextField Name="OrderPosition" Label="Поз." Width="Auto"/>
                         <infg:DateTimeField Name="PickingDate" Label="Комплектация" Width="Auto" AllowEdit="True"/>
                         <infg:DateTimeField Name="EndProductionDate" Label="Производство" Width="Auto" AllowEdit="True"/>
                         <infg:DateTimeField Name="ShipmentDate" Label="Отгрузка" Width="Auto" AllowEdit="True"/>

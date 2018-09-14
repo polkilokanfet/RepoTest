@@ -15,9 +15,10 @@
 
         <ScrollViewer Grid.Row="0">
             <views:ProjectDetailsView DockPanel.Dock="Top"
-                                    DataContext="{Binding}"
-                                    x:Name="OfferDetailsView"
-                                    VisibilityManagerProject="Collapsed" />
+                                      DataContext="{Binding}"
+                                      x:Name="OfferDetailsView"
+                                      VisibilityManagerProject="Collapsed" 
+                                      VisibilityNotesProject="Collapsed" />
         </ScrollViewer>
 
         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3" />

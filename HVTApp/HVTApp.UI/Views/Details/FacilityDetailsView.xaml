@@ -19,7 +19,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <Label Grid.Column="0" Grid.Row ="0" Content="Тип объекта" Visibility="{Binding VisibilityTypeFacility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.Type}" 
@@ -27,12 +26,10 @@
                                     RemoveItemCommand="{Binding ClearTypeCommand}"
 									Visibility="{Binding VisibilityTypeFacility, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="1" Content="Название" Visibility="{Binding VisibilityNameFacility, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameFacility, ElementName=Root}"/>
-
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Местоположение" Visibility="{Binding VisibilityAddressFacility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
@@ -41,14 +38,12 @@
                                     RemoveItemCommand="{Binding ClearAddressCommand}"
 									Visibility="{Binding VisibilityAddressFacility, ElementName=Root}"/>
 
-
         <Label Grid.Column="0" Grid.Row ="3" Content="Владелец" Visibility="{Binding VisibilityOwnerCompanyFacility, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.OwnerCompany}" 
                                     AddItemCommand="{Binding SelectOwnerCompanyCommand}" 
                                     RemoveItemCommand="{Binding ClearOwnerCompanyCommand}"
 									Visibility="{Binding VisibilityOwnerCompanyFacility, ElementName=Root}"/>
-
 
 
     </Grid>
