@@ -47,6 +47,9 @@ namespace HVTApp.Model.POCOs
             //если составные части не совпадают
             if (!this.ProductBlock.Equals(other.ProductBlock)) return false;
 
+            return !DependentProducts.Except(other.DependentProducts, new ProductDependentComparer()).Any() &&
+                   !other.DependentProducts.Except(DependentProducts, new ProductDependentComparer()).Any();
+
             //если зависимые продукты не совпадают / совпадают
             return DependentProducts.MembersAreSame(other.DependentProducts);
         }
@@ -68,6 +71,21 @@ namespace HVTApp.Model.POCOs
             return result;
         }
 
+        public IEnumerable<Product> GetProducts()
+        {
+            yield return this;
+
+            foreach (var dependentProduct in DependentProducts)
+            {
+                foreach (var product in dependentProduct.Product.GetProducts())
+                {
+                    yield return product;
+                }
+            }
+
+        }
+
+
 
         public string GetFullDescription(int spaceCount = 0)
         {
@@ -84,6 +102,19 @@ namespace HVTApp.Model.POCOs
             }
 
             return stringBuilder.ToString();
+        }
+    }
+
+    public class ProductDependentComparer : IEqualityComparer<ProductDependent>
+    {
+        public bool Equals(ProductDependent x, ProductDependent y)
+        {
+            return x.Equals(y);
+        }
+
+        public int GetHashCode(ProductDependent obj)
+        {
+            return 0;
         }
     }
 

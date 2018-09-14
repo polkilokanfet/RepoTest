@@ -43,7 +43,7 @@ namespace HVTApp.Model.POCOs
 
         protected bool Equals(ProductBlock other)
         {
-            return other != null && this.Parameters.MembersAreSame(other.Parameters);
+            return other != null && this.Parameters.Select(x => x.Id).MembersAreSame(other.Parameters.Select(x => x.Id));
         }
 
         public string ParametersToString()

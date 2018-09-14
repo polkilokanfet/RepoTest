@@ -59,15 +59,53 @@ namespace HVTApp.Services.GetProductService
 
             var result = productSelector.SelectedProduct;
 
+            //оставляем только уникальные блоки
+            var blocks = result.GetBlocks().Distinct().ToList();
+            SubstitutionBlocks(result, blocks);
+
+            //загрузка актуальных продуктов
+            var products = await _unitOfWork.Repository<Product>().GetAllAsync();
             //если выбранного продукта нет в базе
-            if (!_bank.Products.Contains(result))
+            if (!products.Contains(result))
             {
+                SubstitutionProducts(result, products);
                 _unitOfWork.Repository<Product>().Add(result);
                 await _unitOfWork.SaveChangesAsync();
                 _eventAggregator.GetEvent<AfterSaveProductEvent>().Publish(result);
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// подмена блоков на уникальные
+        /// </summary>
+        /// <param name="product">целевой продукт</param>
+        /// <param name="uniqBlocks">уникальные блоки</param>
+        private void SubstitutionBlocks(Product product, ICollection<ProductBlock> uniqBlocks)
+        {
+            if (uniqBlocks.Contains(product.ProductBlock))
+            {
+                product.ProductBlock = uniqBlocks.Single(x => x.Equals(product.ProductBlock));
+            }
+
+            foreach (var dependentProduct in product.DependentProducts)
+            {
+                SubstitutionBlocks(dependentProduct.Product, uniqBlocks);
+            }
+        }
+
+        private void SubstitutionProducts(Product product, ICollection<Product> uniqProducts)
+        {
+            foreach (var dependentProduct in product.DependentProducts)
+            {
+                if (uniqProducts.Contains(dependentProduct.Product))
+                {
+                    dependentProduct.Product = uniqProducts.Single(x => x.Equals(dependentProduct.Product));
+                }
+
+                SubstitutionProducts(dependentProduct.Product, uniqProducts);
+            }
         }
 
         private async Task<Product> CreateNewProduct()
