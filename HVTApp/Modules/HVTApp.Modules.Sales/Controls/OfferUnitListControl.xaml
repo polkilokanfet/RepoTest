@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:dp="http://infragistics.com/DataPresenter"
              x:Name="Root">
-    
+
     <UserControl.Resources>
-        
+
         <Style x:Key="FacilityCellStyle"
                TargetType="{x:Type dp:CellValuePresenter}">
             <Setter Property="Template">
@@ -13,7 +13,7 @@
                     <ControlTemplate TargetType="{x:Type dp:CellValuePresenter}">
                         <StackPanel Orientation="Horizontal">
                             <Button Content="..."
-                                    Command="{Binding ChangeFacilityCommand}"
+                                    Command="{Binding DataContext.ChangeFacilityCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Record.DataItem}" />
                             <TextBlock Text="{TemplateBinding Value}"
                                        VerticalAlignment="Center" />
@@ -22,7 +22,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <Style x:Key="ProductCellStyle"
                TargetType="{x:Type dp:CellValuePresenter}">
             <Setter Property="Template">
@@ -30,7 +30,7 @@
                     <ControlTemplate TargetType="{x:Type dp:CellValuePresenter}">
                         <StackPanel Orientation="Horizontal">
                             <Button Content="..."
-                                    Command="{Binding ChangeProductCommand}"
+                                    Command="{Binding DataContext.ChangeProductCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Record.DataItem}" />
                             <TextBlock Text="{TemplateBinding Value}"
                                        VerticalAlignment="Center" />
@@ -39,7 +39,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <Style x:Key="PaymentsCellStyle"
                TargetType="{x:Type dp:CellValuePresenter}">
             <Setter Property="Template">
@@ -47,7 +47,7 @@
                     <ControlTemplate TargetType="{x:Type dp:CellValuePresenter}">
                         <StackPanel Orientation="Horizontal">
                             <Button Content="..."
-                                    Command="{Binding ChangePaymentsCommand}"
+                                    Command="{Binding DataContext.ChangePaymentsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Record.DataItem}" />
                             <TextBlock Text="{TemplateBinding Value}"
                                        VerticalAlignment="Center" />
@@ -56,9 +56,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
