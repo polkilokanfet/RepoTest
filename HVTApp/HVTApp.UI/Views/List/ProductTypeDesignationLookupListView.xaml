@@ -2,12 +2,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
               x:Class="HVTApp.UI.Views.ProductTypeDesignationLookupListView">
-
-    <inf:ViewBase.Resources>
-        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></converters:BooleanToVisibilityConverter>
-    </inf:ViewBase.Resources>
 
     <Grid>
          <Grid.RowDefinitions>

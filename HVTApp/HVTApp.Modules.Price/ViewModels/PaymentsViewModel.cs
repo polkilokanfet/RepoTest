@@ -10,11 +10,11 @@ using Prism.Commands;
 
 namespace HVTApp.Modules.Price.ViewModels
 {
-    public class PaymentsViewModel : ViewModelBase
+    public class PaymentsViewModel : LoadableBindableBase
     {
         private IUnitOfWork _unitOfWork;
 
-        public ObservableCollection<PlanPayment> Payments { get; } = new ObservableCollection<PlanPayment>();
+        public ObservableCollection<PaymentsGroup> Payments { get; } = new ObservableCollection<PaymentsGroup>();
 
         public ICommand ReloadCommand { get; }
 
@@ -23,7 +23,7 @@ namespace HVTApp.Modules.Price.ViewModels
             ReloadCommand = new DelegateCommand(async () => await LoadAsync());
         }
 
-        public async Task LoadAsync()
+        protected override async Task LoadedAsyncMethod()
         {
             _unitOfWork = Container.Resolve<IUnitOfWork>();
             var units = await _unitOfWork.Repository<SalesUnit>().GetAllAsNoTrackingAsync();
@@ -33,7 +33,46 @@ namespace HVTApp.Modules.Price.ViewModels
                 payments.AddRange(unit.PaymentsPlannedCalculated.Select(x => new PlanPayment(unit, x)));
             }
             Payments.Clear();
-            Payments.AddRange(payments.OrderBy(x => x.PaymentPlanned.Date));
+            Payments.AddRange(PaymentsGroup.GetGroups(payments));
+        }
+    }
+
+    public class PaymentsGroup
+    {
+        private readonly List<PlanPayment> _payments;
+
+        public PlanPayment Payment => _payments.First();
+        public double Sum => _payments.Sum(x => x.Sum);
+        public int Amount => _payments.Count;
+
+        public string OrderPosition => Groups.Any() ? "..." : Payment.SalesUnit.OrderPosition;
+
+        public List<PaymentsGroup> Groups { get; } = new List<PaymentsGroup>();
+
+        public PaymentsGroup(IEnumerable<PlanPayment> payments)
+        {
+            _payments = payments.ToList();
+            if (_payments.Count > 1)
+            {
+                Groups.AddRange(_payments.Select(x => new PaymentsGroup(new []{x})));
+            }
+        }
+
+        public static IEnumerable<PaymentsGroup> GetGroups(IEnumerable<PlanPayment> payments)
+        {
+            var groups = payments.GroupBy(x => new
+            {
+                x.SalesUnit.Product,
+                x.SalesUnit.Project,
+                x.SalesUnit.Order,
+                x.SalesUnit.Facility,
+                x.SalesUnit.Cost,
+                x.SalesUnit.Specification,
+                x.PaymentPlanned.Condition,
+                x.PaymentPlanned.Date,
+                x.Sum
+            }).OrderBy(x => x.Key.Date);
+            return groups.Select(x => new PaymentsGroup(x));
         }
     }
 
