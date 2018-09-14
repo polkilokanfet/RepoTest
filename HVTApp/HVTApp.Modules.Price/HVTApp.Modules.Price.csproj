@@ -128,6 +128,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Tabs\TabPayments.xaml.cs">
+      <DependentUpon>TabPayments.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\TabPaymentDocuments.xaml.cs">
       <DependentUpon>TabPaymentDocuments.xaml</DependentUpon>
     </Compile>
@@ -143,10 +146,14 @@
     <Compile Include="ViewModels\DatesGroup.cs" />
     <Compile Include="ViewModels\DatesViewModel.cs" />
     <Compile Include="ViewModels\PaymentDocumentsViewModel.cs" />
+    <Compile Include="ViewModels\PaymentsViewModel.cs" />
     <Compile Include="ViewModels\PricesViewModel.cs" />
     <Compile Include="ViewModels\PriceTask.cs" />
     <Compile Include="ViewModels\ProductionGroup.cs" />
     <Compile Include="ViewModels\ProductionPlanViewModel.cs" />
+    <Compile Include="Views\PaymentsView.xaml.cs">
+      <DependentUpon>PaymentsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PricesView.xaml.cs">
       <DependentUpon>PricesView.xaml</DependentUpon>
     </Compile>
@@ -191,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Tabs\TabPayments.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Tabs\TabPaymentDocuments.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -204,6 +215,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Tabs\TabPriceTasks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PaymentsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

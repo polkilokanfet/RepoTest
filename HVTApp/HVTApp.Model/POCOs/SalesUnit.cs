@@ -511,6 +511,13 @@ namespace HVTApp.Model.POCOs
             }
         }
 
+
+        /// <summary>
+        /// –асчетные плановые платежи + сохраненные.
+        /// </summary>
+        [Designation("–асчетные плановые платежи + сохраненные"), NotMapped]
+        public List<PaymentPlanned> PaymentsPlannedCalculated => PaymentsPlannedActual.Union(PaymentsPlannedGenerated).ToList();
+
         public object Clone()
         {
             return this.MemberwiseClone();
