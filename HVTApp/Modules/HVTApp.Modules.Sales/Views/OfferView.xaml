@@ -6,7 +6,7 @@
               xmlns:controls="clr-namespace:HVTApp.Modules.Sales.Controls"
               x:Name="Root">
     
-    <Grid>
+    <Grid Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

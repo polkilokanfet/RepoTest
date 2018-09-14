@@ -10,16 +10,13 @@ using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
-using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.GetProductService;
 using HVTApp.Services.PriceService;
-using HVTApp.UI.Converter;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
-using Prism.Regions;
 
 namespace HVTApp.UI.ViewModels
 {
@@ -178,9 +175,6 @@ namespace HVTApp.UI.ViewModels
         }
 
         protected abstract IEnumerable<TUnitGroup> GetGroups();
-        //{
-        //    return Item.Units.ToProductUnitGroups();
-        //}
 
         private void RefreshGroups()
         {
