@@ -4,8 +4,6 @@ using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Tabs;
 using HVTApp.Modules.Sales.ViewModels;
-using HVTApp.UI.Tabs;
-using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;

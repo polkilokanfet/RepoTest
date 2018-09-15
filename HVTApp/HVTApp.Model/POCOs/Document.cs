@@ -11,13 +11,13 @@ namespace HVTApp.Model.POCOs
     public partial class Document : BaseEntity
     {
         [Designation("ИД"), Required, OrderStatus(50)]
-        public virtual DocumentNumber Number { get; set; } = new DocumentNumber();
+        public virtual DocumentNumber Number { get; set; }
 
         [Designation("Код"), OrderStatus(1), MaxLength(15)]
         public string Code { get; set; }
 
         [Designation("Номер"), NotMapped, OrderStatus(45)]
-        public string RegNumber => $"{Code}-{DateTime.Today.Year}-{Number.ToString()}";
+        public string RegNumber => Number == null ? $"{Code}-{DateTime.Today.Year}-" : $"{Code}-{DateTime.Today.Year}-{Number}";
 
         [Designation("Дата"), Required, OrderStatus(40)]
         public DateTime Date { get; set; } = DateTime.Today;

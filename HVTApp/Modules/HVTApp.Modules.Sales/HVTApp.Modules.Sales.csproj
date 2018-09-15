@@ -35,6 +35,7 @@
     <Reference Include="InfragisticsWPF4.Controls.Menus.XamDataTree.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.DataManager.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.DataPresenter.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Documents.IO.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.DragDrop.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.Editors.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="InfragisticsWPF4.OutlookBar.v15.1, Version=15.1.20151.2251, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
@@ -99,6 +100,8 @@
       <DependentUpon>SalesMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\SalesMenuViewModel.cs" />
+    <Compile Include="PrintOffer\OfferToDoc.cs" />
+    <Compile Include="PrintOffer\WordDocumentWriterExt.cs" />
     <Compile Include="Tabs\TabCrudUnits.xaml.cs">
       <DependentUpon>TabCrudUnits.xaml</DependentUpon>
     </Compile>
@@ -224,10 +227,6 @@
     <ProjectReference Include="..\..\HVTApp.Services.ChooseProductService\HVTApp.Services.GetProductService.csproj">
       <Project>{6BAD8F07-90FB-4CE8-8966-10604E1BF4DA}</Project>
       <Name>HVTApp.Services.GetProductService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\HVTApp.Services.OfferToDocService\HVTApp.Services.OfferToDocService.csproj">
-      <Project>{463FB05E-E997-4975-AE8F-7406A4390FCD}</Project>
-      <Name>HVTApp.Services.OfferToDocService</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\HVTApp.UI\HVTApp.UI.csproj">
       <Project>{984df0f0-471d-4e38-b701-9dfc536217a8}</Project>
