@@ -249,6 +249,11 @@ namespace HVTApp.UI.Wrapper
         public DocumentWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
     }
 
+    public partial class DocumentNumberWrapperRepository : WrapperRepository<DocumentNumber, DocumentNumberWrapper>
+    {
+        public DocumentNumberWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
+    }
+
     public partial class TestEntityWrapperRepository : WrapperRepository<TestEntity, TestEntityWrapper>
     {
         public TestEntityWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }

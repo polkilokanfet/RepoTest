@@ -4,19 +4,20 @@ namespace HVTApp.DataAccess
     {
         public DocumentConfiguration()
         {
-            HasOptional(x => x.RequestDocument).WithOptionalDependent();
-
-            HasOptional(x => x.Author).WithMany().WillCascadeOnDelete(false);
+            HasRequired(x => x.Number).WithRequiredPrincipal();
 
             HasRequired(x => x.SenderEmployee).WithMany().HasForeignKey(x => x.SenderId).WillCascadeOnDelete(false);
             HasRequired(x => x.RecipientEmployee).WithMany().HasForeignKey(x => x.RecipientId).WillCascadeOnDelete(false);
 
+            HasOptional(x => x.Author).WithMany().WillCascadeOnDelete(false);
+
+            HasOptional(x => x.RequestDocument).WithMany();
+
+            HasOptional(x => x.RegistrationDetailsOfRecipient).WithOptionalPrincipal();
+
             HasMany(x => x.CopyToRecipients).WithMany();
 
-            HasRequired(x => x.RegistrationDetailsOfSender).WithMany().WillCascadeOnDelete(false);
-            HasOptional(x => x.RegistrationDetailsOfRecipient).WithMany().WillCascadeOnDelete(false);
-
-            Property(x => x.Comment).IsOptional().HasMaxLength(100);
+            Property(x => x.Comment).IsOptional();
         }
     }
 }

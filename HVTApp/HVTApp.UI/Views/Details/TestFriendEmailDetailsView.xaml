@@ -17,15 +17,18 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Email" Visibility="{Binding VisibilityEmailTestFriendEmail, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityEmailTestFriendEmail, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="Comment" Visibility="{Binding VisibilityCommentTestFriendEmail, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityCommentTestFriendEmail, ElementName=Root}"/>
+
 
 
     </Grid>

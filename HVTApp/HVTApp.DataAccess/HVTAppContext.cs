@@ -18,6 +18,5 @@ namespace HVTApp.DataAccess
             AddConfigurations(modelBuilder);
             base.OnModelCreating(modelBuilder);
         }
-
     }
 }

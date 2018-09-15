@@ -22,6 +22,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="ТКП" Visibility="{Binding VisibilityOffersCalculatePriceTask, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.Offers}"
@@ -30,10 +31,12 @@
 										 RemoveItemCommand="{Binding RemoveFromOffersCommand}"
 										 Visibility="{Binding VisibilityOffersCalculatePriceTask, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="Сумма" Visibility="{Binding VisibilitySumCalculatePriceTask, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1" 
                                Value="{Binding Item.Sum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilitySumCalculatePriceTask, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Спецификации" Visibility="{Binding VisibilitySpecificationsCalculatePriceTask, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
@@ -43,6 +46,7 @@
 										 RemoveItemCommand="{Binding RemoveFromSpecificationsCommand}"
 										 Visibility="{Binding VisibilitySpecificationsCalculatePriceTask, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="3" Content="Проекты" Visibility="{Binding VisibilityProjectsCalculatePriceTask, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="3"
 										 Items="{Binding Path=Item.Projects}"
@@ -51,10 +55,12 @@
 										 RemoveItemCommand="{Binding RemoveFromProjectsCommand}"
 										 Visibility="{Binding VisibilityProjectsCalculatePriceTask, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="4" Content="Дата" Visibility="{Binding VisibilityDateCalculatePriceTask, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="4" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityDateCalculatePriceTask, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="5" Content="Блок" Visibility="{Binding VisibilityProductBlockCalculatePriceTask, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
@@ -62,6 +68,7 @@
                                     AddItemCommand="{Binding SelectProductBlockCommand}" 
                                     RemoveItemCommand="{Binding ClearProductBlockCommand}"
 									Visibility="{Binding VisibilityProductBlockCalculatePriceTask, ElementName=Root}"/>
+
 
 
     </Grid>

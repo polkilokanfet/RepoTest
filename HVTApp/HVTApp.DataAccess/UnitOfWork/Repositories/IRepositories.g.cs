@@ -52,6 +52,7 @@ namespace HVTApp.DataAccess
     public partial interface ITestFriendEmailRepository : IRepository<TestFriendEmail> { }
     public partial interface ITestFriendGroupRepository : IRepository<TestFriendGroup> { }
     public partial interface IDocumentRepository : IRepository<Document> { }
+    public partial interface IDocumentNumberRepository : IRepository<DocumentNumber> { }
     public partial interface ITestEntityRepository : IRepository<TestEntity> { }
     public partial interface ITestHusbandRepository : IRepository<TestHusband> { }
     public partial interface ITestWifeRepository : IRepository<TestWife> { }

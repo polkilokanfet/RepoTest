@@ -2140,6 +2140,8 @@ namespace HVTApp.UI.Wrapper
 
         public IValidatableChangeTrackingCollection<PaymentPlannedWrapper> PaymentsPlannedGenerated { get; private set; }
 
+        public IValidatableChangeTrackingCollection<PaymentPlannedWrapper> PaymentsPlannedCalculated { get; private set; }
+
         #endregion
 
         #region GetProperties
@@ -2223,6 +2225,10 @@ namespace HVTApp.UI.Wrapper
           if (Model.PaymentsPlannedGenerated == null) throw new ArgumentException("PaymentsPlannedGenerated cannot be null");
           PaymentsPlannedGenerated = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(Model.PaymentsPlannedGenerated.Select(e => new PaymentPlannedWrapper(e)));
           RegisterCollection(PaymentsPlannedGenerated, Model.PaymentsPlannedGenerated);
+
+          if (Model.PaymentsPlannedCalculated == null) throw new ArgumentException("PaymentsPlannedCalculated cannot be null");
+          PaymentsPlannedCalculated = new ValidatableChangeTrackingCollection<PaymentPlannedWrapper>(Model.PaymentsPlannedCalculated.Select(e => new PaymentPlannedWrapper(e)));
+          RegisterCollection(PaymentsPlannedCalculated, Model.PaymentsPlannedCalculated);
 
         }
 	}
@@ -2444,6 +2450,22 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.String Code
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CodeOriginalValue => GetOriginalValue<System.String>(nameof(Code));
+        public bool CodeIsChanged => GetIsChanged(nameof(Code));
+
+        public System.DateTime Date
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
+        public bool DateIsChanged => GetIsChanged(nameof(Date));
+
         public System.Guid SenderId
         {
           get { return GetValue<System.Guid>(); }
@@ -2479,6 +2501,12 @@ namespace HVTApp.UI.Wrapper
         #endregion
 
         #region ComplexProperties
+	    public DocumentNumberWrapper Number 
+        {
+            get { return GetWrapper<DocumentNumberWrapper>(); }
+            set { SetComplexValue<DocumentNumber, DocumentNumberWrapper>(Number, value); }
+        }
+
 	    public DocumentWrapper RequestDocument 
         {
             get { return GetWrapper<DocumentWrapper>(); }
@@ -2503,12 +2531,6 @@ namespace HVTApp.UI.Wrapper
             set { SetComplexValue<Employee, EmployeeWrapper>(RecipientEmployee, value); }
         }
 
-	    public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfSender 
-        {
-            get { return GetWrapper<DocumentsRegistrationDetailsWrapper>(); }
-            set { SetComplexValue<DocumentsRegistrationDetails, DocumentsRegistrationDetailsWrapper>(RegistrationDetailsOfSender, value); }
-        }
-
 	    public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfRecipient 
         {
             get { return GetWrapper<DocumentsRegistrationDetailsWrapper>(); }
@@ -2521,8 +2543,15 @@ namespace HVTApp.UI.Wrapper
         public IValidatableChangeTrackingCollection<EmployeeWrapper> CopyToRecipients { get; private set; }
 
         #endregion
+
+        #region GetProperties
+        public System.String RegNumber => GetValue<System.String>(); 
+
+        #endregion
         public override void InitializeComplexProperties()
         {
+            InitializeComplexProperty<DocumentNumberWrapper>(nameof(Number), Model.Number == null ? null : new DocumentNumberWrapper(Model.Number));
+
             InitializeComplexProperty<DocumentWrapper>(nameof(RequestDocument), Model.RequestDocument == null ? null : new DocumentWrapper(Model.RequestDocument));
 
             InitializeComplexProperty<EmployeeWrapper>(nameof(Author), Model.Author == null ? null : new EmployeeWrapper(Model.Author));
@@ -2530,8 +2559,6 @@ namespace HVTApp.UI.Wrapper
             InitializeComplexProperty<EmployeeWrapper>(nameof(SenderEmployee), Model.SenderEmployee == null ? null : new EmployeeWrapper(Model.SenderEmployee));
 
             InitializeComplexProperty<EmployeeWrapper>(nameof(RecipientEmployee), Model.RecipientEmployee == null ? null : new EmployeeWrapper(Model.RecipientEmployee));
-
-            InitializeComplexProperty<DocumentsRegistrationDetailsWrapper>(nameof(RegistrationDetailsOfSender), Model.RegistrationDetailsOfSender == null ? null : new DocumentsRegistrationDetailsWrapper(Model.RegistrationDetailsOfSender));
 
             InitializeComplexProperty<DocumentsRegistrationDetailsWrapper>(nameof(RegistrationDetailsOfRecipient), Model.RegistrationDetailsOfRecipient == null ? null : new DocumentsRegistrationDetailsWrapper(Model.RegistrationDetailsOfRecipient));
 
@@ -2544,6 +2571,31 @@ namespace HVTApp.UI.Wrapper
           RegisterCollection(CopyToRecipients, Model.CopyToRecipients);
 
         }
+	}
+
+		public partial class DocumentNumberWrapper : WrapperBase<DocumentNumber>
+	{
+	    public DocumentNumberWrapper(DocumentNumber model) : base(model) { }
+
+	
+        #region SimpleProperties
+        public System.Int32 Number
+        {
+          get { return GetValue<System.Int32>(); }
+          set { SetValue(value); }
+        }
+        public System.Int32 NumberOriginalValue => GetOriginalValue<System.Int32>(nameof(Number));
+        public bool NumberIsChanged => GetIsChanged(nameof(Number));
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+        #endregion
 	}
 
 		public partial class TestEntityWrapper : WrapperBase<TestEntity>
@@ -2840,6 +2892,22 @@ namespace HVTApp.UI.Wrapper
         public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
         public bool VatIsChanged => GetIsChanged(nameof(Vat));
 
+        public System.String Code
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CodeOriginalValue => GetOriginalValue<System.String>(nameof(Code));
+        public bool CodeIsChanged => GetIsChanged(nameof(Code));
+
+        public System.DateTime Date
+        {
+          get { return GetValue<System.DateTime>(); }
+          set { SetValue(value); }
+        }
+        public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
+        public bool DateIsChanged => GetIsChanged(nameof(Date));
+
         public System.Guid SenderId
         {
           get { return GetValue<System.Guid>(); }
@@ -2881,6 +2949,12 @@ namespace HVTApp.UI.Wrapper
             set { SetComplexValue<Project, ProjectWrapper>(Project, value); }
         }
 
+	    public DocumentNumberWrapper Number 
+        {
+            get { return GetWrapper<DocumentNumberWrapper>(); }
+            set { SetComplexValue<DocumentNumber, DocumentNumberWrapper>(Number, value); }
+        }
+
 	    public DocumentWrapper RequestDocument 
         {
             get { return GetWrapper<DocumentWrapper>(); }
@@ -2905,12 +2979,6 @@ namespace HVTApp.UI.Wrapper
             set { SetComplexValue<Employee, EmployeeWrapper>(RecipientEmployee, value); }
         }
 
-	    public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfSender 
-        {
-            get { return GetWrapper<DocumentsRegistrationDetailsWrapper>(); }
-            set { SetComplexValue<DocumentsRegistrationDetails, DocumentsRegistrationDetailsWrapper>(RegistrationDetailsOfSender, value); }
-        }
-
 	    public DocumentsRegistrationDetailsWrapper RegistrationDetailsOfRecipient 
         {
             get { return GetWrapper<DocumentsRegistrationDetailsWrapper>(); }
@@ -2923,9 +2991,16 @@ namespace HVTApp.UI.Wrapper
         public IValidatableChangeTrackingCollection<EmployeeWrapper> CopyToRecipients { get; private set; }
 
         #endregion
+
+        #region GetProperties
+        public System.String RegNumber => GetValue<System.String>(); 
+
+        #endregion
         public override void InitializeComplexProperties()
         {
             InitializeComplexProperty<ProjectWrapper>(nameof(Project), Model.Project == null ? null : new ProjectWrapper(Model.Project));
+
+            InitializeComplexProperty<DocumentNumberWrapper>(nameof(Number), Model.Number == null ? null : new DocumentNumberWrapper(Model.Number));
 
             InitializeComplexProperty<DocumentWrapper>(nameof(RequestDocument), Model.RequestDocument == null ? null : new DocumentWrapper(Model.RequestDocument));
 
@@ -2934,8 +3009,6 @@ namespace HVTApp.UI.Wrapper
             InitializeComplexProperty<EmployeeWrapper>(nameof(SenderEmployee), Model.SenderEmployee == null ? null : new EmployeeWrapper(Model.SenderEmployee));
 
             InitializeComplexProperty<EmployeeWrapper>(nameof(RecipientEmployee), Model.RecipientEmployee == null ? null : new EmployeeWrapper(Model.RecipientEmployee));
-
-            InitializeComplexProperty<DocumentsRegistrationDetailsWrapper>(nameof(RegistrationDetailsOfSender), Model.RegistrationDetailsOfSender == null ? null : new DocumentsRegistrationDetailsWrapper(Model.RegistrationDetailsOfSender));
 
             InitializeComplexProperty<DocumentsRegistrationDetailsWrapper>(nameof(RegistrationDetailsOfRecipient), Model.RegistrationDetailsOfRecipient == null ? null : new DocumentsRegistrationDetailsWrapper(Model.RegistrationDetailsOfRecipient));
 

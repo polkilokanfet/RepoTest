@@ -56,6 +56,7 @@ namespace HVTApp.UI.Wrapper
             TestFriendEmailWrapperRepository = new TestFriendEmailWrapperRepository(this);
             TestFriendGroupWrapperRepository = new TestFriendGroupWrapperRepository(this);
             DocumentWrapperRepository = new DocumentWrapperRepository(this);
+            DocumentNumberWrapperRepository = new DocumentNumberWrapperRepository(this);
             TestEntityWrapperRepository = new TestEntityWrapperRepository(this);
             TestHusbandWrapperRepository = new TestHusbandWrapperRepository(this);
             TestWifeWrapperRepository = new TestWifeWrapperRepository(this);
@@ -125,6 +126,7 @@ namespace HVTApp.UI.Wrapper
         private TestFriendEmailWrapperRepository TestFriendEmailWrapperRepository;
         private TestFriendGroupWrapperRepository TestFriendGroupWrapperRepository;
         private DocumentWrapperRepository DocumentWrapperRepository;
+        private DocumentNumberWrapperRepository DocumentNumberWrapperRepository;
         private TestEntityWrapperRepository TestEntityWrapperRepository;
         private TestHusbandWrapperRepository TestHusbandWrapperRepository;
         private TestWifeWrapperRepository TestWifeWrapperRepository;

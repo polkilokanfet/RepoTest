@@ -52,6 +52,7 @@ namespace HVTApp.DataAccess
     public partial class TestFriendEmailConfiguration : EntityTypeConfiguration<TestFriendEmail> { }
     public partial class TestFriendGroupConfiguration : EntityTypeConfiguration<TestFriendGroup> { }
     public partial class DocumentConfiguration : EntityTypeConfiguration<Document> { }
+    public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
     public partial class TestEntityConfiguration : EntityTypeConfiguration<TestEntity> { }
     public partial class TestHusbandConfiguration : EntityTypeConfiguration<TestHusband> { }
     public partial class TestWifeConfiguration : EntityTypeConfiguration<TestWife> { }

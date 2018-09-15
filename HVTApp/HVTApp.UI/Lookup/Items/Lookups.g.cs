@@ -1813,6 +1813,8 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
+			Number?.Refresh(Entity.Number);
+
 			RequestDocument?.Refresh(Entity.RequestDocument);
 
 			Author?.Refresh(Entity.Author);
@@ -1821,14 +1823,24 @@ namespace HVTApp.UI.Lookup
 
 			RecipientEmployee?.Refresh(Entity.RecipientEmployee);
 
-			RegistrationDetailsOfSender?.Refresh(Entity.RegistrationDetailsOfSender);
-
 			RegistrationDetailsOfRecipient?.Refresh(Entity.RegistrationDetailsOfRecipient);
 
 		}
 		
 
         #region SimpleProperties
+
+		[OrderStatus(1)]
+        public System.String Code => GetValue<System.String>();
+
+
+		[OrderStatus(45)]
+        public System.String RegNumber => GetValue<System.String>();
+
+
+		[OrderStatus(1)]
+        public System.DateTime Date => GetValue<System.DateTime>();
+
 
 		[OrderStatus(1)]
         public System.Guid SenderId => GetValue<System.Guid>();
@@ -1847,6 +1859,10 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(50)]
+	    public DocumentNumberLookup Number { get { return GetLookup<DocumentNumberLookup>(); } }
+
+
 		[OrderStatus(1)]
 	    public DocumentLookup RequestDocument { get { return GetLookup<DocumentLookup>(); } }
 
@@ -1864,11 +1880,31 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
-	    public DocumentsRegistrationDetailsLookup RegistrationDetailsOfSender { get { return GetLookup<DocumentsRegistrationDetailsLookup>(); } }
+	    public DocumentsRegistrationDetailsLookup RegistrationDetailsOfRecipient { get { return GetLookup<DocumentsRegistrationDetailsLookup>(); } }
 
+
+        #endregion
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("DocumentNumber")]
+	public partial class DocumentNumberLookup : LookupItem<DocumentNumber>
+	{
+		public DocumentNumberLookup(DocumentNumber entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+		}
+		
+
+        #region SimpleProperties
 
 		[OrderStatus(1)]
-	    public DocumentsRegistrationDetailsLookup RegistrationDetailsOfRecipient { get { return GetLookup<DocumentsRegistrationDetailsLookup>(); } }
+        public System.Int32 Number => GetValue<System.Int32>();
 
 
         #endregion
@@ -2100,6 +2136,8 @@ namespace HVTApp.UI.Lookup
 			 
 			Project?.Refresh(Entity.Project);
 
+			Number?.Refresh(Entity.Number);
+
 			RequestDocument?.Refresh(Entity.RequestDocument);
 
 			Author?.Refresh(Entity.Author);
@@ -2107,8 +2145,6 @@ namespace HVTApp.UI.Lookup
 			SenderEmployee?.Refresh(Entity.SenderEmployee);
 
 			RecipientEmployee?.Refresh(Entity.RecipientEmployee);
-
-			RegistrationDetailsOfSender?.Refresh(Entity.RegistrationDetailsOfSender);
 
 			RegistrationDetailsOfRecipient?.Refresh(Entity.RegistrationDetailsOfRecipient);
 
@@ -2123,6 +2159,18 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Double Vat => GetValue<System.Double>();
+
+
+		[OrderStatus(1)]
+        public System.String Code => GetValue<System.String>();
+
+
+		[OrderStatus(45)]
+        public System.String RegNumber => GetValue<System.String>();
+
+
+		[OrderStatus(1)]
+        public System.DateTime Date => GetValue<System.DateTime>();
 
 
 		[OrderStatus(1)]
@@ -2146,6 +2194,10 @@ namespace HVTApp.UI.Lookup
 	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
 
 
+		[OrderStatus(50)]
+	    public DocumentNumberLookup Number { get { return GetLookup<DocumentNumberLookup>(); } }
+
+
 		[OrderStatus(1)]
 	    public DocumentLookup RequestDocument { get { return GetLookup<DocumentLookup>(); } }
 
@@ -2160,10 +2212,6 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
 	    public EmployeeLookup RecipientEmployee { get { return GetLookup<EmployeeLookup>(); } }
-
-
-		[OrderStatus(1)]
-	    public DocumentsRegistrationDetailsLookup RegistrationDetailsOfSender { get { return GetLookup<DocumentsRegistrationDetailsLookup>(); } }
 
 
 		[OrderStatus(1)]

@@ -20,6 +20,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Тип" Visibility="{Binding VisibilityProductTypeProduct, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.ProductType}" 
@@ -27,10 +28,12 @@
                                     RemoveItemCommand="{Binding ClearProductTypeCommand}"
 									Visibility="{Binding VisibilityProductTypeProduct, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="Специальное обозначение" Visibility="{Binding VisibilityDesignationSpecialProduct, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.DesignationSpecial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityDesignationSpecialProduct, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="2" Content="Продукты в составе" Visibility="{Binding VisibilityDependentProductsProduct, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
@@ -40,10 +43,12 @@
 										 RemoveItemCommand="{Binding RemoveFromDependentProductsCommand}"
 										 Visibility="{Binding VisibilityDependentProductsProduct, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="3" Content="Обозначение" Visibility="{Binding VisibilityDesignationProduct, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                  Text="{Binding Item.Designation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityDesignationProduct, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="4" Content="Блок" Visibility="{Binding VisibilityProductBlockProduct, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
@@ -51,6 +56,7 @@
                                     AddItemCommand="{Binding SelectProductBlockCommand}" 
                                     RemoveItemCommand="{Binding ClearProductBlockCommand}"
 									Visibility="{Binding VisibilityProductBlockProduct, ElementName=Root}"/>
+
 
 
     </Grid>

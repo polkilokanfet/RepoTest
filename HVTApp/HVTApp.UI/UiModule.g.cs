@@ -256,6 +256,11 @@ namespace HVTApp.UI
 			_selectService.Register<DocumentLookupListView, Document>();
             _updateDetailsService.Register<Document, DocumentDetailsView>();
 
+            Container.RegisterViewForNavigation<DocumentNumberLookupListView>();
+            //_dialogService.Register<DocumentNumberDetailsViewModel, DocumentNumberDetailsView>();
+			_selectService.Register<DocumentNumberLookupListView, DocumentNumber>();
+            _updateDetailsService.Register<DocumentNumber, DocumentNumberDetailsView>();
+
             Container.RegisterViewForNavigation<TestEntityLookupListView>();
             //_dialogService.Register<TestEntityDetailsViewModel, TestEntityDetailsView>();
 			_selectService.Register<TestEntityLookupListView, TestEntity>();

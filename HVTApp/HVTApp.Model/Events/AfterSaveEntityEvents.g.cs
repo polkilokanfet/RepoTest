@@ -1,3 +1,17 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 using HVTApp.Model.POCOs;
 using Prism.Events;
 
@@ -52,6 +66,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSaveTestFriendEmailEvent : PubSubEvent<TestFriendEmail> { }
 	public partial class AfterSaveTestFriendGroupEvent : PubSubEvent<TestFriendGroup> { }
 	public partial class AfterSaveDocumentEvent : PubSubEvent<Document> { }
+	public partial class AfterSaveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
 	public partial class AfterSaveTestEntityEvent : PubSubEvent<TestEntity> { }
 	public partial class AfterSaveTestHusbandEvent : PubSubEvent<TestHusband> { }
 	public partial class AfterSaveTestWifeEvent : PubSubEvent<TestWife> { }

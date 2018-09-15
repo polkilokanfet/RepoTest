@@ -71,7 +71,7 @@ namespace HVTApp.Modules.Price.ViewModels
 
                 var offers = offerUnits.Where(x => ContainsBlock(x, block))
                                        .Select(x => x.Offer).Distinct()
-                                       .Where(x => x.RegistrationDetailsOfSender.RegistrationDate > lastPriceDate.AddDays(CommonOptions.ActualPriceTerm)).ToList();
+                                       .Where(x => x.Date > lastPriceDate.AddDays(CommonOptions.ActualPriceTerm)).ToList();
 
                 if (specifications.Any() || offers.Any() || projects.Any())
                     blocksList.Add(new PriceTask(block, specifications, offers, projects));

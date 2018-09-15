@@ -302,6 +302,12 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+	public partial class DocumentNumberLookupListViewModel : BaseListViewModel<DocumentNumber, DocumentNumberLookup, AfterSaveDocumentNumberEvent, AfterSelectDocumentNumberEvent, AfterRemoveDocumentNumberEvent,  DocumentNumberLookupDataService>
+    {
+        public DocumentNumberLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
 	public partial class TestEntityLookupListViewModel : BaseListViewModel<TestEntity, TestEntityLookup, AfterSaveTestEntityEvent, AfterSelectTestEntityEvent, AfterRemoveTestEntityEvent,  TestEntityLookupDataService>
     {
         public TestEntityLookupListViewModel(IUnityContainer container) : base(container) { }

@@ -248,6 +248,11 @@ namespace HVTApp.DataAccess
         public DocumentRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class DocumentNumberRepositoryTest : TestBaseRepository<DocumentNumber>, IDocumentNumberRepository
+    {
+        public DocumentNumberRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class TestEntityRepositoryTest : TestBaseRepository<TestEntity>, ITestEntityRepository
     {
         public TestEntityRepositoryTest(TestData testData) : base(testData) {}

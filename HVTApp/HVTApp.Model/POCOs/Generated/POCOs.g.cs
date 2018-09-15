@@ -232,12 +232,16 @@ namespace HVTApp.Model.POCOs
 
 	public partial class Document
 	{
+		public virtual Guid? NumberId { get; set; }
 		public virtual Guid? RequestDocumentId { get; set; }
 		public virtual Guid? AuthorId { get; set; }
 		public virtual Guid? SenderEmployeeId { get; set; }
 		public virtual Guid? RecipientEmployeeId { get; set; }
-		public virtual Guid? RegistrationDetailsOfSenderId { get; set; }
 		public virtual Guid? RegistrationDetailsOfRecipientId { get; set; }
+	}
+
+	public partial class DocumentNumber
+	{
 	}
 
 	public partial class TestEntity
@@ -273,11 +277,11 @@ namespace HVTApp.Model.POCOs
 	public partial class Offer
 	{
 		public virtual Guid? ProjectId { get; set; }
+		public virtual Guid? NumberId { get; set; }
 		public virtual Guid? RequestDocumentId { get; set; }
 		public virtual Guid? AuthorId { get; set; }
 		public virtual Guid? SenderEmployeeId { get; set; }
 		public virtual Guid? RecipientEmployeeId { get; set; }
-		public virtual Guid? RegistrationDetailsOfSenderId { get; set; }
 		public virtual Guid? RegistrationDetailsOfRecipientId { get; set; }
 	}
 

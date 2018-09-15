@@ -13,13 +13,14 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
-        <ScrollViewer Grid.Row="0">
-            <views:OfferDetailsView x:Name="OfferDetailsView"
-                                    DockPanel.Dock="Top" 
-                                    DataContext="{Binding}" 
-                                    VisibilityAuthorOffer="Collapsed"/>
-        </ScrollViewer>
-        
+        <GroupBox Grid.Row="0" Header="Детали предложения">
+            <ScrollViewer>
+                <views:OfferDetailsView x:Name="OfferDetailsView"
+                                        DockPanel.Dock="Top" 
+                                        DataContext="{Binding}" 
+                                        VisibilityAuthorOffer="Collapsed"/>
+            </ScrollViewer>
+        </GroupBox>
         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
         
         <controls:OfferUnitListControl Grid.Row="2" DataContext="{Binding}"/>

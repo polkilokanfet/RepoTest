@@ -635,7 +635,7 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateOffers()
         {
-            OfferMrsk.Clone(new Offer {Vat = 0.18, Project = ProjectSubstation, ValidityDate = DateTime.Today.AddDays(60), Author = EmployeeIvanov, SenderEmployee = EmployeeIvanov, RecipientEmployee = EmployeeSidorov, CopyToRecipients = new List<Employee> {EmployeePetrov}, RegistrationDetailsOfSender = new DocumentsRegistrationDetails {RegistrationNumber = "7412-17-0212", RegistrationDate = DateTime.Today}, RegistrationDetailsOfRecipient = new DocumentsRegistrationDetails {RegistrationNumber = "12f455", RegistrationDate = DateTime.Today.AddDays(-3)}});
+            OfferMrsk.Clone(new Offer {Vat = 0.18, Project = ProjectSubstation, ValidityDate = DateTime.Today.AddDays(60), Author = EmployeeIvanov, SenderEmployee = EmployeeIvanov, RecipientEmployee = EmployeeSidorov, CopyToRecipients = new List<Employee> {EmployeePetrov}, RegistrationDetailsOfRecipient = new DocumentsRegistrationDetails {RegistrationNumber = "12f455", RegistrationDate = DateTime.Today.AddDays(-3)}});
         }
 
         private void GenerateTenderTypes()

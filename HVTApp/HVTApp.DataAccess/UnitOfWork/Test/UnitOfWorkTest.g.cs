@@ -56,6 +56,7 @@ namespace HVTApp.DataAccess
             TestFriendEmailRepository = new TestFriendEmailRepositoryTest(testData);
             TestFriendGroupRepository = new TestFriendGroupRepositoryTest(testData);
             DocumentRepository = new DocumentRepositoryTest(testData);
+            DocumentNumberRepository = new DocumentNumberRepositoryTest(testData);
             TestEntityRepository = new TestEntityRepositoryTest(testData);
             TestHusbandRepository = new TestHusbandRepositoryTest(testData);
             TestWifeRepository = new TestWifeRepositoryTest(testData);
@@ -128,6 +129,7 @@ namespace HVTApp.DataAccess
         public ITestFriendEmailRepository TestFriendEmailRepository { get; }
         public ITestFriendGroupRepository TestFriendGroupRepository { get; }
         public IDocumentRepository DocumentRepository { get; }
+        public IDocumentNumberRepository DocumentNumberRepository { get; }
         public ITestEntityRepository TestEntityRepository { get; }
         public ITestHusbandRepository TestHusbandRepository { get; }
         public ITestWifeRepository TestWifeRepository { get; }

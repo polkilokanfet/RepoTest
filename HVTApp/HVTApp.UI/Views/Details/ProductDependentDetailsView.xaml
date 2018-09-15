@@ -18,6 +18,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Продукт" Visibility="{Binding VisibilityProductProductDependent, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
                                     Item="{Binding Item.Product}" 
@@ -25,11 +26,13 @@
                                     RemoveItemCommand="{Binding ClearProductCommand}"
 									Visibility="{Binding VisibilityProductProductDependent, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="1" Content="Amount" Visibility="{Binding VisibilityAmountProductDependent, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
 							   ValueType="core:Int32"
                                Value="{Binding Item.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityAmountProductDependent, ElementName=Root}"/>
+
 
 
     </Grid>

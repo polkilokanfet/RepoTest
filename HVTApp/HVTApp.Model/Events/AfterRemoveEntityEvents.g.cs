@@ -52,6 +52,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemoveTestFriendEmailEvent : PubSubEvent<TestFriendEmail> { }
 	public partial class AfterRemoveTestFriendGroupEvent : PubSubEvent<TestFriendGroup> { }
 	public partial class AfterRemoveDocumentEvent : PubSubEvent<Document> { }
+	public partial class AfterRemoveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
 	public partial class AfterRemoveTestEntityEvent : PubSubEvent<TestEntity> { }
 	public partial class AfterRemoveTestHusbandEvent : PubSubEvent<TestHusband> { }
 	public partial class AfterRemoveTestWifeEvent : PubSubEvent<TestWife> { }

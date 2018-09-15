@@ -494,6 +494,16 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class DocumentNumberRepository : BaseRepository<DocumentNumber>, IDocumentNumberRepository
+    {
+        IUnityContainer _container;
+
+		public DocumentNumberRepository(DbContext context, IUnityContainer container) : base(context) 
+		{
+			_container = container;
+		}
+    }
+
     public partial class TestEntityRepository : BaseRepository<TestEntity>, ITestEntityRepository
     {
         IUnityContainer _container;

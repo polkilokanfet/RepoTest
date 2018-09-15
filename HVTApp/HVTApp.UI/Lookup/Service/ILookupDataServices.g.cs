@@ -49,6 +49,7 @@ namespace HVTApp.UI.Lookup
 	public interface ITestFriendEmailLookupDataService : ILookupDataService<TestFriendEmailLookup> { } 
 	public interface ITestFriendGroupLookupDataService : ILookupDataService<TestFriendGroupLookup> { } 
 	public interface IDocumentLookupDataService : ILookupDataService<DocumentLookup> { } 
+	public interface IDocumentNumberLookupDataService : ILookupDataService<DocumentNumberLookup> { } 
 	public interface ITestEntityLookupDataService : ILookupDataService<TestEntityLookup> { } 
 	public interface ITestHusbandLookupDataService : ILookupDataService<TestHusbandLookup> { } 
 	public interface ITestWifeLookupDataService : ILookupDataService<TestWifeLookup> { } 

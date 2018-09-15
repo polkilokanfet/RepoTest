@@ -62,7 +62,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         protected override DateTime GetDate()
         {
-            return Item.RegistrationDetailsOfSender?.RegistrationDate ?? DateTime.Today;
+            return Item.Date;
         }
 
         /// <summary>

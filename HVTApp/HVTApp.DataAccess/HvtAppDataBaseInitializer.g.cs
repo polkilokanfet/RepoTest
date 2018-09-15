@@ -61,6 +61,7 @@ namespace HVTApp.DataAccess
             context.TestFriendEmailDbSet.AddRange(testData.GetAll<TestFriendEmail>());
             context.TestFriendGroupDbSet.AddRange(testData.GetAll<TestFriendGroup>());
             context.DocumentDbSet.AddRange(testData.GetAll<Document>());
+            context.DocumentNumberDbSet.AddRange(testData.GetAll<DocumentNumber>());
             context.TestEntityDbSet.AddRange(testData.GetAll<TestEntity>());
             context.TestHusbandDbSet.AddRange(testData.GetAll<TestHusband>());
             context.TestWifeDbSet.AddRange(testData.GetAll<TestWife>());

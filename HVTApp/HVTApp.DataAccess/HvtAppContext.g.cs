@@ -58,6 +58,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new TestFriendEmailConfiguration());
             modelBuilder.Configurations.Add(new TestFriendGroupConfiguration());
             modelBuilder.Configurations.Add(new DocumentConfiguration());
+            modelBuilder.Configurations.Add(new DocumentNumberConfiguration());
             modelBuilder.Configurations.Add(new TestEntityConfiguration());
             modelBuilder.Configurations.Add(new TestHusbandConfiguration());
             modelBuilder.Configurations.Add(new TestWifeConfiguration());
@@ -129,6 +130,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<TestFriendEmail> TestFriendEmailDbSet { get; set; }
         public virtual DbSet<TestFriendGroup> TestFriendGroupDbSet { get; set; }
         public virtual DbSet<Document> DocumentDbSet { get; set; }
+        public virtual DbSet<DocumentNumber> DocumentNumberDbSet { get; set; }
         public virtual DbSet<TestEntity> TestEntityDbSet { get; set; }
         public virtual DbSet<TestHusband> TestHusbandDbSet { get; set; }
         public virtual DbSet<TestWife> TestWifeDbSet { get; set; }

@@ -299,6 +299,12 @@ namespace HVTApp.UI.Lookup
     }
 
 
+    public partial class DocumentNumberLookupDataService : LookupDataService<DocumentNumberLookup, DocumentNumber>, IDocumentNumberLookupDataService
+    {
+        public DocumentNumberLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+    }
+
+
     public partial class TestEntityLookupDataService : LookupDataService<TestEntityLookup, TestEntity>, ITestEntityLookupDataService
     {
         public TestEntityLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }

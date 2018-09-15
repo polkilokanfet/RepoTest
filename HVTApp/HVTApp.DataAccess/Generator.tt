@@ -205,30 +205,20 @@ namespace HVTApp.DataAccess
 
 	private void GenerateUnitOfWork(IEnumerable<Type> modelTypes)
 	{
-#>using System.Data.Entity;
-using System.Linq;
-using HVTApp.Infrastructure;
-using Microsoft.Practices.Unity;
-
-namespace HVTApp.DataAccess
+#>namespace HVTApp.DataAccess
 {
     public partial class UnitOfWork
     {
-        private readonly DbContext _context;
-
-        public UnitOfWork(DbContext context, IUnityContainer container)
+        public void InitializeRepositories()
         {
-            _context = context;
-			#region RepositoriesInit
 <#+ 
 	foreach (var modelType in modelTypes)
     {
 #>
-            <#=modelType.Name#>Repository = new <#=modelType.Name#>Repository(context, container);
+            <#=modelType.Name#>Repository = new <#=modelType.Name#>Repository(_context, _container);
 <#+
 	}
 #>
-			#endregion
         }
 
 

@@ -49,7 +49,7 @@ namespace HVTApp.Services.GetProductService
                     return _selectedBlock;
                 }
 
-                _selectedBlock.DesignationSpecial = _bank.Designator.GetDesignation(_selectedBlock);
+                _selectedBlock.Designation = _bank.Designator.GetDesignation(_selectedBlock);
                 _selectedBlock.StructureCostNumber = "blank";
 
                 //добавление блока в банк

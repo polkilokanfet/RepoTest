@@ -1,86 +1,77 @@
-using System.Data.Entity;
-using System.Linq;
-using HVTApp.Infrastructure;
-using Microsoft.Practices.Unity;
-
 namespace HVTApp.DataAccess
 {
     public partial class UnitOfWork
     {
-        private readonly DbContext _context;
-
-        public UnitOfWork(DbContext context, IUnityContainer container)
+        public void InitializeRepositories()
         {
-            _context = context;
-			#region RepositoriesInit
-            CreateNewProductTaskRepository = new CreateNewProductTaskRepository(context, container);
-            DocumentIncomingNumberRepository = new DocumentIncomingNumberRepository(context, container);
-            DocumentOutgoingNumberRepository = new DocumentOutgoingNumberRepository(context, container);
-            PaymentActualRepository = new PaymentActualRepository(context, container);
-            PaymentPlannedRepository = new PaymentPlannedRepository(context, container);
-            ProductBlockIsServiceRepository = new ProductBlockIsServiceRepository(context, container);
-            ProductIncludedRepository = new ProductIncludedRepository(context, container);
-            ProductDesignationRepository = new ProductDesignationRepository(context, container);
-            ProductTypeRepository = new ProductTypeRepository(context, container);
-            ProductTypeDesignationRepository = new ProductTypeDesignationRepository(context, container);
-            ProjectTypeRepository = new ProjectTypeRepository(context, container);
-            CommonOptionRepository = new CommonOptionRepository(context, container);
-            AddressRepository = new AddressRepository(context, container);
-            CountryRepository = new CountryRepository(context, container);
-            DistrictRepository = new DistrictRepository(context, container);
-            LocalityRepository = new LocalityRepository(context, container);
-            LocalityTypeRepository = new LocalityTypeRepository(context, container);
-            RegionRepository = new RegionRepository(context, container);
-            CalculatePriceTaskRepository = new CalculatePriceTaskRepository(context, container);
-            SumRepository = new SumRepository(context, container);
-            CurrencyExchangeRateRepository = new CurrencyExchangeRateRepository(context, container);
-            DescribeProductBlockTaskRepository = new DescribeProductBlockTaskRepository(context, container);
-            NoteRepository = new NoteRepository(context, container);
-            OfferUnitRepository = new OfferUnitRepository(context, container);
-            PaymentConditionSetRepository = new PaymentConditionSetRepository(context, container);
-            ProductBlockRepository = new ProductBlockRepository(context, container);
-            ProductDependentRepository = new ProductDependentRepository(context, container);
-            ProductionTaskRepository = new ProductionTaskRepository(context, container);
-            SalesBlockRepository = new SalesBlockRepository(context, container);
-            BankDetailsRepository = new BankDetailsRepository(context, container);
-            CompanyRepository = new CompanyRepository(context, container);
-            CompanyFormRepository = new CompanyFormRepository(context, container);
-            DocumentsRegistrationDetailsRepository = new DocumentsRegistrationDetailsRepository(context, container);
-            EmployeesPositionRepository = new EmployeesPositionRepository(context, container);
-            FacilityTypeRepository = new FacilityTypeRepository(context, container);
-            ActivityFieldRepository = new ActivityFieldRepository(context, container);
-            ContractRepository = new ContractRepository(context, container);
-            MeasureRepository = new MeasureRepository(context, container);
-            ParameterRepository = new ParameterRepository(context, container);
-            ParameterGroupRepository = new ParameterGroupRepository(context, container);
-            ProductRelationRepository = new ProductRelationRepository(context, container);
-            PersonRepository = new PersonRepository(context, container);
-            ParameterRelationRepository = new ParameterRelationRepository(context, container);
-            SalesUnitRepository = new SalesUnitRepository(context, container);
-            TestFriendAddressRepository = new TestFriendAddressRepository(context, container);
-            TestFriendRepository = new TestFriendRepository(context, container);
-            TestFriendEmailRepository = new TestFriendEmailRepository(context, container);
-            TestFriendGroupRepository = new TestFriendGroupRepository(context, container);
-            DocumentRepository = new DocumentRepository(context, container);
-            TestEntityRepository = new TestEntityRepository(context, container);
-            TestHusbandRepository = new TestHusbandRepository(context, container);
-            TestWifeRepository = new TestWifeRepository(context, container);
-            TestChildRepository = new TestChildRepository(context, container);
-            SumOnDateRepository = new SumOnDateRepository(context, container);
-            ProductRepository = new ProductRepository(context, container);
-            OfferRepository = new OfferRepository(context, container);
-            EmployeeRepository = new EmployeeRepository(context, container);
-            OrderRepository = new OrderRepository(context, container);
-            PaymentConditionRepository = new PaymentConditionRepository(context, container);
-            PaymentDocumentRepository = new PaymentDocumentRepository(context, container);
-            FacilityRepository = new FacilityRepository(context, container);
-            ProjectRepository = new ProjectRepository(context, container);
-            UserRoleRepository = new UserRoleRepository(context, container);
-            SpecificationRepository = new SpecificationRepository(context, container);
-            TenderRepository = new TenderRepository(context, container);
-            TenderTypeRepository = new TenderTypeRepository(context, container);
-            UserRepository = new UserRepository(context, container);
-			#endregion
+            CreateNewProductTaskRepository = new CreateNewProductTaskRepository(_context, _container);
+            DocumentIncomingNumberRepository = new DocumentIncomingNumberRepository(_context, _container);
+            DocumentOutgoingNumberRepository = new DocumentOutgoingNumberRepository(_context, _container);
+            PaymentActualRepository = new PaymentActualRepository(_context, _container);
+            PaymentPlannedRepository = new PaymentPlannedRepository(_context, _container);
+            ProductBlockIsServiceRepository = new ProductBlockIsServiceRepository(_context, _container);
+            ProductIncludedRepository = new ProductIncludedRepository(_context, _container);
+            ProductDesignationRepository = new ProductDesignationRepository(_context, _container);
+            ProductTypeRepository = new ProductTypeRepository(_context, _container);
+            ProductTypeDesignationRepository = new ProductTypeDesignationRepository(_context, _container);
+            ProjectTypeRepository = new ProjectTypeRepository(_context, _container);
+            CommonOptionRepository = new CommonOptionRepository(_context, _container);
+            AddressRepository = new AddressRepository(_context, _container);
+            CountryRepository = new CountryRepository(_context, _container);
+            DistrictRepository = new DistrictRepository(_context, _container);
+            LocalityRepository = new LocalityRepository(_context, _container);
+            LocalityTypeRepository = new LocalityTypeRepository(_context, _container);
+            RegionRepository = new RegionRepository(_context, _container);
+            CalculatePriceTaskRepository = new CalculatePriceTaskRepository(_context, _container);
+            SumRepository = new SumRepository(_context, _container);
+            CurrencyExchangeRateRepository = new CurrencyExchangeRateRepository(_context, _container);
+            DescribeProductBlockTaskRepository = new DescribeProductBlockTaskRepository(_context, _container);
+            NoteRepository = new NoteRepository(_context, _container);
+            OfferUnitRepository = new OfferUnitRepository(_context, _container);
+            PaymentConditionSetRepository = new PaymentConditionSetRepository(_context, _container);
+            ProductBlockRepository = new ProductBlockRepository(_context, _container);
+            ProductDependentRepository = new ProductDependentRepository(_context, _container);
+            ProductionTaskRepository = new ProductionTaskRepository(_context, _container);
+            SalesBlockRepository = new SalesBlockRepository(_context, _container);
+            BankDetailsRepository = new BankDetailsRepository(_context, _container);
+            CompanyRepository = new CompanyRepository(_context, _container);
+            CompanyFormRepository = new CompanyFormRepository(_context, _container);
+            DocumentsRegistrationDetailsRepository = new DocumentsRegistrationDetailsRepository(_context, _container);
+            EmployeesPositionRepository = new EmployeesPositionRepository(_context, _container);
+            FacilityTypeRepository = new FacilityTypeRepository(_context, _container);
+            ActivityFieldRepository = new ActivityFieldRepository(_context, _container);
+            ContractRepository = new ContractRepository(_context, _container);
+            MeasureRepository = new MeasureRepository(_context, _container);
+            ParameterRepository = new ParameterRepository(_context, _container);
+            ParameterGroupRepository = new ParameterGroupRepository(_context, _container);
+            ProductRelationRepository = new ProductRelationRepository(_context, _container);
+            PersonRepository = new PersonRepository(_context, _container);
+            ParameterRelationRepository = new ParameterRelationRepository(_context, _container);
+            SalesUnitRepository = new SalesUnitRepository(_context, _container);
+            TestFriendAddressRepository = new TestFriendAddressRepository(_context, _container);
+            TestFriendRepository = new TestFriendRepository(_context, _container);
+            TestFriendEmailRepository = new TestFriendEmailRepository(_context, _container);
+            TestFriendGroupRepository = new TestFriendGroupRepository(_context, _container);
+            DocumentRepository = new DocumentRepository(_context, _container);
+            DocumentNumberRepository = new DocumentNumberRepository(_context, _container);
+            TestEntityRepository = new TestEntityRepository(_context, _container);
+            TestHusbandRepository = new TestHusbandRepository(_context, _container);
+            TestWifeRepository = new TestWifeRepository(_context, _container);
+            TestChildRepository = new TestChildRepository(_context, _container);
+            SumOnDateRepository = new SumOnDateRepository(_context, _container);
+            ProductRepository = new ProductRepository(_context, _container);
+            OfferRepository = new OfferRepository(_context, _container);
+            EmployeeRepository = new EmployeeRepository(_context, _container);
+            OrderRepository = new OrderRepository(_context, _container);
+            PaymentConditionRepository = new PaymentConditionRepository(_context, _container);
+            PaymentDocumentRepository = new PaymentDocumentRepository(_context, _container);
+            FacilityRepository = new FacilityRepository(_context, _container);
+            ProjectRepository = new ProjectRepository(_context, _container);
+            UserRoleRepository = new UserRoleRepository(_context, _container);
+            SpecificationRepository = new SpecificationRepository(_context, _container);
+            TenderRepository = new TenderRepository(_context, _container);
+            TenderTypeRepository = new TenderTypeRepository(_context, _container);
+            UserRepository = new UserRepository(_context, _container);
         }
 
 
@@ -134,6 +125,7 @@ namespace HVTApp.DataAccess
         protected ITestFriendEmailRepository TestFriendEmailRepository;
         protected ITestFriendGroupRepository TestFriendGroupRepository;
         protected IDocumentRepository DocumentRepository;
+        protected IDocumentNumberRepository DocumentNumberRepository;
         protected ITestEntityRepository TestEntityRepository;
         protected ITestHusbandRepository TestHusbandRepository;
         protected ITestWifeRepository TestWifeRepository;
