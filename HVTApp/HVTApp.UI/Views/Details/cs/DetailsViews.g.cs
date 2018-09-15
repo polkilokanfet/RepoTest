@@ -81,86 +81,6 @@ namespace HVTApp.UI.Views
 	}
 
 
-    public partial class DocumentIncomingNumberDetailsView : ViewBase
-    {
-        public DocumentIncomingNumberDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public DocumentIncomingNumberDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentIncomingNumberDetailsViewModel DocumentIncomingNumberDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = DocumentIncomingNumberDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.DocumentIncomingNumber).GetProperty(nameof(HVTApp.Model.POCOs.DocumentIncomingNumber.Num)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityNumDocumentIncomingNumber = Visibility.Collapsed;
-
-
-
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityNumDocumentIncomingNumberProperty = DependencyProperty.Register("VisibilityNumDocumentIncomingNumber", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityNumDocumentIncomingNumber
-        {
-            get { return (Visibility) GetValue(VisibilityNumDocumentIncomingNumberProperty); }
-            set { SetValue(VisibilityNumDocumentIncomingNumberProperty, value); OnPropertyChanged(); }
-        }
-
-
-	}
-
-
-    public partial class DocumentOutgoingNumberDetailsView : ViewBase
-    {
-        public DocumentOutgoingNumberDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public DocumentOutgoingNumberDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentOutgoingNumberDetailsViewModel DocumentOutgoingNumberDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = DocumentOutgoingNumberDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.DocumentOutgoingNumber).GetProperty(nameof(HVTApp.Model.POCOs.DocumentOutgoingNumber.Num)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityNumDocumentOutgoingNumber = Visibility.Collapsed;
-
-
-
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityNumDocumentOutgoingNumberProperty = DependencyProperty.Register("VisibilityNumDocumentOutgoingNumber", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityNumDocumentOutgoingNumber
-        {
-            get { return (Visibility) GetValue(VisibilityNumDocumentOutgoingNumberProperty); }
-            set { SetValue(VisibilityNumDocumentOutgoingNumberProperty, value); OnPropertyChanged(); }
-        }
-
-
-	}
-
-
     public partial class PaymentActualDetailsView : ViewBase
     {
         public PaymentActualDetailsView()
@@ -4245,13 +4165,13 @@ namespace HVTApp.UI.Views
     {
         public DocumentNumberDetailsView()
         {
-            InitializeComponent();
+			InitializeComponent();
         }
 
         public DocumentNumberDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentNumberDetailsViewModel DocumentNumberDetailsViewModel) : base(regionManager, eventAggregator)
         {
             SetVisibilityProps();
-            InitializeComponent();
+			InitializeComponent();
             DataContext = DocumentNumberDetailsViewModel;
         }
 

@@ -55,8 +55,6 @@
     <Compile Include="Events\PubSubEventArgs.cs" />
     <Compile Include="GeneratorHelpers.cs" />
     <Compile Include="POCOs\CreateNewProductTask.cs" />
-    <Compile Include="POCOs\DocumentIncomingNumber.cs" />
-    <Compile Include="POCOs\DocumentOutgoingNumber.cs" />
     <Compile Include="POCOs\IPayment.cs" />
     <Compile Include="Comparers\ParameterComparer.cs" />
     <Compile Include="POCOs\PaymentActual.cs" />

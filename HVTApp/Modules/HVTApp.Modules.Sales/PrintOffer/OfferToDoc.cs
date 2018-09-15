@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using HVTApp.Modules.Sales.ViewModels;
 using HVTApp.UI.Services;
-using HVTApp.UI.ViewModels;
 using Infragistics.Documents.Word;
 
 namespace HVTApp.Modules.Sales.PrintOffer
@@ -31,7 +30,7 @@ namespace HVTApp.Modules.Sales.PrintOffer
             docWriter.Paragraph($"компания: {offer.RecipientEmployee.Company}");
             docWriter.Paragraph($"Ф.И.О.: {offer.RecipientEmployee.Person.Surname} {offer.RecipientEmployee.Person.Name} {offer.RecipientEmployee.Person.Patronymic}");
 
-            docWriter.Paragraph($"Предложение на поставку оборудования по проекту: ''{offer.Project.Name}''");
+            docWriter.Paragraph($"Предложение на поставку оборудования по проекту: \"{offer.Project.Name}\"");
             docWriter.Paragraph($"Срок действия ТКП: {offer.ValidityDate.ToShortDateString()}");
 
 
@@ -69,21 +68,21 @@ namespace HVTApp.Modules.Sales.PrintOffer
             parPropRight.Alignment = ParagraphAlignment.Right;
 
             string productsDetails = string.Empty;
-            var rowNum = 0;
+            var num = 0;
             var offerUnitsGroupsOrdered = _offerViewModel.Groups.GroupBy(x => x.Facility.Model);
             foreach (var offerUnitsGroups in offerUnitsGroupsOrdered)
             {
                 docWriter.StartTableRow();
                 cellProps.ColumnSpan = 6;
-                docWriter.TableCell(offerUnitsGroups.Key.ToString(), cellProps); //объект
+                docWriter.TableCell($"{offerUnitsGroups.Key}", cellProps); //объект
                 docWriter.EndTableRow();
 
                 cellProps.ColumnSpan = 1;
                 foreach (var offerUnitsGroup in offerUnitsGroups)
                 {
-                    rowNum++;
+                    num++;
                     docWriter.StartTableRow();
-                    docWriter.TableCell(rowNum.ToString(), cellProps);                              //номер строки
+                    docWriter.TableCell(num.ToString(), cellProps);                              //номер строки
                     docWriter.TableCell(offerUnitsGroup.Product.ProductType?.Name, cellProps);      //тип оборудования
                     docWriter.TableCell(offerUnitsGroup.Product.Designation, cellProps);            //обозначение
                     docWriter.TableCell($"{offerUnitsGroup.Amount:D}", cellProps, parPropRight);    //колличество
@@ -91,7 +90,7 @@ namespace HVTApp.Modules.Sales.PrintOffer
                     docWriter.TableCell($"{offerUnitsGroup.Total:C}", cellProps, parPropRight);     //сумма
                     docWriter.EndTableRow();
 
-                    productsDetails += $"Позиция {rowNum}. {offerUnitsGroup.Product}:" + Environment.NewLine;
+                    productsDetails += $"Позиция {num}. {offerUnitsGroup.Product}:" + Environment.NewLine;
                     productsDetails += $"Условия оплаты: {offerUnitsGroup.PaymentConditionSet}" + Environment.NewLine;
                     productsDetails += $"Технические харрактеристики: {offerUnitsGroup.Product.Model.GetFullDescription()}" + Environment.NewLine + Environment.NewLine;
 
@@ -107,7 +106,7 @@ namespace HVTApp.Modules.Sales.PrintOffer
                     {
                         rn++;
                         docWriter.StartTableRow();
-                        docWriter.TableCell($"{rowNum}.{rn}.", cellProps, null, fontSmall);
+                        docWriter.TableCell($"{num}.{rn}.", cellProps, null, fontSmall);
                         docWriter.TableCell(dependentProduct.Product.ProductType?.Name, cellProps, null, fontSmall);
                         docWriter.TableCell(dependentProduct.Product.ToString(), cellProps, null, fontSmall);
                         docWriter.TableCell(dependentProduct.Amount.ToString(), cellProps, parPropRight, fontSmall);
@@ -163,7 +162,7 @@ namespace HVTApp.Modules.Sales.PrintOffer
         private TableProperties GetTableProperties(WordDocumentWriter docWriter, TableBorderProperties borderProps)
         {
             var tableProps = docWriter.CreateTableProperties();
-            tableProps.Alignment = ParagraphAlignment.Left;
+            tableProps.Alignment = ParagraphAlignment.Both;
             tableProps.BorderProperties.Color = borderProps.Color;
             tableProps.BorderProperties.Style = borderProps.Style;
             return tableProps;

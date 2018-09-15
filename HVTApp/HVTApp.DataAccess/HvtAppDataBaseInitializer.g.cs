@@ -13,8 +13,6 @@ namespace HVTApp.DataAccess
             TestData testData = new TestData();
 
             context.CreateNewProductTaskDbSet.AddRange(testData.GetAll<CreateNewProductTask>());
-            context.DocumentIncomingNumberDbSet.AddRange(testData.GetAll<DocumentIncomingNumber>());
-            context.DocumentOutgoingNumberDbSet.AddRange(testData.GetAll<DocumentOutgoingNumber>());
             context.PaymentActualDbSet.AddRange(testData.GetAll<PaymentActual>());
             context.PaymentPlannedDbSet.AddRange(testData.GetAll<PaymentPlanned>());
             context.ProductBlockIsServiceDbSet.AddRange(testData.GetAll<ProductBlockIsService>());

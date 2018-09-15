@@ -16,16 +16,6 @@ namespace HVTApp.UI
 			_selectService.Register<CreateNewProductTaskLookupListView, CreateNewProductTask>();
             _updateDetailsService.Register<CreateNewProductTask, CreateNewProductTaskDetailsView>();
 
-            Container.RegisterViewForNavigation<DocumentIncomingNumberLookupListView>();
-            //_dialogService.Register<DocumentIncomingNumberDetailsViewModel, DocumentIncomingNumberDetailsView>();
-			_selectService.Register<DocumentIncomingNumberLookupListView, DocumentIncomingNumber>();
-            _updateDetailsService.Register<DocumentIncomingNumber, DocumentIncomingNumberDetailsView>();
-
-            Container.RegisterViewForNavigation<DocumentOutgoingNumberLookupListView>();
-            //_dialogService.Register<DocumentOutgoingNumberDetailsViewModel, DocumentOutgoingNumberDetailsView>();
-			_selectService.Register<DocumentOutgoingNumberLookupListView, DocumentOutgoingNumber>();
-            _updateDetailsService.Register<DocumentOutgoingNumber, DocumentOutgoingNumberDetailsView>();
-
             Container.RegisterViewForNavigation<PaymentActualLookupListView>();
             //_dialogService.Register<PaymentActualDetailsViewModel, PaymentActualDetailsView>();
 			_selectService.Register<PaymentActualLookupListView, PaymentActual>();

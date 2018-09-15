@@ -1,8 +1,6 @@
 namespace HVTApp.UI.Lookup
 {
 	public interface ICreateNewProductTaskLookupDataService : ILookupDataService<CreateNewProductTaskLookup> { } 
-	public interface IDocumentIncomingNumberLookupDataService : ILookupDataService<DocumentIncomingNumberLookup> { } 
-	public interface IDocumentOutgoingNumberLookupDataService : ILookupDataService<DocumentOutgoingNumberLookup> { } 
 	public interface IPaymentActualLookupDataService : ILookupDataService<PaymentActualLookup> { } 
 	public interface IPaymentPlannedLookupDataService : ILookupDataService<PaymentPlannedLookup> { } 
 	public interface IProductBlockIsServiceLookupDataService : ILookupDataService<ProductBlockIsServiceLookup> { } 

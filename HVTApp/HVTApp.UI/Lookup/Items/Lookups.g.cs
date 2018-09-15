@@ -62,54 +62,6 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("DocumentIncomingNumber")]
-	public partial class DocumentIncomingNumberLookup : LookupItem<DocumentIncomingNumber>
-	{
-		public DocumentIncomingNumberLookup(DocumentIncomingNumber entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
-		
-
-        #region SimpleProperties
-
-		[OrderStatus(1)]
-        public System.Int32 Num => GetValue<System.Int32>();
-
-
-        #endregion
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
-	[Designation("DocumentOutgoingNumber")]
-	public partial class DocumentOutgoingNumberLookup : LookupItem<DocumentOutgoingNumber>
-	{
-		public DocumentOutgoingNumberLookup(DocumentOutgoingNumber entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
-		
-
-        #region SimpleProperties
-
-		[OrderStatus(1)]
-        public System.Int32 Num => GetValue<System.Int32>();
-
-
-        #endregion
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
 	[Designation("Платеж совершенный")]
 	public partial class PaymentActualLookup : LookupItem<PaymentActual>
 	{
@@ -1838,7 +1790,7 @@ namespace HVTApp.UI.Lookup
         public System.String RegNumber => GetValue<System.String>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(40)]
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
@@ -2169,7 +2121,7 @@ namespace HVTApp.UI.Lookup
         public System.String RegNumber => GetValue<System.String>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(40)]
         public System.DateTime Date => GetValue<System.DateTime>();
 
 

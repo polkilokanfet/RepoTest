@@ -4,8 +4,6 @@ using HVTApp.Model.POCOs;
 namespace HVTApp.DataAccess
 {
     public partial class CreateNewProductTaskConfiguration : EntityTypeConfiguration<CreateNewProductTask> { }
-    public partial class DocumentIncomingNumberConfiguration : EntityTypeConfiguration<DocumentIncomingNumber> { }
-    public partial class DocumentOutgoingNumberConfiguration : EntityTypeConfiguration<DocumentOutgoingNumber> { }
     public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }
     public partial class PaymentPlannedConfiguration : EntityTypeConfiguration<PaymentPlanned> { }
     public partial class ProductBlockIsServiceConfiguration : EntityTypeConfiguration<ProductBlockIsService> { }

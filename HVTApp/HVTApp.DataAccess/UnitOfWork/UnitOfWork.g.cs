@@ -5,8 +5,6 @@ namespace HVTApp.DataAccess
         public void InitializeRepositories()
         {
             CreateNewProductTaskRepository = new CreateNewProductTaskRepository(_context, _container);
-            DocumentIncomingNumberRepository = new DocumentIncomingNumberRepository(_context, _container);
-            DocumentOutgoingNumberRepository = new DocumentOutgoingNumberRepository(_context, _container);
             PaymentActualRepository = new PaymentActualRepository(_context, _container);
             PaymentPlannedRepository = new PaymentPlannedRepository(_context, _container);
             ProductBlockIsServiceRepository = new ProductBlockIsServiceRepository(_context, _container);
@@ -77,8 +75,6 @@ namespace HVTApp.DataAccess
 
         #region Repositories
         protected ICreateNewProductTaskRepository CreateNewProductTaskRepository;
-        protected IDocumentIncomingNumberRepository DocumentIncomingNumberRepository;
-        protected IDocumentOutgoingNumberRepository DocumentOutgoingNumberRepository;
         protected IPaymentActualRepository PaymentActualRepository;
         protected IPaymentPlannedRepository PaymentPlannedRepository;
         protected IProductBlockIsServiceRepository ProductBlockIsServiceRepository;

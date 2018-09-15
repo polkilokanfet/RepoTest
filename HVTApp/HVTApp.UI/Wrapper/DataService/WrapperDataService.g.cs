@@ -8,8 +8,6 @@ namespace HVTApp.UI.Wrapper
         public WrapperDataService(DbContext context, IUnityContainer container) : base(context, container)
         {
             CreateNewProductTaskWrapperRepository = new CreateNewProductTaskWrapperRepository(this);
-            DocumentIncomingNumberWrapperRepository = new DocumentIncomingNumberWrapperRepository(this);
-            DocumentOutgoingNumberWrapperRepository = new DocumentOutgoingNumberWrapperRepository(this);
             PaymentActualWrapperRepository = new PaymentActualWrapperRepository(this);
             PaymentPlannedWrapperRepository = new PaymentPlannedWrapperRepository(this);
             ProductBlockIsServiceWrapperRepository = new ProductBlockIsServiceWrapperRepository(this);
@@ -78,8 +76,6 @@ namespace HVTApp.UI.Wrapper
         }
 
         private CreateNewProductTaskWrapperRepository CreateNewProductTaskWrapperRepository;
-        private DocumentIncomingNumberWrapperRepository DocumentIncomingNumberWrapperRepository;
-        private DocumentOutgoingNumberWrapperRepository DocumentOutgoingNumberWrapperRepository;
         private PaymentActualWrapperRepository PaymentActualWrapperRepository;
         private PaymentPlannedWrapperRepository PaymentPlannedWrapperRepository;
         private ProductBlockIsServiceWrapperRepository ProductBlockIsServiceWrapperRepository;

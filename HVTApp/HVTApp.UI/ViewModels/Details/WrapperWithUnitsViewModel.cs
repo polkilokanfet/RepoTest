@@ -179,7 +179,7 @@ namespace HVTApp.UI.ViewModels
         private void RefreshGroups()
         {
             Groups.Clear();
-            Groups.AddRange(GetGroups());
+            Groups.AddRange(GetGroups().OrderBy(x => x.Total));
         }
 
         protected async Task RefreshPrices()

@@ -92,19 +92,20 @@ namespace HVTApp.Model.POCOs
 
         public string GetFullDescription(int spaceCount = 0)
         {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append($"{this} (параметры :: {ProductBlock.ParametersToString().ToLower()})".AddSpacesBefore(spaceCount));
+            var sb = new StringBuilder();
+            sb.Append($"{Designation} ");
+            sb.Append($"{this} (параметры: {ProductBlock.ParametersToString().ToLower()})".AddSpacesBefore(spaceCount));
             if (DependentProducts.Any())
             {
                 spaceCount++;
-                stringBuilder.Append(Environment.NewLine + "Составные части:".AddSpacesBefore(spaceCount));
+                sb.AppendLine("Составные части:".AddSpacesBefore(spaceCount));
                 foreach (var dependentProduct in DependentProducts)
                 {
-                    stringBuilder.Append(Environment.NewLine + dependentProduct.Product.GetFullDescription(spaceCount).AddSpacesBefore(spaceCount));
+                    sb.AppendLine($"{dependentProduct.Amount} шт. " + dependentProduct.Product.GetFullDescription(spaceCount).AddSpacesBefore(spaceCount));
                 }
             }
 
-            return stringBuilder.ToString();
+            return sb.ToString();
         }
     }
 

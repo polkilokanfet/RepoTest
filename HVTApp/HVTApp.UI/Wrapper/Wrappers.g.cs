@@ -51,56 +51,6 @@ namespace HVTApp.UI.Wrapper
         }
 	}
 
-		public partial class DocumentIncomingNumberWrapper : WrapperBase<DocumentIncomingNumber>
-	{
-	    public DocumentIncomingNumberWrapper(DocumentIncomingNumber model) : base(model) { }
-
-	
-        #region SimpleProperties
-        public System.Int32 Num
-        {
-          get { return GetValue<System.Int32>(); }
-          set { SetValue(value); }
-        }
-        public System.Int32 NumOriginalValue => GetOriginalValue<System.Int32>(nameof(Num));
-        public bool NumIsChanged => GetIsChanged(nameof(Num));
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-        #endregion
-	}
-
-		public partial class DocumentOutgoingNumberWrapper : WrapperBase<DocumentOutgoingNumber>
-	{
-	    public DocumentOutgoingNumberWrapper(DocumentOutgoingNumber model) : base(model) { }
-
-	
-        #region SimpleProperties
-        public System.Int32 Num
-        {
-          get { return GetValue<System.Int32>(); }
-          set { SetValue(value); }
-        }
-        public System.Int32 NumOriginalValue => GetOriginalValue<System.Int32>(nameof(Num));
-        public bool NumIsChanged => GetIsChanged(nameof(Num));
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-        #endregion
-	}
-
 		public partial class PaymentActualWrapper : WrapperBase<PaymentActual>
 	{
 	    public PaymentActualWrapper(PaymentActual model) : base(model) { }

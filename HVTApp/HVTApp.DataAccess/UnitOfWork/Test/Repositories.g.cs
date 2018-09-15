@@ -8,16 +8,6 @@ namespace HVTApp.DataAccess
         public CreateNewProductTaskRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class DocumentIncomingNumberRepositoryTest : TestBaseRepository<DocumentIncomingNumber>, IDocumentIncomingNumberRepository
-    {
-        public DocumentIncomingNumberRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class DocumentOutgoingNumberRepositoryTest : TestBaseRepository<DocumentOutgoingNumber>, IDocumentOutgoingNumberRepository
-    {
-        public DocumentOutgoingNumberRepositoryTest(TestData testData) : base(testData) {}
-    }
-
     public partial class PaymentActualRepositoryTest : TestBaseRepository<PaymentActual>, IPaymentActualRepository
     {
         public PaymentActualRepositoryTest(TestData testData) : base(testData) {}

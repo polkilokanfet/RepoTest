@@ -58,30 +58,6 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-    public partial class DocumentIncomingNumberDetailsViewModel : BaseDetailsViewModel<DocumentIncomingNumberWrapper, DocumentIncomingNumber, AfterSaveDocumentIncomingNumberEvent>
-    {
-
-        public DocumentIncomingNumberDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-		}
-
-
-
-    }
-
-
-    public partial class DocumentOutgoingNumberDetailsViewModel : BaseDetailsViewModel<DocumentOutgoingNumberWrapper, DocumentOutgoingNumber, AfterSaveDocumentOutgoingNumberEvent>
-    {
-
-        public DocumentOutgoingNumberDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-		}
-
-
-
-    }
-
-
     public partial class PaymentActualDetailsViewModel : BaseDetailsViewModel<PaymentActualWrapper, PaymentActual, AfterSavePaymentActualEvent>
     {
 
@@ -2718,7 +2694,7 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-    public partial class OfferDetailsViewModel 
+    public partial class OfferDetailsViewModel
     {
 		private Func<Task<List<Project>>> _getEntitiesForSelectProjectCommand;
 		public ICommand SelectProjectCommand { get; private set; }
@@ -3122,7 +3098,7 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-    public partial class ProjectDetailsViewModel 
+    public partial class ProjectDetailsViewModel
     {
 		private Func<Task<List<ProjectType>>> _getEntitiesForSelectProjectTypeCommand;
 		public ICommand SelectProjectTypeCommand { get; private set; }
@@ -3222,7 +3198,7 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-    public partial class SpecificationDetailsViewModel 
+    public partial class SpecificationDetailsViewModel
     {
 		private Func<Task<List<Contract>>> _getEntitiesForSelectContractCommand;
 		public ICommand SelectContractCommand { get; private set; }

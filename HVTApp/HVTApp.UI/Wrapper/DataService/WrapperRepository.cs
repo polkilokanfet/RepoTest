@@ -40,9 +40,10 @@ namespace HVTApp.UI.Wrapper
             return await GenerateWrapper(model);
         }
 
-        protected virtual async Task<TWrapper> GenerateWrapper(TModel project)
+        protected virtual async Task<TWrapper> GenerateWrapper(TModel model)
         {
-            return await Task.Factory.StartNew(() => Activator.CreateInstance(typeof(TWrapper), project) as TWrapper);
+            if(model == null) throw new ArgumentNullException(nameof(model));
+            return await Task.Factory.StartNew(() => Activator.CreateInstance(typeof(TWrapper), model) as TWrapper);
         }
 
         public void Delete(TWrapper wrapper)
