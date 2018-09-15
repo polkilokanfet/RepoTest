@@ -11,7 +11,6 @@ namespace HVTApp.Services.GetProductService
     public class ProductSelector : NotifyPropertyChanged
     {
         private readonly Bank _bank;
-        private readonly IProductDesignationService _designator;
 
         public ProductBlockSelector ProductBlockSelector { get; }
         public ObservableCollection<ProductSelector> ProductSelectors { get; } = new ObservableCollection<ProductSelector>();
@@ -40,28 +39,31 @@ namespace HVTApp.Services.GetProductService
             {
                 var product = new Product
                 {
-                    ProductBlock = ProductBlockSelector.SelectedProductBlock,
+                    ProductBlock = ProductBlockSelector.SelectedBlock,
                     DependentProducts = ProductDependents.ToList()
                 };
-                product.Designation = _designator.GetDesignation(product);
-                product.ProductType = _designator.GetProductType(product);
-
+                //если такой продукт существует - возвращаем его
                 var existsProduct = _bank.Products.SingleOrDefault(x => x.Equals(product));
+                if (existsProduct != null) return existsProduct;
 
-                return existsProduct ?? product;
+                //если продукт еще не существовал
+                //обозначение и тип нового продукта
+                product.Designation = _bank.Designator.GetDesignation(product);
+                product.ProductType = _bank.Designator.GetProductType(product);
+
+                _bank.Products.Add(product);
+                return product;
             }
         }
 
-        public ProductSelector(Bank bank, IProductDesignationService designator, IEnumerable<Parameter> parameters, 
-                               Product selectedProduct = null, int amount = 1)
+        public ProductSelector(Bank bank, IEnumerable<Parameter> parameters, Product selectedProduct = null, int amount = 1)
         {
             if (bank == null) throw new ArgumentNullException(nameof(bank));
             if (parameters == null) throw new ArgumentNullException(nameof(parameters));
             _bank = bank;
-            _designator = designator;
 
             Amount = amount;
-            ProductBlockSelector = new ProductBlockSelector(parameters, _bank.ProductBlocks, selectedProduct?.ProductBlock);
+            ProductBlockSelector = new ProductBlockSelector(parameters, _bank, selectedProduct?.ProductBlock);
             ProductBlockSelector.SelectedProductBlockChanged += bs =>
             {
                 RefreshProductSelectors();
@@ -84,7 +86,7 @@ namespace HVTApp.Services.GetProductService
                     {
                         //редактируем список параметров
                         var usefullParameters = bank.Parameters.GetUsefull(kvp.Key.ChildProductParameters);
-                        var productSelector = new ProductSelector(bank, _designator, usefullParameters, product);
+                        var productSelector = new ProductSelector(bank, usefullParameters, product);
                         ProductSelectors.Add(productSelector);
                         productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
                     }
@@ -94,7 +96,7 @@ namespace HVTApp.Services.GetProductService
 
         private List<ProductRelation> GetActualProductRelations(IEnumerable<Parameter> forParameters = null)
         {
-            var parameters = forParameters ?? ProductBlockSelector.SelectedProductBlock.Parameters;
+            var parameters = forParameters ?? ProductBlockSelector.SelectedBlock.Parameters;
             return _bank.ProductRelations.Where(x => x.ParentProductParameters.AllContainsIn(parameters)).ToList();
         }
 
@@ -116,7 +118,7 @@ namespace HVTApp.Services.GetProductService
             foreach (var productSelector in productSelectors)
             {
                 var relation = actualProductRelations.FirstOrDefault(x => x.ChildProductParameters.AllContainsIn(
-                               productSelector.ProductBlockSelector.SelectedProductBlock.Parameters));
+                               productSelector.ProductBlockSelector.SelectedBlock.Parameters));
 
                 if (relation == null)
                 {
@@ -138,8 +140,7 @@ namespace HVTApp.Services.GetProductService
             {
                 for (int i = 0; i < relaitionsDictionary[productRelation]; i++)
                 {
-                    var productSelector = new ProductSelector(_bank, _designator,
-                        _bank.Parameters.GetUsefull(productRelation.ChildProductParameters));
+                    var productSelector = new ProductSelector(_bank, _bank.Parameters.GetUsefull(productRelation.ChildProductParameters));
                     ProductSelectors.Add(productSelector);
                     productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
                 }

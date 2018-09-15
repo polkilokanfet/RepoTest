@@ -35,7 +35,7 @@ namespace HVTApp.Services.GetProductService
             var productRelations = await _unitOfWork.Repository<ProductRelation>().GetAllAsync();
             var productBlocks = await _unitOfWork.Repository<ProductBlock>().GetAllAsync();
 
-            _bank = new Bank(products, productBlocks, parameters, productRelations);
+            _bank = new Bank(products, productBlocks, parameters, productRelations, _container.Resolve<IProductDesignationService>());
         }
 
         public async Task<Product> GetProductAsync(Product originProduct = null)
@@ -44,7 +44,7 @@ namespace HVTApp.Services.GetProductService
 
             var selectedProduct = originProduct == null ? null : _bank.Products.Single(x => x.Id == originProduct.Id);
 
-            var productSelector = new ProductSelector(_bank, _designator, _bank.Parameters, selectedProduct);
+            var productSelector = new ProductSelector(_bank, _bank.Parameters, selectedProduct);
             var window = new SelectProductWindow { DataContext = productSelector, Owner = Application.Current.MainWindow };
             window.ShowDialog();
 
@@ -60,8 +60,8 @@ namespace HVTApp.Services.GetProductService
             var result = productSelector.SelectedProduct;
 
             //оставляем только уникальные блоки
-            var blocks = result.GetBlocks().Distinct().ToList();
-            SubstitutionBlocks(result, blocks);
+            //var blocks = result.GetBlocks().Distinct().ToList();
+            //SubstitutionBlocks(result, blocks);
 
             //загрузка актуальных продуктов
             var products = await _unitOfWork.Repository<Product>().GetAllAsync();

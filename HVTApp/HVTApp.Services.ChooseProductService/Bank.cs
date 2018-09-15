@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using HVTApp.Model.POCOs;
+using HVTApp.Services.ProductDesignationService;
 
 namespace HVTApp.Services.GetProductService
 {
@@ -8,17 +9,23 @@ namespace HVTApp.Services.GetProductService
     /// </summary>
     public class Bank
     {
-        public Bank(List<Product> products, List<ProductBlock> productBlocks, List<Parameter> parameters, List<ProductRelation> productRelations)
+        public Bank(List<Product> products, 
+                    List<ProductBlock> blocks, 
+                    List<Parameter> parameters, 
+                    List<ProductRelation> productRelations, 
+                    IProductDesignationService designator)
         {
             Products = products;
-            ProductBlocks = productBlocks;
+            Blocks = blocks;
             Parameters = parameters;
             ProductRelations = productRelations;
+            Designator = designator;
         }
 
         public List<Product> Products { get; }
-        public List<ProductBlock> ProductBlocks { get; }
+        public List<ProductBlock> Blocks { get; }
         public List<Parameter> Parameters { get; }
         public List<ProductRelation> ProductRelations { get; }
+        public IProductDesignationService Designator { get; }
     }
 }

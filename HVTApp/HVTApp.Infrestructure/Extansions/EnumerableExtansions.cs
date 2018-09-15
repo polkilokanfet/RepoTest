@@ -15,10 +15,10 @@ namespace HVTApp.Infrastructure.Extansions
         /// <returns></returns>
         public static bool MembersAreSame<T>(this IEnumerable<T> first, IEnumerable<T> second)
         {
-            var firstList = first as IList<T> ?? first.ToList();
-            var secondList = second as T[] ?? second.ToArray();
+            var firstArray = first as T[] ?? first.ToArray();
+            var secondArray = second as T[] ?? second.ToArray();
 
-            return !firstList.Except(secondList).Any() && !secondList.Except(firstList).Any();
+            return firstArray.Length == secondArray.Length &&  !firstArray.Except(secondArray).Any();
         }
 
         public static bool AllContainsIn<T>(this IEnumerable<T> first, IEnumerable<T> second)

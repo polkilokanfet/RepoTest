@@ -9,10 +9,11 @@ namespace HVTApp.Services.GetProductService
 {
     public class ProductBlockSelector : NotifyPropertyChanged
     {
+
         #region fields
 
-        private ProductBlock _selectedProductBlock;
-        private readonly List<ProductBlock> _existsProductBlocks;
+        private readonly Bank _bank;
+        private ProductBlock _selectedBlock;
 
         #endregion
 
@@ -29,28 +30,31 @@ namespace HVTApp.Services.GetProductService
         /// <summary>
         /// Выбранный блок
         /// </summary>
-        public ProductBlock SelectedProductBlock
+        public ProductBlock SelectedBlock
         {
             get
             {
                 //если все выбранные параметры совпадают
-                if (_selectedProductBlock != null && SelectedParameters.MembersAreSame(_selectedProductBlock.Parameters))
-                    return _selectedProductBlock;
-
-                //поиск в существующих блоках
-                var result = _existsProductBlocks.SingleOrDefault(x => x.Parameters.MembersAreSame(SelectedParameters));
-                if (result != null)
-                {
-                    _selectedProductBlock = result;
-                    return result;
-                }
+                if (_selectedBlock != null && SelectedParameters.MembersAreSame(_selectedBlock.Parameters))
+                    return _selectedBlock;
 
                 //создание нового блока
-                _selectedProductBlock = new ProductBlock { Parameters = SelectedParameters };
-                _selectedProductBlock.DesignationSpecial = _selectedProductBlock.ParametersToString();
-                _selectedProductBlock.StructureCostNumber = "blank";
-                _existsProductBlocks.Add(_selectedProductBlock);
-                return _selectedProductBlock;
+                _selectedBlock = new ProductBlock { Parameters = SelectedParameters };
+
+                //поиск в существующих блоках
+                var exist = _bank.Blocks.SingleOrDefault(x => x.Equals(_selectedBlock));
+                if (exist != null)
+                {
+                    _selectedBlock = exist;
+                    return _selectedBlock;
+                }
+
+                _selectedBlock.DesignationSpecial = _bank.Designator.GetDesignation(_selectedBlock);
+                _selectedBlock.StructureCostNumber = "blank";
+
+                //добавление блока в банк
+                _bank.Blocks.Add(_selectedBlock);
+                return _selectedBlock;
             }
             set
             {
@@ -82,7 +86,7 @@ namespace HVTApp.Services.GetProductService
 
                 OnSelectedParameterChanged(null);
 
-                _selectedProductBlock = blockToSet;
+                _selectedBlock = blockToSet;
 
                 OnPropertyChanged();
                 SelectedProductBlockChanged?.Invoke(this);
@@ -93,10 +97,9 @@ namespace HVTApp.Services.GetProductService
 
         #region ctor
 
-        public ProductBlockSelector(IEnumerable<Parameter> parameters, List<ProductBlock> existsProductBlocks,
-            ProductBlock selectedProductBlock = null)
+        public ProductBlockSelector(IEnumerable<Parameter> parameters, Bank bank, ProductBlock selectedProductBlock = null)
         {
-            _existsProductBlocks = existsProductBlocks;
+            _bank = bank;
 
             //создаем селекторы параметров
             var groupedParameters = GetGroupingParameters(parameters).Select(x => new ParameterSelector(x));
@@ -110,7 +113,7 @@ namespace HVTApp.Services.GetProductService
             {
                 if(!selectedProductBlock.Parameters.AllContainsIn(parameters))
                     throw new ArgumentException("Параметры блока не соответствуют возможным параметрам.");
-                SelectedProductBlock = selectedProductBlock;
+                SelectedBlock = selectedProductBlock;
             }
         }
 
@@ -173,7 +176,7 @@ namespace HVTApp.Services.GetProductService
             }
 
             SelectedProductBlockChanged?.Invoke(this);
-            OnPropertyChanged(nameof(SelectedProductBlock));
+            OnPropertyChanged(nameof(SelectedBlock));
         }
     }
 }
