@@ -121,6 +121,9 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterVoltage220V;
         public Parameter ParameterTransformatorBuiltOut;
         public Parameter ParameterTransformatorBuiltIn;
+        public Parameter ParameterDpu2;
+        public Parameter ParameterDpu3;
+        public Parameter ParameterDpu4;
 
         public ProductType ProductTypeDeadTankBreaker;
         public ProductType ProductTypeLiveTankBreaker;
@@ -412,6 +415,12 @@ namespace HVTApp.TestDataGenerator
             ParameterVoltage220V.Clone(new Parameter {ParameterGroup = ParameterGroupDrivesVoltage, Value = "220 В"});
             ParameterTransformatorBuiltOut.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Отдельностоящий" });
             ParameterTransformatorBuiltIn.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Встроенный" });
+            ParameterDpu2.Clone(new Parameter { ParameterGroup = ParameterGroupIsolation, Value = "II*" });
+            ParameterDpu3.Clone(new Parameter { ParameterGroup = ParameterGroupIsolation, Value = "III" });
+            ParameterDpu4.Clone(new Parameter { ParameterGroup = ParameterGroupIsolation, Value = "IV" });
+
+
+
 
 
             ParameterBreaker.AddRequiredPreviousParameters(ParameterMainEquipment);
@@ -432,7 +441,8 @@ namespace HVTApp.TestDataGenerator
                                  .AddRequiredPreviousParameters(ParameterTransformator); 
             ParameterVoltage220kV.AddRequiredPreviousParameters(ParameterBreaker)
                                  .AddRequiredPreviousParameters(ParameterTransformator); 
-            ParameterVoltage500kV.AddRequiredPreviousParameters(ParameterBreaker, ParameterBreakerLiveTank);
+            ParameterVoltage500kV.AddRequiredPreviousParameters(ParameterBreaker, ParameterBreakerLiveTank)
+                                 .AddRequiredPreviousParameters(ParameterTransformator, ParameterTransformatorBuiltOut);
 
             ParameterVoltage110V.AddRequiredPreviousParameters(ParameterBrakersDrive);
 
@@ -440,6 +450,16 @@ namespace HVTApp.TestDataGenerator
 
             ParameterTransformatorBuiltOut.AddRequiredPreviousParameters(ParameterTransformatorCurrent);
             ParameterTransformatorBuiltIn.AddRequiredPreviousParameters(ParameterTransformatorCurrent);
+
+            ParameterDpu2.AddRequiredPreviousParameters(ParameterBreaker)
+                         .AddRequiredPreviousParameters(ParameterTransformator, ParameterTransformatorBuiltOut)
+                         .AddRequiredPreviousParameters(ParameterTransformator, ParameterTransformatorVoltage);
+            ParameterDpu3.AddRequiredPreviousParameters(ParameterBreaker)
+                         .AddRequiredPreviousParameters(ParameterTransformator, ParameterTransformatorBuiltOut)
+                         .AddRequiredPreviousParameters(ParameterTransformator, ParameterTransformatorVoltage);
+            ParameterDpu4.AddRequiredPreviousParameters(ParameterBreaker)
+                         .AddRequiredPreviousParameters(ParameterTransformator, ParameterTransformatorBuiltOut)
+                         .AddRequiredPreviousParameters(ParameterTransformator, ParameterTransformatorVoltage);
         }
 
         private void GenerateRequiredDependentEquipmentsParameters()
@@ -458,8 +478,8 @@ namespace HVTApp.TestDataGenerator
 
             RequiredChildProductRelationTvg110.Clone(new ProductRelation
             {
-                ParentProductParameters = new List<Parameter> {ParameterBreakerDeadTank},
-                ChildProductParameters= new List<Parameter> {ParameterTransformatorBuiltIn}, ChildProductsAmount = 3, IsUnique = false
+                ParentProductParameters = new List<Parameter> {ParameterBreakerDeadTank, ParameterVoltage110kV},
+                ChildProductParameters= new List<Parameter> {ParameterTransformatorBuiltIn, ParameterVoltage110kV }, ChildProductsAmount = 3, IsUnique = false
             });
         }
 

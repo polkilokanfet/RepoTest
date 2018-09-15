@@ -28,6 +28,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Сралчахвост")]
         public string StructureCostNumber { get; set; }
 
+        [Designation("Чертеж")]
+        public string Design { get; set; }
+
         [Designation("Услуга")]
         public bool IsService { get; set; } = false;
 
