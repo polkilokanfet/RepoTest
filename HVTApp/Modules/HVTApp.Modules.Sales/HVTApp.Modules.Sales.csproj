@@ -101,6 +101,7 @@
     </Compile>
     <Compile Include="Menus\SalesMenuViewModel.cs" />
     <Compile Include="PrintOffer\OfferToDoc.cs" />
+    <Compile Include="PrintOffer\PrintProduct.cs" />
     <Compile Include="PrintOffer\WordDocumentWriterExt.cs" />
     <Compile Include="Tabs\TabCrudUnits.xaml.cs">
       <DependentUpon>TabCrudUnits.xaml</DependentUpon>

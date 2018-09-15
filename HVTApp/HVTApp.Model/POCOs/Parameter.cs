@@ -5,20 +5,18 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public partial class Parameter : BaseEntity
+    public partial class Parameter : BaseEntity, IComparable
     {
         public virtual ParameterGroup ParameterGroup { get; set; }
         public string Value { get; set; }
         public virtual List<ParameterRelation> ParameterRelations { get; set; } = new List<ParameterRelation>();
-    }
 
-    public partial class Parameter : IComparable
-    {
+
         public bool IsOrigin => !ParameterRelations.Any();
 
         public override string ToString()
         {
-            return $"{ParameterGroup.Name}: {Value}";
+            return Value;
         }
 
         public int CompareTo(object obj)

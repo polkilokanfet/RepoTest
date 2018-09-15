@@ -47,10 +47,19 @@ namespace HVTApp.Model.POCOs
             return other != null && this.Parameters.MembersAreSame(other.Parameters, new ParameterComparer());
         }
 
+        /// <summary>
+        /// ¬ернуть упор€доченные параметры блока.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Parameter> GetOrderedParameters()
+        {
+            return Parameters.OrderByDescending(x => x.GetWeight(this));
+        }
+
         public string ParametersToString()
         {
             var stringBuilder = new StringBuilder();
-            foreach (var parameter in Parameters.OrderByDescending(this.GetWeight))
+            foreach (var parameter in Parameters.OrderByDescending(x => x.GetWeight(this)))
                 stringBuilder.Append($"{parameter.ParameterGroup}: {parameter.Value}; ");
 
             return stringBuilder.ToString();

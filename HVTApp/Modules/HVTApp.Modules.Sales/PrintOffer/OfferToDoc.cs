@@ -82,7 +82,7 @@ namespace HVTApp.Modules.Sales.PrintOffer
                 {
                     num++;
                     docWriter.StartTableRow();
-                    docWriter.TableCell(num.ToString(), cellProps);                              //номер строки
+                    docWriter.TableCell(num.ToString(), cellProps);                                 //номер строки
                     docWriter.TableCell(offerUnitsGroup.Product.ProductType?.Name, cellProps);      //тип оборудования
                     docWriter.TableCell(offerUnitsGroup.Product.Designation, cellProps);            //обозначение
                     docWriter.TableCell($"{offerUnitsGroup.Amount:D}", cellProps, parPropRight);    //колличество
@@ -142,8 +142,17 @@ namespace HVTApp.Modules.Sales.PrintOffer
 
             docWriter.EndTable();
 
-            docWriter.Paragraph("Деталировка условий поставки оборудования (в соответствии с позициями таблицы):", null, fontHeader);
+            ParagraphProperties paragraphProperties = docWriter.CreateParagraphProperties();
+            paragraphProperties.PageBreakBefore = true;
+            docWriter.Paragraph("Деталировка условий поставки оборудования (в соответствии с позициями таблицы):", paragraphProperties, fontHeader);
             docWriter.Paragraph(productsDetails);
+
+            var pp = new PrintProduct();
+            foreach (var product in offerUnitsGroupsOrdered.SelectMany(x => x.Select(s => s.Product.Model)).Distinct())
+            {
+                pp.Print(docWriter, product);
+                docWriter.Paragraph(Environment.NewLine);
+            }
 
             docWriter.EndDocument();
             docWriter.Close();

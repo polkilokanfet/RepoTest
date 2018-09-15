@@ -18,13 +18,29 @@ namespace HVTApp.Model
             return parameter;
         }
 
-        public static double GetWeight(this ProductBlock block, Parameter parameter)
+        public static double GetWeight(this Parameter parameter, ProductBlock block)
         {
-            if (parameter.IsOrigin) return 1;
+            if (parameter.IsOrigin) return 2;
+            return 1.0 / parameter.StepsToOrigin(block);
+        }
+
+        public static int StepsToOrigin(this Parameter parameter, ProductBlock block)
+        {
+            if (parameter.IsOrigin) return 0;
+
             var relations = parameter.ParameterRelations.Where(x => x.RequiredParameters.AllContainsIn(block.Parameters)).ToList();
             if (!relations.Any()) throw new ArgumentException("Передан параметр, который не должен быть в блоке.");
+
             var relation = relations.OrderBy(x => x.RequiredParameters.Count).Last();
-            return 1 / relation.RequiredParameters.Count;
+
+            int result = 1;
+
+            foreach (var requiredParameter in relation.RequiredParameters)
+            {
+                result += requiredParameter.StepsToOrigin(block);
+            }
+
+            return result;
         }
 
     }
