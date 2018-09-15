@@ -6,6 +6,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.Services.ProductDesignationService;
 using Microsoft.Practices.Unity;
 using Prism.Events;

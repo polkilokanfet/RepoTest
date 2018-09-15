@@ -5,6 +5,7 @@ using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model.Comparers;
 
 namespace HVTApp.Model.POCOs
 {
@@ -27,13 +28,10 @@ namespace HVTApp.Model.POCOs
         [Designation("Продукты в составе")]
         public virtual List<ProductDependent> DependentProducts { get; set; } = new List<ProductDependent>();
 
-        public override string ToString()
-        {
-            string type = ProductType == null ? String.Empty : $"{ProductType} ";
-            if (!string.IsNullOrEmpty(DesignationSpecial)) return $"{type}{DesignationSpecial}";
-            if (!string.IsNullOrEmpty(Designation)) return $"{type}{Designation}";
-            return ProductBlock.ToString();
-        }
+
+
+
+
 
         public override bool Equals(object obj)
         {
@@ -47,11 +45,16 @@ namespace HVTApp.Model.POCOs
             //если составные части не совпадают
             if (!this.ProductBlock.Equals(other.ProductBlock)) return false;
 
-            return !DependentProducts.Except(other.DependentProducts, new ProductDependentComparer()).Any() &&
-                   !other.DependentProducts.Except(DependentProducts, new ProductDependentComparer()).Any();
-
             //если зависимые продукты не совпадают / совпадают
-            return DependentProducts.MembersAreSame(other.DependentProducts);
+            return DependentProducts.MembersAreSame(other.DependentProducts, new ProductDependentComparer());
+        }
+
+        public override string ToString()
+        {
+            string type = ProductType == null ? String.Empty : $"{ProductType} ";
+            if (!string.IsNullOrEmpty(DesignationSpecial)) return $"{type}{DesignationSpecial}";
+            if (!string.IsNullOrEmpty(Designation)) return $"{type}{Designation}";
+            return ProductBlock.ToString();
         }
 
         /// <summary>
@@ -102,19 +105,6 @@ namespace HVTApp.Model.POCOs
             }
 
             return stringBuilder.ToString();
-        }
-    }
-
-    public class ProductDependentComparer : IEqualityComparer<ProductDependent>
-    {
-        public bool Equals(ProductDependent x, ProductDependent y)
-        {
-            return x.Equals(y);
-        }
-
-        public int GetHashCode(ProductDependent obj)
-        {
-            return 0;
         }
     }
 

@@ -58,10 +58,12 @@
     <Compile Include="POCOs\DocumentIncomingNumber.cs" />
     <Compile Include="POCOs\DocumentOutgoingNumber.cs" />
     <Compile Include="POCOs\IPayment.cs" />
+    <Compile Include="Comparers\ParameterComparer.cs" />
     <Compile Include="POCOs\PaymentActual.cs" />
     <Compile Include="POCOs\PaymentPlanned.cs" />
     <Compile Include="POCOs\PaymentType.cs" />
     <Compile Include="POCOs\ProductBlockIsService.cs" />
+    <Compile Include="Comparers\ProductDependentComparer.cs" />
     <Compile Include="POCOs\ProductIncluded.cs" />
     <Compile Include="POCOs\ProductDesignation.cs" />
     <Compile Include="POCOs\ProductType.cs" />
@@ -129,6 +131,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Services\IProductDesignationService.cs" />
     <Compile Include="Services\IShippingService.cs" />
   </ItemGroup>
   <ItemGroup>

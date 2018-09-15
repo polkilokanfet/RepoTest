@@ -6,6 +6,7 @@ using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model.Comparers;
 
 namespace HVTApp.Model.POCOs
 {
@@ -43,7 +44,7 @@ namespace HVTApp.Model.POCOs
 
         protected bool Equals(ProductBlock other)
         {
-            return other != null && this.Parameters.Select(x => x.Id).MembersAreSame(other.Parameters.Select(x => x.Id));
+            return other != null && this.Parameters.MembersAreSame(other.Parameters, new ParameterComparer());
         }
 
         public string ParametersToString()

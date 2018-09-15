@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.Services.ProductDesignationService;
 
 namespace HVTApp.Services.GetProductService

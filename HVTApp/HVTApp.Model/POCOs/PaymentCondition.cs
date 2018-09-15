@@ -3,15 +3,12 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Model.POCOs
 {
-    public partial class PaymentCondition : BaseEntity
+    public partial class PaymentCondition : BaseEntity, IComparable<PaymentCondition>
     {
         public double Part { get; set; }
         public int DaysToPoint { get; set; }
         public virtual PaymentConditionPoint PaymentConditionPoint { get; set; }
-    }
 
-    public partial class PaymentCondition : IComparable<PaymentCondition>
-    {
         public override string ToString()
         {
             string dayName = "дней";
