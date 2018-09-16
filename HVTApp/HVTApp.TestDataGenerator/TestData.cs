@@ -100,6 +100,7 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupDrivesVoltage;
         public ParameterGroup ParameterGroupIsolation;
         public ParameterGroup ParameterGroupAccuracy;
+        public ParameterGroup ParameterGroupCurrent;
 
         public Parameter ParameterMainEquipment;
         public Parameter ParameterDependentEquipment;
@@ -127,6 +128,9 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterDpu4;
         public Parameter ParameterAccuracy05P;
         public Parameter ParameterAccuracy10P;
+        public Parameter ParameterCurrent2500;
+        public Parameter ParameterCurrent3150;
+        public Parameter ParameterCurrent4000;
 
         public ProductType ProductTypeDeadTankBreaker;
         public ProductType ProductTypeLiveTankBreaker;
@@ -147,6 +151,7 @@ namespace HVTApp.TestDataGenerator
         public ProductDesignation ProductDesignationTvg220;
         public ProductDesignation ProductDesignationTrg110;
         public ProductDesignation ProductDesignationTrg220;
+        public ProductDesignation ProductDesignationDrive;
 
         public ProductRelation RequiredChildProductRelationDrive;
         public ProductRelation RequiredChildProductRelationBreakerBlock;
@@ -392,6 +397,7 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupDrivesVoltage.Clone(new ParameterGroup { Name = "Номинальное напряжение двигателя завода пружин", Measure = MeasureKv });
             ParameterGroupIsolation.Clone(new ParameterGroup { Name = "Длина пути утечки" });
             ParameterGroupAccuracy.Clone(new ParameterGroup { Name = "Класс точности" });
+            ParameterGroupCurrent.Clone(new ParameterGroup { Name = "Номинальный ток" });
         }
 
         private void GenerateParameters()
@@ -424,6 +430,11 @@ namespace HVTApp.TestDataGenerator
             ParameterDpu4.Clone(new Parameter { ParameterGroup = ParameterGroupIsolation, Value = "IV" });
             ParameterAccuracy05P.Clone(new Parameter { ParameterGroup = ParameterGroupAccuracy, Value = "5P" });
             ParameterAccuracy10P.Clone(new Parameter { ParameterGroup = ParameterGroupAccuracy, Value = "10P" });
+            ParameterCurrent2500.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "2500 А" });
+            ParameterCurrent3150.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "3150 А" });
+            ParameterCurrent4000.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "4000 А" });
+
+
 
 
 
@@ -443,6 +454,12 @@ namespace HVTApp.TestDataGenerator
 
             ParameterAccuracy05P.AddRequiredPreviousParameters(ParameterTransformatorBuiltIn);
             ParameterAccuracy10P.AddRequiredPreviousParameters(ParameterTransformatorBuiltIn);
+
+            ParameterCurrent2500.AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage110kV)
+                                .AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage220kV);
+            ParameterCurrent3150.AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage110kV)
+                                .AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage220kV);
+            ParameterCurrent4000.AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage500kV);
 
             ParameterVoltage35kV.AddRequiredPreviousParameters(ParameterBreaker)
                                 .AddRequiredPreviousParameters(ParameterTransformatorCurrent);
@@ -519,6 +536,7 @@ namespace HVTApp.TestDataGenerator
             ProductDesignationTvg220.Clone(new ProductDesignation { Designation = "ТВГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformatorCurrent, ParameterTransformatorBuiltIn, ParameterVoltage220kV } });
             ProductDesignationTrg110.Clone(new ProductDesignation { Designation = "ТРГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformatorCurrent, ParameterTransformatorBuiltOut, ParameterVoltage110kV } });
             ProductDesignationTrg220.Clone(new ProductDesignation { Designation = "ТРГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformatorCurrent, ParameterTransformatorBuiltOut, ParameterVoltage220kV } });
+            ProductDesignationDrive.Clone(new ProductDesignation { Designation = "Привод", Parameters = new List<Parameter> { ParameterBrakersDrive } });
         }
 
         private void GenerateProductBlocs()
