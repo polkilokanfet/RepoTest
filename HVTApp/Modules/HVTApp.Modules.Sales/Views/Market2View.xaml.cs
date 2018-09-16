@@ -28,7 +28,6 @@ namespace HVTApp.Modules.Sales.Views
 
             #region ClearViews
 
-            
             ProjectListView.ManagerVisibility = Visibility.Collapsed;
             ProjectListView.OffersVisibility = Visibility.Collapsed;
             ProjectListView.TendersVisibility = Visibility.Collapsed;
@@ -45,6 +44,9 @@ namespace HVTApp.Modules.Sales.Views
             OfferListView.VatVisibility = Visibility.Collapsed;
             OfferListView.RequestDocumentVisibility = Visibility.Collapsed;
             OfferListView.OfferUnitsVisibility = Visibility.Collapsed;
+            OfferListView.CodeVisibility = Visibility.Collapsed;
+
+            NotesListView.IsImportantVisibility = Visibility.Collapsed;
 
             #endregion
 
