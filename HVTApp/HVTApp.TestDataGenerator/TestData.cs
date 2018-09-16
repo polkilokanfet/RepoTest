@@ -99,6 +99,7 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupVoltage;
         public ParameterGroup ParameterGroupDrivesVoltage;
         public ParameterGroup ParameterGroupIsolation;
+        public ParameterGroup ParameterGroupAccuracy;
 
         public Parameter ParameterMainEquipment;
         public Parameter ParameterDependentEquipment;
@@ -124,6 +125,8 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterDpu2;
         public Parameter ParameterDpu3;
         public Parameter ParameterDpu4;
+        public Parameter ParameterAccuracy05P;
+        public Parameter ParameterAccuracy10P;
 
         public ProductType ProductTypeDeadTankBreaker;
         public ProductType ProductTypeLiveTankBreaker;
@@ -388,6 +391,7 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupVoltage.Clone(new ParameterGroup {Name = "Номинальное напряжение", Measure = MeasureKv});
             ParameterGroupDrivesVoltage.Clone(new ParameterGroup { Name = "Номинальное напряжение двигателя завода пружин", Measure = MeasureKv });
             ParameterGroupIsolation.Clone(new ParameterGroup { Name = "Длина пути утечки" });
+            ParameterGroupAccuracy.Clone(new ParameterGroup { Name = "Класс точности" });
         }
 
         private void GenerateParameters()
@@ -418,6 +422,8 @@ namespace HVTApp.TestDataGenerator
             ParameterDpu2.Clone(new Parameter { ParameterGroup = ParameterGroupIsolation, Value = "II*" });
             ParameterDpu3.Clone(new Parameter { ParameterGroup = ParameterGroupIsolation, Value = "III" });
             ParameterDpu4.Clone(new Parameter { ParameterGroup = ParameterGroupIsolation, Value = "IV" });
+            ParameterAccuracy05P.Clone(new Parameter { ParameterGroup = ParameterGroupAccuracy, Value = "5P" });
+            ParameterAccuracy10P.Clone(new Parameter { ParameterGroup = ParameterGroupAccuracy, Value = "10P" });
 
 
 
@@ -434,6 +440,9 @@ namespace HVTApp.TestDataGenerator
 
             ParameterTransformatorCurrent.AddRequiredPreviousParameters(ParameterTransformator);
             ParameterTransformatorVoltage.AddRequiredPreviousParameters(ParameterTransformator);
+
+            ParameterAccuracy05P.AddRequiredPreviousParameters(ParameterTransformatorBuiltIn);
+            ParameterAccuracy10P.AddRequiredPreviousParameters(ParameterTransformatorBuiltIn);
 
             ParameterVoltage35kV.AddRequiredPreviousParameters(ParameterBreaker)
                                 .AddRequiredPreviousParameters(ParameterTransformatorCurrent);

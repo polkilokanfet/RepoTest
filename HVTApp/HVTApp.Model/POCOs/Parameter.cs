@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Model.POCOs
 {
@@ -38,6 +40,70 @@ namespace HVTApp.Model.POCOs
             if (second.ParameterRelations.Any(x => x.RequiredParameters.Select(rp => rp.Id).Contains(first.Id)))
                 return 1;
             return 0;
+        }
+
+        public List<PathToOrigin> Paths()
+        {
+            return Paths(null).Where(x => x.IsFull).ToList();
+        }
+
+
+        private IEnumerable<PathToOrigin> Paths(PathToOrigin path = null)
+        {
+            path = path ?? new PathToOrigin();
+
+            if (!path.Parameters.Contains(this))
+            {
+                path.Parameters.Add(this);
+            }
+
+            //если достигли начала
+            if (this.IsOrigin) yield return path;
+
+            foreach (var relation in ParameterRelations)
+            {
+                foreach (var requiredParameter in relation.RequiredParameters)
+                {
+                    var parameters = path.Parameters.ToList();
+                    var relations = path.Relations.ToList();
+
+                    parameters.Add(requiredParameter);
+                    relations.Add(relation);
+
+                    var newPath = new PathToOrigin(parameters, relations);
+
+                    foreach (var pathToOrigin in requiredParameter.Paths(newPath).ToList())
+                    {
+                        yield return pathToOrigin;
+                    }
+                }
+            }
+        }
+    }
+
+    public class PathToOrigin
+    {
+        public List<Parameter> Parameters { get; } = new List<Parameter>();
+        public List<ParameterRelation> Relations { get; } = new List<ParameterRelation>();
+
+        public bool IsFull => !Relations.Any() || Relations.SelectMany(x => x.RequiredParameters).Distinct().AllContainsIn(Parameters);
+
+        public PathToOrigin()
+        {
+            
+        }
+
+        public PathToOrigin(IEnumerable<Parameter> parameters, IEnumerable<ParameterRelation> relations) : this()
+        {
+            Parameters.AddRange(parameters);
+            Relations.AddRange(relations);
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            Parameters.ForEach(x => sb.Append($"{x} => "));
+            return sb.ToString();
         }
     }
 }
