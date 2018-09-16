@@ -8,7 +8,7 @@
 
             <!--<Label Content="{Binding Amount}" HorizontalAlignment="Center"/>-->
 
-            <ItemsControl ItemsSource="{Binding ProductBlockSelector.ParameterSelectors}">
+            <ItemsControl ItemsSource="{Binding BlockSelector.ParameterSelectors}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Visibility="{Binding IsActual, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Stretch">
