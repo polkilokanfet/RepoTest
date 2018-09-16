@@ -20,27 +20,27 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Value" Visibility="{Binding VisibilityValueParameter, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="0" Content="Группа" Visibility="{Binding VisibilityParameterGroupParameter, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="0" 
+                                    Item="{Binding Item.ParameterGroup}" 
+                                    AddItemCommand="{Binding SelectParameterGroupCommand}" 
+                                    RemoveItemCommand="{Binding ClearParameterGroupCommand}"
+									Visibility="{Binding VisibilityParameterGroupParameter, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Значение" Visibility="{Binding VisibilityValueParameter, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityValueParameter, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="ParameterRelations" Visibility="{Binding VisibilityParameterRelationsParameter, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
+        <Label Grid.Column="0" Grid.Row ="2" Content="Ограничения" Visibility="{Binding VisibilityParameterRelationsParameter, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="2"
 										 Items="{Binding Path=Item.ParameterRelations}"
 										 SelectedItem="{Binding SelectedParameterRelationsItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInParameterRelationsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParameterRelationsCommand}"
 										 Visibility="{Binding VisibilityParameterRelationsParameter, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="ParameterGroup" Visibility="{Binding VisibilityParameterGroupParameter, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
-                                    Item="{Binding Item.ParameterGroup}" 
-                                    AddItemCommand="{Binding SelectParameterGroupCommand}" 
-                                    RemoveItemCommand="{Binding ClearParameterGroupCommand}"
-									Visibility="{Binding VisibilityParameterGroupParameter, ElementName=Root}"/>
 
 
 

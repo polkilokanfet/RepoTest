@@ -1,38 +1,43 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.Model.POCOs
 {
-    [Designation("Тендер")]
-    [DesignationPlural("Тендеры")]
+    [Designation("Конкурс")]
+    [DesignationPlural("Конкурсы")]
     public partial class Tender : BaseEntity
     {
-        [Designation("Проект")]
+        [Designation("Проект"), Required, OrderStatus(4)]
         public virtual Project Project { get; set; }
 
-        [Designation("Типы")]
+        [Designation("Типы"), OrderStatus(11)]
         public virtual List<TenderType> Types { get; set; } = new List<TenderType>();
 
-        [Designation("Открытие")]
+        [Designation("Открытие"), OrderStatus(9)]
         public DateTime DateOpen { get; set; }
 
-        [Designation("Закрытие")]
+        [Designation("Закрытие"), OrderStatus(8)]
         public DateTime DateClose { get; set; }
 
-        [Designation("Итоги")]
+        [Designation("Итоги"), OrderStatus(7)]
         public DateTime? DateNotice { get; set; }
 
-        [Designation("Участники")]
+        [Designation("Участники"), OrderStatus(6)]
         public virtual List<Company> Participants { get; set; } = new List<Company>();
 
-        [Designation("Победитель")]
+        [Designation("Победитель"), OrderStatus(5)]
         public virtual Company Winner { get; set; }
 
         public override string ToString()
         {
-            return $"Tender {Types} of {Project}";
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"Конкурс: {Types}");
+            Types.ForEach(x => sb.Append($"{x.Name}; "));
+            return sb.ToString();
         }
     }
 
@@ -40,7 +45,9 @@ namespace HVTApp.Model.POCOs
     [DesignationPlural("Типы тендера")]
     public partial class TenderType : BaseEntity
     {
+        [Designation("Название"), Required, OrderStatus(4), MaxLength(50)]
         public string Name { get; set; }
+
         public TenderTypeEnum Type { get; set; }
 
         public override string ToString()

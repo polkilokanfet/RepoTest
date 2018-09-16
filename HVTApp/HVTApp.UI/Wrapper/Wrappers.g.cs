@@ -1069,6 +1069,14 @@ namespace HVTApp.UI.Wrapper
         public System.String StructureCostNumberOriginalValue => GetOriginalValue<System.String>(nameof(StructureCostNumber));
         public bool StructureCostNumberIsChanged => GetIsChanged(nameof(StructureCostNumber));
 
+        public System.String Design
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String DesignOriginalValue => GetOriginalValue<System.String>(nameof(Design));
+        public bool DesignIsChanged => GetIsChanged(nameof(Design));
+
         public System.Boolean IsService
         {
           get { return GetValue<System.Boolean>(); }
@@ -1735,6 +1743,14 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
         public System.Int32 ChildProductsAmount
         {
           get { return GetValue<System.Int32>(); }
@@ -1836,14 +1852,6 @@ namespace HVTApp.UI.Wrapper
 
 	
         #region SimpleProperties
-        public System.Guid ParameterId
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid ParameterIdOriginalValue => GetOriginalValue<System.Guid>(nameof(ParameterId));
-        public bool ParameterIdIsChanged => GetIsChanged(nameof(ParameterId));
-
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }

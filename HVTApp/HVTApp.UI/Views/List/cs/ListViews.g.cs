@@ -2170,7 +2170,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("Parameter")]
+	[Designation("Параметр")]
 	[DesignationPlural("ParameterLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -2238,7 +2238,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("ParameterRelation")]
+	[Designation("Ограничение использования параметра")]
 	[DesignationPlural("ParameterRelationLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -2263,13 +2263,6 @@ namespace HVTApp.UI.Views
         }
 
 		#region VisibilityProps
-
-
-        public System.Windows.Visibility ParameterIdVisibility
-        {
-            get { return ParameterRelationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ParameterRelationLookup.ParameterId)].Visibility; }
-            set { ParameterRelationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ParameterRelationLookup.ParameterId)].Visibility = value; }
-        }
 
 
         public System.Windows.Visibility DisplayMemberVisibility
@@ -2802,6 +2795,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility DesignVisibility
+        {
+            get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.Design)].Visibility; }
+            set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.Design)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility IsServiceVisibility
         {
             get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.IsService)].Visibility; }
@@ -3180,6 +3180,13 @@ namespace HVTApp.UI.Views
         }
 
 		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return ProductRelationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductRelationLookup.Name)].Visibility; }
+            set { ProductRelationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductRelationLookup.Name)].Visibility = value; }
+        }
 
 
         public System.Windows.Visibility ChildProductsAmountVisibility

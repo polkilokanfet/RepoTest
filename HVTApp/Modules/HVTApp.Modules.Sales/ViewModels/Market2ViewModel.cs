@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Views;
+using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -123,6 +125,12 @@ namespace HVTApp.Modules.Sales.ViewModels
         }
 
         #endregion
+
+        protected override async Task<IEnumerable<ProjectLookup>> GetLookups()
+        {
+            var lookups = await base.GetLookups();
+            return lookups.Where(x => x.Manager.Id == CommonOptions.User.Id);
+        }
 
         #region OfferCommands
 

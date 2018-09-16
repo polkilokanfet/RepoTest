@@ -136,7 +136,7 @@ namespace HVTApp.Services.GetProductService
             {
                 parameter.ParameterGroup = _bank.Parameters.Select(x => x.ParameterGroup).Distinct().Single(x => x.Name == "Обозначение");
             }
-            parameter.ParameterRelations.Add(new ParameterRelation {ParameterId = parameter.Id, RequiredParameters = new List<Parameter> {parentParameter} });
+            parameter.ParameterRelations.Add(new ParameterRelation { RequiredParameters = new List<Parameter> {parentParameter} });
 
             var product = new Product {ProductBlock = new ProductBlock {Parameters = new List<Parameter> {parentParameter, parameter} }};
             product.ProductBlock.StructureCostNumber = tsk.StructureCostNumber;

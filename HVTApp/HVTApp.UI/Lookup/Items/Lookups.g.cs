@@ -821,6 +821,10 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
+        public System.String Design => GetValue<System.String>();
+
+
+		[OrderStatus(1)]
         public System.Boolean IsService => GetValue<System.Boolean>();
 
 
@@ -1222,7 +1226,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("Parameter")]
+	[Designation("Параметр")]
 	public partial class ParameterLookup : LookupItem<Parameter>
 	{
 		public ParameterLookup(Parameter entity) : base(entity) 
@@ -1238,7 +1242,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(4)]
         public System.String Value => GetValue<System.String>();
 
 
@@ -1251,7 +1255,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(5)]
 	    public ParameterGroupLookup ParameterGroup { get { return GetLookup<ParameterGroupLookup>(); } }
 
 
@@ -1311,6 +1315,10 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
+        public System.String Name => GetValue<System.String>();
+
+
+		[OrderStatus(1)]
         public System.Int32 ChildProductsAmount => GetValue<System.Int32>();
 
 
@@ -1360,7 +1368,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("ParameterRelation")]
+	[Designation("Ограничение использования параметра")]
 	public partial class ParameterRelationLookup : LookupItem<ParameterRelation>
 	{
 		public ParameterRelationLookup(ParameterRelation entity) : base(entity) 
@@ -1371,15 +1379,6 @@ namespace HVTApp.UI.Lookup
 			 
 		}
 		
-
-        #region SimpleProperties
-
-		[OrderStatus(1)]
-        public System.Guid ParameterId => GetValue<System.Guid>();
-
-
-        #endregion
-
 	}
 
 	[AllowEditAttribute(Role.Admin)]

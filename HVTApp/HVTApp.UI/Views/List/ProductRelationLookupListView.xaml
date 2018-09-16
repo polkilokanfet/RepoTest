@@ -34,6 +34,7 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
+                    <infg:TextField Name="Name" Label="Name" Width="Auto" />
                     <infg:CheckBoxField Name="IsUnique" Label="IsUnique" Width="Auto" />
                     <infg:NumericField Name="ChildProductsAmount" Label="ChildProductsAmount" Width="Auto" />
 

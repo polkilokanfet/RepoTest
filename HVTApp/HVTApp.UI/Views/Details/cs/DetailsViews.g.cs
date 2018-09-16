@@ -1621,6 +1621,11 @@ namespace HVTApp.UI.Views
             //    VisibilityStructureCostNumberProductBlock = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.ProductBlock).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlock.Design)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityDesignProductBlock = Visibility.Collapsed;
+
+
             //attr = typeof(HVTApp.Model.POCOs.ProductBlock).GetProperty(nameof(HVTApp.Model.POCOs.ProductBlock.IsService)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityIsServiceProductBlock = Visibility.Collapsed;
@@ -1682,6 +1687,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityStructureCostNumberProductBlockProperty); }
             set { SetValue(VisibilityStructureCostNumberProductBlockProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityDesignProductBlockProperty = DependencyProperty.Register("VisibilityDesignProductBlock", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityDesignProductBlock
+        {
+            get { return (Visibility) GetValue(VisibilityDesignProductBlockProperty); }
+            set { SetValue(VisibilityDesignProductBlockProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2672,6 +2686,11 @@ namespace HVTApp.UI.Views
             //NotUpdateAttribute attr;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.ProductRelation).GetProperty(nameof(HVTApp.Model.POCOs.ProductRelation.Name)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityNameProductRelation = Visibility.Collapsed;
+
+
             //attr = typeof(HVTApp.Model.POCOs.ProductRelation).GetProperty(nameof(HVTApp.Model.POCOs.ProductRelation.ParentProductParameters)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityParentProductParametersProductRelation = Visibility.Collapsed;
@@ -2693,6 +2712,15 @@ namespace HVTApp.UI.Views
 
 
 
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityNameProductRelationProperty = DependencyProperty.Register("VisibilityNameProductRelation", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNameProductRelation
+        {
+            get { return (Visibility) GetValue(VisibilityNameProductRelationProperty); }
+            set { SetValue(VisibilityNameProductRelationProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2836,26 +2864,12 @@ namespace HVTApp.UI.Views
             //NotUpdateAttribute attr;
 
 
-            //attr = typeof(HVTApp.Model.POCOs.ParameterRelation).GetProperty(nameof(HVTApp.Model.POCOs.ParameterRelation.ParameterId)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityParameterIdParameterRelation = Visibility.Collapsed;
-
-
             //attr = typeof(HVTApp.Model.POCOs.ParameterRelation).GetProperty(nameof(HVTApp.Model.POCOs.ParameterRelation.RequiredParameters)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityRequiredParametersParameterRelation = Visibility.Collapsed;
 
 
 
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityParameterIdParameterRelationProperty = DependencyProperty.Register("VisibilityParameterIdParameterRelation", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityParameterIdParameterRelation
-        {
-            get { return (Visibility) GetValue(VisibilityParameterIdParameterRelationProperty); }
-            set { SetValue(VisibilityParameterIdParameterRelationProperty, value); OnPropertyChanged(); }
         }
 
 

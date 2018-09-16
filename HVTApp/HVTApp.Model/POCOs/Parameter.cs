@@ -1,19 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extansions;
 
 namespace HVTApp.Model.POCOs
 {
+    [Designation("Параметр")]
     public partial class Parameter : BaseEntity, IComparable
     {
+        [Designation("Группа"), Required, OrderStatus(5)]
         public virtual ParameterGroup ParameterGroup { get; set; }
+
+        [Designation("Значение"), Required, MaxLength(50), OrderStatus(4)]
         public string Value { get; set; }
+
+        [Designation("Ограничения")]
         public virtual List<ParameterRelation> ParameterRelations { get; set; } = new List<ParameterRelation>();
 
-
+        [Designation("Начало?")]
         public bool IsOrigin => !ParameterRelations.Any();
 
         public override string ToString()

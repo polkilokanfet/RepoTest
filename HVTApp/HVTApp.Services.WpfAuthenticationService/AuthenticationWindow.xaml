@@ -1,8 +1,8 @@
 ﻿<Window x:Class="HVTApp.Services.WpfAuthenticationService.AuthenticationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="AuthenticationWindow" 
-        Width="300" 
+        Title="Authentication" 
+        Width="400" 
         ResizeMode="CanMinimize" 
         SizeToContent="Height"
         WindowStartupLocation="CenterScreen">
@@ -31,7 +31,7 @@
                   SelectedItem="{Binding SelectedRole, Mode=TwoWay}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Role}"></TextBlock>
+                    <TextBlock Text="{Binding Role}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
