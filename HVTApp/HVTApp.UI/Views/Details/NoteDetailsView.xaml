@@ -19,22 +19,22 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Text" Visibility="{Binding VisibilityTextNote, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="0" Content="Дата" Visibility="{Binding VisibilityDateNote, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="0" 
+                    SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityDateNote, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Текст" Visibility="{Binding VisibilityTextNote, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityTextNote, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="IsImportant" Visibility="{Binding VisibilityIsImportantNote, ElementName=Root}"/>
-        <CheckBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
+        <Label Grid.Column="0" Grid.Row ="2" Content="Важно?" Visibility="{Binding VisibilityIsImportantNote, ElementName=Root}"/>
+        <CheckBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                   IsChecked="{Binding Item.IsImportant, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityIsImportantNote, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="Date" Visibility="{Binding VisibilityDateNote, ElementName=Root}"/>
-        <DatePicker Grid.Column="1" Grid.Row="2" 
-                    SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding VisibilityDateNote, ElementName=Root}"/>
 
 
 

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using HVTApp.Views;
 using System.Windows;
 using HVTApp.DataAccess;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.AuthenticationService;
 using HVTApp.Infrastructure.Interfaces.Services.ChooseService;
@@ -116,9 +118,9 @@ namespace HVTApp
             catalog.AddModule(typeof(UiModule));
 
             AddModuleIfInRole(catalog, typeof(SalesModule));
-            AddModuleIfInRole(catalog, typeof(BaseEntitiesModule));
-            AddModuleIfInRole(catalog, typeof(ProductionModule));
+            //AddModuleIfInRole(catalog, typeof(ProductionModule));
             AddModuleIfInRole(catalog, typeof(PriceModule));
+            catalog.AddModule(typeof(BaseEntitiesModule));
 
             return catalog;
         }
@@ -146,11 +148,11 @@ namespace HVTApp
         /// <param name="moduleType"></param>
         private void AddModuleIfInRole(ModuleCatalog catalog, Type moduleType)
         {
-            catalog.AddModule(moduleType);
+            //catalog.AddModule(moduleType);
 
-            //var attr = (RoleToUpdateAttribute)(moduleType.GetCustomAttribute(typeof(RoleToUpdateAttribute), true));
-            //if (attr != null && attr.Roles.Contains(CommonOptions.User.RoleCurrent))
-            //    catalog.AddModule(moduleType);
+            var attr = (moduleType.GetCustomAttribute<ModuleAccessAttribute>());
+            if (attr != null && attr.Roles.Contains(CommonOptions.User.RoleCurrent))
+                catalog.AddModule(moduleType);
         }
     }
 }

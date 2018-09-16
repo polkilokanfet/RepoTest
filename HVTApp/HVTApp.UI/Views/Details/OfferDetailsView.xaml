@@ -46,26 +46,26 @@
 					Visibility="{Binding VisibilityDateOffer, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="2" Content="Срок действия" Visibility="{Binding VisibilityValidityDateOffer, ElementName=Root}"/>
-        <DatePicker Grid.Column="1" Grid.Row="2" 
-                    SelectedDate="{Binding Item.ValidityDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding VisibilityValidityDateOffer, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="3" Content="Рег.данные получателя" Visibility="{Binding VisibilityRegistrationDetailsOfRecipientOffer, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
-                                    Item="{Binding Item.RegistrationDetailsOfRecipient}" 
-                                    AddItemCommand="{Binding SelectRegistrationDetailsOfRecipientCommand}" 
-                                    RemoveItemCommand="{Binding ClearRegistrationDetailsOfRecipientCommand}"
-									Visibility="{Binding VisibilityRegistrationDetailsOfRecipientOffer, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="4" Content="Проект" Visibility="{Binding VisibilityProjectOffer, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
+        <Label Grid.Column="0" Grid.Row ="2" Content="Проект" Visibility="{Binding VisibilityProjectOffer, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.Project}" 
                                     AddItemCommand="{Binding SelectProjectCommand}" 
                                     RemoveItemCommand="{Binding ClearProjectCommand}"
 									Visibility="{Binding VisibilityProjectOffer, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Срок действия" Visibility="{Binding VisibilityValidityDateOffer, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="3" 
+                    SelectedDate="{Binding Item.ValidityDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityValidityDateOffer, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="4" Content="Рег.данные получателя" Visibility="{Binding VisibilityRegistrationDetailsOfRecipientOffer, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
+                                    Item="{Binding Item.RegistrationDetailsOfRecipient}" 
+                                    AddItemCommand="{Binding SelectRegistrationDetailsOfRecipientCommand}" 
+                                    RemoveItemCommand="{Binding ClearRegistrationDetailsOfRecipientCommand}"
+									Visibility="{Binding VisibilityRegistrationDetailsOfRecipientOffer, ElementName=Root}"/>
 
 
         <Label Grid.Column="0" Grid.Row ="5" Content="Получатель" Visibility="{Binding VisibilityRecipientEmployeeOffer, ElementName=Root}"/>

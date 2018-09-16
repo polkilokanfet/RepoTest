@@ -5,10 +5,12 @@ namespace HVTApp.Infrastructure
     [Flags]
     public enum Role
     {
-        Admin,
         SalesManager,
+        Admin,
+        Director,
         Economist,
+        Pricer,
         DataBaseFiller,
-        Director
+        PlanMaker
     }
 }

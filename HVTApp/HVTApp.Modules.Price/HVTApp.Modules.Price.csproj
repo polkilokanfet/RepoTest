@@ -109,10 +109,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Menus\SalesMenu.xaml.cs">
-      <DependentUpon>SalesMenu.xaml</DependentUpon>
+    <Compile Include="Menus\PriceMenu.xaml.cs">
+      <DependentUpon>PriceMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Menus\SalesMenuViewModel.cs" />
+    <Compile Include="Menus\PriceMenuViewModel.cs" />
     <Compile Include="PriceModule.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -194,7 +194,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Menus\SalesMenu.xaml">
+    <Page Include="Menus\PriceMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -238,6 +238,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Calendar_16x16.png" />
+    <Resource Include="Images\Calendar_32x32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

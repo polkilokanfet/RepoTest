@@ -207,12 +207,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\changeProject16.png" />
-    <Resource Include="Images\changeProject32.png" />
-    <Resource Include="Images\newProject16.png" />
-    <Resource Include="Images\newProject32.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\HVTApp.DataAccess\HVTApp.DataAccess.csproj">
       <Project>{9CF80C25-C04B-46B3-8EB7-F45BC42D4BA2}</Project>
       <Name>HVTApp.DataAccess</Name>
@@ -333,10 +327,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\coins16.png" />
-    <Resource Include="Images\coins32.png" />
+    <Resource Include="Images\User_16x16.png" />
+    <Resource Include="Images\User_32x32.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

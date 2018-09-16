@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Attributes\DesignationAttribute.cs" />
     <Compile Include="Attributes\DesignationPluralAttribute.cs" />
+    <Compile Include="Attributes\ModuleAccessAttribute.cs" />
     <Compile Include="Attributes\NotForDetailsViewAttribute.cs" />
     <Compile Include="Attributes\NotForListViewAttribute.cs" />
     <Compile Include="Attributes\NotUpdateAttribute.cs" />
@@ -139,6 +140,24 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Delete_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Edit_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\New_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Refresh_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Save_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Print_16x16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

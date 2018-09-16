@@ -88,7 +88,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Спецификация")]
         public virtual Specification Specification { get; set; }
 
-        [Designation("Совершённые платежи"), NotUpdate(Role.SalesManager | Role.Director)]
+        [Designation("Совершённые платежи")]
         public virtual List<PaymentActual> PaymentsActual { get; set; } = new List<PaymentActual>();
 
         [Designation("Планируемые платежи")]

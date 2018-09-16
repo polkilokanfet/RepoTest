@@ -10,7 +10,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Sales
 {
-    [AllowEdit(Role.Admin, Role.SalesManager)]
+    [ModuleAccess(Role.Admin, Role.SalesManager)]
     public class SalesModule : ModuleBase
     {
         public SalesModule(IUnityContainer container, IRegionManager regionManager) : base(container, regionManager)

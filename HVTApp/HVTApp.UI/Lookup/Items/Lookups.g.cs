@@ -690,7 +690,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("Note")]
+	[Designation("Заметка")]
 	public partial class NoteLookup : LookupItem<Note>
 	{
 		public NoteLookup(Note entity) : base(entity) 
@@ -704,15 +704,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(4)]
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(3)]
         public System.String Text => GetValue<System.String>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(2)]
         public System.Boolean IsImportant => GetValue<System.Boolean>();
 
 
@@ -2076,7 +2076,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("ТКП")]
+	[Designation("Предложение")]
 	public partial class OfferLookup : LookupItem<Offer>
 	{
 		public OfferLookup(Offer entity) : base(entity) 
@@ -2104,7 +2104,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(4)]
         public System.DateTime ValidityDate => GetValue<System.DateTime>();
 
 
@@ -2141,7 +2141,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(5)]
 	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
 
 
@@ -2477,7 +2477,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("Тендер")]
+	[Designation("Конкурс")]
 	public partial class TenderLookup : LookupItem<Tender>
 	{
 		public TenderLookup(Tender entity) : base(entity) 
@@ -2495,15 +2495,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(9)]
         public System.DateTime DateOpen => GetValue<System.DateTime>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(8)]
         public System.DateTime DateClose => GetValue<System.DateTime>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(7)]
         public System.Nullable<System.DateTime> DateNotice => GetValue<System.Nullable<System.DateTime>>();
 
 
@@ -2512,11 +2512,11 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(4)]
 	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
 
 
-		[OrderStatus(1)]
+		[OrderStatus(5)]
 	    public CompanyLookup Winner { get { return GetLookup<CompanyLookup>(); } }
 
 
@@ -2540,7 +2540,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(4)]
         public System.String Name => GetValue<System.String>();
 
 

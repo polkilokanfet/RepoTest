@@ -73,6 +73,11 @@ namespace HVTApp.TestDataGenerator
         public UserRole UserRoleDataBaseFiller;
         public UserRole UserRoleAdmin;
         public UserRole UserRoleSalesManager;
+        public UserRole UserRoleEconomist;
+        public UserRole UserRolePricer;
+        public UserRole UserRoleDirector;
+        public UserRole UserRolePlanMaker;
+
 
         public User UserIvanov;
         public User UserPetrov;
@@ -347,13 +352,17 @@ namespace HVTApp.TestDataGenerator
         private void GenerateUserRoles()
         {
             UserRoleDataBaseFiller.Clone(new UserRole {Role = Role.DataBaseFiller, Name = "DataBaseFiller"});
-            UserRoleAdmin.Clone(new UserRole {Role = Role.Admin, Name = "Admin"});
-            UserRoleSalesManager.Clone(new UserRole {Role = Role.SalesManager, Name = "SalesManager"});
+            UserRoleAdmin.Clone(new UserRole {Role = Role.Admin, Name = "Администратор"});
+            UserRoleSalesManager.Clone(new UserRole {Role = Role.SalesManager, Name = "Менеджер"});
+            UserRoleEconomist.Clone(new UserRole { Role = Role.Economist, Name = "Экономист" });
+            UserRolePricer.Clone(new UserRole { Role = Role.Pricer, Name = "Расчетчик" });
+            UserRoleDirector.Clone(new UserRole { Role = Role.Director, Name = "Директор" });
+            UserRolePlanMaker.Clone(new UserRole { Role = Role.Director, Name = "Плановик" });
         }
 
         private void GenerateUsers()
         {
-            UserIvanov.Clone(new User { Login = "1", Password = StringToGuidService.GetHashString("1"), Employee = EmployeeIvanov, PersonalNumber = "1", Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager } });
+            UserIvanov.Clone(new User { Login = "1", Password = StringToGuidService.GetHashString("1"), Employee = EmployeeIvanov, PersonalNumber = "1", Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer } });
             UserPetrov.Clone(new User { Login = "2", Password = StringToGuidService.GetHashString("2"), Employee = EmployeePetrov, PersonalNumber = "2", Roles = new List<UserRole> { UserRoleDataBaseFiller } });
         }
 

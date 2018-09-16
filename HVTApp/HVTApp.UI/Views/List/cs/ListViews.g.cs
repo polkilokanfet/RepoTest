@@ -1711,7 +1711,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("Note")]
+	[Designation("Заметка")]
 	[DesignationPlural("NoteLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -1779,7 +1779,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("ТКП")]
+	[Designation("Предложение")]
 	[DesignationPlural("OfferLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -4211,7 +4211,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("Тендер")]
+	[Designation("Конкурс")]
 	[DesignationPlural("TenderLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
