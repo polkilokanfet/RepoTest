@@ -42,6 +42,10 @@ namespace HVTApp.Model.POCOs
             return 0;
         }
 
+        /// <summary>
+        /// Все возможные пути к начальному параметру от этого.
+        /// </summary>
+        /// <returns></returns>
         public List<PathToOrigin> Paths()
         {
             return Paths(null).Where(x => x.IsFull).ToList();

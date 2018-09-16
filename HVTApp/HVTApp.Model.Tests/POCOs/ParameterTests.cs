@@ -1,13 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Linq;
 using HVTApp.Model.POCOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HVTApp.TestDataGenerator;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HVTApp.Model.POCOs.Tests
+namespace HVTApp.Model.Tests.POCOs
 {
     [TestClass()]
     public class ParameterTests
@@ -21,7 +17,7 @@ namespace HVTApp.Model.POCOs.Tests
 
             foreach (var parameter in parameters)
             {
-                var paths = parameter.Paths().ToList();
+                var paths = parameter.Paths();
             }
         }
     }
