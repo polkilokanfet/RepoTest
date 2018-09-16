@@ -18,7 +18,7 @@ namespace HVTApp.Modules.Price.ViewModels
 
         public DateTime? Date
         {
-            get { return Unit.EndProductionDate; }
+            get { return Unit.EndProductionPlanDate; }
             set
             {
                 if (Date == value) return;
@@ -28,7 +28,7 @@ namespace HVTApp.Modules.Price.ViewModels
                 }
                 else
                 {
-                    Unit.EndProductionDate = value;
+                    Unit.EndProductionPlanDate = value;
                 }
                 OnPropertyChanged();
             }

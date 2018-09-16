@@ -62,8 +62,8 @@
                                 <Label Grid.Column="0" Content="Дата:"/>
                                 <igWPF:XamDateTimeEditor Grid.Column="1" Value="{Binding DockDate}"/>
 
-                                <Label Grid.Column="2" Content="Дата:"/>
-                                <igWPF:XamNumericEditor Grid.Column="3" Value="{Binding DockSum}"/>
+                                <Label Grid.Column="2" Content="Сумма, руб:"/>
+                                <igWPF:XamNumericEditor Grid.Column="3" Value="{Binding DockSum}" MinWidth="10"/>
 
                             </Grid>
                             

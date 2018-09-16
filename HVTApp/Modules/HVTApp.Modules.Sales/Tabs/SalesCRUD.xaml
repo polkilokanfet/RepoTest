@@ -36,4 +36,9 @@
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewSpecificationCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/New_16x16.png"/>
     </infRib:RibbonGroup>
     
+    <infRib:RibbonGroup Caption="Обновление">
+        <infRib:ButtonTool Caption="Обновить" Command="{Binding RefreshCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Refresh_16x16.png"/>
+    </infRib:RibbonGroup>
+
+    
 </inf:RibbonTabItemWithViewModel>

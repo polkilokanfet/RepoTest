@@ -75,6 +75,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             WrapperDataService = Container.Resolve<IWrapperDataService>();
 
+            //продукты, условия и объекты из базы
             var products = (await WrapperDataService.GetWrapperRepository<Product, ProductWrapper>().GetAllAsync()).ToList();
             var conditions = (await WrapperDataService.GetWrapperRepository<PaymentConditionSet, PaymentConditionSetWrapper>().GetAllAsync()).ToList();
             var facilities = (await WrapperDataService.GetWrapperRepository<Facility, FacilityWrapper>().GetAllAsync()).ToList();

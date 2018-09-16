@@ -8,6 +8,7 @@ using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.Model.POCOs
 {
+    [AllowEdit(Role.Economist)]
     [Designation("Платежный документ")]
     public partial class PaymentDocument : BaseEntity
     {

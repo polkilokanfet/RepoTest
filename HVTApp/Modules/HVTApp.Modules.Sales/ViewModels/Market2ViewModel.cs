@@ -30,6 +30,8 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #region ICommand
 
+        public ICommand RefreshCommand { get; set; }
+
         public ICommand NewProjectCommand { get; }
         public ICommand EditProjectCommand { get; }
 
@@ -64,6 +66,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             NoteListViewModel = container.Resolve<NoteLookupListViewModel>();
 
             //привязываем команды к соответствующим моделям
+            RefreshCommand = new DelegateCommand(async () => await LoadAsync());
+
             NewProjectCommand = new DelegateCommand(NewProjectCommand_Execute);
             EditProjectCommand = new DelegateCommand(EditProjectCommand_Execute, () => SelectedItem != null);
 

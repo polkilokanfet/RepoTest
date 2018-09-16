@@ -2,7 +2,7 @@
 
 namespace HVTApp.Infrastructure
 {
-    [Flags]
+    //[Flags]
     public enum Role
     {
         SalesManager,
