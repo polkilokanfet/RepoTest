@@ -10,16 +10,16 @@ namespace HVTApp.Model.POCOs
     [AllowEdit(Role.SalesManager, Role.DataBaseFiller)]
     public partial class Company : BaseEntity
     {
-        [Designation("Наименование")]
+        [Designation("Наименование"), Required, MaxLength(100), OrderStatus(20)]
         public string FullName { get; set; }
 
-        [Designation("Сокращенное наименование"), OrderStatus(10)]
+        [Designation("Сокращенное наименование"), Required, MaxLength(100), OrderStatus(15)]
         public string ShortName { get; set; }
 
-        [Designation("ИНН")]
+        [Designation("ИНН"), MaxLength(10)]
         public string Inn { get; set; }
 
-        [Designation("КПП")]
+        [Designation("КПП"), MaxLength(10)]
         public string Kpp { get; set; }
 
         [Required, OrderStatus(5)]
