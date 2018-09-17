@@ -6,7 +6,7 @@ using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.ViewModels
 {
-    public partial class SpecificationDetailsViewModel : WrapperWithUnitsViewModel<IUnitsDatedGroup, SpecificationWrapper, Specification, SalesUnit, SalesUnitWrapper, AfterSaveSpecificationEvent>
+    public partial class SpecificationDetailsViewModel : WrapperWithUnitsViewModel<IUnitsDatedGroup, SpecificationWrapper, Specification, SalesUnit, AfterSaveSpecificationEvent>
     {
         protected override void AddCommand_Execute()
         {

@@ -70,10 +70,11 @@ namespace HVTApp.UI.Converter
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null) return null;
-            var group = value as IUnitsGroup;
-            if (group == null) throw new ArgumentException("В конвертер передано чё-то не то!!!");
-            return group.Units;
+            throw new NotImplementedException();
+            //if (value == null) return null;
+            //var group = value as IUnitsGroup;
+            //if (group == null) throw new ArgumentException("В конвертер передано чё-то не то!!!");
+            //return group.Units;
         }
     }
 

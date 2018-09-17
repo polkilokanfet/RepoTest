@@ -70,7 +70,7 @@ namespace HVTApp.UI.Wrapper
             }
         }
 
-        public double MarginalIncome
+        public double? MarginalIncome
         {
             get { return _marginalIncome; }
             set
@@ -78,9 +78,9 @@ namespace HVTApp.UI.Wrapper
                 if (Equals(_marginalIncome, value)) return;
                 if (value >= 100) return;
 
-                _marginalIncome = value;
-                Cost = Price / (1 - value / 100);
-                OnPropertyChanged();
+                //_marginalIncome = value;
+                //Cost = Price / (1 - value / 100);
+                //OnPropertyChanged();
             }
         }
 
@@ -170,6 +170,19 @@ namespace HVTApp.UI.Wrapper
             }
             OnPropertyChanged(propertyName);
         }
+
+        public void AcceptChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsChanged { get; }
+        public void RejectChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsValid { get; }
     }
 
     public class UnitsDatedGroup : UnitsGroup, IUnitsDatedGroup
