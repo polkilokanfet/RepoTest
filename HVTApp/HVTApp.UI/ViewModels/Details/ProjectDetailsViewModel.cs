@@ -7,7 +7,7 @@ using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.ViewModels
 {
-    public partial class ProjectDetailsViewModel : WrapperWithUnitsViewModel<IUnitsDatedGroup, ProjectWrapper, Project, SalesUnit, SalesUnitWrapper, AfterSaveProjectEvent>
+    public partial class ProjectDetailsViewModel : WrapperWithUnitsViewModel<IUnitsDatedGroup, ProjectWrapper, Project, SalesUnit, AfterSaveProjectEvent>
     {
         protected override void AddCommand_Execute()
         {

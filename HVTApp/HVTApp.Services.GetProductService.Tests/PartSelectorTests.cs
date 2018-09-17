@@ -73,8 +73,8 @@ namespace HVTApp.Services.GetProductService.Tests
         public void PartSelectorDefaultProduct()
         {
             var parameters = new List<Parameter> { _breaker, _v110, _c2500 };
-            Assert.IsTrue(_productBlockSelector.SelectedProductBlock.Parameters.AllMembersAreSame(parameters));
-            Assert.IsTrue(_productBlockSelector.ParameterSelectors.Select(x => x.SelectedParameterFlaged.Parameter).AllMembersAreSame(parameters));
+            Assert.IsTrue(_productBlockSelector.SelectedBlock.Parameters.MembersAreSame(parameters));
+            Assert.IsTrue(_productBlockSelector.ParameterSelectors.Select(x => x.SelectedParameterFlaged.Parameter).MembersAreSame(parameters));
         }
 
         //[TestMethod]
@@ -102,14 +102,14 @@ namespace HVTApp.Services.GetProductService.Tests
             var parameterSelector = GetParameterSelector(_productBlockSelector, _eqType);
             parameterSelector.SelectedParameterFlaged = parameterSelector.ParametersFlaged.Single(x => x.Parameter.Equals(_transformator));
 
-            Assert.IsTrue(_productBlockSelector.SelectedProductBlock.Parameters.AllMembersAreSame(parameters));
-            Assert.IsTrue(_productBlockSelector.ParameterSelectors.Select(x => x.SelectedParameterFlaged.Parameter).AllMembersAreSame(parameters));
+            Assert.IsTrue(_productBlockSelector.SelectedBlock.Parameters.MembersAreSame(parameters));
+            Assert.IsTrue(_productBlockSelector.ParameterSelectors.Select(x => x.SelectedParameterFlaged.Parameter).MembersAreSame(parameters));
 
             //находим селектор с токами
             ParameterSelector parameterSelector2 = _productBlockSelector.ParameterSelectors.
                 Single(x => x.ParametersFlaged.Select(pf => pf.Parameter).All(p => Equals(p.ParameterGroup, _current)));
             //актуальны параметры с током 1 и 5
-            Assert.IsTrue(parameterSelector2.ParametersFlaged.Where(x => x.IsActual).Select(x => x.Parameter).AllMembersAreSame(new[] { _c0001, _c0005 }));
+            Assert.IsTrue(parameterSelector2.ParametersFlaged.Where(x => x.IsActual).Select(x => x.Parameter).MembersAreSame(new[] { _c0001, _c0005 }));
         }
 
         //[TestMethod]

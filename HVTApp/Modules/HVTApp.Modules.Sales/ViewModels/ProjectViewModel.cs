@@ -20,7 +20,9 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         protected override IEnumerable<IUnitsDatedGroup> GetGroups()
         {
-            return Item.Units.ToProductUnitGroups();
+            var units = Item.Units.Select(x => x.Model).GroupBy(x => new {x.Cost, x.Product.Id});
+            return units.Select(x => new SalesUnitsGroup(x));
+            //return Item.Units.ToProductUnitGroups();
         }
 
         protected override async void AddCommand_Execute()
@@ -56,10 +58,11 @@ namespace HVTApp.Modules.Sales.ViewModels
                 this.Item.Units.Add(unitWrapper);
                 wrappers.Add(unitWrapper);
             }
-            var group = new UnitsDatedGroup(wrappers);
-            Groups.Add(group);
+
+            //var group = new UnitsDatedGroup(wrappers);
+            //Groups.Add(group);
             await RefreshPrices();
-            SelectedGroup = group;
+            //SelectedGroup = group;
         }
 
         protected override async Task AfterLoading()

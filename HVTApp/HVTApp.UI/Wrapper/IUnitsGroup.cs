@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Wrapper
 {
-    public interface IUnitsGroup : IUnitWithProductsIncluded
+    public interface IUnitsGroup : IUnitWithProductsIncluded, IValidatableChangeTracking
     {
-        List<IUnit> Units { get; }
-        ObservableCollection<IUnitsGroup> Groups { get; }
         FacilityWrapper Facility { get; set; }
         ProductWrapper Product { get; set; }
         PaymentConditionSetWrapper PaymentConditionSet { get; set; }
@@ -15,7 +14,7 @@ namespace HVTApp.UI.Wrapper
         double Price { set; }
         int Amount { get; }
         double Total { get; }
-        double MarginalIncome { get; set; }
+        double? MarginalIncome { get; set; }
         int? ProductionTerm { get; set; }
     }
 

@@ -20,13 +20,12 @@ using Prism.Events;
 
 namespace HVTApp.UI.ViewModels
 {
-    public abstract class WrapperWithUnitsViewModel<TUnitGroup, TWrapper, TEntity, TUnit, TUnitWrapper, TAfterSaveEntityEvent> :
+    public abstract class WrapperWithUnitsViewModel<TUnitGroup, TWrapper, TEntity, TUnit, TAfterSaveEntityEvent> :
         BaseDetailsViewModel<TWrapper, TEntity, TAfterSaveEntityEvent>
         where TEntity : class, IBaseEntity
-        where TWrapper : class, IWrapper<TEntity>, IWrapperWithUnits<TUnitWrapper>
+        where TWrapper : class, IWrapper<TEntity>
         where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
         where TUnit : class, IBaseEntity, IUnitPoco
-        where TUnitWrapper : class, IUnit, IWrapper<TUnit>
         where TUnitGroup : class, IUnitsGroup
     {
         private TUnitGroup _selectedGroup;
@@ -68,7 +67,7 @@ namespace HVTApp.UI.ViewModels
         /// <summary>
         /// Группы
         /// </summary>
-        public ObservableCollection<TUnitGroup> Groups { get; } = new ObservableCollection<TUnitGroup>();
+        public IValidatableChangeTrackingCollection<TUnitGroup> Groups { get; private set; }
 
         #region Commands
 
@@ -131,11 +130,6 @@ namespace HVTApp.UI.ViewModels
             if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
                 return;
 
-            foreach (var unit in SelectedGroup.Units)
-            {
-                Item.Units.Remove((TUnitWrapper) unit);
-                WrapperDataService.GetWrapperRepository<TUnit, TUnitWrapper>().Delete((TUnitWrapper)unit);
-            }
             Groups.Remove(SelectedGroup);
             SelectedGroup = null;
         }
@@ -179,7 +173,7 @@ namespace HVTApp.UI.ViewModels
         private void RefreshGroups()
         {
             Groups.Clear();
-            Groups.AddRange(GetGroups().OrderBy(x => x.Total));
+            Groups = new ValidatableChangeTrackingCollection<TUnitGroup>(GetGroups().OrderBy(x => x.Total));
         }
 
         protected async Task RefreshPrices()
@@ -230,11 +224,16 @@ namespace HVTApp.UI.ViewModels
             if (group == null) return;
 
             var priceService = Container.Resolve<IPriceService>();
+
+            //прайс для основного оборудования
             var price = await priceService.GetPrice(group.Product.Model, GetDate(), CommonOptions.ActualPriceTerm, _priceErrors);
+            
+            //добавляем прайсы дополнительного оборудования
             foreach (var productIncluded in group.ProductsIncluded)
             {
                 price += productIncluded.Amount * await priceService.GetPrice(productIncluded.Product.Model, DateTime.Today, CommonOptions.ActualPriceTerm, _priceErrors);
             }
+
             group.Price = price;
             OnPropertyChanged(nameof(PriceErrors));
         }
@@ -246,8 +245,8 @@ namespace HVTApp.UI.ViewModels
                 WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().Add(Item);
 
             //добавляем созданные юниты и удаляем удаленные
-            WrapperDataService.Repository<TUnit>().AddRange(Item.Units.AddedItems.Select(x => x.Model));
-            WrapperDataService.Repository<TUnit>().DeleteRange(Item.Units.RemovedItems.Select(x => x.Model));
+            //WrapperDataService.Repository<TUnit>().AddRange(Groups.AddedItems.Select(x => x.));
+            //WrapperDataService.Repository<TUnit>().DeleteRange(Item.Units.RemovedItems.Select(x => x.Model));
 
             Item.AcceptChanges();
             await WrapperDataService.SaveChangesAsync();
@@ -261,7 +260,7 @@ namespace HVTApp.UI.ViewModels
 
         protected override bool SaveCommand_CanExecute()
         {
-            return base.SaveCommand_CanExecute() && Item.Units.Any();
+            return base.SaveCommand_CanExecute() && Groups.Any() && Groups.IsValid;
         }
     }
 
