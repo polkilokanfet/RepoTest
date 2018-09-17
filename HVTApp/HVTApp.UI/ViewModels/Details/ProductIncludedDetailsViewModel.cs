@@ -19,7 +19,7 @@ namespace HVTApp.UI.ViewModels
             var product = await Container.Resolve<IGetProductService>().GetProductAsync(Item.Model.Product);
             if (product != null)
             {
-                product = await WrapperDataService.Repository<Product>().GetByIdAsync(product.Id);
+                product = await UnitOfWork.Repository<Product>().GetByIdAsync(product.Id);
                 Item.Product = new ProductWrapper(product);
             }
         }

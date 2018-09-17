@@ -20,248 +20,251 @@ using Prism.Events;
 
 namespace HVTApp.UI.ViewModels
 {
-    public abstract class WrapperWithUnitsViewModel<TUnitGroup, TWrapper, TEntity, TUnit, TAfterSaveEntityEvent> :
-        BaseDetailsViewModel<TWrapper, TEntity, TAfterSaveEntityEvent>
-        where TEntity : class, IBaseEntity
-        where TWrapper : class, IWrapper<TEntity>
-        where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
-        where TUnit : class, IBaseEntity, IUnitPoco
-        where TUnitGroup : class, IUnitsGroup
-    {
-        private TUnitGroup _selectedGroup;
-        private ProductIncludedWrapper _selectedProductIncluded;
+    //public abstract class WrapperWithUnitsViewModel<TUnitGroup, TWrapper, TEntity, TUnit, TAfterSaveEntityEvent> :
+    //    BaseDetailsViewModel<TWrapper, TEntity, TAfterSaveEntityEvent>
+    //    where TEntity : class, IBaseEntity
+    //    where TWrapper : class, IWrapper<TEntity>
+    //    where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
+    //    where TUnit : class, IBaseEntity, IUnitPoco
+    //    where TUnitGroup : class, IUnitsGroup
+    //{
+    //    private TUnitGroup _selectedGroup;
+    //    private ProductIncludedWrapper _selectedProductIncluded;
 
-        protected WrapperWithUnitsViewModel(IUnityContainer container) : base(container)
-        {
-        }
+    //    protected WrapperWithUnitsViewModel(IUnityContainer container) : base(container)
+    //    {
+    //    }
 
-        /// <summary>
-        /// Выбранная группа.
-        /// </summary>
-        public TUnitGroup SelectedGroup
-        {
-            get { return _selectedGroup; }
-            set
-            {
-                if (Equals(_selectedGroup, value)) return;
-                _selectedGroup = value;
-                ((DelegateCommand) RemoveCommand)?.RaiseCanExecuteChanged();
-                ((DelegateCommand)AddProductIncludedCommand)?.RaiseCanExecuteChanged();
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(PriceErrors));
-            }
-        }
+    //    /// <summary>
+    //    /// Выбранная группа.
+    //    /// </summary>
+    //    public TUnitGroup SelectedGroup
+    //    {
+    //        get { return _selectedGroup; }
+    //        set
+    //        {
+    //            if (Equals(_selectedGroup, value)) return;
+    //            _selectedGroup = value;
+    //            ((DelegateCommand) RemoveCommand)?.RaiseCanExecuteChanged();
+    //            ((DelegateCommand)AddProductIncludedCommand)?.RaiseCanExecuteChanged();
+    //            OnPropertyChanged();
+    //            OnPropertyChanged(nameof(PriceErrors));
+    //        }
+    //    }
 
-        public ProductIncludedWrapper SelectedProductIncluded
-        {
-            get { return _selectedProductIncluded; }
-            set
-            {
-                if (Equals(_selectedProductIncluded, value)) return;
-                _selectedProductIncluded = value;
-                ((DelegateCommand)RemoveProductIncludedCommand)?.RaiseCanExecuteChanged();
-                OnPropertyChanged();
-            }
-        }
+    //    public ProductIncludedWrapper SelectedProductIncluded
+    //    {
+    //        get { return _selectedProductIncluded; }
+    //        set
+    //        {
+    //            if (Equals(_selectedProductIncluded, value)) return;
+    //            _selectedProductIncluded = value;
+    //            ((DelegateCommand)RemoveProductIncludedCommand)?.RaiseCanExecuteChanged();
+    //            OnPropertyChanged();
+    //        }
+    //    }
 
-        /// <summary>
-        /// Группы
-        /// </summary>
-        public IValidatableChangeTrackingCollection<TUnitGroup> Groups { get; private set; }
+    //    /// <summary>
+    //    /// Группы
+    //    /// </summary>
+    //    public IValidatableChangeTrackingCollection<TUnitGroup> Groups { get; private set; }
 
-        #region Commands
+    //    #region Commands
 
         
-        #region ICommand
+    //    #region ICommand
 
-        public ICommand AddCommand { get; private set; }
-        public ICommand RemoveCommand { get; private set; }
-        public ICommand RefreshCommand { get; private set; }
-        public ICommand ChangeFacilityCommand { get; private set; }
-        public ICommand ChangeProductCommand { get; private set; }
-        public ICommand ChangePaymentsCommand { get; private set; }
+    //    public ICommand AddCommand { get; private set; }
+    //    public ICommand RemoveCommand { get; private set; }
+    //    public ICommand RefreshCommand { get; private set; }
+    //    public ICommand ChangeFacilityCommand { get; private set; }
+    //    public ICommand ChangeProductCommand { get; private set; }
+    //    public ICommand ChangePaymentsCommand { get; private set; }
 
-        public ICommand AddProductIncludedCommand { get; private set; }
-        public ICommand RemoveProductIncludedCommand { get; private set; }
+    //    public ICommand AddProductIncludedCommand { get; private set; }
+    //    public ICommand RemoveProductIncludedCommand { get; private set; }
 
-        #endregion
+    //    #endregion
 
-        protected override void InitSpecialCommands()
-        {
-            AddCommand = new DelegateCommand(AddCommand_Execute);
-            RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => SelectedGroup != null);
-            RefreshCommand = new DelegateCommand(RefreshCommand_Execute);
-            ChangeFacilityCommand = new DelegateCommand<TUnitGroup>(ChangeFacilityCommand_Execute);
-            ChangeProductCommand = new DelegateCommand<TUnitGroup>(ChangeProductCommand_Execute);
-            ChangePaymentsCommand = new DelegateCommand<TUnitGroup>(ChangePaymentsCommand_Execute);
+    //    protected override void InitSpecialCommands()
+    //    {
+    //        AddCommand = new DelegateCommand(AddCommand_Execute);
+    //        RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => SelectedGroup != null);
+    //        RefreshCommand = new DelegateCommand(RefreshCommand_Execute);
+    //        ChangeFacilityCommand = new DelegateCommand<TUnitGroup>(ChangeFacilityCommand_Execute);
+    //        ChangeProductCommand = new DelegateCommand<TUnitGroup>(ChangeProductCommand_Execute);
+    //        ChangePaymentsCommand = new DelegateCommand<TUnitGroup>(ChangePaymentsCommand_Execute);
 
-            AddProductIncludedCommand = new DelegateCommand(AddProductIncludedCommand_Execute, () => SelectedGroup != null);
-            RemoveProductIncludedCommand = new DelegateCommand(RemoveProductIncludedCommand_Execute, () => SelectedProductIncluded != null);
-        }
+    //        AddProductIncludedCommand = new DelegateCommand(AddProductIncludedCommand_Execute, () => SelectedGroup != null);
+    //        RemoveProductIncludedCommand = new DelegateCommand(RemoveProductIncludedCommand_Execute, () => SelectedProductIncluded != null);
+    //    }
 
-        private async void AddProductIncludedCommand_Execute()
-        {
-            var productIncluded = new ProductIncluded();
-            productIncluded = await Container.Resolve<IUpdateDetailsService>().UpdateDetailsWithoutSaving(productIncluded);
-            if (productIncluded == null) return;
-            productIncluded.Product = await WrapperDataService.Repository<Product>().GetByIdAsync(productIncluded.Product.Id);
-            SelectedGroup.ProductsIncluded.Add(new ProductIncludedWrapper(productIncluded));
-            await RefreshPrices();
-        }
+    //    private async void AddProductIncludedCommand_Execute()
+    //    {
+    //        var productIncluded = new ProductIncluded();
+    //        productIncluded = await Container.Resolve<IUpdateDetailsService>().UpdateDetailsWithoutSaving(productIncluded);
+    //        if (productIncluded == null) return;
+    //        productIncluded.Product = await UnitOfWork.Repository<Product>().GetByIdAsync(productIncluded.Product.Id);
+    //        SelectedGroup.ProductsIncluded.Add(new ProductIncludedWrapper(productIncluded));
+    //        await RefreshPrices();
+    //    }
 
-        private async void RemoveProductIncludedCommand_Execute()
-        {
-            if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
-                return;
-            SelectedGroup.ProductsIncluded.Remove(SelectedProductIncluded);
-            await RefreshPrices();
-        }
+    //    private async void RemoveProductIncludedCommand_Execute()
+    //    {
+    //        if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
+    //            return;
+    //        SelectedGroup.ProductsIncluded.Remove(SelectedProductIncluded);
+    //        await RefreshPrices();
+    //    }
 
-        protected abstract void AddCommand_Execute();
+    //    protected abstract void AddCommand_Execute();
 
-        private async void RefreshCommand_Execute()
-        {
-            RefreshGroups();
-            await RefreshPrices();
-        }
+    //    private async void RefreshCommand_Execute()
+    //    {
+    //        RefreshGroups();
+    //        await RefreshPrices();
+    //    }
 
-        private void RemoveCommand_Execute()
-        {
-            if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
-                return;
+    //    private void RemoveCommand_Execute()
+    //    {
+    //        if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
+    //            return;
 
-            Groups.Remove(SelectedGroup);
-            SelectedGroup = null;
-        }
+    //        Groups.Remove(SelectedGroup);
+    //        SelectedGroup = null;
+    //    }
 
-        private async void ChangeProductCommand_Execute(TUnitGroup group)
-        {
-            var product = await Container.Resolve<IGetProductService>().GetProductAsync(group.Product?.Model);
-            if (product == null || product.Id == group.Product.Id) return;
-            group.Product = await WrapperDataService.GetWrapperRepository<Product, ProductWrapper>().GetByIdAsync(product.Id);
-            await RefreshPrices();
-        }
+    //    private async void ChangeProductCommand_Execute(TUnitGroup group)
+    //    {
+    //        var product = await Container.Resolve<IGetProductService>().GetProductAsync(group.Product?.Model);
+    //        if (product == null || product.Id == group.Product.Id) return;
+    //        product = await UnitOfWork.Repository<Product>().GetByIdAsync(product.Id);
+    //        group.Product = new ProductWrapper(product);
+    //        await RefreshPrices();
+    //    }
 
-        private async void ChangeFacilityCommand_Execute(TUnitGroup group)
-        {
-            var facilities = await WrapperDataService.Repository<Facility>().GetAllAsNoTrackingAsync();
-            var facility = await Container.Resolve<ISelectService>().SelectItem(facilities, group.Facility?.Id);
-            if (facility == null) return;
-            group.Facility = await WrapperDataService.GetWrapperRepository<Facility, FacilityWrapper>().GetByIdAsync(facility.Id);
-        }
+    //    private async void ChangeFacilityCommand_Execute(TUnitGroup group)
+    //    {
+    //        var facilities = await UnitOfWork.Repository<Facility>().GetAllAsNoTrackingAsync();
+    //        var facility = await Container.Resolve<ISelectService>().SelectItem(facilities, group.Facility?.Id);
+    //        if (facility == null) return;
+    //        facility = await UnitOfWork.Repository<Facility>().GetByIdAsync(facility.Id);
+    //        group.Facility = new FacilityWrapper(facility);
+    //    }
 
-        private async void ChangePaymentsCommand_Execute(TUnitGroup group)
-        {
-            var sets = await WrapperDataService.Repository<PaymentConditionSet>().GetAllAsNoTrackingAsync();
-            var set = await Container.Resolve<ISelectService>().SelectItem(sets, group.PaymentConditionSet?.Id);
-            if (set == null) return;
-            group.PaymentConditionSet = await WrapperDataService.GetWrapperRepository<PaymentConditionSet, PaymentConditionSetWrapper>().GetByIdAsync(set.Id);
-        }
+    //    private async void ChangePaymentsCommand_Execute(TUnitGroup group)
+    //    {
+    //        var sets = await UnitOfWork.Repository<PaymentConditionSet>().GetAllAsNoTrackingAsync();
+    //        var set = await Container.Resolve<ISelectService>().SelectItem(sets, group.PaymentConditionSet?.Id);
+    //        if (set == null) return;
+    //        set = await UnitOfWork.Repository<PaymentConditionSet>().GetByIdAsync(set.Id);
+    //        group.PaymentConditionSet = new PaymentConditionSetWrapper(set);
+    //    }
 
 
-        #endregion
+    //    #endregion
 
 
-        protected override async Task AfterLoading()
-        {
-            RefreshGroups();
-            await RefreshPrices();
-        }
+    //    protected override async Task AfterLoading()
+    //    {
+    //        RefreshGroups();
+    //        await RefreshPrices();
+    //    }
 
-        protected abstract IEnumerable<TUnitGroup> GetGroups();
+    //    protected abstract IEnumerable<TUnitGroup> GetGroups();
 
-        private void RefreshGroups()
-        {
-            Groups.Clear();
-            Groups = new ValidatableChangeTrackingCollection<TUnitGroup>(GetGroups().OrderBy(x => x.Total));
-        }
+    //    private void RefreshGroups()
+    //    {
+    //        Groups.Clear();
+    //        Groups = new ValidatableChangeTrackingCollection<TUnitGroup>(GetGroups().OrderBy(x => x.Total));
+    //    }
 
-        protected async Task RefreshPrices()
-        {
-            foreach (var group in Groups)
-                await RefreshPrice(group);
-        }
+    //    protected async Task RefreshPrices()
+    //    {
+    //        foreach (var group in Groups)
+    //            await RefreshPrice(group);
+    //    }
 
-        private readonly PriceErrors _priceErrors = new PriceErrors();
+    //    private readonly PriceErrors _priceErrors = new PriceErrors();
 
-        public string PriceErrors
-        {
-            get
-            {
-                var blocks = new List<ProductBlock>();
-                if (SelectedGroup == null)
-                {
-                    foreach (var unitsGroup in Groups)
-                    {
-                        blocks.AddRange(unitsGroup.Product.Model.GetBlocks());
-                        foreach (var pi in unitsGroup.ProductsIncluded)
-                        {
-                            blocks.AddRange(pi.Product.Model.GetBlocks());
-                        }
-                    }
-                }
-                else
-                {
-                    blocks.AddRange(SelectedGroup.Product.Model.GetBlocks());
-                    foreach (var pi in SelectedGroup.ProductsIncluded)
-                    {
-                        blocks.AddRange(pi.Product.Model.GetBlocks());
-                    }
-                }
+    //    public string PriceErrors
+    //    {
+    //        get
+    //        {
+    //            var blocks = new List<ProductBlock>();
+    //            if (SelectedGroup == null)
+    //            {
+    //                foreach (var unitsGroup in Groups)
+    //                {
+    //                    blocks.AddRange(unitsGroup.Product.Model.GetBlocks());
+    //                    foreach (var pi in unitsGroup.ProductsIncluded)
+    //                    {
+    //                        blocks.AddRange(pi.Product.Model.GetBlocks());
+    //                    }
+    //                }
+    //            }
+    //            else
+    //            {
+    //                blocks.AddRange(SelectedGroup.Product.Model.GetBlocks());
+    //                foreach (var pi in SelectedGroup.ProductsIncluded)
+    //                {
+    //                    blocks.AddRange(pi.Product.Model.GetBlocks());
+    //                }
+    //            }
 
-                return _priceErrors.Print(blocks);
-            }
-        }
+    //            return _priceErrors.Print(blocks);
+    //        }
+    //    }
 
-        /// <summary>
-        /// Возвращает дату для расчета прайса.
-        /// </summary>
-        /// <returns></returns>
-        protected abstract DateTime GetDate();
+    //    /// <summary>
+    //    /// Возвращает дату для расчета прайса.
+    //    /// </summary>
+    //    /// <returns></returns>
+    //    protected abstract DateTime GetDate();
 
-        private async Task RefreshPrice(TUnitGroup group)
-        {
-            if (group == null) return;
+    //    private async Task RefreshPrice(TUnitGroup group)
+    //    {
+    //        if (group == null) return;
 
-            var priceService = Container.Resolve<IPriceService>();
+    //        var priceService = Container.Resolve<IPriceService>();
 
-            //прайс для основного оборудования
-            var price = await priceService.GetPrice(group.Product.Model, GetDate(), CommonOptions.ActualPriceTerm, _priceErrors);
+    //        //прайс для основного оборудования
+    //        var price = await priceService.GetPrice(group.Product.Model, GetDate(), CommonOptions.ActualPriceTerm, _priceErrors);
             
-            //добавляем прайсы дополнительного оборудования
-            foreach (var productIncluded in group.ProductsIncluded)
-            {
-                price += productIncluded.Amount * await priceService.GetPrice(productIncluded.Product.Model, DateTime.Today, CommonOptions.ActualPriceTerm, _priceErrors);
-            }
+    //        //добавляем прайсы дополнительного оборудования
+    //        foreach (var productIncluded in group.ProductsIncluded)
+    //        {
+    //            price += productIncluded.Amount * await priceService.GetPrice(productIncluded.Product.Model, DateTime.Today, CommonOptions.ActualPriceTerm, _priceErrors);
+    //        }
 
-            group.Price = price;
-            OnPropertyChanged(nameof(PriceErrors));
-        }
+    //        group.Price = price;
+    //        OnPropertyChanged(nameof(PriceErrors));
+    //    }
 
-        protected override async void SaveCommand_Execute()
-        {
-            //добавляем сущность, если ее не существовало
-            if (await WrapperDataService.Repository<TEntity>().GetByIdAsync(Item.Model.Id) == null)
-                WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().Add(Item);
+    //    protected override async void SaveCommand_Execute()
+    //    {
+    //        //добавляем сущность, если ее не существовало
+    //        if (await UnitOfWork.Repository<TEntity>().GetByIdAsync(Item.Model.Id) == null)
+    //            UnitOfWork.GetWrapperRepository<TEntity, TWrapper>().Add(Item);
 
-            //добавляем созданные юниты и удаляем удаленные
-            //WrapperDataService.Repository<TUnit>().AddRange(Groups.AddedItems.Select(x => x.));
-            //WrapperDataService.Repository<TUnit>().DeleteRange(Item.Units.RemovedItems.Select(x => x.Model));
+    //        //добавляем созданные юниты и удаляем удаленные
+    //        //WrapperDataService.Repository<TUnit>().AddRange(Groups.AddedItems.Select(x => x.));
+    //        //WrapperDataService.Repository<TUnit>().DeleteRange(Item.Units.RemovedItems.Select(x => x.Model));
 
-            Item.AcceptChanges();
-            await WrapperDataService.SaveChangesAsync();
+    //        Item.AcceptChanges();
+    //        await UnitOfWork.SaveChangesAsync();
 
-            EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
+    //        EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
 
-            //запрашиваем закрытие окна
-            OnCloseRequested(new DialogRequestCloseEventArgs(true));
-        }
+    //        //запрашиваем закрытие окна
+    //        OnCloseRequested(new DialogRequestCloseEventArgs(true));
+    //    }
 
 
-        protected override bool SaveCommand_CanExecute()
-        {
-            return base.SaveCommand_CanExecute() && Groups.Any() && Groups.IsValid;
-        }
-    }
+    //    protected override bool SaveCommand_CanExecute()
+    //    {
+    //        return base.SaveCommand_CanExecute() && Groups.Any() && Groups.IsValid;
+    //    }
+    //}
 
 }

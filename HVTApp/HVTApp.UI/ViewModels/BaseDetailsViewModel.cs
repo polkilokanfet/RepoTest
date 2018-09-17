@@ -21,12 +21,12 @@ namespace HVTApp.UI.ViewModels
         where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
     {
         protected readonly IEventAggregator EventAggregator;
-        protected IWrapperDataService WrapperDataService;
+        protected IUnitOfWork UnitOfWork;
         private TWrapper _item;
 
         protected BaseDetailsViewModel(IUnityContainer container) : base(container)
         {
-            WrapperDataService = Container.Resolve<IWrapperDataService>();
+            UnitOfWork = Container.Resolve<IUnitOfWork>();
             EventAggregator = Container.Resolve<IEventAggregator>();
 
             SaveCommand = new DelegateCommand(SaveCommand_Execute, SaveCommand_CanExecute);
@@ -47,18 +47,19 @@ namespace HVTApp.UI.ViewModels
 
         public async Task LoadAsync(TEntity entity)
         {
-            WrapperDataService = Container.Resolve<IWrapperDataService>();
-            var item = await WrapperDataService.Repository<TEntity>().GetByIdAsync(entity.Id);
+            UnitOfWork = Container.Resolve<IUnitOfWork>();
+            var item = await UnitOfWork.Repository<TEntity>().GetByIdAsync(entity.Id);
             //создаем или редактируем
-            Item = item == null ? (TWrapper) Activator.CreateInstance(typeof(TWrapper), entity)
-                                : await WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().GetByIdAsync(item.Id);
+            Item = item == null ? (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity)
+                                : (TWrapper)Activator.CreateInstance(typeof(TWrapper), item);
             await AfterLoading();
         }
 
         public async Task LoadAsync(Guid id)
         {
-            WrapperDataService = Container.Resolve<IWrapperDataService>();
-            Item = await WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().GetByIdAsync(id);
+            UnitOfWork = Container.Resolve<IUnitOfWork>();
+            var item = await UnitOfWork.Repository<TEntity>().GetByIdAsync(id);
+            Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), item);
             await AfterLoading();
         }
 
@@ -105,11 +106,11 @@ namespace HVTApp.UI.ViewModels
         protected virtual async void SaveCommand_Execute()
         {
             //добавляем сущность, если ее не существовало
-            if (await WrapperDataService.Repository<TEntity>().GetByIdAsync(Item.Model.Id) == null)
-                WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().Add(Item);
+            if (await UnitOfWork.Repository<TEntity>().GetByIdAsync(Item.Model.Id) == null)
+                UnitOfWork.Repository<TEntity>().Add(Item.Model);
 
             Item.AcceptChanges();
-            await WrapperDataService.SaveChangesAsync();
+            await UnitOfWork.SaveChangesAsync();
 
             EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
 
@@ -146,7 +147,8 @@ namespace HVTApp.UI.ViewModels
             //замена текущего значения новым
             if (entity != null && !Equals(entity.Id, propertyValue?.Model.Id))
             {
-                var wrapper = await WrapperDataService.GetWrapperRepository<TModel, TWrap>().GetByIdAsync(entity.Id);
+                var item = await UnitOfWork.Repository<TModel>().GetByIdAsync(entity.Id);
+                var wrapper = (TWrap)Activator.CreateInstance(typeof(TWrap), item);
                 Item.GetType().GetProperty(propertyName).SetValue(Item, wrapper);
             }
         }
@@ -158,7 +160,8 @@ namespace HVTApp.UI.ViewModels
             var entity = await Container.Resolve<ISelectService>().SelectItem(entities, selectedItemId);
             if (entity != null)
             {
-                var wrapper = await WrapperDataService.GetWrapperRepository<TModel, TWrap>().GetByIdAsync(entity.Id);
+                var item = await UnitOfWork.Repository<TModel>().GetByIdAsync(entity.Id);
+                var wrapper = (TWrap)Activator.CreateInstance(typeof(TWrap), item);
                 list.Add(wrapper);
             }
         }
@@ -166,7 +169,7 @@ namespace HVTApp.UI.ViewModels
 
         public void Dispose()
         {
-            WrapperDataService?.Dispose();
+            UnitOfWork?.Dispose();
         }
 
         protected virtual void OnCloseRequested(DialogRequestCloseEventArgs e)

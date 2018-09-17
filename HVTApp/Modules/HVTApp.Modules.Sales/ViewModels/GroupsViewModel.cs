@@ -56,7 +56,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             Groups = new ValidatableChangeTrackingCollection<SalesUnitsGroup>(groups);
 
-            //AddCommand = new DelegateCommand(AddCommand_Execute);
+            AddCommand = new DelegateCommand(AddCommand_Execute);
             RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => SelectedGroup != null);
             ChangeFacilityCommand = new DelegateCommand<SalesUnitsGroup>(ChangeFacilityCommand_Execute);
             ChangeProductCommand = new DelegateCommand<SalesUnitsGroup>(ChangeProductCommand_Execute);
@@ -130,45 +130,53 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #region Commands
 
-        //protected async void AddCommand_Execute()
-        //{
-        //    var salesUnit = new SalesUnitWrapper(new SalesUnit { Project = Model });
-        //    var viewModel = new SalesUnitsViewModel(salesUnit, Container, _unitOfWork);
-        //    if (SelectedGroup != null)
-        //    {
-        //        viewModel.ViewModel.Item.Cost = SelectedGroup.Cost;
-        //        viewModel.ViewModel.Item.Facility = SelectedGroup.Facility;
-        //        viewModel.ViewModel.Item.PaymentConditionSet = SelectedGroup.PaymentConditionSet;
-        //        viewModel.ViewModel.Item.ProductionTerm = SelectedGroup.ProductionTerm;
-        //        viewModel.ViewModel.Item.Product = SelectedGroup.Product;
-        //        viewModel.ViewModel.Item.DeliveryDateExpected = SelectedGroup.DeliveryDateExpected;
-        //        foreach (var prodIncl in SelectedGroup.ProductsIncluded)
-        //        {
-        //            var pi = new ProductIncluded { Product = prodIncl.Product.Model, Amount = prodIncl.Amount };
-        //            viewModel.ViewModel.Item.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
-        //        }
-        //    }
+        protected async void AddCommand_Execute()
+        {
+            //создаем новый юнит и привязываем его к объекту
+            //var salesUnit = new SalesUnitWrapper(new SalesUnit { Project = Model });
+            var salesUnit = new SalesUnitWrapper(new SalesUnit());
 
-        //    var result = Container.Resolve<IDialogService>().ShowDialog(viewModel);
-        //    if (!result.HasValue || !result.Value)
-        //        return;
+            //создаем модель для диалога
+            var viewModel = new SalesUnitsViewModel(salesUnit, Container, _unitOfWork);
 
-        //    var wrappers = new List<SalesUnitWrapper>();
-        //    for (int i = 0; i < viewModel.Amount; i++)
-        //    {
-        //        var unit = (SalesUnit)viewModel.ViewModel.Item.Model.Clone();
-        //        unit.Id = Guid.NewGuid();
-        //        unit.ProductsIncluded = new List<ProductIncluded>();
-        //        var unitWrapper = new SalesUnitWrapper(unit);
-        //        this.Item.Units.Add(unitWrapper);
-        //        wrappers.Add(unitWrapper);
-        //    }
+            //заполняем юнит начальными данными
+            if (SelectedGroup != null)
+            {
+                viewModel.ViewModel.Item.Cost = SelectedGroup.Cost;
+                viewModel.ViewModel.Item.Facility = SelectedGroup.Facility;
+                viewModel.ViewModel.Item.PaymentConditionSet = SelectedGroup.PaymentConditionSet;
+                viewModel.ViewModel.Item.ProductionTerm = SelectedGroup.ProductionTerm;
+                viewModel.ViewModel.Item.Product = SelectedGroup.Product;
+                viewModel.ViewModel.Item.DeliveryDateExpected = SelectedGroup.DeliveryDateExpected;
+                
+                //создаем зависимое оборудование
+                foreach (var prodIncl in SelectedGroup.ProductsIncluded)
+                {
+                    var pi = new ProductIncluded { Product = prodIncl.Product.Model, Amount = prodIncl.Amount };
+                    viewModel.ViewModel.Item.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
+                }
+            }
 
-        //    //var group = new UnitsDatedGroup(wrappers);
-        //    //Groups.Add(group);
-        //    await RefreshPrices();
-        //    //SelectedGroup = group;
-        //}
+            //диалог с пользователем
+            var result = Container.Resolve<IDialogService>().ShowDialog(viewModel);
+
+            if (!result.HasValue || !result.Value) return;
+
+            //клонируем юниты
+            var units = new List<SalesUnit>();
+            for (int i = 0; i < viewModel.Amount; i++)
+            {
+                var unit = (SalesUnit)viewModel.ViewModel.Item.Model.Clone();
+                unit.Id = Guid.NewGuid();
+                unit.ProductsIncluded = new List<ProductIncluded>();
+                units.Add(unit);
+            }
+
+            var group = new SalesUnitsGroup(units);
+            Groups.Add(group);
+            await RefreshPrice(group);
+            SelectedGroup = group;
+        }
 
 
         private async void AddProductIncludedCommand_Execute()

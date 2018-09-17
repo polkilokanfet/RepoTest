@@ -33,7 +33,7 @@ namespace HVTApp.UI.ViewModels
         {
             AddCommand = new DelegateCommand(AddCommand_Execute);
 
-            var salesUnits = await WrapperDataService.Repository<SalesUnit>().GetAllAsync();
+            var salesUnits = await UnitOfWork.Repository<SalesUnit>().GetAllAsync();
 
             var realUnits = salesUnits.Where(x => x.Order?.Id == Item.Id);
             var potentialUnits = salesUnits.Where(x => x.Order == null && x.SignalToStartProduction != null);

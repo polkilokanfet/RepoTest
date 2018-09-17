@@ -31,10 +31,10 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public ICommand OkCommand { get; }
 
-        public OfferUnitsViewModel(OfferUnitWrapper item, IUnityContainer container, IWrapperDataService wrapperDataService)
+        public OfferUnitsViewModel(OfferUnitWrapper item, IUnityContainer container, IUnitOfWork unitOfWork)
         {
             ViewModel = container.Resolve<OfferUnitDetailsViewModel>();
-            ViewModel.Load(item, wrapperDataService);
+            ViewModel.Load(item, unitOfWork);
             Action okCommandExecute = () => CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
             Func<bool> okCommandCanExecute = () => Amount > 0 && ViewModel.Item.IsValid;
             OkCommand = new DelegateCommand(okCommandExecute, okCommandCanExecute);

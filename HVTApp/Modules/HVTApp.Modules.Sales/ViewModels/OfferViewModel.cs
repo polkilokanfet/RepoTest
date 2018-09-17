@@ -68,49 +68,49 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// <returns></returns>
         public async Task LoadAsync(Offer offer, IEnumerable<OfferUnit> offerUnits)
         {
-            WrapperDataService = Container.Resolve<IWrapperDataService>();
+            //UnitOfWork = Container.Resolve<IWrapperDataService>();
 
-            //продукты, условия и объекты из базы
-            var products = (await WrapperDataService.GetWrapperRepository<Product, ProductWrapper>().GetAllAsync()).ToList();
-            var conditions = (await WrapperDataService.GetWrapperRepository<PaymentConditionSet, PaymentConditionSetWrapper>().GetAllAsync()).ToList();
-            var facilities = (await WrapperDataService.GetWrapperRepository<Facility, FacilityWrapper>().GetAllAsync()).ToList();
+            ////продукты, условия и объекты из базы
+            //var products = (await UnitOfWork.GetWrapperRepository<Product, ProductWrapper>().GetAllAsync()).ToList();
+            //var conditions = (await UnitOfWork.GetWrapperRepository<PaymentConditionSet, PaymentConditionSetWrapper>().GetAllAsync()).ToList();
+            //var facilities = (await UnitOfWork.GetWrapperRepository<Facility, FacilityWrapper>().GetAllAsync()).ToList();
 
-            Item = new OfferWrapper(new Offer(), new List<OfferUnitWrapper>());
+            //Item = new OfferWrapper(new Offer(), new List<OfferUnitWrapper>());
 
-            if (offer.Author != null) Item.Author = await WrapperDataService.GetWrapperRepository<Employee, EmployeeWrapper>().GetByIdAsync(offer.Author.Id);
-            if (offer.Author != null) Item.Project = await WrapperDataService.GetWrapperRepository<Project, ProjectWrapper>().GetByIdAsync(offer.Project.Id);
-            if (offer.RecipientEmployee != null) Item.RecipientEmployee = await WrapperDataService.GetWrapperRepository<Employee, EmployeeWrapper>().GetByIdAsync(offer.RecipientEmployee.Id);
-            if (offer.SenderEmployee != null) Item.SenderEmployee = await WrapperDataService.GetWrapperRepository<Employee, EmployeeWrapper>().GetByIdAsync(offer.SenderEmployee.Id);
-            if (offer.RequestDocument != null) Item.RequestDocument = await WrapperDataService.GetWrapperRepository<Document, DocumentWrapper>().GetByIdAsync(offer.RequestDocument.Id);
+            //if (offer.Author != null) Item.Author = await UnitOfWork.GetWrapperRepository<Employee, EmployeeWrapper>().GetByIdAsync(offer.Author.Id);
+            //if (offer.Author != null) Item.Project = await UnitOfWork.GetWrapperRepository<Project, ProjectWrapper>().GetByIdAsync(offer.Project.Id);
+            //if (offer.RecipientEmployee != null) Item.RecipientEmployee = await UnitOfWork.GetWrapperRepository<Employee, EmployeeWrapper>().GetByIdAsync(offer.RecipientEmployee.Id);
+            //if (offer.SenderEmployee != null) Item.SenderEmployee = await UnitOfWork.GetWrapperRepository<Employee, EmployeeWrapper>().GetByIdAsync(offer.SenderEmployee.Id);
+            //if (offer.RequestDocument != null) Item.RequestDocument = await UnitOfWork.GetWrapperRepository<Document, DocumentWrapper>().GetByIdAsync(offer.RequestDocument.Id);
 
-            Item.Comment = offer.Comment;
-            Item.Vat = offer.Vat;
-            Item.ValidityDate = offer.ValidityDate;
+            //Item.Comment = offer.Comment;
+            //Item.Vat = offer.Vat;
+            //Item.ValidityDate = offer.ValidityDate;
 
-            foreach (var offerUnit in offerUnits)
-            {
-                var wrap = new OfferUnitWrapper(new OfferUnit())
-                {
-                    Product = products.Single(x => x.Id == offerUnit.Product.Id),
-                    PaymentConditionSet = conditions.Single(x => x.Id == offerUnit.PaymentConditionSet.Id),
-                    Facility = facilities.Single(x => x.Id == offerUnit.Facility.Id),
-                    Cost = offerUnit.Cost,
-                    ProductionTerm = offerUnit.ProductionTerm
-                };
-                wrap.Model.Offer = Item.Model;
-                foreach (var productIncluded in offerUnit.ProductsIncluded)
-                {
-                    var pi = new ProductIncludedWrapper(new ProductIncluded())
-                    {
-                        Product = products.Single(x => x.Id == productIncluded.Product.Id),
-                        Amount = productIncluded.Amount
-                    };
-                    wrap.ProductsIncluded.Add(pi);
-                }
-                Item.Units.Add(wrap);
-            }
+            //foreach (var offerUnit in offerUnits)
+            //{
+            //    var wrap = new OfferUnitWrapper(new OfferUnit())
+            //    {
+            //        Product = products.Single(x => x.Id == offerUnit.Product.Id),
+            //        PaymentConditionSet = conditions.Single(x => x.Id == offerUnit.PaymentConditionSet.Id),
+            //        Facility = facilities.Single(x => x.Id == offerUnit.Facility.Id),
+            //        Cost = offerUnit.Cost,
+            //        ProductionTerm = offerUnit.ProductionTerm
+            //    };
+            //    wrap.Model.Offer = Item.Model;
+            //    foreach (var productIncluded in offerUnit.ProductsIncluded)
+            //    {
+            //        var pi = new ProductIncludedWrapper(new ProductIncluded())
+            //        {
+            //            Product = products.Single(x => x.Id == productIncluded.Product.Id),
+            //            Amount = productIncluded.Amount
+            //        };
+            //        wrap.ProductsIncluded.Add(pi);
+            //    }
+            //    Item.Units.Add(wrap);
+            //}
 
-            await AfterLoading();
+            //await AfterLoading();
         }
     }
 }

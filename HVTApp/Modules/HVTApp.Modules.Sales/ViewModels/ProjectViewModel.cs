@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Converter;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
@@ -41,11 +36,15 @@ namespace HVTApp.Modules.Sales.ViewModels
             await base.AfterLoading();
 
             //назначаем менеджера
-            if (Item.Manager == null) Item.Manager = await WrapperDataService.GetWrapperRepository<User, UserWrapper>().GetByIdAsync(CommonOptions.User.Id);
+            if (Item.Manager == null)
+            {
+                var model = await UnitOfWork.Repository<User>().GetByIdAsync(CommonOptions.User.Id);
+                Item.Manager = new UserWrapper(model);
+            }
 
             //загружаем строки с оборудованием
-            var units = WrapperDataService.Repository<SalesUnit>().Find(x => x.Project.Id == Item.Id);
-            GroupsViewModel = new GroupsViewModel(Container, units, WrapperDataService);
+            var units = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == Item.Id);
+            GroupsViewModel = new GroupsViewModel(Container, units, UnitOfWork);
             await GroupsViewModel.LoadAsync();
 
             //команды

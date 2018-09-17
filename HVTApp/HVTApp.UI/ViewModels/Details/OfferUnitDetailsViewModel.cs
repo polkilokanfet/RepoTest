@@ -1,4 +1,5 @@
-﻿using HVTApp.Model.POCOs;
+﻿using HVTApp.Infrastructure;
+using HVTApp.Model.POCOs;
 using HVTApp.Services.GetProductService;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
@@ -8,9 +9,9 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class OfferUnitDetailsViewModel
     {
-        public void Load(OfferUnitWrapper unit, IWrapperDataService wrapperDataService)
+        public void Load(OfferUnitWrapper unit, IUnitOfWork unitOfWork)
         {
-            this.WrapperDataService = wrapperDataService;
+            this.UnitOfWork = unitOfWork;
             Item = unit;
         }
 
@@ -24,7 +25,7 @@ namespace HVTApp.UI.ViewModels
             var product = await Container.Resolve<IGetProductService>().GetProductAsync(Item.Model.Product);
             if (product != null)
             {
-                product = await WrapperDataService.Repository<Product>().GetByIdAsync(product.Id);
+                product = await UnitOfWork.Repository<Product>().GetByIdAsync(product.Id);
                 Item.Product = new ProductWrapper(product);
             }
         }
