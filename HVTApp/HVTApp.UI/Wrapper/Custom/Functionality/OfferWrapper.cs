@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Wrapper
@@ -28,5 +29,15 @@ namespace HVTApp.UI.Wrapper
 
         public double Sum => Units.Sum(x => x.Cost);
         public double SumWithVat => Sum * (1 + Vat);
+
+        public override void InitializeOther()
+        {
+            base.InitializeOther();
+            if (Model.Number == null)
+            {
+                Model.Number = new DocumentNumber();
+                Model.Code = CommonOptions.User.PersonalNumber;
+            }
+        }
     }
 }

@@ -20,10 +20,12 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Название" Visibility="{Binding VisibilityNameProject, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameProject, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="Тип проекта" Visibility="{Binding VisibilityProjectTypeProject, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
@@ -32,6 +34,7 @@
                                     RemoveItemCommand="{Binding ClearProjectTypeCommand}"
 									Visibility="{Binding VisibilityProjectTypeProject, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="2" Content="Менеджер" Visibility="{Binding VisibilityManagerProject, ElementName=Root}"/>
         <controls:ChooseItemControl Grid.Column="1" Grid.Row="2" 
                                     Item="{Binding Item.Manager}" 
@@ -39,10 +42,12 @@
                                     RemoveItemCommand="{Binding ClearManagerCommand}"
 									Visibility="{Binding VisibilityManagerProject, ElementName=Root}"/>
 
+
         <Label Grid.Column="0" Grid.Row ="3" Content="Высокая вероятность поставки" Visibility="{Binding VisibilityHighProbabilityProject, ElementName=Root}"/>
         <CheckBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                   IsChecked="{Binding Item.HighProbability, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				  Visibility="{Binding VisibilityHighProbabilityProject, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="4" Content="Заметки" Visibility="{Binding VisibilityNotesProject, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="4"
@@ -51,6 +56,7 @@
 										 AddItemCommand="{Binding AddInNotesCommand}"
 										 RemoveItemCommand="{Binding RemoveFromNotesCommand}"
 										 Visibility="{Binding VisibilityNotesProject, ElementName=Root}"/>
+
 
 
     </Grid>

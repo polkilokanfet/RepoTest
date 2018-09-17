@@ -1,6 +1,6 @@
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.Services.ProductDesignationService
+namespace HVTApp.Model.Services
 {
     public interface IProductDesignationService
     {

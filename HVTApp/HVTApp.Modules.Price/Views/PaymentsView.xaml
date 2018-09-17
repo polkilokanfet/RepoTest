@@ -42,7 +42,7 @@
                             <infg:TextField AlternateBinding="{Binding Payment.SalesUnit.Facility}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
                             <infg:TextField AlternateBinding="{Binding Payment.SalesUnit.Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип" Width="Auto"/>
                             <infg:TextField AlternateBinding="{Binding Payment.SalesUnit.Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
-                            <infg:TextField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
+                            <infg:TextField AlternateBinding="{Binding Amount}" BindingType="UseAlternateBinding" Label="Кол." Width="Auto"/>
                             <infg:TextField AlternateBinding="{Binding Payment.SalesUnit.Order}" BindingType="UseAlternateBinding" Label="З/з" Width="Auto"/>
                             <infg:TextField AlternateBinding="{Binding OrderPosition}" BindingType="UseAlternateBinding" Label="Поз." Width="Auto"/>
                             <infg:TextField AlternateBinding="{Binding Payment.SalesUnit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>

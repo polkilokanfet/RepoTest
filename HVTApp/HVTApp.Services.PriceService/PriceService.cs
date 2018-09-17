@@ -91,10 +91,10 @@ namespace HVTApp.Services.PriceService
             foreach (var block in blocks)
             {
                 var difParams1 = block.Parameters.Except(targetBlock.Parameters).ToList();
-                double dif = difParams1.Sum(param => block.GetWeight(param));
+                double dif = difParams1.Sum(param => param.GetWeight(block));
 
                 var difParams2 = targetBlock.Parameters.Except(block.Parameters).ToList();
-                dif += difParams2.Sum(param => targetBlock.GetWeight(param));
+                dif += difParams2.Sum(param => param.GetWeight(targetBlock));
 
                 dic.Add(block, dif);
             }

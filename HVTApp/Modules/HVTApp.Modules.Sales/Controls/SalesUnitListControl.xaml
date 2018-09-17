@@ -13,7 +13,7 @@
                     <ControlTemplate TargetType="{x:Type dp:CellValuePresenter}">
                         <StackPanel Orientation="Horizontal">
                             <Button Content="..."
-                                    Command="{Binding ChangeFacilityCommand}"
+                                    Command="{Binding DataContext.ChangeFacilityCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Record.DataItem}" />
                             <TextBlock Text="{TemplateBinding Value}"
                                        VerticalAlignment="Center" />
@@ -30,7 +30,7 @@
                     <ControlTemplate TargetType="{x:Type dp:CellValuePresenter}">
                         <StackPanel Orientation="Horizontal">
                             <Button Content="..."
-                                    Command="{Binding ChangeProductCommand}"
+                                    Command="{Binding DataContext.ChangeProductCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Record.DataItem}" />
                             <TextBlock Text="{TemplateBinding Value}"
                                        VerticalAlignment="Center" />
@@ -47,7 +47,7 @@
                     <ControlTemplate TargetType="{x:Type dp:CellValuePresenter}">
                         <StackPanel Orientation="Horizontal">
                             <Button Content="..."
-                                    Command="{Binding ChangePaymentsCommand}"
+                                    Command="{Binding DataContext.ChangePaymentsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Record.DataItem}" />
                             <TextBlock Text="{TemplateBinding Value}"
                                        VerticalAlignment="Center" />
@@ -77,7 +77,7 @@
             <GroupBox Grid.Column="0" Header="Оборудование">
                 
                 <dp:XamDataGrid x:Name="UnitListGrid"
-                                DataSource="{Binding Groups, UpdateSourceTrigger=PropertyChanged}"
+                                DataSource="{Binding Groups}"
                                 SelectedDataItem="{Binding SelectedGroup, Mode=TwoWay}">
                        
                     <dp:XamDataGrid.FieldLayouts>

@@ -5,6 +5,7 @@ using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model.Comparers;
 
 namespace HVTApp.Model.POCOs
 {
@@ -27,26 +28,33 @@ namespace HVTApp.Model.POCOs
         [Designation("Продукты в составе")]
         public virtual List<ProductDependent> DependentProducts { get; set; } = new List<ProductDependent>();
 
+
+
+
+
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj) || Equals(obj as Product);
+        }
+
+        protected bool Equals(Product other)
+        {
+            if (other == null) return false;
+
+            //если составные части не совпадают
+            if (!this.ProductBlock.Equals(other.ProductBlock)) return false;
+
+            //если зависимые продукты не совпадают / совпадают
+            return DependentProducts.MembersAreSame(other.DependentProducts, new ProductDependentComparer());
+        }
+
         public override string ToString()
         {
             string type = ProductType == null ? String.Empty : $"{ProductType} ";
             if (!string.IsNullOrEmpty(DesignationSpecial)) return $"{type}{DesignationSpecial}";
-            if (!string.IsNullOrEmpty(Designation)) return $"{type}{Designation}"; ;
+            if (!string.IsNullOrEmpty(Designation)) return $"{type}{Designation}";
             return ProductBlock.ToString();
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (base.Equals(obj)) return true;
-
-            var otherProduct = obj as Product;
-            if (otherProduct == null) return false;
-
-            //если составные части не совпадают
-            if (!this.ProductBlock.Equals(otherProduct.ProductBlock)) return false;
-
-            //если зависимые продукты не совпадают / совпадают
-            return DependentProducts.AllMembersAreSame(otherProduct.DependentProducts);
         }
 
         /// <summary>
@@ -66,22 +74,38 @@ namespace HVTApp.Model.POCOs
             return result;
         }
 
-
-        public string GetFullDescription(int spaceCount = 0)
+        public IEnumerable<Product> GetProducts()
         {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append($"{this} (параметры :: {ProductBlock.ParametersToString().ToLower()})".AddSpacesBefore(spaceCount));
-            if (DependentProducts.Any())
+            yield return this;
+
+            foreach (var dependentProduct in DependentProducts)
             {
-                spaceCount++;
-                stringBuilder.Append(Environment.NewLine + "Составные части:".AddSpacesBefore(spaceCount));
-                foreach (var dependentProduct in DependentProducts)
+                foreach (var product in dependentProduct.Product.GetProducts())
                 {
-                    stringBuilder.Append(Environment.NewLine + dependentProduct.Product.GetFullDescription(spaceCount).AddSpacesBefore(spaceCount));
+                    yield return product;
                 }
             }
 
-            return stringBuilder.ToString();
+        }
+
+
+
+        public string GetFullDescription(int spaceCount = 0)
+        {
+            var sb = new StringBuilder();
+            sb.Append($"{Designation} ");
+            sb.Append($"{this} (параметры: {ProductBlock.ParametersToString().ToLower()})".AddSpacesBefore(spaceCount));
+            if (DependentProducts.Any())
+            {
+                spaceCount++;
+                sb.AppendLine("Составные части:".AddSpacesBefore(spaceCount));
+                foreach (var dependentProduct in DependentProducts)
+                {
+                    sb.AppendLine($"{dependentProduct.Amount} шт. " + dependentProduct.Product.GetFullDescription(spaceCount).AddSpacesBefore(spaceCount));
+                }
+            }
+
+            return sb.ToString();
         }
     }
 

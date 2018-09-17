@@ -3,9 +3,9 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.Modules.Price.Menus
 {
-    public partial class SalesMenu : IOutlookBarGroup
+    public partial class PriceMenu : IOutlookBarGroup
     {
-        public SalesMenu(SalesMenuViewModel viewModel)
+        public PriceMenu(PriceMenuViewModel viewModel)
         {
             InitializeComponent();
             this.DataContext = viewModel;

@@ -975,60 +975,6 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("DocumentIncomingNumber")]
-	[DesignationPlural("DocumentIncomingNumberLookup")]
-	[AllowEditAttribute(Role.Admin)]
-
-    public partial class DocumentIncomingNumberLookupListView : ViewBase
-    {
-        public DocumentIncomingNumberLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public DocumentIncomingNumberLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentIncomingNumberLookupListViewModel DocumentIncomingNumberLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = DocumentIncomingNumberLookupListViewModel;
-			DocumentIncomingNumberLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((DocumentIncomingNumberLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility NumVisibility
-        {
-            get { return DocumentIncomingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentIncomingNumberLookup.Num)].Visibility; }
-            set { DocumentIncomingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentIncomingNumberLookup.Num)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return DocumentIncomingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentIncomingNumberLookup.DisplayMember)].Visibility; }
-            set { DocumentIncomingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentIncomingNumberLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return DocumentIncomingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentIncomingNumberLookup.Entity)].Visibility; }
-            set { DocumentIncomingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentIncomingNumberLookup.Entity)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
 	[Designation("Документ")]
 	[DesignationPlural("DocumentLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -1056,6 +1002,27 @@ namespace HVTApp.UI.Views
 		#region VisibilityProps
 
 
+        public System.Windows.Visibility CodeVisibility
+        {
+            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.Code)].Visibility; }
+            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.Code)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RegNumberVisibility
+        {
+            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.RegNumber)].Visibility; }
+            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.RegNumber)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DateVisibility
+        {
+            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.Date)].Visibility; }
+            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.Date)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility SenderIdVisibility
         {
             get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.SenderId)].Visibility; }
@@ -1081,6 +1048,13 @@ namespace HVTApp.UI.Views
         {
             get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.DisplayMember)].Visibility; }
             set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility NumberVisibility
+        {
+            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.Number)].Visibility; }
+            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.Number)].Visibility = value; }
         }
 
 
@@ -1112,13 +1086,6 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility RegistrationDetailsOfSenderVisibility
-        {
-            get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.RegistrationDetailsOfSender)].Visibility; }
-            set { DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.RegistrationDetailsOfSender)].Visibility = value; }
-        }
-
-
         public System.Windows.Visibility RegistrationDetailsOfRecipientVisibility
         {
             get { return DocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentLookup.RegistrationDetailsOfRecipient)].Visibility; }
@@ -1139,51 +1106,51 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("DocumentOutgoingNumber")]
-	[DesignationPlural("DocumentOutgoingNumberLookup")]
+	[Designation("DocumentNumber")]
+	[DesignationPlural("DocumentNumberLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
-    public partial class DocumentOutgoingNumberLookupListView : ViewBase
+    public partial class DocumentNumberLookupListView : ViewBase
     {
-        public DocumentOutgoingNumberLookupListView()
+        public DocumentNumberLookupListView()
         {
             InitializeComponent();
         }
 
-        public DocumentOutgoingNumberLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentOutgoingNumberLookupListViewModel DocumentOutgoingNumberLookupListViewModel) : base(regionManager, eventAggregator)
+        public DocumentNumberLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentNumberLookupListViewModel DocumentNumberLookupListViewModel) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            DataContext = DocumentOutgoingNumberLookupListViewModel;
-			DocumentOutgoingNumberLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            DataContext = DocumentNumberLookupListViewModel;
+			DocumentNumberLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
             Loaded += OnLoaded;
         }
 		        
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-			await ((DocumentOutgoingNumberLookupListViewModel)DataContext).LoadAsync();;
+			await ((DocumentNumberLookupListViewModel)DataContext).LoadAsync();;
         }
 
 		#region VisibilityProps
 
 
-        public System.Windows.Visibility NumVisibility
+        public System.Windows.Visibility NumberVisibility
         {
-            get { return DocumentOutgoingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentOutgoingNumberLookup.Num)].Visibility; }
-            set { DocumentOutgoingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentOutgoingNumberLookup.Num)].Visibility = value; }
+            get { return DocumentNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentNumberLookup.Number)].Visibility; }
+            set { DocumentNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentNumberLookup.Number)].Visibility = value; }
         }
 
 
         public System.Windows.Visibility DisplayMemberVisibility
         {
-            get { return DocumentOutgoingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentOutgoingNumberLookup.DisplayMember)].Visibility; }
-            set { DocumentOutgoingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentOutgoingNumberLookup.DisplayMember)].Visibility = value; }
+            get { return DocumentNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentNumberLookup.DisplayMember)].Visibility; }
+            set { DocumentNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentNumberLookup.DisplayMember)].Visibility = value; }
         }
 
 
         public System.Windows.Visibility EntityVisibility
         {
-            get { return DocumentOutgoingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentOutgoingNumberLookup.Entity)].Visibility; }
-            set { DocumentOutgoingNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentOutgoingNumberLookup.Entity)].Visibility = value; }
+            get { return DocumentNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentNumberLookup.Entity)].Visibility; }
+            set { DocumentNumberLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentNumberLookup.Entity)].Visibility = value; }
         }
 
 
@@ -1744,7 +1711,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("Note")]
+	[Designation("Заметка")]
 	[DesignationPlural("NoteLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -1812,7 +1779,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("ТКП")]
+	[Designation("Предложение")]
 	[DesignationPlural("OfferLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -1850,6 +1817,27 @@ namespace HVTApp.UI.Views
         {
             get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.Vat)].Visibility; }
             set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.Vat)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CodeVisibility
+        {
+            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.Code)].Visibility; }
+            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.Code)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility RegNumberVisibility
+        {
+            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.RegNumber)].Visibility; }
+            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.RegNumber)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DateVisibility
+        {
+            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.Date)].Visibility; }
+            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.Date)].Visibility = value; }
         }
 
 
@@ -1895,6 +1883,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility NumberVisibility
+        {
+            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.Number)].Visibility; }
+            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.Number)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility RequestDocumentVisibility
         {
             get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.RequestDocument)].Visibility; }
@@ -1920,13 +1915,6 @@ namespace HVTApp.UI.Views
         {
             get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.RecipientEmployee)].Visibility; }
             set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.RecipientEmployee)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility RegistrationDetailsOfSenderVisibility
-        {
-            get { return OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.RegistrationDetailsOfSender)].Visibility; }
-            set { OfferLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferLookup.RegistrationDetailsOfSender)].Visibility = value; }
         }
 
 
@@ -2182,7 +2170,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("Parameter")]
+	[Designation("Параметр")]
 	[DesignationPlural("ParameterLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -2250,7 +2238,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("ParameterRelation")]
+	[Designation("Ограничение использования параметра")]
 	[DesignationPlural("ParameterRelationLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -2275,13 +2263,6 @@ namespace HVTApp.UI.Views
         }
 
 		#region VisibilityProps
-
-
-        public System.Windows.Visibility ParameterIdVisibility
-        {
-            get { return ParameterRelationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ParameterRelationLookup.ParameterId)].Visibility; }
-            set { ParameterRelationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ParameterRelationLookup.ParameterId)].Visibility = value; }
-        }
 
 
         public System.Windows.Visibility DisplayMemberVisibility
@@ -2814,6 +2795,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility DesignVisibility
+        {
+            get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.Design)].Visibility; }
+            set { ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.Design)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility IsServiceVisibility
         {
             get { return ProductBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductBlockLookup.IsService)].Visibility; }
@@ -3192,6 +3180,13 @@ namespace HVTApp.UI.Views
         }
 
 		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return ProductRelationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductRelationLookup.Name)].Visibility; }
+            set { ProductRelationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductRelationLookup.Name)].Visibility = value; }
+        }
 
 
         public System.Windows.Visibility ChildProductsAmountVisibility
@@ -4216,7 +4211,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("Тендер")]
+	[Designation("Конкурс")]
 	[DesignationPlural("TenderLookup")]
 	[AllowEditAttribute(Role.Admin)]
 

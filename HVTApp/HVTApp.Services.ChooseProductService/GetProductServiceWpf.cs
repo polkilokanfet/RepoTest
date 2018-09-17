@@ -6,6 +6,7 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.Services.ProductDesignationService;
 using Microsoft.Practices.Unity;
 using Prism.Events;
@@ -35,7 +36,7 @@ namespace HVTApp.Services.GetProductService
             var productRelations = await _unitOfWork.Repository<ProductRelation>().GetAllAsync();
             var productBlocks = await _unitOfWork.Repository<ProductBlock>().GetAllAsync();
 
-            _bank = new Bank(products, productBlocks, parameters, productRelations);
+            _bank = new Bank(products, productBlocks, parameters, productRelations, _container.Resolve<IProductDesignationService>());
         }
 
         public async Task<Product> GetProductAsync(Product originProduct = null)
@@ -44,7 +45,7 @@ namespace HVTApp.Services.GetProductService
 
             var selectedProduct = originProduct == null ? null : _bank.Products.Single(x => x.Id == originProduct.Id);
 
-            var productSelector = new ProductSelector(_bank, _designator, _bank.Parameters, selectedProduct);
+            var productSelector = new ProductSelector(_bank, _bank.Parameters, selectedProduct);
             var window = new SelectProductWindow { DataContext = productSelector, Owner = Application.Current.MainWindow };
             window.ShowDialog();
 
@@ -59,15 +60,53 @@ namespace HVTApp.Services.GetProductService
 
             var result = productSelector.SelectedProduct;
 
+            //оставляем только уникальные блоки
+            //var blocks = result.GetBlocks().Distinct().ToList();
+            //SubstitutionBlocks(result, blocks);
+
+            //загрузка актуальных продуктов
+            var products = await _unitOfWork.Repository<Product>().GetAllAsync();
             //если выбранного продукта нет в базе
-            if (!_bank.Products.Contains(result))
+            if (!products.Contains(result))
             {
+                SubstitutionProducts(result, products);
                 _unitOfWork.Repository<Product>().Add(result);
                 await _unitOfWork.SaveChangesAsync();
                 _eventAggregator.GetEvent<AfterSaveProductEvent>().Publish(result);
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// подмена блоков на уникальные
+        /// </summary>
+        /// <param name="product">целевой продукт</param>
+        /// <param name="uniqBlocks">уникальные блоки</param>
+        private void SubstitutionBlocks(Product product, ICollection<ProductBlock> uniqBlocks)
+        {
+            if (uniqBlocks.Contains(product.ProductBlock))
+            {
+                product.ProductBlock = uniqBlocks.Single(x => x.Equals(product.ProductBlock));
+            }
+
+            foreach (var dependentProduct in product.DependentProducts)
+            {
+                SubstitutionBlocks(dependentProduct.Product, uniqBlocks);
+            }
+        }
+
+        private void SubstitutionProducts(Product product, ICollection<Product> uniqProducts)
+        {
+            foreach (var dependentProduct in product.DependentProducts)
+            {
+                if (uniqProducts.Contains(dependentProduct.Product))
+                {
+                    dependentProduct.Product = uniqProducts.Single(x => x.Equals(dependentProduct.Product));
+                }
+
+                SubstitutionProducts(dependentProduct.Product, uniqProducts);
+            }
         }
 
         private async Task<Product> CreateNewProduct()
@@ -97,7 +136,7 @@ namespace HVTApp.Services.GetProductService
             {
                 parameter.ParameterGroup = _bank.Parameters.Select(x => x.ParameterGroup).Distinct().Single(x => x.Name == "Обозначение");
             }
-            parameter.ParameterRelations.Add(new ParameterRelation {ParameterId = parameter.Id, RequiredParameters = new List<Parameter> {parentParameter} });
+            parameter.ParameterRelations.Add(new ParameterRelation { RequiredParameters = new List<Parameter> {parentParameter} });
 
             var product = new Product {ProductBlock = new ProductBlock {Parameters = new List<Parameter> {parentParameter, parameter} }};
             product.ProductBlock.StructureCostNumber = tsk.StructureCostNumber;

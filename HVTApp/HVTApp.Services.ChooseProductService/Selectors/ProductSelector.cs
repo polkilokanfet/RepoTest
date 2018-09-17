@@ -11,9 +11,8 @@ namespace HVTApp.Services.GetProductService
     public class ProductSelector : NotifyPropertyChanged
     {
         private readonly Bank _bank;
-        private readonly IProductDesignationService _designator;
 
-        public ProductBlockSelector ProductBlockSelector { get; }
+        public ProductBlockSelector BlockSelector { get; }
         public ObservableCollection<ProductSelector> ProductSelectors { get; } = new ObservableCollection<ProductSelector>();
         public int Amount { get; }
         public bool HasDependentProducts => ProductSelectors.Any();
@@ -34,114 +33,100 @@ namespace HVTApp.Services.GetProductService
             } 
         }
 
-        public Product SelectedProduct
-        {
-            get
-            {
-                var product = new Product
-                {
-                    ProductBlock = ProductBlockSelector.SelectedProductBlock,
-                    DependentProducts = ProductDependents.ToList()
-                };
-                product.Designation = _designator.GetDesignation(product);
-                product.ProductType = _designator.GetProductType(product);
+        public Product SelectedProduct => _bank.GetProduct(BlockSelector.SelectedBlock, ProductDependents);
 
-                var existsProduct = _bank.Products.SingleOrDefault(x => x.Equals(product));
-
-                return existsProduct ?? product;
-            }
-        }
-
-        public ProductSelector(Bank bank, IProductDesignationService designator, IEnumerable<Parameter> parameters, 
-                               Product selectedProduct = null, int amount = 1)
+        public ProductSelector(Bank bank, IEnumerable<Parameter> parameters, Product selectedProduct = null, int amount = 1)
         {
             if (bank == null) throw new ArgumentNullException(nameof(bank));
             if (parameters == null) throw new ArgumentNullException(nameof(parameters));
-            _bank = bank;
-            _designator = designator;
 
+            _bank = bank;
             Amount = amount;
-            ProductBlockSelector = new ProductBlockSelector(parameters, _bank.ProductBlocks, selectedProduct?.ProductBlock);
-            ProductBlockSelector.SelectedProductBlockChanged += bs =>
-            {
-                RefreshProductSelectors();
-                SelectedProductChanged?.Invoke();
-                OnPropertyChanged(nameof(SelectedProduct));
-            };
+
+            //создаем селектор блока и подписываемся на событие его изменения
+            BlockSelector = new ProductBlockSelector(parameters, _bank, selectedProduct?.ProductBlock);
+            BlockSelector.SelectedBlockChanged += OnSelectedBlockChanged;
 
             if (selectedProduct == null)
             {
-                //выбираем первый параметр базового селектора
-                ProductBlockSelector.SelectFirstParameter();
+                //поиск селектора, содержащего базовые параметры
+                var parameterSelector = BlockSelector.ParameterSelectors.Single(x => x.ParametersFlaged.All(p => p.Parameter.IsOrigin));
+                //выбор параметра
+                parameterSelector.SelectedParameterFlaged = parameterSelector.ParametersFlaged.First();
             }
             else
             {
                 foreach (var kvp in GetDictionaryOfMatching(selectedProduct))
                 {
-                    if (Equals(kvp.Value, default(IEnumerable<Product>)))
-                        continue;
+                    if (Equals(kvp.Value, default(IEnumerable<Product>))) continue;
+
                     foreach (var product in kvp.Value)
                     {
                         //редактируем список параметров
-                        var usefullParameters = bank.Parameters.GetUsefull(kvp.Key.ChildProductParameters);
-                        var productSelector = new ProductSelector(bank, _designator, usefullParameters, product);
+                        var usefullParameters = bank.Parameters.GetUsefull(kvp.Key);
+                        var productSelector = new ProductSelector(bank, usefullParameters, product);
                         ProductSelectors.Add(productSelector);
-                        productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
+                        productSelector.SelectedProductChanged += OnChildProductChanged;
                     }
                 }
             }
         }
 
-        private List<ProductRelation> GetActualProductRelations(IEnumerable<Parameter> forParameters = null)
+        private void OnSelectedBlockChanged(ProductBlockSelector blockSelector)
         {
-            var parameters = forParameters ?? ProductBlockSelector.SelectedProductBlock.Parameters;
-            return _bank.ProductRelations.Where(x => x.ParentProductParameters.AllContainsIn(parameters)).ToList();
+            RefreshProductSelectors();
+            SelectedProductChanged?.Invoke();
+            OnPropertyChanged(nameof(SelectedProduct));
         }
 
         private void RefreshProductSelectors()
         {
-            //загружаем актуальные связи продуктов, упорядоченные по количеству параметров, зависимого продукта
-            var actualProductRelations = GetActualProductRelations().OrderBy(x => x.ChildProductParameters.Count).ToList();
-            //упорядочиваем селектры продуктов по уменьшению количества параметров
-            var productSelectors = new List<ProductSelector>(ProductSelectors.
-                                   OrderByDescending(x => x.SelectedProduct.ProductBlock.Parameters.Count));
+            //упорядочиваем селектры продуктов по уменьшению количества параметров в блоке
+            var productSelectors = ProductSelectors.OrderByDescending(x => x.SelectedProduct.ProductBlock.Parameters.Count).ToList();
+
+            //загружаем связи к дочерним продуктам, упорядоченные по количеству параметров, зависимого продукта
+            var childProductsRelations = _bank.RelationsToChildProducts(SelectedProduct).OrderBy(x => x.ChildProductParameters.Count).ToList();
 
             var relaitionsDictionary = new Dictionary<ProductRelation, int>();
-            foreach (var actualProductRelation in actualProductRelations)
+            foreach (var actualProductRelation in childProductsRelations)
             {
                 relaitionsDictionary.Add(actualProductRelation, actualProductRelation.ChildProductsAmount);
             }
 
             //удаление неактуальных селекторов и чистка связей
-            foreach (var productSelector in productSelectors)
+            foreach (var productSelector in productSelectors.ToList())
             {
-                var relation = actualProductRelations.FirstOrDefault(x => x.ChildProductParameters.AllContainsIn(
-                               productSelector.ProductBlockSelector.SelectedProductBlock.Parameters));
+                //ищем связь, которая соответствует селектору
+                var relation = childProductsRelations.FirstOrDefault(x => x.ChildProductParameters.AllContainsIn(productSelector.BlockSelector.SelectedBlock.Parameters));
 
+                //если не находим - сносим ее
                 if (relation == null)
                 {
                     ProductSelectors.Remove(productSelector);
-                    productSelector.SelectedProductChanged -= ProductSelectorOnSelectedProductChanged;
+                    productSelector.SelectedProductChanged -= OnChildProductChanged;
                 }
+                //если находим - корректируем связь и удаляем этот селектор из поиска
                 else
                 {
+                    productSelectors.Remove(productSelector);
+
                     relaitionsDictionary[relation] -= productSelector.Amount;
                     if (relaitionsDictionary[relation] == 0)
                     {
-                        actualProductRelations.Remove(relation);
+                        childProductsRelations.Remove(relation);
                     }
                 }
             }
 
             //добавление новых актуальных селекторов
-            foreach (var productRelation in actualProductRelations)
+            foreach (var productRelation in childProductsRelations)
             {
                 for (int i = 0; i < relaitionsDictionary[productRelation]; i++)
                 {
-                    var productSelector = new ProductSelector(_bank, _designator,
-                        _bank.Parameters.GetUsefull(productRelation.ChildProductParameters));
+                    //новый селектор с усеченными под связь параметрами
+                    var productSelector = new ProductSelector(_bank, _bank.Parameters.GetUsefull(productRelation));
                     ProductSelectors.Add(productSelector);
-                    productSelector.SelectedProductChanged += ProductSelectorOnSelectedProductChanged;
+                    productSelector.SelectedProductChanged += OnChildProductChanged;
                 }
             }
 
@@ -149,7 +134,7 @@ namespace HVTApp.Services.GetProductService
         }
 
         //реакция на изменение дочернего продукта
-        private void ProductSelectorOnSelectedProductChanged()
+        private void OnChildProductChanged()
         {
             OnPropertyChanged(nameof(SelectedProduct));
         }
@@ -163,7 +148,7 @@ namespace HVTApp.Services.GetProductService
         {
             var result = new Dictionary<ProductRelation, IEnumerable<Product>>();
             //получаем актуальные для выбранных параметров связи
-            var actualProductRelations = GetActualProductRelations(product.ProductBlock.Parameters).ToList();
+            var actualProductRelations = _bank.RelationsToChildProducts(product).ToList();
             actualProductRelations.ForEach(x => result.Add(x, default(IEnumerable<Product>)));
 
             //составляем список дочерних продуктов

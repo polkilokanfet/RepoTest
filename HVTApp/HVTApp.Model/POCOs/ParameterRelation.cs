@@ -1,25 +1,25 @@
-using System;
 using System.Collections.Generic;
+using System.Text;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.Model.POCOs
 {
     /// <summary>
     /// Обязательные родительские параметры, без которых этот параметр не имеет смысла
     /// </summary>
+    [Designation("Ограничение использования параметра")]
     public partial class ParameterRelation : BaseEntity
     {
-        public virtual Guid ParameterId { get; set; }
+        [Designation("Обязательные параметры перед")]
         public virtual List<Parameter> RequiredParameters { get; set; } = new List<Parameter>();
 
         public override string ToString()
         {
-            var result = "Обязятельные параметры: ";
-            foreach (var parameter in RequiredParameters)
-            {
-                result += $"{parameter.ToString().ToLower()}; ";
-            }
-            return result;
+            var sb = new StringBuilder();
+            sb.Append("Обязятельные параметры: ");
+            RequiredParameters.ForEach(x => sb.Append($"{x.ToString().ToLower()}; "));
+            return sb.ToString();
         }
     }
 }

@@ -13,10 +13,10 @@ namespace HVTApp.Services.PriceService
 
         public void AddError(ProductBlock block, PriceErrorType errorType, ProductBlock analog = null)
         {
-            if (_errors.ContainsKey(block)) return;
+            if (_errors.Select(x => x.Key.Id).Contains(block.Id)) return;
             _errors.Add(block, errorType);
 
-            if (_analogs.ContainsKey(block)) return;
+            if (_analogs.Select(x => x.Key.Id).Contains(block.Id)) return;
             _analogs.Add(block, analog);
         }
 

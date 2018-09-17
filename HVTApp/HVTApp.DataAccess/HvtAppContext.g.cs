@@ -10,8 +10,6 @@ namespace HVTApp.DataAccess
         {
 			#region Configurations
             modelBuilder.Configurations.Add(new CreateNewProductTaskConfiguration());
-            modelBuilder.Configurations.Add(new DocumentIncomingNumberConfiguration());
-            modelBuilder.Configurations.Add(new DocumentOutgoingNumberConfiguration());
             modelBuilder.Configurations.Add(new PaymentActualConfiguration());
             modelBuilder.Configurations.Add(new PaymentPlannedConfiguration());
             modelBuilder.Configurations.Add(new ProductBlockIsServiceConfiguration());
@@ -58,6 +56,7 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new TestFriendEmailConfiguration());
             modelBuilder.Configurations.Add(new TestFriendGroupConfiguration());
             modelBuilder.Configurations.Add(new DocumentConfiguration());
+            modelBuilder.Configurations.Add(new DocumentNumberConfiguration());
             modelBuilder.Configurations.Add(new TestEntityConfiguration());
             modelBuilder.Configurations.Add(new TestHusbandConfiguration());
             modelBuilder.Configurations.Add(new TestWifeConfiguration());
@@ -81,8 +80,6 @@ namespace HVTApp.DataAccess
 
 		#region DbSets
         public virtual DbSet<CreateNewProductTask> CreateNewProductTaskDbSet { get; set; }
-        public virtual DbSet<DocumentIncomingNumber> DocumentIncomingNumberDbSet { get; set; }
-        public virtual DbSet<DocumentOutgoingNumber> DocumentOutgoingNumberDbSet { get; set; }
         public virtual DbSet<PaymentActual> PaymentActualDbSet { get; set; }
         public virtual DbSet<PaymentPlanned> PaymentPlannedDbSet { get; set; }
         public virtual DbSet<ProductBlockIsService> ProductBlockIsServiceDbSet { get; set; }
@@ -129,6 +126,7 @@ namespace HVTApp.DataAccess
         public virtual DbSet<TestFriendEmail> TestFriendEmailDbSet { get; set; }
         public virtual DbSet<TestFriendGroup> TestFriendGroupDbSet { get; set; }
         public virtual DbSet<Document> DocumentDbSet { get; set; }
+        public virtual DbSet<DocumentNumber> DocumentNumberDbSet { get; set; }
         public virtual DbSet<TestEntity> TestEntityDbSet { get; set; }
         public virtual DbSet<TestHusband> TestHusbandDbSet { get; set; }
         public virtual DbSet<TestWife> TestWifeDbSet { get; set; }

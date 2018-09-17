@@ -6,8 +6,8 @@
                     xmlns:infPrism="clr-namespace:HVTApp.Infrastructure.Prism;assembly=HVTApp.Infrastructure"
                     x:Class="HVTApp.Modules.Sales.Menus.SalesMenu"
                     Header="Продажи" 
-                    LargeImage="/HVTApp.Modules.Sales;component/Images/coins32.png" 
-                    SmallImage="/HVTApp.Modules.Sales;component/Images/coins16.png">
+                    LargeImage="/HVTApp.Modules.Sales;component/Images/User_32x32.png" 
+                    SmallImage="/HVTApp.Modules.Sales;component/Images/User_16x16.png">
 
     <igs:XamDataTree Name="_xamDataTree"
                      ItemsSource="{Binding Items}"

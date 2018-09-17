@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using HVTApp.Infrastructure.Extansions;
 using HVTApp.Model.POCOs;
 
 namespace HVTApp.Services.GetProductService
@@ -10,30 +11,68 @@ namespace HVTApp.Services.GetProductService
         /// Удаление из списка параметров, которые в одной группе с обязательными параметрами.
         /// </summary>
         /// <returns></returns>
-        public static IEnumerable<Parameter> GetUsefull(this IEnumerable<Parameter> targetParameters, IEnumerable<Parameter> requiredParameters)
+        public static IEnumerable<Parameter> GetUsefull(this IEnumerable<Parameter> targetParameters, ProductRelation relation)
         {
-            var result = targetParameters.ToList();
-            var parameters = requiredParameters.SelectMany(GetAllRequiredParameters).Concat(requiredParameters).Distinct().ToList();
-            foreach (var parameter in parameters)
-            {
-                var toExcept = result.Where(x => Equals(x.ParameterGroup.Id, parameter.ParameterGroup.Id));
-                result = result.Except(toExcept).ToList();
-                result.Add(parameter);
-            }
+            var parameters = targetParameters as List<Parameter> ?? targetParameters.ToList();
+
+            //обязательные параметры
+            var goodParams = relation.ChildProductParameters.ToList();
+            var groups = goodParams.Select(x => x.ParameterGroup).Distinct();
+            //парметры, способные увести в сторону (плохие)
+            var badParams = parameters.Where(x => groups.Contains(x.ParameterGroup)).Except(goodParams).ToList();
+            //обязательное пересечение путей
+            var ints = Intercect(goodParams).ToList();
+
+            //все пути всех параметров
+            var paths = parameters.SelectMany(x => x.Paths()).ToList();
+
+            //исключаем пути с плохими параметрами
+            paths = paths.Where(x => !x.Parameters.Intersect(badParams).Any()).ToList();
+            //исключаем пути без хороших параметров
+            paths = paths.Where(x => x.Parameters.Intersect(goodParams).Any()).ToList();
+            //исключаем пути без пересечений
+            paths = paths.Where(x => ints.AllContainsIn(x.Parameters)).ToList();
+
+            var result = paths.SelectMany(x => x.Parameters).Distinct().ToList();
             return result;
         }
 
-        static IEnumerable<Parameter> GetAllRequiredParameters(Parameter parameter)
+        /// <summary>
+        /// Обязательное пересечение в путях параметров.
+        /// Иначе нельзя будет достичь всех параметров.
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        private static IEnumerable<Parameter> Intercect(IEnumerable<Parameter> parameters)
         {
-            foreach (var requiredParameter in parameter.ParameterRelations.SelectMany(x => x.RequiredParameters).Distinct())
+            var pmtrs = parameters as Parameter[] ?? parameters.ToArray();
+
+            var result = pmtrs.First().Paths().SelectMany(x => x.Parameters).Distinct().ToList();
+            foreach (var parameter in pmtrs)
             {
-                yield return requiredParameter;
-                foreach (var requiredParameter2 in GetAllRequiredParameters(requiredParameter))
-                {
-                    yield return requiredParameter2;
-                }
+                var toIntersect = parameter.Paths().SelectMany(x => x.Parameters).Distinct().ToList();
+                result = result.Intersect(toIntersect).ToList();
             }
 
+            return result;
+        }
+
+        /// <summary>
+        /// Поле обязательных параметров.
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        static List<Parameter> RequiredParametersField(Parameter parameter)
+        {
+            var result = new List<Parameter> {parameter};
+
+            foreach (var requiredParameter in parameter.ParameterRelations.SelectMany(x => x.RequiredParameters).Distinct())
+            {
+                result.Add(requiredParameter);
+                result.AddRange(RequiredParametersField(requiredParameter));
+            }
+
+            return result.Distinct().ToList();
         }
     }
 }

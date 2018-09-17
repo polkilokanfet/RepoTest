@@ -9,10 +9,10 @@ namespace HVTApp.Services.GetProductService
 {
     public class ProductBlockSelector : NotifyPropertyChanged
     {
+
         #region fields
 
-        private ProductBlock _selectedProductBlock;
-        private readonly List<ProductBlock> _existsProductBlocks;
+        private readonly Bank _bank;
 
         #endregion
 
@@ -29,37 +29,16 @@ namespace HVTApp.Services.GetProductService
         /// <summary>
         /// Выбранный блок
         /// </summary>
-        public ProductBlock SelectedProductBlock
+        public ProductBlock SelectedBlock
         {
-            get
-            {
-                //если все выбранные параметры совпадают
-                if (_selectedProductBlock != null && SelectedParameters.AllMembersAreSame(_selectedProductBlock.Parameters))
-                    return _selectedProductBlock;
-
-                //поиск в существующих блоках
-                var result = _existsProductBlocks.SingleOrDefault(x => x.Parameters.AllMembersAreSame(SelectedParameters));
-                if (result != null)
-                {
-                    _selectedProductBlock = result;
-                    return result;
-                }
-
-                //создание нового блока
-                _selectedProductBlock = new ProductBlock { Parameters = SelectedParameters };
-                _selectedProductBlock.DesignationSpecial = _selectedProductBlock.ParametersToString();
-                _selectedProductBlock.StructureCostNumber = "blank";
-                _existsProductBlocks.Add(_selectedProductBlock);
-                return _selectedProductBlock;
-            }
+            get { return _bank.GetBlock(SelectedParameters); }
             set
             {
                 var blockToSet = value;
                 if(blockToSet == null) throw new ArgumentNullException(nameof(blockToSet));
 
                 //если совпадают выбранные параметры и параметры нового блока
-                if (SelectedParameters.AllMembersAreSame(blockToSet.Parameters)) return;
-
+                if (SelectedParameters.MembersAreSame(blockToSet.Parameters)) return;
 
                 var parameterSelectors = ParameterSelectors.ToList();
                 //отписываемся от событий выбора нового параметра
@@ -82,10 +61,8 @@ namespace HVTApp.Services.GetProductService
 
                 OnSelectedParameterChanged(null);
 
-                _selectedProductBlock = blockToSet;
-
                 OnPropertyChanged();
-                SelectedProductBlockChanged?.Invoke(this);
+                SelectedBlockChanged?.Invoke(this);
             }
         }
 
@@ -93,10 +70,9 @@ namespace HVTApp.Services.GetProductService
 
         #region ctor
 
-        public ProductBlockSelector(IEnumerable<Parameter> parameters, List<ProductBlock> existsProductBlocks,
-            ProductBlock selectedProductBlock = null)
+        public ProductBlockSelector(IEnumerable<Parameter> parameters, Bank bank, ProductBlock selectedProductBlock = null)
         {
-            _existsProductBlocks = existsProductBlocks;
+            _bank = bank;
 
             //создаем селекторы параметров
             var groupedParameters = GetGroupingParameters(parameters).Select(x => new ParameterSelector(x));
@@ -110,7 +86,7 @@ namespace HVTApp.Services.GetProductService
             {
                 if(!selectedProductBlock.Parameters.AllContainsIn(parameters))
                     throw new ArgumentException("Параметры блока не соответствуют возможным параметрам.");
-                SelectedProductBlock = selectedProductBlock;
+                SelectedBlock = selectedProductBlock;
             }
         }
 
@@ -121,7 +97,7 @@ namespace HVTApp.Services.GetProductService
         /// <summary>
         /// Событие изменения выбранного блока.
         /// </summary>
-        public event Action<ProductBlockSelector> SelectedProductBlockChanged;
+        public event Action<ProductBlockSelector> SelectedBlockChanged;
 
         #endregion
 
@@ -142,22 +118,6 @@ namespace HVTApp.Services.GetProductService
         }
 
         /// <summary>
-        /// Выбор первого базового параметра.
-        /// </summary>
-        public void SelectFirstParameter()
-        {
-            //все параметры
-            var parametersFlaged = ParameterSelectors.SelectMany(x => x.ParametersFlaged);
-
-            //параметр, у которого нет родительских параметров
-            var selectedParameterFlaged = parametersFlaged.First(x => !x.Parameter.ParameterRelations.Any());
-
-            //поиск селектора, содержащего такой параметр и назначение параметра
-            var parameterSelector = ParameterSelectors.Single(x => x.ParametersFlaged.Contains(selectedParameterFlaged));
-            parameterSelector.SelectedParameterFlaged = selectedParameterFlaged;
-        }
-
-        /// <summary>
         /// Реакция на изменение выбранного параметра в селекторе.
         /// </summary>
         /// <param name="parameterSelector"></param>
@@ -165,15 +125,15 @@ namespace HVTApp.Services.GetProductService
         {
             //перепроверка актуальности параметров
             var parametersFlaged = ParameterSelectors.SelectMany(x => x.ParametersFlaged);
-            foreach (var parameterFlaged in parametersFlaged)
+            foreach (var parameter in parametersFlaged)
             {
-                parameterFlaged.IsActual = parameterFlaged.Parameter.IsOrigin ||
-                    parameterFlaged.Parameter.ParameterRelations.
-                    Any(x => x.RequiredParameters.AllContainsIn(SelectedParameters));
+                parameter.IsActual = parameter.Parameter.IsOrigin ||
+                                     parameter.Parameter.ParameterRelations.Any(x => x.RequiredParameters.AllContainsIn(SelectedParameters));
             }
 
-            SelectedProductBlockChanged?.Invoke(this);
-            OnPropertyChanged(nameof(SelectedProductBlock));
+            //событие смены блока
+            SelectedBlockChanged?.Invoke(this);
+            OnPropertyChanged(nameof(SelectedBlock));
         }
     }
 }

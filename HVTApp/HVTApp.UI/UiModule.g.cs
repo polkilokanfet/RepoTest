@@ -16,16 +16,6 @@ namespace HVTApp.UI
 			_selectService.Register<CreateNewProductTaskLookupListView, CreateNewProductTask>();
             _updateDetailsService.Register<CreateNewProductTask, CreateNewProductTaskDetailsView>();
 
-            Container.RegisterViewForNavigation<DocumentIncomingNumberLookupListView>();
-            //_dialogService.Register<DocumentIncomingNumberDetailsViewModel, DocumentIncomingNumberDetailsView>();
-			_selectService.Register<DocumentIncomingNumberLookupListView, DocumentIncomingNumber>();
-            _updateDetailsService.Register<DocumentIncomingNumber, DocumentIncomingNumberDetailsView>();
-
-            Container.RegisterViewForNavigation<DocumentOutgoingNumberLookupListView>();
-            //_dialogService.Register<DocumentOutgoingNumberDetailsViewModel, DocumentOutgoingNumberDetailsView>();
-			_selectService.Register<DocumentOutgoingNumberLookupListView, DocumentOutgoingNumber>();
-            _updateDetailsService.Register<DocumentOutgoingNumber, DocumentOutgoingNumberDetailsView>();
-
             Container.RegisterViewForNavigation<PaymentActualLookupListView>();
             //_dialogService.Register<PaymentActualDetailsViewModel, PaymentActualDetailsView>();
 			_selectService.Register<PaymentActualLookupListView, PaymentActual>();
@@ -255,6 +245,11 @@ namespace HVTApp.UI
             //_dialogService.Register<DocumentDetailsViewModel, DocumentDetailsView>();
 			_selectService.Register<DocumentLookupListView, Document>();
             _updateDetailsService.Register<Document, DocumentDetailsView>();
+
+            Container.RegisterViewForNavigation<DocumentNumberLookupListView>();
+            //_dialogService.Register<DocumentNumberDetailsViewModel, DocumentNumberDetailsView>();
+			_selectService.Register<DocumentNumberLookupListView, DocumentNumber>();
+            _updateDetailsService.Register<DocumentNumber, DocumentNumberDetailsView>();
 
             Container.RegisterViewForNavigation<TestEntityLookupListView>();
             //_dialogService.Register<TestEntityDetailsViewModel, TestEntityDetailsView>();

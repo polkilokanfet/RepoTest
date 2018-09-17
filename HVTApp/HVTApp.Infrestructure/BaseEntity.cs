@@ -37,10 +37,10 @@ namespace HVTApp.Infrastructure
             return Id.Equals(other.Id);
         }
 
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode();
-        }
+        //public override int GetHashCode()
+        //{
+        //    return Id.GetHashCode();
+        //}
 
         //public override int GetHashCode()
         //{

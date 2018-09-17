@@ -1,11 +1,23 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 using HVTApp.Model.POCOs;
 using Prism.Events;
 
 namespace HVTApp.Model.Events
 {
 	public partial class AfterSaveCreateNewProductTaskEvent : PubSubEvent<CreateNewProductTask> { }
-	public partial class AfterSaveDocumentIncomingNumberEvent : PubSubEvent<DocumentIncomingNumber> { }
-	public partial class AfterSaveDocumentOutgoingNumberEvent : PubSubEvent<DocumentOutgoingNumber> { }
 	public partial class AfterSavePaymentActualEvent : PubSubEvent<PaymentActual> { }
 	public partial class AfterSavePaymentPlannedEvent : PubSubEvent<PaymentPlanned> { }
 	public partial class AfterSaveProductBlockIsServiceEvent : PubSubEvent<ProductBlockIsService> { }
@@ -52,6 +64,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSaveTestFriendEmailEvent : PubSubEvent<TestFriendEmail> { }
 	public partial class AfterSaveTestFriendGroupEvent : PubSubEvent<TestFriendGroup> { }
 	public partial class AfterSaveDocumentEvent : PubSubEvent<Document> { }
+	public partial class AfterSaveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
 	public partial class AfterSaveTestEntityEvent : PubSubEvent<TestEntity> { }
 	public partial class AfterSaveTestHusbandEvent : PubSubEvent<TestHusband> { }
 	public partial class AfterSaveTestWifeEvent : PubSubEvent<TestWife> { }

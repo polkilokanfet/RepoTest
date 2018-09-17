@@ -4,8 +4,6 @@ using HVTApp.Model.POCOs;
 namespace HVTApp.DataAccess
 {
     public partial class CreateNewProductTaskConfiguration : EntityTypeConfiguration<CreateNewProductTask> { }
-    public partial class DocumentIncomingNumberConfiguration : EntityTypeConfiguration<DocumentIncomingNumber> { }
-    public partial class DocumentOutgoingNumberConfiguration : EntityTypeConfiguration<DocumentOutgoingNumber> { }
     public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }
     public partial class PaymentPlannedConfiguration : EntityTypeConfiguration<PaymentPlanned> { }
     public partial class ProductBlockIsServiceConfiguration : EntityTypeConfiguration<ProductBlockIsService> { }
@@ -52,6 +50,7 @@ namespace HVTApp.DataAccess
     public partial class TestFriendEmailConfiguration : EntityTypeConfiguration<TestFriendEmail> { }
     public partial class TestFriendGroupConfiguration : EntityTypeConfiguration<TestFriendGroup> { }
     public partial class DocumentConfiguration : EntityTypeConfiguration<Document> { }
+    public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
     public partial class TestEntityConfiguration : EntityTypeConfiguration<TestEntity> { }
     public partial class TestHusbandConfiguration : EntityTypeConfiguration<TestHusband> { }
     public partial class TestWifeConfiguration : EntityTypeConfiguration<TestWife> { }

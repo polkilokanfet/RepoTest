@@ -6,13 +6,13 @@
                                  Header="Редактирование">
     
     <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding NewItemCommand}"/>
-        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditItemCommand}"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveItemCommand}"/>
+        <infRib:ButtonTool Caption="Создать" Command="{Binding NewItemCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/New_16x16.png"/>
+        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditItemCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Edit_16x16.png"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveItemCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
     </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Обновление">
-        <infRib:ButtonTool Caption="Обновить" Command="{Binding RefreshCommand}"/>
+        <infRib:ButtonTool Caption="Обновить" Command="{Binding RefreshCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Refresh_16x16.png"/>
     </infRib:RibbonGroup>
     
 </inf:RibbonTabItemWithViewModel>

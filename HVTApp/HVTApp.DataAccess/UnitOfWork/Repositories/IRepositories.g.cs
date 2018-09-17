@@ -4,8 +4,6 @@ using HVTApp.Infrastructure;
 namespace HVTApp.DataAccess
 {
     public partial interface ICreateNewProductTaskRepository : IRepository<CreateNewProductTask> { }
-    public partial interface IDocumentIncomingNumberRepository : IRepository<DocumentIncomingNumber> { }
-    public partial interface IDocumentOutgoingNumberRepository : IRepository<DocumentOutgoingNumber> { }
     public partial interface IPaymentActualRepository : IRepository<PaymentActual> { }
     public partial interface IPaymentPlannedRepository : IRepository<PaymentPlanned> { }
     public partial interface IProductBlockIsServiceRepository : IRepository<ProductBlockIsService> { }
@@ -52,6 +50,7 @@ namespace HVTApp.DataAccess
     public partial interface ITestFriendEmailRepository : IRepository<TestFriendEmail> { }
     public partial interface ITestFriendGroupRepository : IRepository<TestFriendGroup> { }
     public partial interface IDocumentRepository : IRepository<Document> { }
+    public partial interface IDocumentNumberRepository : IRepository<DocumentNumber> { }
     public partial interface ITestEntityRepository : IRepository<TestEntity> { }
     public partial interface ITestHusbandRepository : IRepository<TestHusband> { }
     public partial interface ITestWifeRepository : IRepository<TestWife> { }

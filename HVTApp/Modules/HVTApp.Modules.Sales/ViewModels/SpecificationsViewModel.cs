@@ -7,7 +7,6 @@ using HVTApp.Model.POCOs;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
-using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Sales.ViewModels

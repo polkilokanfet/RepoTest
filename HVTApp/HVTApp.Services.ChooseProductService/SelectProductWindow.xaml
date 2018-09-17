@@ -3,16 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:HVTApp.Services.GetProductService"
         Title="Параметры оборудования" 
-        SizeToContent="WidthAndHeight"
+        WindowState="Maximized"
         WindowStartupLocation="CenterOwner">
 
+    <DockPanel LastChildFill="True">
+        
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Новое" Click="ButtonNew_OnClick" Margin="5,10" Padding="5"/>
+            <Button Content="Ok" Click="ButtonOk_OnClick" Margin="5,10" Padding="5"/>
+        </StackPanel>
+        
     <ScrollViewer>
-        <DockPanel LastChildFill="True">
-            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Новое" Click="ButtonNew_OnClick"/>
-                <Button Content="Ok" Click="ButtonOk_OnClick"/>
-            </StackPanel>
-            <local:SelectProductView DataContext="{Binding}"/>
-        </DockPanel>
+        <local:SelectProductView DataContext="{Binding}"/>
     </ScrollViewer>
+        
+    </DockPanel>
 </Window>

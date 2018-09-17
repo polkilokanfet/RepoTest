@@ -1,8 +1,6 @@
 namespace HVTApp.UI.Lookup
 {
 	public interface ICreateNewProductTaskLookupDataService : ILookupDataService<CreateNewProductTaskLookup> { } 
-	public interface IDocumentIncomingNumberLookupDataService : ILookupDataService<DocumentIncomingNumberLookup> { } 
-	public interface IDocumentOutgoingNumberLookupDataService : ILookupDataService<DocumentOutgoingNumberLookup> { } 
 	public interface IPaymentActualLookupDataService : ILookupDataService<PaymentActualLookup> { } 
 	public interface IPaymentPlannedLookupDataService : ILookupDataService<PaymentPlannedLookup> { } 
 	public interface IProductBlockIsServiceLookupDataService : ILookupDataService<ProductBlockIsServiceLookup> { } 
@@ -49,6 +47,7 @@ namespace HVTApp.UI.Lookup
 	public interface ITestFriendEmailLookupDataService : ILookupDataService<TestFriendEmailLookup> { } 
 	public interface ITestFriendGroupLookupDataService : ILookupDataService<TestFriendGroupLookup> { } 
 	public interface IDocumentLookupDataService : ILookupDataService<DocumentLookup> { } 
+	public interface IDocumentNumberLookupDataService : ILookupDataService<DocumentNumberLookup> { } 
 	public interface ITestEntityLookupDataService : ILookupDataService<TestEntityLookup> { } 
 	public interface ITestHusbandLookupDataService : ILookupDataService<TestHusbandLookup> { } 
 	public interface ITestWifeLookupDataService : ILookupDataService<TestWifeLookup> { } 

@@ -47,22 +47,16 @@ namespace HVTApp.UI.ViewModels
 
         public async Task LoadAsync(TEntity entity)
         {
-            WrapperDataService?.Dispose();
             WrapperDataService = Container.Resolve<IWrapperDataService>();
-
-            //если создаём, а не редактируем
-            if (await WrapperDataService.Repository<TEntity>().GetByIdAsync(entity.Id) == null)
-                Item = (TWrapper) Activator.CreateInstance(typeof(TWrapper), entity);
-            else
-                //если редактируем
-                Item = await WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().GetByIdAsync(entity.Id);
-
+            var item = await WrapperDataService.Repository<TEntity>().GetByIdAsync(entity.Id);
+            //создаем или редактируем
+            Item = item == null ? (TWrapper) Activator.CreateInstance(typeof(TWrapper), entity)
+                                : await WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().GetByIdAsync(item.Id);
             await AfterLoading();
         }
 
         public async Task LoadAsync(Guid id)
         {
-            WrapperDataService?.Dispose();
             WrapperDataService = Container.Resolve<IWrapperDataService>();
             Item = await WrapperDataService.GetWrapperRepository<TEntity, TWrapper>().GetByIdAsync(id);
             await AfterLoading();

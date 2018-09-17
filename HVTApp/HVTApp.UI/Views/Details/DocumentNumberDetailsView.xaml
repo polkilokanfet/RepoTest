@@ -1,4 +1,4 @@
-<inf:ViewBase x:Class="HVTApp.UI.Views.DocumentOutgoingNumberDetailsView"
+<inf:ViewBase x:Class="HVTApp.UI.Views.DocumentNumberDetailsView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -16,11 +16,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Num" Visibility="{Binding VisibilityNumDocumentOutgoingNumber, ElementName=Root}"/>
+
+        <Label Grid.Column="0" Grid.Row ="0" Content="Number" Visibility="{Binding VisibilityNumberDocumentNumber, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0"
 							   ValueType="core:Int32"
-                               Value="{Binding Item.Num, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-							   Visibility="{Binding VisibilityNumDocumentOutgoingNumber, ElementName=Root}"/>
+                               Value="{Binding Item.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding VisibilityNumberDocumentNumber, ElementName=Root}"/>
+
 
 
     </Grid>

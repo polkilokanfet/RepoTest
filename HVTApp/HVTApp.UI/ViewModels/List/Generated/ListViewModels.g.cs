@@ -14,18 +14,6 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-	public partial class DocumentIncomingNumberLookupListViewModel : BaseListViewModel<DocumentIncomingNumber, DocumentIncomingNumberLookup, AfterSaveDocumentIncomingNumberEvent, AfterSelectDocumentIncomingNumberEvent, AfterRemoveDocumentIncomingNumberEvent,  DocumentIncomingNumberLookupDataService>
-    {
-        public DocumentIncomingNumberLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-	public partial class DocumentOutgoingNumberLookupListViewModel : BaseListViewModel<DocumentOutgoingNumber, DocumentOutgoingNumberLookup, AfterSaveDocumentOutgoingNumberEvent, AfterSelectDocumentOutgoingNumberEvent, AfterRemoveDocumentOutgoingNumberEvent,  DocumentOutgoingNumberLookupDataService>
-    {
-        public DocumentOutgoingNumberLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
 	public partial class PaymentActualLookupListViewModel : BaseListViewModel<PaymentActual, PaymentActualLookup, AfterSavePaymentActualEvent, AfterSelectPaymentActualEvent, AfterRemovePaymentActualEvent,  PaymentActualLookupDataService>
     {
         public PaymentActualLookupListViewModel(IUnityContainer container) : base(container) { }
@@ -299,6 +287,12 @@ namespace HVTApp.UI.ViewModels
 	public partial class DocumentLookupListViewModel : BaseListViewModel<Document, DocumentLookup, AfterSaveDocumentEvent, AfterSelectDocumentEvent, AfterRemoveDocumentEvent,  DocumentLookupDataService>
     {
         public DocumentLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
+	public partial class DocumentNumberLookupListViewModel : BaseListViewModel<DocumentNumber, DocumentNumberLookup, AfterSaveDocumentNumberEvent, AfterSelectDocumentNumberEvent, AfterRemoveDocumentNumberEvent,  DocumentNumberLookupDataService>
+    {
+        public DocumentNumberLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
 

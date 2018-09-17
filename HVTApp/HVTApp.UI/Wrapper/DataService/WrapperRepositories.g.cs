@@ -9,16 +9,6 @@ namespace HVTApp.UI.Wrapper
         public CreateNewProductTaskWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
     }
 
-    public partial class DocumentIncomingNumberWrapperRepository : WrapperRepository<DocumentIncomingNumber, DocumentIncomingNumberWrapper>
-    {
-        public DocumentIncomingNumberWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
-    }
-
-    public partial class DocumentOutgoingNumberWrapperRepository : WrapperRepository<DocumentOutgoingNumber, DocumentOutgoingNumberWrapper>
-    {
-        public DocumentOutgoingNumberWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
-    }
-
     public partial class PaymentActualWrapperRepository : WrapperRepository<PaymentActual, PaymentActualWrapper>
     {
         public PaymentActualWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
@@ -247,6 +237,11 @@ namespace HVTApp.UI.Wrapper
     public partial class DocumentWrapperRepository : WrapperRepository<Document, DocumentWrapper>
     {
         public DocumentWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
+    }
+
+    public partial class DocumentNumberWrapperRepository : WrapperRepository<DocumentNumber, DocumentNumberWrapper>
+    {
+        public DocumentNumberWrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
     }
 
     public partial class TestEntityWrapperRepository : WrapperRepository<TestEntity, TestEntityWrapper>

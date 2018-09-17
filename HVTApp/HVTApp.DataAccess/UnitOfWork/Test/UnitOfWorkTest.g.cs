@@ -8,8 +8,6 @@ namespace HVTApp.DataAccess
         {
 			#region RepositoriesInit
             CreateNewProductTaskRepository = new CreateNewProductTaskRepositoryTest(testData);
-            DocumentIncomingNumberRepository = new DocumentIncomingNumberRepositoryTest(testData);
-            DocumentOutgoingNumberRepository = new DocumentOutgoingNumberRepositoryTest(testData);
             PaymentActualRepository = new PaymentActualRepositoryTest(testData);
             PaymentPlannedRepository = new PaymentPlannedRepositoryTest(testData);
             ProductBlockIsServiceRepository = new ProductBlockIsServiceRepositoryTest(testData);
@@ -56,6 +54,7 @@ namespace HVTApp.DataAccess
             TestFriendEmailRepository = new TestFriendEmailRepositoryTest(testData);
             TestFriendGroupRepository = new TestFriendGroupRepositoryTest(testData);
             DocumentRepository = new DocumentRepositoryTest(testData);
+            DocumentNumberRepository = new DocumentNumberRepositoryTest(testData);
             TestEntityRepository = new TestEntityRepositoryTest(testData);
             TestHusbandRepository = new TestHusbandRepositoryTest(testData);
             TestWifeRepository = new TestWifeRepositoryTest(testData);
@@ -80,8 +79,6 @@ namespace HVTApp.DataAccess
 
         #region Repositories
         public ICreateNewProductTaskRepository CreateNewProductTaskRepository { get; }
-        public IDocumentIncomingNumberRepository DocumentIncomingNumberRepository { get; }
-        public IDocumentOutgoingNumberRepository DocumentOutgoingNumberRepository { get; }
         public IPaymentActualRepository PaymentActualRepository { get; }
         public IPaymentPlannedRepository PaymentPlannedRepository { get; }
         public IProductBlockIsServiceRepository ProductBlockIsServiceRepository { get; }
@@ -128,6 +125,7 @@ namespace HVTApp.DataAccess
         public ITestFriendEmailRepository TestFriendEmailRepository { get; }
         public ITestFriendGroupRepository TestFriendGroupRepository { get; }
         public IDocumentRepository DocumentRepository { get; }
+        public IDocumentNumberRepository DocumentNumberRepository { get; }
         public ITestEntityRepository TestEntityRepository { get; }
         public ITestHusbandRepository TestHusbandRepository { get; }
         public ITestWifeRepository TestWifeRepository { get; }

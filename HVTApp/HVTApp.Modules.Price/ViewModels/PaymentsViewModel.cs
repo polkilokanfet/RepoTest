@@ -32,6 +32,7 @@ namespace HVTApp.Modules.Price.ViewModels
             {
                 payments.AddRange(unit.PaymentsPlannedCalculated.Select(x => new PlanPayment(unit, x)));
             }
+
             Payments.Clear();
             Payments.AddRange(PaymentsGroup.GetGroups(payments));
         }
@@ -62,15 +63,15 @@ namespace HVTApp.Modules.Price.ViewModels
         {
             var groups = payments.GroupBy(x => new
             {
-                x.SalesUnit.Product,
-                x.SalesUnit.Project,
-                x.SalesUnit.Order,
-                x.SalesUnit.Facility,
-                x.SalesUnit.Cost,
-                x.SalesUnit.Specification,
-                x.PaymentPlanned.Condition,
-                x.PaymentPlanned.Date,
-                x.Sum
+                ProductId = x.SalesUnit.Product.Id,
+                ProjectId = x.SalesUnit.Project.Id,
+                OrderId = x.SalesUnit.Order?.Id,
+                FacilityId = x.SalesUnit.Facility.Id,
+                Cost = x.SalesUnit.Cost,
+                SpecificationId = x.SalesUnit.Specification?.Id,
+                ConditionId = x.PaymentPlanned.Condition.Id,
+                Date = x.PaymentPlanned.Date,
+                Sum = x.Sum
             }).OrderBy(x => x.Key.Date);
             return groups.Select(x => new PaymentsGroup(x));
         }

@@ -6,6 +6,7 @@ using System.Text;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model.Comparers;
 
 namespace HVTApp.Model.POCOs
 {
@@ -27,6 +28,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Сралчахвост")]
         public string StructureCostNumber { get; set; }
 
+        [Designation("Чертеж")]
+        public string Design { get; set; }
+
         [Designation("Услуга")]
         public bool IsService { get; set; } = false;
 
@@ -34,22 +38,31 @@ namespace HVTApp.Model.POCOs
         public double Weight { get; set; }
 
         [Designation("Дата последнего прайса"), NotMapped]
-        public DateTime? LastPriceDate => Prices.Max(x => x.Date);
+        public DateTime? LastPriceDate => Prices.Any() ? Prices.Max(x => x.Date) : default(DateTime?);
 
-        public override bool Equals(object obj)
+        public override bool Equals(object other)
         {
-            if (base.Equals(obj)) return true;
+            return base.Equals(other) || Equals(other as ProductBlock);
+        }
 
-            var otherBlock = obj as ProductBlock;
-            if (otherBlock == null) return false;
+        protected bool Equals(ProductBlock other)
+        {
+            return other != null && this.Parameters.MembersAreSame(other.Parameters, new ParameterComparer());
+        }
 
-            return this.Parameters.AllMembersAreSame(otherBlock.Parameters);
+        /// <summary>
+        /// Вернуть упорядоченные параметры блока.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Parameter> GetOrderedParameters()
+        {
+            return Parameters.OrderByDescending(x => x.GetWeight(this));
         }
 
         public string ParametersToString()
         {
-            StringBuilder stringBuilder = new StringBuilder();
-            foreach (var parameter in Parameters.OrderBy(this.GetWeight))
+            var stringBuilder = new StringBuilder();
+            foreach (var parameter in Parameters.OrderByDescending(x => x.GetWeight(this)))
                 stringBuilder.Append($"{parameter.ParameterGroup}: {parameter.Value}; ");
 
             return stringBuilder.ToString();

@@ -133,6 +133,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\GroupBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\TextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -229,10 +233,6 @@
     <ProjectReference Include="..\HVTApp.Services.MessageService\HVTApp.Services.MessageService.csproj">
       <Project>{7703a90a-e742-41b1-96cb-cd0f51e3f2b6}</Project>
       <Name>HVTApp.Services.MessageService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HVTApp.Services.OfferToDocService\HVTApp.Services.OfferToDocService.csproj">
-      <Project>{463FB05E-E997-4975-AE8F-7406A4390FCD}</Project>
-      <Name>HVTApp.Services.OfferToDocService</Name>
     </ProjectReference>
     <ProjectReference Include="..\HVTApp.Services.PriceService\HVTApp.Services.PriceService.csproj">
       <Project>{A241858E-B7B3-42A1-A04F-FE39E55145E6}</Project>

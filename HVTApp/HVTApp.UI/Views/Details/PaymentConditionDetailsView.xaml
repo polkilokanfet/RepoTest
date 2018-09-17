@@ -18,16 +18,19 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+
         <Label Grid.Column="0" Grid.Row ="0" Content="Part" Visibility="{Binding VisibilityPartPaymentCondition, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="0" 
                                Value="{Binding Item.Part, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityPartPaymentCondition, ElementName=Root}"/>
+
 
         <Label Grid.Column="0" Grid.Row ="1" Content="DaysToPoint" Visibility="{Binding VisibilityDaysToPointPaymentCondition, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
 							   ValueType="core:Int32"
                                Value="{Binding Item.DaysToPoint, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityDaysToPointPaymentCondition, ElementName=Root}"/>
+
 
 
     </Grid>

@@ -5,6 +5,7 @@ using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.Model.POCOs
 {
+    [AllowEdit(Role.PlanMaker)]
     [Designation("Заводской заказ")]
     public partial class Order : BaseEntity, IComparable
     {

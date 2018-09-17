@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
 using HVTApp.Services.ProductDesignationService;
 using Microsoft.Practices.Unity;
 

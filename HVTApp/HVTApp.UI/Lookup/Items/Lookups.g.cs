@@ -62,54 +62,6 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("DocumentIncomingNumber")]
-	public partial class DocumentIncomingNumberLookup : LookupItem<DocumentIncomingNumber>
-	{
-		public DocumentIncomingNumberLookup(DocumentIncomingNumber entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
-		
-
-        #region SimpleProperties
-
-		[OrderStatus(1)]
-        public System.Int32 Num => GetValue<System.Int32>();
-
-
-        #endregion
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
-	[Designation("DocumentOutgoingNumber")]
-	public partial class DocumentOutgoingNumberLookup : LookupItem<DocumentOutgoingNumber>
-	{
-		public DocumentOutgoingNumberLookup(DocumentOutgoingNumber entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
-		
-
-        #region SimpleProperties
-
-		[OrderStatus(1)]
-        public System.Int32 Num => GetValue<System.Int32>();
-
-
-        #endregion
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
 	[Designation("Платеж совершенный")]
 	public partial class PaymentActualLookup : LookupItem<PaymentActual>
 	{
@@ -738,7 +690,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("Note")]
+	[Designation("Заметка")]
 	public partial class NoteLookup : LookupItem<Note>
 	{
 		public NoteLookup(Note entity) : base(entity) 
@@ -752,15 +704,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(4)]
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(3)]
         public System.String Text => GetValue<System.String>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(2)]
         public System.Boolean IsImportant => GetValue<System.Boolean>();
 
 
@@ -866,6 +818,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.String StructureCostNumber => GetValue<System.String>();
+
+
+		[OrderStatus(1)]
+        public System.String Design => GetValue<System.String>();
 
 
 		[OrderStatus(1)]
@@ -1270,7 +1226,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("Parameter")]
+	[Designation("Параметр")]
 	public partial class ParameterLookup : LookupItem<Parameter>
 	{
 		public ParameterLookup(Parameter entity) : base(entity) 
@@ -1286,7 +1242,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(4)]
         public System.String Value => GetValue<System.String>();
 
 
@@ -1299,7 +1255,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(5)]
 	    public ParameterGroupLookup ParameterGroup { get { return GetLookup<ParameterGroupLookup>(); } }
 
 
@@ -1359,6 +1315,10 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
+        public System.String Name => GetValue<System.String>();
+
+
+		[OrderStatus(1)]
         public System.Int32 ChildProductsAmount => GetValue<System.Int32>();
 
 
@@ -1408,7 +1368,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("ParameterRelation")]
+	[Designation("Ограничение использования параметра")]
 	public partial class ParameterRelationLookup : LookupItem<ParameterRelation>
 	{
 		public ParameterRelationLookup(ParameterRelation entity) : base(entity) 
@@ -1419,15 +1379,6 @@ namespace HVTApp.UI.Lookup
 			 
 		}
 		
-
-        #region SimpleProperties
-
-		[OrderStatus(1)]
-        public System.Guid ParameterId => GetValue<System.Guid>();
-
-
-        #endregion
-
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -1813,6 +1764,8 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
+			Number?.Refresh(Entity.Number);
+
 			RequestDocument?.Refresh(Entity.RequestDocument);
 
 			Author?.Refresh(Entity.Author);
@@ -1821,14 +1774,24 @@ namespace HVTApp.UI.Lookup
 
 			RecipientEmployee?.Refresh(Entity.RecipientEmployee);
 
-			RegistrationDetailsOfSender?.Refresh(Entity.RegistrationDetailsOfSender);
-
 			RegistrationDetailsOfRecipient?.Refresh(Entity.RegistrationDetailsOfRecipient);
 
 		}
 		
 
         #region SimpleProperties
+
+		[OrderStatus(1)]
+        public System.String Code => GetValue<System.String>();
+
+
+		[OrderStatus(45)]
+        public System.String RegNumber => GetValue<System.String>();
+
+
+		[OrderStatus(40)]
+        public System.DateTime Date => GetValue<System.DateTime>();
+
 
 		[OrderStatus(1)]
         public System.Guid SenderId => GetValue<System.Guid>();
@@ -1847,6 +1810,10 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
+		[OrderStatus(50)]
+	    public DocumentNumberLookup Number { get { return GetLookup<DocumentNumberLookup>(); } }
+
+
 		[OrderStatus(1)]
 	    public DocumentLookup RequestDocument { get { return GetLookup<DocumentLookup>(); } }
 
@@ -1864,11 +1831,31 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
-	    public DocumentsRegistrationDetailsLookup RegistrationDetailsOfSender { get { return GetLookup<DocumentsRegistrationDetailsLookup>(); } }
+	    public DocumentsRegistrationDetailsLookup RegistrationDetailsOfRecipient { get { return GetLookup<DocumentsRegistrationDetailsLookup>(); } }
 
+
+        #endregion
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("DocumentNumber")]
+	public partial class DocumentNumberLookup : LookupItem<DocumentNumber>
+	{
+		public DocumentNumberLookup(DocumentNumber entity) : base(entity) 
+		{
+		}
+		protected override void RefreshLookups()
+        {
+			 
+		}
+		
+
+        #region SimpleProperties
 
 		[OrderStatus(1)]
-	    public DocumentsRegistrationDetailsLookup RegistrationDetailsOfRecipient { get { return GetLookup<DocumentsRegistrationDetailsLookup>(); } }
+        public System.Int32 Number => GetValue<System.Int32>();
 
 
         #endregion
@@ -2089,7 +2076,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("ТКП")]
+	[Designation("Предложение")]
 	public partial class OfferLookup : LookupItem<Offer>
 	{
 		public OfferLookup(Offer entity) : base(entity) 
@@ -2100,6 +2087,8 @@ namespace HVTApp.UI.Lookup
 			 
 			Project?.Refresh(Entity.Project);
 
+			Number?.Refresh(Entity.Number);
+
 			RequestDocument?.Refresh(Entity.RequestDocument);
 
 			Author?.Refresh(Entity.Author);
@@ -2108,8 +2097,6 @@ namespace HVTApp.UI.Lookup
 
 			RecipientEmployee?.Refresh(Entity.RecipientEmployee);
 
-			RegistrationDetailsOfSender?.Refresh(Entity.RegistrationDetailsOfSender);
-
 			RegistrationDetailsOfRecipient?.Refresh(Entity.RegistrationDetailsOfRecipient);
 
 		}
@@ -2117,12 +2104,24 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(4)]
         public System.DateTime ValidityDate => GetValue<System.DateTime>();
 
 
 		[OrderStatus(1)]
         public System.Double Vat => GetValue<System.Double>();
+
+
+		[OrderStatus(1)]
+        public System.String Code => GetValue<System.String>();
+
+
+		[OrderStatus(45)]
+        public System.String RegNumber => GetValue<System.String>();
+
+
+		[OrderStatus(40)]
+        public System.DateTime Date => GetValue<System.DateTime>();
 
 
 		[OrderStatus(1)]
@@ -2142,8 +2141,12 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(5)]
 	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
+
+
+		[OrderStatus(50)]
+	    public DocumentNumberLookup Number { get { return GetLookup<DocumentNumberLookup>(); } }
 
 
 		[OrderStatus(1)]
@@ -2160,10 +2163,6 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
 	    public EmployeeLookup RecipientEmployee { get { return GetLookup<EmployeeLookup>(); } }
-
-
-		[OrderStatus(1)]
-	    public DocumentsRegistrationDetailsLookup RegistrationDetailsOfSender { get { return GetLookup<DocumentsRegistrationDetailsLookup>(); } }
 
 
 		[OrderStatus(1)]
@@ -2478,7 +2477,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("Тендер")]
+	[Designation("Конкурс")]
 	public partial class TenderLookup : LookupItem<Tender>
 	{
 		public TenderLookup(Tender entity) : base(entity) 
@@ -2496,15 +2495,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(9)]
         public System.DateTime DateOpen => GetValue<System.DateTime>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(8)]
         public System.DateTime DateClose => GetValue<System.DateTime>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(7)]
         public System.Nullable<System.DateTime> DateNotice => GetValue<System.Nullable<System.DateTime>>();
 
 
@@ -2513,11 +2512,11 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(4)]
 	    public ProjectLookup Project { get { return GetLookup<ProjectLookup>(); } }
 
 
-		[OrderStatus(1)]
+		[OrderStatus(5)]
 	    public CompanyLookup Winner { get { return GetLookup<CompanyLookup>(); } }
 
 
@@ -2541,7 +2540,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(4)]
         public System.String Name => GetValue<System.String>();
 
 

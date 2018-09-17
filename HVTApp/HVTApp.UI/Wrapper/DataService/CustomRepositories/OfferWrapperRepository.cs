@@ -6,10 +6,10 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class OfferWrapperRepository
     {
-        protected override async Task<OfferWrapper> GenerateWrapper(Offer offer)
+        protected override async Task<OfferWrapper> GenerateWrapper(Offer model)
         {
-            var offerUnits = await UnitOfWorkWrapper.GetWrapperRepository<OfferUnit, OfferUnitWrapper>().FindAsync(x => Equals(x.Offer.Model, offer));
-            return new OfferWrapper(offer, offerUnits);
+            var offerUnits = await UnitOfWorkWrapper.GetWrapperRepository<OfferUnit, OfferUnitWrapper>().FindAsync(x => Equals(x.Offer.Model, model));
+            return new OfferWrapper(model, offerUnits);
         }
     }
 }

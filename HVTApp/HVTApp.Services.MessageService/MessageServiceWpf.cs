@@ -15,5 +15,10 @@ namespace HVTApp.Services.MessageService
                 return MessageDialogResult.Yes;
             return MessageDialogResult.No;
         }
+
+        public void ShowOkMessageDialog(string title, string message)
+        {
+            MessageBox.Show(Application.Current.MainWindow, message, title);
+        }
     }
 }

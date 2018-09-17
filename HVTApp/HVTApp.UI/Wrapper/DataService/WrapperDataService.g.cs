@@ -8,8 +8,6 @@ namespace HVTApp.UI.Wrapper
         public WrapperDataService(DbContext context, IUnityContainer container) : base(context, container)
         {
             CreateNewProductTaskWrapperRepository = new CreateNewProductTaskWrapperRepository(this);
-            DocumentIncomingNumberWrapperRepository = new DocumentIncomingNumberWrapperRepository(this);
-            DocumentOutgoingNumberWrapperRepository = new DocumentOutgoingNumberWrapperRepository(this);
             PaymentActualWrapperRepository = new PaymentActualWrapperRepository(this);
             PaymentPlannedWrapperRepository = new PaymentPlannedWrapperRepository(this);
             ProductBlockIsServiceWrapperRepository = new ProductBlockIsServiceWrapperRepository(this);
@@ -56,6 +54,7 @@ namespace HVTApp.UI.Wrapper
             TestFriendEmailWrapperRepository = new TestFriendEmailWrapperRepository(this);
             TestFriendGroupWrapperRepository = new TestFriendGroupWrapperRepository(this);
             DocumentWrapperRepository = new DocumentWrapperRepository(this);
+            DocumentNumberWrapperRepository = new DocumentNumberWrapperRepository(this);
             TestEntityWrapperRepository = new TestEntityWrapperRepository(this);
             TestHusbandWrapperRepository = new TestHusbandWrapperRepository(this);
             TestWifeWrapperRepository = new TestWifeWrapperRepository(this);
@@ -77,8 +76,6 @@ namespace HVTApp.UI.Wrapper
         }
 
         private CreateNewProductTaskWrapperRepository CreateNewProductTaskWrapperRepository;
-        private DocumentIncomingNumberWrapperRepository DocumentIncomingNumberWrapperRepository;
-        private DocumentOutgoingNumberWrapperRepository DocumentOutgoingNumberWrapperRepository;
         private PaymentActualWrapperRepository PaymentActualWrapperRepository;
         private PaymentPlannedWrapperRepository PaymentPlannedWrapperRepository;
         private ProductBlockIsServiceWrapperRepository ProductBlockIsServiceWrapperRepository;
@@ -125,6 +122,7 @@ namespace HVTApp.UI.Wrapper
         private TestFriendEmailWrapperRepository TestFriendEmailWrapperRepository;
         private TestFriendGroupWrapperRepository TestFriendGroupWrapperRepository;
         private DocumentWrapperRepository DocumentWrapperRepository;
+        private DocumentNumberWrapperRepository DocumentNumberWrapperRepository;
         private TestEntityWrapperRepository TestEntityWrapperRepository;
         private TestHusbandWrapperRepository TestHusbandWrapperRepository;
         private TestWifeWrapperRepository TestWifeWrapperRepository;

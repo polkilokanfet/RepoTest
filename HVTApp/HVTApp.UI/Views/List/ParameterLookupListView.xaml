@@ -34,9 +34,9 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Value" Label="Value" Width="Auto" />
-                    <infg:TextField Name="ParameterGroup" Label="ParameterGroup" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:CheckBoxField Name="IsOrigin" Label="IsOrigin" Width="Auto" />
+                    <infg:TextField Name="ParameterGroup" Label="Группа" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Value" Label="Значение" Width="Auto" />
+                    <infg:CheckBoxField Name="IsOrigin" Label="Начало?" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
