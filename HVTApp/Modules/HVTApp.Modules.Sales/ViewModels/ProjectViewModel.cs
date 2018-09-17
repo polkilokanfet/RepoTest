@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -9,72 +10,79 @@ using HVTApp.UI.Converter;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
+using Prism.Commands;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
     public class ProjectViewModel : ProjectDetailsViewModel
     {
+        public GroupsViewModel GroupsViewModel { get; private set; }
+
+        #region ICommand
+
+        public ICommand AddCommand { get; private set; }
+        public ICommand RemoveCommand { get; private set; }
+        public ICommand ChangeFacilityCommand { get; private set; }
+        public ICommand ChangeProductCommand { get; private set; }
+        public ICommand ChangePaymentsCommand { get; private set; }
+
+        public ICommand AddProductIncludedCommand { get; private set; }
+        public ICommand RemoveProductIncludedCommand { get; private set; }
+
+        #endregion
+
+
         public ProjectViewModel(IUnityContainer container) : base(container)
         {
-        }
-
-        protected override IEnumerable<IUnitsDatedGroup> GetGroups()
-        {
-            var units = Item.Units.Select(x => x.Model).GroupBy(x => new {x.Cost, x.Product.Id});
-            return units.Select(x => new SalesUnitsGroup(x));
-            //return Item.Units.ToProductUnitGroups();
-        }
-
-        protected override async void AddCommand_Execute()
-        {
-            var salesUnit = new SalesUnitWrapper(new SalesUnit { Project = Item.Model });
-            var viewModel = new SalesUnitsViewModel(salesUnit, Container, WrapperDataService);
-            if (SelectedGroup != null)
-            {
-                viewModel.ViewModel.Item.Cost = SelectedGroup.Cost;
-                viewModel.ViewModel.Item.Facility = SelectedGroup.Facility;
-                viewModel.ViewModel.Item.PaymentConditionSet = SelectedGroup.PaymentConditionSet;
-                viewModel.ViewModel.Item.ProductionTerm = SelectedGroup.ProductionTerm;
-                viewModel.ViewModel.Item.Product = SelectedGroup.Product;
-                viewModel.ViewModel.Item.DeliveryDateExpected = SelectedGroup.DeliveryDateExpected;
-                foreach (var prodIncl in SelectedGroup.ProductsIncluded)
-                {
-                    var pi = new ProductIncluded { Product = prodIncl.Product.Model, Amount = prodIncl.Amount };
-                    viewModel.ViewModel.Item.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
-                }
-            }
-
-            var result = Container.Resolve<IDialogService>().ShowDialog(viewModel);
-            if (!result.HasValue || !result.Value)
-                return;
-
-            var wrappers = new List<SalesUnitWrapper>();
-            for (int i = 0; i < viewModel.Amount; i++)
-            {
-                var unit = (SalesUnit)viewModel.ViewModel.Item.Model.Clone();
-                unit.Id = Guid.NewGuid();
-                unit.ProductsIncluded = new List<ProductIncluded>();
-                var unitWrapper = new SalesUnitWrapper(unit);
-                this.Item.Units.Add(unitWrapper);
-                wrappers.Add(unitWrapper);
-            }
-
-            //var group = new UnitsDatedGroup(wrappers);
-            //Groups.Add(group);
-            await RefreshPrices();
-            //SelectedGroup = group;
         }
 
         protected override async Task AfterLoading()
         {
             await base.AfterLoading();
+
+            //назначаем менеджера
             if (Item.Manager == null) Item.Manager = await WrapperDataService.GetWrapperRepository<User, UserWrapper>().GetByIdAsync(CommonOptions.User.Id);
+
+            //загружаем строки с оборудованием
+            var units = WrapperDataService.Repository<SalesUnit>().Find(x => x.Project.Id == Item.Id);
+            GroupsViewModel = new GroupsViewModel(Container, units, WrapperDataService);
+            await GroupsViewModel.LoadAsync();
+
+            //команды
+            AddCommand = GroupsViewModel.AddCommand;
+            RemoveCommand = GroupsViewModel.RemoveCommand;
+            ChangeFacilityCommand = GroupsViewModel.ChangeFacilityCommand;
+            ChangeProductCommand = GroupsViewModel.ChangeProductCommand;
+            ChangePaymentsCommand = GroupsViewModel.ChangePaymentsCommand;
+            AddProductIncludedCommand = GroupsViewModel.AddProductIncludedCommand;
+            RemoveProductIncludedCommand = GroupsViewModel.RemoveProductIncludedCommand;
+
+            //регистрация на события изменения строк с оборудованием
+            this.GroupsViewModel.Groups.PropertyChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+            this.GroupsViewModel.Groups.CollectionChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+
+            //сигнал об изменении модели
+            OnPropertyChanged(nameof(GroupsViewModel));
         }
 
-        protected override DateTime GetDate()
+        protected override async void SaveCommand_Execute()
         {
-            var oitDate = Item.Units.Min(x => x.OrderInTakeDate);
-            return oitDate < DateTime.Today ? oitDate : DateTime.Today;
+            base.SaveCommand_Execute();
+            await GroupsViewModel.SaveChanges();
         }
+
+        protected override bool SaveCommand_CanExecute()
+        {
+            if (GroupsViewModel == null || !GroupsViewModel.Groups.IsValid || !Item.IsValid)
+                return false;
+
+            return Item.IsChanged || GroupsViewModel.Groups.IsChanged;
+        }
+
+        //protected override DateTime GetDate()
+        //{
+        //    var oitDate = Item.Units.Min(x => x.OrderInTakeDate);
+        //    return oitDate < DateTime.Today ? oitDate : DateTime.Today;
+        //}
     }
 }

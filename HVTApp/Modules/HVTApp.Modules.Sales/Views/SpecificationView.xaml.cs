@@ -29,7 +29,7 @@ namespace HVTApp.Modules.Sales.Views
             if (navigationContext.Parameters.Count() == 2)
             {
                 var units = (IEnumerable<SalesUnit>)navigationContext.Parameters.Last().Value;
-                await _viewModel.LoadAsync(specification, units);
+                //await _viewModel.LoadAsync(specification, units);
                 return;
             }
             await _viewModel.LoadAsync(specification);

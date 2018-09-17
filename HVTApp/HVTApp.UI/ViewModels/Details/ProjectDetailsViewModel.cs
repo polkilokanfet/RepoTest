@@ -7,21 +7,21 @@ using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.ViewModels
 {
-    public partial class ProjectDetailsViewModel : WrapperWithUnitsViewModel<IUnitsDatedGroup, ProjectWrapper, Project, SalesUnit, AfterSaveProjectEvent>
-    {
-        protected override void AddCommand_Execute()
-        {
-            throw new NotImplementedException();
-        }
+    //public partial class ProjectDetailsViewModel : WrapperWithUnitsViewModel<IUnitsDatedGroup, ProjectWrapper, Project, SalesUnit, AfterSaveProjectEvent>
+    //{
+    //    protected override void AddCommand_Execute()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        protected override IEnumerable<IUnitsDatedGroup> GetGroups()
-        {
-            throw new NotImplementedException();
-        }
+    //    protected override IEnumerable<IUnitsDatedGroup> GetGroups()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        protected override DateTime GetDate()
-        {
-            throw new NotImplementedException();
-        }
-    }
+    //    protected override DateTime GetDate()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 }

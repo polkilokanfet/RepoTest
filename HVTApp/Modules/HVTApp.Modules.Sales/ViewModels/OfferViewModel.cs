@@ -17,53 +17,48 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
         }
 
-        protected override IEnumerable<IUnitsGroup> GetGroups()
-        {
-            return Item.Units.ToProductUnitGroups();
-        }
+        //protected override async void AddCommand_Execute()
+        //{
+        //    var offerUnit = new OfferUnitWrapper(new OfferUnit() {Offer = Item.Model});
+        //    var offerUnitsViewModel = new OfferUnitsViewModel(offerUnit, Container, WrapperDataService);
+        //    if (SelectedGroup != null)
+        //    {
+        //        offerUnitsViewModel.ViewModel.Item.Cost = SelectedGroup.Cost;
+        //        offerUnitsViewModel.ViewModel.Item.Facility = SelectedGroup.Facility;
+        //        offerUnitsViewModel.ViewModel.Item.PaymentConditionSet = SelectedGroup.PaymentConditionSet;
+        //        offerUnitsViewModel.ViewModel.Item.ProductionTerm = SelectedGroup.ProductionTerm;
+        //        offerUnitsViewModel.ViewModel.Item.Product = SelectedGroup.Product;
+        //        foreach (var prodIncl in SelectedGroup.ProductsIncluded)
+        //        {
+        //            var pi = new ProductIncluded {Product = prodIncl.Product.Model, Amount = prodIncl.Amount};
+        //            offerUnitsViewModel.ViewModel.Item.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
+        //        }
+        //    }
 
-        protected override async void AddCommand_Execute()
-        {
-            var offerUnit = new OfferUnitWrapper(new OfferUnit() {Offer = Item.Model});
-            var offerUnitsViewModel = new OfferUnitsViewModel(offerUnit, Container, WrapperDataService);
-            if (SelectedGroup != null)
-            {
-                offerUnitsViewModel.ViewModel.Item.Cost = SelectedGroup.Cost;
-                offerUnitsViewModel.ViewModel.Item.Facility = SelectedGroup.Facility;
-                offerUnitsViewModel.ViewModel.Item.PaymentConditionSet = SelectedGroup.PaymentConditionSet;
-                offerUnitsViewModel.ViewModel.Item.ProductionTerm = SelectedGroup.ProductionTerm;
-                offerUnitsViewModel.ViewModel.Item.Product = SelectedGroup.Product;
-                foreach (var prodIncl in SelectedGroup.ProductsIncluded)
-                {
-                    var pi = new ProductIncluded {Product = prodIncl.Product.Model, Amount = prodIncl.Amount};
-                    offerUnitsViewModel.ViewModel.Item.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
-                }
-            }
+        //    var result = Container.Resolve<IDialogService>().ShowDialog(offerUnitsViewModel);
+        //    if (!result.HasValue || !result.Value)
+        //        return;
 
-            var result = Container.Resolve<IDialogService>().ShowDialog(offerUnitsViewModel);
-            if (!result.HasValue || !result.Value)
-                return;
+        //    var wrappers = new List<OfferUnitWrapper>();
+        //    for (int i = 0; i < offerUnitsViewModel.Amount; i++)
+        //    {
+        //        var ou = (OfferUnit)offerUnitsViewModel.ViewModel.Item.Model.Clone();
+        //        ou.Id = Guid.NewGuid();
+        //        ou.ProductsIncluded = new List<ProductIncluded>();
+        //        var ouw = new OfferUnitWrapper(ou);
+        //        this.Item.Units.Add(ouw);
+        //        wrappers.Add(ouw);
+        //    }
+        //    var group = new UnitsGroup(wrappers);
+        //    Groups.Add(group);
+        //    await RefreshPrices();
+        //    SelectedGroup = group;
+        //}
 
-            var wrappers = new List<OfferUnitWrapper>();
-            for (int i = 0; i < offerUnitsViewModel.Amount; i++)
-            {
-                var ou = (OfferUnit)offerUnitsViewModel.ViewModel.Item.Model.Clone();
-                ou.Id = Guid.NewGuid();
-                ou.ProductsIncluded = new List<ProductIncluded>();
-                var ouw = new OfferUnitWrapper(ou);
-                this.Item.Units.Add(ouw);
-                wrappers.Add(ouw);
-            }
-            var group = new UnitsGroup(wrappers);
-            Groups.Add(group);
-            await RefreshPrices();
-            SelectedGroup = group;
-        }
-
-        protected override DateTime GetDate()
-        {
-            return Item.Date;
-        }
+        //protected override DateTime GetDate()
+        //{
+        //    return Item.Date;
+        //}
 
         /// <summary>
         /// «агрузка при создании нового предложени€.

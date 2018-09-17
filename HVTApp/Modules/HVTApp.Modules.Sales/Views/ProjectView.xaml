@@ -24,6 +24,7 @@
 
         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3" />
 
-        <controls:SalesUnitListControl Grid.Row="2" DataContext="{Binding}"/>
+        <controls:SalesUnitListControl Grid.Row="2"
+                                       DataContext="{Binding GroupsViewModel}"/>
     </Grid>
 </inf:ViewBase>

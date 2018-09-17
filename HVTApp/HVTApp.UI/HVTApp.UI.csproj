@@ -231,7 +231,6 @@
     <Compile Include="Wrapper\Custom\Functionality\SalesUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\SpecificationWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\PaymentConditionSetWrapper.cs" />
-    <Compile Include="Wrapper\DataService\CustomRepositories\ProjectWrapperRepository.cs" />
     <Compile Include="Wrapper\DataService\IWrapperDataService.cs" />
     <Compile Include="Wrapper\DataService\IWrapperRepository.cs" />
     <Compile Include="Wrapper\DataService\CustomRepositories\OfferWrapperRepository.cs" />

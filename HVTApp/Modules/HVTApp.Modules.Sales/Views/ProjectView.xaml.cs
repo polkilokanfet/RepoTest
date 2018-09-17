@@ -24,6 +24,7 @@ namespace HVTApp.Modules.Sales.Views
         public override async void OnNavigatedTo(NavigationContext navigationContext)
         {
             base.OnNavigatedTo(navigationContext);
+
             var project = new Project();
             if (navigationContext.Parameters != null && navigationContext.Parameters.Any())
                 project = (Project)navigationContext.Parameters.First().Value;

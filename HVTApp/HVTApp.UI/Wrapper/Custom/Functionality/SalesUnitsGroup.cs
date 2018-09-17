@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using HVTApp.Model.POCOs;
-using Microsoft.Practices.ObjectBuilder2;
 
 namespace HVTApp.UI.Wrapper
 {
@@ -24,8 +23,8 @@ namespace HVTApp.UI.Wrapper
             {
                 if (Math.Abs(_price - value) < 0.0001) return;
                 _price = value;
-                OnPropertyChanged(nameof(MarginalIncome));
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(MarginalIncome));
             }
         }
 
@@ -37,9 +36,9 @@ namespace HVTApp.UI.Wrapper
                 if (Equals(value, Cost)) return;
                 if (value < 0) return;
                 Cost = value;
+                OnPropertyChanged();
                 OnPropertyChanged(nameof(MarginalIncome));
                 OnPropertyChanged(nameof(Total));
-                OnPropertyChanged();
             }
         }
 
@@ -77,8 +76,6 @@ namespace HVTApp.UI.Wrapper
 
             this.PropertyChanged += OnPropertyChanged;
             this.Groups.CollectionChanged += (sender, args) => { RemovedAllGroups?.Invoke(this); };
-
-            //OnPropertyChanged(nameof(MarginalIncome));
         }
 
         //смена значения свойства
@@ -86,7 +83,7 @@ namespace HVTApp.UI.Wrapper
         {
             if (Groups == null) return;
             var property = this.GetType().GetProperty(args.PropertyName);
-            if (!property.CanWrite) return;
+            if (property == null || !property.CanWrite) return;
 
             var valueNew = property.GetValue(this);
 
