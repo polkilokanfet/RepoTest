@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
@@ -18,12 +19,8 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
         }
 
-        protected override async Task AfterLoading()
+        private async Task InitGroupsViewModel(IEnumerable<OfferUnit> units)
         {
-            await base.AfterLoading();
-
-            //загружаем строки с оборудованием
-            var units = UnitOfWork.Repository<OfferUnit>().Find(x => x.Offer.Id == Item.Id);
             GroupsViewModel = new OfferUnitsGroupsViewModel(Container, units, UnitOfWork, Item.Model);
             await GroupsViewModel.LoadAsync();
 
@@ -35,6 +32,14 @@ namespace HVTApp.Modules.Sales.ViewModels
             OnPropertyChanged(nameof(GroupsViewModel));
         }
 
+        protected override async Task AfterLoading()
+        {
+            //загружаем строки с оборудованием
+            var units = UnitOfWork.Repository<OfferUnit>().Find(x => x.Offer.Id == Item.Id);
+            await InitGroupsViewModel(units);
+            await base.AfterLoading();
+        }
+
 
         /// <summary>
         /// Загрузка при создании нового предложения.
@@ -44,6 +49,8 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// <returns></returns>
         public async Task LoadAsync(Offer offer, IEnumerable<OfferUnit> offerUnits)
         {
+            Item = new OfferWrapper(new Offer());
+
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
             //продукты, условия и объекты из базы
@@ -51,10 +58,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             var conditions = (await UnitOfWork.Repository<PaymentConditionSet>().GetAllAsync()).Select(x => new PaymentConditionSetWrapper(x)).ToList();
             var facilities = (await UnitOfWork.Repository<Facility>().GetAllAsync()).Select(x => new FacilityWrapper(x)).ToList();
 
-            Item = new OfferWrapper(new Offer(), new List<OfferUnitWrapper>());
-
             if (offer.Author != null) Item.Author = new EmployeeWrapper(await UnitOfWork.Repository<Employee>().GetByIdAsync(offer.Author.Id));
-            if (offer.Author != null) Item.Project = new ProjectWrapper(await UnitOfWork.Repository<Project>().GetByIdAsync(offer.Project.Id));
+            if (offer.Project != null) Item.Project = new ProjectWrapper(await UnitOfWork.Repository<Project>().GetByIdAsync(offer.Project.Id));
             if (offer.RecipientEmployee != null) Item.RecipientEmployee = new EmployeeWrapper(await UnitOfWork.Repository<Employee>().GetByIdAsync(offer.RecipientEmployee.Id));
             if (offer.SenderEmployee != null) Item.SenderEmployee = new EmployeeWrapper(await UnitOfWork.Repository<Employee>().GetByIdAsync(offer.SenderEmployee.Id));
             if (offer.RequestDocument != null) Item.RequestDocument = new DocumentWrapper(await UnitOfWork.Repository<Document>().GetByIdAsync(offer.RequestDocument.Id));
@@ -83,7 +88,6 @@ namespace HVTApp.Modules.Sales.ViewModels
                     };
                     wrap.ProductsIncluded.Add(pi);
                 }
-                Item.Units.Add(wrap);
             }
 
             await AfterLoading();
@@ -105,6 +109,21 @@ namespace HVTApp.Modules.Sales.ViewModels
             return Item.IsChanged || GroupsViewModel.Groups.IsChanged;
         }
 
+        private OfferUnitWrapper Dublicate(OfferUnit offerUnit)
+        {
+            var result = new OfferUnitWrapper(new OfferUnit());
+            var properties = offerUnit.GetType().GetProperties(BindingFlags.SetProperty);
+            foreach (var property in properties)
+            {
+                var value = property.GetValue(offerUnit);
+                result.GetType().GetProperty(property.Name).SetValue(result, value);
+            }
+            return result;
+        }
 
+        //private object ValueSet(object value)
+        //{
+        //    if(value is Product) return new
+        //}
     }
 }

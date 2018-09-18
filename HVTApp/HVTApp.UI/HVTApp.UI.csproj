@@ -123,8 +123,6 @@
     <Compile Include="Lookup\Items\Custom\SpecificationLookup.cs" />
     <Compile Include="Lookup\Items\Lookups.g.cs" />
     <Compile Include="Lookup\Service\Custom\CalculatePriceTaskLookupDataService.cs" />
-    <Compile Include="Lookup\Service\Custom\OfferLookupDataService.cs" />
-    <Compile Include="Lookup\Service\Custom\ProjectLookupDataService.cs" />
     <Compile Include="Lookup\Service\ILookupDataServices.g.cs" />
     <Compile Include="Lookup\Service\ILookupDataService.cs" />
     <Compile Include="Lookup\Service\LookupDataServices.g.cs" />
@@ -163,7 +161,6 @@
     <Compile Include="Lookup\Items\Custom\ProductLookup.cs" />
     <Compile Include="Lookup\Items\Custom\ProjectLookup.cs" />
     <Compile Include="Lookup\Items\Custom\TenderLookup.cs" />
-    <Compile Include="Lookup\Service\Custom\CompanyLookupDataService.cs" />
     <Compile Include="Lookup\Service\LookupDataService.cs" />
     <Compile Include="UiModule.cs" />
     <Compile Include="Wrapper\UnitsGroup.cs" />
@@ -209,7 +206,6 @@
     <Compile Include="Wrapper\Base\TrackingCollections\ValidatableChangeTrackingCollection.cs" />
     <Compile Include="Wrapper\Base\WrapperBase.cs" />
     <Compile Include="Groups\SalesUnitsGroup.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\OfferUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\OfferWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ParameterWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\PaymentActualWrapper.cs" />
@@ -923,9 +919,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Wrapper\DataService\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

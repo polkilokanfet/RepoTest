@@ -137,7 +137,6 @@
     </Compile>
     <Compile Include="ViewModels\OfferUnitsGroupsViewModel.cs" />
     <Compile Include="ViewModels\SalesUnitsGroupsViewModel.cs" />
-    <Compile Include="ViewModels\MarketViewModel.cs" />
     <Compile Include="ViewModels\OffersViewModel.cs" />
     <Compile Include="ViewModels\Market2ViewModel.cs" />
     <Compile Include="ViewModels\ProjectViewModel.cs" />

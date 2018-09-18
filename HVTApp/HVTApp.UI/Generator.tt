@@ -19,78 +19,11 @@
     GenerateWrappers(modelTypes);
 	SaveGeneratedCodeAsFile("Wrappers.g.cs", "Wrapper");
 
-	GenerateWrapperRepositories(modelTypes);
-	SaveGeneratedCodeAsFile("WrapperRepositories.g.cs", "Wrapper/DataService");
-
-	GenerateWrapperDataService(modelTypes);
-	SaveGeneratedCodeAsFile("WrapperDataService.g.cs", "Wrapper/DataService");
-
 	GenerateRegistrations(modelTypes);
 	SaveGeneratedCodeAsFile("UiModule.g.cs", "");
 #>
 
 <#+
-
-
-	private void GenerateWrapperRepositories(IEnumerable<Type> modelTypes)
-	{
-#>using System.Linq;
-using HVTApp.Infrastructure;
-using HVTApp.Model.POCOs;
-
-namespace HVTApp.UI.Wrapper
-{
-<#+
-        foreach(var modelType in modelTypes)
-        {
- #>
-    public partial class <#=modelType.Name#>WrapperRepository : WrapperRepository<<#=modelType.Name#>, <#=modelType.Name#>Wrapper>
-    {
-        public <#=modelType.Name#>WrapperRepository(IWrapperDataService wrapperDataService) : base(wrapperDataService) { }
-    }
-
-<#+
-        }
- #>
-}
-<#+
-	}
-
-	private void GenerateWrapperDataService(IEnumerable<Type> modelTypes)
-	{
-#>using System.Data.Entity;
-using Microsoft.Practices.Unity;
-
-namespace HVTApp.UI.Wrapper
-{
-    public partial class WrapperDataService
-    {
-        public WrapperDataService(DbContext context, IUnityContainer container) : base(context, container)
-        {
-<#+
-        foreach(var modelType in modelTypes)
-        {
-#>
-            <#=modelType.Name#>WrapperRepository = new <#=modelType.Name#>WrapperRepository(this);
-<#+
-        }
-#>
-        }
-
-<#+
-        foreach(var modelType in modelTypes)
-        {
-#>
-        private <#=modelType.Name#>WrapperRepository <#=modelType.Name#>WrapperRepository;
-<#+
-        }
-#>
-    }
-}
-<#+
-	}
-
-
 	private void GenerateRegistrations(IEnumerable<Type> modelTypes)
 	{
 #>using HVTApp.Infrastructure.Prism;
