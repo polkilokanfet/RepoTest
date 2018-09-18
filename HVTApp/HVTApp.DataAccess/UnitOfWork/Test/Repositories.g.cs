@@ -83,11 +83,6 @@ namespace HVTApp.DataAccess
         public RegionRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class CalculatePriceTaskRepositoryTest : TestBaseRepository<CalculatePriceTask>, ICalculatePriceTaskRepository
-    {
-        public CalculatePriceTaskRepositoryTest(TestData testData) : base(testData) {}
-    }
-
     public partial class SumRepositoryTest : TestBaseRepository<Sum>, ISumRepository
     {
         public SumRepositoryTest(TestData testData) : base(testData) {}

@@ -1,12 +1,11 @@
+using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.Model;
-using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
-using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
@@ -51,7 +50,8 @@ namespace HVTApp.Modules.Sales.ViewModels
         protected override bool SaveCommand_CanExecute()
         {
             //все сущности должны быть валидны
-            if (GroupsViewModel == null || !GroupsViewModel.Groups.IsValid || !Item.IsValid)
+            if (GroupsViewModel == null || !GroupsViewModel.Groups.IsValid || !Item.IsValid || 
+                GroupsViewModel.Groups == null || !GroupsViewModel.Groups.Any())
                 return false;
 
             //какая-то сущность должна быть изменена

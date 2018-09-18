@@ -19,7 +19,6 @@ namespace HVTApp.DataAccess
     public partial interface ILocalityRepository : IRepository<Locality> { }
     public partial interface ILocalityTypeRepository : IRepository<LocalityType> { }
     public partial interface IRegionRepository : IRepository<Region> { }
-    public partial interface ICalculatePriceTaskRepository : IRepository<CalculatePriceTask> { }
     public partial interface ISumRepository : IRepository<Sum> { }
     public partial interface ICurrencyExchangeRateRepository : IRepository<CurrencyExchangeRate> { }
     public partial interface IDescribeProductBlockTaskRepository : IRepository<DescribeProductBlockTask> { }

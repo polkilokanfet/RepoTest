@@ -99,8 +99,6 @@
     <Compile Include="Groups\PaymentWrapper.cs" />
     <Compile Include="Groups\ProductUnitsGroup.cs" />
     <Compile Include="Groups\ShipmentUnitsGroup.cs" />
-    <Compile Include="Lookup\Items\Custom\PaymentActualLookup.cs" />
-    <Compile Include="Lookup\Items\Custom\PaymentPlannedLookup.cs" />
     <Compile Include="Services\IOfferToDoc.cs" />
     <Compile Include="ViewModels\Details\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProductIncludedDetailsViewModel.cs" />
@@ -116,13 +114,11 @@
     <Compile Include="Extantions\DesignationExt.cs" />
     <Compile Include="GeneratorHelpers.cs" />
     <Compile Include="Lookup\Items\Custom\AddressLookup.cs" />
-    <Compile Include="Lookup\Items\Custom\CalculatePriceTaskLookup.cs" />
     <Compile Include="Lookup\Items\Custom\OfferUnitLookup.cs" />
     <Compile Include="Lookup\Items\Custom\PaymentConditionSetLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SpecificationLookup.cs" />
     <Compile Include="Lookup\Items\Lookups.g.cs" />
-    <Compile Include="Lookup\Service\Custom\CalculatePriceTaskLookupDataService.cs" />
     <Compile Include="Lookup\Service\ILookupDataServices.g.cs" />
     <Compile Include="Lookup\Service\ILookupDataService.cs" />
     <Compile Include="Lookup\Service\LookupDataServices.g.cs" />
@@ -380,10 +376,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Details\BankDetailsDetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Details\CalculatePriceTaskDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -659,10 +651,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\List\CalculatePriceTaskLookupListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\List\CommonOptionLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -919,7 +907,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Lookup\Service\Custom\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

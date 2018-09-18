@@ -108,12 +108,6 @@ namespace HVTApp.UI
             _updateDetailsService.Register<Region, RegionDetailsView>();
 
 
-            Container.RegisterViewForNavigation<CalculatePriceTaskLookupListView>();
-            //_dialogService.Register<CalculatePriceTaskDetailsViewModel, CalculatePriceTaskDetailsView>();
-			_selectService.Register<CalculatePriceTaskLookupListView, CalculatePriceTask>();
-            _updateDetailsService.Register<CalculatePriceTask, CalculatePriceTaskDetailsView>();
-
-
             Container.RegisterViewForNavigation<SumLookupListView>();
             //_dialogService.Register<SumDetailsViewModel, SumDetailsView>();
 			_selectService.Register<SumLookupListView, Sum>();

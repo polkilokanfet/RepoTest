@@ -136,7 +136,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// </summary>
         private void NewOfferByOfferCommand_Execute()
         {
-            var prms = new NavigationParameters {{"offer", OfferListViewModel.SelectedItem}, {"units", OfferListViewModel.SelectedLookup.OfferUnits.Select(x => x.Entity)}};
+            var prms = new NavigationParameters {{"offer", OfferListViewModel.SelectedItem}};
             RegionManager.RequestNavigateContentRegion<OfferView>(prms);
         }
 
@@ -145,28 +145,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// </summary>
         private void NewOfferByProjectCommand_Execute()
         {
-            var offer = new Offer
-            {
-                Project = SelectedItem,
-                ValidityDate = DateTime.Today.AddDays(90),
-                Author = CommonOptions.User.Employee
-            };
-
-            var units = new List<OfferUnit>();
-            foreach (var unit in SelectedLookup.SalesUnits.Select(x => x.Entity))
-            {
-                var offerUnit = new OfferUnit
-                {
-                    Cost = unit.Cost,
-                    Facility = unit.Facility,
-                    Product = unit.Product, Offer = offer,
-                    PaymentConditionSet = unit.PaymentConditionSet,
-                    ProductionTerm = unit.ProductionTerm
-                };
-                units.Add(offerUnit);
-            }
-
-            var prms = new NavigationParameters {{"offer", offer}, {"units", units}};
+            var prms = new NavigationParameters {{"project", SelectedItem}};
             RegionManager.RequestNavigateContentRegion<OfferView>(prms);
         }
 

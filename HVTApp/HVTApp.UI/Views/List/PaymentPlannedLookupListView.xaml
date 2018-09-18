@@ -34,7 +34,6 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:NumericField Name="Sum" Label="Sum" Width="Auto" />
                     <infg:NumericField Name="Part" Label="Часть" Width="Auto" />
                     <infg:DateTimeField Name="DateCalculated" Label="Дата расчетная" Width="Auto" />
                     <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Tabs;
@@ -25,14 +24,14 @@ namespace HVTApp.Modules.Sales.Views
         public override async void OnNavigatedTo(NavigationContext navigationContext)
         {
             base.OnNavigatedTo(navigationContext);
-            var offer = (Offer)navigationContext.Parameters.First().Value;
-            if (navigationContext.Parameters.Count() == 2)
-            {
-                var units = (IEnumerable<OfferUnit>)navigationContext.Parameters.Last().Value;
-                await _viewModel.LoadAsync(offer, units);
-                return;
-            }
-            await _viewModel.LoadAsync(offer);
+
+            //по шаблону-проекту
+            var project = navigationContext.Parameters.First().Value as Project;
+            if (project != null) await _viewModel.LoadByProject(project);
+
+            //по шаблону-предложению
+            var offer = navigationContext.Parameters.First().Value as Offer;
+            if (offer != null) await _viewModel.LoadByOffer(offer);
         }
 
     }

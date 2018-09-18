@@ -19,7 +19,6 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemoveLocalityEvent : PubSubEvent<Locality> { }
 	public partial class AfterRemoveLocalityTypeEvent : PubSubEvent<LocalityType> { }
 	public partial class AfterRemoveRegionEvent : PubSubEvent<Region> { }
-	public partial class AfterRemoveCalculatePriceTaskEvent : PubSubEvent<CalculatePriceTask> { }
 	public partial class AfterRemoveSumEvent : PubSubEvent<Sum> { }
 	public partial class AfterRemoveCurrencyExchangeRateEvent : PubSubEvent<CurrencyExchangeRate> { }
 	public partial class AfterRemoveDescribeProductBlockTaskEvent : PubSubEvent<DescribeProductBlockTask> { }

@@ -48,6 +48,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             _unitOfWork = unitOfWork;
             _offer = offer;
+
             var groups = units.GroupBy(x => x, new OfferUnitsGroupsComparer())
                               .OrderByDescending(x => x.Key.Cost)
                               .Select(x => new OfferUnitsGroup(x));
@@ -281,18 +282,19 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public async Task SaveChanges()
         {
-            //добавляем созданные юниты и удаляем удаленные
-            var addedIn = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.AddedItems).Select(x => x.Model);
-            var added = Groups.AddedItems.Select(x => x.Model).Concat(addedIn).Distinct().ToList();
-            _unitOfWork.Repository<OfferUnit>().AddRange(added);
+            //добавляем созданные
+            var added = Groups.AddedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups).ToList();
+            added = added.Concat(Groups.AddedItems).ToList();
+            _unitOfWork.Repository<OfferUnit>().AddRange(added.Select(x => x.Model).Distinct());
 
-            //добавляем созданные юниты и удаляем удаленные
-            var removedIn = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems).Select(x => x.Model);
-            var removed = Groups.RemovedItems.Select(x => x.Model).Concat(removedIn).Distinct().ToList();
-            _unitOfWork.Repository<OfferUnit>().DeleteRange(removed);
+            //удаляем удаленные
+            var removed = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems).ToList();
+            removed = Groups.RemovedItems.Concat(removed).ToList();
+            removed = removed.Concat(Groups.RemovedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups)).ToList();
+            _unitOfWork.Repository<OfferUnit>().DeleteRange(removed.Select(x => x.Model).Distinct());
 
-            var modifiedIn = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.ModifiedItems).Select(x => x.Model);
-            var modified = Groups.ModifiedItems.Select(x => x.Model).Concat(modifiedIn).Distinct().ToList();
+            var modified = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.ModifiedItems).ToList();
+            modified = Groups.ModifiedItems.Concat(modified).ToList();
 
             Groups.AcceptChanges();
             await _unitOfWork.SaveChangesAsync();
@@ -300,8 +302,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             var eventAggregator = Container.Resolve<IEventAggregator>();
 
             //сообщаем об изменениях
-            added.Concat(modified).ForEach(x => eventAggregator.GetEvent<AfterSaveOfferUnitEvent>().Publish(x));
-            removed.ForEach(x => eventAggregator.GetEvent<AfterRemoveOfferUnitEvent>().Publish(x));
+            added.Concat(modified).Select(x => x.Model).Distinct().ForEach(x => eventAggregator.GetEvent<AfterSaveOfferUnitEvent>().Publish(x));
+            removed.Select(x => x.Model).ForEach(x => eventAggregator.GetEvent<AfterRemoveOfferUnitEvent>().Publish(x));
         }
 
 

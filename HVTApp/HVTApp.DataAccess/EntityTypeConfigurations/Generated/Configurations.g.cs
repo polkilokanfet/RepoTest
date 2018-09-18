@@ -19,7 +19,6 @@ namespace HVTApp.DataAccess
     public partial class LocalityConfiguration : EntityTypeConfiguration<Locality> { }
     public partial class LocalityTypeConfiguration : EntityTypeConfiguration<LocalityType> { }
     public partial class RegionConfiguration : EntityTypeConfiguration<Region> { }
-    public partial class CalculatePriceTaskConfiguration : EntityTypeConfiguration<CalculatePriceTask> { }
     public partial class SumConfiguration : EntityTypeConfiguration<Sum> { }
     public partial class CurrencyExchangeRateConfiguration : EntityTypeConfiguration<CurrencyExchangeRate> { }
     public partial class DescribeProductBlockTaskConfiguration : EntityTypeConfiguration<DescribeProductBlockTask> { }

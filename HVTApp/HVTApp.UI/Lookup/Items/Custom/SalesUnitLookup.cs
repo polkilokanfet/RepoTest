@@ -21,8 +21,6 @@ namespace HVTApp.UI.Lookup
             PaymentsPlanned = Entity.PaymentsPlanned.Select(x => new PaymentPlannedLookup(x)).ToList();
             foreach (var paymentPlannedLookup in PaymentsPlanned)
                 await paymentPlannedLookup.LoadOther(unitOfWork);
-            //проставляем в сохраненных платежах суммы
-            PaymentsPlanned.ForEach(x => x.Sum = Cost * x.Part * x.Condition.Part);
 
             await PaymentConditionSet.LoadOther(unitOfWork);
         }

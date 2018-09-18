@@ -20,7 +20,6 @@ namespace HVTApp.DataAccess
             LocalityRepository = new LocalityRepository(_context, _container);
             LocalityTypeRepository = new LocalityTypeRepository(_context, _container);
             RegionRepository = new RegionRepository(_context, _container);
-            CalculatePriceTaskRepository = new CalculatePriceTaskRepository(_context, _container);
             SumRepository = new SumRepository(_context, _container);
             CurrencyExchangeRateRepository = new CurrencyExchangeRateRepository(_context, _container);
             DescribeProductBlockTaskRepository = new DescribeProductBlockTaskRepository(_context, _container);
@@ -90,7 +89,6 @@ namespace HVTApp.DataAccess
         protected ILocalityRepository LocalityRepository;
         protected ILocalityTypeRepository LocalityTypeRepository;
         protected IRegionRepository RegionRepository;
-        protected ICalculatePriceTaskRepository CalculatePriceTaskRepository;
         protected ISumRepository SumRepository;
         protected ICurrencyExchangeRateRepository CurrencyExchangeRateRepository;
         protected IDescribeProductBlockTaskRepository DescribeProductBlockTaskRepository;

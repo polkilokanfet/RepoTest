@@ -164,16 +164,6 @@ namespace HVTApp.DataAccess
 		}
     }
 
-    public partial class CalculatePriceTaskRepository : BaseRepository<CalculatePriceTask>, ICalculatePriceTaskRepository
-    {
-        IUnityContainer _container;
-
-		public CalculatePriceTaskRepository(DbContext context, IUnityContainer container) : base(context) 
-		{
-			_container = container;
-		}
-    }
-
     public partial class SumRepository : BaseRepository<Sum>, ISumRepository
     {
         IUnityContainer _container;

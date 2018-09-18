@@ -230,109 +230,6 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("Задание на расчет себестоимости")]
-	[DesignationPlural("CalculatePriceTaskLookup")]
-	[AllowEditAttribute(Role.Admin)]
-
-    public partial class CalculatePriceTaskLookupListView : ViewBase
-    {
-        public CalculatePriceTaskLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public CalculatePriceTaskLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, CalculatePriceTaskLookupListViewModel CalculatePriceTaskLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = CalculatePriceTaskLookupListViewModel;
-			CalculatePriceTaskLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((CalculatePriceTaskLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility StatusStringVisibility
-        {
-            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.StatusString)].Visibility; }
-            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.StatusString)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility ProjectsVisibility
-        {
-            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Projects)].Visibility; }
-            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Projects)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility OffersVisibility
-        {
-            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Offers)].Visibility; }
-            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Offers)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility SpecificationsVisibility
-        {
-            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Specifications)].Visibility; }
-            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Specifications)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility StatusVisibility
-        {
-            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Status)].Visibility; }
-            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Status)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility SumVisibility
-        {
-            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Sum)].Visibility; }
-            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Sum)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility DateVisibility
-        {
-            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Date)].Visibility; }
-            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Date)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.DisplayMember)].Visibility; }
-            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility ProductBlockVisibility
-        {
-            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.ProductBlock)].Visibility; }
-            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.ProductBlock)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Entity)].Visibility; }
-            set { CalculatePriceTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CalculatePriceTaskLookup.Entity)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
 	[Designation("CommonOption")]
 	[DesignationPlural("CommonOptionLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2050,7 +1947,8 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
 	[Designation("Заводской заказ")]
 	[DesignationPlural("OrderLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.PlanMaker)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class OrderLookupListView : ViewBase
     {
@@ -2477,7 +2375,8 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
 	[Designation("Платежный документ")]
 	[DesignationPlural("PaymentDocumentLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.Economist)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class PaymentDocumentLookupListView : ViewBase
     {
@@ -2561,13 +2460,6 @@ namespace HVTApp.UI.Views
         }
 
 		#region VisibilityProps
-
-
-        public System.Windows.Visibility SumVisibility
-        {
-            get { return PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedLookup.Sum)].Visibility; }
-            set { PaymentPlannedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentPlannedLookup.Sum)].Visibility = value; }
-        }
 
 
         public System.Windows.Visibility DateVisibility

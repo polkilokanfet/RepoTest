@@ -547,49 +547,6 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("Задание на расчет себестоимости")]
-	public partial class CalculatePriceTaskLookup : LookupItem<CalculatePriceTask>
-	{
-		public CalculatePriceTaskLookup(CalculatePriceTask entity) : base(entity) 
-		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			ProductBlock?.Refresh(Entity.ProductBlock);
-
-		}
-		
-
-        #region SimpleProperties
-
-		[OrderStatus(1)]
-        public HVTApp.Model.POCOs.CalculatePriceTaskStatus Status => GetValue<HVTApp.Model.POCOs.CalculatePriceTaskStatus>();
-
-
-		[OrderStatus(1)]
-        public System.Double Sum => GetValue<System.Double>();
-
-
-		[OrderStatus(1)]
-        public System.DateTime Date => GetValue<System.DateTime>();
-
-
-        #endregion
-
-
-        #region ComplexProperties
-
-		[OrderStatus(1)]
-	    public ProductBlockLookup ProductBlock { get { return GetLookup<ProductBlockLookup>(); } }
-
-
-        #endregion
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
 	[Designation("Sum")]
 	public partial class SumLookup : LookupItem<Sum>
 	{
@@ -980,11 +937,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(20)]
         public System.String FullName => GetValue<System.String>();
 
 
-		[OrderStatus(10)]
+		[OrderStatus(15)]
         public System.String ShortName => GetValue<System.String>();
 
 
@@ -2224,7 +2181,8 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.PlanMaker)]
+[AllowEditAttribute(Role.Admin)]
 
 	[Designation("Заводской заказ")]
 	public partial class OrderLookup : LookupItem<Order>
@@ -2284,7 +2242,8 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.Economist)]
+[AllowEditAttribute(Role.Admin)]
 
 	[Designation("Платежный документ")]
 	public partial class PaymentDocumentLookup : LookupItem<PaymentDocument>

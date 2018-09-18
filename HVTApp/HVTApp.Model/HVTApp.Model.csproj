@@ -55,7 +55,6 @@
     <Compile Include="Events\PubSubEventArgs.cs" />
     <Compile Include="GeneratorHelpers.cs" />
     <Compile Include="POCOs\CreateNewProductTask.cs" />
-    <Compile Include="POCOs\IPayment.cs" />
     <Compile Include="Comparers\ParameterComparer.cs" />
     <Compile Include="POCOs\PaymentActual.cs" />
     <Compile Include="POCOs\PaymentPlanned.cs" />
@@ -77,7 +76,6 @@
     <Compile Include="POCOs\Address\Locality.cs" />
     <Compile Include="POCOs\Address\LocalityType.cs" />
     <Compile Include="POCOs\Address\Region.cs" />
-    <Compile Include="POCOs\CalculatePriceTask.cs" />
     <Compile Include="POCOs\Sum.cs" />
     <Compile Include="POCOs\Currency.cs" />
     <Compile Include="POCOs\CurrencyExchangeRate.cs" />

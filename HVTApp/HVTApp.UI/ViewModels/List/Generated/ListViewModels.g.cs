@@ -104,12 +104,6 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-	public partial class CalculatePriceTaskLookupListViewModel : BaseListViewModel<CalculatePriceTask, CalculatePriceTaskLookup, AfterSaveCalculatePriceTaskEvent, AfterSelectCalculatePriceTaskEvent, AfterRemoveCalculatePriceTaskEvent,  CalculatePriceTaskLookupDataService>
-    {
-        public CalculatePriceTaskLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
 	public partial class SumLookupListViewModel : BaseListViewModel<Sum, SumLookup, AfterSaveSumEvent, AfterSelectSumEvent, AfterRemoveSumEvent,  SumLookupDataService>
     {
         public SumLookupListViewModel(IUnityContainer container) : base(container) { }

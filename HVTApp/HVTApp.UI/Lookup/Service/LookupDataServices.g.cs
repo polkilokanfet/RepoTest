@@ -101,12 +101,6 @@ namespace HVTApp.UI.Lookup
     }
 
 
-    public partial class CalculatePriceTaskLookupDataService : LookupDataService<CalculatePriceTaskLookup, CalculatePriceTask>, ICalculatePriceTaskLookupDataService
-    {
-        public CalculatePriceTaskLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-    }
-
-
     public partial class SumLookupDataService : LookupDataService<SumLookup, Sum>, ISumLookupDataService
     {
         public SumLookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }

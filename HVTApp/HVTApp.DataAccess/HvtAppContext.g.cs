@@ -25,7 +25,6 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new LocalityConfiguration());
             modelBuilder.Configurations.Add(new LocalityTypeConfiguration());
             modelBuilder.Configurations.Add(new RegionConfiguration());
-            modelBuilder.Configurations.Add(new CalculatePriceTaskConfiguration());
             modelBuilder.Configurations.Add(new SumConfiguration());
             modelBuilder.Configurations.Add(new CurrencyExchangeRateConfiguration());
             modelBuilder.Configurations.Add(new DescribeProductBlockTaskConfiguration());
@@ -95,7 +94,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<Locality> LocalityDbSet { get; set; }
         public virtual DbSet<LocalityType> LocalityTypeDbSet { get; set; }
         public virtual DbSet<Region> RegionDbSet { get; set; }
-        public virtual DbSet<CalculatePriceTask> CalculatePriceTaskDbSet { get; set; }
         public virtual DbSet<Sum> SumDbSet { get; set; }
         public virtual DbSet<CurrencyExchangeRate> CurrencyExchangeRateDbSet { get; set; }
         public virtual DbSet<DescribeProductBlockTask> DescribeProductBlockTaskDbSet { get; set; }
