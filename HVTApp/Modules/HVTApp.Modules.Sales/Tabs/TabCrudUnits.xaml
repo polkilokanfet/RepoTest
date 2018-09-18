@@ -7,17 +7,13 @@
              Header="Редактирование оборудования">
 
     <infRib:RibbonGroup Caption="Основное">
-        <infRib:ButtonTool Caption="Добавить" Command="{Binding AddCommand}"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveCommand}"/>
+        <infRib:ButtonTool Caption="Добавить" Command="{Binding GroupsViewModel.AddCommand}"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding GroupsViewModel.RemoveCommand}"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Включенное">
-        <infRib:ButtonTool Caption="Добавить" Command="{Binding AddProductIncludedCommand}"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveProductIncludedCommand}"/>
-    </infRib:RibbonGroup>
-    
-    <infRib:RibbonGroup Caption="Обновить">
-        <infRib:ButtonTool Caption="Обновить" Command="{Binding RefreshCommand}"/>
+        <infRib:ButtonTool Caption="Добавить" Command="{Binding GroupsViewModel.AddProductIncludedCommand}"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding GroupsViewModel.RemoveProductIncludedCommand}"/>
     </infRib:RibbonGroup>
 
 </inf:RibbonTabItemWithViewModel>

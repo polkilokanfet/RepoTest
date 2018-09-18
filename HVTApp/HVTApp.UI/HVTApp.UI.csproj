@@ -94,6 +94,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Groups\OfferUnitsGroup.cs" />
     <Compile Include="Groups\PaymentsGroup.cs" />
     <Compile Include="Groups\PaymentWrapper.cs" />
     <Compile Include="Groups\ProductUnitsGroup.cs" />
@@ -207,7 +208,7 @@
     <Compile Include="Wrapper\Base\TrackingCollections\IValidatableChangeTrackingCollection.cs" />
     <Compile Include="Wrapper\Base\TrackingCollections\ValidatableChangeTrackingCollection.cs" />
     <Compile Include="Wrapper\Base\WrapperBase.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\SalesUnitsGroup.cs" />
+    <Compile Include="Groups\SalesUnitsGroup.cs" />
     <Compile Include="Wrapper\Custom\Functionality\OfferUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\OfferWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ParameterWrapper.cs" />

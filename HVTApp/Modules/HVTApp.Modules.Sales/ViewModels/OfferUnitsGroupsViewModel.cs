@@ -13,25 +13,28 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.GetProductService;
 using HVTApp.Services.PriceService;
+using HVTApp.UI.Converter;
+using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
-using Prism.Mvvm;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class GroupsViewModel : LoadableBindableBase
+    public class OfferUnitsGroupsViewModel : LoadableBindableBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        private SalesUnitsGroup _selectedGroup;
+        private readonly Offer _offer;
+        private OfferUnitsGroup _selectedGroup;
         private ProductIncludedWrapper _selectedProductIncluded;
 
         #region ICommand
 
         public ICommand AddCommand { get; private set; }
         public ICommand RemoveCommand { get; }
+
         public ICommand ChangeFacilityCommand { get; }
         public ICommand ChangeProductCommand { get; }
         public ICommand ChangePaymentsCommand { get; }
@@ -41,26 +44,21 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #endregion
 
-        public GroupsViewModel(IUnityContainer container, IEnumerable<SalesUnit> units, IUnitOfWork unitOfWork) : base(container)
+        public OfferUnitsGroupsViewModel(IUnityContainer container, IEnumerable<OfferUnit> units, IUnitOfWork unitOfWork, Offer offer) : base(container)
         {
             _unitOfWork = unitOfWork;
-            var groups = units.GroupBy(x => new
-            {
-                Product = x.Product.Id,
-                Facility = x.Facility.Id,
-                PaymentConditionSet = x.PaymentConditionSet.Id,
-                Cost = x.Cost,
-                ProductionTerm = x.ProductionTerm
-            }).OrderBy(x => x.Key.Cost)
-              .Select(x => new SalesUnitsGroup(x));
+            _offer = offer;
+            var groups = units.GroupBy(x => x, new OfferUnitsGroupsComparer())
+                              .OrderByDescending(x => x.Key.Cost)
+                              .Select(x => new OfferUnitsGroup(x));
 
-            Groups = new ValidatableChangeTrackingCollection<SalesUnitsGroup>(groups);
+            Groups = new ValidatableChangeTrackingCollection<OfferUnitsGroup>(groups);
 
             AddCommand = new DelegateCommand(AddCommand_Execute);
             RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => SelectedGroup != null);
-            ChangeFacilityCommand = new DelegateCommand<SalesUnitsGroup>(ChangeFacilityCommand_Execute);
-            ChangeProductCommand = new DelegateCommand<SalesUnitsGroup>(ChangeProductCommand_Execute);
-            ChangePaymentsCommand = new DelegateCommand<SalesUnitsGroup>(ChangePaymentsCommand_Execute);
+            ChangeFacilityCommand = new DelegateCommand<OfferUnitsGroup>(ChangeFacilityCommand_Execute);
+            ChangeProductCommand = new DelegateCommand<OfferUnitsGroup>(ChangeProductCommand_Execute);
+            ChangePaymentsCommand = new DelegateCommand<OfferUnitsGroup>(ChangePaymentsCommand_Execute);
 
             AddProductIncludedCommand = new DelegateCommand(AddProductIncludedCommand_Execute, () => SelectedGroup != null);
             RemoveProductIncludedCommand = new DelegateCommand(RemoveProductIncludedCommand_Execute, () => SelectedProductIncluded != null);
@@ -72,15 +70,15 @@ namespace HVTApp.Modules.Sales.ViewModels
                 await RefreshPrice(group);
         }
 
-
-        private async Task RefreshPrice(SalesUnitsGroup group)
+        private async Task RefreshPrice(OfferUnitsGroup group)
         {
             if (group == null) return;
 
             var priceService = Container.Resolve<IPriceService>();
 
             //прайс для основного оборудования
-            var price = await priceService.GetPrice(group.Product.Model, GetDate(), CommonOptions.ActualPriceTerm, _priceErrors);
+            var priceDate = _offer.Date < DateTime.Today ? _offer.Date : DateTime.Today;
+            var price = await priceService.GetPrice(group.Product.Model, priceDate, CommonOptions.ActualPriceTerm, _priceErrors);
 
             //добавляем прайсы дополнительного оборудования
             foreach (var productIncluded in group.ProductsIncluded)
@@ -91,12 +89,12 @@ namespace HVTApp.Modules.Sales.ViewModels
             group.Price = price;
             OnPropertyChanged(nameof(PriceErrors));
         }
-        
+
 
         /// <summary>
         /// Выбранная группа.
         /// </summary>
-        public SalesUnitsGroup SelectedGroup
+        public OfferUnitsGroup SelectedGroup
         {
             get { return _selectedGroup; }
             set
@@ -126,18 +124,18 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// <summary>
         /// Группы
         /// </summary>
-        public IValidatableChangeTrackingCollection<SalesUnitsGroup> Groups { get; }
+        public IValidatableChangeTrackingCollection<OfferUnitsGroup> Groups { get; }
 
         #region Commands
 
         protected async void AddCommand_Execute()
         {
             //создаем новый юнит и привязываем его к объекту
-            //var salesUnit = new SalesUnitWrapper(new SalesUnit { Project = Model });
-            var salesUnit = new SalesUnitWrapper(new SalesUnit());
+            var salesUnit = new OfferUnitWrapper(new OfferUnit());
+            if (_offer != null) salesUnit.Offer = new OfferWrapper(_offer);
 
             //создаем модель для диалога
-            var viewModel = new SalesUnitsViewModel(salesUnit, Container, _unitOfWork);
+            var viewModel = new OfferUnitsViewModel(salesUnit, Container, _unitOfWork);
 
             //заполняем юнит начальными данными
             if (SelectedGroup != null)
@@ -147,8 +145,7 @@ namespace HVTApp.Modules.Sales.ViewModels
                 viewModel.ViewModel.Item.PaymentConditionSet = SelectedGroup.PaymentConditionSet;
                 viewModel.ViewModel.Item.ProductionTerm = SelectedGroup.ProductionTerm;
                 viewModel.ViewModel.Item.Product = SelectedGroup.Product;
-                viewModel.ViewModel.Item.DeliveryDateExpected = SelectedGroup.DeliveryDateExpected;
-                
+
                 //создаем зависимое оборудование
                 foreach (var prodIncl in SelectedGroup.ProductsIncluded)
                 {
@@ -163,16 +160,16 @@ namespace HVTApp.Modules.Sales.ViewModels
             if (!result.HasValue || !result.Value) return;
 
             //клонируем юниты
-            var units = new List<SalesUnit>();
+            var units = new List<OfferUnit>();
             for (int i = 0; i < viewModel.Amount; i++)
             {
-                var unit = (SalesUnit)viewModel.ViewModel.Item.Model.Clone();
+                var unit = (OfferUnit)viewModel.ViewModel.Item.Model.Clone();
                 unit.Id = Guid.NewGuid();
                 unit.ProductsIncluded = new List<ProductIncluded>();
                 units.Add(unit);
             }
 
-            var group = new SalesUnitsGroup(units);
+            var group = new OfferUnitsGroup(units);
             Groups.Add(group);
             await RefreshPrice(group);
             SelectedGroup = group;
@@ -202,11 +199,26 @@ namespace HVTApp.Modules.Sales.ViewModels
             if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
                 return;
 
-            Groups.Remove(SelectedGroup);
+            //удаление из группы или из подгруппы
+            if (Groups.Contains(SelectedGroup))
+            {
+                Groups.Remove(SelectedGroup);
+            }
+            else
+            {
+                var group = Groups.Single(x => x.Groups != null && x.Groups.Contains(SelectedGroup));
+                group.Groups.Remove(SelectedGroup);
+
+                if (!group.Groups.Any())
+                {
+                    Groups.Remove(group);
+                }
+            }
+
             SelectedGroup = null;
         }
 
-        private async void ChangeProductCommand_Execute(SalesUnitsGroup group)
+        private async void ChangeProductCommand_Execute(OfferUnitsGroup group)
         {
             var product = await Container.Resolve<IGetProductService>().GetProductAsync(group.Product?.Model);
             if (product == null || product.Id == group.Product.Id) return;
@@ -215,7 +227,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             await RefreshPrice(group);
         }
 
-        private async void ChangeFacilityCommand_Execute(SalesUnitsGroup group)
+        private async void ChangeFacilityCommand_Execute(OfferUnitsGroup group)
         {
             var facilities = await _unitOfWork.Repository<Facility>().GetAllAsNoTrackingAsync();
             var facility = await Container.Resolve<ISelectService>().SelectItem(facilities, group.Facility?.Id);
@@ -224,7 +236,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             group.Facility = new FacilityWrapper(facility);
         }
 
-        private async void ChangePaymentsCommand_Execute(SalesUnitsGroup group)
+        private async void ChangePaymentsCommand_Execute(OfferUnitsGroup group)
         {
             var sets = await _unitOfWork.Repository<PaymentConditionSet>().GetAllAsNoTrackingAsync();
             var set = await Container.Resolve<ISelectService>().SelectItem(sets, group.PaymentConditionSet?.Id);
@@ -267,23 +279,20 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
-        /// <summary>
-        /// Возвращает дату для расчета прайса.
-        /// </summary>
-        /// <returns></returns>
-        protected DateTime GetDate() { return DateTime.Today; }
-
         public async Task SaveChanges()
         {
             //добавляем созданные юниты и удаляем удаленные
-            var added = GetAllUnits(Groups.AddedItems).ToList();
-            _unitOfWork.Repository<SalesUnit>().AddRange(added);
+            var addedIn = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.AddedItems).Select(x => x.Model);
+            var added = Groups.AddedItems.Select(x => x.Model).Concat(addedIn).Distinct().ToList();
+            _unitOfWork.Repository<OfferUnit>().AddRange(added);
 
             //добавляем созданные юниты и удаляем удаленные
-            var removed = GetAllUnits(Groups.RemovedItems).ToList();
-            _unitOfWork.Repository<SalesUnit>().DeleteRange(removed);
+            var removedIn = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems).Select(x => x.Model);
+            var removed = Groups.RemovedItems.Select(x => x.Model).Concat(removedIn).Distinct().ToList();
+            _unitOfWork.Repository<OfferUnit>().DeleteRange(removed);
 
-            var modified = GetAllUnits(Groups.ModifiedItems).ToList();
+            var modifiedIn = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.ModifiedItems).Select(x => x.Model);
+            var modified = Groups.ModifiedItems.Select(x => x.Model).Concat(modifiedIn).Distinct().ToList();
 
             Groups.AcceptChanges();
             await _unitOfWork.SaveChangesAsync();
@@ -291,17 +300,17 @@ namespace HVTApp.Modules.Sales.ViewModels
             var eventAggregator = Container.Resolve<IEventAggregator>();
 
             //сообщаем об изменениях
-            added.Concat(modified).ForEach(x => eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Publish(x));
-            removed.ForEach(x => eventAggregator.GetEvent<AfterRemoveSalesUnitEvent>().Publish(x));
-
+            added.Concat(modified).ForEach(x => eventAggregator.GetEvent<AfterSaveOfferUnitEvent>().Publish(x));
+            removed.ForEach(x => eventAggregator.GetEvent<AfterRemoveOfferUnitEvent>().Publish(x));
         }
+
 
         public bool CanSaveChanges()
         {
             return Groups.Any() && Groups.IsValid;
         }
 
-        private IEnumerable<SalesUnit> GetAllUnits(IEnumerable<SalesUnitsGroup> groups)
+        private IEnumerable<OfferUnit> GetAllUnits(IEnumerable<OfferUnitsGroup> groups)
         {
             return groups.Select(x => x.Model)
                          .Concat(Groups.AddedItems.Where(x => x.Groups != null)

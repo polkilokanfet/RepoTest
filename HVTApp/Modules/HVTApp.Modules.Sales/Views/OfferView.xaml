@@ -10,6 +10,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
         <GroupBox Grid.Row="0" Header="Детали предложения">
@@ -24,8 +25,19 @@
             </ScrollViewer>
         </GroupBox>
         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
-        
-        <controls:OfferUnitListControl Grid.Row="2" DataContext="{Binding}"/>
-        
+
+        <controls:OfferUnitListControl Grid.Row="2" DataContext="{Binding GroupsViewModel}"/>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="Назад" Command="{Binding GoBackCommand}"/>
+            <Button Grid.Column="1" Content="Сохранить" Command="{Binding SaveCommand}"/>
+        </Grid>
+
+
     </Grid>
 </inf:ViewBase>

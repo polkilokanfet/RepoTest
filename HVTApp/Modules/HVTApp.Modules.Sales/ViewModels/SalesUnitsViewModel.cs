@@ -23,6 +23,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             set
             {
                 if (Equals(_amount, value)) return;
+                if (value <= 0) return;
                 _amount = value;
                 ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
                 OnPropertyChanged();
@@ -35,10 +36,19 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             ViewModel = container.Resolve<SalesUnitDetailsViewModel>();
             ViewModel.Load(item, unitOfWork);
-            Action okCommandExecute = () => CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
-            Func<bool> okCommandCanExecute = () => Amount > 0 && ViewModel.Item.IsValid;
-            OkCommand = new DelegateCommand(okCommandExecute, okCommandCanExecute);
+
+            OkCommand = new DelegateCommand(OkCommandExecute, OkCommandCanExecute);
             ViewModel.Item.PropertyChanged += (sender, args) => ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
+        }
+
+        private bool OkCommandCanExecute()
+        {
+            return ViewModel.Item.IsValid;
+        }
+
+        private void OkCommandExecute()
+        {
+            CloseRequested?.Invoke(this, new DialogRequestCloseEventArgs(true));
         }
 
         public event EventHandler<DialogRequestCloseEventArgs> CloseRequested;

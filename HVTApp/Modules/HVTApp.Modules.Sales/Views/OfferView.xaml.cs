@@ -7,11 +7,10 @@ using HVTApp.Modules.Sales.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
-using TabSave = HVTApp.Modules.Sales.Tabs.TabSave;
 
 namespace HVTApp.Modules.Sales.Views
 {
-    [RibbonTab(typeof(TabSave)), RibbonTab(typeof(TabCrudUnits))]
+    [RibbonTab(typeof(TabCrudUnits))]
     public partial class OfferView
     {
         private readonly OfferViewModel _viewModel;

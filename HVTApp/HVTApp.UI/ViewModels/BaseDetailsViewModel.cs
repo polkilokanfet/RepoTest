@@ -6,11 +6,11 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
+using HVTApp.Infrastructure.Services;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
-using Prism.Mvvm;
 
 namespace HVTApp.UI.ViewModels
 {
@@ -23,6 +23,17 @@ namespace HVTApp.UI.ViewModels
         protected readonly IEventAggregator EventAggregator;
         protected IUnitOfWork UnitOfWork;
         private TWrapper _item;
+        private bool _isLoaded;
+
+        public bool IsLoaded
+        {
+            get { return _isLoaded; }
+            set
+            {
+                _isLoaded = value;
+                OnPropertyChanged();
+            }
+        }
 
         protected BaseDetailsViewModel(IUnityContainer container) : base(container)
         {
@@ -47,6 +58,7 @@ namespace HVTApp.UI.ViewModels
 
         public async Task LoadAsync(TEntity entity)
         {
+            IsLoaded = false;
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             var item = await UnitOfWork.Repository<TEntity>().GetByIdAsync(entity.Id);
             //создаем или редактируем
@@ -57,13 +69,17 @@ namespace HVTApp.UI.ViewModels
 
         public async Task LoadAsync(Guid id)
         {
+            IsLoaded = false;
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             var item = await UnitOfWork.Repository<TEntity>().GetByIdAsync(id);
             Item = (TWrapper)Activator.CreateInstance(typeof(TWrapper), item);
             await AfterLoading();
         }
 
-        protected virtual async Task AfterLoading() { }
+        protected virtual async Task AfterLoading()
+        {
+            IsLoaded = true;
+        }
 
         public ICommand SaveCommand { get; }
         public ICommand OkCommand { get; }
@@ -132,6 +148,21 @@ namespace HVTApp.UI.ViewModels
         {
             ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
             ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
+        }
+
+        protected override void GoBackCommand_Execute()
+        {
+            //если были какие-то изменения
+            if (SaveCommand_CanExecute())
+            {
+                if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить изменения?") == MessageDialogResult.Yes)
+                {
+                    SaveCommand_Execute();
+                }
+            }
+
+
+            base.GoBackCommand_Execute();
         }
 
         protected async void SelectAndSetWrapper<TModel, TWrap>(IEnumerable<TModel> entities, string propertyName, Guid? selectedItemId = null)

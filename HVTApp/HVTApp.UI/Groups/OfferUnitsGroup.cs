@@ -1,16 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Wrapper;
 
-namespace HVTApp.UI.Wrapper
+namespace HVTApp.UI.Groups
 {
-    public class SalesUnitsGroup : SalesUnitWrapper, IUnitsDatedGroup
+    public class OfferUnitsGroup : OfferUnitWrapper
     {
         private double _price;
 
-        public ValidatableChangeTrackingCollection<SalesUnitsGroup> Groups { get; }
+        public ValidatableChangeTrackingCollection<OfferUnitsGroup> Groups { get; }
 
         public int Amount => Groups?.Count ?? 1;
 
@@ -63,19 +65,25 @@ namespace HVTApp.UI.Wrapper
             }
         }
 
-        public SalesUnitsGroup(IEnumerable<SalesUnit> units) : base(units.First())
+        public OfferUnitsGroup(IEnumerable<OfferUnit> units) : base(units.First())
         {
             if (units.Count() == 1) return;
-            
+
             //создаем группы
-            var groups = units.Select(x => new SalesUnitsGroup(new[] {x}));
-            Groups = new ValidatableChangeTrackingCollection<SalesUnitsGroup>(groups);
+            var groups = units.Select(x => new OfferUnitsGroup(new[] { x }));
+            Groups = new ValidatableChangeTrackingCollection<OfferUnitsGroup>(groups);
 
             //регистрируем их
             RegisterCollectionWithoutSynch(Groups);
 
             this.PropertyChanged += OnPropertyChanged;
-            this.Groups.CollectionChanged += (sender, args) => { RemovedAllGroups?.Invoke(this); };
+            this.Groups.CollectionChanged += GroupsOnCollectionChanged;
+        }
+
+        private void GroupsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        {
+            OnPropertyChanged(nameof(Amount));
+            OnPropertyChanged(nameof(Total));
         }
 
         //смена значения свойства
@@ -90,11 +98,9 @@ namespace HVTApp.UI.Wrapper
             foreach (var group in Groups)
             {
                 var valueOld = property.GetValue(group);
-                if(Equals(valueOld, valueNew)) continue;
+                if (Equals(valueOld, valueNew)) continue;
                 property.SetValue(group, valueNew);
             }
         }
-
-        public event Action<SalesUnitsGroup> RemovedAllGroups;
     }
 }

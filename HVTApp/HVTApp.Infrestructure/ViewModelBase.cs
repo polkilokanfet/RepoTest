@@ -33,7 +33,7 @@ namespace HVTApp.Infrastructure
             return RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.CanGoForward;
         }
 
-        private void GoBackCommand_Execute()
+        protected virtual void GoBackCommand_Execute()
         {
             RegionManager.Regions[RegionNames.ContentRegion].NavigationService.Journal.GoBack();
         }

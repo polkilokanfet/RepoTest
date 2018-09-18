@@ -96,9 +96,9 @@
                                 </dp:Field>
                                 <dp:NumericField Name="Amount" Label="Кол." Width="Auto" />
                                 <dp:NumericField Name="MarginalIncome" Label="МД" Width="Auto" AllowEdit="True" />
-                                <dp:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" />
+                                <dp:NumericField Name="CostG" Label="Стоимость" Width="Auto" AllowEdit="True" />
                                 <dp:NumericField Name="Total" Label="Сумма" Width="Auto"/>
-                                <dp:NumericField Name="ProductionTerm" Label="Срок" Width="Auto" AllowEdit="True"/>
+                                <dp:NumericField Name="ProductionTermG" Label="Срок" Width="Auto" AllowEdit="True"/>
                                 <dp:Field Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
                                     <dp:Field.Settings>
                                         <dp:FieldSettings CellValuePresenterStyle="{StaticResource PaymentsCellStyle}"/>

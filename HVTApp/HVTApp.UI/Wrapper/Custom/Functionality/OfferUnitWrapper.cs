@@ -2,8 +2,7 @@
 
 namespace HVTApp.UI.Wrapper
 {
-    public partial class OfferUnitWrapper : IUnit
+    public partial class OfferUnitWrapper 
     {
-        public double Price { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using HVTApp.Model.POCOs;
 
 namespace HVTApp.UI.Wrapper
 {
-    public partial class OfferWrapper : IWrapperWithUnits<OfferUnitWrapper>
+    public partial class OfferWrapper
     {
         public ValidatableChangeTrackingCollection<OfferUnitWrapper> Units { get; set; }
 

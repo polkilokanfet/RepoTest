@@ -1,64 +1,40 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Converter;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
+using Prism.Commands;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
     public class OfferViewModel : OfferDetailsViewModel
     {
+        public OfferUnitsGroupsViewModel GroupsViewModel { get; private set; }
+
         public OfferViewModel(IUnityContainer container) : base(container)
         {
         }
 
-        //protected override async void AddCommand_Execute()
-        //{
-        //    var offerUnit = new OfferUnitWrapper(new OfferUnit() {Offer = Item.Model});
-        //    var offerUnitsViewModel = new OfferUnitsViewModel(offerUnit, Container, WrapperDataService);
-        //    if (SelectedGroup != null)
-        //    {
-        //        offerUnitsViewModel.ViewModel.Item.Cost = SelectedGroup.Cost;
-        //        offerUnitsViewModel.ViewModel.Item.Facility = SelectedGroup.Facility;
-        //        offerUnitsViewModel.ViewModel.Item.PaymentConditionSet = SelectedGroup.PaymentConditionSet;
-        //        offerUnitsViewModel.ViewModel.Item.ProductionTerm = SelectedGroup.ProductionTerm;
-        //        offerUnitsViewModel.ViewModel.Item.Product = SelectedGroup.Product;
-        //        foreach (var prodIncl in SelectedGroup.ProductsIncluded)
-        //        {
-        //            var pi = new ProductIncluded {Product = prodIncl.Product.Model, Amount = prodIncl.Amount};
-        //            offerUnitsViewModel.ViewModel.Item.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
-        //        }
-        //    }
+        protected override async Task AfterLoading()
+        {
+            await base.AfterLoading();
 
-        //    var result = Container.Resolve<IDialogService>().ShowDialog(offerUnitsViewModel);
-        //    if (!result.HasValue || !result.Value)
-        //        return;
+            //загружаем строки с оборудованием
+            var units = UnitOfWork.Repository<OfferUnit>().Find(x => x.Offer.Id == Item.Id);
+            GroupsViewModel = new OfferUnitsGroupsViewModel(Container, units, UnitOfWork, Item.Model);
+            await GroupsViewModel.LoadAsync();
 
-        //    var wrappers = new List<OfferUnitWrapper>();
-        //    for (int i = 0; i < offerUnitsViewModel.Amount; i++)
-        //    {
-        //        var ou = (OfferUnit)offerUnitsViewModel.ViewModel.Item.Model.Clone();
-        //        ou.Id = Guid.NewGuid();
-        //        ou.ProductsIncluded = new List<ProductIncluded>();
-        //        var ouw = new OfferUnitWrapper(ou);
-        //        this.Item.Units.Add(ouw);
-        //        wrappers.Add(ouw);
-        //    }
-        //    var group = new UnitsGroup(wrappers);
-        //    Groups.Add(group);
-        //    await RefreshPrices();
-        //    SelectedGroup = group;
-        //}
+            //регистраци€ на событи€ изменени€ строк с оборудованием
+            this.GroupsViewModel.Groups.PropertyChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+            this.GroupsViewModel.Groups.CollectionChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
 
-        //protected override DateTime GetDate()
-        //{
-        //    return Item.Date;
-        //}
+            //сигнал об изменении модели
+            OnPropertyChanged(nameof(GroupsViewModel));
+        }
+
 
         /// <summary>
         /// «агрузка при создании нового предложени€.
@@ -68,49 +44,67 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// <returns></returns>
         public async Task LoadAsync(Offer offer, IEnumerable<OfferUnit> offerUnits)
         {
-            //UnitOfWork = Container.Resolve<IWrapperDataService>();
+            UnitOfWork = Container.Resolve<IUnitOfWork>();
 
-            ////продукты, услови€ и объекты из базы
-            //var products = (await UnitOfWork.GetWrapperRepository<Product, ProductWrapper>().GetAllAsync()).ToList();
-            //var conditions = (await UnitOfWork.GetWrapperRepository<PaymentConditionSet, PaymentConditionSetWrapper>().GetAllAsync()).ToList();
-            //var facilities = (await UnitOfWork.GetWrapperRepository<Facility, FacilityWrapper>().GetAllAsync()).ToList();
+            //продукты, услови€ и объекты из базы
+            var products = (await UnitOfWork.Repository<Product>().GetAllAsync()).Select(x => new ProductWrapper(x)).ToList();
+            var conditions = (await UnitOfWork.Repository<PaymentConditionSet>().GetAllAsync()).Select(x => new PaymentConditionSetWrapper(x)).ToList();
+            var facilities = (await UnitOfWork.Repository<Facility>().GetAllAsync()).Select(x => new FacilityWrapper(x)).ToList();
 
-            //Item = new OfferWrapper(new Offer(), new List<OfferUnitWrapper>());
+            Item = new OfferWrapper(new Offer(), new List<OfferUnitWrapper>());
 
-            //if (offer.Author != null) Item.Author = await UnitOfWork.GetWrapperRepository<Employee, EmployeeWrapper>().GetByIdAsync(offer.Author.Id);
-            //if (offer.Author != null) Item.Project = await UnitOfWork.GetWrapperRepository<Project, ProjectWrapper>().GetByIdAsync(offer.Project.Id);
-            //if (offer.RecipientEmployee != null) Item.RecipientEmployee = await UnitOfWork.GetWrapperRepository<Employee, EmployeeWrapper>().GetByIdAsync(offer.RecipientEmployee.Id);
-            //if (offer.SenderEmployee != null) Item.SenderEmployee = await UnitOfWork.GetWrapperRepository<Employee, EmployeeWrapper>().GetByIdAsync(offer.SenderEmployee.Id);
-            //if (offer.RequestDocument != null) Item.RequestDocument = await UnitOfWork.GetWrapperRepository<Document, DocumentWrapper>().GetByIdAsync(offer.RequestDocument.Id);
+            if (offer.Author != null) Item.Author = new EmployeeWrapper(await UnitOfWork.Repository<Employee>().GetByIdAsync(offer.Author.Id));
+            if (offer.Author != null) Item.Project = new ProjectWrapper(await UnitOfWork.Repository<Project>().GetByIdAsync(offer.Project.Id));
+            if (offer.RecipientEmployee != null) Item.RecipientEmployee = new EmployeeWrapper(await UnitOfWork.Repository<Employee>().GetByIdAsync(offer.RecipientEmployee.Id));
+            if (offer.SenderEmployee != null) Item.SenderEmployee = new EmployeeWrapper(await UnitOfWork.Repository<Employee>().GetByIdAsync(offer.SenderEmployee.Id));
+            if (offer.RequestDocument != null) Item.RequestDocument = new DocumentWrapper(await UnitOfWork.Repository<Document>().GetByIdAsync(offer.RequestDocument.Id));
 
-            //Item.Comment = offer.Comment;
-            //Item.Vat = offer.Vat;
-            //Item.ValidityDate = offer.ValidityDate;
+            Item.Comment = offer.Comment;
+            Item.Vat = offer.Vat;
+            Item.ValidityDate = offer.ValidityDate;
 
-            //foreach (var offerUnit in offerUnits)
-            //{
-            //    var wrap = new OfferUnitWrapper(new OfferUnit())
-            //    {
-            //        Product = products.Single(x => x.Id == offerUnit.Product.Id),
-            //        PaymentConditionSet = conditions.Single(x => x.Id == offerUnit.PaymentConditionSet.Id),
-            //        Facility = facilities.Single(x => x.Id == offerUnit.Facility.Id),
-            //        Cost = offerUnit.Cost,
-            //        ProductionTerm = offerUnit.ProductionTerm
-            //    };
-            //    wrap.Model.Offer = Item.Model;
-            //    foreach (var productIncluded in offerUnit.ProductsIncluded)
-            //    {
-            //        var pi = new ProductIncludedWrapper(new ProductIncluded())
-            //        {
-            //            Product = products.Single(x => x.Id == productIncluded.Product.Id),
-            //            Amount = productIncluded.Amount
-            //        };
-            //        wrap.ProductsIncluded.Add(pi);
-            //    }
-            //    Item.Units.Add(wrap);
-            //}
+            foreach (var offerUnit in offerUnits)
+            {
+                var wrap = new OfferUnitWrapper(new OfferUnit())
+                {
+                    Product = products.Single(x => x.Id == offerUnit.Product.Id),
+                    PaymentConditionSet = conditions.Single(x => x.Id == offerUnit.PaymentConditionSet.Id),
+                    Facility = facilities.Single(x => x.Id == offerUnit.Facility.Id),
+                    Cost = offerUnit.Cost,
+                    ProductionTerm = offerUnit.ProductionTerm
+                };
+                wrap.Model.Offer = Item.Model;
+                foreach (var productIncluded in offerUnit.ProductsIncluded)
+                {
+                    var pi = new ProductIncludedWrapper(new ProductIncluded())
+                    {
+                        Product = products.Single(x => x.Id == productIncluded.Product.Id),
+                        Amount = productIncluded.Amount
+                    };
+                    wrap.ProductsIncluded.Add(pi);
+                }
+                Item.Units.Add(wrap);
+            }
 
-            //await AfterLoading();
+            await AfterLoading();
         }
+
+        protected override async void SaveCommand_Execute()
+        {
+            await GroupsViewModel.SaveChanges();
+            base.SaveCommand_Execute();
+        }
+
+        protected override bool SaveCommand_CanExecute()
+        {
+            //все сущности должны быть валидны
+            if (GroupsViewModel == null || !GroupsViewModel.Groups.IsValid || !Item.IsValid)
+                return false;
+
+            //кака€-то сущность должна быть изменена
+            return Item.IsChanged || GroupsViewModel.Groups.IsChanged;
+        }
+
+
     }
 }
