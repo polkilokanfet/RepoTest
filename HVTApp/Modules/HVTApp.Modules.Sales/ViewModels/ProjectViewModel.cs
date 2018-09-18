@@ -1,10 +1,12 @@
 using System.Threading.Tasks;
 using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {

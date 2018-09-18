@@ -1,118 +1,71 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
-using HVTApp.Infrastructure.Interfaces.Services.DialogService;
-using HVTApp.Model.Events;
+using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Converter;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
+using Prism.Commands;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
     public class SpecificationViewModel : SpecificationDetailsViewModel
     {
+        public SpecificationUnitsGroupsViewModel GroupsViewModel { get; set; }
+
         public SpecificationViewModel(IUnityContainer container) : base(container)
         {
         }
 
-        //protected override IEnumerable<IUnitsDatedGroup> GetGroups()
-        //{
-        //    return Item.Units.ToProductUnitGroups();
-        //}
+        private async Task InitGroupsViewModel(IEnumerable<SalesUnit> units)
+        {
+            GroupsViewModel = new SpecificationUnitsGroupsViewModel(Container, units, UnitOfWork, Item.Model);
+            await GroupsViewModel.LoadAsync();
 
-        //protected override async void AddCommand_Execute()
-        //{
-        //    var salesUnit = new SalesUnitWrapper(new SalesUnit { Specification = Item.Model });
-        //    var viewModel = new SalesUnitsViewModel(salesUnit, Container, WrapperDataService);
-        //    if (SelectedGroup != null)
-        //    {
-        //        viewModel.ViewModel.Item.Cost = SelectedGroup.Cost;
-        //        viewModel.ViewModel.Item.Facility = SelectedGroup.Facility;
-        //        viewModel.ViewModel.Item.PaymentConditionSet = SelectedGroup.PaymentConditionSet;
-        //        viewModel.ViewModel.Item.ProductionTerm = SelectedGroup.ProductionTerm;
-        //        viewModel.ViewModel.Item.Product = SelectedGroup.Product;
-        //        viewModel.ViewModel.Item.DeliveryDateExpected = SelectedGroup.DeliveryDateExpected;
-        //        foreach (var prodIncl in SelectedGroup.ProductsIncluded)
-        //        {
-        //            var pi = new ProductIncluded { Product = prodIncl.Product.Model, Amount = prodIncl.Amount };
-        //            viewModel.ViewModel.Item.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
-        //        }
-        //    }
+            //регистрация на события изменения строк с оборудованием
+            this.GroupsViewModel.Groups.PropertyChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+            this.GroupsViewModel.Groups.CollectionChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
 
-        //    var result = Container.Resolve<IDialogService>().ShowDialog(viewModel);
-        //    if (!result.HasValue || !result.Value)
-        //        return;
+            //сигнал об изменении модели
+            OnPropertyChanged(nameof(GroupsViewModel));
+        }
 
-        //    var wrappers = new List<SalesUnitWrapper>();
-        //    for (int i = 0; i < viewModel.Amount; i++)
-        //    {
-        //        var unit = (SalesUnit)viewModel.ViewModel.Item.Model.Clone();
-        //        unit.Id = Guid.NewGuid();
-        //        unit.ProductsIncluded = new List<ProductIncluded>();
-        //        var unitWrapper = new SalesUnitWrapper(unit);
-        //        this.Item.Units.Add(unitWrapper);
-        //        wrappers.Add(unitWrapper);
-        //    }
-        //    var group = new UnitsDatedGroup(wrappers);
-        //    Groups.Add(group);
-        //    await RefreshPrices();
-        //    SelectedGroup = group;
-        //}
+        /// <summary>
+        /// Загрузка при создании новой спецификации в соответствии с проектом
+        /// </summary>
+        /// <param name="project"></param>
+        /// <returns></returns>
+        public async Task LoadAsync(Project project)
+        {
+            UnitOfWork = Container.Resolve<IUnitOfWork>();
 
-        ///// <summary>
-        ///// Загрузка при создании новой спецификации в соответствии с проектом
-        ///// </summary>
-        ///// <param name="specification"></param>
-        ///// <param name="units"></param>
-        ///// <returns></returns>
-        //public async Task LoadAsync(Specification specification, IEnumerable<SalesUnit> units)
-        //{
-        //    WrapperDataService = Container.Resolve<IWrapperDataService>();
+            //создаем новую спецификацию
+            Item = new SpecificationWrapper(new Specification()) {Date = DateTime.Today};
 
-        //    //ищем юниты в текущем контексте
-        //    var salesUnits = await WrapperDataService.GetWrapperRepository<SalesUnit, SalesUnitWrapper>().GetAllAsync();
-        //    salesUnits = salesUnits.Where(x => units.Select(u => u.Id).Contains(x.Id));
-        //    //исключаем юниты со спецификацией
-        //    salesUnits = salesUnits.Where(x => x.Specification == null);
+            //ищем юниты в текущем контексте
+            //исключаем юниты со спецификацией
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == project.Id && x.Specification == null);
 
-        //    //создаем новую спецификацию
-        //    Item = new SpecificationWrapper(new Specification(), new List<SalesUnitWrapper>());
-        //    Item.Date = DateTime.Today;
-        //    Item.Units.AddRange(salesUnits);
+            await InitGroupsViewModel(salesUnits);
+        }
 
-        //    await AfterLoading();
-        //}
 
-        //protected override DateTime GetDate()
-        //{
-        //    var oitDate = Item.Units.Min(x => x.OrderInTakeDate);
-        //    return oitDate < DateTime.Today ? oitDate : DateTime.Today;
-        //}
+        /// <summary>
+        /// при редактировании спецификации.
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task AfterLoading()
+        {
+            await base.AfterLoading();
+            //загружаем строки с оборудованием
+            var units = UnitOfWork.Repository<SalesUnit>().Find(x => x.Specification != null && x.Specification.Id == Item.Id);
+            await InitGroupsViewModel(units);
+        }
 
-        //protected override async void SaveCommand_Execute()
-        //{
-        //    //добавляем сущность, если ее не существовало
-        //    if (await WrapperDataService.Repository<Specification>().GetByIdAsync(Item.Model.Id) == null)
-        //        WrapperDataService.Repository<Specification>().Add(Item.Model);
 
-        //    //фиксируем спецификацию
-        //    Item.Units.ForEach(x => x.Model.Specification = Item.Model);
-        //    //очищаем спецификацию в удаленных
-        //    Item.Units.RemovedItems.ForEach(x => x.Specification = null);
-
-        //    Item.AcceptChanges();
-        //    Item.Units.RemovedItems.ForEach(x => x.AcceptChanges());
-        //    await WrapperDataService.SaveChangesAsync();
-
-        //    EventAggregator.GetEvent<AfterSaveSpecificationEvent>().Publish(Item.Model);
-
-        //    //запрашиваем закрытие окна
-        //    OnCloseRequested(new DialogRequestCloseEventArgs(true));
-        //}
+        protected override async void SaveCommand_Execute()
+        {
+        }
     }
 }

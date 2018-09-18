@@ -149,6 +149,7 @@
     <Compile Include="ViewModels\ProjectsViewModel.cs" />
     <Compile Include="ViewModels\ShippingViewModel.cs" />
     <Compile Include="ViewModels\SpecificationsViewModel.cs" />
+    <Compile Include="ViewModels\SpecificationUnitsGroupsViewModel.cs" />
     <Compile Include="ViewModels\SpecificationViewModel.cs" />
     <Compile Include="Views\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>

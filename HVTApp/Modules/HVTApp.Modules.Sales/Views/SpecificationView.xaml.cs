@@ -25,14 +25,12 @@ namespace HVTApp.Modules.Sales.Views
         public override async void OnNavigatedTo(NavigationContext navigationContext)
         {
             base.OnNavigatedTo(navigationContext);
-            var specification = (Specification)navigationContext.Parameters.First().Value;
-            if (navigationContext.Parameters.Count() == 2)
-            {
-                var units = (IEnumerable<SalesUnit>)navigationContext.Parameters.Last().Value;
-                //await _viewModel.LoadAsync(specification, units);
-                return;
-            }
-            await _viewModel.LoadAsync(specification);
+
+            var project = navigationContext.Parameters.First().Value as Project;
+            var specification = navigationContext.Parameters.First().Value as Specification;
+
+            if (project != null) await _viewModel.LoadAsync(project);
+            if (specification != null) await _viewModel.LoadAsync(specification);
         }
     }
 }

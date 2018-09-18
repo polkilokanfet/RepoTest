@@ -108,10 +108,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void NewSpecificationCommand_Execute()
         {
-            var specification = new Specification { Date = DateTime.Today };
-            var units = SelectedLookup.SalesUnits.Select(x => x.Entity);
-            var prms = new NavigationParameters { { "specification", specification }, { "units", units } };
-            RegionManager.RequestNavigateContentRegion<SpecificationView>(prms);
+            RegionManager.RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { "project", SelectedItem } });
         }
 
         private void EditProjectCommand_Execute()

@@ -72,7 +72,7 @@ namespace HVTApp.Modules.Sales.ViewModels
                 await RefreshPrice(group);
         }
 
-        private async Task RefreshPrice(SalesUnitsGroup group)
+        protected async Task RefreshPrice(SalesUnitsGroup group)
         {
             if (group == null) return;
 
@@ -130,7 +130,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #region Commands
 
-        protected async void AddCommand_Execute()
+        protected virtual async void AddCommand_Execute()
         {
             //создаем новый юнит и привязываем его к объекту
             var salesUnit = new SalesUnitWrapper(new SalesUnit());
@@ -283,7 +283,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
-        public async Task SaveChanges()
+        public virtual async Task SaveChanges()
         {
             //добавляем созданные юниты и удаляем удаленные
             var addedIn = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.AddedItems).Select(x => x.Model);
@@ -309,7 +309,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         }
 
-        public bool CanSaveChanges()
+        public virtual bool CanSaveChanges()
         {
             return Groups.Any() && Groups.IsValid;
         }
