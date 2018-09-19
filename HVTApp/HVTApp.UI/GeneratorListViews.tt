@@ -131,7 +131,7 @@ namespace HVTApp.UI.Lookup
       var propertyType = property.PropertyType.Name;
       var propertyName = property.Name;
 #>
-			<#= propertyName #>?.Refresh(Entity.<#= propertyName #>);
+			//<#= propertyName #>?.Refresh(Entity.<#= propertyName #>);
 <#+
     }
   }

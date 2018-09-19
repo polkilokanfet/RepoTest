@@ -32,7 +32,7 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Product?.Refresh(Entity.Product);
+			//Product?.Refresh(Entity.Product);
 
 		}
 		
@@ -103,7 +103,7 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Condition?.Refresh(Entity.Condition);
+			//Condition?.Refresh(Entity.Condition);
 
 		}
 		
@@ -165,7 +165,7 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Product?.Refresh(Entity.Product);
+			//Product?.Refresh(Entity.Product);
 
 		}
 		
@@ -248,7 +248,7 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			ProductType?.Refresh(Entity.ProductType);
+			//ProductType?.Refresh(Entity.ProductType);
 
 		}
 		
@@ -342,7 +342,7 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Locality?.Refresh(Entity.Locality);
+			//Locality?.Refresh(Entity.Locality);
 
 		}
 		
@@ -401,7 +401,7 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Country?.Refresh(Entity.Country);
+			//Country?.Refresh(Entity.Country);
 
 		}
 		
@@ -436,9 +436,9 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			LocalityType?.Refresh(Entity.LocalityType);
+			//LocalityType?.Refresh(Entity.LocalityType);
 
-			Region?.Refresh(Entity.Region);
+			//Region?.Refresh(Entity.Region);
 
 		}
 		
@@ -521,7 +521,7 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			District?.Refresh(Entity.District);
+			//District?.Refresh(Entity.District);
 
 		}
 		
@@ -624,9 +624,9 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			ProductBlock?.Refresh(Entity.ProductBlock);
+			//ProductBlock?.Refresh(Entity.ProductBlock);
 
-			Product?.Refresh(Entity.Product);
+			//Product?.Refresh(Entity.Product);
 
 		}
 		
@@ -688,13 +688,13 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Offer?.Refresh(Entity.Offer);
+			//Offer?.Refresh(Entity.Offer);
 
-			Facility?.Refresh(Entity.Facility);
+			//Facility?.Refresh(Entity.Facility);
 
-			Product?.Refresh(Entity.Product);
+			//Product?.Refresh(Entity.Product);
 
-			PaymentConditionSet?.Refresh(Entity.PaymentConditionSet);
+			//PaymentConditionSet?.Refresh(Entity.PaymentConditionSet);
 
 		}
 		
@@ -808,7 +808,7 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Product?.Refresh(Entity.Product);
+			//Product?.Refresh(Entity.Product);
 
 		}
 		
@@ -924,13 +924,13 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Form?.Refresh(Entity.Form);
+			//Form?.Refresh(Entity.Form);
 
-			ParentCompany?.Refresh(Entity.ParentCompany);
+			//ParentCompany?.Refresh(Entity.ParentCompany);
 
-			AddressLegal?.Refresh(Entity.AddressLegal);
+			//AddressLegal?.Refresh(Entity.AddressLegal);
 
-			AddressPost?.Refresh(Entity.AddressPost);
+			//AddressPost?.Refresh(Entity.AddressPost);
 
 		}
 		
@@ -1125,7 +1125,7 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Contragent?.Refresh(Entity.Contragent);
+			//Contragent?.Refresh(Entity.Contragent);
 
 		}
 		
@@ -1192,7 +1192,7 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			ParameterGroup?.Refresh(Entity.ParameterGroup);
+			//ParameterGroup?.Refresh(Entity.ParameterGroup);
 
 		}
 		
@@ -1231,7 +1231,7 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Measure?.Refresh(Entity.Measure);
+			//Measure?.Refresh(Entity.Measure);
 
 		}
 		
@@ -1349,21 +1349,21 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Product?.Refresh(Entity.Product);
+			//Product?.Refresh(Entity.Product);
 
-			Facility?.Refresh(Entity.Facility);
+			//Facility?.Refresh(Entity.Facility);
 
-			PaymentConditionSet?.Refresh(Entity.PaymentConditionSet);
+			//PaymentConditionSet?.Refresh(Entity.PaymentConditionSet);
 
-			Project?.Refresh(Entity.Project);
+			//Project?.Refresh(Entity.Project);
 
-			Producer?.Refresh(Entity.Producer);
+			//Producer?.Refresh(Entity.Producer);
 
-			Order?.Refresh(Entity.Order);
+			//Order?.Refresh(Entity.Order);
 
-			Specification?.Refresh(Entity.Specification);
+			//Specification?.Refresh(Entity.Specification);
 
-			Address?.Refresh(Entity.Address);
+			//Address?.Refresh(Entity.Address);
 
 		}
 		
@@ -1606,11 +1606,11 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			TestFriendAddress?.Refresh(Entity.TestFriendAddress);
+			//TestFriendAddress?.Refresh(Entity.TestFriendAddress);
 
-			TestFriendGroup?.Refresh(Entity.TestFriendGroup);
+			//TestFriendGroup?.Refresh(Entity.TestFriendGroup);
 
-			TestFriendEmailGet?.Refresh(Entity.TestFriendEmailGet);
+			//TestFriendEmailGet?.Refresh(Entity.TestFriendEmailGet);
 
 		}
 		
@@ -1725,17 +1725,17 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Number?.Refresh(Entity.Number);
+			//Number?.Refresh(Entity.Number);
 
-			RequestDocument?.Refresh(Entity.RequestDocument);
+			//RequestDocument?.Refresh(Entity.RequestDocument);
 
-			Author?.Refresh(Entity.Author);
+			//Author?.Refresh(Entity.Author);
 
-			SenderEmployee?.Refresh(Entity.SenderEmployee);
+			//SenderEmployee?.Refresh(Entity.SenderEmployee);
 
-			RecipientEmployee?.Refresh(Entity.RecipientEmployee);
+			//RecipientEmployee?.Refresh(Entity.RecipientEmployee);
 
-			RegistrationDetailsOfRecipient?.Refresh(Entity.RegistrationDetailsOfRecipient);
+			//RegistrationDetailsOfRecipient?.Refresh(Entity.RegistrationDetailsOfRecipient);
 
 		}
 		
@@ -1858,7 +1858,7 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Wife?.Refresh(Entity.Wife);
+			//Wife?.Refresh(Entity.Wife);
 
 		}
 		
@@ -1893,7 +1893,7 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Husband?.Refresh(Entity.Husband);
+			//Husband?.Refresh(Entity.Husband);
 
 		}
 		
@@ -1932,9 +1932,9 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Husband?.Refresh(Entity.Husband);
+			//Husband?.Refresh(Entity.Husband);
 
-			Wife?.Refresh(Entity.Wife);
+			//Wife?.Refresh(Entity.Wife);
 
 		}
 		
@@ -2001,9 +2001,9 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			ProductType?.Refresh(Entity.ProductType);
+			//ProductType?.Refresh(Entity.ProductType);
 
-			ProductBlock?.Refresh(Entity.ProductBlock);
+			//ProductBlock?.Refresh(Entity.ProductBlock);
 
 		}
 		
@@ -2046,19 +2046,19 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Project?.Refresh(Entity.Project);
+			//Project?.Refresh(Entity.Project);
 
-			Number?.Refresh(Entity.Number);
+			//Number?.Refresh(Entity.Number);
 
-			RequestDocument?.Refresh(Entity.RequestDocument);
+			//RequestDocument?.Refresh(Entity.RequestDocument);
 
-			Author?.Refresh(Entity.Author);
+			//Author?.Refresh(Entity.Author);
 
-			SenderEmployee?.Refresh(Entity.SenderEmployee);
+			//SenderEmployee?.Refresh(Entity.SenderEmployee);
 
-			RecipientEmployee?.Refresh(Entity.RecipientEmployee);
+			//RecipientEmployee?.Refresh(Entity.RecipientEmployee);
 
-			RegistrationDetailsOfRecipient?.Refresh(Entity.RegistrationDetailsOfRecipient);
+			//RegistrationDetailsOfRecipient?.Refresh(Entity.RegistrationDetailsOfRecipient);
 
 		}
 		
@@ -2145,11 +2145,11 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Person?.Refresh(Entity.Person);
+			//Person?.Refresh(Entity.Person);
 
-			Company?.Refresh(Entity.Company);
+			//Company?.Refresh(Entity.Company);
 
-			Position?.Refresh(Entity.Position);
+			//Position?.Refresh(Entity.Position);
 
 		}
 		
@@ -2286,11 +2286,11 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Type?.Refresh(Entity.Type);
+			//Type?.Refresh(Entity.Type);
 
-			OwnerCompany?.Refresh(Entity.OwnerCompany);
+			//OwnerCompany?.Refresh(Entity.OwnerCompany);
 
-			Address?.Refresh(Entity.Address);
+			//Address?.Refresh(Entity.Address);
 
 		}
 		
@@ -2333,9 +2333,9 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			ProjectType?.Refresh(Entity.ProjectType);
+			//ProjectType?.Refresh(Entity.ProjectType);
 
-			Manager?.Refresh(Entity.Manager);
+			//Manager?.Refresh(Entity.Manager);
 
 		}
 		
@@ -2406,7 +2406,7 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Contract?.Refresh(Entity.Contract);
+			//Contract?.Refresh(Entity.Contract);
 
 		}
 		
@@ -2449,9 +2449,9 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Project?.Refresh(Entity.Project);
+			//Project?.Refresh(Entity.Project);
 
-			Winner?.Refresh(Entity.Winner);
+			//Winner?.Refresh(Entity.Winner);
 
 		}
 		
@@ -2526,7 +2526,7 @@ namespace HVTApp.UI.Lookup
 		protected override void RefreshLookups()
         {
 			 
-			Employee?.Refresh(Entity.Employee);
+			//Employee?.Refresh(Entity.Employee);
 
 		}
 		

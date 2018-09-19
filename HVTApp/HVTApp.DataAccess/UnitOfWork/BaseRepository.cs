@@ -32,38 +32,47 @@ namespace HVTApp.DataAccess
 
         public virtual List<TEntity> Find(Func<TEntity, bool> predicate)
         {
+            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
             return Context.Set<TEntity>().Where(predicate).ToList();
         }
 
 
         public void Add(TEntity entity)
         {
+            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
             Context.Set<TEntity>().Add(entity);
         }
 
         public void AddRange(IEnumerable<TEntity> entities)
         {
+            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
             Context.Set<TEntity>().AddRange(entities);
         }
 
 
         public void Delete(TEntity entity)
         {
+            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
             Context.Set<TEntity>().Remove(entity);
         }
 
         public void DeleteRange(IEnumerable<TEntity> entities)
         {
+            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
             Context.Set<TEntity>().RemoveRange(entities);
         }
 
         public virtual async Task<TEntity> GetByIdAsync(Guid id)
         {
+            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
             return await Context.Set<TEntity>().FindAsync(id);
         }
 
         public void Reload(TEntity entity)
         {
+            //if (Context.Entry(entity).State == EntityState.Detached)
+            //    //if (Context.Set<TEntity>().Local.All(x => x.Id != entity.Id))
+            //    Context.Set<TEntity>().Attach(entity);
             //var entry = Context.Entry(entity);
             //entry.Reload();
         }

@@ -253,7 +253,7 @@ namespace HVTApp.UI.ViewModels
         /// реакция на корректировку айтема или на создание нового
         /// </summary>
         /// <param name="entity"></param>
-        protected virtual async void OnAfterSaveEntity(TEntity entity)
+        protected virtual void OnAfterSaveEntity(TEntity entity)
         {
             //обновление существующего айтема
             var lookup = Lookups.SingleOrDefault(x => Equals(x.Id, entity.Id));
@@ -264,9 +264,7 @@ namespace HVTApp.UI.ViewModels
             }
 
             //добавление айтема не из списка
-            var newEntity = await UnitOfWork.Repository<TEntity>().GetByIdAsync(entity.Id);
-            lookup = (TLookup)Activator.CreateInstance(typeof(TLookup), newEntity);
-            lookup.Refresh(newEntity);
+            lookup = (TLookup)Activator.CreateInstance(typeof(TLookup), entity);
             LookupsCollection.Add(lookup);
 
             //выбор добавленного айтема

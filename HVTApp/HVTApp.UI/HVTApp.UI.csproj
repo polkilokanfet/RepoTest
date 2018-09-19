@@ -103,6 +103,7 @@
     <Compile Include="ViewModels\Details\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProductIncludedDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\SalesUnitDetailsViewModel.cs" />
+    <Compile Include="ViewModels\List\CompanyLookupListViewModel.cs" />
     <Compile Include="Views\Details\Custom\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
@@ -175,7 +176,6 @@
       <DependentUpon>TabCRUD.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Details\ProjectDetailsViewModel.cs" />
-    <Compile Include="ViewModels\List\CompanyListViewModel.cs" />
     <Compile Include="ViewModels\List\Generated\ListViewModels.g.cs" />
     <Compile Include="ViewModels\List\OfferLookupListViewModel.cs" />
     <Compile Include="ViewModels\List\UnitLookupListViewModel.cs" />

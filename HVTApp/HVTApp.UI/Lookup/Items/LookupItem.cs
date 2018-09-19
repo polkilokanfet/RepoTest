@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using Prism.Mvvm;
 
 namespace HVTApp.UI.Lookup
 {
-    public abstract class LookupItem<TEntity> : BindableBase, ILookupItemNavigation<TEntity>, INotifyPropertyChanged, IComparable
+    public abstract class LookupItem<TEntity> : BindableBase, ILookupItemNavigation<TEntity>, IComparable
         where TEntity : class, IBaseEntity
     {
         protected LookupItem(TEntity entity)
@@ -21,13 +22,8 @@ namespace HVTApp.UI.Lookup
 
         public TEntity Entity { get; private set; }
 
-        private string _displayMember;
         [Designation("Отображение")]
-        public string DisplayMember
-        {
-            get { return _displayMember; }
-            set { SetValue(ref _displayMember, value); }
-        }
+        public string DisplayMember { get; set; }
 
         /// <summary>
         /// Обновить Lookup
@@ -36,10 +32,8 @@ namespace HVTApp.UI.Lookup
         public void Refresh(TEntity entity)
         {
             Entity = entity;
-            RefreshLookups();
             Refresh();
         }
-
         public void Refresh()
         {
             OnPropertyChanged(String.Empty);
@@ -52,30 +46,12 @@ namespace HVTApp.UI.Lookup
             return (T)Entity.GetType().GetProperty(propertyName)?.GetValue(Entity);
         }
 
-        protected void SetValue<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (Equals(field, value)) return;
-            field = value;
-            OnPropertyChanged(propertyName);
-        }
-
-        private readonly Dictionary<string, object> _lookups = new Dictionary<string, object>();
         protected TLookup GetLookup<TLookup>([CallerMemberName] string propertyName = null)
             where TLookup : class 
         {
-            //значение свойства в Entity
             var value = Entity.GetType().GetProperty(propertyName).GetValue(Entity);
-            if (Equals(value, null))
-                return null;
-
-            //если значение свойства уже содержится в словаре
-            if (_lookups.ContainsKey(propertyName))
-                return (TLookup)_lookups[propertyName];
-
-            //добавление значения свойства в словарь
-            var lookup = (TLookup) Activator.CreateInstance(typeof(TLookup), value);
-            _lookups.Add(propertyName, lookup);
-            return lookup;
+            if (value == null) return null;
+            return (TLookup) Activator.CreateInstance(typeof(TLookup), value);
         }
 
         public override string ToString()

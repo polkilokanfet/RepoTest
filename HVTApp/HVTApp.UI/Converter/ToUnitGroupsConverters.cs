@@ -144,6 +144,7 @@ namespace HVTApp.UI.Converter
         {
             if (!Equals(x.Cost, y.Cost)) return false;
             if (!Equals(x.ProductionTerm, y.ProductionTerm)) return false;
+            if (!Equals(x.Project.Id, y.Project.Id)) return false;
             if (!Equals(x.Product.Id, y.Product.Id)) return false;
             if (!Equals(x.Facility.Id, y.Facility.Id)) return false;
             if (!Equals(x.PaymentConditionSet.Id, y.PaymentConditionSet.Id)) return false;
