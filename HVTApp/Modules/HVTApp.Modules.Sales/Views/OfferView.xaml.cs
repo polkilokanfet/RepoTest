@@ -36,7 +36,11 @@ namespace HVTApp.Modules.Sales.Views
 
             //по шаблону-предложению
             var offer = navigationContext.Parameters.First().Value as Offer;
-            if (offer != null) await _viewModel.LoadByOffer(offer);
+            if (offer != null)
+            {
+                if (navigationContext.Parameters.Count() == 1) await _viewModel.LoadByOffer(offer);
+                else await _viewModel.LoadAsync(offer);
+            }
         }
 
     }

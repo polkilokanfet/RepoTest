@@ -154,7 +154,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// </summary>
         private void EditOfferCommand_Execute()
         {
-            var prms = new NavigationParameters {{"offer", OfferListViewModel.SelectedItem}};
+            var prms = new NavigationParameters {{"offer", OfferListViewModel.SelectedItem}, { "edit", true } };
             RegionManager.RequestNavigateContentRegion<OfferView>(prms);
             
         }
