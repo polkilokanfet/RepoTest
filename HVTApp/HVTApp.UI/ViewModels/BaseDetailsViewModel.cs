@@ -170,7 +170,7 @@ namespace HVTApp.UI.ViewModels
             where TWrap : class, IWrapper<TModel>
         {
             //выбор сущности
-            var entity = await Container.Resolve<ISelectService>().SelectItem(entities, selectedItemId);
+            var entity = Container.Resolve<ISelectService>().SelectItem(entities, selectedItemId);
 
             //поиск текущего значения
             var propertyValue = (TWrap)Item.GetType().GetProperty(propertyName).GetValue(Item);
@@ -188,7 +188,7 @@ namespace HVTApp.UI.ViewModels
             where TModel : class, IBaseEntity
             where TWrap : WrapperBase<TModel>
         {
-            var entity = await Container.Resolve<ISelectService>().SelectItem(entities, selectedItemId);
+            var entity = Container.Resolve<ISelectService>().SelectItem(entities, selectedItemId);
             if (entity != null)
             {
                 var item = await UnitOfWork.Repository<TModel>().GetByIdAsync(entity.Id);

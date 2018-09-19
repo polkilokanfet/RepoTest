@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
-using HVTApp.UI.Lookup;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -22,16 +19,14 @@ using Prism.Events;
 
 namespace HVTApp.UI.ViewModels
 {
-    public abstract class BaseListViewModel<TEntity, TLookup, TAfterSaveEntityEvent, TAfterSelectEntityEvent, TAfterRemoveEntityEvent, TLookupDataService> :
+    public abstract class BaseListViewModel<TEntity, TLookup, TAfterSaveEntityEvent, TAfterSelectEntityEvent, TAfterRemoveEntityEvent> :
         BindableBaseCanExportToExcel, IBaseListViewModel<TEntity, TLookup>, ISelectServiceViewModel<TEntity>, IDisposable
         where TEntity : class, IBaseEntity
         where TLookup : class, ILookupItemNavigation<TEntity>
-        where TLookupDataService : class, ILookupDataService<TLookup>
         where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
         where TAfterRemoveEntityEvent : PubSubEvent<TEntity>, new()
         where TAfterSelectEntityEvent : PubSubEvent<PubSubEventArgs<TEntity>>, new()
     {
-        protected ILookupDataService<TLookup> LookupDataService;
         protected readonly IDialogService DialogService;
         protected readonly IMessageService MessageService;
         protected readonly IEventAggregator EventAggregator;
@@ -44,7 +39,6 @@ namespace HVTApp.UI.ViewModels
 
         protected BaseListViewModel(IUnityContainer container) : base(container)
         {
-            LookupDataService = Container.Resolve<TLookupDataService>();
             DialogService = Container.Resolve<IDialogService>();
             MessageService = Container.Resolve<IMessageService>();
             EventAggregator = Container.Resolve<IEventAggregator>();
@@ -122,40 +116,24 @@ namespace HVTApp.UI.ViewModels
         public IEnumerable<TLookup> Lookups { get; }
         private ICollection<TLookup> LookupsCollection => (ICollection<TLookup>)Lookups;
 
-        private async Task<TLookup> GetLookup(TEntity entity)
-        {
-            return await LookupDataService.GetLookupById(entity.Id);
-        }
-
-        /// <summary>
-        /// Возвращает все Lookup'ы. Используется в LoadAsync().
-        /// </summary>
-        /// <returns></returns>
-        protected virtual async Task<IEnumerable<TLookup>> GetLookups()
-        {
-            return await LookupDataService.GetAllLookupsAsync();
-        }
-
         /// <summary>
         /// Загрузка всех Lookup'ов.
-        /// Возможно влиять на Lookup'ы через GetLookups.
         /// </summary>
         /// <returns></returns>
-        public async Task LoadAsync()
+        public virtual async Task LoadAsync()
         {
             LoadBegin?.Invoke();
             LookupsCollection.Clear();
             SelectedLookup = null;
-            var lookups = await GetLookups();
+            var entities = await UnitOfWork.Repository<TEntity>().GetAllAsNoTrackingAsync();
+            var lookups =  entities.Select(x => (TLookup)Activator.CreateInstance(typeof(TLookup), x));
             lookups.ForEach(LookupsCollection.Add);
             Loaded?.Invoke();
         }
 
-        public async Task Load(IEnumerable<TEntity> entities)
+        public void Load(IEnumerable<TEntity> entities)
         {
-            var lookups = new List<TLookup>();
-            foreach (var entity in entities)
-                lookups.Add(await GetLookup(entity));
+            var lookups = entities.Select(x => (TLookup)Activator.CreateInstance(typeof(TLookup), x));
             Load(lookups);
         }
 
@@ -220,13 +198,13 @@ namespace HVTApp.UI.ViewModels
             var dr = MessageService.ShowYesNoMessageDialog("Удалить", $"Вы действительно хотите удалить '{SelectedLookup.DisplayMember}'?");
             if (dr != MessageDialogResult.Yes) return;
 
-            var entityToRemove = await LookupDataService.GetLookupById(SelectedLookup.Id);
-            if (entityToRemove == null) return;
+            var entity = await UnitOfWork.Repository<TEntity>().GetByIdAsync(SelectedLookup.Id);
+            if (entity == null) return;
 
             try
             {
-                LookupDataService.Delete(entityToRemove);
-                await LookupDataService.SaveChangesAsync();
+                UnitOfWork.Repository<TEntity>().Delete(entity);
+                await UnitOfWork.SaveChangesAsync();
                 LookupsCollection.Remove(SelectedLookup);
             }
             catch (DbUpdateException e)
@@ -239,7 +217,7 @@ namespace HVTApp.UI.ViewModels
                 MessageService.ShowYesNoMessageDialog("DbUpdateException", ex.Message);
             }
 
-            EventAggregator.GetEvent<TAfterRemoveEntityEvent>().Publish(entityToRemove.Entity);
+            EventAggregator.GetEvent<TAfterRemoveEntityEvent>().Publish(entity);
         }
 
         protected virtual bool RemoveItemCommand_CanExecute()
@@ -259,7 +237,6 @@ namespace HVTApp.UI.ViewModels
 
         private async void RefreshCommand_Execute()
         {
-            LookupDataService = Container.Resolve<TLookupDataService>();
             await this.LoadAsync();
         }
 
@@ -286,10 +263,10 @@ namespace HVTApp.UI.ViewModels
                 return;
             }
 
-            //добавление несуществующего айтема
-            var newEntity = await LookupDataService.GetLookupById(entity.Id);
-            lookup = await GetLookup(newEntity.Entity);
-            lookup.Refresh(newEntity.Entity);
+            //добавление айтема не из списка
+            var newEntity = await UnitOfWork.Repository<TEntity>().GetByIdAsync(entity.Id);
+            lookup = (TLookup)Activator.CreateInstance(typeof(TLookup), newEntity);
+            lookup.Refresh(newEntity);
             LookupsCollection.Add(lookup);
 
             //выбор добавленного айтема
@@ -308,7 +285,7 @@ namespace HVTApp.UI.ViewModels
 
         public void Dispose()
         {
-            LookupDataService?.Dispose();
+            UnitOfWork?.Dispose();
         }
     }
 }

@@ -8,9 +8,9 @@ namespace HVTApp.Infrastructure
 {
     public class ViewModelBase : BindableBase
     {
-        protected readonly IRegionManager RegionManager;
-
         protected readonly IUnityContainer Container;
+        protected readonly IRegionManager RegionManager;
+        protected readonly IUnitOfWork UnitOfWork;
 
         public ICommand GoForwardCommand { get; }
         public ICommand GoBackCommand { get; }
@@ -18,6 +18,7 @@ namespace HVTApp.Infrastructure
         public ViewModelBase(IUnityContainer container)
         {
             Container = container;
+            UnitOfWork = Container.Resolve<IUnitOfWork>();
             RegionManager = Container.Resolve<IRegionManager>();
             GoForwardCommand = new DelegateCommand(GoForwardCommand_Execute, GoForwardCommand_CanExecute);
             GoBackCommand = new DelegateCommand(GoBackCommand_Execute, GoBackCommand_CanExecute);

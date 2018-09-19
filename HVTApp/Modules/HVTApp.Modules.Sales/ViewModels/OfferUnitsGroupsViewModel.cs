@@ -231,7 +231,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         private async void ChangeFacilityCommand_Execute(OfferUnitsGroup group)
         {
             var facilities = await _unitOfWork.Repository<Facility>().GetAllAsNoTrackingAsync();
-            var facility = await Container.Resolve<ISelectService>().SelectItem(facilities, group.Facility?.Id);
+            var facility = Container.Resolve<ISelectService>().SelectItem(facilities, group.Facility?.Id);
             if (facility == null) return;
             facility = await _unitOfWork.Repository<Facility>().GetByIdAsync(facility.Id);
             group.Facility = new FacilityWrapper(facility);
@@ -240,7 +240,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         private async void ChangePaymentsCommand_Execute(OfferUnitsGroup group)
         {
             var sets = await _unitOfWork.Repository<PaymentConditionSet>().GetAllAsNoTrackingAsync();
-            var set = await Container.Resolve<ISelectService>().SelectItem(sets, group.PaymentConditionSet?.Id);
+            var set = Container.Resolve<ISelectService>().SelectItem(sets, group.PaymentConditionSet?.Id);
             if (set == null) return;
             set = await _unitOfWork.Repository<PaymentConditionSet>().GetByIdAsync(set.Id);
             group.PaymentConditionSet = new PaymentConditionSetWrapper(set);

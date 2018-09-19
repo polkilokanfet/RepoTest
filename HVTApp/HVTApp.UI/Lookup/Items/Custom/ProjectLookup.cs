@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Model.POCOs;
 
@@ -10,45 +8,26 @@ namespace HVTApp.UI.Lookup
 {
     public partial class ProjectLookup
     {
-        public override async Task LoadOther(IUnitOfWork unitOfWork)
+        public ProjectLookup(Project project, IEnumerable<SalesUnit> salesUnits, IEnumerable<Tender> tenders) : this(project)
         {
-            SalesUnits = unitOfWork.Repository<SalesUnit>().Find(x => Equals(this.Entity, x.Project)).Select(x => new SalesUnitLookup(x)).ToList();
-            foreach (var salesUnitLookup in SalesUnits)
-                await salesUnitLookup.LoadOther(unitOfWork);
-
-            Tenders = unitOfWork.Repository<Tender>().Find(x => Equals(this.Entity, x.Project)).Select(x => new TenderLookup(x)).ToList();
-            foreach (var tenderLookup in Tenders)
-                await tenderLookup.LoadOther(unitOfWork);
-
-            Offers = unitOfWork.Repository<Offer>().Find(x => Equals(this.Entity, x.Project)).Select(x => new OfferLookup(x)).ToList();
-            foreach (var offerLookup in Offers)
-                await offerLookup.LoadOther(unitOfWork);
-            
-            Notes = Entity.Notes.Select(x => new NoteLookup(x)).OrderByDescending(x => x.Date).ToList();
-            foreach (var note in Notes)
-                await note.LoadOther(unitOfWork);
+            SalesUnits = new List<SalesUnitLookup>(salesUnits.Select(x => new SalesUnitLookup(x)));
+            Tenders = new List<TenderLookup>(tenders.Select(x => new TenderLookup(x)));
         }
 
         //[OrderStatus(OrderStatus.Low)]
-        public List<SalesUnitLookup> SalesUnits { get; set; }
+        public List<SalesUnitLookup> SalesUnits { get; private set; } = new List<SalesUnitLookup>();
         //[OrderStatus(OrderStatus.Low)]
-        public List<TenderLookup> Tenders { get; set; }
+        public List<TenderLookup> Tenders { get; private set; } = new List<TenderLookup>();
         //[OrderStatus(OrderStatus.Low)]
-        public List<OfferLookup> Offers { get; set; }
+        public List<OfferLookup> Offers { get; private set; } = new List<OfferLookup>();
         //[OrderStatus(OrderStatus.Low)]
-        public List<NoteLookup> Notes { get; set; }
+        public List<NoteLookup> Notes { get; private set; } = new List<NoteLookup>();
 
         [Designation("Сумма проекта")]
         public double Sum => SalesUnits.Sum(x => x.Cost);
 
         [Designation("Дата поставки")]
-        public DateTime RealizationDate
-        {
-            get
-            {
-                return SalesUnits.Any() ? SalesUnits.Select(x => x.DeliveryDateExpected).Min() : DateTime.Today.AddMonths(6);
-            }
-        }
+        public DateTime RealizationDate => SalesUnits.Any() ? SalesUnits.Select(x => x.DeliveryDateExpected).Min() : DateTime.Today.AddMonths(6);
 
         [Designation("Тендер")]
         public DateTime? TenderDate => Tenders.SingleOrDefault(x => x.Entity.Types.Any(tp => tp.Type == TenderTypeEnum.ToSupply))?.DateClose;

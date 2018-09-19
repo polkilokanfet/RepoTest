@@ -23,13 +23,13 @@ namespace HVTApp.Modules.Sales.ViewModels
             this.SelectedLookupChanged += lookup => RefreshGroups();
         }
 
-        protected override async Task<IEnumerable<SpecificationLookup>> GetLookups()
-        {
-            _unitOfWork = Container.Resolve<IUnitOfWork>();
-            _units = _unitOfWork.Repository<SalesUnit>().Find(x => x.Specification != null);
-            var specs = _units.Select(x => x.Specification).Distinct();
-            return specs.Select(x => new SpecificationLookup(x));
-        }
+        //protected override async Task<IEnumerable<SpecificationLookup>> GetLookups()
+        //{
+        //    _unitOfWork = Container.Resolve<IUnitOfWork>();
+        //    _units = _unitOfWork.Repository<SalesUnit>().Find(x => x.Specification != null);
+        //    var specs = _units.Select(x => x.Specification).Distinct();
+        //    return specs.Select(x => new SpecificationLookup(x));
+        //}
 
         private void RefreshGroups()
         {

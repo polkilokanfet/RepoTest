@@ -33,7 +33,7 @@ namespace HVTApp.Services.SelectService
             Mappings.Add(typeof(TItem), typeof(TView));
         }
 
-        public async Task<TItem> SelectItem<TItem>(IEnumerable<TItem> items, Guid? selectedItemId = null) 
+        public TItem SelectItem<TItem>(IEnumerable<TItem> items, Guid? selectedItemId = null) 
             where TItem : class, IBaseEntity
         {
             TItem result = null;
@@ -42,7 +42,7 @@ namespace HVTApp.Services.SelectService
 
             var view = (Control)_container.Resolve(viewType);
             var viewModel = (ISelectServiceViewModel<TItem>)view.DataContext;
-            await viewModel.Load(items);
+            viewModel.Load(items);
 
             if (selectedItemId != null && items.Any(x => x.Id == selectedItemId))
                 viewModel.SelectedItem = items.Single(x => x.Id == selectedItemId);

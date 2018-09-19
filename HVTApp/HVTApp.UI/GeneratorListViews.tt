@@ -200,7 +200,7 @@ namespace HVTApp.UI.ViewModels
         foreach(var modelType in modelTypes)
         {
 #>
-	public partial class <#=modelType.Name#>LookupListViewModel : BaseListViewModel<<#=modelType.Name#>, <#=modelType.Name#>Lookup, AfterSave<#=modelType.Name#>Event, AfterSelect<#=modelType.Name#>Event, AfterRemove<#=modelType.Name#>Event,  <#=modelType.Name#>LookupDataService>
+	public partial class <#=modelType.Name#>LookupListViewModel : BaseListViewModel<<#=modelType.Name#>, <#=modelType.Name#>Lookup, AfterSave<#=modelType.Name#>Event, AfterSelect<#=modelType.Name#>Event, AfterRemove<#=modelType.Name#>Event>
     {
         public <#=modelType.Name#>LookupListViewModel(IUnityContainer container) : base(container) { }
     }

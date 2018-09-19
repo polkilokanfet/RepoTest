@@ -119,9 +119,6 @@
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SpecificationLookup.cs" />
     <Compile Include="Lookup\Items\Lookups.g.cs" />
-    <Compile Include="Lookup\Service\ILookupDataServices.g.cs" />
-    <Compile Include="Lookup\Service\ILookupDataService.cs" />
-    <Compile Include="Lookup\Service\LookupDataServices.g.cs" />
     <Compile Include="Tabs\TabOffer.xaml.cs">
       <DependentUpon>TabOffer.xaml</DependentUpon>
     </Compile>
@@ -157,7 +154,6 @@
     <Compile Include="Lookup\Items\Custom\ProductLookup.cs" />
     <Compile Include="Lookup\Items\Custom\ProjectLookup.cs" />
     <Compile Include="Lookup\Items\Custom\TenderLookup.cs" />
-    <Compile Include="Lookup\Service\LookupDataService.cs" />
     <Compile Include="UiModule.cs" />
     <Compile Include="Wrapper\UnitsGroup.cs" />
     <Compile Include="Converter\ProductUnitsToFacilitiesNamesConverter.cs" />

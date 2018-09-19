@@ -690,9 +690,9 @@ namespace HVTApp.UI.Lookup
 			 
 			Offer?.Refresh(Entity.Offer);
 
-			Product?.Refresh(Entity.Product);
-
 			Facility?.Refresh(Entity.Facility);
+
+			Product?.Refresh(Entity.Product);
 
 			PaymentConditionSet?.Refresh(Entity.PaymentConditionSet);
 
@@ -719,11 +719,11 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
-	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
+	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
 
 
 		[OrderStatus(1)]
-	    public FacilityLookup Facility { get { return GetLookup<FacilityLookup>(); } }
+	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 
 		[OrderStatus(1)]
@@ -1452,6 +1452,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Boolean IsLoosen => GetValue<System.Boolean>();
+
+
+		[OrderStatus(1)]
+        public System.Boolean IsDone => GetValue<System.Boolean>();
 
 
 		[OrderStatus(1)]

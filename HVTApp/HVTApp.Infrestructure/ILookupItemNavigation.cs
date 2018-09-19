@@ -7,6 +7,5 @@ namespace HVTApp.Infrastructure
     {
         TEntity Entity { get; }
         void Refresh(TEntity entity);
-        Task LoadOther(IUnitOfWork unitOfWork);
     }
 }

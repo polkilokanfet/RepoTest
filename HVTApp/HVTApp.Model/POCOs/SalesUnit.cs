@@ -127,6 +127,10 @@ namespace HVTApp.Model.POCOs
         [NotMapped, Designation("Проиграно")]
         public bool IsLoosen => Producer != null && Producer.Id != CommonOptions.OurCompanyId;
 
+        [NotMapped, Designation("Исполнен?")]
+        public bool IsDone => RealizationDateCalculated < DateTime.Today && ShipmentDateCalculated < DateTime.Today;
+
+
         public override string ToString()
         {
             return $"{Product} для {Facility}";

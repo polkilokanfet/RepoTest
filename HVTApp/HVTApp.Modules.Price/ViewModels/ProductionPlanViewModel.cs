@@ -101,9 +101,10 @@ namespace HVTApp.Modules.Price.ViewModels
             }
         }
 
-
-        protected override async Task<IEnumerable<OrderLookup>> GetLookups()
+        public override async Task LoadAsync()
         {
+            await base.LoadAsync();
+
             _salesUnitsWrappers?.ForEach(x => x.PropertyChanged -= OnPropertyChanged);
 
             _unitOfWork = Container.Resolve<IUnitOfWork>();
@@ -117,8 +118,6 @@ namespace HVTApp.Modules.Price.ViewModels
 
             GroupsPotential.Clear();
             GroupsPotential.AddRange(ProductionGroup.Grouping(unitsToPlan));
-
-            return await base.GetLookups();
         }
 
         private void OnSelectedOrderChanged(OrderLookup orderLookup)

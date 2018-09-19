@@ -114,8 +114,10 @@ namespace HVTApp.Modules.Price.ViewModels
                    _unitOfWork != null;
         }
 
-        protected override async Task<IEnumerable<PaymentDocumentLookup>> GetLookups()
+        public override async Task LoadAsync()
         {
+            await base.LoadAsync();
+
             Payments.Clear();
             Potential.Clear();
 
@@ -128,8 +130,6 @@ namespace HVTApp.Modules.Price.ViewModels
 
             //отслеживаем их изменения
             _salesUnitWrappers.PropertyChanged += SalesUnitWrappersOnPropertyChanged;
-
-            return await base.GetLookups();
         }
 
         private void SalesUnitWrappersOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)

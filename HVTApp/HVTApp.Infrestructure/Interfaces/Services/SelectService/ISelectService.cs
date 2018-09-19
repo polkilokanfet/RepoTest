@@ -13,14 +13,14 @@ namespace HVTApp.Infrastructure.Interfaces.Services.SelectService
             where TView : Control 
             where TItem : class, IBaseEntity;
 
-        Task<TItem> SelectItem<TItem>(IEnumerable<TItem> items, Guid? selectedItemId = null) 
+        TItem SelectItem<TItem>(IEnumerable<TItem> items, Guid? selectedItemId = null) 
             where TItem : class, IBaseEntity;
     }
 
     public interface ISelectServiceViewModel<TItem> : IDialogRequestClose
         where TItem : IBaseEntity
     {
-        Task Load(IEnumerable<TItem> entities);
+        void Load(IEnumerable<TItem> entities);
 
         TItem SelectedItem { get; set; }
         ICommand SelectItemCommand { get; }

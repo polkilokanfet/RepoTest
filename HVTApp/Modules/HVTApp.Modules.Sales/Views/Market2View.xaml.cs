@@ -20,7 +20,7 @@ namespace HVTApp.Modules.Sales.Views
 
             //назначаем контексты
             this.DataContext = _viewModel;
-            this.ProjectListView.DataContext = _viewModel;
+            this.ProjectListView.DataContext = _viewModel.ProjectListViewModel;
             this.OfferListView.DataContext = _viewModel.OfferListViewModel;
             this.TenderListView.DataContext = _viewModel.TenderListViewModel;
             this.UnitListView.DataContext = _viewModel.UnitListViewModel;
@@ -55,7 +55,7 @@ namespace HVTApp.Modules.Sales.Views
 
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            await _viewModel.LoadAsync();
+            await _viewModel.Load();
             this.Loaded -= OnLoaded;
         }
     }

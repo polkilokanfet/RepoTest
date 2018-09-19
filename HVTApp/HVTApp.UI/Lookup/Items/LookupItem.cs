@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using HVTApp.DataAccess.Annotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
+using Prism.Mvvm;
 
 namespace HVTApp.UI.Lookup
 {
-    public abstract class LookupItem<TEntity> : ILookupItemNavigation<TEntity>, INotifyPropertyChanged, IComparable
+    public abstract class LookupItem<TEntity> : BindableBase, ILookupItemNavigation<TEntity>, INotifyPropertyChanged, IComparable
         where TEntity : class, IBaseEntity
     {
         protected LookupItem(TEntity entity)
@@ -85,25 +83,10 @@ namespace HVTApp.UI.Lookup
             return Entity.ToString();
         }
 
-        #region INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
-
         #region IComparable
         public virtual int CompareTo(object obj)
         {
             return ToString().CompareTo(obj.ToString());
-        }
-
-        public virtual async Task LoadOther(IUnitOfWork unitOfWork)
-        {
-            
         }
 
         #endregion

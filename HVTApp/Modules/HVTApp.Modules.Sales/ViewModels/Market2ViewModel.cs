@@ -19,14 +19,21 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class Market2ViewModel : ProjectLookupListViewModel
     {
+        private IUnitOfWork _unitOfWork;
+        private List<SalesUnit> _salesUnits;
+        private List<Tender> _tenders;
+
         #region ViewModels
 
+        public ProjectLookupListViewModel ProjectListViewModel { get; set; }
         public OfferLookupListViewModel OfferListViewModel { get; }
         public TenderLookupListViewModel TenderListViewModel { get; }
         public UnitLookupListViewModel UnitListViewModel { get; }
         public NoteLookupListViewModel NoteListViewModel { get; }
 
         #endregion
+
+        public Project SelectedProject { get; set; }
 
         #region ICommand
 
@@ -58,6 +65,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         public Market2ViewModel(IUnityContainer container) : base(container)
         {
             //контексты
+            ProjectListViewModel = container.Resolve<ProjectLookupListViewModel>();
             OfferListViewModel = container.Resolve<OfferLookupListViewModel>();
             TenderListViewModel = container.Resolve<TenderLookupListViewModel>();
             UnitListViewModel = container.Resolve<UnitLookupListViewModel>();
@@ -106,6 +114,34 @@ namespace HVTApp.Modules.Sales.ViewModels
             };
         }
 
+        public async Task Load()
+        {
+            _unitOfWork = Container.Resolve<IUnitOfWork>();
+
+            //достаем все проектные актуальные юниты
+            _salesUnits = await _unitOfWork.Repository<SalesUnit>().GetAllAsync();
+            _salesUnits = _salesUnits.Where(x => !x.IsDone && 
+                                                 !x.IsLoosen && 
+                                                 x.Project.HighProbability &&
+                                                 x.Project.Manager.Id == CommonOptions.User.Id).ToList();
+
+            //формируем список проектов
+            var projects = _salesUnits.Select(x => x.Project).Distinct();
+
+            //формируем список конкурсов
+            _tenders = (await _unitOfWork.Repository<Tender>().GetAllAsync()).Where(x => projects.Contains(x.Project)).ToList();
+
+            //подтягиваем проекты во вью
+            var projectsLookups = new List<ProjectLookup>();
+            foreach (var project in projects)
+            {
+                projectsLookups.Add(new ProjectLookup(project, 
+                                                      _salesUnits.Where(x => Equals(x.Project.Id, project.Id)),
+                                                      _tenders.Where(x => Equals(x.Project.Id, project.Id))));
+            }
+            ProjectListViewModel.Load(projectsLookups);
+        }
+
         private void NewSpecificationCommand_Execute()
         {
             RegionManager.RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { "project", SelectedItem } });
@@ -122,12 +158,6 @@ namespace HVTApp.Modules.Sales.ViewModels
         }
 
         #endregion
-
-        protected override async Task<IEnumerable<ProjectLookup>> GetLookups()
-        {
-            var lookups = await base.GetLookups();
-            return lookups.Where(x => x.Manager.Id == CommonOptions.User.Id);
-        }
 
         #region OfferCommands
 
