@@ -21,6 +21,11 @@ namespace HVTApp.Modules.Sales.Views
             this.DataContext = _viewModel;
         }
 
+        public override bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return false;
+        }
+
         public override async void OnNavigatedTo(NavigationContext navigationContext)
         {
             base.OnNavigatedTo(navigationContext);

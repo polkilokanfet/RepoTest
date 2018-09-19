@@ -1073,12 +1073,12 @@ namespace HVTApp.UI.Wrapper
         public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
 
-        public System.Nullable<System.Int32> ProductionTerm
+        public System.Int32 ProductionTerm
         {
-          get { return GetValue<System.Nullable<System.Int32>>(); }
+          get { return GetValue<System.Int32>(); }
           set { SetValue(value); }
         }
-        public System.Nullable<System.Int32> ProductionTermOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(ProductionTerm));
+        public System.Int32 ProductionTermOriginalValue => GetOriginalValue<System.Int32>(nameof(ProductionTerm));
         public bool ProductionTermIsChanged => GetIsChanged(nameof(ProductionTerm));
 
 
@@ -2261,12 +2261,12 @@ namespace HVTApp.UI.Wrapper
         public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
 
-        public System.Nullable<System.Int32> ProductionTerm
+        public System.Int32 ProductionTerm
         {
-          get { return GetValue<System.Nullable<System.Int32>>(); }
+          get { return GetValue<System.Int32>(); }
           set { SetValue(value); }
         }
-        public System.Nullable<System.Int32> ProductionTermOriginalValue => GetOriginalValue<System.Nullable<System.Int32>>(nameof(ProductionTerm));
+        public System.Int32 ProductionTermOriginalValue => GetOriginalValue<System.Int32>(nameof(ProductionTerm));
         public bool ProductionTermIsChanged => GetIsChanged(nameof(ProductionTerm));
 
 

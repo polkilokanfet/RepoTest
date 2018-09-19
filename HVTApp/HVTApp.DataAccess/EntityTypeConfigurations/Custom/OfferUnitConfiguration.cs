@@ -5,14 +5,12 @@ namespace HVTApp.DataAccess
         public OfferUnitConfiguration()
         {
             HasRequired(x => x.Facility).WithMany();
-            HasRequired(x => x.Product).WithMany().WillCascadeOnDelete(false);
-            HasRequired(x => x.PaymentConditionSet).WithMany().WillCascadeOnDelete(false);
+            HasRequired(x => x.Product).WithMany();
+            HasRequired(x => x.PaymentConditionSet).WithMany();
 
             HasRequired(x => x.Offer).WithMany().WillCascadeOnDelete(true);
 
-            HasMany(x => x.ProductsIncluded).WithOptional();
-            Property(x => x.ProductionTerm).IsOptional();
-            Property(x => x.Cost).IsRequired();
+            HasMany(x => x.ProductsIncluded);
         }
     }
 }

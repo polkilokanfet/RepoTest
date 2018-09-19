@@ -706,7 +706,7 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.Int32> ProductionTerm => GetValue<System.Nullable<System.Int32>>();
+        public System.Int32 ProductionTerm => GetValue<System.Int32>();
 
 
         #endregion
@@ -1375,7 +1375,7 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
-        public System.Nullable<System.Int32> ProductionTerm => GetValue<System.Nullable<System.Int32>>();
+        public System.Int32 ProductionTerm => GetValue<System.Int32>();
 
 
 		[OrderStatus(1)]

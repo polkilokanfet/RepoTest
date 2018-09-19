@@ -55,12 +55,12 @@ namespace HVTApp.UI.Groups
             }
         }
 
-        public int? ProductionTermG
+        public int ProductionTermG
         {
             get { return ProductionTerm; }
             set
             {
-                if (value.HasValue && value < 0) return;
+                if (value < 0) return;
                 ProductionTerm = value;
             }
         }

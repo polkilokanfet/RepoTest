@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 
@@ -9,27 +10,26 @@ namespace HVTApp.Model.POCOs
     [DesignationPlural("Единицы ТКП")]
     public partial class OfferUnit : BaseEntity, IUnitPoco, ICloneable
     {
-        [Designation("Стоимость")]
+        [Designation("Стоимость"), Required]
         public double Cost { get; set; }
 
-        [Designation("ТКП")]
+        [Designation("ТКП"), Required]
         public virtual Offer Offer { get; set; }
 
+        [Designation("Объект"), Required]
+        public virtual Facility Facility { get; set; }
 
-        [Designation("Продукт")]
+        [Designation("Продукт"), Required]
         public virtual Product Product { get; set; }
+
+        [Designation("Условия оплаты"), Required]
+        public virtual PaymentConditionSet PaymentConditionSet { get; set; }
+
+        [Designation("Срок производства"), Required]
+        public int ProductionTerm { get; set; }
 
         [Designation("Включенные продукты")]
         public virtual List<ProductIncluded> ProductsIncluded { get; set; } = new List<ProductIncluded>();
-
-        [Designation("Объект")]
-        public virtual Facility Facility { get; set; }
-
-        [Designation("Условия оплаты")]
-        public virtual PaymentConditionSet PaymentConditionSet { get; set; }
-
-        [Designation("Срок производства")]
-        public int? ProductionTerm { get; set; }
 
         public object Clone()
         {

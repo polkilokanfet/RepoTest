@@ -32,7 +32,7 @@ namespace HVTApp.Model.POCOs
         public virtual PaymentConditionSet PaymentConditionSet { get; set; }
 
         [Designation("Срок производства")]
-        public int? ProductionTerm { get; set; }
+        public int ProductionTerm { get; set; }
 
 
         #region Проект
@@ -253,13 +253,11 @@ namespace HVTApp.Model.POCOs
                 //по дате первого платежа
                 if (PaymentsActual.Any()) return PaymentsActual.Select(x => x.Date).Min();
 
-                var productionTerm = this.ProductionTerm ?? CommonOptions.ProductionTerm;
-
                 //по дате доставки оборудования на объект
-                if (DeliveryDate.HasValue) return DeliveryDate.Value.AddDays(-productionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend();
+                if (DeliveryDate.HasValue) return DeliveryDate.Value.AddDays(-ProductionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend();
 
                 //по необходимой дате реализации проекта
-                return DeliveryDateExpected.AddDays(-productionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend();
+                return DeliveryDateExpected.AddDays(-ProductionTerm).AddDays(-DeliveryPeriodCalculated).SkipPastAndWeekend();
             }
         }
 
@@ -285,8 +283,7 @@ namespace HVTApp.Model.POCOs
                 if (EndProductionPlanDate.HasValue) return EndProductionPlanDate.Value;
 
                 //по сроку производства
-                var productionTerm = this.ProductionTerm ?? CommonOptions.ProductionTerm;
-                return StartProductionDateCalculated.AddDays(productionTerm).SkipPastAndWeekend();
+                return StartProductionDateCalculated.AddDays(ProductionTerm).SkipPastAndWeekend();
             }
         }
 

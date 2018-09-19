@@ -23,7 +23,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
         }
 
-        private async Task InitGroupsViewModel(IEnumerable<OfferUnit> units)
+        private void InitGroupsViewModel(IEnumerable<OfferUnit> units)
         {
             GroupsViewModel = new OfferUnitsGroupsViewModel(Container, units, UnitOfWork, Item.Model);
 
@@ -39,7 +39,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             //загружаем строки с оборудованием
             var units = UnitOfWork.Repository<OfferUnit>().Find(x => x.Offer.Id == Item.Id);
-            await InitGroupsViewModel(units);
+            InitGroupsViewModel(units);
             await base.AfterLoading();
         }
 
@@ -50,6 +50,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// <returns></returns>
         public async Task LoadByProject(Project project)
         {
+            GroupsViewModel = null;
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             project = await UnitOfWork.Repository<Project>().GetByIdAsync(project.Id);
             var author = await UnitOfWork.Repository<Employee>().GetByIdAsync(CommonOptions.User.Employee.Id);
@@ -62,21 +63,20 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             var salesUnits = (await UnitOfWork.Repository<SalesUnit>().GetAllAsync()).Where(x => x.Project.Id == project.Id);
             var offerUnits = new List<OfferUnit>();
-            foreach (var unit in salesUnits)
+            foreach (var salesUnit in salesUnits)
             {
-                var offerUnit = new OfferUnit
-                {
-                    Offer = Item.Model,
-                    Cost = unit.Cost,
-                    Facility = unit.Facility,
-                    Product = unit.Product,
-                    PaymentConditionSet = unit.PaymentConditionSet,
-                    ProductionTerm = unit.ProductionTerm,
-                    ProductsIncluded = unit.ProductsIncluded
-                };
+                var offerUnit = new OfferUnit();
+
+                offerUnit.Offer = Item.Model;
+                offerUnit.Cost = salesUnit.Cost;
+                offerUnit.Facility = salesUnit.Facility;
+                offerUnit.Product = salesUnit.Product;
+                offerUnit.PaymentConditionSet = salesUnit.PaymentConditionSet;
+                offerUnit.ProductionTerm = salesUnit.ProductionTerm;
+                offerUnit.ProductsIncluded = salesUnit.ProductsIncluded;
+
                 offerUnits.Add(offerUnit);
             }
-
             await LoadOfferUnitsAsync(offerUnits);
         }
 
@@ -87,6 +87,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// <returns></returns>
         public async Task LoadByOffer(Offer offer)
         {
+            GroupsViewModel = null;
             UnitOfWork = Container.Resolve<IUnitOfWork>();
             Item = new OfferWrapper(new Offer());
 
@@ -111,43 +112,43 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// <returns></returns>
         private async Task LoadOfferUnitsAsync(IEnumerable<OfferUnit> offerUnits)
         {
-            //продукты, условия и объекты из базы
-            var products = (await UnitOfWork.Repository<Product>().GetAllAsync());
-            var conditions = (await UnitOfWork.Repository<PaymentConditionSet>().GetAllAsync());
-            var facilities = (await UnitOfWork.Repository<Facility>().GetAllAsync());
-
             //копия единиц с оборудованием
             var units = new List<OfferUnit>();
             foreach (var offerUnit in offerUnits)
             {
-                var unit = new OfferUnit
-                {
-                    Offer = Item.Model,
-                    Product = products.Single(x => x.Id == offerUnit.Product.Id),
-                    PaymentConditionSet = conditions.Single(x => x.Id == offerUnit.PaymentConditionSet.Id),
-                    Facility = facilities.Single(x => x.Id == offerUnit.Facility.Id),
-                    Cost = offerUnit.Cost,
-                    ProductionTerm = offerUnit.ProductionTerm
-                };
+                //клонируем входящий
+                var offerUnitNew = new OfferUnit();
+                //меняем ссылочные свойства на объекты текущего контекста
+                offerUnitNew.Cost = offerUnit.Cost;
+                offerUnitNew.ProductionTerm = offerUnit.ProductionTerm;
+                offerUnitNew.Product = await UnitOfWork.Repository<Product>().GetByIdAsync(offerUnit.Product.Id);
+                offerUnitNew.PaymentConditionSet = await UnitOfWork.Repository<PaymentConditionSet>().GetByIdAsync(offerUnit.PaymentConditionSet.Id);
+                offerUnitNew.Facility = await UnitOfWork.Repository<Facility>().GetByIdAsync(offerUnit.Facility.Id);
+
+                //копия включенного оборудования
+                offerUnitNew.ProductsIncluded = new List<ProductIncluded>();
                 foreach (var productIncluded in offerUnit.ProductsIncluded)
                 {
-                    var pi = new ProductIncluded()
+                    var productIncludedNew = new ProductIncluded
                     {
-                        Product = products.Single(x => x.Id == productIncluded.Product.Id),
+                        Product = await UnitOfWork.Repository<Product>().GetByIdAsync(productIncluded.Product.Id),
                         Amount = productIncluded.Amount
                     };
-                    unit.ProductsIncluded.Add(pi);
+                    offerUnitNew.ProductsIncluded.Add(productIncludedNew);
                 }
-                units.Add(unit);
+                units.Add(offerUnitNew);
             }
 
             //добавляем созданное в группы
-            await InitGroupsViewModel(new List<OfferUnit>());
+            InitGroupsViewModel(new List<OfferUnit>());
             var groups = units.GroupBy(x => x, new OfferUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new OfferUnitsGroup(x)).ToList();
-            groups.ForEach(GroupsViewModel.Groups.Add);
+            groups.ForEach(x =>
+            {
+                x.Offer = Item;
+                GroupsViewModel.Groups.Add(x);
+            });
 
             await GroupsViewModel.LoadAsync();
-
 
             await base.AfterLoading();
         }
