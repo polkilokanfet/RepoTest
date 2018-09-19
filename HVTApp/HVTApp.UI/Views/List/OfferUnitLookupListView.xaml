@@ -37,6 +37,7 @@
                     <infg:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Offer" Label="ТКП" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="ProductsIncluded" Label="Включенные продукты" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:NumericField Name="ProductionTerm" Label="Срок производства" Width="Auto" />
                     <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="DependentProducts" Label="DependentProducts" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>

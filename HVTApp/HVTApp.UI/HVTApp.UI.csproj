@@ -116,8 +116,6 @@
     <Compile Include="GeneratorHelpers.cs" />
     <Compile Include="Lookup\Items\Custom\AddressLookup.cs" />
     <Compile Include="Lookup\Items\Custom\OfferUnitLookup.cs" />
-    <Compile Include="Lookup\Items\Custom\PaymentConditionSetLookup.cs" />
-    <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
     <Compile Include="Lookup\Items\Custom\SpecificationLookup.cs" />
     <Compile Include="Lookup\Items\Lookups.g.cs" />
     <Compile Include="Tabs\TabOffer.xaml.cs">

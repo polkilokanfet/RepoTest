@@ -94,7 +94,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             //реакция на смену выбранного проекта
             SelectedLookupChanged += project =>
             {
-                UnitListViewModel.Load(project.SalesUnits);
+                //UnitListViewModel.Load(project.SalesUnits);
                 OfferListViewModel.Load(project.Offers);
                 TenderListViewModel.Load(project.Tenders);
                 NoteListViewModel.Load(project.Notes);

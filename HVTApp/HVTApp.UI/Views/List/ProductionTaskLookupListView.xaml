@@ -34,6 +34,7 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
+                    <infg:TextField Name="SalesUnits" Label="SalesUnits" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:DateTimeField Name="DateTask" Label="DateTask" Width="Auto" />
 
 					</infg:FieldLayout.Fields>

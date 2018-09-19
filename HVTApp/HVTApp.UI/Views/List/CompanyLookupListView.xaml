@@ -41,6 +41,8 @@
                     <infg:TextField Name="AddressLegal" Label="Юридический адрес" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Kpp" Label="КПП" Width="Auto" />
                     <infg:TextField Name="Inn" Label="ИНН" Width="Auto" />
+                    <infg:TextField Name="ActivityFilds" Label="Сферы деятельности" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="BankDetailsList" Label="Банковские реквизиты" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -1103,17 +1103,17 @@ namespace HVTApp.UI.Wrapper
         }
 
 
-	    public ProductWrapper Product 
-        {
-            get { return GetWrapper<ProductWrapper>(); }
-            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
-        }
-
-
 	    public FacilityWrapper Facility 
         {
             get { return GetWrapper<FacilityWrapper>(); }
             set { SetComplexValue<Facility, FacilityWrapper>(Facility, value); }
+        }
+
+
+	    public ProductWrapper Product 
+        {
+            get { return GetWrapper<ProductWrapper>(); }
+            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
         }
 
 
@@ -1140,10 +1140,10 @@ namespace HVTApp.UI.Wrapper
             InitializeComplexProperty<OfferWrapper>(nameof(Offer), Model.Offer == null ? null : new OfferWrapper(Model.Offer));
 
 
-            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
-
-
             InitializeComplexProperty<FacilityWrapper>(nameof(Facility), Model.Facility == null ? null : new FacilityWrapper(Model.Facility));
+
+
+            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
 
 
             InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(PaymentConditionSet), Model.PaymentConditionSet == null ? null : new PaymentConditionSetWrapper(Model.PaymentConditionSet));
@@ -2519,6 +2519,9 @@ namespace HVTApp.UI.Wrapper
 
 
         public System.Boolean IsLoosen => GetValue<System.Boolean>(); 
+
+
+        public System.Boolean IsDone => GetValue<System.Boolean>(); 
 
 
         public System.Boolean IsPaid => GetValue<System.Boolean>(); 

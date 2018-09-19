@@ -42,6 +42,7 @@
                     <infg:NumericField Name="IdGet" Label="IdGet" Width="Auto" />
                     <infg:NumericField Name="FriendGroupId" Label="FriendGroupId" Width="Auto" />
                     <infg:TextField Name="FirstName" Label="FirstName" Width="Auto" />
+                    <infg:TextField Name="Emails" Label="Emails" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:DateTimeField Name="Birthday" Label="Birthday" Width="Auto" />
 
 					</infg:FieldLayout.Fields>

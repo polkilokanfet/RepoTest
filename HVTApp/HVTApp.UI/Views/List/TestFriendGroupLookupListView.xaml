@@ -35,6 +35,7 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Name" Width="Auto" />
+                    <infg:TextField Name="FriendTests" Label="FriendTests" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

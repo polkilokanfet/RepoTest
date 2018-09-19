@@ -18,18 +18,11 @@
 	GenerateLookups(GeneratorHelpers.GetModelTypesPocos());
 	SaveGeneratedCodeAsFile("Lookups.g.cs", "Lookup/Items");
 
-	GenerateLookupDataServiceInterfaces(GeneratorHelpers.GetModelTypesPocos());
-	SaveGeneratedCodeAsFile("ILookupDataServices.g.cs", "Lookup/Service");
-
-	GenerateLookupDataServices(GeneratorHelpers.GetModelTypesPocos());
-	SaveGeneratedCodeAsFile("LookupDataServices.g.cs", "Lookup/Service");
-
     GenerateListViewModels(GeneratorHelpers.GetModelTypesPocos());
 	SaveGeneratedCodeAsFile("ListViewModels.g.cs", "ViewModels/List/Generated");
 
 	GenerateListViewsCs(GeneratorHelpers.GetModelTypesLookups());
 	SaveGeneratedCodeAsFile("ListViews.g.cs", "Views/List/cs");
-
 
     GenerateListViewsXaml(GeneratorHelpers.GetModelTypesLookups());
 
@@ -39,6 +32,8 @@
 #>using HVTApp.Model.POCOs;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace HVTApp.UI.Lookup
 {
@@ -61,15 +56,11 @@ namespace HVTApp.UI.Lookup
 		public <#=modelType.Name#>Lookup(<#=modelType.Name#> entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 <#+ GenerateRefreshComplexLookupProperties(modelType.AllComplexProperties());#>
-		}
 		<#+
 
 		GenerateSimpleLookupProperties(modelType.AllSimpleProperties().Where(x => x.Name != "Id"));
 		GenerateComplexLookupProperties(modelType.AllComplexProperties());
-
+		GenerateCollectionLookupProperties(modelType.AllCollectionProperties());
 		#>
 	}
 <#+
@@ -111,6 +102,7 @@ namespace HVTApp.UI.Lookup
     {
       var propertyType = property.PropertyType.Name;
       var propertyName = property.Name;
+
 #>
 		[OrderStatus(<#=property.OrderStatus().ToString()#>)]
 	    public <#= propertyType #>Lookup <#= propertyName #> { get { return GetLookup<<#= propertyType #>Lookup>(); } }
@@ -122,7 +114,7 @@ namespace HVTApp.UI.Lookup
 <#+
   }
 
-  private void GenerateRefreshComplexLookupProperties(IEnumerable<PropertyInfo> properties)
+  private void GenerateCollectionLookupProperties(IEnumerable<PropertyInfo> properties)
   {
   	if (!properties.Any()) return;
 
@@ -130,60 +122,13 @@ namespace HVTApp.UI.Lookup
     {
       var propertyType = property.PropertyType.Name;
       var propertyName = property.Name;
+	  var itemType = property.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
 #>
-			//<#= propertyName #>?.Refresh(Entity.<#= propertyName #>);
+		[OrderStatus(<#=property.OrderStatus().ToString()#>)]
+	    public List<<#= itemType #>Lookup> <#= propertyName #> { get { return GetLookupEnum<<#= itemType #>Lookup>().ToList(); } }
 <#+
     }
   }
-
-    private void GenerateLookupDataServiceInterfaces(IEnumerable<Type> modelTypes)
-    {
-#>namespace HVTApp.UI.Lookup
-{
-<#+
-        foreach(var modelType in modelTypes)
-        {
-            GenerateLookupDataServiceInterface(modelType);
-        }
-#>}
-<#+
-    }
-
-	private void GenerateLookupDataServiceInterface(Type modelType)
-	{
-#>	public interface I<#=modelType.Name#>LookupDataService : ILookupDataService<<#=modelType.Name#>Lookup> { } 
-<#+
-	}
-
-
-    private void GenerateLookupDataServices(IEnumerable<Type> modelTypes)
-    {
-#>using System;
-using HVTApp.Infrastructure;
-using HVTApp.Model.POCOs;
-
-namespace HVTApp.UI.Lookup
-{
-<#+
-        foreach(var modelType in modelTypes)
-        {
-            GenerateLookupDataService(modelType);
-        }
-#>}
-<#+
-    }
-
-	private void GenerateLookupDataService(Type modelType)
-	{
-#>
-    public partial class <#=modelType.Name#>LookupDataService : LookupDataService<<#=modelType.Name#>Lookup, <#=modelType.Name#>>, I<#=modelType.Name#>LookupDataService
-    {
-        public <#=modelType.Name#>LookupDataService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
-    }
-
-<#+
-	}
-
 
     private void GenerateListViewModels(IEnumerable<Type> modelTypes)
 	{
@@ -385,7 +330,7 @@ namespace HVTApp.UI.Views
 		end = "Converter=\"{StaticResource LookupToStringConverter}\"";
 	}
 
-		if (property.IsCollection())
+	if (property.IsCollection())
     {
 		fieldName = "TextField";
 		end = "Converter=\"{StaticResource LookupsToStringConverter}\"";

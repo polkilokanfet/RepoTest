@@ -15,5 +15,10 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Комментарий")]
         public string Comment { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Date.ToShortDateString()}: {Sum}";
+        }
     }
 }

@@ -34,9 +34,11 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
+                    <infg:TextField Name="Types" Label="Типы" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:DateTimeField Name="DateOpen" Label="Открытие" Width="Auto" />
                     <infg:DateTimeField Name="DateClose" Label="Закрытие" Width="Auto" />
                     <infg:DateTimeField Name="DateNotice" Label="Итоги" Width="Auto" />
+                    <infg:TextField Name="Participants" Label="Участники" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Winner" Label="Победитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Project" Label="Проект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Type" Label="Type" Width="Auto" />

@@ -36,6 +36,7 @@
 					<infg:FieldLayout.Fields>
                     <infg:TextField Name="ParameterGroup" Label="Группа" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Value" Label="Значение" Width="Auto" />
+                    <infg:TextField Name="ParameterRelations" Label="Ограничения" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:CheckBoxField Name="IsOrigin" Label="Начало?" Width="Auto" />
 
 					</infg:FieldLayout.Fields>

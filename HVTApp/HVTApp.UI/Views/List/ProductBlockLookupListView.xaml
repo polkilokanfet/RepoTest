@@ -36,6 +36,8 @@
 					<infg:FieldLayout.Fields>
                     <infg:NumericField Name="Weight" Label="Вес" Width="Auto" />
                     <infg:TextField Name="StructureCostNumber" Label="Сралчахвост" Width="Auto" />
+                    <infg:TextField Name="Prices" Label="Себестоимости" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="Parameters" Label="Параметры" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:DateTimeField Name="LastPriceDate" Label="Дата последнего прайса" Width="Auto" />
                     <infg:CheckBoxField Name="IsService" Label="Услуга" Width="Auto" />
                     <infg:TextField Name="DesignationSpecial" Label="Специальное обозначение" Width="Auto" />

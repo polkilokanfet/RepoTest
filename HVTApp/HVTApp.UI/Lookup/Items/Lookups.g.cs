@@ -17,6 +17,8 @@
 using HVTApp.Model.POCOs;
 using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace HVTApp.UI.Lookup
 {
@@ -28,12 +30,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public CreateNewProductTaskLookup(CreateNewProductTask entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Product?.Refresh(Entity.Product);
-
 		}
 		
 
@@ -68,10 +64,6 @@ namespace HVTApp.UI.Lookup
 		public PaymentActualLookup(PaymentActual entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
 
         #region SimpleProperties
@@ -99,12 +91,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public PaymentPlannedLookup(PaymentPlanned entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Condition?.Refresh(Entity.Condition);
-
 		}
 		
 
@@ -147,11 +133,10 @@ namespace HVTApp.UI.Lookup
 		public ProductBlockIsServiceLookup(ProductBlockIsService entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
+		[OrderStatus(1)]
+	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -161,12 +146,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public ProductIncludedLookup(ProductIncluded entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Product?.Refresh(Entity.Product);
-
 		}
 		
 
@@ -197,10 +176,6 @@ namespace HVTApp.UI.Lookup
 		public ProductDesignationLookup(ProductDesignation entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
 
         #region SimpleProperties
@@ -211,6 +186,9 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+		[OrderStatus(1)]
+	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -220,10 +198,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public ProductTypeLookup(ProductType entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
 		}
 		
 
@@ -245,12 +219,6 @@ namespace HVTApp.UI.Lookup
 		public ProductTypeDesignationLookup(ProductTypeDesignation entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-			//ProductType?.Refresh(Entity.ProductType);
-
-		}
 		
 
         #region ComplexProperties
@@ -261,6 +229,9 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+		[OrderStatus(1)]
+	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -270,10 +241,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public ProjectTypeLookup(ProjectType entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
 		}
 		
 
@@ -294,10 +261,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public CommonOptionLookup(CommonOption entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
 		}
 		
 
@@ -339,12 +302,6 @@ namespace HVTApp.UI.Lookup
 		public AddressLookup(Address entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Locality?.Refresh(Entity.Locality);
-
-		}
 		
 
         #region SimpleProperties
@@ -374,10 +331,6 @@ namespace HVTApp.UI.Lookup
 		public CountryLookup(Country entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
 
         #region SimpleProperties
@@ -397,12 +350,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public DistrictLookup(District entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Country?.Refresh(Entity.Country);
-
 		}
 		
 
@@ -432,14 +379,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public LocalityLookup(Locality entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//LocalityType?.Refresh(Entity.LocalityType);
-
-			//Region?.Refresh(Entity.Region);
-
 		}
 		
 
@@ -490,10 +429,6 @@ namespace HVTApp.UI.Lookup
 		public LocalityTypeLookup(LocalityType entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
 
         #region SimpleProperties
@@ -517,12 +452,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public RegionLookup(Region entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//District?.Refresh(Entity.District);
-
 		}
 		
 
@@ -553,10 +482,6 @@ namespace HVTApp.UI.Lookup
 		public SumLookup(Sum entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
 
         #region SimpleProperties
@@ -584,10 +509,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public CurrencyExchangeRateLookup(CurrencyExchangeRate entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
 		}
 		
 
@@ -621,14 +542,6 @@ namespace HVTApp.UI.Lookup
 		public DescribeProductBlockTaskLookup(DescribeProductBlockTask entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-			//ProductBlock?.Refresh(Entity.ProductBlock);
-
-			//Product?.Refresh(Entity.Product);
-
-		}
 		
 
         #region ComplexProperties
@@ -652,10 +565,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public NoteLookup(Note entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
 		}
 		
 
@@ -684,18 +593,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public OfferUnitLookup(OfferUnit entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Offer?.Refresh(Entity.Offer);
-
-			//Facility?.Refresh(Entity.Facility);
-
-			//Product?.Refresh(Entity.Product);
-
-			//PaymentConditionSet?.Refresh(Entity.PaymentConditionSet);
-
 		}
 		
 
@@ -732,6 +629,9 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+		[OrderStatus(1)]
+	    public List<ProductIncludedLookup> ProductsIncluded { get { return GetLookupEnum<ProductIncludedLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -742,11 +642,10 @@ namespace HVTApp.UI.Lookup
 		public PaymentConditionSetLookup(PaymentConditionSet entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
+		[OrderStatus(1)]
+	    public List<PaymentConditionLookup> PaymentConditions { get { return GetLookupEnum<PaymentConditionLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -756,10 +655,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public ProductBlockLookup(ProductBlock entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
 		}
 		
 
@@ -795,6 +690,12 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+		[OrderStatus(1)]
+	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
+
+		[OrderStatus(1)]
+	    public List<SumOnDateLookup> Prices { get { return GetLookupEnum<SumOnDateLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -804,12 +705,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public ProductDependentLookup(ProductDependent entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Product?.Refresh(Entity.Product);
-
 		}
 		
 
@@ -844,10 +739,6 @@ namespace HVTApp.UI.Lookup
 		public ProductionTaskLookup(ProductionTask entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
 
         #region SimpleProperties
@@ -857,6 +748,9 @@ namespace HVTApp.UI.Lookup
 
 
         #endregion
+
+		[OrderStatus(1)]
+	    public List<SalesUnitLookup> SalesUnits { get { return GetLookupEnum<SalesUnitLookup>().ToList(); } }
 
 	}
 
@@ -868,11 +762,13 @@ namespace HVTApp.UI.Lookup
 		public SalesBlockLookup(SalesBlock entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
+		[OrderStatus(1)]
+	    public List<SalesUnitLookup> ParentSalesUnits { get { return GetLookupEnum<SalesUnitLookup>().ToList(); } }
+
+		[OrderStatus(1)]
+	    public List<SalesUnitLookup> ChildSalesUnits { get { return GetLookupEnum<SalesUnitLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -882,10 +778,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public BankDetailsLookup(BankDetails entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
 		}
 		
 
@@ -920,18 +812,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public CompanyLookup(Company entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Form?.Refresh(Entity.Form);
-
-			//ParentCompany?.Refresh(Entity.ParentCompany);
-
-			//AddressLegal?.Refresh(Entity.AddressLegal);
-
-			//AddressPost?.Refresh(Entity.AddressPost);
-
 		}
 		
 
@@ -976,6 +856,12 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+		[OrderStatus(-10)]
+	    public List<BankDetailsLookup> BankDetailsList { get { return GetLookupEnum<BankDetailsLookup>().ToList(); } }
+
+		[OrderStatus(1)]
+	    public List<ActivityFieldLookup> ActivityFilds { get { return GetLookupEnum<ActivityFieldLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -985,10 +871,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public CompanyFormLookup(CompanyForm entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
 		}
 		
 
@@ -1014,10 +896,6 @@ namespace HVTApp.UI.Lookup
 		public DocumentsRegistrationDetailsLookup(DocumentsRegistrationDetails entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
 
         #region SimpleProperties
@@ -1042,10 +920,6 @@ namespace HVTApp.UI.Lookup
 		public EmployeesPositionLookup(EmployeesPosition entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
 
         #region SimpleProperties
@@ -1065,10 +939,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public FacilityTypeLookup(FacilityType entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
 		}
 		
 
@@ -1094,10 +964,6 @@ namespace HVTApp.UI.Lookup
 		public ActivityFieldLookup(ActivityField entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
 
         #region SimpleProperties
@@ -1121,12 +987,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public ContractLookup(Contract entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Contragent?.Refresh(Entity.Contragent);
-
 		}
 		
 
@@ -1161,10 +1021,6 @@ namespace HVTApp.UI.Lookup
 		public MeasureLookup(Measure entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
 
         #region SimpleProperties
@@ -1189,12 +1045,6 @@ namespace HVTApp.UI.Lookup
 		public ParameterLookup(Parameter entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-			//ParameterGroup?.Refresh(Entity.ParameterGroup);
-
-		}
 		
 
         #region SimpleProperties
@@ -1218,6 +1068,9 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+		[OrderStatus(1)]
+	    public List<ParameterRelationLookup> ParameterRelations { get { return GetLookupEnum<ParameterRelationLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -1227,12 +1080,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public ParameterGroupLookup(ParameterGroup entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Measure?.Refresh(Entity.Measure);
-
 		}
 		
 
@@ -1263,10 +1110,6 @@ namespace HVTApp.UI.Lookup
 		public ProductRelationLookup(ProductRelation entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
 
         #region SimpleProperties
@@ -1285,6 +1128,12 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+		[OrderStatus(1)]
+	    public List<ParameterLookup> ParentProductParameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
+
+		[OrderStatus(1)]
+	    public List<ParameterLookup> ChildProductParameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -1294,10 +1143,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public PersonLookup(Person entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
 		}
 		
 
@@ -1331,11 +1176,10 @@ namespace HVTApp.UI.Lookup
 		public ParameterRelationLookup(ParameterRelation entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
+		[OrderStatus(1)]
+	    public List<ParameterLookup> RequiredParameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -1345,26 +1189,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public SalesUnitLookup(SalesUnit entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Product?.Refresh(Entity.Product);
-
-			//Facility?.Refresh(Entity.Facility);
-
-			//PaymentConditionSet?.Refresh(Entity.PaymentConditionSet);
-
-			//Project?.Refresh(Entity.Project);
-
-			//Producer?.Refresh(Entity.Producer);
-
-			//Order?.Refresh(Entity.Order);
-
-			//Specification?.Refresh(Entity.Specification);
-
-			//Address?.Refresh(Entity.Address);
-
 		}
 		
 
@@ -1561,6 +1385,24 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+		[OrderStatus(1)]
+	    public List<ProductIncludedLookup> ProductsIncluded { get { return GetLookupEnum<ProductIncludedLookup>().ToList(); } }
+
+		[OrderStatus(1)]
+	    public List<PaymentActualLookup> PaymentsActual { get { return GetLookupEnum<PaymentActualLookup>().ToList(); } }
+
+		[OrderStatus(1)]
+	    public List<PaymentPlannedLookup> PaymentsPlanned { get { return GetLookupEnum<PaymentPlannedLookup>().ToList(); } }
+
+		[OrderStatus(1)]
+	    public List<PaymentPlannedLookup> PaymentsPlannedActual { get { return GetLookupEnum<PaymentPlannedLookup>().ToList(); } }
+
+		[OrderStatus(1)]
+	    public List<PaymentPlannedLookup> PaymentsPlannedGenerated { get { return GetLookupEnum<PaymentPlannedLookup>().ToList(); } }
+
+		[OrderStatus(1)]
+	    public List<PaymentPlannedLookup> PaymentsPlannedCalculated { get { return GetLookupEnum<PaymentPlannedLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -1570,10 +1412,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public TestFriendAddressLookup(TestFriendAddress entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
 		}
 		
 
@@ -1602,16 +1440,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public TestFriendLookup(TestFriend entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//TestFriendAddress?.Refresh(Entity.TestFriendAddress);
-
-			//TestFriendGroup?.Refresh(Entity.TestFriendGroup);
-
-			//TestFriendEmailGet?.Refresh(Entity.TestFriendEmailGet);
-
 		}
 		
 
@@ -1660,6 +1488,9 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+		[OrderStatus(1)]
+	    public List<TestFriendEmailLookup> Emails { get { return GetLookupEnum<TestFriendEmailLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -1669,10 +1500,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public TestFriendEmailLookup(TestFriendEmail entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
 		}
 		
 
@@ -1698,10 +1525,6 @@ namespace HVTApp.UI.Lookup
 		public TestFriendGroupLookup(TestFriendGroup entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
 
         #region SimpleProperties
@@ -1712,6 +1535,9 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+		[OrderStatus(1)]
+	    public List<TestFriendLookup> FriendTests { get { return GetLookupEnum<TestFriendLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -1721,22 +1547,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public DocumentLookup(Document entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Number?.Refresh(Entity.Number);
-
-			//RequestDocument?.Refresh(Entity.RequestDocument);
-
-			//Author?.Refresh(Entity.Author);
-
-			//SenderEmployee?.Refresh(Entity.SenderEmployee);
-
-			//RecipientEmployee?.Refresh(Entity.RecipientEmployee);
-
-			//RegistrationDetailsOfRecipient?.Refresh(Entity.RegistrationDetailsOfRecipient);
-
 		}
 		
 
@@ -1797,6 +1607,9 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+		[OrderStatus(1)]
+	    public List<EmployeeLookup> CopyToRecipients { get { return GetLookupEnum<EmployeeLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -1806,10 +1619,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public DocumentNumberLookup(DocumentNumber entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
 		}
 		
 
@@ -1831,10 +1640,6 @@ namespace HVTApp.UI.Lookup
 		public TestEntityLookup(TestEntity entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
 
         #region SimpleProperties
@@ -1855,12 +1660,6 @@ namespace HVTApp.UI.Lookup
 		public TestHusbandLookup(TestHusband entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Wife?.Refresh(Entity.Wife);
-
-		}
 		
 
         #region SimpleProperties
@@ -1880,6 +1679,9 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+		[OrderStatus(1)]
+	    public List<TestChildLookup> Children { get { return GetLookupEnum<TestChildLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -1889,12 +1691,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public TestWifeLookup(TestWife entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Husband?.Refresh(Entity.Husband);
-
 		}
 		
 
@@ -1929,14 +1725,6 @@ namespace HVTApp.UI.Lookup
 		public TestChildLookup(TestChild entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Husband?.Refresh(Entity.Husband);
-
-			//Wife?.Refresh(Entity.Wife);
-
-		}
 		
 
         #region SimpleProperties
@@ -1970,10 +1758,6 @@ namespace HVTApp.UI.Lookup
 		public SumOnDateLookup(SumOnDate entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
 
         #region SimpleProperties
@@ -1997,14 +1781,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public ProductLookup(Product entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//ProductType?.Refresh(Entity.ProductType);
-
-			//ProductBlock?.Refresh(Entity.ProductBlock);
-
 		}
 		
 
@@ -2033,6 +1809,9 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+		[OrderStatus(1)]
+	    public List<ProductDependentLookup> DependentProducts { get { return GetLookupEnum<ProductDependentLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -2042,24 +1821,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public OfferLookup(Offer entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Project?.Refresh(Entity.Project);
-
-			//Number?.Refresh(Entity.Number);
-
-			//RequestDocument?.Refresh(Entity.RequestDocument);
-
-			//Author?.Refresh(Entity.Author);
-
-			//SenderEmployee?.Refresh(Entity.SenderEmployee);
-
-			//RecipientEmployee?.Refresh(Entity.RecipientEmployee);
-
-			//RegistrationDetailsOfRecipient?.Refresh(Entity.RegistrationDetailsOfRecipient);
-
 		}
 		
 
@@ -2132,6 +1893,9 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+		[OrderStatus(1)]
+	    public List<EmployeeLookup> CopyToRecipients { get { return GetLookupEnum<EmployeeLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -2141,16 +1905,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public EmployeeLookup(Employee entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Person?.Refresh(Entity.Person);
-
-			//Company?.Refresh(Entity.Company);
-
-			//Position?.Refresh(Entity.Position);
-
 		}
 		
 
@@ -2194,10 +1948,6 @@ namespace HVTApp.UI.Lookup
 		public OrderLookup(Order entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
 
         #region SimpleProperties
@@ -2221,10 +1971,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public PaymentConditionLookup(PaymentCondition entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
 		}
 		
 
@@ -2255,10 +2001,6 @@ namespace HVTApp.UI.Lookup
 		public PaymentDocumentLookup(PaymentDocument entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-		}
 		
 
         #region SimpleProperties
@@ -2273,6 +2015,9 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+		[OrderStatus(1)]
+	    public List<PaymentActualLookup> Payments { get { return GetLookupEnum<PaymentActualLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -2282,16 +2027,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public FacilityLookup(Facility entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Type?.Refresh(Entity.Type);
-
-			//OwnerCompany?.Refresh(Entity.OwnerCompany);
-
-			//Address?.Refresh(Entity.Address);
-
 		}
 		
 
@@ -2330,14 +2065,6 @@ namespace HVTApp.UI.Lookup
 		public ProjectLookup(Project entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-			//ProjectType?.Refresh(Entity.ProjectType);
-
-			//Manager?.Refresh(Entity.Manager);
-
-		}
 		
 
         #region SimpleProperties
@@ -2365,6 +2092,9 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+		[OrderStatus(-10)]
+	    public List<NoteLookup> Notes { get { return GetLookupEnum<NoteLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -2374,10 +2104,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public UserRoleLookup(UserRole entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
 		}
 		
 
@@ -2402,12 +2128,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public SpecificationLookup(Specification entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Contract?.Refresh(Entity.Contract);
-
 		}
 		
 
@@ -2446,14 +2166,6 @@ namespace HVTApp.UI.Lookup
 		public TenderLookup(Tender entity) : base(entity) 
 		{
 		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Project?.Refresh(Entity.Project);
-
-			//Winner?.Refresh(Entity.Winner);
-
-		}
 		
 
         #region SimpleProperties
@@ -2485,6 +2197,12 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
+		[OrderStatus(11)]
+	    public List<TenderTypeLookup> Types { get { return GetLookupEnum<TenderTypeLookup>().ToList(); } }
+
+		[OrderStatus(6)]
+	    public List<CompanyLookup> Participants { get { return GetLookupEnum<CompanyLookup>().ToList(); } }
+
 	}
 
 	[AllowEditAttribute(Role.Admin)]
@@ -2494,10 +2212,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public TenderTypeLookup(TenderType entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
 		}
 		
 
@@ -2522,12 +2236,6 @@ namespace HVTApp.UI.Lookup
 	{
 		public UserLookup(User entity) : base(entity) 
 		{
-		}
-		protected override void RefreshLookups()
-        {
-			 
-			//Employee?.Refresh(Entity.Employee);
-
 		}
 		
 
@@ -2559,6 +2267,9 @@ namespace HVTApp.UI.Lookup
 
 
         #endregion
+
+		[OrderStatus(1)]
+	    public List<UserRoleLookup> Roles { get { return GetLookupEnum<UserRoleLookup>().ToList(); } }
 
 	}
 }

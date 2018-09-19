@@ -34,9 +34,11 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
+                    <infg:TextField Name="ParentProductParameters" Label="ParentProductParameters" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Name" Label="Name" Width="Auto" />
                     <infg:CheckBoxField Name="IsUnique" Label="IsUnique" Width="Auto" />
                     <infg:NumericField Name="ChildProductsAmount" Label="ChildProductsAmount" Width="Auto" />
+                    <infg:TextField Name="ChildProductParameters" Label="ChildProductParameters" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

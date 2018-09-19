@@ -20,8 +20,6 @@ namespace HVTApp.UI.Lookup
         public List<TenderLookup> Tenders { get; private set; } = new List<TenderLookup>();
         //[OrderStatus(OrderStatus.Low)]
         public List<OfferLookup> Offers { get; private set; } = new List<OfferLookup>();
-        //[OrderStatus(OrderStatus.Low)]
-        public List<NoteLookup> Notes { get; private set; } = new List<NoteLookup>();
 
         [Designation("Сумма проекта")]
         public double Sum => SalesUnits.Sum(x => x.Cost);

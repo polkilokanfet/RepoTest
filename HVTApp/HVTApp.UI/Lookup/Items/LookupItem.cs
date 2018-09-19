@@ -1,8 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 using Prism.Mvvm;
@@ -39,8 +38,6 @@ namespace HVTApp.UI.Lookup
             OnPropertyChanged(String.Empty);
         }
 
-        protected abstract void RefreshLookups();
-
         protected T GetValue<T>([CallerMemberName] string propertyName = null)
         {
             return (T)Entity.GetType().GetProperty(propertyName)?.GetValue(Entity);
@@ -52,6 +49,15 @@ namespace HVTApp.UI.Lookup
             var value = Entity.GetType().GetProperty(propertyName).GetValue(Entity);
             if (value == null) return null;
             return (TLookup) Activator.CreateInstance(typeof(TLookup), value);
+        }
+
+        protected IEnumerable<TLookup> GetLookupEnum<TLookup>([CallerMemberName] string propertyName = null)
+        {
+            var members = (IEnumerable)Entity.GetType().GetProperty(propertyName).GetValue(Entity);
+            foreach (var member in members)
+            {
+                yield return (TLookup) Activator.CreateInstance(typeof(TLookup), member);
+            }
         }
 
         public override string ToString()
