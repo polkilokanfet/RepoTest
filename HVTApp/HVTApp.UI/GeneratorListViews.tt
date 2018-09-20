@@ -15,9 +15,6 @@
 <#@ import namespace="HVTApp.UI" #>
 <#@ output extension=".txt" #>
 <#
-	GenerateLookups(GeneratorHelpers.GetModelTypesPocos());
-	SaveGeneratedCodeAsFile("Lookups.g.cs", "Lookup/Items");
-
     GenerateListViewModels(GeneratorHelpers.GetModelTypesPocos());
 	SaveGeneratedCodeAsFile("ListViewModels.g.cs", "ViewModels/List/Generated");
 
@@ -27,109 +24,6 @@
     GenerateListViewsXaml(GeneratorHelpers.GetModelTypesLookups());
 
 #><#+
-    private void GenerateLookups(IEnumerable<Type> modelTypes)
-    {
-#>using HVTApp.Model.POCOs;
-using HVTApp.Infrastructure.Attributes;
-using HVTApp.Infrastructure;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace HVTApp.UI.Lookup
-{
-<#+
-        foreach(var modelType in modelTypes)
-        {
-            GenerateLookup(modelType);
-        }
-#>}
-<#+
-    }
-
-	private void GenerateLookup(Type modelType)
-	{
-#>
-	<#=modelType.GetAllowEdit()#>
-	[Designation("<#=modelType.DesignationSingle()#>")]
-	public partial class <#=modelType.Name#>Lookup : LookupItem<<#=modelType.Name#>>
-	{
-		public <#=modelType.Name#>Lookup(<#=modelType.Name#> entity) : base(entity) 
-		{
-		}
-		<#+
-
-		GenerateSimpleLookupProperties(modelType.AllSimpleProperties().Where(x => x.Name != "Id"));
-		GenerateComplexLookupProperties(modelType.AllComplexProperties());
-		GenerateCollectionLookupProperties(modelType.AllCollectionProperties());
-		#>
-	}
-<#+
-	}
-
-  private void GenerateSimpleLookupProperties(IEnumerable<PropertyInfo> properties)
-  {
-  	if (!properties.Any())
-		return;
-#>
-
-        #region SimpleProperties
-<#+ 
-    foreach (var property in properties)
-    {
-      var propertyType = property.PropertyType.GetTypeName();
-      var propertyName = property.Name;
-#>
-		[OrderStatus(<#=property.OrderStatus().ToString()#>)]
-        public <#=propertyType#> <#=propertyName#> => GetValue<<#=propertyType#>>();
-
-<#+ 
-    }
-#>
-        #endregion
-<#+
-  }
-
-  private void GenerateComplexLookupProperties(IEnumerable<PropertyInfo> properties)
-  {
-  	if (!properties.Any())
-		return;
-#>
-
-        #region ComplexProperties
-<#+ 
-
-    foreach (var property in properties)
-    {
-      var propertyType = property.PropertyType.Name;
-      var propertyName = property.Name;
-
-#>
-		[OrderStatus(<#=property.OrderStatus().ToString()#>)]
-	    public <#= propertyType #>Lookup <#= propertyName #> { get { return GetLookup<<#= propertyType #>Lookup>(); } }
-
-<#+   
-    }
-#>
-        #endregion
-<#+
-  }
-
-  private void GenerateCollectionLookupProperties(IEnumerable<PropertyInfo> properties)
-  {
-  	if (!properties.Any()) return;
-
-    foreach (var property in properties)
-    {
-      var propertyType = property.PropertyType.Name;
-      var propertyName = property.Name;
-	  var itemType = property.PropertyType.GetInterfaces().First(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>)).GenericTypeArguments[0].Name;
-#>
-		[OrderStatus(<#=property.OrderStatus().ToString()#>)]
-	    public List<<#= itemType #>Lookup> <#= propertyName #> { get { return GetLookupEnum<<#= itemType #>Lookup>().ToList(); } }
-<#+
-    }
-  }
-
     private void GenerateListViewModels(IEnumerable<Type> modelTypes)
 	{
 #>using HVTApp.Model.POCOs;

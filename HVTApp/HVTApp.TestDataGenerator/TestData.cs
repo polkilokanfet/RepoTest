@@ -691,7 +691,7 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateOffers()
         {
-            OfferMrsk.Clone(new Offer {Number = new DocumentNumber(), Vat = 0.18, Project = ProjectSubstation, ValidityDate = DateTime.Today.AddDays(60), Author = EmployeeIvanov, SenderEmployee = EmployeeIvanov, RecipientEmployee = EmployeeSidorov, CopyToRecipients = new List<Employee> {EmployeePetrov}, RegistrationDetailsOfRecipient = new DocumentsRegistrationDetails {RegistrationNumber = "12f455", RegistrationDate = DateTime.Today.AddDays(-3)}});
+            OfferMrsk.Clone(new Offer {Number = new DocumentNumber(), Vat = 0.18, Project = ProjectSubstation, ValidityDate = DateTime.Today.AddDays(60), Author = EmployeeIvanov, SenderEmployee = EmployeeIvanov, RecipientEmployee = EmployeeSidorov, CopyToRecipients = new List<Employee> {EmployeePetrov}, RegistrationDetailsOfRecipient = new DocumentsRegistrationDetails {Number = "12f455", Date = DateTime.Today.AddDays(-3)}});
         }
 
         private void GenerateTenderTypes()
@@ -740,7 +740,7 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateCommonOption()
         {
-            CommonOption.Clone(new CommonOption {OurCompanyId = CompanyUetm.Id, StandartPaymentsConditionSetId = PaymentConditionSet50Na50.Id});
+            CommonOption.Clone(new CommonOption {OurCompany = CompanyUetm, StandartPaymentsConditionSet = PaymentConditionSet50Na50});
         }
 
         private void GenerateNotes()

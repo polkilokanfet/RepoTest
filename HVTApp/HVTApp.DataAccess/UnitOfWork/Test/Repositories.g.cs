@@ -93,11 +93,6 @@ namespace HVTApp.DataAccess
         public CurrencyExchangeRateRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class DescribeProductBlockTaskRepositoryTest : TestBaseRepository<DescribeProductBlockTask>, IDescribeProductBlockTaskRepository
-    {
-        public DescribeProductBlockTaskRepositoryTest(TestData testData) : base(testData) {}
-    }
-
     public partial class NoteRepositoryTest : TestBaseRepository<Note>, INoteRepository
     {
         public NoteRepositoryTest(TestData testData) : base(testData) {}

@@ -479,15 +479,6 @@ namespace HVTApp.UI.Wrapper
         public bool DateIsChanged => GetIsChanged(nameof(Date));
 
 
-        public System.Guid OurCompanyId
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid OurCompanyIdOriginalValue => GetOriginalValue<System.Guid>(nameof(OurCompanyId));
-        public bool OurCompanyIdIsChanged => GetIsChanged(nameof(OurCompanyId));
-
-
         public System.Int32 ActualPriceTerm
         {
           get { return GetValue<System.Int32>(); }
@@ -515,15 +506,6 @@ namespace HVTApp.UI.Wrapper
         public bool StandartTermFromPickToEndProductionIsChanged => GetIsChanged(nameof(StandartTermFromPickToEndProduction));
 
 
-        public System.Guid StandartPaymentsConditionSetId
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid StandartPaymentsConditionSetIdOriginalValue => GetOriginalValue<System.Guid>(nameof(StandartPaymentsConditionSetId));
-        public bool StandartPaymentsConditionSetIdIsChanged => GetIsChanged(nameof(StandartPaymentsConditionSetId));
-
-
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -534,6 +516,36 @@ namespace HVTApp.UI.Wrapper
 
 
         #endregion
+
+
+        #region ComplexProperties
+
+	    public CompanyWrapper OurCompany 
+        {
+            get { return GetWrapper<CompanyWrapper>(); }
+            set { SetComplexValue<Company, CompanyWrapper>(OurCompany, value); }
+        }
+
+
+	    public PaymentConditionSetWrapper StandartPaymentsConditionSet 
+        {
+            get { return GetWrapper<PaymentConditionSetWrapper>(); }
+            set { SetComplexValue<PaymentConditionSet, PaymentConditionSetWrapper>(StandartPaymentsConditionSet, value); }
+        }
+
+
+        #endregion
+
+        public override void InitializeComplexProperties()
+        {
+
+            InitializeComplexProperty<CompanyWrapper>(nameof(OurCompany), Model.OurCompany == null ? null : new CompanyWrapper(Model.OurCompany));
+
+
+            InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(StandartPaymentsConditionSet), Model.StandartPaymentsConditionSet == null ? null : new PaymentConditionSetWrapper(Model.StandartPaymentsConditionSet));
+
+
+        }
 
 	}
 
@@ -954,57 +966,6 @@ namespace HVTApp.UI.Wrapper
 
 
         #endregion
-
-	}
-
-		public partial class DescribeProductBlockTaskWrapper : WrapperBase<DescribeProductBlockTask>
-	{
-	    public DescribeProductBlockTaskWrapper(DescribeProductBlockTask model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-
-        #region ComplexProperties
-
-	    public ProductBlockWrapper ProductBlock 
-        {
-            get { return GetWrapper<ProductBlockWrapper>(); }
-            set { SetComplexValue<ProductBlock, ProductBlockWrapper>(ProductBlock, value); }
-        }
-
-
-	    public ProductWrapper Product 
-        {
-            get { return GetWrapper<ProductWrapper>(); }
-            set { SetComplexValue<Product, ProductWrapper>(Product, value); }
-        }
-
-
-        #endregion
-
-        public override void InitializeComplexProperties()
-        {
-
-            InitializeComplexProperty<ProductBlockWrapper>(nameof(ProductBlock), Model.ProductBlock == null ? null : new ProductBlockWrapper(Model.ProductBlock));
-
-
-            InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
-
-
-        }
 
 	}
 

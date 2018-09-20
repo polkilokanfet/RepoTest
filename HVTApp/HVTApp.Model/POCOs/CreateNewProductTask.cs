@@ -8,8 +8,10 @@ namespace HVTApp.Model.POCOs
     {
         [Designation("Обозначение")]
         public string Designation { get; set; }
+
         [Designation("Сралчахвост")]
         public string StructureCostNumber { get; set; }
+
         [Designation("Продукт")]
         public virtual Product Product { get; set; }
     }

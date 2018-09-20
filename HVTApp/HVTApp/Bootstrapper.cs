@@ -61,9 +61,6 @@ namespace HVTApp
         protected override async void InitializeShell()
         {
             await SetCommonOptions();
-
-            //await Container.Resolve<IAuthenticationService>().AuthenticationAsync();
-
             Application.Current.MainWindow.Show();
         }
 
@@ -74,13 +71,7 @@ namespace HVTApp
         private async Task SetCommonOptions()
         {
             var commonOptions = await Container.Resolve<IUnitOfWork>().Repository<CommonOption>().GetAllAsync();
-            var commonOption = commonOptions.First();
-
-            CommonOptions.OurCompanyId = commonOption.OurCompanyId;
-            CommonOptions.ActualPriceTerm = commonOption.ActualPriceTerm;
-            CommonOptions.StandartPaymentsConditionSetId = commonOption.StandartPaymentsConditionSetId;
-            CommonOptions.ProductionTerm = commonOption.StandartTermFromStartToEndProduction;
-            CommonOptions.AssembleTerm = commonOption.StandartTermFromPickToEndProduction;
+            CommonOptions.ActualOptions = commonOptions.OrderBy(x => x.Date).Last();
         }
 
         protected override void ConfigureContainer()

@@ -299,6 +299,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GeneratorDetailsViews.tt</DependentUpon>
     </Resource>
+    <Content Include="GeneratorLookups.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GeneratorLookups.txt</LastGenOutput>
+    </Content>
+    <Resource Include="GeneratorLookups.txt">
+      <DependentUpon>GeneratorLookups.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Resource>
     <Content Include="GeneratorListViews.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GeneratorListViews.txt</LastGenOutput>
@@ -401,10 +410,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Details\Custom\OrderView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Details\DescribeProductBlockTaskDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -675,10 +680,6 @@
     <Page Include="Views\List\Custom\UnitListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\List\DescribeProductBlockTaskLookupListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\List\DistrictLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>

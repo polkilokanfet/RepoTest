@@ -27,7 +27,6 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new RegionConfiguration());
             modelBuilder.Configurations.Add(new SumConfiguration());
             modelBuilder.Configurations.Add(new CurrencyExchangeRateConfiguration());
-            modelBuilder.Configurations.Add(new DescribeProductBlockTaskConfiguration());
             modelBuilder.Configurations.Add(new NoteConfiguration());
             modelBuilder.Configurations.Add(new OfferUnitConfiguration());
             modelBuilder.Configurations.Add(new PaymentConditionSetConfiguration());
@@ -96,7 +95,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<Region> RegionDbSet { get; set; }
         public virtual DbSet<Sum> SumDbSet { get; set; }
         public virtual DbSet<CurrencyExchangeRate> CurrencyExchangeRateDbSet { get; set; }
-        public virtual DbSet<DescribeProductBlockTask> DescribeProductBlockTaskDbSet { get; set; }
         public virtual DbSet<Note> NoteDbSet { get; set; }
         public virtual DbSet<OfferUnit> OfferUnitDbSet { get; set; }
         public virtual DbSet<PaymentConditionSet> PaymentConditionSetDbSet { get; set; }

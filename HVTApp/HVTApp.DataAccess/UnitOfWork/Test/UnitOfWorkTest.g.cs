@@ -25,7 +25,6 @@ namespace HVTApp.DataAccess
             RegionRepository = new RegionRepositoryTest(testData);
             SumRepository = new SumRepositoryTest(testData);
             CurrencyExchangeRateRepository = new CurrencyExchangeRateRepositoryTest(testData);
-            DescribeProductBlockTaskRepository = new DescribeProductBlockTaskRepositoryTest(testData);
             NoteRepository = new NoteRepositoryTest(testData);
             OfferUnitRepository = new OfferUnitRepositoryTest(testData);
             PaymentConditionSetRepository = new PaymentConditionSetRepositoryTest(testData);
@@ -95,7 +94,6 @@ namespace HVTApp.DataAccess
         public IRegionRepository RegionRepository { get; }
         public ISumRepository SumRepository { get; }
         public ICurrencyExchangeRateRepository CurrencyExchangeRateRepository { get; }
-        public IDescribeProductBlockTaskRepository DescribeProductBlockTaskRepository { get; }
         public INoteRepository NoteRepository { get; }
         public IOfferUnitRepository OfferUnitRepository { get; }
         public IPaymentConditionSetRepository PaymentConditionSetRepository { get; }

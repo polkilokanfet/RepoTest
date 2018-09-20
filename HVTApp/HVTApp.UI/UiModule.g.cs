@@ -120,12 +120,6 @@ namespace HVTApp.UI
             _updateDetailsService.Register<CurrencyExchangeRate, CurrencyExchangeRateDetailsView>();
 
 
-            Container.RegisterViewForNavigation<DescribeProductBlockTaskLookupListView>();
-            //_dialogService.Register<DescribeProductBlockTaskDetailsViewModel, DescribeProductBlockTaskDetailsView>();
-			_selectService.Register<DescribeProductBlockTaskLookupListView, DescribeProductBlockTask>();
-            _updateDetailsService.Register<DescribeProductBlockTask, DescribeProductBlockTaskDetailsView>();
-
-
             Container.RegisterViewForNavigation<NoteLookupListView>();
             //_dialogService.Register<NoteDetailsViewModel, NoteDetailsView>();
 			_selectService.Register<NoteLookupListView, Note>();

@@ -21,7 +21,6 @@ namespace HVTApp.DataAccess
     public partial class RegionConfiguration : EntityTypeConfiguration<Region> { }
     public partial class SumConfiguration : EntityTypeConfiguration<Sum> { }
     public partial class CurrencyExchangeRateConfiguration : EntityTypeConfiguration<CurrencyExchangeRate> { }
-    public partial class DescribeProductBlockTaskConfiguration : EntityTypeConfiguration<DescribeProductBlockTask> { }
     public partial class NoteConfiguration : EntityTypeConfiguration<Note> { }
     public partial class OfferUnitConfiguration : EntityTypeConfiguration<OfferUnit> { }
     public partial class PaymentConditionSetConfiguration : EntityTypeConfiguration<PaymentConditionSet> { }

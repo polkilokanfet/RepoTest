@@ -34,10 +34,12 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:NumericField Name="StandartTermFromStartToEndProduction" Label="StandartTermFromStartToEndProduction" Width="Auto" />
-                    <infg:NumericField Name="StandartTermFromPickToEndProduction" Label="StandartTermFromPickToEndProduction" Width="Auto" />
-                    <infg:DateTimeField Name="Date" Label="Date" Width="Auto" />
-                    <infg:NumericField Name="ActualPriceTerm" Label="ActualPriceTerm" Width="Auto" />
+                    <infg:TextField Name="OurCompany" Label="Наша компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:NumericField Name="StandartTermFromStartToEndProduction" Label="Стандартный срок производства" Width="Auto" />
+                    <infg:NumericField Name="StandartTermFromPickToEndProduction" Label="Стандартный срок сборки" Width="Auto" />
+                    <infg:TextField Name="StandartPaymentsConditionSet" Label="Стандартные условия оплаты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:DateTimeField Name="Date" Label="Дата настроек" Width="Auto" />
+                    <infg:NumericField Name="ActualPriceTerm" Label="Срок актуальности себестоимости" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

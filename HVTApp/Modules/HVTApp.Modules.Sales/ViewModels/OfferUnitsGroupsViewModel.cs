@@ -79,12 +79,12 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             //прайс для основного оборудования
             var priceDate = _offer.Date < DateTime.Today ? _offer.Date : DateTime.Today;
-            var price = await priceService.GetPrice(group.Product.Model, priceDate, CommonOptions.ActualPriceTerm, _priceErrors);
+            var price = await priceService.GetPrice(group.Product.Model, priceDate, CommonOptions.ActualOptions.ActualPriceTerm, _priceErrors);
 
             //добавляем прайсы дополнительного оборудования
             foreach (var productIncluded in group.ProductsIncluded)
             {
-                price += productIncluded.Amount * await priceService.GetPrice(productIncluded.Product.Model, DateTime.Today, CommonOptions.ActualPriceTerm, _priceErrors);
+                price += productIncluded.Amount * await priceService.GetPrice(productIncluded.Product.Model, DateTime.Today, CommonOptions.ActualOptions.ActualPriceTerm, _priceErrors);
             }
 
             group.Price = price;

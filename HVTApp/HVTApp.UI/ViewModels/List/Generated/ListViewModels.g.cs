@@ -1,3 +1,19 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Events;
 using Microsoft.Practices.Unity;
@@ -113,12 +129,6 @@ namespace HVTApp.UI.ViewModels
 	public partial class CurrencyExchangeRateLookupListViewModel : BaseListViewModel<CurrencyExchangeRate, CurrencyExchangeRateLookup, AfterSaveCurrencyExchangeRateEvent, AfterSelectCurrencyExchangeRateEvent, AfterRemoveCurrencyExchangeRateEvent>
     {
         public CurrencyExchangeRateLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-	public partial class DescribeProductBlockTaskLookupListViewModel : BaseListViewModel<DescribeProductBlockTask, DescribeProductBlockTaskLookup, AfterSaveDescribeProductBlockTaskEvent, AfterSelectDescribeProductBlockTaskEvent, AfterRemoveDescribeProductBlockTaskEvent>
-    {
-        public DescribeProductBlockTaskLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
 

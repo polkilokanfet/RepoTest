@@ -1,16 +1,22 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.Model.POCOs
 {
+    [Designation("Регистрационные данные")]
     public partial class DocumentsRegistrationDetails : BaseEntity
     {
-        public string RegistrationNumber { get; set; }
-        public DateTime RegistrationDate { get; set; } = DateTime.Today;
+        [Designation("Дата"), Required]
+        public DateTime Date { get; set; } = DateTime.Today;
+
+        [Designation("Номер"), Required, MaxLength(15)]
+        public string Number { get; set; }
 
         public override string ToString()
         {
-            return $"№{RegistrationNumber} от {RegistrationDate.ToShortDateString()}";
+            return $"№{Number} от {Date.ToShortDateString()}";
         }
     }
 }

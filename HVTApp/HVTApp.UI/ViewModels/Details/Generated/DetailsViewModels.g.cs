@@ -324,9 +324,49 @@ namespace HVTApp.UI.ViewModels
 
     public partial class CommonOptionDetailsViewModel : BaseDetailsViewModel<CommonOptionWrapper, CommonOption, AfterSaveCommonOptionEvent>
     {
+		private Func<Task<List<Company>>> _getEntitiesForSelectOurCompanyCommand;
+		public ICommand SelectOurCompanyCommand { get; private set; }
+		public ICommand ClearOurCompanyCommand { get; private set; }
+
+		private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectStandartPaymentsConditionSetCommand;
+		public ICommand SelectStandartPaymentsConditionSetCommand { get; private set; }
+		public ICommand ClearStandartPaymentsConditionSetCommand { get; private set; }
+
 
         public CommonOptionDetailsViewModel(IUnityContainer container) : base(container) 
 		{
+			
+			if (_getEntitiesForSelectOurCompanyCommand == null) _getEntitiesForSelectOurCompanyCommand = async () => { return await UnitOfWork.Repository<Company>().GetAllAsync(); };
+			if (SelectOurCompanyCommand == null) SelectOurCompanyCommand = new DelegateCommand(SelectOurCompanyCommand_Execute_Default);
+			if (ClearOurCompanyCommand == null) ClearOurCompanyCommand = new DelegateCommand(ClearOurCompanyCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectStandartPaymentsConditionSetCommand == null) _getEntitiesForSelectStandartPaymentsConditionSetCommand = async () => { return await UnitOfWork.Repository<PaymentConditionSet>().GetAllAsync(); };
+			if (SelectStandartPaymentsConditionSetCommand == null) SelectStandartPaymentsConditionSetCommand = new DelegateCommand(SelectStandartPaymentsConditionSetCommand_Execute_Default);
+			if (ClearStandartPaymentsConditionSetCommand == null) ClearStandartPaymentsConditionSetCommand = new DelegateCommand(ClearStandartPaymentsConditionSetCommand_Execute_Default);
+
+		}
+
+		private async void SelectOurCompanyCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<Company, CompanyWrapper>(await _getEntitiesForSelectOurCompanyCommand(), nameof(Item.OurCompany), Item.OurCompany?.Id);
+		}
+
+		private void ClearOurCompanyCommand_Execute_Default() 
+		{
+						Item.OurCompany = null;
+		    
+		}
+
+		private async void SelectStandartPaymentsConditionSetCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<PaymentConditionSet, PaymentConditionSetWrapper>(await _getEntitiesForSelectStandartPaymentsConditionSetCommand(), nameof(Item.StandartPaymentsConditionSet), Item.StandartPaymentsConditionSet?.Id);
+		}
+
+		private void ClearStandartPaymentsConditionSetCommand_Execute_Default() 
+		{
+						Item.StandartPaymentsConditionSet = null;
+		    
 		}
 
 
@@ -530,58 +570,6 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-    public partial class DescribeProductBlockTaskDetailsViewModel : BaseDetailsViewModel<DescribeProductBlockTaskWrapper, DescribeProductBlockTask, AfterSaveDescribeProductBlockTaskEvent>
-    {
-		private Func<Task<List<ProductBlock>>> _getEntitiesForSelectProductBlockCommand;
-		public ICommand SelectProductBlockCommand { get; private set; }
-		public ICommand ClearProductBlockCommand { get; private set; }
-
-		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
-		public ICommand SelectProductCommand { get; private set; }
-		public ICommand ClearProductCommand { get; private set; }
-
-
-        public DescribeProductBlockTaskDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-			
-			if (_getEntitiesForSelectProductBlockCommand == null) _getEntitiesForSelectProductBlockCommand = async () => { return await UnitOfWork.Repository<ProductBlock>().GetAllAsync(); };
-			if (SelectProductBlockCommand == null) SelectProductBlockCommand = new DelegateCommand(SelectProductBlockCommand_Execute_Default);
-			if (ClearProductBlockCommand == null) ClearProductBlockCommand = new DelegateCommand(ClearProductBlockCommand_Execute_Default);
-
-			
-			if (_getEntitiesForSelectProductCommand == null) _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.Repository<Product>().GetAllAsync(); };
-			if (SelectProductCommand == null) SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute_Default);
-			if (ClearProductCommand == null) ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute_Default);
-
-		}
-
-		private async void SelectProductBlockCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<ProductBlock, ProductBlockWrapper>(await _getEntitiesForSelectProductBlockCommand(), nameof(Item.ProductBlock), Item.ProductBlock?.Id);
-		}
-
-		private void ClearProductBlockCommand_Execute_Default() 
-		{
-						Item.ProductBlock = null;
-		    
-		}
-
-		private async void SelectProductCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<Product, ProductWrapper>(await _getEntitiesForSelectProductCommand(), nameof(Item.Product), Item.Product?.Id);
-		}
-
-		private void ClearProductCommand_Execute_Default() 
-		{
-						Item.Product = null;
-		    
-		}
-
-
-
-    }
-
-
     public partial class NoteDetailsViewModel : BaseDetailsViewModel<NoteWrapper, Note, AfterSaveNoteEvent>
     {
 
@@ -600,13 +588,13 @@ namespace HVTApp.UI.ViewModels
 		public ICommand SelectOfferCommand { get; private set; }
 		public ICommand ClearOfferCommand { get; private set; }
 
-		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
-		public ICommand SelectProductCommand { get; private set; }
-		public ICommand ClearProductCommand { get; private set; }
-
 		private Func<Task<List<Facility>>> _getEntitiesForSelectFacilityCommand;
 		public ICommand SelectFacilityCommand { get; private set; }
 		public ICommand ClearFacilityCommand { get; private set; }
+
+		private Func<Task<List<Product>>> _getEntitiesForSelectProductCommand;
+		public ICommand SelectProductCommand { get; private set; }
+		public ICommand ClearProductCommand { get; private set; }
 
 		private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectPaymentConditionSetCommand;
 		public ICommand SelectPaymentConditionSetCommand { get; private set; }
@@ -637,14 +625,14 @@ namespace HVTApp.UI.ViewModels
 			if (ClearOfferCommand == null) ClearOfferCommand = new DelegateCommand(ClearOfferCommand_Execute_Default);
 
 			
-			if (_getEntitiesForSelectProductCommand == null) _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.Repository<Product>().GetAllAsync(); };
-			if (SelectProductCommand == null) SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute_Default);
-			if (ClearProductCommand == null) ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute_Default);
-
-			
 			if (_getEntitiesForSelectFacilityCommand == null) _getEntitiesForSelectFacilityCommand = async () => { return await UnitOfWork.Repository<Facility>().GetAllAsync(); };
 			if (SelectFacilityCommand == null) SelectFacilityCommand = new DelegateCommand(SelectFacilityCommand_Execute_Default);
 			if (ClearFacilityCommand == null) ClearFacilityCommand = new DelegateCommand(ClearFacilityCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectProductCommand == null) _getEntitiesForSelectProductCommand = async () => { return await UnitOfWork.Repository<Product>().GetAllAsync(); };
+			if (SelectProductCommand == null) SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute_Default);
+			if (ClearProductCommand == null) ClearProductCommand = new DelegateCommand(ClearProductCommand_Execute_Default);
 
 			
 			if (_getEntitiesForSelectPaymentConditionSetCommand == null) _getEntitiesForSelectPaymentConditionSetCommand = async () => { return await UnitOfWork.Repository<PaymentConditionSet>().GetAllAsync(); };
@@ -669,17 +657,6 @@ namespace HVTApp.UI.ViewModels
 		    
 		}
 
-		private async void SelectProductCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<Product, ProductWrapper>(await _getEntitiesForSelectProductCommand(), nameof(Item.Product), Item.Product?.Id);
-		}
-
-		private void ClearProductCommand_Execute_Default() 
-		{
-						Item.Product = null;
-		    
-		}
-
 		private async void SelectFacilityCommand_Execute_Default() 
 		{
             SelectAndSetWrapper<Facility, FacilityWrapper>(await _getEntitiesForSelectFacilityCommand(), nameof(Item.Facility), Item.Facility?.Id);
@@ -688,6 +665,17 @@ namespace HVTApp.UI.ViewModels
 		private void ClearFacilityCommand_Execute_Default() 
 		{
 						Item.Facility = null;
+		    
+		}
+
+		private async void SelectProductCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<Product, ProductWrapper>(await _getEntitiesForSelectProductCommand(), nameof(Item.Product), Item.Product?.Id);
+		}
+
+		private void ClearProductCommand_Execute_Default() 
+		{
+						Item.Product = null;
 		    
 		}
 

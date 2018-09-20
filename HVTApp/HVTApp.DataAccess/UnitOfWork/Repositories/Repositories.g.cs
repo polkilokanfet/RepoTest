@@ -184,16 +184,6 @@ namespace HVTApp.DataAccess
 		}
     }
 
-    public partial class DescribeProductBlockTaskRepository : BaseRepository<DescribeProductBlockTask>, IDescribeProductBlockTaskRepository
-    {
-        IUnityContainer _container;
-
-		public DescribeProductBlockTaskRepository(DbContext context, IUnityContainer container) : base(context) 
-		{
-			_container = container;
-		}
-    }
-
     public partial class NoteRepository : BaseRepository<Note>, INoteRepository
     {
         IUnityContainer _container;

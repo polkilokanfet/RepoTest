@@ -64,14 +64,14 @@ namespace HVTApp.Modules.Price.ViewModels
 
                 var specifications = salesUnits.Where(x => ContainsBlock(x, block) && x.Specification != null)
                                                .Select(x => x.Specification).Distinct()
-                                               .Where(x => x.Date > lastPriceDate.AddDays(CommonOptions.ActualPriceTerm)).ToList();
+                                               .Where(x => x.Date > lastPriceDate.AddDays(CommonOptions.ActualOptions.ActualPriceTerm)).ToList();
 
                 var projects = salesUnits.Where(x => ContainsBlock(x, block) && 
-                                                     x.OrderInTakeDate > lastPriceDate.AddDays(CommonOptions.ActualPriceTerm)).Select(x => x.Project).Distinct().ToList();
+                                                     x.OrderInTakeDate > lastPriceDate.AddDays(CommonOptions.ActualOptions.ActualPriceTerm)).Select(x => x.Project).Distinct().ToList();
 
                 var offers = offerUnits.Where(x => ContainsBlock(x, block))
                                        .Select(x => x.Offer).Distinct()
-                                       .Where(x => x.Date > lastPriceDate.AddDays(CommonOptions.ActualPriceTerm)).ToList();
+                                       .Where(x => x.Date > lastPriceDate.AddDays(CommonOptions.ActualOptions.ActualPriceTerm)).ToList();
 
                 if (specifications.Any() || offers.Any() || projects.Any())
                     blocksList.Add(new PriceTask(block, specifications, offers, projects));

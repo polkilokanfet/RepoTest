@@ -1,4 +1,5 @@
-﻿using HVTApp.Infrastructure;
+﻿using System.ComponentModel.DataAnnotations;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.Model.POCOs
@@ -7,10 +8,10 @@ namespace HVTApp.Model.POCOs
     [DesignationPlural("Организационные формы")]
     public partial class CompanyForm : BaseEntity
     {
-        [Designation("Полное наименование")]
+        [Designation("Полное наименование"), Required, MaxLength(100)]
         public string FullName { get; set; }
 
-        [Designation("Сокращенное наименование")]
+        [Designation("Сокращенное наименование"), Required, MaxLength(100)]
         public string ShortName { get; set; }
 
         public override string ToString()

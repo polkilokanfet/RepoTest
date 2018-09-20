@@ -256,7 +256,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("CommonOption")]
+	[Designation("Общие настройки")]
 	public partial class CommonOptionLookup : LookupItem<CommonOption>
 	{
 		public CommonOptionLookup(CommonOption entity) : base(entity) 
@@ -271,10 +271,6 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
-        public System.Guid OurCompanyId => GetValue<System.Guid>();
-
-
-		[OrderStatus(1)]
         public System.Int32 ActualPriceTerm => GetValue<System.Int32>();
 
 
@@ -286,8 +282,17 @@ namespace HVTApp.UI.Lookup
         public System.Int32 StandartTermFromPickToEndProduction => GetValue<System.Int32>();
 
 
+        #endregion
+
+
+        #region ComplexProperties
+
 		[OrderStatus(1)]
-        public System.Guid StandartPaymentsConditionSetId => GetValue<System.Guid>();
+	    public CompanyLookup OurCompany { get { return GetLookup<CompanyLookup>(); } }
+
+
+		[OrderStatus(1)]
+	    public PaymentConditionSetLookup StandartPaymentsConditionSet { get { return GetLookup<PaymentConditionSetLookup>(); } }
 
 
         #endregion
@@ -528,30 +533,6 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Double ExchangeRate => GetValue<System.Double>();
-
-
-        #endregion
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
-	[Designation("DescribeProductBlockTask")]
-	public partial class DescribeProductBlockTaskLookup : LookupItem<DescribeProductBlockTask>
-	{
-		public DescribeProductBlockTaskLookup(DescribeProductBlockTask entity) : base(entity) 
-		{
-		}
-		
-
-        #region ComplexProperties
-
-		[OrderStatus(1)]
-	    public ProductBlockLookup ProductBlock { get { return GetLookup<ProductBlockLookup>(); } }
-
-
-		[OrderStatus(1)]
-	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 
         #endregion

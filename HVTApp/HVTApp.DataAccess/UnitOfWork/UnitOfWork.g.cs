@@ -22,7 +22,6 @@ namespace HVTApp.DataAccess
             RegionRepository = new RegionRepository(_context, _container);
             SumRepository = new SumRepository(_context, _container);
             CurrencyExchangeRateRepository = new CurrencyExchangeRateRepository(_context, _container);
-            DescribeProductBlockTaskRepository = new DescribeProductBlockTaskRepository(_context, _container);
             NoteRepository = new NoteRepository(_context, _container);
             OfferUnitRepository = new OfferUnitRepository(_context, _container);
             PaymentConditionSetRepository = new PaymentConditionSetRepository(_context, _container);
@@ -91,7 +90,6 @@ namespace HVTApp.DataAccess
         protected IRegionRepository RegionRepository;
         protected ISumRepository SumRepository;
         protected ICurrencyExchangeRateRepository CurrencyExchangeRateRepository;
-        protected IDescribeProductBlockTaskRepository DescribeProductBlockTaskRepository;
         protected INoteRepository NoteRepository;
         protected IOfferUnitRepository OfferUnitRepository;
         protected IPaymentConditionSetRepository PaymentConditionSetRepository;
