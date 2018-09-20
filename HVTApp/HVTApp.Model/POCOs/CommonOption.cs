@@ -6,13 +6,13 @@ using HVTApp.Infrastructure.Attributes;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Общие настройки")]
-    public partial class CommonOption : BaseEntity
+    public class CommonOption : BaseEntity
     {
         [Designation("Дата настроек"), Required]
         public DateTime Date { get; set; } = DateTime.Today;
 
         [Designation("Наша компания"), Required]
-        public Company OurCompany { get; set; }
+        public virtual Company OurCompany { get; set; }
 
         [Designation("Срок актуальности себестоимости"), Required]
         public int ActualPriceTerm { get; set; } = 90;
@@ -24,6 +24,6 @@ namespace HVTApp.Model.POCOs
         public int StandartTermFromPickToEndProduction { get; set; } = 7;
 
         [Designation("Стандартные условия оплаты"), Required]
-        public PaymentConditionSet StandartPaymentsConditionSet { get; set; }
+        public virtual PaymentConditionSet StandartPaymentsConditionSet { get; set; }
     }
 }

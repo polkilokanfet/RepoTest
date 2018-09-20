@@ -5,7 +5,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class TestFriendAddressWrapper
     {
-        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        protected override IEnumerable<ValidationResult> ValidateOther()
         {
             if (string.IsNullOrWhiteSpace(City))
             {

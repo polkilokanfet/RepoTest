@@ -3,18 +3,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HVTApp.UI.Wrapper
 {
-  public partial class TestFriendEmailWrapper
-  {
-    public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    public partial class TestFriendEmailWrapper
     {
-      if (string.IsNullOrWhiteSpace(Email))
-      {
-        yield return new ValidationResult("Email is required", new[] { nameof(Email) });
-      }
-      if(!new EmailAddressAttribute().IsValid(Email))
-      {
-        yield return new ValidationResult("Email is not a valid email address", new[] { nameof(Email) });
-      }
+        protected override IEnumerable<ValidationResult> ValidateOther()
+        {
+            if (string.IsNullOrWhiteSpace(Email))
+            {
+                yield return new ValidationResult("Email is required", new[] {nameof(Email)});
+            }
+            if (!new EmailAddressAttribute().IsValid(Email))
+            {
+                yield return new ValidationResult("Email is not a valid email address", new[] {nameof(Email)});
+            }
+        }
     }
-  }
 }

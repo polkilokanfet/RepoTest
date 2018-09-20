@@ -6,7 +6,7 @@ namespace HVTApp.UI.Wrapper
 {
     public partial class ContractWrapper
     {
-        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        protected override IEnumerable<ValidationResult> ValidateOther()
         {
             if (string.IsNullOrEmpty(Number))
                 yield return new ValidationResult("Не заполнен номер договора", new[] {nameof(Number)});

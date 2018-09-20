@@ -34,11 +34,13 @@ namespace HVTApp.Modules.Sales.ViewModels
             OnPropertyChanged(nameof(GroupsViewModel));
         }
 
+        //при редактировании существующего предложения
         protected override async Task AfterLoading()
         {
             //загружаем строки с оборудованием
             var units = UnitOfWork.Repository<OfferUnit>().Find(x => x.Offer.Id == Item.Id);
             InitGroupsViewModel(units);
+            await GroupsViewModel.LoadAsync();
             await base.AfterLoading();
         }
 

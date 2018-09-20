@@ -26,6 +26,7 @@ namespace HVTApp.Modules.Sales.ViewModels
     public class OfferUnitsGroupsViewModel : LoadableBindableBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPriceService _priceService;
         private readonly Offer _offer;
         private OfferUnitsGroup _selectedGroup;
         private ProductIncludedWrapper _selectedProductIncluded;
@@ -48,6 +49,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             _unitOfWork = unitOfWork;
             _offer = offer;
+            _priceService = Container.Resolve<IPriceService>();
 
             var groups = units.GroupBy(x => x, new OfferUnitsGroupsComparer())
                               .OrderByDescending(x => x.Key.Cost)
@@ -75,16 +77,14 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             if (group == null) return;
 
-            var priceService = Container.Resolve<IPriceService>();
-
             //прайс для основного оборудования
             var priceDate = _offer.Date < DateTime.Today ? _offer.Date : DateTime.Today;
-            var price = await priceService.GetPrice(group.Product.Model, priceDate, CommonOptions.ActualOptions.ActualPriceTerm, _priceErrors);
+            var price = await _priceService.GetPrice(group.Product.Model, priceDate, CommonOptions.ActualOptions.ActualPriceTerm, _priceErrors);
 
             //добавляем прайсы дополнительного оборудования
             foreach (var productIncluded in group.ProductsIncluded)
             {
-                price += productIncluded.Amount * await priceService.GetPrice(productIncluded.Product.Model, DateTime.Today, CommonOptions.ActualOptions.ActualPriceTerm, _priceErrors);
+                price += productIncluded.Amount * await _priceService.GetPrice(productIncluded.Product.Model, DateTime.Today, CommonOptions.ActualOptions.ActualPriceTerm, _priceErrors);
             }
 
             group.Price = price;

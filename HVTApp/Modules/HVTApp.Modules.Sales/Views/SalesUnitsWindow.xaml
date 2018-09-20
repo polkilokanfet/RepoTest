@@ -53,10 +53,15 @@
                                     VisibilitySumToShippingSalesUnit="Collapsed"
                                     VisibilitySumToStartProductionSalesUnit="Collapsed"/>
         
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Количество"/>
-            <igWPF:XamNumericEditor Value="{Binding Amount}" ValueType="core:Int32"/>
-        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width ="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Label Grid.Column="0" Content="Количество: "/>
+            <igWPF:XamNumericEditor Grid.Column="1" Value="{Binding Amount}" ValueType="core:Int32"/>
+        </Grid>
         <Button Content="Ok" Command="{Binding OkCommand}"/>
     </StackPanel>
     

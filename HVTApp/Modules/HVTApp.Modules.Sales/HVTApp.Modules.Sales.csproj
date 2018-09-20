@@ -150,11 +150,15 @@
     <Compile Include="ViewModels\SpecificationsViewModel.cs" />
     <Compile Include="ViewModels\SpecificationUnitsGroupsViewModel.cs" />
     <Compile Include="ViewModels\SpecificationViewModel.cs" />
+    <Compile Include="ViewModels\TenderViewModel.cs" />
     <Compile Include="Views\MarketView.xaml.cs">
       <DependentUpon>MarketView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OfferRedactorView.xaml.cs">
       <DependentUpon>OfferRedactorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TenderWindow.xaml.cs">
+      <DependentUpon>TenderWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SpecificationView.xaml.cs">
       <DependentUpon>SpecificationView.xaml</DependentUpon>
@@ -273,6 +277,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OfferRedactorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TenderWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

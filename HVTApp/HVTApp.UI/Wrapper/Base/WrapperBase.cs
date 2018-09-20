@@ -372,8 +372,10 @@ namespace HVTApp.UI.Wrapper
         /// </summary>
         /// <param name="validationContext"></param>
         /// <returns></returns>
-        public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
+            var result = new List<ValidationResult>();
+
             var modelType = Model.GetType();
             var props = modelType.GetProperties();
             foreach (var prop in props)
@@ -384,7 +386,7 @@ namespace HVTApp.UI.Wrapper
                 {
                     if (prop.GetValue(Model) == null)
                     {
-                        yield return new ValidationResult($"{prop.Name} не может быть пустым.", new[] {prop.Name});
+                        result.Add(new ValidationResult($"{prop.Name} не может быть пустым.", new[] {prop.Name}));
                     }
                 }
 
@@ -394,10 +396,17 @@ namespace HVTApp.UI.Wrapper
                     var lenghAttr = prop.GetCustomAttribute<MaxLengthAttribute>();
                     if (lenghAttr != null && prop.GetValue(Model) != null && ((String)prop.GetValue(Model)).Count() > lenghAttr.Length)
                     {
-                        yield return new ValidationResult($"количество символов в поле {prop.Name} не может превышать {lenghAttr.Length}.", new[] { prop.Name });
+                        result.Add(new ValidationResult($"количество символов в поле {prop.Name} не может превышать {lenghAttr.Length}.", new[] { prop.Name }));
                     }
                 }
             }
+            
+            return result.Concat(ValidateOther());
+        }
+
+        protected virtual IEnumerable<ValidationResult> ValidateOther()
+        {
+            yield break;
         }
 
         public override string ToString()

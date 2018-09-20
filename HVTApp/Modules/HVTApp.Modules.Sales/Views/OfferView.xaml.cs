@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Tabs;
 using HVTApp.Modules.Sales.ViewModels;
@@ -12,12 +13,14 @@ namespace HVTApp.Modules.Sales.Views
     [RibbonTab(typeof(TabCrudUnits))]
     public partial class OfferView
     {
+        private readonly IUnityContainer _container;
         private readonly OfferViewModel _viewModel;
 
         public OfferView(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
-            InitializeComponent();
+            _container = container;
             _viewModel = container.Resolve<OfferViewModel>();
+            InitializeComponent();
             this.DataContext = _viewModel;
         }
 
@@ -43,5 +46,17 @@ namespace HVTApp.Modules.Sales.Views
             }
         }
 
+        public override void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            if(_viewModel.SaveCommand.CanExecute(null))
+            {
+                if (_container.Resolve<IMessageService>().ShowYesNoMessageDialog("Сохранение", "Сохранить изменения?") == MessageDialogResult.Yes)
+                {
+                    _viewModel.SaveCommand.Execute(null);
+                }
+            }
+
+            base.OnNavigatedFrom(navigationContext);
+        }
     }
 }

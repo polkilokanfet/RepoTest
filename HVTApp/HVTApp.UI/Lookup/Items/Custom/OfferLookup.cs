@@ -6,7 +6,7 @@ namespace HVTApp.UI.Lookup
 {
     public partial class OfferLookup
     {
-        public List<OfferUnitLookup> OfferUnits { get; private set; }
+        public List<OfferUnitLookup> OfferUnits { get; } = new List<OfferUnitLookup>();
 
         [Designation("Компания")]
         public CompanyLookup Company => new CompanyLookup(Entity.RecipientEmployee.Company);

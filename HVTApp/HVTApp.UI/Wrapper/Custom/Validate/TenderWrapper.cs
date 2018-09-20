@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace HVTApp.UI.Wrapper
 {
-    public partial class OfferUnitWrapper
+    public partial class TenderWrapper
     {
         protected override IEnumerable<ValidationResult> ValidateOther()
         {
-            if (Cost < 0)
-                yield return new ValidationResult("Стоимость не может быть отрицательной", new[] { nameof(Cost) });
+            if(!Types.Any())
+                yield return new ValidationResult("Пустой список типов тендера", new []{nameof(Types)});
         }
     }
 }

@@ -9,7 +9,7 @@
     <infRib:RibbonGroup Caption="Проекты">
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewProjectCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/New_16x16.png"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditProjectCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Edit_16x16.png"/>
-        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveItemCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
+        <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveProjectCommand}" SmallImage="/HVTApp.Infrastructure;component/Images/Delete_16x16.png"/>
     </infRib:RibbonGroup>
 
     <infRib:RibbonGroup Caption="Конкурсы">

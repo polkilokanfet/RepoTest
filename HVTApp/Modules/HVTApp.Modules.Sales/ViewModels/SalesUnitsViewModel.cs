@@ -15,7 +15,7 @@ namespace HVTApp.Modules.Sales.ViewModels
     {
         private int _amount = 1;
 
-        public SalesUnitDetailsViewModel ViewModel { get; } 
+        public SalesUnitDetailsViewModel ViewModel { get; }
 
         public int Amount
         {

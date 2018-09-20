@@ -21,7 +21,6 @@ namespace HVTApp.UI.ViewModels
         where TAfterSaveEntityEvent : PubSubEvent<TEntity>, new()
     {
         protected readonly IEventAggregator EventAggregator;
-        protected IUnitOfWork UnitOfWork;
         private TWrapper _item;
         private bool _isLoaded;
 
@@ -80,6 +79,14 @@ namespace HVTApp.UI.ViewModels
         {
             IsLoaded = true;
         }
+
+        public void Load(TWrapper wrapper, IUnitOfWork unitOfWork)
+        {
+            UnitOfWork = unitOfWork;
+            Item = wrapper;
+            IsLoaded = true;
+        }
+
 
         public ICommand SaveCommand { get; }
         public ICommand OkCommand { get; }

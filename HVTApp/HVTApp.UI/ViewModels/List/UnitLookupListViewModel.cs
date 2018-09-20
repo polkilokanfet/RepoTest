@@ -13,7 +13,7 @@ namespace HVTApp.UI.ViewModels
         public void Load(IEnumerable<IUnitLookup> units)
         {
             Lookups.Clear();
-            if(!units.Any()) return;
+            if(units == null || !units.Any()) return;
             var groups = units.GroupBy(x => new {ProductId = x.Product.Id, x.Cost, FacilityId = x.Facility.Id});
             groups.Select(x => new GroupUnitsLookups(x)).OrderBy(x => x.Product.ToString()).ForEach(Lookups.Add);
         }

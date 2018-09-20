@@ -55,7 +55,7 @@ namespace HVTApp.Modules.Sales.Views
 
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            await _viewModel.Load();
+            await _viewModel.LoadAsync();
             this.Loaded -= OnLoaded;
         }
     }

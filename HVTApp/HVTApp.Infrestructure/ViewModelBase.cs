@@ -10,7 +10,7 @@ namespace HVTApp.Infrastructure
     {
         protected readonly IUnityContainer Container;
         protected readonly IRegionManager RegionManager;
-        protected readonly IUnitOfWork UnitOfWork;
+        protected IUnitOfWork UnitOfWork;
 
         public ICommand GoForwardCommand { get; }
         public ICommand GoBackCommand { get; }

@@ -1,4 +1,3 @@
-using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Services.GetProductService;
 using HVTApp.UI.Wrapper;
@@ -9,12 +8,6 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class SalesUnitDetailsViewModel
     {
-        public void Load(SalesUnitWrapper unit, IUnitOfWork unitOfWork)
-        {
-            this.UnitOfWork = unitOfWork;
-            Item = unit;
-        }
-
         protected override void InitSpecialCommands()
         {
             SelectProductCommand = new DelegateCommand(SelectProductCommand_Execute);

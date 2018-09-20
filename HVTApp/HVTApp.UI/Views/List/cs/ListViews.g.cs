@@ -1899,12 +1899,6 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility DependentProductsVisibility
-        {
-            get { return OfferUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferUnitLookup.DependentProducts)].Visibility; }
-            set { OfferUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferUnitLookup.DependentProducts)].Visibility = value; }
-        }
-
 
         public System.Windows.Visibility ProductsIncludedVisibility
         {

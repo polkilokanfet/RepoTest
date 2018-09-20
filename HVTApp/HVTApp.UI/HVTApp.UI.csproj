@@ -99,6 +99,7 @@
     <Compile Include="Groups\PaymentWrapper.cs" />
     <Compile Include="Groups\ProductUnitsGroup.cs" />
     <Compile Include="Groups\ShipmentUnitsGroup.cs" />
+    <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
     <Compile Include="Services\IOfferToDoc.cs" />
     <Compile Include="ViewModels\Details\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProductIncludedDetailsViewModel.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Wrapper\Custom\Functionality\DocumentWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\OrderWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\SalesUnitWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Validate\TenderWrapper.cs" />
     <Compile Include="Wrapper\IUnitsGroup.cs" />
     <Compile Include="Converter\ToUnitGroupsConverters.cs" />
     <Compile Include="Extantions\DesignationExt.cs" />
@@ -212,7 +214,6 @@
     <Compile Include="Wrapper\Custom\Validate\CompanyFormWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\CompanyWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\ContractWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Validate\FacilityWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\OfferUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\SalesUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\SpecificationWrapper.cs" />

@@ -22,6 +22,7 @@ using Prism.Commands;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
+using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.ViewModels
 {
@@ -3196,9 +3197,6 @@ namespace HVTApp.UI.ViewModels
 			{
 				return SelectedParticipantsItem != null;
 			}
-
-
-
     }
 
 
