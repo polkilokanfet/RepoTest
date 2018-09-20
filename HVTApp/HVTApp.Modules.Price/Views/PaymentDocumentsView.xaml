@@ -34,7 +34,7 @@
             </Grid.ColumnDefinitions>
             
             <GroupBox Grid.Column="0" Header="Платежные документы">
-                <views:PaymentDocumentLookupListView DataContext="{Binding}"/>
+                <views:PaymentDocumentLookupListView DataContext="{Binding}" x:Name="DocumentListView"/>
             </GroupBox>
             
             <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center"  Width="3"/>
@@ -45,7 +45,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
             
                     <GroupBox Grid.Row="0" Header="Внесенные">
@@ -63,7 +63,7 @@
                                 <igWPF:XamDateTimeEditor Grid.Column="1" Value="{Binding DockDate}"/>
 
                                 <Label Grid.Column="2" Content="Сумма, руб:"/>
-                                <igWPF:XamNumericEditor Grid.Column="3" Value="{Binding DockSum}" MinWidth="10"/>
+                                <igWPF:XamNumericEditor Grid.Column="3" Value="{Binding DockSum}" MinWidth="50"/>
 
                             </Grid>
                             

@@ -199,7 +199,6 @@
     <Compile Include="Wrapper\Custom\Functionality\OfferWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ParameterWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\PaymentActualWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\PaymentPlannedWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductBlockWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductCostDependentProductsWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProductWrapper.cs" />

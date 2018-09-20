@@ -1,16 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Mvvm;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
@@ -42,53 +46,53 @@ namespace HVTApp.Modules.Sales.ViewModels
             SaveCommand = new DelegateCommand(SaveCommand_Execute, () => _salesUnitWrappers != null && _salesUnitWrappers.IsChanged && _salesUnitWrappers.IsValid);
             ReloadCommand = new DelegateCommand(ReloadCommand_Execute);
             RefreshCommand = new DelegateCommand(RefreshPayments);
-            RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => SelectedGroup != null && SelectedGroup.WillSave);
+            RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => SelectedGroup?.WillSave != null);
         }
-
-        //необходимо для отслеживания изначально сохраненных платежей
-        private List<PaymentPlanned> _originPaymentPlanneds;
 
         protected override async Task LoadedAsyncMethod()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
-            //загружаем все юниты
-            var salesUnitWrappers = (await UnitOfWork.Repository<SalesUnit>().GetAllAsync()).Select(x => new SalesUnitWrapper(x));
-            
-            //фиксируем их в коллекции для отслеживания изменений
-            _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(salesUnitWrappers);
+            //загружаем все юниты и фиксируем их в коллекции для отслеживания изменений
+            _salesUnitWrappers = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(
+                                (await UnitOfWork.Repository<SalesUnit>().GetAllAsync())
+                                .Where(x => x.Project.Manager.Id == CommonOptions.User.Id)
+                                .Select(x => new SalesUnitWrapper(x)));
 
             //подписка на изменение
             _salesUnitWrappers.PropertyChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
             _salesUnitWrappers.CollectionChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
 
-            _originPaymentPlanneds = _salesUnitWrappers.SelectMany(x => x.PaymentsPlanned).Select(x => x.Model).ToList();
-
-            //актуализация плановых поступлений
             _salesUnitWrappers.ForEach(Actualization);
 
             RefreshPayments();
         }
 
+        /// <summary>
+        /// Актуализация плановых поступлений
+        /// </summary>
+        /// <param name="salesUnitWrapper"></param>
         private void Actualization(SalesUnitWrapper salesUnitWrapper)
         {
-            var paymentsWrappers = salesUnitWrapper.PaymentsPlanned;
-            var paymentsActual = salesUnitWrapper.Model.PaymentsPlannedActual;
-            var remove = new List<PaymentPlannedWrapper>();
-            foreach (var paymentWrapper in paymentsWrappers)
+            //коллекция актуальных плановых платежей (может отличаться от сохраненных)
+            var paymentPlannedActual = salesUnitWrapper.Model.PaymentsPlannedActual;
+
+            foreach (var paymentPlannedWrapper in salesUnitWrapper.PaymentsPlanned.ToList())
             {
-                var paymentActual = paymentsActual.SingleOrDefault(x => x.Id == paymentWrapper.Id);
+                //сопоставляем актуальный плановый платеж с сохраненным
+                var paymentActual = paymentPlannedActual.SingleOrDefault(x => x.Id == paymentPlannedWrapper.Id);
+                //удаляем неактуальный платеж
                 if (paymentActual == null)
                 {
-                    remove.Add(paymentWrapper);
-                    UnitOfWork.Repository<PaymentPlanned>().Delete(paymentWrapper.Model);
+                    salesUnitWrapper.PaymentsPlanned.Remove(paymentPlannedWrapper);
+                    UnitOfWork.Repository<PaymentPlanned>().Delete(paymentPlannedWrapper.Model);
                     continue;
                 }
 
-                paymentWrapper.Date = paymentActual.Date;
-                paymentWrapper.Part = paymentActual.Part;
+                //актуализируем параметры платежа
+                paymentPlannedWrapper.Date = paymentActual.Date;
+                paymentPlannedWrapper.Part = paymentActual.Part;
             }
-            remove.ForEach(x => salesUnitWrapper.PaymentsPlanned.Remove(x));
         }
 
         private void RefreshPayments()
@@ -99,17 +103,17 @@ namespace HVTApp.Modules.Sales.ViewModels
                 payments.AddRange(GetPayments(salesUnitWrapper));
             }
 
-            payments = payments.OrderBy(x => x.PaymentPlannedWrapper.Date).ToList();
+            payments = payments.OrderBy(x => x.PaymentPlanned.Date).ToList();
             var groups = payments.GroupBy(x => new
             {
                 ProjectId = x.SalesUnit.Project.Id,
                 ProductId = x.SalesUnit.Product.Id,
                 FacilityId = x.SalesUnit.Facility.Id,
                 Cost = x.SalesUnit.Cost,
-                Part = x.PaymentPlannedWrapper.Part,
-                Date = x.PaymentPlannedWrapper.Date,
-                ConditionId = x.PaymentPlannedWrapper.Condition.Id,
-                WillSave = x.WillSave
+                Part = x.PaymentPlanned.Part,
+                Date = x.PaymentPlanned.Date,
+                ConditionId = x.PaymentPlanned.Condition.Id,
+                WillSave = x.IsInPlanPayments
             });
 
             PaymentsGroups.ForEach(x => x.DateChanged -= OnGroupDateChanged);
@@ -128,16 +132,16 @@ namespace HVTApp.Modules.Sales.ViewModels
         private IEnumerable<PaymentWrapper> GetPayments(SalesUnitWrapper salesUnitWrapper)
         {
             //платежи, находящиеся в юните
-            foreach (var ppw in salesUnitWrapper.PaymentsPlanned)
+            foreach (var paymentPlannedWrapper in salesUnitWrapper.PaymentsPlanned)
             {
-                yield return new PaymentWrapper(ppw, salesUnitWrapper, _originPaymentPlanneds.Contains(ppw.Model), true);
+                yield return new PaymentWrapper(salesUnitWrapper, paymentPlannedWrapper.Id);
             }
 
             //платежи сгенерированные
             //необходимо брать именно из Model (актуально)
-            foreach (var ppg in salesUnitWrapper.Model.PaymentsPlannedGenerated)
+            foreach (var paymentPlanned in salesUnitWrapper.Model.PaymentsPlannedGenerated)
             {
-                yield return new PaymentWrapper(new PaymentPlannedWrapper(ppg), salesUnitWrapper, _originPaymentPlanneds.Contains(ppg), false);
+                yield return new PaymentWrapper(salesUnitWrapper, paymentPlanned);
             }
         }
 

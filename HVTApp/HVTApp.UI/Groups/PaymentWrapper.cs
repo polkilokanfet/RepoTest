@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
@@ -9,81 +10,59 @@ namespace HVTApp.UI.Groups
 {
     public class PaymentWrapper : BindableBase
     {
-        private bool _willSave;
-
-        public PaymentPlannedWrapper PaymentPlannedWrapper { get; }
+        public PaymentPlannedWrapper PaymentPlanned { get; private set; }
         public SalesUnitWrapper SalesUnit { get; }
 
         /// <summary>
-        /// был ли платеж изначально сохранен в юните
+        /// Находится ли платеж в списке сохраненных плановых платежей
         /// </summary>
-        private bool InUnit { get; }
+        public bool IsInPlanPayments => SalesUnit.PaymentsPlanned.Contains(PaymentPlanned);
 
-        /// <summary>
-        /// будет ли платеж сохранен
-        /// </summary>
-        public bool WillSave
-        {
-            get { return _willSave; }
-            private set
-            {
-                _willSave = value;
-                OnPropertyChanged();
-            }
-        }
+        public double Sum => SalesUnit.Cost * PaymentPlanned.Part * PaymentPlanned.Condition.Part;
 
-        public PaymentWrapper(PaymentPlannedWrapper paymentPlannedWrapper, SalesUnitWrapper salesUnit, bool inUnit, bool willSave)
+        public PaymentWrapper(SalesUnitWrapper salesUnit, Guid paymentId)
         {
             SalesUnit = salesUnit;
-            this.InUnit = inUnit;
-            WillSave = willSave;
-            PaymentPlannedWrapper = paymentPlannedWrapper;
-
-            PaymentPlannedWrapper.Sum = paymentPlannedWrapper.Part * paymentPlannedWrapper.Condition.Part * SalesUnit.Cost;
-
-            //подписка на событие изменения свойств
-            PaymentPlannedWrapper.PropertyChanged += PaymentPlannedWrapperOnPropertyChanged;
+            SetPaymentPlanned(SalesUnit.PaymentsPlanned.Single(x => x.Id == paymentId));
         }
 
-        private void PaymentPlannedWrapperOnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        public PaymentWrapper(SalesUnitWrapper salesUnit, PaymentPlanned paymentPlanned)
         {
-            if (!Equals(args.PropertyName, nameof(PaymentPlannedWrapper.Date)))
-                return;
+            SalesUnit = salesUnit;
+            SetPaymentPlanned(new PaymentPlannedWrapper(paymentPlanned));
+        }
 
-            //если дата изменилась, платеж нужно запомнить
-            if (PaymentPlannedWrapper.IsChanged)
+        private void SetPaymentPlanned(PaymentPlannedWrapper paymentPlanned)
+        {
+            PaymentPlanned = paymentPlanned;
+            //подписка на событие изменения свойств
+            PaymentPlanned.PropertyChanged += PaymentPlannedOnPropertyChanged;
+        }
+
+        private void PaymentPlannedOnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (!Equals(args.PropertyName, nameof(PaymentPlanned.Date))) return;
+            if (!IsInPlanPayments)
             {
-                //если он уже не добавлен
-                if (SalesUnit.PaymentsPlanned.Contains(PaymentPlannedWrapper))
-                    return;
-                SalesUnit.PaymentsPlanned.Add(PaymentPlannedWrapper);
-                WillSave = true;
-            }
-            else
-            {
-                //если изменения убрали - забыть платеж, если он не был запомнен изначально
-                if (SalesUnit.PaymentsPlanned.Contains(PaymentPlannedWrapper) && !InUnit)
-                {
-                    SalesUnit.PaymentsPlanned.Remove(PaymentPlannedWrapper);
-                    WillSave = false;
-                }
+                SalesUnit.PaymentsPlanned.Add(PaymentPlanned);
+                OnPropertyChanged(nameof(IsInPlanPayments));
             }
         }
 
         public void Remove(IUnitOfWork unitOfWork)
         {
-            PaymentPlannedWrapper.RejectChanges();
+            PaymentPlanned.RejectChanges();
 
-            if (SalesUnit.PaymentsPlanned.Contains(PaymentPlannedWrapper))
-                SalesUnit.PaymentsPlanned.Remove(PaymentPlannedWrapper);
+            if (SalesUnit.PaymentsPlanned.Contains(PaymentPlanned))
+                SalesUnit.PaymentsPlanned.Remove(PaymentPlanned);
 
-            if(unitOfWork.Repository<PaymentPlanned>().Find(x => Equals(x, PaymentPlannedWrapper.Model)).Any())
-                unitOfWork.Repository<PaymentPlanned>().Delete(PaymentPlannedWrapper.Model);
+            if(unitOfWork.Repository<PaymentPlanned>().Find(x => Equals(x, PaymentPlanned.Model)).Any())
+                unitOfWork.Repository<PaymentPlanned>().Delete(PaymentPlanned.Model);
         }
 
-        public void UnSubskribe()
+        public void UnSubsсribe()
         {
-            PaymentPlannedWrapper.PropertyChanged -= PaymentPlannedWrapperOnPropertyChanged;
+            PaymentPlanned.PropertyChanged -= PaymentPlannedOnPropertyChanged;
         }
     }
 }

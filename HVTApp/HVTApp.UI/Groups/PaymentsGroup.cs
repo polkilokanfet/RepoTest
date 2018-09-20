@@ -12,101 +12,95 @@ namespace HVTApp.UI.Groups
 {
     public class PaymentsGroup : BindableBase
     {
-        private readonly List<PaymentWrapper> _payments;
-        private DateTime _date;
-        private bool _willSave;
+        private readonly PaymentWrapper _payment;
 
-        public IEnumerable<Guid> Ids => _payments.Select(x => x.PaymentPlannedWrapper.Id);
+        public ObservableCollection<PaymentsGroup> Groups { get; }
 
-        public int Amount => _payments.Count;
+        public IEnumerable<Guid> Ids { get; }
 
-        public double Sum => Amount * SalesUnit.Cost;
+        public int Amount => Groups?.Count ?? 1;
+
+        public double Sum => Groups?.Sum(x => x.Sum) ?? _payment.Sum;
+
+        public string Position => Groups == null ? SalesUnit.OrderPosition : "...";
 
         public SalesUnitWrapper SalesUnit { get; set; }
-        public PaymentConditionWrapper Condition { get; }
+        public PaymentConditionWrapper Condition => _payment.PaymentPlanned.Condition;
 
-        public bool WillSave
+        public bool? WillSave
         {
-            get { return _willSave; }
-            private set
+            get
             {
-                if (Equals(_willSave, value)) return;
-                _willSave = value;
-                WillSaveChanged?.Invoke(this);
-                OnPropertyChanged();
+                if (Groups == null) return _payment.IsInPlanPayments;
+                if (Groups.All(x => x.WillSave.HasValue && x.WillSave.Value)) return true;
+                if (Groups.All(x => x.WillSave.HasValue && !x.WillSave.Value)) return false;
+                return null;
             }
         }
 
-        public event Action<PaymentsGroup> WillSaveChanged; 
-
         public DateTime Date
         {
-            get { return _date; }
+            get { return _payment.PaymentPlanned.Date; }
             set
             {
-                if (Equals(_date, value)) return;
                 if (value < DateTime.Today) return;
-                _date = value;
-                if(Groups.Any())
-                    Groups.ForEach(x => x.Date = value);
-                else
-                    _payments.ForEach(x => x.PaymentPlannedWrapper.Date = value);
+
+                if (Groups == null)
+                {
+                    _payment.PaymentPlanned.Date = value;
+                    OnPropertyChanged();
+                }
+
+                Groups?.ForEach(x => x.DateChanged -= OnGroupDateChanged);
+                Groups?.ForEach(x => x.Date = value);
+                Groups?.ForEach(x => x.DateChanged += OnGroupDateChanged);
+
                 DateChanged?.Invoke(this);
-                OnPropertyChanged();
             }
         }
 
         public event Action<PaymentsGroup> DateChanged; 
 
-        public ObservableCollection<PaymentsGroup> Groups { get; } = new ObservableCollection<PaymentsGroup>();
-
         public PaymentsGroup(IEnumerable<PaymentWrapper> payments)
         {
-            _payments = payments.ToList();
-            _date = _payments.First().PaymentPlannedWrapper.Date;
-            WillSave = _payments.First().WillSave;
-            Condition = _payments.First().PaymentPlannedWrapper.Condition;
-            SalesUnit = _payments.First().SalesUnit;
+            var paymentWrappers = payments as PaymentWrapper[] ?? payments.ToArray();
 
+            _payment = paymentWrappers.First();
+            SalesUnit = _payment.SalesUnit;
+            Ids = payments.Select(x => x.PaymentPlanned.Id);
 
-            if (_payments.Count > 1)
+            if (paymentWrappers.Length > 1)
             {
-                Groups.AddRange(_payments.Select(x => new PaymentsGroup(new List<PaymentWrapper> {x})));
+                Groups = new ObservableCollection<PaymentsGroup>(paymentWrappers.Select(x => new PaymentsGroup(new List<PaymentWrapper> {x})));
                 Groups.ForEach(x => x.DateChanged += OnGroupDateChanged);
             }
 
-            _payments.ForEach(x => x.PropertyChanged += OnPaymentPropertyChanged);
+            paymentWrappers.ForEach(x => x.PropertyChanged += OnPaymentPropertyChanged);
         }
 
         private void OnPaymentPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            WillSave = _payments.All(x => x.WillSave);
+            OnPropertyChanged(nameof(WillSave));
         }
 
         private void OnGroupDateChanged(PaymentsGroup group)
         {
-            if(group.Date != Date)
+            //if(group.Date != Date)
                 DateChanged?.Invoke(group);
         }
 
         public void RemoveSubscribes()
         {
-            Groups.ForEach(x => x.DateChanged -= OnGroupDateChanged);
-            _payments.ForEach(x => x.PropertyChanged -= OnPaymentPropertyChanged);
-            _payments.ForEach(x => x.UnSubskribe());
+            Groups?.ForEach(x => x.DateChanged -= OnGroupDateChanged);
+            _payment.PropertyChanged -= OnPaymentPropertyChanged;
+            _payment.UnSubsñribe();
         }
 
         public void RemovePayments(IUnitOfWork unitOfWork)
         {
-            if (Groups.Any())
-            {
-                Groups.ForEach(x => x.RemovePayments(unitOfWork));
-                WillSave = false;
-                return;
-            }
-
-            _payments.ForEach(x => x.Remove(unitOfWork));
-            WillSave = false;
+            _payment.Remove(unitOfWork);
+            Groups?.ForEach(x => x.RemovePayments(unitOfWork));
+            OnPropertyChanged(nameof(WillSave));
         }
     }
 }

@@ -18,6 +18,7 @@ namespace HVTApp.Modules.Price.Views
             InitializeComponent();
             this.DataContext = _viewModel;
             this.Loaded += OnLoaded;
+            DocumentListView.PaymentsVisibility = Visibility.Collapsed;
         }
 
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
