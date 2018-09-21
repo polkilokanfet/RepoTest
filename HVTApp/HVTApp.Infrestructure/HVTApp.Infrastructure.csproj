@@ -94,6 +94,7 @@
     <Compile Include="Converters\DatePickerOriginalValueConverter.cs" />
     <Compile Include="Extansions\EnumerableExtansions.cs" />
     <Compile Include="Extansions\DateExtansions.cs" />
+    <Compile Include="Extansions\IsTypeExtansions.cs" />
     <Compile Include="Extansions\RegionExt.cs" />
     <Compile Include="IBaseEntity.cs" />
     <Compile Include="IDetailsViewModel.cs" />

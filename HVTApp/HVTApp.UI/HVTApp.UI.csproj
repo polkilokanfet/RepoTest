@@ -110,7 +110,6 @@
     <Compile Include="Wrapper\Custom\Functionality\DocumentWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\OrderWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\SalesUnitWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Validate\TenderWrapper.cs" />
     <Compile Include="Wrapper\IUnitsGroup.cs" />
     <Compile Include="Converter\ToUnitGroupsConverters.cs" />
     <Compile Include="Extantions\DesignationExt.cs" />
@@ -204,13 +203,11 @@
     <Compile Include="Wrapper\Custom\Functionality\ProductWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\ProjectWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\SpecificationWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Functionality\TenderWrapper.cs" />
     <Compile Include="Wrapper\Custom\IProductWithCost.cs" />
     <Compile Include="Wrapper\Custom\Test\TestFriendAddressWrapper.cs" />
     <Compile Include="Wrapper\Custom\Test\TestFriendEmailWrapper.cs" />
     <Compile Include="Wrapper\Custom\Test\TestFriendWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\CompanyFormWrapper.cs" />
-    <Compile Include="Wrapper\Custom\Validate\CompanyWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\ContractWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\OfferUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\SalesUnitWrapper.cs" />

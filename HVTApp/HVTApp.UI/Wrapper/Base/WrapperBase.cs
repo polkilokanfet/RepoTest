@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -368,7 +369,7 @@ namespace HVTApp.UI.Wrapper
         }
 
         /// <summary>
-        /// Валидация.
+        /// Валидация по атрибутам.
         /// </summary>
         /// <param name="validationContext"></param>
         /// <returns></returns>
@@ -376,7 +377,9 @@ namespace HVTApp.UI.Wrapper
         {
             var result = new List<ValidationResult>();
 
+            //тип модели
             var modelType = Model.GetType();
+            //все её свойства
             var props = modelType.GetProperties();
             foreach (var prop in props)
             {
@@ -386,9 +389,19 @@ namespace HVTApp.UI.Wrapper
                 {
                     if (prop.GetValue(Model) == null)
                     {
-                        result.Add(new ValidationResult($"{prop.Name} не может быть пустым.", new[] {prop.Name}));
+                        result.Add(new ValidationResult($"\"{prop.Name}\" не может быть пустым.", new[] {prop.Name}));
                     }
                 }
+
+                //обязательные коллекции (они не должны быть пусты)
+                if (reqAttr != null && prop.PropertyType.IsCollection())
+                {
+                    if (((ICollection)prop.GetValue(Model)).Count < 1)
+                    {
+                        result.Add(new ValidationResult($"Список \"{prop.Name}\" не может быть пустым.", new[] { prop.Name }));
+                    }
+                }
+
 
                 //поля с ограничением на длину строки
                 if (prop.PropertyType == typeof(String))
@@ -396,7 +409,7 @@ namespace HVTApp.UI.Wrapper
                     var lenghAttr = prop.GetCustomAttribute<MaxLengthAttribute>();
                     if (lenghAttr != null && prop.GetValue(Model) != null && ((String)prop.GetValue(Model)).Count() > lenghAttr.Length)
                     {
-                        result.Add(new ValidationResult($"количество символов в поле {prop.Name} не может превышать {lenghAttr.Length}.", new[] { prop.Name }));
+                        result.Add(new ValidationResult($"количество символов в поле \"{prop.Name}\" не может превышать {lenghAttr.Length}.", new[] { prop.Name }));
                     }
                 }
             }

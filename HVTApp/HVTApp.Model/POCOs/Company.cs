@@ -39,7 +39,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Банковские реквизиты"), OrderStatus(-10)]
         public virtual List<BankDetails> BankDetailsList { get; set; } = new List<BankDetails>();
 
-        [Designation("Сферы деятельности")]
+        [Designation("Сферы деятельности"), Required]
         public virtual List<ActivityField> ActivityFilds { get; set; } = new List<ActivityField>();
 
         /// <summary>
