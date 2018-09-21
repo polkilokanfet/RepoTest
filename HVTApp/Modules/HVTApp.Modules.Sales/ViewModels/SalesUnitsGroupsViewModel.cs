@@ -31,6 +31,11 @@ namespace HVTApp.Modules.Sales.ViewModels
         private SalesUnitsGroup _selectedGroup;
         private ProductIncludedWrapper _selectedProductIncluded;
 
+        /// <summary>
+        /// Группы
+        /// </summary>
+        public IValidatableChangeTrackingCollection<SalesUnitsGroup> Groups { get; }
+
         #region ICommand
 
         public ICommand AddCommand { get; private set; }
@@ -45,8 +50,10 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #endregion
 
-        public SalesUnitsGroupsViewModel(IUnityContainer container, IEnumerable<SalesUnit> units, IUnitOfWork unitOfWork, 
-            Project project = null) : base(container)
+        public SalesUnitsGroupsViewModel(IUnityContainer container, 
+                                         IEnumerable<SalesUnit> units, 
+                                         IUnitOfWork unitOfWork, 
+                                         Project project = null) : base(container)
         {
             _unitOfWork = unitOfWork;
             _project = project;
@@ -123,11 +130,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
-        /// <summary>
-        /// Группы
-        /// </summary>
-        public IValidatableChangeTrackingCollection<SalesUnitsGroup> Groups { get; }
-
         #region Commands
 
         protected virtual async void AddCommand_Execute()
@@ -177,7 +179,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             await RefreshPrice(group);
             SelectedGroup = group;
         }
-
 
         private async void AddProductIncludedCommand_Execute()
         {

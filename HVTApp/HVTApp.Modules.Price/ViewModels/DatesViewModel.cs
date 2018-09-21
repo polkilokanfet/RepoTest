@@ -42,9 +42,9 @@ namespace HVTApp.Modules.Price.ViewModels
             units = units.Where(x => !x.DeliveryDate.HasValue || 
                                      !x.EndProductionDate.HasValue ||
                                      !x.PickingDate.HasValue ||
-                                     !x.RealizationDate.HasValue ||
+                                     !x.RealizationDate.HasValue || 
                                      !x.ShipmentDate.HasValue ||
-                                     x.OrderPosition == null).OrderBy(x => x.EndProductionDateCalculated).ToList();
+                                     string.IsNullOrEmpty(x.SerialNumber)).OrderBy(x => x.EndProductionDateCalculated).ToList();
             _units = units.Select(x => new SalesUnitWrapper(x)).ToList();
             _units.ForEach(x => x.PropertyChanged += XOnPropertyChanged);
 

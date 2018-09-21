@@ -90,6 +90,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\UnitListControl.xaml.cs">
+      <DependentUpon>UnitListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\OfferUnitListControl.xaml.cs">
       <DependentUpon>OfferUnitListControl.xaml</DependentUpon>
     </Compile>
@@ -236,6 +239,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\UnitListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\OfferUnitListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

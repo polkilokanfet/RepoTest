@@ -13,11 +13,17 @@ namespace HVTApp.Modules.Price.ViewModels
         private readonly List<SalesUnitWrapper> _units;
         public SalesUnitWrapper Unit => _units.First();
 
-        public string OrderPosition
+        public string SerialNumber
         {
-            get { return !Groups.Any() ? Unit.OrderPosition : "-"; }
-            set { Unit.OrderPosition = value; }
+            get { return Groups.Any() ? "..." : Unit.SerialNumber; }
+            set
+            {
+                if (Groups.Any()) return;
+                SetValue(value);
+            }
         }
+
+        public string OrderPosition => Groups.Any() ? "..." : Unit.OrderPosition;
 
         public DateTime? DeliveryDate
         {

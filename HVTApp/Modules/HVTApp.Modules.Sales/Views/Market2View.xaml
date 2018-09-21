@@ -3,7 +3,8 @@
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:local="clr-namespace:HVTApp.Modules.Sales.Views"
-              xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI">
+              xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
+              xmlns:controls="clr-namespace:HVTApp.Modules.Sales.Controls">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -20,26 +21,26 @@
             </Grid.ColumnDefinitions>
 
             <GroupBox Header="Проекты" Grid.Column="0">
-                <views:ProjectLookupListView Name="ProjectListView"/>
+                <views:ProjectLookupListView Name="ProjectListView" DataContext="{Binding ProjectListViewModel}"/>
             </GroupBox>
             
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
             
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <GroupBox Grid.Row="0" Header="Предложения">
-                    <views:OfferLookupListView Name="OfferListView"/>
+                    <views:OfferLookupListView Name="OfferListView" DataContext="{Binding OfferListViewModel}"/>
                 </GroupBox>
                 
                 <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
                 
                 <GroupBox Grid.Row="2" Header="Конкурсы">
-                    <views:TenderLookupListView Name="TenderListView"/>
+                    <views:TenderLookupListView Name="TenderListView" DataContext="{Binding TenderListViewModel}"/>
                 </GroupBox>
             </Grid>
             
@@ -50,20 +51,20 @@
         <Grid Grid.Row="2">
         
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <GroupBox Header="Оборудование" Grid.Column="0">
-                <views:UnitListView Name="UnitListView"/>
+                <controls:UnitListControl x:Name="UnitListView" DataContext="{Binding}"/>
             </GroupBox>
             
-            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+            <!--<GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
             
             <GroupBox Header="Заметки" Grid.Column="2">
                 <views:NoteLookupListView Name="NotesListView"/>
-            </GroupBox>
+            </GroupBox>-->
             
         </Grid>
     </Grid>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -10,6 +11,8 @@ using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Views;
+using HVTApp.UI.Converter;
+using HVTApp.UI.Groups;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
@@ -22,15 +25,17 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class Market2ViewModel : ViewModelBase
     {
+
         #region ViewModels
 
         public ProjectLookupListViewModel ProjectListViewModel { get; set; }
         public OfferLookupListViewModel OfferListViewModel { get; }
         public TenderLookupListViewModel TenderListViewModel { get; }
-        public UnitLookupListViewModel UnitListViewModel { get; }
-        public NoteLookupListViewModel NoteListViewModel { get; }
 
         #endregion
+
+        public ObservableCollection<SalesUnitsGroup> Groups { get; } = new ObservableCollection<SalesUnitsGroup>();
+
 
         #region ICommand
 
@@ -47,10 +52,6 @@ namespace HVTApp.Modules.Sales.ViewModels
         public ICommand RemoveOfferCommand { get; }
         public ICommand PrintOfferCommand { get; }
 
-        public ICommand NewNoteCommand { get; }
-        public ICommand EditNoteCommand { get; }
-        public ICommand RemoveNoteCommand { get; }
-
         public ICommand NewTenderCommand { get; }
         public ICommand EditTenderCommand { get; }
         public ICommand RemoveTenderCommand { get; }
@@ -58,16 +59,12 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #endregion
 
-        #region Ctor
-
         public Market2ViewModel(IUnityContainer container) : base(container)
         {
             //контексты
             ProjectListViewModel = container.Resolve<ProjectLookupListViewModel>();
             OfferListViewModel = container.Resolve<OfferLookupListViewModel>();
             TenderListViewModel = container.Resolve<TenderLookupListViewModel>();
-            UnitListViewModel = container.Resolve<UnitLookupListViewModel>();
-            NoteListViewModel = container.Resolve<NoteLookupListViewModel>();
 
             //привязываем команды к соответствующим моделям
             NewProjectCommand = new DelegateCommand(NewProjectCommand_Execute);
@@ -86,20 +83,22 @@ namespace HVTApp.Modules.Sales.ViewModels
             EditTenderCommand = new DelegateCommand(EditTenderCommand_Execute, () => TenderListViewModel.EditItemCommand.CanExecute(null));
             RemoveTenderCommand = TenderListViewModel.RemoveItemCommand;
 
-            NewNoteCommand = NoteListViewModel.NewItemCommand;
-            EditNoteCommand = NoteListViewModel.EditItemCommand;
-            RemoveNoteCommand = NoteListViewModel.RemoveItemCommand;
-
             //реакция на смену выбранного проекта
             ProjectListViewModel.SelectedLookupChanged += project =>
             {
+                Groups.Clear();
+
                 if (project != null)
                 {
                     //обновляем данные всех таблиц
-                    UnitListViewModel.Load(project.SalesUnits);
                     OfferListViewModel.Load(project.Offers);
                     TenderListViewModel.Load(project.Tenders);
-                    NoteListViewModel.Load(project.Notes);
+
+                    var units = project.SalesUnits.Select(x => x.Entity);
+                    var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer())
+                                      .OrderByDescending(x => x.Key.Cost)
+                                      .Select(x => new SalesUnitsGroup(x));
+                    Groups.AddRange(groups);
                 }
 
                 //проверяем актуальность команд
@@ -115,7 +114,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             OfferListViewModel.SelectedLookupChanged += offer =>
             {
                 if (offer == null) return;
-                UnitListViewModel.Load(offer.OfferUnits);
                 ((DelegateCommand)EditOfferCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand)NewOfferByOfferCommand).RaiseCanExecuteChanged();
             };
@@ -153,8 +151,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             var tenderViewModel = new TenderViewModel(Container, ProjectListViewModel.SelectedItem);
             Container.Resolve<IDialogService>().ShowDialog(tenderViewModel);
         }
-
-        #endregion
 
         public async Task LoadAsync()
         {

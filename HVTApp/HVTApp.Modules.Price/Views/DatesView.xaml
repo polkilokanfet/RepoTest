@@ -2,13 +2,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-              xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
-              xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
               x:Class="HVTApp.Modules.Price.Views.DatesView">
-
-    <inf:ViewBase.Resources>
-        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></converters:BooleanToVisibilityConverter>
-    </inf:ViewBase.Resources>
 
     <Grid>
          <Grid.RowDefinitions>
@@ -51,6 +45,7 @@
                         <infg:TextField AlternateBinding="{Binding Unit.Specification.Number}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                         <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
                         <infg:TextField Name="OrderPosition" Label="Поз." Width="Auto"/>
+                        <infg:TextField Name="SerialNumber" Label="№" Width="Auto" AllowEdit="True"/>
                         <infg:DateTimeField Name="PickingDate" Label="Комплектация" Width="Auto" AllowEdit="True"/>
                         <infg:DateTimeField Name="EndProductionDate" Label="Производство" Width="Auto" AllowEdit="True"/>
                         <infg:DateTimeField Name="ShipmentDate" Label="Отгрузка" Width="Auto" AllowEdit="True"/>

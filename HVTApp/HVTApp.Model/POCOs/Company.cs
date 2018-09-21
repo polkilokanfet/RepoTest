@@ -42,6 +42,23 @@ namespace HVTApp.Model.POCOs
         [Designation("Сферы деятельности")]
         public virtual List<ActivityField> ActivityFilds { get; set; } = new List<ActivityField>();
 
+        /// <summary>
+        /// Все головные компании.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Company> ParentCompanies()
+        {
+            if (ParentCompany == null)
+                yield break;
+
+            yield return ParentCompany;
+
+            foreach (var parentCompany in ParentCompany.ParentCompanies())
+            {
+                yield return parentCompany;
+            }
+        }
+
         public override string ToString()
         {
             return $"{ShortName} ({Form?.ShortName})";

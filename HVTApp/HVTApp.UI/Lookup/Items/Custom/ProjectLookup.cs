@@ -29,7 +29,15 @@ namespace HVTApp.UI.Lookup
         public DateTime RealizationDate => SalesUnits.Any() ? SalesUnits.Select(x => x.DeliveryDateExpected).Min() : DateTime.Today.AddMonths(6);
 
         [Designation("Тендер")]
-        public DateTime? TenderDate => Tenders.Where(x => x.Entity.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToSupply)).OrderBy(x => x.DateClose).Last()?.DateClose;
+        public DateTime? TenderDate
+        {
+            get
+            {
+                if (!Tenders.Any()) return null;
+                var supply = Tenders.Where(x => x.Entity.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToSupply)).ToList();
+                return !supply.Any() ? null : supply.OrderBy(x => x.DateClose).Last()?.DateClose;
+            }
+        } 
 
         [Designation("Объекты"), OrderStatus(10)]
         public List<FacilityLookup> Facilities => SalesUnits?.Select(x => x.Facility).Distinct(new FacilityComparer()).ToList();
