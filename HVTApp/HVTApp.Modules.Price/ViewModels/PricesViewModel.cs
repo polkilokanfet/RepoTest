@@ -7,6 +7,8 @@ using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Services;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -17,24 +19,45 @@ namespace HVTApp.Modules.Price.ViewModels
     {
         private readonly IUnityContainer _container;
         private IUnitOfWork _unitOfWork;
+        private PriceTask _selectedPriceTask;
 
         public ObservableCollection<PriceTask> PriceTasks { get; } = new ObservableCollection<PriceTask>();
 
+        public PriceTask SelectedPriceTask
+        {
+            get { return _selectedPriceTask; }
+            set
+            {
+                _selectedPriceTask = value;
+                ((DelegateCommand)PrintBlockInContext).RaiseCanExecuteChanged();
+            }
+        }
+
         public ICommand SaveCommand { get; }
         public ICommand ReloadCommand { get; }
+        public ICommand PrintBlockInContext { get; }
 
         public PricesViewModel(IUnityContainer container)
         {
             _container = container;
             SaveCommand = new DelegateCommand(async () =>
             {
-                foreach (var priceTask in PriceTasks)
-                    priceTask.SavePrice();
+                PriceTasks.ForEach(x => x.SavePrice());
                 await _unitOfWork.SaveChangesAsync();
                 await LoadAsync();
             });
 
             ReloadCommand = new DelegateCommand(async () => await LoadAsync());
+            PrintBlockInContext = new DelegateCommand(PrintBlockInContextExecute, () => SelectedPriceTask != null);
+
+        }
+
+        private async void PrintBlockInContextExecute()
+        {
+            var block = SelectedPriceTask.Block;
+            var products = await _unitOfWork.Repository<Product>().GetAllAsync();
+            products = products.Where(x => x.GetBlocks().Contains(block)).Distinct().ToList();
+            _container.Resolve<IPrintProductService>().PrintProducts(products, block);
         }
 
         public async Task LoadAsync()

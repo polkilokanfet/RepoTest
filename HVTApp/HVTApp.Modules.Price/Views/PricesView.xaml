@@ -5,10 +5,6 @@
               xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
               x:Class="HVTApp.Modules.Price.Views.PricesView">
 
-    <inf:ViewBase.Resources>
-        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></converters:BooleanToVisibilityConverter>
-    </inf:ViewBase.Resources>
-
     <Grid>
          <Grid.RowDefinitions>
              <RowDefinition Height="Auto"/>
@@ -31,6 +27,7 @@
 		<infg:XamDataGrid x:Name="PricesListGrid" 
                           Grid.Row="1"
                           DataSource="{Binding PriceTasks}"
+                          SelectedDataItem="{Binding SelectedPriceTask}"
                           Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.FieldLayouts>

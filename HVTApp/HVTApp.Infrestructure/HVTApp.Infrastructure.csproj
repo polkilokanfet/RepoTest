@@ -133,6 +133,7 @@
     <Compile Include="RibbonTabAttribute.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Services\IMessageService.cs" />
+    <Compile Include="Services\IPrintOfferService.cs" />
     <Compile Include="UnityExtensions.cs" />
     <Compile Include="ViewBase.cs" />
     <Compile Include="ViewModelBase.cs" />

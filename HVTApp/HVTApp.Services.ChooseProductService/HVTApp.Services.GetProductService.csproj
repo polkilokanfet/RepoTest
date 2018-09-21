@@ -124,10 +124,6 @@
       <Project>{350bdab0-b331-426f-a024-004c8539af17}</Project>
       <Name>HVTApp.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HVTApp.Services.ChooseService\HVTApp.Services.ChooseService.csproj">
-      <Project>{18C8C1C1-89C2-42DD-AF2A-3F6C8E06399D}</Project>
-      <Name>HVTApp.Services.ChooseService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Services.ProductDesignationService\HVTApp.Services.ProductDesignationService.csproj">
       <Project>{0C7AD837-18EE-435F-BD72-5FC8C03FF9A7}</Project>
       <Name>HVTApp.Services.ProductDesignationService</Name>

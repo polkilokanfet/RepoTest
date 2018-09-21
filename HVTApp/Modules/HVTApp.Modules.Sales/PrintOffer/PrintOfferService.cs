@@ -2,17 +2,17 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Modules.Sales.ViewModels;
-using HVTApp.UI.Services;
 using Infragistics.Documents.Word;
 
 namespace HVTApp.Modules.Sales.PrintOffer
 {
-    public class OfferToDoc : IOfferToDoc
+    public class PrintOfferService : IPrintOfferService
     {
         private readonly OfferViewModel _offerViewModel;
 
-        public OfferToDoc(OfferViewModel offerViewModel)
+        public PrintOfferService(OfferViewModel offerViewModel)
         {
             _offerViewModel = offerViewModel;
         }

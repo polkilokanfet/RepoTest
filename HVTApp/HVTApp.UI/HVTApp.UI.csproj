@@ -100,7 +100,6 @@
     <Compile Include="Groups\ProductUnitsGroup.cs" />
     <Compile Include="Groups\ShipmentUnitsGroup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
-    <Compile Include="Services\IOfferToDoc.cs" />
     <Compile Include="ViewModels\Details\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProductIncludedDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\SalesUnitDetailsViewModel.cs" />
@@ -904,6 +903,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Lookup\Service\Custom\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

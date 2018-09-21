@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Input;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Services;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -18,7 +18,7 @@ namespace HVTApp.UI.ViewModels
 
         protected override void InitSpecialCommands()
         {
-            PrintOfferCommand = new DelegateCommand(async () => await Container.Resolve<IOfferToDoc>().PrintOfferAsync(SelectedItem.Id), () => SelectedItem != null);
+            PrintOfferCommand = new DelegateCommand(async () => await Container.Resolve<IPrintOfferService>().PrintOfferAsync(SelectedItem.Id), () => SelectedItem != null);
             this.SelectedLookupChanged += lookup => { ((DelegateCommand)PrintOfferCommand).RaiseCanExecuteChanged(); };
         }
     }

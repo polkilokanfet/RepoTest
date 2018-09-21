@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace HVTApp.UI.Services
+namespace HVTApp.Infrastructure.Services
 {
-    public interface IOfferToDoc
+    public interface IPrintOfferService
     {
         Task PrintOfferAsync(Guid offerId);
     }

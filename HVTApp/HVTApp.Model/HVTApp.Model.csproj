@@ -126,6 +126,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Services\IPrintProductService.cs" />
     <Compile Include="Services\IProductDesignationService.cs" />
     <Compile Include="Services\IShippingService.cs" />
   </ItemGroup>

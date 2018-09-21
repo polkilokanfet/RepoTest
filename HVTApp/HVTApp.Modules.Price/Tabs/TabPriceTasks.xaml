@@ -9,5 +9,9 @@
         <infRib:ButtonTool Caption="Обновить" Command="{Binding ReloadCommand}"/>
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}"/>
     </infRib:RibbonGroup>
+    
+    <infRib:RibbonGroup Caption="Продукт">
+        <infRib:ButtonTool Caption="Блок в контексте" Command="{Binding PrintBlockInContext}"/>
+    </infRib:RibbonGroup>
         
 </inf:RibbonTabItemWithViewModel>
