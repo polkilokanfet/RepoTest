@@ -153,7 +153,6 @@
     <Compile Include="Lookup\Items\Custom\ParameterLookup.cs" />
     <Compile Include="Lookup\Items\Custom\ProductLookup.cs" />
     <Compile Include="Lookup\Items\Custom\ProjectLookup.cs" />
-    <Compile Include="Lookup\Items\Custom\TenderLookup.cs" />
     <Compile Include="UiModule.cs" />
     <Compile Include="Wrapper\UnitsGroup.cs" />
     <Compile Include="Converter\ProductUnitsToFacilitiesNamesConverter.cs" />

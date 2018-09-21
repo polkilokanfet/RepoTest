@@ -31,10 +31,12 @@ namespace HVTApp.Model.POCOs
         [Designation("Автор"), Required]
         public virtual Employee Author { get; set; }
 
+        [Required]
         public Guid SenderId { get; set; }
         [Designation("Отправитель"), Required]
         public virtual Employee SenderEmployee { get; set; }
 
+        [Required]
         public Guid RecipientId { get; set; }
         [Designation("Получатель"), Required]
         public virtual Employee RecipientEmployee { get; set; }

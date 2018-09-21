@@ -41,7 +41,6 @@
                     <infg:TextField Name="Participants" Label="Участники" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Winner" Label="Победитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Project" Label="Проект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Type" Label="Type" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

@@ -11,13 +11,13 @@ namespace HVTApp.Model.POCOs
     [DesignationPlural("Объекты")]
     public partial class Facility : BaseEntity
     {
-        [Designation("Название"), Required, MaxLength(100)]
+        [Designation("Название"), Required, MaxLength(100), OrderStatus(20)]
         public string Name { get; set; }
 
-        [Required]
+        [Designation("Тип"), Required, OrderStatus(18)]
         public virtual FacilityType Type { get; set; }
 
-        [Designation("Владелец")]
+        [Designation("Владелец"), Required, OrderStatus(16)]
         public virtual Company OwnerCompany { get; set; }
 
         [Designation("Местоположение")]

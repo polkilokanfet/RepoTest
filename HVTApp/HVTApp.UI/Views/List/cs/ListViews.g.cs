@@ -4190,13 +4190,6 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility TypeVisibility
-        {
-            get { return TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TenderLookup.Type)].Visibility; }
-            set { TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TenderLookup.Type)].Visibility = value; }
-        }
-
-
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return TenderLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TenderLookup.DisplayMember)].Visibility; }

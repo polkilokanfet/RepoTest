@@ -41,6 +41,8 @@ namespace HVTApp.Modules.Sales.Views
             OfferListView.CodeVisibility = Visibility.Collapsed;
             OfferListView.RegNumberVisibility = Visibility.Collapsed;
 
+            TenderListView.ProjectVisibility = Visibility.Collapsed;
+
             #endregion
 
             this.Loaded += OnLoaded;

@@ -1990,7 +1990,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(20)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -1999,11 +1999,11 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(18)]
 	    public FacilityTypeLookup Type { get { return GetLookup<FacilityTypeLookup>(); } }
 
 
-		[OrderStatus(1)]
+		[OrderStatus(16)]
 	    public CompanyLookup OwnerCompany { get { return GetLookup<CompanyLookup>(); } }
 
 
