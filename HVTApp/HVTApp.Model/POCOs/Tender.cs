@@ -14,7 +14,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Проект"), Required, OrderStatus(4)]
         public virtual Project Project { get; set; }
 
-        [Designation("Типы"), OrderStatus(11)]
+        [Designation("Типы"), OrderStatus(11), Required]
         public virtual List<TenderType> Types { get; set; } = new List<TenderType>();
 
         [Designation("Открытие"), OrderStatus(9)]
