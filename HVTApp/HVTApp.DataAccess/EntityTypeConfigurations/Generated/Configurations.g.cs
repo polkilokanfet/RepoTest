@@ -26,7 +26,6 @@ namespace HVTApp.DataAccess
     public partial class PaymentConditionSetConfiguration : EntityTypeConfiguration<PaymentConditionSet> { }
     public partial class ProductBlockConfiguration : EntityTypeConfiguration<ProductBlock> { }
     public partial class ProductDependentConfiguration : EntityTypeConfiguration<ProductDependent> { }
-    public partial class ProductionTaskConfiguration : EntityTypeConfiguration<ProductionTask> { }
     public partial class SalesBlockConfiguration : EntityTypeConfiguration<SalesBlock> { }
     public partial class BankDetailsConfiguration : EntityTypeConfiguration<BankDetails> { }
     public partial class CompanyConfiguration : EntityTypeConfiguration<Company> { }

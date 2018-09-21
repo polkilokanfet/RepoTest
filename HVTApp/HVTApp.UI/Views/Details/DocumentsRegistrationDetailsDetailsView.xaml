@@ -18,16 +18,16 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="RegistrationNumber" Visibility="{Binding VisibilityRegistrationNumberDocumentsRegistrationDetails, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Номер" Visibility="{Binding VisibilityNumberDocumentsRegistrationDetails, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
-                 Text="{Binding Item.RegistrationNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityRegistrationNumberDocumentsRegistrationDetails, ElementName=Root}"/>
+                 Text="{Binding Item.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityNumberDocumentsRegistrationDetails, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="RegistrationDate" Visibility="{Binding VisibilityRegistrationDateDocumentsRegistrationDetails, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Дата" Visibility="{Binding VisibilityDateDocumentsRegistrationDetails, ElementName=Root}"/>
         <DatePicker Grid.Column="1" Grid.Row="1" 
-                    SelectedDate="{Binding Item.RegistrationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding VisibilityRegistrationDateDocumentsRegistrationDetails, ElementName=Root}"/>
+                    SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding VisibilityDateDocumentsRegistrationDetails, ElementName=Root}"/>
 
 
 

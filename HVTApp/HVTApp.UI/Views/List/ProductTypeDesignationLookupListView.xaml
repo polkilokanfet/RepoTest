@@ -34,8 +34,8 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="ProductType" Label="Тип продукта" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Parameters" Label="Parameters" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:TextField Name="ProductType" Label="Тип" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Parameters" Label="Параметры" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

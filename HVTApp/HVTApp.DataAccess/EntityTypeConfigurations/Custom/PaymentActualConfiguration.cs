@@ -6,7 +6,6 @@ namespace HVTApp.DataAccess
         {
             Property(x => x.Date).IsRequired();
             Property(x => x.Sum).IsRequired();
-            Property(x => x.Comment).IsOptional().HasMaxLength(100);
         }
     }
 }

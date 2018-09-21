@@ -34,8 +34,8 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:NumericField Name="Part" Label="Part" Width="Auto" />
-                    <infg:NumericField Name="DaysToPoint" Label="DaysToPoint" Width="Auto" />
+                    <infg:NumericField Name="DaysToPoint" Label="Дней до условия" Width="Auto" />
+                    <infg:NumericField Name="Part" Label="Часть" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

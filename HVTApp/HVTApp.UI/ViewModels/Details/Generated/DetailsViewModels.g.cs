@@ -22,7 +22,6 @@ using Prism.Commands;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
-using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.ViewModels
 {
@@ -869,54 +868,6 @@ namespace HVTApp.UI.ViewModels
 						Item.Product = null;
 		    
 		}
-
-
-
-    }
-
-
-    public partial class ProductionTaskDetailsViewModel : BaseDetailsViewModel<ProductionTaskWrapper, ProductionTask, AfterSaveProductionTaskEvent>
-    {
-		private Func<Task<List<SalesUnit>>> _getEntitiesForAddInSalesUnitsCommand;
-		public ICommand AddInSalesUnitsCommand { get; }
-		public ICommand RemoveFromSalesUnitsCommand { get; }
-		private SalesUnitWrapper _selectedSalesUnitsItem;
-		public SalesUnitWrapper SelectedSalesUnitsItem 
-		{ 
-			get { return _selectedSalesUnitsItem; }
-			set 
-			{ 
-				if (Equals(_selectedSalesUnitsItem, value)) return;
-				_selectedSalesUnitsItem = value;
-				OnPropertyChanged();
-				((DelegateCommand)RemoveFromSalesUnitsCommand).RaiseCanExecuteChanged();
-			}
-		}
-
-
-        public ProductionTaskDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-			
-			if (_getEntitiesForAddInSalesUnitsCommand == null) _getEntitiesForAddInSalesUnitsCommand = async () => { return await UnitOfWork.Repository<SalesUnit>().GetAllAsync(); };;
-			if (AddInSalesUnitsCommand == null) AddInSalesUnitsCommand = new DelegateCommand(AddInSalesUnitsCommand_Execute_Default);
-			if (RemoveFromSalesUnitsCommand == null) RemoveFromSalesUnitsCommand = new DelegateCommand(RemoveFromSalesUnitsCommand_Execute_Default, RemoveFromSalesUnitsCommand_CanExecute_Default);
-
-		}
-
-			private async void AddInSalesUnitsCommand_Execute_Default()
-			{
-				SelectAndAddInListWrapper<SalesUnit, SalesUnitWrapper>(await _getEntitiesForAddInSalesUnitsCommand(), Item.SalesUnits);
-			}
-
-			private void RemoveFromSalesUnitsCommand_Execute_Default()
-			{
-				Item.SalesUnits.Remove(SelectedSalesUnitsItem);
-			}
-
-			private bool RemoveFromSalesUnitsCommand_CanExecute_Default()
-			{
-				return SelectedSalesUnitsItem != null;
-			}
 
 
 
@@ -3197,6 +3148,9 @@ namespace HVTApp.UI.ViewModels
 			{
 				return SelectedParticipantsItem != null;
 			}
+
+
+
     }
 
 

@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Name" Visibility="{Binding VisibilityNameUserRole, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Название" Visibility="{Binding VisibilityNameUserRole, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Text="{Binding Item.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityNameUserRole, ElementName=Root}"/>

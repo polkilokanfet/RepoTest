@@ -162,12 +162,6 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-	public partial class ProductionTaskLookupListViewModel : BaseListViewModel<ProductionTask, ProductionTaskLookup, AfterSaveProductionTaskEvent, AfterSelectProductionTaskEvent, AfterRemoveProductionTaskEvent>
-    {
-        public ProductionTaskLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
 	public partial class SalesBlockLookupListViewModel : BaseListViewModel<SalesBlock, SalesBlockLookup, AfterSaveSalesBlockEvent, AfterSelectSalesBlockEvent, AfterRemoveSalesBlockEvent>
     {
         public SalesBlockLookupListViewModel(IUnityContainer container) : base(container) { }

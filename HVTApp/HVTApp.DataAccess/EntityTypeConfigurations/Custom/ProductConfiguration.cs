@@ -7,9 +7,6 @@ namespace HVTApp.DataAccess
             HasRequired(x => x.ProductBlock).WithMany();
             HasMany(x => x.DependentProducts).WithRequired().HasForeignKey(x => x.MainProductId).WillCascadeOnDelete(false);
             Property(x => x.DesignationSpecial).IsOptional();
-
-            Ignore(x => x.Designation);
-            Ignore(x => x.ProductType);
         }
     }
 }

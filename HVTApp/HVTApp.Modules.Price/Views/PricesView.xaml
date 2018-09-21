@@ -30,23 +30,23 @@
                           SelectedDataItem="{Binding SelectedPriceTask}"
                           Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
-			<infg:XamDataGrid.FieldLayouts>
-				<infg:FieldLayout>
-					<infg:FieldLayout.Fields>
+			    <infg:XamDataGrid.FieldLayouts>
+				    <infg:FieldLayout>
+					    <infg:FieldLayout.Fields>
                         
-                    <infg:TextField Name="Block" Label="Блок" Width="Auto"/>
-                    <infg:NumericField Name="SpecificationsCount" Label="Спецификации" Width="Auto" />
-                    <infg:NumericField Name="OffersCount" Label="ТКП" Width="Auto" />
-                    <infg:NumericField Name="ProjectsCount" Label="Проекты" Width="Auto" />
-                    <infg:NumericField Name="Price" Label="Прайс" Width="Auto" AllowEdit="True"/>
-                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
-                    <infg:CheckBoxField Name="IsPriceless" Label="Без прайса" Width="Auto" />
+                        <infg:TextField Name="Block" Label="Блок" Width="Auto"/>
+                        <infg:TextField AlternateBinding="{Binding Block.StructureCostNumber}" BindingType="UseAlternateBinding" Label="Сралчахвост" Width="Auto"/>
+                        <infg:NumericField Name="SpecificationsCount" Label="Спецификации" Width="Auto" />
+                        <infg:NumericField Name="OffersCount" Label="ТКП" Width="Auto" />
+                        <infg:NumericField Name="ProjectsCount" Label="Проекты" Width="Auto" />
+                        <infg:NumericField Name="Price" Label="Прайс" Width="Auto" AllowEdit="True"/>
+                        <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" AllowEdit="True"/>
+                        <infg:CheckBoxField Name="IsPriceless" Label="Без прайса" Width="Auto" />
 
-					</infg:FieldLayout.Fields>
-				</infg:FieldLayout>
-
-			</infg:XamDataGrid.FieldLayouts>
-		</infg:XamDataGrid>
+					    </infg:FieldLayout.Fields>
+				    </infg:FieldLayout>
+			    </infg:XamDataGrid.FieldLayouts>
+		    </infg:XamDataGrid>
 
     </Grid>
 </inf:ViewBase>

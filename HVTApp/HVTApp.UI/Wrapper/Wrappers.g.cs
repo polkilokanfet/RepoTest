@@ -1334,55 +1334,6 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
-		public partial class ProductionTaskWrapper : WrapperBase<ProductionTask>
-	{
-	    public ProductionTaskWrapper(ProductionTask model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.DateTime DateTask
-        {
-          get { return GetValue<System.DateTime>(); }
-          set { SetValue(value); }
-        }
-        public System.DateTime DateTaskOriginalValue => GetOriginalValue<System.DateTime>(nameof(DateTask));
-        public bool DateTaskIsChanged => GetIsChanged(nameof(DateTask));
-
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-
-        #region CollectionProperties
-
-        public IValidatableChangeTrackingCollection<SalesUnitWrapper> SalesUnits { get; private set; }
-
-
-        #endregion
-
-  
-        protected override void InitializeCollectionProperties()
-        {
-
-          if (Model.SalesUnits == null) throw new ArgumentException("SalesUnits cannot be null");
-          SalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.SalesUnits.Select(e => new SalesUnitWrapper(e)));
-          RegisterCollection(SalesUnits, Model.SalesUnits);
-
-
-        }
-
-	}
-
 		public partial class SalesBlockWrapper : WrapperBase<SalesBlock>
 	{
 	    public SalesBlockWrapper(SalesBlock model) : base(model) { }
@@ -1669,22 +1620,22 @@ namespace HVTApp.UI.Wrapper
 
         #region SimpleProperties
 
-        public System.String RegistrationNumber
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String RegistrationNumberOriginalValue => GetOriginalValue<System.String>(nameof(RegistrationNumber));
-        public bool RegistrationNumberIsChanged => GetIsChanged(nameof(RegistrationNumber));
-
-
-        public System.DateTime RegistrationDate
+        public System.DateTime Date
         {
           get { return GetValue<System.DateTime>(); }
           set { SetValue(value); }
         }
-        public System.DateTime RegistrationDateOriginalValue => GetOriginalValue<System.DateTime>(nameof(RegistrationDate));
-        public bool RegistrationDateIsChanged => GetIsChanged(nameof(RegistrationDate));
+        public System.DateTime DateOriginalValue => GetOriginalValue<System.DateTime>(nameof(Date));
+        public bool DateIsChanged => GetIsChanged(nameof(Date));
+
+
+        public System.String Number
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
+        public bool NumberIsChanged => GetIsChanged(nameof(Number));
 
 
         public System.Guid Id
@@ -3910,6 +3861,15 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Boolean HighProbabilityOriginalValue => GetOriginalValue<System.Boolean>(nameof(HighProbability));
         public bool HighProbabilityIsChanged => GetIsChanged(nameof(HighProbability));
+
+
+        public System.Boolean ForReport
+        {
+          get { return GetValue<System.Boolean>(); }
+          set { SetValue(value); }
+        }
+        public System.Boolean ForReportOriginalValue => GetOriginalValue<System.Boolean>(nameof(ForReport));
+        public bool ForReportIsChanged => GetIsChanged(nameof(ForReport));
 
 
         public System.Guid Id

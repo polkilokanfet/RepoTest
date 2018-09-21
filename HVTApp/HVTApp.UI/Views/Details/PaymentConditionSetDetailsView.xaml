@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="PaymentConditions" Visibility="{Binding VisibilityPaymentConditionsPaymentConditionSet, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Список условий" Visibility="{Binding VisibilityPaymentConditionsPaymentConditionSet, ElementName=Root}"/>
         <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
 										 Items="{Binding Path=Item.PaymentConditions}"
 										 SelectedItem="{Binding SelectedPaymentConditionsItem, Mode=TwoWay}"

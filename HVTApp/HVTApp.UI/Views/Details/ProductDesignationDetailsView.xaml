@@ -18,19 +18,19 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Parameters" Visibility="{Binding VisibilityParametersProductDesignation, ElementName=Root}"/>
-        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="0"
+        <Label Grid.Column="0" Grid.Row ="0" Content="Обозначение" Visibility="{Binding VisibilityDesignationProductDesignation, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+                 Text="{Binding Item.Designation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityDesignationProductDesignation, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Параметры" Visibility="{Binding VisibilityParametersProductDesignation, ElementName=Root}"/>
+        <controls:ChooseItemsListControl Grid.Column="1" Grid.Row="1"
 										 Items="{Binding Path=Item.Parameters}"
 										 SelectedItem="{Binding SelectedParametersItem, Mode=TwoWay}"
 										 AddItemCommand="{Binding AddInParametersCommand}"
 										 RemoveItemCommand="{Binding RemoveFromParametersCommand}"
 										 Visibility="{Binding VisibilityParametersProductDesignation, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="1" Content="Designation" Visibility="{Binding VisibilityDesignationProductDesignation, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
-                 Text="{Binding Item.Designation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityDesignationProductDesignation, ElementName=Root}"/>
 
 
 

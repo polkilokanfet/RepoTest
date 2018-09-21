@@ -11,7 +11,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Проект"), Required, OrderStatus(5)]
         public virtual Project Project { get; set; }
 
-        [Designation("Срок действия"), OrderStatus(4)]
+        [Designation("Срок действия"), Required, OrderStatus(4)]
         public DateTime ValidityDate { get; set; }
 
         [Designation("НДС"), OrderStatus(1)]

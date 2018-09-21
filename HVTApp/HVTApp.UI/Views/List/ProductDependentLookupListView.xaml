@@ -35,7 +35,7 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
                     <infg:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:NumericField Name="Amount" Label="Amount" Width="Auto" />
+                    <infg:NumericField Name="Amount" Label="Количество" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

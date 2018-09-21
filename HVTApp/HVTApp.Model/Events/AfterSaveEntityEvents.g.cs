@@ -26,7 +26,6 @@ namespace HVTApp.Model.Events
 	public partial class AfterSavePaymentConditionSetEvent : PubSubEvent<PaymentConditionSet> { }
 	public partial class AfterSaveProductBlockEvent : PubSubEvent<ProductBlock> { }
 	public partial class AfterSaveProductDependentEvent : PubSubEvent<ProductDependent> { }
-	public partial class AfterSaveProductionTaskEvent : PubSubEvent<ProductionTask> { }
 	public partial class AfterSaveSalesBlockEvent : PubSubEvent<SalesBlock> { }
 	public partial class AfterSaveBankDetailsEvent : PubSubEvent<BankDetails> { }
 	public partial class AfterSaveCompanyEvent : PubSubEvent<Company> { }

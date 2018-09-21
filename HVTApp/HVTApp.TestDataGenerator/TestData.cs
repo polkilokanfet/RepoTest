@@ -555,7 +555,7 @@ namespace HVTApp.TestDataGenerator
                 //DesignationSpecial = "Блок Выключатель баковый ВГБ-35",
                 Parameters = new List<Parameter> { ParameterMainEquipment, ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage35kV},
                 Prices = new List<SumOnDate> {new SumOnDate {Sum = 450000, Date = DateTime.Today}},
-                StructureCostNumber = "StructureCostNumberVGB35",
+                StructureCostNumber = "123",
             });
 
             ProductBlockVeb110.Clone(new ProductBlock
@@ -563,7 +563,7 @@ namespace HVTApp.TestDataGenerator
                 //DesignationSpecial = "Блок Выключатель баковый ВЭБ-110",
                 Parameters = new List<Parameter> {ParameterMainEquipment, ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage110kV},
                 Prices = new List<SumOnDate> {new SumOnDate {Sum = 2000000, Date = DateTime.Today}},
-                StructureCostNumber = "StructureCostNumber3",
+                StructureCostNumber = "321",
             });
 
             ProductBlockZng110.Clone(new ProductBlock
@@ -571,15 +571,15 @@ namespace HVTApp.TestDataGenerator
                 //DesignationSpecial = "Блок Трансформатор напряжения ЗНГ-110",
                 Parameters = new List<Parameter> { ParameterMainEquipment, ParameterTransformator, ParameterTransformatorVoltage, ParameterVoltage110kV},
                 Prices = new List<SumOnDate> {new SumOnDate {Sum = 250000, Date = DateTime.Today.AddDays(-95)}},
-                StructureCostNumber = "StructureCostNumber1"
+                StructureCostNumber = "456"
             });
 
             ProductBlockBreakersDrive.Clone(new ProductBlock
             {
-                DesignationSpecial = "Блок Привод выключателя",
+                DesignationSpecial = "ППрК",
                 Parameters = new List<Parameter> { ParameterMainEquipment, ParameterBrakersDrive, ParameterVoltage220V },
                 Prices = new List<SumOnDate> { new SumOnDate { Sum = 200000, Date = DateTime.Today } },
-                StructureCostNumber = "StructureCostNumber4"
+                StructureCostNumber = "654"
             });
 
             ProductBlockZip1.Clone(new ProductBlock
@@ -587,7 +587,7 @@ namespace HVTApp.TestDataGenerator
                 DesignationSpecial = "Блок Групповой комплект ЗИП №1",
                 Parameters = new List<Parameter> { ParameterDependentEquipment, ParameterZip1 },
                 Prices = new List<SumOnDate> { new SumOnDate { Sum = 2500, Date = DateTime.Today } },
-                StructureCostNumber = "StructureCostNumberZip1"
+                StructureCostNumber = "789"
             });
         }
 

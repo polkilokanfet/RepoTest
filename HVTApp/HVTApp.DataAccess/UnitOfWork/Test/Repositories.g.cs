@@ -118,11 +118,6 @@ namespace HVTApp.DataAccess
         public ProductDependentRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class ProductionTaskRepositoryTest : TestBaseRepository<ProductionTask>, IProductionTaskRepository
-    {
-        public ProductionTaskRepositoryTest(TestData testData) : base(testData) {}
-    }
-
     public partial class SalesBlockRepositoryTest : TestBaseRepository<SalesBlock>, ISalesBlockRepository
     {
         public SalesBlockRepositoryTest(TestData testData) : base(testData) {}

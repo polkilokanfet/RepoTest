@@ -34,8 +34,8 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="RegistrationNumber" Label="RegistrationNumber" Width="Auto" />
-                    <infg:DateTimeField Name="RegistrationDate" Label="RegistrationDate" Width="Auto" />
+                    <infg:TextField Name="Number" Label="Номер" Width="Auto" />
+                    <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

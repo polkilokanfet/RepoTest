@@ -141,7 +141,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("ProductIncluded")]
+	[Designation("Включенное в стоимость оборудование")]
 	public partial class ProductIncludedLookup : LookupItem<ProductIncluded>
 	{
 		public ProductIncludedLookup(ProductIncluded entity) : base(entity) 
@@ -151,7 +151,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(5)]
         public System.Int32 Amount => GetValue<System.Int32>();
 
 
@@ -160,7 +160,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(10)]
 	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 
@@ -170,7 +170,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("ProductDesignation")]
+	[Designation("Обозначение продукта")]
 	public partial class ProductDesignationLookup : LookupItem<ProductDesignation>
 	{
 		public ProductDesignationLookup(ProductDesignation entity) : base(entity) 
@@ -180,7 +180,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(10)]
         public System.String Designation => GetValue<System.String>();
 
 
@@ -213,7 +213,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("ProductTypeDesignation")]
+	[Designation("Обозначение типа продукта")]
 	public partial class ProductTypeDesignationLookup : LookupItem<ProductTypeDesignation>
 	{
 		public ProductTypeDesignationLookup(ProductTypeDesignation entity) : base(entity) 
@@ -223,7 +223,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(10)]
 	    public ProductTypeLookup ProductType { get { return GetLookup<ProductTypeLookup>(); } }
 
 
@@ -617,7 +617,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("PaymentConditionSet")]
+	[Designation("Условия оплаты")]
 	public partial class PaymentConditionSetLookup : LookupItem<PaymentConditionSet>
 	{
 		public PaymentConditionSetLookup(PaymentConditionSet entity) : base(entity) 
@@ -681,7 +681,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("ProductDependent")]
+	[Designation("Зависимое оборудование")]
 	public partial class ProductDependentLookup : LookupItem<ProductDependent>
 	{
 		public ProductDependentLookup(ProductDependent entity) : base(entity) 
@@ -695,7 +695,7 @@ namespace HVTApp.UI.Lookup
         public System.Guid MainProductId => GetValue<System.Guid>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(5)]
         public System.Int32 Amount => GetValue<System.Int32>();
 
 
@@ -704,34 +704,11 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(10)]
 	    public ProductLookup Product { get { return GetLookup<ProductLookup>(); } }
 
 
         #endregion
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
-	[Designation("ProductionTask")]
-	public partial class ProductionTaskLookup : LookupItem<ProductionTask>
-	{
-		public ProductionTaskLookup(ProductionTask entity) : base(entity) 
-		{
-		}
-		
-
-        #region SimpleProperties
-
-		[OrderStatus(1)]
-        public System.DateTime DateTask => GetValue<System.DateTime>();
-
-
-        #endregion
-
-		[OrderStatus(1)]
-	    public List<SalesUnitLookup> SalesUnits { get { return GetLookupEnum<SalesUnitLookup>().ToList(); } }
 
 	}
 
@@ -871,7 +848,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("DocumentsRegistrationDetails")]
+	[Designation("Регистрационные данные")]
 	public partial class DocumentsRegistrationDetailsLookup : LookupItem<DocumentsRegistrationDetails>
 	{
 		public DocumentsRegistrationDetailsLookup(DocumentsRegistrationDetails entity) : base(entity) 
@@ -882,11 +859,11 @@ namespace HVTApp.UI.Lookup
         #region SimpleProperties
 
 		[OrderStatus(1)]
-        public System.String RegistrationNumber => GetValue<System.String>();
+        public System.DateTime Date => GetValue<System.DateTime>();
 
 
 		[OrderStatus(1)]
-        public System.DateTime RegistrationDate => GetValue<System.DateTime>();
+        public System.String Number => GetValue<System.String>();
 
 
         #endregion
@@ -895,7 +872,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("EmployeesPosition")]
+	[Designation("Должность")]
 	public partial class EmployeesPositionLookup : LookupItem<EmployeesPosition>
 	{
 		public EmployeesPositionLookup(EmployeesPosition entity) : base(entity) 
@@ -996,7 +973,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("Measure")]
+	[Designation("Единица измерения")]
 	public partial class MeasureLookup : LookupItem<Measure>
 	{
 		public MeasureLookup(Measure entity) : base(entity) 
@@ -1056,7 +1033,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("ParameterGroup")]
+	[Designation("Группа параметров")]
 	public partial class ParameterGroupLookup : LookupItem<ParameterGroup>
 	{
 		public ParameterGroupLookup(ParameterGroup entity) : base(entity) 
@@ -1066,7 +1043,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(10)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -1085,7 +1062,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("ProductRelation")]
+	[Designation("Связи продуктов")]
 	public partial class ProductRelationLookup : LookupItem<ProductRelation>
 	{
 		public ProductRelationLookup(ProductRelation entity) : base(entity) 
@@ -1095,11 +1072,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(10)]
         public System.String Name => GetValue<System.String>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(4)]
         public System.Int32 ChildProductsAmount => GetValue<System.Int32>();
 
 
@@ -1109,10 +1086,10 @@ namespace HVTApp.UI.Lookup
 
         #endregion
 
-		[OrderStatus(1)]
+		[OrderStatus(8)]
 	    public List<ParameterLookup> ParentProductParameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 
-		[OrderStatus(1)]
+		[OrderStatus(6)]
 	    public List<ParameterLookup> ChildProductParameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
 
 	}
@@ -1733,7 +1710,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("SumOnDate")]
+	[Designation("Сумма на дату")]
 	public partial class SumOnDateLookup : LookupItem<SumOnDate>
 	{
 		public SumOnDateLookup(SumOnDate entity) : base(entity) 
@@ -1767,11 +1744,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(8)]
         public System.String Designation => GetValue<System.String>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(6)]
         public System.String DesignationSpecial => GetValue<System.String>();
 
 
@@ -1780,11 +1757,11 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(10)]
 	    public ProductTypeLookup ProductType { get { return GetLookup<ProductTypeLookup>(); } }
 
 
-		[OrderStatus(1)]
+		[OrderStatus(5)]
 	    public ProductBlockLookup ProductBlock { get { return GetLookup<ProductBlockLookup>(); } }
 
 
@@ -1891,11 +1868,11 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(20)]
         public System.String PhoneNumber => GetValue<System.String>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(10)]
         public System.String Email => GetValue<System.String>();
 
 
@@ -1904,15 +1881,15 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(30)]
 	    public PersonLookup Person { get { return GetLookup<PersonLookup>(); } }
 
 
-		[OrderStatus(1)]
+		[OrderStatus(50)]
 	    public CompanyLookup Company { get { return GetLookup<CompanyLookup>(); } }
 
 
-		[OrderStatus(1)]
+		[OrderStatus(40)]
 	    public EmployeesPositionLookup Position { get { return GetLookup<EmployeesPositionLookup>(); } }
 
 
@@ -1947,7 +1924,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("PaymentCondition")]
+	[Designation("Условие платежа")]
 	public partial class PaymentConditionLookup : LookupItem<PaymentCondition>
 	{
 		public PaymentConditionLookup(PaymentCondition entity) : base(entity) 
@@ -1957,15 +1934,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(6)]
         public System.Double Part => GetValue<System.Double>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(8)]
         public System.Int32 DaysToPoint => GetValue<System.Int32>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(10)]
         public HVTApp.Model.POCOs.PaymentConditionPoint PaymentConditionPoint => GetValue<HVTApp.Model.POCOs.PaymentConditionPoint>();
 
 
@@ -2054,8 +2031,12 @@ namespace HVTApp.UI.Lookup
         public System.String Name => GetValue<System.String>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(2)]
         public System.Boolean HighProbability => GetValue<System.Boolean>();
+
+
+		[OrderStatus(3)]
+        public System.Boolean ForReport => GetValue<System.Boolean>();
 
 
         #endregion
@@ -2063,11 +2044,11 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(5)]
 	    public ProjectTypeLookup ProjectType { get { return GetLookup<ProjectTypeLookup>(); } }
 
 
-		[OrderStatus(1)]
+		[OrderStatus(4)]
 	    public UserLookup Manager { get { return GetLookup<UserLookup>(); } }
 
 
@@ -2080,7 +2061,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("UserRole")]
+	[Designation("Роль пользователя")]
 	public partial class UserRoleLookup : LookupItem<UserRole>
 	{
 		public UserRoleLookup(UserRole entity) : base(entity) 
@@ -2222,15 +2203,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(20)]
         public System.String Login => GetValue<System.String>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(2)]
         public System.Guid Password => GetValue<System.Guid>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(15)]
         public System.String PersonalNumber => GetValue<System.String>();
 
 
@@ -2243,7 +2224,7 @@ namespace HVTApp.UI.Lookup
 
         #region ComplexProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(25)]
 	    public EmployeeLookup Employee { get { return GetLookup<EmployeeLookup>(); } }
 
 

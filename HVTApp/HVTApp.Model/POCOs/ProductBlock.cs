@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -16,8 +17,10 @@ namespace HVTApp.Model.POCOs
         [Designation("Обозначение"), NotMapped]
         public string Designation { get; set; }
 
-        [Designation("Специальное обозначение")]
+
+        [Designation("Специальное обозначение"), MaxLength(50)]
         public string DesignationSpecial { get; set; }
+
 
         [Designation("Параметры")]
         public virtual List<Parameter> Parameters { get; set; } = new List<Parameter>();
@@ -25,13 +28,13 @@ namespace HVTApp.Model.POCOs
         [Designation("Себестоимости")]
         public virtual List<SumOnDate> Prices { get; set; } = new List<SumOnDate>();
 
-        [Designation("Сралчахвост")]
+        [Designation("Сралчахвост"), MaxLength(10)]
         public string StructureCostNumber { get; set; }
 
-        [Designation("Чертеж")]
+        [Designation("Чертеж"), MaxLength(25)]
         public string Design { get; set; }
 
-        [Designation("Услуга")]
+        [Designation("Услуга"), NotMapped]
         public bool IsService { get; set; } = false;
 
         [Designation("Вес")]

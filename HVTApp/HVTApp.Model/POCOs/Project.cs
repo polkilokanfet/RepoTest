@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 
@@ -8,16 +9,19 @@ namespace HVTApp.Model.POCOs
     [DesignationPlural("Проекты")]
     public partial class Project : BaseEntity
     {
-        [Designation("Название"), OrderStatus(10)]
+        [Designation("Название"), Required, OrderStatus(10), MaxLength(100)]
         public string Name { get; set; }
 
-        [Designation("Тип проекта")]
+        [Designation("Тип проекта"), Required, OrderStatus(5)]
         public virtual ProjectType ProjectType { get; set; }
 
-        [Designation("Высокая вероятность поставки")]
+        [Designation("Высокая вероятность поставки"), OrderStatus(2)]
         public bool HighProbability { get; set; } = true;
 
-        [Designation("Менеджер"), NotUpdate(Role.SalesManager)]
+        [Designation("Отразить в отчете"), OrderStatus(3)]
+        public bool ForReport { get; set; } = true;
+
+        [Designation("Менеджер"), NotUpdate(Role.SalesManager), OrderStatus(4)]
         public virtual User Manager { get; set; }
 
         [Designation("Заметки"), OrderStatus(-10)]

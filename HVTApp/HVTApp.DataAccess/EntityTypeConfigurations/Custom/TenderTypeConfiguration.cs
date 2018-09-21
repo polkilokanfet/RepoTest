@@ -5,7 +5,6 @@ namespace HVTApp.DataAccess
         public TenderTypeConfiguration()
         {
             Property(x => x.Type).IsRequired();
-            Property(x => x.Name).IsRequired().HasMaxLength(50);
         }
     }
 }

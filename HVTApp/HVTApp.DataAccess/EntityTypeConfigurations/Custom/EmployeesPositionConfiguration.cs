@@ -4,7 +4,6 @@ namespace HVTApp.DataAccess
     {
         public EmployeesPositionConfiguration()
         {
-            Property(x => x.Name).IsRequired().HasMaxLength(75);
         }
     }
 }

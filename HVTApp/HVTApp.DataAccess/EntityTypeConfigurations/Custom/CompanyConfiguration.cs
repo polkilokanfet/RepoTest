@@ -4,10 +4,6 @@ namespace HVTApp.DataAccess
     {
         public CompanyConfiguration()
         {
-            Property(x => x.FullName).IsRequired().HasMaxLength(100);
-            Property(x => x.ShortName).IsRequired().HasMaxLength(100);
-            Property(x => x.Inn).IsOptional().HasMaxLength(20);
-            Property(x => x.Kpp).IsOptional().HasMaxLength(20);
             HasRequired(x => x.Form).WithMany();
             HasOptional(x => x.AddressLegal).WithMany();
             HasOptional(x => x.AddressPost).WithMany();

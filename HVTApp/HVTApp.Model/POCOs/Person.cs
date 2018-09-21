@@ -1,4 +1,5 @@
-﻿using HVTApp.Infrastructure;
+﻿using System.ComponentModel.DataAnnotations;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.Model.POCOs
@@ -7,13 +8,13 @@ namespace HVTApp.Model.POCOs
     [DesignationPlural("Персоны")]
     public partial class Person : BaseEntity
     {
-        [Designation("Фамилия")]
+        [Designation("Фамилия"), Required, MaxLength(30)]
         public string Surname { get; set; }
 
-        [Designation("Имя")]
+        [Designation("Имя"), Required, MaxLength(30)]
         public string Name { get; set; }
 
-        [Designation("Отчество")]
+        [Designation("Отчество"), MaxLength(30)]
         public string Patronymic { get; set; }
 
         [Designation("Мужского пола")]

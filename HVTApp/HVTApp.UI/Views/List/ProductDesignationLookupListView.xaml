@@ -34,8 +34,8 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
-                    <infg:TextField Name="Parameters" Label="Parameters" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="Designation" Label="Designation" Width="Auto" />
+                    <infg:TextField Name="Designation" Label="Обозначение" Width="Auto" />
+                    <infg:TextField Name="Parameters" Label="Параметры" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>

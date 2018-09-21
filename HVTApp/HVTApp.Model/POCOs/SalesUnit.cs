@@ -55,10 +55,10 @@ namespace HVTApp.Model.POCOs
         [Designation("Заказ")]
         public virtual Order Order { get; set; }
 
-        [Designation("Позиция")]
+        [Designation("Позиция"), MaxLength(4)]
         public string OrderPosition { get; set; }
 
-        [Designation("Номер")]
+        [Designation("Номер"), MaxLength(10)]
         public string SerialNumber { get; set; }
 
         [Designation("Срок сборки")]

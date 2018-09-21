@@ -234,16 +234,6 @@ namespace HVTApp.DataAccess
 		}
     }
 
-    public partial class ProductionTaskRepository : BaseRepository<ProductionTask>, IProductionTaskRepository
-    {
-        IUnityContainer _container;
-
-		public ProductionTaskRepository(DbContext context, IUnityContainer container) : base(context) 
-		{
-			_container = container;
-		}
-    }
-
     public partial class SalesBlockRepository : BaseRepository<SalesBlock>, ISalesBlockRepository
     {
         IUnityContainer _container;

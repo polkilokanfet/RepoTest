@@ -27,7 +27,7 @@
 									Visibility="{Binding VisibilityProductProductDependent, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Amount" Visibility="{Binding VisibilityAmountProductDependent, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="1" Content="Количество" Visibility="{Binding VisibilityAmountProductDependent, ElementName=Root}"/>
 		<infE:XamNumericEditor Grid.Column="1" Grid.Row="1"
 							   ValueType="core:Int32"
                                Value="{Binding Item.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

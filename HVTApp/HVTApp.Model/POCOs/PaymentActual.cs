@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 
@@ -7,13 +8,13 @@ namespace HVTApp.Model.POCOs
     [Designation("Платеж совершенный")]
     public partial class PaymentActual : BaseEntity
     {
-        [Designation("Дата")]
+        [Designation("Дата"), Required]
         public DateTime Date { get; set; }
 
-        [Designation("Сумма")]
+        [Designation("Сумма"), Required]
         public double Sum { get; set; }
 
-        [Designation("Комментарий")]
+        [Designation("Комментарий"), MaxLength(50)]
         public string Comment { get; set; }
 
         public override string ToString()

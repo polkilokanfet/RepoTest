@@ -42,12 +42,12 @@
                     <infg:TextField Name="Author" Label="Автор" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="SenderEmployee" Label="Отправитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RecipientEmployee" Label="Получатель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="RegistrationDetailsOfRecipient" Label="Рег.данные получателя" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Company" Label="Компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RequestDocument" Label="Запрос" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:NumericField Name="Vat" Label="НДС" Width="Auto" />
                     <infg:NumericField Name="Sum" Label="Sum" Width="Auto" />
                     <infg:TextField Name="OfferUnits" Label="OfferUnits" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="RegistrationDetailsOfRecipient" Label="Рег.данные получателя" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="CopyToRecipients" Label="Копия" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />
                     <infg:TextField Name="Code" Label="Код" Width="Auto" />

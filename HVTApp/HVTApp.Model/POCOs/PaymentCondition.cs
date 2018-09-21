@@ -1,12 +1,20 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.Model.POCOs
 {
+    [Designation("Условие платежа")]
     public partial class PaymentCondition : BaseEntity, IComparable<PaymentCondition>
     {
+        [Designation("Часть"),Required, OrderStatus(6)]
         public double Part { get; set; }
+
+        [Designation("Дней до условия"), Required, OrderStatus(8)]
         public int DaysToPoint { get; set; }
+
+        [Designation("Условие"), Required, OrderStatus(10)]
         public virtual PaymentConditionPoint PaymentConditionPoint { get; set; }
 
         public override string ToString()

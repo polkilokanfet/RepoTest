@@ -1,4 +1,5 @@
-﻿using HVTApp.Infrastructure;
+﻿using System.ComponentModel.DataAnnotations;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.Model.POCOs
@@ -6,10 +7,10 @@ namespace HVTApp.Model.POCOs
     [Designation("Задание на создание нового продукта")]
     public partial class CreateNewProductTask : BaseEntity
     {
-        [Designation("Обозначение")]
+        [Designation("Обозначение"), MaxLength(20)]
         public string Designation { get; set; }
 
-        [Designation("Сралчахвост")]
+        [Designation("Сралчахвост"), MaxLength(10)]
         public string StructureCostNumber { get; set; }
 
         [Designation("Продукт")]

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using HVTApp.Infrastructure;
@@ -13,16 +15,16 @@ namespace HVTApp.Model.POCOs
     [Designation("Продукт"), DesignationPlural("Продукты")]
     public partial class Product : BaseEntity
     {
-        [Designation("Обозначение")]
+        [Designation("Обозначение"), NotMapped, OrderStatus(8)]
         public string Designation { get; set; }
 
-        [Designation("Специальное обозначение")]
+        [Designation("Специальное обозначение"), MaxLength(50), OrderStatus(6)]
         public string DesignationSpecial { get; set; }
 
-        [Designation("Тип")]
+        [Designation("Тип"), NotMapped, OrderStatus(10)]
         public ProductType ProductType { get; set; }
 
-        [Designation("Блок")]
+        [Designation("Блок"), Required, OrderStatus(5)]
         public virtual ProductBlock ProductBlock { get; set; }
 
         [Designation("Продукты в составе")]
@@ -51,7 +53,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            string type = ProductType == null ? String.Empty : $"{ProductType} ";
+            var type = ProductType == null ? String.Empty : $"{ProductType} ";
             if (!string.IsNullOrEmpty(DesignationSpecial)) return $"{type}{DesignationSpecial}";
             if (!string.IsNullOrEmpty(Designation)) return $"{type}{Designation}";
             return ProductBlock.ToString();

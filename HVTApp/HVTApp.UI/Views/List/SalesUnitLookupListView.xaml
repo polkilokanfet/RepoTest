@@ -38,6 +38,7 @@
                     <infg:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto" />
+                    <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Specification" Label="Спецификация" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Producer" Label="Производитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Order" Label="Заказ" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
@@ -66,7 +67,6 @@
                     <infg:TextField Name="PaymentsPlannedActual" Label="PaymentsPlannedActual" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="PaymentsPlanned" Label="Планируемые платежи" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="PaymentsActual" Label="Совершённые платежи" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="OrderPosition" Label="Позиция" Width="Auto" />
                     <infg:NumericField Name="OrderInTakeYear" Label="Год" Width="Auto" />
                     <infg:NumericField Name="OrderInTakeMonth" Label="Месяц" Width="Auto" />

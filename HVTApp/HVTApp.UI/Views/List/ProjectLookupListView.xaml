@@ -37,14 +37,15 @@
                     <infg:TextField Name="Facilities" Label="Объекты" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Name" Label="Название" Width="Auto" />
                     <infg:TextField Name="ProjectType" Label="Тип проекта" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:CheckBoxField Name="ForReport" Label="Отразить в отчете" Width="Auto" />
+                    <infg:CheckBoxField Name="HighProbability" Label="Высокая вероятность поставки" Width="Auto" />
                     <infg:DateTimeField Name="TenderDate" Label="Тендер" Width="Auto" />
                     <infg:NumericField Name="Sum" Label="Сумма проекта" Width="Auto" />
-                    <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:DateTimeField Name="RealizationDate" Label="Дата поставки" Width="Auto" />
                     <infg:TextField Name="Tenders" Label="Tenders" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="SalesUnits" Label="SalesUnits" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Offers" Label="Offers" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:CheckBoxField Name="HighProbability" Label="Высокая вероятность поставки" Width="Auto" />
                     <infg:TextField Name="Notes" Label="Заметки" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
 
 					</infg:FieldLayout.Fields>

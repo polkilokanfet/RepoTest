@@ -1017,7 +1017,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("DocumentsRegistrationDetails")]
+	[Designation("Регистрационные данные")]
 	[DesignationPlural("DocumentsRegistrationDetailsLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -1044,17 +1044,17 @@ namespace HVTApp.UI.Views
 		#region VisibilityProps
 
 
-        public System.Windows.Visibility RegistrationNumberVisibility
+        public System.Windows.Visibility DateVisibility
         {
-            get { return DocumentsRegistrationDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentsRegistrationDetailsLookup.RegistrationNumber)].Visibility; }
-            set { DocumentsRegistrationDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentsRegistrationDetailsLookup.RegistrationNumber)].Visibility = value; }
+            get { return DocumentsRegistrationDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentsRegistrationDetailsLookup.Date)].Visibility; }
+            set { DocumentsRegistrationDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentsRegistrationDetailsLookup.Date)].Visibility = value; }
         }
 
 
-        public System.Windows.Visibility RegistrationDateVisibility
+        public System.Windows.Visibility NumberVisibility
         {
-            get { return DocumentsRegistrationDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentsRegistrationDetailsLookup.RegistrationDate)].Visibility; }
-            set { DocumentsRegistrationDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentsRegistrationDetailsLookup.RegistrationDate)].Visibility = value; }
+            get { return DocumentsRegistrationDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentsRegistrationDetailsLookup.Number)].Visibility; }
+            set { DocumentsRegistrationDetailsLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.DocumentsRegistrationDetailsLookup.Number)].Visibility = value; }
         }
 
 
@@ -1160,7 +1160,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("EmployeesPosition")]
+	[Designation("Должность")]
 	[DesignationPlural("EmployeesPositionLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -1507,7 +1507,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("Measure")]
+	[Designation("Единица измерения")]
 	[DesignationPlural("MeasureLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -1899,7 +1899,6 @@ namespace HVTApp.UI.Views
         }
 
 
-
         public System.Windows.Visibility ProductsIncludedVisibility
         {
             get { return OfferUnitLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.OfferUnitLookup.ProductsIncluded)].Visibility; }
@@ -1975,7 +1974,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("ParameterGroup")]
+	[Designation("Группа параметров")]
 	[DesignationPlural("ParameterGroupLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -2233,7 +2232,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("PaymentCondition")]
+	[Designation("Условие платежа")]
 	[DesignationPlural("PaymentConditionLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -2301,7 +2300,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("PaymentConditionSet")]
+	[Designation("Условия оплаты")]
 	[DesignationPlural("PaymentConditionSetLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -2745,7 +2744,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("ProductDependent")]
+	[Designation("Зависимое оборудование")]
 	[DesignationPlural("ProductDependentLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -2813,7 +2812,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("ProductDesignation")]
+	[Designation("Обозначение продукта")]
 	[DesignationPlural("ProductDesignationLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -2874,7 +2873,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("ProductIncluded")]
+	[Designation("Включенное в стоимость оборудование")]
 	[DesignationPlural("ProductIncludedLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -2926,67 +2925,6 @@ namespace HVTApp.UI.Views
         {
             get { return ProductIncludedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductIncludedLookup.Entity)].Visibility; }
             set { ProductIncludedLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductIncludedLookup.Entity)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
-	[Designation("ProductionTask")]
-	[DesignationPlural("ProductionTaskLookup")]
-	[AllowEditAttribute(Role.Admin)]
-
-    public partial class ProductionTaskLookupListView : ViewBase
-    {
-        public ProductionTaskLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public ProductionTaskLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, ProductionTaskLookupListViewModel ProductionTaskLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = ProductionTaskLookupListViewModel;
-			ProductionTaskLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((ProductionTaskLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility DateTaskVisibility
-        {
-            get { return ProductionTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductionTaskLookup.DateTask)].Visibility; }
-            set { ProductionTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductionTaskLookup.DateTask)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return ProductionTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductionTaskLookup.DisplayMember)].Visibility; }
-            set { ProductionTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductionTaskLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return ProductionTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductionTaskLookup.Entity)].Visibility; }
-            set { ProductionTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductionTaskLookup.Entity)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility SalesUnitsVisibility
-        {
-            get { return ProductionTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductionTaskLookup.SalesUnits)].Visibility; }
-            set { ProductionTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProductionTaskLookup.SalesUnits)].Visibility = value; }
         }
 
 
@@ -3078,7 +3016,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("ProductRelation")]
+	[Designation("Связи продуктов")]
 	[DesignationPlural("ProductRelationLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -3160,7 +3098,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("ProductTypeDesignation")]
+	[Designation("Обозначение типа продукта")]
 	[DesignationPlural("ProductTypeDesignationLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -3313,6 +3251,13 @@ namespace HVTApp.UI.Views
         {
             get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.HighProbability)].Visibility; }
             set { ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.HighProbability)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ForReportVisibility
+        {
+            get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.ForReport)].Visibility; }
+            set { ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.ForReport)].Visibility = value; }
         }
 
 
@@ -4136,7 +4081,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("SumOnDate")]
+	[Designation("Сумма на дату")]
 	[DesignationPlural("SumOnDateLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -5015,7 +4960,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("UserRole")]
+	[Designation("Роль пользователя")]
 	[DesignationPlural("UserRoleLookup")]
 	[AllowEditAttribute(Role.Admin)]
 

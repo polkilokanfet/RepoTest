@@ -25,7 +25,7 @@ namespace HVTApp.Services.PrintService
 
         public void PrintProducts(IEnumerable<Product> products, ProductBlock block = null)
         {
-            string offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestProductDocument.docx";
+            string offerDocumentPath = AppDomain.CurrentDomain.BaseDirectory + "\\TestProductsDocument.docx";
             WordDocumentWriter docWriter = WordDocumentWriter.Create(offerDocumentPath);
             docWriter.StartDocument();
 

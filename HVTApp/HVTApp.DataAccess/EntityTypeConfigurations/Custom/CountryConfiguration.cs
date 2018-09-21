@@ -4,7 +4,6 @@ namespace HVTApp.DataAccess
     {
         public CountryConfiguration()
         {
-            Property(x => x.Name).IsRequired().HasMaxLength(75);
         }
     }
 }

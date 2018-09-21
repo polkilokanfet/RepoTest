@@ -12,7 +12,7 @@ namespace HVTApp.Model.POCOs
     [Designation("Платежный документ")]
     public partial class PaymentDocument : BaseEntity
     {
-        [Designation("Номер"), Required, OrderStatus(10)]
+        [Designation("Номер"), Required, OrderStatus(10), MaxLength(25)]
         public string Number { get; set; }
 
         [Designation("Дата"), NotMapped, OrderStatus(20)]
@@ -23,7 +23,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return $"PaymentDocument: {Number}";
+            return $"Платежный документ: {Number}";
         }
     }
 }
