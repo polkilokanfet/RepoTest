@@ -66,6 +66,7 @@
     <Compile Include="POCOs\ProductType.cs" />
     <Compile Include="POCOs\ProductTypeDesignation.cs" />
     <Compile Include="POCOs\ProjectType.cs" />
+    <Compile Include="ProductStructure.cs" />
     <Compile Include="RoleAccessAttribute.cs" />
     <Compile Include="POCOs\CommonOption.cs" />
     <Compile Include="CommonOptions.cs" />

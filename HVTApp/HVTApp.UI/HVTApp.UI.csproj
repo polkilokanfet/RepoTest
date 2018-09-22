@@ -100,12 +100,16 @@
     <Compile Include="Groups\ProductUnitsGroup.cs" />
     <Compile Include="Groups\ShipmentUnitsGroup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
+    <Compile Include="ViewModels\ProductStructureViewModel.cs" />
     <Compile Include="ViewModels\Details\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProductIncludedDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\SalesUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\List\CompanyLookupListViewModel.cs" />
     <Compile Include="Views\Details\Custom\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProductStructureView.xaml.cs">
+      <DependentUpon>ProductStructureView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wrapper\Custom\Functionality\DocumentWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\OrderWrapper.cs" />
@@ -125,9 +129,9 @@
       <DependentUpon>TabNavigation.xaml</DependentUpon>
     </Compile>
     <Compile Include="UiModule.g.cs" />
-    <Compile Include="ViewModels\BaseDetailsViewModel.cs" />
-    <Compile Include="ViewModels\BaseListViewModel.cs" />
-    <Compile Include="ViewModels\BindableBaseCanExportToExcel.cs" />
+    <Compile Include="ViewModels\Base\BaseDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Base\BaseListViewModel.cs" />
+    <Compile Include="ViewModels\Base\BindableBaseCanExportToExcel.cs" />
     <Compile Include="ViewModels\Details\ContractDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\Generated\DetailsViewModels.g.cs" />
     <Compile Include="ViewModels\Details\IProductCostDependentProductsWrapper.cs" />
@@ -136,7 +140,7 @@
     <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\SpecificationDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\WrapperWithUnitsViewModel.cs" />
-    <Compile Include="ViewModels\IBaseListViewModel.cs" />
+    <Compile Include="ViewModels\Base\IBaseListViewModel.cs" />
     <Compile Include="Controls\ChooseItemControl.xaml.cs">
       <DependentUpon>ChooseItemControl.xaml</DependentUpon>
     </Compile>
@@ -892,6 +896,10 @@
     <Page Include="Views\List\UserRoleLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ProductStructureView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

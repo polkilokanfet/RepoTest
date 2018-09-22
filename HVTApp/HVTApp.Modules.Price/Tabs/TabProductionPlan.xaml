@@ -10,9 +10,14 @@
         <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}"/>
         <infRib:ButtonTool Caption="Разместить" Command="{Binding AddInOrderCommand}"/>
     </infRib:RibbonGroup>
+    
     <infRib:RibbonGroup Caption="Заказы">
         <infRib:ButtonTool Caption="Создать" Command="{Binding NewItemCommand}"/>
         <infRib:ButtonTool Caption="Изменить" Command="{Binding EditItemCommand}"/>
+    </infRib:RibbonGroup>
+        
+    <infRib:RibbonGroup Caption="Структура">
+        <infRib:ButtonTool Caption="Показать" Command="{Binding ShowProductStructureCommand}"/>
     </infRib:RibbonGroup>
         
 </inf:RibbonTabItemWithViewModel>

@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
@@ -35,6 +34,7 @@ namespace HVTApp.Modules.Price.ViewModels
                 if (Equals(_selectedGroupPotential, value)) return;
                 _selectedGroupPotential = value;
                 ((DelegateCommand)AddInOrderCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)ShowProductStructureCommand).RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
@@ -43,6 +43,8 @@ namespace HVTApp.Modules.Price.ViewModels
         public ICommand SaveCommand { get; }
         public ICommand AddInOrderCommand { get; }
 
+        public ICommand ShowProductStructureCommand { get; }
+
         public ProductionPlanViewModel(IUnityContainer container) : base(container)
         {
             Func<bool> canSave = () => _salesUnitsWrappers != null && _salesUnitsWrappers.IsChanged && _salesUnitsWrappers.IsValid;
@@ -50,6 +52,19 @@ namespace HVTApp.Modules.Price.ViewModels
             
             AddInOrderCommand = new DelegateCommand(AddInOrderCommand_Execute, AddInOrderCommand_CanExecute);
             ReloadCommand = new DelegateCommand(async () => await LoadAsync());
+
+            ShowProductStructureCommand = new DelegateCommand(ShowProductStructureCommand_Execute, ShowProductStructureCommand_CanExecute);
+        }
+
+        private bool ShowProductStructureCommand_CanExecute()
+        {
+            return SelectedGroupPotential != null;
+        }
+
+        private void ShowProductStructureCommand_Execute()
+        {
+            var productStructure = new ProductStructureViewModel(SelectedGroupPotential.Unit.Model);
+            Container.Resolve<IDialogService>().Show(productStructure);
         }
 
         private async void SaveCommand_Execute()

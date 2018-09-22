@@ -4,12 +4,12 @@
     
     <Style TargetType="infg:XamDataGrid">
         
-        <Setter Property="FieldSettings">
+        <!--<Setter Property="FieldSettings">
             <Setter.Value>
                 <infg:FieldSettings AllowEdit="False" 
                                     AllowRecordFiltering="True"/>
             </Setter.Value>
-        </Setter>
+        </Setter>-->
         
         <Setter Property="FieldLayoutSettings">
             <Setter.Value>

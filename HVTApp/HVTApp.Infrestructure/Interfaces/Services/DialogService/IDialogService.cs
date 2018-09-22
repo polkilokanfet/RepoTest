@@ -1,14 +1,19 @@
 using System;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace HVTApp.Infrastructure.Interfaces.Services.DialogService
 {
     public interface IDialogService
     {
-        void Register<TViewModel, TView>() 
+        void Register<TViewModel, TView>()
             where TViewModel : IDialogRequestClose
             where TView : IDialog;
         bool? ShowDialog<TViewModel>(TViewModel viewModel) where TViewModel : IDialogRequestClose;
+
+        void RegisterShow<TViewModel, TView>()
+            where TView : UserControl;
+        void Show<TViewModel>(TViewModel viewModel);
     }
 
     public interface IDialog
