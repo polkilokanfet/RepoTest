@@ -149,12 +149,8 @@
     </Compile>
     <Compile Include="Converter\LookupToStringConverter.cs" />
     <Compile Include="Converter\WrappersToStringConverter.cs" />
-    <Compile Include="Lookup\Items\Custom\CompanyLookup.cs" />
-    <Compile Include="Lookup\Items\Custom\FacilityLookup.cs" />
     <Compile Include="Lookup\Items\LookupItem.cs" />
     <Compile Include="Lookup\Items\Custom\OfferLookup.cs" />
-    <Compile Include="Lookup\Items\Custom\ParameterLookup.cs" />
-    <Compile Include="Lookup\Items\Custom\ProductLookup.cs" />
     <Compile Include="Lookup\Items\Custom\ProjectLookup.cs" />
     <Compile Include="UiModule.cs" />
     <Compile Include="Wrapper\UnitsGroup.cs" />

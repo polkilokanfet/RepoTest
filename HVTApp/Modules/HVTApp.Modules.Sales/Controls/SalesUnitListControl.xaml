@@ -74,8 +74,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <GroupBox Grid.Column="0"
-                      Header="Оборудование">
+            <GroupBox Grid.Column="0" Header="Оборудование">
 
                 <dp:XamDataGrid x:Name="UnitListGrid"
                                 DataSource="{Binding Groups}"
@@ -142,30 +141,20 @@
                 </dp:XamDataGrid>
             </GroupBox>
 
-            <GridSplitter Grid.Row="0"
-                          Grid.Column="1"
-                          VerticalAlignment="Stretch"
-                          HorizontalAlignment="Center"
-                          Width="3" />
+            <GridSplitter Grid.Row="0" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="3" />
 
-            <GroupBox Grid.Column="2"
-                      Header="Включено в стоимость"
-                      Name="ProductsIncludedGroupBox">
+            <GroupBox Grid.Column="2" Header="Включено в стоимость" Name="ProductsIncludedGroupBox">
                 <dp:XamDataGrid x:Name="ProductsIncludedListGrid"
                                 DataSource="{Binding Path=SelectedDataItem.ProductsIncluded, ElementName=UnitListGrid, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                 SelectedDataItem="{Binding SelectedProductIncluded}">
 
                     <dp:XamDataGrid.FieldLayouts>
-
                         <dp:FieldLayout>
                             <dp:FieldLayout.Fields>
-                                <dp:Field Name="Product"
-                                          Label="Продукт"
-                                          Width="Auto"
-                                          Converter="{StaticResource WrapperToStringConverter}" />
-                                <dp:NumericField Name="Amount"
-                                                 Label="Кол."
-                                                 Width="Auto" />
+                                
+                                <dp:TextField Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}" />
+                                <dp:NumericField Name="Amount" Label="Кол." Width="Auto" /> 
+                                
                             </dp:FieldLayout.Fields>
                         </dp:FieldLayout>
 
@@ -175,13 +164,26 @@
 
         </Grid>
 
-        <GridSplitter Grid.Row="1"
-                      HorizontalAlignment="Stretch"
-                      Height="3" />
+        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="3" />
 
-        <GroupBox Grid.Row="2"
-                  Header="Ошибки при расчете себестоимости:">
-            <TextBlock Text="{Binding PriceErrors}" />
+        <GroupBox Grid.Row="2" Header="Структура себестоимости:">
+            <dp:XamDataGrid DataSource="{Binding PriceStructures}">
+                <dp:XamDataGrid.FieldLayouts>
+                    <dp:FieldLayout>
+                        <dp:FieldLayout.Fields>
+                                
+                            <dp:TextField Name="Product" Label="Продукт" Width="Auto" />
+                            <dp:NumericField Name="Amount" Label="Кол." Width="Auto" />                            
+                            <dp:NumericField AlternateBinding="{Binding Price.Sum}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" />                            
+                            <dp:NumericField Name="Total" Label="Сумма" Width="Auto" />
+                            <dp:DateTimeField AlternateBinding="{Binding Price.Date}" BindingType="UseAlternateBinding" Label="Дата" Width="Auto" />                            
+                            <dp:TextField Name="Analog" Label="Аналог" Width="Auto" />
+                            <dp:Field Name="Childs" IsExpandable="True"/>
+                                
+                        </dp:FieldLayout.Fields>
+                    </dp:FieldLayout>
+                </dp:XamDataGrid.FieldLayouts>
+            </dp:XamDataGrid>
         </GroupBox>
 
     </Grid>

@@ -21,14 +21,14 @@ namespace HVTApp.Modules.Sales.ViewModels
             _specification = specification;
         }
 
-        protected override async void AddCommand_Execute()
+        protected override void AddCommand_Execute()
         {
             var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.Id == CommonOptions.User.Id);
             var unit = Container.Resolve<ISelectService>().SelectItem(salesUnits);
             if (unit == null) return;
             var group = new SalesUnitsGroup(new[] {unit});
             group.Specification = new SpecificationWrapper(_specification);
-            await RefreshPrice(group);
+            RefreshPrice(group);
             Groups.Add(group);
         }
 

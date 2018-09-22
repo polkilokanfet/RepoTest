@@ -22,13 +22,13 @@ namespace HVTApp.UI.Lookup
         //[OrderStatus(OrderStatus.Low)]
         public List<OfferLookup> Offers { get; } = new List<OfferLookup>();
 
-        [Designation("Сумма проекта")]
+        [Designation("Сумма проекта"), OrderStatus(7)]
         public double Sum => SalesUnits.Sum(x => x.Cost);
 
-        [Designation("Дата поставки")]
+        [Designation("Дата поставки"), OrderStatus(6)]
         public DateTime RealizationDate => SalesUnits.Any() ? SalesUnits.Select(x => x.DeliveryDateExpected).Min() : DateTime.Today.AddMonths(6);
 
-        [Designation("Тендер")]
+        [Designation("Тендер"), OrderStatus(5)]
         public DateTime? TenderDate
         {
             get
@@ -37,10 +37,53 @@ namespace HVTApp.UI.Lookup
                 var supply = Tenders.Where(x => x.Entity.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToSupply)).ToList();
                 return !supply.Any() ? null : supply.OrderBy(x => x.DateClose).Last()?.DateClose;
             }
-        } 
+        }
 
         [Designation("Объекты"), OrderStatus(10)]
         public List<FacilityLookup> Facilities => SalesUnits?.Select(x => x.Facility).Distinct(new FacilityComparer()).ToList();
+
+
+        [Designation("Подрядчик"), OrderStatus(4)]
+        public CompanyLookup Builder
+        {
+            get
+            {
+                if (Tenders.Any())
+                {
+                    var tenders = Tenders.Where(x => x.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToWork)).OrderBy(x => x.DateClose);
+                    return tenders.LastOrDefault()?.Winner;
+                }
+                return null;
+            }
+        }
+
+        [Designation("Проектировщик"), OrderStatus(3)]
+        public CompanyLookup ProjectMaker
+        {
+            get
+            {
+                if (Tenders.Any())
+                {
+                    var tenders = Tenders.Where(x => x.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToProject)).OrderBy(x => x.DateClose);
+                    return tenders.LastOrDefault()?.Winner;
+                }
+                return null;
+            }
+        }
+
+        [Designation("Поставщик"), OrderStatus(2)]
+        public CompanyLookup Sypplier
+        {
+            get
+            {
+                if (Tenders.Any())
+                {
+                    var tenders = Tenders.Where(x => x.Types.Select(t => t.Type).Contains(TenderTypeEnum.ToProject)).OrderBy(x => x.DateClose);
+                    return tenders.LastOrDefault()?.Winner;
+                }
+                return null;
+            }
+        }
 
         public override int CompareTo(object obj)
         {

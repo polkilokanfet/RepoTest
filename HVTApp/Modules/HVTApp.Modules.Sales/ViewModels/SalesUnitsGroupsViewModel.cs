@@ -11,6 +11,7 @@ using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Structures;
 using HVTApp.Services.GetProductService;
 using HVTApp.Services.PriceService;
 using HVTApp.UI.Converter;
@@ -75,30 +76,29 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         protected override async Task LoadedAsyncMethod()
         {
-            foreach (var group in Groups)
-                await RefreshPrice(group);
+            _blocks = await UnitOfWork.Repository<ProductBlock>().GetAllAsync();
+            Groups.ForEach(RefreshPrice);
         }
 
-        protected async Task RefreshPrice(SalesUnitsGroup group)
+        private List<ProductBlock> _blocks;
+        private readonly Dictionary<SalesUnitsGroup, PriceStructures> _priceDictionary = new Dictionary<SalesUnitsGroup, PriceStructures>();
+
+        protected void RefreshPrice(SalesUnitsGroup group)
         {
             if (group == null) return;
 
-            var priceService = Container.Resolve<IPriceService>();
-
-            //прайс для основного оборудования
             var priceDate = group.OrderInTakeDate < DateTime.Today ? group.OrderInTakeDate : DateTime.Today;
-            var price = await priceService.GetPrice(group.Product.Model, priceDate, CommonOptions.ActualOptions.ActualPriceTerm, _priceErrors);
+            var priceTerm = CommonOptions.ActualOptions.ActualPriceTerm;
 
-            //добавляем прайсы дополнительного оборудования
-            foreach (var productIncluded in group.ProductsIncluded)
-            {
-                price += productIncluded.Amount * await priceService.GetPrice(productIncluded.Product.Model, DateTime.Today, CommonOptions.ActualOptions.ActualPriceTerm, _priceErrors);
-            }
+            if (!_priceDictionary.ContainsKey(group)) _priceDictionary.Add(group, null);
 
-            group.Price = price;
-            OnPropertyChanged(nameof(PriceErrors));
+            _priceDictionary[group] = new PriceStructures(group.Model, priceDate, priceTerm, _blocks);
+
+            group.Price = _priceDictionary[group].Total;
+            OnPropertyChanged(nameof(PriceStructures));
         }
-        
+
+        public PriceStructures PriceStructures => SelectedGroup == null ? null : _priceDictionary[SelectedGroup];
 
         /// <summary>
         /// Выбранная группа.
@@ -113,7 +113,7 @@ namespace HVTApp.Modules.Sales.ViewModels
                 ((DelegateCommand)RemoveCommand)?.RaiseCanExecuteChanged();
                 ((DelegateCommand)AddProductIncludedCommand)?.RaiseCanExecuteChanged();
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(PriceErrors));
+                OnPropertyChanged(nameof(PriceStructures));
             }
         }
 
@@ -132,7 +132,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #region Commands
 
-        protected virtual async void AddCommand_Execute()
+        protected virtual void AddCommand_Execute()
         {
             //создаем новый юнит и привязываем его к объекту
             var salesUnit = new SalesUnitWrapper(new SalesUnit());
@@ -176,7 +176,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             var group = new SalesUnitsGroup(units);
             Groups.Add(group);
-            await RefreshPrice(group);
+            RefreshPrice(group);
             SelectedGroup = group;
         }
 
@@ -187,16 +187,16 @@ namespace HVTApp.Modules.Sales.ViewModels
             if (productIncluded == null) return;
             productIncluded.Product = await _unitOfWork.Repository<Product>().GetByIdAsync(productIncluded.Product.Id);
             SelectedGroup.ProductsIncluded.Add(new ProductIncludedWrapper(productIncluded));
-            await RefreshPrice(SelectedGroup);
+            RefreshPrice(SelectedGroup);
         }
 
-        private async void RemoveProductIncludedCommand_Execute()
+        private void RemoveProductIncludedCommand_Execute()
         {
             if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
                 return;
 
             SelectedGroup.ProductsIncluded.Remove(SelectedProductIncluded);
-            await RefreshPrice(SelectedGroup);
+            RefreshPrice(SelectedGroup);
         }
 
         private void RemoveCommand_Execute()
@@ -229,7 +229,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             if (product == null || product.Id == group.Product.Id) return;
             product = await _unitOfWork.Repository<Product>().GetByIdAsync(product.Id);
             group.Product = new ProductWrapper(product);
-            await RefreshPrice(group);
+            RefreshPrice(group);
         }
 
         private async void ChangeFacilityCommand_Execute(SalesUnitsGroup group)
@@ -252,37 +252,6 @@ namespace HVTApp.Modules.Sales.ViewModels
 
 
         #endregion
-
-        private readonly PriceErrors _priceErrors = new PriceErrors();
-
-        public string PriceErrors
-        {
-            get
-            {
-                var blocks = new List<ProductBlock>();
-                if (SelectedGroup == null)
-                {
-                    foreach (var unitsGroup in Groups)
-                    {
-                        blocks.AddRange(unitsGroup.Product.Model.GetBlocks());
-                        foreach (var pi in unitsGroup.ProductsIncluded)
-                        {
-                            blocks.AddRange(pi.Product.Model.GetBlocks());
-                        }
-                    }
-                }
-                else
-                {
-                    blocks.AddRange(SelectedGroup.Product.Model.GetBlocks());
-                    foreach (var pi in SelectedGroup.ProductsIncluded)
-                    {
-                        blocks.AddRange(pi.Product.Model.GetBlocks());
-                    }
-                }
-
-                return _priceErrors.Print(blocks);
-            }
-        }
 
         public virtual async Task SaveChanges()
         {

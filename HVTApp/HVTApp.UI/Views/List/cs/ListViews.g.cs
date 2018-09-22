@@ -3303,6 +3303,27 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility BuilderVisibility
+        {
+            get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Builder)].Visibility; }
+            set { ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Builder)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ProjectMakerVisibility
+        {
+            get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.ProjectMaker)].Visibility; }
+            set { ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.ProjectMaker)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SypplierVisibility
+        {
+            get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Sypplier)].Visibility; }
+            set { ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Sypplier)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility EntityVisibility
         {
             get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Entity)].Visibility; }

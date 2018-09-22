@@ -9,7 +9,7 @@ namespace HVTApp.Model.POCOs
     [DesignationPlural("Проекты")]
     public partial class Project : BaseEntity
     {
-        [Designation("Название"), Required, OrderStatus(10), MaxLength(100)]
+        [Designation("Название"), Required, OrderStatus(9), MaxLength(100)]
         public string Name { get; set; }
 
         [Designation("Тип проекта"), Required, OrderStatus(5)]
@@ -18,7 +18,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Высокая вероятность поставки"), OrderStatus(2)]
         public bool HighProbability { get; set; } = true;
 
-        [Designation("Отразить в отчете"), OrderStatus(3)]
+        [Designation("Отразить в отчете"), OrderStatus(1)]
         public bool ForReport { get; set; } = true;
 
         [Designation("Менеджер"), NotUpdate(Role.SalesManager), OrderStatus(4)]

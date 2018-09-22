@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.Model.Structures;
 
 namespace HVTApp.UI.ViewModels
 {
