@@ -290,6 +290,13 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Generator.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Add_16x16.png" />
+    <Resource Include="Images\Print_16x16.png" />
+    <Resource Include="Images\Save_16x16.png" />
+    <Resource Include="Images\Refresh_16x16.png" />
+    <Resource Include="Images\New_16x16.png" />
+    <Resource Include="Images\Edit_16x16.png" />
+    <Resource Include="Images\Delete_16x16.png" />
     <Resource Include="GeneratorDetailsViews.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -526,10 +533,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Details\ProductIncludedDetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Details\ProductionTaskDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -790,10 +793,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\List\ProductIncludedLookupListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\List\ProductionTaskLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

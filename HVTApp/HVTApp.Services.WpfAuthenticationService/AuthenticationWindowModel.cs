@@ -85,12 +85,11 @@ namespace HVTApp.Services.WpfAuthenticationService
             SelectedRole = null;
             if (User != null)
             {
-                foreach (var role in User.Roles.OrderBy(x => x.Role))
-                    Roles.Add(role);
+                User.Roles.OrderBy(x => x.Role).ToList().ForEach(Roles.Add);
 
-                if (User.Roles.Count > 0)
+                if (User.Roles.Any())
                 {
-                    SelectedRole = User.Roles[0];
+                    SelectedRole = User.Roles.OrderBy(x => x.Role).First();
                     User.RoleCurrent = SelectedRole.Role;
                 }
             }

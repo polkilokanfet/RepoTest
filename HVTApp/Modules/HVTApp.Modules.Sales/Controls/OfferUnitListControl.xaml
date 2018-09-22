@@ -176,9 +176,24 @@
                       VerticalAlignment="Center"
                       Height="3" />
 
-        <GroupBox Grid.Row="2"
-                  Header="Ошибки при расчете себестоимости:">
-            <TextBlock Text="{Binding PriceErrors}" />
+        <GroupBox Grid.Row="2" Header="Структура себестоимости:">
+            <dp:XamDataGrid DataSource="{Binding PriceStructures}">
+                <dp:XamDataGrid.FieldLayouts>
+                    <dp:FieldLayout>
+                        <dp:FieldLayout.Fields>
+                                
+                            <dp:TextField Name="Product" Label="Продукт" Width="Auto" />
+                            <dp:NumericField Name="Amount" Label="Кол." Width="Auto" />                            
+                            <dp:NumericField AlternateBinding="{Binding Price.Sum}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" />                            
+                            <dp:NumericField Name="Total" Label="Сумма" Width="Auto" />
+                            <dp:DateTimeField AlternateBinding="{Binding Price.Date}" BindingType="UseAlternateBinding" Label="Дата" Width="Auto" />                            
+                            <dp:TextField Name="Analog" Label="Аналог" Width="Auto" />
+                            <dp:Field Name="Childs" IsExpandable="True"/>
+                                
+                        </dp:FieldLayout.Fields>
+                    </dp:FieldLayout>
+                </dp:XamDataGrid.FieldLayouts>
+            </dp:XamDataGrid>
         </GroupBox>
 
     </Grid>

@@ -159,6 +159,7 @@
     <Resource Include="Images\Save_16x16.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\Add_16x16.png" />
     <Content Include="Images\Print_16x16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

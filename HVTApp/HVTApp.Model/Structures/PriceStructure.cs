@@ -11,7 +11,7 @@ namespace HVTApp.Model.Structures
     {
         public double Total => this.Sum(x => x.Total);
 
-        public PriceStructures(SalesUnit salesUnit, DateTime targetPriceDate, int priceTerm, IEnumerable<ProductBlock> analogs)
+        public PriceStructures(IUnitPoco salesUnit, DateTime targetPriceDate, int priceTerm, IEnumerable<ProductBlock> analogs)
         {
             var productBlocks = analogs as ProductBlock[] ?? analogs.ToArray();
             this.Add(new PriceStructure(salesUnit.Product, 1, targetPriceDate, priceTerm, productBlocks));

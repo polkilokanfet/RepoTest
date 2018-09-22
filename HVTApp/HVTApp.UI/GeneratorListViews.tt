@@ -159,7 +159,7 @@ namespace HVTApp.UI.Views
         </Label>
        
 
-		<infg:XamDataGrid x:Name="<#=modelType.Name#>ListGrid" Grid.Row="1" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<infg:XamDataGrid x:Name="<#=modelType.Name#>ListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.ContextMenu>
 				<ContextMenu>

@@ -98,6 +98,9 @@ namespace HVTApp.Modules.Sales.ViewModels
             OnPropertyChanged(nameof(PriceStructures));
         }
 
+        /// <summary>
+        /// Структура себестоимости выбранной группы
+        /// </summary>
         public PriceStructures PriceStructures => SelectedGroup == null ? null : _priceDictionary[SelectedGroup];
 
         /// <summary>
