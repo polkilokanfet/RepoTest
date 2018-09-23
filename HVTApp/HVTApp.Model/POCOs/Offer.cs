@@ -15,6 +15,6 @@ namespace HVTApp.Model.POCOs
         public DateTime ValidityDate { get; set; }
 
         [Designation("ÍÄÑ"), OrderStatus(1)]
-        public double Vat { get; set; }
+        public double Vat { get; set; } = CommonOptions.ActualOptions.Vat;
     }
 }

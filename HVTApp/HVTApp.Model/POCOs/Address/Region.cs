@@ -8,6 +8,7 @@ namespace HVTApp.Model.POCOs
     /// Область, край, республика и т.д.
     /// </summary>
     [Designation("Регион")]
+    [AllowEdit(Role.SalesManager)]
     public partial class Region : BaseEntity
     {
         [Designation("Название"), Required, MaxLength(50), OrderStatus(2)]

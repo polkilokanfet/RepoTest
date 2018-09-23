@@ -8,6 +8,7 @@ namespace HVTApp.Model.POCOs
     /// Тип населенного пункта.
     /// </summary>
     [Designation("Тип населенного пункта")]
+    [AllowEdit(Role.SalesManager)]
     public partial class LocalityType : BaseEntity
     {
         [Designation("Полное название"), Required, MaxLength(50), OrderStatus(2)]

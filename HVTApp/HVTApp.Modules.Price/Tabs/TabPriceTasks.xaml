@@ -6,8 +6,8 @@
                                  Header="Прайсы">
     
     <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Обновить" Command="{Binding ReloadCommand}"/>
-        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}"/>
+        <infRib:ButtonTool Caption="Обновить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.Modules.Price;component/Images/Refresh_16x16.png"/>
+        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.Modules.Price;component/Images/Save_16x16.png"/>
     </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Продукт">

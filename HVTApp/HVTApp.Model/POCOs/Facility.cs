@@ -9,6 +9,7 @@ namespace HVTApp.Model.POCOs
     /// </summary>
     [Designation("Объект")]
     [DesignationPlural("Объекты")]
+    [AllowEdit(Role.SalesManager)]
     public partial class Facility : BaseEntity
     {
         [Designation("Название"), Required, MaxLength(100), OrderStatus(20)]

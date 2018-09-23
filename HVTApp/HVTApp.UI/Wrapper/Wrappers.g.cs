@@ -585,6 +585,15 @@ namespace HVTApp.UI.Wrapper
         public bool StandartTermFromPickToEndProductionIsChanged => GetIsChanged(nameof(StandartTermFromPickToEndProduction));
 
 
+        public System.Double Vat
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
+        public bool VatIsChanged => GetIsChanged(nameof(Vat));
+
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -3246,6 +3255,15 @@ namespace HVTApp.UI.Wrapper
         }
         public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
         public bool NumberIsChanged => GetIsChanged(nameof(Number));
+
+
+        public System.Double Vat
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
+        public bool VatIsChanged => GetIsChanged(nameof(Vat));
 
 
         public System.Guid Id

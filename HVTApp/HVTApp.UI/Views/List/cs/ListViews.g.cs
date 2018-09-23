@@ -75,7 +75,8 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
 	[Designation("Адрес")]
 	[DesignationPlural("AddressLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class AddressLookupListView : ViewBase
     {
@@ -282,6 +283,13 @@ namespace HVTApp.UI.Views
         {
             get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.StandartTermFromPickToEndProduction)].Visibility; }
             set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.StandartTermFromPickToEndProduction)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility VatVisibility
+        {
+            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.Vat)].Visibility; }
+            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.Vat)].Visibility = value; }
         }
 
 
@@ -569,7 +577,8 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
 	[Designation("Страна")]
 	[DesignationPlural("CountryLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class CountryLookupListView : ViewBase
     {
@@ -766,7 +775,8 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
 	[Designation("Округ")]
 	[DesignationPlural("DistrictLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class DistrictLookupListView : ViewBase
     {
@@ -1222,7 +1232,8 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
 	[Designation("Объект")]
 	[DesignationPlural("FacilityLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class FacilityLookupListView : ViewBase
     {
@@ -1358,7 +1369,8 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
 	[Designation("Населенный пункт")]
 	[DesignationPlural("LocalityLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class LocalityLookupListView : ViewBase
     {
@@ -1454,7 +1466,8 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
 	[Designation("Тип населенного пункта")]
 	[DesignationPlural("LocalityTypeLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class LocalityTypeLookupListView : ViewBase
     {
@@ -2460,6 +2473,13 @@ namespace HVTApp.UI.Views
         {
             get { return PaymentDocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentDocumentLookup.Date)].Visibility; }
             set { PaymentDocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentDocumentLookup.Date)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility VatVisibility
+        {
+            get { return PaymentDocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentDocumentLookup.Vat)].Visibility; }
+            set { PaymentDocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentDocumentLookup.Vat)].Visibility = value; }
         }
 
 
@@ -3498,7 +3518,8 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD))]
 	[Designation("Регион")]
 	[DesignationPlural("RegionLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class RegionLookupListView : ViewBase
     {

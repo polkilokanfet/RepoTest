@@ -6,18 +6,18 @@
                                  Header="План производства">
     
     <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}"/>
-        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}"/>
+        <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.Modules.Price;component/Images/Refresh_16x16.png"/>
+        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.Modules.Price;component/Images/Save_16x16.png"/>
         <infRib:ButtonTool Caption="Разместить" Command="{Binding AddInOrderCommand}"/>
     </infRib:RibbonGroup>
     
     <infRib:RibbonGroup Caption="Заказы">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding NewItemCommand}"/>
-        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditItemCommand}"/>
+        <infRib:ButtonTool Caption="Создать" Command="{Binding NewItemCommand}" SmallImage="/HVTApp.Modules.Price;component/Images/Add_16x16.png"/>
+        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditItemCommand}" SmallImage="/HVTApp.Modules.Price;component/Images/Edit_16x16.png"/>
     </infRib:RibbonGroup>
         
     <infRib:RibbonGroup Caption="Структура">
-        <infRib:ButtonTool Caption="Показать" Command="{Binding ShowProductStructureCommand}"/>
+        <infRib:ButtonTool Caption="Показать" Command="{Binding ShowProductStructureCommand}" SmallImage="/HVTApp.Modules.Price;component/Images/Preview_16x16.png"/>
     </infRib:RibbonGroup>
         
 </inf:RibbonTabItemWithViewModel>

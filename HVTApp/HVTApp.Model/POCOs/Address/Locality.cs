@@ -8,6 +8,7 @@ namespace HVTApp.Model.POCOs
     /// Населенный пункт.
     /// </summary>
     [Designation("Населенный пункт")]
+    [AllowEdit(Role.SalesManager)]
     public partial class Locality : BaseEntity
     {
         [Designation("Название"), Required, MaxLength(50), OrderStatus(10)]

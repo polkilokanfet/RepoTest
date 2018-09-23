@@ -325,6 +325,10 @@ namespace HVTApp.UI.Lookup
         public System.Int32 StandartTermFromPickToEndProduction => GetValue<System.Int32>();
 
 
+		[OrderStatus(1)]
+        public System.Double Vat => GetValue<System.Double>();
+
+
         #endregion
 
 
@@ -342,7 +346,8 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
 	[Designation("Адрес")]
 	public partial class AddressLookup : LookupItem<Address>
@@ -371,7 +376,8 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
 	[Designation("Страна")]
 	public partial class CountryLookup : LookupItem<Country>
@@ -391,7 +397,8 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
 	[Designation("Округ")]
 	public partial class DistrictLookup : LookupItem<District>
@@ -420,7 +427,8 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
 	[Designation("Населенный пункт")]
 	public partial class LocalityLookup : LookupItem<Locality>
@@ -469,7 +477,8 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
 	[Designation("Тип населенного пункта")]
 	public partial class LocalityTypeLookup : LookupItem<LocalityType>
@@ -493,7 +502,8 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
 	[Designation("Регион")]
 	public partial class RegionLookup : LookupItem<Region>
@@ -1733,6 +1743,10 @@ namespace HVTApp.UI.Lookup
         public System.DateTime Date => GetValue<System.DateTime>();
 
 
+		[OrderStatus(1)]
+        public System.Double Vat => GetValue<System.Double>();
+
+
         #endregion
 
 		[OrderStatus(1)]
@@ -1740,7 +1754,8 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
 	[Designation("Объект")]
 	public partial class FacilityLookup : LookupItem<Facility>

@@ -6,13 +6,14 @@
                                  Header="План поступлений">
     
     <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}"/>
-        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}"/>
-        <infRib:ButtonTool Caption="Добавить" Command="{Binding AddPaymentCommand}"/>
+        <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.Modules.Price;component/Images/Refresh_16x16.png"/>
+        <infRib:ButtonTool Caption="Сохранить" Command="{Binding SaveCommand}" SmallImage="/HVTApp.Modules.Price;component/Images/Save_16x16.png"/>
+        <infRib:ButtonTool Caption="Добавить" Command="{Binding AddPaymentCommand}" SmallImage="/HVTApp.Modules.Price;component/Images/Add_16x16.png"/>
     </infRib:RibbonGroup>
+    
     <infRib:RibbonGroup Caption="Документы">
-        <infRib:ButtonTool Caption="Создать" Command="{Binding NewItemCommand}"/>
-        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditItemCommand}"/>
+        <infRib:ButtonTool Caption="Создать" Command="{Binding NewItemCommand}" SmallImage="/HVTApp.Modules.Price;component/Images/Add_16x16.png"/>
+        <infRib:ButtonTool Caption="Изменить" Command="{Binding EditItemCommand}" SmallImage="/HVTApp.Modules.Price;component/Images/Edit_16x16.png"/>
     </infRib:RibbonGroup>
         
 </inf:RibbonTabItemWithViewModel>

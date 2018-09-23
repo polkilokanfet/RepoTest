@@ -21,6 +21,10 @@ namespace HVTApp.Model.POCOs
         [Designation("Части платежа"), Required]
         public virtual List<PaymentActual> Payments { get; set; } = new List<PaymentActual>();
 
+
+        [Designation("НДС"), Required]
+        public double Vat { get; set; } = CommonOptions.ActualOptions.Vat;
+
         public override string ToString()
         {
             return $"Платежный документ: {Number}";

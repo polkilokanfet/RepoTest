@@ -670,6 +670,11 @@ namespace HVTApp.UI.Views
             //    VisibilityStandartPaymentsConditionSetCommonOption = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.CommonOption).GetProperty(nameof(HVTApp.Model.POCOs.CommonOption.Vat)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityVatCommonOption = Visibility.Collapsed;
+
+
 
         }
 
@@ -725,6 +730,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityStandartPaymentsConditionSetCommonOptionProperty); }
             set { SetValue(VisibilityStandartPaymentsConditionSetCommonOptionProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityVatCommonOptionProperty = DependencyProperty.Register("VisibilityVatCommonOption", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityVatCommonOption
+        {
+            get { return (Visibility) GetValue(VisibilityVatCommonOptionProperty); }
+            set { SetValue(VisibilityVatCommonOptionProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4307,6 +4321,11 @@ namespace HVTApp.UI.Views
             //    VisibilityPaymentsPaymentDocument = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.PaymentDocument).GetProperty(nameof(HVTApp.Model.POCOs.PaymentDocument.Vat)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityVatPaymentDocument = Visibility.Collapsed;
+
+
 
         }
 
@@ -4335,6 +4354,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityPaymentsPaymentDocumentProperty); }
             set { SetValue(VisibilityPaymentsPaymentDocumentProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityVatPaymentDocumentProperty = DependencyProperty.Register("VisibilityVatPaymentDocument", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityVatPaymentDocument
+        {
+            get { return (Visibility) GetValue(VisibilityVatPaymentDocumentProperty); }
+            set { SetValue(VisibilityVatPaymentDocumentProperty, value); OnPropertyChanged(); }
         }
 
 

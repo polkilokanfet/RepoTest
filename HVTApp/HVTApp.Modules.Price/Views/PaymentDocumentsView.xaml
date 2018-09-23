@@ -54,16 +54,20 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Label Grid.Column="0" Content="Дата:"/>
+                                <Label Grid.Column="0" Content="Дата: "/>
                                 <igWPF:XamDateTimeEditor Grid.Column="1" Value="{Binding DockDate}"/>
 
-                                <Label Grid.Column="2" Content="Сумма, руб:"/>
-                                <igWPF:XamNumericEditor Grid.Column="3" Value="{Binding DockSum}" MinWidth="50"/>
+                                <Label Grid.Column="2" Content=" Сумма без НДС, руб: "/>
+                                <igWPF:XamNumericEditor Grid.Column="3" Value="{Binding DockSum}"/>
+
+                                <Label Grid.Column="4" Content=" НДС, %: "/>
+                                <igWPF:XamNumericEditor Grid.Column="5" Value="{Binding SelectedItem.Vat, Mode=OneWay}" IsReadOnly="True" Width="50"/>
 
                             </Grid>
                             
