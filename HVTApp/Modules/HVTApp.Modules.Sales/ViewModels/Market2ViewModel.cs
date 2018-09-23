@@ -93,12 +93,7 @@ namespace HVTApp.Modules.Sales.ViewModels
                     //обновляем данные всех таблиц
                     OfferListViewModel.Load(project.Offers);
                     TenderListViewModel.Load(project.Tenders);
-
-                    var units = project.SalesUnits.Select(x => x.Entity);
-                    var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer())
-                                      .OrderByDescending(x => x.Key.Cost)
-                                      .Select(x => new SalesUnitsGroup(x));
-                    Groups.AddRange(groups);
+                    LoadGroups(project);
                 }
 
                 //проверяем актуальность команд
@@ -140,6 +135,14 @@ namespace HVTApp.Modules.Sales.ViewModels
             eventAggregator.GetEvent<AfterRemoveOfferUnitEvent>().Subscribe(AfterRemoveOfferUnitEventExecute);
         }
 
+        private void LoadGroups(ProjectLookup project)
+        {
+            var units = project.SalesUnits.Select(x => x.Entity);
+            var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new SalesUnitsGroup(x));
+            Groups.Clear();
+            Groups.AddRange(groups);
+        }
+
         public async Task LoadAsync()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
@@ -165,12 +168,12 @@ namespace HVTApp.Modules.Sales.ViewModels
             var projectsLookups = new List<ProjectLookup>();
             foreach (var project in projects)
             {
-                var projectLookup = new ProjectLookup(project, salesUnits.Where(x => Equals(x.Project.Id, project.Id)),
-                                                               tenders.Where(x => Equals(x.Project.Id, project.Id)),
-                                                               offers.Where(x => Equals(x.Project.Id, project.Id)));
+                var projectLookup = new ProjectLookup(project, salesUnits.Where(x => Equals(x.Project.Id, project.Id)).ToList(),
+                                                               tenders.Where(x => Equals(x.Project.Id, project.Id)).ToList(),
+                                                               offers.Where(x => Equals(x.Project.Id, project.Id)).ToList());
                 foreach (var offer in projectLookup.Offers)
                 {
-                    offer.OfferUnits.AddRange(offerUnits.Where(x => x.Offer.Id == offer.Id).Select(x => new OfferUnitLookup(x)));
+                    offer.OfferUnits.AddRange(offerUnits.Where(x => x.Offer.Id == offer.Id).Select(x => new OfferUnitLookup(x)).ToList());
                 }
                 projectsLookups.Add(projectLookup);
             }
@@ -247,13 +250,14 @@ namespace HVTApp.Modules.Sales.ViewModels
             //если необходимо обновить существующий проект
             if (ProjectListViewModel.Lookups.Select(x => x.Id).Contains(project.Id))
             {
-                var lookup = ProjectListViewModel.Lookups.SingleOrDefault(x => x.Id == project.Id);
+                var projectLookup = ProjectListViewModel.Lookups.SingleOrDefault(x => x.Id == project.Id);
                 //при высокой вероятности обновляем
                 if(project.HighProbability)
-                    lookup?.Refresh(project);
+                    projectLookup?.Refresh(project);
                 //при низкой - удаляем
                 else
-                    ((ICollection<ProjectLookup>) ProjectListViewModel.Lookups).Remove(lookup);
+                    ((ICollection<ProjectLookup>) ProjectListViewModel.Lookups).Remove(projectLookup);
+                LoadGroups(projectLookup);
             }
         }
 

@@ -27,7 +27,6 @@ namespace HVTApp.DataAccess
             PaymentConditionSetRepository = new PaymentConditionSetRepository(_context, _container);
             ProductBlockRepository = new ProductBlockRepository(_context, _container);
             ProductDependentRepository = new ProductDependentRepository(_context, _container);
-            SalesBlockRepository = new SalesBlockRepository(_context, _container);
             BankDetailsRepository = new BankDetailsRepository(_context, _container);
             CompanyRepository = new CompanyRepository(_context, _container);
             CompanyFormRepository = new CompanyFormRepository(_context, _container);
@@ -86,7 +85,6 @@ namespace HVTApp.DataAccess
         protected IPaymentConditionSetRepository PaymentConditionSetRepository;
         protected IProductBlockRepository ProductBlockRepository;
         protected IProductDependentRepository ProductDependentRepository;
-        protected ISalesBlockRepository SalesBlockRepository;
         protected IBankDetailsRepository BankDetailsRepository;
         protected ICompanyRepository CompanyRepository;
         protected ICompanyFormRepository CompanyFormRepository;

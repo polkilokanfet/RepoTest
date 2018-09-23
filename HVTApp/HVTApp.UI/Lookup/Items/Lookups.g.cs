@@ -58,6 +58,26 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
+	[Designation("Номер документа")]
+	public partial class DocumentNumberLookup : LookupItem<DocumentNumber>
+	{
+		public DocumentNumberLookup(DocumentNumber entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(1)]
+        public System.Int32 Number => GetValue<System.Int32>();
+
+
+        #endregion
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
 	[Designation("Платеж совершенный")]
 	public partial class PaymentActualLookup : LookupItem<PaymentActual>
 	{
@@ -481,7 +501,7 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("Sum")]
+	[Designation("Сумма (фэйк)")]
 	public partial class SumLookup : LookupItem<Sum>
 	{
 		public SumLookup(Sum entity) : base(entity) 
@@ -709,23 +729,6 @@ namespace HVTApp.UI.Lookup
 
 
         #endregion
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
-	[Designation("SalesBlock")]
-	public partial class SalesBlockLookup : LookupItem<SalesBlock>
-	{
-		public SalesBlockLookup(SalesBlock entity) : base(entity) 
-		{
-		}
-		
-		[OrderStatus(1)]
-	    public List<SalesUnitLookup> ParentSalesUnits { get { return GetLookupEnum<SalesUnitLookup>().ToList(); } }
-
-		[OrderStatus(1)]
-	    public List<SalesUnitLookup> ChildSalesUnits { get { return GetLookupEnum<SalesUnitLookup>().ToList(); } }
 
 	}
 
@@ -1438,26 +1441,6 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
 	    public List<EmployeeLookup> CopyToRecipients { get { return GetLookupEnum<EmployeeLookup>().ToList(); } }
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
-	[Designation("DocumentNumber")]
-	public partial class DocumentNumberLookup : LookupItem<DocumentNumber>
-	{
-		public DocumentNumberLookup(DocumentNumber entity) : base(entity) 
-		{
-		}
-		
-
-        #region SimpleProperties
-
-		[OrderStatus(1)]
-        public System.Int32 Number => GetValue<System.Int32>();
-
-
-        #endregion
 
 	}
 

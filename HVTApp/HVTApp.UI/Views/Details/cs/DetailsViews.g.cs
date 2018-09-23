@@ -1619,60 +1619,6 @@ namespace HVTApp.UI.Views
 	}
 
 
-    public partial class SalesBlockDetailsView : ViewBase
-    {
-        public SalesBlockDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public SalesBlockDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, SalesBlockDetailsViewModel SalesBlockDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = SalesBlockDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.SalesBlock).GetProperty(nameof(HVTApp.Model.POCOs.SalesBlock.ParentSalesUnits)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityParentSalesUnitsSalesBlock = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.SalesBlock).GetProperty(nameof(HVTApp.Model.POCOs.SalesBlock.ChildSalesUnits)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityChildSalesUnitsSalesBlock = Visibility.Collapsed;
-
-
-
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityParentSalesUnitsSalesBlockProperty = DependencyProperty.Register("VisibilityParentSalesUnitsSalesBlock", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityParentSalesUnitsSalesBlock
-        {
-            get { return (Visibility) GetValue(VisibilityParentSalesUnitsSalesBlockProperty); }
-            set { SetValue(VisibilityParentSalesUnitsSalesBlockProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityChildSalesUnitsSalesBlockProperty = DependencyProperty.Register("VisibilityChildSalesUnitsSalesBlock", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityChildSalesUnitsSalesBlock
-        {
-            get { return (Visibility) GetValue(VisibilityChildSalesUnitsSalesBlockProperty); }
-            set { SetValue(VisibilityChildSalesUnitsSalesBlockProperty, value); OnPropertyChanged(); }
-        }
-
-
-	}
-
-
     public partial class BankDetailsDetailsView : ViewBase
     {
         public BankDetailsDetailsView()

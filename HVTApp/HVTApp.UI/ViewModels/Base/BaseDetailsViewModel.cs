@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Entity.Infrastructure;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
@@ -133,9 +135,24 @@ namespace HVTApp.UI.ViewModels
                 UnitOfWork.Repository<TEntity>().Add(Item.Model);
 
             Item.AcceptChanges();
-            await UnitOfWork.SaveChangesAsync();
+            //сохраняем
+            try
+            {
+                await UnitOfWork.SaveChangesAsync();
+                EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                var sb = new StringBuilder();
+                Exception exception = e;
+                do
+                {
+                    sb.AppendLine(e.Message);
+                    exception = exception.InnerException;
+                } while (exception != null);
 
-            EventAggregator.GetEvent<TAfterSaveEntityEvent>().Publish(Item.Model);
+                Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при сохранении", sb.ToString());
+            }
 
             //запрашиваем закрытие окна
             OnCloseRequested(new DialogRequestCloseEventArgs(true));

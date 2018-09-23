@@ -32,7 +32,6 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new PaymentConditionSetConfiguration());
             modelBuilder.Configurations.Add(new ProductBlockConfiguration());
             modelBuilder.Configurations.Add(new ProductDependentConfiguration());
-            modelBuilder.Configurations.Add(new SalesBlockConfiguration());
             modelBuilder.Configurations.Add(new BankDetailsConfiguration());
             modelBuilder.Configurations.Add(new CompanyConfiguration());
             modelBuilder.Configurations.Add(new CompanyFormConfiguration());
@@ -91,7 +90,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<PaymentConditionSet> PaymentConditionSetDbSet { get; set; }
         public virtual DbSet<ProductBlock> ProductBlockDbSet { get; set; }
         public virtual DbSet<ProductDependent> ProductDependentDbSet { get; set; }
-        public virtual DbSet<SalesBlock> SalesBlockDbSet { get; set; }
         public virtual DbSet<BankDetails> BankDetailsDbSet { get; set; }
         public virtual DbSet<Company> CompanyDbSet { get; set; }
         public virtual DbSet<CompanyForm> CompanyFormDbSet { get; set; }

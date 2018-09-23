@@ -234,16 +234,6 @@ namespace HVTApp.DataAccess
 		}
     }
 
-    public partial class SalesBlockRepository : BaseRepository<SalesBlock>, ISalesBlockRepository
-    {
-        IUnityContainer _container;
-
-		public SalesBlockRepository(DbContext context, IUnityContainer container) : base(context) 
-		{
-			_container = container;
-		}
-    }
-
     public partial class BankDetailsRepository : BaseRepository<BankDetails>, IBankDetailsRepository
     {
         IUnityContainer _container;

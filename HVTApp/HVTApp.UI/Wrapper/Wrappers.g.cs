@@ -1334,54 +1334,6 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
-		public partial class SalesBlockWrapper : WrapperBase<SalesBlock>
-	{
-	    public SalesBlockWrapper(SalesBlock model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-
-        #region CollectionProperties
-
-        public IValidatableChangeTrackingCollection<SalesUnitWrapper> ParentSalesUnits { get; private set; }
-
-
-        public IValidatableChangeTrackingCollection<SalesUnitWrapper> ChildSalesUnits { get; private set; }
-
-
-        #endregion
-
-  
-        protected override void InitializeCollectionProperties()
-        {
-
-          if (Model.ParentSalesUnits == null) throw new ArgumentException("ParentSalesUnits cannot be null");
-          ParentSalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.ParentSalesUnits.Select(e => new SalesUnitWrapper(e)));
-          RegisterCollection(ParentSalesUnits, Model.ParentSalesUnits);
-
-
-          if (Model.ChildSalesUnits == null) throw new ArgumentException("ChildSalesUnits cannot be null");
-          ChildSalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.ChildSalesUnits.Select(e => new SalesUnitWrapper(e)));
-          RegisterCollection(ChildSalesUnits, Model.ChildSalesUnits);
-
-
-        }
-
-	}
-
 		public partial class BankDetailsWrapper : WrapperBase<BankDetails>
 	{
 	    public BankDetailsWrapper(BankDetails model) : base(model) { }

@@ -34,11 +34,11 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
+                    <infg:TextField Name="Company" Label="Компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" />
                     <infg:TextField Name="Number" Label="ИД" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RegNumber" Label="Номер" Width="Auto" />
                     <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />
-                    <infg:TextField Name="Company" Label="Компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" />
                     <infg:TextField Name="Project" Label="Проект" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:DateTimeField Name="ValidityDate" Label="Срок действия" Width="Auto" />
                     <infg:TextField Name="Author" Label="Автор" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>

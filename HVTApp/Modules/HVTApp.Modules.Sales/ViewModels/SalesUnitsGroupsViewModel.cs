@@ -13,7 +13,6 @@ using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Structures;
 using HVTApp.Services.GetProductService;
-using HVTApp.Services.PriceService;
 using HVTApp.UI.Converter;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;
@@ -21,7 +20,6 @@ using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
-using Prism.Mvvm;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {

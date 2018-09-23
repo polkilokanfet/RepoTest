@@ -3496,67 +3496,6 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("SalesBlock")]
-	[DesignationPlural("SalesBlockLookup")]
-	[AllowEditAttribute(Role.Admin)]
-
-    public partial class SalesBlockLookupListView : ViewBase
-    {
-        public SalesBlockLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public SalesBlockLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, SalesBlockLookupListViewModel SalesBlockLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = SalesBlockLookupListViewModel;
-			SalesBlockLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((SalesBlockLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return SalesBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesBlockLookup.DisplayMember)].Visibility; }
-            set { SalesBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesBlockLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return SalesBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesBlockLookup.Entity)].Visibility; }
-            set { SalesBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesBlockLookup.Entity)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility ParentSalesUnitsVisibility
-        {
-            get { return SalesBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesBlockLookup.ParentSalesUnits)].Visibility; }
-            set { SalesBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesBlockLookup.ParentSalesUnits)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility ChildSalesUnitsVisibility
-        {
-            get { return SalesBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesBlockLookup.ChildSalesUnits)].Visibility; }
-            set { SalesBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesBlockLookup.ChildSalesUnits)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
 	[Designation("Единица продаж")]
 	[DesignationPlural("SalesUnitLookup")]
 	[AllowEditAttribute(Role.Admin)]

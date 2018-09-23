@@ -35,7 +35,6 @@ namespace HVTApp.DataAccess
             context.PaymentConditionSetDbSet.AddRange(testData.GetAll<PaymentConditionSet>());
             context.ProductBlockDbSet.AddRange(testData.GetAll<ProductBlock>());
             context.ProductDependentDbSet.AddRange(testData.GetAll<ProductDependent>());
-            context.SalesBlockDbSet.AddRange(testData.GetAll<SalesBlock>());
             context.BankDetailsDbSet.AddRange(testData.GetAll<BankDetails>());
             context.CompanyDbSet.AddRange(testData.GetAll<Company>());
             context.CompanyFormDbSet.AddRange(testData.GetAll<CompanyForm>());
