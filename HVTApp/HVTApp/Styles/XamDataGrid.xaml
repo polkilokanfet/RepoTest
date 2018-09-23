@@ -2,8 +2,36 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:infg="http://infragistics.com/DataPresenter">
 
-    <Style TargetType="infg:XamDataGrid" x:Key="ListViewGrid">
+    
+    
+    <Style TargetType="infg:XamDataGrid">
 
+        <Setter Property="AutoFit" Value="True" />
+        
+        <Setter Property="FieldSettings">
+            <Setter.Value>
+                <infg:FieldSettings AllowEdit="False"/>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="FieldLayoutSettings">
+            <Setter.Value>
+                <infg:FieldLayoutSettings AutoGenerateFields="False"
+                                          AutoFitMode="Always"
+                                          AllowAddNew="False"
+                                          AllowDelete="False"
+                                          AllowFieldMoving="Yes"
+                                          AllowRecordFixing="Top"
+                                          HeaderPrefixAreaDisplayMode="FieldChooserButton"
+                                          HighlightAlternateRecords="True" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    
+
+    <Style TargetType="infg:XamDataGrid" x:Key="ListViewGrid">
+        
         <Setter Property="FieldSettings">
             <Setter.Value>
                 <infg:FieldSettings AllowEdit="False" AllowRecordFiltering="True"/>
@@ -27,4 +55,11 @@
         <Setter Property="SelectedDataItem" Value="{Binding SelectedLookup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <Setter Property="AutoFit" Value="True" />
     </Style>
+    
+    
+
+    <Style x:Key="Filtering">
+        <Setter Property="infg:FieldSettings.AllowRecordFiltering" Value="True"/>
+    </Style>
+    
 </ResourceDictionary>

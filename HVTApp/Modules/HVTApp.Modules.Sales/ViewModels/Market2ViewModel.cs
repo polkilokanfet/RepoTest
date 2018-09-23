@@ -248,7 +248,12 @@ namespace HVTApp.Modules.Sales.ViewModels
             if (ProjectListViewModel.Lookups.Select(x => x.Id).Contains(project.Id))
             {
                 var lookup = ProjectListViewModel.Lookups.SingleOrDefault(x => x.Id == project.Id);
-                lookup?.Refresh(project);
+                //при высокой вероятности обновляем
+                if(project.HighProbability)
+                    lookup?.Refresh(project);
+                //при низкой - удаляем
+                else
+                    ((ICollection<ProjectLookup>) ProjectListViewModel.Lookups).Remove(lookup);
             }
         }
 
@@ -352,7 +357,6 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void AfterRemoveProjectEventExecute(Project project)
         {
-
         }
 
         private void AfterRemoveTenderEventExecute(Tender tender)

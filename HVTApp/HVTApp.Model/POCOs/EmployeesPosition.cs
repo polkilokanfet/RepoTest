@@ -8,6 +8,7 @@ namespace HVTApp.Model.POCOs
     /// Должность сотрудника.
     /// </summary>
     [Designation("Должность")]
+    [AllowEdit(Role.DataBaseFiller, Role.SalesManager, Role.Economist)]
     public partial class EmployeesPosition : BaseEntity
     {
         [Designation("Название"), Required, MaxLength(50)]

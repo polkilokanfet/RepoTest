@@ -7,6 +7,7 @@ namespace HVTApp.UI.ViewModels
     {
         protected override void InitSpecialGetMethods()
         {
+            //потенциальные головные компании
             _getEntitiesForSelectParentCompanyCommand = async () =>
             {
                 var companies = await UnitOfWork.Repository<Company>().GetAllAsync();
@@ -16,6 +17,7 @@ namespace HVTApp.UI.ViewModels
                 return companies.Except(exceptCompanies).ToList();
             };
 
+            //потенциальные сферы деятельности
             _getEntitiesForAddInActivityFildsCommand = async () =>
             {
                 return (await UnitOfWork.Repository<ActivityField>().GetAllAsync())

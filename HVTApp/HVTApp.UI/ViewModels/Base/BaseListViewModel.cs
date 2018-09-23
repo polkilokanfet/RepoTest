@@ -195,7 +195,7 @@ namespace HVTApp.UI.ViewModels
 
         protected async void RemoveItemCommand_ExecuteAsync()
         {
-            var dr = MessageService.ShowYesNoMessageDialog("Удалить", $"Вы действительно хотите удалить '{SelectedLookup.DisplayMember}'?");
+            var dr = MessageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedLookup.DisplayMember}\"?");
             if (dr != MessageDialogResult.Yes) return;
 
             var entity = await UnitOfWork.Repository<TEntity>().GetByIdAsync(SelectedLookup.Id);
@@ -206,6 +206,7 @@ namespace HVTApp.UI.ViewModels
                 UnitOfWork.Repository<TEntity>().Delete(entity);
                 await UnitOfWork.SaveChangesAsync();
                 LookupsCollection.Remove(SelectedLookup);
+                EventAggregator.GetEvent<TAfterRemoveEntityEvent>().Publish(entity);
             }
             catch (DbUpdateException e)
             {
@@ -214,10 +215,8 @@ namespace HVTApp.UI.ViewModels
                 {
                     ex = ex.InnerException;
                 }
-                MessageService.ShowYesNoMessageDialog("DbUpdateException", ex.Message);
+                MessageService.ShowOkMessageDialog("DbUpdateException", ex.Message);
             }
-
-            EventAggregator.GetEvent<TAfterRemoveEntityEvent>().Publish(entity);
         }
 
         protected virtual bool RemoveItemCommand_CanExecute()

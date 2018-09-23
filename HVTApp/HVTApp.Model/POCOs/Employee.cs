@@ -6,6 +6,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Сотрудник")]
     [DesignationPlural("Сотрудники")]
+    [AllowEdit(Role.DataBaseFiller, Role.SalesManager, Role.Economist)]
     public partial class Employee : BaseEntity
     {
         [Designation("Персона"), Required, OrderStatus(30)]

@@ -8,9 +8,10 @@ namespace HVTApp.UI.Lookup
     {
         public List<OfferUnitLookup> OfferUnits { get; } = new List<OfferUnitLookup>();
 
-        [Designation("Компания")]
+        [Designation("Компания"), OrderStatus(20)]
         public CompanyLookup Company => new CompanyLookup(Entity.RecipientEmployee.Company);
 
+        [Designation("Сумма"), OrderStatus(19)]
         public double? Sum => OfferUnits?.Sum(x => x.Cost);
     }
 }

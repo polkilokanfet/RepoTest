@@ -100,6 +100,7 @@
     <Compile Include="Groups\ProductUnitsGroup.cs" />
     <Compile Include="Groups\ShipmentUnitsGroup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
+    <Compile Include="ViewModels\Details\EmployeeDetailsViewModel.cs" />
     <Compile Include="ViewModels\ProductStructureViewModel.cs" />
     <Compile Include="ViewModels\Details\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProductIncludedDetailsViewModel.cs" />
@@ -135,7 +136,6 @@
     <Compile Include="ViewModels\Details\ContractDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\Generated\DetailsViewModels.g.cs" />
     <Compile Include="ViewModels\Details\IProductCostDependentProductsWrapper.cs" />
-    <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\SpecificationDetailsViewModel.cs" />

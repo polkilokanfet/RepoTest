@@ -6,7 +6,6 @@ namespace HVTApp.DataAccess
         {
             HasRequired(x => x.Company).WithMany();
             HasRequired(x => x.Position).WithMany();
-            HasRequired(x => x.Person).WithMany();
         }
     }
 }
