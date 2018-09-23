@@ -14,6 +14,26 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class DocumentNumberRepository : BaseRepository<DocumentNumber>, IDocumentNumberRepository
+    {
+        IUnityContainer _container;
+
+		public DocumentNumberRepository(DbContext context, IUnityContainer container) : base(context) 
+		{
+			_container = container;
+		}
+    }
+
+    public partial class MarketFieldRepository : BaseRepository<MarketField>, IMarketFieldRepository
+    {
+        IUnityContainer _container;
+
+		public MarketFieldRepository(DbContext context, IUnityContainer container) : base(context) 
+		{
+			_container = container;
+		}
+    }
+
     public partial class PaymentActualRepository : BaseRepository<PaymentActual>, IPaymentActualRepository
     {
         IUnityContainer _container;
@@ -389,16 +409,6 @@ namespace HVTApp.DataAccess
         IUnityContainer _container;
 
 		public DocumentRepository(DbContext context, IUnityContainer container) : base(context) 
-		{
-			_container = container;
-		}
-    }
-
-    public partial class DocumentNumberRepository : BaseRepository<DocumentNumber>, IDocumentNumberRepository
-    {
-        IUnityContainer _container;
-
-		public DocumentNumberRepository(DbContext context, IUnityContainer container) : base(context) 
 		{
 			_container = container;
 		}

@@ -8,6 +8,16 @@ namespace HVTApp.DataAccess
         public CreateNewProductTaskRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class DocumentNumberRepositoryTest : TestBaseRepository<DocumentNumber>, IDocumentNumberRepository
+    {
+        public DocumentNumberRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class MarketFieldRepositoryTest : TestBaseRepository<MarketField>, IMarketFieldRepository
+    {
+        public MarketFieldRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class PaymentActualRepositoryTest : TestBaseRepository<PaymentActual>, IPaymentActualRepository
     {
         public PaymentActualRepositoryTest(TestData testData) : base(testData) {}
@@ -196,11 +206,6 @@ namespace HVTApp.DataAccess
     public partial class DocumentRepositoryTest : TestBaseRepository<Document>, IDocumentRepository
     {
         public DocumentRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class DocumentNumberRepositoryTest : TestBaseRepository<DocumentNumber>, IDocumentNumberRepository
-    {
-        public DocumentNumberRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class SumOnDateRepositoryTest : TestBaseRepository<SumOnDate>, ISumOnDateRepository

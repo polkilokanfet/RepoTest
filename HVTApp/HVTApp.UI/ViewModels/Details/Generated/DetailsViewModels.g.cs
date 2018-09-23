@@ -58,6 +58,66 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class DocumentNumberDetailsViewModel : BaseDetailsViewModel<DocumentNumberWrapper, DocumentNumber, AfterSaveDocumentNumberEvent>
+    {
+
+        public DocumentNumberDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
+
+
+
+    }
+
+
+    public partial class MarketFieldDetailsViewModel : BaseDetailsViewModel<MarketFieldWrapper, MarketField, AfterSaveMarketFieldEvent>
+    {
+		private Func<Task<List<ActivityField>>> _getEntitiesForAddInActivityFieldsCommand;
+		public ICommand AddInActivityFieldsCommand { get; }
+		public ICommand RemoveFromActivityFieldsCommand { get; }
+		private ActivityFieldWrapper _selectedActivityFieldsItem;
+		public ActivityFieldWrapper SelectedActivityFieldsItem 
+		{ 
+			get { return _selectedActivityFieldsItem; }
+			set 
+			{ 
+				if (Equals(_selectedActivityFieldsItem, value)) return;
+				_selectedActivityFieldsItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromActivityFieldsCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+
+        public MarketFieldDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForAddInActivityFieldsCommand == null) _getEntitiesForAddInActivityFieldsCommand = async () => { return await UnitOfWork.Repository<ActivityField>().GetAllAsync(); };;
+			if (AddInActivityFieldsCommand == null) AddInActivityFieldsCommand = new DelegateCommand(AddInActivityFieldsCommand_Execute_Default);
+			if (RemoveFromActivityFieldsCommand == null) RemoveFromActivityFieldsCommand = new DelegateCommand(RemoveFromActivityFieldsCommand_Execute_Default, RemoveFromActivityFieldsCommand_CanExecute_Default);
+
+		}
+
+			private async void AddInActivityFieldsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<ActivityField, ActivityFieldWrapper>(await _getEntitiesForAddInActivityFieldsCommand(), Item.ActivityFields);
+			}
+
+			private void RemoveFromActivityFieldsCommand_Execute_Default()
+			{
+				Item.ActivityFields.Remove(SelectedActivityFieldsItem);
+			}
+
+			private bool RemoveFromActivityFieldsCommand_CanExecute_Default()
+			{
+				return SelectedActivityFieldsItem != null;
+			}
+
+
+
+    }
+
+
     public partial class PaymentActualDetailsViewModel : BaseDetailsViewModel<PaymentActualWrapper, PaymentActual, AfterSavePaymentActualEvent>
     {
 
@@ -1948,18 +2008,6 @@ namespace HVTApp.UI.ViewModels
 			{
 				return SelectedCopyToRecipientsItem != null;
 			}
-
-
-
-    }
-
-
-    public partial class DocumentNumberDetailsViewModel : BaseDetailsViewModel<DocumentNumberWrapper, DocumentNumber, AfterSaveDocumentNumberEvent>
-    {
-
-        public DocumentNumberDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-		}
 
 
 

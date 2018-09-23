@@ -78,6 +78,29 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
+	[Designation("Область рынка")]
+	public partial class MarketFieldLookup : LookupItem<MarketField>
+	{
+		public MarketFieldLookup(MarketField entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(10)]
+        public System.String Name => GetValue<System.String>();
+
+
+        #endregion
+
+		[OrderStatus(9)]
+	    public List<ActivityFieldLookup> ActivityFields { get { return GetLookupEnum<ActivityFieldLookup>().ToList(); } }
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
 	[Designation("Платеж совершенный")]
 	public partial class PaymentActualLookup : LookupItem<PaymentActual>
 	{

@@ -78,6 +78,85 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
+		public partial class DocumentNumberWrapper : WrapperBase<DocumentNumber>
+	{
+	    public DocumentNumberWrapper(DocumentNumber model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.Int32 Number
+        {
+          get { return GetValue<System.Int32>(); }
+          set { SetValue(value); }
+        }
+        public System.Int32 NumberOriginalValue => GetOriginalValue<System.Int32>(nameof(Number));
+        public bool NumberIsChanged => GetIsChanged(nameof(Number));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+	}
+
+		public partial class MarketFieldWrapper : WrapperBase<MarketField>
+	{
+	    public MarketFieldWrapper(MarketField model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<ActivityFieldWrapper> ActivityFields { get; private set; }
+
+
+        #endregion
+
+  
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.ActivityFields == null) throw new ArgumentException("ActivityFields cannot be null");
+          ActivityFields = new ValidatableChangeTrackingCollection<ActivityFieldWrapper>(Model.ActivityFields.Select(e => new ActivityFieldWrapper(e)));
+          RegisterCollection(ActivityFields, Model.ActivityFields);
+
+
+        }
+
+	}
+
 		public partial class PaymentActualWrapper : WrapperBase<PaymentActual>
 	{
 	    public PaymentActualWrapper(PaymentActual model) : base(model) { }
@@ -2665,36 +2744,6 @@ namespace HVTApp.UI.Wrapper
 
 
         }
-
-	}
-
-		public partial class DocumentNumberWrapper : WrapperBase<DocumentNumber>
-	{
-	    public DocumentNumberWrapper(DocumentNumber model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.Int32 Number
-        {
-          get { return GetValue<System.Int32>(); }
-          set { SetValue(value); }
-        }
-        public System.Int32 NumberOriginalValue => GetOriginalValue<System.Int32>(nameof(Number));
-        public bool NumberIsChanged => GetIsChanged(nameof(Number));
-
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
 
 	}
 

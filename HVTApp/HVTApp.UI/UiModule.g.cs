@@ -18,6 +18,18 @@ namespace HVTApp.UI
             _updateDetailsService.Register<CreateNewProductTask, CreateNewProductTaskDetailsView>();
 
 
+            Container.RegisterViewForNavigation<DocumentNumberLookupListView>();
+            //_dialogService.Register<DocumentNumberDetailsViewModel, DocumentNumberDetailsView>();
+			_selectService.Register<DocumentNumberLookupListView, DocumentNumber>();
+            _updateDetailsService.Register<DocumentNumber, DocumentNumberDetailsView>();
+
+
+            Container.RegisterViewForNavigation<MarketFieldLookupListView>();
+            //_dialogService.Register<MarketFieldDetailsViewModel, MarketFieldDetailsView>();
+			_selectService.Register<MarketFieldLookupListView, MarketField>();
+            _updateDetailsService.Register<MarketField, MarketFieldDetailsView>();
+
+
             Container.RegisterViewForNavigation<PaymentActualLookupListView>();
             //_dialogService.Register<PaymentActualDetailsViewModel, PaymentActualDetailsView>();
 			_selectService.Register<PaymentActualLookupListView, PaymentActual>();
@@ -244,12 +256,6 @@ namespace HVTApp.UI
             //_dialogService.Register<DocumentDetailsViewModel, DocumentDetailsView>();
 			_selectService.Register<DocumentLookupListView, Document>();
             _updateDetailsService.Register<Document, DocumentDetailsView>();
-
-
-            Container.RegisterViewForNavigation<DocumentNumberLookupListView>();
-            //_dialogService.Register<DocumentNumberDetailsViewModel, DocumentNumberDetailsView>();
-			_selectService.Register<DocumentNumberLookupListView, DocumentNumber>();
-            _updateDetailsService.Register<DocumentNumber, DocumentNumberDetailsView>();
 
 
             Container.RegisterViewForNavigation<SumOnDateLookupListView>();

@@ -4,6 +4,8 @@ using Prism.Events;
 namespace HVTApp.Model.Events
 {
 	public partial class AfterSelectCreateNewProductTaskEvent : PubSubEvent<PubSubEventArgs<CreateNewProductTask>> { }
+	public partial class AfterSelectDocumentNumberEvent : PubSubEvent<PubSubEventArgs<DocumentNumber>> { }
+	public partial class AfterSelectMarketFieldEvent : PubSubEvent<PubSubEventArgs<MarketField>> { }
 	public partial class AfterSelectPaymentActualEvent : PubSubEvent<PubSubEventArgs<PaymentActual>> { }
 	public partial class AfterSelectPaymentPlannedEvent : PubSubEvent<PubSubEventArgs<PaymentPlanned>> { }
 	public partial class AfterSelectProductBlockIsServiceEvent : PubSubEvent<PubSubEventArgs<ProductBlockIsService>> { }
@@ -42,7 +44,6 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectParameterRelationEvent : PubSubEvent<PubSubEventArgs<ParameterRelation>> { }
 	public partial class AfterSelectSalesUnitEvent : PubSubEvent<PubSubEventArgs<SalesUnit>> { }
 	public partial class AfterSelectDocumentEvent : PubSubEvent<PubSubEventArgs<Document>> { }
-	public partial class AfterSelectDocumentNumberEvent : PubSubEvent<PubSubEventArgs<DocumentNumber>> { }
 	public partial class AfterSelectSumOnDateEvent : PubSubEvent<PubSubEventArgs<SumOnDate>> { }
 	public partial class AfterSelectProductEvent : PubSubEvent<PubSubEventArgs<Product>> { }
 	public partial class AfterSelectOfferEvent : PubSubEvent<PubSubEventArgs<Offer>> { }

@@ -36,6 +36,12 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+	public partial class MarketFieldLookupListViewModel : BaseListViewModel<MarketField, MarketFieldLookup, AfterSaveMarketFieldEvent, AfterSelectMarketFieldEvent, AfterRemoveMarketFieldEvent>
+    {
+        public MarketFieldLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
 	public partial class PaymentActualLookupListViewModel : BaseListViewModel<PaymentActual, PaymentActualLookup, AfterSavePaymentActualEvent, AfterSelectPaymentActualEvent, AfterRemovePaymentActualEvent>
     {
         public PaymentActualLookupListViewModel(IUnityContainer container) : base(container) { }

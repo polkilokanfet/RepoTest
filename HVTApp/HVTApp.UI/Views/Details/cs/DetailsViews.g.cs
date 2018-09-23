@@ -81,6 +81,100 @@ namespace HVTApp.UI.Views
 	}
 
 
+    public partial class DocumentNumberDetailsView : ViewBase
+    {
+        public DocumentNumberDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public DocumentNumberDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentNumberDetailsViewModel DocumentNumberDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = DocumentNumberDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.DocumentNumber).GetProperty(nameof(HVTApp.Model.POCOs.DocumentNumber.Number)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityNumberDocumentNumber = Visibility.Collapsed;
+
+
+
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityNumberDocumentNumberProperty = DependencyProperty.Register("VisibilityNumberDocumentNumber", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNumberDocumentNumber
+        {
+            get { return (Visibility) GetValue(VisibilityNumberDocumentNumberProperty); }
+            set { SetValue(VisibilityNumberDocumentNumberProperty, value); OnPropertyChanged(); }
+        }
+
+
+	}
+
+
+    public partial class MarketFieldDetailsView : ViewBase
+    {
+        public MarketFieldDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public MarketFieldDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, MarketFieldDetailsViewModel MarketFieldDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = MarketFieldDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.MarketField).GetProperty(nameof(HVTApp.Model.POCOs.MarketField.Name)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityNameMarketField = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.MarketField).GetProperty(nameof(HVTApp.Model.POCOs.MarketField.ActivityFields)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityActivityFieldsMarketField = Visibility.Collapsed;
+
+
+
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityNameMarketFieldProperty = DependencyProperty.Register("VisibilityNameMarketField", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNameMarketField
+        {
+            get { return (Visibility) GetValue(VisibilityNameMarketFieldProperty); }
+            set { SetValue(VisibilityNameMarketFieldProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityActivityFieldsMarketFieldProperty = DependencyProperty.Register("VisibilityActivityFieldsMarketField", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityActivityFieldsMarketField
+        {
+            get { return (Visibility) GetValue(VisibilityActivityFieldsMarketFieldProperty); }
+            set { SetValue(VisibilityActivityFieldsMarketFieldProperty, value); OnPropertyChanged(); }
+        }
+
+
+	}
+
+
     public partial class PaymentActualDetailsView : ViewBase
     {
         public PaymentActualDetailsView()
@@ -3555,46 +3649,6 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityCommentDocumentProperty); }
             set { SetValue(VisibilityCommentDocumentProperty, value); OnPropertyChanged(); }
-        }
-
-
-	}
-
-
-    public partial class DocumentNumberDetailsView : ViewBase
-    {
-        public DocumentNumberDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public DocumentNumberDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentNumberDetailsViewModel DocumentNumberDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = DocumentNumberDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.DocumentNumber).GetProperty(nameof(HVTApp.Model.POCOs.DocumentNumber.Number)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityNumberDocumentNumber = Visibility.Collapsed;
-
-
-
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityNumberDocumentNumberProperty = DependencyProperty.Register("VisibilityNumberDocumentNumber", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityNumberDocumentNumber
-        {
-            get { return (Visibility) GetValue(VisibilityNumberDocumentNumberProperty); }
-            set { SetValue(VisibilityNumberDocumentNumberProperty, value); OnPropertyChanged(); }
         }
 
 

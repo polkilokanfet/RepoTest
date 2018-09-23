@@ -8,6 +8,8 @@ namespace HVTApp.DataAccess
         {
 			#region RepositoriesInit
             CreateNewProductTaskRepository = new CreateNewProductTaskRepositoryTest(testData);
+            DocumentNumberRepository = new DocumentNumberRepositoryTest(testData);
+            MarketFieldRepository = new MarketFieldRepositoryTest(testData);
             PaymentActualRepository = new PaymentActualRepositoryTest(testData);
             PaymentPlannedRepository = new PaymentPlannedRepositoryTest(testData);
             ProductBlockIsServiceRepository = new ProductBlockIsServiceRepositoryTest(testData);
@@ -46,7 +48,6 @@ namespace HVTApp.DataAccess
             ParameterRelationRepository = new ParameterRelationRepositoryTest(testData);
             SalesUnitRepository = new SalesUnitRepositoryTest(testData);
             DocumentRepository = new DocumentRepositoryTest(testData);
-            DocumentNumberRepository = new DocumentNumberRepositoryTest(testData);
             SumOnDateRepository = new SumOnDateRepositoryTest(testData);
             ProductRepository = new ProductRepositoryTest(testData);
             OfferRepository = new OfferRepositoryTest(testData);
@@ -67,6 +68,8 @@ namespace HVTApp.DataAccess
 
         #region Repositories
         public ICreateNewProductTaskRepository CreateNewProductTaskRepository { get; }
+        public IDocumentNumberRepository DocumentNumberRepository { get; }
+        public IMarketFieldRepository MarketFieldRepository { get; }
         public IPaymentActualRepository PaymentActualRepository { get; }
         public IPaymentPlannedRepository PaymentPlannedRepository { get; }
         public IProductBlockIsServiceRepository ProductBlockIsServiceRepository { get; }
@@ -105,7 +108,6 @@ namespace HVTApp.DataAccess
         public IParameterRelationRepository ParameterRelationRepository { get; }
         public ISalesUnitRepository SalesUnitRepository { get; }
         public IDocumentRepository DocumentRepository { get; }
-        public IDocumentNumberRepository DocumentNumberRepository { get; }
         public ISumOnDateRepository SumOnDateRepository { get; }
         public IProductRepository ProductRepository { get; }
         public IOfferRepository OfferRepository { get; }

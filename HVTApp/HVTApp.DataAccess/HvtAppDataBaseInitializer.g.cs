@@ -13,6 +13,8 @@ namespace HVTApp.DataAccess
             TestData testData = new TestData();
 
             context.CreateNewProductTaskDbSet.AddRange(testData.GetAll<CreateNewProductTask>());
+            context.DocumentNumberDbSet.AddRange(testData.GetAll<DocumentNumber>());
+            context.MarketFieldDbSet.AddRange(testData.GetAll<MarketField>());
             context.PaymentActualDbSet.AddRange(testData.GetAll<PaymentActual>());
             context.PaymentPlannedDbSet.AddRange(testData.GetAll<PaymentPlanned>());
             context.ProductBlockIsServiceDbSet.AddRange(testData.GetAll<ProductBlockIsService>());
@@ -51,7 +53,6 @@ namespace HVTApp.DataAccess
             context.ParameterRelationDbSet.AddRange(testData.GetAll<ParameterRelation>());
             context.SalesUnitDbSet.AddRange(testData.GetAll<SalesUnit>());
             context.DocumentDbSet.AddRange(testData.GetAll<Document>());
-            context.DocumentNumberDbSet.AddRange(testData.GetAll<DocumentNumber>());
             context.SumOnDateDbSet.AddRange(testData.GetAll<SumOnDate>());
             context.ProductDbSet.AddRange(testData.GetAll<Product>());
             context.OfferDbSet.AddRange(testData.GetAll<Offer>());

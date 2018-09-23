@@ -4,6 +4,8 @@ using HVTApp.Model.POCOs;
 namespace HVTApp.DataAccess
 {
     public partial class CreateNewProductTaskConfiguration : EntityTypeConfiguration<CreateNewProductTask> { }
+    public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
+    public partial class MarketFieldConfiguration : EntityTypeConfiguration<MarketField> { }
     public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }
     public partial class PaymentPlannedConfiguration : EntityTypeConfiguration<PaymentPlanned> { }
     public partial class ProductBlockIsServiceConfiguration : EntityTypeConfiguration<ProductBlockIsService> { }
@@ -42,7 +44,6 @@ namespace HVTApp.DataAccess
     public partial class ParameterRelationConfiguration : EntityTypeConfiguration<ParameterRelation> { }
     public partial class SalesUnitConfiguration : EntityTypeConfiguration<SalesUnit> { }
     public partial class DocumentConfiguration : EntityTypeConfiguration<Document> { }
-    public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
     public partial class SumOnDateConfiguration : EntityTypeConfiguration<SumOnDate> { }
     public partial class ProductConfiguration : EntityTypeConfiguration<Product> { }
     public partial class OfferConfiguration : EntityTypeConfiguration<Offer> { }

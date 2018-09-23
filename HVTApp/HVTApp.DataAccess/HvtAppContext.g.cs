@@ -10,6 +10,8 @@ namespace HVTApp.DataAccess
         {
 			#region Configurations
             modelBuilder.Configurations.Add(new CreateNewProductTaskConfiguration());
+            modelBuilder.Configurations.Add(new DocumentNumberConfiguration());
+            modelBuilder.Configurations.Add(new MarketFieldConfiguration());
             modelBuilder.Configurations.Add(new PaymentActualConfiguration());
             modelBuilder.Configurations.Add(new PaymentPlannedConfiguration());
             modelBuilder.Configurations.Add(new ProductBlockIsServiceConfiguration());
@@ -48,7 +50,6 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new ParameterRelationConfiguration());
             modelBuilder.Configurations.Add(new SalesUnitConfiguration());
             modelBuilder.Configurations.Add(new DocumentConfiguration());
-            modelBuilder.Configurations.Add(new DocumentNumberConfiguration());
             modelBuilder.Configurations.Add(new SumOnDateConfiguration());
             modelBuilder.Configurations.Add(new ProductConfiguration());
             modelBuilder.Configurations.Add(new OfferConfiguration());
@@ -68,6 +69,8 @@ namespace HVTApp.DataAccess
 
 		#region DbSets
         public virtual DbSet<CreateNewProductTask> CreateNewProductTaskDbSet { get; set; }
+        public virtual DbSet<DocumentNumber> DocumentNumberDbSet { get; set; }
+        public virtual DbSet<MarketField> MarketFieldDbSet { get; set; }
         public virtual DbSet<PaymentActual> PaymentActualDbSet { get; set; }
         public virtual DbSet<PaymentPlanned> PaymentPlannedDbSet { get; set; }
         public virtual DbSet<ProductBlockIsService> ProductBlockIsServiceDbSet { get; set; }
@@ -106,7 +109,6 @@ namespace HVTApp.DataAccess
         public virtual DbSet<ParameterRelation> ParameterRelationDbSet { get; set; }
         public virtual DbSet<SalesUnit> SalesUnitDbSet { get; set; }
         public virtual DbSet<Document> DocumentDbSet { get; set; }
-        public virtual DbSet<DocumentNumber> DocumentNumberDbSet { get; set; }
         public virtual DbSet<SumOnDate> SumOnDateDbSet { get; set; }
         public virtual DbSet<Product> ProductDbSet { get; set; }
         public virtual DbSet<Offer> OfferDbSet { get; set; }

@@ -5,6 +5,8 @@ namespace HVTApp.DataAccess
         public void InitializeRepositories()
         {
             CreateNewProductTaskRepository = new CreateNewProductTaskRepository(_context, _container);
+            DocumentNumberRepository = new DocumentNumberRepository(_context, _container);
+            MarketFieldRepository = new MarketFieldRepository(_context, _container);
             PaymentActualRepository = new PaymentActualRepository(_context, _container);
             PaymentPlannedRepository = new PaymentPlannedRepository(_context, _container);
             ProductBlockIsServiceRepository = new ProductBlockIsServiceRepository(_context, _container);
@@ -43,7 +45,6 @@ namespace HVTApp.DataAccess
             ParameterRelationRepository = new ParameterRelationRepository(_context, _container);
             SalesUnitRepository = new SalesUnitRepository(_context, _container);
             DocumentRepository = new DocumentRepository(_context, _container);
-            DocumentNumberRepository = new DocumentNumberRepository(_context, _container);
             SumOnDateRepository = new SumOnDateRepository(_context, _container);
             ProductRepository = new ProductRepository(_context, _container);
             OfferRepository = new OfferRepository(_context, _container);
@@ -63,6 +64,8 @@ namespace HVTApp.DataAccess
 
         #region Repositories
         protected ICreateNewProductTaskRepository CreateNewProductTaskRepository;
+        protected IDocumentNumberRepository DocumentNumberRepository;
+        protected IMarketFieldRepository MarketFieldRepository;
         protected IPaymentActualRepository PaymentActualRepository;
         protected IPaymentPlannedRepository PaymentPlannedRepository;
         protected IProductBlockIsServiceRepository ProductBlockIsServiceRepository;
@@ -101,7 +104,6 @@ namespace HVTApp.DataAccess
         protected IParameterRelationRepository ParameterRelationRepository;
         protected ISalesUnitRepository SalesUnitRepository;
         protected IDocumentRepository DocumentRepository;
-        protected IDocumentNumberRepository DocumentNumberRepository;
         protected ISumOnDateRepository SumOnDateRepository;
         protected IProductRepository ProductRepository;
         protected IOfferRepository OfferRepository;

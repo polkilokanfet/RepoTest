@@ -57,6 +57,7 @@
     <Compile Include="POCOs\CreateNewProductTask.cs" />
     <Compile Include="Comparers\ParameterComparer.cs" />
     <Compile Include="POCOs\DocumentNumber.cs" />
+    <Compile Include="POCOs\MarketField.cs" />
     <Compile Include="POCOs\PaymentActual.cs" />
     <Compile Include="POCOs\PaymentPlanned.cs" />
     <Compile Include="POCOs\PaymentType.cs" />

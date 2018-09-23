@@ -963,7 +963,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("DocumentNumber")]
+	[Designation("Номер документа")]
 	[DesignationPlural("DocumentNumberLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -1504,6 +1504,67 @@ namespace HVTApp.UI.Views
         {
             get { return LocalityTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LocalityTypeLookup.Entity)].Visibility; }
             set { LocalityTypeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.LocalityTypeLookup.Entity)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD))]
+	[Designation("Область рынка")]
+	[DesignationPlural("MarketFieldLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class MarketFieldLookupListView : ViewBase
+    {
+        public MarketFieldLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public MarketFieldLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, MarketFieldLookupListViewModel MarketFieldLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = MarketFieldLookupListViewModel;
+			MarketFieldLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((MarketFieldLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return MarketFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.MarketFieldLookup.Name)].Visibility; }
+            set { MarketFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.MarketFieldLookup.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return MarketFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.MarketFieldLookup.DisplayMember)].Visibility; }
+            set { MarketFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.MarketFieldLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return MarketFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.MarketFieldLookup.Entity)].Visibility; }
+            set { MarketFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.MarketFieldLookup.Entity)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ActivityFieldsVisibility
+        {
+            get { return MarketFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.MarketFieldLookup.ActivityFields)].Visibility; }
+            set { MarketFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.MarketFieldLookup.ActivityFields)].Visibility = value; }
         }
 
 
@@ -3982,7 +4043,7 @@ namespace HVTApp.UI.Views
 
 
     [RibbonTab(typeof(TabCRUD))]
-	[Designation("Sum")]
+	[Designation("Сумма (фэйк)")]
 	[DesignationPlural("SumLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
