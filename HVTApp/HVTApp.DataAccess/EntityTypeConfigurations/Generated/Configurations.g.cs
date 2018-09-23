@@ -42,16 +42,8 @@ namespace HVTApp.DataAccess
     public partial class PersonConfiguration : EntityTypeConfiguration<Person> { }
     public partial class ParameterRelationConfiguration : EntityTypeConfiguration<ParameterRelation> { }
     public partial class SalesUnitConfiguration : EntityTypeConfiguration<SalesUnit> { }
-    public partial class TestFriendAddressConfiguration : EntityTypeConfiguration<TestFriendAddress> { }
-    public partial class TestFriendConfiguration : EntityTypeConfiguration<TestFriend> { }
-    public partial class TestFriendEmailConfiguration : EntityTypeConfiguration<TestFriendEmail> { }
-    public partial class TestFriendGroupConfiguration : EntityTypeConfiguration<TestFriendGroup> { }
     public partial class DocumentConfiguration : EntityTypeConfiguration<Document> { }
     public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
-    public partial class TestEntityConfiguration : EntityTypeConfiguration<TestEntity> { }
-    public partial class TestHusbandConfiguration : EntityTypeConfiguration<TestHusband> { }
-    public partial class TestWifeConfiguration : EntityTypeConfiguration<TestWife> { }
-    public partial class TestChildConfiguration : EntityTypeConfiguration<TestChild> { }
     public partial class SumOnDateConfiguration : EntityTypeConfiguration<SumOnDate> { }
     public partial class ProductConfiguration : EntityTypeConfiguration<Product> { }
     public partial class OfferConfiguration : EntityTypeConfiguration<Offer> { }

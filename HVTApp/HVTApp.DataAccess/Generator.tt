@@ -302,7 +302,7 @@ namespace HVTApp.DataAccess
     {
         var ns = typeof(Address).Namespace;
         //return typeof(Address).Assembly.GetTypes().Where(x => !x.IsAbstract && !x.IsEnum && x.Namespace == ns && !x.Name.Contains("<"));
-        return typeof(Address).Assembly.GetTypes().Where(x => GetBaseTypes(x).Contains(typeof(BaseEntity)));
+        return typeof(Address).Assembly.GetTypes().Where(x => x.Namespace == ns && GetBaseTypes(x).Contains(typeof(BaseEntity)));
     }
     
 	IEnumerable<Type> GetBaseTypes(Type type)

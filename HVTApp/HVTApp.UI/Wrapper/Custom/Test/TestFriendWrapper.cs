@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace HVTApp.UI.Wrapper
+namespace HVTApp.UI.Wrapper.Test
 {
     public partial class TestFriendWrapper
     {

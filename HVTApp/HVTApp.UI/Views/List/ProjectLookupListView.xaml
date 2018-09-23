@@ -43,12 +43,12 @@
                     <infg:TextField Name="Manager" Label="Менеджер" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="Builder" Label="Подрядчик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="ProjectMaker" Label="Проектировщик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:CheckBoxField Name="ForReport" Label="Отразить в отчете" Width="Auto" />
                     <infg:TextField Name="Sypplier" Label="Поставщик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:CheckBoxField Name="HighProbability" Label="Высокая вероятность поставки" Width="Auto" />
                     <infg:TextField Name="Tenders" Label="Tenders" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="SalesUnits" Label="SalesUnits" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Offers" Label="Offers" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                    <infg:CheckBoxField Name="ForReport" Label="Отразить в отчете" Width="Auto" />
                     <infg:TextField Name="Notes" Label="Заметки" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
 
 					</infg:FieldLayout.Fields>

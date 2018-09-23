@@ -48,16 +48,8 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new PersonConfiguration());
             modelBuilder.Configurations.Add(new ParameterRelationConfiguration());
             modelBuilder.Configurations.Add(new SalesUnitConfiguration());
-            modelBuilder.Configurations.Add(new TestFriendAddressConfiguration());
-            modelBuilder.Configurations.Add(new TestFriendConfiguration());
-            modelBuilder.Configurations.Add(new TestFriendEmailConfiguration());
-            modelBuilder.Configurations.Add(new TestFriendGroupConfiguration());
             modelBuilder.Configurations.Add(new DocumentConfiguration());
             modelBuilder.Configurations.Add(new DocumentNumberConfiguration());
-            modelBuilder.Configurations.Add(new TestEntityConfiguration());
-            modelBuilder.Configurations.Add(new TestHusbandConfiguration());
-            modelBuilder.Configurations.Add(new TestWifeConfiguration());
-            modelBuilder.Configurations.Add(new TestChildConfiguration());
             modelBuilder.Configurations.Add(new SumOnDateConfiguration());
             modelBuilder.Configurations.Add(new ProductConfiguration());
             modelBuilder.Configurations.Add(new OfferConfiguration());
@@ -115,16 +107,8 @@ namespace HVTApp.DataAccess
         public virtual DbSet<Person> PersonDbSet { get; set; }
         public virtual DbSet<ParameterRelation> ParameterRelationDbSet { get; set; }
         public virtual DbSet<SalesUnit> SalesUnitDbSet { get; set; }
-        public virtual DbSet<TestFriendAddress> TestFriendAddressDbSet { get; set; }
-        public virtual DbSet<TestFriend> TestFriendDbSet { get; set; }
-        public virtual DbSet<TestFriendEmail> TestFriendEmailDbSet { get; set; }
-        public virtual DbSet<TestFriendGroup> TestFriendGroupDbSet { get; set; }
         public virtual DbSet<Document> DocumentDbSet { get; set; }
         public virtual DbSet<DocumentNumber> DocumentNumberDbSet { get; set; }
-        public virtual DbSet<TestEntity> TestEntityDbSet { get; set; }
-        public virtual DbSet<TestHusband> TestHusbandDbSet { get; set; }
-        public virtual DbSet<TestWife> TestWifeDbSet { get; set; }
-        public virtual DbSet<TestChild> TestChildDbSet { get; set; }
         public virtual DbSet<SumOnDate> SumOnDateDbSet { get; set; }
         public virtual DbSet<Product> ProductDbSet { get; set; }
         public virtual DbSet<Offer> OfferDbSet { get; set; }

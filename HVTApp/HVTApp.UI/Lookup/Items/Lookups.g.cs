@@ -870,7 +870,10 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.DataBaseFiller)]
+[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Economist)]
+[AllowEditAttribute(Role.Admin)]
 
 	[Designation("Должность")]
 	public partial class EmployeesPositionLookup : LookupItem<EmployeesPosition>
@@ -1094,7 +1097,10 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.DataBaseFiller)]
+[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Economist)]
+[AllowEditAttribute(Role.Admin)]
 
 	[Designation("Персона")]
 	public partial class PersonLookup : LookupItem<Person>
@@ -1106,15 +1112,15 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(10)]
         public System.String Surname => GetValue<System.String>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(9)]
         public System.String Name => GetValue<System.String>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(8)]
         public System.String Patronymic => GetValue<System.String>();
 
 
@@ -1365,141 +1371,6 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
-	[Designation("TestFriendAddress")]
-	public partial class TestFriendAddressLookup : LookupItem<TestFriendAddress>
-	{
-		public TestFriendAddressLookup(TestFriendAddress entity) : base(entity) 
-		{
-		}
-		
-
-        #region SimpleProperties
-
-		[OrderStatus(1)]
-        public System.String City => GetValue<System.String>();
-
-
-		[OrderStatus(1)]
-        public System.String Street => GetValue<System.String>();
-
-
-		[OrderStatus(1)]
-        public System.String StreetNumber => GetValue<System.String>();
-
-
-        #endregion
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
-	[Designation("TestFriend")]
-	public partial class TestFriendLookup : LookupItem<TestFriend>
-	{
-		public TestFriendLookup(TestFriend entity) : base(entity) 
-		{
-		}
-		
-
-        #region SimpleProperties
-
-		[OrderStatus(1)]
-        public System.Int32 FriendGroupId => GetValue<System.Int32>();
-
-
-		[OrderStatus(1)]
-        public System.String FirstName => GetValue<System.String>();
-
-
-		[OrderStatus(1)]
-        public System.String LastName => GetValue<System.String>();
-
-
-		[OrderStatus(1)]
-        public System.Nullable<System.DateTime> Birthday => GetValue<System.Nullable<System.DateTime>>();
-
-
-		[OrderStatus(1)]
-        public System.Boolean IsDeveloper => GetValue<System.Boolean>();
-
-
-		[OrderStatus(1)]
-        public System.Int32 IdGet => GetValue<System.Int32>();
-
-
-        #endregion
-
-
-        #region ComplexProperties
-
-		[OrderStatus(1)]
-	    public TestFriendAddressLookup TestFriendAddress { get { return GetLookup<TestFriendAddressLookup>(); } }
-
-
-		[OrderStatus(1)]
-	    public TestFriendGroupLookup TestFriendGroup { get { return GetLookup<TestFriendGroupLookup>(); } }
-
-
-		[OrderStatus(1)]
-	    public TestFriendEmailLookup TestFriendEmailGet { get { return GetLookup<TestFriendEmailLookup>(); } }
-
-
-        #endregion
-
-		[OrderStatus(1)]
-	    public List<TestFriendEmailLookup> Emails { get { return GetLookupEnum<TestFriendEmailLookup>().ToList(); } }
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
-	[Designation("TestFriendEmail")]
-	public partial class TestFriendEmailLookup : LookupItem<TestFriendEmail>
-	{
-		public TestFriendEmailLookup(TestFriendEmail entity) : base(entity) 
-		{
-		}
-		
-
-        #region SimpleProperties
-
-		[OrderStatus(1)]
-        public System.String Email => GetValue<System.String>();
-
-
-		[OrderStatus(1)]
-        public System.String Comment => GetValue<System.String>();
-
-
-        #endregion
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
-	[Designation("TestFriendGroup")]
-	public partial class TestFriendGroupLookup : LookupItem<TestFriendGroup>
-	{
-		public TestFriendGroupLookup(TestFriendGroup entity) : base(entity) 
-		{
-		}
-		
-
-        #region SimpleProperties
-
-		[OrderStatus(1)]
-        public System.String Name => GetValue<System.String>();
-
-
-        #endregion
-
-		[OrderStatus(1)]
-	    public List<TestFriendLookup> FriendTests { get { return GetLookupEnum<TestFriendLookup>().ToList(); } }
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
 	[Designation("Документ")]
 	public partial class DocumentLookup : LookupItem<Document>
 	{
@@ -1584,124 +1455,6 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Int32 Number => GetValue<System.Int32>();
-
-
-        #endregion
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
-	[Designation("TestEntity")]
-	public partial class TestEntityLookup : LookupItem<TestEntity>
-	{
-		public TestEntityLookup(TestEntity entity) : base(entity) 
-		{
-		}
-		
-
-        #region SimpleProperties
-
-		[OrderStatus(1)]
-        public System.String Name => GetValue<System.String>();
-
-
-        #endregion
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
-	[Designation("TestHusband")]
-	public partial class TestHusbandLookup : LookupItem<TestHusband>
-	{
-		public TestHusbandLookup(TestHusband entity) : base(entity) 
-		{
-		}
-		
-
-        #region SimpleProperties
-
-		[OrderStatus(1)]
-        public System.String Name => GetValue<System.String>();
-
-
-        #endregion
-
-
-        #region ComplexProperties
-
-		[OrderStatus(1)]
-	    public TestWifeLookup Wife { get { return GetLookup<TestWifeLookup>(); } }
-
-
-        #endregion
-
-		[OrderStatus(1)]
-	    public List<TestChildLookup> Children { get { return GetLookupEnum<TestChildLookup>().ToList(); } }
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
-	[Designation("TestWife")]
-	public partial class TestWifeLookup : LookupItem<TestWife>
-	{
-		public TestWifeLookup(TestWife entity) : base(entity) 
-		{
-		}
-		
-
-        #region SimpleProperties
-
-		[OrderStatus(1)]
-        public System.Int32 N => GetValue<System.Int32>();
-
-
-		[OrderStatus(1)]
-        public System.String Name => GetValue<System.String>();
-
-
-        #endregion
-
-
-        #region ComplexProperties
-
-		[OrderStatus(1)]
-	    public TestHusbandLookup Husband { get { return GetLookup<TestHusbandLookup>(); } }
-
-
-        #endregion
-
-	}
-
-	[AllowEditAttribute(Role.Admin)]
-
-	[Designation("TestChild")]
-	public partial class TestChildLookup : LookupItem<TestChild>
-	{
-		public TestChildLookup(TestChild entity) : base(entity) 
-		{
-		}
-		
-
-        #region SimpleProperties
-
-		[OrderStatus(1)]
-        public System.String Name => GetValue<System.String>();
-
-
-        #endregion
-
-
-        #region ComplexProperties
-
-		[OrderStatus(1)]
-	    public TestHusbandLookup Husband { get { return GetLookup<TestHusbandLookup>(); } }
-
-
-		[OrderStatus(1)]
-	    public TestWifeLookup Wife { get { return GetLookup<TestWifeLookup>(); } }
 
 
         #endregion
@@ -1856,7 +1609,10 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.DataBaseFiller)]
+[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Economist)]
+[AllowEditAttribute(Role.Admin)]
 
 	[Designation("Сотрудник")]
 	public partial class EmployeeLookup : LookupItem<Employee>
@@ -2027,7 +1783,7 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(10)]
+		[OrderStatus(9)]
         public System.String Name => GetValue<System.String>();
 
 
@@ -2035,7 +1791,7 @@ namespace HVTApp.UI.Lookup
         public System.Boolean HighProbability => GetValue<System.Boolean>();
 
 
-		[OrderStatus(3)]
+		[OrderStatus(1)]
         public System.Boolean ForReport => GetValue<System.Boolean>();
 
 

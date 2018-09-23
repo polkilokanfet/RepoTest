@@ -46,16 +46,8 @@ namespace HVTApp.DataAccess
             PersonRepository = new PersonRepositoryTest(testData);
             ParameterRelationRepository = new ParameterRelationRepositoryTest(testData);
             SalesUnitRepository = new SalesUnitRepositoryTest(testData);
-            TestFriendAddressRepository = new TestFriendAddressRepositoryTest(testData);
-            TestFriendRepository = new TestFriendRepositoryTest(testData);
-            TestFriendEmailRepository = new TestFriendEmailRepositoryTest(testData);
-            TestFriendGroupRepository = new TestFriendGroupRepositoryTest(testData);
             DocumentRepository = new DocumentRepositoryTest(testData);
             DocumentNumberRepository = new DocumentNumberRepositoryTest(testData);
-            TestEntityRepository = new TestEntityRepositoryTest(testData);
-            TestHusbandRepository = new TestHusbandRepositoryTest(testData);
-            TestWifeRepository = new TestWifeRepositoryTest(testData);
-            TestChildRepository = new TestChildRepositoryTest(testData);
             SumOnDateRepository = new SumOnDateRepositoryTest(testData);
             ProductRepository = new ProductRepositoryTest(testData);
             OfferRepository = new OfferRepositoryTest(testData);
@@ -114,16 +106,8 @@ namespace HVTApp.DataAccess
         public IPersonRepository PersonRepository { get; }
         public IParameterRelationRepository ParameterRelationRepository { get; }
         public ISalesUnitRepository SalesUnitRepository { get; }
-        public ITestFriendAddressRepository TestFriendAddressRepository { get; }
-        public ITestFriendRepository TestFriendRepository { get; }
-        public ITestFriendEmailRepository TestFriendEmailRepository { get; }
-        public ITestFriendGroupRepository TestFriendGroupRepository { get; }
         public IDocumentRepository DocumentRepository { get; }
         public IDocumentNumberRepository DocumentNumberRepository { get; }
-        public ITestEntityRepository TestEntityRepository { get; }
-        public ITestHusbandRepository TestHusbandRepository { get; }
-        public ITestWifeRepository TestWifeRepository { get; }
-        public ITestChildRepository TestChildRepository { get; }
         public ISumOnDateRepository SumOnDateRepository { get; }
         public IProductRepository ProductRepository { get; }
         public IOfferRepository OfferRepository { get; }

@@ -35,8 +35,8 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
                     <infg:TextField Name="Surname" Label="Фамилия" Width="Auto" />
-                    <infg:TextField Name="Patronymic" Label="Отчество" Width="Auto" />
                     <infg:TextField Name="Name" Label="Имя" Width="Auto" />
+                    <infg:TextField Name="Patronymic" Label="Отчество" Width="Auto" />
                     <infg:CheckBoxField Name="IsMan" Label="Мужского пола" Width="Auto" />
 
 					</infg:FieldLayout.Fields>

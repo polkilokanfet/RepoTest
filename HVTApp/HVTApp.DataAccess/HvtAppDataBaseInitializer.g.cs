@@ -51,16 +51,8 @@ namespace HVTApp.DataAccess
             context.PersonDbSet.AddRange(testData.GetAll<Person>());
             context.ParameterRelationDbSet.AddRange(testData.GetAll<ParameterRelation>());
             context.SalesUnitDbSet.AddRange(testData.GetAll<SalesUnit>());
-            context.TestFriendAddressDbSet.AddRange(testData.GetAll<TestFriendAddress>());
-            context.TestFriendDbSet.AddRange(testData.GetAll<TestFriend>());
-            context.TestFriendEmailDbSet.AddRange(testData.GetAll<TestFriendEmail>());
-            context.TestFriendGroupDbSet.AddRange(testData.GetAll<TestFriendGroup>());
             context.DocumentDbSet.AddRange(testData.GetAll<Document>());
             context.DocumentNumberDbSet.AddRange(testData.GetAll<DocumentNumber>());
-            context.TestEntityDbSet.AddRange(testData.GetAll<TestEntity>());
-            context.TestHusbandDbSet.AddRange(testData.GetAll<TestHusband>());
-            context.TestWifeDbSet.AddRange(testData.GetAll<TestWife>());
-            context.TestChildDbSet.AddRange(testData.GetAll<TestChild>());
             context.SumOnDateDbSet.AddRange(testData.GetAll<SumOnDate>());
             context.ProductDbSet.AddRange(testData.GetAll<Product>());
             context.OfferDbSet.AddRange(testData.GetAll<Offer>());
