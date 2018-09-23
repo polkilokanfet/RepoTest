@@ -140,18 +140,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             eventAggregator.GetEvent<AfterRemoveOfferUnitEvent>().Subscribe(AfterRemoveOfferUnitEventExecute);
         }
 
-        private void EditTenderCommand_Execute()
-        {
-            var tenderViewModel = new TenderViewModel(Container, TenderListViewModel.SelectedItem);
-            Container.Resolve<IDialogService>().ShowDialog(tenderViewModel);            
-        }
-
-        private void NewTenderCommand_Execute()
-        {
-            var tenderViewModel = new TenderViewModel(Container, ProjectListViewModel.SelectedItem);
-            Container.Resolve<IDialogService>().ShowDialog(tenderViewModel);
-        }
-
         public async Task LoadAsync()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
@@ -190,6 +178,18 @@ namespace HVTApp.Modules.Sales.ViewModels
         }
 
         #region Commands
+
+        private void EditTenderCommand_Execute()
+        {
+            var tenderViewModel = new TenderViewModel(Container, TenderListViewModel.SelectedItem);
+            Container.Resolve<IDialogService>().ShowDialog(tenderViewModel);            
+        }
+
+        private void NewTenderCommand_Execute()
+        {
+            var tenderViewModel = new TenderViewModel(Container, ProjectListViewModel.SelectedItem);
+            Container.Resolve<IDialogService>().ShowDialog(tenderViewModel);
+        }
 
         private void NewSpecificationCommand_Execute()
         {
@@ -276,7 +276,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             ProjectListViewModel.Lookups.SingleOrDefault(x => x.Tenders.Select(t => t.Id).Contains(tender.Id))?.Refresh();
         }
 
-        private void AfterSaveOfferEventExecute(Offer offer)
+        private async void AfterSaveOfferEventExecute(Offer offer)
         {
             var offers = ProjectListViewModel.Lookups.SelectMany(x => x.Offers).ToList();
 
@@ -287,8 +287,9 @@ namespace HVTApp.Modules.Sales.ViewModels
                 return;
             }
 
+            var units = (await UnitOfWork.Repository<OfferUnit>().GetAllAsNoTrackingAsync()).Where(x => x.Offer.Id == offer.Id);
             //если необходимо добавить созданное ТКП
-            var lookupNew = new OfferLookup(offer);
+            var lookupNew = new OfferLookup(offer, units);
             ProjectListViewModel.Lookups.SingleOrDefault(x => x.Id == offer.Project.Id)?.Offers.Add(lookupNew);
         }
 
