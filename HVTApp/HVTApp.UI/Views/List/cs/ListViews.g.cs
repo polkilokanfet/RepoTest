@@ -11,7 +11,7 @@ using HVTApp.Model.POCOs;
 namespace HVTApp.UI.Views
 {
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Сфера деятельности")]
 	[DesignationPlural("ActivityFieldLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -72,7 +72,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Адрес")]
 	[DesignationPlural("AddressLookup")]
 	[AllowEditAttribute(Role.SalesManager)]
@@ -155,7 +155,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Банковские реквизиты")]
 	[DesignationPlural("BankDetailsLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -230,7 +230,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Общие настройки")]
 	[DesignationPlural("CommonOptionLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -326,7 +326,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Организационная форма")]
 	[DesignationPlural("CompanyFormLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -387,7 +387,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Компания")]
 	[DesignationPlural("CompanyLookup")]
 	[AllowEditAttribute(Role.SalesManager)]
@@ -506,7 +506,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Контракт")]
 	[DesignationPlural("ContractLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -574,7 +574,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Страна")]
 	[DesignationPlural("CountryLookup")]
 	[AllowEditAttribute(Role.SalesManager)]
@@ -629,7 +629,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Задание на создание нового продукта")]
 	[DesignationPlural("CreateNewProductTaskLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -697,7 +697,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Курс обмена валют")]
 	[DesignationPlural("CurrencyExchangeRateLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -772,7 +772,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Округ")]
 	[DesignationPlural("DistrictLookup")]
 	[AllowEditAttribute(Role.SalesManager)]
@@ -834,7 +834,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Документ")]
 	[DesignationPlural("DocumentLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -972,7 +972,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Номер документа")]
 	[DesignationPlural("DocumentNumberLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -1026,7 +1026,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Регистрационные данные")]
 	[DesignationPlural("DocumentsRegistrationDetailsLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -1087,7 +1087,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Сотрудник")]
 	[DesignationPlural("EmployeeLookup")]
 	[AllowEditAttribute(Role.DataBaseFiller)]
@@ -1172,7 +1172,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Должность")]
 	[DesignationPlural("EmployeesPositionLookup")]
 	[AllowEditAttribute(Role.DataBaseFiller)]
@@ -1229,7 +1229,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Объект")]
 	[DesignationPlural("FacilityLookup")]
 	[AllowEditAttribute(Role.SalesManager)]
@@ -1305,7 +1305,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тип объекта")]
 	[DesignationPlural("FacilityTypeLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -1366,7 +1366,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Населенный пункт")]
 	[DesignationPlural("LocalityLookup")]
 	[AllowEditAttribute(Role.SalesManager)]
@@ -1463,7 +1463,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тип населенного пункта")]
 	[DesignationPlural("LocalityTypeLookup")]
 	[AllowEditAttribute(Role.SalesManager)]
@@ -1525,7 +1525,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Область рынка")]
 	[DesignationPlural("MarketFieldLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -1586,7 +1586,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Единица измерения")]
 	[DesignationPlural("MeasureLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -1647,7 +1647,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Заметка")]
 	[DesignationPlural("NoteLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -1715,7 +1715,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Предложение")]
 	[DesignationPlural("OfferLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -1895,7 +1895,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Единица ТКП")]
 	[DesignationPlural("OfferUnitLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -1991,7 +1991,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Заводской заказ")]
 	[DesignationPlural("OrderLookup")]
 	[AllowEditAttribute(Role.PlanMaker)]
@@ -2053,7 +2053,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Группа параметров")]
 	[DesignationPlural("ParameterGroupLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2114,7 +2114,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Параметр")]
 	[DesignationPlural("ParameterLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2189,7 +2189,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Ограничение использования параметра")]
 	[DesignationPlural("ParameterRelationLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2243,7 +2243,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Платеж совершенный")]
 	[DesignationPlural("PaymentActualLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2311,7 +2311,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Условие платежа")]
 	[DesignationPlural("PaymentConditionLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2379,7 +2379,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Условия оплаты")]
 	[DesignationPlural("PaymentConditionSetLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2433,7 +2433,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Платежный документ")]
 	[DesignationPlural("PaymentDocumentLookup")]
 	[AllowEditAttribute(Role.Economist)]
@@ -2509,7 +2509,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Платеж плановый")]
 	[DesignationPlural("PaymentPlannedLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2591,7 +2591,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Персона")]
 	[DesignationPlural("PersonLookup")]
 	[AllowEditAttribute(Role.DataBaseFiller)]
@@ -2669,7 +2669,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Признаки услуги")]
 	[DesignationPlural("ProductBlockIsServiceLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2723,7 +2723,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Блок")]
 	[DesignationPlural("ProductBlockLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2833,7 +2833,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Зависимое оборудование")]
 	[DesignationPlural("ProductDependentLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2901,7 +2901,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Обозначение продукта")]
 	[DesignationPlural("ProductDesignationLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2962,7 +2962,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Включенное в стоимость оборудование")]
 	[DesignationPlural("ProductIncludedLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -3023,7 +3023,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Продукт")]
 	[DesignationPlural("ProductLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -3105,7 +3105,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Связи продуктов")]
 	[DesignationPlural("ProductRelationLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -3187,7 +3187,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Обозначение типа продукта")]
 	[DesignationPlural("ProductTypeDesignationLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -3248,7 +3248,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тип продукта")]
 	[DesignationPlural("ProductTypeLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -3302,7 +3302,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Проект")]
 	[DesignationPlural("ProjectLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -3461,7 +3461,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тип проекта")]
 	[DesignationPlural("ProjectTypeLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -3515,7 +3515,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Регион")]
 	[DesignationPlural("RegionLookup")]
 	[AllowEditAttribute(Role.SalesManager)]
@@ -3577,7 +3577,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Единица продаж")]
 	[DesignationPlural("SalesUnitLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -3988,7 +3988,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Спецификация")]
 	[DesignationPlural("SpecificationLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -4063,7 +4063,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Сумма (фэйк)")]
 	[DesignationPlural("SumLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -4131,7 +4131,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Сумма на дату")]
 	[DesignationPlural("SumOnDateLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -4192,7 +4192,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Конкурс")]
 	[DesignationPlural("TenderLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -4288,7 +4288,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тип тендера")]
 	[DesignationPlural("TenderTypeLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -4349,7 +4349,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Пользователь")]
 	[DesignationPlural("UserLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -4438,7 +4438,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Роль пользователя")]
 	[DesignationPlural("UserRoleLookup")]
 	[AllowEditAttribute(Role.Admin)]

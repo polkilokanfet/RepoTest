@@ -1,6 +1,5 @@
 ﻿using HVTApp.Infrastructure;
 using HVTApp.Modules.Sales.Views;
-using HVTApp.UI.Views;
 
 namespace HVTApp.Modules.Sales.Menus
 {
@@ -11,8 +10,8 @@ namespace HVTApp.Modules.Sales.Menus
             var root = new NavigationItem("Рынок", typeof(Market2View));
             root.Items.Add(new NavigationItem("Проекты", typeof(ProjectsView)));
             root.Items.Add(new NavigationItem("Предложения", typeof(OffersView)));
-            root.Items.Add(new NavigationItem("Конкурсы", typeof(TenderLookupListView)));
             root.Items.Add(new NavigationItem("Спецификации", typeof(SpecificationsView)));
+            root.IsExpended = false;
 
             var payments = new NavigationItem("Поступления", typeof(PaymentsView));
             var production = new NavigationItem("Производство", typeof(ProductionView));

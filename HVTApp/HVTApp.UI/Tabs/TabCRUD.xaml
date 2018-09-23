@@ -11,8 +11,4 @@
         <infRib:ButtonTool Caption="Удалить" Command="{Binding RemoveItemCommand}" SmallImage="/HVTApp.UI;component/Images/Delete_16x16.png"/>
     </infRib:RibbonGroup>
     
-    <infRib:RibbonGroup Caption="Обновление">
-        <infRib:ButtonTool Caption="Обновить" Command="{Binding RefreshCommand}" SmallImage="/HVTApp.UI;component/Images/Refresh_16x16.png"/>
-    </infRib:RibbonGroup>
-    
 </inf:RibbonTabItemWithViewModel>

@@ -158,11 +158,11 @@ namespace HVTApp.UI.ViewModels
 
         #region Commands
 
-        public ICommand NewItemCommand { get; }
-        public ICommand EditItemCommand { get; }
-        public ICommand RemoveItemCommand { get; }
-        public ICommand SelectItemCommand { get; }
-        public ICommand RefreshCommand { get; }
+        public ICommand NewItemCommand { get; protected set; }
+        public ICommand EditItemCommand { get; protected set; }
+        public ICommand RemoveItemCommand { get; protected set; }
+        public ICommand SelectItemCommand { get; protected set; }
+        public ICommand RefreshCommand { get; protected set; }
 
         /// <summary>
         /// Генерация нового айтема (при создании нового).

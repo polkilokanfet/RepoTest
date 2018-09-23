@@ -71,7 +71,7 @@ namespace HVTApp.UI.Views
         foreach(var modelType in modelTypes)
         {
 #>
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("<#=modelType.DesignationSingle()#>")]
 	[DesignationPlural("<#=modelType.DesignationPlural()#>")]
 	<#=modelType.GetAllowEdit()#>

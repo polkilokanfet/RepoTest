@@ -100,6 +100,9 @@
     <Compile Include="Groups\ProductUnitsGroup.cs" />
     <Compile Include="Groups\ShipmentUnitsGroup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
+    <Compile Include="Tabs\TabRefresh.xaml.cs">
+      <DependentUpon>TabRefresh.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\Details\EmployeeDetailsViewModel.cs" />
     <Compile Include="ViewModels\ProductStructureViewModel.cs" />
     <Compile Include="ViewModels\Details\OrderDetailsViewModel.cs" />
@@ -357,6 +360,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ChooseItemsListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tabs\TabRefresh.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
