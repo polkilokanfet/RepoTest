@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Model.POCOs;
 using Prism.Commands;
@@ -78,7 +79,7 @@ namespace HVTApp.Services.WpfAuthenticationService
         {
             var password = Guid.Empty;
             if (!String.IsNullOrEmpty(_password))
-                password = StringToGuidService.StringToGuidService.GetHashString(_password);
+                password = StringToGuid.GetHashString(_password);
             User = _users.FirstOrDefault(x => x.Login == Login && x.Password == password);
 
             Roles.Clear();

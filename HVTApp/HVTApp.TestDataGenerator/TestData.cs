@@ -5,7 +5,6 @@ using System.Reflection;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.Services.StringToGuidService;
 
 namespace HVTApp.TestDataGenerator
 {
@@ -362,8 +361,8 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateUsers()
         {
-            UserIvanov.Clone(new User { Login = "1", Password = StringToGuidService.GetHashString("1"), Employee = EmployeeIvanov, PersonalNumber = "1", Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer } });
-            UserPetrov.Clone(new User { Login = "2", Password = StringToGuidService.GetHashString("2"), Employee = EmployeePetrov, PersonalNumber = "2", Roles = new List<UserRole> { UserRoleDataBaseFiller } });
+            UserIvanov.Clone(new User { Login = "1", Password = StringToGuid.GetHashString("1"), Employee = EmployeeIvanov, PersonalNumber = "1", Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer } });
+            UserPetrov.Clone(new User { Login = "2", Password = StringToGuid.GetHashString("2"), Employee = EmployeePetrov, PersonalNumber = "2", Roles = new List<UserRole> { UserRoleDataBaseFiller } });
         }
 
         private void GenerateProjectTypess()
