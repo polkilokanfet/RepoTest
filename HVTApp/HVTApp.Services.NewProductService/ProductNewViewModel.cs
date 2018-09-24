@@ -1,3 +1,5 @@
+using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
@@ -17,12 +19,14 @@ namespace HVTApp.Services.NewProductService
 
         protected override async Task AfterLoading()
         {
+            //новый продукт
             var block = new ProductBlockWrapper(new ProductBlock());
             Item.Product = new ProductWrapper(new Product())
             {
                 ProductBlock = block
             };
 
+            //параметры продукта
             _parameter = new ParameterWrapper(new Parameter());
             var group = await UnitOfWork.Repository<ParameterGroup>().GetByIdAsync(CommonOptions.ActualOptions.NewProductParameterGroup.Id);
             _parameter.ParameterGroup = new ParameterGroupWrapper(group);
@@ -32,7 +36,20 @@ namespace HVTApp.Services.NewProductService
             relation.RequiredParameters.Add(parameterBase);
             _parameter.ParameterRelations.Add(new ParameterRelationWrapper(relation));
 
+            var parameters = parameterBase.Paths().First().Parameters.Select(x => new ParameterWrapper(x)).ToList();
+            parameters.Add(_parameter);
+            parameters.ForEach(x => block.Parameters.Add(x));
+
+            Item.PropertyChanged += ItemOnPropertyChanged;
+
             await base.AfterLoading();
+        }
+
+        //значение параметра = обозначение
+        private void ItemOnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName == nameof(Item.Designation))
+                _parameter.Value = Item.Designation;
         }
     }
 }

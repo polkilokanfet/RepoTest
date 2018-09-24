@@ -29,10 +29,10 @@ namespace HVTApp.Model.POCOs
         [Designation("НДС"), Required]
         public double Vat { get; set; } = 18;
 
-        [Designation("Группа новых параметров"), Required]
-        public virtual ParameterGroup NewProductParameterGroup { get; set; }
-
         [Designation("Родительский параметр новых параметров"), Required]
         public virtual Parameter NewProductParameter { get; set; }
+
+        [Designation("Группа новых параметров"), Required]
+        public virtual ParameterGroup NewProductParameterGroup { get; set; }
     }
 }

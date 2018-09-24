@@ -22,11 +22,11 @@ using HVTApp.Modules.Price;
 using HVTApp.Modules.Settings;
 using HVTApp.Modules.Sales;
 using HVTApp.Modules.Sales.PrintOffer;
-using HVTApp.Modules.Settings;
 using HVTApp.Services.GetProductService;
 using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;
 using HVTApp.Services.MessageService;
+using HVTApp.Services.NewProductService;
 using HVTApp.Services.PrintService;
 using HVTApp.Services.ProductDesignationService;
 using HVTApp.Services.SelectService;
@@ -85,6 +85,7 @@ namespace HVTApp
 
             Container.RegisterInstance(typeof(IDialogService), new DialogService((Window)Shell));
             Container.RegisterType<IGetProductService, GetProductServiceWpf>();
+            Container.RegisterType<INewProductService, NewProductServiceWpf>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IPrintOfferService, PrintOfferService>();
             Container.RegisterType<IPrintProductService, PrintProductService>();
             Container.RegisterType<IProductDesignationService, ProductDesignator>(new ContainerControlledLifetimeManager());

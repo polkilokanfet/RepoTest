@@ -4,6 +4,8 @@ namespace HVTApp.DataAccess
     {
         public CommonOptionConfiguration()
         {
+            HasRequired(x => x.NewProductParameter).WithMany().WillCascadeOnDelete(false);
+            HasRequired(x => x.NewProductParameterGroup).WithMany().WillCascadeOnDelete(false);
         }
     }
 }

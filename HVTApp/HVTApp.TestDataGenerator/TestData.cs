@@ -111,7 +111,6 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterMainEquipment;
         public Parameter ParameterDependentEquipment;
         public Parameter ParameterService;
-        public Parameter ParameterNewEquipment;
         public Parameter ParameterZip1;
         public Parameter ParameterBreaker;
         public Parameter ParameterTransformator;
@@ -413,11 +412,10 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateParameters()
         {
-            ParameterNewProduct.Clone(new Parameter { ParameterGroup = ParameterGroupNewProductDesignation, Value = "Оборудование новое" });
+            ParameterNewProduct.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование новое" });
             ParameterMainEquipment.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование главное" });
             ParameterDependentEquipment.Clone(new Parameter {ParameterGroup = ParameterGroupProductType, Value = "Оборудование дополнительное"});
             ParameterService.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Услуга" });
-            ParameterNewEquipment.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование новое" });
 
             ParameterBreaker.Clone(new Parameter {ParameterGroup = ParameterGroupEqType, Value = "Выключатель"});
             ParameterTransformator.Clone(new Parameter {ParameterGroup = ParameterGroupEqType, Value = "Трансформатор"});
@@ -445,9 +443,6 @@ namespace HVTApp.TestDataGenerator
             ParameterCurrent2500.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "2500 А" });
             ParameterCurrent3150.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "3150 А" });
             ParameterCurrent4000.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "4000 А" });
-
-
-
 
 
 

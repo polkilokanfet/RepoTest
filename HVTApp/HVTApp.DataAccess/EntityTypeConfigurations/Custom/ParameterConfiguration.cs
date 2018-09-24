@@ -4,7 +4,7 @@ namespace HVTApp.DataAccess
     {
         public ParameterConfiguration()
         {
-            HasRequired(x => x.ParameterGroup).WithMany();
+            HasRequired(x => x.ParameterGroup).WithMany().WillCascadeOnDelete(false);
             HasMany(x => x.ParameterRelations).WithRequired().WillCascadeOnDelete(false);
         }
     }
