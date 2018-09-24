@@ -57,6 +57,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.ShippingSer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.PrintService", "HVTApp.Services.PrintService\HVTApp.Services.PrintService.csproj", "{7D2C0B38-4517-4806-92B4-A65BDD0D9A10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.NewProductService", "HVTApp.Services.NewProductService\HVTApp.Services.NewProductService.csproj", "{154B4B6A-BABD-4F65-B351-E7F3808A8B53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +161,10 @@ Global
 		{7D2C0B38-4517-4806-92B4-A65BDD0D9A10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D2C0B38-4517-4806-92B4-A65BDD0D9A10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D2C0B38-4517-4806-92B4-A65BDD0D9A10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{154B4B6A-BABD-4F65-B351-E7F3808A8B53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{154B4B6A-BABD-4F65-B351-E7F3808A8B53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{154B4B6A-BABD-4F65-B351-E7F3808A8B53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{154B4B6A-BABD-4F65-B351-E7F3808A8B53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -182,5 +188,6 @@ Global
 		{F3D1ADB0-2385-47F2-AF88-5C605E63EC79} = {D89A3693-4C45-45D7-B52B-B3A58C52B3E2}
 		{3473BFDE-DE19-492A-9647-710715C9ACC7} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
 		{7D2C0B38-4517-4806-92B4-A65BDD0D9A10} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
+		{154B4B6A-BABD-4F65-B351-E7F3808A8B53} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
 	EndGlobalSection
 EndGlobal

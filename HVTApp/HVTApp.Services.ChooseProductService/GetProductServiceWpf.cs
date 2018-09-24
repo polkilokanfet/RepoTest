@@ -10,6 +10,7 @@ using HVTApp.Model.Services;
 using HVTApp.Services.ProductDesignationService;
 using Microsoft.Practices.Unity;
 using Prism.Events;
+using Prism.Mvvm;
 
 namespace HVTApp.Services.GetProductService
 {
@@ -119,7 +120,7 @@ namespace HVTApp.Services.GetProductService
                 return null;
 
             //создаем новый параметр для включения его в базу
-            var parameter = new Parameter {Value = tsk.Designation };
+            var parameter = new Parameter { Value = tsk.Designation };
             //ищем главную группу
             var parentGroup = _bank.Parameters.First(x => !x.ParameterRelations.Any()).ParameterGroup;
             //ищем родительский параметр для созданного

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.Services.GetProductService
+namespace HVTApp.Model.Services
 {
     public interface IGetProductService
     {

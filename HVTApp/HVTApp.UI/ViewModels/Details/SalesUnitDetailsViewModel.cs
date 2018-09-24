@@ -1,5 +1,5 @@
 using HVTApp.Model.POCOs;
-using HVTApp.Services.GetProductService;
+using HVTApp.Model.Services;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;

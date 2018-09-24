@@ -68,6 +68,8 @@
     <Compile Include="POCOs\ProductType.cs" />
     <Compile Include="POCOs\ProductTypeDesignation.cs" />
     <Compile Include="POCOs\ProjectType.cs" />
+    <Compile Include="Services\IGetProductService.cs" />
+    <Compile Include="Services\INewProductService.cs" />
     <Compile Include="Structures\PriceStructure.cs" />
     <Compile Include="Structures\ProductStructure.cs" />
     <Compile Include="RoleAccessAttribute.cs" />

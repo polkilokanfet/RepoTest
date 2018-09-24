@@ -105,7 +105,9 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupIsolation;
         public ParameterGroup ParameterGroupAccuracy;
         public ParameterGroup ParameterGroupCurrent;
+        public ParameterGroup ParameterGroupNewProductDesignation;
 
+        public Parameter ParameterNewProduct;
         public Parameter ParameterMainEquipment;
         public Parameter ParameterDependentEquipment;
         public Parameter ParameterService;
@@ -406,10 +408,12 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupIsolation.Clone(new ParameterGroup { Name = "Длина пути утечки" });
             ParameterGroupAccuracy.Clone(new ParameterGroup { Name = "Класс точности" });
             ParameterGroupCurrent.Clone(new ParameterGroup { Name = "Номинальный ток" });
+            ParameterGroupNewProductDesignation.Clone(new ParameterGroup { Name = "Обозначение" });
         }
 
         private void GenerateParameters()
         {
+            ParameterNewProduct.Clone(new Parameter { ParameterGroup = ParameterGroupNewProductDesignation, Value = "Оборудование новое" });
             ParameterMainEquipment.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование главное" });
             ParameterDependentEquipment.Clone(new Parameter {ParameterGroup = ParameterGroupProductType, Value = "Оборудование дополнительное"});
             ParameterService.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Услуга" });
@@ -739,7 +743,7 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateCommonOption()
         {
-            CommonOption.Clone(new CommonOption {OurCompany = CompanyUetm, StandartPaymentsConditionSet = PaymentConditionSet50Na50});
+            CommonOption.Clone(new CommonOption {OurCompany = CompanyUetm, StandartPaymentsConditionSet = PaymentConditionSet50Na50, NewProductParameter = ParameterNewProduct, NewProductParameterGroup = ParameterGroupNewProductDesignation });
         }
 
         private void GenerateNotes()
