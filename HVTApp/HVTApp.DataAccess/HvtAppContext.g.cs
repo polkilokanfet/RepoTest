@@ -20,6 +20,8 @@ namespace HVTApp.DataAccess
             modelBuilder.Configurations.Add(new ProductTypeConfiguration());
             modelBuilder.Configurations.Add(new ProductTypeDesignationConfiguration());
             modelBuilder.Configurations.Add(new ProjectTypeConfiguration());
+            modelBuilder.Configurations.Add(new StandartMarginalIncomeConfiguration());
+            modelBuilder.Configurations.Add(new StandartProductionTermConfiguration());
             modelBuilder.Configurations.Add(new CommonOptionConfiguration());
             modelBuilder.Configurations.Add(new AddressConfiguration());
             modelBuilder.Configurations.Add(new CountryConfiguration());
@@ -79,6 +81,8 @@ namespace HVTApp.DataAccess
         public virtual DbSet<ProductType> ProductTypeDbSet { get; set; }
         public virtual DbSet<ProductTypeDesignation> ProductTypeDesignationDbSet { get; set; }
         public virtual DbSet<ProjectType> ProjectTypeDbSet { get; set; }
+        public virtual DbSet<StandartMarginalIncome> StandartMarginalIncomeDbSet { get; set; }
+        public virtual DbSet<StandartProductionTerm> StandartProductionTermDbSet { get; set; }
         public virtual DbSet<CommonOption> CommonOptionDbSet { get; set; }
         public virtual DbSet<Address> AddressDbSet { get; set; }
         public virtual DbSet<Country> CountryDbSet { get; set; }

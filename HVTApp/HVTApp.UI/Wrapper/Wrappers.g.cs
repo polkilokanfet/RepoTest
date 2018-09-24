@@ -45,6 +45,15 @@ namespace HVTApp.UI.Wrapper
         public bool StructureCostNumberIsChanged => GetIsChanged(nameof(StructureCostNumber));
 
 
+        public System.String Comment
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -541,6 +550,104 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
+		public partial class StandartMarginalIncomeWrapper : WrapperBase<StandartMarginalIncome>
+	{
+	    public StandartMarginalIncomeWrapper(StandartMarginalIncome model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.Double MarginalIncome
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double MarginalIncomeOriginalValue => GetOriginalValue<System.Double>(nameof(MarginalIncome));
+        public bool MarginalIncomeIsChanged => GetIsChanged(nameof(MarginalIncome));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+
+
+        #endregion
+
+  
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
+          RegisterCollection(Parameters, Model.Parameters);
+
+
+        }
+
+	}
+
+		public partial class StandartProductionTermWrapper : WrapperBase<StandartProductionTerm>
+	{
+	    public StandartProductionTermWrapper(StandartProductionTerm model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.Int32 ProductionTerm
+        {
+          get { return GetValue<System.Int32>(); }
+          set { SetValue(value); }
+        }
+        public System.Int32 ProductionTermOriginalValue => GetOriginalValue<System.Int32>(nameof(ProductionTerm));
+        public bool ProductionTermIsChanged => GetIsChanged(nameof(ProductionTerm));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<ParameterWrapper> Parameters { get; private set; }
+
+
+        #endregion
+
+  
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.Parameters == null) throw new ArgumentException("Parameters cannot be null");
+          Parameters = new ValidatableChangeTrackingCollection<ParameterWrapper>(Model.Parameters.Select(e => new ParameterWrapper(e)));
+          RegisterCollection(Parameters, Model.Parameters);
+
+
+        }
+
+	}
+
 		public partial class CommonOptionWrapper : WrapperBase<CommonOption>
 	{
 	    public CommonOptionWrapper(CommonOption model) : base(model) { }
@@ -622,6 +729,20 @@ namespace HVTApp.UI.Wrapper
         }
 
 
+	    public ParameterWrapper NewProductParameter 
+        {
+            get { return GetWrapper<ParameterWrapper>(); }
+            set { SetComplexValue<Parameter, ParameterWrapper>(NewProductParameter, value); }
+        }
+
+
+	    public ParameterGroupWrapper NewProductParameterGroup 
+        {
+            get { return GetWrapper<ParameterGroupWrapper>(); }
+            set { SetComplexValue<ParameterGroup, ParameterGroupWrapper>(NewProductParameterGroup, value); }
+        }
+
+
         #endregion
 
         public override void InitializeComplexProperties()
@@ -631,6 +752,12 @@ namespace HVTApp.UI.Wrapper
 
 
             InitializeComplexProperty<PaymentConditionSetWrapper>(nameof(StandartPaymentsConditionSet), Model.StandartPaymentsConditionSet == null ? null : new PaymentConditionSetWrapper(Model.StandartPaymentsConditionSet));
+
+
+            InitializeComplexProperty<ParameterWrapper>(nameof(NewProductParameter), Model.NewProductParameter == null ? null : new ParameterWrapper(Model.NewProductParameter));
+
+
+            InitializeComplexProperty<ParameterGroupWrapper>(nameof(NewProductParameterGroup), Model.NewProductParameterGroup == null ? null : new ParameterGroupWrapper(Model.NewProductParameterGroup));
 
 
         }

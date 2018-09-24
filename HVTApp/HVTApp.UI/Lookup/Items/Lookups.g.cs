@@ -35,12 +35,16 @@ namespace HVTApp.UI.Lookup
 
         #region SimpleProperties
 
-		[OrderStatus(1)]
+		[OrderStatus(10)]
         public System.String Designation => GetValue<System.String>();
 
 
-		[OrderStatus(1)]
+		[OrderStatus(8)]
         public System.String StructureCostNumber => GetValue<System.String>();
+
+
+		[OrderStatus(6)]
+        public System.String Comment => GetValue<System.String>();
 
 
         #endregion
@@ -299,6 +303,52 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.Admin)]
 
+	[Designation("Стандартный маржинальный доход")]
+	public partial class StandartMarginalIncomeLookup : LookupItem<StandartMarginalIncome>
+	{
+		public StandartMarginalIncomeLookup(StandartMarginalIncome entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(10)]
+        public System.Double MarginalIncome => GetValue<System.Double>();
+
+
+        #endregion
+
+		[OrderStatus(9)]
+	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
+	[Designation("Стандартный срок производства")]
+	public partial class StandartProductionTermLookup : LookupItem<StandartProductionTerm>
+	{
+		public StandartProductionTermLookup(StandartProductionTerm entity) : base(entity) 
+		{
+		}
+		
+
+        #region SimpleProperties
+
+		[OrderStatus(10)]
+        public System.Int32 ProductionTerm => GetValue<System.Int32>();
+
+
+        #endregion
+
+		[OrderStatus(9)]
+	    public List<ParameterLookup> Parameters { get { return GetLookupEnum<ParameterLookup>().ToList(); } }
+
+	}
+
+	[AllowEditAttribute(Role.Admin)]
+
 	[Designation("Общие настройки")]
 	public partial class CommonOptionLookup : LookupItem<CommonOption>
 	{
@@ -340,6 +390,14 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
 	    public PaymentConditionSetLookup StandartPaymentsConditionSet { get { return GetLookup<PaymentConditionSetLookup>(); } }
+
+
+		[OrderStatus(1)]
+	    public ParameterLookup NewProductParameter { get { return GetLookup<ParameterLookup>(); } }
+
+
+		[OrderStatus(1)]
+	    public ParameterGroupLookup NewProductParameterGroup { get { return GetLookup<ParameterGroupLookup>(); } }
 
 
         #endregion

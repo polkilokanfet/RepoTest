@@ -42,6 +42,11 @@ namespace HVTApp.UI.Views
             //    VisibilityStructureCostNumberCreateNewProductTask = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.CreateNewProductTask).GetProperty(nameof(HVTApp.Model.POCOs.CreateNewProductTask.Comment)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCommentCreateNewProductTask = Visibility.Collapsed;
+
+
             //attr = typeof(HVTApp.Model.POCOs.CreateNewProductTask).GetProperty(nameof(HVTApp.Model.POCOs.CreateNewProductTask.Product)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityProductCreateNewProductTask = Visibility.Collapsed;
@@ -66,6 +71,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityStructureCostNumberCreateNewProductTaskProperty); }
             set { SetValue(VisibilityStructureCostNumberCreateNewProductTaskProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityCommentCreateNewProductTaskProperty = DependencyProperty.Register("VisibilityCommentCreateNewProductTask", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCommentCreateNewProductTask
+        {
+            get { return (Visibility) GetValue(VisibilityCommentCreateNewProductTaskProperty); }
+            set { SetValue(VisibilityCommentCreateNewProductTaskProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -621,6 +635,114 @@ namespace HVTApp.UI.Views
 	}
 
 
+    public partial class StandartMarginalIncomeDetailsView : ViewBase
+    {
+        public StandartMarginalIncomeDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public StandartMarginalIncomeDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, StandartMarginalIncomeDetailsViewModel StandartMarginalIncomeDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = StandartMarginalIncomeDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.StandartMarginalIncome).GetProperty(nameof(HVTApp.Model.POCOs.StandartMarginalIncome.MarginalIncome)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityMarginalIncomeStandartMarginalIncome = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.StandartMarginalIncome).GetProperty(nameof(HVTApp.Model.POCOs.StandartMarginalIncome.Parameters)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityParametersStandartMarginalIncome = Visibility.Collapsed;
+
+
+
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityMarginalIncomeStandartMarginalIncomeProperty = DependencyProperty.Register("VisibilityMarginalIncomeStandartMarginalIncome", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityMarginalIncomeStandartMarginalIncome
+        {
+            get { return (Visibility) GetValue(VisibilityMarginalIncomeStandartMarginalIncomeProperty); }
+            set { SetValue(VisibilityMarginalIncomeStandartMarginalIncomeProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityParametersStandartMarginalIncomeProperty = DependencyProperty.Register("VisibilityParametersStandartMarginalIncome", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityParametersStandartMarginalIncome
+        {
+            get { return (Visibility) GetValue(VisibilityParametersStandartMarginalIncomeProperty); }
+            set { SetValue(VisibilityParametersStandartMarginalIncomeProperty, value); OnPropertyChanged(); }
+        }
+
+
+	}
+
+
+    public partial class StandartProductionTermDetailsView : ViewBase
+    {
+        public StandartProductionTermDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public StandartProductionTermDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, StandartProductionTermDetailsViewModel StandartProductionTermDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = StandartProductionTermDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.StandartProductionTerm).GetProperty(nameof(HVTApp.Model.POCOs.StandartProductionTerm.ProductionTerm)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityProductionTermStandartProductionTerm = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.StandartProductionTerm).GetProperty(nameof(HVTApp.Model.POCOs.StandartProductionTerm.Parameters)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityParametersStandartProductionTerm = Visibility.Collapsed;
+
+
+
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityProductionTermStandartProductionTermProperty = DependencyProperty.Register("VisibilityProductionTermStandartProductionTerm", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityProductionTermStandartProductionTerm
+        {
+            get { return (Visibility) GetValue(VisibilityProductionTermStandartProductionTermProperty); }
+            set { SetValue(VisibilityProductionTermStandartProductionTermProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityParametersStandartProductionTermProperty = DependencyProperty.Register("VisibilityParametersStandartProductionTerm", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityParametersStandartProductionTerm
+        {
+            get { return (Visibility) GetValue(VisibilityParametersStandartProductionTermProperty); }
+            set { SetValue(VisibilityParametersStandartProductionTermProperty, value); OnPropertyChanged(); }
+        }
+
+
+	}
+
+
     public partial class CommonOptionDetailsView : ViewBase
     {
         public CommonOptionDetailsView()
@@ -673,6 +795,16 @@ namespace HVTApp.UI.Views
             //attr = typeof(HVTApp.Model.POCOs.CommonOption).GetProperty(nameof(HVTApp.Model.POCOs.CommonOption.Vat)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityVatCommonOption = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.CommonOption).GetProperty(nameof(HVTApp.Model.POCOs.CommonOption.NewProductParameter)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityNewProductParameterCommonOption = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.CommonOption).GetProperty(nameof(HVTApp.Model.POCOs.CommonOption.NewProductParameterGroup)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityNewProductParameterGroupCommonOption = Visibility.Collapsed;
 
 
 
@@ -739,6 +871,24 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityVatCommonOptionProperty); }
             set { SetValue(VisibilityVatCommonOptionProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityNewProductParameterCommonOptionProperty = DependencyProperty.Register("VisibilityNewProductParameterCommonOption", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNewProductParameterCommonOption
+        {
+            get { return (Visibility) GetValue(VisibilityNewProductParameterCommonOptionProperty); }
+            set { SetValue(VisibilityNewProductParameterCommonOptionProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityNewProductParameterGroupCommonOptionProperty = DependencyProperty.Register("VisibilityNewProductParameterGroupCommonOption", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNewProductParameterGroupCommonOption
+        {
+            get { return (Visibility) GetValue(VisibilityNewProductParameterGroupCommonOptionProperty); }
+            set { SetValue(VisibilityNewProductParameterGroupCommonOptionProperty, value); OnPropertyChanged(); }
         }
 
 

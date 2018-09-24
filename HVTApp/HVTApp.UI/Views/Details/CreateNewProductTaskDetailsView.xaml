@@ -16,27 +16,34 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Column="0" Grid.Row ="0" Content="Сралчахвост" Visibility="{Binding VisibilityStructureCostNumberCreateNewProductTask, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="0" Content="Обозначение" Visibility="{Binding VisibilityDesignationCreateNewProductTask, ElementName=Root}"/>
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+                 Text="{Binding Item.Designation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityDesignationCreateNewProductTask, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="1" Content="Сралчахвост" Visibility="{Binding VisibilityStructureCostNumberCreateNewProductTask, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                  Text="{Binding Item.StructureCostNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				 Visibility="{Binding VisibilityStructureCostNumberCreateNewProductTask, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="1" Content="Продукт" Visibility="{Binding VisibilityProductCreateNewProductTask, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="1" 
+        <Label Grid.Column="0" Grid.Row ="2" Content="Комментарий" Visibility="{Binding VisibilityCommentCreateNewProductTask, ElementName=Root}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+                 Text="{Binding Item.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				 Visibility="{Binding VisibilityCommentCreateNewProductTask, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="3" Content="Продукт" Visibility="{Binding VisibilityProductCreateNewProductTask, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="3" 
                                     Item="{Binding Item.Product}" 
                                     AddItemCommand="{Binding SelectProductCommand}" 
                                     RemoveItemCommand="{Binding ClearProductCommand}"
 									Visibility="{Binding VisibilityProductCreateNewProductTask, ElementName=Root}"/>
-
-
-        <Label Grid.Column="0" Grid.Row ="2" Content="Обозначение" Visibility="{Binding VisibilityDesignationCreateNewProductTask, ElementName=Root}"/>
-        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
-                 Text="{Binding Item.Designation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				 Visibility="{Binding VisibilityDesignationCreateNewProductTask, ElementName=Root}"/>
 
 
 

@@ -114,6 +114,26 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class StandartMarginalIncomeRepository : BaseRepository<StandartMarginalIncome>, IStandartMarginalIncomeRepository
+    {
+        IUnityContainer _container;
+
+		public StandartMarginalIncomeRepository(DbContext context, IUnityContainer container) : base(context) 
+		{
+			_container = container;
+		}
+    }
+
+    public partial class StandartProductionTermRepository : BaseRepository<StandartProductionTerm>, IStandartProductionTermRepository
+    {
+        IUnityContainer _container;
+
+		public StandartProductionTermRepository(DbContext context, IUnityContainer container) : base(context) 
+		{
+			_container = container;
+		}
+    }
+
     public partial class CommonOptionRepository : BaseRepository<CommonOption>, ICommonOptionRepository
     {
         IUnityContainer _container;

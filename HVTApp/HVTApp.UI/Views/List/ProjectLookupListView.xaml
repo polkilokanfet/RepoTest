@@ -48,7 +48,7 @@
                     <infg:TextField Name="Tenders" Label="Tenders" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="SalesUnits" Label="SalesUnits" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Offers" Label="Offers" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                    <infg:CheckBoxField Name="ForReport" Label="Отразить в отчете" Width="Auto" />
+                    <infg:CheckBoxField Name="ForReport" Label="Отчетный" Width="Auto" />
                     <infg:TextField Name="Notes" Label="Заметки" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
 
 					</infg:FieldLayout.Fields>

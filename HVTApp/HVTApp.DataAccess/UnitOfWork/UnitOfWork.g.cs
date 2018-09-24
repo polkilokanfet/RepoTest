@@ -15,6 +15,8 @@ namespace HVTApp.DataAccess
             ProductTypeRepository = new ProductTypeRepository(_context, _container);
             ProductTypeDesignationRepository = new ProductTypeDesignationRepository(_context, _container);
             ProjectTypeRepository = new ProjectTypeRepository(_context, _container);
+            StandartMarginalIncomeRepository = new StandartMarginalIncomeRepository(_context, _container);
+            StandartProductionTermRepository = new StandartProductionTermRepository(_context, _container);
             CommonOptionRepository = new CommonOptionRepository(_context, _container);
             AddressRepository = new AddressRepository(_context, _container);
             CountryRepository = new CountryRepository(_context, _container);
@@ -74,6 +76,8 @@ namespace HVTApp.DataAccess
         protected IProductTypeRepository ProductTypeRepository;
         protected IProductTypeDesignationRepository ProductTypeDesignationRepository;
         protected IProjectTypeRepository ProjectTypeRepository;
+        protected IStandartMarginalIncomeRepository StandartMarginalIncomeRepository;
+        protected IStandartProductionTermRepository StandartProductionTermRepository;
         protected ICommonOptionRepository CommonOptionRepository;
         protected IAddressRepository AddressRepository;
         protected ICountryRepository CountryRepository;

@@ -58,6 +58,16 @@ namespace HVTApp.DataAccess
         public ProjectTypeRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class StandartMarginalIncomeRepositoryTest : TestBaseRepository<StandartMarginalIncome>, IStandartMarginalIncomeRepository
+    {
+        public StandartMarginalIncomeRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class StandartProductionTermRepositoryTest : TestBaseRepository<StandartProductionTerm>, IStandartProductionTermRepository
+    {
+        public StandartProductionTermRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class CommonOptionRepositoryTest : TestBaseRepository<CommonOption>, ICommonOptionRepository
     {
         public CommonOptionRepositoryTest(TestData testData) : base(testData) {}

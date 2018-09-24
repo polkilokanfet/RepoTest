@@ -35,7 +35,9 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
                     <infg:TextField Name="StandartPaymentsConditionSet" Label="Стандартные условия оплаты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="NewProductParameter" Label="Родительский параметр новых параметров" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="OurCompany" Label="Наша компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="NewProductParameterGroup" Label="Группа новых параметров" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:NumericField Name="Vat" Label="НДС" Width="Auto" />
                     <infg:NumericField Name="StandartTermFromStartToEndProduction" Label="Стандартный срок производства" Width="Auto" />
                     <infg:NumericField Name="StandartTermFromPickToEndProduction" Label="Стандартный срок сборки" Width="Auto" />

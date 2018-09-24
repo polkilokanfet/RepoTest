@@ -90,6 +90,18 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+	public partial class StandartMarginalIncomeLookupListViewModel : BaseListViewModel<StandartMarginalIncome, StandartMarginalIncomeLookup, AfterSaveStandartMarginalIncomeEvent, AfterSelectStandartMarginalIncomeEvent, AfterRemoveStandartMarginalIncomeEvent>
+    {
+        public StandartMarginalIncomeLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
+	public partial class StandartProductionTermLookupListViewModel : BaseListViewModel<StandartProductionTerm, StandartProductionTermLookup, AfterSaveStandartProductionTermEvent, AfterSelectStandartProductionTermEvent, AfterRemoveStandartProductionTermEvent>
+    {
+        public StandartProductionTermLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
 	public partial class CommonOptionLookupListViewModel : BaseListViewModel<CommonOption, CommonOptionLookup, AfterSaveCommonOptionEvent, AfterSelectCommonOptionEvent, AfterRemoveCommonOptionEvent>
     {
         public CommonOptionLookupListViewModel(IUnityContainer container) : base(container) { }

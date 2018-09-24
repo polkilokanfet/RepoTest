@@ -18,6 +18,8 @@ namespace HVTApp.DataAccess
             ProductTypeRepository = new ProductTypeRepositoryTest(testData);
             ProductTypeDesignationRepository = new ProductTypeDesignationRepositoryTest(testData);
             ProjectTypeRepository = new ProjectTypeRepositoryTest(testData);
+            StandartMarginalIncomeRepository = new StandartMarginalIncomeRepositoryTest(testData);
+            StandartProductionTermRepository = new StandartProductionTermRepositoryTest(testData);
             CommonOptionRepository = new CommonOptionRepositoryTest(testData);
             AddressRepository = new AddressRepositoryTest(testData);
             CountryRepository = new CountryRepositoryTest(testData);
@@ -78,6 +80,8 @@ namespace HVTApp.DataAccess
         public IProductTypeRepository ProductTypeRepository { get; }
         public IProductTypeDesignationRepository ProductTypeDesignationRepository { get; }
         public IProjectTypeRepository ProjectTypeRepository { get; }
+        public IStandartMarginalIncomeRepository StandartMarginalIncomeRepository { get; }
+        public IStandartProductionTermRepository StandartProductionTermRepository { get; }
         public ICommonOptionRepository CommonOptionRepository { get; }
         public IAddressRepository AddressRepository { get; }
         public ICountryRepository CountryRepository { get; }

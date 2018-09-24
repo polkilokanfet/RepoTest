@@ -20,6 +20,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -52,24 +54,40 @@
 							   Visibility="{Binding VisibilityActualPriceTermCommonOption, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="4" Content="НДС" Visibility="{Binding VisibilityVatCommonOption, ElementName=Root}"/>
-		<infE:XamNumericEditor Grid.Column="1" Grid.Row="4" 
+        <Label Grid.Column="0" Grid.Row ="4" Content="Родительский параметр новых параметров" Visibility="{Binding VisibilityNewProductParameterCommonOption, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="4" 
+                                    Item="{Binding Item.NewProductParameter}" 
+                                    AddItemCommand="{Binding SelectNewProductParameterCommand}" 
+                                    RemoveItemCommand="{Binding ClearNewProductParameterCommand}"
+									Visibility="{Binding VisibilityNewProductParameterCommonOption, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="5" Content="НДС" Visibility="{Binding VisibilityVatCommonOption, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="5" 
                                Value="{Binding Item.Vat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							   Visibility="{Binding VisibilityVatCommonOption, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="5" Content="Наша компания" Visibility="{Binding VisibilityOurCompanyCommonOption, ElementName=Root}"/>
-        <controls:ChooseItemControl Grid.Column="1" Grid.Row="5" 
+        <Label Grid.Column="0" Grid.Row ="6" Content="Наша компания" Visibility="{Binding VisibilityOurCompanyCommonOption, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="6" 
                                     Item="{Binding Item.OurCompany}" 
                                     AddItemCommand="{Binding SelectOurCompanyCommand}" 
                                     RemoveItemCommand="{Binding ClearOurCompanyCommand}"
 									Visibility="{Binding VisibilityOurCompanyCommonOption, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="6" Content="Дата настроек" Visibility="{Binding VisibilityDateCommonOption, ElementName=Root}"/>
-        <DatePicker Grid.Column="1" Grid.Row="6" 
+        <Label Grid.Column="0" Grid.Row ="7" Content="Дата настроек" Visibility="{Binding VisibilityDateCommonOption, ElementName=Root}"/>
+        <DatePicker Grid.Column="1" Grid.Row="7" 
                     SelectedDate="{Binding Item.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding VisibilityDateCommonOption, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="8" Content="Группа новых параметров" Visibility="{Binding VisibilityNewProductParameterGroupCommonOption, ElementName=Root}"/>
+        <controls:ChooseItemControl Grid.Column="1" Grid.Row="8" 
+                                    Item="{Binding Item.NewProductParameterGroup}" 
+                                    AddItemCommand="{Binding SelectNewProductParameterGroupCommand}" 
+                                    RemoveItemCommand="{Binding ClearNewProductParameterGroupCommand}"
+									Visibility="{Binding VisibilityNewProductParameterGroupCommonOption, ElementName=Root}"/>
 
 
 

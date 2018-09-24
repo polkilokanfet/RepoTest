@@ -14,6 +14,8 @@ namespace HVTApp.DataAccess
     public partial interface IProductTypeRepository : IRepository<ProductType> { }
     public partial interface IProductTypeDesignationRepository : IRepository<ProductTypeDesignation> { }
     public partial interface IProjectTypeRepository : IRepository<ProjectType> { }
+    public partial interface IStandartMarginalIncomeRepository : IRepository<StandartMarginalIncome> { }
+    public partial interface IStandartProductionTermRepository : IRepository<StandartProductionTerm> { }
     public partial interface ICommonOptionRepository : IRepository<CommonOption> { }
     public partial interface IAddressRepository : IRepository<Address> { }
     public partial interface ICountryRepository : IRepository<Country> { }

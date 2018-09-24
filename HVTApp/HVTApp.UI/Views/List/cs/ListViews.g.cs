@@ -314,6 +314,20 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility NewProductParameterVisibility
+        {
+            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.NewProductParameter)].Visibility; }
+            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.NewProductParameter)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility NewProductParameterGroupVisibility
+        {
+            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.NewProductParameterGroup)].Visibility; }
+            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.NewProductParameterGroup)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility EntityVisibility
         {
             get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.Entity)].Visibility; }
@@ -668,6 +682,13 @@ namespace HVTApp.UI.Views
         {
             get { return CreateNewProductTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CreateNewProductTaskLookup.StructureCostNumber)].Visibility; }
             set { CreateNewProductTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CreateNewProductTaskLookup.StructureCostNumber)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility CommentVisibility
+        {
+            get { return CreateNewProductTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CreateNewProductTaskLookup.Comment)].Visibility; }
+            set { CreateNewProductTaskLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CreateNewProductTaskLookup.Comment)].Visibility = value; }
         }
 
 
@@ -4061,6 +4082,128 @@ namespace HVTApp.UI.Views
         {
             get { return SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SpecificationLookup.Units)].Visibility; }
             set { SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SpecificationLookup.Units)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Стандартный маржинальный доход")]
+	[DesignationPlural("StandartMarginalIncomeLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class StandartMarginalIncomeLookupListView : ViewBase
+    {
+        public StandartMarginalIncomeLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public StandartMarginalIncomeLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, StandartMarginalIncomeLookupListViewModel StandartMarginalIncomeLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = StandartMarginalIncomeLookupListViewModel;
+			StandartMarginalIncomeLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((StandartMarginalIncomeLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility MarginalIncomeVisibility
+        {
+            get { return StandartMarginalIncomeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StandartMarginalIncomeLookup.MarginalIncome)].Visibility; }
+            set { StandartMarginalIncomeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StandartMarginalIncomeLookup.MarginalIncome)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return StandartMarginalIncomeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StandartMarginalIncomeLookup.DisplayMember)].Visibility; }
+            set { StandartMarginalIncomeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StandartMarginalIncomeLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return StandartMarginalIncomeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StandartMarginalIncomeLookup.Entity)].Visibility; }
+            set { StandartMarginalIncomeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StandartMarginalIncomeLookup.Entity)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ParametersVisibility
+        {
+            get { return StandartMarginalIncomeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StandartMarginalIncomeLookup.Parameters)].Visibility; }
+            set { StandartMarginalIncomeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StandartMarginalIncomeLookup.Parameters)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Стандартный срок производства")]
+	[DesignationPlural("StandartProductionTermLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class StandartProductionTermLookupListView : ViewBase
+    {
+        public StandartProductionTermLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public StandartProductionTermLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, StandartProductionTermLookupListViewModel StandartProductionTermLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = StandartProductionTermLookupListViewModel;
+			StandartProductionTermLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((StandartProductionTermLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility ProductionTermVisibility
+        {
+            get { return StandartProductionTermLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StandartProductionTermLookup.ProductionTerm)].Visibility; }
+            set { StandartProductionTermLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StandartProductionTermLookup.ProductionTerm)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return StandartProductionTermLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StandartProductionTermLookup.DisplayMember)].Visibility; }
+            set { StandartProductionTermLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StandartProductionTermLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return StandartProductionTermLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StandartProductionTermLookup.Entity)].Visibility; }
+            set { StandartProductionTermLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StandartProductionTermLookup.Entity)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ParametersVisibility
+        {
+            get { return StandartProductionTermLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StandartProductionTermLookup.Parameters)].Visibility; }
+            set { StandartProductionTermLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.StandartProductionTermLookup.Parameters)].Visibility = value; }
         }
 
 

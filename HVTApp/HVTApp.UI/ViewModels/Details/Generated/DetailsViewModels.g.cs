@@ -382,6 +382,102 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class StandartMarginalIncomeDetailsViewModel : BaseDetailsViewModel<StandartMarginalIncomeWrapper, StandartMarginalIncome, AfterSaveStandartMarginalIncomeEvent>
+    {
+		private Func<Task<List<Parameter>>> _getEntitiesForAddInParametersCommand;
+		public ICommand AddInParametersCommand { get; }
+		public ICommand RemoveFromParametersCommand { get; }
+		private ParameterWrapper _selectedParametersItem;
+		public ParameterWrapper SelectedParametersItem 
+		{ 
+			get { return _selectedParametersItem; }
+			set 
+			{ 
+				if (Equals(_selectedParametersItem, value)) return;
+				_selectedParametersItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromParametersCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+
+        public StandartMarginalIncomeDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = async () => { return await UnitOfWork.Repository<Parameter>().GetAllAsync(); };;
+			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute_Default);
+			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
+
+		}
+
+			private async void AddInParametersCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<Parameter, ParameterWrapper>(await _getEntitiesForAddInParametersCommand(), Item.Parameters);
+			}
+
+			private void RemoveFromParametersCommand_Execute_Default()
+			{
+				Item.Parameters.Remove(SelectedParametersItem);
+			}
+
+			private bool RemoveFromParametersCommand_CanExecute_Default()
+			{
+				return SelectedParametersItem != null;
+			}
+
+
+
+    }
+
+
+    public partial class StandartProductionTermDetailsViewModel : BaseDetailsViewModel<StandartProductionTermWrapper, StandartProductionTerm, AfterSaveStandartProductionTermEvent>
+    {
+		private Func<Task<List<Parameter>>> _getEntitiesForAddInParametersCommand;
+		public ICommand AddInParametersCommand { get; }
+		public ICommand RemoveFromParametersCommand { get; }
+		private ParameterWrapper _selectedParametersItem;
+		public ParameterWrapper SelectedParametersItem 
+		{ 
+			get { return _selectedParametersItem; }
+			set 
+			{ 
+				if (Equals(_selectedParametersItem, value)) return;
+				_selectedParametersItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromParametersCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+
+        public StandartProductionTermDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForAddInParametersCommand == null) _getEntitiesForAddInParametersCommand = async () => { return await UnitOfWork.Repository<Parameter>().GetAllAsync(); };;
+			if (AddInParametersCommand == null) AddInParametersCommand = new DelegateCommand(AddInParametersCommand_Execute_Default);
+			if (RemoveFromParametersCommand == null) RemoveFromParametersCommand = new DelegateCommand(RemoveFromParametersCommand_Execute_Default, RemoveFromParametersCommand_CanExecute_Default);
+
+		}
+
+			private async void AddInParametersCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<Parameter, ParameterWrapper>(await _getEntitiesForAddInParametersCommand(), Item.Parameters);
+			}
+
+			private void RemoveFromParametersCommand_Execute_Default()
+			{
+				Item.Parameters.Remove(SelectedParametersItem);
+			}
+
+			private bool RemoveFromParametersCommand_CanExecute_Default()
+			{
+				return SelectedParametersItem != null;
+			}
+
+
+
+    }
+
+
     public partial class CommonOptionDetailsViewModel : BaseDetailsViewModel<CommonOptionWrapper, CommonOption, AfterSaveCommonOptionEvent>
     {
 		private Func<Task<List<Company>>> _getEntitiesForSelectOurCompanyCommand;
@@ -391,6 +487,14 @@ namespace HVTApp.UI.ViewModels
 		private Func<Task<List<PaymentConditionSet>>> _getEntitiesForSelectStandartPaymentsConditionSetCommand;
 		public ICommand SelectStandartPaymentsConditionSetCommand { get; private set; }
 		public ICommand ClearStandartPaymentsConditionSetCommand { get; private set; }
+
+		private Func<Task<List<Parameter>>> _getEntitiesForSelectNewProductParameterCommand;
+		public ICommand SelectNewProductParameterCommand { get; private set; }
+		public ICommand ClearNewProductParameterCommand { get; private set; }
+
+		private Func<Task<List<ParameterGroup>>> _getEntitiesForSelectNewProductParameterGroupCommand;
+		public ICommand SelectNewProductParameterGroupCommand { get; private set; }
+		public ICommand ClearNewProductParameterGroupCommand { get; private set; }
 
 
         public CommonOptionDetailsViewModel(IUnityContainer container) : base(container) 
@@ -404,6 +508,16 @@ namespace HVTApp.UI.ViewModels
 			if (_getEntitiesForSelectStandartPaymentsConditionSetCommand == null) _getEntitiesForSelectStandartPaymentsConditionSetCommand = async () => { return await UnitOfWork.Repository<PaymentConditionSet>().GetAllAsync(); };
 			if (SelectStandartPaymentsConditionSetCommand == null) SelectStandartPaymentsConditionSetCommand = new DelegateCommand(SelectStandartPaymentsConditionSetCommand_Execute_Default);
 			if (ClearStandartPaymentsConditionSetCommand == null) ClearStandartPaymentsConditionSetCommand = new DelegateCommand(ClearStandartPaymentsConditionSetCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectNewProductParameterCommand == null) _getEntitiesForSelectNewProductParameterCommand = async () => { return await UnitOfWork.Repository<Parameter>().GetAllAsync(); };
+			if (SelectNewProductParameterCommand == null) SelectNewProductParameterCommand = new DelegateCommand(SelectNewProductParameterCommand_Execute_Default);
+			if (ClearNewProductParameterCommand == null) ClearNewProductParameterCommand = new DelegateCommand(ClearNewProductParameterCommand_Execute_Default);
+
+			
+			if (_getEntitiesForSelectNewProductParameterGroupCommand == null) _getEntitiesForSelectNewProductParameterGroupCommand = async () => { return await UnitOfWork.Repository<ParameterGroup>().GetAllAsync(); };
+			if (SelectNewProductParameterGroupCommand == null) SelectNewProductParameterGroupCommand = new DelegateCommand(SelectNewProductParameterGroupCommand_Execute_Default);
+			if (ClearNewProductParameterGroupCommand == null) ClearNewProductParameterGroupCommand = new DelegateCommand(ClearNewProductParameterGroupCommand_Execute_Default);
 
 		}
 
@@ -426,6 +540,28 @@ namespace HVTApp.UI.ViewModels
 		private void ClearStandartPaymentsConditionSetCommand_Execute_Default() 
 		{
 						Item.StandartPaymentsConditionSet = null;
+		    
+		}
+
+		private async void SelectNewProductParameterCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<Parameter, ParameterWrapper>(await _getEntitiesForSelectNewProductParameterCommand(), nameof(Item.NewProductParameter), Item.NewProductParameter?.Id);
+		}
+
+		private void ClearNewProductParameterCommand_Execute_Default() 
+		{
+						Item.NewProductParameter = null;
+		    
+		}
+
+		private async void SelectNewProductParameterGroupCommand_Execute_Default() 
+		{
+            SelectAndSetWrapper<ParameterGroup, ParameterGroupWrapper>(await _getEntitiesForSelectNewProductParameterGroupCommand(), nameof(Item.NewProductParameterGroup), Item.NewProductParameterGroup?.Id);
+		}
+
+		private void ClearNewProductParameterGroupCommand_Execute_Default() 
+		{
+						Item.NewProductParameterGroup = null;
 		    
 		}
 

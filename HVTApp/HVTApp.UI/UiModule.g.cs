@@ -78,6 +78,18 @@ namespace HVTApp.UI
             _updateDetailsService.Register<ProjectType, ProjectTypeDetailsView>();
 
 
+            Container.RegisterViewForNavigation<StandartMarginalIncomeLookupListView>();
+            //_dialogService.Register<StandartMarginalIncomeDetailsViewModel, StandartMarginalIncomeDetailsView>();
+			_selectService.Register<StandartMarginalIncomeLookupListView, StandartMarginalIncome>();
+            _updateDetailsService.Register<StandartMarginalIncome, StandartMarginalIncomeDetailsView>();
+
+
+            Container.RegisterViewForNavigation<StandartProductionTermLookupListView>();
+            //_dialogService.Register<StandartProductionTermDetailsViewModel, StandartProductionTermDetailsView>();
+			_selectService.Register<StandartProductionTermLookupListView, StandartProductionTerm>();
+            _updateDetailsService.Register<StandartProductionTerm, StandartProductionTermDetailsView>();
+
+
             Container.RegisterViewForNavigation<CommonOptionLookupListView>();
             //_dialogService.Register<CommonOptionDetailsViewModel, CommonOptionDetailsView>();
 			_selectService.Register<CommonOptionLookupListView, CommonOption>();
