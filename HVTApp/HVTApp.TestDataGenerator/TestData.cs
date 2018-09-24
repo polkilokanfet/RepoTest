@@ -5,7 +5,6 @@ using System.Reflection;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
-using HVTApp.Services.StringToGuidService;
 
 namespace HVTApp.TestDataGenerator
 {
@@ -362,8 +361,8 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateUsers()
         {
-            UserIvanov.Clone(new User { Login = "1", Password = StringToGuidService.GetHashString("1"), Employee = EmployeeIvanov, PersonalNumber = "1", Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer } });
-            UserPetrov.Clone(new User { Login = "2", Password = StringToGuidService.GetHashString("2"), Employee = EmployeePetrov, PersonalNumber = "2", Roles = new List<UserRole> { UserRoleDataBaseFiller } });
+            UserIvanov.Clone(new User { Login = "1", Password = StringToGuid.GetHashString("1"), Employee = EmployeeIvanov, PersonalNumber = "1", Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer } });
+            UserPetrov.Clone(new User { Login = "2", Password = StringToGuid.GetHashString("2"), Employee = EmployeePetrov, PersonalNumber = "2", Roles = new List<UserRole> { UserRoleDataBaseFiller } });
         }
 
         private void GenerateProjectTypess()
@@ -691,7 +690,7 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateOffers()
         {
-            OfferMrsk.Clone(new Offer {Number = new DocumentNumber(), Vat = 0.18, Project = ProjectSubstation, ValidityDate = DateTime.Today.AddDays(60), Author = EmployeeIvanov, SenderEmployee = EmployeeIvanov, RecipientEmployee = EmployeeSidorov, CopyToRecipients = new List<Employee> {EmployeePetrov}, RegistrationDetailsOfRecipient = new DocumentsRegistrationDetails {Number = "12f455", Date = DateTime.Today.AddDays(-3)}});
+            OfferMrsk.Clone(new Offer {Number = new DocumentNumber(), Vat = 18, Project = ProjectSubstation, ValidityDate = DateTime.Today.AddDays(60), Author = EmployeeIvanov, SenderEmployee = EmployeeIvanov, RecipientEmployee = EmployeeSidorov, CopyToRecipients = new List<Employee> {EmployeePetrov}, RegistrationDetailsOfRecipient = new DocumentsRegistrationDetails {Number = "12f455", Date = DateTime.Today.AddDays(-3)}});
         }
 
         private void GenerateTenderTypes()
@@ -721,8 +720,8 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateSpecifications()
         {
-            SpecificationMrsk1.Clone(new Specification { Contract = ContractMrsk, Date = ContractMrsk.Date, Number = "1", Vat = 0.18 });
-            SpecificationFsk.Clone(new Specification { Contract = ContractFsk, Date = ContractFsk.Date, Number = "1", Vat = 0.18 });
+            SpecificationMrsk1.Clone(new Specification { Contract = ContractMrsk, Date = ContractMrsk.Date, Number = "1", Vat = 18 });
+            SpecificationFsk.Clone(new Specification { Contract = ContractFsk, Date = ContractFsk.Date, Number = "1", Vat = 18 });
         }
 
         private void GeneratePaymentConditions()

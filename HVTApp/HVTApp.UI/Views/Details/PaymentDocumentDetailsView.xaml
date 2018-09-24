@@ -16,6 +16,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -32,6 +33,12 @@
 										 AddItemCommand="{Binding AddInPaymentsCommand}"
 										 RemoveItemCommand="{Binding RemoveFromPaymentsCommand}"
 										 Visibility="{Binding VisibilityPaymentsPaymentDocument, ElementName=Root}"/>
+
+
+        <Label Grid.Column="0" Grid.Row ="2" Content="НДС" Visibility="{Binding VisibilityVatPaymentDocument, ElementName=Root}"/>
+		<infE:XamNumericEditor Grid.Column="1" Grid.Row="2" 
+                               Value="{Binding Item.Vat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							   Visibility="{Binding VisibilityVatPaymentDocument, ElementName=Root}"/>
 
 
 

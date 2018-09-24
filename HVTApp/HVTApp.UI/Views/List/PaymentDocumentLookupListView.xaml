@@ -23,7 +23,7 @@
         </Label>
        
 
-		<infg:XamDataGrid x:Name="PaymentDocumentLookupListGrid" Grid.Row="1" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<infg:XamDataGrid x:Name="PaymentDocumentLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.ContextMenu>
 				<ContextMenu>
@@ -36,6 +36,7 @@
 					<infg:FieldLayout.Fields>
                     <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />
                     <infg:TextField Name="Number" Label="Номер" Width="Auto" />
+                    <infg:NumericField Name="Vat" Label="НДС" Width="Auto" />
                     <infg:TextField Name="Payments" Label="Части платежа" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
 
 					</infg:FieldLayout.Fields>

@@ -1,9 +1,25 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 using HVTApp.Model.POCOs;
 using Prism.Events;
 
 namespace HVTApp.Model.Events
 {
 	public partial class AfterSaveCreateNewProductTaskEvent : PubSubEvent<CreateNewProductTask> { }
+	public partial class AfterSaveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
+	public partial class AfterSaveMarketFieldEvent : PubSubEvent<MarketField> { }
 	public partial class AfterSavePaymentActualEvent : PubSubEvent<PaymentActual> { }
 	public partial class AfterSavePaymentPlannedEvent : PubSubEvent<PaymentPlanned> { }
 	public partial class AfterSaveProductBlockIsServiceEvent : PubSubEvent<ProductBlockIsService> { }
@@ -26,7 +42,6 @@ namespace HVTApp.Model.Events
 	public partial class AfterSavePaymentConditionSetEvent : PubSubEvent<PaymentConditionSet> { }
 	public partial class AfterSaveProductBlockEvent : PubSubEvent<ProductBlock> { }
 	public partial class AfterSaveProductDependentEvent : PubSubEvent<ProductDependent> { }
-	public partial class AfterSaveSalesBlockEvent : PubSubEvent<SalesBlock> { }
 	public partial class AfterSaveBankDetailsEvent : PubSubEvent<BankDetails> { }
 	public partial class AfterSaveCompanyEvent : PubSubEvent<Company> { }
 	public partial class AfterSaveCompanyFormEvent : PubSubEvent<CompanyForm> { }
@@ -42,16 +57,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSavePersonEvent : PubSubEvent<Person> { }
 	public partial class AfterSaveParameterRelationEvent : PubSubEvent<ParameterRelation> { }
 	public partial class AfterSaveSalesUnitEvent : PubSubEvent<SalesUnit> { }
-	public partial class AfterSaveTestFriendAddressEvent : PubSubEvent<TestFriendAddress> { }
-	public partial class AfterSaveTestFriendEvent : PubSubEvent<TestFriend> { }
-	public partial class AfterSaveTestFriendEmailEvent : PubSubEvent<TestFriendEmail> { }
-	public partial class AfterSaveTestFriendGroupEvent : PubSubEvent<TestFriendGroup> { }
 	public partial class AfterSaveDocumentEvent : PubSubEvent<Document> { }
-	public partial class AfterSaveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
-	public partial class AfterSaveTestEntityEvent : PubSubEvent<TestEntity> { }
-	public partial class AfterSaveTestHusbandEvent : PubSubEvent<TestHusband> { }
-	public partial class AfterSaveTestWifeEvent : PubSubEvent<TestWife> { }
-	public partial class AfterSaveTestChildEvent : PubSubEvent<TestChild> { }
 	public partial class AfterSaveSumOnDateEvent : PubSubEvent<SumOnDate> { }
 	public partial class AfterSaveProductEvent : PubSubEvent<Product> { }
 	public partial class AfterSaveOfferEvent : PubSubEvent<Offer> { }

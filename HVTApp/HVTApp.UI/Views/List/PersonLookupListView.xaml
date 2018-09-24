@@ -23,7 +23,7 @@
         </Label>
        
 
-		<infg:XamDataGrid x:Name="PersonLookupListGrid" Grid.Row="1" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<infg:XamDataGrid x:Name="PersonLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.ContextMenu>
 				<ContextMenu>
@@ -35,8 +35,8 @@
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
                     <infg:TextField Name="Surname" Label="Фамилия" Width="Auto" />
-                    <infg:TextField Name="Patronymic" Label="Отчество" Width="Auto" />
                     <infg:TextField Name="Name" Label="Имя" Width="Auto" />
+                    <infg:TextField Name="Patronymic" Label="Отчество" Width="Auto" />
                     <infg:CheckBoxField Name="IsMan" Label="Мужского пола" Width="Auto" />
 
 					</infg:FieldLayout.Fields>

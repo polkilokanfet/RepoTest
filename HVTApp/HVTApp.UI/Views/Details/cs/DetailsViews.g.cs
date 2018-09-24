@@ -81,6 +81,100 @@ namespace HVTApp.UI.Views
 	}
 
 
+    public partial class DocumentNumberDetailsView : ViewBase
+    {
+        public DocumentNumberDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public DocumentNumberDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentNumberDetailsViewModel DocumentNumberDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = DocumentNumberDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.DocumentNumber).GetProperty(nameof(HVTApp.Model.POCOs.DocumentNumber.Number)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityNumberDocumentNumber = Visibility.Collapsed;
+
+
+
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityNumberDocumentNumberProperty = DependencyProperty.Register("VisibilityNumberDocumentNumber", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNumberDocumentNumber
+        {
+            get { return (Visibility) GetValue(VisibilityNumberDocumentNumberProperty); }
+            set { SetValue(VisibilityNumberDocumentNumberProperty, value); OnPropertyChanged(); }
+        }
+
+
+	}
+
+
+    public partial class MarketFieldDetailsView : ViewBase
+    {
+        public MarketFieldDetailsView()
+        {
+			InitializeComponent();
+        }
+
+        public MarketFieldDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, MarketFieldDetailsViewModel MarketFieldDetailsViewModel) : base(regionManager, eventAggregator)
+        {
+            SetVisibilityProps();
+			InitializeComponent();
+            DataContext = MarketFieldDetailsViewModel;
+        }
+
+        private void SetVisibilityProps()
+        {
+            //NotUpdateAttribute attr;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.MarketField).GetProperty(nameof(HVTApp.Model.POCOs.MarketField.Name)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityNameMarketField = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.MarketField).GetProperty(nameof(HVTApp.Model.POCOs.MarketField.ActivityFields)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityActivityFieldsMarketField = Visibility.Collapsed;
+
+
+
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityNameMarketFieldProperty = DependencyProperty.Register("VisibilityNameMarketField", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityNameMarketField
+        {
+            get { return (Visibility) GetValue(VisibilityNameMarketFieldProperty); }
+            set { SetValue(VisibilityNameMarketFieldProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityActivityFieldsMarketFieldProperty = DependencyProperty.Register("VisibilityActivityFieldsMarketField", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityActivityFieldsMarketField
+        {
+            get { return (Visibility) GetValue(VisibilityActivityFieldsMarketFieldProperty); }
+            set { SetValue(VisibilityActivityFieldsMarketFieldProperty, value); OnPropertyChanged(); }
+        }
+
+
+	}
+
+
     public partial class PaymentActualDetailsView : ViewBase
     {
         public PaymentActualDetailsView()
@@ -576,6 +670,11 @@ namespace HVTApp.UI.Views
             //    VisibilityStandartPaymentsConditionSetCommonOption = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.CommonOption).GetProperty(nameof(HVTApp.Model.POCOs.CommonOption.Vat)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityVatCommonOption = Visibility.Collapsed;
+
+
 
         }
 
@@ -631,6 +730,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityStandartPaymentsConditionSetCommonOptionProperty); }
             set { SetValue(VisibilityStandartPaymentsConditionSetCommonOptionProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityVatCommonOptionProperty = DependencyProperty.Register("VisibilityVatCommonOption", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityVatCommonOption
+        {
+            get { return (Visibility) GetValue(VisibilityVatCommonOptionProperty); }
+            set { SetValue(VisibilityVatCommonOptionProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -1613,60 +1721,6 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityAmountProductDependentProperty); }
             set { SetValue(VisibilityAmountProductDependentProperty, value); OnPropertyChanged(); }
-        }
-
-
-	}
-
-
-    public partial class SalesBlockDetailsView : ViewBase
-    {
-        public SalesBlockDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public SalesBlockDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, SalesBlockDetailsViewModel SalesBlockDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = SalesBlockDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.SalesBlock).GetProperty(nameof(HVTApp.Model.POCOs.SalesBlock.ParentSalesUnits)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityParentSalesUnitsSalesBlock = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.SalesBlock).GetProperty(nameof(HVTApp.Model.POCOs.SalesBlock.ChildSalesUnits)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityChildSalesUnitsSalesBlock = Visibility.Collapsed;
-
-
-
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityParentSalesUnitsSalesBlockProperty = DependencyProperty.Register("VisibilityParentSalesUnitsSalesBlock", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityParentSalesUnitsSalesBlock
-        {
-            get { return (Visibility) GetValue(VisibilityParentSalesUnitsSalesBlockProperty); }
-            set { SetValue(VisibilityParentSalesUnitsSalesBlockProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityChildSalesUnitsSalesBlockProperty = DependencyProperty.Register("VisibilityChildSalesUnitsSalesBlock", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityChildSalesUnitsSalesBlock
-        {
-            get { return (Visibility) GetValue(VisibilityChildSalesUnitsSalesBlockProperty); }
-            set { SetValue(VisibilityChildSalesUnitsSalesBlockProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -3407,348 +3461,6 @@ namespace HVTApp.UI.Views
 	}
 
 
-    public partial class TestFriendAddressDetailsView : ViewBase
-    {
-        public TestFriendAddressDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public TestFriendAddressDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendAddressDetailsViewModel TestFriendAddressDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = TestFriendAddressDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestFriendAddress).GetProperty(nameof(HVTApp.Model.POCOs.TestFriendAddress.City)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityCityTestFriendAddress = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestFriendAddress).GetProperty(nameof(HVTApp.Model.POCOs.TestFriendAddress.Street)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityStreetTestFriendAddress = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestFriendAddress).GetProperty(nameof(HVTApp.Model.POCOs.TestFriendAddress.StreetNumber)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityStreetNumberTestFriendAddress = Visibility.Collapsed;
-
-
-
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityCityTestFriendAddressProperty = DependencyProperty.Register("VisibilityCityTestFriendAddress", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityCityTestFriendAddress
-        {
-            get { return (Visibility) GetValue(VisibilityCityTestFriendAddressProperty); }
-            set { SetValue(VisibilityCityTestFriendAddressProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityStreetTestFriendAddressProperty = DependencyProperty.Register("VisibilityStreetTestFriendAddress", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityStreetTestFriendAddress
-        {
-            get { return (Visibility) GetValue(VisibilityStreetTestFriendAddressProperty); }
-            set { SetValue(VisibilityStreetTestFriendAddressProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityStreetNumberTestFriendAddressProperty = DependencyProperty.Register("VisibilityStreetNumberTestFriendAddress", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityStreetNumberTestFriendAddress
-        {
-            get { return (Visibility) GetValue(VisibilityStreetNumberTestFriendAddressProperty); }
-            set { SetValue(VisibilityStreetNumberTestFriendAddressProperty, value); OnPropertyChanged(); }
-        }
-
-
-	}
-
-
-    public partial class TestFriendDetailsView : ViewBase
-    {
-        public TestFriendDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public TestFriendDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendDetailsViewModel TestFriendDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = TestFriendDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestFriend).GetProperty(nameof(HVTApp.Model.POCOs.TestFriend.FriendGroupId)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityFriendGroupIdTestFriend = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestFriend).GetProperty(nameof(HVTApp.Model.POCOs.TestFriend.FirstName)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityFirstNameTestFriend = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestFriend).GetProperty(nameof(HVTApp.Model.POCOs.TestFriend.LastName)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityLastNameTestFriend = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestFriend).GetProperty(nameof(HVTApp.Model.POCOs.TestFriend.Birthday)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityBirthdayTestFriend = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestFriend).GetProperty(nameof(HVTApp.Model.POCOs.TestFriend.IsDeveloper)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityIsDeveloperTestFriend = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestFriend).GetProperty(nameof(HVTApp.Model.POCOs.TestFriend.TestFriendAddress)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityTestFriendAddressTestFriend = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestFriend).GetProperty(nameof(HVTApp.Model.POCOs.TestFriend.TestFriendGroup)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityTestFriendGroupTestFriend = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestFriend).GetProperty(nameof(HVTApp.Model.POCOs.TestFriend.Emails)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityEmailsTestFriend = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestFriend).GetProperty(nameof(HVTApp.Model.POCOs.TestFriend.IdGet)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityIdGetTestFriend = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestFriend).GetProperty(nameof(HVTApp.Model.POCOs.TestFriend.TestFriendEmailGet)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityTestFriendEmailGetTestFriend = Visibility.Collapsed;
-
-
-
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityFriendGroupIdTestFriendProperty = DependencyProperty.Register("VisibilityFriendGroupIdTestFriend", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityFriendGroupIdTestFriend
-        {
-            get { return (Visibility) GetValue(VisibilityFriendGroupIdTestFriendProperty); }
-            set { SetValue(VisibilityFriendGroupIdTestFriendProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityFirstNameTestFriendProperty = DependencyProperty.Register("VisibilityFirstNameTestFriend", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityFirstNameTestFriend
-        {
-            get { return (Visibility) GetValue(VisibilityFirstNameTestFriendProperty); }
-            set { SetValue(VisibilityFirstNameTestFriendProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityLastNameTestFriendProperty = DependencyProperty.Register("VisibilityLastNameTestFriend", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityLastNameTestFriend
-        {
-            get { return (Visibility) GetValue(VisibilityLastNameTestFriendProperty); }
-            set { SetValue(VisibilityLastNameTestFriendProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityBirthdayTestFriendProperty = DependencyProperty.Register("VisibilityBirthdayTestFriend", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityBirthdayTestFriend
-        {
-            get { return (Visibility) GetValue(VisibilityBirthdayTestFriendProperty); }
-            set { SetValue(VisibilityBirthdayTestFriendProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityIsDeveloperTestFriendProperty = DependencyProperty.Register("VisibilityIsDeveloperTestFriend", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityIsDeveloperTestFriend
-        {
-            get { return (Visibility) GetValue(VisibilityIsDeveloperTestFriendProperty); }
-            set { SetValue(VisibilityIsDeveloperTestFriendProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityTestFriendAddressTestFriendProperty = DependencyProperty.Register("VisibilityTestFriendAddressTestFriend", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityTestFriendAddressTestFriend
-        {
-            get { return (Visibility) GetValue(VisibilityTestFriendAddressTestFriendProperty); }
-            set { SetValue(VisibilityTestFriendAddressTestFriendProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityTestFriendGroupTestFriendProperty = DependencyProperty.Register("VisibilityTestFriendGroupTestFriend", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityTestFriendGroupTestFriend
-        {
-            get { return (Visibility) GetValue(VisibilityTestFriendGroupTestFriendProperty); }
-            set { SetValue(VisibilityTestFriendGroupTestFriendProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityEmailsTestFriendProperty = DependencyProperty.Register("VisibilityEmailsTestFriend", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityEmailsTestFriend
-        {
-            get { return (Visibility) GetValue(VisibilityEmailsTestFriendProperty); }
-            set { SetValue(VisibilityEmailsTestFriendProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityIdGetTestFriendProperty = DependencyProperty.Register("VisibilityIdGetTestFriend", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityIdGetTestFriend
-        {
-            get { return (Visibility) GetValue(VisibilityIdGetTestFriendProperty); }
-            set { SetValue(VisibilityIdGetTestFriendProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityTestFriendEmailGetTestFriendProperty = DependencyProperty.Register("VisibilityTestFriendEmailGetTestFriend", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityTestFriendEmailGetTestFriend
-        {
-            get { return (Visibility) GetValue(VisibilityTestFriendEmailGetTestFriendProperty); }
-            set { SetValue(VisibilityTestFriendEmailGetTestFriendProperty, value); OnPropertyChanged(); }
-        }
-
-
-	}
-
-
-    public partial class TestFriendEmailDetailsView : ViewBase
-    {
-        public TestFriendEmailDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public TestFriendEmailDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendEmailDetailsViewModel TestFriendEmailDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = TestFriendEmailDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestFriendEmail).GetProperty(nameof(HVTApp.Model.POCOs.TestFriendEmail.Email)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityEmailTestFriendEmail = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestFriendEmail).GetProperty(nameof(HVTApp.Model.POCOs.TestFriendEmail.Comment)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityCommentTestFriendEmail = Visibility.Collapsed;
-
-
-
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityEmailTestFriendEmailProperty = DependencyProperty.Register("VisibilityEmailTestFriendEmail", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityEmailTestFriendEmail
-        {
-            get { return (Visibility) GetValue(VisibilityEmailTestFriendEmailProperty); }
-            set { SetValue(VisibilityEmailTestFriendEmailProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityCommentTestFriendEmailProperty = DependencyProperty.Register("VisibilityCommentTestFriendEmail", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityCommentTestFriendEmail
-        {
-            get { return (Visibility) GetValue(VisibilityCommentTestFriendEmailProperty); }
-            set { SetValue(VisibilityCommentTestFriendEmailProperty, value); OnPropertyChanged(); }
-        }
-
-
-	}
-
-
-    public partial class TestFriendGroupDetailsView : ViewBase
-    {
-        public TestFriendGroupDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public TestFriendGroupDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendGroupDetailsViewModel TestFriendGroupDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = TestFriendGroupDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestFriendGroup).GetProperty(nameof(HVTApp.Model.POCOs.TestFriendGroup.Name)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityNameTestFriendGroup = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestFriendGroup).GetProperty(nameof(HVTApp.Model.POCOs.TestFriendGroup.FriendTests)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityFriendTestsTestFriendGroup = Visibility.Collapsed;
-
-
-
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityNameTestFriendGroupProperty = DependencyProperty.Register("VisibilityNameTestFriendGroup", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityNameTestFriendGroup
-        {
-            get { return (Visibility) GetValue(VisibilityNameTestFriendGroupProperty); }
-            set { SetValue(VisibilityNameTestFriendGroupProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityFriendTestsTestFriendGroupProperty = DependencyProperty.Register("VisibilityFriendTestsTestFriendGroup", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityFriendTestsTestFriendGroup
-        {
-            get { return (Visibility) GetValue(VisibilityFriendTestsTestFriendGroupProperty); }
-            set { SetValue(VisibilityFriendTestsTestFriendGroupProperty, value); OnPropertyChanged(); }
-        }
-
-
-	}
-
-
     public partial class DocumentDetailsView : ViewBase
     {
         public DocumentDetailsView()
@@ -3951,290 +3663,6 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityCommentDocumentProperty); }
             set { SetValue(VisibilityCommentDocumentProperty, value); OnPropertyChanged(); }
-        }
-
-
-	}
-
-
-    public partial class DocumentNumberDetailsView : ViewBase
-    {
-        public DocumentNumberDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public DocumentNumberDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, DocumentNumberDetailsViewModel DocumentNumberDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = DocumentNumberDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.DocumentNumber).GetProperty(nameof(HVTApp.Model.POCOs.DocumentNumber.Number)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityNumberDocumentNumber = Visibility.Collapsed;
-
-
-
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityNumberDocumentNumberProperty = DependencyProperty.Register("VisibilityNumberDocumentNumber", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityNumberDocumentNumber
-        {
-            get { return (Visibility) GetValue(VisibilityNumberDocumentNumberProperty); }
-            set { SetValue(VisibilityNumberDocumentNumberProperty, value); OnPropertyChanged(); }
-        }
-
-
-	}
-
-
-    public partial class TestEntityDetailsView : ViewBase
-    {
-        public TestEntityDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public TestEntityDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestEntityDetailsViewModel TestEntityDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = TestEntityDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestEntity).GetProperty(nameof(HVTApp.Model.POCOs.TestEntity.Name)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityNameTestEntity = Visibility.Collapsed;
-
-
-
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityNameTestEntityProperty = DependencyProperty.Register("VisibilityNameTestEntity", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityNameTestEntity
-        {
-            get { return (Visibility) GetValue(VisibilityNameTestEntityProperty); }
-            set { SetValue(VisibilityNameTestEntityProperty, value); OnPropertyChanged(); }
-        }
-
-
-	}
-
-
-    public partial class TestHusbandDetailsView : ViewBase
-    {
-        public TestHusbandDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public TestHusbandDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestHusbandDetailsViewModel TestHusbandDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = TestHusbandDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestHusband).GetProperty(nameof(HVTApp.Model.POCOs.TestHusband.Wife)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityWifeTestHusband = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestHusband).GetProperty(nameof(HVTApp.Model.POCOs.TestHusband.Children)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityChildrenTestHusband = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestHusband).GetProperty(nameof(HVTApp.Model.POCOs.TestHusband.Name)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityNameTestHusband = Visibility.Collapsed;
-
-
-
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityWifeTestHusbandProperty = DependencyProperty.Register("VisibilityWifeTestHusband", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityWifeTestHusband
-        {
-            get { return (Visibility) GetValue(VisibilityWifeTestHusbandProperty); }
-            set { SetValue(VisibilityWifeTestHusbandProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityChildrenTestHusbandProperty = DependencyProperty.Register("VisibilityChildrenTestHusband", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityChildrenTestHusband
-        {
-            get { return (Visibility) GetValue(VisibilityChildrenTestHusbandProperty); }
-            set { SetValue(VisibilityChildrenTestHusbandProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityNameTestHusbandProperty = DependencyProperty.Register("VisibilityNameTestHusband", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityNameTestHusband
-        {
-            get { return (Visibility) GetValue(VisibilityNameTestHusbandProperty); }
-            set { SetValue(VisibilityNameTestHusbandProperty, value); OnPropertyChanged(); }
-        }
-
-
-	}
-
-
-    public partial class TestWifeDetailsView : ViewBase
-    {
-        public TestWifeDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public TestWifeDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestWifeDetailsViewModel TestWifeDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = TestWifeDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestWife).GetProperty(nameof(HVTApp.Model.POCOs.TestWife.N)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityNTestWife = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestWife).GetProperty(nameof(HVTApp.Model.POCOs.TestWife.Husband)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityHusbandTestWife = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestWife).GetProperty(nameof(HVTApp.Model.POCOs.TestWife.Name)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityNameTestWife = Visibility.Collapsed;
-
-
-
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityNTestWifeProperty = DependencyProperty.Register("VisibilityNTestWife", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityNTestWife
-        {
-            get { return (Visibility) GetValue(VisibilityNTestWifeProperty); }
-            set { SetValue(VisibilityNTestWifeProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityHusbandTestWifeProperty = DependencyProperty.Register("VisibilityHusbandTestWife", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityHusbandTestWife
-        {
-            get { return (Visibility) GetValue(VisibilityHusbandTestWifeProperty); }
-            set { SetValue(VisibilityHusbandTestWifeProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityNameTestWifeProperty = DependencyProperty.Register("VisibilityNameTestWife", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityNameTestWife
-        {
-            get { return (Visibility) GetValue(VisibilityNameTestWifeProperty); }
-            set { SetValue(VisibilityNameTestWifeProperty, value); OnPropertyChanged(); }
-        }
-
-
-	}
-
-
-    public partial class TestChildDetailsView : ViewBase
-    {
-        public TestChildDetailsView()
-        {
-			InitializeComponent();
-        }
-
-        public TestChildDetailsView(IRegionManager regionManager, IEventAggregator eventAggregator, TestChildDetailsViewModel TestChildDetailsViewModel) : base(regionManager, eventAggregator)
-        {
-            SetVisibilityProps();
-			InitializeComponent();
-            DataContext = TestChildDetailsViewModel;
-        }
-
-        private void SetVisibilityProps()
-        {
-            //NotUpdateAttribute attr;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestChild).GetProperty(nameof(HVTApp.Model.POCOs.TestChild.Husband)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityHusbandTestChild = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestChild).GetProperty(nameof(HVTApp.Model.POCOs.TestChild.Wife)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityWifeTestChild = Visibility.Collapsed;
-
-
-            //attr = typeof(HVTApp.Model.POCOs.TestChild).GetProperty(nameof(HVTApp.Model.POCOs.TestChild.Name)).GetCustomAttribute<NotUpdateAttribute>();
-            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityNameTestChild = Visibility.Collapsed;
-
-
-
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityHusbandTestChildProperty = DependencyProperty.Register("VisibilityHusbandTestChild", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityHusbandTestChild
-        {
-            get { return (Visibility) GetValue(VisibilityHusbandTestChildProperty); }
-            set { SetValue(VisibilityHusbandTestChildProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityWifeTestChildProperty = DependencyProperty.Register("VisibilityWifeTestChild", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityWifeTestChild
-        {
-            get { return (Visibility) GetValue(VisibilityWifeTestChildProperty); }
-            set { SetValue(VisibilityWifeTestChildProperty, value); OnPropertyChanged(); }
-        }
-
-
-
-        public static readonly DependencyProperty VisibilityNameTestChildProperty = DependencyProperty.Register("VisibilityNameTestChild", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityNameTestChild
-        {
-            get { return (Visibility) GetValue(VisibilityNameTestChildProperty); }
-            set { SetValue(VisibilityNameTestChildProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -4893,6 +4321,11 @@ namespace HVTApp.UI.Views
             //    VisibilityPaymentsPaymentDocument = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.PaymentDocument).GetProperty(nameof(HVTApp.Model.POCOs.PaymentDocument.Vat)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityVatPaymentDocument = Visibility.Collapsed;
+
+
 
         }
 
@@ -4921,6 +4354,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityPaymentsPaymentDocumentProperty); }
             set { SetValue(VisibilityPaymentsPaymentDocumentProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityVatPaymentDocumentProperty = DependencyProperty.Register("VisibilityVatPaymentDocument", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityVatPaymentDocument
+        {
+            get { return (Visibility) GetValue(VisibilityVatPaymentDocumentProperty); }
+            set { SetValue(VisibilityVatPaymentDocumentProperty, value); OnPropertyChanged(); }
         }
 
 

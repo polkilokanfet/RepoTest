@@ -6,6 +6,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Сотрудник")]
     [DesignationPlural("Сотрудники")]
+    [AllowEdit(Role.DataBaseFiller, Role.SalesManager)]
     public partial class Employee : BaseEntity
     {
         [Designation("Персона"), Required, OrderStatus(30)]
@@ -25,7 +26,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            return $"{Position} компании {Company}";
+            return $"{Position} компании {Company} {Person}";
         }
     }
 }

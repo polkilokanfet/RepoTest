@@ -5,6 +5,8 @@ namespace HVTApp.DataAccess
         public void InitializeRepositories()
         {
             CreateNewProductTaskRepository = new CreateNewProductTaskRepository(_context, _container);
+            DocumentNumberRepository = new DocumentNumberRepository(_context, _container);
+            MarketFieldRepository = new MarketFieldRepository(_context, _container);
             PaymentActualRepository = new PaymentActualRepository(_context, _container);
             PaymentPlannedRepository = new PaymentPlannedRepository(_context, _container);
             ProductBlockIsServiceRepository = new ProductBlockIsServiceRepository(_context, _container);
@@ -27,7 +29,6 @@ namespace HVTApp.DataAccess
             PaymentConditionSetRepository = new PaymentConditionSetRepository(_context, _container);
             ProductBlockRepository = new ProductBlockRepository(_context, _container);
             ProductDependentRepository = new ProductDependentRepository(_context, _container);
-            SalesBlockRepository = new SalesBlockRepository(_context, _container);
             BankDetailsRepository = new BankDetailsRepository(_context, _container);
             CompanyRepository = new CompanyRepository(_context, _container);
             CompanyFormRepository = new CompanyFormRepository(_context, _container);
@@ -43,16 +44,7 @@ namespace HVTApp.DataAccess
             PersonRepository = new PersonRepository(_context, _container);
             ParameterRelationRepository = new ParameterRelationRepository(_context, _container);
             SalesUnitRepository = new SalesUnitRepository(_context, _container);
-            TestFriendAddressRepository = new TestFriendAddressRepository(_context, _container);
-            TestFriendRepository = new TestFriendRepository(_context, _container);
-            TestFriendEmailRepository = new TestFriendEmailRepository(_context, _container);
-            TestFriendGroupRepository = new TestFriendGroupRepository(_context, _container);
             DocumentRepository = new DocumentRepository(_context, _container);
-            DocumentNumberRepository = new DocumentNumberRepository(_context, _container);
-            TestEntityRepository = new TestEntityRepository(_context, _container);
-            TestHusbandRepository = new TestHusbandRepository(_context, _container);
-            TestWifeRepository = new TestWifeRepository(_context, _container);
-            TestChildRepository = new TestChildRepository(_context, _container);
             SumOnDateRepository = new SumOnDateRepository(_context, _container);
             ProductRepository = new ProductRepository(_context, _container);
             OfferRepository = new OfferRepository(_context, _container);
@@ -72,6 +64,8 @@ namespace HVTApp.DataAccess
 
         #region Repositories
         protected ICreateNewProductTaskRepository CreateNewProductTaskRepository;
+        protected IDocumentNumberRepository DocumentNumberRepository;
+        protected IMarketFieldRepository MarketFieldRepository;
         protected IPaymentActualRepository PaymentActualRepository;
         protected IPaymentPlannedRepository PaymentPlannedRepository;
         protected IProductBlockIsServiceRepository ProductBlockIsServiceRepository;
@@ -94,7 +88,6 @@ namespace HVTApp.DataAccess
         protected IPaymentConditionSetRepository PaymentConditionSetRepository;
         protected IProductBlockRepository ProductBlockRepository;
         protected IProductDependentRepository ProductDependentRepository;
-        protected ISalesBlockRepository SalesBlockRepository;
         protected IBankDetailsRepository BankDetailsRepository;
         protected ICompanyRepository CompanyRepository;
         protected ICompanyFormRepository CompanyFormRepository;
@@ -110,16 +103,7 @@ namespace HVTApp.DataAccess
         protected IPersonRepository PersonRepository;
         protected IParameterRelationRepository ParameterRelationRepository;
         protected ISalesUnitRepository SalesUnitRepository;
-        protected ITestFriendAddressRepository TestFriendAddressRepository;
-        protected ITestFriendRepository TestFriendRepository;
-        protected ITestFriendEmailRepository TestFriendEmailRepository;
-        protected ITestFriendGroupRepository TestFriendGroupRepository;
         protected IDocumentRepository DocumentRepository;
-        protected IDocumentNumberRepository DocumentNumberRepository;
-        protected ITestEntityRepository TestEntityRepository;
-        protected ITestHusbandRepository TestHusbandRepository;
-        protected ITestWifeRepository TestWifeRepository;
-        protected ITestChildRepository TestChildRepository;
         protected ISumOnDateRepository SumOnDateRepository;
         protected IProductRepository ProductRepository;
         protected IOfferRepository OfferRepository;

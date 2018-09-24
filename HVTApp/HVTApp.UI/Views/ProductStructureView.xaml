@@ -1,0 +1,27 @@
+﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              x:Class="HVTApp.UI.Views.ProductStructureView">
+
+    <infg:XamDataGrid DataSource="{Binding ProductStructures}">
+        <!--<infg:FieldSettings AllowRecordFiltering="False"/>-->
+		<infg:XamDataGrid.FieldLayouts>
+            <infg:FieldLayout>
+                <infg:FieldLayout.Fields>
+
+                    <infg:TextField AlternateBinding="{Binding Product}" BindingType="UseAlternateBinding" Label="Продукт" Width="Auto"/>
+                    <infg:NumericField Name="Amount" Label="Кол." Width="Auto" />
+                    <infg:TextField AlternateBinding="{Binding Product.ProductBlock.StructureCostNumber}" BindingType="UseAlternateBinding" Label="Сралчахвост" Width="Auto"/>
+                    <infg:TextField Name="Parameters" Label="Параметры" Width="Auto" />
+                    <infg:Field Name="Childs" IsExpandable="True"/>
+
+				</infg:FieldLayout.Fields>
+			</infg:FieldLayout>
+
+		</infg:XamDataGrid.FieldLayouts>
+	</infg:XamDataGrid>
+
+</inf:ViewBase>
+
+	    

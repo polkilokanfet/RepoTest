@@ -30,6 +30,18 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+	public partial class DocumentNumberLookupListViewModel : BaseListViewModel<DocumentNumber, DocumentNumberLookup, AfterSaveDocumentNumberEvent, AfterSelectDocumentNumberEvent, AfterRemoveDocumentNumberEvent>
+    {
+        public DocumentNumberLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
+	public partial class MarketFieldLookupListViewModel : BaseListViewModel<MarketField, MarketFieldLookup, AfterSaveMarketFieldEvent, AfterSelectMarketFieldEvent, AfterRemoveMarketFieldEvent>
+    {
+        public MarketFieldLookupListViewModel(IUnityContainer container) : base(container) { }
+    }
+
+
 	public partial class PaymentActualLookupListViewModel : BaseListViewModel<PaymentActual, PaymentActualLookup, AfterSavePaymentActualEvent, AfterSelectPaymentActualEvent, AfterRemovePaymentActualEvent>
     {
         public PaymentActualLookupListViewModel(IUnityContainer container) : base(container) { }
@@ -162,12 +174,6 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-	public partial class SalesBlockLookupListViewModel : BaseListViewModel<SalesBlock, SalesBlockLookup, AfterSaveSalesBlockEvent, AfterSelectSalesBlockEvent, AfterRemoveSalesBlockEvent>
-    {
-        public SalesBlockLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
 	public partial class BankDetailsLookupListViewModel : BaseListViewModel<BankDetails, BankDetailsLookup, AfterSaveBankDetailsEvent, AfterSelectBankDetailsEvent, AfterRemoveBankDetailsEvent>
     {
         public BankDetailsLookupListViewModel(IUnityContainer container) : base(container) { }
@@ -258,63 +264,9 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-	public partial class TestFriendAddressLookupListViewModel : BaseListViewModel<TestFriendAddress, TestFriendAddressLookup, AfterSaveTestFriendAddressEvent, AfterSelectTestFriendAddressEvent, AfterRemoveTestFriendAddressEvent>
-    {
-        public TestFriendAddressLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-	public partial class TestFriendLookupListViewModel : BaseListViewModel<TestFriend, TestFriendLookup, AfterSaveTestFriendEvent, AfterSelectTestFriendEvent, AfterRemoveTestFriendEvent>
-    {
-        public TestFriendLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-	public partial class TestFriendEmailLookupListViewModel : BaseListViewModel<TestFriendEmail, TestFriendEmailLookup, AfterSaveTestFriendEmailEvent, AfterSelectTestFriendEmailEvent, AfterRemoveTestFriendEmailEvent>
-    {
-        public TestFriendEmailLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-	public partial class TestFriendGroupLookupListViewModel : BaseListViewModel<TestFriendGroup, TestFriendGroupLookup, AfterSaveTestFriendGroupEvent, AfterSelectTestFriendGroupEvent, AfterRemoveTestFriendGroupEvent>
-    {
-        public TestFriendGroupLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
 	public partial class DocumentLookupListViewModel : BaseListViewModel<Document, DocumentLookup, AfterSaveDocumentEvent, AfterSelectDocumentEvent, AfterRemoveDocumentEvent>
     {
         public DocumentLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-	public partial class DocumentNumberLookupListViewModel : BaseListViewModel<DocumentNumber, DocumentNumberLookup, AfterSaveDocumentNumberEvent, AfterSelectDocumentNumberEvent, AfterRemoveDocumentNumberEvent>
-    {
-        public DocumentNumberLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-	public partial class TestEntityLookupListViewModel : BaseListViewModel<TestEntity, TestEntityLookup, AfterSaveTestEntityEvent, AfterSelectTestEntityEvent, AfterRemoveTestEntityEvent>
-    {
-        public TestEntityLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-	public partial class TestHusbandLookupListViewModel : BaseListViewModel<TestHusband, TestHusbandLookup, AfterSaveTestHusbandEvent, AfterSelectTestHusbandEvent, AfterRemoveTestHusbandEvent>
-    {
-        public TestHusbandLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-	public partial class TestWifeLookupListViewModel : BaseListViewModel<TestWife, TestWifeLookup, AfterSaveTestWifeEvent, AfterSelectTestWifeEvent, AfterRemoveTestWifeEvent>
-    {
-        public TestWifeLookupListViewModel(IUnityContainer container) : base(container) { }
-    }
-
-
-	public partial class TestChildLookupListViewModel : BaseListViewModel<TestChild, TestChildLookup, AfterSaveTestChildEvent, AfterSelectTestChildEvent, AfterRemoveTestChildEvent>
-    {
-        public TestChildLookupListViewModel(IUnityContainer container) : base(container) { }
     }
 
 

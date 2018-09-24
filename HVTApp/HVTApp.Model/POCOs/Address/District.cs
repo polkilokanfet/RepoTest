@@ -8,6 +8,7 @@ namespace HVTApp.Model.POCOs
     /// Округ страны.
     /// </summary>
     [Designation("Округ")]
+    [AllowEdit(Role.SalesManager)]
     public partial class District : BaseEntity
     {
         [Designation("Название"), Required, MaxLength(50), OrderStatus(10)]

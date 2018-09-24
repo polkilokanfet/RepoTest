@@ -8,6 +8,16 @@ namespace HVTApp.DataAccess
         public CreateNewProductTaskRepositoryTest(TestData testData) : base(testData) {}
     }
 
+    public partial class DocumentNumberRepositoryTest : TestBaseRepository<DocumentNumber>, IDocumentNumberRepository
+    {
+        public DocumentNumberRepositoryTest(TestData testData) : base(testData) {}
+    }
+
+    public partial class MarketFieldRepositoryTest : TestBaseRepository<MarketField>, IMarketFieldRepository
+    {
+        public MarketFieldRepositoryTest(TestData testData) : base(testData) {}
+    }
+
     public partial class PaymentActualRepositoryTest : TestBaseRepository<PaymentActual>, IPaymentActualRepository
     {
         public PaymentActualRepositoryTest(TestData testData) : base(testData) {}
@@ -118,11 +128,6 @@ namespace HVTApp.DataAccess
         public ProductDependentRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class SalesBlockRepositoryTest : TestBaseRepository<SalesBlock>, ISalesBlockRepository
-    {
-        public SalesBlockRepositoryTest(TestData testData) : base(testData) {}
-    }
-
     public partial class BankDetailsRepositoryTest : TestBaseRepository<BankDetails>, IBankDetailsRepository
     {
         public BankDetailsRepositoryTest(TestData testData) : base(testData) {}
@@ -198,54 +203,9 @@ namespace HVTApp.DataAccess
         public SalesUnitRepositoryTest(TestData testData) : base(testData) {}
     }
 
-    public partial class TestFriendAddressRepositoryTest : TestBaseRepository<TestFriendAddress>, ITestFriendAddressRepository
-    {
-        public TestFriendAddressRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class TestFriendRepositoryTest : TestBaseRepository<TestFriend>, ITestFriendRepository
-    {
-        public TestFriendRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class TestFriendEmailRepositoryTest : TestBaseRepository<TestFriendEmail>, ITestFriendEmailRepository
-    {
-        public TestFriendEmailRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class TestFriendGroupRepositoryTest : TestBaseRepository<TestFriendGroup>, ITestFriendGroupRepository
-    {
-        public TestFriendGroupRepositoryTest(TestData testData) : base(testData) {}
-    }
-
     public partial class DocumentRepositoryTest : TestBaseRepository<Document>, IDocumentRepository
     {
         public DocumentRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class DocumentNumberRepositoryTest : TestBaseRepository<DocumentNumber>, IDocumentNumberRepository
-    {
-        public DocumentNumberRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class TestEntityRepositoryTest : TestBaseRepository<TestEntity>, ITestEntityRepository
-    {
-        public TestEntityRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class TestHusbandRepositoryTest : TestBaseRepository<TestHusband>, ITestHusbandRepository
-    {
-        public TestHusbandRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class TestWifeRepositoryTest : TestBaseRepository<TestWife>, ITestWifeRepository
-    {
-        public TestWifeRepositoryTest(TestData testData) : base(testData) {}
-    }
-
-    public partial class TestChildRepositoryTest : TestBaseRepository<TestChild>, ITestChildRepository
-    {
-        public TestChildRepositoryTest(TestData testData) : base(testData) {}
     }
 
     public partial class SumOnDateRepositoryTest : TestBaseRepository<SumOnDate>, ISumOnDateRepository

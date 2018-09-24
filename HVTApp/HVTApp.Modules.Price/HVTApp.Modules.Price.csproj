@@ -178,7 +178,6 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
       <Project>{76518d16-6ea7-4b34-a308-e7ad991421bc}</Project>
@@ -242,6 +241,18 @@
   <ItemGroup>
     <Resource Include="Images\Calendar_16x16.png" />
     <Resource Include="Images\Calendar_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Add_16x16.png" />
+    <Resource Include="Images\Print_16x16.png" />
+    <Resource Include="Images\Save_16x16.png" />
+    <Resource Include="Images\Refresh_16x16.png" />
+    <Resource Include="Images\New_16x16.png" />
+    <Resource Include="Images\Edit_16x16.png" />
+    <Resource Include="Images\Delete_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Preview_16x16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

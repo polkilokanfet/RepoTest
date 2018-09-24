@@ -18,6 +18,18 @@ namespace HVTApp.UI
             _updateDetailsService.Register<CreateNewProductTask, CreateNewProductTaskDetailsView>();
 
 
+            Container.RegisterViewForNavigation<DocumentNumberLookupListView>();
+            //_dialogService.Register<DocumentNumberDetailsViewModel, DocumentNumberDetailsView>();
+			_selectService.Register<DocumentNumberLookupListView, DocumentNumber>();
+            _updateDetailsService.Register<DocumentNumber, DocumentNumberDetailsView>();
+
+
+            Container.RegisterViewForNavigation<MarketFieldLookupListView>();
+            //_dialogService.Register<MarketFieldDetailsViewModel, MarketFieldDetailsView>();
+			_selectService.Register<MarketFieldLookupListView, MarketField>();
+            _updateDetailsService.Register<MarketField, MarketFieldDetailsView>();
+
+
             Container.RegisterViewForNavigation<PaymentActualLookupListView>();
             //_dialogService.Register<PaymentActualDetailsViewModel, PaymentActualDetailsView>();
 			_selectService.Register<PaymentActualLookupListView, PaymentActual>();
@@ -150,12 +162,6 @@ namespace HVTApp.UI
             _updateDetailsService.Register<ProductDependent, ProductDependentDetailsView>();
 
 
-            Container.RegisterViewForNavigation<SalesBlockLookupListView>();
-            //_dialogService.Register<SalesBlockDetailsViewModel, SalesBlockDetailsView>();
-			_selectService.Register<SalesBlockLookupListView, SalesBlock>();
-            _updateDetailsService.Register<SalesBlock, SalesBlockDetailsView>();
-
-
             Container.RegisterViewForNavigation<BankDetailsLookupListView>();
             //_dialogService.Register<BankDetailsDetailsViewModel, BankDetailsDetailsView>();
 			_selectService.Register<BankDetailsLookupListView, BankDetails>();
@@ -246,64 +252,10 @@ namespace HVTApp.UI
             _updateDetailsService.Register<SalesUnit, SalesUnitDetailsView>();
 
 
-            Container.RegisterViewForNavigation<TestFriendAddressLookupListView>();
-            //_dialogService.Register<TestFriendAddressDetailsViewModel, TestFriendAddressDetailsView>();
-			_selectService.Register<TestFriendAddressLookupListView, TestFriendAddress>();
-            _updateDetailsService.Register<TestFriendAddress, TestFriendAddressDetailsView>();
-
-
-            Container.RegisterViewForNavigation<TestFriendLookupListView>();
-            //_dialogService.Register<TestFriendDetailsViewModel, TestFriendDetailsView>();
-			_selectService.Register<TestFriendLookupListView, TestFriend>();
-            _updateDetailsService.Register<TestFriend, TestFriendDetailsView>();
-
-
-            Container.RegisterViewForNavigation<TestFriendEmailLookupListView>();
-            //_dialogService.Register<TestFriendEmailDetailsViewModel, TestFriendEmailDetailsView>();
-			_selectService.Register<TestFriendEmailLookupListView, TestFriendEmail>();
-            _updateDetailsService.Register<TestFriendEmail, TestFriendEmailDetailsView>();
-
-
-            Container.RegisterViewForNavigation<TestFriendGroupLookupListView>();
-            //_dialogService.Register<TestFriendGroupDetailsViewModel, TestFriendGroupDetailsView>();
-			_selectService.Register<TestFriendGroupLookupListView, TestFriendGroup>();
-            _updateDetailsService.Register<TestFriendGroup, TestFriendGroupDetailsView>();
-
-
             Container.RegisterViewForNavigation<DocumentLookupListView>();
             //_dialogService.Register<DocumentDetailsViewModel, DocumentDetailsView>();
 			_selectService.Register<DocumentLookupListView, Document>();
             _updateDetailsService.Register<Document, DocumentDetailsView>();
-
-
-            Container.RegisterViewForNavigation<DocumentNumberLookupListView>();
-            //_dialogService.Register<DocumentNumberDetailsViewModel, DocumentNumberDetailsView>();
-			_selectService.Register<DocumentNumberLookupListView, DocumentNumber>();
-            _updateDetailsService.Register<DocumentNumber, DocumentNumberDetailsView>();
-
-
-            Container.RegisterViewForNavigation<TestEntityLookupListView>();
-            //_dialogService.Register<TestEntityDetailsViewModel, TestEntityDetailsView>();
-			_selectService.Register<TestEntityLookupListView, TestEntity>();
-            _updateDetailsService.Register<TestEntity, TestEntityDetailsView>();
-
-
-            Container.RegisterViewForNavigation<TestHusbandLookupListView>();
-            //_dialogService.Register<TestHusbandDetailsViewModel, TestHusbandDetailsView>();
-			_selectService.Register<TestHusbandLookupListView, TestHusband>();
-            _updateDetailsService.Register<TestHusband, TestHusbandDetailsView>();
-
-
-            Container.RegisterViewForNavigation<TestWifeLookupListView>();
-            //_dialogService.Register<TestWifeDetailsViewModel, TestWifeDetailsView>();
-			_selectService.Register<TestWifeLookupListView, TestWife>();
-            _updateDetailsService.Register<TestWife, TestWifeDetailsView>();
-
-
-            Container.RegisterViewForNavigation<TestChildLookupListView>();
-            //_dialogService.Register<TestChildDetailsViewModel, TestChildDetailsView>();
-			_selectService.Register<TestChildLookupListView, TestChild>();
-            _updateDetailsService.Register<TestChild, TestChildDetailsView>();
 
 
             Container.RegisterViewForNavigation<SumOnDateLookupListView>();

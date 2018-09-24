@@ -166,10 +166,6 @@
       <Project>{0C7AD837-18EE-435F-BD72-5FC8C03FF9A7}</Project>
       <Name>HVTApp.Services.ProductDesignationService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HVTApp.Services.StringToGuidService\HVTApp.Services.StringToGuidService.csproj">
-      <Project>{80fde398-0a33-422b-b1d3-245e25e57756}</Project>
-      <Name>HVTApp.Services.StringToGuidService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HVTApp.TestDataGenerator\HVTApp.TestDataGenerator.csproj">
       <Project>{a1dafdd1-564e-4e7c-b13e-7ed25956bb67}</Project>
       <Name>HVTApp.TestDataGenerator</Name>

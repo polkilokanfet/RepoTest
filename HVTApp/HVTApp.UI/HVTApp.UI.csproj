@@ -100,12 +100,20 @@
     <Compile Include="Groups\ProductUnitsGroup.cs" />
     <Compile Include="Groups\ShipmentUnitsGroup.cs" />
     <Compile Include="Lookup\Items\Custom\SalesUnitLookup.cs" />
+    <Compile Include="Tabs\TabRefresh.xaml.cs">
+      <DependentUpon>TabRefresh.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Details\EmployeeDetailsViewModel.cs" />
+    <Compile Include="ViewModels\ProductStructureViewModel.cs" />
     <Compile Include="ViewModels\Details\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProductIncludedDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\SalesUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\List\CompanyLookupListViewModel.cs" />
     <Compile Include="Views\Details\Custom\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProductStructureView.xaml.cs">
+      <DependentUpon>ProductStructureView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wrapper\Custom\Functionality\DocumentWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\OrderWrapper.cs" />
@@ -125,18 +133,16 @@
       <DependentUpon>TabNavigation.xaml</DependentUpon>
     </Compile>
     <Compile Include="UiModule.g.cs" />
-    <Compile Include="ViewModels\BaseDetailsViewModel.cs" />
-    <Compile Include="ViewModels\BaseListViewModel.cs" />
-    <Compile Include="ViewModels\BindableBaseCanExportToExcel.cs" />
+    <Compile Include="ViewModels\Base\BaseDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Base\BaseListViewModel.cs" />
+    <Compile Include="ViewModels\Base\BindableBaseCanExportToExcel.cs" />
     <Compile Include="ViewModels\Details\ContractDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\Generated\DetailsViewModels.g.cs" />
     <Compile Include="ViewModels\Details\IProductCostDependentProductsWrapper.cs" />
-    <Compile Include="ViewModels\Details\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\OfferUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\ProjectUnitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\SpecificationDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Details\WrapperWithUnitsViewModel.cs" />
-    <Compile Include="ViewModels\IBaseListViewModel.cs" />
+    <Compile Include="ViewModels\Base\IBaseListViewModel.cs" />
     <Compile Include="Controls\ChooseItemControl.xaml.cs">
       <DependentUpon>ChooseItemControl.xaml</DependentUpon>
     </Compile>
@@ -145,14 +151,15 @@
     </Compile>
     <Compile Include="Converter\LookupToStringConverter.cs" />
     <Compile Include="Converter\WrappersToStringConverter.cs" />
-    <Compile Include="Lookup\Items\Custom\CompanyLookup.cs" />
-    <Compile Include="Lookup\Items\Custom\FacilityLookup.cs" />
     <Compile Include="Lookup\Items\LookupItem.cs" />
     <Compile Include="Lookup\Items\Custom\OfferLookup.cs" />
-    <Compile Include="Lookup\Items\Custom\ParameterLookup.cs" />
-    <Compile Include="Lookup\Items\Custom\ProductLookup.cs" />
     <Compile Include="Lookup\Items\Custom\ProjectLookup.cs" />
     <Compile Include="UiModule.cs" />
+    <Compile Include="Wrapper\Test\TestEntityWrapper.cs" />
+    <Compile Include="Wrapper\Test\TestFriendAddressWrapper.cs" />
+    <Compile Include="Wrapper\Test\TestFriendEmailWrapper.cs" />
+    <Compile Include="Wrapper\Test\TestFriendGroupWrapper.cs" />
+    <Compile Include="Wrapper\Test\TestFriendWrapper.cs" />
     <Compile Include="Wrapper\UnitsGroup.cs" />
     <Compile Include="Converter\ProductUnitsToFacilitiesNamesConverter.cs" />
     <Compile Include="Converter\UnitsToGroupsConverter.cs" />
@@ -290,6 +297,13 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Generator.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Add_16x16.png" />
+    <Resource Include="Images\Print_16x16.png" />
+    <Resource Include="Images\Save_16x16.png" />
+    <Resource Include="Images\Refresh_16x16.png" />
+    <Resource Include="Images\New_16x16.png" />
+    <Resource Include="Images\Edit_16x16.png" />
+    <Resource Include="Images\Delete_16x16.png" />
     <Resource Include="GeneratorDetailsViews.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -339,10 +353,6 @@
       <Project>{7703A90A-E742-41B1-96CB-CD0F51E3F2B6}</Project>
       <Name>HVTApp.Services.MessageService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HVTApp.Services.PriceService\HVTApp.Services.PriceService.csproj">
-      <Project>{A241858E-B7B3-42A1-A04F-FE39E55145E6}</Project>
-      <Name>HVTApp.Services.PriceService</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\ChooseItemControl.xaml">
@@ -350,6 +360,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ChooseItemsListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tabs\TabRefresh.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -449,6 +463,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Details\MarketFieldDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Details\MeasureDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -529,10 +547,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Details\ProductionTaskDetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Details\ProductRelationDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -565,10 +579,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Details\SalesBlockDetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Details\SalesUnitDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -590,38 +600,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Details\TenderTypeDetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Details\TestChildDetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Details\TestEntityDetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Details\TestFriendAddressDetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Details\TestFriendDetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Details\TestFriendEmailDetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Details\TestFriendGroupDetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Details\TestHusbandDetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Details\TestWifeDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -717,6 +695,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\List\MarketFieldLookupListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\List\MeasureLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -793,10 +775,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\List\ProductionTaskLookupListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\List\ProductLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -825,10 +803,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\List\SalesBlockLookupListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\List\SalesUnitLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -853,38 +827,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\List\TestChildLookupListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\List\TestEntityLookupListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\List\TestFriendAddressLookupListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\List\TestFriendEmailLookupListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\List\TestFriendGroupLookupListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\List\TestFriendLookupListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\List\TestHusbandLookupListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\List\TestWifeLookupListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\List\UserLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -892,6 +834,10 @@
     <Page Include="Views\List\UserRoleLookupListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ProductStructureView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

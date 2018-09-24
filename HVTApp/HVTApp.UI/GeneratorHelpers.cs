@@ -82,9 +82,9 @@ namespace HVTApp.UI
         /// <returns></returns>
         public static IEnumerable<Type> GetModelTypesPocos()
         {
-            //var ns = typeof(Address).Namespace;
+            var ns = typeof(Address).Namespace;
             //return typeof(Address).Assembly.GetTypes().Where(x => !x.IsAbstract && !x.IsEnum && x.Namespace == ns && !x.Name.Contains("<"));
-            return typeof(Address).Assembly.GetTypes().Where(x => x.GetBaseTypes().Contains(typeof(BaseEntity)));
+            return typeof(Address).Assembly.GetTypes().Where(x => x.Namespace == ns && x.GetBaseTypes().Contains(typeof(BaseEntity)));
         }
 
         public static IEnumerable<Type> GetModelTypesLookups()

@@ -5,7 +5,7 @@
                                 x:Class="HVTApp.UI.Tabs.TabOffer"
                                 Header="ТКП">
     
-    <infRib:RibbonGroup Caption="Form">
+    <infRib:RibbonGroup Caption="Печать">
         <infRib:ButtonTool Caption="Печать" Command="{Binding PrintOfferCommand}"/>
     </infRib:RibbonGroup>
     

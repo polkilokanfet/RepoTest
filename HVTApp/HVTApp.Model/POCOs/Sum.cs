@@ -1,8 +1,10 @@
 ﻿using System;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attributes;
 
 namespace HVTApp.Model.POCOs
 {
+    [Designation("Сумма (фэйк)")]
     public partial class Sum : BaseEntity
     {
         private decimal _value;

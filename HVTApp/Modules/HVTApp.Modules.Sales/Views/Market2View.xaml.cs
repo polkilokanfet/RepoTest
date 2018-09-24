@@ -40,6 +40,7 @@ namespace HVTApp.Modules.Sales.Views
             OfferListView.OfferUnitsVisibility = Visibility.Collapsed;
             OfferListView.CodeVisibility = Visibility.Collapsed;
             OfferListView.RegNumberVisibility = Visibility.Collapsed;
+            OfferListView.CopyToRecipientsVisibility = Visibility.Collapsed;
 
             TenderListView.ProjectVisibility = Visibility.Collapsed;
 

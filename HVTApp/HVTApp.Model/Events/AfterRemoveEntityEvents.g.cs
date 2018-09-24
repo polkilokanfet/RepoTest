@@ -4,6 +4,8 @@ using Prism.Events;
 namespace HVTApp.Model.Events
 {
 	public partial class AfterRemoveCreateNewProductTaskEvent : PubSubEvent<CreateNewProductTask> { }
+	public partial class AfterRemoveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
+	public partial class AfterRemoveMarketFieldEvent : PubSubEvent<MarketField> { }
 	public partial class AfterRemovePaymentActualEvent : PubSubEvent<PaymentActual> { }
 	public partial class AfterRemovePaymentPlannedEvent : PubSubEvent<PaymentPlanned> { }
 	public partial class AfterRemoveProductBlockIsServiceEvent : PubSubEvent<ProductBlockIsService> { }
@@ -26,7 +28,6 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemovePaymentConditionSetEvent : PubSubEvent<PaymentConditionSet> { }
 	public partial class AfterRemoveProductBlockEvent : PubSubEvent<ProductBlock> { }
 	public partial class AfterRemoveProductDependentEvent : PubSubEvent<ProductDependent> { }
-	public partial class AfterRemoveSalesBlockEvent : PubSubEvent<SalesBlock> { }
 	public partial class AfterRemoveBankDetailsEvent : PubSubEvent<BankDetails> { }
 	public partial class AfterRemoveCompanyEvent : PubSubEvent<Company> { }
 	public partial class AfterRemoveCompanyFormEvent : PubSubEvent<CompanyForm> { }
@@ -42,16 +43,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterRemovePersonEvent : PubSubEvent<Person> { }
 	public partial class AfterRemoveParameterRelationEvent : PubSubEvent<ParameterRelation> { }
 	public partial class AfterRemoveSalesUnitEvent : PubSubEvent<SalesUnit> { }
-	public partial class AfterRemoveTestFriendAddressEvent : PubSubEvent<TestFriendAddress> { }
-	public partial class AfterRemoveTestFriendEvent : PubSubEvent<TestFriend> { }
-	public partial class AfterRemoveTestFriendEmailEvent : PubSubEvent<TestFriendEmail> { }
-	public partial class AfterRemoveTestFriendGroupEvent : PubSubEvent<TestFriendGroup> { }
 	public partial class AfterRemoveDocumentEvent : PubSubEvent<Document> { }
-	public partial class AfterRemoveDocumentNumberEvent : PubSubEvent<DocumentNumber> { }
-	public partial class AfterRemoveTestEntityEvent : PubSubEvent<TestEntity> { }
-	public partial class AfterRemoveTestHusbandEvent : PubSubEvent<TestHusband> { }
-	public partial class AfterRemoveTestWifeEvent : PubSubEvent<TestWife> { }
-	public partial class AfterRemoveTestChildEvent : PubSubEvent<TestChild> { }
 	public partial class AfterRemoveSumOnDateEvent : PubSubEvent<SumOnDate> { }
 	public partial class AfterRemoveProductEvent : PubSubEvent<Product> { }
 	public partial class AfterRemoveOfferEvent : PubSubEvent<Offer> { }

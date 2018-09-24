@@ -4,6 +4,8 @@ using Prism.Events;
 namespace HVTApp.Model.Events
 {
 	public partial class AfterSelectCreateNewProductTaskEvent : PubSubEvent<PubSubEventArgs<CreateNewProductTask>> { }
+	public partial class AfterSelectDocumentNumberEvent : PubSubEvent<PubSubEventArgs<DocumentNumber>> { }
+	public partial class AfterSelectMarketFieldEvent : PubSubEvent<PubSubEventArgs<MarketField>> { }
 	public partial class AfterSelectPaymentActualEvent : PubSubEvent<PubSubEventArgs<PaymentActual>> { }
 	public partial class AfterSelectPaymentPlannedEvent : PubSubEvent<PubSubEventArgs<PaymentPlanned>> { }
 	public partial class AfterSelectProductBlockIsServiceEvent : PubSubEvent<PubSubEventArgs<ProductBlockIsService>> { }
@@ -26,7 +28,6 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectPaymentConditionSetEvent : PubSubEvent<PubSubEventArgs<PaymentConditionSet>> { }
 	public partial class AfterSelectProductBlockEvent : PubSubEvent<PubSubEventArgs<ProductBlock>> { }
 	public partial class AfterSelectProductDependentEvent : PubSubEvent<PubSubEventArgs<ProductDependent>> { }
-	public partial class AfterSelectSalesBlockEvent : PubSubEvent<PubSubEventArgs<SalesBlock>> { }
 	public partial class AfterSelectBankDetailsEvent : PubSubEvent<PubSubEventArgs<BankDetails>> { }
 	public partial class AfterSelectCompanyEvent : PubSubEvent<PubSubEventArgs<Company>> { }
 	public partial class AfterSelectCompanyFormEvent : PubSubEvent<PubSubEventArgs<CompanyForm>> { }
@@ -42,16 +43,7 @@ namespace HVTApp.Model.Events
 	public partial class AfterSelectPersonEvent : PubSubEvent<PubSubEventArgs<Person>> { }
 	public partial class AfterSelectParameterRelationEvent : PubSubEvent<PubSubEventArgs<ParameterRelation>> { }
 	public partial class AfterSelectSalesUnitEvent : PubSubEvent<PubSubEventArgs<SalesUnit>> { }
-	public partial class AfterSelectTestFriendAddressEvent : PubSubEvent<PubSubEventArgs<TestFriendAddress>> { }
-	public partial class AfterSelectTestFriendEvent : PubSubEvent<PubSubEventArgs<TestFriend>> { }
-	public partial class AfterSelectTestFriendEmailEvent : PubSubEvent<PubSubEventArgs<TestFriendEmail>> { }
-	public partial class AfterSelectTestFriendGroupEvent : PubSubEvent<PubSubEventArgs<TestFriendGroup>> { }
 	public partial class AfterSelectDocumentEvent : PubSubEvent<PubSubEventArgs<Document>> { }
-	public partial class AfterSelectDocumentNumberEvent : PubSubEvent<PubSubEventArgs<DocumentNumber>> { }
-	public partial class AfterSelectTestEntityEvent : PubSubEvent<PubSubEventArgs<TestEntity>> { }
-	public partial class AfterSelectTestHusbandEvent : PubSubEvent<PubSubEventArgs<TestHusband>> { }
-	public partial class AfterSelectTestWifeEvent : PubSubEvent<PubSubEventArgs<TestWife>> { }
-	public partial class AfterSelectTestChildEvent : PubSubEvent<PubSubEventArgs<TestChild>> { }
 	public partial class AfterSelectSumOnDateEvent : PubSubEvent<PubSubEventArgs<SumOnDate>> { }
 	public partial class AfterSelectProductEvent : PubSubEvent<PubSubEventArgs<Product>> { }
 	public partial class AfterSelectOfferEvent : PubSubEvent<PubSubEventArgs<Offer>> { }

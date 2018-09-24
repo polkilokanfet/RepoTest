@@ -8,7 +8,7 @@
              x:Class="HVTApp.Modules.BaseEntities.Menus.BaseEntitiesMenu"
              LargeImage="/HVTApp.Modules.BaseEntities;component/Images/Text Document_32x32.png"
              SmallImage="/HVTApp.Modules.BaseEntities;component/Images/Text Document_16x16.png"
-             Header="Справочник">
+             Header="Справочники">
     <igs:XamDataTree Name="_xamDataTree"
                      ItemsSource="{Binding Items}"
                      prism:XamDataTreeItemSelected.Command="{x:Static Member=inf:Commands.NavigateCommand}">

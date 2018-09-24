@@ -6,7 +6,7 @@
                                  Header="План поступлений">
     
     <infRib:RibbonGroup Caption="Действия">
-        <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}"/>
+        <infRib:ButtonTool Caption="Перезагрузить" Command="{Binding ReloadCommand}" SmallImage="/HVTApp.Modules.Price;component/Images/Refresh_16x16.png"/>
     </infRib:RibbonGroup>
         
 </inf:RibbonTabItemWithViewModel>

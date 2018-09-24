@@ -58,6 +58,66 @@ namespace HVTApp.UI.ViewModels
     }
 
 
+    public partial class DocumentNumberDetailsViewModel : BaseDetailsViewModel<DocumentNumberWrapper, DocumentNumber, AfterSaveDocumentNumberEvent>
+    {
+
+        public DocumentNumberDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+		}
+
+
+
+    }
+
+
+    public partial class MarketFieldDetailsViewModel : BaseDetailsViewModel<MarketFieldWrapper, MarketField, AfterSaveMarketFieldEvent>
+    {
+		private Func<Task<List<ActivityField>>> _getEntitiesForAddInActivityFieldsCommand;
+		public ICommand AddInActivityFieldsCommand { get; }
+		public ICommand RemoveFromActivityFieldsCommand { get; }
+		private ActivityFieldWrapper _selectedActivityFieldsItem;
+		public ActivityFieldWrapper SelectedActivityFieldsItem 
+		{ 
+			get { return _selectedActivityFieldsItem; }
+			set 
+			{ 
+				if (Equals(_selectedActivityFieldsItem, value)) return;
+				_selectedActivityFieldsItem = value;
+				OnPropertyChanged();
+				((DelegateCommand)RemoveFromActivityFieldsCommand).RaiseCanExecuteChanged();
+			}
+		}
+
+
+        public MarketFieldDetailsViewModel(IUnityContainer container) : base(container) 
+		{
+			
+			if (_getEntitiesForAddInActivityFieldsCommand == null) _getEntitiesForAddInActivityFieldsCommand = async () => { return await UnitOfWork.Repository<ActivityField>().GetAllAsync(); };;
+			if (AddInActivityFieldsCommand == null) AddInActivityFieldsCommand = new DelegateCommand(AddInActivityFieldsCommand_Execute_Default);
+			if (RemoveFromActivityFieldsCommand == null) RemoveFromActivityFieldsCommand = new DelegateCommand(RemoveFromActivityFieldsCommand_Execute_Default, RemoveFromActivityFieldsCommand_CanExecute_Default);
+
+		}
+
+			private async void AddInActivityFieldsCommand_Execute_Default()
+			{
+				SelectAndAddInListWrapper<ActivityField, ActivityFieldWrapper>(await _getEntitiesForAddInActivityFieldsCommand(), Item.ActivityFields);
+			}
+
+			private void RemoveFromActivityFieldsCommand_Execute_Default()
+			{
+				Item.ActivityFields.Remove(SelectedActivityFieldsItem);
+			}
+
+			private bool RemoveFromActivityFieldsCommand_CanExecute_Default()
+			{
+				return SelectedActivityFieldsItem != null;
+			}
+
+
+
+    }
+
+
     public partial class PaymentActualDetailsViewModel : BaseDetailsViewModel<PaymentActualWrapper, PaymentActual, AfterSavePaymentActualEvent>
     {
 
@@ -868,90 +928,6 @@ namespace HVTApp.UI.ViewModels
 						Item.Product = null;
 		    
 		}
-
-
-
-    }
-
-
-    public partial class SalesBlockDetailsViewModel : BaseDetailsViewModel<SalesBlockWrapper, SalesBlock, AfterSaveSalesBlockEvent>
-    {
-		private Func<Task<List<SalesUnit>>> _getEntitiesForAddInParentSalesUnitsCommand;
-		public ICommand AddInParentSalesUnitsCommand { get; }
-		public ICommand RemoveFromParentSalesUnitsCommand { get; }
-		private SalesUnitWrapper _selectedParentSalesUnitsItem;
-		public SalesUnitWrapper SelectedParentSalesUnitsItem 
-		{ 
-			get { return _selectedParentSalesUnitsItem; }
-			set 
-			{ 
-				if (Equals(_selectedParentSalesUnitsItem, value)) return;
-				_selectedParentSalesUnitsItem = value;
-				OnPropertyChanged();
-				((DelegateCommand)RemoveFromParentSalesUnitsCommand).RaiseCanExecuteChanged();
-			}
-		}
-
-		private Func<Task<List<SalesUnit>>> _getEntitiesForAddInChildSalesUnitsCommand;
-		public ICommand AddInChildSalesUnitsCommand { get; }
-		public ICommand RemoveFromChildSalesUnitsCommand { get; }
-		private SalesUnitWrapper _selectedChildSalesUnitsItem;
-		public SalesUnitWrapper SelectedChildSalesUnitsItem 
-		{ 
-			get { return _selectedChildSalesUnitsItem; }
-			set 
-			{ 
-				if (Equals(_selectedChildSalesUnitsItem, value)) return;
-				_selectedChildSalesUnitsItem = value;
-				OnPropertyChanged();
-				((DelegateCommand)RemoveFromChildSalesUnitsCommand).RaiseCanExecuteChanged();
-			}
-		}
-
-
-        public SalesBlockDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-			
-			if (_getEntitiesForAddInParentSalesUnitsCommand == null) _getEntitiesForAddInParentSalesUnitsCommand = async () => { return await UnitOfWork.Repository<SalesUnit>().GetAllAsync(); };;
-			if (AddInParentSalesUnitsCommand == null) AddInParentSalesUnitsCommand = new DelegateCommand(AddInParentSalesUnitsCommand_Execute_Default);
-			if (RemoveFromParentSalesUnitsCommand == null) RemoveFromParentSalesUnitsCommand = new DelegateCommand(RemoveFromParentSalesUnitsCommand_Execute_Default, RemoveFromParentSalesUnitsCommand_CanExecute_Default);
-
-			
-			if (_getEntitiesForAddInChildSalesUnitsCommand == null) _getEntitiesForAddInChildSalesUnitsCommand = async () => { return await UnitOfWork.Repository<SalesUnit>().GetAllAsync(); };;
-			if (AddInChildSalesUnitsCommand == null) AddInChildSalesUnitsCommand = new DelegateCommand(AddInChildSalesUnitsCommand_Execute_Default);
-			if (RemoveFromChildSalesUnitsCommand == null) RemoveFromChildSalesUnitsCommand = new DelegateCommand(RemoveFromChildSalesUnitsCommand_Execute_Default, RemoveFromChildSalesUnitsCommand_CanExecute_Default);
-
-		}
-
-			private async void AddInParentSalesUnitsCommand_Execute_Default()
-			{
-				SelectAndAddInListWrapper<SalesUnit, SalesUnitWrapper>(await _getEntitiesForAddInParentSalesUnitsCommand(), Item.ParentSalesUnits);
-			}
-
-			private void RemoveFromParentSalesUnitsCommand_Execute_Default()
-			{
-				Item.ParentSalesUnits.Remove(SelectedParentSalesUnitsItem);
-			}
-
-			private bool RemoveFromParentSalesUnitsCommand_CanExecute_Default()
-			{
-				return SelectedParentSalesUnitsItem != null;
-			}
-
-			private async void AddInChildSalesUnitsCommand_Execute_Default()
-			{
-				SelectAndAddInListWrapper<SalesUnit, SalesUnitWrapper>(await _getEntitiesForAddInChildSalesUnitsCommand(), Item.ChildSalesUnits);
-			}
-
-			private void RemoveFromChildSalesUnitsCommand_Execute_Default()
-			{
-				Item.ChildSalesUnits.Remove(SelectedChildSalesUnitsItem);
-			}
-
-			private bool RemoveFromChildSalesUnitsCommand_CanExecute_Default()
-			{
-				return SelectedChildSalesUnitsItem != null;
-			}
 
 
 
@@ -1870,186 +1846,6 @@ namespace HVTApp.UI.ViewModels
     }
 
 
-    public partial class TestFriendAddressDetailsViewModel : BaseDetailsViewModel<TestFriendAddressWrapper, TestFriendAddress, AfterSaveTestFriendAddressEvent>
-    {
-
-        public TestFriendAddressDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-		}
-
-
-
-    }
-
-
-    public partial class TestFriendDetailsViewModel : BaseDetailsViewModel<TestFriendWrapper, TestFriend, AfterSaveTestFriendEvent>
-    {
-		private Func<Task<List<TestFriendAddress>>> _getEntitiesForSelectTestFriendAddressCommand;
-		public ICommand SelectTestFriendAddressCommand { get; private set; }
-		public ICommand ClearTestFriendAddressCommand { get; private set; }
-
-		private Func<Task<List<TestFriendGroup>>> _getEntitiesForSelectTestFriendGroupCommand;
-		public ICommand SelectTestFriendGroupCommand { get; private set; }
-		public ICommand ClearTestFriendGroupCommand { get; private set; }
-
-		private Func<Task<List<TestFriendEmail>>> _getEntitiesForSelectTestFriendEmailGetCommand;
-		public ICommand SelectTestFriendEmailGetCommand { get; private set; }
-		public ICommand ClearTestFriendEmailGetCommand { get; private set; }
-
-		private Func<Task<List<TestFriendEmail>>> _getEntitiesForAddInEmailsCommand;
-		public ICommand AddInEmailsCommand { get; }
-		public ICommand RemoveFromEmailsCommand { get; }
-		private TestFriendEmailWrapper _selectedEmailsItem;
-		public TestFriendEmailWrapper SelectedEmailsItem 
-		{ 
-			get { return _selectedEmailsItem; }
-			set 
-			{ 
-				if (Equals(_selectedEmailsItem, value)) return;
-				_selectedEmailsItem = value;
-				OnPropertyChanged();
-				((DelegateCommand)RemoveFromEmailsCommand).RaiseCanExecuteChanged();
-			}
-		}
-
-
-        public TestFriendDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-			
-			if (_getEntitiesForSelectTestFriendAddressCommand == null) _getEntitiesForSelectTestFriendAddressCommand = async () => { return await UnitOfWork.Repository<TestFriendAddress>().GetAllAsync(); };
-			if (SelectTestFriendAddressCommand == null) SelectTestFriendAddressCommand = new DelegateCommand(SelectTestFriendAddressCommand_Execute_Default);
-			if (ClearTestFriendAddressCommand == null) ClearTestFriendAddressCommand = new DelegateCommand(ClearTestFriendAddressCommand_Execute_Default);
-
-			
-			if (_getEntitiesForSelectTestFriendGroupCommand == null) _getEntitiesForSelectTestFriendGroupCommand = async () => { return await UnitOfWork.Repository<TestFriendGroup>().GetAllAsync(); };
-			if (SelectTestFriendGroupCommand == null) SelectTestFriendGroupCommand = new DelegateCommand(SelectTestFriendGroupCommand_Execute_Default);
-			if (ClearTestFriendGroupCommand == null) ClearTestFriendGroupCommand = new DelegateCommand(ClearTestFriendGroupCommand_Execute_Default);
-
-			
-			if (_getEntitiesForSelectTestFriendEmailGetCommand == null) _getEntitiesForSelectTestFriendEmailGetCommand = async () => { return await UnitOfWork.Repository<TestFriendEmail>().GetAllAsync(); };
-			if (SelectTestFriendEmailGetCommand == null) SelectTestFriendEmailGetCommand = new DelegateCommand(SelectTestFriendEmailGetCommand_Execute_Default);
-			if (ClearTestFriendEmailGetCommand == null) ClearTestFriendEmailGetCommand = new DelegateCommand(ClearTestFriendEmailGetCommand_Execute_Default);
-
-			
-			if (_getEntitiesForAddInEmailsCommand == null) _getEntitiesForAddInEmailsCommand = async () => { return await UnitOfWork.Repository<TestFriendEmail>().GetAllAsync(); };;
-			if (AddInEmailsCommand == null) AddInEmailsCommand = new DelegateCommand(AddInEmailsCommand_Execute_Default);
-			if (RemoveFromEmailsCommand == null) RemoveFromEmailsCommand = new DelegateCommand(RemoveFromEmailsCommand_Execute_Default, RemoveFromEmailsCommand_CanExecute_Default);
-
-		}
-
-		private async void SelectTestFriendAddressCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<TestFriendAddress, TestFriendAddressWrapper>(await _getEntitiesForSelectTestFriendAddressCommand(), nameof(Item.TestFriendAddress), Item.TestFriendAddress?.Id);
-		}
-
-		private void ClearTestFriendAddressCommand_Execute_Default() 
-		{
-						Item.TestFriendAddress = null;
-		    
-		}
-
-		private async void SelectTestFriendGroupCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<TestFriendGroup, TestFriendGroupWrapper>(await _getEntitiesForSelectTestFriendGroupCommand(), nameof(Item.TestFriendGroup), Item.TestFriendGroup?.Id);
-		}
-
-		private void ClearTestFriendGroupCommand_Execute_Default() 
-		{
-						Item.TestFriendGroup = null;
-		    
-		}
-
-		private async void SelectTestFriendEmailGetCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<TestFriendEmail, TestFriendEmailWrapper>(await _getEntitiesForSelectTestFriendEmailGetCommand(), nameof(Item.TestFriendEmailGet), Item.TestFriendEmailGet?.Id);
-		}
-
-		private void ClearTestFriendEmailGetCommand_Execute_Default() 
-		{
-		
-		    
-		}
-
-			private async void AddInEmailsCommand_Execute_Default()
-			{
-				SelectAndAddInListWrapper<TestFriendEmail, TestFriendEmailWrapper>(await _getEntitiesForAddInEmailsCommand(), Item.Emails);
-			}
-
-			private void RemoveFromEmailsCommand_Execute_Default()
-			{
-				Item.Emails.Remove(SelectedEmailsItem);
-			}
-
-			private bool RemoveFromEmailsCommand_CanExecute_Default()
-			{
-				return SelectedEmailsItem != null;
-			}
-
-
-
-    }
-
-
-    public partial class TestFriendEmailDetailsViewModel : BaseDetailsViewModel<TestFriendEmailWrapper, TestFriendEmail, AfterSaveTestFriendEmailEvent>
-    {
-
-        public TestFriendEmailDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-		}
-
-
-
-    }
-
-
-    public partial class TestFriendGroupDetailsViewModel : BaseDetailsViewModel<TestFriendGroupWrapper, TestFriendGroup, AfterSaveTestFriendGroupEvent>
-    {
-		private Func<Task<List<TestFriend>>> _getEntitiesForAddInFriendTestsCommand;
-		public ICommand AddInFriendTestsCommand { get; }
-		public ICommand RemoveFromFriendTestsCommand { get; }
-		private TestFriendWrapper _selectedFriendTestsItem;
-		public TestFriendWrapper SelectedFriendTestsItem 
-		{ 
-			get { return _selectedFriendTestsItem; }
-			set 
-			{ 
-				if (Equals(_selectedFriendTestsItem, value)) return;
-				_selectedFriendTestsItem = value;
-				OnPropertyChanged();
-				((DelegateCommand)RemoveFromFriendTestsCommand).RaiseCanExecuteChanged();
-			}
-		}
-
-
-        public TestFriendGroupDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-			
-			if (_getEntitiesForAddInFriendTestsCommand == null) _getEntitiesForAddInFriendTestsCommand = async () => { return await UnitOfWork.Repository<TestFriend>().GetAllAsync(); };;
-			if (AddInFriendTestsCommand == null) AddInFriendTestsCommand = new DelegateCommand(AddInFriendTestsCommand_Execute_Default);
-			if (RemoveFromFriendTestsCommand == null) RemoveFromFriendTestsCommand = new DelegateCommand(RemoveFromFriendTestsCommand_Execute_Default, RemoveFromFriendTestsCommand_CanExecute_Default);
-
-		}
-
-			private async void AddInFriendTestsCommand_Execute_Default()
-			{
-				SelectAndAddInListWrapper<TestFriend, TestFriendWrapper>(await _getEntitiesForAddInFriendTestsCommand(), Item.FriendTests);
-			}
-
-			private void RemoveFromFriendTestsCommand_Execute_Default()
-			{
-				Item.FriendTests.Remove(SelectedFriendTestsItem);
-			}
-
-			private bool RemoveFromFriendTestsCommand_CanExecute_Default()
-			{
-				return SelectedFriendTestsItem != null;
-			}
-
-
-
-    }
-
-
     public partial class DocumentDetailsViewModel : BaseDetailsViewModel<DocumentWrapper, Document, AfterSaveDocumentEvent>
     {
 		private Func<Task<List<DocumentNumber>>> _getEntitiesForSelectNumberCommand;
@@ -2212,182 +2008,6 @@ namespace HVTApp.UI.ViewModels
 			{
 				return SelectedCopyToRecipientsItem != null;
 			}
-
-
-
-    }
-
-
-    public partial class DocumentNumberDetailsViewModel : BaseDetailsViewModel<DocumentNumberWrapper, DocumentNumber, AfterSaveDocumentNumberEvent>
-    {
-
-        public DocumentNumberDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-		}
-
-
-
-    }
-
-
-    public partial class TestEntityDetailsViewModel : BaseDetailsViewModel<TestEntityWrapper, TestEntity, AfterSaveTestEntityEvent>
-    {
-
-        public TestEntityDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-		}
-
-
-
-    }
-
-
-    public partial class TestHusbandDetailsViewModel : BaseDetailsViewModel<TestHusbandWrapper, TestHusband, AfterSaveTestHusbandEvent>
-    {
-		private Func<Task<List<TestWife>>> _getEntitiesForSelectWifeCommand;
-		public ICommand SelectWifeCommand { get; private set; }
-		public ICommand ClearWifeCommand { get; private set; }
-
-		private Func<Task<List<TestChild>>> _getEntitiesForAddInChildrenCommand;
-		public ICommand AddInChildrenCommand { get; }
-		public ICommand RemoveFromChildrenCommand { get; }
-		private TestChildWrapper _selectedChildrenItem;
-		public TestChildWrapper SelectedChildrenItem 
-		{ 
-			get { return _selectedChildrenItem; }
-			set 
-			{ 
-				if (Equals(_selectedChildrenItem, value)) return;
-				_selectedChildrenItem = value;
-				OnPropertyChanged();
-				((DelegateCommand)RemoveFromChildrenCommand).RaiseCanExecuteChanged();
-			}
-		}
-
-
-        public TestHusbandDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-			
-			if (_getEntitiesForSelectWifeCommand == null) _getEntitiesForSelectWifeCommand = async () => { return await UnitOfWork.Repository<TestWife>().GetAllAsync(); };
-			if (SelectWifeCommand == null) SelectWifeCommand = new DelegateCommand(SelectWifeCommand_Execute_Default);
-			if (ClearWifeCommand == null) ClearWifeCommand = new DelegateCommand(ClearWifeCommand_Execute_Default);
-
-			
-			if (_getEntitiesForAddInChildrenCommand == null) _getEntitiesForAddInChildrenCommand = async () => { return await UnitOfWork.Repository<TestChild>().GetAllAsync(); };;
-			if (AddInChildrenCommand == null) AddInChildrenCommand = new DelegateCommand(AddInChildrenCommand_Execute_Default);
-			if (RemoveFromChildrenCommand == null) RemoveFromChildrenCommand = new DelegateCommand(RemoveFromChildrenCommand_Execute_Default, RemoveFromChildrenCommand_CanExecute_Default);
-
-		}
-
-		private async void SelectWifeCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<TestWife, TestWifeWrapper>(await _getEntitiesForSelectWifeCommand(), nameof(Item.Wife), Item.Wife?.Id);
-		}
-
-		private void ClearWifeCommand_Execute_Default() 
-		{
-						Item.Wife = null;
-		    
-		}
-
-			private async void AddInChildrenCommand_Execute_Default()
-			{
-				SelectAndAddInListWrapper<TestChild, TestChildWrapper>(await _getEntitiesForAddInChildrenCommand(), Item.Children);
-			}
-
-			private void RemoveFromChildrenCommand_Execute_Default()
-			{
-				Item.Children.Remove(SelectedChildrenItem);
-			}
-
-			private bool RemoveFromChildrenCommand_CanExecute_Default()
-			{
-				return SelectedChildrenItem != null;
-			}
-
-
-
-    }
-
-
-    public partial class TestWifeDetailsViewModel : BaseDetailsViewModel<TestWifeWrapper, TestWife, AfterSaveTestWifeEvent>
-    {
-		private Func<Task<List<TestHusband>>> _getEntitiesForSelectHusbandCommand;
-		public ICommand SelectHusbandCommand { get; private set; }
-		public ICommand ClearHusbandCommand { get; private set; }
-
-
-        public TestWifeDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-			
-			if (_getEntitiesForSelectHusbandCommand == null) _getEntitiesForSelectHusbandCommand = async () => { return await UnitOfWork.Repository<TestHusband>().GetAllAsync(); };
-			if (SelectHusbandCommand == null) SelectHusbandCommand = new DelegateCommand(SelectHusbandCommand_Execute_Default);
-			if (ClearHusbandCommand == null) ClearHusbandCommand = new DelegateCommand(ClearHusbandCommand_Execute_Default);
-
-		}
-
-		private async void SelectHusbandCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<TestHusband, TestHusbandWrapper>(await _getEntitiesForSelectHusbandCommand(), nameof(Item.Husband), Item.Husband?.Id);
-		}
-
-		private void ClearHusbandCommand_Execute_Default() 
-		{
-						Item.Husband = null;
-		    
-		}
-
-
-
-    }
-
-
-    public partial class TestChildDetailsViewModel : BaseDetailsViewModel<TestChildWrapper, TestChild, AfterSaveTestChildEvent>
-    {
-		private Func<Task<List<TestHusband>>> _getEntitiesForSelectHusbandCommand;
-		public ICommand SelectHusbandCommand { get; private set; }
-		public ICommand ClearHusbandCommand { get; private set; }
-
-		private Func<Task<List<TestWife>>> _getEntitiesForSelectWifeCommand;
-		public ICommand SelectWifeCommand { get; private set; }
-		public ICommand ClearWifeCommand { get; private set; }
-
-
-        public TestChildDetailsViewModel(IUnityContainer container) : base(container) 
-		{
-			
-			if (_getEntitiesForSelectHusbandCommand == null) _getEntitiesForSelectHusbandCommand = async () => { return await UnitOfWork.Repository<TestHusband>().GetAllAsync(); };
-			if (SelectHusbandCommand == null) SelectHusbandCommand = new DelegateCommand(SelectHusbandCommand_Execute_Default);
-			if (ClearHusbandCommand == null) ClearHusbandCommand = new DelegateCommand(ClearHusbandCommand_Execute_Default);
-
-			
-			if (_getEntitiesForSelectWifeCommand == null) _getEntitiesForSelectWifeCommand = async () => { return await UnitOfWork.Repository<TestWife>().GetAllAsync(); };
-			if (SelectWifeCommand == null) SelectWifeCommand = new DelegateCommand(SelectWifeCommand_Execute_Default);
-			if (ClearWifeCommand == null) ClearWifeCommand = new DelegateCommand(ClearWifeCommand_Execute_Default);
-
-		}
-
-		private async void SelectHusbandCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<TestHusband, TestHusbandWrapper>(await _getEntitiesForSelectHusbandCommand(), nameof(Item.Husband), Item.Husband?.Id);
-		}
-
-		private void ClearHusbandCommand_Execute_Default() 
-		{
-						Item.Husband = null;
-		    
-		}
-
-		private async void SelectWifeCommand_Execute_Default() 
-		{
-            SelectAndSetWrapper<TestWife, TestWifeWrapper>(await _getEntitiesForSelectWifeCommand(), nameof(Item.Wife), Item.Wife?.Id);
-		}
-
-		private void ClearWifeCommand_Execute_Default() 
-		{
-						Item.Wife = null;
-		    
-		}
 
 
 

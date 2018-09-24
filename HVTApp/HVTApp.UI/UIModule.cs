@@ -2,6 +2,8 @@
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Prism;
+using HVTApp.UI.ViewModels;
+using HVTApp.UI.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
 
@@ -23,6 +25,7 @@ namespace HVTApp.UI
 
         protected override void RegisterTypes()
         {
+            _dialogService.RegisterShow<ProductStructureViewModel, ProductStructureView>();
             RegisterViews();
         }
 

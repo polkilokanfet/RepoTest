@@ -19,13 +19,14 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Modules.BaseEntities;
 using HVTApp.Modules.Price;
+using HVTApp.Modules.Settings;
 using HVTApp.Modules.Sales;
 using HVTApp.Modules.Sales.PrintOffer;
+using HVTApp.Modules.Settings;
 using HVTApp.Services.GetProductService;
 using HVTApp.Services.WpfAuthenticationService;
 using HVTApp.Services.DialogService;
 using HVTApp.Services.MessageService;
-using HVTApp.Services.PriceService;
 using HVTApp.Services.PrintService;
 using HVTApp.Services.ProductDesignationService;
 using HVTApp.Services.SelectService;
@@ -87,7 +88,6 @@ namespace HVTApp
             Container.RegisterType<IPrintOfferService, PrintOfferService>();
             Container.RegisterType<IPrintProductService, PrintProductService>();
             Container.RegisterType<IProductDesignationService, ProductDesignator>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<IPriceService, PriceService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IShippingService, ShippService>(new ContainerControlledLifetimeManager());
         }
 
@@ -98,9 +98,10 @@ namespace HVTApp
             catalog.AddModule(typeof(UiModule));
 
             AddModuleIfInRole(catalog, typeof(SalesModule));
-            //AddModuleIfInRole(catalog, typeof(ProductionModule));
             AddModuleIfInRole(catalog, typeof(PriceModule));
+
             catalog.AddModule(typeof(BaseEntitiesModule));
+            catalog.AddModule(typeof(SettingsModule));
 
             return catalog;
         }

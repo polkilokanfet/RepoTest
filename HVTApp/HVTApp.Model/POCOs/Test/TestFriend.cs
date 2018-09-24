@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using HVTApp.Infrastructure;
 
-namespace HVTApp.Model.POCOs
+namespace HVTApp.Model.POCOs.Test
 {
     public partial class TestFriend : BaseEntity
     {

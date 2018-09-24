@@ -4,6 +4,8 @@ using HVTApp.Model.POCOs;
 namespace HVTApp.DataAccess
 {
     public partial class CreateNewProductTaskConfiguration : EntityTypeConfiguration<CreateNewProductTask> { }
+    public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
+    public partial class MarketFieldConfiguration : EntityTypeConfiguration<MarketField> { }
     public partial class PaymentActualConfiguration : EntityTypeConfiguration<PaymentActual> { }
     public partial class PaymentPlannedConfiguration : EntityTypeConfiguration<PaymentPlanned> { }
     public partial class ProductBlockIsServiceConfiguration : EntityTypeConfiguration<ProductBlockIsService> { }
@@ -26,7 +28,6 @@ namespace HVTApp.DataAccess
     public partial class PaymentConditionSetConfiguration : EntityTypeConfiguration<PaymentConditionSet> { }
     public partial class ProductBlockConfiguration : EntityTypeConfiguration<ProductBlock> { }
     public partial class ProductDependentConfiguration : EntityTypeConfiguration<ProductDependent> { }
-    public partial class SalesBlockConfiguration : EntityTypeConfiguration<SalesBlock> { }
     public partial class BankDetailsConfiguration : EntityTypeConfiguration<BankDetails> { }
     public partial class CompanyConfiguration : EntityTypeConfiguration<Company> { }
     public partial class CompanyFormConfiguration : EntityTypeConfiguration<CompanyForm> { }
@@ -42,16 +43,7 @@ namespace HVTApp.DataAccess
     public partial class PersonConfiguration : EntityTypeConfiguration<Person> { }
     public partial class ParameterRelationConfiguration : EntityTypeConfiguration<ParameterRelation> { }
     public partial class SalesUnitConfiguration : EntityTypeConfiguration<SalesUnit> { }
-    public partial class TestFriendAddressConfiguration : EntityTypeConfiguration<TestFriendAddress> { }
-    public partial class TestFriendConfiguration : EntityTypeConfiguration<TestFriend> { }
-    public partial class TestFriendEmailConfiguration : EntityTypeConfiguration<TestFriendEmail> { }
-    public partial class TestFriendGroupConfiguration : EntityTypeConfiguration<TestFriendGroup> { }
     public partial class DocumentConfiguration : EntityTypeConfiguration<Document> { }
-    public partial class DocumentNumberConfiguration : EntityTypeConfiguration<DocumentNumber> { }
-    public partial class TestEntityConfiguration : EntityTypeConfiguration<TestEntity> { }
-    public partial class TestHusbandConfiguration : EntityTypeConfiguration<TestHusband> { }
-    public partial class TestWifeConfiguration : EntityTypeConfiguration<TestWife> { }
-    public partial class TestChildConfiguration : EntityTypeConfiguration<TestChild> { }
     public partial class SumOnDateConfiguration : EntityTypeConfiguration<SumOnDate> { }
     public partial class ProductConfiguration : EntityTypeConfiguration<Product> { }
     public partial class OfferConfiguration : EntityTypeConfiguration<Offer> { }

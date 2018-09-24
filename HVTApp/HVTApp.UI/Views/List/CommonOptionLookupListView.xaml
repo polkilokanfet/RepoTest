@@ -23,7 +23,7 @@
         </Label>
        
 
-		<infg:XamDataGrid x:Name="CommonOptionLookupListGrid" Grid.Row="1" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<infg:XamDataGrid x:Name="CommonOptionLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.ContextMenu>
 				<ContextMenu>
@@ -36,6 +36,7 @@
 					<infg:FieldLayout.Fields>
                     <infg:TextField Name="StandartPaymentsConditionSet" Label="Стандартные условия оплаты" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="OurCompany" Label="Наша компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:NumericField Name="Vat" Label="НДС" Width="Auto" />
                     <infg:NumericField Name="StandartTermFromStartToEndProduction" Label="Стандартный срок производства" Width="Auto" />
                     <infg:NumericField Name="StandartTermFromPickToEndProduction" Label="Стандартный срок сборки" Width="Auto" />
                     <infg:DateTimeField Name="Date" Label="Дата настроек" Width="Auto" />

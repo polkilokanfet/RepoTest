@@ -11,7 +11,7 @@ using HVTApp.Model.POCOs;
 namespace HVTApp.UI.Views
 {
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Сфера деятельности")]
 	[DesignationPlural("ActivityFieldLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -72,10 +72,11 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Адрес")]
 	[DesignationPlural("AddressLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class AddressLookupListView : ViewBase
     {
@@ -154,7 +155,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Банковские реквизиты")]
 	[DesignationPlural("BankDetailsLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -229,7 +230,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Общие настройки")]
 	[DesignationPlural("CommonOptionLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -285,6 +286,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility VatVisibility
+        {
+            get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.Vat)].Visibility; }
+            set { CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.Vat)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return CommonOptionLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.CommonOptionLookup.DisplayMember)].Visibility; }
@@ -318,7 +326,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Организационная форма")]
 	[DesignationPlural("CompanyFormLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -379,7 +387,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Компания")]
 	[DesignationPlural("CompanyLookup")]
 	[AllowEditAttribute(Role.SalesManager)]
@@ -498,7 +506,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Контракт")]
 	[DesignationPlural("ContractLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -566,10 +574,11 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Страна")]
 	[DesignationPlural("CountryLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class CountryLookupListView : ViewBase
     {
@@ -620,7 +629,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Задание на создание нового продукта")]
 	[DesignationPlural("CreateNewProductTaskLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -688,7 +697,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Курс обмена валют")]
 	[DesignationPlural("CurrencyExchangeRateLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -763,10 +772,11 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Округ")]
 	[DesignationPlural("DistrictLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class DistrictLookupListView : ViewBase
     {
@@ -824,7 +834,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Документ")]
 	[DesignationPlural("DocumentLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -962,8 +972,8 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
-	[Designation("DocumentNumber")]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Номер документа")]
 	[DesignationPlural("DocumentNumberLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -1016,7 +1026,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Регистрационные данные")]
 	[DesignationPlural("DocumentsRegistrationDetailsLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -1077,10 +1087,13 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Сотрудник")]
 	[DesignationPlural("EmployeeLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.DataBaseFiller)]
+[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Economist)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class EmployeeLookupListView : ViewBase
     {
@@ -1159,10 +1172,13 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Должность")]
 	[DesignationPlural("EmployeesPositionLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.DataBaseFiller)]
+[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Economist)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class EmployeesPositionLookupListView : ViewBase
     {
@@ -1213,10 +1229,11 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Объект")]
 	[DesignationPlural("FacilityLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class FacilityLookupListView : ViewBase
     {
@@ -1288,7 +1305,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тип объекта")]
 	[DesignationPlural("FacilityTypeLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -1349,10 +1366,11 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Населенный пункт")]
 	[DesignationPlural("LocalityLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class LocalityLookupListView : ViewBase
     {
@@ -1445,10 +1463,11 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тип населенного пункта")]
 	[DesignationPlural("LocalityTypeLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class LocalityTypeLookupListView : ViewBase
     {
@@ -1506,7 +1525,68 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Область рынка")]
+	[DesignationPlural("MarketFieldLookup")]
+	[AllowEditAttribute(Role.Admin)]
+
+    public partial class MarketFieldLookupListView : ViewBase
+    {
+        public MarketFieldLookupListView()
+        {
+            InitializeComponent();
+        }
+
+        public MarketFieldLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, MarketFieldLookupListViewModel MarketFieldLookupListViewModel) : base(regionManager, eventAggregator)
+        {
+            InitializeComponent();
+            DataContext = MarketFieldLookupListViewModel;
+			MarketFieldLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
+            Loaded += OnLoaded;
+        }
+		        
+        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+			await ((MarketFieldLookupListViewModel)DataContext).LoadAsync();;
+        }
+
+		#region VisibilityProps
+
+
+        public System.Windows.Visibility NameVisibility
+        {
+            get { return MarketFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.MarketFieldLookup.Name)].Visibility; }
+            set { MarketFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.MarketFieldLookup.Name)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility DisplayMemberVisibility
+        {
+            get { return MarketFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.MarketFieldLookup.DisplayMember)].Visibility; }
+            set { MarketFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.MarketFieldLookup.DisplayMember)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility EntityVisibility
+        {
+            get { return MarketFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.MarketFieldLookup.Entity)].Visibility; }
+            set { MarketFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.MarketFieldLookup.Entity)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ActivityFieldsVisibility
+        {
+            get { return MarketFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.MarketFieldLookup.ActivityFields)].Visibility; }
+            set { MarketFieldLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.MarketFieldLookup.ActivityFields)].Visibility = value; }
+        }
+
+
+
+		#endregion
+    }
+
+
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Единица измерения")]
 	[DesignationPlural("MeasureLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -1567,7 +1647,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Заметка")]
 	[DesignationPlural("NoteLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -1635,7 +1715,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Предложение")]
 	[DesignationPlural("OfferLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -1815,7 +1895,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Единица ТКП")]
 	[DesignationPlural("OfferUnitLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -1911,7 +1991,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Заводской заказ")]
 	[DesignationPlural("OrderLookup")]
 	[AllowEditAttribute(Role.PlanMaker)]
@@ -1973,7 +2053,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Группа параметров")]
 	[DesignationPlural("ParameterGroupLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2034,7 +2114,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Параметр")]
 	[DesignationPlural("ParameterLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2109,7 +2189,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Ограничение использования параметра")]
 	[DesignationPlural("ParameterRelationLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2163,7 +2243,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Платеж совершенный")]
 	[DesignationPlural("PaymentActualLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2231,7 +2311,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Условие платежа")]
 	[DesignationPlural("PaymentConditionLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2299,7 +2379,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Условия оплаты")]
 	[DesignationPlural("PaymentConditionSetLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2353,7 +2433,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Платежный документ")]
 	[DesignationPlural("PaymentDocumentLookup")]
 	[AllowEditAttribute(Role.Economist)]
@@ -2396,6 +2476,13 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility VatVisibility
+        {
+            get { return PaymentDocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentDocumentLookup.Vat)].Visibility; }
+            set { PaymentDocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentDocumentLookup.Vat)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility DisplayMemberVisibility
         {
             get { return PaymentDocumentLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.PaymentDocumentLookup.DisplayMember)].Visibility; }
@@ -2422,7 +2509,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Платеж плановый")]
 	[DesignationPlural("PaymentPlannedLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2504,10 +2591,13 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Персона")]
 	[DesignationPlural("PersonLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.DataBaseFiller)]
+[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Economist)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class PersonLookupListView : ViewBase
     {
@@ -2579,7 +2669,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Признаки услуги")]
 	[DesignationPlural("ProductBlockIsServiceLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2633,7 +2723,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Блок")]
 	[DesignationPlural("ProductBlockLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2743,7 +2833,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Зависимое оборудование")]
 	[DesignationPlural("ProductDependentLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2811,7 +2901,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Обозначение продукта")]
 	[DesignationPlural("ProductDesignationLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2872,7 +2962,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Включенное в стоимость оборудование")]
 	[DesignationPlural("ProductIncludedLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -2933,7 +3023,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Продукт")]
 	[DesignationPlural("ProductLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -3015,7 +3105,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Связи продуктов")]
 	[DesignationPlural("ProductRelationLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -3097,7 +3187,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Обозначение типа продукта")]
 	[DesignationPlural("ProductTypeDesignationLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -3158,7 +3248,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тип продукта")]
 	[DesignationPlural("ProductTypeLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -3212,7 +3302,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Проект")]
 	[DesignationPlural("ProjectLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -3303,6 +3393,27 @@ namespace HVTApp.UI.Views
         }
 
 
+        public System.Windows.Visibility BuilderVisibility
+        {
+            get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Builder)].Visibility; }
+            set { ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Builder)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility ProjectMakerVisibility
+        {
+            get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.ProjectMaker)].Visibility; }
+            set { ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.ProjectMaker)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility SypplierVisibility
+        {
+            get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Sypplier)].Visibility; }
+            set { ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Sypplier)].Visibility = value; }
+        }
+
+
         public System.Windows.Visibility EntityVisibility
         {
             get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.Entity)].Visibility; }
@@ -3350,7 +3461,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тип проекта")]
 	[DesignationPlural("ProjectTypeLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -3404,10 +3515,11 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Регион")]
 	[DesignationPlural("RegionLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class RegionLookupListView : ViewBase
     {
@@ -3465,68 +3577,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
-	[Designation("SalesBlock")]
-	[DesignationPlural("SalesBlockLookup")]
-	[AllowEditAttribute(Role.Admin)]
-
-    public partial class SalesBlockLookupListView : ViewBase
-    {
-        public SalesBlockLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public SalesBlockLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, SalesBlockLookupListViewModel SalesBlockLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = SalesBlockLookupListViewModel;
-			SalesBlockLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((SalesBlockLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return SalesBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesBlockLookup.DisplayMember)].Visibility; }
-            set { SalesBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesBlockLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return SalesBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesBlockLookup.Entity)].Visibility; }
-            set { SalesBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesBlockLookup.Entity)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility ParentSalesUnitsVisibility
-        {
-            get { return SalesBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesBlockLookup.ParentSalesUnits)].Visibility; }
-            set { SalesBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesBlockLookup.ParentSalesUnits)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility ChildSalesUnitsVisibility
-        {
-            get { return SalesBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesBlockLookup.ChildSalesUnits)].Visibility; }
-            set { SalesBlockLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SalesBlockLookup.ChildSalesUnits)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Единица продаж")]
 	[DesignationPlural("SalesUnitLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -3937,7 +3988,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Спецификация")]
 	[DesignationPlural("SpecificationLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -4012,8 +4063,8 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
-	[Designation("Sum")]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
+	[Designation("Сумма (фэйк)")]
 	[DesignationPlural("SumLookup")]
 	[AllowEditAttribute(Role.Admin)]
 
@@ -4080,7 +4131,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Сумма на дату")]
 	[DesignationPlural("SumOnDateLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -4141,7 +4192,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Конкурс")]
 	[DesignationPlural("TenderLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -4237,7 +4288,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тип тендера")]
 	[DesignationPlural("TenderTypeLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -4298,572 +4349,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
-	[Designation("TestChild")]
-	[DesignationPlural("TestChildLookup")]
-	[AllowEditAttribute(Role.Admin)]
-
-    public partial class TestChildLookupListView : ViewBase
-    {
-        public TestChildLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public TestChildLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestChildLookupListViewModel TestChildLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = TestChildLookupListViewModel;
-			TestChildLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((TestChildLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility NameVisibility
-        {
-            get { return TestChildLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestChildLookup.Name)].Visibility; }
-            set { TestChildLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestChildLookup.Name)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return TestChildLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestChildLookup.DisplayMember)].Visibility; }
-            set { TestChildLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestChildLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility HusbandVisibility
-        {
-            get { return TestChildLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestChildLookup.Husband)].Visibility; }
-            set { TestChildLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestChildLookup.Husband)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility WifeVisibility
-        {
-            get { return TestChildLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestChildLookup.Wife)].Visibility; }
-            set { TestChildLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestChildLookup.Wife)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return TestChildLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestChildLookup.Entity)].Visibility; }
-            set { TestChildLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestChildLookup.Entity)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
-	[Designation("TestEntity")]
-	[DesignationPlural("TestEntityLookup")]
-	[AllowEditAttribute(Role.Admin)]
-
-    public partial class TestEntityLookupListView : ViewBase
-    {
-        public TestEntityLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public TestEntityLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestEntityLookupListViewModel TestEntityLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = TestEntityLookupListViewModel;
-			TestEntityLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((TestEntityLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility NameVisibility
-        {
-            get { return TestEntityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestEntityLookup.Name)].Visibility; }
-            set { TestEntityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestEntityLookup.Name)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return TestEntityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestEntityLookup.DisplayMember)].Visibility; }
-            set { TestEntityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestEntityLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return TestEntityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestEntityLookup.Entity)].Visibility; }
-            set { TestEntityLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestEntityLookup.Entity)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
-	[Designation("TestFriendAddress")]
-	[DesignationPlural("TestFriendAddressLookup")]
-	[AllowEditAttribute(Role.Admin)]
-
-    public partial class TestFriendAddressLookupListView : ViewBase
-    {
-        public TestFriendAddressLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public TestFriendAddressLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendAddressLookupListViewModel TestFriendAddressLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = TestFriendAddressLookupListViewModel;
-			TestFriendAddressLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((TestFriendAddressLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility CityVisibility
-        {
-            get { return TestFriendAddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendAddressLookup.City)].Visibility; }
-            set { TestFriendAddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendAddressLookup.City)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility StreetVisibility
-        {
-            get { return TestFriendAddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendAddressLookup.Street)].Visibility; }
-            set { TestFriendAddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendAddressLookup.Street)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility StreetNumberVisibility
-        {
-            get { return TestFriendAddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendAddressLookup.StreetNumber)].Visibility; }
-            set { TestFriendAddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendAddressLookup.StreetNumber)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return TestFriendAddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendAddressLookup.DisplayMember)].Visibility; }
-            set { TestFriendAddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendAddressLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return TestFriendAddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendAddressLookup.Entity)].Visibility; }
-            set { TestFriendAddressLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendAddressLookup.Entity)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
-	[Designation("TestFriendEmail")]
-	[DesignationPlural("TestFriendEmailLookup")]
-	[AllowEditAttribute(Role.Admin)]
-
-    public partial class TestFriendEmailLookupListView : ViewBase
-    {
-        public TestFriendEmailLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public TestFriendEmailLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendEmailLookupListViewModel TestFriendEmailLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = TestFriendEmailLookupListViewModel;
-			TestFriendEmailLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((TestFriendEmailLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility EmailVisibility
-        {
-            get { return TestFriendEmailLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendEmailLookup.Email)].Visibility; }
-            set { TestFriendEmailLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendEmailLookup.Email)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility CommentVisibility
-        {
-            get { return TestFriendEmailLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendEmailLookup.Comment)].Visibility; }
-            set { TestFriendEmailLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendEmailLookup.Comment)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return TestFriendEmailLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendEmailLookup.DisplayMember)].Visibility; }
-            set { TestFriendEmailLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendEmailLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return TestFriendEmailLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendEmailLookup.Entity)].Visibility; }
-            set { TestFriendEmailLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendEmailLookup.Entity)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
-	[Designation("TestFriendGroup")]
-	[DesignationPlural("TestFriendGroupLookup")]
-	[AllowEditAttribute(Role.Admin)]
-
-    public partial class TestFriendGroupLookupListView : ViewBase
-    {
-        public TestFriendGroupLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public TestFriendGroupLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendGroupLookupListViewModel TestFriendGroupLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = TestFriendGroupLookupListViewModel;
-			TestFriendGroupLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((TestFriendGroupLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility NameVisibility
-        {
-            get { return TestFriendGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendGroupLookup.Name)].Visibility; }
-            set { TestFriendGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendGroupLookup.Name)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return TestFriendGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendGroupLookup.DisplayMember)].Visibility; }
-            set { TestFriendGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendGroupLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return TestFriendGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendGroupLookup.Entity)].Visibility; }
-            set { TestFriendGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendGroupLookup.Entity)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility FriendTestsVisibility
-        {
-            get { return TestFriendGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendGroupLookup.FriendTests)].Visibility; }
-            set { TestFriendGroupLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendGroupLookup.FriendTests)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
-	[Designation("TestFriend")]
-	[DesignationPlural("TestFriendLookup")]
-	[AllowEditAttribute(Role.Admin)]
-
-    public partial class TestFriendLookupListView : ViewBase
-    {
-        public TestFriendLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public TestFriendLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestFriendLookupListViewModel TestFriendLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = TestFriendLookupListViewModel;
-			TestFriendLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((TestFriendLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility FriendGroupIdVisibility
-        {
-            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.FriendGroupId)].Visibility; }
-            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.FriendGroupId)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility FirstNameVisibility
-        {
-            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.FirstName)].Visibility; }
-            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.FirstName)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility LastNameVisibility
-        {
-            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.LastName)].Visibility; }
-            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.LastName)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility BirthdayVisibility
-        {
-            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.Birthday)].Visibility; }
-            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.Birthday)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility IsDeveloperVisibility
-        {
-            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.IsDeveloper)].Visibility; }
-            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.IsDeveloper)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility IdGetVisibility
-        {
-            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.IdGet)].Visibility; }
-            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.IdGet)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.DisplayMember)].Visibility; }
-            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility TestFriendAddressVisibility
-        {
-            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.TestFriendAddress)].Visibility; }
-            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.TestFriendAddress)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility TestFriendGroupVisibility
-        {
-            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.TestFriendGroup)].Visibility; }
-            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.TestFriendGroup)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility TestFriendEmailGetVisibility
-        {
-            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.TestFriendEmailGet)].Visibility; }
-            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.TestFriendEmailGet)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.Entity)].Visibility; }
-            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.Entity)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EmailsVisibility
-        {
-            get { return TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.Emails)].Visibility; }
-            set { TestFriendLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestFriendLookup.Emails)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
-	[Designation("TestHusband")]
-	[DesignationPlural("TestHusbandLookup")]
-	[AllowEditAttribute(Role.Admin)]
-
-    public partial class TestHusbandLookupListView : ViewBase
-    {
-        public TestHusbandLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public TestHusbandLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestHusbandLookupListViewModel TestHusbandLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = TestHusbandLookupListViewModel;
-			TestHusbandLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((TestHusbandLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility NameVisibility
-        {
-            get { return TestHusbandLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestHusbandLookup.Name)].Visibility; }
-            set { TestHusbandLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestHusbandLookup.Name)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return TestHusbandLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestHusbandLookup.DisplayMember)].Visibility; }
-            set { TestHusbandLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestHusbandLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility WifeVisibility
-        {
-            get { return TestHusbandLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestHusbandLookup.Wife)].Visibility; }
-            set { TestHusbandLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestHusbandLookup.Wife)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return TestHusbandLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestHusbandLookup.Entity)].Visibility; }
-            set { TestHusbandLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestHusbandLookup.Entity)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility ChildrenVisibility
-        {
-            get { return TestHusbandLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestHusbandLookup.Children)].Visibility; }
-            set { TestHusbandLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestHusbandLookup.Children)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
-	[Designation("TestWife")]
-	[DesignationPlural("TestWifeLookup")]
-	[AllowEditAttribute(Role.Admin)]
-
-    public partial class TestWifeLookupListView : ViewBase
-    {
-        public TestWifeLookupListView()
-        {
-            InitializeComponent();
-        }
-
-        public TestWifeLookupListView(IRegionManager regionManager, IEventAggregator eventAggregator, TestWifeLookupListViewModel TestWifeLookupListViewModel) : base(regionManager, eventAggregator)
-        {
-            InitializeComponent();
-            DataContext = TestWifeLookupListViewModel;
-			TestWifeLookupListViewModel.Loaded += () => { this.Loaded -= OnLoaded; };
-            Loaded += OnLoaded;
-        }
-		        
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-			await ((TestWifeLookupListViewModel)DataContext).LoadAsync();;
-        }
-
-		#region VisibilityProps
-
-
-        public System.Windows.Visibility NVisibility
-        {
-            get { return TestWifeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestWifeLookup.N)].Visibility; }
-            set { TestWifeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestWifeLookup.N)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility NameVisibility
-        {
-            get { return TestWifeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestWifeLookup.Name)].Visibility; }
-            set { TestWifeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestWifeLookup.Name)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility DisplayMemberVisibility
-        {
-            get { return TestWifeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestWifeLookup.DisplayMember)].Visibility; }
-            set { TestWifeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestWifeLookup.DisplayMember)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility HusbandVisibility
-        {
-            get { return TestWifeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestWifeLookup.Husband)].Visibility; }
-            set { TestWifeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestWifeLookup.Husband)].Visibility = value; }
-        }
-
-
-        public System.Windows.Visibility EntityVisibility
-        {
-            get { return TestWifeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestWifeLookup.Entity)].Visibility; }
-            set { TestWifeLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.TestWifeLookup.Entity)].Visibility = value; }
-        }
-
-
-
-		#endregion
-    }
-
-
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Пользователь")]
 	[DesignationPlural("UserLookup")]
 	[AllowEditAttribute(Role.Admin)]
@@ -4952,7 +4438,7 @@ namespace HVTApp.UI.Views
     }
 
 
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Роль пользователя")]
 	[DesignationPlural("UserRoleLookup")]
 	[AllowEditAttribute(Role.Admin)]

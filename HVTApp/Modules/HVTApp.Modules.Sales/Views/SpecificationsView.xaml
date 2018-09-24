@@ -4,6 +4,7 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:converters="clr-namespace:HVTApp.Infrastructure.Converters;assembly=HVTApp.Infrastructure"
               xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
+              xmlns:controls="clr-namespace:HVTApp.Modules.Sales.Controls"
               x:Class="HVTApp.Modules.Sales.Views.SpecificationsView">
 
     <Grid>
@@ -39,38 +40,9 @@
             
             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
 
-            <GroupBox Grid.Row="2" Header="Потенциальное">
-                <infg:XamDataGrid x:Name="PotentialListGrid"
-                                  DataSource="{Binding Groups}"
-                                  SelectedDataItem="{Binding SelectedPotentialGroup, Mode=TwoWay}">
-
-                    <infg:XamDataGrid.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
-                        </ContextMenu>
-                    </infg:XamDataGrid.ContextMenu>
-
-                    <infg:XamDataGrid.FieldLayouts>
-                        <infg:FieldLayout>
-                            <infg:FieldLayout.Fields>
-
-                                <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
-                                <infg:TextField Name="ProductType" Label="Тип" Width="Auto"/>
-                                <infg:TextField Name="ProductDesignation" Label="Обозначение" Width="Auto"/>
-                                <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
-                                <!--<infg:TextField Name="Cost" Label="Сумма" Width="Auto"/>
-                                <infg:TextField Name="Specification" Label="Сп.№" Width="Auto"/>
-                                <infg:TextField Name="Contract" Label="Договор" Width="Auto"/>-->
-                                <infg:DateTimeField Name="EndProductionDate" Label="Дата производства" Width="Auto"/>
-                                <infg:Field Name="Groups" IsExpandable="True"/>
-
-                            </infg:FieldLayout.Fields>
-                        </infg:FieldLayout>
-
-                    </infg:XamDataGrid.FieldLayouts>
-                </infg:XamDataGrid>
+            <GroupBox Grid.Row="2" Header="Оборудование">
+                <controls:UnitListControl x:Name="UnitListView" DataContext="{Binding}" />
             </GroupBox>
-
         </Grid>
 
     </Grid>

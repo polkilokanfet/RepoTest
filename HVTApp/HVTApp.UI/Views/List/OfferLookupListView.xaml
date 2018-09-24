@@ -23,7 +23,7 @@
         </Label>
        
 
-		<infg:XamDataGrid x:Name="OfferLookupListGrid" Grid.Row="1" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<infg:XamDataGrid x:Name="OfferLookupListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.ContextMenu>
 				<ContextMenu>
@@ -34,6 +34,8 @@
 			<infg:XamDataGrid.FieldLayouts>
 				<infg:FieldLayout>
 					<infg:FieldLayout.Fields>
+                    <infg:TextField Name="Company" Label="Компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:NumericField Name="Sum" Label="Сумма" Width="Auto" />
                     <infg:TextField Name="Number" Label="ИД" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RegNumber" Label="Номер" Width="Auto" />
                     <infg:DateTimeField Name="Date" Label="Дата" Width="Auto" />
@@ -43,10 +45,8 @@
                     <infg:TextField Name="SenderEmployee" Label="Отправитель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RecipientEmployee" Label="Получатель" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RegistrationDetailsOfRecipient" Label="Рег.данные получателя" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                    <infg:TextField Name="Company" Label="Компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:TextField Name="RequestDocument" Label="Запрос" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
                     <infg:NumericField Name="Vat" Label="НДС" Width="Auto" />
-                    <infg:NumericField Name="Sum" Label="Sum" Width="Auto" />
                     <infg:TextField Name="OfferUnits" Label="OfferUnits" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="CopyToRecipients" Label="Копия" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
                     <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />

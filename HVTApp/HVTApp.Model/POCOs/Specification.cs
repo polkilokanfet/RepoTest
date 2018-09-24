@@ -15,7 +15,7 @@ namespace HVTApp.Model.POCOs
         public DateTime Date { get; set; }
 
         [Designation("НДС"), Required, OrderStatus(7)]
-        public double Vat { get; set; }
+        public double Vat { get; set; } = CommonOptions.ActualOptions.Vat;
 
         [Designation("Договор"), Required, OrderStatus(8)]
         public virtual Contract Contract { get; set; }

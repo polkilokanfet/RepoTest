@@ -13,6 +13,8 @@ namespace HVTApp.DataAccess
             TestData testData = new TestData();
 
             context.CreateNewProductTaskDbSet.AddRange(testData.GetAll<CreateNewProductTask>());
+            context.DocumentNumberDbSet.AddRange(testData.GetAll<DocumentNumber>());
+            context.MarketFieldDbSet.AddRange(testData.GetAll<MarketField>());
             context.PaymentActualDbSet.AddRange(testData.GetAll<PaymentActual>());
             context.PaymentPlannedDbSet.AddRange(testData.GetAll<PaymentPlanned>());
             context.ProductBlockIsServiceDbSet.AddRange(testData.GetAll<ProductBlockIsService>());
@@ -35,7 +37,6 @@ namespace HVTApp.DataAccess
             context.PaymentConditionSetDbSet.AddRange(testData.GetAll<PaymentConditionSet>());
             context.ProductBlockDbSet.AddRange(testData.GetAll<ProductBlock>());
             context.ProductDependentDbSet.AddRange(testData.GetAll<ProductDependent>());
-            context.SalesBlockDbSet.AddRange(testData.GetAll<SalesBlock>());
             context.BankDetailsDbSet.AddRange(testData.GetAll<BankDetails>());
             context.CompanyDbSet.AddRange(testData.GetAll<Company>());
             context.CompanyFormDbSet.AddRange(testData.GetAll<CompanyForm>());
@@ -51,16 +52,7 @@ namespace HVTApp.DataAccess
             context.PersonDbSet.AddRange(testData.GetAll<Person>());
             context.ParameterRelationDbSet.AddRange(testData.GetAll<ParameterRelation>());
             context.SalesUnitDbSet.AddRange(testData.GetAll<SalesUnit>());
-            context.TestFriendAddressDbSet.AddRange(testData.GetAll<TestFriendAddress>());
-            context.TestFriendDbSet.AddRange(testData.GetAll<TestFriend>());
-            context.TestFriendEmailDbSet.AddRange(testData.GetAll<TestFriendEmail>());
-            context.TestFriendGroupDbSet.AddRange(testData.GetAll<TestFriendGroup>());
             context.DocumentDbSet.AddRange(testData.GetAll<Document>());
-            context.DocumentNumberDbSet.AddRange(testData.GetAll<DocumentNumber>());
-            context.TestEntityDbSet.AddRange(testData.GetAll<TestEntity>());
-            context.TestHusbandDbSet.AddRange(testData.GetAll<TestHusband>());
-            context.TestWifeDbSet.AddRange(testData.GetAll<TestWife>());
-            context.TestChildDbSet.AddRange(testData.GetAll<TestChild>());
             context.SumOnDateDbSet.AddRange(testData.GetAll<SumOnDate>());
             context.ProductDbSet.AddRange(testData.GetAll<Product>());
             context.OfferDbSet.AddRange(testData.GetAll<Offer>());

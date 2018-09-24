@@ -18,7 +18,7 @@ namespace HVTApp.Model
         {
             var ns = typeof(Address).Namespace;
             //return typeof(Address).Assembly.GetTypes().Where(x => !x.IsAbstract && !x.IsEnum && x.Namespace == ns && !x.Name.Contains("<"));
-            return typeof(Address).Assembly.GetTypes().Where(x => x.GetBaseTypes().Contains(typeof(BaseEntity)));
+            return typeof(Address).Assembly.GetTypes().Where(x => x.Namespace == ns && x.GetBaseTypes().Contains(typeof(BaseEntity)));
         }
 
         public static IEnumerable<PropertyInfo> GetPropertiesForListViews(this Type typeLookup)

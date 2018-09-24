@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 
 namespace HVTApp.Services.DialogService
@@ -8,28 +9,30 @@ namespace HVTApp.Services.DialogService
     public class DialogService : IDialogService
     {
         private readonly Window _owner;
-        public Dictionary<Type, Type> Mappings { get; }
 
         public DialogService(Window owner = null)
         {
             _owner = owner;
-            Mappings = new Dictionary<Type, Type>();
         }
 
-        public void Register<TViewModel, TView>() 
-            where TViewModel : IDialogRequestClose 
+        #region ShowDialog
+
+        public Dictionary<Type, Type> ShowDialogMappings { get; } = new Dictionary<Type, Type>();
+
+        public void Register<TViewModel, TView>()
+            where TViewModel : IDialogRequestClose
             where TView : IDialog
         {
-            if (Mappings.ContainsKey(typeof(TViewModel)))
+            if (ShowDialogMappings.ContainsKey(typeof(TViewModel)))
                 throw new ArgumentException($"Type {typeof(TViewModel)} is already mapped to type {typeof(TView)}");
 
-            Mappings.Add(typeof(TViewModel), typeof(TView));
+            ShowDialogMappings.Add(typeof(TViewModel), typeof(TView));
         }
 
         public bool? ShowDialog<TViewModel>(TViewModel viewModel) 
             where TViewModel : IDialogRequestClose
         {
-            Type viewType = Mappings[typeof(TViewModel)];
+            Type viewType = ShowDialogMappings[typeof(TViewModel)];
             IDialog dialog = (IDialog)Activator.CreateInstance(viewType);
 
             EventHandler<DialogRequestCloseEventArgs> handler = null;
@@ -53,5 +56,32 @@ namespace HVTApp.Services.DialogService
 
             return dialog.ShowDialog();
         }
+
+        #endregion
+
+        #region Show
+
+        public Dictionary<Type, Type> ShowMappings { get; } = new Dictionary<Type, Type>();
+
+        public void RegisterShow<TViewModel, TView>()
+            where TView : UserControl
+        {
+            if (ShowMappings.ContainsKey(typeof(TViewModel)))
+                throw new ArgumentException($"Type {typeof(TViewModel)} is already mapped to type {typeof(TView)}");
+
+            ShowMappings.Add(typeof(TViewModel), typeof(TView));
+        }
+
+
+        public void Show<TViewModel>(TViewModel viewModel)
+        {
+            var content = (UserControl)Activator.CreateInstance(ShowMappings[typeof(TViewModel)]);
+            content.DataContext = viewModel;
+            var window = new Window {Content = content};
+            window.Show();
+        }
+
+        #endregion
+
     }
 }

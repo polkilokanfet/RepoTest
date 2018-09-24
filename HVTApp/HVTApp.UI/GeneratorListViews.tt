@@ -71,7 +71,7 @@ namespace HVTApp.UI.Views
         foreach(var modelType in modelTypes)
         {
 #>
-    [RibbonTab(typeof(TabCRUD))]
+    [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("<#=modelType.DesignationSingle()#>")]
 	[DesignationPlural("<#=modelType.DesignationPlural()#>")]
 	<#=modelType.GetAllowEdit()#>
@@ -159,7 +159,7 @@ namespace HVTApp.UI.Views
         </Label>
        
 
-		<infg:XamDataGrid x:Name="<#=modelType.Name#>ListGrid" Grid.Row="1" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+		<infg:XamDataGrid x:Name="<#=modelType.Name#>ListGrid" Grid.Row="1" Style="{StaticResource ListViewGrid}" Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
         
 			<infg:XamDataGrid.ContextMenu>
 				<ContextMenu>

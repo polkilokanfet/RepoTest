@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using HVTApp.Infrastructure;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.ViewModels;
+using HVTApp.UI.Lookup;
 using HVTApp.UI.Tabs;
 using Microsoft.Practices.Unity;
 using Prism.Events;
@@ -29,8 +29,15 @@ namespace HVTApp.Modules.Sales.Views
 
         private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            var projects = await _container.Resolve<IUnitOfWork>().Repository<Project>().GetAllAsNoTrackingAsync();
-            _projectsViewModel.Load(projects.Where(x => x.Manager.Id == CommonOptions.User.Id));
+            var units = await _container.Resolve<IUnitOfWork>().Repository<SalesUnit>().GetAllAsync();
+            units = units.Where(x => x.Project.Manager.Id == CommonOptions.User.Id).ToList();
+            var projects = units.Select(x => x.Project).Distinct();
+            var lookups = projects.Select(x => new ProjectLookup(x)).ToList();
+            foreach (var projectLookup in lookups)
+            {
+                projectLookup.SalesUnits.AddRange(units.Where(x => x.Project.Id == projectLookup.Id).Select(x => new SalesUnitLookup(x)));
+            }
+            _projectsViewModel.Load(lookups.OrderBy(x => x.RealizationDate));
             Loaded -= OnLoaded;
         }
     }

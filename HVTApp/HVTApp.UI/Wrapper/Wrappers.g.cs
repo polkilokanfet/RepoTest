@@ -78,6 +78,85 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
+		public partial class DocumentNumberWrapper : WrapperBase<DocumentNumber>
+	{
+	    public DocumentNumberWrapper(DocumentNumber model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.Int32 Number
+        {
+          get { return GetValue<System.Int32>(); }
+          set { SetValue(value); }
+        }
+        public System.Int32 NumberOriginalValue => GetOriginalValue<System.Int32>(nameof(Number));
+        public bool NumberIsChanged => GetIsChanged(nameof(Number));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+	}
+
+		public partial class MarketFieldWrapper : WrapperBase<MarketField>
+	{
+	    public MarketFieldWrapper(MarketField model) : base(model) { }
+
+	
+
+        #region SimpleProperties
+
+        public System.String Name
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
+        public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+
+        public System.Guid Id
+        {
+          get { return GetValue<System.Guid>(); }
+          set { SetValue(value); }
+        }
+        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
+        public bool IdIsChanged => GetIsChanged(nameof(Id));
+
+
+        #endregion
+
+
+        #region CollectionProperties
+
+        public IValidatableChangeTrackingCollection<ActivityFieldWrapper> ActivityFields { get; private set; }
+
+
+        #endregion
+
+  
+        protected override void InitializeCollectionProperties()
+        {
+
+          if (Model.ActivityFields == null) throw new ArgumentException("ActivityFields cannot be null");
+          ActivityFields = new ValidatableChangeTrackingCollection<ActivityFieldWrapper>(Model.ActivityFields.Select(e => new ActivityFieldWrapper(e)));
+          RegisterCollection(ActivityFields, Model.ActivityFields);
+
+
+        }
+
+	}
+
 		public partial class PaymentActualWrapper : WrapperBase<PaymentActual>
 	{
 	    public PaymentActualWrapper(PaymentActual model) : base(model) { }
@@ -504,6 +583,15 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Int32 StandartTermFromPickToEndProductionOriginalValue => GetOriginalValue<System.Int32>(nameof(StandartTermFromPickToEndProduction));
         public bool StandartTermFromPickToEndProductionIsChanged => GetIsChanged(nameof(StandartTermFromPickToEndProduction));
+
+
+        public System.Double Vat
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
+        public bool VatIsChanged => GetIsChanged(nameof(Vat));
 
 
         public System.Guid Id
@@ -1328,54 +1416,6 @@ namespace HVTApp.UI.Wrapper
         {
 
             InitializeComplexProperty<ProductWrapper>(nameof(Product), Model.Product == null ? null : new ProductWrapper(Model.Product));
-
-
-        }
-
-	}
-
-		public partial class SalesBlockWrapper : WrapperBase<SalesBlock>
-	{
-	    public SalesBlockWrapper(SalesBlock model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-
-        #region CollectionProperties
-
-        public IValidatableChangeTrackingCollection<SalesUnitWrapper> ParentSalesUnits { get; private set; }
-
-
-        public IValidatableChangeTrackingCollection<SalesUnitWrapper> ChildSalesUnits { get; private set; }
-
-
-        #endregion
-
-  
-        protected override void InitializeCollectionProperties()
-        {
-
-          if (Model.ParentSalesUnits == null) throw new ArgumentException("ParentSalesUnits cannot be null");
-          ParentSalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.ParentSalesUnits.Select(e => new SalesUnitWrapper(e)));
-          RegisterCollection(ParentSalesUnits, Model.ParentSalesUnits);
-
-
-          if (Model.ChildSalesUnits == null) throw new ArgumentException("ChildSalesUnits cannot be null");
-          ChildSalesUnits = new ValidatableChangeTrackingCollection<SalesUnitWrapper>(Model.ChildSalesUnits.Select(e => new SalesUnitWrapper(e)));
-          RegisterCollection(ChildSalesUnits, Model.ChildSalesUnits);
 
 
         }
@@ -2553,268 +2593,6 @@ namespace HVTApp.UI.Wrapper
 
 	}
 
-		public partial class TestFriendAddressWrapper : WrapperBase<TestFriendAddress>
-	{
-	    public TestFriendAddressWrapper(TestFriendAddress model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.String City
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String CityOriginalValue => GetOriginalValue<System.String>(nameof(City));
-        public bool CityIsChanged => GetIsChanged(nameof(City));
-
-
-        public System.String Street
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String StreetOriginalValue => GetOriginalValue<System.String>(nameof(Street));
-        public bool StreetIsChanged => GetIsChanged(nameof(Street));
-
-
-        public System.String StreetNumber
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String StreetNumberOriginalValue => GetOriginalValue<System.String>(nameof(StreetNumber));
-        public bool StreetNumberIsChanged => GetIsChanged(nameof(StreetNumber));
-
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-	}
-
-		public partial class TestFriendWrapper : WrapperBase<TestFriend>
-	{
-	    public TestFriendWrapper(TestFriend model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.Int32 FriendGroupId
-        {
-          get { return GetValue<System.Int32>(); }
-          set { SetValue(value); }
-        }
-        public System.Int32 FriendGroupIdOriginalValue => GetOriginalValue<System.Int32>(nameof(FriendGroupId));
-        public bool FriendGroupIdIsChanged => GetIsChanged(nameof(FriendGroupId));
-
-
-        public System.String FirstName
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String FirstNameOriginalValue => GetOriginalValue<System.String>(nameof(FirstName));
-        public bool FirstNameIsChanged => GetIsChanged(nameof(FirstName));
-
-
-        public System.String LastName
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String LastNameOriginalValue => GetOriginalValue<System.String>(nameof(LastName));
-        public bool LastNameIsChanged => GetIsChanged(nameof(LastName));
-
-
-        public System.Nullable<System.DateTime> Birthday
-        {
-          get { return GetValue<System.Nullable<System.DateTime>>(); }
-          set { SetValue(value); }
-        }
-        public System.Nullable<System.DateTime> BirthdayOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(Birthday));
-        public bool BirthdayIsChanged => GetIsChanged(nameof(Birthday));
-
-
-        public System.Boolean IsDeveloper
-        {
-          get { return GetValue<System.Boolean>(); }
-          set { SetValue(value); }
-        }
-        public System.Boolean IsDeveloperOriginalValue => GetOriginalValue<System.Boolean>(nameof(IsDeveloper));
-        public bool IsDeveloperIsChanged => GetIsChanged(nameof(IsDeveloper));
-
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-
-        #region ComplexProperties
-
-	    public TestFriendAddressWrapper TestFriendAddress 
-        {
-            get { return GetWrapper<TestFriendAddressWrapper>(); }
-            set { SetComplexValue<TestFriendAddress, TestFriendAddressWrapper>(TestFriendAddress, value); }
-        }
-
-
-	    public TestFriendGroupWrapper TestFriendGroup 
-        {
-            get { return GetWrapper<TestFriendGroupWrapper>(); }
-            set { SetComplexValue<TestFriendGroup, TestFriendGroupWrapper>(TestFriendGroup, value); }
-        }
-
-
-        #endregion
-
-
-        #region CollectionProperties
-
-        public IValidatableChangeTrackingCollection<TestFriendEmailWrapper> Emails { get; private set; }
-
-
-        #endregion
-
-
-        #region GetProperties
-
-        public System.Int32 IdGet => GetValue<System.Int32>(); 
-
-
-        public HVTApp.Model.POCOs.TestFriendEmail TestFriendEmailGet => GetValue<HVTApp.Model.POCOs.TestFriendEmail>(); 
-
-
-        #endregion
-
-        public override void InitializeComplexProperties()
-        {
-
-            InitializeComplexProperty<TestFriendAddressWrapper>(nameof(TestFriendAddress), Model.TestFriendAddress == null ? null : new TestFriendAddressWrapper(Model.TestFriendAddress));
-
-
-            InitializeComplexProperty<TestFriendGroupWrapper>(nameof(TestFriendGroup), Model.TestFriendGroup == null ? null : new TestFriendGroupWrapper(Model.TestFriendGroup));
-
-
-        }
-
-  
-        protected override void InitializeCollectionProperties()
-        {
-
-          if (Model.Emails == null) throw new ArgumentException("Emails cannot be null");
-          Emails = new ValidatableChangeTrackingCollection<TestFriendEmailWrapper>(Model.Emails.Select(e => new TestFriendEmailWrapper(e)));
-          RegisterCollection(Emails, Model.Emails);
-
-
-        }
-
-	}
-
-		public partial class TestFriendEmailWrapper : WrapperBase<TestFriendEmail>
-	{
-	    public TestFriendEmailWrapper(TestFriendEmail model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.String Email
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String EmailOriginalValue => GetOriginalValue<System.String>(nameof(Email));
-        public bool EmailIsChanged => GetIsChanged(nameof(Email));
-
-
-        public System.String Comment
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
-        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
-
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-	}
-
-		public partial class TestFriendGroupWrapper : WrapperBase<TestFriendGroup>
-	{
-	    public TestFriendGroupWrapper(TestFriendGroup model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.String Name
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
-        public bool NameIsChanged => GetIsChanged(nameof(Name));
-
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-
-        #region CollectionProperties
-
-        public IValidatableChangeTrackingCollection<TestFriendWrapper> FriendTests { get; private set; }
-
-
-        #endregion
-
-  
-        protected override void InitializeCollectionProperties()
-        {
-
-          if (Model.FriendTests == null) throw new ArgumentException("FriendTests cannot be null");
-          FriendTests = new ValidatableChangeTrackingCollection<TestFriendWrapper>(Model.FriendTests.Select(e => new TestFriendWrapper(e)));
-          RegisterCollection(FriendTests, Model.FriendTests);
-
-
-        }
-
-	}
-
 		public partial class DocumentWrapper : WrapperBase<Document>
 	{
 	    public DocumentWrapper(Document model) : base(model) { }
@@ -2972,254 +2750,6 @@ namespace HVTApp.UI.Wrapper
           if (Model.CopyToRecipients == null) throw new ArgumentException("CopyToRecipients cannot be null");
           CopyToRecipients = new ValidatableChangeTrackingCollection<EmployeeWrapper>(Model.CopyToRecipients.Select(e => new EmployeeWrapper(e)));
           RegisterCollection(CopyToRecipients, Model.CopyToRecipients);
-
-
-        }
-
-	}
-
-		public partial class DocumentNumberWrapper : WrapperBase<DocumentNumber>
-	{
-	    public DocumentNumberWrapper(DocumentNumber model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.Int32 Number
-        {
-          get { return GetValue<System.Int32>(); }
-          set { SetValue(value); }
-        }
-        public System.Int32 NumberOriginalValue => GetOriginalValue<System.Int32>(nameof(Number));
-        public bool NumberIsChanged => GetIsChanged(nameof(Number));
-
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-	}
-
-		public partial class TestEntityWrapper : WrapperBase<TestEntity>
-	{
-	    public TestEntityWrapper(TestEntity model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.String Name
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
-        public bool NameIsChanged => GetIsChanged(nameof(Name));
-
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-	}
-
-		public partial class TestHusbandWrapper : WrapperBase<TestHusband>
-	{
-	    public TestHusbandWrapper(TestHusband model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.String Name
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
-        public bool NameIsChanged => GetIsChanged(nameof(Name));
-
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-
-        #region ComplexProperties
-
-	    public TestWifeWrapper Wife 
-        {
-            get { return GetWrapper<TestWifeWrapper>(); }
-            set { SetComplexValue<TestWife, TestWifeWrapper>(Wife, value); }
-        }
-
-
-        #endregion
-
-
-        #region CollectionProperties
-
-        public IValidatableChangeTrackingCollection<TestChildWrapper> Children { get; private set; }
-
-
-        #endregion
-
-        public override void InitializeComplexProperties()
-        {
-
-            InitializeComplexProperty<TestWifeWrapper>(nameof(Wife), Model.Wife == null ? null : new TestWifeWrapper(Model.Wife));
-
-
-        }
-
-  
-        protected override void InitializeCollectionProperties()
-        {
-
-          if (Model.Children == null) throw new ArgumentException("Children cannot be null");
-          Children = new ValidatableChangeTrackingCollection<TestChildWrapper>(Model.Children.Select(e => new TestChildWrapper(e)));
-          RegisterCollection(Children, Model.Children);
-
-
-        }
-
-	}
-
-		public partial class TestWifeWrapper : WrapperBase<TestWife>
-	{
-	    public TestWifeWrapper(TestWife model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.Int32 N
-        {
-          get { return GetValue<System.Int32>(); }
-          set { SetValue(value); }
-        }
-        public System.Int32 NOriginalValue => GetOriginalValue<System.Int32>(nameof(N));
-        public bool NIsChanged => GetIsChanged(nameof(N));
-
-
-        public System.String Name
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
-        public bool NameIsChanged => GetIsChanged(nameof(Name));
-
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-
-        #region ComplexProperties
-
-	    public TestHusbandWrapper Husband 
-        {
-            get { return GetWrapper<TestHusbandWrapper>(); }
-            set { SetComplexValue<TestHusband, TestHusbandWrapper>(Husband, value); }
-        }
-
-
-        #endregion
-
-        public override void InitializeComplexProperties()
-        {
-
-            InitializeComplexProperty<TestHusbandWrapper>(nameof(Husband), Model.Husband == null ? null : new TestHusbandWrapper(Model.Husband));
-
-
-        }
-
-	}
-
-		public partial class TestChildWrapper : WrapperBase<TestChild>
-	{
-	    public TestChildWrapper(TestChild model) : base(model) { }
-
-	
-
-        #region SimpleProperties
-
-        public System.String Name
-        {
-          get { return GetValue<System.String>(); }
-          set { SetValue(value); }
-        }
-        public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
-        public bool NameIsChanged => GetIsChanged(nameof(Name));
-
-
-        public System.Guid Id
-        {
-          get { return GetValue<System.Guid>(); }
-          set { SetValue(value); }
-        }
-        public System.Guid IdOriginalValue => GetOriginalValue<System.Guid>(nameof(Id));
-        public bool IdIsChanged => GetIsChanged(nameof(Id));
-
-
-        #endregion
-
-
-        #region ComplexProperties
-
-	    public TestHusbandWrapper Husband 
-        {
-            get { return GetWrapper<TestHusbandWrapper>(); }
-            set { SetComplexValue<TestHusband, TestHusbandWrapper>(Husband, value); }
-        }
-
-
-	    public TestWifeWrapper Wife 
-        {
-            get { return GetWrapper<TestWifeWrapper>(); }
-            set { SetComplexValue<TestWife, TestWifeWrapper>(Wife, value); }
-        }
-
-
-        #endregion
-
-        public override void InitializeComplexProperties()
-        {
-
-            InitializeComplexProperty<TestHusbandWrapper>(nameof(Husband), Model.Husband == null ? null : new TestHusbandWrapper(Model.Husband));
-
-
-            InitializeComplexProperty<TestWifeWrapper>(nameof(Wife), Model.Wife == null ? null : new TestWifeWrapper(Model.Wife));
 
 
         }
@@ -3725,6 +3255,15 @@ namespace HVTApp.UI.Wrapper
         }
         public System.String NumberOriginalValue => GetOriginalValue<System.String>(nameof(Number));
         public bool NumberIsChanged => GetIsChanged(nameof(Number));
+
+
+        public System.Double Vat
+        {
+          get { return GetValue<System.Double>(); }
+          set { SetValue(value); }
+        }
+        public System.Double VatOriginalValue => GetOriginalValue<System.Double>(nameof(Vat));
+        public bool VatIsChanged => GetIsChanged(nameof(Vat));
 
 
         public System.Guid Id

@@ -22,7 +22,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Продукт"), Required, OrderStatus(50)]
         public virtual Product Product { get; set; }
 
-        [Designation("Включенные продукты"), Required]
+        [Designation("Включенные продукты")]
         public virtual List<ProductIncluded> ProductsIncluded { get; set; } = new List<ProductIncluded>();
 
         [Designation("Объект"), OrderStatus(51), Required]
@@ -31,7 +31,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Условия оплаты"), Required]
         public virtual PaymentConditionSet PaymentConditionSet { get; set; }
 
-        [Designation("Срок производства")]
+        [Designation("Срок производства"), Required]
         public int ProductionTerm { get; set; }
 
 

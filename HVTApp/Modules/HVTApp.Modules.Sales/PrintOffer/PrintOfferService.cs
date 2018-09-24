@@ -129,9 +129,9 @@ namespace HVTApp.Modules.Sales.PrintOffer
 
             docWriter.StartTableRow();
             cellProps.ColumnSpan = 5;
-            docWriter.TableCell($"НДС ({offer.Vat * 100} %):", cellProps, null, fontHeader);
+            docWriter.TableCell($"НДС ({offer.Vat} %):", cellProps, null, fontHeader);
             cellProps.ColumnSpan = 1;
-            docWriter.TableCell($"{sum * offer.Vat:C}", cellProps, parPropRight, fontHeader);
+            docWriter.TableCell($"{sum * offer.Vat / 100:C}", cellProps, parPropRight, fontHeader);
             docWriter.EndTableRow();
 
 
@@ -139,7 +139,7 @@ namespace HVTApp.Modules.Sales.PrintOffer
             cellProps.ColumnSpan = 5;
             docWriter.TableCell($"Итого с НДС:", cellProps, null, fontHeader);
             cellProps.ColumnSpan = 1;
-            docWriter.TableCell($"{sum * (1 + offer.Vat):C}", cellProps, parPropRight, fontHeader);
+            docWriter.TableCell($"{sum * (1 + offer.Vat / 100):C}", cellProps, parPropRight, fontHeader);
             docWriter.EndTableRow();
 
             docWriter.EndTable();

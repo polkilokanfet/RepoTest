@@ -14,6 +14,26 @@ namespace HVTApp.DataAccess
 		}
     }
 
+    public partial class DocumentNumberRepository : BaseRepository<DocumentNumber>, IDocumentNumberRepository
+    {
+        IUnityContainer _container;
+
+		public DocumentNumberRepository(DbContext context, IUnityContainer container) : base(context) 
+		{
+			_container = container;
+		}
+    }
+
+    public partial class MarketFieldRepository : BaseRepository<MarketField>, IMarketFieldRepository
+    {
+        IUnityContainer _container;
+
+		public MarketFieldRepository(DbContext context, IUnityContainer container) : base(context) 
+		{
+			_container = container;
+		}
+    }
+
     public partial class PaymentActualRepository : BaseRepository<PaymentActual>, IPaymentActualRepository
     {
         IUnityContainer _container;
@@ -234,16 +254,6 @@ namespace HVTApp.DataAccess
 		}
     }
 
-    public partial class SalesBlockRepository : BaseRepository<SalesBlock>, ISalesBlockRepository
-    {
-        IUnityContainer _container;
-
-		public SalesBlockRepository(DbContext context, IUnityContainer container) : base(context) 
-		{
-			_container = container;
-		}
-    }
-
     public partial class BankDetailsRepository : BaseRepository<BankDetails>, IBankDetailsRepository
     {
         IUnityContainer _container;
@@ -394,101 +404,11 @@ namespace HVTApp.DataAccess
 		}
     }
 
-    public partial class TestFriendAddressRepository : BaseRepository<TestFriendAddress>, ITestFriendAddressRepository
-    {
-        IUnityContainer _container;
-
-		public TestFriendAddressRepository(DbContext context, IUnityContainer container) : base(context) 
-		{
-			_container = container;
-		}
-    }
-
-    public partial class TestFriendRepository : BaseRepository<TestFriend>, ITestFriendRepository
-    {
-        IUnityContainer _container;
-
-		public TestFriendRepository(DbContext context, IUnityContainer container) : base(context) 
-		{
-			_container = container;
-		}
-    }
-
-    public partial class TestFriendEmailRepository : BaseRepository<TestFriendEmail>, ITestFriendEmailRepository
-    {
-        IUnityContainer _container;
-
-		public TestFriendEmailRepository(DbContext context, IUnityContainer container) : base(context) 
-		{
-			_container = container;
-		}
-    }
-
-    public partial class TestFriendGroupRepository : BaseRepository<TestFriendGroup>, ITestFriendGroupRepository
-    {
-        IUnityContainer _container;
-
-		public TestFriendGroupRepository(DbContext context, IUnityContainer container) : base(context) 
-		{
-			_container = container;
-		}
-    }
-
     public partial class DocumentRepository : BaseRepository<Document>, IDocumentRepository
     {
         IUnityContainer _container;
 
 		public DocumentRepository(DbContext context, IUnityContainer container) : base(context) 
-		{
-			_container = container;
-		}
-    }
-
-    public partial class DocumentNumberRepository : BaseRepository<DocumentNumber>, IDocumentNumberRepository
-    {
-        IUnityContainer _container;
-
-		public DocumentNumberRepository(DbContext context, IUnityContainer container) : base(context) 
-		{
-			_container = container;
-		}
-    }
-
-    public partial class TestEntityRepository : BaseRepository<TestEntity>, ITestEntityRepository
-    {
-        IUnityContainer _container;
-
-		public TestEntityRepository(DbContext context, IUnityContainer container) : base(context) 
-		{
-			_container = container;
-		}
-    }
-
-    public partial class TestHusbandRepository : BaseRepository<TestHusband>, ITestHusbandRepository
-    {
-        IUnityContainer _container;
-
-		public TestHusbandRepository(DbContext context, IUnityContainer container) : base(context) 
-		{
-			_container = container;
-		}
-    }
-
-    public partial class TestWifeRepository : BaseRepository<TestWife>, ITestWifeRepository
-    {
-        IUnityContainer _container;
-
-		public TestWifeRepository(DbContext context, IUnityContainer container) : base(context) 
-		{
-			_container = container;
-		}
-    }
-
-    public partial class TestChildRepository : BaseRepository<TestChild>, ITestChildRepository
-    {
-        IUnityContainer _container;
-
-		public TestChildRepository(DbContext context, IUnityContainer container) : base(context) 
 		{
 			_container = container;
 		}

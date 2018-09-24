@@ -50,16 +50,4 @@ namespace HVTApp.Model.POCOs
         [Designation("Комментарий"), MaxLength(100)]
         public string Comment { get; set; }
     }
-
-    public class DocumentNumber : BaseEntity
-    {
-        [Key]
-        public int Number { get; set; }
-
-        public override string ToString()
-        {
-            return Number.ToString();
-        }
-
-    }
 }

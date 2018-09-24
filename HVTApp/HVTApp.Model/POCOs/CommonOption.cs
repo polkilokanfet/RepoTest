@@ -25,5 +25,8 @@ namespace HVTApp.Model.POCOs
 
         [Designation("Стандартные условия оплаты"), Required]
         public virtual PaymentConditionSet StandartPaymentsConditionSet { get; set; }
+
+        [Designation("НДС"), Required]
+        public double Vat { get; set; } = 18;
     }
 }
