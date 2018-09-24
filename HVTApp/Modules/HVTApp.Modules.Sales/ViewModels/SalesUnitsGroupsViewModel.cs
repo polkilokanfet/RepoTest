@@ -94,6 +94,8 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             group.Price = _priceDictionary[group].Total;
             OnPropertyChanged(nameof(PriceStructures));
+
+            group.Groups?.ForEach(RefreshPrice);
         }
 
         /// <summary>
@@ -187,7 +189,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             productIncluded = await Container.Resolve<IUpdateDetailsService>().UpdateDetailsWithoutSaving(productIncluded);
             if (productIncluded == null) return;
             productIncluded.Product = await _unitOfWork.Repository<Product>().GetByIdAsync(productIncluded.Product.Id);
-            SelectedGroup.ProductsIncluded.Add(new ProductIncludedWrapper(productIncluded));
+            SelectedGroup.AddProductIncluded(productIncluded);
             RefreshPrice(SelectedGroup);
         }
 

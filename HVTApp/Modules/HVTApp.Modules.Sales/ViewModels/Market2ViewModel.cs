@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
@@ -25,15 +27,51 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class Market2ViewModel : ViewModelBase
     {
+        private ProjectLookup _selectedProjectLookup;
+        private bool _shownAllProjects = false;
 
         public List<ProjectLookup> ProjectLookups { get; } = new List<ProjectLookup>();
+        public ObservableCollection<ProjectLookup> ProjectLookupsInView { get; } = new ObservableCollection<ProjectLookup>();
 
         public ObservableCollection<SalesUnitsGroup> Groups { get; } = new ObservableCollection<SalesUnitsGroup>();
 
+        public ProjectLookup SelectedProjectLookup
+        {
+            get { return _selectedProjectLookup; }
+            set
+            {
+                if (Equals(_selectedProjectLookup, value)) return;
+                _selectedProjectLookup = value;
+                Groups.Clear();
+
+                if (value != null)
+                {
+                    //обновляем данные всех таблиц
+                    OfferListViewModel.Load(value.Offers);
+                    TenderListViewModel.Load(value.Tenders);
+                    LoadGroups(value);
+                }
+                else
+                {
+                    OfferListViewModel.Load(new List<Offer>());
+                    TenderListViewModel.Load(new List<Tender>());
+                    Groups.Clear();
+                }
+
+                //проверяем актуальность команд
+                ((DelegateCommand)RemoveProjectCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)EditProjectCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)EditOfferCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)NewOfferByProjectCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)NewOfferByOfferCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)NewTenderCommand).RaiseCanExecuteChanged();
+
+                OnPropertyChanged();
+            }
+        }
 
         #region ViewModels
 
-        public ProjectLookupListViewModel ProjectListViewModel { get; set; }
         public OfferLookupListViewModel OfferListViewModel { get; }
         public TenderLookupListViewModel TenderListViewModel { get; }
 
@@ -67,7 +105,6 @@ namespace HVTApp.Modules.Sales.ViewModels
         public Market2ViewModel(IUnityContainer container) : base(container)
         {
             //контексты
-            ProjectListViewModel = container.Resolve<ProjectLookupListViewModel>();
             OfferListViewModel = container.Resolve<OfferLookupListViewModel>();
             TenderListViewModel = container.Resolve<TenderLookupListViewModel>();
 
@@ -76,42 +113,20 @@ namespace HVTApp.Modules.Sales.ViewModels
             ShowWorkProjectsCommand = new DelegateCommand(ShowWorkProjectsCommand_Execute);
 
             NewProjectCommand = new DelegateCommand(NewProjectCommand_Execute);
-            EditProjectCommand = new DelegateCommand(EditProjectCommand_Execute, () => ProjectListViewModel.SelectedItem != null);
-            RemoveProjectCommand = new DelegateCommand(() => ProjectListViewModel.RemoveItemCommand.Execute(null), () => ProjectListViewModel.SelectedItem != null);
+            EditProjectCommand = new DelegateCommand(EditProjectCommand_Execute, () => SelectedProjectLookup != null);
+            RemoveProjectCommand = new DelegateCommand(RemoveProjectCommand_Execute, () => SelectedProjectLookup != null);
 
             NewSpecificationCommand = new DelegateCommand(NewSpecificationCommand_Execute);
 
             EditOfferCommand = new DelegateCommand(EditOfferCommand_Execute, () => OfferListViewModel?.SelectedItem != null);
             RemoveOfferCommand = OfferListViewModel.RemoveItemCommand;
             PrintOfferCommand = OfferListViewModel.PrintOfferCommand;
-            NewOfferByProjectCommand = new DelegateCommand(NewOfferByProjectCommand_Execute, () => ProjectListViewModel.SelectedItem != null);
+            NewOfferByProjectCommand = new DelegateCommand(NewOfferByProjectCommand_Execute, () => SelectedProjectLookup != null);
             NewOfferByOfferCommand = new DelegateCommand(NewOfferByOfferCommand_Execute, () => OfferListViewModel?.SelectedItem != null);
 
-            NewTenderCommand = new DelegateCommand(NewTenderCommand_Execute, () => ProjectListViewModel.SelectedItem != null);
+            NewTenderCommand = new DelegateCommand(NewTenderCommand_Execute, () => SelectedProjectLookup != null);
             EditTenderCommand = new DelegateCommand(EditTenderCommand_Execute, () => TenderListViewModel.EditItemCommand.CanExecute(null));
             RemoveTenderCommand = TenderListViewModel.RemoveItemCommand;
-
-            //реакция на смену выбранного проекта
-            ProjectListViewModel.SelectedLookupChanged += project =>
-            {
-                Groups.Clear();
-
-                if (project != null)
-                {
-                    //обновляем данные всех таблиц
-                    OfferListViewModel.Load(project.Offers);
-                    TenderListViewModel.Load(project.Tenders);
-                    LoadGroups(project);
-                }
-
-                //проверяем актуальность команд
-                ((DelegateCommand)RemoveProjectCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)EditProjectCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)EditOfferCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)NewOfferByProjectCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)NewOfferByOfferCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand)NewTenderCommand).RaiseCanExecuteChanged();
-            };
 
             //реакция на смену выбранного ТКП
             OfferListViewModel.SelectedLookupChanged += offer =>
@@ -192,21 +207,55 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #region Commands
 
+        private async void RemoveProjectCommand_Execute()
+        {
+            var unitOfWork = Container.Resolve<IUnitOfWork>();
+            var messageService = Container.Resolve<IMessageService>();
+            var eventAggregator = Container.Resolve<IEventAggregator>();
+
+            var dr = messageService.ShowYesNoMessageDialog("Удаление", $"Вы действительно хотите удалить \"{SelectedProjectLookup.DisplayMember}\"?");
+            if (dr != MessageDialogResult.Yes) return;
+
+            var entity = await unitOfWork.Repository<Project>().GetByIdAsync(SelectedProjectLookup.Id);
+            if (entity == null) return;
+
+            try
+            {
+                unitOfWork.Repository<Project>().Delete(entity);
+                await unitOfWork.SaveChangesAsync();
+                ProjectLookups.Remove(SelectedProjectLookup);
+                ProjectLookupsInView.Remove(SelectedProjectLookup);
+                eventAggregator.GetEvent<AfterRemoveProjectEvent>().Publish(entity);
+            }
+            catch (DbUpdateException e)
+            {
+                Exception ex = e;
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                }
+                messageService.ShowOkMessageDialog("DbUpdateException", ex.Message);
+            }
+        }
+
         private void ShowWorkProjectsCommand_Execute()
         {
+            _shownAllProjects = false;
+
+            ProjectLookupsInView.Clear();
             var workProjects = ProjectLookups.Where(x => x.Entity.InWork && x.SalesUnits.Any(u => !u.IsDone && !u.IsLoosen)).ToList();
-            ProjectListViewModel.Load(workProjects);
+            ProjectLookupsInView.AddRange(workProjects);
 
             //выбор проекта
-            if (ProjectListViewModel.Lookups.Contains(ProjectListViewModel.SelectedLookup))
-                return;
-
-            ProjectListViewModel.SelectedLookup = ProjectListViewModel.Lookups.First();
+            if (SelectedProjectLookup == null && ProjectLookupsInView.Any())
+                SelectedProjectLookup = ProjectLookupsInView.First();
         }
 
         private void ShowAllProjectsCommand_Execute()
         {
-            ProjectListViewModel.Load(ProjectLookups);
+            ProjectLookupsInView.Clear();
+            ProjectLookupsInView.AddRange(ProjectLookups);
+            _shownAllProjects = true;
         }
 
         private void EditTenderCommand_Execute()
@@ -217,18 +266,18 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void NewTenderCommand_Execute()
         {
-            var tenderViewModel = new TenderViewModel(Container, ProjectListViewModel.SelectedItem);
+            var tenderViewModel = new TenderViewModel(Container, SelectedProjectLookup.Entity);
             Container.Resolve<IDialogService>().ShowDialog(tenderViewModel);
         }
 
         private void NewSpecificationCommand_Execute()
         {
-            RegionManager.RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { "project", ProjectListViewModel.SelectedItem } });
+            RegionManager.RequestNavigateContentRegion<SpecificationView>(new NavigationParameters { { "project", SelectedProjectLookup.Entity } });
         }
 
         private void EditProjectCommand_Execute()
         {
-            RegionManager.RequestNavigateContentRegion<ProjectView>(new NavigationParameters { {"prj", ProjectListViewModel.SelectedItem} });
+            RegionManager.RequestNavigateContentRegion<ProjectView>(new NavigationParameters { { "prj", SelectedProjectLookup.Entity } });
         }
 
         private void NewProjectCommand_Execute()
@@ -252,7 +301,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// </summary>
         private void NewOfferByProjectCommand_Execute()
         {
-            var prms = new NavigationParameters {{"project", ProjectListViewModel.SelectedItem}};
+            var prms = new NavigationParameters {{"project", SelectedProjectLookup.Entity}};
             RegionManager.RequestNavigateContentRegion<OfferView>(prms);
         }
 
@@ -279,7 +328,27 @@ namespace HVTApp.Modules.Sales.ViewModels
             {
                 var projectLookup = ProjectLookups.Single(x => x.Id == project.Id);
                 projectLookup.Refresh(project);
-                LoadGroups(projectLookup);
+
+                if (_shownAllProjects || projectLookup.InWork)
+                {
+                    LoadGroups(projectLookup);
+                }
+                else
+                {
+                    //удяляем нерабочие проекты
+                    if (ProjectLookupsInView.Contains(projectLookup))
+                    {
+                        ProjectLookupsInView.Remove(projectLookup);
+                    }
+                }
+            }
+            else
+            {
+                var lookup = new ProjectLookup(project);
+                ProjectLookups.Add(lookup);
+
+                if(_shownAllProjects || lookup.InWork)
+                    ProjectLookupsInView.Add(lookup);
             }
         }
 
@@ -322,7 +391,13 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             //целевой проект
             var project = ProjectLookups.SingleOrDefault(x => x.Id == salesUnit.Project.Id);
-            if (project == null) return;
+
+            //костыль - нужно добавить предварительно проект
+            if (project == null)
+            {
+                AfterSaveProjectEventExecute(salesUnit.Project);
+                project = ProjectLookups.SingleOrDefault(x => x.Id == salesUnit.Project.Id);
+            }
 
             //обновляем или добавляем
             if (project.SalesUnits.Select(x => x.Id).Contains(salesUnit.Id))
@@ -333,7 +408,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             {
                 project.SalesUnits.Add(new SalesUnitLookup(salesUnit));
             }
-            //обновляем целевой поект
+
+            //обновляем целевой проект
             project.Refresh();
         }
 

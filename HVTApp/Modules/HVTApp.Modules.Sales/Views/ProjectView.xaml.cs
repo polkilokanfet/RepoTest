@@ -23,6 +23,7 @@ namespace HVTApp.Modules.Sales.Views
 
         public override bool IsNavigationTarget(NavigationContext navigationContext)
         {
+            if (!navigationContext.Parameters.Any()) return false;
             var project = navigationContext.Parameters.First().Value as Project;
             return _viewModel.Item != null && project != null && _viewModel.Item.Id == project.Id;
         }
@@ -30,6 +31,8 @@ namespace HVTApp.Modules.Sales.Views
         public override async void OnNavigatedTo(NavigationContext navigationContext)
         {
             base.OnNavigatedTo(navigationContext);
+
+            if(IsNavigationTarget(navigationContext)) return;
 
             var project = new Project();
             if (navigationContext.Parameters != null && navigationContext.Parameters.Any())

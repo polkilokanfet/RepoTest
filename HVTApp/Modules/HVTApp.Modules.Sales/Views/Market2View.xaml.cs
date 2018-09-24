@@ -23,12 +23,12 @@ namespace HVTApp.Modules.Sales.Views
 
             #region ClearViews
 
-            ProjectListView.ManagerVisibility = Visibility.Collapsed;
-            ProjectListView.OffersVisibility = Visibility.Collapsed;
-            ProjectListView.TendersVisibility = Visibility.Collapsed;
-            ProjectListView.SalesUnitsVisibility = Visibility.Collapsed;
-            ProjectListView.NotesVisibility = Visibility.Collapsed;
-            ProjectListView.InWorkVisibility = Visibility.Collapsed;
+            //ProjectListView.ManagerVisibility = Visibility.Collapsed;
+            //ProjectListView.OffersVisibility = Visibility.Collapsed;
+            //ProjectListView.TendersVisibility = Visibility.Collapsed;
+            //ProjectListView.SalesUnitsVisibility = Visibility.Collapsed;
+            //ProjectListView.NotesVisibility = Visibility.Collapsed;
+            //ProjectListView.InWorkVisibility = Visibility.Collapsed;
 
             OfferListView.NumberVisibility = Visibility.Collapsed;
             OfferListView.AuthorVisibility = Visibility.Collapsed;

@@ -7,6 +7,7 @@ namespace HVTApp.Model.POCOs
 {
     [Designation("Контракт")]
     [DesignationPlural("Контракты")]
+    [AllowEdit(Role.SalesManager)]
     public partial class Contract : BaseEntity
     {
         [Designation("№"), Required, MaxLength(50)]

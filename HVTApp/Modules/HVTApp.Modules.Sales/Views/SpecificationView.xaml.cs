@@ -30,6 +30,8 @@ namespace HVTApp.Modules.Sales.Views
         {
             base.OnNavigatedTo(navigationContext);
 
+            if (IsNavigationTarget(navigationContext)) return;
+
             var project = navigationContext.Parameters.First().Value as Project;
             var specification = navigationContext.Parameters.First().Value as Specification;
 

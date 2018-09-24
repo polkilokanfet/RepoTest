@@ -92,6 +92,22 @@ namespace HVTApp.UI.Groups
             this.Groups.CollectionChanged += GroupsOnCollectionChanged;
         }
 
+        public void AddProductIncluded(ProductIncluded productIncluded)
+        {
+            if (Groups == null)
+            {
+                this.ProductsIncluded.Add(new ProductIncludedWrapper(productIncluded));
+            }
+            else
+            {
+                foreach (var salesUnitsGroup in Groups)
+                {
+                    var pi = new ProductIncluded {Product = productIncluded.Product, Amount = productIncluded.Amount};
+                    salesUnitsGroup.AddProductIncluded(pi);
+                }
+            }
+        }
+
         private void GroupsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
             OnPropertyChanged(nameof(Amount));

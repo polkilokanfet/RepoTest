@@ -2,9 +2,9 @@
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:local="clr-namespace:HVTApp.Modules.Sales.Views"
               xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
-              xmlns:controls="clr-namespace:HVTApp.Modules.Sales.Controls">
+              xmlns:controls="clr-namespace:HVTApp.Modules.Sales.Controls"
+              xmlns:dataPresenter="http://infragistics.com/DataPresenter">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -21,7 +21,31 @@
             </Grid.ColumnDefinitions>
 
             <GroupBox Header="Проекты" Grid.Column="0">
-                <views:ProjectLookupListView Name="ProjectListView" DataContext="{Binding ProjectListViewModel}"/>
+                		
+                <dataPresenter:XamDataGrid x:Name="ProjectLookupListGrid"
+                                           DataSource="{Binding ProjectLookupsInView}"
+                                           SelectedDataItem="{Binding SelectedProjectLookup, Mode=TwoWay}"
+                                           Style="{StaticResource ListViewGrid}" 
+                                           Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+			        <dataPresenter:XamDataGrid.FieldLayouts>
+				        <dataPresenter:FieldLayout>
+					        <dataPresenter:FieldLayout.Fields>
+                            <dataPresenter:TextField Name="Facilities" Label="Объекты" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                            <dataPresenter:TextField Name="Name" Label="Название" Width="Auto" />
+                            <dataPresenter:NumericField Name="Sum" Label="Сумма проекта" Width="Auto" />
+                            <dataPresenter:DateTimeField Name="RealizationDate" Label="Дата поставки" Width="Auto" />
+                            <dataPresenter:TextField Name="ProjectType" Label="Тип проекта" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                            <dataPresenter:DateTimeField Name="TenderDate" Label="Тендер" Width="Auto" />
+                            <dataPresenter:TextField Name="Builder" Label="Подрядчик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                            <dataPresenter:TextField Name="ProjectMaker" Label="Проектировщик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                            <dataPresenter:TextField Name="Sypplier" Label="Поставщик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                            <dataPresenter:CheckBoxField Name="ForReport" Label="Отчетный" Width="Auto" />
+					        </dataPresenter:FieldLayout.Fields>
+				        </dataPresenter:FieldLayout>
+			        </dataPresenter:XamDataGrid.FieldLayouts>
+		        </dataPresenter:XamDataGrid>
+
+                <!--<views:ProjectLookupListView Name="ProjectListView" DataContext="{Binding ProjectListViewModel}"/>-->
             </GroupBox>
             
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
