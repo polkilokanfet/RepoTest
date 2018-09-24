@@ -26,6 +26,11 @@ namespace HVTApp.Modules.Sales.ViewModels
     public class Market2ViewModel : ViewModelBase
     {
 
+        public List<ProjectLookup> ProjectLookups { get; } = new List<ProjectLookup>();
+
+        public ObservableCollection<SalesUnitsGroup> Groups { get; } = new ObservableCollection<SalesUnitsGroup>();
+
+
         #region ViewModels
 
         public ProjectLookupListViewModel ProjectListViewModel { get; set; }
@@ -34,10 +39,10 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #endregion
 
-        public ObservableCollection<SalesUnitsGroup> Groups { get; } = new ObservableCollection<SalesUnitsGroup>();
-
-
         #region ICommand
+
+        public ICommand ShowAllProjectsCommand { get; set; }
+        public ICommand ShowWorkProjectsCommand { get; set; }
 
         public ICommand NewProjectCommand { get; }
         public ICommand EditProjectCommand { get; }
@@ -66,7 +71,10 @@ namespace HVTApp.Modules.Sales.ViewModels
             OfferListViewModel = container.Resolve<OfferLookupListViewModel>();
             TenderListViewModel = container.Resolve<TenderLookupListViewModel>();
 
-            //привязываем команды к соответствующим моделям
+            //команды
+            ShowAllProjectsCommand = new DelegateCommand(ShowAllProjectsCommand_Execute);
+            ShowWorkProjectsCommand = new DelegateCommand(ShowWorkProjectsCommand_Execute);
+
             NewProjectCommand = new DelegateCommand(NewProjectCommand_Execute);
             EditProjectCommand = new DelegateCommand(EditProjectCommand_Execute, () => ProjectListViewModel.SelectedItem != null);
             RemoveProjectCommand = new DelegateCommand(() => ProjectListViewModel.RemoveItemCommand.Execute(null), () => ProjectListViewModel.SelectedItem != null);
@@ -135,36 +143,27 @@ namespace HVTApp.Modules.Sales.ViewModels
             eventAggregator.GetEvent<AfterRemoveOfferUnitEvent>().Subscribe(AfterRemoveOfferUnitEventExecute);
         }
 
-        private void LoadGroups(ProjectLookup project)
-        {
-            var units = project.SalesUnits.Select(x => x.Entity);
-            var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new SalesUnitsGroup(x));
-            Groups.Clear();
-            Groups.AddRange(groups);
-        }
-
-        public async Task LoadAsync()
+        public void Load()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
 
-            //достаем все проектные актуальные юниты
-            var salesUnits = await UnitOfWork.Repository<SalesUnit>().GetAllAsync();
-            salesUnits = salesUnits.Where(x => !x.IsDone && 
-                                               !x.IsLoosen && 
-                                               x.Project.HighProbability &&
-                                               x.Project.Manager.Id == CommonOptions.User.Id).ToList();
+            //достаем все проектные юниты
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.Id == CommonOptions.User.Id);
 
             //формируем список проектов
-            var projects = salesUnits.Select(x => x.Project).Distinct();
+            var projects = salesUnits.Select(x => x.Project).Distinct().ToList();
+            //чтобы не дергать по выбору
+            var notes = UnitOfWork.Repository<Note>().Find(x => projects.SelectMany(p => p.Notes).Contains(x));
 
             //формируем список конкурсов
-            var tenders = (await UnitOfWork.Repository<Tender>().GetAllAsync()).Where(x => projects.Contains(x.Project)).ToList();
+            var tenders = UnitOfWork.Repository<Tender>().Find(x => projects.Contains(x.Project)).ToList();
+            var companies = tenders.SelectMany(x => x.Participants).ToList();
 
             //формируем список ТКП
-            var offerUnits = (await UnitOfWork.Repository<OfferUnit>().GetAllAsync()).Where(x => projects.Contains(x.Offer.Project)).ToList();
+            var offerUnits = UnitOfWork.Repository<OfferUnit>().Find(x => projects.Contains(x.Offer.Project));
             var offers = offerUnits.Select(x => x.Offer).Distinct().ToList();
+            var employies = offers.Select(x => x.RecipientEmployee).ToList();
 
-            //подтягиваем проекты во вью
             var projectsLookups = new List<ProjectLookup>();
             foreach (var project in projects)
             {
@@ -173,14 +172,42 @@ namespace HVTApp.Modules.Sales.ViewModels
                                                                offers.Where(x => Equals(x.Project.Id, project.Id)).ToList());
                 foreach (var offer in projectLookup.Offers)
                 {
-                    offer.OfferUnits.AddRange(offerUnits.Where(x => x.Offer.Id == offer.Id).Select(x => new OfferUnitLookup(x)).ToList());
+                    offer.OfferUnits.AddRange(offerUnits.Where(x => x.Offer.Id == offer.Id).Select(x => new OfferUnitLookup(x)));
                 }
                 projectsLookups.Add(projectLookup);
             }
-            ProjectListViewModel.Load(projectsLookups);
+            ProjectLookups.AddRange(projectsLookups.OrderBy(x => x.RealizationDate));
+
+            //показываем все рабочие проекты
+            ShowWorkProjectsCommand_Execute();
+        }
+
+        private void LoadGroups(ProjectLookup project)
+        {
+            var units = project.SalesUnits.Select(x => x.Entity);
+            var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new SalesUnitsGroup(x));
+            Groups.Clear();
+            Groups.AddRange(groups);
         }
 
         #region Commands
+
+        private void ShowWorkProjectsCommand_Execute()
+        {
+            var workProjects = ProjectLookups.Where(x => x.Entity.InWork && x.SalesUnits.Any(u => !u.IsDone && !u.IsLoosen)).ToList();
+            ProjectListViewModel.Load(workProjects);
+
+            //выбор проекта
+            if (ProjectListViewModel.Lookups.Contains(ProjectListViewModel.SelectedLookup))
+                return;
+
+            ProjectListViewModel.SelectedLookup = ProjectListViewModel.Lookups.First();
+        }
+
+        private void ShowAllProjectsCommand_Execute()
+        {
+            ProjectListViewModel.Load(ProjectLookups);
+        }
 
         private void EditTenderCommand_Execute()
         {
@@ -248,41 +275,35 @@ namespace HVTApp.Modules.Sales.ViewModels
         private void AfterSaveProjectEventExecute(Project project)
         {
             //если необходимо обновить существующий проект
-            if (ProjectListViewModel.Lookups.Select(x => x.Id).Contains(project.Id))
+            if (ProjectLookups.Select(x => x.Id).Contains(project.Id))
             {
-                var projectLookup = ProjectListViewModel.Lookups.SingleOrDefault(x => x.Id == project.Id);
-                //при высокой вероятности обновляем
-                if(project.HighProbability)
-                    projectLookup?.Refresh(project);
-                //при низкой - удаляем
-                else
-                    ((ICollection<ProjectLookup>) ProjectListViewModel.Lookups).Remove(projectLookup);
+                var projectLookup = ProjectLookups.Single(x => x.Id == project.Id);
+                projectLookup.Refresh(project);
                 LoadGroups(projectLookup);
             }
         }
 
         private void AfterSaveTenderEventExecute(Tender tender)
         {
-            var tenders = ProjectListViewModel.Lookups.SelectMany(x => x.Tenders).ToList();
+            var tenders = ProjectLookups.SelectMany(x => x.Tenders).ToList();
             //если необходимо обновить существующий тендер
             if (tenders.Select(x => x.Id).Contains(tender.Id))
             {
                 tenders.SingleOrDefault(x => x.Id == tender.Id)?.Refresh(tender);
             }
+            //если необходимо добавть созданный тендер
             else
             {
-                //если необходимо добавть созданный тендер
-                var lookupNew = new TenderLookup(tender);
-                ProjectListViewModel.Lookups.SingleOrDefault(x => x.Id == tender.Project.Id)?.Tenders.Add(lookupNew);                
+                ProjectLookups.SingleOrDefault(x => x.Id == tender.Project.Id)?.Tenders.Add(new TenderLookup(tender));                
             }
 
             //обновляем проект, содержащий тендер
-            ProjectListViewModel.Lookups.SingleOrDefault(x => x.Tenders.Select(t => t.Id).Contains(tender.Id))?.Refresh();
+            ProjectLookups.SingleOrDefault(x => x.Tenders.Select(t => t.Id).Contains(tender.Id))?.Refresh();
         }
 
         private async void AfterSaveOfferEventExecute(Offer offer)
         {
-            var offers = ProjectListViewModel.Lookups.SelectMany(x => x.Offers).ToList();
+            var offers = ProjectLookups.SelectMany(x => x.Offers).ToList();
 
             //если необходимо обновить существующее ТКП
             if (offers.Select(x => x.Id).Contains(offer.Id))
@@ -294,13 +315,13 @@ namespace HVTApp.Modules.Sales.ViewModels
             var units = (await UnitOfWork.Repository<OfferUnit>().GetAllAsNoTrackingAsync()).Where(x => x.Offer.Id == offer.Id);
             //если необходимо добавить созданное ТКП
             var lookupNew = new OfferLookup(offer, units);
-            ProjectListViewModel.Lookups.SingleOrDefault(x => x.Id == offer.Project.Id)?.Offers.Add(lookupNew);
+            ProjectLookups.SingleOrDefault(x => x.Id == offer.Project.Id)?.Offers.Add(lookupNew);
         }
 
         private void AfterSaveSalesUnitEventExecute(SalesUnit salesUnit)
         {
             //целевой проект
-            var project = ProjectListViewModel.Lookups.SingleOrDefault(x => x.Id == salesUnit.Project.Id);
+            var project = ProjectLookups.SingleOrDefault(x => x.Id == salesUnit.Project.Id);
             if (project == null) return;
 
             //обновляем или добавляем
@@ -319,7 +340,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         private void AfterSaveOfferUnitEventExecute(OfferUnit offerUnit)
         {
             //целевое ТКП
-            var offer = ProjectListViewModel.Lookups.SelectMany(x => x.Offers).SingleOrDefault(x => x.Id == offerUnit.Offer.Id);
+            var offer = ProjectLookups.SelectMany(x => x.Offers).SingleOrDefault(x => x.Id == offerUnit.Offer.Id);
             if (offer == null) return;
 
             //обновляем или добавляем
@@ -344,7 +365,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void AfterRemoveOfferUnitEventExecute(OfferUnit offerUnit)
         {
-            var offer = ProjectListViewModel.Lookups.SelectMany(x => x.Offers).SingleOrDefault(x => x.Id == offerUnit.Offer.Id);
+            var offer = ProjectLookups.SelectMany(x => x.Offers).SingleOrDefault(x => x.Id == offerUnit.Offer.Id);
             if (offer == null) return;
             var lookup = offer.OfferUnits.Single(x => x.Id == offerUnit.Id);
             offer.OfferUnits.Remove(lookup);
@@ -353,7 +374,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void AfterRemoveSalesUnitEventExecute(SalesUnit salesUnit)
         {
-            var project = ProjectListViewModel.Lookups.SingleOrDefault(x => x.Id == salesUnit.Project.Id);
+            var project = ProjectLookups.SingleOrDefault(x => x.Id == salesUnit.Project.Id);
             if (project == null) return;
             var lookup = project.SalesUnits.Single(x => x.Id == salesUnit.Id);
             project.SalesUnits.Remove(lookup);
@@ -366,7 +387,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void AfterRemoveTenderEventExecute(Tender tender)
         {
-            var project = ProjectListViewModel.Lookups.SingleOrDefault(x => x.Tenders.Select(t => t.Id).Contains(tender.Id));
+            var project = ProjectLookups.SingleOrDefault(x => x.Tenders.Select(t => t.Id).Contains(tender.Id));
             if(project == null) return;
             var lookup = project.Tenders.Single(x => x.Id == tender.Id);
             project.Tenders.Remove(lookup);
@@ -375,7 +396,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void AfterRemoveOfferEventExecute(Offer offer)
         {
-            var project = ProjectListViewModel.Lookups.SingleOrDefault(x => x.Offers.Select(t => t.Id).Contains(offer.Id));
+            var project = ProjectLookups.SingleOrDefault(x => x.Offers.Select(t => t.Id).Contains(offer.Id));
             if(project == null) return;
             var lookup = project.Offers.Single(x => x.Id == offer.Id);
             project.Offers.Remove(lookup);

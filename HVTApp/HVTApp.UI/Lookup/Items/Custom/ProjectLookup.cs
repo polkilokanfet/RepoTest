@@ -15,11 +15,8 @@ namespace HVTApp.UI.Lookup
             Offers = new List<OfferLookup>(offers.Select(x => new OfferLookup(x)));
         }
 
-        //[OrderStatus(OrderStatus.Low)]
         public List<SalesUnitLookup> SalesUnits { get; } = new List<SalesUnitLookup>();
-        //[OrderStatus(OrderStatus.Low)]
         public List<TenderLookup> Tenders { get; } = new List<TenderLookup>();
-        //[OrderStatus(OrderStatus.Low)]
         public List<OfferLookup> Offers { get; } = new List<OfferLookup>();
 
         [Designation("Сумма проекта"), OrderStatus(7)]

@@ -1627,7 +1627,6 @@ namespace HVTApp.UI.Lookup
 
 	[AllowEditAttribute(Role.DataBaseFiller)]
 [AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Economist)]
 [AllowEditAttribute(Role.Admin)]
 
 	[Designation("Сотрудник")]
@@ -1809,7 +1808,7 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(2)]
-        public System.Boolean HighProbability => GetValue<System.Boolean>();
+        public System.Boolean InWork => GetValue<System.Boolean>();
 
 
 		[OrderStatus(1)]

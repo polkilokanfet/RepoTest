@@ -7,18 +7,19 @@ using Prism.Regions;
 
 namespace HVTApp.Modules.Sales.Views
 {
-    [RibbonTab(typeof(SalesCRUD))]
+    [RibbonTab(typeof(SalesCRUD)), RibbonTab(typeof(TabProjects))]
     public partial class Market2View : ViewBase
     {
-        private readonly Market2ViewModel _viewModel;
+        //private readonly Market2ViewModel _viewModel;
 
         public Market2View(Market2ViewModel viewModel, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
 
             //назначаем контексты
-            _viewModel = viewModel;
-            this.DataContext = _viewModel;
+            //_viewModel = viewModel;
+            viewModel.Load();
+            this.DataContext = viewModel;
 
             #region ClearViews
 
@@ -27,7 +28,7 @@ namespace HVTApp.Modules.Sales.Views
             ProjectListView.TendersVisibility = Visibility.Collapsed;
             ProjectListView.SalesUnitsVisibility = Visibility.Collapsed;
             ProjectListView.NotesVisibility = Visibility.Collapsed;
-            ProjectListView.HighProbabilityVisibility = Visibility.Collapsed;
+            ProjectListView.InWorkVisibility = Visibility.Collapsed;
 
             OfferListView.NumberVisibility = Visibility.Collapsed;
             OfferListView.AuthorVisibility = Visibility.Collapsed;
@@ -45,14 +46,13 @@ namespace HVTApp.Modules.Sales.Views
             TenderListView.ProjectVisibility = Visibility.Collapsed;
 
             #endregion
-
-            this.Loaded += OnLoaded;
+            //this.Loaded += OnLoaded;
         }
 
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-            await _viewModel.LoadAsync();
-            this.Loaded -= OnLoaded;
-        }
+        //private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        //{
+        //    await _viewModel.Load();
+        //    this.Loaded -= OnLoaded;
+        //}
     }
 }

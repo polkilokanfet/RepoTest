@@ -15,10 +15,10 @@ namespace HVTApp.Model.POCOs
         [Designation("Тип проекта"), Required, OrderStatus(5)]
         public virtual ProjectType ProjectType { get; set; }
 
-        [Designation("Высокая вероятность поставки"), OrderStatus(2)]
-        public bool HighProbability { get; set; } = true;
+        [Designation("В работе"), OrderStatus(2), Required]
+        public bool InWork { get; set; } = true;
 
-        [Designation("Отразить в отчете"), OrderStatus(1)]
+        [Designation("Отчетный"), OrderStatus(1)]
         public bool ForReport { get; set; } = true;
 
         [Designation("Менеджер"), NotUpdate(Role.SalesManager), OrderStatus(4)]

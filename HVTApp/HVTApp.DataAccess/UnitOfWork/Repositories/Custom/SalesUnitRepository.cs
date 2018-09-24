@@ -27,7 +27,9 @@ namespace HVTApp.DataAccess
 
         public override List<SalesUnit> Find(Func<SalesUnit, bool> predicate)
         {
-            var units = Context.Set<SalesUnit>().Include(nameof(SalesUnit.Product)).Where(predicate).ToList();
+            var units = Context.Set<SalesUnit>().Include(nameof(SalesUnit.Product))
+                                                .Include(nameof(SalesUnit.PaymentsActual))
+                                                .Include(nameof(SalesUnit.PaymentsPlanned)).Where(predicate).ToList();
             Manipulate(units);
             return units;
         }

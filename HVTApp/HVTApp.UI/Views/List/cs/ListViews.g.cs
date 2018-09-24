@@ -1092,7 +1092,6 @@ namespace HVTApp.UI.Views
 	[DesignationPlural("EmployeeLookup")]
 	[AllowEditAttribute(Role.DataBaseFiller)]
 [AllowEditAttribute(Role.SalesManager)]
-[AllowEditAttribute(Role.Economist)]
 [AllowEditAttribute(Role.Admin)]
 
     public partial class EmployeeLookupListView : ViewBase
@@ -3337,10 +3336,10 @@ namespace HVTApp.UI.Views
         }
 
 
-        public System.Windows.Visibility HighProbabilityVisibility
+        public System.Windows.Visibility InWorkVisibility
         {
-            get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.HighProbability)].Visibility; }
-            set { ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.HighProbability)].Visibility = value; }
+            get { return ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.InWork)].Visibility; }
+            set { ProjectLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.ProjectLookup.InWork)].Visibility = value; }
         }
 
 
@@ -4055,6 +4054,13 @@ namespace HVTApp.UI.Views
         {
             get { return SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SpecificationLookup.Entity)].Visibility; }
             set { SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SpecificationLookup.Entity)].Visibility = value; }
+        }
+
+
+        public System.Windows.Visibility UnitsVisibility
+        {
+            get { return SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SpecificationLookup.Units)].Visibility; }
+            set { SpecificationLookupListGrid.FieldLayouts[0].Fields[nameof(HVTApp.UI.Lookup.SpecificationLookup.Units)].Visibility = value; }
         }
 
 

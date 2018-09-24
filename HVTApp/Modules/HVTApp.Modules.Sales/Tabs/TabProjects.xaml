@@ -4,15 +4,13 @@
              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
              xmlns:infRib="http://infragistics.com/Ribbon" 
              x:Class="HVTApp.Modules.Sales.Tabs.TabProjects"
-             Header="Projec">
-    <infRib:RibbonGroup Caption="ProjectIdId">
-        <infRib:ButtonTool Caption="New project" Command="{Binding NewProjectCommand}" 
-                           SmallImage="/HVTApp.Modules.Sales;component/Images/newProject16.png" 
-                           LargeImage="/HVTApp.Modules.Sales;component/Images/newProject32.png"/>
-        <infRib:ButtonTool Caption="Update project" Command="{Binding UpdateProjectCommand}" 
-                           SmallImage="/HVTApp.Modules.Sales;component/Images/changeProject16.png"
-                           LargeImage="/HVTApp.Modules.Sales;component/Images/changeProject32.png"/>
+             Header="Отображение">
+    
+    <infRib:RibbonGroup Caption="Показать">
+        <infRib:ButtonTool Caption="Все проекты" Command="{Binding ShowAllProjectsCommand}"/>
+        <infRib:ButtonTool Caption="В работе" Command="{Binding ShowWorkProjectsCommand}"/>
     </infRib:RibbonGroup>
+    
 </inf:RibbonTabItemWithViewModel>
 
 

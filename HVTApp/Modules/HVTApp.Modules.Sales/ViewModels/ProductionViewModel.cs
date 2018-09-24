@@ -92,7 +92,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             _allSalesUnits = await UnitOfWork.Repository<SalesUnit>().GetAllAsync();
 
             var production = _allSalesUnits.Where(x => x.SignalToStartProduction != null).ToList();
-            var potential = _allSalesUnits.Except(production).Where(x => !x.IsLoosen && x.Project.HighProbability);
+            var potential = _allSalesUnits.Except(production).Where(x => !x.IsLoosen && x.Project.InWork);
 
             ProductionGroups.Clear();
             ProductionGroups.AddRange(ProductUnitsGroup.Grouping(production));

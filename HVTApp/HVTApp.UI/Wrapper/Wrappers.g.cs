@@ -3393,13 +3393,13 @@ namespace HVTApp.UI.Wrapper
         public bool NameIsChanged => GetIsChanged(nameof(Name));
 
 
-        public System.Boolean HighProbability
+        public System.Boolean InWork
         {
           get { return GetValue<System.Boolean>(); }
           set { SetValue(value); }
         }
-        public System.Boolean HighProbabilityOriginalValue => GetOriginalValue<System.Boolean>(nameof(HighProbability));
-        public bool HighProbabilityIsChanged => GetIsChanged(nameof(HighProbability));
+        public System.Boolean InWorkOriginalValue => GetOriginalValue<System.Boolean>(nameof(InWork));
+        public bool InWorkIsChanged => GetIsChanged(nameof(InWork));
 
 
         public System.Boolean ForReport

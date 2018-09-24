@@ -142,7 +142,7 @@ namespace HVTApp.UI.ViewModels
             LoadBegin?.Invoke();
             IsLoaded = false;
             LookupsCollection.Clear();
-            SelectedLookup = null;
+            if(!Lookups.Contains(SelectedLookup)) SelectedLookup = null;
             lookups.OrderBy(x => x).ForEach(LookupsCollection.Add);
             Loaded?.Invoke();
         }

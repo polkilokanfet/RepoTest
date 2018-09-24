@@ -44,10 +44,10 @@
 									Visibility="{Binding VisibilityManagerProject, ElementName=Root}"/>
 
 
-        <Label Grid.Column="0" Grid.Row ="3" Content="Высокая вероятность поставки" Visibility="{Binding VisibilityHighProbabilityProject, ElementName=Root}"/>
+        <Label Grid.Column="0" Grid.Row ="3" Content="В работе" Visibility="{Binding VisibilityInWorkProject, ElementName=Root}"/>
         <CheckBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
-                  IsChecked="{Binding Item.HighProbability, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				  Visibility="{Binding VisibilityHighProbabilityProject, ElementName=Root}"/>
+                  IsChecked="{Binding Item.InWork, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				  Visibility="{Binding VisibilityInWorkProject, ElementName=Root}"/>
 
 
         <Label Grid.Column="0" Grid.Row ="4" Content="Отразить в отчете" Visibility="{Binding VisibilityForReportProject, ElementName=Root}"/>

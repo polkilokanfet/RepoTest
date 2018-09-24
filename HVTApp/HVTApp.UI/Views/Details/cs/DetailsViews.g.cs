@@ -4480,9 +4480,9 @@ namespace HVTApp.UI.Views
             //    VisibilityProjectTypeProject = Visibility.Collapsed;
 
 
-            //attr = typeof(HVTApp.Model.POCOs.Project).GetProperty(nameof(HVTApp.Model.POCOs.Project.HighProbability)).GetCustomAttribute<NotUpdateAttribute>();
+            //attr = typeof(HVTApp.Model.POCOs.Project).GetProperty(nameof(HVTApp.Model.POCOs.Project.InWork)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
-            //    VisibilityHighProbabilityProject = Visibility.Collapsed;
+            //    VisibilityInWorkProject = Visibility.Collapsed;
 
 
             //attr = typeof(HVTApp.Model.POCOs.Project).GetProperty(nameof(HVTApp.Model.POCOs.Project.ForReport)).GetCustomAttribute<NotUpdateAttribute>();
@@ -4523,11 +4523,11 @@ namespace HVTApp.UI.Views
 
 
 
-        public static readonly DependencyProperty VisibilityHighProbabilityProjectProperty = DependencyProperty.Register("VisibilityHighProbabilityProject", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
-        public Visibility VisibilityHighProbabilityProject
+        public static readonly DependencyProperty VisibilityInWorkProjectProperty = DependencyProperty.Register("VisibilityInWorkProject", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityInWorkProject
         {
-            get { return (Visibility) GetValue(VisibilityHighProbabilityProjectProperty); }
-            set { SetValue(VisibilityHighProbabilityProjectProperty, value); OnPropertyChanged(); }
+            get { return (Visibility) GetValue(VisibilityInWorkProjectProperty); }
+            set { SetValue(VisibilityInWorkProjectProperty, value); OnPropertyChanged(); }
         }
 
 
