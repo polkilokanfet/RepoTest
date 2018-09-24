@@ -87,6 +87,8 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             group.Price = _priceDictionary[group].Total;
             OnPropertyChanged(nameof(PriceStructures));
+
+            group.Groups?.ForEach(RefreshPrice);
         }
 
         /// <summary>

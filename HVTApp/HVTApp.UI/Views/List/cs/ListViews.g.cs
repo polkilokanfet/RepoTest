@@ -523,7 +523,8 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Контракт")]
 	[DesignationPlural("ContractLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class ContractLookupListView : ViewBase
     {
@@ -1328,7 +1329,8 @@ namespace HVTApp.UI.Views
     [RibbonTab(typeof(TabCRUD)), RibbonTab(typeof(TabRefresh))]
 	[Designation("Тип объекта")]
 	[DesignationPlural("FacilityTypeLookup")]
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
     public partial class FacilityTypeLookupListView : ViewBase
     {

@@ -149,6 +149,7 @@ namespace HVTApp.TestDataGenerator
 
         public ProductDesignation ProductDesignationVgb35;
         public ProductDesignation ProductDesignationVeb110;
+        public ProductDesignation ProductDesignationVeb110II;
         public ProductDesignation ProductDesignationZng110;
         public ProductDesignation ProductDesignationVeb220;
         public ProductDesignation ProductDesignationZng220;
@@ -536,6 +537,7 @@ namespace HVTApp.TestDataGenerator
         {
             ProductDesignationVgb35.Clone(new ProductDesignation { Designation = "ВГБ-УЭТМ-35", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage35kV } });
             ProductDesignationVeb110.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-110", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV } });
+            ProductDesignationVeb110II.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-110II*", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterDpu2 } });
             ProductDesignationVeb220.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-220", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage220kV } }); 
             ProductDesignationZng110.Clone(new ProductDesignation { Designation = "ЗНГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformatorVoltage, ParameterVoltage110kV } });
             ProductDesignationZng220.Clone(new ProductDesignation { Designation = "ЗНГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformatorVoltage, ParameterVoltage220kV } });

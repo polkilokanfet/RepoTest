@@ -987,7 +987,8 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
 	[Designation("Тип объекта")]
 	public partial class FacilityTypeLookup : LookupItem<FacilityType>
@@ -1035,7 +1036,8 @@ namespace HVTApp.UI.Lookup
 
 	}
 
-	[AllowEditAttribute(Role.Admin)]
+	[AllowEditAttribute(Role.SalesManager)]
+[AllowEditAttribute(Role.Admin)]
 
 	[Designation("Контракт")]
 	public partial class ContractLookup : LookupItem<Contract>

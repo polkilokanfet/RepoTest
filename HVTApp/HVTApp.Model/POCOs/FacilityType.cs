@@ -5,6 +5,7 @@ using HVTApp.Infrastructure.Attributes;
 namespace HVTApp.Model.POCOs
 {
     [Designation("Тип объекта")]
+    [AllowEdit(Role.SalesManager)]
     public partial class FacilityType : BaseEntity
     {
         [Designation("Наименование"), Required, MaxLength(50)]
