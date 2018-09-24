@@ -26,7 +26,6 @@ namespace HVTApp.Modules.Sales
             Container.RegisterViewForNavigation<OffersView>();
             Container.RegisterViewForNavigation<ProductionView>();
             Container.RegisterViewForNavigation<ShippingView>();
-            Container.RegisterViewForNavigation<OfferRedactorView>();
             Container.RegisterViewForNavigation<OfferView>();
             Container.RegisterViewForNavigation<ProjectView>();
             Container.RegisterViewForNavigation<SpecificationView>();

@@ -30,6 +30,7 @@ namespace HVTApp.Modules.Settings.ViewModels
             {
                 _passOld = value;
                 ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -40,6 +41,7 @@ namespace HVTApp.Modules.Settings.ViewModels
             {
                 _passNew = value;
                 ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -50,6 +52,7 @@ namespace HVTApp.Modules.Settings.ViewModels
             {
                 _passAgain = value;
                 ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
+                OnPropertyChanged();
             }
         }
 

@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Tabs;
 using HVTApp.Modules.Sales.ViewModels;
-using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
@@ -20,6 +18,12 @@ namespace HVTApp.Modules.Sales.Views
             InitializeComponent();
             _viewModel = container.Resolve<SpecificationViewModel>();
             this.DataContext = _viewModel;
+        }
+
+        public override bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            var specification = navigationContext.Parameters.First().Value as Specification;
+            return _viewModel.Item != null && specification != null && _viewModel.Item.Id == specification.Id;
         }
 
         public override async void OnNavigatedTo(NavigationContext navigationContext)

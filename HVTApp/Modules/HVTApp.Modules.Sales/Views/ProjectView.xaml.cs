@@ -3,7 +3,6 @@ using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.Modules.Sales.Tabs;
 using HVTApp.Modules.Sales.ViewModels;
-using HVTApp.UI.ViewModels;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Regions;
@@ -13,12 +12,19 @@ namespace HVTApp.Modules.Sales.Views
     [RibbonTab(typeof(TabCrudUnits))]
     public partial class ProjectView
     {
-        private readonly ProjectViewModel _projectViewModel;
+        private readonly ProjectViewModel _viewModel;
+
         public ProjectView(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator) : base(regionManager, eventAggregator)
         {
             InitializeComponent();
-            _projectViewModel = container.Resolve<ProjectViewModel>();
-            this.DataContext = _projectViewModel;
+            _viewModel = container.Resolve<ProjectViewModel>();
+            this.DataContext = _viewModel;
+        }
+
+        public override bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            var project = navigationContext.Parameters.First().Value as Project;
+            return _viewModel.Item != null && project != null && _viewModel.Item.Id == project.Id;
         }
 
         public override async void OnNavigatedTo(NavigationContext navigationContext)
@@ -28,7 +34,7 @@ namespace HVTApp.Modules.Sales.Views
             var project = new Project();
             if (navigationContext.Parameters != null && navigationContext.Parameters.Any())
                 project = (Project)navigationContext.Parameters.First().Value;
-            await _projectViewModel.LoadAsync(project);
+            await _viewModel.LoadAsync(project);
         }
     }
 }

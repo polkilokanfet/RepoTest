@@ -64,7 +64,7 @@ namespace HVTApp.TestDataGenerator
         public Person PersonIvanov;
         public Person PersonPetrov;
         public Person PersonSidorov;
-                
+
         public Employee EmployeeIvanov;
         public Employee EmployeePetrov;
         public Employee EmployeeSidorov;
