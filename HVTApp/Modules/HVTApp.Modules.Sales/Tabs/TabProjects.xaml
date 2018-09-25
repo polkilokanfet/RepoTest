@@ -6,9 +6,11 @@
              x:Class="HVTApp.Modules.Sales.Tabs.TabProjects"
              Header="Отображение">
     
-    <infRib:RibbonGroup Caption="Показать">
-        <infRib:ButtonTool Caption="Все проекты" Command="{Binding ShowAllProjectsCommand}"/>
-        <infRib:ButtonTool Caption="В работе" Command="{Binding ShowWorkProjectsCommand}"/>
+    <infRib:RibbonGroup Caption="Проекты">
+        <StackPanel Orientation="Horizontal">
+            <CheckBox IsChecked="{Binding ShownAllProjects}"/>
+            <Label Content=" Показать все"/>
+        </StackPanel>
     </infRib:RibbonGroup>
     
 </inf:RibbonTabItemWithViewModel>

@@ -5,10 +5,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HVTApp.Model.Tests.POCOs
 {
-    [TestClass()]
+    [TestClass]
     public class ParameterTests
     {
-        [TestMethod()]
+        [TestMethod]
         public void PathsTest()
         {
             var testData = new TestData();

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Extansions;
@@ -70,6 +69,18 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
+        public bool ShownAllProjects
+        {
+            get { return _shownAllProjects; }
+            set
+            {
+                if (Equals(_shownAllProjects, value)) return;
+                _shownAllProjects = value;
+                if (value) ShowAllProjects();
+                else ShowWorkProjects();
+            }
+        }
+
         #region ViewModels
 
         public OfferLookupListViewModel OfferListViewModel { get; }
@@ -78,9 +89,6 @@ namespace HVTApp.Modules.Sales.ViewModels
         #endregion
 
         #region ICommand
-
-        public ICommand ShowAllProjectsCommand { get; set; }
-        public ICommand ShowWorkProjectsCommand { get; set; }
 
         public ICommand NewProjectCommand { get; }
         public ICommand EditProjectCommand { get; }
@@ -109,9 +117,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             TenderListViewModel = container.Resolve<TenderLookupListViewModel>();
 
             //команды
-            ShowAllProjectsCommand = new DelegateCommand(ShowAllProjectsCommand_Execute);
-            ShowWorkProjectsCommand = new DelegateCommand(ShowWorkProjectsCommand_Execute);
-
             NewProjectCommand = new DelegateCommand(NewProjectCommand_Execute);
             EditProjectCommand = new DelegateCommand(EditProjectCommand_Execute, () => SelectedProjectLookup != null);
             RemoveProjectCommand = new DelegateCommand(RemoveProjectCommand_Execute, () => SelectedProjectLookup != null);
@@ -194,7 +199,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             ProjectLookups.AddRange(projectsLookups.OrderBy(x => x.RealizationDate));
 
             //показываем все рабочие проекты
-            ShowWorkProjectsCommand_Execute();
+            ShowWorkProjects();
         }
 
         private void LoadGroups(ProjectLookup project)
@@ -203,6 +208,23 @@ namespace HVTApp.Modules.Sales.ViewModels
             var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new SalesUnitsGroup(x));
             Groups.Clear();
             Groups.AddRange(groups);
+        }
+
+        private void ShowWorkProjects()
+        {
+            ProjectLookupsInView.Clear();
+            var workProjects = ProjectLookups.Where(x => x.Entity.InWork && x.SalesUnits.Any(u => !u.IsDone && !u.IsLoosen)).ToList();
+            ProjectLookupsInView.AddRange(workProjects);
+
+            //выбор проекта
+            if (SelectedProjectLookup == null && ProjectLookupsInView.Any())
+                SelectedProjectLookup = ProjectLookupsInView.First();
+        }
+
+        private void ShowAllProjects()
+        {
+            ProjectLookupsInView.Clear();
+            ProjectLookupsInView.AddRange(ProjectLookups);
         }
 
         #region Commands
@@ -236,26 +258,6 @@ namespace HVTApp.Modules.Sales.ViewModels
                 }
                 messageService.ShowOkMessageDialog("DbUpdateException", ex.Message);
             }
-        }
-
-        private void ShowWorkProjectsCommand_Execute()
-        {
-            _shownAllProjects = false;
-
-            ProjectLookupsInView.Clear();
-            var workProjects = ProjectLookups.Where(x => x.Entity.InWork && x.SalesUnits.Any(u => !u.IsDone && !u.IsLoosen)).ToList();
-            ProjectLookupsInView.AddRange(workProjects);
-
-            //выбор проекта
-            if (SelectedProjectLookup == null && ProjectLookupsInView.Any())
-                SelectedProjectLookup = ProjectLookupsInView.First();
-        }
-
-        private void ShowAllProjectsCommand_Execute()
-        {
-            ProjectLookupsInView.Clear();
-            ProjectLookupsInView.AddRange(ProjectLookups);
-            _shownAllProjects = true;
         }
 
         private void EditTenderCommand_Execute()
