@@ -16,7 +16,7 @@
                     <!--<dp:NumericField Name="MarginalIncome" Label="МД" Width="Auto" AllowEdit="True" />-->
                     <dp:NumericField Name="Cost" Label="Стоимость" Width="Auto"/>
                     <dp:NumericField Name="Total" Label="Сумма" Width="Auto"/>
-                    <dp:NumericField Name="ProductionTermG" Label="Срок" Width="Auto"/>
+                    <dp:NumericField Name="ProductionTerm" Label="Срок" Width="Auto"/>
                     <dp:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                     <!--<dp:Field Name="Groups" IsExpandable="True"/>-->
                 </dp:FieldLayout.Fields>

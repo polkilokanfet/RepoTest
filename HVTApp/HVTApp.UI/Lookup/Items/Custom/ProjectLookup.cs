@@ -91,7 +91,7 @@ namespace HVTApp.UI.Lookup
         {
             public bool Equals(FacilityLookup x, FacilityLookup y)
             {
-                return x.Id == y.Id;
+                return y != null && (x != null && x.Id == y.Id);
             }
 
             public int GetHashCode(FacilityLookup obj)

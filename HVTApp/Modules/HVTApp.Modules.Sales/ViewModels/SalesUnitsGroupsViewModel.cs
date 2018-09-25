@@ -199,7 +199,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
                 return;
 
-            SelectedGroup.ProductsIncluded.Remove(SelectedProductIncluded);
+            SelectedGroup.RemoveProductIncluded(SelectedProductIncluded);
             RefreshPrice(SelectedGroup);
         }
 
@@ -259,6 +259,8 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public virtual async Task SaveChanges()
         {
+            var eventAggregator = Container.Resolve<IEventAggregator>();
+
             //добавляем созданные
             var added = Groups.AddedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups).ToList();
             added = added.Concat(Groups.AddedItems).ToList();
@@ -268,7 +270,10 @@ namespace HVTApp.Modules.Sales.ViewModels
             var removed = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems).ToList();
             removed = Groups.RemovedItems.Concat(removed).ToList();
             removed = removed.Concat(Groups.RemovedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups)).ToList();
-            _unitOfWork.Repository<SalesUnit>().DeleteRange(removed.Select(x => x.Model).Distinct());
+            var removedModels = removed.Select(x => x.Model).Distinct().ToList();
+            //сообщаем об изменениях (так высоко, т.к. после удаления объект рушится)
+            removedModels.ForEach(x => eventAggregator.GetEvent<AfterRemoveSalesUnitEvent>().Publish(x));
+            _unitOfWork.Repository<SalesUnit>().DeleteRange(removedModels);
 
             var modified = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.ModifiedItems).ToList();
             modified = Groups.ModifiedItems.Concat(modified).ToList();
@@ -276,11 +281,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             Groups.AcceptChanges();
             await _unitOfWork.SaveChangesAsync();
 
-            var eventAggregator = Container.Resolve<IEventAggregator>();
-
-            //сообщаем об изменениях
             added.Concat(modified).Select(x => x.Model).Distinct().ForEach(x => eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Publish(x));
-            removed.Select(x => x.Model).ForEach(x => eventAggregator.GetEvent<AfterRemoveSalesUnitEvent>().Publish(x));
         }
 
         public virtual bool CanSaveChanges()

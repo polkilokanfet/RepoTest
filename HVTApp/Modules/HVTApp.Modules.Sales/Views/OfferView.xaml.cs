@@ -26,6 +26,7 @@ namespace HVTApp.Modules.Sales.Views
 
         public override bool IsNavigationTarget(NavigationContext navigationContext)
         {
+            return false;
             var offer = navigationContext.Parameters.First().Value as Offer;
             return _viewModel.Item != null && offer != null && _viewModel.Item.Id == offer.Id;
         }

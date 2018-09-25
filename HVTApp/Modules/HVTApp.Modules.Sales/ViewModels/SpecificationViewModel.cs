@@ -77,6 +77,16 @@ namespace HVTApp.Modules.Sales.ViewModels
                 UnitOfWork.Repository<Specification>().Add(Item.Model);
 
             Item.AcceptChanges();
+
+            //удаленные из спецификации группы
+            var removed = GroupsViewModel.Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems).ToList();
+            removed = GroupsViewModel.Groups.RemovedItems.Concat(removed).ToList();
+            removed.ForEach(x => { x.RejectChanges(); });
+            removed.ForEach(x => { x.Specification = null; });
+            removed.ForEach(x => { x.AcceptChanges(); });
+
+            GroupsViewModel.Groups.AcceptChanges();
+
             //сохраняем
             try
             {

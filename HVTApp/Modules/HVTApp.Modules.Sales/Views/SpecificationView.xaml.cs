@@ -22,6 +22,7 @@ namespace HVTApp.Modules.Sales.Views
 
         public override bool IsNavigationTarget(NavigationContext navigationContext)
         {
+            return false;
             var specification = navigationContext.Parameters.First().Value as Specification;
             return _viewModel.Item != null && specification != null && _viewModel.Item.Id == specification.Id;
         }

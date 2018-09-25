@@ -84,54 +84,28 @@
 
                         <dp:FieldLayout>
                             <dp:FieldLayout.Fields>
-                                <dp:Field Name="Facility"
-                                          Label="Объект"
-                                          Width="Auto"
-                                          Converter="{StaticResource WrapperToStringConverter}">
+                                <dp:Field Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
                                     <dp:Field.Settings>
                                         <dp:FieldSettings CellValuePresenterStyle="{StaticResource FacilityCellStyle}" />
                                     </dp:Field.Settings>
                                 </dp:Field>
-                                <dp:Field Name="Product"
-                                          Label="Продукт"
-                                          Width="Auto"
-                                          Converter="{StaticResource WrapperToStringConverter}">
+                                <dp:Field Name="Product" Label="Продукт" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
                                     <dp:Field.Settings>
                                         <dp:FieldSettings CellValuePresenterStyle="{StaticResource ProductCellStyle}" />
                                     </dp:Field.Settings>
                                 </dp:Field>
-                                <dp:NumericField Name="Amount"
-                                                 Label="Кол."
-                                                 Width="Auto" />
-                                <dp:NumericField Name="MarginalIncome"
-                                                 Label="МД"
-                                                 Width="Auto"
-                                                 AllowEdit="True" />
-                                <dp:NumericField Name="CostG"
-                                                 Label="Стоимость"
-                                                 Width="Auto"
-                                                 AllowEdit="True" />
-                                <dp:NumericField Name="Total"
-                                                 Label="Сумма"
-                                                 Width="Auto" />
-                                <dp:DateTimeField Name="DeliveryDateExpectedG"
-                                                  Label="Поставка"
-                                                  Width="Auto"
-                                                  AllowEdit="True" />
-                                <dp:NumericField Name="ProductionTermG"
-                                                 Label="Срок"
-                                                 Width="Auto"
-                                                 AllowEdit="True" />
-                                <dp:Field Name="PaymentConditionSet"
-                                          Label="Условия оплаты"
-                                          Width="Auto"
-                                          Converter="{StaticResource WrapperToStringConverter}">
+                                <dp:NumericField Name="Amount" Label="Кол." Width="Auto" />
+                                <dp:NumericField Name="MarginalIncome" Label="МД" Width="Auto" AllowEdit="True" />
+                                <dp:NumericField Name="Cost" Label="Стоимость" Width="Auto" AllowEdit="True" />
+                                <dp:NumericField Name="Total" Label="Сумма" Width="Auto" />
+                                <dp:DateTimeField Name="DeliveryDateExpected" Label="Поставка" Width="Auto" AllowEdit="True" />
+                                <dp:NumericField Name="ProductionTerm" Label="Срок" Width="Auto" AllowEdit="True" />
+                                <dp:Field Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}">
                                     <dp:Field.Settings>
                                         <dp:FieldSettings CellValuePresenterStyle="{StaticResource PaymentsCellStyle}" />
                                     </dp:Field.Settings>
                                 </dp:Field>
-                                <dp:Field Name="Groups"
-                                          IsExpandable="True" />
+                                <dp:Field Name="Groups" IsExpandable="True" />
 
                             </dp:FieldLayout.Fields>
                         </dp:FieldLayout>

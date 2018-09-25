@@ -26,29 +26,13 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         protected override void AddCommand_Execute()
         {
-            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.Id == CommonOptions.User.Id);
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.Id == CommonOptions.User.Id && x.Specification == null);
             var unit = Container.Resolve<ISelectService>().SelectItem(salesUnits);
             if (unit == null) return;
             var group = new SalesUnitsGroup(new[] {unit});
             group.Specification = _specification;
             RefreshPrice(group);
             Groups.Add(group);
-        }
-
-        public override async Task SaveChanges()
-        {
-            //удаленные из спецификации группы
-            var removed= Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems).ToList();
-            removed = Groups.RemovedItems.Concat(removed).ToList();
-            removed.ForEach(x =>
-            {
-                x.RejectChanges();
-                x.Specification = null;
-                x.AcceptChanges();
-            });
-
-            Groups.AcceptChanges();
-            await UnitOfWork.SaveChangesAsync();
         }
 
         public override bool CanSaveChanges()
