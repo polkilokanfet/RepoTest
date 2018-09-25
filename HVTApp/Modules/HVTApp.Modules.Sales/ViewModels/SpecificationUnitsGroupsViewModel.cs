@@ -7,18 +7,21 @@ using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
     public class SpecificationUnitsGroupsViewModel : SalesUnitsGroupsViewModel
     {
-        private readonly Specification _specification;
+        private readonly SpecificationWrapper _specification;
 
         public SpecificationUnitsGroupsViewModel(IUnityContainer container, IEnumerable<SalesUnit> units, 
-            IUnitOfWork unitOfWork, Specification specification) : base(container, units, unitOfWork, null)
+            IUnitOfWork unitOfWork, SpecificationWrapper specification) : base(container, units, unitOfWork, null)
         {
             _specification = specification;
+            //назначаем спецификацию всем юнитам
+            Groups.ForEach(x => x.Specification = specification);
         }
 
         protected override void AddCommand_Execute()
@@ -27,15 +30,16 @@ namespace HVTApp.Modules.Sales.ViewModels
             var unit = Container.Resolve<ISelectService>().SelectItem(salesUnits);
             if (unit == null) return;
             var group = new SalesUnitsGroup(new[] {unit});
-            group.Specification = new SpecificationWrapper(_specification);
+            group.Specification = _specification;
             RefreshPrice(group);
             Groups.Add(group);
         }
 
         public override async Task SaveChanges()
         {
-            var removedIncl = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems);
-            var removed = Groups.RemovedItems.Concat(removedIncl).ToList();
+            //удаленные из спецификации группы
+            var removed= Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems).ToList();
+            removed = Groups.RemovedItems.Concat(removed).ToList();
             removed.ForEach(x =>
             {
                 x.RejectChanges();

@@ -113,7 +113,7 @@ namespace HVTApp.Model.POCOs
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             Parameters.ForEach(x => sb.Append($"{x} => "));
             return sb.ToString();
         }

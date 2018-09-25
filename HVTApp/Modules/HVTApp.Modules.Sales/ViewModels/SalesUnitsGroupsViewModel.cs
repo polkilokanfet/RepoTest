@@ -78,6 +78,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             Groups.ForEach(RefreshPrice);
         }
 
+        //блоки, необходимые для поиска аналогов
         private List<ProductBlock> _blocks;
         private readonly Dictionary<SalesUnitsGroup, PriceStructures> _priceDictionary = new Dictionary<SalesUnitsGroup, PriceStructures>();
 

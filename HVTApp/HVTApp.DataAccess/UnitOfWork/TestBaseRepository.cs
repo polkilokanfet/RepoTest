@@ -40,7 +40,7 @@ namespace HVTApp.DataAccess
 
         public List<TEntity> Find(Func<TEntity, bool> predicate)
         {
-            throw new NotImplementedException();
+            return GetAll().Where(predicate).ToList();
         }
 
         public void Add(TEntity entity)

@@ -1,7 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Infrastructure.Services;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
@@ -20,7 +26,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private async Task InitGroupsViewModel(IEnumerable<SalesUnit> units)
         {
-            GroupsViewModel = new SpecificationUnitsGroupsViewModel(Container, units, UnitOfWork, Item.Model);
+            GroupsViewModel = new SpecificationUnitsGroupsViewModel(Container, units, UnitOfWork, Item);
             await GroupsViewModel.LoadAsync();
 
             //регистраци€ на событи€ изменени€ строк с оборудованием
@@ -66,6 +72,45 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         protected override async void SaveCommand_Execute()
         {
+            //добавл€ем сущность, если ее не существовало
+            if (await UnitOfWork.Repository<Specification>().GetByIdAsync(Item.Model.Id) == null)
+                UnitOfWork.Repository<Specification>().Add(Item.Model);
+
+            Item.AcceptChanges();
+            //сохран€ем
+            try
+            {
+                await UnitOfWork.SaveChangesAsync();
+                EventAggregator.GetEvent<AfterSaveSpecificationEvent>().Publish(Item.Model);
+
+                await GroupsViewModel.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                var sb = new StringBuilder();
+                Exception exception = e;
+                do
+                {
+                    sb.AppendLine(e.Message);
+                    exception = exception.InnerException;
+                } while (exception != null);
+
+                Container.Resolve<IMessageService>().ShowOkMessageDialog("ќшибка при сохранении", sb.ToString());
+            }
+
+            //запрашиваем закрытие окна
+            OnCloseRequested(new DialogRequestCloseEventArgs(true));
+        }
+
+        protected override bool SaveCommand_CanExecute()
+        {
+            //все сущности должны быть валидны
+            if (GroupsViewModel == null || !GroupsViewModel.Groups.IsValid || !Item.IsValid ||
+                GroupsViewModel.Groups == null || !GroupsViewModel.Groups.Any())
+                return false;
+
+            //кака€-то сущность должна быть изменена
+            return Item.IsChanged || GroupsViewModel.Groups.IsChanged;
         }
     }
 }
