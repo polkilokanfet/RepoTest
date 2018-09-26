@@ -19,6 +19,9 @@ namespace HVTApp.Model.POCOs
         public double Cost { get; set; }
 
 
+        [Designation("Себестоимость"), OrderStatus(46)]
+        public double? Price { get; set; }
+
         [Designation("Продукт"), Required, OrderStatus(50)]
         public virtual Product Product { get; set; }
 
