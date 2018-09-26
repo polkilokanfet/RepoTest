@@ -60,7 +60,7 @@ namespace HVTApp.Model.POCOs
         }
 
 
-        private IEnumerable<PathToOrigin> Paths(PathToOrigin path = null)
+        private IEnumerable<PathToOrigin> Paths(PathToOrigin path = null, ParameterRelation parameterRelation = null)
         {
             path = path ?? new PathToOrigin();
 
@@ -69,8 +69,24 @@ namespace HVTApp.Model.POCOs
                 path.Parameters.Add(this);
             }
 
+            if (parameterRelation != null)
+            {
+                foreach (var parameter in parameterRelation.RequiredParameters)
+                {
+                    if (!path.Parameters.Contains(parameter))
+                    {
+                        path.Parameters.Add(parameter);
+                    }
+                }
+            }
+
+
             //если достигли начала
-            if (this.IsOrigin) yield return path;
+            if (this.IsOrigin)
+            {
+                yield return path;
+                yield break;
+            }
 
             foreach (var relation in ParameterRelations)
             {
@@ -84,7 +100,7 @@ namespace HVTApp.Model.POCOs
 
                     var newPath = new PathToOrigin(parameters, relations);
 
-                    foreach (var pathToOrigin in requiredParameter.Paths(newPath).ToList())
+                    foreach (var pathToOrigin in requiredParameter.Paths(newPath, relation).ToList())
                     {
                         yield return pathToOrigin;
                     }
@@ -111,7 +127,14 @@ namespace HVTApp.Model.POCOs
         public List<Parameter> Parameters { get; } = new List<Parameter>();
         public List<ParameterRelation> Relations { get; } = new List<ParameterRelation>();
 
-        public bool IsFull => !Relations.Any() || Relations.SelectMany(x => x.RequiredParameters).Distinct().AllContainsIn(Parameters);
+        public bool IsFull
+        {
+            get
+            {
+                return !Relations.Any() ||
+                       Relations.SelectMany(x => x.RequiredParameters).Distinct().AllContainsIn(Parameters);
+            }
+        }
 
         public PathToOrigin()
         {
