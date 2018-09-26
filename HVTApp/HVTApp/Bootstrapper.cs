@@ -19,6 +19,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Modules.BaseEntities;
 using HVTApp.Modules.Price;
+using HVTApp.Modules.Reports;
 using HVTApp.Modules.Settings;
 using HVTApp.Modules.Sales;
 using HVTApp.Modules.Sales.PrintOffer;
@@ -100,6 +101,7 @@ namespace HVTApp
 
             AddModuleIfInRole(catalog, typeof(SalesModule));
             AddModuleIfInRole(catalog, typeof(PriceModule));
+            AddModuleIfInRole(catalog, typeof(ReportsModule));
 
             catalog.AddModule(typeof(BaseEntitiesModule));
             catalog.AddModule(typeof(SettingsModule));

@@ -1,0 +1,98 @@
+﻿<inf:ViewBase x:Class="HVTApp.Modules.Reports.Views.SalesReportView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:prism="http://prismlibrary.com/"             
+              prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="Ожидание данных..." VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=SalesUnitLookupListGrid, Path=Visibility}" Value="Visible">
+                            <Setter Property="Label.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+
+
+        <infg:XamDataGrid x:Name="SalesUnitLookupListGrid" 
+                          Grid.Row="1"
+                          DataSource="{Binding Units}"
+                          Style="{StaticResource ListViewGrid}" 
+                          Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+            <infg:XamDataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Export to Excel" Command="{Binding ExportToExcel}" CommandParameter="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContextMenu}}}"/>
+                </ContextMenu>
+            </infg:XamDataGrid.ContextMenu>
+
+            <infg:XamDataGrid.FieldLayouts>
+                <infg:FieldLayout>
+                    <infg:FieldLayout.Fields>
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Project}" Label="Проект" Width="Auto" />
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Facility}" Label="Объект" Width="Auto" />
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Product.ProductType}" Label="Тип продукта" Width="Auto" />
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Product.Designation}" Label="Обозначение" Width="Auto" />
+                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Cost}" Label="Стоимость" Width="Auto" />
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.PaymentConditionSet}" Label="Условия оплаты" Width="Auto" />
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Specification}" Label="Спецификация" Width="Auto" />
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Producer}" Label="Производитель" Width="Auto" />
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Order}" Label="Заказ" Width="Auto" />
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.Address}" Label="Адрес доставки" Width="Auto" />
+                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.SumToStartProduction}" Label="Сумма старта производства" Width="Auto" />
+                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.SumToShipping}" Label="Сумма отгрузки" Width="Auto" />
+                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.SumPaid}" Label="Оплачено" Width="Auto" />
+                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.SumNotPaid}" Label="Неоплачено" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.StartProductionDateCalculated}" Label="Начало производства (расч.)" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.StartProductionDate}" Label="Дата начала производства" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.StartProductionConditionsDoneDate}" Label="Дата исполнения условий для начала производства" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.SignalToStartProductionDone}" Label="Дата размещения в производстве" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.SignalToStartProduction}" Label="Сигнал менеджера о производстве" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.ShippingConditionsDoneDate}" Label="Дата исполнения условий для отгрузки" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.ShipmentPlanDate}" Label="Дата плановой отгрузки" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.ShipmentDateCalculated}" Label="Расчетная дата отгрузки" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.ShipmentDate}" Label="Дата отгрузки" Width="Auto" />
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.SerialNumber}" Label="Номер" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.RealizationDateCalculated}" Label="Расчетная дата реализации" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.RealizationDate}" Label="Дата реализации" Width="Auto" />
+                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.ProductionTerm}" Label="Срок производства" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.PickingDate}" Label="Дата комплектации" Width="Auto" />
+                        <infg:TextField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.OrderPosition}" Label="Позиция" Width="Auto" />
+                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.OrderInTakeYear}" Label="Год" Width="Auto" />
+                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.OrderInTakeMonth}" Label="Месяц" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.OrderInTakeDate}" Label="ОИТ" Width="Auto" />
+                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.IsPaid}" Label="Оплачено?" Width="Auto" />
+                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.IsLoosen}" Label="Проиграно" Width="Auto" />
+                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.IsDone}" Label="Исполнен?" Width="Auto" />
+                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.ExpectedDeliveryPeriodCalculated}" Label="Срок доставки расчетный" Width="Auto" />
+                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.ExpectedDeliveryPeriod}" Label="Срок доставки" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.EndProductionPlanDate}" Label="Плановая дата окончания производства" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.EndProductionDateCalculated}" Label="Окончание производства (расч.)" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.EndProductionDate}" Label="Дата окончания производства" Width="Auto" />
+                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.DeliveryPeriodCalculated}" Label="Расчетный срок доставки" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.DeliveryDateExpected}" Label="Требуемая дата поставки" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.DeliveryDateCalculated}" Label="Расчетная дата доставки" Width="Auto" />
+                        <infg:DateTimeField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.DeliveryDate}" Label="Дата поставки" Width="Auto" />
+                        <infg:NumericField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.AssembleTerm}" Label="Срок сборки" Width="Auto" />
+                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.AllowEditProduct}" Label="Разрешение на редактирование техники" Width="Auto" />
+                        <infg:CheckBoxField BindingType="UseAlternateBinding" AlternateBinding="{Binding SalesUnit.AllowEditCost}" Label="Разрешение на редактирование стоимости" Width="Auto" />
+
+                    </infg:FieldLayout.Fields>
+                </infg:FieldLayout>
+
+            </infg:XamDataGrid.FieldLayouts>
+        </infg:XamDataGrid>
+
+    </Grid>
+</inf:ViewBase>
