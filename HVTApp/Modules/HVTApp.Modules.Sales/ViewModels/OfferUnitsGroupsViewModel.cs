@@ -188,7 +188,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             productIncluded = await Container.Resolve<IUpdateDetailsService>().UpdateDetailsWithoutSaving(productIncluded);
             if (productIncluded == null) return;
             productIncluded.Product = await _unitOfWork.Repository<Product>().GetByIdAsync(productIncluded.Product.Id);
-            SelectedGroup.ProductsIncluded.Add(new ProductIncludedWrapper(productIncluded));
+            SelectedGroup.AddProductIncluded(productIncluded);
             RefreshPrice(SelectedGroup);
         }
 
@@ -196,7 +196,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
                 return;
-            SelectedGroup.ProductsIncluded.Remove(SelectedProductIncluded);
+            SelectedGroup.RemoveProductIncluded(SelectedProductIncluded);
             RefreshPrice(SelectedGroup);
         }
 

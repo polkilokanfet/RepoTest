@@ -53,7 +53,7 @@ namespace HVTApp.UI.Groups
 
         public double Cost
         {
-            get { return GetValue<double>(); }
+            get { return Total / Amount; }
             set
             {
                 if (value < 0) return;
@@ -198,8 +198,8 @@ namespace HVTApp.UI.Groups
             if (_unit != null)
             {
                 var propInfo = _unit.GetType().GetProperty(propertyName);
-                if(Equals(value, propInfo.GetValue(_unit))) return;
-                propInfo.SetValue(_unit, value);
+                if (!Equals(value, propInfo.GetValue(_unit)))
+                    propInfo.SetValue(_unit, value);
             }
 
             if (Groups != null)
