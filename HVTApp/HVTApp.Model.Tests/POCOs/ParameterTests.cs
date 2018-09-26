@@ -14,11 +14,12 @@ namespace HVTApp.Model.Tests.POCOs
             var testData = new TestData();
             var parameters = testData.GetAll<Parameter>().ToList();
 
+            testData.ParameterClimatU1z.Paths();
 
-            foreach (var parameter in parameters)
-            {
-                var paths = parameter.Paths();
-            }
+            //foreach (var parameter in parameters)
+            //{
+            //    var paths = parameter.Paths();
+            //}
         }
     }
 }

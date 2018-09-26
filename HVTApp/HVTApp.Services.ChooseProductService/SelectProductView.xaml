@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:HVTApp.Services.GetProductService">
     
     <UserControl.Resources>
-        <Style x:Key="CollapseItem" TargetType="ComboBoxItem" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
+        <Style x:Key="CollapsableItem" TargetType="ComboBoxItem" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsActual}" Value="False">
                     <Setter Property="Visibility" Value="Collapsed" />
@@ -33,12 +33,11 @@
                                       SelectedItem="{Binding SelectedParameterFlaged, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       HorizontalAlignment="Left"
                                       Grid.Column="1" 
-                                      ItemContainerStyle="{StaticResource CollapseItem}">
+                                      ItemContainerStyle="{StaticResource CollapsableItem}">
 
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <!--Visibility="{Binding Path=IsActual, Converter={StaticResource BooleanToVisibilityConverter}}">-->
                                             <Label Content="{Binding Parameter.Value}"/>
                                         </StackPanel>
                                     </DataTemplate>
