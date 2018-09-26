@@ -56,7 +56,7 @@ namespace HVTApp.Model.POCOs
         /// <returns></returns>
         public List<PathToOrigin> Paths()
         {
-            return Paths(null).Where(x => x.IsFull).ToList();
+            return Paths(null).Where(x => x.IsFull).Distinct(new PathComparer()).ToList();
         }
 
 
@@ -90,6 +90,19 @@ namespace HVTApp.Model.POCOs
                     }
                 }
             }
+        }
+    }
+
+    public class PathComparer : IEqualityComparer<PathToOrigin>
+    {
+        public bool Equals(PathToOrigin x, PathToOrigin y)
+        {
+            return x.Parameters.MembersAreSame(y.Parameters);
+        }
+
+        public int GetHashCode(PathToOrigin obj)
+        {
+            return 0;
         }
     }
 

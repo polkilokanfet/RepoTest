@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="SingleSelectionComboBoxItem" TargetType="ComboBoxItem" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
+        <!-- This unselects sometimes when you don't want it to. -->
+        <!--
+    <Setter Property="IsSelected" Value="{Binding Selezionato, Mode=OneWayToSource}" />
+    -->
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Selezionato}" Value="True">
+                <!-- Hide it -->
+                <Setter Property="Visibility"
+                        Value="Collapsed" />
+                <!-- Also prevent user from selecting it via arrows or mousewheel -->
+                <Setter Property="IsEnabled"
+                        Value="False" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+</ResourceDictionary>
