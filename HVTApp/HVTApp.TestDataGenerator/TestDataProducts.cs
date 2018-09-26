@@ -18,6 +18,7 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupVoltage;
         public ParameterGroup ParameterGroupDrivesVoltage;
         public ParameterGroup ParameterGroupIsolation;
+        public ParameterGroup ParameterGroupIsolationMaterial;
         public ParameterGroup ParameterGroupAccuracy;
         public ParameterGroup ParameterGroupCurrent;
         public ParameterGroup ParameterGroupNewProductDesignation;
@@ -34,6 +35,7 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupVoltage.Clone(new ParameterGroup { Name = "Номинальное напряжение", Measure = MeasureKv });
             ParameterGroupDrivesVoltage.Clone(new ParameterGroup { Name = "Номинальное напряжение двигателя завода пружин", Measure = MeasureKv });
             ParameterGroupIsolation.Clone(new ParameterGroup { Name = "Длина пути утечки" });
+            ParameterGroupIsolationMaterial.Clone(new ParameterGroup { Name = "Тип изоляции" });
             ParameterGroupAccuracy.Clone(new ParameterGroup { Name = "Класс точности" });
             ParameterGroupCurrent.Clone(new ParameterGroup { Name = "Номинальный ток" });
             ParameterGroupNewProductDesignation.Clone(new ParameterGroup { Name = "Обозначение" });
@@ -78,6 +80,9 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterDpu3;
         public Parameter ParameterDpu4;
 
+        public Parameter ParameterFarfor;
+        public Parameter ParameterPolimer;
+
         public Parameter ParameterAccuracy05P;
         public Parameter ParameterAccuracy10P;
 
@@ -119,6 +124,9 @@ namespace HVTApp.TestDataGenerator
             ParameterTransformatorBuiltOut.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Отдельностоящий" });
             ParameterTransformatorBuiltIn.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Встроенный" });
 
+            ParameterFarfor.Clone(new Parameter { ParameterGroup = ParameterGroupIsolationMaterial, Value = "Фарфор" });
+            ParameterPolimer.Clone(new Parameter { ParameterGroup = ParameterGroupIsolationMaterial, Value = "Полимер" });
+
             ParameterDpu2.Clone(new Parameter { ParameterGroup = ParameterGroupIsolation, Value = "II*" });
             ParameterDpu3.Clone(new Parameter { ParameterGroup = ParameterGroupIsolation, Value = "III" });
             ParameterDpu4.Clone(new Parameter { ParameterGroup = ParameterGroupIsolation, Value = "IV" });
@@ -147,7 +155,7 @@ namespace HVTApp.TestDataGenerator
             ParameterZip2.AddRequiredPreviousParameters(ParameterDependentEquipment);
 
             ParameterTransformerCurrent.AddRequiredPreviousParameters(ParameterTransformer);
-            ParameterTransformerVoltage.AddRequiredPreviousParameters(ParameterTransformer);
+            ParameterTransformerVoltage.AddRequiredPreviousParameters(ParameterTransformer, ParameterMainEquipment);
 
             ParameterAccuracy05P.AddRequiredPreviousParameters(ParameterTransformatorBuiltIn);
             ParameterAccuracy10P.AddRequiredPreviousParameters(ParameterTransformatorBuiltIn);
@@ -171,18 +179,25 @@ namespace HVTApp.TestDataGenerator
 
             ParameterVoltage220V.AddRequiredPreviousParameters(ParameterBrakersDrive);
 
-            ParameterTransformatorBuiltOut.AddRequiredPreviousParameters(ParameterTransformerCurrent);
-            ParameterTransformatorBuiltIn.AddRequiredPreviousParameters(ParameterTransformerCurrent);
+            ParameterTransformatorBuiltOut.AddRequiredPreviousParameters(ParameterTransformerCurrent, ParameterMainEquipment);
+            ParameterTransformatorBuiltIn.AddRequiredPreviousParameters(ParameterTransformerCurrent, ParameterProductParts);
 
-            ParameterDpu2.AddRequiredPreviousParameters(ParameterBreaker)
-                         .AddRequiredPreviousParameters(ParameterTransformer, ParameterTransformatorBuiltOut)
-                         .AddRequiredPreviousParameters(ParameterTransformer, ParameterTransformerVoltage);
-            ParameterDpu3.AddRequiredPreviousParameters(ParameterBreaker)
-                         .AddRequiredPreviousParameters(ParameterTransformer, ParameterTransformatorBuiltOut)
-                         .AddRequiredPreviousParameters(ParameterTransformer, ParameterTransformerVoltage);
-            ParameterDpu4.AddRequiredPreviousParameters(ParameterBreaker)
-                         .AddRequiredPreviousParameters(ParameterTransformer, ParameterTransformatorBuiltOut)
-                         .AddRequiredPreviousParameters(ParameterTransformer, ParameterTransformerVoltage);
+            ParameterFarfor.AddRequiredPreviousParameters(ParameterBreaker)
+                           .AddRequiredPreviousParameters(ParameterBreaker)
+                           .AddRequiredPreviousParameters(ParameterBreaker)
+                           .AddRequiredPreviousParameters(ParameterTransformerVoltage)
+                           .AddRequiredPreviousParameters(ParameterTransformerCurrent, ParameterTransformatorBuiltOut);
+
+            ParameterPolimer.AddRequiredPreviousParameters(ParameterBreaker)
+                            .AddRequiredPreviousParameters(ParameterBreaker)
+                            .AddRequiredPreviousParameters(ParameterBreaker)
+                            .AddRequiredPreviousParameters(ParameterTransformerVoltage)
+                            .AddRequiredPreviousParameters(ParameterTransformerCurrent, ParameterTransformatorBuiltOut);
+
+            ParameterDpu2.AddRequiredPreviousParameters(ParameterFarfor);
+            ParameterDpu3.AddRequiredPreviousParameters(ParameterFarfor);
+            ParameterDpu4.AddRequiredPreviousParameters(ParameterFarfor)
+                         .AddRequiredPreviousParameters(ParameterPolimer);
         }
 
         #endregion
