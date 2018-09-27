@@ -24,6 +24,7 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupNewProductDesignation;
         public ParameterGroup ParameterGroupDrives;
         public ParameterGroup ParameterGroupClimat;
+        public ParameterGroup ParameterGroupPartType;
 
         private void GenerateParameterGroups()
         {
@@ -42,6 +43,7 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupNewProductDesignation.Clone(new ParameterGroup { Name = "Обозначение" });
             ParameterGroupDrives.Clone(new ParameterGroup { Name = "Приводы" });
             ParameterGroupClimat.Clone(new ParameterGroup { Name = "Климатическое исполнение" });
+            ParameterGroupPartType.Clone(new ParameterGroup { Name = "Тип составной части" });
         }
 
         #endregion
@@ -63,8 +65,12 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterProductParts;
         public Parameter ParameterKtpb;
 
+        public Parameter ParameterPartDrive;
+        public Parameter ParameterPartTransformer;
+
         public Parameter ParameterDrivePPrK;
         public Parameter ParameterDrivePPV;
+        public Parameter ParameterDriveDisconnector;
 
         public Parameter ParameterBreakerDeadTank;
         public Parameter ParameterBreakerLiveTank;
@@ -79,8 +85,8 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterVoltage110V;
         public Parameter ParameterVoltage220V;
 
-        public Parameter ParameterTransformatorBuiltOut;
-        public Parameter ParameterTransformatorBuiltIn;
+        public Parameter ParameterTransformerBuiltOut;
+        public Parameter ParameterTransformerBuiltIn;
 
         public Parameter ParameterDpu2;
         public Parameter ParameterDpu3;
@@ -116,8 +122,12 @@ namespace HVTApp.TestDataGenerator
             ParameterEarthingSwitch.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Заземлитель" });
             ParameterKtpb.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "КТПБ" });
 
+            ParameterPartDrive.Clone(new Parameter { ParameterGroup = ParameterGroupPartType, Value = "Привод" });
+            ParameterPartTransformer.Clone(new Parameter { ParameterGroup = ParameterGroupPartType, Value = "Трансформатор" });
+
             ParameterDrivePPrK.Clone(new Parameter { ParameterGroup = ParameterGroupDrives, Value = "Привод ППрК" });
             ParameterDrivePPV.Clone(new Parameter { ParameterGroup = ParameterGroupDrives, Value = "Привод ППВ" });
+            ParameterDriveDisconnector.Clone(new Parameter { ParameterGroup = ParameterGroupDrives, Value = "Привод разъединителя/заземлителя" });
 
             ParameterZip1.Clone(new Parameter { ParameterGroup = ParameterGroupZip, Value = "Групповой комплект ЗИП №1 (газотехнология)" });
             ParameterZip2.Clone(new Parameter { ParameterGroup = ParameterGroupZip, Value = "Групповой комплект ЗИП №2 (элегаз)" });
@@ -136,8 +146,8 @@ namespace HVTApp.TestDataGenerator
             ParameterVoltage110V.Clone(new Parameter { ParameterGroup = ParameterGroupDrivesVoltage, Value = "110 В" });
             ParameterVoltage220V.Clone(new Parameter { ParameterGroup = ParameterGroupDrivesVoltage, Value = "220 В" });
 
-            ParameterTransformatorBuiltOut.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Отдельностоящий" });
-            ParameterTransformatorBuiltIn.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Встроенный" });
+            ParameterTransformerBuiltOut.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Отдельностоящий" });
+            ParameterTransformerBuiltIn.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Встроенный" });
 
             ParameterFarfor.Clone(new Parameter { ParameterGroup = ParameterGroupIsolationMaterial, Value = "Фарфор" });
             ParameterPolimer.Clone(new Parameter { ParameterGroup = ParameterGroupIsolationMaterial, Value = "Полимер" });
@@ -158,19 +168,24 @@ namespace HVTApp.TestDataGenerator
             ParameterClimatUHL1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "УХЛ1 (-60)" });
             ParameterClimatU1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "У1 (-45)" });
             ParameterClimatHL1z.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "ХЛ1* (-55)" });
+        }
 
-
-
-
+        private void GenerateRelations()
+        {
             ParameterBreaker.AddRequiredPreviousParameters(ParameterMainEquipment);
             ParameterDisconnector.AddRequiredPreviousParameters(ParameterMainEquipment);
             ParameterEarthingSwitch.AddRequiredPreviousParameters(ParameterMainEquipment);
             ParameterKtpb.AddRequiredPreviousParameters(ParameterMainEquipment);
             ParameterTransformer.AddRequiredPreviousParameters(ParameterMainEquipment)
-                                .AddRequiredPreviousParameters(ParameterProductParts);
+                                .AddRequiredPreviousParameters(ParameterPartTransformer);
 
-            ParameterDrivePPrK.AddRequiredPreviousParameters(ParameterProductParts);
-            ParameterDrivePPV.AddRequiredPreviousParameters(ParameterProductParts);
+            ParameterPartDrive.AddRequiredPreviousParameters(ParameterProductParts);
+            ParameterPartTransformer.AddRequiredPreviousParameters(ParameterProductParts);
+
+
+            ParameterDrivePPrK.AddRequiredPreviousParameters(ParameterPartDrive);
+            ParameterDrivePPV.AddRequiredPreviousParameters(ParameterPartDrive);
+            ParameterDriveDisconnector.AddRequiredPreviousParameters(ParameterPartDrive);
 
             ParameterBreakerDeadTank.AddRequiredPreviousParameters(ParameterBreaker);
             ParameterBreakerLiveTank.AddRequiredPreviousParameters(ParameterBreaker);
@@ -181,8 +196,8 @@ namespace HVTApp.TestDataGenerator
             ParameterTransformerCurrent.AddRequiredPreviousParameters(ParameterTransformer);
             ParameterTransformerVoltage.AddRequiredPreviousParameters(ParameterTransformer, ParameterMainEquipment);
 
-            ParameterAccuracy05P.AddRequiredPreviousParameters(ParameterTransformatorBuiltIn);
-            ParameterAccuracy10P.AddRequiredPreviousParameters(ParameterTransformatorBuiltIn);
+            ParameterAccuracy05P.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterAccuracy10P.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
 
             ParameterCurrent2500.AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage110kV)
                                 .AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage220kV);
@@ -205,20 +220,21 @@ namespace HVTApp.TestDataGenerator
             ParameterVoltage110V.AddRequiredPreviousParameters(ParameterDrivePPrK);
             ParameterVoltage220V.AddRequiredPreviousParameters(ParameterDrivePPrK);
 
-            ParameterTransformatorBuiltOut.AddRequiredPreviousParameters(ParameterTransformerCurrent, ParameterMainEquipment);
-            ParameterTransformatorBuiltIn.AddRequiredPreviousParameters(ParameterTransformerCurrent, ParameterProductParts);
+            ParameterTransformerBuiltOut.AddRequiredPreviousParameters(ParameterTransformerCurrent, ParameterMainEquipment);
+
+            ParameterTransformerBuiltIn.AddRequiredPreviousParameters(ParameterTransformerCurrent, ParameterPartTransformer);
 
             ParameterFarfor.AddRequiredPreviousParameters(ParameterBreaker)
-                           .AddRequiredPreviousParameters(ParameterBreaker)
-                           .AddRequiredPreviousParameters(ParameterBreaker)
+                           .AddRequiredPreviousParameters(ParameterDisconnector)
+                           .AddRequiredPreviousParameters(ParameterEarthingSwitch)
                            .AddRequiredPreviousParameters(ParameterTransformerVoltage)
-                           .AddRequiredPreviousParameters(ParameterTransformerCurrent, ParameterTransformatorBuiltOut);
+                           .AddRequiredPreviousParameters(ParameterTransformerCurrent, ParameterTransformerBuiltOut);
 
             ParameterPolimer.AddRequiredPreviousParameters(ParameterBreaker)
-                            .AddRequiredPreviousParameters(ParameterBreaker)
-                            .AddRequiredPreviousParameters(ParameterBreaker)
+                            .AddRequiredPreviousParameters(ParameterDisconnector)
+                            .AddRequiredPreviousParameters(ParameterEarthingSwitch)
                             .AddRequiredPreviousParameters(ParameterTransformerVoltage)
-                            .AddRequiredPreviousParameters(ParameterTransformerCurrent, ParameterTransformatorBuiltOut);
+                            .AddRequiredPreviousParameters(ParameterTransformerCurrent, ParameterTransformerBuiltOut);
 
             ParameterDpu2.AddRequiredPreviousParameters(ParameterFarfor);
             ParameterDpu3.AddRequiredPreviousParameters(ParameterFarfor);
@@ -289,10 +305,10 @@ namespace HVTApp.TestDataGenerator
             ProductDesignationVeb220.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-220", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage220kV } });
             ProductDesignationZng110.Clone(new ProductDesignation { Designation = "ЗНГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformerVoltage, ParameterVoltage110kV } });
             ProductDesignationZng220.Clone(new ProductDesignation { Designation = "ЗНГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformerVoltage, ParameterVoltage220kV } });
-            ProductDesignationTvg110.Clone(new ProductDesignation { Designation = "ТВГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformatorBuiltIn, ParameterVoltage110kV } });
-            ProductDesignationTvg220.Clone(new ProductDesignation { Designation = "ТВГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformatorBuiltIn, ParameterVoltage220kV } });
-            ProductDesignationTrg110.Clone(new ProductDesignation { Designation = "ТРГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformatorBuiltOut, ParameterVoltage110kV } });
-            ProductDesignationTrg220.Clone(new ProductDesignation { Designation = "ТРГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformatorBuiltOut, ParameterVoltage220kV } });
+            ProductDesignationTvg110.Clone(new ProductDesignation { Designation = "ТВГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltIn, ParameterVoltage110kV } });
+            ProductDesignationTvg220.Clone(new ProductDesignation { Designation = "ТВГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltIn, ParameterVoltage220kV } });
+            ProductDesignationTrg110.Clone(new ProductDesignation { Designation = "ТРГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltOut, ParameterVoltage110kV } });
+            ProductDesignationTrg220.Clone(new ProductDesignation { Designation = "ТРГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltOut, ParameterVoltage220kV } });
             ProductDesignationPPrK.Clone(new ProductDesignation { Designation = "Привод ППрК", Parameters = new List<Parameter> { ParameterDrivePPrK } });
         }
 
@@ -300,14 +316,16 @@ namespace HVTApp.TestDataGenerator
 
         #region Products
 
-        public ProductRelation RequiredChildProductRelationDrive;
+        public ProductRelation RequiredChildProductRelationDrivePPrK;
+        public ProductRelation RequiredChildProductRelationDrivePPV220;
+        public ProductRelation RequiredChildProductRelationDrivePPV500;
         public ProductRelation RequiredChildProductRelationBreakerBlock;
         public ProductRelation RequiredChildProductRelationTvg110;
 
         public ProductBlock ProductBlockVgb35;
         public ProductBlock ProductBlockVeb110;
         public ProductBlock ProductBlockZng110;
-        public ProductBlock ProductBlockBreakersDrive;
+        public ProductBlock ProductBlockDrivePPrK;
         public ProductBlock ProductBlockZip1;
 
         public Product ProductVgb35;
@@ -318,11 +336,27 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateRequiredDependentEquipmentsParameters()
         {
-            RequiredChildProductRelationDrive.Clone(new ProductRelation
+            RequiredChildProductRelationDrivePPrK.Clone(new ProductRelation
             {
                 ParentProductParameters = new List<Parameter> { ParameterBreaker, ParameterVoltage110kV },
                 ChildProductParameters = new List<Parameter> { ParameterDrivePPrK },
                 ChildProductsAmount = 1,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationDrivePPV220.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterBreaker, ParameterVoltage220kV },
+                ChildProductParameters = new List<Parameter> { ParameterDrivePPV },
+                ChildProductsAmount = 1,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationDrivePPV500.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterBreaker, ParameterVoltage500kV },
+                ChildProductParameters = new List<Parameter> { ParameterDrivePPV },
+                ChildProductsAmount = 3,
                 IsUnique = false
             });
 
@@ -337,7 +371,7 @@ namespace HVTApp.TestDataGenerator
             RequiredChildProductRelationTvg110.Clone(new ProductRelation
             {
                 ParentProductParameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV },
-                ChildProductParameters = new List<Parameter> { ParameterTransformatorBuiltIn, ParameterVoltage110kV },
+                ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage110kV },
                 ChildProductsAmount = 3,
                 IsUnique = false
             });
@@ -369,10 +403,10 @@ namespace HVTApp.TestDataGenerator
                 StructureCostNumber = "456"
             });
 
-            ProductBlockBreakersDrive.Clone(new ProductBlock
+            ProductBlockDrivePPrK.Clone(new ProductBlock
             {
                 DesignationSpecial = "ППрК",
-                Parameters = new List<Parameter> { ParameterProductParts, ParameterDrivePPrK, ParameterVoltage220V },
+                Parameters = new List<Parameter> { ParameterProductParts, ParameterPartDrive, ParameterDrivePPrK, ParameterVoltage220V },
                 Prices = new List<SumOnDate> { new SumOnDate { Sum = 200000, Date = DateTime.Today } },
                 StructureCostNumber = "654"
             });
@@ -411,7 +445,7 @@ namespace HVTApp.TestDataGenerator
             ProductBreakersDrive.Clone(new Product
             {
                 //DesignationSpecial = "Привод выключателя",
-                ProductBlock = ProductBlockBreakersDrive
+                ProductBlock = ProductBlockDrivePPrK
             });
 
             ProductZip1.Clone(new Product
