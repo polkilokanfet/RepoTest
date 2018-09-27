@@ -116,6 +116,9 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterTransformersBlockTypeStandart;
         public Parameter ParameterTransformersBlockTypeCustom;
 
+        public Parameter ParameterTransformersBlockTargetVeb110;
+        public Parameter ParameterTransformersBlockTargetVeb220;
+
         private void GenerateParameters()
         {
             ParameterNewProduct.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование новое" });
@@ -180,6 +183,9 @@ namespace HVTApp.TestDataGenerator
 
             ParameterTransformersBlockTypeStandart.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockType, Value = "Стандартный" });
             ParameterTransformersBlockTypeCustom.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockType, Value = "По заказу" });
+
+            ParameterTransformersBlockTargetVeb110.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockTarget, Value = "Для ВЭБ-110 (3 фазы)" });
+            ParameterTransformersBlockTargetVeb220.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockTarget, Value = "Для ВЭБ-220 (3 фазы)" });
         }
 
         private void GenerateRelations()
@@ -261,8 +267,13 @@ namespace HVTApp.TestDataGenerator
             ParameterClimatU1.AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage110kV);
             ParameterClimatHL1z.AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage110kV);
 
-            ParameterTransformersBlockTypeStandart.AddRequiredPreviousParameters(ParameterPartTransformersBlock);
-            ParameterTransformersBlockTypeCustom.AddRequiredPreviousParameters(ParameterPartTransformersBlock);
+            ParameterTransformersBlockTypeStandart.AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb110)
+                                                  .AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb220);
+            ParameterTransformersBlockTypeCustom.AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb110)
+                                                .AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb220); ;
+
+            ParameterTransformersBlockTargetVeb110.AddRequiredPreviousParameters(ParameterPartTransformersBlock);
+            ParameterTransformersBlockTargetVeb220.AddRequiredPreviousParameters(ParameterPartTransformersBlock);
         }
 
         #endregion
