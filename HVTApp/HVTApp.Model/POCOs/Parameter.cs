@@ -59,6 +59,7 @@ namespace HVTApp.Model.POCOs
             return Paths(null).Where(x => x.IsFull).Distinct(new PathComparer()).ToList();
         }
 
+        
 
         private IEnumerable<PathToOrigin> Paths(PathToOrigin path = null, ParameterRelation parameterRelation = null)
         {
@@ -90,12 +91,27 @@ namespace HVTApp.Model.POCOs
 
             foreach (var relation in ParameterRelations)
             {
+                if (path.Relations.Any())
+                {
+                    var skip = false;
+                    foreach (var rp in path.Relations.SelectMany(x => x.RequiredParameters))
+                    {
+                        if (!relation.RequiredParameters.AllContainsIn(rp.Cloud()))
+                        {
+                            skip = true;
+                            break;
+                        }
+                    }
+                    if (skip) continue;
+                }
+
                 foreach (var requiredParameter in relation.RequiredParameters)
                 {
                     var parameters = path.Parameters.ToList();
                     var relations = path.Relations.ToList();
 
-                    parameters.Add(requiredParameter);
+                    if (!parameters.Contains(requiredParameter))
+                        parameters.Add(requiredParameter);
                     relations.Add(relation);
 
                     var newPath = new PathToOrigin(parameters, relations);
@@ -104,6 +120,19 @@ namespace HVTApp.Model.POCOs
                     {
                         yield return pathToOrigin;
                     }
+                }
+            }
+        }
+
+        public IEnumerable<Parameter> Cloud()
+        {
+            yield return this;
+
+            foreach (var parameter in this.ParameterRelations.SelectMany(x => x.RequiredParameters))
+            {
+                foreach (var parameter1 in parameter.Cloud())
+                {
+                    yield return parameter1;
                 }
             }
         }
