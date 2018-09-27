@@ -1,7 +1,10 @@
 using System;
+using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Lookup;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -20,6 +23,27 @@ namespace HVTApp.UI.ViewModels
         {
             PrintOfferCommand = new DelegateCommand(async () => await Container.Resolve<IPrintOfferService>().PrintOfferAsync(SelectedItem.Id), () => SelectedItem != null);
             this.SelectedLookupChanged += lookup => { ((DelegateCommand)PrintOfferCommand).RaiseCanExecuteChanged(); };
+        }
+
+        protected override void SubscribesToEvents()
+        {
+            EventAggregator.GetEvent<AfterSaveOfferUnitEvent>().Subscribe(OnSaveOfferUnit);
+        }
+
+        private void OnSaveOfferUnit(OfferUnit offerUnit)
+        {
+            var offerLookup = Lookups.SingleOrDefault(x => x.Id == offerUnit.Offer.Id);
+            if (offerLookup == null) return;
+
+            var offerUnitLookup = offerLookup.OfferUnits.SingleOrDefault(x => x.Id == offerUnit.Id);
+            offerUnitLookup?.Refresh(offerUnit);
+
+            if (offerUnitLookup == null)
+            {
+                offerLookup.OfferUnits.Add(new OfferUnitLookup(offerUnit));
+            }
+
+            offerLookup.Refresh();
         }
     }
 }

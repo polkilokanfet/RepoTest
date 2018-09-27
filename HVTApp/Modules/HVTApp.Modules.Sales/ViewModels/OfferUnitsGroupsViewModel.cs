@@ -256,16 +256,22 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public async Task SaveChanges()
         {
+            var eventAggregator = Container.Resolve<IEventAggregator>();
+
             //добавляем созданные
             var added = Groups.AddedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups).ToList();
             added = added.Concat(Groups.AddedItems).ToList();
             _unitOfWork.Repository<OfferUnit>().AddRange(added.Select(x => x.Model).Distinct());
 
             //удаляем удаленные
-            var removed = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems).ToList();
+            var removed = Groups.Except(added).Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems).ToList();
+            //removed = removed.Except(added.Where(x => x.Groups != null).SelectMany(x => x.Groups)).ToList(); // исключаем вновь добавленные
             removed = Groups.RemovedItems.Concat(removed).ToList();
             removed = removed.Concat(Groups.RemovedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups)).ToList();
-            _unitOfWork.Repository<OfferUnit>().DeleteRange(removed.Select(x => x.Model).Distinct());
+            var removedModels = removed.Select(x => x.Model).Distinct().ToList();
+            //сообщаем об изменениях (так высоко, т.к. после удаления объект рушится)
+            removedModels.ForEach(x => eventAggregator.GetEvent<AfterRemoveOfferUnitEvent>().Publish(x));
+            _unitOfWork.Repository<OfferUnit>().DeleteRange(removedModels);
 
             var modified = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.ModifiedItems).ToList();
             modified = Groups.ModifiedItems.Concat(modified).ToList();
@@ -273,11 +279,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             Groups.AcceptChanges();
             await _unitOfWork.SaveChangesAsync();
 
-            var eventAggregator = Container.Resolve<IEventAggregator>();
-
             //сообщаем об изменениях
             added.Concat(modified).Select(x => x.Model).Distinct().ForEach(x => eventAggregator.GetEvent<AfterSaveOfferUnitEvent>().Publish(x));
-            removed.Select(x => x.Model).ForEach(x => eventAggregator.GetEvent<AfterRemoveOfferUnitEvent>().Publish(x));
         }
 
 

@@ -262,16 +262,12 @@ namespace HVTApp.Modules.Sales.ViewModels
             var eventAggregator = Container.Resolve<IEventAggregator>();
 
             //добавл€ем созданные
-            var added = Groups.AddedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups).ToList();
-            added = added.Concat(Groups.AddedItems).ToList();
-            _unitOfWork.Repository<SalesUnit>().AddRange(added.Select(x => x.Model).Distinct());
+            var added = GetAddedUnits().ToList();
+            _unitOfWork.Repository<SalesUnit>().AddRange(added);
 
             //удал€ем удаленные
-            var removed = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems).ToList();
-            removed = Groups.RemovedItems.Concat(removed).ToList();
-            removed = removed.Concat(Groups.RemovedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups)).ToList();
-            var removedModels = removed.Select(x => x.Model).Distinct().ToList();
-            //сообщаем об изменени€х (так высоко, т.к. после удалени€ объект рушитс€)
+            var removedModels = GetRemovedUnits().ToList();
+            //сообщаем об удалении (так высоко, т.к. после удалени€ объект рушитс€)
             removedModels.ForEach(x => eventAggregator.GetEvent<AfterRemoveSalesUnitEvent>().Publish(x));
             _unitOfWork.Repository<SalesUnit>().DeleteRange(removedModels);
 
@@ -281,7 +277,26 @@ namespace HVTApp.Modules.Sales.ViewModels
             Groups.AcceptChanges();
             await _unitOfWork.SaveChangesAsync();
 
-            added.Concat(modified).Select(x => x.Model).Distinct().ForEach(x => eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Publish(x));
+            added.Concat(modified.Select(x => x.Model)).Distinct().ForEach(x => eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Publish(x));
+        }
+
+        private IEnumerable<SalesUnit> GetAddedUnits()
+        {
+            var added = Groups.AddedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups);
+            added = added.Concat(Groups.AddedItems);
+            return added.Select(x => x.Model);
+        }
+
+        private IEnumerable<SalesUnit> GetRemovedUnits()
+        {
+            var added = Groups.AddedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups).ToList();
+            added = added.Concat(Groups.AddedItems).ToList();
+
+            //удал€ем удаленные
+            var removed = Groups.Except(added).Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems).ToList();
+            removed = Groups.RemovedItems.Concat(removed).ToList();
+            removed = removed.Concat(Groups.RemovedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups)).ToList();
+            return removed.Select(x => x.Model).Distinct().ToList();
         }
 
         public virtual bool CanSaveChanges()

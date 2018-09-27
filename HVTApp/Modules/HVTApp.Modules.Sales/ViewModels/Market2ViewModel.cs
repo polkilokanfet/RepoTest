@@ -372,7 +372,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             ProjectLookups.SingleOrDefault(x => x.Tenders.Select(t => t.Id).Contains(tender.Id))?.Refresh();
         }
 
-        private async void AfterSaveOfferEventExecute(Offer offer)
+        private void AfterSaveOfferEventExecute(Offer offer)
         {
             var offers = ProjectLookups.SelectMany(x => x.Offers).ToList();
 
