@@ -8,6 +8,12 @@ namespace HVTApp.Services.GetProductService
     {
         public int Compare(IEnumerable<Parameter> x, IEnumerable<Parameter> y)
         {
+            //var cloudX = x.SelectMany(p => p.Cloud()).Distinct();
+            //if (cloudX.Intersect(y).Any()) return 1;
+
+            //var cloudY = y.SelectMany(p => p.Cloud()).Distinct();
+            //if (cloudY.Intersect(x).Any()) return -1;
+
             //есть ли в 2ом списке параметры, зависимые от параметров 1ого
             bool xIsMain = x.Any(paramY => GetAllRequiredParameters(y).Contains(paramY));
             //есть ли в 1ом списке параметры, зависимые от параметров 2ого
