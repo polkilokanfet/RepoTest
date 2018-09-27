@@ -18,7 +18,6 @@ namespace HVTApp.Services.GetProductService
     {
         private readonly IUnityContainer _container;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IProductDesignationService _designator;
         private readonly IEventAggregator _eventAggregator;
         private Bank _bank;
 
@@ -26,14 +25,13 @@ namespace HVTApp.Services.GetProductService
         {
             _container = container;
             _unitOfWork = container.Resolve<IUnitOfWork>();
-            _designator = container.Resolve<IProductDesignationService>();
             _eventAggregator = container.Resolve<IEventAggregator>();
         }
 
         public async Task LoadAsync()
         {
-            var parameters = await _unitOfWork.Repository<Parameter>().GetAllAsync();
-            var products = await _unitOfWork.Repository<Product>().GetAllAsync();
+            var parameters = _unitOfWork.Repository<Parameter>().Find(x => true);
+            var products = _unitOfWork.Repository<Product>().Find(x => true);
             var productRelations = await _unitOfWork.Repository<ProductRelation>().GetAllAsync();
             var productBlocks = await _unitOfWork.Repository<ProductBlock>().GetAllAsync();
 

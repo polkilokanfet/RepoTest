@@ -130,6 +130,7 @@
     <Compile Include="HVTAppContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\OfferUnitRepository.cs" />
+    <Compile Include="UnitOfWork\Repositories\Custom\ParameterRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductBlockRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\ProductRepository.cs" />
     <Compile Include="UnitOfWork\Repositories\Custom\SalesUnitRepository.cs" />

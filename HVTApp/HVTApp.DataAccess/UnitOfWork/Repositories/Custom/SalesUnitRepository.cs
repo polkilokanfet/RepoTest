@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.Model.POCOs;
@@ -27,9 +28,12 @@ namespace HVTApp.DataAccess
 
         public override List<SalesUnit> Find(Func<SalesUnit, bool> predicate)
         {
-            var units = Context.Set<SalesUnit>().Include(nameof(SalesUnit.Product))
-                                                .Include(nameof(SalesUnit.PaymentsActual))
-                                                .Include(nameof(SalesUnit.PaymentsPlanned)).Where(predicate).ToList();
+            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            var units = Context.Set<SalesUnit>().AsQueryable()
+                .Include(x => x.Product.ProductBlock.Parameters)
+                .Include(x => x.PaymentsActual)
+                .Include(x => x.PaymentsPlanned)
+                .Where(predicate).ToList();
             Manipulate(units);
             return units;
         }

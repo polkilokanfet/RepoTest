@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
@@ -27,7 +28,9 @@ namespace HVTApp.DataAccess
 
         public override async Task<List<Product>> GetAllAsync()
         {
-            return Designate(await base.GetAllAsync());
+            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            var products = await Context.Set<Product>().AsQueryable().Include(x => x.ProductBlock).Include(x => x.DependentProducts).ToListAsync();
+            return Designate(products);
         }
 
         public override async Task<List<Product>> GetAllAsNoTrackingAsync()
@@ -37,7 +40,9 @@ namespace HVTApp.DataAccess
 
         public override List<Product> Find(Func<Product, bool> predicate)
         {
-            return Designate(base.Find(predicate));
+            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            var products = Context.Set<Product>().AsQueryable().Include(x => x.ProductBlock).Where(predicate).ToList();
+            return Designate(products);
         }
 
         public override async Task<Product> GetByIdAsync(Guid id)
