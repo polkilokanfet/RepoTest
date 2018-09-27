@@ -25,6 +25,8 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupDrives;
         public ParameterGroup ParameterGroupClimat;
         public ParameterGroup ParameterGroupPartType;
+        public ParameterGroup ParameterGroupTransformersBlockType;
+        public ParameterGroup ParameterGroupTransformersBlockTarget;
 
         private void GenerateParameterGroups()
         {
@@ -44,6 +46,8 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupDrives.Clone(new ParameterGroup { Name = "Приводы" });
             ParameterGroupClimat.Clone(new ParameterGroup { Name = "Климатическое исполнение" });
             ParameterGroupPartType.Clone(new ParameterGroup { Name = "Тип составной части" });
+            ParameterGroupTransformersBlockType.Clone(new ParameterGroup { Name = "Тип комплекта ТТ" });
+            ParameterGroupTransformersBlockTarget.Clone(new ParameterGroup { Name = "Назначение комплекта ТТ" });
         }
 
         #endregion
@@ -67,6 +71,7 @@ namespace HVTApp.TestDataGenerator
 
         public Parameter ParameterPartDrive;
         public Parameter ParameterPartTransformer;
+        public Parameter ParameterPartTransformersBlock;
 
         public Parameter ParameterDrivePPrK;
         public Parameter ParameterDrivePPV;
@@ -108,6 +113,9 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterClimatU1;
         public Parameter ParameterClimatHL1z;
 
+        public Parameter ParameterTransformersBlockTypeStandart;
+        public Parameter ParameterTransformersBlockTypeCustom;
+
         private void GenerateParameters()
         {
             ParameterNewProduct.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование новое" });
@@ -124,6 +132,7 @@ namespace HVTApp.TestDataGenerator
 
             ParameterPartDrive.Clone(new Parameter { ParameterGroup = ParameterGroupPartType, Value = "Привод" });
             ParameterPartTransformer.Clone(new Parameter { ParameterGroup = ParameterGroupPartType, Value = "Трансформатор" });
+            ParameterPartTransformersBlock.Clone(new Parameter { ParameterGroup = ParameterGroupPartType, Value = "Блок трансформаторов" });
 
             ParameterDrivePPrK.Clone(new Parameter { ParameterGroup = ParameterGroupDrives, Value = "Привод ППрК" });
             ParameterDrivePPV.Clone(new Parameter { ParameterGroup = ParameterGroupDrives, Value = "Привод ППВ" });
@@ -168,6 +177,9 @@ namespace HVTApp.TestDataGenerator
             ParameterClimatUHL1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "УХЛ1 (-60)" });
             ParameterClimatU1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "У1 (-45)" });
             ParameterClimatHL1z.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "ХЛ1* (-55)" });
+
+            ParameterTransformersBlockTypeStandart.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockType, Value = "Стандартный" });
+            ParameterTransformersBlockTypeCustom.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockType, Value = "По заказу" });
         }
 
         private void GenerateRelations()
@@ -181,6 +193,7 @@ namespace HVTApp.TestDataGenerator
 
             ParameterPartDrive.AddRequiredPreviousParameters(ParameterProductParts);
             ParameterPartTransformer.AddRequiredPreviousParameters(ParameterProductParts);
+            ParameterPartTransformersBlock.AddRequiredPreviousParameters(ParameterProductParts);
 
 
             ParameterDrivePPrK.AddRequiredPreviousParameters(ParameterPartDrive);
@@ -248,7 +261,8 @@ namespace HVTApp.TestDataGenerator
             ParameterClimatU1.AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage110kV);
             ParameterClimatHL1z.AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage110kV);
 
-
+            ParameterTransformersBlockTypeStandart.AddRequiredPreviousParameters(ParameterPartTransformersBlock);
+            ParameterTransformersBlockTypeCustom.AddRequiredPreviousParameters(ParameterPartTransformersBlock);
         }
 
         #endregion
