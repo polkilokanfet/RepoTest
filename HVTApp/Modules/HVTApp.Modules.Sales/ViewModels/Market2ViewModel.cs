@@ -383,9 +383,9 @@ namespace HVTApp.Modules.Sales.ViewModels
                 return;
             }
 
-            var units = (await UnitOfWork.Repository<OfferUnit>().GetAllAsNoTrackingAsync()).Where(x => x.Offer.Id == offer.Id);
+            //var units = (await UnitOfWork.Repository<OfferUnit>().GetAllAsNoTrackingAsync()).Where(x => x.Offer.Id == offer.Id);
             //если необходимо добавить созданное ТКП
-            var lookupNew = new OfferLookup(offer, units);
+            var lookupNew = new OfferLookup(offer);
             ProjectLookups.SingleOrDefault(x => x.Id == offer.Project.Id)?.Offers.Add(lookupNew);
             lookupNew.Refresh();
         }
@@ -420,7 +420,13 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             //целевое ТКП
             var offer = ProjectLookups.SelectMany(x => x.Offers).SingleOrDefault(x => x.Id == offerUnit.Offer.Id);
-            if (offer == null) return;
+
+            //костыль - нужно добавить предварительно проект
+            if (offer == null)
+            {
+                AfterSaveOfferEventExecute(offerUnit.Offer);
+                offer = ProjectLookups.SelectMany(x => x.Offers).SingleOrDefault(x => x.Id == offerUnit.Offer.Id);
+            }
 
             //обновляем или добавляем
             if (offer.OfferUnits.Select(x => x.Id).Contains(offerUnit.Id))
