@@ -32,6 +32,10 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupServiceType;
         public ParameterGroup ParameterGroupControlCircuitVoltage;
         public ParameterGroup ParameterGroupTransformerLoad;
+        public ParameterGroup ParameterGroupTransformerLimitMultiplicity;
+        public ParameterGroup ParameterGroupTransformerSafetyK;
+        public ParameterGroup ParameterGroupTransformerPrimaryCurrentRow;
+        public ParameterGroup ParameterGroupTransformerSecondaryCurrent;
 
         private void GenerateParameterGroups()
         {
@@ -58,6 +62,10 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupTVGType.Clone(new ParameterGroup { Name = "Тип встроенного ТТ" });
             ParameterGroupControlCircuitVoltage.Clone(new ParameterGroup { Name = "Напряжение цепей управления" });
             ParameterGroupTransformerLoad.Clone(new ParameterGroup { Name = "Нагрузка, ВА" });
+            ParameterGroupTransformerLimitMultiplicity.Clone(new ParameterGroup { Name = "Предельная кратность" });
+            ParameterGroupTransformerSafetyK.Clone(new ParameterGroup { Name = "Коэффициент безопасности" });
+            ParameterGroupTransformerPrimaryCurrentRow.Clone(new ParameterGroup { Name = "Номинальные токи отпаек" });
+            ParameterGroupTransformerSecondaryCurrent.Clone(new ParameterGroup { Name = "Номинальный вторичный ток" });
         }
 
         #endregion
@@ -116,6 +124,11 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterFarfor;
         public Parameter ParameterPolimer;
 
+        public Parameter ParameterTransformerPrimaryCurrentRow1;
+        public Parameter ParameterTransformerPrimaryCurrentRow2;
+        public Parameter ParameterTransformerSecondaryCurrent1;
+        public Parameter ParameterTransformerSecondaryCurrent5;
+
         public Parameter ParameterAccuracy02;
         public Parameter ParameterAccuracy02S;
         public Parameter ParameterAccuracy05;
@@ -135,6 +148,32 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterTransformerLoad50;
         public Parameter ParameterTransformerLoad55;
         public Parameter ParameterTransformerLoad60;
+
+        public Parameter ParameterTransformerLimitMultiplicity05;
+        public Parameter ParameterTransformerLimitMultiplicity10;
+        public Parameter ParameterTransformerLimitMultiplicity15;
+        public Parameter ParameterTransformerLimitMultiplicity20;
+        public Parameter ParameterTransformerLimitMultiplicity25;
+        public Parameter ParameterTransformerLimitMultiplicity30;
+        public Parameter ParameterTransformerLimitMultiplicity35;
+        public Parameter ParameterTransformerLimitMultiplicity40;
+        public Parameter ParameterTransformerLimitMultiplicity45;
+        public Parameter ParameterTransformerLimitMultiplicity50;
+        public Parameter ParameterTransformerLimitMultiplicity55;
+        public Parameter ParameterTransformerLimitMultiplicity60;
+
+        public Parameter ParameterTransformerSafetyK02;
+        public Parameter ParameterTransformerSafetyK04;
+        public Parameter ParameterTransformerSafetyK06;
+        public Parameter ParameterTransformerSafetyK08;
+        public Parameter ParameterTransformerSafetyK10;
+        public Parameter ParameterTransformerSafetyK12;
+        public Parameter ParameterTransformerSafetyK14;
+        public Parameter ParameterTransformerSafetyK16;
+        public Parameter ParameterTransformerSafetyK18;
+        public Parameter ParameterTransformerSafetyK20;
+        public Parameter ParameterTransformerSafetyK22;
+        public Parameter ParameterTransformerSafetyK24;
 
 
         public Parameter ParameterCurrent2500;
@@ -210,6 +249,11 @@ namespace HVTApp.TestDataGenerator
             ParameterDpu3.Clone(new Parameter { ParameterGroup = ParameterGroupIsolation, Value = "III" });
             ParameterDpu4.Clone(new Parameter { ParameterGroup = ParameterGroupIsolation, Value = "IV" });
 
+            ParameterTransformerPrimaryCurrentRow1.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerPrimaryCurrentRow, Value = "600-400-300-200 А" });
+            ParameterTransformerPrimaryCurrentRow2.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerPrimaryCurrentRow, Value = "2000-1500-1000-500 А" });
+            ParameterTransformerSecondaryCurrent1.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerSecondaryCurrent, Value = "1 А" });
+            ParameterTransformerSecondaryCurrent5.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerSecondaryCurrent, Value = "5 А" });
+
             ParameterAccuracy02.Clone(new Parameter { ParameterGroup = ParameterGroupAccuracy, Value = "0,2" });
             ParameterAccuracy02S.Clone(new Parameter { ParameterGroup = ParameterGroupAccuracy, Value = "0,2S" });
             ParameterAccuracy05.Clone(new Parameter { ParameterGroup = ParameterGroupAccuracy, Value = "0,5" });
@@ -229,6 +273,32 @@ namespace HVTApp.TestDataGenerator
             ParameterTransformerLoad50.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLoad, Value = "50 ВА" });
             ParameterTransformerLoad55.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLoad, Value = "55 ВА" });
             ParameterTransformerLoad60.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLoad, Value = "60 ВА" });
+
+            ParameterTransformerLimitMultiplicity05.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLimitMultiplicity, Value = "5" });
+            ParameterTransformerLimitMultiplicity10.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLimitMultiplicity, Value = "10" });
+            ParameterTransformerLimitMultiplicity15.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLimitMultiplicity, Value = "15" });
+            ParameterTransformerLimitMultiplicity20.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLimitMultiplicity, Value = "20" });
+            ParameterTransformerLimitMultiplicity25.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLimitMultiplicity, Value = "25" });
+            ParameterTransformerLimitMultiplicity30.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLimitMultiplicity, Value = "30" });
+            ParameterTransformerLimitMultiplicity35.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLimitMultiplicity, Value = "35" });
+            ParameterTransformerLimitMultiplicity40.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLimitMultiplicity, Value = "40" });
+            ParameterTransformerLimitMultiplicity45.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLimitMultiplicity, Value = "45" });
+            ParameterTransformerLimitMultiplicity50.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLimitMultiplicity, Value = "50" });
+            ParameterTransformerLimitMultiplicity55.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLimitMultiplicity, Value = "55" });
+            ParameterTransformerLimitMultiplicity60.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLimitMultiplicity, Value = "60" });
+
+            ParameterTransformerSafetyK02.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerSafetyK, Value = "2" });
+            ParameterTransformerSafetyK04.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerSafetyK, Value = "4" });
+            ParameterTransformerSafetyK06.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerSafetyK, Value = "6" });
+            ParameterTransformerSafetyK08.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerSafetyK, Value = "8" });
+            ParameterTransformerSafetyK10.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerSafetyK, Value = "10" });
+            ParameterTransformerSafetyK12.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerSafetyK, Value = "12" });
+            ParameterTransformerSafetyK14.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerSafetyK, Value = "14" });
+            ParameterTransformerSafetyK16.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerSafetyK, Value = "16" });
+            ParameterTransformerSafetyK18.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerSafetyK, Value = "18" });
+            ParameterTransformerSafetyK20.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerSafetyK, Value = "20" });
+            ParameterTransformerSafetyK22.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerSafetyK, Value = "22" });
+            ParameterTransformerSafetyK24.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerSafetyK, Value = "24" });
 
 
             ParameterCurrent2500.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "2500 А" });
@@ -283,6 +353,11 @@ namespace HVTApp.TestDataGenerator
             ParameterTransformerCurrent.AddRequiredPreviousParameters(ParameterTransformer);
             ParameterTransformerVoltage.AddRequiredPreviousParameters(ParameterTransformer, ParameterMainEquipment);
 
+            ParameterTransformerPrimaryCurrentRow1.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterTransformerPrimaryCurrentRow2.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterTransformerSecondaryCurrent1.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterTransformerSecondaryCurrent5.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+
             ParameterAccuracy02.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
             ParameterAccuracy02S.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
             ParameterAccuracy05.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
@@ -303,6 +378,31 @@ namespace HVTApp.TestDataGenerator
             ParameterTransformerLoad55.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
             ParameterTransformerLoad60.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
 
+            ParameterTransformerLimitMultiplicity05.AddRequiredPreviousParameters(ParameterAccuracy05P).AddRequiredPreviousParameters(ParameterAccuracy10P);
+            ParameterTransformerLimitMultiplicity10.AddRequiredPreviousParameters(ParameterAccuracy05P).AddRequiredPreviousParameters(ParameterAccuracy10P);
+            ParameterTransformerLimitMultiplicity15.AddRequiredPreviousParameters(ParameterAccuracy05P).AddRequiredPreviousParameters(ParameterAccuracy10P);
+            ParameterTransformerLimitMultiplicity20.AddRequiredPreviousParameters(ParameterAccuracy05P).AddRequiredPreviousParameters(ParameterAccuracy10P);
+            ParameterTransformerLimitMultiplicity25.AddRequiredPreviousParameters(ParameterAccuracy05P).AddRequiredPreviousParameters(ParameterAccuracy10P);
+            ParameterTransformerLimitMultiplicity30.AddRequiredPreviousParameters(ParameterAccuracy05P).AddRequiredPreviousParameters(ParameterAccuracy10P);
+            ParameterTransformerLimitMultiplicity35.AddRequiredPreviousParameters(ParameterAccuracy05P).AddRequiredPreviousParameters(ParameterAccuracy10P);
+            ParameterTransformerLimitMultiplicity40.AddRequiredPreviousParameters(ParameterAccuracy05P).AddRequiredPreviousParameters(ParameterAccuracy10P);
+            ParameterTransformerLimitMultiplicity45.AddRequiredPreviousParameters(ParameterAccuracy05P).AddRequiredPreviousParameters(ParameterAccuracy10P);
+            ParameterTransformerLimitMultiplicity50.AddRequiredPreviousParameters(ParameterAccuracy05P).AddRequiredPreviousParameters(ParameterAccuracy10P);
+            ParameterTransformerLimitMultiplicity55.AddRequiredPreviousParameters(ParameterAccuracy05P).AddRequiredPreviousParameters(ParameterAccuracy10P);
+            ParameterTransformerLimitMultiplicity60.AddRequiredPreviousParameters(ParameterAccuracy05P).AddRequiredPreviousParameters(ParameterAccuracy10P);
+
+            ParameterTransformerSafetyK02.AddRequiredPreviousParameters(ParameterAccuracy02).AddRequiredPreviousParameters(ParameterAccuracy02S).AddRequiredPreviousParameters(ParameterAccuracy05).AddRequiredPreviousParameters(ParameterAccuracy05S);
+            ParameterTransformerSafetyK04.AddRequiredPreviousParameters(ParameterAccuracy02).AddRequiredPreviousParameters(ParameterAccuracy02S).AddRequiredPreviousParameters(ParameterAccuracy05).AddRequiredPreviousParameters(ParameterAccuracy05S);
+            ParameterTransformerSafetyK06.AddRequiredPreviousParameters(ParameterAccuracy02).AddRequiredPreviousParameters(ParameterAccuracy02S).AddRequiredPreviousParameters(ParameterAccuracy05).AddRequiredPreviousParameters(ParameterAccuracy05S);
+            ParameterTransformerSafetyK08.AddRequiredPreviousParameters(ParameterAccuracy02).AddRequiredPreviousParameters(ParameterAccuracy02S).AddRequiredPreviousParameters(ParameterAccuracy05).AddRequiredPreviousParameters(ParameterAccuracy05S);
+            ParameterTransformerSafetyK10.AddRequiredPreviousParameters(ParameterAccuracy02).AddRequiredPreviousParameters(ParameterAccuracy02S).AddRequiredPreviousParameters(ParameterAccuracy05).AddRequiredPreviousParameters(ParameterAccuracy05S);
+            ParameterTransformerSafetyK12.AddRequiredPreviousParameters(ParameterAccuracy02).AddRequiredPreviousParameters(ParameterAccuracy02S).AddRequiredPreviousParameters(ParameterAccuracy05).AddRequiredPreviousParameters(ParameterAccuracy05S);
+            ParameterTransformerSafetyK14.AddRequiredPreviousParameters(ParameterAccuracy02).AddRequiredPreviousParameters(ParameterAccuracy02S).AddRequiredPreviousParameters(ParameterAccuracy05).AddRequiredPreviousParameters(ParameterAccuracy05S);
+            ParameterTransformerSafetyK16.AddRequiredPreviousParameters(ParameterAccuracy02).AddRequiredPreviousParameters(ParameterAccuracy02S).AddRequiredPreviousParameters(ParameterAccuracy05).AddRequiredPreviousParameters(ParameterAccuracy05S);
+            ParameterTransformerSafetyK18.AddRequiredPreviousParameters(ParameterAccuracy02).AddRequiredPreviousParameters(ParameterAccuracy02S).AddRequiredPreviousParameters(ParameterAccuracy05).AddRequiredPreviousParameters(ParameterAccuracy05S);
+            ParameterTransformerSafetyK20.AddRequiredPreviousParameters(ParameterAccuracy02).AddRequiredPreviousParameters(ParameterAccuracy02S).AddRequiredPreviousParameters(ParameterAccuracy05).AddRequiredPreviousParameters(ParameterAccuracy05S);
+            ParameterTransformerSafetyK22.AddRequiredPreviousParameters(ParameterAccuracy02).AddRequiredPreviousParameters(ParameterAccuracy02S).AddRequiredPreviousParameters(ParameterAccuracy05).AddRequiredPreviousParameters(ParameterAccuracy05S);
+            ParameterTransformerSafetyK24.AddRequiredPreviousParameters(ParameterAccuracy02).AddRequiredPreviousParameters(ParameterAccuracy02S).AddRequiredPreviousParameters(ParameterAccuracy05).AddRequiredPreviousParameters(ParameterAccuracy05S);
 
             ParameterCurrent2500.AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage110kV)
                                 .AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage220kV);
