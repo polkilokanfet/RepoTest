@@ -30,6 +30,8 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupTransformersBlockType;
         public ParameterGroup ParameterGroupTransformersBlockTarget;
         public ParameterGroup ParameterGroupServiceType;
+        public ParameterGroup ParameterGroupControlCircuitVoltage;
+        public ParameterGroup ParameterGroupTransformerLoad;
 
         private void GenerateParameterGroups()
         {
@@ -54,6 +56,8 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupTransformersBlockStandartNumber.Clone(new ParameterGroup { Name = "Номер стандартного комплекта ТТ" });
             ParameterGroupServiceType.Clone(new ParameterGroup { Name = "Тип услуги" });
             ParameterGroupTVGType.Clone(new ParameterGroup { Name = "Тип встроенного ТТ" });
+            ParameterGroupControlCircuitVoltage.Clone(new ParameterGroup { Name = "Напряжение цепей управления" });
+            ParameterGroupTransformerLoad.Clone(new ParameterGroup { Name = "Нагрузка, ВА" });
         }
 
         #endregion
@@ -99,6 +103,9 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterDrivesVoltage110V;
         public Parameter ParameterDrivesVoltage220V;
 
+        public Parameter ParameterControlCircuitVoltage110V;
+        public Parameter ParameterControlCircuitVoltage220V;
+
         public Parameter ParameterTransformerBuiltOut;
         public Parameter ParameterTransformerBuiltIn;
 
@@ -115,6 +122,20 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterAccuracy05S;
         public Parameter ParameterAccuracy05P;
         public Parameter ParameterAccuracy10P;
+
+        public Parameter ParameterTransformerLoad05;
+        public Parameter ParameterTransformerLoad10;
+        public Parameter ParameterTransformerLoad15;
+        public Parameter ParameterTransformerLoad20;
+        public Parameter ParameterTransformerLoad25;
+        public Parameter ParameterTransformerLoad30;
+        public Parameter ParameterTransformerLoad35;
+        public Parameter ParameterTransformerLoad40;
+        public Parameter ParameterTransformerLoad45;
+        public Parameter ParameterTransformerLoad50;
+        public Parameter ParameterTransformerLoad55;
+        public Parameter ParameterTransformerLoad60;
+
 
         public Parameter ParameterCurrent2500;
         public Parameter ParameterCurrent3150;
@@ -176,6 +197,9 @@ namespace HVTApp.TestDataGenerator
             ParameterDrivesVoltage110V.Clone(new Parameter { ParameterGroup = ParameterGroupDrivesVoltage, Value = "110 В" });
             ParameterDrivesVoltage220V.Clone(new Parameter { ParameterGroup = ParameterGroupDrivesVoltage, Value = "220 В" });
 
+            ParameterControlCircuitVoltage110V.Clone(new Parameter { ParameterGroup = ParameterGroupControlCircuitVoltage, Value = "= 110 В" });
+            ParameterControlCircuitVoltage220V.Clone(new Parameter { ParameterGroup = ParameterGroupControlCircuitVoltage, Value = "= 220 В" });
+
             ParameterTransformerBuiltOut.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Отдельностоящий" });
             ParameterTransformerBuiltIn.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Встроенный" });
 
@@ -192,6 +216,20 @@ namespace HVTApp.TestDataGenerator
             ParameterAccuracy05S.Clone(new Parameter { ParameterGroup = ParameterGroupAccuracy, Value = "0,5S" });
             ParameterAccuracy05P.Clone(new Parameter { ParameterGroup = ParameterGroupAccuracy, Value = "5P" });
             ParameterAccuracy10P.Clone(new Parameter { ParameterGroup = ParameterGroupAccuracy, Value = "10P" });
+
+            ParameterTransformerLoad05.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLoad, Value = "5 ВА" });
+            ParameterTransformerLoad10.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLoad, Value = "10 ВА" });
+            ParameterTransformerLoad15.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLoad, Value = "15 ВА" });
+            ParameterTransformerLoad20.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLoad, Value = "20 ВА" });
+            ParameterTransformerLoad25.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLoad, Value = "25 ВА" });
+            ParameterTransformerLoad30.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLoad, Value = "30 ВА" });
+            ParameterTransformerLoad35.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLoad, Value = "35 ВА" });
+            ParameterTransformerLoad40.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLoad, Value = "40 ВА" });
+            ParameterTransformerLoad45.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLoad, Value = "45 ВА" });
+            ParameterTransformerLoad50.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLoad, Value = "50 ВА" });
+            ParameterTransformerLoad55.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLoad, Value = "55 ВА" });
+            ParameterTransformerLoad60.Clone(new Parameter { ParameterGroup = ParameterGroupTransformerLoad, Value = "60 ВА" });
+
 
             ParameterCurrent2500.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "2500 А" });
             ParameterCurrent3150.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "3150 А" });
@@ -252,6 +290,20 @@ namespace HVTApp.TestDataGenerator
             ParameterAccuracy05P.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
             ParameterAccuracy10P.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
 
+            ParameterTransformerLoad05.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterTransformerLoad10.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterTransformerLoad15.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterTransformerLoad20.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterTransformerLoad25.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterTransformerLoad30.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterTransformerLoad35.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterTransformerLoad40.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterTransformerLoad45.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterTransformerLoad50.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterTransformerLoad55.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterTransformerLoad60.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+
+
             ParameterCurrent2500.AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage110kV)
                                 .AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage220kV);
             ParameterCurrent3150.AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage110kV)
@@ -272,6 +324,11 @@ namespace HVTApp.TestDataGenerator
 
             ParameterDrivesVoltage110V.AddRequiredPreviousParameters(ParameterDrivePPrK);
             ParameterDrivesVoltage220V.AddRequiredPreviousParameters(ParameterDrivePPrK);
+
+            ParameterControlCircuitVoltage110V.AddRequiredPreviousParameters(ParameterDrivePPrK)
+                                              .AddRequiredPreviousParameters(ParameterDrivePPV);
+            ParameterControlCircuitVoltage220V.AddRequiredPreviousParameters(ParameterDrivePPrK)
+                                              .AddRequiredPreviousParameters(ParameterDrivePPV);
 
             ParameterTransformerBuiltOut.AddRequiredPreviousParameters(ParameterTransformerCurrent, ParameterMainEquipment);
 
