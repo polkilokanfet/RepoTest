@@ -348,27 +348,16 @@ namespace HVTApp.TestDataGenerator
 
         #endregion
 
-        #region Products
+        #region ProductRelations
 
         public ProductRelation RequiredChildProductRelationDrivePPrK;
         public ProductRelation RequiredChildProductRelationDrivePPV220;
         public ProductRelation RequiredChildProductRelationDrivePPV500;
         public ProductRelation RequiredChildProductRelationBreakerBlock;
-        public ProductRelation RequiredChildProductRelationTvg110;
+        public ProductRelation RequiredChildProductRelationTransfBlockForVeb110;
+        public ProductRelation RequiredChildProductRelationTvg110ForBlock;
 
-        public ProductBlock ProductBlockVgb35;
-        public ProductBlock ProductBlockVeb110;
-        public ProductBlock ProductBlockZng110;
-        public ProductBlock ProductBlockDrivePPrK;
-        public ProductBlock ProductBlockZip1;
-
-        public Product ProductVgb35;
-        public Product ProductVeb110;
-        public Product ProductZng110;
-        public Product ProductBreakersDrive;
-        public Product ProductZip1;
-
-        private void GenerateRequiredDependentEquipmentsParameters()
+        private void GenerateProductRelations()
         {
             RequiredChildProductRelationDrivePPrK.Clone(new ProductRelation
             {
@@ -402,14 +391,38 @@ namespace HVTApp.TestDataGenerator
                 IsUnique = true
             });
 
-            RequiredChildProductRelationTvg110.Clone(new ProductRelation
+            RequiredChildProductRelationTransfBlockForVeb110.Clone(new ProductRelation
             {
                 ParentProductParameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV },
+                ChildProductParameters = new List<Parameter> { ParameterTransformersBlockTargetVeb110 },
+                ChildProductsAmount = 1,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTvg110ForBlock.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterTransformersBlockTypeCustom, ParameterTransformersBlockTargetVeb110 },
                 ChildProductParameters = new List<Parameter> { ParameterTransformerBuiltIn, ParameterVoltage110kV },
-                ChildProductsAmount = 3,
+                ChildProductsAmount = 6,
                 IsUnique = false
             });
         }
+
+        #endregion
+
+        #region Products
+
+        public ProductBlock ProductBlockVgb35;
+        public ProductBlock ProductBlockVeb110;
+        public ProductBlock ProductBlockZng110;
+        public ProductBlock ProductBlockDrivePPrK;
+        public ProductBlock ProductBlockZip1;
+
+        public Product ProductVgb35;
+        public Product ProductVeb110;
+        public Product ProductZng110;
+        public Product ProductBreakersDrive;
+        public Product ProductZip1;
 
         private void GenerateProductBlocs()
         {
