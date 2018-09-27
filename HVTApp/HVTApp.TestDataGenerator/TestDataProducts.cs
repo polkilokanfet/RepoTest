@@ -102,6 +102,10 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterFarfor;
         public Parameter ParameterPolimer;
 
+        public Parameter ParameterAccuracy02;
+        public Parameter ParameterAccuracy02S;
+        public Parameter ParameterAccuracy05;
+        public Parameter ParameterAccuracy05S;
         public Parameter ParameterAccuracy05P;
         public Parameter ParameterAccuracy10P;
 
@@ -117,6 +121,8 @@ namespace HVTApp.TestDataGenerator
 
         public Parameter ParameterTransformersBlockStandartVeb110Num1;
         public Parameter ParameterTransformersBlockStandartVeb110Num2;
+        public Parameter ParameterTransformersBlockStandartVeb220Num1;
+        public Parameter ParameterTransformersBlockStandartVeb220Num2;
 
         public Parameter ParameterTransformersBlockTypeStandart;
         public Parameter ParameterTransformersBlockTypeCustom;
@@ -173,6 +179,10 @@ namespace HVTApp.TestDataGenerator
             ParameterDpu3.Clone(new Parameter { ParameterGroup = ParameterGroupIsolation, Value = "III" });
             ParameterDpu4.Clone(new Parameter { ParameterGroup = ParameterGroupIsolation, Value = "IV" });
 
+            ParameterAccuracy02.Clone(new Parameter { ParameterGroup = ParameterGroupAccuracy, Value = "0,2" });
+            ParameterAccuracy02S.Clone(new Parameter { ParameterGroup = ParameterGroupAccuracy, Value = "0,2S" });
+            ParameterAccuracy05.Clone(new Parameter { ParameterGroup = ParameterGroupAccuracy, Value = "0,5" });
+            ParameterAccuracy05S.Clone(new Parameter { ParameterGroup = ParameterGroupAccuracy, Value = "0,5S" });
             ParameterAccuracy05P.Clone(new Parameter { ParameterGroup = ParameterGroupAccuracy, Value = "5P" });
             ParameterAccuracy10P.Clone(new Parameter { ParameterGroup = ParameterGroupAccuracy, Value = "10P" });
 
@@ -194,6 +204,8 @@ namespace HVTApp.TestDataGenerator
 
             ParameterTransformersBlockStandartVeb110Num1.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockStandartNumber, Value = "602-231 (300-200-150-100/5)" });
             ParameterTransformersBlockStandartVeb110Num2.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockStandartNumber, Value = "602-112 (600-400-300-200/5)" });
+            ParameterTransformersBlockStandartVeb220Num1.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockStandartNumber, Value = "623-192 (2000-1500-1000-500/5)" });
+            ParameterTransformersBlockStandartVeb220Num2.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockStandartNumber, Value = "623-194 (2000-1500-1000-500/1)" });
         }
 
         private void GenerateRelations()
@@ -223,6 +235,10 @@ namespace HVTApp.TestDataGenerator
             ParameterTransformerCurrent.AddRequiredPreviousParameters(ParameterTransformer);
             ParameterTransformerVoltage.AddRequiredPreviousParameters(ParameterTransformer, ParameterMainEquipment);
 
+            ParameterAccuracy02.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterAccuracy02S.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterAccuracy05.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
+            ParameterAccuracy05S.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
             ParameterAccuracy05P.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
             ParameterAccuracy10P.AddRequiredPreviousParameters(ParameterTransformerBuiltIn);
 
@@ -275,14 +291,19 @@ namespace HVTApp.TestDataGenerator
             ParameterClimatU1.AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage110kV);
             ParameterClimatHL1z.AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage110kV);
 
-            ParameterTransformersBlockTypeStandart.AddRequiredPreviousParameters(ParameterPartTransformersBlock);
-            ParameterTransformersBlockTypeCustom.AddRequiredPreviousParameters(ParameterPartTransformersBlock);
-
             ParameterTransformersBlockTargetVeb110.AddRequiredPreviousParameters(ParameterPartTransformersBlock);
             ParameterTransformersBlockTargetVeb220.AddRequiredPreviousParameters(ParameterPartTransformersBlock);
 
-            ParameterTransformersBlockStandartVeb110Num1.AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb110);
-            ParameterTransformersBlockStandartVeb110Num2.AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb110);
+            ParameterTransformersBlockTypeStandart.AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb110)
+                                                  .AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb220);
+            ParameterTransformersBlockTypeCustom.AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb110)
+                                                .AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb220);
+
+
+            ParameterTransformersBlockStandartVeb110Num1.AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb110, ParameterTransformersBlockTypeStandart);
+            ParameterTransformersBlockStandartVeb110Num2.AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb110, ParameterTransformersBlockTypeStandart);
+            ParameterTransformersBlockStandartVeb220Num1.AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb220, ParameterTransformersBlockTypeStandart);
+            ParameterTransformersBlockStandartVeb220Num2.AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb220, ParameterTransformersBlockTypeStandart);
         }
 
         #endregion
@@ -322,6 +343,8 @@ namespace HVTApp.TestDataGenerator
         public ProductDesignation ProductDesignationVgb35;
         public ProductDesignation ProductDesignationVeb110;
         public ProductDesignation ProductDesignationVeb110II;
+        public ProductDesignation ProductDesignationVeb110III;
+        public ProductDesignation ProductDesignationVeb110IV;
         public ProductDesignation ProductDesignationZng110;
         public ProductDesignation ProductDesignationVeb220;
         public ProductDesignation ProductDesignationZng220;
@@ -330,12 +353,17 @@ namespace HVTApp.TestDataGenerator
         public ProductDesignation ProductDesignationTrg110;
         public ProductDesignation ProductDesignationTrg220;
         public ProductDesignation ProductDesignationPPrK;
+        public ProductDesignation ProductDesignationPPV;
+        public ProductDesignation ProductDesignationTransfBlockVeb110;
+        public ProductDesignation ProductDesignationTransfBlockVeb220;
 
         private void GenerateProductDesignations()
         {
             ProductDesignationVgb35.Clone(new ProductDesignation { Designation = "ВГБ-УЭТМ-35", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage35kV } });
             ProductDesignationVeb110.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-110", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV } });
             ProductDesignationVeb110II.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-110II*", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterDpu2 } });
+            ProductDesignationVeb110III.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-110III", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterDpu3 } });
+            ProductDesignationVeb110IV.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-110IV", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterDpu4 } });
             ProductDesignationVeb220.Clone(new ProductDesignation { Designation = "ВЭБ-УЭТМ-220", Parameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage220kV } });
             ProductDesignationZng110.Clone(new ProductDesignation { Designation = "ЗНГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformerVoltage, ParameterVoltage110kV } });
             ProductDesignationZng220.Clone(new ProductDesignation { Designation = "ЗНГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformerVoltage, ParameterVoltage220kV } });
@@ -344,6 +372,9 @@ namespace HVTApp.TestDataGenerator
             ProductDesignationTrg110.Clone(new ProductDesignation { Designation = "ТРГ-УЭТМ-110", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltOut, ParameterVoltage110kV } });
             ProductDesignationTrg220.Clone(new ProductDesignation { Designation = "ТРГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltOut, ParameterVoltage220kV } });
             ProductDesignationPPrK.Clone(new ProductDesignation { Designation = "Привод ППрК", Parameters = new List<Parameter> { ParameterDrivePPrK } });
+            ProductDesignationPPV.Clone(new ProductDesignation { Designation = "Привод ППВ", Parameters = new List<Parameter> { ParameterDrivePPV } });
+            ProductDesignationTransfBlockVeb110.Clone(new ProductDesignation { Designation = "Комплект трансформаторов тока для ВЭБ-110 (3 фазы)", Parameters = new List<Parameter> { ParameterTransformersBlockTargetVeb110 } });
+            ProductDesignationTransfBlockVeb220.Clone(new ProductDesignation { Designation = "Комплект трансформаторов тока для ВЭБ-220 (3 фазы)", Parameters = new List<Parameter> { ParameterTransformersBlockTargetVeb220 } });
         }
 
         #endregion
@@ -355,6 +386,7 @@ namespace HVTApp.TestDataGenerator
         public ProductRelation RequiredChildProductRelationDrivePPV500;
         public ProductRelation RequiredChildProductRelationBreakerBlock;
         public ProductRelation RequiredChildProductRelationTransfBlockForVeb110;
+        public ProductRelation RequiredChildProductRelationTransfBlockForVeb220;
         public ProductRelation RequiredChildProductRelationTvg110ForBlock;
 
         private void GenerateProductRelations()
@@ -395,6 +427,14 @@ namespace HVTApp.TestDataGenerator
             {
                 ParentProductParameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV },
                 ChildProductParameters = new List<Parameter> { ParameterTransformersBlockTargetVeb110 },
+                ChildProductsAmount = 1,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationTransfBlockForVeb220.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage220kV },
+                ChildProductParameters = new List<Parameter> { ParameterTransformersBlockTargetVeb220 },
                 ChildProductsAmount = 1,
                 IsUnique = false
             });
