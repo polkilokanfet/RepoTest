@@ -387,6 +387,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             //если необходимо добавить созданное ТКП
             var lookupNew = new OfferLookup(offer, units);
             ProjectLookups.SingleOrDefault(x => x.Id == offer.Project.Id)?.Offers.Add(lookupNew);
+            lookupNew.Refresh();
         }
 
         private void AfterSaveSalesUnitEventExecute(SalesUnit salesUnit)

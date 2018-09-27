@@ -76,29 +76,6 @@ namespace HVTApp.TestDataGenerator
         public Address AddressStation;
         public Address AddressSubstation;
 
-        public EmployeesPosition EmployeesPositionDirector;
-        public EmployeesPosition EmployeesPositionManager;
-
-        public Person PersonIvanov;
-        public Person PersonPetrov;
-        public Person PersonSidorov;
-
-        public Employee EmployeeIvanov;
-        public Employee EmployeePetrov;
-        public Employee EmployeeSidorov;
-
-        public UserRole UserRoleDataBaseFiller;
-        public UserRole UserRoleAdmin;
-        public UserRole UserRoleSalesManager;
-        public UserRole UserRoleEconomist;
-        public UserRole UserRolePricer;
-        public UserRole UserRoleDirector;
-        public UserRole UserRolePlanMaker;
-
-
-        public User UserIvanov;
-        public User UserPetrov;
-
         public ProjectType ProjectTypeReconstruction;
 
         public Project ProjectSubstation;
@@ -251,42 +228,6 @@ namespace HVTApp.TestDataGenerator
             CompanyEnel.Clone(new Company { FullName = "Энел", ShortName = "Энел", Inn = "25658", Form = CompanyFormPao, ActivityFilds = new List<ActivityField> { ActivityFieldElectricityGeneration } });
         }
 
-        private void GeneratePersons()
-        {
-            PersonIvanov.Clone(new Person { Surname = "Иванов", Name = "Иван", Patronymic = "Иванович", IsMan = true });
-            PersonPetrov.Clone(new Person { Surname = "Петров", Name = "Иван", Patronymic = "Иванович", IsMan = true });
-            PersonSidorov.Clone(new Person { Surname = "Сидоров", Name = "Иван", Patronymic = "Иванович", IsMan = true });
-        }
-
-        private void GenerateEmployeesPositions()
-        {
-            EmployeesPositionDirector.Clone(new EmployeesPosition { Name = "Директор" });
-            EmployeesPositionManager.Clone(new EmployeesPosition { Name = "Менеджер" });
-        }
-
-        private void GenerateEmployees()
-        {
-            EmployeeIvanov.Clone(new Employee { Person = PersonIvanov, Position = EmployeesPositionManager, Company = CompanyUetm, Email = "iii@mail.ru", PhoneNumber = "326-36-36" });
-            EmployeePetrov.Clone(new Employee { Person = PersonPetrov, Position = EmployeesPositionDirector, Company = CompanyFsk, Email = "pii@mail.ru", PhoneNumber = "326-36-37" });
-            EmployeeSidorov.Clone(new Employee { Person = PersonSidorov, Position = EmployeesPositionDirector, Company = CompanyEnel, Email = "sii@mail.ru", PhoneNumber = "326-36-38" });
-        }
-
-        private void GenerateUserRoles()
-        {
-            UserRoleDataBaseFiller.Clone(new UserRole { Role = Role.DataBaseFiller, Name = "DataBaseFiller" });
-            UserRoleAdmin.Clone(new UserRole { Role = Role.Admin, Name = "Администратор" });
-            UserRoleSalesManager.Clone(new UserRole { Role = Role.SalesManager, Name = "Менеджер" });
-            UserRoleEconomist.Clone(new UserRole { Role = Role.Economist, Name = "Экономист" });
-            UserRolePricer.Clone(new UserRole { Role = Role.Pricer, Name = "Расчетчик" });
-            UserRoleDirector.Clone(new UserRole { Role = Role.Director, Name = "Директор" });
-            UserRolePlanMaker.Clone(new UserRole { Role = Role.PlanMaker, Name = "Плановик" });
-        }
-
-        private void GenerateUsers()
-        {
-            UserIvanov.Clone(new User { Login = "1", Password = StringToGuid.GetHashString("1"), Employee = EmployeeIvanov, PersonalNumber = "1", Roles = new List<UserRole> { UserRoleAdmin, UserRoleDataBaseFiller, UserRoleSalesManager, UserRolePlanMaker, UserRoleDirector, UserRoleEconomist, UserRolePricer } });
-            UserPetrov.Clone(new User { Login = "2", Password = StringToGuid.GetHashString("2"), Employee = EmployeePetrov, PersonalNumber = "2", Roles = new List<UserRole> { UserRoleDataBaseFiller } });
-        }
 
         private void GenerateProjectTypess()
         {

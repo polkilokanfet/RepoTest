@@ -15,6 +15,7 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupBreakerType;
         public ParameterGroup ParameterGroupTransformatorType;
         public ParameterGroup ParameterGroupTransformatorCurrentType;
+        public ParameterGroup ParameterGroupTVGType;
         public ParameterGroup ParameterGroupVoltage;
         public ParameterGroup ParameterGroupDrivesVoltage;
         public ParameterGroup ParameterGroupIsolation;
@@ -28,6 +29,7 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupTransformersBlockStandartNumber;
         public ParameterGroup ParameterGroupTransformersBlockType;
         public ParameterGroup ParameterGroupTransformersBlockTarget;
+        public ParameterGroup ParameterGroupServiceType;
 
         private void GenerateParameterGroups()
         {
@@ -50,6 +52,8 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupTransformersBlockType.Clone(new ParameterGroup { Name = "Тип комплекта ТТ" });
             ParameterGroupTransformersBlockTarget.Clone(new ParameterGroup { Name = "Назначение комплекта ТТ" });
             ParameterGroupTransformersBlockStandartNumber.Clone(new ParameterGroup { Name = "Номер стандартного комплекта ТТ" });
+            ParameterGroupServiceType.Clone(new ParameterGroup { Name = "Тип услуги" });
+            ParameterGroupTVGType.Clone(new ParameterGroup { Name = "Тип встроенного ТТ" });
         }
 
         #endregion
@@ -60,6 +64,9 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterMainEquipment;
         public Parameter ParameterDependentEquipment;
         public Parameter ParameterService;
+
+        public Parameter ParameterSheffMontag;
+        public Parameter ParameterDelivery;
 
         public Parameter ParameterZip1;
         public Parameter ParameterZip2;
@@ -89,8 +96,8 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterVoltage220kV;
         public Parameter ParameterVoltage500kV;
 
-        public Parameter ParameterVoltage110V;
-        public Parameter ParameterVoltage220V;
+        public Parameter ParameterDrivesVoltage110V;
+        public Parameter ParameterDrivesVoltage220V;
 
         public Parameter ParameterTransformerBuiltOut;
         public Parameter ParameterTransformerBuiltIn;
@@ -166,8 +173,8 @@ namespace HVTApp.TestDataGenerator
             ParameterVoltage220kV.Clone(new Parameter { ParameterGroup = ParameterGroupVoltage, Value = "220 кВ" });
             ParameterVoltage500kV.Clone(new Parameter { ParameterGroup = ParameterGroupVoltage, Value = "500 кВ" });
 
-            ParameterVoltage110V.Clone(new Parameter { ParameterGroup = ParameterGroupDrivesVoltage, Value = "110 В" });
-            ParameterVoltage220V.Clone(new Parameter { ParameterGroup = ParameterGroupDrivesVoltage, Value = "220 В" });
+            ParameterDrivesVoltage110V.Clone(new Parameter { ParameterGroup = ParameterGroupDrivesVoltage, Value = "110 В" });
+            ParameterDrivesVoltage220V.Clone(new Parameter { ParameterGroup = ParameterGroupDrivesVoltage, Value = "220 В" });
 
             ParameterTransformerBuiltOut.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Отдельностоящий" });
             ParameterTransformerBuiltIn.Clone(new Parameter { ParameterGroup = ParameterGroupTransformatorCurrentType, Value = "Встроенный" });
@@ -206,6 +213,9 @@ namespace HVTApp.TestDataGenerator
             ParameterTransformersBlockStandartVeb110Num2.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockStandartNumber, Value = "602-112 (600-400-300-200/5)" });
             ParameterTransformersBlockStandartVeb220Num1.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockStandartNumber, Value = "623-192 (2000-1500-1000-500/5)" });
             ParameterTransformersBlockStandartVeb220Num2.Clone(new Parameter { ParameterGroup = ParameterGroupTransformersBlockStandartNumber, Value = "623-194 (2000-1500-1000-500/1)" });
+
+            ParameterSheffMontag.Clone(new Parameter { ParameterGroup = ParameterGroupServiceType, Value = "Шеф-монтаж" });
+            ParameterDelivery.Clone(new Parameter { ParameterGroup = ParameterGroupServiceType, Value = "Доставка" });
         }
 
         private void GenerateRelations()
@@ -260,8 +270,8 @@ namespace HVTApp.TestDataGenerator
                                  .AddRequiredPreviousParameters(ParameterEarthingSwitch);
             ParameterVoltage500kV.AddRequiredPreviousParameters(ParameterBreakerLiveTank);
 
-            ParameterVoltage110V.AddRequiredPreviousParameters(ParameterDrivePPrK);
-            ParameterVoltage220V.AddRequiredPreviousParameters(ParameterDrivePPrK);
+            ParameterDrivesVoltage110V.AddRequiredPreviousParameters(ParameterDrivePPrK);
+            ParameterDrivesVoltage220V.AddRequiredPreviousParameters(ParameterDrivePPrK);
 
             ParameterTransformerBuiltOut.AddRequiredPreviousParameters(ParameterTransformerCurrent, ParameterMainEquipment);
 
@@ -304,6 +314,9 @@ namespace HVTApp.TestDataGenerator
             ParameterTransformersBlockStandartVeb110Num2.AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb110, ParameterTransformersBlockTypeStandart);
             ParameterTransformersBlockStandartVeb220Num1.AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb220, ParameterTransformersBlockTypeStandart);
             ParameterTransformersBlockStandartVeb220Num2.AddRequiredPreviousParameters(ParameterTransformersBlockTargetVeb220, ParameterTransformersBlockTypeStandart);
+
+            ParameterSheffMontag.AddRequiredPreviousParameters(ParameterService);
+            ParameterDelivery.AddRequiredPreviousParameters(ParameterService);
         }
 
         #endregion
@@ -493,7 +506,7 @@ namespace HVTApp.TestDataGenerator
             ProductBlockDrivePPrK.Clone(new ProductBlock
             {
                 DesignationSpecial = "ППрК",
-                Parameters = new List<Parameter> { ParameterProductParts, ParameterPartDrive, ParameterDrivePPrK, ParameterVoltage220V },
+                Parameters = new List<Parameter> { ParameterProductParts, ParameterPartDrive, ParameterDrivePPrK, ParameterDrivesVoltage220V },
                 Prices = new List<SumOnDate> { new SumOnDate { Sum = 200000, Date = DateTime.Today } },
                 StructureCostNumber = "654"
             });

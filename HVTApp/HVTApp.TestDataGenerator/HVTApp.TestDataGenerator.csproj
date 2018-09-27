@@ -45,6 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestData.cs" />
     <Compile Include="TestDataProducts.cs" />
+    <Compile Include="TestDataUsers.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
