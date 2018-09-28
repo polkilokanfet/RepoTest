@@ -18,6 +18,7 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupTVGType;
         public ParameterGroup ParameterGroupVoltage;
         public ParameterGroup ParameterGroupDrivesVoltage;
+        public ParameterGroup ParameterGroupDrivesCurrentDisconnectors;
         public ParameterGroup ParameterGroupIsolation;
         public ParameterGroup ParameterGroupIsolationMaterial;
         public ParameterGroup ParameterGroupAccuracy;
@@ -66,6 +67,7 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupTransformerSafetyK.Clone(new ParameterGroup { Name = "Коэффициент безопасности" });
             ParameterGroupTransformerPrimaryCurrentRow.Clone(new ParameterGroup { Name = "Номинальные токи отпаек" });
             ParameterGroupTransformerSecondaryCurrent.Clone(new ParameterGroup { Name = "Номинальный вторичный ток" });
+            ParameterGroupDrivesCurrentDisconnectors.Clone(new ParameterGroup { Name = "Установка двух токовых расцепителей" });
         }
 
         #endregion
@@ -109,8 +111,14 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterVoltage220kV;
         public Parameter ParameterVoltage500kV;
 
-        public Parameter ParameterDrivesVoltage110V;
+        public Parameter ParameterDrivesCurrentDiscNo;
+        public Parameter ParameterDrivesCurrentDisc3A;
+        public Parameter ParameterDrivesCurrentDisc5A;
+
+        public Parameter ParameterDrivesVoltage400V;
+        public Parameter ParameterDrivesVoltage230V;
         public Parameter ParameterDrivesVoltage220V;
+        public Parameter ParameterDrivesVoltage110V;
 
         public Parameter ParameterControlCircuitVoltage110V;
         public Parameter ParameterControlCircuitVoltage220V;
@@ -236,8 +244,14 @@ namespace HVTApp.TestDataGenerator
             ParameterVoltage220kV.Clone(new Parameter { ParameterGroup = ParameterGroupVoltage, Value = "220 кВ" });
             ParameterVoltage500kV.Clone(new Parameter { ParameterGroup = ParameterGroupVoltage, Value = "500 кВ" });
 
-            ParameterDrivesVoltage110V.Clone(new Parameter { ParameterGroup = ParameterGroupDrivesVoltage, Value = "110 В" });
-            ParameterDrivesVoltage220V.Clone(new Parameter { ParameterGroup = ParameterGroupDrivesVoltage, Value = "220 В" });
+            ParameterDrivesVoltage400V.Clone(new Parameter { ParameterGroup = ParameterGroupDrivesVoltage, Value = "~400 В (3ф. звезда)" });
+            ParameterDrivesVoltage230V.Clone(new Parameter { ParameterGroup = ParameterGroupDrivesVoltage, Value = "~230 В (3ф. треугольник)" });
+            ParameterDrivesVoltage220V.Clone(new Parameter { ParameterGroup = ParameterGroupDrivesVoltage, Value = "~/=220 В (1ф.)" });
+            ParameterDrivesVoltage110V.Clone(new Parameter { ParameterGroup = ParameterGroupDrivesVoltage, Value = "=110 В" });
+
+            ParameterDrivesCurrentDiscNo.Clone(new Parameter { ParameterGroup = ParameterGroupDrivesCurrentDisconnectors, Value = "нет" });
+            ParameterDrivesCurrentDisc3A.Clone(new Parameter { ParameterGroup = ParameterGroupDrivesCurrentDisconnectors, Value = "на 3 А" });
+            ParameterDrivesCurrentDisc5A.Clone(new Parameter { ParameterGroup = ParameterGroupDrivesCurrentDisconnectors, Value = "на 5 А" });
 
             ParameterControlCircuitVoltage110V.Clone(new Parameter { ParameterGroup = ParameterGroupControlCircuitVoltage, Value = "= 110 В" });
             ParameterControlCircuitVoltage220V.Clone(new Parameter { ParameterGroup = ParameterGroupControlCircuitVoltage, Value = "= 220 В" });
@@ -427,8 +441,14 @@ namespace HVTApp.TestDataGenerator
                                  .AddRequiredPreviousParameters(ParameterEarthingSwitch);
             ParameterVoltage500kV.AddRequiredPreviousParameters(ParameterBreakerLiveTank);
 
+            ParameterDrivesVoltage400V.AddRequiredPreviousParameters(ParameterDrivePPrK);
+            ParameterDrivesVoltage230V.AddRequiredPreviousParameters(ParameterDrivePPrK);
             ParameterDrivesVoltage110V.AddRequiredPreviousParameters(ParameterDrivePPrK);
             ParameterDrivesVoltage220V.AddRequiredPreviousParameters(ParameterDrivePPrK);
+
+            ParameterDrivesCurrentDiscNo.AddRequiredPreviousParameters(ParameterDrivePPrK);
+            ParameterDrivesCurrentDisc3A.AddRequiredPreviousParameters(ParameterDrivePPrK);
+            ParameterDrivesCurrentDisc5A.AddRequiredPreviousParameters(ParameterDrivePPrK);
 
             ParameterControlCircuitVoltage110V.AddRequiredPreviousParameters(ParameterDrivePPrK)
                                               .AddRequiredPreviousParameters(ParameterDrivePPV);
