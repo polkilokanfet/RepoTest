@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using HVTApp.Model.POCOs;
@@ -11,6 +12,15 @@ namespace HVTApp.DataAccess
 {
     public partial class OfferUnitRepository
     {
+        protected override IQueryable<OfferUnit> GetQuary()
+        {
+            return Context.Set<OfferUnit>().AsQueryable()
+                .Include(x => x.Facility)
+                .Include(x => x.Offer.Project)
+                .Include(x => x.Product.ProductBlock.Parameters)
+                .Include(x => x.Product.DependentProducts.Select(dp => dp.Product.ProductBlock).SelectMany(p => p.Parameters));
+        }
+
         public override async Task<List<OfferUnit>> GetAllAsync()
         {
             var units = await base.GetAllAsync();

@@ -16,9 +16,9 @@ namespace HVTApp.Services.ProductDesignationService
 
         public ProductDesignator(IUnitOfWork unitOfWork)
         {
-            _productDesignations = unitOfWork.Repository<ProductDesignation>().Find(x => x != null);
-            _productTypeDesignations = unitOfWork.Repository<ProductTypeDesignation>().Find(x => x != null);
-            _blockIsServices = unitOfWork.Repository<ProductBlockIsService>().Find(x => x != null);
+            _productDesignations = unitOfWork.Repository<ProductDesignation>().Find(x => true);
+            _productTypeDesignations = unitOfWork.Repository<ProductTypeDesignation>().Find(x => true);
+            _blockIsServices = unitOfWork.Repository<ProductBlockIsService>().Find(x => true);
         }
 
         public string GetDesignation(ProductBlock block)

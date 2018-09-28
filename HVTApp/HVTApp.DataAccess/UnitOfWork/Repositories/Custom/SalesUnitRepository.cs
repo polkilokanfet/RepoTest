@@ -11,33 +11,30 @@ namespace HVTApp.DataAccess
 {
     public partial class SalesUnitRepository
     {
-        private IQueryable<SalesUnit> Query => Context.Set<SalesUnit>()
-                                                      .AsQueryable()
-                                                      .Include(x => x.Product.ProductBlock.Parameters)
-                                                      .Include(x => x.PaymentsActual)
-                                                      .Include(x => x.PaymentsPlanned);
+        protected override IQueryable<SalesUnit> GetQuary()
+        {
+            return Context.Set<SalesUnit>().AsQueryable()
+                .Include(x => x.Facility)
+                .Include(x => x.Project.Manager)
+                .Include(x => x.Product.ProductBlock.Parameters)
+                .Include(x => x.PaymentsActual)
+                .Include(x => x.PaymentsPlanned)
+                .Include(x => x.Order);
+        }
 
         public override async Task<List<SalesUnit>> GetAllAsync()
         {
-            var units = await Query.ToListAsync();
-            Manipulate(units);
-            return units;
+            return Manipulate(await base.GetAllAsync());
         }
 
         public override async Task<List<SalesUnit>> GetAllAsNoTrackingAsync()
         {
-            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-            var units = await Query.AsNoTracking().ToListAsync();
-            Manipulate(units);
-            return units;
+            return Manipulate(await base.GetAllAsNoTrackingAsync());
         }
 
         public override List<SalesUnit> Find(Func<SalesUnit, bool> predicate)
         {
-            Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-            var units = Query.Where(predicate).ToList();
-            Manipulate(units);
-            return units;
+            return Manipulate(base.Find(predicate));
         }
 
         private void Manipulate(SalesUnit unit)
@@ -49,9 +46,10 @@ namespace HVTApp.DataAccess
             _container.Resolve<IShippingService>().SetShippingTerm(unit);
         }
 
-        private void Manipulate(List<SalesUnit> units)
+        private List<SalesUnit> Manipulate(List<SalesUnit> units)
         {
             units.ForEach(Manipulate);
+            return units;
         }
     }
 }

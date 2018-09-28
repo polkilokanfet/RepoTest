@@ -21,19 +21,19 @@ namespace HVTApp.DataAccess
         public virtual async Task<List<TEntity>> GetAllAsync()
         {
             Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-            return await Context.Set<TEntity>().ToListAsync();
+            return await GetQuary().ToListAsync();
         }
 
         public virtual async Task<List<TEntity>> GetAllAsNoTrackingAsync()
         {
             Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-            return await Context.Set<TEntity>().AsNoTracking().ToListAsync();
+            return await GetQuary().AsNoTracking().ToListAsync();
         }
 
         public virtual List<TEntity> Find(Func<TEntity, bool> predicate)
         {
             Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-            return Context.Set<TEntity>().Where(predicate).ToList();
+            return GetQuary().Where(predicate).ToList();
         }
 
 
@@ -65,7 +65,7 @@ namespace HVTApp.DataAccess
         public virtual async Task<TEntity> GetByIdAsync(Guid id)
         {
             Context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-            return await Context.Set<TEntity>().FindAsync(id);
+            return await GetQuary().SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public void Reload(TEntity entity)
@@ -75,6 +75,11 @@ namespace HVTApp.DataAccess
             //    Context.Set<TEntity>().Attach(entity);
             //var entry = Context.Entry(entity);
             //entry.Reload();
+        }
+
+        protected virtual IQueryable<TEntity> GetQuary()
+        {
+            return Context.Set<TEntity>().AsQueryable();
         }
     }
 }
