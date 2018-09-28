@@ -37,6 +37,7 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupTransformerSafetyK;
         public ParameterGroup ParameterGroupTransformerPrimaryCurrentRow;
         public ParameterGroup ParameterGroupTransformerSecondaryCurrent;
+        public ParameterGroup ParameterGroupBreakerPhases;
 
         private void GenerateParameterGroups()
         {
@@ -68,6 +69,8 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupTransformerPrimaryCurrentRow.Clone(new ParameterGroup { Name = "Номинальные токи отпаек" });
             ParameterGroupTransformerSecondaryCurrent.Clone(new ParameterGroup { Name = "Номинальный вторичный ток" });
             ParameterGroupDrivesCurrentDisconnectors.Clone(new ParameterGroup { Name = "Установка двух токовых расцепителей" });
+            ParameterGroupBreakerPhases.Clone(new ParameterGroup { Name = "Исполнение выключателя" });
+            
         }
 
         #endregion
@@ -207,6 +210,9 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterTransformersBlockTargetVeb220;
         public Parameter ParameterTransformersBlockTargetVgb35;
 
+        public Parameter ParameterBreakerPhases3;
+        public Parameter ParameterBreakerPhases1;
+
         private void GenerateParameters()
         {
             ParameterNewProduct.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование новое" });
@@ -342,6 +348,9 @@ namespace HVTApp.TestDataGenerator
 
             ParameterSheffMontag.Clone(new Parameter { ParameterGroup = ParameterGroupServiceType, Value = "Шеф-монтаж" });
             ParameterDelivery.Clone(new Parameter { ParameterGroup = ParameterGroupServiceType, Value = "Доставка" });
+
+            ParameterBreakerPhases3.Clone(new Parameter { ParameterGroup = ParameterGroupBreakerPhases, Value = "Трехфазное" });
+            ParameterBreakerPhases1.Clone(new Parameter { ParameterGroup = ParameterGroupBreakerPhases, Value = "Однофазное" });
         }
 
         private void GenerateRelations()
@@ -502,6 +511,9 @@ namespace HVTApp.TestDataGenerator
 
             ParameterSheffMontag.AddRequiredPreviousParameters(ParameterService);
             ParameterDelivery.AddRequiredPreviousParameters(ParameterService);
+
+            ParameterBreakerPhases3.AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage110kV).AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage220kV);
+            ParameterBreakerPhases1.AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage110kV).AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage220kV);
         }
 
         #endregion
@@ -651,7 +663,7 @@ namespace HVTApp.TestDataGenerator
 
             RequiredChildProductRelationTransfBlockForVeb110.Clone(new ProductRelation
             {
-                ParentProductParameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV },
+                ParentProductParameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterBreakerPhases3 },
                 ChildProductParameters = new List<Parameter> { ParameterTransformersBlockTargetVeb110 },
                 ChildProductsAmount = 1,
                 IsUnique = false
@@ -659,7 +671,7 @@ namespace HVTApp.TestDataGenerator
 
             RequiredChildProductRelationTransfBlockForVeb220.Clone(new ProductRelation
             {
-                ParentProductParameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage220kV },
+                ParentProductParameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage220kV, ParameterBreakerPhases3 },
                 ChildProductParameters = new List<Parameter> { ParameterTransformersBlockTargetVeb220 },
                 ChildProductsAmount = 1,
                 IsUnique = false
