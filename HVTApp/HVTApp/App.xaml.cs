@@ -10,15 +10,24 @@ namespace HVTApp
     {
         protected override async void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
+            //try
+            //{
+                base.OnStartup(e);
 
-            //Disable shutdown when the dialog closes
-            Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+                //Disable shutdown when the dialog closes
+                Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
-            CommonOptions.User = await (new Auth()).GetCurrentUser();
+                CommonOptions.User = await (new Auth()).GetCurrentUser();
 
-            var bootstrapper = new Bootstrapper();
-            bootstrapper.Run();
+                var bootstrapper = new Bootstrapper();
+                bootstrapper.Run();
+            //}
+            //catch (Exception exception)
+            //{
+            //    MessageBox.Show(exception.Message);
+            //    Console.WriteLine(exception);
+            //    //throw;
+            //}
         }
     }
 }

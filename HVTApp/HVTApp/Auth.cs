@@ -1,3 +1,4 @@
+using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Windows;
@@ -32,7 +33,7 @@ namespace HVTApp
                 return aus.User;
 
             Application.Current.Shutdown();
-            return null;
+            throw new NullReferenceException("User не прошел авторизацию.");
         }
     }
 }
