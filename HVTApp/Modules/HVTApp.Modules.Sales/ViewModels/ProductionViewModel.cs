@@ -18,28 +18,28 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class ProductionViewModel : LoadableBindableBase
     {
-        private SalesUnitsGroup _selectedPotentialGroup;
-        private SalesUnitsGroup _selectedProductionGroup;
+        private SalesUnitsWrappersGroup _selectedPotentialWrappersGroup;
+        private SalesUnitsWrappersGroup _selectedProductionWrappersGroup;
 
-        public ObservableCollection<SalesUnitsGroup> ProductionGroups { get; } = new ObservableCollection<SalesUnitsGroup>();
-        public ObservableCollection<SalesUnitsGroup> PotentialGroups { get; } = new ObservableCollection<SalesUnitsGroup>();
+        public ObservableCollection<SalesUnitsWrappersGroup> ProductionGroups { get; } = new ObservableCollection<SalesUnitsWrappersGroup>();
+        public ObservableCollection<SalesUnitsWrappersGroup> PotentialGroups { get; } = new ObservableCollection<SalesUnitsWrappersGroup>();
 
-        public SalesUnitsGroup SelectedProductionGroup
+        public SalesUnitsWrappersGroup SelectedProductionWrappersGroup
         {
-            get { return _selectedProductionGroup; }
+            get { return _selectedProductionWrappersGroup; }
             set
             {
-                _selectedProductionGroup = value;
+                _selectedProductionWrappersGroup = value;
                 OnPropertyChanged();
             }
         }
 
-        public SalesUnitsGroup SelectedPotentialGroup
+        public SalesUnitsWrappersGroup SelectedPotentialWrappersGroup
         {
-            get { return _selectedPotentialGroup; }
+            get { return _selectedPotentialWrappersGroup; }
             set
             {
-                _selectedPotentialGroup = value;
+                _selectedPotentialWrappersGroup = value;
                 ((DelegateCommand)ProductUnitCommand).RaiseCanExecuteChanged();
             }
         }
@@ -61,23 +61,23 @@ namespace HVTApp.Modules.Sales.ViewModels
             if (ms.ShowYesNoMessageDialog("Размещение в производстве", q) != MessageDialogResult.Yes) return;
 
             //размещение в производстве
-            SelectedPotentialGroup.SignalToStartProduction = DateTime.Today;
+            SelectedPotentialWrappersGroup.SignalToStartProduction = DateTime.Today;
             await UnitOfWork.SaveChangesAsync();
 
             //работа с видами
-            ProductionGroups.Add(SelectedPotentialGroup);
-            SelectedProductionGroup = SelectedPotentialGroup;
-            if (PotentialGroups.Contains(SelectedPotentialGroup))
+            ProductionGroups.Add(SelectedPotentialWrappersGroup);
+            SelectedProductionWrappersGroup = SelectedPotentialWrappersGroup;
+            if (PotentialGroups.Contains(SelectedPotentialWrappersGroup))
             {
-                PotentialGroups.Remove(SelectedPotentialGroup);
+                PotentialGroups.Remove(SelectedPotentialWrappersGroup);
             }
             else
             {
                 foreach (var potentialGroup in PotentialGroups.ToList())
                 {
-                    if (potentialGroup.Groups.Contains(SelectedPotentialGroup))
+                    if (potentialGroup.Groups.Contains(SelectedPotentialWrappersGroup))
                     {
-                        potentialGroup.Groups.Remove(SelectedPotentialGroup);
+                        potentialGroup.Groups.Remove(SelectedPotentialWrappersGroup);
                         if (!potentialGroup.Groups.Any())
                         {
                             PotentialGroups.Remove(potentialGroup);
@@ -89,7 +89,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private bool ProductUnitCommand_CanExecute()
         {
-            return !string.IsNullOrEmpty(SelectedPotentialGroup?.TceRequest);
+            return !string.IsNullOrEmpty(SelectedPotentialWrappersGroup?.TceRequest);
         }
 
         protected override async Task LoadedAsyncMethod()
@@ -100,11 +100,11 @@ namespace HVTApp.Modules.Sales.ViewModels
             var production = salesUnits.Where(x => x.SignalToStartProduction != null && x.EndProductionDateCalculated >= DateTime.Today).ToList();
             var potential = salesUnits.Where(x => x.SignalToStartProduction == null && !x.IsLoosen && x.Project.InWork);
 
-            var productionGroups = production.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsGroup(x)).OrderBy(x => x.EndProductionDateCalculated);
+            var productionGroups = production.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsWrappersGroup(x)).OrderBy(x => x.EndProductionDateCalculated);
             ProductionGroups.Clear();
             ProductionGroups.AddRange(productionGroups);
 
-            var potentialGroups = potential.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsGroup(x)).OrderBy(x => x.EndProductionDateCalculated);
+            var potentialGroups = potential.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsWrappersGroup(x)).OrderBy(x => x.EndProductionDateCalculated);
             PotentialGroups.Clear();
             PotentialGroups.AddRange(potentialGroups);
 

@@ -81,7 +81,7 @@
             </Grid.ColumnDefinitions>
 
             <GroupBox Header="Оборудование" Grid.Column="0">
-                <controls:UnitListControl x:Name="UnitListView" DataContext="{Binding}"/>
+                <controls:UnitListControl DataContext="{Binding}"/>
             </GroupBox>
             
             <!--<GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>

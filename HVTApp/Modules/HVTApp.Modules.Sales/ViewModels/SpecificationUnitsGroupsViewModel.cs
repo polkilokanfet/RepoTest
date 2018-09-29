@@ -29,7 +29,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.Id == CommonOptions.User.Id && x.Specification == null);
             var unit = Container.Resolve<ISelectService>().SelectItem(salesUnits);
             if (unit == null) return;
-            var group = new SalesUnitsGroup(new[] {unit});
+            var group = new SalesUnitsWrappersGroup(new[] {unit});
             group.Specification = _specification;
             RefreshPrice(group);
             Groups.Add(group);

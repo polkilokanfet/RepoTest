@@ -4,24 +4,22 @@
              xmlns:dp="http://infragistics.com/DataPresenter">
                    
     <dp:XamDataGrid x:Name="UnitListGrid" DataSource="{Binding Groups, UpdateSourceTrigger=PropertyChanged}">
-                       
-        <dp:XamDataGrid.FieldLayouts>
 
+        <dp:XamDataGrid.FieldLayouts>
             <dp:FieldLayout>
                 <dp:FieldLayout.Fields>
-                    <dp:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
-                    <dp:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
+                    
+                    <dp:TextField Name="Facility" Label="Объект" Width="Auto" />
+                    <dp:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="Auto" />
                     <dp:TextField AlternateBinding="{Binding Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
                     <dp:NumericField Name="Amount" Label="Кол." Width="Auto" />
-                    <!--<dp:NumericField Name="MarginalIncome" Label="МД" Width="Auto" AllowEdit="True" />-->
                     <dp:NumericField Name="Cost" Label="Стоимость" Width="Auto"/>
                     <dp:NumericField Name="Total" Label="Сумма" Width="Auto"/>
                     <dp:NumericField Name="ProductionTerm" Label="Срок" Width="Auto"/>
-                    <dp:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
-                    <!--<dp:Field Name="Groups" IsExpandable="True"/>-->
+                    <dp:TextField Name="PaymentConditionSet" Label="Условия оплаты" Width="Auto" />
+                    
                 </dp:FieldLayout.Fields>
             </dp:FieldLayout>
-
         </dp:XamDataGrid.FieldLayouts>
                     
     </dp:XamDataGrid>

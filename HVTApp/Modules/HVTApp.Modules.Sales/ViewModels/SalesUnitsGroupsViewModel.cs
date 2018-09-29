@@ -27,13 +27,13 @@ namespace HVTApp.Modules.Sales.ViewModels
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly Project _project;
-        private SalesUnitsGroup _selectedGroup;
+        private SalesUnitsWrappersGroup _selectedWrappersGroup;
         private ProductIncludedWrapper _selectedProductIncluded;
 
         /// <summary>
         /// Группы
         /// </summary>
-        public IValidatableChangeTrackingCollection<SalesUnitsGroup> Groups { get; }
+        public IValidatableChangeTrackingCollection<SalesUnitsWrappersGroup> Groups { get; }
 
         #region ICommand
 
@@ -58,17 +58,17 @@ namespace HVTApp.Modules.Sales.ViewModels
             _project = project;
             var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer())
                               .OrderByDescending(x => x.Key.Cost)
-                              .Select(x => new SalesUnitsGroup(x));
+                              .Select(x => new SalesUnitsWrappersGroup(x));
 
-            Groups = new ValidatableChangeTrackingCollection<SalesUnitsGroup>(groups);
+            Groups = new ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup>(groups);
 
             AddCommand = new DelegateCommand(AddCommand_Execute);
-            RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => SelectedGroup != null);
-            ChangeFacilityCommand = new DelegateCommand<SalesUnitsGroup>(ChangeFacilityCommand_Execute);
-            ChangeProductCommand = new DelegateCommand<SalesUnitsGroup>(ChangeProductCommand_Execute);
-            ChangePaymentsCommand = new DelegateCommand<SalesUnitsGroup>(ChangePaymentsCommand_Execute);
+            RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => SelectedWrappersGroup != null);
+            ChangeFacilityCommand = new DelegateCommand<SalesUnitsWrappersGroup>(ChangeFacilityCommand_Execute);
+            ChangeProductCommand = new DelegateCommand<SalesUnitsWrappersGroup>(ChangeProductCommand_Execute);
+            ChangePaymentsCommand = new DelegateCommand<SalesUnitsWrappersGroup>(ChangePaymentsCommand_Execute);
 
-            AddProductIncludedCommand = new DelegateCommand(AddProductIncludedCommand_Execute, () => SelectedGroup != null);
+            AddProductIncludedCommand = new DelegateCommand(AddProductIncludedCommand_Execute, () => SelectedWrappersGroup != null);
             RemoveProductIncludedCommand = new DelegateCommand(RemoveProductIncludedCommand_Execute, () => SelectedProductIncluded != null);
         }
 
@@ -80,40 +80,40 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         //блоки, необходимые для поиска аналогов
         private List<ProductBlock> _blocks;
-        private readonly Dictionary<SalesUnitsGroup, PriceStructures> _priceDictionary = new Dictionary<SalesUnitsGroup, PriceStructures>();
+        private readonly Dictionary<SalesUnitsWrappersGroup, PriceStructures> _priceDictionary = new Dictionary<SalesUnitsWrappersGroup, PriceStructures>();
 
-        protected void RefreshPrice(SalesUnitsGroup group)
+        protected void RefreshPrice(SalesUnitsWrappersGroup wrappersGroup)
         {
-            if (group == null) return;
+            if (wrappersGroup == null) return;
 
-            var priceDate = group.OrderInTakeDate < DateTime.Today ? group.OrderInTakeDate : DateTime.Today;
+            var priceDate = wrappersGroup.OrderInTakeDate < DateTime.Today ? wrappersGroup.OrderInTakeDate : DateTime.Today;
             var priceTerm = CommonOptions.ActualOptions.ActualPriceTerm;
 
-            if (!_priceDictionary.ContainsKey(group)) _priceDictionary.Add(group, null);
+            if (!_priceDictionary.ContainsKey(wrappersGroup)) _priceDictionary.Add(wrappersGroup, null);
 
-            _priceDictionary[group] = new PriceStructures(group.Model, priceDate, priceTerm, _blocks);
+            _priceDictionary[wrappersGroup] = new PriceStructures(wrappersGroup.Model, priceDate, priceTerm, _blocks);
 
-            group.Price = _priceDictionary[group].Total;
+            wrappersGroup.Price = _priceDictionary[wrappersGroup].Total;
             OnPropertyChanged(nameof(PriceStructures));
 
-            group.Groups?.ForEach(RefreshPrice);
+            wrappersGroup.Groups?.ForEach(RefreshPrice);
         }
 
         /// <summary>
         /// Структура себестоимости выбранной группы
         /// </summary>
-        public PriceStructures PriceStructures => SelectedGroup == null ? null : _priceDictionary[SelectedGroup];
+        public PriceStructures PriceStructures => SelectedWrappersGroup == null ? null : _priceDictionary[SelectedWrappersGroup];
 
         /// <summary>
         /// Выбранная группа.
         /// </summary>
-        public SalesUnitsGroup SelectedGroup
+        public SalesUnitsWrappersGroup SelectedWrappersGroup
         {
-            get { return _selectedGroup; }
+            get { return _selectedWrappersGroup; }
             set
             {
-                if (Equals(_selectedGroup, value)) return;
-                _selectedGroup = value;
+                if (Equals(_selectedWrappersGroup, value)) return;
+                _selectedWrappersGroup = value;
                 ((DelegateCommand)RemoveCommand)?.RaiseCanExecuteChanged();
                 ((DelegateCommand)AddProductIncludedCommand)?.RaiseCanExecuteChanged();
                 OnPropertyChanged();
@@ -146,17 +146,17 @@ namespace HVTApp.Modules.Sales.ViewModels
             var viewModel = new SalesUnitsViewModel(salesUnit, Container, _unitOfWork);
 
             //заполняем юнит начальными данными
-            if (SelectedGroup != null)
+            if (SelectedWrappersGroup != null)
             {
-                viewModel.ViewModel.Item.Cost = SelectedGroup.Cost;
-                viewModel.ViewModel.Item.Facility = SelectedGroup.Facility;
-                viewModel.ViewModel.Item.PaymentConditionSet = SelectedGroup.PaymentConditionSet;
-                viewModel.ViewModel.Item.ProductionTerm = SelectedGroup.ProductionTerm;
-                viewModel.ViewModel.Item.Product = SelectedGroup.Product;
-                viewModel.ViewModel.Item.DeliveryDateExpected = SelectedGroup.DeliveryDateExpected;
+                viewModel.ViewModel.Item.Cost = SelectedWrappersGroup.Cost;
+                viewModel.ViewModel.Item.Facility = SelectedWrappersGroup.Facility;
+                viewModel.ViewModel.Item.PaymentConditionSet = SelectedWrappersGroup.PaymentConditionSet;
+                viewModel.ViewModel.Item.ProductionTerm = SelectedWrappersGroup.ProductionTerm;
+                viewModel.ViewModel.Item.Product = SelectedWrappersGroup.Product;
+                viewModel.ViewModel.Item.DeliveryDateExpected = SelectedWrappersGroup.DeliveryDateExpected;
                 
                 //создаем зависимое оборудование
-                foreach (var prodIncl in SelectedGroup.ProductsIncluded)
+                foreach (var prodIncl in SelectedWrappersGroup.ProductsIncluded)
                 {
                     var pi = new ProductIncluded { Product = prodIncl.Product.Model, Amount = prodIncl.Amount };
                     viewModel.ViewModel.Item.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
@@ -178,10 +178,10 @@ namespace HVTApp.Modules.Sales.ViewModels
                 units.Add(unit);
             }
 
-            var group = new SalesUnitsGroup(units);
+            var group = new SalesUnitsWrappersGroup(units);
             Groups.Add(group);
             RefreshPrice(group);
-            SelectedGroup = group;
+            SelectedWrappersGroup = group;
         }
 
         private async void AddProductIncludedCommand_Execute()
@@ -190,8 +190,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             productIncluded = await Container.Resolve<IUpdateDetailsService>().UpdateDetailsWithoutSaving(productIncluded);
             if (productIncluded == null) return;
             productIncluded.Product = await _unitOfWork.Repository<Product>().GetByIdAsync(productIncluded.Product.Id);
-            SelectedGroup.AddProductIncluded(productIncluded);
-            RefreshPrice(SelectedGroup);
+            SelectedWrappersGroup.AddProductIncluded(productIncluded);
+            RefreshPrice(SelectedWrappersGroup);
         }
 
         private void RemoveProductIncludedCommand_Execute()
@@ -199,8 +199,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
                 return;
 
-            SelectedGroup.RemoveProductIncluded(SelectedProductIncluded);
-            RefreshPrice(SelectedGroup);
+            SelectedWrappersGroup.RemoveProductIncluded(SelectedProductIncluded);
+            RefreshPrice(SelectedWrappersGroup);
         }
 
         private void RemoveCommand_Execute()
@@ -209,14 +209,14 @@ namespace HVTApp.Modules.Sales.ViewModels
                 return;
 
             //удаление из группы или из подгруппы
-            if (Groups.Contains(SelectedGroup))
+            if (Groups.Contains(SelectedWrappersGroup))
             {
-                Groups.Remove(SelectedGroup);
+                Groups.Remove(SelectedWrappersGroup);
             }
             else
             {
-                var group = Groups.Single(x => x.Groups != null && x.Groups.Contains(SelectedGroup));
-                group.Groups.Remove(SelectedGroup);
+                var group = Groups.Single(x => x.Groups != null && x.Groups.Contains(SelectedWrappersGroup));
+                group.Groups.Remove(SelectedWrappersGroup);
 
                 if (!group.Groups.Any())
                 {
@@ -224,34 +224,34 @@ namespace HVTApp.Modules.Sales.ViewModels
                 }
             }
 
-            SelectedGroup = null;
+            SelectedWrappersGroup = null;
         }
 
-        private async void ChangeProductCommand_Execute(SalesUnitsGroup group)
+        private async void ChangeProductCommand_Execute(SalesUnitsWrappersGroup wrappersGroup)
         {
-            var product = await Container.Resolve<IGetProductService>().GetProductAsync(group.Product?.Model);
-            if (product == null || product.Id == group.Product.Id) return;
+            var product = await Container.Resolve<IGetProductService>().GetProductAsync(wrappersGroup.Product?.Model);
+            if (product == null || product.Id == wrappersGroup.Product.Id) return;
             product = await _unitOfWork.Repository<Product>().GetByIdAsync(product.Id);
-            group.Product = new ProductWrapper(product);
-            RefreshPrice(group);
+            wrappersGroup.Product = new ProductWrapper(product);
+            RefreshPrice(wrappersGroup);
         }
 
-        private async void ChangeFacilityCommand_Execute(SalesUnitsGroup group)
+        private async void ChangeFacilityCommand_Execute(SalesUnitsWrappersGroup wrappersGroup)
         {
             var facilities = await _unitOfWork.Repository<Facility>().GetAllAsNoTrackingAsync();
-            var facility = Container.Resolve<ISelectService>().SelectItem(facilities, group.Facility?.Id);
+            var facility = Container.Resolve<ISelectService>().SelectItem(facilities, wrappersGroup.Facility?.Id);
             if (facility == null) return;
             facility = await _unitOfWork.Repository<Facility>().GetByIdAsync(facility.Id);
-            group.Facility = new FacilityWrapper(facility);
+            wrappersGroup.Facility = new FacilityWrapper(facility);
         }
 
-        private async void ChangePaymentsCommand_Execute(SalesUnitsGroup group)
+        private async void ChangePaymentsCommand_Execute(SalesUnitsWrappersGroup wrappersGroup)
         {
             var sets = await _unitOfWork.Repository<PaymentConditionSet>().GetAllAsNoTrackingAsync();
-            var set = Container.Resolve<ISelectService>().SelectItem(sets, group.PaymentConditionSet?.Id);
+            var set = Container.Resolve<ISelectService>().SelectItem(sets, wrappersGroup.PaymentConditionSet?.Id);
             if (set == null) return;
             set = await _unitOfWork.Repository<PaymentConditionSet>().GetByIdAsync(set.Id);
-            group.PaymentConditionSet = new PaymentConditionSetWrapper(set);
+            wrappersGroup.PaymentConditionSet = new PaymentConditionSetWrapper(set);
         }
 
 

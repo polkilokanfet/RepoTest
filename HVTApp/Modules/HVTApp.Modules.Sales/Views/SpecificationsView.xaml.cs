@@ -27,10 +27,9 @@ namespace HVTApp.Modules.Sales.Views
             this.Loaded += OnLoaded;
         }
 
-        private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            var units = await _container.Resolve<IUnitOfWork>().Repository<SalesUnit>().GetAllAsync();
-            units = units.Where(x => x.Specification != null && x.Project.Manager.Id == CommonOptions.User.Id).ToList();
+            var units = _container.Resolve<IUnitOfWork>().Repository<SalesUnit>().Find(x => x.Specification != null && x.Project.Manager.Id == CommonOptions.User.Id);
             var specs = units.Select(x => x.Specification).Distinct().ToList();
             var lookups = specs.Select(x => new SpecificationLookup(x, units.Where(u => u.Specification.Id == x.Id)));
             _viewModel.Load(lookups);

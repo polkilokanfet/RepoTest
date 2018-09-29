@@ -204,10 +204,13 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         private void LoadGroups(ProjectLookup project)
         {
+            //все юниты проекта
             var units = project.SalesUnits.Select(x => x.Entity);
-            var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new SalesUnitsGroup(x));
+            //группируем их
+            var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsGroup(x));
+            //обновляем вид
             Groups.Clear();
-            Groups.AddRange(groups);
+            Groups.AddRange(groups.OrderByDescending(x => x.Total));
         }
 
         private void ShowWorkProjects()

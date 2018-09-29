@@ -14,16 +14,16 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class OrderDetailsViewModel
     {
-        private SalesUnitsGroup _selectedPotentialGroup;
-        public ObservableCollection<SalesUnitsGroup> RealGroups { get; } = new ObservableCollection<SalesUnitsGroup>();
-        public ObservableCollection<SalesUnitsGroup> PotentialGroups { get; } = new ObservableCollection<SalesUnitsGroup>();
+        private SalesUnitsWrappersGroup _selectedPotentialWrappersGroup;
+        public ObservableCollection<SalesUnitsWrappersGroup> RealGroups { get; } = new ObservableCollection<SalesUnitsWrappersGroup>();
+        public ObservableCollection<SalesUnitsWrappersGroup> PotentialGroups { get; } = new ObservableCollection<SalesUnitsWrappersGroup>();
 
-        public SalesUnitsGroup SelectedPotentialGroup
+        public SalesUnitsWrappersGroup SelectedPotentialWrappersGroup
         {
-            get { return _selectedPotentialGroup; }
+            get { return _selectedPotentialWrappersGroup; }
             set
             {
-                _selectedPotentialGroup = value;
+                _selectedPotentialWrappersGroup = value;
                 ((DelegateCommand)AddCommand).RaiseCanExecuteChanged();
             }
         }
@@ -39,11 +39,11 @@ namespace HVTApp.UI.ViewModels
             var realUnits = salesUnits.Where(x => x.Order?.Id == Item.Id).ToList();
             var potentialUnits = salesUnits.Where(x => x.Order == null && x.SignalToStartProduction != null).ToList();
 
-            var realGroups = realUnits.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsGroup(x)).OrderBy(x => x.EndProductionDateCalculated);
+            var realGroups = realUnits.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsWrappersGroup(x)).OrderBy(x => x.EndProductionDateCalculated);
             RealGroups.Clear();
             RealGroups.AddRange(realGroups);
 
-            var potentialGroups = potentialUnits.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsGroup(x)).OrderBy(x => x.EndProductionDateCalculated);
+            var potentialGroups = potentialUnits.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsWrappersGroup(x)).OrderBy(x => x.EndProductionDateCalculated);
             PotentialGroups.Clear();
             PotentialGroups.AddRange(potentialGroups);
 
@@ -51,23 +51,23 @@ namespace HVTApp.UI.ViewModels
 
         private void AddCommand_Execute()
         {
-            SelectedPotentialGroup.Order = Item;
+            SelectedPotentialWrappersGroup.Order = Item;
 
             //SelectedPotentialGroup.Units.ForEach(x => Item.SalesUnits.Add(new SalesUnitWrapper(x)));
 
-            RealGroups.Add(SelectedPotentialGroup);
-            if (PotentialGroups.Contains(SelectedPotentialGroup))
+            RealGroups.Add(SelectedPotentialWrappersGroup);
+            if (PotentialGroups.Contains(SelectedPotentialWrappersGroup))
             {
-                PotentialGroups.Remove(SelectedPotentialGroup);
+                PotentialGroups.Remove(SelectedPotentialWrappersGroup);
             }
             else
             {
-                SalesUnitsGroup remove = null;
+                SalesUnitsWrappersGroup remove = null;
                 foreach (var gr in PotentialGroups)
                 {
-                    if (gr.Groups.Contains(SelectedPotentialGroup))
+                    if (gr.Groups.Contains(SelectedPotentialWrappersGroup))
                     {
-                        gr.Groups.Remove(SelectedPotentialGroup);
+                        gr.Groups.Remove(SelectedPotentialWrappersGroup);
                         if(!gr.Groups.Any()) remove = gr;
                         break;
                     }

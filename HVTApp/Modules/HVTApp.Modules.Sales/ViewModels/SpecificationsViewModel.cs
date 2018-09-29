@@ -26,8 +26,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             Groups.Clear();
             if (specification == null) return;
             var units = specification.Units.Select(x => x.Entity);
-            var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new SalesUnitsGroup(x));
-            Groups.AddRange(groups);
+            var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsGroup(x));
+            Groups.AddRange(groups.OrderByDescending(x => x.Total));
         }
 
         protected override void InitSpecialCommands()
