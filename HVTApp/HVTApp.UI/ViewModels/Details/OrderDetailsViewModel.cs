@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Converter;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;
 using Prism.Commands;
@@ -13,11 +14,11 @@ namespace HVTApp.UI.ViewModels
 {
     public partial class OrderDetailsViewModel
     {
-        private ProductUnitsGroup _selectedPotentialGroup;
-        public ObservableCollection<ProductUnitsGroup> RealGroups { get; } = new ObservableCollection<ProductUnitsGroup>();
-        public ObservableCollection<ProductUnitsGroup> PotentialGroups { get; } = new ObservableCollection<ProductUnitsGroup>();
+        private SalesUnitsGroup _selectedPotentialGroup;
+        public ObservableCollection<SalesUnitsGroup> RealGroups { get; } = new ObservableCollection<SalesUnitsGroup>();
+        public ObservableCollection<SalesUnitsGroup> PotentialGroups { get; } = new ObservableCollection<SalesUnitsGroup>();
 
-        public ProductUnitsGroup SelectedPotentialGroup
+        public SalesUnitsGroup SelectedPotentialGroup
         {
             get { return _selectedPotentialGroup; }
             set
@@ -35,20 +36,25 @@ namespace HVTApp.UI.ViewModels
 
             var salesUnits = await UnitOfWork.Repository<SalesUnit>().GetAllAsync();
 
-            var realUnits = salesUnits.Where(x => x.Order?.Id == Item.Id);
-            var potentialUnits = salesUnits.Where(x => x.Order == null && x.SignalToStartProduction != null);
+            var realUnits = salesUnits.Where(x => x.Order?.Id == Item.Id).ToList();
+            var potentialUnits = salesUnits.Where(x => x.Order == null && x.SignalToStartProduction != null).ToList();
 
+            var realGroups = realUnits.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsGroup(x)).OrderBy(x => x.EndProductionDateCalculated);
             RealGroups.Clear();
-            RealGroups.AddRange(ProductUnitsGroup.Grouping(realUnits));
+            RealGroups.AddRange(realGroups);
 
+            var potentialGroups = potentialUnits.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsGroup(x)).OrderBy(x => x.EndProductionDateCalculated);
             PotentialGroups.Clear();
-            PotentialGroups.AddRange(ProductUnitsGroup.Grouping(potentialUnits));
+            PotentialGroups.AddRange(potentialGroups);
+
         }
 
         private void AddCommand_Execute()
         {
-            SelectedPotentialGroup.SetOrder(Item.Model);
-            SelectedPotentialGroup.Units.ForEach(x => Item.SalesUnits.Add(new SalesUnitWrapper(x)));
+            SelectedPotentialGroup.Order = Item;
+
+            //SelectedPotentialGroup.Units.ForEach(x => Item.SalesUnits.Add(new SalesUnitWrapper(x)));
+
             RealGroups.Add(SelectedPotentialGroup);
             if (PotentialGroups.Contains(SelectedPotentialGroup))
             {
@@ -56,7 +62,7 @@ namespace HVTApp.UI.ViewModels
             }
             else
             {
-                ProductUnitsGroup remove = null;
+                SalesUnitsGroup remove = null;
                 foreach (var gr in PotentialGroups)
                 {
                     if (gr.Groups.Contains(SelectedPotentialGroup))

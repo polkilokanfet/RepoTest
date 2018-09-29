@@ -19,6 +19,8 @@ namespace HVTApp.UI.Groups
 
         public ValidatableChangeTrackingCollection<SalesUnitsGroup> Groups { get; }
 
+        public SalesUnit Model => GetValue<SalesUnit>();
+
         public int Amount => Groups?.Count ?? 1;
 
         public double Total => Groups?.Sum(x => x.Cost) ?? _unit.Cost;
@@ -48,8 +50,6 @@ namespace HVTApp.UI.Groups
         }
 
         public DateTime OrderInTakeDate => GetValue<DateTime>();
-
-        public SalesUnit Model => GetValue<SalesUnit>();
 
         public double Cost
         {
@@ -96,6 +96,26 @@ namespace HVTApp.UI.Groups
             }
         }
 
+        public OrderWrapper Order
+        {
+            get { return GetValue<OrderWrapper>(); }
+            set { SetValue(value); }
+        }
+
+        public string TceRequest
+        {
+            get { return GetValue<string>(); }
+            set { SetValue(value); }
+        }
+
+        public DateTime SignalToStartProduction
+        {
+            set { SetValue(value); }
+        }
+
+
+        public DateTime EndProductionDateCalculated => GetValue<DateTime>();
+
         public DateTime DeliveryDateExpected
         {
             get { return GetValue<DateTime>(); }
@@ -139,7 +159,10 @@ namespace HVTApp.UI.Groups
 
         public IEnumerable<ProductIncludedWrapper> ProductsIncluded => GetValue<IEnumerable<ProductIncludedWrapper>>();
 
-        //добавление зависимого оборудования
+        /// <summary>
+        /// добавление зависимого оборудования
+        /// </summary>
+        /// <param name="productIncluded"></param>
         public void AddProductIncluded(ProductIncluded productIncluded)
         {
             if (Groups == null)
@@ -158,7 +181,10 @@ namespace HVTApp.UI.Groups
             OnPropertyChanged(nameof(ProductsIncluded));
         }
 
-        //удаление зависимого оборудования
+        /// <summary>
+        /// удаление зависимого оборудования
+        /// </summary>
+        /// <param name="productIncluded"></param>
         public void RemoveProductIncluded(ProductIncludedWrapper productIncluded)
         {
             if (Groups == null)

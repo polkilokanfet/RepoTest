@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
 using HVTApp.Model.POCOs;
+using HVTApp.UI.Converter;
 using HVTApp.UI.Groups;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 
@@ -14,14 +18,13 @@ namespace HVTApp.Modules.Sales.ViewModels
 {
     public class ProductionViewModel : LoadableBindableBase
     {
-        private List<SalesUnit> _allSalesUnits;
-        private ProductUnitsGroup _selectedPotentialGroup;
-        private ProductUnitsGroup _selectedProductionGroup;
+        private SalesUnitsGroup _selectedPotentialGroup;
+        private SalesUnitsGroup _selectedProductionGroup;
 
-        public ObservableCollection<ProductUnitsGroup> ProductionGroups { get; } = new ObservableCollection<ProductUnitsGroup>();
-        public ObservableCollection<ProductUnitsGroup> PotentialGroups { get; } = new ObservableCollection<ProductUnitsGroup>();
+        public ObservableCollection<SalesUnitsGroup> ProductionGroups { get; } = new ObservableCollection<SalesUnitsGroup>();
+        public ObservableCollection<SalesUnitsGroup> PotentialGroups { get; } = new ObservableCollection<SalesUnitsGroup>();
 
-        public ProductUnitsGroup SelectedProductionGroup
+        public SalesUnitsGroup SelectedProductionGroup
         {
             get { return _selectedProductionGroup; }
             set
@@ -31,7 +34,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
-        public ProductUnitsGroup SelectedPotentialGroup
+        public SalesUnitsGroup SelectedPotentialGroup
         {
             get { return _selectedPotentialGroup; }
             set
@@ -50,11 +53,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             ReloadCommand = new DelegateCommand(async () => await LoadAsync());
         }
 
-        private bool ProductUnitCommand_CanExecute()
-        {
-            return !string.IsNullOrEmpty(SelectedPotentialGroup?.TceRequest);
-        }
-
         private async void ProductUnitCommand_Execute()
         {
             //подтверждение
@@ -63,7 +61,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             if (ms.ShowYesNoMessageDialog("Размещение в производстве", q) != MessageDialogResult.Yes) return;
 
             //размещение в производстве
-            SelectedPotentialGroup.ProductingGroup();
+            SelectedPotentialGroup.SignalToStartProduction = DateTime.Today;
             await UnitOfWork.SaveChangesAsync();
 
             //работа с видами
@@ -89,19 +87,28 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
+        private bool ProductUnitCommand_CanExecute()
+        {
+            return !string.IsNullOrEmpty(SelectedPotentialGroup?.TceRequest);
+        }
+
         protected override async Task LoadedAsyncMethod()
         {
             UnitOfWork = Container.Resolve<IUnitOfWork>();
-            _allSalesUnits = await UnitOfWork.Repository<SalesUnit>().GetAllAsync();
+            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.Id == CommonOptions.User.Id);
 
-            var production = _allSalesUnits.Where(x => x.SignalToStartProduction != null).ToList();
-            var potential = _allSalesUnits.Except(production).Where(x => !x.IsLoosen && x.Project.InWork);
+            var production = salesUnits.Where(x => x.SignalToStartProduction != null && x.EndProductionDateCalculated >= DateTime.Today).ToList();
+            var potential = salesUnits.Where(x => x.SignalToStartProduction == null && !x.IsLoosen && x.Project.InWork);
 
+            var productionGroups = production.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsGroup(x)).OrderBy(x => x.EndProductionDateCalculated);
             ProductionGroups.Clear();
-            ProductionGroups.AddRange(ProductUnitsGroup.Grouping(production));
+            ProductionGroups.AddRange(productionGroups);
 
+            var potentialGroups = potential.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsGroup(x)).OrderBy(x => x.EndProductionDateCalculated);
             PotentialGroups.Clear();
-            PotentialGroups.AddRange(ProductUnitsGroup.Grouping(potential));
+            PotentialGroups.AddRange(potentialGroups);
+
+            PotentialGroups.ForEach(x => x.PropertyChanged += (sender, args) => ((DelegateCommand)ProductUnitCommand).RaiseCanExecuteChanged());
         }
 
     }

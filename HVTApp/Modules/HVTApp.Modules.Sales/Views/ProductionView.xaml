@@ -53,17 +53,19 @@
 			        <infg:XamDataGrid.FieldLayouts>
 				        <infg:FieldLayout>
 					        <infg:FieldLayout.Fields>
-                        
-                                <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
-                                <infg:TextField Name="ProductType" Label="Тип" Width="Auto"/>
-                                <infg:TextField Name="ProductDesignation" Label="Обозначение" Width="Auto"/>
-                                <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
-                                <infg:TextField Name="Order" Label="З/з" Width="Auto"/>
-                                <infg:TextField Name="Company" Label="Контрагент" Width="Auto"/>
-                                <infg:TextField Name="Specification" Label="Сп.№" Width="Auto"/>
-                                <infg:TextField Name="Contract" Label="Договор" Width="Auto"/>
+                                
+                                <infg:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <infg:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <infg:TextField AlternateBinding="{Binding Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
+                                <infg:NumericField Name="Amount" Label="Кол." Width="Auto" />
+                                <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto"/>
+                                <infg:NumericField Name="Total" Label="Сумма" Width="Auto"/>
+                                <infg:TextField Name="Order" Label="З/з" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <infg:TextField AlternateBinding="{Binding Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <infg:TextField Name="Specification" Label="Сп.№" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <infg:TextField AlternateBinding="{Binding Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                                 <infg:TextField Name="TceRequest" Label="Запрс в ТСЕ" Width="Auto"/>
-                                <infg:DateTimeField Name="EndProductionDate" Label="Дата производства" Width="Auto"/>
+                                <infg:DateTimeField Name="EndProductionDateCalculated" Label="Дата производства" Width="Auto"/>
                                 <infg:Field Name="Groups" IsExpandable="True"/>
 
                             </infg:FieldLayout.Fields>
@@ -89,16 +91,19 @@
                     <infg:XamDataGrid.FieldLayouts>
                         <infg:FieldLayout>
                             <infg:FieldLayout.Fields>
-
-                                <infg:TextField Name="Facility" Label="Объект" Width="Auto"/>
-                                <infg:TextField Name="ProductType" Label="Тип" Width="Auto"/>
-                                <infg:TextField Name="ProductDesignation" Label="Обозначение" Width="Auto"/>
-                                <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
-                                <infg:TextField Name="Company" Label="Контрагент" Width="Auto"/>
-                                <infg:TextField Name="Specification" Label="Сп.№" Width="Auto"/>
-                                <infg:TextField Name="Contract" Label="Договор" Width="Auto"/>
+                                
+                                <infg:TextField Name="Facility" Label="Объект" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <infg:TextField AlternateBinding="{Binding Product.ProductType}" BindingType="UseAlternateBinding" Label="Тип оборудования" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <infg:TextField AlternateBinding="{Binding Product.Designation}" BindingType="UseAlternateBinding" Label="Обозначение" Width="Auto"/>
+                                <infg:NumericField Name="Amount" Label="Кол." Width="Auto" />
+                                <infg:NumericField Name="Cost" Label="Стоимость" Width="Auto"/>
+                                <infg:NumericField Name="Total" Label="Сумма" Width="Auto"/>
+                                <infg:TextField Name="Order" Label="З/з" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <infg:TextField AlternateBinding="{Binding Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <infg:TextField Name="Specification" Label="Сп.№" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
+                                <infg:TextField AlternateBinding="{Binding Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
                                 <infg:TextField Name="TceRequest" Label="Запрс в ТСЕ" Width="Auto" AllowEdit="True"/>
-                                <infg:DateTimeField Name="EndProductionDate" Label="Дата производства" Width="Auto"/>
+                                <infg:DateTimeField Name="EndProductionDateCalculated" Label="Дата производства" Width="Auto"/>
                                 <infg:Field Name="Groups" IsExpandable="True"/>
 
                             </infg:FieldLayout.Fields>
