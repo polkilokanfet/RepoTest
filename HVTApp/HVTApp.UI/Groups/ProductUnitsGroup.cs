@@ -36,6 +36,11 @@ namespace HVTApp.UI.Groups
         public string Specification => _unit.Specification?.Number;
         public string Contract => _unit.Specification?.Contract.Number;
         public DateTime EndProductionDate => _unit.EndProductionDateCalculated;
+        public string TceRequest
+        {
+            get { return _unit.TceRequest; }
+            set { _unit.TceRequest = value; }
+        }
 
         public ObservableCollection<ProductUnitsGroup> Groups { get; } = new ObservableCollection<ProductUnitsGroup>();
 

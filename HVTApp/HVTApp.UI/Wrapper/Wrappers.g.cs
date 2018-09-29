@@ -2340,6 +2340,15 @@ namespace HVTApp.UI.Wrapper
         public bool CostIsChanged => GetIsChanged(nameof(Cost));
 
 
+        public System.Nullable<System.Double> Price
+        {
+          get { return GetValue<System.Nullable<System.Double>>(); }
+          set { SetValue(value); }
+        }
+        public System.Nullable<System.Double> PriceOriginalValue => GetOriginalValue<System.Nullable<System.Double>>(nameof(Price));
+        public bool PriceIsChanged => GetIsChanged(nameof(Price));
+
+
         public System.Int32 ProductionTerm
         {
           get { return GetValue<System.Int32>(); }
@@ -2365,6 +2374,15 @@ namespace HVTApp.UI.Wrapper
         }
         public System.Nullable<System.DateTime> RealizationDateOriginalValue => GetOriginalValue<System.Nullable<System.DateTime>>(nameof(RealizationDate));
         public bool RealizationDateIsChanged => GetIsChanged(nameof(RealizationDate));
+
+
+        public System.String TceRequest
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String TceRequestOriginalValue => GetOriginalValue<System.String>(nameof(TceRequest));
+        public bool TceRequestIsChanged => GetIsChanged(nameof(TceRequest));
 
 
         public System.String OrderPosition

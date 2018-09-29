@@ -71,6 +71,7 @@
                                         <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                                         <infg:TextField AlternateBinding="{Binding Unit.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                                         <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding Unit.TceRequest}" BindingType="UseAlternateBinding" Label="Запрос в ТСЕ" Width="Auto"/>
                                         <infg:DateTimeField AlternateBinding="{Binding Unit.DeliveryDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto"/>
                                         <infg:DateTimeField AlternateBinding="{Binding Date, Mode=TwoWay}" BindingType="UseAlternateBinding" Label="Плановая" Width="Auto" AllowEdit="True"/>
                                         <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
@@ -106,6 +107,7 @@
                                         <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract.Contragent}" BindingType="UseAlternateBinding" Label="Контрагент" Width="Auto"/>
                                         <infg:TextField AlternateBinding="{Binding Unit.Specification}" BindingType="UseAlternateBinding" Label="Сп.№" Width="Auto"/>
                                         <infg:TextField AlternateBinding="{Binding Unit.Specification.Contract}" BindingType="UseAlternateBinding" Label="Договор" Width="Auto"/>
+                                        <infg:TextField AlternateBinding="{Binding Unit.TceRequest}" BindingType="UseAlternateBinding" Label="Запрос в ТСЕ" Width="Auto"/>
                                         <infg:DateTimeField AlternateBinding="{Binding Unit.DeliveryDateExpected}" BindingType="UseAlternateBinding" Label="Требуемая" Width="Auto"/>
                                         <infg:NumericField Name="Amount" Label="Количество" Width="Auto"/>
                                         <infg:Field Name="Groups" IsExpandable="True"/>

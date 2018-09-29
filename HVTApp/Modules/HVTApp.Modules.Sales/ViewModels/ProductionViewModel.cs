@@ -46,8 +46,13 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         public ProductionViewModel(IUnityContainer container) : base(container)
         {
-            ProductUnitCommand = new DelegateCommand(ProductUnitCommand_Execute, () => SelectedPotentialGroup != null);
+            ProductUnitCommand = new DelegateCommand(ProductUnitCommand_Execute, ProductUnitCommand_CanExecute);
             ReloadCommand = new DelegateCommand(async () => await LoadAsync());
+        }
+
+        private bool ProductUnitCommand_CanExecute()
+        {
+            return !string.IsNullOrEmpty(SelectedPotentialGroup?.TceRequest);
         }
 
         private async void ProductUnitCommand_Execute()
@@ -70,19 +75,17 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
             else
             {
-                List<ProductUnitsGroup> remove = new List<ProductUnitsGroup>();
-                foreach (var potentialGroup in PotentialGroups)
+                foreach (var potentialGroup in PotentialGroups.ToList())
                 {
                     if (potentialGroup.Groups.Contains(SelectedPotentialGroup))
                     {
                         potentialGroup.Groups.Remove(SelectedPotentialGroup);
                         if (!potentialGroup.Groups.Any())
                         {
-                            remove.Add(potentialGroup);
+                            PotentialGroups.Remove(potentialGroup);
                         }
                     }
                 }
-                remove.ForEach(x => PotentialGroups.Remove(x));
             }
         }
 

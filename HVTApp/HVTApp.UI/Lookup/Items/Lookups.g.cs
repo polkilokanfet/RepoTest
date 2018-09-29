@@ -1258,6 +1258,10 @@ namespace HVTApp.UI.Lookup
         public System.Double Cost => GetValue<System.Double>();
 
 
+		[OrderStatus(46)]
+        public System.Nullable<System.Double> Price => GetValue<System.Nullable<System.Double>>();
+
+
 		[OrderStatus(1)]
         public System.Int32 ProductionTerm => GetValue<System.Int32>();
 
@@ -1268,6 +1272,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(1)]
         public System.Nullable<System.DateTime> RealizationDate => GetValue<System.Nullable<System.DateTime>>();
+
+
+		[OrderStatus(1)]
+        public System.String TceRequest => GetValue<System.String>();
 
 
 		[OrderStatus(1)]

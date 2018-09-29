@@ -38,7 +38,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             
-            <GroupBox Grid.Row="0" Header="Оборудование в производстве">
+            <GroupBox Grid.Row="0" Header="Оборудование размещенное в производстве">
                 <infg:XamDataGrid x:Name="ProductionListGrid"
                                   
                                   DataSource="{Binding ProductionGroups}"
@@ -62,6 +62,7 @@
                                 <infg:TextField Name="Company" Label="Контрагент" Width="Auto"/>
                                 <infg:TextField Name="Specification" Label="Сп.№" Width="Auto"/>
                                 <infg:TextField Name="Contract" Label="Договор" Width="Auto"/>
+                                <infg:TextField Name="TceRequest" Label="Запрс в ТСЕ" Width="Auto"/>
                                 <infg:DateTimeField Name="EndProductionDate" Label="Дата производства" Width="Auto"/>
                                 <infg:Field Name="Groups" IsExpandable="True"/>
 
@@ -96,6 +97,7 @@
                                 <infg:TextField Name="Company" Label="Контрагент" Width="Auto"/>
                                 <infg:TextField Name="Specification" Label="Сп.№" Width="Auto"/>
                                 <infg:TextField Name="Contract" Label="Договор" Width="Auto"/>
+                                <infg:TextField Name="TceRequest" Label="Запрс в ТСЕ" Width="Auto" AllowEdit="True"/>
                                 <infg:DateTimeField Name="EndProductionDate" Label="Дата производства" Width="Auto"/>
                                 <infg:Field Name="Groups" IsExpandable="True"/>
 
