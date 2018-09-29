@@ -109,7 +109,8 @@ namespace HVTApp.Model.Structures
                 var intParams = block.Parameters.Intersect(targetBlock.Parameters, new ParameterComparer()).ToList();
                 foreach (var parameter in intParams)
                 {
-                    var path = parameter.Paths().Single(x => x.Parameters.AllContainsIn(block.Parameters, new ParameterComparer()));
+                    //Single было бы правильнее, но надо искать ошибку в формировании путей
+                    var path = parameter.Paths().First(x => x.Parameters.AllContainsIn(block.Parameters, new ParameterComparer()));
                     dif += 1.0 / path.Parameters.Count;
                 }
 
@@ -117,14 +118,16 @@ namespace HVTApp.Model.Structures
                 var difParams1 = block.Parameters.Except(targetBlock.Parameters, new ParameterComparer()).ToList();
                 foreach (var parameter in difParams1)
                 {
-                    var path = parameter.Paths().Single(x => x.Parameters.AllContainsIn(block.Parameters, new ParameterComparer()));
+                    //Single было бы правильнее, но надо искать ошибку в формировании путей
+                    var path = parameter.Paths().First(x => x.Parameters.AllContainsIn(block.Parameters, new ParameterComparer()));
                     dif -= 1.0 / path.Parameters.Count;
                 }
 
                 var difParams2 = targetBlock.Parameters.Except(block.Parameters, new ParameterComparer()).ToList();
                 foreach (var parameter in difParams2)
                 {
-                    var path = parameter.Paths().Single(x => x.Parameters.AllContainsIn(targetBlock.Parameters, new ParameterComparer()));
+                    //Single было бы правильнее, но надо искать ошибку в формировании путей
+                    var path = parameter.Paths().First(x => x.Parameters.AllContainsIn(targetBlock.Parameters, new ParameterComparer()));
                     dif -= 1.0 / path.Parameters.Count;
                 }
 

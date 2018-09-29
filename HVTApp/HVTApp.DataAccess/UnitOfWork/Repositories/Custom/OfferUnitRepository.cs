@@ -16,9 +16,11 @@ namespace HVTApp.DataAccess
         {
             return Context.Set<OfferUnit>().AsQueryable()
                 .Include(x => x.Facility)
-                .Include(x => x.Offer.Project)
+                .Include(x => x.Product)
+                .Include(x => x.Product.ProductBlock)
                 .Include(x => x.Product.ProductBlock.Parameters)
-                .Include(x => x.Product.DependentProducts.Select(dp => dp.Product.ProductBlock).SelectMany(p => p.Parameters));
+                .Include(x => x.Product.DependentProducts.Select(dp => dp.Product.ProductBlock).SelectMany(p => p.Parameters))
+                .Include(x => x.ProductsIncluded.Select(pi => pi.Product.ProductBlock));
         }
 
         public override async Task<List<OfferUnit>> GetAllAsync()

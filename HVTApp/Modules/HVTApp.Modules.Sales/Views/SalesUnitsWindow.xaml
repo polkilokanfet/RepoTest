@@ -52,7 +52,9 @@
                                     VisibilitySumNotPaidSalesUnit="Collapsed"
                                     VisibilitySumPaidSalesUnit="Collapsed"
                                     VisibilitySumToShippingSalesUnit="Collapsed"
-                                    VisibilitySumToStartProductionSalesUnit="Collapsed"/>
+                                    VisibilitySumToStartProductionSalesUnit="Collapsed"
+                                    VisibilityTceRequestSalesUnit="Collapsed"
+                                    VisibilityPriceSalesUnit="Collapsed" />
         
         <Grid>
             <Grid.ColumnDefinitions>
