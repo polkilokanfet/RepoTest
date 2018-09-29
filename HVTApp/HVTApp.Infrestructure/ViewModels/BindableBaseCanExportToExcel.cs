@@ -23,12 +23,7 @@ namespace HVTApp.Infrastructure.ViewModels
         {
             var messageService = Container.Resolve<IMessageService>();
 
-            string fileName = GetUnusedFileName();
-            if (string.IsNullOrEmpty(fileName))
-            {
-                messageService.ShowYesNoMessageDialog("Ошибка", "Нет свободного имени файла.");
-                return;
-            }
+            var fileName = $"{this.GetType().Name}-{DateTime.Now.ToFileTime()}.xlsx";
 
             try
             {
@@ -37,13 +32,12 @@ namespace HVTApp.Infrastructure.ViewModels
             }
             catch (Exception ex)
             {
-                messageService.ShowYesNoMessageDialog("Ошибка экспорта в файл", ex.Message);
+                messageService.ShowOkMessageDialog("Ошибка экспорта в файл", ex.Message);
                 return;
             }
 
             // Execute Excel to display the exported workbook.
-            if (messageService.ShowYesNoMessageDialog("Экспорт успешно завершен", "Показать результаты экспорта?") ==
-                MessageDialogResult.Yes)
+            if (messageService.ShowYesNoMessageDialog("Экспорт успешно завершен", "Показать результаты экспорта?") == MessageDialogResult.Yes)
             {
                 try
                 {
@@ -52,26 +46,13 @@ namespace HVTApp.Infrastructure.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    messageService.ShowYesNoMessageDialog("Ошибка", ex.Message);
+                    messageService.ShowOkMessageDialog("Ошибка", ex.Message);
                 }
             }
 
         }
 
         private ExportOptions _exportOptions;
-        public ExportOptions ExportOptions => _exportOptions ?? (_exportOptions = new ExportOptions());
-
-        private string GetUnusedFileName()
-        {
-            for (int i = 1; i < 50000; i++)
-            {
-                string fileName = "ExportToExcel" + i.ToString() + ".xlsx";
-                if (false == System.IO.File.Exists(fileName))
-                    return fileName;
-            }
-
-            return string.Empty;
-        }
-        
+        public ExportOptions ExportOptions => _exportOptions ?? (_exportOptions = new ExportOptions());        
     }
 }
