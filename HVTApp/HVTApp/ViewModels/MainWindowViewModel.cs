@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using HVTApp.Infrastructure;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -10,7 +9,7 @@ namespace HVTApp.ViewModels
     public class MainWindowViewModel : BindableBase
     {
         private readonly IRegionManager _regionManager;
-        private string _title = "HVT Application";
+        private string _title = "Управление продажами ВВА";
         public string Title
         {
             get { return _title; }
