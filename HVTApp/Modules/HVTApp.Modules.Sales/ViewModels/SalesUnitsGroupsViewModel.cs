@@ -284,7 +284,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             var added = Groups.AddedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups);
             added = added.Concat(Groups.AddedItems);
-            return added.Select(x => x.Model);
+            return added.Select(x => x.Model).Distinct();
         }
 
         private IEnumerable<SalesUnit> GetRemovedUnits()
