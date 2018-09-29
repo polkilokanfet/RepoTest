@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.ViewModels;
 using HVTApp.Model;
 using HVTApp.Model.POCOs;
 using Microsoft.Practices.Unity;
@@ -11,7 +10,7 @@ using Prism.Commands;
 
 namespace HVTApp.Modules.Reports.ViewModels
 {
-    public class SalesReportViewModel : ViewModelBase
+    public class SalesReportViewModel : BindableBaseCanExportToExcel
     {
         private bool _isLoaded;
         public ObservableCollection<SalesReportUnit> Units { get; } = new ObservableCollection<SalesReportUnit>();

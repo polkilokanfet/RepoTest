@@ -1,16 +1,14 @@
 using System;
 using System.Diagnostics;
 using System.Windows.Input;
-using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Services;
 using Infragistics.Documents.Excel;
 using Infragistics.Windows.DataPresenter;
 using Infragistics.Windows.DataPresenter.ExcelExporter;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
-using Prism.Mvvm;
 
-namespace HVTApp.UI.ViewModels
+namespace HVTApp.Infrastructure.ViewModels
 {
     public abstract class BindableBaseCanExportToExcel : ViewModelBase
     {

@@ -135,7 +135,6 @@
     <Compile Include="UiModule.g.cs" />
     <Compile Include="ViewModels\Base\BaseDetailsViewModel.cs" />
     <Compile Include="ViewModels\Base\BaseListViewModel.cs" />
-    <Compile Include="ViewModels\Base\BindableBaseCanExportToExcel.cs" />
     <Compile Include="ViewModels\Details\ContractDetailsViewModel.cs" />
     <Compile Include="ViewModels\Details\Generated\DetailsViewModels.g.cs" />
     <Compile Include="ViewModels\Details\IProductCostDependentProductsWrapper.cs" />
