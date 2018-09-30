@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
@@ -201,5 +203,24 @@ namespace HVTApp.Modules.Sales.ViewModels
 
 
         #endregion
+
+
+        public bool IsValid => Groups != null && Groups.Any() && Groups.IsValid;
+
+        public bool IsChanged => Groups != null && Groups.IsChanged;
+
+        protected void GroupsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            GroupChanged?.Invoke();
+        }
+
+        protected void GroupsOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            GroupChanged?.Invoke();
+        }
+
+        public event Action GroupChanged;
+
+
     }
 }

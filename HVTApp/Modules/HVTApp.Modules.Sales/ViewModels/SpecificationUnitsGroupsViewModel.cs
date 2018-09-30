@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Model;
@@ -16,7 +13,7 @@ using Microsoft.Practices.Unity;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class SpecificationUnitsGroupsViewModel : SalesUnitsGroupsViewModel, IGroupsViewModel<SalesUnit, SpecificationWrapper>
+    public class SpecificationUnitsGroupsViewModel : BaseGroupsViewModel<SalesUnitsWrappersGroup, SalesUnitsWrappersGroup, SalesUnit>, IGroupsViewModel<SalesUnit, SpecificationWrapper>
     {
         private SpecificationWrapper _specification;
 
@@ -33,11 +30,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             group.Specification = _specification;
             RefreshPrice(group);
             Groups.Add(group);
-        }
-
-        public override bool CanSaveChanges()
-        {
-            return Groups.IsValid && (Groups.IsChanged || Groups.RemovedItems.Any());
         }
 
         public void Load(IEnumerable<SalesUnit> units, SpecificationWrapper parentWrapper, IUnitOfWork unitOfWork, bool isNew)
@@ -67,19 +59,14 @@ namespace HVTApp.Modules.Sales.ViewModels
             Groups.ForEach(RefreshPrice);
         }
 
-
-
-        private void GroupsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        protected override DateTime GetPriceDate(SalesUnitsWrappersGroup grp)
         {
-            GroupChanged?.Invoke();
+            throw new NotImplementedException();
         }
 
-        private void GroupsOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        public void AcceptChanges()
         {
-            GroupChanged?.Invoke();
+            throw new NotImplementedException();
         }
-
-
-        public event Action GroupChanged;
     }
 }
