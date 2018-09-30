@@ -3,28 +3,20 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using HVTApp.Infrastructure;
-using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
-using HVTApp.Infrastructure.Interfaces.Services.SelectService;
-using HVTApp.Infrastructure.Services;
-using HVTApp.Model;
 using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
-using HVTApp.Model.Services;
-using HVTApp.Model.Structures;
 using HVTApp.UI.Converter;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
-using Prism.Commands;
 using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class SalesUnitsGroupsViewModel : BaseGroupsViewModel<SalesUnitsWrappersGroup, SalesUnitsWrappersGroup>, IGroupsViewModel<SalesUnit, ProjectWrapper>
+    public class SalesUnitsGroupsViewModel : BaseGroupsViewModel<SalesUnitsWrappersGroup, SalesUnitsWrappersGroup, SalesUnit>, IGroupsViewModel<SalesUnit, ProjectWrapper>
     {
         private ProjectWrapper _projectWrapper;
 
@@ -32,23 +24,10 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
         }
 
-        protected override void RefreshPrice(SalesUnitsWrappersGroup wrappersGroup)
+        protected override DateTime GetPriceDate(SalesUnitsWrappersGroup grp)
         {
-            if (wrappersGroup == null) return;
-
-            var priceDate = wrappersGroup.OrderInTakeDate < DateTime.Today ? wrappersGroup.OrderInTakeDate : DateTime.Today;
-            var priceTerm = CommonOptions.ActualOptions.ActualPriceTerm;
-
-            if (!_priceDictionary.ContainsKey(wrappersGroup)) _priceDictionary.Add(wrappersGroup, null);
-
-            _priceDictionary[wrappersGroup] = new PriceStructures(wrappersGroup.Model, priceDate, priceTerm, _blocks);
-
-            wrappersGroup.Price = _priceDictionary[wrappersGroup].Total;
-            OnPropertyChanged(nameof(PriceStructures));
-
-            wrappersGroup.Groups?.ForEach(RefreshPrice);
+            return grp.OrderInTakeDate < DateTime.Today ? grp.OrderInTakeDate : DateTime.Today;
         }
-
 
 
         #region AddCommand

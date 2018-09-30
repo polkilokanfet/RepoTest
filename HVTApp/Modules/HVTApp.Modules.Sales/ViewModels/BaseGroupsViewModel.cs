@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
@@ -5,19 +6,24 @@ using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
+using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Structures;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public abstract class BaseGroupsViewModel<TGroup, TSubGroup> : ViewModelBase
-        where TSubGroup : IGroupValidatableChangeTracking
-        where TGroup : IGroupValidatableChangeTrackingWithCollection<TSubGroup>
+    public abstract class BaseGroupsViewModel<TGroup, TSubGroup, TModel> : ViewModelBase
+        where TModel : IUnitPoco
+        where TSubGroup : class, IGroupValidatableChangeTracking<TModel>
+        where TGroup : class, IGroupValidatableChangeTrackingWithCollection<TSubGroup, TModel>
     {
         //блоки, необходимые для поиска аналогов
         protected static List<ProductBlock> _blocks;
@@ -58,7 +64,24 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
-        protected abstract void RefreshPrice(TGroup grp);
+        protected abstract DateTime GetPriceDate(TGroup grp);
+
+        protected void RefreshPrice(TGroup grp)
+        {
+            if (grp == null) return;
+
+            //var priceDate = grp.OrderInTakeDate < DateTime.Today ? grp.OrderInTakeDate : DateTime.Today;
+            var priceTerm = CommonOptions.ActualOptions.ActualPriceTerm;
+
+            if (!_priceDictionary.ContainsKey(grp)) _priceDictionary.Add(grp, null);
+
+            _priceDictionary[grp] = new PriceStructures(grp.Model, GetPriceDate(grp), priceTerm, _blocks);
+
+            grp.Price = _priceDictionary[grp].Total;
+            OnPropertyChanged(nameof(PriceStructures));
+
+            grp.Groups?.ForEach(x => RefreshPrice(x as TGroup));
+        }
 
         /// <summary>
         /// Структура себестоимости выбранной группы
@@ -128,21 +151,23 @@ namespace HVTApp.Modules.Sales.ViewModels
             if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
                 return;
 
-            //удаление из группы или из подгруппы
+            //удаление из группы
             if (Groups.Contains(SelectedGroup))
             {
                 Groups.Remove(SelectedGroup);
             }
-            //else
-            //{
-            //    var group = Groups.Single(x => x.Groups != null && x.Groups.Contains(SelectedGroup));
-            //    group.Groups.Remove(SelectedGroup);
+            //удаление из подгруппы
+            else
+            {
+                var group = Groups.Single(x => x.Groups != null && x.Groups.Contains(SelectedGroup as TSubGroup));
+                group.Groups.Remove(SelectedGroup as TSubGroup);
 
-            //    if (!group.Groups.Any())
-            //    {
-            //        Groups.Remove(group);
-            //    }
-            //}
+                //если группа стала пустая - удалить
+                if (!group.Groups.Any())
+                {
+                    Groups.Remove(group);
+                }
+            }
 
             SelectedGroup = default(TGroup);
         }
@@ -176,6 +201,5 @@ namespace HVTApp.Modules.Sales.ViewModels
 
 
         #endregion
-
     }
 }
