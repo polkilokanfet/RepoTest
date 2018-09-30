@@ -1,6 +1,14 @@
+using System;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
+using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
+using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
@@ -34,17 +42,63 @@ namespace HVTApp.Modules.Sales.ViewModels
             await GroupsViewModel.LoadAsync();
 
             //регистрация на события изменения строк с оборудованием
-            this.GroupsViewModel.Groups.PropertyChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
-            this.GroupsViewModel.Groups.CollectionChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+            this.GroupsViewModel.Groups.PropertyChanged += GroupsOnPropertyChanged;
+            this.GroupsViewModel.Groups.CollectionChanged += GroupsOnCollectionChanged;
 
             //сигнал об изменении модели
             OnPropertyChanged(nameof(GroupsViewModel));
         }
 
+        private void GroupsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            ((DelegateCommand) SaveCommand).RaiseCanExecuteChanged();
+        }
+
+        private void GroupsOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            ((DelegateCommand) SaveCommand).RaiseCanExecuteChanged();
+        }
+
+
         protected override async void SaveCommand_Execute()
         {
-            await GroupsViewModel.SaveChanges();
-            base.SaveCommand_Execute();
+
+            //отписка от событий изменения строк с оборудованием
+            this.GroupsViewModel.Groups.PropertyChanged -= GroupsOnPropertyChanged;
+            this.GroupsViewModel.Groups.CollectionChanged -= GroupsOnCollectionChanged;
+
+            //добавляем сущность, если ее не существовало
+            if (await UnitOfWork.Repository<Project>().GetByIdAsync(Item.Model.Id) == null)
+                UnitOfWork.Repository<Project>().Add(Item.Model);
+
+            Item.AcceptChanges();
+            GroupsViewModel.AcceptChanges();
+
+            //сохраняем
+            try
+            {
+                await UnitOfWork.SaveChangesAsync();
+                EventAggregator.GetEvent<AfterSaveProjectEvent>().Publish(Item.Model);
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                var sb = new StringBuilder();
+                Exception exception = e;
+                do
+                {
+                    sb.AppendLine(e.Message);
+                    exception = exception.InnerException;
+                } while (exception != null);
+
+                Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при сохранении", sb.ToString());
+            }
+
+            //запрашиваем закрытие окна
+            OnCloseRequested(new DialogRequestCloseEventArgs(true));
+
+            //регистрация на события изменения строк с оборудованием
+            this.GroupsViewModel.Groups.PropertyChanged += GroupsOnPropertyChanged;
+            this.GroupsViewModel.Groups.CollectionChanged += GroupsOnCollectionChanged;
         }
 
         protected override bool SaveCommand_CanExecute()

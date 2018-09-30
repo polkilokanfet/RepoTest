@@ -17,7 +17,7 @@ namespace HVTApp.UI.Groups
         private double _price;
         private readonly SalesUnitWrapper _unit;
 
-        public ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup> Groups { get; }
+        public IValidatableChangeTrackingCollection<SalesUnitsWrappersGroup> Groups { get; }
 
         public SalesUnit Model => GetValue<SalesUnit>();
 
@@ -113,7 +113,6 @@ namespace HVTApp.UI.Groups
             set { SetValue(value); }
         }
 
-
         public DateTime EndProductionDateCalculated => GetValue<DateTime>();
 
         public DateTime DeliveryDateExpected
@@ -141,20 +140,34 @@ namespace HVTApp.UI.Groups
             var groups = salesUnits.Select(x => new SalesUnitsWrappersGroup(new[] {x}));
             Groups = new ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup>(groups);
 
-            Groups.ForEach(x => x.PropertyChanged += UnitOnPropertyChanged);
+            //подписка на события
+            Groups.PropertyChanged += UnitOnPropertyChanged;
             Groups.CollectionChanged += GroupsOnCollectionChanged;
         }
 
+        /// <summary>
+        /// изменение коллекции групп
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void GroupsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        {
+            OnPropertyChanged(nameof(Amount));
+            OnPropertyChanged(nameof(Total));
+            OnPropertyChanged(nameof(IsChanged));
+            OnPropertyChanged(nameof(IsValid));
+        }
+
+        /// <summary>
+        /// изменение члена коллекции
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void UnitOnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName == nameof(Cost))
-                OnPropertyChanged(nameof(Cost));
-
-            if (args.PropertyName == nameof(IsChanged))
-                OnPropertyChanged(nameof(IsChanged));
-
-            if (args.PropertyName == nameof(IsValid))
-                OnPropertyChanged(nameof(IsValid));
+            if (args.PropertyName == nameof(Cost)) OnPropertyChanged(nameof(Cost));
+            if (args.PropertyName == nameof(IsChanged)) OnPropertyChanged(nameof(IsChanged));
+            if (args.PropertyName == nameof(IsValid)) OnPropertyChanged(nameof(IsValid));
         }
 
         public IEnumerable<ProductIncludedWrapper> ProductsIncluded => GetValue<IEnumerable<ProductIncludedWrapper>>();
@@ -204,15 +217,6 @@ namespace HVTApp.UI.Groups
             OnPropertyChanged(nameof(ProductsIncluded));
         }
 
-        //изменение коллекции групп
-        private void GroupsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
-        {
-            OnPropertyChanged(nameof(Amount));
-            OnPropertyChanged(nameof(Total));
-            OnPropertyChanged(nameof(IsChanged));
-            OnPropertyChanged(nameof(IsValid));
-        }
-
         private T GetValue<T>([CallerMemberName] string propertyName = null)
         {
             var obj = _unit ?? (object)Groups.First();
@@ -240,8 +244,22 @@ namespace HVTApp.UI.Groups
 
         public void AcceptChanges()
         {
-            _unit?.AcceptChanges();
+            if (_unit != null)
+            {
+                _unit?.AcceptChanges();
+                return;
+            }
+
+            //отписка от событий
+            Groups.PropertyChanged -= UnitOnPropertyChanged;
+            Groups.CollectionChanged -= GroupsOnCollectionChanged;
+
             Groups?.ForEach(x => x.AcceptChanges());
+
+            //подписка на события
+            Groups.PropertyChanged += UnitOnPropertyChanged;
+            Groups.CollectionChanged += GroupsOnCollectionChanged;
+
         }
 
         public bool IsChanged => _unit?.IsChanged ?? Groups.IsChanged || Groups.Any(x => x.IsChanged) ;

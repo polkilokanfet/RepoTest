@@ -30,14 +30,7 @@ namespace HVTApp.DataAccess
 
         public async Task<int> SaveChangesAsync()
         {
-            try
-            {
-                return await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException e)
-            {
-                throw;
-            }
+            return await _context.SaveChangesAsync();
         }
 
         public void SaveChanges()

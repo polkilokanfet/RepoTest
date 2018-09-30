@@ -90,10 +90,9 @@ namespace HVTApp.Modules.Sales.ViewModels
             //сохраняем
             try
             {
+                GroupsViewModel.AcceptChanges();
                 await UnitOfWork.SaveChangesAsync();
                 EventAggregator.GetEvent<AfterSaveSpecificationEvent>().Publish(Item.Model);
-
-                await GroupsViewModel.SaveChanges();
             }
             catch (DbUpdateConcurrencyException e)
             {

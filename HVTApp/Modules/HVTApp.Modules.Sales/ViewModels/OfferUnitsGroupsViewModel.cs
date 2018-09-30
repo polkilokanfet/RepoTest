@@ -254,7 +254,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #endregion
 
-        public async Task SaveChanges()
+        public void AcceptChanges()
         {
             var eventAggregator = Container.Resolve<IEventAggregator>();
 
@@ -277,7 +277,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             modified = Groups.ModifiedItems.Concat(modified).ToList();
 
             Groups.AcceptChanges();
-            await _unitOfWork.SaveChangesAsync();
 
             //сообщаем об изменениях
             added.Concat(modified).Select(x => x.Model).Distinct().ForEach(x => eventAggregator.GetEvent<AfterSaveOfferUnitEvent>().Publish(x));
