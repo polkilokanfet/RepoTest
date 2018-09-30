@@ -74,12 +74,12 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         protected override async Task LoadedAsyncMethod()
         {
-            _blocks = await UnitOfWork.Repository<ProductBlock>().GetAllAsync();
+            if(_blocks == null) _blocks = await UnitOfWork.Repository<ProductBlock>().GetAllAsync();
             Groups.ForEach(RefreshPrice);
         }
 
         //блоки, необходимые для поиска аналогов
-        private List<ProductBlock> _blocks;
+        private static List<ProductBlock> _blocks;
         private readonly Dictionary<SalesUnitsWrappersGroup, PriceStructures> _priceDictionary = new Dictionary<SalesUnitsWrappersGroup, PriceStructures>();
 
         protected void RefreshPrice(SalesUnitsWrappersGroup wrappersGroup)

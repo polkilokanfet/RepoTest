@@ -30,5 +30,6 @@ namespace HVTApp.Infrastructure
     {
         Task LoadAsync(Guid id);
         Task LoadAsync(TEntity entity);
+        Task LoadAsync(TEntity entity, IUnitOfWork unitOfWork);
     }
 }

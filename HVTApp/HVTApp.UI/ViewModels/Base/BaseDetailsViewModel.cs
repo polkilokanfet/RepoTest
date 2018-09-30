@@ -57,6 +57,18 @@ namespace HVTApp.UI.ViewModels
         /// </summary>
         protected virtual void InitSpecialGetMethods() { }
 
+        public async Task LoadAsync(TEntity entity, IUnitOfWork unitOfWork)
+        {
+            IsLoaded = false;
+            UnitOfWork = unitOfWork;
+            var item = await UnitOfWork.Repository<TEntity>().GetByIdAsync(entity.Id);
+            //создаем или редактируем
+            Item = item == null ? (TWrapper)Activator.CreateInstance(typeof(TWrapper), entity)
+                                : (TWrapper)Activator.CreateInstance(typeof(TWrapper), item);
+            await AfterLoading();
+        }
+
+
         public async Task LoadAsync(TEntity entity)
         {
             IsLoaded = false;
