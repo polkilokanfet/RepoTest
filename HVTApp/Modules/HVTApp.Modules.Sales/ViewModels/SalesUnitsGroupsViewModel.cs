@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -25,53 +24,15 @@ using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class SalesUnitsGroupsViewModel : ViewModelBase, IGroupsViewModel<SalesUnit, ProjectWrapper>
+    public class SalesUnitsGroupsViewModel : BaseGroupsViewModel<SalesUnitsWrappersGroup, SalesUnitsWrappersGroup>, IGroupsViewModel<SalesUnit, ProjectWrapper>
     {
         private ProjectWrapper _projectWrapper;
 
-        //блоки, необходимые для поиска аналогов
-        private static List<ProductBlock> _blocks;
-        private readonly Dictionary<SalesUnitsWrappersGroup, PriceStructures> _priceDictionary = new Dictionary<SalesUnitsWrappersGroup, PriceStructures>();
-
-        private SalesUnitsWrappersGroup _selectedGroup;
-        private ProductIncludedWrapper _selectedProductIncluded;
-
-        /// <summary>
-        /// Группы
-        /// </summary>
-        public IValidatableChangeTrackingCollection<SalesUnitsWrappersGroup> Groups { get; protected set; }
-
-        #region ICommand
-
-        public ICommand AddCommand { get; private set; }
-        public ICommand RemoveCommand { get; }
-
-        public ICommand ChangeFacilityCommand { get; }
-        public ICommand ChangeProductCommand { get; }
-        public ICommand ChangePaymentsCommand { get; }
-
-        public ICommand AddProductIncludedCommand { get; }
-        public ICommand RemoveProductIncludedCommand { get; }
-
-        #endregion
-
         public SalesUnitsGroupsViewModel(IUnityContainer container) : base(container)
         {
-            AddCommand = new DelegateCommand(AddCommand_Execute);
-            RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => SelectedGroup != null);
-            ChangeFacilityCommand = new DelegateCommand<SalesUnitsWrappersGroup>(ChangeFacilityCommand_Execute);
-            ChangeProductCommand = new DelegateCommand<SalesUnitsWrappersGroup>(ChangeProductCommand_Execute);
-            ChangePaymentsCommand = new DelegateCommand<SalesUnitsWrappersGroup>(ChangePaymentsCommand_Execute);
-
-            AddProductIncludedCommand = new DelegateCommand(AddProductIncludedCommand_Execute, () => SelectedGroup != null);
-            RemoveProductIncludedCommand = new DelegateCommand(RemoveProductIncludedCommand_Execute, () => SelectedProductIncluded != null);
-
-            if(_blocks == null)
-                _blocks = UnitOfWork.Repository<ProductBlock>().Find(x => true);
-
         }
 
-        protected void RefreshPrice(SalesUnitsWrappersGroup wrappersGroup)
+        protected override void RefreshPrice(SalesUnitsWrappersGroup wrappersGroup)
         {
             if (wrappersGroup == null) return;
 
@@ -88,46 +49,11 @@ namespace HVTApp.Modules.Sales.ViewModels
             wrappersGroup.Groups?.ForEach(RefreshPrice);
         }
 
-        /// <summary>
-        /// Структура себестоимости выбранной группы
-        /// </summary>
-        public PriceStructures PriceStructures => SelectedGroup == null ? null : _priceDictionary[SelectedGroup];
 
-        /// <summary>
-        /// Выбранная группа.
-        /// </summary>
-        public SalesUnitsWrappersGroup SelectedGroup
-        {
-            get { return _selectedGroup; }
-            set
-            {
-                if (Equals(_selectedGroup, value)) return;
-                _selectedGroup = value;
-                ((DelegateCommand)RemoveCommand)?.RaiseCanExecuteChanged();
-                ((DelegateCommand)AddProductIncludedCommand)?.RaiseCanExecuteChanged();
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(PriceStructures));
-            }
-        }
-
-        //выбранный зависимый продукт
-        public ProductIncludedWrapper SelectedProductIncluded
-        {
-            get { return _selectedProductIncluded; }
-            set
-            {
-                if (Equals(_selectedProductIncluded, value)) return;
-                _selectedProductIncluded = value;
-                ((DelegateCommand)RemoveProductIncludedCommand)?.RaiseCanExecuteChanged();
-                OnPropertyChanged();
-            }
-        }
-
-        #region Commands
 
         #region AddCommand
 
-        protected virtual void AddCommand_Execute()
+        protected override void AddCommand_Execute()
         {
             //создаем новый юнит и привязываем его к объекту
             var salesUnit = new SalesUnitWrapper(new SalesUnit());
@@ -195,78 +121,6 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #endregion
 
-        private async void AddProductIncludedCommand_Execute()
-        {
-            var productIncluded = new ProductIncluded();
-            productIncluded = await Container.Resolve<IUpdateDetailsService>().UpdateDetailsWithoutSaving(productIncluded);
-            if (productIncluded == null) return;
-            productIncluded.Product = await UnitOfWork.Repository<Product>().GetByIdAsync(productIncluded.Product.Id);
-            SelectedGroup.AddProductIncluded(productIncluded);
-            RefreshPrice(SelectedGroup);
-        }
-
-        private void RemoveProductIncludedCommand_Execute()
-        {
-            if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
-                return;
-
-            SelectedGroup.RemoveProductIncluded(SelectedProductIncluded);
-            RefreshPrice(SelectedGroup);
-        }
-
-        private void RemoveCommand_Execute()
-        {
-            if (Container.Resolve<IMessageService>().ShowYesNoMessageDialog("Удаление", "Удалить?") == MessageDialogResult.No)
-                return;
-
-            //удаление из группы или из подгруппы
-            if (Groups.Contains(SelectedGroup))
-            {
-                Groups.Remove(SelectedGroup);
-            }
-            else
-            {
-                var group = Groups.Single(x => x.Groups != null && x.Groups.Contains(SelectedGroup));
-                group.Groups.Remove(SelectedGroup);
-
-                if (!group.Groups.Any())
-                {
-                    Groups.Remove(group);
-                }
-            }
-
-            SelectedGroup = null;
-        }
-
-        private async void ChangeProductCommand_Execute(SalesUnitsWrappersGroup wrappersGroup)
-        {
-            var product = await Container.Resolve<IGetProductService>().GetProductAsync(wrappersGroup.Product?.Model);
-            if (product == null || product.Id == wrappersGroup.Product.Id) return;
-            product = await UnitOfWork.Repository<Product>().GetByIdAsync(product.Id);
-            wrappersGroup.Product = new ProductWrapper(product);
-            RefreshPrice(wrappersGroup);
-        }
-
-        private async void ChangeFacilityCommand_Execute(SalesUnitsWrappersGroup wrappersGroup)
-        {
-            var facilities = await UnitOfWork.Repository<Facility>().GetAllAsNoTrackingAsync();
-            var facility = Container.Resolve<ISelectService>().SelectItem(facilities, wrappersGroup.Facility?.Id);
-            if (facility == null) return;
-            facility = await UnitOfWork.Repository<Facility>().GetByIdAsync(facility.Id);
-            wrappersGroup.Facility = new FacilityWrapper(facility);
-        }
-
-        private async void ChangePaymentsCommand_Execute(SalesUnitsWrappersGroup wrappersGroup)
-        {
-            var sets = await UnitOfWork.Repository<PaymentConditionSet>().GetAllAsNoTrackingAsync();
-            var set = Container.Resolve<ISelectService>().SelectItem(sets, wrappersGroup.PaymentConditionSet?.Id);
-            if (set == null) return;
-            set = await UnitOfWork.Repository<PaymentConditionSet>().GetByIdAsync(set.Id);
-            wrappersGroup.PaymentConditionSet = new PaymentConditionSetWrapper(set);
-        }
-
-
-        #endregion
 
         public void AcceptChanges()
         {
@@ -352,6 +206,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             GroupChanged?.Invoke();
         }
+
 
         public event Action GroupChanged;
     }

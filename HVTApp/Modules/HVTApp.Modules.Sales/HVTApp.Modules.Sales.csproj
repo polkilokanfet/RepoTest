@@ -146,6 +146,7 @@
     <Compile Include="Tabs\SalesCRUD.xaml.cs">
       <DependentUpon>SalesCRUD.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\BaseGroupsViewModel.cs" />
     <Compile Include="ViewModels\IGroupsViewModel.cs" />
     <Compile Include="ViewModels\OfferUnitsGroupsViewModel.cs" />
     <Compile Include="ViewModels\SalesUnitsGroupsViewModel.cs" />

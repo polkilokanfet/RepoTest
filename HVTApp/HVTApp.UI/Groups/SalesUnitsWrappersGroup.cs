@@ -12,7 +12,28 @@ using Prism.Mvvm;
 
 namespace HVTApp.UI.Groups
 {
-    public class SalesUnitsWrappersGroup : BindableBase, IValidatableChangeTracking
+    public interface IGroupValidatableChangeTrackingWithCollection<T> : IGroupValidatableChangeTracking
+        where T : IGroupValidatableChangeTracking
+    {
+        IValidatableChangeTrackingCollection<T> Groups { get; }
+        
+    }
+
+    public interface IGroupValidatableChangeTracking : IValidatableChangeTracking
+    {
+        double Cost { get; }
+        double Price { set; }
+        int ProductionTerm { get; }
+        ProductWrapper Product { get; set; }
+        FacilityWrapper Facility { get; set; }
+        PaymentConditionSetWrapper PaymentConditionSet { get; set; }
+
+        IEnumerable<ProductIncludedWrapper> ProductsIncluded { get; }
+        void AddProductIncluded(ProductIncluded productIncluded);
+        void RemoveProductIncluded(ProductIncludedWrapper productIncluded);
+    }
+
+    public class SalesUnitsWrappersGroup : BindableBase, IGroupValidatableChangeTrackingWithCollection<SalesUnitsWrappersGroup>
     {
         private double _price;
         private readonly SalesUnitWrapper _unit;
