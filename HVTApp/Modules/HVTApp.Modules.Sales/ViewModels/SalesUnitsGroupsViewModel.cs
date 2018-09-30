@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
@@ -142,11 +140,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             return removed.Select(x => x.Model).Distinct().ToList();
         }
 
-        public virtual bool CanSaveChanges()
-        {
-            return Groups.Any() && Groups.IsValid;
-        }
-
         public void Load(IEnumerable<SalesUnit> units, ProjectWrapper parentWrapper, IUnitOfWork unitOfWork, bool isNew)
         {
             _projectWrapper = parentWrapper;
@@ -172,21 +165,5 @@ namespace HVTApp.Modules.Sales.ViewModels
             Groups.ForEach(RefreshPrice);
         }
 
-        public bool IsValid => Groups != null && Groups.Any() && Groups.IsValid;
-
-        public bool IsChanged => Groups != null && Groups.IsChanged;
-
-        private void GroupsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
-        {
-            GroupChanged?.Invoke();
-        }
-
-        private void GroupsOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            GroupChanged?.Invoke();
-        }
-
-
-        public event Action GroupChanged;
     }
 }

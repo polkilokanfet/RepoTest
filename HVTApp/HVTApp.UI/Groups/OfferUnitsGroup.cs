@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
@@ -13,7 +12,7 @@ using Prism.Mvvm;
 namespace HVTApp.UI.Groups
 {
 
-    public class OfferUnitsGroup : BindableBase, IValidatableChangeTracking
+    public class OfferUnitsGroup : BindableBase, IGroupValidatableChangeTrackingWithCollection<OfferUnitsGroup, OfferUnit>
     {
         private double _price;
         private readonly OfferUnitWrapper _unit;
