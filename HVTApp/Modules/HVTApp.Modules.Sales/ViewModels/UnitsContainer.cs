@@ -35,11 +35,13 @@ namespace HVTApp.Modules.Sales.ViewModels
             SaveCommand = new DelegateCommand(SaveCommandExecute, SaveCommandCanExecute);
         }
 
-        public async Task LoadAsync(TModel model, bool isNew, object parameter = null)
+        public virtual async Task LoadAsync(TModel model, bool isNew, object parameter = null)
         {
+            //детали
             await DetailsViewModel.LoadAsync(model, UnitOfWork);
             DetailsViewModel.Item.PropertyChanged += ItemOnPropertyChanged;
 
+            //группы юнитов
             var units = await GetUnits(model, parameter);
             GroupsViewModel.Load(units, DetailsViewModel.Item, UnitOfWork, isNew);
             GroupsViewModel.GroupChanged += OnGroupChanged;
@@ -57,7 +59,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #region SaveCommand
 
-        private async void SaveCommandExecute()
+        protected virtual async void SaveCommandExecute()
         {
             //отписка от событий изменения строк с оборудованием
             this.GroupsViewModel.GroupChanged -= OnGroupChanged;

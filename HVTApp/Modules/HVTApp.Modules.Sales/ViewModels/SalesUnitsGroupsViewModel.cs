@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -23,17 +25,21 @@ using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class SalesUnitsGroupsViewModel : LoadableBindableBase
+    public class SalesUnitsGroupsViewModel : ViewModelBase, IGroupsViewModel<SalesUnit, ProjectWrapper>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly Project _project;
+        private ProjectWrapper _projectWrapper;
+
+        //блоки, необходимые для поиска аналогов
+        private static List<ProductBlock> _blocks;
+        private readonly Dictionary<SalesUnitsWrappersGroup, PriceStructures> _priceDictionary = new Dictionary<SalesUnitsWrappersGroup, PriceStructures>();
+
         private SalesUnitsWrappersGroup _selectedGroup;
         private ProductIncludedWrapper _selectedProductIncluded;
 
         /// <summary>
         /// Группы
         /// </summary>
-        public IValidatableChangeTrackingCollection<SalesUnitsWrappersGroup> Groups { get; }
+        public IValidatableChangeTrackingCollection<SalesUnitsWrappersGroup> Groups { get; protected set; }
 
         #region ICommand
 
@@ -49,19 +55,8 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #endregion
 
-        public SalesUnitsGroupsViewModel(IUnityContainer container, 
-                                         IEnumerable<SalesUnit> units, 
-                                         IUnitOfWork unitOfWork, 
-                                         Project project = null) : base(container)
+        public SalesUnitsGroupsViewModel(IUnityContainer container) : base(container)
         {
-            _unitOfWork = unitOfWork;
-            _project = project;
-            var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer())
-                              .OrderByDescending(x => x.Key.Cost)
-                              .Select(x => new SalesUnitsWrappersGroup(x));
-
-            Groups = new ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup>(groups);
-
             AddCommand = new DelegateCommand(AddCommand_Execute);
             RemoveCommand = new DelegateCommand(RemoveCommand_Execute, () => SelectedGroup != null);
             ChangeFacilityCommand = new DelegateCommand<SalesUnitsWrappersGroup>(ChangeFacilityCommand_Execute);
@@ -70,17 +65,11 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             AddProductIncludedCommand = new DelegateCommand(AddProductIncludedCommand_Execute, () => SelectedGroup != null);
             RemoveProductIncludedCommand = new DelegateCommand(RemoveProductIncludedCommand_Execute, () => SelectedProductIncluded != null);
-        }
 
-        protected override async Task LoadedAsyncMethod()
-        {
-            if(_blocks == null) _blocks = await UnitOfWork.Repository<ProductBlock>().GetAllAsync();
-            Groups.ForEach(RefreshPrice);
-        }
+            if(_blocks == null)
+                _blocks = UnitOfWork.Repository<ProductBlock>().Find(x => true);
 
-        //блоки, необходимые для поиска аналогов
-        private static List<ProductBlock> _blocks;
-        private readonly Dictionary<SalesUnitsWrappersGroup, PriceStructures> _priceDictionary = new Dictionary<SalesUnitsWrappersGroup, PriceStructures>();
+        }
 
         protected void RefreshPrice(SalesUnitsWrappersGroup wrappersGroup)
         {
@@ -142,10 +131,10 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             //создаем новый юнит и привязываем его к объекту
             var salesUnit = new SalesUnitWrapper(new SalesUnit());
-            if(_project != null) salesUnit.Project = new ProjectWrapper(_project);
+            if(_projectWrapper != null) salesUnit.Project = _projectWrapper;
 
             //создаем модель для диалога
-            var viewModel = new SalesUnitsViewModel(salesUnit, Container, _unitOfWork);
+            var viewModel = new SalesUnitsViewModel(salesUnit, Container, UnitOfWork);
 
             //заполняем юнит начальными данными
             FillingSalesUnit(viewModel.ViewModel.Item);
@@ -211,7 +200,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             var productIncluded = new ProductIncluded();
             productIncluded = await Container.Resolve<IUpdateDetailsService>().UpdateDetailsWithoutSaving(productIncluded);
             if (productIncluded == null) return;
-            productIncluded.Product = await _unitOfWork.Repository<Product>().GetByIdAsync(productIncluded.Product.Id);
+            productIncluded.Product = await UnitOfWork.Repository<Product>().GetByIdAsync(productIncluded.Product.Id);
             SelectedGroup.AddProductIncluded(productIncluded);
             RefreshPrice(SelectedGroup);
         }
@@ -253,26 +242,26 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             var product = await Container.Resolve<IGetProductService>().GetProductAsync(wrappersGroup.Product?.Model);
             if (product == null || product.Id == wrappersGroup.Product.Id) return;
-            product = await _unitOfWork.Repository<Product>().GetByIdAsync(product.Id);
+            product = await UnitOfWork.Repository<Product>().GetByIdAsync(product.Id);
             wrappersGroup.Product = new ProductWrapper(product);
             RefreshPrice(wrappersGroup);
         }
 
         private async void ChangeFacilityCommand_Execute(SalesUnitsWrappersGroup wrappersGroup)
         {
-            var facilities = await _unitOfWork.Repository<Facility>().GetAllAsNoTrackingAsync();
+            var facilities = await UnitOfWork.Repository<Facility>().GetAllAsNoTrackingAsync();
             var facility = Container.Resolve<ISelectService>().SelectItem(facilities, wrappersGroup.Facility?.Id);
             if (facility == null) return;
-            facility = await _unitOfWork.Repository<Facility>().GetByIdAsync(facility.Id);
+            facility = await UnitOfWork.Repository<Facility>().GetByIdAsync(facility.Id);
             wrappersGroup.Facility = new FacilityWrapper(facility);
         }
 
         private async void ChangePaymentsCommand_Execute(SalesUnitsWrappersGroup wrappersGroup)
         {
-            var sets = await _unitOfWork.Repository<PaymentConditionSet>().GetAllAsNoTrackingAsync();
+            var sets = await UnitOfWork.Repository<PaymentConditionSet>().GetAllAsNoTrackingAsync();
             var set = Container.Resolve<ISelectService>().SelectItem(sets, wrappersGroup.PaymentConditionSet?.Id);
             if (set == null) return;
-            set = await _unitOfWork.Repository<PaymentConditionSet>().GetByIdAsync(set.Id);
+            set = await UnitOfWork.Repository<PaymentConditionSet>().GetByIdAsync(set.Id);
             wrappersGroup.PaymentConditionSet = new PaymentConditionSetWrapper(set);
         }
 
@@ -285,13 +274,13 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             //добавляем созданные
             var added = GetAddedUnits().ToList();
-            _unitOfWork.Repository<SalesUnit>().AddRange(added);
+            UnitOfWork.Repository<SalesUnit>().AddRange(added);
 
             //удаляем удаленные
             var removedModels = GetRemovedUnits().ToList();
             //сообщаем об удалении (так высоко, т.к. после удаления объект рушится)
             removedModels.ForEach(x => eventAggregator.GetEvent<AfterRemoveSalesUnitEvent>().Publish(x));
-            _unitOfWork.Repository<SalesUnit>().DeleteRange(removedModels);
+            UnitOfWork.Repository<SalesUnit>().DeleteRange(removedModels);
 
             var modified = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.ModifiedItems).ToList();
             modified = Groups.ModifiedItems.Concat(modified).ToList();
@@ -324,5 +313,46 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             return Groups.Any() && Groups.IsValid;
         }
+
+        public void Load(IEnumerable<SalesUnit> units, ProjectWrapper parentWrapper, IUnitOfWork unitOfWork, bool isNew)
+        {
+            _projectWrapper = parentWrapper;
+            UnitOfWork = unitOfWork;
+
+            var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new SalesUnitsWrappersGroup(x)).ToList();
+
+            if (isNew)
+            {
+                Groups = new ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup>(new List<SalesUnitsWrappersGroup>());
+                groups.ForEach(x => Groups.Add(x));
+            }
+            else
+            {
+                Groups = new ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup>(groups);
+            }
+
+            OnPropertyChanged(nameof(Groups));
+
+            Groups.PropertyChanged += GroupsOnPropertyChanged;
+            Groups.CollectionChanged += GroupsOnCollectionChanged;
+
+            Groups.ForEach(RefreshPrice);
+        }
+
+        public bool IsValid => Groups != null && Groups.Any() && Groups.IsValid;
+
+        public bool IsChanged => Groups != null && Groups.IsChanged;
+
+        private void GroupsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            GroupChanged?.Invoke();
+        }
+
+        private void GroupsOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            GroupChanged?.Invoke();
+        }
+
+        public event Action GroupChanged;
     }
 }

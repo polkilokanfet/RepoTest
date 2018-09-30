@@ -16,7 +16,7 @@
         <GroupBox Grid.Row="0" Header="Детали проекта">
             <ScrollViewer>
                 <views:ProjectDetailsView DockPanel.Dock="Top"
-                                          DataContext="{Binding}"
+                                          DataContext="{Binding DetailsViewModel}"
                                           x:Name="OfferDetailsView"
                                           VisibilityManagerProject="Collapsed" 
                                           VisibilityNotesProject="Collapsed" />

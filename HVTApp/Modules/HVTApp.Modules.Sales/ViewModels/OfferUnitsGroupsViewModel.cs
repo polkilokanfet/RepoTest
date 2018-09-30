@@ -302,6 +302,10 @@ namespace HVTApp.Modules.Sales.ViewModels
         }
 
 
+        public bool IsValid => Groups != null && Groups.Any() && Groups.IsValid;
+
+        public bool IsChanged => Groups != null && Groups.IsChanged;
+
         private void GroupsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
         {
             GroupChanged?.Invoke();
@@ -311,10 +315,6 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             GroupChanged?.Invoke();
         }
-
-        public bool IsValid => Groups != null && Groups.Any() && Groups.IsValid;
-
-        public bool IsChanged => Groups != null && Groups.IsChanged;
 
         public event Action GroupChanged;
     }

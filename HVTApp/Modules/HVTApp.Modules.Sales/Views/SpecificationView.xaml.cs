@@ -23,8 +23,6 @@ namespace HVTApp.Modules.Sales.Views
         public override bool IsNavigationTarget(NavigationContext navigationContext)
         {
             return false;
-            var specification = navigationContext.Parameters.First().Value as Specification;
-            return _viewModel.Item != null && specification != null && _viewModel.Item.Id == specification.Id;
         }
 
         public override async void OnNavigatedTo(NavigationContext navigationContext)
@@ -37,7 +35,7 @@ namespace HVTApp.Modules.Sales.Views
             var specification = navigationContext.Parameters.First().Value as Specification;
 
             if (project != null) await _viewModel.LoadAsync(project);
-            if (specification != null) await _viewModel.LoadAsync(specification);
+            //if (specification != null) await _viewModel.LoadAsync(specification);
         }
     }
 }

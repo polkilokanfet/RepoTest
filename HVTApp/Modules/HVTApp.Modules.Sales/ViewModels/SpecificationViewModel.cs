@@ -13,29 +13,29 @@ using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
+using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class SpecificationViewModel : SpecificationDetailsViewModel
+    public class SpecificationViewModel : UnitsContainer<Specification, SpecificationWrapper, SpecificationDetailsViewModel, SpecificationUnitsGroupsViewModel, SalesUnit, AfterSaveSpecificationEvent>
     {
-        public SpecificationUnitsGroupsViewModel GroupsViewModel { get; set; }
 
         public SpecificationViewModel(IUnityContainer container) : base(container)
         {
         }
 
-        private async Task InitGroupsViewModel(IEnumerable<SalesUnit> units)
-        {
-            GroupsViewModel = new SpecificationUnitsGroupsViewModel(Container, units, UnitOfWork, Item);
-            await GroupsViewModel.LoadAsync();
+        //private async Task InitGroupsViewModel(IEnumerable<SalesUnit> units)
+        //{
+        //    GroupsViewModel = new SpecificationUnitsGroupsViewModel(Container, units, UnitOfWork, Item);
+        //    await GroupsViewModel.LoadAsync();
 
-            //регистрация на события изменения строк с оборудованием
-            this.GroupsViewModel.Groups.PropertyChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
-            this.GroupsViewModel.Groups.CollectionChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+        //    //регистрация на события изменения строк с оборудованием
+        //    this.GroupsViewModel.Groups.PropertyChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+        //    this.GroupsViewModel.Groups.CollectionChanged += (sender, args) => ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
 
-            //сигнал об изменении модели
-            OnPropertyChanged(nameof(GroupsViewModel));
-        }
+        //    //сигнал об изменении модели
+        //    OnPropertyChanged(nameof(GroupsViewModel));
+        //}
 
         /// <summary>
         /// Загрузка при создании новой спецификации в соответствии с проектом
@@ -44,39 +44,27 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// <returns></returns>
         public async Task LoadAsync(Project project)
         {
-            UnitOfWork = Container.Resolve<IUnitOfWork>();
+            //UnitOfWork = Container.Resolve<IUnitOfWork>();
 
-            //создаем новую спецификацию
-            Item = new SpecificationWrapper(new Specification()) {Date = DateTime.Today};
+            ////создаем новую спецификацию
+            //Item = new SpecificationWrapper(new Specification()) {Date = DateTime.Today};
 
-            //ищем юниты в текущем контексте
-            //исключаем юниты со спецификацией
-            var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == project.Id && x.Specification == null);
+            ////ищем юниты в текущем контексте
+            ////исключаем юниты со спецификацией
+            //var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Id == project.Id && x.Specification == null);
 
-            await InitGroupsViewModel(salesUnits);
+            //await InitGroupsViewModel(salesUnits);
         }
 
 
-        /// <summary>
-        /// при редактировании спецификации.
-        /// </summary>
-        /// <returns></returns>
-        protected override async Task AfterLoading()
-        {
-            await base.AfterLoading();
-            //загружаем строки с оборудованием
-            var units = UnitOfWork.Repository<SalesUnit>().Find(x => x.Specification != null && x.Specification.Id == Item.Id);
-            await InitGroupsViewModel(units);
-        }
 
-
-        protected override async void SaveCommand_Execute()
+        protected override async void SaveCommandExecute()
         {
             //добавляем сущность, если ее не существовало
-            if (await UnitOfWork.Repository<Specification>().GetByIdAsync(Item.Model.Id) == null)
-                UnitOfWork.Repository<Specification>().Add(Item.Model);
+            if (await UnitOfWork.Repository<Specification>().GetByIdAsync(DetailsViewModel.Item.Model.Id) == null)
+                UnitOfWork.Repository<Specification>().Add(DetailsViewModel.Item.Model);
 
-            Item.AcceptChanges();
+            DetailsViewModel.Item.AcceptChanges();
 
             //удаленные из спецификации группы
             var removed = GroupsViewModel.Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems).ToList();
@@ -85,14 +73,14 @@ namespace HVTApp.Modules.Sales.ViewModels
             removed.ForEach(x => { x.Specification = null; });
             removed.ForEach(x => { x.AcceptChanges(); });
 
-            GroupsViewModel.Groups.AcceptChanges();
+            GroupsViewModel.AcceptChanges();
 
             //сохраняем
             try
             {
                 GroupsViewModel.AcceptChanges();
                 await UnitOfWork.SaveChangesAsync();
-                EventAggregator.GetEvent<AfterSaveSpecificationEvent>().Publish(Item.Model);
+                Container.Resolve<IEventAggregator>().GetEvent<AfterSaveSpecificationEvent>().Publish(DetailsViewModel.Item.Model);
             }
             catch (DbUpdateConcurrencyException e)
             {
@@ -107,19 +95,12 @@ namespace HVTApp.Modules.Sales.ViewModels
                 Container.Resolve<IMessageService>().ShowOkMessageDialog("Ошибка при сохранении", sb.ToString());
             }
 
-            //запрашиваем закрытие окна
-            OnCloseRequested(new DialogRequestCloseEventArgs(true));
         }
 
-        protected override bool SaveCommand_CanExecute()
-        {
-            //все сущности должны быть валидны
-            if (GroupsViewModel == null || !GroupsViewModel.Groups.IsValid || !Item.IsValid ||
-                GroupsViewModel.Groups == null || !GroupsViewModel.Groups.Any())
-                return false;
 
-            //какая-то сущность должна быть изменена
-            return Item.IsChanged || GroupsViewModel.Groups.IsChanged;
+        protected override Task<IEnumerable<SalesUnit>> GetUnits(Specification model, object parameter = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }

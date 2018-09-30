@@ -24,21 +24,21 @@ namespace HVTApp.Modules.Sales.Views
         public override bool IsNavigationTarget(NavigationContext navigationContext)
         {
             return false;
-            if (!navigationContext.Parameters.Any()) return false;
-            var project = navigationContext.Parameters.First().Value as Project;
-            return _viewModel.Item != null && project != null && _viewModel.Item.Id == project.Id;
         }
 
         public override async void OnNavigatedTo(NavigationContext navigationContext)
         {
             base.OnNavigatedTo(navigationContext);
 
-            if(IsNavigationTarget(navigationContext)) return;
-
-            var project = new Project();
             if (navigationContext.Parameters != null && navigationContext.Parameters.Any())
-                project = (Project)navigationContext.Parameters.First().Value;
-            await _viewModel.LoadAsync(project);
+            {
+                var project = (Project)navigationContext.Parameters.First().Value;
+                await _viewModel.LoadAsync(project, false);
+            }
+            else
+            {
+                await _viewModel.LoadAsync(new Project(), true);
+            }
         }
     }
 }
