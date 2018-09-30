@@ -136,6 +136,8 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #region Commands
 
+        #region AddCommand
+
         protected virtual void AddCommand_Execute()
         {
             //создаем новый юнит и привязываем его к объекту
@@ -146,43 +148,63 @@ namespace HVTApp.Modules.Sales.ViewModels
             var viewModel = new SalesUnitsViewModel(salesUnit, Container, _unitOfWork);
 
             //заполняем юнит начальными данными
-            if (SelectedGroup != null)
-            {
-                viewModel.ViewModel.Item.Cost = SelectedGroup.Cost;
-                viewModel.ViewModel.Item.Facility = SelectedGroup.Facility;
-                viewModel.ViewModel.Item.PaymentConditionSet = SelectedGroup.PaymentConditionSet;
-                viewModel.ViewModel.Item.ProductionTerm = SelectedGroup.ProductionTerm;
-                viewModel.ViewModel.Item.Product = SelectedGroup.Product;
-                viewModel.ViewModel.Item.DeliveryDateExpected = SelectedGroup.DeliveryDateExpected;
-                
-                //создаем зависимое оборудование
-                foreach (var prodIncl in SelectedGroup.ProductsIncluded)
-                {
-                    var pi = new ProductIncluded { Product = prodIncl.Product.Model, Amount = prodIncl.Amount };
-                    viewModel.ViewModel.Item.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
-                }
-            }
+            FillingSalesUnit(viewModel.ViewModel.Item);
 
             //диалог с пользователем
             var result = Container.Resolve<IDialogService>().ShowDialog(viewModel);
-
             if (!result.HasValue || !result.Value) return;
 
             //клонируем юниты
-            var units = new List<SalesUnit>();
-            for (int i = 0; i < viewModel.Amount; i++)
-            {
-                var unit = (SalesUnit)viewModel.ViewModel.Item.Model.Clone();
-                unit.Id = Guid.NewGuid();
-                unit.ProductsIncluded = new List<ProductIncluded>();
-                units.Add(unit);
-            }
+            var units = CloneSalesUnits(viewModel.ViewModel.Item.Model, viewModel.Amount);
 
             var group = new SalesUnitsWrappersGroup(units);
             Groups.Add(group);
             RefreshPrice(group);
             SelectedGroup = group;
         }
+
+        /// <summary>
+        /// Заполнение юнита по выбранной группе
+        /// </summary>
+        /// <param name="salesUnitWrapper"></param>
+        private void FillingSalesUnit(SalesUnitWrapper salesUnitWrapper)
+        {
+            if (SelectedGroup == null) return;
+
+            salesUnitWrapper.Cost = SelectedGroup.Cost;
+            salesUnitWrapper.Facility = SelectedGroup.Facility;
+            salesUnitWrapper.PaymentConditionSet = SelectedGroup.PaymentConditionSet;
+            salesUnitWrapper.ProductionTerm = SelectedGroup.ProductionTerm;
+            salesUnitWrapper.Product = SelectedGroup.Product;
+            salesUnitWrapper.DeliveryDateExpected = SelectedGroup.DeliveryDateExpected;
+                
+            //создаем зависимое оборудование
+            foreach (var prodIncl in SelectedGroup.ProductsIncluded)
+            {
+                var pi = new ProductIncluded { Product = prodIncl.Product.Model, Amount = prodIncl.Amount };
+                salesUnitWrapper.ProductsIncluded.Add(new ProductIncludedWrapper(pi));
+            }
+        }
+
+        /// <summary>
+        /// Клонирование юнитов по образцу.
+        /// </summary>
+        /// <param name="salesUnit"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        private IEnumerable<SalesUnit> CloneSalesUnits(SalesUnit salesUnit, int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                var unit = (SalesUnit)salesUnit.Clone();
+                unit.Id = Guid.NewGuid();
+                unit.ProductsIncluded = new List<ProductIncluded>();
+                yield return unit;
+            }
+            
+        }
+
+        #endregion
 
         private async void AddProductIncludedCommand_Execute()
         {
