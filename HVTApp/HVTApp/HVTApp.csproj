@@ -59,13 +59,13 @@
     <ApplicationIcon>Resources\bender.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>840F464557AEAF3A714268829C5FA5536A2A07CA</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>E144402551D703BAD128C981EDE1DA357707BB0C</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>HVTApp_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>HVTApp_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -225,7 +225,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="HVTApp_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">

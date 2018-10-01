@@ -59,7 +59,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #region SaveCommand
 
-        protected virtual async void SaveCommandExecute()
+        protected async void SaveCommandExecute()
         {
             //отписка от событий изменения строк с оборудованием
             this.GroupsViewModel.GroupChanged -= OnGroupChanged;

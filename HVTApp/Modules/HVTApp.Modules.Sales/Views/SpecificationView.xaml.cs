@@ -29,13 +29,11 @@ namespace HVTApp.Modules.Sales.Views
         {
             base.OnNavigatedTo(navigationContext);
 
-            if (IsNavigationTarget(navigationContext)) return;
-
             var project = navigationContext.Parameters.First().Value as Project;
             var specification = navigationContext.Parameters.First().Value as Specification;
 
-            if (project != null) await _viewModel.LoadAsync(project);
-            //if (specification != null) await _viewModel.LoadAsync(specification);
+            if (project != null) await _viewModel.LoadAsync(new Specification(), true, project);
+            if (specification != null) await _viewModel.LoadAsync(specification, false);
         }
     }
 }

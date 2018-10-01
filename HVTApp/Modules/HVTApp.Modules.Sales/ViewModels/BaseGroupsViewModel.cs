@@ -22,10 +22,12 @@ using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public abstract class BaseGroupsViewModel<TGroup, TSubGroup, TModel> : ViewModelBase
-        where TModel : IUnitPoco
+    public abstract class BaseGroupsViewModel<TGroup, TSubGroup, TModel, TAfterSaveEvent, TAfterRemoveEvent> : ViewModelBase
+        where TModel : class, IUnitPoco
         where TSubGroup : class, IGroupValidatableChangeTracking<TModel>
         where TGroup : class, IGroupValidatableChangeTrackingWithCollection<TSubGroup, TModel>
+        where TAfterSaveEvent : PubSubEvent<TModel>, new()
+        where TAfterRemoveEvent : PubSubEvent<TModel>, new()
     {
         //блоки, необходимые дл€ поиска аналогов
         protected static List<ProductBlock> _blocks;
@@ -66,6 +68,11 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
+        /// <summary>
+        /// ƒата дл€ расчета себестоимости.
+        /// </summary>
+        /// <param name="grp"></param>
+        /// <returns></returns>
         protected abstract DateTime GetPriceDate(TGroup grp);
 
         protected void RefreshPrice(TGroup grp)
@@ -220,6 +227,52 @@ namespace HVTApp.Modules.Sales.ViewModels
         }
 
         public event Action GroupChanged;
+
+
+        #region Accept
+
+        public virtual void AcceptChanges()
+        {
+            var eventAggregator = Container.Resolve<IEventAggregator>();
+
+            //добавл€ем созданные
+            var added = GetAddedUnits().ToList();
+            UnitOfWork.Repository<TModel>().AddRange(added);
+
+            //удал€ем удаленные
+            var removedModels = GetRemovedUnits().ToList();
+            //сообщаем об удалении (так высоко, т.к. после удалени€ объект рушитс€)
+            removedModels.ForEach(x => eventAggregator.GetEvent<TAfterRemoveEvent>().Publish(x));
+            UnitOfWork.Repository<TModel>().DeleteRange(removedModels);
+
+            var modified = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.ModifiedItems).Cast<TGroup>().ToList();
+            modified = modified.Concat(Groups.ModifiedItems).ToList();
+
+            Groups.AcceptChanges();
+
+            added.Concat(modified.Select(x => x.Model)).Distinct().ForEach(x => eventAggregator.GetEvent<TAfterSaveEvent>().Publish(x));
+        }
+
+        protected IEnumerable<TModel> GetAddedUnits()
+        {
+            var added = Groups.AddedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups).Cast<TGroup>();
+            added = added.Concat(Groups.AddedItems);
+            return added.Select(x => x.Model).Distinct();
+        }
+
+        protected IEnumerable<TModel> GetRemovedUnits()
+        {
+            var added = Groups.AddedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups).Cast<TGroup>().ToList();
+            added = added.Concat(Groups.AddedItems).ToList();
+
+            //удал€ем удаленные
+            var removed = Groups.Except(added).Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems).Cast<TGroup>().ToList();
+            removed = Groups.RemovedItems.Concat(removed).ToList();
+            removed = removed.Concat(Groups.RemovedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups).Cast<TGroup>()).ToList();
+            return removed.Select(x => x.Model).Distinct().ToList();
+        }
+
+        #endregion
 
 
     }

@@ -94,6 +94,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Groups\IGroupValidatableChangeTrackingWithCollection.cs" />
     <Compile Include="Groups\OfferUnitsGroup.cs" />
     <Compile Include="Groups\PaymentsGroup.cs" />
     <Compile Include="Groups\PaymentWrapper.cs" />

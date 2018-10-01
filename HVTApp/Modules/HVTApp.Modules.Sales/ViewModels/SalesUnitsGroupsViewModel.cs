@@ -14,12 +14,38 @@ using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class SalesUnitsGroupsViewModel : BaseGroupsViewModel<SalesUnitsWrappersGroup, SalesUnitsWrappersGroup, SalesUnit>, IGroupsViewModel<SalesUnit, ProjectWrapper>
+    public class SalesUnitsGroupsViewModel : 
+        BaseGroupsViewModel<SalesUnitsWrappersGroup, SalesUnitsWrappersGroup, SalesUnit, AfterSaveSalesUnitEvent, AfterRemoveSalesUnitEvent>, IGroupsViewModel<SalesUnit, ProjectWrapper>
     {
         private ProjectWrapper _projectWrapper;
 
         public SalesUnitsGroupsViewModel(IUnityContainer container) : base(container)
         {
+        }
+
+        public void Load(IEnumerable<SalesUnit> units, ProjectWrapper parentWrapper, IUnitOfWork unitOfWork, bool isNew)
+        {
+            _projectWrapper = parentWrapper;
+            UnitOfWork = unitOfWork;
+
+            var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new SalesUnitsWrappersGroup(x)).ToList();
+
+            if (isNew)
+            {
+                Groups = new ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup>(new List<SalesUnitsWrappersGroup>());
+                groups.ForEach(x => Groups.Add(x));
+            }
+            else
+            {
+                Groups = new ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup>(groups);
+            }
+
+            OnPropertyChanged(nameof(Groups));
+
+            Groups.PropertyChanged += GroupsOnPropertyChanged;
+            Groups.CollectionChanged += GroupsOnCollectionChanged;
+
+            Groups.ForEach(RefreshPrice);
         }
 
         protected override DateTime GetPriceDate(SalesUnitsWrappersGroup grp)
@@ -98,72 +124,6 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #endregion
 
-
-        public void AcceptChanges()
-        {
-            var eventAggregator = Container.Resolve<IEventAggregator>();
-
-            //добавляем созданные
-            var added = GetAddedUnits().ToList();
-            UnitOfWork.Repository<SalesUnit>().AddRange(added);
-
-            //удаляем удаленные
-            var removedModels = GetRemovedUnits().ToList();
-            //сообщаем об удалении (так высоко, т.к. после удаления объект рушится)
-            removedModels.ForEach(x => eventAggregator.GetEvent<AfterRemoveSalesUnitEvent>().Publish(x));
-            UnitOfWork.Repository<SalesUnit>().DeleteRange(removedModels);
-
-            var modified = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.ModifiedItems).ToList();
-            modified = Groups.ModifiedItems.Concat(modified).ToList();
-
-            Groups.AcceptChanges();
-
-            added.Concat(modified.Select(x => x.Model)).Distinct().ForEach(x => eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Publish(x));
-        }
-
-        private IEnumerable<SalesUnit> GetAddedUnits()
-        {
-            var added = Groups.AddedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups);
-            added = added.Concat(Groups.AddedItems);
-            return added.Select(x => x.Model).Distinct();
-        }
-
-        private IEnumerable<SalesUnit> GetRemovedUnits()
-        {
-            var added = Groups.AddedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups).ToList();
-            added = added.Concat(Groups.AddedItems).ToList();
-
-            //удаляем удаленные
-            var removed = Groups.Except(added).Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems).ToList();
-            removed = Groups.RemovedItems.Concat(removed).ToList();
-            removed = removed.Concat(Groups.RemovedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups)).ToList();
-            return removed.Select(x => x.Model).Distinct().ToList();
-        }
-
-        public void Load(IEnumerable<SalesUnit> units, ProjectWrapper parentWrapper, IUnitOfWork unitOfWork, bool isNew)
-        {
-            _projectWrapper = parentWrapper;
-            UnitOfWork = unitOfWork;
-
-            var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new SalesUnitsWrappersGroup(x)).ToList();
-
-            if (isNew)
-            {
-                Groups = new ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup>(new List<SalesUnitsWrappersGroup>());
-                groups.ForEach(x => Groups.Add(x));
-            }
-            else
-            {
-                Groups = new ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup>(groups);
-            }
-
-            OnPropertyChanged(nameof(Groups));
-
-            Groups.PropertyChanged += GroupsOnPropertyChanged;
-            Groups.CollectionChanged += GroupsOnCollectionChanged;
-
-            Groups.ForEach(RefreshPrice);
-        }
 
     }
 }
