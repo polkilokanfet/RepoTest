@@ -69,13 +69,14 @@ namespace HVTApp.Modules.Sales.ViewModels
                 UnitOfWork.Repository<TModel>().Add(DetailsViewModel.Item.Model);
 
             DetailsViewModel.Item.AcceptChanges();
+            Container.Resolve<IEventAggregator>().GetEvent<TAfterSaveModelEvent>().Publish(DetailsViewModel.Item.Model);
+
             GroupsViewModel.AcceptChanges();
 
             //сохраняем
             try
             {
                 await UnitOfWork.SaveChangesAsync();
-                Container.Resolve<IEventAggregator>().GetEvent<TAfterSaveModelEvent>().Publish(DetailsViewModel.Item.Model);
             }
             catch (DbUpdateConcurrencyException e)
             {
