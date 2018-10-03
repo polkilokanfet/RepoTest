@@ -30,6 +30,5 @@ namespace HVTApp.DataAccess
 
             base.Seed(context);
         }
-
     }
 }

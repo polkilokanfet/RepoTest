@@ -253,9 +253,9 @@
       <Project>{49629f07-4fb0-4448-b598-10361512f554}</Project>
       <Name>HVTApp.Modules.BaseEntities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HVTApp.Modules.Price\HVTApp.Modules.Price.csproj">
+    <ProjectReference Include="..\HVTApp.Modules.Price\HVTApp.Modules.PlanAndEconomy.csproj">
       <Project>{F3D1ADB0-2385-47F2-AF88-5C605E63EC79}</Project>
-      <Name>HVTApp.Modules.Price</Name>
+      <Name>HVTApp.Modules.PlanAndEconomy</Name>
     </ProjectReference>
     <ProjectReference Include="..\HVTApp.Modules.Production\HVTApp.Modules.Settings.csproj">
       <Project>{b2c2c516-5bc8-4a41-9885-68bb4c91605b}</Project>

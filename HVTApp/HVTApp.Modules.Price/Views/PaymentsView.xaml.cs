@@ -1,11 +1,11 @@
 ﻿using System.Windows;
 using HVTApp.Infrastructure;
-using HVTApp.Modules.Price.Tabs;
-using HVTApp.Modules.Price.ViewModels;
+using HVTApp.Modules.PlanAndEconomy.ViewModels;
 using Prism.Events;
 using Prism.Regions;
+using TabPayments = HVTApp.Modules.PlanAndEconomy.Tabs.TabPayments;
 
-namespace HVTApp.Modules.Price.Views
+namespace HVTApp.Modules.PlanAndEconomy.Views
 {
     [RibbonTab(typeof(TabPayments))]
     public partial class PaymentsView

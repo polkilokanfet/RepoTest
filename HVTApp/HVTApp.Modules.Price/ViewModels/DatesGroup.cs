@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using HVTApp.UI.Wrapper;
 using Prism.Mvvm;
 
-namespace HVTApp.Modules.Price.ViewModels
+namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 {
     public class DatesGroup : BindableBase
     {

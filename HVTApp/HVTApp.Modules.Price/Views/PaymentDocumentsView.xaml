@@ -3,7 +3,7 @@
               xmlns:infg="http://infragistics.com/DataPresenter"
               xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
               xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
-              x:Class="HVTApp.Modules.Price.Views.PaymentDocumentsView">
+              x:Class="HVTApp.Modules.PlanAndEconomy.Views.PaymentDocumentsView">
 
     <Grid>
          <Grid.RowDefinitions>

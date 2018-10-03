@@ -1,9 +1,9 @@
 ﻿using HVTApp.Infrastructure;
-using HVTApp.Modules.Price.Views;
+using HVTApp.Modules.PlanAndEconomy.Views;
 
-namespace HVTApp.Modules.Price.Menus
+namespace HVTApp.Modules.PlanAndEconomy.Menus
 {
-    public class PriceMenuViewModel : BaseMenuViewModel
+    public class PlanAndEconomyMenuViewModel : BaseMenuViewModel
     {
         protected override void GenerateMenu()
         {

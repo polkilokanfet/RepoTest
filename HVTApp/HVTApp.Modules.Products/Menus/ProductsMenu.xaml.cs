@@ -1,11 +1,11 @@
 ﻿using System;
 using HVTApp.Infrastructure;
 
-namespace HVTApp.Modules.Settings.Menus
+namespace HVTApp.Modules.Products.Menus
 {
-    public partial class SettingsMenu : IOutlookBarGroup
+    public partial class ProductsMenu : IOutlookBarGroup
     {
-        public SettingsMenu(SettingsMenuViewModel viewModel)
+        public ProductsMenu(ProductsMenuViewModel viewModel)
         {
             InitializeComponent();
             this.DataContext = viewModel;

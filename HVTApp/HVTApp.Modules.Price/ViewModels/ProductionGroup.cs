@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Prism.Mvvm;
 
-namespace HVTApp.Modules.Price.ViewModels
+namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 {
     public class ProductionGroup : BindableBase
     {

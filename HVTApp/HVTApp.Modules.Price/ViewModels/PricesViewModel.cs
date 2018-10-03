@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
@@ -13,7 +12,7 @@ using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
 
-namespace HVTApp.Modules.Price.ViewModels
+namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 {
     public class PricesViewModel : BindableBase
     {

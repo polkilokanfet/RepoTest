@@ -7,8 +7,8 @@
     <ProjectGuid>{F3D1ADB0-2385-47F2-AF88-5C605E63EC79}</ProjectGuid>
     <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HVTApp.Modules.Price</RootNamespace>
-    <AssemblyName>HVTApp.Modules.Price</AssemblyName>
+    <RootNamespace>HVTApp.Modules.PlanAndEconomy</RootNamespace>
+    <AssemblyName>HVTApp.Modules.PlanAndEconomy</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -109,11 +109,11 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Menus\PriceMenu.xaml.cs">
-      <DependentUpon>PriceMenu.xaml</DependentUpon>
+    <Compile Include="Menus\PlanAndEconomyMenu.xaml.cs">
+      <DependentUpon>PlanAndEconomyMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Menus\PriceMenuViewModel.cs" />
-    <Compile Include="PriceModule.cs" />
+    <Compile Include="Menus\PlanAndEconomyMenuViewModel.cs" />
+    <Compile Include="PlanAndEconomyModule.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -193,7 +193,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Menus\PriceMenu.xaml">
+    <Page Include="Menus\PlanAndEconomyMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
