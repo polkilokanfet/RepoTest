@@ -8,9 +8,7 @@ using HVTApp.Model.POCOs;
 using HVTApp.UI.Converter;
 using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;
-using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
@@ -23,29 +21,15 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
         }
 
+        protected override List<SalesUnitsWrappersGroup> Grouping(IEnumerable<SalesUnit> units)
+        {
+            return units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new SalesUnitsWrappersGroup(x)).ToList();
+        }
+
         public void Load(IEnumerable<SalesUnit> units, ProjectWrapper parentWrapper, IUnitOfWork unitOfWork, bool isNew)
         {
+            Load(units, unitOfWork, isNew);
             _projectWrapper = parentWrapper;
-            UnitOfWork = unitOfWork;
-
-            var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new SalesUnitsWrappersGroup(x)).ToList();
-
-            if (isNew)
-            {
-                Groups = new ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup>(new List<SalesUnitsWrappersGroup>());
-                groups.ForEach(x => Groups.Add(x));
-            }
-            else
-            {
-                Groups = new ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup>(groups);
-            }
-
-            OnPropertyChanged(nameof(Groups));
-
-            Groups.PropertyChanged += GroupsOnPropertyChanged;
-            Groups.CollectionChanged += GroupsOnCollectionChanged;
-
-            Groups.ForEach(RefreshPrice);
         }
 
         protected override DateTime GetPriceDate(SalesUnitsWrappersGroup grp)

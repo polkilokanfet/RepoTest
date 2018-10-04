@@ -10,8 +10,8 @@ namespace HVTApp
     {
         protected override async void OnStartup(StartupEventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 base.OnStartup(e);
 
                 //Disable shutdown when the dialog closes
@@ -21,13 +21,13 @@ namespace HVTApp
 
                 var bootstrapper = new Bootstrapper();
                 bootstrapper.Run();
+            //}
+            //catch (Exception exception)
+            //{
+            //    MessageBox.Show(exception.Message);
+            //    Console.WriteLine(exception);
+            //    //throw;
+            //}
         }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-                Console.WriteLine(exception);
-                //throw;
-            }
-}
     }
 }

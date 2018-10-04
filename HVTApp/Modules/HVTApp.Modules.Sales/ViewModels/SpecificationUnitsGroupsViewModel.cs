@@ -40,33 +40,17 @@ namespace HVTApp.Modules.Sales.ViewModels
             Groups.Add(group);
         }
 
+        protected override List<SalesUnitsWrappersGroup> Grouping(IEnumerable<SalesUnit> units)
+        {
+            return units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new SalesUnitsWrappersGroup(x)).ToList();
+        }
+
         public void Load(IEnumerable<SalesUnit> units, SpecificationWrapper parentWrapper, IUnitOfWork unitOfWork, bool isNew)
         {
+            Load(units, unitOfWork, isNew);
             _specificationWrapper = parentWrapper;
-            UnitOfWork = unitOfWork;
-
-            var groups = units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new SalesUnitsWrappersGroup(x)).ToList();
-
-            if (isNew)
-            {
-                Groups = new ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup>(new List<SalesUnitsWrappersGroup>());
-                groups.ForEach(x => Groups.Add(x));
-                //назначаем спецификацию всем юнитам
-                groups.ForEach(x => x.Specification = _specificationWrapper);
-            }
-            else
-            {
-                Groups = new ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup>(groups);
-            }
-
-            _originGroups = new ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup>(Groups);
-
-            OnPropertyChanged(nameof(Groups));
-
-            Groups.PropertyChanged += GroupsOnPropertyChanged;
-            Groups.CollectionChanged += GroupsOnCollectionChanged;
-
-            Groups.ForEach(RefreshPrice);
+            //назначаем спецификацию всем юнитам
+            Groups.ForEach(x => x.Specification = _specificationWrapper);
         }
 
         protected override DateTime GetPriceDate(SalesUnitsWrappersGroup grp)

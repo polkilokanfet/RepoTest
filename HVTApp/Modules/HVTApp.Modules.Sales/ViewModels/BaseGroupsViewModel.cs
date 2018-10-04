@@ -55,7 +55,9 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
-        //выбранный зависимый продукт
+        /// <summary>
+        /// Выбранный зависимый продукт.
+        /// </summary>
         public ProductIncludedWrapper SelectedProductIncluded
         {
             get { return _selectedProductIncluded; }
@@ -68,6 +70,33 @@ namespace HVTApp.Modules.Sales.ViewModels
             }
         }
 
+        protected abstract List<TGroup> Grouping(IEnumerable<TModel> units);
+
+        protected void Load(IEnumerable<TModel> units, IUnitOfWork unitOfWork, bool isNew)
+        {
+            UnitOfWork = unitOfWork;
+
+            var groups = Grouping(units);
+
+            if (isNew)
+            {
+                Groups = new ValidatableChangeTrackingCollection<TGroup>(new List<TGroup>());
+                groups.ForEach(x => Groups.Add(x));
+            }
+            else
+            {
+                Groups = new ValidatableChangeTrackingCollection<TGroup>(groups);
+            }
+
+            OnPropertyChanged(nameof(Groups));
+
+            Groups.PropertyChanged += GroupsOnPropertyChanged;
+            Groups.CollectionChanged += GroupsOnCollectionChanged;
+
+            Groups.ForEach(RefreshPrice);
+        }
+
+
         /// <summary>
         /// Дата для расчета себестоимости.
         /// </summary>
@@ -79,7 +108,6 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
             if (grp == null) return;
 
-            //var priceDate = grp.OrderInTakeDate < DateTime.Today ? grp.OrderInTakeDate : DateTime.Today;
             var priceTerm = CommonOptions.ActualOptions.ActualPriceTerm;
 
             if (!_priceDictionary.ContainsKey(grp)) _priceDictionary.Add(grp, null);
@@ -96,7 +124,6 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// Структура себестоимости выбранной группы
         /// </summary>
         public PriceStructures PriceStructures => SelectedGroup == null ? null : _priceDictionary[SelectedGroup];
-
 
         #region ICommand
 
@@ -130,11 +157,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #region Commands
 
-        #region AddCommand
-
         protected abstract void AddCommand_Execute();
-
-        #endregion
 
         private async void AddProductIncludedCommand_Execute()
         {
@@ -207,7 +230,6 @@ namespace HVTApp.Modules.Sales.ViewModels
             set = await UnitOfWork.Repository<PaymentConditionSet>().GetByIdAsync(set.Id);
             wrappersGroup.PaymentConditionSet = new PaymentConditionSetWrapper(set);
         }
-
 
         #endregion
 

@@ -23,30 +23,16 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
         }
 
+        protected override List<OfferUnitsGroup> Grouping(IEnumerable<OfferUnit> units)
+        {
+            return units.GroupBy(x => x, new OfferUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new OfferUnitsGroup(x)).ToList();
+        }
+
         public void Load(IEnumerable<OfferUnit> units, OfferWrapper offerWrapper, IUnitOfWork unitOfWork, bool isNew)
         {
+            Load(units, unitOfWork, isNew);
             _offerWrapper = offerWrapper;
-            UnitOfWork = unitOfWork;
-
-            var groups = units.GroupBy(x => x, new OfferUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new OfferUnitsGroup(x)).ToList();
-            groups.ForEach(x => x.Offer = offerWrapper);
-
-            if (isNew)
-            {
-                Groups = new ValidatableChangeTrackingCollection<OfferUnitsGroup>(new List<OfferUnitsGroup>());
-                groups.ForEach(x => Groups.Add(x));
-            }
-            else
-            {
-                Groups = new ValidatableChangeTrackingCollection<OfferUnitsGroup>(groups);
-            }
-
-            OnPropertyChanged(nameof(Groups));
-
-            Groups.PropertyChanged += GroupsOnPropertyChanged;
-            Groups.CollectionChanged += GroupsOnCollectionChanged;
-
-            Groups.ForEach(RefreshPrice);
+            if(isNew) Groups.ForEach(x => x.Offer = offerWrapper);
         }
 
 
@@ -103,6 +89,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         protected override DateTime GetPriceDate(OfferUnitsGroup grp)
         {
+            if(grp.Offer == null) return DateTime.Today;
             return grp.Offer.Date < DateTime.Today ? grp.Offer.Date : DateTime.Today;
         }
     }
