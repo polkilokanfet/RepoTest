@@ -2041,6 +2041,24 @@ namespace HVTApp.UI.Wrapper
         public bool ValueIsChanged => GetIsChanged(nameof(Value));
 
 
+        public System.Int32 Rang
+        {
+          get { return GetValue<System.Int32>(); }
+          set { SetValue(value); }
+        }
+        public System.Int32 RangOriginalValue => GetOriginalValue<System.Int32>(nameof(Rang));
+        public bool RangIsChanged => GetIsChanged(nameof(Rang));
+
+
+        public System.String Comment
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
+
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }
@@ -2116,6 +2134,15 @@ namespace HVTApp.UI.Wrapper
         }
         public System.String NameOriginalValue => GetOriginalValue<System.String>(nameof(Name));
         public bool NameIsChanged => GetIsChanged(nameof(Name));
+
+
+        public System.String Comment
+        {
+          get { return GetValue<System.String>(); }
+          set { SetValue(value); }
+        }
+        public System.String CommentOriginalValue => GetOriginalValue<System.String>(nameof(Comment));
+        public bool CommentIsChanged => GetIsChanged(nameof(Comment));
 
 
         public System.Guid Id

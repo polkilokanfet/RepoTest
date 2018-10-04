@@ -1111,6 +1111,14 @@ namespace HVTApp.UI.Lookup
 
 
 		[OrderStatus(1)]
+        public System.Int32 Rang => GetValue<System.Int32>();
+
+
+		[OrderStatus(1)]
+        public System.String Comment => GetValue<System.String>();
+
+
+		[OrderStatus(1)]
         public System.Boolean IsOrigin => GetValue<System.Boolean>();
 
 
@@ -1144,6 +1152,10 @@ namespace HVTApp.UI.Lookup
 
 		[OrderStatus(10)]
         public System.String Name => GetValue<System.String>();
+
+
+		[OrderStatus(1)]
+        public System.String Comment => GetValue<System.String>();
 
 
         #endregion

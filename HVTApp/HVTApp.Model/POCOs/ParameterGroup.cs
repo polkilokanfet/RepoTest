@@ -13,6 +13,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Единица измерения")]
         public virtual Measure Measure { get; set; }
 
+        [Designation("Комментарий"), MaxLength(75)]
+        public string Comment { get; set; }
+
         public override string ToString()
         {
             return Name;

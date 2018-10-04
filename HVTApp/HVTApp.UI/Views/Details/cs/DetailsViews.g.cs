@@ -2537,6 +2537,16 @@ namespace HVTApp.UI.Views
             //    VisibilityParameterRelationsParameter = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.Parameter).GetProperty(nameof(HVTApp.Model.POCOs.Parameter.Rang)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityRangParameter = Visibility.Collapsed;
+
+
+            //attr = typeof(HVTApp.Model.POCOs.Parameter).GetProperty(nameof(HVTApp.Model.POCOs.Parameter.Comment)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCommentParameter = Visibility.Collapsed;
+
+
             //attr = typeof(HVTApp.Model.POCOs.Parameter).GetProperty(nameof(HVTApp.Model.POCOs.Parameter.IsOrigin)).GetCustomAttribute<NotUpdateAttribute>();
             //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
             //    VisibilityIsOriginParameter = Visibility.Collapsed;
@@ -2570,6 +2580,24 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityParameterRelationsParameterProperty); }
             set { SetValue(VisibilityParameterRelationsParameterProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityRangParameterProperty = DependencyProperty.Register("VisibilityRangParameter", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityRangParameter
+        {
+            get { return (Visibility) GetValue(VisibilityRangParameterProperty); }
+            set { SetValue(VisibilityRangParameterProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityCommentParameterProperty = DependencyProperty.Register("VisibilityCommentParameter", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCommentParameter
+        {
+            get { return (Visibility) GetValue(VisibilityCommentParameterProperty); }
+            set { SetValue(VisibilityCommentParameterProperty, value); OnPropertyChanged(); }
         }
 
 
@@ -2614,6 +2642,11 @@ namespace HVTApp.UI.Views
             //    VisibilityMeasureParameterGroup = Visibility.Collapsed;
 
 
+            //attr = typeof(HVTApp.Model.POCOs.ParameterGroup).GetProperty(nameof(HVTApp.Model.POCOs.ParameterGroup.Comment)).GetCustomAttribute<NotUpdateAttribute>();
+            //if (attr != null && attr.RolesCantUpdate.Contains(CommonOptions.User.RoleCurrent))
+            //    VisibilityCommentParameterGroup = Visibility.Collapsed;
+
+
 
         }
 
@@ -2633,6 +2666,15 @@ namespace HVTApp.UI.Views
         {
             get { return (Visibility) GetValue(VisibilityMeasureParameterGroupProperty); }
             set { SetValue(VisibilityMeasureParameterGroupProperty, value); OnPropertyChanged(); }
+        }
+
+
+
+        public static readonly DependencyProperty VisibilityCommentParameterGroupProperty = DependencyProperty.Register("VisibilityCommentParameterGroup", typeof(Visibility), typeof(ProjectDetailsView), new PropertyMetadata((System.Windows.Visibility.Visible)));
+        public Visibility VisibilityCommentParameterGroup
+        {
+            get { return (Visibility) GetValue(VisibilityCommentParameterGroupProperty); }
+            set { SetValue(VisibilityCommentParameterGroupProperty, value); OnPropertyChanged(); }
         }
 
 

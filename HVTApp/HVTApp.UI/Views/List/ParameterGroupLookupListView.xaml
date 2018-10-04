@@ -36,6 +36,7 @@
 					<infg:FieldLayout.Fields>
                     <infg:TextField Name="Name" Label="Название" Width="Auto" />
                     <infg:TextField Name="Measure" Label="Единица измерения" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                    <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />
 
 					</infg:FieldLayout.Fields>
 				</infg:FieldLayout>
