@@ -14,10 +14,15 @@ namespace HVTApp.Model.Structures
         public PriceStructures(IUnitPoco salesUnit, DateTime targetPriceDate, int priceTerm, IEnumerable<ProductBlock> analogs)
         {
             var productBlocks = analogs as ProductBlock[] ?? analogs.ToArray();
+
+            //структура себестоимости продукта
             this.Add(new PriceStructure(salesUnit.Product, 1, targetPriceDate, priceTerm, productBlocks));
-            foreach (var productIncluded in salesUnit.ProductsIncluded)
+
+            //структура себестоимости включенных продуктов
+            foreach (var prodIncl in salesUnit.ProductsIncluded)
             {
-                this.Add(new PriceStructure(productIncluded.Product, productIncluded.Amount, targetPriceDate, priceTerm, productBlocks));
+                double count = (double)prodIncl.Amount / prodIncl.ParentsCount;
+                this.Add(new PriceStructure(prodIncl.Product, count, targetPriceDate, priceTerm, productBlocks));
             }
         }
     }
@@ -28,7 +33,7 @@ namespace HVTApp.Model.Structures
         private readonly IEnumerable<ProductBlock> _analogs;
 
         public Product Product { get; }
-        public int Amount { get; }
+        public double Amount { get; }
 
         public ProductBlock Analog => IsAnalogPrice ? GetAnalogWithPrice() : null;
 
@@ -59,7 +64,7 @@ namespace HVTApp.Model.Structures
 
         public double Total => Price.Sum * Amount + Childs.Sum(x => x.Total);
 
-        public PriceStructure(Product product, int amount, DateTime targetPriceDate, int priceTerm, IEnumerable<ProductBlock> analogs)
+        public PriceStructure(Product product, double amount, DateTime targetPriceDate, int priceTerm, IEnumerable<ProductBlock> analogs)
         {
             _priceTerm = priceTerm;
             _analogs = analogs;

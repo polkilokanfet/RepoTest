@@ -9,7 +9,6 @@ using HVTApp.Infrastructure.Interfaces.Services;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
-using HVTApp.Model.Events;
 using HVTApp.Model.POCOs;
 using HVTApp.Model.Services;
 using HVTApp.Model.Structures;
@@ -75,14 +74,27 @@ namespace HVTApp.Modules.Sales.ViewModels
         protected void Load(IEnumerable<TModel> units, IUnitOfWork unitOfWork, bool isNew)
         {
             UnitOfWork = unitOfWork;
+            var unitsArray = units as TModel[] ?? units.ToArray();
 
-            var groups = Grouping(units);
+            //актуализируем количество родительских групп включенных продуктов
+            var included = unitsArray.SelectMany(x => x.ProductsIncluded).ToList();
+            foreach (var productIncluded in included)
+            {
+                productIncluded.ParentsCount = unitsArray.Count(x => x.ProductsIncluded.Contains(productIncluded));
+            }
 
+            //группируем юниты
+            var groups = Grouping(unitsArray);
+
+            //если создана новая сущность, юниты добавляем в пустой список
             if (isNew)
             {
+                //новый контейнер групп
                 Groups = new ValidatableChangeTrackingCollection<TGroup>(new List<TGroup>());
+                //добавление групп в контейнер
                 groups.ForEach(x => Groups.Add(x));
             }
+            //если сущность редактируется
             else
             {
                 Groups = new ValidatableChangeTrackingCollection<TGroup>(groups);

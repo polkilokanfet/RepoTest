@@ -348,6 +348,15 @@ namespace HVTApp.UI.Wrapper
         public bool AmountIsChanged => GetIsChanged(nameof(Amount));
 
 
+        public System.Int32 ParentsCount
+        {
+          get { return GetValue<System.Int32>(); }
+          set { SetValue(value); }
+        }
+        public System.Int32 ParentsCountOriginalValue => GetOriginalValue<System.Int32>(nameof(ParentsCount));
+        public bool ParentsCountIsChanged => GetIsChanged(nameof(ParentsCount));
+
+
         public System.Guid Id
         {
           get { return GetValue<System.Guid>(); }

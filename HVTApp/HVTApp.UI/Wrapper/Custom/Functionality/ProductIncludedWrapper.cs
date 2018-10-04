@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 
 namespace HVTApp.UI.Wrapper
 {
@@ -6,19 +7,15 @@ namespace HVTApp.UI.Wrapper
     {
         public double Count => (double)Amount / ParentsCount;
 
-        private int _parentsCount = 1;
-        public int ParentsCount
+        public override void InitializeOther()
         {
-            get { return _parentsCount; }
-            set
-            {
-                _parentsCount = value;
-                ParentsCountChanged?.Invoke(this);
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(Count));
-            }
+            this.PropertyChanged += OnParentCountChanged;
         }
 
-        public event Action<ProductIncludedWrapper> ParentsCountChanged;
+        private void OnParentCountChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(ParentsCount)) return;
+            OnPropertyChanged(nameof(Count));
+        }
     }
 }
