@@ -23,7 +23,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// <summary>
         /// Необходимо для отмены изменений
         /// </summary>
-        private IValidatableChangeTrackingCollection<SalesUnitsWrappersGroup> _originGroups;
+        private IValidatableChangeTrackingCollection<SalesUnitsWrappersGroup> _groupsToReject;
 
         public SpecificationUnitsGroupsViewModel(IUnityContainer container) : base(container)
         {
@@ -38,6 +38,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             group.Specification = _specificationWrapper;
             RefreshPrice(group);
             Groups.Add(group);
+            _groupsToReject.Add(group);
         }
 
         protected override List<SalesUnitsWrappersGroup> Grouping(IEnumerable<SalesUnit> units)
@@ -51,12 +52,14 @@ namespace HVTApp.Modules.Sales.ViewModels
             _specificationWrapper = parentWrapper;
             //назначаем спецификацию всем юнитам
             Groups.ForEach(x => x.Specification = _specificationWrapper);
+            _groupsToReject = new ValidatableChangeTrackingCollection<SalesUnitsWrappersGroup>(Groups);
         }
 
         protected override DateTime GetPriceDate(SalesUnitsWrappersGroup grp)
         {
-            if (_specificationWrapper.Date == default(DateTime)) return DateTime.Today;
-            return _specificationWrapper.Date < DateTime.Today ? _specificationWrapper.Date : DateTime.Today;
+            var spec = grp.Specification;
+            if (spec == null || spec.Date == default(DateTime)) return DateTime.Today;
+            return spec.Date < DateTime.Today ? spec.Date : DateTime.Today;
         }
 
         public override void AcceptChanges()
@@ -77,7 +80,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
             Groups.AcceptChanges();
 
-            _originGroups.RejectChanges();
+            _groupsToReject.RejectChanges();
 
             added.Concat(modified.Select(x => x.Model)).Distinct().ForEach(x => eventAggregator.GetEvent<AfterSaveSalesUnitEvent>().Publish(x));
         }
