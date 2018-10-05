@@ -4,7 +4,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
               xmlns:controls="clr-namespace:HVTApp.Modules.Sales.Controls"
-              xmlns:dataPresenter="http://infragistics.com/DataPresenter">
+              xmlns:infgDp="http://infragistics.com/DataPresenter">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -21,31 +21,28 @@
             </Grid.ColumnDefinitions>
 
             <GroupBox Header="Проекты" Grid.Column="0">
-                		
-                <dataPresenter:XamDataGrid x:Name="ProjectLookupListGrid"
+                <infgDp:XamDataGrid x:Name="ProjectLookupListGrid"
                                            DataSource="{Binding ProjectLookupsInView}"
                                            SelectedDataItem="{Binding SelectedProjectLookup, Mode=TwoWay}"
                                            Style="{StaticResource ListViewGrid}" 
                                            Visibility="{Binding IsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
-			        <dataPresenter:XamDataGrid.FieldLayouts>
-				        <dataPresenter:FieldLayout>
-					        <dataPresenter:FieldLayout.Fields>
-                            <dataPresenter:TextField Name="Facilities" Label="Объекты" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
-                            <dataPresenter:TextField Name="Name" Label="Название" Width="Auto" />
-                            <dataPresenter:NumericField Name="Sum" Label="Сумма проекта" Width="Auto" />
-                            <dataPresenter:DateTimeField Name="RealizationDate" Label="Дата поставки" Width="Auto" />
-                            <dataPresenter:TextField Name="ProjectType" Label="Тип проекта" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                            <dataPresenter:DateTimeField Name="TenderDate" Label="Тендер" Width="Auto" />
-                            <dataPresenter:TextField Name="Builder" Label="Подрядчик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                            <dataPresenter:TextField Name="ProjectMaker" Label="Проектировщик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                            <dataPresenter:TextField Name="Sypplier" Label="Поставщик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
-                            <dataPresenter:CheckBoxField Name="ForReport" Label="Отчетный" Width="Auto" />
-					        </dataPresenter:FieldLayout.Fields>
-				        </dataPresenter:FieldLayout>
-			        </dataPresenter:XamDataGrid.FieldLayouts>
-		        </dataPresenter:XamDataGrid>
-
-                <!--<views:ProjectLookupListView Name="ProjectListView" DataContext="{Binding ProjectListViewModel}"/>-->
+			        <infgDp:XamDataGrid.FieldLayouts>
+				        <infgDp:FieldLayout>
+					        <infgDp:FieldLayout.Fields>
+                            <infgDp:TextField Name="Facilities" Label="Объекты" Width="Auto" Converter="{StaticResource LookupsToStringConverter}"/>
+                            <infgDp:TextField Name="Name" Label="Название" Width="Auto" />
+                            <infgDp:NumericField Name="Sum" Label="Сумма проекта" Width="Auto" />
+                            <infgDp:DateTimeField Name="RealizationDate" Label="Дата поставки" Width="Auto" />
+                            <infgDp:TextField Name="ProjectType" Label="Тип проекта" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                            <infgDp:DateTimeField Name="TenderDate" Label="Тендер" Width="Auto" />
+                            <infgDp:TextField Name="Builder" Label="Подрядчик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                            <infgDp:TextField Name="ProjectMaker" Label="Проектировщик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                            <infgDp:TextField Name="Sypplier" Label="Поставщик" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                            <infgDp:CheckBoxField Name="ForReport" Label="Отчетный" Width="Auto" />
+					        </infgDp:FieldLayout.Fields>
+				        </infgDp:FieldLayout>
+			        </infgDp:XamDataGrid.FieldLayouts>
+		        </infgDp:XamDataGrid>
             </GroupBox>
             
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
@@ -58,7 +55,23 @@
                 </Grid.RowDefinitions>
 
                 <GroupBox Grid.Row="0" Header="Предложения">
-                    <views:OfferLookupListView Name="OfferListView" DataContext="{Binding OfferListViewModel}"/>
+                    <infgDp:XamDataGrid x:Name="OfferLookupListGrid"
+                                        DataSource="{Binding OfferLookups}"
+                                        SelectedDataItem="{Binding SelectedOffer}">
+
+                        <infgDp:XamDataGrid.FieldLayouts>
+                            <infgDp:FieldLayout>
+                                <infgDp:FieldLayout.Fields>
+                                    <infgDp:TextField Name="Company" Label="Компания" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                                    <infgDp:NumericField Name="Sum" Label="Сумма" Width="Auto" />
+                                    <infgDp:DateTimeField Name="Date" Label="Дата" Width="Auto" />
+                                    <infgDp:DateTimeField Name="ValidityDate" Label="Срок действия" Width="Auto" />
+                                    <infgDp:TextField Name="Comment" Label="Комментарий" Width="Auto" />
+                                </infgDp:FieldLayout.Fields>
+                            </infgDp:FieldLayout>
+
+                        </infgDp:XamDataGrid.FieldLayouts>
+                    </infgDp:XamDataGrid>
                 </GroupBox>
                 
                 <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>

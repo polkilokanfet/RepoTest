@@ -1,11 +1,11 @@
 ﻿using System.Windows;
 using HVTApp.Infrastructure;
-using HVTApp.Modules.Price.Tabs;
-using HVTApp.Modules.Price.ViewModels;
+using HVTApp.Modules.PlanAndEconomy.Tabs;
+using HVTApp.Modules.PlanAndEconomy.ViewModels;
 using Prism.Events;
 using Prism.Regions;
 
-namespace HVTApp.Modules.Price.Views
+namespace HVTApp.Modules.PlanAndEconomy.Views
 {
     [RibbonTab(typeof(TabSave))]
     public partial class DatesView

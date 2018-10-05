@@ -94,6 +94,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Groups\BaseWrappersGroup.cs" />
+    <Compile Include="Groups\IGroupValidatableChangeTrackingWithCollection.cs" />
+    <Compile Include="Groups\IWrapperGroup.cs" />
     <Compile Include="Groups\OfferUnitsGroup.cs" />
     <Compile Include="Groups\PaymentsGroup.cs" />
     <Compile Include="Groups\PaymentWrapper.cs" />
@@ -116,7 +119,9 @@
       <DependentUpon>ProductStructureView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wrapper\Custom\Functionality\DocumentWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\OfferUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Functionality\OrderWrapper.cs" />
+    <Compile Include="Wrapper\Custom\Functionality\ProductIncludedWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\SalesUnitWrapper.cs" />
     <Compile Include="Wrapper\IUnitsGroup.cs" />
     <Compile Include="Converter\ToUnitGroupsConverters.cs" />

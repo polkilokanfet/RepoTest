@@ -2,7 +2,7 @@
                                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                  xmlns:infRib="http://infragistics.com/Ribbon" 
                                  xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
-                                 x:Class="HVTApp.Modules.Price.Tabs.TabPayments"
+                                 x:Class="HVTApp.Modules.PlanAndEconomy.Tabs.TabPayments"
                                  Header="План поступлений">
     
     <infRib:RibbonGroup Caption="Действия">

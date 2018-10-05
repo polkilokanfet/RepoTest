@@ -42,7 +42,7 @@ namespace HVTApp.Services.GetProductService
         {
             if(parameters == null) throw new ArgumentNullException(nameof(parameters));
 
-            ParametersFlaged = new ObservableCollection<ParameterFlaged>(parameters.Select(x => new ParameterFlaged(x)));
+            ParametersFlaged = new ObservableCollection<ParameterFlaged>(parameters.OrderByDescending(x => x.Rang).ThenBy(x => x.Value).Select(x => new ParameterFlaged(x)));
 
             //реакция на изменение актуальности параметра
             foreach (var parameterFlaged in ParametersFlaged)

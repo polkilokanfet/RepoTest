@@ -1,11 +1,11 @@
 ﻿using System;
 using HVTApp.Infrastructure;
 
-namespace HVTApp.Modules.Price.Menus
+namespace HVTApp.Modules.PlanAndEconomy.Menus
 {
-    public partial class PriceMenu : IOutlookBarGroup
+    public partial class PlanAndEconomyMenu : IOutlookBarGroup
     {
-        public PriceMenu(PriceMenuViewModel viewModel)
+        public PlanAndEconomyMenu(PlanAndEconomyMenuViewModel viewModel)
         {
             InitializeComponent();
             this.DataContext = viewModel;

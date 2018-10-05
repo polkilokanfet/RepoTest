@@ -59,7 +59,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #region SaveCommand
 
-        protected virtual async void SaveCommandExecute()
+        protected async void SaveCommandExecute()
         {
             //отписка от событий изменения строк с оборудованием
             this.GroupsViewModel.GroupChanged -= OnGroupChanged;
@@ -69,13 +69,14 @@ namespace HVTApp.Modules.Sales.ViewModels
                 UnitOfWork.Repository<TModel>().Add(DetailsViewModel.Item.Model);
 
             DetailsViewModel.Item.AcceptChanges();
+            Container.Resolve<IEventAggregator>().GetEvent<TAfterSaveModelEvent>().Publish(DetailsViewModel.Item.Model);
+
             GroupsViewModel.AcceptChanges();
 
             //сохраняем
             try
             {
                 await UnitOfWork.SaveChangesAsync();
-                Container.Resolve<IEventAggregator>().GetEvent<TAfterSaveModelEvent>().Publish(DetailsViewModel.Item.Model);
             }
             catch (DbUpdateConcurrencyException e)
             {

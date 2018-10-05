@@ -21,6 +21,12 @@ namespace HVTApp.Model.POCOs
         [Designation("Ограничения")]
         public virtual List<ParameterRelation> ParameterRelations { get; set; } = new List<ParameterRelation>();
 
+        [Designation("Ранг"), Required]
+        public int Rang { get; set; } = 0;
+
+        [Designation("Комментарий"), MaxLength(75)]
+        public string Comment { get; set; }
+
         [Designation("Начало?")]
         public bool IsOrigin => !ParameterRelations.Any();
 

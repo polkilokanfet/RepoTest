@@ -355,7 +355,7 @@ namespace HVTApp.TestDataGenerator
             ParameterSheffMontag.Clone(new Parameter { ParameterGroup = ParameterGroupServiceType, Value = "Шеф-монтаж" });
             ParameterDelivery.Clone(new Parameter { ParameterGroup = ParameterGroupServiceType, Value = "Доставка" });
 
-            ParameterBreakerPhases3.Clone(new Parameter { ParameterGroup = ParameterGroupBreakerPhases, Value = "Трехфазное" });
+            ParameterBreakerPhases3.Clone(new Parameter { ParameterGroup = ParameterGroupBreakerPhases, Value = "Трехфазное", Rang = 10});
             ParameterBreakerPhases1.Clone(new Parameter { ParameterGroup = ParameterGroupBreakerPhases, Value = "Однофазное" });
 
             ParameterBreakerLiveTankBreaks1.Clone(new Parameter { ParameterGroup = ParameterGroupBreakerLiveTankBreaks, Value = "Одноразрывный" });

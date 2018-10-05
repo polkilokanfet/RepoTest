@@ -25,11 +25,11 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>\\WIN-3CK2FUHN489\HVTPublishUpdates\</InstallUrl>
+    <InstallUrl>\\ekb1237\Info\HVTApp\</InstallUrl>
     <ProductName>HVTApplication</ProductName>
     <PublisherName>Kosolapov</PublisherName>
     <MinimumRequiredVersion>1.0.0.3</MinimumRequiredVersion>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>11</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -59,13 +59,13 @@
     <ApplicationIcon>Resources\bender.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>840F464557AEAF3A714268829C5FA5536A2A07CA</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>E144402551D703BAD128C981EDE1DA357707BB0C</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>HVTApp_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>HVTApp_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -225,7 +225,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="HVTApp_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
@@ -254,13 +253,17 @@
       <Project>{49629f07-4fb0-4448-b598-10361512f554}</Project>
       <Name>HVTApp.Modules.BaseEntities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HVTApp.Modules.Price\HVTApp.Modules.Price.csproj">
+    <ProjectReference Include="..\HVTApp.Modules.Price\HVTApp.Modules.PlanAndEconomy.csproj">
       <Project>{F3D1ADB0-2385-47F2-AF88-5C605E63EC79}</Project>
-      <Name>HVTApp.Modules.Price</Name>
+      <Name>HVTApp.Modules.PlanAndEconomy</Name>
     </ProjectReference>
     <ProjectReference Include="..\HVTApp.Modules.Production\HVTApp.Modules.Settings.csproj">
       <Project>{b2c2c516-5bc8-4a41-9885-68bb4c91605b}</Project>
       <Name>HVTApp.Modules.Settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Modules.Products\HVTApp.Modules.Products.csproj">
+      <Project>{7C45F2A2-C4E4-407A-BC82-B59AAA0AD5A2}</Project>
+      <Name>HVTApp.Modules.Products</Name>
     </ProjectReference>
     <ProjectReference Include="..\HVTApp.Modules.Reports\HVTApp.Modules.Reports.csproj">
       <Project>{2A98E410-78F4-4CE5-8DE6-3ADB44087577}</Project>

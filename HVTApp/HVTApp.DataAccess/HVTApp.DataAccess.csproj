@@ -95,6 +95,7 @@
     <Compile Include="EntityTypeConfigurations\Custom\ProductBlockIsServiceConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductDependentConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductDesignationConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\Custom\ProductIncludedConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProductTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\ProjectTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\Custom\TenderTypeConfiguration.cs" />

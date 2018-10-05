@@ -16,7 +16,7 @@
         <GroupBox Grid.Row="0" Header="Детали спецификации"> 
             <ScrollViewer>
                 <views:SpecificationDetailsView DockPanel.Dock="Top"
-                                                DataContext="{Binding}"/>
+                                                DataContext="{Binding DetailsViewModel}"/>
             </ScrollViewer>
         </GroupBox>
 

@@ -10,7 +10,7 @@ namespace HVTApp.DataAccess
 
             HasRequired(x => x.Offer).WithMany().WillCascadeOnDelete(true);
 
-            HasMany(x => x.ProductsIncluded);
+            HasMany(x => x.ProductsIncluded).WithMany();
         }
     }
 }

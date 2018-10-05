@@ -304,8 +304,9 @@ namespace HVTApp.TestDataGenerator
 
         private void GenerateOfferUnits()
         {
-            OfferUnitVeb1101.Clone(new OfferUnit { Offer = OfferMrsk, Product = ProductVeb110, Cost = 3100000, ProductionTerm = 120, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation, ProductsIncluded = new List<ProductIncluded> { new ProductIncluded { Product = ProductZip1, Amount = 3 } } });
-            OfferUnitVeb1102.Clone(new OfferUnit { Offer = OfferMrsk, Product = ProductVeb110, Cost = 3100000, ProductionTerm = 120, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation, ProductsIncluded = new List<ProductIncluded> { new ProductIncluded { Product = ProductZip1, Amount = 3 } } });
+            var productIncluded = new ProductIncluded { Product = ProductZip1, Amount = 1 };
+            OfferUnitVeb1101.Clone(new OfferUnit { Offer = OfferMrsk, Product = ProductVeb110, Cost = 3100000, ProductionTerm = 120, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation, ProductsIncluded = new List<ProductIncluded> { productIncluded } });
+            OfferUnitVeb1102.Clone(new OfferUnit { Offer = OfferMrsk, Product = ProductVeb110, Cost = 3100000, ProductionTerm = 120, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilityStation, ProductsIncluded = new List<ProductIncluded> { productIncluded } });
 
             OfferUnitZng1101.Clone(new OfferUnit { Offer = OfferMrsk, Product = ProductZng110, Cost = 550000, ProductionTerm = 180, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, ProductsIncluded = new List<ProductIncluded> { new ProductIncluded { Product = ProductZip1, Amount = 3 } } });
             OfferUnitZng1102.Clone(new OfferUnit { Offer = OfferMrsk, Product = ProductZng110, Cost = 550000, ProductionTerm = 180, PaymentConditionSet = PaymentConditionSet50Na50, Facility = FacilitySubstation, ProductsIncluded = new List<ProductIncluded> { new ProductIncluded { Product = ProductZip1, Amount = 2 } } });

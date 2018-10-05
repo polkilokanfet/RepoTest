@@ -10,11 +10,12 @@ using HVTApp.UI.Groups;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
-using Prism.Events;
 
 namespace HVTApp.Modules.Sales.ViewModels
 {
-    public class OfferUnitsGroupsViewModel : BaseGroupsViewModel<OfferUnitsGroup, OfferUnitsGroup, OfferUnit>, IGroupsViewModel<OfferUnit, OfferWrapper>
+    public class OfferUnitsGroupsViewModel : 
+        BaseGroupsViewModel<OfferUnitsGroup, OfferUnitsGroup, OfferUnit, AfterSaveOfferUnitEvent, AfterRemoveOfferUnitEvent>, 
+        IGroupsViewModel<OfferUnit, OfferWrapper>
     {
         private OfferWrapper _offerWrapper;
 
@@ -22,30 +23,16 @@ namespace HVTApp.Modules.Sales.ViewModels
         {
         }
 
+        protected override List<OfferUnitsGroup> Grouping(IEnumerable<OfferUnit> units)
+        {
+            return units.GroupBy(x => x, new OfferUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new OfferUnitsGroup(x)).ToList();
+        }
+
         public void Load(IEnumerable<OfferUnit> units, OfferWrapper offerWrapper, IUnitOfWork unitOfWork, bool isNew)
         {
+            Load(units, unitOfWork, isNew);
             _offerWrapper = offerWrapper;
-            UnitOfWork = unitOfWork;
-
-            var groups = units.GroupBy(x => x, new OfferUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new OfferUnitsGroup(x)).ToList();
-            groups.ForEach(x => x.Offer = offerWrapper);
-
-            if (isNew)
-            {
-                Groups = new ValidatableChangeTrackingCollection<OfferUnitsGroup>(new List<OfferUnitsGroup>());
-                groups.ForEach(x => Groups.Add(x));
-            }
-            else
-            {
-                Groups = new ValidatableChangeTrackingCollection<OfferUnitsGroup>(groups);
-            }
-
-            OnPropertyChanged(nameof(Groups));
-
-            Groups.PropertyChanged += GroupsOnPropertyChanged;
-            Groups.CollectionChanged += GroupsOnCollectionChanged;
-
-            Groups.ForEach(RefreshPrice);
+            if(isNew) Groups.ForEach(x => x.Offer = offerWrapper);
         }
 
 
@@ -100,37 +87,9 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         #endregion
 
-        public void AcceptChanges()
-        {
-            var eventAggregator = Container.Resolve<IEventAggregator>();
-
-            //добавляем созданные
-            var added = Groups.AddedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups).ToList();
-            added = added.Concat(Groups.AddedItems).ToList();
-            UnitOfWork.Repository<OfferUnit>().AddRange(added.Select(x => x.Model).Distinct());
-
-            //удаляем удаленные
-            var removed = Groups.Except(added).Where(x => x.Groups != null).SelectMany(x => x.Groups.RemovedItems).ToList();
-            //removed = removed.Except(added.Where(x => x.Groups != null).SelectMany(x => x.Groups)).ToList(); // исключаем вновь добавленные
-            removed = Groups.RemovedItems.Concat(removed).ToList();
-            removed = removed.Concat(Groups.RemovedItems.Where(x => x.Groups != null).SelectMany(x => x.Groups)).ToList();
-            var removedModels = removed.Select(x => x.Model).Distinct().ToList();
-            //сообщаем об изменениях (так высоко, т.к. после удаления объект рушится)
-            removedModels.ForEach(x => eventAggregator.GetEvent<AfterRemoveOfferUnitEvent>().Publish(x));
-            UnitOfWork.Repository<OfferUnit>().DeleteRange(removedModels);
-
-            var modified = Groups.Where(x => x.Groups != null).SelectMany(x => x.Groups.ModifiedItems).ToList();
-            modified = Groups.ModifiedItems.Concat(modified).ToList();
-
-            Groups.AcceptChanges();
-
-            //сообщаем об изменениях
-            added.Concat(modified).Select(x => x.Model).Distinct().ForEach(x => eventAggregator.GetEvent<AfterSaveOfferUnitEvent>().Publish(x));
-        }
-
-
         protected override DateTime GetPriceDate(OfferUnitsGroup grp)
         {
+            if(grp.Offer == null) return DateTime.Today;
             return grp.Offer.Date < DateTime.Today ? grp.Offer.Date : DateTime.Today;
         }
     }

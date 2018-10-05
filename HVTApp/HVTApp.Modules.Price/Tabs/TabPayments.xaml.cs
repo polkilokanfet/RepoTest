@@ -1,6 +1,4 @@
-﻿using HVTApp.Infrastructure;
-
-namespace HVTApp.Modules.Price.Tabs
+﻿namespace HVTApp.Modules.PlanAndEconomy.Tabs
 {
     public partial class TabPayments
     {

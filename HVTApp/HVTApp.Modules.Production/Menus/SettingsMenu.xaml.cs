@@ -5,7 +5,7 @@ namespace HVTApp.Modules.Settings.Menus
 {
     public partial class SettingsMenu : IOutlookBarGroup
     {
-        public SettingsMenu(ProductionMenuViewModel viewModel)
+        public SettingsMenu(SettingsMenuViewModel viewModel)
         {
             InitializeComponent();
             this.DataContext = viewModel;

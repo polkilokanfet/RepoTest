@@ -51,7 +51,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.UI", "HVTApp.UI\HVTA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.ProductDesignationService", "HVTApp.Services.ProductDesignationService\HVTApp.Services.ProductDesignationService.csproj", "{0C7AD837-18EE-435F-BD72-5FC8C03FF9A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Modules.Price", "HVTApp.Modules.Price\HVTApp.Modules.Price.csproj", "{F3D1ADB0-2385-47F2-AF88-5C605E63EC79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Modules.PlanAndEconomy", "HVTApp.Modules.Price\HVTApp.Modules.PlanAndEconomy.csproj", "{F3D1ADB0-2385-47F2-AF88-5C605E63EC79}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.ShippingService", "HVTApp.Services.ShippingService\HVTApp.Services.ShippingService.csproj", "{3473BFDE-DE19-492A-9647-710715C9ACC7}"
 EndProject
@@ -60,6 +60,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Services.NewProductService", "HVTApp.Services.NewProductService\HVTApp.Services.NewProductService.csproj", "{154B4B6A-BABD-4F65-B351-E7F3808A8B53}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Modules.Reports", "HVTApp.Modules.Reports\HVTApp.Modules.Reports.csproj", "{2A98E410-78F4-4CE5-8DE6-3ADB44087577}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HVTApp.Modules.Products", "HVTApp.Modules.Products\HVTApp.Modules.Products.csproj", "{7C45F2A2-C4E4-407A-BC82-B59AAA0AD5A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -171,6 +173,10 @@ Global
 		{2A98E410-78F4-4CE5-8DE6-3ADB44087577}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A98E410-78F4-4CE5-8DE6-3ADB44087577}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A98E410-78F4-4CE5-8DE6-3ADB44087577}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C45F2A2-C4E4-407A-BC82-B59AAA0AD5A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C45F2A2-C4E4-407A-BC82-B59AAA0AD5A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C45F2A2-C4E4-407A-BC82-B59AAA0AD5A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C45F2A2-C4E4-407A-BC82-B59AAA0AD5A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -196,5 +202,6 @@ Global
 		{7D2C0B38-4517-4806-92B4-A65BDD0D9A10} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
 		{154B4B6A-BABD-4F65-B351-E7F3808A8B53} = {E879AEF8-9D7C-4F72-A5D6-9462863ACDF8}
 		{2A98E410-78F4-4CE5-8DE6-3ADB44087577} = {D89A3693-4C45-45D7-B52B-B3A58C52B3E2}
+		{7C45F2A2-C4E4-407A-BC82-B59AAA0AD5A2} = {D89A3693-4C45-45D7-B52B-B3A58C52B3E2}
 	EndGlobalSection
 EndGlobal

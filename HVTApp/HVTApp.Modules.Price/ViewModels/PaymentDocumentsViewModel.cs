@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -7,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
-using HVTApp.UI.Lookup;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
@@ -15,7 +13,7 @@ using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
 
-namespace HVTApp.Modules.Price.ViewModels
+namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 {
     public class PaymentDocumentsViewModel : PaymentDocumentLookupListViewModel
     {

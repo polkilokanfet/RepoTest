@@ -1,11 +1,11 @@
 ﻿using System.Windows;
 using HVTApp.Infrastructure;
-using HVTApp.Modules.Price.Tabs;
-using HVTApp.Modules.Price.ViewModels;
+using HVTApp.Modules.PlanAndEconomy.ViewModels;
 using Prism.Events;
 using Prism.Regions;
+using TabProductionPlan = HVTApp.Modules.PlanAndEconomy.Tabs.TabProductionPlan;
 
-namespace HVTApp.Modules.Price.Views
+namespace HVTApp.Modules.PlanAndEconomy.Views
 {
     [RibbonTab(typeof(TabProductionPlan))]
     public partial class ProductionPlanView

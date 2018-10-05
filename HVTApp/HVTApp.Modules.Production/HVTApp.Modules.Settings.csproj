@@ -87,7 +87,7 @@
     <Compile Include="Menus\SettingsMenu.xaml.cs">
       <DependentUpon>SettingsMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Menus\ProductionMenuViewModel.cs" />
+    <Compile Include="Menus\SettingsMenuViewModel.cs" />
     <Compile Include="SettingsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

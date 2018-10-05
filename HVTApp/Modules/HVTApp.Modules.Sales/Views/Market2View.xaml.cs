@@ -23,26 +23,6 @@ namespace HVTApp.Modules.Sales.Views
 
             #region ClearViews
 
-            //ProjectListView.ManagerVisibility = Visibility.Collapsed;
-            //ProjectListView.OffersVisibility = Visibility.Collapsed;
-            //ProjectListView.TendersVisibility = Visibility.Collapsed;
-            //ProjectListView.SalesUnitsVisibility = Visibility.Collapsed;
-            //ProjectListView.NotesVisibility = Visibility.Collapsed;
-            //ProjectListView.InWorkVisibility = Visibility.Collapsed;
-
-            OfferListView.NumberVisibility = Visibility.Collapsed;
-            OfferListView.AuthorVisibility = Visibility.Collapsed;
-            OfferListView.ProjectVisibility = Visibility.Collapsed;
-            OfferListView.RegistrationDetailsOfRecipientVisibility = Visibility.Collapsed;
-            OfferListView.RecipientEmployeeVisibility = Visibility.Collapsed;
-            OfferListView.SenderEmployeeVisibility = Visibility.Collapsed;
-            OfferListView.VatVisibility = Visibility.Collapsed;
-            OfferListView.RequestDocumentVisibility = Visibility.Collapsed;
-            OfferListView.OfferUnitsVisibility = Visibility.Collapsed;
-            OfferListView.CodeVisibility = Visibility.Collapsed;
-            OfferListView.RegNumberVisibility = Visibility.Collapsed;
-            OfferListView.CopyToRecipientsVisibility = Visibility.Collapsed;
-
             TenderListView.ProjectVisibility = Visibility.Collapsed;
 
             #endregion

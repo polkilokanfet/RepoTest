@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HVTApp.Model.POCOs;
 
-namespace HVTApp.Modules.Price.ViewModels
+namespace HVTApp.Modules.PlanAndEconomy.ViewModels
 {
     public class PriceTask : IComparable
     {

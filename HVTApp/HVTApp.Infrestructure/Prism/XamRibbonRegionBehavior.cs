@@ -29,14 +29,14 @@ namespace HVTApp.Infrastructure.Prism
                 bool isFirst = true;
                 foreach (var newView in e.NewItems)
                 {
-                    IViewBase view = newView as IViewBase;
+                    var view = newView as IViewBase;
                     if (view == null) continue; //имеем ли дело с нужным типом?
 
                     if(view.RibbonTabs.Count > 0) continue; //возможно список уже сформирован
 
-                    foreach (RibbonTabAttribute ribbonTabAttribute in GetCustomAttributes<RibbonTabAttribute>(newView.GetType()))
+                    foreach (var ribbonTabAttribute in GetCustomAttributes<RibbonTabAttribute>(newView.GetType()))
                     {
-                        IRibbonTabItem ribbonTabItem = (IRibbonTabItem)Activator.CreateInstance(ribbonTabAttribute.RibbonTabType);
+                        var ribbonTabItem = (IRibbonTabItem)Activator.CreateInstance(ribbonTabAttribute.RibbonTabType);
                         ribbonTabItem.ViewModel = view.ViewModel;
 
                         view.RibbonTabs.Add(ribbonTabItem);
