@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services;
+using HVTApp.Infrastructure.Interfaces.Services.DialogService;
 using HVTApp.Infrastructure.Interfaces.Services.SelectService;
 using HVTApp.Infrastructure.Services;
 using HVTApp.Model;
@@ -116,19 +117,28 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// <returns></returns>
         protected abstract DateTime GetPriceDate(TGroup grp);
 
+        /// <summary>
+        /// Обновление себестоимости группы.
+        /// </summary>
+        /// <param name="grp"></param>
         protected void RefreshPrice(TGroup grp)
         {
             if (grp == null) return;
 
+            //срок актуальности
             var priceTerm = CommonOptions.ActualOptions.ActualPriceTerm;
 
+            //если в словаре нет такой группы, добавляем ее
             if (!_priceDictionary.ContainsKey(grp)) _priceDictionary.Add(grp, null);
 
+            //обновляем структуру себестоимости этой группе
             _priceDictionary[grp] = new PriceStructures(grp.Model, GetPriceDate(grp), priceTerm, _blocks);
 
+            //обновляем себестоимость группы
             grp.Price = _priceDictionary[grp].Total;
             OnPropertyChanged(nameof(PriceStructures));
 
+            //если в группе есть зависимые группы - обновить и для них
             grp.Groups?.ForEach(x => RefreshPrice(x as TGroup));
         }
 
@@ -171,13 +181,13 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         protected abstract void AddCommand_Execute();
 
-        private async void AddProductIncludedCommand_Execute()
+        private void AddProductIncludedCommand_Execute()
         {
-            var productIncluded = new ProductIncluded();
-            productIncluded = await Container.Resolve<IUpdateDetailsService>().UpdateDetailsWithoutSaving(productIncluded);
-            if (productIncluded == null) return;
-            productIncluded.Product = await UnitOfWork.Repository<Product>().GetByIdAsync(productIncluded.Product.Id);
-            SelectedGroup.AddProductIncluded(productIncluded);
+            var productIncludedWrapper = new ProductIncludedWrapper(new ProductIncluded());
+            var productsIncludedViewModel = new ProductsIncludedViewModel(productIncludedWrapper, UnitOfWork, Container);
+            var dr = Container.Resolve<IDialogService>().ShowDialog(productsIncludedViewModel);
+            if(!dr.HasValue || !dr.Value) return;
+            SelectedGroup.AddProductIncluded(productsIncludedViewModel.ViewModel.Entity, productsIncludedViewModel.IsForEach);
             RefreshPrice(SelectedGroup);
         }
 

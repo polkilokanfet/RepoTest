@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using HVTApp.Infrastructure;
 using HVTApp.Model.POCOs;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.ObjectBuilder2;
@@ -176,18 +175,35 @@ namespace HVTApp.UI.Groups
         /// добавление зависимого оборудования
         /// </summary>
         /// <param name="productIncluded"></param>
-        public void AddProductIncluded(ProductIncluded productIncluded)
+        /// <param name="isForEach"></param>
+        public void AddProductIncluded(ProductIncluded productIncluded, bool isForEach = true)
         {
+            //если вложенных групп нет
             if (Groups == null)
             {
                 _unit.ProductsIncluded.Add(new ProductIncludedWrapper(productIncluded));
             }
+
+            //если есть вложенные группы
             else
             {
-                foreach (var salesUnitsGroup in Groups)
+                //если в каждой группе должен быть свой уникальный включенный продукт
+                if (isForEach)
                 {
-                    var pi = new ProductIncluded { Product = productIncluded.Product, Amount = productIncluded.Amount };
-                    salesUnitsGroup.AddProductIncluded(pi);
+                    foreach (var salesUnitsGroup in Groups)
+                    {
+                        var pi = new ProductIncluded { Product = productIncluded.Product, Amount = productIncluded.Amount };
+                        salesUnitsGroup.AddProductIncluded(pi);
+                    }
+                }
+
+                //если один включенный продукт на все группы
+                else
+                {
+                    foreach (var salesUnitsGroup in Groups)
+                    {
+                        salesUnitsGroup.AddProductIncluded(productIncluded);
+                    }
                 }
             }
 

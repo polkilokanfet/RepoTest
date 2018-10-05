@@ -140,7 +140,7 @@ namespace HVTApp.UI.Groups
         public IEnumerable<ProductIncludedWrapper> ProductsIncluded => GetValue<IEnumerable<ProductIncludedWrapper>>();
 
         //добавление зависимого оборудования
-        public void AddProductIncluded(ProductIncluded productIncluded)
+        public void AddProductIncluded(ProductIncluded productIncluded, bool isForEach = true)
         {
             if (Groups == null)
             {

@@ -17,7 +17,7 @@ namespace HVTApp.UI.Groups
         PaymentConditionSetWrapper PaymentConditionSet { get; set; }
 
         IEnumerable<ProductIncludedWrapper> ProductsIncluded { get; }
-        void AddProductIncluded(ProductIncluded productIncluded);
+        void AddProductIncluded(ProductIncluded productIncluded, bool isForEach);
         void RemoveProductIncluded(ProductIncludedWrapper productIncluded);
     }
 

@@ -2,7 +2,6 @@ using System;
 using System.Windows.Input;
 using HVTApp.Infrastructure;
 using HVTApp.Infrastructure.Interfaces.Services.DialogService;
-using HVTApp.Model.Events;
 using HVTApp.UI.ViewModels;
 using HVTApp.UI.Wrapper;
 using Microsoft.Practices.Unity;

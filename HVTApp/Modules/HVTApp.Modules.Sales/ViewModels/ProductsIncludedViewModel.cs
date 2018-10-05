@@ -20,6 +20,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             ViewModel = container.Resolve<ProductIncludedDetailsViewModel>();
             ViewModel.Load(wrapper, unitOfWork);
             OkCommand = new DelegateCommand(OkCommandExecute, OkCommandCanExecute);
+            ViewModel.Item.PropertyChanged += (s, a) => ((DelegateCommand) OkCommand).RaiseCanExecuteChanged();
         }
 
         private void OkCommandExecute()
