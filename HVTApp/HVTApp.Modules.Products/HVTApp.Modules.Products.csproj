@@ -76,6 +76,7 @@
       <HintPath>..\HVTApp.Infrestructure\bin\Debug\Prism.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Wpf.6.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -114,6 +115,9 @@
     </Compile>
     <Compile Include="ProductsModule.cs" />
     <Compile Include="ViewModels\ParametersViewModel.cs" />
+    <Compile Include="Views\ParametersView.xaml.cs">
+      <DependentUpon>ParametersView.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -125,17 +129,27 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\HVTApp.Infrestructure\HVTApp.Infrastructure.csproj">
       <Project>{76518D16-6EA7-4B34-A308-E7AD991421BC}</Project>
       <Name>HVTApp.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Model\HVTApp.Model.csproj">
+      <Project>{350BDAB0-B331-426F-A024-004C8539AF17}</Project>
+      <Name>HVTApp.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HVTApp.UI\HVTApp.UI.csproj">
+      <Project>{984DF0F0-471D-4E38-B701-9DFC536217A8}</Project>
+      <Name>HVTApp.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Menus\ProductsMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ParametersView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,12 +1,14 @@
-﻿using System.ComponentModel;
-using HVTApp.Infrastructure;
+﻿using HVTApp.Infrastructure;
+using HVTApp.Infrastructure.Attributes;
 using HVTApp.Infrastructure.Prism;
 using HVTApp.Modules.Products.Menus;
+using HVTApp.Modules.Products.Views;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
 
 namespace HVTApp.Modules.Products
 {
+    [ModuleAccess(Role.Admin)]
     public class ProductsModule : ModuleBase
     {
         public ProductsModule(IUnityContainer container, IRegionManager regionManager) : base(container, regionManager)
@@ -15,7 +17,7 @@ namespace HVTApp.Modules.Products
 
         protected override void RegisterTypes()
         {
-            //Container.RegisterViewForNavigation<PasswordView>();
+            Container.RegisterViewForNavigation<ParametersView>();
         }
 
         protected override void ResolveOutlookGroup()

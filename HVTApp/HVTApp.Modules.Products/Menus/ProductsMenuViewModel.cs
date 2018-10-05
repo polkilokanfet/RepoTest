@@ -1,4 +1,5 @@
 ﻿using HVTApp.Infrastructure;
+using HVTApp.Modules.Products.Views;
 
 namespace HVTApp.Modules.Products.Menus
 {
@@ -6,8 +7,8 @@ namespace HVTApp.Modules.Products.Menus
     {
         protected override void GenerateMenu()
         {
-            //var root = new NavigationItem("Смена пароля", typeof(PasswordView));
-            //Items.Add(root);
+            var root = new NavigationItem("Параметры", typeof(ParametersView));
+            Items.Add(root);
         }
     }
 }

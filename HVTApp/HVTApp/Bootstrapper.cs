@@ -20,6 +20,7 @@ using HVTApp.Model.Services;
 using HVTApp.Modules.BaseEntities;
 using HVTApp.Modules.PlanAndEconomy;
 using HVTApp.Modules.Price;
+using HVTApp.Modules.Products;
 using HVTApp.Modules.Reports;
 using HVTApp.Modules.Settings;
 using HVTApp.Modules.Sales;
@@ -103,6 +104,7 @@ namespace HVTApp
             AddModuleIfInRole(catalog, typeof(SalesModule));
             AddModuleIfInRole(catalog, typeof(PlanAndEconomyModule));
             AddModuleIfInRole(catalog, typeof(ReportsModule));
+            AddModuleIfInRole(catalog, typeof(ProductsModule));
 
             catalog.AddModule(typeof(BaseEntitiesModule));
             catalog.AddModule(typeof(SettingsModule));
