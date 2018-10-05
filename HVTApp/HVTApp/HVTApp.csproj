@@ -261,6 +261,10 @@
       <Project>{b2c2c516-5bc8-4a41-9885-68bb4c91605b}</Project>
       <Name>HVTApp.Modules.Settings</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HVTApp.Modules.Products\HVTApp.Modules.Products.csproj">
+      <Project>{7C45F2A2-C4E4-407A-BC82-B59AAA0AD5A2}</Project>
+      <Name>HVTApp.Modules.Products</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HVTApp.Modules.Reports\HVTApp.Modules.Reports.csproj">
       <Project>{2A98E410-78F4-4CE5-8DE6-3ADB44087577}</Project>
       <Name>HVTApp.Modules.Reports</Name>

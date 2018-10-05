@@ -1,0 +1,126 @@
+﻿<inf:ViewBase xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:infg="http://infragistics.com/DataPresenter"
+              xmlns:inf="clr-namespace:HVTApp.Infrastructure;assembly=HVTApp.Infrastructure"
+              xmlns:prism="http://prismlibrary.com/" 
+              xmlns:views="clr-namespace:HVTApp.UI.Views;assembly=HVTApp.UI"
+              prism:ViewModelLocator.AutoWireViewModel="True"
+              x:Class="HVTApp.Modules.Products.Views.ParametersView">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Header="Параметры" Grid.Column="0">
+            <infg:XamDataGrid DataSource="{Binding ParameterLookups}"
+                              SelectedDataItem="{Binding SelectedParameterLookup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Style="{StaticResource ListViewGrid}" >
+
+                <infg:XamDataGrid.FieldLayouts>
+                    <infg:FieldLayout>
+                        <infg:FieldLayout.Fields>
+                            <infg:TextField Name="ParameterGroup" Label="Группа" Width="Auto" Converter="{StaticResource LookupToStringConverter}"/>
+                            <infg:TextField Name="Value" Label="Значение" Width="Auto" />
+                            <infg:TextField Name="Comment" Label="Комментарий" Width="Auto" />
+                        </infg:FieldLayout.Fields>
+                    </infg:FieldLayout>
+
+                </infg:XamDataGrid.FieldLayouts>
+            </infg:XamDataGrid>
+        </GroupBox>
+        
+        <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="3"/>
+        
+        <GroupBox Grid.Column="2" Header="Детали">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <views:ParameterDetailsView DataContext="{Binding}" VisibilityParameterRelationsParameter="Collapsed"/>
+                
+                <GroupBox Grid.Row="1" Header="Обязательные параметры, выбранные перед этим">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <GroupBox Header="Ограничения">
+                            <infg:XamDataGrid DataSource="{Binding Item.ParameterRelations}" 
+                                              SelectedDataItem="{Binding SelectedRelation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              Style="{StaticResource ListViewGrid}" >
+                                <infg:XamDataGrid.FieldLayouts>
+                                    <infg:FieldLayout>
+                                        <infg:FieldLayout.Fields>
+                                            <infg:TextField AlternateBinding="{Binding}" BindingType="UseAlternateBinding" Label="Ограничение" Width="Auto" />
+                                        </infg:FieldLayout.Fields>
+                                    </infg:FieldLayout>
+                                </infg:XamDataGrid.FieldLayouts>
+                            </infg:XamDataGrid>
+                        </GroupBox>
+
+                        <GroupBox Header="Параметры ограничения" Grid.Column="1">
+                            <infg:XamDataGrid DataSource="{Binding SelectedRelation.RequiredParameters, UpdateSourceTrigger=PropertyChanged}" 
+                                              Style="{StaticResource ListViewGrid}" >
+                                <infg:XamDataGrid.FieldLayouts>
+                                    <infg:FieldLayout>
+                                        <infg:FieldLayout.Fields>
+                                            <infg:TextField Name="ParameterGroup" Label="Группа" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
+                                            <infg:TextField Name="Value" Label="Значение" Width="Auto" />
+                                        </infg:FieldLayout.Fields>
+                                    </infg:FieldLayout>
+                                </infg:XamDataGrid.FieldLayouts>
+                            </infg:XamDataGrid>
+                        </GroupBox>
+
+                        <Button Grid.Column="2" Content="Доб."></Button>
+
+                        <GroupBox Header="Потенциальные параметры ограничения" Grid.Column="3">
+                            <infg:XamDataGrid DataSource="{Binding PotentialRelationParameters, UpdateSourceTrigger=PropertyChanged}" 
+                                              Style="{StaticResource ListViewGrid}" >
+                                <infg:XamDataGrid.FieldLayouts>
+                                    <infg:FieldLayout>
+                                        <infg:FieldLayout.Fields>
+                                            <infg:TextField Name="ParameterGroup" Label="Группа" Width="Auto" Converter="{StaticResource WrapperToStringConverter}"/>
+                                            <infg:TextField Name="Value" Label="Значение" Width="Auto" />
+                                        </infg:FieldLayout.Fields>
+                                    </infg:FieldLayout>
+                                </infg:XamDataGrid.FieldLayouts>
+                            </infg:XamDataGrid>
+                        </GroupBox>
+
+
+                    </Grid>
+                </GroupBox>
+                
+                <GroupBox Grid.Row="2" Header="Пути выбора">
+                    <infg:XamDataGrid DataSource="{Binding Paths}" Style="{StaticResource ListViewGrid}" >
+                        <infg:XamDataGrid.FieldLayouts>
+                            <infg:FieldLayout>
+                                <infg:FieldLayout.Fields>
+                                    <infg:TextField AlternateBinding="{Binding}" BindingType="UseAlternateBinding" Label="Путь" Width="Auto" />
+                                </infg:FieldLayout.Fields>
+                            </infg:FieldLayout>
+                        </infg:XamDataGrid.FieldLayouts>
+                    </infg:XamDataGrid>
+                </GroupBox>
+                
+                <Button Grid.Row="3" Content="Сохранить" Command="{Binding SaveCommand}"/>
+            </Grid>
+        </GroupBox>
+        
+    </Grid>
+    
+
+</inf:ViewBase>
+
+	    
