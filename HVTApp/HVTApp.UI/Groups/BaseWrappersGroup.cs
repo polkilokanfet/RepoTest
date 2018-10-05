@@ -166,6 +166,9 @@ namespace HVTApp.UI.Groups
                 //если один включенный продукт на все группы
                 else
                 {
+                    //обновляем количество родителей включенного продукта
+                    productIncluded.ParentsCount = Groups.Count;
+                    //добавляем продукт в каждую группу
                     foreach (var grp in Groups)
                     {
                         grp.AddProductIncluded(productIncluded, false);
@@ -191,7 +194,7 @@ namespace HVTApp.UI.Groups
                 foreach (var salesUnitsGroup in Groups)
                 {
                     var pi = salesUnitsGroup.ProductsIncluded.First(x => x.Product.Id == productIncluded.Product.Id &&
-                                                                         x.Amount == productIncluded.Amount);
+                                                                         x.Count == productIncluded.Count);
                     salesUnitsGroup.RemoveProductIncluded(pi);
                 }
             }
