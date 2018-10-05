@@ -99,11 +99,11 @@ namespace HVTApp.Modules.Sales.ViewModels
             var production = salesUnits.Where(x => x.SignalToStartProduction != null && x.EndProductionDateCalculated >= DateTime.Today).ToList();
             var potential = salesUnits.Where(x => x.SignalToStartProduction == null && !x.IsLoosen && x.Project.InWork);
 
-            var productionGroups = production.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsWrappersGroup(x)).OrderBy(x => x.EndProductionDateCalculated);
+            var productionGroups = production.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsWrappersGroup(x.ToList())).OrderBy(x => x.EndProductionDateCalculated);
             ProductionGroups.Clear();
             ProductionGroups.AddRange(productionGroups);
 
-            var potentialGroups = potential.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsWrappersGroup(x)).OrderBy(x => x.EndProductionDateCalculated);
+            var potentialGroups = potential.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsWrappersGroup(x.ToList())).OrderBy(x => x.EndProductionDateCalculated);
             PotentialGroups.Clear();
             PotentialGroups.AddRange(potentialGroups);
 

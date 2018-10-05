@@ -39,11 +39,11 @@ namespace HVTApp.UI.ViewModels
             var realUnits = salesUnits.Where(x => x.Order?.Id == Item.Id).ToList();
             var potentialUnits = salesUnits.Where(x => x.Order == null && x.SignalToStartProduction != null).ToList();
 
-            var realGroups = realUnits.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsWrappersGroup(x)).OrderBy(x => x.EndProductionDateCalculated);
+            var realGroups = realUnits.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsWrappersGroup(x.ToList())).OrderBy(x => x.EndProductionDateCalculated);
             RealGroups.Clear();
             RealGroups.AddRange(realGroups);
 
-            var potentialGroups = potentialUnits.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsWrappersGroup(x)).OrderBy(x => x.EndProductionDateCalculated);
+            var potentialGroups = potentialUnits.GroupBy(x => x, new SalesUnitsGroupsComparer()).Select(x => new SalesUnitsWrappersGroup(x.ToList())).OrderBy(x => x.EndProductionDateCalculated);
             PotentialGroups.Clear();
             PotentialGroups.AddRange(potentialGroups);
 

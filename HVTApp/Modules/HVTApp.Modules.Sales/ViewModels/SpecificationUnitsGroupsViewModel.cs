@@ -34,7 +34,7 @@ namespace HVTApp.Modules.Sales.ViewModels
             var salesUnits = UnitOfWork.Repository<SalesUnit>().Find(x => x.Project.Manager.Id == CommonOptions.User.Id && x.Specification == null);
             var unit = Container.Resolve<ISelectService>().SelectItem(salesUnits);
             if (unit == null) return;
-            var group = new SalesUnitsWrappersGroup(new[] {unit});
+            var group = new SalesUnitsWrappersGroup(new List<SalesUnit>() {unit});
             group.Specification = _specificationWrapper;
             RefreshPrice(group);
             Groups.Add(group);
@@ -42,7 +42,7 @@ namespace HVTApp.Modules.Sales.ViewModels
 
         protected override List<SalesUnitsWrappersGroup> Grouping(IEnumerable<SalesUnit> units)
         {
-            return units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new SalesUnitsWrappersGroup(x)).ToList();
+            return units.GroupBy(x => x, new SalesUnitsGroupsComparer()).OrderByDescending(x => x.Key.Cost).Select(x => new SalesUnitsWrappersGroup(x.ToList())).ToList();
         }
 
         public void Load(IEnumerable<SalesUnit> units, SpecificationWrapper parentWrapper, IUnitOfWork unitOfWork, bool isNew)

@@ -3,7 +3,8 @@ using HVTApp.UI.Groups;
 
 namespace HVTApp.UI.Wrapper
 {
-    public partial class SalesUnitWrapper : IWrapperGroup<SalesUnit>
+    public partial class OfferUnitWrapper : IWrapperGroup<OfferUnit>
     {
+        
     }
 }
