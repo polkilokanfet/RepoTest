@@ -224,7 +224,7 @@
     <Compile Include="Wrapper\Custom\Functionality\SalesUnitWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\SpecificationWrapper.cs" />
     <Compile Include="Wrapper\Custom\Validate\PaymentConditionSetWrapper.cs" />
-    <Compile Include="Wrapper\IUnit.cs" />
+    <Compile Include="Wrapper\IUnitWrapper.cs" />
     <Compile Include="Generator.cs">
       <DependentUpon>Generator.tt</DependentUpon>
       <AutoGen>True</AutoGen>

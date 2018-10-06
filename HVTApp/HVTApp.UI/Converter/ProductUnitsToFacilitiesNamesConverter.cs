@@ -8,12 +8,12 @@ using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.Converter
 {
-    [ValueConversion(typeof(IEnumerable<IUnit>), typeof(string))]
+    [ValueConversion(typeof(IEnumerable<IUnitWrapper>), typeof(string))]
     public class ProductUnitsToFacilitiesNamesConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var projectUnits = value as IEnumerable<IUnit>;
+            var projectUnits = value as IEnumerable<IUnitWrapper>;
             if (projectUnits == null) throw new ArgumentException();
 
             var facilities = projectUnits.Select(x => x.Facility).Distinct();

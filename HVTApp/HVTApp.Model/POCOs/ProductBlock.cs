@@ -28,6 +28,9 @@ namespace HVTApp.Model.POCOs
         [Designation("Себестоимости")]
         public virtual List<SumOnDate> Prices { get; set; } = new List<SumOnDate>();
 
+        [Designation("Фиксированные цены")]
+        public virtual List<SumOnDate> FixedCosts { get; set; } = new List<SumOnDate>();
+
         [Designation("Сралчахвост"), MaxLength(10)]
         public string StructureCostNumber { get; set; }
 

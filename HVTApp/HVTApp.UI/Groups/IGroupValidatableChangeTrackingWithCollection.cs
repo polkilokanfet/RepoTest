@@ -11,6 +11,7 @@ namespace HVTApp.UI.Groups
         TModel Model { get; }
         double Cost { get; }
         double Price { set; }
+        double FixedCost { set; }
         int ProductionTerm { get; }
         ProductWrapper Product { get; set; }
         FacilityWrapper Facility { get; set; }

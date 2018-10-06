@@ -6,6 +6,7 @@ namespace HVTApp.DataAccess
         {
             HasMany(x => x.Parameters).WithMany();
             HasMany(x => x.Prices).WithOptional();
+            HasMany(x => x.FixedCosts).WithOptional();
         }
 
     }

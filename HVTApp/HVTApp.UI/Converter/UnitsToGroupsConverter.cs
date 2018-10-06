@@ -7,14 +7,14 @@ using HVTApp.UI.Wrapper;
 
 namespace HVTApp.UI.Converter
 {
-    [ValueConversion(typeof(IEnumerable<IUnit>), typeof(IEnumerable<UnitsGroup>))]
+    [ValueConversion(typeof(IEnumerable<IUnitWrapper>), typeof(IEnumerable<UnitsGroup>))]
     public class UnitsToGroupsConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null) return null;
 
-            var productUnits = value as IEnumerable<IUnit>;
+            var productUnits = value as IEnumerable<IUnitWrapper>;
             if (productUnits == null) throw new ArgumentException("В конвертер переданы не юниты!");
 
             //Группируем по ключу: продукт + объект + стоимость
@@ -60,7 +60,7 @@ namespace HVTApp.UI.Converter
         }
     }
 
-    [ValueConversion(typeof(IEnumerable<IUnit>), typeof(IUnitsGroup))]
+    [ValueConversion(typeof(IEnumerable<IUnitWrapper>), typeof(IUnitsGroup))]
     public class ProductGroupToProductUnitsConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

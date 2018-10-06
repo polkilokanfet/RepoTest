@@ -9,17 +9,25 @@ namespace HVTApp.Model.Structures
 {
     public class PriceStructures : List<PriceStructure>
     {
-        public double Total => this.Sum(x => x.Total);
+        /// <summary>
+        /// Себестоимость без учета блоков с фиксированной ценой.
+        /// </summary>
+        public double TotalPriceFixedCostLess => this.Sum(x => x.TotalPriceFixedCostLess);
 
-        public PriceStructures(IUnitPoco salesUnit, DateTime targetPriceDate, int priceTerm, IEnumerable<ProductBlock> analogs)
+        /// <summary>
+        /// Суммарная стоимость блоков с фиксированной ценой.
+        /// </summary>
+        public double TotalFixedCost => this.Sum(x => x.TotalFixedCost);
+
+        public PriceStructures(IUnitPoco unit, DateTime targetPriceDate, int priceTerm, IEnumerable<ProductBlock> analogs)
         {
             var productBlocks = analogs as ProductBlock[] ?? analogs.ToArray();
 
             //структура себестоимости продукта
-            this.Add(new PriceStructure(salesUnit.Product, 1, targetPriceDate, priceTerm, productBlocks));
+            this.Add(new PriceStructure(unit.Product, 1, targetPriceDate, priceTerm, productBlocks));
 
             //структура себестоимости включенных продуктов
-            foreach (var prodIncl in salesUnit.ProductsIncluded)
+            foreach (var prodIncl in unit.ProductsIncluded)
             {
                 double count = (double)prodIncl.Amount / prodIncl.ParentsCount;
                 this.Add(new PriceStructure(prodIncl.Product, count, targetPriceDate, priceTerm, productBlocks));
@@ -35,6 +43,9 @@ namespace HVTApp.Model.Structures
         public Product Product { get; }
         public double Amount { get; }
 
+        /// <summary>
+        /// Аналог целевого блока.
+        /// </summary>
         public ProductBlock Analog => IsAnalogPrice ? GetAnalogWithPrice() : null;
 
         /// <summary>
@@ -45,7 +56,7 @@ namespace HVTApp.Model.Structures
         /// <summary>
         /// Включенные структуры
         /// </summary>
-        public List<PriceStructure> Childs { get; } = new List<PriceStructure>();
+        public List<PriceStructure> ChildPriceStructures { get; } = new List<PriceStructure>();
 
         /// <summary>
         /// Прайс, близжайший к целевой дате
@@ -62,7 +73,38 @@ namespace HVTApp.Model.Structures
         /// </summary>
         public bool IsOldPrice => Price.Date.AddDays(_priceTerm) < DateTime.Today;
 
-        public double Total => Price.Sum * Amount + Childs.Sum(x => x.Total);
+        /// <summary>
+        /// Фиксированная цена на блок (например, шеф-монтаж)
+        /// </summary>
+        public SumOnDate FixedCost => Product.ProductBlock.FixedCosts.Any(x => x.Date <= TargetPriceDate)
+            ? Product.ProductBlock.FixedCosts.Where(x => x.Date <= TargetPriceDate).OrderBy(x => x.Date).Last()
+            : null;
+
+        public bool IsFixedCost => FixedCost != null;
+
+        /// <summary>
+        /// Себестоимость без учета блоков с фиксированной ценой (если цена фиксирована, себестоимость блока = 0).
+        /// </summary>
+        public double TotalPriceFixedCostLess
+        {
+            get
+            {
+                var price = FixedCost == null ? Price.Sum * Amount : 0;
+                return price + ChildPriceStructures.Sum(x => x.TotalPriceFixedCostLess);
+            }
+        }
+
+        /// <summary>
+        /// Суммарная стоимость блоков с фиксированной ценой.
+        /// </summary>
+        public double TotalFixedCost
+        {
+            get
+            {
+                double fixedCost = FixedCost?.Sum ?? 0;
+                return fixedCost * Amount + ChildPriceStructures.Sum(x => x.TotalFixedCost);
+            }
+        }
 
         public PriceStructure(Product product, double amount, DateTime targetPriceDate, int priceTerm, IEnumerable<ProductBlock> analogs)
         {
@@ -71,14 +113,11 @@ namespace HVTApp.Model.Structures
             Product = product;
             Amount = amount;
             TargetPriceDate = targetPriceDate;
-            GenerateChilds();
-        }
-
-        private void GenerateChilds()
-        {
+            
+            //добавляем дочерние структуры
             foreach (var dependentProduct in Product.DependentProducts)
             {
-                Childs.Add(new PriceStructure(dependentProduct.Product, dependentProduct.Amount, TargetPriceDate, _priceTerm, _analogs));
+                ChildPriceStructures.Add(new PriceStructure(dependentProduct.Product, dependentProduct.Amount, TargetPriceDate, _priceTerm, _analogs));
             }
         }
 
@@ -139,8 +178,8 @@ namespace HVTApp.Model.Structures
                 dic.Add(block, dif);
             }
 
-            var dic2 = dic.OrderByDescending(x => x.Value).ToList();
-            var result = dic.OrderByDescending(x => x.Value).First(x => x.Key.Prices.Any()).Key;
+            //var dic2 = dic.OrderByDescending(x => x.Value).ToList();
+            //var result = dic.OrderByDescending(x => x.Value).First(x => x.Key.Prices.Any()).Key;
 
             return dic.OrderByDescending(x => x.Value).First(x => x.Key.Prices.Any()).Key;
         }

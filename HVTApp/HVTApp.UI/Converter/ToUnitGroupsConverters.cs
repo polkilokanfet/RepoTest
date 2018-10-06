@@ -9,16 +9,16 @@ namespace HVTApp.UI.Converter
 {
     public static class ToUnitGroupsConverters
     {
-        public static IEnumerable<IUnitsGroup> ToProductUnitGroups(this IEnumerable<IUnit> units)
+        public static IEnumerable<IUnitsGroup> ToProductUnitGroups(this IEnumerable<IUnitWrapper> units)
         {
             if (units == null) return new List<IUnitsGroup>();
             return units.GroupBy(x => x, new UnitComparer()).Select(x => new UnitsGroup(x));
         }
     }
 
-    class UnitComparer : IEqualityComparer<IUnit>
+    class UnitComparer : IEqualityComparer<IUnitWrapper>
     {
-        public bool Equals(IUnit x, IUnit y)
+        public bool Equals(IUnitWrapper x, IUnitWrapper y)
         {
             if (!Equals(x.Cost, y.Cost)) return false;
             if (!Equals(x.ProductionTerm, y.ProductionTerm)) return false;
@@ -35,7 +35,7 @@ namespace HVTApp.UI.Converter
             return true;
         }
 
-        public int GetHashCode(IUnit obj)
+        public int GetHashCode(IUnitWrapper obj)
         {
             return 0;
         }
@@ -74,16 +74,16 @@ namespace HVTApp.UI.Converter
 
     public static class ToUnitDatedGroupsConverters
     {
-        public static IEnumerable<IUnitsDatedGroup> ToProductUnitGroups(this IEnumerable<IUnitDated> units)
+        public static IEnumerable<IUnitsDatedGroup> ToProductUnitGroups(this IEnumerable<IUnitWrapperDated> units)
         {
             if (units == null) return new List<IUnitsDatedGroup>();
             return units.GroupBy(x => x, new UnitDatedComparer()).Select(x => new UnitsDatedGroup(x));
         }
     }
 
-    class UnitDatedComparer : IEqualityComparer<IUnitDated>
+    class UnitDatedComparer : IEqualityComparer<IUnitWrapperDated>
     {
-        public bool Equals(IUnitDated x, IUnitDated y)
+        public bool Equals(IUnitWrapperDated x, IUnitWrapperDated y)
         {
             if (!Equals(x.Cost, y.Cost)) return false;
             if (!Equals(x.ProductionTerm, y.ProductionTerm)) return false;
@@ -101,7 +101,7 @@ namespace HVTApp.UI.Converter
             return true;
         }
 
-        public int GetHashCode(IUnitDated obj)
+        public int GetHashCode(IUnitWrapperDated obj)
         {
             return 0;
         }

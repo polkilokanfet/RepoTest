@@ -18,6 +18,7 @@ namespace HVTApp.UI.Groups
     {
         private readonly TWrapper _unit;
         private double _price;
+        private double _fixedCost = 0;
 
         public TModel Model => GetValue<TModel>();
 
@@ -51,7 +52,7 @@ namespace HVTApp.UI.Groups
             get { return Total / Amount; }
             set
             {
-                if (value < 0) return;
+                if (value < FixedCost) return;
                 SetValue(value);
                 OnPropertyChanged(nameof(MarginalIncome));
                 OnPropertyChanged(nameof(Total));
@@ -70,13 +71,28 @@ namespace HVTApp.UI.Groups
             }
         }
 
+        public double FixedCost
+        {
+            get { return _fixedCost; }
+            set
+            {
+                if (Math.Abs(_fixedCost - value) < 0.00001) return;
+                _fixedCost = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(MarginalIncome));
+            }
+        }
+
+
         public double? MarginalIncome
         {
-            get { return Cost <= 0 ? default(double?) : (1.0 - Price / Cost) * 100.0; }
+            get { return Cost - FixedCost <= 0 ? default(double?) : (1.0 - Price / (Cost - FixedCost)) * 100.0; }
             set
             {
                 if (!value.HasValue || value >= 100) return;
-                Cost = Price / (1.0 - value.Value / 100.0);
+
+                var marginalIncome = value.Value;
+                Cost = Price / (1.0 - marginalIncome / 100.0) + FixedCost;
                 OnPropertyChanged();
             }
         }

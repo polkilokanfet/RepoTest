@@ -749,12 +749,14 @@ namespace HVTApp.TestDataGenerator
         public ProductBlock ProductBlockZng110;
         public ProductBlock ProductBlockDrivePPrK;
         public ProductBlock ProductBlockZip1;
+        public ProductBlock ProductBlockSheffMontag;
 
         public Product ProductVgb35;
         public Product ProductVeb110;
         public Product ProductZng110;
         public Product ProductBreakersDrive;
         public Product ProductZip1;
+        public Product ProductSheffMontag;
 
         private void GenerateProductBlocs()
         {
@@ -797,6 +799,15 @@ namespace HVTApp.TestDataGenerator
                 Prices = new List<SumOnDate> { new SumOnDate { Sum = 2500, Date = DateTime.Today } },
                 StructureCostNumber = "789"
             });
+
+            ProductBlockSheffMontag.Clone(new ProductBlock
+            {
+                DesignationSpecial = "Шеф-монтаж",
+                Parameters = new List<Parameter> { ParameterService, ParameterSheffMontag },
+                Prices = new List<SumOnDate> { new SumOnDate { Sum = 60000, Date = DateTime.Today } },
+                FixedCosts = new List<SumOnDate> { new SumOnDate { Sum = 120000, Date = DateTime.Today } },
+                StructureCostNumber = "---"
+            });
         }
 
         private void GenerateProducts()
@@ -831,6 +842,11 @@ namespace HVTApp.TestDataGenerator
             {
                 //DesignationSpecial = "ЗиП №1",
                 ProductBlock = ProductBlockZip1
+            });
+
+            ProductSheffMontag.Clone(new Product
+            {
+                ProductBlock = ProductBlockSheffMontag
             });
         }
 
