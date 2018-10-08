@@ -30,8 +30,8 @@ namespace HVTApp.Modules.Sales.ViewModels
         where TAfterRemoveEvent : PubSubEvent<TModel>, new()
     {
         //блоки, необходимые для поиска аналогов
-        protected static List<ProductBlock> _blocks;
-        protected readonly Dictionary<TGroup, PriceStructures> _priceDictionary = new Dictionary<TGroup, PriceStructures>();
+        protected static List<ProductBlock> Blocks;
+        protected readonly Dictionary<TGroup, PriceStructures> PriceDictionary = new Dictionary<TGroup, PriceStructures>();
 
         private TGroup _selectedGroup;
         private ProductIncludedWrapper _selectedProductIncluded;
@@ -129,13 +129,14 @@ namespace HVTApp.Modules.Sales.ViewModels
             var priceTerm = CommonOptions.ActualOptions.ActualPriceTerm;
 
             //если в словаре нет такой группы, добавляем ее
-            if (!_priceDictionary.ContainsKey(grp)) _priceDictionary.Add(grp, null);
+            if (!PriceDictionary.ContainsKey(grp)) PriceDictionary.Add(grp, null);
 
             //обновляем структуру себестоимости этой группе
-            _priceDictionary[grp] = new PriceStructures(grp.Model, GetPriceDate(grp), priceTerm, _blocks);
+            PriceDictionary[grp] = new PriceStructures(grp.Model, GetPriceDate(grp), priceTerm, Blocks);
 
             //обновляем себестоимость группы
-            grp.Price = _priceDictionary[grp].Total;
+            grp.Price = PriceDictionary[grp].TotalPriceFixedCostLess;
+            grp.FixedCost = PriceDictionary[grp].TotalFixedCost;
             OnPropertyChanged(nameof(PriceStructures));
 
             //если в группе есть зависимые группы - обновить и для них
@@ -145,7 +146,7 @@ namespace HVTApp.Modules.Sales.ViewModels
         /// <summary>
         /// Структура себестоимости выбранной группы
         /// </summary>
-        public PriceStructures PriceStructures => SelectedGroup == null ? null : _priceDictionary[SelectedGroup];
+        public PriceStructures PriceStructures => SelectedGroup == null ? null : PriceDictionary[SelectedGroup];
 
         #region ICommand
 
@@ -173,8 +174,8 @@ namespace HVTApp.Modules.Sales.ViewModels
             AddProductIncludedCommand = new DelegateCommand(AddProductIncludedCommand_Execute, () => SelectedGroup != null);
             RemoveProductIncludedCommand = new DelegateCommand(RemoveProductIncludedCommand_Execute, () => SelectedProductIncluded != null);
 
-            if(_blocks == null)
-                _blocks = UnitOfWork.Repository<ProductBlock>().Find(x => true);
+            if(Blocks == null)
+                Blocks = UnitOfWork.Repository<ProductBlock>().Find(x => true);
         }
 
         #region Commands

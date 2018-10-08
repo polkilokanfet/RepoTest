@@ -3,12 +3,12 @@ using HVTApp.Infrastructure;
 
 namespace HVTApp.UI.Wrapper
 {
-    public interface IUnitDated : IUnit
+    public interface IUnitWrapperDated : IUnitWrapper
     {
         DateTime DeliveryDateExpected { get; set; }
     }
 
-    public interface IUnit : IUnitWithProductsIncluded, IValidatableChangeTracking
+    public interface IUnitWrapper : IUnitWithProductsIncluded, IValidatableChangeTracking
     {
         ProductWrapper Product { get; set; }
         FacilityWrapper Facility { get; set; }

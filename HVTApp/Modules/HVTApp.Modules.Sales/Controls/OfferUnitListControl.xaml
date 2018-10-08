@@ -156,11 +156,11 @@
                                 
                             <dp:TextField Name="Product" Label="Продукт" Width="Auto" />
                             <dp:NumericField Name="Amount" Label="Кол." Width="Auto" />                            
-                            <dp:NumericField AlternateBinding="{Binding Price.Sum}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" />                            
-                            <dp:NumericField Name="Total" Label="Сумма" Width="Auto" />
+                            <dp:NumericField AlternateBinding="{Binding Price.Sum}" BindingType="UseAlternateBinding" Label="Стоимость" Width="Auto" />
+                            <dp:NumericField Name="TotalPriceFixedCostLess" Label="Сумма" Width="Auto" />
                             <dp:DateTimeField AlternateBinding="{Binding Price.Date}" BindingType="UseAlternateBinding" Label="Дата" Width="Auto" />                            
                             <dp:TextField Name="Analog" Label="Аналог" Width="Auto" />
-                            <dp:Field Name="Childs" IsExpandable="True"/>
+                            <dp:Field Name="ChildPriceStructures" IsExpandable="True"/>
                                 
                         </dp:FieldLayout.Fields>
                     </dp:FieldLayout>

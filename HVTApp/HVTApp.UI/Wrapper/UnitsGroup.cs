@@ -18,7 +18,7 @@ namespace HVTApp.UI.Wrapper
         public int Amount => Units.Count;
         public double Total => Cost * Amount;
 
-        public List<IUnit> Units { get; }
+        public List<IUnitWrapper> Units { get; }
         public ObservableCollection<IUnitsGroup> Groups { get; } = new ObservableCollection<IUnitsGroup>();
 
         public FacilityWrapper Facility
@@ -97,7 +97,7 @@ namespace HVTApp.UI.Wrapper
 
 
 
-        public UnitsGroup(IEnumerable<IUnit> units)
+        public UnitsGroup(IEnumerable<IUnitWrapper> units)
         {
             Units = units.ToList();
             if (Units.Count > 1)
@@ -143,7 +143,7 @@ namespace HVTApp.UI.Wrapper
 
         protected virtual void GenerateGroups()
         {
-            Groups.AddRange(Units.Select(x => new UnitsGroup(new List<IUnit> {x})));
+            Groups.AddRange(Units.Select(x => new UnitsGroup(new List<IUnitWrapper> {x})));
         }
 
         protected void SetValue(object value, [CallerMemberName] string propertyName = null)
@@ -189,17 +189,17 @@ namespace HVTApp.UI.Wrapper
     {
         public DateTime DeliveryDateExpected
         {
-            get { return ((IUnitDated)Units.First()).DeliveryDateExpected; }
+            get { return ((IUnitWrapperDated)Units.First()).DeliveryDateExpected; }
             set { SetValue(value); }
         }
 
-        public UnitsDatedGroup(IEnumerable<IUnitDated> units) : base(units)
+        public UnitsDatedGroup(IEnumerable<IUnitWrapperDated> units) : base(units)
         {
         }
 
         protected override void GenerateGroups()
         {
-            Groups.AddRange(Units.Select(x => new UnitsDatedGroup(new List<IUnitDated> { (IUnitDated)x })));
+            Groups.AddRange(Units.Select(x => new UnitsDatedGroup(new List<IUnitWrapperDated> { (IUnitWrapperDated)x })));
         }
     }
 }

@@ -10,7 +10,7 @@ namespace HVTApp.Model.Structures
         /// <summary>
         /// Вложенные продукты
         /// </summary>
-        public List<ProductStructure> Childs { get; } = new List<ProductStructure>();
+        public List<ProductStructure> ChildProductStructures { get; } = new List<ProductStructure>();
 
         public string Parameters => Product.ProductBlock.ParametersToString();
 
@@ -18,14 +18,9 @@ namespace HVTApp.Model.Structures
         {
             Product = product;
             Amount = amount;
-            GenerateChilds();
-        }
-
-        private void GenerateChilds()
-        {
             foreach (var dependentProduct in Product.DependentProducts)
             {
-                Childs.Add(new ProductStructure(dependentProduct.Product, dependentProduct.Amount));
+                ChildProductStructures.Add(new ProductStructure(dependentProduct.Product, dependentProduct.Amount));
             }
         }
 
