@@ -55,12 +55,14 @@ namespace HVTApp.Modules.Products.ViewModels
         {
             get
             {
-                var parameters = UnitOfWork.Repository<Parameter>().Find(x => true);
+                //все параметры
+                var parameters = ParameterLookups.Select(x => x.Entity).ToList();
 
-                if(SelectedRelation == null)
-                    return parameters.Select(x => new ParameterWrapper(x));
+                if (SelectedRelation == null) return null;
 
+                //группы выбранных параметров
                 var groups = SelectedRelation.RequiredParameters.Select(x => x.ParameterGroup.Model).Distinct().ToList();
+                //параметры этих групп
                 var sameGroupParameters = parameters.Where(x => groups.Contains(x.ParameterGroup));
 
                 return parameters.Except(sameGroupParameters).Select(x => new ParameterWrapper(x));
