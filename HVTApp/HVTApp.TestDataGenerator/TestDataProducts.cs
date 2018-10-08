@@ -23,6 +23,7 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupIsolationMaterial;
         public ParameterGroup ParameterGroupAccuracy;
         public ParameterGroup ParameterGroupCurrent;
+        public ParameterGroup ParameterGroupCurrentBreaking;
         public ParameterGroup ParameterGroupNewProductDesignation;
         public ParameterGroup ParameterGroupDrives;
         public ParameterGroup ParameterGroupClimat;
@@ -54,6 +55,7 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupIsolationMaterial.Clone(new ParameterGroup { Name = "Тип изоляции" });
             ParameterGroupAccuracy.Clone(new ParameterGroup { Name = "Класс точности" });
             ParameterGroupCurrent.Clone(new ParameterGroup { Name = "Номинальный ток" });
+            ParameterGroupCurrentBreaking.Clone(new ParameterGroup { Name = "Номинальный ток отключения" });
             ParameterGroupNewProductDesignation.Clone(new ParameterGroup { Name = "Обозначение" });
             ParameterGroupDrives.Clone(new ParameterGroup { Name = "Приводы" });
             ParameterGroupClimat.Clone(new ParameterGroup { Name = "Климатическое исполнение" });
@@ -164,9 +166,19 @@ namespace HVTApp.TestDataGenerator
 
         #region Номинальный ток
 
+        public Parameter ParameterCurrent0630;
+        public Parameter ParameterCurrent1000;
         public Parameter ParameterCurrent2500;
         public Parameter ParameterCurrent3150;
         public Parameter ParameterCurrent4000;
+
+        #endregion
+
+        #region Номинальный ток отключения
+
+        public Parameter ParameterCurrentBreaking12kA;
+        public Parameter ParameterCurrentBreaking40kA;
+        public Parameter ParameterCurrentBreaking50kA;
 
         #endregion
 
@@ -514,15 +526,36 @@ namespace HVTApp.TestDataGenerator
 
             #region Номинальный ток
 
+            ParameterCurrent0630.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "630 А" });
+            ParameterCurrent1000.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "1000 А" });
             ParameterCurrent2500.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "2500 А" });
             ParameterCurrent3150.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "3150 А" });
             ParameterCurrent4000.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "4000 А" });
+
+            ParameterCurrent0630.AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage35kV);
+            ParameterCurrent1000.AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage35kV);
 
             ParameterCurrent2500.AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage110kV)
                                 .AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage220kV, ParameterBreakerDeadTank);
             ParameterCurrent3150.AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage110kV)
                                 .AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage220kV);
+
             ParameterCurrent4000.AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage500kV);
+
+            #endregion
+
+            #region Номинальный ток
+
+            ParameterCurrentBreaking12kA.Clone(new Parameter { ParameterGroup = ParameterGroupCurrentBreaking, Value = "12,5 кА" });
+            ParameterCurrentBreaking40kA.Clone(new Parameter { ParameterGroup = ParameterGroupCurrentBreaking, Value = "40 кА" });
+            ParameterCurrentBreaking50kA.Clone(new Parameter { ParameterGroup = ParameterGroupCurrentBreaking, Value = "50 кА" });
+
+            ParameterCurrentBreaking12kA.AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage35kV);
+            ParameterCurrentBreaking40kA.AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage110kV)
+                                        .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage500kV);
+            ParameterCurrentBreaking50kA.AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage110kV)
+                                        .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage220kV)
+                                        .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage35kV);
 
             #endregion
 
