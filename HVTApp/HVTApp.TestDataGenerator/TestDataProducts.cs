@@ -903,10 +903,15 @@ namespace HVTApp.TestDataGenerator
         #region ProductRelations
 
         public ProductRelation RequiredChildProductRelationDrivePem;
-        public ProductRelation RequiredChildProductRelationDrivePPrK;
-        public ProductRelation RequiredChildProductRelationDrivePPrKVgt35;
-        public ProductRelation RequiredChildProductRelationDrivePPV220;
-        public ProductRelation RequiredChildProductRelationDrivePPV500;
+
+        public ProductRelation RequiredChildProductRelationDrivePprKVgt35;
+        public ProductRelation RequiredChildProductRelationDrivePprKVgt110;
+        public ProductRelation RequiredChildProductRelationDrivePprKVeb110;
+
+        public ProductRelation RequiredChildProductRelationDrivePpvVeb110;
+        public ProductRelation RequiredChildProductRelationDrivePpv220;
+        public ProductRelation RequiredChildProductRelationDrivePpv500;
+
         public ProductRelation RequiredChildProductRelationBreakerBlock;
         public ProductRelation RequiredChildProductRelationTransfBlockForVeb110;
         public ProductRelation RequiredChildProductRelationTransfBlockForVeb220;
@@ -925,23 +930,39 @@ namespace HVTApp.TestDataGenerator
                 IsUnique = false
             });
 
-            RequiredChildProductRelationDrivePPrKVgt35.Clone(new ProductRelation
+            RequiredChildProductRelationDrivePprKVgt35.Clone(new ProductRelation
             {
-                ParentProductParameters = new List<Parameter> { ParameterBreaker, ParameterVoltage35kV, ParameterBreakerLiveTank },
+                ParentProductParameters = new List<Parameter> { ParameterBreakerLiveTank, ParameterVoltage35kV },
                 ChildProductParameters = new List<Parameter> { ParameterDrivePPrK },
                 ChildProductsAmount = 1,
                 IsUnique = false
             });
 
-            RequiredChildProductRelationDrivePPrK.Clone(new ProductRelation
+            RequiredChildProductRelationDrivePprKVgt110.Clone(new ProductRelation
             {
-                ParentProductParameters = new List<Parameter> { ParameterBreaker, ParameterVoltage110kV },
+                ParentProductParameters = new List<Parameter> { ParameterBreakerLiveTank, ParameterVoltage110kV },
                 ChildProductParameters = new List<Parameter> { ParameterDrivePPrK },
                 ChildProductsAmount = 1,
                 IsUnique = false
             });
 
-            RequiredChildProductRelationDrivePPV220.Clone(new ProductRelation
+            RequiredChildProductRelationDrivePprKVeb110.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterCurrentBreaking40kA },
+                ChildProductParameters = new List<Parameter> { ParameterDrivePPrK },
+                ChildProductsAmount = 1,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationDrivePpvVeb110.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterCurrentBreaking50kA },
+                ChildProductParameters = new List<Parameter> { ParameterDrivePPV },
+                ChildProductsAmount = 1,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationDrivePpv220.Clone(new ProductRelation
             {
                 ParentProductParameters = new List<Parameter> { ParameterBreaker, ParameterVoltage220kV },
                 ChildProductParameters = new List<Parameter> { ParameterDrivePPV },
@@ -949,7 +970,7 @@ namespace HVTApp.TestDataGenerator
                 IsUnique = false
             });
 
-            RequiredChildProductRelationDrivePPV500.Clone(new ProductRelation
+            RequiredChildProductRelationDrivePpv500.Clone(new ProductRelation
             {
                 ParentProductParameters = new List<Parameter> { ParameterBreaker, ParameterVoltage500kV },
                 ChildProductParameters = new List<Parameter> { ParameterDrivePPV },
