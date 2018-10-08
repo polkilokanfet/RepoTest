@@ -1066,7 +1066,7 @@ namespace HVTApp.TestDataGenerator
             ProductBlockVeb110.Clone(new ProductBlock
             {
                 //DesignationSpecial = "Блок Выключатель баковый ВЭБ-110",
-                Parameters = new List<Parameter> { ParameterMainEquipment, ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage110kV },
+                Parameters = new List<Parameter> { ParameterMainEquipment, ParameterBreaker, ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterCurrent2500, ParameterCurrentBreaking40kA },
                 Prices = new List<SumOnDate> { new SumOnDate { Sum = 2000000, Date = DateTime.Today } },
                 StructureCostNumber = "321",
             });
