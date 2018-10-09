@@ -7,7 +7,7 @@ namespace HVTApp.Model.POCOs
     [Designation("Группа параметров")]
     public partial class ParameterGroup : BaseEntity
     {
-        [Designation("Название"), Required, MaxLength(50), OrderStatus(10)]
+        [Designation("Название"), Required, MaxLength(150), OrderStatus(10)]
         public string Name { get; set; }
 
         [Designation("Единица измерения")]

@@ -15,7 +15,7 @@ namespace HVTApp.Model.POCOs
         [Designation("Группа"), Required, OrderStatus(5)]
         public virtual ParameterGroup ParameterGroup { get; set; }
 
-        [Designation("Значение"), Required, MaxLength(50), OrderStatus(4)]
+        [Designation("Значение"), Required, MaxLength(150), OrderStatus(4)]
         public string Value { get; set; }
 
         [Designation("Ограничения")]
