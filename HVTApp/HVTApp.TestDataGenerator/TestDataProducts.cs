@@ -15,7 +15,7 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupBreakerType;
         public ParameterGroup ParameterGroupTransformatorType;
         public ParameterGroup ParameterGroupTransformatorCurrentType;
-        public ParameterGroup ParameterGroupTVGType;
+        public ParameterGroup ParameterGroupTvgType;
         public ParameterGroup ParameterGroupVoltage;
         public ParameterGroup ParameterGroupDrivesVoltage;
         public ParameterGroup ParameterGroupDrivesCurrentDisconnectors;
@@ -51,6 +51,8 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupPemUnomOtkl;
         public ParameterGroup ParameterGroupPemUnomYav;
         public ParameterGroup ParameterGroupPemInomYaa;
+        public ParameterGroup ParameterGroupIterm;
+        public ParameterGroup ParameterGroupDisconnectorIspolnenie;
 
         private void GenerateParameterGroups()
         {
@@ -76,7 +78,7 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupTransformersBlockTarget.Clone(new ParameterGroup { Name = "Назначение комплекта ТТ" });
             ParameterGroupTransformersBlockStandartNumber.Clone(new ParameterGroup { Name = "Номер стандартного комплекта ТТ" });
             ParameterGroupServiceType.Clone(new ParameterGroup { Name = "Тип услуги" });
-            ParameterGroupTVGType.Clone(new ParameterGroup { Name = "Тип встроенного ТТ" });
+            ParameterGroupTvgType.Clone(new ParameterGroup { Name = "Тип встроенного ТТ" });
             ParameterGroupControlCircuitVoltage.Clone(new ParameterGroup { Name = "Напряжение цепей управления" });
             ParameterGroupTransformerLoad.Clone(new ParameterGroup { Name = "Нагрузка, ВА" });
             ParameterGroupTransformerLimitMultiplicity.Clone(new ParameterGroup { Name = "Предельная кратность" });
@@ -96,6 +98,9 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupPemUnomOtkl.Clone(new ParameterGroup { Name = "Uном пост.тока цепей питания эл.магнитов отключения и контакторов, В" });
             ParameterGroupPemUnomYav.Clone(new ParameterGroup { Name = "Uном эл.магнита релейного отключения YAV, В" });
             ParameterGroupPemInomYaa.Clone(new ParameterGroup { Name = "I токовых эл.магнитов YAA, A" });
+            ParameterGroupIterm.Clone(new ParameterGroup { Name = "Ток термической стойкости разъединителя, кA" });
+            ParameterGroupDisconnectorIspolnenie.Clone(new ParameterGroup { Name = "Исполнение разъединителя" });
+
         }
 
         #endregion
@@ -187,10 +192,15 @@ namespace HVTApp.TestDataGenerator
 
         #region Номинальный ток
 
+        public Parameter ParameterCurrent1250;
+        public Parameter ParameterCurrent1600;
+
         public Parameter ParameterCurrent0630;
         public Parameter ParameterCurrent1000;
+
         public Parameter ParameterCurrent2500;
         public Parameter ParameterCurrent3150;
+
         public Parameter ParameterCurrent4000;
 
         #endregion
@@ -200,6 +210,14 @@ namespace HVTApp.TestDataGenerator
         public Parameter ParameterCurrentBreaking12kA;
         public Parameter ParameterCurrentBreaking40kA;
         public Parameter ParameterCurrentBreaking50kA;
+
+        #endregion
+
+        #region Ток термической стойкости
+
+        public Parameter ParameterIterm25kA;
+        public Parameter ParameterIterm40kA;
+        public Parameter ParameterIterm50kA;
 
         #endregion
 
@@ -444,6 +462,15 @@ namespace HVTApp.TestDataGenerator
 
         #endregion
 
+        #region Исполнение разъединителя
+
+        public Parameter ParameterDisconnectorIspolnenie1Pol;
+        public Parameter ParameterDisconnectorIspolnenie3Pol;
+        public Parameter ParameterDisconnectorIspolnenieKil;
+        public Parameter ParameterDisconnectorIspolnenieStKil;
+
+        #endregion
+
         #endregion
 
         private void GenerateParameters()
@@ -629,6 +656,8 @@ namespace HVTApp.TestDataGenerator
             ParameterCurrent2500.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "2500 А" });
             ParameterCurrent3150.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "3150 А" });
             ParameterCurrent4000.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "4000 А" });
+            ParameterCurrent1250.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "1250 А" });
+            ParameterCurrent1600.Clone(new Parameter { ParameterGroup = ParameterGroupCurrent, Value = "1600 А" });
 
             ParameterCurrent0630
                 .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage35kV);
@@ -637,6 +666,7 @@ namespace HVTApp.TestDataGenerator
                 .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage35kV);
 
             ParameterCurrent2500
+                .AddRequiredPreviousParameters(ParameterDisconnector)
                 .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage110kV, ParameterPolimer)
                 .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage110kV)
                 .AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage220kV, ParameterBreakerDeadTank);
@@ -647,6 +677,13 @@ namespace HVTApp.TestDataGenerator
                 .AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage220kV);
 
             ParameterCurrent4000.AddRequiredPreviousParameters(ParameterBreaker, ParameterVoltage500kV);
+
+            ParameterCurrent1250
+                .AddRequiredPreviousParameters(ParameterDisconnector);
+
+            ParameterCurrent1600
+                .AddRequiredPreviousParameters(ParameterDisconnector);
+
 
             #endregion
 
@@ -665,44 +702,63 @@ namespace HVTApp.TestDataGenerator
 
             #endregion
 
+            #region Ток термической стойкости
+
+            ParameterIterm25kA.Clone(new Parameter { ParameterGroup = ParameterGroupIterm, Value = "25 кА" });
+            ParameterIterm40kA.Clone(new Parameter { ParameterGroup = ParameterGroupIterm, Value = "40 кА" });
+            ParameterIterm50kA.Clone(new Parameter { ParameterGroup = ParameterGroupIterm, Value = "50 кА" });
+
+            ParameterIterm25kA
+                .AddRequiredPreviousParameters(ParameterDisconnector, ParameterCurrent1250);
+
+            ParameterIterm40kA
+                .AddRequiredPreviousParameters(ParameterDisconnector, ParameterCurrent1600)
+                .AddRequiredPreviousParameters(ParameterDisconnector, ParameterCurrent2500);
+
+            ParameterIterm50kA
+                .AddRequiredPreviousParameters(ParameterDisconnector, ParameterCurrent1600)
+                .AddRequiredPreviousParameters(ParameterDisconnector, ParameterCurrent2500);
+
+            #endregion
+
             #region Климматическое исполнение
 
             ParameterClimatT1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "T1 (от +50 до -40)" });
-            ParameterClimatU1z.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "У1* (от +40 до -40)" });
-            ParameterClimatUHL1z.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "УХЛ1* (от +40 до -55)" });
-            ParameterClimatUHL1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "УХЛ1 (от +40 до -60)" });
-            ParameterClimatU1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "У1 (от +40 до -45)" });
-            ParameterClimatHL1z.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "ХЛ1* (от +40 до -55)" });
+                ParameterClimatU1z.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "У1* (от +40 до -40)" });
+                ParameterClimatUHL1z.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "УХЛ1* (от +40 до -55)" });
+                ParameterClimatUHL1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "УХЛ1 (от +40 до -60)" });
+                ParameterClimatU1.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "У1 (от +40 до -45)" });
+                ParameterClimatHL1z.Clone(new Parameter { ParameterGroup = ParameterGroupClimat, Value = "ХЛ1* (от +40 до -55)" });
 
 
-            ParameterClimatU1z
-                .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterCurrentBreaking40kA);
+                ParameterClimatU1z
+                    .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterCurrentBreaking40kA);
 
-            ParameterClimatUHL1z
-                .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterCurrentBreaking40kA);
+                ParameterClimatUHL1z
+                    .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage110kV, ParameterCurrentBreaking40kA);
 
-            ParameterClimatUHL1
-                .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage35kV)
-                .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage110kV)
-                .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage220kV);
+                ParameterClimatUHL1
+                    .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage35kV)
+                    .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage110kV)
+                    .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage220kV);
 
-            ParameterClimatT1
-                .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage35kV)
-                .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage35kV)
-                .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage110kV)
-                .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage220kV);
+                ParameterClimatT1
+                    .AddRequiredPreviousParameters(ParameterBreakerDeadTank, ParameterVoltage35kV)
+                    .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage35kV)
+                    .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage110kV)
+                    .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage220kV);
 
-            ParameterClimatU1
-                .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage35kV)
-                .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage110kV)
-                .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage220kV);
+                ParameterClimatU1
+                    .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage35kV)
+                    .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage110kV)
+                    .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage220kV);
 
-            ParameterClimatHL1z
-                .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage35kV)
-                .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage110kV)
-                .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage220kV);
+                ParameterClimatHL1z
+                    .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage35kV)
+                    .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage110kV)
+                    .AddRequiredPreviousParameters(ParameterBreakerLiveTank, ParameterVoltage220kV);
 
-            #endregion
+                #endregion
 
             #region Изоляция
 
@@ -1059,6 +1115,27 @@ namespace HVTApp.TestDataGenerator
 
             ParameterPemInomYaa3.AddRequiredPreviousParameters(ParameterVgbIspPem3);
             ParameterPemInomYaa5.AddRequiredPreviousParameters(ParameterVgbIspPem3);
+
+            #endregion
+
+            #region Исполнение разъединителя
+
+            ParameterDisconnectorIspolnenie1Pol.Clone(new Parameter { ParameterGroup = ParameterGroupDisconnectorIspolnenie, Value = "Однополюсное" });
+            ParameterDisconnectorIspolnenie3Pol.Clone(new Parameter { ParameterGroup = ParameterGroupDisconnectorIspolnenie, Value = "Трехполюсное" }); 
+            ParameterDisconnectorIspolnenieKil.Clone(new Parameter { ParameterGroup = ParameterGroupDisconnectorIspolnenie, Value = "Килевое" }); 
+            ParameterDisconnectorIspolnenieStKil.Clone(new Parameter { ParameterGroup = ParameterGroupDisconnectorIspolnenie, Value = "Ступенчато-килевое" });
+
+            ParameterDisconnectorIspolnenie1Pol
+                .AddRequiredPreviousParameters(ParameterDisconnector);
+
+            ParameterDisconnectorIspolnenie3Pol
+                .AddRequiredPreviousParameters(ParameterDisconnector);
+
+            ParameterDisconnectorIspolnenieKil
+                .AddRequiredPreviousParameters(ParameterDisconnector, ParameterVoltage110kV);
+
+            ParameterDisconnectorIspolnenieStKil
+                .AddRequiredPreviousParameters(ParameterDisconnector, ParameterVoltage110kV);
 
             #endregion
 
