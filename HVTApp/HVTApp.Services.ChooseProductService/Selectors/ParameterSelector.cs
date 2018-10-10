@@ -16,8 +16,8 @@ namespace HVTApp.Services.GetProductService
 
         #region props
 
-        //public bool IsActual => ParametersFlaged.Any(x => x.IsActual);
-        public bool IsActual => ParametersFlaged.Any(x => x.IsActual) && ParametersFlaged.Count(x => x.IsActual) > 1;
+        public bool IsActual => ParametersFlaged.Any(x => x.IsActual);
+        //public bool IsActual => ParametersFlaged.Any(x => x.IsActual) && ParametersFlaged.Count(x => x.IsActual) > 1;
         public string GroupName => ParametersFlaged.First().Parameter.ParameterGroup.Name;
 
         public ParameterFlaged SelectedParameterFlaged
