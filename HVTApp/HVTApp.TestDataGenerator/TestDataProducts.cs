@@ -53,6 +53,12 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupPemInomYaa;
         public ParameterGroup ParameterGroupIterm;
         public ParameterGroup ParameterGroupDisconnectorIspolnenie;
+        public ParameterGroup ParameterGroupDisconnectorZazemlPal;
+        public ParameterGroup ParameterGroupDisconnectorZazemlKul;
+        public ParameterGroup ParameterGroupDriveDisconnectorType;
+        public ParameterGroup ParameterGroupDriveDisconnectorTarget;
+        public ParameterGroup ParameterGroupDriveDisconnectorU;
+        public ParameterGroup ParameterGroupDriveDisconnectorUblock;
 
         private void GenerateParameterGroups()
         {
@@ -100,7 +106,12 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupPemInomYaa.Clone(new ParameterGroup { Name = "I токовых эл.магнитов YAA, A" });
             ParameterGroupIterm.Clone(new ParameterGroup { Name = "Ток термической стойкости разъединителя, кA" });
             ParameterGroupDisconnectorIspolnenie.Clone(new ParameterGroup { Name = "Исполнение разъединителя" });
-
+            ParameterGroupDisconnectorZazemlPal.Clone(new ParameterGroup { Name = "Заземлитель со стороны пальцевого контакта" });
+            ParameterGroupDisconnectorZazemlKul.Clone(new ParameterGroup { Name = "Заземлитель со стороны кулачкового контакта" });
+            ParameterGroupDriveDisconnectorType.Clone(new ParameterGroup { Name = "Тип привода" });
+            ParameterGroupDriveDisconnectorTarget.Clone(new ParameterGroup { Name = "Для управления ножами" });
+            ParameterGroupDriveDisconnectorU.Clone(new ParameterGroup { Name = "Номинальное напряжение электродвигателя" });
+            ParameterGroupDriveDisconnectorUblock.Clone(new ParameterGroup { Name = "Номинальное напряжение постоянного тока электромагнитной блокировки" });
         }
 
         #endregion
@@ -256,6 +267,7 @@ namespace HVTApp.TestDataGenerator
 
         public Parameter ParameterControlCircuitVoltage110Vpost;
         public Parameter ParameterControlCircuitVoltage220Vpost;
+        public Parameter ParameterControlCircuitVoltage220Vperem;
 
         #endregion
 
@@ -471,6 +483,45 @@ namespace HVTApp.TestDataGenerator
 
         #endregion
 
+        #region Заземлители разъединителя
+
+        public Parameter ParameterDisconnectorZazemlPalPos;
+        public Parameter ParameterDisconnectorZazemlPalNeg;
+
+        public Parameter ParameterDisconnectorZazemlKulPos;
+        public Parameter ParameterDisconnectorZazemlKulNeg;
+
+        #endregion
+
+        #region Тип привода разъединителя
+
+        public Parameter ParameterDriveDisconnectorTypeMotorn;
+        public Parameter ParameterDriveDisconnectorTypeRuchn;
+
+        #endregion
+
+        #region Тип привода разъединителя (по ножам)
+
+        public Parameter ParameterDriveDisconnectorTargetMain;
+        public Parameter ParameterDriveDisconnectorTargetZazeml;
+
+        #endregion
+
+        #region Напряжение двигателя разъединителя
+
+        public Parameter ParameterDriveDisconnectorU230;
+        public Parameter ParameterDriveDisconnectorU220;
+        public Parameter ParameterDriveDisconnectorU400;
+
+        #endregion
+
+        #region Напряжение эл.магн. блокировки
+
+        public Parameter ParameterDriveDisconnectorUblock110;
+        public Parameter ParameterDriveDisconnectorUblock220;
+
+        #endregion
+
         #endregion
 
         private void GenerateParameters()
@@ -585,14 +636,19 @@ namespace HVTApp.TestDataGenerator
 
             ParameterControlCircuitVoltage110Vpost.Clone(new Parameter { ParameterGroup = ParameterGroupControlCircuitVoltage, Value = "= 110 В" });
             ParameterControlCircuitVoltage220Vpost.Clone(new Parameter { ParameterGroup = ParameterGroupControlCircuitVoltage, Value = "= 220 В" });
+            ParameterControlCircuitVoltage220Vperem.Clone(new Parameter { ParameterGroup = ParameterGroupControlCircuitVoltage, Value = "~ 220 В" });
 
             ParameterControlCircuitVoltage110Vpost
                 .AddRequiredPreviousParameters(ParameterDrivePPrK)
                 .AddRequiredPreviousParameters(ParameterDrivePPV);
 
             ParameterControlCircuitVoltage220Vpost
+                .AddRequiredPreviousParameters(ParameterDriveDisconnectorTypeMotorn)
                 .AddRequiredPreviousParameters(ParameterDrivePPrK)
                 .AddRequiredPreviousParameters(ParameterDrivePPV);
+
+            ParameterControlCircuitVoltage220Vperem
+                .AddRequiredPreviousParameters(ParameterDriveDisconnectorTypeMotorn);
 
             #endregion
 
@@ -1139,6 +1195,69 @@ namespace HVTApp.TestDataGenerator
 
             #endregion
 
+            #region Заземлители разъединителя
+
+            ParameterDisconnectorZazemlPalPos.Clone(new Parameter { ParameterGroup = ParameterGroupDisconnectorZazemlPal, Value = "Есть" });
+            ParameterDisconnectorZazemlPalNeg.Clone(new Parameter { ParameterGroup = ParameterGroupDisconnectorZazemlPal, Value = "Отсутствует" });
+
+            ParameterDisconnectorZazemlKulPos.Clone(new Parameter { ParameterGroup = ParameterGroupDisconnectorZazemlKul, Value = "Есть" });
+            ParameterDisconnectorZazemlKulNeg.Clone(new Parameter { ParameterGroup = ParameterGroupDisconnectorZazemlKul, Value = "Отсутствует" });
+
+            ParameterDisconnectorZazemlPalPos.AddRequiredPreviousParameters(ParameterDisconnector);
+            ParameterDisconnectorZazemlPalNeg.AddRequiredPreviousParameters(ParameterDisconnector);
+
+            ParameterDisconnectorZazemlKulPos.AddRequiredPreviousParameters(ParameterDisconnector);
+            ParameterDisconnectorZazemlKulNeg.AddRequiredPreviousParameters(ParameterDisconnector);
+
+            #endregion
+
+            #region Тип привода разъединителя
+
+            ParameterDriveDisconnectorTypeMotorn.Clone(new Parameter { ParameterGroup = ParameterGroupDriveDisconnectorType, Value = "Моторный" }); 
+            ParameterDriveDisconnectorTypeRuchn.Clone(new Parameter { ParameterGroup = ParameterGroupDriveDisconnectorType, Value = "Ручной" });
+
+            ParameterDriveDisconnectorTypeMotorn.AddRequiredPreviousParameters(ParameterDriveDisconnector);
+            ParameterDriveDisconnectorTypeRuchn.AddRequiredPreviousParameters(ParameterDriveDisconnector);
+
+            #endregion
+
+            #region Тип привода разъединителя (по ножам)
+
+            ParameterDriveDisconnectorTargetMain.Clone(new Parameter { ParameterGroup = ParameterGroupDriveDisconnectorTarget, Value = "Главными" });
+            ParameterDriveDisconnectorTargetZazeml.Clone(new Parameter { ParameterGroup = ParameterGroupDriveDisconnectorTarget, Value = "Заземляющими" });
+
+            ParameterDriveDisconnectorTargetMain.AddRequiredPreviousParameters(ParameterDriveDisconnector);
+            ParameterDriveDisconnectorTargetZazeml.AddRequiredPreviousParameters(ParameterDriveDisconnector);
+
+            #endregion
+
+            #region Напряжение двигателя разъединителя
+
+            ParameterDriveDisconnectorU230.Clone(new Parameter { ParameterGroup = ParameterGroupDriveDisconnectorU, Value = "~ 230 В" }); 
+            ParameterDriveDisconnectorU220.Clone(new Parameter { ParameterGroup = ParameterGroupDriveDisconnectorU, Value = "= 220 В" }); 
+            ParameterDriveDisconnectorU400.Clone(new Parameter { ParameterGroup = ParameterGroupDriveDisconnectorU, Value = "~ 400 В" }); ;
+
+            ParameterDriveDisconnectorU230.AddRequiredPreviousParameters(ParameterDriveDisconnectorTypeMotorn);
+            ParameterDriveDisconnectorU220.AddRequiredPreviousParameters(ParameterDriveDisconnectorTypeMotorn);
+            ParameterDriveDisconnectorU400.AddRequiredPreviousParameters(ParameterDriveDisconnectorTypeMotorn);
+
+            #endregion
+
+            #region Напряжение эл.магн. блокировки
+
+            ParameterDriveDisconnectorUblock110.Clone(new Parameter { ParameterGroup = ParameterGroupDriveDisconnectorUblock, Value = "= 110 В" });
+            ParameterDriveDisconnectorUblock220.Clone(new Parameter { ParameterGroup = ParameterGroupDriveDisconnectorUblock, Value = "= 220 В" });
+
+            ParameterDriveDisconnectorUblock110
+                .AddRequiredPreviousParameters(ParameterDriveDisconnectorTypeRuchn);
+
+            ParameterDriveDisconnectorUblock220
+                .AddRequiredPreviousParameters(ParameterDriveDisconnectorTypeMotorn)
+                .AddRequiredPreviousParameters(ParameterDriveDisconnectorTypeRuchn);
+
+            #endregion
+
+
         }
 
         #endregion
@@ -1193,13 +1312,20 @@ namespace HVTApp.TestDataGenerator
         public ProductDesignation ProductDesignationTrg110;
         public ProductDesignation ProductDesignationTrg220;
         public ProductDesignation ProductDesignationPem;
-        public ProductDesignation ProductDesignationPPrK;
-        public ProductDesignation ProductDesignationPPV;
+        public ProductDesignation ProductDesignationPprK;
+        public ProductDesignation ProductDesignationPpv;
         public ProductDesignation ProductDesignationTransfBlockVgb35;
         public ProductDesignation ProductDesignationTransfBlockVeb110;
         public ProductDesignation ProductDesignationTransfBlockVeb220;
         public ProductDesignation ProductDesignationZip1;
         public ProductDesignation ProductDesignationZip2;
+
+        public ProductDesignation ProductDesignationRpd110;
+        public ProductDesignation ProductDesignationRpd220;
+        public ProductDesignation ProductDesignationRpdo110;
+        public ProductDesignation ProductDesignationRpdo220;
+
+        public ProductDesignation ProductDesignationDriveDisconnector;
 
         private void GenerateProductDesignations()
         {
@@ -1227,8 +1353,8 @@ namespace HVTApp.TestDataGenerator
             ProductDesignationTrg220.Clone(new ProductDesignation { Designation = "ТРГ-УЭТМ-220", Parameters = new List<Parameter> { ParameterTransformerCurrent, ParameterTransformerBuiltOut, ParameterVoltage220kV } });
 
             ProductDesignationPem.Clone(new ProductDesignation { Designation = "ПЭМ", Parameters = new List<Parameter> { ParameterDrivePem } });
-            ProductDesignationPPrK.Clone(new ProductDesignation { Designation = "ППрК", Parameters = new List<Parameter> { ParameterDrivePPrK } });
-            ProductDesignationPPV.Clone(new ProductDesignation { Designation = "ППВ", Parameters = new List<Parameter> { ParameterDrivePPV } });
+            ProductDesignationPprK.Clone(new ProductDesignation { Designation = "ППрК", Parameters = new List<Parameter> { ParameterDrivePPrK } });
+            ProductDesignationPpv.Clone(new ProductDesignation { Designation = "ППВ", Parameters = new List<Parameter> { ParameterDrivePPV } });
 
             ProductDesignationTransfBlockVgb35.Clone(new ProductDesignation { Designation = "КТТ для ВГБ-35 (3 фазы)", Parameters = new List<Parameter> { ParameterTransformersBlockTargetVgb35 } });
             ProductDesignationTransfBlockVeb110.Clone(new ProductDesignation { Designation = "КТТ для ВЭБ-110 (3 фазы)", Parameters = new List<Parameter> { ParameterTransformersBlockTargetVeb110 } });
@@ -1236,6 +1362,13 @@ namespace HVTApp.TestDataGenerator
 
             ProductDesignationZip1.Clone(new ProductDesignation { Designation = "ЗИП №1", Parameters = new List<Parameter> { ParameterZip1 } });
             ProductDesignationZip2.Clone(new ProductDesignation { Designation = "ЗИП №2", Parameters = new List<Parameter> { ParameterZip2 } });
+
+            ProductDesignationRpd110.Clone(new ProductDesignation { Designation = "РПД-УЭТМ-110", Parameters = new List<Parameter> { ParameterDisconnector, ParameterVoltage110kV } });
+            ProductDesignationRpd220.Clone(new ProductDesignation { Designation = "РПД-УЭТМ-220", Parameters = new List<Parameter> { ParameterDisconnector, ParameterVoltage220kV } });
+            ProductDesignationRpdo110.Clone(new ProductDesignation { Designation = "РПДО-УЭТМ-110", Parameters = new List<Parameter> { ParameterDisconnector, ParameterVoltage110kV, ParameterDisconnectorIspolnenie1Pol } });
+            ProductDesignationRpdo220.Clone(new ProductDesignation { Designation = "РПДО-УЭТМ-220", Parameters = new List<Parameter> { ParameterDisconnector, ParameterVoltage220kV, ParameterDisconnectorIspolnenie1Pol } });
+
+            ProductDesignationDriveDisconnector.Clone(new ProductDesignation { Designation = "Привод разъединителя/заземлителя", Parameters = new List<Parameter> { ParameterDriveDisconnector } });
         }
 
         #endregion
@@ -1247,6 +1380,11 @@ namespace HVTApp.TestDataGenerator
         public ProductRelation RequiredChildProductRelationDrivePprKVgt35;
         public ProductRelation RequiredChildProductRelationDrivePprKVgt110;
         public ProductRelation RequiredChildProductRelationDrivePprKVeb110;
+
+        public ProductRelation RequiredChildProductRelationDriveDisconnectorMain;
+        public ProductRelation RequiredChildProductRelationDriveDisconnectorPal;
+        public ProductRelation RequiredChildProductRelationDriveDisconnectorKul;
+        public ProductRelation RequiredChildProductRelationDriveDisconnectorBoth;
 
         public ProductRelation RequiredChildProductRelationDrivePpvVeb110;
         public ProductRelation RequiredChildProductRelationDrivePpv220;
@@ -1326,6 +1464,39 @@ namespace HVTApp.TestDataGenerator
                 ChildProductsAmount = 3,
                 IsUnique = false
             });
+
+            RequiredChildProductRelationDriveDisconnectorMain.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterDisconnector },
+                ChildProductParameters = new List<Parameter> { ParameterDriveDisconnector, ParameterDriveDisconnectorTargetMain },
+                ChildProductsAmount = 1,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationDriveDisconnectorKul.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterDisconnectorZazemlKulPos, ParameterDisconnectorZazemlPalNeg },
+                ChildProductParameters = new List<Parameter> { ParameterDriveDisconnector, ParameterDriveDisconnectorTargetZazeml },
+                ChildProductsAmount = 1,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationDriveDisconnectorPal.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterDisconnectorZazemlKulNeg, ParameterDisconnectorZazemlPalPos },
+                ChildProductParameters = new List<Parameter> { ParameterDriveDisconnector, ParameterDriveDisconnectorTargetZazeml },
+                ChildProductsAmount = 1,
+                IsUnique = false
+            });
+
+            RequiredChildProductRelationDriveDisconnectorBoth.Clone(new ProductRelation
+            {
+                ParentProductParameters = new List<Parameter> { ParameterDisconnectorZazemlKulPos, ParameterDisconnectorZazemlPalPos },
+                ChildProductParameters = new List<Parameter> { ParameterDriveDisconnector, ParameterDriveDisconnectorTargetZazeml },
+                ChildProductsAmount = 2,
+                IsUnique = false
+            });
+
 
             RequiredChildProductRelationBreakerBlock.Clone(new ProductRelation
             {
