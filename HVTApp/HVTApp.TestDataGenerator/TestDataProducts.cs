@@ -70,6 +70,8 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupBvptIspolnenie;
         public ParameterGroup ParameterGroupBvptCurrent;
         public ParameterGroup ParameterGroupBvptVoltage;
+        public ParameterGroup ParameterGroupSupervisionTarget;
+        public ParameterGroup ParameterGroupSupervisionZone;
 
         private void GenerateParameterGroups()
         {
@@ -134,6 +136,8 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupBvptIspolnenie.Clone(new ParameterGroup { Name = "Исполнение БВПТ" });
             ParameterGroupBvptCurrent.Clone(new ParameterGroup { Name = "Номинальный рабочий ток, А" });
             ParameterGroupBvptVoltage.Clone(new ParameterGroup { Name = "Номинальное напряжение, В" });
+            ParameterGroupSupervisionTarget.Clone(new ParameterGroup { Name = "Монтируемое изделие" });
+            ParameterGroupSupervisionZone.Clone(new ParameterGroup { Name = "Зона проведения монтажа" });
         }
 
         #endregion
@@ -156,6 +160,23 @@ namespace HVTApp.TestDataGenerator
 
         public Parameter ParameterSupervision;
         public Parameter ParameterDelivery;
+
+        #endregion
+
+        #region Цель шеф-монтажа
+
+        public Parameter ParameterSupervisionDeadTankBreaker;
+        public Parameter ParameterSupervisionLiveTankBreaker;
+        public Parameter ParameterSupervisionTransformerCurrent;
+        public Parameter ParameterSupervisionTransformerVoltage;
+
+        #endregion
+
+        #region Зона шеф-монтажа
+
+        public Parameter ParameterSupervisionZone1;
+        public Parameter ParameterSupervisionZone2;
+        public Parameter ParameterSupervisionZone3;
 
         #endregion
 
@@ -679,6 +700,40 @@ namespace HVTApp.TestDataGenerator
 
             #endregion
 
+            #region Цель шеф-монтажа
+
+            ParameterSupervisionDeadTankBreaker.Clone(new Parameter { ParameterGroup = ParameterGroupSupervisionTarget, Value = "Выключатель баковый" });
+            ParameterSupervisionLiveTankBreaker.Clone(new Parameter { ParameterGroup = ParameterGroupSupervisionTarget, Value = "Выключатель колонковый" }); 
+            ParameterSupervisionTransformerCurrent.Clone(new Parameter { ParameterGroup = ParameterGroupSupervisionTarget, Value = "Трансформатор тока" }); 
+            ParameterSupervisionTransformerVoltage.Clone(new Parameter { ParameterGroup = ParameterGroupSupervisionTarget, Value = "Трансформатор напряжения" });
+
+            ParameterSupervisionDeadTankBreaker
+                .AddRequiredPreviousParameters(ParameterSupervision);
+
+            ParameterSupervisionLiveTankBreaker
+                .AddRequiredPreviousParameters(ParameterSupervision);
+
+            ParameterSupervisionTransformerCurrent
+                .AddRequiredPreviousParameters(ParameterSupervision);
+
+            ParameterSupervisionTransformerVoltage
+                .AddRequiredPreviousParameters(ParameterSupervision);
+
+            #endregion
+
+            #region Зона шеф-монтажа
+
+            ParameterSupervisionZone1.Clone(new Parameter { ParameterGroup = ParameterGroupSupervisionZone, Value = "1" });
+            ParameterSupervisionZone2.Clone(new Parameter { ParameterGroup = ParameterGroupSupervisionZone, Value = "2" }); 
+            ParameterSupervisionZone3.Clone(new Parameter { ParameterGroup = ParameterGroupSupervisionZone, Value = "3" }); ;
+
+            ParameterSupervisionZone1.AddRequiredPreviousParameters(ParameterSupervision);
+            ParameterSupervisionZone2.AddRequiredPreviousParameters(ParameterSupervision);
+            ParameterSupervisionZone3.AddRequiredPreviousParameters(ParameterSupervision);
+
+            #endregion
+
+
             #region ЗИПы
 
             ParameterZip1.Clone(new Parameter { ParameterGroup = ParameterGroupZip, Value = "Групповой комплект ЗИП №1 (газотехнология)" });
@@ -831,6 +886,34 @@ namespace HVTApp.TestDataGenerator
             ParameterVoltage220kV.Clone(new Parameter { ParameterGroup = ParameterGroupVoltage, Value = "220 кВ" });
             ParameterVoltage330kV.Clone(new Parameter { ParameterGroup = ParameterGroupVoltage, Value = "330 кВ" });
             ParameterVoltage500kV.Clone(new Parameter { ParameterGroup = ParameterGroupVoltage, Value = "500 кВ" });
+
+            #region Шеф-монтаж
+
+            ParameterVoltage35kV
+                .AddRequiredPreviousParameters(ParameterSupervisionDeadTankBreaker)
+                .AddRequiredPreviousParameters(ParameterSupervisionLiveTankBreaker)
+                .AddRequiredPreviousParameters(ParameterSupervisionTransformerCurrent);
+
+            ParameterVoltage110kV
+                .AddRequiredPreviousParameters(ParameterSupervisionDeadTankBreaker)
+                .AddRequiredPreviousParameters(ParameterSupervisionLiveTankBreaker)
+                .AddRequiredPreviousParameters(ParameterSupervisionTransformerVoltage)
+                .AddRequiredPreviousParameters(ParameterSupervisionTransformerCurrent);
+
+            ParameterVoltage220kV
+                .AddRequiredPreviousParameters(ParameterSupervisionDeadTankBreaker)
+                .AddRequiredPreviousParameters(ParameterSupervisionLiveTankBreaker)
+                .AddRequiredPreviousParameters(ParameterSupervisionTransformerVoltage)
+                .AddRequiredPreviousParameters(ParameterSupervisionTransformerCurrent);
+
+            ParameterVoltage330kV
+                .AddRequiredPreviousParameters(ParameterSupervisionLiveTankBreaker);
+
+            ParameterVoltage500kV
+                .AddRequiredPreviousParameters(ParameterSupervisionLiveTankBreaker);
+
+
+            #endregion
 
             ParameterVoltage35kV
                 .AddRequiredPreviousParameters(ParameterBreaker)
@@ -2520,6 +2603,7 @@ namespace HVTApp.TestDataGenerator
         public ProductDesignation ProductDesignationVab;
         public ProductDesignation ProductDesignationVat;
 
+        public ProductDesignation ProductDesignationSupervision;
 
         private void GenerateProductDesignations()
         {
@@ -2569,6 +2653,8 @@ namespace HVTApp.TestDataGenerator
 
             ProductDesignationVab.Clone(new ProductDesignation { Designation = "ВАБ", Parameters = new List<Parameter> { ParameterBvptVab } });
             ProductDesignationVat.Clone(new ProductDesignation { Designation = "ВАТ", Parameters = new List<Parameter> { ParameterBvptVat } });
+
+            ProductDesignationSupervision.Clone(new ProductDesignation { Designation = "Шеф-монтаж", Parameters = new List<Parameter> { ParameterSupervision } });
         }
 
         #endregion
