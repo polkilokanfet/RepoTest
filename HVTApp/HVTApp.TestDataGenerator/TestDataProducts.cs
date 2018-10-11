@@ -65,7 +65,11 @@ namespace HVTApp.TestDataGenerator
         public ParameterGroup ParameterGroupTransformerVoltageIsolation;
         public ParameterGroup ParameterGroupTrgIsp;
         public ParameterGroup ParameterGroupTransformerCurrentTargetProduct;
-
+        public ParameterGroup ParameterGroupBvptType;
+        public ParameterGroup ParameterGroupBvptSeries;
+        public ParameterGroup ParameterGroupBvptIspolnenie;
+        public ParameterGroup ParameterGroupBvptCurrent;
+        public ParameterGroup ParameterGroupBvptVoltage;
 
         private void GenerateParameterGroups()
         {
@@ -125,6 +129,11 @@ namespace HVTApp.TestDataGenerator
             ParameterGroupTransformerVoltageIsolation.Clone(new ParameterGroup { Name = "Вид внутренней изоляции" });
             ParameterGroupTrgIsp.Clone(new ParameterGroup { Name = "Возможность переключения по первичной стороне (4:2:1)" });
             ParameterGroupTransformerCurrentTargetProduct.Clone(new ParameterGroup { Name = "Продукт для встраивания" });
+            ParameterGroupBvptType.Clone(new ParameterGroup { Name = "Тип БВПТ" });
+            ParameterGroupBvptSeries.Clone(new ParameterGroup { Name = "Серия БВПТ" });
+            ParameterGroupBvptIspolnenie.Clone(new ParameterGroup { Name = "Исполнение БВПТ" });
+            ParameterGroupBvptCurrent.Clone(new ParameterGroup { Name = "Номинальный рабочий ток, А" });
+            ParameterGroupBvptVoltage.Clone(new ParameterGroup { Name = "Номинальное напряжение, В" });
         }
 
         #endregion
@@ -137,6 +146,7 @@ namespace HVTApp.TestDataGenerator
 
         public Parameter ParameterNewProduct;
         public Parameter ParameterMainEquipment;
+        public Parameter ParameterBvpt;
         public Parameter ParameterDependentEquipment;
         public Parameter ParameterService;        
 
@@ -593,17 +603,65 @@ namespace HVTApp.TestDataGenerator
 
         #endregion
 
+        #region Тип БВПТ
+
+        public Parameter ParameterBvptVab;
+        public Parameter ParameterBvptVat;
+
+        #endregion
+
+        #region Исполнение БВПТ
+
+        public Parameter ParameterBvptIspolnenieL;
+        public Parameter ParameterBvptIspolnenieK;
+
+        #endregion
+
+        #region Серия БВПТ
+
+        public Parameter ParameterBvptSeries42;
+        public Parameter ParameterBvptSeries43;
+        public Parameter ParameterBvptSeries48;
+        public Parameter ParameterBvptSeries49;
+        public Parameter ParameterBvptSeries52;
+        public Parameter ParameterBvptSeries55;
+
+        #endregion
+
+        #region Ток БВПТ
+
+        public Parameter ParameterBvptCurrent1600;
+        public Parameter ParameterBvptCurrent2500;
+        public Parameter ParameterBvptCurrent3200;
+        public Parameter ParameterBvptCurrent4000;
+        public Parameter ParameterBvptCurrent5000;
+        public Parameter ParameterBvptCurrent6300;
+
+        #endregion
+
+        #region Напряжение БВПТ
+
+        public Parameter ParameterBvptVoltage0460;
+        public Parameter ParameterBvptVoltage0660;
+        public Parameter ParameterBvptVoltage1050;
+        public Parameter ParameterBvptVoltage1650;
+        public Parameter ParameterBvptVoltage3000;
+        public Parameter ParameterBvptVoltage3300;
+
+        #endregion
+
         #endregion
 
         private void GenerateParameters()
         {
             #region Тип продукта
 
-            ParameterNewProduct.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование новое" });
-            ParameterMainEquipment.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование главное" });
-            ParameterDependentEquipment.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование дополнительное" });
-            ParameterService.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Услуга" });
-            ParameterProductParts.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Составные части оборудования" });
+            ParameterMainEquipment.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Подстанционное оборудование", Rang = 10 });
+            ParameterBvpt.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Быстродействующие выключатели постоянного тока", Rang = 9 });
+            ParameterDependentEquipment.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование дополнительное", Rang = 8});
+            ParameterService.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Услуга", Rang = 7});
+            ParameterProductParts.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Составные части оборудования", Rang = 6});
+            ParameterNewProduct.Clone(new Parameter { ParameterGroup = ParameterGroupProductType, Value = "Оборудование новое", Rang = 5});
 
             #endregion
 
@@ -634,11 +692,18 @@ namespace HVTApp.TestDataGenerator
             ParameterDisconnector.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Разъединитель" });
             ParameterEarthingSwitch.Clone(new Parameter { ParameterGroup = ParameterGroupEqType, Value = "Заземлитель" });
 
-            ParameterBreaker.AddRequiredPreviousParameters(ParameterMainEquipment);
-            ParameterDisconnector.AddRequiredPreviousParameters(ParameterMainEquipment);
-            ParameterEarthingSwitch.AddRequiredPreviousParameters(ParameterMainEquipment);
-            ParameterTransformer.AddRequiredPreviousParameters(ParameterMainEquipment)
-                                .AddRequiredPreviousParameters(ParameterPartTransformer);
+            ParameterBreaker
+                .AddRequiredPreviousParameters(ParameterMainEquipment);
+
+            ParameterDisconnector
+                .AddRequiredPreviousParameters(ParameterMainEquipment);
+
+            ParameterEarthingSwitch
+                .AddRequiredPreviousParameters(ParameterMainEquipment);
+
+            ParameterTransformer
+                .AddRequiredPreviousParameters(ParameterMainEquipment)
+                .AddRequiredPreviousParameters(ParameterPartTransformer);
 
             #endregion
 
@@ -1533,6 +1598,126 @@ namespace HVTApp.TestDataGenerator
 
             #endregion
 
+            #region Тип БВПТ
+
+            ParameterBvptVab.Clone(new Parameter { ParameterGroup = ParameterGroupBvptType, Value = "Быстродействующий" });
+            ParameterBvptVat.Clone(new Parameter { ParameterGroup = ParameterGroupBvptType, Value = "Токоограничивающий" });
+
+            ParameterBvptVab
+                .AddRequiredPreviousParameters(ParameterBvpt);
+
+            ParameterBvptVat
+                .AddRequiredPreviousParameters(ParameterBvpt);
+
+            #endregion
+
+            #region Серия БВПТ
+
+            ParameterBvptSeries42.Clone(new Parameter { ParameterGroup = ParameterGroupBvptSeries, Value = "42" });
+            ParameterBvptSeries43.Clone(new Parameter { ParameterGroup = ParameterGroupBvptSeries, Value = "43" });
+            ParameterBvptSeries48.Clone(new Parameter { ParameterGroup = ParameterGroupBvptSeries, Value = "48" }); 
+            ParameterBvptSeries49.Clone(new Parameter { ParameterGroup = ParameterGroupBvptSeries, Value = "49" });
+            ParameterBvptSeries52.Clone(new Parameter { ParameterGroup = ParameterGroupBvptSeries, Value = "52" });
+            ParameterBvptSeries55.Clone(new Parameter { ParameterGroup = ParameterGroupBvptSeries, Value = "55" });
+
+            ParameterBvptSeries42
+                .AddRequiredPreviousParameters(ParameterBvptVat);
+
+            ParameterBvptSeries43
+                .AddRequiredPreviousParameters(ParameterBvptVab)
+                .AddRequiredPreviousParameters(ParameterBvptVat); 
+
+            ParameterBvptSeries48
+                .AddRequiredPreviousParameters(ParameterBvptVat);
+
+            ParameterBvptSeries49
+                .AddRequiredPreviousParameters(ParameterBvptVab)
+                .AddRequiredPreviousParameters(ParameterBvptVat);
+
+            ParameterBvptSeries52
+                .AddRequiredPreviousParameters(ParameterBvptVab);
+
+            ParameterBvptSeries55
+                .AddRequiredPreviousParameters(ParameterBvptVab);
+
+            #endregion
+
+            #region Исполнение БВПТ
+
+            ParameterBvptIspolnenieL.Clone(new Parameter { ParameterGroup = ParameterGroupBvptIspolnenie, Value = "Линейный" });
+            ParameterBvptIspolnenieK.Clone(new Parameter { ParameterGroup = ParameterGroupBvptIspolnenie, Value = "Катодный" });
+
+            ParameterBvptIspolnenieL
+                .AddRequiredPreviousParameters(ParameterBvptSeries49);
+
+            ParameterBvptIspolnenieK
+                .AddRequiredPreviousParameters(ParameterBvptSeries49);
+
+            #endregion
+
+            #region Ток БВПТ
+
+            ParameterBvptCurrent1600.Clone(new Parameter { ParameterGroup = ParameterGroupBvptCurrent, Value = "1600 А" });
+            ParameterBvptCurrent2500.Clone(new Parameter { ParameterGroup = ParameterGroupBvptCurrent, Value = "2500 А" });
+            ParameterBvptCurrent3200.Clone(new Parameter { ParameterGroup = ParameterGroupBvptCurrent, Value = "3200 А" });
+            ParameterBvptCurrent4000.Clone(new Parameter { ParameterGroup = ParameterGroupBvptCurrent, Value = "4000 А" });
+            ParameterBvptCurrent5000.Clone(new Parameter { ParameterGroup = ParameterGroupBvptCurrent, Value = "5000 А" });
+            ParameterBvptCurrent6300.Clone(new Parameter { ParameterGroup = ParameterGroupBvptCurrent, Value = "6300 А" });
+
+            ParameterBvptCurrent1600
+                .AddRequiredPreviousParameters(ParameterBvptSeries55);
+
+            ParameterBvptCurrent2500
+                .AddRequiredPreviousParameters(ParameterBvptSeries55);
+
+            ParameterBvptCurrent3200
+                .AddRequiredPreviousParameters(ParameterBvptSeries49, ParameterBvptIspolnenieL);
+
+            ParameterBvptCurrent4000
+                .AddRequiredPreviousParameters(ParameterBvptSeries49, ParameterBvptIspolnenieK);
+
+            ParameterBvptCurrent5000
+                .AddRequiredPreviousParameters(ParameterBvptSeries49);
+
+            ParameterBvptCurrent6300
+                .AddRequiredPreviousParameters(ParameterBvptSeries49, ParameterBvptIspolnenieL);
+
+            #endregion
+
+            #region Напряжение БВПТ
+
+            ParameterBvptVoltage0460.Clone(new Parameter { ParameterGroup = ParameterGroupBvptVoltage, Value = "460 В" });
+            ParameterBvptVoltage0660.Clone(new Parameter { ParameterGroup = ParameterGroupBvptVoltage, Value = "660 В" });
+            ParameterBvptVoltage1050.Clone(new Parameter { ParameterGroup = ParameterGroupBvptVoltage, Value = "1050 В" });
+            ParameterBvptVoltage1650.Clone(new Parameter { ParameterGroup = ParameterGroupBvptVoltage, Value = "1650 В" });
+            ParameterBvptVoltage3000.Clone(new Parameter { ParameterGroup = ParameterGroupBvptVoltage, Value = "3000 В" });
+            ParameterBvptVoltage3300.Clone(new Parameter { ParameterGroup = ParameterGroupBvptVoltage, Value = "3300 В" });
+
+            ParameterBvptVoltage0460
+                .AddRequiredPreviousParameters(ParameterBvptSeries48);
+
+            ParameterBvptVoltage0660
+                .AddRequiredPreviousParameters(ParameterBvptSeries48);
+
+            ParameterBvptVoltage1050
+                .AddRequiredPreviousParameters(ParameterBvptSeries52)
+                .AddRequiredPreviousParameters(ParameterBvptSeries48)
+                .AddRequiredPreviousParameters(ParameterBvptSeries43)
+                .AddRequiredPreviousParameters(ParameterBvptSeries49);
+
+            ParameterBvptVoltage1650
+                .AddRequiredPreviousParameters(ParameterBvptSeries49);
+
+
+            ParameterBvptVoltage3000
+                .AddRequiredPreviousParameters(ParameterBvptSeries55);
+
+            ParameterBvptVoltage3300
+                .AddRequiredPreviousParameters(ParameterBvptSeries49);
+
+            #endregion
+
+
         }
 
         #endregion
@@ -2336,7 +2521,6 @@ namespace HVTApp.TestDataGenerator
 
             #endregion
             
-
             #endregion
 
         }
